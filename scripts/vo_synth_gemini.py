@@ -145,6 +145,21 @@ def split_direction(plan: dict) -> str:
     return "\n".join(lines)
 
 
+def pacing_notes(board: dict | None = None) -> str:
+    if board and str(board.get("date", ""))[:10] >= "2026-10-15":
+        return (
+            "Pacing: read it as one connected passage, exactly as written. Use natural breaths "
+            "at complete clause boundaries and full stops. Keep articles with their nouns, "
+            "numbers with their units and qualifiers with their claims. Keep the closing answer "
+            "in its own spoken phrase. Avoid theatrical holds, equal pauses after every line "
+            "and rushed or swallowed words. The picture will follow the measured recording.\n\n")
+    return (
+        "Pacing: read it as one continuous passage. A normal breath at a full stop is right. "
+        "Never pause inside a sentence, and never hold a silence between sentences. The film "
+        "is cut to this recording afterwards and the edit puts in every pause it needs, so "
+        "silence left here becomes a hole in the finished picture.\n\n")
+
+
 def build_prompt(script: str, plan: dict,
                  evidence_dir: Path | None = None) -> tuple[str, list[str]]:
     """Return (prompt, refusals). A non-empty refusal list means do NOT call the API.
@@ -153,6 +168,7 @@ def build_prompt(script: str, plan: dict,
     inside it is the text to speak. Nothing is concatenated.
     """
     refusals = []
+    board = None
     body_words = set(re.findall(r"[a-z']+", script.lower()))
     # THE SCRIPT'S EVIDENCE IS CHECKED BEFORE A CALL IS SPENT, for the same reason the
     # direction vocabulary is. On 2026-08-28 a line asserting that the man at the screen
@@ -254,10 +270,7 @@ def build_prompt(script: str, plan: dict,
         # read "Willing to leave a silence", which was the third separate request for silence
         # in a prompt that already named a pause after every line. See split_direction for the
         # twenty seconds of dead air that bought. The film gets its air from the edit.
-        "Pacing: read it as one continuous passage. A normal breath at a full stop is right. "
-        "Never pause inside a sentence, and never hold a silence between sentences. The film "
-        "is cut to this recording afterwards and the edit puts in every pause it needs, so "
-        "silence left here becomes a hole in the finished picture.\n\n"
+        + pacing_notes(board) +
         "Per-line direction:\n" + (split_direction(plan) or "(none supplied)") + "\n\n"
         + FENCE_OPEN + "\n" + script.strip() + "\n" + FENCE_CLOSE + "\n")
     return preamble, refusals
@@ -603,6 +616,25 @@ def self_test() -> int:
     ok("...with the direction OUTSIDE the spoken body",
        "dry, unhurried" in head and "dry, unhurried" not in body)
     ok("...and only the script inside it", body.strip() == clean)
+    ok("the current caption profile allows natural complete-clause breaths",
+       "at complete clause boundaries" in pacing_notes({"date": "2026-10-15"})
+       and "Never pause inside a sentence" not in pacing_notes({"date": "2026-10-15"}))
+    ok("historical pacing instructions remain unchanged",
+       "Never pause inside a sentence" in pacing_notes({"date": "2026-10-14"})
+       and pacing_notes() == pacing_notes({"date": "2026-10-14"}))
+    from tempfile import TemporaryDirectory
+    with TemporaryDirectory() as td:
+        evidence = Path(td)
+        (evidence / "storyboard.json").write_text(json.dumps({
+            "date": "2026-10-15", "scenes": [{"vo": clean}],
+            "creative_direction": {"sound": {"voice_arc": "Conversational, then level."}}}))
+        current_prompt, current_refusals = build_prompt(clean, plan, evidence)
+        ok("the actual current-board prompt preserves its script and clause breaths",
+           pacing_notes({"date": "2026-10-15"}) in current_prompt
+           and "Never pause inside a sentence" not in current_prompt
+           and current_prompt.split(FENCE_OPEN)[1].split(FENCE_CLOSE)[0].strip() == clean)
+        ok("prompt assembly still refuses incomplete current review evidence",
+           bool(current_refusals))
 
     _, r2 = build_prompt(clean + " [excited]", plan)
     ok("a bracketed stage direction in the script is REFUSED", bool(r2), str(r2))

@@ -258,7 +258,10 @@ must resume through shipped and durable closure. Recheck the exact head and ever
 conclusion after waking. For post-merge deployment, retain the actual workflow and process
 handles; a merged PR alone does not prove a deployment. Never wait with `pgrep -f` on a substring
 of the wait shell's own command. Retain completed check receipts and stop only a confirmed
-obsolete wait. Keep long command output in its log and return the exit code plus a short tail.
+obsolete wait. Keep long command output in its log and return the producer's exit code plus a
+short tail. Use `set -euo pipefail` for Bash command chains, or explicitly capture and check each
+producer status before continuing. A successful `tail` never establishes that synthesis,
+soundcheck, alignment, rendering or a delivery gate passed. Retain the full failure log.
 
 If the critic's own handback admits unread mandatory guides or incomplete boards, retain it and
 hold capture. Use the review-coverage amendment in AUTONOMOUS_COMPLETION.md on the unchanged

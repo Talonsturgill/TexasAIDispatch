@@ -76,6 +76,10 @@ def digest(path: Path) -> str:
 
 def canonical(text: str) -> list[str]:
     from vo_soundcheck import figure_tokens, _UNITS, _TENS
+    # Whisper can transcribe the spoken unit as a symbol, including a separate
+    # DTW segment. Preserve that word before the numeral tokenizer strips symbols.
+    # The raw transcript and every measured center remain unchanged.
+    text = text.replace("%", " percent ")
     # Open and closed spellings of this compound encode identical speech. Expand
     # both to the same lexical parts while retaining every original DTW position.
     # This is deliberately a spelling map, never fuzzy matching or dropped words.
@@ -954,6 +958,20 @@ def self_test() -> int:
     ok("ordinal notation preserves the value", canonical("ninth") == canonical("9th"))
     ok("spoken and numeric decimal percentages keep the same acoustic parts",
        canonical("ninety eight point eight two") == canonical("98.82"))
+    ok("a percent symbol preserves the spoken unit after a decimal",
+       canonical("ninety eight point eight two percent") == canonical("98.82%"))
+    ok("a separate percent segment preserves its own acoustic center",
+       acoustic_groups(["percent"], [(.2, 2.)], [{"text": "%", "center": .9}], [])
+       == ([["percent"]], [{"word": "percent", "dtw_center_s": .9, "speech_run": 0}]))
+    for wrong in ("98.82", "98.28%", "98.82%%", "98.82% extra", "98.82 percentile"):
+        try:
+            acoustic_groups("ninety eight point eight two percent".split(), [(.2, 2.)],
+                            [{"text": w, "center": .5 + i*.2}
+                             for i, w in enumerate(wrong.split())], [])
+            refused = False
+        except ValueError:
+            refused = True
+        ok("percentage spelling still refuses " + wrong, refused)
     ok("a wrong decimal place cannot normalize away",
        canonical("ninety eight point eight two") != canonical("98.28"))
     ok("a wrong date does not normalize away", canonical("ninth") != canonical("19th"))
