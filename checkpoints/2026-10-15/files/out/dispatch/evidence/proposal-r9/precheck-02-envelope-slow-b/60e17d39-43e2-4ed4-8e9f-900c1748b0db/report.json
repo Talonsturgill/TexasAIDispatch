@@ -1,0 +1,196 @@
+{
+  "schema": "dispatch_picture_precheck/1",
+  "pass": false,
+  "checks": [
+    {
+      "gate": "registry",
+      "command": [
+        "python",
+        "scripts/registry_check.py"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 37,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/registry.log",
+      "log_sha256": "1182f1786f5326dbae52810a2837ae9a21a738354f9ae45fbca34ceefa6a1422"
+    },
+    {
+      "gate": "storyboard_check",
+      "command": [
+        "python",
+        "scripts/storyboard_check.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 264,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/storyboard_check.log",
+      "log_sha256": "e6692108d17a4990b51b71b8e40974899f0dbca6a4ab857a2333515221de5d3a"
+    },
+    {
+      "gate": "watchability_check",
+      "command": [
+        "python",
+        "scripts/watchability_check.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 297,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/watchability_check.log",
+      "log_sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86"
+    },
+    {
+      "gate": "documentary_check",
+      "command": [
+        "python",
+        "scripts/documentary_check.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 304,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/documentary_check.log",
+      "log_sha256": "bb8e5382f2184dcc06ca5dd38649d316088d2c2bfe7975c40ceb0c5bd7d1aa7c"
+    },
+    {
+      "gate": "shot_coherence",
+      "command": [
+        "python",
+        "scripts/shot_coherence.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 239,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/shot_coherence.log",
+      "log_sha256": "e0ccc632439fdafe1a6810e3aa9c6c7b7a96612fb462766cc5107a9241b6f3e8"
+    },
+    {
+      "gate": "staging_check",
+      "command": [
+        "python",
+        "scripts/staging_check.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 106,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/staging_check.log",
+      "log_sha256": "c348fa91716bbe157b686fc6eb735a3e4e462125882cfb6af975d54eadd0fd4d"
+    },
+    {
+      "gate": "board_scale_check",
+      "command": [
+        "python",
+        "scripts/board_scale_check.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 57,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/board_scale_check.log",
+      "log_sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7"
+    },
+    {
+      "gate": "floor_check",
+      "command": [
+        "python",
+        "scripts/floor_check.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 30,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/floor_check.log",
+      "log_sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6"
+    },
+    {
+      "gate": "script_evidence",
+      "command": [
+        "python",
+        "scripts/script_evidence_check.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json",
+        "--claims",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/claims.json",
+        "--planning-only"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 36,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/script_evidence.log",
+      "log_sha256": "31fb01d76b79ddc28eec8007491f8e39e838f2e11107c7232c1d326124db09fa"
+    },
+    {
+      "gate": "super_evidence",
+      "command": [
+        "python",
+        "scripts/super_evidence_check.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json",
+        "--claims",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/claims.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 32,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/super_evidence.log",
+      "log_sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add"
+    },
+    {
+      "gate": "caption_fit",
+      "command": [
+        "node",
+        "video-engine/tests/caption_board_fit.mjs",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 87,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/caption_fit.log",
+      "log_sha256": "b8f983da6da86363a52b53e9f99fc243e5f52034d10cdabb33bdd0be725a3109"
+    },
+    {
+      "gate": "modern_film",
+      "command": [
+        "python",
+        "scripts/modern_film.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json",
+        "--claims",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/claims.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 274,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/modern_film.log",
+      "log_sha256": "eecf24da61ee911d0fd3325fab3908bee41121de7fbef92262fb528c9c87e409"
+    },
+    {
+      "gate": "native_sample_plan",
+      "command": [
+        "python",
+        "scripts/native_sample_plan.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json"
+      ],
+      "exit_code": 0,
+      "elapsed_ms": 1635,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/native_sample_plan.log",
+      "log_sha256": "64b5446ac83896c655dcc7028bf8768bdab80df7f45196e055cf57e105e68aeb"
+    },
+    {
+      "gate": "story_art",
+      "command": [
+        "python",
+        "scripts/story_art.py",
+        "--board",
+        "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/envelope-slow-b.json",
+        "verify"
+      ],
+      "exit_code": 1,
+      "elapsed_ms": 180,
+      "log": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/proposal-r9/precheck-02-envelope-slow-b/60e17d39-43e2-4ed4-8e9f-900c1748b0db/story_art.log",
+      "log_sha256": "41b2abdc0aa7862be78e9319460be3f3ab2c43878a5b5de8acf858efd3372e72"
+    }
+  ],
+  "approval": false,
+  "note": "Mechanical gate outputs only. Independent code, phone, native, audiovisual and shipment proof remain required."
+}

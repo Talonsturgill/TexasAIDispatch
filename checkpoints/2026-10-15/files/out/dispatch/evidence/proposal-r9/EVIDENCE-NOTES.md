@@ -1,0 +1,6 @@
+# R9 board revision, build history (written 2026-10-16 by the director)
+R9 answers the R8 critic REVISE (report sha 8b50f06e, retained unchanged under evidence/review-r8-recurrence-revise). proposal-r8 stays frozen and rejected.
+- draft 1 of R9: precheck-01-* retained. Real picture_precheck output on all six boards (typical, fast and slow envelopes of A and B): storyboard_check, watchability_check, documentary_check all reported "n4a: matching performed picture does not cover the spoken clause", because the chip-glow detail shot started 0.19 s inside the spoken n4a clause. The first batch also failed shot_coherence, modern_film, native_sample_plan on that cause, and story_art on every board because the proposal folder has no run_state.json beside the board (a location artefact, checked separately with artverify-*).
+- draft 2 (current): s4 events re-placed and a rule added so no shot may cut into the spoken clause before it. precheck-02-* retained: every gate passes on all six boards except story_art, which fails only for the location artefact.
+- No precheck directory was deleted this time. Failed batches are kept under their numbered names.
+- All timing is PROJECTED. Measured post-TTS retiming governs the actual film.
