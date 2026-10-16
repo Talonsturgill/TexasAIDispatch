@@ -329,6 +329,14 @@
       "note": "precharged fresh independent Opus High source validation of the R10 narration (same validator continuation, mandatory-source-pivot)",
       "resource": "validator_agents",
       "to": 5
+    },
+    {
+      "at": "2026-10-16T19:39:43.313832Z",
+      "ceiling": 21,
+      "from": 17,
+      "note": "precharged gate-format code-plan review of the renewed R10 treatments (SendMessage a110876b976dcc812)",
+      "resource": "storyboard_critics",
+      "to": 18
     }
   ],
   "events": [
@@ -3617,6 +3625,24 @@
       "resources": {
         "validator_agents": 1
       }
+    },
+    {
+      "at": "2026-10-16T19:39:43.313841Z",
+      "ceiling": 21,
+      "kind": "budget_escalated",
+      "note": "precharged gate-format code-plan review of the renewed R10 treatments (SendMessage a110876b976dcc812)",
+      "now": 18,
+      "resource": "storyboard_critics",
+      "was": 17
+    },
+    {
+      "at": "2026-10-16T19:39:43.313848Z",
+      "kind": "reserved",
+      "note": "precharged gate-format code-plan review of the renewed R10 treatments (SendMessage a110876b976dcc812)",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -3631,7 +3657,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 17,
+    "storyboard_critics": 18,
     "tts_calls": 12,
     "validator_agents": 5,
     "voice_directors": 1
@@ -3640,7 +3666,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "c4ff3b205718a0f39e97c477e43efc7ac54f85b0c1a6bd2c256c1e27a99f3c1f",
+    "original_private_state_sha256": "231d7beaae5e04aa5324bd9ccc6d67717cb63416b8767053ceaedf626aa01306",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -3676,7 +3702,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T19:36:43.633963Z",
+  "updated_at": "2026-10-16T19:39:43.313850Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -3689,7 +3715,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 17,
+    "storyboard_critics": 18,
     "tts_calls": 12,
     "validator_agents": 5,
     "voice_directors": 1

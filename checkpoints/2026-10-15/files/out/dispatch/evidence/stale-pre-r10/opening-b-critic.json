@@ -1,0 +1,69 @@
+{
+ "verdict": "pass",
+ "review_scope": "code-plan re-review after correction 1 (no pixel observations; no capture exists or was made). A code pass authorizes the silent phone comparison only.",
+ "concept_sha256": "d05f927a63aef192a789b4ec8ca1a34e5b309120dd10c097f91629e711789173",
+ "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "storyboard-critic:claude-opus-5-5:high:independent-code-scope-reviewer (same worker as report ab28bdd1..., isolated context, distinct from director claude-sonnet-5-5)",
+ "reviewed_at": "2026-10-16T04:10:00Z",
+ "weakest_frame": "s4 s4-event-1 (no-server close, authored 20.4 to 22.8 s). Readings travel through the housing window as 4-unit dots at scale 1.5: about 12 px across native, about 4 px on phone. The window is about 192x153 px, the traces are about 1 px on phone, and the chip square is about 36 px. The housing is otherwise static, so the 2.4 s shot's only performed change may be illegible at phone size.",
+ "strongest_frame": "s1 s1-event-0 into the s1-shot-2 match cut (0.3 to 2.6 s). The disclosed design detail (scale 3.2, no yard, no rain) shows the lowest lens going under at screen about (562,1154), labelled by the 'Illustration of the prototype' chip. B then match-cuts to the fence post's orange ankle mark at about (540,1154) in a yard with no station, and pulls back.",
+ "prior_defects_disposition": [
+  {
+   "id": "B-1",
+   "status": "resolved",
+   "evidence": "s3 now runs lenses (14.7 to 15.7 s), water crossing (16.5 to 17.35 s), then weather lamps (18.7 to 19.8 s), under n3-a, n3-b and n3-c in order."
+  },
+  {
+   "id": "B-2",
+   "status": "resolved",
+   "evidence": "s4 now runs the chip and readings (20.7 to 21.9 s), the risk lamp and 'Judged on the station' (24.15 to 25.15 s, under 'so it judges flood risk'), then the dark server (25.9 to 27.0 s, under 'without a central server')."
+  },
+  {
+   "id": "B-3",
+   "status": "resolved",
+   "evidence": "s7 now fills the validation card and figure (45.0 to 46.2 s, under 'reports ninety eight point eight two percent'), pins the tag (48.0 to 48.9 s), then stamps None reported (50.2 to 51.1 s, under 'and no field result'). The figure stays readable in the unpushed two-card close (validation card at [40,560], scale .62)."
+  },
+  {
+   "id": "B-4",
+   "status": "resolved",
+   "evidence": "s2 now cranes down to the whole prototype with its tag (8.1 to 9.2 s, under 'built a flood station'), charges at 11.3 to 12.3 s under 'charges itself from light', and runs the tower beat at 12.6 to 13.6 s inside the held panel close."
+  },
+  {
+   "id": "B-5",
+   "status": "resolved",
+   "evidence": "s8 station-return draws no station (close is false, so no outline), the curb is dry and the map sits on the fence. s9 empty-map close removes the figurine and the third-mark event. s9-event-2 is now the MapCard 'spot' dashed ring (rx about 76, ry about 29 px on the 840-wide map) under the hovering goal pin, and the no-installation tag persists."
+  },
+  {
+   "id": "B-6",
+   "status": "resolved",
+   "evidence": "No station stands in the s1 yard world. The opener is a design-detail water-marks view with no rain or yard props, and during 0 to 2 s the disclosure chip falls back to 'Illustration of the prototype'. The cut into the yard is a height match, not an identity claim."
+  }
+ ],
+ "blocking_defects": [],
+ "story_review": {
+  "story_sha256": "0b55d2ae16fe11db92eb46b546946321ae30bbb68d2fd8a494fb1495ec340c9c",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Planned chain read from the board and callable code, not observed pixels. A labelled illustration of a lens column in brown water: the lowest lens goes under and lights. A match cut on that height lands on an orange ankle mark in a San Antonio yard with no station, and the view pulls back as water spreads and reaches the rain boots while the porch phone stays dark. The flash flood banner lands late. The view cranes down a tagged prototype at a curb. In a panel close its battery fills from low sun, and a dashed link toward a far tower stops short under 'No cell tower needed'. Lenses catch light, water crosses the second lens, then weather lamps light. From the street, readings glow through the housing window. In the cutaway the chip lights the amber risk lamp ('Judged on the station'), and a far server outline stays dark. From above, rings leave a station dot past a half-mile circle toward a five-mile circle. At street level they pass the half-mile tag, and at the hub the mast lamp lights as the ring arrives. On the hub screen dots arrive and 'A second, larger model' pins, then paths spread. At the desk, risk zones settle, a forearm comes to rest and 'For emergency responders' pins. The validation card fills to 98.82%, the assessment tag pins and the field card is stamped None reported. Wide on an empty curb, the fence map is searched with no pin found. Close on that map, a dashed spot draws itself under a hovering goal pin and 'Deployment goal' pins.",
+  "opening_to_ending": "B opens on the mechanism's input, water reaching a lens, as an explicit illustration, then grounds the stakes in a yard with no station. The middle answers the opening question as a design in clause order. The ending moves from the empty curb to a close map where an empty dashed spot and an unlanded pin state that no installation is named and deployment remains the goal. It invents no outcome.",
+  "weakest_transition": "s6-event-2 to s6-shot-2 (40.55 to 40.6 s). The large overhead flood-path spread completes 0.05 s before the cut, and its result is then carried only on the smaller desk monitor (740x470). Check that 'how flooding could spread' is understood before the cut."
+ },
+ "action_reviews": [],
+ "pixel_risks": [
+  "s4-shot-1 window readings: see weakest_frame. If the moving dots are not legible at 390 px width, record a dominant_action failure for 20.4 to 22.8 s. The cutaway that follows performs the chip and risk-lamp change large.",
+  "s6 flood paths: s6-event-2 is only 0.6 s (39.95 to 40.55 s) and ends at the cut. See weakest_transition.",
+  "s1 caption collision: the boots and their ankle waterline (y about 1262 to 1366, waterline about 1344) sit in the region a two-line caption occupies (1293 to 1421). From 4.76 s the cue n1-c is two lines, so the result of s1-event-2 (4.2 to 5.0 s) is covered at its end. The ankle mark (y about 1261) is clear.",
+  "s1 opener: the design detail is an exterior detail framing, so the Bexar plate (blurred 3 px, zoom 1.3) shows behind it. Check that it still reads as a disclosed design detail rather than a column standing in a San Antonio street.",
+  "s1 phone-late banner legibility (25 px text, scale 1.5 x .85).",
+  "s2 panel close: the far tower sits at x about 985, beyond SAFE_RIGHT but above the rail zone. The 'No cell tower needed' tag spans x about 800 to 1054. Check legibility under the feed's right controls.",
+  "s8 station-return: the 'No installation named' tag at [950,640] extends to x about 983, under the feed's right rail. The 300x336 fence map's search ring is small in the wide view.",
+  "s8 to s9: the close map in s9 is a wall view (plain wall behind the drawn fence). Check that it reads as the same fence map.",
+  "s5 radio-map: half-mile and five-mile labels now appear as the ring reaches each circle (half circle is 0.1 of reach). Check label legibility at 30 px and that the hub on the map is identifiable.",
+  "s6 hub-desk forearm: elbow-pivot swing on s6-event-3. Check it reads as an arm coming to rest.",
+  "Shared low-priority checks from A: the s2 station-wide lowest lens in the caption band, the no-server wide station foot in the band, and place_check share."
+ ],
+ "notes": "Source, region, house-rule and drawing-law checks are as for A: same renderer, same art modules, same claims. Clause order verified for n1 to n9. Timing: first reward at 0.93 s, longest shot 4.7 s (s5 is three shots of about 3.13 s), largest reward gap about 3.8 s (43.2 to 45.72 s is about 2.5 s; 26.56 to 28.62 s is about 2.1 s). Wall views 5 of 19 shots. The shot timeline covers 0 to 58.7 s without gaps. Divergence from A is genuine in opening (design detail and match cut versus yard-first), staging (crane down versus tilt up, panel close carrying the tower beat, street-window readings, overhead radio map, hub map before desk) and close (wide empty curb then close map spot, versus close map then wide outline). Non-blocking prose hygiene: the s9 next_connection says 'the station still watching'. The B s8 shot purpose says a dashed outline draws itself, which B's s8 does not execute. cinematic_contract.opening_state says 'starts inside the station'. The s1 design-detail item is bound as s1-post, which the board labels as the fence post. None of these is rendered, and editing them changes the concept digest."
+}
