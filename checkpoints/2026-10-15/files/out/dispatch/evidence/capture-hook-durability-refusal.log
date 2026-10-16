@@ -1,0 +1,8 @@
+2026-10-16 ~03:57Z, Bash PreToolUse hook, exact command:
+bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json
+Hook output verbatim:
+Capture refused. the consumption of this authorization could not be made durable and verified on the remote checkpoint (checkpoint would weaken the durable record: the earlier event history was altered, removed or reordered). The authorization is spent. Reserve and authorize again.
+
+Context: authorization issued 03:56:31Z against a fresh charged preflight reservation (preflight_renders 1/3). The command never ran (no render started).
+Diagnostics afterward: a manual `claude_checkpoint.py save` and a hook-like save (direct save_with_recovery, no wrapper env, CLAUDE_PROJECT_DIR set) both succeeded on the remote checkpoint with the unchanged ledger prefix (23 events).
+An earlier attempt of the same command with a shell redirect was denied before consumption because it was not the exact authorized string (not a failure of this kind).

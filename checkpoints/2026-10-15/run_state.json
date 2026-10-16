@@ -430,6 +430,14 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-16T03:59:31.890320Z",
+      "evidence": "{REPO}/out/dispatch/evidence/capture-hook-durability-refusal.log",
+      "evidence_sha256": "04fa51f1a6d76bd3e8a8f593ee46ad9cd583e21553421c328454c3abac342767",
+      "input_identity": "d71519a0c33d452790d75a9869ba96772f9c36ef6e3f25139dcc8296c2bc326a",
+      "kind": "preflight_retry_authorized",
+      "reason": "Transient remote-checkpoint durability refusal in the capture hook spent the first authorization before the command ran. Verified afterwards: manual and hook-like checkpoint saves succeed on the unchanged ledger prefix. The first charge stays."
     }
   ],
   "limits": {
@@ -451,9 +459,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "d71519a0c33d452790d75a9869ba96772f9c36ef6e3f25139dcc8296c2bc326a",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "f9340533f21d9d0bb600976a517c792cce981ccf5b6d0143214001a6b3c3742b",
+    "original_private_state_sha256": "9ed13f8fea1dadde01cbc5e65b88e4b2b543412c799ff66a13838729f8572519",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -489,7 +498,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T03:56:25.517941Z",
+  "updated_at": "2026-10-16T03:59:31.890365Z",
   "usage": {
     "audiovisual_reviews": 0,
     "cleanup_renders": 0,
