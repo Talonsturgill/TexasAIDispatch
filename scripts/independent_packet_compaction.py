@@ -20,6 +20,13 @@ def canonical(value):
     return json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False)
 
 
+def current_paths(board, *paths):
+    """Equivalent current-package arguments must build identical provider evidence."""
+    if str(board.get('date', '')) < json.loads(POLICY.read_text())['effective_edition']:
+        return paths
+    return tuple(Path(path).resolve() if path is not None else None for path in paths)
+
+
 def delta(base, target, path=''):
     if base == target:
         return []
@@ -127,7 +134,8 @@ def phone_code_context(text, board_path, bindings):
             or not policy.get('phone_verified_code_inventory')):
         return text, bindings
     from critic_gate import problems, concept_digest, renderer_digest, renderer_files
-    package = Path(board_path).parent
+    board_path = Path(board_path).resolve()
+    package = board_path.parent
     candidates = [package/name for name in ('opening-a-critic.json', 'opening-b-critic.json',
                                             'storyboard_code_critic.json', 'storyboard_critic.json')]
     reports = {path: json.loads(path.read_text()) for path in candidates if path.is_file()}
