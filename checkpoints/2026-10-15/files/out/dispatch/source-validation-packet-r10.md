@@ -1,0 +1,14 @@
+# Fresh independent source validation of the R10 narration (charged continuation of the same validator, precharged before dispatch)
+
+You are the same independent validator (Opus High, read plus fetch only) that returned REVISE on the R9 script (object sha256 be9a9eb1808ca6745214d87eb151e231915d90f14b2efb57ac229e418530cf6a). The director reserved validator_agents 5 of effective ceiling 5 before this message. You can't verify that, so say so. Hashes below were computed by the director. You compute none.
+
+The director applied a one-sentence correction under a registered repair. Sentence 13 now reads "The announcement reports no field result." instead of "The university reports no field result." Sentence 14 "It names no town with an installed station." is unchanged and its "It" now refers to the announcement. Your own required wording was "The university's announcement reports no field result." The director kept "The announcement" because the extra word would put the narration scene over a 9.5 second ceiling. Rule explicitly whether "The announcement" is source-scoped enough to pass, or whether you require your exact wording. If you require it, say so as a REVISE and don't pass around it.
+
+Re-validate the whole narration, not just the changed line:
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/vo_script.txt sha256 67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf (15 sentences)
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/vo_bindings.json sha256 7543a8d1835b0fe8cb56537ac35009b09afa5e16bc963c91c4f879b1308a0929
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/claims.json sha256 49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e (unchanged since your R9 pass of the claims, c1 to c20)
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/sources/utsa.txt sha256 9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9 (unchanged)
+Read the script and bindings again in full. Confirm claims.json and utsa.txt are the files you read. You need not repeat the 20 quote fetches if you confirm the unchanged hashes, but you may re-check anything you doubt on the live page. Judge every sentence again for overstatement, dropped qualifiers, results moved to another subject, place or time, wrong claim bindings and house rules. Your earlier rulings on sentences 11 and 12 stand unless you change them.
+
+Return ONE JSON object with exactly the same keys as the R9 contract (date "2026-10-15", source, result PASS / PASS_WITH_DROPS / REVISE, verified_claim_ids, rejected non empty list, required_edits_applied non empty list, reviewer_identity, script_sha256 "67d7ae453299483c5539290989560cdffa5ce4c6ad75fdfaef5929793d7feadf", claims_sha256 "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e", sentences, rulings, house_rules), then a one line note. Your response will be saved unchanged. It approves no take, caption, picture, film, score or shipment.
