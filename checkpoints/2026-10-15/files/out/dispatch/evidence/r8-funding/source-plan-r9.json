@@ -1,0 +1,59 @@
+{
+  "mechanism_id": "sentence-per-cue-caption-boundaries",
+  "failure_family": "unclassified",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "Independent Opus High consolidated review (report sha 8b50f06e) accepted the R8 script and the sentence-per-cue mechanism and returned REVISE on three board-only blockers: R8-1 s7 exceeds the 9.5 s scene ceiling and 4.0 s reward interval at the slow projection, R8-2 even shot splits cut events mid-action (B s3 signature lens, B s1 pull-back, s6 paths), R8-3 the chip-glow detail push lasts about 0.23 s. D1, D2, D3 remain open. R7-5 stays artistic and blocking until reviewed.",
+  "repair": "Board-only revision R9 on the frozen R8 script bytes where possible: place shot boundaries so each event completes inside its shot, start the chip-glow push at least 1 s before its lamp event, re-place s7 events, trim s7 words so the scene stays under 9.5 s at the measured slow envelope, audit every gate at fast, typical and slow projections. Fresh independent review and source validation follow.",
+  "mechanism_change": "The caption lever moves from in-sentence silent beats to one complete sentence per cue split at full-stop gaps, with projected clause windows, event widths sized from measured read rates and varied framing.",
+  "expected_visible_result": "One continuous take whose sentences each fit one two-line caption cue at 40 px or more, every event between 0.2 s and 1.2 s inside its spoken clause, no figure attached to the wrong model, no same-view cuts, and both treatments presented as a fresh silent comparison.",
+  "failure_evidence": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r8-recurrence-revise/report-verbatim.json",
+  "failure_evidence_sha256": "8b50f06e247ab1e5f81779e7853494181e8aaeece3998950c85c937ebc4ac9e6",
+  "resources": {
+    "reboards": 1,
+    "validator_agents": 1,
+    "tts_calls": 2
+  },
+  "repair_scope": "standard",
+  "changed_inputs": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/vo_script.txt",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r8-funding/baseline/vo_script.txt",
+      "before_sha256": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/vo_bindings.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r8-funding/baseline/vo_bindings.json",
+      "before_sha256": "6deb78531383e3eee115c5b400a0d32fc961b27d8f876bc8545fd633ac4c3e3a"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/vo_direction.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r8-funding/baseline/vo_direction.json",
+      "before_sha256": "45ce7b56ea60711fdfb5492da61d9f2e38f4e56df83d266391c0562682378973"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r8-funding/baseline/storyboard.json",
+      "before_sha256": "0b9e1158b1fd285408916721f487ff04dbb4874480a900355b038c34bb9e8a78"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r8-funding/baseline/opening-a.json",
+      "before_sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r8-funding/baseline/opening-b.json",
+      "before_sha256": "846d776d60b259c86ce73447ed0b4db5ad73dacd3ba8e924cdabcea022616c99"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/claims.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r8-funding/baseline/claims.json",
+      "before_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/validation.json",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r8-funding/baseline/validation.json",
+      "before_sha256": "10bd957d55cd78c9a49c6f3fb01f8f5032face533a046469b3a59df5e99e89af"
+    }
+  ]
+}
