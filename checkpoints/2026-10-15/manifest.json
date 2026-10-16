@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T13:35:50.062759+00:00",
-  "note": "phase voice",
+  "saved_at": "2026-10-16T13:36:01.009873+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "3f978d471d9749d34401f623b81b2b12a8c890b201f4d9e0aec71152b6944bdd",
-  "original_private_ledger_sha256": "d7a0346c99e78ba59bf08a3d22eaade18c2b098943f9cfbc77bcc5f551596de4",
+  "ledger_sha256": "91ca8a8f474590db39ed353176a1fb533509b147624418f2e66090c5497609ec",
+  "original_private_ledger_sha256": "dc20476fb43ac367d721539b9ef04121538ef6a039f08cceab3da77843494290",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -40,7 +40,7 @@
     "storyboard_critics": 5,
     "tts_calls": 0,
     "validator_agents": 3,
-    "voice_directors": 0
+    "voice_directors": 1
   },
   "files": [
     {
@@ -3566,6 +3566,12 @@
       "size": 977
     },
     {
+      "path": "out/dispatch/vo-director-packet.json",
+      "class": "scratch",
+      "sha256": "7a8e69305eee7b5798fdd8fa18768d2a19474f4d2276a4b32e6c9b7d90d50bfb",
+      "size": 8092
+    },
+    {
       "path": "out/dispatch/vo_bindings.json",
       "class": "scratch",
       "sha256": "6deb78531383e3eee115c5b400a0d32fc961b27d8f876bc8545fd633ac4c3e3a",
@@ -3576,6 +3582,12 @@
       "class": "scratch",
       "sha256": "9cce0b1f6a5f171fa16b48763f87004420fa6ccee8738c8be76f4a4be0f99c4f",
       "size": 879
+    },
+    {
+      "path": "out/dispatch/voice-director-assignment.json",
+      "class": "scratch",
+      "sha256": "d52962faac4b002b2de8393ce16a2b6a590980248d65384af996c025ef618d29",
+      "size": 1851
     },
     {
       "path": "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
