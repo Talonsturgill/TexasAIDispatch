@@ -71,7 +71,9 @@ def closure_problems(state, state_path):
             or public.get('terminal_state') != 'shipped' or not public.get('shipment')
             or public.get('run_id') != run_id or public.get('usage') != state.get('usage')):
         return ['the accepted public shipment archive must match origin/main']
-    manifest = json.loads(git_bytes(repo, 'origin/claude/checkpoint/' + run_id,
+    # save() sets this local ref only after the push and remote-tip readback succeed.
+    # Single-branch cloud clones do not create origin/claude/checkpoint/* refs.
+    manifest = json.loads(git_bytes(repo, 'refs/heads/claude/checkpoint/' + run_id,
                                    'checkpoints/' + run_id + '/manifest.json'))
     if (manifest.get('run_id') != run_id or manifest.get('terminal_state') != 'shipped'
             or manifest.get('shipment_recorded') is not True):

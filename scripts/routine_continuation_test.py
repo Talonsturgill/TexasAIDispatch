@@ -59,6 +59,7 @@ class ContinuationTests(unittest.TestCase):
         archive.write_text(json.dumps(self.value)); published = archive.read_bytes()
         manifest = {'run_id': '2026-10-15', 'terminal_state': 'shipped', 'shipment_recorded': True}
         def git_bytes(repo, ref, path):
+            self.assertIn(ref, ('origin/main', 'refs/heads/claude/checkpoint/2026-10-15'))
             return published if ref == 'origin/main' else json.dumps(manifest).encode()
         with patch.object(continuation, 'git_bytes', side_effect=git_bytes):
             self.assertIsNone(continuation.decision(self.payload, self.workspace))
