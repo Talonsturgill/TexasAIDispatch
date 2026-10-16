@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T20:07:45.574204+00:00",
+  "saved_at": "2026-10-16T20:19:10.490549+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "12072e38692d2231f51d9a09d96aeff8ab45e670d446739786ab429c8d224a09",
-  "original_private_ledger_sha256": "311265a5c809672275eeb09b53990130eb3ce2a8c416a2e828549dace3cc9720",
+  "ledger_sha256": "d36859f9f43b45a3b73c9dca975ef83fbad6e619b9615e05fa6ab764da8d6963",
+  "original_private_ledger_sha256": "7885707866f13711a2a4e1da1ea8227153e8507b65a5c480a8929d0ee56016de",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -52,6 +52,11 @@
     {
       "event_index": 167,
       "authorization_sha256": "faefdf5c2e968bf7bd71cd4cc29eeef49e33d97a009b5e8ba8fb53f95b2e77bf",
+      "root": "/home/user/ed1015/TexasAIDispatch"
+    },
+    {
+      "event_index": 198,
+      "authorization_sha256": "ed328885322c4c04004766045332b70e10f4e6bedeb6ff842307b55c3a468468",
       "root": "/home/user/ed1015/TexasAIDispatch"
     }
   ],
@@ -7988,6 +7993,18 @@
       "size": 22353
     },
     {
+      "path": "out/dispatch/evidence/review-phone-r10-partial/agent-transcript-cumulative.jsonl",
+      "class": "scratch",
+      "sha256": "18e0708b819a2012509683459c35973a1dc8434029f91a4fbc8fdb903de48c51",
+      "size": 26759800
+    },
+    {
+      "path": "out/dispatch/evidence/review-phone-r10-partial/handback-full.txt",
+      "class": "scratch",
+      "sha256": "5699a535b00676dd21bf5c62a7208b6d5269e9a859985bd669d8187ce2d47ffb",
+      "size": 32117
+    },
+    {
       "path": "out/dispatch/evidence/review-r10-source-pivot-revise/agent-transcript-cumulative.jsonl",
       "class": "scratch",
       "sha256": "937a6ae8b3df1570dd83ba5877f644582d13bf42ebf6e0babd91f3b5530e976d",
@@ -8604,6 +8621,12 @@
       "class": "scratch",
       "sha256": "4b695094a2603d2b6c550dc8bcead526c3457b95f050e4699bfb297c819959d3",
       "size": 1314
+    },
+    {
+      "path": "out/dispatch/finish-current-plan-phone-follow-up.json",
+      "class": "scratch",
+      "sha256": "ed328885322c4c04004766045332b70e10f4e6bedeb6ff842307b55c3a468468",
+      "size": 1473
     },
     {
       "path": "out/dispatch/followup-review-packet-r10.md",
