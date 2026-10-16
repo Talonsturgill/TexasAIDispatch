@@ -137,12 +137,17 @@ def simple_commands(command, cwd, depth=0):
 
 
 def walk(tokens, cwd, found, depth):
+    if depth > 6:
+        raise ValueError('shell nesting is too deep to inspect')
     tokens = list(tokens)
     while tokens and (re.fullmatch(r'[A-Za-z_]\w*=.*', tokens[0]) or Path(tokens[0]).name in PREFIXES):
         tokens = tokens[1:]
     if not tokens:
         return
     name = Path(tokens[0]).name
+    if name == 'run_with_env.sh':
+        walk(tokens[1:], cwd, found, depth+1)
+        return
     if name == 'eval':
         for inner in tokens[1:]:
             for item in simple_commands(inner, cwd, depth + 1):

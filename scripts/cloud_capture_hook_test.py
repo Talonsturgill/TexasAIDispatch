@@ -34,6 +34,11 @@ class RoutingTests(unittest.TestCase):
         reason = router.decision(self.payload('npx remotion still Dispatch x.png', self.repo), self.workspace)
         self.assertIn('no current capture authorization', reason)
 
+    def test_actual_direct_wrapper_probe_routes_and_is_denied_without_authorization(self):
+        command = f"scripts/run_with_env.sh bash -c 'cd {self.repo}/video-engine && npx remotion still --help'"
+        reason = router.decision(self.payload(command), self.workspace)
+        self.assertIn('no current capture authorization', reason)
+
     def test_unrelated_read_is_allowed(self):
         self.assertIsNone(router.decision(self.payload('git status --short'), self.workspace))
 
