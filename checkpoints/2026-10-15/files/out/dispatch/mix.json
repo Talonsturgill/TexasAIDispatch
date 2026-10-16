@@ -1,12 +1,12 @@
 {
-  "duration_s": 65.0,
-  "cut_s": 65.0,
+  "duration_s": 64.4,
+  "cut_s": 64.4,
   "peak_dbfs_premaster": -1.69,
-  "lufs_premaster": -20.64,
+  "lufs_premaster": -20.62,
   "lufs_target": -16.0,
-  "lufs_achieved": -16.03,
-  "lufs_shortfall_db": 0.030000000000001137,
-  "crest_factor_db": 18.94,
+  "lufs_achieved": -16.04,
+  "lufs_shortfall_db": 0.03999999999999915,
+  "crest_factor_db": 18.93,
   "limiter": true,
   "mix_notes": [
     "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
@@ -41,62 +41,62 @@
   "mastering": {
     "method": "FFmpeg loudnorm dynamic gain control",
     "before": {
-      "integrated_lufs": -19.0,
+      "integrated_lufs": -18.97,
       "true_peak_dbtp": -0.0
     },
     "after": {
-      "integrated_lufs": -16.03,
+      "integrated_lufs": -16.04,
       "true_peak_dbtp": -1.97
     },
-    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.66:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.75:measured_TP=-5.38:measured_LRA=14.40:measured_thresh=-35.17:offset=0.98",
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.68:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.73:measured_TP=-5.38:measured_LRA=14.30:measured_thresh=-35.15:offset=0.94",
     "measurement": {
-      "input_i": "-23.75",
+      "input_i": "-23.73",
       "input_tp": "-5.38",
-      "input_lra": "14.40",
-      "input_thresh": "-35.17",
+      "input_lra": "14.30",
+      "input_thresh": "-35.15",
       "output_i": "-15.81",
       "output_tp": "-2.00",
-      "output_lra": "4.10",
-      "output_thresh": "-26.64",
+      "output_lra": "3.80",
+      "output_thresh": "-26.68",
       "normalization_type": "dynamic",
-      "target_offset": "0.15"
+      "target_offset": "0.13"
     },
     "attempts": [
       {
         "requested_lufs": -16.0,
         "measured": {
-          "integrated_lufs": -16.34,
-          "true_peak_dbtp": -1.97
+          "integrated_lufs": -16.32,
+          "true_peak_dbtp": -1.99
         },
-        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.75:measured_TP=-5.38:measured_LRA=14.40:measured_thresh=-35.17:offset=0.95"
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.73:measured_TP=-5.38:measured_LRA=14.30:measured_thresh=-35.15:offset=0.92"
       },
       {
-        "requested_lufs": -15.66,
+        "requested_lufs": -15.68,
         "measured": {
-          "integrated_lufs": -16.03,
+          "integrated_lufs": -16.04,
           "true_peak_dbtp": -1.97
         },
-        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.66:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.75:measured_TP=-5.38:measured_LRA=14.40:measured_thresh=-35.17:offset=0.98"
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.68:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.73:measured_TP=-5.38:measured_LRA=14.30:measured_thresh=-35.15:offset=0.94"
       }
     ],
     "correction": null,
-    "samples": 3120000,
+    "samples": 3091200,
     "sample_rate": 48000,
     "time_stretch": 1.0,
     "limiter": true
   },
   "master_file": "out/dispatch/mix.wav",
-  "master_sha256": "35e679586835831122d13afecff5ff53132869ee86164c67cd37f0b8ebb849b8",
-  "sound_direction_sha256": "f297c21347f2dd3d4ad807712190cc2826a5e1d550c31de617e9c210162ad073",
+  "master_sha256": "4a96b35fc7b63471e5805ec6b9194240a17f374ec404667e5f54c6c251638279",
+  "sound_direction_sha256": "d721578d3dff58698f529caa5b1ddefefc84e5083f85e3c2646d72ce2ca73b8f",
   "sound_cues": [
     {
       "id": "curb-trickle",
       "role": "environment",
-      "duration_s": 1.2,
+      "duration_s": 1.1999999999999997,
       "intent": "Rain on asphalt and a low trickle as brown water tops the limestone curb and spreads into the yard.",
       "provenance": "Original designed ambience, not recorded at any San Antonio street.",
       "event_id": "s1-event-1",
-      "at_s": 0.3576
+      "at_s": 0.64
     },
     {
       "id": "banner-tone",
@@ -105,7 +105,7 @@
       "intent": "A short soft designed tone as the warning banner lands on the phone, late.",
       "provenance": "Original designed foley, not a real wireless emergency alert tone.",
       "event_id": "s1-event-3",
-      "at_s": 4.916
+      "at_s": 5.452
     },
     {
       "id": "mark-tone",
@@ -114,7 +114,7 @@
       "intent": "A small rising tone as the second optical mark goes under and lights.",
       "provenance": "Original designed sonification, not a sound the prototype makes.",
       "event_id": "s3-event-2",
-      "at_s": 15.9544
+      "at_s": 17.1312
     },
     {
       "id": "chip-hum",
@@ -123,7 +123,7 @@
       "intent": "A low warm hum as the chip lights the amber risk lamp on the station.",
       "provenance": "Original designed foley, not recorded from real hardware.",
       "event_id": "s4-event-2",
-      "at_s": 23.3368
+      "at_s": 24.5616
     },
     {
       "id": "radio-pulse",
@@ -132,7 +132,7 @@
       "intent": "A clean thin pulse as the rings leave the antenna, thinning as they travel.",
       "provenance": "Original designed sonification, not a recorded LoRa signal.",
       "event_id": "s5-event-1",
-      "at_s": 26.000799999999998
+      "at_s": 27.493599999999997
     },
     {
       "id": "blank-card-quiet",
@@ -140,9 +140,9 @@
       "duration_s": 1.2000000000000028,
       "intent": "Pull the music back while the field result card stays blank and takes its none reported stamp.",
       "provenance": "Authored event-clock background contrast.",
-      "event_id": "s7-event-3",
+      "event_id": "s8-event-0",
       "gain": 0.3,
-      "at_s": 45.196
+      "at_s": 50.182
     }
   ],
   "sound_assets": [
@@ -173,5 +173,5 @@
   "bed_preparation_manifest": "out/dispatch/music_bed.json",
   "bed_preparation_sha256": "2b3a2af3e7d5eae0745c4e690071469a8049d6cff087f812bff2e1a087b97ca6",
   "voice_stem": "out/dispatch/mix_vo.wav",
-  "voice_stem_samples": 3120000
+  "voice_stem_samples": 3091200
 }
