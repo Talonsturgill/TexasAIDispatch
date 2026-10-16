@@ -15,7 +15,7 @@ class Reservation(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
+        self.root = Path(self.temp.name).resolve()
         (self.root / 'out/dispatch').mkdir(parents=True)
         (self.root / 'scripts').mkdir()
         for name in (*prepared.OPERATIONS, 'capture_reservation.py'):
@@ -57,6 +57,40 @@ class Reservation(unittest.TestCase):
         self.assertEqual(controller.preflight_identity(self.state, 'animatic'), identities[0])
         self.assertEqual(controller.preflight_identity(self.state, 'hero'), identities[1])
         self.assertEqual(controller.preflight_identity(self.state, 'arbitrary rewritten note'), identities[0])
+
+    def test_exact_phone_options_precharge_once_and_bind_encoded_inputs(self):
+        output = self.state.parent / 'openings'; output.mkdir()
+        (output / 'comparison.json').write_text('{}')
+        identities = []
+        for option in ('a', 'b'):
+            (output / (option + '.json')).write_text('{}')
+            (output / (option + '.mp4')).write_bytes(option.encode())
+            command = ('bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option ' + option
+                + ' --board out/dispatch/openings/' + option + '.json --film out/dispatch/openings/' + option
+                + '.mp4 --state out/dispatch/run_state.json --out out/dispatch/openings/motion-' + option)
+            note = prepared.PHONE_OPERATIONS[option]
+            self.assertEqual(prepared.operation_for([command], self.root), note)
+            with mock.patch('claude_motion_review.phone_inputs', return_value={}):
+                receipt = prepared.prepare(self.root, self.state, [command])
+            identities.append(receipt['input_identity'])
+            auth = {'prepared_capture': receipt, 'render_reservation': {'event_sha256': receipt['event_sha256']},
+                    'commands': [{'text': command, 'consumed': True}]}
+            (self.root / guard.AUTHORIZATION).write_text(json.dumps(auth))
+            before = controller.read_state(self.state)['usage']['preflight_renders']
+            self.assertTrue(prepared.claim(self.state, note)[0])
+            self.assertEqual(controller.read_state(self.state)['usage']['preflight_renders'], before)
+            self.assertFalse(prepared.claim(self.state, note)[0])
+            (output / (option + '.mp4')).write_bytes(b'changed encoded film')
+            self.assertNotEqual(receipt['input_identity'], controller.preflight_identity(self.state, note))
+        self.assertNotEqual(*identities)
+        self.assertEqual(controller.read_state(self.state)['usage']['preflight_renders'], 2)
+
+    def test_phone_prepare_refuses_wrong_board_before_charge(self):
+        before = controller.read_state(self.state)['usage']
+        command = self.command('claude_motion_review.py') + ' --phone-option a'
+        with self.assertRaisesRegex(ValueError, 'canonical current input'):
+            prepared.prepare(self.root, self.state, [command])
+        self.assertEqual(controller.read_state(self.state)['usage'], before)
 
     def test_operator_source_is_part_of_the_actual_render_input_identity(self):
         note = prepared.OPERATIONS['cinema_proof.py']

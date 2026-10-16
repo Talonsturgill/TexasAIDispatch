@@ -14,6 +14,8 @@ from PIL import Image, ImageDraw, ImageFont
 from preflight_animatic import FFMPEG, FFPROBE
 
 SCHEMA = 'dispatch_claude_motion_review/1'
+PHONE_SCHEMA = 'dispatch_claude_phone_motion_review/1'
+PHONE_OPERATIONS = {key: 'exact-phone-' + key + ' motion-image review extraction' for key in ('a', 'b')}
 FPS = 5
 WIDTH = 390
 REPO = Path(__file__).resolve().parents[1]
@@ -27,7 +29,7 @@ def digest(path):
     return h.hexdigest()
 
 
-def inspect(film):
+def inspect(film, phone=False):
     raw = subprocess.check_output([FFPROBE, '-v', 'error', '-select_streams', 'v:0',
         '-show_entries', 'stream=width,height,avg_frame_rate,r_frame_rate,nb_frames:format=duration',
         '-of', 'json', str(film)])
@@ -35,11 +37,36 @@ def inspect(film):
     if Fraction(video['avg_frame_rate']) != 30 or Fraction(video['r_frame_rate']) != 30:
         raise ValueError('motion review requires the current native constant thirty-fps film')
     frames = int(video['nb_frames']); duration = float(data['format']['duration'])
-    if (int(video['width']), int(video['height'])) != (1080, 1920) or not 0 < duration <= 300:
-        raise ValueError('motion review requires the bounded native portrait film')
+    dimensions = (270, 480) if phone else (1080, 1920)
+    if (int(video['width']), int(video['height'])) != dimensions or not 0 < duration <= 300:
+        raise ValueError('motion review requires the bounded ' + ('phone preflight' if phone else 'native portrait') + ' film')
     if abs(frames / 30 - duration) > .15:
         raise ValueError('native frame count and encoded duration disagree')
-    return dict(width=1080, height=1920, fps=30, frames=frames, duration_s=duration)
+    return dict(width=dimensions[0], height=dimensions[1], fps=30, frames=frames, duration_s=duration)
+
+
+def phone_inputs(state_path, option, board, film):
+    """Admit only the exact structurally inspected comparison option, never a final film."""
+    import opening_compare
+    from critic_gate import renderer_digest
+    state_path, board, film = map(lambda p: Path(p).resolve(), (state_path, board, film))
+    output = state_path.parent / 'openings'
+    if option not in PHONE_OPERATIONS or board != output / (option + '.json') or film != output / (option + '.mp4'):
+        raise ValueError('phone motion review requires the canonical exact comparison option')
+    state = json.loads(state_path.read_text()); data = json.loads(board.read_text())
+    if state.get('terminal_state') or data.get('date') != str(state.get('run_id', ''))[:10]:
+        raise ValueError('phone motion review requires this active edition')
+    comparison = output / 'comparison.json'; receipt = json.loads(comparison.read_text())
+    errors = opening_compare.inspection_problems(receipt, output)
+    if errors:
+        raise ValueError('; '.join(errors))
+    row = next(r for r in receipt['options'] if r['id'] == option)
+    if (opening_compare.evidence_path(output, row['board']) != board
+            or opening_compare.evidence_path(output, row['film']) != film
+            or receipt.get('renderer_sha256') != renderer_digest(json.loads(board.read_text()))):
+        raise ValueError('phone comparison inputs or current renderer differ')
+    return {'comparison_sha256': digest(comparison), 'option': option,
+            'inspection_sha256': row['inspection']['sha256']}
 
 
 def sample_indices(total):
@@ -49,12 +76,12 @@ def sample_indices(total):
     return rows
 
 
-def build(board, film, directory):
+def build(board, film, directory, phone=False, comparison=None):
     board, film, directory = map(Path, (board, film, directory))
     if not directory.resolve().is_relative_to(board.parent.resolve()):
         raise ValueError('motion images must stay in the owned current review package')
     before = {'board_sha256': digest(board), 'film_sha256': digest(film)}
-    meta = inspect(film); data = json.loads(board.read_text())
+    meta = inspect(film, phone); data = json.loads(board.read_text())
     expected = float(data['runtime_s']) + float(data.get('credits_s') or 0)
     if abs(expected - meta['duration_s']) > .15:
         raise ValueError('motion review film duration differs from the current board')
@@ -110,22 +137,28 @@ def build(board, film, directory):
         proc.stdout.close(); proc.stderr.close()
     if before != {'board_sha256': digest(board), 'film_sha256': digest(film)}:
         raise ValueError('film or board changed during motion extraction')
-    index = {'schema': SCHEMA, **before, 'native': meta, 'sample_fps': FPS,
+    index = {'schema': PHONE_SCHEMA if phone else SCHEMA, **before,
+             'phone' if phone else 'native': meta, 'sample_fps': FPS,
              'phone_width': WIDTH, 'sample_count': len(indices), 'pages': pages,
              'basis': 'Chronological images decoded from the entire exact encoded film, including credits. '
                       'Five samples per second plus the final native frame. No authored rerender, '
                       'direct MP4 playback, direct listening or automated creative verdict.'}
+    if phone:
+        index['comparison'] = comparison
+        index['basis'] = index['basis'].replace('final native frame', 'final phone frame')
     target = directory/'index.json'; target.write_text(json.dumps(index, indent=2)+'\n')
     return target
 
 
-def problems(index, board, film):
+def problems(index, board, film, phone=False, comparison=None):
     index = Path(index); data = json.loads(index.read_text()); errors = []
-    meta = inspect(Path(film)); expected = sample_indices(meta['frames'])
-    if data.get('schema') != SCHEMA or data.get('film_sha256') != digest(film) or data.get('board_sha256') != digest(board):
+    meta = inspect(Path(film), phone); expected = sample_indices(meta['frames'])
+    if data.get('schema') != (PHONE_SCHEMA if phone else SCHEMA) or data.get('film_sha256') != digest(film) or data.get('board_sha256') != digest(board):
         errors.append('motion sequence does not bind the exact current film and board')
-    if data.get('native') != meta or data.get('sample_fps') != FPS or data.get('phone_width') != WIDTH:
+    if data.get('phone' if phone else 'native') != meta or data.get('sample_fps') != FPS or data.get('phone_width') != WIDTH:
         errors.append('motion sequence native clock, coverage or phone scale is wrong')
+    if phone and (not comparison or data.get('comparison') != comparison):
+        errors.append('phone sequence does not bind the current inspected comparison option')
     rows = data.get('pages') or []; actual = []; seen = set()
     for i, page in enumerate(rows):
         name = page.get('file'); path = index.parent / str(name)
@@ -158,24 +191,31 @@ def main(argv=None):
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--state', type=Path, default=Path('out/dispatch/run_state.json'))
     parser.add_argument('--verify', action='store_true')
+    parser.add_argument('--phone-option', choices=('a', 'b'), help='explicit inspected comparison option; never final native evidence')
     args = parser.parse_args(argv)
     try:
+        comparison = phone_inputs(args.state, args.phone_option, args.board, args.film) if args.phone_option else None
         if args.verify:
-            errors = problems(args.out/'index.json', args.board, args.film)
+            errors = problems(args.out/'index.json', args.board, args.film, bool(args.phone_option), comparison)
             if errors: raise ValueError('; '.join(errors))
             print('claude motion review: complete exact-film image sequence verified; no creative approval')
         else:
             from run_controller import read_state, reserve
             state = read_state(args.state)
             deliverable = state.get('deliverable') or {}
-            if (state.get('terminal_state') or deliverable.get('review_only') is not False
+            if state.get('terminal_state'):
+                raise ValueError('motion extraction requires an active edition')
+            if not args.phone_option and (deliverable.get('review_only') is not False
                     or deliverable.get('film_sha256') != digest(args.film)
                     or deliverable.get('board_sha256') != digest(args.board)):
                 raise ValueError('motion extraction requires the active registered native film and board')
-            ok, note = reserve(args.state, {'preflight_renders': 1}, 'exact-film motion-image review extraction')
+            operation = PHONE_OPERATIONS[args.phone_option] if args.phone_option else 'exact-film motion-image review extraction'
+            ok, note = reserve(args.state, {'preflight_renders': 1}, operation)
             if not ok: raise ValueError(note)
-            index = build(args.board, args.film, args.out)
-            errors = problems(index, args.board, args.film)
+            index = build(args.board, args.film, args.out, bool(args.phone_option), comparison)
+            if args.phone_option and phone_inputs(args.state, args.phone_option, args.board, args.film) != comparison:
+                raise ValueError('phone comparison changed during extraction')
+            errors = problems(index, args.board, args.film, bool(args.phone_option), comparison)
             if errors: raise ValueError('; '.join(errors))
             print('claude motion review: current full sequence -> '+str(index)+'; no creative approval')
         return 0

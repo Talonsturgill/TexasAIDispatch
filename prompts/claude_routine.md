@@ -309,6 +309,35 @@ usage, delivery state and any retained failed attempts concisely.
 
 ## Canonical phone playback on the cloud host
 
+### Complete silent phone evidence before voice
+
+The Read-only Opus phone critic cannot play MP4s or compute missing hashes with Bash.
+One midpoint still per scene cannot prove timed motion or continuity. After both structural
+opening inspections pass, extract the complete chronological sequence from each exact encoded
+270 by 480 preview with `claude_motion_review.py --phone-option a` and then `--phone-option b`.
+For each option use its canonical `--board out/dispatch/openings/a.json` and matching
+`--film out/dispatch/openings/a.mp4` (or b), `--state out/dispatch/run_state.json`, and a fresh
+`--out out/dispatch/openings/motion-a` (or b). Use the ordinary wrapped capture authorization
+with `--prepare` and that exact board/command. Each extraction reserves one preflight before
+decoding, and claims its consumed authorization once without another charge. Headroom,
+housekeeping, authored art and all hook protections still apply. Never use the native final
+profile on a phone movie or present a phone index as final native evidence.
+
+Build the normal current `daily_production.py --packet storyboard-critic` packet, then:
+
+```sh
+python scripts/claude_runtime.py phone-packet --packet out/dispatch/critic-packet.json --state out/dispatch/run_state.json --sequence-a out/dispatch/openings/motion-a/index.json --sequence-b out/dispatch/openings/motion-b/index.json --out out/dispatch/phone-critic-packet.json
+```
+
+Plan the existing storyboard critic with that packet and an explicit phone scope. The planner
+refuses missing, changed or incomplete movie-derived imagery and computes the report bindings
+before the paid call. The critic reads every chronological page for both options and returns
+its independent selection and exact-phone report as JSON in the handback. The director saves
+the actual response unchanged; Read-only leaves cannot write files. No extraction or mechanical
+hash supplies a creative verdict. Missing observed actions stay unresolved. Retain an earlier
+sparse-image response and charge a content follow-up before executing it; it is not a free
+formatting call or a provider-unavailability event.
+
 A cloud session has no desktop for Computer Use. Use `scripts/phone_playback.py`, real Chromium UI
 automation at 390x844 with touch input, against the published canonical URL:
 

@@ -210,8 +210,14 @@ def preflight_identity(path: Path, note: str) -> str | None:
         operation = "opening-comparison"
     elif note == "exact-film motion-image review extraction":
         operation = "motion-review"
+    elif note in {"exact-phone-a motion-image review extraction", "exact-phone-b motion-image review extraction"}:
+        option = note.split()[0][-1]
+        operation = "phone-motion-review-" + option
+        files += [path.parent / "openings" / name for name in (option + '.json', option + '.mp4', 'comparison.json')]
     operator = {'hero': 'cinema_proof.py', 'animatic': 'preflight_animatic.py',
                 'motion-review': 'claude_motion_review.py'}.get(operation)
+    if operation.startswith('phone-motion-review-'):
+        operator = 'claude_motion_review.py'
     if operator:
         files += [p for p in (REPO / "scripts" / operator, REPO / "scripts/capture_reservation.py") if p.is_file()]
     content = [(str(p), digest(p)) for p in sorted(set(files))]
@@ -285,9 +291,9 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
     import claude_checkpoint
     claude_checkpoint.require_backed(path)  # unbacked charges or outputs stop new paid work
     if _use_prepared_capture and amounts == {'preflight_renders': 1}:
-        from capture_reservation import OPERATIONS, claim
+        from capture_reservation import OPERATIONS, PHONE_OPERATIONS, claim
         authorization = REPO / 'out/dispatch/capture-authorization.json'
-        if (note in OPERATIONS.values() and authorization.is_file()
+        if (note in (*OPERATIONS.values(), *PHONE_OPERATIONS.values()) and authorization.is_file()
                 and load_json(authorization).get('prepared_capture') is not None):
             return claim(path, note)
     state = read_state(path)
