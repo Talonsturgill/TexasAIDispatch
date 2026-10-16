@@ -179,6 +179,8 @@ def prepare_media_limit(board, claims, film, role, state, actor, source_packet, 
     elif role != 'code' and film is None:
         raise ValueError('media-limit failure needs its exact assigned movie')
     media_source_scope(source, bindings, role, compare_openings)
+    retained_media_review(text, failure)
+    text, bindings = bounded_packet(text, board, role, bindings)
     failure['assignment'] = transport_assignment(role, actor, bindings)
     output = Path(output)
     if not output.resolve().is_relative_to(state.parent.resolve()):
@@ -418,6 +420,16 @@ def provider_packet_policy(board):
     return cfg['provider_packets'] if str(board.get('date', '')) >= cfg['effective_date'] else None
 
 
+def bounded_packet(text, board_path, role, bindings):
+    from independent_packet_compaction import compact
+    text, policy_sha = compact(text, board_path.parent, role, REPO)
+    if policy_sha is not None:
+        bindings = {**bindings, 'provider_packet_compaction_sha256': policy_sha}
+    if len(json.dumps(text)) > 500_000:
+        raise ValueError('independent role packet exceeds the bounded text size; compact relevant source context first')
+    return text, bindings
+
+
 def prior_media_inventory(path):
     """Retain prior picture identity and provenance without its unrelated full script."""
     board = json.loads(path.read_text())
@@ -543,6 +555,7 @@ def packet(board_path, claims_path, role, film):
     text['media'] = [{'path': str(p.resolve()), 'sha256': digest(p)} for p in sorted(set(media))]
     if film:
         bindings['film_sha256'] = digest(film)
+        text['primary_film'] = {'path': str(film.resolve()), 'sha256': bindings['film_sha256']}
     if role not in ('code', 'phone'):
         feed = root / 'feed-composite.png'
         if not feed.is_file():
@@ -560,9 +573,7 @@ def packet(board_path, claims_path, role, film):
         text['audiovisual_response_projection'] = {
             'original_sha256': digest(response_path), 'omitted_fields': ['thoughtSignature'],
             'note': 'All provider text and findings retained; original raw bytes remain bound by the receipt.'}
-    if len(json.dumps(text)) > 500_000:
-        raise ValueError('independent role packet exceeds the bounded text size; compact relevant source context first')
-    return text, bindings
+    return bounded_packet(text, board_path, role, bindings)
 
 
 def comparison_scope(board_path, claims_path, text, bindings):
@@ -695,6 +706,16 @@ def prompt(role, text):
                         'Your assigned lens is ' + role + '. ')
     if role != 'code':
         instruction += modern_film.review_instruction(text.get('board', {}))
+    if text.get('primary_film'):
+        instruction += ('Grade the identified primary_film and its current board. Other comparison movies '
+                        'are retained context; never borrow their pixels or timing for the primary report. ')
+    if text.get('packet_compaction'):
+        instruction += ('Run JSON inputs are lossless structured documents. A dispatch_lossless_json_file '
+            'contains its complete value. For dispatch_lossless_board_delta, start with the complete common '
+            'board and apply its ordered add/remove/replace JSON-pointer operations to obtain that full '
+            'treatment. Original byte hashes and verified canonical hashes are retained. All current guides '
+            'remain original full text. The inactive renderer inventory contains only registered episode '
+            'source outside every selected executable closure; current executable source remains complete. ')
     if text.get('retained_host_media_review'):
         instruction += ('Inspect the actual movies first, then the retained partial host review. '
             'Treat its retracted or unseen-image claims as unobserved. Explicitly reassess its received-pixel '
@@ -727,6 +748,7 @@ def run(board, claims, film, role, failure_path, state, out, *, compare_openings
         text, bindings = comparison_scope(board, claims, text, bindings)
     media_source_scope(source_packet, bindings, role, compare_openings)
     retained_media_review(text, failure)
+    text, bindings = bounded_packet(text, board, role, bindings)
     request_prompt = prompt(role, text)
     scope = (['opening-comparison', sorted(row['film_sha256'] for row in bindings['opening_options'].values())]
              if 'opening_options' in bindings else bindings.get('film_sha256') or
@@ -816,6 +838,7 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
             media, upload, film_hash = media_part(film, key)
             if film_hash != bindings['film_sha256']:
                 raise ValueError('film changed before independent transport')
+            parts.append({'text': 'PRIMARY exact current movie '+str(film)+' SHA256 '+film_hash})
             parts.append(media)
         append_picture_evidence(parts, text, bindings.get('film_sha256'), key, source_uploads)
         parts.append({'text': request_prompt})
@@ -835,6 +858,7 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
         if failure.get('error') == MEDIA_LIMIT_ERROR:
             media_limit_packet(failure, state.parent)
         retained_media_review(current_text, failure)
+        current_text, current_bindings = bounded_packet(current_text, board, role, current_bindings)
         if current_bindings != bindings or fingerprint(current_text) != fingerprint(text):
             raise ValueError('review inputs changed during independent transport')
         report = project(raw, bindings, role, model, reviewed_at)
