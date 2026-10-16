@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T16:48:21.336317+00:00",
+  "saved_at": "2026-10-16T16:53:04.468041+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "56fe0b649638b0dddc7268adccba7508441423ee8809e7aead0fdaa70fed7eb6",
-  "original_private_ledger_sha256": "62177011d67c69d409a9004482b2013cb6d6dd154027fc9521f3bec36975c56d",
+  "ledger_sha256": "4d0be502e8f0ce5212bc7de21f99f0cf9489d4027a145b50c84885f702802d15",
+  "original_private_ledger_sha256": "6045a1880926bce44da0c66b2641cb9900efd5b75054c253f676464aee3b87e7",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -32,6 +32,11 @@
     {
       "event_index": 127,
       "authorization_sha256": "12da2ed62ae9a443e8fafc9763ad28bf8888654b1b00aec38236752077f07811",
+      "root": "/home/user/restore/2026-10-15"
+    },
+    {
+      "event_index": 137,
+      "authorization_sha256": "764459a16c38fe68ed5da87071c5efea62b92279bad0c4e62cd19dd2fa9b13e1",
       "root": "/home/user/restore/2026-10-15"
     }
   ],
@@ -2148,6 +2153,12 @@
       "size": 6216
     },
     {
+      "path": "out/dispatch/evidence/repair-plan-repair5-combined-unfundable.json",
+      "class": "scratch",
+      "sha256": "870332f3ef4e4d6eb334150e3e827ce9843b18fd5c0873a5d5191982f38a4a9d",
+      "size": 3082
+    },
+    {
       "path": "out/dispatch/evidence/repair-plan-runtime1-original-reboards1.json",
       "class": "scratch",
       "sha256": "497a53e1aae06d868eb3d501a5c6cea68d69a3bdfbfed0ee4b413c86250e4de3",
@@ -2206,6 +2217,18 @@
       "class": "scratch",
       "sha256": "340f6f9912e2a160be8d754c149b8f2487ef87996a96eeada766ab9f7794ef6b",
       "size": 16036
+    },
+    {
+      "path": "out/dispatch/evidence/review-repair5-v3-pass/handback-full.txt",
+      "class": "scratch",
+      "sha256": "532105fb2c41b6d285d540aafad3e592cae2b75d7ea3c90d5fee53e94dd41626",
+      "size": 14335
+    },
+    {
+      "path": "out/dispatch/evidence/review-repair5-v3-pass/report-verbatim.json",
+      "class": "scratch",
+      "sha256": "7fb84b0de33c299db2296a8258498c0f29f23a1537987b9f1cd6879d22226a78",
+      "size": 14069
     },
     {
       "path": "out/dispatch/evidence/script-trim-note.md",
@@ -2446,6 +2469,12 @@
       "class": "scratch",
       "sha256": "aa4fce25f48052f4676e9114b78c05ea6badf0b2621af0831e7006ec317046ee",
       "size": 32475
+    },
+    {
+      "path": "out/dispatch/finish-current-plan-after-beat-review.json",
+      "class": "scratch",
+      "sha256": "764459a16c38fe68ed5da87071c5efea62b92279bad0c4e62cd19dd2fa9b13e1",
+      "size": 1269
     },
     {
       "path": "out/dispatch/finish-current-plan-phone-chronology.json",
@@ -4498,6 +4527,18 @@
       "class": "scratch",
       "sha256": "593e4cb4b15737e02fadcdc406da2d71a4ddab2354bc3194b7a3b41aa77a6745",
       "size": 3859
+    },
+    {
+      "path": "out/dispatch/repair-plan-repair5-narration.json",
+      "class": "scratch",
+      "sha256": "0e71c27644e271a71f31f14a112ef22331c76b66f8c10c6c8cad8446f06c7b68",
+      "size": 2612
+    },
+    {
+      "path": "out/dispatch/repair-plan-repair5.json",
+      "class": "scratch",
+      "sha256": "870332f3ef4e4d6eb334150e3e827ce9843b18fd5c0873a5d5191982f38a4a9d",
+      "size": 3082
     },
     {
       "path": "out/dispatch/repair-plan-runtime1.json",
