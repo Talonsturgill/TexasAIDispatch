@@ -37,6 +37,12 @@ for(const v of ['a','b']){
  }
  bad+=nan+errs;
  console.log(v,'frames',end,'throws',errs,'nan',nan,'max markup bytes',maxLen);
+ // clause order: within each scene the events run in their numbered order
+ for(const s of board.scenes){const ids=[...s.visual_events].sort((x,y)=>x.at_s-y.at_s).map(e=>+e.id.split('-').pop());
+  if(ids.some((n,i)=>i&&n<ids[i-1])){console.log(v,s.id,'events out of clause order',ids);bad++;}}
+ // every drawn data-item must be a declared board plane item (no undeclared ids)
+ const declared=new Set(board.scenes.flatMap(s=>s.planes.flatMap(p=>p.items.map(i=>i.id))));
+ for(const [view,set] of Object.entries(views))for(const i of set)if(!declared.has(i)){console.log(v,view,'undeclared data-item',i);bad++;}
  // every event item must be drawn (data-item) in some shot of its scene
  for(const s of board.scenes){
   const drawn=new Set(board.film_direction.shots.filter(x=>x.scene_id===s.id).flatMap(x=>[...(views[x.view]??[])]));
