@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T02:49:48.487775+00:00",
-  "note": "native_media inventory added, picture precheck pass, code critic launched (storyboard_critics 1/3)",
+  "saved_at": "2026-10-16T03:02:09.235225+00:00",
+  "note": "code critic 1 REVISE on A and B retained",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -439,6 +439,12 @@
       "size": 187
     },
     {
+      "path": "out/dispatch/code-critic-1-report.json",
+      "class": "scratch",
+      "sha256": "ab28bdd1e3705eab3341110581b117a70594ec1019088e25ffdf15f337633aa1",
+      "size": 26138
+    },
+    {
       "path": "out/dispatch/critic-assignment.json",
       "class": "scratch",
       "sha256": "9f5ae3600c7ea149cbf052f516488e4c4bd6460fc9cbc33d024f1142cbf6d489",
@@ -503,6 +509,24 @@
       "class": "scratch",
       "sha256": "8f49f2e13c09a2462ffbfbbfbda90c8b45c707951edb58089cc1abd1c43eecc1",
       "size": 3421
+    },
+    {
+      "path": "out/dispatch/evidence/code-critic-1-agent-transcript.jsonl",
+      "class": "scratch",
+      "sha256": "c3da3ac73ba615f8956b7544d9681e843181516b11541e6d5af0215b11659de4",
+      "size": 1648230
+    },
+    {
+      "path": "out/dispatch/evidence/code-critic-1-handback-message.txt",
+      "class": "scratch",
+      "sha256": "2393eb823c11d7b22514378ffc001202c05e25b88d9fc195dd7f07f17a10c128",
+      "size": 25972
+    },
+    {
+      "path": "out/dispatch/evidence/code-critic-1-meta.json",
+      "class": "scratch",
+      "sha256": "4ad444684436811f9ec4f3c2c89836f4ad67bd7fda2cf58c4cbca9ca63e51284",
+      "size": 472
     },
     {
       "path": "out/dispatch/evidence/pre-r3-claims.json",
