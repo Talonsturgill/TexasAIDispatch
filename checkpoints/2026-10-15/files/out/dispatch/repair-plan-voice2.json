@@ -1,0 +1,22 @@
+{
+ "mechanism_id": "stress-phrase-articulation",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "repair_scope": "narration-performance",
+ "root_cause": "Take 2 passed the verbatim soundcheck but the narrator said hold it up for at different heights and the acoustic ASR heard steal for still. Both are the words the direction named as the stress target, a short function-word phrase in line 3 and a one-syllable word in line 9. Take 1 had read them correctly, so the stress instruction on those short spans is what destabilized the articulation.",
+ "repair": "In direction only: move line 3's stress to the content word different, add a plain-articulation note that every word of at different heights is spoken whole and unslurred, and add a pronunciation note that still in line 9 is said with a short i as in hill, whole and unhurried. Spoken script, claims, board, sources and renderer stay byte-identical.",
+ "mechanism_change": "The stress target moves from the failed short phrase to a content word, and the two failed spans get explicit articulation and pronunciation notes, so the instruction no longer compresses them.",
+ "expected_visible_result": "One continuous take that passes the verbatim soundcheck and the forced-alignment reconciliation with every word of the locked script present.",
+ "failure_evidence": "/home/user/restore/2026-10-15/out/dispatch/evidence/failed-take-2/finding.md",
+ "failure_evidence_sha256": "c5df62a9a17ca4bdefa484469232696b8d70038dd4b0e128d81dbfa9b6feb161",
+ "resources": {
+  "tts_calls": 2
+ },
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/2026-10-15/out/dispatch/vo_direction.json",
+   "before_path": "/home/user/restore/2026-10-15/out/dispatch/evidence/failed-take-2/vo_direction-before.json",
+   "before_sha256": "af9941a9860f303aedfa707b6d26f82937dc17f4bdfc279180915ee2bdb3a13b"
+  }
+ ]
+}

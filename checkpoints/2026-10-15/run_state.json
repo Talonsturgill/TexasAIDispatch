@@ -1,4 +1,29 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/failed-take-2/vo_direction-before.json",
+        "before_sha256": "af9941a9860f303aedfa707b6d26f82937dc17f4bdfc279180915ee2bdb3a13b",
+        "path": "{REPO}/out/dispatch/vo_direction.json"
+      }
+    ],
+    "failure_sha256": "c5df62a9a17ca4bdefa484469232696b8d70038dd4b0e128d81dbfa9b6feb161",
+    "frozen_inputs": {
+      "files": {
+        "{REPO}/out/dispatch/claims.json": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+        "{REPO}/out/dispatch/sources/utsa.html": "26e3a4a9343441c9059a82baef9e9466110c08813889961745056b83d1e0b84a",
+        "{REPO}/out/dispatch/sources/utsa.txt": "9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9",
+        "{REPO}/out/dispatch/storyboard.json": "80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82",
+        "{REPO}/out/dispatch/vo_script.txt": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83"
+      },
+      "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09"
+    },
+    "plan": "{REPO}/out/dispatch/repair-plan-voice2.json",
+    "plan_identity": "c782f0c4de4678bc799e8603247f0eafc3e17c195f56ac2be8f51be04a4a792e",
+    "plan_sha256": "2637ad45c9bf41c4da2795bd7a252ecdf2d9ab363582d46c0affc02bda47c2e5",
+    "reboards_before": 3,
+    "repair_scope": "narration-performance"
+  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1558,6 +1583,36 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "reported_tokens": 3210,
       "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-16T13:54:40.850003Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/failed-take-2/vo_direction-before.json",
+          "before_sha256": "af9941a9860f303aedfa707b6d26f82937dc17f4bdfc279180915ee2bdb3a13b",
+          "path": "{REPO}/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "unclassified",
+      "failure_sha256": "c5df62a9a17ca4bdefa484469232696b8d70038dd4b0e128d81dbfa9b6feb161",
+      "frozen_inputs": {
+        "files": {
+          "{REPO}/out/dispatch/claims.json": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "{REPO}/out/dispatch/sources/utsa.html": "26e3a4a9343441c9059a82baef9e9466110c08813889961745056b83d1e0b84a",
+          "{REPO}/out/dispatch/sources/utsa.txt": "9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9",
+          "{REPO}/out/dispatch/storyboard.json": "80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82",
+          "{REPO}/out/dispatch/vo_script.txt": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83"
+        },
+        "renderer_sha256": "2559c94a4c2178800285007e1bb41113750163daaded1e8924414f110a263a09"
+      },
+      "grants": {},
+      "kind": "repair_started",
+      "mechanism_id": "stress-phrase-articulation",
+      "plan_identity": "c782f0c4de4678bc799e8603247f0eafc3e17c195f56ac2be8f51be04a4a792e",
+      "plan_sha256": "2637ad45c9bf41c4da2795bd7a252ecdf2d9ab363582d46c0affc02bda47c2e5",
+      "repair_scope": "narration-performance"
     }
   ],
   "limits": {
@@ -1581,7 +1636,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "604507aabaa5fe1c82a40f5415d6b534e0b92faa71901cbd31b504b3e786e3a3",
+    "original_private_state_sha256": "5b8d721507689abded780e63f4fe6ad282eaa2d3eaacd62be78ef207684e83dd",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -1617,7 +1672,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T13:49:25.003722Z",
+  "updated_at": "2026-10-16T13:54:40.850045Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,

@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T13:52:10.549169+00:00",
-  "note": "mix built",
+  "saved_at": "2026-10-16T13:54:41.611396+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/restore/2026-10-15",
-  "source_pin": "11a26c29656f4eae1d3ea9269755ba6ca3a03b79",
+  "source_pin": "20bcb79c883377dd92f41bdf1e235ebb4ffe29b0",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "ce92355a6688f0db7abd14030bf38f94b1446ec3630f8a39f2f9963057cb7d4a"
   },
   "deleted_source": [],
-  "ledger_sha256": "481e68b48127b8bc1f8316824045214c579eb61f05312b19d23f05822c9c47bd",
-  "original_private_ledger_sha256": "604507aabaa5fe1c82a40f5415d6b534e0b92faa71901cbd31b504b3e786e3a3",
+  "ledger_sha256": "c6d1732337f0fe1117d8171094f0489782030a4b2140a3399e08ac2d9d1a1bd9",
+  "original_private_ledger_sha256": "5b8d721507689abded780e63f4fe6ad282eaa2d3eaacd62be78ef207684e83dd",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -66,6 +66,30 @@
       "class": "scratch",
       "sha256": "2e86594a02863d70b41522c905f51d6e7027df62dde253c895e9462e0530f938",
       "size": 5784
+    },
+    {
+      "path": "out/dispatch/acoustic-asr-meta.json",
+      "class": "scratch",
+      "sha256": "bc7cc9abb65d29430d622cd61d1ce5d9df65fbbcdee16defe00643d17aaaa90f",
+      "size": 720
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "8cdd937360c91f7c9139d491dbb02d3b7d0adb5674d82cfe1555602df1fe81a8",
+      "size": 74043
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.log",
+      "class": "scratch",
+      "sha256": "e02c7b3b8702bba3b6a241e3eb482c62b328d77f3ec127528647adf3ab1354ab",
+      "size": 112988
+    },
+    {
+      "path": "out/dispatch/alignment-16k.wav",
+      "class": "scratch",
+      "sha256": "22e4a004ad3f655b09a0d0530d2e83d341d313f87a13e9548a1c4825482215c2",
+      "size": 1854642
     },
     {
       "path": "out/dispatch/artwork-originals/authored-60135304-9993-491d-9f08-42919f8212b5.tsx",
@@ -1176,6 +1200,48 @@
       "class": "scratch",
       "sha256": "350fce431c5d01daec9d7df80796cdc0e073d7aa1859185f4fa02d32abe6cc83",
       "size": 879
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-2/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "8cdd937360c91f7c9139d491dbb02d3b7d0adb5674d82cfe1555602df1fe81a8",
+      "size": 74043
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-2/finding.md",
+      "class": "scratch",
+      "sha256": "c5df62a9a17ca4bdefa484469232696b8d70038dd4b0e128d81dbfa9b6feb161",
+      "size": 1141
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-2/mix.wav",
+      "class": "scratch",
+      "sha256": "eafbe90e8aeb0c9a67b19b4ec87e3f078ecf24d9d15b2a8f402a3ae9b68bde5d",
+      "size": 6115278
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-2/prompt.txt",
+      "class": "scratch",
+      "sha256": "ff8b09c83359a7c8bf19fd7d80c7ab78d46bf137f8d9246f6bc02b0051444eb3",
+      "size": 5922
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-2/take1.wav",
+      "class": "scratch",
+      "sha256": "7090e09865a872866187f2581a031790631caf28bb856d08b49af3d17f79dfac",
+      "size": 5468204
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-2/takes.json",
+      "class": "scratch",
+      "sha256": "e3ff128ea6f33b887b997ceef44d79d031919c19911e28d1ee8987c3af099da9",
+      "size": 1142
+    },
+    {
+      "path": "out/dispatch/evidence/failed-take-2/vo_direction-before.json",
+      "class": "scratch",
+      "sha256": "af9941a9860f303aedfa707b6d26f82937dc17f4bdfc279180915ee2bdb3a13b",
+      "size": 32113
     },
     {
       "path": "out/dispatch/evidence/finish-current-funding-20261016.md",
@@ -3506,6 +3572,12 @@
       "size": 1928
     },
     {
+      "path": "out/dispatch/repair-plan-voice2.json",
+      "class": "scratch",
+      "sha256": "2637ad45c9bf41c4da2795bd7a252ecdf2d9ab363582d46c0affc02bda47c2e5",
+      "size": 1899
+    },
+    {
       "path": "out/dispatch/research.json",
       "class": "scratch",
       "sha256": "5dab811a61cd4efb5e6ca0d77f7a6d269828054275a336a6697f9f53da57c67e",
@@ -3770,10 +3842,6 @@
     {
       "path": "out/dispatch/grant-projection-roots.private.json",
       "reason": "private path component"
-    },
-    {
-      "path": "video-engine/node_modules",
-      "reason": "symbolic link is not retained"
     }
   ],
   "regenerable": {
