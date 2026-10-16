@@ -2,15 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "37e0b3bd9a85bf27b8f1e75103c1ecf5472b23e6adde25cb41b78f77848e7e3a",
+    "event_sha256": "2000afb1f9c9cde06e363ee5496607053b6bd04a1e67c68aa196b033498c6b66",
     "resource": "preflight_renders",
-    "at": "2026-10-16T12:28:05.161485Z",
-    "note": "quarter-scale animatic"
+    "at": "2026-10-16T05:18:13.384611Z",
+    "note": "two opening comparison batch"
   },
   "boards": [
     {
-      "path": "out/dispatch/storyboard.json",
-      "sha256": "80456ba33c9c42bcdb33584290de23e2a29ed9b0f64d3e341b15639aff604c82"
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "497bbc92ee131341d97b067d574e98d276c586033408650a069a97335b24bfe0"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "846d776d60b259c86ce73447ed0b4db5ad73dacd3ba8e924cdabcea022616c99"
     }
   ],
   "bound": {
@@ -160,30 +164,23 @@
   },
   "commands": [
     {
-      "id": "31e56d3f7a73dcf82e4463c6ddf49bfe1169926983f249bff4d885c0fb2db41d",
-      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only",
-      "consumed": "2026-10-16T12:28:11.731626+00:00"
+      "id": "ec0ad0af16cc3b046fc6615886a30ac9ab4b5d560a3deed0ed6bc8424b148519",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --inspect-retained",
+      "consumed": "2026-10-16T12:53:31.077498+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.689
+    "free_gib": 20.685
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/2026-10-15/out/dispatch/capture-housekeeping-20261016T122757.json",
-    "receipt_sha256": "e4b3d470791141724fd1426aab9d88968f51ce81d89a64a575c25d1e26389eff",
+    "receipt": "/home/user/restore/2026-10-15/out/dispatch/capture-housekeeping-20261016T125325.json",
+    "receipt_sha256": "78ff26b8b4edbf9db55628aee91bf65cac4860c660e6c3198b30082039a4b779",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-16T12:28:09.573004+00:00",
-  "expires_at": "2026-10-16T13:13:09.573004+00:00",
-  "prepared_capture": {
-    "schema": "dispatch_prepared_capture/1",
-    "operation": "quarter-scale animatic",
-    "run_id": "2026-10-15",
-    "event_sha256": "37e0b3bd9a85bf27b8f1e75103c1ecf5472b23e6adde25cb41b78f77848e7e3a",
-    "input_identity": "51e54e86eeb9070be16be1376c42030ce4af9878544ac83bdabaded7dd792c1c"
-  }
+  "issued_at": "2026-10-16T12:53:25.669755+00:00",
+  "expires_at": "2026-10-16T13:38:25.669755+00:00"
 }
