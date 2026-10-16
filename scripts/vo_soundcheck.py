@@ -37,6 +37,7 @@ Exit 0 a take passed and was chosen, 1 no take passed, 2 the checker could not r
 from __future__ import annotations
 
 import argparse
+from decimal import Decimal
 import json
 import math
 import re
@@ -146,12 +147,17 @@ def fidelity_tokens(s: str, aliases: list[dict] | None = None) -> list[str]:
     out: list[str] = []
     live_figure = False
     aliases_by_heard = alias_map(aliases)
-    for raw_tok in figure_tokens(s):
+    tokens = figure_tokens(s)
+    for index, raw_tok in enumerate(tokens):
         tok = aliases_by_heard.get(raw_tok, raw_tok)
         if tok[0].isdigit() or tok in _UNITS or tok in _TENS or tok in _SCALES:
             live_figure = True
             continue
-        if live_figure and tok in {"and", "point"}:
+        fractional_start = (tok == "point" and index + 1 < len(tokens)
+                            and (tokens[index + 1].isdigit()
+                                 or tokens[index + 1] in _UNITS
+                                 and _UNITS[tokens[index + 1]] < 10))
+        if (live_figure and tok in {"and", "point"}) or fractional_start:
             continue
         live_figure = False
         out.append(tok)
@@ -252,27 +258,60 @@ _ORDINALS = dict(zip(
 
 
 def figure_tokens(text: str) -> list[str]:
-    tokens = re.findall(r"\d[\d,]*(?:st|nd|rd|th)?\b|[a-z']+",
+    tokens = re.findall(r"\d[\d,]*(?:\.\d+)?(?:st|nd|rd|th)?\b|[a-z']+",
                         speech_spelling(text).lower())
     return [re.sub(r"(\d)(?:st|nd|rd|th)$", r"\1", tok) if tok[0].isdigit()
             else _ORDINALS.get(tok, tok) for tok in tokens]
 
 
-def figures(text: str) -> list[int]:
+def _decimal_figure(whole: int, digits: str) -> int | Decimal:
+    fractional = digits.rstrip("0")
+    return Decimal(f"{whole}.{fractional}") if fractional else whole
+
+
+def figures(text: str) -> list[int | Decimal]:
     """Every figure a listener would hear, whether it was written as words or as digits.
 
-    Deliberately integers only. This show's spoken figures are counts and ranks, and a
-    decimal that reads as "point three" would need its own handling the day one is spoken.
+    Decimal places are spoken digit by digit. Preserve their exact value so a wrong
+    percentage cannot pass through binary floating-point rounding.
     """
-    out: list[int] = []
+    out: list[int | Decimal] = []
     cur = 0        # the number being assembled from words
     part = 0       # the part below the current scale word
     live = False
-    for tok in figure_tokens(text):
+    tokens = figure_tokens(text)
+    index = 0
+    while index < len(tokens):
+        tok = tokens[index]
+        index += 1
+        if tok == "point":
+            end, digits = index, []
+            while end < len(tokens):
+                digit = tokens[end]
+                if digit in _UNITS and _UNITS[digit] < 10:
+                    digits.append(str(_UNITS[digit]))
+                elif digit.isdigit():
+                    digits.append(digit)
+                else:
+                    break
+                end += 1
+            if digits:
+                out.append(_decimal_figure(cur + part, "".join(digits)))
+                cur = part = 0
+                live = False
+                index = end
+                continue
         if tok and tok[0].isdigit():
             if live:
                 out.append(cur + part); cur = part = 0; live = False
-            out.append(int(tok.replace(",", "")))
+            value = tok.replace(",", "")
+            if "." in value:
+                whole, fractional = value.split(".")
+                out.append(_decimal_figure(int(whole), fractional))
+            elif index < len(tokens) and tokens[index] == "point":
+                part, live = int(value), True
+            else:
+                out.append(int(value))
             continue
         if tok in _UNITS:
             part += _UNITS[tok]; live = True
@@ -517,6 +556,29 @@ def self_test() -> int:
     ok("compound figures parse",
        figures("twenty four places ahead") == [24],
        str(figures("twenty four places ahead")))
+    percentage = "ninety eight point eight two percent validation accuracy"
+    ok("the current sourced percentage stays one exact figure",
+       figures(percentage) == figures("98.82 percent validation accuracy") == [Decimal("98.82")])
+    ok("mixed digit notation preserves the same percentage",
+       figures("98 point 82 percent") == figures(percentage))
+    ok("decimal notation preserves prose fidelity",
+       word_accuracy(percentage, "98.82 percent validation accuracy") == 1.0
+       and insertion_rate(percentage, "98.82 percent validation accuracy") == 0.0)
+    ok("a changed decimal place is refused by the take verdict",
+       not score_take(take("decimal", "98.28 percent validation accuracy"), percentage, 8.0)["pass"])
+    ok("a dropped decimal stays a figure failure",
+       bool(figure_mismatch(percentage, "98 percent validation accuracy")))
+    ok("leading fractional zeroes and whole decimal values stay exact",
+       figures("zero point zero five and three point zero") == figures("0.05 and 3.0")
+       == [Decimal("0.05"), 3])
+    ok("an implicit zero is accepted only before numeric decimal places",
+       figures("point three") == figures("0.3")
+       and figures("the point is clear") == [])
+    ok("large counts with decimal places remain a single value",
+       figures("one thousand two hundred point five") == figures("1,200.5"))
+    ok("decimal precision cannot hide a wrong final digit",
+       bool(figure_mismatch("0.12345678901234567890123456781",
+                            "0.12345678901234567890123456782")))
     ok("the real Ralls date has the same value in either transcript spelling",
        figures("September ninth") == figures("September 9th") == [9])
     ok("ordinal spelling is neither lost nor invented prose",

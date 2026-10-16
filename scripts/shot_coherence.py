@@ -397,6 +397,16 @@ def self_test() -> int:
     lying_prose["scenes"][0]["on_screen"] = "a cactus dances on the moon"
     ok("authored on_screen prose cannot change the verdict", not check(lying_prose))
 
+    decimal = copy.deepcopy(good)
+    decimal["scenes"][0]["vo"] = "A model reads ninety eight point eight two percent of police narratives."
+    decimal["scenes"][0]["planes"][0]["items"][0]["props"]["rows"][0][1] = "98.82 percent"
+    decimal["scenes"][0]["visual_proof"]["must_show"][0]["concept"] = "98.82 percent police narratives"
+    ok("a truthful decimal label supports the same spoken percentage", not check(decimal),
+       str(check(decimal)))
+    decimal["scenes"][0]["planes"][0]["items"][0]["props"]["rows"][0][1] = "98.28 percent"
+    ok("a different decimal label fails the spoken-figure gate",
+       any("spoken figure" in p for p in check(decimal)))
+
     phantom = copy.deepcopy(good)
     phantom["scenes"][0]["visual_proof"]["must_show"][0]["item_ids"] = ["not-staged"]
     got = check(phantom)
