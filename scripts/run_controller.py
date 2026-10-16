@@ -257,11 +257,14 @@ def repair_plan_evidence(state: dict, name: str, plan_path: Path | None) -> tupl
             before = item.get("before_sha256", "")
             after = item.get("after_sha256", "")
             baseline = Path(item["before_path"])
-            if (len(before) != 64 or before == after or not source.is_file()
+            if (len(before) != 64 or not source.is_file()
                     or not baseline.is_file() or digest(baseline) != before
                     or digest(source) != after):
-                return {}, "repair plan changed input is stale or unchanged"
-            changed.append({"path": str(source.resolve()), "before_sha256": before, "after_sha256": after})
+                return {}, "repair plan declared input is missing or stale"
+            # A declared input may stay unchanged. Keep its exact row in the retained plan,
+            # but require a real revision and derive its identity only from changed bytes.
+            if before != after:
+                changed.append({"path": str(source.resolve()), "before_sha256": before, "after_sha256": after})
         if not changed:
             return {}, "repair plan must bind at least one changed input"
         # Identity ignores rewritten plan prose: new wording cannot buy the same revision again.
