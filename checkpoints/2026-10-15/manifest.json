@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T00:38:06.785386+00:00",
-  "note": "validator REVISE handbacks and classifier denial evidence preserved",
+  "saved_at": "2026-10-16T01:02:27.645296+00:00",
+  "note": "files-only validator follow-up prepared; grant not executed; effort contract mismatch noted",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/TexasAIDispatch",
-  "source_pin": "9935311581b8e5f18a9b29d3245b89d1d494e61d",
+  "source_pin": "2b2eb6eecf4a380d4fbb2e8c531d6c78fa341890",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
     "root": "video-engine",
@@ -77,6 +77,12 @@
       "class": "scratch",
       "sha256": "af5ecb3544a6871151bb23f6ed4d810e570cc9c634cf9570ef9299c269da4a75",
       "size": 1076
+    },
+    {
+      "path": "out/dispatch/evidence/classifier-denials-2026-10-16.md",
+      "class": "scratch",
+      "sha256": "4c8d99c453d261ef1f9299233cef9c35f97d6d6b2a933f7ab00dd9471b98287b",
+      "size": 2724
     },
     {
       "path": "out/dispatch/evidence/classifier-denials.md",
@@ -211,6 +217,54 @@
       "size": 2843
     },
     {
+      "path": "out/dispatch/validator-r3/README.md",
+      "class": "scratch",
+      "sha256": "bac5749079cd8a253c587ba18440ff1d4e938a9553964f3ce6f8771d5a802ab7",
+      "size": 852
+    },
+    {
+      "path": "out/dispatch/validator-r3/SHA256SUMS.txt",
+      "class": "scratch",
+      "sha256": "271508a82bc1389df5aef1f17f371fa45ca1d427d07514f01db13d96781c27c8",
+      "size": 589
+    },
+    {
+      "path": "out/dispatch/validator-r3/claims.json",
+      "class": "scratch",
+      "sha256": "a7b2d314fdebe2c1dbb1d63c5cb1468422c08399da4e9164a78b51ba87efc381",
+      "size": 17784
+    },
+    {
+      "path": "out/dispatch/validator-r3/effective-effort.json",
+      "class": "scratch",
+      "sha256": "49427371c0232a9e9e0b87dc5db743bab4031f09aab2b77d4b40708e34b20b4d",
+      "size": 1818
+    },
+    {
+      "path": "out/dispatch/validator-r3/proposed-followup-message.txt",
+      "class": "scratch",
+      "sha256": "2e87bc50f49f64fd2a878e956628b8cdd490de2e1ef37bbec95c5a1ea799887e",
+      "size": 1843
+    },
+    {
+      "path": "out/dispatch/validator-r3/validator-packet.json",
+      "class": "scratch",
+      "sha256": "75f9b1bb9ac545d277e5b5f7b5e1ca0700fa254e25f8d176443b0b6e8c46d7d4",
+      "size": 3219
+    },
+    {
+      "path": "out/dispatch/validator-r3/vo_bindings.json",
+      "class": "scratch",
+      "sha256": "b7045ffae43c2f0356a2a94cb17dd3c48df7d9cbb48620c64d4aeb51b37456f0",
+      "size": 1862
+    },
+    {
+      "path": "out/dispatch/validator-r3/vo_script.txt",
+      "class": "scratch",
+      "sha256": "c7ce5cdcae861c07ba3dd94ce6172198726f02e5727980fc3b7676be1d81b98c",
+      "size": 977
+    },
+    {
       "path": "out/dispatch/vo_script.txt",
       "class": "scratch",
       "sha256": "590b251721c07140c3f52484b34ea24a58e43cba662a19c1c645cb5230059ef3",
@@ -218,6 +272,10 @@
     }
   ],
   "excluded": [
+    {
+      "path": "out/dispatch/validator-authorization.private.json",
+      "reason": "private path component"
+    },
     {
       "path": "video-engine/node_modules",
       "reason": "symbolic link is not retained"

@@ -1,0 +1,17 @@
+Consolidated validator review, charged follow-up to the same Opus High validator (a3d805ce25b8b417c). Do not spawn agents.
+
+Inputs, all in /home/user/TexasAIDispatch (read each in full, report sha256 mismatches):
+- out/dispatch/validator-r3/validator-packet.json (bound packet, current guides and hashes)
+- out/dispatch/story_selection.json (corrected after your first pass)
+- out/dispatch/validator-r3/claims.json (c1 to c20, all PENDING until your verdicts)
+- out/dispatch/validator-r3/vo_script.txt (complete corrected narration, 10 sentences, "can carry" applied, "after training" added to s8)
+- out/dispatch/validator-r3/vo_bindings.json (schema dispatch_narration_bindings/1, sentence-to-claim bindings)
+- out/dispatch/sources/utsa.txt (director snapshot of the source)
+- Your earlier handbacks: out/dispatch/evidence/validator-pass1-handback.json and validator-pass2-handback.json
+
+Do all of this in one handback:
+1. Independently re-fetch https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/ now. Do not rely on the snapshot or on your earlier fetches.
+2. Verify every claim quote c1 to c20 character by character. c20 is new (the dashboard sentence you noted as unclaimed). Set each verdict.
+3. Check that the story selection carries no unsupported framing.
+4. Check every spoken sentence s1 to s10 against its bound claims, qualifiers and numerals (spoken as words), and house rules (no colons, semicolons, dashes, first person, "cannot", banned words gap, matters, pattern, no sentence opened with And or But).
+5. Return claims, rejected, and the complete validation object (date 2026-10-15, source, result, verified_claim_ids, rejected, required_edits_applied). Use PASS only if nothing remains pending. State any input you could not read.
