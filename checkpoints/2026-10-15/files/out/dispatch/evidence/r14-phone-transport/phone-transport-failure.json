@@ -1,0 +1,57 @@
+{
+  "schema": "dispatch_review_transport_failure/1",
+  "role": "phone",
+  "actor": "a110876b976dcc812",
+  "observed_at": "2026-10-16T23:09:05.459866Z",
+  "error": "[media removed: request limit]",
+  "raw_error": "[media removed: request limit]",
+  "verdict": null,
+  "reservation_event_index": 260,
+  "reservation": {
+    "at": "2026-10-16T22:53:33.424243Z",
+    "kind": "reserved",
+    "note": "precharged same-worker exact current silent phone comparison, one test page first (SendMessage a110876b976dcc812)",
+    "preflight_identity": null,
+    "resources": {
+      "storyboard_critics": 1
+    }
+  },
+  "reservation_sha256": "e5a1e0900669b49230c4a21d55cc0cb91e2aa9257595c270c5635a4b5d65d608",
+  "media_probe": {
+    "single_image_read": true,
+    "media_received": false,
+    "packet": {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/phone-critic-packet-r14.json",
+      "sha256": "09ce1ef6dc91691b5031dc19a3d4e8b68b85c875e3d8d3d3567483cfcfce2354"
+    },
+    "coverage": {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r14-phone-transport/coverage-director-projected.json",
+      "sha256": "5da3c12fded05cac696fb47230bc66e4729ebf1e6abd39a60a67d38096980311"
+    },
+    "handback": {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r14-phone-transport/handback-for-media-limit.txt",
+      "sha256": "ca6e73f33c0e54e60fc9d8ddd9547203ae24b5d05b73655fc22f951af458e107"
+    },
+    "image": {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/openings/motion-a/sequence-032.png",
+      "sha256": "163988f2cd6f28ff82f15e11e87bc04fd6883bd38fa7ca79dfb260a2f72bd5a8"
+    }
+  },
+  "assignment": {
+    "role": "phone",
+    "actor": "a110876b976dcc812",
+    "board_sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6",
+    "film_sha256": null,
+    "comparison_sha256": "13b83f83ac8a78373a61d416b3295717921a6b932eef9b7f283b7250e61d5c75",
+    "opening_options": {
+      "a": {
+        "board_sha256": "ca349ee7cecbaa3e71355a84b5c849bf913e18e1be795683b9f03c4bc46ccbce",
+        "film_sha256": "21b078b22bff84bef3de381cdcc69fa5af162a9cfb6c33b7359b3171a79964ee"
+      },
+      "b": {
+        "board_sha256": "2fb6d1d6a60ca02e8d0305ac487a3fb53585595707ed221ed3173ba67ee30ddf",
+        "film_sha256": "75616da02386cdf7d47475cba5335ce82d088cfa9641f83e9ee949cdb29decb4"
+      }
+    }
+  }
+}
