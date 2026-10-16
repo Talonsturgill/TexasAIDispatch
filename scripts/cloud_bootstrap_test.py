@@ -2,6 +2,7 @@
 import hashlib
 import io
 import json
+import shutil
 from pathlib import Path
 import tempfile
 import unittest
@@ -10,6 +11,73 @@ import cloud_bootstrap as cloud
 
 
 class BootstrapTests(unittest.TestCase):
+    def node_fixture(self, folder):
+        engine = Path(folder)/'repo/video-engine'; engine.mkdir(parents=True)
+        cache = Path(folder)/'cache'; lock = engine/'package-lock.json'; lock.write_text('frozen-lock')
+        target = engine/'node_modules'; (target/'package').mkdir(parents=True)
+        (target/'package/runtime.js').write_text('export const pinned = true;')
+        (target/'package/runtime.js').chmod(0o755)
+        (target/'.dispatch-lock.sha256').write_text(cloud.digest(lock))
+        (target/'alias').symlink_to('package')
+        locked = cache/'node'/cloud.digest(lock)/'node_modules'
+        return engine, cache, target, locked
+
+    def test_prelaunch_promotes_instead_of_copying_and_binding_is_idempotent(self):
+        with tempfile.TemporaryDirectory() as folder:
+            engine, cache, target, locked = self.node_fixture(folder)
+            before = cloud.node_tree(target)
+            self.assertEqual(cloud.share_node_runtime(engine, cache)['operation'], 'promote')
+            self.assertFalse(locked.exists()); self.assertFalse(target.is_symlink())
+            cloud.share_node_runtime(engine, cache, apply=True)
+            self.assertTrue(target.is_symlink()); self.assertEqual(target.resolve(), locked.resolve())
+            self.assertEqual(cloud.node_tree(locked), before)
+            self.assertEqual(cloud.share_node_runtime(engine, cache, apply=True)['operation'], 'already-shared')
+
+    def test_only_exact_duplicate_is_removed_and_shared_runtime_is_unchanged(self):
+        with tempfile.TemporaryDirectory() as folder:
+            engine, cache, target, locked = self.node_fixture(folder)
+            shutil.copytree(target, locked, symlinks=True)
+            before = cloud.node_tree(locked)
+            self.assertEqual(cloud.share_node_runtime(engine, cache)['operation'], 'deduplicate')
+            cloud.share_node_runtime(engine, cache, apply=True)
+            self.assertTrue(target.is_symlink()); self.assertEqual(cloud.node_tree(locked), before)
+            self.assertFalse(list(engine.glob('.dispatch-node-duplicate-*')))
+
+    def test_changed_bytes_modes_or_foreign_entries_are_preserved(self):
+        for change in ('bytes', 'mode', 'extra'):
+            with tempfile.TemporaryDirectory() as folder:
+                engine, cache, target, locked = self.node_fixture(folder)
+                shutil.copytree(target, locked, symlinks=True)
+                if change == 'bytes': (target/'package/runtime.js').write_text('unrelated edit')
+                elif change == 'mode': (target/'package/runtime.js').chmod(0o644)
+                else: (target/'keep').write_text('unrelated')
+                before = cloud.node_tree(target)
+                with self.assertRaisesRegex(ValueError, 'Different runtime trees preserved'):
+                    cloud.share_node_runtime(engine, cache, apply=True)
+                self.assertFalse(target.is_symlink()); self.assertEqual(cloud.node_tree(target), before)
+
+    def test_failed_link_restores_original_tree(self):
+        with tempfile.TemporaryDirectory() as folder:
+            engine, cache, target, locked = self.node_fixture(folder)
+            before = cloud.node_tree(target)
+            with patch.object(Path, 'symlink_to', side_effect=OSError('fixture link failure')):
+                with self.assertRaisesRegex(OSError, 'link failure'):
+                    cloud.share_node_runtime(engine, cache, apply=True)
+            self.assertFalse(target.is_symlink()); self.assertFalse(locked.exists())
+            self.assertEqual(cloud.node_tree(target), before)
+
+    def test_pin_change_detaches_only_owned_link_and_retains_old_runtime(self):
+        with tempfile.TemporaryDirectory() as folder:
+            engine, cache, target, locked = self.node_fixture(folder)
+            cloud.share_node_runtime(engine, cache, apply=True)
+            before = cloud.node_tree(locked)
+            cloud.detach_owned_node_link(target, cache)
+            self.assertFalse(target.exists()); self.assertEqual(cloud.node_tree(locked), before)
+            foreign = Path(folder)/'foreign'; foreign.mkdir(); target.symlink_to(foreign)
+            with self.assertRaisesRegex(ValueError, 'Foreign node_modules link preserved'):
+                cloud.detach_owned_node_link(target, cache)
+            self.assertTrue(target.is_symlink())
+
     def test_legacy_binding_reuses_pinned_python_and_preserves_other_cache(self):
         with tempfile.TemporaryDirectory() as folder:
             cache = Path(folder) / 'installed'; legacy = Path(folder) / 'home/.cache/texas-ai-dispatch'
