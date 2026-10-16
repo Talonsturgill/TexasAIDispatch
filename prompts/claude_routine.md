@@ -338,6 +338,19 @@ hash supplies a creative verdict. Missing observed actions stay unresolved. Reta
 sparse-image response and charge a content follow-up before executing it; it is not a free
 formatting call or a provider-unavailability event.
 
+After measured narration changes the board and preview timing, use the same authorized extractor
+with `--phone-option current --board out/dispatch/storyboard.json --film out/dispatch/preflight.mp4`
+and a fresh output directory. It requires the current exact `preflight.json` inspection, edition,
+board, renderer and movie bytes. It honors only the existing structural release policy; extraction
+still supplies no verdict. Its separate operation reserves and claims once. Build a fresh ordinary
+critic packet, then use `claude_runtime.py phone-packet --sequence-current <new index.json>` instead
+of the two comparison sequence flags. Keep the same packet, state and output arguments. This
+single-film packet binds the measured current board and film, returns a fresh exact-phone report,
+and does not choose the silent treatment again. The silent comparison index cannot prove the
+timed movie; neither phone profile can satisfy the native final profile. Inspect all chronological
+pages, consolidate one handback and recheck only specific uncertain intervals. Report unresolved
+observations directly instead of repeatedly viewing the film to pursue approval.
+
 A cloud session has no desktop for Computer Use. Use `scripts/phone_playback.py`, real Chromium UI
 automation at 390x844 with touch input, against the published canonical URL:
 

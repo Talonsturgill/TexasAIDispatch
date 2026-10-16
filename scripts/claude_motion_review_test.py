@@ -141,6 +141,16 @@ class PhoneMotionReview(unittest.TestCase):
         cls.index = motion.build(cls.board, cls.film, cls.output / 'motion-a', True, cls.binding)
         binding_b = motion.phone_inputs(cls.state, 'b', cls.output / 'b.json', cls.output / 'b.mp4')
         cls.index_b = motion.build(cls.output / 'b.json', cls.output / 'b.mp4', cls.output / 'motion-b', True, binding_b)
+        cls.current_board, cls.current_film = cls.root / 'storyboard.json', cls.root / 'preflight.mp4'
+        cls.current_board.write_text(json.dumps({'date': '2026-10-15', 'runtime_s': 1.8, 'credits_s': 0}))
+        subprocess.run([motion.FFMPEG, '-v', 'error', '-f', 'lavfi', '-i',
+            'testsrc2=size=270x480:rate=30:duration=1.8', '-c:v', 'libx264',
+            '-preset', 'ultrafast', '-crf', '16', str(cls.current_film)], check=True)
+        cls.current_report = cls.root / 'preflight.json'
+        cls.current_report.write_text(json.dumps({'pass': True, 'problems': [], 'renderer_sha256': None,
+            'board_sha256': motion.digest(cls.current_board), 'film_sha256': motion.digest(cls.current_film)}))
+        cls.current_binding = motion.phone_inputs(cls.state, 'current', cls.current_board, cls.current_film)
+        cls.current_index = motion.build(cls.current_board, cls.current_film, cls.root/'timed-motion', True, cls.current_binding)
 
     @classmethod
     def tearDownClass(cls):
@@ -197,6 +207,38 @@ class PhoneMotionReview(unittest.TestCase):
         data['phone_options'][0]['report_bindings']['concept_sha256'] = '0'*64
         with self.assertRaisesRegex(ValueError, 'bindings changed'):
             claude_runtime.phone_review_inputs(data)
+
+    def test_current_timed_movie_uses_its_own_complete_clock_and_inspection(self):
+        self.assertEqual(motion.problems(self.current_index, self.current_board, self.current_film, True, self.current_binding), [])
+        self.assertEqual(json.loads(self.current_index.read_text())['sample_count'], 10)
+        with self.assertRaises(ValueError):
+            motion.problems(self.current_index, self.current_board, self.current_film)
+        self.assertTrue(motion.problems(self.index, self.current_board, self.current_film, True, self.current_binding))
+
+    def test_current_timed_packet_rejects_old_comparison_or_changed_bindings(self):
+        packet = self.root / 'current-base.json'
+        packet.write_text(json.dumps({'role': 'storyboard-critic',
+            'board': claude_runtime.bound(self.current_board),
+            'claims': {'path': str(self.root/'claims.json'), 'sha256': 'c'*64}, 'instructions': ''}))
+        data = claude_runtime.phone_packet(packet, self.state, [self.current_index], current=True)
+        self.assertEqual([r['id'] for r in data['phone_options']], ['current'])
+        self.assertEqual(data['phone_options'][0]['report_bindings']['reviewed_preflight_sha256'], motion.digest(self.current_film))
+        claude_runtime.phone_review_inputs(data)
+        with self.assertRaises(ValueError):
+            claude_runtime.phone_packet(packet, self.state, [self.index], current=True)
+        data['phone_options'][0]['motion_sequence']['sha256'] = motion.digest(self.index)
+        with self.assertRaisesRegex(ValueError, 'bindings changed'):
+            claude_runtime.phone_review_inputs(data)
+
+    def test_stale_current_structural_receipt_is_refused(self):
+        original = self.current_report.read_bytes()
+        try:
+            data = json.loads(original); data['film_sha256'] = motion.digest(self.film)
+            self.current_report.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError, 'changed after inspection'):
+                motion.phone_inputs(self.state, 'current', self.current_board, self.current_film)
+        finally:
+            self.current_report.write_bytes(original)
 
 
 if __name__ == '__main__':

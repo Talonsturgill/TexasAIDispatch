@@ -15,7 +15,7 @@ from preflight_animatic import FFMPEG, FFPROBE
 
 SCHEMA = 'dispatch_claude_motion_review/1'
 PHONE_SCHEMA = 'dispatch_claude_phone_motion_review/1'
-PHONE_OPERATIONS = {key: 'exact-phone-' + key + ' motion-image review extraction' for key in ('a', 'b')}
+PHONE_OPERATIONS = {key: 'exact-phone-' + key + ' motion-image review extraction' for key in ('a', 'b', 'current')}
 FPS = 5
 WIDTH = 390
 REPO = Path(__file__).resolve().parents[1]
@@ -50,6 +50,21 @@ def phone_inputs(state_path, option, board, film):
     import opening_compare
     from critic_gate import renderer_digest
     state_path, board, film = map(lambda p: Path(p).resolve(), (state_path, board, film))
+    if option == 'current':
+        from preflight_animatic import report_problems
+        if board != state_path.parent / 'storyboard.json' or film != state_path.parent / 'preflight.mp4':
+            raise ValueError('current phone motion review requires the canonical current board and preflight')
+        state = json.loads(state_path.read_text()); data = json.loads(board.read_text())
+        if state.get('terminal_state') or data.get('date') != str(state.get('run_id', ''))[:10]:
+            raise ValueError('phone motion review requires this active edition')
+        report = state_path.parent / 'preflight.json'; receipt = json.loads(report.read_text())
+        errors = report_problems(receipt, board, film)
+        if (receipt.get('renderer_sha256') != renderer_digest(data) or receipt.get('inspection_error')
+                or (receipt.get('pass') is True and receipt.get('problems') != [])):
+            errors.append('current phone structural inspection or renderer binding is inconsistent')
+        if errors:
+            raise ValueError('; '.join(errors))
+        return {'option': 'current', 'inspection_sha256': digest(report), 'structural_pass': receipt.get('pass')}
     output = state_path.parent / 'openings'
     if option not in PHONE_OPERATIONS or board != output / (option + '.json') or film != output / (option + '.mp4'):
         raise ValueError('phone motion review requires the canonical exact comparison option')
@@ -191,7 +206,8 @@ def main(argv=None):
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--state', type=Path, default=Path('out/dispatch/run_state.json'))
     parser.add_argument('--verify', action='store_true')
-    parser.add_argument('--phone-option', choices=('a', 'b'), help='explicit inspected comparison option; never final native evidence')
+    parser.add_argument('--phone-option', choices=('a', 'b', 'current'),
+                        help='inspected comparison option or current timed preflight; never final native evidence')
     args = parser.parse_args(argv)
     try:
         comparison = phone_inputs(args.state, args.phone_option, args.board, args.film) if args.phone_option else None

@@ -139,8 +139,8 @@ def motion_inputs(data):
         raise ValueError('; '.join(errors))
 
 
-def phone_options(state_path, sequences):
-    """Compute bindings for the two exact movies; supply no creative answers."""
+def phone_options(state_path, sequences, current=False):
+    """Compute bindings for comparison movies or the current timed movie; no creative answers."""
     import claude_motion_review as motion
     import critic_gate
     import daily_production
@@ -148,8 +148,9 @@ def phone_options(state_path, sequences):
     from action_admission import source_claims_digest
     state_path = Path(state_path).resolve(); output = state_path.parent / 'openings'
     rows = []
-    for option, sequence in zip(('a', 'b'), sequences, strict=True):
-        board, film = output / (option + '.json'), output / (option + '.mp4')
+    for option, sequence in zip(('current',) if current else ('a', 'b'), sequences, strict=True):
+        board, film = ((state_path.parent / 'storyboard.json', state_path.parent / 'preflight.mp4') if current else
+                       (output / (option + '.json'), output / (option + '.mp4')))
         comparison = motion.phone_inputs(state_path, option, board, film)
         errors = motion.problems(sequence, board, film, True, comparison)
         if errors:
@@ -173,7 +174,7 @@ def phone_options(state_path, sequences):
     return rows
 
 
-def phone_packet(packet_path, state_path, sequences):
+def phone_packet(packet_path, state_path, sequences, current=False):
     data = read(packet_path)
     if data.get('role') != 'storyboard-critic':
         raise ValueError('phone packet requires the existing independent storyboard critic')
@@ -181,14 +182,21 @@ def phone_packet(packet_path, state_path, sequences):
         raise ValueError('phone packet must use the current owned edition')
     data['review_scope'] = 'exact-muted-phone-preflight'
     data['phone_state'] = str(Path(state_path).resolve())
-    data['phone_options'] = phone_options(state_path, sequences)
+    data['phone_mode'] = 'current' if current else 'comparison'
+    data['phone_options'] = phone_options(state_path, sequences, current)
+    if current and data['board'] != data['phone_options'][0]['board']:
+        raise ValueError('current phone packet needs the exact current timed board binding')
     for row in data['phone_options']:
         row['report_bindings']['story_review']['claims_sha256'] = data['claims']['sha256']
-    data['instructions'] += (' Review every chronological image page for both options before the director rationale. '
+    data['instructions'] += (' Review every chronological image page for ' +
+        ('the exact current timed film' if current else 'both options') + ' before the director rationale. '
         'These images establish only their sampled pixels, with no direct playback or listening. '
-        'Return one consolidated comparison/selection and exact-phone review as JSON in your handback; '
+        'Return one consolidated ' + ('exact-phone review' if current else 'comparison/selection and exact-phone review') +
+        ' as JSON in your handback; '
         'the director saves it unchanged. Copy the supplied mechanical bindings exactly, then supply your '
         'own verdict and all required timed observations. Unproven motion stays unresolved. '
+        'After the complete chronological viewing, consolidate the handback. Recheck only named '
+        'uncertain intervals; return unresolved findings instead of repeated viewing to pursue a pass. '
         'Do not run Bash, write files, invent hashes, or infer approval from structural measurements.')
     phone_review_inputs(data)
     return data
@@ -196,9 +204,13 @@ def phone_packet(packet_path, state_path, sequences):
 
 def phone_review_inputs(data):
     rows = data.get('phone_options') or []
-    if data.get('review_scope') != 'exact-muted-phone-preflight' or len(rows) != 2:
-        raise ValueError('Claude phone review needs both complete exact-phone motion sequences')
-    expected = phone_options(data['phone_state'], [r['motion_sequence']['path'] for r in rows])
+    mode = data.get('phone_mode', 'comparison'); current = mode == 'current'
+    if mode not in ('comparison', 'current') or data.get('review_scope') != 'exact-muted-phone-preflight' or len(rows) != (1 if current else 2):
+        raise ValueError('Claude phone review needs ' + ('the complete current timed sequence' if current else
+                                                       'both complete exact-phone motion sequences'))
+    expected = phone_options(data['phone_state'], [r['motion_sequence']['path'] for r in rows], current)
+    if current and data['board'] != expected[0]['board']:
+        raise ValueError('current phone packet needs the exact current timed board binding')
     for row in expected:
         row['report_bindings']['story_review']['claims_sha256'] = data['claims']['sha256']
     if rows != expected:
@@ -414,7 +426,8 @@ if __name__ == '__main__':
     p.add_argument('--claims', type=Path, required=True); p.add_argument('--out', type=Path, required=True)
     p = sub.add_parser('phone-packet'); p.add_argument('--packet', type=Path, required=True)
     p.add_argument('--state', type=Path, required=True)
-    p.add_argument('--sequence-a', type=Path, required=True); p.add_argument('--sequence-b', type=Path, required=True)
+    p.add_argument('--sequence-a', type=Path); p.add_argument('--sequence-b', type=Path)
+    p.add_argument('--sequence-current', type=Path)
     p.add_argument('--out', type=Path, required=True)
     p = sub.add_parser('plan'); p.add_argument('--role', required=True); p.add_argument('--packet', type=Path, required=True)
     p.add_argument('--task-name', required=True); p.add_argument('--scope', required=True)
@@ -433,7 +446,11 @@ if __name__ == '__main__':
     elif args.action == 'authoring-packet':
         result = authoring_packet(args.board, args.claims)
     elif args.action == 'phone-packet':
-        result = phone_packet(args.packet, args.state, [args.sequence_a, args.sequence_b])
+        if (args.sequence_current and (args.sequence_a or args.sequence_b)) or (not args.sequence_current and not (args.sequence_a and args.sequence_b)):
+            parser.error('phone-packet needs either both comparison sequences or one current timed sequence')
+        result = phone_packet(args.packet, args.state,
+                              [args.sequence_current] if args.sequence_current else [args.sequence_a, args.sequence_b],
+                              current=bool(args.sequence_current))
     elif args.action == 'plan':
         result = plan(args.role, args.packet, args.task_name, args.scope, args.mechanical_task)
     elif args.action == 'measure':
