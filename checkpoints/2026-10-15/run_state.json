@@ -129,6 +129,14 @@
       "note": "voice synthesis with gemini-3.1-flash-tts-preview",
       "resource": "tts_calls",
       "to": 3
+    },
+    {
+      "at": "2026-10-16T13:49:07.530393Z",
+      "ceiling": 12,
+      "from": 3,
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resource": "tts_calls",
+      "to": 4
     }
   ],
   "events": [
@@ -1515,6 +1523,24 @@
       "note": "voice synthesis with gemini-3.1-flash-tts-preview",
       "reported_tokens": 2742,
       "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-16T13:49:07.530421Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "now": 4,
+      "resource": "tts_calls",
+      "was": 3
+    },
+    {
+      "at": "2026-10-16T13:49:07.530432Z",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "resources": {
+        "tts_calls": 1
+      }
     }
   ],
   "limits": {
@@ -1530,7 +1556,7 @@
     "research_agents": 3,
     "scorer_calls": 3,
     "storyboard_critics": 5,
-    "tts_calls": 3,
+    "tts_calls": 4,
     "validator_agents": 3,
     "voice_directors": 1
   },
@@ -1538,7 +1564,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "4ccd4d4de92a659c8eb2d7e13596b0da5906a6643d310723e1e227cf6a9aae21",
+    "original_private_state_sha256": "2b96cc2d33cc11692ba6b03aa38302c78d2674a5d36df888e5eaa8a3ccfc8b17",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -1574,7 +1600,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T13:49:03.247059Z",
+  "updated_at": "2026-10-16T13:49:07.530434Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -1588,7 +1614,7 @@
     "research_agents": 3,
     "scorer_calls": 0,
     "storyboard_critics": 5,
-    "tts_calls": 3,
+    "tts_calls": 4,
     "validator_agents": 3,
     "voice_directors": 1
   }
