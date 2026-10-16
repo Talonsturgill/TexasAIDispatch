@@ -158,7 +158,14 @@ python scripts/run_controller.py production-budget --review-route host --repair-
 
 Use the environment wrapper and explicit internal cd. Prepare grants no calls. Capacity records
 only exact deficits in a separate event. Do not begin-repair with this capacity-only plan.
-Reserve the next actual critic before SendMessage to the same Opus High worker. Give it the
+An already-funded path records a zero-increment capacity audit, without adding resources.
+Reserve the next actual critic before SendMessage to the same available Opus High worker.
+After a supported fresh-host restore, retain the observed loss of the old task and start one
+fresh isolated Opus High worker when that task cannot resume. This changes no provider or
+primary model. Retain the original receipt; a derived receipt may retarget only its file paths
+from the saved checkout root to the restored root, verifying every unchanged file hash and
+keeping the original as provenance. Never alter the rejection, timings, charge or source data.
+Give the reviewer the
 complete current guides, exact rejected and current proposals, retained failures and current
 source bindings. It evaluates the proposed performance, without claiming to hear audio through
 Read. Soundcheck and exact acoustic alignment still decide the actual take. Preserve an already
@@ -175,7 +182,9 @@ not the worker's original lifetime. The reservation must precede it and cannot b
 python scripts/narration_recovery.py --state out/dispatch/run_state.json --verify-review <new-capacity-plan> --receipt <actual-new-call-receipt> --report <unchanged-new-pass>
 ```
 
-Dependent paid work remains refused until that verification. The record approves no recorded
+Dependent paid work remains refused until that verification and all actual unreserved work is
+accounted. A later actual charged REVISE can admit a new bound scope; require a pass on the
+current proposal while preserving the retired proposal's rejection. The record approves no recorded
 speech, film or shipment. Keep all actual caption, timing, source, rights, current artwork,
 native PNG/CRF16, three independent scores and delivery gates. A later REVISE stays a rejection;
 use its own actual precharged evidence for the next mandatory recovery. Never ask the owner to
