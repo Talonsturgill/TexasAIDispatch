@@ -105,6 +105,90 @@ class ValidatorGrantTests(unittest.TestCase):
         c.save(self.path, state)
         self.assertFalse(c.reserve(self.path, {'validator_agents': 1})[0])
 
+    def test_reexport_preserves_public_grant_history_and_original_provenance(self):
+        import claude_checkpoint as ck
+        self.assertTrue(self.grant()[0])
+        raw = c.read_state(self.path)
+        before = copy.deepcopy(raw)
+        first = public_state.export(raw)
+        second = public_state.export(first)
+        self.assertEqual(first['events'], second['events'])
+        self.assertEqual(first['public_export']['owner_message_redactions'],
+                         second['public_export']['owner_message_redactions'])
+        self.assertEqual(ck.monotonic_problems(first, second), [])
+        self.assertEqual(raw, before)
+
+    def test_checkpoint_relocation_preserves_exact_grant_text_hashes_and_charges(self):
+        import claude_checkpoint as ck
+        self.assertTrue(self.grant()[0])
+        raw = c.read_state(self.path)
+        projected, origins = ck.public_projection(raw, self.root)
+        self.assertNotIn(self.auth['owner_text'], json.dumps(projected))
+        for legacy in (False, True):
+            with self.subTest(legacy_manifest=legacy):
+                destination = self.root / ('legacy-restored' if legacy else 'restored')
+                (destination / 'out/dispatch').mkdir(parents=True)
+                manifest = {'repo_root': str(self.root)}
+                if not legacy:
+                    manifest['grant_origin_roots'] = origins
+                restored = ck.restored_ledger(projected, destination, manifest)
+                self.assertEqual(g.validator_grant_problems(restored), [])
+                self.assertEqual(life.allowance_problems(restored), [])
+                self.assertEqual(restored['usage'], raw['usage'])
+                self.assertEqual(restored['resource_envelope'], raw['resource_envelope'])
+                self.assertEqual(restored['events'][-1]['failure_evidence_json'],
+                                 raw['events'][-1]['failure_evidence_json'])
+                (destination / ck.GRANT_ROOTS_FILE).write_text(json.dumps({'schema': 1, 'entries': origins}))
+                again, retained = ck.public_projection(restored, destination)
+                self.assertEqual(projected['events'], again['events'])
+                self.assertEqual(retained, origins)
+                self.assertEqual(ck.monotonic_problems(projected, again), [])
+                state_path = destination / 'state.json'
+                c.save(state_path, restored)
+                self.assertTrue(c.reserve(state_path, {'validator_agents': 1})[0])
+                charged = c.read_state(state_path)
+                final, _ = ck.public_projection(charged, destination)
+                self.assertEqual(charged['usage']['validator_agents'], 3)
+                self.assertEqual(charged['resource_envelope']['validator_agents'], 2)
+                self.assertEqual(ck.monotonic_problems(projected, final), [])
+
+    def test_wrong_origin_or_tampered_public_attestation_fails_closed(self):
+        import claude_checkpoint as ck
+        self.assertTrue(self.grant()[0])
+        projected, origins = ck.public_projection(c.read_state(self.path), self.root)
+        wrong = copy.deepcopy(origins)
+        wrong[0]['root'] = str(self.root / 'wrong-origin')
+        with self.assertRaisesRegex(ck.CheckpointError, 'exactly'):
+            ck.restored_ledger(projected, self.root / 'new',
+                               {'repo_root': str(self.root), 'grant_origin_roots': wrong})
+        exported = public_state.export(c.read_state(self.path))
+        grant = exported['events'][-1]
+        auth = json.loads(grant['authorization_json'])
+        auth['owner_text'] = 'private replacement of the retained public attestation'
+        grant['authorization_json'] = json.dumps(auth, sort_keys=True)
+        grant['authorization_sha256'] = public_state.sha(grant['authorization_json'])
+        with self.assertRaisesRegex(ValueError, 'attestation changed'):
+            public_state.export(exported)
+
+    def test_two_existing_owner_grants_keep_their_chain_after_relocation(self):
+        import claude_checkpoint as ck
+        from quality_recovery_test import RecoveryTest
+        fixture = RecoveryTest(); fixture.setUp(); self.addCleanup(fixture.doCleanups)
+        _, failure, approval, _ = fixture.second_owner_fixture(av=True)
+        self.assertTrue(c.grant_owner_review(fixture.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        raw = c.read_state(fixture.path)
+        public, origins = ck.public_projection(raw, fixture.path.parent)
+        destination = self.root / 'two-grants-restored'
+        (destination / 'out/dispatch').mkdir(parents=True)
+        restored = ck.restored_ledger(public, destination,
+            {'repo_root': str(fixture.path.parent), 'grant_origin_roots': origins})
+        self.assertEqual(g.owner_grant_problems(restored), [])
+        self.assertEqual(restored['usage'], raw['usage'])
+        self.assertEqual(restored['resource_envelope'], raw['resource_envelope'])
+        (destination / ck.GRANT_ROOTS_FILE).write_text(json.dumps({'schema': 1, 'entries': origins}))
+        again, _ = ck.public_projection(restored, destination)
+        self.assertEqual(ck.monotonic_problems(public, again), [])
+
 
 if __name__ == '__main__':
     unittest.main()

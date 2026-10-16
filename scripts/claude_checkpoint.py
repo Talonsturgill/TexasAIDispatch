@@ -48,6 +48,7 @@ SCHEMA = "dispatch_claude_checkpoint/2"
 BRANCH = "claude/checkpoint/"
 ROOT = "checkpoints"
 TOKEN = "{REPO}"
+PRELAUNCH_TOOLS = Path('/opt/texas-dispatch-tools')
 RUN_ID = re.compile(r"\d{4}-\d{2}-\d{2}(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?\Z")
 
 SCRATCH_ROOT = "out/dispatch"
@@ -166,9 +167,72 @@ def has_private_structure(obj):
     return False
 
 
-def public_ledger(state, root):
+GRANT_ROOTS_FILE = 'out/dispatch/grant-projection-roots.private.json'
+GRANT_KINDS = {'owner_review_grant', 'owner_validator_grant'}
+GRANT_TEXTS = {'authorization_json': 'authorization_sha256',
+               'failure_evidence_json': 'failure_evidence_sha256'}
+
+
+def grant_roots(state, root):
+    """Origin paths are recovery metadata, never changes to an authorization or its hashes."""
+    path = Path(root) / GRANT_ROOTS_FILE
+    saved = json.loads(path.read_text()) if path.is_file() else {'schema': 1, 'entries': []}
+    if saved.get('schema') != 1 or not isinstance(saved.get('entries'), list):
+        raise CheckpointError('grant projection origin metadata is invalid')
+    known = {}
+    for row in saved['entries']:
+        if (set(row) != {'event_index', 'authorization_sha256', 'root'}
+                or type(row['event_index']) is not int
+                or not re.fullmatch(r'[0-9a-f]{64}', row['authorization_sha256'])
+                or not Path(row['root']).is_absolute()):
+            raise CheckpointError('grant projection origin metadata is invalid')
+        key = (row['event_index'], row['authorization_sha256'])
+        if key in known:
+            raise CheckpointError('duplicate grant projection origin')
+        known[key] = row['root']
+    return [{'event_index': index, 'authorization_sha256': grant['authorization_sha256'],
+             'root': known.get((index, grant['authorization_sha256']), str(root))}
+            for index, grant in enumerate(state.get('events', [])) if grant.get('kind') in GRANT_KINDS]
+
+
+def unproject_grants(state, manifest):
+    origins = {(r['event_index'], r['authorization_sha256']): r['root']
+               for r in manifest.get('grant_origin_roots', [])}
+    restored = {}
+    for index, grant in enumerate(state.get('events', [])):
+        if grant.get('kind') not in GRANT_KINDS:
+            continue
+        origin = origins.get((index, grant['authorization_sha256']), manifest['repo_root'])
+        fields = {key: expand(grant[key], origin) for key in GRANT_TEXTS}
+        if any(sha256(fields[key].encode()) != grant[hash_key] for key, hash_key in GRANT_TEXTS.items()):
+            raise CheckpointError('hash-bound grant evidence cannot be restored exactly')
+        restored[index] = fields
+    return restored
+
+
+def restored_ledger(state, destination, manifest):
+    result = expand(state, destination)
+    for index, fields in unproject_grants(state, manifest).items():
+        result['events'][index].update(fields)
+    return result
+
+
+def public_projection(state, root):
     from public_state import export
-    return redact(portable(export(state), root))
+    result = export(state)
+    origins = grant_roots(result, root)
+    for row in origins:
+        grant = result['events'][row['event_index']]
+        for key in GRANT_TEXTS:
+            grant[key] = portable(grant[key], row['root'])
+    result = redact(portable(result, root))
+    # A private value inside exact rejection evidence must fail closed, not corrupt its hash.
+    unproject_grants(result, {'repo_root': str(root), 'grant_origin_roots': origins})
+    return result, origins
+
+
+def public_ledger(state, root):
+    return public_projection(state, root)[0]
 
 
 def ledger_text(state, root):
@@ -323,7 +387,8 @@ def build_bundle(repo, state_path, note, environ=None):
     run_id = str(state["run_id"])
     if not RUN_ID.fullmatch(run_id):
         raise CheckpointError("run id is not a safe branch name")
-    ledger = ledger_text(state, repo)
+    ledger_obj, grant_origin_roots = public_projection(state, repo)
+    ledger = json.dumps(ledger_obj, indent=2, sort_keys=True) + "\n"
     chosen, excluded, problems, regenerable, deleted = candidates(repo)
     if problems:
         raise RetentionError("required evidence cannot be retained: " + "; ".join(problems[:6]))
@@ -341,13 +406,13 @@ def build_bundle(repo, state_path, note, environ=None):
     branch = git(repo, "branch", "--show-current", check=False).stdout.decode().strip()
     files = [{"path": rel, "class": chosen[rel], "sha256": sha256(data), "size": len(data)}
              for rel, data in sorted(stored.items())]
-    ledger_obj = json.loads(ledger)
     manifest = {"schema": SCHEMA, "run_id": run_id, "saved_at": now(), "note": note, "phase": state.get("phase"),
                 "terminal_state": state.get("terminal_state"), "shipment_recorded": bool(state.get("shipment")),
                 "created_at": state.get("created_at"), "repo_root": str(repo), "source_pin": pin, "source_branch": branch or None,
                 "source_closure": {"root": "video-engine", "files": closure.count(b"\n"), "sha256": sha256(closure)},
                 "deleted_source": deleted, "ledger_sha256": sha256(ledger.encode()),
                 "original_private_ledger_sha256": ledger_obj["public_export"]["original_private_state_sha256"],
+                "grant_origin_roots": grant_origin_roots,
                 "usage": state.get("usage"), "files": files, "excluded": excluded, "regenerable": regenerable,
                 "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."}
     return run_id, manifest, ledger, stored, ledger_obj
@@ -380,7 +445,7 @@ def commit_tree(repo, run_id, manifest, ledger, stored, parent, pin, old_manifes
         git(repo, "update-index", "--add", "--index-info", env=env, data="".join(lines).encode())
         tree = git(repo, "write-tree", env=env).stdout.decode().strip()
     if old_manifest:
-        keys = ("ledger_sha256", "files", "phase", "terminal_state", "shipment_recorded", "source_pin", "deleted_source")
+        keys = ("ledger_sha256", "files", "phase", "terminal_state", "shipment_recorded", "source_pin", "deleted_source", "grant_origin_roots")
         if {k: old_manifest.get(k) for k in keys} == {k: manifest.get(k) for k in keys}:
             return parent, False
     identity = {"GIT_AUTHOR_NAME": "Talon Sturgill", "GIT_AUTHOR_EMAIL": "Talon.sturgill@gmail.com",
@@ -461,9 +526,19 @@ def repo_of(state_path):
 
 def require_backed(state_path):
     """Called before any paid reservation. A recorded unbacked failure blocks new paid work."""
-    if required(state_path) and flag_path(state_path).is_file():
+    if not required(state_path):
+        return
+    if flag_path(state_path).is_file():
         raise UnbackedError("the latest charges or outputs are not durable (" + str(flag_path(state_path))
                             + "); run `python scripts/claude_checkpoint.py recover` before more paid work")
+    if PRELAUNCH_TOOLS.is_dir():
+        repo = repo_of(state_path)
+        for name in ('public_state.py', 'claude_checkpoint.py'):
+            installed, active = PRELAUNCH_TOOLS / 'scripts' / name, repo / 'scripts' / name
+            if not installed.is_file() or not active.is_file() or sha256(installed) != sha256(active):
+                raise CheckpointError('prelaunch checkpoint codec differs from production (' + name +
+                                      '); preserve the checkpoint and use a fresh supported routine launch '
+                                      'after environment setup, before more paid work')
 
 
 def free_regenerable(repo):
@@ -606,11 +681,16 @@ def restore(repo=REPO, run_id=None, remote="origin", dest=None):
         target.parent.mkdir(parents=True, exist_ok=True)
         data = show(repo, tip, f"{ROOT}/{run_id}/files/{row['path']}")
         if target.name == "run_state.json":
-            data = (json.dumps(expand(json.loads(data), dest), indent=2, sort_keys=True) + "\n").encode()
+            data = (json.dumps(restored_ledger(json.loads(data), dest, manifest), indent=2, sort_keys=True) + "\n").encode()
         target.write_bytes(data)
     state_path = dest / SCRATCH_ROOT / "run_state.json"
     state_path.parent.mkdir(parents=True, exist_ok=True)
-    state_path.write_text(json.dumps(expand(json.loads(ledger), dest), indent=2, sort_keys=True) + "\n")
+    source_ledger = json.loads(ledger)
+    state_path.write_text(json.dumps(restored_ledger(source_ledger, dest, manifest), indent=2, sort_keys=True) + "\n")
+    origins = manifest.get('grant_origin_roots') or [
+        {'event_index': index, 'authorization_sha256': grant['authorization_sha256'], 'root': manifest['repo_root']}
+        for index, grant in enumerate(source_ledger.get('events', [])) if grant.get('kind') in GRANT_KINDS]
+    (dest / GRANT_ROOTS_FILE).write_text(json.dumps({'schema': 1, 'entries': origins}, indent=2) + '\n')
     (state_path.parent / "claude-host.json").write_text(json.dumps({"run_id": run_id, "restored_from": tip, "at": now()}) + "\n")
     from production_lifecycle import allowance_problems
     from run_controller import deliverable_problems, read_state

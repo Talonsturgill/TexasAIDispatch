@@ -39,6 +39,8 @@ class Base(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
+        tools = mock.patch.object(ck, 'PRELAUNCH_TOOLS', self.root / 'absent-host-tools')
+        tools.start(); self.addCleanup(tools.stop)
         self.origin = self.root / "origin.git"
         sh("git", "init", "--bare", "-q", str(self.origin))
         sh("git", "symbolic-ref", "HEAD", "refs/heads/main", cwd=self.origin)
@@ -73,7 +75,55 @@ class Base(unittest.TestCase):
         return ck.save(self.repo, self.state, note, environ={}, **kw)
 
 
+class CodecRuntime(Base):
+    def test_stale_prelaunch_codec_refuses_before_any_charge(self):
+        self.init_ledger()
+        tools = self.root / 'installed-tools'
+        for directory in (tools / 'scripts', self.repo / 'scripts'):
+            directory.mkdir(parents=True, exist_ok=True)
+            for name in ('public_state.py', 'claude_checkpoint.py'):
+                (directory / name).write_text('matching serialization fixture')
+        before = self.state.read_bytes()
+        with mock.patch.object(ck, 'PRELAUNCH_TOOLS', tools), mock.patch.object(ck, 'required', return_value=True):
+            ck.require_backed(self.state)
+            (tools / 'scripts/public_state.py').write_text('stale prelaunch serialization fixture')
+            with self.assertRaisesRegex(ck.CheckpointError, 'fresh supported routine'):
+                controller.reserve(self.state, {'preflight_renders': 1}, 'fixture capture')
+        self.assertEqual(self.state.read_bytes(), before)
+
+
 class RoundTrip(Base):
+    def test_validator_grant_survives_git_restore_and_next_durable_reservation(self):
+        import repair_guard
+        from validator_grant_test import ValidatorGrantTests
+        fixture = ValidatorGrantTests(); fixture.setUp(); self.addCleanup(fixture.doCleanups)
+        self.scratch.mkdir(parents=True)
+        self.write_ledger(copy.deepcopy(fixture.before))
+        failure = self.scratch / 'validator-rejected.json'
+        failure.write_bytes(fixture.failure.read_bytes())
+        auth = dict(fixture.auth, failure_evidence=str(failure))
+        authorization = self.scratch / 'validator-authorization.private.json'
+        authorization.write_text(json.dumps(auth))
+        ok, message = controller.grant_validator_review(self.state, authorization, failure,
+                                                       repair_guard.VALIDATOR_CONFIRMATION)
+        self.assertTrue(ok, message)
+        (self.scratch / 'claude-host.json').write_text('{}')
+        first = self.save('grant before container replacement')
+        fresh = self.clone(self.root / 'fresh-container')
+        destination = self.root / 'different' / 'edition'
+        ck.restore(fresh, '2026-10-15', dest=destination)
+        restored = destination / 'out/dispatch/run_state.json'
+        self.assertEqual(repair_guard.validator_grant_problems(controller.read_state(restored)), [])
+        self.assertTrue(controller.reserve(restored, {'validator_agents': 1}, 'same existing grant')[0])
+        tip = ck.remote_tip(destination, '2026-10-15', 'origin')
+        final_manifest, final = ck.verify_checkpoint(destination, tip, '2026-10-15')
+        _, original = ck.verify_checkpoint(self.repo, first['commit'], '2026-10-15')
+        self.assertEqual(ck.monotonic_problems(json.loads(original), json.loads(final)), [])
+        self.assertEqual(json.loads(final)['usage']['validator_agents'], 3)
+        self.assertEqual(json.loads(final)['resource_envelope']['validator_agents'], 2)
+        self.assertEqual(final_manifest['grant_origin_roots'][0]['root'], str(self.repo))
+        self.assertNotIn(ck.GRANT_ROOTS_FILE, ck.candidates(destination)[0])
+
     def test_different_path_clone_restores_committed_and_dirty_source_with_a_registered_deliverable(self):
         sh("git", "checkout", "-q", "-b", "claude/dispatch-" + RUN, cwd=self.repo)
         episode = self.repo / "video-engine/src/modern/episodes" / RUN
