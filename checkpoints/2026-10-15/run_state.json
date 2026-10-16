@@ -337,6 +337,14 @@
       "note": "precharged gate-format code-plan review of the renewed R10 treatments (SendMessage a110876b976dcc812)",
       "resource": "storyboard_critics",
       "to": 18
+    },
+    {
+      "at": "2026-10-16T19:45:28.504263Z",
+      "ceiling": 21,
+      "from": 18,
+      "note": "precharged resumed full-coverage code review of both renewed R10 treatments (review-coverage, SendMessage a110876b976dcc812)",
+      "resource": "storyboard_critics",
+      "to": 19
     }
   ],
   "events": [
@@ -3651,6 +3659,24 @@
       "kind": "autonomous_completion_coverage_adopted",
       "policy_json": "{\n  \"version\": \"review-coverage-v1\",\n  \"effective_date\": \"2026-10-09\",\n  \"authorization_source_label\": \"Standing owner autonomous shipment and complete independent review instructions\",\n  \"scope\": \"Complete the same independent code assignment after its own retained handback discloses unread mandatory inputs\",\n  \"model\": \"claude-opus-5-5\",\n  \"effort\": \"high\",\n  \"provider_switch_allowed\": false,\n  \"production_edits_allowed\": false,\n  \"required_critics\": 3,\n  \"required_reboards\": 0,\n  \"preserve\": \"Original policies, frozen envelope, every charge and failure, both complete treatments, current guides, native PNG/CRF16, audio, captions, independent scoring and shipment\",\n  \"charge\": \"Reserve the actual resumed review before SendMessage to the same worker. Protect the separate silent comparison and final timed phone reviews.\",\n  \"approves_no_review_or_film\": true\n}\n",
       "policy_sha256": "7939c89e72eb0f65df3a11032e3f8c7b0bdcbd4dc4c2379c63680e46ee998d7b"
+    },
+    {
+      "at": "2026-10-16T19:45:28.504272Z",
+      "ceiling": 21,
+      "kind": "budget_escalated",
+      "note": "precharged resumed full-coverage code review of both renewed R10 treatments (review-coverage, SendMessage a110876b976dcc812)",
+      "now": 19,
+      "resource": "storyboard_critics",
+      "was": 18
+    },
+    {
+      "at": "2026-10-16T19:45:28.504279Z",
+      "kind": "reserved",
+      "note": "precharged resumed full-coverage code review of both renewed R10 treatments (review-coverage, SendMessage a110876b976dcc812)",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -3665,7 +3691,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 18,
+    "storyboard_critics": 19,
     "tts_calls": 12,
     "validator_agents": 5,
     "voice_directors": 1
@@ -3674,7 +3700,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "f4e786333f5969bbad14bffd708e0fc62b171f76b126a39460f750211933368e",
+    "original_private_state_sha256": "abd83b1d87c4cc41b7828b4673122749272c5ac36d48522942577507c1044c02",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -3710,7 +3736,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T19:45:11.235618Z",
+  "updated_at": "2026-10-16T19:45:28.504280Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -3723,7 +3749,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 18,
+    "storyboard_critics": 19,
     "tts_calls": 12,
     "validator_agents": 5,
     "voice_directors": 1
