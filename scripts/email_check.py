@@ -106,8 +106,9 @@ def check(email: Path, date: str) -> list[str]:
                 f"before creating it in Gmail, so the thing that ships is an artifact a gate "
                 f"can read rather than a side effect of a tool call."]
     text = email.read_text(encoding="utf-8")
+    from music_credit_payload import problems as music_credit_problems
     lines = text.splitlines()
-    p: list[str] = []
+    p: list[str] = music_credit_problems(email, date)
 
     if CAPTION_OPEN not in text or CAPTION_CLOSE not in text:
         p.append(f"the email carries no fenced caption. It must sit between {CAPTION_OPEN} "

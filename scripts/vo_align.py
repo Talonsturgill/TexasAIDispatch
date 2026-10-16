@@ -625,7 +625,7 @@ def split_at_clauses(groups, words, clauses):
 
 
 def cues(words: list[dict], cuts: list[float] | None = None,
-         clauses: list[dict] | None = None) -> list[dict]:
+         clauses: list[dict] | None = None, *, compact: bool = False) -> list[dict]:
     """Cues that break ONLY on measured boundaries, and PREFER the ones that make sense.
 
     MEASURED IS NOT THE SAME AS READABLE, and this took the whole difference on the chin.
@@ -643,6 +643,11 @@ def cues(words: list[dict], cuts: list[float] | None = None,
     """
     SENTENCE_END = (".", "!", "?", '."', '!"', '?"')
     CLAUSE_END = (",", ";", ":")
+    # Current phone captions prefer short complete clauses. Only measured acoustic
+    # boundaries are candidates; an indivisible long run still needs a new voice take.
+    hard_chars = MAX_CUE_CHARS if compact else HARD_CUE_CHARS
+    hard_seconds = MAX_CUE_S if compact else HARD_CUE_S
+    overshoot = 1.2 if compact else OVERSHOOT
 
     # WHERE THE NEXT MEASURED BOUNDARY IS, because the deferral below has to know what
     # declining this one actually costs.
@@ -701,7 +706,7 @@ def cues(words: list[dict], cuts: list[float] | None = None,
         # need no length gate at all: a short sentence is a fine cue and gating it is what
         # made "Half is running." swallow the sentence after it across a measured silence.
         ends_sentence = tok.endswith(SENTENCE_END)
-        runaway = len(text) >= HARD_CUE_CHARS or held >= HARD_CUE_S
+        runaway = len(text) >= hard_chars or held >= hard_seconds
 
         # A CEILING BREAK MAY NOT LAND ON A FUNCTION WORD, and this is the last thing three
         # judges in a row asked for. The ceiling fires at whatever measured boundary happens
@@ -726,10 +731,13 @@ def cues(words: list[dict], cuts: list[float] | None = None,
         # one, or reaching it would blow the hard ceiling on either axis, the ugly break
         # here is the better of the two available cards and gets taken.
         nxt_end = next_boundary_after(w["end"])
+        next_words = [x for x in words if w["end"] < x["end"] <= (nxt_end or w["end"])]
+        projected_chars = len(" ".join(x["word"] for x in cur + next_words))
         deferral_lands_ok = (nxt_end is not None
-                             and (nxt_end - cur[0]["start"]) <= HARD_CUE_S * OVERSHOOT)
+                             and (nxt_end - cur[0]["start"]) <= hard_seconds * overshoot
+                             and (not compact or projected_chars <= hard_chars))
         if runaway and not ends_sentence and tail_word in FUNCTION_TAIL \
-                and len(text) < HARD_CUE_CHARS * OVERSHOOT \
+                and len(text) < hard_chars * overshoot \
                 and deferral_lands_ok:
             continue
 
@@ -745,24 +753,22 @@ def cues(words: list[dict], cuts: list[float] | None = None,
         # So a boundary is taken when DECLINING it would break the hard ceiling, with a
         # floor under it so a boundary landing just after a cue opens does not shear off
         # a two word card. Still only measured boundaries. Still nothing invented.
-        next_words = [x for x in words if w["end"] < x["end"] <= (nxt_end or w["end"])]
-        projected_chars = len(" ".join(x["word"] for x in cur + next_words))
         last_exit = (len(text) >= 28 or held >= 1.2) and (
-            nxt_end is None or (nxt_end - cur[0]["start"]) > HARD_CUE_S * OVERSHOOT
-            or projected_chars > HARD_CUE_CHARS)
+            nxt_end is None or (nxt_end - cur[0]["start"]) > hard_seconds * overshoot
+            or projected_chars > hard_chars)
 
         if ends_sentence \
                 or runaway \
                 or last_exit \
-                or (tok.endswith(CLAUSE_END) and len(text) >= 64):
+                or (tok.endswith(CLAUSE_END) and len(text) >= (28 if compact else 64)):
             out.append(cur)
             cur = []
     if cur:
         # The tail is short enough to join its neighbour rather than flash on its own, and
         # joining costs nothing because the boundary between them was measured either way.
         if out and len(" ".join(x["word"] for x in cur)) < MAX_CUE_CHARS * 0.28 \
-                and (cur[-1]["end"] - out[-1][0]["start"]) < MAX_CUE_S * 1.5 \
-                and len(" ".join(x["word"] for x in out[-1] + cur)) <= HARD_CUE_CHARS:
+                and (cur[-1]["end"] - out[-1][0]["start"]) < MAX_CUE_S * (1 if compact else 1.5) \
+                and len(" ".join(x["word"] for x in out[-1] + cur)) <= hard_chars:
             out[-1].extend(cur)
         else:
             out.append(cur)
@@ -1348,6 +1354,7 @@ def main() -> int:
     # Scene starts, so no cue outlives the shot it belongs to. Read from the board rather than
     # passed as numbers, because the board is the only place the cuts actually are.
     cut_times: list[float] = []
+    compact = False
     clauses, clause_meta = None, None
     saved_caps = json.loads((out / "captions.json").read_text()) if a.verify else None
     clause_mode = a.clause_boundaries or bool((saved_caps or {}).get("narration_clause_segmentation"))
@@ -1356,6 +1363,7 @@ def main() -> int:
         return 1
     if a.cuts:
         board = json.loads(Path(a.cuts).read_text())
+        compact = str(board.get('date', ''))[:10] >= '2026-10-15'
         cut_times = sorted(float(s["start_s"]) for s in board.get("scenes", [])
                            if s.get("start_s"))
         if clause_mode:
@@ -1369,7 +1377,7 @@ def main() -> int:
                 cut_times = []
 
     try:
-        grouped = cues(res["words"], cut_times, clauses)
+        grouped = cues(res["words"], cut_times, clauses, compact=compact)
         if clause_mode:
             clause_meta, _ = clause_contract(res["words"], clauses)
     except (ValueError, TypeError, KeyError) as exc:
@@ -1382,6 +1390,8 @@ def main() -> int:
             "cues": grouped}
     if clause_meta is not None:
         caps["narration_clause_segmentation"] = clause_meta
+    if compact:
+        caps['grouping_profile'] = 'compact-measured-clauses-v1'
     if a.verify:
         saved_words = json.loads((out / "words.json").read_text())
         if Path(saved_caps.get("words_file", "")).resolve() == (out / "words.json").resolve():

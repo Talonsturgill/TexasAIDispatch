@@ -15,7 +15,7 @@ try {
   await build({entryPoints: [path.join(here, 'type_fit_probe.tsx')],
     bundle: true, platform: 'node', format: 'cjs', jsx: 'automatic',
     outfile, logLevel: 'error'});
-  const {captionLayout, captionBandHeight, creditLayout, widthOf, CAPTION_TEXT_WIDTH, SAFE_RIGHT, SAFE_BOTTOM} = createRequire(import.meta.url)(outfile);
+  const {captionLayout, captionBandHeight, creditLayout, widthOf, CAPTION_TEXT_WIDTH, SAFE_RIGHT, SAFE_BOTTOM, CAPTION_ENTRANCE_PX} = createRequire(import.meta.url)(outfile);
   const width = CAPTION_TEXT_WIDTH;
   // A cue may hold three lines only when captions.json declares max_lines 3 on it, the
   // renderer's own layout then gives at least 40, every line fits the safe width and the
@@ -34,17 +34,19 @@ try {
     } else if (fit.size < 29) {
       return `caption ${cue.id} would exceed the lower two-line band`;
     }
-    const top = SAFE_BOTTOM - captionBandHeight(fit);
+    const top = SAFE_BOTTOM - captionBandHeight(fit) - CAPTION_ENTRANCE_PX;
     if (top < SAFE_BOTTOM - tallest - 1e-6) return `caption ${cue.id} band rises above the three-line caption seat`;
     return null;
   };
   const layoutOf = (cue) => captionLayout(cue.text, width, cue.max_lines === 3 ? 3 : 2);
-  const check = (cue) => {
+  const check = (cue, modern = false) => {
     if (typeof cue.text !== "string" || !cue.text.trim()) throw new Error("caption text is missing");
     let fit;
     try { fit = layoutOf(cue); } catch (e) { throw new Error(`caption ${cue.id} would exceed the lower two-line band`); }
     const problem = verdict(cue, fit);
     if (problem) throw new Error(problem);
+    if (modern && (fit.lines.length > 2 || fit.size < 40))
+      throw new Error(`caption ${cue.id} needs shorter measured clauses for two lines at 40 or more; never drop words or invent a boundary`);
     return fit;
   };
   const checkCredits = (text) => creditLayout(text, SAFE_RIGHT - 78, 850, SAFE_BOTTOM - 28);
@@ -64,6 +66,16 @@ try {
     const base = check({id: 'fits', text: 'The proposed local gate stayed open.'});
     if (JSON.stringify(same) !== JSON.stringify(base)) throw new Error('a declaration changed a cue that already fits on two lines');
     const refuse = (label, cue, fit) => { if (!verdict(cue, fit)) throw new Error(label + ' was accepted'); };
+    const seatCue = {id: 'entrance', text: 'One two three', max_lines: 3};
+    refuse('a three-line 44px cue lifted above the caption seat on entry', seatCue,
+      {lines: ['One', 'two', 'three'], size: 44});
+    if (verdict(seatCue, {lines: ['One', 'two', 'three'], size: 42}))
+      throw new Error('the valid 42px three-line historical control was refused');
+    check({id: 'modern-readable', text: 'The sensor can report rising water.'}, true);
+    let denseRejected = false;
+    try { check({id: 'modern-dense', text: longCue, max_lines: 3}, true); }
+    catch { denseRejected = true; }
+    if (!denseRejected) throw new Error('a new three-line cue passed the two-line phone contract');
     refuse('a three-line layout without the declaration', {id: 'x', text: longCue}, declared);
     refuse('a declared three-line layout at 38', {id: 'x', text: longCue, max_lines: 3}, {lines: declared.lines, size: 38});
     refuse('a line wider than the safe width', {id: 'x', text: longCue, max_lines: 3},
@@ -89,7 +101,7 @@ try {
         throw new Error("current timed board has no measured narration captions to inspect");
       console.log('caption_board_fit: early muted picture animatic has no cues; final timed board must be checked');
     }
-    const fits = cues.map((cue) => check(cue));
+    const fits = cues.map((cue) => check(cue, String(board.date || '') >= '2026-10-15'));
     if (board.credits) checkCredits(board.credits);
     const three = fits.filter((fit) => fit.lines.length === 3).length;
     console.log(`caption_board_fit: ${cues.length} exact board cues fit the lower band` +

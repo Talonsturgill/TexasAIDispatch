@@ -72,6 +72,12 @@ energy changes and only earned breathing room at the source-backed turn and clos
 Shorten sluggish writing before synthesis. Keep one continuous take, actual alignment and
 independent audible checks; never time-stretch or infer that fast words are automatically good.
 
+From October 15th, design natural breaths at complete clause boundaries so the measured read
+can form short two-line phone captions. Keep articles with their nouns, units with numbers and
+source qualifiers with the claim. Avoid a breath after a preposition or a long uninterrupted
+sentence that forces small text. Keep the closing answer in its own spoken phrase so subtitles
+do not reveal it early. Use conversational direction, never numeric timing or spoken tags.
+
 
 ## Narration and picture use one clock
 
