@@ -1,4 +1,38 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/opening-a.json",
+        "before_sha256": "ad9686a7d862c142bdc1c4ce16cff1d749316685bac932af0279aeb99d6a9088",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/opening-b.json",
+        "before_sha256": "4501bbcefc6f17fa736745411c75c5a24c89895027a88ac0611d82efd25c6dd0",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/storyboard.json",
+        "before_sha256": "25e8ae1d03bc65223717efae65454c61d711a9306b68b9327cc5ca5d5a7ff720",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/FloodStationFilm.tsx",
+        "before_sha256": "8943704cb4527a9900f162a85b6e7d264e2e8f955a20149a39608e4b200cbfb4",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/modern_episode_registry.json",
+        "before_sha256": "85518b5820144532ecd78ec6e73977d3ee90d6c8afd819a554207b9c3bb9e69e",
+        "path": "{REPO}/config/modern_episode_registry.json"
+      }
+    ],
+    "failure_sha256": "192aca191ba4766f51ab531cd4c32029c2a0564d8d5ee7bfaaf27ae3e8417ec7",
+    "plan": "{REPO}/out/dispatch/repair-plan.json",
+    "plan_sha256": "d635278840d5e0bb0791749163e4dfd8248ab645a45e2d83fcae9ed088d0c510",
+    "reboards_before": 7,
+    "repair_scope": "technical-integrity"
+  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -4773,6 +4807,56 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-16T22:02:42.537820Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/opening-a.json",
+          "before_sha256": "ad9686a7d862c142bdc1c4ce16cff1d749316685bac932af0279aeb99d6a9088",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/opening-b.json",
+          "before_sha256": "4501bbcefc6f17fa736745411c75c5a24c89895027a88ac0611d82efd25c6dd0",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/storyboard.json",
+          "before_sha256": "25e8ae1d03bc65223717efae65454c61d711a9306b68b9327cc5ca5d5a7ff720",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/FloodStationFilm.tsx",
+          "before_sha256": "8943704cb4527a9900f162a85b6e7d264e2e8f955a20149a39608e4b200cbfb4",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r13-funding/baseline/modern_episode_registry.json",
+          "before_sha256": "85518b5820144532ecd78ec6e73977d3ee90d6c8afd819a554207b9c3bb9e69e",
+          "path": "{REPO}/config/modern_episode_registry.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "measured-runtime-crowding",
+      "failure_sha256": "192aca191ba4766f51ab531cd4c32029c2a0564d8d5ee7bfaaf27ae3e8417ec7",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 25,
+          "to": 25
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "measured-scene-split-at-clause-boundary",
+      "plan_identity": null,
+      "plan_sha256": "d635278840d5e0bb0791749163e4dfd8248ab645a45e2d83fcae9ed088d0c510",
+      "repair_scope": "technical-integrity"
     }
   ],
   "limits": {
@@ -4796,7 +4880,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "91de5a30b90b8b15fc749f2ee1fb0a5ce024f69af937c78bad38d47e06ab8c5e",
+    "original_private_state_sha256": "f9d8355f11aa5ddcf9f701ac02be72c9591c2bccd2217c93fae8b74470420e3d",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -4832,7 +4916,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-16T21:26:21.846524Z",
+  "updated_at": "2026-10-16T22:02:42.537841Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
