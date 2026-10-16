@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T23:14:13.625517+00:00",
-  "note": "R14 renewed comparison rendered (both inspections pass), phone pages stripped on host, media-limit receipt accepted, provider comparison ReadTimeout 180s charged; held for bounded retry route",
+  "saved_at": "2026-10-16T23:15:50.320047+00:00",
+  "note": "Provider ReadTimeout evidence, enriched and finish-only budget diagnostics preserved; holding provider retry for tested recovery",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -11116,6 +11116,72 @@
       "size": 50
     },
     {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/README.md",
+      "class": "scratch",
+      "sha256": "732c29b929afaeedc1f1788d497c1b313b0b8c0458aa5a2c3a3e326d206e043a",
+      "size": 1549
+    },
+    {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/budget-enriched-host.json",
+      "class": "scratch",
+      "sha256": "5bbdba25e8111984d7d6ee201c42540131db93e12f0c72614ccf1ee6009c8014",
+      "size": 1589
+    },
+    {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/budget-enriched-provider.json",
+      "class": "scratch",
+      "sha256": "63125ce7e8b075491add2a757629bbf9c3fead99ce02bfc5675d63e195c63d05",
+      "size": 1593
+    },
+    {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/budget-finish-only-host.json",
+      "class": "scratch",
+      "sha256": "b75795fbf0debcdbaf74150202be5f080342fd1753f63f16a976c4eccb5d9842",
+      "size": 1490
+    },
+    {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/budget-finish-only-provider.json",
+      "class": "scratch",
+      "sha256": "fb1e54d1601989c44b161369bf5937154fa9238cb9b7834e37d52b7223147345",
+      "size": 1494
+    },
+    {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/checkpoint.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/ledger-now.json",
+      "class": "scratch",
+      "sha256": "94aa57b5b6dee49ea2c9249bcef7c1c8408ec6a163705f6e235b499291adc104",
+      "size": 2594
+    },
+    {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/plan-enriched-actually-used.json",
+      "class": "scratch",
+      "sha256": "16ec6bbacb22a1b81fcd8b65f278e40055a742cbeca2c02450bea47e9ba321eb",
+      "size": 7725
+    },
+    {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/plan-finish-only-r13b.json",
+      "class": "scratch",
+      "sha256": "74a44e64afcc4ef17f4d6c8d4afa5963445d3d5857f2abe8ba78f01490d6c47c",
+      "size": 1568
+    },
+    {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/provider-cache-attempt.json",
+      "class": "scratch",
+      "sha256": "28c5eb9d1e8f273c618f44b74d9f556660cb4cd34067c00e485012f5dbe6e2c9",
+      "size": 14946
+    },
+    {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/provider-compare.log",
+      "class": "scratch",
+      "sha256": "6623527816ef5d9a0a5a98c73fa1d0279e5a2eda5e9a25692bec19eccd2acafd",
+      "size": 82
+    },
+    {
       "path": "out/dispatch/evidence/r14-funding/authorize-compare.log",
       "class": "scratch",
       "sha256": "86e959002eec189969fe63422e5e89e9ba8a2ce7d3f01c09a8e77940445e3ac4",
@@ -11262,8 +11328,8 @@
     {
       "path": "out/dispatch/evidence/r14-phone-transport/checkpoint.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "ed0e4b519e8dc2308632d0b1765f3bea0fbe5779ac90558e5cb2b378e6addc02",
+      "size": 249
     },
     {
       "path": "out/dispatch/evidence/r14-phone-transport/coverage-director-projected.json",
