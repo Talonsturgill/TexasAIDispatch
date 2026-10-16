@@ -1,0 +1,9 @@
+The coordinator sent a message while you were working:
+Revalidation request (reserved as validator_agents 2/2). The director applied your required edits. Please re-Read and verify, then return the complete validation object for the final report.
+
+1. out/dispatch/story_selection.json was corrected for every item in your rejected list (earned_take, counter_image, human_consequence, title and curb wording, why_today, agency, source_limit, affected_person). Re-read it and confirm no unsupported framing remains.
+2. out/dispatch/claims.json now has c1 to c19. New claims c15 (dateline "September 8, 2026"), c16, c17, c18, c19 quote live sentences you cited. Verify them character by character against out/dispatch/sources/utsa.txt and the live page. Set verdicts for all of c1 to c19 (the file still reads PENDING; you edit nothing, just report).
+3. NEW: out/dispatch/vo_script.txt is the narration. Inspect every spoken sentence and its support. The director's intended bindings: s1 c12; s2 c5,c6,c14; s3 c2; s4 c3,c18; s5 c6; s6 c7,c16,c17; s7 c8; s8 c4; s9 c1,c10 (the absence of a named installation is the announcement's own silence, see c1/c10 scope notes and the Docket record). Spoken numbers are words (one hundred fifty to two hundred twenty dollars, ninety eight point eight two percent, half-mile, five miles). Flag any sentence that overstates, any qualifier dropped, any numeral not in a verified quote, and any sentence whose claim binding is wrong. Also check house rules: no colons, semicolons, em or en dashes, no first person, never 'cannot', ordinal dates, no sentence opened with And or But, and none of the banned words gap, matters, pattern.
+Return the same JSON handoff shape: claims, rejected, validation (date 2026-10-15, result PASS only if nothing pending remains, else REVISE with exact required edits). Do not spawn agents.
+
+Address this before completing your current task.

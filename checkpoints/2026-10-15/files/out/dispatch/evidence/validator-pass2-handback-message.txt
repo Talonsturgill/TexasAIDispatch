@@ -1,0 +1,110 @@
+{
+ "handoff": "validator",
+ "pass": "revalidation (validator_agents 2/2)",
+ "edition_date": "2026-10-15",
+ "worker": {"model": "claude-opus-5-5", "effort": "high", "agent": "validator", "spawned_agents": 0},
+ "summary": "All 19 claims, c1 to c19, are VERIFIED. Each quote matches out/dispatch/sources/utsa.txt character for character, including U+2019 apostrophes, the em dash in c18 and the typographic quotation marks in c10. The quotes were also re-found on the live UTSA page. Every item in the earlier rejected list has been corrected in story_selection.json, and no unsupported framing remains there. The narration out/dispatch/vo_script.txt has 9 spoken sentences. Sentence s5 drops the source's capability qualifier: 'can travel' became 'carries'. That makes a stated range read as a fact, and it is a pending correction, so the result is REVISE. Every other sentence is supported, every spoken number is in a verified quote, and all house rules pass.",
+ "input_verification": {
+  "files_read_in_full": [
+   "/home/user/TexasAIDispatch/out/dispatch/story_selection.json (corrected version)",
+   "/home/user/TexasAIDispatch/out/dispatch/claims.json (c1 to c19, all PENDING)",
+   "/home/user/TexasAIDispatch/out/dispatch/vo_script.txt (9 lines)",
+   "/home/user/TexasAIDispatch/out/dispatch/sources/utsa.txt (article body, lines 80 to 121, read again; the full file was read in the first pass)"
+  ],
+  "sha256": "Not recomputed. This worker has only Read and WebFetch. Every claim's source_snapshot_sha256 string is still 9ec493983d1b4b41a043b5eb934563ca37c64e1f98a2bb88bca90a8e49b551c9. No revised packet hash was supplied for the edited story_selection.json, claims.json or vo_script.txt. The director must run the mechanical hash binding."
+ },
+ "source_fetches": [
+  {"url": "https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/", "retrieved": "2026-10-15", "status": "reachable; five WebFetch passes over both rounds", "findings": "Fetched again in this pass. The dateline reads 'September 8, 2026'. The live page has 'Pan’s system sidesteps this roadblock by using TinyML' with U+2019 and a U+2014 em dash after TinyML, followed by 'so they can run directly on small, low-power microcontrollers.' It also has 'Pan is currently pursuing patent protection for the hardware architecture.' and 'At the central monitoring site, custom server software aggregates data from multiple deployed nodes across a town or watershed.' The full c17 sentence is present, and so is 'When the station detects rising water risks, it sends lightweight radio signals using LoRa (Long Range) wireless technology.' 'The dashboard assesses risk levels and shows how flooding could spread across monitored locations, highlighting higher-risk zones so local officials can act quickly.' is also present but is in no claim. The page names no installation site, city deployment or field-test location."},
+  {"url": "https://texasaidocket.com/item/tx-2026-0141/", "retrieved": "2026-10-15 (first pass)", "status": "reachable", "findings": "The record says 'It is a prototype and the announcement names no place that has installed one.' It still misdates the UTSA announcement as September 28th, 2026. That is an external Docket defect and no Dispatch claim or sentence relies on it."},
+  {"url": "https://glo.texas.gov/es/node/100126", "retrieved": "2026-10-15 (first pass)", "status": "reachable", "findings": "The page confirms the UTSA project 'Smart and Self-Sustaining Early Warning Systems for Coastal Flooding', 'Start Date 2023-12-01', with Chen Pan as contact. No narration sentence relies on it."}
+ ],
+ "claims": [
+  {"id": "c1", "quote": "Researchers at The University of Texas at San Antonio have developed a self-sustaining, artificial intelligence-powered flood warning system designed to spot dangerous water accumulation at the street level.", "verdict": "VERIFIED", "evidence": "Snapshot line 95; live page."},
+  {"id": "c2", "quote": "The resulting prototype combines temperature, humidity, light and precipitation sensing, as well as four optical water-level sensors mounted at varying heights.", "verdict": "VERIFIED", "evidence": "Snapshot line 102; live page."},
+  {"id": "c3", "quote": "This on-device AI evaluates current and recent sensor data to predict localized, imminent flood risk without relying on a central server.", "verdict": "VERIFIED", "evidence": "Snapshot line 106; live page."},
+  {"id": "c4", "quote": "So far, the AI has performed well, achieving 98.82% validation accuracy in initial assessments post-training.", "verdict": "VERIFIED", "evidence": "Snapshot line 107; live page. '98.82%' checked character by character."},
+  {"id": "c5", "quote": "An onboard power chip collects ambient light to charge a built-in battery and backup energy storage units, allowing the device to run indefinitely on a fraction of the energy used by a smartphone.", "verdict": "VERIFIED", "evidence": "Snapshot line 109; live page."},
+  {"id": "c6", "quote": "These low-power signals can travel more than a half-mile through city streets and up to five miles in open areas without needing cell towers or power lines. The data arrives instantly at a local central hub, where emergency teams can monitor conditions from miles away.", "verdict": "VERIFIED", "evidence": "Snapshot line 110; live page."},
+  {"id": "c7", "quote": "A second, larger AI model analyzes spatial and temporal patterns across the network to generate an interactive web dashboard with predictive maps.", "verdict": "VERIFIED", "evidence": "Snapshot line 112; live page. The source word 'patterns' stays inside a verbatim quote and is never narrated."},
+  {"id": "c8", "quote": "The total cost of parts for one prototype sensing station ranges from roughly $150 to $220.", "verdict": "VERIFIED", "evidence": "Snapshot line 116; live page. '$150 to $220' checked character by character."},
+  {"id": "c9", "quote": "The team aims to refine the design into a sleeker, weatherized commercial product suitable for deployment by small coastal municipalities, homeowners’ associations, agricultural operations and industrial sites.", "verdict": "VERIFIED", "evidence": "Snapshot line 117; live page, with the U+2019 apostrophe confirmed."},
+  {"id": "c10", "quote": "“Our ultimate goal is to get this technology deployed where it’s needed most,”", "verdict": "VERIFIED", "evidence": "Snapshot line 118; live page."},
+  {"id": "c11", "quote": "This project was funded in part by a Texas Coastal Management Program grant awarded by the National Oceanic and Atmospheric Administration (NOAA).", "verdict": "VERIFIED", "evidence": "Snapshot line 99; live page."},
+  {"id": "c12", "quote": "That means some people could have ankle-deep water in their yard by the time a flash flood warning notification sounds on their phone.", "verdict": "VERIFIED", "evidence": "Snapshot line 94; live page."},
+  {"id": "c13", "quote": "Existing commercial flood-monitoring stations also come with drawbacks, from prohibitively high costs to reliance on grid power or frequent battery replacements, which leaves them vulnerable during multi-day storms or power outages.", "verdict": "VERIFIED", "evidence": "Snapshot line 101; live page."},
+  {"id": "c14", "quote": "Our system is an off-grid solution. It generates its own power, evaluates flood risk locally right on the device and sends timely warnings without needing external electricity or expensive network lines.", "verdict": "VERIFIED", "evidence": "Snapshot line 97; live page."},
+  {"id": "c15", "text": "The university story is dated September 8th, 2026.", "quote": "September 8, 2026", "verdict": "VERIFIED", "evidence": "Snapshot line 85, the dateline above the byline 'Audrey Gray'. The live dateline reads 'September 8, 2026' exactly."},
+  {"id": "c16", "text": "The university says custom server software at the central monitoring site gathers data from many nodes across a town or watershed.", "quote": "At the central monitoring site, custom server software aggregates data from multiple deployed nodes across a town or watershed.", "verdict": "VERIFIED", "evidence": "Snapshot line 112, first sentence; live page in two halves. The quote is exact. The text's 'many' paraphrases the source's 'multiple', which is acceptable outside a quote."},
+  {"id": "c17", "text": "The university says the flood-path view helps emergency responders decide on dispatching crews, closing dangerous roads or issuing targeted neighborhood warnings.", "quote": "This flood-path visualization supports emergency responders as they make crucial decisions, such as dispatching crews, closing dangerous roads or issuing targeted neighborhood warnings long before floodwaters peak.", "verdict": "VERIFIED", "evidence": "Snapshot line 114; live page in two halves. Exact."},
+  {"id": "c18", "text": "The university says the node uses TinyML, which compresses machine learning so it can run on small, low-power microcontrollers.", "quote": "Pan’s system sidesteps this roadblock by using TinyML — a branch of computer science that compresses machine learning algorithms so they can run directly on small, low-power microcontrollers.", "verdict": "VERIFIED", "evidence": "Snapshot line 106, first sentence. On the live page the head, the U+2019 in 'Pan’s', the U+2014 em dash and the tail were each confirmed. The em dash belongs to the verbatim quote, so it must never be spoken or printed as house copy."},
+  {"id": "c19", "text": "The university says Pan is currently pursuing patent protection for the hardware architecture.", "quote": "Pan is currently pursuing patent protection for the hardware architecture.", "verdict": "VERIFIED", "evidence": "Snapshot line 117, first sentence; live page. Exact."}
+ ],
+ "claims_note": "Every claim keeps the url https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/, retrieved 2026-10-15T05:31:58.191815+00:00, source_type primary_official and the snapshot binding shown in claims.json. Set each claim's verdict field to VERIFIED and change no text or quote.",
+ "story_selection_recheck": {
+  "result": "Every item in the first pass's rejected list is corrected. No unsupported framing remains.",
+  "items": [
+   "The title is now 'The station that counts the water', and no curb wording remains. 'street-side post' appears only in a pictured_action disclosed as Illustration.",
+   "why_today now gives only the source date, September 8th, 2026, and the Docket's decided status. The freshness and dedupe assertions are gone.",
+   "application_change no longer names a curb placement.",
+   "counter_image now says 'the article reports no field or street result', which is supported.",
+   "earned_take now gives the parts cost of one prototype, roughly $150 to $220, which is in c8's quote, plus 'a validation figure' and 'names no place that uses one'. The phone comparison is gone.",
+   "agency.next_step attributes the patent to Pan (c19) and the commercial aim to the team (c9).",
+   "who_can_act now uses the source's own deployment list (c9) and the funding statement (c11).",
+   "human_consequence now reads 'No affected resident or responder is named in any source', which is accurate.",
+   "source_limit is now limited to the design and accuracy claims, which is accurate.",
+   "affected_person is now an illustrated emergency worker and driver, 'both disclosed illustration'."
+  ]
+ },
+ "narration_review": [
+  {"sentence": "s1", "text": "UT San Antonio says some people could have ankle-deep water in their yard before a flood warning sounds on their phone.", "bindings": ["c12"], "verdict": "SUPPORTED", "note": "The narration keeps the attribution and the source's 'could'. 'before' for the source's 'by the time' keeps the meaning. It drops 'flash' from 'flash flood warning notification', which is harmless."},
+  {"sentence": "s2", "text": "So its researchers built a flood station that charges itself from light and needs no cell tower.", "bindings": ["c5", "c6", "c14"], "verdict": "SUPPORTED", "note": "Light charging is c5, and 'needs no cell tower' comes from c6 ('without needing cell towers') and c14. Advisory: the sentence also says the researchers built it, which is c1's quote. Adding c1 to the binding would be stronger, but the current binding is not wrong."},
+  {"sentence": "s3", "text": "Four optical sensors at different heights watch the water, along with rain, temperature, humidity and light.", "bindings": ["c2"], "verdict": "SUPPORTED", "note": "'Four' is in c2's quote, and 'rain' stands for the source's 'precipitation'."},
+  {"sentence": "s4", "text": "A small chip on the station runs the AI itself, so it judges flood risk without a central server.", "bindings": ["c3", "c18"], "verdict": "SUPPORTED"},
+  {"sentence": "s5", "text": "When the risk rises, a radio signal carries more than a half-mile through city streets, and up to five miles in open country, to a hub.", "bindings": ["c6"], "verdict": "REVISE", "note": "QUALIFIER DROPPED. The source says the signals 'can travel more than a half-mile through city streets and up to five miles in open areas'. That is a stated capability. 'carries more than a half-mile' states it as an accomplished, guaranteed fact, and no source reports a measured transmission. Required edit: replace 'carries' with 'can carry'. The required sentence is 'When the risk rises, a radio signal can carry more than a half-mile through city streets, and up to five miles in open country, to a hub.' 'half-mile' and 'five miles' are in c6's quote, and 'open country' paraphrases the source's 'open areas', which is acceptable."},
+  {"sentence": "s6", "text": "At the hub, a second, larger AI model draws a map of how flooding could spread, for emergency responders.", "bindings": ["c7", "c16", "c17"], "verdict": "SUPPORTED", "note": "c7 gives 'predictive maps', c17 gives the 'flood-path visualization' supporting 'emergency responders', and c16 places it at the central monitoring site. Advisory: 'how flooding could spread' copies Pan's live sentence, 'The dashboard assesses risk levels and shows how flooding could spread across monitored locations,', which no claim holds. The paraphrase is supported by c7 and c17. Adding that sentence as a claim would make the binding exact."},
+  {"sentence": "s7", "text": "The parts for one prototype station cost roughly one hundred fifty to two hundred twenty dollars.", "bindings": ["c8"], "verdict": "SUPPORTED", "note": "The narration keeps 'roughly', 'parts' and 'one prototype'. 150 and 220 are in c8's quote as '$150 to $220'."},
+  {"sentence": "s8", "text": "The university reports ninety eight point eight two percent validation accuracy from early assessments, and no field result.", "bindings": ["c4"], "verdict": "SUPPORTED", "note": "98.82 is in c4's quote, and 'early' stands for the source's 'initial'. The source's 'post-training' is dropped, but 'validation accuracy' and 'and no field result' keep the limit, so nothing is overstated. Advisory: 'from early assessments after training' would match the source more exactly. 'no field result' is an absence, confirmed by the live fetch and by c4's scope note."},
+  {"sentence": "s9", "text": "It names no town that has installed one. Deployment is still the goal.", "bindings": ["c1", "c10"], "verdict": "SUPPORTED", "note": "The absence of an installed site was confirmed by the live fetch and by the Docket record's own sentence. 'Deployment is still the goal' rests on c10."}
+ ],
+ "house_rules_check": {
+  "colons": "none",
+  "semicolons": "none",
+  "em_or_en_dashes": "none in the narration; ankle-deep and half-mile use hyphens",
+  "first_person": "none",
+  "cannot": "none",
+  "dates": "no date is spoken. If a super shows one, use c15 in ordinal form, September 8th",
+  "opening_And_or_But": "none; s2 opens with 'So', which is permitted",
+  "banned_words_gap_matters_pattern": "none in the narration",
+  "digits_in_script": "none; all spoken numbers are words and each is in a verified quote (c2, c4, c6, c8)",
+  "emojis_and_curly_quotes": "none"
+ },
+ "rejected": [
+  {"id": "vo_script s5", "kind": "dropped qualifier, overstatement", "defect": "'a radio signal carries more than a half-mile through city streets' turns the source's 'These low-power signals can travel more than a half-mile through city streets' into a fact. Required edit: 'can carry'."},
+  {"id": "Docket record tx-2026-0141 (external, not blocking Dispatch)", "kind": "source defect in the sibling record", "defect": "The record dates the UTSA announcement September 28th, 2026, against the primary source's September 8, 2026. This is for a separate Docket repair in its own lane. No Dispatch claim or sentence uses it."}
+ ],
+ "validation": {
+  "date": "2026-10-15",
+  "source": "validator (claude-opus-5-5, high effort, isolated, no sub-agents), revalidation pass. The UTSA page https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/ was re-fetched on 2026-10-15 with exact head and tail queries, and its dateline, the c16 to c19 sentences and the c6 context were confirmed live. out/dispatch/sources/utsa.txt was read again and every quote in c1 to c19 was compared with it character by character. The corrected out/dispatch/story_selection.json and out/dispatch/vo_script.txt were read in full. https://texasaidocket.com/item/tx-2026-0141/ and https://glo.texas.gov/es/node/100126 were fetched on 2026-10-15 in the first pass.",
+  "result": "REVISE",
+  "result_reason": "All 19 claims are VERIFIED, and story_selection.json carries no unsupported framing. One narration correction is pending. s5 must read 'can carry' in place of 'carries' to keep the source's capability qualifier 'can travel'. Pending corrections can't receive PASS. After that one-word edit, s1 to s9 are fully supported by their bindings, and no claim needs to be dropped.",
+  "verified_claim_ids": ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19"],
+  "rejected": [
+   "No claim id was rejected. All 19 submitted claims, c1 to c19, are verbatim in the snapshot and on the live page. c15 is the dateline 'September 8, 2026'. c16, c17, c18 and c19 are exact live sentences, including the U+2019 apostrophe and U+2014 em dash in c18.",
+   "vo_script s5 drops the source qualifier. 'a radio signal carries more than a half-mile through city streets' states as fact what the source gives as a capability: 'These low-power signals can travel more than a half-mile through city streets and up to five miles in open areas'.",
+   "The earlier story_selection rejections are all resolved, so none is carried forward: earned_take phone price, counter_image, human_consequence, curb wording, why_today, agency, source_limit and affected_person.",
+   "External and not blocking: Docket record tx-2026-0141 still dates the announcement September 28th, 2026 against the source's September 8, 2026. It is for a separate Docket repair, and no Dispatch claim or sentence relies on it."
+  ],
+  "required_edits_applied": [
+   "Applied by the director before this pass and verified here: story_selection.json corrections to the title, application_change, why_today, counter_image, earned_take, agency, human_consequence, source_limit and affected_person, and the addition of claims c15 to c19.",
+   "Required and not yet applied: in vo_script.txt s5, replace 'carries' with 'can carry'. No validator edits were made because the validator's tools are read-only.",
+   "Advisory and not required: add c1 to s2's bindings. Add a claim quoting Pan's live sentence on 'shows how flooding could spread' for s6. Consider 'from early assessments after training' in s8."
+  ]
+ },
+ "next_step_note": "validator_agents is at 2 of 2. A PASS for the corrected s5 needs another independent validator pass on the edited vo_script.txt. The director can't write that PASS into this object, so it must be obtained through the controller's charged recovery rules. This report must be saved unchanged.",
+ "files": [
+  "/home/user/TexasAIDispatch/out/dispatch/claims.json",
+  "/home/user/TexasAIDispatch/out/dispatch/story_selection.json",
+  "/home/user/TexasAIDispatch/out/dispatch/vo_script.txt",
+  "/home/user/TexasAIDispatch/out/dispatch/sources/utsa.txt"
+ ]
+}

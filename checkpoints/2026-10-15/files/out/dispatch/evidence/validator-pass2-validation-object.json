@@ -1,0 +1,38 @@
+{
+ "date": "2026-10-15",
+ "source": "validator (claude-opus-5-5, high effort, isolated, no sub-agents), revalidation pass. The UTSA page https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/ was re-fetched on 2026-10-15 with exact head and tail queries, and its dateline, the c16 to c19 sentences and the c6 context were confirmed live. out/dispatch/sources/utsa.txt was read again and every quote in c1 to c19 was compared with it character by character. The corrected out/dispatch/story_selection.json and out/dispatch/vo_script.txt were read in full. https://texasaidocket.com/item/tx-2026-0141/ and https://glo.texas.gov/es/node/100126 were fetched on 2026-10-15 in the first pass.",
+ "result": "REVISE",
+ "result_reason": "All 19 claims are VERIFIED, and story_selection.json carries no unsupported framing. One narration correction is pending. s5 must read 'can carry' in place of 'carries' to keep the source's capability qualifier 'can travel'. Pending corrections can't receive PASS. After that one-word edit, s1 to s9 are fully supported by their bindings, and no claim needs to be dropped.",
+ "verified_claim_ids": [
+  "c1",
+  "c2",
+  "c3",
+  "c4",
+  "c5",
+  "c6",
+  "c7",
+  "c8",
+  "c9",
+  "c10",
+  "c11",
+  "c12",
+  "c13",
+  "c14",
+  "c15",
+  "c16",
+  "c17",
+  "c18",
+  "c19"
+ ],
+ "rejected": [
+  "No claim id was rejected. All 19 submitted claims, c1 to c19, are verbatim in the snapshot and on the live page. c15 is the dateline 'September 8, 2026'. c16, c17, c18 and c19 are exact live sentences, including the U+2019 apostrophe and U+2014 em dash in c18.",
+  "vo_script s5 drops the source qualifier. 'a radio signal carries more than a half-mile through city streets' states as fact what the source gives as a capability: 'These low-power signals can travel more than a half-mile through city streets and up to five miles in open areas'.",
+  "The earlier story_selection rejections are all resolved, so none is carried forward: earned_take phone price, counter_image, human_consequence, curb wording, why_today, agency, source_limit and affected_person.",
+  "External and not blocking: Docket record tx-2026-0141 still dates the announcement September 28th, 2026 against the source's September 8, 2026. It is for a separate Docket repair, and no Dispatch claim or sentence relies on it."
+ ],
+ "required_edits_applied": [
+  "Applied by the director before this pass and verified here: story_selection.json corrections to the title, application_change, why_today, counter_image, earned_take, agency, human_consequence, source_limit and affected_person, and the addition of claims c15 to c19.",
+  "Required and not yet applied: in vo_script.txt s5, replace 'carries' with 'can carry'. No validator edits were made because the validator's tools are read-only.",
+  "Advisory and not required: add c1 to s2's bindings. Add a claim quoting Pan's live sentence on 'shows how flooding could spread' for s6. Consider 'from early assessments after training' in s8."
+ ]
+}

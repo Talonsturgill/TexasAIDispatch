@@ -1,0 +1,37 @@
+{
+ "date": "2026-10-15",
+ "source": "validator (claude-opus-5-5, high effort, isolated, no sub-agents). The UTSA page https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/ was re-fetched on 2026-10-15 in four WebFetch passes using head and tail exact-match queries. The director's snapshot out/dispatch/sources/utsa.txt was read in full and every claim quote was compared with it character by character. https://texasaidocket.com/item/tx-2026-0141/ and https://glo.texas.gov/es/node/100126 were also fetched on 2026-10-15.",
+ "result": "REVISE",
+ "result_reason": "All 14 claims are independently VERIFIED, and every quote matches both the snapshot and the live page. The live page carries 98.82%, $150 to $220, half-mile, five miles and the September 8, 2026 dateline. The report can't read PASS because story_selection.json has pending factual and framing corrections, listed in rejected. The main one is the unsupported 'roughly the price of a phone' in earned_take, and pending corrections can't receive PASS. After the listed edits are made and re-validated, the claims set needs no drops.",
+ "verified_claim_ids": [
+  "c1",
+  "c2",
+  "c3",
+  "c4",
+  "c5",
+  "c6",
+  "c7",
+  "c8",
+  "c9",
+  "c10",
+  "c11",
+  "c12",
+  "c13",
+  "c14"
+ ],
+ "rejected": [
+  "No claim id was rejected. All 14 submitted claims are supported by the live page and match the snapshot verbatim.",
+  "story_selection earned_take: 'roughly the price of a phone' is in no source. The page compares the device to a smartphone only by energy. The only cost is the parts cost of one prototype, 'roughly $150 to $220'. 'box on the curb' rests on a curb placement no source describes.",
+  "story_selection counter_image: 'not street results' goes beyond the source, which does not say what data the 98.82% validation used. The supported wording is that the article reports no field or street result.",
+  "story_selection filmability.human_consequence: 'No person is named in any source' is false. Chen Pan, Mimi Xie, Hua Zhang, Wenlu Wang and Audrey Gray are named on the UTSA page.",
+  "story_selection application_change and title: 'curb station' and 'curb post' state a mounting location absent from every source. They may only be used as disclosed illustration.",
+  "story_selection why_today: 'no earlier Dispatch has covered street flooding' and 'the freshest Texas AI story found this week' are unsupported by any fetched source. The source is dated September 8th, 2026.",
+  "story_selection agency: the page attributes the commercial aim to 'The team', not to Pan alone. Its deployment list is small coastal municipalities, homeowners’ associations, agricultural operations and industrial sites, not emergency managers.",
+  "story_selection source_limit and affected_person: the GLO page also confirms the project, so 'the only source' should be limited to the design and accuracy claims. The San Antonio emergency manager is hypothetical and must stay disclosed illustration.",
+  "Docket record tx-2026-0141 misdates the UTSA announcement as September 28th, 2026 and lists tracking since September 10th, 2026. The primary source says September 8, 2026. This is for a separate Docket repair, and no Dispatch claim relies on it."
+ ],
+ "required_edits_applied": [
+  "None applied. The validator has read-only tools and edited no file. Every correction in rejected is pending for the director in out/dispatch/story_selection.json. claims.json needs only its verdicts set to VERIFIED for c1 to c14, with no text or quote change.",
+  "Not reviewed: the narration and its bindings were not supplied. That check remains before synthesis."
+ ]
+}
