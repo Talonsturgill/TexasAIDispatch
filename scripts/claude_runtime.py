@@ -176,6 +176,8 @@ def image_coverage_problems(packet_path, coverage_path):
         image_policy_inputs(data)
         refs = ([r['motion_sequence'] for r in data['phone_options']] if data.get('role') == 'storyboard-critic'
                 else [data['motion_sequence']])
+        if not refs:
+            return ['image coverage has no exact-film sequence']
         if (coverage.get('schema') != 'dispatch_claude_image_coverage/1'
                 or coverage.get('packet_sha256') != digest(packet_path)):
             return ['image coverage does not bind the exact current packet']
@@ -189,7 +191,7 @@ def image_coverage_problems(packet_path, coverage_path):
             if digest(ref['path']) != ref['sha256'] or row.get('index_sha256') != ref['sha256']:
                 errors.append('image coverage index bytes or identity changed'); continue
             pages = read(ref['path'])['pages']; notes = row.get('pages')
-            if not isinstance(notes, list) or len(notes) != len(pages):
+            if not isinstance(pages, list) or not pages or not isinstance(notes, list) or len(notes) != len(pages):
                 errors.append('image coverage omits chronological pages'); continue
             for page, note in zip(pages, notes, strict=True):
                 if not isinstance(note, dict):

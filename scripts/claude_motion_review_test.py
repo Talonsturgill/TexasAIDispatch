@@ -174,6 +174,18 @@ class MotionReview(unittest.TestCase):
         self.assertFalse(receipt['complete']); self.assertTrue(receipt['problems'])
         self.assertNotIn('verdict', receipt)
 
+    def test_no_images_cannot_be_declared_complete(self):
+        packet, path, coverage = self.access_fixture()
+        data = json.loads(packet.read_text()); data.update(role='storyboard-critic', phone_options=[])
+        packet.write_text(json.dumps(data)); coverage.update(packet_sha256=motion.digest(packet), sequences=[])
+        path.write_text(json.dumps(coverage))
+        self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
+        empty = self.root / 'empty-index.json'; empty.write_text('{"pages":[]}')
+        data.update(role='picture', motion_sequence=claude_runtime.bound(empty)); packet.write_text(json.dumps(data))
+        coverage.update(packet_sha256=motion.digest(packet), sequences=[{'index_sha256': motion.digest(empty), 'pages': []}])
+        path.write_text(json.dumps(coverage))
+        self.assertTrue(claude_runtime.image_coverage_problems(packet, path))
+
 
 class PhoneMotionReview(unittest.TestCase):
     @classmethod
