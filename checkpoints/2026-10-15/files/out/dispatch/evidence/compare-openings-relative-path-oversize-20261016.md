@@ -1,0 +1,4 @@
+# compare-openings refused before any charge (2026-10-16, main 56a5d93)
+First attempt with the generation-recovery receipt, relative path arguments exactly as in the earlier runs: exit 1 "independent role packet exceeds the bounded text size". No reservation, no provider call, audiovisual_reviews stayed 3.
+Measured in memory (cap lifted only in the wrapper, repository unchanged): with the CLI's relative paths the final packet_json is 500,208 chars (packet() 493,961), 208 over the cap. The same assembly with absolute paths is 498,933 (packet() 492,686). The difference is path strings embedded in the packet text. Defect for root: the cap margin is thinner than the path-form variance, and the packet should be path-form independent.
+Action: rerun the same command with absolute path arguments (same board, claims, failure, state, receipt; no gate, limit or source change). Original charges, failed cache and receipts untouched.
