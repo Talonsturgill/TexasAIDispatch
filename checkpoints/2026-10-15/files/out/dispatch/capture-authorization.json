@@ -2,9 +2,9 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "f94f42d964d724827141a46cccdc898c5a6a1f374c91c70e14ee5e05f1cc9587",
+    "event_sha256": "68e5e94567c563687a88b7994ae5e238fc683944fa323120ca67a57f25ad0584",
     "resource": "preflight_renders",
-    "at": "2026-10-17T20:33:12.984208Z",
+    "at": "2026-10-17T21:03:54.710176Z",
     "note": "exact-film motion-image review extraction"
   },
   "boards": [
@@ -162,29 +162,29 @@
     {
       "id": "0e09184c8a03c2ea776c5fb006a648d9b1d26d9594b1ac86ea9effb40e6169a5",
       "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json",
-      "consumed": "2026-10-17T20:33:25.799333+00:00"
+      "consumed": "2026-10-17T21:04:09.281350+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.035
+    "free_gib": 20.003
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/TexasAIDispatch/out/dispatch/capture-housekeeping-20261017T203303.json",
-    "receipt_sha256": "485851d40f10ac4475e769da595e3a034a3b81360d561bc7fdf76bb1c6ffe9bd",
+    "receipt": "/home/user/restore/TexasAIDispatch/out/dispatch/capture-housekeeping-20261017T210341.json",
+    "receipt_sha256": "c6340889c76faa380d41ba52bff5d76e2fb9fbd1ff8f4ba30abe06d809de11b9",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-17T20:33:21.360373+00:00",
-  "expires_at": "2026-10-17T21:18:21.360373+00:00",
+  "issued_at": "2026-10-17T21:04:06.070557+00:00",
+  "expires_at": "2026-10-17T21:49:06.070557+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
     "operation": "exact-film motion-image review extraction",
     "resource": "preflight_renders",
     "run_id": "2026-10-15",
-    "event_sha256": "f94f42d964d724827141a46cccdc898c5a6a1f374c91c70e14ee5e05f1cc9587",
-    "input_identity": "8bee6240951811171de38977accbb1e4c47edf3fe54ba38c0d912d3a51040d28"
+    "event_sha256": "68e5e94567c563687a88b7994ae5e238fc683944fa323120ca67a57f25ad0584",
+    "input_identity": "c5124635b1443147eb1207b895e107d3b46fb46ff04463f3fb60db1515c1d181"
   }
 }
