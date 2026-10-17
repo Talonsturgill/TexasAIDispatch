@@ -601,6 +601,14 @@
       "note": "telemetry for audiovisual_reviews: 98d448ad-7fdb-40af-8f91-bc76edd085e6 independent phone",
       "resource": "reported_tokens",
       "to": 646479
+    },
+    {
+      "at": "2026-10-17T00:52:20.386594Z",
+      "ceiling": 26,
+      "from": 24,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 25
     }
   ],
   "events": [
@@ -6135,6 +6143,24 @@
       "input_identity": "47b58696c3638b2a077f95e7424ecca0162b94278797e93f2cd4a9eb77b95daa",
       "kind": "preflight_retry_authorized",
       "reason": "The only prior reservation for these timed-preview inputs was refused before rendering and its retry was consumed by the opening comparison charge, so no timed preview of the current mix exists. One retry lets the real timed phone preview reserve under its own operation after the storage and authorization infrastructure was fixed. Earlier spend stays charged."
+    },
+    {
+      "at": "2026-10-17T00:52:20.386612Z",
+      "ceiling": 26,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 25,
+      "resource": "preflight_renders",
+      "was": 24
+    },
+    {
+      "at": "2026-10-17T00:52:20.386621Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "47b58696c3638b2a077f95e7424ecca0162b94278797e93f2cd4a9eb77b95daa",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -6143,7 +6169,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 24,
+    "preflight_renders": 25,
     "reboards": 9,
     "reported_tokens": 646479,
     "rescue_renders": 1,
@@ -6156,10 +6182,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "47b58696c3638b2a077f95e7424ecca0162b94278797e93f2cd4a9eb77b95daa",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "58f1ec693a6b76f262ac090229578245db0c0bce6f814e41c4232836dd3dc4f0",
+    "original_private_state_sha256": "e4167706397eb03b47d0d04ed97289be5bbf3825e33f97016d203dbb16b18e51",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -6195,14 +6220,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T00:52:02.405573Z",
+  "updated_at": "2026-10-17T00:52:20.386623Z",
   "usage": {
     "audiovisual_reviews": 7,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 24,
+    "preflight_renders": 25,
     "reboards": 9,
     "reported_tokens": 646479,
     "rescue_renders": 0,
