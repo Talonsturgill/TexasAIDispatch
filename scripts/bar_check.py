@@ -46,7 +46,8 @@ CLAIM = re.compile(
     r"(ship[_ ]?threshold"
     r"|(?:the |a )?\bbar\b (?:is|was|of|at|to|stands? at|holds? at|sits? at)"
     r"|holds? the \bbar\b (?:at|to)"
-    r"|\bbar\b:(?!\s*['\"`])|threshold (?:is|of|at|:)"
+    r"|\bbar\b:(?!\s*(?:'[A-Za-z_$][\w$-]*'|\"[A-Za-z_$][\w$-]*\"|`[A-Za-z_$][\w$-]*`))"
+    r"|threshold (?:is|of|at|:)"
     r"|scores? (?:above|below|of))"
     r"[^\n\d]{0,24}(\d+(?:\.\d+)?)", re.I)
 
@@ -135,10 +136,14 @@ def self_test() -> int:
        not CLAIM.search("a goalpost crossbar at 5.04 m, against its own docstring"))
     # A renderer object key named `bar` whose value is a quoted scene id with a digit in it
     # (`bar:'s8-valbar'`) tripped the colon form and held the 2026-10-15 preship red on a film
-    # that states no threshold. A quoted value after the colon is a string literal, not a number.
-    ok("does NOT read an object key named bar holding a quoted id as a threshold",
+    # that states no threshold. Only a COMPLETE quoted identifier token (starts with a letter, _ or
+    # $, then letters, digits, _, $ or hyphen) is skipped. A quoted number or a quoted sentence
+    # about a threshold is still a stated bar.
+    ok("does NOT read an object key named bar holding a quoted scene id as a threshold",
        not CLAIM.search("const ids={card:'s8-valcard',bar:'s8-valbar',tag:'s8-assess'}"))
-    ok("...and still catches a YAML 'bar: N' line", bool(CLAIM.search("bar: 7.5")))
+    ok("...and still catches an unquoted 'bar: N' line", bool(CLAIM.search("bar: 7.5")))
+    ok("...and still catches a quoted numeric bar: \"7.5\"", bool(CLAIM.search('bar: "7.5"')))
+    ok("...and still catches a quoted threshold phrase", bool(CLAIM.search("bar: 'set at 7.5'")))
     ok("...and does not flag a sentence that says the bar is READ rather than what it is",
        not CLAIM.search("the bar is read out of the rubric and never quoted"))
 
