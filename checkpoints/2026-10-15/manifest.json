@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T04:58:15.952917+00:00",
-  "note": "R15e code review N1 retained; R15f classification dispatched; cleanup of 4 bundles done",
+  "saved_at": "2026-10-17T05:04:26.057708+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "d80c574b8b7452b473a20e51a37b8cf9b6e6a22e34a3b362aa9fab34be326896",
-  "original_private_ledger_sha256": "56b0364c04ce0dc24d3305441b77683571db7d6cb57c21239b0af8533b2a4f27",
+  "ledger_sha256": "15686ac9e7357e949ac75fb349fe13149e00154b70c0017d12d1efdfdf8dcb83",
+  "original_private_ledger_sha256": "ea4fd1d8673ba03a5e1ee5319e1050a1ae79c107cd4b911812e60cc0f2a44256",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -98,6 +98,11 @@
       "event_index": 318,
       "authorization_sha256": "4376beac117cd678eb394c4ca66d295afeb6c852510995eafea9b0940632e226",
       "root": "/home/user/ed1015/TexasAIDispatch"
+    },
+    {
+      "event_index": 327,
+      "authorization_sha256": "9cb29e77d1bb5bf9fe33367aace8b2d7aa3e7745da138bb4ef888374b679d671",
+      "root": "/home/user/ed1015/TexasAIDispatch"
     }
   ],
   "usage": {
@@ -139,8 +144,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "c0b19bc0ae06017b6714b8dce8fca9ba272edf7881bc2dd197cf9ae1a733a441",
-      "size": 24336
+      "sha256": "a5a54a549ceb5cbb13c0aa6a166fc57893cd00e4626e27a075544a1014ed33e0",
+      "size": 25284
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -13217,10 +13222,52 @@
       "size": 6060
     },
     {
+      "path": "out/dispatch/evidence/r15f/comparison-budget-v3.log",
+      "class": "scratch",
+      "sha256": "4ac28f71785a29f0c26df9cd1f14010ef25891698355e985210c5d829ccf680d",
+      "size": 87
+    },
+    {
+      "path": "out/dispatch/evidence/r15f/complete-plan-r15f-v3.json",
+      "class": "scratch",
+      "sha256": "9cb29e77d1bb5bf9fe33367aace8b2d7aa3e7745da138bb4ef888374b679d671",
+      "size": 7677
+    },
+    {
+      "path": "out/dispatch/evidence/r15f/completion-capacity-v3.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/evidence/r15f/production-budget-v3-host-before.json",
+      "class": "scratch",
+      "sha256": "ff13d88564671a888250484ffc4b666d7614d321e2f2a0658be197e01873555d",
+      "size": 1581
+    },
+    {
+      "path": "out/dispatch/evidence/r15f/production-budget-v3-provider-before.json",
+      "class": "scratch",
+      "sha256": "dfce34abd1be37a085f139d021e3be3fadf121e6db9fc151276531aae64a9941",
+      "size": 1585
+    },
+    {
+      "path": "out/dispatch/evidence/r15f/repair-plan-r15f.json",
+      "class": "scratch",
+      "sha256": "4f24322bcd3d75d1daad37fc68b3a5ba92447e1488a7cb4e2ffba78a5e5a08d0",
+      "size": 2284
+    },
+    {
       "path": "out/dispatch/evidence/r15f/repair-plan-r15f.template.json",
       "class": "scratch",
       "sha256": "62515a765ed2ab1d136794db813988cf804c80b0270728b2ce4e1377f5159c3e",
       "size": 2461
+    },
+    {
+      "path": "out/dispatch/evidence/r15f/technical-correction-brief-r15f-v2.md",
+      "class": "scratch",
+      "sha256": "01faa6fbf1541f942547e5e49f35bccec878adcea7ef3c08ed01fbaed91569ad",
+      "size": 4885
     },
     {
       "path": "out/dispatch/evidence/r15f/technical-correction-brief-r15f.md",
@@ -13887,6 +13934,12 @@
       "class": "scratch",
       "sha256": "1cf44a495256e4fe25a9eee0014fcea9eb7f04780a9fa4c44b15b1a156ec590a",
       "size": 9623
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15f-classification/report-verbatim.json",
+      "class": "scratch",
+      "sha256": "9225fae4b5e84109aa1fe03a10d7936fede66b74f4f80ee55ab92729b6ed8b78",
+      "size": 26071
     },
     {
       "path": "out/dispatch/evidence/review-r6-classification-revise/handback-full.txt",
@@ -17726,6 +17779,10 @@
     },
     {
       "path": "out/dispatch/evidence/review-r15e-code/handback-verbatim.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15f-classification/handback-verbatim.private.txt",
       "reason": "private path component"
     },
     {
