@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T02:38:12.582673+00:00",
-  "note": "R15 pivot 3 PASS retained; r15d plan with pivot_review bound",
+  "saved_at": "2026-10-17T02:38:41.699340+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "a0b70a24dddb74d9afce0f90b58641b1ba1408810894384f9094d4fd28fb3d2c",
-  "original_private_ledger_sha256": "f7d238575a1dd16c458729f9236e248a4709c79b97925af48ade89abbe947a4e",
+  "ledger_sha256": "88402fdedec0624d1ef601d05f964c3857202fcc110b81ad215f3fee0c17e50b",
+  "original_private_ledger_sha256": "1a2fbf85b7f18ed6081c41babcc360ed59520797e34feed190a96049cee1adb4",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -11748,6 +11748,12 @@
       "size": 74
     },
     {
+      "path": "out/dispatch/evidence/r15-repair/begin-repair-r15d.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/evidence/r15-repair/builder-correction-brief-r15-v2.md",
       "class": "scratch",
       "sha256": "dbe1d6df2413be1aa28da51ada09a37dae268bc19d3bc5514aa0855781e8f2f4",
@@ -11800,6 +11806,12 @@
       "class": "scratch",
       "sha256": "68be38d552e2ec084961126b5aad4f1546b2adef70d330cac8bec0e34ddb2d3e",
       "size": 9831
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/complete-plan-r15d.json",
+      "class": "scratch",
+      "sha256": "f4a274a52983ed2b88339c796abba20eb8391ac88d5535dfa1805eafa82afc1a",
+      "size": 10379
     },
     {
       "path": "out/dispatch/evidence/r15-repair/completion-capacity-pivot.log",
@@ -11943,6 +11955,18 @@
       "path": "out/dispatch/evidence/r15-repair/production-budget-r15c-provider.json",
       "class": "scratch",
       "sha256": "0479135dc93df779cdc1ef761933786fcca4fd77db523b37c643a820bd771c28",
+      "size": 1565
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-r15d-host.json",
+      "class": "scratch",
+      "sha256": "7a6df1f3ed8ce48a6bea7da9fb6f6409efd0ab38f15b62a614f445242b02f9bc",
+      "size": 1561
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-r15d-provider.json",
+      "class": "scratch",
+      "sha256": "1392cff9f36602f98ad3f9a95321c1ddf52b5a377568d89d2cc14073de2d55b6",
       "size": 1565
     },
     {

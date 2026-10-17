@@ -1,4 +1,53 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/FloodStationFilm.tsx",
+        "before_sha256": "b8f8cc3b38a12749016215ec65da64ed8d78fde4c8a8353d16166b19cc879ca0",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/FloodStationHero.tsx",
+        "before_sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/StreetHubSupport.tsx",
+        "before_sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/storyboard.json",
+        "before_sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/opening-a.json",
+        "before_sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/opening-b.json",
+        "before_sha256": "9fa8f52a4753b72dbc80e1f3c2c86d8f193ae340eaf54b588b597ca6de3ba92b",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/modern_episode_registry.json",
+        "before_sha256": "db04f225a374f80173efd14a8aa03eddd5481ef5332f764fa7ca148d956d295c",
+        "path": "{REPO}/config/modern_episode_registry.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/registry.tsx",
+        "before_sha256": "af13d1b7c7441af66a265d7f4bac7bf13d085d1138dfcd14675f0bd818d0ff03",
+        "path": "{REPO}/video-engine/src/modern/registry.tsx"
+      }
+    ],
+    "failure_sha256": "f2dd8a81d8c96ff746ce6d05f7b552400a7b9d7dad3e4611e7c7314fa9393528",
+    "plan": "{REPO}/out/dispatch/evidence/r15-repair/complete-plan-r15d.json",
+    "plan_sha256": "f4a274a52983ed2b88339c796abba20eb8391ac88d5535dfa1805eafa82afc1a",
+    "reboards_before": 9,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -6618,6 +6667,71 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-17T02:38:34.429753Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/FloodStationFilm.tsx",
+          "before_sha256": "b8f8cc3b38a12749016215ec65da64ed8d78fde4c8a8353d16166b19cc879ca0",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/FloodStationHero.tsx",
+          "before_sha256": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/StreetHubSupport.tsx",
+          "before_sha256": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/storyboard.json",
+          "before_sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/opening-a.json",
+          "before_sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/opening-b.json",
+          "before_sha256": "9fa8f52a4753b72dbc80e1f3c2c86d8f193ae340eaf54b588b597ca6de3ba92b",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/modern_episode_registry.json",
+          "before_sha256": "db04f225a374f80173efd14a8aa03eddd5481ef5332f764fa7ca148d956d295c",
+          "path": "{REPO}/config/modern_episode_registry.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15-repair/baseline/registry.tsx",
+          "before_sha256": "af13d1b7c7441af66a265d7f4bac7bf13d085d1138dfcd14675f0bd818d0ff03",
+          "path": "{REPO}/video-engine/src/modern/registry.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "source-framing",
+      "failure_sha256": "f2dd8a81d8c96ff746ce6d05f7b552400a7b9d7dad3e4611e7c7314fa9393528",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 34,
+          "to": 34
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "physical-water-sensor-range-map-pictures-v1",
+      "plan_identity": null,
+      "plan_sha256": "f4a274a52983ed2b88339c796abba20eb8391ac88d5535dfa1805eafa82afc1a",
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -6641,7 +6755,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "f7d238575a1dd16c458729f9236e248a4709c79b97925af48ade89abbe947a4e",
+    "original_private_state_sha256": "1a2fbf85b7f18ed6081c41babcc360ed59520797e34feed190a96049cee1adb4",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -6677,7 +6791,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T02:35:48.040096Z",
+  "updated_at": "2026-10-17T02:38:34.429768Z",
   "usage": {
     "audiovisual_reviews": 7,
     "cleanup_renders": 0,
