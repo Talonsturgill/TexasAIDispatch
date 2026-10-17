@@ -52,7 +52,10 @@ def build(board, mix, state):
             raise ValueError("phone visual review is not current: " + "; ".join(errors))
     root = board.parent / "cinema"
     root.mkdir(parents=True,exist_ok=True)
-    retained = root / "render-cache"
+    # New editions keep regenerable duplicate bytes outside durable proof evidence.
+    # Historical cache paths and all canonical/failed proof outputs stay unchanged.
+    retained = (board.parent / "tmp" / "cinema-render-cache"
+                if str(data.get("date") or "") >= "2026-10-17" else root / "render-cache")
     frames = cache.hero_frames(data)
     hero_picture_key = cache.picture_key(board,frames)
     hero_audio_key = cache.audio_segment(mix,frames)

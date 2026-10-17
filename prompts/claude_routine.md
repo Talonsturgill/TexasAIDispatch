@@ -45,6 +45,17 @@ workspace housekeeping is used when available. Cloud uses scripts/dispatch_house
 the same protection rules and its actual two checkout paths; never delete active or unrelated work.
 
 The Texas environment must run `scripts/claude_environment_setup.sh` before Claude Code launches.
+Setup supplies truthful selected-repository and application-durability context in Claude's user
+settings through `claude_environment_context.py`. It preserves all permission rules, defaults,
+hooks, model, effort and bindings; project settings do not supply auto-mode context. Retain the
+helper's preservation receipt and use `claude auto-mode config` to verify the effective context
+on a fresh host. Keep existing credential and no-send boundaries.
+The saved prelaunch setup includes this command before Claude starts:
+
+```sh
+bash scripts/run_with_env.sh python3 scripts/claude_environment_context.py --workspace /home/user --apply
+```
+
 The versioned setup provisions pinned tools and registers the workspace capture router once,
 before auto mode begins. Do not attempt mid-session registration or repeat a classifier-denied
 installation. Preserve the denied command evidence and use a fresh supported routine launch
@@ -143,6 +154,9 @@ review responses, failed images and every receipt. It skips only known rebuildab
 data structure, redacts shipped Gmail identifiers and local paths from the ledger, refuses to save when
 a credential value appears, and refuses any save that would lower usage, limits or increments, change the
 frozen envelope or alter the earlier event history. A file too large to retain fails the save visibly.
+From the October 17 edition, the cinema producer creates its duplicate render cache under
+`out/dispatch/tmp/cinema-render-cache`. Canonical proof images, hero, provenance and every failed
+proof remain under `cinema/` and are retained. Earlier editions keep their original cache path.
 After `finish --result shipped` and the metadata archive, save once more so the checkpoint reads finished.
 
 Immediately after selecting or restoring the production ledger, arm its preinstalled completion
