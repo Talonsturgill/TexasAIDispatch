@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T02:35:54.826528+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-17T02:38:12.582673+00:00",
+  "note": "R15 pivot 3 PASS retained; r15d plan with pivot_review bound",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -134,8 +134,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "64dc47346ac27b88b0e1e6a3844cffb850caac12bc6e91dbd48095a51d3df405",
-      "size": 14361
+      "sha256": "801ceaac485551f0f33896f029943b8def5c45b2780aaf5e5f166b6475a6f556",
+      "size": 14503
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -11964,6 +11964,12 @@
       "size": 5070
     },
     {
+      "path": "out/dispatch/evidence/r15-repair/repair-plan-r15d-pivot.json",
+      "class": "scratch",
+      "sha256": "a5c305abfbc13da5737dd781c549d7c334c923261d51f925f721341f0803c7ce",
+      "size": 5618
+    },
+    {
       "path": "out/dispatch/evidence/r15-repair/repair-plan-r15d.json",
       "class": "scratch",
       "sha256": "af4067de2fc91e2f533557e456d64a30de18b7d2ef5290537895b3c452a8a04c",
@@ -12496,6 +12502,12 @@
       "class": "scratch",
       "sha256": "cd5ad088be2237e6cde5554e24bbff64a720f623eab798b0f132ce3f5aaba555",
       "size": 13235
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-pivot-3/pivot-review.json",
+      "class": "scratch",
+      "sha256": "5ca6dc3b579c9534d60503c791988ed7bc8da885c9193544479c52dbc93b652a",
+      "size": 12495
     },
     {
       "path": "out/dispatch/evidence/review-r6-classification-revise/handback-full.txt",
@@ -16254,6 +16266,10 @@
     {
       "path": "out/dispatch/evidence/review-r15-pivot-2/pivot-call-2-assignment-arguments.json",
       "reason": "private data structure"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-pivot-3/handback.private.txt",
+      "reason": "private path component"
     },
     {
       "path": "out/dispatch/evidence/review-r7-source-pivot-revise/agent-transcript-cumulative.private.jsonl",
