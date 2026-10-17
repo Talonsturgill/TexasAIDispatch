@@ -9524,6 +9524,14 @@
         "validator_agents": 5,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-17T20:01:55.311729Z",
+      "evidence": "{REPO}/out/dispatch/evidence/r15g/cinema-proof-classifier-denial-after-consume.md",
+      "evidence_sha256": "0dd75849ecae2cba8f58122fc7485d82691ba78c8fb6c2bcb49225af2821b9c2",
+      "input_identity": "ea9402d1d83eee2970efae91ef337eb001fb2338289ee47493e5aa4dc729545d",
+      "kind": "preflight_retry_authorized",
+      "reason": "authorized hero capture consumed by the hook but never executed because the host classifier denied the bare command; operator approval now supplied for the ordinary capture; no capture ran"
     }
   ],
   "limits": {
@@ -9545,9 +9553,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "ea9402d1d83eee2970efae91ef337eb001fb2338289ee47493e5aa4dc729545d",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "8f1fe4551022e438d5e54e0918fad8fb395a9271b88459d334e6797d59e0d8ce",
+    "original_private_state_sha256": "726fea3bb6e50540efb47ace288071e9514d1def231630449614a55146dec7d3",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -9583,7 +9592,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T19:57:12.097991Z",
+  "updated_at": "2026-10-17T20:01:55.311777Z",
   "usage": {
     "audiovisual_reviews": 13,
     "cleanup_renders": 0,
