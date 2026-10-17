@@ -372,15 +372,24 @@ class SoleProviderFindingsTests(unittest.TestCase):
 
     def report(self, value=None, role='picture'):
         r = self.r
-        reservation = {'kind': 'reserved', 'resources': {'scorer_calls': 1}}
+        resource = 'storyboard_critics' if role == 'phone' else 'scorer_calls'
+        reservation = {'kind': 'reserved', 'resources': {resource: 1}}
         failure = {'schema': 'dispatch_review_transport_failure/1', 'role': role,
                    'actor': 'independent-fixture', 'observed_at': 'now', 'error': 'server_overloaded',
                    'reservation': reservation, 'reservation_sha256': r.fingerprint(reservation),
                    'reservation_event_index': 0}
+        bindings = {'film_sha256': 'film', 'av_receipt_sha256': 'receipt'}
+        if role == 'phone':
+            import quality_contract as q
+            bindings.update(concept_sha256='concept', renderer_sha256='renderer',
+                            quality_contract_sha256=q.fingerprint(), story_sha256='story',
+                            policy_sha256='policy', claims_sha256='claims', actions={})
         proof = {'schema': 'dispatch_independent_provider/1', 'role': role,
                  'model': r.policy()['av_model'], 'request_id': 'fixture-request', 'reviewed_at': 'now',
-                 'bindings': {'film_sha256': 'film', 'av_receipt_sha256': 'receipt'},
-                 'prompt': 'independent fixed rubric', 'input': {'exact': 'fixture evidence'}, 'host_failure': failure}
+                 'bindings': bindings,
+                 'prompt': 'independent fixed rubric',
+                 'input': {'exact': 'fixture evidence', 'board': self.phone_board() if role == 'phone' else {}},
+                 'host_failure': failure}
         proof['prompt_sha256'] = __import__('hashlib').sha256(proof['prompt'].encode()).hexdigest()
         proof['input_sha256'] = r.fingerprint(proof['input'])
         value = copy.deepcopy(self.value if value is None else value)
@@ -391,6 +400,85 @@ class SoleProviderFindingsTests(unittest.TestCase):
         result = r.project(raw, proof['bindings'], role, proof['model'], proof['reviewed_at'])
         result['provider_evidence'] = proof
         return result
+
+    def phone_board(self):
+        return {'date': '2026-10-15', 'runtime_s': 5, 'narration_picture': {'clauses': [
+            {'id': 'n1', 'start_s': 1, 'end_s': 2}]}}
+
+    def phone_report(self, **changes):
+        import quality_contract as q, modern_film as m
+        observation = {'pass': True, 'start_s': 1, 'end_s': 2,
+                       'observed': 'The water reaches the pole and the station indicator visibly lights.'}
+        value = {'verdict': 'pass', 'blocking_defects': [],
+                 'story_review': {'verdict': 'pass', 'blocking_defects': []},
+                 'action_reviews': [],
+                 'phone_observations': {key: copy.deepcopy(observation) for key in q.policy()['criteria'] if key != 'sound'},
+                 'modern_observations': {key: copy.deepcopy(observation) for key in m.policy()['review_criteria']},
+                 'narration_picture_observations': {'clauses': [{'id': 'n1', **observation}]},
+                 'bounded_release': {'schema': 'dispatch_creative_assessment/1',
+                                     'scope': 'phone', 'defects': [],
+                                     'retained_checks': {key: {'pass': True, 'observed': 'Independent retained integrity observation.'}
+                                                         for key in c.policy()['retained_checks']['phone']}}}
+        value.update(changes)
+        return self.report(value, 'phone')
+
+    def test_verified_passing_phone_empty_classification_is_not_rejection(self):
+        report = self.phone_report()
+        before = copy.deepcopy(report)
+        self.assertEqual(self.r.evidence_problems(report), [])
+        self.assertEqual(c.findings(report), [])
+        self.assertEqual(report, before)
+        # Empty phone findings never admit a bounded artistic release.
+        self.assertTrue(c.assessment_problems(report['bounded_release'], report, 'phone'))
+
+        import autonomous_completion as capacity
+        state = {'mode': 'production', 'run_id': '2026-10-15', 'usage': {'reboards': 3}}
+        text = json.dumps(report)
+        plan = {'director_identity': 'director', 'completion_reason': 'finish-current',
+                'failure_evidence_sha256': capacity.sha(text), 'resources': {},
+                'failed_film_sha256': report['reviewed_preflight_sha256']}
+        self.assertEqual(capacity.mandatory_reason(state, plan, text), 'finish-current')
+        self.assertIsNone(capacity.mandatory_reason(state, {**plan, 'failed_film_sha256': 'other-film'}, text))
+        plan.pop('completion_reason')
+        self.assertIsNone(capacity.mandatory_reason(state, plan, text))
+
+    def test_empty_phone_requires_original_verified_pass_and_matching_scope(self):
+        missing = self.phone_report(); missing.pop('provider_evidence')
+        changed = self.phone_report(); changed['provider_evidence']['response']['responseId'] = 'edited'
+        projection = self.phone_report(); projection['notes'] = 'not in original response'
+        candidates = [missing, changed, projection, self.phone_report(verdict='revise')]
+        for field, value in [('scope', 'panel'), ('schema', 'unknown'),
+                             ('defects', [{'finding': 'retained finding', 'category': 'style'}])]:
+            assessment = copy.deepcopy(self.phone_report()['bounded_release'])
+            assessment[field] = value
+            candidates.append(self.phone_report(bounded_release=assessment))
+        for report in candidates:
+            with self.assertRaises(ValueError): c.findings(report)
+
+    def test_phone_explicit_failure_precedes_empty_classification(self):
+        for changes, expected in [({'blocking_defects': ['source gap']}, ['source gap']),
+                                  ({'story_review': {'blocking_defects': ['story gap']}}, ['story gap'])]:
+            self.assertEqual(c.findings(self.phone_report(**changes)), expected)
+        report = self.phone_report(phone_observations={'dominant_action': {
+            'pass': False, 'observed': 'Required contact never occurs.'}})
+        self.assertEqual(c.findings(report)[0]['phone_observation'], 'dominant_action')
+
+    def test_empty_phone_refuses_missing_coverage_and_nested_failures(self):
+        candidates = [self.phone_report(phone_observations={}),
+                      self.phone_report(story_review={'verdict': 'revise', 'blocking_defects': []}),
+                      self.phone_report(action_reviews=[{'action_id': 'water', 'verdict': 'revise', 'blocking_defects': []}]),
+                      self.phone_report(action_reviews=[{'action_id': 'water', 'verdict': 'pass', 'hard_fails': ['contact absent']}]),
+                      self.phone_report(attention_review={'pass': False}),
+                      self.phone_report(narration_picture_observations={}),
+                      self.phone_report(modern_observations={})]
+        modern = copy.deepcopy(self.phone_report()['modern_observations'])
+        modern['performed_turn']['pass'] = False
+        candidates.append(self.phone_report(modern_observations=modern))
+        observations = copy.deepcopy(self.phone_report()['phone_observations'])
+        next(iter(observations.values()))['start_s'] = float('nan')
+        candidates.append(self.phone_report(phone_observations=observations))
+        for report in candidates:
+            with self.assertRaises(ValueError): c.findings(report)
 
     def test_verified_only_collection_preserves_original_rejection_and_values(self):
         report = self.report()

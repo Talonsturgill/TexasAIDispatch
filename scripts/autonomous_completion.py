@@ -368,6 +368,9 @@ def mandatory_reason(state, plan, evidence_text):
         original = findings(report)
         finish_requested = plan.get("completion_reason") == "finish-current"
         if not original:
+            if ((report.get('provider_evidence') or {}).get('role') == 'phone'
+                    and plan.get('failed_film_sha256') != report.get('reviewed_preflight_sha256')):
+                return None
             return "finish-current" if finish_requested and finishing_required(state) else None
         if report.get("verdict") != "revise":
             return None
@@ -645,6 +648,41 @@ def effective_envelope(state):
     return result
 
 
+def phone_finish_binding_problems(state_path, plan, report):
+    """Recheck the current cut on disk at admission; replay uses retained proof."""
+    proof = report.get('provider_evidence') or {}
+    if plan.get('completion_reason') != 'finish-current' or proof.get('role') != 'phone':
+        return []
+    try:
+        from critic_gate import concept_digest, renderer_digest
+        from independent_review import response_object
+        root = Path(state_path).resolve().parent
+        state = json.loads(Path(state_path).read_text())
+        board_path = root / 'storyboard.json'
+        board = json.loads(board_path.read_text())
+        bindings = proof['bindings']
+        film_sha = report['reviewed_preflight_sha256']
+        if (board.get('date') != str(state['run_id'])[:10]
+                or plan.get('failed_film_sha256') != film_sha
+                or report.get('concept_sha256') != concept_digest(board)
+                or report.get('renderer_sha256') != renderer_digest(board)
+                or hashlib.sha256(board_path.read_bytes()).hexdigest() != bindings['board_sha256']
+                or hashlib.sha256((root / 'claims.json').read_bytes()).hexdigest() != bindings['claims_sha256']):
+            return ['finish-current phone report does not bind the current board, renderer, claims and film']
+        if 'opening_options' in bindings:
+            choice = response_object(proof['response'])['selection']['selected']
+            if choice not in ('a', 'b') or bindings['opening_options'][choice]['film_sha256'] != film_sha:
+                return ['finish-current phone report does not bind its selected film']
+            film = root / 'openings' / (choice + '.mp4')
+        else:
+            film = root / 'preflight.mp4'
+        if not film.resolve().is_relative_to(root) or hashlib.sha256(film.read_bytes()).hexdigest() != film_sha:
+            return ['finish-current phone report belongs to different or missing current film bytes']
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        return ['finish-current phone report lacks readable current input bindings']
+    return []
+
+
 def grant_capacity(state_path, plan_path, policy_path=None):
     """Grant only deficits, before the ordinary reservation charges any actual work."""
     from run_controller import read_state, save, event
@@ -666,6 +704,9 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         reason = mandatory_reason(state, plan, evidence)
         if reason is None:
             return False, "completion capacity requires exact independent mandatory evidence; optional polish and research are excluded"
+        errors = phone_finish_binding_problems(state_path, plan, json.loads(evidence))
+        if errors:
+            return False, '; '.join(errors)
         identity = grant_identity(plan, sha(evidence))
         if any(e.get("kind") in {EVENT, NARRATION_READY, VALIDATION_READY} and grant_identity(json.loads(e["plan_json"]), e["failure_evidence_sha256"]) == identity
                for e in state["events"]):
