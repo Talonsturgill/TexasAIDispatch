@@ -336,6 +336,8 @@ def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None
         from run_controller import reserve
         accepted, message = reserve(path, {'reboards': 1}, 'corrective reboard after accepted begin-repair')
         return accepted, 'repair opened; ' + message
+    if prepaid is not None:
+        return True, 'rights repair opened with its exact prepaid reboard; no additional reboard reservation is needed'
     if scope == NARRATION_SCOPE:
         return True, "narration-performance repair opened; change only direction before authorization"
     if scope == CONTEXT_SCOPE:
