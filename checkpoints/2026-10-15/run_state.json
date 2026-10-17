@@ -988,6 +988,14 @@
       "note": "exact MP4 audiovisual review hero",
       "resource": "audiovisual_reviews",
       "to": 14
+    },
+    {
+      "at": "2026-10-17T20:12:58.392724Z",
+      "ceiling": 14,
+      "from": 2,
+      "note": "full native render of the credit-corrected approved film (hero approved); previous authorization consumed by hook then classifier-denied, no render ran",
+      "resource": "full_renders",
+      "to": 3
     }
   ],
   "events": [
@@ -9615,12 +9623,35 @@
       "note": "072b7c61-d201-4f5b-912f-074010f57717 hero exact film 1de32c257e047b6240d213d5bae1a5cb4c7d57d699268393e602dd2c5f5036ac",
       "reported_tokens": 61401,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-17T20:12:58.392745Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "full native render of the credit-corrected approved film (hero approved); previous authorization consumed by hook then classifier-denied, no render ran",
+      "now": 3,
+      "resource": "full_renders",
+      "was": 2
+    },
+    {
+      "at": "2026-10-17T20:12:58.392755Z",
+      "film_sha256": "ab7058fff988ce8bce16226c97600985d74e1a49fa26d5dd2a6942c22d8db077",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-10-17T20:12:58.392761Z",
+      "kind": "reserved",
+      "note": "full native render of the credit-corrected approved film (hero approved); previous authorization consumed by hook then classifier-denied, no render ran",
+      "preflight_identity": null,
+      "resources": {
+        "full_renders": 1
+      }
     }
   ],
   "limits": {
     "audiovisual_reviews": 14,
     "cleanup_renders": 1,
-    "full_renders": 2,
+    "full_renders": 3,
     "image_generations": 2,
     "panel_rounds": 1,
     "preflight_renders": 43,
@@ -9638,7 +9669,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "385a79fcd1c495e4b9112441809a11f61f9b362c7933a987ab488f39ca498347",
+    "original_private_state_sha256": "8486b55352e703104726da1c77142ab8df5ac1b47d35eb533c02b066c54c8058",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -9674,11 +9705,11 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T20:09:00.169540Z",
+  "updated_at": "2026-10-17T20:12:58.392764Z",
   "usage": {
     "audiovisual_reviews": 14,
     "cleanup_renders": 0,
-    "full_renders": 2,
+    "full_renders": 3,
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 43,
