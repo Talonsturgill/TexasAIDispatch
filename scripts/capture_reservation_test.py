@@ -1,5 +1,6 @@
 """Regress the observed phone/hero double charge without weakening single-use capture."""
 import copy
+import contextlib
 import json
 import tempfile
 import unittest
@@ -157,6 +158,47 @@ class Reservation(unittest.TestCase):
         self.assertFalse(controller.retry_preflight(self.state, 'hero', failure,
             'Fixture of supported specific approval for the exact denied command')[0])
         self.assertEqual(2, controller.read_state(self.state)['usage']['preflight_renders'])
+
+    def test_relative_retry_matches_the_canonical_prepared_reservation(self):
+        old, _ = self.authorise()
+        failure = self.state.parent / 'transport-failure.fixture.txt'
+        failure.write_text('Synthetic test transport failure after the hook consumed the record.\n')
+        with contextlib.chdir(self.root):
+            accepted, message = controller.retry_preflight(Path('out/dispatch/run_state.json'),
+                'hero', failure, 'Fixture of supported approval of the exact native capture command')
+        self.assertTrue(accepted, message)
+        new, _ = self.authorise()
+        self.assertNotEqual(old['event_sha256'], new['event_sha256'])
+        self.assertEqual(2, controller.read_state(self.state)['usage']['preflight_renders'])
+
+    def test_original_relative_reservation_keeps_its_own_retry_identity(self):
+        failure = self.state.parent / 'legacy-transport-failure.fixture.txt'
+        failure.write_text('Synthetic test infrastructure failure for a legacy relative-path reservation.\n')
+        with contextlib.chdir(self.root):
+            relative = Path('out/dispatch/run_state.json')
+            self.assertTrue(controller.reserve(relative, {'preflight_renders': 1}, 'hero',
+                _use_prepared_capture=False)[0])
+            original = controller.read_state(relative)['events'][-1]['preflight_identity']
+            accepted, message = controller.retry_preflight(relative, 'hero', failure,
+                'Fixture of supported approval for the exact legacy operation')
+            self.assertTrue(accepted, message)
+            self.assertEqual(original, controller.read_state(relative)['preflight_retry'])
+            self.assertTrue(controller.reserve(relative, {'preflight_renders': 1}, 'hero',
+                _use_prepared_capture=False)[0])
+        self.assertEqual(2, controller.read_state(self.state)['usage']['preflight_renders'])
+
+    def test_retry_refuses_changed_inputs_without_a_matching_reservation(self):
+        self.authorise()
+        self.board.write_text('{"runtime_s":5,"scenes":[]}')
+        failure = self.state.parent / 'other-inputs.fixture.txt'
+        failure.write_text('Synthetic test failure does not authorize different production inputs.\n')
+        with contextlib.chdir(self.root):
+            accepted, message = controller.retry_preflight(Path('out/dispatch/run_state.json'),
+                'hero', failure, 'Fixture of supported approval that cannot replace input bindings')
+        self.assertFalse(accepted)
+        self.assertIn('no previous reservation', message)
+        self.assertEqual(1, controller.read_state(self.state)['usage']['preflight_renders'])
+        self.assertFalse(prepared.claim(self.state, prepared.OPERATIONS['cinema_proof.py'])[0])
 
     def test_wrong_operator_cannot_claim_the_prepaid_hero(self):
         self.authorise()

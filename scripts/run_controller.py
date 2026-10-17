@@ -242,11 +242,17 @@ def preflight_identity(path: Path, note: str) -> str | None:
 
 def retry_preflight(path: Path, operation: str, evidence: Path, reason: str) -> tuple[bool, str]:
     state = read_state(path)
-    identity = preflight_identity(path, operation)
-    if state.get("terminal_state") or not identity or len(reason.strip()) < 20 or not evidence.is_file():
+    # Prepared operators reserve with an absolute ledger path. Match that canonical
+    # identity first while retaining the original relative-path route for old calls.
+    supplied = Path(path)
+    candidates = [preflight_identity(supplied.resolve(), operation),
+                  preflight_identity(supplied, operation)]
+    previous = {e.get("preflight_identity") for e in state.get("events", [])}
+    identity = next((value for value in candidates if value and value in previous), None)
+    if state.get("terminal_state") or not any(candidates) or len(reason.strip()) < 20 or not evidence.is_file():
         return False, "run controller: retry needs an active board, exact operation, retained failure log and concrete infrastructure fix"
     proof = digest(evidence)
-    if not any(e.get("preflight_identity") == identity for e in state.get("events", [])):
+    if identity is None:
         return False, "run controller: no previous reservation for these inputs"
     if any(e.get("kind") == "preflight_retry_authorized" and e.get("evidence_sha256") == proof
            for e in state.get("events", [])):
