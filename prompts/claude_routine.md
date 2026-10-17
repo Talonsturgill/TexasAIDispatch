@@ -174,7 +174,9 @@ re-register hooks to get around a refused rebind.
 
 The prelaunch Stop hook sends an early final response back to this same ledger. It approves no
 tool, changes no permissions and adds no capacity. It remains inactive for ordinary coding and
-leaf agents. Collect required task results through the actual task tools, repair internal failures
+leaf agents. A repeated Stop with a running task reported by the host waits twenty seconds,
+then rechecks the same shipment closure before returning feedback. This limits idle status
+chatter; it never treats a background task as completion. Collect required task results through the actual task tools, repair internal failures
 through the versioned routes, and continue until accepted shipment, the matching public archive
 on fetched origin/main, and the final shipped checkpoint exist. Do not re-register hooks in a
 running host. A supported fresh environment can prove the actual event with
