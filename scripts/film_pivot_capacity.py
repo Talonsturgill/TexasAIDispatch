@@ -36,8 +36,8 @@ def identity(plan):
 
 def film_relative(state, parent, original, snapshot):
     """Retain the actual reviewed phone or registered native film, across hosts."""
-    from capture_completion_budget import SCHEMA, COMPARISON_SCHEMA
-    if parent['capture_completion_budget']['schema'] not in {SCHEMA, COMPARISON_SCHEMA}:
+    from capture_completion_budget import SCHEMA, COMPARISON_POLICIES
+    if parent['capture_completion_budget']['schema'] not in {SCHEMA, *COMPARISON_POLICIES}:
         raise ValueError('unknown parent capture schema')
     if original.get('review_scope') == 'exact-muted-phone-preflight':
         return 'out/dispatch/preflight.mp4'
