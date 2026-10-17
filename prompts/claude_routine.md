@@ -45,6 +45,11 @@ workspace housekeeping is used when available. Cloud uses scripts/dispatch_house
 the same protection rules and its actual two checkout paths; never delete active or unrelated work.
 
 The Texas environment must run `scripts/claude_environment_setup.sh` before Claude Code launches.
+Setup supplies truthful selected-repository and application-durability context in Claude's user
+settings through `claude_environment_context.py`. It preserves all permission rules, defaults,
+hooks, model, effort and bindings; project settings do not supply auto-mode context. Retain the
+helper's preservation receipt and use `claude auto-mode config` to verify the effective context
+on a fresh host. Keep existing credential and no-send boundaries.
 The versioned setup provisions pinned tools and registers the workspace capture router once,
 before auto mode begins. Do not attempt mid-session registration or repeat a classifier-denied
 installation. Preserve the denied command evidence and use a fresh supported routine launch

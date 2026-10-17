@@ -16,4 +16,5 @@ cd "$dispatch_tools"
 export DISPATCH_CLOUD_CACHE=/opt/texas-dispatch-runtime
 bash scripts/run_with_env.sh python3 scripts/cloud_bootstrap.py --install
 bash scripts/run_with_env.sh python3 scripts/cloud_bootstrap.py --bind-legacy-cache
+bash scripts/run_with_env.sh python3 scripts/claude_environment_context.py --workspace /home/user --apply
 bash scripts/run_with_env.sh python3 scripts/bootstrap_claude_hooks.py --workspace /home/user --prelaunch-router
