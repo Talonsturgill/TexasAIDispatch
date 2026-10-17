@@ -41,7 +41,10 @@ def entries(workspace):
         'deficits before appending an allowance event to out/dispatch/run_state.json. It retains '
         'the original frozen envelope, cumulative usage and every earlier grant. It changes only '
         'this edition application ledger, not Claude permissions, account spending, billing limits '
-        'or service access. Each actual retry is separately charged before execution.',
+        'or service access. scripts/completion_forecast.py only prepares hash-bound evidence for '
+        'a previously omitted two-treatment capture forecast; it grants no capacity itself. '
+        'The controller records any exact missing capacity separately under the pinned policy. '
+        'Each actual retry is separately charged before execution.',
         'Secrets management: credentials stay in the existing cloud bindings and external runtime. '
         'Never print or publish credentials, private routing, Gmail identifiers or private delivery '
         'receipts. This context adds no service, credential, permission exception or sending authority.'
