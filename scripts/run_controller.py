@@ -2298,13 +2298,13 @@ def main() -> int:
                     plan = load_json(a.repair_plan)
                     from repair_guard import structural_hero_plan_ready, minimum_action_plan_failure
                     minimum_action_failed = minimum_action_plan_failure(read_state(state_path), plan)
-                    from autonomous_completion import ADOPTION, COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, mandatory_reason, replay
+                    from autonomous_completion import ADOPTION, COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, FORECAST_REASON, mandatory_reason, replay
                     current = read_state(state_path)
                     if (any(e.get("kind") == ADOPTION for e in current["events"])
                             and not replay(current)[1]):
                         evidence_text = Path(plan["failure_evidence"]).read_text(encoding="utf-8")
                         mandatory_repair = mandatory_reason(current, plan, evidence_text) in {
-                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity", MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, 'mandatory-source-pivot'}
+                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity", MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, FORECAST_REASON, 'mandatory-source-pivot'}
                         review_coverage = mandatory_reason(current, plan, evidence_text) == COVERAGE_REASON
                         modern_code_repair = mandatory_reason(current, plan, evidence_text) in {MODERN_CODE_REASON, PIVOT_REASON}
                     structural_ready = hero_rejected and structural_hero_plan_ready(state_path, plan, hero_receipt)
@@ -2337,6 +2337,13 @@ def main() -> int:
             if a.repair_plan:
                 from capture_completion_budget import apply_budget
                 result = apply_budget(budget_state, budget_plan, result)
+                from completion_forecast import (REASON as FORECAST_REASON, admission_problems,
+                                                 apply_budget as forecast_budget)
+                if budget_plan.get('completion_reason') == FORECAST_REASON:
+                    result = forecast_budget(budget_plan, result)
+                else:
+                    result['errors'] += admission_problems(budget_state, budget_plan)
+                    result['feasible'] = not result['deficits'] and not result['errors']
                 if budget_plan.get('completion_reason') == 'mandatory-film-pivot-capacity':
                     from film_pivot_capacity import apply_budget as film_pivot_budget
                     result = film_pivot_budget(budget_plan, result)

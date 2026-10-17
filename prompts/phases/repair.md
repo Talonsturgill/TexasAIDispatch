@@ -216,14 +216,27 @@ complete package byte-identically, renew the same two treatments on current sour
 and obtain fresh comparison and selection verdicts. Do not add a continuation exemption or
 relabel old films as current. Fund the complete remaining path before additional attempts:
 
+Source-changing capacity admission requires the current complete comparison profile. The
+current profile protects eight preflight reservations, including both silent phone sequences,
+four critic calls and conservative native capacity. Attach it before the first grant for a
+failure. Historical grants keep their recorded counts. If a real older modern-floor grant
+omitted this path and the already charged builder is the only later paid operation, retain that
+grant and use `completion_forecast.py --state <ledger> --parent-grant <actual-event-index>
+--comparison <retained-package>/comparison.json --output <new-forecast-plan.json>`, then the
+ordinary production-budget and completion-capacity commands on the new evidence plan. This
+records the exact missing capacity once, separately; it approves no film, pivot or correction.
+Do not refund the builder, edit old policy bytes or reuse the film failure as another ordinary
+grant. All later review and capture attempts remain reserved before execution.
+
 ```sh
 python scripts/capture_completion_budget.py --state out/dispatch/run_state.json --plan <new-independent-mandatory-or-finish-plan> --comparison <retained-package>/comparison.json --output out/dispatch/comparison-completion-plan.json
 python scripts/run_controller.py --state out/dispatch/run_state.json completion-capacity --repair-plan out/dispatch/comparison-completion-plan.json
 ```
 
-This opt-in evidence schema binds the original comparison and its actual hook/entry charges.
-It protects five preview charges (comparison two, final phone one, native hero one, motion one),
-four conservative critic calls, and the existing full audiovisual/scoring path together.
+This evidence schema binds the original comparison and its actual hook/entry charges.
+It protects eight preview charges (comparison two, silent phone sequences two, final phone one,
+timed phone sequence one, native hero one, motion one), four conservative critic calls and the
+existing full audiovisual/scoring path together.
 Use a fresh actual independent admission that has not already received a grant. It adds only
 recorded deficits, retains original plans and grants, and approves no film or shipment.
 Run cheap duration, caption-fit, source-binding, routing and review-request-format checks before
