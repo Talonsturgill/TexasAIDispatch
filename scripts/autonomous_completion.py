@@ -747,6 +747,13 @@ def grant_capacity(state_path, plan_path, policy_path=None):
     try:
         plan_text = Path(plan_path).read_text(encoding="utf-8")
         plan = json.loads(plan_text)
+        from repair_guard import failure_family_problems, RIGHTS_FAMILY
+        errors = failure_family_problems(plan)
+        if plan.get('failure_family') == RIGHTS_FAMILY:
+            from creative_release import technical_repair_problems
+            errors += technical_repair_problems(state, plan)
+        if errors:
+            return False, '; '.join(errors)
         if plan.get("completion_reason") in {"finish-current", HANDBACK_REASON, COVERAGE_REASON} and plan.get("changed_inputs"):
             return False, "finish-current capacity cannot fund a new correction; retain the approved cut"
         evidence = Path(plan["failure_evidence"]).read_text(encoding="utf-8")

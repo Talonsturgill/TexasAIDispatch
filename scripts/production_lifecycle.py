@@ -54,6 +54,14 @@ def resource_request_problems(state, scope, requested):
 
 def opening_reboard_reference(events, start, end):
     """Bind the one real opening reservation; never refund or grant another."""
+    if events[start].get('prepaid_reboard') is not None:
+        from rights_repair_precharge import from_started
+        receipt = from_started(events, start)
+        if any(row.get('kind') == 'reserved' and 'reboards' in row.get('resources', {})
+               for row in events[start+1:end]):
+            raise ValueError('prepaid rights repair cannot consume another reboard')
+        return {'start_event_index': start, 'reservation_event_index': receipt['reservation_event_index'],
+                'reservation_sha256': receipt['reservation_sha256']}
     charges = [(i, row) for i, row in enumerate(events[start + 1:end], start + 1)
                if row.get("kind") == "reserved" and "reboards" in row.get("resources", {})]
     if len(charges) != 1 or charges[0][1].get("resources") != {"reboards": 1}:
@@ -200,7 +208,7 @@ def checkpoint(path, package, reason, blocker=None):
     return True, "checkpoint saved; production remains active and must continue to shipment"
 
 
-def begin_repair(path, plan_path):
+def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None):
     """Reserve the board edit BEFORE modifying it, eliminating the old circular gate."""
     state = read_state(path)
     if not active(state):
@@ -227,6 +235,16 @@ def begin_repair(path, plan_path):
     scope = plan.get("repair_scope", "standard")
     if not isinstance(scope, str) or scope not in SCOPES:
         return False, "unknown repair_scope"
+    if (reserve_reboard and prepaid_reboard is not None
+            or scope == NARRATION_SCOPE and (reserve_reboard or prepaid_reboard is not None)):
+        return False, 'choose one applicable corrective reboard path'
+    prepaid = None
+    if prepaid_reboard is not None:
+        from rights_repair_precharge import reference
+        try:
+            prepaid = reference(state['events'], prepaid_reboard, plan)
+        except (ValueError, KeyError, TypeError) as exc:
+            return False, str(exc)
     request_errors = resource_request_problems(state, scope, plan.get("resources"))
     reuse_errors = existing_critic_problems(state, plan)
     opening = {} if scope == NARRATION_SCOPE else {"reboards": 1, "storyboard_critics": 2}
@@ -234,6 +252,8 @@ def begin_repair(path, plan_path):
         opening = {"reboards": 1}
     if plan.get("existing_critic_reservations") and not reuse_errors:
         opening = {"reboards": 1}
+    if prepaid is not None:
+        opening.pop('reboards', None)
     errors = reuse_errors + plan_problems(state, plan) + envelope_problems(state, opening) + request_errors
     if scope == CONTEXT_SCOPE:
         import review_context
@@ -288,7 +308,10 @@ def begin_repair(path, plan_path):
         grants[name] = {"from": old, "to": state["escalation_ceiling"][name]}
     state["active_repair"] = {"failure_sha256": failure_hash, "baselines": baselines,
                              "plan": str(plan_path.resolve()), "plan_sha256": digest(plan_path),
-                             "reboards_before": state["usage"]["reboards"], "repair_scope": scope}
+                             "reboards_before": state["usage"]["reboards"] - (1 if prepaid is not None else 0),
+                             "repair_scope": scope}
+    if prepaid is not None:
+        state['active_repair']['prepaid_reboard'] = prepaid
     if plan.get("existing_critic_reservations"):
         state["active_repair"]["existing_critic_reservations"] = plan["existing_critic_reservations"]
     if scope in {NARRATION_SCOPE, CONTEXT_SCOPE}:
@@ -304,9 +327,15 @@ def begin_repair(path, plan_path):
           authorization="diagnosed repair within recorded run envelope" if state.get("repair_policy") else "legacy autonomous repair instruction 2026-09-26",
           mechanism_id=plan.get("mechanism_id"), failure_family=plan.get("failure_family", "unclassified"),
           director_identity=plan.get("director_identity"))
+    if prepaid is not None:
+        state['events'][-1]['prepaid_reboard'] = prepaid
     if plan.get("existing_critic_reservations"):
         state["events"][-1]["existing_critic_reservations"] = plan["existing_critic_reservations"]
     save(path, state)
+    if reserve_reboard:
+        from run_controller import reserve
+        accepted, message = reserve(path, {'reboards': 1}, 'corrective reboard after accepted begin-repair')
+        return accepted, 'repair opened; ' + message
     if scope == NARRATION_SCOPE:
         return True, "narration-performance repair opened; change only direction before authorization"
     if scope == CONTEXT_SCOPE:
@@ -324,6 +353,16 @@ def authorize_repair(path, plan_path):
         return False, "unknown repair_scope"
     if scope != NARRATION_SCOPE and state["usage"]["reboards"] <= current["reboards_before"]:
         return False, "reserve the corrective reboard before changing production inputs"
+    if current.get('prepaid_reboard') is not None:
+        try:
+            start = max(i for i, row in enumerate(state['events']) if row.get('kind') == 'repair_started')
+            from rights_repair_precharge import from_started
+            if (from_started(state['events'], start) != current['prepaid_reboard']
+                    or state['usage']['reboards'] != current['reboards_before'] + 1):
+                return False, 'unused rights repair must retain its one exact charged reboard'
+            opening_reboard_reference(state['events'], start, len(state['events']))
+        except (ValueError, KeyError, TypeError) as exc:
+            return False, str(exc)
     proof, error = repair_plan_evidence(state, "repair_batch", plan_path)
     if error:
         return False, error
@@ -491,6 +530,12 @@ def allowance_problems(state):
             if not isinstance(scope, str) or scope not in SCOPES:
                 return ["unknown repair_scope in allowance history"]
         if e.get("kind") == "repair_started":
+            if e.get('prepaid_reboard') is not None:
+                from rights_repair_precharge import from_started
+                try:
+                    from_started(state['events'], next(i for i, row in enumerate(state['events']) if row is e))
+                except (ValueError, KeyError, TypeError, StopIteration) as exc:
+                    return ['invalid unused rights reboard recovery: ' + str(exc)]
             if scope == CONTEXT_SCOPE and (set(e.get("grants", {})) != {"reboards"}
                                           or not e.get("frozen_inputs") or not e.get("plan_identity")):
                 return ["review-context start requires one reboard and frozen evidence, without critics"]
