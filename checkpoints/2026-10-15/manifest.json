@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T01:24:45.774073+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-17T01:25:00.031402+00:00",
+  "note": "R15b funded on both routes (preflight +5, critics +3); begin-repair next",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -11746,14 +11746,26 @@
     {
       "path": "out/dispatch/evidence/r15-repair/completion-capacity-r15b.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "d8b90cf0fc24961c2d66039f095ce6383dafef5a5ffccbbf792653ce30aa21e3",
+      "size": 101
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-r15b-host-after.json",
+      "class": "scratch",
+      "sha256": "0c83e0e6ca57272efd04c6a6a18e57b25acb0766679673bf97db236b8a3476da",
+      "size": 1529
     },
     {
       "path": "out/dispatch/evidence/r15-repair/production-budget-r15b-host-before.json",
       "class": "scratch",
       "sha256": "76bc547dc60789934b1cf5f15a90bab27ae95a20699f7830d43a5d59af2512ca",
       "size": 1589
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-r15b-provider-after.json",
+      "class": "scratch",
+      "sha256": "fb3d3ea0603b3a6c8fb09e75bc3de7f5dd891f42121c2da34204d8d9d9a29bc0",
+      "size": 1533
     },
     {
       "path": "out/dispatch/evidence/r15-repair/production-budget-r15b-provider-before.json",
