@@ -1,0 +1,3 @@
+# final motion extraction failed before decoding (2026-10-17)
+Command: bash scripts/run_with_env.sh python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json
+Result: claude motion review: [Errno 17] File exists: out/dispatch/motion-review (the earlier extraction for film ab7058ff). The prepared authorization (event 8bee6240...) was consumed by the failed run. Fix: the old extraction is retained byte-identical as out/dispatch/motion-review-ab7058ff-retained; the exact command can now write a fresh directory. Old and new charges both remain.
