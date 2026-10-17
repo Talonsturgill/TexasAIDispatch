@@ -6127,6 +6127,14 @@
         "validator_agents": 5,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-17T00:52:02.405430Z",
+      "evidence": "{REPO}/out/dispatch/evidence/r14-funding/preflight-identity-occupied-20261017.md",
+      "evidence_sha256": "7dea3600c0dd175cde9fba64ab5a6d1e233b39bc2e58869c4c47c3fa0b9d631a",
+      "input_identity": "47b58696c3638b2a077f95e7424ecca0162b94278797e93f2cd4a9eb77b95daa",
+      "kind": "preflight_retry_authorized",
+      "reason": "The only prior reservation for these timed-preview inputs was refused before rendering and its retry was consumed by the opening comparison charge, so no timed preview of the current mix exists. One retry lets the real timed phone preview reserve under its own operation after the storage and authorization infrastructure was fixed. Earlier spend stays charged."
     }
   ],
   "limits": {
@@ -6148,9 +6156,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "47b58696c3638b2a077f95e7424ecca0162b94278797e93f2cd4a9eb77b95daa",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "95459ef89a4d7fa92c84ee2a231fd19bc4ee0b4a2a1b29e656f7084696de4245",
+    "original_private_state_sha256": "58f1ec693a6b76f262ac090229578245db0c0bce6f814e41c4232836dd3dc4f0",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -6186,7 +6195,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T00:41:56.283967Z",
+  "updated_at": "2026-10-17T00:52:02.405573Z",
   "usage": {
     "audiovisual_reviews": 7,
     "cleanup_renders": 0,
