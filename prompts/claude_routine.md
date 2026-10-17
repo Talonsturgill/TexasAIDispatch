@@ -50,6 +50,12 @@ settings through `claude_environment_context.py`. It preserves all permission ru
 hooks, model, effort and bindings; project settings do not supply auto-mode context. Retain the
 helper's preservation receipt and use `claude auto-mode config` to verify the effective context
 on a fresh host. Keep existing credential and no-send boundaries.
+The saved prelaunch setup includes this command before Claude starts:
+
+```sh
+bash scripts/run_with_env.sh python3 scripts/claude_environment_context.py --workspace /home/user --apply
+```
+
 The versioned setup provisions pinned tools and registers the workspace capture router once,
 before auto mode begins. Do not attempt mid-session registration or repeat a classifier-denied
 installation. Preserve the denied command evidence and use a fresh supported routine launch
