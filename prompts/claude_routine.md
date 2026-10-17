@@ -138,6 +138,9 @@ review responses, failed images and every receipt. It skips only known rebuildab
 data structure, redacts shipped Gmail identifiers and local paths from the ledger, refuses to save when
 a credential value appears, and refuses any save that would lower usage, limits or increments, change the
 frozen envelope or alter the earlier event history. A file too large to retain fails the save visibly.
+From the October 17 edition, the cinema producer creates its duplicate render cache under
+`out/dispatch/tmp/cinema-render-cache`. Canonical proof images, hero, provenance and every failed
+proof remain under `cinema/` and are retained. Earlier editions keep their original cache path.
 After `finish --result shipped` and the metadata archive, save once more so the checkpoint reads finished.
 
 Immediately after selecting or restoring the production ledger, arm its preinstalled completion

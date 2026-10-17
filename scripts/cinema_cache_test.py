@@ -134,6 +134,8 @@ class CacheTest(unittest.TestCase):
              patch.object(p,"reserve",side_effect=lambda *a:(charges.append(a) or (True,"reserved"))):
             p.build(self.bp,self.mix,self.root/"state.json")
             self.assertEqual(1,len(charges));self.assertEqual(5,len(batches[0]["jobs"]))
+            self.assertTrue((self.root/"cinema/render-cache").is_dir())
+            self.assertFalse((self.root/"tmp/cinema-render-cache").exists())
             hero=self.root/"cinema/hero.mp4";old=c.file_sha256(hero)
             review=self.root/"cinema/hero-review.json";review.write_text("retained test rejection")
             self.board["scenes"][1]["super"]="Edited ending";self.save()
@@ -270,6 +272,45 @@ class CacheTest(unittest.TestCase):
                 self.assertFalse((root/"proof.json").exists())
                 self.assertFalse((root/"hero.mp4").exists())
         self.assertEqual(2, len(list((root/"failed-proofs").iterdir())))
+
+    def test_new_edition_checkpoints_canonical_and_failed_proofs_without_duplicate_cache(self):
+        import subprocess
+        import claude_checkpoint as checkpoint
+        repo = self.root
+        subprocess.run(["git", "init", "-q", str(repo)], check=True)
+        self.root = repo / "out/dispatch"
+        self.root.mkdir(parents=True)
+        self.bp = self.root / "storyboard.json"
+        self.mix = self.root / "mix.wav"
+        self.board["date"] = "2026-10-17"
+        self.save(); self.audio()
+        samples = patch.object(c, "sample_frames", return_value={"a": [3, 6, 9]})
+        samples.start()
+        self.addCleanup(samples.stop)
+        stage, commands, reserve = self.proof_fixture(["synthetic stage rejection"])
+        with self.assertRaisesRegex(ValueError, "exact failed evidence retained"):
+            p.build(self.bp, self.mix, self.root / "state.json")
+        stage.return_value = []
+        p.build(self.bp, self.mix, self.root / "state.json")
+        self.assertEqual(1, reserve.call_count)
+        self.assertEqual(2, commands.call_count)
+        self.assertTrue((self.root / "tmp/cinema-render-cache").is_dir())
+        self.assertFalse((self.root / "cinema/render-cache").exists())
+        chosen, excluded, problems, regenerable, deleted = checkpoint.candidates(repo)
+        self.assertEqual([], problems)
+        self.assertGreater(regenerable["bytes"], 0)
+        self.assertFalse(any("/tmp/" in rel for rel in chosen))
+        proof = json.loads((self.root / "cinema/proof.json").read_text())
+        required = [self.root / "cinema/proof.json", self.root / "cinema/hero.mp4"]
+        required += [self.root / "cinema" / entry["file"]
+                     for pairs in proof["samples"].values() for pair in pairs
+                     for entry in pair.values()]
+        required += [path for path in (self.root / "cinema/failed-proofs").rglob("*")
+                     if path.is_file()]
+        self.assertTrue(required)
+        for path in required:
+            self.assertIn(path.relative_to(repo).as_posix(), chosen)
+        self.assertEqual([], c.binding_problems(self.bp, proof, self.mix))
 
 class DirectedActionSamplingTest(unittest.TestCase):
     def board(self):
