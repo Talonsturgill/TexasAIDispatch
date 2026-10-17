@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T20:40:24.240544+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-17T20:41:34.750524+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -1291,6 +1291,18 @@
       "size": 6193929
     },
     {
+      "path": "out/dispatch/cinema/picture-review-response.json",
+      "class": "scratch",
+      "sha256": "287f7816c17e6d4e0b2c50dfe31773bcebd2bd41d519f5bfd2ca68eb247addbd",
+      "size": 133274
+    },
+    {
+      "path": "out/dispatch/cinema/picture-review.json",
+      "class": "scratch",
+      "sha256": "f9c58b47db4aa72944d37bd4c25a0f18db6ef5397d8e9487861334b14d08fc6c",
+      "size": 586
+    },
+    {
       "path": "out/dispatch/cinema/proof.json",
       "class": "scratch",
       "sha256": "a0ca175c1b3349eda55cc340cf05ddfbc8ce29c71012ad8efa6ae8964e83e478",
@@ -2333,6 +2345,18 @@
       "class": "scratch",
       "sha256": "c8b3bab715382da121e5dc816c372d0d5b657760e6cd750b420c52b7661abad0",
       "size": 574
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/53ebe3d9b7cdcca83dd06d07c7f448e8350cd535950b6f830574d52c51a5df4f/picture-review-response.json",
+      "class": "scratch",
+      "sha256": "287f7816c17e6d4e0b2c50dfe31773bcebd2bd41d519f5bfd2ca68eb247addbd",
+      "size": 133274
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/53ebe3d9b7cdcca83dd06d07c7f448e8350cd535950b6f830574d52c51a5df4f/receipt.json",
+      "class": "scratch",
+      "sha256": "f9c58b47db4aa72944d37bd4c25a0f18db6ef5397d8e9487861334b14d08fc6c",
+      "size": 586
     },
     {
       "path": "out/dispatch/cinema/s1-0-normal.png",
@@ -16047,8 +16071,8 @@
     {
       "path": "out/dispatch/evidence/r15g/av-picture-final.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "3fda52299c5e4771cdeb273e14fc034ccf12ba65e9434b87b086539c8fc2f4ce",
+      "size": 144
     },
     {
       "path": "out/dispatch/evidence/r15g/av-picture.log",
@@ -16061,6 +16085,12 @@
       "class": "scratch",
       "sha256": "448489cc70b065ea911261592e3d3aba653fe244e83e15720d1de9fc33f728cb",
       "size": 1085
+    },
+    {
+      "path": "out/dispatch/evidence/r15g/av-story-final.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/evidence/r15g/av-story.log",
