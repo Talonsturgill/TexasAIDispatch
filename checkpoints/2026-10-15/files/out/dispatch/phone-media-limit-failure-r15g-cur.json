@@ -1,0 +1,46 @@
+{
+  "schema": "dispatch_review_transport_failure/1",
+  "role": "phone",
+  "actor": "a2a2e2c3598dc98d1",
+  "observed_at": "2026-10-17T19:45:44.032805Z",
+  "error": "[media removed: request limit]",
+  "raw_error": "[media removed: request limit]",
+  "verdict": null,
+  "reservation_event_index": 405,
+  "reservation": {
+    "at": "2026-10-17T19:32:55.376786Z",
+    "kind": "reserved",
+    "note": "precharged same-worker continuation of the exact timed phone review (critic a83b6592 killed by host interrupt mid-traversal at ~40 pages read, no handback saved); complete remaining pages and return the full report",
+    "preflight_identity": null,
+    "resources": {
+      "storyboard_critics": 1
+    }
+  },
+  "reservation_sha256": "21e4d8304a9d5576c2db8e8b5b723cfcc4eaa6a294befb96ad0137037e895cb9",
+  "media_probe": {
+    "single_image_read": true,
+    "media_received": false,
+    "packet": {
+      "path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15g/phone-critic-packet-r15g-cur.json",
+      "sha256": "b9c5c5a83c1890ba30d7aecd00f47043c49a3f57b4a680f5e225336b4f2cb2d4"
+    },
+    "coverage": {
+      "path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15g/review-phone-partial/image-coverage-normalized.json",
+      "sha256": "6277bda1dbbb2eb22adbcb3c371700ca2d145436795dbd477bbe8e6263e87ac2"
+    },
+    "handback": {
+      "path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15g/review-phone-partial/partial-report.json",
+      "sha256": "a16f1dc7f7631daa33da30228042b9553f2fd9dfbbc3462ca290267740551fad"
+    },
+    "image": {
+      "path": "/home/user/restore/TexasAIDispatch/out/dispatch/motion-current-r15g/sequence-000.png",
+      "sha256": "9361254bd0f255e92994817af747952b30f9aca2099192e63aca5b83f2bfda23"
+    }
+  },
+  "assignment": {
+    "role": "phone",
+    "actor": "a2a2e2c3598dc98d1",
+    "board_sha256": "dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6",
+    "film_sha256": "693d3978f6aa05a15fc43a449e589b6011419653e53cf3e82d587167421d2ab0"
+  }
+}
