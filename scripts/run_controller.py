@@ -318,7 +318,8 @@ def repair_plan_evidence(state: dict, name: str, plan_path: Path | None) -> tupl
         return {}, f"invalid repair plan: {exc}"
 
 
-def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool = False, _use_prepared_capture: bool = True
+def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool = False,
+            _use_prepared_capture: bool = True, _prepare_full: bool = False
             ) -> tuple[bool, str]:
     import claude_checkpoint
     claude_checkpoint.require_backed(path)  # unbacked charges or outputs stop new paid work
@@ -368,8 +369,9 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
         return False, "; ".join(envelope_errors) + "; preserve the film and resolve the recorded production plan"
 
     preview_identity = preflight_identity(path, note) if "preflight_renders" in amounts else None
-    full_identity = (full_render_identity(path) if amounts == {'full_renders': 1}
-                     and note == 'full-resolution Dispatch render' else None)
+    if _prepare_full and (amounts != {'full_renders': 1} or note != 'full-resolution Dispatch render'):
+        return False, 'prepared full render requires its exact resource and operation'
+    full_identity = full_render_identity(path) if _prepare_full else None
     if (preview_identity and state.get("preflight_retry") != preview_identity
             and any(e.get("preflight_identity") == preview_identity for e in state.get("events", []))):
         return False, ("run controller: identical preflight inputs were already reserved for this operation. "

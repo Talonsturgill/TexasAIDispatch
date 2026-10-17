@@ -114,7 +114,9 @@ def prepare(root, state_path, commands, resource=None):
         if problems:
             raise ValueError('full-render music package: ' + '; '.join(problems))
         input_identity(state_path, note)
-    accepted, message = controller.reserve(state_path, {owned_resource: 1}, note, _use_prepared_capture=False)
+    prepare_options = {'_prepare_full': True} if note == FULL_OPERATION else {}
+    accepted, message = controller.reserve(state_path, {owned_resource: 1}, note,
+                                           _use_prepared_capture=False, **prepare_options)
     if not accepted:
         raise ValueError(message)
     state = controller.read_state(state_path)

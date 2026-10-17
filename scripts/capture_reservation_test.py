@@ -260,6 +260,12 @@ class Reservation(unittest.TestCase):
         self.assertIn('already used', guard.decide({'tool_name': 'Bash',
             'tool_input': {'command': command}, 'cwd': str(self.root)}, self.root))
 
+    def test_legacy_unprepared_full_charge_retains_its_original_ledger_contract(self):
+        self.assertTrue(controller.reserve(self.state, {'full_renders': 1}, prepared.FULL_OPERATION)[0])
+        state = controller.read_state(self.state)
+        self.assertEqual(1, state['usage']['full_renders'])
+        self.assertNotIn('full_render_identity', state['events'][-1])
+
     def test_full_claim_refuses_changed_sound_captions_sources_preview_and_operators(self):
         self.full_authorise()
         before = self.state.read_bytes()
