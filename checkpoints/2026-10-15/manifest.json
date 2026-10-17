@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T01:22:23.666753+00:00",
-  "note": "R15 brief v3 and plan r15b bound; waiting for PR192 merge",
+  "saved_at": "2026-10-17T01:24:45.774073+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/ed1015/TexasAIDispatch",
-  "source_pin": "155e4c2e222221285962d1f331c41e9206b54bf3",
+  "source_pin": "442f0b69c1bc6c3d33ed991b6c1f4263b2af6967",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "3560f6dbdbd65ffcdd32f44d525cbb3dd2a81c6cd6c770f90ae86a770fa552f7",
-  "original_private_ledger_sha256": "797f0be14f6fc33d4bfee7b7bf364deb3f7561bb480c4bb2e6806f1607bcfe5a",
+  "ledger_sha256": "8079868143fe57453e69785cbff20b10ef5b360986e9fa7d903d02399b8fbb45",
+  "original_private_ledger_sha256": "e7bb43c2164e829308f55de6daa0f72d1fa6acd66f6d596662d2015e787d7173",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -77,6 +77,11 @@
     {
       "event_index": 272,
       "authorization_sha256": "072453f39e2ff2db75bcdbab73e4dcf64b6dc1841ec6cf6c94fb51c41a0b5d04",
+      "root": "/home/user/ed1015/TexasAIDispatch"
+    },
+    {
+      "event_index": 282,
+      "authorization_sha256": "dba2b04eee10e385d0e2f2f8ebd83d9852e3c766aac8c5fa854915a3566b04ed",
       "root": "/home/user/ed1015/TexasAIDispatch"
     }
   ],
@@ -11725,6 +11730,36 @@
       "class": "scratch",
       "sha256": "a11ea0e8f78345c35e619d9085e9d76f0a0e7c020bbc2174761d9597df03623c",
       "size": 9611
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/comparison-budget-r15b.log",
+      "class": "scratch",
+      "sha256": "4ac28f71785a29f0c26df9cd1f14010ef25891698355e985210c5d829ccf680d",
+      "size": 87
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/complete-plan-r15b.json",
+      "class": "scratch",
+      "sha256": "dba2b04eee10e385d0e2f2f8ebd83d9852e3c766aac8c5fa854915a3566b04ed",
+      "size": 9169
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/completion-capacity-r15b.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-r15b-host-before.json",
+      "class": "scratch",
+      "sha256": "76bc547dc60789934b1cf5f15a90bab27ae95a20699f7830d43a5d59af2512ca",
+      "size": 1589
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-r15b-provider-before.json",
+      "class": "scratch",
+      "sha256": "74fa5c2854e7841eaa6f00b35bba7734bd940c3492b8765324593288600b2533",
+      "size": 1593
     },
     {
       "path": "out/dispatch/evidence/r15-repair/repair-plan-r15.json",
