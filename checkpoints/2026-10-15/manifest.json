@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T00:05:46.675383+00:00",
-  "note": "R14: provider recovery verdict A pass verified; finish-only preflight deficit 1; completion-capacity refused on provider phone report evidence; selection-bound plan denied; held",
+  "saved_at": "2026-10-17T00:42:05.832506+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/ed1015/TexasAIDispatch",
-  "source_pin": "410b94bb5d5e81280af6157c8c9b06197fa0b00e",
+  "source_pin": "155e4c2e222221285962d1f331c41e9206b54bf3",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "43db5b3d380d933ff5310bb0d93ac3ae7c0f99d11deb0ea16e890e99b5055122",
-  "original_private_ledger_sha256": "dc24671c9cca372d3e35f2de7bb364b3886e5131349fdf6d61b9b2b3ae9f65cc",
+  "ledger_sha256": "3f8011ded16fbc94db72824d34964ec132476468b5efaa6a7e312c122f08224a",
+  "original_private_ledger_sha256": "95459ef89a4d7fa92c84ee2a231fd19bc4ee0b4a2a1b29e656f7084696de4245",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -72,6 +72,11 @@
     {
       "event_index": 241,
       "authorization_sha256": "16ec6bbacb22a1b81fcd8b65f278e40055a742cbeca2c02450bea47e9ba321eb",
+      "root": "/home/user/ed1015/TexasAIDispatch"
+    },
+    {
+      "event_index": 272,
+      "authorization_sha256": "072453f39e2ff2db75bcdbab73e4dcf64b6dc1841ec6cf6c94fb51c41a0b5d04",
       "root": "/home/user/ed1015/TexasAIDispatch"
     }
   ],
@@ -11194,10 +11199,22 @@
       "size": 82
     },
     {
+      "path": "out/dispatch/evidence/r14-funding/DIAGNOSIS-findings-parser.md",
+      "class": "scratch",
+      "sha256": "26058b4c813295b06253e7f9b1d14ee30a4d4cba65986d74b0cc5863e262a1b7",
+      "size": 3977
+    },
+    {
       "path": "out/dispatch/evidence/r14-funding/HOLD-finish-only-deficit.md",
       "class": "scratch",
       "sha256": "8f2a519bd26163ebe232ed75ea8055518d9d3b782eab83db27126a2759e58fd1",
       "size": 1904
+    },
+    {
+      "path": "out/dispatch/evidence/r14-funding/NEXT-STEPS-after-PR191.md",
+      "class": "scratch",
+      "sha256": "d31b659c4cbaf4565cfefa6a98b0aa2ab54cd6de9d7e4184213a7db7b9ff3415",
+      "size": 3912
     },
     {
       "path": "out/dispatch/evidence/r14-funding/authorize-compare.log",
@@ -11254,6 +11271,18 @@
       "size": 1494
     },
     {
+      "path": "out/dispatch/evidence/r14-funding/budget-reprojected-host.json",
+      "class": "scratch",
+      "sha256": "9302cdcdb398cf6b6cd366f897e1e6fb4de69540534782d13abcc1b6f8d677bf",
+      "size": 1490
+    },
+    {
+      "path": "out/dispatch/evidence/r14-funding/budget-reprojected-provider.json",
+      "class": "scratch",
+      "sha256": "779c28ecb61b44da5ca2368c2bf52a88a403a05ec3650be1b0244ad7d41f307f",
+      "size": 1494
+    },
+    {
       "path": "out/dispatch/evidence/r14-funding/budget-verdict-host.json",
       "class": "scratch",
       "sha256": "9302cdcdb398cf6b6cd366f897e1e6fb4de69540534782d13abcc1b6f8d677bf",
@@ -11274,6 +11303,12 @@
     {
       "path": "out/dispatch/evidence/r14-funding/checkpoint-verdict.log",
       "class": "scratch",
+      "sha256": "1ffbfccce2efd76060bf0625c4f21d33a6eb408bcd696b5fcdd7e697c920ac3c",
+      "size": 249
+    },
+    {
+      "path": "out/dispatch/evidence/r14-funding/completion-capacity-reprojected.log",
+      "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
     },
@@ -11288,6 +11323,12 @@
       "class": "scratch",
       "sha256": "3c16ea5fb5d20efb9c3002219ce7d62c1ad4a7e92f187374eb7292ae02242151",
       "size": 101
+    },
+    {
+      "path": "out/dispatch/evidence/r14-funding/finish-current-plan-r14-reprojected.json",
+      "class": "scratch",
+      "sha256": "072453f39e2ff2db75bcdbab73e4dcf64b6dc1841ec6cf6c94fb51c41a0b5d04",
+      "size": 1631
     },
     {
       "path": "out/dispatch/evidence/r14-funding/finish-current-plan-r14-verdict.json",
@@ -11392,6 +11433,54 @@
       "size": 249
     },
     {
+      "path": "out/dispatch/evidence/r14-phone-transport/child-cache-before-reprojection/MANIFEST.sha256",
+      "class": "scratch",
+      "sha256": "9d0453021baec57703519001a1aad207bf2f401a25f2912339195c6383bc86b3",
+      "size": 585
+    },
+    {
+      "path": "out/dispatch/evidence/r14-phone-transport/child-cache-before-reprojection/attempt.json",
+      "class": "scratch",
+      "sha256": "cbdd7beca14c8998faee55dd2e714f2b9ad7d492763be3e230d913a29d53f1a0",
+      "size": 15219
+    },
+    {
+      "path": "out/dispatch/evidence/r14-phone-transport/child-cache-before-reprojection/provider-phone-report-r14-recovery.json",
+      "class": "scratch",
+      "sha256": "6c6bc249d3f348001ad118276af4122c3d5dfe649a04a74231c61c2af3faf305",
+      "size": 1785045
+    },
+    {
+      "path": "out/dispatch/evidence/r14-phone-transport/child-cache-before-reprojection/report.json",
+      "class": "scratch",
+      "sha256": "6c6bc249d3f348001ad118276af4122c3d5dfe649a04a74231c61c2af3faf305",
+      "size": 1785045
+    },
+    {
+      "path": "out/dispatch/evidence/r14-phone-transport/child-cache-before-reprojection/request.json",
+      "class": "scratch",
+      "sha256": "7535d5a3906a2355774739676cbfaff48b8b0593713d5b31e8aa4bf2db924a42",
+      "size": 1273015
+    },
+    {
+      "path": "out/dispatch/evidence/r14-phone-transport/child-cache-before-reprojection/response.json",
+      "class": "scratch",
+      "sha256": "32593b7c183024b36c42378efda2d9f9e8a019516620e53a3cc7041995ba5873",
+      "size": 423780
+    },
+    {
+      "path": "out/dispatch/evidence/r14-phone-transport/child-cache-before-reprojection/selection.json",
+      "class": "scratch",
+      "sha256": "10708194ab3ae60683a48bf616ebc7d78e8773125fe99b727ead708c550dd5ea",
+      "size": 1770105
+    },
+    {
+      "path": "out/dispatch/evidence/r14-phone-transport/child-cache-report-moved-for-reprojection.json",
+      "class": "scratch",
+      "sha256": "6c6bc249d3f348001ad118276af4122c3d5dfe649a04a74231c61c2af3faf305",
+      "size": 1785045
+    },
+    {
       "path": "out/dispatch/evidence/r14-phone-transport/coverage-director-projected.json",
       "class": "scratch",
       "sha256": "5da3c12fded05cac696fb47230bc66e4729ebf1e6abd39a60a67d38096980311",
@@ -11450,6 +11539,18 @@
       "class": "scratch",
       "sha256": "6623527816ef5d9a0a5a98c73fa1d0279e5a2eda5e9a25692bec19eccd2acafd",
       "size": 82
+    },
+    {
+      "path": "out/dispatch/evidence/r14-phone-transport/provider-reproject.log",
+      "class": "scratch",
+      "sha256": "95f9bed7c2a9b18d817419f3b33cf618d452a9d29e336aada2e1cecb97cd4708",
+      "size": 105
+    },
+    {
+      "path": "out/dispatch/evidence/r14-phone-transport/selection-canonical-before-reprojection.json",
+      "class": "scratch",
+      "sha256": "10708194ab3ae60683a48bf616ebc7d78e8773125fe99b727ead708c550dd5ea",
+      "size": 1770105
     },
     {
       "path": "out/dispatch/evidence/r14-phone-transport/timeout-retry-receipt.log",
@@ -13200,8 +13301,8 @@
     {
       "path": "out/dispatch/independent-review-cache/8ec9f28de56e6d74006fc2d610a30fd0bd1cd2195ff64bf3b8f5b291f0805be0/availability-recovery/report.json",
       "class": "scratch",
-      "sha256": "6c6bc249d3f348001ad118276af4122c3d5dfe649a04a74231c61c2af3faf305",
-      "size": 1785045
+      "sha256": "76a64d13a95a7bb4f47d7d25f41f5daaaa88cd5dcd49c64bb4bf1ec84bef5c92",
+      "size": 1785365
     },
     {
       "path": "out/dispatch/independent-review-cache/8ec9f28de56e6d74006fc2d610a30fd0bd1cd2195ff64bf3b8f5b291f0805be0/availability-recovery/request.json",
@@ -14720,6 +14821,12 @@
       "class": "scratch",
       "sha256": "6c6bc249d3f348001ad118276af4122c3d5dfe649a04a74231c61c2af3faf305",
       "size": 1785045
+    },
+    {
+      "path": "out/dispatch/provider-phone-report-r14-reprojected.json",
+      "class": "scratch",
+      "sha256": "76a64d13a95a7bb4f47d7d25f41f5daaaa88cd5dcd49c64bb4bf1ec84bef5c92",
+      "size": 1785365
     },
     {
       "path": "out/dispatch/provider-phone-report.json",

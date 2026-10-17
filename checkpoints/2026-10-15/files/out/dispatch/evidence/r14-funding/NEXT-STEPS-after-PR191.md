@@ -1,0 +1,19 @@
+# Read-only preparation for after PR191 is merged (2026-10-17). Nothing here was executed.
+
+## Verified now (read-only)
+- Checkout at 410b94bb (origin/main same); PR191 not merged yet. Uncommitted files are the edition's own.
+- Original verdict-bound plan: out/dispatch/evidence/r14-funding/finish-current-plan-r14-verdict.json sha256 d06990cc1ed0fea5e7ee9b6b9f8b5e7f0942f2f55d90e57356067df10a33c395; evidence provider-phone-report-r14-recovery.json sha256 6c6bc249d3f348001ad118276af4122c3d5dfe649a04a74231c61c2af3faf305. Do not edit either.
+- Headroom: native_headroom required_free_gib 20, free 19.951 GiB right now, so pass false. Capture needs fresh headroom plus housekeeping first (the guard refused the last capture for exactly this). Non-destructive reclaim candidate if housekeeping reclaims nothing: make the unmodified full clone /home/user/TexasAIDocket sparse excluding runs/20*/ and runs/review/ (about 1.2 GiB working files, all remain in git), as was done for /home/user/TexasAIDispatch. Needs git status clean there first.
+- Existing mix/caption proof: mix.json 64.40 s cut 64.4, time_stretch 1.0, loudness -16.04 LUFS, true peak -1.97 dBTP, master mix.wav sha256 4a96b35f...; words.json provenance mix_sha256 equals the master; 16 silence_anchored measured cues (captions.json a6b0e45a); storyboard.json 5a1b8e26 (runtime 59.4); music bed "Sincerely" by Kevin MacLeod, credit text in music_credit.txt (CC BY 4.0, trimmed and synced).
+- Delivery routing: out/dispatch/delivery-routing.json present (private; recipient, provenance, prior message id, labels). Not printed.
+- Ledger: preflight_renders 24 of 25, storyboard_critics 27 of 29, audiovisual_reviews 7 of 43, full_renders 0 of 14, scorer_calls 0 of 27, panel_rounds 0 of 9, tts 14 of 16 (no new voice needed).
+
+## Commands to run after the merged fix (each wrapped with scripts/run_with_env.sh and an explicit cd, pipefail, return codes checked)
+1. git fetch origin main && git merge --ff-only origin/main
+2. Replay read-only: creative_release.findings on the report must return []; autonomous_completion.mandatory_reason on plan d06990cc must return finish-current.
+3. run_controller.py completion-capacity --repair-plan out/dispatch/evidence/r14-funding/finish-current-plan-r14-verdict.json  (expect exactly preflight_renders +1)
+4. run_controller.py production-budget --review-route host / provider with NO plan: expect feasible, zero deficits.
+5. dispatch_housekeeping.py --workspace /home/user/ed1015 --dispatch-repo ... --docket-repo ... --apply --fetch --summary --require-headroom --min-free-gib 20 (and the sparse reclaim above only if needed).
+6. Stage the chosen concept: preflight.mp4 from openings/a.mp4 (storyboard.json already equals openings/a.json semantically); capture_guard.py authorize --prepare for preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only, then run that exact command; review_context verify; claude_motion_review --phone-option current under its own authorization; the timed phone review with actual audio (host first, provider only on an observed failure), then daily_production with the bound comparison.
+7. native_headroom + housekeeping, then cinema_proof (native hero) and the audiovisual hero review; render_dispatch.sh (native PNG, CRF16); pre-panel checks; claude_motion_review on the native film; three AV lenses; run_controller panel --judges 3 and three separate scorers; panel_triage; deliver_run --verify-only; finish --result publishable.
+8. Release: validation_check, deliver_run, publish_feed (Docket PR, exact-head CI, merge), live_check, phone_playback.py on the canonical URL, music_credit_payload + email_check, Gmail draft with htmlBody (To from delivery-routing, mix-bound copy-ready music credit, DRAFT, never SENT) with read-back, shipment.json, finish --result shipped, public_state archive, final checkpoint. PR189 stays held until shipped and archived.
