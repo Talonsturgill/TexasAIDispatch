@@ -769,6 +769,14 @@
       "note": "precharged same-worker both-treatment code review of the R15f s8-shot-1 framing correction (SendMessage a110876b976dcc812), allocation 1 of 4: silent comparison, final timed phone and one reserve remain",
       "resource": "storyboard_critics",
       "to": 37
+    },
+    {
+      "at": "2026-10-17T05:13:48.586392Z",
+      "ceiling": 38,
+      "from": 30,
+      "note": "capture authorization reservation for opening comparison",
+      "resource": "preflight_renders",
+      "to": 31
     }
   ],
   "events": [
@@ -7863,6 +7871,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-17T05:13:48.586430Z",
+      "ceiling": 38,
+      "kind": "budget_escalated",
+      "note": "capture authorization reservation for opening comparison",
+      "now": 31,
+      "resource": "preflight_renders",
+      "was": 30
+    },
+    {
+      "at": "2026-10-17T05:13:48.586445Z",
+      "kind": "reserved",
+      "note": "capture authorization reservation for opening comparison",
+      "preflight_identity": "7c0eb60830c514c52a402da781d8666e720a77b775391c6327a30c43f7cae653",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -7871,7 +7897,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 30,
+    "preflight_renders": 31,
     "reboards": 12,
     "reported_tokens": 849907,
     "rescue_renders": 1,
@@ -7886,7 +7912,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6da114ba94ee34fa1de10cfa10b465a2f08a5b8c0e138abbd77fcf30eb40e5ec",
+    "original_private_state_sha256": "09f919fe72b88cb7a58bcf7a3441c6307df56e9bcc5c31fdf91e637bf5abea71",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -7922,14 +7948,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T05:08:47.350892Z",
+  "updated_at": "2026-10-17T05:13:48.586449Z",
   "usage": {
     "audiovisual_reviews": 8,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 30,
+    "preflight_renders": 31,
     "reboards": 12,
     "reported_tokens": 849907,
     "rescue_renders": 0,
