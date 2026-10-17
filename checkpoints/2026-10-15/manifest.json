@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T00:03:35.385256+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-17T00:05:46.675383+00:00",
+  "note": "R14: provider recovery verdict A pass verified; finish-only preflight deficit 1; completion-capacity refused on provider phone report evidence; selection-bound plan denied; held",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -11194,6 +11194,12 @@
       "size": 82
     },
     {
+      "path": "out/dispatch/evidence/r14-funding/HOLD-finish-only-deficit.md",
+      "class": "scratch",
+      "sha256": "8f2a519bd26163ebe232ed75ea8055518d9d3b782eab83db27126a2759e58fd1",
+      "size": 1904
+    },
+    {
       "path": "out/dispatch/evidence/r14-funding/authorize-compare.log",
       "class": "scratch",
       "sha256": "86e959002eec189969fe63422e5e89e9ba8a2ce7d3f01c09a8e77940445e3ac4",
@@ -11236,16 +11242,58 @@
       "size": 71
     },
     {
+      "path": "out/dispatch/evidence/r14-funding/budget-noplan-after-grant-host.json",
+      "class": "scratch",
+      "sha256": "9302cdcdb398cf6b6cd366f897e1e6fb4de69540534782d13abcc1b6f8d677bf",
+      "size": 1490
+    },
+    {
+      "path": "out/dispatch/evidence/r14-funding/budget-noplan-after-grant-provider.json",
+      "class": "scratch",
+      "sha256": "779c28ecb61b44da5ca2368c2bf52a88a403a05ec3650be1b0244ad7d41f307f",
+      "size": 1494
+    },
+    {
+      "path": "out/dispatch/evidence/r14-funding/budget-verdict-host.json",
+      "class": "scratch",
+      "sha256": "9302cdcdb398cf6b6cd366f897e1e6fb4de69540534782d13abcc1b6f8d677bf",
+      "size": 1490
+    },
+    {
+      "path": "out/dispatch/evidence/r14-funding/budget-verdict-provider.json",
+      "class": "scratch",
+      "sha256": "779c28ecb61b44da5ca2368c2bf52a88a403a05ec3650be1b0244ad7d41f307f",
+      "size": 1494
+    },
+    {
       "path": "out/dispatch/evidence/r14-funding/capture-budget.log",
       "class": "scratch",
       "sha256": "4ac28f71785a29f0c26df9cd1f14010ef25891698355e985210c5d829ccf680d",
       "size": 87
     },
     {
+      "path": "out/dispatch/evidence/r14-funding/checkpoint-verdict.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/evidence/r14-funding/completion-capacity-verdict.log",
+      "class": "scratch",
+      "sha256": "8cdb042dfa4fafaa72548652cd994a4fe13c1a44084e1efea6e3a6881854bd49",
+      "size": 109
+    },
+    {
       "path": "out/dispatch/evidence/r14-funding/completion-capacity.log",
       "class": "scratch",
       "sha256": "3c16ea5fb5d20efb9c3002219ce7d62c1ad4a7e92f187374eb7292ae02242151",
       "size": 101
+    },
+    {
+      "path": "out/dispatch/evidence/r14-funding/finish-current-plan-r14-verdict.json",
+      "class": "scratch",
+      "sha256": "d06990cc1ed0fea5e7ee9b6b9f8b5e7f0942f2f55d90e57356067df10a33c395",
+      "size": 1329
     },
     {
       "path": "out/dispatch/evidence/r14-funding/hook-reserve.log",
@@ -11394,8 +11442,8 @@
     {
       "path": "out/dispatch/evidence/r14-phone-transport/provider-compare-recovery.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "4af59266b20d53b4d4ad5e010e41be6c47f4c5c5bccb747fb9df12631dce63ff",
+      "size": 112
     },
     {
       "path": "out/dispatch/evidence/r14-phone-transport/provider-compare.log",
