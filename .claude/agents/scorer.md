@@ -36,6 +36,9 @@ can return partial with its literal error and observed defects; it cannot supply
 score or fabricated coverage. Retain all real findings while completing the same assignment.
 Return the required single JSON report and separate coverage object, with the exact packet
 bindings copied into their named fields. Never replace a binding with a guessed hash.
+For this dated profile also include reviewer_identity from the assigned role/task and packet
+identity, plus verdict reflecting the same actual pass/revise conclusion as ship. These
+metadata fields support the existing controller recovery; they change no score or finding.
 
 **READ THE THRESHOLD OUT OF `config/dispatch_rubric.yaml`.** Do not accept a bar quoted to you in
 a brief, and do not use a number you remember. The sibling lost five panel rounds to a stale bar
