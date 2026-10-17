@@ -263,6 +263,7 @@ jobs:
           python3 scripts/run_discipline.py --self-test
           python3 scripts/run_discipline.py
           bash -n scripts/render_dispatch.sh scripts/package_review_run.sh
+          python3 scripts/render_dispatch_credit_test.py
 
       - name: The exact final film fits the phone and desktop feed
         run: |
