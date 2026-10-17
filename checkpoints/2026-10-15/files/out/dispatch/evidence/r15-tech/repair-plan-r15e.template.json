@@ -1,0 +1,28 @@
+{
+  "mechanism_id": "s7-detail-safe-area-framing",
+  "failure_family": "document-handling",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The s7 detail push (scale 1.3 about [560,700]) is not bounded by the validation card and tag extents, so at 45.6 to 49.0 s the card left edge is cropped (98.82% reads 8.82%, narration n7b fails) and the screen-space disclosure chip overlaps the card heading with the assessments tag clipped.",
+  "repair": "Renderer-only: bound the validation-card detail push in FloodStationFilm.tsx by the card and tag world extents with margin so the full figure, heading and tag stay inside the frame and clear of the disclosure chip, on the same clock, window and eased push, identically for treatments A and B. No board, script, claims, caption, mix or timing change.",
+  "mechanism_change": "The push scale and focus are derived from the framed objects and the safe area instead of the fixed 1.3 about [560,700].",
+  "expected_visible_result": "Across 45.6 to 49.0 s the printed 98.82% shows its leading 9, the card heading is clear of the disclosure chip, and the whole assessments tag is inside the frame, with the push still visible.",
+  "failure_evidence": "FILLED_AFTER_CLASSIFICATION",
+  "failure_evidence_sha256": "FILLED_AFTER_CLASSIFICATION",
+  "failed_film_sha256": "c0aee5b3c9af37a5333246e4bf8ca1c99fe59882bccb6beb70758a67eaef58af",
+  "resources": {
+    "reboards": 1
+  },
+  "repair_scope": "technical-integrity",
+  "changed_inputs": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/baseline/FloodStationFilm.tsx",
+      "before_sha256": "b4a0ce8feeae3107ce9f1ad2ef0249572576c31b0a94533bdc2bfc10a89311fd"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/baseline/StreetHubSupport.tsx",
+      "before_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346"
+    }
+  ]
+}
