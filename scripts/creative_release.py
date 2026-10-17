@@ -151,6 +151,16 @@ def findings(report):
         return []  # Existing score-only rules still decide whether this is valid.
     from independent_review import evidence_problems
     proof = report.get('provider_evidence') or {}
+    # A passing phone provider can include an empty classification alongside its
+    # empty ordinary findings. This is not a sole embedded rejection collection
+    # or an artistic release assessment. Verify the original response before
+    # exposing its empty findings to finish-current capacity accounting.
+    if (rows == [] and report.get('verdict') == 'pass'
+            and assessment.get('schema') == 'dispatch_creative_assessment/1'
+            and assessment.get('scope') == 'phone'
+            and isinstance(proof, dict) and proof.get('role') == 'phone'
+            and not evidence_problems(report)):
+        return []
     if (assessment.get('schema') != 'dispatch_creative_assessment/1'
             or assessment.get('scope') != 'panel'
             or not isinstance(proof, dict)
