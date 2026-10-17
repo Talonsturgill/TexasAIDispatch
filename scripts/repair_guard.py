@@ -228,6 +228,12 @@ def minimum_action_plan_failure(state, plan):
     return False
 
 
+def budget_deficits(rows):
+    """A bound unused charge funds its current path without changing usage or remaining caps."""
+    return {name: row['required'] - row['remaining'] - row.get('prepaid', 0)
+            for name, row in rows.items() if row['required'] > row['remaining'] + row.get('prepaid', 0)}
+
+
 def production_budget_precheck(state, review_route="host", phone_complete=False,
                                hero_rejected=False, context_ready=False, structural_ready=False,
                                minimum_action_failed=False, mandatory_repair=False, review_coverage=False,
@@ -284,12 +290,20 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
                    "used": snapshot["usage"].get(name, 0),
                    "remaining": effective.get(name, 0) - snapshot["usage"].get(name, 0)}
             for name, count in required.items()}
-    deficits = {name: row["required"] - row["remaining"] for name, row in rows.items()
-                if row["remaining"] < row["required"]}
+    prepaid = None
+    try:
+        from rights_repair_precharge import active_reference
+        prepaid = active_reference(snapshot)
+    except (ValueError, KeyError, TypeError) as exc:
+        return {'feasible': False, 'errors': [str(exc)], 'resources': rows, 'deficits': {}}
+    if mandatory_repair and prepaid is not None and rows['reboards']['required'] > 0:
+        rows['reboards']['prepaid'] = 1
+    deficits = budget_deficits(rows)
     blockers = ["rejected native hero requires an evidence-bound repair; finish-current is unavailable"] if hero_rejected and not context_ready and not structural_ready else []
     if action_blocked:
         blockers.append("minimum picture action failed; finish-current is unavailable and complete correction capacity is required")
     return {"feasible": not deficits and not blockers, "errors": blockers, "resources": rows, "deficits": deficits,
+            **({'prepaid_reboard': prepaid} if mandatory_repair and prepaid is not None else {}),
             "review_route": review_route,
             "current_phone_reused": bool(phone_complete and (finishing or context_ready)),
             "path": "complete-modern-code-repair" if modern_code_repair else "complete-review-coverage" if review_coverage else "minimum-action-repair-required" if action_blocked else "structural-hero-repair" if hero_rejected and structural_ready else "review-context-repair" if hero_rejected and context_ready else "hero-repair-required" if hero_rejected else "finish-current" if finishing else "complete-visual-repair",

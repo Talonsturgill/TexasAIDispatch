@@ -58,6 +58,32 @@ class UnusedRightsReboard(unittest.TestCase):
         self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
         self.assertEqual(before, self.state.read_bytes())
 
+    def test_complete_path_counts_the_verified_prepaid_unit_without_resetting_usage(self):
+        from repair_guard import production_budget_precheck
+        import capture_completion_budget as capture
+        from unittest.mock import patch
+        before = production_budget_precheck(self.before, mandatory_repair=True)
+        self.assertEqual(before['deficits']['reboards'], 1)
+        self.assertTrue(lifecycle.begin_repair(self.state, self.plan, prepaid_reboard=self.receipt)[0])
+        state = controller.read_state(self.state)
+        budget = production_budget_precheck(state, mandatory_repair=True)
+        self.assertTrue(budget['feasible'], budget)
+        self.assertEqual(budget['resources']['reboards']['required'], 1)
+        self.assertEqual(budget['resources']['reboards']['remaining'], 0)
+        self.assertEqual(budget['resources']['reboards']['prepaid'], 1)
+        self.assertEqual(budget['prepaid_reboard']['reservation_sha256'], self.receipt)
+        self.assertEqual(state['usage'], self.before['usage'])
+        # Isolate capture-policy selection; the controller's prepaid binding above is real.
+        counts = {k: row['required'] for k, row in budget['resources'].items()}
+        with patch.object(capture, 'required_counts', return_value=counts):
+            updated = capture.apply_budget(state, {capture.FIELD: {'schema': 'fixture'}}, budget)
+        self.assertTrue(updated['feasible'], updated)
+        for altered in ('reference', 'counter'):
+            changed = copy.deepcopy(state)
+            if altered == 'reference': changed['active_repair']['prepaid_reboard']['reservation_sha256'] = '0'*64
+            if altered == 'counter': changed['usage']['reboards'] += 1
+            self.assertFalse(production_budget_precheck(changed, mandatory_repair=True)['feasible'])
+
     def test_real_read_only_proposal_leaves_the_ledger_unchanged(self):
         before = self.state.read_bytes()
         command = [sys.executable, str(Path(recovery.__file__)), '--state', str(self.state),
