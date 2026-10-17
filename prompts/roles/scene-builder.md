@@ -44,6 +44,13 @@ scenes need at least three distinct executable source-bound visual events; a tag
 declaration cannot supply the missing action. Preserve three distinct native samples, principal
 occupancy, visible action development and all independent review gates. Discover this failure
 before paying for comparison, voice or a native capture.
+For editions from October 17th, verify final screen bounds after composing both `Cam` and
+`PlaceSubject` transforms for every callable view, moving subject, measurement label and digit
+at its event extrema. A local SVG box is insufficient after camera and ground placement.
+For scale/translation constraints, solve the feasible interval from those bounds and choose
+the first valid framing. Check its extrema once; avoid brute-force scale/translation grids
+and repeated cosmetic changes after the bounds pass. This remains source inspection until
+the separately authorized comparison; native pixels and independent reviews still decide quality.
 Capture only when the current packet carries ALL of these: an actual charged render
 reservation (its controller event and resource), a computed `native_headroom.py` result with the portable
 housekeeping `--require-headroom --min-free-gib` pass, the invocation through

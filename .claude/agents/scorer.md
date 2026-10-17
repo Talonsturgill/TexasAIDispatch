@@ -21,6 +21,9 @@ These two evidence channels do not supply your score or your pass. Apply the unc
 and all timed attention, modern and clause observations. If a required action or timing remains
 unproven, return the actual blocking finding. Preserve every earlier score, rejection and limit.
 This route does not qualify as a transport outage or authorize a different provider.
+For editions from October 17th, first follow the packet's one-page access probe before guide
+traversal. Stop on its actual missing-image error with partial coverage and no score. If the
+probe is visible, read every full guide and all remaining chronological pages before scoring.
 
 **READ THE THRESHOLD OUT OF `config/dispatch_rubric.yaml`.** Do not accept a bar quoted to you in
 a brief, and do not use a number you remember. The sibling lost five panel rounds to a stale bar

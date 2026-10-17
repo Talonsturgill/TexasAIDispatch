@@ -75,6 +75,48 @@ class RuntimeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'sequential delivery'):
                 runtime.plan(role, packet, 'picture', 'Independently review the exact final film.')
 
+    def test_probe_first_policy_preserves_historical_packets(self):
+        historical = {'schema': 'dispatch_claude_image_read_policy/1', 'images_per_model_step': 1,
+            'parallel_image_reads': False, 'note_before_next_read': True,
+            'missing_image': 'return partial immediately; no repeated bulk reads',
+            'coverage_schema': 'dispatch_claude_image_coverage/1'}
+        for edition in (None, '2026-10-09', '2026-10-16'):
+            with self.subTest(edition=edition):
+                self.assertEqual(historical, runtime.image_read_policy(edition))
+                data = {'date': edition, 'instructions': 'Original required guides.'}
+                runtime.image_reading(data)
+                self.assertTrue(data['instructions'].startswith('Original required guides.'))
+                runtime.image_policy_inputs(data)
+
+    def test_future_phone_and_final_packets_require_probe_before_full_guide_reading(self):
+        for role in ('storyboard-critic', 'picture', 'story', 'sound'):
+            with self.subTest(role=role):
+                data = {'role': role, 'date': '2026-10-17', 'instructions': 'Read all required guides.'}
+                runtime.image_reading(data)
+                self.assertTrue(data['instructions'].startswith('First test actual image access:'))
+                self.assertIn('partial coverage and no verdict', data['instructions'])
+                self.assertIn('then read every required full guide', data['instructions'])
+                self.assertIn('Read all required guides.', data['instructions'])
+                runtime.image_policy_inputs(data)
+                data['image_read_policy'].pop('access_probe')
+                with self.assertRaisesRegex(ValueError, 'sequential delivery'):
+                    runtime.image_policy_inputs(data)
+
+    def test_future_plan_refuses_a_legacy_access_policy_before_starting_a_worker(self):
+        edition = '2026-10-17'
+        data = {'role': 'picture', 'date': edition,
+                'agent_assignment': runtime.assignment('picture', edition),
+                'brief': '.claude/agents/scorer.md', 'instructions': '',
+                'image_read_policy': runtime.image_read_policy('2026-10-16')}
+        packet = self.root / 'future-packet.json'
+        packet.write_text(json.dumps(data))
+        with patch('agent_runtime.required_inputs'), patch('agent_runtime.validate_references'), patch.object(runtime, 'motion_inputs'):
+            with self.assertRaisesRegex(ValueError, 'sequential delivery'):
+                runtime.plan('picture', packet, 'picture', 'Review the exact final film.')
+            runtime.image_reading(data); packet.write_text(json.dumps(data))
+            result = runtime.plan('picture', packet, 'picture', 'Review the exact final film.')
+            self.assertEqual('claude-sonnet-5-5', result['assignment']['model'])
+
     def planned_boards(self):
         requests = []
         for role in ('hero', 'support'):

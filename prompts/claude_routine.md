@@ -357,6 +357,10 @@ immediately on a stripped image; do not repeat bulk reads. First smoke-test one 
 page when recovering an observed delivery failure, then continue the complete sequence only
 if it is actually visible. This is part of the separately charged content follow-up, not a
 new uncharged review or a creative approval.
+From the October 17 edition, test the first chronological page before full guide traversal on
+each new phone or final image-only assignment. A missing probe returns its literal error,
+exact identity and partial coverage immediately, without a score or further image reads.
+Successful access still requires every full guide, chronological page and timed observation.
 
 Each worker also returns its separate `dispatch_claude_image_coverage/1` object following the
 packet's contract. Save that actual response unchanged and run:

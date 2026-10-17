@@ -143,16 +143,27 @@ def motion_inputs(data):
         raise ValueError('; '.join(errors))
 
 
-def image_read_policy():
-    return {'schema': 'dispatch_claude_image_read_policy/1', 'images_per_model_step': 1,
+def image_read_policy(edition=None):
+    policy = {'schema': 'dispatch_claude_image_read_policy/1', 'images_per_model_step': 1,
             'parallel_image_reads': False, 'note_before_next_read': True,
             'missing_image': 'return partial immediately; no repeated bulk reads',
             'coverage_schema': 'dispatch_claude_image_coverage/1'}
+    if str(edition or '') >= '2026-10-17':
+        policy['access_probe'] = {'before_guides': True, 'first_chronological_page': True,
+                                  'on_missing': 'return partial; no further image reads'}
+    return policy
 
 
 def image_reading(data):
     """Keep image delivery bounded; this supplies no creative observation or approval."""
-    data['image_read_policy'] = image_read_policy()
+    data['image_read_policy'] = image_read_policy(data.get('date'))
+    if 'access_probe' in data['image_read_policy']:
+        data['instructions'] = ('First test actual image access: Read ONLY the first chronological '
+            'page of the first bound sequence before reading guides or renderer source. If that page '
+            'is stripped or unseen, retain the literal error and its exact page identity, return '
+            'partial coverage and no verdict, and stop image/guide traversal. This tests transport '
+            'only; it supplies no observation of unseen pages. If visible, record its actual note, '
+            'then read every required full guide and the complete ordered sequence. ' + data['instructions'])
     data['instructions'] += (' Image delivery is sequential: issue ONE image Read, wait for it, and record '
         'the page filename, first/last frame and a concrete visible observation before the next image Read. '
         'Never send parallel image Reads or a bulk image batch. Earlier images can leave the host window; '
@@ -167,7 +178,7 @@ def image_reading(data):
 
 
 def image_policy_inputs(data):
-    if data.get('image_read_policy') != image_read_policy():
+    if data.get('image_read_policy') != image_read_policy(data.get('date')):
         raise ValueError('Claude image review needs the current sequential delivery and retained-notes policy')
 
 

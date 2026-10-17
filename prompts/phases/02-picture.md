@@ -76,6 +76,9 @@ python scripts/agent_runtime.py --plan --role scene-builder --packet out/dispatc
 The handoff names all linked defects in one list. Run picture_precheck.py before consuming
 code or phone review/preview reservations; it invokes the existing cheap gates, retains each
 actual output and returns failure if any gate fails. No render, model call or approval occurs.
+For editions from October 17th, the builder also checks composed camera/ground screen bounds
+and solves feasible framing intervals before hand-back as its role brief directs. Stop at
+the first framing that passes; use the reserved comparison to judge its actual pixels.
 
 ## Board fields and local checks
 
