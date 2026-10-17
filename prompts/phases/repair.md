@@ -201,8 +201,10 @@ complete package byte-identically, renew the same two treatments on current sour
 and obtain fresh comparison and selection verdicts. Do not add a continuation exemption or
 relabel old films as current. Fund the complete remaining path before additional attempts:
 
-Source-changing capacity admission requires the current complete comparison profile. The
-current profile protects eight preflight reservations, including both silent phone sequences,
+Source-changing repair of a registered native film requires the current complete comparison
+profile. Initial code review before the first comparison keeps its existing admission path;
+never require a nonexistent retained film. The current profile protects eight preflight
+reservations, including both silent phone sequences,
 four critic calls and conservative native capacity. Attach it before the first grant for a
 failure. Historical grants keep their recorded counts. If a real older modern-floor grant
 omitted this path and the already charged builder is the only later paid operation, retain that

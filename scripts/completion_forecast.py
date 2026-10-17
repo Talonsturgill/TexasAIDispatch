@@ -26,9 +26,12 @@ def source_changes(plan):
 
 
 def admission_problems(state, plan):
-    """New source-changing grants must include the existing complete comparison proof."""
+    """A registered native film repair renews its existing complete comparison."""
     from capture_completion_budget import FIELD as CAPTURE, PHONE_COMPARISON_SCHEMA
-    if (str(state.get('run_id', ''))[:10] >= '2026-10-09' and source_changes(plan)
+    registered = any(e.get('kind') == 'deliverable_registered' and e.get('review_only') is False
+                     and e.get('film_sha256') == plan.get('failed_film_sha256')
+                     for e in state.get('events', []))
+    if (str(state.get('run_id', ''))[:10] >= '2026-10-09' and registered and source_changes(plan)
             and (plan.get(CAPTURE) or {}).get('schema') != PHONE_COMPARISON_SCHEMA):
         return ['authored source correction requires the complete two-treatment capture budget before capacity: '
                 'run capture_completion_budget.py --comparison <retained-comparison.json> on a new plan; '
