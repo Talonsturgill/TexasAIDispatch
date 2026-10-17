@@ -585,10 +585,19 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    <StreetHubSupport part="board" x0={110} x1={970} y0={330} y1={960} ground={1240}/>
   </g>;
   if(view==='validation-card'){
+   // THE DETAIL PUSH IS BOUNDED IN FINAL SCREEN SPACE. This group already rides the plate camera
+   // (PlaceSubject: the detail framing's 1.3 zoom about film row 960 and the scene's dollyThrough or
+   // truckAcross move), so the push composes with a ground scale of 1.30 to 1.35. Pushing 1.3 about
+   // [560,700] on top of it cropped the figure to 8.82% and lifted the heading under the disclosure
+   // chip. The push is 1.15 about PUSH_AT, the first scale whose focus interval holds for every frame
+   // of 44.88 to 49.2 s in both treatments: the 98.82% (its leading 9) and the heading stay at least
+   // 40 px inside the left edge, the heading top stays below y 240 (the chip ends at 220), and the
+   // whole assessments tag stays above y 1263, under the caption band's top.
+   const PUSH_AT:Pt=[140,230], PUSH_SCALE=1.15;
    const push=fr==='detail'?ease(raw({start:shot.start_s,end:shot.start_s+1})):0;
    const slide=moved?ease(clamp(s7e3/.8)):1, pinIn=moved?clamp((s7e3-.8)/.2):1;
    const resAt:Pt=v==='a'?[lerp(1240,640,slide),520]:[lerp(-500,640,slide),520];
-   pic=<Cam f={[560,700]} s={lerp(1,1.3,push)} a={[560,700]}><Grounded baseY={1240} on={exterior}><g data-world="curb-notice-board">
+   pic=<Cam f={PUSH_AT} s={lerp(1,PUSH_SCALE,push)} a={PUSH_AT}><Grounded baseY={1240} on={exterior}><g data-world="curb-notice-board">
     {boardW}
     <Item id="s7-card"><Item id="s7-bar"><At p={[150,400]} s={.8}><StreetHubSupport part="card" fill={s7e1} value={VALIDATION.text} share={VALIDATION.share} pal={pal}/></At>
      <At p={[176,412]}><StreetHubSupport part="pin" color="#C84B3A"/></At><At p={[636,410]}><StreetHubSupport part="pin" color="#3E7A9C"/></At></Item></Item>
