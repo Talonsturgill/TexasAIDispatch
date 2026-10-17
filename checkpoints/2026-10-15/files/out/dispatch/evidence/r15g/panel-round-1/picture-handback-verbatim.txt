@@ -1,0 +1,232 @@
+PICTURE LENS VERDICT, film 2026-10-15 "The station that counts the water". ship:false. score 6.40. The probe image was received, so this is a full review.
+
+BASIS AND LIMITS
+- My visual basis is the complete ordered image sequence: 65 pages, 5 samples per second, frames 0 to 1931, including the credits and the final frame at 64.367 s. I read one page per step. I did not play the video and did not listen to it.
+- Everything I say about audio comes from the on-screen captions and the provider's raw response (/home/user/restore/TexasAIDispatch/out/dispatch/cinema/picture-review-response.json). I did not hear it.
+- I read the first ~150 lines of storyboard.json (scene s1 only) and did not get to board.narration_picture. I checked the clauses against the captions I saw in the frames.
+- I did not open the native crops, attention-review.html/png or feed-composite.png. The packet gives no crop paths, and the tools are Read-only.
+- I did not hash any file. The identities below are the packet's, not mine: packet sha256 dce8428ef367391de97d950eb4e223bd92a7048f99270703a07f51ff87c829b5, film sha256 4bebb2cbb037661e407fba21fd5d01ffcc6de2d19efaac8824f7dd519bc7bcc9, motion index sha256 904fcd0bd9eb7e5bb7bb221449faa0572ad7989732e8b2b9a61c581dcf8cd949, board sha256 dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6.
+- Threshold: I read ship_threshold from config/dispatch_rubric.yaml. The brief stated no number, so there was no divergence. 6.40 is below that threshold, and I did not round.
+
+RECONSTRUCTION BEFORE THE RATIONALE
+- Opening, 0 to 4.0 s: a dry yard with boots and an orange-marked fence post. Brown water spreads from 0.8 s and the boots float.
+- Cut at 4.0 s to a dark phone on a porch rail with flood water below. A Flash Flood Warning appears at 5.6 s, 1.2 s after the caption "UT San Antonio says the phone warning can come after that" begins.
+- 8.7 s: a solar-powered pole station labeled "Prototype flood station". Its solar panel charges the battery bar at 12.2 to 12.8 s. At 13.5 s a "No cell tower needed" label appears over a dashed link.
+- 15.7 s: sensor close-up. Optical sensors glow as the water covers them. At 18.4 s a cut to the sensor box shows Rain, Temperature, Humidity and Light labels.
+- 19.8 s: cutaway enclosure with a TinyML chip. Signals run along the traces at 21.8 to 22.8 s and the chip glows. The flood-risk bar rises and an amber beacon lights at 24.4 to 25.2 s. At 25.4 s a wide shot shows a dark "Central server" with a severed dashed line.
+- 27.0 s: radio rings run down a flooded street to a "More than a half-mile" marker.
+- 31.0 s: open country. A hub antenna lights at 33.2 s, with an "Up to five miles in open country" label.
+- 35.4 s: an operator at a desk. Waypoints appear on a flood-path map. Full-screen orange flood paths and higher-risk boxes follow at 38.4 to 40.0 s.
+- 41.0 s: a bulletin board with a "Validation accuracy" card. The bar fills to 98.82% at 42.6 to 43.6 s. A slow push-in follows, then an "Initial assessments after training" label.
+- 49.2 s: pull-back to a blank "Field result" card. A hand stamps "None reported" at 50.0 to 50.7 s. This is the strongest picture in the film.
+- 52.1 s: a fence with a blank grid map. A disembodied arm sweeps across it, then the label "Announcement names no installation" appears.
+- 55.5 s: a woman at a folding table tucks a "Deployment plan" paper into a bag. A "Deployment goal" label appears at 57.2 s. She is static from about 57.4 s.
+- 59.4 to 64.4 s: a static credits card.
+- Ending: the closing picture does not answer the opening. The yard and the dark phone never return.
+
+DISAGREEMENTS WITH THE PROVIDER RESPONSE (gemini-3.8-flash)
+- Pacing: it says "zero idle holds" and "cuts every 2.5 to 4.5 s". The frames show static holds of about 1.5 to 2.6 s (listed in attention_review.pacing_observed).
+- n7b: it places the progress fill inside 45.24 to 48.48 s. The fill actually happens at 42.6 to 43.6 s, before that clause.
+- first_frame: it says rainwater falling and pooling at 0 to 1.5 s. The first 0.7 s is a dry, static yard.
+- weakest interval: it names 52.5 to 55.0 s. I found worse intervals (see weakest_interval).
+- finished_art: it says "clean". The frames show clipped alert text ("Flash Floo"), an operator with closed eyes, and crude floating arms.
+- The provider's audio claims are untested by me. These are a male narrator over acoustic guitar, an alert chime at about 5.9 s, and a stamp thud at 50.6 s.
+
+HARD FAILS
+Under the rubric as written, I observed none of these:
+- a numeral outside a verified claim quote
+- a retired motif
+- a brimmed hat
+- a held slide longer than 5 s with no motion
+- an unbound narrated idea
+
+Numerals:
+- 98.82% matches the c4 quote.
+- "September 8th" in the credits matches c15, "September 8, 2026".
+- CC BY 4.0 appears in the music credit. I did not run music.py --verify-package, so the licence exception is unverified.
+
+Held slide: the credits card is about 4.6 s static after the fade-in.
+
+Aliased hard-fail entries, because the modern engagement observations are put in hard_fails under the fixed rubric (see modern_observations):
+1. pace failed.
+2. closing_answer failed.
+3. finished_art failed.
+
+Place: Bexar County, blackland. The skyline is generic and the lawn is flat and generic. No Bexar landmark is pictured beyond the tiny editorial map locator. I score place low but do not call it a county mismatch.
+
+JSON REPORT
+{
+ "score": 6.40,
+ "ship": false,
+ "axes": {
+  "hook": 6.0,
+  "story": 7.5,
+  "picture": 6.5,
+  "place": 5.5,
+  "craft": 6.0,
+  "voice": 6.5
+ },
+ "axis_notes": {
+  "hook": "Water rising before the phone warning is the right idea. But the first 0.7 s is a dry static yard, the boots and fence mark are tiny, and the flood is a thin mid-frame band over an empty lower half.",
+  "story": "Clear actor, mechanism, source limit (no field result, no town named) and a performed turn at 41 to 52 s. The close is soft.",
+  "picture": "Many causally performed actions: charge, sensors submerged, chip signals, risk bar, radio rings, stamp. Against that: repeated 1.5 to 2.6 s holds, a tiny picture-in-picture station inset, floating arms, a closed-eyed operator, and large empty lower-frame areas.",
+  "place": "See the Place note above.",
+  "craft": "Camera is mostly motivated. Defects: the clipped 'Flash Floo' alert text for about 2.6 s, the enclosure sliding off the left edge at 24 to 25 s, the caption overlapping the map edge at 38.2 to 38.4 s, empty lower thirds.",
+  "voice": "Provisional. I did not hear audio. Captions are present and match the clause text. Alignment to the final mix is unmeasured by me. This number is not a listening judgment."
+ },
+ "hard_fails": [
+  "modern_observations.pace failed (see attention_review.pacing_observed for the intervals).",
+  "modern_observations.closing_answer failed: 55.5 to 59.4 s does not answer the opening and is ambiguous.",
+  "modern_observations.finished_art failed: clipped Flash Flood Warning text 5.6 to 8.4 s, closed-eyed operator 35.4 to 36.8 s, crude floating arms."
+ ],
+ "weakest_axis": "place",
+ "weakest_axis_runner_up": "hook",
+ "one_sentence_fix": "In the s1 phone view, widen the alert banner so 'Flash Flood Warning' fits inside the phone screen, and cut the phone and map holds 5.8 to 8.4 s, 19.8 to 21.8 s, 29.4 to 31.0 s, 33.4 to 35.4 s and 43.6 to 46.4 s so each new event starts within about 1 s of its clause. Also swap the 55.5 to 59.4 s packing-away closer for a return to the opening yard and dark phone, with the station ringed on the pole beside the 'None reported' stamp (and the station-model fade removed), bind the 18.4 to 19.1 s weather-box labels to a spoken 'rain, temperature, humidity and light' clause or cut them from the optical-sensor clause, and re-render and re-align captions with no audio stretching.",
+ "audiovisual_role": "picture",
+ "audiovisual_receipt_sha256": "f9c58b47db4aa72944d37bd4c25a0f18db6ef5397d8e9487861334b14d08fc6c",
+ "audiovisual_raw_response_sha256": "287f7816c17e6d4e0b2c50dfe31773bcebd2bd41d519f5bfd2ca68eb247addbd",
+ "visual_basis": "Complete ordered image sequence of 65 pages, 5 samples per second, to the final frame. No direct playback. No direct listening.",
+ "attention_review": {
+  "film_sha256": "4bebb2cbb037661e407fba21fd5d01ffcc6de2d19efaac8824f7dd519bc7bcc9",
+  "pass": false,
+  "hook_observed": "0 to 0.7 s: a dry static yard. Water starts rising at 0.8 s and tops the curb and fence by 1.2 s. The boots float by 2.4 s and the county map outline draws from 2.2 s. A hard cut at 4.0 s to a dark phone. The warning arrives at 5.6 s, after the water. The idea is sound, but the subject is small and the lower half of the frame is empty lawn.",
+  "continuity_observed": "The flooded street and curb, the chain-link fence and the skyline recur across the cut at 8.7 s. The pole station carries across 8.7 to 11.5 s, then 11.5 to 15.7 s, then the sensor cut. The same station appears in the street, the country and the inset. The bulletin board and the fence map share the flooded street plate. The 35.4 s operator desk is a new location with no bridge. The desk figure, the woman at 55.5 s and the arm at 52.2 s do not read as one recurring person.",
+  "pacing_observed": "Developments with times: 0.8 water; 5.6 alert; 9.0 station reveal; 12.2 battery charge; 13.5 no cell tower; 15.7 to 18.0 sensors; 18.4 weather box; 21.8 chip signals; 24.4 risk bar and beacon; 25.4 server; 27.4 radio rings; 31.2 country hub; 36.2 waypoints; 38.4 flood paths; 42.6 accuracy fill; 48.0 Field result card; 50.0 stamp; 52.6 map arm; 55.6 plan packing. Unearned or near-static intervals: 5.8 to 8.7 s (phone with clipped text, about 2.6 s); 19.8 to 21.6 s (enclosure static while the chip clause is spoken); 29.4 to 31.0 s; 33.4 to 35.4 s; 40.4 to 41.2 s; 41.0 to 42.5 s (empty bar); 43.6 to 46.3 s (slow push only); 54.4 to 55.5 s; 57.4 to 59.4 s (figure static, nothing happening). No reward interval exceeds 4 s. The enclosure setup runs about 5.5 s from 19.8 to 25.3 s with a late push, and the board setting runs 41.0 to 52.1 s with camera moves rather than cuts; whether either breaks the 5 s shot limit depends on declared shot boundaries I could not check. Nothing arrives too fast to follow, but the 18.4 to 19.8 s weather-box labels are held only 1.4 s before the cut.",
+  "comprehension_observed": "One viewing communicates: flood water arrives before the phone warning; a self-powered pole station; sensors that watch the water; an on-chip model that judges risk locally; radio range; a hub map for responders; a university accuracy number; and the source limit (no field result, no town named). Confusions: 'Four optical sensors' is captioned over Rain, Temperature, Humidity and Light labels at 18.4 to 19.1 s; the dashed 'no server' link reads as a loose line; the station inset at 31.2 to 35.3 s is tiny and the rings emanate from the inset rather than the scene's station; 'Deployment is still the goal' is pictured as a plan being put away.",
+  "remembered_image": "The blank 'Field result' card at 49.2 to 51.8 s with the hand stamping 'None reported' beside the 98.82% card. It makes the central claim and its source limit as one picture.",
+  "weakest_interval": "5.8 to 8.7 s: the phone alert holds static for about 2.6 s with the text clipped to 'Flash Floo' at the phone edge, at the hook's payoff. Repair: resize the banner so the full text fits, add a phone-reaction beat (a ripple on the water or a hand reaching in) or cut at 7.0 s, and start the station cut on the end of the clause.",
+  "weakest_at_s": 5.8,
+  "weakest_end_s": 8.7,
+  "audio_basis": "No direct listening. Basis was the on-screen captions in the frames, the provider's raw audiovisual response (gemini-3.8-flash, receipt f9c58b47db4aa72944d37bd4c25a0f18db6ef5397d8e9487861334b14d08fc6c) and clause timing inferred from caption appearances. No audio measurement was available to me."
+ },
+ "modern_observations": {
+  "film_sha256": "4bebb2cbb037661e407fba21fd5d01ffcc6de2d19efaac8824f7dd519bc7bcc9",
+  "first_frame": {"pass": true, "start_s": 0.0, "end_s": 1.5, "observed": "A dry yard at frame 0, with boots and an orange-marked fence post. Water begins at 0.8 s, inside the 1.5 s limit. Weak: the first 0.7 s is static, the subject is small and the lower half of the frame is empty lawn."},
+  "visual_progression": {"pass": true, "start_s": 1.5, "end_s": 52.0, "observed": "Flood, delayed alert, station, charging, sensors, chip, radio ranges, hub map, validation card, blank field result, stamp. Each cut brings a new physical or evidence beat."},
+  "shot_variety": {"pass": true, "start_s": 0.0, "end_s": 59.4, "observed": "Wide yard, medium phone, wide pole, close solar, detail sensors, cutaway enclosure, street perspective, open country, medium desk, overhead map, wide board, close card, medium fence map, medium table. At least three framings."},
+  "performed_turn": {"pass": true, "start_s": 41.0, "end_s": 52.0, "observed": "The 98.82% accuracy card is followed by a blank Field result card and a hand stamping 'None reported' at 50.0 to 50.7 s. Source limit performed, readable with captions covered."},
+  "pace": {"pass": false, "start_s": 5.8, "end_s": 59.4, "observed": "Cumulative near-static holds of about 1.5 to 2.6 s at 5.8 to 8.7, 19.8 to 21.6, 29.4 to 31.0, 33.4 to 35.4, 41.0 to 42.5, 43.6 to 46.3 and 57.4 to 59.4 s, plus an enclosure setup of about 5.5 s from 19.8 to 25.3 s. Individually below the 4 s reward limit, but they stack against a film of about 59 s."},
+  "closing_answer": {"pass": false, "start_s": 55.5, "end_s": 59.4, "observed": "A woman tucks a deployment plan into a bag beside a small station model that fades at 57.0 to 57.2 s, with a 'Deployment goal' label. It reads as shelving the plan and does not visually resolve the opening (water before the phone warning). About 2 s of the end is static."},
+  "finished_art": {"pass": false, "start_s": 5.6, "end_s": 59.4, "observed": "Strong flooded-street plate, reflections and pole station. Finish defects: alert text clipped to 'Flash Floo' at 5.6 to 8.4 s; the operator's eyes closed at 35.4 to 36.8 s; disembodied crude arms at 50.0 to 51.0 s and 53.0 to 54.4 s; a tiny station inset overlapping the sky at 31.2 to 35.3 s; the enclosure drifting off the left edge at 24.0 to 25.2 s."}
+ },
+ "narration_picture_observations": {
+  "film_sha256": "4bebb2cbb037661e407fba21fd5d01ffcc6de2d19efaac8824f7dd519bc7bcc9",
+  "clauses": [
+   {"id": "n1a", "pass": true, "start_s": 0.58, "end_s": 3.58, "observed": "Water spreads across the yard and the boots float. The 'ankle-deep' scale is hard to read because the camera is far and the boots are small."},
+   {"id": "n1b", "pass": true, "start_s": 4.24, "end_s": 8.28, "observed": "A dark phone, then the warning at 5.6 s over visible water. UT San Antonio is never pictured. The alert text is clipped."},
+   {"id": "n2a", "pass": true, "start_s": 8.96, "end_s": 11.22, "observed": "Pole station revealed with a 'Prototype flood station' label at 9.4 s."},
+   {"id": "n2b", "pass": true, "start_s": 11.9, "end_s": 14.96, "observed": "Solar panel catches the light beam and the battery bar fills at 12.2 to 12.8 s. 'No cell tower needed' with a dashed link at 13.5 s."},
+   {"id": "n3a", "pass": false, "start_s": 15.9, "end_s": 19.14, "observed": "Four optical sensors and the water submerging them read well at 15.8 to 18.2 s. But from 18.4 s the picture cuts to the weather box with Rain, Temperature, Humidity and Light labels while the caption still says optical sensors, so the result is not retained through the clause end."},
+   {"id": "n4a", "pass": true, "start_s": 19.94, "end_s": 23.18, "observed": "TinyML chip; signals along the traces at 21.8 to 22.8 s and the chip glows. The action starts about 1.9 s into the clause."},
+   {"id": "n4b", "pass": true, "start_s": 23.8, "end_s": 26.52, "observed": "Risk bar rises and the amber beacon lights, 'Judged on the station' at 24.8 s, then the wide 'Central server' shot with a severed dashed link. The link reads ambiguously."},
+   {"id": "n5a", "pass": true, "start_s": 27.36, "end_s": 30.7, "observed": "Rings run down a flooded street past a 'More than a half-mile' marker."},
+   {"id": "n5b", "pass": true, "start_s": 31.56, "end_s": 34.74, "observed": "Rings reach the hub antenna in open country, 'Up to five miles'. Weakness: the rings emanate from a tiny picture-in-picture inset and not from a station in the scene."},
+   {"id": "n6a", "pass": true, "start_s": 35.54, "end_s": 40.24, "observed": "Operator at a desk, waypoints at 36.2 s, orange flood paths and higher-risk boxes at 38.4 to 40.0 s."},
+   {"id": "n7a", "pass": true, "start_s": 41.22, "end_s": 44.52, "observed": "Bulletin board with 'Validation accuracy'. The bar fills at 42.6 to 43.6 s. The board is static for about 1.6 s first."},
+   {"id": "n7b", "pass": true, "start_s": 45.24, "end_s": 48.48, "observed": "The 98.82% card is retained on screen under a push-in. The number appeared at 43.0 s, before the clause."},
+   {"id": "n8a", "pass": true, "start_s": 49.48, "end_s": 51.82, "observed": "Blank Field result card and 'None reported' stamp at 50.0 to 50.7 s. Strongest match of picture to clause."},
+   {"id": "n8b", "pass": true, "start_s": 52.5, "end_s": 54.8, "observed": "Arm sweeps a blank grid map and the label 'Announcement names no installation' appears at 54.4 s. The arm is crude but the idea reads."},
+   {"id": "n9a", "pass": false, "start_s": 55.78, "end_s": 57.36, "observed": "A woman tucks a deployment plan into a bag while the station model on the table fades. A 'Deployment goal' label sits over the table. The picture reads as putting the plan away, which is ambiguous against 'Deployment is still the goal'."}
+  ]
+ },
+ "bounded_release": {
+  "schema": "dispatch_creative_assessment/1",
+  "scope": "panel",
+  "retained_checks": {
+   "source": {"pass": true, "observed": "Visible claims match: 98.82% matches the c4 quote, 'September 8th' matches c15, 'None reported' and 'Announcement names no installation' match the claims' scope notes (c4 and c7 and c16 say no field result, no town or agency named). Illustration disclosures are shown on the pictures."},
+   "rights": {"pass": true, "observed": "The on-screen credit shows 'Sincerely' by Kevin MacLeod, CC BY 4.0, trimmed and synced to picture. I did not run music.py --verify-package, so verification of the credit is not established by this lens."},
+   "legibility": {"pass": false, "observed": "The phone alert text is clipped to 'Flash Floo' at 5.6 to 8.4 s. Labels elsewhere are legible at 390 px width, and the credits card text is small but readable."},
+   "comprehension": {"pass": false, "observed": "Defects at 18.4 to 19.1 s (optical-sensor clause over weather labels) and at 55.8 to 57.4 s (closing ambiguity). Otherwise the central claim and source limit are communicated in one viewing."},
+   "technical_audio": {"pass": false, "observed": "Not established by this image-sequence lens. I did not listen and have no audio measurement. This is a lens limit, not an observed defect. The audio lens must supply it."},
+   "captions": {"pass": true, "observed": "Two-line captions are present for every spoken clause, match the clause text and do not cover principal actions, except an overlap with the map screen's bottom edge at 38.2 to 38.4 s. Caption-to-audio alignment is not measured by me."}
+  },
+  "defects": [
+   {"finding": "pace failed: near-static holds of about 1.5 to 2.6 s at 5.8 to 8.7, 19.8 to 21.6, 29.4 to 31.0, 33.4 to 35.4, 41.0 to 42.5, 43.6 to 46.3 and 57.4 to 59.4 s", "category": "pacing"},
+   {"finding": "closing_answer failed: 55.5 to 59.4 s reads as putting the plan away and does not answer the opening, with about 2 s static", "category": "ending_artistry"},
+   {"finding": "finished_art failed: clipped 'Flash Floo' alert text 5.6 to 8.4 s, closed-eyed operator 35.4 to 36.8 s, crude floating arms, tiny inset at 31.2 to 35.3 s, enclosure off left edge 24.0 to 25.2 s", "category": "surface_finish"},
+   {"finding": "clipped alert text 'Flash Floo' at 5.6 to 8.4 s", "category": "legibility"},
+   {"finding": "n3a: 'Four optical sensors' is captioned over Rain, Temperature, Humidity and Light labels from 18.4 to 19.1 s, so the clause result is not retained", "category": "comprehension"},
+   {"finding": "n9a: 'Deployment is still the goal' is pictured as a plan being put away, with the station model fading, at 55.8 to 57.4 s", "category": "comprehension"},
+   {"finding": "technical_audio not established by this image-sequence lens", "category": "technical_audio"}
+  ],
+  "score_only": false
+ },
+ "coverage": {
+  "schema": "dispatch_claude_image_coverage/1",
+  "packet_sha256": "dce8428ef367391de97d950eb4e223bd92a7048f99270703a07f51ff87c829b5",
+  "sequences": [
+   {
+    "index_sha256": "904fcd0bd9eb7e5bb7bb221449faa0572ad7989732e8b2b9a61c581dcf8cd949",
+    "pages": [
+     {"file": "sequence-000.png", "first_frame": 0, "last_frame": 24, "received": true, "observed": "Dry yard with boots and orange-marked fence post, caption from 0.6 s, water edge appears at 0.8 s."},
+     {"file": "sequence-001.png", "first_frame": 30, "last_frame": 54, "received": true, "observed": "Brown water covers the yard and rises around the boots and fence post, thin band, lower half empty lawn."},
+     {"file": "sequence-002.png", "first_frame": 60, "last_frame": 84, "received": true, "observed": "Water deepens, boots float with ripples, Texas map inset appears at 2.2 s and begins drawing an outline."},
+     {"file": "sequence-003.png", "first_frame": 90, "last_frame": 114, "received": true, "observed": "Map outline completes along the Gulf coast, camera tilts across the yard, no county marker yet."},
+     {"file": "sequence-004.png", "first_frame": 120, "last_frame": 144, "received": true, "observed": "Hard cut at 4.0 s to a dark phone on a porch rail over flood water, caption begins 4.4 s, map dot appears at 4.8 s."},
+     {"file": "sequence-005.png", "first_frame": 150, "last_frame": 174, "received": true, "observed": "Phone vibrates at 5.6 s and the Flash Flood Warning banner appears with clipped text, map dot ringed."},
+     {"file": "sequence-006.png", "first_frame": 180, "last_frame": 204, "received": true, "observed": "Alert banner reads 'Flash Floo / Warning / Emergency alert', phone static, text clipped at screen edge."},
+     {"file": "sequence-007.png", "first_frame": 210, "last_frame": 234, "received": true, "observed": "Held phone with clipped alert, map inset begins fading at 7.8 s."},
+     {"file": "sequence-008.png", "first_frame": 240, "last_frame": 264, "received": true, "observed": "Caption disappears at 8.4 s, cut at 8.7 s to the pole station above rising water."},
+     {"file": "sequence-009.png", "first_frame": 270, "last_frame": 294, "received": true, "observed": "Pull-back reveals solar panel and station box, label 'Prototype flood station' appears at 9.4 s."},
+     {"file": "sequence-010.png", "first_frame": 300, "last_frame": 324, "received": true, "observed": "Near-static wide pole station with label, slow drift, station small in frame."},
+     {"file": "sequence-011.png", "first_frame": 330, "last_frame": 354, "received": true, "observed": "Cut at 11.5 s to a close view of the station box beside a creek pond with grass."},
+     {"file": "sequence-012.png", "first_frame": 360, "last_frame": 384, "received": true, "observed": "Light beam hits the solar panel, battery bar fills green, 'Charges from light' label."},
+     {"file": "sequence-013.png", "first_frame": 390, "last_frame": 414, "received": true, "observed": "Battery full, cut at 13.5 s to the wide pole with a cell tower appearing at right."},
+     {"file": "sequence-014.png", "first_frame": 420, "last_frame": 444, "received": true, "observed": "'No cell tower needed' label with a dashed link line, near-static hold."},
+     {"file": "sequence-015.png", "first_frame": 450, "last_frame": 474, "received": true, "observed": "Static hold, caption gone from 15.0 s, cut at 15.7 s to a sensor close-up on the pole."},
+     {"file": "sequence-016.png", "first_frame": 480, "last_frame": 504, "received": true, "observed": "Three camera-like sensors above water and one glowing at the waterline, label 'Four optical sensors'."},
+     {"file": "sequence-017.png", "first_frame": 510, "last_frame": 534, "received": true, "observed": "Camera tilts down, the water rises over each sensor and amber glow rings appear."},
+     {"file": "sequence-018.png", "first_frame": 540, "last_frame": 564, "received": true, "observed": "Cut at 18.4 s to the sensor box with Rain, Temperature and Humidity labels while the caption still reads optical sensors."},
+     {"file": "sequence-019.png", "first_frame": 570, "last_frame": 594, "received": true, "observed": "Four weather labels held with no caption, cut at 19.8 s to an open enclosure with a TinyML chip."},
+     {"file": "sequence-020.png", "first_frame": 600, "last_frame": 624, "received": true, "observed": "Static enclosure cutaway with traces to a TinyML chip, caption 'A small chip on the station runs the AI itself'."},
+     {"file": "sequence-021.png", "first_frame": 630, "last_frame": 654, "received": true, "observed": "Static until 21.6 s, then trace nodes begin to light at 21.8 s."},
+     {"file": "sequence-022.png", "first_frame": 660, "last_frame": 684, "received": true, "observed": "Signal dots travel along traces into the chip and the chip glows amber."},
+     {"file": "sequence-023.png", "first_frame": 690, "last_frame": 714, "received": true, "observed": "Chip glow persists, caption changes at 23.8 s to 'So it judges flood risk', background blurs."},
+     {"file": "sequence-024.png", "first_frame": 720, "last_frame": 744, "received": true, "observed": "Push-in, enclosure slides off the left edge, flood-risk bar rises and amber beacon lights, 'Judged on the station'."},
+     {"file": "sequence-025.png", "first_frame": 750, "last_frame": 774, "received": true, "observed": "Beacon full, cut at 25.4 s to a wide shot with a dark Central server box in flood water, 'Central server' label."},
+     {"file": "sequence-026.png", "first_frame": 780, "last_frame": 804, "received": true, "observed": "Dashed severed line from station toward the server, wide static view with reflections."},
+     {"file": "sequence-027.png", "first_frame": 810, "last_frame": 834, "received": true, "observed": "Cut at 27.1 s to a flooded street of houses, radio rings start at the station antenna."},
+     {"file": "sequence-028.png", "first_frame": 840, "last_frame": 864, "received": true, "observed": "Rings travel down the street toward a small building at its end."},
+     {"file": "sequence-029.png", "first_frame": 870, "last_frame": 894, "received": true, "observed": "Rings reach the building, 'More than a half-mile' orange label and a ruler marker appear."},
+     {"file": "sequence-030.png", "first_frame": 900, "last_frame": 924, "received": true, "observed": "Held street view with label and ruler, near-static, caption fades at 30.8 s."},
+     {"file": "sequence-031.png", "first_frame": 930, "last_frame": 954, "received": true, "observed": "Cut at 31.1 s to open country with a hub building and a tiny 'Station' inset, rings from the inset."},
+     {"file": "sequence-032.png", "first_frame": 960, "last_frame": 984, "received": true, "observed": "Rings expand from the station inset over the sky, 'Up to five miles in open country' label."},
+     {"file": "sequence-033.png", "first_frame": 990, "last_frame": 1014, "received": true, "observed": "Rings reach the hub antenna which glows, hub window lights."},
+     {"file": "sequence-034.png", "first_frame": 1020, "last_frame": 1044, "received": true, "observed": "Static held view of the lit hub and rings with caption ending at 34.7 s."},
+     {"file": "sequence-035.png", "first_frame": 1050, "last_frame": 1074, "received": true, "observed": "Cut at 35.4 s to an operator at a desk with a 'Flood path map' monitor, eyes closed, cropped at right edge."},
+     {"file": "sequence-036.png", "first_frame": 1080, "last_frame": 1104, "received": true, "observed": "Label 'A second, larger model', map waypoints appear along the blue path, operator's hand on keyboard."},
+     {"file": "sequence-037.png", "first_frame": 1110, "last_frame": 1134, "received": true, "observed": "Operator eyes open, waypoints held, near-static desk view."},
+     {"file": "sequence-038.png", "first_frame": 1140, "last_frame": 1164, "received": true, "observed": "Cut at 38.1 s to a full map, orange flood paths branch along streets, caption overlaps the bottom frame edge."},
+     {"file": "sequence-039.png", "first_frame": 1170, "last_frame": 1194, "received": true, "observed": "Orange paths complete, dashed higher-risk boxes and 'For emergency responders' label appear, lower third empty."},
+     {"file": "sequence-040.png", "first_frame": 1200, "last_frame": 1224, "received": true, "observed": "Static map with boxes and label, caption gone from 40.4 s."},
+     {"file": "sequence-041.png", "first_frame": 1230, "last_frame": 1254, "received": true, "observed": "Cut at 41.0 s to a bulletin board with an empty 'Validation accuracy' card over a flooded park, caption begins 41.4 s."},
+     {"file": "sequence-042.png", "first_frame": 1260, "last_frame": 1284, "received": true, "observed": "Empty bar static until 42.5 s, then a knob slides in and the bar starts to fill."},
+     {"file": "sequence-043.png", "first_frame": 1290, "last_frame": 1314, "received": true, "observed": "98.82% appears and the bar fills to full by 43.6 s."},
+     {"file": "sequence-044.png", "first_frame": 1320, "last_frame": 1344, "received": true, "observed": "Full bar held, static, caption ends at 44.4 s."},
+     {"file": "sequence-045.png", "first_frame": 1350, "last_frame": 1374, "received": true, "observed": "Push-in begins at 45.0 s toward the card, caption 'Accuracy was ninety eight point eight two percent'."},
+     {"file": "sequence-046.png", "first_frame": 1380, "last_frame": 1404, "received": true, "observed": "Slow push continues, label 'Initial assessments after training' appears at 46.4 s."},
+     {"file": "sequence-047.png", "first_frame": 1410, "last_frame": 1434, "received": true, "observed": "Held close card with label, near-static."},
+     {"file": "sequence-048.png", "first_frame": 1440, "last_frame": 1464, "received": true, "observed": "A blank 'Field result' card slides in from the right edge, caption ends at 48.6 s."},
+     {"file": "sequence-049.png", "first_frame": 1470, "last_frame": 1494, "received": true, "observed": "Pull-back at 49.2 s reveals both cards, caption 'The announcement reports no field result' begins at 49.6 s."},
+     {"file": "sequence-050.png", "first_frame": 1500, "last_frame": 1524, "received": true, "observed": "A hand with a stamp presses 'None reported' onto the Field result card at 50.0 to 50.7 s."},
+     {"file": "sequence-051.png", "first_frame": 1530, "last_frame": 1554, "received": true, "observed": "'None reported' stamp held beside the 98.82% card, stamp lifted out."},
+     {"file": "sequence-052.png", "first_frame": 1560, "last_frame": 1584, "received": true, "observed": "Cut at 52.1 s to a chain-link fence, a paper grid map fades in, caption 'It names no town with an installed station'."},
+     {"file": "sequence-053.png", "first_frame": 1590, "last_frame": 1614, "received": true, "observed": "An arm with a stylized hand sweeps across the blank map searching, crude disembodied arm."},
+     {"file": "sequence-054.png", "first_frame": 1620, "last_frame": 1644, "received": true, "observed": "Arm exits, label 'Announcement names no installation' pinned top right."},
+     {"file": "sequence-055.png", "first_frame": 1650, "last_frame": 1674, "received": true, "observed": "Static map with label, caption gone from 54.8 s, cut at 55.5 s to a woman at a folding table with a Deployment plan."},
+     {"file": "sequence-056.png", "first_frame": 1680, "last_frame": 1704, "received": true, "observed": "Woman tucks the plan into a bag on the table, small station model on the table, caption 'Deployment is still the goal'."},
+     {"file": "sequence-057.png", "first_frame": 1710, "last_frame": 1734, "received": true, "observed": "Station model fades, 'Deployment goal' label appears at 57.2 s, woman's open hands, caption ends 57.4 s."},
+     {"file": "sequence-058.png", "first_frame": 1740, "last_frame": 1764, "received": true, "observed": "Static woman at table with label, no caption, flood water below."},
+     {"file": "sequence-059.png", "first_frame": 1770, "last_frame": 1794, "received": true, "observed": "Static until 59.2 s, dissolve at 59.4 s into the credits card on black."},
+     {"file": "sequence-060.png", "first_frame": 1800, "last_frame": 1824, "received": true, "observed": "Credits card static: Texas AI Docket, texasaidocket.com, Sources, Illustration, Map, Music with CC BY 4.0."},
+     {"file": "sequence-061.png", "first_frame": 1830, "last_frame": 1854, "received": true, "observed": "Credits card unchanged, text legible, no animation."},
+     {"file": "sequence-062.png", "first_frame": 1860, "last_frame": 1884, "received": true, "observed": "Credits card unchanged."},
+     {"file": "sequence-063.png", "first_frame": 1890, "last_frame": 1914, "received": true, "observed": "Credits card unchanged, lower half of card empty."},
+     {"file": "sequence-064.png", "first_frame": 1920, "last_frame": 1931, "received": true, "observed": "Final three frames at 64.0, 64.2 and 64.367 s of the unchanged credits card."}
+    ]
+   }
+  ]
+ }
+}
+
+Files used: /home/user/restore/TexasAIDispatch/out/dispatch/picture-packet.json, /home/user/restore/TexasAIDispatch/config/dispatch_rubric.yaml, /home/user/restore/TexasAIDispatch/config/modern_film.json, /home/user/restore/TexasAIDispatch/out/dispatch/motion-review/index.json (pages 000 to 064), /home/user/restore/TexasAIDispatch/out/dispatch/claims.json, /home/user/restore/TexasAIDispatch/out/dispatch/cinema/picture-review.json, /home/user/restore/TexasAIDispatch/out/dispatch/cinema/picture-review-response.json, /home/user/restore/TexasAIDispatch/out/dispatch/storyboard.json (partial).
