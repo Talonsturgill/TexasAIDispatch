@@ -1,0 +1,5 @@
+source grant 282 reason: modern-film-floor | pivot_recovery requires reason == mandatory-modern-code
+plan has modern_code_evidence: False (eligible() reads plan[modern_code_evidence] unconditionally)
+report verdict/film_sha256: revise None
+pr.eligible(...) = False
+modern.file_problems(plan): ["modern code evidence could not be verified: 'modern_code_evidence'"]
