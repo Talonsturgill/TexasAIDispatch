@@ -1,0 +1,28 @@
+{
+  "mechanism_id": "s7-detail-safe-area-framing",
+  "failure_family": "document-handling",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The s7 detail framing composes the Cam push (scale 1.3 about [560,700]) with the PlaceSubject ground camera of each treatment (dollyThrough in A, truckAcross in B) and nothing bounds the composed transform by the validation card, figure and tag screen extents, so at 45.6 to 49.0 s the card left edge is cropped (98.82% reads 8.82%, narration n7b fails), the card heading rises under the screen-space disclosure chip and the assessments tag is clipped.",
+  "repair": "Renderer-only: in FloodStationFilm.tsx case validation-card compute scale and focus in final screen space through the Cam push composed with the PlaceSubject ground camera, per treatment, from the card, figure and tag extents with margin, so the full figure, heading and tag stay inside the frame and clear of the disclosure chip at every frame of 44.88 to 49.2 s, keeping the eased push, window and framing. No board, script, claims, caption, mix or timing change.",
+  "mechanism_change": "The detail framing is bounded in final screen space by the framed objects instead of the fixed push 1.3 about [560,700] composed unchecked with the ground camera.",
+  "expected_visible_result": "For every frame of 44.88 to 49.2 s in both treatments the printed 98.82% shows its leading 9, the card heading is clear of the disclosure chip and the whole assessments tag is inside the frame, with the push still visible.",
+  "failure_evidence": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r15-tech-classification/report-verbatim.json",
+  "failure_evidence_sha256": "c79f8b4a1bc575611a538cb2c459139aba525016f1c893ac566688934b0f3e58",
+  "failed_film_sha256": "c0aee5b3c9af37a5333246e4bf8ca1c99fe59882bccb6beb70758a67eaef58af",
+  "resources": {
+    "reboards": 1
+  },
+  "repair_scope": "technical-integrity",
+  "changed_inputs": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/baseline/FloodStationFilm.tsx",
+      "before_sha256": "b4a0ce8feeae3107ce9f1ad2ef0249572576c31b0a94533bdc2bfc10a89311fd"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/baseline/StreetHubSupport.tsx",
+      "before_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346"
+    }
+  ]
+}

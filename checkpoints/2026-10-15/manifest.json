@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T04:04:27.799223+00:00",
-  "note": "R15e proposal prepared; classification critic dispatched",
+  "saved_at": "2026-10-17T04:08:14.086750+00:00",
+  "note": "R15e classification retained, proposal complete; held for capture policy v3",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -134,8 +134,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "9e3964b4b8994a5a4fd604bf1419da5ec5d916f34238ca352135a9d2422ddbfe",
-      "size": 18725
+      "sha256": "ad949616fa1cb90d43561c782c633a67b64851fbb46654dfe9eaf29ec2af74a4",
+      "size": 20127
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -13074,10 +13074,22 @@
       "size": 5475
     },
     {
+      "path": "out/dispatch/evidence/r15-tech/repair-plan-r15e.json",
+      "class": "scratch",
+      "sha256": "3e39d120e5fe68abbf1ddebff314bbc14d1eaf797ef50939f43743a01451c63f",
+      "size": 2661
+    },
+    {
       "path": "out/dispatch/evidence/r15-tech/repair-plan-r15e.template.json",
       "class": "scratch",
       "sha256": "a663118301630d8b5e9c99a2193e50033f5a42d6c4d13c96bf343cd9c437cb20",
       "size": 2194
+    },
+    {
+      "path": "out/dispatch/evidence/r15-tech/technical-correction-brief-r15e-v2.md",
+      "class": "scratch",
+      "sha256": "36df5f64abc551454caf3c21ba8bf329d38ac631cdc65e219bb16340f0e72667",
+      "size": 4634
     },
     {
       "path": "out/dispatch/evidence/r15-tech/technical-correction-brief-r15e.md",
@@ -13714,6 +13726,12 @@
       "class": "scratch",
       "sha256": "cf682701fbe6783cbdebbb471b927185b659f0ac3bfb6bcab4440cf719faff4b",
       "size": 1756070
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-tech-classification/report-verbatim.json",
+      "class": "scratch",
+      "sha256": "c79f8b4a1bc575611a538cb2c459139aba525016f1c893ac566688934b0f3e58",
+      "size": 12131
     },
     {
       "path": "out/dispatch/evidence/review-r6-classification-revise/handback-full.txt",
@@ -17535,6 +17553,10 @@
     },
     {
       "path": "out/dispatch/evidence/review-r15-pivot-3/handback.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-tech-classification/handback-verbatim.private.txt",
       "reason": "private path component"
     },
     {
