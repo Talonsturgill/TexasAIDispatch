@@ -59,6 +59,27 @@ def operation_for(commands, root):
     return found[0]
 
 
+def motion_output_precheck(tokens, here, package):
+    """Catch an occupied decoder destination before buying or consuming a capture."""
+    from capture_guard import UNRESOLVED, resolve
+    flags = [i for i, token in enumerate(tokens)
+             if token == '--out' or token.startswith('--out=')]
+    if len(flags) != 1:
+        raise ValueError('prepared motion extraction needs one explicit --out')
+    index = flags[0]
+    value = (tokens[index].partition('=')[2] if '=' in tokens[index]
+             else (tokens[index + 1] if index + 1 < len(tokens) else ''))
+    if not value or value.startswith('--') or UNRESOLVED.search(value):
+        raise ValueError('prepared motion extraction needs a literal --out path')
+    target = resolve(value, here)
+    if target.exists() or target.is_symlink():
+        raise ValueError('motion output already exists; verify and reuse it if current, or retain '
+                         'the old directory in edition evidence before preparing a new capture; no capture charged')
+    target, package = target.resolve(), Path(package).resolve()
+    if target == package or not target.is_relative_to(package):
+        raise ValueError('motion output must stay inside the owned board review package; no capture charged')
+
+
 def prepare(root, state_path, commands, resource=None):
     import run_controller as controller
     from capture_guard import event_digest
@@ -97,6 +118,8 @@ def prepare(root, state_path, commands, resource=None):
                     value = token.partition('=')[2] if '=' in token else (tokens[index+1] if index+1 < len(tokens) else '')
                     if not value or resolve(value, here) != path:
                         raise ValueError('prepared --' + flag + ' must use the canonical current input')
+        if Path(tokens[1]).name == 'claude_motion_review.py':
+            motion_output_precheck(tokens, here, expected['board'].parent)
     if note == OPERATIONS['claude_motion_review.py']:
         state = controller.read_state(state_path)
         deliverable = state.get('deliverable') or {}

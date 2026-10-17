@@ -30,7 +30,16 @@ class Reservation(unittest.TestCase):
         controller.initialise(self.state, 'reservation-regression', 'production')
 
     def command(self, name):
-        return 'bash scripts/run_with_env.sh python scripts/' + name + ' --board out/dispatch/storyboard.json'
+        command = 'bash scripts/run_with_env.sh python scripts/' + name + ' --board out/dispatch/storyboard.json'
+        return command + (' --out out/dispatch/motion-review' if name == 'claude_motion_review.py' else '')
+
+    def native_inputs(self):
+        film = self.state.parent / 'film.mp4'
+        film.write_bytes(b'registered native movie fixture')
+        state = controller.read_state(self.state)
+        state['deliverable'] = {'review_only': False, 'film_sha256': controller.digest(film),
+                                'board_sha256': controller.digest(self.board)}
+        controller.save(self.state, state)
 
     def authorise(self, name='cinema_proof.py'):
         command = self.command(name)
@@ -73,6 +82,86 @@ class Reservation(unittest.TestCase):
         self.assertEqual(controller.read_state(self.state)['usage']['preflight_renders'], 1)
         self.assertFalse(controller.reserve(self.state, {'preflight_renders': 1}, note)[0])
         self.assertEqual(controller.read_state(self.state)['usage']['preflight_renders'], 1)
+
+    def test_occupied_motion_output_refuses_before_charge_and_keeps_evidence(self):
+        self.native_inputs()
+        output = self.state.parent / 'motion-review'
+        output.mkdir()
+        old = output / 'index.json'; old.write_bytes(b'actual earlier film index')
+        before = self.state.read_bytes()
+        with self.assertRaisesRegex(ValueError, 'motion output already exists'):
+            prepared.prepare(self.root, self.state, [self.command('claude_motion_review.py')])
+        self.assertEqual(before, self.state.read_bytes())
+        self.assertEqual(b'actual earlier film index', old.read_bytes())
+        output.rename(output.with_name('motion-review-retained'))
+        self.authorise('claude_motion_review.py')
+        self.assertTrue(prepared.claim(self.state, prepared.OPERATIONS['claude_motion_review.py'])[0])
+        self.assertEqual(1, controller.read_state(self.state)['usage']['preflight_renders'])
+        self.assertEqual(b'actual earlier film index', (output.with_name('motion-review-retained') / 'index.json').read_bytes())
+
+    def test_real_authorization_refuses_occupied_output_then_claims_one_fresh_charge(self):
+        board = {'runtime_s': 4, 'scenes': [], 'story_art': {'entries': [{
+            'request_id': 'test-hero', 'file': 'scripts/capture_reservation.py',
+            'sha256': guard.sha(self.root / 'scripts/capture_reservation.py'),
+            'creation_id': 'authored-' + 'a' * 20, 'created_at': '2026-10-17T00:00:00Z'}]},
+            'film_direction': {'renderer_inputs': []}}
+        self.board.write_text(json.dumps(board)); self.native_inputs()
+        output = self.state.parent / 'motion-review'; output.mkdir()
+        (output / 'index.json').write_bytes(b'retained earlier index')
+        command = self.command('claude_motion_review.py')
+        before = self.state.read_bytes()
+        with mock.patch('authored_story_art.problems', return_value=[]), \
+                mock.patch('native_headroom.estimate', return_value={'required_free_gib': 1}), \
+                mock.patch.object(guard.shutil, 'disk_usage', return_value=mock.Mock(free=500 * 1024 ** 3)):
+            with self.assertRaisesRegex(ValueError, 'motion output already exists'):
+                guard.authorize(self.root, self.state, [self.board], [command], housekeeping=False, prepare=True)
+            self.assertEqual(before, self.state.read_bytes())
+            self.assertFalse((self.root / guard.AUTHORIZATION).exists())
+            output.rename(output.with_name('motion-review-original'))
+            guard.authorize(self.root, self.state, [self.board], [command], housekeeping=False, prepare=True)
+            self.assertIsNone(guard.decide({'tool_name': 'Bash', 'tool_input': {'command': command},
+                                           'cwd': str(self.root)}, self.root))
+            self.assertTrue(controller.reserve(self.state, {'preflight_renders': 1},
+                                               prepared.OPERATIONS['claude_motion_review.py'])[0])
+        self.assertEqual(1, controller.read_state(self.state)['usage']['preflight_renders'])
+        self.assertEqual(b'retained earlier index', (output.with_name('motion-review-original') / 'index.json').read_bytes())
+
+    def test_motion_destination_file_and_broken_symlink_preserve_zero_charge(self):
+        output = self.state.parent / 'motion-review'
+        before = self.state.read_bytes()
+        output.write_bytes(b'retained original file')
+        with self.assertRaisesRegex(ValueError, 'motion output already exists'):
+            prepared.prepare(self.root, self.state, [self.command('claude_motion_review.py')])
+        self.assertEqual(before, self.state.read_bytes())
+        self.assertEqual(b'retained original file', output.read_bytes())
+        output.rename(output.with_name('motion-review-original'))
+        output.symlink_to('missing-target')
+        with self.assertRaisesRegex(ValueError, 'motion output already exists'):
+            prepared.prepare(self.root, self.state, [self.command('claude_motion_review.py')])
+        self.assertEqual(before, self.state.read_bytes())
+        self.assertTrue(output.is_symlink())
+
+    def test_motion_output_requires_one_owned_literal_destination_before_charge(self):
+        command = self.command('claude_motion_review.py')
+        before = self.state.read_bytes()
+        for changed in (command.replace(' --out out/dispatch/motion-review', ''),
+                        command + ' --out out/dispatch/duplicate',
+                        command.replace('out/dispatch/motion-review', '/tmp/foreign-motion-review'),
+                        command.replace('out/dispatch/motion-review', '$MOTION_OUTPUT')):
+            with self.subTest(command=changed), self.assertRaises(ValueError):
+                prepared.prepare(self.root, self.state, [changed])
+            self.assertEqual(before, self.state.read_bytes())
+
+    def test_phone_motion_destination_is_checked_before_charge(self):
+        output = self.state.parent / 'openings'; output.mkdir()
+        destination = output / 'motion-a'; destination.mkdir()
+        command = ('bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option a'
+                   ' --board out/dispatch/openings/a.json --film out/dispatch/openings/a.mp4'
+                   ' --state out/dispatch/run_state.json --out=out/dispatch/openings/motion-a')
+        before = self.state.read_bytes()
+        with self.assertRaisesRegex(ValueError, 'motion output already exists'):
+            prepared.prepare(self.root, self.state, [command])
+        self.assertEqual(before, self.state.read_bytes())
 
     def test_exact_phone_options_precharge_once_and_bind_encoded_inputs(self):
         output = self.state.parent / 'openings'; output.mkdir()
