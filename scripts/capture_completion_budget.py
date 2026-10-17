@@ -9,6 +9,10 @@ REPO = Path(__file__).resolve().parents[1]
 POLICY = REPO / 'config/capture_completion_budget_v1.json'
 POLICY_SHA256 = 'c09e8d773255c0cc827a7cbb37f5f330a10792f9b278fd961a2b09591e7d0b80'
 FIELD = 'capture_completion_budget'
+RIGHTS_POLICY = POLICY.with_name('rights_capture_budget_v1.json')
+RIGHTS_POLICY_SHA256 = '94c524b00d3d3e6d9a62b4c4afab4c025fe1e8fa9075ab68a791b111715b64e4'
+RIGHTS_FIELD = 'rights_capture_budget'
+RIGHTS_STATE = '_current_rights_capture_budget'
 SCHEMA = 'dispatch_capture_completion_budget_evidence/1'
 COMPARISON_POLICY = POLICY.with_name('capture_completion_budget_v2.json')
 COMPARISON_POLICY_SHA256 = 'd70e4e199c3acf49a4635087412cb9090e758810776c320ffb9ef290991f9d21'
@@ -29,6 +33,35 @@ def sha(text):
 
 def canonical(value):
     return json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
+
+
+def rights_required(state, plan, profile):
+    if (str(state.get('run_id', ''))[:10] < '2026-10-09'
+            or plan.get('repair_scope') != 'technical-integrity' or plan.get('failure_family') != 'rights'
+            or not isinstance(plan.get('changed_inputs'), list) or not plan['changed_inputs']
+            or set(profile) != {'policy_json', 'policy_sha256'}
+            or profile['policy_sha256'] != RIGHTS_POLICY_SHA256
+            or sha(profile['policy_json']) != RIGHTS_POLICY_SHA256):
+        raise ValueError('rights capture budget needs its pinned policy and a real technical correction')
+    policy = json.loads(profile['policy_json'])
+    if (policy['schema'] != 'dispatch_rights_capture_budget/1'
+            or policy['minimum_preflight_reservations'] != 4
+            or sum(policy['preflight_operators'].values()) != 4):
+        raise ValueError('rights capture budget lost one of its four distinct operators')
+    return policy['minimum_preflight_reservations']
+
+
+def live_budget_state(state, plan):
+    """Select a new count in a derived copy; replay uses only the profile each grant recorded."""
+    result = copy.deepcopy(state)
+    result.pop(RIGHTS_STATE, None)
+    if (str(state.get('run_id', ''))[:10] >= '2026-10-09'
+            and plan.get('repair_scope') == 'technical-integrity' and plan.get('failure_family') == 'rights'
+            and plan.get('changed_inputs')):
+        profile = {'policy_json': RIGHTS_POLICY.read_text(), 'policy_sha256': RIGHTS_POLICY_SHA256}
+        rights_required(state, plan, profile)
+        result[RIGHTS_STATE] = profile
+    return result
 
 
 def comparison_eligible(state, plan):
@@ -159,6 +192,9 @@ def file_problems(plan):
 
 def required_counts(state, plan, required):
     result = dict(required)
+    if state.get(RIGHTS_STATE) is not None:
+        result['preflight_renders'] = max(result.get('preflight_renders', 0),
+                                        rights_required(state, plan, state[RIGHTS_STATE]))
     if FIELD not in plan:
         return result
     if not eligible(state, plan):
@@ -176,16 +212,19 @@ def required_counts(state, plan, required):
 def apply_budget(state, plan, budget):
     """Only the two capture resource requirements change; usage and remaining values do not."""
     result = copy.deepcopy(budget)
-    if FIELD not in plan or not result.get('resources'):
+    if not result.get('resources') or FIELD not in plan and RIGHTS_STATE not in state:
         return result
     required = required_counts(state, plan, {k: v['required'] for k, v in result['resources'].items()})
     for name, count in required.items():
         result['resources'][name]['required'] = count
-    result['deficits'] = {k: row['required'] - row['remaining']
-                         for k, row in result['resources'].items() if row['required'] > row['remaining']}
+    from repair_guard import budget_deficits
+    result['deficits'] = budget_deficits(result['resources'])
     result['feasible'] = not result['deficits'] and not result['errors']
-    result['capture_charging'] = ('renewed-two-treatment-complete-path'
-        if plan[FIELD].get('schema') in COMPARISON_POLICIES else 'hook-and-entry')
+    if FIELD in plan:
+        result['capture_charging'] = ('renewed-two-treatment-complete-path'
+            if plan[FIELD].get('schema') in COMPARISON_POLICIES else 'hook-and-entry')
+    if RIGHTS_STATE in state:
+        result[RIGHTS_FIELD] = copy.deepcopy(state[RIGHTS_STATE])
     return result
 
 

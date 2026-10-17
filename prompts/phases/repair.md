@@ -160,6 +160,16 @@ The controller requires the exact latest paid reservation, the original mandator
 grant, unchanged original data-only board baselines, and no intervening paid work or opened
 repair. It binds that charge once, adds no capacity, preserves usage and all failed evidence,
 and grants no review or release approval. Never use `--reserve-reboard` with this recovery.
+After this verified opening and before editing, run production-budget on the same plan.
+Its reboard row retains the real usage and zero unspent remaining count, shows one bound
+prepaid unit, and includes the exact receipt. Every other remaining requirement must still
+be funded; the capture-budget amendment preserves that distinction. No extra grant is needed
+for the same already charged reboard.
+New rights-correction budgets record the separate timed preview, current-phone image sequence,
+native hero and final-film image sequence: four preflight operators. This profile is recorded
+in each new capacity grant; earlier grants keep their exact original requirements. A renewed
+two-treatment comparison retains its separate complete-path budget. Never count a phone
+movie and its image sequence as one operator or assume either final extraction is free.
 
 When measured narration exceeds the authored runtime or crowds the scene/caption limits,
 use failure_family measured-runtime-crowding with technical-integrity scope. Retain the exact

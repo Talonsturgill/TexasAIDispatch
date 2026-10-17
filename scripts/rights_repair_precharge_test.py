@@ -58,6 +58,83 @@ class UnusedRightsReboard(unittest.TestCase):
         self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
         self.assertEqual(before, self.state.read_bytes())
 
+    def test_new_rights_grant_records_all_four_actual_capture_operators(self):
+        import capture_completion_budget as capture
+        state = controller.read_state(self.state)
+        row = next(e for e in reversed(state['events']) if e.get('kind') == capacity.EVENT)
+        budget = json.loads(row['precheck_json'])
+        self.assertEqual(budget['resources']['preflight_renders']['required'], 4)
+        self.assertEqual(row['resource_increments']['preflight_renders'], 4)
+        self.assertEqual(row[capture.RIGHTS_FIELD], budget[capture.RIGHTS_FIELD])
+        self.assertEqual(sum(json.loads(row[capture.RIGHTS_FIELD]['policy_json'])['preflight_operators'].values()), 4)
+        self.assertEqual(self.original_envelope, state['resource_envelope'])
+        self.assertEqual([], capacity.replay(state)[1])
+        for mutation in ('policy', 'missing-profile'):
+            changed = copy.deepcopy(state)
+            event = next(e for e in reversed(changed['events']) if e.get('kind') == capacity.EVENT)
+            if mutation == 'policy': event[capture.RIGHTS_FIELD]['policy_json'] += ' '
+            else: event.pop(capture.RIGHTS_FIELD)
+            self.assertTrue(capacity.replay(changed)[1], mutation)
+
+    def test_historical_three_unit_rights_grant_keeps_its_exact_replay(self):
+        import capture_completion_budget as capture
+        from unittest.mock import patch
+        path = self.scratch / 'legacy-count-state.json'
+        self.assertTrue(controller.initialise(path, '2026-10-15-legacy-count-fixture', 'production')[0])
+        state = controller.read_state(path)
+        for name in capacity.MAX_REQUIRED:
+            state['usage'][name] = state['resource_envelope'][name]
+        controller.event(state, 'reserved', resources={k: state['usage'][k] for k in capacity.MAX_REQUIRED},
+                         note='offline legacy charged history fixture')
+        controller.save(path, state); original = copy.deepcopy(state)
+        # Reproduce the earlier producer; the new replay must not reinterpret its count.
+        with patch.object(capture, 'live_budget_state', side_effect=lambda s, p: copy.deepcopy(s)):
+            accepted, message = capacity.grant_capacity(path, self.plan)
+        self.assertTrue(accepted, message)
+        legacy = controller.read_state(path); row = legacy['events'][-1]
+        self.assertNotIn(capture.RIGHTS_FIELD, row)
+        self.assertEqual(json.loads(row['precheck_json'])['resources']['preflight_renders']['required'], 3)
+        self.assertEqual(legacy['events'][:len(original['events'])], original['events'])
+        self.assertEqual(legacy['usage'], original['usage'])
+        self.assertEqual([], capacity.replay(legacy)[1])
+
+    def test_actual_budget_cli_reports_four_operators_and_the_exact_prepaid_receipt(self):
+        self.assertTrue(lifecycle.begin_repair(self.state, self.plan, prepaid_reboard=self.receipt)[0])
+        before = self.state.read_bytes()
+        done = subprocess.run([sys.executable, str(Path(controller.__file__)), '--state', str(self.state),
+                               'production-budget', '--repair-plan', str(self.plan)], capture_output=True, text=True)
+        self.assertEqual(done.returncode, 0, done.stderr + done.stdout)
+        budget = json.loads(done.stdout)
+        self.assertEqual(budget['resources']['preflight_renders']['required'], 4)
+        self.assertEqual(budget['prepaid_reboard']['reservation_sha256'], self.receipt)
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_complete_path_counts_the_verified_prepaid_unit_without_resetting_usage(self):
+        from repair_guard import production_budget_precheck
+        import capture_completion_budget as capture
+        from unittest.mock import patch
+        before = production_budget_precheck(self.before, mandatory_repair=True)
+        self.assertEqual(before['deficits']['reboards'], 1)
+        self.assertTrue(lifecycle.begin_repair(self.state, self.plan, prepaid_reboard=self.receipt)[0])
+        state = controller.read_state(self.state)
+        budget = production_budget_precheck(state, mandatory_repair=True)
+        self.assertTrue(budget['feasible'], budget)
+        self.assertEqual(budget['resources']['reboards']['required'], 1)
+        self.assertEqual(budget['resources']['reboards']['remaining'], 0)
+        self.assertEqual(budget['resources']['reboards']['prepaid'], 1)
+        self.assertEqual(budget['prepaid_reboard']['reservation_sha256'], self.receipt)
+        self.assertEqual(state['usage'], self.before['usage'])
+        # Isolate capture-policy selection; the controller's prepaid binding above is real.
+        counts = {k: row['required'] for k, row in budget['resources'].items()}
+        with patch.object(capture, 'required_counts', return_value=counts):
+            updated = capture.apply_budget(state, {capture.FIELD: {'schema': 'fixture'}}, budget)
+        self.assertTrue(updated['feasible'], updated)
+        for altered in ('reference', 'counter'):
+            changed = copy.deepcopy(state)
+            if altered == 'reference': changed['active_repair']['prepaid_reboard']['reservation_sha256'] = '0'*64
+            if altered == 'counter': changed['usage']['reboards'] += 1
+            self.assertFalse(production_budget_precheck(changed, mandatory_repair=True)['feasible'])
+
     def test_real_read_only_proposal_leaves_the_ledger_unchanged(self):
         before = self.state.read_bytes()
         command = [sys.executable, str(Path(recovery.__file__)), '--state', str(self.state),

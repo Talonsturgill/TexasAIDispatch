@@ -150,8 +150,17 @@ film match remain mandatory. Do not repurchase a review of identical bytes for t
 After native hero approval, run the sole full-render entry point:
 
 ```sh
-bash scripts/render_dispatch.sh
+python scripts/capture_guard.py authorize --prepare --resource full_renders --state out/dispatch/run_state.json --board out/dispatch/storyboard.json --command "bash scripts/run_with_env.sh bash scripts/render_dispatch.sh"
+bash scripts/run_with_env.sh bash scripts/render_dispatch.sh
 ```
+
+The prepared full-render authorization charges one actual attempt. Its entry point claims
+that exact charge once; do not reserve a second full render. Before preparing, the unchanged
+music package gate must pass. The receipt binds current audio, captions, narration, claims,
+credits, the approved preview, renderer, configuration and operator source. Changed inputs,
+an unconsumed hook authorization or a reused receipt refuse execution; earlier charges stay intact.
+Use the exact authorized command text. Add any required log redirection when authorizing it,
+and never append redirection or another command after the authorization is issued.
 
 It validates and reserves before rendering, uses native PNG capture and CRF 16, muxes without
 -shortest, creates the exact render manifest, extracts frames and registers the actual film.

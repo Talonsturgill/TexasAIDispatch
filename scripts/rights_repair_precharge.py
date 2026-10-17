@@ -68,6 +68,18 @@ def from_started(events, start):
     return expected
 
 
+def active_reference(state):
+    current = state.get('active_repair') or {}
+    if current.get('prepaid_reboard') is None:
+        return None
+    start = max(i for i, row in enumerate(state['events']) if row.get('kind') == 'repair_started')
+    expected = from_started(state['events'], start)
+    if (current['prepaid_reboard'] != expected or current.get('repair_scope') != 'technical-integrity'
+            or state['usage']['reboards'] != current['reboards_before'] + 1):
+        raise ValueError('active rights repair lost its one exact prepaid reboard')
+    return expected
+
+
 if __name__ == '__main__':
     import argparse
     from creative_release import technical_repair_problems

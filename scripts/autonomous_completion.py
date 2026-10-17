@@ -559,6 +559,10 @@ def replay(state):
                 # Replay eligibility at admission, before this grant changes caps
                 # or later charged work changes the finishing threshold.
                 admission = copy.deepcopy(state)
+                from capture_completion_budget import RIGHTS_FIELD, RIGHTS_STATE
+                admission.pop(RIGHTS_STATE, None)
+                if row.get(RIGHTS_FIELD) is not None:
+                    admission[RIGHTS_STATE] = row[RIGHTS_FIELD]
                 admission["usage"] = row["usage_unchanged"]
                 admission["escalation_ceiling"] = row["previous_ceiling"]
                 admission["events"] = events[:index]
@@ -597,6 +601,8 @@ def replay(state):
                 if VALIDATION_FIELD in plan:
                     source_reports.add(evidence_hash)
                 budget = json.loads(row["precheck_json"])
+                if budget.get(RIGHTS_FIELD) != row.get(RIGHTS_FIELD):
+                    raise ValueError('rights capture budget differs from its recorded grant')
                 rows = budget["resources"]
                 expected_required = resource_requirements(admission, plan)
                 if set(rows) != set(expected_required):
@@ -843,7 +849,9 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             adopt_pivot_policy(state)
         if reason == NARRATION_REASON:
             adopt_narration_policy(state)
-        budget = production_budget_precheck(state, review_route="host", phone_complete=False,
+        from capture_completion_budget import live_budget_state, RIGHTS_FIELD, RIGHTS_STATE
+        budget_state = live_budget_state(state, plan)
+        budget = production_budget_precheck(budget_state, review_route="host", phone_complete=False,
                     minimum_action_failed=reason == "minimum-action",
                     mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, 'mandatory-source-pivot'},
                     review_coverage=reason == COVERAGE_REASON,
@@ -851,7 +859,7 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         from capture_completion_budget import apply_budget
-        budget = apply_budget(state, plan, budget)
+        budget = apply_budget(budget_state, plan, budget)
         if reason == FILM_PIVOT_REASON:
             from film_pivot_capacity import apply_budget as film_pivot_budget
             budget = film_pivot_budget(plan, budget)
@@ -884,7 +892,8 @@ def grant_capacity(state_path, plan_path, policy_path=None):
               policy_sha256=sha(policy_text), plan_json=plan_text, plan_sha256=sha(plan_text),
               failure_evidence_json=evidence, failure_evidence_sha256=sha(evidence),
               precheck_json=canonical(budget), precheck_sha256=sha(canonical(budget)),
-              grants_no_review_approval=True)
+              grants_no_review_approval=True,
+              **({RIGHTS_FIELD: budget_state[RIGHTS_STATE]} if RIGHTS_STATE in budget_state else {}))
         state["escalation_ceiling"] = raised
         errors = replay(state)[1] + allowance_problems(state)
         if errors:
