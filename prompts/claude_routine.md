@@ -176,7 +176,8 @@ The prelaunch Stop hook sends an early final response back to this same ledger. 
 tool, changes no permissions and adds no capacity. It remains inactive for ordinary coding and
 leaf agents. A repeated Stop with a running task reported by the host waits twenty seconds,
 then rechecks the same shipment closure before returning feedback. This limits idle status
-chatter; it never treats a background task as completion. Collect required task results through the actual task tools, repair internal failures
+chatter; it never treats a background task as completion. Collect required task results through
+the actual task tools, repair internal failures
 through the versioned routes, and continue until accepted shipment, the matching public archive
 on fetched origin/main, and the final shipped checkpoint exist. Do not re-register hooks in a
 running host. A supported fresh environment can prove the actual event with
@@ -219,6 +220,12 @@ result arrives. Confirm the task is actually running before waiting, and explici
 completed worker when assigning new charged content work. Keep one active owner and never
 dispatch a duplicate because a response is slow. An unfinished controller is still active
 production even when the cloud UI marks an assistant response successful.
+
+If the task-status tool returns immediately while the worker is still running, use one
+twenty-second Bash wait through scripts/run_with_env.sh with the explicit worktree cd inside
+the wrapped shell, then check that same task again. Keep these as tool calls in the active
+turn, without a final waiting response between them. Do not use a long shell loop or interrupt
+the worker to stop idle polling. A read-only status update never requires a new content call.
 
 ## Fresh authored picture lane
 
