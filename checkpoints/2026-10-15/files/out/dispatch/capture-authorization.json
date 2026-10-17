@@ -2,20 +2,20 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "0c0a0a0a8960fec75427cee7c43dd1f155aa0aee035e6cc6df9b5fd7a8a0247a",
+    "event_sha256": "ed6e5f4f67dc745a27ea6c6c97e080aaebe86c66806132946219e9032162bd38",
     "resource": "preflight_renders",
-    "at": "2026-10-17T00:55:30.148599Z",
-    "note": "exact-phone-current motion-image review extraction"
+    "at": "2026-10-17T03:38:12.953753Z",
+    "note": "capture authorization reservation for opening comparison"
   },
   "boards": [
     {
-      "path": "out/dispatch/storyboard.json",
-      "sha256": "5a1b8e26cba9ccb64d48e5741a2b56a5175ea25f9ba7a46e9ef393c7698cf4a6"
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "52fbd30b914176f351df954e7cf7e41c20a78dbb74b8f57dfee64fa312da0c3d"
     }
   ],
   "bound": {
     "renderer_inputs": {
-      "config/modern_episode_registry.json": "db04f225a374f80173efd14a8aa03eddd5481ef5332f764fa7ca148d956d295c",
+      "config/modern_episode_registry.json": "fffdf5d8aa9b06599e6e7e52bd97c668415342e882b69c9b95513485cdf16574",
       "config/modern_film.json": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e",
       "video-engine/src/AlloyLoopEpisode.tsx": "9ff8081c34104adc205a8b53ba08ec6c5009acc12cb57e6e1684b51027f7cf4d",
       "video-engine/src/ApplicationSheets.tsx": "b8ff7d9f6b329ab5c86212c7bcfe4970f1551d8c97bf945df86b4724d1247286",
@@ -144,9 +144,9 @@
       "video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx": "0b5524473c295d96fc2d9439af0d760195ae43afddcd8813327105259d73f761",
       "video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx": "63368295e7519b2335bcaeea2dad0f67dc26649f9c65a0629e8ce15b29d0f2cd",
       "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx": "d601034eee7cce7a26257717db35f87f52e2440b8483983fda44fdfe014374be",
-      "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx": "b8f8cc3b38a12749016215ec65da64ed8d78fde4c8a8353d16166b19cc879ca0",
-      "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
-      "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91",
+      "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx": "b4a0ce8feeae3107ce9f1ad2ef0249572576c31b0a94533bdc2bfc10a89311fd",
+      "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
       "video-engine/src/modern/registry.tsx": "af13d1b7c7441af66a265d7f4bac7bf13d085d1138dfcd14675f0bd818d0ff03",
       "video-engine/src/modern/texasCounties.json": "e39f5cabababc5bf91e7ae0b5c70d3060875fc309f36ce9d34da6ae4c506bad8",
@@ -154,36 +154,29 @@
       "video-engine/package-lock.json": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71"
     },
     "authored_art": {
-      "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx": "f3dbf42717bbea88758c825d05cfeda588ebbe2ddbfcf493e3c5ddd86cc5461c",
-      "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx": "916e12f7be70b88b289e29b42c6e4961fe22dfd0e70027943339dc61edf3de91"
+      "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346"
     }
   },
   "commands": [
     {
-      "id": "9b5840595542e6bdad1b7a06bb97094fa2a71153d6905d1006191e1ce0fb9198",
-      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/preflight.mp4 --out out/dispatch/motion-current-r14 --state out/dispatch/run_state.json --phone-option current",
-      "consumed": "2026-10-17T00:55:42.176960+00:00"
+      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
+      "consumed": "2026-10-17T03:38:33.742915+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.08
+    "free_gib": 20.155
   },
   "housekeeping": {
-    "receipt": "/home/user/ed1015/TexasAIDispatch/out/dispatch/capture-housekeeping-20261017T005529.json",
-    "receipt_sha256": "dfd89af42d0d8a5b30a06df48e87e02b7fa7405b59c57baf94e0938e17555f78",
+    "receipt": "/home/user/ed1015/TexasAIDispatch/out/dispatch/capture-housekeeping-20261017T033831.json",
+    "receipt_sha256": "8e9be771238e7682a099b25b344eadc0f47bad826b534d2249dad6a71283bea8",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-17T00:55:40.277406+00:00",
-  "expires_at": "2026-10-17T01:40:40.277406+00:00",
-  "prepared_capture": {
-    "schema": "dispatch_prepared_capture/1",
-    "operation": "exact-phone-current motion-image review extraction",
-    "run_id": "2026-10-15",
-    "event_sha256": "0c0a0a0a8960fec75427cee7c43dd1f155aa0aee035e6cc6df9b5fd7a8a0247a",
-    "input_identity": "f0cbf5ac465a3e6df6bd4f33b97968a423e774f14918ed4e0f248f3510b11d48"
-  }
+  "issued_at": "2026-10-17T03:38:31.427189+00:00",
+  "expires_at": "2026-10-17T04:23:31.427189+00:00"
 }
