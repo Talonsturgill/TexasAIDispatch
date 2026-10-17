@@ -1,0 +1,22 @@
+Independent classification after panel round 1 (storyboard_critics charged before this message). Work in /home/user/restore/TexasAIDispatch. Do NOT launch subagents, run nothing, edit nothing. You can't write files; return ONE JSON object as your final message.
+
+Context. Edition 2026-10-15, credit-corrected exact film 4bebb2cbb037661e407fba21fd5d01ffcc6de2d19efaac8824f7dd519bc7bcc9 (board dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6). Panel round 1 returned ship=false from all three separate lenses: picture 6.40, story 6.7, sound 6.8, recorded at 6.642. The three verbatim handbacks and the weighted triage are listed below. Rights (MUSIC credit) now passes in every lens.
+
+Do four things from the bytes (one Read per step, mark nothing read that you did not read): (1) Classify EVERY distinct finding the three lenses report into exactly one category: legibility, layout, comprehension, source, rights, technical_audio, captions, runtime (these are NOT deferrable) or motion, surface_finish, pacing, ending_artistry, style (these ARE deferrable under knowledge/craft/BOUNDED_CREATIVE_RELEASE.md). Decide independently; a lens's own label is evidence, not authority. (2) Under that policy and config/creative_release.json and the repair ledger described in the files, say plainly whether further creative repair is still permitted or the creative boundary is reached, and which findings must still be corrected as retained non-deferrable failures before the bounded creative release route may be used. (3) For the non-deferrable findings, judge whether a minimal renderer-only correction in video-engine/src/modern/episodes/2026-10-15/ (FloodStationFilm.tsx or StreetHubSupport.tsx; board text, narration, claims, mix, captions and timing unchanged) is sufficient, name the exact shots and frame ranges, and name every risk. (4) State which category in the technical-repair taxonomy each non-deferrable finding maps to for a technical-integrity plan, and where a finding (for example comprehension) has no technical category, say what route it needs instead.
+
+Return this JSON: {"verdict":"revise","film_sha256":"4bebb2cbb037661e407fba21fd5d01ffcc6de2d19efaac8824f7dd519bc7bcc9","reviewed_preflight_sha256":"4bebb2cbb037661e407fba21fd5d01ffcc6de2d19efaac8824f7dd519bc7bcc9","review_scope":"technical-classification","reviewer_identity":"<honest identity and limits>","reviewed_at":"<ISO 8601 UTC>","blocking_defects":["<each non-deferrable finding, plain string>"],"technical_repair":{"findings":[{"finding":"<same string>","category":"<technical category or comprehension>"}]},"deferrable_findings":[{"finding":"...","category":"..."}],"creative_boundary":"...","proposal_assessment":"...","recurrence":"...","risks":["..."],"files_read_in_full":["..."],"one_line_note":"..."}
+If a finding is not technical or the creative boundary forbids a route, say so plainly rather than forcing the shape.
+
+Files (read in this order; paths under /home/user/restore/TexasAIDispatch):
+- out/dispatch/evidence/r15g/panel-round-1/picture-handback-verbatim.txt
+- out/dispatch/evidence/r15g/panel-round-1/story-handback-verbatim.txt
+- out/dispatch/evidence/r15g/panel-round-1/sound-corrected-json-verbatim.json
+- out/dispatch/evidence/r15g/panel-round-1/triage.log
+- knowledge/craft/BOUNDED_CREATIVE_RELEASE.md
+- config/creative_release.json
+- knowledge/craft/AUTONOMOUS_COMPLETION.md
+- prompts/phases/repair.md
+- video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx
+- video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx
+- out/dispatch/WORKLOG.md (the lines about repair rounds and panel round 1)
+- .claude/agents/storyboard-critic.md
