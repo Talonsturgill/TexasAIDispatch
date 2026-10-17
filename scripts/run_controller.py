@@ -240,6 +240,24 @@ def preflight_identity(path: Path, note: str) -> str | None:
     return hashlib.sha256(json.dumps([operation, content]).encode()).hexdigest()
 
 
+def full_render_identity(path: Path) -> str:
+    """Bind the full-render entry to its exact sound, picture, credits and operators."""
+    root, scratch = REPO.resolve(), Path(path).resolve().parent
+    if Path(path).resolve() != root / 'out/dispatch/run_state.json':
+        raise ValueError('prepared full render must use this checkout ledger')
+    files = [scratch / name for name in ('storyboard.json', 'mix.wav', 'mix.json', 'captions.json',
+             'words.json', 'vo_script.txt', 'claims.json', 'credits.txt', 'preflight.json', 'preflight.mp4')]
+    for file in files:
+        if not file.is_file():
+            raise ValueError('full-render input is missing: ' + str(file.relative_to(root)))
+    for directory in ('video-engine/src', 'video-engine/public', 'config', 'video-engine/scripts'):
+        files += [p for p in (root / directory).rglob('*') if p.is_file()]
+    files += [p for p in (root / 'scripts').iterdir() if p.is_file() and p.suffix in {'.py', '.sh'}]
+    files += [p for p in (root / 'video-engine/package.json', root / 'video-engine/package-lock.json') if p.is_file()]
+    content = [(p.relative_to(root).as_posix(), digest(p)) for p in sorted(set(files))]
+    return hashlib.sha256(json.dumps(['full-render', content]).encode()).hexdigest()
+
+
 def retry_preflight(path: Path, operation: str, evidence: Path, reason: str) -> tuple[bool, str]:
     state = read_state(path)
     identity = preflight_identity(path, operation)
@@ -308,10 +326,11 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
     # Verify and retain the current snapshot before changing any counter. The post-write
     # mirror still makes the actual reservation durable before its caller can dispatch work.
     claude_checkpoint.mirror(path, "before paid reservation")
-    if _use_prepared_capture and amounts == {'preflight_renders': 1}:
-        from capture_reservation import OPERATIONS, PHONE_OPERATIONS, claim
+    if _use_prepared_capture and amounts in ({'preflight_renders': 1}, {'full_renders': 1}):
+        from capture_reservation import OPERATIONS, PHONE_OPERATIONS, FULL_OPERATION, resource_for, claim
         authorization = REPO / 'out/dispatch/capture-authorization.json'
-        if (note in (*OPERATIONS.values(), *PHONE_OPERATIONS.values()) and authorization.is_file()
+        if (note in (*OPERATIONS.values(), *PHONE_OPERATIONS.values(), FULL_OPERATION)
+                and amounts == {resource_for(note): 1} and authorization.is_file()
                 and load_json(authorization).get('prepared_capture') is not None):
             return claim(path, note)
     state = read_state(path)
@@ -349,6 +368,8 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
         return False, "; ".join(envelope_errors) + "; preserve the film and resolve the recorded production plan"
 
     preview_identity = preflight_identity(path, note) if "preflight_renders" in amounts else None
+    full_identity = (full_render_identity(path) if amounts == {'full_renders': 1}
+                     and note == 'full-resolution Dispatch render' else None)
     if (preview_identity and state.get("preflight_retry") != preview_identity
             and any(e.get("preflight_identity") == preview_identity for e in state.get("events", []))):
         return False, ("run controller: identical preflight inputs were already reserved for this operation. "
@@ -442,7 +463,8 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
               film_sha256=state["deliverable"].get("film_sha256"))
     if preview_identity == state.get("preflight_retry"):
         state.pop("preflight_retry", None)
-    event(state, "reserved", resources=amounts, note=note, preflight_identity=preview_identity)
+    binding = {'full_render_identity': full_identity} if full_identity is not None else {}
+    event(state, "reserved", resources=amounts, note=note, preflight_identity=preview_identity, **binding)
     # CLEANUP LOCKS AT THE CEILING, NOT AT THE TARGET, and under escalation those are two
     # different numbers on purpose.
     #
