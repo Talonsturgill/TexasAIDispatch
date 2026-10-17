@@ -1,0 +1,57 @@
+{
+  "schema": "dispatch_review_transport_failure/1",
+  "role": "phone",
+  "actor": "a52c371448f105d98",
+  "observed_at": "2026-10-17T05:30:30.359368Z",
+  "error": "[media removed: request limit]",
+  "raw_error": "[media removed: request limit]",
+  "verdict": null,
+  "reservation_event_index": 345,
+  "reservation": {
+    "at": "2026-10-17T05:22:27.799491Z",
+    "kind": "reserved",
+    "note": "precharged same-worker probe-first silent comparison of both renewed R15f exact-phone openings and exact-phone review of the chosen cut (SendMessage a52c371448f105d98), allocation 2 of 4: final timed phone and one reserve remain",
+    "preflight_identity": null,
+    "resources": {
+      "storyboard_critics": 1
+    }
+  },
+  "reservation_sha256": "2f84565ef8f5c7ca016f5e11ced22dcf93372ef984447218cc2d99538f55953b",
+  "media_probe": {
+    "single_image_read": true,
+    "media_received": false,
+    "packet": {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15f/phone-critic-packet-r15f-cmp.json",
+      "sha256": "03c4387ef34fe40e14fa5e2444b274d84cde5b447c7dc0e432453285f7667eb1"
+    },
+    "coverage": {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r15f-phone-compare-partial/image-coverage.json",
+      "sha256": "b62ddae21397a62cb7230ee23022f3504d63174d5546b33815d2b2d219e8ad3a"
+    },
+    "handback": {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r15f-phone-compare-partial/handback-compact-derivative.txt",
+      "sha256": "d6452f32cb203a9006adc7427ba693b96ddfe0d818691f6033f49923a0fcc825"
+    },
+    "image": {
+      "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/openings/motion-a/sequence-000.png",
+      "sha256": "dbda6e3429485aae3765e6daf0eb50e319a4ce9a13c6054b3b3ef96c9b9795e4"
+    }
+  },
+  "assignment": {
+    "role": "phone",
+    "actor": "a52c371448f105d98",
+    "board_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+    "film_sha256": null,
+    "comparison_sha256": "0f81c69dd366eec628125d74b5ba6a7a66d23b1e2409661700d1c1cfdd35d0bc",
+    "opening_options": {
+      "a": {
+        "board_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+        "film_sha256": "e1ab789064da3f3aaf8c576593aafc991370144bef88d804d6e8f8e5854d74ff"
+      },
+      "b": {
+        "board_sha256": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4",
+        "film_sha256": "12573483d244e5631d42af7aa02d92b17406f625dd8a7bf90a8a29660b4a1684"
+      }
+    }
+  }
+}
