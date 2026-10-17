@@ -375,6 +375,52 @@ class StoryVisualTest(unittest.TestCase):
         self.board["date"] = "2026-09-28"; self.board.pop("visual_research")
         self.assertEqual([], d.visual_problems(self.board, self.runs))
 
+class LosslessScorerTransport(unittest.TestCase):
+    def current(self, role='picture'):
+        return {'role':role, 'date':'2026-10-15',
+            'instructions':'Read every guide, page and timed observation. ' * 20,
+            'motion_sequence':{'path':'/owned/current/motion-review/index.json','sha256':'a'*64},
+            'image_read_policy':{'images_per_model_step':1,'missing_image':'return partial'},
+            'craft_readings':[{'path':'/owned/current/knowledge/craft/guide-'+str(n)+'.md',
+                               'sha256':str(n % 10)*64} for n in range(61)],
+            'story':{'reference':'board','field':'story_contract'}}
+
+    def test_layout_only_compression_preserves_every_value_and_the_unchanged_cap(self):
+        self.assertEqual(10000,d.policy()['handoff_max_chars'])
+        for role in ('picture','story','sound'):
+            data=self.current(role); original=copy.deepcopy(data)
+            self.assertGreater(len(json.dumps(data,indent=2)),10000)
+            text=d.packet_text(data)
+            self.assertLessEqual(len(text),10000)
+            self.assertEqual(original,json.loads(text)); self.assertEqual(original,data)
+
+    def test_small_and_historical_packets_keep_their_exact_original_serialization(self):
+        small={'role':'picture','date':'2026-10-15','instructions':'Read all current guides.'}
+        self.assertEqual(json.dumps(small,indent=2)+'\n',d.packet_text(small))
+        for date in ('2026-10-09','2026-10-14'):
+            data=self.current();data['date']=date
+            self.assertEqual(json.dumps(data,indent=2)+'\n',d.packet_text(data))
+
+    def test_real_payload_excess_remains_over_the_same_cap(self):
+        data=self.current();data['instructions']='x'*11000
+        self.assertGreater(len(d.packet_text(data)),d.policy()['handoff_max_chars'])
+        self.assertEqual(data,json.loads(d.packet_text(data)))
+
+    def test_cli_file_and_stdout_use_the_same_lossless_bounded_transport(self):
+        data=self.current()
+        with tempfile.TemporaryDirectory() as temp:
+            target=Path(temp)/'picture.json'
+            args=['daily_production','--packet','picture','--board','board.json','--claims','claims.json']
+            with patch('sys.argv',args+['--out',str(target)]),patch.object(d,'packet',return_value=data):
+                self.assertEqual(0,d.main())
+            self.assertLessEqual(target.stat().st_size,10000)
+            self.assertEqual(data,json.loads(target.read_text()))
+            output=io.StringIO()
+            with patch('sys.argv',args),patch.object(d,'packet',return_value=data),contextlib.redirect_stdout(output):
+                self.assertEqual(0,d.main())
+            self.assertEqual(target.read_text(),output.getvalue())
+
+
 def load_tests(loader, tests, pattern):
     from creative_production_test import CreativeTest
     from art_direction_test import ArtDirectionTest
