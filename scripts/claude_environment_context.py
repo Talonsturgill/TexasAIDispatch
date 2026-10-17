@@ -29,6 +29,12 @@ def entries(workspace):
         'Some render-cache artifacts are duplicate producer copies; relocation requires a matching '
         'canonical SHA256 and byte count while retaining unique and failed evidence. '
         'Canonical and failed evidence, original charges and frozen envelopes remain retained.',
+        'Render admission: scripts/capture_guard.py authorize --prepare checks the edition ledger, '
+        'exact input hashes, native headroom and housekeeping before charging one supported capture '
+        'and writing out/dispatch/capture-authorization.json. Its exact command is usable once; '
+        'out/dispatch/capture-authorizations-used.json retains consumption. These are application '
+        'production records. The command does not edit Claude settings, permission rules or hooks, '
+        'and it grants no generic Bash access. Host approval checks still apply.',
         'Secrets management: credentials stay in the existing cloud bindings and external runtime. '
         'Never print or publish credentials, private routing, Gmail identifiers or private delivery '
         'receipts. This context adds no service, credential, permission exception or sending authority.'
