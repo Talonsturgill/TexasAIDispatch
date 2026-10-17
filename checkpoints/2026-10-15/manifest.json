@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-16T23:15:50.320047+00:00",
-  "note": "Provider ReadTimeout evidence, enriched and finish-only budget diagnostics preserved; holding provider retry for tested recovery",
+  "saved_at": "2026-10-17T00:01:26.846671+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/ed1015/TexasAIDispatch",
-  "source_pin": "2bcde31187c4fa7a8f4a616f30221a90475a1024",
+  "source_pin": "410b94bb5d5e81280af6157c8c9b06197fa0b00e",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "d248a291e4671bfc391f45144504fc21bb255d25dfa05bd233030f5568c44150",
-  "original_private_ledger_sha256": "3e5ed809e8e01688fcf190678e5d6385ca567b56d7270b06167511b257c08a8a",
+  "ledger_sha256": "800f80483391ec663732e9079906c3dea586ea92eaeb54df630eccf55ec45b6f",
+  "original_private_ledger_sha256": "fe8d6600bc0864d9637e95351f7f1be186c1bd7516a891a0769469dc7b4987c0",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -76,7 +76,7 @@
     }
   ],
   "usage": {
-    "audiovisual_reviews": 6,
+    "audiovisual_reviews": 7,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
@@ -11118,8 +11118,8 @@
     {
       "path": "out/dispatch/evidence/r14-budget-diagnostics/README.md",
       "class": "scratch",
-      "sha256": "732c29b929afaeedc1f1788d497c1b313b0b8c0458aa5a2c3a3e326d206e043a",
-      "size": 1549
+      "sha256": "c59285c7356f46ce4c7884fb2e5a65011b948df1e34f2035ddfa02d9fa4163ff",
+      "size": 1938
     },
     {
       "path": "out/dispatch/evidence/r14-budget-diagnostics/budget-enriched-host.json",
@@ -11146,10 +11146,22 @@
       "size": 1494
     },
     {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/budget-noplan-host.json",
+      "class": "scratch",
+      "sha256": "b75795fbf0debcdbaf74150202be5f080342fd1753f63f16a976c4eccb5d9842",
+      "size": 1490
+    },
+    {
+      "path": "out/dispatch/evidence/r14-budget-diagnostics/budget-noplan-provider.json",
+      "class": "scratch",
+      "sha256": "fb1e54d1601989c44b161369bf5937154fa9238cb9b7834e37d52b7223147345",
+      "size": 1494
+    },
+    {
       "path": "out/dispatch/evidence/r14-budget-diagnostics/checkpoint.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "9f016216428ce853d0f1f71bf2343831d0c0d5b8a039ef5e2c6b185711c7a924",
+      "size": 249
     },
     {
       "path": "out/dispatch/evidence/r14-budget-diagnostics/ledger-now.json",
@@ -11380,10 +11392,22 @@
       "size": 1224456
     },
     {
+      "path": "out/dispatch/evidence/r14-phone-transport/provider-compare-recovery.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/evidence/r14-phone-transport/provider-compare.log",
       "class": "scratch",
       "sha256": "6623527816ef5d9a0a5a98c73fa1d0279e5a2eda5e9a25692bec19eccd2acafd",
       "size": 82
+    },
+    {
+      "path": "out/dispatch/evidence/r14-phone-transport/timeout-retry-receipt.log",
+      "class": "scratch",
+      "sha256": "a053f35f1f0e40da865a51fc207c84ac68f4b93f17045cce9eacfed6ffac447b",
+      "size": 164
     },
     {
       "path": "out/dispatch/evidence/r8-funding/baseline/claims.json",
@@ -13118,6 +13142,12 @@
       "class": "scratch",
       "sha256": "28c5eb9d1e8f273c618f44b74d9f556660cb4cd34067c00e485012f5dbe6e2c9",
       "size": 14946
+    },
+    {
+      "path": "out/dispatch/independent-review-cache/8ec9f28de56e6d74006fc2d610a30fd0bd1cd2195ff64bf3b8f5b291f0805be0/read-timeout-recovery.json",
+      "class": "scratch",
+      "sha256": "1961aad3e4fab3d3d7c9f4f7b27f58f3e5627e93af67d60c90fe132a52b82883",
+      "size": 29794
     },
     {
       "path": "out/dispatch/independent-review-cache/8ec9f28de56e6d74006fc2d610a30fd0bd1cd2195ff64bf3b8f5b291f0805be0/request.json",

@@ -7,3 +7,6 @@ Results at ledger state ledger-now.json (preflight_renders 24 of 25, storyboard_
 - enriched, host and provider: infeasible, deficits preflight_renders 4, storyboard_critics 2.
 - finish-only, host: infeasible, deficit preflight_renders 1 (critics fit). finish-only, provider: infeasible, deficit preflight_renders 1.
 The original provider timeout evidence: provider-compare.log, provider-cache-attempt.json, evidence/r14-phone-transport/PROVIDER-TIMEOUT.md and provider-attempt-1 (request.json, ledger events 261 to 264). The consumed comparison-enriched minimum is retained as is; no grant was requested from either plan after the ReadTimeout.
+
+## Added read-only diagnosis (no plan)
+`production-budget --review-route provider` and `--review-route host`, each with NO --repair-plan, run after the completed comparison capture. Files: budget-noplan-provider.json, budget-noplan-host.json. They alter no grant, count or report. The comparison-enriched result above still applies full renewal minimums after its captures were consumed.
