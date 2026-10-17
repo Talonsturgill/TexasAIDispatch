@@ -1,0 +1,39 @@
+{
+ "schema": "dispatch_claude_image_coverage/1",
+ "status": "partial",
+ "verdict": null,
+ "reason": "probe_image_stripped",
+ "probe": {
+  "file": "/home/user/ed1015/TexasAIDispatch/out/dispatch/motion-current-r15f/sequence-000.png",
+  "first_frame": 0,
+  "last_frame": 24,
+  "failure_text": "[media removed: request limit]"
+ },
+ "contract_breach_disclosure": "The probe-first contract required an immediate stop after the stripped probe. This worker did not stop. It went on to read the packet (/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15f/phone-critic-packet-r15f-cur.json), the sequence index (/home/user/ed1015/TexasAIDispatch/out/dispatch/motion-current-r15f/index.json) and pages 001 to 064 one at a time. Pages 001 to 027 also returned '[media removed: request limit]'. Pages 028 to 064 were delivered. Those pages are recorded below as actually received, because marking them unseen would be false. They are not a basis for a verdict. The opening (0.0 to 27.8 s) was never seen, no guide was read and no director rationale was read. So no artistic verdict, phone_observations, modern_observations, story_review or narration_picture review is returned. The storyboard_critics charge was consumed, and this worker returns no review result.",
+ "packet_sha256": "5f89088947d9ee37c0ee6d23dd7ecd38ff062bec1df250dd282ee72fc2f0ec80",
+ "packet_sha256_note": "Copied from the assignment. This worker did not recompute it (no Bash).",
+ "film_sha256": "3aa79cfca0bbfd60ef786a019279500dd1d9ac4faea2f238621c25f61c086a6f",
+ "board_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+ "sequences": {
+  "omitted_from_this_derivative": "every page note is retained verbatim in image-coverage.json",
+  "coverage_file": "image-coverage.json",
+  "coverage_file_sha256": "e230daad1144c7a998f79a6af5bbe61b647830a2aff085e196bbc78bf367e8c2",
+  "pages_total": 65,
+  "pages_received": 37,
+  "pages_unreceived": 28
+ },
+ "coverage_summary": {
+  "pages_total": 65,
+  "pages_received": 37,
+  "pages_unreceived": 28,
+  "unreceived_interval_s": [
+   0.0,
+   27.8
+  ],
+  "received_interval_s": [
+   28.0,
+   64.367
+  ]
+ },
+ "next_step": "Resume this same storyboard-critic assignment once image delivery is restored. Start again from probe sequence-000.png, read all 65 pages in order, then the bound guides, then return the complete exact-phone review. This partial grants no approval, and observations limited to the 28.0 to 64.4 s interval are not a review of the film."
+}
