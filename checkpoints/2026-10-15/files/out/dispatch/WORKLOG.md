@@ -117,3 +117,4 @@ storage: housekeeping verified rc=0 free 20.19 GiB; reclaimed 1.33 GiB via spars
 - Host phone critic a52c3714 probe stripped ([media removed: request limit]); it breached the probe-first contract (read 13..58 of motion-a, notes kept as received true); handback saved unchanged in evidence/review-r15f-phone-compare-partial (verbatim private + compact derivative bound by coverage hash because the full handback exceeded the 500k provider packet).
 - Receipt out/dispatch/phone-media-limit-failure-r15f.json; provider (gemini-3.8-flash) comparison report provider-phone-report-r15f.json verdict pass, selection A, no blocking defects. Next: timed phone preview with audio (preflight_animatic), review_context verify, extraction, probe-first critic.
 - timed phone preview rendered (preflight.mp4); review_context verify run
+- current-phone extraction motion-current-r15f done; headroom 20.178 before; removed 2 /tmp bundles (228,937,728 B)

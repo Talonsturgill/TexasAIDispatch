@@ -833,6 +833,14 @@
       "note": "exact-phone-current motion-image review extraction",
       "resource": "preflight_renders",
       "to": 36
+    },
+    {
+      "at": "2026-10-17T05:42:30.551880Z",
+      "ceiling": 40,
+      "from": 38,
+      "note": "exact timed phone review of current film with audio, probe first",
+      "resource": "storyboard_critics",
+      "to": 39
     }
   ],
   "events": [
@@ -8333,6 +8341,24 @@
       "input_identity": "e81ce68ab4b9919427bd2e2018affedc9084a98592f202d0e9fd62706db3d930",
       "kind": "prepared_capture_claimed",
       "operation": "exact-phone-current motion-image review extraction"
+    },
+    {
+      "at": "2026-10-17T05:42:30.551895Z",
+      "ceiling": 40,
+      "kind": "budget_escalated",
+      "note": "exact timed phone review of current film with audio, probe first",
+      "now": 39,
+      "resource": "storyboard_critics",
+      "was": 38
+    },
+    {
+      "at": "2026-10-17T05:42:30.551904Z",
+      "kind": "reserved",
+      "note": "exact timed phone review of current film with audio, probe first",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -8347,7 +8373,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 38,
+    "storyboard_critics": 39,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1
@@ -8356,7 +8382,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "722ed3749ce7395214379c2bd2c921a49c18019463e5f4af7671d30e40c0698d",
+    "original_private_state_sha256": "beef0c3636f4dc717ab0309c024c007ee6a917d8d3e4469872d1c2555d01063e",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -8392,7 +8418,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T05:41:00.664716Z",
+  "updated_at": "2026-10-17T05:42:30.551906Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,
@@ -8405,7 +8431,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 38,
+    "storyboard_critics": 39,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1
