@@ -9409,6 +9409,16 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-17T19:53:12.913949Z",
+      "attempted": {
+        "preflight_renders": 1
+      },
+      "errors": [
+        "preflight_renders exceeds the nonrenewable run envelope"
+      ],
+      "kind": "resource_envelope_refused"
     }
   ],
   "limits": {
@@ -9432,7 +9442,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "7356c0107c48b0cf0f41826593d29453b49a22dd3fa6b27f71e8d4405f2d1191",
+    "original_private_state_sha256": "d4a55a5971517b7874fe05b9895c26b34bb9e86c4072a2e8431ca5e97c59615e",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -9468,7 +9478,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T19:51:37.925386Z",
+  "updated_at": "2026-10-17T19:53:12.913978Z",
   "usage": {
     "audiovisual_reviews": 13,
     "cleanup_renders": 0,
