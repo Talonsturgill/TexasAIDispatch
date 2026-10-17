@@ -1,4 +1,40 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/storyboard.json",
+        "before_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/opening-a.json",
+        "before_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/opening-b.json",
+        "before_sha256": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      }
+    ],
+    "failure_sha256": "82855de0b5fea46ef0d4da25f9ea816ce9c280a0e63b70ff6015c7c88577b461",
+    "plan": "{REPO}/out/dispatch/evidence/r15g/repair-plan-r15g.original-rights.json",
+    "plan_sha256": "afead403a8e65f9b73da2e11cad20ea7c0aec79ce913166f69006a505e025507",
+    "prepaid_reboard": {
+      "baselines": {
+        "out/dispatch/opening-a.json": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+        "out/dispatch/opening-b.json": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4",
+        "out/dispatch/storyboard.json": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b"
+      },
+      "failure_evidence_sha256": "82855de0b5fea46ef0d4da25f9ea816ce9c280a0e63b70ff6015c7c88577b461",
+      "grant_event_index": 391,
+      "reservation_event_index": 393,
+      "reservation_sha256": "bdef9b3481c06c7b12a94d3e238c6d2f67ad9d45543b1ff3f84172e0bad6de63",
+      "schema": "dispatch_unused_rights_reboard/1"
+    },
+    "reboards_before": 12,
+    "repair_scope": "technical-integrity"
+  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/ab7058fff988ce8b-3758e9bcaa6364e2-04444935e5fd8cf6/storyboard.json",
@@ -9009,6 +9045,54 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-17T18:59:36.230055Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/storyboard.json",
+          "before_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/opening-a.json",
+          "before_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/opening-b.json",
+          "before_sha256": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "rights",
+      "failure_sha256": "82855de0b5fea46ef0d4da25f9ea816ce9c280a0e63b70ff6015c7c88577b461",
+      "frozen_inputs": null,
+      "grants": {
+        "storyboard_critics": {
+          "from": 43,
+          "to": 43
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "music-credit-end-card-v1",
+      "plan_identity": null,
+      "plan_sha256": "afead403a8e65f9b73da2e11cad20ea7c0aec79ce913166f69006a505e025507",
+      "prepaid_reboard": {
+        "baselines": {
+          "out/dispatch/opening-a.json": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+          "out/dispatch/opening-b.json": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4",
+          "out/dispatch/storyboard.json": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b"
+        },
+        "failure_evidence_sha256": "82855de0b5fea46ef0d4da25f9ea816ce9c280a0e63b70ff6015c7c88577b461",
+        "grant_event_index": 391,
+        "reservation_event_index": 393,
+        "reservation_sha256": "bdef9b3481c06c7b12a94d3e238c6d2f67ad9d45543b1ff3f84172e0bad6de63",
+        "schema": "dispatch_unused_rights_reboard/1"
+      },
+      "repair_scope": "technical-integrity"
     }
   ],
   "limits": {
@@ -9032,7 +9116,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "297127e231a6e91603d9767ae08f5a9d0231c13a0e0d5b75f13001f283ac4937",
+    "original_private_state_sha256": "aa0bc7f06e5f6a5a953589ca9505a9e1a788e2257f1786a21ce9e400817edc8d",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -9068,7 +9152,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T18:25:52.772273Z",
+  "updated_at": "2026-10-17T18:59:36.230078Z",
   "usage": {
     "audiovisual_reviews": 12,
     "cleanup_renders": 0,
