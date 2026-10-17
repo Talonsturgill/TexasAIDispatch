@@ -66,3 +66,5 @@ storage: housekeeping verified rc=0 free 20.19 GiB; reclaimed 1.33 GiB via spars
 - 2026-10-17: R15 builder packet builder-packet-r15.json + builder-correction-brief-r15.md prepared. Next: PR192 merge, ff, comparison funding, production-budget, completion-capacity, begin-repair, builder.
 - 2026-10-17: brief v2 + plan r15b prepared (closing = technician folds deployment plan beside bench prototype; 'No station installed' disclosure overstated, fix needs bounded s8/s9 board-description edit). Original plan r15 untouched.
 - 2026-10-17: brief v3 bound (concise scope labels 'Report names no installation'); r15b is the mandatory plan.
+- 2026-10-17: ff to 442f0b69 (PR192). complete-plan-r15b funded both routes (grant preflight+5 critics+3). Next begin-repair.
+- 2026-10-17: begin-repair refused (source-framing already has 2 standard repairs, needs pivot_review). Evidence HOLD-begin-repair-pivot-r15b.md. Funding intact. Not relabeled.
