@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T02:31:09.983562+00:00",
+  "saved_at": "2026-10-17T02:31:35.641203+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "8fbc7cdc0da5755eae56314fb415ed12fc14d06e3f6dd89a0d69976e8a4d0560",
-  "original_private_ledger_sha256": "3092ce39d85e3e636d467406c98dfe9a4787e6450a791d4990c3ca133e4bbb30",
+  "ledger_sha256": "a469622c863fcbeb5b17cee26a95db2cef084a5c21326c9197aa62d7417ba396",
+  "original_private_ledger_sha256": "2bde7cad6bcd80725c6f88ce2d740c0c96d43745cace0ebc4b5c588a26cfcf46",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -102,7 +102,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 29,
+    "storyboard_critics": 30,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1
@@ -129,8 +129,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "474fd1fa89b54a36f926724883cd10bf2f8b32cff8187b059bb3e992b0c8f18f",
-      "size": 13867
+      "sha256": "d72d20e5cade599570a1667ad4f02471bc0961882082a7b6d8575b486813e279",
+      "size": 14024
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -11793,8 +11793,8 @@
     {
       "path": "out/dispatch/evidence/r15-repair/completion-capacity-pivot.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "f602253393303ee0e2f6658eb66c42c7d13b8e3719bba2f8c13755dc012971ab",
+      "size": 79
     },
     {
       "path": "out/dispatch/evidence/r15-repair/completion-capacity-r15b.log",
@@ -11833,10 +11833,22 @@
       "size": 1670
     },
     {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-pivot-host-after.json",
+      "class": "scratch",
+      "sha256": "e5b38905eefb72d6f4e08e1b291a645a00862ec0603b75b3cdf8cb087e68b18c",
+      "size": 1521
+    },
+    {
       "path": "out/dispatch/evidence/r15-repair/production-budget-pivot-host-before.json",
       "class": "scratch",
       "sha256": "ec029d3e84451df54cbe4cc91a800852497906f8b81d88e4c860dd2d6c467c66",
       "size": 1561
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-pivot-provider-after.json",
+      "class": "scratch",
+      "sha256": "d13d78c2916e82707bb546ac122be8e3c1e1404bea33cc202462c17f53a09074",
+      "size": 1525
     },
     {
       "path": "out/dispatch/evidence/r15-repair/production-budget-pivot-provider-before.json",
