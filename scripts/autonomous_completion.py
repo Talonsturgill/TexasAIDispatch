@@ -310,6 +310,16 @@ def prepare_code_plan(state_path, plan_path, claims_path, output_path):
     return plan
 
 
+def reviewed_film_sha256(report):
+    """Read the original scope-specific identity; never rewrite a review."""
+    film, phone = report.get('film_sha256'), report.get('reviewed_preflight_sha256')
+    if film is not None and phone is not None and film != phone:
+        return None
+    if film is None and report.get('review_scope') == 'exact-muted-phone-preflight':
+        return phone if isinstance(phone, str) and re.fullmatch(r'[a-f0-9]{64}', phone) else None
+    return film
+
+
 def mandatory_reason(state, plan, evidence_text):
     """Recheck retained evidence without relying on the director's category label."""
     from creative_release import findings, MOTION_ERRORS, finishing_required, payload_digest
@@ -327,7 +337,7 @@ def mandatory_reason(state, plan, evidence_text):
                                        and eligible(state, plan, report)) else None
         if 'capture_completion_budget' in plan:
             from capture_completion_budget import eligible
-            if not eligible(state, plan) or report.get('film_sha256') != plan.get('failed_film_sha256'):
+            if not eligible(state, plan) or reviewed_film_sha256(report) != plan.get('failed_film_sha256'):
                 return None
         if 'capture_retry_evidence' in plan:
             from capture_retry_capacity import eligible
@@ -382,7 +392,7 @@ def mandatory_reason(state, plan, evidence_text):
                     and all(x["category"] in allowed for x in rows)):
                 return "retained-integrity"
             return None
-        film = report.get("film_sha256")
+        film = reviewed_film_sha256(report)
         if not isinstance(film, str) or len(film) != 64 or film != plan.get("failed_film_sha256"):
             return None
         modern = report.get('modern_observations') or {}
@@ -683,6 +693,32 @@ def phone_finish_binding_problems(state_path, plan, report):
     return []
 
 
+def rejected_phone_binding_problems(state_path, plan, report):
+    """A phone-field rejection must still describe the current cut at admission."""
+    if (report.get('verdict') != 'revise' or report.get('film_sha256') is not None
+            or report.get('reviewed_preflight_sha256') is None):
+        return []
+    try:
+        from critic_gate import concept_digest, renderer_digest
+        root = Path(state_path).resolve().parent
+        state = json.loads(Path(state_path).read_text())
+        board = json.loads((root / 'storyboard.json').read_text())
+        film = report['reviewed_preflight_sha256']
+        if (report.get('review_scope') != 'exact-muted-phone-preflight'
+                or report.get('verdict') != 'revise'
+                or board.get('date') != str(state['run_id'])[:10]
+                or plan.get('failed_film_sha256') != film
+                or report.get('concept_sha256') != concept_digest(board)
+                or report.get('renderer_sha256') != renderer_digest(board)
+                or (report.get('story_review') or {}).get('claims_sha256') !=
+                    hashlib.sha256((root / 'claims.json').read_bytes()).hexdigest()
+                or hashlib.sha256((root / 'preflight.mp4').read_bytes()).hexdigest() != film):
+            return ['exact-phone rejection does not bind the current film, concept, renderer and claims']
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        return ['exact-phone rejection lacks readable current input bindings']
+    return []
+
+
 def grant_capacity(state_path, plan_path, policy_path=None):
     """Grant only deficits, before the ordinary reservation charges any actual work."""
     from run_controller import read_state, save, event
@@ -705,6 +741,7 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         if reason is None:
             return False, "completion capacity requires exact independent mandatory evidence; optional polish and research are excluded"
         errors = phone_finish_binding_problems(state_path, plan, json.loads(evidence))
+        errors += rejected_phone_binding_problems(state_path, plan, json.loads(evidence))
         if errors:
             return False, '; '.join(errors)
         identity = grant_identity(plan, sha(evidence))
