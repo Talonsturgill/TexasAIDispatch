@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T02:31:35.641203+00:00",
+  "saved_at": "2026-10-17T02:35:34.274415+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "a469622c863fcbeb5b17cee26a95db2cef084a5c21326c9197aa62d7417ba396",
-  "original_private_ledger_sha256": "2bde7cad6bcd80725c6f88ce2d740c0c96d43745cace0ebc4b5c588a26cfcf46",
+  "ledger_sha256": "1a007d602544779e705d6710d76683840137ee78568c267bd0b35079053b8867",
+  "original_private_ledger_sha256": "46f7e797e88b066d01bd239234f8be46228eee46b58188ad7868864daeed8fac",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -88,6 +88,11 @@
       "event_index": 285,
       "authorization_sha256": "6391876647c1fb96727c8f70368421b1428d9f99710c9e59cb91a309169dae11",
       "root": "/home/user/ed1015/TexasAIDispatch"
+    },
+    {
+      "event_index": 288,
+      "authorization_sha256": "2e7881e34b17d07f8be676908cbd9e5c5032088de9f703b78341d7bd6269c20c",
+      "root": "/home/user/ed1015/TexasAIDispatch"
     }
   ],
   "usage": {
@@ -129,8 +134,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "d72d20e5cade599570a1667ad4f02471bc0961882082a7b6d8575b486813e279",
-      "size": 14024
+      "sha256": "cb0a02197ad5ab5d806edeb6abee0f25bcfec02f6343ac2443720d1abb874686",
+      "size": 14214
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -11761,6 +11766,12 @@
       "size": 8280
     },
     {
+      "path": "out/dispatch/evidence/r15-repair/builder-correction-brief-r15-v5.md",
+      "class": "scratch",
+      "sha256": "d878fdf2e80aa06e09239c428cb109abec2ab0afc879b75d0ebf68dc1df786e3",
+      "size": 9181
+    },
+    {
       "path": "out/dispatch/evidence/r15-repair/builder-correction-brief-r15.md",
       "class": "scratch",
       "sha256": "46b93ac297ad51c6c00361c7817df9fe1abc22678c0756012f592e6cb69e02b2",
@@ -11797,6 +11808,12 @@
       "size": 79
     },
     {
+      "path": "out/dispatch/evidence/r15-repair/completion-capacity-pivot2.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/evidence/r15-repair/completion-capacity-r15b.log",
       "class": "scratch",
       "sha256": "d8b90cf0fc24961c2d66039f095ce6383dafef5a5ffccbbf792653ce30aa21e3",
@@ -11807,6 +11824,12 @@
       "class": "scratch",
       "sha256": "0b8fb31b1bc97894949c0ab7673fac8ad928eb88aedb8130283fc37b292b167e",
       "size": 89
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/film-pivot-capacity-2.log",
+      "class": "scratch",
+      "sha256": "c17d1e51e275556ed2e23f15f55bee256e95e3657ee321a12d9e23fe95e056cb",
+      "size": 101
     },
     {
       "path": "out/dispatch/evidence/r15-repair/film-pivot-capacity.log",
@@ -11833,6 +11856,12 @@
       "size": 1670
     },
     {
+      "path": "out/dispatch/evidence/r15-repair/pivot-recovery-receipt-2.json",
+      "class": "scratch",
+      "sha256": "3f60c04ae83fd90af2a40e1e3d94a45875dc70400ff0c8bbd1c14ed1721dca6d",
+      "size": 1774
+    },
+    {
       "path": "out/dispatch/evidence/r15-repair/production-budget-pivot-host-after.json",
       "class": "scratch",
       "sha256": "e5b38905eefb72d6f4e08e1b291a645a00862ec0603b75b3cdf8cb087e68b18c",
@@ -11854,6 +11883,18 @@
       "path": "out/dispatch/evidence/r15-repair/production-budget-pivot-provider-before.json",
       "class": "scratch",
       "sha256": "0479135dc93df779cdc1ef761933786fcca4fd77db523b37c643a820bd771c28",
+      "size": 1565
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-pivot2-host-before.json",
+      "class": "scratch",
+      "sha256": "5b719c46722ef0a24bb9dfa087185759ac541f8f77364b73b8c6304b98c6783c",
+      "size": 1561
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-pivot2-provider-before.json",
+      "class": "scratch",
+      "sha256": "6c7171954672e9841890be4c7709c19d9351a8a6aff99a1d9e1cc1c7dcd7e372",
       "size": 1565
     },
     {
@@ -11909,6 +11950,12 @@
       "class": "scratch",
       "sha256": "9ecdea6c2e178fe510b6e94f7e1a719f42e57a3757a9c044691369ab849a3410",
       "size": 5070
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/repair-plan-r15d.json",
+      "class": "scratch",
+      "sha256": "af4067de2fc91e2f533557e456d64a30de18b7d2ef5290537895b3c452a8a04c",
+      "size": 5404
     },
     {
       "path": "out/dispatch/evidence/r8-funding/baseline/claims.json",
@@ -12425,6 +12472,18 @@
       "class": "scratch",
       "sha256": "51a0e71da163c8b0a44e3e02e1cb3cb7cd4f07e7814880976c36c01e035915e5",
       "size": 10165
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-pivot-2/assignment-binding-2.json",
+      "class": "scratch",
+      "sha256": "b3fc3fa2773c39dc61aa1ea0b828f290b571908963a65dc6b58a0a7077b4801b",
+      "size": 5174
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-pivot-2/pivot-review.json",
+      "class": "scratch",
+      "sha256": "cd5ad088be2237e6cde5554e24bbff64a720f623eab798b0f132ce3f5aaba555",
+      "size": 13235
     },
     {
       "path": "out/dispatch/evidence/review-r6-classification-revise/handback-full.txt",
@@ -16121,6 +16180,10 @@
       "reason": "private data structure"
     },
     {
+      "path": "out/dispatch/evidence/r15-repair/pivot-capacity-plan-r15d.json",
+      "reason": "private data structure"
+    },
+    {
       "path": "out/dispatch/evidence/review-code-r10-coverage-pass/agent-transcript-cumulative.private.jsonl",
       "reason": "private path component"
     },
@@ -16170,6 +16233,14 @@
     },
     {
       "path": "out/dispatch/evidence/review-r15-pivot-1/pivot-call-1-sendmessage-arguments-only.json",
+      "reason": "private data structure"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-pivot-2/handback.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-pivot-2/pivot-call-2-assignment-arguments.json",
       "reason": "private data structure"
     },
     {
