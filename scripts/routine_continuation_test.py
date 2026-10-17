@@ -1,4 +1,6 @@
 """A real unfinished production cannot become a successful early final response."""
+import copy
+import hashlib
 import json
 import tempfile
 import unittest
@@ -87,6 +89,77 @@ class ContinuationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.arm()
         self.assertEqual(before, (self.workspace / continuation.MARKER).read_bytes())
+
+    def restored_fixture(self):
+        from claude_checkpoint import public_ledger, restored_ledger
+        self.value.update(resource_envelope={'original': 3}, usage={'research_agents': 1},
+                          limits={'research_agents': 3},
+                          events=[{'kind': 'reserved', 'resources': {'research_agents': 1},
+                                   'path': str(self.repo / 'out/dispatch/claims.json')}])
+        self.save(); self.arm()
+        retained = json.dumps(public_ledger(self.value, self.repo)).encode()
+        manifest = {'schema': 'dispatch_claude_checkpoint/2', 'run_id': self.value['run_id'],
+                    'terminal_state': None, 'ledger_sha256': hashlib.sha256(retained).hexdigest()}
+        state = self.workspace / 'restore2/edition/out/dispatch/run_state.json'
+        state.parent.mkdir(parents=True)
+        current = restored_ledger(json.loads(retained), state.parents[2], manifest)
+        state.write_text(json.dumps(current))
+        host = state.with_name('claude-host.json')
+        host.write_text(json.dumps({'run_id': self.value['run_id'], 'restored_from': 'a' * 40}))
+        self.state.unlink()
+        def git_bytes(repo, ref, path):
+            self.assertEqual(repo, state.parents[2]); self.assertEqual(ref, 'a' * 40)
+            return json.dumps(manifest).encode() if path.endswith('/manifest.json') else retained
+        return state, current, manifest, git_bytes
+
+    def test_missing_restore_rebinds_same_verified_edition_without_changing_ledger(self):
+        state, current, manifest, source = self.restored_fixture()
+        current['usage']['research_agents'] += 1
+        current['events'].append({'kind': 'reserved', 'resources': {'research_agents': 1}})
+        state.write_text(json.dumps(current)); before = state.read_bytes()
+        with patch.object(continuation, 'git_bytes', side_effect=source):
+            continuation.arm(self.workspace, state)
+        self.assertEqual(before, state.read_bytes())
+        marker = continuation.read(self.workspace / continuation.MARKER)
+        self.assertEqual(marker['state'], str(state))
+        audit = continuation.read(self.workspace / continuation.REBIND)
+        self.assertEqual(audit['rebindings'][0]['previous_marker']['state'], str(self.state))
+        self.assertEqual(audit['rebindings'][0]['ledger_sha256'], manifest['ledger_sha256'])
+        audit_before = (self.workspace / continuation.REBIND).read_bytes()
+        continuation.arm(self.workspace, state)
+        self.assertEqual(audit_before, (self.workspace / continuation.REBIND).read_bytes())
+        self.assertIn('accepted finish', continuation.decision(self.payload, self.workspace))
+
+    def test_rebind_preserves_live_previous_ledger_and_unverified_restores(self):
+        state, current, manifest, source = self.restored_fixture()
+        original_marker = (self.workspace / continuation.MARKER).read_bytes()
+        for problem in ('old_still_exists', 'missing_host', 'other_run', 'bad_checkpoint', 'bad_digest',
+                        'changed_envelope', 'lower_usage', 'missing_history', 'shipped_checkpoint'):
+            with self.subTest(problem=problem):
+                candidate = copy.deepcopy(current)
+                host = {'run_id': current['run_id'], 'restored_from': 'a' * 40}
+                manifest['terminal_state'] = None
+                if problem == 'old_still_exists': self.save()
+                if problem == 'other_run': host['run_id'] = '2026-10-16'
+                if problem == 'bad_checkpoint': host['restored_from'] = 'not-a-checkpoint'
+                if problem == 'bad_digest': manifest['ledger_sha256'] = 'b' * 64
+                if problem == 'changed_envelope': candidate['resource_envelope'] = {'original': 4}
+                if problem == 'lower_usage': candidate['usage']['research_agents'] = 0
+                if problem == 'missing_history': candidate['events'] = []
+                if problem == 'shipped_checkpoint': manifest['terminal_state'] = 'shipped'
+                state.write_text(json.dumps(candidate))
+                state.with_name('claude-host.json').write_text(json.dumps(host))
+                if problem == 'missing_host': state.with_name('claude-host.json').unlink()
+                with patch.object(continuation, 'git_bytes', side_effect=source):
+                    with self.assertRaises((ValueError, OSError)):
+                        continuation.arm(self.workspace, state)
+                self.assertEqual(original_marker, (self.workspace / continuation.MARKER).read_bytes())
+                self.assertFalse((self.workspace / continuation.REBIND).exists())
+                self.state.unlink(missing_ok=True)
+                if problem == 'bad_digest':
+                    import claude_checkpoint
+                    manifest['ledger_sha256'] = hashlib.sha256(json.dumps(
+                        claude_checkpoint.public_ledger(self.value, self.repo)).encode()).hexdigest()
 
     def test_prelaunch_registration_is_additive_idempotent_and_preserves_permissions(self):
         scripts = self.repo / 'scripts'; scripts.mkdir()
