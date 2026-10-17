@@ -13,6 +13,7 @@ from pivot_recovery import REASON as PIVOT_REASON, ADOPTION as PIVOT_ADOPTION
 from film_pivot_capacity import REASON as FILM_PIVOT_REASON
 from narration_recovery import REASON as NARRATION_REASON, ADOPTION as NARRATION_ADOPTION, READY as NARRATION_READY
 from validation_completion import FIELD as VALIDATION_FIELD, ADOPTION as VALIDATION_ADOPTION, READY as VALIDATION_READY
+from completion_forecast import REASON as FORECAST_REASON
 
 POLICY = Path(__file__).resolve().parents[1] / "config/autonomous_completion.json"
 POLICY_SHA256 = "244d816a1239810909a3add2b78541fb7c6ebb56e84c7611ece2b31a393760e9"
@@ -326,6 +327,10 @@ def mandatory_reason(state, plan, evidence_text):
     from creative_release import findings, MOTION_ERRORS, finishing_required, payload_digest
     try:
         report = json.loads(evidence_text)
+        if plan.get('completion_reason') == FORECAST_REASON:
+            from completion_forecast import eligible
+            return (FORECAST_REASON if sha(evidence_text) == plan.get('failure_evidence_sha256')
+                    and eligible(state, plan, report) else None)
         if plan.get('completion_reason') == FILM_PIVOT_REASON:
             from film_pivot_capacity import eligible
             return (FILM_PIVOT_REASON if sha(evidence_text) == plan.get('failure_evidence_sha256')
@@ -427,6 +432,9 @@ def mandatory_reason(state, plan, evidence_text):
 
 
 def grant_identity(plan, evidence_sha256):
+    if plan.get('completion_reason') == FORECAST_REASON:
+        from completion_forecast import identity
+        return identity(plan)
     if plan.get('completion_reason') == FILM_PIVOT_REASON:
         from film_pivot_capacity import identity
         return identity(plan)
@@ -566,7 +574,7 @@ def replay(state):
                 admission["usage"] = row["usage_unchanged"]
                 admission["escalation_ceiling"] = row["previous_ceiling"]
                 admission["events"] = events[:index]
-                if (plan.get('completion_reason') in {COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON}
+                if (plan.get('completion_reason') in {COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, FORECAST_REASON}
                         or 'capture_retry_evidence' in plan or 'capture_completion_budget' in plan
                         or VALIDATION_FIELD in plan):
                     # A later shipped state cannot invalidate an earlier active admission.
@@ -630,6 +638,9 @@ def replay(state):
                     required = narration_required(plan, required)
                 from capture_completion_budget import required_counts
                 required = required_counts(admission, plan, required)
+                if reason == FORECAST_REASON:
+                    from completion_forecast import required_counts as forecast_required
+                    required = forecast_required(plan, required)
                 if reason == FILM_PIVOT_REASON:
                     from film_pivot_capacity import required_counts as film_pivot_required
                     required = film_pivot_required(plan, required)
@@ -654,6 +665,10 @@ def replay(state):
                     from capture_retry_capacity import valid_increment
                     if not valid_increment(plan, deficits):
                         raise ValueError('spent capture recovery exceeds its pinned exact-deficit route')
+                if reason == FORECAST_REASON:
+                    from completion_forecast import valid_increment
+                    if not valid_increment(plan, deficits):
+                        raise ValueError('forecast reconciliation exceeds the missing capture path')
                 if reason == FILM_PIVOT_REASON and deficits != {'storyboard_critics': 1}:
                     raise ValueError('film pivot capacity admits exactly one critic with the full path protected')
                 if reason == HANDBACK_REASON and deficits != {"storyboard_critics": 1}:
@@ -768,6 +783,10 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         reason = mandatory_reason(state, plan, evidence)
         if reason is None:
             return False, "completion capacity requires exact independent mandatory evidence; optional polish and research are excluded"
+        from completion_forecast import admission_problems
+        errors = admission_problems(state, plan)
+        if errors:
+            return False, '; '.join(errors)
         errors = phone_finish_binding_problems(state_path, plan, json.loads(evidence))
         errors += rejected_phone_binding_problems(state_path, plan, json.loads(evidence))
         if errors:
@@ -792,6 +811,11 @@ def grant_capacity(state_path, plan_path, policy_path=None):
                 return False, '; '.join(errors)
         if 'capture_completion_budget' in plan:
             from capture_completion_budget import file_problems
+            errors = file_problems(plan)
+            if errors:
+                return False, '; '.join(errors)
+        if reason == FORECAST_REASON:
+            from completion_forecast import file_problems
             errors = file_problems(plan)
             if errors:
                 return False, '; '.join(errors)
@@ -855,13 +879,16 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         budget_state = live_budget_state(state, plan)
         budget = production_budget_precheck(budget_state, review_route="host", phone_complete=False,
                     minimum_action_failed=reason == "minimum-action",
-                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, 'mandatory-source-pivot'},
+                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, FORECAST_REASON, 'mandatory-source-pivot'},
                     review_coverage=reason == COVERAGE_REASON,
                     modern_code_repair=reason in {MODERN_CODE_REASON, PIVOT_REASON})
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         from capture_completion_budget import apply_budget
         budget = apply_budget(budget_state, plan, budget)
+        if reason == FORECAST_REASON:
+            from completion_forecast import apply_budget as forecast_budget
+            budget = forecast_budget(plan, budget)
         if reason == FILM_PIVOT_REASON:
             from film_pivot_capacity import apply_budget as film_pivot_budget
             budget = film_pivot_budget(plan, budget)
@@ -872,6 +899,10 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             from narration_recovery import apply_budget as narration_budget
             budget = narration_budget(state, plan, budget)
         increments = budget["deficits"]
+        if reason == FORECAST_REASON:
+            from completion_forecast import valid_increment
+            if not valid_increment(plan, increments):
+                return False, 'forecast reconciliation requires only exact missing capture and review deficits'
         if reason == FILM_PIVOT_REASON and increments != {'storyboard_critics': 1}:
             return False, 'film pivot capacity needs exactly one critic deficit with the complete remaining path protected'
         if 'capture_retry_evidence' in plan:

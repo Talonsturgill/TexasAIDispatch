@@ -291,3 +291,17 @@ the revised proposal and current source bindings. Preserve its actual response. 
 source-backed PASS must bind pivot_review before begin-repair. Then charge the existing corrective
 reboard, use the existing Opus builder, and follow the same strict renderer-hash-only board rebind
 and authorize-repair path above. Both fresh phone reviews and all shipment gates remain required.
+# Complete capture forecast
+
+An authored episode correction renews the same two-treatment comparison on its current source.
+Attach the current `capture_completion_budget.py --comparison` proof before its first capacity
+grant. The complete profile includes both silent phone sequences, the final timed phone and
+its sequence, native hero and exact-film motion, with four critic calls and conservative native
+capacity. A three-preview visual forecast cannot fund that path.
+
+If an older actual modern-film-floor grant omitted the comparison path, retain it unchanged.
+Before any later paid review or capture, `completion_forecast.py` can bind that original grant
+and retained comparison under `config/completion_forecast_v1.json`. It records only the missing
+capture and critic deficits once as a separate event. The already reserved builder remains
+charged. This accounting correction approves no pivot, source, art, film or shipment. Use the
+normal independent review and controller repair gates for all changed production bytes.

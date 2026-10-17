@@ -216,6 +216,10 @@ def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None
     if state.get("active_repair"):
         return False, "finish the existing repair batch before starting another"
     plan = load_json(plan_path)
+    from completion_forecast import admission_problems
+    forecast_errors = admission_problems(state, plan)
+    if forecast_errors:
+        return False, '; '.join(forecast_errors)
     from repair_guard import plan_problems, envelope_problems
     from modern_code_recovery import REASON as MODERN_CODE_REASON
     from pivot_recovery import REASON as PIVOT_REASON
