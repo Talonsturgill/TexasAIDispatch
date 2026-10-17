@@ -1,0 +1,61 @@
+Charged same-worker continuation (storyboard_critics 35, ledger event 324, reserved before this message): the ONE code review covering BOTH treatments after the R15e correction. Work in /home/user/ed1015/TexasAIDispatch.
+
+Context. Your critic-32 PASS covered the R15d bytes. An independent provider then reviewed the complete rendered film A from real pixels and returned REVISE with two mandatory findings only, both in scene s7 shot s7-shot-2 (45.6 to 49.0 s): the detail push crops the printed 98.82% to 8.82%, and the disclosure box overlaps the card heading with the assessments tag clipped. You classified both as technical (legibility, layout) and corrected our cause: the Cam push composes with the PlaceSubject ground camera. The existing scene-builder made ONE renderer-only change in FloodStationFilm.tsx (b4a0ce8f to 6f26ef6d), case 'validation-card' detail push: PUSH_AT [140,230], PUSH_SCALE 1.15, replacing scale 1.3 about [560,700]. The director then rebound ONLY the FloodStationFilm.tsx row of film_direction.renderer_inputs in the boards (b4a0ce8f to 6f26ef6d, checked: nothing else in either board changed) and copied opening-a.json to storyboard.json. Script, claims, VO, captions, mix, timing, event ids and windows, Hero and Support bytes are unchanged. Nothing has been rendered since the change, so everything is plan-level.
+
+Judge from the bytes, and verify the builder's arithmetic yourself rather than trusting it: read PlaceStage.tsx and compute the composed transform (Cam push on top of PlaceSubject for each camera_strategy, dollyThrough in A and truckAcross in B) and check at the first, a middle and the last frame of 44.88 to 49.2 s in BOTH treatments that the full 98.82% including the 9, the card heading and the whole assessments tag are inside the frame with margin, the heading is clear of the disclosure chip, nothing crosses the caption band, the result card and pushpin entry doesn't collide with the tag, s7-shot-1 is unchanged, and the push still visibly reads (not a static hold in 43.53 to 46.21 s). Also say plainly whether the builder reported A's s8-shot-1 truncation correctly (not in scope, report only), and any new risk the change introduces (for example the 9 sitting about 43 px from the left edge, glyph metrics, the cut zoom at the shot boundary).
+
+Read every file below in full, one Read per step, marking nothing read that you did not read. Make your own substantive judgments and carry no old grade. Fix nothing yourself, run nothing and launch no agents.
+
+Mechanical values computed by the director with the gate code on the final bytes (use exactly these in the matching report; reviewed_at a full ISO 8601 UTC timestamp; review_scope "code-plan"; reviewer_identity your honest identity and limits):
+- reports.opening_a: board_path "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json", board_sha256 588b5288549a122c2ff6b110d003215b7dee623a7170a1b9919500bb18af949a, concept_sha256 7fa6b0ffcc9973f6b78ff8e9e41301182bc2e902f9bdeb9cc59692aa91a79be2, renderer_sha256 779404c0786e9a32a4cd6088dd06f5679471c6fb61c3d0f38174e0f62b28a884, quality_contract_sha256 f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa, story_review.story_sha256 0aaa59c0eadd355fd26348fe545c8314faa1869e7bea07a636780d9340246269, story_review.policy_sha256 01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0, story_review.claims_sha256 49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e, treatment "a"
+- reports.opening_b: board_path "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json", board_sha256 ada9f19d91f536a6f21cc52c8009271433914974ea6f22ee67fc4e757be2d89e, concept_sha256 f60d43bd5cfc9d1efb201035d30a2ed2cf67b5c45bd86a0320f2cbf0fafbf8fc, renderer_sha256 779404c0786e9a32a4cd6088dd06f5679471c6fb61c3d0f38174e0f62b28a884, quality_contract_sha256 f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa, story_review.story_sha256 8fdc7086b1ddfc120e89f7ca63f0480b1af248868307cab5aea24251b14440a0, story_review.policy_sha256 01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0, story_review.claims_sha256 49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e, treatment "b"
+- reports.storyboard_critic: board_path "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json", board_sha256 588b5288549a122c2ff6b110d003215b7dee623a7170a1b9919500bb18af949a, concept_sha256 7fa6b0ffcc9973f6b78ff8e9e41301182bc2e902f9bdeb9cc59692aa91a79be2, renderer_sha256 779404c0786e9a32a4cd6088dd06f5679471c6fb61c3d0f38174e0f62b28a884, quality_contract_sha256 f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa, story_review.story_sha256 0aaa59c0eadd355fd26348fe545c8314faa1869e7bea07a636780d9340246269, story_review.policy_sha256 01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0, story_review.claims_sha256 49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e, treatment "a"
+The canonical packet is /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/critic-packet-r15e.json (sha256 5e11e0fe0ced839e861a1efecf6a1d78c2bcacdbd62db940906644a2086319ef).
+
+Return ONE complete handoff in the existing contract: reports.opening_a, reports.opening_b, reports.storyboard_critic (each with verdict, strongest_frame, weakest_frame, blocking_defects, code_observations, action_reviews, story_review with verdict, blocking_defects, one_viewing_summary, opening_to_ending and weakest_transition), per_input_table and honest_limits, plus defect_resolution rows for the two findings (M1 legibility, M2 layout) saying resolved in code, partly or open with the exact evidence and what the next phone review must prove on pixels. IMPORTANT: the gate requires every story_review one_viewing_summary, opening_to_ending and weakest_transition to be at least 30 characters, so write the storyboard_critic report's three fields out in full sentences, not "identical to opening_a". A timing-only or prose approval is not wanted: if you pass, the reports must carry your full judgments.
+
+Files (read all, in this order):
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r15-provider-phone/provider-phone-report-r15d.json 910bed386be94db9c325564bd0c551113df649978a1622c7d90d70d6fa9745af
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r15-tech-classification/report-verbatim.json c79f8b4a1bc575611a538cb2c459139aba525016f1c893ac566688934b0f3e58
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/technical-correction-brief-r15e-v2.md 36df5f64abc551454caf3c21ba8bf329d38ac631cdc65e219bb16340f0e72667
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/complete-plan-r15e-v3.json 05d3909144a0c6629d58d586a7399805286d76eafb083524214e0381191acbba
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/builder-handoff-r15e.private.txt 13f369841fbceb06155d26f4d46ecdde9add6fcf094af116ec88bc387a05a0da
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json 588b5288549a122c2ff6b110d003215b7dee623a7170a1b9919500bb18af949a
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json ada9f19d91f536a6f21cc52c8009271433914974ea6f22ee67fc4e757be2d89e
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json 588b5288549a122c2ff6b110d003215b7dee623a7170a1b9919500bb18af949a
+- /home/user/ed1015/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx 6f26ef6d49683215fc8478cbcf27599520d430c2f51befcc8475a49c6c2ac44e
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/baseline/FloodStationFilm.tsx b4a0ce8feeae3107ce9f1ad2ef0249572576c31b0a94533bdc2bfc10a89311fd
+- /home/user/ed1015/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx 444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346
+- /home/user/ed1015/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx 876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911
+- /home/user/ed1015/TexasAIDispatch/config/modern_episode_registry.json fffdf5d8aa9b06599e6e7e52bd97c668415342e882b69c9b95513485cdf16574
+- /home/user/ed1015/TexasAIDispatch/video-engine/src/modern/PlaceStage.tsx 6839b760ee6dd681d87e1a65e334a5b185636a98c02c3ad4b1c4505982533948
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/critic-packet-r15e.json 5e11e0fe0ced839e861a1efecf6a1d78c2bcacdbd62db940906644a2086319ef
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/claims.json 49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e
+- /home/user/ed1015/TexasAIDispatch/config/claude_runtime.json e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10
+- /home/user/ed1015/TexasAIDispatch/AGENTS.md efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094
+- /home/user/ed1015/TexasAIDispatch/CLAUDE.md a58148fdd754c6fc031b5581adafaa865876164616e2410de35339fe3d23439d
+- /home/user/ed1015/TexasAIDispatch/prompts/claude_routine.md a9fa05655f395c73dc3c7add424912b836d2c8e87fcc7d285db62dea895c666f
+- /home/user/ed1015/TexasAIDispatch/config/quality_contract.json f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa
+- /home/user/ed1015/TexasAIDispatch/config/dispatch_rubric.yaml 51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1
+- /home/user/ed1015/TexasAIDispatch/.claude/agents/storyboard-critic.md b3e24ae40460473a43a8d465b19dc731d358537bb39faec482f5042659192978
+- /home/user/ed1015/TexasAIDispatch/knowledge/craft/AUTONOMOUS_COMPLETION.md 57b0dca612365c9f6d7075915389ae35e5d48ad0b8e5ca62bbde00ad71defa59
+- /home/user/ed1015/TexasAIDispatch/config/autonomous_completion_v2.json 8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b
+- /home/user/ed1015/TexasAIDispatch/config/autonomous_completion_narration_v1.json 76124df1718c1d86481a48c592a4a282e2eb0fdbeb9642626135ff698eb282da
+- /home/user/ed1015/TexasAIDispatch/config/source_validation_completion_v1.json d08bc6044dd1adba91b1b27880921b2e574860b4a7981404a3a7a69184d2b82d
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/story_selection.json a59ab216ce78e66760a431eccecf98842d011084d29c60b61e12118b81b35867
+- /home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/viewer-plan.md bfa3dc1c81ba1ec62170d3b23c9b52747c366096c3637f665780f433620b0a06
+- /home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/README.md 9aa84715c0a4947ab99d6286cc903386d3f84948e932e6f8830c66c897f2b9da
+- /home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/news-reporting.md 5839865e0e74a12991df4258b91e4b62c6263427e9272ec62dc4834598512b0d
+- /home/user/ed1015/TexasAIDispatch/knowledge/craft/visual-storytelling/explanatory-animation.md 1d868788a0486664e6920f6458a93e6216e2fbcaffdb1a23b55a3ba04a30973d
+- /home/user/ed1015/TexasAIDispatch/knowledge/craft/MODERN_FILM.md 58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb
+- /home/user/ed1015/TexasAIDispatch/config/modern_film.json 9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e
+- /home/user/ed1015/TexasAIDispatch/knowledge/craft/STORY_ART.md 9926ea6717a969517bba1a041629d9c93d20af377018d623b188221502b9f97d
+- /home/user/ed1015/TexasAIDispatch/config/story_art.json 209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4
+- /home/user/ed1015/TexasAIDispatch/knowledge/craft/AUTHORED_STORY_ART.md 7e6d8f3130e0bf702ce322d16c293fbc4b7214b28369a47af465d8ae1c5e970c
+- /home/user/ed1015/TexasAIDispatch/config/authored_story_art.json 351805e0af4713d59152a720bdd07d0c47ac3d788e02f0e8ccd1b87bbbf69ca0
+- /home/user/ed1015/TexasAIDispatch/knowledge/craft/ART_DIRECTION.md c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5
+- /home/user/ed1015/TexasAIDispatch/config/art_direction.json c0d8f792de9b48c8e1130dd9623ca7a897504266eb86f2664a0f287dd6d17673
+- /home/user/ed1015/TexasAIDispatch/knowledge/craft/cinematic_reference_bank.json f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d
+- /home/user/ed1015/TexasAIDispatch/prompts/roles/scene-builder.md 251d5f0e2dbafe94c8b636bf2f664945855c74c22c0e9bd764f374cd08deee37
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/openings/comparison.json 140fb6c64329a107b096970e2ee98318395d2ed3c6d9c84e845a74d4917db7a0
+- /home/user/ed1015/TexasAIDispatch/out/dispatch/openings/selection.json cf682701fbe6783cbdebbb471b927185b659f0ac3bfb6bcab4440cf719faff4b
