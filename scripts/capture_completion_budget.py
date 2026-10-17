@@ -181,8 +181,8 @@ def apply_budget(state, plan, budget):
     required = required_counts(state, plan, {k: v['required'] for k, v in result['resources'].items()})
     for name, count in required.items():
         result['resources'][name]['required'] = count
-    result['deficits'] = {k: row['required'] - row['remaining']
-                         for k, row in result['resources'].items() if row['required'] > row['remaining']}
+    from repair_guard import budget_deficits
+    result['deficits'] = budget_deficits(result['resources'])
     result['feasible'] = not result['deficits'] and not result['errors']
     result['capture_charging'] = ('renewed-two-treatment-complete-path'
         if plan[FIELD].get('schema') in COMPARISON_POLICIES else 'hook-and-entry')
