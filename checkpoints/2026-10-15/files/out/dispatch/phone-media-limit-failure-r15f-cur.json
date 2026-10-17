@@ -1,0 +1,46 @@
+{
+  "schema": "dispatch_review_transport_failure/1",
+  "role": "phone",
+  "actor": "abc6bfcd",
+  "observed_at": "2026-10-17T07:02:03.249614Z",
+  "error": "[media removed: request limit]",
+  "raw_error": "[media removed: request limit]",
+  "verdict": null,
+  "reservation_event_index": 360,
+  "reservation": {
+    "at": "2026-10-17T05:42:30.551904Z",
+    "kind": "reserved",
+    "note": "exact timed phone review of current film with audio, probe first",
+    "preflight_identity": null,
+    "resources": {
+      "storyboard_critics": 1
+    }
+  },
+  "reservation_sha256": "3c11d3e7743c114a54a09f47aee96de9faeed19cfafeef32092effcae3815180",
+  "media_probe": {
+    "single_image_read": true,
+    "media_received": false,
+    "packet": {
+      "path": "/home/user/restored2/2026-10-15/out/dispatch/evidence/r15f/phone-critic-packet-r15f-cur.json",
+      "sha256": "5f89088947d9ee37c0ee6d23dd7ecd38ff062bec1df250dd282ee72fc2f0ec80"
+    },
+    "coverage": {
+      "path": "/home/user/restored2/2026-10-15/out/dispatch/evidence/review-r15f-current-phone-partial/image-coverage.json",
+      "sha256": "e230daad1144c7a998f79a6af5bbe61b647830a2aff085e196bbc78bf367e8c2"
+    },
+    "handback": {
+      "path": "/home/user/restored2/2026-10-15/out/dispatch/evidence/review-r15f-current-phone-partial/handback-compact-derivative.txt",
+      "sha256": "6c87b5ef268472b35f801068f6c32f399eeaf95d7c64c53ffe545eaf9de3e5ea"
+    },
+    "image": {
+      "path": "/home/user/restored2/2026-10-15/out/dispatch/motion-current-r15f/sequence-000.png",
+      "sha256": "4bd8ebe44033aedfaa4d3cf89949574e9886b2873216b5d073629c80770ffbf2"
+    }
+  },
+  "assignment": {
+    "role": "phone",
+    "actor": "abc6bfcd",
+    "board_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+    "film_sha256": "3aa79cfca0bbfd60ef786a019279500dd1d9ac4faea2f238621c25f61c086a6f"
+  }
+}
