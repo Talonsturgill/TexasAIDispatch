@@ -1,0 +1,67 @@
+{
+  "mechanism_id": "s7-detail-safe-area-framing",
+  "failure_family": "document-handling",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The s7 detail framing composes the Cam push (scale 1.3 about [560,700]) with the PlaceSubject ground camera of each treatment (dollyThrough in A, truckAcross in B) and nothing bounds the composed transform by the validation card, figure and tag screen extents, so at 45.6 to 49.0 s the card left edge is cropped (98.82% reads 8.82%, narration n7b fails), the card heading rises under the screen-space disclosure chip and the assessments tag is clipped.",
+  "repair": "Renderer-only: in FloodStationFilm.tsx case validation-card compute scale and focus in final screen space through the Cam push composed with the PlaceSubject ground camera, per treatment, from the card, figure and tag extents with margin, so the full figure, heading and tag stay inside the frame and clear of the disclosure chip at every frame of 44.88 to 49.2 s, keeping the eased push, window and framing. No board, script, claims, caption, mix or timing change.",
+  "mechanism_change": "The detail framing is bounded in final screen space by the framed objects instead of the fixed push 1.3 about [560,700] composed unchecked with the ground camera.",
+  "expected_visible_result": "For every frame of 44.88 to 49.2 s in both treatments the printed 98.82% shows its leading 9, the card heading is clear of the disclosure chip and the whole assessments tag is inside the frame, with the push still visible.",
+  "failure_evidence": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/review-r15-tech-classification/report-verbatim.json",
+  "failure_evidence_sha256": "c79f8b4a1bc575611a538cb2c459139aba525016f1c893ac566688934b0f3e58",
+  "failed_film_sha256": "c0aee5b3c9af37a5333246e4bf8ca1c99fe59882bccb6beb70758a67eaef58af",
+  "resources": {
+    "reboards": 1
+  },
+  "repair_scope": "technical-integrity",
+  "changed_inputs": [
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/baseline/FloodStationFilm.tsx",
+      "before_sha256": "b4a0ce8feeae3107ce9f1ad2ef0249572576c31b0a94533bdc2bfc10a89311fd"
+    },
+    {
+      "path": "/home/user/ed1015/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+      "before_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/evidence/r15-tech/baseline/StreetHubSupport.tsx",
+      "before_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346"
+    }
+  ],
+  "capture_completion_budget": {
+    "schema": "dispatch_capture_completion_budget_evidence/3",
+    "run_id": "2026-10-15",
+    "policy_json": "{\n  \"schema\": \"dispatch_capture_completion_budget/3\",\n  \"effective_date\": \"2026-10-17\",\n  \"applies_to\": \"new evidence-bound capacity plans for active unfinished production\",\n  \"path\": \"renewed-two-treatment-comparison-with-phone-sequences\",\n  \"minimum_remaining\": {\"preflight_renders\": 8, \"storyboard_critics\": 4, \"full_renders\": 2, \"audiovisual_reviews\": 11, \"panel_rounds\": 1, \"scorer_calls\": 3},\n  \"preflight_operators\": {\"opening_compare_hook_and_entry\": 2, \"comparison_phone_sequences\": 2, \"final_timed_phone\": 1, \"timed_phone_sequence\": 1, \"native_hero\": 1, \"exact_film_motion\": 1},\n  \"native_render_hook_and_entry\": 2,\n  \"authorization_source_label\": \"Standing owner autonomous completion and complete remaining-path instruction, October 3rd and October 7th, 2026\",\n  \"invariants\": [\n    \"Bind the retained successful comparison and its actual two charged reservations.\",\n    \"Retain both original option boards and films byte-identically.\",\n    \"Use prepared single-claim authorization for the supported phone, hero and motion operators; opening comparison and native rendering retain their actual hook and entry charges.\",\n    \"Fund all eight preflight reservations and both native-render reservations before a new mandatory correction.\",\n    \"Keep prior v1 and v2 policy bytes, grants, failures, frozen envelopes and cumulative charges unchanged.\",\n    \"Use existing independent mandatory admission and obtain fresh code, comparison, timed phone, native, audiovisual, three-scorer and shipment evidence.\",\n    \"Capacity grants no creative approval, optional polish, lower-quality render or delivery waiver.\"\n  ]\n}\n",
+    "policy_sha256": "a24e8f717afde205194f77dcc47756285e7e257fe2f8e2dea0b957c1ce61d0e8",
+    "comparison_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/openings/comparison.json",
+    "comparison_json": "{\n  \"schema\": \"dispatch-opening-comparison/1\",\n  \"policy_sha256\": \"77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765\",\n  \"renderer_sha256\": \"068b6b62a044dca0ff7fa2f6f1ccce20c4ca63106f5ac62805bfceeacf89c825\",\n  \"producer_sha256\": \"3399eddf6ebac814c267da1471de9af80f21eae5fc4d9eb42d501355985074a5\",\n  \"reservation\": {\n    \"identity\": \"947a551ff0cbb1f7a8481b81530ba7b5335ec00a67b5288cf31210a0f3063ac4\",\n    \"run_id\": \"2026-10-15\",\n    \"event_index\": 300\n  },\n  \"options\": [\n    {\n      \"id\": \"a\",\n      \"concept_sha256\": \"b84af497f329445bb9df8e5fd9c8870b30fb5105a8b1befb2c9264230bf9c597\",\n      \"renderer_sha256\": \"068b6b62a044dca0ff7fa2f6f1ccce20c4ca63106f5ac62805bfceeacf89c825\",\n      \"board\": {\n        \"file\": \"a.json\",\n        \"sha256\": \"52fbd30b914176f351df954e7cf7e41c20a78dbb74b8f57dfee64fa312da0c3d\"\n      },\n      \"film\": {\n        \"file\": \"a.mp4\",\n        \"sha256\": \"c0aee5b3c9af37a5333246e4bf8ca1c99fe59882bccb6beb70758a67eaef58af\"\n      },\n      \"inspection\": {\n        \"file\": \"a-inspection-5b8ad859fc3a81e3.json\",\n        \"sha256\": \"5e213725629a8f9f774369d9f7301b7243c6305f1632370c7fb4469eb55603c1\"\n      }\n    },\n    {\n      \"id\": \"b\",\n      \"concept_sha256\": \"4b1d69ab0efd63b09992222ac9b8e313fc7866ff4e359211f1a120a5fa93029f\",\n      \"renderer_sha256\": \"068b6b62a044dca0ff7fa2f6f1ccce20c4ca63106f5ac62805bfceeacf89c825\",\n      \"board\": {\n        \"file\": \"b.json\",\n        \"sha256\": \"939241c9e08f3ddd89c73560689bda57ed3524f3645f31a2fb5e4b0287d64805\"\n      },\n      \"film\": {\n        \"file\": \"b.mp4\",\n        \"sha256\": \"562038031be7eb027ae05cf1b88ce4b6bca5ae48f38014068ebd01beb940cae2\"\n      },\n      \"inspection\": {\n        \"file\": \"b-inspection-0bf54a254f553156.json\",\n        \"sha256\": \"c1d919d8911b4895d69fd9b7254ef87bc56ba13037ed2321db9f04ca66f3439e\"\n      }\n    }\n  ],\n  \"inspection_problems\": [],\n  \"inspection_pass\": true\n}\n",
+    "comparison_sha256": "140fb6c64329a107b096970e2ee98318395d2ed3c6d9c84e845a74d4917db7a0",
+    "retained_files": [
+      {
+        "option": "a",
+        "kind": "board",
+        "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/openings/a.json",
+        "sha256": "52fbd30b914176f351df954e7cf7e41c20a78dbb74b8f57dfee64fa312da0c3d"
+      },
+      {
+        "option": "a",
+        "kind": "film",
+        "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/openings/a.mp4",
+        "sha256": "c0aee5b3c9af37a5333246e4bf8ca1c99fe59882bccb6beb70758a67eaef58af"
+      },
+      {
+        "option": "b",
+        "kind": "board",
+        "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/openings/b.json",
+        "sha256": "939241c9e08f3ddd89c73560689bda57ed3524f3645f31a2fb5e4b0287d64805"
+      },
+      {
+        "option": "b",
+        "kind": "film",
+        "path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/openings/b.mp4",
+        "sha256": "562038031be7eb027ae05cf1b88ce4b6bca5ae48f38014068ebd01beb940cae2"
+      }
+    ],
+    "hook_event_index": 298,
+    "hook_event_sha256": "ed6e5f4f67dc745a27ea6c6c97e080aaebe86c66806132946219e9032162bd38",
+    "entry_event_index": 300,
+    "entry_event_sha256": "c88bd0c03fb777a10162db11cbda6c05aae1dfb99bde988fded07908ddf17d7e"
+  }
+}
