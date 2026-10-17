@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T03:48:02.705697+00:00",
-  "note": "R15d renewed comparison and phone extractions done; silent comparison critic dispatched",
+  "saved_at": "2026-10-17T03:58:37.039579+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "8b29bb3ce409c5644d488f130e7930b6fa5b468b2a9b8fa0dcdb1512e95a0b48",
-  "original_private_ledger_sha256": "113742c9365fc9cba3ddb8a186e37ad5c9efe624965d10467b7a4de8e72b8962",
+  "ledger_sha256": "49bac42831810c9fc3af9064c989cbc360b7162a9db93ec111a4d4b4191bb447",
+  "original_private_ledger_sha256": "8622c833fb03a8269d458f4da780a5ac6d889a2085ff9026ab38cda9bd787e36",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -96,7 +96,7 @@
     }
   ],
   "usage": {
-    "audiovisual_reviews": 7,
+    "audiovisual_reviews": 8,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
@@ -134,8 +134,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "6aee7471a96e6cc3162a5c845f625ced2fb7a9dc387101f1c6899b2a3267d1c8",
-      "size": 17005
+      "sha256": "f0b0760e96ab274805186c2183b573d0d6a5a670f5c6f4088c52a9f4b8ebff9b",
+      "size": 17756
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -12918,6 +12918,18 @@
       "size": 1464
     },
     {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-after-extractions-host.json",
+      "class": "scratch",
+      "sha256": "312b9bb6320aa135b06c199ac3ad39b31e93f4ac1cb5c44063df8df7d4234252",
+      "size": 1520
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-after-extractions-provider.json",
+      "class": "scratch",
+      "sha256": "4f77408ea9492c7e9413c7b645d55c54a79887c993e21720876e8a03d3f65e78",
+      "size": 1495
+    },
+    {
       "path": "out/dispatch/evidence/r15-repair/production-budget-pivot-host-after.json",
       "class": "scratch",
       "sha256": "e5b38905eefb72d6f4e08e1b291a645a00862ec0603b75b3cdf8cb087e68b18c",
@@ -13582,6 +13594,36 @@
       "class": "scratch",
       "sha256": "f2dd8a81d8c96ff746ce6d05f7b552400a7b9d7dad3e4611e7c7314fa9393528",
       "size": 26662
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-phone-compare-partial/image-coverage.json",
+      "class": "scratch",
+      "sha256": "3f48e75021668858c7d5a3033d566bfbbfd3fd34bc3b8ee64bb21c394c688678",
+      "size": 33463
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-phone-compare-partial/partial-report.json",
+      "class": "scratch",
+      "sha256": "29c156b88aa79754dab261224a4fdf3a680dc1266c20781ad2078b049ad47895",
+      "size": 6909
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-phone-compare-partial/prepare-media-limit-2.log",
+      "class": "scratch",
+      "sha256": "353c4fd0f64b1fe7c67f9f5952e779b28e83632844a37c89d907213b3d3d2bf1",
+      "size": 106
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-phone-compare-partial/prepare-media-limit.log",
+      "class": "scratch",
+      "sha256": "83de87fadbdd02c7ea5ab80ae48223cd0fcef807ce496f71adc218f190b9116a",
+      "size": 113
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-phone-compare-partial/provider-compare.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/evidence/review-r15-pivot-1/assignment-binding-v2.json",
@@ -14929,6 +14971,12 @@
     },
     {
       "path": "out/dispatch/independent-review-cache/8ec9f28de56e6d74006fc2d610a30fd0bd1cd2195ff64bf3b8f5b291f0805be0/transport.lock",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/independent-review-cache/c7d2cbc39736c6c53e072726b81de3c1a99e14f1529d5f484ec65074ab3e603c/transport.lock",
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
@@ -16554,6 +16602,12 @@
       "size": 2337
     },
     {
+      "path": "out/dispatch/phone-media-limit-failure-r15d.json",
+      "class": "scratch",
+      "sha256": "859fddb0e68b005473bc187f68df132d2b01882e4ad946aeed00053178366c77",
+      "size": 2507
+    },
+    {
       "path": "out/dispatch/phone-media-limit-failure.json",
       "class": "scratch",
       "sha256": "0fcd78cedbeae087d00a5ef71d7c8efc609db3f3033499df2484c9dc758c81a9",
@@ -17363,6 +17417,10 @@
     },
     {
       "path": "out/dispatch/evidence/review-r15-current-timed-phone/handback.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-phone-compare-partial/handback-verbatim.private.txt",
       "reason": "private path component"
     },
     {

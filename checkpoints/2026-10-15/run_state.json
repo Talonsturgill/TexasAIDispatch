@@ -705,6 +705,14 @@
       "note": "precharged same-worker silent comparison of both renewed R15d exact-phone openings and exact-phone review of the chosen cut, one test page first (SendMessage a52c371448f105d98), allocation 3 of 4: final timed phone remains",
       "resource": "storyboard_critics",
       "to": 33
+    },
+    {
+      "at": "2026-10-17T03:58:27.360563Z",
+      "ceiling": 43,
+      "from": 7,
+      "note": "independent transport phone",
+      "resource": "audiovisual_reviews",
+      "to": 8
     }
   ],
   "events": [
@@ -7001,10 +7009,28 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-17T03:58:27.360586Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "independent transport phone",
+      "now": 8,
+      "resource": "audiovisual_reviews",
+      "was": 7
+    },
+    {
+      "at": "2026-10-17T03:58:27.360598Z",
+      "kind": "reserved",
+      "note": "independent transport phone",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
     }
   ],
   "limits": {
-    "audiovisual_reviews": 7,
+    "audiovisual_reviews": 8,
     "cleanup_renders": 1,
     "full_renders": 1,
     "image_generations": 2,
@@ -7024,7 +7050,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "113742c9365fc9cba3ddb8a186e37ad5c9efe624965d10467b7a4de8e72b8962",
+    "original_private_state_sha256": "8622c833fb03a8269d458f4da780a5ac6d889a2085ff9026ab38cda9bd787e36",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -7060,9 +7086,9 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T03:47:24.786359Z",
+  "updated_at": "2026-10-17T03:58:27.360600Z",
   "usage": {
-    "audiovisual_reviews": 7,
+    "audiovisual_reviews": 8,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
