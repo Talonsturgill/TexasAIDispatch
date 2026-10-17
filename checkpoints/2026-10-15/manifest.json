@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T20:48:19.133810+00:00",
-  "note": "R15g preserved consumed motion authorization and stderr",
+  "saved_at": "2026-10-17T21:01:17.289727+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/restore/TexasAIDispatch",
-  "source_pin": "a74f97f049d24a64e5cbc0b402d4cc335b2c3820",
+  "source_pin": "1ce3db006ff826f9ead45f51f403cc7dd808fa9d",
   "source_branch": null,
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "7375e09e7710fa6d22378cc98abe1b099d292821c74d7107fc10abfa130f3329",
-  "original_private_ledger_sha256": "6feacb53d5a5888647d33029079504b8a1d4cd563a7a91c3910db69b45fef3b4",
+  "ledger_sha256": "cc709629f2ea8749566d399ecea6d082b749461cb0c872045d03357faf9c27e4",
+  "original_private_ledger_sha256": "47ae17f926f3956711cb22c2accfd0638735a4984d05e9e0088bcbeab6bde28e",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -117,6 +117,11 @@
     {
       "event_index": 416,
       "authorization_sha256": "39370f90c0bed6017203e63973a6dd56b74ec9b24b0563a2094fc3c56474b473",
+      "root": "/home/user/restore/TexasAIDispatch"
+    },
+    {
+      "event_index": 454,
+      "authorization_sha256": "df131dc0d703887e4c0c1f78fb37e8a09791c8e5e32c7c1c2a7b2a274089ecbb",
       "root": "/home/user/restore/TexasAIDispatch"
     }
   ],
@@ -16219,6 +16224,12 @@
       "size": 101
     },
     {
+      "path": "out/dispatch/evidence/r15g/consumed-motion-f94f42d964d724827141a46cccdc898c5a6a1f374c91c70e14ee5e05f1cc9587.json",
+      "class": "scratch",
+      "sha256": "e3f367b95b7ddd76b1debb36ac76529fab53d36045868564d9833a8b83f5a078",
+      "size": 18104
+    },
+    {
       "path": "out/dispatch/evidence/r15g/credit-repair-prep/credits.txt",
       "class": "scratch",
       "sha256": "7862dd11c4452d93d4ef47d670953450051f9c83c7316cb9ecd853ac642d55cf",
@@ -16273,6 +16284,18 @@
       "size": 75
     },
     {
+      "path": "out/dispatch/evidence/r15g/motion-recovery-plan.json",
+      "class": "scratch",
+      "sha256": "df131dc0d703887e4c0c1f78fb37e8a09791c8e5e32c7c1c2a7b2a274089ecbb",
+      "size": 317244
+    },
+    {
+      "path": "out/dispatch/evidence/r15g/motion-recovery-prepare.log",
+      "class": "scratch",
+      "sha256": "8b6931123770e35d72dcc8972a62c01d2c5fb145a1586b1be266f6732ca5257c",
+      "size": 83
+    },
+    {
       "path": "out/dispatch/evidence/r15g/music-package-failure-board-3758e9bc.log",
       "class": "scratch",
       "sha256": "eee4ad9eaf20690781659d39463e83986646c37abf6a0e1c82d656f2cbc982b0",
@@ -16300,6 +16323,12 @@
       "path": "out/dispatch/evidence/r15g/production-budget-finish-current-r15g2.json",
       "class": "scratch",
       "sha256": "b62447f85cad4448ec1fd801a2ad3c0dbc857f8b45289ea1e0a6876a8e609a54",
+      "size": 1491
+    },
+    {
+      "path": "out/dispatch/evidence/r15g/production-budget-motion-recovery.json",
+      "class": "scratch",
+      "sha256": "d93ec2b3bf41c24ca96ab65839a1a157c5a59cf85f9939a00fd5d0b3c6ea6c5c",
       "size": 1491
     },
     {
