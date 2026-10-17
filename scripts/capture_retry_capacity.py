@@ -22,13 +22,26 @@ def digest(path):
 def identity(plan):
     from autonomous_completion import canonical, sha
     proof = plan[KEY]
-    return sha(canonical({'scope': 'capture-retry-capacity-v1', 'run_id': proof['run_id'],
+    scope = ('capture-retry-capacity-v2' if proof.get('schema') == 'dispatch_capture_retry_evidence/2'
+             else 'capture-retry-capacity-v1')
+    return sha(canonical({'scope': scope, 'run_id': proof['run_id'],
                          'reservation_sha256': proof['reservation_sha256']}))
+
+
+def valid_increment(plan, increments):
+    if plan[KEY].get('schema') == 'dispatch_capture_retry_evidence/2':
+        return (set(increments) == {'preflight_renders'}
+                and type(increments['preflight_renders']) is int
+                and 1 <= increments['preflight_renders'] <= 2)
+    return increments == {'preflight_renders': 1}
 
 
 def eligible(state, plan, report):
     from autonomous_completion import EVENT, canonical, sha
     from capture_guard import SCHEMA, event_digest, normalize
+    if (plan.get(KEY) or {}).get('schema') == 'dispatch_capture_retry_evidence/2':
+        from motion_capture_retry import eligible as motion_eligible
+        return motion_eligible(state, plan, report)
     try:
         proof = plan[KEY]; auth = json.loads(proof['authorization_json'])
         source = state['events'][proof['source_grant_index']]
@@ -75,6 +88,9 @@ def eligible(state, plan, report):
 
 def file_problems(plan):
     from autonomous_completion import sha
+    if plan[KEY].get('schema') == 'dispatch_capture_retry_evidence/2':
+        from motion_capture_retry import file_problems as motion_problems
+        return motion_problems(plan)
     errors = []
     try:
         proof = plan[KEY]; root = REPO.resolve()
@@ -163,6 +179,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ('state', 'authorization', 'failure-log', 'output'):
         parser.add_argument('--' + name, type=Path, required=True)
+    parser.add_argument('--retained-output', type=Path,
+                        help='actual archived previous native motion directory after an EEXIST failure')
     args = parser.parse_args()
-    prepare(args.state, args.authorization, args.failure_log, args.output)
+    if args.retained_output:
+        from motion_capture_retry import prepare as prepare_motion
+        prepare_motion(args.state, args.authorization, args.failure_log, args.retained_output, args.output)
+    else:
+        prepare(args.state, args.authorization, args.failure_log, args.output)
     print('Bound actual spent infrastructure capture; no capacity or review approval granted.')

@@ -469,6 +469,10 @@ opening inspections pass, extract the complete chronological sequence from each 
 For each option use its canonical `--board out/dispatch/openings/a.json` and matching
 `--film out/dispatch/openings/a.mp4` (or b), `--state out/dispatch/run_state.json`, and a fresh
 `--out out/dispatch/openings/motion-a` (or b). Use the ordinary wrapped capture authorization
+only after checking that output. Reuse an existing complete sequence when --verify accepts the
+exact current board and film; otherwise retain the entire previous directory under an unused
+edition-evidence path before preparing a fresh extraction. Occupied output is refused before
+charging. Preserve partial/failed pages and original indices; never overwrite them. Then authorize
 with `--prepare` and that exact board/command. Each extraction reserves one preflight before
 decoding, and claims its consumed authorization once without another charge. Headroom,
 housekeeping, authored art and all hook protections still apply. Never use the native final

@@ -650,8 +650,10 @@ def replay(state):
                         or (kind == NARRATION_READY and (deficits or reason != NARRATION_REASON))
                         or (kind == VALIDATION_READY and (deficits or VALIDATION_FIELD not in plan))):
                     raise ValueError("completion grant differs from the exact resource deficits")
-                if 'capture_retry_evidence' in plan and deficits != {'preflight_renders': 1}:
-                    raise ValueError('spent capture recovery admits exactly one preflight deficit')
+                if 'capture_retry_evidence' in plan:
+                    from capture_retry_capacity import valid_increment
+                    if not valid_increment(plan, deficits):
+                        raise ValueError('spent capture recovery exceeds its pinned exact-deficit route')
                 if reason == FILM_PIVOT_REASON and deficits != {'storyboard_critics': 1}:
                     raise ValueError('film pivot capacity admits exactly one critic with the full path protected')
                 if reason == HANDBACK_REASON and deficits != {"storyboard_critics": 1}:
@@ -872,8 +874,10 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         increments = budget["deficits"]
         if reason == FILM_PIVOT_REASON and increments != {'storyboard_critics': 1}:
             return False, 'film pivot capacity needs exactly one critic deficit with the complete remaining path protected'
-        if 'capture_retry_evidence' in plan and increments != {'preflight_renders': 1}:
-            return False, 'spent capture recovery needs exactly one preflight deficit with the complete remaining path funded'
+        if 'capture_retry_evidence' in plan:
+            from capture_retry_capacity import valid_increment
+            if not valid_increment(plan, increments):
+                return False, 'spent capture recovery needs its pinned preflight deficit with the complete remaining path funded'
         if reason == HANDBACK_REASON and increments != {"storyboard_critics": 1}:
             return False, "same-worker handback requires exactly one critic deficit with the complete remaining path funded"
         if not increments and reason != NARRATION_REASON and VALIDATION_FIELD not in plan:

@@ -63,6 +63,12 @@ Generate corresponding story and sound packets. For current agent-runtime editio
 all three explicit isolated assignments, then execute them under the existing atomic panel:
 
 For a Claude-native cut, its Read-only judges need the complete current motion-image sequence.
+Before reserving extraction, inspect its output directory. If its existing index verifies against
+this exact board and film with the command's --verify mode, reuse that complete sequence without
+another extraction or charge. Otherwise preserve the entire old directory under an unused
+edition-evidence path before authorization, including partial or failed pages and their index.
+Never overwrite old review images. Prepared admission refuses an occupied destination before
+charging; resolve that filesystem condition and then prepare the same required current extraction.
 Before building their packets, fund the complete remaining path and authorize the exact wrapped
 command with --prepare after computed headroom and housekeeping. This reserves one preflight
 entry; the decoder claims that same prepared reservation without a second charge. Do not add a
