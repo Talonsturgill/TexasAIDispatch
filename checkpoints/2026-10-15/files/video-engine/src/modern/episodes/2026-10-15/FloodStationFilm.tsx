@@ -7,7 +7,7 @@ import {PlaceSubject} from '../../PlaceStage';
 import {LOCATOR_START_S,LOCATOR_END_S} from '../../CountyLocator';
 import type {FilmRenderProps} from '../../types';
 import {FloodStationHero,STATION,CUTAWAY_LAMP,podPoint,type Pal,type Pt} from './FloodStationHero';
-import {StreetHubSupport,PORCH,CASE,MAP_TRACE,mirrorAbout,indexTip} from './StreetHubSupport';
+import {StreetHubSupport,PORCH,CASE,TECH,mirrorAbout,indexTip,reach,type HandPose} from './StreetHubSupport';
 
 /**
  * flood-station-v1: UT San Antonio's solar flood station, as the university describes the design.
@@ -53,6 +53,79 @@ const mix=(a:Pt,b:Pt,p:number):Pt=>[lerp(a[0],b[0],p),lerp(a[1],b[1],p)];
 
 /** The university's reported figure, verbatim from claim c4's quote, and the bar share it sets. */
 const VALIDATION={text:'98.82%',share:.9882};
+
+// ---- R15h layouts. Every number a frame-edge bound depends on lives here and is exported, so the
+// bound check composes the very values this file draws with (Cam, then the plate camera's
+// PlaceSubject) for every frame of each shot in both treatments, instead of a copy of them. ----
+/** s1 phone-late: the phone is wider in this shot only, so the banner reflows inside it at today's
+ * type size (25 units at the shot's 1.5 scale). The banner slides in over the first SLIDE seconds of
+ * s1-event-3; the phone then buzzes twice on the wet rail inside the same event. */
+export const PHONE_LATE={w:248,h:451,font:25,scale:1.5,squash:.85,at:{a:[540,938] as Pt,b:[560,948] as Pt},rot:{a:-10,b:8},
+ slide:1.05,buzz:[[1.4,1.75],[2.1,2.45]] as [number,number][]};
+/** s3 water-marks in the s3-event-3 shot: the tilt (content rises by this much over tiltS seconds) that
+ * brings all four underwater lenses above the caption band, and each lens flare's outer radius. */
+export const S3_PULSE={tilt:{a:400,b:450},tiltS:.5,flareR:70};
+/** s4 chip-glow: the opened housing is centred so its door, box, lamp and the flood risk label keep
+ * 40 px at the push's end; the detail push is a centred 1.12 about the frame point PUSH. */
+export const CHIP={c:[621,800] as Pt,s:1.1,push:[540,800] as Pt,scale:1.12};
+/** s6 flood-paths: the screen bezel ends at y 1236, above the caption band's top. */
+export const MAP_SCREEN={x:50,y:280,w:980,h:930};
+/** s7 validation-card, HELD (no push in either framing): the validation card upper left, its tag
+ * under it, the field result card sliding in to rest lower right. Sized to the composed margins. */
+export const S7={card:{at:[172,420] as Pt,s:.72},tag:{at:[205,700] as Pt,s:.78},result:{at:[560,720] as Pt,s:.56,from:{a:1240,b:-420}}};
+/** s8 no-field-card, HELD: the two cards in a column on the left, the technician standing at the
+ * board on the right, stamping the field result card with her own arm. */
+export const S8={card:{at:[150,440] as Pt,s:.6},tag:{at:[170,680] as Pt,s:.64},result:{at:[180,790] as Pt,s:.6},
+ tech:{feet:[640,1240] as Pt,s:1},stamp:.8};
+/** s8 paper map on the fence, read by the same technician's finger: close (A) and wide (B). */
+export const MAPSHOT={close:{m:[130,380] as Pt,w:600,h:660,ground:1400,tech:{feet:[860,1400] as Pt,s:1.25}},
+ wide:{m:[360,600] as Pt,w:430,h:470,ground:1236,tech:{feet:[900,1236] as Pt,s:.9}}};
+/** The finger's path in map units: along the creek's right reach, then up the street past a blank pin hole. */
+export const MAP_READ:Pt[]=[[.84,.63],[.62,.66],[.62,.48],[.62,.3]];
+/** s9: the opening yard again, the prototype ringed on its curb pole, the technician in the water
+ * holding the deployment plan open in her left hand and the prototype's closed case by its handle in
+ * her right, the dark phone on the porch rail behind her. */
+export const S9={station:{base:[480,1100] as Pt,s:.58},ring:{c:[494,615] as Pt,rx:100,ry:168},
+ goal:{at:[640,480] as Pt,s:.72},none:{at:[640,600] as Pt,s:.72},tech:{feet:[350,1300] as Pt,s:.6,wade:40},
+ plan:{c:[345,1045] as Pt,w:160},case:{s:.26},
+ cam:{a:{from:{f:[520,900] as Pt,a:[540,900] as Pt,s:1.15}},b:{from:{f:[556,866] as Pt,a:[540,840] as Pt,s:1.12}}}};
+/** Where the carried case hangs: its handle in her right palm, for her right wrist (her units). */
+export function caseFromWrist(o:Placed,W:Pt,cs:number):Pt{
+ const a=reach(TECH.SR,W,TECH.upper,TECH.fore).deg*Math.PI/180;
+ const palm=techPt(o,[W[0]+TECH.hand*18*Math.cos(a),W[1]+TECH.hand*18*Math.sin(a)]);
+ return [palm[0],palm[1]+(CASE.h+38)*cs];
+}
+/** The yard both s1 and s9 stand in. */
+export const YARD={curbY:1086,streetTop:1032,fence:[520,1215] as Pt,fs:1.2,porch:[-30,1250] as Pt,oak:[1000,1150] as Pt};
+
+type Placed={feet:Pt;s:number};
+/** The technician's own units to the frame: her floor row lands on `feet`, at scale s. */
+export const techPt=(o:Placed,p:Pt):Pt=>[o.feet[0]+(p[0]-TECH.head[0])*o.s,o.feet[1]+(p[1]-TECH.ground)*o.s];
+const techInv=(o:Placed,p:Pt):Pt=>[TECH.head[0]+(p[0]-o.feet[0])/o.s,TECH.ground+(p[1]-o.feet[1])/o.s];
+/** A wrist (her units) for the hand to put its index fingertip ('tip') or palm ('palm') on a frame
+ * point. Returns the wrist and whether her arm can reach it without stretching past its bones. */
+export function techHand(o:Placed,side:'left'|'right',world:Pt,pose:HandPose,what:'tip'|'palm'):{wrist:Pt;reachable:boolean}{
+ const S=side==='left'?TECH.SL:TECH.SR, sd=side==='left'?-1:1, target=techInv(o,world);
+ let W:Pt=target;
+ for(let k=0;k<4;k++){
+  const deg=reach(S,W,TECH.upper,TECH.fore).deg, a=deg*Math.PI/180;
+  const off=what==='tip'?indexTip([0,0],deg,TECH.hand,pose,sd):[TECH.hand*18*Math.cos(a),TECH.hand*18*Math.sin(a)] as Pt;
+  W=[target[0]-off[0],target[1]-off[1]];
+ }
+ return {wrist:W,reachable:Math.hypot(W[0]-S[0],W[1]-S[1])<=TECH.upper+TECH.fore-1};
+}
+/** Her arm hanging at her side, wrist in her units. */
+export const techRest=(side:'left'|'right'):Pt=>side==='left'?[TECH.SL[0]-14,TECH.SL[1]+240]:[TECH.SR[0]+16,TECH.SR[1]+240];
+/** Where a rubber stamp's base sits when its knob is in her left palm, for a wrist in her units. */
+export function stampFromWrist(o:Placed,W:Pt,ks:number):Pt{
+ const a=reach(TECH.SL,W,TECH.upper,TECH.fore).deg*Math.PI/180;
+ const palm=techPt(o,[W[0]+TECH.hand*18*Math.cos(a),W[1]+TECH.hand*18*Math.sin(a)]);
+ return [palm[0],palm[1]+150*ks];
+}
+/** s9's pull back to the opening framing, from just after s9-event-3 to just before the credits. */
+export const s9Back=(t:number,w3End:number,shotEnd:number)=>ease((t-(w3End+.06))/((shotEnd-.15)-(w3End+.06)));
+const TechAt:React.FC<{o:Placed;children:React.ReactNode}>=({o,children})=>
+ <g transform={`translate(${o.feet[0]-TECH.head[0]*o.s} ${o.feet[1]-TECH.ground*o.s}) scale(${o.s})`}>{children}</g>;
 /** The water level, in station units, that each part of the story leaves behind. The lowest lens
  * goes under at ankle height; in the sensing scene the water rises past the fourth. It only rises. */
 const LEVEL={start:-20,ankle:-60,top:-215};
@@ -121,14 +194,21 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  // B's s1 design detail: the lowest, ankle-height lens goes under on s1-event-0 (no station stands in
  // the s1 yard in either treatment). s2: the prototype stands in ankle-deep water. s3: the water rises
  // past the second, third and fourth lenses on s3-event-2, and stays there.
+ // s9 returns to the opening yard, where the water is ankle-deep: the prototype on its curb pole there
+ // stands in the same depth as the fence post's orange mark, its lowest lens lit.
  const level=at('s1')?lerp(LEVEL.start,LEVEL.ankle,ease(s1e0))
-  :at('s2')?LEVEL.ankle
+  :at('s2')||at('s9')?LEVEL.ankle
   :at('s3')?lerp(LEVEL.ankle,LEVEL.top,s3e2)
   :LEVEL.top;
  const pods=[0,1,2,3].map(i=>podLit(level,i));
  const battery=at('s1')?.24:at('s2')?lerp(.24,1,s2e2):1;
  const weather=[0,1,2,3].map(k=>at('s1')||at('s2')?0:at('s3')?clamp(s3e3*4.2-k*1.05):1);
  const risk=['s1','s2','s3'].includes(sid)?0:at('s4')?s4e2:1;
+ // From s4-event-1 ("A small chip on the station runs the AI itself") the readings keep arriving in
+ // s4: the first wave runs on the event, the next waves follow at the same period, so the chip is seen
+ // running rather than holding still until its judgment.
+ const W4=win('s4-event-1'), period4=W4.end-W4.start;
+ const readingWaves=!at('s4')||t<W4.start?0:Math.max(.06,((t-W4.start)/period4)%1);
  const station=(o:Partial<{pods:number[];battery:number;sun:number;sunStrength:number;risk:number;weather:number[];transmit:number;window:number;readings:number;wetTo:number;shadow:number}>={})=>
   <FloodStationHero part="station" pods={pods} battery={battery} risk={risk} weather={weather} wetTo={level} time={t} {...o}/>;
  const tag=(lines:string[],shown:number,o:{tone?:'ink'|'accent'|'paper';side?:'left'|'right';scale?:number;drop?:number;size?:number}={})=>
@@ -180,6 +260,51 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  const rain=(op=.3)=><StreetHubSupport part="rain" t={t} w={1240} h={1920} opacity={op}/>;
  const ring=(x:number,y:number,w:number)=><StreetHubSupport part="waterline" x={x} y={y} w={w} t={t}/>;
 
+ /** The San Antonio yard s1 floods and s9 returns to. p1 is s1-event-1's spread, e2 s1-event-2's
+  * rise and sway the flagging tag's swing; `ids` names the s1 items (s9 names its own). s9 adds what
+  * stands in its water: reflections, things standing at the curb behind the oak, things on the porch
+  * rail and things in front of the porch. */
+ const yard=(o:{p1:number;e2:number;sway:number;ids:boolean;rain:number;reflect?:React.ReactNode;curb?:React.ReactNode;onRail?:React.ReactNode;front?:React.ReactNode})=>{
+  const {curbY,streetTop,fence,fs,porch,oak:oakAt}=YARD, post:Pt=[fence[0]+190*fs,fence[1]];
+  const step=porch[1]-34, rail:Pt=[porch[0]+PORCH.railTop[0],porch[1]+PORCH.railTop[1]];
+  const boots:Pt=[porch[0]+PORCH.w*.56,step];
+  const p1=o.p1, over=clamp(p1/.18);
+  const front=lerp(curbY+6,1292,clamp(p1/.6))+lerp(0,190,ease(o.e2));
+  const dFence=33*ease(clamp((p1-.37)/.23))+4*ease(o.e2);
+  const dPorch=30*ease(clamp((p1-.5)/.1))+44*ease(o.e2);
+  const dBoots=Math.max(0,dPorch-34);
+  const dOak=14*ease(clamp((p1-.12)/.3));
+  const I=(id:string,n:React.ReactNode)=>o.ids?<Item id={id}>{n}</Item>:<g>{n}</g>;
+  const fenceNode=<At p={fence} s={fs}><StreetHubSupport part="fence" x0={0} x1={380} h={300} posts={3} mark={1} sway={o.sway}/></At>;
+  const porchNode=<At p={porch}><StreetHubSupport part="porch"/></At>;
+  const bootsNode=<At p={boots}><StreetHubSupport part="boots"/></At>;
+  const oakNode=<At p={oakAt}><StreetHubSupport part="oak" h={600} seed={9} flip/></At>;
+  const F=wading('yf',fence,1,fenceNode,dFence,400), Pc=wading('yp',porch,1,porchNode,dPorch,500);
+  const B=wading('yb',boots,1,bootsNode,dBoots,140), O=wading('yo',oakAt,1,oakNode,dOak,700);
+  const yardWater=p1>0&&<StreetHubSupport part="water" x0={-60} x1={1140} y={curbY-14*over} depth={front-(curbY-14*over)} t={t} seed={13}
+   reflect={<g>{O.refl}{F.refl}{Pc.refl}{B.refl}{o.reflect}</g>}/>;
+  const node=<g>
+   {I('s1-water',<Grounded baseY={curbY+40} on={exterior}>
+    <rect x={-60} y={streetTop-18} width={1200} height={22} fill="#8D9358"/>
+    <StreetHubSupport part="street" x0={-60} x1={1140} yFar={streetTop} yNear={curbY} t={t}/>
+    <StreetHubSupport part="water" x0={-60} x1={1140} y={streetTop+3} depth={curbY-streetTop-3+8*over} t={t} edge="straight"/>
+    <StreetHubSupport part="curb" x0={-60} y0={curbY} x1={1140} y1={curbY-6} h={20}/>
+    <StreetHubSupport part="lawn" d={`M-60 ${curbY+20}L1140 ${curbY+14}L1140 1980L-60 1980Z`} box={[-60,curbY+14,1200,1980-curbY]}/>
+    {yardWater}
+   </Grounded>)}
+   {o.curb}
+   <Grounded baseY={oakAt[1]} on={exterior}>{O.obj}</Grounded>
+   <Grounded baseY={fence[1]} on={exterior}>{I('s1-post',<>{F.obj}{dFence>0&&ring(post[0],post[1]-dFence,22)}</>)}</Grounded>
+   <Grounded baseY={porch[1]} on={exterior}>{Pc.obj}
+    {I('s1-boots',<>{B.obj}{dBoots>0&&ring(boots[0]+60,boots[1]-dBoots,70)}</>)}
+    {I('s1-phone',<At p={[rail[0]+60,rail[1]-10]}><g transform="scale(.3 .11) rotate(90)"><StreetHubSupport part="phone" pal={pal} banner={0} t={t}/></g></At>)}
+    {o.onRail}</Grounded>
+   {o.front}
+   {rain(o.rain)}
+  </g>;
+  return {node,post};
+ };
+
  let pic:React.ReactNode;
  switch(view){
  case 'street-yard':{
@@ -192,44 +317,10 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   // stands in the yard is clipped at its waterline and mirrored in the water. A holds and pushes in
   // slowly; B arrives on a match cut from the design detail's ankle-height lens to the ankle mark at
   // the same screen spot, then pulls back to the whole yard.
-  const W1=win('s1-event-1'), p1=s1e1;
-  const curbY=1086, streetTop=1032;
-  const fence:Pt=[520,1215], fs=1.2, post:Pt=[fence[0]+190*fs,fence[1]];
-  const porch:Pt=[-30,1250], step=porch[1]-34, rail:Pt=[porch[0]+PORCH.railTop[0],porch[1]+PORCH.railTop[1]];
-  const boots:Pt=[porch[0]+PORCH.w*.56,step];
-  const oakAt:Pt=[1000,1150];
-  const over=clamp(p1/.18);
-  const front=lerp(curbY+6,1292,clamp(p1/.6))+lerp(0,190,ease(s1e2));
-  const dFence=33*ease(clamp((p1-.37)/.23))+4*ease(s1e2);
-  const dPorch=30*ease(clamp((p1-.5)/.1))+44*ease(s1e2);
-  const dBoots=Math.max(0,dPorch-34);
-  const dOak=14*ease(clamp((p1-.12)/.3));
+  const W1=win('s1-event-1');
   const ta=W1.start+.37*(W1.end-W1.start), dt=t-ta;
   const sway=dt>0?22*Math.exp(-3*dt)*Math.sin(2*Math.PI*1.6*dt):0;
-  const fenceNode=<At p={fence} s={fs}><StreetHubSupport part="fence" x0={0} x1={380} h={300} posts={3} mark={1} sway={sway}/></At>;
-  const porchNode=<At p={porch}><StreetHubSupport part="porch"/></At>;
-  const bootsNode=<At p={boots}><StreetHubSupport part="boots"/></At>;
-  const oakNode=<At p={oakAt}><StreetHubSupport part="oak" h={600} seed={9} flip/></At>;
-  const F=wading('yf',fence,1,fenceNode,dFence,400), Pc=wading('yp',porch,1,porchNode,dPorch,500);
-  const B=wading('yb',boots,1,bootsNode,dBoots,140), O=wading('yo',oakAt,1,oakNode,dOak,700);
-  const yardWater=p1>0&&<StreetHubSupport part="water" x0={-60} x1={1140} y={curbY-14*over} depth={front-(curbY-14*over)} t={t} seed={13}
-   reflect={<g>{O.refl}{F.refl}{Pc.refl}{B.refl}</g>}/>;
-  const world=<g>
-   <Item id="s1-water"><Grounded baseY={curbY+40} on={exterior}>
-    <rect x={-60} y={streetTop-18} width={1200} height={22} fill="#8D9358"/>
-    <StreetHubSupport part="street" x0={-60} x1={1140} yFar={streetTop} yNear={curbY} t={t}/>
-    <StreetHubSupport part="water" x0={-60} x1={1140} y={streetTop+3} depth={curbY-streetTop-3+8*over} t={t} edge="straight"/>
-    <StreetHubSupport part="curb" x0={-60} y0={curbY} x1={1140} y1={curbY-6} h={20}/>
-    <StreetHubSupport part="lawn" d={`M-60 ${curbY+20}L1140 ${curbY+14}L1140 1980L-60 1980Z`} box={[-60,curbY+14,1200,1980-curbY]}/>
-    {yardWater}
-   </Grounded></Item>
-   <Grounded baseY={oakAt[1]} on={exterior}>{O.obj}</Grounded>
-   <Grounded baseY={fence[1]} on={exterior}><Item id="s1-post">{F.obj}{dFence>0&&ring(post[0],post[1]-dFence,22)}</Item></Grounded>
-   <Grounded baseY={porch[1]} on={exterior}>{Pc.obj}
-    <Item id="s1-boots">{B.obj}{dBoots>0&&ring(boots[0]+60,boots[1]-dBoots,70)}</Item>
-    <Item id="s1-phone"><At p={[rail[0]+60,rail[1]-10]}><g transform="scale(.3 .11) rotate(90)"><StreetHubSupport part="phone" pal={pal} banner={0} t={t}/></g></At></Item></Grounded>
-   {rain(.26)}
-  </g>;
+  const {node:world,post}=yard({p1:s1e1,e2:s1e2,sway,ids:true,rain:.26});
   if(v==='a'){
    const push=ease(raw({start:shot.start_s,end:shot.start_s+shot.duration_s}));
    pic=<Cam f={mix([540,980],[660,1060],push)} s={lerp(1,1.08,push)} a={mix([540,980],[600,1020],push)}>{world}</Cam>;
@@ -241,7 +332,13 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  case 'phone-late':{
   // s1 close, looking down at the porch rail's wide cap board. The worn phone lies on it, dark, the
   // flood below the balusters; the warning banner slides in only now, after the water is in the yard.
-  const rot=v==='a'?-10:8, at0:Pt=v==='a'?[540,950]:[560,960];
+  // The banner slides in over the first PHONE_LATE.slide seconds of s1-event-3 on the event's own
+  // contact curve; later in the same event the phone buzzes twice on the wet rail cap, so the late
+  // warning keeps performing until the cut instead of holding still.
+  const W3=win('s1-event-3'), L=PHONE_LATE;
+  const banner=actionProgress({...W3,end:W3.start+L.slide},t);
+  const buzz=L.buzz.map(([a,b])=>clamp((t-W3.start-a)/(b-a))).find(q=>q>0&&q<1)??0;
+  const rot=L.rot[v], at0:Pt=L.at[v];
   const balusters=<g>{Array.from({length:6},(_,i)=><rect key={i} x={40+i*180+(v==='a'?0:60)} y={1280} width={34} height={420} fill="#EDE6D6" stroke="#BDB2A0" strokeWidth={2}/>)}</g>;
   pic=<g data-world="porch-rail">
    <Item id="s1-water"><StreetHubSupport part="water" x0={-60} x1={1140} y={1300} depth={660} t={t} edge="straight"/></Item>
@@ -250,8 +347,8 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    <path d="M-40 1252L1120 1222L1120 1282L-40 1314Z" fill="#D5CBB8"/>
    {[[150,780],[760,1170],[930,760],[300,1200]].map(([x,y],i)=><ellipse key={i} cx={x} cy={y} rx={30+i*8} ry={4} fill="#B8AD98" opacity={.6}/>)}
    <path d="M-40 708L1120 684" stroke="#FFFFFF" strokeWidth={3} opacity={.6}/>
-   <Item id="s1-phone"><At p={at0} s={1.5} r={rot}><g transform="scale(1 .85)">
-    <Item id="s1-banner"><StreetHubSupport part="phone" pal={pal} banner={s1e3} t={t}/></Item></g></At></Item>
+   <Item id="s1-phone"><At p={at0} s={L.scale} r={rot}><g transform={`scale(1 ${L.squash})`}>
+    <Item id="s1-banner"><StreetHubSupport part="phone" pal={pal} banner={banner} buzz={buzz} t={t} w={L.w} h={L.h} font={L.font}/></Item></g></At></Item>
    {rain(.22)}
   </g>;
   break;}
@@ -342,22 +439,32 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   const Ys=detail?1150:lerp(1190,1080,s3e2);
   const base:Pt=[xPost,Ys-level*s];
   const glints=at('s3')?[0,1,2,3].map(i=>Math.sin(Math.PI*clamp(s3e1*4-i))):[0,0,0,0];
+  // n3a ends on the optical sensors alone. In the shot that carries s3-event-3 the camera tilts down
+  // with the risen water until all four lit lenses under the surface sit above the caption band, and
+  // each lens flares in turn from the highest to the lowest: four sensors at four heights, watching.
+  const pulseShot=at('s3')&&shot.event_id==='s3-event-3';
+  const D=pulseShot?S3_PULSE.tilt[v]*ease(raw({start:shot.start_s,end:shot.start_s+S3_PULSE.tiltS})):0;
+  const flare=[0,1,2,3].map(i=>pulseShot?Math.sin(Math.PI*clamp(s3e3*4-(3-i))):0);
   const ids=detail?['s1-post','s1-marks','s1-water']:['s3-stack','s3-marks','s3-water'];
   const S=wading('wm',base,s,<At p={base} s={s}>{station({shadow:0})}</At>);
   const bank=<g data-part="far-bank">
    <path d="M-80 1012Q300 1004 620 1014T1160 1010L1160 1046L-80 1046Z" fill="#7E8A4A"/>
    {[[120,1030,90],[700,1026,120],[980,1032,70]].map(([x,y,h],i)=><At key={i} p={[x,y]}><StreetHubSupport part="oak" h={h} seed={30+i}/></At>)}
   </g>;
-  pic=<g data-world={detail?'design-detail':'sensor-column'}>
+  pic=<g data-world={detail?'design-detail':'sensor-column'} transform={D?`translate(0 ${(-D).toFixed(2)})`:undefined}>
    {bank}
    <Item id={ids[2]}><StreetHubSupport part="water" x0={-80} x1={1160} y={1042} depth={900} t={t} edge="straight"
     reflect={<g>{mirrorAbout(1044,bank)}{S.refl}</g>}/></Item>
-   {pods.map((g,i)=>{const q=podPoint(i),y=base[1]+q[1]*s;return y>Ys+8&&g>0&&<g key={'u'+i}>
+   {(()=>{const glow=pods.map((g,i)=>{const q=podPoint(i),y=base[1]+q[1]*s;return y>Ys+8&&g>0&&<g key={'u'+i}>
     <ellipse cx={base[0]+(q[0]+20)*s} cy={y} rx={90} ry={46} fill="#FFC861" opacity={.38*g}/>
-    <ellipse cx={base[0]+(q[0]+20)*s} cy={y} rx={34} ry={18} fill="#FFE7AE" opacity={.5*g}/></g>;})}
+    <ellipse cx={base[0]+(q[0]+20)*s} cy={y} rx={34} ry={18} fill="#FFE7AE" opacity={.5*g}/></g>;});
+    return detail?<g>{glow}</g>:<Item id="s3-glow">{glow}</Item>;})()}
    <Item id={ids[0]}><Item id={ids[1]}>{S.obj}</Item></Item>
    {ring(xPost+14,Ys,96)}
    {[0,1,2,3].map(i=>{const q=podPoint(i);return glints[i]>0&&<circle key={i} cx={base[0]+(q[0]+10)*s} cy={base[1]+q[1]*s} r={56*glints[i]} fill="#FFF4DA" opacity={.5*glints[i]}/>;})}
+   {pulseShot&&<Item id="s3-glow">{[0,1,2,3].map(i=>{const q=podPoint(i);return flare[i]>0&&<g key={'f'+i} data-part="lens-flare">
+    <circle cx={base[0]+(q[0]+20)*s} cy={base[1]+q[1]*s} r={S3_PULSE.flareR*(.55+.45*flare[i])} fill="none" stroke="#FFE7AE" strokeWidth={6} opacity={.85*flare[i]}/>
+    <ellipse cx={base[0]+(q[0]+20)*s} cy={base[1]+q[1]*s} rx={70} ry={36} fill="#FFC861" opacity={.35*flare[i]}/></g>;})}</Item>}
    {!detail&&rain(.16)}
   </g>;
   break;}
@@ -384,13 +491,17 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   // flood risk") the chip sends its judgment along a trace: the large hooded amber lamp blazes and the
   // risk bar beside the board climbs from one low step to four. The detail framing pushes in on the
   // chip and the lamp. No cable leaves the box for a server.
-  const c:Pt=[540,800], s=1.1;
-  const lampP:Pt=[c[0]+CUTAWAY_LAMP[0]*s,c[1]+CUTAWAY_LAMP[1]*s], chipP:Pt=[c[0]+36*s,c[1]+20*s];
+  // THE PUSH IS BOUNDED IN FINAL SCREEN SPACE. The opened housing sits at CHIP.c so its door, box,
+  // large lamp and flood risk label keep 40 px from every edge at rest, and the detail push is a
+  // centred CHIP.scale about CHIP.push that still keeps them 40 px inside at its end. The readings
+  // start with "A small chip..." and flow in two waves across the clause.
+  const {c,s}=CHIP;
   const push=fr==='detail'?ease(raw({start:shot.start_s,end:win('s4-event-2').start})):0;
   const chipGlow=Math.max(.35*s4e1,s4e2);
-  pic=<g data-world="housing-cutaway"><Cam f={mix(c,mix(lampP,chipP,.5),push)} s={lerp(1,1.4,push)} a={mix(c,[540,820],push)}>
+  const readings=readingWaves;
+  pic=<g data-world="housing-cutaway"><Cam f={CHIP.push} s={lerp(1,CHIP.scale,push)} a={CHIP.push}>
    <Item id="s4-traces"><Item id="s4-chip"><Item id="s4-risk"><At p={c} s={s}>
-    <FloodStationHero part="cutaway" readings={s4e1} chip={chipGlow} risk={s4e2} battery={battery}/></At></Item></Item></Item>
+    <FloodStationHero part="cutaway" readings={readings} chip={chipGlow} risk={s4e2} battery={battery}/></At></Item></Item></Item>
   </Cam>
    <At p={[90,300]}>{tag(['Judged on','the station'],s4e2,{side:'right',drop:24,scale:.9})}</At>
   </g>;
@@ -405,7 +516,7 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   if(fr==='close'){
    const base:Pt=[560,2300], s=1.5;
    pic=<g data-world="housing-window">
-    <Item id="s4-station"><Item id="s4-chip"><Item id="s4-traces"><At p={base} s={s}>{station({window:1,readings:s4e1,shadow:0})}</At></Item></Item></Item>
+    <Item id="s4-station"><Item id="s4-chip"><Item id="s4-traces"><At p={base} s={s}>{station({window:1,readings:readingWaves,shadow:0})}</At></Item></Item></Item>
     {rain(.14)}
    </g>;
    break;
@@ -484,6 +595,11 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   const e3=win('s5-event-3'), tm=(e3.start+e3.end)/2;
   const ringP=clamp((t-shot.start_s)/(tm-shot.start_s));
   const lamp=clamp((t-tm)/.12);
+  // The station keeps sending: after the first rings land, the next set leaves the inset and reaches
+  // the mast one travel time later, again until the cut, and the mast flashes as each set lands.
+  const period=tm-shot.start_s, wave=Math.max(0,Math.floor((t-tm)/period));
+  const ringP2=t>tm?((t-tm)/period)%1:0, land2=t>tm+period?(t-tm)-wave*period:-1;
+  const flash2=land2>=0?Math.exp(-4*land2):0;
   pic=<g data-world="open-country">
    <Grounded baseY={1080} on={exterior}>
     <StreetHubSupport part="lawn" d="M-60 988L1140 980L1140 1980L-60 1980Z" box={[-60,980,1200,1000]} seed={23}/>
@@ -492,8 +608,9 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    </Grounded>
    <Grounded baseY={1120} on={exterior}><At p={[60,1120]} s={.8}><StreetHubSupport part="fence" x0={0} x1={460} h={240} posts={4} mark={-1}/></At></Grounded>
    <Item id="s5-hub"><Grounded baseY={hubAt[1]} on={exterior}><At p={hubAt} s={hs}><StreetHubSupport part="hub" lamp={lamp} glow={lamp} pal={pal}/></At></Grounded></Item>
-   <Item id="s5-ring"><g data-part="open-rings">{[0,1,2].map(k=>{const u=ringP*1.0-k*.18;if(u<=0||u>1.08)return null;
-    return <circle key={k} cx={ant[0]} cy={ant[1]} r={R*u} fill="none" stroke={pal.accent} strokeWidth={8*(1.2-.5*Math.min(1,u))} opacity={Math.min(.95,1.6-1.2*u)}/>;})}</g></Item>
+   <Item id="s5-ring"><g data-part="open-rings">{[ringP,ringP2].flatMap((P,w)=>[0,1,2].map(k=>{const u=P*1.0-k*.18;if(u<=0||u>1.08)return null;
+    return <circle key={w+'-'+k} cx={ant[0]} cy={ant[1]} r={R*u} fill="none" stroke={pal.accent} strokeWidth={8*(1.2-.5*Math.min(1,u))} opacity={Math.min(.95,1.6-1.2*u)}/>;}))}
+    {flash2>.02&&<circle cx={mast[0]} cy={mast[1]} r={(14+60*(1-flash2))*hs} fill="none" stroke={pal.accent} strokeWidth={5} opacity={flash2}/>}</g></Item>
    <Item id="s5-antenna"><g data-part="station-inset">
     <defs><clipPath id="fs-inset"><rect x={inset.x} y={inset.y} width={inset.w} height={inset.h} rx={18}/></clipPath></defs>
     <rect x={inset.x+6} y={inset.y+10} width={inset.w} height={inset.h} rx={18} fill="#1E1A16" opacity={.25}/>
@@ -553,7 +670,8 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   // from the first station dots, then down the low streets to the low points (s6-event-2, "maps flood
   // paths"). A: higher-risk zones outline themselves and the responders tag pins (s6-event-3). B opens
   // here: the dots arrive and the second, larger model tag pins (s6-event-1) before the paths spread.
-  const x=50,y=280,w=980,h=1000;
+  // The bezel ends at y + h + 26, above the caption band's top for the whole shot.
+  const {x,y,w,h}=MAP_SCREEN;
   pic=<g data-world="dashboard-screen">
    <rect x={x-26} y={y-26} width={w+52} height={h+52} rx={18} fill="#26292B" stroke="#121415" strokeWidth={4}/>
    <svg x={x} y={y} width={w} height={h} viewBox={`0 0 ${w} ${h}`} overflow="hidden">
@@ -567,12 +685,19 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  case 'no-field-card':{
   // s7 and the first shot of s8, outdoors at the curb: a notice board on two weathered posts stands on
   // the verge, the wet street and its reflective standing water in front, the region behind. In
-  // clause order in both treatments. s7-event-1: the validation card is pinned on the board and an
-  // orange tape strip is pressed along its bar from a rolling roll as the university's reported
-  // figure appears and holds. s7-event-2: the initial assessments tag is pinned under it.
-  // s7-event-3: the blank field result card slides onto the board beside it and a pushpin presses it
-  // home. s8-event-0: a hand brings a rubber stamp down onto the blank card, presses none reported
-  // and lifts it away. validation-card's detail framing pushes in on the bar end and the tag.
+  // clause order in both treatments. s7-event-1, from the first words of "The university reports
+  // early chip AI validation": an orange tape strip is pressed along the validation card's bar from
+  // end to end. s7-event-2, from the first words of "Accuracy was ninety eight point eight two
+  // percent": the university's reported figure appears on the full bar, then the initial assessments
+  // tag is pinned under the card. s7-event-3: the blank field result card slides onto the board and a
+  // pushpin presses it home. s8-event-0: the technician standing at the board brings a rubber stamp
+  // down onto the blank card with her own arm, presses none reported and lifts it away.
+  //
+  // HELD FRAMINGS, NO PUSH (R15h). Twice a push or an offset was tuned to keep these cards in the
+  // frame and twice a card still left it, because the group already rides the plate camera
+  // (PlaceSubject: the framing's zoom about film row 960 and the scene's dolly, truck or crane). Now
+  // neither view pushes. Each holds one layout (S7, S8) whose cards are sized and placed inside the
+  // composed safe margins at every frame of both treatments.
   const moved=!!W['s8-event-0'], stamp=moved?p('s8-event-0'):s7e3;
   const boardW=<g>
    <g>
@@ -585,95 +710,86 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    <StreetHubSupport part="board" x0={110} x1={970} y0={330} y1={960} ground={1240}/>
   </g>;
   if(view==='validation-card'){
-   // THE DETAIL PUSH IS BOUNDED IN FINAL SCREEN SPACE. This group already rides the plate camera
-   // (PlaceSubject: the detail framing's 1.3 zoom about film row 960 and the scene's dollyThrough or
-   // truckAcross move), so the push composes with a ground scale of 1.30 to 1.35. Pushing 1.3 about
-   // [560,700] on top of it cropped the figure to 8.82% and lifted the heading under the disclosure
-   // chip. The push is 1.15 about PUSH_AT, the first scale whose focus interval holds for every frame
-   // of 44.88 to 49.2 s in both treatments: the 98.82% (its leading 9) and the heading stay at least
-   // 40 px inside the left edge, the heading top stays below y 240 (the chip ends at 220), and the
-   // whole assessments tag stays above y 1263, under the caption band's top.
-   const PUSH_AT:Pt=[140,230], PUSH_SCALE=1.15;
-   const push=fr==='detail'?ease(raw({start:shot.start_s,end:shot.start_s+1})):0;
+   const {card,tag:tg,result:rs}=S7;
+   // The card is pinned up as the scene opens (its first pin pressed home), the tape strip is laid on
+   // s7-event-1, the spent roll drops away and the second pin is pressed: the shot keeps performing
+   // until the cut. The figure arrives on s7-event-2, with "Accuracy was ninety eight point eight two
+   // percent", and the after training tag pins in the rest of that event.
+   const W1e=win('s7-event-1'), up=ease(raw({start:scene.start_s,end:scene.start_s+.4}));
+   const pin1=clamp((t-scene.start_s-.25)/.2), rollOut=raw({start:W1e.end,end:W1e.end+.6}), pin2=clamp((t-W1e.end-.62)/.25);
+   const r2=raw(win('s7-event-2')), figure=ease(clamp(r2/.35)), tagShown=clamp((r2-.35)/.65);
    const slide=moved?ease(clamp(s7e3/.8)):1, pinIn=moved?clamp((s7e3-.8)/.2):1;
-   const resAt:Pt=v==='a'?[lerp(1240,640,slide),520]:[lerp(-500,640,slide),520];
-   pic=<Cam f={PUSH_AT} s={lerp(1,PUSH_SCALE,push)} a={PUSH_AT}><Grounded baseY={1240} on={exterior}><g data-world="curb-notice-board">
+   const resAt:Pt=[lerp(rs.from[v],rs.at[0],slide),rs.at[1]];
+   pic=<Grounded baseY={1240} on={exterior}><g data-world="curb-notice-board">
     {boardW}
-    <Item id="s7-card"><Item id="s7-bar"><At p={[150,400]} s={.8}><StreetHubSupport part="card" fill={s7e1} value={VALIDATION.text} share={VALIDATION.share} pal={pal}/></At>
-     <At p={[176,412]}><StreetHubSupport part="pin" color="#C84B3A"/></At><At p={[636,410]}><StreetHubSupport part="pin" color="#3E7A9C"/></At></Item></Item>
-    <Item id="s7-tag"><At p={[200,760]}>{tag(['Initial assessments','after training'],s7e2,{side:'right',drop:30,scale:.86})}</At></Item>
-    <Item id="s7-card2"><Item id="s7-blank">{(moved?s7e3>0:true)&&<g><At p={resAt} s={.58}><StreetHubSupport part="result" stamp={0} pal={pal}/></At>
-     {slide>=1&&<At p={[resAt[0]+163,resAt[1]+12]}><StreetHubSupport part="pin" color="#E3A32B" press={pinIn}/></At>}</g>}</Item></Item>
-   </g></Grounded></Cam>;
+    <Item id="s7-card"><Item id="s7-bar"><g opacity={clamp(up*2)} transform={`translate(0 ${(-30*(1-up)).toFixed(2)})`}>
+     <At p={card.at} s={card.s}><StreetHubSupport part="card" fill={s7e1} figure={figure} rollOut={rollOut} value={VALIDATION.text} share={VALIDATION.share} pal={pal}/></At>
+     {pin1>0&&<At p={[card.at[0]+22,card.at[1]+11]}><StreetHubSupport part="pin" color="#C84B3A" press={pin1}/></At>}
+     {pin2>0&&<At p={[card.at[0]+610*card.s,card.at[1]+10]}><StreetHubSupport part="pin" color="#3E7A9C" press={pin2}/></At>}</g></Item></Item>
+    <Item id="s7-tag"><At p={tg.at}>{tag(['Initial assessments','after training'],tagShown,{side:'right',drop:30,scale:tg.s})}</At></Item>
+    <Item id="s7-card2"><Item id="s7-blank">{(moved?s7e3>0:true)&&<g><At p={resAt} s={rs.s}><StreetHubSupport part="result" stamp={0} pal={pal}/></At>
+     {slide>=1&&<At p={[resAt[0]+280*rs.s,resAt[1]+12]}><StreetHubSupport part="pin" color="#E3A32B" press={pinIn}/></At>}</g>}</Item></Item>
+   </g></Grounded>;
    break;
   }
   const ids=moved?{card:'s8-valcard',bar:'s8-valbar',tag:'s8-assess',card2:'s8-card2',blank:'s8-blank'}:{card:'s7-card',bar:'s7-bar',tag:'s7-tag',card2:'s7-card2',blank:'s7-blank'};
-  const stampId=moved?'s8-event-0':'s7-event-3', SW=win(stampId);
-  const push=fr==='detail'?ease(raw({start:shot.start_s,end:SW.start})):0;
-  // THE DETAIL FRAMING HERE IS A NEAR-HOLD, BOUNDED IN FINAL SCREEN SPACE. This group rides the plate
-  // camera (PlaceSubject: the detail framing's 1.3 zoom about film row 960, craneDown's small drift), so
-  // the old push to 1.12 toward x 726 carried the validation card off the left edge and left '2%'.
-  // The printed text from the 98.82% figure (x 38 under the ground camera) and the assessments tag
-  // (x 23) to the end of 'None reported' (x 1018) spans about 980 px of the 1010 the margins allow, so
-  // the reframe recentres 20 px right from the first frame and pushes only 2% about NF_AT on the same
-  // clock: the first candidate scale that holds every frame of 49.2 to 52.16 s with the figure, its
-  // heading and 'Reported by' at least 40 px inside the left edge, the tag at least 30, 'None reported'
-  // ending by x 1050, 'Field result' clear of the disclosure chip, all above the caption band. The stamp
-  // coming down carries the shot's action.
-  const NF_AT:Pt=[540,500], NF_SHIFT=20, NF_SCALE=1.02, held=fr==='detail';
-  const camF:Pt=held?NF_AT:mix([540,700],[726,700],push), camS=held?lerp(1,NF_SCALE,push):lerp(1,1.12,push);
-  const camA:Pt=held?[NF_AT[0]+NF_SHIFT,NF_AT[1]]:mix([540,700],[600,700],push);
-  // the stamp: enters with the hand before the event, comes down, presses, lifts, leaves after it
-  const card2:Pt=[520,400], cs=.8, mark:Pt=[card2[0]+280*cs,card2[1]+250*cs];
-  const enter=ease(raw({start:shot.start_s+.2,end:SW.start})), leave=ease(raw({start:SW.end,end:SW.end+.55}));
-  const down=stamp<.45?ease(stamp/.45):stamp<.66?1:1-ease((stamp-.66)/.34);
+  const SW=win(moved?'s8-event-0':'s7-event-3');
+  const {card,tag:tg,result:rs,tech,stamp:ks}=S8;
+  // The stamp hangs in the technician's hand at her side, rises to hover over the blank card before
+  // the event, comes down, presses and lifts on the event, and her arm returns to her side after it.
+  // The stamp's knob is always in her palm: its base is placed from her hand, never on its own.
+  const mark:Pt=[rs.at[0]+280*rs.s,rs.at[1]+250*rs.s];
+  const restBase=stampFromWrist(tech,techRest('left'),ks);
+  const hover:Pt=[mark[0]+30,mark[1]-160], down:Pt=[mark[0],mark[1]+12];
+  const raise=ease(raw({start:shot.start_s+.15,end:SW.start})), lower=ease(raw({start:SW.end,end:SW.end+.7}));
+  const press=stamp<.45?ease(stamp/.45):stamp<.66?1:1-ease((stamp-.66)/.34);
+  const base:Pt=stamp<=0?mix(restBase,hover,raise):stamp<1?mix(hover,down,press):mix(hover,restBase,lower);
   const squash=stamp>.45&&stamp<.66?Math.sin(Math.PI*(stamp-.45)/.21)*.06:0;
-  const stampBase:Pt=[mark[0]+lerp(260,0,enter)+lerp(0,300,leave),lerp(lerp(120,330,enter),mark[1]+44,down)-lerp(0,400,leave)];
   const printed=clamp((stamp-.45)/.06);
-  const knob:Pt=[stampBase[0],stampBase[1]-150*.82];
-  pic=<Cam f={camF} s={camS} a={camA}><Grounded baseY={1240} on={exterior}><g data-world="curb-notice-board-two-cards">
+  const wrist=techHand(tech,'left',[base[0],base[1]-150*ks],'grip','palm').wrist;
+  const techProps={left:wrist,right:techRest('right'),leftPose:'grip' as const,rightPose:'rest' as const,look:[-.9,-.15] as Pt,t,ground:TECH.ground};
+  pic=<Grounded baseY={1240} on={exterior}><g data-world="curb-notice-board-two-cards">
    {boardW}
-   <Item id={ids.card}><Item id={ids.bar}><At p={[130,430]} s={.6}><StreetHubSupport part="card" fill={s7e1} value={VALIDATION.text} share={VALIDATION.share} pal={pal}/></At>
-    <At p={[150,440]}><StreetHubSupport part="pin" color="#C84B3A"/></At></Item></Item>
-   <Item id={ids.tag}><At p={[150,700]}>{tag(['Initial assessments','after training'],s7e2,{side:'right',drop:24,scale:.62})}</At></Item>
-   <Item id={ids.card2}><Item id={ids.blank}><At p={card2} s={cs}><StreetHubSupport part="result" stamp={printed} pal={pal}/></At>
-    <At p={[card2[0]+224,card2[1]+14]}><StreetHubSupport part="pin" color="#E3A32B"/></At>
-    {leave<1&&stamp<1.01&&enter>0&&<g data-part="stamping">
-     <At p={stampBase}><g transform={`scale(${.82*(1+squash)} ${.82*(1-squash)})`}><StreetHubSupport part="stamp"/></g></At>
-     <StreetHubSupport part="reacher" from={[1180,lerp(-80,-200,leave)]} at={[knob[0]+46,knob[1]-36]} pose="grip" s={1.5}/>
-    </g>}</Item></Item>
-  </g></Grounded></Cam>;
+   <Item id={ids.card}><Item id={ids.bar}><At p={card.at} s={card.s}><StreetHubSupport part="card" fill={s7e1} value={VALIDATION.text} share={VALIDATION.share} pal={pal}/></At>
+    <At p={[card.at[0]+20,card.at[1]+10]}><StreetHubSupport part="pin" color="#C84B3A"/></At></Item></Item>
+   <Item id={ids.tag}><At p={tg.at}>{tag(['Initial assessments','after training'],s7e2,{side:'right',drop:24,scale:tg.s})}</At></Item>
+   <Item id={ids.card2}><Item id={ids.blank}><At p={rs.at} s={rs.s}><StreetHubSupport part="result" stamp={printed} pal={pal}/></At>
+    <At p={[rs.at[0]+280*rs.s,rs.at[1]+12]}><StreetHubSupport part="pin" color="#E3A32B"/></At>
+    <g data-part="stamping">
+     <TechAt o={tech}><StreetHubSupport part="technician" {...techProps} layer="body"/></TechAt>
+     <At p={base}><g transform={`scale(${ks*(1+squash)} ${ks*(1-squash)})`}><StreetHubSupport part="stamp"/></g></At>
+     <TechAt o={tech}><StreetHubSupport part="technician" {...techProps} layer="arms"/></TechAt>
+    </g></Item></Item>
+  </g></Grounded>;
   break;}
  case 'empty-map':
  case 'station-return':{
   // s8's second shot, outdoors at the curb: the one paper street map pinned to the chain link fence,
   // the region behind it and the wet street below. A frames it close (empty-map), B wide on the curb
-  // (station-return). s8-event-1: the map settles on the mesh. s8-event-2: a hand comes in from the
-  // right edge, slides one finger along the creek and up a street past the blank pin holes, and lifts
-  // away; the map keeps its blank holes. s8-event-3: the announcement names no installation tag pins
-  // beside it.
-  const close=view==='empty-map';
-  const m:Pt=close?[120,lerp(300,330,ease(s8e1))]:[480,lerp(676,690,ease(s8e1))];
-  const mw=close?840:430, mh=close?940:470;
+  // (station-return). The technician who stamped the card stands at the fence beside the map, her
+  // whole figure attached to the hand that reads it. s8-event-1: the map settles on the mesh.
+  // s8-event-2: her hand comes up, one finger slides along the creek's right reach and up a street
+  // past a blank pin hole, and her arm goes back to her side; the map keeps its blank holes.
+  // s8-event-3: the announcement names no installation tag pins beside it.
+  const close=view==='empty-map', L=close?MAPSHOT.close:MAPSHOT.wide;
   const settle=ease(s8e1);
-  const w2=win('s8-event-2'), approach=raw({start:win('s8-event-1').end,end:w2.start}), exit=raw({start:w2.end,end:w2.end+.4});
+  const m:Pt=[L.m[0],L.m[1]+lerp(-24,0,settle)];
+  const mw=L.w, mh=L.h;
+  const w2=win('s8-event-2'), approach=raw({start:win('s8-event-1').end,end:w2.start}), exit=raw({start:w2.end,end:w2.end+.5});
   const q=s8e2, touch=clamp(q/.12)*(1-clamp((q-.82)/.18)), slide=ease(clamp((q-.12)/.68));
-  const trace=MAP_TRACE.map(([u,vv])=>[m[0]+u*mw,m[1]+vv*mh] as Pt);
+  const trace=MAP_READ.map(([u,vv])=>[m[0]+u*mw,m[1]+vv*mh] as Pt);
   const along=(u:number):Pt=>{const seg=trace.slice(1).map((pt,i)=>Math.hypot(pt[0]-trace[i][0],pt[1]-trace[i][1]));let d=u*seg.reduce((a,b)=>a+b,0);
    for(let i=0;i<seg.length;i++){if(d<=seg[i]||i===seg.length-1)return mix(trace[i],trace[i+1],seg[i]?clamp(d/seg[i]):0);d-=seg[i];}return trace[trace.length-1];};
-  const hs=close?1.5:.95, from:Pt=close?[1200,1180]:[1200,1120];
-  const tipAt=along(slide), lift=1-touch;
-  const target:Pt=[tipAt[0]-10*lift,tipAt[1]-22*lift*hs];
-  const offIn:Pt=[from[0]-80,target[1]+60];
-  const tipNow=q>0?target:mix(offIn,along(0),ease(approach));
-  const tipFinal=exit>0?mix(target,offIn,ease(exit)):tipNow;
-  // place the wrist so the index fingertip lands on the target
-  let deg=Math.atan2(tipFinal[1]-from[1],tipFinal[0]-from[0])*180/Math.PI, wrist:Pt=tipFinal;
-  for(let k=0;k<2;k++){const tip=indexTip([0,0],deg,hs,'point');wrist=[tipFinal[0]-tip[0],tipFinal[1]-tip[1]];deg=Math.atan2(wrist[1]-from[1],wrist[0]-from[0])*180/Math.PI;}
-  const showHand=(approach>0||q>0)&&exit<1;
+  const tipAt=along(slide), lift=1-touch, hs=L.tech.s;
+  const target:Pt=[tipAt[0]-10*lift*hs,tipAt[1]-22*lift*hs];
+  const restW=techRest('left'), touchW=techHand(L.tech,'left',target,'point','tip').wrist;
+  const startW=techHand(L.tech,'left',[trace[0][0]-10*hs,trace[0][1]-22*hs],'point','tip').wrist;
+  const wrist:Pt=q<=0?mix(restW,startW,ease(approach)):exit<=0?touchW:mix(touchW,restW,ease(exit));
+  const resting=(q<=0&&approach<=0)||exit>=1;
+  const techProps={left:wrist,right:techRest('right'),leftPose:(resting?'rest':'point') as HandPose,rightPose:'rest' as const,look:[-1,-.1] as Pt,t,ground:TECH.ground};
   const fence=close?<At p={[-40,1400]} s={2.6}><StreetHubSupport part="fence" x0={0} x1={460} h={420} posts={3} lean={1.5} mark={-1}/></At>
-   :<At p={[380,1232]}><StreetHubSupport part="fence" x0={0} x1={640} h={560} posts={3} lean={1.5} mark={-1}/></At>;
-  const groundY=close?1400:1236;
+   :<At p={[300,1232]}><StreetHubSupport part="fence" x0={0} x1={640} h={660} posts={3} lean={1.5} mark={-1}/></At>;
+  const groundY=L.ground;
   pic=<Grounded baseY={groundY} on={exterior}><g data-world="paper-map-on-fence">
    <g>
     <StreetHubSupport part="lawn" d={`M-60 ${groundY-40}L1140 ${groundY-46}L1140 ${groundY+40}L-60 ${groundY+44}Z`} box={[-60,groundY-46,1200,90]} seed={81}/>
@@ -684,67 +800,62 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    <Item id="s8-fence">{fence}</Item>
    <Item id="s8-map"><Item id="s8-nopin"><At p={m} r={lerp(4,-1,settle)} o={clamp(settle*3+.2)}>
     <StreetHubSupport part="mapcard" w={mw} h={mh} pal={pal}/></At></Item></Item>
-   {[[m[0]+30,m[1]+14],[m[0]+mw-34,m[1]+18]].map(([x,y2],i)=><circle key={i} cx={x} cy={y2} r={close?11:7} fill="#5A5249" stroke="#2E2A26" strokeWidth={2}/>)}
-   <Item id="s8-hand">{showHand&&<g>
-    {q>0&&touch>.3&&<ellipse cx={tipFinal[0]+6} cy={tipFinal[1]+6} rx={18*hs} ry={7*hs} fill="#1E1A16" opacity={.18*touch}/>}
-    <StreetHubSupport part="reacher" from={from} at={wrist} pose="point" s={hs}/>
-   </g>}</Item>
+   {[[m[0]+30,m[1]+14],[m[0]+mw-34,m[1]+18]].map(([x,y2],i)=><circle key={i} cx={x} cy={y2} r={close?10:7} fill="#5A5249" stroke="#2E2A26" strokeWidth={2}/>)}
+   <TechAt o={L.tech}><StreetHubSupport part="technician" {...techProps} layer="body"/></TechAt>
+   <Item id="s8-hand">
+    {q>0&&touch>.3&&<ellipse cx={target[0]+6} cy={target[1]+6} rx={16*hs} ry={6*hs} fill="#1E1A16" opacity={.18*touch}/>}
+    <TechAt o={L.tech}><StreetHubSupport part="technician" {...techProps} layer="arms"/></TechAt>
+   </Item>
    <Item id="s8-tag"><At p={close?[m[0]+mw-60,m[1]+40]:[m[0]+mw-30,m[1]+30]}>{tag(['Announcement names','no installation'],s8e3,{side:'left',drop:26,scale:close?.92:.78,tone:'ink'})}</At></Item>
   </g></Grounded>;
   break;}
  case 'curb-table':{
-  // s9, outdoors at a folding table on the curb verge, the same chain link fence and paper map behind
-  // it and the wet street in front. A complete technician stands behind the table. Over the scene's
-  // first beat she folds the printed deployment plan's lower third up along its crease, and on
-  // s9-event-1 she folds the upper third down. She carries the folded plan to the prototype's closed
-  // hard case and on s9-event-2 tucks it into the case's front pocket, her other hand steadying the
-  // case. On s9-event-3 she presses the case's open latch shut and takes her hand away, and a
-  // deployment goal tag hangs from the case beside the bench prototype station. The case stays on
-  // the table: nothing is lifted, carried or installed. A wide; B close.
-  const tS=scene.start_s, w1=win('s9-event-1'), w2=win('s9-event-2'), w3=win('s9-event-3');
-  const fold=ease(raw({start:tS+.04,end:w1.start}))+s9e1;
-  const move=ease(raw({start:w1.end,end:w2.start}));
-  const tuck=s9e2;
-  const reachLatch=ease(raw({start:w2.end,end:w3.start}));
-  const press=clamp((s9e3-.25)/.5);
-  const away=ease(raw({start:w3.end,end:w3.end+.5}));
-  const caseB:Pt=[380,968], cs=.9;
-  const pocketTop=caseB[1]+CASE.pocket[1]*cs, pocketX=caseB[0]+(CASE.pocket[0]+CASE.pocket[2]/2)*cs;
-  const latchP:Pt=[caseB[0]+CASE.latchR[0]*cs,caseB[1]+(CASE.latchR[1]+4)*cs];
-  const PC:Pt=[575,690], ph=86, pw=200;
-  const packet:Pt=move<1?mix(PC,[pocketX,pocketTop-ph/2+8],move):[pocketX,pocketTop-ph/2+8+lerp(0,ph*.82,ease(tuck))];
-  const f1=clamp(fold), f2=clamp(fold-1);
-  const lowEdge=PC[1]+ph/2+ph*Math.cos(Math.PI*ease(f1)), topEdge=PC[1]-ph/2-ph*Math.cos(Math.PI*ease(f2));
-  // the hands
-  let right:Pt, left:Pt, rPose:'pinch'|'press'|'rest'|'flat'|'open'='pinch', lPose:'pinch'|'flat'|'rest'='pinch';
-  if(move<=0){right=fold<1?[PC[0]+pw/2+6,lowEdge]:[PC[0]+pw/2+6,topEdge];left=[PC[0]-pw/2-8,PC[1]];}
-  else if(tuck<1||reachLatch<=0){right=[packet[0]+pw/2+6,packet[1]];left=mix([PC[0]-pw/2-8,PC[1]],[caseB[0]-100,caseB[1]-CASE.h*cs-6],move);lPose=move>.6?'flat':'pinch';}
-  else{left=[caseB[0]-100,caseB[1]-CASE.h*cs-6];lPose='flat';right=[packet[0]+pw/2+6,packet[1]];}
-  if(reachLatch>0){const over:Pt=[latchP[0]+44,latchP[1]-46-lerp(0,-24,press)];right=mix([packet[0]+pw/2+6,packet[1]],over,reachLatch);rPose='press';}
-  if(away>0){right=mix(right,[600,930],away);left=mix(left,[352,934],away);rPose='rest';lPose='rest';}
-  const look:Pt=[move>0&&away<1?-.4:0,away>0?lerp(-.55,-.1,away):-.55];
-  const inPocket=move>=1&&tuck>0;
-  const world=<Grounded baseY={1150} on={exterior}><g data-world="curb-folding-table">
-   <g>
-    <StreetHubSupport part="lawn" d="M-60 1040L1140 1030L1140 1252L-60 1258Z" box={[-60,1030,1200,228]} seed={91}/>
-    <StreetHubSupport part="curb" x0={-60} y0={1252} x1={1140} y1={1246} h={20}/>
-    <StreetHubSupport part="street" x0={-60} x1={1140} yFar={1272} yNear={1990} t={t}/>
-    <StreetHubSupport part="water" x0={-60} x1={1140} y={1282} depth={700} t={t} edge="straight" opacity={.9}
-     reflect={mirrorAbout(1250,<g><rect x={150} y={980} width={780} height={20} fill="#B9B3A6"/><rect x={245} y={698} width={270} height={270} fill="#2F3336"/></g>)}/>
-   </g>
-   <Item id="s9-curb"><g><At p={[560,1092]} s={.9}><StreetHubSupport part="fence" x0={0} x1={560} h={300} posts={3} mark={-1}/></At>
-    <At p={[690,880]} r={-2}><StreetHubSupport part="mapcard" w={150} h={164} pal={pal} seed={41}/></At></g></Item>
-   <Item id="s9-tech"><StreetHubSupport part="technician" left={left} right={right} leftPose={lPose} rightPose={rPose} look={look} t={t} ground={1150} layer="body"/></Item>
-   <Item id="s9-table"><StreetHubSupport part="table" x0={150} x1={930} y={975} depth={70} ground={1215}/></Item>
-   <Item id="s9-station"><At p={[730,968]} s={.33}><FloodStationHero part="bench" pods={[1,1,1,1]} battery={1} risk={0} weather={[1,1,1,1]} time={t}/></At></Item>
-   <Item id="s9-case"><At p={caseB} s={cs}><StreetHubSupport part="case" latch={press}/></At></Item>
-   <Item id="s9-plan">{(inPocket
-    ?<Band k="plan" y1={pocketTop}><At p={packet}><StreetHubSupport part="plan" fold={2} w={pw} ph={ph} pal={pal}/></At></Band>
-    :<At p={move>0?packet:PC}><StreetHubSupport part="plan" fold={move>0?2:fold} w={pw} ph={ph} pal={pal}/></At>)}</Item>
-   <StreetHubSupport part="technician" left={left} right={right} leftPose={lPose} rightPose={rPose} look={look} t={t} ground={1150} layer="arms"/>
-   <Item id="s9-tag"><At p={[caseB[0]+CASE.w/2*cs-4,caseB[1]-CASE.h*cs+50]}>{tag(['Deployment goal'],s9e3,{side:'right',drop:26,scale:.8,tone:'accent'})}</At></Item>
-  </g></Grounded>;
-  pic=v==='a'?world:<Cam f={[500,800]} s={1.45} a={[540,840]}>{world}</Cam>;
+  // s9 RETURNS TO THE OPENING (R15h). "Deployment is still the goal" closes forward, in the yard the
+  // film opened in: the same flooded street, limestone curb, chain link fence with its orange ankle
+  // mark, live oak, porch and the dark phone on the porch rail. The prototype now stands on a pole at
+  // the curb, its lowest lens lit at the same ankle depth; and the technician who stamped the field
+  // result card stands in the water holding the deployment plan in her left hand and the prototype's
+  // closed carry case by its handle in her right. s9-event-1, from the clause's first word: she opens
+  // the folded plan out. s9-event-2: she looks up from the plan to the curb, an amber
+  // goal ring draws itself around the prototype and a field result tag, none reported, pins beside
+  // it. s9-event-3: the deployment goal tag pins beside the ringed prototype, never over it. Then the
+  // camera pulls back to the opening's own framing, the dark phone and the ankle mark. Nothing is
+  // folded away, packed, lifted or installed: the ring and the goal tag mark a goal, and the field
+  // result tag keeps the limit in the same picture. Her hand holds the case by its handle only, so
+  // no arm passes through the case.
+  const w2=win('s9-event-2'), w3=win('s9-event-3');
+  const r2=raw(w2), ringDraw=ease(clamp(r2/.7)), noneShown=clamp((r2-.35)/.65), look=ease(clamp(r2/.5));
+  const back=s9Back(t,w3.end,shot.start_s+shot.duration_s);
+  const SB=S9.station.base, ss=S9.station.s, T=S9.tech, P=S9.plan;
+  const st9=wading('s9s',SB,ss,<At p={SB} s={ss}>{station({})}</At>);
+  const leftW=techHand(T,'left',[P.c[0]-P.w/2-2,P.c[1]],'pinch','palm').wrist;
+  const rightW=techRest('right'), caseAt=caseFromWrist(T,rightW,S9.case.s);
+  const techProps={left:leftW,right:rightW,leftPose:'pinch' as const,rightPose:'grip' as const,look:[lerp(0,1,look),lerp(-.5,.05,look)] as Pt,t,ground:TECH.ground};
+  const techNode=<TechAt o={T}><StreetHubSupport part="technician" {...techProps} layer="body"/></TechAt>;
+  const tw=wading('s9t',T.feet,1,techNode,T.wade,320);
+  const ps=P.w/200;
+  const R=S9.ring, ringLen=Math.PI*(3*(R.rx+R.ry)-Math.sqrt((3*R.rx+R.ry)*(R.rx+3*R.ry)));
+  const ringD=`M${R.c[0]} ${R.c[1]-R.ry}A${R.rx} ${R.ry} 0 1 1 ${R.c[0]} ${R.c[1]+R.ry}A${R.rx} ${R.ry} 0 1 1 ${R.c[0]} ${R.c[1]-R.ry}`;
+  const sway=4*Math.sin(t*1.7);
+  const {node:world}=yard({p1:1,e2:1,sway,ids:false,rain:.2,reflect:<g>{st9.refl}{tw.refl}</g>,
+   curb:<Grounded baseY={SB[1]} on={exterior}><Item id="s9-station">{st9.obj}</Item>{ring(SB[0]+8,st9.wl,30)}</Grounded>,
+   front:<g>
+    <Grounded baseY={T.feet[1]} on={exterior}>
+     <Item id="s9-tech">{tw.obj}{ring(T.feet[0],tw.wl,46)}</Item>
+     <Item id="s9-case"><At p={caseAt} s={S9.case.s}><StreetHubSupport part="case" latch={1}/></At></Item>
+     <TechAt o={T}><StreetHubSupport part="technician" {...techProps} layer="arms" only="right"/></TechAt>
+     <Item id="s9-plan"><At p={P.c} s={ps}><StreetHubSupport part="plan" fold={2*(1-s9e1)} pal={pal}/></At></Item>
+     <TechAt o={T}><StreetHubSupport part="technician" {...techProps} layer="arms" only="left"/></TechAt>
+    </Grounded>
+    <Grounded baseY={SB[1]} on={exterior}>
+     {ringDraw>0&&<path d={ringD} fill="none" stroke={pal.accent} strokeWidth={7} strokeLinecap="round" data-part="goal-ring"
+      strokeDasharray={`${(ringLen*ringDraw).toFixed(1)} ${ringLen.toFixed(1)}`} opacity={.9+.1*Math.sin(t*3)}/>}
+     <At p={S9.none.at}>{tag(['Field result','None reported'],noneShown,{side:'right',drop:26,scale:S9.none.s})}</At>
+     <Item id="s9-tag"><At p={S9.goal.at}>{tag(['Deployment goal'],s9e3,{side:'right',drop:26,scale:S9.goal.s,tone:'accent'})}</At></Item>
+    </Grounded>
+   </g>});
+  const C=S9.cam[v].from;
+  pic=<Item id="s9-curb"><Cam f={mix(C.f,[540,960],back)} s={lerp(C.s,1,back)} a={mix(C.a,[540,960],back)}>{world}</Cam></Item>;
   break;}
  default:throw new Error('Unimplemented flood station view '+view);
  }

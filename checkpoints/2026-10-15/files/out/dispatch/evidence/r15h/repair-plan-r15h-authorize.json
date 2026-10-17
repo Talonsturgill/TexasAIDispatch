@@ -1,0 +1,48 @@
+{
+ "mechanism_id": "frame-safe-held-detail-and-forward-closing-v1",
+ "failure_family": "human-performance",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "Panel round 1 on the credit-corrected film 4bebb2cb rejected it at 6.642 in all three lenses. The independent classification (critic 43) found retained non-deferrable failures: the phone banner reads 'Flash Floo' (5.6 to 8.6 s) and the flood-risk label leaves the frame (24.0 to 25.2 s), the blank Field result card is cut by the right frame edge (48.8 to 52.1 s), the Deployment goal tag covers the prototype station (57.2 to 59.4 s) and the caption band overlaps the s6 map bezel, the weather-sensor labels appear under the four optical sensors clause (18.4 to 19.14 s), and the close reads as shelving the plan. It also confirmed failed modern floor observations: near-static holds, shared Head closed-eye lids at pitch below -0.45, disembodied Reacher arms and arms clipping the case.",
+ "repair": "One consolidated standard-scope correction. Renderer: reflow the phone banner inside its screen with measured margins, hold the chip-glow push inside the frame, size and place the Field result card inside the composed safe margins with a held framing and no further push, move the s9 tag off the station, shrink the s6 map screen above the caption band, change the Head lid rule so seated figures keep eyes open, attach the reacher arms to a figure and keep arms outside the case and bag. Board: end the optical-lens shot through the clause end and drop or relocate the weather labels, replace the closing tuck-and-latch with a forward reading that returns to the opening yard and late phone with the station ringed beside the stamp, and cut the near-static holds by moving each performed action to its clause onset. Narration, claims, mix, captions and clause timing stay unchanged.",
+ "mechanism_change": "Cards and labels are held at framings sized to the composed safe margins instead of pushed and nudged. The close returns to the opening picture instead of putting the plan away. Seated figures keep open eyes by rule, and reacher arms are attached to a figure.",
+ "expected_visible_result": "Every printed card, tag and banner stays fully inside the frame at every frame of its shot in both treatments, the optical sensors are the only sensors shown under their clause, the final shot returns to the yard and the phone with the station ringed beside the stamp, figures have open eyes and attached arms, and no hold exceeds about 1.4 s.",
+ "failure_evidence": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/picture-panel-report-reissued-verbatim.json",
+ "failure_evidence_sha256": "5869a4c57c4d794db5d0e35258676f977b041ab3f43f832d4b4f2214135bc28b",
+ "resources": {
+  "reboards": 1
+ },
+ "repair_scope": "standard",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/TexasAIDispatch/out/dispatch/storyboard.json",
+   "before_path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/baseline/storyboard.json",
+   "before_sha256": "dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6",
+   "after_sha256": "499757dec0a83debc5f1cab766f53051d3391f7f8983d4b06f3b79745a67153b"
+  },
+  {
+   "path": "/home/user/restore/TexasAIDispatch/out/dispatch/opening-a.json",
+   "before_path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/baseline/opening-a.json",
+   "before_sha256": "dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6",
+   "after_sha256": "499757dec0a83debc5f1cab766f53051d3391f7f8983d4b06f3b79745a67153b"
+  },
+  {
+   "path": "/home/user/restore/TexasAIDispatch/out/dispatch/opening-b.json",
+   "before_path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/baseline/opening-b.json",
+   "before_sha256": "de56b3401e1ed4e5d447b261242c3e1b0b43b270c998eb40dfd6e905a84db68a",
+   "after_sha256": "04e18a55f9249654238bc0b5274b46fa29fce36699d35251d9af4993e654143f"
+  },
+  {
+   "path": "/home/user/restore/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
+   "before_path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/baseline/FloodStationFilm.tsx",
+   "before_sha256": "be9c00e439b031271f4e45677509aa74b630d630f7a0bdb9e2ab653d4e6ed9f7",
+   "after_sha256": "986376149b6ec45c6b8c265a2b0fbaa94230f68cd9e42c9b16ce1d3261a1fc74"
+  },
+  {
+   "path": "/home/user/restore/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+   "before_path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/baseline/StreetHubSupport.tsx",
+   "before_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+   "after_sha256": "9ef763d4110c040f6a5091a529e12e5a527beb4e39868e4a613b1016c57faaa1"
+  }
+ ],
+ "failed_film_sha256": "4bebb2cbb037661e407fba21fd5d01ffcc6de2d19efaac8824f7dd519bc7bcc9"
+}

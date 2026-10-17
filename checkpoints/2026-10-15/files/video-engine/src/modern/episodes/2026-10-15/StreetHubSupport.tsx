@@ -193,11 +193,34 @@ const Porch: React.FC<{w?: number}> = ({w = PORCH.w}) => {
  </g>;
 };
 
-const Phone: React.FC<{banner?: number; t?: number; pal: Pal; w?: number}> = ({banner = 0, t = 0, pal, w = 220}) => {
+/** The warning banner's words, measured with the engine's own type metrics. */
+export const BANNER_TEXT = {title: ['Flash Flood', 'Warning'], note: 'Emergency alert'};
+/** Lay out the warning banner inside a phone `w` wide, in the phone's own units. ONE CALCULATION:
+ * the drawing below and the episode's bound check both call this. The words keep their size and
+ * reflow instead: the warning icon takes its own row whenever the old icon-beside-text row would
+ * leave less than `margin` between the longest word and the banner's inner edge. Each row reports
+ * its measured width so a check can hold it inside the banner. */
+export function bannerLayout(w: number, font = 25, margin = 8) {
+ const pad = 14, x0 = -w / 2 + pad, x1 = w / 2 - pad, small = Math.round(font * .76);
+ const tw = Math.max(...BANNER_TEXT.title.map(s => widthOf(s, font, true)));
+ const inline = x0 + 76 + tw <= x1 - margin;
+ const tx = inline ? x0 + 76 : x0 + 12;
+ const top = inline ? 44 : 56 + font + 6;
+ const rows = [
+  {text: BANNER_TEXT.title[0], x: tx, y: top, size: font},
+  {text: BANNER_TEXT.title[1], x: tx, y: top + font + 5, size: font},
+  {text: BANNER_TEXT.note, x: x0 + 14, y: top + 2 * font + 5 + small + 14, size: small},
+ ].map(r => ({...r, width: widthOf(r.text, r.size, true)}));
+ const height = rows[2].y + 18;
+ return {x0, x1, height, inline, rows, icon: inline ? {x: x0 + 6, y: 20} : {x: x0 + 8, y: 10}, fits: rows.every(r => r.x >= x0 + margin && r.x + r.width <= x1 - margin)};
+}
+
+const Phone: React.FC<{banner?: number; t?: number; pal: Pal; w?: number; h?: number; font?: number; buzz?: number}> = ({banner = 0, t = 0, pal, w = 220, h: hh, font = 25, buzz = 0}) => {
  const id = useUid('saph');
- const h = w * 2.05, b = clamp(banner);
+ const h = hh ?? w * 2.05, b = clamp(banner), L = bannerLayout(w, font);
  const by = -h / 2 + 30 - 60 * (1 - ease(b));
- return <g data-part="porch-phone">
+ const shake = buzz > 0 && buzz < 1 ? 3 * Math.sin(2 * Math.PI * 9 * buzz) * Math.sin(Math.PI * buzz) : 0;
+ return <g data-part="porch-phone" transform={shake ? `translate(${shake.toFixed(2)} 0)` : undefined}>
   <defs><linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
    <stop offset="0" stopColor="#3A4A55"/><stop offset=".35" stopColor={SA.screen}/><stop offset="1" stopColor="#0B0E10"/>
   </linearGradient><clipPath id={id + 'c'}><rect x={-w / 2 + 12} y={-h / 2 + 12} width={w - 24} height={h - 24} rx={22}/></clipPath></defs>
@@ -210,17 +233,20 @@ const Phone: React.FC<{banner?: number; t?: number; pal: Pal; w?: number}> = ({b
    {[[-50, 40], [30, -80], [60, 120], [-20, 160]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={5 + i} fill="#DCE8EE" opacity={.35}/>)}
    {b > 0 && <rect x={-w / 2} y={-h / 2} width={w} height={h} fill="#E9C27A" opacity={.12 * b}/>}
    {b > 0 && <g transform={`translate(0 ${by})`} opacity={clamp(b * 2.5)} data-part="warning-banner">
-    <rect x={-w / 2 + 14} y={0} width={w - 28} height={150} rx={16} fill={SA.banner} stroke={SA.alert} strokeWidth={5}/>
-    <path d={`M${-w / 2 + 50} 20L${-w / 2 + 80} 70H${-w / 2 + 20}Z`} fill={SA.alert} stroke={pal.ink} strokeWidth={2}/>
-    <rect x={-w / 2 + 48} y={36} width={5} height={18} fill={pal.ink}/><circle cx={-w / 2 + 50.5} cy={62} r={3} fill={pal.ink}/>
-    <text x={-w / 2 + 90} y={44} fontFamily={FONT.body} fontSize={25} fontWeight={800} fill={pal.ink}>Flash Flood</text>
-    <text x={-w / 2 + 90} y={74} fontFamily={FONT.body} fontSize={25} fontWeight={800} fill={pal.ink}>Warning</text>
-    <text x={-w / 2 + 28} y={124} fontFamily={FONT.body} fontSize={19} fontWeight={700} fill="#5A5249">Emergency alert</text>
+    <rect x={L.x0} y={0} width={L.x1 - L.x0} height={L.height} rx={16} fill={SA.banner} stroke={SA.alert} strokeWidth={5}/>
+    <g transform={`translate(${L.icon.x} ${L.icon.y})`} data-part="warning-icon">
+     <path d="M30 0L60 50H0Z" fill={SA.alert} stroke={pal.ink} strokeWidth={2}/>
+     <rect x={28} y={16} width={5} height={18} fill={pal.ink}/><circle cx={30.5} cy={42} r={3} fill={pal.ink}/>
+    </g>
+    {L.rows.map((r, i) => <text key={i} x={r.x} y={r.y} fontFamily={FONT.body} fontSize={r.size} fontWeight={i < 2 ? 800 : 700} fill={i < 2 ? pal.ink : '#5A5249'}>{r.text}</text>)}
    </g>}
   </g>
   <rect x={-24} y={-h / 2 + 4} width={48} height={5} rx={2.5} fill="#2F261D"/>
   <rect x={w / 2} y={-h / 2 + 80} width={4} height={40} rx={2} fill="#2F261D"/>
   {b > 0 && b < 1 && <g opacity={Math.sin(Math.PI * b)}>{[0, 1].map(k => <path key={k} d={`M${-w / 2 - 14 - k * 12} ${-40}Q${-w / 2 - 24 - k * 12} 0 ${-w / 2 - 14 - k * 12} 40`} stroke={pal.accent} strokeWidth={4} fill="none"/>)}</g>}
+  {buzz > 0 && buzz < 1 && <g opacity={Math.sin(Math.PI * buzz)} data-part="buzz">{[0, 1].map(k => <g key={k}>
+   <path d={`M${-w / 2 - 14 - k * 12} ${-40}Q${-w / 2 - 24 - k * 12} 0 ${-w / 2 - 14 - k * 12} 40`} stroke={pal.accent} strokeWidth={4} fill="none"/>
+   <path d={`M${w / 2 + 14 + k * 12} ${-40}Q${w / 2 + 24 + k * 12} 0 ${w / 2 + 14 + k * 12} 40`} stroke={pal.accent} strokeWidth={4} fill="none"/></g>)}</g>}
   <path d={`M${-w / 2 + 6} ${-h / 2 + 30}V${h / 2 - 30}`} stroke="#8B7660" strokeWidth={2} opacity={.4 + .1 * Math.sin(t)}/>
  </g>;
 };
@@ -461,9 +487,14 @@ const Head: React.FC<{c: P; r: number; yaw: number; pitch?: number; skin: string
    <ellipse cx={earX} cy={y + .08 * r} rx={r * .17} ry={r * .25} fill={skin} stroke={SA.line} strokeWidth={2.4}/>
    <path d={`M${earX - r * .05} ${y}q${r * .07} ${r * .08} 0 ${r * .16}`} stroke={shade} strokeWidth={2} fill="none"/>
   </g> : [-1, 1].map(k => <ellipse key={k} cx={x + k * r * .98} cy={y + .08 * r} rx={r * .13} ry={r * .22} fill={skin} stroke={SA.line} strokeWidth={2.4}/>)}
-  {eyes.map((ex, i) => pitch < -.45
-   ? <path key={i} d={`M${ex - r * .09} ${ey}q${r * .09} ${r * .06} ${r * .18} 0`} stroke={SA.line} strokeWidth={3} fill="none" strokeLinecap="round"/>
-   : <ellipse key={i} cx={ex} cy={ey} rx={r * .07} ry={r * .09} fill={SA.line}/>)}
+  {/* EYES STAY OPEN. A seated or typing person looks down at the work, and the old rule drew
+      closed lid arcs below pitch -0.45, so the responder and the technician read as asleep. A
+      downward look now keeps the open eye, lowered a little, under a heavier upper lid. */}
+  {eyes.map((ex, i) => {const down = clamp((-pitch - .3) / .4), cy = ey + r * .03 * down;
+   return <g key={i}>
+    <ellipse cx={ex} cy={cy} rx={r * .07} ry={r * (.09 - .025 * down)} fill={SA.line}/>
+    {down > 0 && <path d={`M${ex - r * .11} ${cy - r * .05}q${r * .11} ${-r * .07} ${r * .22} 0`} stroke={SA.line} strokeWidth={3} fill="none" strokeLinecap="round" opacity={down}/>}
+   </g>;})}
   {eyes.map((ex, i) => <path key={'b' + i} d={`M${ex - r * .13} ${ey - r * .2}q${r * .13} ${-r * .07} ${r * .26} 0`} stroke={SA.line} strokeWidth={3} fill="none" strokeLinecap="round"/>)}
   {ay < .5
    ? <path d={`M${x + yaw * .55 * r} ${y + .06 * r}q${r * .05} ${r * .18} ${-r * .04} ${r * .24}`} stroke={shade} strokeWidth={2.6} fill="none" strokeLinecap="round"/>
@@ -696,8 +727,13 @@ const Pin: React.FC<{color: string; press?: number}> = ({color, press = 1}) => {
 
 /** The validation card: title, the reported figure (passed in verbatim from the claim) and its bar.
  * The bar is filled by an orange tape strip pressed along it from a roll that rides its end. */
-const Card: React.FC<{fill?: number; value: string; share: number; pal: Pal}> = ({fill = 0, value, share, pal}) => {
+/** `figure`, when given, reveals the printed figure on its own clock (0 hidden, 1 shown), so the
+ * episode can bring the number in with the clause that speaks it; otherwise it follows the fill. */
+const Card: React.FC<{fill?: number; value: string; share: number; pal: Pal; figure?: number; rollOut?: number}> = ({fill = 0, value, share, pal, figure, rollOut = 0}) => {
  const w = 640, h = 380, f = clamp(fill), end = 40 + (w - 80) * share * f;
+ const shown = figure === undefined ? clamp((f - .3) * 2.5) : clamp(figure);
+ // once the strip is laid, the spent roll rolls off the bar's end and drops away
+ const ro = f >= 1 ? clamp(rollOut) : 0;
  return <g data-part="validation-card">
   <rect x={10} y={14} width={w} height={h} rx={14} fill="#1E1A16" opacity={.25}/>
   <rect x={0} y={0} width={w} height={h} rx={14} fill={SA.paper} stroke={pal.ink} strokeWidth={3}/>
@@ -712,7 +748,13 @@ const Card: React.FC<{fill?: number; value: string; share: number; pal: Pal}> = 
    <circle cx={0} cy={0} r={14} fill={SA.paper}/>
    <path d="M-30 -20L-16 -10" stroke="#FFFFFF" strokeWidth={4} opacity={.45}/>
   </g>}
-  <text x={40} y={176} fontFamily={FONT.body} fontSize={84} fontWeight={800} fill={pal.ink} opacity={clamp((f - .3) * 2.5)}>{value}</text>
+  {ro > 0 && ro < 1 && <g data-part="tape-roll-off" opacity={1 - ro} transform={`translate(${end + 70 * ro} ${238 + 150 * ro * ro}) rotate(${720 + 300 * ro})`}>
+   <circle cx={0} cy={0} r={40} fill={pal.accent} stroke={SA.line} strokeWidth={3}/>
+   <circle cx={0} cy={0} r={22} fill="#D8C7A4" stroke={SA.line} strokeWidth={2.4}/>
+   <circle cx={0} cy={0} r={14} fill={SA.paper}/>
+  </g>}
+  {shown > 0 && <text x={40} y={176} fontFamily={FONT.body} fontSize={84} fontWeight={800} fill={pal.ink} opacity={shown}
+   transform={figure === undefined ? undefined : `translate(40 176) scale(${lerp(1.18, 1, ease(shown))}) translate(-40 -176)`}>{value}</text>}
   <text x={40} y={330} fontFamily={FONT.body} fontSize={30} fontWeight={600} fill="#5A5249">Reported by the university</text>
  </g>;
 };
@@ -857,7 +899,7 @@ const Plan: React.FC<{fold: number; w?: number; ph?: number; pal: Pal}> = ({fold
   {/* upper third, hinged on the upper crease */}
   <g transform={`translate(0 ${-ph / 2}) scale(1 ${c2})`}>
    <rect x={-w / 2} y={-ph} width={w} height={ph} fill={sheet(c2 < 0)} stroke={SA.line} strokeWidth={2.4}/>
-   {c2 > 0 && <g><text x={-w / 2 + 16} y={-ph + 34} fontFamily={FONT.body} fontSize={22} fontWeight={800} fill={pal.ink}>Deployment plan</text>{lines(-ph + 30, 2)}</g>}
+   {c2 > 0 && <g><text x={-w / 2 + 16} y={-ph + 34} fontFamily={FONT.body} fontSize={Math.min(22, (w - 32) / widthOf('Deployment plan', 1, true))} fontWeight={800} fill={pal.ink}>Deployment plan</text>{lines(-ph + 30, 2)}</g>}
   </g>
   <path d={`M${-w / 2} ${-ph / 2}H${w / 2}M${-w / 2} ${ph / 2}H${w / 2}`} stroke="#B9AE96" strokeWidth={1.6} strokeDasharray="6 5"/>
  </g>;
@@ -865,18 +907,25 @@ const Plan: React.FC<{fold: number; w?: number; ph?: number; pal: Pal}> = ({fold
 
 /** A complete technician standing behind the curb table, facing the camera, in a work shirt. The two
  * hands go where the episode sends them; `look` tips the head from the hands (-1) to level (0). */
-const Technician: React.FC<{left: P; right: P; leftPose: HandPose; rightPose: HandPose; look: P; t: number; ground: number; layer: 'body' | 'arms'}> = ({left, right, leftPose, rightPose, look, t, ground, layer}) => {
+/** The technician's rig in her own units: shoulders, arm bones, hand scale, the floor row she is
+ * drawn for and her outline, so an episode can solve where her hands go and place her in a shot. */
+export const TECH = {SL: [392, 610] as P, SR: [562, 612] as P, upper: 132, fore: 122, hand: 1.25, ground: 1150,
+ head: [477, 486] as P, headR: 58, box: [364, 424, 590, 1150] as [number, number, number, number]};
+/** `only` draws one arm of the arms layer, so an episode can put a carried object between them. */
+const Technician: React.FC<{left: P; right: P; leftPose: HandPose; rightPose: HandPose; look: P; t: number; ground: number; layer: 'body' | 'arms'; only?: 'left' | 'right'}> = ({left, right, leftPose, rightPose, look, t, ground, layer, only}) => {
  const skin = '#8C5733', shade = '#6F4326', hair = '#1C1512', shirt = '#5F6E58', shirtShade = '#47533F', pants = '#3A4250';
  const b = 1.5 * Math.sin(t * 2 * Math.PI / 4.4);
- const SL: P = [392, 610 + b * .4], SR: P = [562, 612 + b * .4];
- const aL = reach(SL, left, 132, 122), aR = reach(SR, right, 132, 122);
+ const SL: P = [TECH.SL[0], TECH.SL[1] + b * .4], SR: P = [TECH.SR[0], TECH.SR[1] + b * .4];
+ const aL = reach(SL, left, TECH.upper, TECH.fore), aR = reach(SR, right, TECH.upper, TECH.fore);
  if (layer === 'arms') return <g data-part="technician-arms">
-  <Limb a={SL} b={aL.E} wa={50} wb={42} fill={shirt}/><Limb a={aL.E} b={aL.W} wa={42} wb={34} fill={shirt}/>
-  <Limb a={[lerp(aL.E[0], aL.W[0], .86), lerp(aL.E[1], aL.W[1], .86)]} b={aL.W} wa={30} wb={28} fill={skin}/>
-  <Hand at={aL.W} deg={aL.deg} s={1.25} pose={leftPose} skin={skin} side={-1}/>
-  <Limb a={SR} b={aR.E} wa={50} wb={42} fill={shirt}/><Limb a={aR.E} b={aR.W} wa={42} wb={34} fill={shirt}/>
-  <Limb a={[lerp(aR.E[0], aR.W[0], .86), lerp(aR.E[1], aR.W[1], .86)]} b={aR.W} wa={30} wb={28} fill={skin}/>
-  <Hand at={aR.W} deg={aR.deg} s={1.25} pose={rightPose} skin={skin} side={1}/>
+  {only !== 'right' && <g>
+   <Limb a={SL} b={aL.E} wa={50} wb={42} fill={shirt}/><Limb a={aL.E} b={aL.W} wa={42} wb={34} fill={shirt}/>
+   <Limb a={[lerp(aL.E[0], aL.W[0], .86), lerp(aL.E[1], aL.W[1], .86)]} b={aL.W} wa={30} wb={28} fill={skin}/>
+   <Hand at={aL.W} deg={aL.deg} s={TECH.hand} pose={leftPose} skin={skin} side={-1}/></g>}
+  {only !== 'left' && <g>
+   <Limb a={SR} b={aR.E} wa={50} wb={42} fill={shirt}/><Limb a={aR.E} b={aR.W} wa={42} wb={34} fill={shirt}/>
+   <Limb a={[lerp(aR.E[0], aR.W[0], .86), lerp(aR.E[1], aR.W[1], .86)]} b={aR.W} wa={30} wb={28} fill={skin}/>
+   <Hand at={aR.W} deg={aR.deg} s={TECH.hand} pose={rightPose} skin={skin} side={1}/></g>}
  </g>;
  return <g data-part="technician">
   {/* legs to the ground behind the table */}
@@ -947,7 +996,7 @@ type SupportProps =
  | {part: 'fence'; x0: number; x1: number; h?: number; posts?: number; lean?: number; mark?: number; sway?: number}
  | {part: 'oak'; h?: number; seed?: number; flip?: boolean}
  | {part: 'porch'; w?: number}
- | {part: 'phone'; banner?: number; t?: number; pal: Pal; w?: number}
+ | {part: 'phone'; banner?: number; t?: number; pal: Pal; w?: number; h?: number; font?: number; buzz?: number}
  | {part: 'water'; x0: number; x1: number; y: number; depth: number; t: number; seed?: number; edge?: 'lobed' | 'straight'; opacity?: number; reflect?: React.ReactNode}
  | {part: 'waterline'; x: number; y: number; w: number; t: number}
  | {part: 'tower'; h?: number; dim?: number}
@@ -958,7 +1007,7 @@ type SupportProps =
  | {part: 'desk'; children?: React.ReactNode; screen: [number, number, number, number]; hand: P; pose: HandPose; look: number; t: number; press?: number}
  | {part: 'dashboard'; w: number; h: number; dots?: number; paths?: number; zones?: number; t?: number; pal: Pal; header?: boolean}
  | {part: 'radiomap'; w: number; h: number; ring?: number; half?: number; five?: number; hub?: number; pal: Pal; station: P; hubAt: P}
- | {part: 'card'; fill?: number; value: string; share: number; pal: Pal}
+ | {part: 'card'; fill?: number; value: string; share: number; pal: Pal; figure?: number; rollOut?: number}
  | {part: 'result'; stamp?: number; pal: Pal}
  | {part: 'stamp'}
  | {part: 'pin'; color: string; press?: number}
@@ -967,7 +1016,7 @@ type SupportProps =
  | {part: 'table'; x0: number; x1: number; y: number; depth: number; ground: number}
  | {part: 'case'; latch: number}
  | {part: 'plan'; fold: number; w?: number; ph?: number; pal: Pal}
- | {part: 'technician'; left: P; right: P; leftPose: HandPose; rightPose: HandPose; look: P; t: number; ground: number; layer: 'body' | 'arms'}
+ | {part: 'technician'; left: P; right: P; leftPose: HandPose; rightPose: HandPose; look: P; t: number; ground: number; layer: 'body' | 'arms'; only?: 'left' | 'right'}
  | {part: 'reacher'; from: P; at: P; pose: HandPose; skin?: string; sleeve?: string; s?: number}
  | {part: 'boots'; seed?: number}
  | {part: 'rain'; t: number; w: number; h: number; seed?: number; n?: number; opacity?: number}
