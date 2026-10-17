@@ -817,6 +817,14 @@
       "note": "independent transport phone",
       "resource": "audiovisual_reviews",
       "to": 9
+    },
+    {
+      "at": "2026-10-17T05:33:21.021678Z",
+      "ceiling": 38,
+      "from": 34,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 35
     }
   ],
   "events": [
@@ -8267,6 +8275,24 @@
       "note": "0b9f5efd-ddd6-4d49-94f7-16fef68ab6b3 independent phone",
       "reported_tokens": 196633,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-17T05:33:21.021709Z",
+      "ceiling": 38,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 35,
+      "resource": "preflight_renders",
+      "was": 34
+    },
+    {
+      "at": "2026-10-17T05:33:21.021721Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "bad95c88aa019fb1d5a9c0e882a3b5efda556ddef4d2aec6d9c818a4633e8243",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -8275,7 +8301,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 34,
+    "preflight_renders": 35,
     "reboards": 12,
     "reported_tokens": 849907,
     "rescue_renders": 1,
@@ -8290,7 +8316,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "11d564f91d00f88f991e56045c48b22b0e3b5282d0e135648283ddf87b175227",
+    "original_private_state_sha256": "343f119ff225aeee7c82c9f9a7575bf54dc15901180712318ce66c053a7d76d9",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -8326,14 +8352,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T05:32:42.913831Z",
+  "updated_at": "2026-10-17T05:33:21.021723Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 34,
+    "preflight_renders": 35,
     "reboards": 12,
     "reported_tokens": 1046540,
     "rescue_renders": 0,
