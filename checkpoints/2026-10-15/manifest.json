@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T02:16:23.385616+00:00",
-  "note": "R15 assignment-binding-v2 corrected relative path metadata",
+  "saved_at": "2026-10-17T02:31:09.983562+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/ed1015/TexasAIDispatch",
-  "source_pin": "442f0b69c1bc6c3d33ed991b6c1f4263b2af6967",
+  "source_pin": "b4bf3ecd60b6e577bfad37ba4e4c8f58bf54b86d",
   "source_branch": "tsturg/practical-fermat-p4j9e5",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "e53c86344e3b958badb0a2f9ee9061d2adca3dc78d7d6105c2788b2141e3730b",
-  "original_private_ledger_sha256": "3f3adedb41e3fca360fc17cf27b60b9c72150f0408b5c1cf1c4cb42a66d718af",
+  "ledger_sha256": "8fbc7cdc0da5755eae56314fb415ed12fc14d06e3f6dd89a0d69976e8a4d0560",
+  "original_private_ledger_sha256": "3092ce39d85e3e636d467406c98dfe9a4787e6450a791d4990c3ca133e4bbb30",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -83,6 +83,11 @@
       "event_index": 282,
       "authorization_sha256": "dba2b04eee10e385d0e2f2f8ebd83d9852e3c766aac8c5fa854915a3566b04ed",
       "root": "/home/user/ed1015/TexasAIDispatch"
+    },
+    {
+      "event_index": 285,
+      "authorization_sha256": "6391876647c1fb96727c8f70368421b1428d9f99710c9e59cb91a309169dae11",
+      "root": "/home/user/ed1015/TexasAIDispatch"
     }
   ],
   "usage": {
@@ -124,8 +129,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "4aa2a0dc03689bdfaf92d387f3e58e4779e26a15ad4e6de9535a78d4895922aa",
-      "size": 13772
+      "sha256": "474fd1fa89b54a36f926724883cd10bf2f8b32cff8187b059bb3e992b0c8f18f",
+      "size": 13867
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -11786,6 +11791,12 @@
       "size": 9831
     },
     {
+      "path": "out/dispatch/evidence/r15-repair/completion-capacity-pivot.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/evidence/r15-repair/completion-capacity-r15b.log",
       "class": "scratch",
       "sha256": "d8b90cf0fc24961c2d66039f095ce6383dafef5a5ffccbbf792653ce30aa21e3",
@@ -11796,6 +11807,12 @@
       "class": "scratch",
       "sha256": "0b8fb31b1bc97894949c0ab7673fac8ad928eb88aedb8130283fc37b292b167e",
       "size": 89
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/film-pivot-capacity.log",
+      "class": "scratch",
+      "sha256": "c17d1e51e275556ed2e23f15f55bee256e95e3657ee321a12d9e23fe95e056cb",
+      "size": 101
     },
     {
       "path": "out/dispatch/evidence/r15-repair/pivot-recovery-conditions.txt",
@@ -11814,6 +11831,18 @@
       "class": "scratch",
       "sha256": "d2824af4adea2dbc41361be7e2a49031f3eb885d749890b36d0990f11d34a67b",
       "size": 1670
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-pivot-host-before.json",
+      "class": "scratch",
+      "sha256": "ec029d3e84451df54cbe4cc91a800852497906f8b81d88e4c860dd2d6c467c66",
+      "size": 1561
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/production-budget-pivot-provider-before.json",
+      "class": "scratch",
+      "sha256": "0479135dc93df779cdc1ef761933786fcca4fd77db523b37c643a820bd771c28",
+      "size": 1565
     },
     {
       "path": "out/dispatch/evidence/r15-repair/production-budget-r15b-host-after.json",
@@ -16074,6 +16103,10 @@
     {
       "path": "out/dispatch/evidence/r14-phone-transport/per-page-tool-results.private.json",
       "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/pivot-capacity-plan-r15c.json",
+      "reason": "private data structure"
     },
     {
       "path": "out/dispatch/evidence/review-code-r10-coverage-pass/agent-transcript-cumulative.private.jsonl",
