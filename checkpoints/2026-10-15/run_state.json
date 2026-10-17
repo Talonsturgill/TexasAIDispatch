@@ -1028,6 +1028,14 @@
       "note": "exact MP4 audiovisual review story",
       "resource": "audiovisual_reviews",
       "to": 16
+    },
+    {
+      "at": "2026-10-17T20:43:07.555526Z",
+      "ceiling": 43,
+      "from": 16,
+      "note": "exact MP4 audiovisual review sound",
+      "resource": "audiovisual_reviews",
+      "to": 17
     }
   ],
   "events": [
@@ -9843,10 +9851,28 @@
       "note": "e60108f4-234f-4982-8826-b9763d20f224 story exact film 4bebb2cbb037661e407fba21fd5d01ffcc6de2d19efaac8824f7dd519bc7bcc9",
       "reported_tokens": 75414,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-17T20:43:07.555555Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review sound",
+      "now": 17,
+      "resource": "audiovisual_reviews",
+      "was": 16
+    },
+    {
+      "at": "2026-10-17T20:43:07.555567Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review sound",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
     }
   ],
   "limits": {
-    "audiovisual_reviews": 16,
+    "audiovisual_reviews": 17,
     "cleanup_renders": 1,
     "full_renders": 4,
     "image_generations": 2,
@@ -9867,7 +9893,7 @@
   "preflight_retry": "8bee6240951811171de38977accbb1e4c47edf3fe54ba38c0d912d3a51040d28",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d63b4d2d1f3e1c1014bb4e7a184eb493acdb8c450b114b6704212ed9210e4537",
+    "original_private_state_sha256": "741b0010e7f172c7f36530fee30c3e52c2a5560355649bec210134c87cefc2fd",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -9903,9 +9929,9 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T20:42:43.226894Z",
+  "updated_at": "2026-10-17T20:43:07.555570Z",
   "usage": {
-    "audiovisual_reviews": 16,
+    "audiovisual_reviews": 17,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
