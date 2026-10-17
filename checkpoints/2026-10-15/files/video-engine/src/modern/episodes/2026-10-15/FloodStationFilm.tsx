@@ -610,6 +610,19 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   const ids=moved?{card:'s8-valcard',bar:'s8-valbar',tag:'s8-assess',card2:'s8-card2',blank:'s8-blank'}:{card:'s7-card',bar:'s7-bar',tag:'s7-tag',card2:'s7-card2',blank:'s7-blank'};
   const stampId=moved?'s8-event-0':'s7-event-3', SW=win(stampId);
   const push=fr==='detail'?ease(raw({start:shot.start_s,end:SW.start})):0;
+  // THE DETAIL FRAMING HERE IS A NEAR-HOLD, BOUNDED IN FINAL SCREEN SPACE. This group rides the plate
+  // camera (PlaceSubject: the detail framing's 1.3 zoom about film row 960, craneDown's small drift), so
+  // the old push to 1.12 toward x 726 carried the validation card off the left edge and left '2%'.
+  // The printed text from the 98.82% figure (x 38 under the ground camera) and the assessments tag
+  // (x 23) to the end of 'None reported' (x 1018) spans about 980 px of the 1010 the margins allow, so
+  // the reframe recentres 20 px right from the first frame and pushes only 2% about NF_AT on the same
+  // clock: the first candidate scale that holds every frame of 49.2 to 52.16 s with the figure, its
+  // heading and 'Reported by' at least 40 px inside the left edge, the tag at least 30, 'None reported'
+  // ending by x 1050, 'Field result' clear of the disclosure chip, all above the caption band. The stamp
+  // coming down carries the shot's action.
+  const NF_AT:Pt=[540,500], NF_SHIFT=20, NF_SCALE=1.02, held=fr==='detail';
+  const camF:Pt=held?NF_AT:mix([540,700],[726,700],push), camS=held?lerp(1,NF_SCALE,push):lerp(1,1.12,push);
+  const camA:Pt=held?[NF_AT[0]+NF_SHIFT,NF_AT[1]]:mix([540,700],[600,700],push);
   // the stamp: enters with the hand before the event, comes down, presses, lifts, leaves after it
   const card2:Pt=[520,400], cs=.8, mark:Pt=[card2[0]+280*cs,card2[1]+250*cs];
   const enter=ease(raw({start:shot.start_s+.2,end:SW.start})), leave=ease(raw({start:SW.end,end:SW.end+.55}));
@@ -618,7 +631,7 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   const stampBase:Pt=[mark[0]+lerp(260,0,enter)+lerp(0,300,leave),lerp(lerp(120,330,enter),mark[1]+44,down)-lerp(0,400,leave)];
   const printed=clamp((stamp-.45)/.06);
   const knob:Pt=[stampBase[0],stampBase[1]-150*.82];
-  pic=<Cam f={mix([540,700],[726,700],push)} s={lerp(1,1.12,push)} a={mix([540,700],[600,700],push)}><Grounded baseY={1240} on={exterior}><g data-world="curb-notice-board-two-cards">
+  pic=<Cam f={camF} s={camS} a={camA}><Grounded baseY={1240} on={exterior}><g data-world="curb-notice-board-two-cards">
    {boardW}
    <Item id={ids.card}><Item id={ids.bar}><At p={[130,430]} s={.6}><StreetHubSupport part="card" fill={s7e1} value={VALIDATION.text} share={VALIDATION.share} pal={pal}/></At>
     <At p={[150,440]}><StreetHubSupport part="pin" color="#C84B3A"/></At></Item></Item>
