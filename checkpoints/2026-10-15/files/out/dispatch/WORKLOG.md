@@ -57,3 +57,4 @@ No mandatory guide may be reported covered unless it was read.
 - Next: verify the provider reports (independent_review.py --verify), stage chosen board/movie, preflight --inspect-only, funding, timed phone with audio, native hero/full, 3 AV + 3 scorers, delivery, unsent draft, shipped, archive.
 storage: housekeeping verified rc=0 free 20.19 GiB; reclaimed 1.33 GiB via sparse
 - 2026-10-17: storage fixed (sparse Docket clone, headroom 20.19), retry-preflight evidence r14-funding/preflight-identity-occupied-20261017.md, timed preview rendered OK: preflight.mp4 sha 1b294576, 64.4s, structural pass. Next: review_context verify, phone-option current extraction, timed phone review with audio.
+- 2026-10-17: extraction out/dispatch/motion-current-r14/index.json done (phone-option current).

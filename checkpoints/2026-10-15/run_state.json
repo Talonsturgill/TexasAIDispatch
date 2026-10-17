@@ -617,6 +617,14 @@
       "note": "exact-phone-current motion-image review extraction",
       "resource": "preflight_renders",
       "to": 26
+    },
+    {
+      "at": "2026-10-17T00:57:24.540508Z",
+      "ceiling": 29,
+      "from": 27,
+      "note": "precharged exact current timed phone review of final treatment A (fresh Opus High storyboard-critic, one test page first)",
+      "resource": "storyboard_critics",
+      "to": 28
     }
   ],
   "events": [
@@ -6201,6 +6209,24 @@
       "input_identity": "f0cbf5ac465a3e6df6bd4f33b97968a423e774f14918ed4e0f248f3510b11d48",
       "kind": "prepared_capture_claimed",
       "operation": "exact-phone-current motion-image review extraction"
+    },
+    {
+      "at": "2026-10-17T00:57:24.540526Z",
+      "ceiling": 29,
+      "kind": "budget_escalated",
+      "note": "precharged exact current timed phone review of final treatment A (fresh Opus High storyboard-critic, one test page first)",
+      "now": 28,
+      "resource": "storyboard_critics",
+      "was": 27
+    },
+    {
+      "at": "2026-10-17T00:57:24.540534Z",
+      "kind": "reserved",
+      "note": "precharged exact current timed phone review of final treatment A (fresh Opus High storyboard-critic, one test page first)",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -6215,7 +6241,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 27,
+    "storyboard_critics": 28,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1
@@ -6224,7 +6250,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "a577b2343ac77250b1a291dfe28efc948f72fcad9096d7b1a43ff95cb599b94d",
+    "original_private_state_sha256": "797f0be14f6fc33d4bfee7b7bf364deb3f7561bb480c4bb2e6806f1607bcfe5a",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -6260,7 +6286,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T00:55:52.997392Z",
+  "updated_at": "2026-10-17T00:57:24.540536Z",
   "usage": {
     "audiovisual_reviews": 7,
     "cleanup_renders": 0,
@@ -6273,7 +6299,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 27,
+    "storyboard_critics": 28,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1
