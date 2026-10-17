@@ -761,6 +761,14 @@
       "note": "R15f technical-integrity corrective reboard: A s8-shot-1 no-field-card detail push bounded in final screen space (N1), classification 9225fae4",
       "resource": "reboards",
       "to": 12
+    },
+    {
+      "at": "2026-10-17T05:08:47.350865Z",
+      "ceiling": 40,
+      "from": 36,
+      "note": "precharged same-worker both-treatment code review of the R15f s8-shot-1 framing correction (SendMessage a110876b976dcc812), allocation 1 of 4: silent comparison, final timed phone and one reserve remain",
+      "resource": "storyboard_critics",
+      "to": 37
     }
   ],
   "events": [
@@ -7837,6 +7845,24 @@
       "repair_revision": "71b605b9d3b70aaeffceaf78586bde11604e84ebca2f6f0ba9d44e5e64070f6b",
       "repair_scope": "technical-integrity",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-17T05:08:47.350882Z",
+      "ceiling": 40,
+      "kind": "budget_escalated",
+      "note": "precharged same-worker both-treatment code review of the R15f s8-shot-1 framing correction (SendMessage a110876b976dcc812), allocation 1 of 4: silent comparison, final timed phone and one reserve remain",
+      "now": 37,
+      "resource": "storyboard_critics",
+      "was": 36
+    },
+    {
+      "at": "2026-10-17T05:08:47.350889Z",
+      "kind": "reserved",
+      "note": "precharged same-worker both-treatment code review of the R15f s8-shot-1 framing correction (SendMessage a110876b976dcc812), allocation 1 of 4: silent comparison, final timed phone and one reserve remain",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -7851,7 +7877,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 36,
+    "storyboard_critics": 37,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1
@@ -7860,7 +7886,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "f3c2e41e8b251f98718c98de8cab2ae8b82e7da4fb51ef402dc421522b42b899",
+    "original_private_state_sha256": "6da114ba94ee34fa1de10cfa10b465a2f08a5b8c0e138abbd77fcf30eb40e5ec",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -7896,7 +7922,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T05:08:10.778366Z",
+  "updated_at": "2026-10-17T05:08:47.350892Z",
   "usage": {
     "audiovisual_reviews": 8,
     "cleanup_renders": 0,
@@ -7909,7 +7935,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 36,
+    "storyboard_critics": 37,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1
