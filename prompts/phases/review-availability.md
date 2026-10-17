@@ -1,5 +1,32 @@
 # Independent review availability recovery
 
+## Actual independent-provider read timeout
+
+An actual ReadTimeout without a returned response or verdict permits one linked recovery on
+the same configured provider, model, scope, prompt and input context. Preserve the charged
+attempt and its failure. Do not retry a returned rejection or fabricate an outage from slow
+progress. New attempts retain structured read-timeout evidence. The pinned legacy attempt in
+config/provider_read_timeout_retry.json also requires its exact original producer log.
+Streamed responses may expose ConnectionError with an actual urllib3 ReadTimeoutError cause;
+retain both types. A generic connection error or timeout wording alone does not qualify.
+
+```sh
+python scripts/provider_timeout_retry.py --state out/dispatch/run_state.json --after-attempt <original-cache>/attempt.json --failure-evidence <original-read-timeout-log>
+```
+
+Preparation makes no provider call, adds no capacity and changes no earlier charge. Add
+`--availability <printed-read-timeout-recovery.json>` to the exact original independent_review
+command and use a new log/output path. The child request is reserved before execution and has
+a 540-second read window. It retains both attempts and admits no further retry chain. A complete
+response with a parser/projection defect uses the existing reproject-only path. Keep every
+source, native, caption, audio, independent scoring and shipment check.
+
+After comparison captures finish, diagnose the actual remaining cut with production-budget
+without a renewal repair plan. Reapplying the already-spent comparison minimum is not a new
+funding need. Retain both diagnostics. A funded mandatory review may finish within its existing
+allowance; use its genuine current-film verdict to fund any actual remaining deficit before
+another capture or correction. Never commission a review solely to create a capacity voucher.
+
 ## Restored generation service after HTTP 402
 
 Keep a failed provider request, original charge and actual failure evidence. Metadata GET success

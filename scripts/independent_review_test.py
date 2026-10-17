@@ -119,15 +119,136 @@ class AvailabilityTest(unittest.TestCase):
                 'candidates': [{'finishReason': 'STOP', 'content': {'parts': [
                     {'text': json.dumps(self.value if value is None else value)}]}}]}
 
-    def call(self, response=None, raw=None, availability=None):
+    def call(self, response=None, raw=None, availability=None, post_error=None, stream_error=None, real_stream=False):
+        streamer = r.streamed_response if real_stream else (lambda _: self.context_response(raw or self.raw()))
         with patch.dict(r.os.environ, {'GEMINI_API_KEY': 'test-key'}), \
-                patch.object(r, 'packet', return_value=({'current': 'evidence'}, self.bindings)), \
+                patch.object(r, 'packet', return_value=(getattr(self, 'packet_text', {'current': 'evidence'}), self.bindings)), \
                 patch.object(r, 'media_part', return_value=({'test': 'media'}, None, 'film')), \
-                patch.object(r.requests, 'post', return_value=response or Mock(status_code=200)) as post, \
-                patch.object(r, 'streamed_response', side_effect=lambda _: self.context_response(raw or self.raw())):
+                patch.object(r.requests, 'post', return_value=response or Mock(status_code=200), side_effect=post_error) as post, \
+                patch.object(r, 'streamed_response', side_effect=stream_error or streamer):
             result = r.run(self.root/'board.json', self.root/'claims.json', self.root/'film.mp4',
                            'phone', self.failure_path, self.state, self.root/'phone.json', availability=availability)
+            self.last_post_kwargs = post.call_args.kwargs if post.call_args else None
             return result, post.call_count
+
+    def timeout_attempt(self, error=None):
+        with self.assertRaisesRegex(ValueError, type(error).__name__ if error else 'ReadTimeout'):
+            self.call(post_error=error or r.requests.ReadTimeout('test timeout'))
+        return next((self.root/'independent-review-cache').glob('*/attempt.json'))
+
+    def test_one_charged_read_timeout_child_preserves_original_and_reuses_its_verdict(self):
+        import provider_timeout_retry as timeout
+        import provider_availability as availability
+        attempt = self.timeout_attempt()
+        original = attempt.read_bytes(); before = c.read_state(self.state)
+        self.assertEqual(before['usage']['audiovisual_reviews'], 1)
+        receipt = timeout.prepare(self.state, attempt)
+        self.assertEqual(c.read_state(self.state), before)
+        proof = availability.recovery_proof(receipt, attempt, self.state)
+        self.assertEqual(availability.proof_problems(proof), [])
+        result, count = self.call(availability=receipt)
+        self.assertEqual(count, 1)
+        self.assertEqual(self.last_post_kwargs['timeout'], (30, 540))
+        self.assertEqual(r.evidence_problems(result), [])
+        self.assertEqual(attempt.read_bytes(), original)
+        self.assertEqual(c.read_state(self.state)['resource_envelope'], before['resource_envelope'])
+        self.assertEqual(c.read_state(self.state)['usage']['audiovisual_reviews'], 2)
+        same, count = self.call(availability=receipt)
+        self.assertEqual(same, result); self.assertEqual(count, 0)
+        self.assertEqual(c.read_state(self.state)['usage']['audiovisual_reviews'], 2)
+        with self.assertRaises(FileExistsError):timeout.prepare(self.state, attempt)
+        child = attempt.parent/'availability-recovery/attempt.json'
+        with self.assertRaisesRegex(ValueError, 'original.*cache'):
+            timeout.prepare(self.state, child)
+
+    def test_timeout_child_refuses_changed_scope_input_and_prompt_before_spend(self):
+        import provider_timeout_retry as timeout
+        attempt = self.timeout_attempt(); receipt = timeout.prepare(self.state, attempt)
+        before = c.read_state(self.state)
+        self.bindings['claims_sha256'] = 'different-claims'
+        with self.assertRaisesRegex(ValueError, 'exact same'):
+            self.call(availability=receipt)
+        self.bindings['claims_sha256'] = 'claims'
+        self.packet_text = {'current': 'changed evidence'}
+        with self.assertRaisesRegex(ValueError, 'exact same'):
+            self.call(availability=receipt)
+        del self.packet_text
+        with patch.object(r, 'prompt', return_value='changed prompt'):
+            with self.assertRaisesRegex(ValueError, 'exact same'):
+                self.call(availability=receipt)
+        self.assertEqual(c.read_state(self.state), before)
+
+    def test_streamed_read_timeout_keeps_wrapped_cause_and_gets_one_child(self):
+        import provider_timeout_retry as timeout
+        from urllib3.exceptions import ReadTimeoutError
+        response = r.requests.Response(); response.status_code = 200
+        response.raw = Mock()
+        response.raw.stream.side_effect = ReadTimeoutError(None, '/stream', 'read timed out')
+        with self.assertRaisesRegex(ValueError, 'ConnectionError'):
+            self.call(response=response, real_stream=True)
+        attempt = next((self.root/'independent-review-cache').glob('*/attempt.json'))
+        failure = json.loads(attempt.with_name('failure.json').read_text())
+        self.assertEqual(failure['exception_type'], 'ConnectionError')
+        self.assertEqual(failure['read_timeout_cause'], 'urllib3.ReadTimeoutError')
+        self.assertFalse(attempt.with_name('response.json').exists())
+        receipt = timeout.prepare(self.state, attempt)
+        result, count = self.call(availability=receipt)
+        self.assertEqual(count, 1); self.assertEqual(self.last_post_kwargs['timeout'], (30, 540))
+        self.assertEqual(r.evidence_problems(result), [])
+        self.assertEqual(c.read_state(self.state)['usage']['audiovisual_reviews'], 2)
+
+    def test_timeout_recognition_uses_the_exception_cause_never_error_text(self):
+        import provider_timeout_retry as timeout
+        from urllib3.exceptions import ReadTimeoutError
+        for error in (r.requests.ConnectionError('ReadTimeoutError: read timed out'),
+                      r.requests.ConnectTimeout('read timeout'),
+                      r.requests.HTTPError('ReadTimeout'), r.requests.ConnectionError(OSError('timeout'))):
+            with self.subTest(error=type(error).__name__):self.assertIsNone(timeout.read_timeout_cause(error))
+        inner = ReadTimeoutError(None, '/stream', 'idle')
+        outer = r.requests.ConnectionError('request failed'); outer.__cause__ = inner
+        self.assertEqual(timeout.read_timeout_cause(outer), 'urllib3.ReadTimeoutError')
+
+    def test_timeout_recovery_never_retries_a_response_or_a_rejection(self):
+        import provider_timeout_retry as timeout
+        self.value['verdict'] = 'revise'
+        self.value['blocking_defects'] = ['The visible change is incomplete.']
+        result, _ = self.call()
+        attempt = next((self.root/'independent-review-cache').glob('*/attempt.json'))
+        before = c.read_state(self.state)
+        with self.assertRaisesRegex(ValueError, 'without a response or verdict'):
+            timeout.prepare(self.state, attempt)
+        self.assertEqual(result['verdict'], 'revise')
+        self.assertEqual(c.read_state(self.state), before)
+
+    def test_unpinned_legacy_log_and_other_transport_errors_do_not_qualify(self):
+        import provider_timeout_retry as timeout
+        attempt = self.timeout_attempt(r.requests.ConnectTimeout('different failure'))
+        log = self.root/'unrelated.log'
+        log.write_text('independent_review: independent provider ReadTimeout; no approval recorded\n')
+        before = c.read_state(self.state)
+        with self.assertRaisesRegex(ValueError, 'incomplete, changed or not an actual'):
+            timeout.prepare(self.state, attempt, log)
+        self.assertEqual(c.read_state(self.state), before)
+        self.assertFalse(attempt.with_name('read-timeout-recovery.json').exists())
+
+    def test_timeout_evidence_and_longer_window_cannot_be_rebound(self):
+        import provider_timeout_retry as timeout
+        import provider_availability as availability
+        attempt = self.timeout_attempt(); receipt = timeout.prepare(self.state, attempt)
+        before = c.read_state(self.state)
+        proof = availability.recovery_proof(receipt, attempt, self.state)
+        bad = copy.deepcopy(proof); value = json.loads(bad['receipt']); value['read_timeout_s'] = 999
+        bad['receipt'] = json.dumps(value); bad['receipt_sha256'] = timeout.sha(bad['receipt'])
+        self.assertTrue(availability.proof_problems(bad))
+        failure = attempt.with_name('failure.json'); original = failure.read_text()
+        failure.write_text(original+' ')
+        with self.assertRaisesRegex(ValueError, 'original evidence changed'):
+            availability.recovery_proof(receipt, attempt, self.state)
+        failure.write_text(original)
+        request = attempt.with_name('request.json'); data = json.loads(request.read_text())
+        data['context']['model'] = 'unconfigured-model'; request.write_text(json.dumps(data))
+        with self.assertRaises(ValueError):availability.recovery_proof(receipt, attempt, self.state)
+        self.assertEqual(c.read_state(self.state), before)
 
     def context_response(self, raw):
         value = copy.deepcopy(raw)

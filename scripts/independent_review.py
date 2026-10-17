@@ -321,7 +321,7 @@ def evidence_problems(report):
             from provider_availability import proof_problems
             if (not isinstance(recovered, dict) or proof_problems(recovered)
                     or proof['bindings'].get('provider_availability_sha256') != recovered['receipt_sha256']):
-                raise ValueError('independent recovery lacks its unchanged successful generation probe')
+                raise ValueError('independent recovery lacks its unchanged provider recovery evidence')
     except (KeyError, TypeError, ValueError, IndexError) as exc:
         return [str(exc)]
     return []
@@ -971,10 +971,20 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
         errors = panel_transport_problems(ledger)
         if not good or errors:
             raise ValueError('; '.join(errors + ([] if good else [reason])))
+    read_timeout_s = 180
+    if availability is not None:
+        from provider_availability import recovery_proof
+        from provider_timeout_retry import check_inputs
+        read_timeout_s = check_inputs(recovery_proof(availability, original_attempt, state),
+                                      text, bindings, request_prompt)
     # Different role identities also share one ledger. Serialize read-modify-write
     # reservation and telemetry across this transport, in addition to its cache lock.
     with claim(state.with_name(state.name + '.independent.lock'), blocking=True):
         accepted, message = reserve(state, {'audiovisual_reviews': 1}, 'independent transport ' + role)
+        if accepted:
+            charged = read_state(state)
+            provider_reservation_index = len(charged['events']) - 1
+            provider_reservation_sha = fingerprint(charged['events'][-1])
     if not accepted:
         raise ValueError(message)
     cache.mkdir(parents=True, exist_ok=True)
@@ -992,7 +1002,9 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
     request_prompt += '\nReturn review_context_sha256 exactly ' + context_sha + ' in your JSON object.'
     attempt = {'request_id': request_id, 'role': role, 'bindings': bindings,
                'host_failure': failure, 'failure_sha256': digest(failure_path),
-               'review_context_sha256': context_sha}
+               'review_context_sha256': context_sha, 'read_timeout_s': read_timeout_s,
+               'provider_reservation_event_index': provider_reservation_index,
+               'provider_reservation_sha256': provider_reservation_sha}
     (cache / 'attempt.json').write_text(json.dumps(attempt, indent=2) + '\n')
     with claim(state.with_name(state.name + '.independent.lock'), blocking=True):
         ledger = read_state(state)
@@ -1016,7 +1028,7 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
             f'https://generativelanguage.googleapis.com/v1beta/models/{model}:streamGenerateContent?alt=sse',
             headers={'x-goog-api-key': key}, json={'contents': [{'role': 'user', 'parts': parts}],
             'generationConfig': {'responseMimeType': 'application/json', 'temperature': .2}},
-            timeout=(30, 180), stream=True)
+            timeout=(30, read_timeout_s), stream=True)
         if response.status_code != 200:
             from provider_availability import http_failure
             (cache/'failure.json').write_text(json.dumps({'request_id': request_id,
@@ -1048,6 +1060,14 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
         return complete_report(raw, context, request_prompt.split('\nReturn review_context_sha256 exactly ')[0],
                                text, report_path, out, selection_out)
     except requests.RequestException as exc:
+        from provider_timeout_retry import read_timeout_cause
+        cause = read_timeout_cause(exc)
+        if cause and not (cache/'response.json').exists():
+            (cache/'failure.json').write_text(json.dumps({
+                'schema': 'dispatch_independent_provider_failure/1', 'request_id': request_id,
+                'observed_at': now(), 'exception_type': type(exc).__name__,
+                'failure_kind': 'read-timeout', 'read_timeout_cause': cause,
+                'response_complete': False, 'read_timeout_s': read_timeout_s}, indent=2)+'\n')
         raise ValueError('independent provider ' + type(exc).__name__ + '; no approval recorded') from None
     finally:
         remove_upload(upload, key)
@@ -1071,7 +1091,8 @@ def main():
     p.add_argument('--film', type=Path)
     p.add_argument('--compare-openings', action='store_true')
     p.add_argument('--selection-out', type=Path)
-    p.add_argument('--availability', type=Path, help='successful charged generation probe bound to the retained failed attempt')
+    p.add_argument('--availability', type=Path,
+                   help='successful generation probe or one linked read-timeout recovery receipt')
     p.add_argument('--reproject-only', action='store_true', help='resume a retained complete response; never reserve or call a provider')
     p.add_argument('--state', type=Path, default=Path('out/dispatch/run_state.json'))
     a = p.parse_args()
