@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T20:09:04.502363+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-17T20:11:25.801166+00:00",
+  "note": "capture authorization consumed 5871238ae2c9",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -159,8 +159,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "bf931b811b4ee07af65ea720c89c851ed38925b2f01c1fe139a20f18fd107f60",
-      "size": 36914
+      "sha256": "4042519311b20989714329af63d30fbf8f6057c8ed86a9ad4461b77127c71755",
+      "size": 37033
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -909,8 +909,8 @@
     {
       "path": "out/dispatch/capture-authorization.json",
       "class": "scratch",
-      "sha256": "23d0c731d88443995bdc440adeb97f11ef5f30c8d4de20e9ceea730017f6ceea",
-      "size": 18038
+      "sha256": "6518893d276392b7c0af57a2368441c0d05189b11496efbc53bb5517d3b06b5c",
+      "size": 17569
     },
     {
       "path": "out/dispatch/capture-authorization.json.lock",
@@ -921,8 +921,8 @@
     {
       "path": "out/dispatch/capture-authorizations-used.json",
       "class": "scratch",
-      "sha256": "1b63287b4dbc06fdeefea090537bcc7cebcea34788677910c7f30e102875fda6",
-      "size": 5963
+      "sha256": "62bf21edfa21ffe52fa0d5ab992e4cb5120e955801b008bb88bac5e3bfe75fee",
+      "size": 6112
     },
     {
       "path": "out/dispatch/capture-housekeeping-20261016T035631.json",
@@ -1243,10 +1243,22 @@
       "size": 960
     },
     {
+      "path": "out/dispatch/capture-housekeeping-20261017T201112.json",
+      "class": "scratch",
+      "sha256": "faa47fb28b3085be16f46d88c1e4dcdf9b2ff97cebc0d6f25b586276bf6d8496",
+      "size": 961
+    },
+    {
       "path": "out/dispatch/cinema/hero-review-response.json",
       "class": "scratch",
-      "sha256": "6981546f919b1f44ee1623ce396a4c4d6571efbb970c4d94013f1ea6184752de",
-      "size": 185511
+      "sha256": "8ad77f8108ce10a59c974a40b68965adb1e4ed5933a27009ff68d0fde0de9f29",
+      "size": 124979
+    },
+    {
+      "path": "out/dispatch/cinema/hero-review.json",
+      "class": "scratch",
+      "sha256": "4e99784a314802bb739aab00939443022c3596fb58dc3f36e8bd835dbd175d79",
+      "size": 574
     },
     {
       "path": "out/dispatch/cinema/hero.mp4",
@@ -2273,6 +2285,18 @@
       "class": "scratch",
       "sha256": "c2f60dae157acafe0482f0255e0f94c1d309aec3c584022d16a5377f5563744d",
       "size": 178
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/2dd3a62fba393c517e91a82c33df16da0cb4933ca5b476fa59cba0f658e1bd66/hero-review-response.json",
+      "class": "scratch",
+      "sha256": "8ad77f8108ce10a59c974a40b68965adb1e4ed5933a27009ff68d0fde0de9f29",
+      "size": 124979
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/2dd3a62fba393c517e91a82c33df16da0cb4933ca5b476fa59cba0f658e1bd66/receipt.json",
+      "class": "scratch",
+      "sha256": "4e99784a314802bb739aab00939443022c3596fb58dc3f36e8bd835dbd175d79",
+      "size": 574
     },
     {
       "path": "out/dispatch/cinema/review-cache/31b4a1284a90c6fc45c943334b4dfc2e570286c26c7f24e3cd75afc072bcbce3/hero-review-response.json",
@@ -15901,6 +15925,12 @@
       "size": 17899
     },
     {
+      "path": "out/dispatch/evidence/r15g/authorize-render.log",
+      "class": "scratch",
+      "sha256": "aa7aad60dc4ede4fface44649aa46c1475bae7501b499297cf924affefc95f2e",
+      "size": 17540
+    },
+    {
       "path": "out/dispatch/evidence/r15g/auto-mode-diagnosis/DIAGNOSIS.md",
       "class": "scratch",
       "sha256": "212306ee18c1d75363f81f06818774379c438377ab9786db3da0d4af65d92fd0",
@@ -16053,8 +16083,8 @@
     {
       "path": "out/dispatch/evidence/r15g/hero-review-r15g.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "442e3647dcd342817f8cdfb60dc90a5c736a1338c150362961577753954df0a1",
+      "size": 138
     },
     {
       "path": "out/dispatch/evidence/r15g/hero-review.log",
@@ -18631,6 +18661,12 @@
       "size": 1455
     },
     {
+      "path": "out/dispatch/logs/pq-preview.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/logs/soundcheck-7.log",
       "class": "scratch",
       "sha256": "de2d674a0e99fe3516da76ee7add65f16a477ca497ee3ed07255eab59bbb4511",
@@ -20373,8 +20409,8 @@
     {
       "path": "out/dispatch/native-headroom-r15g.json",
       "class": "scratch",
-      "sha256": "0b04c0f2f87638001ba66aa7e8302d14c2fa7291aa8eaabb350878b8afb12ede",
-      "size": 307
+      "sha256": "43ae94f48cb45dca505c4f94b0d122b5d467d6bdb5d98c19f5ab5b1b35fe0543",
+      "size": 308
     },
     {
       "path": "out/dispatch/native-headroom.json",
