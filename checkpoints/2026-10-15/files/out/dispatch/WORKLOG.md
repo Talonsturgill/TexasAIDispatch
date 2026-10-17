@@ -72,3 +72,4 @@ storage: housekeeping verified rc=0 free 20.19 GiB; reclaimed 1.33 GiB via spars
 - 2026-10-17: brief v4 + plan r15c answer pivot 1; second-pivot funding refused (failed attempt owns capacity; pivot_recovery only for mandatory-modern-code grants). Diagnosis DIAGNOSIS-second-pivot-funding.md.
 - 2026-10-17: pivot recovery receipt + prepare refusal retained (evidence/r15-repair/pivot-recovery-*). Awaiting owner amendment; no second pivot call yet.
 - 2026-10-17: pivot call 1 assignment evidence retained: review-r15-pivot-1/pivot-call-1-assignment-arguments.json (wrapper) and pivot-call-1-sendmessage-arguments-only.json.
+- 2026-10-17: public-safe assignment binding receipt review-r15-pivot-1/pivot-call-1-assignment-binding.json saved.
