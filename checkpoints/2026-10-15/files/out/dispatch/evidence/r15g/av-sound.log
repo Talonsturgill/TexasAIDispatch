@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/user/restored2/2026-10-15/scripts/audiovisual_review.py", line 303, in <module>
+    review(a.film, a.role, a.state, a.out)
+  File "/home/user/restored2/2026-10-15/scripts/audiovisual_review.py", line 241, in review
+    ok, message = reserve(state, {"audiovisual_reviews": 1}, "exact MP4 audiovisual review " + role)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/restored2/2026-10-15/scripts/run_controller.py", line 306, in reserve
+    claude_checkpoint.require_backed(path)  # unbacked charges or outputs stop new paid work
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/restored2/2026-10-15/scripts/claude_checkpoint.py", line 557, in require_backed
+    raise UnbackedError("the latest charges or outputs are not durable (" + str(flag_path(state_path))
+claude_checkpoint.UnbackedError: the latest charges or outputs are not durable (out/dispatch/checkpoint-unbacked.json); run `python scripts/claude_checkpoint.py recover` before more paid work
