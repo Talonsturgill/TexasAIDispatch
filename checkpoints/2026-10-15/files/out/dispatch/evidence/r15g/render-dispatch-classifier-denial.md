@@ -1,0 +1,2 @@
+# render_dispatch.sh not executed (2026-10-17 20:11Z)
+Authorization with render reservation 0d3f76ad6b14c30f3023b451fa6e12af94ad7037617d2e7e8ca91c69cb70e592 was consumed by the capture hook (capture-authorizations-used.json 20:11:12Z). The bare command "bash scripts/run_with_env.sh bash scripts/render_dispatch.sh" was then denied by the auto-mode classifier (Auto-Mode Bypass) and did not execute. film.mp4 is unchanged (18:20). A fresh charged reservation and authorization follow; the spent one is never reused.
