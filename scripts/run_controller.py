@@ -2313,6 +2313,8 @@ def main() -> int:
                 except (ValueError, KeyError, TypeError, OSError):
                     pass
             budget_plan = load_json(a.repair_plan) if a.repair_plan else {}
+            from capture_completion_budget import live_budget_state
+            budget_state = live_budget_state(read_state(state_path), budget_plan)
             if budget_plan.get('repair_scope') == 'technical-integrity':
                 from creative_release import technical_repair_problems
                 diagnosis_errors = technical_repair_problems(read_state(state_path), budget_plan)
@@ -2320,12 +2322,12 @@ def main() -> int:
                     print(json.dumps({'feasible': False, 'errors': diagnosis_errors, 'resources': {},
                                       'deficits': {}, 'path': 'technical-diagnosis-required'}, sort_keys=True))
                     return 1
-            result = production_budget_precheck(read_state(state_path), a.review_route, phone_complete,
+            result = production_budget_precheck(budget_state, a.review_route, phone_complete,
                                                hero_rejected, context_ready, structural_ready, minimum_action_failed,
                                                mandatory_repair, review_coverage, modern_code_repair)
             if a.repair_plan:
                 from capture_completion_budget import apply_budget
-                result = apply_budget(read_state(state_path), budget_plan, result)
+                result = apply_budget(budget_state, budget_plan, result)
                 if budget_plan.get('completion_reason') == 'mandatory-film-pivot-capacity':
                     from film_pivot_capacity import apply_budget as film_pivot_budget
                     result = film_pivot_budget(budget_plan, result)

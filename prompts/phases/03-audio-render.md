@@ -159,6 +159,8 @@ that exact charge once; do not reserve a second full render. Before preparing, t
 music package gate must pass. The receipt binds current audio, captions, narration, claims,
 credits, the approved preview, renderer, configuration and operator source. Changed inputs,
 an unconsumed hook authorization or a reused receipt refuse execution; earlier charges stay intact.
+Use the exact authorized command text. Add any required log redirection when authorizing it,
+and never append redirection or another command after the authorization is issued.
 
 It validates and reserves before rendering, uses native PNG capture and CRF 16, muxes without
 -shortest, creates the exact render manifest, extracts frames and registers the actual film.
