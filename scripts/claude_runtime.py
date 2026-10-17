@@ -150,9 +150,19 @@ def image_read_policy():
             'coverage_schema': 'dispatch_claude_image_coverage/1'}
 
 
-def image_reading(data):
+def image_reading(data, *, compact=False):
     """Keep image delivery bounded; this supplies no creative observation or approval."""
     data['image_read_policy'] = image_read_policy()
+    if compact:
+        data['instructions'] += (' Read ONE chronological image per step; wait and record its filename, '
+            'first/last frame and concrete visible note before the next Read. No parallel/bulk reads or '
+            'bulk rereads. Keep notes when images leave context. A stripped/unseen page requires immediate '
+            'partial with its identity; never infer pixels. Return separate coverage with schema '
+            'dispatch_claude_image_coverage/1, packet_sha256 and sequences in packet order. Each sequence '
+            'has index_sha256 and pages in index order; each page has file, first_frame, last_frame, '
+            'received (true only if seen) and observed (at least thirty characters of actual visible '
+            'content). Preserve all guides, timed observations and honest verdicts.')
+        return data
     data['instructions'] += (' Image delivery is sequential: issue ONE image Read, wait for it, and record '
         'the page filename, first/last frame and a concrete visible observation before the next image Read. '
         'Never send parallel image Reads or a bulk image batch. Earlier images can leave the host window; '
