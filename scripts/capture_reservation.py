@@ -8,7 +8,22 @@ OPERATIONS = {
     'cinema_proof.py': 'finished cinematic hero and stage ablation batch',
     'claude_motion_review.py': 'exact-film motion-image review extraction',
 }
+FULL_OPERATION = 'full-resolution Dispatch render'
 from claude_motion_review import PHONE_OPERATIONS
+
+
+def resource_for(note):
+    if note == FULL_OPERATION:
+        return 'full_renders'
+    if note in (*OPERATIONS.values(), *PHONE_OPERATIONS.values()):
+        return 'preflight_renders'
+    raise ValueError('unsupported prepared capture operation')
+
+
+def input_identity(state_path, note):
+    import run_controller as controller
+    return (controller.full_render_identity(state_path) if note == FULL_OPERATION
+            else controller.preflight_identity(state_path, note))
 
 
 def operation_for(commands, root):
@@ -18,6 +33,11 @@ def operation_for(commands, root):
     found = []
     for tokens, here in simple_commands(commands[0], str(root)):
         if not segment_is_capture(tokens):
+            continue
+        if (len(tokens) >= 2 and Path(tokens[0]).name == 'bash'
+                and Path(tokens[1]).name == 'render_dispatch.sh'
+                and resolve(tokens[1], here).resolve() == Path(root).resolve() / 'scripts/render_dispatch.sh'):
+            found.append(FULL_OPERATION)
             continue
         if (len(tokens) < 2 or Path(tokens[0]).name not in ('python', 'python3')
                 or Path(tokens[1]).name not in OPERATIONS
@@ -39,19 +59,32 @@ def operation_for(commands, root):
     return found[0]
 
 
-def prepare(root, state_path, commands):
+def prepare(root, state_path, commands, resource=None):
     import run_controller as controller
     from capture_guard import event_digest
     root, state_path = Path(root).resolve(), Path(state_path).resolve()
     if state_path != root / 'out/dispatch/run_state.json':
         raise ValueError('prepared capture must use this checkout ledger')
     note = operation_for(commands, root)
+    owned_resource = resource_for(note)
+    if resource is not None and resource != owned_resource:
+        raise ValueError('prepared operator uses ' + owned_resource)
     from capture_guard import simple_commands, resolve
     for tokens, here in simple_commands(commands[0], str(root)):
-        if len(tokens) < 2 or Path(tokens[1]).name not in OPERATIONS:
+        if len(tokens) < 2 or Path(tokens[1]).name not in (*OPERATIONS, 'render_dispatch.sh'):
             continue
         expected = {'state': state_path, 'board': root / 'out/dispatch/storyboard.json',
                     'mix': root / 'out/dispatch/mix.wav', 'film': root / 'out/dispatch/film.mp4'}
+        if note == FULL_OPERATION:
+            expected.update({flag: root / 'out/dispatch' / name for flag, name in {
+                'captions': 'captions.json', 'preflight': 'preflight.json',
+                'preflight-film': 'preflight.mp4', 'silent': 'silent.mp4',
+                'started': 'render_started', 'manifest': 'render-manifest.json',
+                'rescue-report': 'rescue.json'}.items()})
+            args = tokens[2:]
+            if len(args) % 2 or len(set(args[::2])) != len(args[::2]) or any(
+                    arg not in {'--' + flag for flag in expected} for arg in args[::2]):
+                raise ValueError('prepared full render needs distinct supported flag/value pairs')
         if note in PHONE_OPERATIONS.values():
             option = next(k for k, v in PHONE_OPERATIONS.items() if v == note)
             expected.update(board=root / ('out/dispatch/openings/' + option + '.json'),
@@ -74,14 +107,24 @@ def prepare(root, state_path, commands):
     elif note in PHONE_OPERATIONS.values():
         from claude_motion_review import phone_inputs
         phone_inputs(state_path, option, expected['board'], expected['film'])
-    accepted, message = controller.reserve(state_path, {'preflight_renders': 1}, note, _use_prepared_capture=False)
+    elif note == FULL_OPERATION:
+        import music
+        problems = music.verify_package(root / 'out/dispatch/credits.txt', root / 'out/dispatch/mix.json',
+                                        root / 'out/dispatch/storyboard.json', root / 'out/dispatch/mix.wav', music.load())
+        if problems:
+            raise ValueError('full-render music package: ' + '; '.join(problems))
+        input_identity(state_path, note)
+    prepare_options = {'_prepare_full': True} if note == FULL_OPERATION else {}
+    accepted, message = controller.reserve(state_path, {owned_resource: 1}, note,
+                                           _use_prepared_capture=False, **prepare_options)
     if not accepted:
         raise ValueError(message)
     state = controller.read_state(state_path)
     reservation = state['events'][-1]
-    return {'schema': 'dispatch_prepared_capture/1', 'operation': note,
+    field = 'full_render_identity' if note == FULL_OPERATION else 'preflight_identity'
+    return {'schema': 'dispatch_prepared_capture/1', 'operation': note, 'resource': owned_resource,
             'run_id': state['run_id'], 'event_sha256': event_digest(reservation),
-            'input_identity': reservation['preflight_identity']}
+            'input_identity': reservation[field]}
 
 
 def claim(state_path, note):
@@ -90,13 +133,15 @@ def claim(state_path, note):
     import run_controller as controller
     state_path = Path(state_path).resolve()
     root = controller.REPO.resolve()
+    resource = resource_for(note)
+    field = 'full_render_identity' if note == FULL_OPERATION else 'preflight_identity'
     auth_path = root / guard.AUTHORIZATION
     if not auth_path.is_file():
-        return controller.reserve(state_path, {'preflight_renders': 1}, note, _use_prepared_capture=False)
+        return controller.reserve(state_path, {resource: 1}, note, _use_prepared_capture=False)
     auth = json.loads(auth_path.read_text())
     prepared = auth.get('prepared_capture')
     if prepared is None:
-        return controller.reserve(state_path, {'preflight_renders': 1}, note, _use_prepared_capture=False)
+        return controller.reserve(state_path, {resource: 1}, note, _use_prepared_capture=False)
     with open(str(state_path) + '.capture-claim.lock', 'w') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         state = controller.read_state(state_path)
@@ -106,20 +151,21 @@ def claim(state_path, note):
             errors.append('prepared ledger path differs')
         if (prepared.get('schema') != 'dispatch_prepared_capture/1'
                 or prepared.get('operation') != note
+                or prepared.get('resource', 'preflight_renders') != resource
                 or operation_for([c['text'] for c in auth.get('commands', [])], root) != note):
             errors.append('prepared operator differs')
         if state.get('terminal_state') or state.get('run_id') != prepared.get('run_id'):
             errors.append('prepared ledger differs or is terminal')
-        if (prepared.get('input_identity') != controller.preflight_identity(state_path, note)
+        if (prepared.get('input_identity') != input_identity(state_path, note)
                 or auth.get('render_reservation', {}).get('event_sha256') != receipt):
             errors.append('prepared inputs or reservation changed')
         if not all(c.get('consumed') for c in auth.get('commands', [])):
             errors.append('capture hook has not consumed this command')
         reservation = next((e for e in state.get('events', []) if guard.event_digest(e) == receipt), None)
         if (not reservation or reservation.get('kind') != 'reserved'
-                or reservation.get('resources') != {'preflight_renders': 1}
+                or reservation.get('resources') != {resource: 1}
                 or reservation.get('note') != note
-                or reservation.get('preflight_identity') != prepared.get('input_identity')):
+                or reservation.get(field) != prepared.get('input_identity')):
             errors.append('no matching charged operation')
         if any(e.get('kind') == 'prepared_capture_claimed' and e.get('event_sha256') == receipt
                for e in state.get('events', [])):

@@ -440,10 +440,11 @@ def authorize(root, state_path, board_paths, commands, resource=None, housekeepi
     kept = housekeeping_run(root, required, run) if housekeeping else {'receipt': None, 'receipt_sha256': 'none', 'exit_code': 0}
     prepared = None
     if prepare:
-        if resource not in (None, 'preflight_renders'):
-            raise ValueError('prepared operator uses preflight_renders')
-        from capture_reservation import prepare as prepare_capture
-        prepared = prepare_capture(root, state_path, commands)
+        from capture_reservation import FULL_OPERATION, operation_for, prepare as prepare_capture
+        if (operation_for(commands, root) == FULL_OPERATION
+                and [p.resolve() for p, _ in boards] != [root.resolve() / 'out/dispatch/storyboard.json']):
+            raise ValueError('prepared full render needs only the canonical current board')
+        prepared = prepare_capture(root, state_path, commands, resource=resource)
         state = json.loads(Path(state_path).read_text())
         reservation = next(e for e in state['events'] if event_digest(e) == prepared['event_sha256'])
     issued = now()
