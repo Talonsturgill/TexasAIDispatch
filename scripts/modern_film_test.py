@@ -52,6 +52,17 @@ class NarrationPictureTest(unittest.TestCase):
         self.assertEqual([],self.errors());before=copy.deepcopy(self.board)
         modern.compile_narration(self.board,self.captions,self.words);self.assertEqual(before,self.board)
 
+    def test_explicit_restored_registry_overrides_the_launching_registry(self):
+        target = self.root / 'restored'; (target / 'config').mkdir(parents=True)
+        registry = self.root / 'config/modern_episode_registry.json'
+        (target / 'config/modern_episode_registry.json').write_bytes(registry.read_bytes())
+        (target / 'config/modern_film.json').write_text(json.dumps(modern.policy()))
+        registry.write_text('{"episodes":{}}')
+        self.assertTrue(self.errors())
+        self.assertEqual([], modern.narration_problems(self.board, self.captions, self.words, repo=target))
+        (target / 'config/modern_episode_registry.json').write_text('{"episodes":{}}')
+        self.assertTrue(modern.narration_problems(self.board, self.captions, self.words, repo=target))
+
     def test_provisional_silent_plan_cannot_authorize_measured_delivery(self):
         self.board['narration_picture']['timing_mode']='authored'
         self.board['captions']=copy.deepcopy(self.captions['cues'])
@@ -138,6 +149,81 @@ class ModernFilmTest(unittest.TestCase):
         old=json.loads((modern.REPO/'runs/2026-10-07/storyboard.json').read_text())
         old['date']='2026-10-08'
         self.assertTrue(modern.problems(old))
+
+    def test_real_restore_audits_its_own_episode_art_and_source_without_waiving_mutations(self):
+        import shutil
+        import subprocess
+        import claude_checkpoint as checkpoint
+        from render_manifest import SCHEMA
+        with tempfile.TemporaryDirectory() as temp:
+            outer = Path(temp); root = outer / 'source'; root.mkdir()
+            origin = outer / 'origin.git'; fresh = outer / 'fresh'; destination = outer / 'restored'
+            original_root = Path(__file__).resolve().parents[1]
+            files = [original_root / row['path'] for row in self.board['film_direction']['renderer_inputs']]
+            files += story_art.paths(self.board)
+            for source in set(files):
+                target = root / source.relative_to(original_root)
+                target.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, target)
+            old_key = self.board['film_direction']['episode']; new_key = 'isolated-restored-proof'
+            registry = root / 'config/modern_episode_registry.json'
+            data = json.loads(registry.read_text()); entry = data['episodes'].pop(old_key)
+            data['episodes'][new_key] = entry; registry.write_text(json.dumps(data))
+            fixture_policy_path = root / 'config/modern_film.json'
+            fixture_policy = json.loads(fixture_policy_path.read_text())
+            fixture_policy['effective_date'] = self.board['date']
+            fixture_policy_path.write_text(json.dumps(fixture_policy))
+            renderer_registry = root / 'video-engine/src/modern/registry.tsx'
+            text = renderer_registry.read_text()
+            text = text.replace("'" + old_key + "':", "'" + new_key + "':").replace('"' + old_key + '":', '"' + new_key + '":')
+            renderer_registry.write_text(text)
+            board_data = copy.deepcopy(self.board)
+            board_data['film_direction']['episode'] = new_key
+            board_data['film_direction']['renderer_inputs'] = modern.renderer_inputs(new_key, root)
+            self.assertEqual([], modern.problems(board_data, repo=root))
+            self.assertTrue(modern.problems(board_data))
+            def git(*args, cwd=root):
+                return subprocess.run(['git', *args], cwd=cwd, capture_output=True, text=True, check=True).stdout.strip()
+            subprocess.run(['git', 'init', '--bare', '-q', str(origin)], check=True)
+            git('init', '-q'); git('checkout', '-q', '-b', 'main')
+            git('config', 'user.name', 'Test'); git('config', 'user.email', 'fixture@example.com')
+            (root / '.gitignore').write_text('out/\n'); git('add', '-A'); git('commit', '-qm', 'isolated episode fixture')
+            git('remote', 'add', 'origin', str(origin)); git('push', '-q', 'origin', 'main')
+            git('symbolic-ref', 'HEAD', 'refs/heads/main', cwd=origin)
+            scratch = root / 'out/dispatch'; scratch.mkdir(parents=True)
+            state_path = scratch / 'run_state.json'
+            controller.initialise(state_path, board_data['date'], 'production')
+            film = scratch / 'film.mp4'; film.write_bytes(b'fixture media; physical playback is outside this source-audit test')
+            board = scratch / 'storyboard.json'; board.write_text(json.dumps(board_data))
+            manifest = scratch / 'render-manifest.json'
+            manifest.write_text(json.dumps({'schema': SCHEMA, 'film_sha256': controller.digest(film),
+                                            'board_sha256': controller.digest(board)}))
+            state = controller.read_state(state_path)
+            state['deliverable'] = {'film': str(film), 'board': str(board), 'manifest': str(manifest),
+                'film_sha256': controller.digest(film), 'board_sha256': controller.digest(board),
+                'manifest_sha256': controller.digest(manifest), 'review_only': False}
+            controller.save(state_path, state)
+            checkpoint.save(root, state_path, 'isolated source audit fixture', environ={})
+            subprocess.run(['git', 'clone', '-q', str(origin), str(fresh)], check=True)
+            # Exercise the retained October 7 engineering control at its own threshold. Its
+            # original art receipts stay unchanged. Only media decoding is stubbed; all source,
+            # registry, artwork, board and manifest checks run against the selected checkout.
+            source_policy = modern.policy
+            def fixture_threshold(repo=modern.REPO):
+                cfg = source_policy(repo)
+                return {**cfg, 'effective_date': self.board['date']} if Path(repo) == original_root else cfg
+            with patch.object(controller, 'playability_problems', return_value=[]), \
+                    patch.object(modern, 'policy', side_effect=fixture_threshold):
+                checkpoint.restore(fresh, board_data['date'], dest=destination)
+                restored = controller.read_state(destination / 'out/dispatch/run_state.json')
+                self.assertEqual([], controller.deliverable_problems(restored, repo=destination))
+                self.assertTrue(controller.deliverable_problems(restored))
+                module = destination / entry['module']; original = module.read_bytes()
+                module.write_bytes(original + b'\n// changed after restore\n')
+                self.assertTrue(controller.deliverable_problems(restored, repo=destination))
+                module.write_bytes(original)
+                image = destination / story_art.paths(self.board)[0].relative_to(original_root)
+                image.write_bytes(b'changed artwork')
+                self.assertTrue(controller.deliverable_problems(restored, repo=destination))
 
     def test_missing_unknown_or_changed_renderer_cannot_fall_back(self):
         for key,value in [('episode','cooling-inspection-v1'),('version','old'),('renderer_inputs',[])]:

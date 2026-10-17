@@ -726,7 +726,7 @@ def restore(repo=REPO, run_id=None, remote="origin", dest=None):
     state = read_state(state_path)
     problems = allowance_problems(state)
     if state.get("deliverable"):
-        problems += deliverable_problems(state)
+        problems += deliverable_problems(state, repo=dest)
     if problems:
         raise CheckpointError("restored edition fails its audit: " + "; ".join(problems))
     return {"run_id": run_id, "checkpoint": tip, "dest": str(dest), "phase": manifest["phase"], "source_pin": pin,

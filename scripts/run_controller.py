@@ -559,7 +559,7 @@ def playability_problems(film: Path, expected_duration: float | None = None) -> 
     return errs
 
 
-def deliverable_problems(state: dict, *, publication: bool = False) -> list[str]:
+def deliverable_problems(state: dict, *, publication: bool = False, repo: Path | None = None) -> list[str]:
     saved = state.get("deliverable") or {}
     if not saved:
         return ["no playable deliverable is registered"]
@@ -574,11 +574,14 @@ def deliverable_problems(state: dict, *, publication: bool = False) -> list[str]
             return ['engineering reference footage cannot authorize production delivery']
         import modern_film
         run_date = str(state.get('run_id', ''))[:10]
+        cfg = (modern_film.policy(repo) if repo is not None and (Path(repo) / 'config/modern_film.json').is_file()
+               else modern_film.policy())
         if (state.get('mode') == 'production' and re.fullmatch(r'\d{4}-\d{2}-\d{2}', run_date)
-                and run_date >= modern_film.policy()['effective_date']):
+                and run_date >= cfg['effective_date']):
             if board_data.get('date') != run_date:
                 return ['current production board date must match its edition']
-            modern_errors = modern_film.problems(board_data)
+            modern_errors = (modern_film.problems(board_data) if repo is None
+                             else modern_film.problems(board_data, repo=repo))
             if modern_errors:
                 return ['active film route failed: ' + '; '.join(modern_errors)]
         media_errs = playability_problems(film, board_runtime(board_data))

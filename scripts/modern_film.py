@@ -12,19 +12,21 @@ def policy(repo=REPO):
     return json.loads((Path(repo) / 'config/modern_film.json').read_text())
 
 
-def required(board):
+def required(board, repo=None):
     # Explicit opt-in supports an isolated engineering comparison without changing history.
     edition = str(board.get('date', ''))[:10]
-    return 'film_direction' in board or bool(re.fullmatch(r'\d{4}-\d{2}-\d{2}', edition) and edition >= policy()['effective_date'])
+    cfg = policy() if repo is None else policy(repo)
+    return 'film_direction' in board or bool(re.fullmatch(r'\d{4}-\d{2}-\d{2}', edition) and edition >= cfg['effective_date'])
 
 
 def finite(value):
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
 
 
-def narration_required(board):
-    return bool(board.get('narration_picture')) or (required(board) and not board.get('reference_only')
-        and str(board.get('date', '')) >= policy().get('narration_picture_effective_date', '9999'))
+def narration_required(board, repo=None):
+    cfg = policy() if repo is None else policy(repo)
+    return bool(board.get('narration_picture')) or (required(board, repo) and not board.get('reference_only')
+        and str(board.get('date', '')) >= cfg.get('narration_picture_effective_date', '9999'))
 
 
 def narration_tokens(text):
@@ -55,16 +57,16 @@ def measured_shot_interval(start, end):
     raise ValueError('measured shot length cannot reproduce its declared cut')
 
 
-def narration_problems(board, captions=None, words=None, script=None, claims=None):
+def narration_problems(board, captions=None, words=None, script=None, claims=None, *, repo=None):
     """Check coverage and executable bindings, without pretending metadata judges pixels."""
-    if not narration_required(board):
+    if not narration_required(board, repo):
         return []
     errors = []
     plan = board.get('narration_picture') or {}
     clauses = plan.get('clauses') or []
     if plan.get('version') != 'narration-picture-v1' or not clauses:
         return ['every current film needs its complete narration-picture contract']
-    registry = json.loads((REPO/'config/modern_episode_registry.json').read_text())['episodes']
+    registry = json.loads((Path(repo if repo is not None else REPO)/'config/modern_episode_registry.json').read_text())['episodes']
     views = registry.get((board.get('film_direction') or {}).get('episode'), {}).get('narration_views', {})
     shots = (board.get('film_direction') or {}).get('shots', [])
     scenes = {s['id']: s for s in board.get('scenes', [])}
@@ -328,13 +330,13 @@ def retime(board, captions=None, words=None):
 
 
 def problems(board, repo=REPO):
-    if not required(board):
+    if not required(board, repo):
         return []
     cfg = policy(repo)
     plan = board.get('film_direction')
     if not isinstance(plan, dict):
         return ['modern production requires film_direction; the old renderer is historical only']
-    errors = narration_problems(board)
+    errors = narration_problems(board, repo=repo)
     import story_art
     errors += story_art.problems(board, repo)
     if plan.get('version') != cfg['version'] or board.get('cinematic_template') != cfg['template']:
