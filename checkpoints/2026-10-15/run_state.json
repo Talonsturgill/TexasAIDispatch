@@ -9779,6 +9779,20 @@
         "reported_tokens exceeds the nonrenewable run envelope"
       ],
       "kind": "resource_envelope_refused"
+    },
+    {
+      "at": "2026-10-17T20:40:19.583374Z",
+      "kind": "observed_token_overage",
+      "refusal": "reported_tokens exceeds the nonrenewable run envelope; preserve the film and resolve the recorded production plan",
+      "tokens": 75796
+    },
+    {
+      "at": "2026-10-17T20:40:19.583409Z",
+      "elapsed_ms": 41359,
+      "kind": "telemetry",
+      "note": "ef985637-eb0b-46cc-a5ec-25eaca25352c picture exact film 4bebb2cbb037661e407fba21fd5d01ffcc6de2d19efaac8824f7dd519bc7bcc9",
+      "reported_tokens": 75796,
+      "resource": "audiovisual_reviews"
     }
   ],
   "limits": {
@@ -9803,7 +9817,7 @@
   "preflight_retry": "8bee6240951811171de38977accbb1e4c47edf3fe54ba38c0d912d3a51040d28",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "dfa18480f0917d09bbb7ac210195caef0ffd24e9cdb8c9a410dc03b30fded405",
+    "original_private_state_sha256": "c87e17c1d9e95a5416d69e9555d3c0f0526eb53640460543aa0d39788bc76ecd",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -9839,7 +9853,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T20:40:10.922924Z",
+  "updated_at": "2026-10-17T20:40:19.583414Z",
   "usage": {
     "audiovisual_reviews": 15,
     "cleanup_renders": 0,
@@ -9848,7 +9862,7 @@
     "panel_rounds": 0,
     "preflight_renders": 44,
     "reboards": 13,
-    "reported_tokens": 1606629,
+    "reported_tokens": 1682425,
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
