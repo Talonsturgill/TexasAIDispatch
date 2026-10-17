@@ -273,6 +273,131 @@ class Reservation(unittest.TestCase):
             self.assertEqual(auth['prepared_capture']['event_sha256'],
                              controller.read_state(self.state)['events'][-1]['event_sha256'])
 
+    def full_inputs(self):
+        board = {'runtime_s': 1, 'credits_s': 1, 'scenes': [], 'credits': 'SOURCE\n',
+                 'story_art': {'entries': [{'request_id': 'test-hero',
+                   'file': 'scripts/capture_reservation.py',
+                   'sha256': guard.sha(self.root / 'scripts/capture_reservation.py'),
+                   'creation_id': 'authored-' + 'a' * 20, 'created_at': '2026-10-17T00:00:00Z'}]}}
+        self.board.write_text(json.dumps(board))
+        for name, data in {'mix.wav': b'RIFF actual sound fixture', 'captions.json': b'[]',
+                           'words.json': b'[]', 'vo_script.txt': b'Source-backed narration.',
+                           'claims.json': b'[]', 'credits.txt': b'SOURCE\n',
+                           'preflight.json': b'{}', 'preflight.mp4': b'approved preview bytes'}.items():
+            (self.state.parent / name).write_bytes(data)
+        (self.state.parent / 'mix.json').write_text(json.dumps({'bed': False, 'duration_s': 2,
+            'master_sha256': controller.digest(self.state.parent / 'mix.wav')}))
+        for name in ('scripts/render_dispatch.sh', 'video-engine/src/Film.tsx',
+                     'video-engine/scripts/credit-tail-render.mjs', 'config/feed_layout.json'):
+            path = self.root / name; path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text('pinned source fixture')
+        return 'bash scripts/run_with_env.sh bash scripts/render_dispatch.sh'
+
+    def full_authorise(self):
+        command = self.full_inputs()
+        with mock.patch('authored_story_art.problems', return_value=[]), \
+                mock.patch('native_headroom.estimate', return_value={'required_free_gib': 1}), \
+                mock.patch.object(guard.shutil, 'disk_usage', return_value=mock.Mock(free=500 * 1024 ** 3)):
+            auth = guard.authorize(self.root, self.state, [self.board], [command],
+                                   resource='full_renders', housekeeping=False, prepare=True)
+            payload = {'tool_name': 'Bash', 'tool_input': {'command': command}, 'cwd': str(self.root)}
+            self.assertIsNone(guard.decide(payload, self.root))
+        return command, auth
+
+    def test_full_entry_claims_the_only_funded_charge_after_the_real_hook(self):
+        state = controller.read_state(self.state)
+        state['limits']['full_renders'] = state['escalation_ceiling']['full_renders'] = 1
+        controller.save(self.state, state)
+        command, auth = self.full_authorise()
+        self.assertEqual('full_renders', auth['render_reservation']['resource'])
+        self.assertEqual(1, controller.read_state(self.state)['usage']['full_renders'])
+        self.assertTrue(controller.reserve(self.state, {'full_renders': 1}, prepared.FULL_OPERATION)[0])
+        self.assertEqual(1, controller.read_state(self.state)['usage']['full_renders'])
+        self.assertFalse(controller.reserve(self.state, {'full_renders': 1}, prepared.FULL_OPERATION)[0])
+        self.assertEqual(1, controller.read_state(self.state)['usage']['full_renders'])
+        self.assertIn('already used', guard.decide({'tool_name': 'Bash',
+            'tool_input': {'command': command}, 'cwd': str(self.root)}, self.root))
+
+    def test_legacy_unprepared_full_charge_retains_its_original_ledger_contract(self):
+        self.assertTrue(controller.reserve(self.state, {'full_renders': 1}, prepared.FULL_OPERATION)[0])
+        state = controller.read_state(self.state)
+        self.assertEqual(1, state['usage']['full_renders'])
+        self.assertNotIn('full_render_identity', state['events'][-1])
+
+    def test_full_claim_refuses_changed_sound_captions_sources_preview_and_operators(self):
+        self.full_authorise()
+        before = self.state.read_bytes()
+        for relative in ('out/dispatch/storyboard.json', 'out/dispatch/mix.wav', 'out/dispatch/mix.json',
+                         'out/dispatch/captions.json', 'out/dispatch/words.json', 'out/dispatch/vo_script.txt',
+                         'out/dispatch/claims.json', 'out/dispatch/credits.txt', 'out/dispatch/preflight.json',
+                         'out/dispatch/preflight.mp4', 'scripts/render_dispatch.sh',
+                         'video-engine/src/Film.tsx', 'video-engine/scripts/credit-tail-render.mjs',
+                         'config/feed_layout.json'):
+            path = self.root / relative; original = path.read_bytes()
+            with self.subTest(relative=relative):
+                path.write_bytes(original + b' changed')
+                self.assertFalse(prepared.claim(self.state, prepared.FULL_OPERATION)[0])
+                self.assertEqual(before, self.state.read_bytes())
+            path.write_bytes(original)
+
+    def test_full_prepare_refuses_invalid_music_or_missing_production_input_before_spend(self):
+        command = self.full_inputs()
+        before = self.state.read_bytes()
+        report = self.state.parent / 'mix.json'; original = report.read_bytes()
+        for invalid in (b'{not-json', b'{"bed":true,"bed_track_id":"sincerely","duration_s":2}'):
+            with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, 'music package'):
+                report.write_bytes(invalid)
+                prepared.prepare(self.root, self.state, [command], resource='full_renders')
+            self.assertEqual(before, self.state.read_bytes())
+        report.unlink()
+        with self.assertRaisesRegex(ValueError, 'music package'):
+            prepared.prepare(self.root, self.state, [command], resource='full_renders')
+        report.write_bytes(original)
+        (self.state.parent / 'claims.json').unlink()
+        with self.assertRaisesRegex(ValueError, 'input is missing'):
+            prepared.prepare(self.root, self.state, [command], resource='full_renders')
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_full_prepare_refuses_foreign_inputs_unsupported_flags_and_wrong_resource(self):
+        command = self.full_inputs()
+        before = self.state.read_bytes()
+        for flag in ('state', 'board', 'mix', 'captions', 'preflight', 'preflight-film',
+                     'film', 'silent', 'started', 'manifest', 'rescue-report'):
+            with self.subTest(flag=flag), self.assertRaisesRegex(ValueError, 'canonical current input'):
+                prepared.prepare(self.root, self.state, [command + ' --' + flag + ' /tmp/foreign'])
+        for suffix in (' --unknown x', ' --mix', ' --mix out/dispatch/mix.wav --mix out/dispatch/mix.wav'):
+            with self.subTest(suffix=suffix), self.assertRaisesRegex(ValueError, 'flag/value'):
+                prepared.prepare(self.root, self.state, [command + suffix])
+        with self.assertRaisesRegex(ValueError, 'uses full_renders'):
+            prepared.prepare(self.root, self.state, [command], resource='preflight_renders')
+        with self.assertRaises(ValueError):
+            prepared.prepare(self.root, self.state, [command.replace('scripts/render_dispatch.sh', '/tmp/render_dispatch.sh')])
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_full_claim_requires_consumed_hook_exact_resource_and_matching_operator(self):
+        _, auth = self.full_authorise()
+        before = self.state.read_bytes()
+        for changed in ('unconsumed', 'wrong-resource', 'wrong-operator'):
+            broken = copy.deepcopy(auth)
+            if changed == 'unconsumed': broken['commands'][0]['consumed'] = False
+            if changed == 'wrong-resource': broken['prepared_capture']['resource'] = 'preflight_renders'
+            if changed == 'wrong-operator': broken['commands'][0]['text'] = self.command('cinema_proof.py')
+            (self.root / guard.AUTHORIZATION).write_text(json.dumps(broken))
+            self.assertFalse(prepared.claim(self.state, prepared.FULL_OPERATION)[0])
+            self.assertEqual(before, self.state.read_bytes())
+
+    def test_full_guard_refuses_a_foreign_authorized_board_before_any_charge(self):
+        command = self.full_inputs()
+        foreign = self.board.with_name('foreign-board.json'); foreign.write_bytes(self.board.read_bytes())
+        before = self.state.read_bytes()
+        with mock.patch('authored_story_art.problems', return_value=[]), \
+                mock.patch('native_headroom.estimate', return_value={'required_free_gib': 1}), \
+                mock.patch.object(guard.shutil, 'disk_usage', return_value=mock.Mock(free=500 * 1024 ** 3)), \
+                self.assertRaisesRegex(ValueError, 'canonical current board'):
+            guard.authorize(self.root, self.state, [foreign], [command],
+                            resource='full_renders', housekeeping=False, prepare=True)
+        self.assertEqual(before, self.state.read_bytes())
+
 
 if __name__ == '__main__':
     unittest.main()

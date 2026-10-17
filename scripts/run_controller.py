@@ -240,6 +240,24 @@ def preflight_identity(path: Path, note: str) -> str | None:
     return hashlib.sha256(json.dumps([operation, content]).encode()).hexdigest()
 
 
+def full_render_identity(path: Path) -> str:
+    """Bind the full-render entry to its exact sound, picture, credits and operators."""
+    root, scratch = REPO.resolve(), Path(path).resolve().parent
+    if Path(path).resolve() != root / 'out/dispatch/run_state.json':
+        raise ValueError('prepared full render must use this checkout ledger')
+    files = [scratch / name for name in ('storyboard.json', 'mix.wav', 'mix.json', 'captions.json',
+             'words.json', 'vo_script.txt', 'claims.json', 'credits.txt', 'preflight.json', 'preflight.mp4')]
+    for file in files:
+        if not file.is_file():
+            raise ValueError('full-render input is missing: ' + str(file.relative_to(root)))
+    for directory in ('video-engine/src', 'video-engine/public', 'config', 'video-engine/scripts'):
+        files += [p for p in (root / directory).rglob('*') if p.is_file()]
+    files += [p for p in (root / 'scripts').iterdir() if p.is_file() and p.suffix in {'.py', '.sh'}]
+    files += [p for p in (root / 'video-engine/package.json', root / 'video-engine/package-lock.json') if p.is_file()]
+    content = [(p.relative_to(root).as_posix(), digest(p)) for p in sorted(set(files))]
+    return hashlib.sha256(json.dumps(['full-render', content]).encode()).hexdigest()
+
+
 def retry_preflight(path: Path, operation: str, evidence: Path, reason: str) -> tuple[bool, str]:
     state = read_state(path)
     # Prepared operators reserve with an absolute ledger path. Match that canonical
@@ -306,7 +324,8 @@ def repair_plan_evidence(state: dict, name: str, plan_path: Path | None) -> tupl
         return {}, f"invalid repair plan: {exc}"
 
 
-def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool = False, _use_prepared_capture: bool = True
+def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool = False,
+            _use_prepared_capture: bool = True, _prepare_full: bool = False
             ) -> tuple[bool, str]:
     import claude_checkpoint
     claude_checkpoint.require_backed(path)  # unbacked charges or outputs stop new paid work
@@ -314,10 +333,11 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
     # Verify and retain the current snapshot before changing any counter. The post-write
     # mirror still makes the actual reservation durable before its caller can dispatch work.
     claude_checkpoint.mirror(path, "before paid reservation")
-    if _use_prepared_capture and amounts == {'preflight_renders': 1}:
-        from capture_reservation import OPERATIONS, PHONE_OPERATIONS, claim
+    if _use_prepared_capture and amounts in ({'preflight_renders': 1}, {'full_renders': 1}):
+        from capture_reservation import OPERATIONS, PHONE_OPERATIONS, FULL_OPERATION, resource_for, claim
         authorization = REPO / 'out/dispatch/capture-authorization.json'
-        if (note in (*OPERATIONS.values(), *PHONE_OPERATIONS.values()) and authorization.is_file()
+        if (note in (*OPERATIONS.values(), *PHONE_OPERATIONS.values(), FULL_OPERATION)
+                and amounts == {resource_for(note): 1} and authorization.is_file()
                 and load_json(authorization).get('prepared_capture') is not None):
             return claim(path, note)
     state = read_state(path)
@@ -355,6 +375,9 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
         return False, "; ".join(envelope_errors) + "; preserve the film and resolve the recorded production plan"
 
     preview_identity = preflight_identity(path, note) if "preflight_renders" in amounts else None
+    if _prepare_full and (amounts != {'full_renders': 1} or note != 'full-resolution Dispatch render'):
+        return False, 'prepared full render requires its exact resource and operation'
+    full_identity = full_render_identity(path) if _prepare_full else None
     if (preview_identity and state.get("preflight_retry") != preview_identity
             and any(e.get("preflight_identity") == preview_identity for e in state.get("events", []))):
         return False, ("run controller: identical preflight inputs were already reserved for this operation. "
@@ -448,7 +471,8 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
               film_sha256=state["deliverable"].get("film_sha256"))
     if preview_identity == state.get("preflight_retry"):
         state.pop("preflight_retry", None)
-    event(state, "reserved", resources=amounts, note=note, preflight_identity=preview_identity)
+    binding = {'full_render_identity': full_identity} if full_identity is not None else {}
+    event(state, "reserved", resources=amounts, note=note, preflight_identity=preview_identity, **binding)
     # CLEANUP LOCKS AT THE CEILING, NOT AT THE TARGET, and under escalation those are two
     # different numbers on purpose.
     #
@@ -2298,6 +2322,8 @@ def main() -> int:
                 except (ValueError, KeyError, TypeError, OSError):
                     pass
             budget_plan = load_json(a.repair_plan) if a.repair_plan else {}
+            from capture_completion_budget import live_budget_state
+            budget_state = live_budget_state(read_state(state_path), budget_plan)
             if budget_plan.get('repair_scope') == 'technical-integrity':
                 from creative_release import technical_repair_problems
                 diagnosis_errors = technical_repair_problems(read_state(state_path), budget_plan)
@@ -2305,12 +2331,12 @@ def main() -> int:
                     print(json.dumps({'feasible': False, 'errors': diagnosis_errors, 'resources': {},
                                       'deficits': {}, 'path': 'technical-diagnosis-required'}, sort_keys=True))
                     return 1
-            result = production_budget_precheck(read_state(state_path), a.review_route, phone_complete,
+            result = production_budget_precheck(budget_state, a.review_route, phone_complete,
                                                hero_rejected, context_ready, structural_ready, minimum_action_failed,
                                                mandatory_repair, review_coverage, modern_code_repair)
             if a.repair_plan:
                 from capture_completion_budget import apply_budget
-                result = apply_budget(read_state(state_path), budget_plan, result)
+                result = apply_budget(budget_state, budget_plan, result)
                 if budget_plan.get('completion_reason') == 'mandatory-film-pivot-capacity':
                     from film_pivot_capacity import apply_budget as film_pivot_budget
                     result = film_pivot_budget(budget_plan, result)
