@@ -76,3 +76,4 @@ storage: housekeeping verified rc=0 free 20.19 GiB; reclaimed 1.33 GiB via spars
 - 2026-10-17: assignment-binding-v2.json (relative path exactly as in message); receipt1 kept.
 - 2026-10-17: PR193 merged b4bf3ecd; pivot-capacity-plan-r15c granted critic +1 only (both routes feasible, critics 4/4). Precharging second same-a52 pivot.
 - 2026-10-17: pivot review 2 REVISE (critic 30/30 charged) saved evidence/review-r15-pivot-2/pivot-review.json. Unmet: 5 skyline fallback, 6 lift-the-case, 8 brief/plan/s3-s4-s7 text drift.
+- 2026-10-17: pivot review 2 REVISE; brief v5 + plan r15d answer it; pivot-capacity-plan-r15d granted critic +1; precharging third same-a52 pivot.
