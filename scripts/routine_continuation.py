@@ -14,6 +14,7 @@ from pathlib import Path
 SCHEMA = 'dispatch_routine_continuation/1'
 MARKER = '.claude/dispatch-production-continuation.json'
 PROBE = '.claude/dispatch-continuation-probe.json'
+REBIND = '.claude/dispatch-production-continuation-rebind.json'
 
 
 def read(path):
@@ -30,6 +31,34 @@ def location(workspace, value):
     return path
 
 
+def restored_rebind(workspace, previous, state_path, state):
+    """Retarget a missing restore only after verifying its retained ledger lineage."""
+    from claude_checkpoint import monotonic_problems, restored_ledger, sha256
+    if previous.get('schema') != SCHEMA or previous.get('run_id') != state['run_id']:
+        raise ValueError('another production ledger is already armed; preserve its continuation')
+    old_path = location(workspace, previous['state'])
+    if old_path.exists():
+        raise ValueError('the earlier armed ledger still exists; preserve its continuation')
+    host = read(state_path.with_name('claude-host.json'))
+    checkpoint = str(host.get('restored_from', ''))
+    if host.get('run_id') != state['run_id'] or not re.fullmatch(r'[0-9a-f]{40}', checkpoint):
+        raise ValueError('a missing armed ledger needs a verified checkpoint restoration')
+    repo = state_path.parents[2]
+    base = 'checkpoints/' + state['run_id']
+    manifest = json.loads(git_bytes(repo, checkpoint, base + '/manifest.json'))
+    original = git_bytes(repo, checkpoint, base + '/run_state.json')
+    if (manifest.get('schema') != 'dispatch_claude_checkpoint/2'
+            or manifest.get('run_id') != state['run_id']
+            or manifest.get('terminal_state') == 'shipped'
+            or manifest.get('ledger_sha256') != sha256(original)):
+        raise ValueError('the restored checkpoint identity or ledger digest changed')
+    retained = restored_ledger(json.loads(original), repo, manifest)
+    if not retained.get('resource_envelope') or monotonic_problems(retained, state):
+        raise ValueError('restored continuation must preserve the frozen envelope and cumulative history')
+    return {'previous_marker': previous, 'state': str(state_path),
+            'restored_from': checkpoint, 'ledger_sha256': manifest['ledger_sha256']}
+
+
 def arm(workspace, state_path):
     workspace = Path(workspace).resolve()
     state_path = location(workspace, state_path)
@@ -41,9 +70,15 @@ def arm(workspace, state_path):
     target = location(workspace, workspace / MARKER)
     target.parent.mkdir(parents=True, exist_ok=True)
     value = {'schema': SCHEMA, 'run_id': state['run_id'], 'state': str(state_path)}
+    from bootstrap_claude_hooks import write_json
     if target.exists() and read(target) != value:
-        raise ValueError('another production ledger is already armed; preserve its continuation')
-    target.write_text(json.dumps(value, indent=2) + '\n')
+        proof = restored_rebind(workspace, read(target), state_path, state)
+        audit = location(workspace, workspace / REBIND)
+        history = read(audit) if audit.exists() else {'schema': SCHEMA, 'rebindings': []}
+        if history.get('schema') != SCHEMA or not isinstance(history.get('rebindings'), list):
+            raise ValueError('the continuation rebind history is invalid')
+        write_json(audit, {**history, 'rebindings': history['rebindings'] + [proof]})
+    write_json(target, value)
     return value
 
 

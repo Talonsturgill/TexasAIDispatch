@@ -147,6 +147,12 @@ guard through the current checkout. Resolve the actual primary workspace parent,
 bash scripts/run_with_env.sh python scripts/routine_continuation.py --workspace <shared-parent> --arm out/dispatch/run_state.json
 ```
 
+Repeat this after a later restoration too. If the earlier armed path no longer exists, the
+helper can retarget the same edition only after verifying the immutable checkpoint ledger,
+unchanged frozen envelope and complete cumulative event history. It retains a rebind audit.
+A live earlier ledger or another edition stays protected. Do not hand-edit the marker or
+re-register hooks to get around a refused rebind.
+
 The prelaunch Stop hook sends an early final response back to this same ledger. It approves no
 tool, changes no permissions and adds no capacity. It remains inactive for ordinary coding and
 leaf agents. Collect required task results through the actual task tools, repair internal failures
