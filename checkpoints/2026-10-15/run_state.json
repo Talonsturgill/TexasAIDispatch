@@ -698,6 +698,14 @@
       "note": "precharged third same-worker recurrence pivot review for R15d (source-framing events 168 and 179, replacement physical-water-sensor-range-map-pictures-v1; SendMessage a52c371448f105d98), allocation 1 of 4: pivot 3, both-treatment code review, silent comparison, final timed phone",
       "resource": "storyboard_critics",
       "to": 31
+    },
+    {
+      "at": "2026-10-17T02:38:56.629840Z",
+      "ceiling": 10,
+      "from": 9,
+      "note": "R15d corrective reboard: physical-water-sensor-range-map-pictures-v1 on film report f2dd8a81 (8 defects), pivot review 3 PASS",
+      "resource": "reboards",
+      "to": 10
     }
   ],
   "events": [
@@ -6732,6 +6740,24 @@
       "plan_identity": null,
       "plan_sha256": "f4a274a52983ed2b88339c796abba20eb8391ac88d5535dfa1805eafa82afc1a",
       "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-17T02:38:56.629856Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "R15d corrective reboard: physical-water-sensor-range-map-pictures-v1 on film report f2dd8a81 (8 defects), pivot review 3 PASS",
+      "now": 10,
+      "resource": "reboards",
+      "was": 9
+    },
+    {
+      "at": "2026-10-17T02:38:56.629864Z",
+      "kind": "reserved",
+      "note": "R15d corrective reboard: physical-water-sensor-range-map-pictures-v1 on film report f2dd8a81 (8 defects), pivot review 3 PASS",
+      "preflight_identity": null,
+      "resources": {
+        "reboards": 1
+      }
     }
   ],
   "limits": {
@@ -6741,7 +6767,7 @@
     "image_generations": 2,
     "panel_rounds": 1,
     "preflight_renders": 26,
-    "reboards": 9,
+    "reboards": 10,
     "reported_tokens": 646479,
     "rescue_renders": 1,
     "research_agents": 3,
@@ -6755,7 +6781,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "1a2fbf85b7f18ed6081c41babcc360ed59520797e34feed190a96049cee1adb4",
+    "original_private_state_sha256": "bf063243a5004b7fece9948df56d1f9b51266ce4efb7d1ef5ddf8786452cfc95",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -6791,7 +6817,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T02:38:34.429768Z",
+  "updated_at": "2026-10-17T02:38:56.629865Z",
   "usage": {
     "audiovisual_reviews": 7,
     "cleanup_renders": 0,
@@ -6799,7 +6825,7 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 26,
-    "reboards": 9,
+    "reboards": 10,
     "reported_tokens": 646479,
     "rescue_renders": 0,
     "research_agents": 3,
