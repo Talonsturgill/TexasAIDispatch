@@ -1,5 +1,29 @@
 # Autonomous completion capacity
 
+## Actual occupied native review output
+
+For unfinished editions from October 15th, the separately pinned
+config/capture_retry_capacity_v2.json admits the observed native motion-extraction EEXIST failure.
+Keep its actual charged and consumed authorization, claimed operator entry, original failure log,
+ordinary retry-preflight event and entire retained previous output. Keep the independently passed
+phone, registered native film, renderer, artwork, sources, voice, captions and all original grants
+unchanged. Resolve the occupied destination before preparation; never overwrite old pages.
+
+```sh
+python scripts/capture_retry_capacity.py --state out/dispatch/run_state.json --authorization <actual-consumed-motion-authorization> --failure-log <exact-retry-evidence> --retained-output <retained-old-motion-directory> --output <new-motion-recovery-plan>
+python scripts/run_controller.py production-budget --repair-plan <new-motion-recovery-plan>
+python scripts/run_controller.py completion-capacity --repair-plan <new-motion-recovery-plan>
+python scripts/run_controller.py production-budget --repair-plan <new-motion-recovery-plan>
+```
+
+Use scripts/run_with_env.sh with an explicit internal worktree cd. Preparation preserves an exact
+authorization snapshot before the next authorization replaces the current file. One actual failed
+reservation owns one grant of only the computed preflight deficit, at most two units, while every
+other remaining resource must already be protected. The ordinary controller precharges each retry
+and the normal capture hook still consumes its new exact authorization. This grants no production
+edit, review verdict, native quality exception or shipment approval. The original v1 sampler
+recovery and its historical one-unit grants retain their original policy and evidence.
+
 Effective October 3rd, 2026. The owner prohibits ending an autonomous Dispatch run at an internal resource ceiling or host review capacity error. Done means an accepted shipped video, deployed permanent bytes, canonical phone playback and the verified correctly addressed unsent Gmail draft.
 
 This standing instruction authorizes the mandatory completion capacity policy in config/autonomous_completion.json. Preserve each run's original frozen envelope and every cumulative charge. Record necessary completion increments as separate evidence-bound controller events. Never reset usage or treat a grant as picture, score or shipment approval.
