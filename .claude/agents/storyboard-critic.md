@@ -166,6 +166,10 @@ Use the compact packet and the actual referenced board, sources and renderer. Ad
 with the documented digests, pass/revise verdict, blocking_defects, one_viewing_summary,
 opening_to_ending and weakest_transition. Keep your reviewer_identity distinct from the director.
 At the code-plan scope, describe the intended chain and inspect the actual callable actions.
+For dates covered by config/critic_concept_v2.json, use the mechanically supplied critic_gate
+digest. It excludes the derived clock while preserving authored causal bindings. Your code-plan
+judgment cannot approve waveform/caption provenance, timed performance or exact film bytes;
+inspect those in the independent current-film scope. Never rewrite a prior handback's digest.
 At the phone scope, update the observations from the film after one viewing, before rereading the
 director's explanation. Do not report a planned scene as an observed one.
 

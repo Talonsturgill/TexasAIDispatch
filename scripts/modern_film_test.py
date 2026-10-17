@@ -12,6 +12,7 @@ import creative_release
 import autonomous_completion as capacity
 import run_controller as controller
 import repair_guard
+import critic_gate
 
 
 class NarrationPictureTest(unittest.TestCase):
@@ -51,6 +52,116 @@ class NarrationPictureTest(unittest.TestCase):
     def test_complete_measured_contract_and_idempotent_compilation(self):
         self.assertEqual([],self.errors());before=copy.deepcopy(self.board)
         modern.compile_narration(self.board,self.captions,self.words);self.assertEqual(before,self.board)
+
+    def test_future_code_concept_survives_real_measured_recompilation(self):
+        self.board['date']='2026-10-17'
+        original=copy.deepcopy(self.board)
+        expected=critic_gate.concept_digest(original)
+        authored=copy.deepcopy(original)
+        authored['narration_picture']['timing_mode']='authored'
+        authored['narration_picture'].pop('timing_provenance')
+        for row in authored['narration_picture']['clauses']:
+            for key in ('start_s','end_s','word_range','cue_ids'):row.pop(key,None)
+        for shot in authored['film_direction']['shots']:
+            for key in ('scene_fraction_start','scene_fraction_end'):shot.pop(key,None)
+        self.assertEqual(critic_gate.concept_digest(authored),expected)
+        self.board['runtime_s']+=.1;self.board['scenes'][0]['duration_s']+=.1
+        for cue in self.captions['cues']:
+            cue['start']+=.1;cue['end']+=.1
+        self.words['audio_sha256']='b'*64
+        modern.compile_narration(self.board,self.captions,self.words)
+        self.assertNotEqual(self.board['film_direction']['shots'],original['film_direction']['shots'])
+        self.assertEqual(self.errors(),[])
+        self.assertEqual(critic_gate.concept_digest(self.board),expected)
+
+    def test_future_concept_retains_authored_action_source_and_unknown_fields(self):
+        self.board['date']='2026-10-17'
+        expected=critic_gate.concept_digest(self.board)
+        mutations=[('text','A different source claim.'),('action_id','camera-drift'),
+                   ('subject_ids',['different-subject']),('claim_ids',['different-source']),
+                   ('scene_id','another-scene'),('event_ids',['another-event'])]
+        for key,value in mutations:
+            changed=copy.deepcopy(self.board)
+            changed['narration_picture']['clauses'][0][key]=value
+            with self.subTest(field=key):self.assertNotEqual(critic_gate.concept_digest(changed),expected)
+        for area,key,value in [('shot','view','normal'),('event','clause_fraction_end',.6),
+                               ('narration','unrecognized_field','keep this binding')]:
+            changed=copy.deepcopy(self.board)
+            target={'shot':changed['film_direction']['shots'][0],
+                    'event':changed['scenes'][0]['visual_events'][0],
+                    'narration':changed['narration_picture']}[area]
+            target[key]=value
+            with self.subTest(area=area,key=key):self.assertNotEqual(critic_gate.concept_digest(changed),expected)
+
+    def test_future_reward_owner_follows_actual_compiler_across_a_cut(self):
+        self.board['date']='2026-10-17'
+        second=copy.deepcopy(self.board['film_direction']['shots'][0])
+        second['id']='c1-shot-second'
+        self.board['film_direction']['shots'].insert(1,second)
+        modern.compile_narration(self.board,self.captions,self.words)
+        expected=critic_gate.concept_digest(self.board)
+        reward=self.board['film_direction']['rewards'][0]
+        self.assertEqual(reward['shot_id'],'c1-shot')
+        self.captions['cues'][0].update(start=.6,end=2.05)
+        modern.compile_narration(self.board,self.captions,self.words)
+        self.assertEqual(reward['shot_id'],'c1-shot-second')
+        self.assertEqual(self.errors(),[])
+        self.assertEqual(critic_gate.concept_digest(self.board),expected)
+
+    def test_future_silent_shot_keeps_its_authored_fraction_binding(self):
+        self.board['date']='2026-10-17'
+        self.board['scenes'].append({'id':'silent','start_s':7,'duration_s':2,'vo':'','visual_events':[]})
+        shot={'id':'silent-shot','scene_id':'silent','narration_ids':[],
+              'start_s':7,'duration_s':2,'scene_fraction_start':0,'scene_fraction_end':1,'view':'normal'}
+        self.board['film_direction']['shots'].append(shot)
+        expected=critic_gate.concept_digest(self.board)
+        for key,value in (('scene_fraction_start',.1),('scene_fraction_end',.8)):
+            changed=copy.deepcopy(self.board);changed['film_direction']['shots'][-1][key]=value
+            with self.subTest(field=key):self.assertNotEqual(critic_gate.concept_digest(changed),expected)
+        # An owner outside the compiler's narrated-event mapping is authored too.
+        self.board['film_direction']['rewards'].append({'event_id':'unmapped-silent-event','shot_id':'silent-shot'})
+        expected=critic_gate.concept_digest(self.board)
+        self.board['film_direction']['rewards'][-1]['shot_id']='another-silent-shot'
+        self.assertNotEqual(critic_gate.concept_digest(self.board),expected)
+
+    def test_future_concept_never_approves_stale_or_forged_measured_evidence(self):
+        self.board['date']='2026-10-17'
+        expected=critic_gate.concept_digest(self.board)
+        for mutation in ('words','mode','clause-clock','word-range','cue-ids'):
+            changed=copy.deepcopy(self.board);plan=changed['narration_picture']
+            if mutation=='words':plan['timing_provenance']['word_content_sha256']='f'*64
+            if mutation=='mode':plan['timing_mode']='authored'
+            if mutation=='clause-clock':plan['clauses'][0]['start_s']+=.2
+            if mutation=='word-range':plan['clauses'][0]['word_range']=[0,99]
+            if mutation=='cue-ids':plan['clauses'][0]['cue_ids']=['missing-cue']
+            with self.subTest(mutation=mutation):
+                self.assertEqual(critic_gate.concept_digest(changed),expected)
+                self.assertTrue(self.errors(board=changed))
+
+    def test_historical_concept_digest_remains_exact(self):
+        board={'date':'2026-10-15','scenes':[],
+            'narration_picture':{'version':'narration-picture-v1',
+                'timing_mode':'measured_caption_boundaries',
+                'timing_provenance':{'word_content_sha256':'a'*64},
+                'clauses':[{'id':'n1','text':'The water reaches the curb.',
+                    'start_s':.3,'end_s':1.8,'word_range':[0,6],
+                    'cue_ids':['c1'],'action_id':'water-rise'}]}}
+        self.assertEqual(critic_gate.concept_digest(board),
+                         'ab615d5dd6218280070bb6be1b9f4af9c769b49c99f4639cc0a50bfecee80fba')
+        changed=copy.deepcopy(board)
+        changed['narration_picture']['timing_provenance']['word_content_sha256']='b'*64
+        self.assertNotEqual(critic_gate.concept_digest(changed),critic_gate.concept_digest(board))
+
+    def test_future_concept_policy_is_bound_and_unknown_profiles_stay_strict(self):
+        from daily_production import craft_reading_paths
+        self.board['date']='2026-10-15'
+        self.assertNotIn(critic_gate.CONCEPT_POLICY,craft_reading_paths(self.board))
+        self.board['date']='2026-10-17'
+        self.assertIn(critic_gate.CONCEPT_POLICY,craft_reading_paths(self.board))
+        self.board['narration_picture']['version']='unrecognized-narration-contract'
+        expected=critic_gate.concept_digest(self.board)
+        self.board['narration_picture']['timing_provenance']['word_content_sha256']='f'*64
+        self.assertNotEqual(critic_gate.concept_digest(self.board),expected)
 
     def test_provisional_silent_plan_cannot_authorize_measured_delivery(self):
         self.board['narration_picture']['timing_mode']='authored'

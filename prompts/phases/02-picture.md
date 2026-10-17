@@ -123,6 +123,13 @@ Save its real verdict, reviewer identity, current concept and renderer digests, 
 and weakest frame to storyboard_critic.json. Get digests from critic_gate, not a guessed file.
 The critic must be independent of the director. A revise verdict is active repair.
 
+For editions from the effective date in config/critic_concept_v2.json, the code-plan digest
+preserves the authored words, source, subject, action, view and event fractions while excluding
+the derived narration clock and its provenance. Obtain it from critic_gate; never edit a
+reviewer's digest after handback. This identity does not approve timing or media. Current
+waveform/caption verification and independent exact-film phone/native reviews remain required.
+Earlier editions retain their original algorithm and reports.
+
 ```sh
 python scripts/critic_gate.py --board out/dispatch/storyboard.json --report out/dispatch/storyboard_critic.json
 ```
