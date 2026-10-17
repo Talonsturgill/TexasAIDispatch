@@ -1,0 +1,21 @@
+Independent technical classification (storyboard_critics charged before this message). Work in /home/user/restore/TexasAIDispatch. Do NOT launch subagents, run nothing, edit nothing. You can't write files; return ONE JSON object as your final message.
+
+Context. Edition 2026-10-15 has a native film ab7058fff988ce8bce16226c97600985d74e1a49fa26d5dd2a6942c22d8db077 (board 3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b). The mix uses the licensed bed "Sincerely" by Kevin MacLeod (CC BY 4.0), where the credit is the licence. scripts/music.py --verify-package fails: the board's credits text names sources, illustration and map but no MUSIC line, so the rendered end card carries no attribution. The director proposes a data-only correction: set the board `credits` field to the existing text plus the exact MUSIC block from out/dispatch/music_credit.txt and write the same string to out/dispatch/credits.txt. No script, voice, mix, caption, timing or renderer source change, and the mix already runs 64.4 s (59.4 runtime + 5 credits).
+
+Do three things from the bytes (read every listed file fully, one Read per step, mark nothing read that you did not read): (1) establish whether the missing attribution is a mandatory finding and which category from exactly this set it falls in: source, rights, legibility, layout, technical_audio, captions, runtime (motion, pacing, story, style are creative and can't be used); also state whether the five-second end card can hold the added MUSIC line at phone size without a layout or legibility problem, using the credits_s, safe-area and caption rules in the files, and name any other mandatory finding you establish from the bytes; (2) judge whether the director's correction is the minimal fix and whether the mechanism music-credit-end-card-v1 (family rights) relabels any earlier failed mechanism; (3) name every risk the fix could leave.
+
+Return this JSON shape. Findings are plain strings, each classified. If the attribution is not a technical finding or the fix is not minimal, say so plainly with verdict revise and reasons instead of forcing the shape.
+{"verdict":"revise","film_sha256":"ab7058fff988ce8bce16226c97600985d74e1a49fa26d5dd2a6942c22d8db077","reviewed_preflight_sha256":"ab7058fff988ce8bce16226c97600985d74e1a49fa26d5dd2a6942c22d8db077","review_scope":"technical-classification","reviewer_identity":"<honest identity and limits>","reviewed_at":"<ISO 8601 UTC>","blocking_defects":["<finding>"],"technical_repair":{"findings":[{"finding":"<same string>","category":"rights"}]},"proposal_assessment":"...","recurrence":"...","risks":["..."],"files_read_in_full":["..."],"one_line_note":"..."}
+
+Files (read all, in this order; paths under /home/user/restore/TexasAIDispatch):
+- out/dispatch/evidence/r15g/music-package-failure-board-3758e9bc.log
+- out/dispatch/evidence/r15g/credit-repair-prep/repair-plan-r15g.template.json
+- out/dispatch/evidence/r15g/credit-repair-prep/credits.txt
+- out/dispatch/music_credit.txt
+- out/dispatch/mix.json
+- out/dispatch/music_bed.json
+- out/dispatch/evidence/r15g/HANDOFF-fresh-launch-20261017.md
+- knowledge/craft/AUTONOMOUS_COMPLETION.md
+- knowledge/craft/BOUNDED_CREATIVE_RELEASE.md
+- prompts/phases/repair.md
+- .claude/agents/storyboard-critic.md
