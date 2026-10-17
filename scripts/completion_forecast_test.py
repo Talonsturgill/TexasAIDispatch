@@ -119,6 +119,13 @@ class ForecastReconciliationTest(unittest.TestCase):
         self.assertIn('complete two-treatment capture budget', message)
         self.assertEqual(original, self.state.read_bytes())
 
+    def test_initial_code_repair_does_not_require_a_nonexistent_comparison(self):
+        fresh = self.root / 'initial-run.json'
+        self.assertTrue(controller.initialise(fresh, '2026-10-11-new', 'production')[0])
+        state = controller.read_state(fresh)
+        self.assertEqual([], forecast.admission_problems(state, json.loads(self.original.read_text())))
+        self.assertTrue(forecast.admission_problems(self.pregrant, json.loads(self.original.read_text())))
+
     def test_any_later_paid_review_or_capture_refuses_reconciliation(self):
         for resource in ('storyboard_critics', 'preflight_renders', 'full_renders', 'audiovisual_reviews'):
             state = copy.deepcopy(self.before)
