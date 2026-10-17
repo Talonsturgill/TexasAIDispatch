@@ -2147,6 +2147,12 @@ def main() -> int:
     for command in ("begin-repair", "authorize-repair"):
         p = sub.add_parser(command)
         p.add_argument("--plan", type=Path, required=True)
+        if command == 'begin-repair':
+            reboard = p.add_mutually_exclusive_group()
+            reboard.add_argument('--reserve-reboard', action='store_true',
+                                 help='reserve one corrective reboard only after begin-repair succeeds')
+            reboard.add_argument('--prepaid-reboard', metavar='EVENT_SHA256',
+                                 help='bind the exact unused rights reboard from its original mandatory grant')
     sub.add_parser("pending")
     sub.add_parser("status")
     p = sub.add_parser("production-budget")
@@ -2191,7 +2197,8 @@ def main() -> int:
             if a.command == "checkpoint":
                 accepted, message = checkpoint(state_path, a.review_package, a.reason, a.blocker_report)
             elif a.command == "begin-repair":
-                accepted, message = begin_repair(state_path, a.plan)
+                accepted, message = begin_repair(state_path, a.plan, reserve_reboard=a.reserve_reboard,
+                                                 prepaid_reboard=a.prepaid_reboard)
             else:
                 accepted, message = authorize_repair(state_path, a.plan)
         elif a.command == "register-deliverable":

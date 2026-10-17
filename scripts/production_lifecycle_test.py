@@ -231,6 +231,22 @@ class LifecycleTest(unittest.TestCase):
         self.assertEqual(c.read_state(self.state)["usage"]["reboards"], 1)
         self.assertEqual(life.allowance_problems(c.read_state(self.state)), [])
 
+    def test_combined_begin_never_charges_after_a_failed_check(self):
+        plan_path = self.plan(); plan = c.load_json(plan_path)
+        plan['resources']['unsupported'] = 1; plan_path.write_text(json.dumps(plan))
+        before = self.state.read_bytes()
+        self.assertFalse(life.begin_repair(self.state, plan_path, reserve_reboard=True)[0])
+        self.assertEqual(before, self.state.read_bytes())
+        plan['resources'].pop('unsupported'); plan_path.write_text(json.dumps(plan))
+        self.assertTrue(life.begin_repair(self.state, plan_path, reserve_reboard=True)[0])
+        opened = c.read_state(self.state)
+        self.assertEqual(opened['usage']['reboards'], 1)
+        self.assertLess(next(i for i, e in enumerate(opened['events']) if e['kind'] == 'repair_started'),
+                        next(i for i, e in enumerate(opened['events']) if e['kind'] == 'reserved'))
+        charged = self.state.read_bytes()
+        self.assertFalse(life.begin_repair(self.state, plan_path, reserve_reboard=True)[0])
+        self.assertEqual(charged, self.state.read_bytes())
+
     def test_existing_paid_technical_scopes_preserve_envelope_and_cannot_be_reallocated(self):
         import repair_guard
         state = c.read_state(self.state);state['run_id'] = '2026-09-30'

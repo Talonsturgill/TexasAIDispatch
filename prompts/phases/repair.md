@@ -124,8 +124,7 @@ before_sha256 and later after_sha256. Include only the resources needed for that
 
 ```sh
 python scripts/run_controller.py checkpoint
-python scripts/run_controller.py begin-repair --plan out/dispatch/repair-plan.json
-python scripts/run_controller.py consume --resource reboards --note "<structural correction>"
+python scripts/run_controller.py begin-repair --plan out/dispatch/repair-plan.json --reserve-reboard
 python scripts/board_diff.py --before <retained-before-board> --after out/dispatch/storyboard.json
 python scripts/run_controller.py authorize-repair --plan out/dispatch/repair-plan.json
 ```
@@ -141,6 +140,26 @@ Begin before editing; authorize after the declared bytes changed. Keep stable me
 failure_family and director_identity. The frozen cumulative envelope takes precedence over
 old instructions about renewable extensions. An existing bounded authorization is not endless
 permission. Never reset usage, purchase a reset, falsify a verdict or relabel a batch to hide spend.
+
+Completion capacity validates the shared failure-family taxonomy before granting anything.
+Use `rights` with technical-integrity scope for an independently classified rights failure;
+every exact finding still needs independent classification and at least one must be rights.
+Keep that genuine category when correcting a missing end-card licence credit. The combined
+begin command charges a reboard only after the opening check succeeds. Never chain a paid
+consume after a failed check with a semicolon.
+
+For the retained unsupported-rights-family incident only, an already charged unused reboard
+may be bound with `begin-repair --plan <original-rights-plan> --prepaid-reboard <event-sha256>`.
+Verify its exact charge and unchanged live baselines first with the read-only proposal:
+
+```sh
+python scripts/rights_repair_precharge.py --state out/dispatch/run_state.json --plan out/dispatch/repair-plan.json --receipt <actual-reservation-event-sha256>
+```
+
+The controller requires the exact latest paid reservation, the original mandatory rights
+grant, unchanged original data-only board baselines, and no intervening paid work or opened
+repair. It binds that charge once, adds no capacity, preserves usage and all failed evidence,
+and grants no review or release approval. Never use `--reserve-reboard` with this recovery.
 
 When measured narration exceeds the authored runtime or crowds the scene/caption limits,
 use failure_family measured-runtime-crowding with technical-integrity scope. Retain the exact
