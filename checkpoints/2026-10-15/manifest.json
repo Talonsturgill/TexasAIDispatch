@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T05:04:26.057708+00:00",
+  "saved_at": "2026-10-17T05:04:40.386085+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "15686ac9e7357e949ac75fb349fe13149e00154b70c0017d12d1efdfdf8dcb83",
-  "original_private_ledger_sha256": "ea4fd1d8673ba03a5e1ee5319e1050a1ae79c107cd4b911812e60cc0f2a44256",
+  "ledger_sha256": "5ffd3e4d58214fa12bbb7b82199ae48498a4545e1fd3b83c1cd0685df14e278f",
+  "original_private_ledger_sha256": "62696192215c89a237555ba6397f2d323aa2eb63dd2dca5c089b4b50c18bb59d",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -144,8 +144,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "a5a54a549ceb5cbb13c0aa6a166fc57893cd00e4626e27a075544a1014ed33e0",
-      "size": 25284
+      "sha256": "2aef7f155576d76f9fba694f16eba0b13a90a45d5b70f9f4ea0595b634020099",
+      "size": 25501
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -13216,6 +13216,12 @@
       "size": 77992
     },
     {
+      "path": "out/dispatch/evidence/r15f/begin-repair-v3.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/evidence/r15f/classification-message-r15f.txt",
       "class": "scratch",
       "sha256": "cb6bdc873b5b141edf7f386b9c04e3d8ae172d024ccd74a95b615db9fe451958",
@@ -13236,14 +13242,26 @@
     {
       "path": "out/dispatch/evidence/r15f/completion-capacity-v3.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "c73640730b0905e4e04595f3dcc3dbb16194db654d7d79871c5f65cb869c7235",
+      "size": 92
+    },
+    {
+      "path": "out/dispatch/evidence/r15f/production-budget-v3-host-after.json",
+      "class": "scratch",
+      "sha256": "347032d77ce7867bf7a042ce148be3980960331d40532b8c9ccca09b74236023",
+      "size": 1530
     },
     {
       "path": "out/dispatch/evidence/r15f/production-budget-v3-host-before.json",
       "class": "scratch",
       "sha256": "ff13d88564671a888250484ffc4b666d7614d321e2f2a0658be197e01873555d",
       "size": 1581
+    },
+    {
+      "path": "out/dispatch/evidence/r15f/production-budget-v3-provider-after.json",
+      "class": "scratch",
+      "sha256": "939088f4f46820f9a850e2b7b061bfb4d85860c925e2cac33534b23a642509c3",
+      "size": 1534
     },
     {
       "path": "out/dispatch/evidence/r15f/production-budget-v3-provider-before.json",

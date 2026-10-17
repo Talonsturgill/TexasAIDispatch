@@ -1,4 +1,18 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15f/baseline/FloodStationFilm.tsx",
+        "before_sha256": "6f26ef6d49683215fc8478cbcf27599520d430c2f51befcc8475a49c6c2ac44e",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
+      }
+    ],
+    "failure_sha256": "9225fae4b5e84109aa1fe03a10d7936fede66b74f4f80ee55ab92729b6ed8b78",
+    "plan": "{REPO}/out/dispatch/evidence/r15f/complete-plan-r15f-v3.json",
+    "plan_sha256": "9cb29e77d1bb5bf9fe33367aace8b2d7aa3e7745da138bb4ef888374b679d671",
+    "reboards_before": 11,
+    "repair_scope": "technical-integrity"
+  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -7704,6 +7718,36 @@
         "validator_agents": 5,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-17T05:04:37.776103Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15f/baseline/FloodStationFilm.tsx",
+          "before_sha256": "6f26ef6d49683215fc8478cbcf27599520d430c2f51befcc8475a49c6c2ac44e",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "document-handling",
+      "failure_sha256": "9225fae4b5e84109aa1fe03a10d7936fede66b74f4f80ee55ab92729b6ed8b78",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 12,
+          "to": 12
+        },
+        "storyboard_critics": {
+          "from": 40,
+          "to": 40
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "s8-detail-safe-area-framing",
+      "plan_identity": null,
+      "plan_sha256": "9cb29e77d1bb5bf9fe33367aace8b2d7aa3e7745da138bb4ef888374b679d671",
+      "repair_scope": "technical-integrity"
     }
   ],
   "limits": {
@@ -7727,7 +7771,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "ea4fd1d8673ba03a5e1ee5319e1050a1ae79c107cd4b911812e60cc0f2a44256",
+    "original_private_state_sha256": "62696192215c89a237555ba6397f2d323aa2eb63dd2dca5c089b4b50c18bb59d",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -7763,7 +7807,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T05:04:18.153244Z",
+  "updated_at": "2026-10-17T05:04:37.776118Z",
   "usage": {
     "audiovisual_reviews": 8,
     "cleanup_renders": 0,
