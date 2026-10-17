@@ -2,6 +2,13 @@
 
 Owner instruction from October 3rd, 2026. Read knowledge/craft/AUTONOMOUS_COMPLETION.md before applying older resource-boundary language below. Internal review ceilings and host capacity errors trigger autonomous mandatory completion recovery, never an approval stop or an unfinished-capacity final response. Preserve exact failures, the original frozen envelope and cumulative charges. Only accepted finish --result shipped completes production.
 
+Current modern-film policy has precedence over the generic deferrals below. For editions
+selected by config/modern_film.json, its nondeferrable_categories and all required timed
+observations remain mandatory, including pacing, motion, surface finish and ending artistry.
+Read MODERN_FILM.md and STORY_ART.md before classifying those findings. A creative ceiling
+ends optional polish; it cannot waive these floors or missing guide/source review coverage.
+Use the existing source-backed mandatory recovery with the original evidence and charges.
+
 Effective September 29, 2026. The owner requires a shipped video and prohibits stopping for
 creative approval. The default limit is three creative repair rounds. Before September 30, each charged
 `reboards` unit counts; later editions use the independently classified accounting below. Also stop optional creative

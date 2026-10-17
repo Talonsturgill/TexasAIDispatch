@@ -2,6 +2,21 @@
 
 Owner instruction from October 3rd, 2026. Read knowledge/craft/AUTONOMOUS_COMPLETION.md before applying older resource-boundary language below. Internal review ceilings and host capacity errors trigger autonomous mandatory completion recovery, never an approval stop or an unfinished-capacity final response. Preserve exact failures, the original frozen envelope and cumulative charges. Only accepted finish --result shipped completes production.
 
+For a current modern-film edition, read knowledge/craft/MODERN_FILM.md,
+knowledge/craft/STORY_ART.md and config/modern_film.json before applying generic artistic
+deferral. The current nondeferrable_categories override that older route. Motion, pacing,
+surface finish and ending artistry remain mandatory at a creative ceiling. Consolidate every
+actual current failure, including pictured-clause comprehension and legibility, into the
+existing independently reviewed and fully funded correction. Continue that route without
+asking the owner to approve an internal creative or application-budget decision.
+
+Inspect each handback's actual coverage before calling it a completed review. Preserve a
+disclosed unread guide, board section, source or required crop and all observed findings.
+Complete missing content with the same workers through the existing paid review and atomic
+panel path when required. JSON-only correction can preserve the original scores for free;
+substantive guide/source completion is paid content review. Never invent coverage, replace
+a real rejection or call missing coverage an artistic deferral.
+
 Read the current checkpoint and compact defect ledger first. Preserve the last playable film,
 exact hashes and all reviews. Read knowledge/craft/BOUNDED_CREATIVE_RELEASE.md first: a rejection
 starts another creative repair only before its finite boundary and with complete review

@@ -238,6 +238,21 @@ def render(t: dict) -> str:
     return "\n".join(out)
 
 
+def recovery_guidance(board=None):
+    """Describe the next production action without changing a verdict or granting anything."""
+    message = ('Continue the existing production through prompts/phases/repair.md. '
+        'No routine creative approval question is needed. Retain exact failures and charges, '
+        'then fund the complete mandatory path through the versioned controller before correction. '
+        'Host tool approvals are unchanged; only accepted finish --result shipped completes production.')
+    if board:
+        import modern_film
+        if modern_film.required(board):
+            categories = ', '.join(modern_film.policy()['nondeferrable_categories'])
+            message += (' Current modern-film floors cannot be deferred: ' + categories +
+                '. Read the current MODERN_FILM and STORY_ART contracts before applying older artistic deferral.')
+    return message
+
+
 def self_test() -> int:
     fails = 0
 
@@ -334,6 +349,14 @@ def self_test() -> int:
        panel_round_limit() == _ceiling)
     ok("...and it is the CEILING, because the target is a spend goal only the controller "
        "may grant past", panel_round_limit() >= _target)
+    import modern_film
+    current = {'date': modern_film.policy()['effective_date']}
+    before = json.dumps(current, sort_keys=True)
+    guidance = recovery_guidance(current)
+    ok('a rejected current cut names autonomous repair and every nondeferrable modern category',
+       'prompts/phases/repair.md' in guidance and 'No routine creative approval question' in guidance
+       and all(name in guidance for name in modern_film.policy()['nondeferrable_categories']))
+    ok('the recovery cue changes no board or review data', json.dumps(current, sort_keys=True) == before)
 
     print(f"panel_triage: {fails} failure(s)")
     return 1 if fails else 0
@@ -420,7 +443,11 @@ def main() -> int:
         target = Path(a.out_report)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(json.dumps(card, indent=2) + "\n", encoding="utf-8")
-        print(f"\n  report card -> {target} ({'ship' if card['ship'] else 'needs review'})")
+        print(f"\n  report card -> {target} ({'ship' if card['ship'] else 'correction required'})")
+        if not card['ship']:
+            board_path = Path(a.board)
+            current_board = json.loads(board_path.read_text()) if board_path.is_file() else None
+            print(recovery_guidance(current_board))
 
     if a.record:
         history_path.parent.mkdir(parents=True, exist_ok=True)
