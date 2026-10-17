@@ -2,15 +2,15 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "d74bc29e4cf72353f7c2c0895311df31272c41728418897718651f2e91b3fdb5",
+    "event_sha256": "efcc497867e23a9d670c1fc2ad36bd0455ff23660a6bb7f388ded1f2132c7e13",
     "resource": "preflight_renders",
-    "at": "2026-10-17T16:56:24.778747Z",
-    "note": "exact-film motion-image review extraction"
+    "at": "2026-10-17T19:20:10.130764Z",
+    "note": "quarter-scale animatic"
   },
   "boards": [
     {
       "path": "out/dispatch/storyboard.json",
-      "sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b"
+      "sha256": "dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6"
     }
   ],
   "bound": {
@@ -160,30 +160,30 @@
   },
   "commands": [
     {
-      "id": "0e09184c8a03c2ea776c5fb006a648d9b1d26d9594b1ac86ea9effb40e6169a5",
-      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json",
-      "consumed": "2026-10-17T16:56:39.740500+00:00"
+      "id": "492b8b700cac821910ea921ffcdb96a53e371b8ec40eed993430a0b11c93bf66",
+      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json",
+      "consumed": "2026-10-17T19:20:23.852492+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.579
+    "free_gib": 20.22
   },
   "housekeeping": {
-    "receipt": "/home/user/restored2/2026-10-15/out/dispatch/capture-housekeeping-20261017T165624.json",
-    "receipt_sha256": "487ea683256c3309165edc8b62a8d681f7c6111d9811fdd79e361ca322408c41",
+    "receipt": "/home/user/restore/TexasAIDispatch/out/dispatch/capture-housekeeping-20261017T192000.json",
+    "receipt_sha256": "b0767f666fc7630b1fbd59dbcb9aab3e4fcc3fac3f6bc7417850e16157641f2f",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-17T16:56:37.186151+00:00",
-  "expires_at": "2026-10-17T17:41:37.186151+00:00",
+  "issued_at": "2026-10-17T19:20:19.036852+00:00",
+  "expires_at": "2026-10-17T20:05:19.036852+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "exact-film motion-image review extraction",
+    "operation": "quarter-scale animatic",
     "run_id": "2026-10-15",
-    "event_sha256": "d74bc29e4cf72353f7c2c0895311df31272c41728418897718651f2e91b3fdb5",
-    "input_identity": "916c056653c630ed0fef8fb6960d3bff33ee1692cad4fe6303ab14c46fd9d01d"
+    "event_sha256": "efcc497867e23a9d670c1fc2ad36bd0455ff23660a6bb7f388ded1f2132c7e13",
+    "input_identity": "477cddb31cf6e053a42b1525678ec4939bee93705baaa74d6a9f831a6e2137d0"
   }
 }
