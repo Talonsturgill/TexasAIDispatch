@@ -665,6 +665,14 @@
       "note": "precharged same-worker both-treatment code review of the R15d correction (SendMessage a110876b976dcc812), allocation 2 of 4: silent comparison and final timed phone remain",
       "resource": "storyboard_critics",
       "to": 32
+    },
+    {
+      "at": "2026-10-17T03:38:12.953711Z",
+      "ceiling": 31,
+      "from": 26,
+      "note": "capture authorization reservation for opening comparison",
+      "resource": "preflight_renders",
+      "to": 27
     }
   ],
   "events": [
@@ -6857,6 +6865,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-17T03:38:12.953741Z",
+      "ceiling": 31,
+      "kind": "budget_escalated",
+      "note": "capture authorization reservation for opening comparison",
+      "now": 27,
+      "resource": "preflight_renders",
+      "was": 26
+    },
+    {
+      "at": "2026-10-17T03:38:12.953753Z",
+      "kind": "reserved",
+      "note": "capture authorization reservation for opening comparison",
+      "preflight_identity": "8b603bf797db809f5ddc88ca0842b46e104b62c9356c1b6e04be7e32c2eafa4b",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -6865,7 +6891,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 26,
+    "preflight_renders": 27,
     "reboards": 10,
     "reported_tokens": 646479,
     "rescue_renders": 1,
@@ -6880,7 +6906,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "32f467f346416f8c667e65fbf84084b85678cd7756efac40a53f243e0ae8ad2a",
+    "original_private_state_sha256": "46eafef624a08970dbfa3225b1ab86164d65fe087eda89c7afeeb81dbc77fa3e",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -6916,14 +6942,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T03:26:39.526661Z",
+  "updated_at": "2026-10-17T03:38:12.953755Z",
   "usage": {
     "audiovisual_reviews": 7,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 26,
+    "preflight_renders": 27,
     "reboards": 10,
     "reported_tokens": 646479,
     "rescue_renders": 0,

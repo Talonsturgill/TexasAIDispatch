@@ -1,0 +1,458 @@
+{
+  "reports": {
+    "opening_a": {
+      "review_scope": "code-plan",
+      "treatment": "a",
+      "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json",
+      "board_sha256": "52fbd30b914176f351df954e7cf7e41c20a78dbb74b8f57dfee64fa312da0c3d",
+      "concept_sha256": "b40bab68844f7af99edcfc62c9cc9ea1fa51235945a689c29f4f44a308928f13",
+      "renderer_sha256": "068b6b62a044dca0ff7fa2f6f1ccce20c4ca63106f5ac62805bfceeacf89c825",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "verdict": "pass",
+      "strongest_frame": "s4-shot-2, chip-glow detail, 23.49 to 25.285 s. The renderer pushes 1.4x toward the chip and lamp while s4-event-2 (24.562 to 25.16) runs: a pulse travels the chip-to-lamp trace, the hooded amber lamp (r42, glow up to 70+110) blazes, and the five-step 'Flood risk' bar climbs from one step to four. The housing stays clamped to its post (clamp bands at -372 and 336, post 2200 units tall). It is a large, label-light state change: the turn the failed film drew as a dot.",
+      "weakest_frame": "s9-shot-1, curb-table wide, 55.5 to 59.4 s. In A's unscaled wide frame the plan is about 200 native px, roughly 50 phone px. The folds run 55.54 to 55.84 and 55.84 to 56.19 s, the carry 56.19 to 56.38, the tuck 56.38 to 56.76, the reach to the latch 56.76 to 56.95 and the press 56.95 to 57.30. Each beat is 0.19 to 0.38 s. The end state (latched case, plan in the pocket, 'Deployment goal' tag, hands at rest from 57.80) holds about 1.6 s. Whether the fold, tuck and latch read at 270x480 is the largest legibility risk in A.",
+      "blocking_defects": [],
+      "code_observations": [
+        "Frozen body confirmed from the bytes. runtime 59.4, credits 5. Scene starts and durations are unchanged: s1 0/8.68, s2 8.68/6.94, s3 15.62/4.04, s4 19.66/7.42, s5 27.08/8.18, s6 35.26/5.68, s7 40.94/8.26, s8 49.2/6.3, s9 55.5/3.9. vo, vo_claims, the 16 measured captions, the clause timings and word ranges match the board I passed in report 24 as far as I can recall it (I did not re-read the baseline file). Changed fields I found: s5 place_plate is blackland-wide; s3, s4, s5, s7, s8 and s9 text and bindings; s8 item s8-hand; rebuilt s9 planes; n9a subject_ids are [s9-plan, s9-case]; the s9 view is curb-table; native_media hashes now 876c56b2 and 444be8ad.",
+        "d1 yard (street-yard view). Reflective street water laps the curb from frame 0. Yard water spreads from s1-event-1 at 0.64 s. It reaches the fence post at p1 0.37 (t 0.862). The orange flagging tag swings from 0.862 s (22 degree amplitude, damped, 1.6 Hz). The fence waterline reaches its full 33 units at p1 0.6 (t 1.0) and the porch step by 1.0 s. The boots get wet only during s1-event-2 (2.14 to 2.86) because the frozen s1 text puts them there, so the brief's 'up the boots by 1.0 s' is not literally met. The water stake is still pictured by 1.0 to 1.24 s, inside the 1.5 s first reward (the reward is at 1.0). Screen rows: post base about 1187 to 1215, boots about 1188, against a caption band top near 1283.",
+        "d2 four lenses (water-marks and sensor-stack). STATION.pods are -46, -96, -146 and -196 at pod scale 1.25. The lowest lens is lit by the ankle-level water carried from s2. On s3-event-2 the level rises linearly from -60 to -215, so podLit lights lens 2 at s3e2 0.116 to 0.232, lens 3 at 0.439 to 0.555 and lens 4 at 0.761 to 0.877. In A that is 17.22 to 17.31, 17.47 to 17.56 and 17.72 to 17.81 s. Submerged lenses glow through the water and lit lenses are mirrored. A far bank and its reflection sit behind the surface, and Band clipping replaces the slab, so there is no seam. The board text names the second to fourth lenses lighting in the window, which matches the code.",
+        "d3 turn. Cutaway: an open door on the left hinges, traces from four pods and four weather sensors to the TinyML chip, then a chip-to-lamp trace, the large lamp and the risk bar. Board push 1.0 to 1.4x in the detail shot. No-server wide: the station sits right foreground in risen water with all four lenses and the lamp lit. The server (w 240) stands on the far verge at (230,1050). The dashed line ends at 60% of the distance (mix .6*ease(s4e3)) with a two-slash break mark, under a 'Central server' ink tag. Residual: A's cutaway shot is fully still from 19.66 to 21.72 s, before s4-event-1. The reward gap 18.78 to 22.21 is 3.43 s, inside the limit.",
+        "d4 range. Radio-rings shows a perspective street of 14 bungalows under reflective water ending at the hub (z 13, scale .26). Ground-plane rings shrink toward it, and the hub's mast lamp and window light when the leading ring arrives, about 29.40 to 29.47 s in A. A dashed scale bar draws down the centre line during s5-event-2 (29.10 to 29.97) and the 'More than a half-mile' tag pins. The old road rectangle is gone. Radio-open: a 'Station' inset with a pulsing antenna sits upper left. Rings centred on the inset antenna reach the low mast (hub at (700,1250), scale .82) at the middle of s5-event-3 (33.02 s), the lamp and window light, and the five-mile tag pins. The whole s5 scene stands on blackland-wide.",
+        "d5 consequence (hub-desk, then flood-paths). The dashboard map now has blocks, footprints, cased streets, a park, the creek with banks, low points, station dots, a north arrow and an unnumbered scale bar. Orange paths draw along the creek, then down two low streets and up one, using exact dash lengths. Dashed zones and a 'Higher risk' legend follow. The responder is a complete seated figure: two-bone reach with L1 190 and L2 176. The key target is 322 px away and the touch target 246 px, both within the 366 px reach, so nothing is clamped. The hand has two-joint fingers and the head turns by yaw and pitch. A: lap to keyboard during s6-event-1, a key press, then the head turns. The pedestal, chair, wastebasket and tiled floor fill the lower frame.",
+        "d6 limit scenes. A curb notice board (cork, posts, shingled cap) stands outdoors with the region plate behind and reflective water in front. s7-event-1 rolls a tape strip along the bar and the figure fades in. s7-event-2 pins the tag. s7-event-3 slides the result card in from the right in A (from the left in B) and a pushpin presses it home. s8-event-0 brings a rubber stamp down in a reaching hand; the mark prints at contact (stamp 0.45 to 0.51), then the stamp lifts and leaves. No olive field remains. Inside s7, nothing moves from 43.53 to 46.21 s except the detail push at 44.88 to 45.88.",
+        "d7 water. One shared Water component (sky band, muddy gradient, clipped reflections, drifting ripple bands, foam line, debris) is used in the yard, sensor shots, flooded street, s2 and s4 curbs, porch close and the s7 to s9 streets. Every standing object is clipped at its own waterline and mirrored.",
+        "d8. I read all three TSX files in full: the search ring, goal pin, spot ring and dashed station outline are gone from the code. s8-event-2: the hand approaches from 53.098, the index fingertip (placed with indexTip) touches and slides along MAP_TRACE from 53.374 to 53.926, then exits over 0.4 s. The blank pin holes stay. The tag reads 'Announcement names' / 'no installation' and is pinned at the map's upper right, no longer floating in the sky. s9: the plan folds, goes into the case pocket (clipped at the pocket mouth) and the latch rotates shut. Hands leave within 0.5 s. Nothing is lifted, carried or installed, and the 'Deployment goal' tag hangs from the case. The s9 disclosure is 'Illustration. Announcement names no installation'. I found no 'No station installed' or 'No installation named' in any disclosure, tag or scene text of either board.",
+        "Ceilings. Longest scene is s1 at 8.68 s (limit 9.5). Longest shot is s1-shot-2 at 4.77 s; all A shots are under 5.0.",
+        "Containment, by my arithmetic. Every event lies inside its shot. The tightest is s3-event-2, 17.131 to 17.909, inside s3-shot-2 at 16.9667 to 18.3133.",
+        "Rewards. First reward 1.0 s. Largest gap 3.583 s (43.134 to 46.717). Other gaps near the limit: 3.510, 3.502, 3.507 and 3.427. End gap 2.242 s.",
+        "Wall views are now only radio-map and flood-paths. A uses flood-paths for 2.84 s.",
+        "Non-blocking corrections. (1) divergence_note still describes the retired dashed-outline close. (2) Top-level hook_payoff_s 0.934 is B's value; A's s1 hook_payoff_s is 1.2 and its reward is at 1.0. (3) The story_art support request prompt still asks for a 'sleeved forearm' and a 'flat dashboard map'. It is bound by request_sha256 and the art now exceeds it; the builder flagged it. (4) The s5 board text does not mention that the street is drawn flooded. (5) The s9 sound_action says the tag 'pins'; the picture hangs it.",
+        "Claims and limits. The drawn figures are 98.82% (c4, verbatim), half-mile and five miles (c6), and an unnumbered scale bar and map bar. Invented, disclosed props: notice board, stamp and hand, server building, hub building, bungalows, seated responder, technician, folding table, carry case, bench prototype and printed 'Deployment plan'. None asserts a place, installation, field result or deployment outcome. Residual risks: the printed plan document is slightly more concrete than c9 and c10, which state an aim and a goal; and after s3 the water stays at top-lens level through s4 to s9, a sustained street flood that goes beyond c12's ankle-deep framing, though it is not presented as measured."
+      ],
+      "action_reviews": [
+        {
+          "action_id": "water-rises",
+          "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s1-event-1 (0.64 to 1.24) in s1-shot-1 street-yard. Finished water tops the curb, spreads across the yard and reaches the post at about 0.862 s. The tag swings and the waterline reaches the ankle band by 1.0 s. Objects are clipped at the waterline and mirrored. c12."
+        },
+        {
+          "action_id": "charge-battery",
+          "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s2-event-2 (12.145 to 12.879) in s2-shot-2 panel-charge. A beam and glint cross the panel and the battery fills from .24 to 1 across five cells, the first amber below .25. The previously correct action is kept. c5, c14."
+        },
+        {
+          "action_id": "cross-marks",
+          "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s3-event-2 (17.131 to 17.909) in s3-shot-2 water-marks. The waterline crosses lenses 2, 3 and 4 in order, each lighting within about 0.09 s, about 0.25 s apart, and every lens stays lit. Readability at 30 fps and at 5 fps samples is unproven. c2."
+        },
+        {
+          "action_id": "judge-locally",
+          "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s4-event-2 (24.562 to 25.16) in s4-shot-2 chip-glow detail. A chip-to-lamp pulse, the large lamp, the risk bar climbing from one step to four, and the 'Judged on the station' tag. No cable leaves the box except the radio coax. c3, c18."
+        },
+        {
+          "action_id": "carry-signal",
+          "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s5-event-2 (29.097 to 29.965) in s5-shot-1 radio-rings. Rings reach the hub at the street's end, whose lamp and window light, and the scale bar and half-mile tag pin. The hub at scale .26 is about 26 phone px wide, which is a legibility risk. c6."
+        },
+        {
+          "action_id": "spread-map",
+          "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s6-event-2 (38.172 to 39.112) in s6-shot-2 flood-paths, on a real creek-and-street map. Paths spread along the creek, then into the low streets. s6-event-3 draws the dashed zones and the responders tag. c7, c16, c17, c20."
+        }
+      ],
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated read-only worker (same worker as the R15 exact-phone REVISE and pivot reviews), distinct from the claude-sonnet-5-5 director and the scene-builder; code-plan scope only, no pixels, no runs, no hashes computed",
+      "reviewed_at": "2026-10-17T04:15:00Z",
+      "story_review": {
+        "story_sha256": "0aaa59c0eadd355fd26348fe545c8314faa1869e7bea07a636780d9340246269",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+        "verdict": "pass",
+        "blocking_defects": [],
+        "one_viewing_summary": "Planned chain, not observed pixels. Flood water tops a San Antonio curb, swings the fence post's orange tag and climbs to the ankle mark by 1.0 s while the porch phone stays dark, then the warning lands late. The prototype station stands at the curb in shallow water, its panel charges, and a dashed line toward a cell tower stops halfway. Water rises past its four lenses and each lights. The opened housing, still on its post, sends readings to the chip, which lights a large lamp and a risk bar, while a dark server across the road is never reached. Rings run down a long street to the hub, then across open country, with the station in an inset, to the hub's mast. A seated responder works at a flood map where paths spread along the creek. On a curb notice board the 98.82% card fills and a blank field result card is stamped none reported. A finger reads the blank paper map. A technician folds the deployment plan into the prototype's closed case and latches it.",
+        "opening_to_ending": "The opening question asks whether a station can judge rising street water with no power line and no cell tower. The water-before-warning stake now has a picture. The mechanism chain (charge, four lenses, local chip judgment, radio to the hub, flood map) answers yes as a design. The limits stay in the curb world: validation only, no field result, and the announcement names no installation. The close keeps the plan with the uninstalled prototype toward the stated goal, without a lift, departure or installed station, so no unreported outcome is promised.",
+        "weakest_transition": "s6 to s7 at 40.94 s. The cut goes from the hub's flood map, an interior wall view, to the outdoor curb notice board. Location changes and only the amber accent carries over; no object crosses the cut. The place is now physical rather than an olive card, but the cut needs the phone review to show a muted viewer still links the validation card to the station."
+      }
+    },
+    "opening_b": {
+      "review_scope": "code-plan",
+      "treatment": "b",
+      "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
+      "board_sha256": "939241c9e08f3ddd89c73560689bda57ed3524f3645f31a2fb5e4b0287d64805",
+      "concept_sha256": "188f879e073ea506c024203d7dcb567d159e40262cb4e78db77897023882537e",
+      "renderer_sha256": "068b6b62a044dca0ff7fa2f6f1ccce20c4ca63106f5ac62805bfceeacf89c825",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "verdict": "pass",
+      "strongest_frame": "s1-shot-1, water-marks design detail, 0.0 to 1.955 s. At 3.2x, with the post at x 520 and the waterline at screen row 1150, reflective water rises from level -20 to -60 on s1-event-0 (0.64 to 1.24). The lowest lens lights as it goes under (ease .2 to .65) and is mirrored in the surface. Reward at 1.0 s, all above the caption band.",
+      "weakest_frame": "s8-shot-2, station-return wide, 52.16 to 55.5 s. The finger reads a 430x470 map, about 107 phone px wide, at hand scale .95. The slide runs 53.374 to 53.926 (about 0.38 s of contact) inside a wide curb frame. 'It names no town with an installed station' depends on that small read plus the tag pinned on the map at 54.2 to 54.7.",
+      "blocking_defects": [],
+      "code_observations": [
+        "Parity with A. runtime 59.4. Scene starts and durations, vo, vo_claims, the 16 captions and clause timings are identical to A. First scene duration is 8.68 in both. s5 place_plate is blackland-wide and the s9 view is curb-table, as in A. B keeps its own views, order and windows: s1-event-0 lens detail; crane-down station; panel close through the tower beat; housing window from the street; overhead radio map; map before desk; s8 station-return wide; s9 curb table at 1.45x.",
+        "The s1 detail draws no yard and no station-in-yard. The match cut at 1.955 goes to the dry post at 2.2x. Yard water spreads during s1-event-1 (2.08 to 2.74) and reaches the post at about 2.32 s; the tag swing starts at 2.324. The boots get wet during s1-event-2 (2.8 to 3.46). The selection's concern that this opening implies a sensor installed in the yard still applies to B's structure; the disclosure 'Illustration of the prototype' sits only on s2.",
+        "s3: water-marks shot 15.62 to 17.64 carries s3-event-1 (glints in order) and s3-event-2 (16.872 to 17.52). Lenses 2, 3 and 4 light at 16.95 to 17.02, 17.16 to 17.23 and 17.37 to 17.44. That is faster than A, with the post framed right at 3.3x.",
+        "s4: no-server close shows the station housing with window 1, readings running on s4-event-1 (21.722 to 22.532), rain and drips. Then the chip-glow detail with lamp and bar (24.562 to 25.16), then the no-server wide whose dashed line stops at 60% with a break mark.",
+        "s5: on the radio-map overhead the ring leaves the station dot, the half-mile circle is a tenth of the five-mile circle, and the labels appear at lead .1 and .92. The five-mile label appears around 28.0 s, ahead of n5b, as before. On radio-rings the rings start at shot start (29.105) and reach the hub by about 29.80 s, a fast 0.69 s run. Hub-wide: hub at (600,1262), scale .98, inset station, ring lands at mid event-3, lamp and window light.",
+        "s6: on flood-paths the dots arrive (s6-event-1) with the 'second, larger model' tag, and paths spread (s6-event-2, 36.95 to 37.89). On hub-desk, the responder's hand goes from the keyboard to touch a dashed zone on screen at about 39.0 to 39.6 s, then the forearm rests on the desk (to 40.05), and the responders tag pins. The B s6 text, 'a responder's sleeved forearm comes to rest beside it', matches the drawn forearm rest.",
+        "s7 and s8-shot-1 run the same notice-board actions as A; the result card slides from the left. s9 is the same curb-table action at 1.45x around (500,800), so the plan is about 72 phone px.",
+        "Ceilings: longest scene s1 8.68 s; longest shot s1-shot-3 4.77 s. Every event is contained in its shot. First reward 1.0 s, largest gap 3.583 s, end gap 2.242 s.",
+        "Non-blocking corrections. divergence_note still says B 'closes on the same map close up' and A closes on a dashed outline. The s9 visual_sentence and quality_plan subject read 'Close on A technician' (capitalisation). B's s8 text says 'after the flood' while the renderer keeps standing water at the curb."
+      ],
+      "action_reviews": [
+        {
+          "action_id": "water-rises",
+          "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s1-event-1 (2.08 to 2.74) in s1-shot-2 street-yard (1.955 to 3.91). Water spreads past the ankle mark as the camera pulls back from 2.2x, and the tag swings from 2.324 s. c12."
+        },
+        {
+          "action_id": "charge-battery",
+          "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s2-event-2 in s2-shot-2 panel-charge, scale 1.85. The same shot carries the tower line that stops halfway on s2-event-3. c5, c6, c14."
+        },
+        {
+          "action_id": "cross-marks",
+          "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s3-event-2 (16.872 to 17.52) in s3-shot-1 water-marks. Lenses 2 to 4 light in about 0.07 s each, about 0.21 s apart. c2."
+        },
+        {
+          "action_id": "judge-locally",
+          "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s4-event-2 in s4-shot-2 chip-glow detail, the same cutaway as A. c3, c18."
+        },
+        {
+          "action_id": "carry-signal",
+          "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s5-event-2 (29.164 to 30.032) in s5-shot-2 radio-rings. The hub lights at about 29.80 s and the scale bar and tag pin. c6."
+        },
+        {
+          "action_id": "spread-map",
+          "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "s6-event-2 (36.95 to 37.89) in s6-shot-1 flood-paths. c7, c16, c17, c20."
+        }
+      ],
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated read-only worker, distinct from the claude-sonnet-5-5 director and the scene-builder; code-plan scope only, no pixels, no runs, no hashes computed",
+      "reviewed_at": "2026-10-17T04:15:00Z",
+      "story_review": {
+        "story_sha256": "8fdc7086b1ddfc120e89f7ca63f0480b1af248868307cab5aea24251b14440a0",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+        "verdict": "pass",
+        "blocking_defects": [],
+        "one_viewing_summary": "Planned chain. A disclosed lens detail goes under ankle-deep water and lights. A match cut on ankle height leads to a yard flooding past the fence mark and the late phone warning. The station is revealed from its antenna down, charges, and needs no tower. All four lenses light as water rises, the weather lamps come on, and readings reach the chip through the housing window. The chip lights the large lamp and risk bar while a dark server stays unreached. Rings go from overhead, down the street to the hub, then across open country. The flood map spreads and a responder touches a risk zone. The curb notice board shows the validation card and the stamped blank card. A finger reads the blank map in a wide curb frame. A close curb-table shot ends with the plan in the latched case.",
+        "opening_to_ending": "The same question and answer as A, by the instrument-first route. The ending keeps the plan with the uninstalled prototype and claims no installation.",
+        "weakest_transition": "s1-shot-1 to s1-shot-2 at 1.955 s. The cut goes from the wet lens detail to a dry post that the water reaches only at about 2.32 s. It still carries the false-continuity risk that a sensor stands in this yard, which the prior selection noted."
+      }
+    },
+    "storyboard_critic": {
+      "review_scope": "code-plan",
+      "treatment": "a",
+      "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+      "board_sha256": "52fbd30b914176f351df954e7cf7e41c20a78dbb74b8f57dfee64fa312da0c3d",
+      "concept_sha256": "b40bab68844f7af99edcfc62c9cc9ea1fa51235945a689c29f4f44a308928f13",
+      "renderer_sha256": "068b6b62a044dca0ff7fa2f6f1ccce20c4ca63106f5ac62805bfceeacf89c825",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "verdict": "pass",
+      "strongest_frame": "Same as opening_a: s4-shot-2 chip-glow detail, 23.49 to 25.285 s (large lamp and risk bar, 1.4x push, housing clamped to its post).",
+      "weakest_frame": "Same as opening_a: s9-shot-1 curb-table wide, 55.5 to 59.4 s (plan about 50 phone px, action beats of 0.19 to 0.38 s, about 1.6 s final hold).",
+      "blocking_defects": [],
+      "code_observations": [
+        "storyboard.json's listed sha256 is 52fbd30b, the same as opening-a.json, and the director states they are byte-identical. I did not re-read it separately or compute the hash, so every opening_a observation applies to it on that basis.",
+        "All opening_a code observations, ceilings, containment, rewards, claim limits and non-blocking corrections apply, including the stale divergence_note and the A top-level hook_payoff_s of 0.934."
+      ],
+      "action_reviews": [
+        {
+          "action_id": "water-rises",
+          "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "As opening_a: s1-event-1 in s1-shot-1 street-yard; water at the post about 0.862 s, ankle band by 1.0 s."
+        },
+        {
+          "action_id": "charge-battery",
+          "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "As opening_a: s2-event-2 in s2-shot-2 panel-charge."
+        },
+        {
+          "action_id": "cross-marks",
+          "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "As opening_a: lenses 2 to 4 light at 17.22, 17.47 and 17.72 s."
+        },
+        {
+          "action_id": "judge-locally",
+          "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "As opening_a: large lamp and risk bar on s4-event-2."
+        },
+        {
+          "action_id": "carry-signal",
+          "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "As opening_a: rings to the hub at the street's end, with the scale bar."
+        },
+        {
+          "action_id": "spread-map",
+          "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+          "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+          "verdict": "pass",
+          "blocking_defects": [],
+          "code_observations": "As opening_a: paths on the creek-and-street map."
+        }
+      ],
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated read-only worker, distinct from the claude-sonnet-5-5 director and the scene-builder; code-plan scope only",
+      "reviewed_at": "2026-10-17T04:15:00Z",
+      "story_review": {
+        "story_sha256": "0aaa59c0eadd355fd26348fe545c8314faa1869e7bea07a636780d9340246269",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+        "verdict": "pass",
+        "blocking_defects": [],
+        "one_viewing_summary": "Identical to opening_a's planned chain: flooded yard and late phone, then the station's charge, four lenses, local chip judgment, radio to the hub, the flood map with a seated responder, the curb notice-board limits, a finger reading the blank map, and the plan latched in the prototype's case.",
+        "opening_to_ending": "Identical to opening_a.",
+        "weakest_transition": "Identical to opening_a: s6 to s7 at 40.94 s, an interior hub map to the outdoor notice board with only the amber accent carried."
+      }
+    }
+  },
+  "defect_resolution": [
+    {
+      "id": "d1",
+      "status": "resolved in code",
+      "evidence": "street-yard view. Water is in the street from frame 0. Yard spread starts at 0.64 s. The post is reached at about 0.862 s, the tag swing starts at 0.862 s and the ankle band is reached by 1.0 s (dFence 33 at p1 0.6). Porch step by 1.0 s. The boots get wet at 2.14 to 2.86 per the frozen s1 text. Subjects sit above the caption band (post about 1187 to 1215, boots about 1188, band top near 1283). B's first 1.5 s show the lens detail in reflective water with the lowest lens lighting at 0.64 to 1.24.",
+      "pixels_must_prove": "At 270x480 the water reads as water, not mud, by 1.5 s. The tag swing is visible. The waterline on the post and boots stays clear of captions. The boots' delay to 2.14 s does not weaken the stake."
+    },
+    {
+      "id": "d2",
+      "status": "resolved in code",
+      "evidence": "Four pods at four heights, scale 1.25, lens 1 already lit. s3e2 lights lens 2 at 0.116 to 0.232, lens 3 at 0.439 to 0.555 and lens 4 at 0.761 to 0.877: A 17.22, 17.47, 17.72 s; B 16.95, 17.16, 17.37 s. Far bank and reflections, Band clipping, no slab or seam. Board text matches the code.",
+      "pixels_must_prove": "Four distinct lenses are recognisable and their lighting reads as a sequence inside the 0.78 s (A) and 0.65 s (B) window. The post moves about 350 to 470 px against the waterline without stepping or blur. All four are lit at the end of the shot."
+    },
+    {
+      "id": "d3",
+      "status": "resolved in code, with a residual pace and inference risk",
+      "evidence": "The cutaway is clamped to its post with the door open. Lamp r42 with glow up to 180. Five-step bar climbing from one step to four. Chip-to-lamp pulse. 1.4x detail push. No-server wide: server on the far verge, dashed line stopping at 60% with a break mark, 'Central server' tag, station with all lenses and lamp lit. A's cutaway is still from 19.66 to 21.72 s.",
+      "pixels_must_prove": "The lamp and bar change reads at phone size. The server reads as distant, dark and disclosed, not a nearby facility, and is not confused with the hub's own server software (c16). A's 2 s still opening hold does not stall."
+    },
+    {
+      "id": "d4",
+      "status": "resolved in code; skyline unproven",
+      "evidence": "A long perspective street to the hub at its far end, rings shrinking with distance, the hub lamp and window lighting on arrival, the scale bar and half-mile tag during s5-event-2, the old road rectangle removed. Open country: a station inset with a pulsing antenna, rings reaching the low mast at mid s5-event-3, lamp and window lighting, five-mile tag. s5 place_plate is 'blackland-wide' in all three boards. This replaces the brief's framing-only instruction; I accept it as region-correct (Bexar, Blackland, no paint-over).",
+      "pixels_must_prove": "place_check --render passes. Frames from 27.08 to 35.26 s show no city skyline and enough region share. The hub at the street's end (about 26 phone px) and the inset are legible. The rings visibly travel to the receiver."
+    },
+    {
+      "id": "d5",
+      "status": "resolved in code",
+      "evidence": "A real map: blocks, footprints, cased streets, park, creek with banks, low points, dots, north arrow, unnumbered bar. Paths along the creek, then into the low streets. Dashed zones. A complete seated responder with two-bone reach (targets 322 and 246 px within the 366 px reach, no clamping), two-joint fingers and a head turn. The lower frame is filled with pedestal, chair, wastebasket and floor.",
+      "pixels_must_prove": "The map reads as a map at phone size. The responder's arm and hand have no intersections or detached look. The key press (A) and screen touch (B) make contact. The head turn reads. The figure is native-quality."
+    },
+    {
+      "id": "d6",
+      "status": "resolved in code; pace unproven",
+      "evidence": "Outdoor curb notice board with plate and water. Tape-roll bar fill. Pinned tag. Sliding result card and pushpin. Stamp in a reaching hand with print at contact and a lift. No olive field.",
+      "pixels_must_prove": "The 40.94 to 55.5 s stretch passes the timed pace review, including the 43.53 to 46.21 hold with only a push. The cards stay legible on the cork. The stamp hand reads as articulated."
+    },
+    {
+      "id": "d7",
+      "status": "resolved in code",
+      "evidence": "One finished Water component (sky band, gradient, clipped reflections, ripples, foam, debris) everywhere water appears. Objects clipped and mirrored at their waterlines. The road rectangle is gone.",
+      "pixels_must_prove": "Surface finish at native and phone scale. Whether the sustained top-lens street flood through s4 to s9 reads as an invented severity beyond c12."
+    },
+    {
+      "id": "d8",
+      "status": "resolved in code; board metadata partly stale",
+      "evidence": "Ring, goal pin, spot ring and dashed outline are absent from all three TSX files. s8-event-2: the finger slides along MAP_TRACE from 53.374 to 53.926 and exits; blank pin holes remain; the tag 'Announcement names / no installation' is pinned on the map. s9: fold, tuck, latch, hands away by 57.80, no lift, the 'Deployment goal' tag hangs from the case, the disclosure is scoped. n9a subject_ids are [s9-plan, s9-case], the s9 story_contract row is rebound, and the registry curb-table view lists the seven s9 subjects. Residual: divergence_note in both boards still describes the old closes.",
+      "pixels_must_prove": "The finger read is legible, especially in B's 107-px map. The s9 fold, tuck and latch beats of 0.19 to 0.38 s read at 270x480 and end in a held, completed result above captions. Technician, table and case scale look believable. Fix divergence_note before the comparison reviewer reads it."
+    }
+  ],
+  "per_input_table": [
+    {
+      "path": "out/dispatch/evidence/review-r15-current-timed-phone/storyboard_critic.json",
+      "sha256": "f2dd8a81...",
+      "status": "read in full this round"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15-pivot-3/pivot-review.json",
+      "sha256": "5ca6dc3b...",
+      "status": "read in full this round"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/repair-plan-r15d-pivot.json",
+      "sha256": "a5c305ab...",
+      "status": "read in full this round"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/builder-correction-brief-r15-v5.md",
+      "sha256": "d878fdf2...",
+      "status": "read in full this round"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/builder-handoff-r15d.private.txt",
+      "sha256": "6504d8bf...",
+      "status": "read in full this round"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/NOTE-native-media-rebound-after-authorize.md",
+      "sha256": "e096dc0f...",
+      "status": "read in full this round"
+    },
+    {
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "52fbd30b...",
+      "status": "read in full this round, lines 1 to 4927"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "939241c9...",
+      "status": "read in full this round, lines 1 to 5004"
+    },
+    {
+      "path": "out/dispatch/storyboard.json",
+      "sha256": "52fbd30b...",
+      "status": "not separately read; relied on its listed sha256 matching opening-a.json, which I read in full"
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
+      "sha256": "b4a0ce8f...",
+      "status": "read in full this round (737 lines)"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/baseline/FloodStationFilm.tsx",
+      "sha256": "b8f8cc3b...",
+      "status": "read in full in an earlier round of this worker (r13); not re-read"
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+      "sha256": "876c56b2...",
+      "status": "read in full this round (491 lines)"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/baseline/FloodStationHero.tsx",
+      "sha256": "f3dbf427...",
+      "status": "NOT read this round; baseline picture taken from the failure report"
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+      "sha256": "444be8ad...",
+      "status": "read in full this round (1013 lines)"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/baseline/StreetHubSupport.tsx",
+      "sha256": "916e12f7...",
+      "status": "NOT read this round"
+    },
+    {
+      "path": "config/modern_episode_registry.json",
+      "sha256": "fffdf5d8...",
+      "status": "read in full this round"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/baseline/modern_episode_registry.json",
+      "sha256": "db04f225...",
+      "status": "read in full in an earlier round of this worker (r13); not re-read"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/baseline/storyboard.json",
+      "sha256": "5a1b8e26...",
+      "status": "read in full in the report 24 round; not re-read"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/baseline/opening-b.json",
+      "sha256": "9fa8f52a...",
+      "status": "read in full in the report 26 round; not re-read"
+    },
+    {
+      "path": "out/dispatch/evidence/r15-repair/critic-packet-r15d-final.json",
+      "sha256": "ab5b0936...",
+      "status": "read in full this round"
+    },
+    {
+      "path": "out/dispatch/claims.json",
+      "sha256": "49b2379c...",
+      "status": "read in full this round"
+    },
+    {
+      "path": ".claude/agents/storyboard-critic.md",
+      "sha256": "b3e24ae4...",
+      "status": "read in full in this worker's current context (phone assignment), hash per packet"
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha256": "a58148fd...",
+      "status": "present in this session's context in full"
+    },
+    {
+      "path": "AGENTS.md, prompts/claude_routine.md, config/claude_runtime.json, config/quality_contract.json, config/dispatch_rubric.yaml, knowledge/craft/AUTONOMOUS_COMPLETION.md, config/autonomous_completion_v2.json, config/autonomous_completion_narration_v1.json, config/source_validation_completion_v1.json, viewer-plan.md, visual-storytelling/README.md, news-reporting.md, explanatory-animation.md, MODERN_FILM.md, config/modern_film.json, STORY_ART.md, config/story_art.json, AUTHORED_STORY_ART.md, config/authored_story_art.json, ART_DIRECTION.md, config/art_direction.json, cinematic_reference_bank.json, prompts/roles/scene-builder.md",
+      "sha256": "as listed in followup-review-message-r15d.txt",
+      "status": "read in full earlier in this worker (before context compaction), listed hashes unchanged; not re-read this round"
+    },
+    {
+      "path": "out/dispatch/story_selection.json",
+      "sha256": "a59ab216...",
+      "status": "partially read in an earlier round (1.7 MB); not read this round"
+    },
+    {
+      "path": "out/dispatch/openings/comparison.json",
+      "sha256": "13b83f83...",
+      "status": "read in full this round; bound to the old boards and renderer cdc9d67e"
+    },
+    {
+      "path": "out/dispatch/openings/selection.json",
+      "sha256": "10708194...",
+      "status": "partial: lines 1 to 60 of a 1.7 MB file (selected a; reasons cite the retired dashed outline)"
+    }
+  ],
+  "honest_limits": [
+    "Code-plan scope only. No frame, still or preview exists, so every timing and screen-row figure is my arithmetic on the code, not an observation.",
+    "I computed no hashes. All digests are the director's mechanically supplied values or values listed in files.",
+    "I ran no gate. tsc, engine_lint, registry_check, caption fit and place_check without --render are the builder's reported results. storyboard_check and native_sample_plan failures were reported as derived-digest only, before the director's rebinding.",
+    "I did not read placePlates.json, PlaceStage.tsx, lib/direction.ts or registry.tsx. The blackland-wide plate's lack of a skyline and the actionWindows semantics are taken from the builder's handoff and earlier rounds.",
+    "Runtime exceptions in the new components are unproven until the first capture.",
+    "The baseline Hero and Support modules were not read this round. storyboard.json was trusted by its listed hash, not re-read.",
+    "reviewed_at is my estimate, not clock-derived.",
+    "My own earlier pivot pass (review 3) approved the mechanism, not these bytes. I carried no grade over and judged the code afresh."
+  ]
+}
