@@ -42,6 +42,7 @@ class FilmPivotCapacityTests(unittest.TestCase):
         claims = self.write('claims.json', {'claims': []})
         film = self.package / 'preflight.mp4'; film.write_bytes(b'exact failed timed film')
         original = {'verdict': 'revise', 'reviewer_identity': 'independent-phone',
+                    'review_scope': 'exact-muted-phone-preflight',
                     'film_sha256': f.digest(film), 'concept_sha256': 'concept',
                     'renderer_sha256': 'renderer', 'story_review': {'claims_sha256': f.digest(claims)},
                     'blocking_defects': ['The performed answer is absent from the current film.'],
@@ -89,8 +90,16 @@ class FilmPivotCapacityTests(unittest.TestCase):
         revised['changed_inputs'].append({'path': str(registry), 'before_path': str(registry_before),
                                           'before_sha256': f.digest(registry)})
         self.revised = self.write('revised-plan.json', revised)
+        message = 'Review ' + str(self.rejected) + ' with sha256 ' + f.digest(self.rejected)
+        assignment = {k: receipt[k] for k in ('run_id', 'agent_id', 'source_grant_event_index',
+                         'source_grant_sha256', 'reservation_event_index', 'reservation_sha256')}
+        assignment.update(schema='dispatch_pivot_assignment_binding/1', tool_use_id='toolu_fixture123',
+                          observed_at=state['events'][index]['at'], assignment_arguments_sha256='a' * 64,
+                          assignment_text=message, message_sha256=f.sha(message),
+                          rejected_proposal_path=str(self.rejected), rejected_proposal_sha256=f.digest(self.rejected))
+        self.assignment = self.write('assignment.json', assignment)
         self.plan_path = self.package / 'capacity-plan.json'
-        f.prepare(self.state, self.receipt, self.report, self.rejected, self.revised, self.plan_path)
+        f.prepare(self.state, self.receipt, self.report, self.rejected, self.revised, self.plan_path, self.assignment)
         self.plan = json.loads(self.plan_path.read_text()); self.before = c.read_state(self.state)
 
     def write(self, name, value):
@@ -160,6 +169,64 @@ class FilmPivotCapacityTests(unittest.TestCase):
             before = path.read_bytes(); path.write_bytes(b'changed')
             self.assertTrue(f.file_problems(self.state, self.plan), str(path)); path.write_bytes(before)
         self.assertEqual(f.file_problems(self.state, self.plan), [])
+
+    def test_actual_assignment_binds_proposal_and_no_technical_history_is_counted(self):
+        report = json.loads(self.report.read_text())
+        for key, value in [('rejected_proposal_sha256', 'b' * 64), ('agent_id', 'other_agent_123'),
+                           ('observed_at', '2000-01-01T00:00:00Z'), ('message_sha256', 'b' * 64),
+                           ('assignment_text', 'An unrelated assignment.'), ('tool_use_id', 'not-a-tool')]:
+            plan = copy.deepcopy(self.plan); assignment = json.loads(plan[f.FIELD]['assignment_json'])
+            assignment[key] = value; text = json.dumps(assignment)
+            plan[f.FIELD].update(assignment_json=text, assignment_sha256=f.sha(text))
+            self.assertFalse(f.eligible(self.before, plan, report), key)
+        plan = copy.deepcopy(self.plan); proposal = json.loads(plan[f.FIELD]['rejected_proposal_json'])
+        proposal['repair'] += ' This was never the assigned proposal.'
+        text = json.dumps(proposal); plan[f.FIELD].update(rejected_proposal_json=text, rejected_proposal_sha256=f.sha(text))
+        self.assertFalse(f.eligible(self.before, plan, report))
+        state = copy.deepcopy(self.before)
+        for event in state['events']:
+            if event.get('kind') == 'repair_started': event['repair_scope'] = 'technical-integrity'
+        self.assertFalse(f.eligible(state, self.plan, report))
+
+    def test_old_report_cannot_be_reused_with_a_fresh_critic_reservation(self):
+        self.assertTrue(a.grant_capacity(self.state, self.plan_path)[0])
+        self.assertTrue(c.reserve(self.state, {'storyboard_critics': 1}, 'same worker agent_pivot_123')[0])
+        state = c.read_state(self.state); plan = copy.deepcopy(self.plan)
+        for key in ('receipt', 'assignment'):
+            value = json.loads(plan[f.FIELD][key + '_json'])
+            value.update(reservation_event_index=len(state['events']) - 1,
+                         reservation_sha256=f.sha(f.canonical(state['events'][-1])))
+            if key == 'assignment':
+                value.update(observed_at=state['events'][-1]['at'], tool_use_id='toolu_fixtureSecond123',
+                             assignment_arguments_sha256='b' * 64)
+            text = json.dumps(value); plan[f.FIELD].update({key + '_json': text, key + '_sha256': f.sha(text)})
+        self.assertFalse(f.eligible(state, plan, json.loads(self.report.read_text())))
+
+    def test_native_rejection_uses_registered_snapshot_for_both_capture_schemas(self):
+        film = self.package / 'snapshots/failed-native.mp4'; film.parent.mkdir()
+        film.write_bytes((self.package / 'preflight.mp4').read_bytes())
+        snapshot = {'film': str(film), 'film_sha256': f.digest(film), 'manifest_sha256': 'd' * 64, 'review_only': False}
+        state = {'events': [{'kind': 'deliverable_registered', **snapshot}]}
+        for schema in (capture.SCHEMA, capture.COMPARISON_SCHEMA):
+            parent = {'failed_film_sha256': f.digest(film), 'capture_completion_budget': {'schema': schema}}
+            self.assertEqual(f.film_relative(state, parent, {'film_sha256': f.digest(film)}, snapshot),
+                             'out/dispatch/snapshots/failed-native.mp4')
+        plan = copy.deepcopy(self.plan)
+        plan[f.FIELD]['original_film_relative'] = 'out/dispatch/snapshots/failed-native.mp4'
+        (self.package / 'preflight.mp4').unlink()
+        self.assertEqual(f.file_problems(self.state, plan), [])
+
+    def test_both_routes_protect_four_calls_without_borrowing_a_code_only_route(self):
+        import repair_guard
+        for route in ('host', 'provider'):
+            budget = capture.apply_budget(self.before, self.plan, repair_guard.production_budget_precheck(
+                copy.deepcopy(self.before), review_route=route, mandatory_repair=True))
+            original = copy.deepcopy(budget)
+            result = f.apply_budget(self.plan, budget)
+            self.assertEqual(result['resources']['storyboard_critics']['required'], 4)
+            self.assertEqual(result['deficits'], {'storyboard_critics': 1})
+            self.assertEqual(budget, original)
+        self.assertEqual(f.required_counts(self.plan, {'storyboard_critics': 3})['storyboard_critics'], 4)
 
     def test_revision_cannot_drop_baselines_add_arbitrary_files_or_approve_edits(self):
         report = json.loads(self.report.read_text())

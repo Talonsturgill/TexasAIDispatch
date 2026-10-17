@@ -617,13 +617,16 @@ def replay(state):
                     required.update(reboards=0, storyboard_critics=3)
                     if 'image_generations' in required:
                         required['image_generations'] = 0
-                if reason in {MODERN_CODE_REASON, PIVOT_REASON}:
+                if reason in {MODERN_CODE_REASON, PIVOT_REASON, FILM_PIVOT_REASON}:
                     required['storyboard_critics'] = 4
                 if reason == NARRATION_REASON:
                     from narration_recovery import required as narration_required
                     required = narration_required(plan, required)
                 from capture_completion_budget import required_counts
                 required = required_counts(admission, plan, required)
+                if reason == FILM_PIVOT_REASON:
+                    from film_pivot_capacity import required_counts as film_pivot_required
+                    required = film_pivot_required(plan, required)
                 if VALIDATION_FIELD in plan:
                     minimum = json.loads(plan[VALIDATION_FIELD]['policy_json'])['minimum_remaining']
                     for name, count in minimum.items():
@@ -842,6 +845,9 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         from capture_completion_budget import apply_budget
         budget = apply_budget(state, plan, budget)
+        if reason == FILM_PIVOT_REASON:
+            from film_pivot_capacity import apply_budget as film_pivot_budget
+            budget = film_pivot_budget(plan, budget)
         if VALIDATION_FIELD in plan:
             from validation_completion import apply_budget as validation_budget
             budget = validation_budget(state, plan, budget)

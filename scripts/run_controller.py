@@ -2291,6 +2291,9 @@ def main() -> int:
             if a.repair_plan:
                 from capture_completion_budget import apply_budget
                 result = apply_budget(read_state(state_path), budget_plan, result)
+                if budget_plan.get('completion_reason') == 'mandatory-film-pivot-capacity':
+                    from film_pivot_capacity import apply_budget as film_pivot_budget
+                    result = film_pivot_budget(budget_plan, result)
                 if 'source_validation_completion' in budget_plan:
                     from validation_completion import apply_budget as validation_budget
                     result = validation_budget(read_state(state_path), budget_plan, result)

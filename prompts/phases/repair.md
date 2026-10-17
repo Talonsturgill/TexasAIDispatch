@@ -154,7 +154,9 @@ hash-bound pivot review. Replace the mechanism, staging or source-backed angle b
 native attempt. Labels, sleeve adjustments, camera offsets and easing changes are not a pivot.
 For an actual charged same-worker pivot REVISE following a funded modern-film-floor repair,
 use scripts/film_pivot_capacity.py and config/film_pivot_capacity_v1.json. Bind the original
-grant, pivot receipt/report, rejected proposal and revised proposal. Its capacity-only plan
+grant, pivot receipt/report, rejected proposal, revised proposal and the public-safe original
+SendMessage assignment binding via --assignment. That receipt retains the actual message,
+tool identity, time and rejected proposal digest; private raw arguments stay private. Its capacity-only plan
 can add exactly one critic while protecting the complete remaining path; it permits no
 production edit or review approval. Charge the continuation before messaging the same Opus
 High critic. After its genuine pivot PASS, bind that review to the original production repair

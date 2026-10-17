@@ -1,6 +1,7 @@
 """Protect one same-worker pivot continuation without approving a rejected repair."""
 import argparse
 import copy
+from datetime import datetime
 import hashlib
 import json
 from pathlib import Path
@@ -8,7 +9,7 @@ import re
 
 REPO = Path(__file__).resolve().parents[1]
 POLICY = REPO / 'config/film_pivot_capacity_v1.json'
-POLICY_SHA256 = '884106e7164292d263e8c4c8377b5264334a8115e2f9eba4132483d97dd67dd7'
+POLICY_SHA256 = '7a080fd90c8830e9c60142589b54de61aa9c983eb0461e580cee30c2ad521240'
 REASON = 'mandatory-film-pivot-capacity'
 FIELD = 'film_pivot_capacity_evidence'
 
@@ -29,7 +30,29 @@ def identity(plan):
     proof = plan[FIELD]
     receipt = json.loads(proof['receipt_json'])
     return sha(canonical({'scope': REASON, 'run_id': receipt['run_id'],
-                          'reservation_sha256': receipt['reservation_sha256']}))
+                          'reservation_sha256': receipt['reservation_sha256'],
+                          'report_payload_sha256': proof['report_payload_sha256']}))
+
+
+def film_relative(state, parent, original, snapshot):
+    """Retain the actual reviewed phone or registered native film, across hosts."""
+    from capture_completion_budget import SCHEMA, COMPARISON_SCHEMA
+    if parent['capture_completion_budget']['schema'] not in {SCHEMA, COMPARISON_SCHEMA}:
+        raise ValueError('unknown parent capture schema')
+    if original.get('review_scope') == 'exact-muted-phone-preflight':
+        return 'out/dispatch/preflight.mp4'
+    if (snapshot.get('film_sha256') != parent['failed_film_sha256']
+            or snapshot.get('review_only') is not False
+            or not any(e.get('kind') == 'deliverable_registered'
+                       and e.get('film_sha256') == snapshot['film_sha256']
+                       and e.get('manifest_sha256') == snapshot.get('manifest_sha256')
+                       and e.get('review_only') is False for e in state['events'])):
+        raise ValueError('native pivot capacity needs its original registered exact-film snapshot')
+    parts = Path(snapshot['film']).parts
+    indexes = [i for i in range(len(parts) - 1) if parts[i:i + 2] == ('out', 'dispatch')]
+    if len(indexes) != 1 or '..' in parts:
+        raise ValueError('registered native snapshot must stay inside the production package')
+    return str(Path(*parts[indexes[0]:]))
 
 
 def baselines(plan):
@@ -55,6 +78,7 @@ def eligible(state, plan, report):
         receipt = json.loads(proof['receipt_json'])
         rejected = json.loads(proof['rejected_proposal_json'])
         revised = json.loads(proof['revised_proposal_json'])
+        assignment = json.loads(proof['assignment_json'])
         if (plan.get('completion_reason') != REASON or plan.get('changed_inputs')
                 or plan.get('resources') or plan.get('failed_film_sha256')
                 or state.get('mode') != 'production' or state.get('terminal_state') is not None
@@ -62,7 +86,7 @@ def eligible(state, plan, report):
                 or proof.get('schema') != 'dispatch_film_pivot_capacity/1'
                 or sha(proof['policy_json']) != POLICY_SHA256 or proof['policy_sha256'] != POLICY_SHA256
                 or any(sha(proof[k + '_json']) != proof[k + '_sha256'] for k in
-                       ('receipt', 'rejected_proposal', 'revised_proposal'))
+                       ('receipt', 'rejected_proposal', 'revised_proposal', 'assignment'))
                 or receipt.get('schema') != 'dispatch_pivot_recovery/1'
                 or receipt.get('run_id') != state['run_id'] or receipt.get('role') != 'recurrence-pivot'
                 or receipt.get('status') != 'completed' or receipt.get('provider_unavailable') is not False
@@ -76,6 +100,7 @@ def eligible(state, plan, report):
                 or report['reviewer_identity'] == plan.get('director_identity')
                 or receipt.get('report_sha256') != plan.get('failure_evidence_sha256')
                 or receipt.get('reported_rejection') != report.get('visible_difference')
+                or proof.get('report_payload_sha256') != sha(canonical(report))
                 or len(report.get('visible_difference', '')) < 40 or len(report.get('source_basis', '')) < 30):
             return False
         index, reserved = receipt['source_grant_event_index'], receipt['reservation_event_index']
@@ -83,6 +108,21 @@ def eligible(state, plan, report):
                 or not 0 <= index < reserved < len(state['events'])):
             return False
         source, charge = state['events'][index], state['events'][reserved]
+        assigned_at = datetime.fromisoformat(assignment['observed_at'].replace('Z', '+00:00'))
+        charged_at = datetime.fromisoformat(charge['at'].replace('Z', '+00:00'))
+        if (assignment.get('schema') != 'dispatch_pivot_assignment_binding/1'
+                or assigned_at.tzinfo is None or charged_at.tzinfo is None or assigned_at < charged_at
+                or any(assignment.get(k) != receipt.get(k) for k in
+                       ('run_id', 'agent_id', 'source_grant_event_index', 'source_grant_sha256',
+                        'reservation_event_index', 'reservation_sha256'))
+                or not re.fullmatch(r'toolu_[A-Za-z0-9]+', assignment.get('tool_use_id', ''))
+                or not re.fullmatch(r'[a-f0-9]{64}', assignment.get('assignment_arguments_sha256', ''))
+                or assignment.get('message_sha256') != sha(assignment['assignment_text'])
+                or assignment.get('rejected_proposal_sha256') != proof['rejected_proposal_sha256']
+                or Path(assignment['rejected_proposal_path']).name != Path(proof['rejected_proposal_path']).name
+                or assignment['rejected_proposal_sha256'] not in assignment['assignment_text']
+                or assignment['rejected_proposal_path'] not in assignment['assignment_text']):
+            return False
         parent = json.loads(source['plan_json'])
         original = json.loads(source['failure_evidence_json'])
         if (source.get('kind') != EVENT or source.get('reason') != 'modern-film-floor'
@@ -105,9 +145,16 @@ def eligible(state, plan, report):
         if any(e.get('kind') == 'reserved' and e.get('resources', {}).get('storyboard_critics')
                for e in state['events'][reserved + 1:]):
             return False
-        if any(p.get('kind') == EVENT and identity(json.loads(p['plan_json'])) == identity(plan)
-               for p in state['events'] if json.loads(p.get('plan_json', '{}')).get('completion_reason') == REASON):
-            return False
+        for prior in state['events']:
+            if prior.get('kind') != EVENT:
+                continue
+            if sha(canonical(json.loads(prior['failure_evidence_json']))) == proof['report_payload_sha256']:
+                return False  # A new receipt cannot recycle an old response.
+            previous_plan = json.loads(prior['plan_json'])
+            if previous_plan.get('completion_reason') == REASON:
+                previous_receipt = json.loads(previous_plan[FIELD]['receipt_json'])
+                if previous_receipt['reservation_sha256'] == receipt['reservation_sha256']:
+                    return False  # One actual call cannot claim several failures.
         for proposal in (rejected, revised):
             if (proposal.get('failure_evidence_sha256') != source['failure_evidence_sha256']
                     or proposal.get('failed_film_sha256') != parent['failed_film_sha256']
@@ -119,8 +166,12 @@ def eligible(state, plan, report):
                 or all(rejected.get(k) == revised.get(k) for k in
                        ('repair', 'mechanism_change', 'expected_visible_result'))):
             return False
+        if parent.get('repair_scope', 'standard') == 'technical-integrity':
+            return False
         previous = [e for e in state['events'][:index] if e.get('kind') == 'repair_started'
-                    and e.get('failure_family') == parent['failure_family']]
+                    and e.get('repair_scope') != 'technical-integrity'
+                    and (e.get('failure_family') == parent['failure_family']
+                         or e.get('mechanism_id') == parent['mechanism_id'])]
         # The original film report is already bound by the parent grant and
         # both proposals. The pivot's list follows the recurrence guard's prior
         # failure collection; its rejection is never treated as pivot approval.
@@ -136,7 +187,8 @@ def eligible(state, plan, report):
             new = baselines(proposal)
             if any(new.get(path) != row for path, row in old.items()) or set(new) - set(old) - allowed:
                 return False
-        return (proof['original_film_sha256'] == parent['failed_film_sha256']
+        return (proof['original_film_relative'] == film_relative(state, parent, original, proof['original_deliverable'])
+                and proof['original_film_sha256'] == parent['failed_film_sha256']
                 and proof['original_concept_sha256'] == original['concept_sha256']
                 and proof['original_renderer_sha256'] == original['renderer_sha256']
                 and proof['original_claims_sha256'] == original['story_review']['claims_sha256'])
@@ -151,7 +203,7 @@ def file_problems(state_path, plan):
         proof = plan[FIELD]; root = REPO.resolve()
         if digest(POLICY) != POLICY_SHA256 or proof['checkout_root'] != str(root):
             return ['film pivot capacity policy or checkout changed']
-        for key in ('receipt', 'rejected_proposal', 'revised_proposal'):
+        for key in ('receipt', 'rejected_proposal', 'revised_proposal', 'assignment'):
             path = Path(proof[key + '_path']).resolve()
             if not path.is_relative_to(root) or path.read_text() != proof[key + '_json']:
                 return ['film pivot capacity retained evidence changed: ' + key]
@@ -163,7 +215,8 @@ def file_problems(state_path, plan):
                 or concept_digest(board) != proof['original_concept_sha256']
                 or renderer_digest(board) != proof['original_renderer_sha256']
                 or digest(package / 'claims.json') != proof['original_claims_sha256']
-                or digest(package / 'preflight.mp4') != proof['original_film_sha256']):
+                or not (root / proof['original_film_relative']).resolve().is_relative_to(root)
+                or digest(root / proof['original_film_relative']) != proof['original_film_sha256']):
             return ['film pivot capacity production input changed before the continuation']
         for row in baselines(json.loads(proof['revised_proposal_json'])).values():
             for key in ('path', 'before_path'):
@@ -175,7 +228,27 @@ def file_problems(state_path, plan):
     return []
 
 
-def prepare(state_path, receipt_path, report_path, rejected_proposal, revised_proposal, output):
+def required_counts(plan, required):
+    result = dict(required)
+    if plan.get('completion_reason') == REASON:
+        result['storyboard_critics'] = max(result.get('storyboard_critics', 0), 4)
+    return result
+
+
+def apply_budget(plan, budget):
+    result = copy.deepcopy(budget)
+    if plan.get('completion_reason') != REASON or not result.get('resources'):
+        return result
+    required = required_counts(plan, {k: row['required'] for k, row in result['resources'].items()})
+    for key, count in required.items():
+        result['resources'][key]['required'] = count
+    result['deficits'] = {k: row['required'] - row['remaining'] for k, row in result['resources'].items()
+                         if row['required'] > row['remaining']}
+    result['feasible'] = not result['deficits'] and not result['errors']
+    return result
+
+
+def prepare(state_path, receipt_path, report_path, rejected_proposal, revised_proposal, output, assignment):
     from run_controller import read_state
     state = read_state(Path(state_path))
     receipt_text = Path(receipt_path).read_text(); receipt = json.loads(receipt_text)
@@ -192,8 +265,12 @@ def prepare(state_path, receipt_path, report_path, rejected_proposal, revised_pr
              'original_concept_sha256': original['concept_sha256'],
              'original_renderer_sha256': original['renderer_sha256'],
              'original_claims_sha256': original['story_review']['claims_sha256']}
+    proof['original_deliverable'] = copy.deepcopy(state.get('deliverable') or {})
+    proof['original_film_relative'] = film_relative(state, json.loads(source['plan_json']),
+                                                    original, proof['original_deliverable'])
+    proof['report_payload_sha256'] = sha(canonical(json.loads(report_text)))
     for key, path in (('receipt', receipt_path), ('rejected_proposal', rejected_proposal),
-                      ('revised_proposal', revised_proposal)):
+                      ('revised_proposal', revised_proposal), ('assignment', assignment)):
         text = Path(path).read_text()
         proof.update({key + '_path': str(Path(path).resolve()), key + '_json': text, key + '_sha256': sha(text)})
     plan[FIELD] = proof
@@ -209,8 +286,8 @@ def prepare(state_path, receipt_path, report_path, rejected_proposal, revised_pr
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    for name in ('state', 'receipt', 'report', 'rejected-proposal', 'revised-proposal', 'output'):
+    for name in ('state', 'receipt', 'report', 'rejected-proposal', 'revised-proposal', 'output', 'assignment'):
         parser.add_argument('--' + name, type=Path, required=True)
     args = parser.parse_args()
-    prepare(args.state, args.receipt, args.report, args.rejected_proposal, args.revised_proposal, args.output)
+    prepare(args.state, args.receipt, args.report, args.rejected_proposal, args.revised_proposal, args.output, args.assignment)
     print('Bound one same-worker film pivot capacity request; no grant, reservation, repair or review approval.')
