@@ -207,7 +207,7 @@ class FilmPivotCapacityTests(unittest.TestCase):
         film.write_bytes((self.package / 'preflight.mp4').read_bytes())
         snapshot = {'film': str(film), 'film_sha256': f.digest(film), 'manifest_sha256': 'd' * 64, 'review_only': False}
         state = {'events': [{'kind': 'deliverable_registered', **snapshot}]}
-        for schema in (capture.SCHEMA, capture.COMPARISON_SCHEMA):
+        for schema in (capture.SCHEMA, *capture.COMPARISON_POLICIES):
             parent = {'failed_film_sha256': f.digest(film), 'capture_completion_budget': {'schema': schema}}
             self.assertEqual(f.film_relative(state, parent, {'film_sha256': f.digest(film)}, snapshot),
                              'out/dispatch/snapshots/failed-native.mp4')

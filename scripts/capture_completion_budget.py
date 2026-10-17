@@ -13,6 +13,14 @@ SCHEMA = 'dispatch_capture_completion_budget_evidence/1'
 COMPARISON_POLICY = POLICY.with_name('capture_completion_budget_v2.json')
 COMPARISON_POLICY_SHA256 = 'd70e4e199c3acf49a4635087412cb9090e758810776c320ffb9ef290991f9d21'
 COMPARISON_SCHEMA = 'dispatch_capture_completion_budget_evidence/2'
+PHONE_COMPARISON_POLICY = POLICY.with_name('capture_completion_budget_v3.json')
+PHONE_COMPARISON_POLICY_SHA256 = 'a24e8f717afde205194f77dcc47756285e7e257fe2f8e2dea0b957c1ce61d0e8'
+PHONE_COMPARISON_SCHEMA = 'dispatch_capture_completion_budget_evidence/3'
+CURRENT_COMPARISON_SCHEMA = PHONE_COMPARISON_SCHEMA
+COMPARISON_POLICIES = {
+    COMPARISON_SCHEMA: (COMPARISON_POLICY, COMPARISON_POLICY_SHA256),
+    PHONE_COMPARISON_SCHEMA: (PHONE_COMPARISON_POLICY, PHONE_COMPARISON_POLICY_SHA256),
+}
 
 
 def sha(text):
@@ -27,14 +35,18 @@ def comparison_eligible(state, plan):
     """A retained paid comparison funds a fresh complete path, never reuses its verdict."""
     try:
         proof = plan[FIELD]
+        policy = COMPARISON_POLICIES.get(proof.get('schema'))
+        if policy is None:
+            return False
+        _, policy_sha256 = policy
         receipt = json.loads(proof['comparison_json'])
         reservation = receipt['reservation']
         entry_index, hook_index = proof['entry_event_index'], proof['hook_event_index']
-        if (proof['schema'] != COMPARISON_SCHEMA or proof['run_id'] != state['run_id']
+        if (proof['run_id'] != state['run_id']
                 or str(state['run_id'])[:10] < '2026-10-09'
                 or state.get('mode') != 'production' or state.get('terminal_state') is not None
-                or proof['policy_sha256'] != COMPARISON_POLICY_SHA256
-                or sha(proof['policy_json']) != COMPARISON_POLICY_SHA256
+                or proof['policy_sha256'] != policy_sha256
+                or sha(proof['policy_json']) != policy_sha256
                 or sha(proof['comparison_json']) != proof['comparison_sha256']
                 or receipt['schema'] != 'dispatch-opening-comparison/1'
                 or receipt['inspection_pass'] is not True or receipt['inspection_problems']
@@ -74,7 +86,7 @@ def eligible(state, plan):
     """Admission and replay use the retained original paired capture, never a new verdict."""
     try:
         proof = plan[FIELD]
-        if proof.get('schema') == COMPARISON_SCHEMA:
+        if proof.get('schema') in COMPARISON_POLICIES:
             return comparison_eligible(state, plan)
         if (proof['schema'] != SCHEMA or proof['run_id'] != state['run_id']
                 or str(state['run_id'])[:10] < '2026-10-09'
@@ -129,8 +141,9 @@ def eligible(state, plan):
 def file_problems(plan):
     try:
         proof = plan[FIELD]
-        if proof.get('schema') == COMPARISON_SCHEMA:
-            if (COMPARISON_POLICY.read_text() != proof['policy_json']
+        if proof.get('schema') in COMPARISON_POLICIES:
+            policy, _ = COMPARISON_POLICIES[proof['schema']]
+            if (policy.read_text() != proof['policy_json']
                     or Path(proof['comparison_path']).read_text() != proof['comparison_json']
                     or any(hashlib.sha256(Path(f['path']).read_bytes()).hexdigest() != f['sha256']
                            for f in proof['retained_files'])):
@@ -150,7 +163,7 @@ def required_counts(state, plan, required):
         return result
     if not eligible(state, plan):
         raise ValueError('capture completion budget requires the actual consumed paired native capture')
-    if plan[FIELD].get('schema') == COMPARISON_SCHEMA:
+    if plan[FIELD].get('schema') in COMPARISON_POLICIES:
         for name, count in json.loads(plan[FIELD]['policy_json'])['minimum_remaining'].items():
             result[name] = max(result[name], count)
         return result
@@ -172,7 +185,7 @@ def apply_budget(state, plan, budget):
                          for k, row in result['resources'].items() if row['required'] > row['remaining']}
     result['feasible'] = not result['deficits'] and not result['errors']
     result['capture_charging'] = ('renewed-two-treatment-complete-path'
-        if plan[FIELD].get('schema') == COMPARISON_SCHEMA else 'hook-and-entry')
+        if plan[FIELD].get('schema') in COMPARISON_POLICIES else 'hook-and-entry')
     return result
 
 
@@ -225,8 +238,9 @@ def prepare_comparison(state_path, plan_path, comparison_path, output_path):
     candidates = [i for i in range(entry_index) if state['events'][i].get('kind') == 'reserved'
                   and state['events'][i].get('resources', {}).get('preflight_renders')]
     hook_index = candidates[-1]
-    proof = {'schema': COMPARISON_SCHEMA, 'run_id': state['run_id'],
-             'policy_json': COMPARISON_POLICY.read_text(), 'policy_sha256': COMPARISON_POLICY_SHA256,
+    policy, policy_sha256 = COMPARISON_POLICIES[CURRENT_COMPARISON_SCHEMA]
+    proof = {'schema': CURRENT_COMPARISON_SCHEMA, 'run_id': state['run_id'],
+             'policy_json': policy.read_text(), 'policy_sha256': policy_sha256,
              'comparison_path': str(comparison), 'comparison_json': raw,
              'comparison_sha256': sha(raw), 'retained_files': []}
     for name, index in (('hook', hook_index), ('entry', entry_index)):
