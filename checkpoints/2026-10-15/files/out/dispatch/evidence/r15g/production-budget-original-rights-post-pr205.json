@@ -1,0 +1,96 @@
+{
+  "capture_budget_command": [
+    "python",
+    "scripts/capture_completion_budget.py",
+    "--state",
+    "out/dispatch/run_state.json",
+    "--plan",
+    "out/dispatch/evidence/r15g/repair-plan-r15g.original-rights.json",
+    "--authorization",
+    "<retained-spent-full-authorization.json>",
+    "--output",
+    "<new-capture-budget-plan.json>"
+  ],
+  "current_phone_reused": false,
+  "deficits": {},
+  "errors": [],
+  "feasible": true,
+  "path": "complete-visual-repair",
+  "prepaid_reboard": {
+    "baselines": {
+      "out/dispatch/opening-a.json": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+      "out/dispatch/opening-b.json": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4",
+      "out/dispatch/storyboard.json": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b"
+    },
+    "failure_evidence_sha256": "82855de0b5fea46ef0d4da25f9ea816ce9c280a0e63b70ff6015c7c88577b461",
+    "grant_event_index": 391,
+    "reservation_event_index": 393,
+    "reservation_sha256": "bdef9b3481c06c7b12a94d3e238c6d2f67ad9d45543b1ff3f84172e0bad6de63",
+    "schema": "dispatch_unused_rights_reboard/1"
+  },
+  "resources": {
+    "audiovisual_reviews": {
+      "ceiling": 43,
+      "remaining": 31,
+      "required": 11,
+      "used": 12
+    },
+    "full_renders": {
+      "ceiling": 14,
+      "remaining": 12,
+      "required": 1,
+      "used": 2
+    },
+    "image_generations": {
+      "ceiling": 6,
+      "remaining": 6,
+      "required": 2,
+      "used": 0
+    },
+    "panel_rounds": {
+      "ceiling": 9,
+      "remaining": 9,
+      "required": 1,
+      "used": 0
+    },
+    "preflight_renders": {
+      "ceiling": 42,
+      "remaining": 3,
+      "required": 3,
+      "used": 39
+    },
+    "reboards": {
+      "ceiling": 13,
+      "prepaid": 1,
+      "remaining": 0,
+      "required": 1,
+      "used": 13
+    },
+    "scorer_calls": {
+      "ceiling": 27,
+      "remaining": 27,
+      "required": 3,
+      "used": 0
+    },
+    "storyboard_critics": {
+      "ceiling": 43,
+      "remaining": 3,
+      "required": 3,
+      "used": 40
+    },
+    "tts_calls": {
+      "ceiling": 16,
+      "remaining": 2,
+      "required": 2,
+      "used": 14
+    },
+    "voice_directors": {
+      "ceiling": 2,
+      "remaining": 1,
+      "required": 0,
+      "used": 1
+    }
+  },
+  "review_route": "host",
+  "scope": "Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval"
+}

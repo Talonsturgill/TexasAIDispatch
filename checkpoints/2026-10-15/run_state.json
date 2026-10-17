@@ -1,40 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/storyboard.json",
-        "before_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/opening-a.json",
-        "before_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/opening-b.json",
-        "before_sha256": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      }
-    ],
-    "failure_sha256": "82855de0b5fea46ef0d4da25f9ea816ce9c280a0e63b70ff6015c7c88577b461",
-    "plan": "{REPO}/out/dispatch/evidence/r15g/repair-plan-r15g.original-rights.json",
-    "plan_sha256": "afead403a8e65f9b73da2e11cad20ea7c0aec79ce913166f69006a505e025507",
-    "prepaid_reboard": {
-      "baselines": {
-        "out/dispatch/opening-a.json": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
-        "out/dispatch/opening-b.json": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4",
-        "out/dispatch/storyboard.json": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b"
-      },
-      "failure_evidence_sha256": "82855de0b5fea46ef0d4da25f9ea816ce9c280a0e63b70ff6015c7c88577b461",
-      "grant_event_index": 391,
-      "reservation_event_index": 393,
-      "reservation_sha256": "bdef9b3481c06c7b12a94d3e238c6d2f67ad9d45543b1ff3f84172e0bad6de63",
-      "schema": "dispatch_unused_rights_reboard/1"
-    },
-    "reboards_before": 12,
-    "repair_scope": "technical-integrity"
-  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/ab7058fff988ce8b-3758e9bcaa6364e2-04444935e5fd8cf6/storyboard.json",
@@ -9093,6 +9057,56 @@
         "schema": "dispatch_unused_rights_reboard/1"
       },
       "repair_scope": "technical-integrity"
+    },
+    {
+      "at": "2026-10-17T19:16:11.031277Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 393,
+        "reservation_sha256": "bdef9b3481c06c7b12a94d3e238c6d2f67ad9d45543b1ff3f84172e0bad6de63",
+        "start_event_index": 394
+      },
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6",
+            "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/storyboard.json",
+            "before_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6",
+            "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/opening-a.json",
+            "before_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "de56b3401e1ed4e5d447b261242c3e1b0b43b270c998eb40dfd6e905a84db68a",
+            "before_path": "{REPO}/out/dispatch/evidence/r15g/baseline/opening-b.json",
+            "before_sha256": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "The final 5 s credit card lists TEXAS AI DOCKET, SOURCES, ILLUSTRATION, MAP and MUSIC with the Sincerely line, legible at phone size, and music.py --verify-package passes.",
+        "failed_film_sha256": "ab7058fff988ce8bce16226c97600985d74e1a49fa26d5dd2a6942c22d8db077",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/review-r15g-classification/report-verbatim.json",
+        "failure_evidence_sha256": "82855de0b5fea46ef0d4da25f9ea816ce9c280a0e63b70ff6015c7c88577b461",
+        "failure_family": "rights",
+        "mechanism_change": "The end card now carries the generated attribution; the pre-render package check (PR200) refuses a film without it.",
+        "mechanism_id": "music-credit-end-card-v1",
+        "repair": "Data-only: set the board credits field to the existing text plus the exact generated MUSIC block from music_credit.txt, and write the same string as out/dispatch/credits.txt (staged and verified in evidence/r15g/credit-repair-prep). No script, voice, mix, caption, timing or renderer source change. The mix already runs 64.4 s, equal to runtime 59.4 plus credits_s 5, so the bed continues through the credit tail. Re-render the native film so the end card carries the line.",
+        "repair_scope": "technical-integrity",
+        "resources": {
+          "reboards": 1
+        },
+        "root_cause": "The board's credits text (end card) names sources, illustration and map only. mix.json records the licensed Sincerely bed by Kevin MacLeod (CC BY 4.0), whose credit is the licence. music.py --verify-package on board 3758e9bc fails with the licence unpaid (evidence/r15g/music-package-failure-board-3758e9bc.log), so the cut can not ship or pass delivery. concept_digest ignores credits and credits_s, so the code reviews and the provider timed-phone PASS on 3aa79cfc stay bound to the concept."
+      },
+      "repair_plan_sha256": "aff247de14d1ff943f9158f59741c31ffe867e2b1e602df1ab5f81e2ff3367d3",
+      "repair_revision": "bb7e8295d9fd0b69bcfb0333f1b9c54f97ca2f0bb7cc9c815eba749746944c6f",
+      "repair_scope": "technical-integrity",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -9116,7 +9130,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "aa0bc7f06e5f6a5a953589ca9505a9e1a788e2257f1786a21ce9e400817edc8d",
+    "original_private_state_sha256": "66cf393cf48214d5126739214eb691cb5d818e61fad2a1cb9af7cb0f9ef079e9",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -9152,7 +9166,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T18:59:36.230078Z",
+  "updated_at": "2026-10-17T19:16:11.031300Z",
   "usage": {
     "audiovisual_reviews": 12,
     "cleanup_renders": 0,

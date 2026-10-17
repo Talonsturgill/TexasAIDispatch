@@ -1,0 +1,33 @@
+{
+ "mechanism_id": "music-credit-end-card-v1",
+ "failure_family": "rights",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The board's credits text (end card) names sources, illustration and map only. mix.json records the licensed Sincerely bed by Kevin MacLeod (CC BY 4.0), whose credit is the licence. music.py --verify-package on board 3758e9bc fails with the licence unpaid (evidence/r15g/music-package-failure-board-3758e9bc.log), so the cut can not ship or pass delivery. concept_digest ignores credits and credits_s, so the code reviews and the provider timed-phone PASS on 3aa79cfc stay bound to the concept.",
+ "repair": "Data-only: set the board credits field to the existing text plus the exact generated MUSIC block from music_credit.txt, and write the same string as out/dispatch/credits.txt (staged and verified in evidence/r15g/credit-repair-prep). No script, voice, mix, caption, timing or renderer source change. The mix already runs 64.4 s, equal to runtime 59.4 plus credits_s 5, so the bed continues through the credit tail. Re-render the native film so the end card carries the line.",
+ "mechanism_change": "The end card now carries the generated attribution; the pre-render package check (PR200) refuses a film without it.",
+ "expected_visible_result": "The final 5 s credit card lists TEXAS AI DOCKET, SOURCES, ILLUSTRATION, MAP and MUSIC with the Sincerely line, legible at phone size, and music.py --verify-package passes.",
+ "failure_evidence": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/review-r15g-classification/report-verbatim.json",
+ "failure_evidence_sha256": "82855de0b5fea46ef0d4da25f9ea816ce9c280a0e63b70ff6015c7c88577b461",
+ "failed_film_sha256": "ab7058fff988ce8bce16226c97600985d74e1a49fa26d5dd2a6942c22d8db077",
+ "resources": {
+  "reboards": 1
+ },
+ "repair_scope": "technical-integrity",
+ "changed_inputs": [
+  {
+   "path": "/home/user/restore/TexasAIDispatch/out/dispatch/storyboard.json",
+   "before_path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15g/baseline/storyboard.json",
+   "before_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b"
+  },
+  {
+   "path": "/home/user/restore/TexasAIDispatch/out/dispatch/opening-a.json",
+   "before_path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15g/baseline/opening-a.json",
+   "before_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b"
+  },
+  {
+   "path": "/home/user/restore/TexasAIDispatch/out/dispatch/opening-b.json",
+   "before_path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15g/baseline/opening-b.json",
+   "before_sha256": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4"
+  }
+ ]
+}
