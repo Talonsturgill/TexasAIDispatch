@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-17T05:09:14.279475+00:00",
-  "note": "R15f correction authorized once; code review dispatched",
+  "saved_at": "2026-10-17T05:13:36.188825+00:00",
+  "note": "R15f code PASS, gates installed; renewed comparison next",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -144,8 +144,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "854aa2619d1ca586bd23e74c984d39c920c97ac1bb3ad25218656e35a60e40d8",
-      "size": 26541
+      "sha256": "5f8c16c5034308805d7444551440432aeaa5c0ccf0c2fec5a498e8868f83505f",
+      "size": 26940
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -13282,6 +13282,24 @@
       "size": 9464
     },
     {
+      "path": "out/dispatch/evidence/r15f/prior-critics/opening-a-critic.json",
+      "class": "scratch",
+      "sha256": "830e085e8af82268648702cb2f0f0661f76a3b0c3472bb76d3618029c3089960",
+      "size": 15398
+    },
+    {
+      "path": "out/dispatch/evidence/r15f/prior-critics/opening-b-critic.json",
+      "class": "scratch",
+      "sha256": "5fb2533267a3ee739604b3322a7f59941e64dcba26ed24b9143680073b6f38d7",
+      "size": 8828
+    },
+    {
+      "path": "out/dispatch/evidence/r15f/prior-critics/storyboard_critic.json",
+      "class": "scratch",
+      "sha256": "830e085e8af82268648702cb2f0f0661f76a3b0c3472bb76d3618029c3089960",
+      "size": 15398
+    },
+    {
       "path": "out/dispatch/evidence/r15f/production-budget-v3-host-after.json",
       "class": "scratch",
       "sha256": "347032d77ce7867bf7a042ce148be3980960331d40532b8c9ccca09b74236023",
@@ -13994,6 +14012,30 @@
       "class": "scratch",
       "sha256": "9225fae4b5e84109aa1fe03a10d7936fede66b74f4f80ee55ab92729b6ed8b78",
       "size": 26071
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15f-code/handoff.json",
+      "class": "scratch",
+      "sha256": "720b7feb31669038aefc742d1e11167110b65c190f40bb73826a7135ca2df65d",
+      "size": 39906
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15f-code/opening-a-critic.json",
+      "class": "scratch",
+      "sha256": "024c5354c811683aef458cec72dfd7b6dbffe5c67d70cabd4a5581a015e6b0e9",
+      "size": 11743
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15f-code/opening-b-critic.json",
+      "class": "scratch",
+      "sha256": "b944b692646a478bd0b573fda18314339971c162b9a5b223287ae724a82a59c6",
+      "size": 7089
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15f-code/storyboard_critic.json",
+      "class": "scratch",
+      "sha256": "ed21ec33ac2f07f74cd4cad9c4b0119b7c4f6c637cf0da5c8299d92db70fb0b2",
+      "size": 7488
     },
     {
       "path": "out/dispatch/evidence/review-r6-classification-revise/handback-full.txt",
@@ -16038,8 +16080,8 @@
     {
       "path": "out/dispatch/opening-a-critic.json",
       "class": "scratch",
-      "sha256": "830e085e8af82268648702cb2f0f0661f76a3b0c3472bb76d3618029c3089960",
-      "size": 15398
+      "sha256": "024c5354c811683aef458cec72dfd7b6dbffe5c67d70cabd4a5581a015e6b0e9",
+      "size": 11743
     },
     {
       "path": "out/dispatch/opening-a.json",
@@ -16050,8 +16092,8 @@
     {
       "path": "out/dispatch/opening-b-critic.json",
       "class": "scratch",
-      "sha256": "5fb2533267a3ee739604b3322a7f59941e64dcba26ed24b9143680073b6f38d7",
-      "size": 8828
+      "sha256": "b944b692646a478bd0b573fda18314339971c162b9a5b223287ae724a82a59c6",
+      "size": 7089
     },
     {
       "path": "out/dispatch/opening-b.json",
@@ -17454,8 +17496,8 @@
     {
       "path": "out/dispatch/storyboard_critic.json",
       "class": "scratch",
-      "sha256": "830e085e8af82268648702cb2f0f0661f76a3b0c3472bb76d3618029c3089960",
-      "size": 15398
+      "sha256": "ed21ec33ac2f07f74cd4cad9c4b0119b7c4f6c637cf0da5c8299d92db70fb0b2",
+      "size": 7488
     },
     {
       "path": "out/dispatch/takes-2/prompt.txt",
@@ -17847,6 +17889,10 @@
     },
     {
       "path": "out/dispatch/evidence/review-r15f-classification/handback-verbatim.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/review-r15f-code/handback-verbatim.private.txt",
       "reason": "private path component"
     },
     {

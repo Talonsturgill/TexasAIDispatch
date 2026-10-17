@@ -1,0 +1,81 @@
+{
+  "review_scope": "code-plan",
+  "treatment": "a",
+  "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+  "board_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+  "concept_sha256": "44c88439942c2c40598bddd8a6d17088ed4b4eb0e1e06ffb3fac90385bb4b687",
+  "renderer_sha256": "4811590400523e197125b1f3ca735d8c54f4ea28dcd2194672a2f63060307eda",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "verdict": "pass",
+  "strongest_frame": "s7-shot-2, validation-card detail, 44.88 to 49.2 s, unchanged since R15e. The whole 98.82% stays in frame (its 9 at x 43 or more), the heading clears the chip, and the assessments tag is whole. The result card arrives from the right without crossing the figure.",
+  "weakest_frame": "s8-shot-1, no-field-card near-hold, 49.2 to 52.16 s. All printed text is in frame, but the margins are thin: tag left about 33 px and 'None reported' ending near x 1047. The blank result card's right border is cropped by about 50 px, and the camera is nearly still, so the stamp action carries the shot.",
+  "blocking_defects": [],
+  "code_observations": [
+    "storyboard.json is the A board. Its renderer_inputs FloodStationFilm.tsx row reads be9c00e4 at line 3250, the same position as in opening-a.json. I did not re-read the rest of the file this round. Byte identity with opening-a and the claim that nothing else changed are the director's statements.",
+    "R15f confines its change to the detail path of no-field-card: Cam f=[540,500], a=[560,500], s 1 to 1.02 on the unchanged clock. The validation-card branch R15e corrected is unchanged, as are the stamp, the reacher and every other view.",
+    "My composed transform for s8-shot-1 is x'' = 1.3002x - 142.1, then 1.3262x - 156.1, and y'' = 1.3y - 259.1, 1.326y - 278.4 and 1.326y - 287.5 at 49.2, 50.67 and 52.13 s. The 98.82% sits at x 58 to 299, then 48 to 294; heading and subtitle start at 48 or more; tag left at 32 or more; 'Field result' at x 576 to 941; 'None reported' ending at 1047 or less. Every text top is at least 285 against a chip bottom of 220, and every bottom is at most about 770 against a caption-band top near 1283. The stamp mark lands at about (831, 516) on the blank card. This is N1 resolved in code.",
+    "Rewards, ceilings and text are unchanged. Stale non-blocking items remain: divergence_note, the top-level hook_payoff_s, and the out-of-order s7-event-3 reward."
+  ],
+  "action_reviews": [
+    {
+      "action_id": "water-rises",
+      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s1-event-1 runs 0.64 to 1.24 s in s1-shot-1 (street-yard). Water tops the curb and reaches the ankle mark as the tag swings. Unchanged. Claim c12."
+    },
+    {
+      "action_id": "charge-battery",
+      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s2-event-2 runs 12.145 to 12.879 s in s2-shot-2 (panel-charge). The battery fills from .24 to 1. Unchanged. Claims c5 and c14."
+    },
+    {
+      "action_id": "cross-marks",
+      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s3-event-2 runs 17.131 to 17.909 s in s3-shot-2 (water-marks). Lenses 2 to 4 light in order. Unchanged. Claim c2."
+    },
+    {
+      "action_id": "judge-locally",
+      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s4-event-2 runs 24.562 to 25.16 s in s4-shot-2 (chip-glow, detail). The lamp lights and the risk bar climbs. Unchanged. Claims c3 and c18."
+    },
+    {
+      "action_id": "carry-signal",
+      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s5-event-2 runs 29.097 to 29.965 s in s5-shot-1 (radio-rings). Rings reach the hub and the half-mile bar draws. Unchanged. Claim c6."
+    },
+    {
+      "action_id": "spread-map",
+      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s6-event-2 runs 38.172 to 39.112 s in s6-shot-2 (flood-paths). Paths spread along the creek. Unchanged. Claims c7, c16, c17 and c20."
+    }
+  ],
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated read-only worker (the same worker as this edition's critics 26 to 36). Distinct from the claude-sonnet-5-5 director, the scene-builder and the gemini-3.8-flash provider. Code-plan scope only: no pixels seen, nothing run, no hash computed, geometry checked by hand arithmetic.",
+  "reviewed_at": "2026-10-17T08:00:00Z",
+  "story_review": {
+    "story_sha256": "0aaa59c0eadd355fd26348fe545c8314faa1869e7bea07a636780d9340246269",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "This is the planned A chain, not observed pixels. A flooding San Antonio yard reaches a fence post's ankle mark before the phone's late warning. The prototype station charges from the sun, needs no tower and watches the water with four lenses that light as it rises. Its own chip lights an amber risk lamp without any server, and its radio carries to a hub, where a responder reads a spreading flood map. On a curb notice board the whole 98.82% card and its assessments tag stay readable, a blank field result card slides in, and in the wider two-card view a hand stamps none reported on it while the figure stays in frame. A finger then reads a blank map, and a technician latches the plan into the prototype's case.",
+    "opening_to_ending": "The film opens on whether a station can judge rising street water with no power line or cell tower. It answers yes as a disclosed design through charge, sensing, on-chip judgment, radio and the hub map. It shows its limits plainly, with the reported validation figure kept whole beside a blank field result stamped none reported. It ends on the plan kept with an uninstalled prototype, so no deployment outcome is invented.",
+    "weakest_transition": "The s7 to s8 cut at 49.2 s is the weakest. It moves from the large single validation card to a wider, almost still two-card board, where only the hand and stamp move. The phone review must show that this reads as the same board pulled wider and that the near-hold does not stall before the map cut."
+  }
+}

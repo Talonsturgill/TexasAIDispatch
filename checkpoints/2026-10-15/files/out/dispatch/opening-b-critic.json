@@ -2,24 +2,18 @@
   "review_scope": "code-plan",
   "treatment": "b",
   "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
-  "board_sha256": "939241c9e08f3ddd89c73560689bda57ed3524f3645f31a2fb5e4b0287d64805",
-  "concept_sha256": "188f879e073ea506c024203d7dcb567d159e40262cb4e78db77897023882537e",
-  "renderer_sha256": "068b6b62a044dca0ff7fa2f6f1ccce20c4ca63106f5ac62805bfceeacf89c825",
+  "board_sha256": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4",
+  "concept_sha256": "c0a13a78a3d45206c3ef017420e013b52b29be07d8890977491cdb9f7efcbcfc",
+  "renderer_sha256": "4811590400523e197125b1f3ca735d8c54f4ea28dcd2194672a2f63060307eda",
   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
   "verdict": "pass",
-  "strongest_frame": "s1-shot-1, water-marks design detail, 0.0 to 1.955 s. At 3.2x, with the post at x 520 and the waterline at screen row 1150, reflective water rises from level -20 to -60 on s1-event-0 (0.64 to 1.24). The lowest lens lights as it goes under (ease .2 to .65) and is mirrored in the surface. Reward at 1.0 s, all above the caption band.",
-  "weakest_frame": "s8-shot-2, station-return wide, 52.16 to 55.5 s. The finger reads a 430x470 map, about 107 phone px wide, at hand scale .95. The slide runs 53.374 to 53.926 (about 0.38 s of contact) inside a wide curb frame. 'It names no town with an installed station' depends on that small read plus the tag pinned on the map at 54.2 to 54.7.",
+  "strongest_frame": "s3-shot-1, water-marks detail, 15.62 to 17.64 s. The lens column is framed right at 3.3x. On s3-event-2 (16.872 to 17.52 s) the waterline climbs past lenses 2, 3 and 4, and each lights as it is crossed, glows through the water and is mirrored.",
+  "weakest_frame": "s7-shot-2, about 47.81 to 47.98 s, unchanged. On s7-event-3 B's blank result card slides in from the left (world x -500 to 640, y 520 to 764). For about 5 frames it passes over the lower roughly 43% of the 98.82% glyphs and the bar while n7b finishes. This is a moving transient that leaves no false number, so it is non-blocking at code scope and must be judged on pixels.",
   "blocking_defects": [],
   "code_observations": [
-    "Parity with A. runtime 59.4. Scene starts and durations, vo, vo_claims, the 16 captions and clause timings are identical to A. First scene duration is 8.68 in both. s5 place_plate is blackland-wide and the s9 view is curb-table, as in A. B keeps its own views, order and windows: s1-event-0 lens detail; crane-down station; panel close through the tower beat; housing window from the street; overhead radio map; map before desk; s8 station-return wide; s9 curb table at 1.45x.",
-    "The s1 detail draws no yard and no station-in-yard. The match cut at 1.955 goes to the dry post at 2.2x. Yard water spreads during s1-event-1 (2.08 to 2.74) and reaches the post at about 2.32 s; the tag swing starts at 2.324. The boots get wet during s1-event-2 (2.8 to 3.46). The selection's concern that this opening implies a sensor installed in the yard still applies to B's structure; the disclosure 'Illustration of the prototype' sits only on s2.",
-    "s3: water-marks shot 15.62 to 17.64 carries s3-event-1 (glints in order) and s3-event-2 (16.872 to 17.52). Lenses 2, 3 and 4 light at 16.95 to 17.02, 17.16 to 17.23 and 17.37 to 17.44. That is faster than A, with the post framed right at 3.3x.",
-    "s4: no-server close shows the station housing with window 1, readings running on s4-event-1 (21.722 to 22.532), rain and drips. Then the chip-glow detail with lamp and bar (24.562 to 25.16), then the no-server wide whose dashed line stops at 60% with a break mark.",
-    "s5: on the radio-map overhead the ring leaves the station dot, the half-mile circle is a tenth of the five-mile circle, and the labels appear at lead .1 and .92. The five-mile label appears around 28.0 s, ahead of n5b, as before. On radio-rings the rings start at shot start (29.105) and reach the hub by about 29.80 s, a fast 0.69 s run. Hub-wide: hub at (600,1262), scale .98, inset station, ring lands at mid event-3, lamp and window light.",
-    "s6: on flood-paths the dots arrive (s6-event-1) with the 'second, larger model' tag, and paths spread (s6-event-2, 36.95 to 37.89). On hub-desk, the responder's hand goes from the keyboard to touch a dashed zone on screen at about 39.0 to 39.6 s, then the forearm rests on the desk (to 40.05), and the responders tag pins. The B s6 text, 'a responder's sleeved forearm comes to rest beside it', matches the drawn forearm rest.",
-    "s7 and s8-shot-1 run the same notice-board actions as A; the result card slides from the left. s9 is the same curb-table action at 1.45x around (500,800), so the plan is about 72 phone px.",
-    "Ceilings: longest scene s1 8.68 s; longest shot s1-shot-3 4.77 s. Every event is contained in its shot. First reward 1.0 s, largest gap 3.583 s, end gap 2.242 s.",
-    "Non-blocking corrections. divergence_note still says B 'closes on the same map close up' and A closes on a dashed outline. The s9 visual_sentence and quality_plan subject read 'Close on A technician' (capitalisation). B's s8 text says 'after the flood' while the renderer keeps standing water at the curb."
+    "R15f changes only the detail path of no-field-card. B's s8-shot-1 is close framing, so held is false and push is 0. The Cam reduces to f=a=[540,700], s=1, the identity, which is byte-for-byte the R15e behaviour. Under close zoom 1.18 and dollyThrough the figure stays at about x 76 to 298, card2's right edge at about 1045 to 1054, and 'None reported' at about x 592 to 970, all clear of the chip and the caption band.",
+    "The board's renderer_inputs row for FloodStationFilm.tsx reads be9c00e4 (line 3312, the same position as before). The validation-card branch is unchanged, so B's s7-shot-2 keeps its R15e geometry: figure at x 75, 56 and 52 at 44.88, 47.05 and 49.2 s; heading top about 276 to 283; card top about 232, with no chip overlap; tag whole.",
+    "Rewards and ceilings are unchanged: first reward 1.0 s, largest gap 3.583 s, end gap 2.242 s, longest shot 4.77 s. Stale but non-blocking board text: divergence_note, and 'Close on A technician'."
   ],
   "action_reviews": [
     {
@@ -28,7 +22,7 @@
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": "s1-event-1 (2.08 to 2.74) in s1-shot-2 street-yard (1.955 to 3.91). Water spreads past the ankle mark as the camera pulls back from 2.2x, and the tag swings from 2.324 s. c12."
+      "code_observations": "s1-event-1 runs 2.08 to 2.74 s in B's s1-shot-2 (street-yard), after the match cut from the lens detail. Unchanged. Claim c12."
     },
     {
       "action_id": "charge-battery",
@@ -36,7 +30,7 @@
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": "s2-event-2 in s2-shot-2 panel-charge, scale 1.85. The same shot carries the tower line that stops halfway on s2-event-3. c5, c6, c14."
+      "code_observations": "s2-event-2 runs 12.145 to 12.879 s in B's s2-shot-2 (panel-charge at 1.85x). Unchanged. Claims c5 and c14."
     },
     {
       "action_id": "cross-marks",
@@ -44,7 +38,7 @@
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": "s3-event-2 (16.872 to 17.52) in s3-shot-1 water-marks. Lenses 2 to 4 light in about 0.07 s each, about 0.21 s apart. c2."
+      "code_observations": "s3-event-2 runs 16.872 to 17.52 s in B's s3-shot-1 (water-marks). Lenses 2 to 4 light in order. Unchanged. Claim c2."
     },
     {
       "action_id": "judge-locally",
@@ -52,7 +46,7 @@
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": "s4-event-2 in s4-shot-2 chip-glow detail, the same cutaway as A. c3, c18."
+      "code_observations": "s4-event-2 runs 24.562 to 25.16 s in B's s4-shot-2 (chip-glow, detail). Unchanged. Claims c3 and c18."
     },
     {
       "action_id": "carry-signal",
@@ -60,7 +54,7 @@
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": "s5-event-2 (29.164 to 30.032) in s5-shot-2 radio-rings. The hub lights at about 29.80 s and the scale bar and tag pin. c6."
+      "code_observations": "s5-event-2 runs 29.164 to 30.032 s in B's s5-shot-2 (radio-rings). Unchanged. Claim c6."
     },
     {
       "action_id": "spread-map",
@@ -68,19 +62,19 @@
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": "s6-event-2 (36.95 to 37.89) in s6-shot-1 flood-paths. c7, c16, c17, c20."
+      "code_observations": "s6-event-2 runs 36.95 to 37.89 s in B's s6-shot-1 (flood-paths). Unchanged. Claims c7, c16, c17 and c20."
     }
   ],
-  "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated read-only worker, distinct from the claude-sonnet-5-5 director and the scene-builder; code-plan scope only, no pixels, no runs, no hashes computed",
-  "reviewed_at": "2026-10-17T04:15:00Z",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated read-only worker (the same worker as this edition's critics 26 to 36). Distinct from the claude-sonnet-5-5 director, the scene-builder and the gemini-3.8-flash provider. Code-plan scope only: no pixels seen, nothing run, no hash computed.",
+  "reviewed_at": "2026-10-17T08:00:00Z",
   "story_review": {
     "story_sha256": "8fdc7086b1ddfc120e89f7ca63f0480b1af248868307cab5aea24251b14440a0",
     "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
     "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
     "verdict": "pass",
     "blocking_defects": [],
-    "one_viewing_summary": "Planned chain. A disclosed lens detail goes under ankle-deep water and lights. A match cut on ankle height leads to a yard flooding past the fence mark and the late phone warning. The station is revealed from its antenna down, charges, and needs no tower. All four lenses light as water rises, the weather lamps come on, and readings reach the chip through the housing window. The chip lights the large lamp and risk bar while a dark server stays unreached. Rings go from overhead, down the street to the hub, then across open country. The flood map spreads and a responder touches a risk zone. The curb notice board shows the validation card and the stamped blank card. A finger reads the blank map in a wide curb frame. A close curb-table shot ends with the plan in the latched case.",
-    "opening_to_ending": "The same question and answer as A, by the instrument-first route. The ending keeps the plan with the uninstalled prototype and claims no installation.",
-    "weakest_transition": "s1-shot-1 to s1-shot-2 at 1.955 s. The cut goes from the wet lens detail to a dry post that the water reaches only at about 2.32 s. It still carries the false-continuity risk that a sensor stands in this yard, which the prior selection noted."
+    "one_viewing_summary": "This is the planned chain, not observed pixels. A disclosed lens detail goes under at ankle height, then a match cut lands in a flooding yard where the porch phone warns late. The view cranes down the prototype, its panel charges, and a dashed line toward a tower stops halfway. Water rises past the four lenses. Readings glow through the housing window, the chip lights a lamp and risk bar, and a server across the road is never reached. Rings spread over an overhead map, down a street and across open country to the hub, the flood map spreads paths, and a responder's forearm comes to rest. On the curb notice board the whole 98.82% card and its tag stay readable, and a blank result card sweeps in from the left and is stamped none reported. A finger reads the blank map, and the plan is latched into the prototype's case.",
+    "opening_to_ending": "The opening question asks whether a station can judge rising street water with no power line and no cell tower. B answers yes as a disclosed design through the same mechanism chain, starting from the lens detail. The validation figure stays whole in both s7 and s8 beside the field result card stamped none reported, and the close keeps the plan with the uninstalled prototype without promising an outcome.",
+    "weakest_transition": "s6 to s7 at 40.94 s. The cut goes from the interior hub desk, close on the responder's forearm, to the outdoor curb notice board. Only the amber accent carries over and no object crosses the cut, so a muted viewer must infer that the card measures the same station's design."
   }
 }
