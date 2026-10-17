@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "faf1763e8f7d4a9c72406ce4c30d876fdfd5733afabc47d38b631069ff22d98c",
-    "resource": "preflight_renders",
-    "at": "2026-10-17T16:17:56.827462Z",
-    "note": "finished cinematic hero and stage ablation batch"
+    "event_sha256": "bd544e95e3d9fc8e3df138dc8c630274f68b39f5e73e637aaf0e3295128948e8",
+    "resource": "full_renders",
+    "at": "2026-10-17T16:41:48.766757Z",
+    "note": "full native render of the approved current film (hero approved)"
   },
   "boards": [
     {
@@ -160,30 +160,23 @@
   },
   "commands": [
     {
-      "id": "a5cb8b6171c08295b1bc86b8f2ba08302aa1d83259485343a0b2a65d37219ca8",
-      "text": "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json",
-      "consumed": "2026-10-17T16:18:11.749354+00:00"
+      "id": "5871238ae2c9b2902335a85fe9099bad84dc1c390e744999be04d83bd828ca9d",
+      "text": "bash scripts/run_with_env.sh bash scripts/render_dispatch.sh",
+      "consumed": "2026-10-17T16:42:46.977247+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.032
+    "free_gib": 20.017
   },
   "housekeeping": {
-    "receipt": "/home/user/restored2/2026-10-15/out/dispatch/capture-housekeeping-20261017T161756.json",
-    "receipt_sha256": "cafa8e642354b3bed8a82aa02435a1840615164a4a71389e90c6aa44789bfb4d",
+    "receipt": "/home/user/restored2/2026-10-15/out/dispatch/capture-housekeeping-20261017T164244.json",
+    "receipt_sha256": "90d2e1e7dcbc553638cda34e77de05745f479d819f7c6042eff2731893fcd24a",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-17T16:18:09.382436+00:00",
-  "expires_at": "2026-10-17T17:03:09.382436+00:00",
-  "prepared_capture": {
-    "schema": "dispatch_prepared_capture/1",
-    "operation": "finished cinematic hero and stage ablation batch",
-    "run_id": "2026-10-15",
-    "event_sha256": "faf1763e8f7d4a9c72406ce4c30d876fdfd5733afabc47d38b631069ff22d98c",
-    "input_identity": "56e420af338d3e4bacce765a73dff43deb8354493769c1867f94df554bef8e06"
-  }
+  "issued_at": "2026-10-17T16:42:44.708041+00:00",
+  "expires_at": "2026-10-17T17:27:44.708041+00:00"
 }
