@@ -81,6 +81,14 @@ production-budget and completion-capacity on that finish plan; any real deficit 
 separate existing mandatory_completion_grant. Keep the original grant, envelope and all charges.
 This grants no review approval and never replaces either film review.
 
+A genuine passing provider phone report may carry an empty phone classification. It is
+finding-free only with verified original provider provenance, complete timed phone, modern
+and narration observations, and passing nested outcomes. A finish-current plan must bind its
+`failed_film_sha256`; admission checks the current board, claims, renderer and selected film
+on disk. Keep original reports when using the supported offline reprojection. A direct
+narration-clause list is wrapped without changing its rows, times, order or verdicts. Retain
+the earlier projection and plan, then bind a new plan to the verified derived report.
+
 ## Incomplete independent code coverage
 
 If a returned code critic's own retained handback discloses unread mandatory guides or incomplete

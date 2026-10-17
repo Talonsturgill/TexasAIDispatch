@@ -281,6 +281,21 @@ class AvailabilityTest(unittest.TestCase):
         self.assertEqual(report['action_reviews'][1]['module_sha256'], 'actual-code')
         self.assertEqual(report['action_reviews'][1]['verdict'], 'pass')
 
+    def test_direct_narration_clause_collection_wraps_exact_rows_without_inference(self):
+        rows = [{'id': 'n1', 'pass': False, 'start_s': 1, 'end_s': 2,
+                 'observed': 'The station action is absent.'}]
+        value = copy.deepcopy(self.value); value['narration_picture_observations'] = rows
+        raw = self.raw(value); before = copy.deepcopy(raw)
+        report = r.project(raw, self.bindings, 'phone', r.policy()['av_model'], 'actual-time')
+        self.assertEqual(report['narration_picture_observations'], {'film_sha256': 'film', 'clauses': rows})
+        self.assertEqual(raw, before)
+        self.assertFalse(report['narration_picture_observations']['clauses'][0]['pass'])
+        for malformed in [None, 'not observed', {'clauses': []}]:
+            value['narration_picture_observations'] = malformed
+            result = r.project(self.raw(value), self.bindings, 'phone', r.policy()['av_model'], 'actual-time')
+            if not isinstance(malformed, dict):
+                self.assertEqual(result['narration_picture_observations'], malformed)
+
     def test_complete_response_reprojects_offline_without_charge_or_new_identity(self):
         original, _ = self.call()
         cache = next((self.root/'independent-review-cache').glob('*/report.json')).parent

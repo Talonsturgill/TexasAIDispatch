@@ -262,6 +262,13 @@ def project(raw, bindings, role, model, reviewed_at, *, selection=False):
         raise ValueError('provider cannot supply its own transport evidence')
     result['reviewer_identity'] = 'gemini:' + model + ':' + raw['responseId']
     result['reviewed_at'] = reviewed_at
+    # Some providers return the complete clause collection directly. Wrap its
+    # exact original rows in the required byte-bound container; no observation,
+    # timing, pass flag or clause order is inferred or changed.
+    if role != 'code' and isinstance(result.get('narration_picture_observations'), list):
+        result['narration_picture_observations'] = {
+            'film_sha256': bindings['film_sha256'],
+            'clauses': result['narration_picture_observations']}
     for field in ('modern_observations', 'narration_picture_observations'):
         if role != 'code' and isinstance(result.get(field), dict):
             result[field]['film_sha256'] = bindings['film_sha256']
