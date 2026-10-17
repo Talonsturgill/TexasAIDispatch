@@ -64,7 +64,9 @@ def encode_shared(value):
     def count(item):
         if isinstance(item, (str, dict, list)):
             encoded = canonical(item)
-            if len(encoded) >= 128:
+            # Repeated hashes and short source clauses also save real wire space.
+            # The savings check below still rejects unprofitable references.
+            if len(encoded) >= 32:
                 key = hashlib.sha256(encoded.encode()).hexdigest()
                 counts[key] = counts.get(key, 0)+1
                 originals.setdefault(key, item); lengths[key] = len(encoded)
@@ -81,7 +83,7 @@ def encode_shared(value):
     for text in texts:
         for part in re.split(r'(\n\n+)', text):
             if part in shared_paragraphs: count(part)
-    selected = {key for key, n in counts.items() if n > 1 and (n-1)*lengths[key] > 24*n+24}
+    selected = {key for key, n in counts.items() if n > 1 and (n-1)*lengths[key] > 16*n+24}
     keys = {key: str(i) for i, key in enumerate(sorted(selected))}
     def encode(item, own=None):
         if isinstance(item, (str, dict, list)):

@@ -204,6 +204,42 @@ class Compaction(unittest.TestCase):
                 compact.decode_shared({'schema': compact.SHARED_SCHEMA, 'values': values,
                                        'packet': {'$v': '0'}, 'original_sha256': 'unreachable'})
 
+    def test_repeated_short_hashes_and_clauses_fit_without_losing_current_evidence(self):
+        import hashlib
+        rows = [{'sha256': hashlib.sha256(str(i % 24).encode()).hexdigest(),
+                 'source_limit': 'Prototype evidence does not establish field accuracy.',
+                 'observed': 'Original independent finding stays unchanged.',
+                 'index': i} for i in range(2600)]
+        value = {'board': self.text['board'], 'files': {'actual_findings': rows},
+                 'packet_compaction': {'version': 'current'}}
+        before = copy.deepcopy(value)
+        self.assertGreater(len(compact.canonical(value)), 500_000)
+        encoded = independent_review.packet_json(value)
+        self.assertLess(len(encoded), 500_000)
+        self.assertEqual(compact.canonical(compact.decode_shared(json.loads(encoded))),
+                         compact.canonical(before))
+        self.assertEqual(value, before)
+        self.assertEqual(encoded, independent_review.packet_json(value))
+
+    def test_short_unique_values_and_historical_packets_stay_complete(self):
+        import hashlib
+        value = {'rows': [hashlib.sha256(str(i).encode()).hexdigest() for i in range(1800)]}
+        self.assertEqual(compact.encode_shared(value), value)
+        self.assertEqual(independent_review.packet_json(value),
+                         json.dumps(value, sort_keys=True, separators=(',', ':')))
+
+    def test_hashes_repeated_only_twice_save_space_and_roundtrip(self):
+        import hashlib
+        rows = [{'index': i, 'sha256': hashlib.sha256(str(i // 2).encode()).hexdigest()}
+                for i in range(1800)]
+        value = {'rows': rows}
+        encoded = compact.encode_shared(value)
+        self.assertEqual(encoded['schema'], compact.SHARED_SCHEMA)
+        self.assertTrue(any(isinstance(item, str) and len(item) == 64
+                            for item in encoded['values'].values()))
+        self.assertLess(len(compact.canonical(encoded)), len(compact.canonical(value)))
+        self.assertEqual(compact.decode_shared(encoded), value)
+
     def test_prior_review_keeps_all_original_findings_and_rechecks_unchanged_artifact(self):
         import independent_review_test as fixtures
         host = fixtures.AvailabilityTest('test_actual_capacity_error_is_distinct_from_rejection')
