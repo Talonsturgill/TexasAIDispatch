@@ -142,6 +142,22 @@ class Reservation(unittest.TestCase):
         (self.root / guard.AUTHORIZATION).write_text(json.dumps(auth))
         self.assertFalse(prepared.claim(self.state, prepared.OPERATIONS['cinema_proof.py'])[0])
 
+    def test_real_infrastructure_retry_keeps_spent_charge_and_claims_new_receipt_once(self):
+        old, _ = self.authorise()
+        failure = self.state.parent / 'actual-tool-denial.fixture.txt'
+        failure.write_text('Fixture of original host tool response: execution denied after capture hook consumption.\n')
+        accepted, _ = controller.retry_preflight(self.state, 'hero', failure,
+            'Fixture of supported specific approval for the exact denied command')
+        self.assertTrue(accepted)
+        new, _ = self.authorise()
+        self.assertNotEqual(old['event_sha256'], new['event_sha256'])
+        self.assertEqual(2, controller.read_state(self.state)['usage']['preflight_renders'])
+        self.assertTrue(prepared.claim(self.state, prepared.OPERATIONS['cinema_proof.py'])[0])
+        self.assertFalse(prepared.claim(self.state, prepared.OPERATIONS['cinema_proof.py'])[0])
+        self.assertFalse(controller.retry_preflight(self.state, 'hero', failure,
+            'Fixture of supported specific approval for the exact denied command')[0])
+        self.assertEqual(2, controller.read_state(self.state)['usage']['preflight_renders'])
+
     def test_wrong_operator_cannot_claim_the_prepaid_hero(self):
         self.authorise()
         before = controller.read_state(self.state)['usage']

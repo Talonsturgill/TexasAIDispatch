@@ -580,9 +580,16 @@ again. `authorize --prepare` derives the operation from the exact checkout comma
 same art, headroom and housekeeping gates, then charges it once. The real host hook consumes
 the exact authorization, and that operator claims its matching prepaid event once. A phone
 preview cannot claim a native hero charge; motion extraction has its own exact-film identity.
-An unchanged operation cannot be prepared again. Preserve all earlier charges and denied commands.
+An unchanged operation cannot be prepared again without the existing infrastructure-retry record.
+Preserve all earlier charges and denied commands.
 Do not create a self-written failure note or request `retry-preflight` to correct an operation
 label. Fix the actual versioned operator handoff and retain its before/after source evidence.
+
+For an actual execution or transport failure after hook consumption, retain the original tool
+response, spent authorization and reservation. Once the concrete infrastructure fix or supported
+specific approval is available, follow prompts/phases/repair.md and record `retry-preflight` for
+that exact operation using the actual failure log. Fund the complete remaining path first, then
+prepare a fresh charged authorization. Never replay the spent one or refund the failed attempt.
 
 ```sh
 python scripts/capture_guard.py authorize --prepare --state out/dispatch/run_state.json --board out/dispatch/storyboard.json --command "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json"
