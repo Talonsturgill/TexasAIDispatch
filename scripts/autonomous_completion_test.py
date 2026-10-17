@@ -73,6 +73,33 @@ class CompletionCapacityTest(unittest.TestCase):
         self.assertEqual(state["events"][-1]["kind"], "reserved")
         self.assertEqual(lifecycle.allowance_problems(state), [])
 
+    def test_invalid_failure_family_refuses_before_any_capacity_or_charge(self):
+        self.write_plan(failure_family='invented-rights-alias')
+        before = self.state.read_bytes()
+        accepted, message = capacity.grant_capacity(self.state, self.plan)
+        self.assertFalse(accepted); self.assertIn('taxonomy', message)
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_rights_family_requires_independent_rights_classification_and_technical_scope(self):
+        finding = {'criterion': 'rights', 'problem': 'Mixed music has no on-film artist attribution.'}
+        report = {'verdict': 'revise', 'reviewer_identity': 'independent-critic', 'film_sha256': 'a' * 64,
+                  'blocking_defects': [finding],
+                  'technical_repair': {'findings': [{'finding': finding, 'category': 'rights'}]}}
+        self.report.write_text(json.dumps(report))
+        self.write_plan(failure_family='rights', repair_scope='technical-integrity')
+        state = self.grant()
+        self.assertEqual(state['usage'], self.before['usage'])
+        before = self.state.read_bytes()
+        self.write_plan(failure_family='rights', repair_scope='standard')
+        self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
+        self.assertEqual(before, self.state.read_bytes())
+        report['technical_repair']['findings'][0]['category'] = 'layout'
+        self.report.write_text(json.dumps(report))
+        self.write_plan(failure_family='rights', repair_scope='technical-integrity')
+        accepted, message = capacity.grant_capacity(self.state, self.plan)
+        self.assertFalse(accepted); self.assertIn('rights finding', message)
+        self.assertEqual(before, self.state.read_bytes())
+
     def test_no_duplicate_or_renamed_failure_grant(self):
         self.grant()
         self.write_plan(repair="Renamed prose does not create a fresh failed attempt or a fresh grant.")
