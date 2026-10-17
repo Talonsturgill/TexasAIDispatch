@@ -63,16 +63,18 @@ Generate corresponding story and sound packets. For current agent-runtime editio
 all three explicit isolated assignments, then execute them under the existing atomic panel:
 
 For a Claude-native cut, its Read-only judges need the complete current motion-image sequence.
-Before building their packets, fund the complete remaining path, charge a new preflight hook
-reservation and authorize the exact wrapped command after computed headroom and housekeeping.
-The helper charges a second preflight entry before decoding. It extracts from the actual native
+Before building their packets, fund the complete remaining path and authorize the exact wrapped
+command with --prepare after computed headroom and housekeeping. This reserves one preflight
+entry; the decoder claims that same prepared reservation without a second charge. Do not add a
+separate hook reservation or request capacity for a duplicate charge. Execute the exact authorized
+wrapped command once. It extracts from the actual native
 film, never the authored renderer, and emits no creative verdict. Keep old blocked scores and
 unknown access findings unchanged. A new complete content review uses a fresh atomic panel,
 charged before resuming the same three workers; a refused charge never authorizes execution.
 
 ```sh
 python scripts/capture_guard.py authorize --prepare --state out/dispatch/run_state.json --board out/dispatch/storyboard.json --command "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json"
-python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json
+bash scripts/run_with_env.sh python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json
 python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --verify
 ```
 

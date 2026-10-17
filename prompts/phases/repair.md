@@ -124,8 +124,7 @@ before_sha256 and later after_sha256. Include only the resources needed for that
 
 ```sh
 python scripts/run_controller.py checkpoint
-python scripts/run_controller.py begin-repair --plan out/dispatch/repair-plan.json
-python scripts/run_controller.py consume --resource reboards --note "<structural correction>"
+python scripts/run_controller.py begin-repair --plan out/dispatch/repair-plan.json --reserve-reboard
 python scripts/board_diff.py --before <retained-before-board> --after out/dispatch/storyboard.json
 python scripts/run_controller.py authorize-repair --plan out/dispatch/repair-plan.json
 ```
@@ -142,6 +141,26 @@ failure_family and director_identity. The frozen cumulative envelope takes prece
 old instructions about renewable extensions. An existing bounded authorization is not endless
 permission. Never reset usage, purchase a reset, falsify a verdict or relabel a batch to hide spend.
 
+Completion capacity validates the shared failure-family taxonomy before granting anything.
+Use `rights` with technical-integrity scope for an independently classified rights failure;
+every exact finding still needs independent classification and at least one must be rights.
+Keep that genuine category when correcting a missing end-card licence credit. The combined
+begin command charges a reboard only after the opening check succeeds. Never chain a paid
+consume after a failed check with a semicolon.
+
+For the retained unsupported-rights-family incident only, an already charged unused reboard
+may be bound with `begin-repair --plan <original-rights-plan> --prepaid-reboard <event-sha256>`.
+Verify its exact charge and unchanged live baselines first with the read-only proposal:
+
+```sh
+python scripts/rights_repair_precharge.py --state out/dispatch/run_state.json --plan out/dispatch/repair-plan.json --receipt <actual-reservation-event-sha256>
+```
+
+The controller requires the exact latest paid reservation, the original mandatory rights
+grant, unchanged original data-only board baselines, and no intervening paid work or opened
+repair. It binds that charge once, adds no capacity, preserves usage and all failed evidence,
+and grants no review or release approval. Never use `--reserve-reboard` with this recovery.
+
 When measured narration exceeds the authored runtime or crowds the scene/caption limits,
 use failure_family measured-runtime-crowding with technical-integrity scope. Retain the exact
 independent runtime/caption classification and at least one runtime finding. This category
@@ -152,6 +171,15 @@ CI; do not substitute another label or ask the owner to select an internal enum 
 After two rejections of the same mechanism or defect family, obtain the required independent,
 hash-bound pivot review. Replace the mechanism, staging or source-backed angle before another
 native attempt. Labels, sleeve adjustments, camera offsets and easing changes are not a pivot.
+For an actual charged same-worker pivot REVISE following a funded modern-film-floor repair,
+use scripts/film_pivot_capacity.py and config/film_pivot_capacity_v1.json. Bind the original
+grant, pivot receipt/report, rejected proposal, revised proposal and the public-safe original
+SendMessage assignment binding via --assignment. That receipt retains the actual message,
+tool identity, time and rejected proposal digest; private raw arguments stay private. Its capacity-only plan
+can add exactly one critic while protecting the complete remaining path; it permits no
+production edit or review approval. Charge the continuation before messaging the same Opus
+High critic. After its genuine pivot PASS, bind that review to the original production repair
+plan and run begin-repair normally. Preserve the original rejection and all earlier grants.
 For human action, inspect scale, ground, anatomy, reach, contact and weight over the complete
 interval. Carry findings across every scene using the same failed rig. Do not move it outside
 the hero and declare it fixed. Use supported real footage or another demonstrated action when

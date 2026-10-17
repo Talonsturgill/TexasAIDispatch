@@ -10,6 +10,7 @@ from review_handback import REASON as HANDBACK_REASON
 from review_coverage import REASON as COVERAGE_REASON, ADOPTION as COVERAGE_ADOPTION
 from modern_code_recovery import REASON as MODERN_CODE_REASON, ADOPTION as MODERN_CODE_ADOPTION
 from pivot_recovery import REASON as PIVOT_REASON, ADOPTION as PIVOT_ADOPTION
+from film_pivot_capacity import REASON as FILM_PIVOT_REASON
 from narration_recovery import REASON as NARRATION_REASON, ADOPTION as NARRATION_ADOPTION, READY as NARRATION_READY
 from validation_completion import FIELD as VALIDATION_FIELD, ADOPTION as VALIDATION_ADOPTION, READY as VALIDATION_READY
 
@@ -310,11 +311,25 @@ def prepare_code_plan(state_path, plan_path, claims_path, output_path):
     return plan
 
 
+def reviewed_film_sha256(report):
+    """Read the original scope-specific identity; never rewrite a review."""
+    film, phone = report.get('film_sha256'), report.get('reviewed_preflight_sha256')
+    if film is not None and phone is not None and film != phone:
+        return None
+    if film is None and report.get('review_scope') == 'exact-muted-phone-preflight':
+        return phone if isinstance(phone, str) and re.fullmatch(r'[a-f0-9]{64}', phone) else None
+    return film
+
+
 def mandatory_reason(state, plan, evidence_text):
     """Recheck retained evidence without relying on the director's category label."""
     from creative_release import findings, MOTION_ERRORS, finishing_required, payload_digest
     try:
         report = json.loads(evidence_text)
+        if plan.get('completion_reason') == FILM_PIVOT_REASON:
+            from film_pivot_capacity import eligible
+            return (FILM_PIVOT_REASON if sha(evidence_text) == plan.get('failure_evidence_sha256')
+                    and eligible(state, plan, report) else None)
         if VALIDATION_FIELD in plan:
             from validation_completion import eligible, REASON as SOURCE_REASON
             if not eligible(state, plan, report):
@@ -327,7 +342,7 @@ def mandatory_reason(state, plan, evidence_text):
                                        and eligible(state, plan, report)) else None
         if 'capture_completion_budget' in plan:
             from capture_completion_budget import eligible
-            if not eligible(state, plan) or report.get('film_sha256') != plan.get('failed_film_sha256'):
+            if not eligible(state, plan) or reviewed_film_sha256(report) != plan.get('failed_film_sha256'):
                 return None
         if 'capture_retry_evidence' in plan:
             from capture_retry_capacity import eligible
@@ -368,6 +383,9 @@ def mandatory_reason(state, plan, evidence_text):
         original = findings(report)
         finish_requested = plan.get("completion_reason") == "finish-current"
         if not original:
+            if ((report.get('provider_evidence') or {}).get('role') == 'phone'
+                    and plan.get('failed_film_sha256') != report.get('reviewed_preflight_sha256')):
+                return None
             return "finish-current" if finish_requested and finishing_required(state) else None
         if report.get("verdict") != "revise":
             return None
@@ -379,7 +397,7 @@ def mandatory_reason(state, plan, evidence_text):
                     and all(x["category"] in allowed for x in rows)):
                 return "retained-integrity"
             return None
-        film = report.get("film_sha256")
+        film = reviewed_film_sha256(report)
         if not isinstance(film, str) or len(film) != 64 or film != plan.get("failed_film_sha256"):
             return None
         modern = report.get('modern_observations') or {}
@@ -409,6 +427,9 @@ def mandatory_reason(state, plan, evidence_text):
 
 
 def grant_identity(plan, evidence_sha256):
+    if plan.get('completion_reason') == FILM_PIVOT_REASON:
+        from film_pivot_capacity import identity
+        return identity(plan)
     if VALIDATION_FIELD in plan:
         from validation_completion import identity
         return identity(plan)
@@ -541,7 +562,7 @@ def replay(state):
                 admission["usage"] = row["usage_unchanged"]
                 admission["escalation_ceiling"] = row["previous_ceiling"]
                 admission["events"] = events[:index]
-                if (plan.get('completion_reason') in {COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON}
+                if (plan.get('completion_reason') in {COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON}
                         or 'capture_retry_evidence' in plan or 'capture_completion_budget' in plan
                         or VALIDATION_FIELD in plan):
                     # A later shipped state cannot invalidate an earlier active admission.
@@ -596,13 +617,16 @@ def replay(state):
                     required.update(reboards=0, storyboard_critics=3)
                     if 'image_generations' in required:
                         required['image_generations'] = 0
-                if reason in {MODERN_CODE_REASON, PIVOT_REASON}:
+                if reason in {MODERN_CODE_REASON, PIVOT_REASON, FILM_PIVOT_REASON}:
                     required['storyboard_critics'] = 4
                 if reason == NARRATION_REASON:
                     from narration_recovery import required as narration_required
                     required = narration_required(plan, required)
                 from capture_completion_budget import required_counts
                 required = required_counts(admission, plan, required)
+                if reason == FILM_PIVOT_REASON:
+                    from film_pivot_capacity import required_counts as film_pivot_required
+                    required = film_pivot_required(plan, required)
                 if VALIDATION_FIELD in plan:
                     minimum = json.loads(plan[VALIDATION_FIELD]['policy_json'])['minimum_remaining']
                     for name, count in minimum.items():
@@ -622,6 +646,8 @@ def replay(state):
                     raise ValueError("completion grant differs from the exact resource deficits")
                 if 'capture_retry_evidence' in plan and deficits != {'preflight_renders': 1}:
                     raise ValueError('spent capture recovery admits exactly one preflight deficit')
+                if reason == FILM_PIVOT_REASON and deficits != {'storyboard_critics': 1}:
+                    raise ValueError('film pivot capacity admits exactly one critic with the full path protected')
                 if reason == HANDBACK_REASON and deficits != {"storyboard_critics": 1}:
                     raise ValueError("same-worker handback admits exactly one critic and no other deficit")
                 if row["previous_envelope"] != effective:
@@ -645,6 +671,67 @@ def effective_envelope(state):
     return result
 
 
+def phone_finish_binding_problems(state_path, plan, report):
+    """Recheck the current cut on disk at admission; replay uses retained proof."""
+    proof = report.get('provider_evidence') or {}
+    if plan.get('completion_reason') != 'finish-current' or proof.get('role') != 'phone':
+        return []
+    try:
+        from critic_gate import concept_digest, renderer_digest
+        from independent_review import response_object
+        root = Path(state_path).resolve().parent
+        state = json.loads(Path(state_path).read_text())
+        board_path = root / 'storyboard.json'
+        board = json.loads(board_path.read_text())
+        bindings = proof['bindings']
+        film_sha = report['reviewed_preflight_sha256']
+        if (board.get('date') != str(state['run_id'])[:10]
+                or plan.get('failed_film_sha256') != film_sha
+                or report.get('concept_sha256') != concept_digest(board)
+                or report.get('renderer_sha256') != renderer_digest(board)
+                or hashlib.sha256(board_path.read_bytes()).hexdigest() != bindings['board_sha256']
+                or hashlib.sha256((root / 'claims.json').read_bytes()).hexdigest() != bindings['claims_sha256']):
+            return ['finish-current phone report does not bind the current board, renderer, claims and film']
+        if 'opening_options' in bindings:
+            choice = response_object(proof['response'])['selection']['selected']
+            if choice not in ('a', 'b') or bindings['opening_options'][choice]['film_sha256'] != film_sha:
+                return ['finish-current phone report does not bind its selected film']
+            film = root / 'openings' / (choice + '.mp4')
+        else:
+            film = root / 'preflight.mp4'
+        if not film.resolve().is_relative_to(root) or hashlib.sha256(film.read_bytes()).hexdigest() != film_sha:
+            return ['finish-current phone report belongs to different or missing current film bytes']
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        return ['finish-current phone report lacks readable current input bindings']
+    return []
+
+
+def rejected_phone_binding_problems(state_path, plan, report):
+    """A phone-field rejection must still describe the current cut at admission."""
+    if (report.get('verdict') != 'revise' or report.get('film_sha256') is not None
+            or report.get('reviewed_preflight_sha256') is None):
+        return []
+    try:
+        from critic_gate import concept_digest, renderer_digest
+        root = Path(state_path).resolve().parent
+        state = json.loads(Path(state_path).read_text())
+        board = json.loads((root / 'storyboard.json').read_text())
+        film = report['reviewed_preflight_sha256']
+        if (report.get('review_scope') != 'exact-muted-phone-preflight'
+                or report.get('verdict') != 'revise'
+                or board.get('date') != str(state['run_id'])[:10]
+                or plan.get('failed_film_sha256') != film
+                or report.get('concept_sha256') != concept_digest(board)
+                or report.get('renderer_sha256') != renderer_digest(board)
+                or (report.get('story_review') or {}).get('claims_sha256') !=
+                    hashlib.sha256((root / 'claims.json').read_bytes()).hexdigest()
+                or hashlib.sha256((root / 'preflight.mp4').read_bytes()).hexdigest() != film):
+            return ['exact-phone rejection does not bind the current film, concept, renderer and claims']
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        return ['exact-phone rejection lacks readable current input bindings']
+    return []
+
+
 def grant_capacity(state_path, plan_path, policy_path=None):
     """Grant only deficits, before the ordinary reservation charges any actual work."""
     from run_controller import read_state, save, event
@@ -660,12 +747,23 @@ def grant_capacity(state_path, plan_path, policy_path=None):
     try:
         plan_text = Path(plan_path).read_text(encoding="utf-8")
         plan = json.loads(plan_text)
+        from repair_guard import failure_family_problems, RIGHTS_FAMILY
+        errors = failure_family_problems(plan)
+        if plan.get('failure_family') == RIGHTS_FAMILY:
+            from creative_release import technical_repair_problems
+            errors += technical_repair_problems(state, plan)
+        if errors:
+            return False, '; '.join(errors)
         if plan.get("completion_reason") in {"finish-current", HANDBACK_REASON, COVERAGE_REASON} and plan.get("changed_inputs"):
             return False, "finish-current capacity cannot fund a new correction; retain the approved cut"
         evidence = Path(plan["failure_evidence"]).read_text(encoding="utf-8")
         reason = mandatory_reason(state, plan, evidence)
         if reason is None:
             return False, "completion capacity requires exact independent mandatory evidence; optional polish and research are excluded"
+        errors = phone_finish_binding_problems(state_path, plan, json.loads(evidence))
+        errors += rejected_phone_binding_problems(state_path, plan, json.loads(evidence))
+        if errors:
+            return False, '; '.join(errors)
         identity = grant_identity(plan, sha(evidence))
         if any(e.get("kind") in {EVENT, NARRATION_READY, VALIDATION_READY} and grant_identity(json.loads(e["plan_json"]), e["failure_evidence_sha256"]) == identity
                for e in state["events"]):
@@ -702,6 +800,11 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         if reason == PIVOT_REASON:
             from pivot_recovery import file_problems, admission_problems
             errors = admission_problems(state, plan) + file_problems(plan)
+            if errors:
+                return False, '; '.join(errors)
+        if reason == FILM_PIVOT_REASON:
+            from film_pivot_capacity import file_problems
+            errors = file_problems(state_path, plan)
             if errors:
                 return False, '; '.join(errors)
         if reason == MODERN_CODE_REASON:
@@ -742,13 +845,16 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             adopt_narration_policy(state)
         budget = production_budget_precheck(state, review_route="host", phone_complete=False,
                     minimum_action_failed=reason == "minimum-action",
-                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, 'mandatory-source-pivot'},
+                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, 'mandatory-source-pivot'},
                     review_coverage=reason == COVERAGE_REASON,
                     modern_code_repair=reason in {MODERN_CODE_REASON, PIVOT_REASON})
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         from capture_completion_budget import apply_budget
         budget = apply_budget(state, plan, budget)
+        if reason == FILM_PIVOT_REASON:
+            from film_pivot_capacity import apply_budget as film_pivot_budget
+            budget = film_pivot_budget(plan, budget)
         if VALIDATION_FIELD in plan:
             from validation_completion import apply_budget as validation_budget
             budget = validation_budget(state, plan, budget)
@@ -756,6 +862,8 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             from narration_recovery import apply_budget as narration_budget
             budget = narration_budget(state, plan, budget)
         increments = budget["deficits"]
+        if reason == FILM_PIVOT_REASON and increments != {'storyboard_critics': 1}:
+            return False, 'film pivot capacity needs exactly one critic deficit with the complete remaining path protected'
         if 'capture_retry_evidence' in plan and increments != {'preflight_renders': 1}:
             return False, 'spent capture recovery needs exactly one preflight deficit with the complete remaining path funded'
         if reason == HANDBACK_REASON and increments != {"storyboard_critics": 1}:

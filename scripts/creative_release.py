@@ -51,11 +51,13 @@ def technical_repair_problems(state, plan):
                 or {payload_digest(x["finding"]) for x in rows} != original
                 or any(x["category"] not in allowed for x in rows)):
             raise ValueError("unclassified or artistic findings")
-        from repair_guard import MEASURED_RUNTIME_FAMILY
+        from repair_guard import MEASURED_RUNTIME_FAMILY, RIGHTS_FAMILY
         if plan.get("failure_family") == MEASURED_RUNTIME_FAMILY:
             categories = {x["category"] for x in rows}
             if "runtime" not in categories or not categories <= {"runtime", "captions"}:
                 return ["measured-runtime-crowding needs independent runtime findings, with optional caption findings"]
+        if plan.get("failure_family") == RIGHTS_FAMILY and "rights" not in {x["category"] for x in rows}:
+            return ["rights repair needs at least one independently classified rights finding"]
     except (OSError, ValueError, KeyError, TypeError):
         return ["technical repair needs independent classification of every exact failure; artistry stays creative"]
     return []
@@ -151,6 +153,17 @@ def findings(report):
         return []  # Existing score-only rules still decide whether this is valid.
     from independent_review import evidence_problems
     proof = report.get('provider_evidence') or {}
+    # A passing phone provider can include an empty classification alongside its
+    # empty ordinary findings. This is not a sole embedded rejection collection
+    # or an artistic release assessment. Verify the original response before
+    # exposing its empty findings to finish-current capacity accounting.
+    if (rows == [] and report.get('verdict') == 'pass'
+            and assessment.get('schema') == 'dispatch_creative_assessment/1'
+            and assessment.get('scope') == 'phone'
+            and isinstance(proof, dict) and proof.get('role') == 'phone'
+            and not evidence_problems(report)
+            and passing_phone_evidence(report)):
+        return []
     if (assessment.get('schema') != 'dispatch_creative_assessment/1'
             or assessment.get('scope') != 'panel'
             or not isinstance(proof, dict)
@@ -168,6 +181,37 @@ def findings(report):
             raise ValueError('duplicate sole embedded finding')
         found[key] = row['finding']
     return list(found.values())
+
+
+def passing_phone_evidence(report):
+    """An empty collection needs the complete independent phone contract."""
+    try:
+        proof = report['provider_evidence']
+        board = proof['input']['board']
+        story = report['story_review']
+        actions = report['action_reviews']
+        if (report.get('review_scope') != 'exact-muted-phone-preflight'
+                or story.get('verdict') != 'pass' or not isinstance(actions, list)
+                or any(not isinstance(row, dict) or row.get('verdict') != 'pass'
+                       or any(row.get(key, []) != [] for key in ('blocking_defects', 'defects', 'hard_fails'))
+                       for row in actions)):
+            return False
+        import quality_contract
+        import modern_film
+        observations = report.get('phone_observations') or {}
+        if (not quality_contract.required(board)
+                or (report.get('attention_review') or {}).get('pass') is False
+                or any((observations.get(key) or {}).get('pass') is not True
+                       for key in quality_contract.policy()['criteria'] if key != 'sound')
+                or quality_contract.phone_problems(board, report)
+                or modern_film.review_problems(board, report, _scope=False)):
+            return False
+        checks = report['bounded_release'].get('retained_checks') or {}
+        return all(checks.get(key, {}).get('pass') is True
+                   and len(str(checks[key].get('observed', '')).strip()) >= 20
+                   for key in policy()['retained_checks']['phone'])
+    except (KeyError, TypeError, ValueError, AttributeError):
+        return False
 
 
 def normalize_assessment_findings(assessment, report):

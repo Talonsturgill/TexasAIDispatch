@@ -73,6 +73,33 @@ class CompletionCapacityTest(unittest.TestCase):
         self.assertEqual(state["events"][-1]["kind"], "reserved")
         self.assertEqual(lifecycle.allowance_problems(state), [])
 
+    def test_invalid_failure_family_refuses_before_any_capacity_or_charge(self):
+        self.write_plan(failure_family='invented-rights-alias')
+        before = self.state.read_bytes()
+        accepted, message = capacity.grant_capacity(self.state, self.plan)
+        self.assertFalse(accepted); self.assertIn('taxonomy', message)
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_rights_family_requires_independent_rights_classification_and_technical_scope(self):
+        finding = {'criterion': 'rights', 'problem': 'Mixed music has no on-film artist attribution.'}
+        report = {'verdict': 'revise', 'reviewer_identity': 'independent-critic', 'film_sha256': 'a' * 64,
+                  'blocking_defects': [finding],
+                  'technical_repair': {'findings': [{'finding': finding, 'category': 'rights'}]}}
+        self.report.write_text(json.dumps(report))
+        self.write_plan(failure_family='rights', repair_scope='technical-integrity')
+        state = self.grant()
+        self.assertEqual(state['usage'], self.before['usage'])
+        before = self.state.read_bytes()
+        self.write_plan(failure_family='rights', repair_scope='standard')
+        self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
+        self.assertEqual(before, self.state.read_bytes())
+        report['technical_repair']['findings'][0]['category'] = 'layout'
+        self.report.write_text(json.dumps(report))
+        self.write_plan(failure_family='rights', repair_scope='technical-integrity')
+        accepted, message = capacity.grant_capacity(self.state, self.plan)
+        self.assertFalse(accepted); self.assertIn('rights finding', message)
+        self.assertEqual(before, self.state.read_bytes())
+
     def test_no_duplicate_or_renamed_failure_grant(self):
         self.grant()
         self.write_plan(repair="Renamed prose does not create a fresh failed attempt or a fresh grant.")
@@ -169,6 +196,58 @@ class CompletionCapacityTest(unittest.TestCase):
         self.assertEqual(grant["resource_increments"]["storyboard_critics"], 3)
         self.assertEqual(grant["resource_increments"]["audiovisual_reviews"], 11)
 
+    def test_exact_phone_rejection_uses_its_original_film_field_for_modern_floor(self):
+        state = copy.deepcopy(self.before); state['run_id'] = '2026-10-15'
+        report = {'verdict': 'revise', 'reviewer_identity': 'independent-phone-critic',
+                  'review_scope': 'exact-muted-phone-preflight', 'reviewed_preflight_sha256': 'a' * 64,
+                  'blocking_defects': ['The closing answer is an unperformed planning diagram.'],
+                  'modern_observations': {'film_sha256': 'a' * 64, 'closing_answer': {'pass': False}}}
+        plan = json.loads(self.plan.read_text())
+        def reason(value, changes=None):
+            text = json.dumps(value)
+            current = {**plan, 'failure_evidence_sha256': capacity.sha(text), **(changes or {})}
+            return capacity.mandatory_reason(state, current, text)
+        before = copy.deepcopy(report)
+        self.assertEqual(reason(report), 'modern-film-floor')
+        self.assertEqual(report, before)
+        with patch('capture_completion_budget.eligible', return_value=True):
+            self.assertEqual(reason(report, {'capture_completion_budget': {}}), 'modern-film-floor')
+            self.assertIsNone(reason({**report, 'film_sha256': 'b' * 64}, {'capture_completion_budget': {}}))
+        self.assertEqual(reason({**report, 'film_sha256': 'a' * 64}), 'modern-film-floor')
+        for changes in ({'film_sha256': 'b' * 64}, {'review_scope': 'independent-code-plan'},
+                        {'review_scope': None}, {'reviewed_preflight_sha256': 'bad'},
+                        {'reviewed_preflight_sha256': 'x' * 64},
+                        {'reviewed_preflight_sha256': None},
+                        {'modern_observations': {'film_sha256': 'b' * 64, 'closing_answer': {'pass': False}}}):
+            self.assertIsNone(reason({**report, **changes}), changes)
+        self.assertIsNone(reason(report, {'failed_film_sha256': 'b' * 64}))
+        self.assertIsNone(reason(report, {'director_identity': report['reviewer_identity']}))
+        self.assertIsNone(reason({**report, 'verdict': 'pass'}))
+
+    def test_exact_phone_rejection_admission_rechecks_current_inputs_and_film(self):
+        board = self.root / 'storyboard.json'; board.write_text('{"date":"2026-10-03"}')
+        claims = self.root / 'claims.json'; claims.write_text('{"claims":[]}')
+        film = self.root / 'preflight.mp4'; film.write_bytes(b'failed phone film')
+        digest = lambda path: __import__('hashlib').sha256(path.read_bytes()).hexdigest()
+        report = {'verdict': 'revise', 'review_scope': 'exact-muted-phone-preflight',
+                  'reviewed_preflight_sha256': digest(film), 'concept_sha256': 'concept',
+                  'renderer_sha256': 'renderer', 'story_review': {'claims_sha256': digest(claims)}}
+        plan = {'failed_film_sha256': digest(film)}
+        before = self.state.read_bytes()
+        with patch('critic_gate.concept_digest', return_value='concept'), \
+             patch('critic_gate.renderer_digest', return_value='renderer'):
+            check = lambda p, r: capacity.rejected_phone_binding_problems(self.state, p, r)
+            self.assertEqual(check(plan, report), [])
+            for field in ('concept_sha256', 'renderer_sha256', 'reviewed_preflight_sha256', 'review_scope'):
+                self.assertTrue(check(plan, {**report, field: 'stale'}), field)
+            self.assertTrue(check({'failed_film_sha256': 'stale'}, report))
+            self.assertTrue(check(plan, {**report, 'story_review': {'claims_sha256': 'stale'}}))
+            film.write_bytes(b'changed film'); self.assertTrue(check(plan, report))
+            film.unlink(); self.assertTrue(check(plan, report))
+            film.write_bytes(b'failed phone film')
+            board.write_text('{"date":"2026-10-04"}'); self.assertTrue(check(plan, report))
+        self.assertEqual(self.state.read_bytes(), before)
+
     def test_partial_headroom_receives_only_actual_deficits(self):
         state = controller.read_state(self.state)
         state["usage"]["tts_calls"] -= 1
@@ -179,6 +258,52 @@ class CompletionCapacityTest(unittest.TestCase):
         self.assertEqual(grant["resource_increments"]["tts_calls"], 1)
         self.assertEqual(grant["resource_increments"]["audiovisual_reviews"], 3)
         self.assertNotIn("full_renders", grant["resource_increments"])
+
+    def test_phone_finish_current_checks_live_film_and_input_bindings_before_grant(self):
+        board = {'date': '2026-10-03'}
+        board_path = self.root / 'storyboard.json'; board_path.write_text(json.dumps(board))
+        claims_path = self.root / 'claims.json'; claims_path.write_text('{"claims": []}')
+        film = self.root / 'preflight.mp4'; film.write_bytes(b'actual current film')
+        digest = lambda path: __import__('hashlib').sha256(path.read_bytes()).hexdigest()
+        report = {'reviewed_preflight_sha256': digest(film), 'concept_sha256': 'concept',
+                  'renderer_sha256': 'renderer', 'provider_evidence': {'role': 'phone', 'bindings': {
+                      'board_sha256': digest(board_path), 'claims_sha256': digest(claims_path)}}}
+        plan = {'completion_reason': 'finish-current', 'failed_film_sha256': digest(film)}
+        before = self.state.read_bytes()
+        with patch('critic_gate.concept_digest', return_value='concept'), \
+             patch('critic_gate.renderer_digest', return_value='renderer'):
+            check = lambda p, r: capacity.phone_finish_binding_problems(self.state, p, r)
+            self.assertEqual(check(plan, report), [])
+            for field in ('reviewed_preflight_sha256', 'concept_sha256', 'renderer_sha256'):
+                changed = copy.deepcopy(report); changed[field] = 'stale'
+                self.assertTrue(check(plan, changed), field)
+            for field in ('board_sha256', 'claims_sha256'):
+                changed = copy.deepcopy(report); changed['provider_evidence']['bindings'][field] = 'stale'
+                self.assertTrue(check(plan, changed), field)
+            self.assertTrue(check({**plan, 'failed_film_sha256': 'stale'}, report))
+            self.assertTrue(check({'completion_reason': 'finish-current'}, report))
+            film.write_bytes(b'other film'); self.assertTrue(check(plan, report))
+            film.unlink(); self.assertTrue(check(plan, report))
+            film.write_bytes(b'actual current film')
+            raw = {'responseId': 'original-response', 'candidates': [{'finishReason': 'STOP',
+                   'content': {'parts': [{'text': json.dumps({'selection': {'selected': 'a'}})}]}}]}
+            comparison = copy.deepcopy(report)
+            comparison['provider_evidence'].update(response=raw)
+            comparison['provider_evidence']['bindings']['opening_options'] = {
+                'a': {'film_sha256': digest(film)}}
+            (self.root / 'openings').mkdir()
+            option = self.root / 'openings/a.mp4'; option.write_bytes(film.read_bytes())
+            self.assertEqual(check(plan, comparison), [])
+            option.write_bytes(b'other comparison film'); self.assertTrue(check(plan, comparison))
+            board_path.write_text('{"date": "2026-10-04"}'); self.assertTrue(check(plan, report))
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_phone_finish_binding_refusal_precedes_capacity_mutation(self):
+        with patch.object(capacity, 'mandatory_reason', return_value='finish-current'), \
+             patch.object(capacity, 'phone_finish_binding_problems', return_value=['stale current film']):
+            before = self.state.read_bytes()
+            self.assertEqual(capacity.grant_capacity(self.state, self.plan), (False, 'stale current film'))
+            self.assertEqual(self.state.read_bytes(), before)
 
     def test_existing_run_requires_explicit_capacity_command_to_adopt(self):
         state = controller.read_state(self.state)

@@ -58,6 +58,21 @@ class Reservation(unittest.TestCase):
         self.assertEqual(controller.preflight_identity(self.state, 'hero'), identities[1])
         self.assertEqual(controller.preflight_identity(self.state, 'arbitrary rewritten note'), identities[0])
 
+    def test_native_motion_operator_succeeds_with_only_one_funded_entry(self):
+        film = self.state.parent / 'film.mp4'
+        film.write_bytes(b'registered native movie fixture')
+        state = controller.read_state(self.state)
+        state['deliverable'] = {'review_only': False, 'film_sha256': controller.digest(film),
+                                'board_sha256': controller.digest(self.board)}
+        state['limits']['preflight_renders'] = state['escalation_ceiling']['preflight_renders'] = 1
+        controller.save(self.state, state)
+        self.authorise('claude_motion_review.py')
+        note = prepared.OPERATIONS['claude_motion_review.py']
+        self.assertTrue(controller.reserve(self.state, {'preflight_renders': 1}, note)[0])
+        self.assertEqual(controller.read_state(self.state)['usage']['preflight_renders'], 1)
+        self.assertFalse(controller.reserve(self.state, {'preflight_renders': 1}, note)[0])
+        self.assertEqual(controller.read_state(self.state)['usage']['preflight_renders'], 1)
+
     def test_exact_phone_options_precharge_once_and_bind_encoded_inputs(self):
         output = self.state.parent / 'openings'; output.mkdir()
         (output / 'comparison.json').write_text('{}')

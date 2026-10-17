@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import autonomous_completion as completion
 import capture_completion_budget as footprint
@@ -14,6 +15,10 @@ import run_controller as controller
 
 
 class ComparisonCompletionBudgetTest(unittest.TestCase):
+    schema = footprint.COMPARISON_SCHEMA
+    preflight_required = 5
+    native_required = 1
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
@@ -64,7 +69,9 @@ class ComparisonCompletionBudgetTest(unittest.TestCase):
             'resources': {'preflight_renders': 5, 'full_renders': 1},
             'repair': 'Correct the credit and renew the retained comparison on current bytes.'}) + '\n')
         self.plan_path = self.root / 'complete-path-plan.json'
-        footprint.prepare_comparison(self.state, self.original, self.comparison, self.plan_path)
+        # Reproduce the original v2 producer for historical grant/replay coverage.
+        with patch.object(footprint, 'CURRENT_COMPARISON_SCHEMA', self.schema):
+            footprint.prepare_comparison(self.state, self.original, self.comparison, self.plan_path)
         self.plan = json.loads(self.plan_path.read_text())
 
     def test_complete_path_preserves_all_prior_charges_and_replays(self):
@@ -74,9 +81,9 @@ class ComparisonCompletionBudgetTest(unittest.TestCase):
         state = controller.read_state(self.state)
         row = state['events'][-1]
         budget = json.loads(row['precheck_json'])
-        self.assertEqual(5, budget['resources']['preflight_renders']['required'])
+        self.assertEqual(self.preflight_required, budget['resources']['preflight_renders']['required'])
         self.assertEqual(4, budget['resources']['storyboard_critics']['required'])
-        self.assertEqual(1, budget['resources']['full_renders']['required'])
+        self.assertEqual(self.native_required, budget['resources']['full_renders']['required'])
         self.assertEqual(state['usage'], self.before['usage'])
         self.assertEqual(state['resource_envelope'], self.before['resource_envelope'])
         self.assertEqual(state['events'][:len(self.before['events'])], self.before['events'])
@@ -123,7 +130,7 @@ class ComparisonCompletionBudgetTest(unittest.TestCase):
         self.assertEqual(0, result.returncode, result.stdout + result.stderr)
         state = controller.read_state(self.state)
         budget = json.loads(state['events'][-1]['precheck_json'])
-        self.assertEqual(5, budget['resources']['preflight_renders']['required'])
+        self.assertEqual(self.preflight_required, budget['resources']['preflight_renders']['required'])
         self.assertEqual([], completion.replay(state)[1])
 
     def test_optional_polish_cannot_prepare_capacity(self):
@@ -135,6 +142,42 @@ class ComparisonCompletionBudgetTest(unittest.TestCase):
         self.original.write_text(json.dumps(plan))
         with self.assertRaises(ValueError):
             footprint.prepare_comparison(self.state, self.original, self.comparison, self.root / 'optional.json')
+        self.assertEqual(self.before, controller.read_state(self.state))
+
+
+class CompletePhoneComparisonBudgetTest(ComparisonCompletionBudgetTest):
+    schema = footprint.PHONE_COMPARISON_SCHEMA
+    preflight_required = 8
+    native_required = 2
+
+    def test_default_producer_uses_new_policy_and_preserves_old_policy_bytes(self):
+        old = footprint.COMPARISON_POLICY.read_bytes()
+        output = self.root / 'new-default-plan.json'
+        footprint.prepare_comparison(self.state, self.original, self.comparison, output)
+        proof = json.loads(output.read_text())[footprint.FIELD]
+        self.assertEqual(self.schema, proof['schema'])
+        policy = json.loads(proof['policy_json'])
+        self.assertEqual(8, sum(policy['preflight_operators'].values()))
+        self.assertEqual(2, policy['native_render_hook_and_entry'])
+        self.assertEqual(old, footprint.COMPARISON_POLICY.read_bytes())
+        self.assertEqual(self.before, controller.read_state(self.state))
+
+    def test_both_routes_cover_every_pending_operator(self):
+        for route in ('host', 'provider'):
+            result = subprocess.run([sys.executable, str(footprint.REPO / 'scripts/run_controller.py'),
+                '--state', str(self.state), 'production-budget', '--review-route', route,
+                '--repair-plan', str(self.plan_path)], capture_output=True, text=True)
+            self.assertEqual(1, result.returncode, result.stdout + result.stderr)
+            budget = json.loads(result.stdout)
+            self.assertEqual(8, budget['resources']['preflight_renders']['required'])
+            self.assertEqual(2, budget['resources']['full_renders']['required'])
+
+    def test_old_policy_cannot_be_claimed_as_new_evidence(self):
+        plan = copy.deepcopy(self.plan)
+        proof = plan[footprint.FIELD]
+        proof.update(policy_json=footprint.COMPARISON_POLICY.read_text(),
+                     policy_sha256=footprint.COMPARISON_POLICY_SHA256)
+        self.assertFalse(footprint.eligible(self.before, plan))
         self.assertEqual(self.before, controller.read_state(self.state))
 
 

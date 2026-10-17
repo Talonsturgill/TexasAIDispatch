@@ -280,7 +280,7 @@ class SourceCompletionTest(unittest.TestCase):
         self.assertEqual(original_state['usage'], state['usage'])
         budget = json.loads(state['events'][-1]['precheck_json'])
         for name, count in {'validator_agents': 1, 'storyboard_critics': 4, 'tts_calls': 2,
-                            'preflight_renders': 5, 'audiovisual_reviews': 11, 'full_renders': 1,
+                            'preflight_renders': 8, 'audiovisual_reviews': 11, 'full_renders': 2,
                             'panel_rounds': 1, 'scorer_calls': 3}.items():
             self.assertEqual(count, budget['resources'][name]['required'], name)
         output = io.StringIO()

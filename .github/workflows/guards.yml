@@ -79,6 +79,9 @@ jobs:
           python3 scripts/claude_runtime_test.py
           python3 scripts/authored_story_art_test.py
           python3 scripts/cloud_bootstrap_test.py
+          python3 scripts/prelaunch_checkout_test.py
+          python3 scripts/claude_environment_context_test.py
+          python3 scripts/claude_environment_context.py --workspace "$RUNNER_TEMP" --settings "$RUNNER_TEMP/dispatch-user-settings.json"
           python3 scripts/bootstrap_claude_hooks_test.py
           python3 scripts/routine_continuation_test.py
           python3 scripts/cloud_capture_hook_test.py
@@ -88,6 +91,7 @@ jobs:
           python3 scripts/claude_mechanical_route_test.py
           python3 scripts/capture_guard_test.py
           python3 scripts/capture_reservation_test.py
+          python3 scripts/rights_repair_precharge_test.py
           python3 scripts/native_sample_plan_test.py
           python3 scripts/dispatch_housekeeping_test.py
 
@@ -244,6 +248,7 @@ jobs:
           python3 scripts/review_coverage_test.py
           python3 scripts/modern_code_recovery_test.py
           python3 scripts/pivot_recovery_test.py
+          python3 scripts/film_pivot_capacity_test.py
           python3 scripts/narration_recovery_test.py
           python3 scripts/validation_completion_test.py
           python3 scripts/capture_retry_capacity_test.py
@@ -262,6 +267,7 @@ jobs:
           python3 scripts/run_discipline.py --self-test
           python3 scripts/run_discipline.py
           bash -n scripts/render_dispatch.sh scripts/package_review_run.sh
+          python3 scripts/render_dispatch_credit_test.py
 
       - name: The exact final film fits the phone and desktop feed
         run: |

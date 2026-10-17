@@ -62,6 +62,11 @@ and respect recent-use avoidance. Missing rights or files require sourcing repai
 synthesized fallback. Keep the exact generated music credit; choose another track if its
 unalterable title conflicts with the numeral policy. Credits contain compact source labels,
 brand and generated attribution, without internal ids, repository URLs or commit hashes.
+Before any render, write out/dispatch/credits.txt as the board's credits text followed by the
+exact music_credit.txt block, and set the board's credits field to that same string. The
+credit is the licence, so render_dispatch.sh runs music.py --verify-package first and refuses
+to reserve a render while the mixed bed has no credit on the end card. The email attribution
+from music_credit_payload adds to the on-film credit and never replaces it.
 
 Mix through runtime_s + credits_s with the registry mix_gap_db; no universal gain scalar.
 Mastering preserves sample count and records loudness/compression/peak evidence.

@@ -45,6 +45,17 @@ workspace housekeeping is used when available. Cloud uses scripts/dispatch_house
 the same protection rules and its actual two checkout paths; never delete active or unrelated work.
 
 The Texas environment must run `scripts/claude_environment_setup.sh` before Claude Code launches.
+Setup supplies truthful selected-repository and application-durability context in Claude's user
+settings through `claude_environment_context.py`. It preserves all permission rules, defaults,
+hooks, model, effort and bindings; project settings do not supply auto-mode context. Retain the
+helper's preservation receipt and use `claude auto-mode config` to verify the effective context
+on a fresh host. Keep existing credential and no-send boundaries.
+The saved prelaunch setup includes this command before Claude starts:
+
+```sh
+bash scripts/run_with_env.sh python3 scripts/claude_environment_context.py --workspace /home/user --apply
+```
+
 The versioned setup provisions pinned tools and registers the workspace capture router once,
 before auto mode begins. Do not attempt mid-session registration or repeat a classifier-denied
 installation. Preserve the denied command evidence and use a fresh supported routine launch
@@ -131,6 +142,11 @@ which makes state durable, runs the command and makes its outputs durable, and e
 A checkpoint that cannot be made after storage and transport recovery writes
 `out/dispatch/checkpoint-unbacked.json`, raises, and blocks every new reservation until
 `claude_checkpoint.py recover` succeeds. Never continue paid work on an unbacked ledger.
+The controller also verifies the current snapshot before it changes any reservation counter.
+If a newer writer already advanced the remote edition, this stale invocation preserves its
+unchanged ledger and failed evidence without buying another attempt. Keep the newer checkpoint
+authoritative, preserve both hosts, and resume that edition through the existing restoration and
+continuation workflow. Never overwrite newer history or repeat the paid command from the stale host.
 
 The checkpoint keeps the sanitized ledger, authored source, claims, board, voice takes, alignment,
 review responses, failed images and every receipt. It skips only known rebuildable directories
@@ -138,6 +154,9 @@ review responses, failed images and every receipt. It skips only known rebuildab
 data structure, redacts shipped Gmail identifiers and local paths from the ledger, refuses to save when
 a credential value appears, and refuses any save that would lower usage, limits or increments, change the
 frozen envelope or alter the earlier event history. A file too large to retain fails the save visibly.
+From the October 17 edition, the cinema producer creates its duplicate render cache under
+`out/dispatch/tmp/cinema-render-cache`. Canonical proof images, hero, provenance and every failed
+proof remain under `cinema/` and are retained. Earlier editions keep their original cache path.
 After `finish --result shipped` and the metadata archive, save once more so the checkpoint reads finished.
 
 Immediately after selecting or restoring the production ledger, arm its preinstalled completion
@@ -146,6 +165,12 @@ guard through the current checkout. Resolve the actual primary workspace parent,
 ```sh
 bash scripts/run_with_env.sh python scripts/routine_continuation.py --workspace <shared-parent> --arm out/dispatch/run_state.json
 ```
+
+Repeat this after a later restoration too. If the earlier armed path no longer exists, the
+helper can retarget the same edition only after verifying the immutable checkpoint ledger,
+unchanged frozen envelope and complete cumulative event history. It retains a rebind audit.
+A live earlier ledger or another edition stays protected. Do not hand-edit the marker or
+re-register hooks to get around a refused rebind.
 
 The prelaunch Stop hook sends an early final response back to this same ledger. It approves no
 tool, changes no permissions and adds no capacity. It remains inactive for ordinary coding and

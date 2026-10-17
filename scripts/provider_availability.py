@@ -127,6 +127,10 @@ def legacy_probe_failure(path, state, target):
 def proof_problems(proof, attempt_sha=None):
     try:
         receipt_bytes = proof['receipt']; receipt = json.loads(receipt_bytes)
+        from provider_timeout_retry import SCHEMA as TIMEOUT_SCHEMA
+        if receipt.get('schema') == TIMEOUT_SCHEMA:
+            from provider_timeout_retry import proof_problems as timeout_problems
+            return timeout_problems(proof, attempt_sha)
         response_bytes = proof['response']; response = json.loads(response_bytes)
         errors = []
         if (receipt.get('schema') != SCHEMA or receipt.get('available') is not True
@@ -188,6 +192,10 @@ def verified_proof(receipt_path, state):
 
 
 def recovery_proof(receipt_path, attempt_path, state):
+    from provider_timeout_retry import SCHEMA as TIMEOUT_SCHEMA
+    if json.loads(Path(receipt_path).read_text()).get('schema') == TIMEOUT_SCHEMA:
+        from provider_timeout_retry import recovery_proof as timeout_proof
+        return timeout_proof(receipt_path, attempt_path, state)
     proof = verified_proof(receipt_path, state)
     proof['failed_attempt'] = Path(attempt_path).read_text()
     receipt = json.loads(proof['receipt']); target = receipt.get('after_attempt') or {}

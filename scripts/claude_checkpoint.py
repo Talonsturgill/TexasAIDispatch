@@ -71,7 +71,11 @@ SECRET_TEXT = re.compile(
     r"|-----BEGIN [A-Z ]*PRIVATE KEY-----|xox[abprs]-[0-9A-Za-z\-]{20,})")
 TEXT_SUFFIX = {".json", ".jsonl", ".md", ".txt", ".yaml", ".yml", ".csv", ".tsv", ".srt", ".vtt", ".html", ".ts", ".tsx", ".css", ".svg"}
 MAX_FILE = 95 * 1024 * 1024          # GitHub rejects a blob over 100 MiB; fail visibly before that
-MAX_TOTAL = 900 * 1024 * 1024
+# A finished native edition carries the exact film, its hero proof and the complete exact-film motion
+# image sequence as required evidence (a restore would otherwise repurchase the charged extraction).
+# That reached 969 MB on 2026-10-15 and refused the save, stopping paid review work. Git stores each
+# blob once, so a larger total does not grow every save.
+MAX_TOTAL = 1280 * 1024 * 1024
 
 
 class CheckpointError(RuntimeError):

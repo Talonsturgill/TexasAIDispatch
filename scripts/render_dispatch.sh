@@ -47,6 +47,15 @@ for input in "$BOARD" "$MIX" "$CAPTIONS" "$STATE"; do
   [ -f "$input" ] || { echo "render_dispatch: missing $input" >&2; exit 2; }
 done
 
+# The music package check delivery runs after rendering, run here first and unconditionally. A
+# missing or malformed mix report, a stale bed record, a credits.txt that differs from the board
+# credits and a mixed bed with no credit on the end card all surface only at delivery otherwise,
+# after the render, the reviews and the panel were spent on a cut that could not ship. Nothing
+# is reserved until it passes.
+python3 scripts/music.py --verify-package "$(dirname "$BOARD")/credits.txt" --mix "${MIX%.wav}.json" \
+  --board "$BOARD" --master "$MIX" \
+  || { echo "render_dispatch: the music package is incomplete; fix it before any render is reserved" >&2; exit 2; }
+
 mkdir -p "$(dirname "$SILENT")" "$(dirname "$FILM")"
 python3 scripts/documentary_check.py --board "$BOARD"
 REVIEW_ONLY=0

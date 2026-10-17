@@ -304,6 +304,10 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
             ) -> tuple[bool, str]:
     import claude_checkpoint
     claude_checkpoint.require_backed(path)  # unbacked charges or outputs stop new paid work
+    # A different cloud writer may have advanced the edition since this host last saved.
+    # Verify and retain the current snapshot before changing any counter. The post-write
+    # mirror still makes the actual reservation durable before its caller can dispatch work.
+    claude_checkpoint.mirror(path, "before paid reservation")
     if _use_prepared_capture and amounts == {'preflight_renders': 1}:
         from capture_reservation import OPERATIONS, PHONE_OPERATIONS, claim
         authorization = REPO / 'out/dispatch/capture-authorization.json'
@@ -2140,6 +2144,12 @@ def main() -> int:
     for command in ("begin-repair", "authorize-repair"):
         p = sub.add_parser(command)
         p.add_argument("--plan", type=Path, required=True)
+        if command == 'begin-repair':
+            reboard = p.add_mutually_exclusive_group()
+            reboard.add_argument('--reserve-reboard', action='store_true',
+                                 help='reserve one corrective reboard only after begin-repair succeeds')
+            reboard.add_argument('--prepaid-reboard', metavar='EVENT_SHA256',
+                                 help='bind the exact unused rights reboard from its original mandatory grant')
     sub.add_parser("pending")
     sub.add_parser("status")
     p = sub.add_parser("production-budget")
@@ -2184,7 +2194,8 @@ def main() -> int:
             if a.command == "checkpoint":
                 accepted, message = checkpoint(state_path, a.review_package, a.reason, a.blocker_report)
             elif a.command == "begin-repair":
-                accepted, message = begin_repair(state_path, a.plan)
+                accepted, message = begin_repair(state_path, a.plan, reserve_reboard=a.reserve_reboard,
+                                                 prepaid_reboard=a.prepaid_reboard)
             else:
                 accepted, message = authorize_repair(state_path, a.plan)
         elif a.command == "register-deliverable":
@@ -2254,13 +2265,13 @@ def main() -> int:
                     plan = load_json(a.repair_plan)
                     from repair_guard import structural_hero_plan_ready, minimum_action_plan_failure
                     minimum_action_failed = minimum_action_plan_failure(read_state(state_path), plan)
-                    from autonomous_completion import ADOPTION, COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, mandatory_reason, replay
+                    from autonomous_completion import ADOPTION, COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, mandatory_reason, replay
                     current = read_state(state_path)
                     if (any(e.get("kind") == ADOPTION for e in current["events"])
                             and not replay(current)[1]):
                         evidence_text = Path(plan["failure_evidence"]).read_text(encoding="utf-8")
                         mandatory_repair = mandatory_reason(current, plan, evidence_text) in {
-                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity", MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, 'mandatory-source-pivot'}
+                            "minimum-action", "retained-integrity", "modern-film-floor", "mandatory-code-integrity", MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, 'mandatory-source-pivot'}
                         review_coverage = mandatory_reason(current, plan, evidence_text) == COVERAGE_REASON
                         modern_code_repair = mandatory_reason(current, plan, evidence_text) in {MODERN_CODE_REASON, PIVOT_REASON}
                     structural_ready = hero_rejected and structural_hero_plan_ready(state_path, plan, hero_receipt)
@@ -2291,6 +2302,9 @@ def main() -> int:
             if a.repair_plan:
                 from capture_completion_budget import apply_budget
                 result = apply_budget(read_state(state_path), budget_plan, result)
+                if budget_plan.get('completion_reason') == 'mandatory-film-pivot-capacity':
+                    from film_pivot_capacity import apply_budget as film_pivot_budget
+                    result = film_pivot_budget(budget_plan, result)
                 if 'source_validation_completion' in budget_plan:
                     from validation_completion import apply_budget as validation_budget
                     result = validation_budget(read_state(state_path), budget_plan, result)

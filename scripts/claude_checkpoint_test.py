@@ -92,6 +92,50 @@ class CodecRuntime(Base):
         self.assertEqual(self.state.read_bytes(), before)
 
 
+class ReservationDurability(Base):
+    def setUp(self):
+        super().setUp()
+        self.scratch.mkdir(parents=True)
+        (self.scratch / "claude-host.json").write_text("{}")
+        self.init_ledger("dry-run")
+
+    def test_stale_writer_refuses_before_changing_its_ledger_or_dispatching(self):
+        fresh = self.clone(self.root / "newer-host")
+        destination = self.root / "newer-edition"
+        ck.restore(fresh, RUN, dest=destination)
+        current = destination / "out/dispatch/run_state.json"
+        self.assertTrue(controller.reserve(current, {"reported_tokens": 1}, "newer writer")[0])
+        tip = ck.remote_tip(destination, RUN, "origin")
+        before = self.state.read_bytes()
+        dispatched = []
+        with self.assertRaisesRegex(ck.UnbackedError, "earlier event history|reported_tokens fell"):
+            if controller.reserve(self.state, {"reported_tokens": 1}, "stale writer")[0]:
+                dispatched.append("paid work")
+        self.assertEqual(self.state.read_bytes(), before)
+        self.assertEqual(dispatched, [])
+        self.assertTrue(ck.flag_path(self.state).is_file())
+        self.assertEqual(ck.remote_tip(self.repo, RUN, "origin"), tip)
+
+    def test_current_writer_makes_its_reservation_durable(self):
+        frozen = copy.deepcopy(self.ledger().get("resource_envelope"))
+        self.assertTrue(controller.reserve(self.state, {"reported_tokens": 1}, "current writer")[0])
+        tip = ck.remote_tip(self.repo, RUN, "origin")
+        _, raw = ck.verify_checkpoint(self.repo, tip, RUN)
+        durable = json.loads(raw)
+        self.assertEqual(durable["usage"]["reported_tokens"], 1)
+        self.assertEqual(durable.get("resource_envelope"), frozen)
+        self.assertEqual(sum(e.get("resources", {}).get("reported_tokens", 0)
+                             for e in durable["events"] if e.get("kind") == "reserved"), 1)
+
+    def test_unreachable_checkpoint_refuses_before_changing_the_ledger(self):
+        before = self.state.read_bytes()
+        sh("git", "remote", "set-url", "origin", str(self.root / "missing.git"), cwd=self.repo)
+        with self.assertRaises(ck.UnbackedError):
+            controller.reserve(self.state, {"reported_tokens": 1}, "unreachable remote")
+        self.assertEqual(self.state.read_bytes(), before)
+        self.assertTrue(ck.flag_path(self.state).is_file())
+
+
 class RoundTrip(Base):
     def test_validator_grant_survives_git_restore_and_next_durable_reservation(self):
         import repair_guard
@@ -475,11 +519,19 @@ class Durability(Base):
         durable = json.loads(ck.show(self.repo, tip, f"checkpoints/{RUN}/run_state.json"))
         self.assertEqual(1, durable["usage"]["research_agents"])
 
-    def test_unreachable_remote_stops_paid_work_until_recovered(self):
+    def test_remote_loss_after_precheck_keeps_the_charge_until_recovered(self):
         controller.reserve(self.state, {"research_agents": 1}, "first")
-        self.break_remote()
-        with self.assertRaises(ck.UnbackedError):
-            controller.reserve(self.state, {"tts_calls": 1}, "second, unbackable")
+        real_mirror = ck.mirror
+
+        def disconnect_after_precheck(path, note="ledger write"):
+            result = real_mirror(path, note)
+            if note == "before paid reservation":
+                self.break_remote()
+            return result
+
+        with mock.patch.object(ck, "mirror", side_effect=disconnect_after_precheck):
+            with self.assertRaises(ck.UnbackedError):
+                controller.reserve(self.state, {"tts_calls": 1}, "second, unbackable")
         self.assertTrue(ck.flag_path(self.state).is_file())
         self.assertEqual(1, self.ledger()["usage"]["tts_calls"])        # the charge is kept, never refunded
         with self.assertRaises(ck.UnbackedError):                       # and nothing further is dispatched

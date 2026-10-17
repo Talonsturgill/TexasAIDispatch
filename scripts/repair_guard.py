@@ -11,6 +11,7 @@ OWNER_RESOURCE = "storyboard_critics"
 VALIDATOR_CONFIRMATION = "OWNER AUTHORIZED EXTRA VALIDATOR CALL"
 VALIDATOR_RESOURCE = "validator_agents"
 MEASURED_RUNTIME_FAMILY = "measured-runtime-crowding"
+RIGHTS_FAMILY = "rights"
 
 def envelope_digest(envelope):
     return hashlib.sha256(json.dumps(envelope, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
@@ -369,6 +370,18 @@ def envelope_problems(state, amounts):
             errors.append(name + " exceeds the nonrenewable run envelope")
     return errors
 
+def failure_family_problems(plan):
+    family = str(plan.get("failure_family", "unclassified"))
+    technical = plan.get("repair_scope") == "technical-integrity"
+    if family in {MEASURED_RUNTIME_FAMILY, RIGHTS_FAMILY} and not technical:
+        return [family + " requires independently classified technical-integrity scope"]
+    if plan.get("repair_scope") == "review-context":
+        return []
+    allowed = {"human-performance", "capture-and-analysis", "document-handling",
+               "source-framing", "continuity", "unclassified", MEASURED_RUNTIME_FAMILY, RIGHTS_FAMILY}
+    return [] if family in allowed else ["failure_family must use the shared rejection taxonomy"]
+
+
 def plan_problems(state, plan):
     if not enabled(state):
         return []
@@ -379,20 +392,15 @@ def plan_problems(state, plan):
         return ["repair requires director identity"]
     family = str(plan.get("failure_family", "unclassified"))
     technical = plan.get("repair_scope") == "technical-integrity"
-    if family == MEASURED_RUNTIME_FAMILY and not technical:
-        return ["measured-runtime-crowding requires independently classified technical-integrity scope"]
+    family_errors = failure_family_problems(plan)
+    if family_errors:
+        return family_errors
     if plan.get("repair_scope") == "review-context":
         # This scope has its own exact independent diagnosis and expansion proof.
         # It cannot replace a mechanism or hide another failed artistic treatment.
         return []
     # Group by independent rejection evidence as well as the producer's name.
     # A renamed mechanism cannot reset an unclassified sequence.
-    allowed = {"human-performance", "capture-and-analysis", "document-handling",
-               "source-framing", "continuity", "unclassified"}
-    if family == MEASURED_RUNTIME_FAMILY:
-        allowed.add(MEASURED_RUNTIME_FAMILY)
-    if family not in allowed:
-        return ["failure_family must use the shared rejection taxonomy"]
     previous = [e for e in state["events"] if e.get("kind") == "repair_started"
                 and ((e.get("repair_scope") == "technical-integrity"
                       and e.get("mechanism_id") == mechanism) if technical else
