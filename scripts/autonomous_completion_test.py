@@ -169,6 +169,58 @@ class CompletionCapacityTest(unittest.TestCase):
         self.assertEqual(grant["resource_increments"]["storyboard_critics"], 3)
         self.assertEqual(grant["resource_increments"]["audiovisual_reviews"], 11)
 
+    def test_exact_phone_rejection_uses_its_original_film_field_for_modern_floor(self):
+        state = copy.deepcopy(self.before); state['run_id'] = '2026-10-15'
+        report = {'verdict': 'revise', 'reviewer_identity': 'independent-phone-critic',
+                  'review_scope': 'exact-muted-phone-preflight', 'reviewed_preflight_sha256': 'a' * 64,
+                  'blocking_defects': ['The closing answer is an unperformed planning diagram.'],
+                  'modern_observations': {'film_sha256': 'a' * 64, 'closing_answer': {'pass': False}}}
+        plan = json.loads(self.plan.read_text())
+        def reason(value, changes=None):
+            text = json.dumps(value)
+            current = {**plan, 'failure_evidence_sha256': capacity.sha(text), **(changes or {})}
+            return capacity.mandatory_reason(state, current, text)
+        before = copy.deepcopy(report)
+        self.assertEqual(reason(report), 'modern-film-floor')
+        self.assertEqual(report, before)
+        with patch('capture_completion_budget.eligible', return_value=True):
+            self.assertEqual(reason(report, {'capture_completion_budget': {}}), 'modern-film-floor')
+            self.assertIsNone(reason({**report, 'film_sha256': 'b' * 64}, {'capture_completion_budget': {}}))
+        self.assertEqual(reason({**report, 'film_sha256': 'a' * 64}), 'modern-film-floor')
+        for changes in ({'film_sha256': 'b' * 64}, {'review_scope': 'independent-code-plan'},
+                        {'review_scope': None}, {'reviewed_preflight_sha256': 'bad'},
+                        {'reviewed_preflight_sha256': 'x' * 64},
+                        {'reviewed_preflight_sha256': None},
+                        {'modern_observations': {'film_sha256': 'b' * 64, 'closing_answer': {'pass': False}}}):
+            self.assertIsNone(reason({**report, **changes}), changes)
+        self.assertIsNone(reason(report, {'failed_film_sha256': 'b' * 64}))
+        self.assertIsNone(reason(report, {'director_identity': report['reviewer_identity']}))
+        self.assertIsNone(reason({**report, 'verdict': 'pass'}))
+
+    def test_exact_phone_rejection_admission_rechecks_current_inputs_and_film(self):
+        board = self.root / 'storyboard.json'; board.write_text('{"date":"2026-10-03"}')
+        claims = self.root / 'claims.json'; claims.write_text('{"claims":[]}')
+        film = self.root / 'preflight.mp4'; film.write_bytes(b'failed phone film')
+        digest = lambda path: __import__('hashlib').sha256(path.read_bytes()).hexdigest()
+        report = {'verdict': 'revise', 'review_scope': 'exact-muted-phone-preflight',
+                  'reviewed_preflight_sha256': digest(film), 'concept_sha256': 'concept',
+                  'renderer_sha256': 'renderer', 'story_review': {'claims_sha256': digest(claims)}}
+        plan = {'failed_film_sha256': digest(film)}
+        before = self.state.read_bytes()
+        with patch('critic_gate.concept_digest', return_value='concept'), \
+             patch('critic_gate.renderer_digest', return_value='renderer'):
+            check = lambda p, r: capacity.rejected_phone_binding_problems(self.state, p, r)
+            self.assertEqual(check(plan, report), [])
+            for field in ('concept_sha256', 'renderer_sha256', 'reviewed_preflight_sha256', 'review_scope'):
+                self.assertTrue(check(plan, {**report, field: 'stale'}), field)
+            self.assertTrue(check({'failed_film_sha256': 'stale'}, report))
+            self.assertTrue(check(plan, {**report, 'story_review': {'claims_sha256': 'stale'}}))
+            film.write_bytes(b'changed film'); self.assertTrue(check(plan, report))
+            film.unlink(); self.assertTrue(check(plan, report))
+            film.write_bytes(b'failed phone film')
+            board.write_text('{"date":"2026-10-04"}'); self.assertTrue(check(plan, report))
+        self.assertEqual(self.state.read_bytes(), before)
+
     def test_partial_headroom_receives_only_actual_deficits(self):
         state = controller.read_state(self.state)
         state["usage"]["tts_calls"] -= 1
