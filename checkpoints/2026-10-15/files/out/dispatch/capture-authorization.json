@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "553b05a7c5b63ba1e716b8c89c155131fd12d77ad0d0e4f3104611747198ef96",
+    "event_sha256": "2fdcca059e1adddff84714da8d36000a9914e1bfd1d6d2bd7fffdc739f937e54",
     "resource": "full_renders",
-    "at": "2026-10-17T20:12:58.392761Z",
-    "note": "full native render of the credit-corrected approved film (hero approved); previous authorization consumed by hook then classifier-denied, no render ran"
+    "at": "2026-10-17T20:18:37.393963Z",
+    "note": "full-resolution Dispatch render"
   },
   "boards": [
     {
@@ -162,21 +162,29 @@
     {
       "id": "5871238ae2c9b2902335a85fe9099bad84dc1c390e744999be04d83bd828ca9d",
       "text": "bash scripts/run_with_env.sh bash scripts/render_dispatch.sh",
-      "consumed": "2026-10-17T20:13:35.198815+00:00"
+      "consumed": "2026-10-17T20:18:48.521871+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.115
+    "free_gib": 20.114
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/TexasAIDispatch/out/dispatch/capture-housekeeping-20261017T201333.json",
-    "receipt_sha256": "b004901e6ce7ce519854e0daf0db034b1967f8376a06f8ccbfb871a334fbda53",
+    "receipt": "/home/user/restore/TexasAIDispatch/out/dispatch/capture-housekeeping-20261017T201827.json",
+    "receipt_sha256": "f071f56518e6a814b595c17e2c0d1d988794a1c0934ccd6b3349de556379cc37",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-17T20:13:33.061030+00:00",
-  "expires_at": "2026-10-17T20:58:33.061030+00:00"
+  "issued_at": "2026-10-17T20:18:46.271713+00:00",
+  "expires_at": "2026-10-17T21:03:46.271713+00:00",
+  "prepared_capture": {
+    "schema": "dispatch_prepared_capture/1",
+    "operation": "full-resolution Dispatch render",
+    "resource": "full_renders",
+    "run_id": "2026-10-15",
+    "event_sha256": "2fdcca059e1adddff84714da8d36000a9914e1bfd1d6d2bd7fffdc739f937e54",
+    "input_identity": "9cb33ff551ebcc3cff0e0737d3815239a56daa587994970870ddf61669beb95a"
+  }
 }
