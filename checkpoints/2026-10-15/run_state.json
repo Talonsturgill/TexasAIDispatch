@@ -681,6 +681,14 @@
       "note": "two opening comparison batch",
       "resource": "preflight_renders",
       "to": 28
+    },
+    {
+      "at": "2026-10-17T03:45:25.869031Z",
+      "ceiling": 31,
+      "from": 28,
+      "note": "exact-phone-a motion-image review extraction",
+      "resource": "preflight_renders",
+      "to": 29
     }
   ],
   "events": [
@@ -6909,6 +6917,24 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-17T03:45:25.869050Z",
+      "ceiling": 31,
+      "kind": "budget_escalated",
+      "note": "exact-phone-a motion-image review extraction",
+      "now": 29,
+      "resource": "preflight_renders",
+      "was": 28
+    },
+    {
+      "at": "2026-10-17T03:45:25.869059Z",
+      "kind": "reserved",
+      "note": "exact-phone-a motion-image review extraction",
+      "preflight_identity": "bac462372bb707546eb0fabbb3890cdca4eadf25b8fe13f13e4ca59233be0d78",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -6917,7 +6943,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 28,
+    "preflight_renders": 29,
     "reboards": 10,
     "reported_tokens": 646479,
     "rescue_renders": 1,
@@ -6932,7 +6958,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6b77e78f2aaee6f3e0e3131a5a8df46ae7e784da5bd0341bf7f0cf93823a181a",
+    "original_private_state_sha256": "6f34ec90958b3240413eaed2748edf5e7cda9af50c5297ff32e9fe3b4b9926ff",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -6968,14 +6994,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T03:38:44.194461Z",
+  "updated_at": "2026-10-17T03:45:25.869061Z",
   "usage": {
     "audiovisual_reviews": 7,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 28,
+    "preflight_renders": 29,
     "reboards": 10,
     "reported_tokens": 646479,
     "rescue_renders": 0,
