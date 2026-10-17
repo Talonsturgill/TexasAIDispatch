@@ -78,3 +78,4 @@ storage: housekeeping verified rc=0 free 20.19 GiB; reclaimed 1.33 GiB via spars
 - 2026-10-17: pivot review 2 REVISE (critic 30/30 charged) saved evidence/review-r15-pivot-2/pivot-review.json. Unmet: 5 skyline fallback, 6 lift-the-case, 8 brief/plan/s3-s4-s7 text drift.
 - 2026-10-17: pivot review 2 REVISE; brief v5 + plan r15d answer it; pivot-capacity-plan-r15d granted critic +1; precharging third same-a52 pivot.
 - 2026-10-17: pivot review 3 PASS (critic 31/31) saved evidence/review-r15-pivot-3/pivot-review.json; bound into repair-plan-r15d-pivot.json.
+- 2026-10-17: owner relayed to running builder a93: set s5.place_plate=blackland-wide in the three declared board files (existing PlaceStage.plateFor / place_check route) as the skyline resolution; code critic must review actual field/result in both boards before captures. Deviation from brief v5 item 4 wording (camera framing only) is source-backed by the existing place binding.

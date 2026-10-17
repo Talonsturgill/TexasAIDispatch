@@ -18,11 +18,13 @@ import {useUid} from '../../../lib/uid';
  * a worn corner tilts toward the low sun from a bracket at the post top, and a short black whip
  * antenna leans off the cap.
  *
- * The same group draws the cutaway of that housing for the chip scene: the mounting plate, a small
- * board whose thin traces carry readings in from the four water pods and the four weather sensors to
- * one small chip marked TinyML, the battery and two backup storage cans, the radio can whose coax
- * runs to the antenna, and the amber risk lamp. No network cable leaves the box. It also draws the
- * pinned paper tags that carry the film's few words.
+ * The same group draws the cutaway of that housing for the chip scene, still clamped to its post
+ * with its door swung open on the left hinges: the mounting plate, a small board whose thin traces
+ * carry readings in from the four water pods and the four weather sensors to one small chip marked
+ * TinyML, the battery and two backup storage cans, the radio can whose coax runs to the antenna, a
+ * large hooded amber risk lamp and a five-step risk bar the chip sets. No network cable leaves the
+ * box. It draws the bench prototype, the same station shortened onto a steel base plate for a table,
+ * and the pinned paper tags that carry the film's few words.
  *
  * Light: late afternoon storm light low from the upper left, cool sky fill from the right, a long
  * soft shadow falling right. Nothing is symmetric: the post leans a little, the housing hangs off
@@ -51,8 +53,8 @@ export const LAMP = {amber: '#F2A92A', amberHot: '#FFE3A1', ring: '#FFF2C9', off
 
 /** Station geometry in its own units: the post foot at (0,0), up is negative y. */
 export const STATION = {
- /** The four optical pods, centre heights from the ground, deliberately uneven. */
- pods: [-58, -136, -230, -344] as const,
+ /** The four optical pods, centre heights from the ground, a hand's width apart and stepped. */
+ pods: [-46, -96, -146, -196] as const,
  /** Their small sideways steps on the rail, so the column never reads as a ruler. */
  podDx: [3, -4, 2, -3] as const,
  housing: {x: -64, y: -936, w: 156, h: 142, tilt: -2.6},
@@ -92,8 +94,8 @@ type StationProps = {
 
 const Pod: React.FC<{x: number; y: number; lit: number; id: string; i: number}> = ({x, y, lit, id, i}) => {
  const glow = clamp(lit);
- return <g transform={`translate(${x} ${y}) rotate(${[-1.5, 1, -0.5, 2][i]}) scale(1.45)`} data-part={'pod-' + (i + 1)}>
-  {glow > 0 && <circle cx={6} cy={0} r={22} fill={LAMP.amberHot} opacity={.28 * glow}/>}
+ return <g transform={`translate(${x} ${y}) rotate(${[-1.5, 1, -0.5, 2][i]}) scale(1.25)`} data-part={'pod-' + (i + 1)}>
+  {glow > 0 && <circle cx={6} cy={0} r={30} fill={LAMP.amberHot} opacity={.34 * glow}/>}
   {/* clamp bracket onto the strut rail */}
   <rect x={-24} y={-6} width={12} height={12} rx={2} fill={STEEL.mid} stroke={STEEL.deep} strokeWidth={1.2}/>
   {/* pod housing: lit top-left, shaded bottom-right */}
@@ -187,17 +189,17 @@ const Station: React.FC<StationProps> = ({pods = [0, 0, 0, 0], battery = .55, su
 
   {/* strut rail holding the four pods, slotted, with painted height ticks beside each pod */}
   <g data-part="sensor-column">
-   <rect x={-4 + lean(-200)} y={-392} width={14} height={372} fill={STEEL.mid} stroke={STEEL.deep} strokeWidth={1.4}/>
-   {Array.from({length: 15}, (_, i) => <rect key={i} x={-0.5 + lean(-200)} y={-382 + i * 24} width={6} height={12} rx={3} fill={STEEL.deep} opacity={.7}/>)}
+   <rect x={-4 + lean(-130)} y={-252} width={14} height={232} fill={STEEL.mid} stroke={STEEL.deep} strokeWidth={1.4}/>
+   {Array.from({length: 10}, (_, i) => <rect key={i} x={-0.5 + lean(-130)} y={-244 + i * 22} width={6} height={11} rx={3} fill={STEEL.deep} opacity={.7}/>)}
    {STATION.pods.map((y, i) => <path key={'tick' + i} d={`M${-14 + lean(y)} ${y}H${-4 + lean(y)}`} stroke="#F4EFE2" strokeWidth={3}/>)}
-   <rect x={-20 + lean(-30)} y={-398} width={44} height={10} rx={2} fill={STEEL.mid} stroke={STEEL.deep} strokeWidth={1.2}/>
+   <rect x={-20 + lean(-30)} y={-258} width={44} height={10} rx={2} fill={STEEL.mid} stroke={STEEL.deep} strokeWidth={1.2}/>
    <rect x={-20 + lean(-30)} y={-30} width={44} height={10} rx={2} fill={STEEL.mid} stroke={STEEL.deep} strokeWidth={1.2}/>
    {STATION.pods.map((y, i) => <Pod key={i} i={i} id={id} x={14 + STATION.podDx[i] + lean(y)} y={y} lit={pods[i] ?? 0}/>)}
   </g>
 
   {/* the conduit up the right of the post, one sag, into the housing gland */}
-  <path d={`M30 -400Q40 -560 26 -640Q16 -700 30 -760Q36 -780 34 -800`} stroke="#5D6468" strokeWidth={9} fill="none" strokeLinecap="round"/>
-  <path d={`M28 -400Q38 -560 24 -640Q14 -700 28 -760`} stroke="#8C9599" strokeWidth={3} fill="none" opacity={.6}/>
+  <path d={`M30 -262Q42 -470 26 -640Q16 -700 30 -760Q36 -780 34 -800`} stroke="#5D6468" strokeWidth={9} fill="none" strokeLinecap="round"/>
+  <path d={`M28 -262Q40 -470 24 -640Q14 -700 28 -760`} stroke="#8C9599" strokeWidth={3} fill="none" opacity={.6}/>
   {[-470, -590, -720].map((y, i) => <rect key={i} x={16 + lean(y)} y={y - 4} width={24} height={8} rx={2} fill={STEEL.deep}/>)}
 
   {/* clamp band under the housing and its rust drip */}
@@ -237,10 +239,10 @@ const Station: React.FC<StationProps> = ({pods = [0, 0, 0, 0], battery = .55, su
     </g>;})}
    {/* hooded amber risk lamp */}
    <g transform={`translate(${H.x + H.w - 30} ${H.y + 58})`} data-part="risk-lamp">
-    {risk > 0 && <circle cx={0} cy={0} r={20} fill={`url(#${id}risk)`} opacity={.6 * risk}/>}
-    <circle cx={0} cy={0} r={13} fill={risk > 0 ? LAMP.amber : LAMP.off} stroke={STEEL.boxDeep} strokeWidth={1.6}/>
-    {risk > 0 && <circle cx={-3} cy={-3} r={5} fill={LAMP.amberHot} opacity={risk}/>}
-    <path d="M-17 -8Q0 -24 17 -8" stroke={STEEL.boxDeep} strokeWidth={5} fill="none" strokeLinecap="round"/>
+    {risk > 0 && <circle cx={0} cy={0} r={46} fill={`url(#${id}risk)`} opacity={.75 * risk}/>}
+    <circle cx={0} cy={0} r={17} fill={risk > 0 ? LAMP.amber : LAMP.off} stroke={STEEL.boxDeep} strokeWidth={1.8}/>
+    {risk > 0 && <circle cx={-4} cy={-4} r={7} fill={LAMP.amberHot} opacity={risk}/>}
+    <path d="M-22 -10Q0 -30 22 -10" stroke={STEEL.boxDeep} strokeWidth={6} fill="none" strokeLinecap="round"/>
    </g>
    {/* cutaway window: the glowing board seen through the housing face */}
    {window > 0 && <g opacity={window}>
@@ -299,12 +301,15 @@ const Station: React.FC<StationProps> = ({pods = [0, 0, 0, 0], battery = .55, su
  </g>;
 };
 
-/** The housing opened for the chip scene, drawn large in its own units centred on (0,0). */
+/** The housing opened for the chip scene, drawn large in its own units centred on (0,0). It is still
+ * clamped to its galvanized post, which runs out of the top and bottom of the box, and its door hangs
+ * open on the left hinges. `risk` lights the large hooded amber lamp and sets the risk bar from its
+ * one low step to four of five, the chip's own judgment made visible. */
 const Cutaway: React.FC<{readings?: number; chip?: number; risk?: number; battery?: number; labels?: number}> =
  ({readings = 0, chip = 0, risk = 0, battery = .8, labels = 1}) => {
  const id = useUid('fsc');
  const chipC: Pt = [36, 20];
- // eight inputs: four water pods enter low left, four weather sensors enter along the top left
+ const lampC: Pt = [214, -34];
  const inputs: {from: Pt; via: Pt[]; kind: 'pod' | 'weather'; k: number}[] = [
   ...[0, 1, 2, 3].map(k => ({from: [-262, 160 - k * 36] as Pt, via: [[-150, 160 - k * 36] as Pt, [-40, 70 - k * 14] as Pt], kind: 'pod' as const, k})),
   ...[0, 1, 2, 3].map(k => ({from: [-200 + k * 46, -214] as Pt, via: [[-200 + k * 46, -120] as Pt, [-20 + k * 12, -60] as Pt], kind: 'weather' as const, k})),
@@ -316,6 +321,8 @@ const Cutaway: React.FC<{readings?: number; chip?: number; risk?: number; batter
   for (let i = 0; i < seg.length; i++) {if (d <= seg[i] || i === seg.length - 1) {const f = seg[i] ? clamp(d / seg[i]) : 0; return [lerp(pts[i][0], pts[i + 1][0], f), lerp(pts[i][1], pts[i + 1][1], f)];} d -= seg[i];}
   return pts[pts.length - 1];
  };
+ const steps = 1 + 3 * clamp(risk);
+ const stepColor = ['#8FD6A0', '#C9D67A', '#F2C14A', LAMP.amber, '#D9682B'];
  return <g data-part="housing-cutaway">
   <defs>
    <linearGradient id={id + 'wall'} x1="0" y1="0" x2="1" y2="1">
@@ -324,16 +331,35 @@ const Cutaway: React.FC<{readings?: number; chip?: number; risk?: number; batter
    <linearGradient id={id + 'board'} x1="0" y1="0" x2="1" y2="1">
     <stop offset="0" stopColor="#24564C"/><stop offset="1" stopColor="#163A33"/>
    </linearGradient>
+   <linearGradient id={id + 'post'} x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stopColor={STEEL.lit}/><stop offset=".3" stopColor={STEEL.mid}/><stop offset=".72" stopColor={STEEL.shade}/><stop offset="1" stopColor={STEEL.deep}/>
+   </linearGradient>
    <radialGradient id={id + 'glow'} cx=".5" cy=".5" r=".5">
     <stop offset="0" stopColor={LAMP.amberHot} stopOpacity={.95}/><stop offset=".45" stopColor={LAMP.amber} stopOpacity={.5}/><stop offset="1" stopColor={LAMP.amber} stopOpacity={0}/>
    </radialGradient>
   </defs>
+  {/* the post the housing is clamped to, running out above and below the box */}
+  <g data-part="station-post">
+   <rect x={-34} y={-1100} width={68} height={2200} fill={`url(#${id}post)`} stroke={STEEL.deep} strokeWidth={2.4}/>
+   <path d="M-20 -1100V1100" stroke="#FFFFFF" strokeWidth={4} opacity={.35}/>
+   {[-372, 336].map(y => <g key={y}>
+    <rect x={-46} y={y} width={92} height={36} rx={5} fill={STEEL.mid} stroke={STEEL.deep} strokeWidth={2.4}/>
+    <circle cx={-30} cy={y + 18} r={6} fill={STEEL.deep}/><circle cx={30} cy={y + 18} r={6} fill={STEEL.deep}/>
+   </g>)}
+   <path d="M-8 -336Q-6 -320 -9 -306" stroke={STEEL.rust} strokeWidth={5} fill="none" opacity={.7} strokeLinecap="round"/>
+  </g>
+  {/* the door, swung open on its left hinges toward the camera */}
+  <g data-part="open-door">
+   <path d="M-330 -296L-478 -254L-478 258L-330 300Z" fill="#CFCBC0" stroke="#77746B" strokeWidth={3}/>
+   <path d="M-342 -270L-466 -236L-466 240L-342 274Z" fill="none" stroke="#3A3C3B" strokeWidth={6} opacity={.45}/>
+   <rect x={-470} y={-30} width={14} height={60} rx={4} fill={STEEL.boxShade} stroke={STEEL.boxDeep} strokeWidth={1.6}/>
+   {[-240, 200].map(y => <rect key={y} x={-340} y={y} width={18} height={40} rx={3} fill={STEEL.boxShade} stroke={STEEL.boxDeep} strokeWidth={1.6}/>)}
+  </g>
   {/* the open enclosure: thick walls, the door's gasket edge and a cast shadow inside the top lip */}
   <rect x={-330} y={-300} width={660} height={600} rx={26} fill="#8E8A80"/>
   <rect x={-312} y={-282} width={624} height={564} rx={18} fill={`url(#${id}wall)`} stroke="#77746B" strokeWidth={3}/>
   <path d="M-312 -262H312V-230H-312Z" fill="#1E1A16" opacity={.14}/>
   <rect x={-322} y={-292} width={644} height={584} rx={22} fill="none" stroke="#3A3C3B" strokeWidth={6} opacity={.5}/>
-  {/* the mounting plate and its four screws, one replaced with a brighter one */}
   <rect x={-280} y={-240} width={560} height={500} rx={8} fill="#CFCAC0" stroke="#9C988D" strokeWidth={2}/>
   {[[-264, -224], [264, -224], [-264, 244], [262, 246]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={7} fill={i === 3 ? '#E8E8E2' : '#A7A399'} stroke="#6E6A61" strokeWidth={1.4}/>)}
   {/* battery and two backup storage cans, lower right */}
@@ -348,9 +374,9 @@ const Cutaway: React.FC<{readings?: number; chip?: number; risk?: number; batter
   </g>
   {/* the radio can whose coax leaves through the top gland to the antenna; the only line out */}
   <g data-part="radio">
-   <rect x={150} y={-200} width={96} height={70} rx={6} fill="#B9BEC0" stroke="#5D6468" strokeWidth={2}/>
-   {[0, 1, 2, 3].map(k => <path key={k} d={`M${164 + k * 20} -190V-140`} stroke="#8F969A" strokeWidth={2}/>)}
-   <path d="M230 -200Q236 -250 260 -282" stroke="#1E2224" strokeWidth={8} fill="none" strokeLinecap="round"/>
+   <rect x={150} y={-220} width={96} height={70} rx={6} fill="#B9BEC0" stroke="#5D6468" strokeWidth={2}/>
+   {[0, 1, 2, 3].map(k => <path key={k} d={`M${164 + k * 20} -210V-160`} stroke="#8F969A" strokeWidth={2}/>)}
+   <path d="M230 -220Q236 -258 260 -282" stroke="#1E2224" strokeWidth={8} fill="none" strokeLinecap="round"/>
    <rect x={246} y={-298} width={28} height={18} rx={3} fill="#41484C"/>
   </g>
   {/* the board, thin gold traces, input headers */}
@@ -362,10 +388,11 @@ const Cutaway: React.FC<{readings?: number; chip?: number; risk?: number; batter
     ? <circle cx={0} cy={0} r={5} fill={readings > .05 ? LAMP.ring : '#4A4E4F'} stroke="#2F3437" strokeWidth={1.2}/>
     : <g transform="scale(.9)"><WeatherGlyph k={row.k} on={readings > .05 ? 1 : 0}/></g>}
   </g>)}
-  {/* the readings travel in along the traces as small bright pulses, staggered by input */}
   {readings > 0 && readings < 1 && inputs.map((row, i) => {const u = clamp(readings * 1.35 - i * .045); const q = along(path(row), u);
    return u > 0 && u < 1 ? <circle key={'p' + i} cx={q[0]} cy={q[1]} r={7} fill={LAMP.ring} opacity={.95}/> : null;})}
-  {/* the small chip, marked with its method's name */}
+  {/* a trace from the chip to the lamp and the bar: the judgment is the chip's own */}
+  <path d={`M${chipC[0] + 56} ${chipC[1]}H120L${lampC[0] - 50} ${lampC[1]}`} stroke="#C9A24A" strokeWidth={3} fill="none" opacity={.85}/>
+  {risk > 0 && <circle cx={lerp(chipC[0] + 56, lampC[0] - 50, clamp(risk * 1.4))} cy={lerp(chipC[1], lampC[1], clamp(risk * 1.4))} r={8} fill={LAMP.amberHot} opacity={1 - clamp((risk - .7) / .3)}/>}
   <g data-part="chip" transform={`translate(${chipC[0]} ${chipC[1]})`}>
    {chip > 0 && <circle cx={0} cy={0} r={90 + 40 * chip} fill={`url(#${id}glow)`} opacity={chip}/>}
    {Array.from({length: 7}, (_, k) => <g key={k}>
@@ -376,42 +403,63 @@ const Cutaway: React.FC<{readings?: number; chip?: number; risk?: number; batter
    <circle cx={-34} cy={-34} r={4} fill="#3A3C3D"/>
    {labels > 0 && <text x={0} y={8} textAnchor="middle" fontFamily={FONT.mono} fontSize={19} fontWeight={700} fill="#D8D2C2" opacity={labels}>TinyML</text>}
   </g>
-  {/* the risk lamp on the board edge, amber when the chip judges risk */}
-  <g data-part="risk-lamp" transform="translate(70 128)">
-   {risk > 0 && <circle cx={0} cy={0} r={60 * (.5 + .5 * risk)} fill={`url(#${id}glow)`} opacity={risk}/>}
-   <circle cx={0} cy={0} r={18} fill={risk > 0 ? LAMP.amber : LAMP.off} stroke="#2A2A2A" strokeWidth={2}/>
-   {risk > 0 && <circle cx={-5} cy={-5} r={6} fill={LAMP.amberHot} opacity={risk}/>}
+  {/* the large hooded amber risk lamp */}
+  <g data-part="risk-lamp" transform={`translate(${lampC[0]} ${lampC[1]})`}>
+   {risk > 0 && <circle cx={0} cy={0} r={70 + 110 * risk} fill={`url(#${id}glow)`} opacity={risk}/>}
+   <circle cx={0} cy={0} r={52} fill="#3A3C3B" stroke="#1B1E20" strokeWidth={3}/>
+   <circle cx={0} cy={0} r={42} fill={risk > 0 ? LAMP.amber : LAMP.off} stroke="#2A2A2A" strokeWidth={2.4}/>
+   {risk > 0 && <circle cx={-12} cy={-12} r={15} fill={LAMP.amberHot} opacity={risk}/>}
+   {risk > 0 && <circle cx={0} cy={0} r={42} fill="#FFF6DA" opacity={.35 * risk}/>}
+   <path d="M-58 -18Q0 -82 58 -18" stroke="#2C2F31" strokeWidth={12} fill="none" strokeLinecap="round"/>
+  </g>
+  {/* the risk bar: five steps, the chip sets how many light */}
+  <g data-part="risk-bar" transform="translate(-236 196)">
+   <text x={0} y={-8} fontFamily={FONT.body} fontSize={22} fontWeight={800} fill="#3A3C3B">Flood risk</text>
+   <rect x={-6} y={0} width={344} height={46} rx={8} fill="#2A2D2F" stroke="#1B1E20" strokeWidth={2}/>
+   {[0, 1, 2, 3, 4].map(k => {const on = clamp(steps - k);
+    return <g key={k}><rect x={k * 67} y={6} width={58} height={34} rx={5} fill="#3F4544"/>
+     {on > 0 && <rect x={k * 67} y={6} width={58} height={34} rx={5} fill={stepColor[k]} opacity={.35 + .65 * on}/>}</g>;})}
   </g>
   {/* the bottom of the box: two cable glands for the sensor leads, and no network port */}
   {[-160, -100].map(x => <rect key={x} x={x} y={262} width={30} height={26} rx={4} fill="#41484C"/>)}
   <path d="M-152 288Q-150 300 -146 318M-92 288Q-94 302 -88 318" stroke="#5D6468" strokeWidth={8} fill="none" strokeLinecap="round"/>
  </g>;
 };
+/** Where the cutaway's large risk lamp sits, in cutaway units, for the episode's push in. */
+export const CUTAWAY_LAMP: Pt = [214, -34];
 
-/** The station as a dashed, uninstalled outline: where one could stand, drawn on progress 0 to 1. */
-const Outline: React.FC<{p?: number; pal: Pal}> = ({p = 1, pal}) => {
- const H = STATION.housing;
- const d = [
-  `M-15 0V-1040`, `M15 0V-1040`,
-  `M${H.x} ${H.y}H${H.x + H.w}V${H.y + H.h}H${H.x}Z`,
-  `M${H.x - 10} ${H.y}L${H.x - 4} ${H.y - 16}H${H.x + H.w + 8}L${H.x + H.w + 14} ${H.y}`,
-  `M-130 -1120L60 -1150L74 -1066L-116 -1036Z`,
-  `M${H.x + H.w - 20} ${H.y - 26}L${H.x + H.w - 8} ${H.y - 200}`,
-  `M-6 -392V-20`, `M-50 4H54`,
- ];
- const q = clamp(p);
- return <g data-part="uninstalled-outline" fill="none" stroke={pal.ink} strokeLinecap="round" strokeLinejoin="round">
-  {d.map((path, i) => <path key={i} d={path} strokeWidth={6} strokeDasharray="22 16"
-   opacity={clamp(q * d.length - i)}/>)}
-  {STATION.pods.map((y, i) => <circle key={'p' + i} cx={14 + STATION.podDx[i]} cy={y} r={16} strokeWidth={5} strokeDasharray="8 7" opacity={clamp(q * 4 - 2 - i * .4)}/>)}
+/** The bench prototype: the same station shortened onto a steel base plate with rubber feet, its
+ * head (panel, antenna, housing and lamps) on a short post over the strut rail and its four pods.
+ * Base centre at (0,0); about 900 station units tall. It stands on a table, never in the ground. */
+const BENCH_DROP = 340;
+const Bench: React.FC<StationProps> = (props) => {
+ const id = useUid('fsb');
+ return <g data-part="bench-prototype">
+  <defs>
+   <clipPath id={id + 'h'}><rect x={-220} y={-1240} width={460} height={450}/></clipPath>
+   <clipPath id={id + 'p'}><rect x={-220} y={-262} width={460} height={244}/></clipPath>
+   <linearGradient id={id + 'post'} x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stopColor={STEEL.lit}/><stop offset=".3" stopColor={STEEL.mid}/><stop offset=".7" stopColor={STEEL.shade}/><stop offset="1" stopColor={STEEL.deep}/>
+   </linearGradient>
+  </defs>
+  <ellipse cx={30} cy={2} rx={130} ry={14} fill="#1E1A16" opacity={.3}/>
+  <rect x={-15} y={-790 + BENCH_DROP} width={30} height={790 - BENCH_DROP - 250} fill={`url(#${id}post)`} stroke={STEEL.deep} strokeWidth={1.6}/>
+  <g clipPath={`url(#${id}p)`}><Station {...props} shadow={0} wetTo={undefined}/></g>
+  <rect x={-15} y={-24} width={30} height={10} fill={`url(#${id}post)`} stroke={STEEL.deep} strokeWidth={1.4}/>
+  <g transform={`translate(0 ${BENCH_DROP})`}><g clipPath={`url(#${id}h)`}><Station {...props} shadow={0} wetTo={undefined}/></g></g>
+  {/* steel base plate with two rubber feet */}
+  <path d="M-96 -18L96 -18L104 -4L-104 -4Z" fill={STEEL.mid} stroke={STEEL.deep} strokeWidth={2}/>
+  <path d="M-92 -15H92" stroke="#FFFFFF" strokeWidth={2} opacity={.5}/>
+  {[-80, 64].map(x => <rect key={x} x={x} y={-4} width={20} height={6} rx={2} fill="#1E2224"/>)}
  </g>;
 };
+export const BENCH_HEIGHT = 1240 - BENCH_DROP;
 
 /** A pinned paper tag on a short string: the few words the film puts on screen. */
-const Tag: React.FC<{lines: string[]; tone?: 'ink' | 'accent' | 'paper' | 'outline'; pal: Pal; scale?: number; swing?: number; drop?: number; side?: 'left' | 'right'; size?: number}> =
+const Tag: React.FC<{lines: string[]; tone?: 'ink' | 'accent' | 'paper'; pal: Pal; scale?: number; swing?: number; drop?: number; side?: 'left' | 'right'; size?: number}> =
  ({lines, tone = 'paper', pal, scale = 1, swing = 0, drop = 26, side = 'right', size = 34}) => {
  const w = Math.max(...lines.map(l => widthOf(l, size, true))) + 40, h = lines.length * (size + 8) + 22;
- const fill = tone === 'ink' ? pal.ink : tone === 'accent' ? pal.accent : tone === 'outline' ? pal.paper : pal.paper;
+ const fill = tone === 'ink' ? pal.ink : tone === 'accent' ? pal.accent : pal.paper;
  const text = tone === 'ink' ? pal.paper : pal.ink;
  const x0 = side === 'right' ? -18 : -w + 18;
  return <g transform={`scale(${scale}) rotate(${swing})`} data-part="tag">
@@ -419,8 +467,7 @@ const Tag: React.FC<{lines: string[]; tone?: 'ink' | 'accent' | 'paper' | 'outli
   <path d={`M0 0L${x0 + w / 2} ${drop}`} stroke={pal.ink} strokeWidth={2} opacity={.8}/>
   <g transform={`translate(${x0} ${drop})`}>
    <rect x={4} y={6} width={w} height={h} rx={9} fill="#1E1A16" opacity={.22}/>
-   <rect x={0} y={0} width={w} height={h} rx={9} fill={fill} stroke={pal.ink} strokeWidth={tone === 'outline' ? 4 : 2}
-    strokeDasharray={tone === 'outline' ? '12 8' : undefined}/>
+   <rect x={0} y={0} width={w} height={h} rx={9} fill={fill} stroke={pal.ink} strokeWidth={2}/>
    <circle cx={w / 2} cy={10} r={4} fill="#FFFFFF" stroke={pal.ink} strokeWidth={1.2} opacity={.85}/>
    {lines.map((l, i) => <text key={i} x={20} y={20 + (i + 1) * (size + 8) - 8} fontFamily={FONT.body} fontSize={size} fontWeight={800} fill={text}>{l}</text>)}
   </g>
@@ -429,15 +476,15 @@ const Tag: React.FC<{lines: string[]; tone?: 'ink' | 'accent' | 'paper' | 'outli
 
 type HeroProps =
  | ({part: 'station'} & StationProps)
+ | ({part: 'bench'} & StationProps)
  | {part: 'cutaway'; readings?: number; chip?: number; risk?: number; battery?: number; labels?: number}
- | {part: 'outline'; p?: number; pal: Pal}
- | {part: 'tag'; lines: string[]; tone?: 'ink' | 'accent' | 'paper' | 'outline'; pal: Pal; scale?: number; swing?: number; drop?: number; side?: 'left' | 'right'; size?: number};
+ | {part: 'tag'; lines: string[]; tone?: 'ink' | 'accent' | 'paper'; pal: Pal; scale?: number; swing?: number; drop?: number; side?: 'left' | 'right'; size?: number};
 
 /** The hero group's one export: every part of the station the film draws. */
 export const FloodStationHero: React.FC<HeroProps> = (props) => {
  if (props.part === 'station') return <Station {...props}/>;
  if (props.part === 'cutaway') return <Cutaway {...props}/>;
  if (props.part === 'tag') return <Tag {...props}/>;
- if (props.part === 'outline') return <Outline {...props}/>;
+ if (props.part === 'bench') return <Bench {...props}/>;
  throw new Error('Unknown flood station part');
 };
