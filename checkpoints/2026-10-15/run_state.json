@@ -1,4 +1,23 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15-tech/baseline/FloodStationFilm.tsx",
+        "before_sha256": "b4a0ce8feeae3107ce9f1ad2ef0249572576c31b0a94533bdc2bfc10a89311fd",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/r15-tech/baseline/StreetHubSupport.tsx",
+        "before_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx"
+      }
+    ],
+    "failure_sha256": "c79f8b4a1bc575611a538cb2c459139aba525016f1c893ac566688934b0f3e58",
+    "plan": "{REPO}/out/dispatch/evidence/r15-tech/complete-plan-r15e-v3.json",
+    "plan_sha256": "4376beac117cd678eb394c4ca66d295afeb6c852510995eafea9b0940632e226",
+    "reboards_before": 10,
+    "repair_scope": "technical-integrity"
+  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -7403,6 +7422,41 @@
         "validator_agents": 5,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-17T04:27:19.412541Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15-tech/baseline/FloodStationFilm.tsx",
+          "before_sha256": "b4a0ce8feeae3107ce9f1ad2ef0249572576c31b0a94533bdc2bfc10a89311fd",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/r15-tech/baseline/StreetHubSupport.tsx",
+          "before_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "document-handling",
+      "failure_sha256": "c79f8b4a1bc575611a538cb2c459139aba525016f1c893ac566688934b0f3e58",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 11,
+          "to": 11
+        },
+        "storyboard_critics": {
+          "from": 38,
+          "to": 38
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "s7-detail-safe-area-framing",
+      "plan_identity": null,
+      "plan_sha256": "4376beac117cd678eb394c4ca66d295afeb6c852510995eafea9b0940632e226",
+      "repair_scope": "technical-integrity"
     }
   ],
   "limits": {
@@ -7426,7 +7480,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "689403502d461ab4089214bef01fd40ce7abcdca606cc96bffe407108752d3be",
+    "original_private_state_sha256": "8960d8128c748de03cf65a100b6d5775a153be6a0c9403b004d2da0d55d55256",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -7462,7 +7516,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T04:26:45.570763Z",
+  "updated_at": "2026-10-17T04:27:19.412556Z",
   "usage": {
     "audiovisual_reviews": 8,
     "cleanup_renders": 0,
