@@ -398,6 +398,18 @@ def pre_voice_problems(board_path, claims_path, script=None):
     return sorted(set(errors))
 
 
+def packet_text(data):
+    """Remove JSON layout bytes before rejecting a complete current Claude scorer handoff."""
+    encoded = json.dumps(data, indent=2) + '\n'
+    if (len(encoded) > policy()['handoff_max_chars']
+            and data.get('role') in ('picture', 'story', 'sound')
+            and re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(data.get('date', '')))
+            and str(data.get('date', '')) >= '2026-10-15'
+            and data.get('motion_sequence') and data.get('image_read_policy')):
+        encoded = json.dumps(data, separators=(',', ':')) + '\n'
+    return encoded
+
+
 def packet(board_path, claims_path, role, state_path=None):
     """Bound references, not copied history. Reviewers load their assigned sources themselves."""
     board, claims = read(board_path), read(claims_path)
@@ -414,6 +426,11 @@ def packet(board_path, claims_path, role, state_path=None):
     import agent_runtime
     import authored_story_art
     claude_route = authored_story_art.selected(board)
+    compact_scorer = (claude_route and role in ('picture','story','sound')
+                      and str(board.get('date','')) >= '2026-10-15')
+    if compact_scorer:
+        data['instructions'] = ('Read all bound inputs, cited sources and your brief. Return one '
+            'consolidated verdict without copied history. Text never proves audio access.')
     if claude_route:
         import claude_runtime
         route = claude_runtime.assignment(role, board["date"])
@@ -427,7 +444,8 @@ def packet(board_path, claims_path, role, state_path=None):
         # The complete story is already hash-bound in the board. Do not repeat it
         # in an isolated worker packet or truncate it to fit the handoff limit.
         data["story"] = {"reference": "board", "field": "story_contract"}
-        data["instructions"] += " Read the complete story_contract in the bound board, including all scenes, transitions and source limits."
+        data["instructions"] += (" Read board.story_contract in full, including scenes, transitions and source limits."
+            if compact_scorer else " Read the complete story_contract in the bound board, including all scenes, transitions and source limits.")
         if role in ("scene-builder", "storyboard-critic"):
             data["treatments"] = agent_runtime.treatment_bindings(board_path)
             data["asset_inputs"] = agent_runtime.treatment_assets(data["treatments"])
@@ -443,7 +461,8 @@ def packet(board_path, claims_path, role, state_path=None):
     if str(board.get("date", "")) >= "2026-10-03" and all(p.is_file() for p in completion):
         data["completion_readings"] = [{"path": str(p.resolve()), "sha256": digest(p)}
                                       for p in completion]
-        data["instructions"] += " Mandatory completion capacity preserves the rubric and actual verdicts; no resource event approves a film."
+        data["instructions"] += (" Keep the rubric and actual verdicts; resource events approve no film."
+            if compact_scorer else " Mandatory completion capacity preserves the rubric and actual verdicts; no resource event approves a film.")
     selection = Path(board_path).with_name("story_selection.json")
     if selection.is_file():
         data["selection"] = {"path": str(selection.resolve()), "sha256": digest(selection)}
@@ -454,7 +473,8 @@ def packet(board_path, claims_path, role, state_path=None):
             readings = craft_reading_paths(board)
             if readings:
                 data["craft_readings"] = [{"path": str(p.resolve()), "sha256": digest(p)} for p in readings]
-                data["instructions"] += " Read the bound craft guides in full. Use them to explain editorial decisions and inspect actual comprehension; they supply no approval or extra scoring criteria."
+                data["instructions"] += (" Read every full craft guide for editorial decisions and comprehension, without adding criteria or approval."
+                    if compact_scorer else " Read the bound craft guides in full. Use them to explain editorial decisions and inspect actual comprehension; they supply no approval or extra scoring criteria.")
             if board.get('art_direction'):
                 data['art_direction'] = {'reference': 'board', 'field': 'art_direction',
                                          'version': board['art_direction'].get('version'),
@@ -472,8 +492,14 @@ def packet(board_path, claims_path, role, state_path=None):
             if errors:
                 raise ValueError('; '.join(errors))
             data['motion_sequence'] = {'path': str(sequence.resolve()), 'sha256': digest(sequence)}
-            claude_runtime.image_reading(data)
-            data['instructions'] += (' This Claude image-only assignment reviews the entire encoded film through '
+            claude_runtime.image_reading(data, compact=compact_scorer)
+            if compact_scorer:
+                data['instructions'] += (' Review the whole motion sequence before the rationale, plus native crops '
+                    'and your separate raw audiovisual response. State image-sequence access, no direct playback '
+                    'or listening. Keep all seven modern and clause observations. Extraction/provider approval '
+                    'never supplies a verdict; unknown observations block.')
+            else:
+                data['instructions'] += (' This Claude image-only assignment reviews the entire encoded film through '
                 'the bound motion sequence. Read every page in index order before reading the director rationale. '
                 'Use native timestamps, the actual native crops and your separate raw audiovisual response. '
                 'Record this image-sequence basis and no direct playback or listening. All current guides, '
@@ -494,8 +520,10 @@ def packet(board_path, claims_path, role, state_path=None):
             data["defects"] = {"path": str(ledger.resolve()), "sha256": digest(ledger)}
     if board.get('narration_picture'):
         data['narration_picture']={'reference':'board','field':'narration_picture'}
-        data['instructions'] += ' Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words.'
-    encoded = json.dumps(data, indent=2)
+        data['instructions'] += (' Read board.narration_picture. Match each measured spoken clause to its visible '
+            'subject and performed action; reject wrong/absent pictures despite captions or provider prose.'
+            if compact_scorer else ' Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words.')
+    encoded = packet_text(data)
     if len(encoded) > policy()["handoff_max_chars"] and isinstance(data["story"], dict):
         # Detailed scene/transition prose remains in the exact hash-bound board.
         # The handoff summarizes the contract rather than duplicating its full body.
@@ -503,7 +531,7 @@ def packet(board_path, claims_path, role, state_path=None):
                          if k in data["story"]}
         data["story_detail"] = {"reference": "board", "field": "story_contract"}
         data["instructions"] += " Read the complete story_contract, including scenes and transitions, in the bound board."
-        encoded = json.dumps(data, indent=2)
+        encoded = packet_text(data)
     if len(encoded) > policy()["handoff_max_chars"]:
         raise ValueError("handoff exceeds the compact packet limit; shorten the story contract, retain source paths")
     return data
@@ -633,9 +661,12 @@ def main():
             return int(bool(errors))
         if a.out:
             a.out.parent.mkdir(parents=True, exist_ok=True)
-            a.out.write_text(json.dumps(data, indent=2) + "\n")
+            a.out.write_text(packet_text(data) if a.packet else json.dumps(data, indent=2) + "\n")
         else:
-            print(json.dumps(data, indent=2))
+            if a.packet:
+                print(packet_text(data), end='')
+            else:
+                print(json.dumps(data, indent=2))
         return 0
     except (OSError, ValueError, KeyError, TypeError) as exc:
         print("daily production refused: " + str(exc))

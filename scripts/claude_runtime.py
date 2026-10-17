@@ -154,16 +154,30 @@ def image_read_policy(edition=None):
     return policy
 
 
-def image_reading(data):
+def image_reading(data, *, compact=False):
     """Keep image delivery bounded; this supplies no creative observation or approval."""
     data['image_read_policy'] = image_read_policy(data.get('date'))
     if 'access_probe' in data['image_read_policy']:
-        data['instructions'] = ('First test actual image access: Read ONLY the first chronological '
+        probe = ('First test actual image access: Read the first chronological page before guides/source. '
+            'If unseen/stripped, retain literal error and page identity, return partial/no verdict and stop. '
+            'If visible, note it then read all full guides and the whole sequence. ' if compact else
+            'First test actual image access: Read ONLY the first chronological '
             'page of the first bound sequence before reading guides or renderer source. If that page '
             'is stripped or unseen, retain the literal error and its exact page identity, return '
             'partial coverage and no verdict, and stop image/guide traversal. This tests transport '
             'only; it supplies no observation of unseen pages. If visible, record its actual note, '
-            'then read every required full guide and the complete ordered sequence. ' + data['instructions'])
+            'then read every required full guide and the complete ordered sequence. ')
+        data['instructions'] = probe + data['instructions']
+    if compact:
+        data['instructions'] += (' Read ONE chronological image per step; wait and record its filename, '
+            'first/last frame and concrete visible note before the next Read. No parallel/bulk reads or '
+            'bulk rereads. Keep notes when images leave context. A stripped/unseen page requires immediate '
+            'partial with its identity; never infer pixels. Return separate coverage with schema '
+            'dispatch_claude_image_coverage/1, packet_sha256 and sequences in packet order. Each sequence '
+            'has index_sha256 and pages in index order; each page has file, first_frame, last_frame, '
+            'received (true only if seen) and observed (at least thirty characters of actual visible '
+            'content). Preserve all guides, timed observations and honest verdicts.')
+        return data
     data['instructions'] += (' Image delivery is sequential: issue ONE image Read, wait for it, and record '
         'the page filename, first/last frame and a concrete visible observation before the next image Read. '
         'Never send parallel image Reads or a bulk image batch. Earlier images can leave the host window; '

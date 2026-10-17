@@ -12,6 +12,28 @@ class RuntimeTests(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
 
+    def test_compact_image_instructions_keep_the_same_policy_and_complete_coverage_schema(self):
+        original={'role':'picture','date':'2026-10-15','instructions':'Read all bound guides.',
+                  'motion_sequence':{'path':'/owned/index.json','sha256':'a'*64}}
+        verbose=runtime.image_reading(dict(original))
+        compact=runtime.image_reading(dict(original),compact=True)
+        self.assertEqual(verbose['image_read_policy'],compact['image_read_policy'])
+        self.assertEqual(original['motion_sequence'],compact['motion_sequence'])
+        self.assertLess(len(compact['instructions']),len(verbose['instructions']))
+        for required in ('ONE','partial','never infer pixels','dispatch_claude_image_coverage/1',
+                         'packet_sha256','sequences','index_sha256','pages','file','first_frame',
+                         'last_frame','received','observed','thirty characters','timed observations'):
+            self.assertIn(required,compact['instructions'])
+
+    def test_compact_current_scorer_still_probes_before_any_full_review(self):
+        data=runtime.image_reading({'role':'picture','date':'2026-10-17',
+                                    'instructions':'Read all current full guides.'},compact=True)
+        self.assertTrue(data['instructions'].startswith('First test actual image access:'))
+        self.assertEqual(runtime.image_read_policy('2026-10-17'),data['image_read_policy'])
+        for instruction in ('before guides/source','literal error','page identity','partial/no verdict',
+                            'stop','all full guides','whole sequence'):
+            self.assertIn(instruction,data['instructions'])
+
     def test_early_packet_uses_claude_leaf_arguments(self):
         source = self.root / 'source.json'; source.write_text('{"source":"current"}')
         packet = self.root / 'packet.json'
