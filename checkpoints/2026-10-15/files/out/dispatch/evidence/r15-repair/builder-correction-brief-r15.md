@@ -1,0 +1,33 @@
+# R15 renderer-only correction brief for the existing scene-builder (director packet, no worker started)
+
+Status: PREPARATION ONLY. No paid worker, production edit or reservation until PR192 is merged, the complete path is funded (comparison-funding plan, production-budget, completion-capacity), and begin-repair has reserved the reboard.
+
+## Frozen inputs (do not change)
+- Failed film: 1b29457654c5cb7aefaa1508044f1c01bc464d5332a0ef28cbea895a7a1affd6 (64.4 s, 270x480), kept at evidence/review-r15-current-timed-phone/preflight-reviewed-1b294576.mp4
+- Rejected report (unchanged): review-r15-current-timed-phone/storyboard_critic.json sha f2dd8a81d8c96ff746ce6d05f7b552400a7b9d7dad3e4611e7c7314fa9393528, coverage c25a4816...
+- Plan: r15-repair/repair-plan-r15.json sha 3eafeaab90a49e6ccdd07d77fe9a071e360516a19decf4f93b550d4a27ef92eb. Baselines in r15-repair/baseline (FloodStationFilm b8f8cc3b..., FloodStationHero f3dbf427..., StreetHubSupport 916e12f7...).
+- Board A 5a1b8e26..., B 9fa8f52a..., runtime 59.4 s body, mix 64.4 s, 16 captions (a6b0e45a...), script 67d7ae45..., claims 49b2379c.... Same two treatments, nothing retimed, revoiced, rewritten or re-sourced. Scene clock: s1 0.00 8.68 | s2 8.68 6.94 | s3 15.62 4.04 | s4 19.66 7.42 | s5 27.08 8.18 | s6 35.26 5.68 | s7 40.94 8.26 | s8 49.20 6.30 | s9 55.50 3.90, credits after.
+- Compact builder packet: r15-repair/builder-packet-r15.json (guide paths and hashes bound there). The builder reads every bound guide in full, AUTHORED_STORY_ART.md, MODERN_FILM.md and the viewer-size pages cited below, not a summary.
+- Editable files only: FloodStationFilm.tsx, FloodStationHero.tsx, StreetHubSupport.tsx under video-engine/src/modern/episodes/2026-10-15/. The renderer serves BOTH treatments: every change must hold for variant a and variant b first scenes with equal first-scene durations and identical body.
+
+## Viewer-size evidence to read (motion-current-r14, 5 fps, 270x480 pages)
+sequence-000 to 003 (yard), 015 to 018 (sensor shot), 019 to 026 (chip and server), 027 to 034 (street and hub), 035 to 040 (monitor), 041 to 051 (cards), 052 to 059 (map and close). The critic's coverage object lists what each page shows.
+
+## Source limits that stay
+Only what claims 49b2379c supports is drawn as fact: ankle-deep yard water is the opening stake, four optical sensors at different heights, TinyML chip judges on the station, radio range more than a half-mile (and up to five miles in open country) as published, a hub model maps flood paths for responders, 98.82% validation accuracy, no field result reported, no installation named. Pictures are labelled illustration or prototype as today. Do not add a measurement, place, town or outcome.
+
+## Defect by defect: one complete renderer-only correction and its visible result at phone size
+1. d1 and d7 yard, 0 to 3.8 s. Draw finished water (the creek's reflective surface treatment, a visible waterline, ripple and reflection of the fence post) rising over the curb and up the boots to the orange ankle mark by 1.0 s, with the boots and waterline above the caption band. Result: a muted viewer sees ankle-deep water within 1.5 s. The brown fill is gone.
+2. d2 and d7 sensor shot, 15.8 to 18.4 s. Four lenses at four distinct heights on the post, every one facing the camera side, a real water surface with a rising waterline (no slab, no seam). Each lens lights in turn as the waterline passes it, and the narrated word "watch" is carried by lit lenses. Result: four pods visible, four lights come on in order.
+3. d3 chip and server, 19.8 to 26.8 s. Keep the opened board attached to the station post, not floating. Make the judgment a large state change: the station lamp and a risk bar change colour and size at the chip glow. Draw the central-server contrast at readable size in the same frame as the station: a dark server building across the road with a cut dashed wire that stops short of it. Result: both the local judgment and the missing server read without the tiny labels.
+4. d4 street and hub, 27.2 to 35.0 s. Rings run down a drawn street (a measured scale bar shown) to a receiving mast at believable scale, the station stays the source and stays in frame in the hub shot via an inset or pan. The "open country" shot loses the downtown skyline and uses region-correct brush and prairie for Bexar. The hub building reacts when the arc lands. Result: the signal visibly travels from station to receiver, and the tags match the pictured distance.
+5. d5 monitor and responder, 35.4 to 40.8 s. Replace the line chart with a flood map: creek, streets and low points of the San Antonio place, with orange paths spreading along the creek and low streets. Replace the rigid disembodied arm with a complete seated responder figure (shape language shared with the cast library, hand on the keyboard, head turn to the map) or remove the figure. Fill the lower frame with desk and room. Result: the consequence reads as a map responders could use.
+6. d6 evidence cards, 41.0 to 52.0 s. Put the validation figure and the empty field-result card in the hub or curb world (a wall display, a clipboard on the desk, a site notice board), with continuing camera moves and the bar fill, stamp and card swap as physical actions. No flat olive background. Result: the limit stays legible and the place stays visible.
+7. d8 closing, 53.4 to 59.2 s. Hold the dashed search sweep long enough to read (at least 1.2 s of continuous sweep), pin the "No installation named" tag to the map, draw the promised goal pin over the map, and perform the closing as a source-supported action: the dashed station outline draws itself at the map's creek location and the goal tag attaches to the outline, nothing is claimed as installed. Result: the honest limit is pictured, not only tagged.
+8. Caption-safe composition (all scenes). The caption band is the lower band of the frame. Every principal subject (boots, waterline, lenses, lamp, receiver, hand, goal pin) sits above it; any callout placed near the band is moved. Captions themselves stay exactly as authored (16 cues, forced alignment).
+
+## Out of scope
+No new narration, caption text, claim, source, board retiming, mix, or registry change beyond what these three files need. No labels added in place of drawn action. The four previously correct actions stay: panel charge, phone banner, chip pulse, mast landing, dashed closing outline.
+
+## Gates the correction must clear before any paid review
+Renderer dependency closure hashes recorded; storyboard_check, picture_precheck (story_art needs run_state), place_check, board_captions fit unchanged; render of one frame per defect interval at 270x480 for the director to inspect before the preview is reserved.
