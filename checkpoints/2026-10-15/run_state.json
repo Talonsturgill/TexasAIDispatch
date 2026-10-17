@@ -948,6 +948,14 @@
       "note": "precharged exact timed phone review of R15g credit-corrected film, probe first (fresh Opus High storyboard-critic)",
       "resource": "storyboard_critics",
       "to": 41
+    },
+    {
+      "at": "2026-10-17T19:32:55.376733Z",
+      "ceiling": 43,
+      "from": 41,
+      "note": "precharged same-worker continuation of the exact timed phone review (critic a83b6592 killed by host interrupt mid-traversal at ~40 pages read, no handback saved); complete remaining pages and return the full report",
+      "resource": "storyboard_critics",
+      "to": 42
     }
   ],
   "events": [
@@ -9199,6 +9207,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-17T19:32:55.376767Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "precharged same-worker continuation of the exact timed phone review (critic a83b6592 killed by host interrupt mid-traversal at ~40 pages read, no handback saved); complete remaining pages and return the full report",
+      "now": 42,
+      "resource": "storyboard_critics",
+      "was": 41
+    },
+    {
+      "at": "2026-10-17T19:32:55.376786Z",
+      "kind": "reserved",
+      "note": "precharged same-worker continuation of the exact timed phone review (critic a83b6592 killed by host interrupt mid-traversal at ~40 pages read, no handback saved); complete remaining pages and return the full report",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -9213,7 +9239,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 41,
+    "storyboard_critics": 42,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1
@@ -9222,7 +9248,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "c7e075a474c6a1d3d39ea49c3c116345fbf2cc935f2e9dcff6e937aabbba7ffb",
+    "original_private_state_sha256": "31153fc4254203326faf2a37193fd82a4e7cda2298e3d155e6b75c82ce6aab74",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -9258,7 +9284,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T19:25:53.752509Z",
+  "updated_at": "2026-10-17T19:32:55.376790Z",
   "usage": {
     "audiovisual_reviews": 12,
     "cleanup_renders": 0,
@@ -9271,7 +9297,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 41,
+    "storyboard_critics": 42,
     "tts_calls": 14,
     "validator_agents": 5,
     "voice_directors": 1
