@@ -131,6 +131,11 @@ which makes state durable, runs the command and makes its outputs durable, and e
 A checkpoint that cannot be made after storage and transport recovery writes
 `out/dispatch/checkpoint-unbacked.json`, raises, and blocks every new reservation until
 `claude_checkpoint.py recover` succeeds. Never continue paid work on an unbacked ledger.
+The controller also verifies the current snapshot before it changes any reservation counter.
+If a newer writer already advanced the remote edition, this stale invocation preserves its
+unchanged ledger and failed evidence without buying another attempt. Keep the newer checkpoint
+authoritative, preserve both hosts, and resume that edition through the existing restoration and
+continuation workflow. Never overwrite newer history or repeat the paid command from the stale host.
 
 The checkpoint keeps the sanitized ledger, authored source, claims, board, voice takes, alignment,
 review responses, failed images and every receipt. It skips only known rebuildable directories

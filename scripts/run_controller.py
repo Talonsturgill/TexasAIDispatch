@@ -304,6 +304,10 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
             ) -> tuple[bool, str]:
     import claude_checkpoint
     claude_checkpoint.require_backed(path)  # unbacked charges or outputs stop new paid work
+    # A different cloud writer may have advanced the edition since this host last saved.
+    # Verify and retain the current snapshot before changing any counter. The post-write
+    # mirror still makes the actual reservation durable before its caller can dispatch work.
+    claude_checkpoint.mirror(path, "before paid reservation")
     if _use_prepared_capture and amounts == {'preflight_renders': 1}:
         from capture_reservation import OPERATIONS, PHONE_OPERATIONS, claim
         authorization = REPO / 'out/dispatch/capture-authorization.json'
