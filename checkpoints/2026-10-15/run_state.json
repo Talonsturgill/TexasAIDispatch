@@ -9733,6 +9733,16 @@
       "input_identity": "8bee6240951811171de38977accbb1e4c47edf3fe54ba38c0d912d3a51040d28",
       "kind": "preflight_retry_authorized",
       "reason": "extraction failed before decoding because the output directory already existed from the earlier film; old directory retained under a new name so the exact command can run; no extraction occurred"
+    },
+    {
+      "at": "2026-10-17T20:35:31.009140Z",
+      "attempted": {
+        "preflight_renders": 1
+      },
+      "errors": [
+        "preflight_renders exceeds the nonrenewable run envelope"
+      ],
+      "kind": "resource_envelope_refused"
     }
   ],
   "limits": {
@@ -9757,7 +9767,7 @@
   "preflight_retry": "8bee6240951811171de38977accbb1e4c47edf3fe54ba38c0d912d3a51040d28",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "9426362256196e0cdc6ad5a90c1cd4f87fb7489a82c090b20d1ef917d090cbbf",
+    "original_private_state_sha256": "3afe746839470db030bffa78c64ad312919db2c5c34454e8f36db2e839bb072c",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -9793,7 +9803,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-17T20:35:05.022589Z",
+  "updated_at": "2026-10-17T20:35:31.009167Z",
   "usage": {
     "audiovisual_reviews": 14,
     "cleanup_renders": 0,
