@@ -1,0 +1,89 @@
+{
+  "review_scope": "code-plan",
+  "treatment": "a",
+  "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/storyboard.json",
+  "board_sha256": "588b5288549a122c2ff6b110d003215b7dee623a7170a1b9919500bb18af949a",
+  "concept_sha256": "7fa6b0ffcc9973f6b78ff8e9e41301182bc2e902f9bdeb9cc59692aa91a79be2",
+  "renderer_sha256": "779404c0786e9a32a4cd6088dd06f5679471c6fb61c3d0f38174e0f62b28a884",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "verdict": "revise",
+  "strongest_frame": "s7-shot-2, validation-card detail, 44.88 to 49.2 s. After R15e the figure's 9 sits at x 66, 47 and 43 at the first, middle and last frames. The heading clears the disclosure chip by at least about 27 px. The assessments tag pins whole from 46.21 s, and the result card lands from the right at 48.32 s without touching the tag or the figure.",
+  "weakest_frame": "s8-shot-1, no-field-card detail, 49.2 to 52.16 s. The shot's push, composed with the 1.3 detail zoom, carries the 98.82% card off the left edge. It reads 8.82% near 49.65 s and holds as about '2%' from 50.18 to 52.16 s.",
+  "blocking_defects": [
+    "N1 (legibility, same class as classified M1; failed criteria: quality_contract subject_recognition and the source-bound figure rule). storyboard.json is the A board, so this is the same defect as in opening_a. In s8-shot-1 (49.2 to 52.16 s) the no-field-card detail push (1 to 1.12, focus x 540 to 726, anchor x 540 to 600, eased 49.2 to 50.182 s) is composed with PlaceSubject's 1.3 zoom under craneDown. It moves the card's figure box from x 38 to 278, to -64 to 191 at 49.7 s, and to -170 to 99 from 50.18 s. The viewer sees 8.82% and then '2%' under '...ion accuracy' while n8a (49.48 to 51.82) says no field result was reported, which contradicts the shot's stated purpose that the figure stays readable. Correct it with a renderer-only screen-space bound on that detail push, the same method as R15e, keeping the stamp contact and 'None reported' visible and all timing unchanged."
+  ],
+  "code_observations": [
+    "storyboard.json was read in full this round (4927 lines). Its content matched opening-a.json wherever I compared them, including the FloodStationFilm.tsx renderer_inputs row at 6f26ef6d. I computed no hash, so the byte identity is the director's statement.",
+    "The R15e diff is confined to case 'validation-card': PUSH_AT [140,230] and PUSH_SCALE 1.15, on the same eased one-second clock in detail framing only. Every other branch matches the baseline b4a0ce8f.",
+    "From PlaceStage.tsx and placePlates.json (blackland-san-antonio: depth 61.44 m at row 1240, dollyThrough dolly 2.4 times the smoothstep of u), the composed screen map is x'' = 1.5558x - 240.1, y'' = 1.5558y - 427.6 at 49.2 s, and x' = 1.3241x - 175.0, y' = 1.3241y - 312.5 at 44.88 s. These reproduce the builder's numbers.",
+    "M1 is resolved in code for s7-shot-2: the figure's left edge is at 43 px or more for the whole shot. M2 is resolved in code: the heading top is at 247 px or more against a chip bottom of 220, and the tag stays whole and above 1000 px. Residual: the chip covers the card's blank top border and part of the red pushpin by 3 to 25 px from about 45.3 s, and the card's left border runs up to about 7 px past the frame edge.",
+    "The push still reads: 1 to 1.15 from 44.88 to 45.88 s, after the stage's 1.18 to 1.30 step at the cut. 43.53 to 46.21 s holds no still span longer than 1.35 s. s7-shot-1 is unchanged.",
+    "The result card lands at x 755 to 1260 with its pin at (1009, 401), at least 65 px clear of the tag. It enters from the right and never crosses the figure.",
+    "The builder's s8-shot-1 report is correct by my arithmetic. I classify it as blocking N1 rather than report-only.",
+    "Rewards, ceilings and text are unchanged: first reward 1.0 s, largest gap 3.583 s, end gap 2.242 s, longest shot 4.77 s, longest scene 8.68 s. divergence_note and the top-level hook_payoff_s are stale but non-blocking."
+  ],
+  "action_reviews": [
+    {
+      "action_id": "water-rises",
+      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s1-event-1 runs 0.64 to 1.24 s in s1-shot-1 (street-yard). Water tops the curb and reaches the fence post's ankle mark as the tag swings. The code is unchanged by R15e. Claim c12."
+    },
+    {
+      "action_id": "charge-battery",
+      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s2-event-2 runs 12.145 to 12.879 s in s2-shot-2 (panel-charge). The battery fills from .24 to 1 under the beam. Unchanged. Claims c5 and c14."
+    },
+    {
+      "action_id": "cross-marks",
+      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s3-event-2 runs 17.131 to 17.909 s in s3-shot-2 (water-marks). The rising level lights lenses 2 to 4 in order, and they stay lit. Unchanged. Claim c2."
+    },
+    {
+      "action_id": "judge-locally",
+      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s4-event-2 runs 24.562 to 25.16 s in s4-shot-2 (chip-glow, detail). The chip lights the lamp and the risk bar climbs. Unchanged. Claims c3 and c18."
+    },
+    {
+      "action_id": "carry-signal",
+      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s5-event-2 runs 29.097 to 29.965 s in s5-shot-1 (radio-rings). Rings reach the hub and the half-mile bar draws. Unchanged. Claim c6."
+    },
+    {
+      "action_id": "spread-map",
+      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s6-event-2 runs 38.172 to 39.112 s in s6-shot-2 (flood-paths). Paths spread along the creek and into the low streets. Unchanged. Claims c7, c16, c17 and c20."
+    }
+  ],
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated read-only worker (the same worker as this edition's critics 26 to 34), distinct from the claude-sonnet-5-5 director, the scene-builder and the gemini-3.8-flash provider. Code-plan scope only: no pixels seen, nothing run, no hash computed, geometry checked by hand arithmetic.",
+  "reviewed_at": "2026-10-17T06:30:00Z",
+  "story_review": {
+    "story_sha256": "0aaa59c0eadd355fd26348fe545c8314faa1869e7bea07a636780d9340246269",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+    "verdict": "revise",
+    "blocking_defects": [
+      "N1: in s8-shot-1 (49.2 to 52.16 s) the validation card is pushed off the left edge. Its figure reads 8.82% near 49.65 s and about '2%' from 50.18 to 52.16 s while the narration says the announcement reports no field result, so the film's limit beat displays a false figure. Failed criteria: subject_recognition and the source-bound figure rule."
+    ],
+    "one_viewing_summary": "This is the planned A chain, not observed pixels. A flooding San Antonio yard reaches the fence post's ankle mark before the phone's late warning. The prototype station charges from the sun, needs no tower and watches the water with four lenses that light as it rises. Its own chip lights an amber risk lamp without reaching a server, and its radio carries to a hub, where a responder reads a spreading flood map. On a curb notice board the corrected detail shot keeps the whole 98.82% card, heading and assessments tag in frame while a blank field result card slides in. The following shot then pushes that card off the left edge to '2%' while a stamp prints none reported, before a finger reads a blank map and a technician latches the plan into the prototype's case.",
+    "opening_to_ending": "The film opens on whether a station can judge rising street water with no power line or cell tower. It answers yes as a disclosed design through charge, sensing, on-chip judgment, radio and the hub map, and it ends on the plan kept with an uninstalled prototype, so no deployment outcome is invented. The answer is weakened at the limit: the reported validation figure that s7 now shows whole is cut to a misleading '2%' in s8-shot-1, exactly where the narration says no field result exists.",
+    "weakest_transition": "The s7 to s8 cut at 49.2 s is the weakest. The cut from the corrected detail view to the two-card view keeps the same card readable at first. Within about 0.4 s, though, the s8-shot-1 push slides that card off the left edge, so the bridge of the same card beside a blank result card breaks into a truncated figure."
+  }
+}
