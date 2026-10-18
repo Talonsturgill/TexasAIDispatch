@@ -84,7 +84,8 @@ fi
 
 say() { printf '\n=== %s\n' "$1"; }
 GATE_LOG=$(mktemp)
-trap 'rm -f "$GATE_LOG"' EXIT
+PUBLIC_STATE=$(mktemp "$OUT/.public-ledger-XXXXXX")
+trap 'rm -f "$GATE_LOG" "$PUBLIC_STATE"' EXIT
 
 # ---------------------------------------------------------------- 1. gates, by exit code
 say "gates"
@@ -104,7 +105,12 @@ else
       check-delivery --report "$REPORT"
 fi
 run_gate run_discipline python3 scripts/run_discipline.py --state "$STATE"
-run_gate storyboard_check python3 scripts/storyboard_check.py --board "$OUT/storyboard.json"
+if [ "$VERIFY_ONLY" -eq 1 ]; then
+  run_gate storyboard_check python3 scripts/storyboard_check.py --board "$OUT/storyboard.json"
+else
+  run_gate storyboard_check python3 scripts/storyboard_check.py --board "$OUT/storyboard.json" \
+      --delivery-state "$STATE" --delivery-slug "$SLUG"
+fi
 run_gate caption_layout node video-engine/tests/caption_board_fit.mjs --board "$OUT/storyboard.json"
 run_gate narration_picture python3 scripts/modern_film.py --board "$OUT/storyboard.json" \
     --captions "$OUT/captions.json" --words "$OUT/words.json" --script "$OUT/vo_script.txt" --claims "$OUT/claims.json"
@@ -142,6 +148,7 @@ run_gate mutation_check   python3 scripts/mutation_check.py
 run_gate freshness_check  python3 scripts/freshness_check.py --film "$OUT/film.mp4" \
     --started "$OUT/render_started" --manifest "$OUT/render-manifest.json" \
     --inputs "$OUT/storyboard.json" "$OUT/mix.wav" "$OUT/captions.json"
+run_gate public_ledger python3 scripts/public_state.py --state "$STATE" --out "$PUBLIC_STATE"
 [ "$fail" -eq 0 ] || { echo "a gate is red. Delivery stops here, which is the point." >&2; exit 1; }
 
 if [ "$VERIFY_ONLY" -eq 1 ]; then
@@ -163,12 +170,14 @@ python3 scripts/dedupe.py add --date "$CALENDAR_DATE" --topic "$TOPIC" --slug "$
 
 # ---------------------------------------------------------------- 3. artifacts
 say "artifacts -> runs/$DATE"
-if [ -f "$DEST/dispatch.mp4" ] && [ "$DEST/dispatch.mp4" -nt "$OUT/film.mp4" ]; then
-  echo "runs/$DATE/dispatch.mp4 is NEWER than the film about to replace it." >&2
-  echo "That is a shipped artifact being overwritten by an older one. Stop and ask." >&2
+if [ -f "$DEST/dispatch.mp4" ] && ! cmp -s "$DEST/dispatch.mp4" "$OUT/film.mp4"; then
+  echo "Refusing to replace a different packaged movie." >&2
   exit 1
 fi
 mkdir -p "$DEST"
+# The edition guard already rejected every shipped or different existing movie.
+# Write the verified public state first so an interrupted copy remains identifiable.
+cp "$PUBLIC_STATE"          "$DEST/run_state.json"
 cp "$OUT/film.mp4"        "$DEST/dispatch.mp4"
 cp "$OUT/poster.png"      "$DEST/poster.png"
 for f in storyboard.json story_selection.json claims.json captions.json words.json mix.json sfx_events.json \
@@ -220,7 +229,6 @@ for name in sorted(names):
 PY_CINEMA
 fi
 cp "$REPORT" "$DEST/report_card.json"
-python3 scripts/public_state.py --state "$STATE" --out "$DEST/run_state.json"
 python3 - "$OUT" "$DEST" <<'PY_CREATIVE_RELEASE'
 import sys
 sys.path.insert(0, 'scripts')

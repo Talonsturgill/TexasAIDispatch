@@ -1436,16 +1436,50 @@ def self_test() -> int:
     return 0
 
 
+def delivery_history(history, board_path, state_path, slug):
+    """Compare a registered unshipped edition with other films during delivery."""
+    import hashlib
+    board_path, state_path = Path(board_path), Path(state_path)
+    board = json.loads(board_path.read_text())
+    state = json.loads(state_path.read_text())
+    binding = state.get('deliverable') or {}
+    if (state.get('mode') != 'production' or state.get('phase') != 'publishing'
+            or state.get('release_status') != 'publishable' or state.get('terminal_state') is not None
+            or board.get('run_id',board.get('edition_id')) != state.get('run_id')
+            or board.get('date') != str(state.get('run_id',''))[:10]
+            or hashlib.sha256(board_path.read_bytes()).hexdigest() != binding.get('board_sha256')
+            or (state.get('final_report') or {}).get('film_sha256') != binding.get('film_sha256')):
+        raise ValueError('delivery history requires the exact registered unshipped release')
+    root = state_path.resolve().parents[2]
+    film = Path(binding.get('film',''))
+    film = film if film.is_absolute() else root/film
+    film.resolve().relative_to(root)
+    if hashlib.sha256(film.read_bytes()).hexdigest() != binding.get('film_sha256'):
+        raise ValueError('registered delivery film changed')
+    matches = [(i,row) for i,row in enumerate(history)
+               if row.get('date') == board['date'] and row.get('slug') == slug]
+    if not matches:
+        return history
+    if (len(matches) != 1 or matches[0][1].get('fingerprint') != board.get('fingerprint')
+            or matches[0][1].get('palette') != (board.get('fingerprint') or {}).get('palette')):
+        raise ValueError('current delivery entry has different or duplicate composition evidence')
+    return [row for i,row in enumerate(history) if i != matches[0][0]]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--board", help="out/dispatch/storyboard.json")
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--delivery-state")
+    ap.add_argument("--delivery-slug")
     a = ap.parse_args()
     if a.self_test:
         return self_test()
     if not a.board:
         print("storyboard_check: pass --board, or --self-test", file=sys.stderr)
         return 2
+    if bool(a.delivery_state) != bool(a.delivery_slug):
+        ap.error('delivery state and slug must be supplied together')
     try:
         board = json.loads(Path(a.board).read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
@@ -1453,6 +1487,8 @@ def main() -> int:
         return 2
     cfg = load_rule()
     history, hist_err = load_history()
+    if not hist_err and a.delivery_state:
+        history = delivery_history(history,a.board,a.delivery_state,a.delivery_slug)
     problems = check(board)
     if hist_err:
         problems.append(hist_err)
