@@ -191,3 +191,7 @@ R15h builder handback received; files match handback hashes; transcript saved ou
 - 2026-10-18 R15h: timed phone preview authorized (prepare, preflight reservation f38fe3f1) and running (task b3ogucbew); prior preflight preserved in evidence/r15h/prior-preflight.
 - 2026-10-18 R15h: timed phone preview rendered (preflight.mp4 745fbf28, structural verdict True). Next: review_context verify, current-phone extraction (prepare), critic.
 - removed one verified-idle completed /tmp bundle (finished timed preview, no remotion process) to clear a 0.009 GiB headroom shortfall.
+- 2026-10-18 R15h: current sequence extracted; critic reserved for final timed phone (storyboard_critics 48); checkpoint headroom 93.1 MiB vs ~68 forecast; dispatching fresh critic.
+- 2026-10-18 R15h: final timed phone critic dispatched (agent a6a58e2c, prompt phone-critic-final-prompt-r15h-cur.txt sha 6e479bd3, packet e0a55dc3, reservation storyboard_critics 48/50).
+- 2026-10-18 R15h: final timed phone critic a6a58e2c probe STRIPPED again (breach: read on, pages 1-27 stripped, 28-64 received). Saved evidence/r15h/review-phone-current. media-limit receipt prepared. Next: provider single-film phone review.
+- 2026-10-18 R15h: first media-limit prepare for current phone exceeded the 500k packet ceiling (verbatim handback + coverage duplicated). Retained verbatim handback + coverage; used compact derivative (partial-handback-compact2.json, coverage by hash ref) as the --handback; receipt prepared. Ceiling unchanged. Launching provider single-film phone review.
