@@ -575,14 +575,15 @@ the authorized environment setup before the next supported launch rather than re
 
 Every native capture or render command (Remotion stills and renders, preflight, opening compare, cinema proof,
 render_dispatch) is denied by the PreToolUse hook `scripts/capture_guard.py hook` unless the director has
-issued a current authorization for that exact command. Reserve a fresh render with the controller first
-(a late-accounting charge never counts), then name the exact boards and the exact wrapped commands:
+issued a current authorization for that exact command. Use the prepared operator handoff below for
+the supported operators. It checks occupied output before charging, then binds one fresh render
+reservation to the exact boards and command. A late-accounting charge never counts.
 
 ```sh
-python scripts/capture_guard.py authorize --state out/dispatch/run_state.json --board out/dispatch/opening-a.json --command "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json"
+python scripts/capture_guard.py authorize --prepare --state out/dispatch/run_state.json --board out/dispatch/opening-a.json --board out/dispatch/opening-b.json --command "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json"
 ```
 
-For `preflight_animatic.py`, `cinema_proof.py` and `claude_motion_review.py`, use the
+For `opening_compare.py`, `preflight_animatic.py`, `cinema_proof.py` and `claude_motion_review.py`, use the
 prepared operator handoff instead of manually reserving a note and letting the operator reserve
 again. `authorize --prepare` derives the operation from the exact checkout command, checks the
 same art, headroom and housekeeping gates, then charges it once. The real host hook consumes
@@ -590,6 +591,9 @@ the exact authorization, and that operator claims its matching prepaid event onc
 preview cannot claim a native hero charge; motion extraction has its own exact-film identity.
 An unchanged operation cannot be prepared again without the existing infrastructure-retry record.
 Preserve all earlier charges and denied commands.
+Before a changed comparison, retain the entire occupied `openings/` directory, including any
+partial output, in the edition's defect package. Do this before preparing the new capture. Never
+overwrite it, refund its reservation or rerender an unchanged pair merely to obtain a new identity.
 Do not create a self-written failure note or request `retry-preflight` to correct an operation
 label. Fix the actual versioned operator handoff and retain its before/after source evidence.
 

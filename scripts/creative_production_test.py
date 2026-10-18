@@ -616,7 +616,8 @@ class CreativeTest(unittest.TestCase):
 
     def test_current_and_reviewed_retained_capture_refresh_preserves_selection_and_stable_charge_identity(self):
         import run_controller as controller
-        for orchestrator in (None, opening_compare.RETAINED_ORCHESTRATOR_SHA256):
+        for orchestrator in (None, opening_compare.RETAINED_ORCHESTRATOR_SHA256,
+                             opening_compare.PREPARED_PREDECESSOR_SHA256):
             self.comparison_fixture(); output = self.root/'openings'
             comparison = output/'comparison.json'; receipt = c.read(comparison)
             if orchestrator:
@@ -838,6 +839,52 @@ class CreativeTest(unittest.TestCase):
             self.write("openings/selection.json", choice)
             (self.root/"openings/b.mp4").write_bytes(b"changed fixture")
             self.assertTrue(c.opening_problems(self.root/"storyboard.json"))
+
+    def test_prepared_comparison_build_receipt_names_the_original_charge_not_the_claim(self):
+        import capture_guard
+        import capture_reservation
+        project = self.root / 'prepared-repo'
+        package = project / 'out/dispatch'; package.mkdir(parents=True)
+        state = package / 'run_state.json'
+        alternate = copy.deepcopy(self.board)
+        alternate['scenes'][0]['picture']['nodes'][0]['label'] = 'document'
+        for name, value in {'storyboard.json': self.board, 'opening-a.json': self.board,
+                            'opening-b.json': alternate, 'claims.json': {'claims': []},
+                            'story_selection.json': {}}.items():
+            (package / name).write_text(json.dumps(value))
+        for key in ('a', 'b'):
+            (package / ('opening-' + key + '-critic.json')).write_text(json.dumps(
+                {'story_review': {'claims_sha256': c.digest(package / 'claims.json')}}))
+        command = ('bash scripts/run_with_env.sh python scripts/opening_compare.py'
+                   ' --root out/dispatch --state out/dispatch/run_state.json')
+        def render_batch(command, **kwargs):
+            if 'render-batch.mjs' in command[1]:
+                for job in c.read(Path(command[2]))['jobs']:
+                    Path(job['output']).write_bytes(('test-only ' + job['output']).encode())
+            return subprocess.CompletedProcess(command, 0)
+        with patch.object(run_controller, 'REPO', project), \
+                patch('storyboard_check.check', return_value=[]), patch('daily_production.structure_problems', return_value=[]), \
+                patch('documentary_check.check', return_value=[]), patch('super_evidence_check.check', return_value=([], [])), \
+                patch('script_evidence_check.check', return_value=[]), patch('story_selection_check.problems', return_value=[]), \
+                patch('engine_lint.check_files', return_value=[]), patch('critic_gate.problems', return_value=[]), \
+                patch('critic_gate.renderer_digest', return_value='fixture-renderer'), \
+                patch('run_controller.preflight_identity', return_value='fixture-prepared-batch'), \
+                patch('opening_compare.subprocess.run', side_effect=render_batch), \
+                patch('preflight_animatic.inspect_animatic', return_value=({'schema': 'dispatch_preflight/1'}, [])):
+            run_controller.initialise(state, self.board['date'], 'dry-run')
+            prepaid = capture_reservation.prepare(project, state, [command])
+            (project / capture_guard.AUTHORIZATION).write_text(json.dumps({
+                'prepared_capture': prepaid, 'render_reservation': {'event_sha256': prepaid['event_sha256']},
+                'commands': [{'text': command, 'consumed': True}]}))
+            result = opening_compare.build(package, state)
+            ledger = run_controller.read_state(state)
+            charged = ledger['events'][result['reservation']['event_index']]
+            self.assertEqual(charged['kind'], 'reserved')
+            self.assertEqual(charged['resources'], {'preflight_renders': 1})
+            self.assertEqual(capture_guard.event_digest(charged), prepaid['event_sha256'])
+            self.assertEqual(ledger['usage']['preflight_renders'], 1)
+            self.assertEqual(sum(e['kind'] == 'prepared_capture_claimed' for e in ledger['events']), 1)
+            self.assertEqual(len(result['options']), 2)
 
     def test_only_opening_changes_and_paid_batch_failure_is_retained(self):
         alternative = copy.deepcopy(self.board)
