@@ -328,7 +328,12 @@ exact owning repository and PR, and retain its actual external-event wake acknow
 A turn may yield to that registered wake or a real background task; production stays open and
 must resume through shipped and durable closure. Recheck the exact head and every required
 conclusion after waking. For post-merge deployment, retain the actual workflow and process
-handles; a merged PR alone does not prove a deployment. Never wait with `pgrep -f` on a substring
+handles; a merged PR alone does not prove a deployment. Prefer the connected GitHub Actions
+read tools for workflow status, with authenticated `gh` reads when those tools are unavailable.
+An October 18 anonymous curl status poll was classifier-denied without an explanation; the
+ordinary GitHub connector completed the read. Retain such a denial and use that natural read
+tool instead of retrying equivalent denied Bash polls or changing approval settings.
+Never wait with `pgrep -f` on a substring
 of the wait shell's own command. Retain completed check receipts and stop only a confirmed
 obsolete wait. Keep long command output in its log and return the producer's exit code plus a
 short tail. Use `set -euo pipefail` for Bash command chains, or explicitly capture and check each
