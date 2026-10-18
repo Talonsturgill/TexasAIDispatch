@@ -29,6 +29,22 @@ def entries(workspace):
         'Some render-cache artifacts are duplicate producer copies; relocation requires a matching '
         'canonical SHA256 and byte count while retaining unique and failed evidence. '
         'Canonical and failed evidence, original charges and frozen envelopes remain retained.',
+        'Render admission: scripts/capture_guard.py authorize --prepare checks the edition ledger, '
+        'exact input hashes, native headroom and housekeeping before charging one supported capture '
+        'and writing out/dispatch/capture-authorization.json. Its exact command is usable once; '
+        'out/dispatch/capture-authorizations-used.json retains consumption. These are application '
+        'production records. The command does not edit Claude settings, permission rules or hooks, '
+        'and it grants no generic Bash access. cinema_proof.py renders native evidence using that '
+        'exact prepaid record after the capture hook consumes it. Host approval checks still apply.',
+        'Application workload budgets: scripts/run_controller.py completion-capacity validates the '
+        'pinned owner completion policy, retained independent evidence and complete remaining-path '
+        'deficits before appending an allowance event to out/dispatch/run_state.json. It retains '
+        'the original frozen envelope, cumulative usage and every earlier grant. It changes only '
+        'this edition application ledger, not Claude permissions, account spending, billing limits '
+        'or service access. scripts/completion_forecast.py only prepares hash-bound evidence for '
+        'a previously omitted two-treatment capture forecast; it grants no capacity itself. '
+        'The controller records any exact missing capacity separately under the pinned policy. '
+        'Each actual retry is separately charged before execution.',
         'Secrets management: credentials stay in the existing cloud bindings and external runtime. '
         'Never print or publish credentials, private routing, Gmail identifiers or private delivery '
         'receipts. This context adds no service, credential, permission exception or sending authority.'

@@ -137,6 +137,39 @@ class ReservationDurability(Base):
 
 
 class RoundTrip(Base):
+    def test_original_root_restore_preserves_paths_without_overwriting_the_old_host(self):
+        # macOS exposes tempfile's /var through /private/var. The supported route uses
+        # actual workspace paths, and deliberately refuses a symlink alias as an origin.
+        self.root, self.repo = self.root.resolve(), self.repo.resolve()
+        self.state = self.state.resolve()
+        self.init_ledger('dry-run')
+        self.save()
+        original = self.repo
+        archived = original.with_name('retained-original-host')
+        original.rename(archived)
+        fresh = self.clone(self.root / 'fresh-origin-host')
+        old = (archived / 'out/dispatch/run_state.json').read_bytes()
+        restored = ck.restore(fresh, RUN, origin_workspace=self.root)
+        self.assertEqual(Path(restored['dest']), original)
+        actual = json.loads((original / 'out/dispatch/run_state.json').read_bytes())
+        for key, value in json.loads(old).items():
+            self.assertEqual(actual[key], value)
+        self.assertEqual(set(actual) - set(json.loads(old)), {'public_export'})
+        self.assertEqual((archived / 'out/dispatch/run_state.json').read_bytes(), old)
+        with self.assertRaisesRegex(ck.CheckpointError, 'occupied'):
+            ck.restore(fresh, RUN, origin_workspace=self.root)
+
+    def test_original_root_rejects_foreign_symlink_and_mismatched_workspace(self):
+        fresh = self.clone(self.root / 'fresh-origin-safety')
+        link = self.root / 'linked-origin'
+        link.symlink_to(self.repo, target_is_directory=True)
+        for root, workspace in ((str(self.root.parent / 'foreign'), self.root),
+                                (str(link), self.root),
+                                (str(self.root), self.root),
+                                (str(self.root / 'empty'), self.root.parent)):
+            with self.subTest(root=root), self.assertRaises(ck.CheckpointError):
+                ck.original_destination(fresh, {'repo_root': root}, workspace)
+
     def test_validator_grant_survives_git_restore_and_next_durable_reservation(self):
         import repair_guard
         from validator_grant_test import ValidatorGrantTests

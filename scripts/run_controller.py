@@ -260,11 +260,17 @@ def full_render_identity(path: Path) -> str:
 
 def retry_preflight(path: Path, operation: str, evidence: Path, reason: str) -> tuple[bool, str]:
     state = read_state(path)
-    identity = preflight_identity(path, operation)
-    if state.get("terminal_state") or not identity or len(reason.strip()) < 20 or not evidence.is_file():
+    # Prepared operators reserve with an absolute ledger path. Match that canonical
+    # identity first while retaining the original relative-path route for old calls.
+    supplied = Path(path)
+    candidates = [preflight_identity(supplied.resolve(), operation),
+                  preflight_identity(supplied, operation)]
+    previous = {e.get("preflight_identity") for e in state.get("events", [])}
+    identity = next((value for value in candidates if value and value in previous), None)
+    if state.get("terminal_state") or not any(candidates) or len(reason.strip()) < 20 or not evidence.is_file():
         return False, "run controller: retry needs an active board, exact operation, retained failure log and concrete infrastructure fix"
     proof = digest(evidence)
-    if not any(e.get("preflight_identity") == identity for e in state.get("events", [])):
+    if identity is None:
         return False, "run controller: no previous reservation for these inputs"
     if any(e.get("kind") == "preflight_retry_authorized" and e.get("evidence_sha256") == proof
            for e in state.get("events", [])):
@@ -583,7 +589,7 @@ def playability_problems(film: Path, expected_duration: float | None = None) -> 
     return errs
 
 
-def deliverable_problems(state: dict, *, publication: bool = False) -> list[str]:
+def deliverable_problems(state: dict, *, publication: bool = False, repo: Path | None = None) -> list[str]:
     saved = state.get("deliverable") or {}
     if not saved:
         return ["no playable deliverable is registered"]
@@ -598,11 +604,14 @@ def deliverable_problems(state: dict, *, publication: bool = False) -> list[str]
             return ['engineering reference footage cannot authorize production delivery']
         import modern_film
         run_date = str(state.get('run_id', ''))[:10]
+        cfg = (modern_film.policy(repo) if repo is not None and (Path(repo) / 'config/modern_film.json').is_file()
+               else modern_film.policy())
         if (state.get('mode') == 'production' and re.fullmatch(r'\d{4}-\d{2}-\d{2}', run_date)
-                and run_date >= modern_film.policy()['effective_date']):
+                and run_date >= cfg['effective_date']):
             if board_data.get('date') != run_date:
                 return ['current production board date must match its edition']
-            modern_errors = modern_film.problems(board_data)
+            modern_errors = (modern_film.problems(board_data) if repo is None
+                             else modern_film.problems(board_data, repo=repo))
             if modern_errors:
                 return ['active film route failed: ' + '; '.join(modern_errors)]
         media_errs = playability_problems(film, board_runtime(board_data))

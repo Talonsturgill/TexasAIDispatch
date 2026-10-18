@@ -440,10 +440,15 @@ def authorize(root, state_path, board_paths, commands, resource=None, housekeepi
     kept = housekeeping_run(root, required, run) if housekeeping else {'receipt': None, 'receipt_sha256': 'none', 'exit_code': 0}
     prepared = None
     if prepare:
-        from capture_reservation import FULL_OPERATION, operation_for, prepare as prepare_capture
-        if (operation_for(commands, root) == FULL_OPERATION
+        from capture_reservation import FULL_OPERATION, OPERATIONS, operation_for, prepare as prepare_capture
+        operation = operation_for(commands, root)
+        if (operation == FULL_OPERATION
                 and [p.resolve() for p, _ in boards] != [root.resolve() / 'out/dispatch/storyboard.json']):
             raise ValueError('prepared full render needs only the canonical current board')
+        if (operation == OPERATIONS['opening_compare.py'] and
+                (len(boards) != 2 or {p.resolve() for p, _ in boards} !=
+                 {root.resolve() / ('out/dispatch/opening-' + key + '.json') for key in ('a', 'b')})):
+            raise ValueError('prepared comparison needs both canonical current treatment boards')
         prepared = prepare_capture(root, state_path, commands, resource=resource)
         state = json.loads(Path(state_path).read_text())
         reservation = next(e for e in state['events'] if event_digest(e) == prepared['event_sha256'])

@@ -429,8 +429,10 @@ def packet(board_path, claims_path, role, state_path=None):
     compact_scorer = (claude_route and role in ('picture','story','sound')
                       and str(board.get('date','')) >= '2026-10-15')
     if compact_scorer:
-        data['instructions'] = ('Read all bound inputs, cited sources and your brief. Return one '
-            'consolidated verdict without copied history. Text never proves audio access.')
+        data['instructions'] = ('Read all bound inputs, sources, briefs and full guides. Read '
+            'board.story_contract fully, including scenes, transitions and source limits. Return one '
+            'verdict under unchanged rubric. Resource/extraction/provider checks approve nothing. '
+            'Text never proves audio access.')
     if claude_route:
         import claude_runtime
         route = claude_runtime.assignment(role, board["date"])
@@ -444,7 +446,7 @@ def packet(board_path, claims_path, role, state_path=None):
         # The complete story is already hash-bound in the board. Do not repeat it
         # in an isolated worker packet or truncate it to fit the handoff limit.
         data["story"] = {"reference": "board", "field": "story_contract"}
-        data["instructions"] += (" Read board.story_contract in full, including scenes, transitions and source limits."
+        data["instructions"] += (""
             if compact_scorer else " Read the complete story_contract in the bound board, including all scenes, transitions and source limits.")
         if role in ("scene-builder", "storyboard-critic"):
             data["treatments"] = agent_runtime.treatment_bindings(board_path)
@@ -461,7 +463,7 @@ def packet(board_path, claims_path, role, state_path=None):
     if str(board.get("date", "")) >= "2026-10-03" and all(p.is_file() for p in completion):
         data["completion_readings"] = [{"path": str(p.resolve()), "sha256": digest(p)}
                                       for p in completion]
-        data["instructions"] += (" Keep the rubric and actual verdicts; resource events approve no film."
+        data["instructions"] += (""
             if compact_scorer else " Mandatory completion capacity preserves the rubric and actual verdicts; no resource event approves a film.")
     selection = Path(board_path).with_name("story_selection.json")
     if selection.is_file():
@@ -473,7 +475,7 @@ def packet(board_path, claims_path, role, state_path=None):
             readings = craft_reading_paths(board)
             if readings:
                 data["craft_readings"] = [{"path": str(p.resolve()), "sha256": digest(p)} for p in readings]
-                data["instructions"] += (" Read every full craft guide for editorial decisions and comprehension, without adding criteria or approval."
+                data["instructions"] += (""
                     if compact_scorer else " Read the bound craft guides in full. Use them to explain editorial decisions and inspect actual comprehension; they supply no approval or extra scoring criteria.")
             if board.get('art_direction'):
                 data['art_direction'] = {'reference': 'board', 'field': 'art_direction',
@@ -489,9 +491,8 @@ def packet(board_path, claims_path, role, state_path=None):
         retained = prior_phone_partial_context(board_path, claims_path, include_text=False)
         if retained:
             data['retained_phone_host_context'] = retained
-            data['instructions'] += (' After viewing, read both full retained_phone_host_context files. '
-                'Reassess received notes on the native movie with times, preserving retractions '
-                'and unknowns. No prior grade.')
+            data['instructions'] += (' Read retained_phone_host_context fully after viewing. Reassess '
+                'received notes with times; keep retractions/unknowns. No prior grade.')
         if claude_route:
             import claude_motion_review
             sequence = root / 'motion-review' / 'index.json'
@@ -501,10 +502,9 @@ def packet(board_path, claims_path, role, state_path=None):
             data['motion_sequence'] = {'path': str(sequence.resolve()), 'sha256': digest(sequence)}
             claude_runtime.image_reading(data, compact=compact_scorer)
             if compact_scorer:
-                data['instructions'] += (' Review the whole motion sequence before the rationale, plus native crops '
-                    'and your separate raw audiovisual response. State image-sequence access, no direct playback '
-                    'or listening. Keep all seven modern and clause observations. Extraction/provider approval '
-                    'never supplies a verdict; unknown observations block.')
+                data['instructions'] += (' View all sequence pages before rationale, native crops and '
+                    'your raw AV response. State sequence access, no playback/listening. Keep all seven '
+                    'modern and clause observations; unknowns block.')
             else:
                 data['instructions'] += (' This Claude image-only assignment reviews the entire encoded film through '
                 'the bound motion sequence. Read every page in index order before reading the director rationale. '
@@ -527,8 +527,8 @@ def packet(board_path, claims_path, role, state_path=None):
             data["defects"] = {"path": str(ledger.resolve()), "sha256": digest(ledger)}
     if board.get('narration_picture'):
         data['narration_picture']={'reference':'board','field':'narration_picture'}
-        data['instructions'] += (' Read board.narration_picture. Match each measured spoken clause to its visible '
-            'subject and performed action; reject wrong/absent pictures despite captions or provider prose.'
+        data['instructions'] += (' Match measured board.narration_picture clauses to visible '
+            'subjects/actions; wrong/absent pictures fail despite captions/provider prose.'
             if compact_scorer else ' Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words.')
     encoded = packet_text(data)
     if len(encoded) > policy()["handoff_max_chars"] and isinstance(data["story"], dict):

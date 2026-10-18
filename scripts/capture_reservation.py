@@ -7,6 +7,7 @@ OPERATIONS = {
     'preflight_animatic.py': 'quarter-scale animatic',
     'cinema_proof.py': 'finished cinematic hero and stage ablation batch',
     'claude_motion_review.py': 'exact-film motion-image review extraction',
+    'opening_compare.py': 'two opening comparison batch',
 }
 FULL_OPERATION = 'full-resolution Dispatch render'
 from claude_motion_review import PHONE_OPERATIONS
@@ -80,6 +81,16 @@ def motion_output_precheck(tokens, here, package):
         raise ValueError('motion output must stay inside the owned board review package; no capture charged')
 
 
+def opening_output_precheck(package):
+    """Never buy a replacement batch over retained or partial comparison evidence."""
+    output = Path(package) / 'openings'
+    if output.is_symlink() or (output.exists() and
+            (not output.is_dir() or any(output.iterdir()))):
+        raise ValueError('opening comparison output already exists; verify and reuse a current pair, '
+                         'or retain the entire old package in edition evidence before preparing '
+                         'a changed batch; no capture charged')
+
+
 def prepare(root, state_path, commands, resource=None):
     import run_controller as controller
     from capture_guard import event_digest
@@ -96,6 +107,25 @@ def prepare(root, state_path, commands, resource=None):
             continue
         expected = {'state': state_path, 'board': root / 'out/dispatch/storyboard.json',
                     'mix': root / 'out/dispatch/mix.wav', 'film': root / 'out/dispatch/film.mp4'}
+        if note == OPERATIONS['opening_compare.py']:
+            expected = {'state': state_path, 'root': root / 'out/dispatch'}
+            # The inspection-only lane never buys a new render. Require the two literal
+            # paths so no unsupported flag can redirect or change this operation.
+            args, supplied = iter(tokens[2:]), set()
+            for token in args:
+                if token == '--retain-failed-inspection' and token not in supplied:
+                    supplied.add(token)
+                    continue
+                flag, equal, value = token.partition('=')
+                if flag not in ('--state', '--root') or flag in supplied:
+                    raise ValueError('prepared comparison needs distinct canonical --root and --state only')
+                supplied.add(flag)
+                value = value if equal else next(args, '')
+                if not value or resolve(value, here) != expected[flag[2:]]:
+                    raise ValueError('prepared ' + flag + ' must use the canonical current input')
+            if not {'--root', '--state'}.issubset(supplied):
+                raise ValueError('prepared comparison needs explicit canonical --root and --state')
+            opening_output_precheck(root / 'out/dispatch')
         if note == FULL_OPERATION:
             expected.update({flag: root / 'out/dispatch' / name for flag, name in {
                 'captions': 'captions.json', 'preflight': 'preflight.json',

@@ -158,9 +158,9 @@ def image_reading(data, *, compact=False):
     """Keep image delivery bounded; this supplies no creative observation or approval."""
     data['image_read_policy'] = image_read_policy(data.get('date'))
     if 'access_probe' in data['image_read_policy']:
-        probe = ('First test actual image access: Read the first chronological page before guides/source. '
-            'If unseen/stripped, retain literal error and page identity, return partial/no verdict and stop. '
-            'If visible, note it then read all full guides and the whole sequence. ' if compact else
+        probe = ('First test actual image access: Read first page before guides/source. If unseen, '
+            'keep literal error and page identity, return partial/no verdict and stop. If seen, '
+            'read all full guides and the whole sequence. ' if compact else
             'First test actual image access: Read ONLY the first chronological '
             'page of the first bound sequence before reading guides or renderer source. If that page '
             'is stripped or unseen, retain the literal error and its exact page identity, return '
@@ -168,15 +168,23 @@ def image_reading(data, *, compact=False):
             'only; it supplies no observation of unseen pages. If visible, record its actual note, '
             'then read every required full guide and the complete ordered sequence. ')
         data['instructions'] = probe + data['instructions']
+    data['instructions'] += (' Log new-Read visibility. Receipt proves bytes, not visibility/grade. '
+        'Keep earlier notes distinct from later history loss. Newly unseen Read needs immediate '
+        'partial/error.' if compact else
+        ' A prelaunch image-tool delivery receipt records the actual returned payload, '
+        'not whether you saw it. Record visibility when the new Read returns. An older image becoming '
+        'a request-limit placeholder later is not evidence that its original Read failed; preserve the '
+        'earlier observation and keep later retention loss distinct from initial access failure. '
+        'A newly unseen payload still requires immediate partial coverage and its actual error. '
+        'No delivery receipt supplies a creative grade.')
     if compact:
-        data['instructions'] += (' Read ONE chronological image per step; wait and record its filename, '
-            'first/last frame and concrete visible note before the next Read. No parallel/bulk reads or '
-            'bulk rereads. Keep notes when images leave context. A stripped/unseen page requires immediate '
-            'partial with its identity; never infer pixels. Return separate coverage with schema '
-            'dispatch_claude_image_coverage/1, packet_sha256 and sequences in packet order. Each sequence '
-            'has index_sha256 and pages in index order; each page has file, first_frame, last_frame, '
-            'received (true only if seen) and observed (at least thirty characters of actual visible '
-            'content). Preserve all guides, timed observations and honest verdicts.')
+        data['instructions'] += (' Read ONE chronological image per step; log file, first/last frame '
+            'and visible note before next. No parallel/bulk reads or rereads; never infer pixels. '
+            'Newly unseen page needs immediate partial/identity. Return '
+            'separate dispatch_claude_image_coverage/1: packet_sha256, ordered sequences(index_sha256, '
+            'ordered pages(file,first_frame,last_frame,received true only if seen,observed at least '
+            'thirty characters of visible content)). Retain all full guides, timed observations and '
+            'honest verdicts.')
         return data
     data['instructions'] += (' Image delivery is sequential: issue ONE image Read, wait for it, and record '
         'the page filename, first/last frame and a concrete visible observation before the next image Read. '

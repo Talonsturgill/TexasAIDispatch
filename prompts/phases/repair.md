@@ -2,6 +2,21 @@
 
 Owner instruction from October 3rd, 2026. Read knowledge/craft/AUTONOMOUS_COMPLETION.md before applying older resource-boundary language below. Internal review ceilings and host capacity errors trigger autonomous mandatory completion recovery, never an approval stop or an unfinished-capacity final response. Preserve exact failures, the original frozen envelope and cumulative charges. Only accepted finish --result shipped completes production.
 
+For a current modern-film edition, read knowledge/craft/MODERN_FILM.md,
+knowledge/craft/STORY_ART.md and config/modern_film.json before applying generic artistic
+deferral. The current nondeferrable_categories override that older route. Motion, pacing,
+surface finish and ending artistry remain mandatory at a creative ceiling. Consolidate every
+actual current failure, including pictured-clause comprehension and legibility, into the
+existing independently reviewed and fully funded correction. Continue that route without
+asking the owner to approve an internal creative or application-budget decision.
+
+Inspect each handback's actual coverage before calling it a completed review. Preserve a
+disclosed unread guide, board section, source or required crop and all observed findings.
+Complete missing content with the same workers through the existing paid review and atomic
+panel path when required. JSON-only correction can preserve the original scores for free;
+substantive guide/source completion is paid content review. Never invent coverage, replace
+a real rejection or call missing coverage an artistic deferral.
+
 Read the current checkpoint and compact defect ledger first. Preserve the last playable film,
 exact hashes and all reviews. Read knowledge/craft/BOUNDED_CREATIVE_RELEASE.md first: a rejection
 starts another creative repair only before its finite boundary and with complete review
@@ -214,6 +229,28 @@ ordinary production-budget and completion-capacity commands on the new evidence 
 records the exact missing capacity once, separately; it approves no film, pivot or correction.
 Do not refund the builder, edit old policy bytes or reuse the film failure as another ordinary
 grant. All later review and capture attempts remain reserved before execution.
+
+The comparison profile and forecast reconciliation are admission checks for the whole path,
+not a progress counter. After a grant, do not replay its initial minimums as a demand for new
+unspent calls after every attempt, or request that grant again. For the same open repair, save
+a remaining-path table bound to the actual ledger. Name each pending operation, its required
+resource, any exact unused prepaid reservation and the unreserved calls still needed. Run the
+ordinary current-phase production-budget and verify every remaining comparison, phone, native,
+audiovisual and panel operation against that table. A failed review stays charged and does not
+complete its required scope. A changed-candidate content continuation needs its own precharge.
+If that exact unused reservation already exists, bind it once instead of reserving it again.
+Keep the existing opening reboard and all original grant counts. If a real new failure exhausts
+the remaining path, use its fresh independent admission.
+A funding table never supplies a passing review or waives a quality or shipment gate.
+
+If admission refuses a combined code handoff or string-only finding, preserve the exact error
+and the original response. Use the unchanged individual treatment report. If its category,
+scene and time are already explicit, resume the same critic only to encode those existing facts
+in the required object fields, keeping the full defect text and verdict unchanged. Retain that
+native format-only response and its actual API usage. A new classification or changed-candidate
+assessment is substantive and needs a fresh reservation. Never write an independent grade or
+category for the critic, relabel the failure, or ask the owner to choose an internal schema or
+admission path. Repair a remaining contract defect through normal source review and CI.
 
 ```sh
 python scripts/capture_completion_budget.py --state out/dispatch/run_state.json --plan <new-independent-mandatory-or-finish-plan> --comparison <retained-package>/comparison.json --output out/dispatch/comparison-completion-plan.json

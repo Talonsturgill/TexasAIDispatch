@@ -4,8 +4,11 @@ import hashlib
 import json
 import tempfile
 import unittest
+import subprocess
+import sys
+import time
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import routine_continuation as continuation
 import bootstrap_claude_hooks as bootstrap
@@ -40,6 +43,58 @@ class ContinuationTests(unittest.TestCase):
             self.assertIn('critic14', reason)
             self.assertIn('same edition', reason)
             self.assertIn('do not repeat a final waiting message', reason)
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_repeated_waiting_on_a_real_harness_task_is_bounded_and_still_blocked(self):
+        self.arm(); before = self.state.read_bytes()
+        payload = {**self.payload, 'background_tasks': [{'id': 'ci-monitor', 'status': 'running'}]}
+        pause = Mock()
+        result = continuation.response(payload, self.workspace, pause=pause)
+        pause.assert_called_once_with(20)
+        self.assertEqual(result['decision'], 'block')
+        self.assertIn('ci-monitor', result['reason'])
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_first_stop_no_running_task_coding_and_leaf_events_never_wait(self):
+        pause = Mock()
+        self.assertIsNone(continuation.response(self.payload, self.workspace, pause=pause))
+        self.arm()
+        for payload in ({**self.payload, 'stop_hook_active': False,
+                         'background_tasks': [{'id': 'ci', 'status': 'running'}]},
+                        self.payload,
+                        {**self.payload, 'background_tasks': [{'id': 'done', 'status': 'completed'}]}):
+            self.assertEqual(continuation.response(payload, self.workspace, pause=pause)['decision'], 'block')
+        self.assertIsNone(continuation.response({'hook_event_name': 'SubagentStop'}, self.workspace, pause=pause))
+        pause.assert_not_called()
+
+    def test_wait_rechecks_accepted_archive_before_returning(self):
+        self.arm()
+        payload = {**self.payload, 'background_tasks': [{'id': 'archive', 'status': 'running'}]}
+        manifest = {'run_id': '2026-10-15', 'terminal_state': 'shipped', 'shipment_recorded': True}
+        published = None
+        def finish_fixture(seconds):
+            nonlocal published
+            self.assertEqual(seconds, 20)
+            self.value.update(terminal_state='shipped', shipment={'fixture': True},
+                events=[{'kind': 'finished', 'result': 'shipped', 'shipment_sha256': 'a'*64}])
+            self.save()
+            archive = self.repo / 'runs/2026-10-15/run_state.json'; archive.parent.mkdir(parents=True)
+            archive.write_text(json.dumps(self.value)); published = archive.read_bytes()
+        def git_bytes(repo, ref, path):
+            return published if ref == 'origin/main' else json.dumps(manifest).encode()
+        with patch.object(continuation, 'git_bytes', side_effect=git_bytes):
+            self.assertIsNone(continuation.response(payload, self.workspace, pause=finish_fixture))
+
+    def test_real_hook_cli_waits_once_and_preserves_the_unfinished_fixture(self):
+        self.arm(); before = self.state.read_bytes()
+        payload = {**self.payload, 'background_tasks': [{'id': 'fixture-ci', 'status': 'running'}]}
+        started = time.monotonic()
+        done = subprocess.run([sys.executable, str(Path(continuation.__file__)),
+                               '--workspace', str(self.workspace), '--hook'],
+                              input=json.dumps(payload), capture_output=True, text=True, timeout=45)
+        self.assertEqual(done.returncode, 0, done.stderr)
+        self.assertGreaterEqual(time.monotonic() - started, 20)
+        self.assertEqual(json.loads(done.stdout)['decision'], 'block')
         self.assertEqual(self.state.read_bytes(), before)
 
     def test_broken_or_changed_production_identity_cannot_signal_completion(self):
@@ -163,7 +218,7 @@ class ContinuationTests(unittest.TestCase):
 
     def test_prelaunch_registration_is_additive_idempotent_and_preserves_permissions(self):
         scripts = self.repo / 'scripts'; scripts.mkdir()
-        for name in ('cloud_capture_hook.py', 'routine_continuation.py'):
+        for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py'):
             (scripts / name).write_text('# offline fixture\n')
         directory = self.workspace / '.claude'; directory.mkdir()
         target = directory / 'settings.json'

@@ -46,6 +46,7 @@ REPO = Path(__file__).resolve().parents[1]
 # Scripts that are legitimately run by a person and not by a routine. Each needs a reason,
 # because "it is standalone" is what an orphan says about itself.
 STANDALONE = {
+    "image_read_receipt.py": "Invoked by the actual PostToolUse Read hook registered before launch by bootstrap_claude_hooks. image_read_receipt_test verifies source and returned-byte metadata, immutable event evidence, privacy and scope boundaries, and a separate genuine failure without claiming model visibility or a creative grade.",
     "completion_forecast.py": "Evidence library and recovery CLI used by production-budget, completion-capacity and immutable replay. Its real controller tests cover an omitted complete capture forecast, one separate deficit reconciliation and future refusal before an underfunded source repair.",
     "independent_packet_compaction.py": "Library called by independent_review.bounded_packet on actual provider input before deterministic receipt preparation and paid transport. Its CI test verifies complete treatment reconstruction, active source preservation, idempotence, historical compatibility and the unchanged size refusal.",
     "capture_reservation.py": "Library called by capture_guard authorize --prepare and run_controller reserve on actual prepaid operators. capture_reservation_test exercises real authorization/hook consumption, one charge, duplicate refusal and operator/input/ledger tampering rejection.",

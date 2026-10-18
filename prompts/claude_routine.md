@@ -93,7 +93,13 @@ edition. A cloud container is reclaimed, so `pending` alone sees only worktrees 
 Also run `python scripts/claude_checkpoint.py discover`. Select the OLDEST unfinished edition by its run identity and creation time
 (`claude_checkpoint.py discover --oldest-unfinished`, never the first row of the newest-save-first list)
 and resume its existing ledger. It is restored
-with `python scripts/claude_checkpoint.py restore --run-id <id> --dest <new empty directory>`. That
+with `python scripts/claude_checkpoint.py restore --run-id <id> --origin-workspace <shared-parent>`.
+The recorded original root preserves absolute paths inside unchanged hash-bound historical events;
+the fresh scheduled October 18 recovery proved this route after a different-root restore failed.
+The helper accepts only an empty real directory inside the selected shared workspace and never
+removes an occupied destination. Inspect an occupied original checkout for the same active edition,
+its current ledger and owner before resuming it; preserve unrelated work. Retain any failed restore
+and its audit. Do not rewrite historical grant text or hashes to fit a new path. That
 creates an isolated checkout of the recorded source commit (the complete committed renderer, art and
 public closure), overlays the verified scratch outputs and uncommitted source, and rebuilds the same
 ledger, frozen envelope, charges, failed reviews and paid outputs with its paths moved. It never
@@ -110,6 +116,14 @@ source copy as a substitute for the production checkout's actual typecheck. Run 
 `cd video-engine && npx tsc -p tsconfig.json --noEmit` before accepting a builder hand-back.
 Never initialise a second
 ledger for an edition that has a checkpoint.
+
+For a new edition with no pending ledger or checkpoint, keep the primary bootstrap checkout clean.
+Create its production worktree at `<shared-parent>/dispatch-editions/<run-id>/TexasAIDispatch`
+from current `origin/main`, with the real Docket sibling required below. Use that owned checkout
+for the whole edition and record its actual paths. Its recorded origin is then empty on a fresh
+cloud host. Inspect an occupied edition directory and resume its owner instead of creating a
+duplicate. Keep the existing remote checkpoint concurrency checks before every charged dispatch;
+a stale writer must not buy another attempt or overwrite newer history.
 
 Before authorizing capture in a restored or nested worktree, establish a real clean Docket
 checkout at `<dispatch-checkout-parent>/TexasAIDocket`, starting at current origin/main. An owned
@@ -174,7 +188,10 @@ re-register hooks to get around a refused rebind.
 
 The prelaunch Stop hook sends an early final response back to this same ledger. It approves no
 tool, changes no permissions and adds no capacity. It remains inactive for ordinary coding and
-leaf agents. Collect required task results through the actual task tools, repair internal failures
+leaf agents. A repeated Stop with a running task reported by the host waits twenty seconds,
+then rechecks the same shipment closure before returning feedback. This limits idle status
+chatter; it never treats a background task as completion. Collect required task results through
+the actual task tools, repair internal failures
 through the versioned routes, and continue until accepted shipment, the matching public archive
 on fetched origin/main, and the final shipped checkpoint exist. Do not re-register hooks in a
 running host. A supported fresh environment can prove the actual event with
@@ -217,6 +234,12 @@ result arrives. Confirm the task is actually running before waiting, and explici
 completed worker when assigning new charged content work. Keep one active owner and never
 dispatch a duplicate because a response is slow. An unfinished controller is still active
 production even when the cloud UI marks an assistant response successful.
+
+If the task-status tool returns immediately while the worker is still running, use one
+twenty-second Bash wait through scripts/run_with_env.sh with the explicit worktree cd inside
+the wrapped shell, then check that same task again. Keep these as tool calls in the active
+turn, without a final waiting response between them. Do not use a long shell loop or interrupt
+the worker to stop idle polling. A read-only status update never requires a new content call.
 
 ## Fresh authored picture lane
 
@@ -305,7 +328,12 @@ exact owning repository and PR, and retain its actual external-event wake acknow
 A turn may yield to that registered wake or a real background task; production stays open and
 must resume through shipped and durable closure. Recheck the exact head and every required
 conclusion after waking. For post-merge deployment, retain the actual workflow and process
-handles; a merged PR alone does not prove a deployment. Never wait with `pgrep -f` on a substring
+handles; a merged PR alone does not prove a deployment. Prefer the connected GitHub Actions
+read tools for workflow status, with authenticated `gh` reads when those tools are unavailable.
+An October 18 anonymous curl status poll was classifier-denied without an explanation; the
+ordinary GitHub connector completed the read. Retain such a denial and use that natural read
+tool instead of retrying equivalent denied Bash polls or changing approval settings.
+Never wait with `pgrep -f` on a substring
 of the wait shell's own command. Retain completed check receipts and stop only a confirmed
 obsolete wait. Keep long command output in its log and return the producer's exit code plus a
 short tail. Use `set -euo pipefail` for Bash command chains, or explicitly capture and check each
@@ -462,6 +490,15 @@ byte hash and all entries retained. Use compact JSON whitespace on the wire. The
 the final request after comparison context and retained failure evidence are added. No new provider
 charge begins on an oversized input. Historical packets retain their original contents and policy.
 
+The prelaunch `image_read_receipt.py` PostToolUse observer records only actual returned image
+payload metadata for the selected repository's owned PNG evidence. Its small immutable receipts
+preserve the source and returned hashes without copying image bytes or private transcripts.
+They prove tool output, not model visibility or a creative pass. A later context placeholder
+cannot by itself rewrite an earlier successful access observation. Preserve each immediate
+visibility note and distinguish later context loss from a newly failed Read. A genuinely unseen
+new image still requires the exact partial handback and configured recovery. This observer changes
+no capture admission, budget, host permissions or shipment gate. Register it only at fresh prelaunch.
+
 The Read-only Opus phone critic cannot play MP4s or compute missing hashes with Bash.
 One midpoint still per scene cannot prove timed motion or continuity. After both structural
 opening inspections pass, extract the complete chronological sequence from each exact encoded
@@ -566,22 +603,33 @@ the authorized environment setup before the next supported launch rather than re
 
 Every native capture or render command (Remotion stills and renders, preflight, opening compare, cinema proof,
 render_dispatch) is denied by the PreToolUse hook `scripts/capture_guard.py hook` unless the director has
-issued a current authorization for that exact command. Reserve a fresh render with the controller first
-(a late-accounting charge never counts), then name the exact boards and the exact wrapped commands:
+issued a current authorization for that exact command. Use the prepared operator handoff below for
+the supported operators. It checks occupied output before charging, then binds one fresh render
+reservation to the exact boards and command. A late-accounting charge never counts.
 
 ```sh
-python scripts/capture_guard.py authorize --state out/dispatch/run_state.json --board out/dispatch/opening-a.json --command "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json"
+python scripts/capture_guard.py authorize --prepare --state out/dispatch/run_state.json --board out/dispatch/opening-a.json --board out/dispatch/opening-b.json --command "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json"
 ```
 
-For `preflight_animatic.py`, `cinema_proof.py` and `claude_motion_review.py`, use the
+For `opening_compare.py`, `preflight_animatic.py`, `cinema_proof.py` and `claude_motion_review.py`, use the
 prepared operator handoff instead of manually reserving a note and letting the operator reserve
 again. `authorize --prepare` derives the operation from the exact checkout command, checks the
 same art, headroom and housekeeping gates, then charges it once. The real host hook consumes
 the exact authorization, and that operator claims its matching prepaid event once. A phone
 preview cannot claim a native hero charge; motion extraction has its own exact-film identity.
-An unchanged operation cannot be prepared again. Preserve all earlier charges and denied commands.
+An unchanged operation cannot be prepared again without the existing infrastructure-retry record.
+Preserve all earlier charges and denied commands.
+Before a changed comparison, retain the entire occupied `openings/` directory, including any
+partial output, in the edition's defect package. Do this before preparing the new capture. Never
+overwrite it, refund its reservation or rerender an unchanged pair merely to obtain a new identity.
 Do not create a self-written failure note or request `retry-preflight` to correct an operation
 label. Fix the actual versioned operator handoff and retain its before/after source evidence.
+
+For an actual execution or transport failure after hook consumption, retain the original tool
+response, spent authorization and reservation. Once the concrete infrastructure fix or supported
+specific approval is available, follow prompts/phases/repair.md and record `retry-preflight` for
+that exact operation using the actual failure log. Fund the complete remaining path first, then
+prepare a fresh charged authorization. Never replay the spent one or refund the failed attempt.
 
 ```sh
 python scripts/capture_guard.py authorize --prepare --state out/dispatch/run_state.json --board out/dispatch/storyboard.json --command "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json"

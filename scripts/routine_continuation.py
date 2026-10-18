@@ -9,12 +9,14 @@ import json
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 SCHEMA = 'dispatch_routine_continuation/1'
 MARKER = '.claude/dispatch-production-continuation.json'
 PROBE = '.claude/dispatch-continuation-probe.json'
 REBIND = '.claude/dispatch-production-continuation-rebind.json'
+BACKGROUND_WAIT_SECONDS = 20
 
 
 def read(path):
@@ -154,6 +156,24 @@ def decision(payload, workspace):
             ' Preserve all failures, charges and gates. Never send email or post socially.')
 
 
+def response(payload, workspace, pause=None):
+    """Bound repeated waiting feedback without allowing an unfinished production to stop."""
+    reason = decision(payload, workspace)
+    if reason is None:
+        return None
+    running = any(row.get('status') == 'running' and row.get('id')
+                  for row in payload.get('background_tasks', []))
+    if (payload.get('stop_hook_active') is True and running
+            and (Path(workspace) / MARKER).is_file()):
+        (pause or time.sleep)(BACKGROUND_WAIT_SECONDS)
+        # A real background writer may have completed the accepted archive during the wait.
+        # Recheck the same closure; never turn a running-task flag into permission to finish.
+        reason = decision(payload, workspace)
+        if reason is None:
+            return None
+    return {'decision': 'block', 'reason': reason}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--workspace', type=Path, required=True)
@@ -174,9 +194,9 @@ def main():
             json.dump({'schema': SCHEMA, 'observed': False}, stream)
         print('Nonproduction one-shot Stop probe armed; no production ledger created.')
     else:
-        reason = decision(json.load(sys.stdin), args.workspace)
-        if reason:
-            print(json.dumps({'decision': 'block', 'reason': reason}))
+        result = response(json.load(sys.stdin), args.workspace)
+        if result is not None:
+            print(json.dumps(result))
 
 
 if __name__ == '__main__':

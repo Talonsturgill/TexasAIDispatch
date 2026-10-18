@@ -153,6 +153,8 @@ class UnusedRightsReboard(unittest.TestCase):
     def test_exact_unused_charge_opens_and_authorizes_without_another_charge_or_grant(self):
         accepted, message = lifecycle.begin_repair(self.state, self.plan, prepaid_reboard=self.receipt)
         self.assertTrue(accepted, message)
+        self.assertIn('prepaid reboard', message)
+        self.assertIn('no additional reboard', message)
         opened = controller.read_state(self.state)
         self.assertEqual(opened['usage'], self.before['usage'])
         self.assertEqual(opened['resource_envelope'], self.original_envelope)

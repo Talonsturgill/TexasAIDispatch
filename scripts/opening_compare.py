@@ -20,6 +20,8 @@ REPO = Path(__file__).resolve().parents[1]
 LEGACY_ORCHESTRATOR_SHA256 = "a50859e01b487bb81ef814845c3d8b5aeb47f46106f698248732e184b76fb30d"
 # Exact reviewed source that captured the retained October 15th movies at ac2fe5e.
 RETAINED_ORCHESTRATOR_SHA256 = "f72e20dc4f21bf55f0bdfd52b3207f7ba91651c6e0659d8d1ec14a8beb3dc69d"
+# The exact pre-prepared-handoff source used for the retained October 15th repair.
+PREPARED_PREDECESSOR_SHA256 = "0a9e5e1f96a64a8ba0c6d5af3f7dcd227f1befd7ee838db7a0557c6ec03e19ed"
 
 
 def body(board):
@@ -63,7 +65,7 @@ def capture_record(receipt):
 def capture_orchestrator(receipt):
     """Every dependency other than the known orchestrator is recomputed now."""
     versions = (creative.digest(REPO/'scripts/opening_compare.py'),
-                RETAINED_ORCHESTRATOR_SHA256, LEGACY_ORCHESTRATOR_SHA256)
+                PREPARED_PREDECESSOR_SHA256, RETAINED_ORCHESTRATOR_SHA256, LEGACY_ORCHESTRATOR_SHA256)
     return next((sha for sha in versions if receipt.get('producer_sha256') == creative.opening_producer(sha)), None)
 
 
@@ -328,7 +330,16 @@ def build(root, state):
     if not accepted:
         raise ValueError(message)
     ledger = read_state(state)
-    reservation = {"identity": identity, "run_id": ledger["run_id"], "event_index": len(ledger["events"])-1}
+    # A prepared operator appends a claim after its original charged reservation.
+    # Keep the receipt bound to that reservation, never to the free claim event.
+    event_index = next((i for i in range(len(ledger['events']) - 1, -1, -1)
+                        if ledger['events'][i].get('kind') == 'reserved'
+                        and ledger['events'][i].get('resources') == {'preflight_renders': 1}
+                        and ledger['events'][i].get('note') == 'two opening comparison batch'
+                        and ledger['events'][i].get('preflight_identity') == identity), None)
+    if event_index is None:
+        raise ValueError('opening batch has no matching original charged reservation')
+    reservation = {"identity": identity, "run_id": ledger["run_id"], "event_index": event_index}
     output.mkdir(parents=True, exist_ok=True)
     jobs, options = [], []
     for key, board in zip(("a", "b"), boards):
