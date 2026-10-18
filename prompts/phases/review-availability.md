@@ -133,3 +133,15 @@ charged and retained; unchanged inputs authorize no repeat paid work or polling.
 transports lack external access, retain the precise failure without claiming completion.
 Capacity is never permission to self-certify, skip native proof, lower the rubric, alter source
 evidence or finish anything except an accepted shipped edition.
+
+Keep the complete original native partial handback and coverage when recovering an image-limit
+failure. A shortened derivative or a local filename alone does not provide those observations
+to the independent provider. The transport follows hash-bound sibling derivatives back to the
+original, retains every JSON field and prose note, and applies reversible shared-value and
+shared-key encoding under the existing packet ceiling. Original files and byte hashes stay
+unchanged. JSON presentation whitespace may be normalized only in the explicitly typed native
+handback representation. Received-page notes, explicit retractions and unknown observations all
+remain visible. If a completed phone recovery used a shortened transport, carry the full ungraded
+phone partial into the first mandatory final-native scope. Independently reassess its received-page
+notes on that native film with timed reasons. This supplies no prior grade or permission to skip
+a required observation, and does not repeat or rewrite the completed phone review.

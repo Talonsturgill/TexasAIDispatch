@@ -11,6 +11,7 @@ POLICY = Path(__file__).resolve().parents[1] / 'config/independent_packet_compac
 FANOUT = {'video-engine/src/Dispatch.tsx', 'video-engine/src/modern/registry.tsx'}
 CODE = {'.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs'}
 SHARED_SCHEMA = 'dispatch_lossless_shared_packet/1'
+KEY_SCHEMA = 'dispatch_lossless_shared_packet/2'
 
 
 def sha(path):
@@ -29,9 +30,29 @@ def current_paths(board, *paths):
 
 
 def decode_shared(value):
-    if not isinstance(value, dict) or value.get('schema') != SHARED_SCHEMA:
+    if not isinstance(value, dict) or value.get('schema') not in (SHARED_SCHEMA, KEY_SCHEMA):
         return value
     values = value['values']; active = set(); memo = {}
+    key_table = value.get('keys', {}) if value['schema'] == KEY_SCHEMA else None
+    if key_table is not None and (not isinstance(key_table, dict)
+            or not all(isinstance(k, str) and isinstance(v, str) for k, v in key_table.items())):
+        raise ValueError('shared packet key table is malformed')
+    def restore_key(key):
+        if key_table is None or not isinstance(key, str) or not key.startswith('~'):
+            return key
+        if key.startswith('~~'):
+            return key[1:]
+        if key[1:] not in key_table:
+            raise ValueError('shared packet has an absent key reference')
+        return key_table[key[1:]]
+    def restore_object(item):
+        result = {}
+        for key, child in item.items():
+            original = restore_key(key)
+            if original in result:
+                raise ValueError('shared packet has duplicate decoded keys')
+            result[original] = decode(child)
+        return result
     def decode(item):
         if isinstance(item, dict):
             if set(item) == {'$v'}:
@@ -42,10 +63,10 @@ def decode_shared(value):
                     active.add(key); memo[key] = decode(values[key]); active.remove(key)
                 return copy.deepcopy(memo[key])
             if set(item) == {'$literal'}:
-                return {key: decode(child) for key, child in item['$literal'].items()}
+                return restore_object(item['$literal'])
             if set(item) == {'$text'}:
                 return ''.join(decode(child) for child in item['$text'])
-            return {key: decode(child) for key, child in item.items()}
+            return restore_object(item)
         if isinstance(item, list):
             return [decode(child) for child in item]
         return item
@@ -53,6 +74,78 @@ def decode_shared(value):
     if hashlib.sha256(canonical(result).encode()).hexdigest() != value['original_sha256']:
         raise ValueError('shared packet does not reconstruct the complete original input')
     return result
+
+
+def share_keys(value):
+    """Shorten repeated JSON field names without changing any original key or value."""
+    counts = {}
+    def count(item):
+        if isinstance(item, dict):
+            for key, child in item.items():
+                if isinstance(key, str) and len(key) >= 4 and key not in ('$v', '$text', '$literal'):
+                    counts[key] = counts.get(key, 0) + 1
+                count(child)
+        elif isinstance(item, list):
+            for child in item: count(child)
+    count(value['packet'])
+    for child in value['values'].values(): count(child)
+    candidates = sorted((key for key, n in counts.items() if n >= 3),
+                        key=lambda key: (-counts[key] * max(0, len(key) - 3), key))
+    aliases = {}
+    for key in candidates:
+        alias = '~' + str(len(aliases))
+        if counts[key] * (len(key) - len(alias)) > len(key) + len(alias) + 10:
+            aliases[key] = alias
+    if not aliases:
+        return value
+    def name(key):
+        if key in aliases: return aliases[key]
+        return '~' + key if isinstance(key, str) and key.startswith('~') else key
+    def encode(item):
+        if isinstance(item, dict):
+            if set(item) == {'$v'}: return dict(item)
+            if set(item) == {'$literal'}:
+                return {'$literal': {name(k): encode(v) for k, v in item['$literal'].items()}}
+            if set(item) == {'$text'}:
+                return {'$text': [encode(v) for v in item['$text']]}
+            return {name(k): encode(v) for k, v in item.items()}
+        if isinstance(item, list): return [encode(v) for v in item]
+        return item
+    result = {**value, 'schema': KEY_SCHEMA, 'keys': {v[1:]: k for k, v in aliases.items()},
+              'packet': encode(value['packet']),
+              'values': {key: encode(child) for key, child in value['values'].items()}}
+    return result if len(canonical(result)) < len(canonical(value)) else value
+
+
+def native_handback(text):
+    """Keep all prose and JSON values; only JSON presentation whitespace is normalized."""
+    def unique_object(pairs):
+        value = {}
+        for key, child in pairs:
+            if key in value:
+                raise ValueError('duplicate JSON key stays in the original text')
+            value[key] = child
+        return value
+    decoder = json.JSONDecoder(object_pairs_hook=unique_object); parts = []; cursor = 0; scan = 0
+    for match in re.finditer(r'(?m)^[ \t]*[\{\[]', text):
+        start = match.end() - 1
+        if start < scan:
+            continue
+        try:
+            value, length = decoder.raw_decode(text[start:])
+        except ValueError:
+            continue
+        if not isinstance(value, (dict, list)):
+            continue
+        end = start + length
+        if start > cursor: parts.append({'text': text[cursor:start]})
+        parts.append({'json': value, 'original_sha256': hashlib.sha256(text[start:end].encode()).hexdigest()})
+        cursor = scan = end
+    if not parts:
+        return text
+    if cursor < len(text): parts.append({'text': text[cursor:]})
+    return {'schema': 'dispatch_lossless_native_handback/1',
+            'original_sha256': hashlib.sha256(text.encode()).hexdigest(), 'parts': parts}
 
 
 def encode_shared(value):
@@ -130,6 +223,7 @@ def encode_shared(value):
         packet = walk(result['packet'], remove)
         values = {key: walk(item, remove) for key, item in result['values'].items() if key not in remove}
         result.update(packet=packet, values=values)
+    result = share_keys(result)
     if len(canonical(result)) >= len(raw):
         return value
     if canonical(decode_shared(result)) != raw:

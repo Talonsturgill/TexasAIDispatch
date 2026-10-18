@@ -811,6 +811,69 @@ class AvailabilityTest(unittest.TestCase):
                 r.packet(board, claims, 'code', None)
 
 
+class RetainedNativeContextTest(unittest.TestCase):
+    def setUp(self):
+        temp = tempfile.TemporaryDirectory(); self.addCleanup(temp.cleanup)
+        self.root = Path(temp.name)
+        self.original = self.root/'partial-handback-verbatim.txt'
+        self.original.write_text('Original complete note and explicit retraction. '+r.MEDIA_LIMIT_ERROR)
+        self.derivative = self.root/'partial-handback-compact2.json'
+        self.derivative.write_text(json.dumps({'shortened':'Not complete evidence.', 'derivative_of':{
+            'file':self.original.name, 'sha256':r.digest(self.original)}}))
+        self.coverage = self.root/'coverage.json'
+        self.coverage.write_text(json.dumps({'pages':[{'file':'page-0.png','received':True},
+            {'file':'page-1.png','received':False,'reason':'Unseen image stays unobserved.'}]}))
+        self.failure = {'error':r.MEDIA_LIMIT_ERROR, 'media_probe':{
+            'handback':{'path':str(self.derivative),'sha256':r.digest(self.derivative)},
+            'coverage':{'path':str(self.coverage),'sha256':r.digest(self.coverage)}}}
+
+    def test_full_original_and_every_coverage_field_replace_only_shortened_transport(self):
+        result = r.retained_media_review({}, self.failure)['retained_host_media_review']
+        self.assertEqual(self.original.read_text(), result['handback'])
+        self.assertEqual(r.digest(self.original), result['handback_sha256'])
+        self.assertEqual(r.digest(self.derivative), result['receipt_handback_sha256'])
+        self.assertEqual(json.loads(self.coverage.read_text()), result['coverage'])
+        self.assertEqual([{'file':self.derivative.name,'sha256':r.digest(self.derivative)}], result['derivative_chain'])
+        self.assertEqual(r.digest(self.derivative), self.failure['media_probe']['handback']['sha256'])
+
+    def test_original_derivative_references_refuse_changes_and_traversal(self):
+        original = self.original.read_bytes()
+        self.original.write_bytes(original+b' changed')
+        with self.assertRaisesRegex(ValueError,'missing or changed'): r.original_handback(self.failure)
+        self.original.write_bytes(original)
+        for name in ('../outside.txt', str(self.original)):
+            self.derivative.write_text(json.dumps({'derivative_of':{'file':name,'sha256':r.digest(self.original)}}))
+            self.failure['media_probe']['handback']['sha256'] = r.digest(self.derivative)
+            with self.assertRaisesRegex(ValueError,'sibling file'): r.original_handback(self.failure)
+        self.derivative.write_text('Changed derivative bytes')
+        with self.assertRaisesRegex(ValueError,'bytes changed'): r.original_handback(self.failure)
+
+    def test_prior_phone_context_keeps_original_ungraded_and_requires_current_verified_scope(self):
+        board = self.root/'storyboard.json'; board.write_text('{"date":"2026-10-15"}')
+        claims = self.root/'claims.json'; claims.write_text('{"claims":[]}')
+        report = {'provider_evidence':{'host_failure':self.failure, 'bindings':{
+            'renderer_sha256':'current-renderer', 'claims_sha256':r.digest(claims),
+            'story_sha256':'current-story', 'film_sha256':'phone-film'}}}
+        path = self.root/'storyboard_critic.json'; path.write_text(json.dumps(report))
+        with patch('critic_gate.renderer_digest',return_value='current-renderer'), \
+                patch('daily_production.story_digest',return_value='current-story'), \
+                patch.object(r,'evidence_problems',return_value=[]) as verified, \
+                patch.object(r,'media_limit_packet',return_value={'original':'packet'}) as admitted, \
+                patch.object(r,'media_source_scope') as scoped:
+            context = r.prior_phone_partial_context(board,claims)
+            self.assertEqual(self.original.read_text(),context['handback_text'])
+            self.assertEqual(json.loads(self.coverage.read_text()),context['coverage_values'])
+            self.assertEqual('phone-film',context['phone_film_sha256'])
+            self.assertNotIn('verdict',context)
+            self.assertNotIn('handback_text',r.prior_phone_partial_context(board,claims,include_text=False))
+            verified.assert_called(); admitted.assert_called(); scoped.assert_called()
+            with patch.object(r,'evidence_problems',return_value=['original evidence edited']):
+                with self.assertRaisesRegex(ValueError,'not verified'): r.prior_phone_partial_context(board,claims)
+            report['provider_evidence']['bindings']['renderer_sha256'] = 'old-renderer'
+            path.write_text(json.dumps(report))
+            self.assertIsNone(r.prior_phone_partial_context(board,claims))
+
+
 class ProviderPacketTest(unittest.TestCase):
     def test_prior_inventory_keeps_picture_provenance_and_full_byte_identity(self):
         with tempfile.TemporaryDirectory() as directory:

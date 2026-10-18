@@ -13,6 +13,21 @@ CURRENT_FILES = ('storyboard.json','claims.json','mix.wav','mix.json','captions.
                  'storyboard_critic.json','credits.txt','cinema/proof.json','cinema/hero-review.json')
 
 
+def admission_deliverable(state, plan):
+    """Project an old admission from its prior registration, never from a later cut."""
+    proof = plan[KEY]
+    registered = [row for row in state['events'] if row.get('kind') == 'deliverable_registered']
+    if not registered:
+        raise ValueError('motion retry admission has no preceding native registration')
+    row = registered[-1]
+    bindings = {item['path']: item['sha256'] for item in proof['input_bindings']}
+    if (row.get('review_only') is not False or row.get('film_sha256') != proof['film_sha256']
+            or row.get('manifest_sha256') != bindings.get('out/dispatch/render-manifest.json')):
+        raise ValueError('motion retry admission differs from its preceding native registration')
+    return {'review_only': False, 'film_sha256': row['film_sha256'],
+            'manifest_sha256': row['manifest_sha256'], 'board_sha256': proof['board_sha256']}
+
+
 def eligible(state, plan, report):
     from autonomous_completion import EVENT, canonical, sha
     from capture_guard import SCHEMA as AUTH_SCHEMA, event_digest, normalize
