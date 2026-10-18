@@ -53,6 +53,8 @@ class NativeDecoderRecovery(unittest.TestCase):
         for key in capacity.resource_requirements(state):
             state['usage'][key] = state['resource_envelope'][key]
         controller.event(state, 'reserved', resources=dict(state['usage']), note='offline charged prior production')
+        controller.event(state, 'deliverable_registered', film_sha256=retry.digest(self.film),
+                         manifest_sha256=retry.digest(self.root/'out/dispatch/render-manifest.json'), review_only=False)
         controller.save(self.state, state)
         source = self.write('out/dispatch/finish.json', {'completion_reason':'finish-current',
             'director_identity':'director', 'failure_evidence':str(self.report),
@@ -165,6 +167,40 @@ class NativeDecoderRecovery(unittest.TestCase):
             grant = next(e for e in reversed(changed['events']) if e.get('kind') == capacity.EVENT)
             grant[key] = 'changed'
             self.assertTrue(capacity.replay(changed)[1])
+
+    def test_replay_keeps_admitted_native_identity_after_a_new_cut_is_registered(self):
+        self.assertTrue(capacity.grant_capacity(self.state, self.plan)[0])
+        state = controller.read_state(self.state)
+        before = copy.deepcopy(state)
+        envelope = capacity.effective_envelope(state)
+        self.film.write_text('later native fixture')
+        self.board.write_text('{"later":"board fixture"}')
+        manifest = self.root/'out/dispatch/render-manifest.json'
+        manifest.write_text(json.dumps({'film_sha256':retry.digest(self.film)}))
+        controller.event(state, 'deliverable_registered', film_sha256=retry.digest(self.film),
+                         manifest_sha256=retry.digest(manifest), review_only=False)
+        state['deliverable'] = {'film_sha256':retry.digest(self.film),
+            'board_sha256':retry.digest(self.board), 'review_only':False}
+        retained = copy.deepcopy(state)
+        self.assertEqual([], capacity.replay(state)[1])
+        self.assertEqual(retained, state)
+        self.assertEqual(envelope, capacity.effective_envelope(state))
+        self.assertEqual(before['usage'], state['usage'])
+        self.assertEqual(before['resource_envelope'], state['resource_envelope'])
+        self.assertEqual(before['events'], state['events'][:-1])
+        self.assertTrue(motion.file_problems(json.loads(self.plan.read_text())))
+        state['terminal_state'] = 'shipped'
+        self.assertEqual([], capacity.replay(state)[1])
+
+    def test_replay_refuses_missing_or_mismatched_admission_registration(self):
+        self.assertTrue(capacity.grant_capacity(self.state, self.plan)[0])
+        original = controller.read_state(self.state)
+        for field, value in [('kind','unrelated_event'), ('film_sha256','f'*64),
+                             ('manifest_sha256','e'*64), ('review_only',True)]:
+            state = copy.deepcopy(original)
+            registration = next(e for e in state['events'] if e.get('kind') == 'deliverable_registered')
+            registration[field] = value
+            self.assertTrue(capacity.replay(state)[1], field)
 
     def test_existing_checkpoint_codec_restores_and_replays_the_new_grant(self):
         import claude_checkpoint as checkpoint

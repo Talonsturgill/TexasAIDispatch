@@ -581,6 +581,11 @@ def replay(state):
                 admission["usage"] = row["usage_unchanged"]
                 admission["escalation_ceiling"] = row["previous_ceiling"]
                 admission["events"] = events[:index]
+                if (plan.get('capture_retry_evidence') or {}).get('schema') == 'dispatch_capture_retry_evidence/2':
+                    # Admission checked live inputs before this old grant. A later registered
+                    # cut must not replace the delivery identity from that event prefix.
+                    from motion_capture_retry import admission_deliverable
+                    admission['deliverable'] = admission_deliverable(admission, plan)
                 if (plan.get('completion_reason') in {COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, FORECAST_REASON}
                         or 'capture_retry_evidence' in plan or 'capture_completion_budget' in plan
                         or VALIDATION_FIELD in plan):

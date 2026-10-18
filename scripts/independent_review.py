@@ -117,15 +117,81 @@ def transport_assignment(role, actor, bindings):
     return value
 
 
+def original_handback(failure):
+    """Restore an explicitly bound original instead of forwarding a shortened derivative."""
+    ref = failure['media_probe']['handback']; path = Path(ref['path']).resolve()
+    if digest(path) != ref['sha256']:
+        raise ValueError('retained native handback bytes changed')
+    chain = []; seen = set()
+    for _ in range(5):
+        if path in seen:
+            raise ValueError('retained native handback derivatives form a cycle')
+        seen.add(path); content = path.read_text()
+        try:
+            value = json.loads(content)
+        except ValueError:
+            value = None
+        previous = value.get('derivative_of') if isinstance(value, dict) else None
+        if not isinstance(previous, dict) or not {'file', 'sha256'} <= previous.keys():
+            return path, content, chain
+        name = previous['file']
+        if not isinstance(name, str) or Path(name).name != name:
+            raise ValueError('native handback original must be a retained sibling file')
+        original = path.parent / name
+        if original.is_symlink() or not original.is_file() or digest(original) != previous['sha256']:
+            raise ValueError('native handback original is missing or changed')
+        chain.append({'file': path.name, 'sha256': digest(path)})
+        path = original
+    raise ValueError('native handback derivative chain exceeds its bounded depth')
+
+
 def retained_media_review(text, failure):
     if failure.get('error') == MEDIA_LIMIT_ERROR:
+        from independent_packet_compaction import native_handback
         probe = failure['media_probe']
+        path, content, chain = original_handback(failure)
         text['retained_host_media_review'] = {
             'basis': 'Original partial host review with explicit retractions; no complete selection or film approval.',
-            'handback_sha256': probe['handback']['sha256'],
+            'handback_sha256': digest(path),
+            'receipt_handback_sha256': probe['handback']['sha256'], 'derivative_chain': chain,
             'coverage_sha256': probe['coverage']['sha256'],
-            'handback': Path(probe['handback']['path']).read_text()}
+            'coverage': json.loads(Path(probe['coverage']['path']).read_text()),
+            'handback': native_handback(content)}
     return text
+
+
+def prior_phone_partial_context(board_path, claims_path, include_text=True):
+    """Carry a verified prior phone partial into the first native final review, ungraded."""
+    root = Path(board_path).parent; path = root / 'storyboard_critic.json'
+    if not path.is_file():
+        return None
+    review = json.loads(path.read_text()); proof = review.get('provider_evidence') or {}
+    failure = proof.get('host_failure') or {}
+    if failure.get('error') != MEDIA_LIMIT_ERROR:
+        return None
+    from critic_gate import renderer_digest
+    from daily_production import story_digest
+    board = json.loads(Path(board_path).read_text()); bindings = proof.get('bindings') or {}
+    if (bindings.get('renderer_sha256') != renderer_digest(board)
+            or bindings.get('claims_sha256') != digest(claims_path)
+            or bindings.get('story_sha256') != story_digest(board)):
+        return None  # A different source scope is not current phone context.
+    errors = evidence_problems(review)
+    if errors:
+        raise ValueError('prior phone context is not verified: ' + '; '.join(errors))
+    source = media_limit_packet(failure, root)
+    media_source_scope(source, bindings, 'phone', False)
+    original, content, chain = original_handback(failure)
+    context = {'basis': 'Prior incomplete native phone context only; no native-film verdict or approval. '
+               'Reassess received-page notes on the current native movie. Unseen claims remain unobserved.',
+               'phone_report_sha256': digest(path), 'phone_film_sha256': bindings['film_sha256'],
+               'handback': {'path': str(original), 'sha256': digest(original)},
+               'coverage': failure['media_probe']['coverage'], 'derivative_chain': chain}
+    if include_text:
+        from independent_packet_compaction import native_handback
+        context['handback_text'] = native_handback(content)
+        context['coverage_values'] = json.loads(Path(context['coverage']['path']).read_text())
+    return context
 
 
 def media_source_scope(source, bindings, role, comparison):
@@ -694,6 +760,10 @@ def packet(board_path, claims_path, role, film):
         bindings['film_sha256'] = digest(film)
         text['primary_film'] = {'path': str(film.resolve()), 'sha256': bindings['film_sha256']}
     if role not in ('code', 'phone'):
+        retained = prior_phone_partial_context(board_path, claims_path)
+        if retained:
+            text['retained_phone_host_context'] = retained
+            bindings['retained_phone_host_context_sha256'] = fingerprint(retained)
         feed = root / 'feed-composite.png'
         if not feed.is_file():
             raise ValueError('scorer needs the current rendered feed composite')
@@ -863,6 +933,16 @@ def prompt(role, text):
             'dispatch_verified_prior_review keeps the complete original returned findings and provenance '
             'after verification of the retained artifact; its old request and raw bytes remain bound '
             'by original_sha256. Prior-scope findings never approve this current film. ')
+        instruction += ('dispatch_lossless_shared_packet/2 uses the same value and text reconstruction '
+            'plus a keys dictionary: within packet and values, a JSON object key ~id restores keys[id], '
+            'and a literal key starting with ~ is escaped with one extra ~. Apply key restoration '
+            'recursively, including inside $literal; control objects $v, $text and $literal retain '
+            'their existing meanings. Restore every original field before reading or judging it. '
+            'The original semantic SHA256 is verified before transport. ')
+        instruction += ('dispatch_lossless_native_handback/1 retains the complete original prose and '
+            'JSON values in ordered parts: text stays verbatim and json keeps every original key and '
+            'value, with only JSON presentation whitespace normalized. Original byte hashes remain '
+            'bound. Read every part; do not discard coverage or received-page descriptions. ')
     if text.get('verified_code_plan_context'):
         instruction += ('Current code source is supplied as exact hashes after the ordinary code gate '
             'verified the complete original independent code-plan reports for every current board and '
@@ -876,6 +956,11 @@ def prompt(role, text):
             'failures remain blocking. Include retained_findings_review with the original finding, '
             'confirmed or not_reproduced or resolved_by_full_context, and concrete timed reasons. '
             'Never erase the earlier evidence or infer approval from the recovery transport. ')
+    if text.get('retained_phone_host_context'):
+        instruction += ('After inspecting the primary native film, read the complete retained prior '
+            'phone partial and its coverage. In retained_findings_review explicitly reassess received-page '
+            'notes against this native movie, with timed reasons, while preserving every retraction and '
+            'unknown observation. This is the first final-native scope, not a replacement phone grade. ')
     instruction += assessment_prompt('phone' if role in ('code', 'phone') else 'panel')
     return instruction + '\nCurrent evidence\n' + (packet_json(text) if text.get('packet_compaction')
                                                    else json.dumps(text, ensure_ascii=False))
