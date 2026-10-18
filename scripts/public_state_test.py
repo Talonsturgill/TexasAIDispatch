@@ -29,6 +29,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import base64
 from contextlib import redirect_stderr
 from pathlib import Path
 from unittest import mock
@@ -246,11 +247,11 @@ class Refusals(Base):
 
 
 class HistoricalPaths(Base):
-    def historic_state(self):
+    def historic_state(self, older_override=None):
         root = self.tmp / 'current' / 'TexasAIDispatch'
         roots_file = root / claude_checkpoint.GRANT_ROOTS_FILE
         roots_file.parent.mkdir(parents=True, exist_ok=True)
-        older = [str(self.tmp / name / 'TexasAIDispatch') for name in ('old-a', 'old-b')]
+        older = older_override or [str(self.tmp / name / 'TexasAIDispatch') for name in ('old-a', 'old-b')]
         state = json.loads(json.dumps(shipped_state()).replace(ROOT, str(root)))
         entries = []
         for index, origin in enumerate(older):
@@ -351,6 +352,98 @@ class HistoricalPaths(Base):
         state['usage']['note'] = older[0]+'/out/dispatch/usage.json'
         with self.assertRaisesRegex(ValueError, 'altered usage'):
             public_state.sanitized_export(state, root)
+
+    def pointer_state(self, older_override=None):
+        state, root, older, _ = self.historic_state(older_override)
+        board = {'attention_beats':[{'viewer_reward':'visible result','item_ids':['a']}],
+                 'narration_picture':{'timing_provenance':{'word_content_sha256':'f'*64}}}
+        path = root/'out/dispatch/storyboard.json'
+        path.write_text(json.dumps(board))
+        state['deliverable'].update(board=str(path),board_sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+        grant = state['events'][2]
+        report = json.loads(grant['report_json'])
+        report['note'] = 'The only difference is /narration_picture/timing_provenance/word_content_sha256, unchanged.'
+        report['operations'] = [{'op':'replace','path':'/attention_beats/9/viewer_reward','value':'Original note.'}]
+        grant['report_json'] = json.dumps(report)
+        grant['report_sha256'] = public_state.sha(grant['report_json'])
+        return state,root
+
+    def test_hash_bound_board_references_have_distinct_exact_inverse_labels(self):
+        state,root = self.pointer_state()
+        original = copy.deepcopy(state)
+        public = json.loads(public_state.sanitized_export(state,root))
+        metadata = public['public_export'].pop('board_pointer_projection')
+        self.assertTrue(metadata['exact_inverse_verified'])
+        self.assertEqual(metadata['board_sha256'],state['deliverable']['board_sha256'])
+        self.assertEqual(len(metadata['references']),2)
+        for row in metadata['references']:
+            public = public_state._replace_label(public,row['token'],'/'+'/'.join(row['segments']))
+        expected,origins = claude_checkpoint.public_projection(state,root)
+        expected = public_state.historical_path_projection(state,expected,origins,root,claude_checkpoint)
+        self.assertEqual(public,expected)
+        self.assertEqual(state,original)
+
+    def test_unbound_files_and_neutral_pointer_text_still_refuse(self):
+        for value in ('/attention_beats/0/private.txt','/etc/credentials'):
+            state,root = self.pointer_state()
+            grant = state['events'][2]
+            grant['report_json'] = json.dumps({'note':value})
+            grant['report_sha256'] = public_state.sha(grant['report_json'])
+            with self.assertRaisesRegex(ValueError,'absolute local path survived'):
+                public_state.sanitized_export(state,root)
+        state,root = self.pointer_state()
+        state['events'][-1]['note'] = '/attention_beats/0/viewer_reward'
+        with self.assertRaisesRegex(ValueError,'absolute local path survived'):
+            public_state.sanitized_export(state,root)
+
+    def test_changed_board_bytes_cannot_authorize_a_pointer_label(self):
+        state,root = self.pointer_state()
+        Path(state['deliverable']['board']).write_text('{}')
+        with self.assertRaisesRegex(ValueError,'absolute local path survived'):
+            public_state.sanitized_export(state,root)
+
+    def test_only_exact_owned_workspace_arguments_get_reversible_labels(self):
+        state,root = self.pointer_state(['/home/fixture/old-a','/home/fixture/old-b'])
+        grant = state['events'][2]
+        report = json.loads(grant['report_json'])
+        report['guide'] = 'Run bootstrap --workspace /home/fixture --apply.'
+        grant['report_json'] = json.dumps(report); grant['report_sha256'] = public_state.sha(grant['report_json'])
+        before = copy.deepcopy(state)
+        result = json.loads(public_state.sanitized_export(state,root))
+        rows = result['public_export']['board_pointer_projection']['references']
+        self.assertEqual(sum(r.get('kind')=='workspace-argument' for r in rows),1)
+        self.assertNotIn('/home/fixture',json.dumps(result))
+        self.assertEqual(state,before)
+        for value in ('--workspace /home/stranger --apply','--workspace /home/fixture/private --apply'):
+            report['guide'] = value
+            grant['report_json'] = json.dumps(report); grant['report_sha256'] = public_state.sha(grant['report_json'])
+            with self.assertRaisesRegex(ValueError,'absolute local path survived'):
+                public_state.sanitized_export(state,root)
+
+    def test_typed_opaque_provider_bytes_remain_exact_in_export(self):
+        state,root,_,_ = self.historic_state()
+        data = b'\xff\x0e\x0b\xf0'+b''.join(hashlib.sha256(str(i).encode()).digest() for i in range(64))
+        signature = base64.b64encode(data).decode()
+        self.assertIsNotNone(public_state.ABSOLUTE_PATH.search(signature))
+        grant = state['events'][2]
+        grant['report_json'] = json.dumps({'provider':{'parts':[{'thoughtSignature':signature,'text':'Original response.'}]}})
+        grant['report_sha256'] = public_state.sha(grant['report_json'])
+        before = copy.deepcopy(state)
+        text = public_state.sanitized_export(state,root)
+        self.assertIn(signature,text)
+        self.assertEqual(state,before)
+        grant['report_json'] = json.dumps({'untyped':signature})
+        grant['report_sha256'] = public_state.sha(grant['report_json'])
+        with self.assertRaisesRegex(ValueError,'absolute local path survived'):
+            public_state.sanitized_export(state,root)
+
+    def test_short_file_paths_are_not_opaque_provider_signatures(self):
+        state,root,_,_ = self.historic_state()
+        grant = state['events'][2]
+        grant['report_json'] = json.dumps({'thoughtSignature':'/srv/private/file.txt'})
+        grant['report_sha256'] = public_state.sha(grant['report_json'])
+        with self.assertRaisesRegex(ValueError,'absolute local path survived'):
+            public_state.sanitized_export(state,root)
 
 
 class Structure(Base):

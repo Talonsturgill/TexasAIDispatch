@@ -4,6 +4,9 @@ import hashlib
 import json
 import os
 import re
+import base64
+import binascii
+from pathlib import Path
 
 
 def sha(text):
@@ -200,6 +203,138 @@ def _replace_label(node, label, original):
     return node
 
 
+def board_pointer_projection(state, public, root, codec):
+    """Label board references and exact owned workspace arguments in failed reports."""
+    binding = state.get('deliverable') or {}
+    path = Path(binding.get('board', ''))
+    path = path if path.is_absolute() else Path(root) / path
+    try:
+        path.resolve().relative_to(Path(root).resolve())
+        raw = path.read_bytes()
+    except (ValueError,OSError):
+        return public
+    if hashlib.sha256(raw).hexdigest() != binding.get('board_sha256'):
+        return public
+    board = json.loads(raw)
+    def valid_pointer(pointer):
+        if not pointer.startswith('/') or len(pointer.split('/')) < 3:
+            return False
+        nodes = [board]
+        for part in pointer.split('/')[1:]:
+            if re.search(r'~(?![01])',part):
+                return False
+            key = part.replace('~1','/').replace('~0','~')
+            next_nodes = []
+            for node in nodes:
+                if isinstance(node,dict) and key in node:
+                    next_nodes.append(node[key])
+                elif isinstance(node,list) and re.fullmatch(r'0|[1-9][0-9]*',key):
+                    next_nodes.extend(node)
+            nodes = next_nodes
+            if not nodes:
+                return False
+        return True
+    result = copy.deepcopy(public)
+    labels = {}
+    original_text = json.dumps(public)
+    workspaces = set()
+    for origin in codec.grant_roots(state,root):
+        source = state['events'][origin['event_index']]
+        if source.get('kind') in {'owner_review_grant','owner_validator_grant'}:
+            continue
+        fields = codec.grant_text_fields(source)
+        if any(origin['root']+suffix in source[key] for key in fields
+               for suffix in ('/out/dispatch/','/video-engine/','/assets/','/config/')):
+            parts = Path(origin['root']).parts
+            if len(parts) >= 4 and parts[1] in ('home','Users'):
+                workspaces.add(str(Path(*parts[:3])))
+    for index, source in enumerate(state.get('events',[])):
+        if source.get('kind') not in codec.GRANT_KINDS:
+            continue
+        for field in ('failure_evidence_json','report_json'):
+            if field not in codec.grant_text_fields(source):
+                continue
+            if sha(source[field]) != source[codec.GRANT_TEXTS[field]]:
+                raise ValueError('public export refused: board reference lacks exact failed evidence')
+            def project(match):
+                token = match.group(0)
+                pointer = token.rstrip('\\,;)]}')
+                if not valid_pointer(pointer):
+                    return token
+                label = '{BOARD_POINTER_SHA256_'+sha(pointer)+'}'
+                if label in original_text:
+                    raise ValueError('public export refused: board pointer token collision')
+                labels[label] = pointer
+                return label + token[len(pointer):]
+            result['events'][index][field] = ABSOLUTE_PATH.sub(project,result['events'][index][field])
+            for workspace in workspaces:
+                pattern = re.compile(r'(--workspace[ =])'+re.escape(workspace)+r'(?=\s|$)')
+                label = '{WORKSPACE_ARGUMENT_SHA256_'+sha(workspace)+'}'
+                if pattern.search(result['events'][index][field]):
+                    if label in original_text:
+                        raise ValueError('public export refused: workspace argument token collision')
+                    labels[label] = workspace
+                    result['events'][index][field] = pattern.sub(
+                        lambda m:m.group(1)+label,result['events'][index][field])
+    if not labels:
+        return public
+    restored = result
+    for label,pointer in labels.items():
+        restored = _replace_label(restored,label,pointer)
+    if restored != public:
+        raise ValueError('public export refused: board reference projection changed evidence')
+    result['public_export']['board_pointer_projection'] = {
+        'schema':'dispatch_public_board_pointers/1', 'board_sha256':binding['board_sha256'],
+        'original_public_projection_sha256':sha(original_text), 'exact_inverse_verified':True,
+        'references':[({'token':label,'kind':'workspace-argument','value_sha256':sha(pointer)}
+                       if label.startswith('{WORKSPACE_ARGUMENT_') else
+                       {'token':label,'segments':pointer.split('/')[1:]})
+                      for label,pointer in sorted(labels.items())]}
+    return result
+
+
+def filesystem_scan_text(text, state, codec):
+    """Opaque provider signatures are encoded bytes, not local filesystem paths.
+
+    Only actual typed signatures from unchanged hash-bound failed reports qualify.
+    Credential and private-value scans still inspect the complete original text.
+    This view is used only by the filesystem scanner; exported evidence stays exact.
+    """
+    signatures = set()
+    def visit(node, depth=0):
+        if depth > 12:
+            return
+        if isinstance(node,dict):
+            value = node.get('thoughtSignature')
+            if isinstance(value,str) and len(value) >= 128:
+                try:
+                    base64.b64decode(value,validate=True)
+                    signatures.add(value)
+                except (ValueError,binascii.Error):
+                    pass
+            for value in node.values():
+                visit(value,depth+1)
+        elif isinstance(node,list):
+            for value in node:
+                visit(value,depth+1)
+        elif isinstance(node,str) and len(node) <= 16*1024*1024 and node.lstrip().startswith(('{','[')):
+            try:
+                visit(json.loads(node),depth+1)
+            except ValueError:
+                pass
+    for source in state.get('events',[]):
+        if source.get('kind') not in codec.GRANT_KINDS:
+            continue
+        for field in ('failure_evidence_json','report_json'):
+            if field in codec.grant_text_fields(source):
+                if sha(source[field]) != source[codec.GRANT_TEXTS[field]]:
+                    raise ValueError('public export refused: opaque provider evidence changed')
+                visit(json.loads(source[field]))
+    for signature in signatures:
+        text = text.replace(signature,'{OPAQUE_PROVIDER_SIGNATURE_SHA256_'+sha(signature)+'}')
+    return text
+
+
 def sanitized_export(state, root):
     """The canonical public export: the derived account, then the project's own sanitizer, then three refusals.
 
@@ -226,8 +361,9 @@ def sanitized_export(state, root):
     if problem:
         raise ValueError('public export refused: the sanitizer would replace protected evidence: ' + problem)
     public = historical_path_projection(state, public, origins, root, c)
+    public = board_pointer_projection(state, public, root, c)
     text = json.dumps(public, indent=2, sort_keys=True) + '\n'
-    found = ABSOLUTE_PATH.search(text)
+    found = ABSOLUTE_PATH.search(filesystem_scan_text(text,state,c))
     if found:
         raise ValueError('public export refused: an absolute local path survived: ' + found.group(0)[:40])
     public = json.loads(text)
