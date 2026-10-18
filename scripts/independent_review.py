@@ -25,6 +25,7 @@ from production_quality import policy, digest
 from run_controller import read_state, reserve, record_telemetry, event, save, now
 
 REPO = Path(__file__).resolve().parents[1]
+TEXT_CAPACITY_POLICY = REPO / 'config/final_review_text_capacity_v1.json'
 ROLES = ('code', 'phone', 'picture', 'story', 'sound')
 ERRORS = ('Selected model is at capacity. Please try a different model.',
           'server_overloaded', 'rate_limit_exceeded', 'usage_limit_exceeded',
@@ -281,6 +282,8 @@ def review_context(proof):
                                    'prompt_sha256', 'input_sha256', 'host_failure')}
     if 'availability_recovery' in proof:
         value['availability_recovery'] = proof['availability_recovery']
+    if 'packet_capacity' in proof:
+        value['packet_capacity'] = proof['packet_capacity']
     return value
 
 
@@ -391,6 +394,9 @@ def evidence_problems(report):
             raise ValueError('independent transport lacks actual host unavailability evidence')
         if not proof['request_id'] or not proof['prompt_sha256'] or not proof['input_sha256']:
             raise ValueError('independent transport lacks request or input bindings')
+        capacity_errors = packet_capacity_problems(proof)
+        if capacity_errors:
+            raise ValueError('; '.join(capacity_errors))
         if proof['model'] != policy()['av_model']:
             raise ValueError('independent transport uses an unconfigured provider model')
         recovered = proof.get('availability_recovery')
@@ -615,15 +621,98 @@ def packet_json(text):
     return json.dumps(wire, sort_keys=True, separators=(',', ':'))
 
 
+def final_text_capacity(text, role, bindings):
+    """A separate bounded allowance; the original transport baseline stays intact."""
+    from independent_packet_compaction import FINAL_POLICY, sha
+    cfg = json.loads(TEXT_CAPACITY_POLICY.read_text())
+    if (cfg.get('version') != 'mandatory-final-review-text-capacity-v1'
+            or cfg.get('roles') != ['picture','story','sound']
+            or cfg.get('original_text_limit') != 500000 or cfg.get('maximum_text_limit') != 650000):
+        raise ValueError('final review text-capacity policy is invalid')
+    context = text.get('verified_code_plan_context') or {}
+    if (role not in cfg['roles'] or str(text.get('board',{}).get('date','')) < cfg['effective_edition']
+            or context.get('final_policy_sha256') != sha(FINAL_POLICY)
+            or bindings.get('provider_final_code_context_policy_sha256') != sha(FINAL_POLICY)):
+        return None
+    return {'schema':'dispatch_final_review_text_capacity/1', 'role':role,
+        'original_limit':500000, 'maximum_limit':650000,
+        'policy_sha256':sha(TEXT_CAPACITY_POLICY)}
+
+
+def packet_capacity_request(text, role, bindings, failure):
+    """Validate before reservation; the paid attempt binds its own request identity."""
+    wire = packet_json(text)
+    if len(wire) <= 500000:
+        return None
+    allowance = final_text_capacity(text,role,bindings)
+    if (allowance is None or text.get('final_packet_capacity') != allowance
+            or failure_problems(failure,role) or len(wire) > allowance['maximum_limit']):
+        raise ValueError('oversized final review lacks its bounded mandatory capacity admission')
+    return {**allowance, 'policy_json':TEXT_CAPACITY_POLICY.read_text(),
+        'authorized_additional_chars':150000, 'actual_extra_chars':len(wire)-500000,
+        'packet_chars':len(wire), 'wire_sha256':hashlib.sha256(wire.encode()).hexdigest(),
+        'board_sha256':bindings['board_sha256'], 'film_sha256':bindings['film_sha256'],
+        'grants_no_review_approval':True}
+
+
+def packet_capacity_problems(proof):
+    """Verify retained input capacity without changing any old policy or response."""
+    marker = (proof.get('input') or {}).get('final_packet_capacity')
+    capacity = proof.get('packet_capacity')
+    if marker is None:
+        return ['unbound final text capacity'] if capacity is not None else []
+    try:
+        head, found, wire = proof['prompt'].partition('\nCurrent evidence\n')
+        if not found:
+            raise ValueError('final text capacity lacks its exact wire input')
+        if len(wire) <= 500000:
+            return ['unneeded final text-capacity increment'] if capacity is not None else []
+        if not isinstance(capacity,dict):
+            raise ValueError('oversized final review lacks retained capacity authorization')
+        policy_text = proof['input']['files']['config/final_review_text_capacity_v1.json']
+        cfg = json.loads(policy_text)
+        policy_sha = hashlib.sha256(policy_text.encode()).hexdigest()
+        from independent_packet_compaction import decode_shared
+        if (cfg.get('version') != 'mandatory-final-review-text-capacity-v1'
+                or cfg.get('roles') != ['picture','story','sound']
+                or cfg.get('original_text_limit') != 500000 or cfg.get('maximum_text_limit') != 650000
+                or proof['role'] not in cfg['roles'] or len(wire) > 650000
+                or marker != {key:capacity[key] for key in ('schema','role','original_limit','maximum_limit','policy_sha256')}
+                or capacity['schema'] != 'dispatch_final_review_text_capacity/1'
+                or capacity['role'] != proof['role'] or capacity['original_limit'] != 500000
+                or capacity['maximum_limit'] != 650000 or capacity['authorized_additional_chars'] != 150000
+                or capacity['actual_extra_chars'] != len(wire)-500000 or capacity['packet_chars'] != len(wire)
+                or capacity['wire_sha256'] != hashlib.sha256(wire.encode()).hexdigest()
+                or capacity['policy_json'] != policy_text or capacity['policy_sha256'] != policy_sha
+                or proof['bindings'].get('provider_final_text_capacity_policy_sha256') != policy_sha
+                or capacity['request_id'] != proof['request_id']
+                or capacity['board_sha256'] != proof['bindings']['board_sha256']
+                or capacity['film_sha256'] != proof['bindings']['film_sha256']
+                or capacity.get('grants_no_review_approval') is not True
+                or fingerprint(decode_shared(json.loads(wire))) != fingerprint(proof['input'])):
+            raise ValueError('final text capacity differs from its bound policy, request or complete input')
+    except (KeyError,TypeError,ValueError) as exc:
+        return [str(exc)]
+    return []
+
+
 def bounded_packet(text, board_path, role, bindings):
-    from independent_packet_compaction import compact, phone_code_context, current_paths
+    from independent_packet_compaction import compact, phone_code_context, final_code_context, current_paths
     board_path, = current_paths(text.get('board', {}), board_path)
     if role == 'phone':
         text, bindings = phone_code_context(text, board_path, bindings)
+    elif role in ('picture', 'story', 'sound'):
+        text, bindings = final_code_context(text, board_path, bindings, role)
     text, policy_sha = compact(text, board_path.parent, role, REPO)
     if policy_sha is not None:
         bindings = {**bindings, 'provider_packet_compaction_sha256': policy_sha}
-    if len(packet_json(text) if text.get('packet_compaction') else json.dumps(text)) > 500_000:
+    allowance = final_text_capacity(text,role,bindings) if role in ('picture','story','sound') else None
+    if allowance is not None:
+        text['final_packet_capacity'] = allowance
+        text['files']['config/final_review_text_capacity_v1.json'] = TEXT_CAPACITY_POLICY.read_text()
+        bindings['provider_final_text_capacity_policy_sha256'] = allowance['policy_sha256']
+    limit = allowance['maximum_limit'] if allowance else 500000
+    if len(packet_json(text) if text.get('packet_compaction') else json.dumps(text)) > limit:
         raise ValueError('independent role packet exceeds the bounded text size; compact relevant source context first')
     return text, bindings
 
@@ -952,7 +1041,11 @@ def prompt(role, text):
             'verified the complete original independent code-plan reports for every current board and '
             'both treatments against current concepts, renderer bytes and claims. Those full reports '
             'are included only as code provenance. They supply no pixel observations, selection or '
-            'film verdict. Independently watch both movies and apply every current visual criterion. ')
+            'film verdict. Independently inspect all assigned current media and apply every current visual criterion. ')
+        if text['verified_code_plan_context'].get('final_policy_sha256'):
+            instruction += ('The separate final_review_code_context_v1 amendment authorizes this '
+                'code-provenance representation at final native scope. It changes no guide, source '
+                'finding, media observation, score or approval. Judge the exact native film independently. ')
     if text.get('retained_host_media_review'):
         instruction += ('Inspect the actual movies first, then the retained partial host review. '
             'Treat its retracted or unseen-image claims as unobserved. Explicitly reassess its received-pixel '
@@ -1067,6 +1160,7 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
         errors = panel_transport_problems(ledger)
         if not good or errors:
             raise ValueError('; '.join(errors + ([] if good else [reason])))
+    capacity = packet_capacity_request(text,role,bindings,failure)
     read_timeout_s = 180
     if availability is not None:
         from provider_availability import recovery_proof
@@ -1089,6 +1183,9 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
     context = {'role': role, 'model': model, 'request_id': request_id, 'reviewed_at': reviewed_at,
                'bindings': bindings, 'host_failure': failure, 'input_sha256': fingerprint(text),
                'prompt_sha256': hashlib.sha256(request_prompt.encode()).hexdigest()}
+    if capacity is not None:
+        capacity.update(request_id=request_id, authorized_at=reviewed_at)
+        context['packet_capacity'] = capacity
     if availability is not None:
         from provider_availability import recovery_proof
         context['availability_recovery'] = recovery_proof(availability, original_attempt, state)
@@ -1104,6 +1201,8 @@ def run_claimed(board, claims, film, role, failure_path, state, out,
     (cache / 'attempt.json').write_text(json.dumps(attempt, indent=2) + '\n')
     with claim(state.with_name(state.name + '.independent.lock'), blocking=True):
         ledger = read_state(state)
+        if capacity is not None:
+            event(ledger, 'independent_review_packet_capacity', **capacity)
         event(ledger, 'independent_review_transport', **attempt)
         save(state, ledger)
     upload = None

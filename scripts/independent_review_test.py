@@ -15,6 +15,98 @@ import quality_contract as q
 import documentary_review as d
 
 
+class FinalPacketCapacityTest(unittest.TestCase):
+    def make_packet(self, role='picture', size=540000):
+        from independent_packet_compaction import FINAL_POLICY, sha
+        text = {'board': {'date': '2026-10-15'}, 'files': {'full-guide.md': 'G' * size},
+                'verified_code_plan_context': {'final_policy_sha256': sha(FINAL_POLICY)}}
+        bindings = {'provider_final_code_context_policy_sha256': sha(FINAL_POLICY),
+                    'board_sha256': 'b' * 64, 'film_sha256': 'f' * 64}
+        allowance = r.final_text_capacity(text, role, bindings)
+        if allowance:
+            text['final_packet_capacity'] = allowance
+            text['files']['config/final_review_text_capacity_v1.json'] = r.TEXT_CAPACITY_POLICY.read_text()
+            bindings['provider_final_text_capacity_policy_sha256'] = allowance['policy_sha256']
+        return text, bindings
+
+    def proof(self, role='picture'):
+        text, bindings = self.make_packet(role)
+        with patch.object(r, 'failure_problems', return_value=[]):
+            capacity = r.packet_capacity_request(text, role, bindings, {})
+        capacity.update(request_id='actual-request', authorized_at='2026-10-18T04:00:00Z')
+        return {'input': text, 'bindings': bindings, 'role': role, 'request_id': 'actual-request',
+                'packet_capacity': capacity, 'prompt': 'Full role instructions\nCurrent evidence\n' + r.packet_json(text)}
+
+    def test_three_final_roles_keep_complete_input_and_bind_each_increment(self):
+        for role in ('picture', 'story', 'sound'):
+            proof = self.proof(role)
+            self.assertEqual(r.packet_capacity_problems(proof), [])
+            capacity = proof['packet_capacity']
+            self.assertEqual(capacity['role'], role)
+            self.assertEqual(capacity['actual_extra_chars'], capacity['packet_chars'] - 500000)
+            self.assertTrue(capacity['grants_no_review_approval'])
+            self.assertEqual(proof['input']['files']['full-guide.md'], 'G' * 540000)
+            self.assertEqual(r.review_context({**proof, 'model': 'model', 'reviewed_at': 'time',
+                'host_failure': {}, 'input_sha256': 'input', 'prompt_sha256': 'prompt'})['packet_capacity'], capacity)
+
+    def test_capacity_rejects_missing_failure_marker_and_oversize_before_spending(self):
+        text, bindings = self.make_packet()
+        with self.assertRaises(ValueError):
+            r.packet_capacity_request(text, 'picture', bindings, {})
+        with patch.object(r, 'failure_problems', return_value=[]):
+            missing = copy.deepcopy(text); missing.pop('final_packet_capacity')
+            with self.assertRaises(ValueError):
+                r.packet_capacity_request(missing, 'picture', bindings, {})
+            text['files']['full-guide.md'] += 'G' * 120000
+            with self.assertRaises(ValueError):
+                r.packet_capacity_request(text, 'picture', bindings, {})
+
+    def test_code_phone_old_editions_and_unverified_provenance_keep_baseline(self):
+        for role in ('code', 'phone'):
+            text, bindings = self.make_packet(role)
+            self.assertIsNone(r.final_text_capacity(text, role, bindings))
+        text, bindings = self.make_packet()
+        text['board']['date'] = '2026-10-14'
+        self.assertIsNone(r.final_text_capacity(text, 'picture', bindings))
+        text['board']['date'] = '2026-10-15'
+        bindings['provider_final_code_context_policy_sha256'] = 'changed'
+        self.assertIsNone(r.final_text_capacity(text, 'picture', bindings))
+
+    def test_transport_baseline_still_rejects_unqualified_large_packets(self):
+        for role in ('code', 'phone', 'picture'):
+            text = {'board': {'date': '2026-10-15'}, 'files': {'full-guide.md': 'G' * 540000}}
+            with patch('independent_packet_compaction.current_paths', return_value=(Path('/tmp/board.json'),)), \
+                    patch('independent_packet_compaction.compact', side_effect=lambda t,*a:(t,None)), \
+                    patch('independent_packet_compaction.phone_code_context', side_effect=lambda t,p,b:(t,b)), \
+                    patch('independent_packet_compaction.final_code_context', side_effect=lambda t,p,b,r:(t,b)):
+                with self.assertRaises(ValueError):
+                    r.bounded_packet(text, Path('/tmp/board.json'), role, {})
+
+    def test_small_packets_and_historical_proofs_need_no_increment(self):
+        text, bindings = self.make_packet(size=100)
+        self.assertIsNone(r.packet_capacity_request(text, 'picture', bindings, {}))
+        proof = {'input': text, 'prompt': 'Instructions\nCurrent evidence\n' + r.packet_json(text)}
+        self.assertEqual(r.packet_capacity_problems(proof), [])
+        self.assertEqual(r.packet_capacity_problems({'input': {}}), [])
+        proof['packet_capacity'] = {'unneeded': True}
+        self.assertTrue(r.packet_capacity_problems(proof))
+
+    def test_portable_proof_rejects_changed_scope_policy_wire_or_removed_authorization(self):
+        original = self.proof()
+        for key, value in (('wire_sha256', '0'*64), ('packet_chars', 1),
+                ('request_id', 'other'), ('board_sha256', 'other'), ('film_sha256', 'other'),
+                ('actual_extra_chars', 0), ('policy_json', '{}'), ('maximum_limit', 999999),
+                ('grants_no_review_approval', False)):
+            proof = copy.deepcopy(original); proof['packet_capacity'][key] = value
+            self.assertTrue(r.packet_capacity_problems(proof), key)
+        proof = copy.deepcopy(original); proof.pop('packet_capacity')
+        self.assertTrue(r.packet_capacity_problems(proof))
+        proof = copy.deepcopy(original); proof['prompt'] += ' '
+        self.assertTrue(r.packet_capacity_problems(proof))
+        proof = copy.deepcopy(original); proof['input']['files']['full-guide.md'] += 'changed'
+        self.assertTrue(r.packet_capacity_problems(proof))
+
+
 class AvailabilityTest(unittest.TestCase):
     def test_av_context_omits_only_opaque_signatures_without_editing_raw(self):
         raw = {'responseId': 'original', 'usageMetadata': {'totalTokenCount': 9},
