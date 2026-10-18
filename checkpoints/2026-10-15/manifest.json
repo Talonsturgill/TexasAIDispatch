@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-18T08:03:06.787275+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-18T08:13:39.989765+00:00",
+  "note": "shipped and archived",
   "phase": "shipped",
   "terminal_state": "shipped",
   "shipment_recorded": true,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/restore/TexasAIDispatch",
-  "source_pin": "3783843c72e693cb91baa0f8bda00eb08db116a6",
+  "source_pin": "2bb61afaae2b750903345dc82bdaaf7f895c3603",
   "source_branch": "claude/dispatch-2026-10-15-archive",
   "source_closure": {
     "root": "video-engine",
@@ -1880,6 +1880,12 @@
       "size": 582
     },
     {
+      "path": "out/dispatch/cinematic-learning.json",
+      "class": "scratch",
+      "sha256": "f6a6ca5bca743f0c3c0c8b181c6b60f31b859f295382e38adfdf8f28e59f0ec2",
+      "size": 12833
+    },
+    {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
       "sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
@@ -1898,6 +1904,12 @@
       "size": 6729
     },
     {
+      "path": "out/dispatch/claude-efficiency-measurements.json",
+      "class": "scratch",
+      "sha256": "92493154b35838ed09a52e6e8f32693a14fd93787427f173b0e1d1bc3e47fa65",
+      "size": 3720
+    },
+    {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
       "sha256": "ea64fd390be9c19f019f1186062e96a072178e241d0b79b4edf1334baab0bfaa",
@@ -1908,6 +1920,42 @@
       "class": "scratch",
       "sha256": "2a6b1b9fa73eb8affc73128bd5bea7c450b2194fd0a5aa8a80862e37c4084690",
       "size": 763
+    },
+    {
+      "path": "out/dispatch/closure1.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/closure2.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/closure3.log",
+      "class": "scratch",
+      "sha256": "660f6118daa994da9affecb531067babfc09d0f1c6cd1644823fe2b8ee68cef7",
+      "size": 80
+    },
+    {
+      "path": "out/dispatch/closure4.log",
+      "class": "scratch",
+      "sha256": "8ec62ae2a97e1da18bb6a6130526ff34e831e2d175aa353a3fe637efdc279bcb",
+      "size": 71
+    },
+    {
+      "path": "out/dispatch/closure5.log",
+      "class": "scratch",
+      "sha256": "b72413ad9cefb69bb3000bbe050b51daafd59d953a3c6651bf6fa422f5871407",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/closure6.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/code-critic-1-envelope.json",
@@ -2020,8 +2068,8 @@
     {
       "path": "out/dispatch/daily-production-scoreboard.json",
       "class": "scratch",
-      "sha256": "93340602c30cf89aee6721bfd7437030c1ef9e2dd138d1d21fca51f90326dd8d",
-      "size": 6831
+      "sha256": "882e8385e7a4fb11485085c66d797a697e6213e30983bcd7bd91c724fa2fe3f0",
+      "size": 5469
     },
     {
       "path": "out/dispatch/deliver-verify.log",
@@ -19366,8 +19414,8 @@
     {
       "path": "out/dispatch/finish.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "6a0d55c4e79b3b443bd15fd9df397887e24334c954de54c9cf3bbbc6fd62c873",
+      "size": 101
     },
     {
       "path": "out/dispatch/followup-review-message-b-r14.txt",
@@ -24830,6 +24878,12 @@
       "size": 1843861
     },
     {
+      "path": "out/dispatch/recurring-defects.json",
+      "class": "scratch",
+      "sha256": "ed6066bd6bb653d2bb352c64842247f8ee472d176e1f7160e03c4537ef0372ff",
+      "size": 38727
+    },
+    {
       "path": "out/dispatch/render-manifest.json",
       "class": "scratch",
       "sha256": "050266fdfe07f041000f35fff1e14e445f881d487150fb85e50dfbd87d68e8ce",
@@ -25371,6 +25425,10 @@
     }
   ],
   "excluded": [
+    {
+      "path": "out/dispatch/claude-usage.private.json",
+      "reason": "private path component"
+    },
     {
       "path": "out/dispatch/delivery_routing.json",
       "reason": "private path component"
