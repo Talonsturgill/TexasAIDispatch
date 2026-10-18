@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/opt/texas-dispatch-runtime/venv/bin/python3",
+    "/home/user/restore/TexasAIDispatch/scripts/dispatch_housekeeping.py",
+    "--workspace",
+    "/home/user/restore",
+    "--dispatch-repo",
+    "/home/user/restore/TexasAIDispatch",
+    "--docket-repo",
+    "/home/user/restore/TexasAIDocket",
+    "--apply",
+    "--fetch",
+    "--summary",
+    "--require-headroom",
+    "--min-free-gib",
+    "20"
+  ],
+  "exit_code": 0,
+  "stdout": "{\n  \"schema\": \"dispatch-housekeeping/1\",\n  \"mode\": \"apply\",\n  \"observed_at\": \"2026-10-18T01:41:40.686868+00:00\",\n  \"free_gib_before\": 20.1,\n  \"free_gib_after\": 20.1,\n  \"reclaimed_gib\": 0.0,\n  \"target_free_gib\": 20.0,\n  \"headroom_ready\": true,\n  \"keep_completed_scratch_packages\": 2,\n  \"planned\": 0,\n  \"removed\": [],\n  \"preserved\": {\n    \"unfinished, unverified, or malformed state\": 19\n  }\n}\n",
+  "stderr": "",
+  "at": "2026-10-18T01:41:40.695842+00:00"
+}
