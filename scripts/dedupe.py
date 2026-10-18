@@ -238,6 +238,18 @@ def self_test() -> int:
     return 0
 
 
+def append_entry_once(ledger, entry):
+    """A retry retains its exact existing entry and cannot replace another film."""
+    matches = [row for row in ledger.get('dispatches', [])
+               if row.get('date') == entry.get('date') and row.get('slug') == entry.get('slug')]
+    if matches:
+        if len(matches) != 1 or matches[0] != entry:
+            raise ValueError('existing edition identity has different or duplicate variety evidence')
+        return False
+    ledger.setdefault('dispatches', []).append(entry)
+    return True
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     sub = ap.add_subparsers(dest="cmd")
@@ -303,8 +315,8 @@ def main() -> int:
             print("dedupe: WARNING, no --fingerprint. The composition memory is how the next run "
                   "is stopped from re-skinning this one, and an entry without one is a free pass.",
                   file=sys.stderr)
-        led.setdefault("dispatches", []).append(entry)
-        save(led)
+        if append_entry_once(led, entry):
+            save(led)
         print(f"dedupe: recorded {a.date} {a.topic!r}")
         return 0
 
