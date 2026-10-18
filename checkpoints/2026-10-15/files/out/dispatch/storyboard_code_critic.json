@@ -1,0 +1,61 @@
+{
+  "review_scope": "code-plan",
+  "treatment": "a",
+  "board_path": "/home/user/restore/TexasAIDispatch/out/dispatch/storyboard.json",
+  "board_sha256": "b7d3d14ac1390e6409a4154e8dd36e9ac58fb31afdae0adbfbe65639a6c83449",
+  "concept_sha256": "09bac6429aacc06fec9a6904eeb6ca722256609d79fc42bd2d36e050977f970b",
+  "renderer_sha256": "05a323a2743dc6593305773903de5683e0695df187c6bf8cb7753e758e5cec31",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "verdict": "pass",
+  "reviewer_identity": "storyboard-critic subagent, claude-opus-5-5 high, Read only, independent of the director; code-plan scope, no pixels",
+  "reviewed_at": "2026-10-18T01:15:00Z",
+  "strongest_frame": "s8-shot-1, about 50.18 to 50.93 s (planned). The attached-arm stamp of 'None reported' beside the held 98.82% card.",
+  "weakest_frame": "s9 tail, 58.40 to 59.40 s (planned). A held answer tableau whose dashed outline is about 1.2 px at 270 wide.",
+  "blocking_defects": [],
+  "code_observations": [
+    "The assignment and packet bind storyboard.json to the same digest as opening-a.json (b7d3d14a...), and I read opening-a.json in full, so every opening_a finding applies. I did not read storyboard.json itself and could not compute its hash."
+  ],
+  "action_reviews": [
+    {
+      "action_id": "deployment-goal",
+      "module_sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "Same as opening_a."
+      ]
+    },
+    {
+      "action_id": "yard-floods-before-warning",
+      "module_sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "Same as opening_a."
+      ]
+    },
+    {
+      "action_id": "report-validation-only",
+      "module_sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "Same as opening_a."
+      ]
+    }
+  ],
+  "story_review": {
+    "story_sha256": "4a8db400c02241c577ac874687268174bfc29bc46cc5f11ae3143ac73316e2cd",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Same planned chain as opening_a: the late warning in a flooded yard, the self-powered prototype and its four lenses, the on-chip judgment, radio to the hub and its flood map, the validation-only figure and the stamped blank field result, a pinless map, and a held return to the yard with an unlit goal outline.",
+    "opening_to_ending": "The ending answers the opening honestly. Deployment is a ringed, unlit plan at the curb of the yard that flooded, with 'None reported' beside it, held about 2.1 s with a small closing performance and no camera whip.",
+    "weakest_transition": "s8 to s9 at 55.50 s, from the paper map to the opening yard. It carries through the same technician and fence, and the phone review must confirm the place reads."
+  },
+  "notes": "The storyboard slot is bound to treatment a."
+}

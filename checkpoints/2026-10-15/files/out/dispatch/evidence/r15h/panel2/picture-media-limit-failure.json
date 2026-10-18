@@ -1,0 +1,47 @@
+{
+  "schema": "dispatch_review_transport_failure/1",
+  "role": "picture",
+  "actor": "acd7d7072686ec13d",
+  "observed_at": "2026-10-18T04:02:48.733675Z",
+  "error": "[media removed: request limit]",
+  "raw_error": "[media removed: request limit]",
+  "verdict": null,
+  "reservation_event_index": 547,
+  "reservation": {
+    "at": "2026-10-18T03:08:04.783455Z",
+    "kind": "reserved",
+    "note": "R15h current finished native cut 1cb1b02a, fresh atomic panel",
+    "preflight_identity": null,
+    "resources": {
+      "panel_rounds": 1,
+      "scorer_calls": 3
+    }
+  },
+  "reservation_sha256": "3a21310faa729549c998dc09e5ddece603f577911d6050b021832e75504ec8b7",
+  "media_probe": {
+    "single_image_read": true,
+    "media_received": false,
+    "packet": {
+      "path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/panel2/picture-packet.json",
+      "sha256": "eab49cbe81ae1628ab71c1438aa999641ba398ce6644a536b1b468a1743b66d7"
+    },
+    "coverage": {
+      "path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/panel2/picture-image-coverage-normalized.json",
+      "sha256": "aa6b9a9a11f4608e2bc3f7acd65d7eb77886fc5335ba6d989d26a940e0d134cd"
+    },
+    "handback": {
+      "path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/panel2/picture-partial-handback-verbatim.txt",
+      "sha256": "d6369e734276a38e45ea96798d08000756e81a37df247a4dac0bdbebbc1094c3"
+    },
+    "image": {
+      "path": "/home/user/restore/TexasAIDispatch/out/dispatch/motion-review/sequence-000.png",
+      "sha256": "98ef3f8a59948fca8185ba62e18ebbfbe53bdfd207cf14d3b9c46fcdada3410d"
+    }
+  },
+  "assignment": {
+    "role": "picture",
+    "actor": "acd7d7072686ec13d",
+    "board_sha256": "b7d3d14ac1390e6409a4154e8dd36e9ac58fb31afdae0adbfbe65639a6c83449",
+    "film_sha256": "1cb1b02a91912bce3a25149b9a4f682d32a0b11ffb8bc456951303056c46f81d"
+  }
+}
