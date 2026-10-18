@@ -1140,6 +1140,14 @@
       "note": "independent transport phone",
       "resource": "audiovisual_reviews",
       "to": 18
+    },
+    {
+      "at": "2026-10-18T01:37:21.360824Z",
+      "ceiling": 56,
+      "from": 50,
+      "note": "quarter-scale animatic",
+      "resource": "preflight_renders",
+      "to": 51
     }
   ],
   "events": [
@@ -11148,6 +11156,24 @@
       "note": "a480039e-6c3d-4cb5-a6ea-650e86dc9fe9 independent phone",
       "reported_tokens": 202993,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-18T01:37:21.360857Z",
+      "ceiling": 56,
+      "kind": "budget_escalated",
+      "note": "quarter-scale animatic",
+      "now": 51,
+      "resource": "preflight_renders",
+      "was": 50
+    },
+    {
+      "at": "2026-10-18T01:37:21.360872Z",
+      "kind": "reserved",
+      "note": "quarter-scale animatic",
+      "preflight_identity": "e7a538e16d28e70a55bd5e271c59f4d95d8f9b4427f70f6eefba0699fe1c4381",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -11156,7 +11182,7 @@
     "full_renders": 4,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 50,
+    "preflight_renders": 51,
     "reboards": 14,
     "reported_tokens": 849907,
     "rescue_renders": 1,
@@ -11171,7 +11197,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "0e55d9b95a782c7b6e8daf549b7dade4c2e775e427da9db3ab8cd7bd63fddf91",
+    "original_private_state_sha256": "32811993bbd8abb811b6475dc0993259519a4dd51508c364ca47c56f6b1e37ad",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -11207,14 +11233,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-18T01:35:33.799488Z",
+  "updated_at": "2026-10-18T01:37:21.360876Z",
   "usage": {
     "audiovisual_reviews": 18,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
     "panel_rounds": 1,
-    "preflight_renders": 50,
+    "preflight_renders": 51,
     "reboards": 14,
     "reported_tokens": 2035663,
     "rescue_renders": 0,
