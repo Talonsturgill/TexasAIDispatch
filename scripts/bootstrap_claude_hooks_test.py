@@ -128,6 +128,31 @@ class BootstrapTests(unittest.TestCase):
             self.assertEqual(guard.main(['hook', '--repo-root']), 0)
         hook.assert_called_once_with(str(guard.REPO))
 
+    def test_prelaunch_image_observer_is_additive_idempotent_and_does_not_change_permissions(self):
+        for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py'):
+            (self.repo / 'scripts' / name).write_text('# fixture\n')
+        foreign = {'matcher': 'Read', 'hooks': [{'type': 'command', 'command': 'keep-foreign-reader'}]}
+        value = self.load(); value['hooks']['PostToolUse'] = [foreign]
+        self.target.write_text(json.dumps(value))
+        boot.bootstrap(self.workspace, self.repo, prelaunch_router=True)
+        before = self.target.read_bytes()
+        boot.bootstrap(self.workspace, self.repo, prelaunch_router=True)
+        self.assertEqual(before, self.target.read_bytes())
+        result = self.load()
+        self.assertIn(foreign, result['hooks']['PostToolUse'])
+        self.assertEqual(len(result['hooks']['PostToolUse']), 2)
+        self.assertIn('image_read_receipt.py', result['hooks']['PostToolUse'][1]['hooks'][0]['command'])
+        for key in ('model', 'effortLevel', 'env', 'permissions'):
+            self.assertEqual(result[key], self.settings[key])
+
+    def test_missing_image_observer_refuses_prelaunch_without_writing_settings(self):
+        for name in ('cloud_capture_hook.py', 'routine_continuation.py'):
+            (self.repo / 'scripts' / name).write_text('# fixture\n')
+        before = self.target.read_bytes()
+        with self.assertRaisesRegex(ValueError, 'image tool-delivery observer is missing'):
+            boot.bootstrap(self.workspace, self.repo, prelaunch_router=True)
+        self.assertEqual(before, self.target.read_bytes())
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -218,7 +218,7 @@ class ContinuationTests(unittest.TestCase):
 
     def test_prelaunch_registration_is_additive_idempotent_and_preserves_permissions(self):
         scripts = self.repo / 'scripts'; scripts.mkdir()
-        for name in ('cloud_capture_hook.py', 'routine_continuation.py'):
+        for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py'):
             (scripts / name).write_text('# offline fixture\n')
         directory = self.workspace / '.claude'; directory.mkdir()
         target = directory / 'settings.json'

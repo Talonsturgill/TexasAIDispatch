@@ -60,12 +60,15 @@ class RoutingTests(unittest.TestCase):
         (tools / 'scripts').mkdir(parents=True)
         (tools / 'scripts/cloud_capture_hook.py').write_text('fixture')
         (tools / 'scripts/routine_continuation.py').write_text('fixture')
+        (tools / 'scripts/image_read_receipt.py').write_text('fixture')
         primary = self.workspace / 'primary'; primary.mkdir()
         result = bootstrap.bootstrap(primary, tools, prelaunch_router=True)
         self.assertFalse(result['capture_authorized'])
         self.assertFalse(result['live_hook_observed'])
         settings = json.loads((primary / '.claude/settings.json').read_text())
         self.assertIn('routine_continuation.py', settings['hooks']['Stop'][0]['hooks'][0]['command'])
+        self.assertEqual(settings['hooks']['PostToolUse'][0]['matcher'], 'Read')
+        self.assertIn('image_read_receipt.py', settings['hooks']['PostToolUse'][0]['hooks'][0]['command'])
 
 
 class AuthorizedRoutingTests(Fixture):

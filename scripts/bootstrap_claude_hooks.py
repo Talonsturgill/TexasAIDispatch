@@ -46,6 +46,9 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
     stop_handler = repo / 'scripts/routine_continuation.py'
     if prelaunch_router and not stop_handler.is_file():
         raise ValueError('the production continuation handler is missing')
+    image_handler = repo / 'scripts/image_read_receipt.py'
+    if prelaunch_router and not image_handler.is_file():
+        raise ValueError('the image tool-delivery observer is missing')
     directory = workspace / '.claude'
     target = directory / 'settings.json'
     record = directory / 'dispatch-capture-registration.json'
@@ -73,6 +76,7 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
     if registration not in entries:
         entries.append(registration)
     stop_registration = previous.get('stop_registration') if previous else None
+    image_registration = previous.get('image_registration') if previous else None
     if prelaunch_router:
         stops = hooks.setdefault('Stop', [])
         if not isinstance(stops, list):
@@ -83,11 +87,22 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
             'python3 %s --workspace %s --hook' % (shlex.quote(str(stop_handler)), shlex.quote(str(workspace)))}]}
         if stop_registration not in stops:
             stops.append(stop_registration)
+        images = hooks.setdefault('PostToolUse', [])
+        if not isinstance(images, list):
+            raise ValueError('existing PostToolUse entries must be an array')
+        if image_registration:
+            images[:] = [entry for entry in images if entry != image_registration]
+        image_registration = {'matcher': 'Read', 'hooks': [{'type': 'command', 'command':
+            'python3 %s --workspace %s' % (shlex.quote(str(image_handler)), shlex.quote(str(workspace)))}]}
+        if image_registration not in images:
+            images.append(image_registration)
     directory.mkdir(parents=True, exist_ok=True)
     write_json(target, current)
     saved = {'schema': SCHEMA, 'repo': str(repo), 'registration': registration}
     if stop_registration:
         saved['stop_registration'] = stop_registration
+    if image_registration:
+        saved['image_registration'] = image_registration
     write_json(record, saved)
     return {'ok': True, 'workspace': str(workspace), 'active_checkout': str(repo),
             'capture_handler': str(handler), 'capture_authorized': False,

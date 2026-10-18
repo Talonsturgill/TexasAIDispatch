@@ -471,6 +471,15 @@ byte hash and all entries retained. Use compact JSON whitespace on the wire. The
 the final request after comparison context and retained failure evidence are added. No new provider
 charge begins on an oversized input. Historical packets retain their original contents and policy.
 
+The prelaunch `image_read_receipt.py` PostToolUse observer records only actual returned image
+payload metadata for the selected repository's owned PNG evidence. Its small immutable receipts
+preserve the source and returned hashes without copying image bytes or private transcripts.
+They prove tool output, not model visibility or a creative pass. A later context placeholder
+cannot by itself rewrite an earlier successful access observation. Preserve each immediate
+visibility note and distinguish later context loss from a newly failed Read. A genuinely unseen
+new image still requires the exact partial handback and configured recovery. This observer changes
+no capture admission, budget, host permissions or shipment gate. Register it only at fresh prelaunch.
+
 The Read-only Opus phone critic cannot play MP4s or compute missing hashes with Bash.
 One midpoint still per scene cannot prove timed motion or continuity. After both structural
 opening inspections pass, extract the complete chronological sequence from each exact encoded

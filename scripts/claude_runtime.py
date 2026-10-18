@@ -168,6 +168,12 @@ def image_reading(data, *, compact=False):
             'only; it supplies no observation of unseen pages. If visible, record its actual note, '
             'then read every required full guide and the complete ordered sequence. ')
         data['instructions'] = probe + data['instructions']
+    data['instructions'] += (' A prelaunch image-tool delivery receipt records the actual returned payload, '
+        'not whether you saw it. Record visibility when the new Read returns. An older image becoming '
+        'a request-limit placeholder later is not evidence that its original Read failed; preserve the '
+        'earlier observation and keep later retention loss distinct from initial access failure. '
+        'A newly unseen payload still requires immediate partial coverage and its actual error. '
+        'No delivery receipt supplies a creative grade.')
     if compact:
         data['instructions'] += (' Read ONE chronological image per step; wait and record its filename, '
             'first/last frame and concrete visible note before the next Read. No parallel/bulk reads or '
