@@ -59,8 +59,6 @@ In that Docket checkout, with its pinned environment:
 python scripts/site/site_build.py
 python scripts/site/site_fresh_check.py
 python scripts/shared/ownership_check.py --actor dispatch --diff HEAD
-python scripts/shared/guards_local.py
-python scripts/shared/guards_local.py --verdict
 ```
 
 Keep each producer's real exit status and retain the complete logs. The current atomic guard
@@ -68,8 +66,18 @@ verdict establishes completion; a successful tail or partial log does not. Wait 
 background task ID with bounded native task tools, never a process pattern matching its own shell.
 
 Dispatch authors only the contracted videos.json input. Other permitted changes are generated
-pages rebuilt by the site program. Commit with TXDOCKET_ACTOR=dispatch, push a ready PR, wait
-for exact-head green guards, merge, then verify matching main CI and Pages deployment.
+pages rebuilt by the site program. Commit the exact candidate with TXDOCKET_ACTOR=dispatch,
+then run the full local suite and read its atomic verdict before pushing:
+
+```sh
+python scripts/shared/guards_local.py
+python scripts/shared/guards_local.py --verdict
+```
+
+Keep that candidate HEAD and working tree unchanged until the verdict completes. Its stamp
+must describe the committed candidate; committing after the run would invalidate that verdict.
+Push a ready PR, wait for exact-head green guards, merge, then verify matching main CI and Pages
+deployment. CI permits the merge; the full local verdict remains required for completed delivery.
 
 Stale Docket records are repair work in the daily actor lane. First inspect same-day verified
 daily work; reuse only sound source-supported updates. Otherwise re-fetch cited sources.
