@@ -198,3 +198,4 @@ R15h builder handback received; files match handback hashes; transcript saved ou
 - 2026-10-18 R15h: provider timed-phone PASS (film 745fbf28, no blocking, verified) installed into storyboard_critic.json (backup storyboard_critic.code46-pass.backup.json). Next: native hero (cinema_proof) with prepared authorization, hero review, full render, motion, AV lenses, panel.
 - 2026-10-18 headroom shortfall 0.03 GiB: cleared regenerable pip package cache (/root/.cache/pip, 75 MB, no production evidence).
 - 2026-10-18 R15h: native hero proof (cinema_proof) authorized (prepare, preflight reservation a3eb6234) and running (task bu2e2cxw8); prior cinema records preserved evidence/r15h/cinema-prior-r15g; new render cache goes to out/dispatch/tmp (excluded from checkpoint).
+- 2026-10-18 R15h: native hero proof done (55 jobs); hero AV review running (task bsxkh5k7j).
