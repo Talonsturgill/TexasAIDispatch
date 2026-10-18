@@ -4,6 +4,7 @@ import {CoolingFilm} from './CoolingFilm';
 import {FreightFilm} from './FreightFilm';
 import {ClinicAnswerFilm} from './episodes/2026-10-09-claude-pilot/ClinicAnswerFilm';
 import {TowerAlertFilm} from './episodes/2026-10-11/TowerAlertFilm';
+import {FloodStationFilm} from './episodes/2026-10-15/FloodStationFilm';
 import type {FilmRenderProps} from './types';
 // A future mechanism adds an authored episode here and in the checked registry.
 // Unknown episodes throw. Archived whole-episode components are never a fallback.
@@ -13,5 +14,6 @@ const authoredEpisodes={
   'freight-customer-v2':FreightFilm,
   'clinic-answer-v1':ClinicAnswerFilm,
   'tower-alert-v1':TowerAlertFilm,
+  'flood-station-v1':FloodStationFilm,
 } satisfies Record<string,React.FC<FilmRenderProps>>;
 export const modernEpisodes:typeof authoredEpisodes & Partial<Record<string,React.FC<FilmRenderProps>>>=authoredEpisodes;
