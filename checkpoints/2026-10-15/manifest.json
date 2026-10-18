@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-18T03:05:35.524352+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-18T03:08:00.645492+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -184,8 +184,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "806f6828e3ce0a891245a991e34a611c8fd6e7d0365c997000f5435196fe8ddd",
-      "size": 60829
+      "sha256": "3f5be6a6cb6ad3f9ed6f6119a96fa795aa432ab231201f0da34dfe20c81eca21",
+      "size": 60912
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -1496,6 +1496,18 @@
       "size": 586
     },
     {
+      "path": "out/dispatch/cinema/review-cache/d0e8384963616ce4a40e8bac38e9c9ac4b7003477d860756dfb33cf21e3ab840/receipt.json",
+      "class": "scratch",
+      "sha256": "bb49edb39ba890f8d668081ac7abd1b2fe2718dd63c47ef1a1db1593b17e91a3",
+      "size": 582
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/d0e8384963616ce4a40e8bac38e9c9ac4b7003477d860756dfb33cf21e3ab840/story-review-response.json",
+      "class": "scratch",
+      "sha256": "af5456c0ec4d7f9fb1275ddb17181ce2a60f4efc5cd2164eed4df471118ecebc",
+      "size": 123464
+    },
+    {
       "path": "out/dispatch/cinema/review-cache/f46db9ded9a0c121236e337034325a5281399e4388be6f938d481240c7b93c5c/hero-review-response.json",
       "class": "scratch",
       "sha256": "4ed79ce318c06a7308c86d10f197baec5cf1712308540b77942a7ab122de0953",
@@ -1858,8 +1870,14 @@
     {
       "path": "out/dispatch/cinema/story-review-response.json",
       "class": "scratch",
-      "sha256": "7d6e7dfa7555dc70906a939ed1aba17c1c56b95eff8c7c08d617ae53c4713446",
-      "size": 119054
+      "sha256": "af5456c0ec4d7f9fb1275ddb17181ce2a60f4efc5cd2164eed4df471118ecebc",
+      "size": 123464
+    },
+    {
+      "path": "out/dispatch/cinema/story-review.json",
+      "class": "scratch",
+      "sha256": "bb49edb39ba890f8d668081ac7abd1b2fe2718dd63c47ef1a1db1593b17e91a3",
+      "size": 582
     },
     {
       "path": "out/dispatch/claims.json",
