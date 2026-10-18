@@ -154,3 +154,12 @@ Keep full guides, sources, boards, native media, crops, raw audiovisual findings
 phone and failed native partials. Each final role still judges the actual movie independently;
 code provenance supplies no pixel observation, score or film approval. Missing or stale code
 approval retains full callable source. The original phone-only policy and text ceiling stay intact.
+
+If a complete final recovery request still exceeds the original text baseline, the separate
+final_review_text_capacity_v1.json standing mandatory-completion amendment permits a bounded
+input allowance for the same three final roles. Preserve the original baseline and all refusals.
+The transport records each actual request's separate authorization, policy bytes/hash, wire
+size/hash and exact scope before execution, and charges its existing audiovisual reservation.
+It changes no worker, panel, render, creative option, verdict, rubric or production gate.
+Use the whole original guides and failed evidence. Never create a shortened grade or omit
+observations to fit the baseline. Missing code provenance retains the original bound.
