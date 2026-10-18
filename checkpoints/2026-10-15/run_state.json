@@ -1164,6 +1164,14 @@
       "note": "R15h final timed phone critic, single film, probe-first (phone packet cur)",
       "resource": "storyboard_critics",
       "to": 48
+    },
+    {
+      "at": "2026-10-18T01:59:15.115721Z",
+      "ceiling": 43,
+      "from": 18,
+      "note": "independent transport phone",
+      "resource": "audiovisual_reviews",
+      "to": 19
     }
   ],
   "events": [
@@ -11240,10 +11248,28 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-18T01:59:15.115746Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "independent transport phone",
+      "now": 19,
+      "resource": "audiovisual_reviews",
+      "was": 18
+    },
+    {
+      "at": "2026-10-18T01:59:15.115758Z",
+      "kind": "reserved",
+      "note": "independent transport phone",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
     }
   ],
   "limits": {
-    "audiovisual_reviews": 18,
+    "audiovisual_reviews": 19,
     "cleanup_renders": 1,
     "full_renders": 4,
     "image_generations": 2,
@@ -11263,7 +11289,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "4a662879cf01180a9adc7ed8ea1e1e55d234c49fe60c2badd23d0ca21d1f60c3",
+    "original_private_state_sha256": "f14eae0f7bb681e7add6320f0e04cf048d93e30f7f3e7f63b7bcef0cae0c79da",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -11299,9 +11325,9 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-18T01:43:27.519051Z",
+  "updated_at": "2026-10-18T01:59:15.115761Z",
   "usage": {
-    "audiovisual_reviews": 18,
+    "audiovisual_reviews": 19,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
