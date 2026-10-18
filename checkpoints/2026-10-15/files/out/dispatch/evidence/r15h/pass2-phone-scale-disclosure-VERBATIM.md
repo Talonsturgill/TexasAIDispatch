@@ -1,0 +1,2 @@
+Builder pass 2 risk 1 (verbatim): Phone scale. A readable phone at the opening own wide framing needs a phone about 242 to 252 px tall. At the porch scale (rail about 172 px) that is roughly 1.4 m, and it stands beside a 436 px technician. It meets the requested number, but it may read as oversize. A believable phone would be about 30 to 50 px and would fail the 60-px rule. The phone review has to judge this.
+Operator ruling: do not send an oversized prop to paid review because the arithmetic passes. Resolve with believable scale, support and contact.

@@ -31,12 +31,14 @@ import {StreetHubSupport,PORCH,CASE,TECH,mirrorAbout,indexTip,reach,type HandPos
  * building across the road that a dashed line never reaches, followed by its radio rings down a
  * long street to the hub at its far end and across open country to the hub's mast, read on the
  * hub's flood path map by a seated responder, measured on two cards on a curb notice board, read by
- * a finger along the blank paper map, and closed at a curb folding table where a technician folds
- * the deployment plan into the prototype's closed case and latches it.
+ * a technician's finger along the blank paper map, and closed back in the opening yard, where the goal
+ * is a dashed, unlit outline of the station ringed at the curb beside a none reported tag, the real
+ * prototype stays in the closed case she holds, and the phone on the porch rail is still dark.
  * B: the instrument-first treatment. It opens in the water at the post, where the lowest lens goes
  * under and lights, and only then cuts to the yard and the late phone. It reads the battery before
  * the station, the lenses close, the housing window before the chip, the radio from above before the
- * street, the map before the desk, and closes on the same curb table, closer.
+ * street, the map before the desk, and closes in the same yard, starting closer and pulling back to
+ * the opening's own framing.
  *
  * Every visible state is a function of the film frame clock and the board's event windows; nothing
  * accumulates between frames. The county's region stands behind every exterior shot and the hub's
@@ -82,13 +84,66 @@ export const MAPSHOT={close:{m:[130,380] as Pt,w:600,h:660,ground:1400,tech:{fee
  wide:{m:[360,600] as Pt,w:430,h:470,ground:1236,tech:{feet:[900,1236] as Pt,s:.9}}};
 /** The finger's path in map units: along the creek's right reach, then up the street past a blank pin hole. */
 export const MAP_READ:Pt[]=[[.84,.63],[.62,.66],[.62,.48],[.62,.3]];
-/** s9: the opening yard again, the prototype ringed on its curb pole, the technician in the water
- * holding the deployment plan open in her left hand and the prototype's closed case by its handle in
- * her right, the dark phone on the porch rail behind her. */
+/** s9: the opening yard again. The goal is drawn as a dashed, unlit outline of the station at the curb
+ * (no footing, no lamp, no lit lens: not installed and not operating), ringed. The technician stands in
+ * the water holding the deployment plan open in her left hand and the prototype's closed case by its
+ * handle in her right; the real prototype is in that case. Both treatments shoot it on a wide plate.
+ * THE DARK PHONE IS AT PHONE SCALE (R15h pass 3). It is 44 yard units on its long edge: about 17 cm
+ * against the 0.6 scale technician (436 units for about 1.7 m) and about 24 cm against the porch rail
+ * (172 units over the porch floor for about 0.95 m). It stands on its lowest corner on the rail cap and
+ * leans right against the rim of a small terracotta pot standing beside it (34 units, about 19 cm), with
+ * contact shadows under both; it stays left of the technician, whose body and arms never cover it (the
+ * rail's newel post stands behind her, so it can't be the support). It is made readable
+ * by an earned move, never by its size: after the clause her head turns to the porch rail and the camera
+ * follows her look in close to the phone (Cam `close.s`), holds while two rain drops strike its dark
+ * screen, then pulls back to the opening's own framing (Cam identity at plate zoom 1). `tail` times the
+ * performed continuation in seconds from s9-event-3's end. */
+const PHONE9_L=44;
 export const S9={station:{base:[480,1100] as Pt,s:.58},ring:{c:[494,615] as Pt,rx:100,ry:168},
  goal:{at:[640,480] as Pt,s:.72},none:{at:[640,600] as Pt,s:.72},tech:{feet:[350,1300] as Pt,s:.6,wade:40},
- plan:{c:[345,1045] as Pt,w:160},case:{s:.26},
- cam:{a:{from:{f:[520,900] as Pt,a:[540,900] as Pt,s:1.15}},b:{from:{f:[556,866] as Pt,a:[540,840] as Pt,s:1.12}}}};
+ plan:{c:[345,1045] as Pt,w:160,lower:70,tilt:9},case:{s:.26},
+ phone:{corner:176,L:PHONE9_L,w:PHONE9_L/2.05,rot:14},pot:{rimW:32,baseW:24,h:34},
+ close:{s:5.5,a:[600,800] as Pt},
+ tail:{lower:[.06,.66] as [number,number],turn:[.04,.5] as [number,number],push:[.2,.85] as [number,number],pull:1.25,home:.3,drips:[.8,1.06],drip:.42},
+ cam:{a:{from:{f:[520,900] as Pt,a:[540,900] as Pt,s:1.15}},b:{from:{f:[553.6,880.3] as Pt,a:[540,826] as Pt,s:1.32}}}};
+/** The s9 tail's performed state at film time t (w3End is s9-event-3's end): how far the plan is
+ * lowered, how far her head has turned to the phone, and each rain drop's progress (0 before it falls,
+ * 1 when its splash has gone). ONE CALCULATION, shared by the drawing and the bound check. */
+export function s9Tail(t:number,w3End:number){
+ const k=S9.tail,w=([a,b]:[number,number])=>ease((t-(w3End+a))/(b-a));
+ return {lower:w(k.lower),turn:w(k.turn),drips:k.drips.map(d=>clamp((t-(w3End+d))/k.drip))};
+}
+/** Where her left palm pinches the plan's left edge, and the plan's tilt, for a lowering progress. */
+export function s9PlanHold(lower:number):{palm:Pt;rot:number}{
+ const P=S9.plan;return {palm:[P.c[0]-P.w/2-2-6*lower,P.c[1]+P.lower*lower],rot:P.tilt*lower};
+}
+const PORCH_RAIL_CAP=-262;
+/** The leaning phone, in yard units: the bottom centre its drawing rotates about. The phone leans right
+ * by `rot` degrees, so its lowest corner (bottom right, at x `corner`) rests on the rail cap, and its right
+ * edge meets the pot's rim `pot.h` above the cap. */
+export const s9PhoneFoot=():Pt=>{const ph=S9.phone,r=ph.rot*Math.PI/180,cap=YARD.porch[1]+PORCH_RAIL_CAP;
+ return [ph.corner-ph.w/2*Math.cos(r),cap-ph.w/2*Math.sin(r)];};
+/** The pot the phone leans on: its centre on the rail cap, placed so its rim touches the phone's edge. */
+export const s9PotCentre=():Pt=>{const ph=S9.phone,k=S9.pot,r=ph.rot*Math.PI/180;
+ return [ph.corner+k.h*Math.tan(r)+k.rimW/2,YARD.porch[1]+PORCH_RAIL_CAP];};
+/** The leaning phone's centre in yard units, the point the close camera holds. */
+export const s9PhoneCentre=():Pt=>{const ph=S9.phone,r=ph.rot*Math.PI/180,f=s9PhoneFoot();
+ return [f[0]+ph.L/2*Math.sin(r),f[1]-ph.L/2*Math.cos(r)];};
+/** The s9 camera at film time t: the treatment's opening hold, then (after her head turns) a push that
+ * follows her look in close to the phone, a hold while the rain strikes it, and the pull back to the
+ * opening's own framing, which it reaches just before the credits. Scale moves geometrically, so the
+ * push and the pull read at an even rate. ONE CALCULATION, shared by the drawing and the bound check. */
+export function s9Cam(t:number,w3End:number,shotEnd:number,v:'a'|'b'):{f:Pt;s:number;a:Pt;phase:'open'|'push'|'close'|'pull'|'home'}{
+ const k=S9.tail, C0=S9.cam[v].from, C1={f:s9PhoneCentre(),s:S9.close.s,a:S9.close.a}, H={f:[540,960] as Pt,s:1,a:[540,960] as Pt};
+ const geo=(x:number,y:number,e:number)=>x*Math.pow(y/x,e);
+ const go=(A:typeof H,B:typeof H,e:number)=>({f:mix(A.f,B.f,e),s:geo(A.s,B.s,e),a:mix(A.a,B.a,e)});
+ const p0=w3End+k.push[0],p1=w3End+k.push[1],q0=w3End+k.pull,q1=shotEnd-k.home;
+ if(t<p0)return {...C0,phase:'open'};
+ if(t<p1)return {...go(C0,C1,ease((t-p0)/(p1-p0))),phase:'push'};
+ if(t<q0)return {...C1,phase:'close'};
+ if(t<q1)return {...go(C1,H,ease((t-q0)/(q1-q0))),phase:'pull'};
+ return {...H,phase:'home'};
+}
 /** Where the carried case hangs: its handle in her right palm, for her right wrist (her units). */
 export function caseFromWrist(o:Placed,W:Pt,cs:number):Pt{
  const a=reach(TECH.SR,W,TECH.upper,TECH.fore).deg*Math.PI/180;
@@ -97,6 +152,31 @@ export function caseFromWrist(o:Placed,W:Pt,cs:number):Pt{
 }
 /** The yard both s1 and s9 stand in. */
 export const YARD={curbY:1086,streetTop:1032,fence:[520,1215] as Pt,fs:1.2,porch:[-30,1250] as Pt,oak:[1000,1150] as Pt};
+/** The s9 goal: a dashed, unlit outline of the station in station units (foot at 0,0), drawn as a plan
+ * mark rather than an object. Paper under ink so it reads on any ground, at full strength, never faded.
+ * No footing, no lamp, no halo, no lit lens: nothing in it is installed or operating. */
+const GoalOutline:React.FC<{ink:string;paper:string}>=({ink,paper})=>{
+ const H=STATION.housing, cy=H.y+H.h/2, tilt=H.tilt*Math.PI/180;
+ const rot=(x:number,y:number):Pt=>[x*Math.cos(tilt)-(y-cy)*Math.sin(tilt),cy+x*Math.sin(tilt)+(y-cy)*Math.cos(tilt)];
+ const poly=(ps:Pt[],close=true)=>'M'+ps.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join('L')+(close?'Z':'');
+ const pa=-14*Math.PI/180, sk=Math.tan(-10*Math.PI/180);
+ const panel=(x:number,y:number):Pt=>{const xs=x+sk*y;return [STATION.panel[0]+xs*Math.cos(pa)-y*Math.sin(pa),STATION.panel[1]+xs*Math.sin(pa)+y*Math.cos(pa)];};
+ const big=[
+  poly([[-15,40],[-15,-1040],[15,-1040],[15,40]],false),
+  poly([[-4,-252],[10,-252],[10,-20],[-4,-20]]),
+  poly([[H.x,H.y],[H.x+H.w,H.y],[H.x+H.w,H.y+H.h],[H.x,H.y+H.h]].map(([x,y])=>rot(x,y))),
+  poly([[-104,-62],[86,-62],[86,30],[-104,30]].map(([x,y])=>panel(x,y))),
+  `M${H.x+H.w-20} ${H.y-30}L${H.x+H.w-12} ${H.y-150}Q${H.x+H.w-9} ${H.y-196} ${H.x+H.w+4} ${H.y-210}`,
+  `M74 -812H134M118 -830H162M120 -790H160`];
+ const pods=STATION.pods.map((y,i)=>{const x=14+STATION.podDx[i];return {x,y};});
+ return <g data-part="goal-outline">
+  {big.map((d,i)=><path key={'u'+i} d={d} stroke={paper} strokeWidth={15} fill="none" strokeLinejoin="round" strokeLinecap="round"/>)}
+  {pods.map(({x,y},i)=><rect key={'pu'+i} x={x-17.5} y={y-18.75} width={50} height={37.5} rx={10} stroke={paper} strokeWidth={11} fill="none"/>)}
+  {big.map((d,i)=><path key={'i'+i} d={d} stroke={ink} strokeWidth={7} fill="none" strokeDasharray="22 14" strokeLinejoin="round" strokeLinecap="round"/>)}
+  {pods.map(({x,y},i)=><g key={'p'+i}><rect x={x-17.5} y={y-18.75} width={50} height={37.5} rx={10} stroke={ink} strokeWidth={4} fill="none"/>
+   <circle cx={x+7.5} cy={y} r={13} stroke={ink} strokeWidth={3.5} fill="none"/></g>)}
+ </g>;
+};
 
 type Placed={feet:Pt;s:number};
 /** The technician's own units to the frame: her floor row lands on `feet`, at scale s. */
@@ -122,8 +202,6 @@ export function stampFromWrist(o:Placed,W:Pt,ks:number):Pt{
  const palm=techPt(o,[W[0]+TECH.hand*18*Math.cos(a),W[1]+TECH.hand*18*Math.sin(a)]);
  return [palm[0],palm[1]+150*ks];
 }
-/** s9's pull back to the opening framing, from just after s9-event-3 to just before the credits. */
-export const s9Back=(t:number,w3End:number,shotEnd:number)=>ease((t-(w3End+.06))/((shotEnd-.15)-(w3End+.06)));
 const TechAt:React.FC<{o:Placed;children:React.ReactNode}>=({o,children})=>
  <g transform={`translate(${o.feet[0]-TECH.head[0]*o.s} ${o.feet[1]-TECH.ground*o.s}) scale(${o.s})`}>{children}</g>;
 /** The water level, in station units, that each part of the story leaves behind. The lowest lens
@@ -194,8 +272,8 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  // B's s1 design detail: the lowest, ankle-height lens goes under on s1-event-0 (no station stands in
  // the s1 yard in either treatment). s2: the prototype stands in ankle-deep water. s3: the water rises
  // past the second, third and fourth lenses on s3-event-2, and stays there.
- // s9 returns to the opening yard, where the water is ankle-deep: the prototype on its curb pole there
- // stands in the same depth as the fence post's orange mark, its lowest lens lit.
+ // s9 returns to the opening yard, where the water is ankle-deep; its goal is an unlit outline, so
+ // none of these states is drawn there.
  const level=at('s1')?lerp(LEVEL.start,LEVEL.ankle,ease(s1e0))
   :at('s2')||at('s9')?LEVEL.ankle
   :at('s3')?lerp(LEVEL.ankle,LEVEL.top,s3e2)
@@ -264,7 +342,7 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   * rise and sway the flagging tag's swing; `ids` names the s1 items (s9 names its own). s9 adds what
   * stands in its water: reflections, things standing at the curb behind the oak, things on the porch
   * rail and things in front of the porch. */
- const yard=(o:{p1:number;e2:number;sway:number;ids:boolean;rain:number;reflect?:React.ReactNode;curb?:React.ReactNode;onRail?:React.ReactNode;front?:React.ReactNode})=>{
+ const yard=(o:{p1:number;e2:number;sway:number;ids:boolean;rain:number;reflect?:React.ReactNode;curb?:React.ReactNode;onRail?:React.ReactNode;front?:React.ReactNode;railPhone?:React.ReactNode})=>{
   const {curbY,streetTop,fence,fs,porch,oak:oakAt}=YARD, post:Pt=[fence[0]+190*fs,fence[1]];
   const step=porch[1]-34, rail:Pt=[porch[0]+PORCH.railTop[0],porch[1]+PORCH.railTop[1]];
   const boots:Pt=[porch[0]+PORCH.w*.56,step];
@@ -297,7 +375,7 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    <Grounded baseY={fence[1]} on={exterior}>{I('s1-post',<>{F.obj}{dFence>0&&ring(post[0],post[1]-dFence,22)}</>)}</Grounded>
    <Grounded baseY={porch[1]} on={exterior}>{Pc.obj}
     {I('s1-boots',<>{B.obj}{dBoots>0&&ring(boots[0]+60,boots[1]-dBoots,70)}</>)}
-    {I('s1-phone',<At p={[rail[0]+60,rail[1]-10]}><g transform="scale(.3 .11) rotate(90)"><StreetHubSupport part="phone" pal={pal} banner={0} t={t}/></g></At>)}
+    {o.railPhone??I('s1-phone',<At p={[rail[0]+60,rail[1]-10]}><g transform="scale(.3 .11) rotate(90)"><StreetHubSupport part="phone" pal={pal} banner={0} t={t}/></g></At>)}
     {o.onRail}</Grounded>
    {o.front}
    {rain(o.rain)}
@@ -812,39 +890,73 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  case 'curb-table':{
   // s9 RETURNS TO THE OPENING (R15h). "Deployment is still the goal" closes forward, in the yard the
   // film opened in: the same flooded street, limestone curb, chain link fence with its orange ankle
-  // mark, live oak, porch and the dark phone on the porch rail. The prototype now stands on a pole at
-  // the curb, its lowest lens lit at the same ankle depth; and the technician who stamped the field
-  // result card stands in the water holding the deployment plan in her left hand and the prototype's
-  // closed carry case by its handle in her right. s9-event-1, from the clause's first word: she opens
-  // the folded plan out. s9-event-2: she looks up from the plan to the curb, an amber
-  // goal ring draws itself around the prototype and a field result tag, none reported, pins beside
-  // it. s9-event-3: the deployment goal tag pins beside the ringed prototype, never over it. Then the
-  // camera pulls back to the opening's own framing, the dark phone and the ankle mark. Nothing is
-  // folded away, packed, lifted or installed: the ring and the goal tag mark a goal, and the field
-  // result tag keeps the limit in the same picture. Her hand holds the case by its handle only, so
-  // no arm passes through the case.
+  // mark, live oak, porch and the dark phone, leaning at phone scale on the porch rail. The goal at the
+  // curb is a dashed, unlit OUTLINE of the station: no footing, no lamp, no lit lens, so nothing there
+  // is installed or operating. The real prototype is in the closed carry case the technician who
+  // stamped the field result card holds by its handle in her right hand, standing in the water with the
+  // deployment plan in her left. s9-event-1, from the clause's first word: she opens the folded plan
+  // out. s9-event-2: she looks up from the plan to the curb, an amber goal ring draws itself around the
+  // outline and a field result tag, none reported, pins beside it. s9-event-3: the deployment goal tag
+  // pins beside the ringed outline, never over it. THE TAIL (after the clause, from the same clock):
+  // she lowers the open plan and turns her head from the goal to the porch rail; the camera follows her
+  // look in close to the dark phone, holds while two rain drops strike its dark screen, and pulls back to
+  // the opening's own framing (s9Cam). The phone keeps its own small size throughout. Nothing is
+  // folded away, packed, lifted or installed. Her hand holds the case by its handle only, so no arm
+  // passes through the case.
   const w2=win('s9-event-2'), w3=win('s9-event-3');
   const r2=raw(w2), ringDraw=ease(clamp(r2/.7)), noneShown=clamp((r2-.35)/.65), look=ease(clamp(r2/.5));
-  const back=s9Back(t,w3.end,shot.start_s+shot.duration_s);
+  const C9=s9Cam(t,w3.end,shot.start_s+shot.duration_s,v), tail=s9Tail(t,w3.end);
   const SB=S9.station.base, ss=S9.station.s, T=S9.tech, P=S9.plan;
-  const st9=wading('s9s',SB,ss,<At p={SB} s={ss}>{station({})}</At>);
-  const leftW=techHand(T,'left',[P.c[0]-P.w/2-2,P.c[1]],'pinch','palm').wrist;
+  const goal=<At p={SB} s={ss}><GoalOutline ink={pal.ink} paper={pal.paper}/></At>;
+  const wl9=SB[1]+LEVEL.ankle*ss;
+  const hold=s9PlanHold(tail.lower);
+  const leftW=techHand(T,'left',hold.palm,'pinch','palm').wrist;
   const rightW=techRest('right'), caseAt=caseFromWrist(T,rightW,S9.case.s);
-  const techProps={left:leftW,right:rightW,leftPose:'pinch' as const,rightPose:'grip' as const,look:[lerp(0,1,look),lerp(-.5,.05,look)] as Pt,t,ground:TECH.ground};
+  const lookX=lerp(lerp(0,1,look),-1,tail.turn), lookY=lerp(lerp(-.5,.05,look),0,tail.turn);
+  const techProps={left:leftW,right:rightW,leftPose:'pinch' as const,rightPose:'grip' as const,look:[lookX,lookY] as Pt,t,ground:TECH.ground};
   const techNode=<TechAt o={T}><StreetHubSupport part="technician" {...techProps} layer="body"/></TechAt>;
   const tw=wading('s9t',T.feet,1,techNode,T.wade,320);
   const ps=P.w/200;
   const R=S9.ring, ringLen=Math.PI*(3*(R.rx+R.ry)-Math.sqrt((3*R.rx+R.ry)*(R.rx+3*R.ry)));
   const ringD=`M${R.c[0]} ${R.c[1]-R.ry}A${R.rx} ${R.ry} 0 1 1 ${R.c[0]} ${R.c[1]+R.ry}A${R.rx} ${R.ry} 0 1 1 ${R.c[0]} ${R.c[1]-R.ry}`;
   const sway=4*Math.sin(t*1.7);
-  const {node:world}=yard({p1:1,e2:1,sway,ids:false,rain:.2,reflect:<g>{st9.refl}{tw.refl}</g>,
-   curb:<Grounded baseY={SB[1]} on={exterior}><Item id="s9-station">{st9.obj}</Item>{ring(SB[0]+8,st9.wl,30)}</Grounded>,
+  // The dark phone at phone scale: drawn as the 220 by 451 unit phone scaled down to S9.phone.w, it
+  // leans right on its lowest corner on the rail cap against the newel post's face, screen to the yard,
+  // with a contact shadow under that corner and a soft shadow where its top meets the post. Each rain drop
+  // falls onto the dark screen, splashes in a small ring and runs down it; the screen never lights.
+  const ph=S9.phone, foot=s9PhoneFoot(), k9=ph.w/220, PH=220*2.05, rr=ph.rot*Math.PI/180;
+  const corner:Pt=[foot[0]+ph.w/2*Math.cos(rr),foot[1]+ph.w/2*Math.sin(rr)];
+  const pot=S9.pot, pc=s9PotCentre(), rim:Pt=[pc[0]-pot.rimW/2,pc[1]-pot.h];
+  const strikes=[[-50,-90],[55,80]] as Pt[];
+  const railPhone=<g data-part="s9-phone-on-rail">
+   <ellipse cx={pc[0]+3} cy={pc[1]+1.2} rx={pot.baseW*.75} ry={2.2} fill="#1E1A16" opacity={.36}/>
+   <g data-part="s9-rail-pot">
+    {[[-3,-pot.h-12,-9,-pot.h-22],[2,-pot.h-14,4,-pot.h-26],[6,-pot.h-11,13,-pot.h-19]].map(([x0,y0,x1,y1],i)=>
+     <path key={i} d={`M${pc[0]+x0} ${pc[1]-pot.h+2}Q${pc[0]+(x0+x1)/2-2} ${pc[1]+(y0+y1)/2} ${pc[0]+x1} ${pc[1]+y1}`} stroke="#5E7A4A" strokeWidth={3.2} fill="none" strokeLinecap="round"/>)}
+    <path d={`M${pc[0]-pot.baseW/2} ${pc[1]}L${pc[0]-pot.rimW/2+2} ${pc[1]-pot.h+6}H${pc[0]+pot.rimW/2-2}L${pc[0]+pot.baseW/2} ${pc[1]}Z`} fill="#B5653A" stroke="#6E3A20" strokeWidth={1.2}/>
+    <path d={`M${pc[0]+pot.baseW/2-5} ${pc[1]-1}L${pc[0]+pot.rimW/2-6} ${pc[1]-pot.h+7}`} stroke="#8E4A28" strokeWidth={4} opacity={.6}/>
+    <rect x={rim[0]} y={rim[1]} width={pot.rimW} height={7} rx={1.5} fill="#C97A4A" stroke="#6E3A20" strokeWidth={1.2}/>
+    <path d={`M${rim[0]+3} ${rim[1]+2}H${rim[0]+pot.rimW*.55}`} stroke="#E3A57A" strokeWidth={1.4} opacity={.8}/>
+   </g>
+   <ellipse cx={corner[0]-ph.w*.4} cy={corner[1]+1.2} rx={ph.w*.6} ry={2} fill="#1E1A16" opacity={.38}/>
+   <path d={`M${rim[0]} ${rim[1]+7}l3 0l-1 12l-2 0Z`} fill="#1E1A16" opacity={.25}/>
+   <At p={foot} r={ph.rot}><g transform={`scale(${k9})`}><g transform={`translate(0 ${-PH/2})`} data-part="s9-dark-phone">
+    <StreetHubSupport part="phone" pal={pal} banner={0} t={t}/>
+    {tail.drips.map((q,i)=>{if(q<=0||q>=1)return null;const [sx,sy]=strikes[i],fall=clamp(q/.3),hit=clamp((q-.3)/.7),y0=-PH/2-260;
+     return <g key={i} data-part="rain-strike">
+      {fall<1&&<path d={`M${sx-14} ${lerp(y0,sy,fall)-70}L${sx} ${lerp(y0,sy,fall)}`} stroke="#E8F1F5" strokeWidth={10} strokeLinecap="round"/>}
+      {hit>0&&<g opacity={1-hit}><ellipse cx={sx} cy={sy} rx={10+44*hit} ry={5+18*hit} fill="none" stroke="#E8F1F5" strokeWidth={7}/>
+       <path d={`M${sx} ${sy+8}L${sx+4} ${sy+8+110*hit}`} stroke="#C9D8DF" strokeWidth={9} strokeLinecap="round"/></g>}
+     </g>;})}
+   </g></g></At></g>;
+  const {node:world}=yard({p1:1,e2:1,sway,ids:false,rain:.2,reflect:<g>{tw.refl}</g>,railPhone,
+   curb:<Grounded baseY={SB[1]} on={exterior}><Item id="s9-station"><Band k="s9g" y1={wl9}>{goal}</Band></Item></Grounded>,
    front:<g>
     <Grounded baseY={T.feet[1]} on={exterior}>
      <Item id="s9-tech">{tw.obj}{ring(T.feet[0],tw.wl,46)}</Item>
      <Item id="s9-case"><At p={caseAt} s={S9.case.s}><StreetHubSupport part="case" latch={1}/></At></Item>
      <TechAt o={T}><StreetHubSupport part="technician" {...techProps} layer="arms" only="right"/></TechAt>
-     <Item id="s9-plan"><At p={P.c} s={ps}><StreetHubSupport part="plan" fold={2*(1-s9e1)} pal={pal}/></At></Item>
+     <Item id="s9-plan"><At p={hold.palm} r={hold.rot} s={ps}><g transform={`translate(${100+2/ps} 0)`}><StreetHubSupport part="plan" fold={2*(1-s9e1)} pal={pal}/></g></At></Item>
      <TechAt o={T}><StreetHubSupport part="technician" {...techProps} layer="arms" only="left"/></TechAt>
     </Grounded>
     <Grounded baseY={SB[1]} on={exterior}>
@@ -854,8 +966,7 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
      <Item id="s9-tag"><At p={S9.goal.at}>{tag(['Deployment goal'],s9e3,{side:'right',drop:26,scale:S9.goal.s,tone:'accent'})}</At></Item>
     </Grounded>
    </g>});
-  const C=S9.cam[v].from;
-  pic=<Item id="s9-curb"><Cam f={mix(C.f,[540,960],back)} s={lerp(C.s,1,back)} a={mix(C.a,[540,960],back)}>{world}</Cam></Item>;
+  pic=<Item id="s9-curb"><Cam f={C9.f} s={C9.s} a={C9.a}>{world}</Cam></Item>;
   break;}
  default:throw new Error('Unimplemented flood station view '+view);
  }

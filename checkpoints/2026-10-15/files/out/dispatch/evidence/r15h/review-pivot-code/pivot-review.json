@@ -1,0 +1,104 @@
+{
+  "role": "storyboard-critic",
+  "review_scope": "recurrence-pivot",
+  "verdict": "pass",
+  "reviewer_identity": "storyboard-critic subagent, model claude-opus-5-5, effort high, Read tool only, independent of the claude-sonnet-5-5 director and of the scene-builder. Basis: the full current FloodStationFilm.tsx and StreetHubSupport.tsx, the full FloodStationHero.tsx and PlaceStage.tsx, the full baseline FloodStationFilm.tsx, baseline StreetHubSupport.tsx lines 190 to 249 and 440 to 479 (Phone banner and Head lid rule), full opening-a.json and opening-b.json, the repair plan, brief, classification and panel handbacks, and the bound guides. LIMITS: no pixels rendered or viewed, no audio, no hashes computed. All digests are copied from the assignment. There is no clock, so reviewed_at is an estimate after the builder handback time of 2026-10-17T23:03:02Z.",
+  "reviewed_at": "2026-10-17T23:50:00Z",
+  "retired_mechanism_id": "s8-detail-safe-area-framing",
+  "replacement_mechanism_id": "frame-safe-held-detail-and-forward-closing-v1",
+  "reviewed_failure_sha256": [
+    "c79f8b4a1bc575611a538cb2c459139aba525016f1c893ac566688934b0f3e58",
+    "9225fae4b5e84109aa1fe03a10d7936fede66b74f4f80ee55ab92729b6ed8b78",
+    "5869a4c57c4d794db5d0e35258676f977b041ab3f43f832d4b4f2214135bc28b"
+  ],
+  "reviewed_proposal": {
+    "path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/repair-plan-r15h.json",
+    "sha256": "51b2f8fdc0a668bd1f5bc77e146cecedd06b760105cf1bb0c6ef7a5b6d318a9a"
+  },
+  "visible_difference": "The card shots change composition, not just tuning. The baseline s7 wrapped the board in a 1.15 push about [140,230]. Its result card rested beside the validation card at x 640 to 965 and the plate's 1.3 detail zoom carried it past 1080. The baseline s8 used a 1.02 push with both cards side by side and a disembodied Reacher arm entering from x 1180. The current s7 has no episode camera: a 0.72 validation card sits upper left, the tag below it, and a 0.56 result card rests lower right with about 99 px to the right edge by my static arithmetic. The current s8 has no camera either: the two cards stack in a left column and a whole technician stands at the board, stamping with her own left arm, the stamp placed from her solved palm. The close is a different action and place. The folding table, pocket tuck and latch are gone, and s9 rebuilds the s1 yard (fence ankle mark, porch, oak, porch-rail phone) through the shared yard() builder, ringing a prototype at the curb beside 'Field result / None reported' and 'Deployment goal' tags, then pulling back. Head no longer draws closed lid arcs below pitch -0.45. The Reacher component is no longer used by the episode.",
+  "source_basis": "c4 (98.82 percent validation accuracy, initial assessments after training, no field result); c1 and c10 (names no installation site, the deployment goal is not said to be met anywhere); c9 (stated aim, no dates, no named buyer); c12 (ankle-deep yard water before the phone warning, the opening the close returns to); c2 (four optical sensors at varying heights)",
+  "condition_check": {
+    "a_held_framings_replace_push": {
+      "genuine": true,
+      "evidence": "The validation-card and no-field-card cases contain no Cam wrapper. S7 and S8 are fixed exported layouts. The only remaining motion is the PlaceSubject plate camera (zoom about film 540,960 and the scene camera_strategy move), which the builder's bounds include."
+    },
+    "b_close_returns_to_opening_yard": {
+      "genuine": true,
+      "evidence": "The curb-table case calls yard({p1:1,e2:1}). The s9 board removes s9-table, and its events are open the plan, look up, ring and tags, then a pull-back. Nothing is folded, tucked or latched."
+    },
+    "c_open_eyes_and_attached_arms": {
+      "genuine": true,
+      "evidence": "Head computes eye ry = r*(0.09-0.025*down), at least 0.065r, with no lid-arc branch. s8 stamp and map arms come from TECH shoulders through techHand inverse kinematics. In s9 the draw order is body, case, right arm, plan, left arm."
+    },
+    "label_offset_easing_or_sleeve_only": false,
+    "source_backed": "conditional",
+    "conditions_that_still_must_hold": [
+      "The s9 prototype must read as a goal, not an installation. As built it is station({}) with risk=1, weather lamps on and the lowest pod lit, in its concrete footing at the residential curb. That exceeds c1 and c10 and is blocked in code_handoff. The correction stays inside this mechanism: a dashed or unlit planned outline, or an empty marked spot, with the real prototype kept in her closed case.",
+      "The 57.36 to 59.25 s tail must carry a performed beat and a readable dark-phone callback, not a camera-only pull-back toward a 135 by 24 px phone.",
+      "Held-card margins must be proven on phone pixels in both treatments, including the undisclosed thin margins listed in code_handoff."
+    ]
+  },
+  "defect_coverage": [
+    {
+      "id": "B1",
+      "covered_by_pivot": false,
+      "scope": "ordinary renderer fix",
+      "note": "Banner reflow through bannerLayout. Not part of the recurring family."
+    },
+    {
+      "id": "B2",
+      "covered_by_pivot": false,
+      "scope": "ordinary bounded push fix",
+      "note": "Push scale and focus change in s4 chip-glow (1.4 toward the lamp became a centred 1.12 about [540,800]). Allowed because B2 is not the recurring family."
+    },
+    {
+      "id": "B3",
+      "covered_by_pivot": true,
+      "scope": "pivot component a",
+      "note": "Third crop in the card family. The fix is a held composition, not another push or offset."
+    },
+    {
+      "id": "B4",
+      "covered_by_pivot": true,
+      "scope": "follows from component b",
+      "note": "The tag no longer covers a bench station or case pocket because both are gone. The 1.45 B camera was replaced by 1.12 plus a pull-back."
+    },
+    {
+      "id": "B5",
+      "covered_by_pivot": false,
+      "scope": "ordinary renderer fix",
+      "note": "MAP_SCREEN height 930. Bezel bottom at y 1236."
+    },
+    {
+      "id": "B6",
+      "covered_by_pivot": false,
+      "scope": "bounded board edit",
+      "note": "s3 drops weather-row and keeps water-marks through 19.66 s."
+    },
+    {
+      "id": "B7",
+      "covered_by_pivot": true,
+      "scope": "pivot component b",
+      "note": "Genuine change of action. The execution currently exceeds the sources: an installed, lit station."
+    },
+    {
+      "id": "B8",
+      "covered_by_pivot": true,
+      "scope": "pivot component c (eyes)",
+      "note": "Assignment B8 maps to the eyes half of critic 43's B9 finished_art."
+    },
+    {
+      "id": "B9",
+      "covered_by_pivot": true,
+      "scope": "pivot component c (arms and case)",
+      "note": "Assignment B9 maps to the arms half of critic 43's B9 finished_art."
+    },
+    {
+      "id": "B10",
+      "covered_by_pivot": false,
+      "scope": "board clause-fraction retime plus derived motion",
+      "note": "Assignment B10 maps to critic 43's B8 pace. The s9 tail is still camera-only."
+    }
+  ],
+  "notes": "PASS means the replacement is a genuine mechanism change and may be carried forward. It approves no pixels and does not clear the s9 execution defect, which the code review blocks. Process: the correction brief says the pivot requirement 'was met by recording that the change is of mechanism'. That is the director's own assessment, recorded before begin-repair, and this independent review comes after the edits. The controller decides whether a pivot that arrives after the edits is admissible. Two of the three reviewed_failure_sha256 values (c79f8b4a..., 9225fae4...) are copied verbatim, but I did not read files with those digests. I read the classification (0444be6f...), the reissued picture report (5869a4c5...), the story handback (469cd551...) and the sound json (1d6d5187...)."
+}
