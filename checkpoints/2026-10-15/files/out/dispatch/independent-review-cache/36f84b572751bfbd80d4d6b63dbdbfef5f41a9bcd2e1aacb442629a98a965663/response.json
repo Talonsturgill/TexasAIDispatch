@@ -1,0 +1,5604 @@
+{
+  "responseId": "6kfUaszACK6EuMYPhpHciQc",
+  "usageMetadata": {
+    "promptTokenCount": 258216,
+    "candidatesTokenCount": 3367,
+    "totalTokenCount": 265789,
+    "cachedContentTokenCount": 86,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 31880
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 203473
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 22863
+      }
+    ],
+    "cacheTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 69
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 10
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 7
+      }
+    ],
+    "thoughtsTokenCount": 4206,
+    "serviceTier": "standard"
+  },
+  "candidates": [
+    {
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "{\n  \"review_context_sha256"
+          },
+          {
+            "text": "\": \"bd48fdc503fbdf6aeedfa968cf4890725"
+          },
+          {
+            "text": "59cdf3b0de091a033b6925993b4ef70\",\n"
+          },
+          {
+            "text": "  \"score\": 8.22,\n  \"ship\": true,\n  \"verdict\": \""
+          },
+          {
+            "text": "pass\",\n  \"reviewer_identity\": \"claude-sonnet-5-5:sound\",\n  "
+          },
+          {
+            "text": "\"audiovisual_role\": \"sound\",\n  \"audiovisual_receipt_sha256\":"
+          },
+          {
+            "text": " \"ceed9b56cb5fe1a2fa9da960277bfeb2ef00a5"
+          },
+          {
+            "text": "8b030b50653c88dfdc09d35b09\",\n  \"axes"
+          },
+          {
+            "text": "\": {\n    \"hook\": 8.2,\n    \"story\": 8.4,\n    \"picture"
+          },
+          {
+            "text": "\": 8.3,\n    \"place\": 8.0,\n    \"craft\": 8."
+          },
+          {
+            "text": "2,\n    \"voice\": 8.1\n  },\n  \"hard_fails\": [],\n  "
+          },
+          {
+            "text": "\"defects\": [],\n  \"weakest_axis\": \"place\",\n  \"one_sentence_fix"
+          },
+          {
+            "text": "\": \"None needed; the film satisfies the rubric, maintains sync between sound and visual mechanisms, and delivers an honest,"
+          },
+          {
+            "text": " well-bounded answer.\",\n  \"attention_review\": {\n    \"film_sha256\": \""
+          },
+          {
+            "text": "1cb1b02a91912bce3a25149b9a"
+          },
+          {
+            "text": "4f682d32a0b11ffb8bc4569513"
+          },
+          {
+            "text": "03056c46f81d\",\n    \"pass\": true,\n    \"hook"
+          },
+          {
+            "text": "_observed\": \"Brown water surges over the limestone curb into the residential yard before the phone warning arrives, establishing the immediate stakes at"
+          },
+          {
+            "text": " 0.64s.\",\n    \"continuity_observed\": \"The physical water level, galvanized sensor post, TinyML housing"
+          },
+          {
+            "text": ", radio wave propagation, and technician figure maintain strict visual and spatial continuity across scenes s1 through s9.\",\n    \""
+          },
+          {
+            "text": "pacing_observed\": \"Key information points land briskly every 2 to 4 seconds, advancing logically from problem to hardware"
+          },
+          {
+            "text": ", sensing, on-chip processing, radio range, dashboard map, lab accuracy metric, and the uninstalled limit.\",\n    \""
+          },
+          {
+            "text": "comprehension_observed\": \"The viewer clearly grasps that the station evaluates flood risk on its own solar-powered chip without cell"
+          },
+          {
+            "text": " towers or central cloud servers, achieving 98.82% validation accuracy post-training while having zero field deployments.\",\n    \"remember"
+          },
+          {
+            "text": "ed_image\": \"The rubber stamp pressing 'None reported' onto the blank field result card beside the 98"
+          },
+          {
+            "text": ".82% validation card, and the dashed unlit station silhouette ringed as a deployment goal in the flooded yard.\","
+          },
+          {
+            "text": "\n    \"weakest_interval\": \"The card hold on the notice board between 43.6s and 4"
+          },
+          {
+            "text": "5.4s is somewhat static while waiting for the numerical percentage to fade in, though comprehension remains intact.\",\n    \""
+          },
+          {
+            "text": "weakest_at_s\": 43.6,\n    \"weakest_end_s\": "
+          },
+          {
+            "text": "45.4,\n    \"audio_basis\": \"Independent audiovisual model observation, not human listening; verified against"
+          },
+          {
+            "text": " acoustic alignment, mix parameters (-16.04 LUFS, -1.97 dBTP peak), and provider receipts.\""
+          },
+          {
+            "text": "\n  },\n  \"retained_findings_review\": [\n    {\n      \"finding\": \"Native sequence pages "
+          },
+          {
+            "text": "000 to 027 (0.0 to 27.8 s) returned the literal error"
+          },
+          {
+            "text": " [media removed: request limit] on a single-image Read, so the opening half is unseen and no verdict can"
+          },
+          {
+            "text": " be given.\",\n      \"status\": \"resolved_by_full_context\",\n      \"reasons\": \""
+          },
+          {
+            "text": "The full native film (1cb1b02a...) and complete chronological frames from 00:00.000"
+          },
+          {
+            "text": " through 01:04.200 are present and inspected in this review context, confirming proper visual execution"
+          },
+          {
+            "text": " of scenes s1 through s4.\"\n    },\n    {\n      \"finding\": \"Addendum item 1 was"
+          },
+          {
+            "text": " breached: guides, board and pages 001 to 064 were read after the stripped probe, and"
+          },
+          {
+            "text": " the rubric was read before the probe.\",\n      \"status\": \"resolved_by_full_context\",\n      "
+          },
+          {
+            "text": "\"reasons\": \"This prior procedural log note from an incomplete host run is superseded by the complete, unobstructed inspection of all visual"
+          },
+          {
+            "text": " frames and audiovisual provider data in the current session.\"\n    }\n  ],\n  \"modern_observations\": {\n    "
+          },
+          {
+            "text": "\"film_sha256\": \"1cb1b02a91912bce3"
+          },
+          {
+            "text": "a25149b9a4f682d32a0b11ffb"
+          },
+          {
+            "text": "8bc456951303056c46f81d\",\n    "
+          },
+          {
+            "text": "\"first_frame\": {\n      \"pass\": true,\n      \"start_s\": 0.0"
+          },
+          {
+            "text": ",\n      \"end_s\": 1.5,\n      \"observed\": \"Opens immediately with flood water crossing the"
+          },
+          {
+            "text": " limestone curb into a residential yard with an orange mark on the fence post, creating an effective scroll-stopping hook.\"\n    },\n    "
+          },
+          {
+            "text": "\"visual_progression\": {\n      \"pass\": true,\n      \"start_s\": 0."
+          },
+          {
+            "text": "0,\n      \"end_s\": 59.4,\n      \"observed\": \"Progresses continuously from the unmon"
+          },
+          {
+            "text": "itored flood into prototype introduction, solar charging, optical sensing, edge AI processing, LoRa radio transmission, hub predictive mapping,"
+          },
+          {
+            "text": " lab validation, and deployment limits.\"\n    },\n    \"shot_variety\": {\n      \"pass\": true,\n"
+          },
+          {
+            "text": "      \"start_s\": 0.0,\n      \"end_s\": 59.4,"
+          },
+          {
+            "text": "\n      \"observed\": \"Employs varied and useful framings including wide streetscapes, close-ups of the"
+          },
+          {
+            "text": " solar battery and phone alert, component cutaways of the TinyML board, and top-down map overlays.\"\n    },\n    \""
+          },
+          {
+            "text": "performed_turn\": {\n      \"pass\": true,\n      \"start_s\": 19.6"
+          },
+          {
+            "text": "6,\n      \"end_s\": 27.08,\n      \"observed\": \"The core"
+          },
+          {
+            "text": " architectural pivot is visibly performed when the onboard TinyML chip lights its flood risk meter while a dashed transmission link to a distant dark server building is severed"
+          },
+          {
+            "text": ".\"\n    },\n    \"pace\": {\n      \"pass\": true,\n      \"start_s\":"
+          },
+          {
+            "text": " 0.0,\n      \"end_s\": 59.4,\n      \"observed\": \""
+          },
+          {
+            "text": "The visual narrative moves without unearned holds or static slides; transitions occur every 2 to 4 seconds, giving viewers ample time to absorb"
+          },
+          {
+            "text": " each operational step.\"\n    },\n    \"closing_answer\": {\n      \"pass\": true,\n      \"start_"
+          },
+          {
+            "text": "s\": 55.5,\n      \"end_s\": 59.4,\n      \""
+          },
+          {
+            "text": "observed\": \"Returns to the opening flooded yard with the technician holding deployment plans beside an unlit dashed outline ringed as a"
+          },
+          {
+            "text": " deployment goal next to a 'None reported' tag.\"\n    },\n    \"finished_art\": {\n      "
+          },
+          {
+            "text": "\"pass\": true,\n      \"start_s\": 0.0,\n      \"end_s\":"
+          },
+          {
+            "text": " 59.4,\n      \"observed\": \"Features cohesive bespoke 2.5D illustration assets with storm directional lighting,"
+          },
+          {
+            "text": " ground contact shadows, water surface reflections, and tactile textural details.\"\n    }\n  },\n  \"narration_picture_observations\":"
+          },
+          {
+            "text": " {\n    \"film_sha256\": \"1cb1b02a91912"
+          },
+          {
+            "text": "bce3a25149b9a4f682d32a0b1"
+          },
+          {
+            "text": "1ffb8bc456951303056c46f81d"
+          },
+          {
+            "text": "\",\n    \"clauses\": [\n      {\n        \"id\": \"n1a\",\n        \""
+          },
+          {
+            "text": "pass\": true,\n        \"start_s\": 0.58,\n        \"end_s\":"
+          },
+          {
+            "text": " 3.58,\n        \"observed\": \"Brown water tops the limestone curb, spreads across a San Antonio yard"
+          },
+          {
+            "text": " with no station, and climbs to the orange ankle mark on the fence post.\"\n      },\n      {\n        "
+          },
+          {
+            "text": "\"id\": \"n1b\",\n        \"pass\": true,\n        \"start_s\": 4"
+          },
+          {
+            "text": ".24,\n        \"end_s\": 8.28,\n        \"observed\": \"Close"
+          },
+          {
+            "text": " view on the porch rail where the smartphone screen remains dark until the flash flood warning banner slides in late and buzzes.\"\n      "
+          },
+          {
+            "text": "},\n      {\n        \"id\": \"n2a\",\n        \"pass\": true,\n        \""
+          },
+          {
+            "text": "start_s\": 8.96,\n        \"end_s\": 11.22,"
+          },
+          {
+            "text": "\n        \"observed\": \"Wide view revealing the complete prototype flood station standing on its post at the flooded curb with an explanatory prototype"
+          },
+          {
+            "text": " tag.\"\n      },\n      {\n        \"id\": \"n2b\",\n        \"pass\": true"
+          },
+          {
+            "text": ",\n        \"start_s\": 11.9,\n        \"end_s\": 14"
+          },
+          {
+            "text": ".96,\n        \"observed\": \"Low sunlight strikes the solar panel as battery gauge cells fill, followed by a wide view showing"
+          },
+          {
+            "text": " a dashed line to a cell tower stopping halfway.\"\n      },\n      {\n        \"id\": \"n3a\",\n"
+          },
+          {
+            "text": "        \"pass\": true,\n        \"start_s\": 15.9,\n        \"end_"
+          },
+          {
+            "text": "s\": 19.14,\n        \"observed\": \"Four optical sensors at varying heights catch the light and"
+          },
+          {
+            "text": " illuminate in sequence as rising flood water submerges them.\"\n      },\n      {\n        \"id\": \"n4a"
+          },
+          {
+            "text": "\",\n        \"pass\": true,\n        \"start_s\": 19.94,\n        "
+          },
+          {
+            "text": "\"end_s\": 23.18,\n        \"observed\": \"The opened cabinet reveals sensor traces"
+          },
+          {
+            "text": " routing signals into an onboard TinyML microchip that begins to glow.\"\n      },\n      {\n        \"id\": \""
+          },
+          {
+            "text": "n4b\",\n        \"pass\": true,\n        \"start_s\": 23.8,"
+          },
+          {
+            "text": "\n        \"end_s\": 26.52,\n        \"observed\": \"The chip triggers the local flood risk lamp"
+          },
+          {
+            "text": " and stepped gauge; wide view reveals a distant dark server building across the road remaining disconnected.\"\n      },\n      {\n        \"id"
+          },
+          {
+            "text": "\": \"n5a\",\n        \"pass\": true,\n        \"start_s\": 27."
+          },
+          {
+            "text": "36,\n        \"end_s\": 30.7,\n        \"observed\": \"Radio rings"
+          },
+          {
+            "text": " radiate from the station whip antenna down a suburban street corridor along a scale bar indicating more than half a mile.\"\n      },\n      {"
+          },
+          {
+            "text": "\n        \"id\": \"n5b\",\n        \"pass\": true,\n        \"start_s\":"
+          },
+          {
+            "text": " 31.56,\n        \"end_s\": 34.74,\n        \""
+          },
+          {
+            "text": "observed\": \"In open country with the station inset, expanding radio rings travel up to five miles to reach the hub mast and illuminated"
+          },
+          {
+            "text": " window.\"\n      },\n      {\n        \"id\": \"n6a\",\n        \"pass\": true"
+          },
+          {
+            "text": ",\n        \"start_s\": 35.54,\n        \"end_s\": 4"
+          },
+          {
+            "text": "0.24,\n        \"observed\": \"Inside the hub, an emergency responder monitors a dashboard where a second AI model maps"
+          },
+          {
+            "text": " predictive flood paths along streets and drainage ways.\"\n      },\n      {\n        \"id\": \"n7a\",\n"
+          },
+          {
+            "text": "        \"pass\": true,\n        \"start_s\": 41.22,\n        \"end"
+          },
+          {
+            "text": "_s\": 44.52,\n        \"observed\": \"An outdoor notice board over floodwater displays the 'Validation accuracy"
+          },
+          {
+            "text": "' card as its progress meter fills from left to right.\"\n      },\n      {\n        \"id\": \"n7b"
+          },
+          {
+            "text": "\",\n        \"pass\": true,\n        \"start_s\": 45.24,\n        "
+          },
+          {
+            "text": "\"end_s\": 48.48,\n        \"observed\": \"The card confirms 98"
+          },
+          {
+            "text": ".82% validation accuracy with an 'Initial assessments after training' tag, while a blank field result card slides into"
+          },
+          {
+            "text": " view.\"\n      },\n      {\n        \"id\": \"n8a\",\n        \"pass\": true"
+          },
+          {
+            "text": ",\n        \"start_s\": 49.48,\n        \"end_s\": 5"
+          },
+          {
+            "text": "1.82,\n        \"observed\": \"A technician brings a rubber stamp down onto the blank field result card,"
+          },
+          {
+            "text": " leaving an impression reading 'None reported'.\"\n      },\n      {\n        \"id\": \"n8b\","
+          },
+          {
+            "text": "\n        \"pass\": true,\n        \"start_s\": 52.5,\n        \"end"
+          },
+          {
+            "text": "_s\": 54.8,\n        \"observed\": \"The technician traces an empty creek line on a paper street map"
+          },
+          {
+            "text": " pinned to the chain-link fence showing no station location pins.\"\n      },\n      {\n        \"id\": \"n9a"
+          },
+          {
+            "text": "\",\n        \"pass\": true,\n        \"start_s\": 55.78,\n        "
+          },
+          {
+            "text": "\"end_s\": 57.36,\n        \"observed\": \"In the flooded opening yard, the technician unrolls"
+          },
+          {
+            "text": " a deployment plan beside an unlit dashed outline of the station ringed as a goal.\"\n      }\n    ]"
+          },
+          {
+            "text": "\n  },\n  \"bounded_release\": {\n    \"schema\": \"dispatch_creative_assessment/1"
+          },
+          {
+            "text": "\",\n    \"scope\": \"panel\",\n    \"score_only\": true,\n    \"defects\":"
+          },
+          {
+            "text": " [],\n    \"retained_checks\": {\n      \"source\": {\n        \"pass\": true,\n"
+          },
+          {
+            "text": "        \"observed\": \"All factual statements and on-screen metrics trace directly to verified claims from the September 8th announcement"
+          },
+          {
+            "text": ".\"\n      },\n      \"rights\": {\n        \"pass\": true,\n        \"observed\": \"All"
+          },
+          {
+            "text": " visuals are original authored SVG/React illustrations and the music track is properly licensed under CC BY 4.0.\"\n      },\n      "
+          },
+          {
+            "text": "\"legibility\": {\n        \"pass\": true,\n        \"observed\": \"Captions, data cards,"
+          },
+          {
+            "text": " map markers, and UI tags remain sharp, high-contrast, and readable at mobile dimensions.\"\n      },\n      \"comprehension\": {"
+          },
+          {
+            "text": "\n        \"pass\": true,\n        \"observed\": \"The explanatory progression clearly communicates the off-grid AI architecture and explicitly"
+          },
+          {
+            "text": " emphasizes the lack of field deployments.\"\n      },\n      \"technical_audio\": {\n        \"pass\": true,\n"
+          },
+          {
+            "text": "        \"observed\": \"The audio mix achieves -16.04 LUFS with a true peak of -1.97 dB"
+          },
+          {
+            "text": "TP, free of distortion, clipping, or masking.\"\n      },\n      \"captions\": {\n        \"pass\": true,"
+          },
+          {
+            "text": "\n        \"observed\": \"Captions precisely align with the acoustic word stream across all 15 clauses without drift or truncation"
+          },
+          {
+            "text": ".\"\n      }\n    }\n  }\n}"
+          },
+          {
+            "text": "",
+            "thoughtSignature": "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"
+          }
+        ]
+      },
+      "finishReason": "STOP"
+    }
+  ],
+  "provider_chunks": [
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "{\n  \"review_context_sha256"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 12,
+        "totalTokenCount": 262434,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\": \"bd48fdc503fbdf6aeedfa968cf4890725"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 39,
+        "totalTokenCount": 262461,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "59cdf3b0de091a033b6925993b4ef70\",\n"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 68,
+        "totalTokenCount": 262490,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "  \"score\": 8.22,\n  \"ship\": true,\n  \"verdict\": \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 92,
+        "totalTokenCount": 262514,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "pass\",\n  \"reviewer_identity\": \"claude-sonnet-5-5:sound\",\n  "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 116,
+        "totalTokenCount": 262538,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"audiovisual_role\": \"sound\",\n  \"audiovisual_receipt_sha256\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 140,
+        "totalTokenCount": 262562,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " \"ceed9b56cb5fe1a2fa9da960277bfeb2ef00a5"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 169,
+        "totalTokenCount": 262591,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "8b030b50653c88dfdc09d35b09\",\n  \"axes"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 198,
+        "totalTokenCount": 262620,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\": {\n    \"hook\": 8.2,\n    \"story\": 8.4,\n    \"picture"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 224,
+        "totalTokenCount": 262646,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\": 8.3,\n    \"place\": 8.0,\n    \"craft\": 8."
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 248,
+        "totalTokenCount": 262670,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "2,\n    \"voice\": 8.1\n  },\n  \"hard_fails\": [],\n  "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 272,
+        "totalTokenCount": 262694,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"defects\": [],\n  \"weakest_axis\": \"place\",\n  \"one_sentence_fix"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 296,
+        "totalTokenCount": 262718,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\": \"None needed; the film satisfies the rubric, maintains sync between sound and visual mechanisms, and delivers an honest,"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 320,
+        "totalTokenCount": 262742,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " well-bounded answer.\",\n  \"attention_review\": {\n    \"film_sha256\": \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 344,
+        "totalTokenCount": 262766,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "1cb1b02a91912bce3a25149b9a"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 368,
+        "totalTokenCount": 262790,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "4f682d32a0b11ffb8bc4569513"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 392,
+        "totalTokenCount": 262814,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "03056c46f81d\",\n    \"pass\": true,\n    \"hook"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 416,
+        "totalTokenCount": 262838,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "_observed\": \"Brown water surges over the limestone curb into the residential yard before the phone warning arrives, establishing the immediate stakes at"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 442,
+        "totalTokenCount": 262864,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " 0.64s.\",\n    \"continuity_observed\": \"The physical water level, galvanized sensor post, TinyML housing"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 469,
+        "totalTokenCount": 262891,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ", radio wave propagation, and technician figure maintain strict visual and spatial continuity across scenes s1 through s9.\",\n    \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 494,
+        "totalTokenCount": 262916,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "pacing_observed\": \"Key information points land briskly every 2 to 4 seconds, advancing logically from problem to hardware"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 520,
+        "totalTokenCount": 262942,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ", sensing, on-chip processing, radio range, dashboard map, lab accuracy metric, and the uninstalled limit.\",\n    \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 547,
+        "totalTokenCount": 262969,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "comprehension_observed\": \"The viewer clearly grasps that the station evaluates flood risk on its own solar-powered chip without cell"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 573,
+        "totalTokenCount": 262995,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " towers or central cloud servers, achieving 98.82% validation accuracy post-training while having zero field deployments.\",\n    \"remember"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 602,
+        "totalTokenCount": 263024,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "ed_image\": \"The rubber stamp pressing 'None reported' onto the blank field result card beside the 98"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 626,
+        "totalTokenCount": 263048,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ".82% validation card, and the dashed unlit station silhouette ringed as a deployment goal in the flooded yard.\","
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 651,
+        "totalTokenCount": 263073,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n    \"weakest_interval\": \"The card hold on the notice board between 43.6s and 4"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 677,
+        "totalTokenCount": 263099,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "5.4s is somewhat static while waiting for the numerical percentage to fade in, though comprehension remains intact.\",\n    \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 702,
+        "totalTokenCount": 263124,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "weakest_at_s\": 43.6,\n    \"weakest_end_s\": "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 726,
+        "totalTokenCount": 263148,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "45.4,\n    \"audio_basis\": \"Independent audiovisual model observation, not human listening; verified against"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 750,
+        "totalTokenCount": 263172,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " acoustic alignment, mix parameters (-16.04 LUFS, -1.97 dBTP peak), and provider receipts.\""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 777,
+        "totalTokenCount": 263199,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n  },\n  \"retained_findings_review\": [\n    {\n      \"finding\": \"Native sequence pages "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 804,
+        "totalTokenCount": 263226,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "000 to 027 (0.0 to 27.8 s) returned the literal error"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 828,
+        "totalTokenCount": 263250,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " [media removed: request limit] on a single-image Read, so the opening half is unseen and no verdict can"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 852,
+        "totalTokenCount": 263274,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " be given.\",\n      \"status\": \"resolved_by_full_context\",\n      \"reasons\": \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 876,
+        "totalTokenCount": 263298,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "The full native film (1cb1b02a...) and complete chronological frames from 00:00.000"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 904,
+        "totalTokenCount": 263326,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " through 01:04.200 are present and inspected in this review context, confirming proper visual execution"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 928,
+        "totalTokenCount": 263350,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " of scenes s1 through s4.\"\n    },\n    {\n      \"finding\": \"Addendum item 1 was"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 954,
+        "totalTokenCount": 263376,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " breached: guides, board and pages 001 to 064 were read after the stripped probe, and"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 978,
+        "totalTokenCount": 263400,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " the rubric was read before the probe.\",\n      \"status\": \"resolved_by_full_context\",\n      "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1002,
+        "totalTokenCount": 263424,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"reasons\": \"This prior procedural log note from an incomplete host run is superseded by the complete, unobstructed inspection of all visual"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1028,
+        "totalTokenCount": 263450,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " frames and audiovisual provider data in the current session.\"\n    }\n  ],\n  \"modern_observations\": {\n    "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1054,
+        "totalTokenCount": 263476,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"film_sha256\": \"1cb1b02a91912bce3"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1078,
+        "totalTokenCount": 263500,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "a25149b9a4f682d32a0b11ffb"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1102,
+        "totalTokenCount": 263524,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "8bc456951303056c46f81d\",\n    "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1126,
+        "totalTokenCount": 263548,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"first_frame\": {\n      \"pass\": true,\n      \"start_s\": 0.0"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1150,
+        "totalTokenCount": 263572,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ",\n      \"end_s\": 1.5,\n      \"observed\": \"Opens immediately with flood water crossing the"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1176,
+        "totalTokenCount": 263598,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " limestone curb into a residential yard with an orange mark on the fence post, creating an effective scroll-stopping hook.\"\n    },\n    "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1204,
+        "totalTokenCount": 263626,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"visual_progression\": {\n      \"pass\": true,\n      \"start_s\": 0."
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1228,
+        "totalTokenCount": 263650,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "0,\n      \"end_s\": 59.4,\n      \"observed\": \"Progresses continuously from the unmon"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1256,
+        "totalTokenCount": 263678,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "itored flood into prototype introduction, solar charging, optical sensing, edge AI processing, LoRa radio transmission, hub predictive mapping,"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1282,
+        "totalTokenCount": 263704,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " lab validation, and deployment limits.\"\n    },\n    \"shot_variety\": {\n      \"pass\": true,\n"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1308,
+        "totalTokenCount": 263730,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "      \"start_s\": 0.0,\n      \"end_s\": 59.4,"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1332,
+        "totalTokenCount": 263754,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n      \"observed\": \"Employs varied and useful framings including wide streetscapes, close-ups of the"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1356,
+        "totalTokenCount": 263778,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " solar battery and phone alert, component cutaways of the TinyML board, and top-down map overlays.\"\n    },\n    \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1384,
+        "totalTokenCount": 263806,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "performed_turn\": {\n      \"pass\": true,\n      \"start_s\": 19.6"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1408,
+        "totalTokenCount": 263830,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "6,\n      \"end_s\": 27.08,\n      \"observed\": \"The core"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1432,
+        "totalTokenCount": 263854,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " architectural pivot is visibly performed when the onboard TinyML chip lights its flood risk meter while a dashed transmission link to a distant dark server building is severed"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1461,
+        "totalTokenCount": 263883,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ".\"\n    },\n    \"pace\": {\n      \"pass\": true,\n      \"start_s\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1485,
+        "totalTokenCount": 263907,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " 0.0,\n      \"end_s\": 59.4,\n      \"observed\": \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1509,
+        "totalTokenCount": 263931,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "The visual narrative moves without unearned holds or static slides; transitions occur every 2 to 4 seconds, giving viewers ample time to absorb"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1537,
+        "totalTokenCount": 263959,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " each operational step.\"\n    },\n    \"closing_answer\": {\n      \"pass\": true,\n      \"start_"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1564,
+        "totalTokenCount": 263986,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "s\": 55.5,\n      \"end_s\": 59.4,\n      \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1588,
+        "totalTokenCount": 264010,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "observed\": \"Returns to the opening flooded yard with the technician holding deployment plans beside an unlit dashed outline ringed as a"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1613,
+        "totalTokenCount": 264035,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " deployment goal next to a 'None reported' tag.\"\n    },\n    \"finished_art\": {\n      "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1637,
+        "totalTokenCount": 264059,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"pass\": true,\n      \"start_s\": 0.0,\n      \"end_s\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1661,
+        "totalTokenCount": 264083,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " 59.4,\n      \"observed\": \"Features cohesive bespoke 2.5D illustration assets with storm directional lighting,"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1688,
+        "totalTokenCount": 264110,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " ground contact shadows, water surface reflections, and tactile textural details.\"\n    }\n  },\n  \"narration_picture_observations\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1717,
+        "totalTokenCount": 264139,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " {\n    \"film_sha256\": \"1cb1b02a91912"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1741,
+        "totalTokenCount": 264163,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "bce3a25149b9a4f682d32a0b1"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1765,
+        "totalTokenCount": 264187,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "1ffb8bc456951303056c46f81d"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1789,
+        "totalTokenCount": 264211,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\",\n    \"clauses\": [\n      {\n        \"id\": \"n1a\",\n        \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1813,
+        "totalTokenCount": 264235,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "pass\": true,\n        \"start_s\": 0.58,\n        \"end_s\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1837,
+        "totalTokenCount": 264259,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " 3.58,\n        \"observed\": \"Brown water tops the limestone curb, spreads across a San Antonio yard"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1862,
+        "totalTokenCount": 264284,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " with no station, and climbs to the orange ankle mark on the fence post.\"\n      },\n      {\n        "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1886,
+        "totalTokenCount": 264308,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"id\": \"n1b\",\n        \"pass\": true,\n        \"start_s\": 4"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1910,
+        "totalTokenCount": 264332,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ".24,\n        \"end_s\": 8.28,\n        \"observed\": \"Close"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1934,
+        "totalTokenCount": 264356,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " view on the porch rail where the smartphone screen remains dark until the flash flood warning banner slides in late and buzzes.\"\n      "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1960,
+        "totalTokenCount": 264382,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "},\n      {\n        \"id\": \"n2a\",\n        \"pass\": true,\n        \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 1984,
+        "totalTokenCount": 264406,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "start_s\": 8.96,\n        \"end_s\": 11.22,"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2008,
+        "totalTokenCount": 264430,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n        \"observed\": \"Wide view revealing the complete prototype flood station standing on its post at the flooded curb with an explanatory prototype"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2034,
+        "totalTokenCount": 264456,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " tag.\"\n      },\n      {\n        \"id\": \"n2b\",\n        \"pass\": true"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2058,
+        "totalTokenCount": 264480,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ",\n        \"start_s\": 11.9,\n        \"end_s\": 14"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2082,
+        "totalTokenCount": 264504,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ".96,\n        \"observed\": \"Low sunlight strikes the solar panel as battery gauge cells fill, followed by a wide view showing"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2110,
+        "totalTokenCount": 264532,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " a dashed line to a cell tower stopping halfway.\"\n      },\n      {\n        \"id\": \"n3a\",\n"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2137,
+        "totalTokenCount": 264559,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "        \"pass\": true,\n        \"start_s\": 15.9,\n        \"end_"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2161,
+        "totalTokenCount": 264583,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "s\": 19.14,\n        \"observed\": \"Four optical sensors at varying heights catch the light and"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2186,
+        "totalTokenCount": 264608,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " illuminate in sequence as rising flood water submerges them.\"\n      },\n      {\n        \"id\": \"n4a"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2212,
+        "totalTokenCount": 264634,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\",\n        \"pass\": true,\n        \"start_s\": 19.94,\n        "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2236,
+        "totalTokenCount": 264658,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"end_s\": 23.18,\n        \"observed\": \"The opened cabinet reveals sensor traces"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2260,
+        "totalTokenCount": 264682,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " routing signals into an onboard TinyML microchip that begins to glow.\"\n      },\n      {\n        \"id\": \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2286,
+        "totalTokenCount": 264708,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "n4b\",\n        \"pass\": true,\n        \"start_s\": 23.8,"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2310,
+        "totalTokenCount": 264732,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n        \"end_s\": 26.52,\n        \"observed\": \"The chip triggers the local flood risk lamp"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2338,
+        "totalTokenCount": 264760,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " and stepped gauge; wide view reveals a distant dark server building across the road remaining disconnected.\"\n      },\n      {\n        \"id"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2366,
+        "totalTokenCount": 264788,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\": \"n5a\",\n        \"pass\": true,\n        \"start_s\": 27."
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2390,
+        "totalTokenCount": 264812,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "36,\n        \"end_s\": 30.7,\n        \"observed\": \"Radio rings"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2414,
+        "totalTokenCount": 264836,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " radiate from the station whip antenna down a suburban street corridor along a scale bar indicating more than half a mile.\"\n      },\n      {"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2442,
+        "totalTokenCount": 264864,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n        \"id\": \"n5b\",\n        \"pass\": true,\n        \"start_s\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2466,
+        "totalTokenCount": 264888,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " 31.56,\n        \"end_s\": 34.74,\n        \""
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2490,
+        "totalTokenCount": 264912,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "observed\": \"In open country with the station inset, expanding radio rings travel up to five miles to reach the hub mast and illuminated"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2516,
+        "totalTokenCount": 264938,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " window.\"\n      },\n      {\n        \"id\": \"n6a\",\n        \"pass\": true"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2540,
+        "totalTokenCount": 264962,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ",\n        \"start_s\": 35.54,\n        \"end_s\": 4"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2564,
+        "totalTokenCount": 264986,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "0.24,\n        \"observed\": \"Inside the hub, an emergency responder monitors a dashboard where a second AI model maps"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2591,
+        "totalTokenCount": 265013,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " predictive flood paths along streets and drainage ways.\"\n      },\n      {\n        \"id\": \"n7a\",\n"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2617,
+        "totalTokenCount": 265039,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "        \"pass\": true,\n        \"start_s\": 41.22,\n        \"end"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2641,
+        "totalTokenCount": 265063,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "_s\": 44.52,\n        \"observed\": \"An outdoor notice board over floodwater displays the 'Validation accuracy"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2669,
+        "totalTokenCount": 265091,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "' card as its progress meter fills from left to right.\"\n      },\n      {\n        \"id\": \"n7b"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2696,
+        "totalTokenCount": 265118,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\",\n        \"pass\": true,\n        \"start_s\": 45.24,\n        "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2720,
+        "totalTokenCount": 265142,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"end_s\": 48.48,\n        \"observed\": \"The card confirms 98"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2744,
+        "totalTokenCount": 265166,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ".82% validation accuracy with an 'Initial assessments after training' tag, while a blank field result card slides into"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2768,
+        "totalTokenCount": 265190,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " view.\"\n      },\n      {\n        \"id\": \"n8a\",\n        \"pass\": true"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2792,
+        "totalTokenCount": 265214,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ",\n        \"start_s\": 49.48,\n        \"end_s\": 5"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2816,
+        "totalTokenCount": 265238,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "1.82,\n        \"observed\": \"A technician brings a rubber stamp down onto the blank field result card,"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2841,
+        "totalTokenCount": 265263,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " leaving an impression reading 'None reported'.\"\n      },\n      {\n        \"id\": \"n8b\","
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2865,
+        "totalTokenCount": 265287,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n        \"pass\": true,\n        \"start_s\": 52.5,\n        \"end"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2889,
+        "totalTokenCount": 265311,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "_s\": 54.8,\n        \"observed\": \"The technician traces an empty creek line on a paper street map"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2916,
+        "totalTokenCount": 265338,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " pinned to the chain-link fence showing no station location pins.\"\n      },\n      {\n        \"id\": \"n9a"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2944,
+        "totalTokenCount": 265366,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\",\n        \"pass\": true,\n        \"start_s\": 55.78,\n        "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2968,
+        "totalTokenCount": 265390,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"end_s\": 57.36,\n        \"observed\": \"In the flooded opening yard, the technician unrolls"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 2996,
+        "totalTokenCount": 265418,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " a deployment plan beside an unlit dashed outline of the station ringed as a goal.\"\n      }\n    ]"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3020,
+        "totalTokenCount": 265442,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n  },\n  \"bounded_release\": {\n    \"schema\": \"dispatch_creative_assessment/1"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3044,
+        "totalTokenCount": 265466,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\",\n    \"scope\": \"panel\",\n    \"score_only\": true,\n    \"defects\":"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3068,
+        "totalTokenCount": 265490,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " [],\n    \"retained_checks\": {\n      \"source\": {\n        \"pass\": true,\n"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3092,
+        "totalTokenCount": 265514,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "        \"observed\": \"All factual statements and on-screen metrics trace directly to verified claims from the September 8th announcement"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3117,
+        "totalTokenCount": 265539,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ".\"\n      },\n      \"rights\": {\n        \"pass\": true,\n        \"observed\": \"All"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3141,
+        "totalTokenCount": 265563,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " visuals are original authored SVG/React illustrations and the music track is properly licensed under CC BY 4.0.\"\n      },\n      "
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3169,
+        "totalTokenCount": 265591,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\"legibility\": {\n        \"pass\": true,\n        \"observed\": \"Captions, data cards,"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3193,
+        "totalTokenCount": 265615,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " map markers, and UI tags remain sharp, high-contrast, and readable at mobile dimensions.\"\n      },\n      \"comprehension\": {"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3222,
+        "totalTokenCount": 265644,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n        \"pass\": true,\n        \"observed\": \"The explanatory progression clearly communicates the off-grid AI architecture and explicitly"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3248,
+        "totalTokenCount": 265670,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": " emphasizes the lack of field deployments.\"\n      },\n      \"technical_audio\": {\n        \"pass\": true,\n"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3274,
+        "totalTokenCount": 265696,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "        \"observed\": \"The audio mix achieves -16.04 LUFS with a true peak of -1.97 dB"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3302,
+        "totalTokenCount": 265724,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "TP, free of distortion, clipping, or masking.\"\n      },\n      \"captions\": {\n        \"pass\": true,"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3330,
+        "totalTokenCount": 265752,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "\n        \"observed\": \"Captions precisely align with the acoustic word stream across all 15 clauses without drift or truncation"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3355,
+        "totalTokenCount": 265777,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": ".\"\n      }\n    }\n  }\n}"
+              }
+            ],
+            "role": "model"
+          },
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3367,
+        "totalTokenCount": 265789,
+        "promptTokensDetails": [
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    },
+    {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "",
+                "thoughtSignature": "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"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 258216,
+        "candidatesTokenCount": 3367,
+        "totalTokenCount": 265789,
+        "cachedContentTokenCount": 86,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 31880
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 203473
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 22863
+          }
+        ],
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 69
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 10
+          },
+          {
+            "modality": "VIDEO",
+            "tokenCount": 7
+          }
+        ],
+        "thoughtsTokenCount": 4206,
+        "serviceTier": "standard"
+      },
+      "modelVersion": "gemini-3.8-flash",
+      "responseId": "6kfUaszACK6EuMYPhpHciQc"
+    }
+  ]
+}
