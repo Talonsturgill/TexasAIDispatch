@@ -187,6 +187,10 @@ def prior_phone_partial_context(board_path, claims_path, include_text=True):
                'phone_report_sha256': digest(path), 'phone_film_sha256': bindings['film_sha256'],
                'handback': {'path': str(original), 'sha256': digest(original)},
                'coverage': failure['media_probe']['coverage'], 'derivative_chain': chain}
+    if not include_text:
+        # Native workers read these complete owned files. Provider transport below
+        # still carries every original value and the full provenance inline.
+        return {key: context[key] for key in ('handback', 'coverage')}
     if include_text:
         from independent_packet_compaction import native_handback
         context['handback_text'] = native_handback(content)

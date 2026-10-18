@@ -489,9 +489,9 @@ def packet(board_path, claims_path, role, state_path=None):
         retained = prior_phone_partial_context(board_path, claims_path, include_text=False)
         if retained:
             data['retained_phone_host_context'] = retained
-            data['instructions'] += (' After watching the whole native film, read the bound original '
-                'phone partial and coverage, and explicitly reassess received-page notes on the native '
-                'movie with timed reasons. Keep retractions and unknowns; this supplies no prior grade.')
+            data['instructions'] += (' After viewing, read both full retained_phone_host_context files. '
+                'Reassess received notes on the native movie with times, preserving retractions '
+                'and unknowns. No prior grade.')
         if claude_route:
             import claude_motion_review
             sequence = root / 'motion-review' / 'index.json'
