@@ -346,8 +346,14 @@ def mandatory_reason(state, plan, evidence_text):
             return NARRATION_REASON if (sha(evidence_text) == plan.get('failure_evidence_sha256')
                                        and eligible(state, plan, report)) else None
         if 'capture_completion_budget' in plan:
-            from capture_completion_budget import eligible
-            if not eligible(state, plan) or reviewed_film_sha256(report) != plan.get('failed_film_sha256'):
+            from capture_completion_budget import eligible, PHONE_COMPARISON_SCHEMA
+            if not eligible(state, plan):
+                return None
+            code_comparison = (plan.get('completion_reason') == MODERN_CODE_REASON
+                               and plan['capture_completion_budget'].get('schema') == PHONE_COMPARISON_SCHEMA)
+            # The modern-code branch below validates its exact source-bound rejection.
+            # A code critic cannot name pixels that have not been captured.
+            if not code_comparison and reviewed_film_sha256(report) != plan.get('failed_film_sha256'):
                 return None
         if 'capture_retry_evidence' in plan:
             from capture_retry_capacity import eligible

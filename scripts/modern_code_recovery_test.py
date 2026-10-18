@@ -9,6 +9,7 @@ import unittest
 from unittest.mock import patch
 
 import autonomous_completion as capacity
+import capture_completion_budget as footprint
 import critic_gate
 import modern_code_recovery as modern
 import production_lifecycle as lifecycle
@@ -80,6 +81,114 @@ class ModernCodeRecoveryTest(unittest.TestCase):
     def write(self, name, value, text=False):
         p = self.root / name; p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(value if text else json.dumps(value)); return p
+
+    def retained_comparison_request(self):
+        for note in ('capture authorization reservation for opening comparison',
+                     'two opening comparison batch'):
+            self.assertTrue(controller.reserve(self.state, {'preflight_renders': 1}, note)[0])
+        state = controller.read_state(self.state)
+        entry = len(state['events']) - 1
+        options = []
+        for key, board in zip(('a', 'b'), self.boards):
+            film = self.write('out/dispatch/' + key + '.mp4', 'offline ' + key + ' movie fixture', text=True)
+            options.append({'id': key, 'board': {'file': board.name, 'sha256': modern.digest(board)},
+                            'film': {'file': film.name, 'sha256': modern.digest(film)}})
+        comparison = self.write('out/dispatch/comparison.json', {
+            'schema': 'dispatch-opening-comparison/1', 'inspection_pass': True,
+            'inspection_problems': [], 'options': options,
+            'reservation': {'run_id': state['run_id'], 'event_index': entry,
+                            'identity': state['events'][entry]['preflight_identity']}})
+        rejected_film = footprint.sha('offline previous rejected native film fixture')
+        controller.event(state, 'deliverable_registered', film_sha256=rejected_film,
+                         manifest_sha256=footprint.sha('offline native manifest'), review_only=False)
+        controller.save(self.state, state)
+        plan = json.loads(self.plan.read_text())
+        plan['failed_film_sha256'] = rejected_film
+        request = self.write('comparison-request.json', plan)
+        return request, comparison
+
+    def test_code_only_rejection_funds_real_complete_comparison_without_inventing_film(self):
+        request, comparison = self.retained_comparison_request()
+        before = controller.read_state(self.state)
+        original_report, original_plan = self.report.read_bytes(), request.read_bytes()
+        target = self.root / 'complete-code-comparison.json'
+        footprint.prepare_comparison(self.state, request, comparison, target)
+        plan = json.loads(target.read_text())
+        self.assertNotIn('film_sha256', json.loads(self.report.read_text()))
+        self.assertEqual(modern.REASON, capacity.mandatory_reason(before, plan, self.report.read_text()))
+        out = io.StringIO()
+        with patch('sys.argv', ['controller', '--state', str(self.state), 'production-budget',
+                               '--repair-plan', str(target)]), redirect_stdout(out):
+            self.assertEqual(controller.main(), 1)
+        budget = json.loads(out.getvalue())
+        self.assertEqual((8, 4, 2), tuple(budget['resources'][key]['required'] for key in
+                         ('preflight_renders', 'storyboard_critics', 'full_renders')))
+        self.assertEqual(before, controller.read_state(self.state))
+        ok, message = capacity.grant_capacity(self.state, target)
+        self.assertTrue(ok, message)
+        state = controller.read_state(self.state)
+        self.assertEqual(state['events'][:len(before['events'])], before['events'])
+        self.assertEqual(state['usage'], before['usage'])
+        self.assertEqual(state['resource_envelope'], before['resource_envelope'])
+        self.assertEqual(state['events'][-1]['resource_increments'], budget['deficits'])
+        self.assertTrue(state['events'][-1]['grants_no_review_approval'])
+        self.assertEqual(capacity.replay(state)[1], [])
+        self.assertFalse(capacity.grant_capacity(self.state, target)[0])
+        self.assertFalse(controller.finish(self.state, 'publishable')[0])
+        self.assertEqual(self.report.read_bytes(), original_report)
+        self.assertEqual(request.read_bytes(), original_plan)
+        from claude_checkpoint import public_projection, restored_ledger
+        projected, roots = public_projection(state, self.root)
+        restored = restored_ledger(projected, self.root / 'relocated', {
+            'repo_root': str(self.root), 'grant_origin_roots': roots})
+        self.assertEqual(capacity.replay(restored)[1], [])
+        state.update(terminal_state='shipped', phase='shipped')
+        self.assertEqual(capacity.replay(state)[1], [])
+
+    def test_code_comparison_cannot_use_old_incomplete_profile(self):
+        request, comparison = self.retained_comparison_request()
+        before = self.state.read_bytes()
+        with patch.object(footprint, 'CURRENT_COMPARISON_SCHEMA', footprint.COMPARISON_SCHEMA):
+            with self.assertRaises(ValueError):
+                footprint.prepare_comparison(self.state, request, comparison, self.root / 'old-profile.json')
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_code_comparison_keeps_source_and_retained_movie_checks(self):
+        request, comparison = self.retained_comparison_request()
+        target = self.root / 'complete-code-comparison.json'
+        footprint.prepare_comparison(self.state, request, comparison, target)
+        before = self.state.read_bytes()
+        for path in (self.renderer, self.claims, self.report, self.boards[0],
+                     comparison.parent / 'a.mp4'):
+            original = path.read_bytes()
+            path.write_bytes(original + b' ')
+            self.assertFalse(capacity.grant_capacity(self.state, target)[0], str(path))
+            self.assertEqual(self.state.read_bytes(), before)
+            path.write_bytes(original)
+
+    def test_code_comparison_requires_independent_modern_source_evidence(self):
+        request, comparison = self.retained_comparison_request()
+        target = self.root / 'complete-code-comparison.json'
+        footprint.prepare_comparison(self.state, request, comparison, target)
+        plan = json.loads(target.read_text())
+        before = self.state.read_bytes()
+        missing = copy.deepcopy(plan)
+        missing.pop('modern_code_evidence')
+        self.assertIsNone(capacity.mandatory_reason(controller.read_state(self.state), missing,
+                                                 self.report.read_text()))
+        original = json.loads(self.report.read_text())
+        for key, value in (('reviewer_identity', plan['director_identity']),
+                           ('film_sha256', plan['failed_film_sha256']),
+                           ('blocking_defects', [{'category': 'optional-polish', 'scene_id': 's1',
+                                                 'time_s': 1, 'defect': 'Change a decorative color.'}])):
+            report = copy.deepcopy(original)
+            report[key] = value
+            self.report.write_text(json.dumps(report))
+            changed = copy.deepcopy(plan)
+            changed['failure_evidence_sha256'] = modern.digest(self.report)
+            target.write_text(json.dumps(changed))
+            self.assertFalse(capacity.grant_capacity(self.state, target)[0], key)
+            self.assertEqual(self.state.read_bytes(), before)
 
     def test_renderer_only_admission_funds_full_path_and_preserves_all_history(self):
         plan = json.loads(self.plan.read_text())
