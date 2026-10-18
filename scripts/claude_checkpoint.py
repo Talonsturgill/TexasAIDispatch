@@ -681,7 +681,21 @@ def oldest_unfinished(found):
     return min(open_rows, key=lambda row: (row["run_id"][:10], row.get("created_at") or "", row["run_id"]), default=None)
 
 
-def restore(repo=REPO, run_id=None, remote="origin", dest=None):
+def original_destination(repo, manifest, workspace):
+    """Keep hash-bound event paths at their recorded root inside this host workspace."""
+    repo, workspace = Path(repo).resolve(), Path(workspace).resolve()
+    dest = Path(manifest['repo_root'])
+    if (workspace == Path(workspace.anchor) or repo.parent != workspace
+            or not dest.is_absolute() or '..' in dest.parts
+            or dest == workspace or not dest.is_relative_to(workspace)
+            or dest.resolve() != dest):
+        raise CheckpointError('recorded origin must be a real directory inside the selected shared workspace')
+    if dest.exists() and (not dest.is_dir() or any(dest.iterdir())):
+        raise CheckpointError('recorded origin is occupied; preserve it and inspect its existing edition before resuming')
+    return dest
+
+
+def restore(repo=REPO, run_id=None, remote="origin", dest=None, *, origin_workspace=None):
     """Rebuild an unfinished edition in a NEW isolated checkout of its recorded source pin."""
     repo = Path(repo)
     tip = remote_tip(repo, run_id, remote)
@@ -690,7 +704,12 @@ def restore(repo=REPO, run_id=None, remote="origin", dest=None):
     manifest, ledger = verify_checkpoint(repo, tip, run_id)
     if manifest.get("terminal_state") == "shipped" and manifest.get("shipment_recorded"):
         raise CheckpointError(f"{run_id} already shipped; a finished edition is immutable and is not restored")
-    dest = Path(dest) if dest else repo.parent / f"{repo.name}-{run_id}"
+    if origin_workspace is not None:
+        if dest is not None:
+            raise CheckpointError('choose a destination or the recorded origin, never both')
+        dest = original_destination(repo, manifest, origin_workspace)
+    else:
+        dest = Path(dest) if dest else repo.parent / f"{repo.name}-{run_id}"
     if dest.exists() and any(dest.iterdir()):
         raise CheckpointError(f"restore needs a new empty directory; {dest} exists")
     pin = manifest["source_pin"]
@@ -748,6 +767,8 @@ def main(argv=None):
     p.add_argument("--oldest-unfinished", action="store_true", help="print only the edition to resume first")
     p = sub.add_parser("restore"); p.add_argument("--run-id", required=True); p.add_argument("--remote", default="origin")
     p.add_argument("--dest", type=Path)
+    p.add_argument("--origin-workspace", type=Path,
+                   help="restore at the recorded original root within this checkout's shared parent; refuses occupied paths")
     p = sub.add_parser("guard", help="make state durable, run one paid command, make its outputs durable")
     p.add_argument("--note", required=True); p.add_argument("--state", type=Path); p.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args(argv)
@@ -767,7 +788,7 @@ def main(argv=None):
             if args.oldest_unfinished:
                 result = oldest_unfinished(result)
         elif args.action == "restore":
-            result = restore(repo, args.run_id, args.remote, args.dest)
+            result = restore(repo, args.run_id, args.remote, args.dest, origin_workspace=args.origin_workspace)
         else:
             command = [c for c in args.command if c != "--"]
             if not command:

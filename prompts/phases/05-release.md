@@ -141,7 +141,26 @@ digests, so the exported ledger needs no further redaction. Usage, the frozen en
 verdict are unchanged. It only reads the private state and refuses to overwrite it, including through a hard link.
 It also fails closed and writes nothing when the ledger carries credential-shaped text, a value that sat under a
 private key and survives under a neutral one, an absolute local path, or a charge key the sanitizer would have
-replaced with a digest. A refusal names the cause. Remove the cause from the retained record and run it again.
+replaced with a digest. A refusal names the cause. Preserve that exact failure and the private ledger.
+The derived exporter can label verified historical checkout origins, structural references bound to the
+registered storyboard, and exact owned workspace arguments. Each label has an exact inverse check.
+Typed opaque provider signatures remain unchanged; they are distinguished from filesystem paths only
+in the scan view. Unknown paths, leaked private values, credentials and altered charges still refuse.
+Repair an unsupported export case in the owning source repository with the actual failed input and
+negative controls, then use the ordinary exact-head CI and merge path. Keep the checkpoint codec,
+private state, frozen hashes and reviewer evidence intact. An automatic approval rejection is retained
+evidence for a safer implementation; never disguise the denied edit or weaken approval settings.
+
+If packaging stops, retain the exact gate results, dependency hashes, partial-package manifest and
+existing variety entry. After the actual failure is repaired through versioned source, retry the
+ordinary complete deliver_run command with the original edition arguments. Its publishing-controller
+check binds the registered board, movie and final report; every mandatory gate runs again. Only that
+edition's one exact current entry is excluded from comparison with other films. The variety writer
+retains an identical entry once and refuses conflicting or duplicate identities. Public export is
+verified before variety or package writes, and shipped or different movies remain refused. A newer
+identical unshipped copy can be retained. Do not extract script tails, invent skip flags or split a
+denied action into equivalent commands. Preserve unrelated staged or dirty files. This retry grants
+no review, source, artifact or shipment exception.
 
 Report the video, canonical link, scores, actual usage, CI/deployment results and verified
 unsent draft. Provider token telemetry excludes Codex account use; never label it total spend.

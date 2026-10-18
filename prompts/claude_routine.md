@@ -93,7 +93,13 @@ edition. A cloud container is reclaimed, so `pending` alone sees only worktrees 
 Also run `python scripts/claude_checkpoint.py discover`. Select the OLDEST unfinished edition by its run identity and creation time
 (`claude_checkpoint.py discover --oldest-unfinished`, never the first row of the newest-save-first list)
 and resume its existing ledger. It is restored
-with `python scripts/claude_checkpoint.py restore --run-id <id> --dest <new empty directory>`. That
+with `python scripts/claude_checkpoint.py restore --run-id <id> --origin-workspace <shared-parent>`.
+The recorded original root preserves absolute paths inside unchanged hash-bound historical events;
+the fresh scheduled October 18 recovery proved this route after a different-root restore failed.
+The helper accepts only an empty real directory inside the selected shared workspace and never
+removes an occupied destination. Inspect an occupied original checkout for the same active edition,
+its current ledger and owner before resuming it; preserve unrelated work. Retain any failed restore
+and its audit. Do not rewrite historical grant text or hashes to fit a new path. That
 creates an isolated checkout of the recorded source commit (the complete committed renderer, art and
 public closure), overlays the verified scratch outputs and uncommitted source, and rebuilds the same
 ledger, frozen envelope, charges, failed reviews and paid outputs with its paths moved. It never
@@ -110,6 +116,14 @@ source copy as a substitute for the production checkout's actual typecheck. Run 
 `cd video-engine && npx tsc -p tsconfig.json --noEmit` before accepting a builder hand-back.
 Never initialise a second
 ledger for an edition that has a checkpoint.
+
+For a new edition with no pending ledger or checkpoint, keep the primary bootstrap checkout clean.
+Create its production worktree at `<shared-parent>/dispatch-editions/<run-id>/TexasAIDispatch`
+from current `origin/main`, with the real Docket sibling required below. Use that owned checkout
+for the whole edition and record its actual paths. Its recorded origin is then empty on a fresh
+cloud host. Inspect an occupied edition directory and resume its owner instead of creating a
+duplicate. Keep the existing remote checkpoint concurrency checks before every charged dispatch;
+a stale writer must not buy another attempt or overwrite newer history.
 
 Before authorizing capture in a restored or nested worktree, establish a real clean Docket
 checkout at `<dispatch-checkout-parent>/TexasAIDocket`, starting at current origin/main. An owned
