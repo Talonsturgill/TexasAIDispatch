@@ -885,6 +885,344 @@
         }
       ],
       "mechanism_id": "tower-camera-crew-alert-v1"
+    },
+    "flood-station-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "street-yard",
+        "phone-late",
+        "station-wide",
+        "panel-charge",
+        "no-tower",
+        "sensor-stack",
+        "water-marks",
+        "weather-row",
+        "chip-glow",
+        "no-server",
+        "radio-rings",
+        "radio-open",
+        "radio-map",
+        "hub-wide",
+        "hub-desk",
+        "flood-paths",
+        "validation-card",
+        "no-field-card",
+        "empty-map",
+        "station-return",
+        "curb-table"
+      ],
+      "wall_views": [
+        "radio-map",
+        "flood-paths"
+      ],
+      "subject": "UT San Antonio's solar flood station at a San Antonio curb: reflective flood water tops the curb and reaches a fence post's orange ankle mark, the water rises past the station's four optical lenses at four heights and each lights as it is crossed, the sun fills its battery bar, its own small chip lights a large amber risk lamp and risk bar while a dark server building across the road is never reached, radio rings run down a long street to the hub and across open country to its mast, a seated responder reads a flood path map of creek and streets, the validation card fills on a curb notice board beside a blank field result card, a finger reads the blank paper map, and a technician folds the deployment plan into the prototype's closed case on a curb table",
+      "note": "Fresh authored Claude-lane episode for 2026-10-15 (UT San Antonio self-powered flood warning station, university story of September 8th, 2026). Hero FloodStationHero (galvanized post in a concrete footing, four optical pods on a strut rail at four heights, conduit, tilted fibreglass housing with dented cap, battery bar, weather lamps, amber risk lamp, rain funnel, light dome, radiation shield, small solar panel with a worn corner, bent whip antenna, the housing cutaway still clamped to its post with its door open, traces into one TinyML chip, a large risk lamp and five-step risk bar, the bench prototype on a steel base plate, and pinned tags) and support StreetHubSupport (wet street, limestone curb, St. Augustine lawn, chain link fence with an orange ankle band and swinging tag, live oak with ball moss, bungalow porch and rail, worn phone with a late warning banner, finished reflective flood water with mirrored reflections and ripple bands, far cell tower, dark windowless server building, bungalows, radio rings, limestone hub whose mast lamp and window light, hub desk with a complete articulated seated responder, flood path map of creek, streets, blocks and low points, radio map, curb notice board, validation card with tape strip, field result card, rubber stamp and reaching hand, paper map with blank pin holes, folding table, hard carry case with pocket and latch, printed deployment plan folded in three, and a complete articulated technician) are original React and SVG groups shared by both treatments. A opens in the flooding yard on the fence post ankle mark and the late phone; B opens in the water at the station post as its lowest lens goes under and lights. The county's region stands behind every exterior shot and the hub window; scene s5 takes the Blackland region's own plate, so open country carries no city skyline; only the overhead radio and flood path maps are wall views. Disclosed illustration, no installed station, real street, hub, dashboard, responder, server, lab, deployment or field result.",
+      "narration_views": {
+        "street-yard": {
+          "subject_ids": [
+            "s1-water",
+            "s1-post",
+            "s1-phone"
+          ],
+          "action_ids": [
+            "yard-floods-before-warning",
+            "water-rises"
+          ]
+        },
+        "phone-late": {
+          "subject_ids": [
+            "s1-water",
+            "s1-phone",
+            "s1-banner"
+          ],
+          "action_ids": [
+            "yard-floods-before-warning"
+          ]
+        },
+        "station-wide": {
+          "subject_ids": [
+            "s2-station",
+            "s2-panel",
+            "s2-post",
+            "s2-tower"
+          ],
+          "action_ids": [
+            "self-power-no-tower"
+          ]
+        },
+        "panel-charge": {
+          "subject_ids": [
+            "s2-station",
+            "s2-panel",
+            "s2-battery"
+          ],
+          "action_ids": [
+            "self-power-no-tower",
+            "charge-battery"
+          ]
+        },
+        "no-tower": {
+          "subject_ids": [
+            "s2-station",
+            "s2-panel",
+            "s2-tower"
+          ],
+          "action_ids": [
+            "self-power-no-tower"
+          ]
+        },
+        "sensor-stack": {
+          "subject_ids": [
+            "s3-stack",
+            "s3-marks",
+            "s3-water"
+          ],
+          "action_ids": [
+            "sense-water-and-weather"
+          ]
+        },
+        "water-marks": {
+          "subject_ids": [
+            "s1-water",
+            "s1-post",
+            "s1-marks",
+            "s3-stack",
+            "s3-marks",
+            "s3-water"
+          ],
+          "action_ids": [
+            "yard-floods-before-warning",
+            "sense-water-and-weather",
+            "cross-marks"
+          ]
+        },
+        "weather-row": {
+          "subject_ids": [
+            "s3-stack",
+            "s3-weather"
+          ],
+          "action_ids": [
+            "sense-water-and-weather"
+          ]
+        },
+        "chip-glow": {
+          "subject_ids": [
+            "s4-chip",
+            "s4-traces",
+            "s4-risk"
+          ],
+          "action_ids": [
+            "judge-risk-on-chip",
+            "judge-locally"
+          ]
+        },
+        "no-server": {
+          "subject_ids": [
+            "s4-chip",
+            "s4-traces",
+            "s4-station",
+            "s4-server"
+          ],
+          "action_ids": [
+            "judge-risk-on-chip"
+          ]
+        },
+        "radio-rings": {
+          "subject_ids": [
+            "s5-ring",
+            "s5-tags",
+            "s5-halfmile",
+            "s5-antenna"
+          ],
+          "action_ids": [
+            "carry-radio-to-hub",
+            "carry-signal"
+          ]
+        },
+        "radio-open": {
+          "subject_ids": [
+            "s5-ring",
+            "s5-tags",
+            "s5-fivemile",
+            "s5-hub"
+          ],
+          "action_ids": [
+            "carry-radio-to-hub"
+          ]
+        },
+        "radio-map": {
+          "subject_ids": [
+            "s5-ring",
+            "s5-tags",
+            "s5-station-dot"
+          ],
+          "action_ids": [
+            "carry-radio-to-hub"
+          ]
+        },
+        "hub-wide": {
+          "subject_ids": [
+            "s5-ring",
+            "s5-tags",
+            "s5-fivemile",
+            "s5-hub"
+          ],
+          "action_ids": [
+            "carry-radio-to-hub"
+          ]
+        },
+        "hub-desk": {
+          "subject_ids": [
+            "s6-dashboard",
+            "s6-paths",
+            "s6-dots",
+            "s6-zones",
+            "s6-hand"
+          ],
+          "action_ids": [
+            "draw-flood-map"
+          ]
+        },
+        "flood-paths": {
+          "subject_ids": [
+            "s6-dashboard",
+            "s6-paths",
+            "s6-dots",
+            "s6-zones"
+          ],
+          "action_ids": [
+            "draw-flood-map",
+            "spread-map"
+          ]
+        },
+        "validation-card": {
+          "subject_ids": [
+            "s7-card",
+            "s7-bar",
+            "s7-tag",
+            "s7-blank",
+            "s7-card2"
+          ],
+          "action_ids": [
+            "report-validation-only"
+          ]
+        },
+        "no-field-card": {
+          "subject_ids": [
+            "s7-card",
+            "s7-bar",
+            "s7-blank",
+            "s7-card2",
+            "s8-valcard",
+            "s8-valbar",
+            "s8-assess",
+            "s8-blank",
+            "s8-card2"
+          ],
+          "action_ids": [
+            "report-validation-only"
+          ]
+        },
+        "empty-map": {
+          "subject_ids": [
+            "s8-map",
+            "s8-nopin",
+            "s8-hand",
+            "s8-tag",
+            "s8-fence"
+          ],
+          "action_ids": [
+            "no-town-named"
+          ]
+        },
+        "station-return": {
+          "subject_ids": [
+            "s8-map",
+            "s8-nopin",
+            "s8-hand",
+            "s8-tag",
+            "s8-fence"
+          ],
+          "action_ids": [
+            "no-town-named"
+          ]
+        },
+        "curb-table": {
+          "subject_ids": [
+            "s9-tech",
+            "s9-plan",
+            "s9-case",
+            "s9-table",
+            "s9-station",
+            "s9-tag",
+            "s9-curb"
+          ],
+          "action_ids": [
+            "deployment-goal"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+          "export": "FloodStationHero",
+          "views": [
+            "street-yard",
+            "station-wide",
+            "panel-charge",
+            "no-tower",
+            "sensor-stack",
+            "water-marks",
+            "weather-row",
+            "chip-glow",
+            "no-server",
+            "radio-rings",
+            "radio-open",
+            "hub-wide",
+            "hub-desk",
+            "flood-paths",
+            "validation-card",
+            "empty-map",
+            "station-return",
+            "no-field-card",
+            "curb-table"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+          "export": "StreetHubSupport",
+          "views": [
+            "street-yard",
+            "phone-late",
+            "station-wide",
+            "panel-charge",
+            "no-tower",
+            "sensor-stack",
+            "water-marks",
+            "weather-row",
+            "no-server",
+            "radio-rings",
+            "radio-open",
+            "radio-map",
+            "hub-wide",
+            "hub-desk",
+            "flood-paths",
+            "validation-card",
+            "no-field-card",
+            "empty-map",
+            "station-return",
+            "curb-table"
+          ]
+        }
+      ],
+      "mechanism_id": "solar-flood-station-local-judgment-v1"
     }
   }
 }
