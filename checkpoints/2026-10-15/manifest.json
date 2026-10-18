@@ -1,23 +1,23 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-18T05:12:55.911779+00:00",
-  "note": "phase release",
-  "phase": "publishing",
-  "terminal_state": null,
-  "shipment_recorded": false,
+  "saved_at": "2026-10-18T08:03:06.787275+00:00",
+  "note": "ledger write",
+  "phase": "shipped",
+  "terminal_state": "shipped",
+  "shipment_recorded": true,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/restore/TexasAIDispatch",
-  "source_pin": "07278391fb2f9ec88dd590963080046ecfe3afd8",
-  "source_branch": null,
+  "source_pin": "3783843c72e693cb91baa0f8bda00eb08db116a6",
+  "source_branch": "claude/dispatch-2026-10-15-archive",
   "source_closure": {
     "root": "video-engine",
-    "files": 351,
-    "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
+    "files": 354,
+    "sha256": "e29a160935e53963b936660d0e1194d9de745ce29d52b0f711a6dbedac3d83ab"
   },
   "deleted_source": [],
-  "ledger_sha256": "6f716f924de7c2f9e7b38bf8d468eb54a511abbb1c920409023272aa467fffe9",
-  "original_private_ledger_sha256": "9afa7bb51cdc19f405fd0b208cd9e7b61aeab7cc043d72c3f6e174d9e8d2c0fa",
+  "ledger_sha256": "4b3952c1b466cead377ced0b1b504f2a1b605303d556eb4065363ca90ada2bdc",
+  "original_private_ledger_sha256": "5a876eda17c5166cdff26b42689408725c43876e069a526a13fb4f7a1d962a94",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -163,12 +163,6 @@
     "voice_directors": 1
   },
   "files": [
-    {
-      "path": "config/modern_episode_registry.json",
-      "class": "source",
-      "sha256": "fffdf5d8aa9b06599e6e7e52bd97c668415342e882b69c9b95513485cdf16574",
-      "size": 34638
-    },
     {
       "path": "out/dispatch/CURRENT_STATE.md",
       "class": "scratch",
@@ -936,6 +930,12 @@
       "class": "scratch",
       "sha256": "96c9b9fd724d81783913cece579db083739141a393e3dea56fb93aa0d73900d0",
       "size": 6150
+    },
+    {
+      "path": "out/dispatch/caption.txt",
+      "class": "scratch",
+      "sha256": "e5a8bd90864cec5213402d95cf3f479f57fb569de3140315cd2181df39761954",
+      "size": 459
     },
     {
       "path": "out/dispatch/captions.json",
@@ -2024,6 +2024,18 @@
       "size": 6831
     },
     {
+      "path": "out/dispatch/deliver-verify.log",
+      "class": "scratch",
+      "sha256": "a5398a663115cab4fe68ef2f2e1c0eaccc043c3c58c7d635da65d420ce68bfd6",
+      "size": 906
+    },
+    {
+      "path": "out/dispatch/deliver.log",
+      "class": "scratch",
+      "sha256": "5af34e14edbac67f08b8d738e82852defae3dce532e0aa665d712b73075a0e21",
+      "size": 13118
+    },
+    {
       "path": "out/dispatch/deliverables/1cb1b02a91912bce-b7d3d14ac1390e64-050266fdfe07f041/dispatch.mp4",
       "class": "scratch",
       "sha256": "1cb1b02a91912bce3a25149b9a4f682d32a0b11ffb8bc456951303056c46f81d",
@@ -2084,10 +2096,28 @@
       "size": 7867
     },
     {
+      "path": "out/dispatch/draft_html.txt",
+      "class": "scratch",
+      "sha256": "b25ce7693a42e9a0ef00786ebe94ea5f23a1589f744e22aacbbfd0f6698103f6",
+      "size": 4225
+    },
+    {
+      "path": "out/dispatch/draft_plain.txt",
+      "class": "scratch",
+      "sha256": "68972289a683fae9b4ffae735911c3496a28bee8557e3fe5b3abc01d73dfbed5",
+      "size": 4062
+    },
+    {
       "path": "out/dispatch/effective-effort.json",
       "class": "scratch",
       "sha256": "5432d824a4e5942d658ee0b27fd900c059149eef208605848a0a16fab6717774",
       "size": 1742
+    },
+    {
+      "path": "out/dispatch/email_check.log",
+      "class": "scratch",
+      "sha256": "d3e1138ba09f5598e7f72b3626588eabfdf0154b0c7592df988f6509e697be62",
+      "size": 78
     },
     {
       "path": "out/dispatch/evidence/SHA256SUMS.txt",
@@ -19334,6 +19364,12 @@
       "size": 1473
     },
     {
+      "path": "out/dispatch/finish.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/followup-review-message-b-r14.txt",
       "class": "scratch",
       "sha256": "9a6f4f03b886cb4a01d3a5a838401744c0f6691934791ea7c3d945adb15432f1",
@@ -20256,6 +20292,18 @@
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
+    },
+    {
+      "path": "out/dispatch/live_check.log",
+      "class": "scratch",
+      "sha256": "a56f7d35db6c71540e62a8a5576e3fafd7366f6fcf281891f05f1c1dde0004bc",
+      "size": 824
+    },
+    {
+      "path": "out/dispatch/live_check2.log",
+      "class": "scratch",
+      "sha256": "b0f3a20029b6209417c29c2e0ee1dd5a048d31928295ebbe8063a0d14d0d6740",
+      "size": 100
     },
     {
       "path": "out/dispatch/logs/align-7a.log",
@@ -24392,6 +24440,48 @@
       "size": 2299
     },
     {
+      "path": "out/dispatch/phone/01-before-tap.png",
+      "class": "scratch",
+      "sha256": "fbd1ba306afb78c3ce265b6ffcd630cab4305aa526e21643edcea73b150750be",
+      "size": 500737
+    },
+    {
+      "path": "out/dispatch/phone/02-paused-by-tap.png",
+      "class": "scratch",
+      "sha256": "c7b1af34358255d1e840fcd4d8156f4d00fd4b1c08578803b8e540aa768a03c0",
+      "size": 320969
+    },
+    {
+      "path": "out/dispatch/phone/03-playing-a.png",
+      "class": "scratch",
+      "sha256": "37bd1b67bdd08c66fe141705fe799678890e6151c1fdc6c6054c2b30b95d01bd",
+      "size": 378094
+    },
+    {
+      "path": "out/dispatch/phone/04-playing-b.png",
+      "class": "scratch",
+      "sha256": "cfaada2ba4cfed160b542c4c2a12647816294ee7920efecc81230ccb7c0ade91",
+      "size": 280837
+    },
+    {
+      "path": "out/dispatch/phone/05-playing-c.png",
+      "class": "scratch",
+      "sha256": "47229da3a7c1500dd4f921f07d867e449eeff792131a43a2d687919725cd2168",
+      "size": 468456
+    },
+    {
+      "path": "out/dispatch/phone/phone_playback.json",
+      "class": "scratch",
+      "sha256": "aee8a17e86728a81eeb3966bc3c9f18430532a7662ba97179cb5b051c32699c6",
+      "size": 6781
+    },
+    {
+      "path": "out/dispatch/phone/run.log",
+      "class": "scratch",
+      "sha256": "a7aeb8db327790e9b0168fecbe93c59579954557a746c7cf1c95eba1e6c88f84",
+      "size": 77
+    },
+    {
       "path": "out/dispatch/picture-assignment.json",
       "class": "scratch",
       "sha256": "328e5e9c3735ed99c6b156aba5811460073416758e449dcb360d063416fd6a85",
@@ -25278,35 +25368,31 @@
       "class": "scratch",
       "sha256": "e7d3a9b5d2487a9be1fa5badd6d80a31643aee86e789b394904a376c37e23294",
       "size": 35288
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
-      "class": "source",
-      "sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
-      "size": 74451
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
-      "class": "source",
-      "sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
-      "size": 36026
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
-      "class": "source",
-      "sha256": "9ef763d4110c040f6a5091a529e12e5a527beb4e39868e4a613b1016c57faaa1",
-      "size": 82238
-    },
-    {
-      "path": "video-engine/src/modern/registry.tsx",
-      "class": "source",
-      "sha256": "af13d1b7c7441af66a265d7f4bac7bf13d085d1138dfcd14675f0bd818d0ff03",
-      "size": 1018
     }
   ],
   "excluded": [
     {
+      "path": "out/dispatch/delivery_routing.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail_full.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail_raw_note.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail_readback.json",
+      "reason": "private path component"
+    },
+    {
       "path": "out/dispatch/grant-projection-roots.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/shipment.json",
       "reason": "private path component"
     }
   ],

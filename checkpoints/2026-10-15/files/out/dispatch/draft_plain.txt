@@ -1,0 +1,39 @@
+The station that counts the water
+
+Watch https://texasaidocket.com/videos/#2026-10-15-the-station-that-counts-the-water
+Master https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch/main/runs/2026-10-15/dispatch.mp4
+Phone https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch/main/runs/2026-10-15/dispatch-720.mp4
+Poster https://raw.githubusercontent.com/Talonsturgill/TexasAIDispatch/main/runs/2026-10-15/poster.png
+
+Runtime 64.4 seconds including five seconds of credits. Native master 1080 x 1920, 23,264,606 bytes. Phone rendition 720 x 1280, 5,884,725 bytes.
+
+-----BEGIN CAPTION-----
+UT San Antonio researchers built a solar powered flood station that judges flood risk on its own chip, so it needs no cell tower and no central server. Four optical sensors at different heights watch the water, and a radio carries warnings up to five miles in open country to a hub that maps flood paths for responders. The 98.82 percent accuracy is early validation only. The announcement reports no field result and names no town with an installed station.
+-----END CAPTION-----
+
+-----BEGIN MUSIC CREDITS-----
+"Sincerely" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture
+
+https://www.incompetech.com/music/royalty-free/index.html?isrc=USUAN1900016
+-----END MUSIC CREDITS-----
+
+Sources for the first comment
+UT San Antonio Today, September 8th, 2026
+https://news.utsa.edu/2026/09/ut-san-antonio-researcher-builds-self-powered-smart-warning-system-to-catch-local-floods-before-disaster-strikes/
+
+Review and limits
+Three separate independent reviewers rated the exact final film. Picture 7.71, story 7.82 and sound 8.22. The rubric weights give 7.916, and the panel verdict is ship with no hard fails. The weakest axis for all three was place at 7.6 to 8.0, and the picture reviewer asked for a slightly closer closing shot of the technician. That was not applied. This edition shipped through the bounded creative release route and the original scores and verdicts are retained unchanged.
+
+The three final reviews ran through the configured independent provider because the Claude host stripped images from the long native image sequences (the literal error was media removed, request limit). Every partial native handback, the media limit receipts and the provider responses are retained and none was replaced.
+
+The announcement names no town with an installed station. The film draws San Antonio streets as an illustration, says prototype, and the Bexar County marker is an editorial choice. The 98.82 percent figure is validation accuracy from initial assessments after training and no field or street result is reported.
+
+Soundcheck
+The narration passed the measured phrase and caption alignment gates. The mastered mix measures -16.04 LUFS against a target of -16.0 with a true peak of -1.97 dBTP, and licensed music sits under the speech. No personal listening claim is made for the director.
+
+Verified release
+Dispatch release https://github.com/Talonsturgill/TexasAIDispatch/pull/216 merged on exact-head green CI, and the phone rendition and thumbnail https://github.com/Talonsturgill/TexasAIDispatch/pull/217 merged after it. The first release head failed a CI renderer fixture binding in run 39100631583. That failure is retained as it happened and a fixture rebinding fixed the next head. The Docket feed release https://github.com/Talonsturgill/TexasAIDocket/pull/432 merged on exact-head green CI with six passing jobs in run 39103036490. Docket main run 39106605618 passed on the merge commit and Pages run 39108597995 deployed it. The full local Docket guard suite passed 167 steps with 4 skipped before shipment was accepted.
+The permanent master and phone rendition match their reviewed byte hashes. Canonical 390 x 844 phone playback of the published page advanced with sound, by browser automation and not Computer Use.
+
+Delivery
+Review before posting. This payload is for an unsent Gmail draft. No email or social post is sent automatically.

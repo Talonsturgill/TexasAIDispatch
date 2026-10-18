@@ -1,0 +1,224 @@
+
+=== gates
+  delivery_authority     exit=0
+  run_discipline         exit=0
+  storyboard_check       exit=0
+  caption_layout         exit=0
+  narration_picture      exit=0
+  watchability           exit=0
+  documentary_review     exit=0
+  staging_check          exit=0
+  flow_check             exit=0
+  acoustic_alignment     exit=0
+  music_sources          exit=0
+  music_registry         exit=0
+  ship_gate              exit=0
+  music_package          exit=0
+  super_evidence         exit=0
+  validation_match       exit=0
+  source_validation_proof exit=0
+  board_scale            exit=0
+  floor_check            exit=0
+  safe_area_check        exit=0
+  feed_composite         exit=0
+  bar_check              exit=0
+  mutation_check         exit=0
+  freshness_check        exit=0
+
+=== variety ledger
+dedupe: recorded 2026-10-15 'UT San Antonio builds a solar powered flood station that runs its AI model on the chip rather than in the cloud'
+
+=== artifacts -> runs/2026-10-15
+documentary_review: exact film review evidence ready -> /home/user/restore/TexasAIDispatch/runs/2026-10-15/attention-review.json
+drwxr-xr-x  7 root root     4096 Oct 18 05:27 .
+drwxr-xr-x 39 root root     4096 Oct 18 05:27 ..
+-rw-r--r--  1 root root      720 Oct 18 05:27 acoustic-asr-meta.json
+-rw-r--r--  1 root root    63434 Oct 18 05:27 acoustic-asr.json
+drwxr-xr-x  2 root root     4096 Oct 18 05:27 artwork-originals
+-rw-r--r--  1 root root     6774 Oct 18 05:27 attention-review.html
+-rw-r--r--  1 root root    25206 Oct 18 05:27 attention-review.json
+-rw-r--r--  1 root root  2858566 Oct 18 05:27 attention-review.png
+-rw-r--r--  1 root root     4243 Oct 18 05:27 captions.json
+drwxr-xr-x  2 root root     4096 Oct 18 05:27 cinema
+-rw-r--r--  1 root root    20884 Oct 18 05:27 claims.json
+drwxr-xr-x  2 root root     4096 Oct 18 05:27 creative-assessments
+-rw-r--r--  1 root root      290 Oct 18 05:27 credits.txt
+-rw-r--r--  1 root root 23264606 Oct 18 05:27 dispatch.mp4
+drwxr-xr-x  3 root root     4096 Oct 18 05:27 evidence
+-rw-r--r--  1 root root      693 Oct 18 05:27 feed-composite.json
+-rw-r--r--  1 root root   814816 Oct 18 05:27 feed-composite.png
+-rw-r--r--  1 root root     6076 Oct 18 05:27 mix.json
+drwxr-xr-x  2 root root     4096 Oct 18 05:27 openings
+-rw-r--r--  1 root root  1135668 Oct 18 05:27 poster.png
+-rw-r--r--  1 root root      705 Oct 18 05:27 render-manifest.json
+-rw-r--r--  1 root root  5948979 Oct 18 05:27 report_card.json
+-rw-r--r--  1 root root  9571123 Oct 18 05:27 run_state.json
+-rw-r--r--  1 root root     2036 Oct 18 05:27 sfx_events.json
+-rw-r--r--  1 root root     1700 Oct 18 05:27 source-validation-certificate.json
+-rw-r--r--  1 root root     9628 Oct 18 05:27 story_selection.json
+-rw-r--r--  1 root root   205056 Oct 18 05:27 storyboard.json
+-rw-r--r--  1 root root    11117 Oct 18 05:27 validation.json
+-rw-r--r--  1 root root    21408 Oct 18 05:27 vo_direction.json
+-rw-r--r--  1 root root      754 Oct 18 05:27 vo_script.txt
+-rw-r--r--  1 root root    35288 Oct 18 05:27 words.json
+
+=== commit
+Exact fresh raster assets staged: 2
+M  ledger/dispatch_history.json
+A  runs/2026-10-15/acoustic-asr-meta.json
+A  runs/2026-10-15/acoustic-asr.json
+A  runs/2026-10-15/artwork-originals/authored-528da30a-613d-45e1-b03b-70ce29b4011c.tsx
+A  runs/2026-10-15/artwork-originals/authored-60135304-9993-491d-9f08-42919f8212b5.tsx
+A  runs/2026-10-15/artwork-originals/authored-6555a67c-7cdb-41f0-a2ef-f76c9518c055.tsx
+A  runs/2026-10-15/artwork-originals/authored-81053700-6a0a-4094-9930-ae5e681212e8.tsx
+A  runs/2026-10-15/artwork-originals/authored-acd5201d-39d4-4a7c-96a3-8e64cc236d4f.tsx
+A  runs/2026-10-15/artwork-originals/authored-cc56f883-35eb-4bed-a737-0ad5083e4a4c.tsx
+A  runs/2026-10-15/artwork-originals/authored-fd230d9b-a832-442a-9c5b-ed5932403b81.tsx
+A  runs/2026-10-15/artwork-originals/receipt-71afe1ee-1dae-4b99-9736-401c19daecfe.json
+A  runs/2026-10-15/artwork-originals/receipt-8d418d40-4054-418a-997f-f53182c6922e.json
+A  runs/2026-10-15/artwork-originals/receipt-95e40d5d-e3fd-4242-b00b-9d642d45f13a.json
+A  runs/2026-10-15/artwork-originals/receipt-eaa85bbc-bb2a-4096-80cc-833eb0116d38.json
+A  runs/2026-10-15/attention-review.html
+A  runs/2026-10-15/attention-review.json
+A  runs/2026-10-15/attention-review.png
+A  runs/2026-10-15/captions.json
+A  runs/2026-10-15/cinema/hero-review-response.json
+A  runs/2026-10-15/cinema/hero-review.json
+[claude/dispatch-2026-10-15 90584176] Ship the 2026-10-15 Dispatch
+ 111 files changed, 152789 insertions(+)
+ create mode 100644 runs/2026-10-15/acoustic-asr-meta.json
+ create mode 100644 runs/2026-10-15/acoustic-asr.json
+ create mode 100644 runs/2026-10-15/artwork-originals/authored-528da30a-613d-45e1-b03b-70ce29b4011c.tsx
+ create mode 100644 runs/2026-10-15/artwork-originals/authored-60135304-9993-491d-9f08-42919f8212b5.tsx
+ create mode 100644 runs/2026-10-15/artwork-originals/authored-6555a67c-7cdb-41f0-a2ef-f76c9518c055.tsx
+ create mode 100644 runs/2026-10-15/artwork-originals/authored-81053700-6a0a-4094-9930-ae5e681212e8.tsx
+ create mode 100644 runs/2026-10-15/artwork-originals/authored-acd5201d-39d4-4a7c-96a3-8e64cc236d4f.tsx
+ create mode 100644 runs/2026-10-15/artwork-originals/authored-cc56f883-35eb-4bed-a737-0ad5083e4a4c.tsx
+ create mode 100644 runs/2026-10-15/artwork-originals/authored-fd230d9b-a832-442a-9c5b-ed5932403b81.tsx
+ create mode 100644 runs/2026-10-15/artwork-originals/receipt-71afe1ee-1dae-4b99-9736-401c19daecfe.json
+ create mode 100644 runs/2026-10-15/artwork-originals/receipt-8d418d40-4054-418a-997f-f53182c6922e.json
+ create mode 100644 runs/2026-10-15/artwork-originals/receipt-95e40d5d-e3fd-4242-b00b-9d642d45f13a.json
+ create mode 100644 runs/2026-10-15/artwork-originals/receipt-eaa85bbc-bb2a-4096-80cc-833eb0116d38.json
+ create mode 100644 runs/2026-10-15/attention-review.html
+ create mode 100644 runs/2026-10-15/attention-review.json
+ create mode 100644 runs/2026-10-15/attention-review.png
+ create mode 100644 runs/2026-10-15/captions.json
+ create mode 100644 runs/2026-10-15/cinema/hero-review-response.json
+ create mode 100644 runs/2026-10-15/cinema/hero-review.json
+ create mode 100644 runs/2026-10-15/cinema/hero.mp4
+ create mode 100644 runs/2026-10-15/cinema/picture-review-response.json
+ create mode 100644 runs/2026-10-15/cinema/picture-review.json
+ create mode 100644 runs/2026-10-15/cinema/proof.json
+ create mode 100644 runs/2026-10-15/cinema/s1-0-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s1-0-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s1-1-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s1-1-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s1-2-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s1-2-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s2-0-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s2-0-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s2-1-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s2-1-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s2-2-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s2-2-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s3-0-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s3-0-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s3-1-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s3-1-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s3-2-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s3-2-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s4-0-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s4-0-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s4-1-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s4-1-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s4-2-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s4-2-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s5-0-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s5-0-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s5-1-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s5-1-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s5-2-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s5-2-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s6-0-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s6-0-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s6-1-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s6-1-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s6-2-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s6-2-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s7-0-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s7-0-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s7-1-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s7-1-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s7-2-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s7-2-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s8-0-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s8-0-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s8-1-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s8-1-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s8-2-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s8-2-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s9-0-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s9-0-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s9-1-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s9-1-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/s9-2-normal.png
+ create mode 100644 runs/2026-10-15/cinema/s9-2-without_stage.png
+ create mode 100644 runs/2026-10-15/cinema/sound-review-response.json
+ create mode 100644 runs/2026-10-15/cinema/sound-review.json
+ create mode 100644 runs/2026-10-15/cinema/story-review-response.json
+ create mode 100644 runs/2026-10-15/cinema/story-review.json
+ create mode 100644 runs/2026-10-15/claims.json
+ create mode 100644 runs/2026-10-15/creative-assessments/74e057ba6e3778a78f4f8db0d6082c38d0faaf645cc63ee8de1ac752cc0ff85d.json
+ create mode 100644 runs/2026-10-15/credits.txt
+ create mode 100644 runs/2026-10-15/dispatch.mp4
+ create mode 100644 runs/2026-10-15/evidence/review-r15-current-timed-phone/preflight-reviewed-1b294576.mp4
+ create mode 100644 runs/2026-10-15/evidence/review-r15-current-timed-phone/storyboard_critic.json
+ create mode 100644 runs/2026-10-15/feed-composite.json
+ create mode 100644 runs/2026-10-15/feed-composite.png
+ create mode 100644 runs/2026-10-15/mix.json
+ create mode 100644 runs/2026-10-15/openings/a-inspection-d05b7f3061e25022.json
+ create mode 100644 runs/2026-10-15/openings/a.json
+ create mode 100644 runs/2026-10-15/openings/a.mp4
+ create mode 100644 runs/2026-10-15/openings/b-inspection-82b854d6471170e8.json
+ create mode 100644 runs/2026-10-15/openings/b.json
+ create mode 100644 runs/2026-10-15/openings/b.mp4
+ create mode 100644 runs/2026-10-15/openings/comparison.json
+ create mode 100644 runs/2026-10-15/openings/selection.json
+ create mode 100644 runs/2026-10-15/poster.png
+ create mode 100644 runs/2026-10-15/render-manifest.json
+ create mode 100644 runs/2026-10-15/report_card.json
+ create mode 100644 runs/2026-10-15/run_state.json
+ create mode 100644 runs/2026-10-15/sfx_events.json
+ create mode 100644 runs/2026-10-15/source-validation-certificate.json
+ create mode 100644 runs/2026-10-15/story_selection.json
+ create mode 100644 runs/2026-10-15/storyboard.json
+ create mode 100644 runs/2026-10-15/validation.json
+ create mode 100644 runs/2026-10-15/vo_direction.json
+ create mode 100644 runs/2026-10-15/vo_script.txt
+ create mode 100644 runs/2026-10-15/words.json
+commit 90584176a7b713f239460323bfe70e1bc2a85dcc
+Author: Talon Sturgill <Talon.sturgill@gmail.com>
+Date:   Sun Oct 18 05:27:38 2026 +0000
+
+    Ship the 2026-10-15 Dispatch
+    
+    UT San Antonio builds a solar powered flood station that runs its AI model on the chip rather than in the cloud
+    
+    Release evidence verified under the current policy; original scores and verdicts retained.
+    Artifacts and the variety ledger entry land together for the next run.
+
+ ledger/dispatch_history.json                       |    24 +
+ runs/2026-10-15/acoustic-asr-meta.json             |    31 +
+ runs/2026-10-15/acoustic-asr.json                  |  3988 ++
+ ...thored-528da30a-613d-45e1-b03b-70ce29b4011c.tsx |   490 +
+ ...thored-60135304-9993-491d-9f08-42919f8212b5.tsx |   576 +
+ ...thored-6555a67c-7cdb-41f0-a2ef-f76c9518c055.tsx |   443 +
+ ...thored-81053700-6a0a-4094-9930-ae5e681212e8.tsx |   417 +
+ ...thored-acd5201d-39d4-4a7c-96a3-8e64cc236d4f.tsx |  1012 +
+ ...thored-cc56f883-35eb-4bed-a737-0ad5083e4a4c.tsx |  1061 +
+ ...thored-fd230d9b-a832-442a-9c5b-ed5932403b81.tsx |   592 +
+ ...ceipt-71afe1ee-1dae-4b99-9736-401c19daecfe.json |    55 +
+ ...ceipt-8d418d40-4054-418a-997f-f53182c6922e.json |    55 +
+ ...ceipt-95e40d5d-e3fd-4242-b00b-9d642d45f13a.json |    55 +
+ ...ceipt-eaa85bbc-bb2a-4096-80cc-833eb0116d38.json |    55 +
+--no-push, stopping before the network
