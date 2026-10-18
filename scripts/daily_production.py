@@ -548,6 +548,9 @@ def craft_reading_paths(board, repo=None):
                      repo_root / 'knowledge/craft/STORY_ART.md',
                      repo_root / 'config/story_art.json',
                      repo_root / 'config/autonomous_completion_v2.json'] if modern_film.required(board) else [])
+    from critic_gate import measured_concept_policy
+    if measured_concept_policy(board):
+        modern_paths.append(repo_root / 'config/critic_concept_v2.json')
     import authored_story_art
     if authored_story_art.selected(board):
         modern_paths += [repo_root / 'knowledge/craft/AUTHORED_STORY_ART.md',

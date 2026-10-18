@@ -18,6 +18,9 @@ mechanical format correction on unchanged reviewed content can reuse that call.
 In the Claude Read-only phone assignment, require the complete movie-derived chronological
 images for both exact previews from the versioned phone packet. Read every page before the
 director rationale. A scene midpoint sheet cannot establish timed action or continuity.
+For editions from October 17th, first follow the packet's one-page access probe before guide
+traversal. An unseen probe requires the literal transport error and a partial handback without
+a verdict; successful access still requires every full guide and complete chronological coverage.
 Use the packet's mechanically computed report bindings; do not invent hashes or request Bash.
 Return the selection and complete exact-phone review JSON in your response for the director
 to retain unchanged. Describe this sampled-image basis honestly and leave unproven motion
@@ -166,6 +169,10 @@ Use the compact packet and the actual referenced board, sources and renderer. Ad
 with the documented digests, pass/revise verdict, blocking_defects, one_viewing_summary,
 opening_to_ending and weakest_transition. Keep your reviewer_identity distinct from the director.
 At the code-plan scope, describe the intended chain and inspect the actual callable actions.
+For dates covered by config/critic_concept_v2.json, use the mechanically supplied critic_gate
+digest. It excludes the derived clock while preserving authored causal bindings. Your code-plan
+judgment cannot approve waveform/caption provenance, timed performance or exact film bytes;
+inspect those in the independent current-film scope. Never rewrite a prior handback's digest.
 At the phone scope, update the observations from the film after one viewing, before rereading the
 director's explanation. Do not report a planned scene as an observed one.
 

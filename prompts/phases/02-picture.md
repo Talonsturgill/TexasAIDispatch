@@ -76,6 +76,9 @@ python scripts/agent_runtime.py --plan --role scene-builder --packet out/dispatc
 The handoff names all linked defects in one list. Run picture_precheck.py before consuming
 code or phone review/preview reservations; it invokes the existing cheap gates, retains each
 actual output and returns failure if any gate fails. No render, model call or approval occurs.
+For editions from October 17th, the builder also checks composed camera/ground screen bounds
+and solves feasible framing intervals before hand-back as its role brief directs. Stop at
+the first framing that passes; use the reserved comparison to judge its actual pixels.
 
 ## Board fields and local checks
 
@@ -122,6 +125,13 @@ It reviews composition, silent comprehension, continuity, source limits and rete
 Save its real verdict, reviewer identity, current concept and renderer digests, story_review
 and weakest frame to storyboard_critic.json. Get digests from critic_gate, not a guessed file.
 The critic must be independent of the director. A revise verdict is active repair.
+
+For editions from the effective date in config/critic_concept_v2.json, the code-plan digest
+preserves the authored words, source, subject, action, view and event fractions while excluding
+the derived narration clock and its provenance. Obtain it from critic_gate; never edit a
+reviewer's digest after handback. This identity does not approve timing or media. Current
+waveform/caption verification and independent exact-film phone/native reviews remain required.
+Earlier editions retain their original algorithm and reports.
 
 ```sh
 python scripts/critic_gate.py --board out/dispatch/storyboard.json --report out/dispatch/storyboard_critic.json

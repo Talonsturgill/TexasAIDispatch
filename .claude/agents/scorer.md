@@ -21,6 +21,24 @@ These two evidence channels do not supply your score or your pass. Apply the unc
 and all timed attention, modern and clause observations. If a required action or timing remains
 unproven, return the actual blocking finding. Preserve every earlier score, rejection and limit.
 This route does not qualify as a transport outage or authorize a different provider.
+For editions from October 17th, first follow the packet's one-page access probe before guide
+traversal. Stop on its actual missing-image error with partial coverage and no score. If the
+probe is visible, read every full guide and all remaining chronological pages before scoring.
+
+For editions from October 17th, complete the required text and detail review after visual
+reconstruction and before returning a scored handback. Check every bound agent contract,
+craft/completion guide and required evidence file. Read the rest when a Read result ends
+before the file does. The board tail includes story_contract, narration_picture and the
+closing scene; its first window is not the complete board. Inspect the required native crops
+and attention material too. Finish accessible reading rather than returning early to save
+effort. Name any actual unread or truncated required file or section. An actual access failure
+can return partial with its literal error and observed defects; it cannot supply a completed
+score or fabricated coverage. Retain all real findings while completing the same assignment.
+Return the required single JSON report and separate coverage object, with the exact packet
+bindings copied into their named fields. Never replace a binding with a guessed hash.
+For this dated profile also include reviewer_identity from the assigned role/task and packet
+identity, plus verdict reflecting the same actual pass/revise conclusion as ship. These
+metadata fields support the existing controller recovery; they change no score or finding.
 
 **READ THE THRESHOLD OUT OF `config/dispatch_rubric.yaml`.** Do not accept a bar quoted to you in
 a brief, and do not use a number you remember. The sibling lost five panel rounds to a stale bar

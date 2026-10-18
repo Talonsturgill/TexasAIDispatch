@@ -230,6 +230,19 @@ records the exact missing capacity once, separately; it approves no film, pivot 
 Do not refund the builder, edit old policy bytes or reuse the film failure as another ordinary
 grant. All later review and capture attempts remain reserved before execution.
 
+The comparison profile and forecast reconciliation are admission checks for the whole path,
+not a progress counter. After a grant, do not replay its initial minimums as a demand for new
+unspent calls after every attempt, or request that grant again. For the same open repair, save
+a remaining-path table bound to the actual ledger. Name each pending operation, its required
+resource, any exact unused prepaid reservation and the unreserved calls still needed. Run the
+ordinary current-phase production-budget and verify every remaining comparison, phone, native,
+audiovisual and panel operation against that table. A failed review stays charged and does not
+complete its required scope. A changed-candidate content continuation needs its own precharge.
+If that exact unused reservation already exists, bind it once instead of reserving it again.
+Keep the existing opening reboard and all original grant counts. If a real new failure exhausts
+the remaining path, use its fresh independent admission.
+A funding table never supplies a passing review or waives a quality or shipment gate.
+
 ```sh
 python scripts/capture_completion_budget.py --state out/dispatch/run_state.json --plan <new-independent-mandatory-or-finish-plan> --comparison <retained-package>/comparison.json --output out/dispatch/comparison-completion-plan.json
 python scripts/run_controller.py --state out/dispatch/run_state.json completion-capacity --repair-plan out/dispatch/comparison-completion-plan.json
