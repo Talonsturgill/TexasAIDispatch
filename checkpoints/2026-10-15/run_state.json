@@ -1,38 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r15h/baseline/storyboard.json",
-        "before_sha256": "dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r15h/baseline/opening-a.json",
-        "before_sha256": "dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r15h/baseline/opening-b.json",
-        "before_sha256": "de56b3401e1ed4e5d447b261242c3e1b0b43b270c998eb40dfd6e905a84db68a",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r15h/baseline/FloodStationFilm.tsx",
-        "before_sha256": "be9c00e439b031271f4e45677509aa74b630d630f7a0bdb9e2ab653d4e6ed9f7",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/r15h/baseline/StreetHubSupport.tsx",
-        "before_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx"
-      }
-    ],
-    "failure_sha256": "5869a4c57c4d794db5d0e35258676f977b041ab3f43f832d4b4f2214135bc28b",
-    "plan": "{REPO}/out/dispatch/evidence/r15h/repair-plan-r15h.json",
-    "plan_sha256": "51b2f8fdc0a668bd1f5bc77e146cecedd06b760105cf1bb0c6ef7a5b6d318a9a",
-    "reboards_before": 13,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-15T05:10:08.805144Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/4bebb2cbb037661e-dfa0ef877bc68b65-aeedb4438e304aa3/storyboard.json",
@@ -10578,6 +10544,68 @@
         "validator_agents": 5,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-18T00:59:23.735984Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 464,
+        "reservation_sha256": "637ab59488b9b3f855a2a698c0f2d4d3f137e7c6f7fc36704fc9858700920afe",
+        "start_event_index": 462
+      },
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "b7d3d14ac1390e6409a4154e8dd36e9ac58fb31afdae0adbfbe65639a6c83449",
+            "before_path": "{REPO}/out/dispatch/evidence/r15h/baseline/storyboard.json",
+            "before_sha256": "dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "b7d3d14ac1390e6409a4154e8dd36e9ac58fb31afdae0adbfbe65639a6c83449",
+            "before_path": "{REPO}/out/dispatch/evidence/r15h/baseline/opening-a.json",
+            "before_sha256": "dfa0ef877bc68b6522787a72fe81a04c01313b6abf8d1ec02c022a8a41c6aaf6",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "b2d64369ee861f4c68b11aedf476cfb55e746925ee7a077a447af1ca366b78c7",
+            "before_path": "{REPO}/out/dispatch/evidence/r15h/baseline/opening-b.json",
+            "before_sha256": "de56b3401e1ed4e5d447b261242c3e1b0b43b270c998eb40dfd6e905a84db68a",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
+            "before_path": "{REPO}/out/dispatch/evidence/r15h/baseline/FloodStationFilm.tsx",
+            "before_sha256": "be9c00e439b031271f4e45677509aa74b630d630f7a0bdb9e2ab653d4e6ed9f7",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx"
+          },
+          {
+            "after_sha256": "9ef763d4110c040f6a5091a529e12e5a527beb4e39868e4a613b1016c57faaa1",
+            "before_path": "{REPO}/out/dispatch/evidence/r15h/baseline/StreetHubSupport.tsx",
+            "before_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "Every printed card, tag and banner stays fully inside the frame at every frame of its shot in both treatments, the optical sensors are the only sensors shown under their clause, the final shot returns to the yard and the phone with the station ringed beside the stamp, figures have open eyes and attached arms, and no hold exceeds about 1.4 s.",
+        "failed_film_sha256": "4bebb2cbb037661e407fba21fd5d01ffcc6de2d19efaac8824f7dd519bc7bcc9",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/r15h/picture-panel-report-reissued-verbatim.json",
+        "failure_evidence_sha256": "5869a4c57c4d794db5d0e35258676f977b041ab3f43f832d4b4f2214135bc28b",
+        "failure_family": "human-performance",
+        "mechanism_change": "Cards and labels are held at framings sized to the composed safe margins instead of pushed and nudged. The close returns to the opening picture instead of putting the plan away. Seated figures keep open eyes by rule, and reacher arms are attached to a figure.",
+        "mechanism_id": "frame-safe-held-detail-and-forward-closing-v1",
+        "repair": "One consolidated standard-scope correction. Renderer: reflow the phone banner inside its screen with measured margins, hold the chip-glow push inside the frame, size and place the Field result card inside the composed safe margins with a held framing and no further push, move the s9 tag off the station, shrink the s6 map screen above the caption band, change the Head lid rule so seated figures keep eyes open, attach the reacher arms to a figure and keep arms outside the case and bag. Board: end the optical-lens shot through the clause end and drop or relocate the weather labels, replace the closing tuck-and-latch with a forward reading that returns to the opening yard and late phone with the station ringed beside the stamp, and cut the near-static holds by moving each performed action to its clause onset. Narration, claims, mix, captions and clause timing stay unchanged.",
+        "repair_scope": "standard",
+        "resources": {
+          "reboards": 1
+        },
+        "root_cause": "Panel round 1 on the credit-corrected film 4bebb2cb rejected it at 6.642 in all three lenses. The independent classification (critic 43) found retained non-deferrable failures: the phone banner reads 'Flash Floo' (5.6 to 8.6 s) and the flood-risk label leaves the frame (24.0 to 25.2 s), the blank Field result card is cut by the right frame edge (48.8 to 52.1 s), the Deployment goal tag covers the prototype station (57.2 to 59.4 s) and the caption band overlaps the s6 map bezel, the weather-sensor labels appear under the four optical sensors clause (18.4 to 19.14 s), and the close reads as shelving the plan. It also confirmed failed modern floor observations: near-static holds, shared Head closed-eye lids at pitch below -0.45, disembodied Reacher arms and arms clipping the case."
+      },
+      "repair_plan_sha256": "5d94d6f1b7a3e0476728f3075a1d261ed099722fa4827d52c1d334a1e367f84e",
+      "repair_revision": "0deaef8c7607c692f4ffd5ab032c5f5a7f3c5f6b87f4f8b2f196b7a39b8a5aff",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -10602,7 +10630,7 @@
   "preflight_retry": "8bee6240951811171de38977accbb1e4c47edf3fe54ba38c0d912d3a51040d28",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "fa83c170fb107fa49a7f26f30d9a7af4913ae8c8326267db5fa57501eecf0749",
+    "original_private_state_sha256": "a8ac702b107bf9c8c13c44a3ac6eefa6b9faad0677a3d9f4fe75cd3752f4b3df",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -10638,7 +10666,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-18T00:49:42.237611Z",
+  "updated_at": "2026-10-18T00:59:23.736009Z",
   "usage": {
     "audiovisual_reviews": 17,
     "cleanup_renders": 0,

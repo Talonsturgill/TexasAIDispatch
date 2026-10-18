@@ -1,0 +1,85 @@
+{
+  "review_scope": "code-plan",
+  "treatment": "a",
+  "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-a.json",
+  "board_sha256": "3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b",
+  "concept_sha256": "44c88439942c2c40598bddd8a6d17088ed4b4eb0e1e06ffb3fac90385bb4b687",
+  "renderer_sha256": "4811590400523e197125b1f3ca735d8c54f4ea28dcd2194672a2f63060307eda",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "verdict": "pass",
+  "strongest_frame": "s7-shot-2, validation-card detail, 44.88 to 49.2 s, unchanged since R15e. The whole 98.82% stays in frame with its 9 at x 66, 47 and 43. The heading stays at least about 27 px below the disclosure chip. The assessments tag pins whole from 46.21 s, and the blank result card slides in from the right and pins at about (1009, 401) by 48.32 s. Narration n7b (45.24 to 48.48 s) is spoken over the complete figure.",
+  "weakest_frame": "s8-shot-1, no-field-card detail, 49.2 to 52.16 s, after R15f. The figure, heading, 'Reported by the university', tag, 'Field result' and 'None reported' are all in frame. The margins are thin, though: tag left about 33 px and 'None reported' ending near x 1047. The blank result card's right border runs about 47 to 58 px past the right edge (no text there). The camera is now almost still (a 2% push plus about 10 to 20 px of crane drift). So the shot's movement comes only from the hand bringing the stamp in from 49.4 s, pressing at 50.18 to 50.93 s and leaving by about 51.5 s, followed by about a 0.7 s still hold to the cut.",
+  "blocking_defects": [],
+  "code_observations": [
+    "Diff. I read FloodStationFilm.tsx be9c00e4 lines 560 to 659 this round, and the full 6f26ef6d earlier in this context. The validation-card branch (lines 587 to 609) is byte-for-byte the code I passed in R15e: PUSH_AT [140,230], PUSH_SCALE 1.15, the same clock, slide, resAt, card, pins, tag and result card. In the no-field-card path, lines 613 to 625 are new (comment, NF_AT [540,500], NF_SHIFT 20, NF_SCALE 1.02, held = detail framing, camF, camS, camA) and the Cam on line 634 now reads those values. This matches the builder's 13 added lines and 1 changed line. The board line numbering of the Film row is unchanged. I did not re-read the rest of be9c00e4.",
+    "Branch logic. For detail framing the Cam is f=[540,500], a=[560,500], s=lerp(1,1.02,push), on the unchanged push clock (49.2 to SW.start = 50.182 s). For any other framing the old mix formula is kept; with close framing push is 0, so it reduces to f=a=[540,700], s=1, which is the identity. B's s8-shot-1 (close) is therefore unchanged. The stamp geometry (card2 [520,400] s .8, mark = card2 + (224,200)), the enter, down, squash, leave and printed clocks, and the reacher's start point (1180, -80 to -200) are untouched. They sit inside the same Cam and Grounded, so they move with the reframe.",
+    "Independent arithmetic, A s8-shot-1. The place camera is craneDown on blackland-san-antonio (depth 61.44 m at row 1240, rise 0.45 times (1 minus the smoothstep of u), the shift in y about 49.36 times rise). The ground map is x' = 1.3x - 162.0, with y' = 1.3y - 259.1 at 49.2 s, 1.3y - 263.1 at 50.67 s and 1.3y - 272.1 at 52.13 s. With the Cam, screen = a + s(g - f): x'' = 1.3002x - 142.1 at s 1.00 and 1.3262x - 156.1 at s 1.02; y'' = 1.3y - 259.1 at 49.2 s, 1.326y - 278.4 at 50.67 s and 1.326y - 287.5 at 52.13 s. These match the builder (x' 1.3002x - 142.1 and 1.3262x - 156.1; y' -259.3, -278.5 and -287.6) to within 0.2 px. Every term is monotonic in t, so the first, middle and last frames bound the shot.",
+    "Positions, first / middle / last frame (49.2 / 50.67 / 52.13 s), from the world boxes of the Support Card and Result geometry. Figure 98.82%: world 154 to 339, giving x 58 to 299, then 48 to 294, then 48 to 294; the 9 is at least 48 px from the left edge. Heading: x starts at 58 / 48 / 48, cap top about 331 / 324 / 314, at least 94 px below the chip's bottom at 220. 'Reported by the university': x 58 to about 416. Tag (padded box from world 142): left 42.5 / 32.2 / 32.2, bottom at most 768. 'Field result': x 576 to about 941, top about 285 to 302, clear of the chip (x 44 to 391) by more than 160 px in x. 'None reported': x 613 to 1037, then 614 to 1047. Validation card left edge 27 / 16, card2 top 261 to 243; both are clear of the chip. Every text bottom is above about 770, against a caption band whose top is near 1283.",
+    "Stamp contact. At s 1.02 the mark centre (world 744, 600) lands at about screen (831, 516), on the blank result card and inside the frame. The stamp block (world 621 to 867) covers screen x about 668 to 994. On entry the stamp and hand come from off-frame right and top, and they leave the same way.",
+    "Margins. The 1.03 and 1.025 candidates fail and 1.02 passes; I reproduce the 1.02 margins: tag +2.6 over its 30 px bound, 'None reported' +2.9 under 1050, and figure, heading and subtitle +8 over 40. The result card's right border (world 976) is at x 1127 to 1138, past the edge. Its ruled lines end at about x 1075 and the drawn card is about 90% visible. No text is crossed.",
+    "Continuity and pace. The s7-shot-2 to s8-shot-1 transition is a cut: from the large single card (composite scale about 1.556, figure x 43 to 427) to the two-card board at about 1.30 (figure x 58 to 299, result card at right). The validation card stays left and keeps its order, so the cut reads as the same board seen wider. The camera barely moves during the shot. Rewards are unchanged: s8-event-0 at 50.631 s, next at 52.896 s, a gap of 2.26 s. First reward 1.0 s, largest gap 3.583 s, end gap 2.242 s.",
+    "s8-shot-2 empty-map and every other view are unchanged. My R15f sweep found no other crossing of printed text. Non-blocking report-only items stand as before: the chip over the card's blank top border and pin in s7-shot-2 (about 45.3 to 49.2 s), and the 1.18 to 1.30 framing step at the 44.88 s cut. Board metadata stays stale but non-blocking: divergence_note and the top-level hook_payoff_s 0.934."
+  ],
+  "action_reviews": [
+    {
+      "action_id": "water-rises",
+      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s1-event-1 runs 0.64 to 1.24 s in s1-shot-1 (street-yard). Water tops the curb, the fence post waterline reaches the ankle band and the tag swings. The code is unchanged by R15e and R15f. Claim c12."
+    },
+    {
+      "action_id": "charge-battery",
+      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s2-event-2 runs 12.145 to 12.879 s in s2-shot-2 (panel-charge). The battery goes from .24 to 1 under the beam. Unchanged. Claims c5 and c14."
+    },
+    {
+      "action_id": "cross-marks",
+      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s3-event-2 runs 17.131 to 17.909 s in s3-shot-2 (water-marks). The rising level lights lenses 2 to 4 in order, and they stay lit. Unchanged. Claim c2."
+    },
+    {
+      "action_id": "judge-locally",
+      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s4-event-2 runs 24.562 to 25.16 s in s4-shot-2 (chip-glow, detail). The chip lights the lamp and the risk bar climbs. Unchanged. Claims c3 and c18."
+    },
+    {
+      "action_id": "carry-signal",
+      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s5-event-2 runs 29.097 to 29.965 s in s5-shot-1 (radio-rings). Rings reach the hub and the half-mile bar draws. Unchanged. Claim c6."
+    },
+    {
+      "action_id": "spread-map",
+      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": "s6-event-2 runs 38.172 to 39.112 s in s6-shot-2 (flood-paths). Paths spread along the creek and into the low streets. Unchanged. Claims c7, c16, c17 and c20."
+    }
+  ],
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated read-only worker (the same worker as this edition's critics 26 to 36, including the R15e review that raised N1 and the R15f classification). Distinct from the claude-sonnet-5-5 director, the scene-builder and the gemini-3.8-flash provider. Code-plan scope only: no pixels seen, nothing run, no hash computed, geometry checked by hand arithmetic.",
+  "reviewed_at": "2026-10-17T08:00:00Z",
+  "story_review": {
+    "story_sha256": "0aaa59c0eadd355fd26348fe545c8314faa1869e7bea07a636780d9340246269",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "This is the planned chain, not observed pixels. Brown water tops a San Antonio curb and climbs a fence post to its orange ankle mark while the porch phone stays dark, then the warning lands late. The prototype station at the curb charges from the sun, and its dashed line toward a cell tower stops halfway. Water rises past its four lenses and each lights. The opened housing feeds the chip, which lights a large amber lamp and risk bar while a dark server across the road is never reached. Rings run down a long street to the hub and across open country to its mast, and a seated responder works at a flood map whose paths spread along the creek. On a curb notice board the whole 98.82% card fills and the assessments tag pins, then a blank field result card slides in. In the wider two-card view both cards stay readable while a hand stamps none reported on the blank one. A finger reads a blank paper map, and a technician latches the deployment plan into the prototype's case.",
+    "opening_to_ending": "The opening asks whether a station can judge rising street water with no power line and no cell tower. The chain of charge, four lenses, on-chip judgment, radio to the hub and flood map answers yes as a disclosed design. The limits stay on the curb board and are now readable throughout: the reported validation figure stays whole beside a field result card stamped none reported, and the announcement names no installation. The close keeps the plan with the uninstalled prototype toward the stated goal, so no deployment outcome is invented.",
+    "weakest_transition": "s7 to s8 at 49.2 s. The cut goes from the large single validation card to a still, wider two-card board where the action is carried only by the stamp entering, pressing and leaving. It should read as the same board pulled wider, but the near-hold framing and the 0.7 s still end before the map cut need the timed phone review to show they do not stall."
+  }
+}

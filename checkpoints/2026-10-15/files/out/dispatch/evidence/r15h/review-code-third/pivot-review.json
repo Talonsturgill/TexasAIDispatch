@@ -1,0 +1,103 @@
+{
+  "role": "storyboard-critic",
+  "review_scope": "recurrence-pivot",
+  "verdict": "pass",
+  "reviewer_identity": "storyboard-critic subagent, model claude-opus-5-5, effort high, Read tool only. Independent of the claude-sonnet-5-5 director and of the scene-builder. This is a re-affirmation on the pass-4 candidate (FloodStationFilm ac1332a3..., boards b7d3d14a.../b2d64369...). My original pivot PASS and my second-check re-affirmation stay retained unchanged. LIMITS: no pixels rendered or viewed, no audio, no hashes computed. Digests are copied from the assignment and packet. I have no clock, so reviewed_at is an estimate after the pass-4 builder handback (2026-10-18T00:21:11Z).",
+  "reviewed_at": "2026-10-18T01:15:00Z",
+  "retired_mechanism_id": "s8-detail-safe-area-framing",
+  "replacement_mechanism_id": "frame-safe-held-detail-and-forward-closing-v1",
+  "reviewed_failure_sha256": [
+    "c79f8b4a1bc575611a538cb2c459139aba525016f1c893ac566688934b0f3e58",
+    "9225fae4b5e84109aa1fe03a10d7936fede66b74f4f80ee55ab92729b6ed8b78",
+    "5869a4c57c4d794db5d0e35258676f977b041ab3f43f832d4b4f2214135bc28b"
+  ],
+  "reviewed_proposal": {
+    "path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/repair-plan-r15h.json",
+    "sha256": "51b2f8fdc0a668bd1f5bc77e146cecedd06b760105cf1bb0c6ef7a5b6d318a9a"
+  },
+  "visible_difference": "Compared with pass 3, the s9 tail no longer pushes to a 5.5x close on the phone or pulls back. s9Cam holds each treatment's own framing on the wide plate: A at Cam 1.15 about f [520,900], B at Cam 1.32 about f [553.6,880.3]. From 57.30 s it only eases scale out by 2.5 percent to 59.40 (ease-out, at most 0.079 percent per frame). In the same tail the technician lowers the open plan 70 units with a 9 degree tilt (57.36 to 58.06) and turns her head from the goal toward the porch rail (57.70 to 58.40). The answer stays fully in frame to the end: the dashed, unlit GoalOutline (no footing, lamp, halo or lit lens, clipped at the ankle waterline), the amber ring and both tags. The real-size phone and the pot stay as ordinary yard detail, with no move or beat on them. Compared with the retired mechanism, everything recorded in my original review still holds: held S7 and S8 card layouts, open eyes and arms solved from the shoulders. The s1 to s8 code paths match my earlier reads.",
+  "source_basis": "c1 and c10: the announcement names no installation and does not say the deployment goal is met. The unlit, unfooted outline honours that. c9: deployment is a stated aim, with no dates and no buyer. c12: ankle-deep yard water before the phone warning, the opening the close returns to. c4: validation-only figure, no field result.",
+  "condition_check": {
+    "a_held_framings_replace_push": {
+      "genuine": true,
+      "evidence": "In ac1332a3 the S7 and S8 layouts are held with no episode push (validation-card and no-field-card views, lines 751 to 831), as I reviewed before."
+    },
+    "b_close_returns_to_opening_yard": {
+      "genuine": true,
+      "evidence": "s9 draws the same yard() as s1: street water, limestone curb, fence with the orange ankle mark, live oak, porch and boots. The railPhone override replaces the s1 flat phone, so only one phone is drawn. The goal is GoalOutline, not station(). The frame is the same place, not the identical opening framing. A holds near Cam 1.12 to 1.15, close to its own s1 push (1.0 to 1.08). B holds near Cam 1.29 to 1.32, closer than its s1 yard shot, which ends at Cam 1. My condition was a return to the opening yard, which this meets. Exact framing is not required."
+    },
+    "c_open_eyes_and_attached_arms": {
+      "genuine": true,
+      "evidence": "StreetHubSupport 9ef763d4110c is unchanged. The s9 plan-lowering reach uses the same lower amount (70) as pass 3. techHand solves the wrist from the left shoulder, and the builder reports both hands reach the plan on every frame."
+    },
+    "label_offset_easing_or_sleeve_only": false,
+    "source_backed": true,
+    "conditions_that_still_must_hold": [
+      "Phone review must prove that the dashed outline reads as a planned goal, not as an installed unit or a faint ghost. At 270 wide its ink line is about 1.2 to 1.3 px over a paper edge of about 2.5 to 2.9 px.",
+      "Phone review must prove that the held cards keep their margins in both treatments and that the B closing still reads as the opening yard at Cam 1.29 to 1.32."
+    ]
+  },
+  "defect_coverage": [
+    {
+      "id": "B1",
+      "covered_by_pivot": false,
+      "scope": "ordinary renderer fix",
+      "note": "Unchanged and resolved in code."
+    },
+    {
+      "id": "B2",
+      "covered_by_pivot": false,
+      "scope": "ordinary bounded push fix",
+      "note": "Unchanged and resolved in code."
+    },
+    {
+      "id": "B3",
+      "covered_by_pivot": true,
+      "scope": "pivot component a",
+      "note": "Held layouts, unchanged."
+    },
+    {
+      "id": "B4",
+      "covered_by_pivot": true,
+      "scope": "follows from component b",
+      "note": "The tags overlap the outline or ring in 0 frames (builder)."
+    },
+    {
+      "id": "B5",
+      "covered_by_pivot": false,
+      "scope": "ordinary renderer fix",
+      "note": "MAP_SCREEN bezel ends at 1236, unchanged."
+    },
+    {
+      "id": "B6",
+      "covered_by_pivot": false,
+      "scope": "bounded board edit",
+      "note": "Unchanged. Only the lenses appear under n3a."
+    },
+    {
+      "id": "B7",
+      "covered_by_pivot": true,
+      "scope": "pivot component b",
+      "note": "The source-faithful close now gets a 2.10 s readable hold with no whip."
+    },
+    {
+      "id": "B8",
+      "covered_by_pivot": true,
+      "scope": "pivot component c (eyes)",
+      "note": "Unchanged."
+    },
+    {
+      "id": "B9",
+      "covered_by_pivot": true,
+      "scope": "pivot component c (arms and case)",
+      "note": "Unchanged."
+    },
+    {
+      "id": "B10",
+      "covered_by_pivot": false,
+      "scope": "derived motion",
+      "note": "The longest stretch with nothing performed is 1.00 s (58.40 to 59.40), and the camera moves at most 0.079 percent per frame."
+    }
+  ],
+  "notes": "This re-affirmation does not edit or replace my original pivot_review or my second-check re-affirmation. It approves no pixels. The earlier process note stands: begin-repair was opened before any independent pivot review."
+}

@@ -1,80 +1,66 @@
 {
   "review_scope": "code-plan",
   "treatment": "b",
-  "board_path": "/home/user/ed1015/TexasAIDispatch/out/dispatch/opening-b.json",
-  "board_sha256": "d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4",
-  "concept_sha256": "c0a13a78a3d45206c3ef017420e013b52b29be07d8890977491cdb9f7efcbcfc",
-  "renderer_sha256": "4811590400523e197125b1f3ca735d8c54f4ea28dcd2194672a2f63060307eda",
+  "board_path": "/home/user/restore/TexasAIDispatch/out/dispatch/opening-b.json",
+  "board_sha256": "b2d64369ee861f4c68b11aedf476cfb55e746925ee7a077a447af1ca366b78c7",
+  "concept_sha256": "cb6e80c1e89b6c990f0d896f2421b9f36a5bfda83fdb192e2a99a33db9364bb1",
+  "renderer_sha256": "05a323a2743dc6593305773903de5683e0695df187c6bf8cb7753e758e5cec31",
   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
   "verdict": "pass",
-  "strongest_frame": "s3-shot-1, water-marks detail, 15.62 to 17.64 s. The lens column is framed right at 3.3x. On s3-event-2 (16.872 to 17.52 s) the waterline climbs past lenses 2, 3 and 4, and each lights as it is crossed, glows through the water and is mirrored.",
-  "weakest_frame": "s7-shot-2, about 47.81 to 47.98 s, unchanged. On s7-event-3 B's blank result card slides in from the left (world x -500 to 640, y 520 to 764). For about 5 frames it passes over the lower roughly 43% of the 98.82% glyphs and the bar while n7b finishes. This is a moving transient that leaves no false number, so it is non-blocking at code scope and must be judged on pixels.",
+  "reviewer_identity": "storyboard-critic subagent, claude-opus-5-5 high, Read only, independent of the director; code-plan scope, no pixels",
+  "reviewed_at": "2026-10-18T01:15:00Z",
+  "strongest_frame": "s1-shot-1, 0 to 1.955 s (planned). A disclosed design detail: the lowest lens goes under at ankle height and lights, then a match cut to the yard's orange ankle mark.",
+  "weakest_frame": "s9 tail, 58.40 to 59.40 s (planned). A held closer frame at Cam 1.29 to 1.32. The porch is mostly cropped off the left edge, and the small phone sits about 14 to 27 px from that edge (leftmost phone point x 155.2: (155.2 - 553.6) x 1.32 + 540 = 14.1, easing to 27.2 at scale 1.287), before plate drift. Her head turns toward that edge.",
   "blocking_defects": [],
   "code_observations": [
-    "R15f changes only the detail path of no-field-card. B's s8-shot-1 is close framing, so held is false and push is 0. The Cam reduces to f=a=[540,700], s=1, the identity, which is byte-for-byte the R15e behaviour. Under close zoom 1.18 and dollyThrough the figure stays at about x 76 to 298, card2's right edge at about 1045 to 1054, and 'None reported' at about x 592 to 970, all clear of the chip and the caption band.",
-    "The board's renderer_inputs row for FloodStationFilm.tsx reads be9c00e4 (line 3312, the same position as before). The validation-card branch is unchanged, so B's s7-shot-2 keeps its R15e geometry: figure at x 75, 56 and 52 at 44.88, 47.05 and 49.2 s; heading top about 276 to 283; card top about 232, with no chip overlap; tag whole.",
-    "Rewards and ceilings are unchanged: first reward 1.0 s, largest gap 3.583 s, end gap 2.242 s, longest shot 4.77 s. Stale but non-blocking board text: divergence_note, and 'Close on A technician'."
+    "The same s9Cam hold and ease as A, from f [553.6,880.3], a [540,826], s 1.32 to s 1.287. That is at most 0.079 percent per frame, with no whip. The answer stays fully in frame from 57.30 to 59.40 (builder: 63 of 63 tail frames). Margins (builder): ring top 254.8, Deployment goal tag right margin 73, None reported 108.8, plan band gap 124.6, case band gap 23. By my arithmetic the ring clears the three-line disclosure chip by about 20 px at the chip's right edge, and clears it further as the scale eases.",
+    "B closes closer than its opening yard shot (B s1-shot-2 ends at Cam 1), as the builder disclosed. The board says so honestly ('closes in the same opening yard, closer, holding on the ringed goal and both tags'). The fence ankle mark (world x 748) and the curb stay in frame. The oak (x 1000) and most of the porch fall outside the frame. Not blocking: the answer, not the porch, is the principal subject. The phone review must confirm the place still reads as the opening yard.",
+    "Board text. B's visual_sentence and quality_plan subject now begin 'Closer in the opening yard again'. The shot purpose begins 'Closer in the opening yard. Back in the opening yard ...', which repeats itself harmlessly. The s8 next_connection describes the unlit ringed outline and the none reported tag. No readable-phone or pull-back wording remains.",
+    "The B sfx binding is faithful. sfx_events-b.json differs from A only in curb-trickle 2.08 (B s1-event-1 at_s) and mark-tone 16.872 (15.62 + 1.252, B s3-event-2). banner-tone 5.452, chip-hum 24.562 (19.66 + 4.9016) and radio-pulse 27.494 (27.08 + 0.4136) match both clocks, and every other field is identical. The selected A sfx_events.json is untouched (0.64 and 17.131 = 15.62 + 1.5112). If B were chosen, its mix would have to be rebuilt from this file. The original failure log is retained.",
+    "The B-only transient from my earlier reviews remains a phone item: the s7 result card slides in from x -420 across the 'Initial assessments' tag (about 46.86 to 47.8 s).",
+    "The same non-blocking risks as A: the outline's line weight (7 x 0.58 x 1.32 = 5.4 px native, about 1.3 px at 270), a rigid plan sheet, a head turn toward an unreadable target, and the s1 phone scale mismatch."
   ],
   "action_reviews": [
     {
-      "action_id": "water-rises",
-      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
+      "action_id": "deployment-goal",
+      "module_sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": "s1-event-1 runs 2.08 to 2.74 s in B's s1-shot-2 (street-yard), after the match cut from the lens detail. Unchanged. Claim c12."
+      "code_observations": [
+        "Same implementation as A at the closer framing. The answer holds 2.10 s, the outline is source-faithful and unlit, and there is no whip."
+      ]
     },
     {
-      "action_id": "charge-battery",
-      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "action_id": "yard-floods-before-warning",
+      "module_sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": "s2-event-2 runs 12.145 to 12.879 s in B's s2-shot-2 (panel-charge at 1.85x). Unchanged. Claims c5 and c14."
+      "code_observations": [
+        "Unchanged: the design-detail lens goes under on s1-event-0, the shot match-cuts to the ankle mark and pulls back from Cam 2.2 to 1, the boots rise, then the late banner."
+      ]
     },
     {
-      "action_id": "cross-marks",
-      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
+      "action_id": "report-validation-only",
+      "module_sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
       "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
       "verdict": "pass",
       "blocking_defects": [],
-      "code_observations": "s3-event-2 runs 16.872 to 17.52 s in B's s3-shot-1 (water-marks). Lenses 2 to 4 light in order. Unchanged. Claim c2."
-    },
-    {
-      "action_id": "judge-locally",
-      "module_sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
-      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
-      "verdict": "pass",
-      "blocking_defects": [],
-      "code_observations": "s4-event-2 runs 24.562 to 25.16 s in B's s4-shot-2 (chip-glow, detail). Unchanged. Claims c3 and c18."
-    },
-    {
-      "action_id": "carry-signal",
-      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
-      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
-      "verdict": "pass",
-      "blocking_defects": [],
-      "code_observations": "s5-event-2 runs 29.164 to 30.032 s in B's s5-shot-2 (radio-rings). Unchanged. Claim c6."
-    },
-    {
-      "action_id": "spread-map",
-      "module_sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346",
-      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
-      "verdict": "pass",
-      "blocking_defects": [],
-      "code_observations": "s6-event-2 runs 36.95 to 37.89 s in B's s6-shot-1 (flood-paths). Unchanged. Claims c7, c16, c17 and c20."
+      "code_observations": [
+        "Unchanged. The transient tag occlusion in s7 is a phone-proof item."
+      ]
     }
   ],
-  "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated read-only worker (the same worker as this edition's critics 26 to 36). Distinct from the claude-sonnet-5-5 director, the scene-builder and the gemini-3.8-flash provider. Code-plan scope only: no pixels seen, nothing run, no hash computed.",
-  "reviewed_at": "2026-10-17T08:00:00Z",
   "story_review": {
-    "story_sha256": "8fdc7086b1ddfc120e89f7ca63f0480b1af248868307cab5aea24251b14440a0",
+    "story_sha256": "86a93e8e9f40accd8e0442c74ca721c962485b5f23e165fef234f38dd9f8f41f",
     "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
     "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
     "verdict": "pass",
     "blocking_defects": [],
-    "one_viewing_summary": "This is the planned chain, not observed pixels. A disclosed lens detail goes under at ankle height, then a match cut lands in a flooding yard where the porch phone warns late. The view cranes down the prototype, its panel charges, and a dashed line toward a tower stops halfway. Water rises past the four lenses. Readings glow through the housing window, the chip lights a lamp and risk bar, and a server across the road is never reached. Rings spread over an overhead map, down a street and across open country to the hub, the flood map spreads paths, and a responder's forearm comes to rest. On the curb notice board the whole 98.82% card and its tag stay readable, and a blank result card sweeps in from the left and is stamped none reported. A finger reads the blank map, and the plan is latched into the prototype's case.",
-    "opening_to_ending": "The opening question asks whether a station can judge rising street water with no power line and no cell tower. B answers yes as a disclosed design through the same mechanism chain, starting from the lens detail. The validation figure stays whole in both s7 and s8 beside the field result card stamped none reported, and the close keeps the plan with the uninstalled prototype without promising an outcome.",
-    "weakest_transition": "s6 to s7 at 40.94 s. The cut goes from the interior hub desk, close on the responder's forearm, to the outdoor curb notice board. Only the amber accent carries over and no object crosses the cut, so a muted viewer must infer that the card measures the same station's design."
-  }
+    "one_viewing_summary": "Planned chain: a lens goes under at ankle height, then a San Antonio yard floods before the phone warns. The prototype is revealed from its antenna down, charges with no tower, its lenses light, and its chip judges risk seen through the housing window with no server. The radio is read from above, then along the street and across open country to the hub. The flood map is read before the desk, then come the validation card and the stamped blank result, the pinless map read wide at the curb, and a closer close on the ringed unlit goal outline in the opening yard.",
+    "opening_to_ending": "It opens inside the sensor column and on the late phone. It closes, closer, in the same yard, with deployment drawn as an unlit planned outline beside 'None reported'. The ending answers the opening question honestly and is held long enough to read.",
+    "weakest_transition": "s8 to s9 at 55.50 s. The cut goes from the wide curb and fence map to a closer frame of the opening yard, with the porch mostly cropped. Identity carries through the same technician and fence, but the phone review must confirm that viewers read it as the yard from the opening."
+  },
+  "notes": "Every renderer path is shared with A, and the s9 structure is now nearly identical except for camera scale. Divergence elsewhere is unchanged."
 }
