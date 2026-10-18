@@ -1228,6 +1228,22 @@
       "note": "exact MP4 audiovisual review story",
       "resource": "audiovisual_reviews",
       "to": 23
+    },
+    {
+      "at": "2026-10-18T03:08:04.783404Z",
+      "ceiling": 9,
+      "from": 1,
+      "note": "R15h current finished native cut 1cb1b02a, fresh atomic panel",
+      "resource": "panel_rounds",
+      "to": 2
+    },
+    {
+      "at": "2026-10-18T03:08:04.783437Z",
+      "ceiling": 27,
+      "from": 3,
+      "note": "R15h current finished native cut 1cb1b02a, fresh atomic panel",
+      "resource": "scorer_calls",
+      "to": 6
     }
   ],
   "events": [
@@ -11720,6 +11736,34 @@
       "note": "03fe434e-7763-418a-b941-e8040f91203c story exact film 1cb1b02a91912bce3a25149b9a4f682d32a0b11ffb8bc456951303056c46f81d",
       "reported_tokens": 75922,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-18T03:08:04.783429Z",
+      "ceiling": 9,
+      "kind": "budget_escalated",
+      "note": "R15h current finished native cut 1cb1b02a, fresh atomic panel",
+      "now": 2,
+      "resource": "panel_rounds",
+      "was": 1
+    },
+    {
+      "at": "2026-10-18T03:08:04.783441Z",
+      "ceiling": 27,
+      "kind": "budget_escalated",
+      "note": "R15h current finished native cut 1cb1b02a, fresh atomic panel",
+      "now": 6,
+      "resource": "scorer_calls",
+      "was": 3
+    },
+    {
+      "at": "2026-10-18T03:08:04.783455Z",
+      "kind": "reserved",
+      "note": "R15h current finished native cut 1cb1b02a, fresh atomic panel",
+      "preflight_identity": null,
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
     }
   ],
   "limits": {
@@ -11727,13 +11771,13 @@
     "cleanup_renders": 1,
     "full_renders": 5,
     "image_generations": 2,
-    "panel_rounds": 1,
+    "panel_rounds": 2,
     "preflight_renders": 54,
     "reboards": 14,
     "reported_tokens": 849907,
     "rescue_renders": 1,
     "research_agents": 3,
-    "scorer_calls": 3,
+    "scorer_calls": 6,
     "storyboard_critics": 48,
     "tts_calls": 14,
     "validator_agents": 5,
@@ -11743,7 +11787,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "b996c7282019e9f595b1cc7d4c2bf8e0270b58b008f7cfb4fb264da4c5a91926",
+    "original_private_state_sha256": "e4791fd4041ede38f24201a020455e034eec1d12e9eb8f89f2d2050abbc68de1",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -11779,19 +11823,19 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-18T03:05:29.995233Z",
+  "updated_at": "2026-10-18T03:08:04.783459Z",
   "usage": {
     "audiovisual_reviews": 23,
     "cleanup_renders": 0,
     "full_renders": 5,
     "image_generations": 0,
-    "panel_rounds": 1,
+    "panel_rounds": 2,
     "preflight_renders": 54,
     "reboards": 14,
     "reported_tokens": 2553599,
     "rescue_renders": 0,
     "research_agents": 3,
-    "scorer_calls": 3,
+    "scorer_calls": 6,
     "storyboard_critics": 48,
     "tts_calls": 14,
     "validator_agents": 5,
