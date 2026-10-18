@@ -261,6 +261,9 @@ This evidence schema binds the original comparison and its actual hook/entry cha
 It protects eight preview charges (comparison two, silent phone sequences two, final phone one,
 timed phone sequence one, native hero one, motion one), four conservative critic calls and the
 existing full audiovisual/scoring path together.
+An independently bound `mandatory-modern-code` rejection uses its current code packet and
+renderer evidence, without inventing a reviewed film hash. Attach the current complete
+comparison profile; the retained paid pair and all source-binding checks still apply.
 Use a fresh actual independent admission that has not already received a grant. It adds only
 recorded deficits, retains original plans and grants, and approves no film or shipment.
 Run cheap duration, caption-fit, source-binding, routing and review-request-format checks before
