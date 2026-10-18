@@ -865,7 +865,11 @@ class RetainedNativeContextTest(unittest.TestCase):
             self.assertEqual(json.loads(self.coverage.read_text()),context['coverage_values'])
             self.assertEqual('phone-film',context['phone_film_sha256'])
             self.assertNotIn('verdict',context)
-            self.assertNotIn('handback_text',r.prior_phone_partial_context(board,claims,include_text=False))
+            refs = r.prior_phone_partial_context(board,claims,include_text=False)
+            self.assertEqual({'handback','coverage'},set(refs))
+            for ref in refs.values(): self.assertEqual(r.digest(Path(ref['path'])),ref['sha256'])
+            self.assertEqual(self.original.read_text(),Path(refs['handback']['path']).read_text())
+            self.assertEqual(json.loads(self.coverage.read_text()),json.loads(Path(refs['coverage']['path']).read_text()))
             verified.assert_called(); admitted.assert_called(); scoped.assert_called()
             with patch.object(r,'evidence_problems',return_value=['original evidence edited']):
                 with self.assertRaisesRegex(ValueError,'not verified'): r.prior_phone_partial_context(board,claims)
