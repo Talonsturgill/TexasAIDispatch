@@ -1,0 +1,997 @@
+{
+  "schema": "dispatch_claude_phone_partial/1",
+  "status": "partial",
+  "verdict": null,
+  "selection": null,
+  "packet": {
+    "path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/phone-critic-packet-r15h-cmp.json",
+    "sha256": "54f7c26a1a66a6b56ead10ce78268af7df285ab943025abadf0aa7648f2e76dd",
+    "sha256_recomputed": false
+  },
+  "reviewer_identity": "storyboard-critic, claude-opus-5-5 high effort, isolated Read-only leaf assigned to the silent two-option exact-phone comparison; independent of the Sonnet director; no Bash, no hashing, no MP4 playback or listening; this run delivered no complete image coverage",
+  "media_probe": {
+    "image": {
+      "path": "/home/user/restore/TexasAIDispatch/out/dispatch/openings/motion-a/sequence-000.png",
+      "sha256": "340ab7f380551d0cfa9b811baaadd00cfc9b1809d1c1cdb1a823cc9e4100b59a",
+      "sha256_source": "motion-a/index.json, not recomputed"
+    },
+    "single_image_read": true,
+    "media_received": false,
+    "error": "[media removed: request limit]",
+    "raw_error": "[media removed: request limit]"
+  },
+  "protocol_deviation": {
+    "summary": "After the probe failed I continued instead of returning at once. I read the full guides, then made sequential single image Reads of A pages 001 to 064. Pages 001 to 027 returned the same literal error and 028 to 064 were delivered. I attempted no B page and did not read the boards or narration_picture. I skipped note_before_next_read on many received pages.",
+    "effect": "Not a creative review. The delivered A pages do not establish selection, comparison or approval. Later delivery shows the host limit was intermittent within this session; the probe itself was exactly the single-read media-limit case."
+  },
+  "guides_read_in_full_after_probe": [
+    "storyboard-critic.md",
+    "quality_contract.json",
+    "dispatch_rubric.yaml",
+    "QUALITY_CONTRACT.md",
+    "MODERN_FILM.md",
+    "STORY_ART.md",
+    "AUTHORED_STORY_ART.md",
+    "visual-storytelling/README.md",
+    "viewer-plan.md",
+    "news-reporting.md",
+    "explanatory-animation.md",
+    "CREATIVE_DIRECTION.md",
+    "ART_DIRECTION.md",
+    "AUTONOMOUS_COMPLETION.md",
+    "scene-builder.md",
+    "claude_routine.md",
+    "claude_runtime.json",
+    "modern_film.json",
+    "story_art.json",
+    "authored_story_art.json",
+    "art_direction.json",
+    "cinematic_reference_bank.json",
+    "autonomous_completion_v2.json",
+    "autonomous_completion_narration_v1.json",
+    "source_validation_completion_v1.json",
+    "AGENTS.md",
+    "modern_episode_registry.json",
+    "documentary.json",
+    "DAILY_PRODUCTION.md"
+  ],
+  "not_read": [
+    "out/dispatch/openings/a.json",
+    "out/dispatch/openings/b.json",
+    "storyboard.json (story_contract, narration_picture)",
+    "claims.json",
+    "story_selection.json",
+    "comparison.json",
+    "renderer sources"
+  ],
+  "owner_standing_notes_disclosure": "Unadjudicated. I can't judge the B1 banner, the B2 chip glow or the B3 cards: the A pages for the opening, chip and banner intervals (0.0 to 27.8 s) were stripped and no B page was read. Of the tail, I saw A 57.0 to 59.8 s only. That shows the dashed station outline, the 'Deployment goal' and 'Field result None reported' tags, and the technician tilting a sheet at waist level. No insertion into a case was visible before the cut to credits at 59.4 s. This is a factual access note, not a finding.",
+  "next_step_for_director": "Keep this response and the original reservation. Follow the media-limit route in prompts/claude_routine.md (independent_review.py --prepare-media-limit with this probe image, packet, coverage and handback), or a charged same-worker content follow-up under that route. Do not treat the delivered A pages as review evidence.",
+  "coverage": {
+    "schema": "dispatch_claude_image_coverage/1",
+    "packet_sha256": "54f7c26a1a66a6b56ead10ce78268af7df285ab943025abadf0aa7648f2e76dd",
+    "sequences": [
+      {
+        "option": "a",
+        "index_sha256": "48c4822e9329d953a6b4ad4901638b7cb672c99cb4e17f89eb8d9b4593c16814",
+        "pages": [
+          {
+            "file": "sequence-000.png",
+            "first_frame": 0,
+            "last_frame": 24,
+            "received": false,
+            "observed": "Probe. Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-001.png",
+            "first_frame": 30,
+            "last_frame": 54,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-002.png",
+            "first_frame": 60,
+            "last_frame": 84,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-003.png",
+            "first_frame": 90,
+            "last_frame": 114,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-004.png",
+            "first_frame": 120,
+            "last_frame": 144,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-005.png",
+            "first_frame": 150,
+            "last_frame": 174,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-006.png",
+            "first_frame": 180,
+            "last_frame": 204,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-007.png",
+            "first_frame": 210,
+            "last_frame": 234,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-008.png",
+            "first_frame": 240,
+            "last_frame": 264,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-009.png",
+            "first_frame": 270,
+            "last_frame": 294,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-010.png",
+            "first_frame": 300,
+            "last_frame": 324,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-011.png",
+            "first_frame": 330,
+            "last_frame": 354,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-012.png",
+            "first_frame": 360,
+            "last_frame": 384,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-013.png",
+            "first_frame": 390,
+            "last_frame": 414,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-014.png",
+            "first_frame": 420,
+            "last_frame": 444,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-015.png",
+            "first_frame": 450,
+            "last_frame": 474,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-016.png",
+            "first_frame": 480,
+            "last_frame": 504,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-017.png",
+            "first_frame": 510,
+            "last_frame": 534,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-018.png",
+            "first_frame": 540,
+            "last_frame": 564,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-019.png",
+            "first_frame": 570,
+            "last_frame": 594,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-020.png",
+            "first_frame": 600,
+            "last_frame": 624,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-021.png",
+            "first_frame": 630,
+            "last_frame": 654,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-022.png",
+            "first_frame": 660,
+            "last_frame": 684,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-023.png",
+            "first_frame": 690,
+            "last_frame": 714,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-024.png",
+            "first_frame": 720,
+            "last_frame": 744,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-025.png",
+            "first_frame": 750,
+            "last_frame": 774,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-026.png",
+            "first_frame": 780,
+            "last_frame": 804,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-027.png",
+            "first_frame": 810,
+            "last_frame": 834,
+            "received": false,
+            "observed": "Not received: Read returned literal '[media removed: request limit]'; no pixels seen."
+          },
+          {
+            "file": "sequence-028.png",
+            "first_frame": 840,
+            "last_frame": 864,
+            "received": true,
+            "observed": "Station on post at left over a flooded bungalow street running to a small hub with a mast. Yellow radio ellipses travel down the street, then fade by 28.8 s. Caption: 'Its radio signal can carry more than a half-mile in streets.'"
+          },
+          {
+            "file": "sequence-029.png",
+            "first_frame": 870,
+            "last_frame": 894,
+            "received": true,
+            "observed": "Rings gone. A dashed scale marker rises mid-street from 29.2 s and an orange tag 'More than a half-mile' swings in at 29.4 to 29.8 s. The hub mast lamp starts to light at 29.8 s."
+          },
+          {
+            "file": "sequence-030.png",
+            "first_frame": 900,
+            "last_frame": 924,
+            "received": true,
+            "observed": "Static hold on the half-mile tag and lit hub lamp on the same street framing. The caption clears at 30.8 s. No other change."
+          },
+          {
+            "file": "sequence-031.png",
+            "first_frame": 930,
+            "last_frame": 954,
+            "received": true,
+            "observed": "Street at 31.0 s, then a cut at 31.2 s to green open country: a beige 'Hub' building with mast, chain fence and two trees, plus a 'Station' inset card at top left. Yellow arcs grow from the inset. Caption: 'In open country, up to five miles, to a hub.'"
+          },
+          {
+            "file": "sequence-032.png",
+            "first_frame": 960,
+            "last_frame": 984,
+            "received": true,
+            "observed": "Arcs multiply across the sky and the orange tag 'Up to five miles in open country' swings in at 32.2 to 32.4 s. The mast lamp glows and the hub window lights at 32.6 s."
+          },
+          {
+            "file": "sequence-033.png",
+            "first_frame": 990,
+            "last_frame": 1014,
+            "received": true,
+            "observed": "Hold on the same open-country frame with concentric arcs pulsing, the tag fixed and the hub window lit. No new object or information."
+          },
+          {
+            "file": "sequence-034.png",
+            "first_frame": 1020,
+            "last_frame": 1044,
+            "received": true,
+            "observed": "Same hold with arcs pulsing and the hub lit. The caption clears at 34.8 s."
+          },
+          {
+            "file": "sequence-035.png",
+            "first_frame": 1050,
+            "last_frame": 1074,
+            "received": true,
+            "observed": "Open country to 35.2 s, then a cut to the hub interior: a seated responder in navy at a desk with keyboard, mug and notes faces a monitor titled 'Flood path map' with a blue creek on a street grid. Disclosure: 'Illustration. Not a real hub'. Caption: 'At the hub, a second, larger AI maps'."
+          },
+          {
+            "file": "sequence-036.png",
+            "first_frame": 1080,
+            "last_frame": 1104,
+            "received": true,
+            "observed": "Tag 'A second, larger model' swings in at top right. Yellow dots appear along the monitor's creek line from 36.2 s. The responder's hands are at the keyboard. The same caption continues."
+          },
+          {
+            "file": "sequence-037.png",
+            "first_frame": 1110,
+            "last_frame": 1134,
+            "received": true,
+            "observed": "Near-static hold on the desk shot. The dots stay on the creek line and the responder's hands shift slightly at the keyboard, with the tag fixed."
+          },
+          {
+            "file": "sequence-038.png",
+            "first_frame": 1140,
+            "last_frame": 1164,
+            "received": true,
+            "observed": "Desk at 38.0 s, then a cut at 38.2 s to the full-frame monitor map. An orange path overwrites the blue creek from the left by 38.6 s, and orange branches run down side streets by 38.8 s. Caption: 'flood paths for responders.'"
+          },
+          {
+            "file": "sequence-039.png",
+            "first_frame": 1170,
+            "last_frame": 1194,
+            "received": true,
+            "observed": "Completed orange branch network held. At 39.6 s a 'Higher risk' legend and a tag 'For emergency responders' appear, and faint dashed yellow boxes are drawn around three low areas by 39.8 s."
+          },
+          {
+            "file": "sequence-040.png",
+            "first_frame": 1200,
+            "last_frame": 1224,
+            "received": true,
+            "observed": "Static hold on the finished map with faint dashed zones. The caption clears at 40.4 s and no other change follows."
+          },
+          {
+            "file": "sequence-041.png",
+            "first_frame": 1230,
+            "last_frame": 1254,
+            "received": true,
+            "observed": "Cut to a roofed cork notice board on posts over a flooded lawn and street. A pinned card 'Validation accuracy' with an empty bar and 'Reported by the university' pins in at 41.2 s. Caption: 'The university reports early chip AI validation.' A ring marker appears at the bar start at 41.8 s."
+          },
+          {
+            "file": "sequence-042.png",
+            "first_frame": 1260,
+            "last_frame": 1284,
+            "received": true,
+            "observed": "The ring marker drives the bar fill orange from left to right across 42.0 to 42.8 s until full. The same caption continues."
+          },
+          {
+            "file": "sequence-043.png",
+            "first_frame": 1290,
+            "last_frame": 1314,
+            "received": true,
+            "observed": "The bar is full and the ring fades at the right end. A blue pin appears at the card's top right at 43.6 s. Otherwise static."
+          },
+          {
+            "file": "sequence-044.png",
+            "first_frame": 1320,
+            "last_frame": 1344,
+            "received": true,
+            "observed": "Static board with the full bar card. The caption clears at 44.6 s and no change follows."
+          },
+          {
+            "file": "sequence-045.png",
+            "first_frame": 1350,
+            "last_frame": 1374,
+            "received": true,
+            "observed": "The camera tightens on the card. '98.82%' fades in at 45.4 to 45.6 s with the caption 'Accuracy was ninety eight point eight two percent.' A second paper tag begins dropping at 45.8 s."
+          },
+          {
+            "file": "sequence-046.png",
+            "first_frame": 1380,
+            "last_frame": 1404,
+            "received": true,
+            "observed": "Tag 'Initial assessments after training' settles below the accuracy card, then holds. The same caption continues."
+          },
+          {
+            "file": "sequence-047.png",
+            "first_frame": 1410,
+            "last_frame": 1434,
+            "received": true,
+            "observed": "A blank lined card titled 'Field result' slides in from the right at 47.4 to 47.6 s and a yellow pin appears on it at 47.8 s."
+          },
+          {
+            "file": "sequence-048.png",
+            "first_frame": 1440,
+            "last_frame": 1464,
+            "received": true,
+            "observed": "Static hold on the three cards (accuracy 98.82%, initial assessments tag, blank field result). The caption clears at 48.6 s."
+          },
+          {
+            "file": "sequence-049.png",
+            "first_frame": 1470,
+            "last_frame": 1494,
+            "received": true,
+            "observed": "Cut at 49.2 s to a wider board with a standing technician in a green coat holding a rubber stamp over a blue pad. Disclosure: 'Illustration. Not a real report or map'. Caption: 'The announcement reports no field result.' The arm starts raising the stamp at 49.8 s."
+          },
+          {
+            "file": "sequence-050.png",
+            "first_frame": 1500,
+            "last_frame": 1524,
+            "received": true,
+            "observed": "The technician's straight arm carries the stamp up across the cards, sweeping over the initial-assessments tag. At 50.6 s the stamp meets the field result card and a 'None reported' impression appears. The arm withdraws at 50.8 s."
+          },
+          {
+            "file": "sequence-051.png",
+            "first_frame": 1530,
+            "last_frame": 1554,
+            "received": true,
+            "observed": "The stamp arm swings back down across the cards to waist height, and both hands rest at the sides by 51.6 s. 'None reported' remains on the card."
+          },
+          {
+            "file": "sequence-052.png",
+            "first_frame": 1560,
+            "last_frame": 1584,
+            "received": true,
+            "observed": "Board at 52.0 s, then a cut to the same technician beside a chain link fence post, with flood water, lawn and a city skyline behind. A blank paper map with a grid and blue creek line pins onto the fence at 52.8 s. Caption: 'It names no town with an installed station.'"
+          },
+          {
+            "file": "sequence-053.png",
+            "first_frame": 1590,
+            "last_frame": 1614,
+            "received": true,
+            "observed": "The technician raises an arm and traces a finger along the creek line from 53.2 to 53.6 s, then points up at blank grid cells at 53.8 s. The map shows tiny empty pin holes."
+          },
+          {
+            "file": "sequence-054.png",
+            "first_frame": 1620,
+            "last_frame": 1644,
+            "received": true,
+            "observed": "The finger points at blank cells. A dark tag 'Announcement names no installation' drops onto the map at 54.4 s and the arm lowers. The caption clears at 54.8 s."
+          },
+          {
+            "file": "sequence-055.png",
+            "first_frame": 1650,
+            "last_frame": 1674,
+            "received": true,
+            "observed": "Fence-map hold to 55.4 s, then a cut to a curb wide shot: a small technician holding a white sheet and a dark case stands by a porch in flood water, beside a dashed outline of a station on a post near a large oak and fence. Caption: 'Deployment is still the goal.'"
+          },
+          {
+            "file": "sequence-056.png",
+            "first_frame": 1680,
+            "last_frame": 1704,
+            "received": true,
+            "observed": "The technician lifts a sheet labeled deployment plan. A yellow ellipse draws around the dashed station outline from 56.4 s and a tag 'Field result None reported' swings in at 56.6 to 56.8 s."
+          },
+          {
+            "file": "sequence-057.png",
+            "first_frame": 1710,
+            "last_frame": 1734,
+            "received": true,
+            "observed": "An orange tag 'Deployment goal' drops above the field result tag at 57.0 to 57.2 s. The caption clears at 57.4 s. The technician tilts and lowers the sheet at 57.6 to 57.8 s, and the dashed outline stays legible."
+          },
+          {
+            "file": "sequence-058.png",
+            "first_frame": 1740,
+            "last_frame": 1764,
+            "received": true,
+            "observed": "The technician holds the tilted, apparently folded sheet at waist height in front of the body. The case stays at the side, with no visible insertion or closing. Both tags and the dashed ringed outline are held."
+          },
+          {
+            "file": "sequence-059.png",
+            "first_frame": 1770,
+            "last_frame": 1794,
+            "received": true,
+            "observed": "The curb hold continues to 59.2 s with the sheet still in hand, then a cut at 59.4 s to the dark credits card: flag, 'Texas AI Docket', texasaidocket.com, the UT San Antonio Today September 8th source, illustration, map and music credits."
+          },
+          {
+            "file": "sequence-060.png",
+            "first_frame": 1800,
+            "last_frame": 1824,
+            "received": true,
+            "observed": "Static dark credits card: Texas flag, Texas AI Docket wordmark, texasaidocket.com, then the sources, illustration, map and Kevin MacLeod music credits. Identical across samples."
+          },
+          {
+            "file": "sequence-061.png",
+            "first_frame": 1830,
+            "last_frame": 1854,
+            "received": true,
+            "observed": "The same static credits card, unchanged, with the flag, wordmark, URL and the full source and music credit lines."
+          },
+          {
+            "file": "sequence-062.png",
+            "first_frame": 1860,
+            "last_frame": 1884,
+            "received": true,
+            "observed": "The same static credits card continues, unchanged across all five samples."
+          },
+          {
+            "file": "sequence-063.png",
+            "first_frame": 1890,
+            "last_frame": 1914,
+            "received": true,
+            "observed": "The same static credits card continues, unchanged across all five samples."
+          },
+          {
+            "file": "sequence-064.png",
+            "first_frame": 1920,
+            "last_frame": 1931,
+            "received": true,
+            "observed": "Final three samples to frame 1931 at 64.367 s: the same static credits card with the flag, Texas AI Docket, texasaidocket.com and the credit lines."
+          }
+        ]
+      },
+      {
+        "option": "b",
+        "index_sha256": "ad0d9dbc1287e2e425072f70705d606af57064368405ac9a790f63e58f088077",
+        "pages": [
+          {
+            "file": "sequence-000.png",
+            "first_frame": 0,
+            "last_frame": 24,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-001.png",
+            "first_frame": 30,
+            "last_frame": 54,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-002.png",
+            "first_frame": 60,
+            "last_frame": 84,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-003.png",
+            "first_frame": 90,
+            "last_frame": 114,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-004.png",
+            "first_frame": 120,
+            "last_frame": 144,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-005.png",
+            "first_frame": 150,
+            "last_frame": 174,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-006.png",
+            "first_frame": 180,
+            "last_frame": 204,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-007.png",
+            "first_frame": 210,
+            "last_frame": 234,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-008.png",
+            "first_frame": 240,
+            "last_frame": 264,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-009.png",
+            "first_frame": 270,
+            "last_frame": 294,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-010.png",
+            "first_frame": 300,
+            "last_frame": 324,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-011.png",
+            "first_frame": 330,
+            "last_frame": 354,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-012.png",
+            "first_frame": 360,
+            "last_frame": 384,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-013.png",
+            "first_frame": 390,
+            "last_frame": 414,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-014.png",
+            "first_frame": 420,
+            "last_frame": 444,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-015.png",
+            "first_frame": 450,
+            "last_frame": 474,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-016.png",
+            "first_frame": 480,
+            "last_frame": 504,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-017.png",
+            "first_frame": 510,
+            "last_frame": 534,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-018.png",
+            "first_frame": 540,
+            "last_frame": 564,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-019.png",
+            "first_frame": 570,
+            "last_frame": 594,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-020.png",
+            "first_frame": 600,
+            "last_frame": 624,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-021.png",
+            "first_frame": 630,
+            "last_frame": 654,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-022.png",
+            "first_frame": 660,
+            "last_frame": 684,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-023.png",
+            "first_frame": 690,
+            "last_frame": 714,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-024.png",
+            "first_frame": 720,
+            "last_frame": 744,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-025.png",
+            "first_frame": 750,
+            "last_frame": 774,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-026.png",
+            "first_frame": 780,
+            "last_frame": 804,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-027.png",
+            "first_frame": 810,
+            "last_frame": 834,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-028.png",
+            "first_frame": 840,
+            "last_frame": 864,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-029.png",
+            "first_frame": 870,
+            "last_frame": 894,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-030.png",
+            "first_frame": 900,
+            "last_frame": 924,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-031.png",
+            "first_frame": 930,
+            "last_frame": 954,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-032.png",
+            "first_frame": 960,
+            "last_frame": 984,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-033.png",
+            "first_frame": 990,
+            "last_frame": 1014,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-034.png",
+            "first_frame": 1020,
+            "last_frame": 1044,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-035.png",
+            "first_frame": 1050,
+            "last_frame": 1074,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-036.png",
+            "first_frame": 1080,
+            "last_frame": 1104,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-037.png",
+            "first_frame": 1110,
+            "last_frame": 1134,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-038.png",
+            "first_frame": 1140,
+            "last_frame": 1164,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-039.png",
+            "first_frame": 1170,
+            "last_frame": 1194,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-040.png",
+            "first_frame": 1200,
+            "last_frame": 1224,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-041.png",
+            "first_frame": 1230,
+            "last_frame": 1254,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-042.png",
+            "first_frame": 1260,
+            "last_frame": 1284,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-043.png",
+            "first_frame": 1290,
+            "last_frame": 1314,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-044.png",
+            "first_frame": 1320,
+            "last_frame": 1344,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-045.png",
+            "first_frame": 1350,
+            "last_frame": 1374,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-046.png",
+            "first_frame": 1380,
+            "last_frame": 1404,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-047.png",
+            "first_frame": 1410,
+            "last_frame": 1434,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-048.png",
+            "first_frame": 1440,
+            "last_frame": 1464,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-049.png",
+            "first_frame": 1470,
+            "last_frame": 1494,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-050.png",
+            "first_frame": 1500,
+            "last_frame": 1524,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-051.png",
+            "first_frame": 1530,
+            "last_frame": 1554,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-052.png",
+            "first_frame": 1560,
+            "last_frame": 1584,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-053.png",
+            "first_frame": 1590,
+            "last_frame": 1614,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-054.png",
+            "first_frame": 1620,
+            "last_frame": 1644,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-055.png",
+            "first_frame": 1650,
+            "last_frame": 1674,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-056.png",
+            "first_frame": 1680,
+            "last_frame": 1704,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-057.png",
+            "first_frame": 1710,
+            "last_frame": 1734,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-058.png",
+            "first_frame": 1740,
+            "last_frame": 1764,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-059.png",
+            "first_frame": 1770,
+            "last_frame": 1794,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-060.png",
+            "first_frame": 1800,
+            "last_frame": 1824,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-061.png",
+            "first_frame": 1830,
+            "last_frame": 1854,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-062.png",
+            "first_frame": 1860,
+            "last_frame": 1884,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-063.png",
+            "first_frame": 1890,
+            "last_frame": 1914,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          },
+          {
+            "file": "sequence-064.png",
+            "first_frame": 1920,
+            "last_frame": 1931,
+            "received": false,
+            "observed": "Not attempted. The review stopped as partial after the probe returned the literal media-limit error."
+          }
+        ]
+      }
+    ]
+  }
+}

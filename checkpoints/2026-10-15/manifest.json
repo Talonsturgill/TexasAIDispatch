@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-18T01:16:12.795446+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-18T01:32:29.347349+00:00",
+  "note": "recover",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -184,8 +184,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "b2c6c94fb90407d810d26e5ab8b1e3e86d44c890aa9ee82d973dd412aeac4e8c",
-      "size": 52683
+      "sha256": "34b85b96675b87118d50dcbd8d178232acace355f5c45135af4cd63858400cd8",
+      "size": 54130
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -1350,6 +1350,12 @@
       "class": "scratch",
       "sha256": "b3c63de60ca574ac2d5a62f0a8ce22992777a3617221f46ae7d3cf863a60865b",
       "size": 961
+    },
+    {
+      "path": "out/dispatch/checkpoint-unbacked.json",
+      "class": "scratch",
+      "sha256": "800f696713b1e4931242135cf83e48dc03001ef707571b96fccae31ebe606f58",
+      "size": 212
     },
     {
       "path": "out/dispatch/cinema/hero-review-response.json",
@@ -17972,10 +17978,22 @@
       "size": 2007
     },
     {
+      "path": "out/dispatch/evidence/r15h/phone-critic-final-prompt-r15h-cmp.txt",
+      "class": "scratch",
+      "sha256": "3fa65e9eb019993b1f1b77347cd17efc8fe40cd4e337fcc45b914aed19ccf266",
+      "size": 2590
+    },
+    {
       "path": "out/dispatch/evidence/r15h/phone-critic-packet-r15h-cmp.json",
       "class": "scratch",
       "sha256": "54f7c26a1a66a6b56ead10ce78268af7df285ab943025abadf0aa7648f2e76dd",
       "size": 15500
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/phone-media-limit-failure-r15h-cmp.json",
+      "class": "scratch",
+      "sha256": "2df35834bd1dc52894f8bbf907268c3531762923c87b6dac78daccde0f6083e1",
+      "size": 2359
     },
     {
       "path": "out/dispatch/evidence/r15h/picture-panel-report-reissued-verbatim.json",
@@ -18018,6 +18036,12 @@
       "class": "scratch",
       "sha256": "261383aa0a76ca0f22d8202c8b8213ceb05f82f3f4961d51ba5cc850557c078f",
       "size": 505
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/prepare-media-limit-cmp.log",
+      "class": "scratch",
+      "sha256": "353c4fd0f64b1fe7c67f9f5952e779b28e83632844a37c89d907213b3d3d2bf1",
+      "size": 106
     },
     {
       "path": "out/dispatch/evidence/r15h/prior-critics-before-third/opening-a-critic.json",
@@ -18246,6 +18270,36 @@
       "class": "scratch",
       "sha256": "5ddeca1dc96b7ced634376779d2c0025696ef21a2bcbd37fa58bc17d9d480fcc",
       "size": 2941192
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/review-phone-compare/image-coverage.json",
+      "class": "scratch",
+      "sha256": "10e6e7123eaf8f74827daf65fb78dbc7847dc91e75e6bca7267e84df194530d5",
+      "size": 38175
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/review-phone-compare/partial-handback-verbatim.txt",
+      "class": "scratch",
+      "sha256": "264bb551a094f073d5ce3a4170bbc8886ea7b750c96cda20016eb00082a533c0",
+      "size": 36248
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/review-phone-compare/partial-report.json",
+      "class": "scratch",
+      "sha256": "9ce4a822eb140935a959a858d1ebef6a8fda1d0df34908eb7f3bbf5ad0e0774a",
+      "size": 43810
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/review-phone-compare/transcript-ORIGINAL-NOTE.txt",
+      "class": "scratch",
+      "sha256": "ced67c47517ba5d010286e7b128158a03b345805163153a7fbe5afa3f42d68fc",
+      "size": 412
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/review-phone-compare/transcript.sanitized.jsonl",
+      "class": "scratch",
+      "sha256": "29605205b9aba4b88acecc8cb14b0d60ac927155922c7b4abba4d4543abd76d8",
+      "size": 1567243
     },
     {
       "path": "out/dispatch/evidence/r15h/review-pivot-code/code-handoff.json",
@@ -20391,6 +20445,12 @@
     },
     {
       "path": "out/dispatch/independent-review-cache/3d1d53aa128026c85c26cf0df37eb2747fc58310e25481ff24c0847f43e77bab/transport.lock",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/independent-review-cache/45e26ec939c81032c83e06007e5836b7ecd76241b6225b1ebc9c53a2c2a62a0b/transport.lock",
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
