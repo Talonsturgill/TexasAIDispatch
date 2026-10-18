@@ -12268,6 +12268,20 @@
         "reported_tokens exceeds the nonrenewable run envelope"
       ],
       "kind": "resource_envelope_refused"
+    },
+    {
+      "at": "2026-10-18T04:17:29.229067Z",
+      "kind": "observed_token_overage",
+      "refusal": "reported_tokens exceeds the nonrenewable run envelope; preserve the film and resolve the recorded production plan",
+      "tokens": 269486
+    },
+    {
+      "at": "2026-10-18T04:17:29.229110Z",
+      "elapsed_ms": 126460,
+      "kind": "telemetry",
+      "note": "1d32f8bc-230b-432d-82ad-b6f8fc4fae48 independent picture",
+      "reported_tokens": 269486,
+      "resource": "audiovisual_reviews"
     }
   ],
   "limits": {
@@ -12291,7 +12305,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6d09f1601ff6f3bd4681d1e263a430ca41073b0d047d9072486c372365b85fc0",
+    "original_private_state_sha256": "0da4dcc225d103b238d7c47d4982523a54b642f90c13e2ff49db3f833ada9dac",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -12327,7 +12341,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-18T04:17:18.563094Z",
+  "updated_at": "2026-10-18T04:17:29.229114Z",
   "usage": {
     "audiovisual_reviews": 26,
     "cleanup_renders": 0,
@@ -12336,7 +12350,7 @@
     "panel_rounds": 2,
     "preflight_renders": 54,
     "reboards": 14,
-    "reported_tokens": 2810718,
+    "reported_tokens": 3080204,
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 6,
