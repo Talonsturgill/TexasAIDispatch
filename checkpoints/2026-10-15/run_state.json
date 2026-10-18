@@ -1084,6 +1084,14 @@
       "note": "R15h precharged third code-content check of pass-4 candidate (A/storyboard b7d3d14a, B b2d64369, Film ac1332a3) resuming critic 44, message sha 244d7e1f",
       "resource": "storyboard_critics",
       "to": 46
+    },
+    {
+      "at": "2026-10-18T01:01:27.717539Z",
+      "ceiling": 53,
+      "from": 45,
+      "note": "capture authorization reservation for opening comparison",
+      "resource": "preflight_renders",
+      "to": 46
     }
   ],
   "events": [
@@ -10606,6 +10614,24 @@
       "repair_revision": "0deaef8c7607c692f4ffd5ab032c5f5a7f3c5f6b87f4f8b2f196b7a39b8a5aff",
       "repair_scope": "standard",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-18T01:01:27.717569Z",
+      "ceiling": 53,
+      "kind": "budget_escalated",
+      "note": "capture authorization reservation for opening comparison",
+      "now": 46,
+      "resource": "preflight_renders",
+      "was": 45
+    },
+    {
+      "at": "2026-10-18T01:01:27.717583Z",
+      "kind": "reserved",
+      "note": "capture authorization reservation for opening comparison",
+      "preflight_identity": "86c8c72b69bb3debf5a16c68e7ef472cfd20c3df78ad8e0bea4e32f6de6d5ed3",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -10614,7 +10640,7 @@
     "full_renders": 4,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 45,
+    "preflight_renders": 46,
     "reboards": 14,
     "reported_tokens": 849907,
     "rescue_renders": 1,
@@ -10630,7 +10656,7 @@
   "preflight_retry": "8bee6240951811171de38977accbb1e4c47edf3fe54ba38c0d912d3a51040d28",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "a8ac702b107bf9c8c13c44a3ac6eefa6b9faad0677a3d9f4fe75cd3752f4b3df",
+    "original_private_state_sha256": "dba3f4944e0a8da241144efa9932ae624ab5956d9a473d0786695b03291759e1",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -10666,14 +10692,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-18T00:59:23.736009Z",
+  "updated_at": "2026-10-18T01:01:27.717586Z",
   "usage": {
     "audiovisual_reviews": 17,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
     "panel_rounds": 1,
-    "preflight_renders": 45,
+    "preflight_renders": 46,
     "reboards": 14,
     "reported_tokens": 1832670,
     "rescue_renders": 0,
