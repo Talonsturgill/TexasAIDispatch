@@ -148,9 +148,14 @@ class ModernCodeRecoveryTest(unittest.TestCase):
     def test_code_comparison_cannot_use_old_incomplete_profile(self):
         request, comparison = self.retained_comparison_request()
         before = self.state.read_bytes()
-        with patch.object(footprint, 'CURRENT_COMPARISON_SCHEMA', footprint.COMPARISON_SCHEMA):
-            with self.assertRaises(ValueError):
-                footprint.prepare_comparison(self.state, request, comparison, self.root / 'old-profile.json')
+        for previous_film in (True, False):
+            plan = json.loads(request.read_text())
+            if not previous_film:
+                plan.pop('failed_film_sha256')
+            request.write_text(json.dumps(plan))
+            with patch.object(footprint, 'CURRENT_COMPARISON_SCHEMA', footprint.COMPARISON_SCHEMA):
+                with self.assertRaises(ValueError):
+                    footprint.prepare_comparison(self.state, request, comparison, self.root / 'old-profile.json')
         self.assertEqual(self.state.read_bytes(), before)
 
     def test_code_comparison_keeps_source_and_retained_movie_checks(self):
