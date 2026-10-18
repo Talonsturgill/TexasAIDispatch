@@ -145,3 +145,12 @@ remain visible. If a completed phone recovery used a shortened transport, carry 
 phone partial into the first mandatory final-native scope. Independently reassess its received-page
 notes on that native film with timed reasons. This supplies no prior grade or permission to skip
 a required observation, and does not repeat or rewrite the completed phone review.
+
+For an actual unavailable final native scorer, the separate final_review_code_context_v1.json
+amendment permits the same verified code-plan inventory at picture, story and sound scope.
+The ordinary code gate must freshly verify the complete current board and both treatments
+against actual renderer bytes and current claims. Carry every original code report and binding.
+Keep full guides, sources, boards, native media, crops, raw audiovisual findings and both original
+phone and failed native partials. Each final role still judges the actual movie independently;
+code provenance supplies no pixel observation, score or film approval. Missing or stale code
+approval retains full callable source. The original phone-only policy and text ceiling stay intact.

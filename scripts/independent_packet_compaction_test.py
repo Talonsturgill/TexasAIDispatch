@@ -160,6 +160,58 @@ class Compaction(unittest.TestCase):
         old = {'date': '2026-10-14'}; relative = Path('out/dispatch/storyboard.json')
         self.assertEqual(compact.current_paths(old, relative, None), (relative, None))
 
+    def final_reports(self):
+        report = self.code_reports()
+        self.write('out/dispatch/claims.json', json.dumps(self.text['claims']))
+        claims_sha = compact.sha(self.package/'claims.json')
+        report['story_review']['claims_sha256'] = claims_sha
+        self.write('out/dispatch/opening-a-critic.json', json.dumps(report))
+        return report, {'claims_sha256': claims_sha}
+
+    def test_final_amendment_retains_full_review_inputs_and_original_code_reports(self):
+        report, bound = self.final_reports(); policy_before = compact.POLICY.read_bytes()
+        with patch('critic_gate.problems', side_effect=self.code_gate), \
+             patch('critic_gate.concept_digest', return_value='concept'), \
+             patch('critic_gate.renderer_digest', side_effect=lambda b: compact.sha(self.repo/self.hero)), \
+             patch('critic_gate.renderer_files', return_value=[self.repo/self.hero, self.repo/self.current]):
+            for role in ('picture','story','sound'):
+                context, bindings = compact.final_code_context(self.text, self.package/'storyboard.json', bound, role)
+                self.assertEqual(compact.sha(compact.FINAL_POLICY), bindings['provider_final_code_context_policy_sha256'])
+                result, _ = compact.compact(context, self.package, role, self.repo)
+                self.assertNotIn(self.hero, result['files'])
+                self.assertNotIn(self.current, result['files'])
+                self.assertEqual(self.guide, result['files']['knowledge/craft/current-guide.md'])
+                self.assertEqual(self.board, result['board'])
+                self.assertEqual(self.text['claims'], result['claims'])
+                self.assertEqual(self.text['retained_host_media_review'], result['retained_host_media_review'])
+                self.assertEqual(report, next(iter(result['verified_code_plan_context']['reports'].values()))['report'])
+                for row in result['verified_code_source_inventory']:
+                    self.assertEqual(compact.sha(self.repo/row['path']), row['sha256'])
+                self.assertEqual(result, compact.compact(result, self.package, role, self.repo)[0])
+            self.assertEqual(self.text, compact.final_code_context(self.text, self.package/'storyboard.json', bound, 'code')[0])
+            historical = copy.deepcopy(self.text); historical['board']['date'] = '2026-10-14'
+            self.assertEqual(historical, compact.final_code_context(historical,self.package/'storyboard.json',bound,'picture')[0])
+        self.assertEqual(policy_before, compact.POLICY.read_bytes())
+
+    def test_final_inventory_refuses_stale_code_claims_reports_or_amendment(self):
+        report, bound = self.final_reports()
+        with patch('critic_gate.problems', side_effect=self.code_gate), \
+             patch('critic_gate.concept_digest', return_value='concept'), \
+             patch('critic_gate.renderer_digest', side_effect=lambda b: compact.sha(self.repo/self.hero)), \
+             patch('critic_gate.renderer_files', return_value=[self.repo/self.hero, self.repo/self.current]):
+            context, _ = compact.final_code_context(self.text,self.package/'storyboard.json',bound,'picture')
+            result, _ = compact.compact(context,self.package,'picture',self.repo)
+            changed = copy.deepcopy(result)
+            changed['verified_code_plan_context']['reports']['opening-a-critic.json']['report']['notes'] = 'Edited finding'
+            with self.assertRaisesRegex(ValueError,'stale or changed'): compact.compact(changed,self.package,'picture',self.repo)
+            changed = copy.deepcopy(result); changed['verified_code_plan_context']['final_policy_sha256'] = 'f'*64
+            with self.assertRaisesRegex(ValueError,'amendment changed'): compact.compact(changed,self.package,'picture',self.repo)
+            self.write(self.hero, 'changed renderer bytes')
+            unverified, bindings = compact.final_code_context(self.text,self.package/'storyboard.json',bound,'picture')
+            self.assertEqual(self.text,unverified)
+            self.assertNotIn('provider_final_code_context_policy_sha256',bindings)
+            with self.assertRaisesRegex(ValueError,'stale or changed'): compact.compact(result,self.package,'picture',self.repo)
+
     def test_stale_missing_wrong_claims_or_phone_verdict_keeps_full_source(self):
         report = self.code_reports()
         with patch('critic_gate.problems', side_effect=self.code_gate):

@@ -616,10 +616,12 @@ def packet_json(text):
 
 
 def bounded_packet(text, board_path, role, bindings):
-    from independent_packet_compaction import compact, phone_code_context, current_paths
+    from independent_packet_compaction import compact, phone_code_context, final_code_context, current_paths
     board_path, = current_paths(text.get('board', {}), board_path)
     if role == 'phone':
         text, bindings = phone_code_context(text, board_path, bindings)
+    elif role in ('picture', 'story', 'sound'):
+        text, bindings = final_code_context(text, board_path, bindings, role)
     text, policy_sha = compact(text, board_path.parent, role, REPO)
     if policy_sha is not None:
         bindings = {**bindings, 'provider_packet_compaction_sha256': policy_sha}
@@ -952,7 +954,11 @@ def prompt(role, text):
             'verified the complete original independent code-plan reports for every current board and '
             'both treatments against current concepts, renderer bytes and claims. Those full reports '
             'are included only as code provenance. They supply no pixel observations, selection or '
-            'film verdict. Independently watch both movies and apply every current visual criterion. ')
+            'film verdict. Independently inspect all assigned current media and apply every current visual criterion. ')
+        if text['verified_code_plan_context'].get('final_policy_sha256'):
+            instruction += ('The separate final_review_code_context_v1 amendment authorizes this '
+                'code-provenance representation at final native scope. It changes no guide, source '
+                'finding, media observation, score or approval. Judge the exact native film independently. ')
     if text.get('retained_host_media_review'):
         instruction += ('Inspect the actual movies first, then the retained partial host review. '
             'Treat its retracted or unseen-image claims as unobserved. Explicitly reassess its received-pixel '
