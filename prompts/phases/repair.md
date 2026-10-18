@@ -243,6 +243,15 @@ Keep the existing opening reboard and all original grant counts. If a real new f
 the remaining path, use its fresh independent admission.
 A funding table never supplies a passing review or waives a quality or shipment gate.
 
+If admission refuses a combined code handoff or string-only finding, preserve the exact error
+and the original response. Use the unchanged individual treatment report. If its category,
+scene and time are already explicit, resume the same critic only to encode those existing facts
+in the required object fields, keeping the full defect text and verdict unchanged. Retain that
+native format-only response and its actual API usage. A new classification or changed-candidate
+assessment is substantive and needs a fresh reservation. Never write an independent grade or
+category for the critic, relabel the failure, or ask the owner to choose an internal schema or
+admission path. Repair a remaining contract defect through normal source review and CI.
+
 ```sh
 python scripts/capture_completion_budget.py --state out/dispatch/run_state.json --plan <new-independent-mandatory-or-finish-plan> --comparison <retained-package>/comparison.json --output out/dispatch/comparison-completion-plan.json
 python scripts/run_controller.py --state out/dispatch/run_state.json completion-capacity --repair-plan out/dispatch/comparison-completion-plan.json

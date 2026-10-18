@@ -43,6 +43,14 @@ Apply the fixed criteria in config/quality_contract.json and the current rubric.
 specific failed criterion for each blocking defect. Require revision when it fails; a weakest
 interval or a personal preference alone does not require another attempt.
 
+At code scope, encode each `blocking_defects` entry as an object with `category`, `scene_id`,
+numeric `time_s` and the full specific `defect` text. Keep the failed rubric criterion explicit.
+Use the existing category supported by the actual finding. The modern floor categories are
+`motion`, `surface_finish`, `pacing` and `ending_artistry`; source and integrity findings keep
+their existing categories. Do not return these findings only as strings or bury them in notes.
+Each A/B code report must stand alone inside a combined handoff, with its original assessment
+and exact bindings. Optional preferences remain notes, never invented mandatory categories.
+
 ## What you are looking for
 
 **Genuine divergence, not a relabel.** Two scenes that both say "wide establishing shot" with
