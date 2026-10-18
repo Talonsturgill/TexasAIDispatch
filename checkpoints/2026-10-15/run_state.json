@@ -1252,6 +1252,14 @@
       "note": "independent transport picture",
       "resource": "audiovisual_reviews",
       "to": 24
+    },
+    {
+      "at": "2026-10-18T04:14:15.657106Z",
+      "ceiling": 43,
+      "from": 24,
+      "note": "independent transport story",
+      "resource": "audiovisual_reviews",
+      "to": 25
     }
   ],
   "events": [
@@ -11790,10 +11798,28 @@
       "resources": {
         "audiovisual_reviews": 1
       }
+    },
+    {
+      "at": "2026-10-18T04:14:15.657142Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "independent transport story",
+      "now": 25,
+      "resource": "audiovisual_reviews",
+      "was": 24
+    },
+    {
+      "at": "2026-10-18T04:14:15.657157Z",
+      "kind": "reserved",
+      "note": "independent transport story",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
     }
   ],
   "limits": {
-    "audiovisual_reviews": 24,
+    "audiovisual_reviews": 25,
     "cleanup_renders": 1,
     "full_renders": 5,
     "image_generations": 2,
@@ -11813,7 +11839,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "be7f9b4675f0f97e3b09bb60550e3175928a4e328f6d42b25e00a1fae272b0a2",
+    "original_private_state_sha256": "2e0ff10969ae676ee75afb491302fdf4a0bc7244acfe78fc6f9a4c7f4813b37c",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -11849,9 +11875,9 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-18T04:13:53.984754Z",
+  "updated_at": "2026-10-18T04:14:15.657161Z",
   "usage": {
-    "audiovisual_reviews": 24,
+    "audiovisual_reviews": 25,
     "cleanup_renders": 0,
     "full_renders": 5,
     "image_generations": 0,
