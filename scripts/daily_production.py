@@ -485,6 +485,13 @@ def packet(board_path, claims_path, role, state_path=None):
                 data["opening_" + name.split(".")[0]] = {"path": str(path.resolve()), "sha256": digest(path)}
     if role in ("picture", "story", "sound"):
         root = Path(board_path).parent
+        from independent_review import prior_phone_partial_context
+        retained = prior_phone_partial_context(board_path, claims_path, include_text=False)
+        if retained:
+            data['retained_phone_host_context'] = retained
+            data['instructions'] += (' After watching the whole native film, read the bound original '
+                'phone partial and coverage, and explicitly reassess received-page notes on the native '
+                'movie with timed reasons. Keep retractions and unknowns; this supplies no prior grade.')
         if claude_route:
             import claude_motion_review
             sequence = root / 'motion-review' / 'index.json'

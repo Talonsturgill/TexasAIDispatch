@@ -191,7 +191,7 @@ class Compaction(unittest.TestCase):
                              {'$text': ['original', 'field']}, True, 1, -0.0],
                  'packet_compaction': {'version': 'current'}}
         before = copy.deepcopy(value); encoded = compact.encode_shared(value)
-        self.assertEqual(encoded['schema'], compact.SHARED_SCHEMA)
+        self.assertIn(encoded['schema'], (compact.SHARED_SCHEMA, compact.KEY_SCHEMA))
         decoded = compact.decode_shared(json.loads(json.dumps(encoded)))
         self.assertEqual(compact.canonical(decoded), compact.canonical(before))
         self.assertEqual(value, before)
@@ -234,11 +234,68 @@ class Compaction(unittest.TestCase):
                 for i in range(1800)]
         value = {'rows': rows}
         encoded = compact.encode_shared(value)
-        self.assertEqual(encoded['schema'], compact.SHARED_SCHEMA)
+        self.assertIn(encoded['schema'], (compact.SHARED_SCHEMA, compact.KEY_SCHEMA))
         self.assertTrue(any(isinstance(item, str) and len(item) == 64
                             for item in encoded['values'].values()))
         self.assertLess(len(compact.canonical(encoded)), len(compact.canonical(value)))
         self.assertEqual(compact.decode_shared(encoded), value)
+
+    def test_repeated_keys_and_literal_control_keys_roundtrip_without_value_loss(self):
+        import hashlib
+        value = {'rows': [{'current_complete_observation': hashlib.sha256(str(i).encode()).hexdigest(),
+                           'retained_original_finding': 'Unique original note '+str(i),
+                           '~0': {'$v': 'literal original'},
+                           '~~literal': {'$text': ['literal original text']},
+                           'literal_control': {'$literal': {'original': i}}}
+                          for i in range(900)]}
+        original = copy.deepcopy(value)
+        encoded = compact.encode_shared(value)
+        self.assertEqual(compact.KEY_SCHEMA, encoded['schema'])
+        self.assertIn('current_complete_observation', encoded['keys'].values())
+        self.assertLess(len(compact.canonical(encoded)), len(compact.canonical(value)))
+        self.assertEqual(original, compact.decode_shared(encoded))
+        self.assertEqual(value, original)
+        self.assertEqual(encoded, compact.encode_shared(value))
+
+    def test_shared_key_table_refuses_tampering_unknown_aliases_and_collisions(self):
+        import hashlib
+        value = {'current_complete_observation': 'Original independent note', 'other': 1}
+        wire = {'schema':compact.KEY_SCHEMA, 'values':{}, 'keys':{'0':'current_complete_observation'},
+                'packet':{'~0':'Original independent note', 'other':1},
+                'original_sha256':hashlib.sha256(compact.canonical(value).encode()).hexdigest()}
+        self.assertEqual(value, compact.decode_shared(wire))
+        for keys, pattern in [({'0':'Changed field'},'complete original input'),
+                              ({},'absent key reference'), ({'0':False},'malformed')]:
+            changed = copy.deepcopy(wire); changed['keys'] = keys
+            with self.assertRaisesRegex(ValueError, pattern): compact.decode_shared(changed)
+        changed = copy.deepcopy(wire)
+        changed['packet']['current_complete_observation'] = 'Duplicate original field'
+        with self.assertRaisesRegex(ValueError, 'duplicate decoded keys'): compact.decode_shared(changed)
+
+    def test_historical_shared_wire_keeps_literal_tilde_keys_unchanged(self):
+        import hashlib
+        original = {'~0': {'$v':'literal original'}, 'notes': ['Original complete finding.']}
+        wire = {'schema':compact.SHARED_SCHEMA, 'values':{'0':'Original complete finding.'},
+                'packet':{'~0':{'$literal':{'$v':'literal original'}}, 'notes':[{'$v':'0'}]},
+                'original_sha256':hashlib.sha256(compact.canonical(original).encode()).hexdigest()}
+        self.assertEqual(original, compact.decode_shared(wire))
+
+    def test_native_handback_keeps_complete_prose_json_fields_and_original_hash(self):
+        import hashlib
+        coverage = {'received':False, 'notes':['Original observation.', 'Later explicit retraction.'],
+                    'unknown':None, 'pages':[{'page':0, 'received':True}, {'page':1, 'received':False}]}
+        prefix = 'Original native notes remain unchanged.\n```json\n'
+        suffix = '\n```\nThe remaining image was unseen.\n'
+        original = prefix+json.dumps(coverage, indent=2)+suffix
+        encoded = compact.native_handback(original)
+        self.assertEqual('dispatch_lossless_native_handback/1', encoded['schema'])
+        self.assertEqual(hashlib.sha256(original.encode()).hexdigest(), encoded['original_sha256'])
+        self.assertEqual([{'text':prefix}, {'json':coverage,
+            'original_sha256':hashlib.sha256(json.dumps(coverage,indent=2).encode()).hexdigest()},
+            {'text':suffix}], encoded['parts'])
+        self.assertEqual('Plain complete original note.', compact.native_handback('Plain complete original note.'))
+        duplicate = '{"note":"Original", "note":"Retraction"}'
+        self.assertEqual(duplicate, compact.native_handback(duplicate))
 
     def test_prior_review_keeps_all_original_findings_and_rechecks_unchanged_artifact(self):
         import independent_review_test as fixtures
