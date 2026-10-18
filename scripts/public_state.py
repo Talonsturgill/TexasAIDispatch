@@ -126,6 +126,80 @@ def private_key_problems(events, key_pattern):
             yield from walk(event, event.get('kind'))
 
 
+def historical_path_projection(state, public, origins, root, codec):
+    """Derive public path labels only from verified, owned historical grant origins.
+
+    This export is separate from the checkpoint codec. Every origin gets a distinct
+    digest label, and expanding those labels must recover the entire prior public
+    object exactly. The private ledger and its frozen evidence are never edited.
+    """
+    candidates = set()
+    owned = ('/out/dispatch/', '/video-engine/', '/assets/', '/config/')
+    for origin in origins:
+        earlier = origin['root']
+        if earlier == str(root):
+            continue
+        grant = state['events'][origin['event_index']]
+        # Owner-message exports have their own irreversible, audited redactions.
+        # They cannot establish a new filesystem projection authority here.
+        if grant.get('kind') in {'owner_review_grant', 'owner_validator_grant'}:
+            continue
+        fields = codec.grant_text_fields(grant)
+        if (codec.grant_anchor(grant) != origin['authorization_sha256']
+                or any(sha(grant[key]) != grant[codec.GRANT_TEXTS[key]] for key in fields)):
+            raise ValueError('public export refused: historical origin lacks exact grant evidence')
+        # An arbitrary ancestor such as /home/user or /tmp is not an owned checkout.
+        if any(earlier + suffix in grant[key] for key in fields for suffix in owned):
+            candidates.add(earlier)
+    result = copy.deepcopy(public)
+    labels = []
+    for earlier in sorted(candidates, key=len, reverse=True):
+        label = '{HISTORICAL_REPO_SHA256_' + sha(earlier) + '}'
+        if label in json.dumps(result):
+            raise ValueError('public export refused: historical path token collision')
+        pattern = re.compile(r'(?<![\w.~/:}-])' + re.escape(earlier) + r'(?=$|[/\s\"\'<>])')
+        count = 0
+        def project(node):
+            nonlocal count
+            if isinstance(node, str):
+                value, changed = pattern.subn(lambda _: label, node)
+                count += changed
+                return value
+            if isinstance(node, list):
+                return [project(value) for value in node]
+            if isinstance(node, dict):
+                return {project(key): project(value) for key, value in node.items()}
+            return node
+        result = project(result)
+        if count:
+            labels.append((label, earlier, count))
+    if not labels:
+        return public
+    restored = result
+    for label, earlier, _ in reversed(labels):
+        restored = _replace_label(restored, label, earlier)
+    if restored != public:
+        raise ValueError('public export refused: historical path projection changed evidence')
+    result['public_export']['historical_path_projection'] = {
+        'schema':'dispatch_public_historical_paths/1',
+        'original_public_projection_sha256':sha(json.dumps(public, sort_keys=True)),
+        'exact_inverse_verified':True,
+        'origins':[{'token':label, 'root_sha256':sha(earlier), 'occurrences':count}
+                   for label, earlier, count in labels]}
+    return result
+
+
+def _replace_label(node, label, original):
+    if isinstance(node, str):
+        return node.replace(label, original)
+    if isinstance(node, list):
+        return [_replace_label(value, label, original) for value in node]
+    if isinstance(node, dict):
+        return {_replace_label(key, label, original):_replace_label(value, label, original)
+                for key, value in node.items()}
+    return node
+
+
 def sanitized_export(state, root):
     """The canonical public export: the derived account, then the project's own sanitizer, then three refusals.
 
@@ -139,7 +213,8 @@ def sanitized_export(state, root):
     charge block, because a key that merely contains a private word would otherwise be replaced by a digest.
     """
     import claude_checkpoint as c
-    text = c.ledger_text(state, root)
+    public, origins = c.public_projection(state, root)
+    text = json.dumps(public, indent=2, sort_keys=True) + '\n'
     if c.SECRET_TEXT.search(text) or any(v in text for v in c.credential_values(os.environ)):
         raise ValueError('public export refused: credential-shaped content in the ledger')
     # Compared against the decoded strings of the output, since JSON escapes a newline, a quote or a backslash.
@@ -150,6 +225,8 @@ def sanitized_export(state, root):
     problem = next(private_key_problems(state.get('events', []), c.PRIVATE_KEY), None)
     if problem:
         raise ValueError('public export refused: the sanitizer would replace protected evidence: ' + problem)
+    public = historical_path_projection(state, public, origins, root, c)
+    text = json.dumps(public, indent=2, sort_keys=True) + '\n'
     found = ABSOLUTE_PATH.search(text)
     if found:
         raise ValueError('public export refused: an absolute local path survived: ' + found.group(0)[:40])
