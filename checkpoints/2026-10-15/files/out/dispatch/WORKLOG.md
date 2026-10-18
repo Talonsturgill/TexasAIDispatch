@@ -201,3 +201,4 @@ R15h builder handback received; files match handback hashes; transcript saved ou
 - 2026-10-18 R15h: native hero proof done (55 jobs); hero AV review running (task bsxkh5k7j).
 - 2026-10-18 R15h: hero AV review PASS (film e427bb20, defects empty? see response), production_quality --preview ok. Next: full native render (prepare full_renders), then final motion, 3 AV lenses, panel.
 - 2026-10-18 headroom short 0.051 GiB: removed regenerable npm package cache (/root/.npm/_cacache) and one idle finished bundle.
+- 2026-10-18 R15h: full native render authorized (prepare full_renders reservation b8a2122c) and running (task b4wg21y99).
