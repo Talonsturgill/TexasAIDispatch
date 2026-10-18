@@ -332,9 +332,13 @@ def main() -> int:
     print(f"\nThe feed now holds {len(feed['videos'])} film(s). NEXT, and not in this script, "
           f"because writing the feed changes a number the site displays:\n"
           f"  cd {a.docket}\n"
+          f"  . .venv/bin/activate\n"
           f"  .venv/bin/python scripts/site/site_build.py && "
           f".venv/bin/python scripts/site/site_fresh_check.py\n"
           f"  .venv/bin/python scripts/shared/ownership_check.py --actor dispatch --diff HEAD\n"
+          f"  python scripts/shared/guards_local.py\n"
+          f"  python scripts/shared/guards_local.py --verdict\n"
+          f"Retain actual exit statuses and the current atomic verdict; log tails are not gates.\n"
           f"The Docket checkout must already be on its claude/dispatch-{a.date} branch. "
           f"Commit with TXDOCKET_ACTOR=dispatch; never write .git/ACTOR.")
     return 0

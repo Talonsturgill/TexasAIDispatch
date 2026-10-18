@@ -55,10 +55,17 @@ python scripts/publish_feed.py --date <date> --county <County> --caption "<appro
 In that Docket checkout, with its pinned environment:
 
 ```sh
-.venv/bin/python scripts/site/site_build.py
-.venv/bin/python scripts/site/site_fresh_check.py
-.venv/bin/python scripts/shared/ownership_check.py --actor dispatch --diff HEAD
+. .venv/bin/activate
+python scripts/site/site_build.py
+python scripts/site/site_fresh_check.py
+python scripts/shared/ownership_check.py --actor dispatch --diff HEAD
+python scripts/shared/guards_local.py
+python scripts/shared/guards_local.py --verdict
 ```
+
+Keep each producer's real exit status and retain the complete logs. The current atomic guard
+verdict establishes completion; a successful tail or partial log does not. Wait on the exact
+background task ID with bounded native task tools, never a process pattern matching its own shell.
 
 Dispatch authors only the contracted videos.json input. Other permitted changes are generated
 pages rebuilt by the site program. Commit with TXDOCKET_ACTOR=dispatch, push a ready PR, wait
