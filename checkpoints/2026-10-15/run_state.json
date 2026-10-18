@@ -17,7 +17,7 @@
     "full_renders": 14,
     "image_generations": 6,
     "panel_rounds": 9,
-    "preflight_renders": 53,
+    "preflight_renders": 56,
     "reboards": 15,
     "reported_tokens": 900000,
     "rescue_renders": 2,
@@ -10692,6 +10692,110 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-18T01:11:36.998333Z",
+      "failure_evidence_json": "{\n  \"review_scope\": \"code-plan\",\n  \"treatment\": \"a\",\n  \"board_path\": \"{REPO}/out/dispatch/opening-a.json\",\n  \"board_sha256\": \"b7d3d14ac1390e6409a4154e8dd36e9ac58fb31afdae0adbfbe65639a6c83449\",\n  \"concept_sha256\": \"09bac6429aacc06fec9a6904eeb6ca722256609d79fc42bd2d36e050977f970b\",\n  \"renderer_sha256\": \"05a323a2743dc6593305773903de5683e0695df187c6bf8cb7753e758e5cec31\",\n  \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n  \"verdict\": \"pass\",\n  \"reviewer_identity\": \"storyboard-critic subagent, claude-opus-5-5 high, Read only, independent of the director; code-plan scope, no pixels\",\n  \"reviewed_at\": \"2026-10-18T01:15:00Z\",\n  \"strongest_frame\": \"s8-shot-1, about 50.18 to 50.93 s (planned). The technician stamps 'None reported' with her own arm onto the held blank Field result card, beside the readable 98.82% card.\",\n  \"weakest_frame\": \"s9 tail, 58.40 to 59.40 s (planned). This last second is a held tableau. The only changes are the 2.5 percent camera ease, the ring's opacity flicker, the fence tag's sway, rain and water. The principal object inside the ring is a dashed outline whose ink line is about 1.2 px at 270 wide (7 units x 0.58 x 1.15 = 4.7 px native).\",\n  \"blocking_defects\": [],\n  \"code_observations\": [\n    \"Second-check REVISE resolved as option 2. s9Cam (lines 130 to 135) returns the A framing (f [520,900], a [540,900], s 1.15) until s9-event-3 ends at 57.2968. It then scales by 1 - 0.025 x (1 - (1 - u)^2) over u = 0 to 1 to 59.40. The largest per-frame change is 0.025 x 2 / 63 = 0.079 percent; total travel is about 12 px at 500 px from the anchor. There is no push, no pull and no subject change, and the ease-out ends at zero velocity into the credits.\",\n    \"Tail performance (s9Tail, tail.lower [.06,.76], tail.turn [.4,1.1]). The plan lowers from 57.357 to 58.057: 70 world units plus a 9 degree tilt, about 80 px native, about 20 px at 270 wide. The head turns from 57.697 to 58.397: lookX goes from +1 to -1, with the yaw capped at plus or minus 0.3 in StreetHubSupport. Performed windows in the shot: 55.81 to 56.25, 56.32 to 56.76, 56.82 to 57.30, 57.36 to 58.06 and 57.70 to 58.40. The longest unperformed stretch is 1.003 s.\",\n    \"Answer hold. The ring is fully drawn by about 56.63. 'None reported' is fully shown at 56.76, and 'Deployment goal' is pinned at 57.30. The full answer frame then stays inside the frame for 2.10 s (builder bounds: 63 of 63 tail frames). This satisfies closing_payoff's readable hold and ART_DIRECTION's comprehension hold.\",\n    \"R1 still holds. GoalOutline (lines 147 to 168) is paper 15 under dashed ink 7 (22/14), with outlined pods and unlit lens circles. There is no footing, lamp or halo. It is clipped at wl9 = 1065.2 and never faded. Builder census: 0 rain strikes, stations, risk lamps, lit pods or weather lamps in 117 of 117 s9 frames.\",\n    \"Phone is ordinary detail only. Unchanged real-size geometry: L 44, rot 14, corner (176, 988) on the rail cap, edge meeting the pot rim at 184.48, contact shadows. No camera move, beat or rain strike lands on it, and no board text claims it reads. It is at most 51.5 px native (12.9 px at 270), 27.1 px clear of the technician (builder).\",\n    \"Board text. The s9 on_screen, what_moves, visual_sentence, sentence_to_shot, quality_plan consequence, closing_state and shot purpose all end with the plan lowering, the head turn and the frame holding on the answer. The s9-event-3 'what' and its rewards and attention entries describe only its window ('A deployment goal tag pins beside the ringed outline without covering it.'). The s8 next_connection and the edits no longer mention the dark phone. The renderer comment about the newel post is gone. The FloodStationFilm renderer_inputs entry now reads ac1332a3... I did not count its index. StreetHubSupport, Hero and PlaceStage entries are unchanged.\",\n    \"Narration to picture, as a plan. n9a 'Deployment is still the goal' (55.78 to 57.36) binds s9-plan and s9-case. Its events open the plan, ring the unlit outline with 'None reported', then pin 'Deployment goal'. That makes the sentence literal without claiming an installation. The tail adds no new claim.\",\n    \"Unchanged from my earlier reviews (s1 to s8 code). Banner reflow (B1). The 1.12 chip push (B2). Held S7 and S8 layouts with an s7 card top about 6 px below the chip, s8 card edge about 33 px (B3). Bezel at 1236 (B5). Lens-only flares under n3a (B6): the housing's weather lamps sit off-screen in both s3 views. Head (B8). Arms (B9).\",\n    \"Non-blocking risks for phone and native review. (1) The outline's line weight at phone size, as above. (2) The head turn points at a target too small to read, so it may read only as a glance back at the house. (3) The plan is a rigid sheet pinched at one edge. (4) The s1 phone is still drawn flat at about 135 by 24 px, about three times the s9 phone's scale; that matters less now the s9 phone is incidental. (5) The renderer header comment (lines 17 to 18) still mentions weather lamps keeping their state; it is a comment, not a visible claim.\"\n  ],\n  \"action_reviews\": [\n    {\n      \"action_id\": \"deployment-goal\",\n      \"module_sha256\": \"ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5\",\n      \"source_claims_sha256\": \"49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e\",\n      \"verdict\": \"pass\",\n      \"blocking_defects\": [],\n      \"code_observations\": [\n        \"The unlit outline, ring and both tags are source-faithful (c1, c9, c10). The plan opens, lowers and stays reachable, and the head turns. The answer frame holds 2.10 s with no whip, and its visible certainty does not exceed the announcement.\"\n      ]\n    },\n    {\n      \"action_id\": \"yard-floods-before-warning\",\n      \"module_sha256\": \"ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5\",\n      \"source_claims_sha256\": \"49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e\",\n      \"verdict\": \"pass\",\n      \"blocking_defects\": [],\n      \"code_observations\": [\n        \"Unchanged: water tops the curb, the ankle mark and its tag swing, the boots rise, then the late banner and two buzzes (PHONE_LATE). The s1 phone scale mismatch is a continuity note only.\"\n      ]\n    },\n    {\n      \"action_id\": \"report-validation-only\",\n      \"module_sha256\": \"ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5\",\n      \"source_claims_sha256\": \"49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e\",\n      \"verdict\": \"pass\",\n      \"blocking_defects\": [],\n      \"code_observations\": [\n        \"Unchanged held S7 and S8 layouts. The stamp base is placed from her palm, and the arm is solved from the shoulder.\"\n      ]\n    }\n  ],\n  \"story_review\": {\n    \"story_sha256\": \"4a8db400c02241c577ac874687268174bfc29bc46cc5f11ae3143ac73316e2cd\",\n    \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n    \"claims_sha256\": \"49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e\",\n    \"verdict\": \"pass\",\n    \"blocking_defects\": [],\n    \"one_viewing_summary\": \"Planned chain: water floods a San Antonio yard before the phone warns. A disclosed prototype charges from light, needs no tower, and its four optical lenses light as the water rises. Its chip judges risk on the station with no server, and its radio reaches a hub, where a larger model maps flood paths. A held notice board shows the 98.82% validation figure, a technician stamps a blank field result and reads a pinless map. The film closes in the opening yard, where an unlit dashed outline is ringed as the deployment goal beside 'None reported', held to the end.\",\n    \"opening_to_ending\": \"It opens on a yard with no station and a warning that comes after the water. It ends in that same yard, with deployment shown honestly as an unlit planned outline at the curb and the limit tag beside it. The answer is held long enough to read, and it promises no installation the sources do not report.\",\n    \"weakest_transition\": \"s8 to s9 at 55.50 s. The cut goes from the pinless paper map on the fence to the flooded opening yard. Identity carries through the same technician and the chain link fence, but the yard is only established again by the wide frame and the ankle mark. The phone review must confirm that the return reads as the same place.\"\n  },\n  \"notes\": \"Region is Bexar on the blackland plates, which is correct. The earlier selection on an older renderer does not carry over. The renewed comparison and phone review decide pixels.\"\n}",
+      "failure_evidence_sha256": "80a0fe0119e8c3a901a3ab1884d8f38c8fb45fc685e9473c025f3895f1ea3bd5",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 56,
+        "reboards": 15,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 50,
+        "tts_calls": 16,
+        "validator_agents": 5,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 56,
+        "reboards": 15,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 50,
+        "tts_calls": 16,
+        "validator_agents": 5,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "45be57e5050696faa6dc0364fd37150f137e8981e556bf792eb327e930c34060",
+      "plan_json": "{\n  \"mechanism_id\": \"finish-current-r15h-code46-pass\",\n  \"failure_family\": \"human-performance\",\n  \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n  \"root_cause\": \"The fully read independent code check (critic 46, Opus High, third check of the pass-4 candidate) passed the changed A, B and storyboard bytes with no blocking defects. No production edits. The remaining paid operators and one prepaid retry reservation are the actual deficit.\",\n  \"repair\": \"No production edits. Fund only the remaining finish-only path: silent comparison phone sequences, comparison critic, final timed phone and its critic, native hero, final motion, three audiovisual lenses, three separate scorers and delivery.\",\n  \"mechanism_change\": \"Capacity only, bound to the genuine code PASS, the preserved retained comparison and every spent reservation including the occupied-comparison refusal.\",\n  \"expected_visible_result\": \"production-budget feasible before the next capture.\",\n  \"failure_evidence\": \"{REPO}/out/dispatch/evidence/r15h/review-code-third/opening-a-pass-report.json\",\n  \"failure_evidence_sha256\": \"80a0fe0119e8c3a901a3ab1884d8f38c8fb45fc685e9473c025f3895f1ea3bd5\",\n  \"resources\": {},\n  \"repair_scope\": \"standard\",\n  \"changed_inputs\": [],\n  \"completion_reason\": \"finish-current\",\n  \"capture_completion_budget\": {\n    \"schema\": \"dispatch_capture_completion_budget_evidence/3\",\n    \"run_id\": \"2026-10-15\",\n    \"policy_json\": \"{\\n  \\\"schema\\\": \\\"dispatch_capture_completion_budget/3\\\",\\n  \\\"effective_date\\\": \\\"2026-10-17\\\",\\n  \\\"applies_to\\\": \\\"new evidence-bound capacity plans for active unfinished production\\\",\\n  \\\"path\\\": \\\"renewed-two-treatment-comparison-with-phone-sequences\\\",\\n  \\\"minimum_remaining\\\": {\\\"preflight_renders\\\": 8, \\\"storyboard_critics\\\": 4, \\\"full_renders\\\": 2, \\\"audiovisual_reviews\\\": 11, \\\"panel_rounds\\\": 1, \\\"scorer_calls\\\": 3},\\n  \\\"preflight_operators\\\": {\\\"opening_compare_hook_and_entry\\\": 2, \\\"comparison_phone_sequences\\\": 2, \\\"final_timed_phone\\\": 1, \\\"timed_phone_sequence\\\": 1, \\\"native_hero\\\": 1, \\\"exact_film_motion\\\": 1},\\n  \\\"native_render_hook_and_entry\\\": 2,\\n  \\\"authorization_source_label\\\": \\\"Standing owner autonomous completion and complete remaining-path instruction, October 3rd and October 7th, 2026\\\",\\n  \\\"invariants\\\": [\\n    \\\"Bind the retained successful comparison and its actual two charged reservations.\\\",\\n    \\\"Retain both original option boards and films byte-identically.\\\",\\n    \\\"Use prepared single-claim authorization for the supported phone, hero and motion operators; opening comparison and native rendering retain their actual hook and entry charges.\\\",\\n    \\\"Fund all eight preflight reservations and both native-render reservations before a new mandatory correction.\\\",\\n    \\\"Keep prior v1 and v2 policy bytes, grants, failures, frozen envelopes and cumulative charges unchanged.\\\",\\n    \\\"Use existing independent mandatory admission and obtain fresh code, comparison, timed phone, native, audiovisual, three-scorer and shipment evidence.\\\",\\n    \\\"Capacity grants no creative approval, optional polish, lower-quality render or delivery waiver.\\\"\\n  ]\\n}\\n\",\n    \"policy_sha256\": \"a24e8f717afde205194f77dcc47756285e7e257fe2f8e2dea0b957c1ce61d0e8\",\n    \"comparison_path\": \"{REPO}/out/dispatch/evidence/r15h/openings-prior-r15g/comparison.json\",\n    \"comparison_json\": \"{\\n  \\\"schema\\\": \\\"dispatch-opening-comparison/1\\\",\\n  \\\"policy_sha256\\\": \\\"77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765\\\",\\n  \\\"renderer_sha256\\\": \\\"4811590400523e197125b1f3ca735d8c54f4ea28dcd2194672a2f63060307eda\\\",\\n  \\\"producer_sha256\\\": \\\"3399eddf6ebac814c267da1471de9af80f21eae5fc4d9eb42d501355985074a5\\\",\\n  \\\"reservation\\\": {\\n    \\\"identity\\\": \\\"3402c37293c64974f3ff4bc5f3946265292e22a116b23f485521afe852430d32\\\",\\n    \\\"run_id\\\": \\\"2026-10-15\\\",\\n    \\\"event_index\\\": 337\\n  },\\n  \\\"options\\\": [\\n    {\\n      \\\"id\\\": \\\"a\\\",\\n      \\\"concept_sha256\\\": \\\"b84af497f329445bb9df8e5fd9c8870b30fb5105a8b1befb2c9264230bf9c597\\\",\\n      \\\"renderer_sha256\\\": \\\"4811590400523e197125b1f3ca735d8c54f4ea28dcd2194672a2f63060307eda\\\",\\n      \\\"board\\\": {\\n        \\\"file\\\": \\\"a.json\\\",\\n        \\\"sha256\\\": \\\"3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b\\\"\\n      },\\n      \\\"film\\\": {\\n        \\\"file\\\": \\\"a.mp4\\\",\\n        \\\"sha256\\\": \\\"e1ab789064da3f3aaf8c576593aafc991370144bef88d804d6e8f8e5854d74ff\\\"\\n      },\\n      \\\"inspection\\\": {\\n        \\\"file\\\": \\\"a-inspection-bbb48d4a6a1d0ec2.json\\\",\\n        \\\"sha256\\\": \\\"5747a7d3b8f85d2d5ebde016b713e47e42a7191cfb86727defb55cbe86030328\\\"\\n      }\\n    },\\n    {\\n      \\\"id\\\": \\\"b\\\",\\n      \\\"concept_sha256\\\": \\\"4b1d69ab0efd63b09992222ac9b8e313fc7866ff4e359211f1a120a5fa93029f\\\",\\n      \\\"renderer_sha256\\\": \\\"4811590400523e197125b1f3ca735d8c54f4ea28dcd2194672a2f63060307eda\\\",\\n      \\\"board\\\": {\\n        \\\"file\\\": \\\"b.json\\\",\\n        \\\"sha256\\\": \\\"d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4\\\"\\n      },\\n      \\\"film\\\": {\\n        \\\"file\\\": \\\"b.mp4\\\",\\n        \\\"sha256\\\": \\\"12573483d244e5631d42af7aa02d92b17406f625dd8a7bf90a8a29660b4a1684\\\"\\n      },\\n      \\\"inspection\\\": {\\n        \\\"file\\\": \\\"b-inspection-dc0d5dd949284560.json\\\",\\n        \\\"sha256\\\": \\\"23d3991400e67d27410665dd886bcb80c3fe24bf4b261bce799d107dfc36b578\\\"\\n      }\\n    }\\n  ],\\n  \\\"inspection_problems\\\": [],\\n  \\\"inspection_pass\\\": true\\n}\\n\",\n    \"comparison_sha256\": \"0f81c69dd366eec628125d74b5ba6a7a66d23b1e2409661700d1c1cfdd35d0bc\",\n    \"retained_files\": [\n      {\n        \"option\": \"a\",\n        \"kind\": \"board\",\n        \"path\": \"{REPO}/out/dispatch/evidence/r15h/openings-prior-r15g/a.json\",\n        \"sha256\": \"3758e9bcaa6364e2517e8e3c69a6eea904b5698efb427b87abad3bde99d5e88b\"\n      },\n      {\n        \"option\": \"a\",\n        \"kind\": \"film\",\n        \"path\": \"{REPO}/out/dispatch/evidence/r15h/openings-prior-r15g/a.mp4\",\n        \"sha256\": \"e1ab789064da3f3aaf8c576593aafc991370144bef88d804d6e8f8e5854d74ff\"\n      },\n      {\n        \"option\": \"b\",\n        \"kind\": \"board\",\n        \"path\": \"{REPO}/out/dispatch/evidence/r15h/openings-prior-r15g/b.json\",\n        \"sha256\": \"d22b35bbef63ae6f34713c555beb54cd696c6dc08c09da4f9bae73ffd7e388b4\"\n      },\n      {\n        \"option\": \"b\",\n        \"kind\": \"film\",\n        \"path\": \"{REPO}/out/dispatch/evidence/r15h/openings-prior-r15g/b.mp4\",\n        \"sha256\": \"12573483d244e5631d42af7aa02d92b17406f625dd8a7bf90a8a29660b4a1684\"\n      }\n    ],\n    \"hook_event_index\": 335,\n    \"hook_event_sha256\": \"97600cc5b87aef216430ed1f2ee3110f0731ab6c2fbbe449ec063c04126a13a7\",\n    \"entry_event_index\": 337,\n    \"entry_event_sha256\": \"a9d6ee27514f28b674ca6415af3f55e06e206a19f9c8b5b3ca0286819b336c8e\"\n  }\n}\n",
+      "plan_sha256": "7dc4fc70c07fc197561fb232e2a9a477a5633508fb4ac1cbcfea4552f898270e",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"capture_charging\":\"renewed-two-treatment-complete-path\",\"current_phone_reused\":false,\"deficits\":{\"preflight_renders\":3},\"errors\":[],\"feasible\":false,\"path\":\"finish-current\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":26,\"required\":11,\"used\":17},\"full_renders\":{\"ceiling\":14,\"remaining\":10,\"required\":2,\"used\":4},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":0,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":8,\"required\":1,\"used\":1},\"preflight_renders\":{\"ceiling\":53,\"remaining\":5,\"required\":8,\"used\":48},\"reboards\":{\"ceiling\":15,\"remaining\":1,\"required\":0,\"used\":14},\"scorer_calls\":{\"ceiling\":27,\"remaining\":24,\"required\":3,\"used\":3},\"storyboard_critics\":{\"ceiling\":50,\"remaining\":4,\"required\":4,\"used\":46},\"tts_calls\":{\"ceiling\":16,\"remaining\":2,\"required\":2,\"used\":14},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "b6e58e38491c899bafd8f0909c1d5decd1fa0d6e585bc1d9ce1698c286059e95",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 53,
+        "reboards": 15,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 50,
+        "tts_calls": 16,
+        "validator_agents": 5,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 53,
+        "reboards": 15,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 50,
+        "tts_calls": 16,
+        "validator_agents": 5,
+        "voice_directors": 2
+      },
+      "reason": "finish-current",
+      "resource_increments": {
+        "preflight_renders": 3
+      },
+      "run_id": "2026-10-15",
+      "usage_unchanged": {
+        "audiovisual_reviews": 17,
+        "cleanup_renders": 0,
+        "full_renders": 4,
+        "image_generations": 0,
+        "panel_rounds": 1,
+        "preflight_renders": 48,
+        "reboards": 14,
+        "reported_tokens": 1832670,
+        "rescue_renders": 0,
+        "research_agents": 3,
+        "scorer_calls": 3,
+        "storyboard_critics": 46,
+        "tts_calls": 14,
+        "validator_agents": 5,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -10715,7 +10819,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "94742a095d6b67490a3d2d43bbce03076d4b4be15a829423a491e7d5692f76ff",
+    "original_private_state_sha256": "ac72ddd5e3d18ec42b18e524f19c6209e27166d246f611696cdef447f4210ce8",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -10751,7 +10855,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-18T01:05:03.033523Z",
+  "updated_at": "2026-10-18T01:11:36.998359Z",
   "usage": {
     "audiovisual_reviews": 17,
     "cleanup_renders": 0,

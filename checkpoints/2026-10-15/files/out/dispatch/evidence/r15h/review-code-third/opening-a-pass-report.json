@@ -1,0 +1,69 @@
+{
+  "review_scope": "code-plan",
+  "treatment": "a",
+  "board_path": "/home/user/restore/TexasAIDispatch/out/dispatch/opening-a.json",
+  "board_sha256": "b7d3d14ac1390e6409a4154e8dd36e9ac58fb31afdae0adbfbe65639a6c83449",
+  "concept_sha256": "09bac6429aacc06fec9a6904eeb6ca722256609d79fc42bd2d36e050977f970b",
+  "renderer_sha256": "05a323a2743dc6593305773903de5683e0695df187c6bf8cb7753e758e5cec31",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "verdict": "pass",
+  "reviewer_identity": "storyboard-critic subagent, claude-opus-5-5 high, Read only, independent of the director; code-plan scope, no pixels",
+  "reviewed_at": "2026-10-18T01:15:00Z",
+  "strongest_frame": "s8-shot-1, about 50.18 to 50.93 s (planned). The technician stamps 'None reported' with her own arm onto the held blank Field result card, beside the readable 98.82% card.",
+  "weakest_frame": "s9 tail, 58.40 to 59.40 s (planned). This last second is a held tableau. The only changes are the 2.5 percent camera ease, the ring's opacity flicker, the fence tag's sway, rain and water. The principal object inside the ring is a dashed outline whose ink line is about 1.2 px at 270 wide (7 units x 0.58 x 1.15 = 4.7 px native).",
+  "blocking_defects": [],
+  "code_observations": [
+    "Second-check REVISE resolved as option 2. s9Cam (lines 130 to 135) returns the A framing (f [520,900], a [540,900], s 1.15) until s9-event-3 ends at 57.2968. It then scales by 1 - 0.025 x (1 - (1 - u)^2) over u = 0 to 1 to 59.40. The largest per-frame change is 0.025 x 2 / 63 = 0.079 percent; total travel is about 12 px at 500 px from the anchor. There is no push, no pull and no subject change, and the ease-out ends at zero velocity into the credits.",
+    "Tail performance (s9Tail, tail.lower [.06,.76], tail.turn [.4,1.1]). The plan lowers from 57.357 to 58.057: 70 world units plus a 9 degree tilt, about 80 px native, about 20 px at 270 wide. The head turns from 57.697 to 58.397: lookX goes from +1 to -1, with the yaw capped at plus or minus 0.3 in StreetHubSupport. Performed windows in the shot: 55.81 to 56.25, 56.32 to 56.76, 56.82 to 57.30, 57.36 to 58.06 and 57.70 to 58.40. The longest unperformed stretch is 1.003 s.",
+    "Answer hold. The ring is fully drawn by about 56.63. 'None reported' is fully shown at 56.76, and 'Deployment goal' is pinned at 57.30. The full answer frame then stays inside the frame for 2.10 s (builder bounds: 63 of 63 tail frames). This satisfies closing_payoff's readable hold and ART_DIRECTION's comprehension hold.",
+    "R1 still holds. GoalOutline (lines 147 to 168) is paper 15 under dashed ink 7 (22/14), with outlined pods and unlit lens circles. There is no footing, lamp or halo. It is clipped at wl9 = 1065.2 and never faded. Builder census: 0 rain strikes, stations, risk lamps, lit pods or weather lamps in 117 of 117 s9 frames.",
+    "Phone is ordinary detail only. Unchanged real-size geometry: L 44, rot 14, corner (176, 988) on the rail cap, edge meeting the pot rim at 184.48, contact shadows. No camera move, beat or rain strike lands on it, and no board text claims it reads. It is at most 51.5 px native (12.9 px at 270), 27.1 px clear of the technician (builder).",
+    "Board text. The s9 on_screen, what_moves, visual_sentence, sentence_to_shot, quality_plan consequence, closing_state and shot purpose all end with the plan lowering, the head turn and the frame holding on the answer. The s9-event-3 'what' and its rewards and attention entries describe only its window ('A deployment goal tag pins beside the ringed outline without covering it.'). The s8 next_connection and the edits no longer mention the dark phone. The renderer comment about the newel post is gone. The FloodStationFilm renderer_inputs entry now reads ac1332a3... I did not count its index. StreetHubSupport, Hero and PlaceStage entries are unchanged.",
+    "Narration to picture, as a plan. n9a 'Deployment is still the goal' (55.78 to 57.36) binds s9-plan and s9-case. Its events open the plan, ring the unlit outline with 'None reported', then pin 'Deployment goal'. That makes the sentence literal without claiming an installation. The tail adds no new claim.",
+    "Unchanged from my earlier reviews (s1 to s8 code). Banner reflow (B1). The 1.12 chip push (B2). Held S7 and S8 layouts with an s7 card top about 6 px below the chip, s8 card edge about 33 px (B3). Bezel at 1236 (B5). Lens-only flares under n3a (B6): the housing's weather lamps sit off-screen in both s3 views. Head (B8). Arms (B9).",
+    "Non-blocking risks for phone and native review. (1) The outline's line weight at phone size, as above. (2) The head turn points at a target too small to read, so it may read only as a glance back at the house. (3) The plan is a rigid sheet pinched at one edge. (4) The s1 phone is still drawn flat at about 135 by 24 px, about three times the s9 phone's scale; that matters less now the s9 phone is incidental. (5) The renderer header comment (lines 17 to 18) still mentions weather lamps keeping their state; it is a comment, not a visible claim."
+  ],
+  "action_reviews": [
+    {
+      "action_id": "deployment-goal",
+      "module_sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "The unlit outline, ring and both tags are source-faithful (c1, c9, c10). The plan opens, lowers and stays reachable, and the head turns. The answer frame holds 2.10 s with no whip, and its visible certainty does not exceed the announcement."
+      ]
+    },
+    {
+      "action_id": "yard-floods-before-warning",
+      "module_sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "Unchanged: water tops the curb, the ankle mark and its tag swing, the boots rise, then the late banner and two buzzes (PHONE_LATE). The s1 phone scale mismatch is a continuity note only."
+      ]
+    },
+    {
+      "action_id": "report-validation-only",
+      "module_sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "Unchanged held S7 and S8 layouts. The stamp base is placed from her palm, and the arm is solved from the shoulder."
+      ]
+    }
+  ],
+  "story_review": {
+    "story_sha256": "4a8db400c02241c577ac874687268174bfc29bc46cc5f11ae3143ac73316e2cd",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Planned chain: water floods a San Antonio yard before the phone warns. A disclosed prototype charges from light, needs no tower, and its four optical lenses light as the water rises. Its chip judges risk on the station with no server, and its radio reaches a hub, where a larger model maps flood paths. A held notice board shows the 98.82% validation figure, a technician stamps a blank field result and reads a pinless map. The film closes in the opening yard, where an unlit dashed outline is ringed as the deployment goal beside 'None reported', held to the end.",
+    "opening_to_ending": "It opens on a yard with no station and a warning that comes after the water. It ends in that same yard, with deployment shown honestly as an unlit planned outline at the curb and the limit tag beside it. The answer is held long enough to read, and it promises no installation the sources do not report.",
+    "weakest_transition": "s8 to s9 at 55.50 s. The cut goes from the pinless paper map on the fence to the flooded opening yard. Identity carries through the same technician and the chain link fence, but the yard is only established again by the wide frame and the ankle mark. The phone review must confirm that the return reads as the same place."
+  },
+  "notes": "Region is Bexar on the blackland plates, which is correct. The earlier selection on an older renderer does not carry over. The renewed comparison and phone review decide pixels."
+}

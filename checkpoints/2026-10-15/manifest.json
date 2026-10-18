@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-18T01:05:08.164162+00:00",
+  "saved_at": "2026-10-18T01:11:43.090825+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "efafea5e9410b10362c413a581387928a1dc025af3050cfb5291df0a58d758c0",
-  "original_private_ledger_sha256": "94742a095d6b67490a3d2d43bbce03076d4b4be15a829423a491e7d5692f76ff",
+  "ledger_sha256": "369ff3d4cc29e14639d702275827ce389059c243cb3e42d2275d225c44baefbc",
+  "original_private_ledger_sha256": "ac72ddd5e3d18ec42b18e524f19c6209e27166d246f611696cdef447f4210ce8",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -138,6 +138,11 @@
       "event_index": 473,
       "authorization_sha256": "1a456fe0b8270f455ffbcea77fe6397099c84fd66fe457b71359467f735c5226",
       "root": "/home/user/restore/TexasAIDispatch"
+    },
+    {
+      "event_index": 482,
+      "authorization_sha256": "7dc4fc70c07fc197561fb232e2a9a477a5633508fb4ac1cbcfea4552f898270e",
+      "root": "/home/user/restore/TexasAIDispatch"
     }
   ],
   "usage": {
@@ -179,8 +184,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "dfe66d194c7868507d70c8e76e329013380c6a45fe7eed0f681ab625482f843f",
-      "size": 52059
+      "sha256": "21df64e6d7e209f3cfe71c85c77f8e04e782306603a6c6ef021f9ba86016201b",
+      "size": 52236
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -16899,6 +16904,12 @@
       "size": 217
     },
     {
+      "path": "out/dispatch/evidence/r15h/completion-capacity-finishcurrent.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/evidence/r15h/completion-capacity-forecast-2.log",
       "class": "scratch",
       "sha256": "8cdb042dfa4fafaa72548652cd994a4fe13c1a44084e1efea6e3a6881854bd49",
@@ -16981,6 +16992,18 @@
       "class": "scratch",
       "sha256": "444c731dd3545d690d0fb25c696ba5a76ad5ccf69a9c8f38714878650f3b8ca5",
       "size": 200
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/finish-current-complete-plan-r15h.json",
+      "class": "scratch",
+      "sha256": "7dc4fc70c07fc197561fb232e2a9a477a5633508fb4ac1cbcfea4552f898270e",
+      "size": 6843
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/finish-current-plan-r15h.json",
+      "class": "scratch",
+      "sha256": "2aaaa321c36f25f2fe4e55c6623d873cac0fd42a25f1a1167c8e7e1d4673c6d5",
+      "size": 1306
     },
     {
       "path": "out/dispatch/evidence/r15h/flow-check-b-with-A-sfx-ORIGINAL-FAILURE.log",
@@ -17991,6 +18014,12 @@
       "size": 1461
     },
     {
+      "path": "out/dispatch/evidence/r15h/production-budget-finishcurrent-before.json",
+      "class": "scratch",
+      "sha256": "c4a1a7633024417f9873d8e56ccb6ee5d83a295cb72f1fd38d715ac0b5d8e623",
+      "size": 1554
+    },
+    {
       "path": "out/dispatch/evidence/r15h/production-budget-forecast-after.json",
       "class": "scratch",
       "sha256": "0db6b04fbb5385dd61185c031e98f205f73915786335c25ecd9905e042d70bdd",
@@ -18031,6 +18060,12 @@
       "class": "scratch",
       "sha256": "cbd586c660ffbbdc7907760069aa6eb21763fe110211dbaa62a44dcbf45ecb2f",
       "size": 1491
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/remaining-path-table-r15h-v2.md",
+      "class": "scratch",
+      "sha256": "49d95b6b5f46e2688b80dccda65c8613fc6db841200e29a372987419445c70ee",
+      "size": 1245
     },
     {
       "path": "out/dispatch/evidence/r15h/remaining-path-table-r15h.md",
@@ -18097,6 +18132,12 @@
       "class": "scratch",
       "sha256": "08ae4e24d8fe23f5407187e3d2fdf745dfd867affa9e09c7c1a2f63d4316a63f",
       "size": 46341
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/review-code-third/opening-a-pass-report.json",
+      "class": "scratch",
+      "sha256": "80a0fe0119e8c3a901a3ab1884d8f38c8fb45fc685e9473c025f3895f1ea3bd5",
+      "size": 8538
     },
     {
       "path": "out/dispatch/evidence/r15h/review-code-third/pivot-review.json",
@@ -22855,6 +22896,66 @@
       "class": "scratch",
       "sha256": "b2d64369ee861f4c68b11aedf476cfb55e746925ee7a077a447af1ca366b78c7",
       "size": 210914
+    },
+    {
+      "path": "out/dispatch/openings/a-inspection-d05b7f3061e25022.json",
+      "class": "scratch",
+      "sha256": "3e430f87f15593177fb9b236ec65be4e112834d2624d83ed38d24bf47673b593",
+      "size": 2070
+    },
+    {
+      "path": "out/dispatch/openings/a.json",
+      "class": "scratch",
+      "sha256": "b7d3d14ac1390e6409a4154e8dd36e9ac58fb31afdae0adbfbe65639a6c83449",
+      "size": 205056
+    },
+    {
+      "path": "out/dispatch/openings/a.mp4",
+      "class": "scratch",
+      "sha256": "de6b54fe253976d6814022ad52894ef8426eeacac71f0a59a9f92ad30956c738",
+      "size": 528664
+    },
+    {
+      "path": "out/dispatch/openings/b-inspection-82b854d6471170e8.json",
+      "class": "scratch",
+      "sha256": "95fad1cf74eea3ddda8d9a99a0ae719744a2e60bfe51121123bf582940ac66fc",
+      "size": 2071
+    },
+    {
+      "path": "out/dispatch/openings/b.json",
+      "class": "scratch",
+      "sha256": "b2d64369ee861f4c68b11aedf476cfb55e746925ee7a077a447af1ca366b78c7",
+      "size": 210914
+    },
+    {
+      "path": "out/dispatch/openings/b.mp4",
+      "class": "scratch",
+      "sha256": "1671b15a08097fba9440860be3442ba889c8860f6543a91d0a66fc8a9adae2f1",
+      "size": 537224
+    },
+    {
+      "path": "out/dispatch/openings/batch-report.json",
+      "class": "scratch",
+      "sha256": "2e4b73ed099b14b905a6466f35379586e8164b5ae52a1940b31e6f7fd66bbeb8",
+      "size": 131
+    },
+    {
+      "path": "out/dispatch/openings/batch.json",
+      "class": "scratch",
+      "sha256": "60b7a297e3b3dcb45379272301e6fa6f87dd7e064e33bd15f05d72fbb05f7308",
+      "size": 553
+    },
+    {
+      "path": "out/dispatch/openings/comparison-before-inspection-55ff1f50b5d6f6fe.json",
+      "class": "scratch",
+      "sha256": "55ff1f50b5d6f6fe85da2b7c66780536a826b36dc10bfca960c807b27ae6f309",
+      "size": 1463
+    },
+    {
+      "path": "out/dispatch/openings/comparison.json",
+      "class": "scratch",
+      "sha256": "ab9de318d5d936a38a805b7a6096c8732c4f1a50d8055bc59219bd0255c4a4f3",
+      "size": 1859
     },
     {
       "path": "out/dispatch/panel-round-1.json",
