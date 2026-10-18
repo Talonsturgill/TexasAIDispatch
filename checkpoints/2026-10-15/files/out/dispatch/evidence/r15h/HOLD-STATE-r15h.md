@@ -1,0 +1,4 @@
+# R15h hold state (waiting on operator source fix, 2026-10-18)
+Final candidate (pass 4, option 2): Film ac1332a3188d, Support 9ef763d4110c, Hero 876c56b2, A/storyboard b7d3d14a, B b2d64369 (retained in after-pass4). Reviewed bytes for admission: after-pass3. All refusals retained: completion-capacity-forecast-2.log, completion-capacity-authorize-plan.log, prepare-code-plan-recheck.log, REFUSAL-capture-completion-budget-moderncode.log.
+Critic reservation 46 prepaid and UNSENT. Message v5 sha fae89c3e (digests identical to v4). Format-only reissue verified (review-format-only/). modern-code-plan-r15h.json prepared on reviewed bytes.
+Waiting for: operator-verified merged commit accepting mandatory-modern-code in the retained two-treatment capacity planner. Not adopting PR204 or checkpoint codec changes. No production input changes, no captures, no sends.

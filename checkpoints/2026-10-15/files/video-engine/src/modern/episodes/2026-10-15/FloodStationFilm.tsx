@@ -37,7 +37,8 @@ import {StreetHubSupport,PORCH,CASE,TECH,mirrorAbout,indexTip,reach,type HandPos
  * B: the instrument-first treatment. It opens in the water at the post, where the lowest lens goes
  * under and lights, and only then cuts to the yard and the late phone. It reads the battery before
  * the station, the lenses close, the housing window before the chip, the radio from above before the
- * street, the map before the desk, and closes in the same yard, closer, holding on the answer.
+ * street, the map before the desk, and closes in the same yard, starting closer and pulling back to
+ * the opening's own framing.
  *
  * Every visible state is a function of the film frame clock and the board's event windows; nothing
  * accumulates between frames. The county's region stands behind every exterior shot and the hub's
@@ -86,30 +87,31 @@ export const MAP_READ:Pt[]=[[.84,.63],[.62,.66],[.62,.48],[.62,.3]];
 /** s9: the opening yard again. The goal is drawn as a dashed, unlit outline of the station at the curb
  * (no footing, no lamp, no lit lens: not installed and not operating), ringed. The technician stands in
  * the water holding the deployment plan open in her left hand and the prototype's closed case by its
- * handle in her right; the real prototype is in that case. Both treatments shoot it on a wide plate, A
- * at Cam 1.15 and B closer at Cam 1.32, and THE FRAME HOLDS ON THE ANSWER to the end of the shot (R15h
- * pass 4): after the clause she lowers the open plan and turns her head toward the porch rail, and the
- * camera only settles evenly by `settle` (a 2.5 percent ease out over the whole tail), so the ring and
- * both tags stay in view with no whip.
- * The porch rail keeps ordinary yard detail at real size: a phone 44 yard units on its long edge (about
- * 17 cm against the 436 unit technician, about 24 cm against the 172 unit rail) stands on its lowest
- * corner on the rail cap and leans right against the rim of a small terracotta pot (34 units), with
- * contact shadows under both, left of the technician so her body and arms never cover it. Nothing makes
- * it a payoff: no move to it and no beat on it. `tail` times the performed continuation in seconds from
- * s9-event-3's end. */
+ * handle in her right; the real prototype is in that case. Both treatments shoot it on a wide plate.
+ * THE DARK PHONE IS AT PHONE SCALE (R15h pass 3). It is 44 yard units on its long edge: about 17 cm
+ * against the 0.6 scale technician (436 units for about 1.7 m) and about 24 cm against the porch rail
+ * (172 units over the porch floor for about 0.95 m). It stands on its lowest corner on the rail cap and
+ * leans right against the rim of a small terracotta pot standing beside it (34 units, about 19 cm), with
+ * contact shadows under both; it stays left of the technician, whose body and arms never cover it (the
+ * rail's newel post stands behind her, so it can't be the support). It is made readable
+ * by an earned move, never by its size: after the clause her head turns to the porch rail and the camera
+ * follows her look in close to the phone (Cam `close.s`), holds while two rain drops strike its dark
+ * screen, then pulls back to the opening's own framing (Cam identity at plate zoom 1). `tail` times the
+ * performed continuation in seconds from s9-event-3's end. */
 const PHONE9_L=44;
 export const S9={station:{base:[480,1100] as Pt,s:.58},ring:{c:[494,615] as Pt,rx:100,ry:168},
  goal:{at:[640,480] as Pt,s:.72},none:{at:[640,600] as Pt,s:.72},tech:{feet:[350,1300] as Pt,s:.6,wade:40},
  plan:{c:[345,1045] as Pt,w:160,lower:70,tilt:9},case:{s:.26},
  phone:{corner:176,L:PHONE9_L,w:PHONE9_L/2.05,rot:14},pot:{rimW:32,baseW:24,h:34},
- tail:{lower:[.06,.76] as [number,number],turn:[.4,1.1] as [number,number],settle:.025},
+ close:{s:5.5,a:[600,800] as Pt},
+ tail:{lower:[.06,.66] as [number,number],turn:[.04,.5] as [number,number],push:[.2,.85] as [number,number],pull:1.25,home:.3,drips:[.8,1.06],drip:.42},
  cam:{a:{from:{f:[520,900] as Pt,a:[540,900] as Pt,s:1.15}},b:{from:{f:[553.6,880.3] as Pt,a:[540,826] as Pt,s:1.32}}}};
 /** The s9 tail's performed state at film time t (w3End is s9-event-3's end): how far the plan is
- * lowered and how far her head has turned toward the porch rail. ONE CALCULATION, shared by the drawing
- * and the bound check. */
+ * lowered, how far her head has turned to the phone, and each rain drop's progress (0 before it falls,
+ * 1 when its splash has gone). ONE CALCULATION, shared by the drawing and the bound check. */
 export function s9Tail(t:number,w3End:number){
  const k=S9.tail,w=([a,b]:[number,number])=>ease((t-(w3End+a))/(b-a));
- return {lower:w(k.lower),turn:w(k.turn)};
+ return {lower:w(k.lower),turn:w(k.turn),drips:k.drips.map(d=>clamp((t-(w3End+d))/k.drip))};
 }
 /** Where her left palm pinches the plan's left edge, and the plan's tilt, for a lowering progress. */
 export function s9PlanHold(lower:number):{palm:Pt;rot:number}{
@@ -124,14 +126,23 @@ export const s9PhoneFoot=():Pt=>{const ph=S9.phone,r=ph.rot*Math.PI/180,cap=YARD
 /** The pot the phone leans on: its centre on the rail cap, placed so its rim touches the phone's edge. */
 export const s9PotCentre=():Pt=>{const ph=S9.phone,k=S9.pot,r=ph.rot*Math.PI/180;
  return [ph.corner+k.h*Math.tan(r)+k.rimW/2,YARD.porch[1]+PORCH_RAIL_CAP];};
-/** The s9 camera at film time t: the treatment's framing, held, then from s9-event-3's end a single even
- * settle (scale eased out by `settle`, about the same frame point) to the end of the shot. There is no
- * push, pull or move to any other subject. ONE CALCULATION, shared by the drawing and the bound check. */
-export function s9Cam(t:number,w3End:number,shotEnd:number,v:'a'|'b'):{f:Pt;s:number;a:Pt;phase:'open'|'settle'}{
- const C0=S9.cam[v].from;
- if(t<w3End)return {...C0,phase:'open'};
- const u=clamp((t-w3End)/(shotEnd-w3End)), e=1-(1-u)*(1-u);
- return {f:C0.f,s:C0.s*(1-S9.tail.settle*e),a:C0.a,phase:'settle'};
+/** The leaning phone's centre in yard units, the point the close camera holds. */
+export const s9PhoneCentre=():Pt=>{const ph=S9.phone,r=ph.rot*Math.PI/180,f=s9PhoneFoot();
+ return [f[0]+ph.L/2*Math.sin(r),f[1]-ph.L/2*Math.cos(r)];};
+/** The s9 camera at film time t: the treatment's opening hold, then (after her head turns) a push that
+ * follows her look in close to the phone, a hold while the rain strikes it, and the pull back to the
+ * opening's own framing, which it reaches just before the credits. Scale moves geometrically, so the
+ * push and the pull read at an even rate. ONE CALCULATION, shared by the drawing and the bound check. */
+export function s9Cam(t:number,w3End:number,shotEnd:number,v:'a'|'b'):{f:Pt;s:number;a:Pt;phase:'open'|'push'|'close'|'pull'|'home'}{
+ const k=S9.tail, C0=S9.cam[v].from, C1={f:s9PhoneCentre(),s:S9.close.s,a:S9.close.a}, H={f:[540,960] as Pt,s:1,a:[540,960] as Pt};
+ const geo=(x:number,y:number,e:number)=>x*Math.pow(y/x,e);
+ const go=(A:typeof H,B:typeof H,e:number)=>({f:mix(A.f,B.f,e),s:geo(A.s,B.s,e),a:mix(A.a,B.a,e)});
+ const p0=w3End+k.push[0],p1=w3End+k.push[1],q0=w3End+k.pull,q1=shotEnd-k.home;
+ if(t<p0)return {...C0,phase:'open'};
+ if(t<p1)return {...go(C0,C1,ease((t-p0)/(p1-p0))),phase:'push'};
+ if(t<q0)return {...C1,phase:'close'};
+ if(t<q1)return {...go(C1,H,ease((t-q0)/(q1-q0))),phase:'pull'};
+ return {...H,phase:'home'};
 }
 /** Where the carried case hangs: its handle in her right palm, for her right wrist (her units). */
 export function caseFromWrist(o:Placed,W:Pt,cs:number):Pt{
@@ -879,7 +890,7 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  case 'curb-table':{
   // s9 RETURNS TO THE OPENING (R15h). "Deployment is still the goal" closes forward, in the yard the
   // film opened in: the same flooded street, limestone curb, chain link fence with its orange ankle
-  // mark, live oak and porch, with a real-size phone leaning on a pot on the porch rail. The goal at the
+  // mark, live oak, porch and the dark phone, leaning at phone scale on the porch rail. The goal at the
   // curb is a dashed, unlit OUTLINE of the station: no footing, no lamp, no lit lens, so nothing there
   // is installed or operating. The real prototype is in the closed carry case the technician who
   // stamped the field result card holds by its handle in her right hand, standing in the water with the
@@ -887,9 +898,9 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   // out. s9-event-2: she looks up from the plan to the curb, an amber goal ring draws itself around the
   // outline and a field result tag, none reported, pins beside it. s9-event-3: the deployment goal tag
   // pins beside the ringed outline, never over it. THE TAIL (after the clause, from the same clock):
-  // she lowers the open plan and turns her head from the goal toward the porch rail, while the frame
-  // holds on the answer with only an even settle (s9Cam). The small phone on the rail is ordinary yard
-  // detail at real size, never a payoff. Nothing is
+  // she lowers the open plan and turns her head from the goal to the porch rail; the camera follows her
+  // look in close to the dark phone, holds while two rain drops strike its dark screen, and pulls back to
+  // the opening's own framing (s9Cam). The phone keeps its own small size throughout. Nothing is
   // folded away, packed, lifted or installed. Her hand holds the case by its handle only, so no arm
   // passes through the case.
   const w2=win('s9-event-2'), w3=win('s9-event-3');
@@ -909,13 +920,14 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   const R=S9.ring, ringLen=Math.PI*(3*(R.rx+R.ry)-Math.sqrt((3*R.rx+R.ry)*(R.rx+3*R.ry)));
   const ringD=`M${R.c[0]} ${R.c[1]-R.ry}A${R.rx} ${R.ry} 0 1 1 ${R.c[0]} ${R.c[1]+R.ry}A${R.rx} ${R.ry} 0 1 1 ${R.c[0]} ${R.c[1]-R.ry}`;
   const sway=4*Math.sin(t*1.7);
-  // The phone at real size, ordinary yard detail: drawn as the 220 by 451 unit phone scaled down to
-  // S9.phone.w, it stands on its lowest corner on the rail cap and leans right against the rim of a small
-  // terracotta pot, screen to the yard and dark, with contact shadows under the phone's corner and the pot
-  // and a soft shadow where the phone meets the rim. Nothing moves on it.
+  // The dark phone at phone scale: drawn as the 220 by 451 unit phone scaled down to S9.phone.w, it
+  // leans right on its lowest corner on the rail cap against the newel post's face, screen to the yard,
+  // with a contact shadow under that corner and a soft shadow where its top meets the post. Each rain drop
+  // falls onto the dark screen, splashes in a small ring and runs down it; the screen never lights.
   const ph=S9.phone, foot=s9PhoneFoot(), k9=ph.w/220, PH=220*2.05, rr=ph.rot*Math.PI/180;
   const corner:Pt=[foot[0]+ph.w/2*Math.cos(rr),foot[1]+ph.w/2*Math.sin(rr)];
   const pot=S9.pot, pc=s9PotCentre(), rim:Pt=[pc[0]-pot.rimW/2,pc[1]-pot.h];
+  const strikes=[[-50,-90],[55,80]] as Pt[];
   const railPhone=<g data-part="s9-phone-on-rail">
    <ellipse cx={pc[0]+3} cy={pc[1]+1.2} rx={pot.baseW*.75} ry={2.2} fill="#1E1A16" opacity={.36}/>
    <g data-part="s9-rail-pot">
@@ -930,6 +942,12 @@ export const FloodStationFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    <path d={`M${rim[0]} ${rim[1]+7}l3 0l-1 12l-2 0Z`} fill="#1E1A16" opacity={.25}/>
    <At p={foot} r={ph.rot}><g transform={`scale(${k9})`}><g transform={`translate(0 ${-PH/2})`} data-part="s9-dark-phone">
     <StreetHubSupport part="phone" pal={pal} banner={0} t={t}/>
+    {tail.drips.map((q,i)=>{if(q<=0||q>=1)return null;const [sx,sy]=strikes[i],fall=clamp(q/.3),hit=clamp((q-.3)/.7),y0=-PH/2-260;
+     return <g key={i} data-part="rain-strike">
+      {fall<1&&<path d={`M${sx-14} ${lerp(y0,sy,fall)-70}L${sx} ${lerp(y0,sy,fall)}`} stroke="#E8F1F5" strokeWidth={10} strokeLinecap="round"/>}
+      {hit>0&&<g opacity={1-hit}><ellipse cx={sx} cy={sy} rx={10+44*hit} ry={5+18*hit} fill="none" stroke="#E8F1F5" strokeWidth={7}/>
+       <path d={`M${sx} ${sy+8}L${sx+4} ${sy+8+110*hit}`} stroke="#C9D8DF" strokeWidth={9} strokeLinecap="round"/></g>}
+     </g>;})}
    </g></g></At></g>;
   const {node:world}=yard({p1:1,e2:1,sway,ids:false,rain:.2,reflect:<g>{tw.refl}</g>,railPhone,
    curb:<Grounded baseY={SB[1]} on={exterior}><Item id="s9-station"><Band k="s9g" y1={wl9}>{goal}</Band></Item></Grounded>,

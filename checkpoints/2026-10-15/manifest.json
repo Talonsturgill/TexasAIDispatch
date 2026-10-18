@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-15",
-  "saved_at": "2026-10-18T00:24:31.142283+00:00",
+  "saved_at": "2026-10-18T00:49:48.978950+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-15T05:10:08.805144Z",
   "repo_root": "/home/user/restore/TexasAIDispatch",
-  "source_pin": "8ca131e5d397a2f74de5eb4d9e85f5e89b5dc05c",
+  "source_pin": "8746305ade5ef5d4bad85257fed597db7b8d7b8d",
   "source_branch": null,
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "9d21b2c34f506d99124e177e6652164106fcf649306d241c9a8eb383685c64a1"
   },
   "deleted_source": [],
-  "ledger_sha256": "f75ad14207d44e08f60c2a14f86c0ea1cdf27f93bdaa69216a8349c3ef7448a2",
-  "original_private_ledger_sha256": "cce4c6ad490e4e644a55b13d65b63e7c30c880eee07dae19f8d302084dc5a616",
+  "ledger_sha256": "d56e4cdd434e69358185d8e1c240b1d3934cfb3284b9cbcbb3bc1b868078041f",
+  "original_private_ledger_sha256": "fa83c170fb107fa49a7f26f30d9a7af4913ae8c8326267db5fa57501eecf0749",
   "grant_origin_roots": [
     {
       "event_index": 10,
@@ -133,6 +133,11 @@
       "event_index": 465,
       "authorization_sha256": "5353ea5275f9dff0580db6e03562b6201131a36267d27d4d244755fd42e4d722",
       "root": "/home/user/restore/TexasAIDispatch"
+    },
+    {
+      "event_index": 473,
+      "authorization_sha256": "1a456fe0b8270f455ffbcea77fe6397099c84fd66fe457b71359467f735c5226",
+      "root": "/home/user/restore/TexasAIDispatch"
     }
   ],
   "usage": {
@@ -174,8 +179,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "9274f99e905a30d4910ab95a2b513aef954cb3936d9a18d4e32cb647213d6b01",
-      "size": 47375
+      "sha256": "c728a95dae33bb4cabf1cd814c1ca31093a57c1c8f7eeee5a5e8549b8dd0413e",
+      "size": 49144
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -16570,6 +16575,18 @@
       "size": 1548387
     },
     {
+      "path": "out/dispatch/evidence/r15h/HOLD-STATE-r15h.md",
+      "class": "scratch",
+      "sha256": "388af42f0974782f861594ff18056f3ceb385bb6f7250463a9009e45619fae4a",
+      "size": 864
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/REFUSAL-capture-completion-budget-moderncode.log",
+      "class": "scratch",
+      "sha256": "e9b815fa3061f921a35a2531ac56f62b19f1a81c2b0e53f10e1f115c73c46172",
+      "size": 108
+    },
+    {
       "path": "out/dispatch/evidence/r15h/after-pass1/FloodStationFilm.tsx",
       "class": "scratch",
       "sha256": "986376149b6ec45c6b8c265a2b0fbaa94230f68cd9e42c9b16ce1d3261a1fc74",
@@ -16834,6 +16851,12 @@
       "size": 101
     },
     {
+      "path": "out/dispatch/evidence/r15h/completion-capacity-moderncode.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/evidence/r15h/correction-brief-r15h-v2.md",
       "class": "scratch",
       "sha256": "9cc1e408cb049958e1aaddc0dcdd4efe714c64bcc0d456e1a492e3f36791451d",
@@ -16861,6 +16884,12 @@
       "path": "out/dispatch/evidence/r15h/critic-packet-r15h-v4.json",
       "class": "scratch",
       "sha256": "f58ba472b2a81c706b23099a4cfd53a6b63f03273fc09142c054352ff9cb10c7",
+      "size": 9505
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/critic-packet-r15h-v5.json",
+      "class": "scratch",
+      "sha256": "c1aa7a7cf168392defe997103697e661da62bffd2732d40ef0388d98b4a662ac",
       "size": 9505
     },
     {
@@ -16900,6 +16929,36 @@
       "size": 9934
     },
     {
+      "path": "out/dispatch/evidence/r15h/modern-code-complete-budget.log",
+      "class": "scratch",
+      "sha256": "4ac28f71785a29f0c26df9cd1f14010ef25891698355e985210c5d829ccf680d",
+      "size": 87
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/modern-code-complete-plan-r15h.json",
+      "class": "scratch",
+      "sha256": "1a456fe0b8270f455ffbcea77fe6397099c84fd66fe457b71359467f735c5226",
+      "size": 747732
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/modern-code-plan-input.json",
+      "class": "scratch",
+      "sha256": "d519f8234931b0910923161628f4aee4942030e8266b0d838ca2f5564f5bb09b",
+      "size": 3277
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/modern-code-plan-r15h.json",
+      "class": "scratch",
+      "sha256": "6b944ae2190e142629da9fff7f2c035feef20d775ee0a19609ec5386ffd99666",
+      "size": 742334
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/modern-code-prepare.log",
+      "class": "scratch",
+      "sha256": "ac4270cf34625bcb5b7d3bcefdc939759c3150ec1ccf2ef09f975faf91a5dc49",
+      "size": 80
+    },
+    {
       "path": "out/dispatch/evidence/r15h/panel-round-1-coverage-disclosures.md",
       "class": "scratch",
       "sha256": "8a7942335871501908238a239ea85e58c2aca3c1943927829a7c0a2bd25e0642",
@@ -16927,6 +16986,12 @@
       "path": "out/dispatch/evidence/r15h/pivot-code-review-message-r15h-v4.txt",
       "class": "scratch",
       "sha256": "244d7e1f107144b3c4a3ce7c830e26b4f0fa7cfc697148e7ee2f515066840533",
+      "size": 13775
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/pivot-code-review-message-r15h-v5.txt",
+      "class": "scratch",
+      "sha256": "fae89c3ee3c1d7a097228b88a3445c12f47d27aad9d6d199d658e9f31d46ca96",
       "size": 13775
     },
     {
@@ -16970,6 +17035,24 @@
       "class": "scratch",
       "sha256": "c973f11b22bdee80fd98e1cfc9ebebda3a9fc61d8fe6448087485e7335538e60",
       "size": 1610
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/production-budget-moderncode-before.json",
+      "class": "scratch",
+      "sha256": "089ab65fe938f62767927a9b0e8a1be239dd6b10e745ee7981f6e2d4eb1202dc",
+      "size": 1752
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/production-budget-moderncode-complete-after.json",
+      "class": "scratch",
+      "sha256": "500cea9f05070ac146445f5b140ef0a987689477819fe746dd9e5d4b72ad1c58",
+      "size": 1587
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/production-budget-moderncode-complete-before.json",
+      "class": "scratch",
+      "sha256": "500cea9f05070ac146445f5b140ef0a987689477819fe746dd9e5d4b72ad1c58",
+      "size": 1587
     },
     {
       "path": "out/dispatch/evidence/r15h/production-budget-r15h-2.json",
@@ -17050,10 +17133,34 @@
       "size": 6809
     },
     {
+      "path": "out/dispatch/evidence/r15h/review-files-r15h-v5.txt",
+      "class": "scratch",
+      "sha256": "8fb6760ec921c203832dbea1001c112770a02895b78baf42f8cb6d6687ea9bc9",
+      "size": 6809
+    },
+    {
       "path": "out/dispatch/evidence/r15h/review-files-r15h.txt",
       "class": "scratch",
       "sha256": "849e5ba8262f308e66974cfbbc900ae50b8fb895e490e7d6988ee5a73d7e6c66",
       "size": 6751
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/review-format-only/opening-a-structured-report.json",
+      "class": "scratch",
+      "sha256": "e13a9e2e4b0d814a0e4e43323143ebab616b6245df8492a564d2dd0a0a372a5b",
+      "size": 8888
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/review-format-only/reissued-opening-a-report-verbatim-text.txt",
+      "class": "scratch",
+      "sha256": "03e934ff2fa55a2669e0f9ab5cd7e38e8c33307d5a33f620b729bc12d5b63882",
+      "size": 9008
+    },
+    {
+      "path": "out/dispatch/evidence/r15h/review-format-only/transcript.jsonl",
+      "class": "scratch",
+      "sha256": "5ddeca1dc96b7ced634376779d2c0025696ef21a2bcbd37fa58bc17d9d480fcc",
+      "size": 2941192
     },
     {
       "path": "out/dispatch/evidence/r15h/review-pivot-code/code-handoff.json",
@@ -21738,8 +21845,8 @@
     {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
-      "sha256": "b7d3d14ac1390e6409a4154e8dd36e9ac58fb31afdae0adbfbe65639a6c83449",
-      "size": 205056
+      "sha256": "68da2ddfd74de27b8711a926af9ed7cf84c778f7380b557e4f1adf904e4f55a9",
+      "size": 206853
     },
     {
       "path": "out/dispatch/opening-b-critic.json",
@@ -21750,8 +21857,8 @@
     {
       "path": "out/dispatch/opening-b.json",
       "class": "scratch",
-      "sha256": "b2d64369ee861f4c68b11aedf476cfb55e746925ee7a077a447af1ca366b78c7",
-      "size": 210914
+      "sha256": "7c9a693e402c90cd26ac0f8466e5b0796d49977dba56071e4d1aa33f1c5b7a4b",
+      "size": 212740
     },
     {
       "path": "out/dispatch/openings/a-inspection-bbb48d4a6a1d0ec2.json",
@@ -23310,8 +23417,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "b7d3d14ac1390e6409a4154e8dd36e9ac58fb31afdae0adbfbe65639a6c83449",
-      "size": 205056
+      "sha256": "68da2ddfd74de27b8711a926af9ed7cf84c778f7380b557e4f1adf904e4f55a9",
+      "size": 206853
     },
     {
       "path": "out/dispatch/storyboard_critic.json",
@@ -23568,8 +23675,8 @@
     {
       "path": "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
       "class": "source",
-      "sha256": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
-      "size": 74451
+      "sha256": "075db818b400072c2401474855852715d84ba89bc35d015335d4b7ca7cd70ab1",
+      "size": 76266
     },
     {
       "path": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",

@@ -1,0 +1,79 @@
+{
+  "review_scope": "code-plan",
+  "treatment": "a",
+  "board_path": "/home/user/restore/TexasAIDispatch/out/dispatch/opening-a.json",
+  "board_sha256": "68da2ddfd74de27b8711a926af9ed7cf84c778f7380b557e4f1adf904e4f55a9",
+  "concept_sha256": "24aae43f1e0c8a7f50c7f333e01510dcfc8c8b2f3c93c4c2e1135d8c597084a7",
+  "renderer_sha256": "0918349f3efb641e2bf3513e1f515bf75caf53be5ca938d37fa31d43230e24e9",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "verdict": "revise",
+  "reviewer_identity": "storyboard-critic subagent, claude-opus-5-5 high, Read only, independent of the director; code-plan scope, no pixels",
+  "reviewed_at": "2026-10-18T00:45:00Z",
+  "strongest_frame": "s8-shot-1, about 50.18 to 50.93 s (planned). The technician stamps 'None reported' with her own arm onto the held blank Field result card beside the readable 98.82% card.",
+  "weakest_frame": "s9 tail, 57.50 to 59.40 s (planned). A push from scale 1.15 to 5.5 in 0.65 s, a 0.4 s hold on the 249.8 px dark phone, a 0.55 s pull back to 1x, then 0.3 s of the opening framing before the credits. The 'Deployment goal' tag finishes pinning only 0.2 s before the push starts.",
+  "blocking_defects": [
+    {
+      "category": "motion",
+      "scene_id": "s9",
+      "time_s": 57.3,
+      "defect": "pace, motion and closing_payoff (quality contract closing_payoff and dominant_action; ART_DIRECTION: fast screen-space travel and excessively large per-frame displacement; a completed result needs a comprehension hold), s9 tail 57.30 to 59.40 s, A. s9Cam pushes 1.15 to 5.5 between 57.497 and 58.147 s on a quintic ease. At the peak that is about 16% scale change per frame, with content 500 px from the anchor moving about 80 px per frame plus a focus translation from (520,900) to the phone. It holds 5.5x for 0.40 s (58.147 to 58.547), pulls 5.5 to 1 in 0.553 s (58.547 to 59.10) and holds the opening framing for 0.30 s. The answer image (ring and both tags) is complete only from about 57.30 s and is carried out of frame from 57.50 s. The two readable payoffs of the tail, the dark phone and the returned answer frame, each get under half a second inside a 1.6 s whip. Required, renderer timing plus matching board text only, no event or window change. Either (1) end the film on the phone close: start the push later, drop the pull-back and hold the close for at least about 1 s with the rain strikes. Or (2) drop the phone close and hold the answer frame through the performed beat (plan lowers, head turns to the rail), removing the 'view follows her look in close to the still dark phone' wording from the s9 texts. Either way, keep the longest unperformed interval at or under about 1.4 s and keep every bound."
+    }
+  ],
+  "code_observations": [
+    "R1 resolved: curb-table draws GoalOutline (paper underlay 15 px, ink 7 px dashed 22/14, pods as outlined rectangles with unlit lens circles). There is no station({}), footing, risk lamp, halo or weather lamp. The builder's census reports 0 flood-station, risk-lamp, pod or weather-lamp parts in 117/117 s9 frames. The outline is clipped at waterline wl9 = 1100 - 60 x 0.58 = 1065.2 and is never faded.",
+    "Tail timing (w3End = 57.2968): turn 57.337 to 57.797, lower 57.357 to 57.957, push 57.497 to 58.147, drips 58.097 to 58.517 and 58.357 to 58.777, close hold to 58.547, pull to 59.10, home 59.10 to 59.40. Longest stretch without a performed change: 0.62 s (58.78 to 59.40), of which 0.32 s is camera pull.",
+    "Phone support geometry checks out: phone L 44, w 21.46, rot 14 degrees, lowest corner at (176, 988) on the rail cap. Its right edge reaches x = 176 + 34 x tan 14 = 184.48 at the pot height, which equals the pot rim's left edge (200.48 - 16 = 184.48), so the contact is exact. Contact shadows sit under the corner and pot and at the rim. The yard() railPhone override replaces the s1 flat phone in s9, so only one phone is drawn.",
+    "Phone scale: 44 units is about 17.2 cm against the 0.6-scale technician (722 units x 0.6 = 433 px for about 1.7 m). By the rail it is about 24 cm, if the 172-unit rail is 95 cm. The two scales disagree because the porch is drawn about 1.4 times larger than the technician's scale (the rail is about 0.67 m by her scale). This is stylization within tolerance, not a defect.",
+    "Return frame: the phone is 45.8 px long at native, 11.5 px at 270 wide, unreadable without the preceding close (disclosed by the builder).",
+    "During the 5.5x close, the region plate behind the porch (yard x about 153 to 258 above the rail cap, screen x about 500 to 1080, y 0 to 932) is not magnified, while the episode-drawn mid-ground is magnified with the foreground. That is a mixed-perspective risk to check on pixels. The rain overlay is also magnified 5.5 times (one streak about 11 px wide).",
+    "Board text: R3 applied to A and B. A's s2 and s3 next_connection and B's s3 subject fields now name only the optical lenses. B's s8 next_connection now describes the forward closing. Two cleanups remain. The s9-event-3 'what' text describes the plan lowering, close and pull-back, which run after that event's 56.82 to 57.30 s window and after the clause. FloodStationFilm line 924's comment still says the phone leans 'against the newel post's face'.",
+    "Unchanged bounds from my original review hold: B1 to B6, B8 and B9, and the s1 to s8 code is unchanged. Builder-reported s9 held-phase margins (A): outline left 390.8, ring top 369.6, goal tag right margin 92.7, None reported tag 124.8, plan band gap 152, case band gap 61.5, 0 chip hits."
+  ],
+  "action_reviews": [
+    {
+      "action_id": "deployment-goal",
+      "module_sha256": "075db818b400072c2401474855852715d84ba89bc35d015335d4b7ca7cd70ab1",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "revise",
+      "blocking_defects": [
+        "The tail's 1.15 to 5.5 to 1 move in 1.6 s, with a 0.4 s phone hold and a 0.3 s final frame, leaves the phone payoff and the answer frame without a comprehension hold."
+      ],
+      "code_observations": [
+        "The unlit GoalOutline, ring and tags are now source-faithful. The plan opens, lowers and is reachable. The head turns toward the rail, but yaw is capped at 0.3."
+      ]
+    },
+    {
+      "action_id": "yard-floods-before-warning",
+      "module_sha256": "075db818b400072c2401474855852715d84ba89bc35d015335d4b7ca7cd70ab1",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "Unchanged banner reflow and buzzes. The s1 yard phone is still drawn flat at about 135 by 24 px. That is a continuity risk against the real-size s9 phone, not a blocker."
+      ]
+    },
+    {
+      "action_id": "report-validation-only",
+      "module_sha256": "075db818b400072c2401474855852715d84ba89bc35d015335d4b7ca7cd70ab1",
+      "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": [
+        "Unchanged held S7 and S8 layouts and the attached-arm stamp."
+      ]
+    }
+  ],
+  "story_review": {
+    "story_sha256": "1be88dbc44e8f057b12edb57d59d668157545c562f82c33721b0834a6930d947",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+    "verdict": "revise",
+    "blocking_defects": [
+      "The s9 tail whip move leaves the closing answer and the dark-phone payoff without readable holds."
+    ],
+    "one_viewing_summary": "Planned chain: water reaches a San Antonio yard before the phone warns. A disclosed prototype charges from light, its four optical lenses light as water rises, its chip judges risk locally and its radio reaches a hub map. A held board shows the 98.82% validation figure, and a technician stamps a blank field result and reads a pinless map. The film then returns to the yard, where only a dashed, unlit goal outline is ringed at the curb.",
+    "opening_to_ending": "It opens on a yard with no station and a late warning. It now ends in that yard with deployment drawn honestly as an unlit planned outline and a still-dark phone. That answers the opening without inventing an installation, but the final 1.6 s camera whip leaves too little time to read either image.",
+    "weakest_transition": "Inside s9 at 57.50 s: the camera leaves the just-pinned 'Deployment goal' answer after about 0.2 s to snap to the phone, then snaps back for a 0.3 s final frame. That is a handoff from answer to callback with no time to understand either."
+  },
+  "notes": "Selection on the old renderer (48115904...) does not carry over. Region is Bexar on the blackland plates, which is correct."
+}
