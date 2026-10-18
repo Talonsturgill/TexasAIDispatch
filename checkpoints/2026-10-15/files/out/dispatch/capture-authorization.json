@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "81949636c1357052eaef790acc90b5315a766ea13bebcb10723e4541c9fe5a3d",
+    "event_sha256": "a9d6ee27514f28b674ca6415af3f55e06e206a19f9c8b5b3ca0286819b336c8e",
     "resource": "preflight_renders",
-    "at": "2026-10-18T01:01:27.717583Z",
-    "note": "capture authorization reservation for opening comparison"
+    "at": "2026-10-17T05:14:33.133485Z",
+    "note": "two opening comparison batch"
   },
   "boards": [
     {
@@ -166,21 +166,21 @@
     {
       "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
       "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
-      "consumed": "2026-10-18T01:01:42.814613+00:00"
+      "consumed": false
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.151
+    "free_gib": 20.22
   },
   "housekeeping": {
-    "receipt": "/home/user/restore/TexasAIDispatch/out/dispatch/capture-housekeeping-20261018T010138.json",
-    "receipt_sha256": "5e3f93b5c106c3f0f53f03eeb67b5e855bfef89a4ad88021aaafa02da99a8f7f",
+    "receipt": "/home/user/restore/TexasAIDispatch/out/dispatch/capture-housekeeping-20261018T010347.json",
+    "receipt_sha256": "fe68a50f15921d85a76890629824ecc64e3fba02bed4f11359cabdc5afdaa518",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-18T01:01:38.676604+00:00",
-  "expires_at": "2026-10-18T01:46:38.676604+00:00"
+  "issued_at": "2026-10-18T01:03:47.853680+00:00",
+  "expires_at": "2026-10-18T01:48:47.853680+00:00"
 }
