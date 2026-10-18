@@ -199,3 +199,5 @@ R15h builder handback received; files match handback hashes; transcript saved ou
 - 2026-10-18 headroom shortfall 0.03 GiB: cleared regenerable pip package cache (/root/.cache/pip, 75 MB, no production evidence).
 - 2026-10-18 R15h: native hero proof (cinema_proof) authorized (prepare, preflight reservation a3eb6234) and running (task bu2e2cxw8); prior cinema records preserved evidence/r15h/cinema-prior-r15g; new render cache goes to out/dispatch/tmp (excluded from checkpoint).
 - 2026-10-18 R15h: native hero proof done (55 jobs); hero AV review running (task bsxkh5k7j).
+- 2026-10-18 R15h: hero AV review PASS (film e427bb20, defects empty? see response), production_quality --preview ok. Next: full native render (prepare full_renders), then final motion, 3 AV lenses, panel.
+- 2026-10-18 headroom short 0.051 GiB: removed regenerable npm package cache (/root/.npm/_cacache) and one idle finished bundle.
