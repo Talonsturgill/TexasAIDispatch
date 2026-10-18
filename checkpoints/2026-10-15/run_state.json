@@ -11374,6 +11374,16 @@
       "request_id": "86b10a75-892b-4009-b773-c085ffba8664",
       "response_id": "ByjUasnHOICMytMP07re6AE",
       "response_sha256": "0b2a527fc7b5ac37d299147f76ad34fded2bced1d37422b0b5079573cbb08975"
+    },
+    {
+      "at": "2026-10-18T02:01:24.380752Z",
+      "attempted": {
+        "reported_tokens": 223853
+      },
+      "errors": [
+        "reported_tokens exceeds the nonrenewable run envelope"
+      ],
+      "kind": "resource_envelope_refused"
     }
   ],
   "limits": {
@@ -11397,7 +11407,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d35e9403f17da3212eacbf227ecced4963d001c8c81c6a4e3111d570b5705a68",
+    "original_private_state_sha256": "2d837d151037e4eee94b4d082f4672a38a4f747face658ed7b5d8aee5c575e43",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -11433,7 +11443,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-18T02:01:00.811723Z",
+  "updated_at": "2026-10-18T02:01:24.380781Z",
   "usage": {
     "audiovisual_reviews": 19,
     "cleanup_renders": 0,
