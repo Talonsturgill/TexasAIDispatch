@@ -1,0 +1,103 @@
+{
+  "role": "storyboard-critic",
+  "review_scope": "recurrence-pivot",
+  "verdict": "pass",
+  "reviewer_identity": "storyboard-critic subagent, model claude-opus-5-5, effort high, Read tool only, independent of the claude-sonnet-5-5 director and the scene-builder. This is a re-affirmation on the changed candidate (FloodStationFilm 075db818..., boards 68da2ddf.../7c9a693e...). My original pivot PASS, reviewed at the 2026-10-17T23:50:00Z estimate, stays retained unchanged. LIMITS: no pixels rendered or viewed, no audio, no hashes computed. All digests are copied from the assignment. There is no clock, so reviewed_at is an estimate after the pass 3 builder handback at 2026-10-18T00:00:08Z.",
+  "reviewed_at": "2026-10-18T00:45:00Z",
+  "retired_mechanism_id": "s8-detail-safe-area-framing",
+  "replacement_mechanism_id": "frame-safe-held-detail-and-forward-closing-v1",
+  "reviewed_failure_sha256": [
+    "c79f8b4a1bc575611a538cb2c459139aba525016f1c893ac566688934b0f3e58",
+    "9225fae4b5e84109aa1fe03a10d7936fede66b74f4f80ee55ab92729b6ed8b78",
+    "5869a4c57c4d794db5d0e35258676f977b041ab3f43f832d4b4f2214135bc28b"
+  ],
+  "reviewed_proposal": {
+    "path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/repair-plan-r15h.json",
+    "sha256": "51b2f8fdc0a668bd1f5bc77e146cecedd06b760105cf1bb0c6ef7a5b6d318a9a"
+  },
+  "visible_difference": "Against the first candidate: the s9 curb no longer shows a lit, footed station. It shows a GoalOutline, a 7 px ink dashed outline (22 on, 14 off) over a 15 px paper underlay of the post, strut rail, housing, panel, antenna and pods, with unlit lens circles and no footing, lamp, halo or weather lamp. It is clipped at the ankle waterline, ringed in amber and flanked by the 'Field result / None reported' and 'Deployment goal' tags. After the clause the technician performs a continuation: she lowers the open plan by 70 units with a 9 degree tilt (57.36 to 57.96 s A) and turns her head toward the porch rail (57.34 to 57.80 s). The camera then follows her look to a real-size phone leaning on a terracotta pot, holds while two rain drops strike its dark screen, and returns to Cam identity on a wide plate. B's s9 framing changed from close (plate zoom 1.18) to wide, so B also returns to the opening framing. Against the retired mechanism, the changes recorded in my original review still hold: held S7 and S8 card layouts with no episode push, an open-eye rule in Head, and arms solved from the technician's shoulders.",
+  "source_basis": "c1 and c10 (the announcement names no installation, and the deployment goal is not said to be met), now honored by an unlit, unfooted outline; c9 (stated aim, no dates, no buyer); c12 (ankle-deep yard water before the phone warning, the opening the close returns to); c4 (validation-only figure, no field result)",
+  "condition_check": {
+    "a_held_framings_replace_push": {
+      "genuine": true,
+      "evidence": "Unchanged from my original review. The s1 to s8 code in 075db818 matches the reviewed 986376149b6e behaviour, and only the header comment and the s9 path changed."
+    },
+    "b_close_returns_to_opening_yard": {
+      "genuine": true,
+      "evidence": "yard() with a railPhone override (one phone only). The GoalOutline replaces station({}). s9Cam ends at {f:[540,960],s:1,a:[540,960]} for the last 0.3 s in both treatments, and B's shot framing is now wide."
+    },
+    "c_open_eyes_and_attached_arms": {
+      "genuine": true,
+      "evidence": "StreetHubSupport 9ef763d4110c is unchanged. In s9 the lowered plan's palm stays about 145 px from her left shoulder, against a 152 px arm at scale 0.6, so the arm reaches without clamping."
+    },
+    "label_offset_easing_or_sleeve_only": false,
+    "source_backed": true,
+    "conditions_that_still_must_hold": [
+      "The tail timing must give the closing answer and any phone payoff a readable hold. As built, the tail has a 0.4 s phone hold and a 0.3 s final frame between a 0.65 s push and a 0.55 s pull. This is blocked in code_handoff and fixable inside this mechanism.",
+      "Phone review must prove that the GoalOutline reads as a planned goal, not a ghost or an installed object, and that the held cards keep their margins in both treatments."
+    ]
+  },
+  "defect_coverage": [
+    {
+      "id": "B1",
+      "covered_by_pivot": false,
+      "scope": "ordinary renderer fix",
+      "note": "Unchanged and resolved in code."
+    },
+    {
+      "id": "B2",
+      "covered_by_pivot": false,
+      "scope": "ordinary bounded push fix",
+      "note": "Unchanged and resolved in code."
+    },
+    {
+      "id": "B3",
+      "covered_by_pivot": true,
+      "scope": "pivot component a",
+      "note": "Held layouts, unchanged."
+    },
+    {
+      "id": "B4",
+      "covered_by_pivot": true,
+      "scope": "follows from component b",
+      "note": "The tag stays clear of the outline and ring: 0 overlap frames (builder), and about 33 px horizontal clearance by my arithmetic."
+    },
+    {
+      "id": "B5",
+      "covered_by_pivot": false,
+      "scope": "ordinary renderer fix",
+      "note": "Unchanged."
+    },
+    {
+      "id": "B6",
+      "covered_by_pivot": false,
+      "scope": "bounded board edit",
+      "note": "Unchanged in pixels. The stale weather-lamp wording is removed from both boards."
+    },
+    {
+      "id": "B7",
+      "covered_by_pivot": true,
+      "scope": "pivot component b",
+      "note": "The close is now source-faithful (unlit outline). Only the tail timing remains open."
+    },
+    {
+      "id": "B8",
+      "covered_by_pivot": true,
+      "scope": "pivot component c (eyes)",
+      "note": "Unchanged."
+    },
+    {
+      "id": "B9",
+      "covered_by_pivot": true,
+      "scope": "pivot component c (arms and case)",
+      "note": "Unchanged, plus the s9 plan-lowering reach."
+    },
+    {
+      "id": "B10",
+      "covered_by_pivot": false,
+      "scope": "derived motion",
+      "note": "The longest interval with no performed change is now 0.62 s (builder). But the tail's camera move is too fast for its holds."
+    }
+  ],
+  "notes": "This re-affirmation does not edit or replace my original pivot_review (pivot-review.json acb59849..., inside handback-verbatim.txt 1c792e49...). It approves no pixels. The earlier process note stands: begin-repair was opened before any independent pivot review."
+}

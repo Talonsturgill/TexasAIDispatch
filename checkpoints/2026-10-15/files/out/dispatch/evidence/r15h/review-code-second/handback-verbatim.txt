@@ -1,0 +1,268 @@
+R15h second code-content check (critic 44 continuation, storyboard_critics 45/45), from the storyboard-critic (Opus 5.5, high effort, Read only). It covers the changed candidate after builder passes 2 and 3. My original pivot PASS and code REVISE are retained unchanged and not regraded. The two new JSON objects are below. Each has its own top-level verdict and reviewer_identity.
+
+Summary:
+- **Pivot (scope A): PASS re-affirmed.** The close now draws a dashed, unlit GoalOutline with paper underneath. It has no footing, lamp, halo or lit lens, so it no longer shows an installed station. The return to the opening framing is now performed, and B now returns to it too.
+- **Code (scope B): REVISE again for A, B and the storyboard slot, on one shared item.** R1 (the installed station) and R3 (the B board text) are resolved. The phone now has real size, support and contact.
+  - **What still fails is the timing of the tail.** The tail is the 2.1 s after the last s9 event. The camera zooms 1.15 (A) or 1.32 (B) to 5.5 in 0.65 s, which at peak is about 16% zoom per frame. It holds the readable phone for only 0.4 s, pulls back to 1x in 0.55 s, and holds the return frame for 0.3 s before the credits.
+  - **The answer gets no time to read.** The 'Deployment goal' tag finishes pinning at 57.30 s and the push starts at 57.50 s. Both the phone payoff and the answer frame stay on screen for well under a second each. The guides name that kind of fast screen travel and missing comprehension hold.
+  - **The fix is renderer timing and board text only.** Either end the film on the phone close with a hold of about 1 s, or drop the phone close and hold the answer frame through the performed beat. That beat is the plan lowering and the head turn to the porch rail, and dropping the close also drops the phone claim from the board text.
+- **Not blocking:**
+  - **s1 phone mismatch.** The s1 opening phone is flat and about three times phone scale. The s9 phone is upright and real size. This is a continuity risk, not a blocker.
+  - **The pot.** It is believable support but a new prop that s1 does not have.
+  - **The B sfx binding.** It faithfully matches B's own event clock, and A's file is unchanged.
+
+Coverage: I read the changed and new bytes in this call. Some files I did not re-read because their digests are identical to what I read in full in my previous call: the guides, configs, unchanged renderer modules, claims, selection data and the repair plan. A few files were read only in part, and the per_input_table marks each one honestly.
+
+### pivot_review
+```json
+{
+  "role": "storyboard-critic",
+  "review_scope": "recurrence-pivot",
+  "verdict": "pass",
+  "reviewer_identity": "storyboard-critic subagent, model claude-opus-5-5, effort high, Read tool only, independent of the claude-sonnet-5-5 director and the scene-builder. This is a re-affirmation on the changed candidate (FloodStationFilm 075db818..., boards 68da2ddf.../7c9a693e...). My original pivot PASS, reviewed at the 2026-10-17T23:50:00Z estimate, stays retained unchanged. LIMITS: no pixels rendered or viewed, no audio, no hashes computed. All digests are copied from the assignment. There is no clock, so reviewed_at is an estimate after the pass 3 builder handback at 2026-10-18T00:00:08Z.",
+  "reviewed_at": "2026-10-18T00:45:00Z",
+  "retired_mechanism_id": "s8-detail-safe-area-framing",
+  "replacement_mechanism_id": "frame-safe-held-detail-and-forward-closing-v1",
+  "reviewed_failure_sha256": [
+    "c79f8b4a1bc575611a538cb2c459139aba525016f1c893ac566688934b0f3e58",
+    "9225fae4b5e84109aa1fe03a10d7936fede66b74f4f80ee55ab92729b6ed8b78",
+    "5869a4c57c4d794db5d0e35258676f977b041ab3f43f832d4b4f2214135bc28b"
+  ],
+  "reviewed_proposal": {
+    "path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/repair-plan-r15h.json",
+    "sha256": "51b2f8fdc0a668bd1f5bc77e146cecedd06b760105cf1bb0c6ef7a5b6d318a9a"
+  },
+  "visible_difference": "Against the first candidate: the s9 curb no longer shows a lit, footed station. It shows a GoalOutline, a 7 px ink dashed outline (22 on, 14 off) over a 15 px paper underlay of the post, strut rail, housing, panel, antenna and pods, with unlit lens circles and no footing, lamp, halo or weather lamp. It is clipped at the ankle waterline, ringed in amber and flanked by the 'Field result / None reported' and 'Deployment goal' tags. After the clause the technician performs a continuation: she lowers the open plan by 70 units with a 9 degree tilt (57.36 to 57.96 s A) and turns her head toward the porch rail (57.34 to 57.80 s). The camera then follows her look to a real-size phone leaning on a terracotta pot, holds while two rain drops strike its dark screen, and returns to Cam identity on a wide plate. B's s9 framing changed from close (plate zoom 1.18) to wide, so B also returns to the opening framing. Against the retired mechanism, the changes recorded in my original review still hold: held S7 and S8 card layouts with no episode push, an open-eye rule in Head, and arms solved from the technician's shoulders.",
+  "source_basis": "c1 and c10 (the announcement names no installation, and the deployment goal is not said to be met), now honored by an unlit, unfooted outline; c9 (stated aim, no dates, no buyer); c12 (ankle-deep yard water before the phone warning, the opening the close returns to); c4 (validation-only figure, no field result)",
+  "condition_check": {
+    "a_held_framings_replace_push": {"genuine": true, "evidence": "Unchanged from my original review. The s1 to s8 code in 075db818 matches the reviewed 986376149b6e behaviour, and only the header comment and the s9 path changed."},
+    "b_close_returns_to_opening_yard": {"genuine": true, "evidence": "yard() with a railPhone override (one phone only). The GoalOutline replaces station({}). s9Cam ends at {f:[540,960],s:1,a:[540,960]} for the last 0.3 s in both treatments, and B's shot framing is now wide."},
+    "c_open_eyes_and_attached_arms": {"genuine": true, "evidence": "StreetHubSupport 9ef763d4110c is unchanged. In s9 the lowered plan's palm stays about 145 px from her left shoulder, against a 152 px arm at scale 0.6, so the arm reaches without clamping."},
+    "label_offset_easing_or_sleeve_only": false,
+    "source_backed": true,
+    "conditions_that_still_must_hold": [
+      "The tail timing must give the closing answer and any phone payoff a readable hold. As built, the tail has a 0.4 s phone hold and a 0.3 s final frame between a 0.65 s push and a 0.55 s pull. This is blocked in code_handoff and fixable inside this mechanism.",
+      "Phone review must prove that the GoalOutline reads as a planned goal, not a ghost or an installed object, and that the held cards keep their margins in both treatments."
+    ]
+  },
+  "defect_coverage": [
+    {"id": "B1", "covered_by_pivot": false, "scope": "ordinary renderer fix", "note": "Unchanged and resolved in code."},
+    {"id": "B2", "covered_by_pivot": false, "scope": "ordinary bounded push fix", "note": "Unchanged and resolved in code."},
+    {"id": "B3", "covered_by_pivot": true, "scope": "pivot component a", "note": "Held layouts, unchanged."},
+    {"id": "B4", "covered_by_pivot": true, "scope": "follows from component b", "note": "The tag stays clear of the outline and ring: 0 overlap frames (builder), and about 33 px horizontal clearance by my arithmetic."},
+    {"id": "B5", "covered_by_pivot": false, "scope": "ordinary renderer fix", "note": "Unchanged."},
+    {"id": "B6", "covered_by_pivot": false, "scope": "bounded board edit", "note": "Unchanged in pixels. The stale weather-lamp wording is removed from both boards."},
+    {"id": "B7", "covered_by_pivot": true, "scope": "pivot component b", "note": "The close is now source-faithful (unlit outline). Only the tail timing remains open."},
+    {"id": "B8", "covered_by_pivot": true, "scope": "pivot component c (eyes)", "note": "Unchanged."},
+    {"id": "B9", "covered_by_pivot": true, "scope": "pivot component c (arms and case)", "note": "Unchanged, plus the s9 plan-lowering reach."},
+    {"id": "B10", "covered_by_pivot": false, "scope": "derived motion", "note": "The longest interval with no performed change is now 0.62 s (builder). But the tail's camera move is too fast for its holds."}
+  ],
+  "notes": "This re-affirmation does not edit or replace my original pivot_review (pivot-review.json acb59849..., inside handback-verbatim.txt 1c792e49...). It approves no pixels. The earlier process note stands: begin-repair was opened before any independent pivot review."
+}
+```
+
+### code_handoff
+```json
+{
+  "verdict": "revise",
+  "reviewer_identity": "storyboard-critic subagent, model claude-opus-5-5, effort high, Read tool only, independent of the claude-sonnet-5-5 director and the scene-builder. This is the second code-content check of the changed candidate. My original code REVISE stays retained unchanged. Code-plan scope only: no rendered pixels exist for these bytes and none were viewed. Arithmetic is my own, from FloodStationFilm.tsx 075db818..., StreetHubSupport.tsx, FloodStationHero.tsx and PlaceStage.tsx. I did not model the plate camera drift (placePlates.json was not read). Digests are copied from the assignment. reviewed_at is estimated.",
+  "reviewed_at": "2026-10-18T00:45:00Z",
+  "reports": {
+    "opening_a": {
+      "review_scope": "code-plan",
+      "treatment": "a",
+      "board_path": "/home/user/restore/TexasAIDispatch/out/dispatch/opening-a.json",
+      "board_sha256": "68da2ddfd74de27b8711a926af9ed7cf84c778f7380b557e4f1adf904e4f55a9",
+      "concept_sha256": "24aae43f1e0c8a7f50c7f333e01510dcfc8c8b2f3c93c4c2e1135d8c597084a7",
+      "renderer_sha256": "0918349f3efb641e2bf3513e1f515bf75caf53be5ca938d37fa31d43230e24e9",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "verdict": "revise",
+      "reviewer_identity": "storyboard-critic subagent, claude-opus-5-5 high, Read only, independent of the director; code-plan scope, no pixels",
+      "reviewed_at": "2026-10-18T00:45:00Z",
+      "strongest_frame": "s8-shot-1, about 50.18 to 50.93 s (planned). The technician stamps 'None reported' with her own arm onto the held blank Field result card beside the readable 98.82% card.",
+      "weakest_frame": "s9 tail, 57.50 to 59.40 s (planned). A push from scale 1.15 to 5.5 in 0.65 s, a 0.4 s hold on the 249.8 px dark phone, a 0.55 s pull back to 1x, then 0.3 s of the opening framing before the credits. The 'Deployment goal' tag finishes pinning only 0.2 s before the push starts.",
+      "blocking_defects": [
+        "pace, motion and closing_payoff (quality contract closing_payoff and dominant_action; ART_DIRECTION: fast screen-space travel and excessively large per-frame displacement; a completed result needs a comprehension hold), s9 tail 57.30 to 59.40 s, A. s9Cam pushes 1.15 to 5.5 between 57.497 and 58.147 s on a quintic ease. At the peak that is about 16% scale change per frame, with content 500 px from the anchor moving about 80 px per frame plus a focus translation from (520,900) to the phone. It holds 5.5x for 0.40 s (58.147 to 58.547), pulls 5.5 to 1 in 0.553 s (58.547 to 59.10) and holds the opening framing for 0.30 s. The answer image (ring and both tags) is complete only from about 57.30 s and is carried out of frame from 57.50 s. The two readable payoffs of the tail, the dark phone and the returned answer frame, each get under half a second inside a 1.6 s whip. Required, renderer timing plus matching board text only, no event or window change. Either (1) end the film on the phone close: start the push later, drop the pull-back and hold the close for at least about 1 s with the rain strikes. Or (2) drop the phone close and hold the answer frame through the performed beat (plan lowers, head turns to the rail), removing the 'view follows her look in close to the still dark phone' wording from the s9 texts. Either way, keep the longest unperformed interval at or under about 1.4 s and keep every bound."
+      ],
+      "code_observations": [
+        "R1 resolved: curb-table draws GoalOutline (paper underlay 15 px, ink 7 px dashed 22/14, pods as outlined rectangles with unlit lens circles). There is no station({}), footing, risk lamp, halo or weather lamp. The builder's census reports 0 flood-station, risk-lamp, pod or weather-lamp parts in 117/117 s9 frames. The outline is clipped at waterline wl9 = 1100 - 60 x 0.58 = 1065.2 and is never faded.",
+        "Tail timing (w3End = 57.2968): turn 57.337 to 57.797, lower 57.357 to 57.957, push 57.497 to 58.147, drips 58.097 to 58.517 and 58.357 to 58.777, close hold to 58.547, pull to 59.10, home 59.10 to 59.40. Longest stretch without a performed change: 0.62 s (58.78 to 59.40), of which 0.32 s is camera pull.",
+        "Phone support geometry checks out: phone L 44, w 21.46, rot 14 degrees, lowest corner at (176, 988) on the rail cap. Its right edge reaches x = 176 + 34 x tan 14 = 184.48 at the pot height, which equals the pot rim's left edge (200.48 - 16 = 184.48), so the contact is exact. Contact shadows sit under the corner and pot and at the rim. The yard() railPhone override replaces the s1 flat phone in s9, so only one phone is drawn.",
+        "Phone scale: 44 units is about 17.2 cm against the 0.6-scale technician (722 units x 0.6 = 433 px for about 1.7 m). By the rail it is about 24 cm, if the 172-unit rail is 95 cm. The two scales disagree because the porch is drawn about 1.4 times larger than the technician's scale (the rail is about 0.67 m by her scale). This is stylization within tolerance, not a defect.",
+        "Return frame: the phone is 45.8 px long at native, 11.5 px at 270 wide, unreadable without the preceding close (disclosed by the builder).",
+        "During the 5.5x close, the region plate behind the porch (yard x about 153 to 258 above the rail cap, screen x about 500 to 1080, y 0 to 932) is not magnified, while the episode-drawn mid-ground is magnified with the foreground. That is a mixed-perspective risk to check on pixels. The rain overlay is also magnified 5.5 times (one streak about 11 px wide).",
+        "Board text: R3 applied to A and B. A's s2 and s3 next_connection and B's s3 subject fields now name only the optical lenses. B's s8 next_connection now describes the forward closing. Two cleanups remain. The s9-event-3 'what' text describes the plan lowering, close and pull-back, which run after that event's 56.82 to 57.30 s window and after the clause. FloodStationFilm line 924's comment still says the phone leans 'against the newel post's face'.",
+        "Unchanged bounds from my original review hold: B1 to B6, B8 and B9, and the s1 to s8 code is unchanged. Builder-reported s9 held-phase margins (A): outline left 390.8, ring top 369.6, goal tag right margin 92.7, None reported tag 124.8, plan band gap 152, case band gap 61.5, 0 chip hits."
+      ],
+      "action_reviews": [
+        {"action_id": "deployment-goal", "module_sha256": "075db818b400072c2401474855852715d84ba89bc35d015335d4b7ca7cd70ab1", "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e", "verdict": "revise", "blocking_defects": ["The tail's 1.15 to 5.5 to 1 move in 1.6 s, with a 0.4 s phone hold and a 0.3 s final frame, leaves the phone payoff and the answer frame without a comprehension hold."], "code_observations": ["The unlit GoalOutline, ring and tags are now source-faithful. The plan opens, lowers and is reachable. The head turns toward the rail, but yaw is capped at 0.3."]},
+        {"action_id": "yard-floods-before-warning", "module_sha256": "075db818b400072c2401474855852715d84ba89bc35d015335d4b7ca7cd70ab1", "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e", "verdict": "pass", "blocking_defects": [], "code_observations": ["Unchanged banner reflow and buzzes. The s1 yard phone is still drawn flat at about 135 by 24 px. That is a continuity risk against the real-size s9 phone, not a blocker."]},
+        {"action_id": "report-validation-only", "module_sha256": "075db818b400072c2401474855852715d84ba89bc35d015335d4b7ca7cd70ab1", "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e", "verdict": "pass", "blocking_defects": [], "code_observations": ["Unchanged held S7 and S8 layouts and the attached-arm stamp."]}
+      ],
+      "story_review": {
+        "story_sha256": "1be88dbc44e8f057b12edb57d59d668157545c562f82c33721b0834a6930d947",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+        "verdict": "revise",
+        "blocking_defects": ["The s9 tail whip move leaves the closing answer and the dark-phone payoff without readable holds."],
+        "one_viewing_summary": "Planned chain: water reaches a San Antonio yard before the phone warns. A disclosed prototype charges from light, its four optical lenses light as water rises, its chip judges risk locally and its radio reaches a hub map. A held board shows the 98.82% validation figure, and a technician stamps a blank field result and reads a pinless map. The film then returns to the yard, where only a dashed, unlit goal outline is ringed at the curb.",
+        "opening_to_ending": "It opens on a yard with no station and a late warning. It now ends in that yard with deployment drawn honestly as an unlit planned outline and a still-dark phone. That answers the opening without inventing an installation, but the final 1.6 s camera whip leaves too little time to read either image.",
+        "weakest_transition": "Inside s9 at 57.50 s: the camera leaves the just-pinned 'Deployment goal' answer after about 0.2 s to snap to the phone, then snaps back for a 0.3 s final frame. That is a handoff from answer to callback with no time to understand either."
+      },
+      "notes": "Selection on the old renderer (48115904...) does not carry over. Region is Bexar on the blackland plates, which is correct."
+    },
+    "opening_b": {
+      "review_scope": "code-plan",
+      "treatment": "b",
+      "board_path": "/home/user/restore/TexasAIDispatch/out/dispatch/opening-b.json",
+      "board_sha256": "7c9a693e402c90cd26ac0f8466e5b0796d49977dba56071e4d1aa33f1c5b7a4b",
+      "concept_sha256": "3b7f970ba2a41e820a8bcd1eabe9ab152cf67baf879513aa68a2c8a6ccf5e15e",
+      "renderer_sha256": "0918349f3efb641e2bf3513e1f515bf75caf53be5ca938d37fa31d43230e24e9",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "verdict": "revise",
+      "reviewer_identity": "storyboard-critic subagent, claude-opus-5-5 high, Read only, independent of the director; code-plan scope, no pixels",
+      "reviewed_at": "2026-10-18T00:45:00Z",
+      "strongest_frame": "s1-shot-1, 0 to 1.955 s (planned). A disclosed design detail of the lowest lens going under at ankle height, match-cut to the yard's orange ankle mark.",
+      "weakest_frame": "s9 tail, 57.50 to 59.40 s (planned). B starts at Cam 1.32 on the wide plate, pushes to 5.5 in 0.65 s, holds the 242 px dark phone for 0.4 s, pulls to 1x and holds 0.3 s.",
+      "blocking_defects": [
+        "pace, motion and closing_payoff, s9 tail 57.30 to 59.40 s, B: the same shared s9Cam timing as A (push 1.32 to 5.5 in 0.65 s, 0.4 s close hold, 0.55 s pull, 0.3 s home), so the same correction is required."
+      ],
+      "code_observations": [
+        "B s9 framing is now wide (film_direction shot s9-shot-1 framing 'wide'). The Cam starts at f [553.6,880.3], a [540,826], s 1.32 and ends at identity, so B returns to the opening framing. Builder-reported anchor residuals against s1-shot-2 are within 13.5 px.",
+        "Margins: case band gap widened from 8.5 to 23 px (builder). Ring top 254.1 (builder). By my arithmetic, where the ring passes x 408 (the right edge of the disclosure chip) its y is about 273, about 20 px below a three-line chip bottom of about 252.",
+        "R3 resolved: B's s8 next_connection now describes the return to the yard, the dark phone and the unlit ringed outline. B's s3 subject, quality_plan subject and s2 and s3 next_connection mention only the optical lenses. The s9 visual_sentence.subject reads 'Starting close, ...', which matches the Cam 1.32 start on a wide plate.",
+        "The B sfx binding is faithful. sfx_events-b.json changes only curb-trickle (2.08, which is B's s1-event-1 at_s) and mark-tone (16.872, which is 15.62 + 1.252, B's s3-event-2). banner-tone 5.452, chip-hum 24.562 and radio-pulse 27.494 match both clocks, and every other field is identical. The selected A sfx_events.json is unchanged (0.64, which is A's s1-event-1, and 17.131, which is 15.62 + 1.5112). If B were ever chosen, its mix would need to be rebuilt from this file. The original A-bound failure log is retained.",
+        "The B-only transient from my original review remains: the s7 result card slides in from the left across the 'Initial assessments' tag (about 46.86 to 47.8 s)."
+      ],
+      "action_reviews": [
+        {"action_id": "deployment-goal", "module_sha256": "075db818b400072c2401474855852715d84ba89bc35d015335d4b7ca7cd70ab1", "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e", "verdict": "revise", "blocking_defects": ["Same tail timing defect as A."], "code_observations": ["Unlit outline, wide-plate return and wider case margin are all achieved."]},
+        {"action_id": "report-validation-only", "module_sha256": "075db818b400072c2401474855852715d84ba89bc35d015335d4b7ca7cd70ab1", "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e", "verdict": "pass", "blocking_defects": [], "code_observations": ["Unchanged. The transient tag occlusion in s7 is a phone-proof item."]}
+      ],
+      "story_review": {
+        "story_sha256": "dd9740b5f7e522eadec1b60048cc33fae9a16a3e9d1b982ea0546f14911f3be8",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+        "verdict": "revise",
+        "blocking_defects": ["The s9 tail whip move leaves the closing answer and the dark-phone payoff without readable holds."],
+        "one_viewing_summary": "Planned chain: a lens goes under at ankle height, then a yard floods before the phone warns. The station charges with no tower, its lenses light, the chip judges risk with no server and the radio reaches the hub map. A held validation card and a stamped blank result card follow, the technician reads the pinless map, and the film returns to the yard with an unlit goal outline ringed at the curb.",
+        "opening_to_ending": "It opens inside the sensor column and the late phone, and closes in the same yard with deployment drawn as an unlit, planned outline. The ending is now honest to the source, but the 1.6 s camera whip compresses both the answer and the phone callback below readable time.",
+        "weakest_transition": "Inside s9 at 57.50 s: the camera snaps from the just-completed answer frame to a 5.5x phone close and back to a 0.3 s final frame."
+      },
+      "notes": "Every renderer path is shared with A. The s9 structure is now nearly identical in both treatments, except for the starting camera. Divergence elsewhere is unchanged."
+    },
+    "storyboard_critic": {
+      "review_scope": "code-plan",
+      "treatment": "a",
+      "board_path": "/home/user/restore/TexasAIDispatch/out/dispatch/storyboard.json",
+      "board_sha256": "68da2ddfd74de27b8711a926af9ed7cf84c778f7380b557e4f1adf904e4f55a9",
+      "concept_sha256": "24aae43f1e0c8a7f50c7f333e01510dcfc8c8b2f3c93c4c2e1135d8c597084a7",
+      "renderer_sha256": "0918349f3efb641e2bf3513e1f515bf75caf53be5ca938d37fa31d43230e24e9",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "verdict": "revise",
+      "reviewer_identity": "storyboard-critic subagent, claude-opus-5-5 high, Read only, independent of the director; code-plan scope, no pixels",
+      "reviewed_at": "2026-10-18T00:45:00Z",
+      "strongest_frame": "s8-shot-1, about 50.18 to 50.93 s (planned). The attached-arm stamp of 'None reported' beside the held 98.82% card.",
+      "weakest_frame": "s9 tail, 57.50 to 59.40 s (planned). A 1.6 s zoom in and out, with a 0.4 s phone hold and a 0.3 s final frame.",
+      "blocking_defects": ["pace, motion and closing_payoff, s9 tail 57.30 to 59.40 s: the same s9Cam timing defect as opening_a."],
+      "code_observations": ["storyboard.json carries the same digest as opening-a.json (68da2ddf...), so the opening_a findings apply. I spot-read opening-a.json and did not separately read storyboard.json."],
+      "action_reviews": [
+        {"action_id": "deployment-goal", "module_sha256": "075db818b400072c2401474855852715d84ba89bc35d015335d4b7ca7cd70ab1", "source_claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e", "verdict": "revise", "blocking_defects": ["Tail timing, same as opening_a."], "code_observations": ["Same as opening_a."]}
+      ],
+      "story_review": {
+        "story_sha256": "1be88dbc44e8f057b12edb57d59d668157545c562f82c33721b0834a6930d947",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e",
+        "verdict": "revise",
+        "blocking_defects": ["The s9 tail whip move leaves the closing answer and the dark-phone payoff without readable holds."],
+        "one_viewing_summary": "Same planned chain as opening_a: the late warning in a flooded yard, the self-powered prototype and its four lenses, the on-chip judgment, radio to the hub map, the validation-only figure and blank field result, a pinless map, and the return to the yard with an unlit goal outline.",
+        "opening_to_ending": "The ending now answers the opening honestly, with deployment shown as a ringed, unlit plan at the curb of the yard that flooded. Its last 1.6 s camera whip gives that answer and the phone callback too little time to read.",
+        "weakest_transition": "Inside s9 at 57.50 s: from the answer frame to the 5.5x phone close and back, in 1.6 s."
+      },
+      "notes": "This is the storyboard slot bound to treatment a."
+    }
+  },
+  "per_input_table": [
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/pivot-code-review-message-r15h-v3.txt", "sha256": "fcdbd8aca90d0264b826f4e65b80c2a650e14e981db54a67a7e114c12232cc6b", "read": "full"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/review-pivot-code/handback-verbatim.txt", "sha256": "1c792e492fae2211c7252d8d844e0303ea594d141bfcecf49631a155d48e71cd", "read": "partial: lines 1 to 30. It is my own retained handback, which I authored in full."},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/review-pivot-code/pivot-review.json", "sha256": "acb59849ef7f23eaf18733c50466ec52cf7c0e46af847be817adf24c13119558", "read": "not read in this call; it is the parsed form of my own pivot_review"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/review-pivot-code/code-handoff.json", "sha256": "4c4acaafc7386fa2a7803fce3adc2d45566e61633f20f42041d134c42585acc0", "read": "not read in this call; it is the parsed form of my own code_handoff"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/pass2-phone-scale-disclosure-VERBATIM.md", "sha256": "bf20d3f9e79fb65dd9b6de643c053e18a23f21e0b270e2e93456c6719b997aa7", "read": "full"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/correction-brief-r15h-v2.md", "sha256": "9cc1e408cb049958e1aaddc0dcdd4efe714c64bcc0d456e1a492e3f36791451d", "read": "full"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/scene-builder-r15h-pass2-transcript.jsonl", "sha256": "d98ba4c55aa2cec2c15569fa865ea669e004fd3948f428eae65b3bddf93ce375", "read": "not read. Pass 2's design was inspected through after-pass2/FloodStationFilm.tsx lines 85 to 124 and the verbatim disclosure."},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/scene-builder-r15h-pass3-transcript.jsonl", "sha256": "205cfc7dd74c2e7389f1e5fa6722e893303e30eb2b38e706cc84ae1927d935fe", "read": "partial: lines 1044 to 1048 of 1048 (the final handback)"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/after-pass1/FloodStationFilm.tsx", "sha256": "986376149b6ec45c6b8c265a2b0fbaa94230f68cd9e42c9b16ce1d3261a1fc74", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/after-pass2/FloodStationFilm.tsx", "sha256": "6c9273063a8735740fac47bcf174026a11235f435b1a7151773a0968b4a9e2e1", "read": "partial: lines 85 to 124 (S9 constants with the oversized phone w 118)"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/baseline/FloodStationFilm.tsx", "sha256": "be9c00e439b031271f4e45677509aa74b630d630f7a0bdb9e2ab653d4e6ed9f7", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/baseline/StreetHubSupport.tsx", "sha256": "444be8ad166895ce33a8ba6741627308380f9e59197b220e1538f6b3548ca346", "read": "partial, in my previous call: lines 190 to 249 and 440 to 479"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/flow-check-b-with-A-sfx-ORIGINAL-FAILURE.log", "sha256": "3e88a41597d129904c0e26ca3697b56bad6f686a66b18afbd56674fd7b918c21", "read": "full"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/sfx_events-b.json", "sha256": "c5a0820ed3d592e6eaadcff21816bc2d888cd2ac45e1358735ca98897595029e", "read": "full"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/sfx_events.json", "sha256": "59f3a12fbd51e7a603f8c064b6a377c147bc3a6af846ecc9bb8a591e5d892e49", "read": "full"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/panel-round-1-coverage-disclosures.md", "sha256": "8a7942335871501908238a239ea85e58c2aca3c1943927829a7c0a2bd25e0642", "read": "full"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/repair-plan-r15h.json", "sha256": "51b2f8fdc0a668bd1f5bc77e146cecedd06b760105cf1bb0c6ef7a5b6d318a9a", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/forecast-reconciliation.json", "sha256": "5353ea5275f9dff0580db6e03562b6201131a36267d27d4d244755fd42e4d722", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/evidence/r15h/critic-packet-r15h-v3.json", "sha256": "b02048c76abd7d0d74f41cc0f0af51fde1907b77e9f75933f79106c0ce6b6c90", "read": "partial: lines 1 to 80 (board, story and treatment bindings)"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/opening-a.json", "sha256": "68da2ddfd74de27b8711a926af9ed7cf84c778f7380b557e4f1adf904e4f55a9", "read": "partial: lines 3886 to 3903 (s2 and s3 next_connection). My previous full read was of digest 4fabba71..., and I relied on the builder's statement that only the declared text changed."},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/opening-b.json", "sha256": "7c9a693e402c90cd26ac0f8466e5b0796d49977dba56071e4d1aa33f1c5b7a4b", "read": "partial: lines 1809 to 2023 (s9 scene), 2519 to 2536 (s9 shot) and 3950 to 4034 (edits s2 to s8)"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/storyboard.json", "sha256": "68da2ddfd74de27b8711a926af9ed7cf84c778f7380b557e4f1adf904e4f55a9", "read": "not read; same digest as opening-a.json"},
+    {"path": "/home/user/restore/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx", "sha256": "075db818b400072c2401474855852715d84ba89bc35d015335d4b7ca7cd70ab1", "read": "full (lines 1 to 981 across six reads)"},
+    {"path": "/home/user/restore/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx", "sha256": "9ef763d4110c040f6a5091a529e12e5a527beb4e39868e4a613b1016c57faaa1", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx", "sha256": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/video-engine/src/modern/PlaceStage.tsx", "sha256": "6839b760ee6dd681d87e1a65e334a5b185636a98c02c3ad4b1c4505982533948", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/knowledge/craft/AUTONOMOUS_COMPLETION.md", "sha256": "391e37a3e92d9ee439ef05ed30800beeafb2279f81d6ea6bc0cae4419d13f540", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/config/autonomous_completion_v2.json", "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/config/autonomous_completion_narration_v1.json", "sha256": "76124df1718c1d86481a48c592a4a282e2eb0fdbeb9642626135ff698eb282da", "read": "full"},
+    {"path": "/home/user/restore/TexasAIDispatch/config/source_validation_completion_v1.json", "sha256": "d08bc6044dd1adba91b1b27880921b2e574860b4a7981404a3a7a69184d2b82d", "read": "full"},
+    {"path": "/home/user/restore/TexasAIDispatch/knowledge/craft/visual-storytelling/viewer-plan.md", "sha256": "bfa3dc1c81ba1ec62170d3b23c9b52747c366096c3637f665780f433620b0a06", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/knowledge/craft/visual-storytelling/README.md", "sha256": "9aa84715c0a4947ab99d6286cc903386d3f84948e932e6f8830c66c897f2b9da", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/knowledge/craft/visual-storytelling/news-reporting.md", "sha256": "5839865e0e74a12991df4258b91e4b62c6263427e9272ec62dc4834598512b0d", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/knowledge/craft/visual-storytelling/explanatory-animation.md", "sha256": "1d868788a0486664e6920f6458a93e6216e2fbcaffdb1a23b55a3ba04a30973d", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/knowledge/craft/MODERN_FILM.md", "sha256": "58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/config/modern_film.json", "sha256": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/config/modern_episode_registry.json", "sha256": "fffdf5d8aa9b06599e6e7e52bd97c668415342e882b69c9b95513485cdf16574", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/knowledge/craft/STORY_ART.md", "sha256": "9926ea6717a969517bba1a041629d9c93d20af377018d623b188221502b9f97d", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/config/story_art.json", "sha256": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/knowledge/craft/AUTHORED_STORY_ART.md", "sha256": "7e6d8f3130e0bf702ce322d16c293fbc4b7214b28369a47af465d8ae1c5e970c", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/config/authored_story_art.json", "sha256": "351805e0af4713d59152a720bdd07d0c47ac3d788e02f0e8ccd1b87bbbf69ca0", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/prompts/claude_routine.md", "sha256": "ef60769bbf5c764df4ae71d020c3e0fe25d352a91a1a04cdb398f7adf65df067", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/config/claude_runtime.json", "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/knowledge/craft/ART_DIRECTION.md", "sha256": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/config/art_direction.json", "sha256": "c0d8f792de9b48c8e1130dd9623ca7a897504266eb86f2664a0f287dd6d17673", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/knowledge/craft/cinematic_reference_bank.json", "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/prompts/roles/scene-builder.md", "sha256": "251d5f0e2dbafe94c8b636bf2f664945855c74c22c0e9bd764f374cd08deee37", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/AGENTS.md", "sha256": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/CLAUDE.md", "sha256": "a58148fdd754c6fc031b5581adafaa865876164616e2410de35339fe3d23439d", "read": "supplied in full by the host context; never read with the Read tool"},
+    {"path": "/home/user/restore/TexasAIDispatch/config/quality_contract.json", "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/config/dispatch_rubric.yaml", "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/.claude/agents/storyboard-critic.md", "sha256": "b3e24ae40460473a43a8d465b19dc731d358537bb39faec482f5042659192978", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/story_selection.json", "sha256": "a59ab216ce78e66760a431eccecf98842d011084d29c60b61e12118b81b35867", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/openings/comparison.json", "sha256": "0f81c69dd366eec628125d74b5ba6a7a66d23b1e2409661700d1c1cfdd35d0bc", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/openings/selection.json", "sha256": "3f8d13187a4c26946bb835bf9e54517a02c945d2f6f833975c7346f751acc288", "read": "partial, in my previous call: lines 1 to 40 of a 1.6 MB file"},
+    {"path": "/home/user/restore/TexasAIDispatch/out/dispatch/claims.json", "sha256": "49b2379c63534c1685c5fcd480bbf0aa8cadee104811bfe9abb29cbb14f6438e", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/prompts/phases/repair.md", "sha256": "ef93a9b690b28866f24f8e8a0056af7ad36eff0acf6965c95f197e9b15d57c94", "read": "read in full in my previous call at this identical digest"},
+    {"path": "/home/user/restore/TexasAIDispatch/knowledge/craft/CREATIVE_DIRECTION.md", "sha256": "4cdaa30c9bf2cc1fce9ad3bd4a6007b669f112cedb3e15eda1dbe97b0d103eb5", "read": "full"}
+  ],
+  "honest_limits": [
+    "No picture has been rendered since the change, so this review contains no pixel, phone or native observation. Every visual statement is arithmetic on source bytes or a quoted builder figure, labelled as such.",
+    "I did not model the plate camera_strategy drift (placePlates.json unread). Builder-reported composed margins are quoted, not independently reproduced.",
+    "Many inputs carry digests identical to what I read in full in my previous call, so they were not re-read here. The boards were spot-read in their changed regions. The pass 2 transcript was not read. The pass 3 transcript was read for its final handback only. My own pivot-review.json and code-handoff.json were not re-read.",
+    "No hashes were computed, and module_sha256 in action_reviews is the board-bound FloodStationFilm digest. reviewed_at is an estimate because I have no clock.",
+    "Numbering: B8 eyes, B9 arms and B10 holds follow the assignment. Critic 43 numbered pace B8, finished_art B9 and closing_answer B10."
+  ],
+  "defect_resolution": [
+    {"id": "B1", "status": "resolved_in_code", "evidence": "Unchanged bannerLayout reflow (inner x -110 to 110, icon on its own row, 37.5 px type).", "phone_must_prove": "'Flash Flood' and 'Warning' fully readable from 5.45 to 8.68 s in both rotations."},
+    {"id": "B2", "status": "resolved_in_code", "evidence": "Unchanged centred 1.12 push. Door 41.8 px, box 42.7 px.", "phone_must_prove": "The enclosure and the 'Flood risk' label inside the frame from 23.49 to 25.285 s."},
+    {"id": "B3", "status": "resolved_in_code_by_mechanism_change", "evidence": "Unchanged held S7 and S8 layouts.", "phone_must_prove": "Cards inside the frame in both treatments. The s7 card top clears the chip (about 6 px). The s8 card edge sits about 33 px from the left."},
+    {"id": "B4", "status": "resolved_in_code", "evidence": "The tag starts at about x 627. The outline's right extent is about 574 and the ring's right edge 594. 0 overlap frames (builder).", "phone_must_prove": "The tag never covers the outline or ring during the held phases."},
+    {"id": "B5", "status": "resolved_in_code", "evidence": "Bezel bottom at 1236.", "phone_must_prove": "The band stays clear of the bezel."},
+    {"id": "B6", "status": "resolved_in_code_and_board_text", "evidence": "Only the optical lenses appear under n3a. The stale weather-lamp wording is removed from A and B.", "phone_must_prove": "The four flares read as four lenses at phone speed."},
+    {"id": "B7", "status": "partially_resolved", "evidence": "The unlit GoalOutline replaces the installed station, and the forward return is performed. The tail timing is blocked: 0.4 s phone hold, 0.3 s final frame, 0.65 s and 0.55 s zoom moves.", "phone_must_prove": "After the correction: the outline reads as a planned goal, and the answer and any phone callback are readable at normal speed."},
+    {"id": "B8", "status": "resolved_in_code", "evidence": "Head is unchanged with no closed-lid branch.", "phone_must_prove": "Open eyes for the responder and technician in every shot."},
+    {"id": "B9", "status": "resolved_in_code", "evidence": "Arms solved from the shoulders. The s9 lowered-plan reach is about 145 of 152 px. The case is drawn before the right arm.", "phone_must_prove": "Continuous arms through the stamp, the map read and the plan lowering."},
+    {"id": "B10", "status": "partially_resolved", "evidence": "The longest unperformed interval is 0.62 s (builder). The s9 tail is no longer camera-only, but its camera move is too fast for its holds.", "phone_must_prove": "No unearned interval over about 1.4 s, and no whip motion in the close."},
+    {"id": "R1 installed operating station at s9", "status": "resolved_in_code", "evidence": "GoalOutline with no footing, lamp, halo, weather lamp or lit lens. 0 such parts in 117/117 s9 frames (builder census).", "phone_must_prove": "The dashed outline reads as a plan mark, not a ghost or an installed unit."},
+    {"id": "R2 camera-only tail and unreadable phone", "status": "partially_resolved", "evidence": "There is a performed plan lowering, head turn and rain strikes, and the phone is readable at the 5.5x close (60.5 to 62.4 px at 270 wide). But the hold is 0.4 s inside a 1.6 s zoom-in-and-out, and the return frame lasts 0.3 s.", "phone_must_prove": "After the timing correction, the chosen payoff holds long enough to read."},
+    {"id": "R3 retired board text in opening-b", "status": "resolved", "evidence": "The B s8 next_connection describes the forward closing. The B and A s2 and s3 texts name only the optical lenses. Remaining cleanup, not blocking: the s9-event-3 'what' text describes tail actions after the event window and clause, and the line 924 comment still mentions a newel post.", "phone_must_prove": "Nothing; this is a text item."},
+    {"id": "P1 phone scale, support and contact", "status": "achieved_in_code", "evidence": "The phone is 44 units (about 17 cm by the technician), leaning 14 degrees on its corner. Its edge meets the pot rim exactly at x 184.48. Contact shadows are present, there is a single phone (railPhone override), and 0 overlaps with the technician (builder). The pot is a new, plausible prop. The porch is drawn about 1.4 times larger than the technician's scale, which is stylization. The s1 opening phone is still flat at about 135 by 24 px, about three times scale. That is a continuity risk, not a blocker. Harmonize it if the phone close is kept; it is moot if the phone claim is dropped.", "phone_must_prove": "The phone and pot read as believable objects on the rail, and the s1 to s9 phone identity reads as the same phone."}
+  ]
+}
+```
