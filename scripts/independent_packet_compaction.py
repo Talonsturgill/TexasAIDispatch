@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 
 POLICY = Path(__file__).resolve().parents[1] / 'config/independent_packet_compaction.json'
+FINAL_POLICY = POLICY.with_name('final_review_code_context_v1.json')
 FANOUT = {'video-engine/src/Dispatch.tsx', 'video-engine/src/modern/registry.tsx'}
 CODE = {'.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs'}
 SHARED_SCHEMA = 'dispatch_lossless_shared_packet/1'
@@ -389,6 +390,29 @@ def phone_code_context(text, board_path, bindings):
     return text, {**bindings, 'verified_code_plan_context_sha256': hashlib.sha256(canonical(context).encode()).hexdigest()}
 
 
+def final_code_context(text, board_path, bindings, role):
+    """Extend verified code provenance to final pixels under its separate amendment."""
+    amendment = json.loads(FINAL_POLICY.read_text())
+    if (amendment.get('version') != 'final-native-code-context-v1'
+            or amendment.get('roles') != ['picture', 'story', 'sound']):
+        raise ValueError('final review code-context amendment is invalid')
+    if (role not in amendment['roles'] or str(text.get('board', {}).get('date', ''))
+            < amendment['effective_edition']):
+        return text, bindings
+    original = copy.deepcopy(text)
+    original.pop('verified_code_plan_context', None)
+    original.pop('_verified_code_source_paths', None)
+    result, bound = phone_code_context(original, board_path, bindings)
+    if not result.get('verified_code_plan_context'):
+        return text, bindings  # No approval means no source-body substitution.
+    context = result['verified_code_plan_context']
+    context.update(final_policy_sha256=sha(FINAL_POLICY), claims_sha256=bindings['claims_sha256'],
+        scope='Current independent code-plan provenance only. No final pixel observation, score or film approval.')
+    result['files']['config/final_review_code_context_v1.json'] = FINAL_POLICY.read_text()
+    return result, {**bound, 'verified_code_plan_context_sha256': hashlib.sha256(canonical(context).encode()).hexdigest(),
+                    'provider_final_code_context_policy_sha256': sha(FINAL_POLICY)}
+
+
 def compact(text, package, role, repo):
     policy = json.loads(POLICY.read_text()); board = text.get('board')
     if not isinstance(board, dict) or str(board.get('date', '')) < policy['effective_edition'] or role not in policy['roles']:
@@ -438,7 +462,23 @@ def compact(text, package, role, repo):
     if inventory:
         text['inactive_renderer_source_inventory'] = [inventory[key] for key in sorted(inventory)]
     verified_paths = {Path(p) for p in text.pop('_verified_code_source_paths', [])}
-    if role == 'phone' and verified_paths and text.get('verified_code_plan_context'):
+    final_inventory = False
+    context = text.get('verified_code_plan_context') or {}
+    if role in ('picture', 'story', 'sound') and context.get('final_policy_sha256'):
+        if context['final_policy_sha256'] != sha(FINAL_POLICY):
+            raise ValueError('final review code-context amendment changed')
+        if not verified_paths:
+            verified_paths = {(repo / row['path']).resolve()
+                              for row in text.get('verified_code_source_inventory', [])}
+        if not verified_paths:
+            raise ValueError('final review code provenance has no verified source inventory')
+        claims_sha256 = sha(package/'claims.json')
+        fresh, _ = final_code_context(text, package/'storyboard.json', {'claims_sha256': claims_sha256}, role)
+        if (fresh.get('verified_code_plan_context') != context
+                or set(fresh.get('_verified_code_source_paths', [])) != {str(p) for p in verified_paths}):
+            raise ValueError('final review code provenance is missing, stale or changed')
+        final_inventory = True
+    if (role == 'phone' or final_inventory) and verified_paths and context:
         reviewed = {row['path']: row for row in text.get('verified_code_source_inventory', [])}
         for key in list(files):
             path = (repo/key).resolve()
@@ -447,6 +487,15 @@ def compact(text, package, role, repo):
                     raise ValueError('code-approved source body differs from its current inventory bytes')
                 reviewed[key] = {'path': key, 'sha256': sha(path), 'bytes': path.stat().st_size}
                 del files[key]
+        if final_inventory:
+            for path in verified_paths:
+                if not path.is_relative_to(repo):
+                    raise ValueError('verified final source left the owned repository')
+                key = path.relative_to(repo).as_posix()
+                expected = {'path': key, 'sha256': sha(path), 'bytes': path.stat().st_size}
+                if key in reviewed and reviewed[key] != expected:
+                    raise ValueError('verified final source inventory differs from current bytes')
+                reviewed[key] = expected
         text['verified_code_source_inventory'] = [reviewed[key] for key in sorted(reviewed)]
     text['packet_compaction'] = {'version': policy['version'], 'policy_sha256': sha(POLICY),
                                  'active_episodes': sorted(episodes)}
