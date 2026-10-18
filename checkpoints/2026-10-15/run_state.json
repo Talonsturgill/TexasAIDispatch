@@ -1092,6 +1092,14 @@
       "note": "capture authorization reservation for opening comparison",
       "resource": "preflight_renders",
       "to": 46
+    },
+    {
+      "at": "2026-10-18T01:04:23.623676Z",
+      "ceiling": 53,
+      "from": 46,
+      "note": "capture authorization reservation for opening comparison",
+      "resource": "preflight_renders",
+      "to": 47
     }
   ],
   "events": [
@@ -10640,6 +10648,24 @@
       "input_identity": "86c8c72b69bb3debf5a16c68e7ef472cfd20c3df78ad8e0bea4e32f6de6d5ed3",
       "kind": "preflight_retry_authorized",
       "reason": "The authorized opening_compare command exited 1 before any render because the previous comparison package was still in out/dispatch/openings. The package is now preserved by move under evidence/r15h/openings-prior-r15g, so the same command can run once."
+    },
+    {
+      "at": "2026-10-18T01:04:23.623704Z",
+      "ceiling": 53,
+      "kind": "budget_escalated",
+      "note": "capture authorization reservation for opening comparison",
+      "now": 47,
+      "resource": "preflight_renders",
+      "was": 46
+    },
+    {
+      "at": "2026-10-18T01:04:23.623718Z",
+      "kind": "reserved",
+      "note": "capture authorization reservation for opening comparison",
+      "preflight_identity": "86c8c72b69bb3debf5a16c68e7ef472cfd20c3df78ad8e0bea4e32f6de6d5ed3",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -10648,7 +10674,7 @@
     "full_renders": 4,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 46,
+    "preflight_renders": 47,
     "reboards": 14,
     "reported_tokens": 849907,
     "rescue_renders": 1,
@@ -10661,10 +10687,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "86c8c72b69bb3debf5a16c68e7ef472cfd20c3df78ad8e0bea4e32f6de6d5ed3",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "68e2ca9603132304d198b9b4932e99c930048150ce13d8a632bcabfb081e74ff",
+    "original_private_state_sha256": "a4bd8ec68497188834d98c71d07200d628dd3fd5868321eef950495fdd2e5fa8",
     "owner_message_redactions": [
       {
         "event_index": 10,
@@ -10700,14 +10725,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-18T01:04:00.209512Z",
+  "updated_at": "2026-10-18T01:04:23.623720Z",
   "usage": {
     "audiovisual_reviews": 17,
     "cleanup_renders": 0,
     "full_renders": 4,
     "image_generations": 0,
     "panel_rounds": 1,
-    "preflight_renders": 46,
+    "preflight_renders": 47,
     "reboards": 14,
     "reported_tokens": 1832670,
     "rescue_renders": 0,
