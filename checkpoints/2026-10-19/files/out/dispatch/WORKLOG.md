@@ -22,3 +22,6 @@ Next: validator PASS -> save validation.json unchanged -> validation_check -> bu
 
 2026-10-19 ~16:10Z DIRECTOR EDIT AFTER VALIDATOR PASS (disclosed): script_evidence_check refused scene s5 because "Waymo" appeared in no bound quote. c7's quote widened by the record's preceding summary sentence "Waymo LLC (Waymo) is recalling certain 5th and 6th Generation Automated Driving Systems (ADS)." (validator verified that sentence exact in round 1; the final PASS covers c7's original sentence). Scene s5 vo_claims now c6,c7,c13. No spoken word changed. validator_agents exhausted (4/4) so no re-review possible; this stays recorded.
 Builder (opus, reboards 1/4) returned: RobotaxiHero/SanAntonioSupport/RobotaxiFilm.tsx written, registry entry gained authored_art, both treatments typecheck; art gates wait on authored_story_art record.
+
+2026-10-19 ~16:40Z art recorded (storyboard/opening-a/opening-b entries identical), native_media rows filled (tmp/fill_native_media.py), picture_precheck pass 14/14 on both treatments. Capture hook probe denied as required (evidence/capture-hook-probe-denial.txt). storyboard_critics reserved 1/3; critic (opus a6a4af52...) running code-scope review of both treatments.
+Digests: A concept 2c4ca47b renderer d5026281; B concept 136c5578. Any board edit after this changes them.
