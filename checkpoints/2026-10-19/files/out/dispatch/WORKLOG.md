@@ -1,0 +1,1 @@
+BLOCKED 2026-10-19: provider_availability reserve refused by claude_checkpoint.require_backed. /opt/texas-dispatch-tools (Oct 17, f54faae) differs from main 98a187f for public_state.py and claude_checkpoint.py. Needs environment setup rerun (claude_environment_setup.sh) then fresh launch. Edition 2026-10-19 initialized, phase research, nothing paid reserved.
