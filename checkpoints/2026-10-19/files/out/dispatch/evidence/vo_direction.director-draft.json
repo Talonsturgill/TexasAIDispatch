@@ -1,0 +1,454 @@
+{
+  "schema": "dispatch_vo_direction/1",
+  "status": "draft_unbound",
+  "status_note": "Performance design only. Not approved for synthesis. Before any TTS call the caller must verify every hash marked unverified, compute and set sound_direction_sha256, record the pronunciation decision in audit.pronunciation, run the prose check, and resolve the director items in audit.picture_word_flags and audit.claim_and_source_flags. No TTS call, soundcheck or alignment was run by the voice director.",
+  "run_id": "2026-10-19",
+  "date": "2026-10-19",
+  "voice_director": {
+    "agent": "vo-director",
+    "model": "claude-haiku-5-5",
+    "effort": "high",
+    "spawned": false,
+    "note": "Performed in the invoked session without launching or spawning any subagent."
+  },
+  "bindings": {
+    "packet": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/vo-director-packet.json",
+      "sha256_expected": "3463854e24d58f969b350a29107485f43d887abbd101822d1aac45127e92cdfe",
+      "sha256_verified": false,
+      "note": "Read in full. No shell tool was available, so the hash was not recomputed."
+    },
+    "board": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+      "sha256_expected": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1",
+      "sha256_verified": false,
+      "story_sha256_expected": "c440e9efaa2ea3ac74cd3d12cf407c772d7bfa4024cb13a6d1889b536c1c1142",
+      "story_sha256_verified": false,
+      "story_contract_read": true,
+      "narration_picture_read": true
+    },
+    "claims": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/claims.json",
+      "sha256_expected": "2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584",
+      "sha256_verified": false,
+      "read": true
+    },
+    "opening_selection": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/selection.json",
+      "selected": "a",
+      "comparison_sha256_read_in_file": "781a6263593ca59efc80a2ccd7301d02ab1facd40878cb28179a7e6590b442bb",
+      "comparison_sha256_matches_packet": true,
+      "file_sha256_expected": "020c90675be68eb2738ffd7d601ced9ffc6cbbccda0d856a9acbdb1c182bfd23",
+      "file_sha256_verified": false
+    },
+    "sound_direction": {
+      "source": "storyboard.json creative_direction.sound",
+      "policy_sha256_in_creative_direction": "77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765",
+      "sound_direction_sha256": null,
+      "sound_direction_sha256_status": "NOT COMPUTED. No shell tool was available to compute the canonical digest of creative_direction.sound. No value was invented. The caller must compute it and set this field before synthesis."
+    },
+    "pronunciation_guide": {
+      "path": "/home/user/TexasAIDocket/knowledge/shared/TEXAS_PRONUNCIATION.md",
+      "read": true,
+      "sha256_verified": false,
+      "note": "Not among the packet bindings. Read from the sibling checkout. The bound packet does not carry its hash."
+    },
+    "authored_art_and_registry": "Not read by the voice director. The narration pronunciation and timing do not depend on them."
+  },
+  "script": {
+    "transcript_source": "storyboard.json narration_picture.clauses, in order, exact text",
+    "clause_count": 16,
+    "scene_count": 9,
+    "concatenation_matches_scene_vo_text": true,
+    "runtime_s_declared": 58.45,
+    "narration_end_s_authored": 58.1,
+    "timing_mode": "authored",
+    "timing_note": "Authored windows are provisional and approve only planning. They imply about 2.5 words per second in every clause. A measured read that runs long must be shortened in the script, never stretched.",
+    "shortening_request": "None. The approved wording fits the authored clock, so no story correction is requested."
+  },
+  "synth": {
+    "direction": "Conversational and plain, like a reporter walking someone through the record. Start on the first word with no lead-in and keep the connecting words moving. Carry each line's emphasis through stress on its one phrase, never through volume, and never add a triumphant note to a fix or a completed step. Take natural breaths at commas and sentence ends, and run 'flood remedy' straight into 'as currently under development' with no breath. Keep every hedge (may, could, interim, currently) audible inside its own phrase. Land the final phrase quiet, level and complete, with no rising tone at the end.",
+    "lines": [
+      {
+        "id": "n1a",
+        "script_text": "Anyone in San Antonio can now hail a Waymo with no driver,",
+        "intent": "open with curiosity about the new ride",
+        "emphasis": "can now hail",
+        "energy": "plain start with one light lift on the emphasis"
+      },
+      {
+        "id": "n1b",
+        "script_text": "the airport included.",
+        "intent": "add the airport as the surprising detail",
+        "emphasis": "airport included",
+        "energy": "holds the same level, quick and light, no drop"
+      },
+      {
+        "id": "n2a",
+        "script_text": "The service began in February",
+        "intent": "date the start plainly",
+        "emphasis": "February",
+        "energy": "drops to plain information after the hook"
+      },
+      {
+        "id": "n2b",
+        "script_text": "in a limited area of sixty square miles.",
+        "intent": "state the boundary as the honest qualifier",
+        "emphasis": "limited area",
+        "energy": "lower again and narrower on the qualifier"
+      },
+      {
+        "id": "n3",
+        "script_text": "In April, an empty Waymo was swept into Salado Creek.",
+        "intent": "report the April incident flatly, the empty car as the key fact",
+        "emphasis": "an empty Waymo",
+        "energy": "lowest point so far, quiet unease with no dramatic lift"
+      },
+      {
+        "id": "n4",
+        "script_text": "Earlier that month, another empty car was stranded in floodwater.",
+        "intent": "a second incident that shows a repeat",
+        "emphasis": "another empty car",
+        "energy": "small step up on the repeat, still under the unease"
+      },
+      {
+        "id": "n5a",
+        "script_text": "Waymo filed a software recall",
+        "intent": "name the federal action in a records voice",
+        "emphasis": "software recall",
+        "energy": "settles to neutral and official, flatter than the incidents"
+      },
+      {
+        "id": "n5b",
+        "script_text": "that could affect nearly thirty eight hundred cars.",
+        "intent": "give the scale with its hedge intact",
+        "emphasis": "could affect",
+        "energy": "steady, with no added weight on the number"
+      },
+      {
+        "id": "n6a",
+        "script_text": "The recall says the software may let a car slow,",
+        "intent": "attribute the recall wording before any mechanism",
+        "emphasis": "may let",
+        "energy": "careful and measured, a little lower than the scale line"
+      },
+      {
+        "id": "n6b",
+        "script_text": "then drive into standing water on higher speed roads.",
+        "intent": "the recall's described outcome, still under the attribution",
+        "emphasis": "higher speed roads",
+        "energy": "the one deliberate step up in attention on the turn, never louder and never certain"
+      },
+      {
+        "id": "n7",
+        "script_text": "The federal record says the remedy is currently under development.",
+        "intent": "state the open remedy plainly",
+        "emphasis": "currently under development",
+        "energy": "quietest point so far, level, with no rise at the end"
+      },
+      {
+        "id": "n8a",
+        "script_text": "As an interim step, Waymo tightened its weather limits,",
+        "intent": "separate the interim measure from the remedy",
+        "emphasis": "interim step",
+        "energy": "small step up in clarity, procedural and not relieved"
+      },
+      {
+        "id": "n8b",
+        "script_text": "and every affected car had the update by April twentieth.",
+        "intent": "report the interim completion flatly, the date as the anchor",
+        "emphasis": "by April twentieth",
+        "energy": "flat and even, no celebration on the completed update"
+      },
+      {
+        "id": "n9a",
+        "script_text": "So the airport ride is open,",
+        "intent": "answer the opening question calmly",
+        "emphasis": "airport ride is open",
+        "energy": "after a natural breath, level and unhurried, plainer than the opening"
+      },
+      {
+        "id": "n9b",
+        "script_text": "and the federal record lists the flood remedy",
+        "intent": "name what the federal record lists against the flood problem",
+        "emphasis": "flood remedy",
+        "energy": "level and a touch lower, carried straight on"
+      },
+      {
+        "id": "n9c",
+        "script_text": "as currently under development.",
+        "intent": "state the final limit complete and unhurried",
+        "emphasis": "under development",
+        "energy": "quietest line in the film, steady, falling and complete"
+      }
+    ]
+  },
+  "audit": {
+    "per_line": [
+      {
+        "id": "n1a",
+        "job": "orient",
+        "visible_event": "s1-event-1, the white driverless car glides to the airport curb with brake lamps flaring (first reward authored at 0.75 s)",
+        "claim_ids": ["c1"],
+        "breath": "natural breath at the comma after driver"
+      },
+      {
+        "id": "n1b",
+        "job": "qualify",
+        "visible_event": "s1-event-3, the phone ride pin changes to arriving at the bay",
+        "claim_ids": ["c1"],
+        "breath": "none before the airport phrase, so it stays with the ride"
+      },
+      {
+        "id": "n2a",
+        "job": "reveal",
+        "visible_event": "s2-event-1 map draws in, s2-event-2 calendar page flips to February",
+        "claim_ids": ["c2"],
+        "breath": "natural breath allowed after February, before the preposition in"
+      },
+      {
+        "id": "n2b",
+        "job": "qualify",
+        "visible_event": "s2-event-2 and s2-event-3, outline closes and the tag reads sixty square miles, limited area",
+        "claim_ids": ["c2"],
+        "breath": "none inside sixty square miles"
+      },
+      {
+        "id": "n3",
+        "job": "reveal",
+        "visible_event": "s3-event-1 rain and creek, s3-event-2 unoccupied car in the current, s3-event-3 car carried downstream",
+        "claim_ids": ["c3", "c4"],
+        "breath": "introductory breath after April; no breath before Salado Creek",
+        "pronunciation": "Salado Creek, suh LAY doh KREEK, per the guide's Salado row in section 2. Not respelled in the transcript."
+      },
+      {
+        "id": "n4",
+        "job": "explain",
+        "visible_event": "s4-event-1 floodwater climbs the wheel arches, s4-event-2 hazard lamps blink, s4-event-3 stopped car in water",
+        "claim_ids": ["c5"],
+        "breath": "sentence-end breath before; none inside the clause"
+      },
+      {
+        "id": "n5a",
+        "job": "reveal",
+        "visible_event": "s5-event-1 recall record card slides onto the desk and its fields write in",
+        "claim_ids": ["c6"],
+        "claim_binding_note": "The wording Waymo filed traces to c7, the named filer. The narration_picture binding lists only c6. See claim_and_source_flags B1.",
+        "breath": "clause-boundary breath allowed after recall; that could affect stays with the number"
+      },
+      {
+        "id": "n5b",
+        "job": "qualify",
+        "visible_event": "s5-event-2 grid of car icons fills, s5-event-3 counter settles on 3,791 and the recall stamp lands",
+        "claim_ids": ["c6", "c13"],
+        "breath": "none between could affect and the number"
+      },
+      {
+        "id": "n6a",
+        "job": "qualify",
+        "visible_event": "s6-event-1 car runs the higher speed lane, s6-event-2 car slows with brake lamps lit",
+        "claim_ids": ["c7"],
+        "breath": "clause-boundary breath allowed after slow; the attribution and hedge carry into n6b",
+        "picture_word_flag": "F6"
+      },
+      {
+        "id": "n6b",
+        "job": "reveal",
+        "visible_event": "s6-event-3 car rolls into standing water with a wake, and the word may on the recall sentence lights",
+        "claim_ids": ["c7"],
+        "breath": "none between into and standing water",
+        "source_note": "c7 says the software may allow the vehicle to slow and then drive into standing water on higher speed roadways. The picture is labelled as the recall wording, not a recorded event."
+      },
+      {
+        "id": "n7",
+        "job": "resolve",
+        "visible_event": "s7-event-1 record fills the frame, s7-event-2 pen rests on the remedy text, s7-event-3 under development stamp lands",
+        "claim_ids": ["c8"],
+        "breath": "none between the federal record says and the remedy clause",
+        "picture_word_flag": "F7"
+      },
+      {
+        "id": "n8a",
+        "job": "qualify",
+        "visible_event": "s8-event-1 weather limits tag pins above a row of white cars",
+        "claim_ids": ["c9"],
+        "breath": "clause-boundary breaths allowed after step and after limits",
+        "source_note": "c9 says as an interim remedy Waymo modified the scope of vehicle operations to increase weather-related constraints. The record does not say what the constraints are.",
+        "picture_word_flag": "F3",
+        "source_wording_flag": "S1"
+      },
+      {
+        "id": "n8b",
+        "job": "resolve",
+        "visible_event": "s8-event-2 calendar flips to April 20, s8-event-3 each car takes its check mark",
+        "claim_ids": ["c12"],
+        "breath": "none inside the clause",
+        "source_note": "c12 says all affected vehicles received the interim update by April 20, 2026. The record does not say whether the interim limits are in force now. The line makes no in-force claim."
+      },
+      {
+        "id": "n9a",
+        "job": "resolve",
+        "visible_event": "s9-event-1 the white car waits at the curb with its rear door open",
+        "claim_ids": ["c1"],
+        "breath": "natural breath before So, which starts the closing answer; short breath after open"
+      },
+      {
+        "id": "n9b",
+        "job": "resolve",
+        "visible_event": "s9-event-2 recall record card slides beside the curb",
+        "claim_ids": ["c8"],
+        "breath": "none before as currently; the qualifier stays with the claim"
+      },
+      {
+        "id": "n9c",
+        "job": "resolve",
+        "visible_event": "s9-event-3 remedy row holds marked under development while the door stays open at the curb",
+        "claim_ids": ["c8"],
+        "breath": "complete stop, no fade in the voice"
+      }
+    ],
+    "pronunciation": [
+      {
+        "item": "Salado Creek",
+        "status": "verified in bound guide",
+        "guide_entry": "section 2 table, Salado, Spanish sah LAH doh, actual Texas reading suh LAY doh",
+        "action": "Respelling must not enter the transcript, because captions align to the written script. Soundcheck must confirm the synthesized reading."
+      },
+      {
+        "item": "Waymo (4 clauses: n1a, n3, n5a, n8a)",
+        "status": "UNVERIFIED. The bound guide has no entry.",
+        "guide_rule": "Section 5 says an unlisted spoken proper noun is unverified, and the honest move is to rewrite the line rather than guess.",
+        "decision_required": "Director or owner must verify and record the spoken form before synthesis, or request a story correction. No respelling was invented."
+      },
+      {
+        "item": "San Antonio (n1a)",
+        "status": "UNVERIFIED. The bound guide has no entry.",
+        "decision_required": "Same as Waymo. Verify and record, or request a story correction."
+      },
+      {
+        "item": "February, April, thirty eight hundred, remedy, interim",
+        "status": "ordinary English, no guide entry needed"
+      }
+    ],
+    "picture_word_flags": [
+      {
+        "id": "F1",
+        "clause": "n3",
+        "issue": "The words say the car was swept into the creek. The picture begins with the car already in the brown current (s3-event-2), so the entry the words describe is not shown.",
+        "severity": "low to medium",
+        "owner": "director decision"
+      },
+      {
+        "id": "F2",
+        "clause": "n6a and n6b",
+        "issue": "The words are hedged by may and the recall wording. The illustration performs the slowing and the roll into water as an outcome. The on-screen disclosure must stay visible through s6 so the picture is not read as an observed event.",
+        "severity": "medium to high for source comprehension",
+        "owner": "phone review must confirm the disclosure is visible"
+      },
+      {
+        "id": "F3",
+        "clause": "n8a",
+        "issue": "A cloud-and-rain icon sits above the weather limits tag. The record does not say what the limits are, so the icon invites a false inference that they address rain or flooding.",
+        "severity": "medium",
+        "owner": "director decision, neutral tag suggested"
+      },
+      {
+        "id": "F4",
+        "clause": "n1a",
+        "issue": "Anyone is a claim about a general open service. The picture shows one ride request and cannot show anyone.",
+        "severity": "low",
+        "owner": "director decision"
+      },
+      {
+        "id": "F5",
+        "clause": "n9b and n9c",
+        "issue": "The narration_picture splits the source qualifier as currently from its claim at flood remedy. The voice keeps them connected, but the clause boundary separates the qualifier from the claim in the binding.",
+        "severity": "low to medium",
+        "owner": "director may move the clause boundary in narration_picture, the words stay unchanged"
+      },
+      {
+        "id": "F6",
+        "clause": "n6a",
+        "issue": "The highlight on may is scheduled inside s6-event-3, authored at about 33.8 s on the film clock. The spoken may falls near 30.5 s by the authored cadence of about 2.5 words per second. The picture highlights the hedge about 3 s after it is heard.",
+        "severity": "medium",
+        "owner": "re-check on measured alignment, then director decision",
+        "estimate_basis": "estimated from authored windows, not measured"
+      },
+      {
+        "id": "F7",
+        "clause": "n7",
+        "issue": "The under development text appears on screen (s7-event-2 and s7-event-3, about 38.6 s and 40.0 s by authored windows) before the phrase is spoken near 40.3 s. The result is shown ahead of its clause.",
+        "severity": "low",
+        "owner": "re-check on measured alignment",
+        "estimate_basis": "estimated from authored windows, not measured"
+      }
+    ],
+    "claim_and_source_flags": [
+      {
+        "id": "B1",
+        "clause": "n5a",
+        "issue": "Waymo filed a software recall is bound to c6 only. The wording traces to c7, which names the recall filer and the software. The binding should list c6 and c7, or the director should record the trace.",
+        "owner": "director, board edit"
+      },
+      {
+        "id": "S1",
+        "clause": "n8a",
+        "issue": "Claim c9 says as an interim remedy. The narration says as an interim step. The paraphrase is defensible because it keeps the interim measure from reading as the flood remedy. The director should confirm it is faithful. The delivery does not treat it as the remedy.",
+        "owner": "director confirms"
+      },
+      {
+        "id": "S2",
+        "clause": "n5a",
+        "issue": "software recall is a label built from c7. The record quotes the software may allow the vehicle to slow. The label is supported but not a verbatim quote.",
+        "owner": "director confirms"
+      },
+      {
+        "id": "S3",
+        "clause": "n1a",
+        "issue": "c1 is Waymo's own October 14th post, a primary corporate source. The line states the open service as plain fact without attribution. The delivery is kept plain and undramatic, but attribution would need a story correction.",
+        "owner": "director decision"
+      }
+    ],
+    "guides_read": [
+      "prompts/claude_routine.md",
+      ".claude/agents/vo-director.md",
+      "CLAUDE.md (Dispatch and Docket)",
+      "AGENTS.md",
+      "knowledge/craft/CREATIVE_DIRECTION.md",
+      "knowledge/craft/MODERN_FILM.md",
+      "knowledge/craft/visual-storytelling/viewer-plan.md",
+      "knowledge/craft/visual-storytelling/README.md",
+      "knowledge/craft/visual-storytelling/news-reporting.md",
+      "knowledge/craft/visual-storytelling/evidence-led-imagery.md",
+      "knowledge/craft/AUTHORED_STORY_ART.md",
+      "knowledge/craft/AUTONOMOUS_COMPLETION.md",
+      "config/autonomous_completion_v2.json",
+      "config/modern_film.json",
+      "config/claude_runtime.json",
+      "config/creative_production.json",
+      "config/daily_production.json",
+      "TexasAIDocket knowledge/shared/TEXAS_PRONUNCIATION.md"
+    ],
+    "guides_not_read_in_this_session": [
+      "knowledge/craft/STORY_ART.md",
+      "config/story_art.json",
+      "config/modern_episode_registry.json",
+      "config/critic_concept_v2.json",
+      "config/authored_story_art.json",
+      "knowledge/craft/ART_DIRECTION.md",
+      "config/art_direction.json",
+      "knowledge/craft/cinematic_reference_bank.json",
+      "prompts/roles/scene-builder.md",
+      "config/quality_contract.json",
+      "out/dispatch/openings/comparison.json",
+      "out/dispatch/sources/*"
+    ],
+    "not_done": [
+      "No SHA256 was recomputed, because no shell tool was available. Every hash here is declared from the packet or the file read and marked unverified where it applies.",
+      "sound_direction_sha256 was not computed.",
+      "The AGENTS.md prose check was not run.",
+      "No TTS call, soundcheck, forced alignment or narration_picture observation was made. Those belong to the caller and the review roles.",
+      "No story wording was changed. No shortening was requested."
+    ]
+  }
+}
