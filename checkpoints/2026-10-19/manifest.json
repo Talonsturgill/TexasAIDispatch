@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-19T19:54:55.864198+00:00",
-  "note": "capture authorization consumed e8dbad39d8cb",
+  "saved_at": "2026-10-19T19:57:16.174790+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -218,6 +218,12 @@
       "path": "out/dispatch/capture-housekeeping-20261019T195427.json",
       "class": "scratch",
       "sha256": "e4e8597a639be7be46a12467fbd1dd44452da97fee3910a60a7c36df928b200f",
+      "size": 1043
+    },
+    {
+      "path": "out/dispatch/capture-housekeeping-20261019T195714.json",
+      "class": "scratch",
+      "sha256": "518f6326f976892cda4469b5d40505195c2222b368b0564b6d6d2faae9533766",
       "size": 1043
     },
     {
@@ -501,6 +507,24 @@
       "class": "scratch",
       "sha256": "f4a70b7d34c2354e8c5873a9f270a55b0e5bab5ee3fbe149a5b5ec4847bd5d2c",
       "size": 745
+    },
+    {
+      "path": "out/dispatch/evidence/caption-split-pre/opening-a.json",
+      "class": "scratch",
+      "sha256": "80b3bd506cf0d2ae8acf22f3a1bf0ff7fecf0bcca7189a3c1592cccba0d43474",
+      "size": 177724
+    },
+    {
+      "path": "out/dispatch/evidence/caption-split-pre/opening-b.json",
+      "class": "scratch",
+      "sha256": "3f9b93fb87d87bf9f3ff442c4a4cf4badc14bc08c0312dabe81aa95cfb7bc829",
+      "size": 177125
+    },
+    {
+      "path": "out/dispatch/evidence/caption-split-pre/storyboard.json",
+      "class": "scratch",
+      "sha256": "c6aaefa6188eccd05160659015cf80dbb434698f718aaa5e5d1a33c1fda53c97",
+      "size": 177723
     },
     {
       "path": "out/dispatch/evidence/capture-hook-probe-denial.txt",
@@ -3313,8 +3337,8 @@
     {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
-      "sha256": "80b3bd506cf0d2ae8acf22f3a1bf0ff7fecf0bcca7189a3c1592cccba0d43474",
-      "size": 177724
+      "sha256": "0c3609795623fee850b26667e152178bdd382d255a58fa4494f24739da434b38",
+      "size": 177928
     },
     {
       "path": "out/dispatch/opening-b-critic-round1.json",
@@ -3331,8 +3355,8 @@
     {
       "path": "out/dispatch/opening-b.json",
       "class": "scratch",
-      "sha256": "3f9b93fb87d87bf9f3ff442c4a4cf4badc14bc08c0312dabe81aa95cfb7bc829",
-      "size": 177125
+      "sha256": "5ccb8d71e106f5d49dbbd7c4dc2240e20e6f0399f9f8576afdfacc342f5e0211",
+      "size": 177329
     },
     {
       "path": "out/dispatch/phone-critic-assignment-round3.json",
@@ -4303,8 +4327,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "c6aaefa6188eccd05160659015cf80dbb434698f718aaa5e5d1a33c1fda53c97",
-      "size": 177723
+      "sha256": "0c3609795623fee850b26667e152178bdd382d255a58fa4494f24739da434b38",
+      "size": 177928
     },
     {
       "path": "out/dispatch/storyboard_critic.json",
@@ -4446,8 +4470,8 @@
     }
   ],
   "regenerable": {
-    "files": 0,
-    "bytes": 0
+    "files": 3,
+    "bytes": 412917
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }
