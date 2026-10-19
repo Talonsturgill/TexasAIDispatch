@@ -638,11 +638,15 @@ def main():
     p.add_argument("--claims", type=Path)
     p.add_argument("--state", type=Path)
     p.add_argument("--catalog-check", action="store_true")
+    p.add_argument("--structure-only", action="store_true",
+                   help="check existing story/source structure before paid critique; no approval")
     p.add_argument("--digest", action="store_true")
     p.add_argument("--packet", choices=["validator", "scene-builder", "storyboard-critic", "vo-director", "picture", "story", "sound"])
     p.add_argument("--scoreboard", action="store_true")
     p.add_argument("--out", type=Path)
     a = p.parse_args()
+    if a.structure_only and any((a.catalog_check, a.digest, a.packet, a.scoreboard)):
+        p.error("--structure-only cannot be combined with another action")
     try:
         if a.catalog_check:
             errors = catalog_problems()
@@ -660,6 +664,11 @@ def main():
                                      for p in action_admission.proposals(read(a.board))]
         elif not a.claims:
             p.error("--claims is required")
+        elif a.structure_only:
+            errors = structure_problems(read(a.board), read(a.claims))
+            print("\n".join(errors) if errors else
+                  "current story/source structure passes; independent review still required")
+            return int(bool(errors))
         elif a.packet:
             data = packet(a.board, a.claims, a.packet, a.state)
         else:

@@ -72,6 +72,57 @@ class DailyTest(unittest.TestCase):
         self.bp.write_text(json.dumps(self.board))
         (self.root/"storyboard_critic.json").write_text(json.dumps(self.report))
 
+    def structure_cli(self, *extra):
+        args = ["daily_production.py", "--board", str(self.bp), "--claims", str(self.cp),
+                "--structure-only", *extra]
+        output = io.StringIO()
+        with patch("sys.argv", args), contextlib.redirect_stdout(output):
+            result = d.main()
+        return result, output.getvalue()
+
+    def test_structure_precheck_runs_before_any_independent_report_exists(self):
+        (self.root/"storyboard_critic.json").unlink()
+        with patch.object(d, "pre_voice_problems", side_effect=AssertionError("no late review")):
+            result, output = self.structure_cli()
+        self.assertEqual(0, result)
+        self.assertIn("independent review still required", output)
+
+    def test_structure_precheck_refuses_observed_role_and_source_defects(self):
+        for label, mutate, message in [
+            ("missing consequence", lambda b: b["story_contract"]["scenes"][2].update(role="evidence"),
+             "story needs a human consequence and a closing answer"),
+            ("missing answer", lambda b: b["story_contract"]["scenes"][-1].update(role="limit"),
+             "story needs a human consequence and a closing answer"),
+            ("unknown claim", lambda b: b["story_contract"]["scenes"][0].update(claim_ids=["c9"]),
+             "VERIFIED source bindings"),
+            ("missing scene claim", lambda b: b["scenes"][0].update(vo_claims=["c9"]),
+             "omits claims used by its actual scene"),
+            ("scene order", lambda b: b["story_contract"]["scenes"].reverse(),
+             "current scene order exactly once"),
+        ]:
+            with self.subTest(label=label):
+                changed = copy.deepcopy(self.board); mutate(changed)
+                self.bp.write_text(json.dumps(changed))
+                result, output = self.structure_cli()
+                self.assertEqual(1, result)
+                self.assertIn(message, output)
+
+    def test_structure_mode_cannot_be_silently_overridden_by_another_action(self):
+        for args in (("--digest",), ("--packet", "storyboard-critic"), ("--scoreboard",)):
+            with self.subTest(args=args), contextlib.redirect_stderr(io.StringIO()):
+                with self.assertRaises(SystemExit) as error:
+                    self.structure_cli(*args)
+                self.assertEqual(2, error.exception.code)
+
+    def test_picture_precheck_checks_story_before_paid_critique(self):
+        import picture_precheck
+        tasks = dict(picture_precheck.checks(self.bp, self.cp))
+        self.assertEqual(["python", "scripts/daily_production.py", "--board", str(self.bp.resolve()),
+                          "--claims", str(self.cp.resolve()), "--structure-only"],
+                         tasks["story_structure"])
+        self.assertIn("script_evidence", tasks)
+        self.assertIn("caption_fit", tasks)
+
     def test_story_mutations_invalidate_full_sequence_review(self):
         self.assertEqual([], d.pre_voice_problems(self.bp, self.cp))
         for label, mutate in [

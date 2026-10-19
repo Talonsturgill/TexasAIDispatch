@@ -16,6 +16,8 @@ REPO = Path(__file__).resolve().parents[1]
 def checks(board, claims):
     b, c = str(Path(board).resolve()), str(Path(claims).resolve())
     rows = [("registry", ["python", "scripts/registry_check.py"])]
+    rows.append(("story_structure", ["python", "scripts/daily_production.py",
+                                     "--board", b, "--claims", c, "--structure-only"]))
     for name in ("storyboard_check", "watchability_check", "documentary_check", "shot_coherence",
                  "staging_check", "board_scale_check", "floor_check"):
         rows.append((name, ["python", "scripts/" + name + ".py", "--board", b]))
