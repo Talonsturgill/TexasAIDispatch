@@ -37,6 +37,7 @@ REPO = Path(__file__).resolve().parents[1]
 CAPTURE_COMMAND = re.compile(r'remotion\s+(still|render)|ffmpeg\b.*\s-i\s|preflight_animatic|cinema_proof|render_dispatch|opening_compare|claude_motion_review')
 RENDER_RESOURCES = ('preflight_renders', 'full_renders', 'cleanup_renders', 'rescue_renders')
 AUTHORIZATION = 'out/dispatch/capture-authorization.json'
+HISTORY = 'out/dispatch/capture-authorization-history'
 USED = 'out/dispatch/capture-authorizations-used.json'
 SCHEMA = 'dispatch_capture_authorization/2'
 LIFETIME = timedelta(minutes=45)
@@ -313,7 +314,7 @@ def consume(project, command):
         with open(tmp, 'rb') as written:
             os.fsync(written.fileno())
         os.replace(tmp, path)
-    mirror_consumption(project, digest)
+        mirror_consumption(project, digest)
     return True
 
 
@@ -402,7 +403,50 @@ def housekeeping_run(root, required, run=subprocess.run):
     return {'receipt': str(receipt), 'receipt_sha256': sha(receipt), 'exit_code': 0, 'min_free_gib': required}
 
 
+def retain_previous_authorization(root):
+    """Keep the pending command executable; retain exact spent or stale evidence before replacement."""
+    path = Path(root) / AUTHORIZATION
+    if not path.exists():
+        return
+    previous = path.read_bytes()
+    auth = json.loads(previous)
+    for entry in auth.get('commands', []):
+        command = entry.get('text', '')
+        if (not entry.get('consumed') and is_capture(command, str(root))
+                and not capture_problems(command, auth, str(root), root, free_gib=float('inf'))):
+            raise ValueError('an unused capture authorization is pending; execute its exact command before '
+                             'preparing another capture: ' + command)
+    history = Path(root) / HISTORY
+    history.mkdir(exist_ok=True)
+    kept = history / (hashlib.sha256(previous).hexdigest() + '.json')
+    if kept.exists():
+        if kept.read_bytes() != previous:
+            raise ValueError('retained capture authorization bytes do not match their identity')
+    else:
+        with open(kept, 'xb') as handle:
+            handle.write(previous)
+            handle.flush()
+            os.fsync(handle.fileno())
+
+
+def atomic_json(path, value):
+    tmp = path.with_suffix('.tmp')
+    with open(tmp, 'w') as handle:
+        handle.write(json.dumps(value, indent=2) + '\n')
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(tmp, path)
+
+
 def authorize(root, state_path, board_paths, commands, resource=None, housekeeping=True, run=subprocess.run, prepare=False):
+    """Serialize issuance with consumption, before either another charge or an authorization replacement."""
+    lock = Path(str(Path(root) / AUTHORIZATION) + '.lock')
+    with open(lock, 'w') as handle:
+        fcntl.flock(handle, fcntl.LOCK_EX)
+        return _authorize(root, state_path, board_paths, commands, resource, housekeeping, run, prepare)
+
+
+def _authorize(root, state_path, board_paths, commands, resource, housekeeping, run, prepare):
     """Issue one capture authorization from facts, never from a flag the caller types."""
     import authored_story_art
     from native_headroom import estimate
@@ -414,6 +458,7 @@ def authorize(root, state_path, board_paths, commands, resource=None, housekeepi
     for command in commands:
         if not is_capture(command, str(root)) or 'scripts/run_with_env.sh' not in command:
             raise ValueError('not a wrapped capture command: ' + command[:80])
+    retain_previous_authorization(root)
     used_path = root / USED
     used = json.loads(used_path.read_text()) if used_path.is_file() else []
     candidates = [e for e in state.get('events', []) if e.get('kind') == 'reserved'
@@ -463,9 +508,9 @@ def authorize(root, state_path, board_paths, commands, resource=None, housekeepi
               'art_receipts_recorded': True, 'issued_at': issued.isoformat(), 'expires_at': (issued + LIFETIME).isoformat()}
     if prepared is not None:
         record['prepared_capture'] = prepared
-    (root / AUTHORIZATION).write_text(json.dumps(record, indent=2) + '\n')
     used.append({'event_sha256': record['render_reservation']['event_sha256'], 'issued_at': record['issued_at']})
-    used_path.write_text(json.dumps(used, indent=2) + '\n')
+    atomic_json(used_path, used)
+    atomic_json(root / AUTHORIZATION, record)
     return record
 
 

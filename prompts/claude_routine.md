@@ -672,6 +672,11 @@ the exact authorization, and that operator claims its matching prepaid event onc
 preview cannot claim a native hero charge; motion extraction has its own exact-film identity.
 An unchanged operation cannot be prepared again without the existing infrastructure-retry record.
 Preserve all earlier charges and denied commands.
+Prepare and execute each exact command before preparing the next one. In particular, prepare and
+extract option a, collect its result, then prepare and extract option b; two separate preparations
+must never compete for the single authorization file. The issuer refuses to replace a still usable
+pending command before charging again. Consumed or stale authorizations are retained byte for byte
+under `out/dispatch/capture-authorization-history/`; their original reservations remain charged.
 Before a changed comparison, retain the entire occupied `openings/` directory, including any
 partial output, in the edition's defect package. Do this before preparing the new capture. Never
 overwrite it, refund its reservation or rerender an unchanged pair merely to obtain a new identity.

@@ -7,8 +7,10 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from concurrent.futures import ThreadPoolExecutor, TimeoutError
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from threading import Event
 from unittest import mock
 
 import capture_guard as guard
@@ -354,6 +356,82 @@ class RemoteConsumption(Fixture):
 
 
 class Authorize(Fixture):
+    def test_new_issuance_waits_for_the_original_remote_consumption_witness(self):
+        self.authorize()
+        self.ledger(self.reserved, dict(self.reserved, at='next capture'))
+        mirroring, release, issuing = Event(), Event(), Event()
+        digest = hashlib.sha256(guard.normalize(self.command).encode()).hexdigest()
+
+        def mirror(project, actual_digest):
+            self.assertEqual(digest, actual_digest)
+            mirroring.set()
+            self.assertTrue(release.wait(2))
+            auth = json.loads((self.root / guard.AUTHORIZATION).read_text())
+            self.assertEqual(digest, auth['commands'][0]['id'])
+            self.assertTrue(auth['commands'][0]['consumed'])
+
+        def issue():
+            issuing.set()
+            return self.authorize([self.command + ' --frame=30'])
+
+        with mock.patch.object(guard, 'mirror_consumption', side_effect=mirror), ThreadPoolExecutor(2) as pool:
+            spent = pool.submit(guard.consume, self.root, self.command)
+            self.assertTrue(mirroring.wait(2))
+            following = pool.submit(issue)
+            self.assertTrue(issuing.wait(2))
+            try:
+                with self.assertRaises(TimeoutError):
+                    following.result(timeout=0.1)
+            finally:
+                release.set()
+            self.assertTrue(spent.result(timeout=2))
+            self.assertEqual(guard.normalize(self.command + ' --frame=30'),
+                             following.result(timeout=2)['commands'][0]['text'])
+
+    def test_pending_command_survives_another_preparation_without_another_charge(self):
+        self.authorize()
+        path = self.root / guard.AUTHORIZATION
+        original, ledger, used = path.read_bytes(), self.state.read_bytes(), (self.root / guard.USED).read_bytes()
+        with mock.patch('capture_reservation.prepare') as charge:
+            with self.assertRaisesRegex(ValueError, 'execute its exact command before preparing another'):
+                self.authorize([self.command + ' --frame=30'], prepare=True)
+            charge.assert_not_called()
+        self.assertEqual(original, path.read_bytes())
+        self.assertEqual(ledger, self.state.read_bytes())
+        self.assertEqual(used, (self.root / guard.USED).read_bytes())
+        self.assertIsNone(self.hook(self.command))
+
+    def test_replacement_retains_exact_consumed_bytes_and_all_charges(self):
+        self.authorize()
+        self.assertIsNone(self.hook(self.command))
+        original = (self.root / guard.AUTHORIZATION).read_bytes()
+        self.ledger(self.reserved, dict(self.reserved, at='second capture'))
+        self.authorize([self.command + ' --frame=30'])
+        kept = self.root / guard.HISTORY / (hashlib.sha256(original).hexdigest() + '.json')
+        self.assertEqual(original, kept.read_bytes())
+        self.assertEqual(2, len(json.loads((self.root / guard.USED).read_text())))
+        self.assertIsNone(self.hook(self.command + ' --frame=30'))
+
+    def test_expired_or_changed_inputs_allow_recovery_while_retaining_original_bytes(self):
+        for failure in ('expired', 'changed'):
+            with self.subTest(failure=failure):
+                # Each retained authorization is spent before the next scenario.
+                self.ledger(self.reserved, dict(self.reserved, at=failure))
+                self.authorize()
+                path = self.root / guard.AUTHORIZATION
+                if failure == 'expired':
+                    old = json.loads(path.read_text())
+                    old['expires_at'] = (guard.now() - timedelta(seconds=1)).isoformat()
+                    path.write_text(json.dumps(old))
+                else:
+                    self.board.write_text(self.board.read_text() + ' ')
+                original = path.read_bytes()
+                self.ledger(self.reserved, dict(self.reserved, at=failure), dict(self.reserved, at=failure + '-retry'))
+                self.authorize()
+                kept = self.root / guard.HISTORY / (hashlib.sha256(original).hexdigest() + '.json')
+                self.assertEqual(original, kept.read_bytes())
+                self.assertIsNone(self.hook(self.command))
+
     def test_no_fresh_charged_render_reservation_means_no_authorization(self):
         for events in ([], [{'at': 'x', 'kind': 'reserved', 'resources': {'research_agents': 1}}],
                        [dict(self.reserved, note='LATE CHARGE for procedural defect: unreserved builder still')]):
