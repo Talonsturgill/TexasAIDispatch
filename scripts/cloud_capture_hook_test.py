@@ -76,6 +76,7 @@ class RoutingTests(unittest.TestCase):
         (tools / 'scripts/routine_continuation.py').write_text('fixture')
         (tools / 'scripts/image_read_receipt.py').write_text('fixture')
         (tools / 'scripts/claude_session_start.py').write_text('fixture')
+        (tools / 'scripts/visual_observations.py').write_text('fixture')
         primary = self.workspace / 'primary'; primary.mkdir()
         result = bootstrap.bootstrap(primary, tools, prelaunch_router=True)
         self.assertFalse(result['capture_authorized'])

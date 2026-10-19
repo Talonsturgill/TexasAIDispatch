@@ -652,6 +652,12 @@ including the trial limitations, and it supports no wider claim.
 For a multi-repository cloud session, the environment setup registers the capture hook at its
 actual primary workspace before launch with
 `python scripts/bootstrap_claude_hooks.py --workspace /home/user --prelaunch-router`.
+The same prelaunch command registers the visual Read/Write guard and actual Write observer at
+primary settings scope. Agent-frontmatter hooks alone are not a supported cloud registration.
+Verify all three visual registrations before reserving a visual worker. Its first image/Write
+probe must receive the actual Write acknowledgment before it reads another image; a missing
+receipt stops that attempt early. Retain the original failure, every observation and charge;
+never backfill a Write receipt from a transcript or relabel an incomplete review as approved.
 The preinstalled router selects the actual production checkout from the command's explicit
 working directory, including restored checkouts, and runs the unchanged authorization gate.
 Never replace this registration during an agent turn. The helper preserves model, effort,

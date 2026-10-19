@@ -53,6 +53,9 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
     start_handler = repo / 'scripts/claude_session_start.py'
     if prelaunch_router and not start_handler.is_file():
         raise ValueError('the per-session cached-tools refresh is missing')
+    visual_handler = repo / 'scripts/visual_observations.py'
+    if prelaunch_router and not visual_handler.is_file():
+        raise ValueError('the visual observation guard and Write observer are missing')
     directory = workspace / '.claude'
     target = directory / 'settings.json'
     record = directory / 'dispatch-capture-registration.json'
@@ -82,7 +85,8 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
     stop_registration = previous.get('stop_registration') if previous else None
     image_registration = previous.get('image_registration') if previous else None
     start_registration = previous.get('start_registration') if previous else None
-    visual_registration = previous.get('visual_registration') if previous else None
+    visual_guard_registration = previous.get('visual_guard_registration') if previous else None
+    visual_write_registration = previous.get('visual_write_registration') if previous else None
     if prelaunch_router:
         stops = hooks.setdefault('Stop', [])
         if not isinstance(stops, list):
@@ -102,18 +106,21 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
             'python3 %s --workspace %s' % (shlex.quote(str(image_handler)), shlex.quote(str(workspace)))}]}
         if image_registration not in images:
             images.append(image_registration)
-        # The visual leaf's own frontmatter record hook was observed not to run on the October 19
-        # cloud host, so no actual Write receipt existed for 256 retained public annotations. The
-        # recorder returns nothing for any session that is not the assigned visual leaf, so a
-        # settings-level registration is inert for ordinary Writes. The guard is not registered here:
-        # it refuses non-leaf callers and stays in the leaf definition.
-        if visual_handler.is_file():
-            if visual_registration:
-                images[:] = [entry for entry in images if entry != visual_registration]
-            visual_registration = {'matcher': 'Write', 'hooks': [{'type': 'command', 'command':
-                'python3 %s record --workspace %s' % (shlex.quote(str(visual_handler)), shlex.quote(str(workspace)))}]}
-            if visual_registration not in images:
-                images.append(visual_registration)
+        # Remote hosts can ignore agent-frontmatter hooks. Register these at
+        # the same primary scope as the actual Read observer before launch.
+        # The router is inert for ordinary actors; visual leaves remain strict.
+        if visual_guard_registration:
+            entries[:] = [entry for entry in entries if entry != visual_guard_registration]
+        visual_guard_registration = {'matcher': 'Read|Write', 'hooks': [{'type': 'command', 'command':
+            'python3 %s pre-tool --workspace %s' % (shlex.quote(str(visual_handler)), shlex.quote(str(workspace)))}]}
+        if visual_guard_registration not in entries:
+            entries.append(visual_guard_registration)
+        if visual_write_registration:
+            images[:] = [entry for entry in images if entry != visual_write_registration]
+        visual_write_registration = {'matcher': 'Write', 'hooks': [{'type': 'command', 'command':
+            'python3 %s record --workspace %s' % (shlex.quote(str(visual_handler)), shlex.quote(str(workspace)))}]}
+        if visual_write_registration not in images:
+            images.append(visual_write_registration)
         # Added only by prelaunch setup. Cached environments retain this command,
         # which refreshes its owned source at every actual start or resume.
         if start_handler.is_file():
@@ -136,8 +143,10 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
         saved['image_registration'] = image_registration
     if start_registration:
         saved['start_registration'] = start_registration
-    if visual_registration:
-        saved['visual_registration'] = visual_registration
+    if visual_guard_registration:
+        saved['visual_guard_registration'] = visual_guard_registration
+    if visual_write_registration:
+        saved['visual_write_registration'] = visual_write_registration
     write_json(record, saved)
     return {'ok': True, 'workspace': str(workspace), 'active_checkout': str(repo),
             'capture_handler': str(handler), 'capture_authorized': False,
