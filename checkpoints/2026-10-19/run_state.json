@@ -105,6 +105,14 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "resource": "tts_calls",
       "to": 6
+    },
+    {
+      "at": "2026-10-19T16:54:16.972842Z",
+      "ceiling": 8,
+      "from": 7,
+      "note": "same-worker update of the code critic story review to the restored pre-widening claims (sha 4b42adee), after the owner's instruction",
+      "resource": "storyboard_critics",
+      "to": 8
     }
   ],
   "events": [
@@ -1203,6 +1211,24 @@
         "validator_agents": 4,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-19T16:54:16.972862Z",
+      "ceiling": 8,
+      "kind": "budget_escalated",
+      "note": "same-worker update of the code critic story review to the restored pre-widening claims (sha 4b42adee), after the owner's instruction",
+      "now": 8,
+      "resource": "storyboard_critics",
+      "was": 7
+    },
+    {
+      "at": "2026-10-19T16:54:16.972871Z",
+      "kind": "reserved",
+      "note": "same-worker update of the code critic story review to the restored pre-widening claims (sha 4b42adee), after the owner's instruction",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -1217,7 +1243,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 7,
+    "storyboard_critics": 8,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -1226,7 +1252,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "2387f2ab95c44f8f2a10d1a35f7fa99cf458e37426943dd58e23373d8799ada3",
+    "original_private_state_sha256": "0ebf6959118c99eb9a2f5004c313e95d12486827b6250f9273084ab0436ae7a4",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1254,7 +1280,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-19T16:51:09.650707Z",
+  "updated_at": "2026-10-19T16:54:16.972874Z",
   "usage": {
     "audiovisual_reviews": 2,
     "cleanup_renders": 0,
@@ -1267,7 +1293,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 7,
+    "storyboard_critics": 8,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
