@@ -1,0 +1,298 @@
+{
+ "verdict": "pass",
+ "reviewer_identity": "claude-opus-5-5 / storyboard-critic (independent code-scope reviewer, distinct from director claude-sonnet-5-5)",
+ "reviewed_at": "2026-10-19T16:30:00Z",
+ "review_scope": "code-plan round 3 re-binding (charged, storyboard_critics 3/3); no rendered pixels, no film, no audio",
+ "concept_sha256": "440105c0d8e0bbe7b259433afa16eaf1b67a22d3150c962b576b7310f8375931",
+ "renderer_sha256": "364847c9e4ddac9c4654e18284fafc0c2d1f82e136207a3fdcfc60f60faae083",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "notes": "ROUND 3 RE-BINDING: read the new packet (c1f1d842...) and the complete story_contract scenes of opening-a.json. story_contract.scenes[s4].role is now 'consequence'. In the round 2 board I read it as 'mechanism', not 'evidence' as the coordinator's message states; its claim (c5) and its advances text are unchanged. Spot checks of the s3 production_disclosure, the n5a binding, the captions label and the story_contract position found no other change; the renderer is bound unchanged (364847c9...). Hashes were not recomputed (no Bash). STORY CHAIN WITH s4 AS CONSEQUENCE: s1 action (open airport ride), s2 evidence (began in February in 60 square miles), s3 mechanism (April 20th creek car, disclosed as a different car), s4 consequence (another car stranded in floodwater, empty cabin, hazards), s5 evidence/scale (recall of nearly 3,800, 3,791 in the record), s6 mechanism (the recall wording on a lane), s7 limit (remedy under development), s8 limit (interim weather limits, every car by April 20th), s9 answer (generic airport ride beside the remedy still under development). The causal order holds and the gate's consequence requirement is met; non-blocking note: s4's consequence is physical (a stranded empty car), and the human consequence is stated only in the close and the narration, since no person is drawn. All round 2 content findings carry over unchanged. Basis (round 2): Read-only inspection of the critic packet, opening-a.json, RobotaxiFilm.tsx, SanAntonioSupport.tsx, RobotaxiHero.tsx (header and the top, cabin and export sections, lines 1 to 60 and 255 to 412; the side-car drawing between them was not re-read in round 2), the robotaxi-recall-v1 registry entry and story_selection.json visual_stakes. CODE PASS AUTHORIZES THE SILENT PHONE COMPARISON ONLY. RECOMMENDATION: build Treatment A first (Bexar plate behind 16 of 20 shots, eye-level airport opening, little flat plan art). Open non-blocking items: (d) record rows paraphrase c7/c9/c12; (e) s2 outline not disclosed as editorial on screen; (f) no person drawn; (j) s1 three-stroke approach and (k) s1 entry about 27.5 px/frame, phone check; (n) stale text: film_direction angle/opening_promise, divergence_note, support request purpose/prompt ('low crossing', 'depth post'), RobotaxiFilm header comment for s3; (o) possible seams at the edges of the front water band in s3/s4; (p) record-slide card bottom (984 + 0.84 x card height) versus the n9b caption band, phone check; (q) the phone inset covers the left canopy end, column and mesquite in curb-wide and the left A-pillar in cab-wheel, clear of the subjects, chip and locator; (r) the s6 car is already moving at the cut at 19.8 px/frame relative speed, phone check.",
+ "strongest_frame": "s6-shot-2 wheels-water, 32.705 to 36.86 s: camera locked on the front wheel (2.14x) as the car, already slowed to a steady creep, rolls on into the standing water with a wake at each wheel while 'may' lights on the verbatim recall sentence, under the chip 'Illustration. The recall wording, not a recorded event'.",
+ "weakest_frame": "s2-shot-1 map-table, 6.92 to 9.285 s: a paper map on a picnic table at an oblique 0.58 squash draws in its lines while the February calendar stands static; nothing story-specific acts for the first 0.7 s and the shot carries n2a 'The service began in February' only through a line draw and a static month header.",
+ "blocking_defects": [],
+ "round1_findings_status": [
+  {
+   "finding": "source: false implied vehicle identity (s4, 17.61)",
+   "status": "closed"
+  },
+  {
+   "finding": "source: s3 parked car overtaken by rising water on an invented crossing (s3, 14.76)",
+   "status": "closed"
+  },
+  {
+   "finding": "motion: s6 lane-wide camera reversal and 35 px/frame entry (s6, 28.7)",
+   "status": "closed"
+  },
+  {
+   "finding": "comprehension: n5a, n9b, n9c and registry narration_views bindings (s5, 22.39)",
+   "status": "closed"
+  },
+  {
+   "finding": "legibility: s9 record-slide card at 0.42 scale (s9, 52.775)",
+   "status": "closed"
+  },
+  {
+   "finding": "note: captions labelled measured_boundary",
+   "status": "closed"
+  },
+  {
+   "finding": "note: mislabelled shot purposes s2, s5, s8",
+   "status": "closed"
+  },
+  {
+   "finding": "note: off-by-one attention sound_action",
+   "status": "closed"
+  },
+  {
+   "finding": "note: paraphrased record card rows",
+   "status": "open (non-blocking)"
+  },
+  {
+   "finding": "note: s2 editorial outline not disclosed on screen",
+   "status": "open (non-blocking)"
+  },
+  {
+   "finding": "note: no person; selection promised a traveler",
+   "status": "partly closed (selection now honest); no person remains a design weakness"
+  },
+  {
+   "finding": "note: floating stamp and pen",
+   "status": "closed"
+  },
+  {
+   "finding": "note: hazard-close houses vanish on match cut",
+   "status": "closed"
+  },
+  {
+   "finding": "note: s8 first and last checks off frame",
+   "status": "closed"
+  },
+  {
+   "finding": "note: s1 three-stroke approach",
+   "status": "open (phone check)"
+  },
+  {
+   "finding": "note: s1 entry about 27.5 px/frame",
+   "status": "open (phone check)"
+  },
+  {
+   "finding": "note: plate visible under the cab dashboard",
+   "status": "closed"
+  },
+  {
+   "finding": "note: hero purpose 'one car, every state kept'",
+   "status": "closed"
+  }
+ ],
+ "round2_findings_status": [
+  {
+   "finding": "new note (n): stale one-car and crossing text outside the rendered picture",
+   "status": "open (non-blocking)"
+  },
+  {
+   "finding": "new note (o): edges of the front water band in s3/s4",
+   "status": "open (phone/native check)"
+  },
+  {
+   "finding": "new note (p): record-slide card bottom versus the n9b caption band",
+   "status": "open (phone check)"
+  },
+  {
+   "finding": "new note (q): phone inset placement",
+   "status": "accepted (clear of subjects, chip and locator)"
+  },
+  {
+   "finding": "new note (r): s6 car moving at the cut",
+   "status": "open (phone check)"
+  }
+ ],
+ "round3_findings_status": [
+  {
+   "finding": "story_contract needs a consequence scene (critic_gate refusal)",
+   "status": "closed: s4 role is now consequence, and the causal chain holds"
+  }
+ ],
+ "story_review": {
+  "story_sha256": "c440e9efaa2ea3ac74cd3d12cf407c772d7bfa4024cb13a6d1889b536c1c1142",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Planned chain: a generic white driverless car pulls into an airport pickup bay while a phone inset shows a ride requested; from the rear seat the wheel turns by itself over an empty driver seat; the phone turns to 'Arriving'. A map of San Antonio draws in and a limited area closes with a '60 square miles' tag. A disclosed different car, from the April 20th account, is already in fast brown creek water, takes the current on its side and is carried downstream, cabin empty. As the consequence beat, another disclosed car, earlier in April, stops in a flooded street with hazards blinking and an empty cabin. A federal recall card slides onto a desk, an icon grid fills and a tag reads 'Nearly 3,800 vehicles'. Disclosed as the recall wording, a car on a highway brakes, then rolls on into standing water as 'may' lights. The remedy row is stamped 'Under development' by a hand, a weather-limits tag clips over a row of cars, an April calendar flips to 20 and each car takes a check. A generic airport ride, disclosed as not the flood cars, waits with its door open beside a large remedy card still under development.",
+  "opening_to_ending": "Opening question: anyone in San Antonio can now hail a driverless Waymo to the airport, so what does the federal record say about the flood problem its recall covers? Story roles run action, evidence, mechanism, consequence (s4 stranded car), evidence/scale, mechanism, limit, limit, answer. Planned ending: a generic airport ride at the curb with its door open, held in a split beside the remedy card reading 'The remedy is currently under development.' (56.335 to 58.45), after the interim weather limits and April 20th update. It answers from the record without inventing a fix, and the disclosures keep the April flood cars separate from the airport ride.",
+  "weakest_transition": "s4 -> s5 at 22.19 s: from the consequence beat (a stopped car in floodwater, hazard-close) to an empty desk where a recall card slides in; the declared bridge (the car shape repeated as grid icons) only appears at 24.73 in the next shot, so the causal link from the incidents to the recall rests on the narration for about 2.5 s."
+ },
+ "action_reviews": [],
+ "story_art_action_uses": [
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s1",
+   "event_id": "s1-event-2",
+   "view": "cab-wheel",
+   "action_id": "wheel-turns-itself",
+   "consumption": "Shot s1-shot-2 (2.6125 to 5.225): the cab part with steer = 34*sin(pi*P(s1-event-2)), no hands, empty headrests and seats extending to the frame bottom; the windshield road and plane-pictogram sign slide with D; the s1-phone inset shows the pending request."
+  },
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s3",
+   "event_id": "s3-event-3",
+   "view": "car-swept",
+   "action_id": "car-swept-into-creek",
+   "consumption": "Shot s3-shot-2 (15.32 to 17.61): the side car (cabin 1, no shadow) moves [150*sw, 10*press + 96*sw] in world units with scale x(1+0.08sw), roll -6sw and a 34-unit rising waterline; the pile foam fades as it sweeps; the camera tracks 80 percent, so the far bank and near limestone bank slide past while the car drifts down and right on screen."
+  },
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s6",
+   "event_id": "s6-event-3",
+   "view": "wheels-water",
+   "action_id": "car-slows-into-water",
+   "consumption": "Shot s6-shot-2 (32.705 to 36.86): speed constant at vLo 150 car units/s; Wake parts on frontIn/rearIn over 110 units; 'may' highlight on P(s6-event-3); camera locked on the front wheel. No zero-speed state and no crash in the code."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s2",
+   "event_id": "s2-event-3",
+   "view": "map-zone",
+   "action_id": "service-area-opens",
+   "consumption": "Shot s2-shot-2 (9.285 to 13.03): the map is drawn as separate base, zone and pins layers; the zone outline traces with 0.3*P(e2) + 0.7*P(e3), fills after 0.8, and the '60 square miles / Limited area' tag pins; the February calendar lands on s2-event-2."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s5",
+   "event_id": "s5-event-3",
+   "view": "count-grid",
+   "action_id": "recall-filed-count",
+   "consumption": "Shot s5-shot-2 (24.555 to 28.3): the grid fills on s5-event-2; on s5-event-3 the counter tag settles and a hand-held rubber stamp (Hand part gripping the knob while 0 < r < 1) presses the 'Software recall' imprint."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s7",
+   "event_id": "s7-event-3",
+   "view": "stamp-detail",
+   "action_id": "remedy-under-development",
+   "consumption": "Shot s7-shot-2 (39.15 to 41.44): the hand-held stamp lands on the lit remedy row at 1.18 card scale and leaves 'Under development'; the hand-held pen tip rests on the row from s7-event-2; the imprint carries into the s9 remedy card."
+  }
+ ],
+ "narration_picture_plan_review": [
+  {
+   "id": "n1a",
+   "start_s": 0.2,
+   "end_s": 5.05,
+   "match": "pass",
+   "planned_picture": "The car pulls into the bay with the phone inset showing 'Ride requested'; the empty seat and the self-turning wheel."
+  },
+  {
+   "id": "n1b",
+   "start_s": 5.4,
+   "end_s": 6.57,
+   "match": "pass",
+   "planned_picture": "The phone close turns to 'Arriving' with the plane-sign curb behind."
+  },
+  {
+   "id": "n2a",
+   "start_s": 7.12,
+   "end_s": 9.11,
+   "match": "weak pass",
+   "planned_picture": "The map draws in; the February calendar stands static."
+  },
+  {
+   "id": "n2b",
+   "start_s": 9.46,
+   "end_s": 12.68,
+   "match": "pass",
+   "planned_picture": "The calendar lands, the outline closes and the 60 square miles tag pins."
+  },
+  {
+   "id": "n3",
+   "start_s": 13.23,
+   "end_s": 17.26,
+   "match": "pass",
+   "planned_picture": "Under the disclosure of a different car (April 20th account), an empty car already in the current is pressed, then swept downstream."
+  },
+  {
+   "id": "n4",
+   "start_s": 17.81,
+   "end_s": 21.84,
+   "match": "pass",
+   "planned_picture": "Consequence beat: under the disclosure of another car earlier in April, it creeps, stops and blinks its hazards; the close shows the empty cabin with the soft houses kept behind."
+  },
+  {
+   "id": "n5a",
+   "start_s": 22.39,
+   "end_s": 24.38,
+   "match": "pass",
+   "planned_picture": "The recall card slides onto the desk and its rows write in."
+  },
+  {
+   "id": "n5b",
+   "start_s": 24.73,
+   "end_s": 27.95,
+   "match": "pass",
+   "planned_picture": "The grid fills, the 'Nearly 3,800 vehicles' tag settles and the stamp lands."
+  },
+  {
+   "id": "n6a",
+   "start_s": 28.5,
+   "end_s": 32.53,
+   "match": "pass",
+   "planned_picture": "The recall sentence card appears; the car runs, brakes and slows under a monotone camera."
+  },
+  {
+   "id": "n6b",
+   "start_s": 32.88,
+   "end_s": 36.51,
+   "match": "pass",
+   "planned_picture": "The car rolls into the standing water with a wake; 'may' lights."
+  },
+  {
+   "id": "n7",
+   "start_s": 37.06,
+   "end_s": 41.09,
+   "match": "pass",
+   "planned_picture": "The remedy row lights, the hand-held pen rests on it and the hand-held stamp lands."
+  },
+  {
+   "id": "n8a",
+   "start_s": 41.64,
+   "end_s": 45.26,
+   "match": "pass",
+   "planned_picture": "The 'Weather limits tightened' tag clips over the row of cars."
+  },
+  {
+   "id": "n8b",
+   "start_s": 45.61,
+   "end_s": 49.65,
+   "match": "pass",
+   "planned_picture": "The calendar flips to 20, four cars take checks on screen and the map card is marked updated."
+  },
+  {
+   "id": "n9a",
+   "start_s": 50.2,
+   "end_s": 52.6,
+   "match": "pass",
+   "planned_picture": "Under the disclosure of a generic airport ride, the door swings open; the inset says 'Arriving'."
+  },
+  {
+   "id": "n9b",
+   "start_s": 52.95,
+   "end_s": 56.16,
+   "match": "pass",
+   "planned_picture": "The remedy card slides in at 0.84, lit and readable."
+  },
+  {
+   "id": "n9c",
+   "start_s": 56.51,
+   "end_s": 58.1,
+   "match": "pass",
+   "planned_picture": "Split: the open-door car above; the remedy sentence underlined with its 'Under development' imprint, and the arriving phone below."
+  }
+ ],
+ "code_observations": {
+  "source_fidelity": "Disclosed source examples are separated; the s3 cause is removed; the s6 behaviour matches c7/c11 with no stop or crash; on-screen numerals trace to quotes.",
+  "motion": "s6 camera is monotone with entry at most 19.8 px/frame; s1 entry about 27.5 px/frame on a static camera, phone check; stamp and pen are hand-carried.",
+  "framing": "Principal contacts sit above the caption band; the s8 row lies within x 164 to 917; the split phone sits at 742..904, 946..1278; the chip and phone inset do not collide.",
+  "region": "Bexar plate behind 16 of 20 shots; wall views 4 of 20.",
+  "finish": "Hero and support as in round 2; possible seams at the edges of the front water band (s3, s4).",
+  "disclosure": "The chip renders production_disclosure on every scene, with scene-specific source-example text on s3, s4, s6 and s9."
+ }
+}
