@@ -89,7 +89,7 @@ python scripts/agent_runtime.py --plan --role validator --packet out/dispatch/va
 python scripts/run_controller.py consume --resource validator_agents --note "current claims and script evidence"
 ```
 
-For pre-effective editions use the original compact assignments; runtime planning never resets their ledgers. For current editions pass validator-assignment.json spawn_args. An empty rejected list is valid only after every claim was independently supported; never invent a rejection quota.
+For pre-effective editions use the original compact assignments; runtime planning never resets their ledgers. For current editions pass validator-assignment.json spawn_args. A complete PASS may carry an empty rejected or required_edits_applied list only after every claim was independently supported. Preserve both fields and the actual findings; never invent a rejection or correction quota.
 
 Write the provisional claims, narration and out/dispatch/vo_bindings.json before this reservation.
 Use schema dispatch_narration_bindings/1 with edition_date and ordered sentences, each carrying

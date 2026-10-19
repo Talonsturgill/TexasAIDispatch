@@ -32,6 +32,13 @@ weekly packet is due, consider one reusable correction in this same assignment a
 within the already reserved comparison. Fund the entire remaining shipment path first; skip
 optional engineering when it would delay an accepted cut. Record the decision and exact proof.
 
+Carry each approved vo_bindings.json sentence's complete claim_ids into its scene's vo_claims.
+Caption splits retain the claims supporting their exact words. Check those bindings before
+expanding a quote to fix a name error; the evidence check already reads each cited source URL
+for attribution. Preserve independently approved source bytes and narration unless a real
+source correction needs a charged follow-up. Never widen a verified quote after review merely
+to replace a missing binding.
+
 Read knowledge/craft/visual-storytelling/README.md and the selected approach dossier in full.
 Use its sentence-to-shot worksheet in existing creative-direction notes and the compact packet.
 Select the primary approach by the sourced action and usable assets; daily rotation is optional
