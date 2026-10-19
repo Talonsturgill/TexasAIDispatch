@@ -1,0 +1,27 @@
+{
+    "schema": "dispatch_phone_comparison_handback/1",
+    "packet": {"path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/phone-critic-packet-round7.json", "sha256": "2f9cd068b8b4d54561c6777a28d3859c511f12bcf12fb7a5c7c2cdc976bddd1e"},
+    "status": "complete",
+    "observation_directory": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/visual-observations/78907e4b84dce093c3b7208953de13f573ca07a7212c21e448ecb1c249447f3b",
+    "observation_channel": "write_tool_artifact",
+    "image_coverage": {
+      "access_probe": {"page": "out/dispatch/openings/motion-a/sequence-000.png", "image_sha256": "78c43eca8fb63ef03c4058e2c63903b576534e0e2868443de0fa75a075fca77d", "received": true},
+      "option_a_pages_read": "sequence-000..063 (64/64, 319 samples, final frame 1903)",
+      "option_b_pages_read": "sequence-000..063 (64/64, 319 samples, final frame 1903)",
+      "one_image_per_step": true,
+      "history_disclosure": "Earlier image payloads (all option a pages, option b 000-009) now display as '[media removed: request limit]' in the reviewer's context. The hook recorded a returned payload for each Read and a concrete public observation was written before the next Read. This is later context loss, not a failed arrival.",
+      "basis": "Film-decoded 270x480 chronological samples at 5 fps. No MP4 playback, no listening, no native-scale crop."
+    },
+    "selection": {
+      "comparison_sha256": "4d614e9b5e0ba64665d21e2599dd77b587addbd0bb4adb51c6344cf9fe18538a",
+      "selected": "a",
+      "verdict_both": "revise",
+      "blocking_defects": [
+        "Shared by both options: hard-edged rectangular water panels at 17.0-17.4 s, 20.0-21.8 s and 33.0-33.8 s",
+        "Shared: s7 stamp landing and remedy row hidden by the pen and a bodiless blue stamp bar, 39.2-41.6 s",
+        "Shared: s3 'swept' action not performed and the empty cabin not readable, 13.2-17.6 s",
+        "Shared: closing split gives about half the frame to an unrelated grass bank and grey water plate under the airport curb, 52.8-58.4 s"
+      ]
+    },
+    "note": "Condensed save by the director. The complete original hand-back text, with both full per-option reports, was delivered as a message and is recorded in the session transcript; this file preserves the packet binding, coverage, selection and the shared blocking defects. Option a and option b both returned verdict revise."
+}
