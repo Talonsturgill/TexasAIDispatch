@@ -8,6 +8,12 @@ effort: medium
 
 You grade the finished film.
 
+For new visual packets from October 19th use the installed guarded visual leaf. Save each brief
+public visible-frame observation using Write at the hook's exact path before another image Read.
+Inter-tool progress is not durable evidence. Keep source inputs read only and scores in the final
+handback. Return your observation directory; the caller serializes original facts into coverage.
+An unseen new image requires its immediately saved literal error and a partial handback.
+
 For Claude-native editions from October 9th, the host exposes images rather than playable video
 to this Read-only worker. Read every page of the packet's verified `motion_sequence` in order:
 these are five timestamped film-decoded samples per second across the complete native film,
@@ -34,8 +40,9 @@ and attention material too. Finish accessible reading rather than returning earl
 effort. Name any actual unread or truncated required file or section. An actual access failure
 can return partial with its literal error and observed defects; it cannot supply a completed
 score or fabricated coverage. Retain all real findings while completing the same assignment.
-Return the required single JSON report and separate coverage object, with the exact packet
-bindings copied into their named fields. Never replace a binding with a guessed hash.
+Return the required single JSON report and, for durable Write packets, your original observation
+directory for mechanical coverage serialization. Legacy packets still need the separate coverage
+object. Copy exact packet bindings into their named fields; never guess a hash.
 For this dated profile also include reviewer_identity from the assigned role/task and packet
 identity, plus verdict reflecting the same actual pass/revise conclusion as ship. These
 metadata fields support the existing controller recovery; they change no score or finding.

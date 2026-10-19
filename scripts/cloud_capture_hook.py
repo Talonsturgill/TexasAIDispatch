@@ -32,6 +32,24 @@ def decision(payload, workspace):
         return None
     command = (payload.get('tool_input') or {}).get('command', '')
     cwd = payload.get('cwd') or workspace
+    # The pinned node tree is shared outside edition workspaces. Deleting a path
+    # through its node_modules link caused an interactive host permission stop.
+    # Reject that cleanup before permission evaluation; use owned storage recovery.
+    if 'node_modules' in command:
+        try:
+            for tokens, directory in guard.simple_commands(command, cwd):
+                if not tokens or Path(tokens[0]).name not in ('rm', 'rmdir'):
+                    continue
+                for value in tokens[1:]:
+                    if value.startswith('-') or 'node_modules' not in value:
+                        continue
+                    target = (Path(directory or cwd) / value).resolve()
+                    if not target.is_relative_to(Path(workspace).resolve()):
+                        return ('Shared runtime cleanup refused before host approval: preserve the external '
+                                'node cache and use the versioned owned-storage recovery path. '
+                                'Recompute native headroom against the current board; keep native PNG and CRF16.')
+        except (ValueError, OSError):
+            pass  # The unchanged capture guard still handles every capture command.
     if not guard.is_capture(command, cwd):
         return None
     try:

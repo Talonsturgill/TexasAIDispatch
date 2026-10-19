@@ -28,6 +28,11 @@ class SessionStartTests(unittest.TestCase):
         for name in start.BOUND_FILES:
             target = self.source / 'scripts' / name; target.parent.mkdir(exist_ok=True)
             target.write_text('old cached source ' + name)
+        import visual_observations
+        for name in visual_observations.ROLE_NAMES:
+            target = self.source / 'config/claude_agents' / (name + '.md')
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text((visual_observations.REPO / 'config/claude_agents' / target.name).read_text())
         git(self.source, 'add', '-A'); git(self.source, 'commit', '-qm', 'cached setup')
         subprocess.run(['git', 'clone', '-q', self.source.as_uri(), str(self.tools)], check=True)
         self.cached = git(self.tools, 'rev-parse', 'HEAD')

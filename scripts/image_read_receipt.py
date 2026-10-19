@@ -96,6 +96,8 @@ def record(payload, workspace):
             'source_dimensions': {'width': width, 'height': height},
             'returned_image': returned is not None, 'model_visibility': 'not_established',
             'creative_approval': False, 'reference_only': relative.parts[1] == 'environment-test'}
+    from visual_observations import delivery_bindings
+    annotation_context = delivery_bindings(payload, repo, relative, data)
     if returned is not None:
         data.update(returned_mime=output['type'], returned_bytes=len(returned),
                     returned_sha256=sha(returned), byte_identical_to_file=returned == source)
@@ -121,10 +123,9 @@ def record(payload, workspace):
                '. This records tool output, not model visibility or creative approval. A later placeholder '
                'for an older image does not establish that its original Read failed. The visibility '
                'observation belongs to the step when that payload was returned.')
-    context += (' Before another Read, provide a brief public image description in ordinary '
-                'assistant text as a factual JSON record: page, objects, actions, text. Record '
-                'visible content only; put quality conclusions in the final report. '
-                'Keep this record for coverage. If unseen now, return partial coverage '
+    context += (' ' + annotation_context if annotation_context else
+                ' Retain brief public descriptions for the final coverage. Inter-tool progress '
+                'does not establish durable evidence. If unseen now, return partial coverage '
                 'with the literal error and stop image traversal; do not invent observations.')
     return {'hookSpecificOutput': {'hookEventName': 'PostToolUse', 'additionalContext': context}}
 

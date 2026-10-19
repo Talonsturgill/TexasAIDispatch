@@ -474,7 +474,7 @@ class AvailabilityTest(unittest.TestCase):
     def test_media_limit_admission_checks_actual_unseen_page_and_retained_bytes(self):
         import claude_runtime
         image = self.root/'sequence-000.png'; image.write_bytes(b'owned image fixture bytes')
-        index = self.root/'index.json'; index.write_text(json.dumps({'pages': [
+        index = image.parent/'index.json'; index.write_text(json.dumps({'pages': [
             {'file': image.name, 'sha256': r.digest(image)}]}))
         packet = self.root/'host-packet.json'
         data = claude_runtime.image_reading({'role': 'storyboard-critic', 'instructions': '',
@@ -517,8 +517,11 @@ class AvailabilityTest(unittest.TestCase):
 
     def test_october20_media_recovery_refuses_unknown_timing_and_parent_added_observations(self):
         import claude_runtime
-        image = self.root/'sequence-000.png'; image.write_bytes(b'new single-read fixture')
-        index = self.root/'index.json'; index.write_text(json.dumps({'pages': [
+        import visual_observations as visual
+        self.root = self.root.resolve()
+        image = self.root/'out/dispatch/motion/sequence-000.png'
+        image.parent.mkdir(parents=True); image.write_bytes(b'new single-read fixture')
+        index = image.parent/'index.json'; index.write_text(json.dumps({'pages': [
             {'file': image.name, 'sha256': r.digest(image)}]}))
         data = claude_runtime.image_reading({'role': 'storyboard-critic', 'date': '2026-10-20',
             'instructions': '', 'phone_mode': 'current', 'phone_options': [{
@@ -527,6 +530,23 @@ class AvailabilityTest(unittest.TestCase):
         packet = self.root/'host-packet.json'; packet.write_text(json.dumps(data))
         coverage = self.root/'coverage.json'; handback = self.root/'handback.json'
         page = {'file': image.name, 'received': False, 'observed': r.MEDIA_LIMIT_ERROR}
+        # Explicit host-event fixtures: the separate hook tests exercise actual Read/Write execution.
+        actor, event_key = 'a' * 64, 'e' * 64
+        annotation = self.root/'out/dispatch/visual-observations'/actor/(event_key+'.json')
+        note = {'schema': visual.SCHEMA, 'image_event_key': event_key,
+                'page': str(image.relative_to(self.root)), 'image_sha256': r.digest(image),
+                'received': False, 'observed': r.MEDIA_LIMIT_ERROR, 'literal_error': r.MEDIA_LIMIT_ERROR}
+        visual.exclusive(annotation, note)
+        event = self.root/'out/dispatch/image-tool-delivery'/(event_key+'.json')
+        visual.exclusive(event, {'event_key': event_key, 'actor_sha256': actor,
+            'source_sha256': r.digest(image), 'observation_path': str(annotation.relative_to(self.root)),
+            'observed_at': '2026-10-20T05:00:00+00:00'})
+        witness = self.root/'out/dispatch/visual-observation-receipts'/actor/(event_key+'.json')
+        visual.exclusive(witness, {'schema': 'dispatch_visual_observation_write/1', 'actor_sha256': actor,
+            'image_event_key': event_key, 'observation_sha256': r.digest(annotation),
+            'written_at': '2026-10-20T05:00:01+00:00'})
+        page.update(observation={'path': str(annotation), 'sha256': r.digest(annotation)},
+                    writer_receipt={'path': str(witness), 'sha256': r.digest(witness)})
         value = {'schema': 'dispatch_claude_image_coverage/1', 'packet_sha256': r.digest(packet),
                  'sequences': [{'index_sha256': r.digest(index), 'pages': [page]}]}
         failure = {**self.failure, 'error': r.MEDIA_LIMIT_ERROR, 'raw_error': r.MEDIA_LIMIT_ERROR,
@@ -540,24 +560,28 @@ class AvailabilityTest(unittest.TestCase):
                 for key, path in (('image', image), ('packet', packet),
                                   ('coverage', coverage), ('handback', handback))})
         before = self.state.read_bytes()
-        for timing, channel in ((None, None), ('unknown', 'ordinary_assistant_text'),
-                                ('later_history_loss', 'ordinary_assistant_text'),
+        for timing, channel in ((None, None), ('unknown', 'write_tool_artifact'),
+                                ('later_history_loss', 'write_tool_artifact'),
                                 ('immediate_after_read', 'receipt_only')):
             page.update(observation_timing=timing, observation_channel=channel); save()
             with self.subTest(timing=timing, channel=channel), self.assertRaisesRegex(ValueError, 'immediate public'):
                 r.media_limit_packet(failure, self.root)
-        page.update(observation_timing='unknown', observation_channel='ordinary_assistant_text')
+        page.update(observation_timing='unknown', observation_channel='write_tool_artifact')
         other_page = {**page, 'observation_timing': 'immediate_after_read'}
         value['sequences'].append({'index_sha256': 'another-treatment', 'pages': [other_page]}); save()
         with self.assertRaisesRegex(ValueError, 'immediate public'):
             r.media_limit_packet(failure, self.root)
         value['sequences'].pop()
-        page.update(observation_timing='immediate_after_read', observation_channel='ordinary_assistant_text')
+        page.update(observation_timing='immediate_after_read', observation_channel='write_tool_artifact')
         save(include_original=False)
         with self.assertRaisesRegex(ValueError, 'original independent handback'):
             r.media_limit_packet(failure, self.root)
         save()
         self.assertEqual(r.media_limit_packet(failure, self.root), data)
+        changed = visual.load(witness); changed['actor_sha256'] = 'b' * 64
+        witness.write_text(json.dumps(changed)); page['writer_receipt']['sha256'] = r.digest(witness); save()
+        with self.assertRaisesRegex(ValueError, 'actual Write'):
+            r.media_limit_packet(failure, self.root)
         self.assertEqual(self.state.read_bytes(), before)
 
     def comparison_fixture(self):

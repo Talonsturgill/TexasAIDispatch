@@ -152,7 +152,7 @@ def image_read_policy(edition=None):
         policy['access_probe'] = {'before_guides': True, 'first_chronological_page': True,
                                   'on_missing': 'return partial; no further image reads'}
     if str(edition or '') >= '2026-10-20':
-        policy['note_channel'] = 'ordinary_assistant_text'
+        policy['note_channel'] = 'write_tool_artifact'
         policy['note_scope'] = 'brief_public_image_description'
         policy['unavailable_observation_timing'] = 'immediate_after_read'
     return policy
@@ -162,14 +162,14 @@ def image_reading(data, *, compact=False):
     """Keep image delivery bounded; this supplies no creative observation or approval."""
     data['image_read_policy'] = image_read_policy(data.get('date'))
     if str(data.get('date', '')) >= '2026-10-19':
-        from review_prompt_repair import PUBLIC_CONTRACT, PUBLIC_INSTRUCTION
-        data['public_visual_evidence'] = json.loads(json.dumps(PUBLIC_CONTRACT))
-        data['instructions'] += PUBLIC_INSTRUCTION
+        from visual_observations import CONTRACT, INSTRUCTION
+        data['public_visual_evidence'] = json.loads(json.dumps(CONTRACT))
+        data['instructions'] += INSTRUCTION
     if data['image_read_policy'].get('note_channel'):
-        data['instructions'] += (' For an actually unseen new Read, immediately state its literal error publicly and '
+        data['instructions'] += (' For an actually unseen new Read, immediately save its literal error with Write and '
             'return a partial JSON handback containing the exact coverage object. In that failed '
             'page entry set observation_timing:immediate_after_read and '
-            'observation_channel:ordinary_assistant_text only if observed before another image Read. '
+            'observation_channel:write_tool_artifact only if saved before another image Read. '
             'If timing is unknown or the image disappeared later, retain that uncertainty; '
             'it cannot establish a host outage. ')
     if 'access_probe' in data['image_read_policy']:
@@ -183,6 +183,15 @@ def image_reading(data, *, compact=False):
             'only; it supplies no observation of unseen pages. If visible, record its actual note, '
             'then read every required full guide and the complete ordered sequence. ')
         data['instructions'] = probe + data['instructions']
+    if str(data.get('date', '')) >= '2026-10-19':
+        data['instructions'] += (' Read ONE chronological image per step; never infer pixels. '
+            'Preserve all full guides, native details, timed observations and honest verdicts. '
+            'Return the complete final review JSON and your original observation_directory. '
+            'For an actual failure return status:partial, no verdict or score, the literal error '
+            'and that same observation_directory. The caller serializes dispatch_claude_image_coverage/1 '
+            'with visual_observations.py coverage (add --partial only for partial handbacks). '
+            'That mechanical step supplies no creative findings or grade.')
+        return data
     data['instructions'] += (' Log new-Read visibility. Receipt proves bytes, not visibility/grade. '
         'Keep earlier notes distinct from later history loss. Newly unseen Read needs immediate '
         'partial/error.' if compact else
@@ -217,6 +226,10 @@ def image_reading(data, *, compact=False):
 def image_policy_inputs(data):
     if data.get('image_read_policy') != image_read_policy(data.get('date')):
         raise ValueError('Claude image review needs the current sequential delivery and retained-notes policy')
+    if str(data.get('date', '')) >= '2026-10-20':
+        from visual_observations import CONTRACT
+        if data.get('public_visual_evidence') != CONTRACT:
+            raise ValueError('Claude image review needs the current sequential delivery and durable Write evidence policy')
 
 
 def image_coverage_problems(packet_path, coverage_path):
@@ -237,6 +250,7 @@ def image_coverage_problems(packet_path, coverage_path):
         if not isinstance(rows, list) or len(rows) != len(refs):
             return ['image coverage omits a required whole-film sequence']
         errors = []
+        independent_actors = set()
         for ref, row in zip(refs, rows, strict=True):
             if not isinstance(row, dict):
                 errors.append('image coverage has a malformed sequence'); continue
@@ -260,6 +274,14 @@ def image_coverage_problems(packet_path, coverage_path):
                 if (note.get('received') is not True or not isinstance(note.get('observed'), str)
                         or len(note['observed'].strip()) < 30):
                     errors.append('image coverage has an unseen page or no concrete retained observation')
+                from visual_observations import CONTRACT, note_problems
+                if data.get('public_visual_evidence') == CONTRACT:
+                    root = Path(data['board']['path']).resolve().parents[2]
+                    errors.extend(note_problems(root, note, image.resolve().relative_to(root), page['sha256']))
+                    if isinstance(note.get('observation'), dict):
+                        independent_actors.add(Path(note['observation']['path']).parent.name)
+        if len(independent_actors) > 1:
+            errors.append('one independent reviewer must observe the complete assigned sequence')
         return errors
     except (OSError, ValueError, TypeError, KeyError, IndexError) as exc:
         return ['image coverage unavailable: ' + str(exc)]
@@ -497,6 +519,14 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
                                'Do not substitute Codex model or fork arguments.',
               'reservation': 'Reserve the existing controller resource before executing this plan. '
                              'The three final scorers remain one atomic charged panel.'}
+    from visual_observations import CONTRACT, check_installation
+    if data.get('public_visual_evidence') == CONTRACT:
+        if os.environ.get('CLAUDE_CODE_REMOTE') == 'true':
+            check_installation(REPO, Path.home())
+        result['agent_args']['subagent_type'] = ('dispatch-visual-critic' if role == 'storyboard-critic'
+                                                else 'dispatch-visual-scorer')
+        result['model_binding'] += (' The guarded visual leaf preserves this exact role model, effort, '
+                                   'brief and rubric while writing only its own public image annotations.')
     if freshness:
         result['story_subject_screen'] = bound(report_path)
     if admitted:
