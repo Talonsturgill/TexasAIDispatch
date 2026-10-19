@@ -217,7 +217,7 @@ re-register hooks to get around a refused rebind.
 
 The prelaunch Stop hook sends an early final response back to this same ledger. It approves no
 tool, changes no permissions and adds no capacity. It remains inactive for ordinary coding and
-leaf agents. A repeated Stop with a running task reported by the host waits twenty seconds,
+leaf agents. A repeated Stop with a running task reported by the host waits sixty seconds,
 then rechecks the same shipment closure before returning feedback. This limits idle status
 chatter; it never treats a background task as completion. Collect required task results through
 the actual task tools, repair internal failures
@@ -256,8 +256,11 @@ remain distinct identities and an atomic charged panel on the same finished film
 cannot count self-review as independence. Provider recovery is used only after actual observed
 host unavailability, under the existing recovery policy.
 
-While a background worker owns required work, use the host's supported task-status and output
-tools to wait for that exact task and collect its full handback. Do not end the response merely
+While a background worker owns required work, use a blocking output wait for that exact task
+and collect its full handback. If TaskOutput is available, load its current schema and use
+blocking mode with a timeout of up to sixty seconds. Reissue that same bounded wait if it times
+out while the task is running. Do not poll transcript sizes, create another progress monitor or
+request unchanged status in a tight loop. Do not end the response merely
 to say that you are yielding or waiting; continue the next owned production step when its
 result arrives. Confirm the task is actually running before waiting, and explicitly resume a
 completed worker when assigning new charged content work. Keep one active owner and never
@@ -265,10 +268,16 @@ dispatch a duplicate because a response is slow. An unfinished controller is sti
 production even when the cloud UI marks an assistant response successful.
 
 If the task-status tool returns immediately while the worker is still running, use one
-twenty-second Bash wait through scripts/run_with_env.sh with the explicit worktree cd inside
+sixty-second foreground Bash wait through scripts/run_with_env.sh with the explicit worktree cd inside
 the wrapped shell, then check that same task again. Keep these as tool calls in the active
 turn, without a final waiting response between them. Do not use a long shell loop or interrupt
 the worker to stop idle polling. A read-only status update never requires a new content call.
+
+Keep the primary context compact. Store full provider transports, prompts, transcripts and
+base64 media in their original files; do not print them into the primary conversation. Read the
+complete independent report and every required guide, preserving all scores and defects. Use
+existing gate summaries and exact file/hash references for repeated status. Coverage serialization
+does not require echoing all original observations back into the primary context.
 
 ## Fresh authored picture lane
 
