@@ -314,7 +314,7 @@ def consume(project, command):
         with open(tmp, 'rb') as written:
             os.fsync(written.fileno())
         os.replace(tmp, path)
-    mirror_consumption(project, digest)
+        mirror_consumption(project, digest)
     return True
 
 

@@ -7,8 +7,10 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from concurrent.futures import ThreadPoolExecutor, TimeoutError
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from threading import Event
 from unittest import mock
 
 import capture_guard as guard
@@ -354,6 +356,38 @@ class RemoteConsumption(Fixture):
 
 
 class Authorize(Fixture):
+    def test_new_issuance_waits_for_the_original_remote_consumption_witness(self):
+        self.authorize()
+        self.ledger(self.reserved, dict(self.reserved, at='next capture'))
+        mirroring, release, issuing = Event(), Event(), Event()
+        digest = hashlib.sha256(guard.normalize(self.command).encode()).hexdigest()
+
+        def mirror(project, actual_digest):
+            self.assertEqual(digest, actual_digest)
+            mirroring.set()
+            self.assertTrue(release.wait(2))
+            auth = json.loads((self.root / guard.AUTHORIZATION).read_text())
+            self.assertEqual(digest, auth['commands'][0]['id'])
+            self.assertTrue(auth['commands'][0]['consumed'])
+
+        def issue():
+            issuing.set()
+            return self.authorize([self.command + ' --frame=30'])
+
+        with mock.patch.object(guard, 'mirror_consumption', side_effect=mirror), ThreadPoolExecutor(2) as pool:
+            spent = pool.submit(guard.consume, self.root, self.command)
+            self.assertTrue(mirroring.wait(2))
+            following = pool.submit(issue)
+            self.assertTrue(issuing.wait(2))
+            try:
+                with self.assertRaises(TimeoutError):
+                    following.result(timeout=0.1)
+            finally:
+                release.set()
+            self.assertTrue(spent.result(timeout=2))
+            self.assertEqual(guard.normalize(self.command + ' --frame=30'),
+                             following.result(timeout=2)['commands'][0]['text'])
+
     def test_pending_command_survives_another_preparation_without_another_charge(self):
         self.authorize()
         path = self.root / guard.AUTHORIZATION
