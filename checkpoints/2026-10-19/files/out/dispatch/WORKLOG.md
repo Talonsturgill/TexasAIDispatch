@@ -11,3 +11,6 @@ Next: save validation.json unchanged -> validation_check.py -> picture phase (re
 LESSON: before research, grep runs/*/vo_script.txt and storyboard titles for the subject, not only dedupe entities.
 
 2026-10-19 ~13:25Z SPACER (MD Anderson) researcher returned (transcript kept in out/dispatch/rejected-candidates/spacer-researcher-transcript.jsonl). REJECTED: no application-layer use, 4 to 21x benchmark claim contradicted by preprint text, preprint public since Nov 2025, no visible barrier source, journal page unread. Switching to Waymo San Antonio flood recall + public opening (tx-2026-0216, fresh by history grep and dedupe). research_agents reserved 3/3 for it.
+
+2026-10-19 ~13:55Z Waymo San Antonio (tx-2026-0216) selected. research.json (haiku, 3/3 researchers), story_selection.json (check passes), claims.json c1-c12 PROVISIONAL (snapshots out/dispatch/sources: waymo_oct, waymo_feb, nhtsa, tpr_recall, tpr_return), vo_script.txt (9 sentences, 118 words), vo_bindings.json. validator_agents reserved 2/2 (first stopped on Dallas). Validator opus running.
+Researcher notes: do NOT say interim limits are in force now; don't date the recall (May 1 vs 6 conflict); 60 sq mi is the February area; "anyone" only from Oct 14; no cause of April event; no speed/depth; no rider.
