@@ -80,7 +80,7 @@ class ContinuationTests(unittest.TestCase):
         payload = {**self.payload, 'background_tasks': [{'id': 'ci-monitor', 'status': 'running'}]}
         pause = Mock()
         result = continuation.response(payload, self.workspace, pause=pause)
-        pause.assert_called_once_with(20)
+        pause.assert_called_once_with(60)
         self.assertEqual(result['decision'], 'block')
         self.assertIn('ci-monitor', result['reason'])
         self.assertEqual(self.state.read_bytes(), before)
@@ -137,7 +137,7 @@ class ContinuationTests(unittest.TestCase):
         for tasks in ([], [{'id': 'done', 'status': 'completed'}]):
             pause = Mock()
             result = continuation.response({**self.payload, 'background_tasks': tasks}, self.workspace, pause=pause)
-            pause.assert_called_once_with(20)
+            pause.assert_called_once_with(60)
             self.assertEqual(result['decision'], 'block')
         self.assertEqual(self.state.read_bytes(), before)
 
@@ -148,7 +148,7 @@ class ContinuationTests(unittest.TestCase):
         published = None
         def finish_fixture(seconds):
             nonlocal published
-            self.assertEqual(seconds, 20)
+            self.assertEqual(seconds, 60)
             self.value.update(terminal_state='shipped', shipment={'fixture': True},
                 events=[{'kind': 'finished', 'result': 'shipped', 'shipment_sha256': 'a'*64}])
             self.save()
@@ -165,9 +165,9 @@ class ContinuationTests(unittest.TestCase):
         started = time.monotonic()
         done = subprocess.run([sys.executable, str(Path(continuation.__file__)),
                                '--workspace', str(self.workspace), '--hook'],
-                              input=json.dumps(payload), capture_output=True, text=True, timeout=45)
+                              input=json.dumps(payload), capture_output=True, text=True, timeout=75)
         self.assertEqual(done.returncode, 0, done.stderr)
-        self.assertGreaterEqual(time.monotonic() - started, 20)
+        self.assertGreaterEqual(time.monotonic() - started, 60)
         self.assertEqual(json.loads(done.stdout)['decision'], 'block')
         self.assertEqual(self.state.read_bytes(), before)
 

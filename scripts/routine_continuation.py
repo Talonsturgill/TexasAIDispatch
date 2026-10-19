@@ -18,7 +18,7 @@ SCHEMA = 'dispatch_routine_continuation/1'
 MARKER = '.claude/dispatch-production-continuation.json'
 PROBE = '.claude/dispatch-continuation-probe.json'
 REBIND = '.claude/dispatch-production-continuation-rebind.json'
-BACKGROUND_WAIT_SECONDS = 20
+BACKGROUND_WAIT_SECONDS = 60
 
 
 def read(path):
@@ -202,7 +202,9 @@ def decision(payload, workspace):
         reason = 'the selected production ledger or durable closure cannot yet be verified'
     running = [str(row.get('id')) for row in payload.get('background_tasks', [])
                if row.get('status') == 'running' and row.get('id')]
-    wait = (' Collect or wait through the actual task tools for running task(s) ' + ', '.join(running) + '.'
+    wait = (' Collect or block through the actual task tools for running task(s) ' + ', '.join(running) + '.'
+            ' When TaskOutput is available, load its schema and request a blocking wait on that exact ID'
+            ' for up to sixty seconds. Do not poll transcript sizes or launch another monitor.'
             if running else '')
     recovery = capacity_recovery_hint(state) if state is not None and not running else ''
     return ('Texas production remains unfinished: ' + reason + '.' + wait +
