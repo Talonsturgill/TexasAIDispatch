@@ -43,6 +43,7 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual('researcher', result['agent_args']['subagent_type'])
         self.assertEqual('claude-haiku-5-5', result['assignment']['model'])
         self.assertEqual('high', result['assignment']['effort'])
+        self.assertNotIn('run_in_background', result['agent_args'])
         self.assertNotIn('spawn_args', result)
         self.assertLessEqual(len(result['agent_args']['prompt']), 1800)
 
@@ -119,6 +120,7 @@ class RuntimeTests(unittest.TestCase):
                               subject='MD Anderson SPACER T cells cut a mucin barrier')
         self.assertEqual(result['assignment']['model'], 'claude-haiku-5-5')
         self.assertEqual(result['assignment']['effort'], 'high')
+        self.assertIs(result['agent_args']['run_in_background'], False)
         self.assertLessEqual(len(result['agent_args']['prompt']), 1800)
         self.assertIn('mucin barrier', result['agent_args']['prompt'])
         report = result['story_subject_screen']
@@ -130,6 +132,22 @@ class RuntimeTests(unittest.TestCase):
         with patch('dedupe.check_subject', side_effect=AssertionError('must preserve active policy')):
             result = runtime.plan('researcher', packet, 'researcher', 'Research the sourced action.')
         self.assertNotIn('story_subject_screen', result)
+        self.assertNotIn('run_in_background', result['agent_args'])
+
+    def test_future_final_panel_keeps_three_independent_scorers_available_for_concurrent_execution(self):
+        for role in ('picture', 'story', 'sound'):
+            with self.subTest(role=role):
+                data = runtime.image_reading({'role': role, 'date': '2026-10-20',
+                    'agent_assignment': runtime.assignment(role, '2026-10-20'),
+                    'brief': '.claude/agents/scorer.md', 'instructions': 'Read every current guide.'})
+                packet = self.root / (role + '.json'); packet.write_text(json.dumps(data))
+                with patch('agent_runtime.required_inputs'), patch('agent_runtime.validate_references'), \
+                        patch.object(runtime, 'motion_inputs'):
+                    result = runtime.plan(role, packet, role, 'Review the exact final film independently.')
+                self.assertNotIn('run_in_background', result['agent_args'])
+                self.assertEqual('dispatch-visual-scorer', result['agent_args']['subagent_type'])
+                self.assertEqual(('claude-sonnet-5-5', 'medium', 'scorer_calls'),
+                    tuple(result['assignment'][field] for field in ('model', 'effort', 'resource')))
 
     def test_phone_scope_cannot_launch_from_midpoint_only_packet(self):
         role = 'storyboard-critic'; edition = '2026-10-15'

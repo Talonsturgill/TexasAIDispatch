@@ -524,6 +524,8 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
                                'Do not substitute Codex model or fork arguments.',
               'reservation': 'Reserve the existing controller resource before executing this plan. '
                              'The three final scorers remain one atomic charged panel.'}
+    if data['date'] >= '2026-10-20' and role not in ('picture', 'story', 'sound'):
+        result['agent_args']['run_in_background'] = False
     from visual_observations import CONTRACT, check_installation
     if data.get('public_visual_evidence') == CONTRACT:
         if os.environ.get('CLAUDE_CODE_REMOTE') == 'true':
