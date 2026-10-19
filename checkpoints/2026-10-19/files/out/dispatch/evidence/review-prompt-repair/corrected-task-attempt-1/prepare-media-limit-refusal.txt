@@ -1,0 +1,3 @@
+Command: independent_review.py --prepare-media-limit --role phone ... --actor abb1c86df3ed8822b --source-packet out/dispatch/phone-critic-packet-round5.json --coverage coverage-as-returned.json --handback handback.txt --probe-image openings/motion-a/sequence-000.png --compare-openings
+Literal output: independent_review: single-image failure is not an actual unseen page in the assigned sequence
+Cause: the worker returned its coverage as three collapsed page ranges, not one entry per page, so no entry names sequence-000.png with received false. No per-page entry was written on the worker behalf.

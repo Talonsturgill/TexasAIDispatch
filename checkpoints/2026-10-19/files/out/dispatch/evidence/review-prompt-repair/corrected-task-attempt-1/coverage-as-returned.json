@@ -1,0 +1,15 @@
+{
+  "schema": "dispatch_claude_image_coverage/1",
+  "packet_sha256": "3a6bb72070ab9044e8690d4efbd87174b7a2dc0bb95a9f243c02d3a5b6a830cd",
+  "status": "partial",
+  "media_probe": {"file": "out/dispatch/openings/motion-a/sequence-000.png", "sha256": "e80e55c21496855c2c695bafabfe9ef6b9934f0b9f9249398d71d2e57367abe9", "single_image_read": true, "media_received": false, "error": "[media removed: request limit]", "raw_error": "[media removed: request limit]", "observation_timing": "immediate_after_read", "observation_channel": "ordinary_assistant_text_not_recorded_before_continuing"},
+  "sequences": [
+    {"option": "a", "index_sha256": "4a851b846e69653c16526deeaa6c76be1a2aa64a86cb0268a96a7b627f3a3b55",
+     "pages": [
+       {"file": "sequence-000.png ... sequence-024.png (25 pages, first_frame 30n, last_frame 30n+24)", "received": false, "observed": "Every Read returned exactly [media removed: request limit]. No pixels were seen."},
+       {"file": "sequence-025.png ... sequence-053.png (29 pages, frames 750 to 1614)", "received": true, "observed": null, "note": "Image payloads came back, but no immediate factual record was written before the next Read. Observations are withheld rather than reconstructed. Coverage fails for these pages."},
+       {"file": "sequence-054.png ... sequence-063.png", "received": false, "observed": "Not read. Traversal stopped after the classifier interruption."}
+     ]},
+    {"option": "b", "index_sha256": "f1eb280c2b74cc06a324a80f97d40ea4a3b529fb2b71c7ccdb26e817b35d3700", "pages": [], "note": "Index not read and no pages read."}
+  ]
+}

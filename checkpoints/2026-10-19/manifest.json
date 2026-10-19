@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-19T18:14:41.145883+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-19T18:22:30.283169+00:00",
+  "note": "corrected public evidence task attempt 1 partial; gate refusal retained",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -73,8 +73,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "a31a6b0a664fa51cf1b005d0846a4d7d15ef480ae50a039775bcff9cc82288a8",
-      "size": 16004
+      "sha256": "ba91e87763941468df7be658d3b78493c56ad18f9a029a322e052b8addecdbbb",
+      "size": 17081
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -695,6 +695,36 @@
       "size": 628
     },
     {
+      "path": "out/dispatch/evidence/review-prompt-repair/corrected-task-attempt-1/SHA256SUMS",
+      "class": "scratch",
+      "sha256": "6f1c9470bad81f1048a997e59b2034eb5cd944e22e33d45cdb4d3ccb4d055c54",
+      "size": 441
+    },
+    {
+      "path": "out/dispatch/evidence/review-prompt-repair/corrected-task-attempt-1/coverage-as-returned.json",
+      "class": "scratch",
+      "sha256": "f6cfb606a3fe6983a8a43d8c4a5ec1797dcb00cc59980253bc4594b5d1aa194e",
+      "size": 1585
+    },
+    {
+      "path": "out/dispatch/evidence/review-prompt-repair/corrected-task-attempt-1/handback.txt",
+      "class": "scratch",
+      "sha256": "5dd69a06f908f6d1e400633469ef7d3c17ca91db1bbcaa6755fb5f0a4b7e5915",
+      "size": 5442
+    },
+    {
+      "path": "out/dispatch/evidence/review-prompt-repair/corrected-task-attempt-1/prepare-media-limit-refusal.txt",
+      "class": "scratch",
+      "sha256": "6459e19375a8895dc3d4212cae904c8b776911ed4ddaf04b487ba030d67912d4",
+      "size": 601
+    },
+    {
+      "path": "out/dispatch/evidence/review-prompt-repair/corrected-task-attempt-1/review-json-as-returned.json",
+      "class": "scratch",
+      "sha256": "2574c1f29ce5b59f54519d66fcdfa40656711306ab432d20ee16b5426222c176",
+      "size": 523
+    },
+    {
       "path": "out/dispatch/evidence/review-prompt-repair/critic-round4-packet.json",
       "class": "scratch",
       "sha256": "bb3079bc5cbccca62eb9308aefacaa9ac57abc3aa7fdb6dad8e3fecbec9f85e3",
@@ -785,6 +815,12 @@
       "size": 776
     },
     {
+      "path": "out/dispatch/image-tool-delivery/05ae6cfaef915bd8726a6592d5d92be7b956713062e721e00623f2bf11756fad.json",
+      "class": "scratch",
+      "sha256": "51b168958c448b1c4dc70ebf2eb17a7cdf630d33675a6006548159bdfc243f9d",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/07bb0c649308e74a1cdb5246c9a58fc453d51cc178726acb0427412baa48d5ae.json",
       "class": "scratch",
       "sha256": "559f5b2540dcbc3a9843996c7d1ba8d6e727a66774c3fc02234333049cd3ba68",
@@ -809,16 +845,46 @@
       "size": 743
     },
     {
+      "path": "out/dispatch/image-tool-delivery/0d57e4bc9098f29ea2f8b1b731c69bb8577b505b9e8ce2b7152ed99539176d6c.json",
+      "class": "scratch",
+      "sha256": "84f27bc6a087c46bba6aa8b36d0860447d998e18f63ca63154126326c2661504",
+      "size": 743
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/0e9648b1b865199c804f19a234e28ceee0dd7504c1d31d4d62e26210e9e4ff6c.json",
+      "class": "scratch",
+      "sha256": "c8fe5b6d228ce870ebf7ba24df389a6f741905bbda3ac49faaadf2b213a24b9d",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/0f98c62b6805586e6ea69438d4b9fe27cfee977d2aa900447c46f3a28364b3ad.json",
       "class": "scratch",
       "sha256": "27fb07cb4e8bf7e8d63f7b7ea5b0f51c852ca05699fe9076adb70a900ff0ae6f",
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/0fe5e524553b6670eedb4d6c91fdefb570656afe3cafedf016618c5be7bc57db.json",
+      "class": "scratch",
+      "sha256": "87d287976051f6ac7b51bd6ff0e4fcda566107d11a63e412b2750621a61c767d",
+      "size": 743
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/111bdb620947f7d75d8ef12e9af939fcd0d7cd788c6618b8d0606f620568672b.json",
       "class": "scratch",
       "sha256": "f129b162a8aab9dab3c3b2127be0efb4f1a38e76bb0bfae2211cd8551e53f18c",
       "size": 743
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/131f5b63eed0f155b04e7e4cc8fa9a0e593485fcb18aa1458a28b4b9e6c12a06.json",
+      "class": "scratch",
+      "sha256": "6c1042ee0ad257ace7a6512aff6f6f8ea8a9ab5486484fa17aadeb9e3f9eb4e6",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/151a48849115f5bd99ff0b6b72d1b7db43994ecb39a6b348985c1e309d4d2411.json",
+      "class": "scratch",
+      "sha256": "c362a1575c2c3d486b3c09754d6455d9bf788596241995e87683f2bbd40f1f21",
+      "size": 741
     },
     {
       "path": "out/dispatch/image-tool-delivery/15aa8afa4ebcc1c05cace2a18ec382846d4c121758bf7c44f3af44ce941ffd2e.json",
@@ -845,6 +911,18 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/1c7b1f24f0f53bebc309f43ec7ebd641db9e7952fcc875330c404e302bbab4a2.json",
+      "class": "scratch",
+      "sha256": "b0086efe3943be4868d1d21a972a3b7a66b3ea992597ecc81addb9486070010f",
+      "size": 743
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/1c92d77183f285f1c4fedc1e97340140e255b45415e1f75efc5007d57f748a50.json",
+      "class": "scratch",
+      "sha256": "da0b16ac748b86e180a9ddf816bb9dd7717f958699e93f1fd9b7022e1e7f5bc7",
+      "size": 743
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/1cf77d4590f79d921627f857890034df5953a2ea8f01f8614ff884e02e8af17e.json",
       "class": "scratch",
       "sha256": "401515a9ee4fa3399a6dc062e6c58bd426f0659990e64cfac64723e688878df2",
@@ -861,6 +939,12 @@
       "class": "scratch",
       "sha256": "7c4d9e2449885df864a0346cad000b4ae9afae533dded42aa98acad115058f28",
       "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/1ebc2acbd0beb3ccece38fa60a9fc538db5969186600618d8c4b163fadf257eb.json",
+      "class": "scratch",
+      "sha256": "d4dfb79ddfd7a8a11d97058005919bd4235ad120a24b3a16d15e26fa8214f283",
+      "size": 743
     },
     {
       "path": "out/dispatch/image-tool-delivery/1fdce85816c10b8cae0e3ce2a05baf29fb93127b8f9a04a9d16221ac33d7949a.json",
@@ -893,9 +977,21 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/238772543bb70f611b28dbc89b5fd0f57d3e85021a2034df85beeffbfc627aeb.json",
+      "class": "scratch",
+      "sha256": "e47ed614516d545ab055444d3c31afa831820f759a3daa44525a976502a1da76",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/24fea1b866b53c919ca142b7768377b8c34968725b237de3c124c8365ad88f8c.json",
       "class": "scratch",
       "sha256": "06df5310f18ba725b9b5449a5a281da4514282086bf909fa56478ad2f13a44d8",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/2596df4dfd930bbf85282236b1a6a236b8c7e575023e9e6274f26de3bf7519ca.json",
+      "class": "scratch",
+      "sha256": "49e69c06ce44c6e939b9d26f8662cd1558549e75009f19ba99f8df05c75ace4e",
       "size": 741
     },
     {
@@ -923,9 +1019,27 @@
       "size": 743
     },
     {
+      "path": "out/dispatch/image-tool-delivery/2c9fdbb76fcd06f9133819c648132314f529df408f9f06ef232185a56f1beee7.json",
+      "class": "scratch",
+      "sha256": "f791c0cea1cef53c1f51872a8587cb85875fd5c649a79cc9b179eb4d3d58b7c3",
+      "size": 743
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/2d7bc6eaa89de4a97e994386bba178091ca2d5234242f2f5a44e008f62c1bfe7.json",
       "class": "scratch",
       "sha256": "9a3bbf15895b4c29275baf825ada7fb654ed72dcef246b3d99def52c6b25c18f",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/2df833f205e2af56a9e8b90eec9f9e90e17480633ba0fed9ffe149992054acc0.json",
+      "class": "scratch",
+      "sha256": "69766ddcf963a520681cf5e67515bcfe1de6d52494e9845b1d78be0b874769a1",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/2e7a7170b6b99031cc574e956dd4d67ed8445d765c133b42af6c42af6edbfce8.json",
+      "class": "scratch",
+      "sha256": "5abccded8fcc945d511da467fa432a8070ff03a148289792d1498a7e49966f35",
       "size": 741
     },
     {
@@ -939,6 +1053,12 @@
       "class": "scratch",
       "sha256": "d648f2ef3eacf8bc7228b4c9e1eeeba7aac64ef19fd11abe0fccb6a01e0a46c1",
       "size": 743
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/30b74392b56d670c15779218b1e7663ab4c3a4541ab91a3c21f2eb2c0d8d6644.json",
+      "class": "scratch",
+      "sha256": "cac920aab04e626cf09f4e64492e003dde4e8f105a89de761266032ada8a67ec",
+      "size": 741
     },
     {
       "path": "out/dispatch/image-tool-delivery/31370d04063c85719e56f08b29ce49c17daa1fe15430905373c5cc7ed7bcc673.json",
@@ -1001,6 +1121,12 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/3a5bfa1bf5f54da579ca408552835c5689b18b9a4a8d921eace5390b318ceaa4.json",
+      "class": "scratch",
+      "sha256": "99bf304720e7204a5866632764239bdbf4dcaf250a5a734557e5bba81beb2997",
+      "size": 743
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/3b9320b28b7f3acb830b4cb2f98df35de2b18606d689400ba6b2ca98ef1a447a.json",
       "class": "scratch",
       "sha256": "ffbe75fdfc69b8e68ab7a9d0864b6c72fc8be73a5d630e4d6f2eb06fef30303e",
@@ -1025,6 +1151,12 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/4043765e109769dbf192938fa20ddc264ab40534d09c58aae6c8b2ce71d9f80f.json",
+      "class": "scratch",
+      "sha256": "30034207ca62342ceb9da297f8c2d2f1a30ca44e69f12d57ba60ace4a9095754",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/406d987955cd4c3fcf7c81885f4a7840f3f682db54bc88e251c4c804d7702e9e.json",
       "class": "scratch",
       "sha256": "11f015f9cc05c8d92396c0e98a0883be4e6b870baa42f7b0399ab2a1ab159107",
@@ -1040,6 +1172,12 @@
       "path": "out/dispatch/image-tool-delivery/451c96e422b4be3e9c6a16dc4a297c13b5a20563d016a89e0fea8212435ff709.json",
       "class": "scratch",
       "sha256": "9293839c43d461f58acff82c8dab656fd70c3e3abc9f143c0c5340a4b63578cc",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/4631bf58fda560a4f5221060a4853dcc3aaf0396bd9fe4cfc53f8189d7a5ab25.json",
+      "class": "scratch",
+      "sha256": "92c3f284d6ba7c14a977743f0fc6183556c5e9ccc8aec8c3117ff0512c48ffdb",
       "size": 741
     },
     {
@@ -1071,6 +1209,18 @@
       "class": "scratch",
       "sha256": "67871c2b9a9696509b5dba84743119099ac143a7e1d881370f5bb06f560726f8",
       "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/513e45b15ebd59f249e2cc9fffb155298962a2a7bb621008ea94c301d9faf3eb.json",
+      "class": "scratch",
+      "sha256": "2f9fd3023834eff22763510f170d456bea77eb39e4b195546344f62c6d08837a",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/517017856be49c68276d7aa681bf9359fc323ed96bff8d45364faaaa9e4020fd.json",
+      "class": "scratch",
+      "sha256": "618e4e6b38a4fc619148ecb05f4d47871c52991f7fa4206f1850fb8a11aa12e3",
+      "size": 743
     },
     {
       "path": "out/dispatch/image-tool-delivery/51ec08c9478127167e21c89252a58bdfb6d344e0541cd726fdaaf78e11ac347e.json",
@@ -1157,6 +1307,12 @@
       "size": 743
     },
     {
+      "path": "out/dispatch/image-tool-delivery/62faf8aee1e6dac7f4ea87d43a3ad69b6c3dca9681e48c9198807ff56ec87060.json",
+      "class": "scratch",
+      "sha256": "396067aa5786a64712c9d225f513ca58081c954661db93e669925f7a358b1d61",
+      "size": 743
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/6387f66d2b256c3dcadaed12211d4759259559ed7e7549f5d6e8cce5290842e2.json",
       "class": "scratch",
       "sha256": "bc7ad6223b2ae819a9d429864f60ab8ab9bc089e5d6100ce433aff00f778bff8",
@@ -1229,6 +1385,12 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/750f4b916a9eb31324fc042ecae35ee653ae05880d5ec5bb1c890568cb82fddd.json",
+      "class": "scratch",
+      "sha256": "62758aeb6b0477fde02c97a34ae200ca417c713e08abefafd01efed8ade7581c",
+      "size": 743
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/755933e22ef95df729a8036d57b13fbfa5393b3b6b2cb75856db3f6da787475f.json",
       "class": "scratch",
       "sha256": "559f6f7dd28512630dab19499b5ee540363b57fba49b4573ea0a0c3cef874046",
@@ -1253,9 +1415,21 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/7829f8b810fab213aaa536e69338a53cd3200d394f9ecbb4d02efe4e5b90fda3.json",
+      "class": "scratch",
+      "sha256": "2ef94334201d244abd2d441f249c6d867123ecb63ca8a0099b64497c4aad5d5f",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/7907c14ee51ce920e61fd03ec55ab80ef793b514b90478721a681b360ff691cb.json",
       "class": "scratch",
       "sha256": "cc084c44ce3b9b025e31428e68fbf2e7129626f94630fd19fce5c9686d562b42",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/79b6ae0bab7e6af6693c660ad69b8d83642980cea388747850c420a5567d7850.json",
+      "class": "scratch",
+      "sha256": "90fb7d3a8d4e2e4d15c789b802d3952bc99dd92bb5b810f121cab417395dbf12",
       "size": 741
     },
     {
@@ -1271,6 +1445,18 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/7e2bd7cdc98e3d7be0cf48e38ef4334e6efa0558fc490aa97c0cd8e212b59b25.json",
+      "class": "scratch",
+      "sha256": "3d4050752a201eb73c14cf481c4df24d45ff69c5ca4f1784eea07f0d9e908fce",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/8056780e90eb666177d986807b04e541faabf482cdd1072f6f8a394bb6c0b2f8.json",
+      "class": "scratch",
+      "sha256": "66b310451be3f7d8769b2b460d243821a9cbceb6a2940c30942ef3d4d0fa87cc",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/82be9bda61bd7401eaa1c3826517e343b4f7b010599d8e10cef3fd07ff533fa9.json",
       "class": "scratch",
       "sha256": "6a039d94056fcc10cd048ad1cc1fbd5bc83c5c2ed4cf06e5a6240cdffbd53d8c",
@@ -1280,6 +1466,12 @@
       "path": "out/dispatch/image-tool-delivery/82d7665b9c708d37e7e31d1ab96807ae7fedf8f7bc80c813e9abba4ad2d4ad7a.json",
       "class": "scratch",
       "sha256": "0cb91654238722156cccc74ba837f8dfd26d205163ce9160f2c5c7f697959da4",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/848641784fe8f9d965a89a3f72e11f311bff0e6cbcf77ec67a5da9a846d61259.json",
+      "class": "scratch",
+      "sha256": "72c8690e700b63bb9f97ff05786af654ee3ea24e659494102725e8b3ccbc6dc0",
       "size": 741
     },
     {
@@ -1307,6 +1499,12 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/87916ab1826b29435464719d045b964b4a937659e57161c36cac6a87ae9d9e6f.json",
+      "class": "scratch",
+      "sha256": "a0e975dcc1ce1cb69baaddf6c7861492a8addb0fcb2d58c702d60ba3fb845a1d",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/87e4e2e72499ba7cd30ae6061c2ee40c86699d6f35c4f09cf22b2f20b089a001.json",
       "class": "scratch",
       "sha256": "5451fe2c437fea4a74b4ecefb5eb1cd313f1eb3f846f728ebea5dffbc85f7781",
@@ -1322,6 +1520,12 @@
       "path": "out/dispatch/image-tool-delivery/8b2467b43b8dde019f83ec9b71e1bb54d68f6c35d80e930248b9f26e27f7e5da.json",
       "class": "scratch",
       "sha256": "980ce887971b87ebff7bb89b6acbcd71eb1ae10f2c7a3715911121b23533cdba",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/8bb4c0b905cb94b4a7d1955695666e2aa93f14994339a3796196ca7574ca8e98.json",
+      "class": "scratch",
+      "sha256": "4e965bc2930716aee36ed2718b69a03020c795bebfcd06a50e7b35cad019e0d9",
       "size": 741
     },
     {
@@ -1352,6 +1556,18 @@
       "path": "out/dispatch/image-tool-delivery/91212707a96288be07e26550269f38ca67acd79d3aa6e17d03057922b981fadb.json",
       "class": "scratch",
       "sha256": "c5a09b980361709ab90f55306083ee246cbdf7c03ab620b0de7686d0e1c2bf03",
+      "size": 743
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/920e332cbdaea625a3b021d89ce124761f3a21e3ef69bf56073a95cbe64d7a77.json",
+      "class": "scratch",
+      "sha256": "4dda70e633eeccf9fa0789fadd6b27affa631e5c82feed5a717d3bfd0e42507c",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/92a738bd1b1eb5ee402cc3da845370e5de8b484e7dbbf04e1861fd1c67876750.json",
+      "class": "scratch",
+      "sha256": "1a1411a4743b6eb834bbf78a1ef7a27d95e493ac58a62fc3cd96fcdd0b9acf6b",
       "size": 743
     },
     {
@@ -1391,9 +1607,33 @@
       "size": 743
     },
     {
+      "path": "out/dispatch/image-tool-delivery/9be3c33b176f9a5d9526c3a60ccf3ab2c9b7ce785a859cfaf37fbff92ba5844a.json",
+      "class": "scratch",
+      "sha256": "8c30965b87dc165965b965e2088d1df3872ba9c55f8a2dd0b767959bf9f8e0be",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/9c4c08770ddb456909fda1bf2f3dbf041584493cbdbac538c2aa310cb38849b1.json",
+      "class": "scratch",
+      "sha256": "8984e2d42666ce653f87687cb0f246b5686376efdbb18534107706120ae0fede",
+      "size": 743
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/9ccbd0109517237ba1f91906e5250966b5a0683e53c466167e2e0b4f72621b97.json",
+      "class": "scratch",
+      "sha256": "9ff59c18ca5281500f94085b01ac9c1292158768b80a70dee0d1c43c2719f582",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/9d99fa533d6ad7290a7416a3cd91b312f71fa413ceb8bca3d2742c451b5c0e3c.json",
       "class": "scratch",
       "sha256": "9b2991ead578809eb3e42bf1c537eaf3c2a417cc320b9cbbd67fd7fe29e8d1f3",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/9fc6329638f3a758d8f4faefadfdacf9a217c29970a97eb0cb90de267ee63abf.json",
+      "class": "scratch",
+      "sha256": "f683c385c2e01dd4247c0c5d4ac8bbbab77157e58b133c560359886056c6bd1f",
       "size": 741
     },
     {
@@ -1413,6 +1653,12 @@
       "class": "scratch",
       "sha256": "738f38f3fd0b3be10737514a1782a8c086dab56a1efacbbcbcbc2f30be26aad7",
       "size": 743
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/a1c430c9e0e4456f18ac057c4cc064dd67df8c744e832c17c0a74115cde3be54.json",
+      "class": "scratch",
+      "sha256": "6ec6a644e33daf5e394c0a7b57a40f39676d0f360ceb71416a7e7ea8012ed4db",
+      "size": 741
     },
     {
       "path": "out/dispatch/image-tool-delivery/a1ffbb5e1b3c7a556911828d2c12d6288c63a29fcef12cfddc78a20945b8dd98.json",
@@ -1445,9 +1691,21 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/acd0a2a16f00036b5a47eaeb2b6b5e8489fd82c916f4520bf7ed0a3a62fb3740.json",
+      "class": "scratch",
+      "sha256": "b9b25456947c83d18cb86ab718fd254c497937608e9b521ce002acca2d792d69",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/aeb7f56048f6d20e406769bd92bc26933d1673b0d7808ea31ce1557d302e62ec.json",
       "class": "scratch",
       "sha256": "cf48f444f52e9253762bef93615fbfe2054a91e9c2863bcfe0459bdcad10656f",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/af727bee7e984414d70fec16356ec497078fd7627bef5b03f04fd6bdd3b6b011.json",
+      "class": "scratch",
+      "sha256": "94da241ac24ae84ed64c9cc9fdd33ab99fdac0e79b0d30219271c41b691e1cc5",
       "size": 741
     },
     {
@@ -1485,6 +1743,12 @@
       "class": "scratch",
       "sha256": "c368baf6049bb92675b7809e625be7521f6d9bb302e904bfd9ace6f1c02f4891",
       "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/b4347084f6248aa8618349ea81f14924af80c5ffd33ff84320b7b898619b8976.json",
+      "class": "scratch",
+      "sha256": "2beb528493d8842a1f879864f9bc27cc5f7b96da3bfe746e4252649ef49b472d",
+      "size": 743
     },
     {
       "path": "out/dispatch/image-tool-delivery/b45f120ee50b655c1869ebfcb6fe370f82d53500ed86b095a16dabb886e771f4.json",
@@ -1526,6 +1790,12 @@
       "path": "out/dispatch/image-tool-delivery/ba8dba30188c645cabd2b5855a432d3006f9958db3331901d12654bdd692fa62.json",
       "class": "scratch",
       "sha256": "58788fe26fcb215a301158c98281f830ac3264d070372520250dcf3e0ffddea0",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/bbd9c6bd97810a708a84dd82bf213dac9c0c4f38caae6d8069eeaa70f54699ae.json",
+      "class": "scratch",
+      "sha256": "3f825722a10b999aed8d9f0d0b53503115c2af97688be5c93568d9ed7f33a554",
       "size": 741
     },
     {
@@ -1577,10 +1847,22 @@
       "size": 743
     },
     {
+      "path": "out/dispatch/image-tool-delivery/c5c6137d04f6a5fd84daae34a894292b73f5e939da4136307110fcac5887b62f.json",
+      "class": "scratch",
+      "sha256": "7335787e6789449a2094f43bef3d53f461dfa6abd1d6c7b79106ef90f0358040",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/c74bea1b7e9d8130cec5e6a1e8a401074754a77419915abca64d37eceec91177.json",
       "class": "scratch",
       "sha256": "55c905f1e82f3599d456d1bf930603ba2d356aea91c3ec5cdb8b777323dfcfbb",
       "size": 743
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/c7f89e983cbce69cf0347cc5608d1404c70da36c13f493c864998c94cbffc3d3.json",
+      "class": "scratch",
+      "sha256": "108e7e32b269ab86ec4654f2e5927cd6e3ef4fcb83212b367936b3881c7e579b",
+      "size": 741
     },
     {
       "path": "out/dispatch/image-tool-delivery/c88511d6304642d536196e007e07018bf261f53c90ca6307b1aead6d506ec415.json",
@@ -1592,6 +1874,12 @@
       "path": "out/dispatch/image-tool-delivery/c8ddfa05c9905954d6315a4bb7eedaf52a31f6de6b617fcc80d5a022db7eac29.json",
       "class": "scratch",
       "sha256": "9f06201817398f7eaa549d3c68f37e0587459816d32185d8253ca08dc5532508",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/c9893ad52acf8afb0e0a3e48227248dd7f7adaeb4e12de005f3547c236f26400.json",
+      "class": "scratch",
+      "sha256": "2c86513b8b64a14ccc88b08266a330db77ec463ea1a797cb6e8e858af0388b6e",
       "size": 741
     },
     {
@@ -1617,6 +1905,12 @@
       "class": "scratch",
       "sha256": "716c64c7b5ace0a324fb3d99c32a9c501eaf0dbfa83cc90fba5cff439fb9980e",
       "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/ce04555be3015d2832831bd46bfe2e27821f0d6cc32c47dcdb1327510674f31d.json",
+      "class": "scratch",
+      "sha256": "ee25d94bf6b53f1cbbd56c22e47c953aa1f9326d0f222e9c5e496b7659e9f8b6",
+      "size": 743
     },
     {
       "path": "out/dispatch/image-tool-delivery/ce70b2988eb0729bc65008bf866fdb2f13cc1953783bb859f4b5f37f6ef53d1e.json",
@@ -1667,9 +1961,27 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/d6729790458dd375ef6d8b24f3ca713598b8e6aefddeeb3ec8a35f289bed005d.json",
+      "class": "scratch",
+      "sha256": "5d0ade837d8a8c86806aca45eb06b5f7ed9b76c677696f13908ffe214a836b70",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/d8542f72e62a56c70ac017bc705284c79e367422ee1e23fc76adca0be1200753.json",
       "class": "scratch",
       "sha256": "ef8f433ba6d1d608d48034df674348b34dc41963773034b1016c2cdf484f7b22",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/da1291a394aa796d90865665b071548cc6df11e7ed7492e8d62f33f2dc0eac59.json",
+      "class": "scratch",
+      "sha256": "b558afab91e08de913d06f0a923298f62fc7550440b0e39300fd62689a6750f0",
+      "size": 743
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/da7980305298ed1ecd300a8e2d73aa44fe3d7ba56e7cf666480d40c1c71b0f6d.json",
+      "class": "scratch",
+      "sha256": "b997ec42feed867733bfbb16cd15b1dcea7018751c39e7945ade3edd95ad441e",
       "size": 741
     },
     {
@@ -1703,6 +2015,12 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/e83e7449b3a78f50d9b3e28854836c43ac6b3fd62ed4781c957e34427cf7a14c.json",
+      "class": "scratch",
+      "sha256": "6d102f2316e5f2afd905e43193d3f8231c448070eaed6fba209ecf46bd18a23f",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/ec2beeaab3192808a6410052ef321d0f796ae7f52b7e68b1d4740f6b98afec75.json",
       "class": "scratch",
       "sha256": "aac7f1768776f06daeb516412a2e183fca1666321c44d07fe3196c4955431db1",
@@ -1713,6 +2031,12 @@
       "class": "scratch",
       "sha256": "5fe4295436058b94048ddb6a2b63b15334e76fe1dfe803d06278d32963a2547e",
       "size": 743
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/ee8b858efd4edf3eb1b2890506beb60da1108507d8cdec91fac03ffe8175b1a1.json",
+      "class": "scratch",
+      "sha256": "af5a31e31ce207ac828b1133ef019a30f77c7fbdef7a0b84bbcf36576c33e5cb",
+      "size": 741
     },
     {
       "path": "out/dispatch/image-tool-delivery/eed1373a7428e8c5865fbdcb9393a995928d9b0809c048856ca69c1abc556443.json",
@@ -1775,16 +2099,34 @@
       "size": 741
     },
     {
+      "path": "out/dispatch/image-tool-delivery/f32831f3407119f292b2803825e90b1de94fc6d443bd8016e40e0858014ca36b.json",
+      "class": "scratch",
+      "sha256": "2e41900475ca49920662f955e5ef8e02bf9ba50fdc8b898691679f3d83d68ba6",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/f38ea50e3b97abbf0c1896ff90032edadf610519d8b14ca9bf6a3ca58f32310e.json",
       "class": "scratch",
       "sha256": "5335e890ac899a7494fec52494e749164bcfcabc9227f929da1ffada9f5612f4",
       "size": 743
     },
     {
+      "path": "out/dispatch/image-tool-delivery/f54673a9d344d3c067d750cf287b851bbbb179775bda50a75bf334b70cf1813d.json",
+      "class": "scratch",
+      "sha256": "ab8d313e87b1d35a84f762b9d8aca0f52e0308c4c0705a5a50bacfe632eff9e1",
+      "size": 741
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/f6a489d120ee8d2289496cfae2ad0db04e914b4b7886156219d3b13ccb3b5e65.json",
       "class": "scratch",
       "sha256": "6e364f79c627aea73de0add126c2d4a357934827bd1332db7830f3fca9847f29",
       "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/f6e95bf64e7b52534abd4240e661d65ce8e180d268b9967a09de9b0edbc755e0.json",
+      "class": "scratch",
+      "sha256": "725fb6ad29738068670bc539a8eedcbd5fcb72370d7e69176fcadea3960fc617",
+      "size": 743
     },
     {
       "path": "out/dispatch/image-tool-delivery/f85a05d79dd2087997db577f0b3b330e9f571f41f3a162d36cc68767817cb5b6.json",
@@ -1809,6 +2151,18 @@
       "class": "scratch",
       "sha256": "d5624479373458af3275cce91ea71ad42dcc5804c36bb7cc12f18834fe4fdc30",
       "size": 743
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/fc63fbdff23492e422a7f7dea1e0d8075cd7e520474694632ab4425e54c3b675.json",
+      "class": "scratch",
+      "sha256": "a350e1bef47ed668dda5154c21df920224e24caf98179f70bf57f21889d29246",
+      "size": 741
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/fda37c758d04a2dcd13e0d684bd428650a5a59fc9b23870990e5f1d21a4cbf2f.json",
+      "class": "scratch",
+      "sha256": "7430baf814ce2e5fde769d17d6b0e3eb64a199388cea9a72a828d5ef525bfbb1",
+      "size": 741
     },
     {
       "path": "out/dispatch/independent-review-cache/155e2fc191d3927816f93ba84b1017c27a5d95867c489ca38c4f50ae346fe225/attempt.json",
