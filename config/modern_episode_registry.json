@@ -1223,6 +1223,434 @@
         }
       ],
       "mechanism_id": "solar-flood-station-local-judgment-v1"
+    },
+    "robotaxi-recall-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "cab-wheel",
+        "calendar-fleet",
+        "car-swept",
+        "count-grid",
+        "creek-plan",
+        "creek-wide",
+        "curb-plan",
+        "curb-record-split",
+        "curb-return",
+        "curb-wide",
+        "fleet-plan",
+        "hazard-close",
+        "lane-plan",
+        "lane-wide",
+        "limits-detail",
+        "limits-tag",
+        "map-plan",
+        "map-table",
+        "map-zone",
+        "phone-hail",
+        "record-close",
+        "record-desk",
+        "record-slide",
+        "record-wall",
+        "stamp-detail",
+        "street-flood",
+        "street-plan",
+        "wheel-water",
+        "wheels-water"
+      ],
+      "wall_views": [
+        "map-plan",
+        "record-wall",
+        "record-close",
+        "record-desk",
+        "count-grid",
+        "stamp-detail"
+      ],
+      "subject": "A generic white driverless car design shown in five disclosed examples: a ride arriving at a San Antonio airport pickup curb with the phone request, a limited area drawn on a street map, an empty car already in the brown current of a creek and swept downstream, another empty car stopped in floodwater with amber hazard lamps, a federal recall record card beside a grid of car icons, a car that slows and rolls on into standing water on a higher speed lane beside the recall sentence, the remedy row stamped under development, a row of cars taking an interim update under an April 20th page and a weather limits tag, and an airport ride with its door open beside the remedy row",
+      "note": "Fresh authored Claude-lane episode for 2026-10-19 (Waymo San Antonio opening of October 14th, 2026 and NHTSA recall 26E026). Hero RobotaxiHero and support SanAntonioSupport are original React and SVG groups shared by both treatments. A follows the car at ground level, B reads the same events from above and from inside the cab. Disclosed illustration, no brand marks, no real vehicle, road, rider, airport, creek, record page or app screen.",
+      "narration_views": {
+        "curb-wide": {
+          "subject_ids": [
+            "s1-car",
+            "s1-curb",
+            "s1-phone"
+          ],
+          "action_ids": [
+            "car-arrives-at-curb"
+          ]
+        },
+        "cab-wheel": {
+          "subject_ids": [
+            "s1-car",
+            "s1-curb",
+            "s1-phone",
+            "s1-wheel"
+          ],
+          "action_ids": [
+            "car-arrives-at-curb",
+            "wheel-turns-itself"
+          ]
+        },
+        "phone-hail": {
+          "subject_ids": [
+            "s1-car",
+            "s1-curb",
+            "s1-phone"
+          ],
+          "action_ids": [
+            "car-arrives-at-curb"
+          ]
+        },
+        "curb-plan": {
+          "subject_ids": [
+            "s1-car",
+            "s1-curb",
+            "s1-phone"
+          ],
+          "action_ids": [
+            "car-arrives-at-curb"
+          ]
+        },
+        "map-table": {
+          "subject_ids": [
+            "s2-calendar",
+            "s2-map",
+            "s2-pin"
+          ],
+          "action_ids": [
+            "service-area-opens"
+          ]
+        },
+        "map-plan": {
+          "subject_ids": [
+            "s2-calendar",
+            "s2-map",
+            "s2-pin"
+          ],
+          "action_ids": [
+            "service-area-opens"
+          ]
+        },
+        "map-zone": {
+          "subject_ids": [
+            "s2-calendar",
+            "s2-map",
+            "s2-pin",
+            "s2-zone"
+          ],
+          "action_ids": [
+            "service-area-opens"
+          ]
+        },
+        "creek-wide": {
+          "subject_ids": [
+            "s3-car",
+            "s3-creek",
+            "s3-crossing",
+            "s3-rain"
+          ],
+          "action_ids": [
+            "car-swept-into-creek"
+          ]
+        },
+        "car-swept": {
+          "subject_ids": [
+            "s3-car",
+            "s3-creek",
+            "s3-crossing",
+            "s3-rain"
+          ],
+          "action_ids": [
+            "car-swept-into-creek"
+          ]
+        },
+        "creek-plan": {
+          "subject_ids": [
+            "s3-car",
+            "s3-creek",
+            "s3-crossing",
+            "s3-rain"
+          ],
+          "action_ids": [
+            "car-swept-into-creek"
+          ]
+        },
+        "street-flood": {
+          "subject_ids": [
+            "s4-car",
+            "s4-hazard",
+            "s4-street",
+            "s4-water"
+          ],
+          "action_ids": [
+            "second-car-stranded"
+          ]
+        },
+        "hazard-close": {
+          "subject_ids": [
+            "s4-car",
+            "s4-hazard",
+            "s4-street",
+            "s4-water"
+          ],
+          "action_ids": [
+            "second-car-stranded"
+          ]
+        },
+        "wheel-water": {
+          "subject_ids": [
+            "s4-car",
+            "s4-hazard",
+            "s4-street",
+            "s4-water"
+          ],
+          "action_ids": [
+            "second-car-stranded"
+          ]
+        },
+        "street-plan": {
+          "subject_ids": [
+            "s4-car",
+            "s4-hazard",
+            "s4-street",
+            "s4-water"
+          ],
+          "action_ids": [
+            "second-car-stranded"
+          ]
+        },
+        "record-desk": {
+          "subject_ids": [
+            "s5-record"
+          ],
+          "action_ids": [
+            "recall-filed-count"
+          ]
+        },
+        "record-wall": {
+          "subject_ids": [
+            "s5-record",
+            "s7-cursor",
+            "s7-record",
+            "s7-remedy",
+            "s7-stamp"
+          ],
+          "action_ids": [
+            "recall-filed-count",
+            "remedy-under-development"
+          ]
+        },
+        "count-grid": {
+          "subject_ids": [
+            "s5-count",
+            "s5-record",
+            "s5-stamp",
+            "s5-total"
+          ],
+          "action_ids": [
+            "recall-filed-count"
+          ]
+        },
+        "lane-wide": {
+          "subject_ids": [
+            "s6-car",
+            "s6-lane",
+            "s6-quote",
+            "s6-water"
+          ],
+          "action_ids": [
+            "car-slows-into-water"
+          ]
+        },
+        "wheels-water": {
+          "subject_ids": [
+            "s6-car",
+            "s6-lane",
+            "s6-quote",
+            "s6-water"
+          ],
+          "action_ids": [
+            "car-slows-into-water"
+          ]
+        },
+        "lane-plan": {
+          "subject_ids": [
+            "s6-car",
+            "s6-lane",
+            "s6-quote",
+            "s6-water"
+          ],
+          "action_ids": [
+            "car-slows-into-water"
+          ]
+        },
+        "record-close": {
+          "subject_ids": [
+            "s7-cursor",
+            "s7-record",
+            "s7-remedy",
+            "s7-stamp"
+          ],
+          "action_ids": [
+            "remedy-under-development"
+          ]
+        },
+        "stamp-detail": {
+          "subject_ids": [
+            "s7-cursor",
+            "s7-record",
+            "s7-remedy",
+            "s7-stamp"
+          ],
+          "action_ids": [
+            "remedy-under-development"
+          ]
+        },
+        "calendar-fleet": {
+          "subject_ids": [
+            "s8-calendar",
+            "s8-fleet",
+            "s8-limits",
+            "s8-map"
+          ],
+          "action_ids": [
+            "interim-weather-limits"
+          ]
+        },
+        "limits-tag": {
+          "subject_ids": [
+            "s8-calendar",
+            "s8-fleet",
+            "s8-limits",
+            "s8-map"
+          ],
+          "action_ids": [
+            "interim-weather-limits"
+          ]
+        },
+        "limits-detail": {
+          "subject_ids": [
+            "s8-calendar",
+            "s8-fleet",
+            "s8-limits",
+            "s8-map"
+          ],
+          "action_ids": [
+            "interim-weather-limits"
+          ]
+        },
+        "fleet-plan": {
+          "subject_ids": [
+            "s8-calendar",
+            "s8-fleet",
+            "s8-limits"
+          ],
+          "action_ids": [
+            "interim-weather-limits"
+          ]
+        },
+        "curb-return": {
+          "subject_ids": [
+            "s9-car",
+            "s9-curb",
+            "s9-phone"
+          ],
+          "action_ids": [
+            "ride-open-remedy-open"
+          ]
+        },
+        "record-slide": {
+          "subject_ids": [
+            "s9-car",
+            "s9-curb",
+            "s9-phone",
+            "s9-record"
+          ],
+          "action_ids": [
+            "ride-open-remedy-open"
+          ]
+        },
+        "curb-record-split": {
+          "subject_ids": [
+            "s9-car",
+            "s9-curb",
+            "s9-phone",
+            "s9-record"
+          ],
+          "action_ids": [
+            "ride-open-remedy-open"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+          "export": "RobotaxiHero",
+          "views": [
+            "curb-wide",
+            "cab-wheel",
+            "phone-hail",
+            "curb-plan",
+            "creek-wide",
+            "car-swept",
+            "creek-plan",
+            "street-flood",
+            "hazard-close",
+            "wheel-water",
+            "street-plan",
+            "lane-wide",
+            "wheels-water",
+            "lane-plan",
+            "calendar-fleet",
+            "limits-tag",
+            "fleet-plan",
+            "curb-return",
+            "record-slide",
+            "curb-record-split"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+          "export": "SanAntonioSupport",
+          "views": [
+            "cab-wheel",
+            "calendar-fleet",
+            "car-swept",
+            "count-grid",
+            "creek-plan",
+            "creek-wide",
+            "curb-plan",
+            "curb-record-split",
+            "curb-return",
+            "curb-wide",
+            "fleet-plan",
+            "hazard-close",
+            "lane-plan",
+            "lane-wide",
+            "limits-detail",
+            "limits-tag",
+            "map-plan",
+            "map-table",
+            "map-zone",
+            "phone-hail",
+            "record-close",
+            "record-desk",
+            "record-slide",
+            "record-wall",
+            "stamp-detail",
+            "street-flood",
+            "street-plan",
+            "wheel-water",
+            "wheels-water"
+          ]
+        }
+      ]
     }
   }
 }
