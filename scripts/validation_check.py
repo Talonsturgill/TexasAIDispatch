@@ -81,11 +81,23 @@ def check(validation_path: Path, claims_path: Path, board_path: Path | None = No
         problems.append("validation result must be PASS or PASS_WITH_DROPS before delivery")
     if not validation.get("source"):
         problems.append("validation names no source")
+    # A complete independent PASS may have nothing to reject or correct. Requiring
+    # invented findings contradicts the research handoff and alters the review.
+    # Empty findings are valid only when every supplied claim is independently
+    # verified; drops and incomplete claim sets retain the findings requirement.
+    claim_rows = claims.get("claims")
+    complete_pass = (
+        validation.get("result") == "PASS"
+        and isinstance(claim_rows, list) and bool(claim_rows)
+        and all(isinstance(row, dict) and row.get("id")
+                and row.get("verdict") == "VERIFIED" for row in claim_rows)
+    )
     for field in ("rejected", "required_edits_applied"):
         value = validation.get(field)
-        if not isinstance(value, list) or not value or not all(
+        if not isinstance(value, list) or (not value and not complete_pass) or not all(
                 isinstance(item, str) and item.strip() for item in value):
-            problems.append(f"validation {field} must be a non-empty list of findings")
+            problems.append(f"validation {field} must be a list of findings; only a complete "
+                            "PASS over independently verified claims may use an empty list")
     state_path = validation_path.parent / 'run_state.json'
     if state_path.is_file():
         from validation_completion import source_validation_problems
@@ -150,6 +162,55 @@ def self_test() -> int:
         ok("a failed validation can't enter delivery", bool(check(validation, claims, board)))
         ok("a failed validation can't enter picture production",
            bool(check(validation, claims, edition_date="2026-09-09")))
+
+        complete_claims = {"claims": [
+            {"id": "c1", "verdict": "VERIFIED"},
+            {"id": "c2", "verdict": "VERIFIED"},
+        ]}
+        complete = {**good, "result": "PASS", "verified_claim_ids": ["c1", "c2"],
+                    "rejected": [], "required_edits_applied": []}
+        claims.write_text(json.dumps(complete_claims), encoding="utf-8")
+        validation.write_text(json.dumps(complete), encoding="utf-8")
+        ok("a complete independent PASS needs no invented rejection or edit",
+           not check(validation, claims, board)
+           and not check(validation, claims, edition_date="2026-09-09"))
+        validation.write_text(json.dumps({**complete, "required_edits_applied":
+                                         ["the spoken qualifier was corrected"]}), encoding="utf-8")
+        ok("a complete PASS can retain real edits and an empty rejected list",
+           not check(validation, claims, board))
+
+        for field in ("rejected", "required_edits_applied"):
+            for value in (None, "none", [""], ["   "], [1]):
+                validation.write_text(json.dumps({**complete, field: value}), encoding="utf-8")
+                ok(f"complete PASS refuses malformed {field} {value!r}",
+                   bool(check(validation, claims, board)))
+            missing_field = {k: v for k, v in complete.items() if k != field}
+            validation.write_text(json.dumps(missing_field), encoding="utf-8")
+            ok(f"complete PASS still requires {field}", bool(check(validation, claims, board)))
+
+        for change in ({"verified_claim_ids": ["c1"]}, {"verified_claim_ids": ["c1", "c9"]},
+                       {"date": "2026-09-08"}, {"result": "FAIL"},
+                       {"result": "PASS_WITH_DROPS"}, {"source": ""}):
+            validation.write_text(json.dumps({**complete, **change}), encoding="utf-8")
+            ok(f"empty findings do not bypass {change!r}", bool(check(validation, claims, board)))
+
+        validation.write_text(json.dumps(complete), encoding="utf-8")
+        for rows in ([], [{"id": "c1", "verdict": "VERIFIED"},
+                         {"id": "c2", "verdict": "REJECTED"}],
+                     [{"id": "c1", "verdict": "VERIFIED"},
+                      {"id": "c2", "verdict": "PARTIAL"}],
+                     [{"verdict": "VERIFIED"}], [None]):
+            claims.write_text(json.dumps({"claims": rows}), encoding="utf-8")
+            ok("empty findings refuse an empty, incomplete or unverified claim set",
+               bool(check(validation, claims, board)))
+        for rows in ([], [{"id": "c1", "verdict": "VERIFIED"},
+                         {"id": "c2", "verdict": "REJECTED"}]):
+            claims.write_text(json.dumps({"claims": rows}), encoding="utf-8")
+            reported_ids = [row["id"] for row in rows if row["verdict"] == "VERIFIED"]
+            validation.write_text(json.dumps({**complete, "verified_claim_ids": reported_ids}),
+                                  encoding="utf-8")
+            ok("matching ids cannot hide an empty or partly rejected claim set",
+               bool(check(validation, claims, board)))
 
     print(f"validation_check: {failures} failure(s)")
     return 1 if failures else 0
