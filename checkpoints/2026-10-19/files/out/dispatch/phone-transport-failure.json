@@ -1,0 +1,57 @@
+{
+  "schema": "dispatch_review_transport_failure/1",
+  "role": "phone",
+  "actor": "a749355db6f1d61e3",
+  "observed_at": "2026-10-19T16:14:12.108241Z",
+  "error": "[media removed: request limit]",
+  "raw_error": "[media removed: request limit]",
+  "verdict": null,
+  "reservation_event_index": 39,
+  "reservation": {
+    "at": "2026-10-19T15:59:33.763934Z",
+    "kind": "reserved",
+    "note": "fresh phone critic after assigned worker failed twice on host API safeguard error",
+    "preflight_identity": null,
+    "resources": {
+      "storyboard_critics": 1
+    }
+  },
+  "reservation_sha256": "79e70089c41859e8f2313e07b31ec074ff055c984e9db2558b1517bd4d4b9898",
+  "media_probe": {
+    "single_image_read": true,
+    "media_received": false,
+    "packet": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/phone-critic-packet.json",
+      "sha256": "f03efd5ed2f1f0c470b42ac9367d3db901436c89cde70c6df5b367b2b1c07c50"
+    },
+    "coverage": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round2-coverage.json",
+      "sha256": "d7d80a611f083e6b2e7168e4e9aeb186d4bf289346c786714c35346c05f0323a"
+    },
+    "handback": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round2-partial.json",
+      "sha256": "bb4b27cec3413caea55191efd4a1b826f2be2c93a8ab9df6825a3238e617ebc4"
+    },
+    "image": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/motion-a/sequence-000.png",
+      "sha256": "e80e55c21496855c2c695bafabfe9ef6b9934f0b9f9249398d71d2e57367abe9"
+    }
+  },
+  "assignment": {
+    "role": "phone",
+    "actor": "a749355db6f1d61e3",
+    "board_sha256": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1",
+    "film_sha256": null,
+    "comparison_sha256": "781a6263593ca59efc80a2ccd7301d02ab1facd40878cb28179a7e6590b442bb",
+    "opening_options": {
+      "a": {
+        "board_sha256": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1",
+        "film_sha256": "743af11f9867b26436e9cc8aa87768fc547ab3cc04968b03d5c22400b31f5a1b"
+      },
+      "b": {
+        "board_sha256": "97da983a9bc23ba583c4338c4a849707baa6f5625c7a9b945d7e9b213ffd4959",
+        "film_sha256": "007354839edac6ab20915b7cacab106e8db05b413bca90b81c1d9051689bf55d"
+      }
+    }
+  }
+}

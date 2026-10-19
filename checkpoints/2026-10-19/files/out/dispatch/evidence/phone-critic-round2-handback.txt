@@ -1,0 +1,240 @@
+PARTIAL: no verdict and no selection. Image traversal stopped because of a missing-image access failure.
+
+Literal error, exactly as it appears in my context for the access-probe page and the 24 pages after it: `[media removed: request limit]`
+
+Probe identity: option a, /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/motion-a/sequence-000.png (index sha256 e80e55c21496855c2c695bafabfe9ef6b9934f0b9f9249398d71d2e57367abe9), frames 0 to 24. The same literal text stands in place of motion-a sequence-001 to sequence-024 (frames 30 to 744). For every one of those 25 Reads the PostToolUse hook recorded "Read returned an image payload", and those receipts are under out/dispatch/image-tool-delivery/. The hook itself says a receipt records tool output, not model visibility. I can't tell whether the payloads were stripped on arrival or later as the window filled. What I can confirm is that I wrote no observation of any of these pages.
+
+What I did wrong in this assignment, so the director can retain it accurately:
+1. Right after the probe Read I wrote "The probe page is visible" with no note of what I saw. No observation supports that line now, and it should be treated as unsupported.
+2. I broke the packet's note-before-next-read rule. I issued the Reads for a/001 to a/024 one at a time but wrote no per-page note between them, so I have no evidence for those pages.
+3. Images first appear in my context at a/025. I read a/025 to a/054 one at a time and they are visible now. I stopped after a/054 and did not read a/055 to a/063 or any page of motion-b. The packet's on_missing rule ("return partial; no further image reads") applies.
+
+Guides were read in full before the sequence pages: storyboard-critic brief, quality_contract.json, dispatch_rubric.yaml, QUALITY_CONTRACT.md, MODERN_FILM.md, modern_film.json, STORY_ART.md, story_art.json, AUTHORED_STORY_ART.md, authored_story_art.json, ART_DIRECTION.md, art_direction.json, cinematic_reference_bank.json, viewer-plan.md, visual-storytelling/README.md, news-reporting.md, evidence-led-imagery.md, modern_episode_registry.json, critic_concept_v2.json, AUTONOMOUS_COMPLETION.md, autonomous_completion_v2.json, claude_runtime.json, prompts/claude_routine.md, scene-builder.md, CREATIVE_DIRECTION.md, DAILY_PRODUCTION.md, documentary.json and AGENTS.md. I did not read the director rationale: a.json, b.json narration_picture and story_contract, claims.json, story_selection.json, comparison.json and storyboard.json. I can't compute file hashes because the assignment is Read-only. The bindings below are copied from the packet unchanged.
+
+```json
+{
+  "status": "partial",
+  "error": "[media removed: request limit]",
+  "raw_error": "[media removed: request limit]",
+  "probe": {"option": "a", "file": "out/dispatch/openings/motion-a/sequence-000.png", "index_page_sha256": "e80e55c21496855c2c695bafabfe9ef6b9934f0b9f9249398d71d2e57367abe9", "first_frame": 0, "last_frame": 24, "single_image_read": true, "media_received": false, "note": "Hook receipt reports a returned payload. The model context holds only the literal placeholder and no observation was retained. Reviewer process error: no per-page note written before later Reads."},
+  "selection": {
+    "comparison_sha256": "781a6263593ca59efc80a2ccd7301d02ab1facd40878cb28179a7e6590b442bb",
+    "selected": null,
+    "director_identity": "claude-sonnet-5-5 director, this session",
+    "reviewer_identity": "claude-opus-5-5 high, storyboard-critic leaf (read-only, isolated), 2026-10-19 phone comparison assignment",
+    "reason": "No selection. Neither option has all 64 pages seen and noted. Option a: 30 of 64 pages seen. Option b: 0 of 64 pages read.",
+    "rejected_reason": null,
+    "blocking_defects": []
+  },
+  "reports": {
+    "a": {
+      "status": "partial",
+      "review_scope": "exact-muted-phone-preflight",
+      "reviewed_preflight_sha256": "743af11f9867b26436e9cc8aa87768fc547ab3cc04968b03d5c22400b31f5a1b",
+      "concept_sha256": "440105c0d8e0bbe7b259433afa16eaf1b67a22d3150c962b576b7310f8375931",
+      "renderer_sha256": "364847c9e4ddac9c4654e18284fafc0c2d1f82e136207a3fdcfc60f60faae083",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "modern_observations": {"film_sha256": "743af11f9867b26436e9cc8aa87768fc547ab3cc04968b03d5c22400b31f5a1b"},
+      "narration_picture_observations": {"film_sha256": "743af11f9867b26436e9cc8aa87768fc547ab3cc04968b03d5c22400b31f5a1b"},
+      "action_reviews": [],
+      "story_review": {"story_sha256": "c440e9efaa2ea3ac74cd3d12cf407c772d7bfa4024cb13a6d1889b536c1c1142", "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0", "claims_sha256": "2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584"},
+      "verdict": null,
+      "reviewer_identity": "claude-opus-5-5 high, storyboard-critic leaf (read-only, isolated), 2026-10-19 phone comparison assignment",
+      "reviewed_at": "2026-10-19 (no host clock available to this leaf; time of day unknown)",
+      "notes": "No verdict. Seen interval is 25.0 to 54.8 s only. The provisional findings below are unresolved observations, not blocking defects, and must be rechecked inside a complete viewing.",
+      "provisional_unresolved_observations_25_to_54_8s": [
+        {"start_s": 26.4, "end_s": 27.4, "observed": "Stamp arm is a straight flat blue tube with no visible elbow. It sweeps across the car-icon grid to place the 'Nearly 3,800 vehicles' tag. Possible motion/contact concern."},
+        {"start_s": 27.0, "end_s": 41.4, "observed": "The 'Software recall' stamp mark sits over the 'Potential units affected 3,791' value on the record card, so the numeral partly collides with the stamp. Row labels in the left column are unreadable at phone size."},
+        {"start_s": 28.4, "end_s": 30.4, "observed": "Lane scene: small green blob patches on the asphalt ahead of and under the car have an ambiguous identity (shrub, lily pads or debris)."},
+        {"start_s": 30.8, "end_s": 36.8, "observed": "Standing water is a flat grey band with hard rectangular edges. At 34.0 to 36.4 there are visible vertical seams and blocky edges in the water band near and behind the car. Brake lights show at 30.6 to 31.4, then the car rolls into the water with spray lines. No crash or stop was seen, consistent with the recall-wording disclosure chip."},
+        {"start_s": 39.0, "end_s": 41.4, "observed": "Two stiff blue-sleeved arms (pen and stamp) cross the record card diagonally and cover the remedy row 'The remedy is currently under development.' while the 'Under development' stamp lands at 40.6. The row is still partly hidden at 41.4 when the shot cuts at 41.6, so the remedy row does not read clean after the stamp lands in this shot. It reads clean again on the slip at 54.6 to 54.8."},
+        {"start_s": 41.6, "end_s": 45.4, "observed": "Lot scene: four small cars, each about one eighth of the frame width, under an April calendar and a 'Vehicle maps' sign. Only the 'Weather limits tightened' tag slides in (43.0 to 43.4). 43.6 to 44.8 is a static held tableau. Possible pacing/subject-size concern."},
+        {"start_s": 50.0, "end_s": 54.8, "observed": "Airport curb: generic car at a pickup bay, phone with 'Arriving' route, airport sign, disclosure 'Illustration. A generic airport ride, not the flood cars'. The rear door opens at 51.2 to 51.8 and the cabin appears empty. The remedy slip slides in at 54.2 to 54.6 just above the caption band and is legible."}
+      ],
+      "strongest_frame": "Unresolved because coverage is partial. Among seen pages, 32.8 to 33.8 (medium side view of the finished white car approaching the water under the quote card) is the clearest picture.",
+      "weakest_frame": "Unresolved because coverage is partial. Among seen pages, 43.6 to 44.8 (static lot tableau with tiny cars) and 39.0 to 41.4 (arms covering the remedy row) are weakest.",
+      "blocking_defects": [],
+      "phone_observations": null,
+      "modern_observations_detail": null,
+      "narration_picture_clauses": null
+    },
+    "b": {
+      "status": "partial",
+      "review_scope": "exact-muted-phone-preflight",
+      "reviewed_preflight_sha256": "007354839edac6ab20915b7cacab106e8db05b413bca90b81c1d9051689bf55d",
+      "concept_sha256": "09e3f319783b833ddc88a8932650c994bc27a3d67c5feb8c8d7bd55f1d4cb10f",
+      "renderer_sha256": "364847c9e4ddac9c4654e18284fafc0c2d1f82e136207a3fdcfc60f60faae083",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "modern_observations": {"film_sha256": "007354839edac6ab20915b7cacab106e8db05b413bca90b81c1d9051689bf55d"},
+      "narration_picture_observations": {"film_sha256": "007354839edac6ab20915b7cacab106e8db05b413bca90b81c1d9051689bf55d"},
+      "action_reviews": [],
+      "story_review": {"story_sha256": "cc126b40b17d35d8c40bbc62d3e487d45b4fd2a7cdc04363e1e4ec5234aeb8f9", "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0", "claims_sha256": "2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584"},
+      "verdict": null,
+      "reviewer_identity": "claude-opus-5-5 high, storyboard-critic leaf (read-only, isolated), 2026-10-19 phone comparison assignment",
+      "reviewed_at": "2026-10-19 (time of day unknown)",
+      "notes": "No page of motion-b was read. Traversal stopped under the missing-image rule.",
+      "strongest_frame": null,
+      "weakest_frame": null,
+      "blocking_defects": [],
+      "phone_observations": null
+    }
+  },
+  "coverage": {
+    "schema": "dispatch_claude_image_coverage/1",
+    "packet_sha256": "f03efd5ed2f1f0c470b42ac9367d3db901436c89cde70c6df5b367b2b1c07c50",
+    "sequences": [
+      {
+        "option": "a",
+        "index_sha256": "4a851b846e69653c16526deeaa6c76be1a2aa64a86cb0268a96a7b627f3a3b55",
+        "pages": [
+          {"file": "sequence-000.png", "first_frame": 0, "last_frame": 24, "received": false, "observed": "Access probe. Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-001.png", "first_frame": 30, "last_frame": 54, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-002.png", "first_frame": 60, "last_frame": 84, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-003.png", "first_frame": 90, "last_frame": 114, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-004.png", "first_frame": 120, "last_frame": 144, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-005.png", "first_frame": 150, "last_frame": 174, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-006.png", "first_frame": 180, "last_frame": 204, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-007.png", "first_frame": 210, "last_frame": 234, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-008.png", "first_frame": 240, "last_frame": 264, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-009.png", "first_frame": 270, "last_frame": 294, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-010.png", "first_frame": 300, "last_frame": 324, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-011.png", "first_frame": 330, "last_frame": 354, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-012.png", "first_frame": 360, "last_frame": 384, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-013.png", "first_frame": 390, "last_frame": 414, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-014.png", "first_frame": 420, "last_frame": 444, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-015.png", "first_frame": 450, "last_frame": 474, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-016.png", "first_frame": 480, "last_frame": 504, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-017.png", "first_frame": 510, "last_frame": 534, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-018.png", "first_frame": 540, "last_frame": 564, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-019.png", "first_frame": 570, "last_frame": 594, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-020.png", "first_frame": 600, "last_frame": 624, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-021.png", "first_frame": 630, "last_frame": 654, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-022.png", "first_frame": 660, "last_frame": 684, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-023.png", "first_frame": 690, "last_frame": 714, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-024.png", "first_frame": 720, "last_frame": 744, "received": false, "observed": "Context holds only literal '[media removed: request limit]'; no observation retained."},
+          {"file": "sequence-025.png", "first_frame": 750, "last_frame": 774, "received": true, "observed": "Desk: chip 'Illustration. Generic car with no brand mark', small federal recall card (rows illegible at phone size), wooden stamp; car-icon grid fills row by row from 2 to 8 rows; caption 'that could affect nearly thirty eight hundred cars.'"},
+          {"file": "sequence-026.png", "first_frame": 780, "last_frame": 804, "received": true, "observed": "Grid complete at 10 by 8 icons. A straight blue arm with no elbow enters at 26.4 holding the stamp and carries a ghosted 'Nearly 3,800 vehicles' tag that lands beside the card by 26.8. The arm crosses the icon grid."},
+          {"file": "sequence-027.png", "first_frame": 810, "last_frame": 834, "received": true, "observed": "Tag pinned and legible: 'Nearly 3,800 vehicles, 3,791 potentially affected in the record'. 'Software recall' stamp mark on the card overlaps the 3,791 row. Arm withdraws right by 27.6; hold."},
+          {"file": "sequence-028.png", "first_frame": 840, "last_frame": 864, "received": true, "observed": "Grid hold to 28.2, cut at 28.4 to a wide highway. Chip 'Illustration. The recall wording, not a recorded event'. Car enters from left; green blob patches on road; quote card fading in; caption 'The recall says the software may let a car slow,'."},
+          {"file": "sequence-029.png", "first_frame": 870, "last_frame": 894, "received": true, "observed": "Car travels mid-frame left to right over green patches of ambiguous identity. Quote card legible: 'The software may allow the vehicle to slow and then drive into standing water on higher speed roadways.' Wheels sit just above the caption band."},
+          {"file": "sequence-030.png", "first_frame": 900, "last_frame": 924, "received": true, "observed": "Car continues and green patches pass behind. Red brake lights at 30.6 to 30.8; a grey water band starts at the right edge of the road at 30.8; streetlamp scrolls in."},
+          {"file": "sequence-031.png", "first_frame": 930, "last_frame": 954, "received": true, "observed": "Car slowing with brake lights on toward a flat grey water slab at right with a hard edge; quote card and caption unchanged; streetlamp passes."},
+          {"file": "sequence-032.png", "first_frame": 960, "last_frame": 984, "received": true, "observed": "Car nears the water slab; caption gone at 32.6. Cut at 32.8 to a medium side view of the large finished white car with sensor dome and spoked wheels, quote card above."},
+          {"file": "sequence-033.png", "first_frame": 990, "last_frame": 1014, "received": true, "observed": "Medium side view; headlamp glow; grey water slab ahead at right with a hard vertical edge; caption 'then drive into standing water on higher speed roads.'"},
+          {"file": "sequence-034.png", "first_frame": 1020, "last_frame": 1044, "received": true, "observed": "Water reaches the front wheel with blocky rectangular seams near it; 'may' highlighted amber on the quote card from 34.2; spray streaks at 34.6 to 34.8; no crash."},
+          {"file": "sequence-035.png", "first_frame": 1050, "last_frame": 1074, "received": true, "observed": "Car in standing water with spray lines and reflection streaks. A vertical seam in the water band mid-car is visible. Car keeps rolling, no stop shown."},
+          {"file": "sequence-036.png", "first_frame": 1080, "last_frame": 1104, "received": true, "observed": "Same medium hold in water with spray; a darker rectangular band with hard edges under the car (seam); caption unchanged; no crash or stop."},
+          {"file": "sequence-037.png", "first_frame": 1110, "last_frame": 1134, "received": true, "observed": "Cut to enlarged recall card on desk. Remedy row 'The remedy is currently under development.' highlights amber from 37.4 and is legible. 'Software recall' stamp overlaps 3,791. Caption 'The federal record says the remedy is currently under development.'"},
+          {"file": "sequence-038.png", "first_frame": 1140, "last_frame": 1164, "received": true, "observed": "Hold on the record card with remedy row highlighted; at 38.6 a blue-sleeved hand with a pen enters lower right; caption unchanged."},
+          {"file": "sequence-039.png", "first_frame": 1170, "last_frame": 1194, "received": true, "observed": "Slight push-in. Two stiff blue arms, pen and stamp, cross the card diagonally. The pen covers the remedy row text so 'under development' is partly occluded."},
+          {"file": "sequence-040.png", "first_frame": 1200, "last_frame": 1224, "received": true, "observed": "Stamp arm rises to the remedy row and presses an 'Under development' stamp at 40.6 to 40.8; both arms still occlude the remedy text."},
+          {"file": "sequence-041.png", "first_frame": 1230, "last_frame": 1254, "received": true, "observed": "Stamp mark on remedy row partly hidden by the pen arm to 41.4. Cut at 41.6 to a lot with four small cars, April calendar and 'Vehicle maps' signs on a wire gantry. Caption 'As an interim step, Waymo tightened its weather limits,'."},
+          {"file": "sequence-042.png", "first_frame": 1260, "last_frame": 1284, "received": true, "observed": "Static lot hold: four small white cars in bays (each about one eighth of frame width), calendar, maps sign, skyline, trees; nothing moves."},
+          {"file": "sequence-043.png", "first_frame": 1290, "last_frame": 1314, "received": true, "observed": "'Weather limits tightened' tag with a rain-cloud icon slides in from left along the wire and pins by 43.4; cars static."},
+          {"file": "sequence-044.png", "first_frame": 1320, "last_frame": 1344, "received": true, "observed": "Fully static held tableau of the lot, tags and signs for all five samples; caption 'As an interim step, Waymo tightened its weather limits,'."},
+          {"file": "sequence-045.png", "first_frame": 1350, "last_frame": 1374, "received": true, "observed": "Caption gap at 45.4; slight reframe at 45.6; new caption 'and every affected car had the update by April twentieth.'; cars still small."},
+          {"file": "sequence-046.png", "first_frame": 1380, "last_frame": 1404, "received": true, "observed": "Calendar page flips to show 'April 20' (page lifting 46.2 to 46.6), legible at phone size; cars static."},
+          {"file": "sequence-047.png", "first_frame": 1410, "last_frame": 1434, "received": true, "observed": "Hold on 'April 20' calendar and weather tag; at 47.8 a small check circle appears above the first car."},
+          {"file": "sequence-048.png", "first_frame": 1440, "last_frame": 1464, "received": true, "observed": "White checkmarks appear over each car in sequence; 'Vehicle maps updated' check on the sign at 48.6 to 48.8."},
+          {"file": "sequence-049.png", "first_frame": 1470, "last_frame": 1494, "received": true, "observed": "Hold with all four cars and the maps sign checked; caption ends by 49.8."},
+          {"file": "sequence-050.png", "first_frame": 1500, "last_frame": 1524, "received": true, "observed": "Cut to airport curb. Chip 'Illustration. A generic airport ride, not the flood cars'. Phone with route and 'Arriving'; plane-and-car pickup sign; white car parked in bay; caption 'So the airport ride is open,'."},
+          {"file": "sequence-051.png", "first_frame": 1530, "last_frame": 1554, "received": true, "observed": "The car's rear door swings open 51.2 to 51.8, showing a dark beige interior with no person visible; bench, teal suitcase and pole behind."},
+          {"file": "sequence-052.png", "first_frame": 1560, "last_frame": 1584, "received": true, "observed": "Door-open hold at the curb. At 52.8 a reframe to a wider lower view: car smaller in the upper third, grass verge and grey wedge at the bottom."},
+          {"file": "sequence-053.png", "first_frame": 1590, "last_frame": 1614, "received": true, "observed": "Wider curb shot held with door open, car about 40 percent of width; grass and grey wedge below; caption 'and the federal record lists the flood remedy'."},
+          {"file": "sequence-054.png", "first_frame": 1620, "last_frame": 1644, "received": true, "observed": "A record slip slides in from left 54.2 to 54.6: 'Federal recall record, Remedy, The remedy is currently under development.' with 'Under development' stamp, legible just above the caption."},
+          {"file": "sequence-055.png", "first_frame": 1650, "last_frame": 1674, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-056.png", "first_frame": 1680, "last_frame": 1704, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-057.png", "first_frame": 1710, "last_frame": 1734, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-058.png", "first_frame": 1740, "last_frame": 1764, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-059.png", "first_frame": 1770, "last_frame": 1794, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-060.png", "first_frame": 1800, "last_frame": 1824, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-061.png", "first_frame": 1830, "last_frame": 1854, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-062.png", "first_frame": 1860, "last_frame": 1884, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-063.png", "first_frame": 1890, "last_frame": 1903, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."}
+        ]
+      },
+      {
+        "option": "b",
+        "index_sha256": "f1eb280c2b74cc06a324a80f97d40ea4a3b529fb2b71c7ccdb26e817b35d3700",
+        "pages_note": "All 64 pages unread. Page n spans frames 30n to 30n+24; sequence-063 spans 1890 to 1903. Every page carries received false and observed 'Not read: traversal stopped under the missing-image rule after the probe failure.'",
+        "pages": [
+          {"file": "sequence-000.png", "first_frame": 0, "last_frame": 24, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-001.png", "first_frame": 30, "last_frame": 54, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-002.png", "first_frame": 60, "last_frame": 84, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-003.png", "first_frame": 90, "last_frame": 114, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-004.png", "first_frame": 120, "last_frame": 144, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-005.png", "first_frame": 150, "last_frame": 174, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-006.png", "first_frame": 180, "last_frame": 204, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-007.png", "first_frame": 210, "last_frame": 234, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-008.png", "first_frame": 240, "last_frame": 264, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-009.png", "first_frame": 270, "last_frame": 294, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-010.png", "first_frame": 300, "last_frame": 324, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-011.png", "first_frame": 330, "last_frame": 354, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-012.png", "first_frame": 360, "last_frame": 384, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-013.png", "first_frame": 390, "last_frame": 414, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-014.png", "first_frame": 420, "last_frame": 444, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-015.png", "first_frame": 450, "last_frame": 474, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-016.png", "first_frame": 480, "last_frame": 504, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-017.png", "first_frame": 510, "last_frame": 534, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-018.png", "first_frame": 540, "last_frame": 564, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-019.png", "first_frame": 570, "last_frame": 594, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-020.png", "first_frame": 600, "last_frame": 624, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-021.png", "first_frame": 630, "last_frame": 654, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-022.png", "first_frame": 660, "last_frame": 684, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-023.png", "first_frame": 690, "last_frame": 714, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-024.png", "first_frame": 720, "last_frame": 744, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-025.png", "first_frame": 750, "last_frame": 774, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-026.png", "first_frame": 780, "last_frame": 804, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-027.png", "first_frame": 810, "last_frame": 834, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-028.png", "first_frame": 840, "last_frame": 864, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-029.png", "first_frame": 870, "last_frame": 894, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-030.png", "first_frame": 900, "last_frame": 924, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-031.png", "first_frame": 930, "last_frame": 954, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-032.png", "first_frame": 960, "last_frame": 984, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-033.png", "first_frame": 990, "last_frame": 1014, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-034.png", "first_frame": 1020, "last_frame": 1044, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-035.png", "first_frame": 1050, "last_frame": 1074, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-036.png", "first_frame": 1080, "last_frame": 1104, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-037.png", "first_frame": 1110, "last_frame": 1134, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-038.png", "first_frame": 1140, "last_frame": 1164, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-039.png", "first_frame": 1170, "last_frame": 1194, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-040.png", "first_frame": 1200, "last_frame": 1224, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-041.png", "first_frame": 1230, "last_frame": 1254, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-042.png", "first_frame": 1260, "last_frame": 1284, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-043.png", "first_frame": 1290, "last_frame": 1314, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-044.png", "first_frame": 1320, "last_frame": 1344, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-045.png", "first_frame": 1350, "last_frame": 1374, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-046.png", "first_frame": 1380, "last_frame": 1404, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-047.png", "first_frame": 1410, "last_frame": 1434, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-048.png", "first_frame": 1440, "last_frame": 1464, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-049.png", "first_frame": 1470, "last_frame": 1494, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-050.png", "first_frame": 1500, "last_frame": 1524, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-051.png", "first_frame": 1530, "last_frame": 1554, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-052.png", "first_frame": 1560, "last_frame": 1584, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-053.png", "first_frame": 1590, "last_frame": 1614, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-054.png", "first_frame": 1620, "last_frame": 1644, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-055.png", "first_frame": 1650, "last_frame": 1674, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-056.png", "first_frame": 1680, "last_frame": 1704, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-057.png", "first_frame": 1710, "last_frame": 1734, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-058.png", "first_frame": 1740, "last_frame": 1764, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-059.png", "first_frame": 1770, "last_frame": 1794, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-060.png", "first_frame": 1800, "last_frame": 1824, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-061.png", "first_frame": 1830, "last_frame": 1854, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-062.png", "first_frame": 1860, "last_frame": 1884, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."},
+          {"file": "sequence-063.png", "first_frame": 1890, "last_frame": 1903, "received": false, "observed": "Not read: traversal stopped under the missing-image rule after the probe failure."}
+        ]
+      }
+    ]
+  }
+}
+```
+
+Points for the director:
+- Coverage verification (claude_runtime.py verify-images) should fail on this object. That failure is an access result, not a film defect.
+- The 25.0 to 54.8 s observations of option a are unresolved notes. They carry no verdict and no blocking classification.
+- The probe receipts in out/dispatch/image-tool-delivery/ show that a payload was returned. My context shows only the placeholder, and I retained no note. Under prompts/claude_routine.md this matches the single-image `[media removed: request limit]` case, but my own failure to write a note per page is also part of the record. Classify it from the receipts and this disclosure, not from my claim.
+- Files relevant to the next step:
+  - /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/phone-critic-packet.json
+  - /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/motion-a/index.json
+  - /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/motion-b/index.json
+  - /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/image-tool-delivery/
