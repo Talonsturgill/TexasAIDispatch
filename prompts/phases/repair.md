@@ -24,6 +24,14 @@ headroom. At the boundary finish the retained best complete cut and ship without
 question; preserve every rejection and require all integrity/delivery checks. A checkpoint or needs_review
 package is never successful completion. Missing external access remains honestly incomplete.
 
+Before the first required narration recurrence pivot, if critics are exhausted, use a separate
+capacity-only finish-current plan bound to the actual retained independent passing report.
+Keep changed_inputs empty, verify current phone bindings when using a phone report, and run
+production-budget and completion-capacity. Then reserve the real Opus pivot call. This funds
+diagnosis only; it never approves a third repair or a clause-boundary change. After the genuine
+handback, recompute and fund the complete remaining path before production edits. Do not ask
+the owner to grant an internal critic call or approve a narration change in place of review.
+
 For an actual charged Opus High narration pivot REVISE at an internal critic ceiling, use the
 charged narration section of AUTONOMOUS_COMPLETION.md and its pinned narration amendment.
 Preserve the full original response, exact reservation, review packet, failed takes and ASR.

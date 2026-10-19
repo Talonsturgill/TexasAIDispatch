@@ -6,6 +6,16 @@ with the original artistic rejection retained. Follow knowledge/craft/BOUNDED_CR
 all source, rights, readable-picture and comprehension evidence remains mandatory. Use one whole-passage take by default; numeric call targets
 and remaining allowances come from the controller. Every take includes its audible soundcheck.
 
+Before the first take and each narration recovery, run the complete-path production budget,
+including the final timed phone, native hero, audiovisual reviews, three scorers and delivery.
+If spent critic calls leave a deficit, use the actual retained independent passing report in
+the existing capacity-only finish-current route before spending again. An exhausted critic
+counter is an internal recovery step, never an owner decision. Two failed narration repairs
+still require a precharged independent Opus recurrence-pivot review before a third correction.
+After that handback, fund the remaining path again before editing or synthesizing; the pivot
+call cannot consume a final review allowance unnoticed. Preserve every take, measured silence,
+ASR result, rejection and cumulative charge. A capacity grant approves no wording or timing.
+
 At the finite creative boundary, have the same independent critic complete the separately
 bound assessment template from the retained exact phone evidence, then verify it before voice:
 
