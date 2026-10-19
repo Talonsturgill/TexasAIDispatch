@@ -95,3 +95,5 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-19 ~23:50Z code r8: A pass, B revise (creek-plan rectangle). Builder resumed (same repair r7, 3 files) to fix B plus s4 edge, s7 hands, s9 phone. A fresh code review (critics 16/17) follows, then comparison renewal.
 
 2026-10-19 ~00:20Z (Oct 20 UTC) Builder r8 returned (fixes B creek-plan etc). Art record refused (builder charge must precede source creation); consumed a late reboard (disclosed) and resumed builder for a genuine further bounded pass (bench phone dupes, arm under chip, overhead flow direction). Rebind script out/dispatch/tmp/rebind.py. Next: rebind+record+verify, code review r9, comparison renewal, motion, phone.
+
+2026-10-19 ~00:45Z Builder r9 done (hashes Film d0683d7d, Hero 3c05416f, Support ce46debe), boards rebound, art re-recorded and verified, prechecks pass. storyboard_critics 16/16 reserved, code critic r9 (a0d5b1b5) running on packet ab76a32f. Note: critics will be at ceiling 17 after... need completion-capacity for silent phone + timed phone (2 more).
