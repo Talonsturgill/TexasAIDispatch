@@ -1,0 +1,16 @@
+Director operator error, retained honestly.
+At 2026-10-19 ~20:45Z the director ran two 'capture_guard.py authorize --prepare' commands back to back (option a, then option b).
+Each prepare writes the single file out/dispatch/capture-authorization.json, so the second prepare replaced the unconsumed option a
+authorization. The option a reservation stayed charged and never reached the hook. Option b then executed normally.
+A later prepare for option a was refused: identical preflight inputs were already reserved. Plain authorize was refused: no fresh unused reservation.
+Executing option a was refused by the capture hook: this exact command is not one the authorization lists (it listed only option b).
+No render or extraction occurred for option a.
+Reservations with preflight identity:
+(26, '2026-10-19T15:14:39.710475Z', 'two opening comparison batch', 'e8e2069b0d19')
+(28, '2026-10-19T15:20:09.000714Z', 'exact-phone-a motion-image review extraction', 'e9f8746b1ff4')
+(30, '2026-10-19T15:21:17.318625Z', 'exact-phone-b motion-image review extraction', '13b312ec0ba7')
+(46, '2026-10-19T16:17:53.006464Z', 'quarter-scale animatic', '0296b7d00ca5')
+(94, '2026-10-19T19:54:37.840719Z', 'two opening comparison batch', '7e273100bf1b')
+(96, '2026-10-19T19:57:20.341495Z', 'two opening comparison batch', 'd7eea745929e')
+(99, '2026-10-19T20:04:52.074345Z', 'exact-phone-a motion-image review extraction', 'f8b7e198dbf1')
+(101, '2026-10-19T20:05:04.418534Z', 'exact-phone-b motion-image review extraction', '2d1c98d5313b')

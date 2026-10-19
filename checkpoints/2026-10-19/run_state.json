@@ -1901,6 +1901,14 @@
       "input_identity": "2d1c98d5313bc612122584fd5e5587164fb21f46d40e511672c17c2806f9bed5",
       "kind": "prepared_capture_claimed",
       "operation": "exact-phone-b motion-image review extraction"
+    },
+    {
+      "at": "2026-10-19T20:06:33.652115Z",
+      "evidence": "{REPO}/out/dispatch/evidence/motion-a-stranded/EVIDENCE.txt",
+      "evidence_sha256": "aae3178973ed0257e8841f39a11bc32f4f4773101f381182857e9a11a809c2e6",
+      "input_identity": "f8b7e198dbf1552abe8d92130a9ea92f1e42f4db84ede998e9a57bfcefbcbfd0",
+      "kind": "preflight_retry_authorized",
+      "reason": "Prepared authorization for option a was overwritten by the sequential option b prepare before the hook consumed it. The charged reservation stayed unused; the operator handoff holds one authorization file. Retry is charged again, nothing refunded. Future sequential prepares are run only after the prior command executes."
     }
   ],
   "limits": {
@@ -1922,9 +1930,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "f8b7e198dbf1552abe8d92130a9ea92f1e42f4db84ede998e9a57bfcefbcbfd0",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "aac11ba110dcd43cee9f7e2dca3ed1a2490ca5aa57b5d0848fc551c17111695f",
+    "original_private_state_sha256": "4deda1f309d7176db9d4d0a790b6142c5f2f9c64418f141dcbf170bf6f73a59d",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1952,7 +1961,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-19T20:05:44.502534Z",
+  "updated_at": "2026-10-19T20:06:33.652169Z",
   "usage": {
     "audiovisual_reviews": 2,
     "cleanup_renders": 0,
