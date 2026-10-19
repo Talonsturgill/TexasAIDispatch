@@ -21,17 +21,15 @@ director rationale. A scene midpoint sheet cannot establish timed action or cont
 For editions from October 17th, first follow the packet's one-page access probe before guide
 traversal. An unseen probe requires the literal transport error and a partial handback without
 a verdict; successful access still requires every full guide and complete chronological coverage.
-For newly planned editions from October 20th, each new image needs its observation in ordinary
-assistant text before the next Read. Name the page and briefly describe visible objects,
-actions or text immediately. Keep those public descriptions for the coverage report. A later
-placeholder does not erase an earlier recorded observation or establish an initial transport failure.
-Between images, return only a factual JSON record with page, objects, actions and text. Record
-visible content and literal screen text; use null for unknowns. Save all quality conclusions,
-ratings and brief public explanations for the final review JSON after complete viewing.
-If a new Read is actually unseen, state the literal error immediately in ordinary assistant text
-before any further image Read. Return the exact coverage object inside your partial JSON handback.
-Its failed page records observation_timing:immediate_after_read and
-observation_channel:ordinary_assistant_text only for that immediate observation. If you cannot
+For new visual packets from October 19th, the installed guarded visual leaf saves a brief public
+annotation with Write before the next image Read. Follow the packet's exact filename and schema.
+Describe visible objects, actions and literal text, with null for unknowns. Inter-tool progress is
+not the evidence channel. Keep all quality conclusions and concise explanations in the final
+review. Return the original observation directory with the full handback; the caller serializes
+coverage mechanically. A later placeholder cannot erase an earlier saved observation.
+If a new Read is actually unseen, immediately save its literal error in the supplied annotation
+and return partial without another image Read. Its immediate saved evidence uses
+observation_channel:write_tool_artifact. If you cannot
 distinguish failed arrival from later history loss, disclose unknown timing and preserve the
 process failure; do not claim a host outage or invent a missing observation.
 Use the packet's mechanically computed report bindings; do not invent hashes or request Bash.

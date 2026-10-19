@@ -19,7 +19,7 @@ ORIGIN = 'https://github.com/Talonsturgill/TexasAIDispatch.git'
 SCHEMA = 'dispatch_session_start/1'
 BOUND_FILES = ('public_state.py', 'claude_checkpoint.py', 'routine_continuation.py',
                'cloud_capture_hook.py', 'capture_guard.py', 'capture_reservation.py',
-               'image_read_receipt.py', 'claude_session_start.py')
+               'image_read_receipt.py', 'claude_session_start.py', 'visual_observations.py')
 
 
 def git(tools, *args):
@@ -53,10 +53,13 @@ def refresh(tools, workspace, origin=ORIGIN):
                 for name in BOUND_FILES}
     if git(tools, 'status', '--porcelain', '--untracked-files=normal'):
         raise ValueError('the refreshed tools checkout is not clean')
+    from visual_observations import install
+    visual_leaves = install(tools, workspace)
     return {'schema': SCHEMA, 'hook_event_name': 'SessionStart', 'ok': True,
             'previous_head': previous, 'head': target, 'workspace': str(workspace),
             'tools': str(tools), 'source_sha256': bindings,
-            'permissions_changed': False, 'capture_authorized': False}
+            'permissions_changed': False, 'capture_authorized': False,
+            'visual_leaves': visual_leaves}
 
 
 def main():

@@ -40,7 +40,9 @@ class PromptRepairTests(unittest.TestCase):
         self.new = copy.deepcopy(self.old)
         Path(guide['path']).write_text('Current public visual facts guide; final conclusions only.')
         self.new['brief']['sha256'] = repair.digest(guide['path'])
-        runtime.image_reading(self.new)
+        # Preserve the exact v1 correction contract used by the retained historical grant.
+        self.new['public_visual_evidence'] = copy.deepcopy(repair.PUBLIC_CONTRACT)
+        self.new['instructions'] += repair.PUBLIC_INSTRUCTION
         self.revised = self.package/'revised-packet.json'; self.revised.write_text(json.dumps(self.new))
         for number in range(7):
             ok, message = controller.reserve(self.state, {'storyboard_critics': 1},
