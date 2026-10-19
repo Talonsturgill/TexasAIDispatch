@@ -107,3 +107,5 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-19T22:59:57Z Phone critic r10 returned A pass / B revise (s8 continuity). Coverage cannot be built: writer receipts (PostToolUse:Write record hook of the visual leaf) were never created, frontmatter hooks did not run. evidence/phone-critic-round10/BLOCKER-writer-receipts-missing.txt. No fabrication. Production remains active.
 
 2026-10-19T23:00:42Z Committed renderer correction bbc50140 on claude/dispatch-2026-10-19 and pushed. completion-capacity (finish-current-plan-4 bound to code r9 PASS) granted storyboard_critics +1 (ceiling 18). Remaining: writer-receipt blocker for phone review coverage.
+
+2026-10-19T23:13:05Z PR 236 merged (1d4ce763): prelaunch setup now registers the visual leaf Write recorder at settings level. Unverified in a live host; needs environment setup rebuild and fresh launch, then rerun the round 10 phone review (observation directories retained, receipts absent). Edition stays active_repair.
