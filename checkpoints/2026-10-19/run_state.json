@@ -185,6 +185,14 @@
       "note": "exact-phone-b motion-image review extraction",
       "resource": "preflight_renders",
       "to": 8
+    },
+    {
+      "at": "2026-10-19T20:06:50.276781Z",
+      "ceiling": 16,
+      "from": 8,
+      "note": "exact-phone-a motion-image review extraction",
+      "resource": "preflight_renders",
+      "to": 9
     }
   ],
   "events": [
@@ -1909,6 +1917,24 @@
       "input_identity": "f8b7e198dbf1552abe8d92130a9ea92f1e42f4db84ede998e9a57bfcefbcbfd0",
       "kind": "preflight_retry_authorized",
       "reason": "Prepared authorization for option a was overwritten by the sequential option b prepare before the hook consumed it. The charged reservation stayed unused; the operator handoff holds one authorization file. Retry is charged again, nothing refunded. Future sequential prepares are run only after the prior command executes."
+    },
+    {
+      "at": "2026-10-19T20:06:50.276827Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "exact-phone-a motion-image review extraction",
+      "now": 9,
+      "resource": "preflight_renders",
+      "was": 8
+    },
+    {
+      "at": "2026-10-19T20:06:50.276855Z",
+      "kind": "reserved",
+      "note": "exact-phone-a motion-image review extraction",
+      "preflight_identity": "f8b7e198dbf1552abe8d92130a9ea92f1e42f4db84ede998e9a57bfcefbcbfd0",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -1917,7 +1943,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 8,
+    "preflight_renders": 9,
     "reboards": 4,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -1930,10 +1956,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "f8b7e198dbf1552abe8d92130a9ea92f1e42f4db84ede998e9a57bfcefbcbfd0",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "4deda1f309d7176db9d4d0a790b6142c5f2f9c64418f141dcbf170bf6f73a59d",
+    "original_private_state_sha256": "be34c30b9ec4a21c6f2e5d858cf9e8a0e5590ff91df3002663e0d3fe6cc86fa3",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1961,14 +1986,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-19T20:06:33.652169Z",
+  "updated_at": "2026-10-19T20:06:50.276860Z",
   "usage": {
     "audiovisual_reviews": 2,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 8,
+    "preflight_renders": 9,
     "reboards": 3,
     "reported_tokens": 210570,
     "rescue_renders": 0,
