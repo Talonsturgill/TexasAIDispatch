@@ -101,3 +101,7 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-19 22:25Z (machine time) Charge audit written (evidence/charge-audit-round7-9.md): late reboard debit settled for the unreserved 21:40:59Z builder follow-up. Full public handoffs of phone r7, code r8, builder, code r9 extracted to evidence/public-handbacks. Code r9: A and B pass, reports installed, critic_gate ok on all three. Opening comparison rendered both films but was interrupted at 22:18Z during inspection (comparison.json present without inspection result): next re-run opening_compare inspection of the retained films.
 
 2026-10-19T22:28:15Z Opening comparison renewed on code r9 boards (retry after owner interruption; retained partial in evidence/opening-compare-interrupted). a.mp4 b7a4b93b b.mp4 82570f63, inspections pass. Next: motion a, then motion b (serial, one authorization at a time), then phone review.
+
+2026-10-19T22:32:45Z Phone critic r10 (dispatch-visual-critic a43ca3e3, storyboard_critics 17/17 reserved) running on packet round10b bf48e3c5 (both treatment story hashes). Pages 64+64.
+
+2026-10-19T22:59:57Z Phone critic r10 returned A pass / B revise (s8 continuity). Coverage cannot be built: writer receipts (PostToolUse:Write record hook of the visual leaf) were never created, frontmatter hooks did not run. evidence/phone-critic-round10/BLOCKER-writer-receipts-missing.txt. No fabrication. Production remains active.
