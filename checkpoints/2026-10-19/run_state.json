@@ -33,6 +33,14 @@
       "note": "Waymo validator confirmation of s5 binding c6 c7 c13 only",
       "resource": "validator_agents",
       "to": 4
+    },
+    {
+      "at": "2026-10-19T15:22:17.088593Z",
+      "ceiling": 7,
+      "from": 3,
+      "note": "exact phone comparison of both openings, chosen whole sequence",
+      "resource": "storyboard_critics",
+      "to": 4
     }
   ],
   "events": [
@@ -342,6 +350,24 @@
       "input_identity": "13b312ec0ba717293c350f758373dde405b32087dd5110bb6d5baec95265f67a",
       "kind": "prepared_capture_claimed",
       "operation": "exact-phone-b motion-image review extraction"
+    },
+    {
+      "at": "2026-10-19T15:22:17.088614Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "exact phone comparison of both openings, chosen whole sequence",
+      "now": 4,
+      "resource": "storyboard_critics",
+      "was": 3
+    },
+    {
+      "at": "2026-10-19T15:22:17.088623Z",
+      "kind": "reserved",
+      "note": "exact phone comparison of both openings, chosen whole sequence",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -356,7 +382,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 3,
+    "storyboard_critics": 4,
     "tts_calls": 2,
     "validator_agents": 4,
     "voice_directors": 1
@@ -365,7 +391,7 @@
   "phase": "picture",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "2d4ea44357149be4da16cdc6abb02667d244289e678fb3fe69f9c2b5563dc25f",
+    "original_private_state_sha256": "e26074aeac3252d0da3569e438f660978671839812ec1332921212d9fe374458",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -393,7 +419,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-19T15:21:28.614595Z",
+  "updated_at": "2026-10-19T15:22:17.088625Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -406,7 +432,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 3,
+    "storyboard_critics": 4,
     "tts_calls": 0,
     "validator_agents": 4,
     "voice_directors": 0
