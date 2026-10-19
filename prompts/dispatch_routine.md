@@ -6,6 +6,18 @@ This is the operational authority behind prompts/ROUTINE_PROMPT.txt. Ship one cu
 source-grounded miniature documentary. A production run completes only as shipped.
 A render, checkpoint, passing panel or PR alone does not complete the run.
 
+For Claude-native runs from October 19th, before reserving an image review, install the two
+current guarded visual leaves with `scripts/visual_observations.py install --workspace /home/user`
+through `scripts/run_with_env.sh` in the active checkout. This caches only the versioned critic
+and scorer leaf definitions. Keep permission settings, primary model and schedule unchanged.
+Inter-tool progress on Claude 5.5 is not a durable observation. The visual leaf saves public
+visible-frame facts using its narrowly guarded Write tool before reading the next image.
+Use the exact `agent_args` from the current runtime plan; do not substitute the old Read-only
+leaf for a packet with `public_visual_evidence.channel:Write`. The caller builds coverage using
+`scripts/visual_observations.py coverage --packet <packet> --directory <original-leaf-directory>
+--output <new-coverage.json>`, then runs the existing coverage and review gates. This is mechanical
+serialization of original independent facts, never a film verdict or permission override.
+
 ## Read once, then load the current phase
 
 At wake read CLAUDE.md, the current worklog and controller checkpoint, plus:

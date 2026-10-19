@@ -107,24 +107,39 @@ def media_limit_packet(failure, root):
                     for note in row.get('pages', [])) for row in coverage.get('sequences', []))
     if not matched:
         raise ValueError('single-image failure is not an actual unseen page in the assigned sequence')
-    if packet_data['image_read_policy'].get('unavailable_observation_timing'):
+    from visual_observations import CONTRACT as VISUAL_CONTRACT
+    durable = packet_data.get('public_visual_evidence') == VISUAL_CONTRACT
+    if packet_data['image_read_policy'].get('unavailable_observation_timing') or durable:
         # Require the independent worker's own retained coverage, not parent-added
         # timing fields or a later placeholder replacing a once-visible page.
         try:
             original = json.loads(original_handback(failure)[1])
         except ValueError as exc:
             raise ValueError('current media-limit recovery needs the original partial JSON coverage') from exc
-        if not isinstance(original, dict) or original.get('coverage') != coverage:
+        original_directory = original.get('observation_directory') if isinstance(original, dict) else None
+        artifact_handback = (isinstance(original, dict) and durable and original.get('status') == 'partial'
+            and original.get('error') == MEDIA_LIMIT_ERROR and original.get('verdict') is None
+            and original.get('score') is None and isinstance(original_directory, str)
+            and all(Path(n.get('observation', {}).get('path', '')).parent == Path(original_directory)
+                    for row in coverage['sequences'] for n in row.get('pages', [])))
+        if not isinstance(original, dict) or (original.get('coverage') != coverage and not artifact_handback):
             raise ValueError('current media-limit timing must come from the original independent handback')
         notes = [note for row in coverage['sequences'] for note in row.get('pages', [])
                  if row.get('index_sha256') == matched_index
                  and note.get('file') == resolved['image'].name
                  and note.get('received') is False
                  and note.get('observation_timing') == 'immediate_after_read'
-                 and note.get('observation_channel') == 'ordinary_assistant_text'
+                 and note.get('observation_channel') == ('write_tool_artifact' if durable
+                                                       else packet_data['image_read_policy']['note_channel'])
                  and MEDIA_LIMIT_ERROR in str(note.get('observed', ''))]
         if len(notes) != 1:
             raise ValueError('media-limit recovery requires an immediate public failed-Read observation; later history loss is not an outage')
+        if durable:
+            from visual_observations import note_problems
+            errors = note_problems(Path(root), notes[0], resolved['image'].relative_to(root),
+                                   probe['image']['sha256'], require_visible=False)
+            if errors:
+                raise ValueError('; '.join(errors))
     return packet_data
 
 

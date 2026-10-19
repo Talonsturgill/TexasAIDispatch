@@ -20,10 +20,14 @@ a real rejection or call missing coverage an artistic deferral.
 For an actual Opus phone refusal on the legacy per-image evaluation assignment, preserve the
 literal error, original packet, reservation and ungraded partial outputs. A refusal is not a
 transport outage. Use the source-corrected public_visual_evidence contract on the same Opus
-High role in a fresh isolated context; between images request factual objects, actions and
-literal screen text, with conclusions only in the final review. Do not request a work log or
+High role in a fresh isolated context. Current visual packets save factual objects, actions and
+literal screen text with the guarded Write tool, with conclusions only in the final review. Do not request a work log or
 copy a prior worker's internal content. Keep all complete-film and guide requirements.
 
+The v1 command below applies only to the retained legacy prompt contract. Do not rebuild or
+replay that one-use grant for the current durable Write protocol. Fund a current correction
+through the existing controller completion path using the actual current independent handback
+and a feasible complete remaining path; preserve every earlier attempt and charge.
 Read config/review_prompt_repair_v1.json. The command below captures the actual
 dispatch_review_prompt_failure/1 receipt from the error-only UTF-8 text file, actual actor,
 current board identity and latest charged packet. It records the clock and hashes without

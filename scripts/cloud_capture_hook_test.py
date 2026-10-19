@@ -31,6 +31,20 @@ class RoutingTests(unittest.TestCase):
             self.assertEqual(router.decision(self.payload(command), self.workspace), 'real denial')
             self.assertEqual(decide.call_args.args[1], str(self.repo.resolve()))
 
+    def test_shared_runtime_cache_cleanup_is_refused_before_an_interactive_permission_stop(self):
+        shared = self.workspace.parent / (self.workspace.name + '-external-node')
+        (shared / '.cache').mkdir(parents=True)
+        self.addCleanup(lambda: __import__('shutil').rmtree(shared))
+        (self.repo / 'video-engine/node_modules').symlink_to(shared, target_is_directory=True)
+        for command in ('rm -rf video-engine/node_modules/.cache',
+                        "bash scripts/run_with_env.sh bash -c 'cd " + str(self.repo)
+                        + " && ls video-engine/node_modules/.cache; rm -rf video-engine/node_modules/.cache'"):
+            reason = router.decision(self.payload(command, self.repo), self.workspace)
+            self.assertIn('Shared runtime cleanup refused', reason)
+            self.assertTrue((shared / '.cache').is_dir())
+        self.assertIsNone(router.decision(self.payload('du -sh video-engine/node_modules/.cache', self.repo), self.workspace))
+        self.assertIsNone(router.decision(self.payload('rm -rf out/dispatch/verified-producer-cache', self.repo), self.workspace))
+
     def test_capture_without_authorization_is_denied(self):
         reason = router.decision(self.payload('npx remotion still Dispatch x.png', self.repo), self.workspace)
         self.assertIn('no current capture authorization', reason)
