@@ -67,7 +67,7 @@
       "text": "So the airport ride is open, and the federal record lists the flood remedy as currently under development.",
       "intent": "answer the opening question calmly Then name what the federal record lists against the flood problem Then state the final limit complete and unhurried",
       "emphasis": "airport ride is open",
-      "energy": "after a natural breath, level and unhurried, plainer than the opening Then level and a touch lower, carried straight on Then quietest line in the film, steady, falling and complete, with a short audible breath after \"the flood remedy\" before \"as currently under development\", and the word \"as\" after that breath is clearly voiced and pronounced \"az\", never swallowed."
+      "energy": "after a natural breath, level and unhurried, plainer than the opening Then level and a touch lower, carried straight on Then quietest line in the film, steady, falling and complete, carried straight through \"the flood remedy as currently under development\" with no breath, and the word \"as\" clearly voiced."
     }
   ],
   "pronunciation": {
@@ -216,22 +216,13 @@
         "breath": "natural breath before So, which starts the closing answer; short breath after open"
       },
       {
-        "id": "n9b",
+        "id": "n9bc",
         "job": "resolve",
-        "visible_event": "s9-event-2 recall record card slides beside the curb",
+        "visible_event": "s9-event-2 recall record card slides beside the curb, then s9-event-3 remedy row holds marked under development while the door stays open at the curb",
         "claim_ids": [
           "c8"
         ],
-        "breath": "none before as currently; the qualifier stays with the claim"
-      },
-      {
-        "id": "n9c",
-        "job": "resolve",
-        "visible_event": "s9-event-3 remedy row holds marked under development while the door stays open at the curb",
-        "claim_ids": [
-          "c8"
-        ],
-        "breath": "complete stop, no fade in the voice"
+        "breath": "none inside the clause, the qualifier stays with the claim, then a complete stop with no fade in the voice"
       }
     ],
     "pronunciation": [
@@ -379,8 +370,8 @@
     ]
   },
   "repair": {
-    "scope": "narration-performance",
-    "change": "two named clause-edge breaths, and a clearly voiced \"as\" after the second",
-    "baseline": "evidence/alignment-numeral-failure/vo_direction.bound-before-pause.json"
+    "scope": "standard",
+    "change": "merge n9b and n9c into one clause n9bc, so no breath is directed at the former edge",
+    "baseline": "evidence/pivot-review/vo_direction.before-merge.json"
   }
 }

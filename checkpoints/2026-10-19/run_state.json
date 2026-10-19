@@ -1,33 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/pivot-review/storyboard.before-merge.json",
-        "before_sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/pivot-review/a.before-merge.json",
-        "before_sha256": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1",
-        "path": "{REPO}/out/dispatch/openings/a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/pivot-review/b.before-merge.json",
-        "before_sha256": "97da983a9bc23ba583c4338c4a849707baa6f5625c7a9b945d7e9b213ffd4959",
-        "path": "{REPO}/out/dispatch/openings/b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/pivot-review/vo_direction.before-merge.json",
-        "before_sha256": "8dfbc6fdf98fbbd842fabe15424afe6e6eb3ea17ee9a704c7f222208bfdf8abb",
-        "path": "{REPO}/out/dispatch/vo_direction.json"
-      }
-    ],
-    "failure_sha256": "7a523ffe4323bf3aafa4fd2c724a0e4d8ccbcafb7db0c23ff912e94a695bc26e",
-    "plan": "{REPO}/out/dispatch/repair-plan-n9bc.json",
-    "plan_sha256": "fd6395cce93cd6a14a7b63cfa8888d58d6f4e0b08bd4b84b2d49a32eabbb7b9a",
-    "reboards_before": 2,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-19T05:13:41.692242Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1728,6 +1699,64 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-19T18:35:40.442735Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 89,
+        "reservation_sha256": "3d4dddcf91e51f70dee5641a20619bb970db5d4d1a481536e2893d79cddf6d16",
+        "start_event_index": 88
+      },
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "c6aaefa6188eccd05160659015cf80dbb434698f718aaa5e5d1a33c1fda53c97",
+            "before_path": "{REPO}/out/dispatch/evidence/pivot-review/storyboard.before-merge.json",
+            "before_sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "59cd1ddfaa9dc6f32d904849dc38a7ec4956e20a5849f913c49ee2692becbf0c",
+            "before_path": "{REPO}/out/dispatch/evidence/pivot-review/a.before-merge.json",
+            "before_sha256": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1",
+            "path": "{REPO}/out/dispatch/openings/a.json"
+          },
+          {
+            "after_sha256": "8a154595a595ae33315db74bd71f2e8362f9b9b006a847f88f11416ccd5e75c8",
+            "before_path": "{REPO}/out/dispatch/evidence/pivot-review/b.before-merge.json",
+            "before_sha256": "97da983a9bc23ba583c4338c4a849707baa6f5625c7a9b945d7e9b213ffd4959",
+            "path": "{REPO}/out/dispatch/openings/b.json"
+          },
+          {
+            "after_sha256": "7a613dbe6c2f2b11b33b7d6e3b5518110e8b8f7faa86476e2819d549ab8319c6",
+            "before_path": "{REPO}/out/dispatch/evidence/pivot-review/vo_direction.before-merge.json",
+            "before_sha256": "8dfbc6fdf98fbbd842fabe15424afe6e6eb3ea17ee9a704c7f222208bfdf8abb",
+            "path": "{REPO}/out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "The closing phrase 'and the federal record lists the flood remedy as currently under development.' reads as one caption with the record-slide cut and the remedy underline as framing subdivisions inside it, and the measured alignment no longer needs a silence at an authored boundary.",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/alignment-numeral-failure/take3/alignment-failure.txt",
+        "failure_evidence_sha256": "7a523ffe4323bf3aafa4fd2c724a0e4d8ccbcafb7db0c23ff912e94a695bc26e",
+        "failure_family": "human-performance",
+        "mechanism_change": "The mechanism changes from directing a performed breath at a clause edge to removing the edge, so the qualifier stays inside one declared clause and no pause is required.",
+        "mechanism_id": "single-qualifier-clause-binding",
+        "pivot_review": {
+          "path": "{REPO}/out/dispatch/evidence/pivot-review/pivot-review.json",
+          "sha256": "26b06467fe86a8602c020e387f7e13fe455b65f73fb0252425ce63eb693d370d"
+        },
+        "repair": "Merge narration clauses n9b and n9c into one declared clause n9bc bound to c8 with its single caption, as approved by the independent pivot review. Remove the self-contradicting breath instruction from vo_direction.json. Apply the same merge to both treatments. Words, claims and take 3 audio are unchanged.",
+        "resources": {
+          "reboards": 1
+        },
+        "root_cause": "The measured clause contract requires 0.24 s of silence at the declared n9b/n9c boundary, which splits the qualifier 'as currently under development' from the claim it qualifies. Three takes failed at that authored edge (0 s, a breath that made 'as' sound like 'is', then 0.20 s). The independent source-pivot review found the split itself is the cause."
+      },
+      "repair_plan_sha256": "c34a0328f3341f88fb756546ab637f9eeb9b023d6060e0079469df0ef79d8b6c",
+      "repair_revision": "a5cef3d5c27367fb6bb7a3525f7801fb89beef83f3bec16caf5843ea54c3e1bd",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -1751,7 +1780,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "e3e487af616d9d6875725a7fa0d0ba419990e0d84a9985e51ba420f90d0fbb68",
+    "original_private_state_sha256": "6fff33731ccfd61a6a65b1b2e8692aa6e52c5427804fd1deb237e5ebf402d964",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1779,7 +1808,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-19T18:34:42.158701Z",
+  "updated_at": "2026-10-19T18:35:40.442797Z",
   "usage": {
     "audiovisual_reviews": 2,
     "cleanup_renders": 0,
