@@ -92,6 +92,7 @@ def media_limit_packet(failure, root):
     refs = ([row['motion_sequence'] for row in packet_data['phone_options']] if failure['role'] == 'phone'
             else [packet_data['motion_sequence']])
     matched = False
+    matched_index = None
     for ref in refs:
         index_path = Path(ref['path']).resolve()
         if not index_path.is_relative_to(Path(root).resolve()) or digest(index_path) != ref['sha256']:
@@ -100,11 +101,30 @@ def media_limit_packet(failure, root):
         for page in index['pages']:
             if ((index_path.parent / page['file']).resolve() == resolved['image']
                     and page['sha256'] == probe['image']['sha256']):
+                matched_index = ref['sha256']
                 matched = any(row.get('index_sha256') == ref['sha256'] and any(
                     note.get('file') == page['file'] and note.get('received') is False
                     for note in row.get('pages', [])) for row in coverage.get('sequences', []))
     if not matched:
         raise ValueError('single-image failure is not an actual unseen page in the assigned sequence')
+    if packet_data['image_read_policy'].get('unavailable_observation_timing'):
+        # Require the independent worker's own retained coverage, not parent-added
+        # timing fields or a later placeholder replacing a once-visible page.
+        try:
+            original = json.loads(original_handback(failure)[1])
+        except ValueError as exc:
+            raise ValueError('current media-limit recovery needs the original partial JSON coverage') from exc
+        if not isinstance(original, dict) or original.get('coverage') != coverage:
+            raise ValueError('current media-limit timing must come from the original independent handback')
+        notes = [note for row in coverage['sequences'] for note in row.get('pages', [])
+                 if row.get('index_sha256') == matched_index
+                 and note.get('file') == resolved['image'].name
+                 and note.get('received') is False
+                 and note.get('observation_timing') == 'immediate_after_read'
+                 and note.get('observation_channel') == 'ordinary_assistant_text'
+                 and MEDIA_LIMIT_ERROR in str(note.get('observed', ''))]
+        if len(notes) != 1:
+            raise ValueError('media-limit recovery requires an immediate public failed-Read observation; later history loss is not an outage')
     return packet_data
 
 

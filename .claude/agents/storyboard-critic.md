@@ -25,6 +25,12 @@ For newly planned editions from October 20th, each new image needs its observati
 assistant text before the next Read. Name the page and briefly describe visible objects,
 actions or text immediately. Keep those public descriptions for the coverage report. A later
 placeholder does not erase an earlier recorded observation or establish an initial transport failure.
+If a new Read is actually unseen, state the literal error immediately in ordinary assistant text
+before any further image Read. Return the exact coverage object inside your partial JSON handback.
+Its failed page records observation_timing:immediate_after_read and
+observation_channel:ordinary_assistant_text only for that immediate observation. If you cannot
+distinguish failed arrival from later history loss, disclose unknown timing and preserve the
+process failure; do not claim a host outage or invent a missing observation.
 Use the packet's mechanically computed report bindings; do not invent hashes or request Bash.
 Return the selection and complete exact-phone review JSON in your response for the director
 to retain unchanged. Describe this sampled-image basis honestly and leave unproven motion

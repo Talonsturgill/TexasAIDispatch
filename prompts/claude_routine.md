@@ -457,6 +457,12 @@ that observed host media-limit error, the original charged role reservation, and
 references for the exact image, packet, failed coverage and corrected full handback. Each reference
 has path and SHA256; set `single_image_read: true` and `media_received: false`, and preserve the
 literal error as both `error` and `raw_error`. Do not rename it to a different capacity error.
+For October 20th and later packets, the failed page needs the independent worker's immediate
+public observation in both the coverage file and its original partial JSON handback. Require
+observation_timing:immediate_after_read and observation_channel:ordinary_assistant_text, with
+the literal error in observed. Never add these claims on behalf of a worker. A later placeholder,
+an uncertain arrival time, or a worker's failure to preserve a once-visible image is a review
+process failure; retain it and fund the required follow-up. It does not establish a host outage.
 The configured independent transport admits this precise case only with the real owned bytes,
 the current single-read packet and an actual unseen-page coverage entry. Artistic rejection,
 a missing file, a resource boundary and an untested bulk read do not qualify. No more native
