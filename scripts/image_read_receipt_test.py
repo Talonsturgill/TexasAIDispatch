@@ -49,6 +49,9 @@ class ImageDelivery(unittest.TestCase):
             self.assertNotIn(private, raw)
         self.assertNotIn('permissionDecision', json.dumps(result))
         self.assertNotIn('decision', result)
+        context = result['hookSpecificOutput']['additionalContext']
+        self.assertIn('Before another Read, emit an ordinary assistant text note', context)
+        self.assertIn('not durable visibility notes', context)
 
     def test_later_placeholder_cannot_rewrite_the_original_image_event(self):
         hook.record(self.payload, self.workspace)
@@ -64,13 +67,17 @@ class ImageDelivery(unittest.TestCase):
         hook.record(self.payload, self.workspace)
         failed = copy.deepcopy(self.payload)
         failed.update(tool_use_id='new-actual-event', tool_response=hook.MEDIA_LIMIT)
-        hook.record(failed, self.workspace)
+        result = hook.record(failed, self.workspace)
         records = [json.loads(p.read_text()) for p in self.receipts()]
         self.assertEqual(len(records), 2)
         row = next(r for r in records if not r['returned_image'])
         self.assertEqual(row['literal_tool_error'], hook.MEDIA_LIMIT)
         self.assertNotIn('returned_sha256', row)
         self.assertFalse(row['creative_approval'])
+        context = result['hookSpecificOutput']['additionalContext']
+        self.assertIn('Read returned the literal media-limit error', context)
+        self.assertIn('return partial coverage', context)
+        self.assertNotIn('permissionDecision', json.dumps(result))
 
     def test_readonly_test_artifacts_are_marked_and_do_not_create_an_edition(self):
         target = self.repo / 'out/environment-test/probe.png'; target.parent.mkdir(parents=True)

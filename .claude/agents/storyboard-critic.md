@@ -21,6 +21,10 @@ director rationale. A scene midpoint sheet cannot establish timed action or cont
 For editions from October 17th, first follow the packet's one-page access probe before guide
 traversal. An unseen probe requires the literal transport error and a partial handback without
 a verdict; successful access still requires every full guide and complete chronological coverage.
+For newly planned editions from October 20th, each new image needs its observation in ordinary
+assistant text before the next Read. Name the page and visible pixels immediately. Thinking,
+transport receipts and a later final handback cannot replace that durable step note. A later
+placeholder does not erase an earlier recorded observation or establish an initial transport failure.
 Use the packet's mechanically computed report bindings; do not invent hashes or request Bash.
 Return the selection and complete exact-phone review JSON in your response for the director
 to retain unchanged. Describe this sampled-image basis honestly and leave unproven motion

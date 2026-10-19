@@ -151,12 +151,19 @@ def image_read_policy(edition=None):
     if str(edition or '') >= '2026-10-17':
         policy['access_probe'] = {'before_guides': True, 'first_chronological_page': True,
                                   'on_missing': 'return partial; no further image reads'}
+    if str(edition or '') >= '2026-10-20':
+        policy['note_channel'] = 'ordinary_assistant_text'
+        policy['thinking_is_a_visibility_note'] = False
     return policy
 
 
 def image_reading(data, *, compact=False):
     """Keep image delivery bounded; this supplies no creative observation or approval."""
     data['image_read_policy'] = image_read_policy(data.get('date'))
+    if data['image_read_policy'].get('note_channel'):
+        data['instructions'] += (' After each image Read, emit an ordinary assistant text note '
+            'with page identity, visibility and concrete pixels BEFORE another Read. Thinking is '
+            'not a durable note. Preserve these step notes even after earlier images leave context. ')
     if 'access_probe' in data['image_read_policy']:
         probe = ('First test actual image access: Read first page before guides/source. If unseen, '
             'keep literal error and page identity, return partial/no verdict and stop. If seen, '

@@ -121,6 +121,10 @@ def record(payload, workspace):
                '. This records tool output, not model visibility or creative approval. A later placeholder '
                'for an older image does not establish that its original Read failed. The visibility '
                'observation belongs to the step when that payload was returned.')
+    context += (' Before another Read, emit an ordinary assistant text note naming this file, '
+                'its actual visibility and concrete pixels you can see now. Thinking and transport '
+                'receipts are not durable visibility notes. If unseen now, return partial coverage '
+                'with the literal error and stop image traversal; do not invent observations.')
     return {'hookSpecificOutput': {'hookEventName': 'PostToolUse', 'additionalContext': context}}
 
 
