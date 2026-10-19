@@ -72,6 +72,58 @@ class RuntimeTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runtime.assignment('picture', '2026-10-08')
 
+    def future_source_packet(self, role='researcher', edition='2026-10-20'):
+        source = self.root / ('story_selection.json' if role == 'validator' else 'source.json')
+        source.write_text(json.dumps({'schema': 'dispatch_story_selection/1', 'selected': {
+            'movement': {'object': 'AI cameras on sanitation brush trucks'}}}))
+        receipt = self.root / 'receipt.json'; receipt.write_text('{"fixture":true}')
+        patcher = patch('provider_availability.research_receipt', return_value=runtime.bound(receipt))
+        patcher.start(); self.addCleanup(patcher.stop)
+        packet = self.root / 'packet.json'
+        packet.write_text(json.dumps(runtime.input_packet(role, edition, [source])))
+        return packet
+
+    def test_future_research_plan_requires_actual_subject_before_a_worker_can_be_planned(self):
+        packet = self.future_source_packet()
+        with self.assertRaisesRegex(ValueError, 'needs --subject'):
+            runtime.plan('researcher', packet, 'researcher', 'Research the sourced action.')
+
+    def test_future_duplicate_is_refused_with_retained_real_archive_evidence(self):
+        packet = self.future_source_packet(); before = packet.read_bytes()
+        with self.assertRaisesRegex(ValueError, '2026-09-26.*brush truck'):
+            runtime.plan('researcher', packet, 'researcher', 'Research the sourced action.',
+                         subject='AI cameras on sanitation brush trucks')
+        reports = list(self.root.glob('packet-subject-*.json'))
+        self.assertEqual(len(reports), 1)
+        result = json.loads(reports[0].read_text())
+        self.assertFalse(result['fresh'])
+        self.assertEqual(packet.read_bytes(), before)
+
+    def test_future_validator_checks_bound_selection_instead_of_the_generic_scope(self):
+        packet = self.future_source_packet(role='validator')
+        with self.assertRaisesRegex(ValueError, 'repeated story subject before paid validator'):
+            runtime.plan('validator', packet, 'validator', 'Independently verify every source.',
+                         subject='An unrelated fresh subject cannot replace the bound selection')
+        self.assertFalse(json.loads(next(self.root.glob('packet-subject-*.json')).read_text())['fresh'])
+
+    def test_fresh_subject_keeps_haiku_route_compact_prompt_and_exact_report_binding(self):
+        packet = self.future_source_packet()
+        result = runtime.plan('researcher', packet, 'researcher', 'Research the sourced action.',
+                              subject='MD Anderson SPACER T cells cut a mucin barrier')
+        self.assertEqual(result['assignment']['model'], 'claude-haiku-5-5')
+        self.assertEqual(result['assignment']['effort'], 'high')
+        self.assertLessEqual(len(result['agent_args']['prompt']), 1800)
+        self.assertIn('mucin barrier', result['agent_args']['prompt'])
+        report = result['story_subject_screen']
+        self.assertEqual(runtime.digest(report['path']), report['sha256'])
+        self.assertTrue(json.loads(Path(report['path']).read_text())['fresh'])
+
+    def test_active_october19_policy_is_unchanged(self):
+        packet = self.future_source_packet(edition='2026-10-19')
+        with patch('dedupe.check_subject', side_effect=AssertionError('must preserve active policy')):
+            result = runtime.plan('researcher', packet, 'researcher', 'Research the sourced action.')
+        self.assertNotIn('story_subject_screen', result)
+
     def test_phone_scope_cannot_launch_from_midpoint_only_packet(self):
         role = 'storyboard-critic'; edition = '2026-10-15'
         packet = self.root / 'sparse-phone.json'

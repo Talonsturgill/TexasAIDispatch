@@ -16,8 +16,21 @@ input paths for the validator handoff; keep its independent full-source re-fetch
 
 ```sh
 python scripts/claude_runtime.py input-packet --role researcher --date <date> --input <actual-docket-ledger> --input knowledge/texas/APPLICATIONS.md --out out/dispatch/researcher-packet.json
-python scripts/claude_runtime.py plan --role researcher --packet out/dispatch/researcher-packet.json --task-name researcher --scope "Research one current source-backed Texas action and its consequence and limit" --out out/dispatch/researcher-assignment.json
+python scripts/claude_runtime.py plan --role researcher --packet out/dispatch/researcher-packet.json --task-name researcher --subject "<actual concrete candidate object>" --scope "Research one current source-backed Texas action and its consequence and limit" --out out/dispatch/researcher-assignment.json
 ```
+
+From newly planned October 20th Claude editions, the researcher plan requires the actual
+candidate object through `--subject`. The planner screens it against the recent published
+narrations and a separate metadata anchor before a researcher reservation. It retains a
+hash-bound subject-screen report beside the packet, including a refusal. The validator plan
+repeats this free check on the bound selection's actual movement.object before its reservation.
+Renamed entity labels cannot hide the same physical subject. A literal phrase alone or shared
+channel terminology does not reject a fresh story. The existing entity gate and independent
+full-source validation remain required. On a repeat retain the refusal and choose a fresh
+candidate autonomously, before buying a worker. Missing archive evidence requires restoring
+the committed file, never skipping the check. Historical ledgers and active October 19 work
+retain their original policy and charges. Never stop a paid worker to tidy an avoidable choice;
+screen the next subject before starting it.
 
 Read knowledge/texas/APPLICATIONS.md, the researcher brief and config/production_actions.json.
 Start with current Docket movements, then fetch primary evidence for the application and its

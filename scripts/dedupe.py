@@ -44,6 +44,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -152,6 +153,89 @@ def check_entities(entries: list[dict], ents: str) -> tuple[bool, str]:
                            f"{sorted(shared)}. Those are SUBJECT tokens, not channel words, so this "
                            f"is the same story.")
     return True, "fresh"
+
+
+def subject_words(text):
+    """Normalize simple plurals for the additional literal subject-phrase screen."""
+    result = []
+    for word in re.findall(r"[a-z0-9']+", text.lower()):
+        word = word.removesuffix("'s")
+        if word not in STOP and word.endswith('s') and len(word) > 3 and not word.endswith(('ss', 'us', 'is')):
+            word = word[:-1]
+        result.append(word)
+    return result
+
+
+def subject_phrases(text):
+    words = subject_words(text)
+    generic = {('computer', 'vision'), ('human', 'review')}
+    return {pair for pair in zip(words, words[1:])
+            if all(len(w) > 2 and w not in STOP for w in pair) and pair not in generic}
+
+
+def check_subject(subject, edition, repo=REPO):
+    """Catch a repeated physical subject hidden by renamed entity labels.
+
+Keep the legacy entity check unchanged. This supplement needs a literal two-word
+phrase in the actual prior narration AND a separate subject token in its metadata.
+Channel words and a lone shared phrase cannot decide a repeat. Bind every read file;
+never rewrite history or return fresh after silently losing an archive.
+"""
+    if not isinstance(subject, str) or not 8 <= len(subject.strip()) <= 240:
+        raise ValueError('provide the actual concrete story subject in 8 to 240 characters')
+    repo = Path(repo).resolve(); history = repo / 'ledger/dispatch_history.json'
+    history_bytes = history.read_bytes()
+    entries = recent(json.loads(history_bytes), DEFAULT_DAYS, edition)
+    mine = {w for w in subject_words(subject) if len(w) > 2 and w not in STOP}
+    if len(mine) < DUP_TOKENS:
+        raise ValueError('story subject needs specific object words, not only channel words')
+    phrases = subject_phrases(subject); inspected = []; matches = []; seen = set(); covered = set()
+    identity = lambda text: ' '.join(re.findall(r'[a-z0-9]+', str(text).lower()))
+    for entry in entries:
+        day = entry.get('date', '')
+        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', day):
+            raise ValueError('cannot verify a recent story with an invalid archive date')
+        paths = sorted((repo / 'runs').glob(day + '*/vo_script.txt'))
+        if not paths:
+            raise ValueError('recent narration is unavailable for ' + day + '; restore its committed archive')
+        for path in paths:
+            if not path.resolve().is_relative_to(repo / 'runs') or path.is_symlink():
+                raise ValueError('recent narration must remain inside the real runs archive')
+            board_path = path.with_name('storyboard.json')
+            if board_path.is_symlink() or not board_path.resolve().is_relative_to(repo / 'runs'):
+                raise ValueError('recent board must remain inside the real runs archive')
+            board_raw = board_path.read_bytes()
+            board = json.loads(board_raw)
+            matching = [i for i, row in enumerate(entries) if row.get('date') == day and (
+                identity(row.get('topic')) in (identity(board.get('topic')), identity(board.get('title')))
+                or identity(row.get('slug')) == identity(board.get('title')))]
+            if not matching:
+                continue  # An unlisted scratch/unfinished same-date package is not published history.
+            covered.update(matching)
+            if path in seen:
+                continue
+            seen.add(path)
+            raw = path.read_bytes(); text = raw.decode('utf-8')
+            metadata = ' '.join([board.get('topic') or entry.get('topic', ''),
+                                 ' '.join(board.get('entities') or entry.get('entities') or [])])
+            anchors = mine & {w for w in subject_words(metadata) if w not in STOP}
+            binding = {'path': str(path.resolve()), 'sha256': hashlib.sha256(raw).hexdigest(),
+                       'board_path': str(board_path.resolve()),
+                       'board_sha256': hashlib.sha256(board_raw).hexdigest(), 'date': day}
+            inspected.append(binding)
+            for phrase in sorted(phrases & subject_phrases(text)):
+                corroborating = anchors - set(phrase)
+                if corroborating:
+                    matches.append({**binding, 'title': board.get('title', entry.get('topic', '')),
+                                    'phrase': ' '.join(phrase),
+                                    'metadata_tokens': sorted(corroborating)})
+    if len(covered) != len(entries):
+        raise ValueError('a recent published story has no matching narration archive; restore its committed evidence')
+    return {'schema': 'dispatch_story_subject_screen/1', 'date': edition, 'subject': subject.strip(),
+            'fresh': not matches, 'window_days': DEFAULT_DAYS,
+            'history': {'path': str(history), 'sha256': hashlib.sha256(history_bytes).hexdigest()},
+            'inspected': inspected, 'matches': matches,
+            'basis': 'Literal subject phrase plus separate metadata evidence; the entity gate and independent source review still apply.'}
 
 
 def self_test() -> int:
