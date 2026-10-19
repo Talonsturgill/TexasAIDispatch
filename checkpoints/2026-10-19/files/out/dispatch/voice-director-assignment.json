@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "vo-director",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-haiku-5-5",
+    "effort": "high",
+    "agent": "vo-director",
+    "resource": "voice_directors",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/vo-director-packet.json",
+    "sha256": "3463854e24d58f969b350a29107485f43d887abbd101822d1aac45127e92cdfe"
+  },
+  "brief": {
+    "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/.claude/agents/vo-director.md",
+    "sha256": "d7d1dd94c94976de1fdbcb0250201bd9488e3f4730d9ac59033e316329e6c2d3"
+  },
+  "agent_args": {
+    "subagent_type": "vo-director",
+    "description": "voice_director",
+    "prompt": "Work in /home/user/dispatch-editions/2026-10-19/TexasAIDispatch. Read the current compact packet /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/vo-director-packet.json (SHA256 3463854e24d58f969b350a29107485f43d887abbd101822d1aac45127e92cdfe) and every bound current guide in full. Verify the inputs before use. Scope: Direct one continuous locked passage with connected phrases, clear grouping and pronunciation, source limits and the performed closing answer Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}
