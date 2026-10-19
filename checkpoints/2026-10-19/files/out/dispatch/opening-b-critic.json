@@ -1,12 +1,12 @@
 {
  "verdict": "pass",
  "reviewer_identity": "claude-opus-5-5 / storyboard-critic (independent code-scope reviewer, distinct from director claude-sonnet-5-5)",
- "reviewed_at": "2026-10-19T16:00:00Z",
- "review_scope": "code-plan round 2 (charged follow-up, storyboard_critics 2/3); no rendered pixels, no film, no audio",
- "concept_sha256": "0359b4c4b1b6128305e1b640f12d56df4186f9c539ea30b4cb3811d56d0937d9",
+ "reviewed_at": "2026-10-19T16:30:00Z",
+ "review_scope": "code-plan round 3 re-binding (charged, storyboard_critics 3/3); no rendered pixels, no film, no audio",
+ "concept_sha256": "09e3f319783b833ddc88a8932650c994bc27a3d67c5feb8c8d7bd55f1d4cb10f",
  "renderer_sha256": "364847c9e4ddac9c4654e18284fafc0c2d1f82e136207a3fdcfc60f60faae083",
  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
- "notes": "Basis: as Treatment A (same packet, renderer, registry and selection; current opening-b.json read, including its film_direction and transitions). Input SHA256 values were not recomputed (no Bash). CODE PASS AUTHORIZES THE SILENT PHONE COMPARISON ONLY. RECOMMENDATION: build A first; B passes at code scope but carries more phone-scope risk. ROUND 1 FINDINGS AND STATUS. Blocking: [1] identity: CLOSED (same source-example cuts and rendered disclosures as A). [2] s3 cause: CLOSED (creek-plan now has no slab; the roof is already in the current with a bow wave on the upstream side, then turns 18 degrees and drifts 260 units downstream; car-swept as in A). [3] s6 lane-plan camera reversal: CLOSED (f_y = 1400 - 0.5*C - 140 with the same monotone C; entry at most 425 px/s, about 14 px/frame; the car enters from the bottom near y 1412 and locks at y 1100). [4] bindings: CLOSED (as A). [5] B's failed close: CLOSED (s9 now uses A's curb-return, record-slide and curb-record-split; curb-plan throws for any scene but s1 and record-wall for any scene but s5/s7). Notes: n6a missing quote card in lane-plan: CLOSED (s6-quote now drawn in lane-plan); B s4 close now soft-houses wheel-water: consistent; overhead region absence: OPEN, reduced (8 of 20 shots overhead, plain floor, exempt from place_check; Bexar plate behind 12 of 20); flat plan finish (CurbPlan, CreekPlan, StreetPlan, LanePlan, LotPlan are flat fills with offset shadows): OPEN, phone finish check; first frame cannot read as an airport or as driverless from above: OPEN (the phone inset now pictures the hail during n1a, the airport sign reads at 5.225); empty cabin unseeable from above at the s3-event-2 reward (15.31): OPEN, non-blocking; fleet becoming caricons on a chain link in limits-detail: OPEN, non-blocking; door swing from above: CLOSED (no longer used); captions, sound_action, purposes, hands, houses and cab plate: CLOSED as in A; record-row paraphrase and s2 editorial disclosure: OPEN as in A. NEW: (n) divergence_note is stale ('closes from above on the same bay with the record card sliding in') because B now shares A's three s9 shots; with 10 of 20 shots now using the same views as A (cab-wheel, phone-hail, map-zone, car-swept, count-grid, wheels-water, stamp-detail and the three s9 views), B differs mainly in its eight overhead first shots and its two medium/detail second shots (wheel-water, limits-detail); the angle text 'Hold the same white car' is also stale; (o) the same water-band seam risk as A in s3 car-swept and s4 wheel-water; (p) the same record-slide caption-band check as A.",
+ "notes": "ROUND 3 RE-BINDING: read the complete story_contract scenes of opening-b.json. s4 role is now 'consequence' (round 2 board read 'mechanism'); its claim and advances text are unchanged, and the spot-checked s9 shots are unchanged from round 2; renderer bound unchanged. Hashes not recomputed (no Bash). The story chain is identical to A's (action, evidence, mechanism, consequence, evidence/scale, mechanism, limit, limit, answer) and holds; the same note applies that s4's consequence is physical and the human stake lands in the close. All round 2 content findings carry over unchanged. CODE PASS AUTHORIZES THE SILENT PHONE COMPARISON ONLY. RECOMMENDATION: build A first; B passes at code scope but carries more phone-scope risk. Open non-blocking items: the Bexar plate is absent from the 8 overhead shots (region in 12 of 20, overhead exempt from place_check); flat overhead plan finish (CurbPlan, CreekPlan, StreetPlan, LanePlan, LotPlan), phone check; the first frame can't read as an airport or as driverless from above; the empty cabin can't be seen in creek-plan at the s3-event-2 reward; the fleet becomes icons in limits-detail; stale divergence_note and angle text (B now shares A's s9); 10 of 20 shots share views with A; the shared notes on record rows, the s2 editorial disclosure, no person, the water-band seams and the record-slide caption band.",
  "strongest_frame": "s6-shot-2 wheels-water, 32.705 to 36.86 s (shared with A): the car rolls on into standing water with a wake at the wheels as 'may' lights on the verbatim recall sentence. Second: s1-shot-2 cab-wheel, the empty driver seat and the self-turning wheel.",
  "weakest_frame": "s1-shot-1 curb-plan, 0 to 2.6125 s (the first frame): an overhead road and sidewalk plan with a white roof-pod car moving up the lane; neither the airport (the sign is a small bar from above) nor the empty driver seat can be read, so the hook relies on the phone inset and the next shot.",
  "blocking_defects": [],
@@ -68,14 +68,34 @@
    "status": "open (non-blocking)"
   }
  ],
+ "round2_findings_status": [
+  {
+   "finding": "new note (n): stale divergence_note and angle text; reduced divergence from A",
+   "status": "open (non-blocking)"
+  },
+  {
+   "finding": "new note (o): edges of the front water band in s3/s4",
+   "status": "open (phone/native check)"
+  },
+  {
+   "finding": "new note (p): record-slide card bottom versus the n9b caption band",
+   "status": "open (phone check)"
+  }
+ ],
+ "round3_findings_status": [
+  {
+   "finding": "story_contract needs a consequence scene (critic_gate refusal)",
+   "status": "closed: s4 role is now consequence, and the causal chain holds"
+  }
+ ],
  "story_review": {
-  "story_sha256": "6ebc4c8fd7f99184a086439bed8eefc7816e37c97193efdb19840a386ed5374b",
+  "story_sha256": "cc126b40b17d35d8c40bbc62d3e487d45b4fd2a7cdc04363e1e4ec5234aeb8f9",
   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
   "claims_sha256": "2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584",
   "verdict": "pass",
   "blocking_defects": [],
-  "one_viewing_summary": "Planned chain: from above a white roof-pod car comes up a pickup lane into a bay while a phone inset shows a ride requested; inside, the wheel turns by itself over an empty seat; the phone close turns to 'Arriving' at the plane-sign curb. A flat map draws in and the limited area closes with its tag. From above, a disclosed different car (April 20th account) sits in fast creek water with a bow wave and drifts; from the side it is swept downstream, cabin empty. From above, water runs along a street around another disclosed car whose corners blink; a side close shows the empty cabin. A recall card slides onto a desk from above, the grid fills and the 'Nearly 3,800 vehicles' tag settles. From above, under the recall sentence, a car runs and slows; a close shows it roll into standing water as 'may' lights. A hand stamps the remedy row; a weather tag slides over two rows of roofs; on a chain link the calendar flips to 20 and icons take checks. A generic airport ride, disclosed as not the flood cars, waits with its door open beside the large remedy card still under development.",
-  "opening_to_ending": "Opening question: anyone in San Antonio can now hail a driverless Waymo to the airport, so what does the federal record say about the flood problem its recall covers? Planned ending (shared with A): the generic airport ride at the curb with its door open, held in a split beside the readable remedy card 'The remedy is currently under development.' It answers from the record without inventing a fix and keeps the April cars separate.",
+  "one_viewing_summary": "Planned chain: from above a white roof-pod car comes up a pickup lane into a bay while a phone inset shows a ride requested; inside, the wheel turns by itself over an empty seat; the phone close turns to 'Arriving' at the plane-sign curb. A flat map draws in and the limited area closes with its tag. From above, a disclosed different car (April 20th account) sits in fast creek water with a bow wave and drifts; from the side it is swept downstream, cabin empty. As the consequence beat, from above water runs along a street around another disclosed car whose corners blink, then a side close shows the empty cabin. A recall card slides onto a desk from above, the grid fills and the 'Nearly 3,800 vehicles' tag settles. From above, under the recall sentence, a car runs and slows; a close shows it roll into standing water as 'may' lights. A hand stamps the remedy row; a weather tag slides over two rows of roofs; on a chain link the calendar flips to 20 and icons take checks. A generic airport ride, disclosed as not the flood cars, waits with its door open beside the large remedy card still under development.",
+  "opening_to_ending": "Opening question: anyone in San Antonio can now hail a driverless Waymo to the airport, so what does the federal record say about the flood problem its recall covers? Story roles run action, evidence, mechanism, consequence (s4 stranded car), evidence/scale, mechanism, limit, limit, answer. Planned ending (shared with A): the generic airport ride at the curb with its door open, held in a split beside the readable remedy card 'The remedy is currently under development.' It answers from the record without inventing a fix and keeps the April cars separate.",
   "weakest_transition": "s8 -> s9 at 50.0 s: from a chain-link detail where car icons, not the cars seen from above, take their checks, to an eye-level wide of the airport curb; the cut changes viewpoint language and subject scale at once, so continuity rests on the disclosure and the narration's 'So the airport ride is open'."
  },
  "action_reviews": [],
@@ -102,7 +122,7 @@
    "event_id": "s6-event-3",
    "view": "wheels-water",
    "action_id": "car-slows-into-water",
-   "consumption": "Shot s6-shot-2 (32.705 to 36.86), identical to A; preceded by lane-plan, which now carries the s6-quote card and the monotone camera."
+   "consumption": "Shot s6-shot-2 (32.705 to 36.86), identical to A; preceded by lane-plan, which carries the s6-quote card and the monotone camera."
   },
   {
    "request_id": "san-antonio-support",
@@ -170,7 +190,7 @@
    "start_s": 17.81,
    "end_s": 21.84,
    "match": "pass",
-   "planned_picture": "Under the disclosure of another car earlier in April, an overhead creep, stop and blinking corners, then a side close of the empty cabin."
+   "planned_picture": "Consequence beat: under the disclosure of another car earlier in April, an overhead creep, stop and blinking corners, then a side close of the empty cabin."
   },
   {
    "id": "n5a",

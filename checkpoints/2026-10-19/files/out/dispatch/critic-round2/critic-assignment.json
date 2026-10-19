@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "storyboard-critic",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "storyboard-critic",
+    "resource": "storyboard_critics",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/critic-packet.json",
+    "sha256": "e47198df14df0e2e51ddff0405b5e0b15a12fa3946c8794024eecc59fd2f0802"
+  },
+  "brief": {
+    "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/.claude/agents/storyboard-critic.md",
+    "sha256": "56403afd280ed90c9c4dd731d4ab4c7d9789931580c125d55f62078665b96f06"
+  },
+  "agent_args": {
+    "subagent_type": "storyboard-critic",
+    "description": "critic",
+    "prompt": "Work in /home/user/dispatch-editions/2026-10-19/TexasAIDispatch. Read the current compact packet /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/critic-packet.json (SHA256 e47198df14df0e2e51ddff0405b5e0b15a12fa3946c8794024eecc59fd2f0802) and every bound current guide in full. Verify the inputs before use. Scope: Content follow-up after your REVISE: verify the corrected builds of both treatments against every round 1 blocking defect and return fresh gate-ready verdicts Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}
