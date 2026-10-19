@@ -1,0 +1,29 @@
+{
+  "repair_scope": "standard",
+  "mechanism_id": "digit-figure-in-spoken-script",
+  "failure_family": "measured-runtime-crowding",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The script spelled the figure as words. Whisper writes the spoken words as the single token 3,800 and the exact lexical alignment refuses a numeral substitution.",
+  "repair": "Write the figure as 3,800 in the script, scene narration and clause text so the alignment compares identical tokens, then re-synthesize.",
+  "mechanism_change": "The figure is written as digits in the locked script instead of words.",
+  "expected_visible_result": "The same sentence aligns to the measured take and captions show 3,800.",
+  "failure_evidence": "out/dispatch/evidence/alignment-numeral-failure/alignment-failure.txt",
+  "failure_evidence_sha256": "520f14c4112b965177ee45b0f4b058bd14f848e6f9a00855c2eb2c40b3bbfa2e",
+  "changed_inputs": [
+    {
+      "path": "out/dispatch/storyboard.json",
+      "before_path": "out/dispatch/evidence/alignment-numeral-failure/storyboard.before.json",
+      "before_sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8"
+    },
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "before_path": "out/dispatch/evidence/alignment-numeral-failure/vo_script.txt",
+      "before_sha256": "f4a70b7d34c2354e8c5873a9f270a55b0e5bab5ee3fbe149a5b5ec4847bd5d2c"
+    }
+  ],
+  "resources": {
+    "reboards": 1,
+    "storyboard_critics": 1,
+    "tts_calls": 2
+  }
+}

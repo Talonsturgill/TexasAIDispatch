@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-19T16:26:12.875290+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-19T16:32:20.373328+00:00",
+  "note": "alignment numeral blocker and critic ceiling; voice take and mix retained",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -52,8 +52,32 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "cad61462d84f74adc6e9ebc6e5f100aec9562d69c9d55c71ba4b33fcf55399ee",
-      "size": 10794
+      "sha256": "eb7b29b612ed4d999b0a513f52111f70a50bf6fb538ab6102196a86f27b62874",
+      "size": 12411
+    },
+    {
+      "path": "out/dispatch/acoustic-asr-meta.json",
+      "class": "scratch",
+      "sha256": "362b2963363091a2ad45bd48264e300ba3b2de0ef00f8e30ec36819e1aba281a",
+      "size": 720
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "1e1041681f51433dd4c69fb337381daace5ab08d6bace2a7c2c4655c7108685d",
+      "size": 62806
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.log",
+      "class": "scratch",
+      "sha256": "786a18b0fa9a40d6e3e6b867432d4c5cc9451b1b4494f0e13a44c9b767684e0f",
+      "size": 85888
+    },
+    {
+      "path": "out/dispatch/alignment-16k.wav",
+      "class": "scratch",
+      "sha256": "f711e18a3f76ae657b53b91a39e6945622605129259b2b24d022f20775e9bd59",
+      "size": 1578810
     },
     {
       "path": "out/dispatch/artwork-originals/authored-6ca9f3e5-53fd-4de2-b0dc-e512ebc46797.tsx",
@@ -188,6 +212,12 @@
       "size": 254
     },
     {
+      "path": "out/dispatch/credits.txt",
+      "class": "scratch",
+      "sha256": "1aed8018f7c7ea2609478c54ddefb736c13cfe7d031e33ff173c8c64c68103b9",
+      "size": 363
+    },
+    {
       "path": "out/dispatch/critic-assignment.json",
       "class": "scratch",
       "sha256": "f7acdd4f78841dc2bafa77bc7348320e6d841875658b5b486a27b89d7d8b82f5",
@@ -240,6 +270,66 @@
       "class": "scratch",
       "sha256": "5432d824a4e5942d658ee0b27fd900c059149eef208605848a0a16fab6717774",
       "size": 1742
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/acoustic-asr-meta.json",
+      "class": "scratch",
+      "sha256": "362b2963363091a2ad45bd48264e300ba3b2de0ef00f8e30ec36819e1aba281a",
+      "size": 720
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "1e1041681f51433dd4c69fb337381daace5ab08d6bace2a7c2c4655c7108685d",
+      "size": 62806
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/alignment-failure.txt",
+      "class": "scratch",
+      "sha256": "520f14c4112b965177ee45b0f4b058bd14f848e6f9a00855c2eb2c40b3bbfa2e",
+      "size": 496
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/mix.json",
+      "class": "scratch",
+      "sha256": "043e1ed404ada82416128b71a6bd5e73279f581537ffc9b11081248f7e87a16b",
+      "size": 5609
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/prompt.txt",
+      "class": "scratch",
+      "sha256": "128d011d586ea5a1c0dd1a74cd2f14ed0f8ed516b7b5e28039ef4e3b3a16174c",
+      "size": 4589
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/storyboard.before.json",
+      "class": "scratch",
+      "sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8",
+      "size": 178347
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/take1.wav",
+      "class": "scratch",
+      "sha256": "473aac99412053dacdf42ca5117a13107aac43717be8654541c2454feb95cdaa",
+      "size": 4631084
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/takes.json",
+      "class": "scratch",
+      "sha256": "581cd879b481cddfe24fc7d4545b7a923789e73dd2768fd2da9a1061a3d43cec",
+      "size": 1039
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/vo_direction.json",
+      "class": "scratch",
+      "sha256": "6000dfbebb3589af18cff76892d743ca57fdf218f203bb7f5d2f68b4d0394623",
+      "size": 17898
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/vo_script.txt",
+      "class": "scratch",
+      "sha256": "f4a70b7d34c2354e8c5873a9f270a55b0e5bab5ee3fbe149a5b5ec4847bd5d2c",
+      "size": 745
     },
     {
       "path": "out/dispatch/evidence/capture-hook-probe-denial.txt",
@@ -1254,6 +1344,24 @@
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
+    },
+    {
+      "path": "out/dispatch/mix.json",
+      "class": "scratch",
+      "sha256": "043e1ed404ada82416128b71a6bd5e73279f581537ffc9b11081248f7e87a16b",
+      "size": 5609
+    },
+    {
+      "path": "out/dispatch/mix.wav",
+      "class": "scratch",
+      "sha256": "4d3d528bd477c3655a95bde42669694151f01316354d5a9a7e833032c42efa7e",
+      "size": 6091278
+    },
+    {
+      "path": "out/dispatch/mix_vo.wav",
+      "class": "scratch",
+      "sha256": "767ae269f289282a937fd98d1c88e2d478e035698a4a94b8e791e8852879c737",
+      "size": 6091244
     },
     {
       "path": "out/dispatch/music_bed.json",
@@ -2978,6 +3086,12 @@
       "size": 375
     },
     {
+      "path": "out/dispatch/repair-plan-draft.json",
+      "class": "scratch",
+      "sha256": "d7942ea587999a581aa4747fdbea420cf3a29065b0dd77d5f4aa664bfd7225db",
+      "size": 1515
+    },
+    {
       "path": "out/dispatch/research.json",
       "class": "scratch",
       "sha256": "f78921e0ff51603ca84a108ba911cdf2ad433f7d9edfc6cb9d59a2da6bd5be69",
@@ -3006,6 +3120,12 @@
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
+    },
+    {
+      "path": "out/dispatch/sfx_events.json",
+      "class": "scratch",
+      "sha256": "21ef1e7a3c5ba8f1cbe0fcf4d16eb49e83b547106890ab3b58445b29079504ea",
+      "size": 2068
     },
     {
       "path": "out/dispatch/sources/nhtsa.json",
@@ -3082,8 +3202,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1",
-      "size": 178340
+      "sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8",
+      "size": 178347
     },
     {
       "path": "out/dispatch/storyboard_critic.json",
@@ -3096,6 +3216,18 @@
       "class": "scratch",
       "sha256": "128d011d586ea5a1c0dd1a74cd2f14ed0f8ed516b7b5e28039ef4e3b3a16174c",
       "size": 4589
+    },
+    {
+      "path": "out/dispatch/takes/take1.wav",
+      "class": "scratch",
+      "sha256": "473aac99412053dacdf42ca5117a13107aac43717be8654541c2454feb95cdaa",
+      "size": 4631084
+    },
+    {
+      "path": "out/dispatch/takes/takes.json",
+      "class": "scratch",
+      "sha256": "581cd879b481cddfe24fc7d4545b7a923789e73dd2768fd2da9a1061a3d43cec",
+      "size": 1039
     },
     {
       "path": "out/dispatch/validation.json",
@@ -3201,8 +3333,8 @@
     }
   ],
   "regenerable": {
-    "files": 107,
-    "bytes": 1041744
+    "files": 109,
+    "bytes": 1236040
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }
