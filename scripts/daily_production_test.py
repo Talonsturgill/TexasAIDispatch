@@ -445,6 +445,18 @@ class LosslessScorerTransport(unittest.TestCase):
             self.assertLessEqual(len(text),10000)
             self.assertEqual(original,json.loads(text)); self.assertEqual(original,data)
 
+    def test_current_storyboard_critic_packet_uses_the_same_lossless_transport(self):
+        data=self.current('storyboard-critic'); original=copy.deepcopy(data)
+        data.pop('motion_sequence'); data.pop('image_read_policy'); original=copy.deepcopy(data)
+        self.assertGreater(len(json.dumps(data,indent=2)),10000)
+        text=d.packet_text(data)
+        self.assertLessEqual(len(text),10000)
+        self.assertEqual(original,json.loads(text)); self.assertEqual(original,data)
+        data['date']='2026-10-14'
+        self.assertEqual(json.dumps(data,indent=2)+'\n',d.packet_text(data))
+        data['date']='2026-10-15'; data['instructions']='x'*11000
+        self.assertGreater(len(d.packet_text(data)),10000)
+
     def test_small_and_historical_packets_keep_their_exact_original_serialization(self):
         small={'role':'picture','date':'2026-10-15','instructions':'Read all current guides.'}
         self.assertEqual(json.dumps(small,indent=2)+'\n',d.packet_text(small))
