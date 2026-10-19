@@ -1,5 +1,6 @@
 """Actual host packets and deduplicated Claude transcript usage stay explicit."""
 import json
+import copy
 from pathlib import Path
 import tempfile
 import unittest
@@ -175,6 +176,25 @@ class RuntimeTests(unittest.TestCase):
                 data['image_read_policy'].pop('access_probe')
                 with self.assertRaisesRegex(ValueError, 'sequential delivery'):
                     runtime.image_policy_inputs(data)
+
+    def test_october20_public_image_descriptions_require_the_current_packet_policy(self):
+        self.assertNotIn('note_channel', runtime.image_read_policy('2026-10-19'))
+        for compact in (False, True):
+            with self.subTest(compact=compact):
+                data = {'role': 'storyboard-critic', 'date': '2026-10-20',
+                        'instructions': 'Read the complete bound guides.'}
+                runtime.image_reading(data, compact=compact)
+                self.assertEqual('ordinary_assistant_text', data['image_read_policy']['note_channel'])
+                self.assertEqual('brief_public_image_description', data['image_read_policy']['note_scope'])
+                self.assertIn('ordinary assistant text', data['instructions'])
+                self.assertIn('brief public image description', data['instructions'])
+                runtime.image_policy_inputs(data)
+                for mutate in (lambda p:p.pop('note_channel'),
+                               lambda p:p.update(note_channel='receipt_only'),
+                               lambda p:p.update(note_scope='tool_delivery_receipt')):
+                    changed = copy.deepcopy(data); mutate(changed['image_read_policy'])
+                    with self.assertRaisesRegex(ValueError, 'sequential delivery'):
+                        runtime.image_policy_inputs(changed)
 
     def test_future_plan_refuses_a_legacy_access_policy_before_starting_a_worker(self):
         edition = '2026-10-17'
