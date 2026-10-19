@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Saved in the Texas cloud environment. Provisioning is cached, not a daily refresh.
-# Setup revision 2026-10-19c prepares isolated source storage and durable visual leaves before launch.
+# Setup revision 2026-10-19d registers actual visual Read/Write hooks at primary scope before launch.
 set -euo pipefail
 dispatch_tools=/opt/texas-dispatch-tools
 if [ ! -d "$dispatch_tools/.git" ]; then

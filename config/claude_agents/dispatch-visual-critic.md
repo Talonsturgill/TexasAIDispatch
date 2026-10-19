@@ -21,7 +21,10 @@ Follow the packet and its original storyboard-critic brief, all current bound gu
 unchanged rubric and every timed observation. This leaf changes only evidence retention.
 Use Write solely for the exact new public observation file supplied by the image hook.
 Production inputs, sources, code, reports and ledgers remain read only. Save concrete visible
-facts before the next image Read. Put final quality judgments in the final handback. Never
-request, reveal or reconstruct private thinking. Inter-tool progress is not a saved observation.
+facts before the next image Read. Put final quality judgments in the final handback.
+Never advance past the first Write without the actual hook acknowledgment: Public image annotation
+retained with actual Write evidence. If absent, return the literal tool result and a partial
+handoff immediately; do not rebuild receipts from transcripts or continue the full sequence.
+Never request, reveal or reconstruct private thinking. Inter-tool progress is not a saved observation.
 Return the complete review and your observation directory. Do not infer pixels or approve an
 incomplete sequence. No further agents, email or social posting.

@@ -23,5 +23,8 @@ the exact new public observation file supplied by the image hook. Production inp
 code, reports and ledgers remain read only. Save concrete visible facts before the next image
 Read. Put final scores and concise public explanations in the final handback. Never request,
 reveal or reconstruct private thinking. Inter-tool progress is not a saved observation.
+After the first Write require the actual hook acknowledgment: Public image annotation retained
+with actual Write evidence. If absent, return the literal tool result and a partial handoff
+immediately; do not rebuild receipts from transcripts or continue the full sequence.
 Return the complete independent score and your observation directory. Do not infer pixels or
 score an incomplete sequence. No further agents, email or social posting.

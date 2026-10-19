@@ -2,6 +2,7 @@
 import base64
 import copy
 import json
+import shlex
 from pathlib import Path
 import subprocess
 import tempfile
@@ -10,6 +11,7 @@ import unittest
 import image_read_receipt as image
 from image_read_receipt_test import PNG
 import visual_observations as visual
+import bootstrap_claude_hooks as boot
 
 
 class VisualEvidence(unittest.TestCase):
@@ -148,8 +150,11 @@ class VisualEvidence(unittest.TestCase):
         settings.write_text('{"model":"sonnet","permissions":{"deny":["send"]}}')
         before = settings.read_bytes()
         result = visual.install(visual.REPO, self.workspace)
-        visual.check_installation(visual.REPO, self.workspace)
         self.assertEqual(before, settings.read_bytes()); self.assertFalse(result['permission_settings_changed'])
+        with self.assertRaisesRegex(ValueError, 'prelaunch setup'):
+            visual.check_installation(visual.REPO, self.workspace)
+        boot.bootstrap(self.workspace, visual.REPO, prelaunch_router=True)
+        visual.check_installation(visual.REPO, self.workspace)
         self.assertEqual(visual.install(visual.REPO, self.workspace), result)
         critic = self.workspace / '.claude/agents/dispatch-visual-critic.md'
         body = critic.read_text()
@@ -159,6 +164,52 @@ class VisualEvidence(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'preserve the foreign'):
             visual.install(visual.REPO, self.workspace)
         self.assertTrue(critic.read_text().endswith('foreign edit\n'))
+
+    def test_primary_scope_is_inert_for_other_actors_and_strict_for_visual_leaves(self):
+        _, _, _, write = self.delivered()
+        ordinary = {**write, 'agent_type': 'scene-builder',
+                    'tool_input': {'file_path': str(self.package / 'run_state.json'), 'content': '{}'}}
+        self.assertIsNone(visual.pre_tool(ordinary, self.workspace))
+        with self.assertRaises(ValueError):
+            visual.pre_tool({**ordinary, 'agent_type': visual.ROLE_NAMES[0]}, self.workspace)
+        with self.assertRaisesRegex(ValueError, 'actual host session and agent identity'):
+            visual.pre_tool({**write, 'agent_id': None}, self.workspace)
+
+    def test_registered_primary_hooks_create_witness_without_agent_frontmatter(self):
+        boot.bootstrap(self.workspace, visual.REPO, prelaunch_router=True)
+        settings = visual.load(self.workspace / '.claude/settings.json')
+        def invoke(event, matcher, payload):
+            entry = next(e for e in settings['hooks'][event] if e.get('matcher') == matcher
+                         and 'visual_observations.py' in e['hooks'][0]['command'])
+            return subprocess.run(shlex.split(entry['hooks'][0]['command']),
+                                  input=json.dumps(payload), capture_output=True, text=True)
+        _, _, _, write = self.delivered()
+        blocked = invoke('PreToolUse', 'Read|Write', {**self.read, 'hook_event_name': 'PreToolUse'})
+        self.assertEqual(blocked.returncode, 2)
+        self.assertEqual(invoke('PreToolUse', 'Read|Write', write).returncode, 0)
+        target = Path(write['tool_input']['file_path']); target.parent.mkdir(parents=True)
+        target.write_text(write['tool_input']['content'])  # Test fixture for the actual tool's file write.
+        result = invoke('PostToolUse', 'Write', {**write, 'hook_event_name': 'PostToolUse'})
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('actual Write evidence', json.loads(result.stdout)['hookSpecificOutput']['additionalContext'])
+        witness = self.package / 'visual-observation-receipts' / target.parent.name / target.name
+        self.assertTrue(witness.is_file())
+        self.assertEqual(invoke('PostToolUse', 'Write', {**write, 'hook_event_name': 'PostToolUse'}).returncode, 0)
+        self.assertEqual(invoke('PreToolUse', 'Read|Write', {**self.read, 'hook_event_name': 'PreToolUse'}).returncode, 0)
+
+    def test_missing_or_changed_primary_hooks_refuse_paid_admission(self):
+        visual.install(visual.REPO, self.workspace)
+        boot.bootstrap(self.workspace, visual.REPO, prelaunch_router=True)
+        path = self.workspace / '.claude/settings.json'; original = path.read_text()
+        for event, matcher in [('PreToolUse', 'Read|Write'), ('PostToolUse', 'Write'), ('PostToolUse', 'Read')]:
+            data = json.loads(original)
+            data['hooks'][event] = [e for e in data['hooks'][event] if e.get('matcher') != matcher]
+            path.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError, 'primary'):
+                visual.check_installation(visual.REPO, self.workspace)
+            self.assertFalse((self.package / 'visual-observation-receipts').exists())
+        path.write_text(original)
+        visual.check_installation(visual.REPO, self.workspace)
 
 
 if __name__ == '__main__':

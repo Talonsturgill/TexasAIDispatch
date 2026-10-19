@@ -129,7 +129,8 @@ class BootstrapTests(unittest.TestCase):
         hook.assert_called_once_with(str(guard.REPO))
 
     def test_prelaunch_image_observer_is_additive_idempotent_and_does_not_change_permissions(self):
-        for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py', 'claude_session_start.py'):
+        for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py', 'claude_session_start.py',
+                     'visual_observations.py'):
             (self.repo / 'scripts' / name).write_text('# fixture\n')
         foreign = {'matcher': 'Read', 'hooks': [{'type': 'command', 'command': 'keep-foreign-reader'}]}
         value = self.load(); value['hooks']['PostToolUse'] = [foreign]
@@ -140,8 +141,14 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(before, self.target.read_bytes())
         result = self.load()
         self.assertIn(foreign, result['hooks']['PostToolUse'])
-        self.assertEqual(len(result['hooks']['PostToolUse']), 2)
+        self.assertEqual(len(result['hooks']['PostToolUse']), 3)
         self.assertIn('image_read_receipt.py', result['hooks']['PostToolUse'][1]['hooks'][0]['command'])
+        self.assertEqual(result['hooks']['PostToolUse'][2]['matcher'], 'Write')
+        self.assertIn('visual_observations.py record --workspace',
+                      result['hooks']['PostToolUse'][2]['hooks'][0]['command'])
+        self.assertEqual(result['hooks']['PreToolUse'][-1]['matcher'], 'Read|Write')
+        self.assertIn('visual_observations.py pre-tool --workspace',
+                      result['hooks']['PreToolUse'][-1]['hooks'][0]['command'])
         self.assertEqual(len(result['hooks']['SessionStart']), 1)
         self.assertIn('claude_session_start.py', result['hooks']['SessionStart'][0]['hooks'][0]['command'])
         for key in ('model', 'effortLevel', 'env', 'permissions'):
@@ -152,6 +159,14 @@ class BootstrapTests(unittest.TestCase):
             (self.repo / 'scripts' / name).write_text('# fixture\n')
         before = self.target.read_bytes()
         with self.assertRaisesRegex(ValueError, 'image tool-delivery observer is missing'):
+            boot.bootstrap(self.workspace, self.repo, prelaunch_router=True)
+        self.assertEqual(before, self.target.read_bytes())
+
+    def test_missing_visual_observer_refuses_prelaunch_without_writing_settings(self):
+        for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py', 'claude_session_start.py'):
+            (self.repo / 'scripts' / name).write_text('# fixture\n')
+        before = self.target.read_bytes()
+        with self.assertRaisesRegex(ValueError, 'visual observation guard'):
             boot.bootstrap(self.workspace, self.repo, prelaunch_router=True)
         self.assertEqual(before, self.target.read_bytes())
 
