@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-19T16:17:05.523361+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-19T16:17:48.348919+00:00",
+  "note": "before paid reservation",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -138,6 +138,12 @@
       "class": "scratch",
       "sha256": "705117530cd93739ddf6da36449de9d8c163f4afd5e924694dd6df6b7e0c16ba",
       "size": 1043
+    },
+    {
+      "path": "out/dispatch/capture-housekeeping-20261019T161747.json",
+      "class": "scratch",
+      "sha256": "e02b742e0fab55eb880b6824cc4180c1ff955b09de462a75d0702f2902e0341e",
+      "size": 1023
     },
     {
       "path": "out/dispatch/claims.json",
@@ -1222,7 +1228,7 @@
     {
       "path": "out/dispatch/native-headroom.json",
       "class": "scratch",
-      "sha256": "58bdc14b4693e22241085636d37b985ecfc3502ac6b5b5acb0affe21b14babd6",
+      "sha256": "e6ce2d5a54fd2ecbd9022da35c7e0966bdf897b6488a7db057b4471a1fd3fc1c",
       "size": 308
     },
     {
@@ -2672,6 +2678,12 @@
       "size": 3618
     },
     {
+      "path": "out/dispatch/preflight.mp4",
+      "class": "scratch",
+      "sha256": "743af11f9867b26436e9cc8aa87768fc547ab3cc04968b03d5c22400b31f5a1b",
+      "size": 460957
+    },
+    {
       "path": "out/dispatch/provider-availability/startup/attempt.json",
       "class": "scratch",
       "sha256": "fc886ed67ce97101958481f8330aa683e3b23c7fcbc6b37f126224e22798a18e",
@@ -3094,7 +3106,7 @@
   ],
   "regenerable": {
     "files": 107,
-    "bytes": 1041639
+    "bytes": 1041744
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }
