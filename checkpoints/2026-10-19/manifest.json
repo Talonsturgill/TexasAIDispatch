@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-19T16:40:01.272205+00:00",
+  "saved_at": "2026-10-19T16:51:10.334257+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-19T05:13:41.692242Z",
   "repo_root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch",
-  "source_pin": "1ed19c448ad5d06e5f44e406d98aa21001a9c983",
+  "source_pin": "73517e8c0543e54c0aaaa8a5cd607b534e110d8c",
   "source_branch": "claude/dispatch-2026-10-19",
   "source_closure": {
     "root": "video-engine",
@@ -16,9 +16,15 @@
     "sha256": "e29a160935e53963b936660d0e1194d9de745ce29d52b0f711a6dbedac3d83ab"
   },
   "deleted_source": [],
-  "ledger_sha256": "36d2fc108d726d22e4c685f15c9289196fcdbdbfdeba88a27ad8f4fa354355e3",
-  "original_private_ledger_sha256": "5ec154e8d393cc91f1be15b8fc348ef7a578290483f847f9f33a07593734fe1d",
-  "grant_origin_roots": [],
+  "ledger_sha256": "1a4d7b42a08ad288b1c411ded23a5c19fec4361268537a50c1941d2147a8dcfc",
+  "original_private_ledger_sha256": "2387f2ab95c44f8f2a10d1a35f7fa99cf458e37426943dd58e23373d8799ada3",
+  "grant_origin_roots": [
+    {
+      "event_index": 74,
+      "authorization_sha256": "674a05efc64bf28be2993c5653f8a6f451cb695f9c2f2e394aa2d72f38ef3776",
+      "root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch"
+    }
+  ],
   "usage": {
     "audiovisual_reviews": 2,
     "cleanup_renders": 0,
@@ -52,32 +58,32 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "eb7b29b612ed4d999b0a513f52111f70a50bf6fb538ab6102196a86f27b62874",
-      "size": 12411
+      "sha256": "a5b13d2d277a38b6e4c586b8b061b25e79322c409369c35d0a19f975b039b7df",
+      "size": 13572
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
       "class": "scratch",
-      "sha256": "c0c5c4f484d4c4e9c8e9c3d70794e5e6aad4582178e960709692f50ae5edb078",
-      "size": 720
+      "sha256": "52e03c962b9be1698efb4dc173614c4fb763c379aad4c624901b5732b63fe68e",
+      "size": 716
     },
     {
       "path": "out/dispatch/acoustic-asr.json",
       "class": "scratch",
-      "sha256": "68296afe1cd95e04f5e56a619b42c4f27e406b09b0051d6fb48adc88106f41cc",
-      "size": 63242
+      "sha256": "c2b4c711ddd97ce2b038d91bceceab8de53c973ecb021246940dce80d8933bcf",
+      "size": 62827
     },
     {
       "path": "out/dispatch/acoustic-asr.log",
       "class": "scratch",
-      "sha256": "88a9b1c08953eda088a1bba9aaf64576e110b666fb0fed0649c8257d700fe42c",
-      "size": 95981
+      "sha256": "03a6ea27bae28dfb14e00563ecf6f560fae76b0e80415c2e8abf1ddbc2acf2f1",
+      "size": 85888
     },
     {
       "path": "out/dispatch/alignment-16k.wav",
       "class": "scratch",
-      "sha256": "abf75b538cbd9222d503734d33fae410814ebba8bde2fad02c26f94c97cd0073",
-      "size": 1524238
+      "sha256": "66b63c27be6d6fd2155ed799916a25ced2cfba10b73654179672d1092798a5e6",
+      "size": 1764558
     },
     {
       "path": "out/dispatch/artwork-originals/authored-6ca9f3e5-53fd-4de2-b0dc-e512ebc46797.tsx",
@@ -314,6 +320,12 @@
       "size": 1632
     },
     {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/repair-plan-2-as-articulation.json",
+      "class": "scratch",
+      "sha256": "6bed107f3550ecd34b19c640d868bc388ccc1eb4626a7de68d7f2ad1f4f89c43",
+      "size": 1594
+    },
+    {
       "path": "out/dispatch/evidence/alignment-numeral-failure/storyboard.before.json",
       "class": "scratch",
       "sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8",
@@ -374,6 +386,54 @@
       "size": 18622
     },
     {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/take3/acoustic-asr-meta.json",
+      "class": "scratch",
+      "sha256": "52e03c962b9be1698efb4dc173614c4fb763c379aad4c624901b5732b63fe68e",
+      "size": 716
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/take3/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "c2b4c711ddd97ce2b038d91bceceab8de53c973ecb021246940dce80d8933bcf",
+      "size": 62827
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/take3/alignment-failure.txt",
+      "class": "scratch",
+      "sha256": "7a523ffe4323bf3aafa4fd2c724a0e4d8ccbcafb7db0c23ff912e94a695bc26e",
+      "size": 626
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/take3/mix.json",
+      "class": "scratch",
+      "sha256": "42ab403c20d113b75253f89bb3a0f4eeb414b2a0875a7aacc9e4fe883284ef84",
+      "size": 6012
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/take3/prompt.txt",
+      "class": "scratch",
+      "sha256": "bc3d63eb1dadd0c9bb537eab98686a5aee60b54cdbff8d483ce9b69188bdfd7c",
+      "size": 5430
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/take3/take1.wav",
+      "class": "scratch",
+      "sha256": "a4e5ac14ffc3db1aec0aeca838ae80b4a60e43fcfd2f9f43db93482ae43772d1",
+      "size": 5187884
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/take3/takes.json",
+      "class": "scratch",
+      "sha256": "8d0872b8bb04b85b9236093d251951e984fd731ab39dceb3034ffe7bb12b626f",
+      "size": 1016
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/take3/vo_direction.as-articulation.json",
+      "class": "scratch",
+      "sha256": "8dfbc6fdf98fbbd842fabe15424afe6e6eb3ea17ee9a704c7f222208bfdf8abb",
+      "size": 19007
+    },
+    {
       "path": "out/dispatch/evidence/alignment-numeral-failure/takes.json",
       "class": "scratch",
       "sha256": "581cd879b481cddfe24fc7d4545b7a923789e73dd2768fd2da9a1061a3d43cec",
@@ -402,6 +462,12 @@
       "class": "scratch",
       "sha256": "885c0993b52535b29a409493843eda4781fe6546c118bfe06165a4e5d8f00019",
       "size": 576
+    },
+    {
+      "path": "out/dispatch/evidence/claims-restore/claims.pre-widening.json",
+      "class": "scratch",
+      "sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "size": 12923
     },
     {
       "path": "out/dispatch/evidence/critic-code-round1-handback.json",
@@ -455,6 +521,24 @@
       "path": "out/dispatch/evidence/mix-take1/mix_vo.wav",
       "class": "scratch",
       "sha256": "767ae269f289282a937fd98d1c88e2d478e035698a4a94b8e791e8852879c737",
+      "size": 6091244
+    },
+    {
+      "path": "out/dispatch/evidence/mix-take2/mix.json",
+      "class": "scratch",
+      "sha256": "542cfffa93eb56b23ba3b95fecdb3662fb3bfefa75b82d5405404a020d1f4db1",
+      "size": 6056
+    },
+    {
+      "path": "out/dispatch/evidence/mix-take2/mix.wav",
+      "class": "scratch",
+      "sha256": "cab6dde20b136e5158f5b966b4b672250614eb996d71ca9dae9fc27f4ee3c819",
+      "size": 6091278
+    },
+    {
+      "path": "out/dispatch/evidence/mix-take2/mix_vo.wav",
+      "class": "scratch",
+      "sha256": "1f90e67911d764ca8bba08601f99714da736c507949bc4261a0f0d194d446220",
       "size": 6091244
     },
     {
@@ -522,6 +606,12 @@
       "class": "scratch",
       "sha256": "edab57b72adf737c6f881969aee36a3648128381e968a0a6217d41f6c31d92bc",
       "size": 21986
+    },
+    {
+      "path": "out/dispatch/finish-current-plan.json",
+      "class": "scratch",
+      "sha256": "674a05efc64bf28be2993c5653f8a6f451cb695f9c2f2e394aa2d72f38ef3776",
+      "size": 749
     },
     {
       "path": "out/dispatch/image-tool-delivery/07bb0c649308e74a1cdb5246c9a58fc453d51cc178726acb0427412baa48d5ae.json",
@@ -1432,19 +1522,19 @@
     {
       "path": "out/dispatch/mix.json",
       "class": "scratch",
-      "sha256": "542cfffa93eb56b23ba3b95fecdb3662fb3bfefa75b82d5405404a020d1f4db1",
-      "size": 6056
+      "sha256": "42ab403c20d113b75253f89bb3a0f4eeb414b2a0875a7aacc9e4fe883284ef84",
+      "size": 6012
     },
     {
       "path": "out/dispatch/mix.wav",
       "class": "scratch",
-      "sha256": "cab6dde20b136e5158f5b966b4b672250614eb996d71ca9dae9fc27f4ee3c819",
+      "sha256": "ec6c1e7dd086e07e889afac83995534ac03cad27af0fe3e26b830bfd51065e59",
       "size": 6091278
     },
     {
       "path": "out/dispatch/mix_vo.wav",
       "class": "scratch",
-      "sha256": "1f90e67911d764ca8bba08601f99714da736c507949bc4261a0f0d194d446220",
+      "sha256": "c6fc9a8d2467bb5759bd0461e276b8141707716cf34c1505b05552a1038e24e4",
       "size": 6091244
     },
     {
@@ -3178,8 +3268,8 @@
     {
       "path": "out/dispatch/repair-plan.json",
       "class": "scratch",
-      "sha256": "6bed107f3550ecd34b19c640d868bc388ccc1eb4626a7de68d7f2ad1f4f89c43",
-      "size": 1594
+      "sha256": "409145686c427e51dfb26d270ecbcc44ce03e5cdc0a531f80ef3bdf6df62fd73",
+      "size": 1520
     },
     {
       "path": "out/dispatch/research.json",
@@ -3344,6 +3434,18 @@
       "size": 5430
     },
     {
+      "path": "out/dispatch/takes3/take1.wav",
+      "class": "scratch",
+      "sha256": "a4e5ac14ffc3db1aec0aeca838ae80b4a60e43fcfd2f9f43db93482ae43772d1",
+      "size": 5187884
+    },
+    {
+      "path": "out/dispatch/takes3/takes.json",
+      "class": "scratch",
+      "sha256": "8d0872b8bb04b85b9236093d251951e984fd731ab39dceb3034ffe7bb12b626f",
+      "size": 1016
+    },
+    {
       "path": "out/dispatch/validation.json",
       "class": "scratch",
       "sha256": "42575a33e129aa525decc32893bea6d15a7d2eab2e7ca508ca256ec918910336",
@@ -3447,8 +3549,8 @@
     }
   ],
   "regenerable": {
-    "files": 109,
-    "bytes": 1236040
+    "files": 110,
+    "bytes": 1236834
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }

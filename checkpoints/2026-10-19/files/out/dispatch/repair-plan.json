@@ -1,20 +1,19 @@
 {
   "repair_scope": "narration-performance",
-  "mechanism_id": "as-articulation-after-breath",
+  "mechanism_id": "longer-final-clause-breath",
   "failure_family": "human-performance",
   "director_identity": "claude-sonnet-5-5 director, this session",
-  "root_cause": "After the added breath the narrator slurred \"as\" before \"currently under development\", and the pinned recognizer heard \"is\", so the exact lexical comparison refuses the take.",
-  "repair": "Direct a fully voiced, clearly articulated \"as\" at the start of the final phrase, keeping the breath before it and the same words.",
-  "mechanism_change": "The direction now names the articulation of the first word after the breath, where the earlier direction named only the breath.",
-  "expected_visible_result": "The recognizer hears the same words as the locked script and the captions follow.",
-  "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/alignment-numeral-failure/take2/alignment-failure.txt",
-  "failure_evidence_sha256": "e1ea624524640179c7d2ebe25a7240590b38f4bd57076c04db925bfb0eccd018",
+  "root_cause": "The breath before the final phrase measured 0.20 s, below the 0.24 s minimum silence the measured clause contract needs at a declared boundary.",
+  "repair": "Direct a slightly longer, clearly audible breath of about a third of a second before \"as currently under development\", with the same words and articulation.",
+  "mechanism_change": "The direction now sets the length of the breath before the final phrase, where the earlier direction named only that a breath occurs.",
+  "expected_visible_result": "The measured silence at that clause boundary reaches the minimum and the same captions follow.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/alignment-numeral-failure/take3/alignment-failure.txt",
+  "failure_evidence_sha256": "7a523ffe4323bf3aafa4fd2c724a0e4d8ccbcafb7db0c23ff912e94a695bc26e",
   "changed_inputs": [
     {
       "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/vo_direction.json",
-      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/alignment-numeral-failure/take2/vo_direction.pause.json",
-      "before_sha256": "bc9ebdda75d88d5dca3c65e2486cf5607d726d4816b2a5f88558009c10543e95",
-      "after_sha256": "8dfbc6fdf98fbbd842fabe15424afe6e6eb3ea17ee9a704c7f222208bfdf8abb"
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/alignment-numeral-failure/take3/vo_direction.as-articulation.json",
+      "before_sha256": "8dfbc6fdf98fbbd842fabe15424afe6e6eb3ea17ee9a704c7f222208bfdf8abb"
     }
   ],
   "resources": {
