@@ -104,6 +104,55 @@ def canonical(text: str) -> list[str]:
     return parts
 
 
+def spoken_integer_forms(text: str) -> list[list[str]]:
+    """Exact spoken readings of one recognized whole number of 100 or more.
+
+    Whisper writes the spoken words "thirty eight hundred" as the single token 3,800. The
+    lexical comparison otherwise refuses it, because the script spells the same value as
+    words. Each form is the canonical word parts of one natural reading of exactly that value.
+    The caller accepts a form only when the locked script's next words are those exact parts,
+    so a different value, a dropped word or an extra word still fails reconciliation.
+    """
+    from vo_soundcheck import _UNITS, _TENS
+    token = text.strip().strip(".,")
+    if not re.fullmatch(r"\d{1,3}(?:,\d{3})+|\d{3,6}", token):
+        return []
+    value = int(token.replace(",", ""))
+    if not 100 <= value <= 999999:
+        return []
+    names = {v: k for k, v in _UNITS.items() if v > 0}
+    names.update({v: k for k, v in _TENS.items()})
+
+    def below_hundred(n: int) -> str:
+        if n in names:
+            return names[n]
+        return names[n // 10 * 10] + " " + names[n % 10]
+
+    def below_thousand(n: int) -> str:
+        words = []
+        if n >= 100:
+            words.append(names[n // 100] + " hundred")
+            n %= 100
+        if n:
+            words.append(below_hundred(n))
+        return " ".join(words)
+
+    spoken = []
+    thousands, rest = divmod(value, 1000)
+    if thousands:
+        spoken.append(below_thousand(thousands) + " thousand" + (" " + below_thousand(rest) if rest else ""))
+    else:
+        spoken.append(below_thousand(rest))
+    if 1100 <= value <= 9900 and value % 100 == 0:
+        spoken.append(below_hundred(value // 100) + " hundred")
+    forms = []
+    for words in spoken:
+        parts = canonical(words)
+        if parts not in forms:
+            forms.append(parts)
+    return forms
+
+
 def acoustic_words(raw: dict) -> list[dict]:
     """Read DTW attention positions, NOT the CLI's proportional word offsets.
 
@@ -270,6 +319,14 @@ def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
                     heard_counts[part] = heard_counts.get(part, 0) + 1
                 index += 2
                 continue
+        spoken = next((form for form in spoken_integer_forms(w.get("text", ""))
+                       if [p for p, _ in expected[len(actual):len(actual) + len(form)]] == form), None)
+        if spoken:
+            for part in spoken:
+                heard_counts[part] = heard_counts.get(part, 0) + 1
+            actual.extend((part, float(w["center"])) for part in spoken)
+            index += 1
+            continue
         for part in canonical(w["text"]):
             heard_counts[part] = heard_counts.get(part, 0) + 1
             replacement = [part]
@@ -1058,6 +1115,37 @@ def self_test() -> int:
         except ValueError:
             refused = True
         ok("percentage spelling still refuses " + wrong, refused)
+    spoken_runs = [(.2, 4.)]
+    sentence = "that could affect nearly thirty eight hundred cars".split()
+
+    def heard_with(number: str, words: list[str] | None = None) -> list[dict]:
+        heard = [w for w in (words or sentence[:4])] + [number] + ["cars"]
+        return [{"text": w, "center": .3 + i * .3} for i, w in enumerate(heard)]
+
+    for number in ("3,800", "3800"):
+        ok("a recognized whole number reconciles with the same value spoken as hundreds " + number,
+           acoustic_groups(sentence, spoken_runs, heard_with(number), [])[0] == [sentence])
+    ok("a recognized whole number reconciles with the same value spoken as thousands",
+       acoustic_groups("nearly three thousand eight hundred cars".split(), spoken_runs,
+                       heard_with("3,800", ["nearly"]), [])[0] == [
+                           "nearly three thousand eight hundred cars".split()])
+    for wrong in ("3,700", "3,080", "38,000", "380", "3,801"):
+        try:
+            acoustic_groups(sentence, spoken_runs, heard_with(wrong), [])
+            refused = False
+        except ValueError:
+            refused = True
+        ok("a different whole number still refuses " + wrong, refused)
+    for dropped in ("thirty eight cars", "eight hundred cars"):
+        try:
+            acoustic_groups(("that could affect nearly " + dropped).split(), spoken_runs,
+                            heard_with("3,800"), [])
+            refused = False
+        except ValueError:
+            refused = True
+        ok("the same number against a script that drops a word still refuses " + dropped, refused)
+    ok("a whole number below one hundred has no spoken integer form",
+       spoken_integer_forms("38") == [] and spoken_integer_forms("3.800") == [])
     ok("a wrong decimal place cannot normalize away",
        canonical("ninety eight point eight two") != canonical("98.28"))
     ok("a wrong date does not normalize away", canonical("ninth") != canonical("19th"))
