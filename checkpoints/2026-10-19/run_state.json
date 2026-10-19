@@ -90,6 +90,26 @@
       "resources": {
         "audiovisual_reviews": 1
       }
+    },
+    {
+      "after_attempt": null,
+      "after_probe": null,
+      "at": "2026-10-19T12:18:34.271484Z",
+      "generation_protocol": "bounded-json-generation-v2",
+      "kind": "provider_availability_probe",
+      "model": "gemini-3.8-flash",
+      "request_id": "24d5bc0c-780f-4386-896a-7e4f50a1cc2d",
+      "reservation": {
+        "at": "2026-10-19T12:18:30.088737Z",
+        "kind": "reserved",
+        "note": "unscored provider generation availability",
+        "preflight_identity": null,
+        "resources": {
+          "audiovisual_reviews": 1
+        }
+      },
+      "reservation_event_index": 5,
+      "started_at": "2026-10-19T12:18:34.271076Z"
     }
   ],
   "limits": {
@@ -113,7 +133,7 @@
   "phase": "research",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "4d9b09245bb3dcb82ebc10af7ed805bd7c5a8e6b651fb7c6890341f6c5e727bd",
+    "original_private_state_sha256": "f5d8516ded0f07f8470a5a8a15610a8ef8957cc0f70db8d52d2d317f970b19c6",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -141,7 +161,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-19T12:18:30.088765Z",
+  "updated_at": "2026-10-19T12:18:34.271512Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
