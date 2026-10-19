@@ -108,6 +108,7 @@ tail within the held-frame policy; music continues through it.
 
 ```sh
 python scripts/registry_check.py
+python scripts/daily_production.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --structure-only
 python scripts/storyboard_check.py --board out/dispatch/storyboard.json
 python scripts/watchability_check.py --board out/dispatch/storyboard.json
 python scripts/documentary_check.py --board out/dispatch/storyboard.json
