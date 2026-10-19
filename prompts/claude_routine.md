@@ -62,6 +62,18 @@ installation. Preserve the denied command evidence and use a fresh supported rou
 after the environment setup is corrected. Setup success does not prove a loaded hook; retain
 the actual harmless probe denial before production capture.
 
+Cloud environment provisioning is cached. Editing GitHub main does not rerun its setup script.
+The October 19 setup revision installs `claude_session_start.py` as a primary-workspace
+SessionStart hook before launch. Each actual startup or resume refreshes only the clean owned
+tools checkout from the existing origin main and records `.claude/dispatch-session-start.json`.
+Read that receipt and compare its current source bindings before production. The capture and
+checkpoint codec guards remain unchanged. A stale cache is an internal startup defect, never a
+reason to stop for owner permission. Repair the versioned setup, save its exact current text in
+the existing Texas environment to rebuild the cached setup, and use a fresh supported launch.
+Do not edit permissions, disable the codec check or register a hook inside an active host.
+The environment setup and SessionStart lifecycle are documented at
+https://code.claude.com/docs/en/cloud-environments#environment-caching .
+
 In a fresh Linux cloud checkout run the idempotent setup, then re-enter the wrapper so its
 external cache is active. The first command installs only absent or changed pinned tools;
 the second actually proves voice/alignment and render access before reservations:
@@ -174,11 +186,17 @@ proof remain under `cinema/` and are retained. Earlier editions keep their origi
 After `finish --result shipped` and the metadata archive, save once more so the checkpoint reads finished.
 
 Immediately after selecting or restoring the production ledger, arm its preinstalled completion
-guard through the current checkout. Resolve the actual primary workspace parent, then run:
+guard through the current checkout. Resolve the actual registered primary workspace, then run:
 
 ```sh
-bash scripts/run_with_env.sh python scripts/routine_continuation.py --workspace <shared-parent> --arm out/dispatch/run_state.json
+bash scripts/run_with_env.sh python scripts/routine_continuation.py --workspace <registered-primary-workspace> --arm out/dispatch/run_state.json
 ```
+
+For cloud production the helper verifies the installed Stop registration and settings, resolves
+an ancestor primary workspace when given a nested edition parent, and prints the exact watched
+marker. A nested checkout parent is not automatically the hook's workspace. Verify that printed
+marker matches the installed registration. Missing or changed registration refuses arming rather
+than reporting success in an unwatched folder.
 
 Repeat this after a later restoration too. If the earlier armed path no longer exists, the
 helper can retarget the same edition only after verifying the immutable checkpoint ledger,
@@ -195,7 +213,7 @@ the actual task tools, repair internal failures
 through the versioned routes, and continue until accepted shipment, the matching public archive
 on fetched origin/main, and the final shipped checkpoint exist. Do not re-register hooks in a
 running host. A supported fresh environment can prove the actual event with
-`routine_continuation.py --workspace <shared-parent> --probe` before any production is armed;
+`routine_continuation.py --workspace <registered-primary-workspace> --probe` before any production is armed;
 that one-shot nonproduction probe creates no ledger and cannot replace an armed production run.
 
 At wake also record `python scripts/claude_contract_check.py --effective out/dispatch/effective-effort.json`.

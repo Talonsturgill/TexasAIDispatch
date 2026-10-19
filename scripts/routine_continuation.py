@@ -7,6 +7,8 @@ Official protocol: https://code.claude.com/docs/en/hooks#stop-decision-control
 import argparse
 import json
 import re
+import shlex
+import os
 import subprocess
 import sys
 import time
@@ -31,6 +33,33 @@ def location(workspace, value):
     if not path.is_relative_to(Path(workspace).resolve()):
         raise ValueError('the production path is outside this workspace')
     return path
+
+
+def registered_workspace(workspace, state_path=None):
+    """Use the primary workspace actually watched by the prelaunch Stop hook."""
+    requested = Path(workspace).resolve()
+    if state_path is not None:
+        location(requested, state_path)
+    for candidate in (requested, *requested.parents):
+        record = candidate / '.claude/dispatch-capture-registration.json'
+        if not record.is_file():
+            continue
+        saved = read(record)
+        registration = saved.get('stop_registration')
+        settings = read(candidate / '.claude/settings.json')
+        if (saved.get('schema') != 'dispatch_capture_hook_registration/1'
+                or not registration or registration not in settings.get('hooks', {}).get('Stop', [])):
+            raise ValueError('the recorded primary Stop hook is not installed')
+        hooks = registration.get('hooks', [])
+        tokens = shlex.split(hooks[0].get('command', '')) if len(hooks) == 1 else []
+        if (len(tokens) != 5 or tokens[0] != 'python3'
+                or Path(tokens[1]).name != 'routine_continuation.py'
+                or tokens[2:] != ['--workspace', str(candidate), '--hook']):
+            raise ValueError('the primary Stop hook workspace cannot be verified')
+        return candidate
+    if os.environ.get('CLAUDE_CODE_REMOTE') == 'true':
+        raise ValueError('no installed primary Stop hook was found; do not arm an unwatched folder')
+    return requested
 
 
 def restored_rebind(workspace, previous, state_path, state):
@@ -62,7 +91,7 @@ def restored_rebind(workspace, previous, state_path, state):
 
 
 def arm(workspace, state_path):
-    workspace = Path(workspace).resolve()
+    workspace = registered_workspace(workspace, state_path)
     state_path = location(workspace, state_path)
     state = read(state_path)
     if (state.get('mode') != 'production' or state.get('terminal_state') is not None
@@ -184,8 +213,11 @@ def main():
     args = parser.parse_args()
     if args.arm:
         arm(args.workspace, args.arm)
-        print('Production continuation armed for the selected retained ledger; no capacity or permissions changed.')
+        watched = registered_workspace(args.workspace, args.arm)
+        print('Production continuation armed at ' + str(watched / MARKER) +
+              ' for the selected retained ledger; no capacity or permissions changed.')
     elif args.probe:
+        args.workspace = registered_workspace(args.workspace)
         if (args.workspace / MARKER).exists():
             raise ValueError('a probe cannot replace an armed production continuation')
         target = location(args.workspace, args.workspace / PROBE)

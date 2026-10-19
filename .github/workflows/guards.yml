@@ -80,6 +80,7 @@ jobs:
           python3 scripts/authored_story_art_test.py
           python3 scripts/cloud_bootstrap_test.py
           python3 scripts/prelaunch_checkout_test.py
+          python3 scripts/claude_session_start_test.py
           python3 scripts/claude_environment_context_test.py
           python3 scripts/claude_environment_context.py --workspace "$RUNNER_TEMP" --settings "$RUNNER_TEMP/dispatch-user-settings.json"
           python3 scripts/bootstrap_claude_hooks_test.py
