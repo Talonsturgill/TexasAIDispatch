@@ -1266,7 +1266,9 @@
         "map-plan",
         "record-wall",
         "record-close",
-        "record-desk"
+        "record-desk",
+        "count-grid",
+        "stamp-detail"
       ],
       "subject": "A white driverless car at a San Antonio airport pickup curb, a limited area drawn on a street map, an unoccupied car on a flooded creek crossing, a second unoccupied car stopped in floodwater with amber hazard lamps, a federal recall record card beside a grid of car icons, a car that slows and rolls into standing water on a higher speed lane beside the recall sentence, the remedy row stamped under development, a row of cars taking an interim update under an April 20th page and a weather limits tag, and the open airport curb beside the record card",
       "note": "Fresh authored Claude-lane episode for 2026-10-19 (Waymo San Antonio opening of October 14th, 2026 and NHTSA recall 26E026). Hero RobotaxiHero and support SanAntonioSupport are original React and SVG groups shared by both treatments. A follows the car at ground level, B reads the same events from above and from inside the cab. Disclosed illustration, no brand marks, no real vehicle, road, rider, airport, creek, record page or app screen.",
@@ -1285,10 +1287,12 @@
           "subject_ids": [
             "s1-car",
             "s1-curb",
-            "s1-phone"
+            "s1-phone",
+            "s1-wheel"
           ],
           "action_ids": [
-            "car-arrives-at-curb"
+            "car-arrives-at-curb",
+            "wheel-turns-itself"
           ]
         },
         "phone-hail": {
@@ -1573,7 +1577,72 @@
             "interim-weather-limits"
           ]
         }
-      }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+          "export": "RobotaxiHero",
+          "views": [
+            "curb-wide",
+            "cab-wheel",
+            "phone-hail",
+            "curb-plan",
+            "creek-wide",
+            "car-swept",
+            "creek-plan",
+            "street-flood",
+            "hazard-close",
+            "wheel-water",
+            "street-plan",
+            "lane-wide",
+            "wheels-water",
+            "lane-plan",
+            "calendar-fleet",
+            "limits-tag",
+            "fleet-plan",
+            "curb-return",
+            "record-slide",
+            "curb-record-split",
+            "record-wall"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+          "export": "SanAntonioSupport",
+          "views": [
+            "calendar-fleet",
+            "car-swept",
+            "count-grid",
+            "creek-plan",
+            "creek-wide",
+            "curb-plan",
+            "curb-record-split",
+            "curb-return",
+            "curb-wide",
+            "fleet-plan",
+            "hazard-close",
+            "lane-plan",
+            "lane-wide",
+            "limits-detail",
+            "limits-tag",
+            "map-plan",
+            "map-table",
+            "map-zone",
+            "phone-hail",
+            "record-close",
+            "record-desk",
+            "record-slide",
+            "record-wall",
+            "stamp-detail",
+            "street-flood",
+            "street-plan",
+            "wheel-water",
+            "wheels-water"
+          ]
+        }
+      ]
     }
   }
 }
