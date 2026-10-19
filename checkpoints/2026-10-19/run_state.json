@@ -234,6 +234,16 @@
       "resources": {
         "validator_agents": 1
       }
+    },
+    {
+      "at": "2026-10-19T13:14:55.670344Z",
+      "attempted": {
+        "validator_agents": 1
+      },
+      "errors": [
+        "validator_agents exceeds the nonrenewable run envelope"
+      ],
+      "kind": "resource_envelope_refused"
     }
   ],
   "limits": {
@@ -257,7 +267,7 @@
   "phase": "research",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "e65174b73bfb62317b1555227abdf157c8fb3c5f89e159fce6759db409d7d26b",
+    "original_private_state_sha256": "273b6292939f6bd6122b3d89b4fcd8d4eec54fb4ece31990f256a65d0be1578a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -285,7 +295,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-19T13:12:38.215988Z",
+  "updated_at": "2026-10-19T13:14:55.670365Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
