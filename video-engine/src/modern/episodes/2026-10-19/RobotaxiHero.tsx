@@ -107,6 +107,11 @@ const Side: React.FC<SideProps> = ({wheel = 0, brake = 0, hazard = 0, wetTo = 0,
  const amber = mixHex(CAR_PAINT.amberOff, CAR_PAINT.amber, hazard);
  const red = mixHex(CAR_PAINT.brakeOff, CAR_PAINT.brake, brake);
  const glassOpacity = lerp(.9, .55, clamp(cabin));
+ // From cabin .75 up the glass turns SEE-THROUGH: daylight from the far-side windows fills the cabin
+ // and the empty seats stand dark against it, two low headrests on posts with clear glass above them
+ // and no head anywhere. Lower values keep the dark tinted glass the curb shots were drawn with.
+ const see = clamp((cabin - .75) / .25);
+ const cabinLight = mixHex('#2B333C', '#B7C4CE', see), seatInk = mixHex('#5D636A', '#3A4048', see);
  const mudEdge = wetTo > 0 ? Array.from({length: 23}, (_, i) => {
   const x = -264 + i * 24;
   return `${i ? 'L' : 'M'}${x} ${(-wetTo + 3.2 * Math.sin(x * .071 + seed) + 1.6 * Math.sin(x * .19 + seed * 2)).toFixed(1)}`;
@@ -176,15 +181,18 @@ const Side: React.FC<SideProps> = ({wheel = 0, brake = 0, hazard = 0, wetTo = 0,
     <rect x={56} y={-126} width={30} height={5} rx={2.5} fill="#CBD2D8" stroke="#8E979F" strokeWidth={.8}/>
     <rect x={-104} y={-128} width={30} height={5} rx={2.5} fill="#CBD2D8" stroke="#8E979F" strokeWidth={.8}/>
     {/* glass cabin: the interior first, empty, then the glass over it */}
-    <path d={GLASS} fill="#2B333C"/>
+    <path d={GLASS} fill={cabinLight}/>
     <g data-part="empty-cabin" opacity={.55 + .45 * clamp(cabin)}>
-     <path d="M-2 -142L2 -166C6 -172 34 -172 38 -166L40 -142Z" fill="#5D636A"/>
-     <rect x={8} y={-190} width={24} height={24} rx={9} fill="#727880"/>
-     <path d="M-132 -144L-130 -162C-128 -168 -100 -168 -96 -162L-94 -144Z" fill="#5D636A"/>
-     <rect x={-124} y={-184} width={22} height={22} rx={8} fill="#6E747B"/>
+     {see > 0 && <path d="M-226 -150L126 -140L126 -139L-226 -148Z" fill="#6E7A84" opacity={.5 * see}/>}
+     <path d="M-2 -142L2 -166C6 -172 34 -172 38 -166L40 -142Z" fill={seatInk}/>
+     {see > 0 && <path d="M14 -166V-176M28 -166V-176" stroke={seatInk} strokeWidth={2.4}/>}
+     <rect x={8} y={-190 + 8 * see} width={24} height={24 - 10 * see} rx={9 - 3 * see} fill={see > 0 ? seatInk : '#727880'}/>
+     <path d="M-132 -144L-130 -162C-128 -168 -100 -168 -96 -162L-94 -144Z" fill={seatInk}/>
+     {see > 0 && <path d="M-120 -162V-172M-106 -162V-172" stroke={seatInk} strokeWidth={2.4}/>}
+     <rect x={-124} y={-184 + 8 * see} width={22} height={22 - 10 * see} rx={8 - 3 * see} fill={see > 0 ? seatInk : '#6E747B'}/>
      <ellipse cx={92} cy={-154} rx={5} ry={19} transform="rotate(-24 92 -154)" fill="none" stroke="#14181C" strokeWidth={4}/>
     </g>
-    <path d={GLASS} fill={`url(#${id}glass)`} opacity={glassOpacity}/>
+    <path d={GLASS} fill={`url(#${id}glass)`} opacity={glassOpacity * (1 - .55 * see)}/>
     <path d="M60 -186L20 -146L34 -146L72 -184Z" fill="#FFFFFF" opacity={.16}/>
     <path d="M-32 -141L-30 -198L-48 -198L-50 -142Z" fill={CAR_PAINT.trim}/>
     <path d="M-168 -146L-160 -193L-172 -192L-180 -147Z" fill={CAR_PAINT.trim}/>
@@ -379,7 +387,9 @@ const Cab: React.FC<CabProps> = ({steer, outside, route = 0}) => {
    <path d={`M${wx - R + 10} ${wy + 6}L${wx - 34} ${wy + 10}M${wx + R - 10} ${wy + 6}L${wx + 34} ${wy + 10}M${wx} ${wy + 34}L${wx} ${wy + R - 12}`} stroke="#1B1E22" strokeWidth={26} strokeLinecap="round"/>
    <ellipse cx={wx} cy={wy + 8} rx={48} ry={40} fill="#22262A" stroke="#2F343A" strokeWidth={3}/>
    <ellipse cx={wx} cy={wy + 6} rx={16} ry={11} fill="#2F343A"/>
-   <rect x={wx - 6} y={wy - R - 14} width={12} height={22} rx={3} fill="#5A6068"/>
+   {/* a pale leather top-centre band and a lit grip arc on the rim: the turn reads as a moving mark */}
+   <path d={`M${wx - 16} ${wy - R - 12}h32v26h-32Z`} fill="#D8C79E" stroke="#8E7E58" strokeWidth={2}/>
+   <path d={`M${wx + R * .26} ${wy - R * .97}A${R} ${R} 0 0 1 ${wx + R * .86} ${wy - R * .5}`} stroke="#8A919A" strokeWidth={9} fill="none" strokeLinecap="round"/>
   </g>
   {/* the two front seats, both empty: a headrest and a seat back with nobody in front of them */}
   <path d="M-20 1380C200 1350 880 1350 1100 1380L1100 1960L-20 1960Z" fill="#26292E"/>

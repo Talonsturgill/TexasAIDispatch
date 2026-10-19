@@ -90,33 +90,100 @@ export const Rain: React.FC<{t: number; w?: number; h?: number; amount?: number;
 };
 
 // ---------------------------------------------------------------- water --------------------------------
-/** Brown floodwater in elevation: a lit far edge, a muddy body, ripple streaks moving with the flow
- * (toward the viewer when `toward`, sideways otherwise), foam flecks, and an optional reflection. */
-export const Water: React.FC<{x0: number; x1: number; y: number; depth: number; t: number; flow?: number; toward?: boolean;
- reflect?: React.ReactNode; seed?: number; calm?: number; opacity?: number}> =
- ({x0, x1, y, depth, t, flow = 1, toward = false, reflect, seed = 7, calm = 0, opacity = 1}) => {
- const id = useUid('saw'), r = rng(seed), amp = 1 - .85 * clamp(calm);
- const edge = Array.from({length: 25}, (_, i) => {const x = lerp(x0, x1, i / 24); return `${i ? 'L' : 'M'}${x.toFixed(1)} ${(y + 2.5 * amp * Math.sin(x * .03 + t * 3 * flow + seed)).toFixed(1)}`;}).join('');
- return <g data-part="floodwater" opacity={opacity}>
+/** A smooth closed (or open) curve through points, Catmull-Rom as cubic Beziers. Water edges are drawn
+ * with it so no sheet of water ever has a straight side or a square corner. */
+export function smoothPath(pts: P[], closed = true): string {
+ const n = pts.length, at = (i: number) => pts[closed ? (i + n) % n : Math.max(0, Math.min(n - 1, i))];
+ let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+ for (let i = 0; i < (closed ? n : n - 1); i++) {
+  const p0 = at(i - 1), p1 = at(i), p2 = at(i + 1), p3 = at(i + 2);
+  d += `C${(p1[0] + (p2[0] - p0[0]) / 6).toFixed(1)} ${(p1[1] + (p2[1] - p0[1]) / 6).toFixed(1)} ${(p2[0] - (p3[0] - p1[0]) / 6).toFixed(1)} ${(p2[1] - (p3[1] - p1[1]) / 6).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+ }
+ return d + (closed ? 'Z' : '');
+}
+/** The footprint of floodwater spreading along a street from the left, in elevation: its far side lies
+ * along the far gutter (y0), its near side along the near gutter (y1), and its leading edge at about
+ * `front` is a lobed tongue that runs ahead along both gutters and lags over the crown of the road.
+ * The lobes breathe slowly on the film clock. Never a vertical edge. */
+export function floodFoot(front: number, y0: number, y1: number, t: number, left = -160): string {
+ const edge: P[] = Array.from({length: 9}, (_, i) => {
+  const v = i / 8, y = lerp(y0, y1, v), gutter = 110 * Math.pow(Math.abs(2 * v - 1), 3);
+  return [front + gutter - 40 + 26 * Math.sin(v * 9.1 + 1.3 + .9 * t) + 14 * Math.sin(v * 23 + 2 * t), y];
+ });
+ // the near side laps against the foot of the near curb: a slow uneven line, never ruled
+ const near: P[] = Array.from({length: 10}, (_, i) => {const x = lerp(edge[8][0] - 40, left, i / 9);
+  return [x, y1 - 3 - 4 * Math.sin(x * .021 + .7 * t) - 2.5 * Math.sin(x * .07 + 1.1)];});
+ return `M${left} ${y0 - 2}L${edge[0][0].toFixed(1)} ${edge[0][1].toFixed(1)}` + smoothPath([...edge, ...near], false).replace(/^M[^C]*/, '') + 'Z';
+}
+/** A sheet of standing water lying across a lane, x0 to x1 and y0 (far) to y1 (near), with rounded,
+ * irregular ends and edges: the shape a puddle actually takes. `grow` inflates it for its wet halo. */
+export function puddleFoot(x0: number, x1: number, y0: number, y1: number, seed = 5, grow = 0): string {
+ const r = rng(seed), cy = (y0 + y1) / 2, ry = (y1 - y0) / 2 + grow, end = Math.min(150, (x1 - x0) / 4), n = Math.max(5, Math.round((x1 - x0) / 150));
+ const top: P[] = Array.from({length: n + 1}, (_, i) => [lerp(x0 + end * .7, x1 - end * .7, i / n), cy - ry + (r() - .5) * 12]);
+ const bot: P[] = Array.from({length: n + 1}, (_, i) => [lerp(x1 - end * .7, x0 + end * .7, i / n), cy + ry + (r() - .5) * 9]);
+ const right: P[] = [[x1 - end * .2 + grow, cy - ry * .45], [x1 + grow + (r() - .5) * 16, cy + 4], [x1 - end * .3 + grow, cy + ry * .55]];
+ const left: P[] = [[x0 + end * .35 - grow, cy + ry * .5], [x0 - grow + (r() - .5) * 16, cy - 2], [x0 + end * .15 - grow, cy - ry * .5]];
+ return smoothPath([...top, ...right, ...bot, ...left], true);
+}
+export type SheetTone = 'mud' | 'sky';
+const SHEET: Record<SheetTone, {top: string; mid: string; midAt: number; deep: string; streak: string; fleck: string; edge: string}> = {
+ mud: {top: SA.waterLit, mid: SA.water, midAt: .08, deep: SA.waterDeep, streak: '#A88E68', fleck: SA.foam, edge: '#D9CCB2'},
+ sky: {top: '#B9C3C8', mid: '#8E989E', midAt: .5, deep: '#6F6A5E', streak: '#E4E9EC', fleck: '#F1F4F5', edge: '#DDE3E6'},
+};
+/** ONE continuous sheet of water with a subject standing in it. The footprint `foot` is filled by one
+ * gradient keyed to fixed rows (y0 far to y1 near), so the sheet has no seams or panels. Drawn in two
+ * layers around the subject: `back` lies behind it, `front` is the same sheet, the same gradient and the
+ * same ripples, clipped to the rows nearer than the subject's waterline `line.y`, so the water closes
+ * over the wheels and lower body instead of stopping at them. The front layer carries the subject's
+ * reflection and, across the subject's span, the foam line where water meets it. Ripples drift at
+ * `drift` units a second (negative runs left) on the film clock and fade as the water calms. */
+export const FloodSheet: React.FC<{foot: string; x0: number; x1: number; y0: number; y1: number; t: number; layer: 'back' | 'front';
+ drift?: number; tone?: SheetTone; calm?: number; seed?: number; opacity?: number; marks?: number; edge?: string;
+ reflect?: React.ReactNode; line?: {y: number; x0: number; x1: number}; press?: number}> =
+ ({foot, x0, x1, y0, y1, t, layer, drift = 0, tone = 'mud', calm = 0, seed = 7, opacity = 1, marks = 46, edge, reflect, line, press = 0}) => {
+ const id = useUid('saf'), c = SHEET[tone], amp = 1 - .85 * clamp(calm), W = Math.max(1, x1 - x0), r = rng(seed);
+ const ripples = <g data-part="ripples">{Array.from({length: marks}, (_, i) => {
+  const u = r(), v = r(), len = lerp(40, 130, r()), sp = lerp(.7, 1.3, r()), near = Math.pow(v, 1.2);
+  const xx = x0 + frac(u + t * drift * sp * (.55 + .9 * near) / W) * W, yy = lerp(y0 + 6, y1, near);
+  const fleck = i % 4 === 0;
+  return <path key={i} d={`M${xx.toFixed(1)} ${yy.toFixed(1)}c${(len * .3).toFixed(1)} ${(-2 - 3 * near).toFixed(1)} ${(len * .7).toFixed(1)} ${(2 + 2 * near).toFixed(1)} ${(len * (.5 + near)).toFixed(1)} 0`}
+   stroke={fleck ? c.fleck : c.streak} strokeWidth={1.4 + 2.6 * near} strokeOpacity={(fleck ? .38 : .44) * amp} strokeLinecap="round" fill="none"/>;
+ })}</g>;
+ const body = <rect x={x0 - 400} y={y0 - 400} width={W + 800} height={y1 - y0 + 800} fill={`url(#${id}g)`}/>;
+ const defs = <defs>
+  <linearGradient id={`${id}g`} x1="0" y1={y0} x2="0" y2={y1} gradientUnits="userSpaceOnUse">
+   <stop offset="0" stopColor={c.top}/><stop offset={c.midAt} stopColor={c.mid}/><stop offset="1" stopColor={c.deep}/>
+  </linearGradient>
+  <clipPath id={`${id}f`}><path d={foot}/></clipPath>
+ </defs>;
+ if (layer === 'back') return <g data-part="water-sheet" opacity={opacity}>{defs}
+  <g clipPath={`url(#${id}f)`}>{body}{ripples}</g>
+  {edge && <path d={edge} stroke={c.edge} strokeWidth={2.5} fill="none" opacity={.6 * amp + .15}/>}
+ </g>;
+ if (!line) return null;
+ // the waterline rows: a gentle swell across the whole sheet, so the front layer has no straight top
+ const wl = Array.from({length: 31}, (_, i) => {const x = lerp(x0 - 400, x1 + 400, i / 30); return `${i ? 'L' : 'M'}${x.toFixed(1)} ${(line.y + 1.8 * amp * Math.sin(x * .045 + t * 4.2 + seed)).toFixed(1)}`;}).join('');
+ const span = Math.max(1, line.x1 - line.x0);
+ const foam = Array.from({length: 17}, (_, i) => {const x = lerp(line.x0, line.x1, i / 16); return `${i ? 'L' : 'M'}${x.toFixed(1)} ${(line.y + 1.6 * Math.sin(x * .09 + t * 6 + seed)).toFixed(1)}`;}).join('');
+ return <g data-part="water-sheet-front" opacity={opacity}>{defs}
   <defs>
-   <linearGradient id={`${id}g`} x1="0" y1={y} x2="0" y2={y + depth} gradientUnits="userSpaceOnUse">
-    <stop offset="0" stopColor={SA.waterLit}/><stop offset=".08" stopColor={SA.water}/><stop offset="1" stopColor={SA.waterDeep}/>
+   <clipPath id={`${id}w`}><path d={`${wl}L${x1 + 400} ${y1 + 400}L${x0 - 400} ${y1 + 400}Z`}/></clipPath>
+   <linearGradient id={`${id}l`} x1={line.x0} y1="0" x2={line.x1} y2="0" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stopColor={c.fleck} stopOpacity={0}/><stop offset=".1" stopColor={c.fleck} stopOpacity={.85}/>
+    <stop offset=".9" stopColor={c.fleck} stopOpacity={.85}/><stop offset="1" stopColor={c.fleck} stopOpacity={0}/>
    </linearGradient>
-   <clipPath id={`${id}c`}><path d={`${edge}L${x1} ${y + depth}L${x0} ${y + depth}Z`}/></clipPath>
   </defs>
-  <path d={`${edge}L${x1} ${y + depth}L${x0} ${y + depth}Z`} fill={`url(#${id}g)`}/>
-  <g clipPath={`url(#${id}c)`}>
-   {reflect && <g opacity={.28}>{reflect}</g>}
-   {Array.from({length: 40}, (_, i) => {
-    const u = r(), v = r(), len = lerp(40, 140, r()), sp = lerp(.25, .6, r());
-    const yy = toward ? y + frac(v + t * sp * flow * .35) * depth : y + v * depth;
-    const xx = toward ? lerp(x0, x1, u) : x0 + frac(u + t * sp * flow * .12) * (x1 - x0);
-    const near = clamp((yy - y) / Math.max(1, depth));
-    return <path key={i} d={`M${xx.toFixed(1)} ${yy.toFixed(1)}h${(len * (.5 + near)).toFixed(1)}`} stroke={i % 4 ? '#A88E68' : SA.foam}
-     strokeWidth={1.5 + 2.5 * near} strokeOpacity={(i % 4 ? .45 : .35) * amp} strokeLinecap="round"/>;
-   })}
+  <g clipPath={`url(#${id}f)`}><g clipPath={`url(#${id}w)`} data-part="water-over-subject">
+   {body}
+   {reflect && <g opacity={.3}>{reflect}</g>}
+   {ripples}
+   <path d={foam} transform="translate(0 5)" stroke={c.deep} strokeWidth={6} strokeOpacity={.35} fill="none"/>
+  </g></g>
+  <g data-part="waterline-contact">
+   <path d={foam} stroke={`url(#${id}l)`} strokeWidth={3.4 + 2 * clamp(press)} fill="none" strokeLinecap="round"/>
+   {[0, 1].map(k => {const ph = frac(t * .9 + k * .5), x = k ? line.x1 : line.x0, rr = lerp(span * .06, span * .2, ph);
+    return <ellipse key={k} cx={x} cy={line.y + 3} rx={rr} ry={rr * .12} fill="none" stroke={c.fleck} strokeWidth={2} opacity={.5 * (1 - ph) * amp}/>;})}
   </g>
-  <path d={edge} stroke="#D9CCB2" strokeWidth={2.5} fill="none" opacity={.7}/>
  </g>;
 };
 /** Spray and a V wake where a wheel meets standing water. Origin at the tyre's contact point. */
@@ -217,7 +284,10 @@ export const Curb: React.FC<{phone?: React.ReactNode}> = ({phone}) => {
   {/* curb face and road */}
   <path d={`M-80 ${curbY}H1160V${roadY}H-80Z`} fill={SA.concreteLit}/>
   <path d={`M-80 ${curbY}H1160`} stroke="#F2EDE3" strokeWidth={3}/>
-  <path d={`M-80 ${roadY}H1160V1940H-80Z`} fill={`url(#${id}r)`}/>
+  {/* the pickup lane runs on under the frame bottom, so a raised or closer camera never shows the plate
+   * below the curb (the deep asphalt colour pads past the gradient's last row) */}
+  <path d={`M-80 ${roadY}H1160V2900H-80Z`} fill={`url(#${id}r)`}/>
+  {Array.from({length: 5}, (_, i) => <path key={'p' + i} d={`M${60 + i * 230} ${1560 + (i % 2) * 90}c40 -6 90 4 130 -2`} stroke="#2E3135" strokeWidth={4} fill="none" opacity={.55}/>)}
   <path d={`M-80 ${roadY}H1160`} stroke="#2A2C30" strokeWidth={4} opacity={.5}/>
   {Array.from({length: 6}, (_, i) => <path key={i} d={`M${-40 + i * 210} 1396h120`} stroke={SA.paint} strokeWidth={9} opacity={.75}/>)}
   <path d={`M${bay[0]} ${roadY + 6}L${bay[1]} ${roadY + 6}L${bay[1] + 24} ${roadY + 66}L${bay[0] - 24} ${roadY + 66}Z`} fill="none" stroke={SA.paint} strokeWidth={6} opacity={.8}/>
@@ -392,10 +462,13 @@ export const Calendar: React.FC<{month: string; day?: string; flip?: number; w?:
 };
 
 // ---------------------------------------------------------------- creek -----------------------------
-export const CREEK = {bankY: 1092, carY: 1236, nearBank: {x1: 330, y0: 1150}};
-/** The far limestone bank of Salado Creek under live oaks, and the fast brown channel running toward
- * the viewer. No crossing, no gauge: nothing says how a car came to be in it. */
-export const CreekBack: React.FC<{t: number; flow: number; width?: [number, number]}> = ({t, flow, width = [-80, 1160]}) => {
+/** The creek in elevation. The channel runs across the frame and DOWNSTREAM IS LEFT: the brown sheet
+ * (the episode's FloodSheet) starts at the far bank's foot, `waterY` is its surface where the car sits,
+ * and the near bank stands in the right foreground, upstream. */
+export const CREEK = {bankY: 1092, carY: 1236, waterY: 1170, nearBank: {x1: 330, y0: 1150, mirror: 1190}};
+/** The far limestone bank of Salado Creek under live oaks. The water is the episode's continuous sheet.
+ * No crossing, no gauge: nothing says how a car came to be in it. */
+export const CreekBack: React.FC<{t: number; flow: number; width?: [number, number]}> = ({width = [-80, 1160]}) => {
  const {bankY} = CREEK, [x0, x1] = width, r = rng(12);
  const ledges = [0, 1, 2, 3].map(k => bankY - 24 - k * 22);
  return <g data-part="creek-back">
@@ -408,15 +481,13 @@ export const CreekBack: React.FC<{t: number; flow: number; width?: [number, numb
    <g transform={`translate(420 ${bankY - 100})`}><Oak h={250} seed={22} flip/></g>
    <g transform={`translate(930 ${bankY - 108})`}><Oak h={330} seed={23}/></g>
   </g>
-  <Water x0={x0} x1={x1} y={bankY - 6} depth={1940 - bankY + 6} t={t} flow={flow} toward/>
-  {Array.from({length: 18}, (_, i) => {const ph = frac(i * .37 + t * .9 * flow), x = lerp(x0, x1, (i * .61) % 1), y = bankY + 10 + ph * 700;
-   return <path key={i} d={`M${x.toFixed(1)} ${y.toFixed(1)}q30 -8 60 0`} stroke={SA.foam} strokeWidth={3 + 3 * ph} fill="none" opacity={.5 * (1 - ph)}/>;})}
  </g>;
 };
-/** The near creek bank edge in the left foreground: stacked limestone ledges, brush and a live oak. */
+/** The near creek bank edge in the right foreground, upstream of the car: stacked limestone ledges, brush
+ * and a live oak, drawn as the left-hand bank mirrored about `mirror` so the open water lies downstream. */
 export const CreekBank: React.FC<{t: number}> = ({t}) => {
- const {x1, y0} = CREEK.nearBank, r = rng(19);
- return <g data-part="near-bank-edge">
+ const {x1, y0, mirror} = CREEK.nearBank, r = rng(19);
+ return <g data-part="near-bank-edge" transform={`translate(${mirror} 0) scale(-1 1)`}>
   {[0, 1, 2, 3, 4].map(k => {const y = y0 + k * 60, w = x1 - k * 34 + (k % 2) * 20;
    return <path key={k} d={`M-90 ${y}L${w} ${y + 8}C${w + 24} ${y + 20} ${w + 18} ${y + 52} ${w - 8} ${y + 62}L-90 ${y + 62}Z`} fill={k % 2 ? SA.limestone : '#CEC4AE'} stroke={SA.limestoneShade} strokeWidth={2.5}/>;})}
   {Array.from({length: 14}, () => [lerp(-60, x1 - 40, r()), lerp(y0 + 10, y0 + 290, r())]).map(([x, y], i) =>
@@ -427,16 +498,19 @@ export const CreekBank: React.FC<{t: number}> = ({t}) => {
    {[0, 1, 2, 3, 4].map(j => <ellipse key={j} cx={(j - 2) * 14 + (i % 2) * 6} cy={-14 - (j % 3) * 10} rx={20} ry={13} fill={j % 2 ? '#6F7F55' : '#5E6E46'}/>)}</g>)}
  </g>;
 };
-/** Water piling against a car's upstream side: plumes at both ends and spray over the roof. Origin at
- * the car's base centre in car units, `len` its half length, `p` how hard the current presses. */
-export const Pile: React.FC<{p: number; t: number; len: number; h: number}> = ({p, t, len, h}) => {
+/** Water piling against a car's upstream end. Origin at the waterline point where the current meets
+ * the body (car units, up is negative y); `dir` points upstream (+1 right). A bow of brown water climbs
+ * the body and folds back over itself, spray lifts from it, and a lighter eddy trails the far end at
+ * `len` downstream. `p` is how hard the current presses. */
+export const Pile: React.FC<{p: number; t: number; len: number; h: number; dir?: 1 | -1}> = ({p, t, len, h, dir = 1}) => {
  if (p <= 0) return null;
- const r = rng(91);
- return <g data-part="current-pressing" opacity={clamp(p * 1.5)}>
-  {[-1, 1].map(sd => <path key={sd} d={`M${sd * (len - 10)} ${-h * .35}c${sd * 40} ${-30 * p} ${sd * 90} ${-24 * p} ${sd * 130} ${8}`} stroke={SA.foam} strokeWidth={10} fill="none" strokeLinecap="round" opacity={.8}/>)}
-  {Array.from({length: 22}, (_, i) => {const ph = frac(r() + t * lerp(1.1, 1.9, r())), x = lerp(-len * .8, len * .8, r());
-   return <circle key={i} cx={x.toFixed(1)} cy={(-h * .5 - 70 * p * Math.sin(Math.PI * ph)).toFixed(1)} r={3 + 3 * r()} fill={SA.foam} opacity={.8 * (1 - ph) * p}/>;})}
-  <path d={`M${-len} ${-h * .42}Q0 ${-h * .42 - 26 * p} ${len} ${-h * .42}`} stroke="#D7CBB4" strokeWidth={6} fill="none" opacity={.6}/>
+ const r = rng(91), a = clamp(p);
+ return <g data-part="current-pressing" transform={`scale(${dir} 1)`} opacity={clamp(p * 1.6)}>
+  <path d={`M-30 4C-12 ${-h * .3 * a} 16 ${-h * .42 * a} 46 ${-h * .3 * a}C70 ${-h * .2 * a} 92 -6 128 6Z`} fill={SA.water} opacity={.95}/>
+  <path d={`M-30 4C-12 ${-h * .3 * a} 16 ${-h * .42 * a} 46 ${-h * .3 * a}C70 ${-h * .2 * a} 92 -6 128 6`} stroke={SA.foam} strokeWidth={7} fill="none" strokeLinecap="round" opacity={.85}/>
+  {Array.from({length: 18}, (_, i) => {const ph = frac(r() + t * lerp(1.2, 2.1, r())), x = lerp(-10, 70, r());
+   return <circle key={i} cx={(x + 50 * ph).toFixed(1)} cy={(-h * .4 * a - 60 * a * Math.sin(Math.PI * ph)).toFixed(1)} r={3 + 3 * r()} fill={SA.foam} opacity={.8 * (1 - ph) * a}/>;})}
+  <path d={`M${-2 * len + 20} 2c-30 -10 -60 -8 -90 4`} stroke={SA.foam} strokeWidth={4} fill="none" strokeLinecap="round" opacity={.55 * a}/>
  </g>;
 };
 
@@ -475,6 +549,15 @@ export const StreetBack: React.FC<{soft?: number}> = ({soft = 0}) => {
   <rect x={-80} y={farCurb} width={1240} height={14} fill={SA.concreteLit}/>
   <path d={`M-80 ${farCurb + 14}H1160V${nearCurb}H-80Z`} fill={SA.asphalt}/>
   <rect x={-80} y={nearCurb} width={1240} height={18} fill={SA.concreteLit}/>
+  <g data-part="near-sidewalk">
+   <defs><linearGradient id={`${id}w`} x1="0" y1={nearCurb + 18} x2="0" y2={nearCurb + 700} gradientUnits="userSpaceOnUse">
+    <stop offset="0" stopColor="#B7AE9D"/><stop offset=".25" stopColor={SA.concrete}/><stop offset="1" stopColor="#A89F8E"/></linearGradient></defs>
+   <path d={`M-80 ${nearCurb + 18}H1160V2600H-80Z`} fill={`url(#${id}w)`}/>
+   <path d={`M-80 ${nearCurb + 18}H1160V${nearCurb + 34}H-80Z`} fill="#6E6656" opacity={.28}/>
+   {Array.from({length: 9}, (_, i) => {const x = -40 + i * 150; return <path key={i} d={`M${x} ${nearCurb + 18}L${x + (x - 540) * .9} 2600`} stroke="#8F8676" strokeWidth={2}/>;})}
+   <path d={`M-80 ${nearCurb + 190}C300 ${nearCurb + 186} 700 ${nearCurb + 194} 1160 ${nearCurb + 188}`} stroke="#8F8676" strokeWidth={2} fill="none"/>
+   <path d="M180 1452c40 -4 90 6 140 0M720 1500c30 4 70 -2 110 3" stroke="#7F7666" strokeWidth={2} fill="none" opacity={.6}/>
+  </g>
   <g transform={`rotate(-4 ${sign[0]} ${sign[1]})`} data-part="street-sign">
    <rect x={sign[0] - 5} y={sign[1] - 300} width={10} height={300} fill="#6D7479"/>
    <rect x={sign[0] - 70} y={sign[1] - 300} width={140} height={28} rx={4} fill="#2F6B45"/>
@@ -492,6 +575,7 @@ export const LaneBack: React.FC<{xa: number; xb: number}> = ({xa, xb}) => {
  const {barrierY, farLane, dashY, shoulderY, dash} = LANE, k0 = Math.floor(xa / dash) - 1, k1 = Math.ceil(xb / dash) + 1;
  const ks = Array.from({length: k1 - k0 + 1}, (_, i) => k0 + i);
  return <g data-part="higher-speed-road">
+  {ks.filter(k => k % 4 === 1).map(k => <g key={'m' + k} transform={`translate(${k * dash + 330} ${barrierY - 30})`}><Mesquite h={120} seed={k}/></g>)}
   <path d={`M${xa} ${barrierY + 8}H${xb}V${farLane}H${xa}Z`} fill="#55585C"/>
   <path d={`M${xa} ${barrierY - 40}H${xb}V${barrierY}H${xa}Z`} fill="#C9C2B4"/>
   <path d={`M${xa} ${barrierY}H${xb}V${barrierY + 10}H${xa}Z`} fill="#A39B8C"/>
@@ -504,27 +588,12 @@ export const LaneBack: React.FC<{xa: number; xb: number}> = ({xa, xb}) => {
   <path d={`M${xa} ${shoulderY - 8}H${xb}`} stroke={SA.paint} strokeWidth={8}/>
   <path d={`M${xa} ${shoulderY}H${xb}V${shoulderY + 70}H${xa}Z`} fill="#6A6B62"/>
   <path d={`M${xa} ${shoulderY + 70}H${xb}V1940H${xa}Z`} fill={SA.grass}/>
-  {ks.filter(k => k % 4 === 1).map(k => <g key={'m' + k} transform={`translate(${k * dash + 150} ${shoulderY + 130})`}><Mesquite h={200} seed={k}/></g>)}
+  {/* low bunch grass on the verge, every blade below the shoulder, so nothing of the roadside ever rises
+   * in front of the car's wheels; the mesquites stand behind the median barrier instead */}
+  {ks.map(k => <g key={'g' + k} data-part="verge-grass">{[0, 1, 2, 3].map(j => {const x = k * dash + 40 + j * 150 + (j % 2) * 37, y = shoulderY + 96 + ((k + j) % 3) * 34;
+   return <path key={j} d={`M${x} ${y}l-10 -22M${x + 6} ${y}l2 -28M${x + 12} ${y}l12 -20M${x + 18} ${y}l-4 -16`} stroke={j % 2 ? '#6D7343' : '#7E8450'} strokeWidth={4} strokeLinecap="round"/>;})}</g>)}
  </g>;
 };
-/** A sheet of standing water lying across the lane, seen from the shoulder: a sky-lit surface with a
- * soft ragged edge and the mirror image of whatever stands over it. */
-export const StandingWater: React.FC<{x0: number; x1: number; y0: number; y1: number; t: number; reflect?: React.ReactNode}> = ({x0, x1, y0, y1, t, reflect}) => {
- const id = useUid('sas'), n = 18;
- const top = Array.from({length: n + 1}, (_, i) => {const x = lerp(x0, x1, i / n); return `${i ? 'L' : 'M'}${x.toFixed(1)} ${(y0 + 6 * Math.sin(i * 1.7) + 3 * Math.sin(i * 3.1)).toFixed(1)}`;}).join('');
- const bot = Array.from({length: n + 1}, (_, i) => {const x = lerp(x1, x0, i / n); return `L${x.toFixed(1)} ${(y1 + 5 * Math.sin(i * 2.3)).toFixed(1)}`;}).join('');
- const d = `${top}${bot}Z`;
- return <g data-part="standing-water">
-  <defs><linearGradient id={`${id}g`} x1="0" y1={y0} x2="0" y2={y1} gradientUnits="userSpaceOnUse">
-   <stop offset="0" stopColor="#B9C3C8"/><stop offset=".5" stopColor="#8E989E"/><stop offset="1" stopColor="#6F6A5E"/></linearGradient>
-   <clipPath id={`${id}c`}><path d={d}/></clipPath></defs>
-  <path d={d} fill={`url(#${id}g)`} opacity={.92}/>
-  <g clipPath={`url(#${id}c)`}>{reflect && <g opacity={.35}>{reflect}</g>}
-   {Array.from({length: 14}, (_, i) => <path key={i} d={`M${lerp(x0, x1, frac(i * .37 + t * .05))} ${lerp(y0 + 8, y1 - 6, (i * .53) % 1)}h${40 + (i % 5) * 18}`} stroke="#E4E9EC" strokeWidth={2} opacity={.5}/>)}</g>
-  <path d={top} stroke="#DDE3E6" strokeWidth={2.5} fill="none" opacity={.8}/>
- </g>;
-};
-
 // ---------------------------------------------------------------- lot --------------------------------
 export const LOT = {fenceY: 1086, carY: 1190, cordY: 520, poles: [60, 1020]};
 /** A fleet lot in elevation: chain link fence with a mesquite behind it, two poles with a cord
@@ -562,16 +631,21 @@ export function recordLayout(w = 760) {
  const rows = RECORD_ROWS.map(r => {const lines = wrap(r.value, size, vw, true); const h = Math.max(56, lines.length * lead + 26); const row = {...r, y, h, lines, vx}; y += h; return row;});
  return {w, h: y + 26, head, labelW, vx, vw, size, lead, rows};
 }
-export type Imprint = {text: string; p: number; x: number; y: number; rot: number; size?: number};
-const ImprintMark: React.FC<Imprint & {id: string}> = ({text, p, x, y, rot, size = 34, id}) => {
+/** A stamp mark in card units. `solid` stamps carry an inked plate tone inside the border, so the mark
+ * reads as one block over the printed row rather than as a second line of type tangled in it. */
+export type Imprint = {text: string; p: number; x: number; y: number; rot: number; size?: number; solid?: boolean};
+/** An imprint's width and height in card units, shared with the stamp that makes it. */
+export const imprintSize = (text: string, size = 34) => ({w: widthOf(text, size, true) + size * 1.2, h: size * 1.9});
+const ImprintMark: React.FC<Imprint & {id: string}> = ({text, p, x, y, rot, size = 34, id, solid}) => {
  if (p <= 0) return null;
- const w = widthOf(text, size, true) + size * 1.2, h = size * 1.9, r = rng(text.length * 13);
+ const {w, h} = imprintSize(text, size), r = rng(text.length * 13);
  return <g transform={`translate(${x} ${y}) rotate(${rot})`} opacity={clamp(p)} data-part="stamp-imprint">
   <defs><mask id={`${id}m`} maskUnits="userSpaceOnUse" x={-w} y={-h} width={2 * w} height={2 * h}>
    <rect x={-w} y={-h} width={2 * w} height={2 * h} fill="#FFFFFF"/>
    {Array.from({length: 46}, (_, i) => <circle key={i} cx={(r() - .5) * w} cy={(r() - .5) * h} r={1 + r() * 3} fill="#000000"/>)}
   </mask></defs>
   <g mask={`url(#${id}m)`}>
+   {solid && <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={8} fill="#F7E2B8" opacity={.9}/>}
    <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={8} fill="none" stroke={SA.amberInk} strokeWidth={5}/>
    <rect x={-w / 2 + 8} y={-h / 2 + 8} width={w - 16} height={h - 16} rx={4} fill="none" stroke={SA.amberInk} strokeWidth={2}/>
    <text x={0} y={size * .36} textAnchor="middle" fontFamily={FONT.body} fontWeight={800} fontSize={size} fill={SA.amberInk} letterSpacing={1}>{text}</text>
@@ -607,17 +681,21 @@ export const RecordCard: React.FC<{w?: number; rows: number; remedyLit?: number;
   {imprints.map((im, i) => <ImprintMark key={i} {...im} id={`${id}i${i}`}/>)}
  </g>;
 };
-/** A wooden rubber stamp; the base's centre is at (0,0). */
-export const Stamp: React.FC = () => <g data-part="rubber-stamp">
- <rect x={-92} y={-18} width={184} height={18} rx={4} fill="#3B2F26"/>
- <rect x={-86} y={-60} width={172} height={44} rx={8} fill={SA.wood} stroke={SA.woodDark} strokeWidth={2}/>
- <path d="M-80 -54h150" stroke="#C49B70" strokeWidth={4} opacity={.7}/>
+/** A wooden office rubber stamp, its rubber `w` long so it is as long as the mark it makes; the base's
+ * centre is at (0,0). The rubber carries a line of amber ink. */
+export const Stamp: React.FC<{w?: number}> = ({w = 184}) => <g data-part="rubber-stamp">
+ <rect x={-w / 2} y={-18} width={w} height={18} rx={4} fill="#3B2F26"/>
+ <rect x={-w / 2 + 3} y={-5} width={w - 6} height={5} rx={2} fill={SA.amberInk} opacity={.9}/>
+ <rect x={-w / 2 + 6} y={-60} width={w - 12} height={44} rx={8} fill={SA.wood} stroke={SA.woodDark} strokeWidth={2}/>
+ <path d={`M${-w / 2 + 12} -54h${w * .8}`} stroke="#C49B70" strokeWidth={4} opacity={.7}/>
+ <path d={`M${-w / 2 + 6} -22h${w - 12}`} stroke={SA.woodDark} strokeWidth={2} opacity={.6}/>
  <path d="M-26 -60C-30 -100 -40 -120 -36 -140C-30 -170 30 -170 36 -140C40 -120 30 -100 26 -60Z" fill="#7E5B3C" stroke={SA.woodDark} strokeWidth={2}/>
  <ellipse cx={0} cy={-150} rx={42} ry={28} fill="#8E6845" stroke={SA.woodDark} strokeWidth={2}/>
  <ellipse cx={-12} cy={-160} rx={16} ry={8} fill="#B38962" opacity={.8}/>
 </g>;
-/** A ballpoint pen with its tip at (0,0), lying up and to the right. */
-export const Pen: React.FC = () => <g data-part="pen" transform="rotate(-38)">
+/** A ballpoint pen with its tip at (0,0), its body running along angle `rot` (degrees; -38 lies up and
+ * to the right). */
+export const Pen: React.FC<{rot?: number}> = ({rot = -38}) => <g data-part="pen" transform={`rotate(${rot})`}>
  <path d="M0 0L18 -6L18 6Z" fill="#B9BEC2"/><path d="M0 0L6 -2L6 2Z" fill="#2B2F33"/>
  <rect x={18} y={-9} width={60} height={18} rx={3} fill="#C9CED2"/>
  <rect x={76} y={-12} width={300} height={24} rx={10} fill="#2C3E57"/>
@@ -719,46 +797,98 @@ export const RemedyCard: React.FC<{w?: number; lit?: number; underline?: number;
   <ImprintMark text="Under development" p={imprint} x={w - 230} y={R.h - 38} rot={-6} size={30} id={`${id}i`}/>
  </g>;
 };
-/** A plain working hand and sleeve holding a stamp knob or a pen at (0,0); the arm runs off toward
- * `dir` (a unit direction). Skin is a fill value; the line work is the same for any hand. */
-export const Hand: React.FC<{dir: P; grip: 'knob' | 'pen'; skin?: string; scale?: number}> = ({dir, grip, skin = '#A8744F', scale = 1}) => {
- const a = Math.atan2(dir[1], dir[0]) * 180 / Math.PI, k = scale;
- return <g data-part="hand" transform={`rotate(${a.toFixed(2)}) scale(${k})`}>
-  <path d="M60 -30L1100 -44L1100 44L60 30Z" fill="#3B4A5C"/>
-  <path d="M60 -30L1100 -44" stroke="#5A6A7E" strokeWidth={4}/>
-  <rect x={48} y={-34} width={26} height={68} rx={8} fill="#2E3A48"/>
-  {grip === 'knob' ? <g>
-   <path d="M50 -30C20 -44 -18 -40 -34 -20C-44 -6 -44 10 -34 22C-18 40 22 44 50 30Z" fill={skin} stroke="#6A4630" strokeWidth={2.5}/>
-   {[-22, -8, 6, 20].map(y => <path key={y} d={`M-30 ${y}C-40 ${y + 2} -42 ${y + 8} -34 ${y + 10}`} stroke="#6A4630" strokeWidth={2.5} fill="none"/>)}
-  </g> : <g>
-   <path d="M50 -24C24 -34 0 -28 -12 -14L-20 2C-16 12 -4 16 8 12C24 26 44 24 50 20Z" fill={skin} stroke="#6A4630" strokeWidth={2.5}/>
-   <path d="M-12 -14C-24 -10 -30 -2 -24 6" stroke="#6A4630" strokeWidth={2.5} fill="none"/>
+/** A working hand and forearm holding a stamp knob or a pen at (0,0), the arm running off toward `dir`
+ * (a unit direction) to a shoulder outside the frame. A real arm: the fist closes round the knob with
+ * its knuckles and thumb, the wrist is the narrowest part, the forearm swells toward a rolled shirt cuff
+ * and the sleeve carries folds. Shaded as a cylinder lit from the upper left whatever way it points.
+ * Skin is a fill value; the line work is the same for any hand. */
+export const Arm: React.FC<{dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?: string; scale?: number}> =
+ ({dir, grip, skin = '#A8744F', shirt = '#5B6E80', scale = 1}) => {
+ const id = useUid('sarm'), ang = Math.atan2(dir[1], dir[0]);
+ // the local +y side faces the upper-left key when it points up-left in the frame
+ const plusLit = -Math.sin(ang) * -.7 + Math.cos(ang) * -.7 > 0;
+ const shade = (light: string, dark: string, key: string) => <linearGradient id={`${id}${key}`} x1="0" y1={plusLit ? 70 : -70} x2="0" y2={plusLit ? -70 : 70} gradientUnits="userSpaceOnUse">
+  <stop offset="0" stopColor={light}/><stop offset=".45" stopColor={light}/><stop offset="1" stopColor={dark}/></linearGradient>;
+ const skinDark = '#6A4630';
+ return <g data-part="arm" transform={`rotate(${(ang * 180 / Math.PI).toFixed(2)}) scale(${scale})`}>
+  <defs>{shade('#C38E66', '#7C5134', 's')}{shade('#7A8DA0', '#3C4B5B', 'c')}</defs>
+  {/* sleeve to the shoulder, with folds */}
+  <path d="M318 -56C520 -60 900 -66 1500 -70L1500 70C900 66 520 60 318 56Z" fill={`url(#${id}c)`}/>
+  {[430, 560, 760].map((x, k) => <path key={x} d={`M${x} ${-52 - k * 2}c18 26 14 70 -6 ${104 + k * 4}`} stroke="#33414F" strokeWidth={3} fill="none" opacity={.55}/>)}
+  {/* the rolled cuff */}
+  <path d="M286 -50C300 -54 326 -56 340 -54L344 54C326 56 300 54 286 50Z" fill={shirt} stroke="#33414F" strokeWidth={2.5}/>
+  <path d="M300 -52L302 52" stroke="#8A9CAE" strokeWidth={3} opacity={.7}/>
+  {/* forearm, wrist to cuff, and the heel of the hand */}
+  <path d="M40 -24C110 -27 200 -38 292 -44L292 44C200 38 110 27 40 24Z" fill={`url(#${id}s)`} stroke={skinDark} strokeWidth={2}/>
+  <path d="M120 -18C170 -22 220 -26 270 -30" stroke={skinDark} strokeWidth={1.5} opacity={.35} fill="none"/>
+  {grip === 'knob' ? <g data-part="hand-on-knob">
+   {/* a fist round the knob seen from the side: back of the hand, four curled fingers, the thumb */}
+   <path d="M48 -30C24 -42 -14 -42 -34 -26C-46 -14 -48 8 -38 22C-20 42 20 44 50 30Z" fill={`url(#${id}s)`} stroke={skinDark} strokeWidth={2.5}/>
+   {[-24, -10, 4, 18].map(y => <path key={y} d={`M-30 ${y}C-42 ${y + 3} -42 ${y + 10} -32 ${y + 12}`} stroke={skinDark} strokeWidth={2.5} fill="none"/>)}
+   <path d="M-18 -30C-8 -40 14 -40 24 -32" stroke={skinDark} strokeWidth={2} fill="none" opacity={.7}/>
+   <path d="M30 24C14 34 -6 36 -16 30" stroke={skinDark} strokeWidth={2.5} fill="none"/>
+  </g> : <g data-part="hand-on-pen">
+   {/* fingers pinching the barrel: thumb over, index along it, the rest curled under */}
+   <path d="M50 -24C26 -34 2 -30 -12 -16L-22 2C-18 14 -6 18 8 14C24 28 44 26 50 22Z" fill={`url(#${id}s)`} stroke={skinDark} strokeWidth={2.5}/>
+   <path d="M-12 -16C-26 -12 -32 -2 -26 8" stroke={skinDark} strokeWidth={2.5} fill="none"/>
+   <path d="M2 10C10 16 22 18 32 14" stroke={skinDark} strokeWidth={2} fill="none" opacity={.7}/>
   </g>}
  </g>;
 };
 
 // ---------------------------------------------------------------- plans from above ------------------
-/** Salado Creek straight down: the fast brown channel running down the frame between limestone
- * ledges, brush and oak crowns on both banks, rain rings on the water. No crossing. */
-export const CREEK_PLAN = {creek: [300, 820] as P, carY: 820};
-export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t, rain, flow}) => {
+/** Salado Creek straight down. The channel runs ACROSS the frame and its current runs LEFT, the same way
+ * as the elevation shots, so a cut between them keeps the flow. Meandering banks, ragged limestone
+ * shelves, mottled ground with oaks, rain rings on the water. No crossing. `creek` is the channel's mean
+ * far (top) and near (bottom) bank rows; the car sits at (carX, carY). */
+export const CREEK_PLAN = {creek: [620, 1140] as P, carX: 560, carY: 880};
+export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t, rain}) => {
  const id = useUid('scp'), {creek} = CREEK_PLAN, r = rng(15);
+ // each bank meanders on its own: two slow waves and a short one, so the channel narrows and widens
+ const bank = (y: number, ph: number, k: number): P[] => Array.from({length: 14}, (_, i) => {const x = -180 + i * 110;
+  return [x, y + 40 * Math.sin(x * .0052 + ph) + 16 * Math.sin(x * .016 + 2 * ph) + 6 * Math.sin(x * .047 + k)];});
+ const T = bank(creek[0], .4, 1), B = bank(creek[1], 1.7, 2);
+ const shelf = (b: P[], sgn: number, w: number): P[] => b.map(([x, y], i) => [x, y + sgn * (w + 24 * Math.sin(x * .019 + i))] as P);
+ const water = smoothPath([...T, ...B.slice().reverse()]);
+ const stone = smoothPath([...shelf(T, -1, 92), ...shelf(B, 1, 100).reverse()]);
+ const idxAt = (x: number) => Math.min(13, Math.max(0, Math.round((x + 180) / 110)));
  return <g data-part="creek-plan">
-  <defs><clipPath id={`${id}c`}><rect x={creek[0]} y={-40} width={creek[1] - creek[0]} height={2000}/></clipPath></defs>
-  <rect x={20} y={-40} width={1040} height={2000} fill={SA.grass} opacity={.9}/>
-  <rect x={creek[0] - 120} y={-40} width={creek[1] - creek[0] + 240} height={2000} fill={SA.limestone}/>
-  {Array.from({length: 40}, () => [lerp(creek[0] - 110, creek[1] + 110, r()), r() * 1900]).map(([x, y], i) => <path key={i} d={`M${x} ${y}h${30 + r() * 40}`} stroke={SA.limestoneShade} strokeWidth={3}/>)}
-  <path d={`M${creek[0]} -40V1960H${creek[1]}V-40Z`} fill={SA.water}/>
-  <g clipPath={`url(#${id}c)`}>{Array.from({length: 34}, (_, i) => {const x = lerp(creek[0], creek[1], (i * .37) % 1), y = frac(i * .29 + t * .25 * flow) * 2000 - 40;
-   return <path key={i} d={`M${x} ${y}v${40 + (i % 4) * 20}`} stroke={SA.foam} strokeWidth={3} opacity={.4}/>;})}</g>
-  {[[200, 420, 120], [880, 300, 150], [170, 1380, 140], [900, 1500, 120], [960, 760, 90], [150, 860, 110]].map(([x, y, rr], i) => <g key={i}>
+  <defs><clipPath id={`${id}c`}><path d={water}/></clipPath>
+   <linearGradient id={`${id}w`} x1="0" y1={creek[0] - 60} x2="0" y2={creek[1] + 60} gradientUnits="userSpaceOnUse">
+    <stop offset="0" stopColor={SA.waterDeep}/><stop offset=".22" stopColor={SA.water}/><stop offset=".55" stopColor="#866D4B"/>
+    <stop offset=".85" stopColor={SA.water}/><stop offset="1" stopColor={SA.waterDeep}/></linearGradient></defs>
+  {/* the ground either side: grass mottled with bare caliche, leaf litter and a worn path, not a flat field */}
+  <rect x={-40} y={-40} width={1160} height={2000} fill={SA.grass}/>
+  {Array.from({length: 26}, () => [r() * 1080, r() * 1920, lerp(50, 140, r()), r()]).map(([x, y, rr, k], i) =>
+   <ellipse key={'m' + i} cx={x} cy={y} rx={rr} ry={rr * lerp(.5, .9, k)} fill={k < .4 ? '#7D8049' : k < .75 ? '#A3A26B' : '#B9AE8E'} opacity={.55}/>)}
+  <path d="M-40 1420C160 1380 300 1330 380 1280M700 420C760 380 900 360 1120 372" stroke="#BBAF90" strokeWidth={26} fill="none" strokeLinecap="round" opacity={.7}/>
+  {/* ragged limestone shelves along both banks, cracked into ledges */}
+  <path d={stone} fill={SA.limestone} stroke={SA.limestoneShade} strokeWidth={3}/>
+  {Array.from({length: 46}, () => [r(), r() * 1080, r()]).map(([u, x, k], i) => {const b = k < .5 ? T : B, y = b[idxAt(x)][1] + (k < .5 ? -1 : 1) * lerp(14, 82, u);
+   return <path key={'l' + i} d={`M${x.toFixed(1)} ${y.toFixed(1)}l${(u - .5) * 10} ${(16 + 26 * u) * (k < .5 ? -1 : 1)}`} stroke={SA.limestoneDeep} strokeWidth={2.5} opacity={.6}/>;})}
+  {/* the brown channel, deeper at its banks; its current streaks run left and bend with the banks */}
+  <path d={water} fill={`url(#${id}w)`}/>
+  <g clipPath={`url(#${id}c)`}>{Array.from({length: 40}, (_, i) => {const u = (i * .37) % 1, x = frac(i * .29 - t * .2) * 1500 - 220;
+   const k = idxAt(x), y = lerp(T[k][1], B[k][1], u), lean = (B[Math.max(0, k - 1)][1] - B[k][1]) * .25, l = 40 + (i % 4) * 20;
+   return <path key={i} d={`M${x.toFixed(1)} ${y.toFixed(1)}q${(-l / 2).toFixed(1)} ${(lean / 2).toFixed(1)} ${(-l).toFixed(1)} ${lean.toFixed(1)}`} stroke={SA.foam} strokeWidth={3} fill="none" opacity={.38}/>;})}</g>
+  {[T, B].map((b, i) => <path key={'e' + i} d={smoothPath(b, false)} stroke={SA.foam} strokeWidth={5} fill="none" opacity={.55 + .15 * Math.sin(t * 5 + i)}/>)}
+  {[[180, 330, 120], [880, 260, 150], [520, 380, 90], [150, 1460, 140], [930, 1420, 120], [600, 1540, 100]].map(([x, y, rr], i) => <g key={i}>
    <ellipse cx={x + 22} cy={y + 18} rx={rr} ry={rr * .85} fill="#000000" opacity={.18}/>
    <ellipse cx={x} cy={y} rx={rr} ry={rr * .85} fill={SA.oakDark}/><ellipse cx={x - rr * .2} cy={y - rr * .18} rx={rr * .7} ry={rr * .55} fill={SA.oak}/>
    <ellipse cx={x - rr * .4} cy={y - rr * .35} rx={rr * .3} ry={rr * .2} fill={SA.oakLit}/></g>)}
-  {rain > 0 && Array.from({length: 24}, (_, i) => {const ph = frac(i * .61 + t * 1.3), x = lerp(creek[0], creek[1], (i * .43) % 1), y = (i * 173) % 1800 + 60;
-   return <circle key={i} cx={x} cy={y} r={6 + 26 * ph} fill="none" stroke="#E9E1CF" strokeWidth={2} opacity={rain * .6 * (1 - ph)}/>;})}
+  {rain > 0 && <g clipPath={`url(#${id}c)`}>{Array.from({length: 24}, (_, i) => {const ph = frac(i * .61 + t * 1.3), x = ((i * 173) % 1040) + 20, y = lerp(creek[0] + 40, creek[1] - 40, (i * .43) % 1);
+   return <circle key={i} cx={x} cy={y} r={6 + 26 * ph} fill="none" stroke="#E9E1CF" strokeWidth={2} opacity={rain * .6 * (1 - ph)}/>;})}</g>}
  </g>;
 };
+/** The plan's water front: water spreads from the left along the street, its leading edge a lobed
+ * tongue (ahead along both gutters) and its sides lapping a little onto the verges. */
+export function floodFootPlan(front: number, y0: number, y1: number, t: number): string {
+ const edge: P[] = Array.from({length: 9}, (_, i) => {const v = i / 8;
+  return [front - 30 + 90 * Math.pow(Math.abs(2 * v - 1), 3) + 22 * Math.sin(v * 8.3 + .8 * t) + 10 * Math.sin(v * 21 + 1.7 * t), lerp(y0, y1, v)];});
+ const side = (y: number, s: number) => Array.from({length: 7}, (_, i) => {const x = lerp(20, edge[s ? 8 : 0][0] - 40, i / 6);
+  return [x, y + (s ? 1 : -1) * (6 + 6 * Math.sin(x * .02 + s * 2))] as P;});
+ return smoothPath([...side(y0, 0), ...edge, ...side(y1, 1).reverse()], false).replace(/^M/, `M20 ${y1}L`) + 'Z';
+}
 /** A residential street straight down: roofs, yards, oaks, the street and water spreading along it. */
 export const STREET_PLAN = {y0: 800, y1: 1120};
 export const StreetPlan: React.FC<{t: number; front: number; calm?: number}> = ({t, front, calm = 0}) => {
@@ -773,7 +903,7 @@ export const StreetPlan: React.FC<{t: number; front: number; calm?: number}> = (
   <path d={`M20 ${y0 - 60}H1060`} stroke="#8E959A" strokeWidth={4} strokeDasharray="10 6"/>
   <rect x={20} y={y0 - 26} width={1040} height={26} fill={SA.concrete}/><rect x={20} y={y1} width={1040} height={26} fill={SA.concrete}/>
   <rect x={20} y={y0} width={1040} height={y1 - y0} fill={SA.asphalt}/>
-  <g data-part="water-plan"><rect x={20} y={y0 - 20 - 30 * calm} width={Math.max(0, front - 20)} height={y1 - y0 + 40 + 60 * calm} fill={SA.water} opacity={.88}/>
+  <g data-part="water-plan">{front > 20 && <path d={floodFootPlan(front, y0 - 20 - 30 * calm, y1 + 20 + 30 * calm, t)} fill={SA.water} opacity={.88}/>}
    {Array.from({length: 18}, (_, i) => {const x = 20 + frac(i * .37 + t * .04) * Math.max(0, front - 40), y = y0 + ((i * 61) % (y1 - y0));
     return <path key={i} d={`M${x} ${y}h${50 + (i % 3) * 20}`} stroke={SA.foam} strokeWidth={3} opacity={.4 * (1 - .7 * calm)}/>;})}</g>
   {[[540, 620, 150], [980, 1480, 120]].map(([x, y, rr], i) => <g key={i}><ellipse cx={x + 24} cy={y + 20} rx={rr} ry={rr * .8} fill="#000000" opacity={.2}/>
@@ -839,24 +969,23 @@ type SupportProps =
  | {part: 'calendar'; month: string; day?: string; flip?: number; w?: number}
  | {part: 'creekback'; t: number; flow: number}
  | {part: 'creekbank'; t: number}
- | {part: 'pile'; p: number; t: number; len: number; h: number}
+ | {part: 'pile'; p: number; t: number; len: number; h: number; dir?: 1 | -1}
  | {part: 'creekplan'; t: number; rain: number; flow: number}
  | {part: 'remedycard'; w?: number; lit?: number; underline?: number; imprint?: number}
- | {part: 'hand'; dir: P; grip: 'knob' | 'pen'; skin?: string; scale?: number}
- | {part: 'water'; x0: number; x1: number; y: number; depth: number; t: number; flow?: number; toward?: boolean; reflect?: React.ReactNode; seed?: number; calm?: number; opacity?: number}
+ | {part: 'arm'; dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?: string; scale?: number}
+ | ({part: 'flood'} & React.ComponentProps<typeof FloodSheet>)
  | {part: 'wake'; amount: number; t: number; scale?: number; dir?: 1 | -1}
  | {part: 'rain'; t: number; w?: number; h?: number; amount?: number; seed?: number}
  | {part: 'street'; soft?: number}
  | {part: 'streetplan'; t: number; front: number; calm?: number}
  | {part: 'lane'; xa: number; xb: number}
  | {part: 'laneplan'; ya: number; yb: number}
- | {part: 'standing'; x0: number; x1: number; y0: number; y1: number; t: number; reflect?: React.ReactNode}
  | {part: 'puddleplan'; x0: number; x1: number; y0: number; y1: number; t: number}
  | {part: 'lot'}
  | {part: 'lotplan'}
  | {part: 'record'; w?: number; rows: number; remedyLit?: number; underline?: number; imprints?: Imprint[]}
- | {part: 'stamp'}
- | {part: 'pen'}
+ | {part: 'stamp'; w?: number}
+ | {part: 'pen'; rot?: number}
  | {part: 'desk'; x0: number; x1: number; y0: number; h: number; top?: boolean}
  | {part: 'grid'; cols: number; rows: number; fill: number; dx?: number; dy?: number}
  | {part: 'caricon'; fill?: number}
@@ -879,21 +1008,20 @@ export const SanAntonioSupport: React.FC<SupportProps> = (props) => {
  case 'creekbank': return <CreekBank {...props}/>;
  case 'pile': return <Pile {...props}/>;
  case 'remedycard': return <RemedyCard {...props}/>;
- case 'hand': return <Hand {...props}/>;
- case 'water': return <Water {...props}/>;
+ case 'arm': return <Arm {...props}/>;
+ case 'flood': return <FloodSheet {...props}/>;
  case 'wake': return <Wake {...props}/>;
  case 'rain': return <Rain {...props}/>;
  case 'street': return <StreetBack {...props}/>;
  case 'streetplan': return <StreetPlan {...props}/>;
  case 'lane': return <LaneBack {...props}/>;
  case 'laneplan': return <LanePlan {...props}/>;
- case 'standing': return <StandingWater {...props}/>;
  case 'puddleplan': return <PuddlePlan {...props}/>;
  case 'lot': return <LotBack/>;
  case 'lotplan': return <LotPlan/>;
  case 'record': return <RecordCard {...props}/>;
- case 'stamp': return <Stamp/>;
- case 'pen': return <Pen/>;
+ case 'stamp': return <Stamp {...props}/>;
+ case 'pen': return <Pen {...props}/>;
  case 'desk': return <Desk {...props}/>;
  case 'grid': return <IconGrid {...props}/>;
  case 'caricon': return <CarIcon {...props}/>;
