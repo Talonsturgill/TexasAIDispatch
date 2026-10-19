@@ -515,6 +515,51 @@ class AvailabilityTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'evidence changed'):
             r.media_limit_packet(failure, self.root)
 
+    def test_october20_media_recovery_refuses_unknown_timing_and_parent_added_observations(self):
+        import claude_runtime
+        image = self.root/'sequence-000.png'; image.write_bytes(b'new single-read fixture')
+        index = self.root/'index.json'; index.write_text(json.dumps({'pages': [
+            {'file': image.name, 'sha256': r.digest(image)}]}))
+        data = claude_runtime.image_reading({'role': 'storyboard-critic', 'date': '2026-10-20',
+            'instructions': '', 'phone_mode': 'current', 'phone_options': [{
+                'film': {'sha256': 'film'}, 'motion_sequence': {
+                    'path': str(index), 'sha256': r.digest(index)}}]})
+        packet = self.root/'host-packet.json'; packet.write_text(json.dumps(data))
+        coverage = self.root/'coverage.json'; handback = self.root/'handback.json'
+        page = {'file': image.name, 'received': False, 'observed': r.MEDIA_LIMIT_ERROR}
+        value = {'schema': 'dispatch_claude_image_coverage/1', 'packet_sha256': r.digest(packet),
+                 'sequences': [{'index_sha256': r.digest(index), 'pages': [page]}]}
+        failure = {**self.failure, 'error': r.MEDIA_LIMIT_ERROR, 'raw_error': r.MEDIA_LIMIT_ERROR,
+                   'media_probe': {'single_image_read': True, 'media_received': False}}
+        def save(include_original=True):
+            coverage.write_text(json.dumps(value))
+            if include_original:
+                handback.write_text(json.dumps({'status': 'partial', 'error': r.MEDIA_LIMIT_ERROR,
+                                                'coverage': value}))
+            failure['media_probe'].update({key: {'path': str(path), 'sha256': r.digest(path)}
+                for key, path in (('image', image), ('packet', packet),
+                                  ('coverage', coverage), ('handback', handback))})
+        before = self.state.read_bytes()
+        for timing, channel in ((None, None), ('unknown', 'ordinary_assistant_text'),
+                                ('later_history_loss', 'ordinary_assistant_text'),
+                                ('immediate_after_read', 'receipt_only')):
+            page.update(observation_timing=timing, observation_channel=channel); save()
+            with self.subTest(timing=timing, channel=channel), self.assertRaisesRegex(ValueError, 'immediate public'):
+                r.media_limit_packet(failure, self.root)
+        page.update(observation_timing='unknown', observation_channel='ordinary_assistant_text')
+        other_page = {**page, 'observation_timing': 'immediate_after_read'}
+        value['sequences'].append({'index_sha256': 'another-treatment', 'pages': [other_page]}); save()
+        with self.assertRaisesRegex(ValueError, 'immediate public'):
+            r.media_limit_packet(failure, self.root)
+        value['sequences'].pop()
+        page.update(observation_timing='immediate_after_read', observation_channel='ordinary_assistant_text')
+        save(include_original=False)
+        with self.assertRaisesRegex(ValueError, 'original independent handback'):
+            r.media_limit_packet(failure, self.root)
+        save()
+        self.assertEqual(r.media_limit_packet(failure, self.root), data)
+        self.assertEqual(self.state.read_bytes(), before)
+
     def comparison_fixture(self):
         a, b = self.root/'a.mp4', self.root/'b.mp4'; a.write_bytes(b'film-a'); b.write_bytes(b'film-b')
         text = {'current': 'evidence', 'provider_packet_policy': {'deduplicate_exact_media': True},

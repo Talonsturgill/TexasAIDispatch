@@ -154,6 +154,7 @@ def image_read_policy(edition=None):
     if str(edition or '') >= '2026-10-20':
         policy['note_channel'] = 'ordinary_assistant_text'
         policy['note_scope'] = 'brief_public_image_description'
+        policy['unavailable_observation_timing'] = 'immediate_after_read'
     return policy
 
 
@@ -163,7 +164,13 @@ def image_reading(data, *, compact=False):
     if data['image_read_policy'].get('note_channel'):
         data['instructions'] += (' After each image Read, provide a brief public image description '
             'in ordinary assistant text with page identity, visibility and visible objects, actions '
-            'or text BEFORE another Read. Preserve those descriptions for the coverage report. ')
+            'or text BEFORE another Read. Preserve those descriptions for the coverage report. '
+            'For an actually unseen new Read, immediately state its literal error publicly and '
+            'return a partial JSON handback containing the exact coverage object. In that failed '
+            'page entry set observation_timing:immediate_after_read and '
+            'observation_channel:ordinary_assistant_text only if observed before another image Read. '
+            'If timing is unknown or the image disappeared later, retain that uncertainty; '
+            'it cannot establish a host outage. ')
     if 'access_probe' in data['image_read_policy']:
         probe = ('First test actual image access: Read first page before guides/source. If unseen, '
             'keep literal error and page identity, return partial/no verdict and stop. If seen, '

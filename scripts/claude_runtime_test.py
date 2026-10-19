@@ -186,12 +186,14 @@ class RuntimeTests(unittest.TestCase):
                 runtime.image_reading(data, compact=compact)
                 self.assertEqual('ordinary_assistant_text', data['image_read_policy']['note_channel'])
                 self.assertEqual('brief_public_image_description', data['image_read_policy']['note_scope'])
+                self.assertEqual('immediate_after_read', data['image_read_policy']['unavailable_observation_timing'])
                 self.assertIn('ordinary assistant text', data['instructions'])
                 self.assertIn('brief public image description', data['instructions'])
                 runtime.image_policy_inputs(data)
                 for mutate in (lambda p:p.pop('note_channel'),
                                lambda p:p.update(note_channel='receipt_only'),
-                               lambda p:p.update(note_scope='tool_delivery_receipt')):
+                               lambda p:p.update(note_scope='tool_delivery_receipt'),
+                               lambda p:p.pop('unavailable_observation_timing')):
                     changed = copy.deepcopy(data); mutate(changed['image_read_policy'])
                     with self.assertRaisesRegex(ValueError, 'sequential delivery'):
                         runtime.image_policy_inputs(changed)
