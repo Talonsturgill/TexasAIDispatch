@@ -72,3 +72,10 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 - Critic note D1: vo_direction.json overall still carries breath sentences; matters only for a fresh take (take 3 retained). Not edited because the authorized after_sha256 is bound.
 - Cached 16:14 provider phone pass (gemini, input 3bee797c) is bound to widened claims and pre-merge boards. Not rebound. No provider call since.
 - HELD by owner: all new paid image review until the artifact-channel source is verified. Next after that: opening comparison renewal, silent phone comparison, take 3 re-align, captions, retime, timed phone, hero, render, panel, delivery.
+
+## 2026-10-19 19:15 UTC handoff status (owner: fresh prepared session from this ledger)
+- PR 230 merged (75f5ea1e) and merged into the edition branch (33ecd8fa, pushed). Episode source committed (earlier commit) and pushed. No production bytes changed by the merge.
+- n9bc merge applied and authorized; round 6 code critic PASS both merged boards, reports installed, critic_gate passes (A concept 3517790f, B concept bbc2e82a).
+- Native headroom 19.981 GiB vs 20 required (short about 18 MiB). Sparse view of the primary was denied by the classifier (evidence/storage-recovery/auto-review-denials.txt); not applied, not retried.
+- Visual leaves not in this session's catalog (installed by SessionStart on a fresh launch). Opening comparison, silent phone, timed phone, hero, render, panel, delivery remain. No paid image worker started. Terminal state open.
+- Cached 16:14 provider approval is bound to widened claims and pre-merge boards; never rebound or reused.

@@ -1,0 +1,10 @@
+Actual auto-mode classifier denials, preserved unchanged. Neither operation was retried.
+
+1. Attempted: per-worktree sparse view of /home/user/TexasAIDispatch (extensions.worktreeConfig, core.sparseCheckout true, cone false, patterns /* and !/runs/, then git read-tree -mu HEAD).
+   Denied. Reason: [Modify Shared Resources]
+
+2. Attempted: read-only check of the primary's git config and runs/ listing after the first denial.
+   Denied. Reason: [Irreversible Local Destruction]
+
+3. Earlier: rm -rf video-engine/node_modules/.cache (a path inside the shared /opt/texas-dispatch-runtime node runtime through a symlink).
+   Denied by user.
