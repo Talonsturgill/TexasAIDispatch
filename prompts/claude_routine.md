@@ -137,6 +137,17 @@ cloud host. Inspect an occupied edition directory and resume its owner instead o
 duplicate. Keep the existing remote checkpoint concurrency checks before every charged dispatch;
 a stale writer must not buy another attempt or overwrite newer history.
 
+The startup source cache can omit historical MP4 working copies while retaining every Git blob
+and all archive metadata, images and ledgers. Before initializing a new isolated edition, run the current-main
+`scripts/source_view.py full --repo <new-dispatch-worktree>` through the environment wrapper.
+Checkpoint restore does this before overlaying retained production. New Git worktrees inherit
+sparse settings, so do not infer a full view from a successful worktree creation. The production
+view must include all historical records, renderer inputs and current evidence before paid work.
+Storage preparation runs only before the source clone has any linked worktree or run marker;
+it preserves every active, dirty, unmerged, foreign or unfinished checkout. Do not retry a denied
+shared-clone cleanup inside a live session. Preserve the failed action and use the prepared
+fresh-host restoration path with the same ledger, source, charges and failed evidence.
+
 Before authorizing capture in a restored or nested worktree, establish a real clean Docket
 checkout at `<dispatch-checkout-parent>/TexasAIDocket`, starting at current origin/main. An owned
 isolated clone or a suitable registered worktree satisfies this requirement.

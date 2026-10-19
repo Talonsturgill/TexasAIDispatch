@@ -436,6 +436,11 @@ def mechanical_admission(role, data, task):
 
 
 def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None):
+    if os.environ.get('CLAUDE_CODE_REMOTE') == 'true':
+        from source_view import git
+        if git(REPO, 'config', '--get', 'core.sparseCheckout', optional=True).lower() == 'true':
+            raise ValueError('restore the isolated production full view with source_view.py full --repo '
+                             + str(REPO) + ' before reserving any content worker; preserve the primary cache')
     from claude_contract_check import problems
     errors = problems()
     if errors:
