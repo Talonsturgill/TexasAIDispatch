@@ -111,3 +111,5 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-19T23:13:05Z PR 236 merged (1d4ce763): prelaunch setup now registers the visual leaf Write recorder at settings level. Unverified in a live host; needs environment setup rebuild and fresh launch, then rerun the round 10 phone review (observation directories retained, receipts absent). Edition stays active_repair.
 
 2026-10-19T23:30:43Z Provenance and accounting corrections appended per Codex: opening_compare stop was Codex Send now; recovery rendered a new batch (event 126); late reboard debit for the 21:13 builder resume (reboards 7/10); PR 236 merged before the do-not-merge request, PR 237 supersedes. r10 complete public handback retained in evidence/public-handbacks. No further review bought on this host. Remaining path funded (production-budget feasible).
+
+2026-10-19T23:41:05Z Notifications read: PR 236 was closed by Codex at 23:09:37Z, then merged by the director at 23:12:59Z (merge call succeeded on a closed PR); PR 237 merged on top at 23:28:58Z. Recorded in charge-audit.
