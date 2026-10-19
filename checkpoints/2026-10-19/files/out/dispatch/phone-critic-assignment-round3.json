@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "storyboard-critic",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "storyboard-critic",
+    "resource": "storyboard_critics",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/phone-critic-packet-round3.json",
+    "sha256": "b9716f1c06376f46af6d38feaccc071dc4098e3fc86909fdb390a930c5aa646b"
+  },
+  "brief": {
+    "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/.claude/agents/storyboard-critic.md",
+    "sha256": "e49d7a109824361ff6474da63de61296d98ed64b6882fe38ce560002069ef70c"
+  },
+  "agent_args": {
+    "subagent_type": "storyboard-critic",
+    "description": "phone_critic_3",
+    "prompt": "Work in /home/user/dispatch-editions/2026-10-19/TexasAIDispatch. Read the current compact packet /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/phone-critic-packet-round3.json (SHA256 b9716f1c06376f46af6d38feaccc071dc4098e3fc86909fdb390a930c5aa646b) and every bound current guide in full. Verify the inputs before use. Scope: Current exact-muted-phone review of both existing opening films with per-image public observations Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}

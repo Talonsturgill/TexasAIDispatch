@@ -4,11 +4,11 @@
   "story_sha256": "c440e9efaa2ea3ac74cd3d12cf407c772d7bfa4024cb13a6d1889b536c1c1142",
   "board": {
     "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
-    "sha256": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1"
+    "sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8"
   },
   "claims": {
     "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/claims.json",
-    "sha256": "2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584"
+    "sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab"
   },
   "story": {
     "reference": "board",
@@ -58,7 +58,7 @@
     },
     {
       "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/.claude/agents/storyboard-critic.md",
-      "sha256": "56403afd280ed90c9c4dd731d4ab4c7d9789931580c125d55f62078665b96f06"
+      "sha256": "e49d7a109824361ff6474da63de61296d98ed64b6882fe38ce560002069ef70c"
     }
   ],
   "treatments": [
@@ -184,24 +184,28 @@
     "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/comparison.json",
     "sha256": "781a6263593ca59efc80a2ccd7301d02ab1facd40878cb28179a7e6590b442bb"
   },
+  "opening_selection": {
+    "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/selection.json",
+    "sha256": "020c90675be68eb2738ffd7d601ced9ffc6cbbccda0d856a9acbdb1c182bfd23"
+  },
   "usage": {
-    "audiovisual_reviews": 1,
+    "audiovisual_reviews": 2,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 3,
+    "preflight_renders": 4,
     "reboards": 2,
-    "reported_tokens": 64,
+    "reported_tokens": 210570,
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 3,
-    "tts_calls": 0,
+    "storyboard_critics": 9,
+    "tts_calls": 6,
     "validator_agents": 4,
-    "voice_directors": 0
+    "voice_directors": 1
   },
-  "phase": "picture",
+  "phase": "active_repair",
   "narration_picture": {
     "reference": "board",
     "field": "narration_picture"
@@ -245,7 +249,7 @@
         "story_review": {
           "story_sha256": "c440e9efaa2ea3ac74cd3d12cf407c772d7bfa4024cb13a6d1889b536c1c1142",
           "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
-          "claims_sha256": "2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584"
+          "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab"
         }
       }
     },
@@ -284,7 +288,7 @@
         "story_review": {
           "story_sha256": "cc126b40b17d35d8c40bbc62d3e487d45b4fd2a7cdc04363e1e4ec5234aeb8f9",
           "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
-          "claims_sha256": "2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584"
+          "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab"
         }
       }
     }
