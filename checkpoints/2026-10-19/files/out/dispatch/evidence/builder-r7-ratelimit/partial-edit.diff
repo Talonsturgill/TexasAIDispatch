@@ -1,0 +1,126 @@
+diff --git a/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx b/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx
+index d9a4caa9..4840b0cf 100644
+--- a/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx
++++ b/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx
+@@ -90,33 +90,98 @@ export const Rain: React.FC<{t: number; w?: number; h?: number; amount?: number;
+ };
+ 
+ // ---------------------------------------------------------------- water --------------------------------
+-/** Brown floodwater in elevation: a lit far edge, a muddy body, ripple streaks moving with the flow
+- * (toward the viewer when `toward`, sideways otherwise), foam flecks, and an optional reflection. */
+-export const Water: React.FC<{x0: number; x1: number; y: number; depth: number; t: number; flow?: number; toward?: boolean;
+- reflect?: React.ReactNode; seed?: number; calm?: number; opacity?: number}> =
+- ({x0, x1, y, depth, t, flow = 1, toward = false, reflect, seed = 7, calm = 0, opacity = 1}) => {
+- const id = useUid('saw'), r = rng(seed), amp = 1 - .85 * clamp(calm);
+- const edge = Array.from({length: 25}, (_, i) => {const x = lerp(x0, x1, i / 24); return `${i ? 'L' : 'M'}${x.toFixed(1)} ${(y + 2.5 * amp * Math.sin(x * .03 + t * 3 * flow + seed)).toFixed(1)}`;}).join('');
+- return <g data-part="floodwater" opacity={opacity}>
++/** A smooth closed (or open) curve through points, Catmull-Rom as cubic Beziers. Water edges are drawn
++ * with it so no sheet of water ever has a straight side or a square corner. */
++export function smoothPath(pts: P[], closed = true): string {
++ const n = pts.length, at = (i: number) => pts[closed ? (i + n) % n : Math.max(0, Math.min(n - 1, i))];
++ let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
++ for (let i = 0; i < (closed ? n : n - 1); i++) {
++  const p0 = at(i - 1), p1 = at(i), p2 = at(i + 1), p3 = at(i + 2);
++  d += `C${(p1[0] + (p2[0] - p0[0]) / 6).toFixed(1)} ${(p1[1] + (p2[1] - p0[1]) / 6).toFixed(1)} ${(p2[0] - (p3[0] - p1[0]) / 6).toFixed(1)} ${(p2[1] - (p3[1] - p1[1]) / 6).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
++ }
++ return d + (closed ? 'Z' : '');
++}
++/** The footprint of floodwater spreading along a street from the left, in elevation: its far side lies
++ * along the far gutter (y0), its near side along the near gutter (y1), and its leading edge at about
++ * `front` is a lobed tongue that runs ahead along both gutters and lags over the crown of the road.
++ * The lobes breathe slowly on the film clock. Never a vertical edge. */
++export function floodFoot(front: number, y0: number, y1: number, t: number, left = -160): string {
++ const edge: P[] = Array.from({length: 9}, (_, i) => {
++  const v = i / 8, y = lerp(y0, y1, v), gutter = 110 * Math.pow(Math.abs(2 * v - 1), 3);
++  return [front + gutter - 40 + 26 * Math.sin(v * 9.1 + 1.3 + .9 * t) + 14 * Math.sin(v * 23 + 2 * t), y];
++ });
++ return `M${left} ${y0 - 2}L${edge[0][0].toFixed(1)} ${edge[0][1].toFixed(1)}` + smoothPath(edge, false).replace(/^M[^C]*/, '')
++  + `L${left} ${y1 + 2}Z`;
++}
++/** A sheet of standing water lying across a lane, x0 to x1 and y0 (far) to y1 (near), with rounded,
++ * irregular ends and edges: the shape a puddle actually takes. `grow` inflates it for its wet halo. */
++export function puddleFoot(x0: number, x1: number, y0: number, y1: number, seed = 5, grow = 0): string {
++ const r = rng(seed), cy = (y0 + y1) / 2, ry = (y1 - y0) / 2 + grow, end = Math.min(150, (x1 - x0) / 4), n = Math.max(5, Math.round((x1 - x0) / 150));
++ const top: P[] = Array.from({length: n + 1}, (_, i) => [lerp(x0 + end * .7, x1 - end * .7, i / n), cy - ry + (r() - .5) * 12]);
++ const bot: P[] = Array.from({length: n + 1}, (_, i) => [lerp(x1 - end * .7, x0 + end * .7, i / n), cy + ry + (r() - .5) * 9]);
++ const right: P[] = [[x1 - end * .2 + grow, cy - ry * .45], [x1 + grow + (r() - .5) * 16, cy + 4], [x1 - end * .3 + grow, cy + ry * .55]];
++ const left: P[] = [[x0 + end * .35 - grow, cy + ry * .5], [x0 - grow + (r() - .5) * 16, cy - 2], [x0 + end * .15 - grow, cy - ry * .5]];
++ return smoothPath([...top, ...right, ...bot, ...left], true);
++}
++export type SheetTone = 'mud' | 'sky';
++const SHEET: Record<SheetTone, {top: string; mid: string; midAt: number; deep: string; streak: string; fleck: string; edge: string}> = {
++ mud: {top: SA.waterLit, mid: SA.water, midAt: .08, deep: SA.waterDeep, streak: '#A88E68', fleck: SA.foam, edge: '#D9CCB2'},
++ sky: {top: '#B9C3C8', mid: '#8E989E', midAt: .5, deep: '#6F6A5E', streak: '#E4E9EC', fleck: '#F1F4F5', edge: '#DDE3E6'},
++};
++/** ONE continuous sheet of water with a subject standing in it. The footprint `foot` is filled by one
++ * gradient keyed to fixed rows (y0 far to y1 near), so the sheet has no seams or panels. Drawn in two
++ * layers around the subject: `back` lies behind it, `front` is the same sheet, the same gradient and the
++ * same ripples, clipped to the rows nearer than the subject's waterline `line.y`, so the water closes
++ * over the wheels and lower body instead of stopping at them. The front layer carries the subject's
++ * reflection and, across the subject's span, the foam line where water meets it. Ripples drift at
++ * `drift` units a second (negative runs left) on the film clock and fade as the water calms. */
++export const FloodSheet: React.FC<{foot: string; x0: number; x1: number; y0: number; y1: number; t: number; layer: 'back' | 'front';
++ drift?: number; tone?: SheetTone; calm?: number; seed?: number; opacity?: number; marks?: number; edge?: string;
++ reflect?: React.ReactNode; line?: {y: number; x0: number; x1: number}; press?: number}> =
++ ({foot, x0, x1, y0, y1, t, layer, drift = 0, tone = 'mud', calm = 0, seed = 7, opacity = 1, marks = 46, edge, reflect, line, press = 0}) => {
++ const id = useUid('saf'), c = SHEET[tone], amp = 1 - .85 * clamp(calm), W = Math.max(1, x1 - x0), r = rng(seed);
++ const ripples = <g data-part="ripples">{Array.from({length: marks}, (_, i) => {
++  const u = r(), v = r(), len = lerp(40, 130, r()), sp = lerp(.7, 1.3, r()), near = Math.pow(v, 1.2);
++  const xx = x0 + frac(u + t * drift * sp * (.55 + .9 * near) / W) * W, yy = lerp(y0 + 6, y1, near);
++  const fleck = i % 4 === 0;
++  return <path key={i} d={`M${xx.toFixed(1)} ${yy.toFixed(1)}c${(len * .3).toFixed(1)} ${(-2 - 3 * near).toFixed(1)} ${(len * .7).toFixed(1)} ${(2 + 2 * near).toFixed(1)} ${(len * (.5 + near)).toFixed(1)} 0`}
++   stroke={fleck ? c.fleck : c.streak} strokeWidth={1.4 + 2.6 * near} strokeOpacity={(fleck ? .38 : .44) * amp} strokeLinecap="round" fill="none"/>;
++ })}</g>;
++ const body = <rect x={x0 - 400} y={y0 - 400} width={W + 800} height={y1 - y0 + 800} fill={`url(#${id}g)`}/>;
++ const defs = <defs>
++  <linearGradient id={`${id}g`} x1="0" y1={y0} x2="0" y2={y1} gradientUnits="userSpaceOnUse">
++   <stop offset="0" stopColor={c.top}/><stop offset={c.midAt} stopColor={c.mid}/><stop offset="1" stopColor={c.deep}/>
++  </linearGradient>
++  <clipPath id={`${id}f`}><path d={foot}/></clipPath>
++ </defs>;
++ if (layer === 'back') return <g data-part="water-sheet" opacity={opacity}>{defs}
++  <g clipPath={`url(#${id}f)`}>{body}{ripples}</g>
++  {edge && <path d={edge} stroke={c.edge} strokeWidth={2.5} fill="none" opacity={.6 * amp + .15}/>}
++ </g>;
++ if (!line) return null;
++ // the waterline rows: a gentle swell across the whole sheet, so the front layer has no straight top
++ const wl = Array.from({length: 31}, (_, i) => {const x = lerp(x0 - 400, x1 + 400, i / 30); return `${i ? 'L' : 'M'}${x.toFixed(1)} ${(line.y + 1.8 * amp * Math.sin(x * .045 + t * 4.2 + seed)).toFixed(1)}`;}).join('');
++ const span = Math.max(1, line.x1 - line.x0);
++ const foam = Array.from({length: 17}, (_, i) => {const x = lerp(line.x0, line.x1, i / 16); return `${i ? 'L' : 'M'}${x.toFixed(1)} ${(line.y + 1.6 * Math.sin(x * .09 + t * 6 + seed)).toFixed(1)}`;}).join('');
++ return <g data-part="water-sheet-front" opacity={opacity}>{defs}
+   <defs>
+-   <linearGradient id={`${id}g`} x1="0" y1={y} x2="0" y2={y + depth} gradientUnits="userSpaceOnUse">
+-    <stop offset="0" stopColor={SA.waterLit}/><stop offset=".08" stopColor={SA.water}/><stop offset="1" stopColor={SA.waterDeep}/>
++   <clipPath id={`${id}w`}><path d={`${wl}L${x1 + 400} ${y1 + 400}L${x0 - 400} ${y1 + 400}Z`}/></clipPath>
++   <linearGradient id={`${id}l`} x1={line.x0} y1="0" x2={line.x1} y2="0" gradientUnits="userSpaceOnUse">
++    <stop offset="0" stopColor={c.fleck} stopOpacity={0}/><stop offset=".1" stopColor={c.fleck} stopOpacity={.85}/>
++    <stop offset=".9" stopColor={c.fleck} stopOpacity={.85}/><stop offset="1" stopColor={c.fleck} stopOpacity={0}/>
+    </linearGradient>
+-   <clipPath id={`${id}c`}><path d={`${edge}L${x1} ${y + depth}L${x0} ${y + depth}Z`}/></clipPath>
+   </defs>
+-  <path d={`${edge}L${x1} ${y + depth}L${x0} ${y + depth}Z`} fill={`url(#${id}g)`}/>
+-  <g clipPath={`url(#${id}c)`}>
+-   {reflect && <g opacity={.28}>{reflect}</g>}
+-   {Array.from({length: 40}, (_, i) => {
+-    const u = r(), v = r(), len = lerp(40, 140, r()), sp = lerp(.25, .6, r());
+-    const yy = toward ? y + frac(v + t * sp * flow * .35) * depth : y + v * depth;
+-    const xx = toward ? lerp(x0, x1, u) : x0 + frac(u + t * sp * flow * .12) * (x1 - x0);
+-    const near = clamp((yy - y) / Math.max(1, depth));
+-    return <path key={i} d={`M${xx.toFixed(1)} ${yy.toFixed(1)}h${(len * (.5 + near)).toFixed(1)}`} stroke={i % 4 ? '#A88E68' : SA.foam}
+-     strokeWidth={1.5 + 2.5 * near} strokeOpacity={(i % 4 ? .45 : .35) * amp} strokeLinecap="round"/>;
+-   })}
++  <g clipPath={`url(#${id}f)`}><g clipPath={`url(#${id}w)`} data-part="water-over-subject">
++   {body}
++   {reflect && <g opacity={.3}>{reflect}</g>}
++   {ripples}
++   <path d={foam} transform="translate(0 5)" stroke={c.deep} strokeWidth={6} strokeOpacity={.35} fill="none"/>
++  </g></g>
++  <g data-part="waterline-contact">
++   <path d={foam} stroke={`url(#${id}l)`} strokeWidth={3.4 + 2 * clamp(press)} fill="none" strokeLinecap="round"/>
++   {[0, 1].map(k => {const ph = frac(t * .9 + k * .5), x = k ? line.x1 : line.x0, rr = lerp(span * .06, span * .2, ph);
++    return <ellipse key={k} cx={x} cy={line.y + 3} rx={rr} ry={rr * .12} fill="none" stroke={c.fleck} strokeWidth={2} opacity={.5 * (1 - ph) * amp}/>;})}
+   </g>
+-  <path d={edge} stroke="#D9CCB2" strokeWidth={2.5} fill="none" opacity={.7}/>
+  </g>;
+ };
+ /** Spray and a V wake where a wheel meets standing water. Origin at the tyre's contact point. */
