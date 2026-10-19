@@ -256,6 +256,11 @@ remain distinct identities and an atomic charged panel on the same finished film
 cannot count self-review as independence. Provider recovery is used only after actual observed
 host unavailability, under the existing recovery policy.
 
+For editions from October 20, use each generated serial worker's exact Agent arguments, including
+`run_in_background: false`. Let the required worker return in the foreground. The three final
+scorers may run concurrently after their atomic panel reservation. Starting a background serial
+worker merely to wait for it creates unnecessary primary turns and context reads.
+
 While a background worker owns required work, use a blocking output wait for that exact task
 and collect its full handback. If TaskOutput is available, load its current schema and use
 blocking mode with a timeout of up to sixty seconds. Reissue that same bounded wait if it times
