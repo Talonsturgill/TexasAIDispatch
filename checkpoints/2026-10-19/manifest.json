@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-19T16:57:43.269313+00:00",
+  "saved_at": "2026-10-19T17:07:50.895346+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "e29a160935e53963b936660d0e1194d9de745ce29d52b0f711a6dbedac3d83ab"
   },
   "deleted_source": [],
-  "ledger_sha256": "4edc2c31a3bf91eed1cc787ab31e4425a42f47512da334814722795d9e1be64f",
-  "original_private_ledger_sha256": "883cde2cd98a10701c0aeb7a493ae0f72a7325de42919f7a5d03d937737d1a31",
+  "ledger_sha256": "99f518aae0715c20b5a1f56be1c2aa1e3dd2a4f873c7ce8bc3f6b33a361f8b96",
+  "original_private_ledger_sha256": "b3d87ce5f5bf5c91a36ac44fea16009b0332a512fad724ad346152c0ee8f8022",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -27,6 +27,11 @@
     {
       "event_index": 77,
       "authorization_sha256": "a498b6f699b73d5ce4944a2971b86cdb9704d42a9f77d9a224394540f5551aca",
+      "root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch"
+    },
+    {
+      "event_index": 80,
+      "authorization_sha256": "bf6d42db3fd36a32c8ccbadc60b904311f55d67ef0b6105cb61f58d9ba139111",
       "root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch"
     }
   ],
@@ -583,6 +588,12 @@
       "size": 156939
     },
     {
+      "path": "out/dispatch/evidence/phone-critic-packet.round2.json",
+      "class": "scratch",
+      "sha256": "f03efd5ed2f1f0c470b42ac9367d3db901436c89cde70c6df5b367b2b1c07c50",
+      "size": 17317
+    },
+    {
       "path": "out/dispatch/evidence/phone-critic-round1/partial-handback.json",
       "class": "scratch",
       "sha256": "b9aadfbf71e7008ba561264e3b8ae6898249576dc91efbb6ff53e23502a8a99c",
@@ -605,6 +616,36 @@
       "class": "scratch",
       "sha256": "bb4b27cec3413caea55191efd4a1b826f2be2c93a8ab9df6825a3238e617ebc4",
       "size": 44925
+    },
+    {
+      "path": "out/dispatch/evidence/pivot-review/pivot-handback.txt",
+      "class": "scratch",
+      "sha256": "7ec79299eb8bbf776697355ff53313711c0deedb7e702501c39c5ac8eac93503",
+      "size": 9052
+    },
+    {
+      "path": "out/dispatch/evidence/pivot-review/pivot-review.json",
+      "class": "scratch",
+      "sha256": "26b06467fe86a8602c020e387f7e13fe455b65f73fb0252425ce63eb693d370d",
+      "size": 5198
+    },
+    {
+      "path": "out/dispatch/evidence/pivot-review/storyboard.before-merge.json",
+      "class": "scratch",
+      "sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8",
+      "size": 178347
+    },
+    {
+      "path": "out/dispatch/evidence/pivot-review/storyboard.merged-n9bc.draft.json",
+      "class": "scratch",
+      "sha256": "c6aaefa6188eccd05160659015cf80dbb434698f718aaa5e5d1a33c1fda53c97",
+      "size": 177723
+    },
+    {
+      "path": "out/dispatch/evidence/pivot-review/vo_direction.before-merge.json",
+      "class": "scratch",
+      "sha256": "8dfbc6fdf98fbbd842fabe15424afe6e6eb3ea17ee9a704c7f222208bfdf8abb",
+      "size": 19007
     },
     {
       "path": "out/dispatch/evidence/registry-round1.json",
@@ -641,6 +682,12 @@
       "class": "scratch",
       "sha256": "edab57b72adf737c6f881969aee36a3648128381e968a0a6217d41f6c31d92bc",
       "size": 21986
+    },
+    {
+      "path": "out/dispatch/finish-current-plan-3.json",
+      "class": "scratch",
+      "sha256": "bf6d42db3fd36a32c8ccbadc60b904311f55d67ef0b6105cb61f58d9ba139111",
+      "size": 793
     },
     {
       "path": "out/dispatch/finish-current-plan.json",
@@ -2497,6 +2544,12 @@
       "size": 1855532
     },
     {
+      "path": "out/dispatch/phone-critic-packet-round3.json",
+      "class": "scratch",
+      "sha256": "f03efd5ed2f1f0c470b42ac9367d3db901436c89cde70c6df5b367b2b1c07c50",
+      "size": 17317
+    },
+    {
       "path": "out/dispatch/phone-critic-packet.json",
       "class": "scratch",
       "sha256": "f03efd5ed2f1f0c470b42ac9367d3db901436c89cde70c6df5b367b2b1c07c50",
@@ -3584,8 +3637,8 @@
     }
   ],
   "regenerable": {
-    "files": 110,
-    "bytes": 1236834
+    "files": 111,
+    "bytes": 1237627
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }

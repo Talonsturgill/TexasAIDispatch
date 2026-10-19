@@ -12,7 +12,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 9,
+    "storyboard_critics": 10,
     "tts_calls": 12,
     "validator_agents": 4,
     "voice_directors": 2
@@ -1359,6 +1359,110 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-19T17:07:50.084711Z",
+      "failure_evidence_json": "{\n  \"verdict\": \"pass\",\n  \"reviewer_identity\": \"claude-opus-5-5 / storyboard-critic (independent recurrence-pivot reviewer, distinct from director claude-sonnet-5-5)\",\n  \"reviewed_at\": \"2026-10-19T18:00:00Z\",\n  \"retired_mechanism_id\": \"clause-breath-direction\",\n  \"replacement_mechanism_id\": \"single-qualifier-clause-binding\",\n  \"reviewed_failure_sha256\": [\n    \"0399f06c2580ceaf3f176fe2219181e3c9547697ac16581f5a5396729532afdf\",\n    \"e1ea624524640179c7d2ebe25a7240590b38f4bd57076c04db925bfb0eccd018\",\n    \"7a523ffe4323bf3aafa4fd2c724a0e4d8ccbcafb7db0c23ff912e94a695bc26e\",\n    \"520f14c4112b965177ee45b0f4b058bd14f848e6f9a00855c2eb2c40b3bbfa2e\"\n  ],\n  \"visible_difference\": \"The closing phrase 'and the federal record lists the flood remedy as currently under development.' becomes one declared clause and one caption, spoken with no directed breath before 'as' (the retained take 3 performance). The cut from record-slide to the split, the remedy card slide and the underline become framing subdivisions inside that one continuous clause, instead of a cut and underline waiting on a performed pause before 'as'.\",\n  \"source_basis\": \"scripts/vo_align.py split_at_clauses: minimum = CLAUSE_PAUSE_S (0.24 s) applies only when a declared clause boundary falls inside a caption group, so the floor exists because of the authored n9b/n9c split. storyboard.json narration_picture splits n9b ('...the flood remedy') from n9c ('as currently under development.'), both bound to c8, whose quote is the single sentence 'The remedy is currently under development.' vo_direction.json audit n9b says 'none before as currently; the qualifier stays with the claim' and flag F5 records the split separating the qualifier from its claim. QUALITY_CONTRACT.md lines 56 to 59 require a replacement with a different visible action or medium, not a renamed batch.\",\n  \"notes\": \"Q1: repair-plan.json (mechanism longer-final-clause-breath, narration-performance scope, 2 tts_calls) is NOT approved. It is the same performed action as both failed batches (a directed audible breath at the n9b/n9c edge), with only a requested duration added. The measured silence there went 0 s (take 1, batch 1), then the breath separated 'as' and it was heard as 'is' (take 2, batch 2), then 0.20 s against 0.24 s (take 3). A longer breath is a renamed batch. Its 'about a third of a second' is a numeric pause command, which CREATIVE_DIRECTION.md keeps out of the TTS prompt; the current vo_direction.json already contains 'about a quarter second'. BLOCKING CONCERN for any new take: vo_direction.json contradicts itself. Its overall field says \\\"run 'flood remedy' straight into 'as currently under development' with no breath\\\" and then asks for a short audible breath right after 'the flood remedy'; the s9 line energy repeats the breath request, while the audit row n9b says no breath. Remove the breath instruction at that edge before any further synthesis. Q2 alternatives and ledger costs: (a) split the sentence into two sentences: changes script words; a break after 'open' does not touch the failing edge, and the rewording that would ('The remedy is currently under development.') duplicates n7 verbatim; costs a script and claim re-check, 2 tts_calls (take plus soundcheck), a reboard, a code re-review and the timed phone; rejected. (b) APPROVED: merge n9b and n9c into one narration_picture clause (id, for example, n9bc), with the text 'and the federal record lists the flood remedy as currently under development.', claim c8, subjects s9-record, s9-car, s9-curb and s9-phone, action ride-open-remedy-open, and events s9-event-2 and s9-event-3 bound to it with clause fractions. s9-shot-2 and s9-shot-3 both carry the merged narration id; their cut becomes a framing subdivision inside one subject/action, which MODERN_FILM permits. No spoken word, claim or renderer source changes; story and concept hashes change. Costs: 1 reboard (board-only, standard repair scope, not narration-performance), 1 fresh independent code-plan review (storyboard_critics is at 9 of 9, so the completion route must fund it), and the timed phone review already on the path; 0 tts_calls if the retained take 3 audio is re-aligned under the new board. Take 3 already reconciles every word including 3,800 and 'as', and its other declared boundary (after 'in February') meets the 0.24 s minimum. If the controller refuses re-alignment of take 3 under the new board, the fallback is one fresh take plus soundcheck (2 tts_calls), with the breath instruction at that edge removed and the n2a/n2b boundary rechecked. (c) longer breath: renamed batch, rejected. (d) forcing a caption cue break at the 52.42 s silence so the floor drops to zero: a caption-tooling dodge of the contract, not a performed or medium change; rejected. Q3: retired clause-breath-direction (the root mechanism; as-articulation-after-breath was a patch on its side effect and succeeded on 'as' in take 3). Replacement: single-qualifier-clause-binding. Limits: Read-only; no hash recomputed; all stated hashes are the director's; this pivot approves no film, story or narration take, and the rewritten repair plan, re-alignment, code review and phone review remain required.\"\n}",
+      "failure_evidence_sha256": "26b06467fe86a8602c020e387f7e13fe455b65f73fb0252425ce63eb693d370d",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 10,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 10,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "984ba66d20973a693089cfa65645f6d419845748462dd51d814142660492fb38",
+      "plan_json": "{\n  \"repair_scope\": \"standard\",\n  \"completion_reason\": \"finish-current\",\n  \"mechanism_id\": \"finish-current-capacity\",\n  \"failure_family\": \"unclassified\",\n  \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n  \"root_cause\": \"Retained independent code-plan PASS (round 4, restored claims) for the current creative plan. The funded host critic path is exhausted at 8 of 8.\",\n  \"repair\": \"None. Finish the current film.\",\n  \"mechanism_change\": \"None\",\n  \"expected_visible_result\": \"Finish the retained cut.\",\n  \"failure_evidence\": \"{REPO}/out/dispatch/evidence/pivot-review/pivot-review.json\",\n  \"failure_evidence_sha256\": \"26b06467fe86a8602c020e387f7e13fe455b65f73fb0252425ce63eb693d370d\",\n  \"changed_inputs\": [],\n  \"resources\": {}\n}",
+      "plan_sha256": "bf6d42db3fd36a32c8ccbadc60b904311f55d67ef0b6105cb61f58d9ba139111",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"finish-current\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":41,\"required\":8,\"used\":2},\"full_renders\":{\"ceiling\":14,\"remaining\":14,\"required\":1,\"used\":0},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":0,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":9,\"required\":1,\"used\":0},\"preflight_renders\":{\"ceiling\":16,\"remaining\":12,\"required\":2,\"used\":4},\"reboards\":{\"ceiling\":10,\"remaining\":8,\"required\":0,\"used\":2},\"scorer_calls\":{\"ceiling\":27,\"remaining\":27,\"required\":3,\"used\":0},\"storyboard_critics\":{\"ceiling\":9,\"remaining\":0,\"required\":1,\"used\":9},\"tts_calls\":{\"ceiling\":12,\"remaining\":6,\"required\":2,\"used\":6},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "cbd084c1dd3e8b5f4e02e15ceab522ce2582c6bfb4487283c2e040f88c7cd9c3",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 9,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 16,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 9,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "reason": "finish-current",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-19",
+      "usage_unchanged": {
+        "audiovisual_reviews": 2,
+        "cleanup_renders": 0,
+        "full_renders": 0,
+        "image_generations": 0,
+        "panel_rounds": 0,
+        "preflight_renders": 4,
+        "reboards": 2,
+        "reported_tokens": 210570,
+        "rescue_renders": 0,
+        "research_agents": 3,
+        "scorer_calls": 0,
+        "storyboard_critics": 9,
+        "tts_calls": 6,
+        "validator_agents": 4,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -1382,7 +1486,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "883cde2cd98a10701c0aeb7a493ae0f72a7325de42919f7a5d03d937737d1a31",
+    "original_private_state_sha256": "b3d87ce5f5bf5c91a36ac44fea16009b0332a512fad724ad346152c0ee8f8022",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1410,7 +1514,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-19T16:57:42.691793Z",
+  "updated_at": "2026-10-19T17:07:50.084761Z",
   "usage": {
     "audiovisual_reviews": 2,
     "cleanup_renders": 0,
