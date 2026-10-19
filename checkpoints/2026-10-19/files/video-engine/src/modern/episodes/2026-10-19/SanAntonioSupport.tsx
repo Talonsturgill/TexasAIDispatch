@@ -14,8 +14,8 @@ import {useUid} from '../../../lib/uid';
  *  - a worn phone whose plain map screen carries a ride request pin that turns to arriving. No brand.
  *  - a flat street map on a weathered picnic table: the river line, the street grid, a loop road,
  *    an outlined limited area that traces closed with a sixty square miles tag, a February calendar.
- *  - Salado Creek as a limestone bank of stacked pale ledges under live oaks, brown water, a low water
- *    crossing with a leaning depth post, and rain; a flooded residential street of one-storey stucco
+ *  - Salado Creek as a limestone bank of stacked pale ledges under live oaks, fast brown water running
+ *    toward the viewer, a near bank edge with brush and a live oak, and rain; a flooded residential street of one-storey stucco
  *    and limestone houses, a live oak and a leaning blank street sign; a higher speed roadway with a
  *    median barrier, lane dashes and a sheet of standing water; a fleet lot behind a chain link fence.
  *  - a desk and the federal recall record card with field rows, a lit remedy row and stamps; a grid of
@@ -304,14 +304,14 @@ export const pinAt = (k: number, t: number): P => {const path = MAP_PINS[k], f =
  return [lerp(path[i][0], b[0], u), lerp(path[i][1], b[1], u)];};
 /** A flat paper street map of San Antonio, `w` by `h`: the river line, a street grid, a loop road and
  * radial highways, Salado Creek in the northeast, the outlined limited area, car pins inside it. */
-export const StreetMap: React.FC<{w: number; h: number; draw: number; zone: number; fill: number; t: number; pins?: number}> = ({w, h, draw, zone, fill, t, pins = 1}) => {
+export const StreetMap: React.FC<{w: number; h: number; draw: number; zone: number; fill: number; t: number; pins?: number; layer?: 'base' | 'zone' | 'pins'}> = ({w, h, draw, zone, fill, t, pins = 1, layer = 'base'}) => {
  const id = useUid('sam'), X = (u: number) => u * w, Y = (v: number) => v * h;
  const d = (ps: P[], close = false) => 'M' + ps.map(([u, v]) => `${X(u).toFixed(1)} ${Y(v).toFixed(1)}`).join('L') + (close ? 'Z' : '');
  const river: P[] = [[.44, 0], [.47, .12], [.45, .24], [.5, .34], [.48, .42], [.52, .5], [.5, .6], [.56, .72], [.54, .86], [.6, 1]];
  const salado: P[] = [[.86, .04], [.8, .18], [.74, .3], [.76, .44], [.7, .58], [.66, .76], [.58, .96]];
  const loop: P[] = Array.from({length: 25}, (_, i) => {const a = i / 24 * Math.PI * 2; return [.5 + .34 * Math.cos(a) * (1 + .06 * Math.sin(a * 3)), .48 + .3 * Math.sin(a) * (1 + .05 * Math.cos(a * 2))];});
  const dash = (p: number) => ({pathLength: 1, strokeDasharray: '1 1', strokeDashoffset: (1 - clamp(p)).toFixed(4)});
- return <g data-part="street-map">
+ const base = <g data-part="street-map">
   <defs><clipPath id={`${id}c`}><rect x={0} y={0} width={w} height={h}/></clipPath></defs>
   <rect x={6} y={8} width={w} height={h} fill="#1A1814" opacity={.2}/>
   <path d={`M0 0H${w}V${h - 30}L${w - 34} ${h}H0Z`} fill="#EEE7D6"/>
@@ -331,12 +331,16 @@ export const StreetMap: React.FC<{w: number; h: number; draw: number; zone: numb
     <path key={'r' + i} d={d(ps as P[])} stroke="#E0B067" strokeWidth={7} fill="none" {...dash(draw)}/>)}
    <path d={d(river)} stroke="#6FA3C4" strokeWidth={8} fill="none" strokeLinejoin="round" strokeLinecap="round" {...dash(draw)}/>
    <path d={d(salado)} stroke="#88B4CF" strokeWidth={4} fill="none" strokeLinejoin="round" {...dash(draw)}/>
-   {/* the limited area: traced closed, then lightly filled */}
-   <path d={d(ZONE, true)} fill="#8C8F94" opacity={.24 * clamp(fill)}/>
-   {zone > 0 && <path d={d(ZONE, true)} stroke={SA.ink} strokeWidth={6} fill="none" strokeLinejoin="round" strokeDasharray={`${clamp(zone).toFixed(4)} 1`} pathLength={1} data-part="zone-outline"/>}
-   {pins > 0 && [0, 1, 2].map(k => {const [u, v] = pinAt(k, t); return <g key={k} transform={`translate(${X(u).toFixed(1)} ${Y(v).toFixed(1)})`} opacity={pins} data-part="map-pin">
-    <circle r={13} fill="#FFFFFF" stroke={SA.ink} strokeWidth={3}/><path d="M-7 3h14l-2 -6h-10Z" fill={SA.ink}/></g>;})}
   </g>
+ </g>;
+ if (layer === 'zone') return <g data-part="zone-layer">
+  <path d={d(ZONE, true)} fill="#8C8F94" opacity={.24 * clamp(fill)}/>
+  {zone > 0 && <path d={d(ZONE, true)} stroke={SA.ink} strokeWidth={6} fill="none" strokeLinejoin="round" strokeDasharray={`${clamp(zone).toFixed(4)} 1`} pathLength={1} data-part="zone-outline"/>}
+ </g>;
+ if (layer === 'pins') return <g data-part="pins-layer">{pins > 0 && [0, 1, 2].map(k => {const [u, v] = pinAt(k, t); return <g key={k} transform={`translate(${X(u).toFixed(1)} ${Y(v).toFixed(1)})`} opacity={pins} data-part="map-pin">
+  <circle r={13} fill="#FFFFFF" stroke={SA.ink} strokeWidth={3}/><path d="M-7 3h14l-2 -6h-10Z" fill={SA.ink}/></g>;})}</g>;
+ return <g data-part="street-map-base">
+  {base}
   <path d={`M${w * .5} 0V${h}M0 ${h * .5}H${w}`} stroke="#D7CCB4" strokeWidth={2} opacity={.8}/>
   <path d={`M0 0H${w}V${h - 30}L${w - 34} ${h}H0Z`} fill="none" stroke="#C2B699" strokeWidth={2}/>
  </g>;
@@ -388,10 +392,11 @@ export const Calendar: React.FC<{month: string; day?: string; flip?: number; w?:
 };
 
 // ---------------------------------------------------------------- creek -----------------------------
-export const CREEK = {bankY: 1092, crossY: 1172, crossFace: 26, post: [176, 1166] as P};
-/** The far creek bank, upstream water and the low water crossing slab with its depth post. */
-export const CreekBack: React.FC<{t: number; level: number; width?: [number, number]}> = ({t, level, width = [-80, 1160]}) => {
- const {bankY, crossY, crossFace, post} = CREEK, [x0, x1] = width, r = rng(12);
+export const CREEK = {bankY: 1092, carY: 1236, nearBank: {x1: 330, y0: 1150}};
+/** The far limestone bank of Salado Creek under live oaks, and the fast brown channel running toward
+ * the viewer. No crossing, no gauge: nothing says how a car came to be in it. */
+export const CreekBack: React.FC<{t: number; flow: number; width?: [number, number]}> = ({t, flow, width = [-80, 1160]}) => {
+ const {bankY} = CREEK, [x0, x1] = width, r = rng(12);
  const ledges = [0, 1, 2, 3].map(k => bankY - 24 - k * 22);
  return <g data-part="creek-back">
   <g data-part="limestone-bank">
@@ -400,23 +405,38 @@ export const CreekBack: React.FC<{t: number; level: number; width?: [number, num
    {Array.from({length: 26}, () => [lerp(x0, x1, r()), lerp(bankY - 92, bankY - 4, r()), lerp(12, 40, r())]).map(([x, y, l], i) =>
     <path key={i} d={`M${x} ${y}l${l} ${(r() - .5) * 6}`} stroke={SA.limestoneDeep} strokeWidth={2} opacity={.55}/>)}
    <path d={`M${x0} ${bankY - 110}C${x0 + 260} ${bankY - 126} ${x1 - 400} ${bankY - 104} ${x1} ${bankY - 118}L${x1} ${bankY - 90}L${x0} ${bankY - 88}Z`} fill={SA.grass}/>
-   <g transform={`translate(160 ${bankY - 100})`}><Oak h={300} seed={21}/></g>
-   <g transform={`translate(560 ${bankY - 104})`}><Oak h={230} seed={22} flip/></g>
+   <g transform={`translate(420 ${bankY - 100})`}><Oak h={250} seed={22} flip/></g>
    <g transform={`translate(930 ${bankY - 108})`}><Oak h={330} seed={23}/></g>
   </g>
-  <Water x0={x0} x1={x1} y={bankY - 6} depth={crossY - bankY + 6} t={t} flow={1.6} toward/>
-  <g data-part="low-crossing">
-   <path d={`M${x0} ${crossY}H${x1}V${crossY + crossFace}H${x0}Z`} fill="#BDB4A2"/>
-   <path d={`M${x0} ${crossY - 8}H${x1}V${crossY}H${x0}Z`} fill="#D4CCBB"/>
-   {[220, 520, 820].map(x => <rect key={x} x={x - 26} y={crossY + 6} width={52} height={18} rx={9} fill="#2F2A22"/>)}
-   <path d={`M${x0} ${crossY + crossFace}H${x1}`} stroke="#8A8170" strokeWidth={3}/>
-  </g>
-  <g transform={`rotate(2 ${post[0]} ${post[1]})`} data-part="depth-post">
-   <rect x={post[0] - 9} y={post[1] - 230} width={18} height={230} fill="#F1EEE6" stroke="#8A867C" strokeWidth={1.5}/>
-   {[0, 1, 2, 3, 4, 5].map(k => <rect key={k} x={post[0] - 9} y={post[1] - 30 - k * 36} width={18} height={12} fill={SA.ink}/>)}
-   <circle cx={post[0]} cy={post[1] - 214} r={3} fill="#7B6A55"/><path d={`M${post[0] + 2} ${post[1] - 210}c1 8 -1 14 1 24`} stroke="#9C5A2C" strokeWidth={2} opacity={.7}/>
-  </g>
-  {level > 0 && <path d={`M${x0} ${crossY - 8 - level}H${x1}`} stroke="#D9CCB2" strokeWidth={2} opacity={.5}/>}
+  <Water x0={x0} x1={x1} y={bankY - 6} depth={1940 - bankY + 6} t={t} flow={flow} toward/>
+  {Array.from({length: 18}, (_, i) => {const ph = frac(i * .37 + t * .9 * flow), x = lerp(x0, x1, (i * .61) % 1), y = bankY + 10 + ph * 700;
+   return <path key={i} d={`M${x.toFixed(1)} ${y.toFixed(1)}q30 -8 60 0`} stroke={SA.foam} strokeWidth={3 + 3 * ph} fill="none" opacity={.5 * (1 - ph)}/>;})}
+ </g>;
+};
+/** The near creek bank edge in the left foreground: stacked limestone ledges, brush and a live oak. */
+export const CreekBank: React.FC<{t: number}> = ({t}) => {
+ const {x1, y0} = CREEK.nearBank, r = rng(19);
+ return <g data-part="near-bank-edge">
+  {[0, 1, 2, 3, 4].map(k => {const y = y0 + k * 60, w = x1 - k * 34 + (k % 2) * 20;
+   return <path key={k} d={`M-90 ${y}L${w} ${y + 8}C${w + 24} ${y + 20} ${w + 18} ${y + 52} ${w - 8} ${y + 62}L-90 ${y + 62}Z`} fill={k % 2 ? SA.limestone : '#CEC4AE'} stroke={SA.limestoneShade} strokeWidth={2.5}/>;})}
+  {Array.from({length: 14}, () => [lerp(-60, x1 - 40, r()), lerp(y0 + 10, y0 + 290, r())]).map(([x, y], i) =>
+   <path key={'c' + i} d={`M${x} ${y}l${20 + r() * 30} ${(r() - .5) * 5}`} stroke={SA.limestoneDeep} strokeWidth={2} opacity={.6}/>)}
+  <path d={`M${x1 - 10} ${y0 + 10}C${x1 + 30} ${y0 + 80} ${x1 - 6} ${y0 + 200} ${x1 - 70} ${y0 + 300}`} stroke={SA.foam} strokeWidth={6} fill="none" opacity={.55 + .2 * Math.sin(t * 7)}/>
+  <g transform={`translate(150 ${y0 + 6})`}><Oak h={380} seed={26}/></g>
+  {[[10, y0 + 4], [70, y0 + 2], [250, y0 + 6], [300, y0 + 60]].map(([x, y], i) => <g key={'b' + i} transform={`translate(${x} ${y})`}>
+   {[0, 1, 2, 3, 4].map(j => <ellipse key={j} cx={(j - 2) * 14 + (i % 2) * 6} cy={-14 - (j % 3) * 10} rx={20} ry={13} fill={j % 2 ? '#6F7F55' : '#5E6E46'}/>)}</g>)}
+ </g>;
+};
+/** Water piling against a car's upstream side: plumes at both ends and spray over the roof. Origin at
+ * the car's base centre in car units, `len` its half length, `p` how hard the current presses. */
+export const Pile: React.FC<{p: number; t: number; len: number; h: number}> = ({p, t, len, h}) => {
+ if (p <= 0) return null;
+ const r = rng(91);
+ return <g data-part="current-pressing" opacity={clamp(p * 1.5)}>
+  {[-1, 1].map(sd => <path key={sd} d={`M${sd * (len - 10)} ${-h * .35}c${sd * 40} ${-30 * p} ${sd * 90} ${-24 * p} ${sd * 130} ${8}`} stroke={SA.foam} strokeWidth={10} fill="none" strokeLinecap="round" opacity={.8}/>)}
+  {Array.from({length: 22}, (_, i) => {const ph = frac(r() + t * lerp(1.1, 1.9, r())), x = lerp(-len * .8, len * .8, r());
+   return <circle key={i} cx={x.toFixed(1)} cy={(-h * .5 - 70 * p * Math.sin(Math.PI * ph)).toFixed(1)} r={3 + 3 * r()} fill={SA.foam} opacity={.8 * (1 - ph) * p}/>;})}
+  <path d={`M${-len} ${-h * .42}Q0 ${-h * .42 - 26 * p} ${len} ${-h * .42}`} stroke="#D7CBB4" strokeWidth={6} fill="none" opacity={.6}/>
  </g>;
 };
 
@@ -440,13 +460,14 @@ const House: React.FC<{x: number; w: number; kind: 'stucco' | 'stone'; seed: num
  </g>;
 };
 /** A residential San Antonio street in elevation: houses, a live oak, a chain link fence, a blank
- * leaning street sign, the far curb and the asphalt. The water is the episode's to place. A detail
- * shot leaves the houses to the soft region behind the lens (`houses` false). */
-export const StreetBack: React.FC<{houses?: boolean}> = ({houses = true}) => {
- const {farCurb, nearCurb, sign} = STREET;
+ * leaning street sign, the far curb and the asphalt. The water is the episode's to place. A closer
+ * lens keeps the houses soft behind the car (`soft`, a blur in units). */
+export const StreetBack: React.FC<{soft?: number}> = ({soft = 0}) => {
+ const {farCurb, nearCurb, sign} = STREET, id = useUid('sas');
  return <g data-part="flooded-street">
-  {houses && <g><House x={30} w={420} kind="stucco" seed={41}/><House x={590} w={420} kind="stone" seed={42}/>
-   <g transform={`translate(516 ${farCurb - 30})`}><Oak h={360} seed={44}/></g></g>}
+  {soft > 0 && <defs><filter id={`${id}f`} x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation={soft}/></filter></defs>}
+  <g filter={soft > 0 ? `url(#${id}f)` : undefined} data-part="houses"><House x={30} w={420} kind="stucco" seed={41}/><House x={590} w={420} kind="stone" seed={42}/>
+   <g transform={`translate(516 ${farCurb - 30})`}><Oak h={360} seed={44}/></g></g>
   <g data-part="chain-link"><path d={`M-60 ${farCurb - 92}H1160`} stroke="#8E959A" strokeWidth={4}/>
    {Array.from({length: 9}, (_, i) => <path key={i} d={`M${-40 + i * 150} ${farCurb - 94}v84`} stroke="#7C8388" strokeWidth={5}/>)}
    <path d={Array.from({length: 60}, (_, i) => `M${-60 + i * 21} ${farCurb - 90}l21 80`).join('')} stroke="#A3AAAE" strokeWidth={1.2} opacity={.7}/></g>
@@ -675,25 +696,62 @@ export const MapCard: React.FC<{updated: number; w?: number}> = ({updated, w = 3
  </g>;
 };
 
+/** The record's remedy row on its own card, large enough to read on a phone: the header, the label and
+ * the source's sentence, lit, with the under development mark and an underline. Top left at (0,0). */
+export function remedyLayout(w = 760, size = 46) {
+ const lines = wrap(RECORD_ROWS[REMEDY_ROW].value, size, w - 80, true), lead = size * 1.22, top = 196;
+ return {w, size, lead, lines, top, h: top + lines.length * lead + 40};
+}
+export const RemedyCard: React.FC<{w?: number; lit?: number; underline?: number; imprint?: number}> = ({w = 760, lit = 0, underline = 0, imprint = 0}) => {
+ const id = useUid('srm'), R = remedyLayout(w), last = R.top + (R.lines.length - 1) * R.lead;
+ return <g data-part="remedy-card">
+  <rect x={10} y={14} width={w} height={R.h} rx={10} fill="#1A1814" opacity={.24}/>
+  <path d={`M0 10Q0 0 10 0H${w - 30}L${w} 30V${R.h - 10}Q${w} ${R.h} ${w - 10} ${R.h}H10Q0 ${R.h} 0 ${R.h - 10}Z`} fill={SA.paper} stroke={SA.paperEdge} strokeWidth={2}/>
+  <rect x={26} y={24} width={14} height={64} fill={SA.ink}/>
+  <text x={56} y={62} fontFamily={FONT.body} fontWeight={800} fontSize={36} fill={SA.ink}>Federal recall record</text>
+  <text x={57} y={92} fontFamily={FONT.mono} fontWeight={500} fontSize={19} fill="#5A626B">Vehicle safety recall</text>
+  <path d={`M26 112H${w - 26}`} stroke={SA.ink} strokeWidth={2.5}/>
+  {lit > 0 && <rect x={18} y={124} width={w - 36} height={R.h - 140} rx={8} fill="#FFE2B6" opacity={.85 * clamp(lit)}/>}
+  {lit > 0 && <rect x={18} y={124} width={7} height={R.h - 140} rx={3} fill={SA.ink} opacity={clamp(lit)} data-part="remedy-row"/>}
+  <text x={40} y={160} fontFamily={FONT.mono} fontWeight={700} fontSize={26} fill="#4F5862" data-part="remedy-row">Remedy</text>
+  {R.lines.map((l, k) => <text key={k} x={40} y={R.top + k * R.lead} fontFamily={FONT.body} fontWeight={800} fontSize={R.size} fill={SA.ink}>{l}</text>)}
+  {underline > 0 && <path d={`M40 ${last + 14}h${(w - 120) * clamp(underline)}`} stroke={SA.ink} strokeWidth={7} strokeLinecap="round"/>}
+  <ImprintMark text="Under development" p={imprint} x={w - 230} y={R.h - 38} rot={-6} size={30} id={`${id}i`}/>
+ </g>;
+};
+/** A plain working hand and sleeve holding a stamp knob or a pen at (0,0); the arm runs off toward
+ * `dir` (a unit direction). Skin is a fill value; the line work is the same for any hand. */
+export const Hand: React.FC<{dir: P; grip: 'knob' | 'pen'; skin?: string; scale?: number}> = ({dir, grip, skin = '#A8744F', scale = 1}) => {
+ const a = Math.atan2(dir[1], dir[0]) * 180 / Math.PI, k = scale;
+ return <g data-part="hand" transform={`rotate(${a.toFixed(2)}) scale(${k})`}>
+  <path d="M60 -30L1100 -44L1100 44L60 30Z" fill="#3B4A5C"/>
+  <path d="M60 -30L1100 -44" stroke="#5A6A7E" strokeWidth={4}/>
+  <rect x={48} y={-34} width={26} height={68} rx={8} fill="#2E3A48"/>
+  {grip === 'knob' ? <g>
+   <path d="M50 -30C20 -44 -18 -40 -34 -20C-44 -6 -44 10 -34 22C-18 40 22 44 50 30Z" fill={skin} stroke="#6A4630" strokeWidth={2.5}/>
+   {[-22, -8, 6, 20].map(y => <path key={y} d={`M-30 ${y}C-40 ${y + 2} -42 ${y + 8} -34 ${y + 10}`} stroke="#6A4630" strokeWidth={2.5} fill="none"/>)}
+  </g> : <g>
+   <path d="M50 -24C24 -34 0 -28 -12 -14L-20 2C-16 12 -4 16 8 12C24 26 44 24 50 20Z" fill={skin} stroke="#6A4630" strokeWidth={2.5}/>
+   <path d="M-12 -14C-24 -10 -30 -2 -24 6" stroke="#6A4630" strokeWidth={2.5} fill="none"/>
+  </g>}
+ </g>;
+};
+
 // ---------------------------------------------------------------- plans from above ------------------
-/** Salado Creek straight down: the channel, limestone ledges on both banks, oak crowns, the low
- * crossing across it, the water spreading over the slab. */
-export const CREEK_PLAN = {crossY: 900, crossH: 150, creek: [380, 700] as P};
-export const CreekPlan: React.FC<{t: number; over: number; rain: number}> = ({t, over, rain}) => {
- const id = useUid('scp'), {crossY, crossH, creek} = CREEK_PLAN, r = rng(15);
+/** Salado Creek straight down: the fast brown channel running down the frame between limestone
+ * ledges, brush and oak crowns on both banks, rain rings on the water. No crossing. */
+export const CREEK_PLAN = {creek: [300, 820] as P, carY: 820};
+export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t, rain, flow}) => {
+ const id = useUid('scp'), {creek} = CREEK_PLAN, r = rng(15);
  return <g data-part="creek-plan">
   <defs><clipPath id={`${id}c`}><rect x={creek[0]} y={-40} width={creek[1] - creek[0]} height={2000}/></clipPath></defs>
   <rect x={20} y={-40} width={1040} height={2000} fill={SA.grass} opacity={.9}/>
   <rect x={creek[0] - 120} y={-40} width={creek[1] - creek[0] + 240} height={2000} fill={SA.limestone}/>
   {Array.from({length: 40}, () => [lerp(creek[0] - 110, creek[1] + 110, r()), r() * 1900]).map(([x, y], i) => <path key={i} d={`M${x} ${y}h${30 + r() * 40}`} stroke={SA.limestoneShade} strokeWidth={3}/>)}
   <path d={`M${creek[0]} -40V1960H${creek[1]}V-40Z`} fill={SA.water}/>
-  <g clipPath={`url(#${id}c)`}>{Array.from({length: 30}, (_, i) => {const x = lerp(creek[0], creek[1], (i * .37) % 1), y = frac(i * .29 + t * .25) * 2000 - 40;
-   return <path key={i} d={`M${x} ${y}v${40 + (i % 4) * 20}`} stroke={SA.foam} strokeWidth={3} opacity={.35}/>;})}</g>
-  <rect x={20} y={crossY} width={1040} height={crossH} fill="#BDB4A2"/>
-  <path d={`M20 ${crossY}H1060M20 ${crossY + crossH}H1060`} stroke="#8A8170" strokeWidth={3}/>
-  <path d={`M${creek[0] - 120 * over - 20} ${crossY - 6}H${creek[1] + 120 * over + 20}V${crossY + crossH + 6}H${creek[0] - 120 * over - 20}Z`} fill={SA.water} opacity={.82 * clamp(over * 3)}/>
-  {over > 0 && Array.from({length: 16}, (_, i) => <path key={i} d={`M${lerp(creek[0] - 100 * over, creek[1] + 100 * over, (i * .41) % 1)} ${crossY + frac(i * .3 + t * .5) * crossH}v26`} stroke={SA.foam} strokeWidth={3} opacity={.5}/>)}
-  {[[200, 420, 120], [880, 300, 150], [170, 1380, 140], [900, 1500, 120], [960, 760, 90]].map(([x, y, rr], i) => <g key={i}>
+  <g clipPath={`url(#${id}c)`}>{Array.from({length: 34}, (_, i) => {const x = lerp(creek[0], creek[1], (i * .37) % 1), y = frac(i * .29 + t * .25 * flow) * 2000 - 40;
+   return <path key={i} d={`M${x} ${y}v${40 + (i % 4) * 20}`} stroke={SA.foam} strokeWidth={3} opacity={.4}/>;})}</g>
+  {[[200, 420, 120], [880, 300, 150], [170, 1380, 140], [900, 1500, 120], [960, 760, 90], [150, 860, 110]].map(([x, y, rr], i) => <g key={i}>
    <ellipse cx={x + 22} cy={y + 18} rx={rr} ry={rr * .85} fill="#000000" opacity={.18}/>
    <ellipse cx={x} cy={y} rx={rr} ry={rr * .85} fill={SA.oakDark}/><ellipse cx={x - rr * .2} cy={y - rr * .18} rx={rr * .7} ry={rr * .55} fill={SA.oak}/>
    <ellipse cx={x - rr * .4} cy={y - rr * .35} rx={rr * .3} ry={rr * .2} fill={SA.oakLit}/></g>)}
@@ -776,15 +834,19 @@ type SupportProps =
  | {part: 'curb'; phone?: React.ReactNode}
  | {part: 'curbplan'; phone?: React.ReactNode}
  | {part: 'phone'; w: number; pin: number; status: number; t: number}
- | {part: 'map'; w: number; h: number; draw: number; zone: number; fill: number; t: number; pins?: number}
+ | {part: 'map'; w: number; h: number; draw: number; zone: number; fill: number; t: number; pins?: number; layer?: 'base' | 'zone' | 'pins'}
  | {part: 'tag'; lines: string[]; size?: number; tone?: 'paper' | 'accent' | 'ink'; swing?: number; icon?: 'rain'; sub?: number}
  | {part: 'calendar'; month: string; day?: string; flip?: number; w?: number}
- | {part: 'creekback'; t: number; level: number}
- | {part: 'creekplan'; t: number; over: number; rain: number}
+ | {part: 'creekback'; t: number; flow: number}
+ | {part: 'creekbank'; t: number}
+ | {part: 'pile'; p: number; t: number; len: number; h: number}
+ | {part: 'creekplan'; t: number; rain: number; flow: number}
+ | {part: 'remedycard'; w?: number; lit?: number; underline?: number; imprint?: number}
+ | {part: 'hand'; dir: P; grip: 'knob' | 'pen'; skin?: string; scale?: number}
  | {part: 'water'; x0: number; x1: number; y: number; depth: number; t: number; flow?: number; toward?: boolean; reflect?: React.ReactNode; seed?: number; calm?: number; opacity?: number}
  | {part: 'wake'; amount: number; t: number; scale?: number; dir?: 1 | -1}
  | {part: 'rain'; t: number; w?: number; h?: number; amount?: number; seed?: number}
- | {part: 'street'; houses?: boolean}
+ | {part: 'street'; soft?: number}
  | {part: 'streetplan'; t: number; front: number; calm?: number}
  | {part: 'lane'; xa: number; xb: number}
  | {part: 'laneplan'; ya: number; yb: number}
@@ -814,6 +876,10 @@ export const SanAntonioSupport: React.FC<SupportProps> = (props) => {
  case 'calendar': return <Calendar {...props}/>;
  case 'creekback': return <CreekBack {...props}/>;
  case 'creekplan': return <CreekPlan {...props}/>;
+ case 'creekbank': return <CreekBank {...props}/>;
+ case 'pile': return <Pile {...props}/>;
+ case 'remedycard': return <RemedyCard {...props}/>;
+ case 'hand': return <Hand {...props}/>;
  case 'water': return <Water {...props}/>;
  case 'wake': return <Wake {...props}/>;
  case 'rain': return <Rain {...props}/>;

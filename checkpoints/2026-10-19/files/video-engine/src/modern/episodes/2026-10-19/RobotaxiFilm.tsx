@@ -70,8 +70,9 @@ function strokeBrake(r:number){return r<.5?1-smooth(r/.12):smooth((r-.5)/.25);}
 /** Amber hazard flasher from t0: a soft-edged square wave at about 1.3 per second. */
 export function blink(t:number,t0:number){return t<t0?0:clamp(.5+3*Math.sin(2*Math.PI*(t-t0)/.76-.6));}
 
-/** Lane speeds in car units per second: running, and rolling on into the water. */
-export const S6={vHi:1100,vLo:200,kWide:.7,kPlan:.5,F0wide:900,F0plan:780};
+/** Lane speeds in car units per second: running, and rolling on into the water. vHi at the wide scale
+ * keeps the entering car under about 20 px a frame; vLo keeps it rolling, never stopped. */
+export const S6={vHi:850,vLo:150,kWide:.7,kPlan:.5};
 /** Every performed state of the film at time t. Pure: the drawing and the bound check share it. */
 export function robotaxiState(W:Record<string,ActionWindow>,t:number){
  const P=(id:string)=>W[id]?actionProgress(W[id],t):0;
@@ -87,8 +88,9 @@ export function robotaxiState(W:Record<string,ActionWindow>,t:number){
  // s2: the map draws in, the calendar lands, the outline traces and closes
  const p23=P('s2-event-3');
  const s2={draw:P('s2-event-1'),cal:P('s2-event-2'),zone:.3*P('s2-event-2')+.7*p23,fill:clamp((p23-.8)/.2),tag:clamp((p23-.55)/.45)};
- // s3: rain, the water over the crossing, the sweep
- const s3={rain:.25+.75*P('s3-event-1'),lvl:4+26*P('s3-event-1')+22*P('s3-event-2'),sweep:P('s3-event-3')};
+ // s3: rain and a faster brown current; the empty car is already in it, the water presses its side,
+ // then the current sweeps it downstream. Nothing shows how it came to be there.
+ const s3={rain:.25+.75*P('s3-event-1'),flow:1.2+1.2*P('s3-event-1'),press:P('s3-event-2'),sweep:P('s3-event-3')};
  // s4: water spreads and rises; the car creeps at a steady 60 world units a second, then its speed
  // follows s4-event-2's contact curve down to a stop; the hazards start blinking in that event
  const w42=w('s4-event-2'),t40=w('s4-event-1')?w('s4-event-1')!.start-.2:0,v4=60;
@@ -105,7 +107,13 @@ export function robotaxiState(W:Record<string,ActionWindow>,t:number){
  const X6at=(tt:number)=>S6.vHi*Math.max(0,tt-t60)+(w62?(S6.vLo-S6.vHi)*curveIntegral(w62,tt):0);
  const X6=X6at(t),Xw=w63?X6at(w63.start)+CAR.front+16:1e9;
  const r62=R('s6-event-2');
- const s6={X:X6,Xw,wheel:X6/CAR.tireR*DEG,brake:w62&&t>=w62.start&&t<=w62.end?clamp(r62*5)*(1-clamp((r62-.9)/.1)):0,
+ // The camera's target C runs in car units on the same clock. It holds until s6-event-1, gains the car's
+ // speed along that event's travel curve (so it never moves backward), keeps it, and on s6-event-2 sheds
+ // it along the contact curve while the car only slows to vLo: the car eases forward on screen toward
+ // the water and the camera settles. C0 makes the car exactly locked at the end of s6-event-1.
+ const w61=w('s6-event-1'),I1=(tt:number)=>w61?curveIntegral(w61,tt):0,I2=(tt:number)=>w62?curveIntegral(w62,tt):0;
+ const C0=w61?X6at(w61.end)-S6.vHi*I1(w61.end):0,C=C0+S6.vHi*(I1(t)-I2(t));
+ const s6={X:X6,Xw,C,wheel:X6/CAR.tireR*DEG,brake:w62&&t>=w62.start&&t<=w62.end?clamp(r62*5)*(1-clamp((r62-.9)/.1)):0,
   dip:1.2*Math.sin(Math.PI*P('s6-event-2')),frontIn:clamp((X6+CAR.wheels[1]-Xw)/110),rearIn:clamp((X6+CAR.wheels[0]-Xw)/110),
   may:P('s6-event-3'),e1:P('s6-event-1'),e2:P('s6-event-2'),X2end:w62?X6at(w62.end):0};
  // s7: the remedy row lights, the pen rests, the stamp lands
@@ -121,48 +129,54 @@ export type RobotaxiState=ReturnType<typeof robotaxiState>;
 
 // ---- layout. Every number a frame-edge bound depends on is here and exported, so the bound check
 // composes the values this file draws with (Cam, then the plate camera's PlaceSubject). ------------
-export const CURB_CAR={y:1240,s:.88,x0:90};
+export const CURB_CAR={y:1240,s:.88,x0:80};
 export const curbCarX=(D:number)=>CURB_CAR.x0+D*CURB_CAR.s;
-export const CREEK_CAR={x:560,s:.72};
+export const CREEK_CAR={x:600,s:.72,y:1236};
 export const STREET_CAR={y:1222,s:.8};
 export const LANE_CAR={s:.7};
-export const LOT_CARS={y:1190,s:.34,xs:[-60,130,320,510,700,890]};
+export const LOT_CARS={y:1190,s:.3,xs:[200,375,550,725]};
+export const LOT_AT={calendar:[170,600] as Pt,map:[60,840] as Pt};
 export const LIMITS_DETAIL={tag:[470,290] as Pt,calendar:[250,640] as Pt,map:[500,680] as Pt,icons:[130,270,410,550,690,830],iconY:1190};
 export const CARD_W=760;
 export const COUNT_TAG={at:[690,300] as Pt,size:40,lines:['Nearly 3,800','vehicles','3,791 potentially','affected in the record']};
-export const LOT_TAG={x:480};
+export const LOT_TAG={x:560,size:38};
 /** s1 overhead: the car comes up the curb lane, k plan pixels per car unit, to the bay at y 810. */
 export const CURB_PLAN_CAR={y0:1347,k:.8};
 export const MAP_CAL={stand:[760,600] as Pt,flat:[230,1000] as Pt,plan:[230,990] as Pt};
 export const PHONE_HAIL={at:[96,646] as Pt,rot:-5,w:300};
+/** The rider's phone screen as an inset while the hail and the arrival are spoken: top left of the
+ * frame below the disclosure chip, clear of the county locator. */
+export const PHONE_INSET={at:[60,300] as Pt,w:250};
+/** s9's record: the remedy row on its own card, sliding into the foreground (record-slide) and in the
+ * split's lower panel beside the phone (curb-record-split). */
+export const REMEDY_AT={'record-slide':{x:40,y:984,s:.84,from:-760},'curb-record-split':{x:36,y:946,s:.86,phone:[742,946] as Pt,phoneW:162}};
 /** Where the record card sits in each document view: top left and scale. */
 export const CARD_AT:Record<string,{x:number;y:number;s:number}>={
  'record-desk':{x:130,y:420,s:.95},'count-grid':{x:60,y:290,s:.56},'record-wall':{x:122,y:300,s:1.04},
- 'record-close':{x:80,y:300,s:1.0},'stamp-detail':{x:20,y:240,s:1.18},'record-slide':{x:50,y:950,s:.42},
- 'curb-return':{x:40,y:880,s:.44},'curb-record-split':{x:54,y:0,s:1.08},'curb-plan':{x:644,y:980,s:.36}};
+ 'record-close':{x:80,y:300,s:1.0},'stamp-detail':{x:20,y:240,s:1.18}};
 /** The s5 and s7 stamp marks, in card units. They stay on the card for the rest of the film. */
 export function cardImprints(st:RobotaxiState):Imprint[]{
  const L=recordLayout(CARD_W),rem=L.rows[REMEDY_ROW];
  return [{text:'Software recall',p:st.s5.imprint,x:560,y:L.rows[0].y+46,rot:-8,size:40},
   {text:'Under development',p:st.s7.imprint,x:rem.vx+232,y:rem.y+rem.h/2,rot:-6,size:34}];
 }
+/** s3's sweep in world units: downstream (right) and toward the viewer, a growing scale, a roll. */
+export const S3_SWEEP={dx:150,dy:96,grow:.08,roll:-6,sink:34};
 export type Cam={f:Pt;s:number;a:Pt};
 const ID:Cam={f:[540,960],s:1,a:[540,960]};
 /** The camera for each view at time t: world point f lands on screen point a at scale s. */
 export function viewCam(view:string,sid:string,v:V,t:number,st:RobotaxiState,shot:{start_s:number;duration_s:number}):Cam{
  switch(view){
  case 'phone-hail':return {f:[680,1150],s:.9,a:[640,1100]};
- case 'curb-record-split':return {f:[680,1150],s:.95,a:[560,600]};
- case 'record-slide':return {f:[640,1120],s:1.08,a:[580,920]};
- case 'car-swept':{const sw=st.s3.sweep;return {f:[560+42*sw,1120+40*sw],s:1.45,a:[540,1000]};}
- case 'hazard-close':{const e=st.s4.calm,x=st.s4.X;return {f:[x+lerp(140,70,e),lerp(1120,1100,e)],s:2.4,a:[540,840]};}
+ case 'curb-record-split':return {f:[520,1080],s:1.2,a:[540,560]};
+ case 'record-slide':return {f:[640,1120],s:1.0,a:[600,760]};
+ case 'car-swept':{const sw=st.s3.sweep;return {f:[600+.8*S3_SWEEP.dx*sw,1180+.8*S3_SWEEP.dy*sw],s:1.45,a:[540,960]};}
+ case 'hazard-close':{const e=st.s4.calm,x=st.s4.X;return {f:[x+lerp(120,60,e),1100],s:1.8,a:[540,940]};}
  case 'wheel-water':{const e=st.s4.calm,x=st.s4.X;return {f:[x,lerp(1150,1110,e)],s:lerp(1.35,1.5,e),a:[540,930]};}
- case 'lane-wide':{const k=S6.kWide,follow=st.s6.X*k+180,hold=st.s6.X2end*k+180,F0=S6.F0wide;
-  return {f:[(1-st.s6.e1)*F0+st.s6.e1*((1-st.s6.e2)*follow+st.s6.e2*hold),960],s:1,a:[540,960]};}
+ case 'lane-wide':return {f:[st.s6.C*S6.kWide+180,960],s:1,a:[540,960]};
  case 'wheels-water':{const k=S6.kWide;return {f:[(st.s6.X+CAR.wheels[1])*k-75,1180],s:1.5/k,a:[540,1000]};}
- case 'lane-plan':{const k=S6.kPlan,Y=1400-st.s6.X*k,follow=Y-140,hold=1400-st.s6.X2end*k-140,F0=S6.F0plan;
-  return {f:[540,(1-st.s6.e1)*F0+st.s6.e1*((1-st.s6.e2)*follow+st.s6.e2*hold)],s:1,a:[540,960]};}
- case 'limits-tag':return {f:[460,860],s:1.28,a:[540,820]};
+ case 'lane-plan':return {f:[540,1400-st.s6.C*S6.kPlan-140],s:1,a:[540,960]};
+ case 'limits-tag':return {f:[462,860],s:1.1,a:[540,840]};
  case 'map-zone':case 'map-table':case 'map-plan':return ID;
  default:return ID;
  }
@@ -204,7 +218,9 @@ const top=(p:Pt,s:number,rot:number,o:TopProps)=>
 export const sideBox=(p:Pt,s:number):Box=>[p[0]+SIDE_BOX[0]*s,p[1]+SIDE_BOX[1]*s,p[0]+SIDE_BOX[2]*s,p[1]+SIDE_BOX[3]*s];
 export const topBoxUp=(p:Pt,s:number):Box=>[p[0]-TOP_BOX[3]*s,p[1]-TOP_BOX[2]*s,p[0]-TOP_BOX[1]*s,p[1]-TOP_BOX[0]*s];
 
-const DISCLOSURE_FONT=26,DISCLOSURE_MAX=330;
+const DISCLOSURE_FONT=26,DISCLOSURE_MAX=420;
+/** The chip's box for a disclosure string, shared with the frame-edge check. */
+export function disclosureBox(text:string):Box{const ls=disclosureLines(text);return [44,132,44+Math.max(...ls.map(l=>widthOf(l,DISCLOSURE_FONT,true)))+34,132+ls.length*32+24];}
 function disclosureLines(text:string):string[]{
  const words=text.split(' '),lines:string[]=[];let cur='';
  for(const w of words){const n=cur?cur+' '+w:w;if(cur&&widthOf(n,DISCLOSURE_FONT,true)>DISCLOSURE_MAX){lines.push(cur);cur=w;}else cur=n;}
@@ -239,9 +255,14 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   const base:Pt=r<=0||r>=1?rest:r<.45?[lerp(rest[0],mark[0],go),lerp(rest[1],mark[1],go)-150*k*Math.sin(Math.PI*go)]
    :r<.66?mark:[lerp(mark[0],rest[0],back),lerp(mark[1],rest[1],back)-150*k*Math.sin(Math.PI*back)];
   const squash=r>.45&&r<.66?Math.sin(Math.PI*(r-.45)/.21)*.07:0;
-  return <g data-part="stamping"><At p={base}><g transform={`rotate(-6) scale(${(k*(1+squash)).toFixed(4)} ${(k*(1-squash)).toFixed(4)})`}><SanAntonioSupport part="stamp"/></g></At></g>;
+  const held=r>0&&r<1,knob:Pt=[base[0]-6*k,base[1]-150*k];
+  return <g data-part="stamping"><At p={base}><g transform={`rotate(-6) scale(${(k*(1+squash)).toFixed(4)} ${(k*(1-squash)).toFixed(4)})`}><SanAntonioSupport part="stamp"/></g></At>
+   {held&&<At p={knob}><SanAntonioSupport part="hand" dir={[.62,.78]} grip="knob" scale={k}/></At>}</g>;
  };
  const cardPoint=(k:string,lx:number,ly:number):Pt=>{const c=CARD_AT[k];return [c.x+c.s*lx,c.y+c.s*ly];};
+ /** The rider's phone screen as an inset: the request while the hail is spoken, arriving at the close. */
+ const phoneInset=(id:string,status:number,pin:number)=><Item id={id}><g data-part="phone-inset">
+  <At p={PHONE_INSET.at}><SanAntonioSupport part="phone" w={PHONE_INSET.w} pin={pin} status={status} t={t}/></At></g></Item>;
  const L=recordLayout(CARD_W),rem=L.rows[REMEDY_ROW];
 
  // ---- the curb, shared by s1 and s9 eye-level views ----
@@ -260,7 +281,7 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   // s1 wide, eye level across the pickup lane. The car starts half in frame at the left, pulls away,
   // and brakes into the bay on s1-event-1's travel curve; its brake lamps flare as it slows and stay
   // lit while it waits. The canopy, the leaning bay sign and the suitcase say airport without words.
-  pic=<CamG c={cam} z={z}>{curbWorld(s1Car,{curb:'s1-curb',car:'s1-car',phone:'s1-phone'},benchPhone(S.s1.status,S.s1.pin))}</CamG>;
+  pic=<g><CamG c={cam} z={z}>{curbWorld(s1Car,{curb:'s1-curb',car:'s1-car'})}</CamG>{phoneInset('s1-phone',S.s1.status,S.s1.pin)}</g>;
   break;}
  case 'cab-wheel':{
   // s1 detail from the rear seat: the steering wheel turns right and back on s1-event-2's contact
@@ -279,7 +300,8 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
     <path d="M-48 -352l8 -18c4 -8 12 -12 22 -12h36c10 0 18 4 22 12l8 18v12h-96Z" fill="#E9EEF2"/>
    </g>
   </g>;
-  pic=<Item id="s1-car"><Item id="s1-wheel"><RobotaxiHero part="cab" steer={S.s1.steer} outside={outside} route={S.s1.route}/></Item></Item>;
+  pic=<g><Item id="s1-car"><Item id="s1-wheel"><RobotaxiHero part="cab" steer={S.s1.steer} outside={outside} route={S.s1.route}/></Item></Item>
+   {phoneInset('s1-phone',S.s1.status,S.s1.pin)}</g>;
   break;}
  case 'phone-hail':{
   // s1 close: the phone stands against the suitcase handle on the bench, its request pin reaches the
@@ -303,7 +325,7 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   // map (a wall view) as it draws in, then the same close.
   const plan=view==='map-plan',close=view==='map-zone';
   const mw=close?860:plan?860:780,mh=close?980:plan?900:760,mx=close?110:plan?110:90,my=close?330:plan?290:800,sy=close?.92:plan?1:.58;
-  const map=<g transform={`translate(${mx} ${my}) scale(1 ${sy})`}><SanAntonioSupport part="map" w={mw} h={mh} draw={S.s2.draw} zone={S.s2.zone} fill={S.s2.fill} t={t}/></g>;
+  const mapAt=(layer:'base'|'zone'|'pins')=><g transform={`translate(${mx} ${my}) scale(1 ${sy})`}><SanAntonioSupport part="map" w={mw} h={mh} draw={S.s2.draw} zone={S.s2.zone} fill={S.s2.fill} t={t} layer={layer}/></g>;
   const cal=close?<At p={[lerp(MAP_CAL.stand[0],MAP_CAL.flat[0],S.s2.cal),lerp(MAP_CAL.stand[1]+80,MAP_CAL.flat[1],S.s2.cal)]} r={lerp(16,-4,S.s2.cal)} s={lerp(1.12,1,S.s2.cal)}>
    <SanAntonioSupport part="calendar" month="February" w={200}/></At>
    :plan?<At p={MAP_CAL.plan} r={-4}><SanAntonioSupport part="calendar" month="February" w={200}/></At>
@@ -312,41 +334,44 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   pic=<g>
    {!plan&&<SanAntonioSupport part="table" y0={close?300:780}/>}
    {plan&&<rect x={mx-30} y={my-30} width={mw+60} height={mh+60} rx={10} fill="#3B3F46" opacity={.18}/>}
-   <Item id="s2-map"><Item id="s2-zone"><Item id="s2-pin">{map}</Item></Item></Item>
+   <Item id="s2-map">{mapAt('base')}</Item>
+   {close&&<Item id="s2-zone">{mapAt('zone')}</Item>}
+   <Item id="s2-pin">{mapAt('pins')}</Item>
    <Item id="s2-calendar">{cal}</Item>
    {close&&<At p={[zx-10,zy-210]}>{tag(['60 square miles','Limited area'],S.s2.tag,{size:40})}</At>}
   </g>;
   break;}
  case 'creek-wide':
  case 'car-swept':{
-  // s3. Rain streaks in and the brown creek rises over the low crossing under the limestone bank; the
-  // water climbs the wheels of the empty car; then the current lifts it sideways off the slab toward
-  // the viewer, rolling a few degrees and settling deeper in the downstream water, cabin still empty.
-  const {crossY,crossFace}=CREEK,lvl=S.s3.lvl,sw=S.s3.sweep;
-  const p:Pt=[CREEK_CAR.x+42*sw,crossY+120*sw],ks=CREEK_CAR.s*(1+.06*sw),rot=-5*sw;
-  const sheetY=crossY-lvl,down=crossY+crossFace+2;
-  const car=side(p,ks,{wheel:0,brake:0,wetTo:Math.min(150,(lvl+90*sw)/ks),shadow:0,cabin:1},rot);
-  const sheet=(o:number)=><g opacity={o}><SanAntonioSupport part="water" x0={-80} x1={1160} y={sheetY} depth={lvl+2} t={t} flow={1.4}/>
-   <path d={`M-80 ${crossY}H1160V${down}H-80Z`} fill="#8C7553" opacity={lvl>6?.75:.2}/>
-   {Array.from({length:22},(_,i)=><path key={i} d={`M${-60+i*55} ${crossY}v${crossFace}`} stroke="#E3D8C2" strokeWidth={3} opacity={lvl>6?.45:0}/>)}</g>;
-  const world=<Grounded baseY={crossY} on={exterior}>
-   <Item id="s3-creek"><SanAntonioSupport part="creekback" t={t} level={lvl}/></Item>
-   <Item id="s3-crossing">{sheet(1)}</Item>
-   <Item id="s3-car">{car}</Item>
-   <g>{sheet(1-clamp(sw*3))}</g>
-   <Item id="s3-creek"><SanAntonioSupport part="water" x0={-80} x1={1160} y={down} depth={1940-down} t={t} flow={1.8} toward
-    reflect={mirrorAbout(down,car)}/></Item>
+  // s3, an illustration of the April 20th account: a DIFFERENT car from the airport ride. Rain streaks in
+  // and fast brown water runs toward the viewer along the limestone banks; an empty car is already in the
+  // current from the first frame (nothing shows how it got there). On s3-event-2 the water piles against
+  // its upstream side and nudges it; on s3-event-3 the current lifts it sideways and washes it downstream,
+  // rolling a few degrees and settling deeper, cabin still empty. No crossing, no gauge, no damage.
+  const sw=S.s3.sweep,pr=S.s3.press,W3=S3_SWEEP;
+  const p:Pt=[CREEK_CAR.x+W3.dx*sw,CREEK_CAR.y+10*pr+W3.dy*sw],ks=CREEK_CAR.s*(1+.01*pr+W3.grow*sw),rot=W3.roll*sw;
+  const wl=p[1]-(88+W3.sink*sw)*ks;
+  const car=side(p,ks,{wheel:0,brake:0,wetTo:110+W3.sink*sw,shadow:0,cabin:1},rot);
+  const world=<Grounded baseY={CREEK_CAR.y} on={exterior}>
+   <Item id="s3-creek"><SanAntonioSupport part="creekback" t={t} flow={S.s3.flow}/></Item>
+   <Item id="s3-car">{car}
+    <At p={[p[0],p[1]]} s={ks}><SanAntonioSupport part="pile" p={pr*(1-.5*sw)} t={t} len={250} h={200}/></At></Item>
+   <SanAntonioSupport part="water" x0={p[0]-300*ks} x1={p[0]+300*ks} y={wl} depth={1940-wl} t={t} flow={S.s3.flow} toward seed={17} opacity={.96}
+    reflect={mirrorAbout(wl,car)}/>
+   <Item id="s3-crossing"><SanAntonioSupport part="creekbank" t={t}/></Item>
   </Grounded>;
   pic=<g><CamG c={cam} z={z}>{world}</CamG><Item id="s3-rain">{rain(S.s3.rain)}</Item></g>;
   break;}
  case 'creek-plan':{
-  // s3 from above: the brown channel under rain rings, the slab across it with water spreading over
-  // it, and the white roof with its dome on the crossing; ripples close in around the wheels.
-  const {crossY,crossH}=CREEK_PLAN,over=clamp((S.s3.lvl-4)/48);
+  // s3 from above: the fast brown channel under rain rings between limestone banks with brush and oak
+  // crowns; the white roof and dome are already in the current across it, a bow wave builds on its
+  // upstream side, then it turns and drifts downstream.
+  const {carY}=CREEK_PLAN,pr=S.s3.press,sw=S.s3.sweep,cx=560,cy=carY+260*sw;
   pic=<g>
-   <Item id="s3-creek"><Item id="s3-crossing"><Item id="s3-rain"><SanAntonioSupport part="creekplan" t={t} over={over} rain={S.s3.rain}/></Item></Item></Item>
-   <Item id="s3-car">{top([560,crossY+crossH/2],.5,0,{shadow:.6})}
-    {over>.4&&[-1,1].map(sgn=><path key={sgn} d={`M${480+40*sgn} ${crossY+crossH/2-74*sgn}q-30 ${-20*sgn} -70 ${-14*sgn}`} stroke="#E9E1CF" strokeWidth={4} fill="none" opacity={clamp((over-.4)*2)}/>)}</Item>
+   <Item id="s3-creek"><Item id="s3-crossing"><Item id="s3-rain"><SanAntonioSupport part="creekplan" t={t} rain={S.s3.rain} flow={S.s3.flow}/></Item></Item></Item>
+   <Item id="s3-car">{top([cx,cy],.5,18*sw,{shadow:.2,wetTo:60})}
+    {pr>0&&<path d={`M${cx-150} ${cy-58}Q${cx} ${cy-58-50*pr} ${cx+150} ${cy-58}`} stroke="#E9E1CF" strokeWidth={8} fill="none" opacity={clamp(pr*1.5)*(1-.6*sw)}/>}
+    {[-1,1].map(sgn=><path key={sgn} d={`M${cx+sgn*140} ${cy}q${sgn*30} 40 ${sgn*10} 120`} stroke="#E9E1CF" strokeWidth={4} fill="none" opacity={.4+.4*pr}/>)}</Item>
   </g>;
   break;}
  case 'street-flood':
@@ -360,7 +385,7 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   const car=side([xc,y],s,carProps);
   const front=S.s4.front;
   const world=<Grounded baseY={y} on={exterior}>
-   <Item id="s4-street"><SanAntonioSupport part="street" houses={view!=='hazard-close'}/></Item>
+   <Item id="s4-street"><SanAntonioSupport part="street" soft={view==='hazard-close'?3.2:view==='wheel-water'?2:0}/></Item>
    <Item id="s4-water">{front>-80&&<SanAntonioSupport part="water" x0={-80} x1={front} y={STREET.farCurb+12} depth={STREET.nearCurb+18-STREET.farCurb-12}
     t={t} flow={.8} calm={S.s4.calm} reflect={mirrorAbout(y,car)} opacity={.94}/>}</Item>
    <Item id="s4-car"><Item id="s4-hazard">{car}</Item></Item>
@@ -382,7 +407,7 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
  case 'count-grid':
  case 'record-close':
  case 'stamp-detail':{
-  if(view==='record-wall'&&sid==='s9'){pic=curbPlanS9();break;}
+  if(view==='record-wall'&&sid!=='s5'&&sid!=='s7')throw new Error('record-wall draws the s5 and s7 record only');
   const ids=sid==='s7'?{card:'s7-record',row:'s7-remedy'}:{card:'s5-record',row:'s5-record'};
   if(view==='record-desk'||(view==='record-wall'&&sid==='s5')){
    // s5: the record card slides onto the desk on s5-event-1's contact curve and its rows write in.
@@ -417,7 +442,8 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   pic=<g>
    <SanAntonioSupport part="desk" x0={-40} x1={1120} y0={view==='record-wall'?250:220} h={1150} top={view==='record-wall'}/>
    <Item id={ids.card}><Item id={ids.row}>{card(k,{rows:1,lit:S.s7.lit})}</Item></Item>
-   <Item id="s7-cursor">{S.s7.pen>0&&<At p={penAt}><SanAntonioSupport part="pen"/></At>}</Item>
+   <Item id="s7-cursor">{S.s7.pen>0&&<g><At p={penAt}><SanAntonioSupport part="pen"/></At>
+    <At p={[penAt[0]+150,penAt[1]-118]}><SanAntonioSupport part="hand" dir={[.62,.78]} grip="pen"/></At></g>}</Item>
    <Item id="s7-stamp">{stampAt(view==='stamp-detail'?S.s7.stamp:0,mark,c.s*(view==='stamp-detail'?1.05:.8),view==='stamp-detail'?[800,1150]:[c.x+c.s*CARD_W-60,c.y+c.s*L.h+150])}</Item>
   </g>;
   break;}
@@ -451,11 +477,13 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   // settles and the car rolls on toward the standing water lying across the lanes.
   const k=S6.kPlan,Y=1400-S.s6.X*k,yw=1400-S.s6.Xw*k;
   const ya=cam.f[1]-1100,yb=cam.f[1]+1100;
-  pic=<CamG c={cam} z={z}>
+  pic=<g><CamG c={cam} z={z}>
    <Item id="s6-lane"><SanAntonioSupport part="laneplan" ya={ya} yb={yb}/></Item>
    <Item id="s6-water"><SanAntonioSupport part="puddleplan" x0={430} x1={820} y0={yw-760} y1={yw} t={t}/></Item>
    <Item id="s6-car">{top([615,Y],k,-90,{brake:S.s6.brake,shadow:.5})}</Item>
-  </CamG>;
+  </CamG>
+   <Item id="s6-quote"><At p={[60,300]} o={clamp(S.s6.e1*2)}><SanAntonioSupport part="quote" w={720} lit={S.s6.may} size={32}/></At></Item>
+  </g>;
   break;}
  case 'calendar-fleet':
  case 'limits-tag':{
@@ -468,9 +496,9 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
    <SanAntonioSupport part="lot"/>
    <Item id="s8-fleet">{xs.map((x,i)=><g key={i}>{side([x,y],s,{wheel:0,shadow:1,cabin:.5,seed:i})}
     <At p={[x,y-260*s-40]}><SanAntonioSupport part="check" p={clamp(S.s8.checks*n-i)} r={30}/></At></g>)}</Item>
-   <Item id="s8-calendar"><At p={[170,640]}><SanAntonioSupport part="calendar" month="April" day="20" flip={S.s8.flip} w={200}/></At></Item>
-   <Item id="s8-map"><At p={[330,760]}><SanAntonioSupport part="mapcard" updated={clamp((S.s8.checks-.75)/.25)} w={230}/></At></Item>
-   <Item id="s8-limits"><At p={[tagX,cordY]}>{tag(['Weather limits','tightened'],S.s8.tag>0?1:0,{size:44,icon:'rain',dir:-1})}</At></Item>
+   <Item id="s8-calendar"><At p={LOT_AT.calendar}><SanAntonioSupport part="calendar" month="April" day="20" flip={S.s8.flip} w={200}/></At></Item>
+   <Item id="s8-map"><At p={LOT_AT.map}><SanAntonioSupport part="mapcard" updated={clamp((S.s8.checks-.75)/.25)} w={230}/></At></Item>
+   <Item id="s8-limits"><At p={[tagX,cordY]}>{tag(['Weather limits','tightened'],S.s8.tag>0?1:0,{size:LOT_TAG.size,icon:'rain',dir:-1})}</At></Item>
   </Grounded>;
   pic=<CamG c={cam} z={z}>{world}</CamG>;
   break;}
@@ -505,54 +533,42 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   </g>;
   break;}
  case 'curb-plan':{
-  if(sid==='s9'){pic=curbPlanS9();break;}
+  if(sid!=='s1')throw new Error('curb-plan draws the s1 arrival only');
   // s1 from above: the roof and dome come up the curb lane and brake into the painted bay box.
   const y=CURB_PLAN_CAR.y0-CURB_PLAN_CAR.k*S.s1.D;
   pic=<g>
-   <Item id="s1-curb"><SanAntonioSupport part="curbplan" phone={<Item id="s1-phone"><At p={[795,700]} r={8} s={.16}><SanAntonioSupport part="phone" w={300} pin={S.s1.pin} status={S.s1.status} t={t}/></At></Item>}/></Item>
+   <Item id="s1-curb"><SanAntonioSupport part="curbplan" phone={<At p={[795,700]} r={8} s={.16}><SanAntonioSupport part="phone" w={300} pin={S.s1.pin} status={S.s1.status} t={t}/></At>}/></Item>
    <Item id="s1-car">{top([550,y],.62,-90,{brake:S.s1.brake,shadow:.6})}</Item>
+   {phoneInset('s1-phone',S.s1.status,S.s1.pin)}
   </g>;
   break;}
  case 'curb-return':
  case 'record-slide':
  case 'curb-record-split':{
-  // s9 at the same curb bay. The same car waits; its curbside rear door swings open on its hinge on
-  // s9-event-1, the empty rear seat inside. The record card slides into the foreground on s9-event-2
-  // and holds; on s9-event-3 its remedy row is underlined, still under development, while the door
-  // stays open and the phone on the bench still says arriving. The split sets the two side by side.
+  // s9, a generic airport ride, not the flood cars. At the curb bay the waiting car's curbside rear door
+  // swings open on its hinge on s9-event-1, the empty rear seat inside, and the phone inset says arriving.
+  // On s9-event-2 the record's remedy row slides into the foreground on its own card, lit and large enough
+  // to read. In the split, the open door and the bench phone hold above, the remedy card and the phone
+  // below, and on s9-event-3 the remedy sentence is underlined: still under development.
   const world=curbWorld(s9Car,{curb:'s9-curb',car:'s9-car',phone:'s9-phone'},benchPhone(1,1));
-  const shown=S.s9.slide;
-  if(view==='curb-record-split'){
-   const c=CARD_AT[view],panelY=930,rowTop=rem.y*c.s;
-   pic=<g>
-    <Clip k="split-top" box={[0,0,1080,panelY-12]}><CamG c={cam} z={z}>{world}</CamG></Clip>
-    <rect x={0} y={panelY-12} width={1080} height={12} fill={pal.paper}/>
-    <Clip k="split-bottom" box={[0,panelY,1080,1300]}>
-     <Item id="s9-record"><At p={[c.x,panelY+40-rowTop+20]} s={c.s}><SanAntonioSupport part="record" w={CARD_W} rows={1} remedyLit={.6} underline={S.s9.underline} imprints={imprints}/></At></Item>
-    </Clip>
+  if(view==='curb-return'){pic=<g><CamG c={cam} z={z}>{world}</CamG>{phoneInset('s9-phone',1,1)}</g>;break;}
+  if(view==='record-slide'){
+   const R=REMEDY_AT['record-slide'],sl=S.s9.slide;
+   pic=<g><CamG c={cam} z={z}>{world}</CamG>
+    <Item id="s9-record"><At p={[lerp(R.from,R.x,sl),R.y]} r={lerp(-6,-1,sl)} s={R.s}>
+     <SanAntonioSupport part="remedycard" lit={.4+.6*smooth(sl)} imprint={S.s7.imprint}/></At></Item>
    </g>;
    break;
   }
-  const k=view;const c=CARD_AT[k];
-  const from:Pt=[-c.s*CARD_W-60,c.y+40];
-  pic=<g><CamG c={cam} z={z}>{world}</CamG>
-   {shown>0&&<Item id="s9-record"><At p={[lerp(from[0],c.x,shown),lerp(from[1],c.y,shown)]} r={lerp(-8,-2,shown)} s={c.s}>
-    <SanAntonioSupport part="record" w={CARD_W} rows={1} remedyLit={.5} underline={S.s9.underline} imprints={imprints}/></At></Item>}
+  const R=REMEDY_AT['curb-record-split'],panelY=930;
+  pic=<g>
+   <Clip k="split-top" box={[0,0,1080,panelY-12]}><CamG c={cam} z={z}>{world}</CamG></Clip>
+   <rect x={0} y={panelY-12} width={1080} height={12} fill={pal.paper}/>
+   <Item id="s9-record"><At p={[R.x,R.y]} s={R.s}><SanAntonioSupport part="remedycard" lit={1} underline={S.s9.underline} imprint={S.s7.imprint}/></At></Item>
+   <Item id="s9-phone"><At p={R.phone}><SanAntonioSupport part="phone" w={R.phoneW} pin={1} status={1} t={t}/></At></Item>
   </g>;
   break;}
  default:throw new Error('Unimplemented robotaxi view '+view);
- }
-
- /** s9 from above (curb-plan and record-wall): the car in the bay with its curbside rear door swinging
-  * open, the phone on the bench, and the record card sliding in flat onto the sidewalk beside the bay. */
- function curbPlanS9(){
-  const c=CARD_AT['curb-plan'],sl=S.s9.slide;
-  return <g>
-   <Item id="s9-curb"><SanAntonioSupport part="curbplan" phone={<Item id="s9-phone"><At p={[795,700]} r={8} s={.16}><SanAntonioSupport part="phone" w={300} pin={1} status={1} t={t}/></At></Item>}/></Item>
-   <Item id="s9-car">{top([550,810],.62,-90,{door:S.s9.door,shadow:.6})}</Item>
-   {view==='record-wall'&&sl>0&&<Item id="s9-record"><At p={[lerp(1180,c.x,sl),c.y]} r={lerp(10,-2,sl)} s={c.s}>
-    <SanAntonioSupport part="record" w={CARD_W} rows={1} remedyLit={.5} imprints={imprints}/></At></Item>}
-  </g>;
  }
 
  // ---- the disclosure chip: the board's production_disclosure, on every scene ----

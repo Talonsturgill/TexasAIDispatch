@@ -332,7 +332,7 @@ const Cab: React.FC<CabProps> = ({steer, outside, route = 0}) => {
   return [lerp(routePts[i][0], routePts[i + 1][0], u), lerp(routePts[i][1], routePts[i + 1][1], u)];
  };
  const car = at(.55 + .45 * clamp(route));
- const seat = (x0: number, y0: number, w: number) => `M${x0} 1500C${x0} 1400 ${x0 + 10} 1322 ${x0 + 40} 1292C${x0 + 80} 1266 ${x0 + w - 80} 1266 ${x0 + w - 40} 1292C${x0 + w - 10} 1322 ${x0 + w} 1400 ${x0 + w} 1500Z`;
+ const seat = (x0: number, y0: number, w: number) => `M${x0 - 30} 1960C${x0} 1500 ${x0} 1400 ${x0 + 10} 1322C${x0 + 30} 1292 ${x0 + 40} 1292 ${x0 + 40} 1292C${x0 + 80} 1266 ${x0 + w - 80} 1266 ${x0 + w - 40} 1292C${x0 + w - 10} 1322 ${x0 + w} 1500 ${x0 + w + 30} 1960Z`;
  return <g data-part="robotaxi-cabin">
   <defs>
    <clipPath id={`${id}ws`}><path d={CAB_WINDSHIELD}/></clipPath>
@@ -356,7 +356,7 @@ const Cab: React.FC<CabProps> = ({steer, outside, route = 0}) => {
   <path d="M-20 300C40 296 100 300 140 306L70 960L-20 980Z" fill={`url(#${id}pillar)`}/>
   <path d="M1100 300C1040 296 980 300 940 306L1010 960L1100 980Z" fill={`url(#${id}pillar)`}/>
   {/* the dashboard, its instrument hood and the centre screen with a plain route line */}
-  <path d="M-20 960C160 922 400 908 540 908C680 908 920 922 1100 960L1100 1500L-20 1500Z" fill={`url(#${id}dash)`}/>
+  <path d="M-20 960C160 922 400 908 540 908C680 908 920 922 1100 960L1100 1960L-20 1960Z" fill={`url(#${id}dash)`}/>
   <path d="M-20 960C160 922 400 908 540 908C680 908 920 922 1100 960" stroke="#5A6068" strokeWidth={3} fill="none"/>
   {Array.from({length: 14}, (_, i) => <path key={i} d={`M${560 + i * 18} 926L${566 + i * 18} 940`} stroke="#0F1113" strokeWidth={4}/>)}
   <path d="M206 936C236 896 420 890 462 930L452 968L218 968Z" fill="#191B1E"/>
@@ -382,9 +382,10 @@ const Cab: React.FC<CabProps> = ({steer, outside, route = 0}) => {
    <rect x={wx - 6} y={wy - R - 14} width={12} height={22} rx={3} fill="#5A6068"/>
   </g>
   {/* the two front seats, both empty: a headrest and a seat back with nobody in front of them */}
+  <path d="M-20 1380C200 1350 880 1350 1100 1380L1100 1960L-20 1960Z" fill="#26292E"/>
   <path d={seat(150, 1262, 360)} fill={`url(#${id}seat)`}/>
   <path d={seat(642, 1276, 310)} fill={`url(#${id}seat)`}/>
-  <path d="M520 1500L540 1310L626 1310L646 1500Z" fill="#1A1C20"/>
+  <path d="M500 1960L540 1310L626 1310L666 1960Z" fill="#1A1C20"/>
   {[[CAB.driverHead, 'd'], [CAB.passengerHead, 'p']].map(([b, k]) => {
    const [x, y, w, h] = b as [number, number, number, number];
    return <g key={k as string} data-part={k === 'd' ? 'empty-driver-headrest' : 'passenger-headrest'}>
