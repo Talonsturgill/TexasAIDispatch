@@ -716,6 +716,8 @@ def restore(repo=REPO, run_id=None, remote="origin", dest=None, *, origin_worksp
     if git(repo, "cat-file", "-e", pin + "^{commit}", check=False).returncode:
         raise CheckpointError("the recorded source pin is not in the checkpoint history: " + pin)
     git(repo, "worktree", "add", "--quiet", "--detach", str(dest), pin)
+    from source_view import full_production_view
+    full_production_view(dest)
     branch = manifest.get("source_branch")
     if branch and git(dest, "rev-parse", "--verify", "--quiet", f"refs/heads/{branch}", check=False).returncode:
         git(dest, "switch", "--quiet", "-c", branch)

@@ -46,6 +46,12 @@ class RuntimeTests(unittest.TestCase):
         self.assertNotIn('spawn_args', result)
         self.assertLessEqual(len(result['agent_args']['prompt']), 1800)
 
+    def test_cloud_plan_refuses_inherited_sparse_production_before_any_paid_worker(self):
+        with patch.dict('os.environ', {'CLAUDE_CODE_REMOTE': 'true'}), \
+                patch('source_view.git', return_value='true'), \
+                self.assertRaisesRegex(ValueError, 'before reserving any content worker'):
+            runtime.plan('researcher', self.root/'not-started.json', 'researcher', 'Inspect current sources.')
+
     def test_current_early_workers_require_actual_provider_availability(self):
         source = self.root/'source.json'; source.write_text('{}')
         with patch('provider_availability.research_receipt', side_effect=ValueError('generation probe missing')):

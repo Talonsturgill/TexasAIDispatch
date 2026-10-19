@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Saved in the Texas cloud environment. Provisioning is cached, not a daily refresh.
-# Setup revision 2026-10-19b installs durable visual leaves before Claude launches.
+# Setup revision 2026-10-19c prepares isolated source storage and durable visual leaves before launch.
 set -euo pipefail
 dispatch_tools=/opt/texas-dispatch-tools
 if [ ! -d "$dispatch_tools/.git" ]; then
@@ -20,3 +20,4 @@ bash scripts/run_with_env.sh python3 scripts/cloud_bootstrap.py --bind-legacy-ca
 bash scripts/run_with_env.sh python3 scripts/claude_environment_context.py --workspace /home/user --apply
 bash scripts/run_with_env.sh python3 scripts/bootstrap_claude_hooks.py --workspace /home/user --prelaunch-router
 bash scripts/run_with_env.sh python3 scripts/visual_observations.py install --workspace /home/user
+bash scripts/run_with_env.sh python3 scripts/source_view.py prepare --workspace /home/user --apply
