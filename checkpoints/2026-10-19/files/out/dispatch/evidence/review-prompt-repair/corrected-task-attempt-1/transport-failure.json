@@ -1,0 +1,57 @@
+{
+  "schema": "dispatch_review_transport_failure/1",
+  "role": "phone",
+  "actor": "abb1c86df3ed8822b",
+  "observed_at": "2026-10-19T18:31:54.453088Z",
+  "error": "[media removed: request limit]",
+  "raw_error": "[media removed: request limit]",
+  "verdict": null,
+  "reservation_event_index": 87,
+  "reservation": {
+    "at": "2026-10-19T18:26:21.967765Z",
+    "kind": "reserved",
+    "note": "corrective code review of Treatment B on the restored claims 4b42adee, same code critic, granted by mandatory-public-review-prompt-repair",
+    "preflight_identity": null,
+    "resources": {
+      "storyboard_critics": 1
+    }
+  },
+  "reservation_sha256": "f92e4c23b5fdb94768cf59ae8a22b2d3abaf28c2b70b485f8bebbb043acd1866",
+  "media_probe": {
+    "single_image_read": true,
+    "media_received": false,
+    "packet": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/phone-critic-packet-round5.json",
+      "sha256": "3a6bb72070ab9044e8690d4efbd87174b7a2dc0bb95a9f243c02d3a5b6a830cd"
+    },
+    "coverage": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/review-prompt-repair/corrected-task-attempt-1/coverage-per-page.json",
+      "sha256": "debdd6b2d0d22202608da1d4243ade75be9a570dcec870df31f7a427896b0ae1"
+    },
+    "handback": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/review-prompt-repair/corrected-task-attempt-1/handback.txt",
+      "sha256": "5dd69a06f908f6d1e400633469ef7d3c17ca91db1bbcaa6755fb5f0a4b7e5915"
+    },
+    "image": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/motion-a/sequence-000.png",
+      "sha256": "e80e55c21496855c2c695bafabfe9ef6b9934f0b9f9249398d71d2e57367abe9"
+    }
+  },
+  "assignment": {
+    "role": "phone",
+    "actor": "abb1c86df3ed8822b",
+    "board_sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8",
+    "film_sha256": null,
+    "comparison_sha256": "781a6263593ca59efc80a2ccd7301d02ab1facd40878cb28179a7e6590b442bb",
+    "opening_options": {
+      "a": {
+        "board_sha256": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1",
+        "film_sha256": "743af11f9867b26436e9cc8aa87768fc547ab3cc04968b03d5c22400b31f5a1b"
+      },
+      "b": {
+        "board_sha256": "97da983a9bc23ba583c4338c4a849707baa6f5625c7a9b945d7e9b213ffd4959",
+        "film_sha256": "007354839edac6ab20915b7cacab106e8db05b413bca90b81c1d9051689bf55d"
+      }
+    }
+  }
+}

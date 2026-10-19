@@ -1,0 +1,40 @@
+{
+ "mechanism_id": "single-qualifier-clause-binding",
+ "failure_family": "human-performance",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The measured clause contract requires 0.24 s of silence at the declared n9b/n9c boundary, which splits the qualifier 'as currently under development' from the claim it qualifies. Three takes failed at that authored edge (0 s, a breath that made 'as' sound like 'is', then 0.20 s). The independent source-pivot review found the split itself is the cause.",
+ "repair": "Merge narration clauses n9b and n9c into one declared clause n9bc bound to c8 with its single caption, as approved by the independent pivot review. Remove the self-contradicting breath instruction from vo_direction.json. Apply the same merge to both treatments. Words, claims and take 3 audio are unchanged.",
+ "mechanism_change": "The mechanism changes from directing a performed breath at a clause edge to removing the edge, so the qualifier stays inside one declared clause and no pause is required.",
+ "expected_visible_result": "The closing phrase 'and the federal record lists the flood remedy as currently under development.' reads as one caption with the record-slide cut and the remedy underline as framing subdivisions inside it, and the measured alignment no longer needs a silence at an authored boundary.",
+ "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/alignment-numeral-failure/take3/alignment-failure.txt",
+ "failure_evidence_sha256": "7a523ffe4323bf3aafa4fd2c724a0e4d8ccbcafb7db0c23ff912e94a695bc26e",
+ "pivot_review": {
+  "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/pivot-review/pivot-review.json",
+  "sha256": "26b06467fe86a8602c020e387f7e13fe455b65f73fb0252425ce63eb693d370d"
+ },
+ "changed_inputs": [
+  {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/pivot-review/storyboard.before-merge.json",
+   "before_sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/a.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/pivot-review/a.before-merge.json",
+   "before_sha256": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/b.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/pivot-review/b.before-merge.json",
+   "before_sha256": "97da983a9bc23ba583c4338c4a849707baa6f5625c7a9b945d7e9b213ffd4959"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/vo_direction.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/pivot-review/vo_direction.before-merge.json",
+   "before_sha256": "8dfbc6fdf98fbbd842fabe15424afe6e6eb3ea17ee9a704c7f222208bfdf8abb"
+  }
+ ],
+ "resources": {
+  "reboards": 1
+ }
+}

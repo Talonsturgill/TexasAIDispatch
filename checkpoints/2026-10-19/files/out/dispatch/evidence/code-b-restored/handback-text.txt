@@ -1,0 +1,245 @@
+Treatment B code-plan review against the restored claims (storyboard_critics 12 of 14). The verdict is PASS, with no blocking defects. This covers no pixels and approves no film. A code pass only allows the silent phone comparison.
+
+Hashes:
+- **Not recomputed by me (I have no Bash, so I computed no SHA256):** concept_sha256, renderer_sha256, story_sha256 and policy_sha256. These four are the values from my round 3 binding. Your message gave only the concept prefix 09e3f319783b833d. The round 5 packet does not carry B's concept, renderer, story or policy digests, so none of these are confirmed by a packet file.
+- **Matched in the packet, not recomputed:** claims 4b42adee... (the packet's claims binding) and quality contract f54137ad... (the packet's agent_contracts entry).
+- **Board sha:** the openings/b.json sha 97da983a... is the one you supplied. The packet lists opening-b.json at ba34cce5... instead.
+- The four unconfirmed values need to come from critic_gate before this report is used.
+
+Things you need to act on:
+- **Stale claims hash in the art entries.** Both story_art.entries in openings/b.json (robotaxi-hero and san-antonio-support) still carry source_claims_sha256 2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584. That is the widened claims file, not the restored 4b42 one. The drawn text already matches the restored c7, so I did not file this as a creative defect. The gate still has to regenerate this binding; I did not rewrite it.
+- **Narration pivot not on the board yet.** n9b and n9c are still separate clauses in this board. If the single-qualifier-clause-binding pivot merges them, that changed board needs its own reserved review. This report does not cover it.
+- **n5a attribution.** "Waymo filed a software recall" is bound only to c6, whose quote is just the unit count. Two non-blocking notes:
+  - *Waymo:* only c6's scope_note carries "Waymo LLC (Waymo) is recalling...".
+  - *Software:* that word is only in c7's quote.
+
+  The fix is to add c7 and c13 to n5a's claim_ids, as I recommended for A.
+
+```json
+{
+ "verdict": "pass",
+ "reviewer_identity": "claude-opus-5-5 / storyboard-critic (independent Read-only code-scope reviewer, distinct from director claude-sonnet-5-5)",
+ "reviewed_at": "2026-10-19T18:30:00Z",
+ "review_scope": "code-plan, Treatment B re-assessed on the restored claims (charged continuation, storyboard_critics 12 of 14); no rendered pixels, no film, no audio; authorizes the silent phone comparison only",
+ "concept_sha256": "09e3f319783b833ddc88a8932650c994bc27a3d67c5feb8c8d7bd55f1d4cb10f",
+ "renderer_sha256": "364847c9e4ddac9c4654e18284fafc0c2d1f82e136207a3fdcfc60f60faae083",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "notes": "HASHES: I did not recompute any SHA256 (no Bash). Matched in critic-round5-packet.json: claims 4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab (packet claims binding) and quality contract f54137ad... (packet agent_contracts). NOT confirmed by any packet file: concept_sha256 09e3f319... (you supplied only the 16-character prefix 09e3f319783b833d; the full value is my round 3 binding), renderer_sha256 364847c9..., story_sha256 cc126b40... and policy_sha256 01bff518.... These carry over from the earlier bindings because the round 5 packet carries no B digests. The packet's story_sha256 c440e9ef... is A's. The openings/b.json sha 97da983a... is the one you supplied. The packet lists opening-b.json at ba34cce5.... I read openings/b.json in full: scenes, story_art, film_direction (20 shots and the rewards), narration_picture (16 clauses), story_contract, creative_direction, visual_research, native_media, art_direction, captions, quality_plan and attention_beats. Its story roles, transitions, disclosures, shots and clause bindings match what I reviewed from opening-b.json in round 3. I did not byte-diff the two files. I also read the restored claims.json and sources/nhtsa.json in this pass. CLAIMS CHANGE: in the restored claims only c7 differs from the widened copy. Its quote is again the single Summary sentence 'The software may allow the vehicle to slow and then drive into standing water on higher speed roadways.' This matches nhtsa.json Summary sentence 2 in both result rows. The QUOTE_TEXT on B's s6 lane-plan card and the record Summary row equal this restored quote. CLAUSE-BY-CLAUSE (restored claims): n1a and n1b match c1, including 'anyone in San Antonio' and the airport. n2a and n2b match c2 (February, 60 square miles). n3 matches c3 and c4 (April 20, Salado Creek, unoccupied). n4 matches c5 (earlier in April, another vehicle stranded, both unoccupied). n5a 'Waymo filed a software recall' is bound to c6 only, so 'Waymo' and 'software' are not verbatim in its bound quote. 'Waymo' is source-true through c6's scope_note ('Waymo LLC (Waymo) is recalling...'), nhtsa.json Manufacturer 'Waymo LLC' and the TPR snapshot. 'software' is in c7's quote. 'filed' is supported by c13 ('issued the recall ... to the National Highway Traffic Safety Administration'). Scene s5 binds c6, c7 and c13, and the rubric's quote rule covers numerals only, so this is NON-BLOCKING. Recommendation, same as for A: add c7 and c13 to n5a's claim_ids. n5b matches c6 and c13 ('could' is backed by 'Potential', 'nearly thirty eight hundred' by c13). n6a and n6b match the restored c7 ('may' kept). n7, n9b and n9c match c8 ('currently under development'). n8a matches c9 ('increase weather-related constraints'; the updated map card matches 'updated the vehicle maps'). n8b matches c12. HEDGES are intact: may (n6a, c7), could (n5b, c6 'Potential'), currently (n7 and n9c, c8). No clause states a cause, speed, depth, injury or fix beyond the record. ON-SCREEN NUMERALS are unchanged by the c7 restoration: 3,791 (c6 raw 3791, formatted by rule), 'Nearly 3,800' (c13), sixty or 60 square miles (c2), April 20 and 2026 (c3 and c12). DISCLOSURES are intact: the chip shows production_disclosure on every scene, and the four source-example transitions (s2 to s3, s3 to s4, s5 to s6, s8 to s9) carry disclosure text equal to the destination scene's production_disclosure. STORY CHAIN is intact and unchanged: action, evidence, mechanism, consequence, evidence, mechanism, limit, limit, answer. MECHANICAL BINDING TO REGENERATE (not a creative defect, and I did not rewrite it): both story_art.entries (robotaxi-hero c292a5ee..., san-antonio-support e60a6e12...) still record source_claims_sha256 2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584, the widened claims, not the restored 4b42.... The drawn text already matches the restored c7, so this needs a gate-generated re-binding, not a reboard. PIVOT: the round 5 single-qualifier-clause-binding pivot (merging n9b and n9c) is NOT applied in this board. If it is applied, that changed narration_picture needs its own reserved review; this report does not cover it. OPEN NON-BLOCKING ITEMS carried from round 3, unchanged: (1) the Bexar plate is absent from the 8 overhead shots, so region shows in 12 of 20 shots (overhead is exempt from place_check); (2) the flat-fill finish of the overhead plans (curb, creek, street, lane, fleet) needs a phone check; (3) from above, the first frame can't be read as an airport or as driverless; (4) the empty cabin is unseen in creek-plan at the s3-event-2 reward (15.31 s); (5) the fleet becomes icons in limits-detail; (6) the divergence_note still says B 'closes from above on the same bay' and film_direction.angle still says 'Hold the same white car', but s9 is now A's eye-level curb-return, record-slide and split; (7) 10 of 20 shots share views with A; (8) the record rows are paraphrased; the s2 editorial outline is disclosed only in the credits ('Service area outline is editorial'), not on screen; no person is drawn; the edges of the water bands in s3 and s4 need a phone or native check; the record-slide card bottom versus the n9b caption band needs a phone check; (9) the credits carry the licence attribution numeral 'CC BY 4.0'; confirm the numeral gate treats it as attribution. RECOMMENDATION unchanged: A carries less phone-scope risk; B passes at code scope.",
+ "strongest_frame": "s6-shot-2 wheels-water, 32.705 to 36.86 s (shared with A): the car rolls on into standing water with a wake at its wheels as 'may' lights on the verbatim restored c7 sentence. Second: s1-shot-2 cab-wheel, 2.6125 to 5.225 s, the empty driver seat and the wheel turning by itself.",
+ "weakest_frame": "s1-shot-1 curb-plan, 0 to 2.6125 s (the first frame): an overhead plan of road and sidewalk with a white roof-pod car moving up the lane. From above, the airport (the sign is a small bar) and the empty driver seat can't be read, so the hook rests on the phone inset and the next shot.",
+ "blocking_defects": [],
+ "round4_claims_restoration_status": [
+  {
+   "finding": "c7 restored to the single Summary sentence; on-screen QUOTE_TEXT and the record Summary row equal it",
+   "status": "verified at code scope"
+  },
+  {
+   "finding": "n5a 'Waymo' and 'software' not verbatim in its bound c6 quote",
+   "status": "open (non-blocking; source-true via c6 scope_note, nhtsa.json and c7/c13; recommend binding c7 and c13 to n5a)"
+  },
+  {
+   "finding": "story_art entries source_claims_sha256 still 2971 (widened)",
+   "status": "open (mechanical re-binding by the gate; not a creative defect)"
+  }
+ ],
+ "story_review": {
+  "story_sha256": "cc126b40b17d35d8c40bbc62d3e487d45b4fd2a7cdc04363e1e4ec5234aeb8f9",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Planned chain (code plan, not observed pixels): from above, a white roof-pod car comes up a pickup lane into a bay while a phone inset shows a ride requested. Inside, the wheel turns by itself over an empty seat, and the phone close turns to 'Arriving' at the plane-sign curb. A flat map draws in and the limited area closes with its 60 square mile tag. From above, a different car, disclosed as the April 20th account, sits in fast creek water with a bow wave and drifts; from the side it is swept downstream, cabin empty. As the consequence beat, water spreads along a street around another disclosed car whose hazard lamps blink, then a side close shows the empty cabin. A recall card slides flat onto a desk, the grid fills and the 'Nearly 3,800 vehicles' and 3,791 tags settle under a software recall stamp. From above, under the verbatim recall sentence, a car runs and slows. A close shows it roll into standing water as 'may' lights. A hand-held pen rests on the remedy row and a stamp lands. A weather tag slides over two rows of roofs, the calendar flips to 20 and icons take checks. A generic airport ride, disclosed as not the flood cars, waits with its door open beside the large remedy card 'The remedy is currently under development.'",
+  "opening_to_ending": "Opening question: anyone in San Antonio can now hail a driverless Waymo to the airport, so what does the federal record say about the flood problem its recall covers? Roles run action, evidence, mechanism, consequence (the stranded s4 car), evidence (the recall and its scale), mechanism (the restored c7 sentence performed as written, with no stop drawn), limit (remedy under development), limit (interim weather constraints and the April 20th update), answer. The planned ending, shared with A, holds the open airport ride beside the readable remedy card. It answers from the record without inventing a fix, an injury or a current status of the limits, and keeps the April cars separate through the disclosure.",
+  "weakest_transition": "s8 to s9 at 50.0 s: the cut goes from a chain-link detail, where car icons rather than the cars seen from above take their checks, to an eye-level wide of the airport curb. It changes viewpoint language and subject scale at once, so continuity rests on the disclosure 'Illustration. A generic airport ride, not the flood cars' and the narration 'So the airport ride is open'."
+ },
+ "action_reviews": [],
+ "story_art_action_uses": [
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s1",
+   "event_id": "s1-event-2",
+   "view": "cab-wheel",
+   "action_id": "wheel-turns-itself",
+   "consumption": "Shot s1-shot-2 (2.6125 to 5.225 s), identical to A: the cab steers by 34*sin(pi*P(s1-event-2)), the seats are empty, the road and sign slide past the windshield and the phone inset shows the request pending."
+  },
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s3",
+   "event_id": "s3-event-3",
+   "view": "car-swept",
+   "action_id": "car-swept-into-creek",
+   "consumption": "Shot s3-shot-2 (15.32 to 17.61 s), identical to A. It is preceded by creek-plan, where the roof is already in the current with an upstream bow wave and drifts downstream with a turn."
+  },
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s6",
+   "event_id": "s6-event-3",
+   "view": "wheels-water",
+   "action_id": "car-slows-into-water",
+   "consumption": "Shot s6-shot-2 (32.705 to 36.86 s), identical to A. It is preceded by lane-plan, which carries the s6-quote card (QUOTE_TEXT equals the restored c7 quote) and a monotone camera."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s2",
+   "event_id": "s2-event-3",
+   "view": "map-zone",
+   "action_id": "service-area-opens",
+   "consumption": "Shot s2-shot-2 (9.285 to 13.03 s), identical to A."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s5",
+   "event_id": "s5-event-3",
+   "view": "count-grid",
+   "action_id": "recall-filed-count",
+   "consumption": "Shot s5-shot-2 (24.555 to 28.3 s), identical to A, with the hand-held stamp."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s7",
+   "event_id": "s7-event-3",
+   "view": "stamp-detail",
+   "action_id": "remedy-under-development",
+   "consumption": "Shot s7-shot-2 (39.15 to 41.44 s), identical to A. In the overhead record-wall shot 1 the hand-held pen rests on the remedy row."
+  }
+ ],
+ "narration_picture_plan_review": [
+  {
+   "id": "n1a",
+   "start_s": 0.2,
+   "end_s": 5.05,
+   "claim_ids": ["c1"],
+   "match": "weak pass",
+   "planned_picture": "Overhead arrival with the phone inset 'Ride requested', then the empty seat and the wheel turning by itself. The airport can't be read from above."
+  },
+  {
+   "id": "n1b",
+   "start_s": 5.4,
+   "end_s": 6.57,
+   "claim_ids": ["c1"],
+   "match": "pass",
+   "planned_picture": "The phone close turns to 'Arriving' at the plane-sign curb."
+  },
+  {
+   "id": "n2a",
+   "start_s": 7.12,
+   "end_s": 9.11,
+   "claim_ids": ["c2"],
+   "match": "weak pass",
+   "planned_picture": "A flat map draws in; the February calendar lies static."
+  },
+  {
+   "id": "n2b",
+   "start_s": 9.46,
+   "end_s": 12.68,
+   "claim_ids": ["c2"],
+   "match": "pass",
+   "planned_picture": "The outline closes and the sixty square mile tag pins."
+  },
+  {
+   "id": "n3",
+   "start_s": 13.23,
+   "end_s": 17.26,
+   "claim_ids": ["c3", "c4"],
+   "match": "pass",
+   "planned_picture": "Under the disclosure of a different car, the roof sits in the current with a bow wave and drifts, then the side view shows it swept away with the cabin empty."
+  },
+  {
+   "id": "n4",
+   "start_s": 17.81,
+   "end_s": 21.84,
+   "claim_ids": ["c5"],
+   "match": "pass",
+   "planned_picture": "Under the disclosure of another car earlier in April, water spreads around the car, it stops with its hazards blinking, then a side close shows the empty cabin."
+  },
+  {
+   "id": "n5a",
+   "start_s": 22.39,
+   "end_s": 24.38,
+   "claim_ids": ["c6"],
+   "match": "pass (binding note)",
+   "planned_picture": "The card slides flat onto the desk and its rows write in. 'Waymo' and 'software' are not verbatim in the bound c6 quote but are source-true; binding c7 and c13 to this clause is recommended."
+  },
+  {
+   "id": "n5b",
+   "start_s": 24.73,
+   "end_s": 27.95,
+   "claim_ids": ["c6", "c13"],
+   "match": "pass",
+   "planned_picture": "The grid fills, the 3,791 potentially affected and 'Nearly 3,800' tags settle and the software recall stamp lands. 'could' is supported by 'Potential'."
+  },
+  {
+   "id": "n6a",
+   "start_s": 28.5,
+   "end_s": 32.53,
+   "claim_ids": ["c7"],
+   "match": "pass",
+   "planned_picture": "The restored c7 sentence card appears. From above, the car runs and its brake glow shows as it slows."
+  },
+  {
+   "id": "n6b",
+   "start_s": 32.88,
+   "end_s": 36.51,
+   "claim_ids": ["c7"],
+   "match": "pass",
+   "planned_picture": "The car rolls into the water with a wake and 'may' lights. No stop or crash is drawn."
+  },
+  {
+   "id": "n7",
+   "start_s": 37.06,
+   "end_s": 41.09,
+   "claim_ids": ["c8"],
+   "match": "pass",
+   "planned_picture": "The remedy row on the flat card lights under the hand-held pen, then the hand-held stamp lands."
+  },
+  {
+   "id": "n8a",
+   "start_s": 41.64,
+   "end_s": 45.26,
+   "claim_ids": ["c9"],
+   "match": "pass",
+   "planned_picture": "The weather tag slides in above two rows of roofs."
+  },
+  {
+   "id": "n8b",
+   "start_s": 45.61,
+   "end_s": 49.65,
+   "claim_ids": ["c12"],
+   "match": "weak pass",
+   "planned_picture": "The calendar flips to 20 and the map card shows as updated; icons, not the cars, take the checks."
+  },
+  {
+   "id": "n9a",
+   "start_s": 50.2,
+   "end_s": 52.6,
+   "claim_ids": ["c1"],
+   "match": "pass",
+   "planned_picture": "Shared with A: the generic airport ride at the curb with its door opening."
+  },
+  {
+   "id": "n9b",
+   "start_s": 52.95,
+   "end_s": 56.16,
+   "claim_ids": ["c8"],
+   "match": "pass",
+   "planned_picture": "Shared with A: the readable remedy card slides in."
+  },
+  {
+   "id": "n9c",
+   "start_s": 56.51,
+   "end_s": 58.1,
+   "claim_ids": ["c8"],
+   "match": "pass",
+   "planned_picture": "Shared with A: the split with the remedy sentence underlined. The pending n9b and n9c merge is not on this board."
+  }
+ ],
+ "code_observations": {
+  "source_fidelity": "Re-checked against restored claims 4b42.... The c7 quote equals nhtsa.json Summary sentence 2, and B's on-screen QUOTE_TEXT and the record Summary row equal it. The s3 and s4 disclosed source examples are unchanged. s6 draws no stop or crash. Numerals trace to the c2, c3, c6, c12 and c13 quotes. The hedges may, could and currently are preserved. The story_art entries' source_claims_sha256 still names the widened 2971 claims and needs a gate re-binding.",
+  "motion": "Unchanged from round 3: the lane-plan camera is monotone, with an entry of at most about 14 px per frame; the overhead s1 car peaks at about 24 px per frame; the stamp and pen are hand-carried.",
+  "framing": "The overhead plans are drawn in frame coordinates. The s9 framing and the s8 limits-detail elements clear the caption band and SAFE_RIGHT. The record-slide card bottom versus the n9b caption band needs a phone check.",
+  "region": "8 of 20 shots are overhead on the plain floor (exempt from place_check). Wall views are 2 of 12 held shots. The Bexar blackland-san-antonio plate is behind 12 of 20 shots. The county is Bexar, the region blackland and the palette is airport concrete and flood tan, which fits a Bexar County story.",
+  "finish": "The overhead plans remain flat fills with offset shadows, a finish risk at phone size. The shared side, cab and document views are as finished as A.",
+  "disclosure": "The chip renders production_disclosure on every scene, with the source-example texts on s3, s4, s6 and s9 equal to the transition disclosures. The editorial status of the s2 outline is disclosed only in the credits."
+ }
+}
+```

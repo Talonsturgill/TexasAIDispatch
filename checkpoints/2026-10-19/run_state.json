@@ -1,4 +1,33 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/pivot-review/storyboard.before-merge.json",
+        "before_sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/pivot-review/a.before-merge.json",
+        "before_sha256": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1",
+        "path": "{REPO}/out/dispatch/openings/a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/pivot-review/b.before-merge.json",
+        "before_sha256": "97da983a9bc23ba583c4338c4a849707baa6f5625c7a9b945d7e9b213ffd4959",
+        "path": "{REPO}/out/dispatch/openings/b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/pivot-review/vo_direction.before-merge.json",
+        "before_sha256": "8dfbc6fdf98fbbd842fabe15424afe6e6eb3ea17ee9a704c7f222208bfdf8abb",
+        "path": "{REPO}/out/dispatch/vo_direction.json"
+      }
+    ],
+    "failure_sha256": "7a523ffe4323bf3aafa4fd2c724a0e4d8ccbcafb7db0c23ff912e94a695bc26e",
+    "plan": "{REPO}/out/dispatch/repair-plan-n9bc.json",
+    "plan_sha256": "fd6395cce93cd6a14a7b63cfa8888d58d6f4e0b08bd4b84b2d49a32eabbb7b9a",
+    "reboards_before": 2,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-19T05:13:41.692242Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1645,6 +1674,51 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-19T18:34:35.808865Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/pivot-review/storyboard.before-merge.json",
+          "before_sha256": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/pivot-review/a.before-merge.json",
+          "before_sha256": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1",
+          "path": "{REPO}/out/dispatch/openings/a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/pivot-review/b.before-merge.json",
+          "before_sha256": "97da983a9bc23ba583c4338c4a849707baa6f5625c7a9b945d7e9b213ffd4959",
+          "path": "{REPO}/out/dispatch/openings/b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/pivot-review/vo_direction.before-merge.json",
+          "before_sha256": "8dfbc6fdf98fbbd842fabe15424afe6e6eb3ea17ee9a704c7f222208bfdf8abb",
+          "path": "{REPO}/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "human-performance",
+      "failure_sha256": "7a523ffe4323bf3aafa4fd2c724a0e4d8ccbcafb7db0c23ff912e94a695bc26e",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 14,
+          "to": 14
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "single-qualifier-clause-binding",
+      "plan_identity": null,
+      "plan_sha256": "fd6395cce93cd6a14a7b63cfa8888d58d6f4e0b08bd4b84b2d49a32eabbb7b9a",
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -1668,7 +1742,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "ed2d6a00ceaad4766a909afc81cc0149aaed6e7ec32dcee89fc51c9cd6d38e5e",
+    "original_private_state_sha256": "0f039e52281ae153ce4726e9e627f712f6ecec0d0dbdb3feacf4334d19f1800f",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1696,7 +1770,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-19T18:26:21.967767Z",
+  "updated_at": "2026-10-19T18:34:35.808901Z",
   "usage": {
     "audiovisual_reviews": 2,
     "cleanup_renders": 0,

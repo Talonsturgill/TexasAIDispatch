@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-19T18:26:22.643443+00:00",
+  "saved_at": "2026-10-19T18:34:36.499764+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "e29a160935e53963b936660d0e1194d9de745ce29d52b0f711a6dbedac3d83ab"
   },
   "deleted_source": [],
-  "ledger_sha256": "fd9b5a0a912da19ac8f5d7cc0659482155b620bdfd9833146a6b3f0dcfa2fb60",
-  "original_private_ledger_sha256": "ed2d6a00ceaad4766a909afc81cc0149aaed6e7ec32dcee89fc51c9cd6d38e5e",
+  "ledger_sha256": "bfb7f6a0c9c92760d7489c27d047a746197c4aa6de04c8cd2386b190cba01b3f",
+  "original_private_ledger_sha256": "0f039e52281ae153ce4726e9e627f712f6ecec0d0dbdb3feacf4334d19f1800f",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -503,6 +503,30 @@
       "size": 13449
     },
     {
+      "path": "out/dispatch/evidence/code-b-restored/handback-report.raw.json",
+      "class": "scratch",
+      "sha256": "8a18f85a33f79d775ae29168b27ad924158629a544209244d322eb72ec9016d8",
+      "size": 75
+    },
+    {
+      "path": "out/dispatch/evidence/code-b-restored/handback-text.txt",
+      "class": "scratch",
+      "sha256": "16ee1ddb7c6a9ea56c6b8543d03ff7e7e03a6db2b91cb26debb28e0886c71957",
+      "size": 19628
+    },
+    {
+      "path": "out/dispatch/evidence/code-b-restored/report-as-returned.json",
+      "class": "scratch",
+      "sha256": "890f1c5c82197dfd5ecd5b5e8ce1d20ce7d960dc900505ab609e4f03e07392d5",
+      "size": 17710
+    },
+    {
+      "path": "out/dispatch/evidence/code-b-restored/report-stamped.json",
+      "class": "scratch",
+      "sha256": "890f1c5c82197dfd5ecd5b5e8ce1d20ce7d960dc900505ab609e4f03e07392d5",
+      "size": 17710
+    },
+    {
       "path": "out/dispatch/evidence/critic-code-round1-handback.json",
       "class": "scratch",
       "sha256": "5174df82ff0b21d834f97adb211442dcc2d3f324fd3ad505c46c64a1d4eec0b8",
@@ -605,6 +629,12 @@
       "size": 12872
     },
     {
+      "path": "out/dispatch/evidence/opening-b-critic.claims-2971.pre-restored.json",
+      "class": "scratch",
+      "sha256": "6fd75850a26903879f390f1484f83a79e494dff028289fa135153f0a6f577267",
+      "size": 12872
+    },
+    {
       "path": "out/dispatch/evidence/opening-b-round1.json",
       "class": "scratch",
       "sha256": "81edf9f1b53e07c470009cb1c983c9a5e8a8f909ed3e206199d00fdd15507eeb",
@@ -645,6 +675,18 @@
       "class": "scratch",
       "sha256": "dbf991d8269484bd9d868544c96b018b17e27bb103809a520ceb602417e44cd2",
       "size": 5856
+    },
+    {
+      "path": "out/dispatch/evidence/pivot-review/a.before-merge.json",
+      "class": "scratch",
+      "sha256": "59a1cec4b99119d1a8ec436b3e66e162b38868d05ade590705317d662f22ddd1",
+      "size": 178340
+    },
+    {
+      "path": "out/dispatch/evidence/pivot-review/b.before-merge.json",
+      "class": "scratch",
+      "sha256": "97da983a9bc23ba583c4338c4a849707baa6f5625c7a9b945d7e9b213ffd4959",
+      "size": 177741
     },
     {
       "path": "out/dispatch/evidence/pivot-review/pivot-handback.txt",
@@ -741,6 +783,12 @@
       "class": "scratch",
       "sha256": "2574c1f29ce5b59f54519d66fcdfa40656711306ab432d20ee16b5426222c176",
       "size": 523
+    },
+    {
+      "path": "out/dispatch/evidence/review-prompt-repair/corrected-task-attempt-1/transport-failure.json",
+      "class": "scratch",
+      "sha256": "ab0ed564905e529a8650e8d063dffe2d78a9995f1cf21af37702cc482de436b9",
+      "size": 2509
     },
     {
       "path": "out/dispatch/evidence/review-prompt-repair/critic-round4-packet.json",
@@ -2287,8 +2335,8 @@
     {
       "path": "out/dispatch/opening-b-critic.json",
       "class": "scratch",
-      "sha256": "6fd75850a26903879f390f1484f83a79e494dff028289fa135153f0a6f577267",
-      "size": 12872
+      "sha256": "890f1c5c82197dfd5ecd5b5e8ce1d20ce7d960dc900505ab609e4f03e07392d5",
+      "size": 17710
     },
     {
       "path": "out/dispatch/opening-b.json",
@@ -3987,6 +4035,12 @@
       "class": "scratch",
       "sha256": "d7942ea587999a581aa4747fdbea420cf3a29065b0dd77d5f4aa664bfd7225db",
       "size": 1515
+    },
+    {
+      "path": "out/dispatch/repair-plan-n9bc.json",
+      "class": "scratch",
+      "sha256": "fd6395cce93cd6a14a7b63cfa8888d58d6f4e0b08bd4b84b2d49a32eabbb7b9a",
+      "size": 3230
     },
     {
       "path": "out/dispatch/repair-plan.json",
