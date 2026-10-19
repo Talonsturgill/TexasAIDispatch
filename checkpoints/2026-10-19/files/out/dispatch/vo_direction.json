@@ -3,7 +3,7 @@
   "status": "bound",
   "run_id": "2026-10-19",
   "date": "2026-10-19",
-  "overall": "Conversational and plain, like a reporter walking someone through the record. Start on the first word with no lead-in and keep the connecting words moving. Carry each line's emphasis through stress on its one phrase, never through volume, and never add a triumphant note to a fix or a completed step. Take natural breaths at commas and sentence ends, and run 'flood remedy' straight into 'as currently under development' with no breath. Keep every hedge (may, could, interim, currently) audible inside its own phrase. Land the final phrase quiet, level and complete, with no rising tone at the end.",
+  "overall": "Conversational and plain, like a reporter walking someone through the record. Start on the first word with no lead-in and keep the connecting words moving. Carry each line's emphasis through stress on its one phrase, never through volume, and never add a triumphant note to a fix or a completed step. Take natural breaths at commas and sentence ends, and run 'flood remedy' straight into 'as currently under development' with no breath. Keep every hedge (may, could, interim, currently) audible inside its own phrase. Land the final phrase quiet, level and complete, with no rising tone at the end. Take one short, audible breath right after \"in February\" before \"in a limited area\", and one short, audible breath right after \"the flood remedy\" before \"as currently under development\". Each breath is a natural clause edge of about a quarter second, never a long hold and never a drop in energy, and the sentence stays connected through it.",
   "sound_direction_sha256": "950193d54e1f92b0eaa9e189e30e82be7f9b56d34474ad7a00e81fc03a2b8077",
   "lines": [
     {
@@ -18,7 +18,7 @@
       "text": "The service began in February in a limited area of sixty square miles.",
       "intent": "date the start plainly Then state the boundary as the honest qualifier",
       "emphasis": "February",
-      "energy": "drops to plain information after the hook Then lower again and narrower on the qualifier"
+      "energy": "drops to plain information after the hook Then lower again and narrower on the qualifier, with a short audible breath after \"in February\" before \"in a limited area\"."
     },
     {
       "id": "s3",
@@ -67,7 +67,7 @@
       "text": "So the airport ride is open, and the federal record lists the flood remedy as currently under development.",
       "intent": "answer the opening question calmly Then name what the federal record lists against the flood problem Then state the final limit complete and unhurried",
       "emphasis": "airport ride is open",
-      "energy": "after a natural breath, level and unhurried, plainer than the opening Then level and a touch lower, carried straight on Then quietest line in the film, steady, falling and complete"
+      "energy": "after a natural breath, level and unhurried, plainer than the opening Then level and a touch lower, carried straight on Then quietest line in the film, steady, falling and complete, with a short audible breath after \"the flood remedy\" before \"as currently under development\"."
     }
   ],
   "pronunciation": {
@@ -377,5 +377,10 @@
       "No TTS call, soundcheck, forced alignment or narration_picture observation was made. Those belong to the caller and the review roles.",
       "No story wording was changed. No shortening was requested."
     ]
+  },
+  "repair": {
+    "scope": "narration-performance",
+    "change": "two named clause-edge breaths",
+    "baseline": "evidence/alignment-numeral-failure/vo_direction.bound-before-pause.json"
   }
 }
