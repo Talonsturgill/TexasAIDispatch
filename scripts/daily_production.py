@@ -402,10 +402,13 @@ def packet_text(data):
     """Remove JSON layout bytes before rejecting a complete current Claude scorer handoff."""
     encoded = json.dumps(data, indent=2) + '\n'
     if (len(encoded) > policy()['handoff_max_chars']
-            and data.get('role') in ('picture', 'story', 'sound')
             and re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(data.get('date', '')))
             and str(data.get('date', '')) >= '2026-10-15'
-            and data.get('motion_sequence') and data.get('image_read_policy')):
+            and ((data.get('role') in ('picture', 'story', 'sound')
+                  and data.get('motion_sequence') and data.get('image_read_policy'))
+                 # The storyboard critic's packet gains opening and selection bindings after the
+                 # comparison, so a current edition crossed the cap by indentation alone.
+                 or data.get('role') == 'storyboard-critic')):
         encoded = json.dumps(data, separators=(',', ':')) + '\n'
     return encoded
 
