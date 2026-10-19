@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-19T13:00:15.651270+00:00",
-  "note": "phase picture",
+  "saved_at": "2026-10-19T13:09:04.543286+00:00",
+  "note": "before paid reservation",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -38,6 +38,12 @@
   },
   "files": [
     {
+      "path": "config/modern_episode_registry.json",
+      "class": "source",
+      "sha256": "7ae80565c58e61357730d7075d02d7a58e53a2314636e7b3f6d8a3e0995c1bba",
+      "size": 43530
+    },
+    {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
       "sha256": "fb1c83cd68ffb46eb206fa810e77a3f455ebc3de4a0c306324646ba548709526",
@@ -46,8 +52,8 @@
     {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
-      "sha256": "81c9fbcb9dbdd41519cc95384adc5b446cc9b60dd048b68ee21d32c098286b4b",
-      "size": 9903
+      "sha256": "3a743b1548c88183ab403a0515bacffc18661e1142afac29da052262038955cb",
+      "size": 11142
     },
     {
       "path": "out/dispatch/claude-host.json",
@@ -72,6 +78,18 @@
       "class": "scratch",
       "sha256": "5432d824a4e5942d658ee0b27fd900c059149eef208605848a0a16fab6717774",
       "size": 1742
+    },
+    {
+      "path": "out/dispatch/opening-a.json",
+      "class": "scratch",
+      "sha256": "f94a67b5b45498c611964853a339cca43cea2539ac5c45ce5b3ef0494feaaedc",
+      "size": 131105
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "class": "scratch",
+      "sha256": "d6bfcb878207261926302bd899fc3929d16ab9e831525affc9478088d28e119a",
+      "size": 130775
     },
     {
       "path": "out/dispatch/provider-availability/startup/attempt.json",
@@ -102,6 +120,12 @@
       "class": "scratch",
       "sha256": "dc38205621a983ef24a003817d03417c5278eda2d553d80f2c2103b4f2611c60",
       "size": 1067
+    },
+    {
+      "path": "out/dispatch/registry-entry.json",
+      "class": "scratch",
+      "sha256": "5aa83a6884f6cab0a506f3f5ab747c8d678d591f7b96556c311a918448ce9223",
+      "size": 6405
     },
     {
       "path": "out/dispatch/rejected-candidates/dallas-brush-claims.json",
@@ -266,6 +290,24 @@
       "size": 762
     },
     {
+      "path": "out/dispatch/rejected-candidates/waymo-bindings-v2-caption-short.json",
+      "class": "scratch",
+      "sha256": "4b1252b600f228933f946a4caac62f62919e4cca6b6e2a7adce199df14b96555",
+      "size": 1629
+    },
+    {
+      "path": "out/dispatch/rejected-candidates/waymo-claims-v1-validator-revise.json",
+      "class": "scratch",
+      "sha256": "df1f873a6a4c7df39e1f16006290028c140b78dfed7327b57842f53951beb2d3",
+      "size": 10782
+    },
+    {
+      "path": "out/dispatch/rejected-candidates/waymo-validator-revise-summary.md",
+      "class": "scratch",
+      "sha256": "ce13a782a8fb5005ac35ba960f0e205c911e7b16f8fb06ca134759c1644734ac",
+      "size": 375
+    },
+    {
       "path": "out/dispatch/research.json",
       "class": "scratch",
       "sha256": "f78921e0ff51603ca84a108ba911cdf2ad433f7d9edfc6cb9d59a2da6bd5be69",
@@ -288,6 +330,12 @@
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
+    },
+    {
+      "path": "out/dispatch/sources/nhtsa.json",
+      "class": "scratch",
+      "sha256": "c0c283a20f1339ec9c7856319e93bfb73fbebd4208b04f9ba839d24250e1dc2f",
+      "size": 1799
     },
     {
       "path": "out/dispatch/sources/nhtsa.raw",
@@ -352,8 +400,14 @@
     {
       "path": "out/dispatch/story_selection.json",
       "class": "scratch",
-      "sha256": "2ee64acfe85acb125e5b340d3ec56a86c1053b4e488c3c63ec7e99556cf833fc",
-      "size": 9765
+      "sha256": "fae333de8450530ab709aac7d36ac8c4ee2682d1412e95ba24b9a51f412a3aa6",
+      "size": 9805
+    },
+    {
+      "path": "out/dispatch/storyboard.json",
+      "class": "scratch",
+      "sha256": "f94a67b5b45498c611964853a339cca43cea2539ac5c45ce5b3ef0494feaaedc",
+      "size": 131105
     },
     {
       "path": "out/dispatch/validator-assignment.json",
@@ -370,14 +424,14 @@
     {
       "path": "out/dispatch/vo_bindings.json",
       "class": "scratch",
-      "sha256": "73fd477aa8793a847fcc9091e571dd4c7fd7ce3752002667d3edbdc5c59d9c89",
-      "size": 1437
+      "sha256": "750831bce4f0e858f5bedb29187bf6a8ca423a66e411508109bcd930a9136bdf",
+      "size": 1513
     },
     {
       "path": "out/dispatch/vo_script.txt",
       "class": "scratch",
-      "sha256": "e02992e5dd55c1a682632e7fa3ca452c8d8d4d8b0d097f44086282a267aea9a7",
-      "size": 680
+      "sha256": "f4a70b7d34c2354e8c5873a9f270a55b0e5bab5ee3fbe149a5b5ec4847bd5d2c",
+      "size": 745
     }
   ],
   "excluded": [
@@ -387,8 +441,8 @@
     }
   ],
   "regenerable": {
-    "files": 0,
-    "bytes": 0
+    "files": 2,
+    "bytes": 52890
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }

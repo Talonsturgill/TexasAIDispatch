@@ -1,0 +1,1 @@
+Validator (opus, agent ac92df6af6f9838ef) returned REVISE on the first Waymo script/claims. Hard fail s5 (number not in a claim quote, qualifier dropped), c6 quote not verbatim vs compact API JSON, c5 quote did not cover the earlier April stranding, wording fixes s6 s7 s8 s9. Raw handback is in the session transcript; the corrected inputs go to a charged follow-up review.

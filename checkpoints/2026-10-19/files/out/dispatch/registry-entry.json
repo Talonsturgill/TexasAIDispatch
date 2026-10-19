@@ -1,0 +1,351 @@
+{
+ "module": "video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx",
+ "assets": [
+  "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+  "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+  "video-engine/src/lib/direction.ts"
+ ],
+ "views": [
+  "cab-wheel",
+  "calendar-fleet",
+  "car-swept",
+  "count-grid",
+  "creek-plan",
+  "creek-wide",
+  "curb-plan",
+  "curb-record-split",
+  "curb-return",
+  "curb-wide",
+  "fleet-plan",
+  "hazard-close",
+  "lane-plan",
+  "lane-wide",
+  "limits-detail",
+  "limits-tag",
+  "map-plan",
+  "map-table",
+  "map-zone",
+  "phone-hail",
+  "record-close",
+  "record-desk",
+  "record-slide",
+  "record-wall",
+  "stamp-detail",
+  "street-flood",
+  "street-plan",
+  "wheel-water",
+  "wheels-water"
+ ],
+ "wall_views": [
+  "map-plan",
+  "record-wall",
+  "record-close",
+  "record-desk"
+ ],
+ "subject": "A white driverless car at a San Antonio airport pickup curb, a limited area drawn on a street map, an unoccupied car on a flooded creek crossing, a second unoccupied car stopped in floodwater with amber hazard lamps, a federal recall record card beside a grid of car icons, a car that slows and rolls into standing water on a higher speed lane beside the recall sentence, the remedy row stamped under development, a row of cars taking an interim update under an April 20th page and a weather limits tag, and the open airport curb beside the record card",
+ "note": "Fresh authored Claude-lane episode for 2026-10-19 (Waymo San Antonio opening of October 14th, 2026 and NHTSA recall 26E026). Hero RobotaxiHero and support SanAntonioSupport are original React and SVG groups shared by both treatments. A follows the car at ground level, B reads the same events from above and from inside the cab. Disclosed illustration, no brand marks, no real vehicle, road, rider, airport, creek, record page or app screen.",
+ "narration_views": {
+  "curb-wide": {
+   "subject_ids": [
+    "s1-car",
+    "s1-curb",
+    "s1-phone"
+   ],
+   "action_ids": [
+    "car-arrives-at-curb"
+   ]
+  },
+  "cab-wheel": {
+   "subject_ids": [
+    "s1-car",
+    "s1-curb",
+    "s1-phone"
+   ],
+   "action_ids": [
+    "car-arrives-at-curb"
+   ]
+  },
+  "phone-hail": {
+   "subject_ids": [
+    "s1-car",
+    "s1-curb",
+    "s1-phone"
+   ],
+   "action_ids": [
+    "car-arrives-at-curb"
+   ]
+  },
+  "map-table": {
+   "subject_ids": [
+    "s2-calendar",
+    "s2-map",
+    "s2-zone"
+   ],
+   "action_ids": [
+    "service-area-opens"
+   ]
+  },
+  "map-zone": {
+   "subject_ids": [
+    "s2-calendar",
+    "s2-map",
+    "s2-zone"
+   ],
+   "action_ids": [
+    "service-area-opens"
+   ]
+  },
+  "creek-wide": {
+   "subject_ids": [
+    "s3-car",
+    "s3-creek",
+    "s3-crossing"
+   ],
+   "action_ids": [
+    "car-swept-into-creek"
+   ]
+  },
+  "car-swept": {
+   "subject_ids": [
+    "s3-car",
+    "s3-creek",
+    "s3-crossing"
+   ],
+   "action_ids": [
+    "car-swept-into-creek"
+   ]
+  },
+  "street-flood": {
+   "subject_ids": [
+    "s4-car",
+    "s4-street",
+    "s4-water"
+   ],
+   "action_ids": [
+    "second-car-stranded"
+   ]
+  },
+  "hazard-close": {
+   "subject_ids": [
+    "s4-car",
+    "s4-street",
+    "s4-water"
+   ],
+   "action_ids": [
+    "second-car-stranded"
+   ]
+  },
+  "record-desk": {
+   "subject_ids": [
+    "s5-count",
+    "s5-record",
+    "s5-total"
+   ],
+   "action_ids": [
+    "recall-filed-count"
+   ]
+  },
+  "count-grid": {
+   "subject_ids": [
+    "s5-count",
+    "s5-record",
+    "s5-total"
+   ],
+   "action_ids": [
+    "recall-filed-count"
+   ]
+  },
+  "lane-wide": {
+   "subject_ids": [
+    "s6-car",
+    "s6-lane",
+    "s6-water"
+   ],
+   "action_ids": [
+    "car-slows-into-water"
+   ]
+  },
+  "wheels-water": {
+   "subject_ids": [
+    "s6-car",
+    "s6-lane",
+    "s6-water"
+   ],
+   "action_ids": [
+    "car-slows-into-water"
+   ]
+  },
+  "record-close": {
+   "subject_ids": [
+    "s7-record",
+    "s7-remedy",
+    "s7-stamp"
+   ],
+   "action_ids": [
+    "remedy-under-development"
+   ]
+  },
+  "stamp-detail": {
+   "subject_ids": [
+    "s7-record",
+    "s7-remedy",
+    "s7-stamp"
+   ],
+   "action_ids": [
+    "remedy-under-development"
+   ]
+  },
+  "calendar-fleet": {
+   "subject_ids": [
+    "s8-calendar",
+    "s8-fleet",
+    "s8-limits"
+   ],
+   "action_ids": [
+    "interim-weather-limits"
+   ]
+  },
+  "limits-tag": {
+   "subject_ids": [
+    "s8-calendar",
+    "s8-fleet",
+    "s8-limits"
+   ],
+   "action_ids": [
+    "interim-weather-limits"
+   ]
+  },
+  "curb-return": {
+   "subject_ids": [
+    "s9-car",
+    "s9-curb",
+    "s9-phone"
+   ],
+   "action_ids": [
+    "ride-open-remedy-open"
+   ]
+  },
+  "record-slide": {
+   "subject_ids": [
+    "s9-car",
+    "s9-curb",
+    "s9-phone"
+   ],
+   "action_ids": [
+    "ride-open-remedy-open"
+   ]
+  },
+  "curb-record-split": {
+   "subject_ids": [
+    "s9-car",
+    "s9-curb",
+    "s9-phone"
+   ],
+   "action_ids": [
+    "ride-open-remedy-open"
+   ]
+  },
+  "curb-plan": {
+   "subject_ids": [
+    "s1-car",
+    "s1-curb",
+    "s1-phone",
+    "s9-car",
+    "s9-curb",
+    "s9-phone"
+   ],
+   "action_ids": [
+    "car-arrives-at-curb",
+    "ride-open-remedy-open"
+   ]
+  },
+  "map-plan": {
+   "subject_ids": [
+    "s2-calendar",
+    "s2-map",
+    "s2-zone"
+   ],
+   "action_ids": [
+    "service-area-opens"
+   ]
+  },
+  "creek-plan": {
+   "subject_ids": [
+    "s3-car",
+    "s3-creek",
+    "s3-crossing"
+   ],
+   "action_ids": [
+    "car-swept-into-creek"
+   ]
+  },
+  "street-plan": {
+   "subject_ids": [
+    "s4-car",
+    "s4-street",
+    "s4-water"
+   ],
+   "action_ids": [
+    "second-car-stranded"
+   ]
+  },
+  "wheel-water": {
+   "subject_ids": [
+    "s4-car",
+    "s4-street",
+    "s4-water"
+   ],
+   "action_ids": [
+    "second-car-stranded"
+   ]
+  },
+  "record-wall": {
+   "subject_ids": [
+    "s5-count",
+    "s5-record",
+    "s5-total",
+    "s7-record",
+    "s7-remedy",
+    "s7-stamp",
+    "s9-car",
+    "s9-curb",
+    "s9-phone"
+   ],
+   "action_ids": [
+    "recall-filed-count",
+    "remedy-under-development",
+    "ride-open-remedy-open"
+   ]
+  },
+  "lane-plan": {
+   "subject_ids": [
+    "s6-car",
+    "s6-lane",
+    "s6-water"
+   ],
+   "action_ids": [
+    "car-slows-into-water"
+   ]
+  },
+  "fleet-plan": {
+   "subject_ids": [
+    "s8-calendar",
+    "s8-fleet",
+    "s8-limits"
+   ],
+   "action_ids": [
+    "interim-weather-limits"
+   ]
+  },
+  "limits-detail": {
+   "subject_ids": [
+    "s8-calendar",
+    "s8-fleet",
+    "s8-limits"
+   ],
+   "action_ids": [
+    "interim-weather-limits"
+   ]
+  }
+ }
+}
