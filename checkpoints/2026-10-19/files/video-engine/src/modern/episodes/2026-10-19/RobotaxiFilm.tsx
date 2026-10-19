@@ -36,8 +36,9 @@ import {SanAntonioSupport,CURB,CURB_PLAN,CREEK,STREET,LANE,LOT,LOT_PLAN,LANE_PLA
  *      down along the board's contact curve), releases and rolls on into standing water with a wake at
  *      its wheels. Its speed never reaches zero: there is no stop state and no crash. The recall
  *      sentence's word may lights as the front wheel meets the water.
- *  s7  the remedy row lights, a pen tip rests at its corner (outside its words) and withdraws, and an
- *      under development stamp poised above the row presses onto it and is carried up out of the way,
+ *  s7  the remedy row lights, a hand brings a pen in from the right to rest at the row's end (past its
+ *      words) and takes it away before the cut; in the detail only the stamp's hand, from the same side,
+ *      is at the row: the stamp, poised above the row, presses onto it and is carried up out of the way,
  *      leaving the row and its mark clear for more than a second before the cut.
  *  s8  a weather limits tag slides along a cord and clips above the fleet row, an April calendar flips
  *      to 20, and each car takes a check mark left to right as the vehicle map card is marked updated.
@@ -130,10 +131,12 @@ export function robotaxiState(W:Record<string,ActionWindow>,t:number){
   dip:1.2*Math.sin(Math.PI*P('s6-event-2')),frontIn:clamp((X6+CAR.wheels[1]-Xw)/110),rearIn:clamp((X6+CAR.wheels[0]-Xw)/110),
   may:P('s6-event-3'),e1:P('s6-event-1'),e2:P('s6-event-2'),X2end:w62?X6at(w62.end):0};
  // s7: the remedy row lights, the pen rests, the stamp lands
- // the pen comes to rest at the row's corner, then withdraws down and left (off the row) before the stamp
- // presses; the stamp lands early in its window and is carried away
+ // the pen comes in from the right and rests at the row's right end as s7-event-2 opens, then leaves to the
+ // right before the cut to the detail, so only the stamp's hand is ever at the row there; the stamp lands
+ // early in its window and is carried away
  const r73=R('s7-event-3'),w72=w('s7-event-2');
- const s7={lit:P('s7-event-1'),pen:P('s7-event-2'),penOut:w72?contactQ((t-w72.end-.03)/.8):0,stamp:r73,imprint:clamp((r73-STAMP.press-.01)/.05)};
+ const s7={lit:P('s7-event-1'),pen:w72?smooth((t-w72.start-PEN.inAt)/PEN.inDur):0,penOut:w72?smooth((t-w72.start-PEN.outAt)/PEN.outDur):0,
+  stamp:r73,imprint:clamp((r73-STAMP.press-.01)/.05)};
  // s8: tag clips on the cord, calendar flips, checks run left to right
  const s8={tag:P('s8-event-1'),flip:P('s8-event-2'),checks:P('s8-event-3')};
  // s9: door opens, card slides in, remedy underlined
@@ -210,9 +213,11 @@ export function stampPose(win:ActionWindow|undefined,t:number,mark:Pt,o:StampPla
  const d=tau<Tr?o.v*Tr*(q*q*q-q*q*q*q/2):o.v*(Tr/2+tau-Tr),g=d*d/(d+160);
  return {base:[mark[0]+o.dir[0]*g,mark[1]-d+(1+o.dir[1])*g],squash:0};
 }
-/** The pen in s7: angle of its body (down and to the left of its tip), the arm's direction, how far it
- * comes in and goes out along its own axis, and where the fingers hold it. */
-export const PEN={rot:142,armDir:[-.7,.714] as Pt,reach:520,out:300,grip:110};
+/** The pen in s7: angle of its body (down and to the right of its tip), the arm's direction (off the right
+ * edge, the side the stamp's arm comes from), how far it comes in and goes out along its own axis, where
+ * the fingers hold it, where its tip rests in card units, and its timing against s7-event-2's start: in
+ * from 0.55 s before to 0.05 s after, resting, out from 0.2 s to 0.56 s after, gone at the cut. */
+export const PEN={rot:20,armDir:[.9,.436] as Pt,reach:330,out:250,grip:110,tipDx:430,tipDy:-14,inAt:-.55,inDur:.6,outAt:.2,outDur:.36};
 /** s5: the stamp comes in from above the frame along its arm, is poised, presses, is carried off. */
 export const S5_STAMP:StampPlan={hover:50,approach:1.0,reach:420,dir:[.45,-.893],v:700};
 /** s7: the detail opens with the stamp already coming down along its arm, poised clear of the row. */
@@ -447,7 +452,7 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   const front=S.s4.front;
   // ONE sheet of floodwater spreads along the street with a lobed leading edge; the same sheet closes over
   // the wheels in front of the car up to its waterline, which rises to the arches.
-  const ext={x0:-160,x1:1240,y0:STREET.farCurb+12,y1:STREET.nearCurb+18},foot=floodFoot(front,ext.y0,ext.y1,t);
+  const ext={x0:-160,x1:1240,y0:STREET.farCurb+12,y1:STREET.nearCurb+2},foot=floodFoot(front,ext.y0,ext.y1,t);
   const sheet=(layer:'back'|'front')=><SanAntonioSupport part="flood" layer={layer} foot={foot} {...ext} t={t} drift={70} calm={S.s4.calm} seed={11}
    line={{y:wl,x0:xc-250*s,x1:xc+250*s}} reflect={mirrorAbout(wl,car)}/>;
   const world=<Grounded baseY={y} on={exterior}>
@@ -502,16 +507,16 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   // s7: the card fills the frame and its remedy row lights; a pen tip comes to rest on the row; the
   // under development stamp lands on it (detail). B's overhead record-wall shows the first two.
   const k=view==='record-wall'?'record-wall':view,c=CARD_AT[k];
-  // the pen tip rests at the row's lower left corner, outside its words, the pen and the hand running off
-  // down and to the left; it slides in and out along its own axis
-  const tip=cardPoint(k,rem.vx-16,rem.y+rem.h-8),pa=PEN.rot*Math.PI/180,u:Pt=[Math.cos(pa),Math.sin(pa)];
+  // the pen tip rests at the row's right end, past its words, the pen and the hand running off to the
+  // right; it slides in and out along its own axis
+  const tip=cardPoint(k,rem.vx+PEN.tipDx,rem.y+rem.h+PEN.tipDy),pa=PEN.rot*Math.PI/180,u:Pt=[Math.cos(pa),Math.sin(pa)];
   const along=PEN.reach*(1-S.s7.pen)+PEN.out*S.s7.penOut;
   const penAt:Pt=[tip[0]+u[0]*along,tip[1]+u[1]*along],grip:Pt=[penAt[0]+u[0]*PEN.grip,penAt[1]+u[1]*PEN.grip];
   const mark=cardPoint(k,rem.vx+IMPRINT_AT.s7,rem.y+rem.h/2),k7=STAMP_K.s7,w7=imprintSize('Under development',30).w*c.s/k7+8;
   pic=<g>
    <SanAntonioSupport part="desk" x0={-40} x1={1120} y0={view==='record-wall'?250:220} h={1150} top={view==='record-wall'}/>
    <Item id={ids.card}><Item id={ids.row}>{card(k,{rows:1,lit:S.s7.lit})}</Item></Item>
-   <Item id="s7-cursor">{S.s7.pen>0&&<g><At p={penAt}><SanAntonioSupport part="pen" rot={PEN.rot}/></At>
+   <Item id="s7-cursor">{S.s7.pen>0&&S.s7.penOut<1&&<g><At p={penAt}><SanAntonioSupport part="pen" rot={PEN.rot}/></At>
     <At p={grip}><SanAntonioSupport part="arm" dir={PEN.armDir} grip="pen" scale={.9}/></At></g>}</Item>
    <Item id="s7-stamp">{view==='stamp-detail'&&stampAt(stampPose(W['s7-event-3'],t,mark,S7_STAMP),k7,w7,-6,S7_STAMP.dir)}</Item>
   </g>;
@@ -641,8 +646,9 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   // is the record's own desk from s5 and s7, so the card and the arriving phone lie on a surface and no
   // plate of river or grass shows under the airport curb.
   const R=REMEDY_AT['curb-record-split'],panelY=R.panelY,ph=R.phoneW*2.05;
+  const curbOnly=curbWorld(s9Car,{curb:'s9-curb',car:'s9-car'});
   pic=<g>
-   <Clip k="split-top" box={[0,0,1080,panelY-12]}><CamG c={cam} z={z}>{world}</CamG></Clip>
+   <Clip k="split-top" box={[0,0,1080,panelY-12]}><CamG c={cam} z={z}>{curbOnly}</CamG></Clip>
    <g data-part="split-desk"><SanAntonioSupport part="desk" x0={-40} x1={1120} y0={panelY} h={1990-panelY}/></g>
    <rect x={0} y={panelY-12} width={1080} height={12} fill={pal.paper}/>
    <Item id="s9-record"><At p={[R.x,R.y]} s={R.s}><SanAntonioSupport part="remedycard" lit={1} underline={S.s9.underline} imprint={S.s7.imprint}/></At></Item>
