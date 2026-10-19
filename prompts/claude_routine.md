@@ -261,6 +261,11 @@ For editions from October 20, use each generated serial worker's exact Agent arg
 scorers may run concurrently after their atomic panel reservation. Starting a background serial
 worker merely to wait for it creates unnecessary primary turns and context reads.
 
+Future code packets supply `code_report_bindings` for both treatments, including each actual
+story hash. These are mechanical identities, never findings or approval. Retain the critic's
+complete original JSON unchanged. A formatting failure returns to that same reviewer with the
+actual errors and bindings; never reconstruct a current pass from earlier reports or prose.
+
 While a background worker owns required work, use a blocking output wait for that exact task
 and collect its full handback. If TaskOutput is available, load its current schema and use
 blocking mode with a timeout of up to sixty seconds. Reissue that same bounded wait if it times
