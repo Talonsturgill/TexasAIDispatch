@@ -1,0 +1,7 @@
+Take: out/dispatch/takes/take1.wav (gemini-3.1-flash-tts-preview, 48.24 s, soundcheck chosen, accuracy 0.992).
+Command: python3 scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_script.txt --voice out/dispatch/mix_vo.wav --out out/dispatch --cuts out/dispatch/storyboard.json --clause-boundaries
+Result 1 (retained in alignment-failure.txt): the numeral token 3,800 did not reconcile with the spoken words thirty eight hundred. Tooling pull request 224 teaches the exact lexical comparison that equivalence.
+Result 2 with the corrected tooling, run on a scratch copy: lexical reconciliation passes, then the declared clause boundaries refuse. Two boundaries have no measured silence.
+  boundary after word index 19, between "in February" and "in a limited area of sixty square miles": word end 8.26 s, next word start 8.26 s, not anchored.
+  boundary after word index 122, between "the flood remedy" and "as currently under development": word end 46.783 s, next word start 46.783 s, not anchored.
+Every other declared boundary is measured. The contract needs at least 0.24 s of measured silence at a boundary inside a caption group, and the take ran these phrases together.

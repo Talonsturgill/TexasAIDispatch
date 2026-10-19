@@ -1,9 +1,9 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-19T16:32:20.373328+00:00",
-  "note": "alignment numeral blocker and critic ceiling; voice take and mix retained",
-  "phase": "picture",
+  "saved_at": "2026-10-19T16:35:34.282479+00:00",
+  "note": "ledger write",
+  "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-19T05:13:41.692242Z",
@@ -16,8 +16,8 @@
     "sha256": "e29a160935e53963b936660d0e1194d9de745ce29d52b0f711a6dbedac3d83ab"
   },
   "deleted_source": [],
-  "ledger_sha256": "a2a488f8009aa87744f9d9c67245737cdf893b92ebc26d96b9cfd59ef615e41e",
-  "original_private_ledger_sha256": "f3d939400789a79a664ace3c148d87b3e6ecefe37359b705386d41e823db3cdf",
+  "ledger_sha256": "6ba345a57c24de16b41e6d043de7c4d80e03e217fad665f3e9f1254da26c0f34",
+  "original_private_ledger_sha256": "8ef52ca2671d993647da2b8aeac41e0a5029bf03cf0bf62f563fe672dec197c7",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 2,
@@ -284,6 +284,12 @@
       "size": 62806
     },
     {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/alignment-boundary-failure.txt",
+      "class": "scratch",
+      "sha256": "0399f06c2580ceaf3f176fe2219181e3c9547697ac16581f5a5396729532afdf",
+      "size": 1196
+    },
+    {
       "path": "out/dispatch/evidence/alignment-numeral-failure/alignment-failure.txt",
       "class": "scratch",
       "sha256": "520f14c4112b965177ee45b0f4b058bd14f848e6f9a00855c2eb2c40b3bbfa2e",
@@ -318,6 +324,12 @@
       "class": "scratch",
       "sha256": "581cd879b481cddfe24fc7d4545b7a923789e73dd2768fd2da9a1061a3d43cec",
       "size": 1039
+    },
+    {
+      "path": "out/dispatch/evidence/alignment-numeral-failure/vo_direction.bound-before-pause.json",
+      "class": "scratch",
+      "sha256": "6000dfbebb3589af18cff76892d743ca57fdf218f203bb7f5d2f68b4d0394623",
+      "size": 17898
     },
     {
       "path": "out/dispatch/evidence/alignment-numeral-failure/vo_direction.json",
@@ -3090,6 +3102,12 @@
       "class": "scratch",
       "sha256": "d7942ea587999a581aa4747fdbea420cf3a29065b0dd77d5f4aa664bfd7225db",
       "size": 1515
+    },
+    {
+      "path": "out/dispatch/repair-plan.json",
+      "class": "scratch",
+      "sha256": "ab35268ff4a7f07c961d06da2b9f0453370361ed519af1e632f2cf59c8fe3aae",
+      "size": 1542
     },
     {
       "path": "out/dispatch/research.json",
