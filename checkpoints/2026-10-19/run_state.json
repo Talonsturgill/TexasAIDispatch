@@ -137,6 +137,14 @@
       "note": "corrected public visual evidence phone review, fresh isolated Opus High, packet 3a6bb720, granted by mandatory-public-review-prompt-repair",
       "resource": "storyboard_critics",
       "to": 11
+    },
+    {
+      "at": "2026-10-19T18:26:21.967726Z",
+      "ceiling": 14,
+      "from": 11,
+      "note": "corrective code review of Treatment B on the restored claims 4b42adee, same code critic, granted by mandatory-public-review-prompt-repair",
+      "resource": "storyboard_critics",
+      "to": 12
     }
   ],
   "events": [
@@ -1619,6 +1627,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-19T18:26:21.967747Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "corrective code review of Treatment B on the restored claims 4b42adee, same code critic, granted by mandatory-public-review-prompt-repair",
+      "now": 12,
+      "resource": "storyboard_critics",
+      "was": 11
+    },
+    {
+      "at": "2026-10-19T18:26:21.967765Z",
+      "kind": "reserved",
+      "note": "corrective code review of Treatment B on the restored claims 4b42adee, same code critic, granted by mandatory-public-review-prompt-repair",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -1633,7 +1659,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 11,
+    "storyboard_critics": 12,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -1642,7 +1668,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "889fcadf5b523762277854e8fbda95250a53b2490292a9b2816af01fa64674ab",
+    "original_private_state_sha256": "ed2d6a00ceaad4766a909afc81cc0149aaed6e7ec32dcee89fc51c9cd6d38e5e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1670,7 +1696,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-19T18:14:40.516342Z",
+  "updated_at": "2026-10-19T18:26:21.967767Z",
   "usage": {
     "audiovisual_reviews": 2,
     "cleanup_renders": 0,
@@ -1683,7 +1709,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 11,
+    "storyboard_critics": 12,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
