@@ -1,0 +1,1322 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<script>
+var gform;gform||(document.addEventListener("gform_main_scripts_loaded",function(){gform.scriptsLoaded=!0}),document.addEventListener("gform/theme/scripts_loaded",function(){gform.themeScriptsLoaded=!0}),window.addEventListener("DOMContentLoaded",function(){gform.domLoaded=!0}),gform={domLoaded:!1,scriptsLoaded:!1,themeScriptsLoaded:!1,isFormEditor:()=>"function"==typeof InitializeEditor,callIfLoaded:function(o){return!(!gform.domLoaded||!gform.scriptsLoaded||!gform.themeScriptsLoaded&&!gform.isFormEditor()||(gform.isFormEditor()&&console.warn("The use of gform.initializeOnLoaded() is deprecated in the form editor context and will be removed in Gravity Forms 3.1."),o(),0))},initializeOnLoaded:function(o){gform.callIfLoaded(o)||(document.addEventListener("gform_main_scripts_loaded",()=>{gform.scriptsLoaded=!0,gform.callIfLoaded(o)}),document.addEventListener("gform/theme/scripts_loaded",()=>{gform.themeScriptsLoaded=!0,gform.callIfLoaded(o)}),window.addEventListener("DOMContentLoaded",()=>{gform.domLoaded=!0,gform.callIfLoaded(o)}))},hooks:{action:{},filter:{}},addAction:function(o,r,e,t){gform.addHook("action",o,r,e,t)},addFilter:function(o,r,e,t){gform.addHook("filter",o,r,e,t)},doAction:function(o){gform.doHook("action",o,arguments)},applyFilters:function(o){return gform.doHook("filter",o,arguments)},removeAction:function(o,r){gform.removeHook("action",o,r)},removeFilter:function(o,r,e){gform.removeHook("filter",o,r,e)},addHook:function(o,r,e,t,n){null==gform.hooks[o][r]&&(gform.hooks[o][r]=[]);var d=gform.hooks[o][r];null==n&&(n=r+"_"+d.length),gform.hooks[o][r].push({tag:n,callable:e,priority:t=null==t?10:t})},doHook:function(r,o,e){var t;if(e=Array.prototype.slice.call(e,1),null!=gform.hooks[r][o]&&((o=gform.hooks[r][o]).sort(function(o,r){return o.priority-r.priority}),o.forEach(function(o){"function"!=typeof(t=o.callable)&&(t=window[t]),"action"==r?t.apply(null,e):e[0]=t.apply(null,e)})),"filter"==r)return e[0]},removeHook:function(o,r,t,n){var e;null!=gform.hooks[o][r]&&(e=(e=gform.hooks[o][r]).filter(function(o,r,e){return!!(null!=n&&n!=o.tag||null!=t&&t!=o.priority)}),gform.hooks[o][r]=e)}});
+</script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="https://dallasexpress.com/wp-content/themes/dallasexpress/imgs/favicon.png">
+    <link rel="preload" href="https://dallasexpress.com/wp-content/themes/dallasexpress/style.css?v=20261013" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://dallasexpress.com/wp-content/themes/dallasexpress/style.css?v=20261013"></noscript>    <title>Dallas Issues First AI Camera Citations</title>
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v28.7 - https://yoast.com/product/yoast-seo-wordpress/ -->
+	<meta name="description" content="Dallas has issued its first citations stemming from potential code violations detected by AI-powered cameras mounted on city trash trucks." />
+	<link rel="canonical" href="https://dallasexpress.com/city/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Dallas Issues First AI Camera Citations" />
+	<meta property="og:description" content="Dallas has issued its first citations stemming from potential code violations detected by AI-powered cameras mounted on city trash trucks." />
+	<meta property="og:url" content="https://dallasexpress.com/city/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks/" />
+	<meta property="og:site_name" content="Dallas Express" />
+	<meta property="article:publisher" content="https://www.facebook.com/Dallas-Express-103546351703577" />
+	<meta property="article:published_time" content="2026-09-21T15:00:21+00:00" />
+	<meta property="og:image" content="https://dallasexpress.com/wp-content/uploads/2026/09/City-of-Dallas-bulk-trash-collection-truck-with-mounted-cameras-City-of-Dallas-waste-bin-in-foreground-Image-by-Dallas-Texas-TVInstagram-.jpg" />
+	<meta property="og:image:width" content="1280" />
+	<meta property="og:image:height" content="720" />
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta name="author" content="Dallas Express" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="Dallas has issued its first citations stemming from potential code violations detected by AI-powered cameras mounted on city trash trucks." />
+	<meta name="twitter:image" content="https://dallasexpress.com/wp-content/uploads/2026/09/City-of-Dallas-bulk-trash-collection-truck-with-mounted-cameras-City-of-Dallas-waste-bin-in-foreground-Image-by-Dallas-Texas-TVInstagram-.jpg" />
+	<meta name="twitter:creator" content="@dallasexpress" />
+	<meta name="twitter:site" content="@dallasexpress" />
+	<meta name="twitter:label1" content="Written by" />
+	<meta name="twitter:data1" content="Dallas Express" />
+	<meta name="twitter:label2" content="Est. reading time" />
+	<meta name="twitter:data2" content="3 minutes" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https:\/\/schema.org","@graph":[{"@type":"Article","@id":"https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/#article","isPartOf":{"@id":"https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/"},"author":{"@id":"https:\/\/dallasexpress.com\/#\/schema\/person\/f6b4d99a2a151068b8922559d9927dd3"},"headline":"Dallas Issues Citations From AI Code Enforcement Cameras On Sanitation Trucks","datePublished":"2026-09-21T15:00:21+00:00","mainEntityOfPage":{"@id":"https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/"},"wordCount":630,"image":{"@id":"https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/#primaryimage"},"thumbnailUrl":"https:\/\/dallasexpress.com\/wp-content\/uploads\/2026\/09\/City-of-Dallas-bulk-trash-collection-truck-with-mounted-cameras-City-of-Dallas-waste-bin-in-foreground-Image-by-Dallas-Texas-TVInstagram-.jpg","keywords":["Code Enforcement","AI-powered cameras","sanitation trucks","trash trucks","code violations","City of Dallas"],"articleSection":["Dallas"],"inLanguage":"en-US","copyrightYear":"2026","copyrightHolder":{"@id":"https:\/\/dallasexpress.com\/#organization"}},{"@type":"WebPage","@id":"https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/","url":"https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/","name":"Dallas Issues First AI Camera Citations","isPartOf":{"@id":"https:\/\/dallasexpress.com\/#website"},"primaryImageOfPage":{"@id":"https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/#primaryimage"},"image":{"@id":"https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/#primaryimage"},"thumbnailUrl":"https:\/\/dallasexpress.com\/wp-content\/uploads\/2026\/09\/City-of-Dallas-bulk-trash-collection-truck-with-mounted-cameras-City-of-Dallas-waste-bin-in-foreground-Image-by-Dallas-Texas-TVInstagram-.jpg","datePublished":"2026-09-21T15:00:21+00:00","author":{"@id":"https:\/\/dallasexpress.com\/#\/schema\/person\/f6b4d99a2a151068b8922559d9927dd3"},"description":"Dallas has issued its first citations stemming from potential code violations detected by AI-powered cameras mounted on city trash trucks.","breadcrumb":{"@id":"https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/#primaryimage","url":"https:\/\/dallasexpress.com\/wp-content\/uploads\/2026\/09\/City-of-Dallas-bulk-trash-collection-truck-with-mounted-cameras-City-of-Dallas-waste-bin-in-foreground-Image-by-Dallas-Texas-TVInstagram-.jpg","contentUrl":"https:\/\/dallasexpress.com\/wp-content\/uploads\/2026\/09\/City-of-Dallas-bulk-trash-collection-truck-with-mounted-cameras-City-of-Dallas-waste-bin-in-foreground-Image-by-Dallas-Texas-TVInstagram-.jpg","width":1280,"height":720},{"@type":"BreadcrumbList","@id":"https:\/\/dallasexpress.com\/city\/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks\/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https:\/\/dallasexpress.com\/"},{"@type":"ListItem","position":2,"name":"Dallas Issues Citations From AI Code Enforcement Cameras On Sanitation Trucks"}]},{"@type":"WebSite","@id":"https:\/\/dallasexpress.com\/#website","url":"https:\/\/dallasexpress.com\/","name":"Dallas Express","description":"","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https:\/\/dallasexpress.com\/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-US"},{"@type":"Person","@id":"https:\/\/dallasexpress.com\/#\/schema\/person\/f6b4d99a2a151068b8922559d9927dd3","name":"Dallas Express","image":{"@type":"ImageObject","inLanguage":"en-US","@id":"https:\/\/secure.gravatar.com\/avatar\/b957df9a20a2ef0d8a33fd514899089873dce42ff368677946a0912a2cbbd043?s=96&d=mm&r=gaeb2f2972088738cb5674ab4c2791bc0","url":"https:\/\/secure.gravatar.com\/avatar\/b957df9a20a2ef0d8a33fd514899089873dce42ff368677946a0912a2cbbd043?s=96&d=mm&r=g","contentUrl":"https:\/\/secure.gravatar.com\/avatar\/b957df9a20a2ef0d8a33fd514899089873dce42ff368677946a0912a2cbbd043?s=96&d=mm&r=g","caption":"Dallas Express"},"sameAs":["https:\/\/dallasexpress.com"],"url":"https:\/\/dallasexpress.com\/author\/dallasexpress\/"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//challenges.cloudflare.com' />
+<link rel='dns-prefetch' href='//news.google.com' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://dallasexpress.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdallasexpress.com%2Fcity%2Fdallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://dallasexpress.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdallasexpress.com%2Fcity%2Fdallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='dnd-upload-cf7-css' href='https://dallasexpress.com/wp-content/plugins/drag-and-drop-multiple-file-upload-contact-form-7/assets/css/dnd-upload-cf7.css?ver=1.4.0' media='all' />
+<link rel='stylesheet' id='contact-form-7-css' href='https://dallasexpress.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.2.2' media='all' />
+<link rel='stylesheet' id='extra-style-css' href='https://dallasexpress.com/wp-content/plugins/publishpress-series-pro/includes-pro/addons/extra-tokens/orgSeries-extra.css?ver=7.1.3' media='all' />
+<link rel='stylesheet' id='jetpack-instant-search-css' href='https://dallasexpress.com/wp-content/plugins/jetpack-search/jetpack_vendor/automattic/jetpack-search/build/instant-search/jp-search.chunk-main-payload.css?minify=false&#038;ver=6e92c957d89396c25583' media='all' />
+<script id="jquery-core-js" src="https://dallasexpress.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
+<script id="jquery-migrate-js" src="https://dallasexpress.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
+<script data-wp-strategy="defer" defer id="google-preferred-sources-js" src="https://news.google.com/swg/js/v1/publisher.js"></script>
+<link rel="https://api.w.org/" href="https://dallasexpress.com/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://dallasexpress.com/wp-json/wp/v2/posts/336630" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://dallasexpress.com/xmlrpc.php?rsd" />
+<link rel='shortlink' href='https://dallasexpress.com/?p=336630' />
+	<style>img#wpstats{display:none}</style>
+		<meta name="google-play-app" content="app-id=com.dallasexpress.android"><meta name="apple-itunes-app" content="app-id=6447519570, app-argument=https://dallasexpress.com/city/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks"><style type="text/css">.blue-message, .is-style-blue-message {
+background: none repeat scroll 0 0 #3399ff;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+}.green-message, .is-style-green-message {
+background: none repeat scroll 0 0 #8cc14c;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+}.orange-message, .is-style-orange-message {
+background: none repeat scroll 0 0 #faa732;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+}.red-message, .is-style-red-message {
+background: none repeat scroll 0 0 #da4d31;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+}.grey-message, .is-style-grey-message {
+background: none repeat scroll 0 0 #53555c;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+}.left-block, .is-style-left-block {
+background: none repeat scroll 0 0px, radial-gradient(ellipse at center center, #ffffff 0%, #f2f2f2 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #8b8e97;
+    padding: 10px;
+    margin: 10px;
+    float: left;
+}.right-block, .is-style-right-block {
+background: none repeat scroll 0 0px, radial-gradient(ellipse at center center, #ffffff 0%, #f2f2f2 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #8b8e97;
+    padding: 10px;
+    margin: 10px;
+    float: right;
+}.blockquotes, .is-style-blockquotes {
+background: none;
+    border-left: 5px solid #f1f1f1;
+    color: #8B8E97;
+    font-size: 16px;
+    font-style: italic;
+    line-height: 22px;
+    padding-left: 15px;
+    padding: 10px;
+    width: 60%;
+    float: left;
+}</style><link rel="icon" href="https://dallasexpress.com/wp-content/uploads/2023/07/cropped-Dallas-Express-Favicon-2023-07.png" sizes="32x32" />
+<link rel="icon" href="https://dallasexpress.com/wp-content/uploads/2023/07/cropped-Dallas-Express-Favicon-2023-07.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://dallasexpress.com/wp-content/uploads/2023/07/cropped-Dallas-Express-Favicon-2023-07.png" />
+<meta name="msapplication-TileImage" content="https://dallasexpress.com/wp-content/uploads/2023/07/cropped-Dallas-Express-Favicon-2023-07.png" />
+    
+    
+    <style type="text/css">@font-face {font-family:'Noto Sans';font-style:normal;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:normal;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:normal;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:normal;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/greek/wght/normal.woff2);unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:normal;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/latin-ext/wght/normal.woff2);unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:normal;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:normal;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/devanagari/wght/normal.woff2);unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+20F0,U+25CC,U+A830-A839,U+A8E0-A8FF,U+11B00-11B09;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:normal;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:italic;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/vietnamese/wght/italic.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:italic;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/latin/wght/italic.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:italic;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/cyrillic/wght/italic.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:italic;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/greek/wght/italic.woff2);unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:italic;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/greek-ext/wght/italic.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:italic;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/devanagari/wght/italic.woff2);unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+20F0,U+25CC,U+A830-A839,U+A8E0-A8FF,U+11B00-11B09;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:italic;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/latin-ext/wght/italic.woff2);unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:'Noto Sans';font-style:italic;font-weight:100 900;src:url(/cf-fonts/v/noto-sans/5.2.10/cyrillic-ext/wght/italic.woff2);unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}</style>
+    
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KRLNR35');</script>
+<!-- End Google Tag Manager -->
+<script src="https://cdn.broadstreetads.com/init-2.min.js"></script>
+<script>broadstreet.watch({ networkId: 9336 })</script>
+<script src="https://flux.broadstreet.ai/emit/9336.js" async></script>
+     
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8620630304614917" crossorigin="anonymous"></script>    <style>
+        /* included to ensure large layout shifts do not occur */
+        .top-bar .socials a.social-link {
+            width: 25px;
+            height: 25px;
+            display: flex;
+            transition: all .2s ease-in;
+        }
+    </style>
+    <script>
+        // Set today's date in top bar on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateElement = document.querySelector('.top-bar .date');
+            if (dateElement) {
+                const today = new Date();
+                const options = { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                };
+                dateElement.textContent = today.toLocaleDateString('en-US', options);
+            }
+        });
+        
+        if (document.readyState !== 'loading') {
+            const dateElement = document.querySelector('.top-bar .date');
+            if (dateElement) {
+                const today = new Date();
+                const options = { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                };
+                dateElement.textContent = today.toLocaleDateString('en-US', options);
+            }
+        }
+    </script>
+    <meta name="msvalidate.01" content="8DFCF5B7519B767701E0DC4E801AB98C" />
+<link rel='stylesheet' id='gravity_forms_theme_reset-css' href='https://dallasexpress.com/wp-content/plugins/gravityforms/assets/css/dist/gravity-forms-theme-reset.min.css?ver=3.1.3' media='all' />
+<link rel='stylesheet' id='gravity_forms_theme_foundation-css' href='https://dallasexpress.com/wp-content/plugins/gravityforms/assets/css/dist/gravity-forms-theme-foundation.min.css?ver=3.1.3' media='all' />
+<link rel='stylesheet' id='gravity_forms_theme_framework-css' href='https://dallasexpress.com/wp-content/plugins/gravityforms/assets/css/dist/gravity-forms-theme-framework.min.css?ver=3.1.3' media='all' />
+<link rel='stylesheet' id='gravity_forms_orbital_theme-css' href='https://dallasexpress.com/wp-content/plugins/gravityforms/assets/css/dist/gravity-forms-orbital-theme.min.css?ver=3.1.3' media='all' />
+
+</head>
+
+<body class="wp-singular post-template-default single single-post postid-336630 single-format-standard wp-theme-dallasexpress jps-theme-dallasexpress">
+
+
+<div class="mobile-header">
+    <div class="mobile-header-bar">
+        <div class="container">
+            <button type="button" class="mobile-header-toggle mobile-menu" aria-label="Open menu" aria-expanded="false">
+                <span class="mobile-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </button>
+
+            <div class="mobile-header-logo">
+                <a href="https://dallasexpress.com" aria-label="Dallas Express Home">
+                    <img src="https://dallasexpress.com/wp-content/themes/dallasexpress/imgs/2026-dx-logo-white.png" alt="Dallas Express" width="264" height="59" />
+                </a>
+            </div>
+
+            <button type="button" class="mobile-header-toggle mobile-search" aria-label="Open search" aria-expanded="false">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M10.5 4a6.5 6.5 0 1 0 4.03 11.6l4.43 4.43 1.41-1.41-4.43-4.43A6.5 6.5 0 0 0 10.5 4Zm0 2a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Z" fill="currentColor"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="mobile-search-expand mobile-header-panel">
+        <div class="container">
+            <form method="get" action="https://dallasexpress.com" class="mobile-search-form">
+                <input type="text" name="s" placeholder="Search articles" />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="mobile-menu-expand mobile-header-panel">
+        <div class="container">
+            <ul id="menu-header" class="nav-menu"><li id="menu-item-313941" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-313941"><a href="https://dallasexpress.com/">Home</a></li>
+<li id="menu-item-196913" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-196913"><a href="#">Categories</a>
+<ul class="sub-menu">
+	<li id="menu-item-196915" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-196915"><a href="https://dallasexpress.com/category/city/">Dallas</a></li>
+	<li id="menu-item-197485" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197485"><a href="https://dallasexpress.com/category/tarrant/">Tarrant/Fort Worth</a></li>
+	<li id="menu-item-197336" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197336"><a href="https://dallasexpress.com/category/metroplex/">Metroplex</a></li>
+	<li id="menu-item-196918" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196918"><a href="https://dallasexpress.com/category/state/">State</a></li>
+	<li id="menu-item-196914" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196914"><a href="https://dallasexpress.com/category/national/">National</a></li>
+	<li id="menu-item-196923" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196923"><a href="https://dallasexpress.com/category/crime/">Crime</a></li>
+	<li id="menu-item-196922" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196922"><a href="https://dallasexpress.com/category/education/">Education</a></li>
+	<li id="menu-item-196916" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196916"><a href="https://dallasexpress.com/category/business-markets/">Business</a></li>
+	<li id="menu-item-197333" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197333"><a href="https://dallasexpress.com/category/realestate/">Real Estate</a></li>
+	<li id="menu-item-196921" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196921"><a href="https://dallasexpress.com/category/lifestyle/">Faith &amp; Family</a></li>
+	<li id="menu-item-284274" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-284274"><a href="https://dallasexpress.com/category/future-voices/">Future Voices</a></li>
+	<li id="menu-item-197332" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197332"><a href="https://dallasexpress.com/category/health/">Health &amp; Science</a></li>
+	<li id="menu-item-306448" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-306448"><a href="https://dallasexpress.com/category/dallas-sports/">DX Sports Network</a></li>
+	<li id="menu-item-196917" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196917"><a href="https://dallasexpress.com/category/sports/">Sports</a></li>
+	<li id="menu-item-197335" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197335"><a href="https://dallasexpress.com/category/opinion/">Opinion</a></li>
+	<li id="menu-item-197337" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197337"><a href="https://dallasexpress.com/category/profiles/">Profiles</a></li>
+	<li id="menu-item-196924" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-196924"><a target="_blank" href="https://www.legacy.com/us/obituaries/dallasexpress/browse">Obituaries</a></li>
+	<li id="menu-item-196925" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-196925"><a target="_blank" href="https://jobs.dallasexpress.com/">Jobs</a></li>
+</ul>
+</li>
+<li id="menu-item-196926" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-196926"><a href="#">Special Features</a>
+<ul class="sub-menu">
+	<li id="menu-item-256508" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-256508"><a href="https://dallasexpress.com/podcast/lets-talk-local/">Let&#8217;s Talk Local Podcast</a></li>
+	<li id="menu-item-196928" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196928"><a href="https://dallasexpress.com/crime-boss/">Crime Boss</a></li>
+	<li id="menu-item-196929" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196929"><a href="https://dallasexpress.com/dallas-derby-results/">Dallas Derby</a></li>
+</ul>
+</li>
+<li id="menu-item-196931" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196931"><a href="https://dallasexpress.com/submit-a-story/">Submit a Story</a></li>
+<li id="menu-item-196932" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-196932"><a href="#">Fine Print</a>
+<ul class="sub-menu">
+	<li id="menu-item-196933" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196933"><a href="https://dallasexpress.com/support-the-dallas-express/">How to Support Us</a></li>
+	<li id="menu-item-196934" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196934"><a href="https://dallasexpress.com/about/">About Dallas Express</a></li>
+	<li id="menu-item-196935" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196935"><a href="https://dallasexpress.com/org-structure/">The Team</a></li>
+	<li id="menu-item-196936" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196936"><a href="https://dallasexpress.com/code-of-ethics-standards/">Code of Ethics</a></li>
+	<li id="menu-item-196937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196937"><a href="https://dallasexpress.com/contact/">Contact</a></li>
+	<li id="menu-item-196938" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196938"><a href="https://dallasexpress.com/advertising/">Advertising</a></li>
+	<li id="menu-item-196939" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196939"><a href="https://dallasexpress.com/terms-of-service/">Terms of Service</a></li>
+	<li id="menu-item-196940" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-196940"><a rel="privacy-policy" href="https://dallasexpress.com/privacy-policy/">Privacy Policy</a></li>
+	<li id="menu-item-196941" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196941"><a href="https://dallasexpress.com/comment-section-moderation-policies/">Comment Moderation Policies</a></li>
+	<li id="menu-item-196942" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-196942"><a target="_blank" href="https://the-dallas-express.revv.co/become-a-dallas-express-member?recurring=true">Become a Member</a></li>
+</ul>
+</li>
+</ul>                            <a href="https://dallasexpress.com/radio/" class="mobile-radio-link" aria-label="Listen to radio">
+                                            <img src="https://dallasexpress.com/wp-content/uploads/2026/05/wbap-logo.jpg" alt="Radio" class="sticky-radio-icon">
+                                        <span class="sticky-radio-text">Listen Live</span>
+                </a>
+                        <div class="socials mobile-panel-socials">
+                <a href="https://www.facebook.com/TheDallasExpress" target="_blank" class="social-link facebook-link" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"><path d="M22 5.16c-.406-.054-1.806-.16-3.43-.16-3.4 0-5.733 1.825-5.733 5.17v2.882H9v3.913h3.837V27h4.604V16.965h3.823l.587-3.913h-4.41v-2.5c0-1.123.347-1.903 2.198-1.903H22V5.16z" fill-rule="evenodd"></path></svg>
+                </a>
+                <a class="social-link twitter-link" href="https://x.com/dallasexpress" target="_blank" aria-label="Twitter">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                </a>
+                <a href="https://www.instagram.com/dallasexpressnews/" target="_blank" class="social-link instagram-link" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5c-2.987 0-3.362.013-4.535.066-1.17.054-1.97.24-2.67.512a5.392 5.392 0 0 0-1.95 1.268 5.392 5.392 0 0 0-1.267 1.95c-.272.698-.458 1.498-.512 2.67C5.013 12.637 5 13.012 5 16s.013 3.362.066 4.535c.054 1.17.24 1.97.512 2.67.28.724.657 1.337 1.268 1.95a5.392 5.392 0 0 0 1.95 1.268c.698.27 1.498.457 2.67.51 1.172.054 1.547.067 4.534.067s3.362-.013 4.535-.066c1.17-.054 1.97-.24 2.67-.51a5.392 5.392 0 0 0 1.95-1.27 5.392 5.392 0 0 0 1.268-1.95c.27-.698.457-1.498.51-2.67.054-1.172.067-1.547.067-4.534s-.013-3.362-.066-4.535c-.054-1.17-.24-1.97-.51-2.67a5.392 5.392 0 0 0-1.27-1.95 5.392 5.392 0 0 0-1.95-1.267c-.698-.272-1.498-.458-2.67-.512C19.363 5.013 18.988 5 16 5zm0 1.982c2.937 0 3.285.01 4.445.064 1.072.05 1.655.228 2.042.38.514.198.88.437 1.265.822.385.385.624.75.823 1.265.15.387.33.97.38 2.042.052 1.16.063 1.508.063 4.445 0 2.937-.01 3.285-.064 4.445-.05 1.072-.228 1.655-.38 2.042-.198.514-.437.88-.822 1.265-.385.385-.75.624-1.265.823-.387.15-.97.33-2.042.38-1.16.052-1.508.063-4.445.063-2.937 0-3.285-.01-4.445-.064-1.072-.05-1.655-.228-2.042-.38-.514-.198-.88-.437-1.265-.822a3.408 3.408 0 0 1-.823-1.265c-.15-.387-.33-.97-.38-2.042-.052-1.16-.063-1.508-.063-4.445 0-2.937.01-3.285.064-4.445.05-1.072.228-1.655.38-2.042.198-.514.437-.88.822-1.265.385-.385.75-.624 1.265-.823.387-.15.97-.33 2.042-.38 1.16-.052 1.508-.063 4.445-.063zm0 12.685a3.667 3.667 0 1 1 0-7.334 3.667 3.667 0 0 1 0 7.334zm0-9.316a5.65 5.65 0 1 0 0 11.3 5.65 5.65 0 0 0 0-11.3zm7.192-.222a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0" fill-rule="evenodd"></path></svg>
+                </a>
+                <a href="https://youtube.com/@letstalklocaldfw" target="_blank" class="social-link youtube-link" aria-label="YouTube">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"><path d="M13.73 18.974V12.57l5.945 3.212-5.944 3.192zm12.18-9.778c-.837-.908-1.775-.912-2.205-.965C20.625 8 16.007 8 16.007 8c-.01 0-4.628 0-7.708.23-.43.054-1.368.058-2.205.966-.66.692-.875 2.263-.875 2.263S5 13.303 5 15.15v1.728c0 1.845.22 3.69.22 3.69s.215 1.57.875 2.262c.837.908 1.936.88 2.426.975 1.76.175 7.482.23 7.482.15 0 .08 4.624.072 7.703-.16.43-.052 1.368-.057 2.205-.965.66-.69.875-2.262.875-2.262s.22-1.845.22-3.69v-1.73c0-1.844-.22-3.69-.22-3.69s-.215-1.57-.875-2.262z" fill-rule="evenodd"></path></svg>
+                </a>
+                <a class="social-link linkedin-link" href="https://www.linkedin.com/company/dallasexpress/" target="_blank" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path></svg>
+                </a>
+                <a class="social-link tiktok-link" href="https://www.tiktok.com/@letstalklocaldfw" target="_blank" aria-label="TikTok">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-1.003-.104z"></path></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="top-bar">
+    <div class="container">
+        <div class="date"></div>  
+        <div class="socials">
+            <a href="https://www.facebook.com/TheDallasExpress" target="_blank" class="social-link facebook-link" aria-label="Facebook">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-facebook-83" class="at-icon at-icon-facebook" style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><title id="at-svg-facebook-83">Facebook</title><g><path d="M22 5.16c-.406-.054-1.806-.16-3.43-.16-3.4 0-5.733 1.825-5.733 5.17v2.882H9v3.913h3.837V27h4.604V16.965h3.823l.587-3.913h-4.41v-2.5c0-1.123.347-1.903 2.198-1.903H22V5.16z" fill-rule="evenodd"></path></g></svg>
+            </a>
+            <a class="social-link twitter-link" href="https://x.com/dallasexpress" target="_blank" aria-label="Twitter">
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-lrsllp r-1nao33i r-16y2uox r-8kz0gk"><g><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></g></svg>
+            </a>
+            <a href="https://www.instagram.com/dallasexpressnews/" target="_blank" class="social-link instagram-link" aria-label="Instagram">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_200_925)">
+                    <path d="M15.2804 4.49687C15.2445 3.68417 15.1131 3.12545 14.9248 2.6413C14.7306 2.1274 14.4318 1.6673 14.0404 1.28482C13.6579 0.896386 13.1947 0.594556 12.6868 0.403374C12.1999 0.215109 11.644 0.0836861 10.8313 0.0478539C10.0126 0.0089872 9.75265 0 7.67602 0C5.59939 0 5.33946 0.0089872 4.52373 0.0448193C3.71103 0.0806514 3.1523 0.212191 2.66828 0.400339C2.15426 0.594556 1.69416 0.893352 1.31168 1.28482C0.923242 1.6673 0.621528 2.13043 0.430229 2.63839C0.241965 3.12545 0.110542 3.68114 0.0747094 4.49384C0.0358427 5.31261 0.0268555 5.57253 0.0268555 7.64916C0.0268555 9.72579 0.0358427 9.98572 0.0716748 10.8015C0.107507 11.6142 0.239047 12.1729 0.427311 12.657C0.621528 13.1709 0.923242 13.631 1.31168 14.0135C1.69416 14.4019 2.15729 14.7038 2.66524 14.895C3.1523 15.0832 3.70799 15.2146 4.52081 15.2505C5.33643 15.2864 5.59647 15.2953 7.6731 15.2953C9.74973 15.2953 10.0097 15.2864 10.8254 15.2505C11.6381 15.2146 12.1968 15.0832 12.6808 14.895C13.7088 14.4975 14.5215 13.6848 14.9189 12.657C15.107 12.17 15.2386 11.6142 15.2744 10.8015C15.3102 9.98572 15.3192 9.72579 15.3192 7.64916C15.3192 5.57253 15.3162 5.31261 15.2804 4.49687ZM13.903 10.7417C13.8701 11.4887 13.7446 11.8921 13.64 12.161C13.383 12.8273 12.8542 13.3562 12.1878 13.6132C11.9189 13.7177 11.5126 13.8432 10.7686 13.876C9.9618 13.912 9.71985 13.9208 7.67905 13.9208C5.63826 13.9208 5.39327 13.912 4.58944 13.876C3.84245 13.8432 3.43908 13.7177 3.17016 13.6132C2.83857 13.4906 2.53674 13.2964 2.29175 13.0424C2.03777 12.7944 1.84355 12.4956 1.721 12.164C1.61642 11.8951 1.49095 11.4887 1.45816 10.7447C1.42221 9.93798 1.41334 9.69591 1.41334 7.65512C1.41334 5.61432 1.42221 5.36933 1.45816 4.56562C1.49095 3.81863 1.61642 3.41526 1.721 3.14634C1.84355 2.81463 2.03777 2.51292 2.29478 2.26781C2.54269 2.01383 2.84149 1.81962 3.17319 1.69718C3.44211 1.5926 3.84852 1.46713 4.59247 1.43422C5.39922 1.39839 5.64129 1.3894 7.68197 1.3894C9.7258 1.3894 9.96776 1.39839 10.7716 1.43422C11.5186 1.46713 11.9219 1.5926 12.1909 1.69718C12.5225 1.81962 12.8243 2.01383 13.0693 2.26781C13.3233 2.51583 13.5175 2.81463 13.64 3.14634C13.7446 3.41526 13.8701 3.82155 13.903 4.56562C13.9388 5.37236 13.9478 5.61432 13.9478 7.65512C13.9478 9.69591 13.9388 9.93495 13.903 10.7417Z" fill="black"/>
+                    <path d="M7.67599 3.72C5.5068 3.72 3.74683 5.47986 3.74683 7.64916C3.74683 9.81846 5.5068 11.5783 7.67599 11.5783C9.84529 11.5783 11.6051 9.81846 11.6051 7.64916C11.6051 5.47986 9.84529 3.72 7.67599 3.72ZM7.67599 10.1979C6.26873 10.1979 5.12724 9.05653 5.12724 7.64916C5.12724 6.24179 6.26873 5.10041 7.67599 5.10041C9.08336 5.10041 10.2247 6.24179 10.2247 7.64916C10.2247 9.05653 9.08336 10.1979 7.67599 10.1979Z" fill="black"/>
+                    <path d="M12.6779 3.56483C12.6779 4.07138 12.2672 4.48211 11.7605 4.48211C11.254 4.48211 10.8433 4.07138 10.8433 3.56483C10.8433 3.05816 11.254 2.64755 11.7605 2.64755C12.2672 2.64755 12.6779 3.05816 12.6779 3.56483Z" fill="black"/>
+                    </g>
+                </svg>
+            </a>
+            <a href="https://youtube.com/@letstalklocaldfw" target="_blank" class="social-link youtube-link" aria-label="YouTube">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_200_931)">
+                    <path d="M14.5144 4.06361C14.3491 3.4493 13.8648 2.96505 13.2506 2.79964C12.1285 2.49261 7.63997 2.49261 7.63997 2.49261C7.63997 2.49261 3.15165 2.49261 2.02955 2.788C1.42715 2.95324 0.930992 3.44939 0.765754 4.06361C0.470459 5.18562 0.470459 7.51254 0.470459 7.51254C0.470459 7.51254 0.470459 9.85117 0.765754 10.9615C0.931167 11.5757 1.41533 12.0599 2.02964 12.2253C3.16347 12.5325 7.64015 12.5325 7.64015 12.5325C7.64015 12.5325 12.1285 12.5325 13.2506 12.2371C13.8649 12.0717 14.3491 11.5875 14.5145 10.9733C14.8097 9.85117 14.8097 7.52435 14.8097 7.52435C14.8097 7.52435 14.8216 5.18562 14.5144 4.06361ZM6.21094 9.66222V5.36285L9.94334 7.51254L6.21094 9.66222Z" fill="black"/>
+                    </g>
+                </svg>
+            </a>
+            <a class="social-link linkedin-link" href="https://www.linkedin.com/company/dallasexpress/" target="_blank" aria-label="LinkedIn">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.2363 12.2365V7.75492C12.2363 5.55239 11.7621 3.8699 9.19253 3.8699C7.95361 3.8699 7.12766 4.5429 6.79116 5.1853H6.76057V4.06874H4.32861V12.2365H6.86764V8.18319C6.86764 7.11252 7.06648 6.08773 8.38188 6.08773C9.68198 6.08773 9.69728 7.29606 9.69728 8.24437V12.2212H12.2363V12.2365Z" fill="black"/>
+                    <path d="M0.198853 4.06857H2.73788V12.2363H0.198853V4.06857Z" fill="black"/>
+                    <path d="M1.46835 0C0.6577 0 0 0.657699 0 1.46835C0 2.27901 0.6577 2.952 1.46835 2.952C2.27901 2.952 2.9367 2.27901 2.9367 1.46835C2.9367 0.657699 2.27901 0 1.46835 0Z" fill="black"/>
+                </svg>
+            </a>
+            <a class="social-link tiktok-link" href="https://www.tiktok.com/@letstalklocaldfw" target="_blank" aria-label="TikTok">
+                <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.1716 3.7558C12.3142 3.7558 11.5232 3.47176 10.8879 2.99261C10.1593 2.44332 9.63588 1.63759 9.45103 0.708906C9.40525 0.479451 9.38061 0.24266 9.37826 0H6.92907V6.69236L6.92614 10.3581C6.92614 11.3381 6.28794 12.1691 5.40328 12.4613C5.14653 12.5461 4.86925 12.5863 4.58052 12.5705C4.21199 12.5502 3.86663 12.439 3.56646 12.2594C2.92768 11.8774 2.49459 11.1843 2.48285 10.3915C2.46437 9.1524 3.46611 8.14215 4.70435 8.14215C4.94877 8.14215 5.18351 8.18206 5.40328 8.25453V6.42534V5.76779C5.17147 5.73346 4.93556 5.71556 4.69701 5.71556C3.3417 5.71556 2.07412 6.27893 1.16803 7.29387C0.483186 8.06088 0.0723957 9.03944 0.00901667 10.0655C-0.0740216 11.4135 0.41922 12.6949 1.37577 13.6403C1.51632 13.7791 1.66391 13.9079 1.81825 14.0267C2.63837 14.6579 3.64099 15 4.69701 15C4.93556 15 5.17147 14.9824 5.40328 14.9481C6.38976 14.8019 7.29995 14.3504 8.01825 13.6403C8.90086 12.7679 9.38853 11.6098 9.39381 10.3771L9.38119 4.90307C9.80225 5.22789 10.2626 5.49667 10.7568 5.70529C11.5252 6.02952 12.3401 6.19383 13.1787 6.19354V4.41511V3.75521C13.1792 3.7558 13.1722 3.7558 13.1716 3.7558Z" fill="black"/>
+                </svg>
+            </a>
+                            <a class="social-link app-link" href="https://apps.apple.com/us/app/the-dallas-express/id6447519570"  target="_blank" aria-label="Download Our App">
+                    <img src="https://dallasexpress.com/wp-content/themes/dallasexpress/imgs/iphone-app-header.png" alt="Download Our App" height="30"/>
+                </a>
+                                        <a class="social-link app-link" href="https://play.google.com/store/apps/details?id=com.dallasexpress.android&hl=en_US"  target="_blank" aria-label="Download Our App">
+                    <img src="https://dallasexpress.com/wp-content/themes/dallasexpress/imgs/android-app-header.png" alt="Download Our App" height="30"/>
+                </a>
+                    </div>
+    </div>
+</div>
+
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="https://dallasexpress.com">
+                <img src="https://dallasexpress.com/wp-content/themes/dallasexpress/imgs/2026-dx-logo-black.png" alt="Dallas Express" width="360" height="80" />
+            </a>
+        </div>
+                    <div class="ad header-ad desktop-ad">
+                <!-- Header 728x90 --> <broadstreet-zone zone-id="187852"></broadstreet-zone>                  </div>
+            </div>
+</div>
+<div class="sticky-nav">
+    <div class="container">
+        <ul id="menu-header-1" class="nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-313941"><a href="https://dallasexpress.com/">Home</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-196913"><a href="#">Categories</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-196915"><a href="https://dallasexpress.com/category/city/">Dallas</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197485"><a href="https://dallasexpress.com/category/tarrant/">Tarrant/Fort Worth</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197336"><a href="https://dallasexpress.com/category/metroplex/">Metroplex</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196918"><a href="https://dallasexpress.com/category/state/">State</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196914"><a href="https://dallasexpress.com/category/national/">National</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196923"><a href="https://dallasexpress.com/category/crime/">Crime</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196922"><a href="https://dallasexpress.com/category/education/">Education</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196916"><a href="https://dallasexpress.com/category/business-markets/">Business</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197333"><a href="https://dallasexpress.com/category/realestate/">Real Estate</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196921"><a href="https://dallasexpress.com/category/lifestyle/">Faith &amp; Family</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-284274"><a href="https://dallasexpress.com/category/future-voices/">Future Voices</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197332"><a href="https://dallasexpress.com/category/health/">Health &amp; Science</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-306448"><a href="https://dallasexpress.com/category/dallas-sports/">DX Sports Network</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196917"><a href="https://dallasexpress.com/category/sports/">Sports</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197335"><a href="https://dallasexpress.com/category/opinion/">Opinion</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197337"><a href="https://dallasexpress.com/category/profiles/">Profiles</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-196924"><a target="_blank" href="https://www.legacy.com/us/obituaries/dallasexpress/browse">Obituaries</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-196925"><a target="_blank" href="https://jobs.dallasexpress.com/">Jobs</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-196926"><a href="#">Special Features</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-256508"><a href="https://dallasexpress.com/podcast/lets-talk-local/">Let&#8217;s Talk Local Podcast</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196928"><a href="https://dallasexpress.com/crime-boss/">Crime Boss</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196929"><a href="https://dallasexpress.com/dallas-derby-results/">Dallas Derby</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196931"><a href="https://dallasexpress.com/submit-a-story/">Submit a Story</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-196932"><a href="#">Fine Print</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196933"><a href="https://dallasexpress.com/support-the-dallas-express/">How to Support Us</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196934"><a href="https://dallasexpress.com/about/">About Dallas Express</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196935"><a href="https://dallasexpress.com/org-structure/">The Team</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196936"><a href="https://dallasexpress.com/code-of-ethics-standards/">Code of Ethics</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196937"><a href="https://dallasexpress.com/contact/">Contact</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196938"><a href="https://dallasexpress.com/advertising/">Advertising</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196939"><a href="https://dallasexpress.com/terms-of-service/">Terms of Service</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-196940"><a rel="privacy-policy" href="https://dallasexpress.com/privacy-policy/">Privacy Policy</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196941"><a href="https://dallasexpress.com/comment-section-moderation-policies/">Comment Moderation Policies</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-196942"><a target="_blank" href="https://the-dallas-express.revv.co/become-a-dallas-express-member?recurring=true">Become a Member</a></li>
+</ul>
+</li>
+</ul>        <div class="sticky-search-container">
+            <button type="button" class="sticky-search-toggle" aria-label="Search">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24">
+                    <path d="M10.5 4a6.5 6.5 0 1 0 4.03 11.6l4.43 4.43 1.41-1.41-4.43-4.43A6.5 6.5 0 0 0 10.5 4Zm0 2a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Z" fill="currentColor"/>
+                </svg>
+            </button>
+            <div class="sticky-search-expand">
+                <form method="get" action="https://dallasexpress.com" class="sticky-search-form">
+                    <input type="text" name="s" placeholder="Search articles" />
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+                    <a href="https://dallasexpress.com/radio/" class="sticky-radio-link" aria-label="Listen to radio">
+                                    <img src="https://dallasexpress.com/wp-content/uploads/2026/05/wbap-logo.jpg" alt="Radio" class="sticky-radio-icon">
+                                <span class="sticky-radio-text">Listen Live</span>
+            </a>
+            </div>
+</div>
+<script type="text/javascript">
+    jQuery(function($) {
+        const $menuToggle = $('.mobile-menu');
+        const $searchToggle = $('.mobile-search');
+        const $menuPanel = $('.mobile-menu-expand');
+        const $searchPanel = $('.mobile-search-expand');
+        let expandedItem = null;
+
+        function closeSearchPanel() {
+            $searchPanel.stop(true, true).slideUp(180);
+            $searchToggle.removeClass('active').attr('aria-expanded', 'false');
+        }
+
+        function closeMenuPanel() {
+            $menuPanel.stop(true, true).slideUp(180);
+            $menuToggle.removeClass('active').attr('aria-expanded', 'false');
+        }
+
+        $menuToggle.on('click', function() {
+            closeSearchPanel();
+            $menuPanel.stop(true, true).slideToggle(180);
+            $(this).toggleClass('active');
+            $(this).attr('aria-expanded', $(this).hasClass('active') ? 'true' : 'false');
+        });
+
+        $searchToggle.on('click', function() {
+            closeMenuPanel();
+            $searchPanel.stop(true, true).slideToggle(180);
+            $(this).toggleClass('active');
+            $(this).attr('aria-expanded', $(this).hasClass('active') ? 'true' : 'false');
+        });
+
+        const $stickySearchToggle = $('.sticky-search-toggle');
+        const $stickySearchExpand = $('.sticky-search-expand');
+
+        $stickySearchToggle.on('click', function(e) {
+            e.preventDefault();
+            $stickySearchExpand.toggleClass('active');
+            if ($stickySearchExpand.hasClass('active')) {
+                $stickySearchExpand.find('input').focus();
+            }
+        });
+
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.sticky-search-container').length) {
+                $stickySearchExpand.removeClass('active');
+            }
+        });
+
+        $('.mobile-menu-expand .menu-item-has-children > a').on('click', function(e) {
+            if (!window.matchMedia('(max-width: 1040px)').matches) {
+                return;
+            }
+
+            e.preventDefault();
+
+            const $item = $(this).parent();
+            const $submenu = $item.children('ul');
+
+            if (expandedItem && expandedItem.get(0) !== $item.get(0)) {
+                expandedItem.removeClass('expanded').children('ul').stop(true, true).slideUp(180);
+            }
+
+            $item.toggleClass('expanded');
+            $submenu.stop(true, true).slideToggle(180);
+
+            expandedItem = $item.hasClass('expanded') ? $item : null;
+        });
+    });
+
+    function redirectToAppStore() {
+        var iosLink = "https://dxnewsapp.netlify.app/";
+        var androidLink = "https://dxnewsapp.netlify.app/";
+
+        var os = /iPad|iPhone|iPod/.test(navigator.userAgent) ? 'iOS' : /android/i.test(navigator.userAgent) ? 'Android' : 'unknown';
+        if (os === 'iOS') window.location.href = iosLink;
+        else if (os === 'Android') window.location.href = androidLink;
+        else window.location.href = '/app';
+    }
+</script>
+
+<div class="container">
+                <div class="ad header-ad mobile-header-ad">
+            <!-- Header 728x90 --> <broadstreet-zone zone-id="187852"></broadstreet-zone>              </div>
+            <div id="appDownloadBox">
+        <div class="app-banner-content">
+            <img src="https://dallasexpress.com/wp-content/themes/dallasexpress/imgs/dx.svg" alt="DX" class="dx-icon" />
+            <span class="banner-text">Get the New and Improved DX App</span>
+            <div class="download-section">
+                <img src="https://dallasexpress.com/wp-content/themes/dallasexpress/imgs/download.svg" alt="Download" class="download-icon" />
+                <span class="download-text">Download Now</span>
+            </div>
+        </div>
+        <a href="#" id="appDownloadButton" onclick="redirectToAppStore()"></a>
+    </div>
+</div>
+    <div class="single-post-page main-page">
+        <div class="container">
+                                            
+                <!-- Hero Section -->
+                <div class="single-post-hero with-image" 
+                    style="background-image: url('https://dallasexpress.com/wp-content/uploads/2026/09/City-of-Dallas-bulk-trash-collection-truck-with-mounted-cameras-City-of-Dallas-waste-bin-in-foreground-Image-by-Dallas-Texas-TVInstagram--1000x563.jpg');">
+                    
+                                            <div class="hero-overlay"></div>
+                                        
+                    <div class="hero-content">
+                                                    <a href="https://dallasexpress.com/category/city/" class="hero-category">
+                                Dallas                            </a>
+                                                
+                        <h1 class="hero-title">Dallas Issues Citations From AI Code Enforcement Cameras On Sanitation Trucks</h1>
+                        
+                        <div class="hero-meta">
+                                                                                                                                    <a href="https://dallasexpress.com/guest-authors/dallas-express/">
+                                        Dallas Express                                    </a>
+                                                                <span class="pipe">|</span>
+                                                        Sep 21, 2026                        </div>
+                        
+                                            </div>
+                </div>
+                
+                <!-- Three Column Layout -->
+                <div class="three-column-layout">
+                    <!-- Share Column -->
+                    <div class="share-column">
+                        
+<div class="share-buttons">
+            <div class="share-label">Share On</div>
+        
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdallasexpress.com%2Fcity%2Fdallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks%2F" 
+       class="share-button share-facebook" 
+       title="Share on Facebook" 
+       target="_blank" 
+       rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img">
+            <title>Facebook</title>
+            <path d="M22 5.16c-.406-.054-1.806-.16-3.43-.16-3.4 0-5.733 1.825-5.733 5.17v2.882H9v3.913h3.837V27h4.604V16.965h3.823l.587-3.913h-4.41v-2.5c0-1.123.347-1.903 2.198-1.903H22V5.16z" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://twitter.com/intent/tweet?text=Dallas+Issues+Citations+From+AI+Code+Enforcement+Cameras+On+Sanitation+Trucks https%3A%2F%2Fdallasexpress.com%2Fcity%2Fdallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks%2F" 
+       class="share-button share-twitter" 
+       title="Share on Twitter" 
+       target="_blank" 
+       rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img">
+            <title>X (Twitter)</title>
+            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+        </svg>
+    </a>
+
+        
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fdallasexpress.com%2Fcity%2Fdallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks%2F" 
+       class="share-button share-linkedin" 
+       title="Share on LinkedIn" 
+       target="_blank" 
+       rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img">
+            <title>LinkedIn</title>
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+    </a>
+
+    
+    <a href="https://www.google.com/preferences/source?q=dallasexpress.com"
+       class="share-preferred-source"
+       title="Add as a preferred source on Google"
+       target="_blank"
+       rel="noopener">
+        <img src="https://dallasexpress.com/wp-content/themes/dallasexpress/imgs/google_preferred_source_badge_light_en.png"
+             alt="Add as a preferred source on Google"
+             width="338"
+             height="107" />
+    </a>
+</div>                    </div>
+                    
+                    <!-- Content Column -->
+                    <div class="content-column">
+                                                                                    <div class="cutline">
+                                    City of Dallas bulk trash collection truck with mounted cameras; City of Dallas waste  bin in foreground | Image by Dallas Texas TV/Instagram                                 </div>
+                                                                            
+                                                
+                        <div class="post-content">
+                                                                                    <p class="isSelectedEnd">Dallas has issued its first citations stemming from potential code violations detected by artificial intelligence-powered cameras mounted on city trash trucks, as officials face questions about the program&rsquo;s impact on homeowners and privacy.<p class="isSelectedEnd">A September 8 city memo <a href="https://www.fox4news.com/news/ai-powered-cameras-dallas-trash-trucks-hand-out-almost-4000-notices-57-citations">says</a> 57 citations have been issued at 34 properties after camera detections were reviewed and confirmed by code officers. The city has also sent thousands of property owners notices about potential violations.</p><h2>AI Cameras Scan Dallas Properties</h2><p class="isSelectedEnd">The cameras, operated by City Detect, are <a href="https://www.nbcdfw.com/investigations/dallas-issues-first-citations-tied-to-ai-code-enforcement-cameras/4078749/">mounted</a> on bulk trash collection trucks and photograph properties as crews travel through neighborhoods.</p><p class="isSelectedEnd">The system uses artificial intelligence to identify potential code violations and generate &ldquo;blight scores&rdquo; that help Code Compliance prioritize properties for review. City records show the cameras have identified potential violations at thousands of addresses since becoming operational.</p><p class="isSelectedEnd">The city&rsquo;s program was <a href="https://citysecretary2.dallascityhall.com/pdf/CC2025/121025AN.pdf">approved</a> under a three-year contract with City Detect for the AI-enabled cameras. The contract was estimated at about $2.56 million, or about $852,000 annually.</p><h2>Thousands Receive Courtesy Notices</h2><p class="isSelectedEnd">In addition to the citations, Dallas Code Compliance said it has <a href="https://www.nbcdfw.com/investigations/dallas-issues-first-citations-tied-to-ai-code-enforcement-cameras/4078749/">opened</a> about 300 cases involving properties where officials believe an in-person inspection should occur soon.</p><p class="isSelectedEnd">The city also sent approximately 3,700 property owners what it calls &ldquo;courtesy notices&rdquo; after potential violations were detected.</p><p class="isSelectedEnd">City officials say the notices are not citations or formal warnings and do not require action from property owners. However, the notices tell residents that continued violations could result in a formal notice, citation, or other enforcement action.</p><div><div class="ad post-ad"><broadstreet-zone zone-id="172894" zone-alias=""></broadstreet-zone></div></div><p class="isSelectedEnd">Code Compliance Assistant Director Jeremy Reed said the notices are intended to give homeowners an opportunity to correct potential violations before citations are issued.</p><p class="isSelectedEnd">One Dallas homeowner, Sarrah Morrison, told NBC 5 that the wording of her notice made her believe enforcement action could follow if she did not address the issues identified in the letter. Her notice cited<strong> alleged litter</strong> and a <strong>roof</strong> that was not in operating condition.</p><p class="isSelectedEnd">The city said a courtesy notice by itself does not lead directly to a citation. An inspector must still confirm a violation before enforcement action is taken.</p><h2>Southern Dallas Raises Enforcement Concerns</h2><p class="isSelectedEnd">The distribution of the first 57 citations has also drawn attention to where the camera-generated cases are occurring.</p><p class="isSelectedEnd">According to the city manager&rsquo;s memo, 39 citations, or 68%, were issued in City Council Districts 4, 8 and 7 in Southern Dallas. NBC 5 reported that those districts have predominantly Black and Hispanic populations.</p><p class="isSelectedEnd">The city says it does not target particular neighborhoods or demographic groups and instead evaluates properties based on potential code violations.</p><p class="isSelectedEnd">Reed acknowledged that the cameras could identify more violations in Southern Dallas, where he said there are more code violations than in Northern Dallas.</p><p class="isSelectedEnd">Councilmember Chad West has raised concerns that the technology could place a disproportionate financial burden on residents in neighborhoods with fewer resources.</p><div class="ad post-ad"><broadstreet-zone zone-id="172894" zone-alias=""></broadstreet-zone></div><p class="isSelectedEnd">&ldquo;My primary concern is that this could end up being inadvertently a tax on the poor,&rdquo; West told NBC 5 Investigates.</p><h2>City Defends Program as Enforcement Tool</h2><p class="isSelectedEnd">City officials say the cameras allow Code Compliance officers to identify potential violations more efficiently rather than relying primarily on complaints or routine inspections.</p><p class="isSelectedEnd">The city also maintains that <strong>human review is required</strong> before enforcement action is taken. The camera system does not connect to law enforcement or federal databases, and the company operating the system says faces and license plates are blurred.</p><p class="isSelectedEnd">The city expects the cameras to photograph residential properties roughly once a month during bulk trash collection. <strong>Images are expected to be retained for one year.</strong></p><p class="isSelectedEnd">West previously proposed removing funding for the program but withdrew the request after the city manager&rsquo;s office agreed to brief City Council members.</p><p>A briefing on the program is scheduled for October 19, when officials are expected to address questions surrounding the cameras, enforcement, and privacy.</p></p>
+                        </div>
+                        
+                        
+                        <!-- Article Navigation -->
+                                                <div class="article-navigation">
+                                                        <a href="https://dallasexpress.com/city/what-to-know-about-dfw-airports-october-1-parking-rate-changes/" class="article-nav-item article-nav-prev">
+                                <div class="article-nav-label">
+                                    <span class="article-nav-arrow">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                    </span>
+                                    <span class="article-nav-text">Previous Article</span>
+                                </div>
+                                <div class="article-nav-preview">
+                                                                            <img src="https://dallasexpress.com/wp-content/uploads/2026/09/What-To-Know-DFW-Airport-Parking-DFW-Airport-Image-by-JaselynberthelotShutterstock-150x150.jpg" alt="What To Know About DFW Airport&#8217;s October 1 Parking Rate Changes">
+                                                                        <span class="article-nav-title">What To Know About DFW Airport&#8217;s October 1 Parking Rate Changes</span>
+                                </div>
+                            </a>
+                            
+                                                        <a href="https://dallasexpress.com/metroplex/atts-1-35-billion-plano-hq-faces-key-site-plan-vote/" class="article-nav-item article-nav-next">
+                                <div class="article-nav-label">
+                                    <span class="article-nav-text">Next Article</span>
+                                    <span class="article-nav-arrow">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                    </span>
+                                </div>
+                                <div class="article-nav-preview article-nav-preview--right">
+                                    <span class="article-nav-title">AT&amp;T’s $1.35 Billion Plano HQ Faces Key Site-Plan Vote</span>
+                                                                            <img src="https://dallasexpress.com/wp-content/uploads/2026/09/ATT-Plano-HQ-Faces-Key-Vote-Monday-Image-by-Lester-BalajadiaShutterstock-150x150.jpg" alt="AT&amp;T’s $1.35 Billion Plano HQ Faces Key Site-Plan Vote">
+                                                                    </div>
+                            </a>
+                                                    </div>
+                        
+                        <!-- Subscribe Banner -->
+                        <div class="subscribe-banner">
+                            <p class="banner-title">Like this article?</p>
+                            <p class="banner-description">Subscribe to The Dallas Express to receive daily updates of the latest articles delivered straight to your inbox.</p>
+                            <div class="subscribe-form">
+                                
+                <div class='gf_browser_chrome gform_wrapper gform-theme gform-theme--foundation gform-theme--framework gform-theme--orbital' data-form-theme='orbital' data-form-index='0' id='gform_wrapper_1' ><style>#gform_wrapper_1[data-form-index="0"].gform-theme{--gf-color-primary: #204ce5;--gf-color-primary-rgb: 32, 76, 229;--gf-color-primary-contrast: #fff;--gf-color-primary-contrast-rgb: 255, 255, 255;--gf-color-primary-darker: #001AB3;--gf-color-primary-lighter: #527EFF;--gf-color-secondary: #fff;--gf-color-secondary-rgb: 255, 255, 255;--gf-color-secondary-contrast: #112337;--gf-color-secondary-contrast-rgb: 17, 35, 55;--gf-color-secondary-darker: #F5F5F5;--gf-color-secondary-lighter: #FFFFFF;--gf-color-out-ctrl-light: rgba(17, 35, 55, 0.1);--gf-color-out-ctrl-light-rgb: 17, 35, 55;--gf-color-out-ctrl-light-darker: rgba(104, 110, 119, 0.35);--gf-color-out-ctrl-light-lighter: #F5F5F5;--gf-color-out-ctrl-dark: #585e6a;--gf-color-out-ctrl-dark-rgb: 88, 94, 106;--gf-color-out-ctrl-dark-darker: #112337;--gf-color-out-ctrl-dark-lighter: rgba(17, 35, 55, 0.65);--gf-color-in-ctrl: #fff;--gf-color-in-ctrl-rgb: 255, 255, 255;--gf-color-in-ctrl-contrast: #112337;--gf-color-in-ctrl-contrast-rgb: 17, 35, 55;--gf-color-in-ctrl-darker: #F5F5F5;--gf-color-in-ctrl-lighter: #FFFFFF;--gf-color-in-ctrl-primary: #204ce5;--gf-color-in-ctrl-primary-rgb: 32, 76, 229;--gf-color-in-ctrl-primary-contrast: #fff;--gf-color-in-ctrl-primary-contrast-rgb: 255, 255, 255;--gf-color-in-ctrl-primary-darker: #001AB3;--gf-color-in-ctrl-primary-lighter: #527EFF;--gf-color-in-ctrl-light: rgba(17, 35, 55, 0.1);--gf-color-in-ctrl-light-rgb: 17, 35, 55;--gf-color-in-ctrl-light-darker: rgba(104, 110, 119, 0.35);--gf-color-in-ctrl-light-lighter: #F5F5F5;--gf-color-in-ctrl-dark: #585e6a;--gf-color-in-ctrl-dark-rgb: 88, 94, 106;--gf-color-in-ctrl-dark-darker: #112337;--gf-color-in-ctrl-dark-lighter: rgba(17, 35, 55, 0.65);--gf-radius: 3px;--gf-font-size-secondary: 14px;--gf-font-size-tertiary: 13px;--gf-icon-ctrl-number: url("data:image/svg+xml,%3Csvg width='8' height='14' viewBox='0 0 8 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4 0C4.26522 5.96046e-08 4.51957 0.105357 4.70711 0.292893L7.70711 3.29289C8.09763 3.68342 8.09763 4.31658 7.70711 4.70711C7.31658 5.09763 6.68342 5.09763 6.29289 4.70711L4 2.41421L1.70711 4.70711C1.31658 5.09763 0.683417 5.09763 0.292893 4.70711C-0.0976311 4.31658 -0.097631 3.68342 0.292893 3.29289L3.29289 0.292893C3.48043 0.105357 3.73478 0 4 0ZM0.292893 9.29289C0.683417 8.90237 1.31658 8.90237 1.70711 9.29289L4 11.5858L6.29289 9.29289C6.68342 8.90237 7.31658 8.90237 7.70711 9.29289C8.09763 9.68342 8.09763 10.3166 7.70711 10.7071L4.70711 13.7071C4.31658 14.0976 3.68342 14.0976 3.29289 13.7071L0.292893 10.7071C-0.0976311 10.3166 -0.0976311 9.68342 0.292893 9.29289Z' fill='rgba(17, 35, 55, 0.65)'/%3E%3C/svg%3E");--gf-icon-ctrl-select: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.292893 0.292893C0.683417 -0.097631 1.31658 -0.097631 1.70711 0.292893L5 3.58579L8.29289 0.292893C8.68342 -0.0976311 9.31658 -0.0976311 9.70711 0.292893C10.0976 0.683417 10.0976 1.31658 9.70711 1.70711L5.70711 5.70711C5.31658 6.09763 4.68342 6.09763 4.29289 5.70711L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683418 0.292893 0.292893Z' fill='rgba(17, 35, 55, 0.65)'/%3E%3C/svg%3E");--gf-icon-ctrl-search: url("data:image/svg+xml,%3Csvg width='640' height='640' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M256 128c-70.692 0-128 57.308-128 128 0 70.691 57.308 128 128 128 70.691 0 128-57.309 128-128 0-70.692-57.309-128-128-128zM64 256c0-106.039 85.961-192 192-192s192 85.961 192 192c0 41.466-13.146 79.863-35.498 111.248l154.125 154.125c12.496 12.496 12.496 32.758 0 45.254s-32.758 12.496-45.254 0L367.248 412.502C335.862 434.854 297.467 448 256 448c-106.039 0-192-85.962-192-192z' fill='rgba(17, 35, 55, 0.65)'/%3E%3C/svg%3E");--gf-label-space-y-secondary: var(--gf-label-space-y-md-secondary);--gf-ctrl-border-color: #686e77;--gf-ctrl-size: var(--gf-ctrl-size-md);--gf-ctrl-label-color-primary: #112337;--gf-ctrl-label-color-secondary: #112337;--gf-ctrl-choice-size: var(--gf-ctrl-choice-size-md);--gf-ctrl-checkbox-check-size: var(--gf-ctrl-checkbox-check-size-md);--gf-ctrl-radio-check-size: var(--gf-ctrl-radio-check-size-md);--gf-ctrl-btn-font-size: var(--gf-ctrl-btn-font-size-md);--gf-ctrl-btn-padding-x: var(--gf-ctrl-btn-padding-x-md);--gf-ctrl-btn-size: var(--gf-ctrl-btn-size-md);--gf-ctrl-btn-border-color-secondary: #686e77;--gf-ctrl-btn-bg-color-hover-tertiary: #EBEBEB;--gf-field-img-choice-size: var(--gf-field-img-choice-size-md);--gf-field-img-choice-card-space: var(--gf-field-img-choice-card-space-md);--gf-field-img-choice-check-ind-size: var(--gf-field-img-choice-check-ind-size-md);--gf-field-img-choice-check-ind-icon-size: var(--gf-field-img-choice-check-ind-icon-size-md);--gf-field-pg-steps-number-color: rgba(17, 35, 55, 0.8);}</style><div id='gf_1' class='gform_anchor' tabindex='-1'></div>
+                        <div class='gform_heading'>
+                            <p class='gform_description'></p>
+                        </div><form method='post' enctype='multipart/form-data' target='gform_ajax_frame_1' id='gform_1'  action='/city/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks/#gf_1' data-formid='1' novalidate>
+                        <div class='gform-body gform_body'><div id='gform_fields_1' class='gform_fields top_label form_sublabel_below description_below validation_below'><div id="field_1_1" class="gfield gfield--type-email email gfield_contains_required field_sublabel_below gfield--no-description field_description_below field_validation_below gfield_visibility_visible"  ><label class='gfield_label gform-field-label' for='input_1_1'><span class='gform-field-label__text'>Email</span><span class="gfield_required"><span class="gfield_required gfield_required_text">(Required)</span></span></label><div class='ginput_container ginput_container_email'>
+                            <input name='input_1' id='input_1_1' type='email' value='' class='large'   placeholder='Email' aria-required="true" aria-invalid="false"  />
+                        </div></div></div></div>
+        <div class='gform-footer gform_footer top_label'> <button type='submit' id='gform_submit_button_1' class='gform_button button' onclick='gform.submission.handleButtonClick(this);' data-submission-type='submit' >Subscribe</button> <input type='hidden' name='gform_ajax' value='form_id=1&amp;title=&amp;description=1&amp;tabindex=0&amp;theme=orbital&amp;hash=f4e80be537e37023808486175dfe9061' />
+            <input type='hidden' class='gform_hidden' name='gform_submission_method' data-js='gform_submission_method_1' value='iframe' />
+            <input type='hidden' class='gform_hidden' name='gform_theme' data-js='gform_theme_1' id='gform_theme_1' value='orbital' />
+            <input type='hidden' class='gform_hidden' name='gform_style_settings' data-js='gform_style_settings_1' id='gform_style_settings_1' value='' />
+            <input type='hidden' class='gform_hidden' name='is_submit_1' value='1' />
+            <input type='hidden' class='gform_hidden' name='gform_submit' value='1' />
+            
+            <input type='hidden' class='gform_hidden' name='gform_currency' data-currency='USD' value='9ca7LvzInGofrG/dPv92v6+IfaZF0RrkGmc95WtklbNCD3mmfsnkeFcjexXOBqZwXLrDtgFLjbeddHd0Me8/IUBcpF2wggvS3id5JhxRSC32YlQ=' />
+            <input type='hidden' class='gform_hidden' name='gform_unique_id' value='' />
+            <input type='hidden' class='gform_hidden' name='state_1' value='WyJ7XCJnZm9ybV9zdWJtaXNzaW9uX21ldGhvZFwiOltcIjM0YTc3YTBmM2IwZDc3ZmEyNmUxZmYyMGRjMjlkZmI3XCIsXCJlNzg2N2NkNTJjMmY3NjBlYzNiNDIyZThlZjkxODE3NVwiLFwiNzQyMDBjZTkyMGVkNWUxOWIzYTZmNWRlZDNjYmJjZDRcIl0sXCJnZm9ybV90aGVtZVwiOlwiYzBkODVjOTBhOGFiM2E3NmRlZDBmNmY4NDI5OGI0YjlcIixcImdmb3JtX3N0eWxlX3NldHRpbmdzXCI6XCI1OTMyYjQ4MjlhZmI1ZmI2OTA3NDNjZDAyOTg5OWJkM1wiLFwiZm9ybV9pZFwiOlwiZTIxYTM5NmM2ODU0NDM3YTRkZTRkZWQ0NjExMDc1YjNcIixcInVybFwiOlwiZmZmMTE2ZDc1MjRkZDQwZDUwYTJiMjYzY2UzMzIwYmVcIixcInN0YXRlX3RpbWVzdGFtcFwiOlwiY2NjYjcxZTQwZWIzN2Y2NTQzM2YzNDg3ODQ2ZWFmMDhcIn0iLCJkNmYzNDQwZjJmYzFlNGUyNjk4Yjk0MjQ5ZWIwNGViYyIsMTc5MjEyMDc0OV0=' />
+            <input type='hidden' autocomplete='off' class='gform_hidden' name='gform_target_page_number_1' id='gform_target_page_number_1' value='0' />
+            <input type='hidden' autocomplete='off' class='gform_hidden' name='gform_source_page_number_1' id='gform_source_page_number_1' value='1' />
+            <input type='hidden' name='gform_field_values' value='' />
+            
+        </div>
+                        </form>
+                        </div>
+		                <iframe style='display:none;width:0px;height:0px;' src='about:blank' name='gform_ajax_frame_1' id='gform_ajax_frame_1' title='This iframe contains the logic required to handle Ajax powered Gravity Forms.'></iframe>
+		                <script>
+gform.initializeOnLoaded( function() {jQuery('#gform_ajax_frame_1').on('load',function(){var contents = jQuery(this).contents().find('*').html();var is_postback = contents.indexOf('GF_AJAX_POSTBACK') >= 0;if(!is_postback){return;}var form_content = jQuery(this).contents().find('#gform_wrapper_1');var is_confirmation = jQuery(this).contents().find('#gform_confirmation_wrapper_1').length > 0;var is_redirect = contents.indexOf('gformRedirect(){') >= 0;var is_form = form_content.length > 0 && ! is_redirect && ! is_confirmation;var mt = parseInt(jQuery('html').css('margin-top'), 10) + parseInt(jQuery('body').css('margin-top'), 10) + 100;if(is_form){jQuery('#gform_wrapper_1').html(form_content.html());if(form_content.hasClass('gform_validation_error')){jQuery('#gform_wrapper_1').addClass('gform_validation_error');} else {jQuery('#gform_wrapper_1').removeClass('gform_validation_error');}setTimeout( function() { /* delay the scroll by 50 milliseconds to fix a bug in chrome */ jQuery(document).scrollTop(jQuery('#gform_wrapper_1').offset().top - mt); }, 50 );var current_page = jQuery('#gform_source_page_number_1').val();jQuery(document).trigger('gform_page_loaded', [1, current_page]);window['gf_submitting_1'] = false;}else if(!is_redirect){var confirmation_content = jQuery(this).contents().find('.GF_AJAX_POSTBACK').html();if(!confirmation_content){confirmation_content = contents;}jQuery('#gform_wrapper_1').replaceWith(confirmation_content);jQuery(document).scrollTop(jQuery('#gf_1').offset().top - mt);jQuery(document).trigger('gform_confirmation_loaded', [1]);window['gf_submitting_1'] = false;wp.a11y.speak(jQuery('#gform_confirmation_message_1').text());}else{jQuery('#gform_1').append(contents);if(window['gformRedirect']) {gformRedirect();}}jQuery(document).trigger("gform_pre_post_render", [{ formId: "1", currentPage: "current_page", abort: function() { this.preventDefault(); } }]);        if (event && event.defaultPrevented) {                return;        }        const gformWrapperDiv = document.getElementById( "gform_wrapper_1" );        if ( gformWrapperDiv ) {            const visibilitySpan = document.createElement( "span" );            visibilitySpan.id = "gform_visibility_test_1";            gformWrapperDiv.insertAdjacentElement( "afterend", visibilitySpan );        }        const visibilityTestDiv = document.getElementById( "gform_visibility_test_1" );        let postRenderFired = false;        function triggerPostRender() {            if ( postRenderFired ) {                return;            }            postRenderFired = true;            gform.core.triggerPostRenderEvents( 1, current_page );            if ( visibilityTestDiv ) {                visibilityTestDiv.parentNode.removeChild( visibilityTestDiv );            }        }        function debounce( func, wait, immediate ) {            var timeout;            return function() {                var context = this, args = arguments;                var later = function() {                    timeout = null;                    if ( !immediate ) func.apply( context, args );                };                var callNow = immediate && !timeout;                clearTimeout( timeout );                timeout = setTimeout( later, wait );                if ( callNow ) func.apply( context, args );            };        }        const debouncedTriggerPostRender = debounce( function() {            triggerPostRender();        }, 200 );        if ( visibilityTestDiv && visibilityTestDiv.offsetParent === null ) {            const observer = new MutationObserver( ( mutations ) => {                mutations.forEach( ( mutation ) => {                    if ( mutation.type === 'attributes' && visibilityTestDiv.offsetParent !== null ) {                        debouncedTriggerPostRender();                        observer.disconnect();                    }                });            });            observer.observe( document.body, {                attributes: true,                childList: false,                subtree: true,                attributeFilter: [ 'style', 'class' ],            });        } else {            triggerPostRender();        }    } );} );
+</script>
+                            </div>
+                        </div>
+
+                        <div class="donate-cta">
+                            <div class="text-block">
+                                <p>Articles like this one are available completely free, 365 days a year.</p>
+                                <p>Your support ensures Dallas Express remains an alternative to legacy media — independent, fearless, and paywall-free.</p>
+                                <a href="https://the-dallas-express.revv.co/dx-member" class="give-now-btn" target="_blank">Give now</a>
+                            </div>
+                        </div>
+
+                                                    <div class="ad pre-comment-ad">
+                                <broadstreet-zone zone-id='172895' zone-alias=''></broadstreet-zone>                            </div>
+                        
+                        <div id="dx_recent_articles_widget-3" class="widget wide-widget dx-recent-articles-widget"><div class="widget-title"><div class="widget-title-text">More Stories</div></div>        <div class="recent-articles-content count-6">
+                <div class="post-loop simple-list">
+        
+<div class="post-entry">
+    <div class="image-columns">
+	            <a href="https://dallasexpress.com/business-markets/north-texas-aerospace-industry-needs-workers-ge-is-putting-1-million-toward-the-problem/" class="featured-image"
+           aria-label="North Texas Aerospace Industry Needs Workers. GE Is Putting $1 Million Toward The Problem.">
+            <img src="https://dallasexpress.com/wp-content/uploads/2026/10/GE-Aerospace-Commits-1M-To-DFW-Workforce-Training-Image-by-Lifting-Futuresweb-GE-Aerospace-515x290.jpg" alt="North Texas Aerospace Industry Needs Workers. GE Is Putting $1 Million Toward The Problem."
+                 width="250" height="150" loading="lazy">
+	                </a>
+        <div class="entry-content">
+            <a class="title" href="https://dallasexpress.com/business-markets/north-texas-aerospace-industry-needs-workers-ge-is-putting-1-million-toward-the-problem/">
+                North Texas Aerospace Industry Needs Workers. GE Is Putting $1 Million Toward The Problem.            </a>
+            <div class="date">
+                Oct 15, 2026            </div>
+        </div>
+    </div>
+</div>
+<div class="post-entry">
+    <div class="image-columns">
+	            <a href="https://dallasexpress.com/state/flu-positivity-rises-in-texas-as-reported-covid-cases-fall/" class="featured-image"
+           aria-label="Flu Positivity Rises In Texas As Reported COVID Cases Fall">
+            <img src="https://dallasexpress.com/wp-content/uploads/2026/10/Texas-Flu-Positivity-Rises-as-COVID-Cases-Fall-I-Image-by-Canva-515x290.jpg" alt="Flu Positivity Rises In Texas As Reported COVID Cases Fall"
+                 width="250" height="150" loading="lazy">
+	                </a>
+        <div class="entry-content">
+            <a class="title" href="https://dallasexpress.com/state/flu-positivity-rises-in-texas-as-reported-covid-cases-fall/">
+                Flu Positivity Rises In Texas As Reported COVID Cases Fall            </a>
+            <div class="date">
+                Oct 15, 2026            </div>
+        </div>
+    </div>
+</div>
+<div class="post-entry">
+    <div class="image-columns">
+	            <a href="https://dallasexpress.com/education/moms-for-liberty-unveils-ai-tool-to-empower-parents-and-increase-school-transparency/" class="featured-image"
+           aria-label="Moms For Liberty Puts 13,000 School Districts On Notice With AI Watchdog">
+            <img src="https://dallasexpress.com/wp-content/uploads/2026/10/moms-for-liberty-m4l-aware-1280x720-1-515x290.jpg" alt="Moms For Liberty Puts 13,000 School Districts On Notice With AI Watchdog"
+                 width="250" height="150" loading="lazy">
+	                </a>
+        <div class="entry-content">
+            <a class="title" href="https://dallasexpress.com/education/moms-for-liberty-unveils-ai-tool-to-empower-parents-and-increase-school-transparency/">
+                Moms For Liberty Puts 13,000 School Districts On Notice With AI Watchdog            </a>
+            <div class="date">
+                Oct 15, 2026            </div>
+        </div>
+    </div>
+</div>
+<div class="post-entry">
+    <div class="image-columns">
+	            <a href="https://dallasexpress.com/city/dallas-approves-2-2-million-for-six-new-traffic-signals/" class="featured-image"
+           aria-label="$2.2 Million For Six Traffic Signals: Dallas Projects Completion In 2028">
+            <img src="https://dallasexpress.com/wp-content/uploads/2026/10/Green-Light-traffic-signal-Image-by-Canva-515x290.jpg" alt="$2.2 Million For Six Traffic Signals: Dallas Projects Completion In 2028"
+                 width="250" height="150" loading="lazy">
+	                </a>
+        <div class="entry-content">
+            <a class="title" href="https://dallasexpress.com/city/dallas-approves-2-2-million-for-six-new-traffic-signals/">
+                $2.2 Million For Six Traffic Signals: Dallas Projects Completion In 2028            </a>
+            <div class="date">
+                Oct 14, 2026            </div>
+        </div>
+    </div>
+</div>
+<div class="post-entry">
+    <div class="image-columns">
+	            <a href="https://dallasexpress.com/crime/armed-suspect-dies-after-dallas-police-warrant-operation-near-i-35/" class="featured-image"
+           aria-label="Flock Cameras Help Dallas Police Find Wanted Man Who Then Shoots Himself">
+            <img src="https://dallasexpress.com/wp-content/uploads/2026/08/Yellow-police-tape-Image-by-Canva-1-515x290.jpg" alt="Flock Cameras Help Dallas Police Find Wanted Man Who Then Shoots Himself"
+                 width="250" height="150" loading="lazy">
+	                </a>
+        <div class="entry-content">
+            <a class="title" href="https://dallasexpress.com/crime/armed-suspect-dies-after-dallas-police-warrant-operation-near-i-35/">
+                Flock Cameras Help Dallas Police Find Wanted Man Who Then Shoots Himself            </a>
+            <div class="date">
+                Oct 14, 2026            </div>
+        </div>
+    </div>
+</div>
+<div class="post-entry">
+    <div class="image-columns">
+	            <a href="https://dallasexpress.com/national/cultural-change-inside-the-lgbtq-push-to-shape-student-identity-in-dallas-schools/" class="featured-image"
+           aria-label="Ninth-Grade Girls’ LGB Labels Plunge: How Texas Changed School ‘Identity’ Rules">
+            <img src="https://dallasexpress.com/wp-content/uploads/2026/10/teen-identity-study-texas-context-1280x720-1-515x290.jpg" alt="Ninth-Grade Girls’ LGB Labels Plunge: How Texas Changed School ‘Identity’ Rules"
+                 width="250" height="150" loading="lazy">
+	                </a>
+        <div class="entry-content">
+            <a class="title" href="https://dallasexpress.com/national/cultural-change-inside-the-lgbtq-push-to-shape-student-identity-in-dallas-schools/">
+                Ninth-Grade Girls’ LGB Labels Plunge: How Texas Changed School ‘Identity’ Rules            </a>
+            <div class="date">
+                Oct 14, 2026            </div>
+        </div>
+    </div>
+</div>    </div>
+            <div class="pagination">
+            <div class="previous-link">
+                            </div>
+            <div class="next-link">
+                            </div>
+        </div>
+                </div>
+        </div>
+                        <div class="comments">
+                            <div id="disqus_thread"></div>
+                            <script>
+                                window.disqus_config = function () {
+                                    this.page.url = "https://dallasexpress.com/city/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks/";
+                                    this.page.identifier = "336630 https:\/\/dallasexpress.com\/?p=336630";
+                                    this.page.title = "Dallas Issues Citations From AI Code Enforcement Cameras On Sanitation Trucks";
+                                };
+                                var loadDisqus = (function () {
+                                    var executed = false;
+                                    return function () {
+                                        if (!executed) {
+                                            executed = true;
+
+                                            var d = document, s = d.createElement('script');
+                                            s.src = 'https://dallasexpress-com.disqus.com/embed.js';
+                                            s.setAttribute('data-timestamp', +new Date());
+                                            (d.head || d.body).appendChild(s);
+                                        }
+                                    };
+                                })();
+
+                                // Trigger Disqus load when scrolling to the Disqus thread div
+                                window.addEventListener('scroll', function () {
+                                    var disqus_thread = document.getElementById('disqus_thread');
+                                    var scrollPosition = window.pageYOffset + window.innerHeight;
+                                    if (!disqus_thread.hasAttribute('data-loaded') && scrollPosition > disqus_thread.offsetTop) {
+                                        disqus_thread.setAttribute('data-loaded', 'true');
+                                        loadDisqus();
+                                    }
+                                });
+                            </script>
+                            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript"
+                                                                            rel="nofollow">comments powered by Disqus.</a>
+                            </noscript>
+                        </div>
+
+                                                    <div class="ad post-comment-ad">
+                                <broadstreet-zone zone-id='172896' zone-alias=''></broadstreet-zone>                            </div>
+                                            </div>
+                    
+                    <!-- Sidebar Column -->
+                    <div class="sidebar-column">
+                                                    <div id="dx_subscribe_widget-2" class="widget dx-subscribe-widget"><div class="widget-title"><div class="widget-title-text">Newsletter</div></div>        <div class="subscribe-widget-container">
+            <div class="widget-subscribe-form">
+                                    
+                <div class='gf_browser_chrome gform_wrapper gform-theme gform-theme--foundation gform-theme--framework gform-theme--orbital' data-form-theme='orbital' data-form-index='0' id='gform_wrapper_1' ><style>#gform_wrapper_1[data-form-index="0"].gform-theme{--gf-color-primary: #204ce5;--gf-color-primary-rgb: 32, 76, 229;--gf-color-primary-contrast: #fff;--gf-color-primary-contrast-rgb: 255, 255, 255;--gf-color-primary-darker: #001AB3;--gf-color-primary-lighter: #527EFF;--gf-color-secondary: #fff;--gf-color-secondary-rgb: 255, 255, 255;--gf-color-secondary-contrast: #112337;--gf-color-secondary-contrast-rgb: 17, 35, 55;--gf-color-secondary-darker: #F5F5F5;--gf-color-secondary-lighter: #FFFFFF;--gf-color-out-ctrl-light: rgba(17, 35, 55, 0.1);--gf-color-out-ctrl-light-rgb: 17, 35, 55;--gf-color-out-ctrl-light-darker: rgba(104, 110, 119, 0.35);--gf-color-out-ctrl-light-lighter: #F5F5F5;--gf-color-out-ctrl-dark: #585e6a;--gf-color-out-ctrl-dark-rgb: 88, 94, 106;--gf-color-out-ctrl-dark-darker: #112337;--gf-color-out-ctrl-dark-lighter: rgba(17, 35, 55, 0.65);--gf-color-in-ctrl: #fff;--gf-color-in-ctrl-rgb: 255, 255, 255;--gf-color-in-ctrl-contrast: #112337;--gf-color-in-ctrl-contrast-rgb: 17, 35, 55;--gf-color-in-ctrl-darker: #F5F5F5;--gf-color-in-ctrl-lighter: #FFFFFF;--gf-color-in-ctrl-primary: #204ce5;--gf-color-in-ctrl-primary-rgb: 32, 76, 229;--gf-color-in-ctrl-primary-contrast: #fff;--gf-color-in-ctrl-primary-contrast-rgb: 255, 255, 255;--gf-color-in-ctrl-primary-darker: #001AB3;--gf-color-in-ctrl-primary-lighter: #527EFF;--gf-color-in-ctrl-light: rgba(17, 35, 55, 0.1);--gf-color-in-ctrl-light-rgb: 17, 35, 55;--gf-color-in-ctrl-light-darker: rgba(104, 110, 119, 0.35);--gf-color-in-ctrl-light-lighter: #F5F5F5;--gf-color-in-ctrl-dark: #585e6a;--gf-color-in-ctrl-dark-rgb: 88, 94, 106;--gf-color-in-ctrl-dark-darker: #112337;--gf-color-in-ctrl-dark-lighter: rgba(17, 35, 55, 0.65);--gf-radius: 3px;--gf-font-size-secondary: 14px;--gf-font-size-tertiary: 13px;--gf-icon-ctrl-number: url("data:image/svg+xml,%3Csvg width='8' height='14' viewBox='0 0 8 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4 0C4.26522 5.96046e-08 4.51957 0.105357 4.70711 0.292893L7.70711 3.29289C8.09763 3.68342 8.09763 4.31658 7.70711 4.70711C7.31658 5.09763 6.68342 5.09763 6.29289 4.70711L4 2.41421L1.70711 4.70711C1.31658 5.09763 0.683417 5.09763 0.292893 4.70711C-0.0976311 4.31658 -0.097631 3.68342 0.292893 3.29289L3.29289 0.292893C3.48043 0.105357 3.73478 0 4 0ZM0.292893 9.29289C0.683417 8.90237 1.31658 8.90237 1.70711 9.29289L4 11.5858L6.29289 9.29289C6.68342 8.90237 7.31658 8.90237 7.70711 9.29289C8.09763 9.68342 8.09763 10.3166 7.70711 10.7071L4.70711 13.7071C4.31658 14.0976 3.68342 14.0976 3.29289 13.7071L0.292893 10.7071C-0.0976311 10.3166 -0.0976311 9.68342 0.292893 9.29289Z' fill='rgba(17, 35, 55, 0.65)'/%3E%3C/svg%3E");--gf-icon-ctrl-select: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.292893 0.292893C0.683417 -0.097631 1.31658 -0.097631 1.70711 0.292893L5 3.58579L8.29289 0.292893C8.68342 -0.0976311 9.31658 -0.0976311 9.70711 0.292893C10.0976 0.683417 10.0976 1.31658 9.70711 1.70711L5.70711 5.70711C5.31658 6.09763 4.68342 6.09763 4.29289 5.70711L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683418 0.292893 0.292893Z' fill='rgba(17, 35, 55, 0.65)'/%3E%3C/svg%3E");--gf-icon-ctrl-search: url("data:image/svg+xml,%3Csvg width='640' height='640' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M256 128c-70.692 0-128 57.308-128 128 0 70.691 57.308 128 128 128 70.691 0 128-57.309 128-128 0-70.692-57.309-128-128-128zM64 256c0-106.039 85.961-192 192-192s192 85.961 192 192c0 41.466-13.146 79.863-35.498 111.248l154.125 154.125c12.496 12.496 12.496 32.758 0 45.254s-32.758 12.496-45.254 0L367.248 412.502C335.862 434.854 297.467 448 256 448c-106.039 0-192-85.962-192-192z' fill='rgba(17, 35, 55, 0.65)'/%3E%3C/svg%3E");--gf-label-space-y-secondary: var(--gf-label-space-y-md-secondary);--gf-ctrl-border-color: #686e77;--gf-ctrl-size: var(--gf-ctrl-size-md);--gf-ctrl-label-color-primary: #112337;--gf-ctrl-label-color-secondary: #112337;--gf-ctrl-choice-size: var(--gf-ctrl-choice-size-md);--gf-ctrl-checkbox-check-size: var(--gf-ctrl-checkbox-check-size-md);--gf-ctrl-radio-check-size: var(--gf-ctrl-radio-check-size-md);--gf-ctrl-btn-font-size: var(--gf-ctrl-btn-font-size-md);--gf-ctrl-btn-padding-x: var(--gf-ctrl-btn-padding-x-md);--gf-ctrl-btn-size: var(--gf-ctrl-btn-size-md);--gf-ctrl-btn-border-color-secondary: #686e77;--gf-ctrl-btn-bg-color-hover-tertiary: #EBEBEB;--gf-field-img-choice-size: var(--gf-field-img-choice-size-md);--gf-field-img-choice-card-space: var(--gf-field-img-choice-card-space-md);--gf-field-img-choice-check-ind-size: var(--gf-field-img-choice-check-ind-size-md);--gf-field-img-choice-check-ind-icon-size: var(--gf-field-img-choice-check-ind-icon-size-md);--gf-field-pg-steps-number-color: rgba(17, 35, 55, 0.8);}</style><div id='gf_1' class='gform_anchor' tabindex='-1'></div><form method='post' enctype='multipart/form-data' target='gform_ajax_frame_1' id='gform_1'  action='/city/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks/#gf_1' data-formid='1' novalidate>
+                        <div class='gform-body gform_body'><div id='gform_fields_1' class='gform_fields top_label form_sublabel_below description_below validation_below'><div id="field_1_1" class="gfield gfield--type-email email gfield_contains_required field_sublabel_below gfield--no-description field_description_below field_validation_below gfield_visibility_visible"  ><label class='gfield_label gform-field-label' for='input_1_1'><span class='gform-field-label__text'>Email</span><span class="gfield_required"><span class="gfield_required gfield_required_text">(Required)</span></span></label><div class='ginput_container ginput_container_email'>
+                            <input name='input_1' id='input_1_1' type='email' value='' class='large'   placeholder='Email' aria-required="true" aria-invalid="false"  />
+                        </div></div></div></div>
+        <div class='gform-footer gform_footer top_label'> <button type='submit' id='gform_submit_button_1' class='gform_button button' onclick='gform.submission.handleButtonClick(this);' data-submission-type='submit' >Subscribe</button> <input type='hidden' name='gform_ajax' value='form_id=1&amp;title=&amp;description=&amp;tabindex=0&amp;theme=orbital&amp;hash=7e5b5c36a2d1127456ee571fcdf05649' />
+            <input type='hidden' class='gform_hidden' name='gform_submission_method' data-js='gform_submission_method_1' value='iframe' />
+            <input type='hidden' class='gform_hidden' name='gform_theme' data-js='gform_theme_1' id='gform_theme_1' value='orbital' />
+            <input type='hidden' class='gform_hidden' name='gform_style_settings' data-js='gform_style_settings_1' id='gform_style_settings_1' value='' />
+            <input type='hidden' class='gform_hidden' name='is_submit_1' value='1' />
+            <input type='hidden' class='gform_hidden' name='gform_submit' value='1' />
+            
+            <input type='hidden' class='gform_hidden' name='gform_currency' data-currency='USD' value='0Q4JUmnOgaeCQ/HcSlJPU165Kl5EO6cXwuOW4sRl7PH3ATaciHOWTt56JRG3c89BUhCoEUnkN8ISK3E8wA1oOrkovZoh0TiAMXkASdAEzsqAMMk=' />
+            <input type='hidden' class='gform_hidden' name='gform_unique_id' value='' />
+            <input type='hidden' class='gform_hidden' name='state_1' value='WyJ7XCJnZm9ybV9zdWJtaXNzaW9uX21ldGhvZFwiOltcIjM0YTc3YTBmM2IwZDc3ZmEyNmUxZmYyMGRjMjlkZmI3XCIsXCJlNzg2N2NkNTJjMmY3NjBlYzNiNDIyZThlZjkxODE3NVwiLFwiNzQyMDBjZTkyMGVkNWUxOWIzYTZmNWRlZDNjYmJjZDRcIl0sXCJnZm9ybV90aGVtZVwiOlwiYzBkODVjOTBhOGFiM2E3NmRlZDBmNmY4NDI5OGI0YjlcIixcImdmb3JtX3N0eWxlX3NldHRpbmdzXCI6XCI1OTMyYjQ4MjlhZmI1ZmI2OTA3NDNjZDAyOTg5OWJkM1wiLFwiZm9ybV9pZFwiOlwiZTIxYTM5NmM2ODU0NDM3YTRkZTRkZWQ0NjExMDc1YjNcIixcInVybFwiOlwiZmZmMTE2ZDc1MjRkZDQwZDUwYTJiMjYzY2UzMzIwYmVcIixcInN0YXRlX3RpbWVzdGFtcFwiOlwiY2NjYjcxZTQwZWIzN2Y2NTQzM2YzNDg3ODQ2ZWFmMDhcIn0iLCJkNmYzNDQwZjJmYzFlNGUyNjk4Yjk0MjQ5ZWIwNGViYyIsMTc5MjEyMDc0OV0=' />
+            <input type='hidden' autocomplete='off' class='gform_hidden' name='gform_target_page_number_1' id='gform_target_page_number_1' value='0' />
+            <input type='hidden' autocomplete='off' class='gform_hidden' name='gform_source_page_number_1' id='gform_source_page_number_1' value='1' />
+            <input type='hidden' name='gform_field_values' value='' />
+            
+        </div>
+                        </form>
+                        </div>
+		                <iframe style='display:none;width:0px;height:0px;' src='about:blank' name='gform_ajax_frame_1' id='gform_ajax_frame_1' title='This iframe contains the logic required to handle Ajax powered Gravity Forms.'></iframe>
+		                <script>
+gform.initializeOnLoaded( function() {jQuery('#gform_ajax_frame_1').on('load',function(){var contents = jQuery(this).contents().find('*').html();var is_postback = contents.indexOf('GF_AJAX_POSTBACK') >= 0;if(!is_postback){return;}var form_content = jQuery(this).contents().find('#gform_wrapper_1');var is_confirmation = jQuery(this).contents().find('#gform_confirmation_wrapper_1').length > 0;var is_redirect = contents.indexOf('gformRedirect(){') >= 0;var is_form = form_content.length > 0 && ! is_redirect && ! is_confirmation;var mt = parseInt(jQuery('html').css('margin-top'), 10) + parseInt(jQuery('body').css('margin-top'), 10) + 100;if(is_form){jQuery('#gform_wrapper_1').html(form_content.html());if(form_content.hasClass('gform_validation_error')){jQuery('#gform_wrapper_1').addClass('gform_validation_error');} else {jQuery('#gform_wrapper_1').removeClass('gform_validation_error');}setTimeout( function() { /* delay the scroll by 50 milliseconds to fix a bug in chrome */ jQuery(document).scrollTop(jQuery('#gform_wrapper_1').offset().top - mt); }, 50 );var current_page = jQuery('#gform_source_page_number_1').val();jQuery(document).trigger('gform_page_loaded', [1, current_page]);window['gf_submitting_1'] = false;}else if(!is_redirect){var confirmation_content = jQuery(this).contents().find('.GF_AJAX_POSTBACK').html();if(!confirmation_content){confirmation_content = contents;}jQuery('#gform_wrapper_1').replaceWith(confirmation_content);jQuery(document).scrollTop(jQuery('#gf_1').offset().top - mt);jQuery(document).trigger('gform_confirmation_loaded', [1]);window['gf_submitting_1'] = false;wp.a11y.speak(jQuery('#gform_confirmation_message_1').text());}else{jQuery('#gform_1').append(contents);if(window['gformRedirect']) {gformRedirect();}}jQuery(document).trigger("gform_pre_post_render", [{ formId: "1", currentPage: "current_page", abort: function() { this.preventDefault(); } }]);        if (event && event.defaultPrevented) {                return;        }        const gformWrapperDiv = document.getElementById( "gform_wrapper_1" );        if ( gformWrapperDiv ) {            const visibilitySpan = document.createElement( "span" );            visibilitySpan.id = "gform_visibility_test_1";            gformWrapperDiv.insertAdjacentElement( "afterend", visibilitySpan );        }        const visibilityTestDiv = document.getElementById( "gform_visibility_test_1" );        let postRenderFired = false;        function triggerPostRender() {            if ( postRenderFired ) {                return;            }            postRenderFired = true;            gform.core.triggerPostRenderEvents( 1, current_page );            if ( visibilityTestDiv ) {                visibilityTestDiv.parentNode.removeChild( visibilityTestDiv );            }        }        function debounce( func, wait, immediate ) {            var timeout;            return function() {                var context = this, args = arguments;                var later = function() {                    timeout = null;                    if ( !immediate ) func.apply( context, args );                };                var callNow = immediate && !timeout;                clearTimeout( timeout );                timeout = setTimeout( later, wait );                if ( callNow ) func.apply( context, args );            };        }        const debouncedTriggerPostRender = debounce( function() {            triggerPostRender();        }, 200 );        if ( visibilityTestDiv && visibilityTestDiv.offsetParent === null ) {            const observer = new MutationObserver( ( mutations ) => {                mutations.forEach( ( mutation ) => {                    if ( mutation.type === 'attributes' && visibilityTestDiv.offsetParent !== null ) {                        debouncedTriggerPostRender();                        observer.disconnect();                    }                });            });            observer.observe( document.body, {                attributes: true,                childList: false,                subtree: true,                attributeFilter: [ 'style', 'class' ],            });        } else {            triggerPostRender();        }    } );} );
+</script>
+                            </div>
+        </div>
+        </div><div id="dx_preferred_source_widget-2" class="widget dx-preferred-source-widget">    <div class="dx-preferred-source">
+        <div google-add-preferred-source-btn data-theme="light" data-lang="en"></div>
+    </div>
+    </div><div id="dx_podcast_widget-2" class="widget dx-podcast-widget"><div class="widget-title"><div class="widget-title-text">Podcast</div></div>        <div class="image-link-widget-container podcast-widget-mount" style="aspect-ratio: 1080 / 1080;"></div>
+        </div><div id="dx_more_stories_widget-3" class="widget dx-more-stories-widget"><div class="widget-title"><div class="widget-title-text">More Stories</div></div>            <div class="more-stories-content">
+                    <div class="post-loop simple-list">
+        
+<div class="post-entry">
+    <div class="image-columns">
+	            <a href="https://dallasexpress.com/state/we-want-islam-muslim-outreach-and-the-call-for-churches-to-act/" class="featured-image"
+           aria-label="‘We Want Islam For This Country’: Texas Muslim Mobilization Puts Christian Churches On The Spot">
+            <img src="https://dallasexpress.com/wp-content/uploads/2026/10/farooq-mckinney-livestream-1280x720-1-515x290.jpg" alt="‘We Want Islam For This Country’: Texas Muslim Mobilization Puts Christian Churches On The Spot"
+                 width="250" height="150" loading="lazy">
+	                </a>
+        <div class="entry-content">
+            <a class="title" href="https://dallasexpress.com/state/we-want-islam-muslim-outreach-and-the-call-for-churches-to-act/">
+                ‘We Want Islam For This Country’: Texas Muslim Mobilization Puts Christian Churches On The Spot            </a>
+            <div class="date">
+                Oct 2, 2026            </div>
+        </div>
+    </div>
+</div>
+<div class="post-entry">
+    <div class="image-columns">
+	            <a href="https://dallasexpress.com/city/dallas-fy-2027-budget-does-not-reach-proposition-us-4000-officer-minimum/" class="featured-image"
+           aria-label="Dallas FY 2027 Budget Does Not Reach Proposition U’s 4,000-Officer Minimum">
+            <img src="https://dallasexpress.com/wp-content/uploads/2026/09/Dallas-City-Hall-building-Image-by-Carol-M.-HighsmithLibrary-of-CongressWikimedia-Commons-1-515x290.jpg" alt="Dallas FY 2027 Budget Does Not Reach Proposition U’s 4,000-Officer Minimum"
+                 width="250" height="150" loading="lazy">
+	                </a>
+        <div class="entry-content">
+            <a class="title" href="https://dallasexpress.com/city/dallas-fy-2027-budget-does-not-reach-proposition-us-4000-officer-minimum/">
+                Dallas FY 2027 Budget Does Not Reach Proposition U’s 4,000-Officer Minimum            </a>
+            <div class="date">
+                Sep 17, 2026            </div>
+        </div>
+    </div>
+</div>
+<div class="post-entry">
+    <div class="image-columns">
+	            <a href="https://dallasexpress.com/city/downtown-dallas-homeless-count-falls-crime-drops-but-remains-nearly-8x-fort-worths/" class="featured-image"
+           aria-label="Downtown Dallas Homeless Count Falls, Crime Drops But Remains Nearly 8X Fort Worth’s">
+            <img src="https://dallasexpress.com/wp-content/uploads/2026/10/downtown-dallas-fort-worth-real-photos-1280x720-1-515x290.jpg" alt="Downtown Dallas Homeless Count Falls, Crime Drops But Remains Nearly 8X Fort Worth’s"
+                 width="250" height="150" loading="lazy">
+	                </a>
+        <div class="entry-content">
+            <a class="title" href="https://dallasexpress.com/city/downtown-dallas-homeless-count-falls-crime-drops-but-remains-nearly-8x-fort-worths/">
+                Downtown Dallas Homeless Count Falls, Crime Drops But Remains Nearly 8X Fort Worth’s            </a>
+            <div class="date">
+                Oct 6, 2026            </div>
+        </div>
+    </div>
+</div>
+<div class="post-entry">
+    <div class="image-columns">
+	            <a href="https://dallasexpress.com/crime/fbi-764-networks-approach-kids-through-games-then-blackmail-them/" class="featured-image"
+           aria-label="FBI: 764 Networks Approach Kids Through Games, Then Blackmail Them">
+            <img src="https://dallasexpress.com/wp-content/uploads/2026/09/FBI-Online-Predator-Targeting-Kids-May-Be-a-Teen-Image-by-Canva-515x290.jpg" alt="FBI: 764 Networks Approach Kids Through Games, Then Blackmail Them"
+                 width="250" height="150" loading="lazy">
+	                </a>
+        <div class="entry-content">
+            <a class="title" href="https://dallasexpress.com/crime/fbi-764-networks-approach-kids-through-games-then-blackmail-them/">
+                FBI: 764 Networks Approach Kids Through Games, Then Blackmail Them            </a>
+            <div class="date">
+                Sep 26, 2026            </div>
+        </div>
+    </div>
+</div>
+<div class="post-entry">
+    <div class="image-columns">
+	            <a href="https://dallasexpress.com/national/h-1b-outsourcing-registrations-take-a-92-hit-as-100k-visa-rule-stays-put/" class="featured-image"
+           aria-label="H-1B Outsourcing Registrations Take A 92% Hit As $100K Visa Rule Stays Put">
+            <img src="https://dallasexpress.com/wp-content/uploads/2026/06/h1b-visa-document-magnifying-glass-515x290.jpg" alt="H-1B Outsourcing Registrations Take A 92% Hit As $100K Visa Rule Stays Put"
+                 width="250" height="150" loading="lazy">
+	                </a>
+        <div class="entry-content">
+            <a class="title" href="https://dallasexpress.com/national/h-1b-outsourcing-registrations-take-a-92-hit-as-100k-visa-rule-stays-put/">
+                H-1B Outsourcing Registrations Take A 92% Hit As $100K Visa Rule Stays Put            </a>
+            <div class="date">
+                Sep 19, 2026            </div>
+        </div>
+    </div>
+</div>    </div>
+            <div class="pagination">
+            <div class="previous-link">
+                            </div>
+            <div class="next-link">
+                            </div>
+        </div>
+                    </div>
+            </div><div id="block-3" class="widget widget_block"><broadstreet-zone zone-id="187853"></broadstreet-zone></div>                                            </div>
+                </div>
+                    </div>
+    </div>
+    <script id="dsq-count-scr" src="//dallasexpress-com.disqus.com/count.js" async></script>
+<div class="footer">
+    <div class="container">
+        <div class="footer-column logo-column">
+            <div class="footer-logo">
+                <a href="https://dallasexpress.com">
+                    <img src="https://dallasexpress.com/wp-content/themes/dallasexpress/imgs/2026-dx-logo-white.png" alt="Dallas Express" width="250" height="56" />
+                </a>
+            </div>
+            <div class="footer-blurb">
+                The Dallas Express delivers Dallas and national news with independent, fact-based reporting. Founded in 2021, we provide direct, unbiased coverage. Truth lives here.            </div>
+            <div class="footer-apps socials">
+                                    <a class="social-link app-link" href="https://apps.apple.com/us/app/the-dallas-express/id6447519570"  target="_blank" aria-label="Download Our App">
+                        <img src="https://dallasexpress.com/wp-content/themes/dallasexpress/imgs/iphone-app-header.png" alt="Download Our App" height="30" width="112"/>
+                    </a>
+                                                    <a class="social-link app-link" href="https://play.google.com/store/apps/details?id=com.dallasexpress.android&hl=en_US"  target="_blank" aria-label="Download Our App">
+                        <img src="https://dallasexpress.com/wp-content/themes/dallasexpress/imgs/android-app-header.png" alt="Download Our App" height="30" width="112"/>
+                    </a>
+                            </div>
+        </div>
+
+        <div class="footer-column menu-column">
+            <div class="column-title">Menu</div>
+            <ul id="menu-footer" class="footer-menu"><li id="menu-item-313942" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-313942"><a href="https://dallasexpress.com/">Home</a></li>
+<li id="menu-item-313945" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-313945"><a href="https://dallasexpress.com/podcast/lets-talk-local/">Podcast</a></li>
+<li id="menu-item-313944" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-313944"><a rel="privacy-policy" href="https://dallasexpress.com/privacy-policy/">Fine Print</a></li>
+<li id="menu-item-313943" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-313943"><a href="https://dallasexpress.com/submit-a-story/">Submit a Story</a></li>
+</ul>        </div>
+
+        <div class="footer-column feeds-column">
+            <div class="column-title">Recent Feeds</div>
+            <div class="recent-posts">
+                                    <div class="recent-post">
+                        <div class="post-image" style="background-image: url('https://dallasexpress.com/wp-content/uploads/2026/10/Jon-Rosenthals-Trans-Account-Follows-Exposed-in-Texas-Railroad-Commission-Bid-Images-by-Texas-State-Representative-Jon-Rosenthal-District-135_-J͏u͏l͏y͏-͏1͏͏-͏2͏0͏2͏5͏Facebook-515x290.jpg');"></div>
+                        <div class="post-content">
+                            <div class="post-title">
+                                <a href="https://dallasexpress.com/state/texas-democrat-jon-rosenthals-trans-social-media-follows-surface-in-railroad-commission-race/">
+                                    Exclusive: Texas Democrat Jon Rosenthal&#039;s Social Media &quot;Trans&quot; Fetish Exposed                                </a>
+                            </div>
+                            <div class="post-date">
+                                October 15, 2026                            </div>
+                        </div>
+                    </div>
+                                    <div class="recent-post">
+                        <div class="post-image" style="background-image: url('https://dallasexpress.com/wp-content/uploads/2026/10/Federal-Review-Finds-JPMorgan-Unit-Screened-For-‘MAGA-Religious-Terms-Image-by-CanvaDX-515x290.jpg');"></div>
+                        <div class="post-content">
+                            <div class="post-title">
+                                <a href="https://dallasexpress.com/business-markets/federal-review-finds-jpmorgan-unit-screened-for-maga-religious-terms-as-cfpb-opens-debanking-probe/">
+                                    Federal Review Finds JPMorgan Unit Screened For ‘MAGA,’ Religious Terms As CFPB Opens Debanking Probe                                </a>
+                            </div>
+                            <div class="post-date">
+                                October 15, 2026                            </div>
+                        </div>
+                    </div>
+                            </div>
+        </div>
+
+        <div class="footer-column newsletter-column">
+            <div class="column-title">Newsletter</div>
+            <div class="newsletter-form">
+                
+                <div class='gf_browser_chrome gform_wrapper gform-theme gform-theme--foundation gform-theme--framework gform-theme--orbital' data-form-theme='orbital' data-form-index='0' id='gform_wrapper_1' ><style>#gform_wrapper_1[data-form-index="0"].gform-theme{--gf-color-primary: #204ce5;--gf-color-primary-rgb: 32, 76, 229;--gf-color-primary-contrast: #fff;--gf-color-primary-contrast-rgb: 255, 255, 255;--gf-color-primary-darker: #001AB3;--gf-color-primary-lighter: #527EFF;--gf-color-secondary: #fff;--gf-color-secondary-rgb: 255, 255, 255;--gf-color-secondary-contrast: #112337;--gf-color-secondary-contrast-rgb: 17, 35, 55;--gf-color-secondary-darker: #F5F5F5;--gf-color-secondary-lighter: #FFFFFF;--gf-color-out-ctrl-light: rgba(17, 35, 55, 0.1);--gf-color-out-ctrl-light-rgb: 17, 35, 55;--gf-color-out-ctrl-light-darker: rgba(104, 110, 119, 0.35);--gf-color-out-ctrl-light-lighter: #F5F5F5;--gf-color-out-ctrl-dark: #585e6a;--gf-color-out-ctrl-dark-rgb: 88, 94, 106;--gf-color-out-ctrl-dark-darker: #112337;--gf-color-out-ctrl-dark-lighter: rgba(17, 35, 55, 0.65);--gf-color-in-ctrl: #fff;--gf-color-in-ctrl-rgb: 255, 255, 255;--gf-color-in-ctrl-contrast: #112337;--gf-color-in-ctrl-contrast-rgb: 17, 35, 55;--gf-color-in-ctrl-darker: #F5F5F5;--gf-color-in-ctrl-lighter: #FFFFFF;--gf-color-in-ctrl-primary: #204ce5;--gf-color-in-ctrl-primary-rgb: 32, 76, 229;--gf-color-in-ctrl-primary-contrast: #fff;--gf-color-in-ctrl-primary-contrast-rgb: 255, 255, 255;--gf-color-in-ctrl-primary-darker: #001AB3;--gf-color-in-ctrl-primary-lighter: #527EFF;--gf-color-in-ctrl-light: rgba(17, 35, 55, 0.1);--gf-color-in-ctrl-light-rgb: 17, 35, 55;--gf-color-in-ctrl-light-darker: rgba(104, 110, 119, 0.35);--gf-color-in-ctrl-light-lighter: #F5F5F5;--gf-color-in-ctrl-dark: #585e6a;--gf-color-in-ctrl-dark-rgb: 88, 94, 106;--gf-color-in-ctrl-dark-darker: #112337;--gf-color-in-ctrl-dark-lighter: rgba(17, 35, 55, 0.65);--gf-radius: 3px;--gf-font-size-secondary: 14px;--gf-font-size-tertiary: 13px;--gf-icon-ctrl-number: url("data:image/svg+xml,%3Csvg width='8' height='14' viewBox='0 0 8 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4 0C4.26522 5.96046e-08 4.51957 0.105357 4.70711 0.292893L7.70711 3.29289C8.09763 3.68342 8.09763 4.31658 7.70711 4.70711C7.31658 5.09763 6.68342 5.09763 6.29289 4.70711L4 2.41421L1.70711 4.70711C1.31658 5.09763 0.683417 5.09763 0.292893 4.70711C-0.0976311 4.31658 -0.097631 3.68342 0.292893 3.29289L3.29289 0.292893C3.48043 0.105357 3.73478 0 4 0ZM0.292893 9.29289C0.683417 8.90237 1.31658 8.90237 1.70711 9.29289L4 11.5858L6.29289 9.29289C6.68342 8.90237 7.31658 8.90237 7.70711 9.29289C8.09763 9.68342 8.09763 10.3166 7.70711 10.7071L4.70711 13.7071C4.31658 14.0976 3.68342 14.0976 3.29289 13.7071L0.292893 10.7071C-0.0976311 10.3166 -0.0976311 9.68342 0.292893 9.29289Z' fill='rgba(17, 35, 55, 0.65)'/%3E%3C/svg%3E");--gf-icon-ctrl-select: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.292893 0.292893C0.683417 -0.097631 1.31658 -0.097631 1.70711 0.292893L5 3.58579L8.29289 0.292893C8.68342 -0.0976311 9.31658 -0.0976311 9.70711 0.292893C10.0976 0.683417 10.0976 1.31658 9.70711 1.70711L5.70711 5.70711C5.31658 6.09763 4.68342 6.09763 4.29289 5.70711L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683418 0.292893 0.292893Z' fill='rgba(17, 35, 55, 0.65)'/%3E%3C/svg%3E");--gf-icon-ctrl-search: url("data:image/svg+xml,%3Csvg width='640' height='640' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M256 128c-70.692 0-128 57.308-128 128 0 70.691 57.308 128 128 128 70.691 0 128-57.309 128-128 0-70.692-57.309-128-128-128zM64 256c0-106.039 85.961-192 192-192s192 85.961 192 192c0 41.466-13.146 79.863-35.498 111.248l154.125 154.125c12.496 12.496 12.496 32.758 0 45.254s-32.758 12.496-45.254 0L367.248 412.502C335.862 434.854 297.467 448 256 448c-106.039 0-192-85.962-192-192z' fill='rgba(17, 35, 55, 0.65)'/%3E%3C/svg%3E");--gf-label-space-y-secondary: var(--gf-label-space-y-md-secondary);--gf-ctrl-border-color: #686e77;--gf-ctrl-size: var(--gf-ctrl-size-md);--gf-ctrl-label-color-primary: #112337;--gf-ctrl-label-color-secondary: #112337;--gf-ctrl-choice-size: var(--gf-ctrl-choice-size-md);--gf-ctrl-checkbox-check-size: var(--gf-ctrl-checkbox-check-size-md);--gf-ctrl-radio-check-size: var(--gf-ctrl-radio-check-size-md);--gf-ctrl-btn-font-size: var(--gf-ctrl-btn-font-size-md);--gf-ctrl-btn-padding-x: var(--gf-ctrl-btn-padding-x-md);--gf-ctrl-btn-size: var(--gf-ctrl-btn-size-md);--gf-ctrl-btn-border-color-secondary: #686e77;--gf-ctrl-btn-bg-color-hover-tertiary: #EBEBEB;--gf-field-img-choice-size: var(--gf-field-img-choice-size-md);--gf-field-img-choice-card-space: var(--gf-field-img-choice-card-space-md);--gf-field-img-choice-check-ind-size: var(--gf-field-img-choice-check-ind-size-md);--gf-field-img-choice-check-ind-icon-size: var(--gf-field-img-choice-check-ind-icon-size-md);--gf-field-pg-steps-number-color: rgba(17, 35, 55, 0.8);}</style><div id='gf_1' class='gform_anchor' tabindex='-1'></div>
+                        <div class='gform_heading'>
+                            <p class='gform_description'></p>
+                        </div><form method='post' enctype='multipart/form-data' target='gform_ajax_frame_1' id='gform_1'  action='/city/dallas-issues-first-citations-from-ai-code-enforcement-cameras-on-sanitation-trucks/#gf_1' data-formid='1' novalidate>
+                        <div class='gform-body gform_body'><div id='gform_fields_1' class='gform_fields top_label form_sublabel_below description_below validation_below'><div id="field_1_1" class="gfield gfield--type-email email gfield_contains_required field_sublabel_below gfield--no-description field_description_below field_validation_below gfield_visibility_visible"  ><label class='gfield_label gform-field-label' for='input_1_1'><span class='gform-field-label__text'>Email</span><span class="gfield_required"><span class="gfield_required gfield_required_text">(Required)</span></span></label><div class='ginput_container ginput_container_email'>
+                            <input name='input_1' id='input_1_1' type='email' value='' class='large'   placeholder='Email' aria-required="true" aria-invalid="false"  />
+                        </div></div></div></div>
+        <div class='gform-footer gform_footer top_label'> <button type='submit' id='gform_submit_button_1' class='gform_button button' onclick='gform.submission.handleButtonClick(this);' data-submission-type='submit' >Subscribe</button> <input type='hidden' name='gform_ajax' value='form_id=1&amp;title=&amp;description=1&amp;tabindex=0&amp;theme=orbital&amp;hash=f4e80be537e37023808486175dfe9061' />
+            <input type='hidden' class='gform_hidden' name='gform_submission_method' data-js='gform_submission_method_1' value='iframe' />
+            <input type='hidden' class='gform_hidden' name='gform_theme' data-js='gform_theme_1' id='gform_theme_1' value='orbital' />
+            <input type='hidden' class='gform_hidden' name='gform_style_settings' data-js='gform_style_settings_1' id='gform_style_settings_1' value='' />
+            <input type='hidden' class='gform_hidden' name='is_submit_1' value='1' />
+            <input type='hidden' class='gform_hidden' name='gform_submit' value='1' />
+            
+            <input type='hidden' class='gform_hidden' name='gform_currency' data-currency='USD' value='XAr92EBAvWzlmLgy2S2qcevlkzFlf6HPuAWafdWmMrIN+wxBWydCedJosf7eS371q0sXa6NIf7EebpIhM7O5uaSJTH9i+myaF1+dO6FC2owQsSQ=' />
+            <input type='hidden' class='gform_hidden' name='gform_unique_id' value='' />
+            <input type='hidden' class='gform_hidden' name='state_1' value='WyJ7XCJnZm9ybV9zdWJtaXNzaW9uX21ldGhvZFwiOltcIjM0YTc3YTBmM2IwZDc3ZmEyNmUxZmYyMGRjMjlkZmI3XCIsXCJlNzg2N2NkNTJjMmY3NjBlYzNiNDIyZThlZjkxODE3NVwiLFwiNzQyMDBjZTkyMGVkNWUxOWIzYTZmNWRlZDNjYmJjZDRcIl0sXCJnZm9ybV90aGVtZVwiOlwiYzBkODVjOTBhOGFiM2E3NmRlZDBmNmY4NDI5OGI0YjlcIixcImdmb3JtX3N0eWxlX3NldHRpbmdzXCI6XCI1OTMyYjQ4MjlhZmI1ZmI2OTA3NDNjZDAyOTg5OWJkM1wiLFwiZm9ybV9pZFwiOlwiZTIxYTM5NmM2ODU0NDM3YTRkZTRkZWQ0NjExMDc1YjNcIixcInVybFwiOlwiZmZmMTE2ZDc1MjRkZDQwZDUwYTJiMjYzY2UzMzIwYmVcIixcInN0YXRlX3RpbWVzdGFtcFwiOlwiY2NjYjcxZTQwZWIzN2Y2NTQzM2YzNDg3ODQ2ZWFmMDhcIn0iLCJkNmYzNDQwZjJmYzFlNGUyNjk4Yjk0MjQ5ZWIwNGViYyIsMTc5MjEyMDc0OV0=' />
+            <input type='hidden' autocomplete='off' class='gform_hidden' name='gform_target_page_number_1' id='gform_target_page_number_1' value='0' />
+            <input type='hidden' autocomplete='off' class='gform_hidden' name='gform_source_page_number_1' id='gform_source_page_number_1' value='1' />
+            <input type='hidden' name='gform_field_values' value='' />
+            
+        </div>
+                        </form>
+                        </div>
+		                <iframe style='display:none;width:0px;height:0px;' src='about:blank' name='gform_ajax_frame_1' id='gform_ajax_frame_1' title='This iframe contains the logic required to handle Ajax powered Gravity Forms.'></iframe>
+		                <script>
+gform.initializeOnLoaded( function() {jQuery('#gform_ajax_frame_1').on('load',function(){var contents = jQuery(this).contents().find('*').html();var is_postback = contents.indexOf('GF_AJAX_POSTBACK') >= 0;if(!is_postback){return;}var form_content = jQuery(this).contents().find('#gform_wrapper_1');var is_confirmation = jQuery(this).contents().find('#gform_confirmation_wrapper_1').length > 0;var is_redirect = contents.indexOf('gformRedirect(){') >= 0;var is_form = form_content.length > 0 && ! is_redirect && ! is_confirmation;var mt = parseInt(jQuery('html').css('margin-top'), 10) + parseInt(jQuery('body').css('margin-top'), 10) + 100;if(is_form){jQuery('#gform_wrapper_1').html(form_content.html());if(form_content.hasClass('gform_validation_error')){jQuery('#gform_wrapper_1').addClass('gform_validation_error');} else {jQuery('#gform_wrapper_1').removeClass('gform_validation_error');}setTimeout( function() { /* delay the scroll by 50 milliseconds to fix a bug in chrome */ jQuery(document).scrollTop(jQuery('#gform_wrapper_1').offset().top - mt); }, 50 );var current_page = jQuery('#gform_source_page_number_1').val();jQuery(document).trigger('gform_page_loaded', [1, current_page]);window['gf_submitting_1'] = false;}else if(!is_redirect){var confirmation_content = jQuery(this).contents().find('.GF_AJAX_POSTBACK').html();if(!confirmation_content){confirmation_content = contents;}jQuery('#gform_wrapper_1').replaceWith(confirmation_content);jQuery(document).scrollTop(jQuery('#gf_1').offset().top - mt);jQuery(document).trigger('gform_confirmation_loaded', [1]);window['gf_submitting_1'] = false;wp.a11y.speak(jQuery('#gform_confirmation_message_1').text());}else{jQuery('#gform_1').append(contents);if(window['gformRedirect']) {gformRedirect();}}jQuery(document).trigger("gform_pre_post_render", [{ formId: "1", currentPage: "current_page", abort: function() { this.preventDefault(); } }]);        if (event && event.defaultPrevented) {                return;        }        const gformWrapperDiv = document.getElementById( "gform_wrapper_1" );        if ( gformWrapperDiv ) {            const visibilitySpan = document.createElement( "span" );            visibilitySpan.id = "gform_visibility_test_1";            gformWrapperDiv.insertAdjacentElement( "afterend", visibilitySpan );        }        const visibilityTestDiv = document.getElementById( "gform_visibility_test_1" );        let postRenderFired = false;        function triggerPostRender() {            if ( postRenderFired ) {                return;            }            postRenderFired = true;            gform.core.triggerPostRenderEvents( 1, current_page );            if ( visibilityTestDiv ) {                visibilityTestDiv.parentNode.removeChild( visibilityTestDiv );            }        }        function debounce( func, wait, immediate ) {            var timeout;            return function() {                var context = this, args = arguments;                var later = function() {                    timeout = null;                    if ( !immediate ) func.apply( context, args );                };                var callNow = immediate && !timeout;                clearTimeout( timeout );                timeout = setTimeout( later, wait );                if ( callNow ) func.apply( context, args );            };        }        const debouncedTriggerPostRender = debounce( function() {            triggerPostRender();        }, 200 );        if ( visibilityTestDiv && visibilityTestDiv.offsetParent === null ) {            const observer = new MutationObserver( ( mutations ) => {                mutations.forEach( ( mutation ) => {                    if ( mutation.type === 'attributes' && visibilityTestDiv.offsetParent !== null ) {                        debouncedTriggerPostRender();                        observer.disconnect();                    }                });            });            observer.observe( document.body, {                attributes: true,                childList: false,                subtree: true,                attributeFilter: [ 'style', 'class' ],            });        } else {            triggerPostRender();        }    } );} );
+</script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-bar">
+    <div class="container">
+        <div class="copyright">
+            &copy; 2026 Dallas Express. All rights reserved.        </div>
+        <div class="bottom-menu">
+            <ul id="menu-footer-bottom" class="bottom-bar-menu"><li id="menu-item-313947" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-313947"><a href="https://dallasexpress.com/terms-of-service/">Terms of Service</a></li>
+<li id="menu-item-313948" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-313948"><a href="https://dallasexpress.com/code-of-ethics-standards/">Code of Ethics</a></li>
+<li id="menu-item-313949" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-313949"><a rel="privacy-policy" href="https://dallasexpress.com/privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-313950" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-313950"><a href="https://dallasexpress.com/advertising/">Advertising with Dallas Express</a></li>
+</ul>        </div>
+    </div>
+</div>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+<script src="https://7eb9d17f5db34f938747f84a6ef6a97b.js.ubembed.com" async></script>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRLNR35"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q2Y9ZHF4JB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q2Y9ZHF4JB');
+</script>
+
+<!-- Infolinks Ads -->
+<script type="text/javascript">
+var infolinks_pid = 3446141;
+var infolinks_wsid = 0;
+</script>
+<script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>    <script type="text/javascript">
+        function labnolIframe(div) {
+            var iframe = document.createElement("iframe");
+            var platform = div.dataset.platform;
+            var videoId = div.dataset.id;
+
+            if (platform === "youtube") {
+                iframe.setAttribute(
+                    "src",
+                    "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0"
+                );
+                iframe.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
+            } else if (platform === "rumble") {
+                iframe.setAttribute(
+                    "src",
+                    "https://rumble.com/embed/" + videoId + "?pub=4"
+                );
+                iframe.setAttribute("allow", "autoplay; encrypted-media");
+            } else {
+                return; // No valid platform, do nothing
+            }
+
+            iframe.setAttribute("frameborder", "0");
+            iframe.setAttribute("allowfullscreen", "1");
+            div.parentNode.replaceChild(iframe, div);
+        }
+
+        function initVideos() {
+            var playerElements = document.getElementsByClassName("video-player");
+            for (var n = 0; n < playerElements.length; n++) {
+                var videoId = playerElements[n].dataset.id;
+                var platform = playerElements[n].dataset.platform;
+                var thumbnailUrl = playerElements[n].dataset.thumbnail;
+
+                if (videoId !== "NONE" && (platform === "youtube" || platform === "rumble")) {
+                    var div = document.createElement("div");
+                    div.setAttribute("data-id", videoId);
+                    div.setAttribute("data-platform", platform);
+                    var thumbNode = document.createElement("div");
+                    thumbNode.setAttribute("class", "thumbnail");
+                    thumbNode.setAttribute("style", "background-image: url(" + thumbnailUrl + ");");
+                    div.appendChild(thumbNode);
+                    var playButton = document.createElement("div");
+                    playButton.setAttribute("class", "play");
+                    div.appendChild(playButton);
+                    div.onclick = function () {
+                        labnolIframe(this);
+                    };
+                    playerElements[n].appendChild(div);
+                } else {
+                    var div = document.createElement("div");
+                    div.setAttribute("data-id", videoId);
+                    div.setAttribute("data-platform", "none");
+                    var thumbNode = document.createElement("img");
+                    thumbNode.src = "/wp-content/themes/your-theme/imgs/podcast-logo.png"; // Update path as needed
+                    div.appendChild(thumbNode);
+                    playerElements[n].appendChild(div);
+                    playerElements[n].setAttribute("class", playerElements[n].getAttribute("class") + " no-video");
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", initVideos);
+    </script>
+                <script type='text/javascript'><!--
+            var seriesdropdown = document.getElementById("orgseries_dropdown");
+            if (seriesdropdown) {
+             function onSeriesChange() {
+                    if ( seriesdropdown.options[seriesdropdown.selectedIndex].value != ( 0 || -1 ) ) {
+                        location.href = "https://dallasexpress.com/series/"+seriesdropdown.options[seriesdropdown.selectedIndex].value;
+                    }
+                }
+                seriesdropdown.onchange = onSeriesChange;
+            }
+            --></script>
+                <script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/dallasexpress/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+		<div class="jetpack-instant-search__widget-area" style="display: none">
+							<div id="jetpack-search-filters-1" class="widget jetpack-filters widget_search">			<div id="jetpack-search-filters-1-wrapper" class="jetpack-instant-search-wrapper">
+		</div></div>					</div>
+		    <div id="popup-overlay"></div>
+
+    <div id="donate-popup">
+        <span id="close-popup">&times;</span>
+        <h2>Fight for The Truth</h2>
+        <hr>
+        <h3>The Dallas Express reports what Legacy Media won’t.</h3>
+        <p>Keep us going strong with just $5.</p>
+        <a href="https://the-dallas-express.revv.co/dx-member?amount=25" target="_blank" id="donate-link">Give now</a>
+    </div>
+
+    <script type="text/javascript">
+        function getPopupCookie(name) {
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        function setPopupCookie(name, value, hours) {
+            let date = new Date();
+            date.setTime(date.getTime() + (hours * 60 * 60 * 1000));
+            let expires = "; expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        jQuery(document).ready(function($) {
+            let popupShown = getPopupCookie('dx_donate_popup');
+            if (popupShown) {
+                return; // Cookie exists, so skip
+            }
+
+            let triggered = false;
+            $(window).scroll(function() {
+                if (triggered) {
+                    return; // Already shown this session
+                }
+
+                // Calculate scroll percentage
+                let scrollPercent = ($(window).scrollTop() / ($(document).height() - $(window).height())) * 100;
+
+                if (scrollPercent > 20) {
+                    $('#donate-popup').show();
+                    $('#popup-overlay').show();
+                    setPopupCookie('dx_donate_popup', 'true', 1); // Dynamic cookie
+                    triggered = true;
+                }
+            });
+
+            $('#close-popup').on('click', function() {
+                $('#donate-popup').hide();
+                $('#popup-overlay').hide();
+            });
+
+            // Close popup when clicking outside
+            $(document).on('click', '#popup-overlay', function(event) {
+                if (!$(event.target).closest('#donate-popup').length) {
+                    $('#donate-popup').hide();
+                    $('#popup-overlay').hide();
+                }
+            });
+        });
+    </script>
+            <span class="pp-hide-empty-menu-config" data-hide-parent-div="0" hidden></span>
+        <script id="wp-hooks-js" src="https://dallasexpress.com/wp-includes/js/dist/hooks.min.js?ver=f0f188028580e8dc1255"></script>
+<script id="wp-i18n-js" src="https://dallasexpress.com/wp-includes/js/dist/i18n.min.js?ver=1dfe7db3940c23ea9216"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="swv-js" src="https://dallasexpress.com/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.2.2"></script>
+<script id="contact-form-7-js-before">
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/dallasexpress.com\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+//# sourceURL=contact-form-7-js-before
+</script>
+<script id="contact-form-7-js" src="https://dallasexpress.com/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.2.2"></script>
+<script id="codedropz-uploader-js-extra">
+var dnd_cf7_uploader = {"ajax_url":"https://dallasexpress.com/wp-admin/admin-ajax.php","ajax_nonce":"985df9c5aa","drag_n_drop_upload":{"tag":"h3","text":"Drag &amp; Drop Files Here","or_separator":"or","browse":"Browse Files","server_max_error":"The uploaded file exceeds the maximum upload size of your server.","large_file":"Uploaded file is too large","inavalid_type":"Uploaded file is not allowed for file type","max_file_limit":"Note : Some of the files are not uploaded ( Only %count% files allowed )","required":"This field is required.","delete":{"text":"deleting","title":"Remove"}},"dnd_text_counter":"of","disable_btn":""};
+//# sourceURL=codedropz-uploader-js-extra
+</script>
+<script id="codedropz-uploader-js" src="https://dallasexpress.com/wp-content/plugins/drag-and-drop-multiple-file-upload-contact-form-7/assets/js/codedropz-uploader-min.js?ver=1.4.0"></script>
+<script id="wp-jp-i18n-loader-js" src="https://dallasexpress.com/wp-content/plugins/jetpack-search/jetpack_vendor/automattic/jetpack-assets/build/i18n-loader.js?minify=true&#038;ver=5ba5dddc04be2306aaf0"></script>
+<script id="wp-jp-i18n-loader-js-after">
+wp.jpI18nLoader.state = {"baseUrl":"https://dallasexpress.com/wp-content/languages/","locale":"en_US","domainMap":{"jetpack-activity-log":"plugins/jetpack-search","jetpack-admin-ui":"plugins/jetpack-search","jetpack-agents-manager":"plugins/jetpack-search","jetpack-assets":"plugins/jetpack-search","jetpack-boost-core":"plugins/jetpack-search","jetpack-boost-speed-score":"plugins/jetpack-search","jetpack-config":"plugins/jetpack-search","jetpack-connection":"plugins/jetpack-search","jetpack-explat":"plugins/jetpack-search","jetpack-ip":"plugins/jetpack-search","jetpack-jitm":"plugins/jetpack-search","jetpack-licensing":"plugins/jetpack-search","jetpack-menu-badges":"plugins/jetpack-search","jetpack-my-jetpack":"plugins/jetpack-search","jetpack-password-checker":"plugins/jetpack-search","jetpack-plugins-installer":"plugins/jetpack-search","jetpack-protect-models":"plugins/jetpack-search","jetpack-protect-status":"plugins/jetpack-search","jetpack-search-pkg":"plugins/jetpack-search","jetpack-stats-pkg":"plugins/jetpack-search","jetpack-sync":"plugins/jetpack-search","jetpack-wp-abilities":"plugins/jetpack-search","jetpack-wp-build-polyfills":"plugins/jetpack-search"},"domainPaths":{"jetpack-activity-log":"jetpack_vendor/automattic/jetpack-activity-log/","jetpack-admin-ui":"jetpack_vendor/automattic/jetpack-admin-ui/","jetpack-agents-manager":"jetpack_vendor/automattic/jetpack-agents-manager/","jetpack-assets":"jetpack_vendor/automattic/jetpack-assets/","jetpack-boost-core":"jetpack_vendor/automattic/jetpack-boost-core/","jetpack-boost-speed-score":"jetpack_vendor/automattic/jetpack-boost-speed-score/","jetpack-config":"jetpack_vendor/automattic/jetpack-config/","jetpack-connection":"jetpack_vendor/automattic/jetpack-connection/","jetpack-explat":"jetpack_vendor/automattic/jetpack-explat/","jetpack-ip":"jetpack_vendor/automattic/jetpack-ip/","jetpack-jitm":"jetpack_vendor/automattic/jetpack-jitm/","jetpack-licensing":"jetpack_vendor/automattic/jetpack-licensing/","jetpack-menu-badges":"jetpack_vendor/automattic/jetpack-menu-badges/","jetpack-my-jetpack":"jetpack_vendor/automattic/jetpack-my-jetpack/","jetpack-password-checker":"jetpack_vendor/automattic/jetpack-password-checker/","jetpack-plugins-installer":"jetpack_vendor/automattic/jetpack-plugins-installer/","jetpack-protect-models":"jetpack_vendor/automattic/jetpack-protect-models/","jetpack-protect-status":"jetpack_vendor/automattic/jetpack-protect-status/","jetpack-search-pkg":"jetpack_vendor/automattic/jetpack-search/","jetpack-stats-pkg":"jetpack_vendor/automattic/jetpack-stats/","jetpack-sync":"jetpack_vendor/automattic/jetpack-sync/","jetpack-wp-abilities":"jetpack_vendor/automattic/jetpack-wp-abilities/","jetpack-wp-build-polyfills":"jetpack_vendor/automattic/jetpack-wp-build-polyfills/"}};
+//# sourceURL=wp-jp-i18n-loader-js-after
+</script>
+<script id="wp-polyfill-js" src="https://dallasexpress.com/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0"></script>
+<script id="wp-url-js" src="https://dallasexpress.com/wp-includes/js/dist/url.min.js?ver=7b0de086d4ae11d55704"></script>
+<script id="jetpack-instant-search-js-before">
+var JetpackInstantSearchOptions={"overlayOptions":{"colorTheme":"light","enableInfScroll":true,"enableFilteringOpensOverlay":true,"enablePostDate":true,"enableProductPrice":true,"enableSort":true,"highlightColor":"#FFC","overlayTrigger":"submit","resultFormat":"expanded","showPoweredBy":false,"defaultSort":"relevance","excludedPostTypes":["page","attachment","derby-survey","crime_data","election","response","inquiry"],"fallbackImageUrl":"","enableFallbackImage":false},"homeUrl":"https://dallasexpress.com","locale":"en-US","postsPerPage":10,"siteId":252561371,"searchSuggestionsEnabled":false,"postTypes":{"post":{"singular_name":"Post","name":"Posts"},"page":{"singular_name":"Page","name":"Pages"},"attachment":{"singular_name":"Media","name":"Media"},"derby-survey":{"singular_name":"Derby Survey","name":"Derby Surveys"}},"webpackPublicPath":"https://dallasexpress.com/wp-content/plugins/jetpack-search/jetpack_vendor/automattic/jetpack-search/build/instant-search/","isPhotonEnabled":false,"isFreePlan":false,"apiRoot":"https://dallasexpress.com/wp-json/","apiNonce":"d7aa3dcba5","isPrivateSite":false,"isWpcom":false,"hasOverlayWidgets":true,"widgets":[{"filters":[{"name":"Post Types","type":"post_type","count":5,"widget_id":"jetpack-search-filters-1","filter_id":"post_type_0"},{"name":"Series","type":"taxonomy","taxonomy":"series","count":5,"widget_id":"jetpack-search-filters-1","filter_id":"taxonomy_1"},{"name":"Guest Authors","type":"taxonomy","taxonomy":"guest-authors","count":5,"widget_id":"jetpack-search-filters-1","filter_id":"taxonomy_2"},{"name":"Series Categories","type":"taxonomy","taxonomy":"series_group","count":5,"widget_id":"jetpack-search-filters-1","filter_id":"taxonomy_3"},{"name":"Categories","type":"taxonomy","taxonomy":"category","count":5,"widget_id":"jetpack-search-filters-1","filter_id":"taxonomy_4"},{"name":"Tags","type":"taxonomy","taxonomy":"post_tag","count":5,"widget_id":"jetpack-search-filters-1","filter_id":"taxonomy_5"},{"name":"Year","type":"date_histogram","count":5,"field":"post_date","interval":"year","widget_id":"jetpack-search-filters-1","filter_id":"date_histogram_6"}],"widget_id":"jetpack-search-filters-1"}],"widgetsOutsideOverlay":[],"hasNonSearchWidgets":false,"preventTrackingCookiesReset":false,"disableTracking":false,"aiAnswersEnabled":false};
+//# sourceURL=jetpack-instant-search-js-before
+</script>
+<script id="jetpack-instant-search-js" src="https://dallasexpress.com/wp-content/plugins/jetpack-search/jetpack_vendor/automattic/jetpack-search/build/instant-search/jp-search.js?minify=false&#038;ver=6e92c957d89396c25583"></script>
+<script id="jp-tracks-js" src="//stats.wp.com/w.js?ver=202642"></script>
+<script data-wp-strategy="async" id="cloudflare-turnstile-js" src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+<script id="cloudflare-turnstile-js-after">
+document.addEventListener( 'wpcf7submit', e => turnstile.reset() );
+//# sourceURL=cloudflare-turnstile-js-after
+</script>
+<script id="dx-sidebar-sticky-js" src="https://dallasexpress.com/wp-content/themes/dallasexpress/js/sidebar-sticky.js?ver=1.0.0"></script>
+<script id="jetpack-stats-js-before">
+_stq = window._stq || [];
+_stq.push([ "view", {"v":"ext","blog":"252561371","post":"336630","tz":"-5","srv":"dallasexpress.com"} ]);
+_stq.push([ "clickTrackerInit", "252561371", "336630" ]);
+//# sourceURL=jetpack-stats-js-before
+</script>
+<script data-wp-strategy="defer" defer fetchpriority="low" id="jetpack-stats-js" src="https://stats.wp.com/e-202642.js"></script>
+<script id="wp-dom-ready-js" src="https://dallasexpress.com/wp-includes/js/dist/dom-ready.min.js?ver=3fe927cab37bf38d6a23"></script>
+<script id="wp-a11y-js" src="https://dallasexpress.com/wp-includes/js/dist/a11y.min.js?ver=31c6cec5a4ff7aff483d"></script>
+<script id="gform_json-js" defer='defer' src="https://dallasexpress.com/wp-content/plugins/gravityforms/js/jquery.json.min.js?ver=3.1.3"></script>
+<script id="gform_gravityforms-js-extra">
+var gform_i18n = {"datepicker":{"wdOffset":1,"helpTextShort":"Press F1 for help","helpText":"Press the arrow keys to navigate by day, PageUp and PageDown to navigate by month, Alt+PageUp and Alt+PageDown to navigate by year, or Escape to cancel.","openOnFocusHelpText":"Press Down arrow to browse the calendar, or Escape to close.","tooltipTxt":"Press Escape to cancel","disabledTxt":"Disabled","markedTxt":"Selected","prevTxt":"Previous","nextTxt":"Next","monthTxt":"Month","yearTxt":"Year","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"days":[{"s":"S","l":"Sunday"},{"s":"M","l":"Monday"},{"s":"T","l":"Tuesday"},{"s":"W","l":"Wednesday"},{"s":"T","l":"Thursday"},{"s":"F","l":"Friday"},{"s":"S","l":"Saturday"}]}};
+var gf_legacy_multi = [];
+var gform_gravityforms = {"strings":{"invalid_file_extension":"This type of file is not allowed. Must be one of the following:","file_uploaded":"File uploaded","delete_file":"Delete this file","in_progress":"in progress","file_exceeds_limit":"File exceeds size limit","illegal_extension":"This type of file is not allowed.","max_reached":"Maximum number of files reached","unknown_error":"There was a problem while saving the file on the server","currently_uploading":"Please wait for the uploading to complete","cancel":"Cancel","cancel_upload":"Cancel this upload","cancelled":"Cancelled","error":"Error","message":"Message"},"vars":{"images_url":"https://dallasexpress.com/wp-content/plugins/gravityforms/images"}};
+var gf_global = {"gf_currency_config":{"name":"U.S. Dollar","symbol_left":"$","symbol_right":"","symbol_padding":"","thousand_separator":",","decimal_separator":".","decimals":2,"code":"USD"},"base_url":"https://dallasexpress.com/wp-content/plugins/gravityforms","number_formats":[],"version_hash":"4f2a50128e6bdac4dc45ff7491513e4e","countries":{"AF":"Afghanistan","AX":"\u00c5land Islands","AL":"Albania","DZ":"Algeria","AS":"American Samoa","AD":"Andorra","AO":"Angola","AI":"Anguilla","AQ":"Antarctica","AG":"Antigua and Barbuda","AR":"Argentina","AM":"Armenia","AW":"Aruba","AU":"Australia","AT":"Austria","AZ":"Azerbaijan","BS":"Bahamas","BH":"Bahrain","BD":"Bangladesh","BB":"Barbados","BY":"Belarus","BE":"Belgium","BZ":"Belize","BJ":"Benin","BM":"Bermuda","BT":"Bhutan","BO":"Bolivia","BQ":"Bonaire, Sint Eustatius and Saba","BA":"Bosnia and Herzegovina","BW":"Botswana","BV":"Bouvet Island","BR":"Brazil","IO":"British Indian Ocean Territory","BN":"Brunei Darussalam","BG":"Bulgaria","BF":"Burkina Faso","BI":"Burundi","CV":"Cabo Verde","KH":"Cambodia","CM":"Cameroon","CA":"Canada","KY":"Cayman Islands","CF":"Central African Republic","TD":"Chad","CL":"Chile","CN":"China","CX":"Christmas Island","CC":"Cocos Islands","CO":"Colombia","KM":"Comoros","CD":"Congo, Democratic Republic of the","CG":"Congo","CK":"Cook Islands","CR":"Costa Rica","CI":"C\u00f4te d'Ivoire","HR":"Croatia","CU":"Cuba","CW":"Cura\u00e7ao","CY":"Cyprus","CZ":"Czechia","DK":"Denmark","DJ":"Djibouti","DM":"Dominica","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","GQ":"Equatorial Guinea","ER":"Eritrea","EE":"Estonia","SZ":"Eswatini","ET":"Ethiopia","FK":"Falkland Islands","FO":"Faroe Islands","FJ":"Fiji","FI":"Finland","FR":"France","GF":"French Guiana","PF":"French Polynesia","TF":"French Southern Territories","GA":"Gabon","GM":"Gambia","GE":"Georgia","DE":"Germany","GH":"Ghana","GI":"Gibraltar","GR":"Greece","GL":"Greenland","GD":"Grenada","GP":"Guadeloupe","GU":"Guam","GT":"Guatemala","GG":"Guernsey","GN":"Guinea","GW":"Guinea-Bissau","GY":"Guyana","HT":"Haiti","HM":"Heard Island and McDonald Islands","VA":"Holy See","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IS":"Iceland","IN":"India","ID":"Indonesia","IR":"Iran","IQ":"Iraq","IE":"Ireland","IM":"Isle of Man","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","JE":"Jersey","JO":"Jordan","KZ":"Kazakhstan","KE":"Kenya","KI":"Kiribati","KP":"Korea, Democratic People's Republic of","KR":"Korea, Republic of","KW":"Kuwait","KG":"Kyrgyzstan","LA":"Lao People's Democratic Republic","LV":"Latvia","LB":"Lebanon","LS":"Lesotho","LR":"Liberia","LY":"Libya","LI":"Liechtenstein","LT":"Lithuania","LU":"Luxembourg","MO":"Macao","MG":"Madagascar","MW":"Malawi","MY":"Malaysia","MV":"Maldives","ML":"Mali","MT":"Malta","MH":"Marshall Islands","MQ":"Martinique","MR":"Mauritania","MU":"Mauritius","YT":"Mayotte","MX":"Mexico","FM":"Micronesia","MD":"Moldova","MC":"Monaco","MN":"Mongolia","ME":"Montenegro","MS":"Montserrat","MA":"Morocco","MZ":"Mozambique","MM":"Myanmar","NA":"Namibia","NR":"Nauru","NP":"Nepal","NL":"Netherlands","NC":"New Caledonia","NZ":"New Zealand","NI":"Nicaragua","NE":"Niger","NG":"Nigeria","NU":"Niue","NF":"Norfolk Island","MK":"North Macedonia","MP":"Northern Mariana Islands","NO":"Norway","OM":"Oman","PK":"Pakistan","PW":"Palau","PS":"Palestine, State of","PA":"Panama","PG":"Papua New Guinea","PY":"Paraguay","PE":"Peru","PH":"Philippines","PN":"Pitcairn","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","QA":"Qatar","RE":"R\u00e9union","RO":"Romania","RU":"Russian Federation","RW":"Rwanda","BL":"Saint Barth\u00e9lemy","SH":"Saint Helena, Ascension and Tristan da Cunha","KN":"Saint Kitts and Nevis","LC":"Saint Lucia","MF":"Saint Martin","PM":"Saint Pierre and Miquelon","VC":"Saint Vincent and the Grenadines","WS":"Samoa","SM":"San Marino","ST":"Sao Tome and Principe","SA":"Saudi Arabia","SN":"Senegal","RS":"Serbia","SC":"Seychelles","SL":"Sierra Leone","SG":"Singapore","SX":"Sint Maarten","SK":"Slovakia","SI":"Slovenia","SB":"Solomon Islands","SO":"Somalia","ZA":"South Africa","GS":"South Georgia and the South Sandwich Islands","SS":"South Sudan","ES":"Spain","LK":"Sri Lanka","SD":"Sudan","SR":"Suriname","SJ":"Svalbard and Jan Mayen","SE":"Sweden","CH":"Switzerland","SY":"Syria Arab Republic","TW":"Taiwan","TJ":"Tajikistan","TZ":"Tanzania, the United Republic of","TH":"Thailand","TL":"Timor-Leste","TG":"Togo","TK":"Tokelau","TO":"Tonga","TT":"Trinidad and Tobago","TN":"Tunisia","TR":"T\u00fcrkiye","TM":"Turkmenistan","TC":"Turks and Caicos Islands","TV":"Tuvalu","UG":"Uganda","UA":"Ukraine","AE":"United Arab Emirates","GB":"United Kingdom","US":"United States","UY":"Uruguay","UM":"US Minor Outlying Islands","UZ":"Uzbekistan","VU":"Vanuatu","VE":"Venezuela","VN":"Viet Nam","VG":"Virgin Islands, British","VI":"Virgin Islands, U.S.","WF":"Wallis and Futuna","EH":"Western Sahara","YE":"Yemen","ZM":"Zambia","ZW":"Zimbabwe"},"strings":{"newRowAdded":"New row added.","rowRemoved":"Row removed","formSaved":"The form has been saved.  The content contains the link to return and complete the form."}};
+var gf_global = {"gf_currency_config":{"name":"U.S. Dollar","symbol_left":"$","symbol_right":"","symbol_padding":"","thousand_separator":",","decimal_separator":".","decimals":2,"code":"USD"},"base_url":"https://dallasexpress.com/wp-content/plugins/gravityforms","number_formats":[],"version_hash":"4f2a50128e6bdac4dc45ff7491513e4e","countries":{"AF":"Afghanistan","AX":"\u00c5land Islands","AL":"Albania","DZ":"Algeria","AS":"American Samoa","AD":"Andorra","AO":"Angola","AI":"Anguilla","AQ":"Antarctica","AG":"Antigua and Barbuda","AR":"Argentina","AM":"Armenia","AW":"Aruba","AU":"Australia","AT":"Austria","AZ":"Azerbaijan","BS":"Bahamas","BH":"Bahrain","BD":"Bangladesh","BB":"Barbados","BY":"Belarus","BE":"Belgium","BZ":"Belize","BJ":"Benin","BM":"Bermuda","BT":"Bhutan","BO":"Bolivia","BQ":"Bonaire, Sint Eustatius and Saba","BA":"Bosnia and Herzegovina","BW":"Botswana","BV":"Bouvet Island","BR":"Brazil","IO":"British Indian Ocean Territory","BN":"Brunei Darussalam","BG":"Bulgaria","BF":"Burkina Faso","BI":"Burundi","CV":"Cabo Verde","KH":"Cambodia","CM":"Cameroon","CA":"Canada","KY":"Cayman Islands","CF":"Central African Republic","TD":"Chad","CL":"Chile","CN":"China","CX":"Christmas Island","CC":"Cocos Islands","CO":"Colombia","KM":"Comoros","CD":"Congo, Democratic Republic of the","CG":"Congo","CK":"Cook Islands","CR":"Costa Rica","CI":"C\u00f4te d'Ivoire","HR":"Croatia","CU":"Cuba","CW":"Cura\u00e7ao","CY":"Cyprus","CZ":"Czechia","DK":"Denmark","DJ":"Djibouti","DM":"Dominica","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","GQ":"Equatorial Guinea","ER":"Eritrea","EE":"Estonia","SZ":"Eswatini","ET":"Ethiopia","FK":"Falkland Islands","FO":"Faroe Islands","FJ":"Fiji","FI":"Finland","FR":"France","GF":"French Guiana","PF":"French Polynesia","TF":"French Southern Territories","GA":"Gabon","GM":"Gambia","GE":"Georgia","DE":"Germany","GH":"Ghana","GI":"Gibraltar","GR":"Greece","GL":"Greenland","GD":"Grenada","GP":"Guadeloupe","GU":"Guam","GT":"Guatemala","GG":"Guernsey","GN":"Guinea","GW":"Guinea-Bissau","GY":"Guyana","HT":"Haiti","HM":"Heard Island and McDonald Islands","VA":"Holy See","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IS":"Iceland","IN":"India","ID":"Indonesia","IR":"Iran","IQ":"Iraq","IE":"Ireland","IM":"Isle of Man","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","JE":"Jersey","JO":"Jordan","KZ":"Kazakhstan","KE":"Kenya","KI":"Kiribati","KP":"Korea, Democratic People's Republic of","KR":"Korea, Republic of","KW":"Kuwait","KG":"Kyrgyzstan","LA":"Lao People's Democratic Republic","LV":"Latvia","LB":"Lebanon","LS":"Lesotho","LR":"Liberia","LY":"Libya","LI":"Liechtenstein","LT":"Lithuania","LU":"Luxembourg","MO":"Macao","MG":"Madagascar","MW":"Malawi","MY":"Malaysia","MV":"Maldives","ML":"Mali","MT":"Malta","MH":"Marshall Islands","MQ":"Martinique","MR":"Mauritania","MU":"Mauritius","YT":"Mayotte","MX":"Mexico","FM":"Micronesia","MD":"Moldova","MC":"Monaco","MN":"Mongolia","ME":"Montenegro","MS":"Montserrat","MA":"Morocco","MZ":"Mozambique","MM":"Myanmar","NA":"Namibia","NR":"Nauru","NP":"Nepal","NL":"Netherlands","NC":"New Caledonia","NZ":"New Zealand","NI":"Nicaragua","NE":"Niger","NG":"Nigeria","NU":"Niue","NF":"Norfolk Island","MK":"North Macedonia","MP":"Northern Mariana Islands","NO":"Norway","OM":"Oman","PK":"Pakistan","PW":"Palau","PS":"Palestine, State of","PA":"Panama","PG":"Papua New Guinea","PY":"Paraguay","PE":"Peru","PH":"Philippines","PN":"Pitcairn","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","QA":"Qatar","RE":"R\u00e9union","RO":"Romania","RU":"Russian Federation","RW":"Rwanda","BL":"Saint Barth\u00e9lemy","SH":"Saint Helena, Ascension and Tristan da Cunha","KN":"Saint Kitts and Nevis","LC":"Saint Lucia","MF":"Saint Martin","PM":"Saint Pierre and Miquelon","VC":"Saint Vincent and the Grenadines","WS":"Samoa","SM":"San Marino","ST":"Sao Tome and Principe","SA":"Saudi Arabia","SN":"Senegal","RS":"Serbia","SC":"Seychelles","SL":"Sierra Leone","SG":"Singapore","SX":"Sint Maarten","SK":"Slovakia","SI":"Slovenia","SB":"Solomon Islands","SO":"Somalia","ZA":"South Africa","GS":"South Georgia and the South Sandwich Islands","SS":"South Sudan","ES":"Spain","LK":"Sri Lanka","SD":"Sudan","SR":"Suriname","SJ":"Svalbard and Jan Mayen","SE":"Sweden","CH":"Switzerland","SY":"Syria Arab Republic","TW":"Taiwan","TJ":"Tajikistan","TZ":"Tanzania, the United Republic of","TH":"Thailand","TL":"Timor-Leste","TG":"Togo","TK":"Tokelau","TO":"Tonga","TT":"Trinidad and Tobago","TN":"Tunisia","TR":"T\u00fcrkiye","TM":"Turkmenistan","TC":"Turks and Caicos Islands","TV":"Tuvalu","UG":"Uganda","UA":"Ukraine","AE":"United Arab Emirates","GB":"United Kingdom","US":"United States","UY":"Uruguay","UM":"US Minor Outlying Islands","UZ":"Uzbekistan","VU":"Vanuatu","VE":"Venezuela","VN":"Viet Nam","VG":"Virgin Islands, British","VI":"Virgin Islands, U.S.","WF":"Wallis and Futuna","EH":"Western Sahara","YE":"Yemen","ZM":"Zambia","ZW":"Zimbabwe"},"strings":{"newRowAdded":"New row added.","rowRemoved":"Row removed","formSaved":"The form has been saved.  The content contains the link to return and complete the form."}};
+var gf_global = {"gf_currency_config":{"name":"U.S. Dollar","symbol_left":"$","symbol_right":"","symbol_padding":"","thousand_separator":",","decimal_separator":".","decimals":2,"code":"USD"},"base_url":"https://dallasexpress.com/wp-content/plugins/gravityforms","number_formats":[],"version_hash":"4f2a50128e6bdac4dc45ff7491513e4e","countries":{"AF":"Afghanistan","AX":"\u00c5land Islands","AL":"Albania","DZ":"Algeria","AS":"American Samoa","AD":"Andorra","AO":"Angola","AI":"Anguilla","AQ":"Antarctica","AG":"Antigua and Barbuda","AR":"Argentina","AM":"Armenia","AW":"Aruba","AU":"Australia","AT":"Austria","AZ":"Azerbaijan","BS":"Bahamas","BH":"Bahrain","BD":"Bangladesh","BB":"Barbados","BY":"Belarus","BE":"Belgium","BZ":"Belize","BJ":"Benin","BM":"Bermuda","BT":"Bhutan","BO":"Bolivia","BQ":"Bonaire, Sint Eustatius and Saba","BA":"Bosnia and Herzegovina","BW":"Botswana","BV":"Bouvet Island","BR":"Brazil","IO":"British Indian Ocean Territory","BN":"Brunei Darussalam","BG":"Bulgaria","BF":"Burkina Faso","BI":"Burundi","CV":"Cabo Verde","KH":"Cambodia","CM":"Cameroon","CA":"Canada","KY":"Cayman Islands","CF":"Central African Republic","TD":"Chad","CL":"Chile","CN":"China","CX":"Christmas Island","CC":"Cocos Islands","CO":"Colombia","KM":"Comoros","CD":"Congo, Democratic Republic of the","CG":"Congo","CK":"Cook Islands","CR":"Costa Rica","CI":"C\u00f4te d'Ivoire","HR":"Croatia","CU":"Cuba","CW":"Cura\u00e7ao","CY":"Cyprus","CZ":"Czechia","DK":"Denmark","DJ":"Djibouti","DM":"Dominica","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","GQ":"Equatorial Guinea","ER":"Eritrea","EE":"Estonia","SZ":"Eswatini","ET":"Ethiopia","FK":"Falkland Islands","FO":"Faroe Islands","FJ":"Fiji","FI":"Finland","FR":"France","GF":"French Guiana","PF":"French Polynesia","TF":"French Southern Territories","GA":"Gabon","GM":"Gambia","GE":"Georgia","DE":"Germany","GH":"Ghana","GI":"Gibraltar","GR":"Greece","GL":"Greenland","GD":"Grenada","GP":"Guadeloupe","GU":"Guam","GT":"Guatemala","GG":"Guernsey","GN":"Guinea","GW":"Guinea-Bissau","GY":"Guyana","HT":"Haiti","HM":"Heard Island and McDonald Islands","VA":"Holy See","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IS":"Iceland","IN":"India","ID":"Indonesia","IR":"Iran","IQ":"Iraq","IE":"Ireland","IM":"Isle of Man","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","JE":"Jersey","JO":"Jordan","KZ":"Kazakhstan","KE":"Kenya","KI":"Kiribati","KP":"Korea, Democratic People's Republic of","KR":"Korea, Republic of","KW":"Kuwait","KG":"Kyrgyzstan","LA":"Lao People's Democratic Republic","LV":"Latvia","LB":"Lebanon","LS":"Lesotho","LR":"Liberia","LY":"Libya","LI":"Liechtenstein","LT":"Lithuania","LU":"Luxembourg","MO":"Macao","MG":"Madagascar","MW":"Malawi","MY":"Malaysia","MV":"Maldives","ML":"Mali","MT":"Malta","MH":"Marshall Islands","MQ":"Martinique","MR":"Mauritania","MU":"Mauritius","YT":"Mayotte","MX":"Mexico","FM":"Micronesia","MD":"Moldova","MC":"Monaco","MN":"Mongolia","ME":"Montenegro","MS":"Montserrat","MA":"Morocco","MZ":"Mozambique","MM":"Myanmar","NA":"Namibia","NR":"Nauru","NP":"Nepal","NL":"Netherlands","NC":"New Caledonia","NZ":"New Zealand","NI":"Nicaragua","NE":"Niger","NG":"Nigeria","NU":"Niue","NF":"Norfolk Island","MK":"North Macedonia","MP":"Northern Mariana Islands","NO":"Norway","OM":"Oman","PK":"Pakistan","PW":"Palau","PS":"Palestine, State of","PA":"Panama","PG":"Papua New Guinea","PY":"Paraguay","PE":"Peru","PH":"Philippines","PN":"Pitcairn","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","QA":"Qatar","RE":"R\u00e9union","RO":"Romania","RU":"Russian Federation","RW":"Rwanda","BL":"Saint Barth\u00e9lemy","SH":"Saint Helena, Ascension and Tristan da Cunha","KN":"Saint Kitts and Nevis","LC":"Saint Lucia","MF":"Saint Martin","PM":"Saint Pierre and Miquelon","VC":"Saint Vincent and the Grenadines","WS":"Samoa","SM":"San Marino","ST":"Sao Tome and Principe","SA":"Saudi Arabia","SN":"Senegal","RS":"Serbia","SC":"Seychelles","SL":"Sierra Leone","SG":"Singapore","SX":"Sint Maarten","SK":"Slovakia","SI":"Slovenia","SB":"Solomon Islands","SO":"Somalia","ZA":"South Africa","GS":"South Georgia and the South Sandwich Islands","SS":"South Sudan","ES":"Spain","LK":"Sri Lanka","SD":"Sudan","SR":"Suriname","SJ":"Svalbard and Jan Mayen","SE":"Sweden","CH":"Switzerland","SY":"Syria Arab Republic","TW":"Taiwan","TJ":"Tajikistan","TZ":"Tanzania, the United Republic of","TH":"Thailand","TL":"Timor-Leste","TG":"Togo","TK":"Tokelau","TO":"Tonga","TT":"Trinidad and Tobago","TN":"Tunisia","TR":"T\u00fcrkiye","TM":"Turkmenistan","TC":"Turks and Caicos Islands","TV":"Tuvalu","UG":"Uganda","UA":"Ukraine","AE":"United Arab Emirates","GB":"United Kingdom","US":"United States","UY":"Uruguay","UM":"US Minor Outlying Islands","UZ":"Uzbekistan","VU":"Vanuatu","VE":"Venezuela","VN":"Viet Nam","VG":"Virgin Islands, British","VI":"Virgin Islands, U.S.","WF":"Wallis and Futuna","EH":"Western Sahara","YE":"Yemen","ZM":"Zambia","ZW":"Zimbabwe"},"strings":{"newRowAdded":"New row added.","rowRemoved":"Row removed","formSaved":"The form has been saved.  The content contains the link to return and complete the form."}};
+//# sourceURL=gform_gravityforms-js-extra
+</script>
+<script id="gform_gravityforms-js" defer='defer' src="https://dallasexpress.com/wp-content/plugins/gravityforms/js/gravityforms.min.js?ver=3.1.3"></script>
+<script id="gform_placeholder-js" defer='defer' src="https://dallasexpress.com/wp-content/plugins/gravityforms/js/placeholders.jquery.min.js?ver=3.1.3"></script>
+<script id="gform_gravityforms_utils-js" defer='defer' src="https://dallasexpress.com/wp-content/plugins/gravityforms/assets/js/dist/utils.min.js?ver=d7e103405223e60d2719f4c330fd11cf"></script>
+<script id="gform_gravityforms_theme_vendors-js" defer='defer' src="https://dallasexpress.com/wp-content/plugins/gravityforms/assets/js/dist/vendor-theme.min.js?ver=0c901cb641ce64b99c20ea1a4d208cc9"></script>
+<script id="gform_gravityforms_theme-js-extra">
+var gform_theme_config = {"common":{"form":{"honeypot":{"version_hash":"4f2a50128e6bdac4dc45ff7491513e4e"},"ajax":{"ajaxurl":"https://dallasexpress.com/wp-admin/admin-ajax.php","ajax_submission_nonce":"a1d2da9839","i18n":{"step_announcement":"Step %1$s of %2$s, %3$s","unknown_error":"There was an unknown error processing your request. Please try again.","error_403":"The request was blocked (403 error) for unknown security reasons. Remove any code-like text (scripts or DB queries) and try again."}}}},"hmr_dev":"","public_path":"https://dallasexpress.com/wp-content/plugins/gravityforms/assets/js/dist/","config_nonce":"4e9c273372"};
+//# sourceURL=gform_gravityforms_theme-js-extra
+</script>
+<script id="gform_gravityforms_theme-js" defer='defer' src="https://dallasexpress.com/wp-content/plugins/gravityforms/assets/js/dist/scripts-theme.min.js?ver=373fcf115e257ba62fdd1a205717b981"></script>
+<script id="presspermit-front-js" src="https://dallasexpress.com/wp-content/plugins/presspermit-pro/lib/vendor/publishpress/publishpress-permissions/common/js/frontend.js?ver=4.9.0"></script>
+<script src="https://dallasexpress.com/dx-podcast-widget.js" defer></script>
+<script>
+gform.initializeOnLoaded( function() { jQuery(document).on('gform_post_render', function(event, formId, currentPage){if(formId == 1) {if(typeof Placeholders != 'undefined'){
+                        Placeholders.enable();
+                    }} } );jQuery(document).on('gform_post_conditional_logic', function(event, formId, fields, isInit){} ) } );
+</script>
+<script>
+gform.initializeOnLoaded( function() {jQuery(document).trigger("gform_pre_post_render", [{ formId: "1", currentPage: "1", abort: function() { this.preventDefault(); } }]);        if (event && event.defaultPrevented) {                return;        }        const gformWrapperDiv = document.getElementById( "gform_wrapper_1" );        if ( gformWrapperDiv ) {            const visibilitySpan = document.createElement( "span" );            visibilitySpan.id = "gform_visibility_test_1";            gformWrapperDiv.insertAdjacentElement( "afterend", visibilitySpan );        }        const visibilityTestDiv = document.getElementById( "gform_visibility_test_1" );        let postRenderFired = false;        function triggerPostRender() {            if ( postRenderFired ) {                return;            }            postRenderFired = true;            gform.core.triggerPostRenderEvents( 1, 1 );            if ( visibilityTestDiv ) {                visibilityTestDiv.parentNode.removeChild( visibilityTestDiv );            }        }        function debounce( func, wait, immediate ) {            var timeout;            return function() {                var context = this, args = arguments;                var later = function() {                    timeout = null;                    if ( !immediate ) func.apply( context, args );                };                var callNow = immediate && !timeout;                clearTimeout( timeout );                timeout = setTimeout( later, wait );                if ( callNow ) func.apply( context, args );            };        }        const debouncedTriggerPostRender = debounce( function() {            triggerPostRender();        }, 200 );        if ( visibilityTestDiv && visibilityTestDiv.offsetParent === null ) {            const observer = new MutationObserver( ( mutations ) => {                mutations.forEach( ( mutation ) => {                    if ( mutation.type === 'attributes' && visibilityTestDiv.offsetParent !== null ) {                        debouncedTriggerPostRender();                        observer.disconnect();                    }                });            });            observer.observe( document.body, {                attributes: true,                childList: false,                subtree: true,                attributeFilter: [ 'style', 'class' ],            });        } else {            triggerPostRender();        }    } );
+</script>
+</body>
+</html><!--
+Performance optimized by Redis Object Cache. Learn more: https://wprediscache.com
+
+Retrieved 8518 objects (2 MB) from Redis using PhpRedis (v6.3.0).
+-->

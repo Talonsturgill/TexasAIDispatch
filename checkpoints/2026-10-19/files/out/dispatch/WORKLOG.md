@@ -1,1 +1,5 @@
 BLOCKED 2026-10-19: provider_availability reserve refused by claude_checkpoint.require_backed. /opt/texas-dispatch-tools (Oct 17, f54faae) differs from main 98a187f for public_state.py and claude_checkpoint.py. Needs environment setup rerun (claude_environment_setup.sh) then fresh launch. Edition 2026-10-19 initialized, phase research, nothing paid reserved.
+
+2026-10-19 12:50Z RESUMED on fresh launch (SessionStart hook refreshed tools to 1ed19c4). Restored checkpoint 2ea7008 into /home/user/dispatch-editions/2026-10-19/TexasAIDispatch, merged origin/main 1ed19c44. Docket sibling worktree: /home/user/dispatch-editions/2026-10-19/TexasAIDocket (branch claude/dispatch-2026-10-19-feed). env_check, contract_check, wake gates, tsc, provider_availability all exit 0. Continuation guard armed.
+Story: screwworm rejected (dup 2026-09-20 "Where the flies land"). Selected candidate: Dallas brush truck AI code cameras (beat record-and-rule, fresh by dedupe). research_agents reserved 1/3, researcher (haiku) running in background.
+Next: research.json -> story_selection.json -> claims/script/bindings -> validator -> picture phase.
