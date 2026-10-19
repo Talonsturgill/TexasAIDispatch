@@ -11,3 +11,8 @@
 - Reports installed after code_r9: storyboard_critic.json and opening-a-critic.json are the reviewer's treatment A object saved verbatim (evidence/code-round9/report-a.json). opening-b-critic.json is treatment B's object with only story_sha256 stamped mechanically by daily_production.story_digest. Round 6 reports kept in evidence/code-round9.
 - Complete public handoffs (ordinary assistant text and handoff tool inputs only, no thinking, no Read results) extracted from each worker transcript: evidence/public-handbacks/*.json with source transcript hashes.
 - Journal times such as approximately 23:50Z were approximations. The measured times are the ones above.
+
+## Appended corrections (after the original audit above, which is kept)
+- The 22:18Z opening_compare stop was Codex's maintenance Send now action, not an owner refusal or provider failure. The recovery rendered a new two-job batch (event 126, 337746 ms against 352536 ms, new A and B movie bytes), so the earlier statement that it only inspected retained films was inaccurate. See evidence/opening-compare-interrupted/EVIDENCE.txt for the appended correction. Both generations are retained.
+- The builder resumed at 21:13:00Z after the quota failure was an actual attempt that ran under the original reservation (event 111). It is settled now as a separate LATE CHARGE debit of one reboard (ledger event after 136, machine time recorded there). No backdating, refund or art-receipt rewrite.
+- PR 236 (recorder-only) had already merged at 2026-10-19T23:12Z (1d4ce763) before the request not to merge it arrived. Codex's PR 237 supersedes it with the guard and recorder together.
