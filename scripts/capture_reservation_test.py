@@ -231,6 +231,37 @@ class Reservation(unittest.TestCase):
             prepared.prepare(self.root, self.state, [self.command('cinema_proof.py')])
         self.assertEqual(before, controller.read_state(self.state)['usage'])
 
+    def test_phone_a_must_run_before_b_can_replace_its_authorization(self):
+        boards, _ = self.comparison_inputs()
+        output = self.state.parent / 'openings'; output.mkdir()
+        (output / 'comparison.json').write_text('{}')
+        commands, phone_boards = [], []
+        for option, board in zip(('a', 'b'), boards):
+            path = output / (option + '.json'); path.write_bytes(board.read_bytes())
+            phone_boards.append(path)
+            (output / (option + '.mp4')).write_bytes(option.encode())
+            commands.append('bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option ' + option
+                            + ' --board out/dispatch/openings/' + option + '.json --film out/dispatch/openings/' + option
+                            + '.mp4 --state out/dispatch/run_state.json --out out/dispatch/openings/motion-' + option)
+        with mock.patch('authored_story_art.problems', return_value=[]), \
+                mock.patch('native_headroom.estimate', return_value={'required_free_gib': 1}), \
+                mock.patch.object(guard.shutil, 'disk_usage', return_value=mock.Mock(free=500 * 1024 ** 3)), \
+                mock.patch('claude_motion_review.phone_inputs', return_value={}):
+            guard.authorize(self.root, self.state, [phone_boards[0]], [commands[0]], housekeeping=False, prepare=True)
+            before, original = self.state.read_bytes(), (self.root / guard.AUTHORIZATION).read_bytes()
+            with self.assertRaisesRegex(ValueError, 'unused capture authorization is pending'):
+                guard.authorize(self.root, self.state, [phone_boards[1]], [commands[1]], housekeeping=False, prepare=True)
+            self.assertEqual(before, self.state.read_bytes())
+            self.assertEqual(original, (self.root / guard.AUTHORIZATION).read_bytes())
+            for option, command in zip(('a', 'b'), commands):
+                if option == 'b':
+                    guard.authorize(self.root, self.state, [phone_boards[1]], [command], housekeeping=False, prepare=True)
+                self.assertIsNone(guard.decide({'tool_name': 'Bash', 'tool_input': {'command': command},
+                                               'cwd': str(self.root)}, self.root))
+                self.assertTrue(prepared.claim(self.state, prepared.PHONE_OPERATIONS[option])[0])
+            self.assertEqual(2, controller.read_state(self.state)['usage']['preflight_renders'])
+            self.assertEqual(1, len(list((self.root / guard.HISTORY).glob('*.json'))))
+
     def test_hook_consumption_is_required(self):
         _, auth = self.authorise()
         auth['commands'][0]['consumed'] = False
