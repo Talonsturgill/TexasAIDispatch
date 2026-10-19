@@ -73,8 +73,10 @@ class VisualEvidence(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'unchanged image'):
             visual.guard(write, self.workspace)
 
-    def test_other_agents_and_text_reads_are_unchanged_and_unknown_identity_cannot_write(self):
-        visual.guard({**self.read, 'agent_type': 'researcher'}, self.workspace)
+    def test_leaf_scoped_guard_refuses_unknown_type_and_identity_but_allows_text_reads(self):
+        for value in (None, 'researcher'):
+            with self.assertRaisesRegex(ValueError, 'actual host'):
+                visual.guard({**self.read, 'agent_type': value}, self.workspace)
         self.delivered()
         text = {**self.read, 'tool_input': {'file_path': str(self.repo / 'CLAUDE.md')}}
         visual.guard(text, self.workspace)

@@ -147,7 +147,7 @@ def note_input(payload, workspace, *, existing=False):
 def guard(payload, workspace):
     """Deny invalid writes or an image advance without durable facts; never grant permission."""
     if actor(payload) is None:
-        return
+        raise ValueError('the visual-leaf guard requires its actual host agent type and identity')
     if payload.get('tool_name') == 'Write':
         note_input(payload, workspace)
     elif payload.get('tool_name') == 'Read':
