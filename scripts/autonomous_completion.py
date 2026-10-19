@@ -14,6 +14,7 @@ from film_pivot_capacity import REASON as FILM_PIVOT_REASON
 from narration_recovery import REASON as NARRATION_REASON, ADOPTION as NARRATION_ADOPTION, READY as NARRATION_READY
 from validation_completion import FIELD as VALIDATION_FIELD, ADOPTION as VALIDATION_ADOPTION, READY as VALIDATION_READY
 from completion_forecast import REASON as FORECAST_REASON
+from review_prompt_repair import REASON as PROMPT_REPAIR_REASON
 
 POLICY = Path(__file__).resolve().parents[1] / "config/autonomous_completion.json"
 POLICY_SHA256 = "244d816a1239810909a3add2b78541fb7c6ebb56e84c7611ece2b31a393760e9"
@@ -327,6 +328,10 @@ def mandatory_reason(state, plan, evidence_text):
     from creative_release import findings, MOTION_ERRORS, finishing_required, payload_digest
     try:
         report = json.loads(evidence_text)
+        if plan.get('completion_reason') == PROMPT_REPAIR_REASON:
+            from review_prompt_repair import eligible
+            return (PROMPT_REPAIR_REASON if sha(evidence_text) == plan.get('failure_evidence_sha256')
+                    and eligible(state, plan, report) else None)
         if plan.get('completion_reason') == FORECAST_REASON:
             from completion_forecast import eligible
             return (FORECAST_REASON if sha(evidence_text) == plan.get('failure_evidence_sha256')
@@ -439,6 +444,9 @@ def mandatory_reason(state, plan, evidence_text):
 
 
 def grant_identity(plan, evidence_sha256):
+    if plan.get('completion_reason') == PROMPT_REPAIR_REASON:
+        from review_prompt_repair import identity
+        return identity(plan)
     if plan.get('completion_reason') == FORECAST_REASON:
         from completion_forecast import identity
         return identity(plan)
@@ -648,6 +656,9 @@ def replay(state):
                 if reason == NARRATION_REASON:
                     from narration_recovery import required as narration_required
                     required = narration_required(plan, required)
+                if reason == PROMPT_REPAIR_REASON:
+                    from review_prompt_repair import required_counts as prompt_required
+                    required = prompt_required(plan, required)
                 from capture_completion_budget import required_counts
                 required = required_counts(admission, plan, required)
                 if reason == FORECAST_REASON:
@@ -861,6 +872,11 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             errors = admission_problems(state, plan) + file_problems(state_path, plan)
             if errors:
                 return False, '; '.join(errors)
+        if reason == PROMPT_REPAIR_REASON:
+            from review_prompt_repair import file_problems
+            errors = file_problems(state_path, plan)
+            if errors:
+                return False, '; '.join(errors)
         if VALIDATION_FIELD in plan:
             from validation_completion import file_problems
             errors = file_problems(state_path, plan)
@@ -891,13 +907,16 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         budget_state = live_budget_state(state, plan)
         budget = production_budget_precheck(budget_state, review_route="host", phone_complete=False,
                     minimum_action_failed=reason == "minimum-action",
-                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, FORECAST_REASON, 'mandatory-source-pivot'},
+                    mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, FORECAST_REASON, PROMPT_REPAIR_REASON, 'mandatory-source-pivot'},
                     review_coverage=reason == COVERAGE_REASON,
                     modern_code_repair=reason in {MODERN_CODE_REASON, PIVOT_REASON})
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         from capture_completion_budget import apply_budget
         budget = apply_budget(budget_state, plan, budget)
+        if reason == PROMPT_REPAIR_REASON:
+            from review_prompt_repair import apply_budget as prompt_budget
+            budget = prompt_budget(plan, budget)
         if reason == FORECAST_REASON:
             from completion_forecast import apply_budget as forecast_budget
             budget = forecast_budget(plan, budget)

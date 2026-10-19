@@ -309,6 +309,15 @@ Do not retry the original failure's grant or replace a film verdict with code ap
 
 ## Efficiency and actual usage
 
+A safeguard refusal is not an unavailable host. Do not add it to transport recovery or change
+models to repeat the declined request. Correct a public visual review into the source-defined
+visible-facts contract: objects, visible actions and literal screen text between reads; brief
+public conclusions only in the final report. Preserve the refused response as incomplete evidence.
+For the actual charged legacy phone assignment, use the bounded prompt-correction procedure in
+prompts/phases/repair.md and config/review_prompt_repair_v1.json. It protects the complete remaining
+path and one fresh isolated Opus High public-evidence task, with every gate and charge retained.
+No owner decision or refusal override is supplied or needed by this internal source correction.
+
 Final Read-only scorers use the complete exact-film motion-image sequence documented in
 prompts/phases/04-review.md. Build and verify it before creating their three compact packets.
 These film-decoded images provide chronological visual access; retain separate actual

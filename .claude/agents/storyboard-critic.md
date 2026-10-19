@@ -25,6 +25,9 @@ For newly planned editions from October 20th, each new image needs its observati
 assistant text before the next Read. Name the page and briefly describe visible objects,
 actions or text immediately. Keep those public descriptions for the coverage report. A later
 placeholder does not erase an earlier recorded observation or establish an initial transport failure.
+Between images, return only a factual JSON record with page, objects, actions and text. Record
+visible content and literal screen text; use null for unknowns. Save all quality conclusions,
+ratings and brief public explanations for the final review JSON after complete viewing.
 If a new Read is actually unseen, state the literal error immediately in ordinary assistant text
 before any further image Read. Return the exact coverage object inside your partial JSON handback.
 Its failed page records observation_timing:immediate_after_read and

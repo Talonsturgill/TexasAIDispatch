@@ -166,7 +166,10 @@ def capacity_recovery_hint(state):
             ' review before a third repair; capacity never approves that repair.'
             ' After its real handback, recheck and fund the complete remaining path before'
             ' changing production inputs. Retain a literal refusal and repair its specific'
-            ' cause; repeating the same owner-wait message is not a recovery action.')
+            ' cause; repeating the same owner-wait message is not a recovery action.'
+            ' For the actual legacy public-visual task refusal, use the bounded corrected-prompt'
+            ' procedure in prompts/phases/repair.md. Never declare a safeguard refusal an outage'
+            ' or retry an already spent PASS voucher.')
 
 
 def decision(payload, workspace):
@@ -215,12 +218,11 @@ def response(payload, workspace, pause=None):
     reason = decision(payload, workspace)
     if reason is None:
         return None
-    running = any(row.get('status') == 'running' and row.get('id')
-                  for row in payload.get('background_tasks', []))
-    if (payload.get('stop_hook_active') is True and running
+    if (payload.get('stop_hook_active') is True
             and (Path(workspace) / MARKER).is_file()):
         (pause or time.sleep)(BACKGROUND_WAIT_SECONDS)
-        # A real background writer may have completed the accepted archive during the wait.
+        # Back off an unchanged final/wait loop even when no worker is running.
+        # A real writer may have completed the accepted archive during the wait.
         # Recheck the same closure; never turn a running-task flag into permission to finish.
         reason = decision(payload, workspace)
         if reason is None:
