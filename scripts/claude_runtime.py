@@ -398,7 +398,7 @@ def mechanical_admission(role, data, task):
             'effective_from': cfg['effective_from'], 'evidence': cfg['evidence'], 'scope_note': cfg['scope_note']}
 
 
-def plan(role, packet_path, task_name, scope, mechanical_task=None):
+def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None):
     from claude_contract_check import problems
     errors = problems()
     if errors:
@@ -417,6 +417,34 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None):
     else:
         agent_runtime.required_inputs(data, role, contracts(role))
     agent_runtime.validate_references(data)
+    freshness = None
+    if role in ('researcher', 'validator') and data['date'] >= '2026-10-20':
+        if role == 'validator':
+            selections = [read(row['path']) for row in data.get('inputs', [])
+                          if Path(row['path']).name == 'story_selection.json']
+            if len(selections) != 1:
+                raise ValueError('validator subject screen needs the bound current story_selection.json')
+            selected = selections[0].get('selected', {})
+            subject = (selected.get('movement') or {}).get('object')
+        if not subject:
+            raise ValueError('researcher plan needs --subject naming the actual concrete candidate before reservation')
+        import dedupe
+        freshness = dedupe.check_subject(subject, data['date'], REPO)
+        encoded = (json.dumps(freshness, sort_keys=True, indent=2) + '\n').encode()
+        report_path = Path(packet_path).with_name(Path(packet_path).stem + '-subject-' +
+                                                 hashlib.sha256(encoded).hexdigest()[:16] + '.json')
+        try:
+            with report_path.open('xb') as stream:
+                stream.write(encoded)
+        except FileExistsError:
+            if report_path.read_bytes() != encoded:
+                raise ValueError('preserve the existing subject-screen evidence; its bytes differ')
+        if not freshness['fresh']:
+            hit = freshness['matches'][0]
+            raise ValueError('repeated story subject before paid ' + role + ': ' + hit['date'] +
+                             ' ' + hit['title'] + ' shares ' + hit['phrase'] +
+                             ' with metadata ' + ', '.join(hit['metadata_tokens']) +
+                             '; retain this refusal and choose a fresh subject without buying another worker')
     if role in ('picture', 'story', 'sound'):
         motion_inputs(data)
         image_policy_inputs(data)
@@ -434,6 +462,8 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None):
                'hashes. Do NOT launch or spawn any subagents; do the work yourself and return your '
                'result. Never send email or post socially. Preserve actual rejected evidence. '
                'A code plan does not approve a rendered film.')
+    if freshness:
+        message += ' Screened story subject: ' + freshness['subject'] + '. Keep this subject in the handoff.'
     admitted = mechanical_admission(role, data, mechanical_task) if mechanical_task else None
     if admitted:
         named = {row['path'] for row in admitted['paths']}
@@ -452,6 +482,8 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None):
                                'Do not substitute Codex model or fork arguments.',
               'reservation': 'Reserve the existing controller resource before executing this plan. '
                              'The three final scorers remain one atomic charged panel.'}
+    if freshness:
+        result['story_subject_screen'] = bound(report_path)
     if admitted:
         # The spawn arguments override the leaf definition for this one task. The role, its brief, its
         # complete guides and its controller resource are exactly the ones the Opus assignment carries.
@@ -552,6 +584,7 @@ if __name__ == '__main__':
     p = sub.add_parser('plan'); p.add_argument('--role', required=True); p.add_argument('--packet', type=Path, required=True)
     p.add_argument('--task-name', required=True); p.add_argument('--scope', required=True)
     p.add_argument('--mechanical-task', choices=['code-only-review', 'mechanical-correction'])
+    p.add_argument('--subject', help='actual concrete candidate object, required for researcher plans from October20')
     p.add_argument('--out', type=Path, required=True)
     p = sub.add_parser('phase'); p.add_argument('name'); p.add_argument('--root', type=Path, default=Path('out/dispatch'))
     p = sub.add_parser('audit'); p.add_argument('--session', type=Path, action='append', required=True)
@@ -572,7 +605,7 @@ if __name__ == '__main__':
                               [args.sequence_current] if args.sequence_current else [args.sequence_a, args.sequence_b],
                               current=bool(args.sequence_current))
     elif args.action == 'plan':
-        result = plan(args.role, args.packet, args.task_name, args.scope, args.mechanical_task)
+        result = plan(args.role, args.packet, args.task_name, args.scope, args.mechanical_task, args.subject)
     elif args.action == 'verify-images':
         errors = image_coverage_problems(args.packet, args.coverage)
         result = {'schema': 'dispatch_claude_image_coverage_verification/1', 'complete': not errors,
