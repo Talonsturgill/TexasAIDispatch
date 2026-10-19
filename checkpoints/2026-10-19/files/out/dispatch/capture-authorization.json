@@ -2,19 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "945b9418497e396686d9ef1b868c50832620a53be6e50a592c1e49702fbed4ed",
+    "event_sha256": "b170416e2ca09f829a841a0ae9d6e82e3369db7eb20f9a5f80fdce1815f99e82",
     "resource": "preflight_renders",
-    "at": "2026-10-19T19:54:37.840719Z",
+    "at": "2026-10-19T19:57:20.341495Z",
     "note": "two opening comparison batch"
   },
   "boards": [
     {
       "path": "out/dispatch/opening-a.json",
-      "sha256": "80b3bd506cf0d2ae8acf22f3a1bf0ff7fecf0bcca7189a3c1592cccba0d43474"
+      "sha256": "0c3609795623fee850b26667e152178bdd382d255a58fa4494f24739da434b38"
     },
     {
       "path": "out/dispatch/opening-b.json",
-      "sha256": "3f9b93fb87d87bf9f3ff442c4a4cf4badc14bc08c0312dabe81aa95cfb7bc829"
+      "sha256": "5ccb8d71e106f5d49dbbd7c4dc2240e20e6f0399f9f8576afdfacc342f5e0211"
     }
   ],
   "bound": {
@@ -169,29 +169,29 @@
     {
       "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
       "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
-      "consumed": "2026-10-19T19:54:54.431248+00:00"
+      "consumed": "2026-10-19T19:57:26.885921+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.528
+    "free_gib": 20.525
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261019T195427.json",
-    "receipt_sha256": "e4e8597a639be7be46a12467fbd1dd44452da97fee3910a60a7c36df928b200f",
+    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261019T195714.json",
+    "receipt_sha256": "518f6326f976892cda4469b5d40505195c2222b368b0564b6d6d2faae9533766",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-19T19:54:47.111766+00:00",
-  "expires_at": "2026-10-19T20:39:47.111766+00:00",
+  "issued_at": "2026-10-19T19:57:25.347150+00:00",
+  "expires_at": "2026-10-19T20:42:25.347150+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
     "operation": "two opening comparison batch",
     "resource": "preflight_renders",
     "run_id": "2026-10-19",
-    "event_sha256": "945b9418497e396686d9ef1b868c50832620a53be6e50a592c1e49702fbed4ed",
-    "input_identity": "7e273100bf1be0cab48295ee746f371a9b218374fbaee06ce65e06ca8e36262c"
+    "event_sha256": "b170416e2ca09f829a841a0ae9d6e82e3369db7eb20f9a5f80fdce1815f99e82",
+    "input_identity": "d7eea745929e538cd6151ed41386141f7038e81536afac509b2e42e9b2c24d21"
   }
 }
