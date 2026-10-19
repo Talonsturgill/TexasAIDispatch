@@ -85,6 +85,40 @@ class ContinuationTests(unittest.TestCase):
         self.assertIn('ci-monitor', result['reason'])
         self.assertEqual(self.state.read_bytes(), before)
 
+    def test_exhausted_critic_wait_names_existing_capacity_and_pivot_actions_without_mutation(self):
+        self.value.update(usage={'storyboard_critics': 7}, limits={'storyboard_critics': 7},
+                          escalation_ceiling={'storyboard_critics': 7})
+        self.save(); self.arm(); before = self.state.read_bytes()
+        for _ in range(2):
+            reason = continuation.decision(self.payload, self.workspace)
+            self.assertIn('capacity-only finish-current', reason)
+            self.assertIn('production-budget', reason)
+            self.assertIn('completion-capacity', reason)
+            self.assertIn('precharge the required Opus recurrence-pivot', reason)
+            self.assertIn('capacity never approves that repair', reason)
+            self.assertIn('complete remaining path before', reason)
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_existing_headroom_or_running_worker_does_not_suggest_another_capacity_grant(self):
+        self.value.update(usage={'storyboard_critics': 7}, limits={'storyboard_critics': 7},
+                          escalation_ceiling={'storyboard_critics': 8})
+        self.save(); self.arm()
+        self.assertNotIn('Critic capacity is exhausted', continuation.decision(self.payload, self.workspace))
+        self.value['usage']['storyboard_critics'] = 8; self.save()
+        payload = {**self.payload, 'background_tasks': [{'id': 'pivot', 'status': 'running'}]}
+        reason = continuation.decision(payload, self.workspace)
+        self.assertIn('running task(s) pivot', reason)
+        self.assertNotIn('Critic capacity is exhausted', reason)
+
+    def test_malformed_capacity_counters_cannot_crash_the_unfinished_stop_guard(self):
+        self.arm()
+        for usage, limits in ((None, None), (7, []), ({'storyboard_critics': True},
+                                                    {'storyboard_critics': '7'})):
+            self.value.update(usage=usage, limits=limits, escalation_ceiling=None); self.save()
+            result = continuation.response(self.payload, self.workspace, pause=Mock())
+            self.assertEqual(result['decision'], 'block')
+            self.assertNotIn('Critic capacity is exhausted', result['reason'])
+
     def test_first_stop_no_running_task_coding_and_leaf_events_never_wait(self):
         pause = Mock()
         self.assertIsNone(continuation.response(self.payload, self.workspace, pause=pause))

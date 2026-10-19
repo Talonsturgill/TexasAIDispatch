@@ -147,6 +147,28 @@ def closure_problems(state, state_path):
     return []
 
 
+def capacity_recovery_hint(state):
+    """Name the existing recovery route without granting or reserving anything."""
+    usage = state.get('usage')
+    used = usage.get('storyboard_critics') if isinstance(usage, dict) else None
+    ceilings = [row.get('storyboard_critics') for row in
+                (state.get('limits'), state.get('escalation_ceiling')) if isinstance(row, dict)]
+    ceilings = [value for value in ceilings if type(value) is int and value >= 0]
+    if type(used) is not int or not ceilings or used < max(ceilings):
+        return ''
+    return (' Critic capacity is exhausted. Before another substantive review, read the'
+            ' finish-current section of knowledge/craft/AUTONOMOUS_COMPLETION.md.'
+            ' Prepare a capacity-only finish-current plan with changed_inputs:[] bound to'
+            ' the actual retained independent passing report, then run production-budget'
+            ' and completion-capacity through the runtime wrapper. Verify current bindings'
+            ' when using phone evidence. Preserve every separate grant and charge.'
+            ' If two narration repairs failed, precharge the required Opus recurrence-pivot'
+            ' review before a third repair; capacity never approves that repair.'
+            ' After its real handback, recheck and fund the complete remaining path before'
+            ' changing production inputs. Retain a literal refusal and repair its specific'
+            ' cause; repeating the same owner-wait message is not a recovery action.')
+
+
 def decision(payload, workspace):
     if payload.get('hook_event_name') != 'Stop':
         return None
@@ -162,6 +184,7 @@ def decision(payload, workspace):
                 probe.write_text(json.dumps(value, indent=2) + '\n')
                 return 'Dispatch continuation probe observed the actual Stop event. Read the probe receipt, then finish this nonproduction test.'
         return None
+    state = None
     try:
         armed = read(marker)
         state_path = location(workspace, armed['state'])
@@ -178,7 +201,9 @@ def decision(payload, workspace):
                if row.get('status') == 'running' and row.get('id')]
     wait = (' Collect or wait through the actual task tools for running task(s) ' + ', '.join(running) + '.'
             if running else '')
+    recovery = capacity_recovery_hint(state) if state is not None and not running else ''
     return ('Texas production remains unfinished: ' + reason + '.' + wait +
+            recovery +
             ' Continue the same edition through prompts/claude_routine.md and its versioned recovery.'
             ' Internal repair or capacity needs do not require owner permission. Use a tool to inspect'
             ' the actual state and take the next required action; do not repeat a final waiting message.'
