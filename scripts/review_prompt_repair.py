@@ -20,6 +20,18 @@ PUBLIC_INSTRUCTION = ('After each image Read, provide a brief public image descr
     'Put quality findings and brief public explanations only in the final review JSON. '
     'Preserve these factual records for the coverage report. ')
 ERROR_PREFIX = "API Error: Opus 5.5's safeguards flagged this message [reasoning_extraction]"
+ERROR_HEAD = "API Error: Opus 5.5's safeguards flagged this message"
+ERROR_DETAIL = "Details: `[reasoning_extraction]`"
+
+
+def native_refusal(error):
+    """The exact retained refusal, in its short form or the full host text with a policy link.
+
+    The host's real text puts a link between the message and the category, so the short prefix alone
+    never matched the actual error. Only this one category qualifies in either form.
+    """
+    text = error.lstrip()
+    return text.startswith(ERROR_PREFIX) or (text.startswith(ERROR_HEAD) and ERROR_DETAIL in text)
 CORE = ('role', 'date', 'story_sha256', 'board', 'claims', 'story', 'quality_contract', 'rubric',
         'treatments', 'asset_inputs', 'selection', 'opening_comparison', 'narration_picture',
         'review_scope', 'phone_mode', 'phone_options')
@@ -98,7 +110,7 @@ def eligible(state, plan, receipt):
                 or not re.fullmatch(r'[A-Za-z0-9_-]{8,100}', receipt.get('actor', ''))
                 or type(index) is not int or not 0 <= index < len(state['events'])
                 or len(receipt.get('error', '')) > 8192
-                or not receipt.get('error', '').lstrip().startswith(ERROR_PREFIX)
+                or not native_refusal(receipt.get('error', ''))
                 or receipt.get('original_packet_sha256') != proof['original_packet_sha256']
                 or old.get('public_visual_evidence') == PUBLIC_CONTRACT
                 or new.get('public_visual_evidence') != PUBLIC_CONTRACT
@@ -164,7 +176,7 @@ def record_failure(state_path, error_path, actor, original_path, output):
     from run_controller import read_state
     state = read_state(Path(state_path)); old = json.loads(Path(original_path).read_text())
     error = Path(error_path).read_text()
-    if len(error) > 8192 or not error.lstrip().startswith(ERROR_PREFIX):
+    if len(error) > 8192 or not native_refusal(error):
         raise ValueError('retain the actual legacy native refusal; no other error qualifies')
     matches = [(i, row) for i, row in enumerate(state['events'])
                if row.get('kind') == 'reserved' and row.get('resources', {}).get('storyboard_critics')]

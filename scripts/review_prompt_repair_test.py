@@ -133,6 +133,21 @@ class PromptRepairTests(unittest.TestCase):
         with self.assertRaises(FileExistsError):
             repair.record_failure(self.state, self.error, self.receipt['actor'], self.original, output)
 
+    def test_the_real_multiline_host_refusal_is_captured_and_other_text_is_not(self):
+        real = ("API Error: Opus 5.5's safeguards flagged this message (https://www.anthropic.com/legal/aup). "
+                "This sometimes happens with safe, normal conversations.\n\nDetails: `[reasoning_extraction]`\n\n"
+                "Request ID: req_example\n")
+        path = self.package/'real-refusal.txt'; path.write_text(real)
+        output = self.package/'real-receipt.json'
+        receipt = repair.record_failure(self.state, path, self.receipt['actor'], self.original, output)
+        self.assertEqual(receipt['error'], real)
+        for text in (real.replace('reasoning_extraction', 'general_harms'),
+                     real.replace('Opus 5.5', 'Another model'), 'a different failure'):
+            path.write_text(text)
+            with self.assertRaises(ValueError):
+                repair.record_failure(self.state, path, self.receipt['actor'], self.original,
+                                      self.package/('bad-' + str(abs(hash(text))) + '.json'))
+
     def test_new_fact_protocol_is_separate_from_legacy_policy_and_contains_no_evaluation_field(self):
         self.assertNotIn('public_visual_evidence', self.old)
         self.assertEqual(self.new['image_read_policy'], self.old['image_read_policy'])
