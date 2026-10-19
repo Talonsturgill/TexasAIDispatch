@@ -837,45 +837,46 @@ export const Arm: React.FC<{dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?:
 };
 
 // ---------------------------------------------------------------- plans from above ------------------
-/** Salado Creek straight down: the fast brown channel running down the frame between limestone
- * ledges, brush and oak crowns on both banks, rain rings on the water. No crossing. */
-export const CREEK_PLAN = {creek: [300, 820] as P, carY: 820};
-export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t, rain, flow}) => {
+/** Salado Creek straight down. The channel runs ACROSS the frame and its current runs LEFT, the same way
+ * as the elevation shots, so a cut between them keeps the flow. Meandering banks, ragged limestone
+ * shelves, mottled ground with oaks, rain rings on the water. No crossing. `creek` is the channel's mean
+ * far (top) and near (bottom) bank rows; the car sits at (carX, carY). */
+export const CREEK_PLAN = {creek: [620, 1140] as P, carX: 560, carY: 880};
+export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t, rain}) => {
  const id = useUid('scp'), {creek} = CREEK_PLAN, r = rng(15);
  // each bank meanders on its own: two slow waves and a short one, so the channel narrows and widens
- const bank = (x: number, ph: number, k: number): P[] => Array.from({length: 14}, (_, i) => {const y = -120 + i * 170;
-  return [x + 40 * Math.sin(y * .0042 + ph) + 16 * Math.sin(y * .013 + 2 * ph) + 6 * Math.sin(y * .041 + k), y];});
- const L = bank(creek[0], .4, 1), R = bank(creek[1], 1.7, 2);
- const shelf = (b: P[], sgn: number, w: number): P[] => b.map(([x, y], i) => [x + sgn * (w + 26 * Math.sin(y * .017 + i)), y] as P);
- const water = smoothPath([...L, ...R.slice().reverse()]);
- const stone = smoothPath([...shelf(L, -1, 96), ...shelf(R, 1, 104).reverse()]);
- const edgeL = smoothPath(L, false), edgeR = smoothPath(R, false);
+ const bank = (y: number, ph: number, k: number): P[] => Array.from({length: 14}, (_, i) => {const x = -180 + i * 110;
+  return [x, y + 40 * Math.sin(x * .0052 + ph) + 16 * Math.sin(x * .016 + 2 * ph) + 6 * Math.sin(x * .047 + k)];});
+ const T = bank(creek[0], .4, 1), B = bank(creek[1], 1.7, 2);
+ const shelf = (b: P[], sgn: number, w: number): P[] => b.map(([x, y], i) => [x, y + sgn * (w + 24 * Math.sin(x * .019 + i))] as P);
+ const water = smoothPath([...T, ...B.slice().reverse()]);
+ const stone = smoothPath([...shelf(T, -1, 92), ...shelf(B, 1, 100).reverse()]);
+ const idxAt = (x: number) => Math.min(13, Math.max(0, Math.round((x + 180) / 110)));
  return <g data-part="creek-plan">
   <defs><clipPath id={`${id}c`}><path d={water}/></clipPath>
-   <linearGradient id={`${id}w`} x1={creek[0] - 60} y1="0" x2={creek[1] + 60} y2="0" gradientUnits="userSpaceOnUse">
+   <linearGradient id={`${id}w`} x1="0" y1={creek[0] - 60} x2="0" y2={creek[1] + 60} gradientUnits="userSpaceOnUse">
     <stop offset="0" stopColor={SA.waterDeep}/><stop offset=".22" stopColor={SA.water}/><stop offset=".55" stopColor="#866D4B"/>
     <stop offset=".85" stopColor={SA.water}/><stop offset="1" stopColor={SA.waterDeep}/></linearGradient></defs>
   {/* the ground either side: grass mottled with bare caliche, leaf litter and a worn path, not a flat field */}
   <rect x={-40} y={-40} width={1160} height={2000} fill={SA.grass}/>
   {Array.from({length: 26}, () => [r() * 1080, r() * 1920, lerp(50, 140, r()), r()]).map(([x, y, rr, k], i) =>
    <ellipse key={'m' + i} cx={x} cy={y} rx={rr} ry={rr * lerp(.5, .9, k)} fill={k < .4 ? '#7D8049' : k < .75 ? '#A3A26B' : '#B9AE8E'} opacity={.55}/>)}
-  <path d="M-40 1160C120 1120 200 1060 250 980M980 520C1020 600 1060 640 1120 660" stroke="#BBAF90" strokeWidth={26} fill="none" strokeLinecap="round" opacity={.7}/>
+  <path d="M-40 1420C160 1380 300 1330 380 1280M700 420C760 380 900 360 1120 372" stroke="#BBAF90" strokeWidth={26} fill="none" strokeLinecap="round" opacity={.7}/>
   {/* ragged limestone shelves along both banks, cracked into ledges */}
   <path d={stone} fill={SA.limestone} stroke={SA.limestoneShade} strokeWidth={3}/>
-  {Array.from({length: 46}, () => [r(), r() * 1900, r()]).map(([u, y, k], i) => {const b = k < .5 ? L : R, idx = Math.min(13, Math.max(0, Math.round((y + 120) / 170)));
-   const x = b[idx][0] + (k < .5 ? -1 : 1) * lerp(14, 86, u);
-   return <path key={'l' + i} d={`M${x.toFixed(1)} ${y.toFixed(1)}l${(18 + 30 * u) * (k < .5 ? -1 : 1)} ${(u - .5) * 10}`} stroke={SA.limestoneDeep} strokeWidth={2.5} opacity={.6}/>;})}
-  {/* the brown channel, deeper at its banks, its current streaking downstream and bending with them */}
+  {Array.from({length: 46}, () => [r(), r() * 1080, r()]).map(([u, x, k], i) => {const b = k < .5 ? T : B, y = b[idxAt(x)][1] + (k < .5 ? -1 : 1) * lerp(14, 82, u);
+   return <path key={'l' + i} d={`M${x.toFixed(1)} ${y.toFixed(1)}l${(u - .5) * 10} ${(16 + 26 * u) * (k < .5 ? -1 : 1)}`} stroke={SA.limestoneDeep} strokeWidth={2.5} opacity={.6}/>;})}
+  {/* the brown channel, deeper at its banks; its current streaks run left and bend with the banks */}
   <path d={water} fill={`url(#${id}w)`}/>
-  <g clipPath={`url(#${id}c)`}>{Array.from({length: 40}, (_, i) => {const u = (i * .37) % 1, y = frac(i * .29 + t * .25 * flow) * 2100 - 120;
-   const idx = Math.min(13, Math.max(0, Math.round((y + 120) / 170))), x = lerp(L[idx][0], R[idx][0], u), lean = (R[Math.min(13, idx + 1)][0] - R[idx][0]) * .25;
-   return <path key={i} d={`M${x.toFixed(1)} ${y.toFixed(1)}q${(lean / 2).toFixed(1)} ${20 + (i % 4) * 10} ${lean.toFixed(1)} ${40 + (i % 4) * 20}`} stroke={SA.foam} strokeWidth={3} fill="none" opacity={.38}/>;})}</g>
-  {[edgeL, edgeR].map((d, i) => <path key={'e' + i} d={d} stroke={SA.foam} strokeWidth={5} fill="none" opacity={.55 + .15 * Math.sin(t * 5 + i)}/>)}
-  {[[150, 420, 120], [930, 300, 150], [130, 1380, 140], [950, 1500, 120], [1000, 760, 90], [110, 860, 110]].map(([x, y, rr], i) => <g key={i}>
+  <g clipPath={`url(#${id}c)`}>{Array.from({length: 40}, (_, i) => {const u = (i * .37) % 1, x = frac(i * .29 - t * .2) * 1500 - 220;
+   const k = idxAt(x), y = lerp(T[k][1], B[k][1], u), lean = (B[Math.max(0, k - 1)][1] - B[k][1]) * .25, l = 40 + (i % 4) * 20;
+   return <path key={i} d={`M${x.toFixed(1)} ${y.toFixed(1)}q${(-l / 2).toFixed(1)} ${(lean / 2).toFixed(1)} ${(-l).toFixed(1)} ${lean.toFixed(1)}`} stroke={SA.foam} strokeWidth={3} fill="none" opacity={.38}/>;})}</g>
+  {[T, B].map((b, i) => <path key={'e' + i} d={smoothPath(b, false)} stroke={SA.foam} strokeWidth={5} fill="none" opacity={.55 + .15 * Math.sin(t * 5 + i)}/>)}
+  {[[180, 330, 120], [880, 260, 150], [520, 380, 90], [150, 1460, 140], [930, 1420, 120], [600, 1540, 100]].map(([x, y, rr], i) => <g key={i}>
    <ellipse cx={x + 22} cy={y + 18} rx={rr} ry={rr * .85} fill="#000000" opacity={.18}/>
    <ellipse cx={x} cy={y} rx={rr} ry={rr * .85} fill={SA.oakDark}/><ellipse cx={x - rr * .2} cy={y - rr * .18} rx={rr * .7} ry={rr * .55} fill={SA.oak}/>
    <ellipse cx={x - rr * .4} cy={y - rr * .35} rx={rr * .3} ry={rr * .2} fill={SA.oakLit}/></g>)}
-  {rain > 0 && <g clipPath={`url(#${id}c)`}>{Array.from({length: 24}, (_, i) => {const ph = frac(i * .61 + t * 1.3), x = lerp(creek[0] + 30, creek[1] - 30, (i * .43) % 1), y = (i * 173) % 1800 + 60;
+  {rain > 0 && <g clipPath={`url(#${id}c)`}>{Array.from({length: 24}, (_, i) => {const ph = frac(i * .61 + t * 1.3), x = ((i * 173) % 1040) + 20, y = lerp(creek[0] + 40, creek[1] - 40, (i * .43) % 1);
    return <circle key={i} cx={x} cy={y} r={6 + 26 * ph} fill="none" stroke="#E9E1CF" strokeWidth={2} opacity={rain * .6 * (1 - ph)}/>;})}</g>}
  </g>;
 };

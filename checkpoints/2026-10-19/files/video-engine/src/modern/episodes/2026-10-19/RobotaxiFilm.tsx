@@ -156,7 +156,7 @@ export const LOT_CARS={y:1190,s:.3,xs:[200,375,550,725]};
 export const LOT_AT={calendar:[170,600] as Pt,map:[60,840] as Pt};
 export const LIMITS_DETAIL={tag:[470,290] as Pt,calendar:[250,640] as Pt,map:[500,680] as Pt,icons:[130,270,410,550,690,830],iconY:1190};
 export const CARD_W=760;
-export const COUNT_TAG={at:[690,300] as Pt,size:40,lines:['Nearly 3,800','vehicles','3,791 potentially','affected in the record']};
+export const COUNT_TAG={at:[270,300] as Pt,size:40,lines:['Nearly 3,800','vehicles','3,791 potentially','affected in the record']};
 export const LOT_TAG={x:560,size:38};
 /** s1 overhead: the car comes up the curb lane, k plan pixels per car unit, to the bay at y 810. */
 export const CURB_PLAN_CAR={y0:1347,k:.8};
@@ -173,7 +173,7 @@ export const REMEDY_AT={'record-slide':{x:40,y:984,s:.84,back:[300,1062] as Pt,b
 export const S5_SLIDE={dx:300,dy:40};
 /** Where the record card sits in each document view: top left and scale. */
 export const CARD_AT:Record<string,{x:number;y:number;s:number}>={
- 'record-desk':{x:130,y:420,s:.95},'count-grid':{x:60,y:290,s:.56},'record-wall':{x:122,y:300,s:1.04},
+ 'record-desk':{x:130,y:420,s:.95},'count-grid':{x:440,y:290,s:.56},'record-wall':{x:122,y:300,s:1.04},
  'record-close':{x:80,y:300,s:1.0},'stamp-detail':{x:20,y:240,s:1.18}};
 /** Where the s5 and s7 marks land: s5 at a card x, s7 past the start of the remedy row's value column. */
 export const IMPRINT_AT={s5:536,s7:232};
@@ -429,15 +429,15 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   pic=<g><CamG c={cam} z={z}>{world}</CamG><Item id="s3-rain">{rain(S.s3.rain)}</Item></g>;
   break;}
  case 'creek-plan':{
-  // s3 from above: the fast brown channel under rain rings between limestone banks with brush and oak
-  // crowns; the white roof and dome are already in the current across it, a bow wave builds on its
-  // upstream side, then it turns and drifts downstream.
-  const {carY}=CREEK_PLAN,pr=S.s3.press,sw=S.s3.sweep,cx=560,cy=carY+260*sw;
+  // s3 from above: the brown channel runs across the frame and its current runs LEFT, as in the elevation
+  // shots; the white roof and dome sit in it nose upstream (right), a bow wave builds on the nose, wakes
+  // trail downstream, then (if the shot ran on) it would drift left with the current, tail first.
+  const {carX,carY}=CREEK_PLAN,pr=S.s3.press,sw=S.s3.sweep,cx=carX-S.s3.drift,cy=carY;
   pic=<g>
    <Item id="s3-creek"><Item id="s3-crossing"><Item id="s3-rain"><SanAntonioSupport part="creekplan" t={t} rain={S.s3.rain} flow={S.s3.flow}/></Item></Item></Item>
-   <Item id="s3-car">{top([cx,cy],.5,18*sw,{shadow:.2,wetTo:60})}
-    {pr>0&&<path d={`M${cx-150} ${cy-58}Q${cx} ${cy-58-50*pr} ${cx+150} ${cy-58}`} stroke="#E9E1CF" strokeWidth={8} fill="none" opacity={clamp(pr*1.5)*(1-.6*sw)}/>}
-    {[-1,1].map(sgn=><path key={sgn} d={`M${cx+sgn*140} ${cy}q${sgn*30} 40 ${sgn*10} 120`} stroke="#E9E1CF" strokeWidth={4} fill="none" opacity={.4+.4*pr}/>)}</Item>
+   <Item id="s3-car">{top([cx,cy],.5,-10*sw,{shadow:.2,wetTo:60})}
+    {pr>0&&<path d={`M${cx+118} ${cy-64}Q${cx+136+56*pr} ${cy} ${cx+118} ${cy+64}`} stroke="#E9E1CF" strokeWidth={8} fill="none" opacity={clamp(pr*1.5)}/>}
+    {[-1,1].map(sgn=><path key={sgn} d={`M${cx-128} ${cy+sgn*52}q-40 ${sgn*12} -120 ${sgn*30}`} stroke="#E9E1CF" strokeWidth={4} fill="none" opacity={.4+.4*pr}/>)}</Item>
   </g>;
   break;}
  case 'street-flood':
@@ -492,8 +492,9 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
    break;
   }
   if(view==='count-grid'){
-   // s5 close: beside the card the grid of car icons fills row by row (linear), the counter tag pins
-   // and settles, and the software recall stamp lands on the card.
+   // s5 close: the card on the right, the counter tag on the left under the disclosure chip's row, the
+   // grid of car icons filling row by row (linear) below both; the software recall stamp comes down from
+   // above the frame on the right, its arm well clear of the chip and the tag, and lands on the card.
    const mark=cardPoint(view,IMPRINT_AT.s5,L.rows[0].y+46),k5=STAMP_K.s5,w5=imprintSize('Software recall',40).w*CARD_AT[view].s/k5+8;
    pic=<g>
     <SanAntonioSupport part="desk" x0={-40} x1={1120} y0={240} h={1100}/>
@@ -631,7 +632,10 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   // to read. In the split, the open door and the bench phone hold above, the remedy card and the phone
   // below, and on s9-event-3 the remedy sentence is underlined: still under development.
   const world=curbWorld(s9Car,{curb:'s9-curb',car:'s9-car',phone:'s9-phone'},benchPhone(1,1));
-  if(view==='curb-return'){pic=<g><CamG c={cam} z={z}>{world}</CamG>{phoneInset('s9-phone',1,1)}</g>;break;}
+  const curbOnly=curbWorld(s9Car,{curb:'s9-curb',car:'s9-car'});
+  // exactly one s9-phone per shot: the inset at the return, the bench phone in the slide, the desk phone
+  // in the split
+  if(view==='curb-return'){pic=<g><CamG c={cam} z={z}>{curbOnly}</CamG>{phoneInset('s9-phone',1,1)}</g>;break;}
   if(view==='record-slide'){
    // the record card is already standing back on the curb side as the remedy is named, then slides into
    // the foreground on s9-event-2's travel curve
@@ -646,7 +650,6 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   // is the record's own desk from s5 and s7, so the card and the arriving phone lie on a surface and no
   // plate of river or grass shows under the airport curb.
   const R=REMEDY_AT['curb-record-split'],panelY=R.panelY,ph=R.phoneW*2.05;
-  const curbOnly=curbWorld(s9Car,{curb:'s9-curb',car:'s9-car'});
   pic=<g>
    <Clip k="split-top" box={[0,0,1080,panelY-12]}><CamG c={cam} z={z}>{curbOnly}</CamG></Clip>
    <g data-part="split-desk"><SanAntonioSupport part="desk" x0={-40} x1={1120} y0={panelY} h={1990-panelY}/></g>
