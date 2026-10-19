@@ -1,0 +1,255 @@
+{
+ "verdict": "pass",
+ "reviewer_identity": "claude-opus-5-5 / storyboard-critic (independent Read-only code-scope reviewer, distinct from director claude-sonnet-5-5)",
+ "reviewed_at": "2026-10-19T18:45:00Z",
+ "review_scope": "code-plan round 6 (reserved 2026-10-19T18:36:42Z, storyboard_critics 13): n9bc caption-merge correction on Treatment B against restored claims 4b42adee; no rendered pixels, no film, no audio",
+ "concept_sha256": "bbc2e82a0230468481156f342a3182c41f40e47f54a1692623474e6939f46c71",
+ "renderer_sha256": "364847c9e4ddac9c4654e18284fafc0c2d1f82e136207a3fdcfc60f60faae083",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "notes": "HASHES: none recomputed. concept_sha256 and story_sha256 are null because no packet supplies digests for merged B. The round 5 values (09e3f319... and cc126b40...) bind pre-merge B, and the packet's treatments field binds the stale opening-b.json (ba34cce5). Resume me with the gate-computed values. The renderer value is carried. MERGE CHECK: B's s9 events, s9-shot-2 and s9-shot-3 narration_ids, the n9bc clause (words 115 to 127, c8, c15, the same subjects, action and events) and caption c15 are identical to A's. c16 is removed. B's s9 shots are A's eye-level curb-return, record-slide and split, so every A merge observation applies, including the caption clearance and the retime check. The round 5 'pivot not applied' note is closed. SOURCE: the same as A. 'flood' in n9bc traces to c7 and c10; recommend adding c7. CARRIED NON-BLOCKING ITEMS from round 5, unchanged: the Bexar plate is absent from the 8 overhead shots (12 of 20 show the region); the overhead plans are flat fills; the first frame from above cannot be read as an airport or as driverless; the empty cabin is unseen in creek-plan at the s3-event-2 reward; limits-detail turns the fleet into icons; the divergence_note and film_direction.angle are stale (B's close is eye-level, not 'from above'); 10 of 20 shots share views with A; paraphrased record rows; the s2 outline is disclosed only in the credits; no person is drawn; possible water band seams; story_art.entries source_claims_sha256 still reads 2971...; the n5a clause should also bind c7 and c13. Outside the concept, blocking for any new take: consolidated D1. RECOMMENDATION: B passes at code scope. A remains the selected, lower-risk treatment.",
+ "strongest_frame": "s6-shot-2 wheels-water, 32.705 to 36.86 s (shared with A): the car rolls on into standing water with a wake as 'may' lights on the verbatim c7 sentence.",
+ "weakest_frame": "s1-shot-1 curb-plan, 0 to 2.6125 s (the first frame): an overhead plan of road and sidewalk with a white roof-pod car moving up the lane. From above, the airport and the empty driver seat can't be read, so the hook rests on the phone inset and the next shot.",
+ "blocking_defects": [],
+ "story_review": {
+  "story_sha256": "c50cef563aa67c3bbc57891b001eb51201367095705076e431808a72e68c9ce3",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Planned chain (code plan, not observed pixels): from above, a white roof-pod car comes up a pickup lane into a bay while a phone inset shows a ride requested. Inside, the wheel turns by itself over an empty seat, and the phone close turns to 'Arriving'. A flat map draws in and the limited area closes with its 60 square mile tag. From above, a disclosed different car sits in fast creek water and drifts; from the side it is swept downstream with its cabin empty. Water spreads along a street around another disclosed car whose hazards blink, then a side close shows the empty cabin. A recall card lies flat, the grid fills and the tags settle under a software recall stamp. From above under the verbatim recall sentence a car runs and slows; a close shows it roll into standing water as 'may' lights. The remedy row is stamped. A weather tag slides over two rows of roofs, the calendar flips to 20 and icons take checks. The close is shared with A: a generic airport ride opens its door, then under one continuous clause the remedy card slides in and is underlined in the split.",
+  "opening_to_ending": "Same opening question and roles as A. The merge binds the close's card slide (53.75 s) and underline (56.91 to 58.01 s) inside the single clause n9bc and caption c15, keeping 'as currently under development' with its claim. The ending answers from the record without inventing a fix or the current status of the limits.",
+  "weakest_transition": "s8 to s9 at 50.0 s: the cut goes from a chain-link detail where icons take checks to an eye-level wide of the airport curb. Viewpoint language and subject scale change at once, so continuity rests on the disclosure chip and the narration 'So the airport ride is open'."
+ },
+ "action_reviews": [],
+ "story_art_action_uses": [
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s1",
+   "event_id": "s1-event-2",
+   "view": "cab-wheel",
+   "action_id": "wheel-turns-itself",
+   "consumption": "s1-shot-2, 2.6125 to 5.225 s, identical to A."
+  },
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s3",
+   "event_id": "s3-event-3",
+   "view": "car-swept",
+   "action_id": "car-swept-into-creek",
+   "consumption": "s3-shot-2, 15.32 to 17.61 s, identical to A, preceded by creek-plan."
+  },
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s6",
+   "event_id": "s6-event-3",
+   "view": "wheels-water",
+   "action_id": "car-slows-into-water",
+   "consumption": "s6-shot-2, 32.705 to 36.86 s, identical to A, preceded by lane-plan with the s6-quote card."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s2",
+   "event_id": "s2-event-3",
+   "view": "map-zone",
+   "action_id": "service-area-opens",
+   "consumption": "s2-shot-2, 9.285 to 13.03 s, identical to A."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s5",
+   "event_id": "s5-event-3",
+   "view": "count-grid",
+   "action_id": "recall-filed-count",
+   "consumption": "s5-shot-2, 24.555 to 28.3 s, identical to A."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s7",
+   "event_id": "s7-event-3",
+   "view": "stamp-detail",
+   "action_id": "remedy-under-development",
+   "consumption": "s7-shot-2, 39.15 to 41.44 s, identical to A; the record-wall shot 1 carries the hand-held pen."
+  }
+ ],
+ "narration_picture_plan_review": [
+  {
+   "id": "n1a",
+   "start_s": 0.2,
+   "end_s": 5.05,
+   "claim_ids": [
+    "c1"
+   ],
+   "match": "weak pass",
+   "planned_picture": "Overhead arrival with the 'Ride requested' inset, then the empty seat and the self-turning wheel; the airport can't be read from above."
+  },
+  {
+   "id": "n1b",
+   "start_s": 5.4,
+   "end_s": 6.57,
+   "claim_ids": [
+    "c1"
+   ],
+   "match": "pass",
+   "planned_picture": "The phone close turns to 'Arriving'."
+  },
+  {
+   "id": "n2a",
+   "start_s": 7.12,
+   "end_s": 9.11,
+   "claim_ids": [
+    "c2"
+   ],
+   "match": "weak pass",
+   "planned_picture": "A flat map draws in; the calendar lies static."
+  },
+  {
+   "id": "n2b",
+   "start_s": 9.46,
+   "end_s": 12.68,
+   "claim_ids": [
+    "c2"
+   ],
+   "match": "pass",
+   "planned_picture": "The outline closes and the 60 square mile tag pins."
+  },
+  {
+   "id": "n3",
+   "start_s": 13.23,
+   "end_s": 17.26,
+   "claim_ids": [
+    "c3",
+    "c4"
+   ],
+   "match": "pass",
+   "planned_picture": "A disclosed different car in the current from above, then swept downstream from the side, cabin empty."
+  },
+  {
+   "id": "n4",
+   "start_s": 17.81,
+   "end_s": 21.84,
+   "claim_ids": [
+    "c5"
+   ],
+   "match": "pass",
+   "planned_picture": "Water spreads around a disclosed car, its hazards blink, and the side close shows the empty cabin."
+  },
+  {
+   "id": "n5a",
+   "start_s": 22.39,
+   "end_s": 24.38,
+   "claim_ids": [
+    "c6"
+   ],
+   "match": "pass (binding note)",
+   "planned_picture": "The card lies flat and its rows write in."
+  },
+  {
+   "id": "n5b",
+   "start_s": 24.73,
+   "end_s": 27.95,
+   "claim_ids": [
+    "c6",
+    "c13"
+   ],
+   "match": "pass",
+   "planned_picture": "The grid fills, the tags settle and the stamp lands."
+  },
+  {
+   "id": "n6a",
+   "start_s": 28.5,
+   "end_s": 32.53,
+   "claim_ids": [
+    "c7"
+   ],
+   "match": "pass",
+   "planned_picture": "The c7 sentence card; from above, the car runs and slows."
+  },
+  {
+   "id": "n6b",
+   "start_s": 32.88,
+   "end_s": 36.51,
+   "claim_ids": [
+    "c7"
+   ],
+   "match": "pass",
+   "planned_picture": "The car rolls into the water with a wake; 'may' lights."
+  },
+  {
+   "id": "n7",
+   "start_s": 37.06,
+   "end_s": 41.09,
+   "claim_ids": [
+    "c8"
+   ],
+   "match": "pass",
+   "planned_picture": "The remedy row lights under the pen, then the stamp lands."
+  },
+  {
+   "id": "n8a",
+   "start_s": 41.64,
+   "end_s": 45.26,
+   "claim_ids": [
+    "c9"
+   ],
+   "match": "pass",
+   "planned_picture": "The weather tag slides above two rows of roofs."
+  },
+  {
+   "id": "n8b",
+   "start_s": 45.61,
+   "end_s": 49.65,
+   "claim_ids": [
+    "c12"
+   ],
+   "match": "weak pass",
+   "planned_picture": "The calendar flips to 20 and the map card is marked updated; icons take the checks."
+  },
+  {
+   "id": "n9a",
+   "start_s": 50.2,
+   "end_s": 52.6,
+   "claim_ids": [
+    "c1"
+   ],
+   "match": "pass",
+   "planned_picture": "Shared with A: the door opens at the curb."
+  },
+  {
+   "id": "n9bc",
+   "start_s": 52.95,
+   "end_s": 58.1,
+   "claim_ids": [
+    "c8"
+   ],
+   "match": "pass",
+   "planned_picture": "Shared with A: one clause and one caption over the card slide (53.75 s), the framing cut to the split (authored 56.335 s) and the underline (56.91 to 58.01 s). Recommend adding c7 for 'flood'."
+  }
+ ],
+ "code_observations": {
+  "narration_binding": "Identical merge to A. The registry narration_views match and the renderer reads clauses generically.",
+  "source_fidelity": "Unchanged words and claims. The c8 text on the RemedyCard is verbatim. 'flood' is a non-blocking binding note. The story_art entries' claims hash needs a gate rebind.",
+  "motion": "Unchanged from round 5. The s9 motions are identical to A's.",
+  "framing": "The s9 views are identical to A's. The merged caption clearance needs the phone check.",
+  "region": "8 of 20 shots are overhead on the plain floor; the Bexar plate is behind 12 of 20.",
+  "finish": "The overhead plans remain flat fills (a phone-scale risk); the shared views match A.",
+  "disclosure": "The chip renders production_disclosure on every scene; s9 text is the same as A's."
+ },
+ "round6_findings_status": [
+  {
+   "finding": "round 5 note: n9b/n9c merge not applied in B",
+   "status": "closed: applied identically to A"
+  },
+  {
+   "finding": "merged c15 caption versus the s9 cards",
+   "status": "open (phone check)"
+  },
+  {
+   "finding": "n9bc 'flood' qualifier binding",
+   "status": "open (non-blocking; add c7)"
+  },
+  {
+   "finding": "vo_direction.json breath instruction not removed",
+   "status": "open, blocking for any fresh take (consolidated D1); outside the concept"
+  }
+ ]
+}

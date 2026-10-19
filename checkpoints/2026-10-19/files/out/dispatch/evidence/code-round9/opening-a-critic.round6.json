@@ -1,0 +1,227 @@
+{
+ "verdict": "pass",
+ "reviewer_identity": "claude-opus-5-5 / storyboard-critic (independent Read-only code-scope reviewer, distinct from director claude-sonnet-5-5)",
+ "reviewed_at": "2026-10-19T18:45:00Z",
+ "review_scope": "code-plan round 6 (reserved 2026-10-19T18:36:42Z, storyboard_critics 13): n9bc caption-merge correction on Treatment A against restored claims 4b42adee; no rendered pixels, no film, no audio; authorizes nothing beyond the timed-phone path",
+ "concept_sha256": "3517790f6a4bf474a4acc3cd552f176d38fa6a012c31b5459624628b214280ec",
+ "renderer_sha256": "364847c9e4ddac9c4654e18284fafc0c2d1f82e136207a3fdcfc60f60faae083",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "notes": "HASHES: none recomputed (no Bash). concept_sha256 is null because the round 6 packet supplies no critic_gate concept digest for the merged board. All known digests (440105c0..., aa1242ff...) bind the pre-merge board 59a1cec4. Resume me for a format correction with the gate-computed digest. renderer_sha256 is carried from comparison.json and round 4; the repair changed no renderer file. reviewed_at is approximate because a Read-only worker has no clock; it follows the 18:36:42Z reservation. MERGE CHECK: n9b and n9c are now one clause n9bc (words 115 to 127, claim c8, cue c15, subjects s9-record, s9-car, s9-curb and s9-phone, action ride-open-remedy-open, events s9-event-2 and s9-event-3). s9-shot-2 record-slide and s9-shot-3 curb-record-split both carry n9bc. That cut is now a framing subdivision inside one subject and action, which MODERN_FILM permits. The event clause fractions are consistent with the 52.95 to 58.1 window. Words, claims, events and renderer are unchanged. The renderer has no hardcoded clause id, and the registry narration_views for both s9 views match n9bc. SOURCE: n9bc matches c8 'The remedy is currently under development.', and the hedge 'currently' is kept. The qualifier 'flood' traces to c7 (standing water) and c10 (flooded roadway), not to c8's quote. The same wording was passed as n9b in rounds 1 to 5. NON-BLOCKING: add c7 to n9bc claim_ids and to s9 vo_claims. CAPTION: c15 has 77 characters. captionLayout fits it to two lines at about 38 to 40 px (CAP_W 858), so the band is about 113 to 118 px tall with its top near y 1300 to 1308. The record-slide card bottom is about y 1276 and the split card bottom about y 1246. That leaves roughly 25 to 55 px of clearance, which replaces open note (p) and still needs the phone check. MECHANICAL, UNVERIFIED: critic_gate.concept_digest drops scene fractions for both s9 shots because each carries a single narration id. The internal cut (authored 56.335 s, between s9-event-2's end at 54.85 and s9-event-3's start at 56.9075) is therefore derived at retime. Run board_retime.py and modern_film.py with the retained take 3 words and captions, and confirm the cut stays inside n9bc and between those events. STORYBOARD AND TREATMENT A: storyboard.json (c6aaefa6) and openings/a.json (59cd1ddf) are not byte-identical, and their music credits differ ('Echoes of Time v2' versus 'Sincerely'). Credits are outside the concept. Every other region I compared is identical, including the merge. CARRIED NON-BLOCKING ITEMS: paraphrased record rows (c7, c9, c12); the s2 editorial outline is disclosed only in the credits; no person is drawn; the s1 entry speed and three-stroke approach need a phone check; possible seams at the s3 and s4 water band edges; the s6 car is moving at the cut; the n5a clause should also bind c7 and c13; story_art.entries source_claims_sha256 still reads 2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584 (the widened claims) and needs a gate rebind; the 'v2' numeral in the music credit needs the music.py verification. OUTSIDE THE CONCEPT, BLOCKING FOR ANY NEW TAKE: see consolidated defect D1 (vo_direction.json). RECOMMENDATION unchanged: Treatment A is the board to build.",
+ "strongest_frame": "s6-shot-2 wheels-water, 32.705 to 36.86 s: the camera is locked on the front wheel as the slowed car rolls on into standing water with a wake while 'may' lights on the verbatim c7 sentence, under the chip 'Illustration. The recall wording, not a recorded event'.",
+ "weakest_frame": "s2-shot-1 map-table, 6.92 to 9.285 s: a paper map on a picnic table at an oblique 0.58 squash draws in its lines while the February calendar stands static. Nothing story-specific acts for about the first 0.7 s, and n2a rests on a line draw and a static month header.",
+ "blocking_defects": [],
+ "story_review": {
+  "story_sha256": "c9f0bf77f46ccb5785546db310a6d30ebc5039fb8c8099be93f6f88470d15ffc",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Planned chain (code plan, not observed pixels): a generic white driverless car brakes into an airport pickup bay while a phone inset shows a ride requested. From the rear seat the wheel turns by itself over an empty driver seat, and the phone turns to 'Arriving'. A San Antonio map draws in and a limited area closes with a '60 square miles' tag. A disclosed different car (April 20th account) is already in fast brown creek water, takes the current on its side and is carried downstream with its cabin empty. Another disclosed car, earlier in April, stops in a flooded street with hazards blinking. A federal recall card slides onto a desk, a grid of car icons fills and the 'Nearly 3,800 vehicles' and '3,791' tags settle under a software recall stamp. Disclosed as the recall wording, a car on a fast lane brakes, then rolls on into standing water as 'may' lights. A hand stamps 'Under development' on the remedy row. A weather limits tag clips over a row of cars, an April calendar flips to 20 and each car takes a check. A generic airport ride, disclosed as not the flood cars, opens its door. Then, under one continuous clause, the remedy card slides in beside the curb and its sentence is underlined in a split with the open-door car.",
+  "opening_to_ending": "Opening question: anyone in San Antonio can now hail a driverless Waymo to the airport, so what does the federal record say about the flood problem its recall covers? The roles run action, evidence, mechanism, consequence, evidence and scale, mechanism, limit, limit, answer. The merge changes only the clause binding of the close. 'and the federal record lists the flood remedy as currently under development' now holds the card slide (53.75 s) and the underline (56.91 to 58.01 s) inside one clause and one caption, so the qualifier stays with its claim. The ending answers from the record without inventing a fix, an injury or the current status of the limits.",
+  "weakest_transition": "s4 to s5 at 22.19 s: the cut goes from the stopped car in floodwater to an empty desk where a recall card slides in. The declared bridge (the car shape repeated as grid icons) appears only at about 24.73 s, so the link from the incidents to the recall rests on the narration for about 2.5 s."
+ },
+ "action_reviews": [],
+ "story_art_action_uses": [
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s1",
+   "event_id": "s1-event-2",
+   "view": "cab-wheel",
+   "action_id": "wheel-turns-itself",
+   "consumption": "s1-shot-2, 2.6125 to 5.225 s: the cab part steers by 34*sin(pi*P(s1-event-2)) with no hands and empty seats; the road and sign slide past the windshield; the phone inset shows the pending request. Unchanged by the merge."
+  },
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s3",
+   "event_id": "s3-event-3",
+   "view": "car-swept",
+   "action_id": "car-swept-into-creek",
+   "consumption": "s3-shot-2, 15.32 to 17.61 s: the empty side car is swept 150 units downstream and 96 toward the viewer with a growing scale, a -6 degree roll and a rising waterline. Unchanged."
+  },
+  {
+   "request_id": "robotaxi-hero",
+   "scene_id": "s6",
+   "event_id": "s6-event-3",
+   "view": "wheels-water",
+   "action_id": "car-slows-into-water",
+   "consumption": "s6-shot-2, 32.705 to 36.86 s: a constant vLo roll into the standing water, wakes on frontIn and rearIn, and the 'may' highlight on P(s6-event-3). No stop or crash state. Unchanged."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s2",
+   "event_id": "s2-event-3",
+   "view": "map-zone",
+   "action_id": "service-area-opens",
+   "consumption": "s2-shot-2, 9.285 to 13.03 s: the zone traces and fills, the '60 square miles / Limited area' tag pins and the February calendar lands. Unchanged."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s5",
+   "event_id": "s5-event-3",
+   "view": "count-grid",
+   "action_id": "recall-filed-count",
+   "consumption": "s5-shot-2, 24.555 to 28.3 s: the grid fills, the counter tag settles and the hand-held stamp presses 'Software recall'. Unchanged."
+  },
+  {
+   "request_id": "san-antonio-support",
+   "scene_id": "s7",
+   "event_id": "s7-event-3",
+   "view": "stamp-detail",
+   "action_id": "remedy-under-development",
+   "consumption": "s7-shot-2, 39.15 to 41.44 s: the hand-held stamp leaves 'Under development' on the lit remedy row, and the imprint carries into the s9 RemedyCard (imprint=S.s7.imprint). Unchanged."
+  }
+ ],
+ "narration_picture_plan_review": [
+  {
+   "id": "n1a",
+   "start_s": 0.2,
+   "end_s": 5.05,
+   "claims": "c1",
+   "match": "pass",
+   "planned_picture": "The car brakes into the bay with the phone inset 'Ride requested'; the empty seat and the self-turning wheel."
+  },
+  {
+   "id": "n1b",
+   "start_s": 5.4,
+   "end_s": 6.57,
+   "claims": "c1",
+   "match": "pass",
+   "planned_picture": "The phone close turns to 'Arriving' at the curb."
+  },
+  {
+   "id": "n2a",
+   "start_s": 7.12,
+   "end_s": 9.11,
+   "claims": "c2",
+   "match": "weak pass",
+   "planned_picture": "The map draws in; the February calendar stands static."
+  },
+  {
+   "id": "n2b",
+   "start_s": 9.46,
+   "end_s": 12.68,
+   "claims": "c2",
+   "match": "pass",
+   "planned_picture": "The calendar lands, the outline closes and the 60 square miles tag pins."
+  },
+  {
+   "id": "n3",
+   "start_s": 13.23,
+   "end_s": 17.26,
+   "claims": "c3, c4",
+   "match": "pass",
+   "planned_picture": "A disclosed different car, empty, already in the current, pressed and then swept downstream."
+  },
+  {
+   "id": "n4",
+   "start_s": 17.81,
+   "end_s": 21.84,
+   "claims": "c5",
+   "match": "pass",
+   "planned_picture": "Another disclosed car creeps, stops and blinks its hazards; the close shows the empty cabin."
+  },
+  {
+   "id": "n5a",
+   "start_s": 22.39,
+   "end_s": 24.38,
+   "claims": "c6 at clause level (scene c6, c7, c13)",
+   "match": "pass (binding note)",
+   "planned_picture": "The recall card slides onto the desk and its rows write in."
+  },
+  {
+   "id": "n5b",
+   "start_s": 24.73,
+   "end_s": 27.95,
+   "claims": "c6, c13",
+   "match": "pass",
+   "planned_picture": "The grid fills, the 'Nearly 3,800 vehicles' and 3,791 tags settle and the stamp lands."
+  },
+  {
+   "id": "n6a",
+   "start_s": 28.5,
+   "end_s": 32.53,
+   "claims": "c7",
+   "match": "pass",
+   "planned_picture": "The recall sentence card appears; the car runs, brakes and slows."
+  },
+  {
+   "id": "n6b",
+   "start_s": 32.88,
+   "end_s": 36.51,
+   "claims": "c7",
+   "match": "pass",
+   "planned_picture": "The car rolls into the standing water with a wake; 'may' lights."
+  },
+  {
+   "id": "n7",
+   "start_s": 37.06,
+   "end_s": 41.09,
+   "claims": "c8",
+   "match": "pass",
+   "planned_picture": "The remedy row lights, the pen rests on it and the stamp lands."
+  },
+  {
+   "id": "n8a",
+   "start_s": 41.64,
+   "end_s": 45.26,
+   "claims": "c9",
+   "match": "pass",
+   "planned_picture": "The 'Weather limits tightened' tag clips over the row of cars."
+  },
+  {
+   "id": "n8b",
+   "start_s": 45.61,
+   "end_s": 49.65,
+   "claims": "c12",
+   "match": "pass",
+   "planned_picture": "The calendar flips to 20, each car takes a check and the map card is marked updated."
+  },
+  {
+   "id": "n9a",
+   "start_s": 50.2,
+   "end_s": 52.6,
+   "claims": "c1",
+   "match": "pass",
+   "planned_picture": "Under the disclosure of a generic airport ride, the rear door swings open."
+  },
+  {
+   "id": "n9bc",
+   "start_s": 52.95,
+   "end_s": 58.1,
+   "claims": "c8 (add c7 recommended for 'flood')",
+   "match": "pass",
+   "planned_picture": "One clause and one caption: the readable remedy card (0.84 scale) slides into the foreground beside the curb at 53.75 s; at the framing cut (authored 56.335 s) the split holds the open-door car above and the remedy card and phone below; the sentence 'The remedy is currently under development.' is underlined from 56.91 to 58.01 s with its 'Under development' imprint. The qualifier is no longer split from its claim."
+  }
+ ],
+ "code_observations": {
+  "narration_binding": "n9bc is applied exactly as approved by pivot-review.json option (b). The word ranges are continuous, there is one cue (c15) and c16 is removed. Both s9 shots carry n9bc as a framing subdivision of one subject and action. The registry narration_views for record-slide and curb-record-split match. The renderer has no hardcoded clause ids.",
+  "source_fidelity": "Unchanged words and claims. RemedyCard prints the c8 quote exactly. 'flood' is supported by c7 and c10 rather than the bound c8 quote (non-blocking binding note). The disclosed source examples, s3 with no cause shown and s6 with no stop or crash carry over. On-screen numerals trace to the c2, c3, c6, c12 and c13 quotes.",
+  "motion": "Unchanged. The s9 door (contact), card slide (travel) and underline (contact) are driven only by their event windows. s6 camera monotone; s1 entry speed to be checked on the phone.",
+  "framing": "The merged c15 caption fits two lines at about 38 to 40 px, with its band top near y 1300. The record-slide card bottom is near y 1276 and the split card bottom near y 1246. The clearance is tight, so this needs the phone check.",
+  "region": "Bexar plate behind 16 of 20 shots; wall views 4 of 20.",
+  "finish": "Unchanged; possible seams at the s3 and s4 water band edges to check on the phone and at native scale.",
+  "disclosure": "The chip renders production_disclosure on every scene. s9 reads 'Illustration. A generic airport ride, not the flood cars'."
+ },
+ "round6_findings_status": [
+  {
+   "finding": "single-qualifier-clause-binding merge applied on Treatment A and storyboard.json",
+   "status": "verified at code scope"
+  },
+  {
+   "finding": "old note (p): record-slide card versus the n9b caption band",
+   "status": "superseded: the merged c15 band versus the record-slide and split cards needs the phone check"
+  },
+  {
+   "finding": "n9bc 'flood' qualifier traces to c7 and c10, not the c8 quote",
+   "status": "open (non-blocking; add c7)"
+  },
+  {
+   "finding": "s9 internal cut derived at retime",
+   "status": "open (mechanical; run board_retime.py and modern_film.py)"
+  },
+  {
+   "finding": "vo_direction.json breath instruction not removed",
+   "status": "open, blocking for any fresh take (consolidated D1); outside the concept"
+  }
+ ]
+}
