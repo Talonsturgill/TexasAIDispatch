@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-19T12:47:55.788329+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-19T12:59:55.457314+00:00",
+  "note": "before paid reservation",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -42,6 +42,12 @@
       "class": "scratch",
       "sha256": "b48ea168a5daec0eacc719fad9976dac6d9f464e4f93f83c9b7a8c5e0ee81e3d",
       "size": 3031
+    },
+    {
+      "path": "out/dispatch/claims.json",
+      "class": "scratch",
+      "sha256": "81c9fbcb9dbdd41519cc95384adc5b446cc9b60dd048b68ee21d32c098286b4b",
+      "size": 9903
     },
     {
       "path": "out/dispatch/claude-host.json",
@@ -260,6 +266,12 @@
       "size": 762
     },
     {
+      "path": "out/dispatch/research.json",
+      "class": "scratch",
+      "sha256": "f78921e0ff51603ca84a108ba911cdf2ad433f7d9edfc6cb9d59a2da6bd5be69",
+      "size": 71304
+    },
+    {
       "path": "out/dispatch/researcher-assignment.json",
       "class": "scratch",
       "sha256": "83793e42c96c4094980fa2fa674edb0d55df261972cae595eccb7069ba2956f9",
@@ -278,16 +290,94 @@
       "size": 0
     },
     {
-      "path": "out/dispatch/sources/mda.html",
+      "path": "out/dispatch/sources/nhtsa.raw",
       "class": "scratch",
-      "sha256": "48d19effb6370c1fd03cf60dd68d4fb4e728496803330ecdc1ea10e3176f7ea0",
-      "size": 157233
+      "sha256": "c0c283a20f1339ec9c7856319e93bfb73fbebd4208b04f9ba839d24250e1dc2f",
+      "size": 1799
     },
     {
-      "path": "out/dispatch/sources/mda.txt",
+      "path": "out/dispatch/sources/nhtsa.txt",
       "class": "scratch",
-      "sha256": "6f354cc6ea55116aad0bc665e87bae30ada0cc5578d0b535b1f932e25bb8272b",
-      "size": 14442
+      "sha256": "11273bbfd26aae5a1e00110c7ea9fe89172ca4aa933419ed3df201d6fdd61a48",
+      "size": 1943
+    },
+    {
+      "path": "out/dispatch/sources/tpr_recall.raw",
+      "class": "scratch",
+      "sha256": "73002692577749c0f0d87b5e8d5b60892bdf496bc5669e25e83dc94a24a7a3fb",
+      "size": 201871
+    },
+    {
+      "path": "out/dispatch/sources/tpr_recall.txt",
+      "class": "scratch",
+      "sha256": "ea5640c54de61bd838813b02070a7bc88837970b4f268f8bd0c1a57d4f7d51ce",
+      "size": 9675
+    },
+    {
+      "path": "out/dispatch/sources/tpr_return.raw",
+      "class": "scratch",
+      "sha256": "3b03d7c7f9862f431c6c530430b63e7cefb85ebc6e61a1bcd4633dc072316a8e",
+      "size": 196084
+    },
+    {
+      "path": "out/dispatch/sources/tpr_return.txt",
+      "class": "scratch",
+      "sha256": "aa0254a0c719587e44f392cea82ae6dc0083f64e558b185e39ca09e6a865dc69",
+      "size": 8823
+    },
+    {
+      "path": "out/dispatch/sources/waymo_feb.raw",
+      "class": "scratch",
+      "sha256": "04cc52abf2e45a174d005e1d34c440e53a9315c888f6af7ce58f8af26132be76",
+      "size": 74281
+    },
+    {
+      "path": "out/dispatch/sources/waymo_feb.txt",
+      "class": "scratch",
+      "sha256": "e436feff167dfc80bb88454a4fb7928ae744d6ef9b6a68cfa67e69f5a712c1b6",
+      "size": 7348
+    },
+    {
+      "path": "out/dispatch/sources/waymo_oct.raw",
+      "class": "scratch",
+      "sha256": "0a4df51b4526a74d41bb22c63ec7e15535adf04146fc1ea22e4444630d28fed2",
+      "size": 59308
+    },
+    {
+      "path": "out/dispatch/sources/waymo_oct.txt",
+      "class": "scratch",
+      "sha256": "98fdc344a81d0f2fad3bf2d1e8a88beba8f92fc06577f7aa3e0610a38ec73411",
+      "size": 4768
+    },
+    {
+      "path": "out/dispatch/story_selection.json",
+      "class": "scratch",
+      "sha256": "2ee64acfe85acb125e5b340d3ec56a86c1053b4e488c3c63ec7e99556cf833fc",
+      "size": 9765
+    },
+    {
+      "path": "out/dispatch/validator-assignment.json",
+      "class": "scratch",
+      "sha256": "8e772c2ddf3bb8110f9acde2b9d4325f614e251a617b20ec8d46a8c45e4496a4",
+      "size": 1955
+    },
+    {
+      "path": "out/dispatch/validator-packet.json",
+      "class": "scratch",
+      "sha256": "65e680e80c1c1228870fefcdbae7110d29ea1fb06fe9d2727480d1e91128484a",
+      "size": 3658
+    },
+    {
+      "path": "out/dispatch/vo_bindings.json",
+      "class": "scratch",
+      "sha256": "73fd477aa8793a847fcc9091e571dd4c7fd7ce3752002667d3edbdc5c59d9c89",
+      "size": 1437
+    },
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "class": "scratch",
+      "sha256": "e02992e5dd55c1a682632e7fa3ca452c8d8d4d8b0d097f44086282a267aea9a7",
+      "size": 680
     }
   ],
   "excluded": [

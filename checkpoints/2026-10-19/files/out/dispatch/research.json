@@ -1,0 +1,913 @@
+{
+ "beat": "Robotaxi application in San Antonio: Waymo's public opening on October 14th, 2026, airport trips included, against NHTSA recall 26E026 (software may drive a robotaxi into standing water on higher-speed roads), whose permanent remedy is still listed as under development. Docket record tx-2026-0216.",
+ "verification_status": {
+  "packet": "Read in full from out/dispatch/researcher-packet.json. Its listed SHA256 (c397a876...) and every input hash (docket 092813af..., APPLICATIONS ba647768..., and the rest) were NOT verified and NOT computed, because this worker has no shell. Treat every hash as unverified.",
+  "docket_record": "Read at /home/user/TexasAIDocket/ledger/docket.json, item tx-2026-0216, lines 34680 to 34848 (file is 35448 lines; _spec generated 2026-10-18). The item is the record's own verbatim claims; the public page https://texasaidocket.com/item/tx-2026-0216/ was also fetched and matches it.",
+  "bound_guides_read": [
+   "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/knowledge/texas/APPLICATIONS.md",
+   ".claude/agents/researcher.md",
+   "prompts/phases/01-research.md",
+   "AGENTS.md",
+   "prompts/claude_routine.md",
+   "config/claude_runtime.json",
+   "config/quality_contract.json",
+   "config/production_actions.json",
+   "knowledge/craft/CREATIVE_DIRECTION.md",
+   "knowledge/craft/DAILY_PRODUCTION.md",
+   "knowledge/craft/visual-storytelling/README.md, viewer-plan.md, news-reporting.md, evidence-led-imagery.md, explanatory-animation.md, observed-documentary.md, cinematic-scene.md, sentence-to-shot.md"
+  ],
+  "not_read_or_not_used": [
+   "config/dispatch_rubric.yaml was deliberately not quoted or used. Research does not score, and no bar appears in this report.",
+   "The provider availability receipt (out/dispatch/provider-availability/startup/receipt.json) was not opened by this worker.",
+   "scripts/dedupe.py was NOT run (no shell). The 30-day dedupe window was not checked against recent Dispatch episodes. The director must run dedupe.py check before selection.",
+   "scripts/place_photos.py was NOT run (no shell). The image search used the web index only."
+  ],
+  "fetch_method_limit": "WebFetch returns model-written extracts, not raw bytes, and often truncates sentences near 125 characters. Each quote below is the exact string the fetch returned, or the docket's verbatim claim where the fetch returned only a paraphrase. Each finding states its evidence_level. Where I could not reproduce a sentence, I say so.",
+  "not_readable": [
+   "https://www.nhtsa.gov/recalls?nhtsaId=26E026000 returned HTTP 403.",
+   "https://static.nhtsa.gov/odi/rcl/2026/RCAK-26E026-9973.pdf (acknowledgment letter) and https://static.nhtsa.gov/odi/rcl/2026/RCLRPT-26E026-6527.pdf (Part 573 report) returned compressed PDF bytes that the fetch tool could not decode. Their text is UNREAD. Any statement about them comes from search-result summaries and is marked as unverified. To read them, extract text inside the working tree (out/dispatch/tmp), not from a ~/.claude path.",
+   "https://www.axios.com/local/san-antonio/2026/09/17/waymo-san-antonio-relaunch-flood-waters-weather returned HTTP 403. Only its headline is used, as a lead.",
+   "https://www.newsbytesapp.com/... returned HTTP 403.",
+   "Excluded by the director's crawl boundary and NOT fetched or cited: ksat.com and NBC-branded sites, including news4sanantonio.com and nbcdfw.com. News 4 San Antonio appeared in search results with claims about Waymo's September software changes, flood-zone limits and rider access. Those claims are NOT used anywhere in this report. The director should get Waymo's own statement or an allowed outlet's body for them."
+  ],
+  "retrieved": "2026-10-19 for every fetch and search in this report, unless a finding says otherwise."
+ },
+ "docket_movements": [
+  {
+   "record_status": "in_record",
+   "record_id": "tx-2026-0216",
+   "event_type": "service_opening_public",
+   "date": "2026-10-14",
+   "actor": "Waymo LLC",
+   "action": "Opened its San Antonio robotaxi service to anyone who downloads the Waymo app, with trips to and from San Antonio International Airport included.",
+   "object": "Robotaxi rides in San Antonio, including the airport",
+   "county": "Bexar",
+   "next_step": "The record names no later date. Waymo's February post said the broad opening was planned for later in 2026. The docket's own key_dates entry is the October 14th effective date.",
+   "who_can_act": "Waymo LLC sets its service rules. Riders can download the app. No public comment window is open, per the record."
+  },
+  {
+   "record_status": "in_record",
+   "record_id": "tx-2026-0216",
+   "event_type": "recall_filed",
+   "date": "2026-05-01",
+   "actor": "Waymo LLC, filing with NHTSA",
+   "action": "Filed campaign 26E026000 for certain 5th and 6th generation automated driving systems. Defect: the software may let a vehicle slow and then drive into standing water on higher speed roadways.",
+   "object": "3,791 potentially affected vehicles (NHTSA field PotentialNumberofUnitsAffected)",
+   "county": "Bexar for the April incidents. The recall covers the fleet nationally.",
+   "next_step": "Remedy is listed as under development. A search summary says NHTSA's May 11th acknowledgment letter asked for a remedy description (unverified, the PDF is unread). Report date conflicts: NHTSA JSON and aggregators say May 1st, a search summary says a Part 573 submission dated May 6th. Use May 2026 until the PDF is read.",
+   "who_can_act": "Waymo LLC (remedy and any amended Part 573 filing). NHTSA (oversight and follow-up). Public can read the federal recall record."
+  },
+  {
+   "record_status": "in_record",
+   "record_id": "tx-2026-0216",
+   "event_type": "interim_remedy_applied",
+   "date": "2026-04-20",
+   "actor": "Waymo LLC",
+   "action": "Modified operations to increase weather-related constraints and updated vehicle maps. NHTSA says all affected vehicles received the interim update by April 20th, 2026.",
+   "object": "The affected fleet",
+   "county": "Bexar (incident). Fleet-wide measure.",
+   "next_step": "Permanent remedy under development. No source dated after May 2026 confirms the interim measure is still active.",
+   "who_can_act": "Waymo LLC. NHTSA on the Part 573 remedy."
+  },
+  {
+   "record_status": "in_record",
+   "record_id": "tx-2026-0216",
+   "event_type": "incident_reported",
+   "date": "2026-04-20",
+   "actor": "One unoccupied Waymo vehicle (TPR reporting)",
+   "action": "Was swept up in flood waters and washed into Salado Creek during heavy rains, per Texas Public Radio. No one was injured.",
+   "object": "One Waymo vehicle",
+   "county": "Bexar",
+   "next_step": "None recorded.",
+   "who_can_act": "None recorded."
+  },
+  {
+   "record_status": "absent_from_record",
+   "record_id": null,
+   "event_type": "airport_service_invited_riders",
+   "date": "2026-03-31",
+   "actor": "Waymo LLC",
+   "action": "Began airport service at San Antonio International Airport for invited riders. Drop-off curbside at the terminals, pickup in the airport's designated rideshare area (TechCrunch, as of that date).",
+   "object": "Airport trips for invited riders",
+   "county": "Bexar",
+   "next_step": "Airport trips opened to all app users on October 14th per Waymo.",
+   "who_can_act": "Waymo LLC. The airport operates the pickup area."
+  },
+  {
+   "record_status": "absent_from_record",
+   "record_id": null,
+   "event_type": "service_pause_reported",
+   "date": "2026-05-10",
+   "actor": "Waymo LLC",
+   "action": "San Antonio service was paused after the April 20th incident. TPR calls it the company's longest San Antonio pause to date and says service was expected to resume that week.",
+   "object": "San Antonio service",
+   "county": "Bexar",
+   "next_step": "Resumption was expected the week of May 10th. Secondary sources date the actual restart to September 17th, 2026, so it ran months later.",
+   "who_can_act": "Waymo LLC"
+  },
+  {
+   "record_status": "absent_from_record",
+   "record_id": null,
+   "event_type": "service_pause_reported_conflicting",
+   "date": "2026-05-21",
+   "actor": "Waymo LLC",
+   "action": "EVwire (May 22nd) reports pauses in Atlanta, San Antonio, Dallas and Houston over severe weather challenges. Its dates conflict: it says the pauses began Thursday May 21st and also that San Antonio had been paused since late April. Spectrum (June 5th) reports a recent pause in Houston, Austin, Dallas and San Antonio over oncoming traffic and emergency vehicle reports. The two accounts give different reasons. Neither is confirmed by a primary source.",
+   "object": "Robotaxi service in Texas cities",
+   "county": "Bexar, Travis, Dallas, Harris",
+   "next_step": "Unresolved. Do not present as settled.",
+   "who_can_act": "Waymo LLC. TxDMV, if a state authorization question is raised."
+  },
+  {
+   "record_status": "absent_from_record",
+   "record_id": null,
+   "event_type": "service_resumption",
+   "date": "2026-09-17",
+   "actor": "Waymo LLC",
+   "action": "Resumed San Antonio rides for riders who already had access, in a limited area that includes the airport (Axios, via search summary; body unread). A guide dated September 27th, 2026 says the same date and lists the service area as 60 square miles as of that date (secondary).",
+   "object": "San Antonio robotaxi service",
+   "county": "Bexar",
+   "next_step": "New users planned for later in 2026 (Axios, via summary). The October 14th post then opened the service to anyone with the app.",
+   "who_can_act": "Waymo LLC"
+  },
+  {
+   "record_status": "absent_from_record",
+   "record_id": null,
+   "event_type": "state_authorization_enforceable",
+   "date": "2026-05-28",
+   "actor": "Texas Department of Motor Vehicles",
+   "action": "Authorization to operate automated motor vehicles commercially became enforceable under Senate Bill 2807 (89th Legislature). The authorization must be held by the commercial operator. TxDMV can suspend, revoke, cancel or restrict it after finding unsafe operation endangering the public. The public can submit concerns to the TxDMV Enforcement Division.",
+   "object": "Commercial automated motor vehicle operators in Texas",
+   "county": "Statewide",
+   "next_step": "The TxDMV page lists no authorized companies and does not name Waymo. Waymo's authorization status is NOT found in any source.",
+   "who_can_act": "TxDMV, which can suspend, revoke, cancel or restrict. The public, which can submit concerns to the TxDMV Enforcement Division (the page limits these to concerns about possible serious bodily injury or death)."
+  }
+ ],
+ "findings": [
+  {
+   "claim": "Waymo says anyone in San Antonio can now download the app and hail a fully autonomous ride, starting October 14th, 2026.",
+   "quote": "Starting today, anyone in San Antonio, San Diego, and Tampa can download the Waymo app and hail a fully autonomous ride",
+   "url": "https://waymo.com/blog/shorts/sat-sd-tpa/",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_corporate",
+   "confidence": "high",
+   "evidence_level": "Fetch extract of the lede, byline dated October 14th, 2026. The docket's verbatim claim adds ', including the San Antonio International Airport.' The fetch cut the sentence short.",
+   "why_it_matters": "This is the dated public opening and the company's own statement of it. It removes the invitation gate that applied to riders since February. The film's first dated fact comes from here.",
+   "supports_movement": "service_opening_public (tx-2026-0216)"
+  },
+  {
+   "claim": "The October 14th announcement names the airport as part of the opening.",
+   "quote": "including the San Antonio International Airport",
+   "url": "https://waymo.com/blog/shorts/sat-sd-tpa/",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_corporate",
+   "confidence": "high",
+   "evidence_level": "Fetch extract (phrase returned by the keyword pass on the same page).",
+   "why_it_matters": "The airport is in the October 14th scope. It is NOT the airport's first public-facing day, because airport trips began March 31st for invited riders (see finding 9). The film must not call October 14th the airport's opening.",
+   "supports_movement": "service_opening_public; airport_access_timeline"
+  },
+  {
+   "claim": "San Antonio's Director of Airports calls airport rides a milestone.",
+   "quote": "Waymo offering fully autonomous rides at the airport marks a significant milestone for Waymo, our city and travelers.",
+   "url": "https://waymo.com/blog/shorts/sat-sd-tpa/",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_corporate",
+   "confidence": "high",
+   "evidence_level": "Fetch extract; the docket verbatim matches.",
+   "why_it_matters": "A named public official on the record, usable with attribution. It is a welcome, not a safety finding, and the film must not read it as one.",
+   "supports_movement": "airport_access_timeline"
+  },
+  {
+   "claim": "The October 14th announcement does not mention flooding or the recall.",
+   "quote": "No quote. Absence finding: the fetched text returned no match for flood, flooding, rain, weather, water, recall, NHTSA, Salado or crash. The only 'safety' hit was site navigation ('Safety Publications').",
+   "url": "https://waymo.com/blog/shorts/sat-sd-tpa/",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_corporate",
+   "confidence": "medium-high",
+   "evidence_level": "Keyword pass on the fetch extract. The extract may be incomplete, so the film should say the fetched text shows no mention.",
+   "why_it_matters": "The company's launch announcement is silent on the recall that covers the same city. The film can show that silence as a sourced limit. It must not claim Waymo hid anything.",
+   "supports_movement": "service_opening_public; recall_status"
+  },
+  {
+   "claim": "Waymo says it has welcomed hundreds of thousands of riders in these cities.",
+   "quote": "We've welcomed hundreds of thousands of riders in these cities since opening our service earlier in the year",
+   "url": "https://waymo.com/blog/shorts/sat-sd-tpa/",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_corporate",
+   "confidence": "medium",
+   "evidence_level": "Fetch extract, truncated at the end of the sentence.",
+   "why_it_matters": "A company self-report with no independent count. It can be spoken only as 'Waymo says'.",
+   "supports_movement": "service_opening_public"
+  },
+  {
+   "claim": "Waymo opened its service to first public riders in four cities in February, including San Antonio.",
+   "quote": "Today, we continue our accelerated growth and welcome the first public riders into our fully autonomous ride-hailing service in four new cities: Dallas, Houston, San Antonio, and Orlando.",
+   "url": "https://waymo.com/blog/2026/02/dallas-houston-san-antonio-orlando/",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_corporate",
+   "confidence": "high",
+   "evidence_level": "Docket verbatim (claim tx-2026-0216-c3). Fetch extract confirms the headline 'Ready to Ride: Dallas, Houston, San Antonio, and Orlando' and a February 24th, 2026 date.",
+   "why_it_matters": "This is the start of the San Antonio timeline. It is a Waymo primary, which the film can cite directly.",
+   "supports_movement": "invitation_phase_start"
+  },
+  {
+   "claim": "February riders came in by invitation from a pool of tens of thousands who had downloaded the app.",
+   "quote": "Select riders from the tens of thousands in these cities who have downloaded the Waymo app will receive an invitation to take their first local rides today.",
+   "url": "https://waymo.com/blog/2026/02/dallas-houston-san-antonio-orlando/",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_corporate",
+   "confidence": "high",
+   "evidence_level": "Docket verbatim (c4). Fetch extract returned the matching 'downloaded the Waymo app' fragment.",
+   "why_it_matters": "This is the access rule that ended on October 14th. It explains why 'anyone with the app' is a change.",
+   "supports_movement": "invitation_phase_start; service_opening_public"
+  },
+  {
+   "claim": "Waymo said in February it would open the service to everyone later in 2026.",
+   "quote": "as we meaningfully scale our operations ahead of opening our service to everyone later this year.",
+   "url": "https://waymo.com/blog/2026/02/dallas-houston-san-antonio-orlando/",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_corporate",
+   "confidence": "high",
+   "evidence_level": "Fetch extract (the sentence is truncated at its start).",
+   "why_it_matters": "The broad opening was announced as a later step, so the film can present October 14th as the planned milestone, not a surprise.",
+   "supports_movement": "service_opening_public"
+  },
+  {
+   "claim": "The airport went live for riders on March 31st, 2026, and access was still invitation-based then.",
+   "quote": "Waymo's robotaxi service is going live at its fourth major airport today: San Antonio International.",
+   "url": "https://techcrunch.com/2026/03/31/waymo-starts-robotaxi-services-at-san-antonio-international-airport/",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "high",
+   "evidence_level": "Fetch extract. Date March 31st, 2026 (6:25 AM PDT). The article also says the service is 'still not fully available to the public yet' and that 'tens of thousands of people' have been admitted.",
+   "why_it_matters": "This corrects the docket framing. The airport was already a service stop for invited riders six months before October 14th. The October change is public access to the airport, not the airport's first service.",
+   "supports_movement": "airport_access_timeline"
+  },
+  {
+   "claim": "At the airport, riders are dropped off curbside at the terminals and picked up in the designated rideshare area.",
+   "quote": "drop off riders curbside at the terminals, and pick up passengers at the airport's designated rideshare area.",
+   "url": "https://techcrunch.com/2026/03/31/waymo-starts-robotaxi-services-at-san-antonio-international-airport/",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "high for the March 31st arrangement; unknown for October",
+   "evidence_level": "Fetch extract.",
+   "why_it_matters": "The only airport pickup mechanism with a date. A later undated guide says drop-off and pickup at Departures for Terminals A and B. The film can describe the March arrangement and must date it.",
+   "supports_movement": "airport_access_timeline; airport_pickup"
+  },
+  {
+   "claim": "NHTSA's recall record says the software may let a vehicle slow and then drive into standing water on higher speed roadways.",
+   "quote": "The software may allow the vehicle to slow and then drive into standing water on higher speed roadways.",
+   "url": "https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber=26E026",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "evidence_level": "Fetch extract of the NHTSA API JSON. Docket verbatim (c5) matches.",
+   "why_it_matters": "This is the recall's only mechanism sentence. It says 'may', names no cause, no speed and no depth. The film's mechanism row must use this wording and must not invent a sensor failure.",
+   "supports_movement": "recall_defect"
+  },
+  {
+   "claim": "NHTSA's record says entering a flooded roadway can cause loss of control, raising the risk of a crash or injury.",
+   "quote": "Entering a flooded roadway can cause loss of vehicle control, increasing the risk of a crash or injury.",
+   "url": "https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber=26E026",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "evidence_level": "Fetch extract; docket verbatim (c6) matches.",
+   "why_it_matters": "This is the sourced human stake. It is conditional ('can'). The only April events on record had no injuries, so the film must not turn 'can' into 'did'.",
+   "supports_movement": "recall_defect; human_consequence"
+  },
+  {
+   "claim": "NHTSA's record lists 3,791 potentially affected units.",
+   "quote": "PotentialNumberofUnitsAffected (vehicle count): 3,791",
+   "url": "https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber=26E026",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_official",
+   "confidence": "high on the value; medium on the exact field wording (returned by the fetch as a field label)",
+   "evidence_level": "Fetch extract of the NHTSA JSON. An aggregator search snippet (motorverso) also reads '3,791 US vehicles affected'.",
+   "why_it_matters": "This is the number a viewer can see. It is a POTENTIAL count of units under 'certain' 5th and 6th generation systems. It is not the number of cars that entered water.",
+   "supports_movement": "recall_filed"
+  },
+  {
+   "claim": "Texas Public Radio says the company recalled nearly 3,800 fifth- and sixth-generation vehicles.",
+   "quote": "The company issued the recall of nearly 3,800 fifth- and sixth-generation vehicles",
+   "url": "https://www.tpr.org/news/2026-05-13/waymo-recalls-almost-3-800-robotaxis-after-flooding-incident-in-san-antonio",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "high",
+   "evidence_level": "Fetch extract. Published May 13th, 2026, 1:38 PM CDT.",
+   "why_it_matters": "TPR's rounded version of the NHTSA count. If used, attribute it to TPR. Do not state it as NHTSA's figure.",
+   "supports_movement": "recall_filed"
+  },
+  {
+   "claim": "The permanent remedy for the recall is still under development.",
+   "quote": "The remedy is currently under development.",
+   "url": "https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber=26E026",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_official",
+   "confidence": "high as of the record read on October 16th and my fetch on October 19th",
+   "evidence_level": "Fetch extract of the NHTSA JSON. Docket verbatim (c7) matches.",
+   "why_it_matters": "This is the open item the film's ending must answer honestly. Nothing in any fetched source after October 16th changes it, though the NHTSA page itself was not readable.",
+   "supports_movement": "remedy_status"
+  },
+  {
+   "claim": "The interim remedy changed operations to increase weather-related constraints and updated the vehicle maps.",
+   "quote": "As an interim remedy, Waymo modified the scope of vehicle operations to increase weather-related constraints and updated the vehicle maps.",
+   "url": "https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber=26E026",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_official",
+   "confidence": "high on wording; medium-high on exact punctuation",
+   "evidence_level": "Docket verbatim (c7). Two separate fetch extracts returned the phrases 'modified the scope of vehicle operations to increase weather-related constraints' and 'updated the vehicle maps'.",
+   "why_it_matters": "This is the only description of what changed for weather. 'Weather-related constraints' is never defined, so no picture of the limit can be drawn truthfully. It is also not stated to be active today.",
+   "supports_movement": "interim_remedy_applied"
+  },
+  {
+   "claim": "All affected vehicles received the interim update by April 20th, 2026.",
+   "quote": "All affected vehicles received the interim update by April 20, 2026.",
+   "url": "https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber=26E026",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "evidence_level": "Fetch extract; docket verbatim (c8) matches.",
+   "why_it_matters": "The interim measure predates the October 14th opening by about six months. The record does not say it is still in effect.",
+   "supports_movement": "interim_remedy_applied"
+  },
+  {
+   "claim": "A Waymo vehicle was swept up in floodwaters and washed into Salado Creek on April 20th.",
+   "quote": "The Waymo vehicle was swept up in flood waters and washed into Salado Creek during heavy rains on April 20.",
+   "url": "https://www.tpr.org/news/2026-05-13/waymo-recalls-almost-3-800-robotaxis-after-flooding-incident-in-san-antonio",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "high",
+   "evidence_level": "Fetch extract (TPR May 13th); docket verbatim (c9) matches.",
+   "why_it_matters": "The only account of the creek event in my sources. No photo or video of it was fetched, so any picture of it must be disclosed as illustration.",
+   "supports_movement": "incident_reported"
+  },
+  {
+   "claim": "The car in the April creek incident was unoccupied and no one was injured.",
+   "quote": "The car was unoccupied and no one was injured in the incident.",
+   "url": "https://www.tpr.org/news/2026-05-13/waymo-recalls-almost-3-800-robotaxis-after-flooding-incident-in-san-antonio",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "high",
+   "evidence_level": "Fetch extract; docket verbatim (c10) matches.",
+   "why_it_matters": "This rules out a passenger in the April car and any injury from it. The human consequence has to stay conditional and must not imply a rider was at risk on that day.",
+   "supports_movement": "incident_reported; human_consequence"
+  },
+  {
+   "claim": "Both April incidents involved unoccupied cars and no injuries.",
+   "quote": "Both cars were unoccupied, and no one was injured in either incident.",
+   "url": "https://www.tpr.org/economy-and-labor/2026-05-10/waymo-set-to-return-to-san-antonio-after-flood-incidents-paused-service",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "high",
+   "evidence_level": "Fetch extract (TPR May 10th, published May 10th, 2026, 7:14 PM CDT).",
+   "why_it_matters": "Covers both April events in one sentence. Use it to say no injuries were reported in either.",
+   "supports_movement": "incident_reported"
+  },
+  {
+   "claim": "A second Waymo was stranded in floodwater earlier in April near McCullough Avenue and Contour Drive.",
+   "quote": "In an earlier incident that occurred earlier in April, another Waymo vehicle became stranded in floodwaters near McCullough Avenue and Contour Drive.",
+   "url": "https://www.tpr.org/news/2026-05-13/waymo-recalls-almost-3-800-robotaxis-after-flooding-incident-in-san-antonio",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "medium",
+   "evidence_level": "Docket verbatim (c11). My fetch of the May 10th article returned 'The incident came about two weeks after another Waymo vehicle became stranded in floodwaters near McCullough Avenue and Contour Drive.' The May 13th sentence itself was not reproduced by my fetch.",
+   "why_it_matters": "A second flood event before the April 20th event. It is needed to avoid implying a single incident. Verify the May 13th wording before use.",
+   "supports_movement": "incident_reported"
+  },
+  {
+   "claim": "Waymo began San Antonio operations in February in a limited service area of 60 square miles.",
+   "quote": "Waymo began operations in San Antonio in February in a limited service area covering 60 square miles of the city.",
+   "url": "https://www.tpr.org/economy-and-labor/2026-05-10/waymo-set-to-return-to-san-antonio-after-flood-incidents-paused-service",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "high for February; no source confirms the October area",
+   "evidence_level": "Fetch extract (TPR May 10th).",
+   "why_it_matters": "This is the February area. Do not present 60 square miles as the current area. A guide lists 60 square miles as of September 17th (secondary, unverified).",
+   "supports_movement": "service_pause_reported; service_resumption"
+  },
+  {
+   "claim": "The service pause was the company's longest in San Antonio to date, during which Waymo reviewed its flood monitoring procedures and safety protocols.",
+   "quote": "The service pause has been the company\u2019s longest in San Antonio to date as Waymo reviewed its flood monitoring procedures and safety protocols.",
+   "url": "https://www.tpr.org/economy-and-labor/2026-05-10/waymo-set-to-return-to-san-antonio-after-flood-incidents-paused-service",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "high",
+   "evidence_level": "Docket verbatim (c14). My fetch confirmed 'the company\u2019s longest in San Antonio to date'.",
+   "why_it_matters": "The pause's length is a dated fact. The review is the company's stated process, not a finding that anything was fixed.",
+   "supports_movement": "service_pause_reported"
+  },
+  {
+   "claim": "Waymo said it would reevaluate how its vehicles respond to flood-prone areas and severe weather alerts before restarting service.",
+   "quote": "would reevaluate how its vehicles respond to flood-prone areas and severe weather alerts before restarting service.",
+   "url": "https://www.tpr.org/economy-and-labor/2026-05-10/waymo-set-to-return-to-san-antonio-after-flood-incidents-paused-service",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "high",
+   "evidence_level": "Fetch extract (TPR May 10th).",
+   "why_it_matters": "The company made a dated pre-restart commitment about weather alerts and flood-prone areas. No primary publication of the result was found, so the film can name the commitment without claiming it was met.",
+   "supports_movement": "service_pause_reported; interim_remedy_applied"
+  },
+  {
+   "claim": "Operations continued in San Antonio during the pause without serving riders.",
+   "quote": "Waymo operations had been ongoing this week in San Antonio following the flooding incident, but without serving riders.",
+   "url": "https://www.tpr.org/news/2026-05-13/waymo-recalls-almost-3-800-robotaxis-after-flooding-incident-in-san-antonio",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "high",
+   "evidence_level": "Fetch extract (TPR May 13th).",
+   "why_it_matters": "A 'pause' in service is not the same as no vehicles on the road. The film must not say the cars left the streets.",
+   "supports_movement": "service_pause_reported"
+  },
+  {
+   "claim": "The recall notice says the vehicle detected the flooded road and continued on its path at reduced speed.",
+   "quote": "while the vehicle detected the flooded road, it continued on its path and proceeded at a reduced speed.",
+   "url": "https://www.tpr.org/news/2026-05-13/waymo-recalls-almost-3-800-robotaxis-after-flooding-incident-in-san-antonio",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "medium; NOT VERIFIED BY MY FETCH",
+   "evidence_level": "Docket verbatim (c12) citing TPR May 13th. The May 13th fetch did not return this sentence. A search summary of the NHTSA report also says the vehicle 'detected potentially untraversable flood water and proceeded at reduced speed', from an unread PDF.",
+   "why_it_matters": "This is the most filmable sentence in the record: sensing and continuing both happen in one event. It is the strongest opening for a mechanism picture. Re-fetch the TPR page and confirm the exact sentence before the film uses it.",
+   "supports_movement": "recall_defect; incident_reported"
+  },
+  {
+   "claim": "A Remedy Not Supplied flag appears in NHTSA's May 11th acknowledgment letter. (UNVERIFIED. Do not speak.)",
+   "quote": "Remedy Not Supplied",
+   "url": "https://static.nhtsa.gov/odi/rcl/2026/RCAK-26E026-9973.pdf",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_official (if confirmed)",
+   "confidence": "low; search summary only; the PDF is unreadable with my tools",
+   "evidence_level": "Search-result summary text only. I did not read the letter. The PDF returned compressed bytes.",
+   "why_it_matters": "If confirmed, NHTSA asked Waymo to describe the remedy, which would be an agency movement. It must not be used until the letter is extracted and read.",
+   "supports_movement": "remedy_status"
+  },
+  {
+   "claim": "No update after October 16th changed the remedy status that I could find. A third-party page refreshed October 18th still lists the remedy as under development, but it also carries repair text that conflicts with NHTSA.",
+   "quote": "The remedy is currently under development.",
+   "url": "https://vehiclesafetyrecalls.com/recall/26E026000",
+   "retrieved": "2026-10-19",
+   "source_type": "secondary_aggregator",
+   "confidence": "low-medium",
+   "evidence_level": "Fetch extract of an aggregator page that states it was last refreshed 2026-10-18. The same page says 'Schedule the free repair' and 'the repair is completely free'. Those lines conflict with NHTSA. The NHTSA recall page itself returned HTTP 403.",
+   "why_it_matters": "The only post-October 16th reading I could make, and it still says under development. The conflicting consumer text means the aggregator must not be used for remedy status.",
+   "supports_movement": "remedy_status"
+  },
+  {
+   "claim": "Waymo resumed San Antonio service on September 17th, 2026, after a flood-related pause that began in April. (Secondary guide; the Axios body was unread.)",
+   "quote": "resumed September 17, 2026 after a flood-related pause from April 2026",
+   "url": "https://thechargeport.com/robotaxi/san-antonio",
+   "retrieved": "2026-10-19",
+   "source_type": "secondary_aggregator",
+   "confidence": "medium",
+   "evidence_level": "Fetch extract of a guide last verified September 27th, 2026. It also says riders are added gradually from an interest list, and lists airport curbside pickup and drop-off at Departures for Terminals A and B (undated). Its own 'Undated' entries are not dated.",
+   "why_it_matters": "An independent dated restart between the May pause and the October opening. It conflicts with the October 14th 'anyone' wording on rider access, so the film must not say 'anyone' before October 14th.",
+   "supports_movement": "service_resumption"
+  },
+  {
+   "claim": "Axios reported San Antonio service back after flood-related fixes on September 17th. (HEADLINE ONLY. The body returned HTTP 403.)",
+   "quote": "Waymo is back in San Antonio after flood-related fixes",
+   "url": "https://www.axios.com/local/san-antonio/2026/09/17/waymo-san-antonio-relaunch-flood-waters-weather",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "low-medium; a headline is a lead, not a source",
+   "evidence_level": "Search result headline and date. Body not read. A search summary says previously approved riders can request rides again, in a limited area including the airport, with new users later in 2026. That summary is unverified.",
+   "why_it_matters": "Dates a restart that came before the October 14th opening. Read the body before any claim about the September changes or rider eligibility.",
+   "supports_movement": "service_resumption"
+  },
+  {
+   "claim": "An EVwire report on May 22nd says the pauses were over severe weather. The dates conflict and San Antonio's pause start is unclear.",
+   "quote": "over severe weather challenges for its fleet",
+   "url": "https://evwire.com/p/waymo-robotaxis-weather-challenges-prompt-service-pause-four-cities",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "medium",
+   "evidence_level": "Fetch extract. Publication date May 22nd, 2026. It says the pauses began Thursday, May 21st, and also that San Antonio's service had been paused 'since late April'. It attributes a 'not an abundance of caution' reason to Dallas and Houston only. It does not link the San Antonio pause to the April incident.",
+   "why_it_matters": "A weather-related pause in San Antonio in late spring, separate from the April incident. The film must not conflate it with the April creek event.",
+   "supports_movement": "service_pause_reported_conflicting"
+  },
+  {
+   "claim": "Spectrum reports a recent Waymo pause in four Texas cities after reports of safety hazards, including driving into oncoming traffic and not responding to emergency vehicles. Dates not found.",
+   "quote": "reports of multiple safety hazard issues, including driving into oncoming traffic",
+   "url": "https://spectrumlocalnews.com/tx/austin/news/2026/06/05/self-driving-cars--waymo--txdmv--autonomous-vehicles",
+   "retrieved": "2026-10-19",
+   "source_type": "journalism",
+   "confidence": "medium-low; conflicts with EVwire on the reason; dates not found",
+   "evidence_level": "Fetch extract. Publication date June 5th, 2026, 11:00 AM CT. It says Waymo 'paused operations temporarily in Houston, Austin, Dallas and San Antonio'.",
+   "why_it_matters": "If confirmed, a non-flood safety reason in the same city changes what the record says protects riders. It must be checked against Waymo's statement before the film says anything about it.",
+   "supports_movement": "service_pause_reported_conflicting"
+  },
+  {
+   "claim": "TxDMV can suspend, revoke, cancel or restrict a commercial operator's authorization after finding unsafe operation that endangers the public.",
+   "quote": "the department will initiate the suspension, revocation, cancelation, or restriction of the authorization.",
+   "url": "https://www.txdmv.gov/AVprogram",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "evidence_level": "Fetch extract of the TxDMV Automated Vehicles Regulatory Program page, which is undated.",
+   "why_it_matters": "This is the Texas actor with direct power over the operator. It is absent from the docket record. The film can name the state power without asserting that any action is or isn't underway.",
+   "supports_movement": "state_authorization_enforceable"
+  },
+  {
+   "claim": "Senate Bill 2807 became effective September 1st, 2025, and authorization became enforceable May 28th, 2026.",
+   "quote": "Senate Bill 2807 (89R) became effective September 1, 2025.",
+   "url": "https://www.txdmv.gov/AVprogram",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_official",
+   "confidence": "high for September 1st, 2025; medium-high for May 28th, 2026, which is from the page's extract and a search summary of the rules",
+   "evidence_level": "Fetch extract. The page says the authorization requirements become enforceable 90 days after the final rules took effect. A search summary dates that to May 28th, 2026, and the fetch summary also states May 28th.",
+   "why_it_matters": "This is the Texas rule that was in force on October 14th. It supplies a state power and a date the film can name.",
+   "supports_movement": "state_authorization_enforceable"
+  },
+  {
+   "claim": "The public can submit concerns about automated vehicles to the TxDMV Enforcement Division, for concerns about serious bodily injury or death.",
+   "quote": "Concerns can be submitted to the TxDMV Enforcement Division for review",
+   "url": "https://www.txdmv.gov/AVprogram",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "evidence_level": "Fetch extract. The page limits the channel to concerns that could cause serious bodily injury or death.",
+   "why_it_matters": "This is a channel a viewer can use today, and the film can name it. It is limited to injury or death concerns, so the film must not say it is for floods.",
+   "supports_movement": "state_authorization_enforceable; who_can_act"
+  },
+  {
+   "claim": "The TxDMV page does not list any currently authorized companies and does not name Waymo.",
+   "quote": "The page does not list any currently authorized companies. Waymo is not named.",
+   "url": "https://www.txdmv.gov/AVprogram",
+   "retrieved": "2026-10-19",
+   "source_type": "primary_official",
+   "confidence": "high for what the page shows; the page has no date",
+   "evidence_level": "Fetch extract. This quote is the fetch's own description, not page text. Read it as a statement of absence.",
+   "why_it_matters": "The film cannot say whether Waymo holds a TxDMV authorization. It must say that the page does not show it.",
+   "supports_movement": "state_authorization_enforceable"
+  }
+ ],
+ "filmability": {
+  "recommended_angle": "Evidence-led news report. The record changed on a dated day (October 14th, 2026: anyone with the app, airport included), and the federal record still lists the flood fix as under development. One disclosed illustration explains the recall's mechanism. No footage exists in any fetched source.",
+  "format_and_medium": "News report, evidence-led ordering. Primary approach: evidence-led imagery (the recall text, the Waymo post, the NHTSA count). Secondary approach: explanatory animation, used only for the recall's three-part sentence. Reject observed documentary (no footage) and cinematic scene (see rejected_alternatives).",
+  "viewer_question": "Anyone in San Antonio can now hail a Waymo, the airport included. The federal recall covering its flood behavior still lists the permanent fix as under development. What does the record say protects a rider when the road floods?",
+  "visible_answer": "The company says it tightened weather constraints and updated maps by April 20th, 2026. NHTSA lists the permanent remedy as under development. No source found describes what the weather constraint is or whether it is active now. The company's own post on the October 14th opening does not mention flooding.",
+  "opening_action": "Illustrated higher-speed lane with standing water across it. A robotaxi outline appears and a label reads 'detected flooded road' (wording to be verified from TPR May 13). The outline continues into the water at reduced speed. No speed value, no depth value and no crash are drawn. A disclosed illustration caption reads: 'Illustration based on the recall wording. Not footage of the April event.' A date card follows: 'October 14th, 2026: anyone with the app.'",
+  "mechanism": "Three labelled states, drawn from the recall sentence and nothing more: (1) the vehicle detects the flooded road, (2) it continues on its path, (3) it proceeds into standing water at reduced speed. Caption carries the NHTSA sentence verbatim: 'The software may allow the vehicle to slow and then drive into standing water on higher speed roadways.' Do NOT draw a stop state. No source says what the car should do instead, and drawing a correct path would be an invented remedy.",
+  "human_consequence": "NHTSA says entering a flooded roadway can cause loss of vehicle control, increasing the risk of a crash or injury. The April cars were unoccupied and no one was hurt. The consequence is conditional and must be shown as a risk, not as an event. Affected group: people who can now hail a ride in San Antonio, including airport travelers, and other road users who share a flooded road with one.",
+  "source_limit": "Strongest limit: the record gives the mechanism in one sentence with no cause, speed, depth or narrative, and it gives no picture or video of the April event. The remedy is under development, and the interim 'weather-related constraints' are never defined. The October 14th post is silent on flooding. The company's September statements about flood-zone limits could not be read in an allowed source. The June pause reports conflict with the May reports, and dates are missing.",
+  "false_inference_to_prevent": "A picture of a robotaxi in standing water implies several things the sources do not establish. (a) That any Waymo in any storm is in this condition today. (b) That the car in the picture is the April car, or a car in the recall. The recall covers 'certain' 5th and 6th generation systems, and a stock image may show neither. (c) That a rider was aboard, or was hurt. (d) That the fix has failed or is finished. Caption and source limit must say the recall covers potentially affected units, the April cars were empty and no injuries were reported, and the permanent remedy is pending.",
+  "spoken_concept_without_truthful_picture": [
+   "What the interim 'weather-related constraints' actually restrict, and when they apply. No source describes them.",
+   "Whether a rider would be stopped from a given road on a given day. No source describes this.",
+   "What the company changed in September or whether the change addressed the April behavior, as a fact. The only detail is in an unreadable or excluded source.",
+   "What the April car did in the creek. No photo, video or detailed narrative of its path was fetched."
+  ],
+  "three_key_images": [
+   "1. Two verbatim sentences on one card: Waymo's October 14th 'anyone in San Antonio ... can download the Waymo app and hail a fully autonomous ride' beside NHTSA's 'The remedy is currently under development.' Native typography, each sentence attributed and dated. Not a page screenshot, because no captured page image exists.",
+   "2. The illustrated three-state lane (see mechanism), disclosed as Illustration, with the NHTSA sentence as caption.",
+   "3. A count card: '3,791' with 'potentially affected' set at the same size, attributed to NHTSA. It shows the scale without implying the number entered water."
+  ],
+  "asset_leads": [
+   {
+    "asset": "Waymo October 14th, 2026 post (text only)",
+    "url": "https://waymo.com/blog/shorts/sat-sd-tpa/",
+    "relevant_image_or_footage": "No image was fetched. The text is the usable material.",
+    "what_it_proves": "The dated public opening, the airport inclusion and the airport official's quote.",
+    "rights_or_attribution_evidence": "Waymo's text. Only short verbatim quotes with attribution. No image licence evidence was found, so no page image may be used.",
+    "illustration_more_honest": "Not for the words. Typography with attribution is the honest form."
+   },
+   {
+    "asset": "Waymo February 24th, 2026 post (text only)",
+    "url": "https://waymo.com/blog/2026/02/dallas-houston-san-antonio-orlando/",
+    "relevant_image_or_footage": "None fetched.",
+    "what_it_proves": "The invitation phase and the 'later this year' commitment.",
+    "rights_or_attribution_evidence": "Waymo text. Same limits as above.",
+    "illustration_more_honest": "No."
+   },
+   {
+    "asset": "NHTSA recall record, campaign 26E026000 (JSON API)",
+    "url": "https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber=26E026",
+    "relevant_image_or_footage": "No image. The record's fields are the content: units, defect, consequence, remedy status, interim date.",
+    "what_it_proves": "The count (potential), the mechanism sentence, the remedy status and the interim date.",
+    "rights_or_attribution_evidence": "US federal agency record. I did not verify a reuse notice on the page. Record the URL and the retrieval date, and get the notice before publishing any rendered field card.",
+    "illustration_more_honest": "A native typographic field card, attributed to NHTSA, is the honest form. It is not a picture of the event."
+   },
+   {
+    "asset": "NHTSA acknowledgment letter and Part 573 report (PDFs)",
+    "url": "https://static.nhtsa.gov/odi/rcl/2026/RCAK-26E026-9973.pdf and https://static.nhtsa.gov/odi/rcl/2026/RCLRPT-26E026-6527.pdf",
+    "relevant_image_or_footage": "Text documents. Not readable with my tools.",
+    "what_it_proves": "Potentially the remedy text, the incident narrative (speed, detection) and the May 11th letter's remedy request. All UNVERIFIED.",
+    "rights_or_attribution_evidence": "US federal record. Extract the text inside the working tree and verify before use.",
+    "illustration_more_honest": "Not applicable until read."
+   },
+   {
+    "asset": "Texas Public Radio, May 13th, 2026 and May 10th, 2026 articles",
+    "url": "https://www.tpr.org/news/2026-05-13/waymo-recalls-almost-3-800-robotaxis-after-flooding-incident-in-san-antonio and https://www.tpr.org/economy-and-labor/2026-05-10/waymo-set-to-return-to-san-antonio-after-flood-incidents-paused-service",
+    "relevant_image_or_footage": "No image or video was fetched. Any photo on the page is unknown.",
+    "what_it_proves": "The creek event, the unoccupied cars, the pause and the weather-related interim measure, as journalism.",
+    "rights_or_attribution_evidence": "TPR's copyright. No reuse licence found. Use text quotes only, attributed.",
+    "illustration_more_honest": "Yes, for the creek event. No image of the April event exists in my sources, so any picture of it is illustration."
+   },
+   {
+    "asset": "TechCrunch, March 31st, 2026",
+    "url": "https://techcrunch.com/2026/03/31/waymo-starts-robotaxi-services-at-san-antonio-international-airport/",
+    "relevant_image_or_footage": "Article images not fetched. The article's 'interior of a Waymo' image appeared in a search index only.",
+    "what_it_proves": "The March airport start and its curbside arrangement.",
+    "rights_or_attribution_evidence": "TechCrunch's images. No licence found. Do not use.",
+    "illustration_more_honest": "Yes. The airport arrangement can be described in text."
+   },
+   {
+    "asset": "Texas DMV Automated Vehicles Regulatory Program page",
+    "url": "https://www.txdmv.gov/AVprogram",
+    "relevant_image_or_footage": "No image.",
+    "what_it_proves": "The state power to suspend, revoke, cancel or restrict, the May 28th enforcement date and the public concerns channel.",
+    "rights_or_attribution_evidence": "State agency page. Quote with attribution.",
+    "illustration_more_honest": "A native text card is the honest form."
+   },
+   {
+    "asset": "Library of Congress Lyda Hill Texas Collection, San Antonio items",
+    "url": "https://www.loc.gov/item/2014632003 (returned in a search index; NOT fetched; the item record was not opened)",
+    "relevant_image_or_footage": "A HemisFair '68 photograph (LC-DIG-highsm-27803) that shows pavilions and the Tower of the Americas, per a search snippet.",
+    "what_it_proves": "Only that downtown San Antonio existed in 1968. It does not show the river, the airport or Salado Creek.",
+    "rights_or_attribution_evidence": "A search snippet says 'No known restrictions on publication' and a 2014 gift from the Lyda Hill Foundation. I did not open the record, so I did not verify it.",
+    "illustration_more_honest": "Reject as context. Dated 1968, and not connected to the action."
+   },
+   {
+    "asset": "San Antonio River Walk photographs (Texas Tech, UT Austin and UNT libraries)",
+    "url": "https://exhibits.lib.ttu.edu/s/openarch/item/23726 and others from search results",
+    "relevant_image_or_footage": "River Walk photographs.",
+    "what_it_proves": "Nothing about the April event or the airport.",
+    "rights_or_attribution_evidence": "The search snippets show restrictions: TTU requires permission for publication use, UT uses an in-copyright rights statement, and UNT notes restrictions may apply.",
+    "illustration_more_honest": "Yes. Not usable."
+   },
+   {
+    "asset": "Rights-cleared airport, San Antonio River or Salado Creek image",
+    "url": "None found",
+    "relevant_image_or_footage": "Two bounded searches (one broad, one follow-up) found no Lyda Hill item of the airport, the river or Salado Creek carrying 'No known restrictions on publication'.",
+    "what_it_proves": "Not applicable.",
+    "rights_or_attribution_evidence": "Not found. The director should run scripts/place_photos.py with the airport and Salado Creek as places before concluding this.",
+    "illustration_more_honest": "Yes. Authored illustration is the honest picture for the creek and the lane."
+   }
+  ],
+  "action_support": [
+   {
+    "order": 1,
+    "role": "opening",
+    "medium": "source-backed-action (director-bound proposal, not a catalog action)",
+    "action_id": "Proposed: flood-recall-sequence. The director names the final id and writes the module under video-engine/src.",
+    "pictured_action": "Illustrated higher-speed lane with standing water. A robotaxi outline is labelled 'detected flooded road', then continues into the water at reduced speed. No stop state, no speed or depth value, no crash.",
+    "scope_fit": "Within the recall's wording and the TPR-reported detection sentence (docket c12, not yet re-fetched). Not a reconstruction of the April event. Needs disclosure: Illustration.",
+    "source_url": "https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber=26E026 and https://www.tpr.org/news/2026-05-13/waymo-recalls-almost-3-800-robotaxis-after-flooding-incident-in-san-antonio"
+   },
+   {
+    "order": 2,
+    "role": "mechanism",
+    "medium": "source-backed-action (same proposal, second beat)",
+    "action_id": "Same proposal id.",
+    "pictured_action": "Three labelled states in sequence: detects, continues, proceeds into standing water at reduced speed. The NHTSA sentence is the caption.",
+    "scope_fit": "Recall language only. The cause is not drawn. The 'may' stays on screen.",
+    "source_url": "https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber=26E026"
+   },
+   {
+    "order": 3,
+    "role": "consequence",
+    "medium": "source-backed-action (same proposal, third beat)",
+    "action_id": "Same proposal id.",
+    "pictured_action": "The illustrated car at the lane's edge, beside the NHTSA line 'Entering a flooded roadway can cause loss of vehicle control, increasing the risk of a crash or injury.' No crash and no injury are drawn.",
+    "scope_fit": "Keeps the conditional 'can'. The April cars were unoccupied with no injuries, which the film must state.",
+    "source_url": "https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber=26E026"
+   }
+  ],
+  "demonstrated_catalog_screen": {
+   "street-capture-v1": "Does not fit. It captures a residential facade, with no vehicle and no water.",
+   "curb-selection-v1": "Does not fit. It handles a curbside debris pile.",
+   "document-accumulation-v1": "Does not fit. Its limits forbid a literal count, and using it for 3,791 would imply a count that the source does not give."
+  },
+  "source_rows": "No source-still or source-excerpt row is available, because no page image or footage asset was captured. Every picture is either typography of a verbatim sentence or a disclosed illustration. Source-still and source-excerpt rows would need a captured asset_url, inspection and rights evidence, none of which exists.",
+  "visual_stakes": {
+   "affected_group": "San Antonio residents and visitors who can now hail a Waymo with the app, including airport travelers. Named sources identify no specific rider. No passenger was in either April car.",
+   "physical_subject": "A robotaxi on a higher-speed road lane, with standing floodwater across the lane. Illustrated.",
+   "visible_change": "The car detects the flooded road, keeps its path and enters the water at reduced speed. This is the recall's wording, drawn as a disclosed illustration.",
+   "consequence": "NHTSA: entering a flooded roadway can cause loss of vehicle control, increasing the risk of a crash or injury.",
+   "opening_question": "If anyone can hail one now, what has changed for flooded roads, and what is still unfixed?",
+   "answer": "The company says it tightened weather constraints and updated maps by April 20th, 2026. NHTSA lists the permanent remedy as under development. No source found describes the constraint or confirms its status today.",
+   "asset_fit": "No authenticated footage or rights-cleared picture of the April event, the airport or the creek. Authored illustration is the honest picture. Typography carries the dated words.",
+   "source_urls": [
+    "https://waymo.com/blog/shorts/sat-sd-tpa/",
+    "https://waymo.com/blog/2026/02/dallas-houston-san-antonio-orlando/",
+    "https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber=26E026",
+    "https://www.tpr.org/news/2026-05-13/waymo-recalls-almost-3-800-robotaxis-after-flooding-incident-in-san-antonio",
+    "https://www.tpr.org/economy-and-labor/2026-05-10/waymo-set-to-return-to-san-antonio-after-flood-incidents-paused-service",
+    "https://techcrunch.com/2026/03/31/waymo-starts-robotaxi-services-at-san-antonio-international-airport/",
+    "https://www.txdmv.gov/AVprogram"
+   ]
+  },
+  "spoken_numbers": {
+   "speakable_with_attribution": [
+    "3,791 potentially affected vehicles, per NHTSA's recall record (finding 13). Say 'potentially'.",
+    "nearly 3,800 vehicles, per Texas Public Radio (finding 14). Attribute to TPR.",
+    "60 square miles, ONLY as the February 2026 limited service area, per Texas Public Radio (finding 22). Not current.",
+    "October 14th, 2026: public opening, per Waymo (finding 1).",
+    "February 24th, 2026: first public riders in four cities, per Waymo (finding 6).",
+    "March 31st, 2026: airport service for invited riders began, per TechCrunch (finding 9).",
+    "April 20th, 2026: the creek event, per TPR (finding 18). And the interim update received by all affected vehicles by April 20th, per NHTSA (finding 17).",
+    "May 28th, 2026: TxDMV authorization enforceable, per the TxDMV page (finding 34). Medium-high, see the finding's confidence.",
+    "September 1st, 2025: SB 2807 effective, per TxDMV (finding 34).",
+    "Hundreds of thousands of riders, ONLY as Waymo's self-report (finding 5)."
+   ],
+   "not_speakable_yet": [
+    "40 mph. It appears only in a search summary of the unread NHTSA PDF.",
+    "Any depth value, any speed value, any water depth.",
+    "3,971 (a Carscoops figure; conflicts with NHTSA).",
+    "over 3,500 (an ABC7 headline; conflicts with NHTSA).",
+    "Waymo's February safety multiples (ten-fold, 200 million miles, 127 million miles). They came from a summary and were not verified verbatim.",
+    "1,100 square miles of coverage (a search snippet, not read)."
+   ]
+  }
+ },
+ "rejected_alternatives": [
+  {
+   "candidate": "The airport as the lead (Waymo rides to San Antonio International Airport)",
+   "reason_rejected": "The airport started March 31st for invited riders, so 'the airport opens to everyone' is a smaller change than the framing suggests. The stake is the recall, not the airport. Use the airport as a detail of the October 14th scope."
+  },
+  {
+   "candidate": "Human-led story around a rider or a worker",
+   "reason_rejected": "No source identifies a rider, a worker or a passenger in any event. Both April cars were unoccupied. Any rider scene would be invented."
+  },
+  {
+   "candidate": "Mechanism-led opening on a robotaxi in water (no evidence-led set-up)",
+   "reason_rejected": "A water-first image invites the false inference that the cars are sinking or crashing now. The film should establish the dated change and the recall sentence first."
+  },
+  {
+   "candidate": "Observed documentary, using Texas Public Radio or TechCrunch footage",
+   "reason_rejected": "No footage was fetched. No reuse rights were found, and viewing access is not a licence."
+  },
+  {
+   "candidate": "Cinematic scene as the primary approach",
+   "reason_rejected": "The only sourced physical task is the recall's three-part sentence. A scene would need staging of a crash or of a rider's experience, which no source supports."
+  },
+  {
+   "candidate": "tx-2026-0220, San Antonio data-center zoning (Zoning Commission hearing October 20th, council vote October 29th)",
+   "reason_rejected": "A decision with no application in view. No picture of the work exists, and APPLICATIONS.md says policy is one beat, not the show. Keep it as a dated next-step candidate for the week."
+  },
+  {
+   "candidate": "tx-2026-0219, PUC v. Paxton petition on data-center county and water-planning fields",
+   "reason_rejected": "A court filing whose decisive detail is a spreadsheet column. Documents only, with no picture of work."
+  },
+  {
+   "candidate": "tx-2026-0221, UT Austin Google.org fusion surrogate-model award",
+   "reason_rejected": "A funded plan with no result reported. It shows no working application today."
+  },
+  {
+   "candidate": "Library of Congress HemisFair '68 image as context",
+   "reason_rejected": "Dated 1968, and it shows pavilions and the Tower of the Americas. It is not the river, the airport or the creek, and it adds no information about the story."
+  },
+  {
+   "candidate": "Dallas brush-truck cameras, screwworm, and MD Anderson SPACER",
+   "reason_rejected": "Excluded by the director's brief (shipped, shipped, and rejected today). Not evaluated."
+  }
+ ],
+ "defects": [
+  {
+   "id": "D1",
+   "severity": "high",
+   "where": "docket tx-2026-0216 title and summary (Docket lane)",
+   "defect": "The title and summary put the airport in the October 14th opening, and say nothing about airport trips for invited riders from March 31st. A reader will take October 14th as the airport's first day.",
+   "fix_owner": "Docket record repair in a separate Docket branch and the correct actor lane. Dispatch must not edit it."
+  },
+  {
+   "id": "D2",
+   "severity": "high",
+   "where": "docket tx-2026-0216 timeline (Docket lane)",
+   "defect": "The record omits the April to September pause, the late-May and June pause reports, the September 17th restart and the Texas authorization layer (TxDMV). Its timeline runs from February to October without the gap.",
+   "fix_owner": "Docket lane."
+  },
+  {
+   "id": "D3",
+   "severity": "high",
+   "where": "docket tx-2026-0216 summary and public page",
+   "defect": "Present-tense statements: 'with tighter weather limits on operations in the meantime' and 'interim weather limits are in place'. The sources date the interim measure to April 20th and do not confirm it is active now.",
+   "fix_owner": "Docket lane. Dispatch must not repeat the present tense."
+  },
+  {
+   "id": "D4",
+   "severity": "medium",
+   "where": "docket tx-2026-0216 summary",
+   "defect": "'when the service opened across 60 square miles' presents the February limited area as the launch area without a date on the figure. The only current service-area statement is a secondary guide dated September 17th, unverified.",
+   "fix_owner": "Docket lane."
+  },
+  {
+   "id": "D5",
+   "severity": "high",
+   "where": "docket claims tx-2026-0216-c11 and c12 (TPR May 13th sentences)",
+   "defect": "My fetch of the May 13th TPR article did not return either sentence. The docket quotes them. The c12 detection sentence is the strongest mechanism line in the record, so it must be re-fetched before any film use.",
+   "fix_owner": "Dispatch director, before the film uses the sentence. Docket verification if the quote is wrong."
+  },
+  {
+   "id": "D6",
+   "severity": "high",
+   "where": "NHTSA report date (May 1st vs May 6th)",
+   "defect": "The NHTSA JSON and aggregators read May 1st, 2026. A search summary of the Part 573 says submitted May 6th, 2026. The docket does not state a report date.",
+   "fix_owner": "Dispatch. Use 'May 2026' until the Part 573 PDF is extracted and read."
+  },
+  {
+   "id": "D7",
+   "severity": "high",
+   "where": "NHTSA acknowledgment letter (RCAK-26E026-9973.pdf) and Part 573 report (RCLRPT-26E026-6527.pdf)",
+   "defect": "Both primary PDFs are unreadable by WebFetch (compressed bytes). Their remedy text, the detection narrative, the reported 40 mph limit and the 'Remedy Not Supplied' flag are all UNVERIFIED.",
+   "fix_owner": "Dispatch director. Extract the text inside the working tree (out/dispatch/tmp), not from a ~/.claude path, and verify before use."
+  },
+  {
+   "id": "D8",
+   "severity": "high",
+   "where": "aggregator vehiclesafetyrecalls.com/recall/26E026000",
+   "defect": "The page states 'Schedule the free repair' and 'the repair is completely free', which conflicts with NHTSA's 'remedy under development'. The consumer text is wrong or boilerplate. Do not use this site for the remedy.",
+   "fix_owner": "Dispatch: exclude this aggregator from remedy claims."
+  },
+  {
+   "id": "D9",
+   "severity": "high",
+   "where": "Rider access wording (October 14th versus September 17th and the September 27th guide)",
+   "defect": "Waymo's post says anyone can download and hail. Axios (headline and summary) says previously approved riders could request rides after September 17th. The September 27th guide says rides are added gradually from an interest list. The October 14th primary post resolves it for October, but the film must not say 'anyone' for any date before October 14th.",
+   "fix_owner": "Dispatch director."
+  },
+  {
+   "id": "D10",
+   "severity": "high",
+   "where": "pause reasons and dates (EVwire May 22nd versus Spectrum June 5th)",
+   "defect": "EVwire says 'severe weather challenges' and pauses starting May 21st, and also says San Antonio had been paused since late April. Spectrum says a recent pause over 'oncoming traffic' and emergency vehicles, with no date. These cannot both be settled from my sources.",
+   "fix_owner": "Dispatch director. Verify from Waymo's own statements before the film says anything about pauses other than the April to September one."
+  },
+  {
+   "id": "D11",
+   "severity": "high",
+   "where": "September 17th restart and the company's stated flood changes",
+   "defect": "The company's own description of the September changes (finished software updates, location-specific limits in high-risk areas, adjusted weather alerts and operating triggers) appears only in an NBC-affiliate report I was directed not to use and in a secondary summary. Axios, which carries the restart, returned HTTP 403.",
+   "fix_owner": "Dispatch director. Get the Waymo statement or an allowed outlet's body first. Until then, do not present those changes as fact."
+  },
+  {
+   "id": "D12",
+   "severity": "medium",
+   "where": "NHTSA recall page (nhtsa.gov, HTTP 403) and the docket's linked URL",
+   "defect": "The docket's public link for the recall is the NHTSA API endpoint, a machine JSON, not the readable recall page. The readable page returned 403. A viewer may find the JSON hard to check.",
+   "fix_owner": "Dispatch and Docket. Link the readable NHTSA page when it can be fetched."
+  },
+  {
+   "id": "D13",
+   "severity": "medium",
+   "where": "numeric conflicts across sources",
+   "defect": "Carscoops says 3,971 units (conflicts with NHTSA's 3,791). An ABC7 headline says 'over 3,500'. EVwire says 'entire fleet' while NHTSA says 'certain' 5th and 6th generation systems.",
+   "fix_owner": "Dispatch: do not use these figures."
+  },
+  {
+   "id": "D14",
+   "severity": "medium",
+   "where": "TxDMV page status",
+   "defect": "The TxDMV page is undated, lists no authorized companies and does not name Waymo. Whether Waymo holds a TxDMV authorization is UNKNOWN.",
+   "fix_owner": "Dispatch director. Check the TxDMV Automated Motor Vehicle Lookup for a live status before naming any state authorization for Waymo."
+  },
+  {
+   "id": "D15",
+   "severity": "medium",
+   "where": "dedupe and provenance checks (not run)",
+   "defect": "scripts/dedupe.py was not run, and no 30-day check against recent episodes was made. The packet hashes were not verified. The place_photos.py image search was not run.",
+   "fix_owner": "Dispatch director, before selection (dedupe.py check) and before any asset use (place_photos.py)."
+  },
+  {
+   "id": "D16",
+   "severity": "low",
+   "where": "docket claim tx-2026-0216-c4 wording",
+   "defect": "Accurate. Claim text says riders came 'in February'. The Feb 24th post says the invitations went to riders from a pool of tens of thousands who had downloaded the app. Nothing to change, but the film should say 'invitation' not 'selected'.",
+   "fix_owner": "None."
+  }
+ ],
+ "must_not_say": [
+  "Do not say the Waymo cars are unsafe, or that Waymo rides are safe now.",
+  "Do not name, imply or invent a rider or passenger in any event. The April cars were unoccupied, and TPR says no one was injured.",
+  "Do not say 3,791 or nearly 3,800 vehicles entered floodwater. Say potentially affected units under the recall.",
+  "Do not say the recall covers the entire fleet. NHTSA says certain 5th and 6th generation systems. (EVwire's 'entire fleet' is wrong.)",
+  "Do not say the recall remedy is finished, or that owners can schedule a free repair. The aggregator text conflicts with NHTSA.",
+  "Do not say the October 14th post addresses flooding or the recall. The fetched text does not.",
+  "Do not say October 14th was the airport's first day. Say airport trips opened to all app users on October 14th, after invited airport trips began March 31st.",
+  "Do not present 60 square miles as the current service area. It is the February limited area, per TPR.",
+  "Do not say the interim weather limits are in force today. The sources date the interim update to April 20th and do not confirm current status.",
+  "Do not state the cause of the April creek event beyond the recall text. Do not say a sensor failed, or that the maps caused it. The recall says the software may allow the behavior, and the interim update 'updated the vehicle maps'.",
+  "Do not give a speed or depth number. The 40 mph figure appears only in an unread PDF's search summary.",
+  "Do not say NHTSA demanded a remedy description or that a Part 573 was amended. Both come from unread or unverified summaries.",
+  "Do not say Waymo is, or is not, authorized by TxDMV. The TxDMV page does not show it.",
+  "Do not present the June pause reason (oncoming traffic, emergency vehicles) as fact. Sources conflict and the dates are missing.",
+  "Do not say the September 17th restart applies to everyone, or state the flood-zone limits as established fact. Those details come from an excluded source and an unread Axios body.",
+  "Do not quote Waymo's February safety multiples (ten-fold, 200 million miles). They were not verified verbatim.",
+  "Do not use 'drowned', 'sank', 'swept under' or 'crashed' for the April event. Use TPR's wording, 'swept up in flood waters and washed into Salado Creek'.",
+  "Do not give a single report date for the recall. Say May 2026 until the Part 573 PDF is read.",
+  "Do not say the recall was filed 'in April', and do not say Waymo was first to fix a flood issue.",
+  "Do not say the TxDMV power has been used against Waymo. No source shows that."
+ ],
+ "speakable_numbers_summary": "Speak only the numbers listed under filmability.spoken_numbers. Every number needs its attribution and its date, and a potential count must say 'potentially'.",
+ "recommendation": {
+  "verdict": "Proceed to candidate, as an evidence-led news report. The angle is: anyone can hail a Waymo in San Antonio from October 14th, and the federal record still lists the flood fix as under development. Keep the film's one illustration disclosed and limited to the recall sentence.",
+  "conditions_before_spend": [
+   "Re-fetch the TPR May 13th article and confirm the detection sentence (D5). If it fails, the opening falls back to the NHTSA mechanism sentence alone.",
+   "Extract and read the NHTSA Part 573 report and the May 11th acknowledgment letter inside the working tree (D7). Confirm the report date (D6) and the remedy status.",
+   "Read Waymo's own statement on the September changes, or the Axios body, before any claim about flood-zone limits or the restart (D11).",
+   "Resolve the pause reasons and dates (D10). Do not mention a pause beyond April to September until then.",
+   "Run dedupe.py check and place_photos.py for the airport and Salado Creek (D15).",
+   "Check the TxDMV Automated Motor Vehicle Lookup for Waymo's live authorization status before naming one (D14)."
+  ],
+  "fallback_if_conditions_fail": "If the detection sentence and the interim measure cannot be confirmed, the film keeps only the two verified sentences (Waymo's October 14th opening and NHTSA's remedy status) plus the count card and the illustrated mechanism limited to 'may allow ... drive into standing water'. That is still a complete evidence-led film with an honest limit."
+ }
+}
