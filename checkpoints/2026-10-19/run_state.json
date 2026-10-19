@@ -1,38 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/alignment-numeral-failure/take2/vo_direction.pause.json",
-        "before_sha256": "bc9ebdda75d88d5dca3c65e2486cf5607d726d4816b2a5f88558009c10543e95",
-        "path": "{REPO}/out/dispatch/vo_direction.json"
-      }
-    ],
-    "failure_sha256": "e1ea624524640179c7d2ebe25a7240590b38f4bd57076c04db925bfb0eccd018",
-    "frozen_inputs": {
-      "files": {
-        "{REPO}/out/dispatch/claims.json": "2971653602738c57346a95c738e1099349364515ddae1877de907c87ee9dd584",
-        "{REPO}/out/dispatch/sources/nhtsa.json": "c0c283a20f1339ec9c7856319e93bfb73fbebd4208b04f9ba839d24250e1dc2f",
-        "{REPO}/out/dispatch/sources/nhtsa.raw": "c0c283a20f1339ec9c7856319e93bfb73fbebd4208b04f9ba839d24250e1dc2f",
-        "{REPO}/out/dispatch/sources/nhtsa.txt": "11273bbfd26aae5a1e00110c7ea9fe89172ca4aa933419ed3df201d6fdd61a48",
-        "{REPO}/out/dispatch/sources/tpr_recall.raw": "73002692577749c0f0d87b5e8d5b60892bdf496bc5669e25e83dc94a24a7a3fb",
-        "{REPO}/out/dispatch/sources/tpr_recall.txt": "ea5640c54de61bd838813b02070a7bc88837970b4f268f8bd0c1a57d4f7d51ce",
-        "{REPO}/out/dispatch/sources/tpr_return.raw": "3b03d7c7f9862f431c6c530430b63e7cefb85ebc6e61a1bcd4633dc072316a8e",
-        "{REPO}/out/dispatch/sources/tpr_return.txt": "aa0254a0c719587e44f392cea82ae6dc0083f64e558b185e39ca09e6a865dc69",
-        "{REPO}/out/dispatch/sources/waymo_feb.raw": "04cc52abf2e45a174d005e1d34c440e53a9315c888f6af7ce58f8af26132be76",
-        "{REPO}/out/dispatch/sources/waymo_feb.txt": "e436feff167dfc80bb88454a4fb7928ae744d6ef9b6a68cfa67e69f5a712c1b6",
-        "{REPO}/out/dispatch/sources/waymo_oct.raw": "0a4df51b4526a74d41bb22c63ec7e15535adf04146fc1ea22e4444630d28fed2",
-        "{REPO}/out/dispatch/sources/waymo_oct.txt": "98fdc344a81d0f2fad3bf2d1e8a88beba8f92fc06577f7aa3e0610a38ec73411",
-        "{REPO}/out/dispatch/storyboard.json": "2a16cbfba85593a7e83360e356910c0f3a8a115d212e32c832e0b0b6287547b8",
-        "{REPO}/out/dispatch/vo_script.txt": "f4a70b7d34c2354e8c5873a9f270a55b0e5bab5ee3fbe149a5b5ec4847bd5d2c"
-      },
-      "renderer_sha256": "364847c9e4ddac9c4654e18284fafc0c2d1f82e136207a3fdcfc60f60faae083"
-    },
-    "plan": "{REPO}/out/dispatch/repair-plan.json",
-    "plan_identity": "b8b6575cf2f11f5d12b2652c7a49418b50db3887837e5ed6669861731c809cdf",
-    "plan_sha256": "3e1cac9dd8678e408927c09538ae193d4d8195b53c9815924c36c2813fd39e4c",
-    "reboards_before": 2,
-    "repair_scope": "narration-performance"
-  },
   "created_at": "2026-10-19T05:13:41.692242Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1010,6 +976,43 @@
       "plan_identity": "b8b6575cf2f11f5d12b2652c7a49418b50db3887837e5ed6669861731c809cdf",
       "plan_sha256": "3e1cac9dd8678e408927c09538ae193d4d8195b53c9815924c36c2813fd39e4c",
       "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-10-19T16:38:57.805120Z",
+      "grants": {
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "8dfbc6fdf98fbbd842fabe15424afe6e6eb3ea17ee9a704c7f222208bfdf8abb",
+            "before_path": "{REPO}/out/dispatch/evidence/alignment-numeral-failure/take2/vo_direction.pause.json",
+            "before_sha256": "bc9ebdda75d88d5dca3c65e2486cf5607d726d4816b2a5f88558009c10543e95",
+            "path": "{REPO}/out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "The recognizer hears the same words as the locked script and the captions follow.",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/alignment-numeral-failure/take2/alignment-failure.txt",
+        "failure_evidence_sha256": "e1ea624524640179c7d2ebe25a7240590b38f4bd57076c04db925bfb0eccd018",
+        "failure_family": "human-performance",
+        "mechanism_change": "The direction now names the articulation of the first word after the breath, where the earlier direction named only the breath.",
+        "mechanism_id": "as-articulation-after-breath",
+        "repair": "Direct a fully voiced, clearly articulated \"as\" at the start of the final phrase, keeping the breath before it and the same words.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "After the added breath the narrator slurred \"as\" before \"currently under development\", and the pinned recognizer heard \"is\", so the exact lexical comparison refuses the take."
+      },
+      "repair_plan_sha256": "6bed107f3550ecd34b19c640d868bc388ccc1eb4626a7de68d7f2ad1f4f89c43",
+      "repair_revision": "4cc11234409a6634e8eb6fbfd7e956222cb5ae676efe558a544704037a94966e",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -1033,7 +1036,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "2ab3c813703fab4a39d52fc5df1c43edde9a1f6be6598c44151ac679728e165b",
+    "original_private_state_sha256": "a41d07148deede2a7000a60d3df6e8238f936cd64eed40cf6d81943cb65b7469",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1061,7 +1064,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-19T16:38:44.727800Z",
+  "updated_at": "2026-10-19T16:38:57.805171Z",
   "usage": {
     "audiovisual_reviews": 2,
     "cleanup_renders": 0,
