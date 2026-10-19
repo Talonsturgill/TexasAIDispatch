@@ -127,7 +127,45 @@ def adapt_packet(data):
     if role in ('scene-builder', 'storyboard-critic'):
         data['treatments'] = agent_runtime.treatment_bindings(data['board']['path'])
         data['asset_inputs'] = agent_runtime.treatment_assets(data['treatments'])
+    if role == 'storyboard-critic' and data['date'] >= '2026-10-20':
+        data['code_report_bindings'] = code_report_bindings(data)
     return data
+
+
+def code_report_bindings(data):
+    """Give the Read-only critic both treatments' actual identities, with no proposed findings."""
+    import critic_gate
+    import daily_production
+    import quality_contract
+    from action_admission import source_claims_digest
+    rows = data.get('treatments', [])
+    if len(rows) != 2:
+        raise ValueError('code report bindings need both complete current treatment boards')
+    result = []
+    root = Path(data['board']['path']).resolve().parent
+    for option, ref in zip(('a', 'b'), rows, strict=True):
+        path = Path(ref['path']).resolve()
+        if path != root / ('opening-' + option + '.json') or digest(path) != ref['sha256']:
+            raise ValueError('code report treatment identity or bytes changed')
+        board = read(path)
+        if board.get('date') != data['date']:
+            raise ValueError('code report treatment belongs to another edition')
+        renderer = critic_gate.renderer_digest(board)
+        if not renderer:
+            raise ValueError('code report needs the actual callable renderer before review')
+        result.append({'id': option, 'board': bound(path), 'report_bindings': {
+            'review_scope': 'code-plan',
+            'concept_sha256': critic_gate.concept_digest(board),
+            'renderer_sha256': renderer,
+            'quality_contract_sha256': quality_contract.fingerprint(),
+            'story_review': {'story_sha256': daily_production.story_digest(board),
+                             'policy_sha256': digest(daily_production.POLICY),
+                             'claims_sha256': data['claims']['sha256']},
+            'action_reviews': [{'action_id': action['id'],
+                                'module_sha256': action['module']['sha256'],
+                                'source_claims_sha256': source_claims_digest(action)}
+                               for action in board.get('action_proposals', [])]}})
+    return {'schema': 'dispatch_claude_code_report_bindings/1', 'treatments': result}
 
 
 def motion_inputs(data):
@@ -324,6 +362,7 @@ def phone_options(state_path, sequences, current=False):
 
 def phone_packet(packet_path, state_path, sequences, current=False):
     data = read(packet_path)
+    data.pop('code_report_bindings', None)
     if data.get('role') != 'storyboard-critic':
         raise ValueError('phone packet requires the existing independent storyboard critic')
     if Path(data['board']['path']).resolve().parent != Path(state_path).resolve().parent:
@@ -494,14 +533,19 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
                                        or re.search(r'\bphone\b', scope, re.I)):
         phone_review_inputs(data)
         image_policy_inputs(data)
+    elif role == 'storyboard-critic' and data['date'] >= '2026-10-20' and not mechanical_task:
+        if data.get('code_report_bindings') != code_report_bindings(data):
+            raise ValueError('code report bindings are missing or stale; regenerate the current packet before reserving review')
     expected = '.claude/agents/' + route['agent'] + '.md'
     if data.get('brief') != expected:
         raise ValueError('Claude packet names the wrong leaf brief')
+    handoff = (' Return only complete gate-ready JSON, with every required field, supplied binding and defect.'
+               if role == 'storyboard-critic' and data['date'] >= '2026-10-20' and not mechanical_task else
+               ' Return one complete handoff or consolidated defect list with exact hashes.')
     message = ('Work in ' + str(REPO) + '. Read the current compact packet ' +
                str(Path(packet_path).resolve()) + ' (SHA256 ' + digest(packet_path) +
                ') and every bound current guide in full. Verify the inputs before use. Scope: ' +
-               scope.strip() + ' Return one complete handoff or consolidated defect list with exact '
-               'hashes. Do NOT launch or spawn any subagents; do the work yourself and return your '
+               scope.strip() + handoff + ' Do NOT launch or spawn any subagents; do the work yourself and return your '
                'result. Never send email or post socially. Preserve actual rejected evidence. '
                'A code plan does not approve a rendered film.')
     if freshness:

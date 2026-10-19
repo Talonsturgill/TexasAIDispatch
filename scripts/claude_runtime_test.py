@@ -76,6 +76,62 @@ class RuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'changed'):
             runtime.plan('validator', packet, 'validator', 'Validate current source claims.')
 
+    def code_data(self, edition='2026-10-20'):
+        source = self.root / 'Film.tsx'; source.write_text('export const Film = 1;')
+        claims = self.root / 'claims.json'; claims.write_text('{"claims":[]}')
+        for option in ('a', 'b'):
+            (self.root / ('opening-' + option + '.json')).write_text(json.dumps({
+                'date': edition, 'scenes': [{'id': 's1', 'visual_description': option}]}))
+        board = self.root / 'storyboard.json'; board.write_bytes((self.root / 'opening-a.json').read_bytes())
+        role = 'storyboard-critic'
+        return {'role': role, 'date': edition, 'agent_assignment': runtime.assignment(role, edition),
+                'brief': '.claude/agents/storyboard-critic.md', 'agent_contracts': runtime.contracts(role),
+                'board': runtime.bound(board), 'claims': runtime.bound(claims),
+                'treatments': [runtime.bound(self.root / ('opening-' + option + '.json')) for option in ('a', 'b')]}, source
+
+    def test_code_bindings_supply_both_actual_story_hashes_without_any_grade(self):
+        import critic_gate
+        import daily_production
+        data, source = self.code_data()
+        with patch.object(critic_gate, 'REPO', self.root), patch.object(critic_gate, 'renderer_files', return_value=[source]), \
+                patch('agent_runtime.treatment_assets', return_value=[]):
+            result = runtime.code_report_bindings(data)
+            self.assertEqual(result, runtime.adapt_packet(data)['code_report_bindings'])
+        self.assertEqual(['a', 'b'], [row['id'] for row in result['treatments']])
+        for row in result['treatments']:
+            board = runtime.read(row['board']['path'])
+            self.assertEqual(daily_production.story_digest(board), row['report_bindings']['story_review']['story_sha256'])
+            self.assertEqual(data['claims']['sha256'], row['report_bindings']['story_review']['claims_sha256'])
+        self.assertNotEqual(*[row['report_bindings']['story_review']['story_sha256'] for row in result['treatments']])
+        self.assertNotRegex(json.dumps(result), r'"(?:verdict|score|pass|blocking_defects)"')
+
+    def test_future_code_plan_requires_fresh_bindings_before_returning_json_only_arguments(self):
+        import critic_gate
+        data, source = self.code_data()
+        packet = self.root / 'code.json'
+        with patch.object(critic_gate, 'REPO', self.root), patch.object(critic_gate, 'renderer_files', return_value=[source]), \
+                patch('agent_runtime.required_inputs'):
+            packet.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError, 'bindings are missing or stale'):
+                runtime.plan('storyboard-critic', packet, 'code_review', 'Review both callable treatments at code scope.')
+            data['code_report_bindings'] = runtime.code_report_bindings(data)
+            packet.write_text(json.dumps(data))
+            result = runtime.plan('storyboard-critic', packet, 'code_review', 'Review both callable treatments at code scope.')
+            self.assertIn('complete gate-ready JSON', result['agent_args']['prompt'])
+            self.assertNotIn('or consolidated defect list', result['agent_args']['prompt'])
+            self.assertEqual(('claude-opus-5-5', 'high'), tuple(result['assignment'][k] for k in ('model', 'effort')))
+            source.write_text('export const Film = 2;')
+            with self.assertRaisesRegex(ValueError, 'bindings are missing or stale'):
+                runtime.plan('storyboard-critic', packet, 'code_review', 'Review both callable treatments at code scope.')
+
+    def test_historical_code_plan_does_not_require_or_rewrite_future_report_bindings(self):
+        data, _ = self.code_data('2026-10-19')
+        packet = self.root / 'code.json'; packet.write_text(json.dumps(data))
+        with patch('agent_runtime.required_inputs'):
+            result = runtime.plan('storyboard-critic', packet, 'code_review', 'Review both callable treatments at code scope.')
+        self.assertIn('or consolidated defect list', result['agent_args']['prompt'])
+        self.assertNotIn('run_in_background', result['agent_args'])
+
     def test_historical_assignment_is_not_replaced(self):
         with self.assertRaises(ValueError):
             runtime.assignment('picture', '2026-10-08')
