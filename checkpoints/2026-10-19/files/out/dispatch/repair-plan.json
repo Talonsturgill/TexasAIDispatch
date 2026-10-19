@@ -1,20 +1,19 @@
 {
   "repair_scope": "narration-performance",
-  "mechanism_id": "clause-breath-direction",
+  "mechanism_id": "as-articulation-after-breath",
   "failure_family": "human-performance",
   "director_identity": "claude-sonnet-5-5 director, this session",
-  "root_cause": "The continuous take ran two declared clause boundaries together with no measured silence, after \"in February\" and before \"as currently under development\", so the measured clause contract refuses the take.",
-  "repair": "Direct a short natural breath after \"in February\" and after \"the flood remedy\", keeping the same words and one continuous take.",
-  "mechanism_change": "The direction asks for a brief spoken breath at two named clause edges instead of running them together.",
-  "expected_visible_result": "The same narration aligns with a measured pause at each declared clause boundary and the same captions follow.",
-  "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/alignment-numeral-failure/alignment-boundary-failure.txt",
-  "failure_evidence_sha256": "0399f06c2580ceaf3f176fe2219181e3c9547697ac16581f5a5396729532afdf",
+  "root_cause": "After the added breath the narrator slurred \"as\" before \"currently under development\", and the pinned recognizer heard \"is\", so the exact lexical comparison refuses the take.",
+  "repair": "Direct a fully voiced, clearly articulated \"as\" at the start of the final phrase, keeping the breath before it and the same words.",
+  "mechanism_change": "The direction now names the articulation of the first word after the breath, where the earlier direction named only the breath.",
+  "expected_visible_result": "The recognizer hears the same words as the locked script and the captions follow.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/alignment-numeral-failure/take2/alignment-failure.txt",
+  "failure_evidence_sha256": "e1ea624524640179c7d2ebe25a7240590b38f4bd57076c04db925bfb0eccd018",
   "changed_inputs": [
     {
       "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/vo_direction.json",
-      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/alignment-numeral-failure/vo_direction.bound-before-pause.json",
-      "before_sha256": "6000dfbebb3589af18cff76892d743ca57fdf218f203bb7f5d2f68b4d0394623",
-      "after_sha256": "bc9ebdda75d88d5dca3c65e2486cf5607d726d4816b2a5f88558009c10543e95"
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/alignment-numeral-failure/take2/vo_direction.pause.json",
+      "before_sha256": "bc9ebdda75d88d5dca3c65e2486cf5607d726d4816b2a5f88558009c10543e95"
     }
   ],
   "resources": {

@@ -1,17 +1,17 @@
 {
   "duration_s": 63.45,
   "cut_s": 63.45,
-  "peak_dbfs_premaster": -2.16,
-  "lufs_premaster": -19.52,
+  "peak_dbfs_premaster": -1.5,
+  "lufs_premaster": -19.05,
   "lufs_target": -16.0,
-  "lufs_achieved": -16.16,
-  "lufs_shortfall_db": 0.16000000000000014,
-  "crest_factor_db": 17.37,
+  "lufs_achieved": -16.15,
+  "lufs_shortfall_db": 0.14999999999999858,
+  "crest_factor_db": 17.55,
   "limiter": true,
   "mix_notes": [
     "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
   ],
-  "master_gain_db": 2.16,
+  "master_gain_db": 1.5,
   "time_stretch": 1.0,
   "tracks": [
     {
@@ -29,46 +29,54 @@
       "time_stretch": 1.0,
       "gap_below_voice_db": 20.0,
       "source_lufs": -19.38,
-      "gain_db": -20.12
+      "gain_db": -19.66
     }
   ],
   "bed": true,
   "bed_track_id": "echoes_of_time_v2",
   "bed_gap_below_voice_db": 20.0,
   "bed_source_lufs": -19.38,
-  "bed_gain_db": -20.12,
+  "bed_gain_db": -19.66,
   "sfx_events": 5,
   "mastering": {
     "method": "FFmpeg loudnorm dynamic gain control",
     "before": {
-      "integrated_lufs": -17.4,
-      "true_peak_dbtp": -0.0
+      "integrated_lufs": -17.58,
+      "true_peak_dbtp": 0.01
     },
     "after": {
-      "integrated_lufs": -16.16,
-      "true_peak_dbtp": -1.98
+      "integrated_lufs": -16.15,
+      "true_peak_dbtp": -1.99
     },
-    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.33:measured_TP=-5.86:measured_LRA=21.70:measured_thresh=-35.48:offset=1.07",
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.620000000000001:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.43:measured_TP=-4.77:measured_LRA=21.10:measured_thresh=-35.43:offset=0.93",
     "measurement": {
-      "input_i": "-23.33",
-      "input_tp": "-5.86",
-      "input_lra": "21.70",
-      "input_thresh": "-35.48",
-      "output_i": "-16.14",
+      "input_i": "-23.43",
+      "input_tp": "-4.77",
+      "input_lra": "21.10",
+      "input_thresh": "-35.43",
+      "output_i": "-16.11",
       "output_tp": "-2.00",
-      "output_lra": "14.70",
-      "output_thresh": "-27.75",
+      "output_lra": "16.10",
+      "output_thresh": "-27.53",
       "normalization_type": "dynamic",
-      "target_offset": "0.14"
+      "target_offset": "0.49"
     },
     "attempts": [
       {
         "requested_lufs": -16.0,
         "measured": {
-          "integrated_lufs": -16.16,
-          "true_peak_dbtp": -1.98
+          "integrated_lufs": -16.38,
+          "true_peak_dbtp": -1.99
         },
-        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.33:measured_TP=-5.86:measured_LRA=21.70:measured_thresh=-35.48:offset=1.07"
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.43:measured_TP=-4.77:measured_LRA=21.10:measured_thresh=-35.43:offset=0.80"
+      },
+      {
+        "requested_lufs": -15.620000000000001,
+        "measured": {
+          "integrated_lufs": -16.15,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.620000000000001:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.43:measured_TP=-4.77:measured_LRA=21.10:measured_thresh=-35.43:offset=0.93"
       }
     ],
     "correction": null,
@@ -78,7 +86,7 @@
     "limiter": true
   },
   "master_file": "out/dispatch/mix.wav",
-  "master_sha256": "4d3d528bd477c3655a95bde42669694151f01316354d5a9a7e833032c42efa7e",
+  "master_sha256": "cab6dde20b136e5158f5b966b4b672250614eb996d71ca9dae9fc27f4ee3c819",
   "sound_direction_sha256": "38c4d3fb5134c1a60d8d60ade7d5711b59f849166d0cdc7c555be707039184af",
   "sound_cues": [
     {
