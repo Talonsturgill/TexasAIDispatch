@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Saved in the Texas cloud environment. Runs before Claude Code launches.
+# Saved in the Texas cloud environment. Provisioning is cached, not a daily refresh.
+# Setup revision 2026-10-19 installs the per-session refresh before Claude launches.
 set -euo pipefail
 dispatch_tools=/opt/texas-dispatch-tools
 if [ ! -d "$dispatch_tools/.git" ]; then

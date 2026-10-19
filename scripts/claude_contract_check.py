@@ -110,6 +110,8 @@ def problems(repo=REPO, environ=None):
             if required not in authority:
                 errors.append('Claude entry point lacks required authority ' + required)
         for required in ('claude_environment_setup.sh', '--prelaunch-router', '--bind-only',
+                         'claude_session_start.py', '<registered-primary-workspace>',
+                         'Cloud environment provisioning is cached',
                          'Do not attempt mid-session registration',
                          'before any paid worker reservation',
                          'python scripts/env_check.py --require-voice',

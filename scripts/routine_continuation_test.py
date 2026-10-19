@@ -16,6 +16,8 @@ import bootstrap_claude_hooks as bootstrap
 
 class ContinuationTests(unittest.TestCase):
     def setUp(self):
+        remote = patch.dict(continuation.os.environ, {'CLAUDE_CODE_REMOTE': 'false'})
+        remote.start(); self.addCleanup(remote.stop)
         self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
         self.workspace = Path(self.tmp.name).resolve()
         self.repo = self.workspace / 'restore/edition'
@@ -30,6 +32,34 @@ class ContinuationTests(unittest.TestCase):
 
     def arm(self):
         continuation.arm(self.workspace, self.state)
+
+    def install_primary_hooks(self):
+        (self.repo / 'scripts').mkdir(exist_ok=True)
+        for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py', 'claude_session_start.py'):
+            (self.repo / 'scripts' / name).write_text('# fixture\n')
+        bootstrap.bootstrap(self.workspace, self.repo, prelaunch_router=True)
+
+    def test_nested_edition_arm_is_watched_by_the_actual_primary_stop_hook(self):
+        self.install_primary_hooks()
+        nested = self.repo.parent
+        before = self.state.read_bytes()
+        continuation.arm(nested, self.state)
+        self.assertTrue((self.workspace / continuation.MARKER).is_file())
+        self.assertFalse((nested / continuation.MARKER).exists())
+        self.assertIn('remains unfinished', continuation.decision(self.payload, self.workspace))
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_missing_or_changed_primary_registration_cannot_report_successful_cloud_arm(self):
+        with patch.dict(continuation.os.environ, {'CLAUDE_CODE_REMOTE': 'true'}):
+            with self.assertRaisesRegex(ValueError, 'unwatched folder'):
+                self.arm()
+        self.install_primary_hooks()
+        target = self.workspace / '.claude/settings.json'
+        settings = json.loads(target.read_text()); settings['hooks']['Stop'] = []
+        target.write_text(json.dumps(settings))
+        with self.assertRaisesRegex(ValueError, 'not installed'):
+            continuation.arm(self.repo.parent, self.state)
+        self.assertFalse((self.workspace / continuation.MARKER).exists())
 
     def test_ordinary_coding_and_leaf_events_are_inert(self):
         self.assertIsNone(continuation.decision(self.payload, self.workspace))
@@ -218,7 +248,7 @@ class ContinuationTests(unittest.TestCase):
 
     def test_prelaunch_registration_is_additive_idempotent_and_preserves_permissions(self):
         scripts = self.repo / 'scripts'; scripts.mkdir()
-        for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py'):
+        for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py', 'claude_session_start.py'):
             (scripts / name).write_text('# offline fixture\n')
         directory = self.workspace / '.claude'; directory.mkdir()
         target = directory / 'settings.json'
