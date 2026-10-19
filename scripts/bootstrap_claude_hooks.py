@@ -49,6 +49,7 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
     image_handler = repo / 'scripts/image_read_receipt.py'
     if prelaunch_router and not image_handler.is_file():
         raise ValueError('the image tool-delivery observer is missing')
+    visual_handler = repo / 'scripts/visual_observations.py'
     start_handler = repo / 'scripts/claude_session_start.py'
     if prelaunch_router and not start_handler.is_file():
         raise ValueError('the per-session cached-tools refresh is missing')

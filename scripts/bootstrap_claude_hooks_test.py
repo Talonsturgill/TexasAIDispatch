@@ -154,6 +154,42 @@ class BootstrapTests(unittest.TestCase):
         for key in ('model', 'effortLevel', 'env', 'permissions'):
             self.assertEqual(result[key], self.settings[key])
 
+    def test_prelaunch_registers_visual_write_recorder_with_primary_guard(self):
+        for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py',
+                     'claude_session_start.py', 'visual_observations.py'):
+            (self.repo / 'scripts' / name).write_text('# fixture\n')
+        boot.bootstrap(self.workspace, self.repo, prelaunch_router=True)
+        before = self.target.read_bytes()
+        boot.bootstrap(self.workspace, self.repo, prelaunch_router=True)
+        self.assertEqual(before, self.target.read_bytes())
+        result = self.load()
+        writes = [e for e in result['hooks']['PostToolUse'] if e.get('matcher') == 'Write']
+        self.assertEqual(len(writes), 1)
+        self.assertIn('visual_observations.py record --workspace', writes[0]['hooks'][0]['command'])
+        self.assertIn('pre-tool --workspace', json.dumps(result['hooks']['PreToolUse']))
+        for key in ('model', 'effortLevel', 'env', 'permissions'):
+            self.assertEqual(result[key], self.settings[key])
+
+    def test_recorder_only_registration_upgrades_without_duplicate_or_foreign_hook_loss(self):
+        for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py',
+                     'claude_session_start.py', 'visual_observations.py'):
+            (self.repo / 'scripts' / name).write_text('# fixture\n')
+        boot.bootstrap(self.workspace, self.repo, prelaunch_router=True)
+        marker = self.directory / 'dispatch-capture-registration.json'
+        previous = json.loads(marker.read_text())
+        previous['visual_registration'] = previous.pop('visual_write_registration')
+        data = self.load()
+        data['hooks']['PreToolUse'].remove(previous.pop('visual_guard_registration'))
+        self.target.write_text(json.dumps(data)); marker.write_text(json.dumps(previous))
+        boot.bootstrap(self.workspace, self.repo, prelaunch_router=True)
+        result = self.load()
+        self.assertEqual(len([e for e in result['hooks']['PostToolUse'] if e.get('matcher') == 'Write']), 1)
+        self.assertIn(self.foreign, result['hooks']['PreToolUse'])
+        self.assertNotIn('visual_registration', json.loads(marker.read_text()))
+        self.assertIn('pre-tool --workspace', json.dumps(result['hooks']['PreToolUse']))
+        for key in ('model', 'effortLevel', 'env', 'permissions'):
+            self.assertEqual(result[key], self.settings[key])
+
     def test_missing_image_observer_refuses_prelaunch_without_writing_settings(self):
         for name in ('cloud_capture_hook.py', 'routine_continuation.py'):
             (self.repo / 'scripts' / name).write_text('# fixture\n')
