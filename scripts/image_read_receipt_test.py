@@ -51,7 +51,8 @@ class ImageDelivery(unittest.TestCase):
         self.assertNotIn('decision', result)
         context = result['hookSpecificOutput']['additionalContext']
         self.assertIn('brief public image description in ordinary assistant text', context)
-        self.assertIn('visible objects, actions or text', context)
+        self.assertIn('factual JSON record: page, objects, actions, text', context)
+        self.assertIn('quality conclusions in the final report', context)
 
     def test_later_placeholder_cannot_rewrite_the_original_image_event(self):
         hook.record(self.payload, self.workspace)

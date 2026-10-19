@@ -17,6 +17,35 @@ panel path when required. JSON-only correction can preserve the original scores 
 substantive guide/source completion is paid content review. Never invent coverage, replace
 a real rejection or call missing coverage an artistic deferral.
 
+For an actual Opus phone refusal on the legacy per-image evaluation assignment, preserve the
+literal error, original packet, reservation and ungraded partial outputs. A refusal is not a
+transport outage. Use the source-corrected public_visual_evidence contract on the same Opus
+High role in a fresh isolated context; between images request factual objects, actions and
+literal screen text, with conclusions only in the final review. Do not request a work log or
+copy a prior worker's internal content. Keep all complete-film and guide requirements.
+
+Read config/review_prompt_repair_v1.json. The command below captures the actual
+dispatch_review_prompt_failure/1 receipt from the error-only UTF-8 text file, actual actor,
+current board identity and latest charged packet. It records the clock and hashes without
+another model call or ledger mutation. Do not pre-create its receipt. To resume an existing
+captured receipt, replace --capture-receipt with --receipt and omit --error-evidence and --actor.
+Use the
+real existing packet and a newly rebuilt phase02 phone packet; its current guides may change,
+but source, films, board, both treatments, rubric and quality bindings must remain identical.
+
+```sh
+python scripts/review_prompt_repair.py --state out/dispatch/run_state.json --capture-receipt out/dispatch/evidence/review-prompt-repair/receipt.json --error-evidence <actual-native-error-file> --actor <actual-failed-actor-id> --original-packet out/dispatch/evidence/review-prompt-repair/original-packet.json --revised-packet out/dispatch/phone-critic-packet.json --output out/dispatch/evidence/review-prompt-repair/capacity.json
+python scripts/run_controller.py production-budget --review-route host --repair-plan out/dispatch/evidence/review-prompt-repair/capacity.json
+python scripts/run_controller.py completion-capacity --repair-plan out/dispatch/evidence/review-prompt-repair/capacity.json
+```
+
+Use the runtime wrapper with the explicit edition cd. The separate one-time grant protects
+four pending critic roles: corrected evidence collection, corrective code review, corrected
+silent comparison and timed phone, plus the complete native/audio/scoring/delivery path.
+It changes no production input and approves no review. Reserve the actual corrected task before
+spawning it. Keep the same Opus High model; the ordinary platform safeguards still apply.
+Never classify a safeguard refusal as provider unavailability or repeatedly rename a voucher.
+
 Read the current checkpoint and compact defect ledger first. Preserve the last playable film,
 exact hashes and all reviews. Read knowledge/craft/BOUNDED_CREATIVE_RELEASE.md first: a rejection
 starts another creative repair only before its finite boundary and with complete review

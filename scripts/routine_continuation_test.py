@@ -119,17 +119,27 @@ class ContinuationTests(unittest.TestCase):
             self.assertEqual(result['decision'], 'block')
             self.assertNotIn('Critic capacity is exhausted', result['reason'])
 
-    def test_first_stop_no_running_task_coding_and_leaf_events_never_wait(self):
+    def test_first_stop_coding_and_leaf_events_never_wait(self):
         pause = Mock()
         self.assertIsNone(continuation.response(self.payload, self.workspace, pause=pause))
         self.arm()
         for payload in ({**self.payload, 'stop_hook_active': False,
                          'background_tasks': [{'id': 'ci', 'status': 'running'}]},
-                        self.payload,
-                        {**self.payload, 'background_tasks': [{'id': 'done', 'status': 'completed'}]}):
+                        {**self.payload, 'stop_hook_active': False},
+                        {**self.payload, 'stop_hook_active': False,
+                         'background_tasks': [{'id': 'done', 'status': 'completed'}]}):
             self.assertEqual(continuation.response(payload, self.workspace, pause=pause)['decision'], 'block')
         self.assertIsNone(continuation.response({'hook_event_name': 'SubagentStop'}, self.workspace, pause=pause))
         pause.assert_not_called()
+
+    def test_repeated_no_worker_wait_backs_off_without_completing_or_mutating_the_run(self):
+        self.arm(); before = self.state.read_bytes()
+        for tasks in ([], [{'id': 'done', 'status': 'completed'}]):
+            pause = Mock()
+            result = continuation.response({**self.payload, 'background_tasks': tasks}, self.workspace, pause=pause)
+            pause.assert_called_once_with(20)
+            self.assertEqual(result['decision'], 'block')
+        self.assertEqual(self.state.read_bytes(), before)
 
     def test_wait_rechecks_accepted_archive_before_returning(self):
         self.arm()

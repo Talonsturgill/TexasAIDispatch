@@ -122,8 +122,9 @@ def record(payload, workspace):
                'for an older image does not establish that its original Read failed. The visibility '
                'observation belongs to the step when that payload was returned.')
     context += (' Before another Read, provide a brief public image description in ordinary '
-                'assistant text naming this file, its visibility and visible objects, actions or text. '
-                'Keep that description for the coverage report. If unseen now, return partial coverage '
+                'assistant text as a factual JSON record: page, objects, actions, text. Record '
+                'visible content only; put quality conclusions in the final report. '
+                'Keep this record for coverage. If unseen now, return partial coverage '
                 'with the literal error and stop image traversal; do not invent observations.')
     return {'hookSpecificOutput': {'hookEventName': 'PostToolUse', 'additionalContext': context}}
 

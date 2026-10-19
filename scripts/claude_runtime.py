@@ -161,11 +161,12 @@ def image_read_policy(edition=None):
 def image_reading(data, *, compact=False):
     """Keep image delivery bounded; this supplies no creative observation or approval."""
     data['image_read_policy'] = image_read_policy(data.get('date'))
+    if str(data.get('date', '')) >= '2026-10-19':
+        from review_prompt_repair import PUBLIC_CONTRACT, PUBLIC_INSTRUCTION
+        data['public_visual_evidence'] = json.loads(json.dumps(PUBLIC_CONTRACT))
+        data['instructions'] += PUBLIC_INSTRUCTION
     if data['image_read_policy'].get('note_channel'):
-        data['instructions'] += (' After each image Read, provide a brief public image description '
-            'in ordinary assistant text with page identity, visibility and visible objects, actions '
-            'or text BEFORE another Read. Preserve those descriptions for the coverage report. '
-            'For an actually unseen new Read, immediately state its literal error publicly and '
+        data['instructions'] += (' For an actually unseen new Read, immediately state its literal error publicly and '
             'return a partial JSON handback containing the exact coverage object. In that failed '
             'page entry set observation_timing:immediate_after_read and '
             'observation_channel:ordinary_assistant_text only if observed before another image Read. '

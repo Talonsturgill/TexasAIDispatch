@@ -176,6 +176,16 @@ bound plan or any other board change. A source fix and bookkeeping rebind approv
 bind fresh packets and require the separate full code, silent phone and timed phone verdicts
 before native production. Never replace a phone review with the code rejection or its grant.
 
+## Corrected public visual task after a refusal
+
+The dated config/review_prompt_repair_v1.json funds one source correction of a legacy phone
+review prompt after its actual charged refusal. Use scripts/review_prompt_repair.py through
+the repair phase. Retain the exact error and failed reservation; supply a genuinely revised
+public-facts packet with all current source, film, treatment, rubric and guide requirements.
+It funds the complete remaining path without overriding a refusal, declaring an outage,
+changing models or approving any production input. Record only visible content between images;
+reserve quality conclusions and brief public explanations for the final review report.
+
 ## Charged narration pivot recovery
 
 The October 16th run exposed a missing path after a charged Opus High narration pivot returned
