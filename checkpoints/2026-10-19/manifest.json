@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T06:25:29.988701+00:00",
-  "note": "capture authorization consumed 492b8b700cac",
+  "saved_at": "2026-10-20T06:25:42.261928+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "9f3585d4280e219070be5407221e4d6ee24ae568691e9f4cbf40a82df3b0d228"
   },
   "deleted_source": [],
-  "ledger_sha256": "e6b6735856b1a0e02f0c2ac1a2ed35d74d17489244e6f653956f5e12dde63156",
-  "original_private_ledger_sha256": "72593d7eb2f0e86336822b40934b2a3d184d21303a37f5e61f0bb89cb2711a82",
+  "ledger_sha256": "1c0d5b9fef85176bd7b024d777f5a3e50d79d1d737c2f3e6714b8912b9dd346c",
+  "original_private_ledger_sha256": "8c0aeaadd5000e82a5f0093bec57e761bc654ddd3e7236eae19fd4c6dfb39dff",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -77,6 +77,11 @@
     {
       "event_index": 217,
       "authorization_sha256": "2ab0ea040e0e6ee87ac9b067fa75ed82618f791838be71068fd4d867071da692",
+      "root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch"
+    },
+    {
+      "event_index": 231,
+      "authorization_sha256": "032fc323fb7a04525d0d7f62b50f1f6acc23efa9355bbdc3a42b7f7e1d217c59",
       "root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch"
     }
   ],
@@ -7495,6 +7500,12 @@
       "class": "scratch",
       "sha256": "199efdde8c8cc632c16b047a19d551c169043ecb0880b559ea11ab92bba870ef",
       "size": 1007181
+    },
+    {
+      "path": "out/dispatch/finish-current-plan-10.json",
+      "class": "scratch",
+      "sha256": "032fc323fb7a04525d0d7f62b50f1f6acc23efa9355bbdc3a42b7f7e1d217c59",
+      "size": 859
     },
     {
       "path": "out/dispatch/finish-current-plan-3.json",
