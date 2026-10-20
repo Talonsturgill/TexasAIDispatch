@@ -1236,6 +1236,14 @@
       "note": "exact MP4 audiovisual review story",
       "resource": "audiovisual_reviews",
       "to": 9
+    },
+    {
+      "at": "2026-10-20T19:55:44.187851Z",
+      "ceiling": 43,
+      "from": 9,
+      "note": "exact MP4 audiovisual review picture",
+      "resource": "audiovisual_reviews",
+      "to": 10
     }
   ],
   "events": [
@@ -9774,10 +9782,28 @@
       "resources": {
         "audiovisual_reviews": 1
       }
+    },
+    {
+      "at": "2026-10-20T19:55:44.187883Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review picture",
+      "now": 10,
+      "resource": "audiovisual_reviews",
+      "was": 9
+    },
+    {
+      "at": "2026-10-20T19:55:44.187896Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review picture",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
     }
   ],
   "limits": {
-    "audiovisual_reviews": 9,
+    "audiovisual_reviews": 10,
     "cleanup_renders": 1,
     "full_renders": 2,
     "image_generations": 2,
@@ -9797,7 +9823,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "495b4298853dff4b964c8e361df1115a00b0767fea159ad929cbd7f88e2f5d09",
+    "original_private_state_sha256": "427d192deb7e40aae9b9e6d641af111d32affecf78762350b35c7d3096084f55",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -9825,9 +9851,9 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T19:52:13.637710Z",
+  "updated_at": "2026-10-20T19:55:44.187900Z",
   "usage": {
-    "audiovisual_reviews": 9,
+    "audiovisual_reviews": 10,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
