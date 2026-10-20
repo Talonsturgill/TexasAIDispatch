@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T05:13:17.552673+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-20T05:18:38.332556+00:00",
+  "note": "restored; r15 critic spawned",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "9f3585d4280e219070be5407221e4d6ee24ae568691e9f4cbf40a82df3b0d228"
   },
   "deleted_source": [],
-  "ledger_sha256": "f246ded31d8fb019000915cb32d0f3c3da8d8ad779fa681c12b714cbea5657fe",
-  "original_private_ledger_sha256": "066368c85c984c4e916750edce9de05b11fe7589df7d6935a744b7b36e97b491",
+  "ledger_sha256": "0dd9e2e8273d98d5c3797c8a6c96296d96303baf5f90355391e1980e3ccbb0d5",
+  "original_private_ledger_sha256": "04f9db16a2bfaabef3146f5c06a357b1738194b1150031be3993dafa92ef96df",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -91,8 +91,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "25ea0ca2517396375cf3d186f3134456184fe2be40518ccfd6bfa3bcfbde9c21",
-      "size": 36326
+      "sha256": "1cc09039319db0580427c380e7fd43bdeb8d77b477c8ed6780240e5ab00dc455",
+      "size": 37126
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -1147,7 +1147,7 @@
     {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
-      "sha256": "2b7e3ef82c0ad99a1c980bd0551a07f5b593510b2be81275c310f466c2ee1c5d",
+      "sha256": "805d6ba29310a793265cdee3535f2ae526f6479e1e408c5fe4bc6c2368e0fe9a",
       "size": 128
     },
     {
@@ -1184,6 +1184,12 @@
       "path": "out/dispatch/critic-assignment-round12.json",
       "class": "scratch",
       "sha256": "58c4503a92ef66b4171becd7ad7437883d5dd1f7ce71f89673c70eeecdc5755b",
+      "size": 2034
+    },
+    {
+      "path": "out/dispatch/critic-assignment-round15.json",
+      "class": "scratch",
+      "sha256": "4560ef0a6529bce7ade0b9c6c99de7a630a6f8bfe04db22f3fbeaa1432f217b2",
       "size": 2034
     },
     {
@@ -5379,6 +5385,12 @@
       "class": "scratch",
       "sha256": "07cb406c8ea8ead0e2be903b3db2d88a441e4adaa79bf678f7d1dd0427d2b474",
       "size": 1120
+    },
+    {
+      "path": "out/dispatch/evidence/restore-audit-failure-2026-10-20.log",
+      "class": "scratch",
+      "sha256": "a22ced2a3a517cc9e0fc02e0ebc09b07364961272de253967493894c7ec2f4cb",
+      "size": 223
     },
     {
       "path": "out/dispatch/evidence/review-prompt-repair/SHA256SUMS",
@@ -22434,8 +22446,8 @@
     }
   ],
   "regenerable": {
-    "files": 19,
-    "bytes": 823840
+    "files": 0,
+    "bytes": 0
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }
