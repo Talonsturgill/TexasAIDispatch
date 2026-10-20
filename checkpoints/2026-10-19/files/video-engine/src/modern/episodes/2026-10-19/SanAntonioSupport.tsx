@@ -539,21 +539,36 @@ export const CreekLedge: React.FC<{t: number}> = ({t}) => {
 };
 /** The shallow edge of the near bank in elevation: a limestone shelf a little under the surface, running
  * upstream (right) from its broken lip at CREEK_MARKS.lip, the water over it paler and riffled, the current
- * pouring white over the lip into the deep brown channel downstream. `layer` splits it at the car's waterline
- * row `waterY` so the rows behind the car lie under it and the rows in front of it close over its wheels.
- * `drift` is the current's speed (negative runs left). */
-export const CreekShelf: React.FC<{t: number; layer: 'back' | 'front'; drift: number}> = ({t, layer, drift}) => {
- const id = useUid('scs'), {lip} = CREEK_MARKS, wy = CREEK.waterY, y0 = wy - 34, y1 = wy + 130, x1 = 1500, r = rng(61);
+ * pouring white over the lip into the deep brown channel downstream. It has no ruled side: its far and near
+ * sides wander, hand cut, and a vertical mask dissolves it into the channel toward both, so only the lip reads
+ * as an edge. `layer` splits it along the SAME waterline swell the episode's FloodSheet closes over the car
+ * with (that sheet's span `span`, seed `seed`, calm water), the back layer above the swell and the front layer
+ * below it, exact complements, so the rows behind the car lie under it, the rows in front of it close over
+ * its wheels, and the two layers meet with no seam. `drift` is the current's speed (negative runs left). */
+export const CreekShelf: React.FC<{t: number; layer: 'back' | 'front'; drift: number; seed?: number; span?: [number, number]}> =
+ ({t, layer, drift, seed = 17, span = [-300, 1500]}) => {
+ const id = useUid('scs'), {lip} = CREEK_MARKS, wy = CREEK.waterY, y0 = wy - 46, y1 = wy + 150, x1 = 1500, r = rng(61);
  // the lip runs a little leftward as it comes nearer, broken into short steps
  const lipAt = (y: number) => lip + 14 - 34 * (y - y0) / (y1 - y0) + 6 * Math.sin(y * .09);
- const edge: P[] = Array.from({length: 9}, (_, i) => {const y = lerp(y0, y1, i / 8); return [lipAt(y), y];});
- const area = `M${x1} ${y0}L${edge[0][0].toFixed(1)} ${y0}` + edge.slice(1).map(([x, y]) => `L${x.toFixed(1)} ${y.toFixed(1)}`).join('') + `L${x1} ${y1}Z`;
- const band = layer === 'back' ? [y0 - 10, wy] : [wy + 5, y1 + 10];
+ const edge: P[] = Array.from({length: 11}, (_, i) => {const y = lerp(y0 + 6, y1 - 6, i / 10); return [lipAt(y), y];});
+ // the far and near sides wander like a cut stone shelf seen through water, never along a row
+ const far: P[] = Array.from({length: 8}, (_, i) => {const x = lerp(x1 + 60, lipAt(y0) + 40, i / 7); return [x, y0 + 8 * Math.sin(x * .013 + 1.1) + 4 * Math.sin(x * .041)];});
+ const near: P[] = Array.from({length: 8}, (_, i) => {const x = lerp(lipAt(y1) + 40, x1 + 60, i / 7); return [x, y1 + 10 * Math.sin(x * .011 + 2.3) + 5 * Math.sin(x * .037 + .4)];});
+ const area = smoothPath([...far, ...edge, ...near], true);
+ // the FloodSheet's waterline swell, sampled at the same 31 points across the same span, as that sheet draws it
+ const swell = Array.from({length: 31}, (_, i) => {const x = lerp(span[0] - 400, span[1] + 400, i / 30);
+  return `${i ? 'L' : 'M'}${x.toFixed(1)} ${(wy + 1.8 * Math.sin(x * .045 + t * 4.2 + seed)).toFixed(1)}`;}).join('');
+ const side = layer === 'back' ? `${swell}L${span[1] + 400} ${y0 - 400}L${span[0] - 400} ${y0 - 400}Z` : `${swell}L${span[1] + 400} ${y1 + 400}L${span[0] - 400} ${y1 + 400}Z`;
  return <g data-part={'shallow-shelf-' + layer}>
-  <defs><clipPath id={`${id}c`}><rect x={-400} y={band[0]} width={2400} height={band[1] - band[0]}/></clipPath>
-   <clipPath id={`${id}a`}><path d={area}/></clipPath></defs>
-  <g clipPath={`url(#${id}c)`}>
-   <path d={area} fill="#A68C63" opacity={.72}/>
+  <defs><clipPath id={`${id}c`}><path d={side}/></clipPath>
+   <clipPath id={`${id}a`}><path d={area}/></clipPath>
+   <linearGradient id={`${id}g`} x1="0" y1={y0 - 12} x2="0" y2={y1 + 14} gradientUnits="userSpaceOnUse">
+    <stop offset="0" stopColor="#FFFFFF" stopOpacity={0}/><stop offset=".2" stopColor="#FFFFFF" stopOpacity={1}/>
+    <stop offset=".62" stopColor="#FFFFFF" stopOpacity={1}/><stop offset="1" stopColor="#FFFFFF" stopOpacity={0}/></linearGradient>
+   <mask id={`${id}m`} maskUnits="userSpaceOnUse" x={-400} y={y0 - 60} width={2400} height={y1 - y0 + 120}>
+    <rect x={-400} y={y0 - 60} width={2400} height={y1 - y0 + 120} fill={`url(#${id}g)`}/></mask></defs>
+  <g clipPath={`url(#${id}c)`}><g mask={`url(#${id}m)`}>
+   <path d={area} fill="#A68C63" opacity={.7}/>
    <g clipPath={`url(#${id}a)`} data-part="riffles">{Array.from({length: 34}, (_, i) => {
     const u = r(), v = r(), sp = lerp(.8, 1.2, r()), W = x1 - lip + 200;
     const x = lip - 100 + frac(u + t * drift * sp / W) * W, y = lerp(y0 + 4, y1 - 4, v), l = lerp(24, 60, r());
@@ -561,9 +576,9 @@ export const CreekShelf: React.FC<{t: number; layer: 'back' | 'front'; drift: nu
    {/* the lip: the stone edge, the white water pouring over it and its spray falling downstream */}
    <path d={smoothPath(edge, false)} stroke={SA.limestoneShade} strokeWidth={7} fill="none"/>
    <path d={smoothPath(edge, false)} transform="translate(-6 0)" stroke={SA.foam} strokeWidth={6} fill="none" opacity={.75 + .15 * Math.sin(t * 8)}/>
-   {Array.from({length: 22}, (_, i) => {const ph = frac(r() + t * lerp(1.3, 2.2, r())), [ex, ey] = edge[i % 9];
+   {Array.from({length: 22}, (_, i) => {const ph = frac(r() + t * lerp(1.3, 2.2, r())), [ex, ey] = edge[i % edge.length];
     return <circle key={'s' + i} cx={(ex - 8 - 46 * ph).toFixed(1)} cy={(ey - 6 + 14 * ph * ph).toFixed(1)} r={2.5 + 2.5 * (1 - ph)} fill={SA.foam} opacity={.8 * (1 - ph)}/>;})}
-  </g>
+  </g></g>
   {/* broken limestone blocks standing just out of the water along the lip */}
   {layer === 'back' && [[lip + 30, wy - 30, 46], [lip + 120, wy - 26, 34]].map(([x, y, w], i) => <g key={'b' + i}>
    <path d={`M${x - w / 2} ${y + 10}L${x - w / 2 + 6} ${y - 6}L${x + w / 2 - 4} ${y - 8}L${x + w / 2} ${y + 10}Z`} fill={SA.limestone} stroke={SA.limestoneShade} strokeWidth={2}/>
@@ -1088,6 +1103,10 @@ export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t,
  const T = bank(creek[0], .4, 1), B = bank(creek[1], 1.7, 2);
  const shelf = (b: P[], sgn: number, w: number): P[] => b.map(([x, y], i) => [x, y + sgn * (w + 24 * Math.sin(x * .019 + i))] as P);
  const water = smoothPath([...T, ...B.slice().reverse()]);
+ // the shallow shelf's lip, from the near bank up to the channel side, then along the channel side upstream
+ const {lipX, edgeY} = CREEK_PLAN;
+ const planShelfLip: P[] = [[lipX - 38, 1300], [lipX - 22, 1190], [lipX - 30, 1100], [lipX - 8, edgeY - 46], [lipX + 26, edgeY - 98],
+  [lipX + 120, edgeY - 124], [lipX + 260, edgeY - 108], [lipX + 420, edgeY - 128], [lipX + 600, edgeY - 112], [1320, edgeY - 122]];
  const stone = smoothPath([...shelf(T, -1, 92), ...shelf(B, 1, 100).reverse()]);
  const idxAt = (x: number) => Math.min(13, Math.max(0, Math.round((x + 180) / 110)));
  return <g data-part="creek-plan">
@@ -1111,8 +1130,9 @@ export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t,
    return <path key={i} d={`M${x.toFixed(1)} ${y.toFixed(1)}q${(-l / 2).toFixed(1)} ${(lean / 2).toFixed(1)} ${(-l).toFixed(1)} ${lean.toFixed(1)}`} stroke={SA.foam} strokeWidth={3} fill="none" opacity={.38}/>;})}</g>
   {/* the near bank's shallow shelf upstream of its lip: paler water over stone, riffled, white along the lip */}
   <g clipPath={`url(#${id}c)`} data-part="shallow-shelf-plan">
-   <path d={`M${CREEK_PLAN.lipX} ${CREEK_PLAN.edgeY - 110}C${CREEK_PLAN.lipX + 60} ${CREEK_PLAN.edgeY - 130} 900 ${CREEK_PLAN.edgeY - 120} 1300 ${CREEK_PLAN.edgeY - 116}L1300 1400L${CREEK_PLAN.lipX - 40} 1400Z`} fill="#A68C63" opacity={.7}/>
-   <path d={`M${CREEK_PLAN.lipX - 40} 1300L${CREEK_PLAN.lipX - 6} ${CREEK_PLAN.edgeY - 60}C${CREEK_PLAN.lipX + 10} ${CREEK_PLAN.edgeY - 100} ${CREEK_PLAN.lipX + 60} ${CREEK_PLAN.edgeY - 126} 1300 ${CREEK_PLAN.edgeY - 116}`} stroke={SA.foam} strokeWidth={7} fill="none" opacity={.75 + .15 * Math.sin(t * 8)}/>
+   {/* its lip and channel side are one hand-cut curve, never ruled; the bank's own edge closes it below */}
+   <path d={smoothPath([...planShelfLip, [1320, 1420], [CREEK_PLAN.lipX - 60, 1420]], true)} fill="#A68C63" opacity={.7}/>
+   <path d={smoothPath(planShelfLip, false)} stroke={SA.foam} strokeWidth={7} fill="none" opacity={.75 + .15 * Math.sin(t * 8)}/>
    {Array.from({length: 18}, (_, i) => {const x = CREEK_PLAN.lipX + frac(i * .41 - t * .5) * 700, y = CREEK_PLAN.edgeY - 90 + (i * 37) % 150;
     return <path key={i} d={`M${x.toFixed(1)} ${y}l18 -6l18 6`} stroke={SA.foam} strokeWidth={3} fill="none" opacity={.55}/>;})}
   </g>

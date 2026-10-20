@@ -1,43 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/RobotaxiFilm.tsx",
-        "before_sha256": "9b0c17114ab0bf5409c9af7cdd9030dd6ee03696b709ffd644e1a3fb52e03192",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/RobotaxiHero.tsx",
-        "before_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/SanAntonioSupport.tsx",
-        "before_sha256": "724d305bea0e78afb04e18a4a266e8e985478dc0605c62f11707e4770fe421c0",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/storyboard.json",
-        "before_sha256": "1acbdace7815e07d2360ad309601a819e40156676ca8b7abe84098dffe46ac1d",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/opening-a.json",
-        "before_sha256": "0cd19a78bf8c310452c6c9436523b3e84743ece2c3e421958ae7c1a80066bcfa",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/opening-b.json",
-        "before_sha256": "7e4afc72ecaf35b6227b5b1964532a381e1d6047fe5da556a42faed1ecdf706e",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      }
-    ],
-    "failure_sha256": "a55ca888b1bd8cada7a2235975c13a5dced6d8e4c9d2ec0a80725cd0f0a52719",
-    "plan": "{REPO}/out/dispatch/comparison-completion-plan-phone22.json",
-    "plan_sha256": "6d239da7995cb94e906bc80d3f0e3bb76f02007e5fcb49eb0608c52654e3272c",
-    "reboards_before": 11,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-19T05:13:41.692242Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/dffd4cd42a51f2dd-abd0fbe0f83d63d2-b113a6d1a4b9b845/storyboard.json",
@@ -5561,6 +5522,117 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-20T10:00:17.661174Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 279,
+        "reservation_sha256": "8800474e9938c611b25a7a79fbc36880ba9626c7a8d8cee20e326d277b78032b",
+        "start_event_index": 277
+      },
+      "repair_plan": {
+        "capture_completion_budget": {
+          "comparison_json": "{\n  \"schema\": \"dispatch-opening-comparison/1\",\n  \"policy_sha256\": \"77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765\",\n  \"renderer_sha256\": \"5afdc2ce4785bd1c8b5cd696bf06897c18a614480ea833b43bd0be2d08f95640\",\n  \"producer_sha256\": \"942ce0a64942aea8781654be90f305964542eb23bc48332f4a6d235433cfbc02\",\n  \"reservation\": {\n    \"identity\": \"7ab9f6ba5770a2ef1da36bfffc340e24cd45412f50ca1d23285f24af7f72d411\",\n    \"run_id\": \"2026-10-19\",\n    \"event_index\": 256\n  },\n  \"options\": [\n    {\n      \"id\": \"a\",\n      \"concept_sha256\": \"14401cda983c7a3add5877a64a79f180ea68e2562ca6df597bb2e42e4a2aed5c\",\n      \"renderer_sha256\": \"5afdc2ce4785bd1c8b5cd696bf06897c18a614480ea833b43bd0be2d08f95640\",\n      \"board\": {\n        \"file\": \"a.json\",\n        \"sha256\": \"60537bf3188cc7f5b423f4fa3e82d6992112f34fc96fc41c36a947e33539f812\"\n      },\n      \"film\": {\n        \"file\": \"a.mp4\",\n        \"sha256\": \"3178e0bf8c0fcc76188d98a0ddd5532674aef0cf2fd178b3eb9b2e067c21749b\"\n      },\n      \"inspection\": {\n        \"file\": \"a-inspection-321edc751c2f849a.json\",\n        \"sha256\": \"27ae8af7860c57c457a04169487bec87bf5e9d789093d63b0561de416b541608\"\n      }\n    },\n    {\n      \"id\": \"b\",\n      \"concept_sha256\": \"f3e0bea5cd0bbf5959c4dc7babb7912415b32c9431893f7e9e34220640d32855\",\n      \"renderer_sha256\": \"5afdc2ce4785bd1c8b5cd696bf06897c18a614480ea833b43bd0be2d08f95640\",\n      \"board\": {\n        \"file\": \"b.json\",\n        \"sha256\": \"4648fa6d81f6dc446224565875b94c60495df8a27f127f07674bb7c14344fb1d\"\n      },\n      \"film\": {\n        \"file\": \"b.mp4\",\n        \"sha256\": \"f560e624216bf55e577eb9fb9d586ae426db2b7a3d76d94c52b4fb4e0841abdb\"\n      },\n      \"inspection\": {\n        \"file\": \"b-inspection-858bf17041ac573a.json\",\n        \"sha256\": \"8512be37f88438bf0ecdf86576054b6c34e0b7e6dffe0d0d25ba5a8a35ba1ed4\"\n      }\n    }\n  ],\n  \"inspection_problems\": [],\n  \"inspection_pass\": true\n}\n",
+          "comparison_path": "{REPO}/out/dispatch/openings/comparison.json",
+          "comparison_sha256": "19e0b39b491b374b4c03388d2ab5b7bc751146b0af4a5bf0a53244b3f0d6da39",
+          "entry_event_index": 256,
+          "entry_event_sha256": "604a7968a973dd7041f4093045749669b2f16844309c00f360eef0c29f3b5ede",
+          "hook_event_index": 256,
+          "hook_event_sha256": "604a7968a973dd7041f4093045749669b2f16844309c00f360eef0c29f3b5ede",
+          "policy_json": "{\n  \"schema\": \"dispatch_capture_completion_budget/3\",\n  \"effective_date\": \"2026-10-17\",\n  \"applies_to\": \"new evidence-bound capacity plans for active unfinished production\",\n  \"path\": \"renewed-two-treatment-comparison-with-phone-sequences\",\n  \"minimum_remaining\": {\"preflight_renders\": 8, \"storyboard_critics\": 4, \"full_renders\": 2, \"audiovisual_reviews\": 11, \"panel_rounds\": 1, \"scorer_calls\": 3},\n  \"preflight_operators\": {\"opening_compare_hook_and_entry\": 2, \"comparison_phone_sequences\": 2, \"final_timed_phone\": 1, \"timed_phone_sequence\": 1, \"native_hero\": 1, \"exact_film_motion\": 1},\n  \"native_render_hook_and_entry\": 2,\n  \"authorization_source_label\": \"Standing owner autonomous completion and complete remaining-path instruction, October 3rd and October 7th, 2026\",\n  \"invariants\": [\n    \"Bind the retained successful comparison and its actual two charged reservations.\",\n    \"Retain both original option boards and films byte-identically.\",\n    \"Use prepared single-claim authorization for the supported phone, hero and motion operators; opening comparison and native rendering retain their actual hook and entry charges.\",\n    \"Fund all eight preflight reservations and both native-render reservations before a new mandatory correction.\",\n    \"Keep prior v1 and v2 policy bytes, grants, failures, frozen envelopes and cumulative charges unchanged.\",\n    \"Use existing independent mandatory admission and obtain fresh code, comparison, timed phone, native, audiovisual, three-scorer and shipment evidence.\",\n    \"Capacity grants no creative approval, optional polish, lower-quality render or delivery waiver.\"\n  ]\n}\n",
+          "policy_sha256": "a24e8f717afde205194f77dcc47756285e7e257fe2f8e2dea0b957c1ce61d0e8",
+          "retained_files": [
+            {
+              "kind": "board",
+              "option": "a",
+              "path": "{REPO}/out/dispatch/openings/a.json",
+              "sha256": "60537bf3188cc7f5b423f4fa3e82d6992112f34fc96fc41c36a947e33539f812"
+            },
+            {
+              "kind": "film",
+              "option": "a",
+              "path": "{REPO}/out/dispatch/openings/a.mp4",
+              "sha256": "3178e0bf8c0fcc76188d98a0ddd5532674aef0cf2fd178b3eb9b2e067c21749b"
+            },
+            {
+              "kind": "board",
+              "option": "b",
+              "path": "{REPO}/out/dispatch/openings/b.json",
+              "sha256": "4648fa6d81f6dc446224565875b94c60495df8a27f127f07674bb7c14344fb1d"
+            },
+            {
+              "kind": "film",
+              "option": "b",
+              "path": "{REPO}/out/dispatch/openings/b.mp4",
+              "sha256": "f560e624216bf55e577eb9fb9d586ae426db2b7a3d76d94c52b4fb4e0841abdb"
+            }
+          ],
+          "run_id": "2026-10-19",
+          "schema": "dispatch_capture_completion_budget_evidence/3"
+        },
+        "changed_inputs": [
+          {
+            "after_sha256": "9b0c17114ab0bf5409c9af7cdd9030dd6ee03696b709ffd644e1a3fb52e03192",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/RobotaxiFilm.tsx",
+            "before_sha256": "9b0c17114ab0bf5409c9af7cdd9030dd6ee03696b709ffd644e1a3fb52e03192",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx"
+          },
+          {
+            "after_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/RobotaxiHero.tsx",
+            "before_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx"
+          },
+          {
+            "after_sha256": "c693803c7fbe7b8c34671af04d8abb097f01dcfbdaf959d2864bc8f541cc7538",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/SanAntonioSupport.tsx",
+            "before_sha256": "724d305bea0e78afb04e18a4a266e8e985478dc0605c62f11707e4770fe421c0",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx"
+          },
+          {
+            "after_sha256": "a50f119e6b3fd0cb0d9b90d2d5cc13f47e4a0874ce91b4bbb464c9dce57eaf51",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/storyboard.json",
+            "before_sha256": "1acbdace7815e07d2360ad309601a819e40156676ca8b7abe84098dffe46ac1d",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "a50f119e6b3fd0cb0d9b90d2d5cc13f47e4a0874ce91b4bbb464c9dce57eaf51",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/opening-a.json",
+            "before_sha256": "0cd19a78bf8c310452c6c9436523b3e84743ece2c3e421958ae7c1a80066bcfa",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "520a237c45b99f760befef965d840eae51936433142b8a715f3bf916d7d232a6",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round22/baseline/opening-b.json",
+            "before_sha256": "7e4afc72ecaf35b6227b5b1964532a381e1d6047fe5da556a42faed1ecdf706e",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "At phone size the creek water in the s3 medium shot has no rectangular patch or straight edge, and the car is still visibly carried past the fixed ledge and oak.",
+        "failed_film_sha256": "cadf6e2dfa1b5c557163e683de0ad001aa2a200f4830e061c3378d5bf501717a",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/phone-critic-round22/report.json",
+        "failure_evidence_sha256": "a55ca888b1bd8cada7a2235975c13a5dced6d8e4c9d2ec0a80725cd0f0a52719",
+        "failure_family": "unclassified",
+        "mechanism_change": "The hard-edged shelf layer in the swept medium view is replaced by a bank-anchored hand-cut edge or removed from that framing, a drawing change to one surface rather than a change to the camera, motion or timing.",
+        "mechanism_id": "creek-water-patch-edge-removal",
+        "pivot_review": {
+          "path": "{REPO}/out/dispatch/evidence/pivot-phone22/pivot-review.json",
+          "sha256": "12470f76586d52e6c7189e74e9ccf1a4ed31210ae96c36e4ae859875d66334a5"
+        },
+        "repair": "In the s3 car-swept view remove the fixed lighter water patch or redraw it with loose hand-cut edges visibly anchored to the limestone bank, or keep it out of the medium framing, so no straight horizontal or vertical edge is visible between 14.8 and 17.2 s. Leave the creek displacement, carry action, timing, words, claims, voice, captions and every other scene unchanged.",
+        "repair_scope": "standard",
+        "resources": {
+          "reboards": 1
+        },
+        "root_cause": "The independent timed exact-phone review (round 22, film cadf6e2d, A) rejected the repaired cut for one nondeferrable surface_finish and finished_art defect. In the s3 car-swept medium shot (about 14.8 to 17.2 s) a lighter brown rectangular water region sits right of center with a ragged near-vertical left edge and a ruler-straight horizontal bottom edge. It stays fixed while the car drifts left out of frame and reads as an unfinished compositing box instead of a submerged shelf or bank."
+      },
+      "repair_plan_sha256": "a8a2568e6b7f24d5f235105639884236e08121b7b922548d115d0e687cd8f72e",
+      "repair_revision": "a4c53c8048d946bff0116551d94252d26c9ffd61a190b70e9a21db4905118d18",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -5584,7 +5656,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6a77d0034fdebcd122e45db1c72689ce71da8461e81c4c5196d770548ab5ccf1",
+    "original_private_state_sha256": "700c259578e5fb06db778ad6a148ed22bca75717df9102e62ad7103009ebb500",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5612,7 +5684,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T09:55:54.042255Z",
+  "updated_at": "2026-10-20T10:00:17.661232Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
