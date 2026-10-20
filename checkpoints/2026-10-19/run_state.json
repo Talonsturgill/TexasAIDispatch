@@ -1164,6 +1164,14 @@
       "note": "timed exact-phone review of the measured film after the round 40 replacement pass, packet phone-critic-packet-round41",
       "resource": "storyboard_critics",
       "to": 62
+    },
+    {
+      "at": "2026-10-20T19:27:05.999045Z",
+      "ceiling": 62,
+      "from": 59,
+      "note": "finished cinematic hero and stage ablation batch",
+      "resource": "preflight_renders",
+      "to": 60
     }
   ],
   "events": [
@@ -9513,6 +9521,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-20T19:27:05.999079Z",
+      "ceiling": 62,
+      "kind": "budget_escalated",
+      "note": "finished cinematic hero and stage ablation batch",
+      "now": 60,
+      "resource": "preflight_renders",
+      "was": 59
+    },
+    {
+      "at": "2026-10-20T19:27:05.999094Z",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "0ae2de53f23f41ddffc972890d443b9354ba006b696d2b6c84ce34e5d1ffaba0",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -9521,7 +9547,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 59,
+    "preflight_renders": 60,
     "reboards": 19,
     "reported_tokens": 523483,
     "rescue_renders": 1,
@@ -9536,7 +9562,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d278f26fd58d03120b46c48226918cfe0ae98f577bdcb9cd681cb4960d9c2fe5",
+    "original_private_state_sha256": "bcb1daece54d91de0520f90957f80c2c44c465d84f1b96ee0d887d414a558f14",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -9564,14 +9590,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T19:07:18.830925Z",
+  "updated_at": "2026-10-20T19:27:05.999098Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
     "full_renders": 1,
     "image_generations": 0,
     "panel_rounds": 1,
-    "preflight_renders": 59,
+    "preflight_renders": 60,
     "reboards": 19,
     "reported_tokens": 523483,
     "rescue_renders": 0,
