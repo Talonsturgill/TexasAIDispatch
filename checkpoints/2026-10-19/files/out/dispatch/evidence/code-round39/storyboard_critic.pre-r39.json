@@ -1,0 +1,178 @@
+{
+  "treatment": "a",
+  "verdict": "pass",
+  "review_scope": "code-plan",
+  "board_bindings": {
+    "opening": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+      "sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e"
+    },
+    "storyboard": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+      "sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e"
+    }
+  },
+  "board_sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e",
+  "concept_sha256": "4e91d4f100d6b8dd463fa7cc739eeee770e1deb3037d93861c701195c379b8fe",
+  "renderer_sha256": "c6e2dc8e28e519c48429b5ebc8e59f78f490a3bc1ad173a976093062302750a2",
+  "binding_status": "Director-supplied digests from out/dispatch/evidence/code-round37-bindings.json, copied unchanged and not recomputed. storyboard.json is stated to be the same bytes as opening-a.json.",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 37, distinct from the Sonnet director",
+  "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
+  "pivot36_check": {
+    "scene_id": "s3",
+    "time_s": 15.32,
+    "status": "pivot-36 notes 1 to 13 met in code; note 14's checks are for the phone review",
+    "detail": [
+      "Cameras and keying (note 3). Two locked cameras are exported:",
+      "- CREEK_PLAN_NEAR: f [720, 1025], s 1.6, a [540, 960];",
+      "- CREEK_PLAN_CARRY: f [515, 970], s 1.4, a [540, 960].",
+      "planCam = creekPlanSecond(shot) ? CARRY : NEAR, where creekPlanSecond tests scene_fraction_start \u2265 .25. Both s3 shots have framing 'overhead' with scene_fraction_start 0.0 and 0.5. There is no pan; the camera is a constant per shot and stateless.",
+      "Pose (note 4):",
+      "- sc = .60 + .18\u00b7lift; lift = smooth((s - 120)/180), running about 15.24 to 15.93 s, so about 0.015 at the cut and about 98 percent inside shot 2.",
+      "- S3_PLAN_SPEED stays {slide 160, swept 380}; the path, yaw, wet and g are unchanged.",
+      "Car drawing (note 4):",
+      "- the shadow is one ellipse, 270 \u00d7 125, #0A0604, blur 8, constant opacity .60, offset 4 + 56\u00b7lift (up to 60 plan px);",
+      "- the halo is deleted, and so are the collar's soft circles; the collar keeps 7 filled ellipses;",
+      "- the flood ellipses stay at absolute size, fading with (1 - lift);",
+      "- the wake stays at a fixed .5 scale with opacity \u00d7 lift;",
+      "- top() is drawn with cabin 1.",
+      "Exit (note 5). Shot 2's left frame edge is plan x about 129. The farthest right extent is about 284 plan px (shadow 60 + 270\u00d7.78 + blur). The car is fully off frame once cx < -155, which is s \u2248 1025, reached at about 17.30 s (builder: 17.27 s). Peak speed is about 756 screen px/s, about 25 px per frame at 30 fps.",
+      "Bounds (note 6), my estimates:",
+      "- shot 1: lowest row about screen 1234 (collar and shadow), right edge about 998;",
+      "- shot 2 at the cut: lowest about 1237 (flood ellipses), with the collar about 23 screen px inside the right edge;",
+      "- shot 2 at full lift: shadow about 1173, wake tip about 1202.",
+      "Against the real caption top of 1286.8, that is about 49 px of clearance, matching the builder.",
+      "Crowns (note 7):",
+      "- (180, 330) and (520, 380) are deleted;",
+      "- (230, 560, 75) is added, at screen (141, 386) in shot 2, spanning y about 297 to 475, clear of the chip (builder: 76.8 px), and off frame in shot 1;",
+      "- (880, 260) sits off frame or top-right; the three lower crowns are background under the caption band.",
+      "CreekPlan (note 8):",
+      "- both worn-path strokes, the slab undercut stroke, the slab foam ellipses and the finite streamlines are deleted;",
+      "- the slab undercut is now one filled closed smoothPath of the slab dropped 9 px on its water side (#3E2F20 at .55), drawn under the slab fill;",
+      "- three endless stripes at u .35, .55 and .75 are sampled from x -700 to 1800 every 50 px, using only the slow meander, width 30, so their ends lie outside both frames (shot 1 shows plan x about 382 to 1057, shot 2 about 129 to 901);",
+      "- the stripes are stroked with one linearGradient: userSpaceOnUse, 0 to 600, spreadMethod repeat, stops .25 / .70 / .70 / .25, and gradientTransform translate(-(t\u00b7700 mod 600)). That gives a soft bright pulse running left at 700 px/s, seamless across the wrap, with no dashes and no ends;",
+      "- also present: the long smooth bank foam lines (x -180 to 1250, past both edges), the stone shelves, the water fill, the grass mottling blobs and the six large faint rain rings.",
+      "Nothing short, dotted or stub-like remains in the water or on the banks. The only stroked elements are the endless stripes, the bank lines, the deliberate V wake (about 200 to 280 screen px per arm in shot 2) and the slab outline.",
+      "Hero (note 9): unchanged (df65ea12...).",
+      "Board (note 10): s3-shot-1 purpose reads 'Close from above, rain rings spread ... around the large white roof of the empty car at the shallow bank edge.' s3-shot-2 purpose reads 'From a little higher above, the current lifts the empty car off the bank edge, it grows toward the lens as its shadow slides away, and it is carried downstream past the oak and the pale ledge and out of frame.' s3-shot-2 carry reads 'The same empty car on the same plan, seen from a little higher above.' These are identical in A and B. 'Heavy rain rings' stays true and there is no 'parked'.",
+      "Registry: no change. Same view, items and action."
+    ]
+  },
+  "strongest_frame": "s3-shot-1 creek-plan near, 13.03 to 15.32 s (authored clock). The empty car fills about half the frame width at 1.6\u00d7, its pale roof glass showing two bare seats. It stands in shallow flood water at the limestone bank edge, foam swelling on its upstream side, while thick current stripes with a moving pulse run past it.",
+  "weakest_frame": "s3-shot-2 exit, about 16.9 to 17.3 s. The car crosses the 1.4\u00d7 frame at about 25 px per frame. The oak crown passes about 260 plan px above the car's path, so 'past the oak' depends on reading two landmarks across the channel.",
+  "blocking_defects": [],
+  "notes": [
+    "Phone-scope checks, non-blocking:",
+    "- the 30 px stripes (about 10 to 12 phone px) and their moving pulse must read as passing current, not static bands;",
+    "- the 30 percent growth plus the 60 px shadow slide must read as a lift;",
+    "- exit speed is about 25 px per frame;",
+    "- the bank foam lines keep their short 6\u00b7sin(.047x) wiggle. Round 36 did not flag them.",
+    "creekPlanSecond is still keyed on scene_fraction_start.",
+    "Stale code comments, not shown on screen: CREEK_CAR, CREEK_CAM and the 'under the oak's crown' wording.",
+    "Other stale text, not shown on screen: A's angle 'at ground level', A's divergence_note and the support prompt's 'depth post'.",
+    "A and B differ in 4 of 20 shots: s2-shot-1, s5-shot-1, s6-shot-1 and s7-shot-1.",
+    "Carried non-blocking items: the s2 to s3 handoff, the s6 wide water ellipse, the flat lower bands, the s7 forearm, the s9 card over the road and the thousands separator in 3,791.",
+    "This is a code pass only. Film 66ea1a32... stays rejected."
+  ],
+  "story_review": {
+    "story_sha256": "f3876616ae69ff1e629d3d10322a9654a6895ed0b6deb49a7192f570139787fb",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Intended chain, read from code and not observed.\n- The empty-wheel airport arrival.\n- The table map closes the limited area.\n- Close from above, a large empty car with two bare seats in its pale roof glass stands in shallow flood water at the creek's limestone bank edge. Foam swells against it and current stripes run past.\n- From a little higher, it grows and rises off a dark shadow that slides away, then is swept past the oak and the ledge and out of frame.\n- The stranded street car with hazards.\n- The desk record, the grid and the stamp.\n- At ground level, the car slows and rolls into standing water with 'may' lit.\n- The remedy row is stamped Under development.\n- The wet-lot tag and the April 20 checks.\n- The open curb door beside the remedy card.",
+    "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No repair, speed, depth, parking or outcome is invented.",
+    "weakest_transition": "s2 to s3 at 13.03 s. The angled table map cuts to a close overhead creek with a different car, carried by 'In April' and the disclosure chip."
+  },
+  "action_reviews": [
+    {
+      "action_id": "wheel-turns-itself",
+      "module_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c1: empty seats.",
+        "visible_action": "The steering wheel turns 85 degrees and back with no hands on it.",
+        "consequence": "The phone shows Arriving.",
+        "disclosure": "Chip.",
+        "limits": "Generic car."
+      }
+    },
+    {
+      "action_id": "car-swept-into-creek",
+      "module_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c3 and c4. Shallow flood water at the bank edge, never shown parked; bare seats in the pale roof glass.",
+        "visible_action": "Locked 1.6\u00d7 stand: the collar builds and the car slides. Locked 1.4\u00d7 carry: lift (scale .60 to .78, dark shadow sliding up to 60 px), then the swept carry past the crown at (230, 560) and the slab, overtaken by endless pulsing stripes.",
+        "consequence": "Fully off the left edge at about 17.3 s, before the 17.61 s cut.",
+        "disclosure": "April 20th chip.",
+        "limits": "Overhead editorial drawing. No damage or depth."
+      }
+    },
+    {
+      "action_id": "car-slows-into-water",
+      "module_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c7 verbatim.",
+        "visible_action": "lane-wide, then wheels-water.",
+        "consequence": "The wheels enter the water.",
+        "disclosure": "Chip.",
+        "limits": "No speed or depth."
+      }
+    },
+    {
+      "action_id": "service-area-opens",
+      "module_sha256": "98208ebb106146ea84c52e4b70b0d9649b8178d4057b49f6c55ded457d298888",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c2.",
+        "visible_action": "map-table, then map-zone.",
+        "consequence": "The outline closes.",
+        "disclosure": "Credits.",
+        "limits": "Editorial outline."
+      }
+    },
+    {
+      "action_id": "recall-filed-count",
+      "module_sha256": "98208ebb106146ea84c52e4b70b0d9649b8178d4057b49f6c55ded457d298888",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c6 and c13.",
+        "visible_action": "record-desk, then count-grid.",
+        "consequence": "The stamp lands.",
+        "disclosure": "Chip.",
+        "limits": "Icons are not a literal count."
+      }
+    },
+    {
+      "action_id": "remedy-under-development",
+      "module_sha256": "98208ebb106146ea84c52e4b70b0d9649b8178d4057b49f6c55ded457d298888",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c8 verbatim.",
+        "visible_action": "record-close, then stamp-detail.",
+        "consequence": "The imprint carries to s9.",
+        "disclosure": "Chip.",
+        "limits": "Not a real record."
+      }
+    }
+  ],
+  "phone_observations": null,
+  "modern_observations": null,
+  "pixel_basis": "None. Code approval includes no pixel observations."
+}

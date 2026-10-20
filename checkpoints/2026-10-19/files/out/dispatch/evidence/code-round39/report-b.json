@@ -1,0 +1,149 @@
+{
+ "treatment": "b",
+ "verdict": "pass",
+ "review_scope": "code-plan",
+ "board_bindings": {
+  "opening": {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+   "sha256": "5f099813ef9619d1898cfd41092dcd933e1591ed1daf9c03693d49a917f90320"
+  }
+ },
+ "board_sha256": "5f099813ef9619d1898cfd41092dcd933e1591ed1daf9c03693d49a917f90320",
+ "concept_sha256": "663aa00a5aa0c25eab315c1d7a45037053898877c30f046f62ae2d68104c61af",
+ "renderer_sha256": "f2ceb3777c1080a7df3625cd4144b3b6355cd4601ee8a440d93c26efbde0cacd",
+ "binding_status": "Digests are the director-supplied values in out/dispatch/evidence/code-round39-bindings.json, copied unchanged and not recomputed. storyboard.json holds A's bytes and is not bound here.",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 39, distinct from the Sonnet director",
+ "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
+ "pivot38_check": {
+  "scene_id": "s3",
+  "time_s": 14.4,
+  "status": "notes 1 to 10 met in code; phone pixels still required",
+  "detail": [
+   "The shared code is identical to A's.",
+   "- The stroked rings are replaced by three soft radial-gradient filled patches (unique id `${id}rp`, peak .12, fading to 0).",
+   "- The slab outline and undercut are deleted, leaving a fill only.",
+   "- CREEK_PLAN_NEAR is f [770, 1025], keeping the slab about 18 plan px off shot 1.",
+   "- The wake fade is smooth(clamp(lift\u00d72.5)).",
+   "Re-audit: the only strokes left are the full-width stone outline on the grass, the full-width bank foam lines, the endless stripes and the car's wake. No short or edge-cut mark remains in the water or on the ledge.",
+   "B's s3-rain plane label and mute_takeaway read the same soft-patch wording as A.",
+   "The registry is unchanged."
+  ]
+ },
+ "strongest_frame": "s3-shot-1 creek-plan near, 13.03 to 15.32 s (authored clock). The large empty car stands at the bank edge, with bare seats in its pale glass, while pulsing current stripes and soft rain patches pass, with no stray marks.",
+ "weakest_frame": "s3 rain, 13.03 to 17.61 s. The soft patches peak at .12 and may barely read at 270 px.",
+ "blocking_defects": [],
+ "notes": [
+  "Phone-scope checks are the same as A's:",
+  "- rain legibility;",
+  "- no ticks or lines;",
+  "- the slab reads as pale stone;",
+  "- the round 38 cues are retained.",
+  "Not carried by the director, since A is selected (round 36): B's s6 lane water partly under the quote card.",
+  "Carried non-blocking items:",
+  "- the s8 tag-only interval from 41.6 to 45.4 s;",
+  "- the s9 card on the road;",
+  "- the thousands separator in 3,791.",
+  "This is a code pass only. B's round 38 film stays rejected."
+ ],
+ "story_review": {
+  "story_sha256": "f9c6f85d6b38ee02099fbf892e32572bf12717f6cf76b14e15b61c6a56f2d11e",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Intended chain, read from code and not observed.\n- The empty-wheel airport arrival.\n- The flat map plan, then the limited area closing.\n- Close from above, a large empty car with bare seats stands in shallow flood water at the creek's bank edge. Soft rain patches drift and current stripes run past.\n- From a little higher, it grows and rises off a sliding dark shadow, then is swept past the oak and the ledge and out of frame.\n- The stranded street car with hazards.\n- The flat record card, the grid and the stamp.\n- From above, a car brakes toward standing water, then from the side it rolls in with 'may' lit.\n- The remedy row stamped Under development.\n- The wet-lot tag and the April 20 checks.\n- The open curb door beside the remedy card.",
+  "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No outcome is invented.",
+  "weakest_transition": "s2 to s3 at 13.03 s: overhead map to a close overhead creek with a different car, carried by the disclosure chip."
+ },
+ "action_reviews": [
+  {
+   "action_id": "wheel-turns-itself",
+   "module_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "Same cab as A.",
+    "visible_action": "Same steer.",
+    "consequence": "The phone shows Arriving.",
+    "disclosure": "Chip.",
+    "limits": "Generic car."
+   }
+  },
+  {
+   "action_id": "car-swept-into-creek",
+   "module_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c3 and c4. Never shown parked. Bare seats visible.",
+    "visible_action": "Locked 1.6\u00d7 stand, then locked 1.4\u00d7 lift and swept carry, with the rain drawn as soft fills.",
+    "consequence": "Off the left edge at about 17.3 s, before the cut.",
+    "disclosure": "April 20th chip.",
+    "limits": "Overhead editorial drawing."
+   }
+  },
+  {
+   "action_id": "car-slows-into-water",
+   "module_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c7.",
+    "visible_action": "lane-plan, then wheels-water.",
+    "consequence": "Wheels in the water, 'may' marked.",
+    "disclosure": "Chip.",
+    "limits": "No speed or depth."
+   }
+  },
+  {
+   "action_id": "service-area-opens",
+   "module_sha256": "7255a7b01a107a1bcefd479db38d31ca250a7709526b37b5603ddf6bc2d4ba3f",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c2.",
+    "visible_action": "map-plan, then map-zone.",
+    "consequence": "The outline closes.",
+    "disclosure": "Credits.",
+    "limits": "Editorial outline."
+   }
+  },
+  {
+   "action_id": "recall-filed-count",
+   "module_sha256": "7255a7b01a107a1bcefd479db38d31ca250a7709526b37b5603ddf6bc2d4ba3f",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c6 and c13.",
+    "visible_action": "record-wall, then count-grid.",
+    "consequence": "The header stamp lands.",
+    "disclosure": "Chip.",
+    "limits": "Icons are not a literal count."
+   }
+  },
+  {
+   "action_id": "remedy-under-development",
+   "module_sha256": "7255a7b01a107a1bcefd479db38d31ca250a7709526b37b5603ddf6bc2d4ba3f",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c8.",
+    "visible_action": "record-wall with the pen, then stamp-detail.",
+    "consequence": "The imprint carries to s9.",
+    "disclosure": "Chip.",
+    "limits": "Not a real record page."
+   }
+  }
+ ],
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None at code scope. Code approval includes no pixel observations."
+}
