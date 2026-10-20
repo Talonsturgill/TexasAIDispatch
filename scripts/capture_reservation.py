@@ -126,6 +126,8 @@ def prepare(root, state_path, commands, resource=None):
             if not {'--root', '--state'}.issubset(supplied):
                 raise ValueError('prepared comparison needs explicit canonical --root and --state')
             opening_output_precheck(root / 'out/dispatch')
+            from opening_compare import owned_boards
+            owned_boards(root / 'out/dispatch', state_path)
         if note == FULL_OPERATION:
             expected.update({flag: root / 'out/dispatch' / name for flag, name in {
                 'captions': 'captions.json', 'preflight': 'preflight.json',
