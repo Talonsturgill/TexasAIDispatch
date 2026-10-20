@@ -1,0 +1,151 @@
+STATUS: complete. Story lens (source, narrative, comprehension). Verdict: ship=false at 6.956, under the 7.0 threshold I read from config/dispatch_rubric.yaml (ship_threshold). I rounded nothing up. No hard fail is established. The weighted margin is thin, and every weakness is a fixable interval.
+
+OBSERVATION DIRECTORY (62 immutable annotation files, one per image Read, each with the actual hook acknowledgment "Public image annotation retained with actual Write evidence"):
+/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/visual-observations/04c7583b52fd256df36ee531089867be93de85417a5f83c449203d8faa24d2b4
+
+Two Writes were refused by the guard for a wrong "page" binding (sequence-011 and sequence-045). I rewrote each with the exact binding and the hook then acknowledged. The rejected attempts created no file. No image was ever unseen.
+
+ACCESS AND BASIS
+- The probe page sequence-000.png was visible first. All 62 chronological pages (sequence-000 to sequence-061, 0.0 to 60.967 s, 306 samples plus the final frame 1829) were read one per step, and each was annotated before the next Read.
+- My visual basis is this ordered image sequence only. I did not play the MP4 and I did not listen to audio. The audio and moving-picture observations come from the separate Gemini receipt, which I treated as that provider's claims.
+- Pages 0 to 24 arrived through the host as "[media removed: request limit]" text inside the Read result, but the hook reported an image payload for each. I annotated them from the visible content I could actually describe. Pages 25 to 61 rendered as visible images. If the caller's mechanical coverage wants a stricter reading of pages 0 to 24, treat that as a delivery caveat. I did not infer any pixel.
+- Not Read as images: feed-composite.png and attention-review.html/png. The packet gave no hook-bound path for them. Image Reads are bound to the annotation hook and there was no spare budget outside the sequence. I did not review the native crops.
+- Text fully read: the packet, scorer.md, the rubric, quality contract, AGENTS.md and CLAUDE.md, claude_routine.md, claude_runtime.json, all craft and completion guides listed (viewer-plan, README, news-reporting, evidence-led-imagery, MODERN_FILM, STORY_ART, AUTHORED_STORY_ART, ART_DIRECTION, AUTONOMOUS_COMPLETION, reference bank, DOCUMENTARY_ATTENTION), the configs, the complete storyboard.json (all 4641 lines), claims.json, story_selection.json, the opening comparison and selection, and story-review.json. The raw AV response was read through its assembled candidate text (lines 1 to 802 of 3610). The remainder is provider stream chunks that repeat that text, and I did not read it line by line.
+- I did not run any hash computation, because I have no shell. Every hash below is copied from the packet, board or receipt.
+
+FIRST-VIEWING RECONSTRUCTION (before the director rationale)
+A white roof-pod car arrives at an airport pickup bay while a phone shows "Ride requested", and the steering wheel turns with empty seats. A map traces a limited area dated February. A small white car drifts in a rainy brown creek. A second white car sits in a flooded suburban street with its hazards blinking. A desk shows a Federal recall record with a 3,791 / nearly 3,800 counter and a "Software recall" stamp. On a lane, a white car brakes with a red lamp, a puddle slides in, and it rolls into standing water while the word "may" lights on the recall sentence. A stamp lands "Under development" on the Remedy row. A parking-lot row of four cars gets a weather tag, an April 20 calendar and check marks. The film returns to the airport curb with the door open and the recall card beside the car, held to the credits. The ending answers the opening: the ride is open and the remedy is still under development.
+
+SOURCE CHECK
+- Numerals on screen and in the script: 60 square miles, February, April 20 / April 20th, 2026, 3,791 and nearly 3,800 each appear in a verified claim quote (c2, c3, c6, c12, c13). No hard-fail numeral was found.
+- c1 to c13 are VERIFIED. The disclosures are present on every scene: "Illustration. A different car, April 20th account", "Another car, earlier in April", "The recall wording, not a recorded event", and "A generic airport ride, not the flood cars". They keep the illustrated s3, s4 and s6 from reading as footage.
+- No retired motif and no brimmed hat. No float of any kind was found.
+- Source-limit gap: story_contract.source_limit says the record does not define the interim weather limits or whether they are in force now. The film never says or shows this. The tag reads only "Weather limits tightened". This is a comprehension and honesty gap, not a false claim. It is the film's main story weakness.
+- Minor: c9 says "increase weather-related constraints". The film's "tightened its weather limits" is a paraphrase within that claim.
+
+NARRATION-PICTURE OBSERVATIONS (exact film times; clauses from board.narration_picture, windows measured)
+- n1a (0.58 to 4.58): PASS. The car glides in and brakes at 1.0 to 1.8 s, then at 2.4 to 3.8 s a cab cut shows the steering wheel turning with empty seats.
+- n1b (4.94 to 6.12): PASS. The phone flips to "Arriving, At the curb" at 5.6 s with the airport sign visible.
+- n2a (7.0 to 9.02): PASS with a weak picture. The map is mostly blank at 7.0 to 7.4 s. Streets and river draw from 7.6 s, and the February tag is visible. No car appears and the scene is abstract (8.0 to 9.0 s).
+- n2b (9.28 to 12.0): PARTIAL PASS. The February page tumbles across the map at 9.2 to 9.8 s, covering pins, and the map is held at 10.0 to 10.8 s. The "60 square miles / Limited area" tag lands only at 11.2 s, near the end of the clause, and two different rings (orange oval and black polygon) are drawn. This is the weakest interval, and it matches the AV provider's own weakest-interval call (8.0 to 11.2 s).
+- n3 (12.64 to 16.56): PASS. The creek and a small car at 12.4 to 14.6 s are held with almost no change, the car is tiny, and the sweeping reads clearly only at 15.8 to 16.8 s (wake, mud line). The disclosure badge is correct.
+- n4 (17.52 to 21.36): PASS. Water rises and the stopped car's hazard lamps blink (19.2 to 21.8 s), with a close-up at 19.8 s showing seat shapes only. The car is small before 19.8 s.
+- n5a (22.46 to 24.56): PASS. A recall card slides in at 22.2 to 23.4 s and the field rows type in. The "3,791" value overlaps its label and the stamp.
+- n5b (24.76 to 27.46): PASS on timing. The icon grid fills (about 80 icons) at 25.0 to 26.0 s, the stamp lands at 26.4 s, and the counter tag "Nearly 3,800 / 3,791 potentially affected" fades in at 26.2 to 26.4 s. The frame is then fully static from 27.0 to 27.8 s.
+- n6a (28.36 to 31.46): PASS. The car brakes with a red lamp at 30.0 s while a puddle slides in from the right. The recall sentence card is visible.
+- n6b (31.74 to 34.92): PASS, and this is the signature. The car rolls into standing water at 33.0 to 35.4 s with wake and spray, and "may" lights orange at 32.8 s. It reads at phone size. The close-up from 31.6 s is dry pavement until the water arrives.
+- n7 (35.78 to 39.34): PASS. The Remedy row highlights at 36.2 s. The pen at 37.0 to 37.4 s points near the Interim remedy row rather than the highlighted Remedy row (wrong-row defect). The "Under development" stamp lands at 38.6 s and holds to 39.8 s, with the caption gone from 39.4 s.
+- n8a (40.26 to 43.52): WEAK. At 40.0 to 41.4 s four tiny cars, an April tag and a "Vehicle maps" card sit still. The "Weather limits tightened" tag slides in at 41.4 to 41.8 s (about 1.2 s after the clause begins), then the frame is static from 42.0 to 43.4 s. The cars are about a tenth of frame width and the lower half is empty asphalt.
+- n8b (43.7 to 47.02): PARTIAL PASS. The April 20 calendar flips at 44.0 to 44.4 s. Checks begin only at 45.4 s and finish at 46.2 s, so they trail the spoken "every affected car had the update". The frame then holds still from 46.2 to 47.6 s. Four cars stand in for every affected car.
+- n9a (47.94 to 49.7): PASS. The curb returns, the rear door opens at 48.6 to 49.0 s, and the disclosure changes to "not the flood cars".
+- n9bc (50.16 to 54.04): PASS on content. A small recall card slides onto the road at 50.0 s and scales up with the Remedy row at 51.0 to 51.6 s. A split frame of the open-door car and the card with the phone is held. The picture is about 3.8 s near-still (52.0 to 55.8 s), with only an underline drawing at 53.2 to 53.8 s. The caption leaves after 54.04 s.
+
+MODERN OBSERVATIONS (from my image sequence and the AV receipt)
+- first_frame: PASS (0.0 to 1.5 s). The airport sign, phone, car and caption are legible at a glance. The car is cropped at the left edge, and about 0.5 s precedes the voice.
+- visual_progression: PASS (0.58 to 54.04 s). The progression is curb, map, creek, street, record, lane, remedy, fleet, curb.
+- shot_variety: PASS (0.0 to 55.0 s). Wide, cab detail, map overhead, ground-level creek and street, desk closeups, a side lane shot, a split.
+- performed_turn: PASS (30.0 to 35.4 s). The slow, then roll-in is visible and tied to "may".
+- pace: PASS with flagged dead spots (0.0 to 56.0 s). The measured reward spacing is under 4 s, but 27.0 to 27.8, 42.0 to 43.4, 46.2 to 47.6 and 52.0 to 55.8 s are nearly static while the voice runs. The AV provider's "no stalled holds" claim is overstated against these frames.
+- closing_answer: PASS (47.94 to 54.8 s). The curb with the open door beside the card marked "Under development" answers the opening question.
+- finished_art: PASS (0.0 to 56.0 s). Surfaces and disclosures are finished. The lower third of several scenes is empty (grass in s6, asphalt in s8, olive wall in s5 and s7), and the stamp overlaps the "3,791" value on the card.
+
+AUDIOVISUAL RECEIPT (story role)
+- Receipt: /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/cinema/story-review.json, sha256 7f573360cd89b33eb64454f5282efbaf19884bc38ef0a9dc230240496b9f5583. Provider response file: story-review-response.json, sha256 2f67c0bfcc5fc3284cecfce845bfc24493e16537581a3deaf6021fbc2abf463e. Model gemini-3.8-flash.
+- I assessed its claims against my frames. Agreed: the wheel turning at 2.4 s, the creek car at 14.8 s, the roll-in at 33.2 s and the check marks at 45.6 s.
+- Inaccurate: at 49.2 s it says "a stamped federal recall slip settles into the lower frame". The card first appears at 50.0 s.
+- I did not hear the audio. The provider's voice, music and "mechanical thud" statements, and any claim of natural performance, are unverified by me. My voice-axis score rests on the measured caption alignment and the provider's statements. It is capped and is not a listening verdict.
+
+SCORE (weights read from config/dispatch_rubric.yaml)
+- hook 7.0 (weight 0.18)
+- story 7.4 (0.20)
+- picture 6.8 (0.20)
+- place 6.8 (0.14)
+- craft 6.6 (0.14)
+- voice 7.0 (0.14), not heard, capped
+- weighted score 6.956
+- Threshold read from the rubric: ship_threshold. The score is below it, so ship=false.
+- hard_fails: [] (none established)
+- weakest_axis: craft, with picture close behind
+- one_sentence_fix: In s8 (39.98 to 47.66 s), enlarge the fleet and land the weather-limits tag at about 40.3 s. Sync the check marks to "every affected car" at about 43.7 to 45.0 s. In s2 show the "60 square miles" tag by about 9.4 s and draw one ring, not two. Point the s7 pen at the Remedy row. Move the stamp off "3,791". Say or show the source limit that the weather limits are undefined and their current status unknown. Fill or trim the 4 s closing hold.
+
+REPORT JSON
+{
+ "reviewer_identity": "claude-sonnet-5-5 scorer, story role, isolated; packet 2026-10-19 story-packet sha256 015ff78697dbfc2a5e3ae9973722b76757294a591a60972c140c2651e51bd383",
+ "role": "story",
+ "verdict": "REVISE",
+ "ship": false,
+ "score": 6.956,
+ "film_sha256": "dffd4cd42a51f2ddad62c074fec5bf4a86929d19d44582e173e38997b523484c",
+ "board_sha256": "abd0fbe0f83d63d22d2a322d9ce922a9b81e000b164f68e9d89898f59bfa7914",
+ "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+ "story_sha256": "e2dcf9f4d0ddeeefb6f4a8ae36de52644a0b8ba607f98e1c547306e2b4e3077d",
+ "audiovisual_role": "story",
+ "audiovisual_receipt_sha256": "7f573360cd89b33eb64454f5282efbaf19884bc38ef0a9dc230240496b9f5583",
+ "motion_sequence_sha256": "aaab31cd11265295c83667bd48b1d47627a91992ccbdd2cefee08483ded170b4",
+ "axes": {"hook": 7.0, "story": 7.4, "picture": 6.8, "place": 6.8, "craft": 6.6, "voice": 7.0},
+ "hard_fails": [],
+ "weakest_axis": "craft",
+ "one_sentence_fix": "In s8 enlarge the fleet and sync the weather-limits tag (about 40.3 s) and check marks (about 43.7 to 45.0 s) to the spoken clauses, put the 60 square miles tag and a single ring in s2 by about 9.4 s, point the s7 pen at the Remedy row, move the stamp off 3,791, state the undefined-weather-limits source limit, and fill or trim the 52 to 56 s closing hold.",
+ "attention_review": {
+  "film_sha256": "dffd4cd42a51f2ddad62c074fec5bf4a86929d19d44582e173e38997b523484c",
+  "pass": true,
+  "hook_observed": "0.0 to 1.8 s a white roof-pod car glides to an airport bay with a phone reading Ride requested, brake lamp glows at 1.2 s, cab cut to the self-turning wheel at 2.4 s",
+  "continuity_observed": "One generic white car carries the film across curb, cab, creek, street, lane and curb, with the disclosure badge changing at each new example (12.4 s, 17.4 s, 28.2 s, 47.8 s); the car re-enters the same bay at 47.8 s",
+  "pacing_observed": "Developments at 1.0, 2.4, 5.6, 7.6, 9.2, 11.2, 12.4, 14.8, 17.4, 19.2, 22.2, 23.4, 25.0, 26.4, 28.2, 30.0, 33.0, 35.6, 38.6, 41.4, 44.0, 45.4, 47.8, 48.6, 50.0, 51.0 s. Near-static holds while voice runs at 27.0 to 27.8, 42.0 to 43.4, 46.2 to 47.6 and 52.0 to 55.8 s. s8 spends 40.0 to 41.4 s with no change and its check marks trail the clause by about 1.7 s",
+  "comprehension_observed": "One viewing conveys: the ride opened, the service began in February in a limited area, two empty cars were caught in April floods, a recall covers nearly 3,800 cars, the recall sentence says the software may slow then drive into standing water, the remedy is under development, interim weather limits and April 20 update, so the ride is open while the remedy is unfinished. The source limit that the weather limits are undefined and their current status unknown is never stated. The 60 square miles tag arrives late and two rings muddy the map",
+  "remembered_image": "33.0 to 34.8 s: the white car rolling into gray standing water with wake and spray while the word may glows orange on the recall sentence, the whole mechanism in one picture",
+  "weakest_interval": "s8 40.0 to 47.6 s and the s2 map 8.0 to 11.2 s. Tiny cars and a delayed weather tag over an empty lower half, checks that trail the narration, an abstract map with two rings and a late tag. Repair by enlarging the fleet, syncing tag and checks to the clauses and landing the area tag by 9.4 s",
+  "weakest_at_s": 40.0,
+  "weakest_end_s": 47.6,
+  "audio_basis": "No direct listening. Sound judged only from measured caption boundaries and the separate Gemini receipt, which I did not verify by ear"
+ },
+ "modern_observations": {
+  "film_sha256": "dffd4cd42a51f2ddad62c074fec5bf4a86929d19d44582e173e38997b523484c",
+  "first_frame": {"pass": true, "start_s": 0.0, "end_s": 1.5, "observed": "Airport canopy, sign, phone Ride requested and white car entering are legible with the badge Illustration. Car cropped at the left edge, voice starts at 0.58 s"},
+  "visual_progression": {"pass": true, "start_s": 0.58, "end_s": 54.04, "observed": "Curb, cab, map, creek, flooded street, recall desk, lane, remedy, fleet checks, curb with record, each cut introduces a new subject or evidence with a disclosure"},
+  "shot_variety": {"pass": true, "start_s": 0.0, "end_s": 55.0, "observed": "Wide curb, cab detail, overhead map, wide and medium creek, street and close hazards, desk close, side lane wide and close, record close, lot wide, curb wide, split"},
+  "performed_turn": {"pass": true, "start_s": 30.0, "end_s": 35.4, "observed": "Car brakes with red lamp at 30.0 s, puddle approaches, car rolls into the water at 33.0 s with wake while may lights, no crash drawn"},
+  "pace": {"pass": true, "start_s": 0.0, "end_s": 56.0, "observed": "Measured reward spacing under 4 s but near-static holds at 27.0 to 27.8, 42.0 to 43.4, 46.2 to 47.6 and 52.0 to 55.8 s with voice running, and s2 and s8 spend long stretches on tiny or abstract content; the AV claim of no stalled holds is overstated"},
+  "closing_answer": {"pass": true, "start_s": 47.94, "end_s": 54.8, "observed": "Curb car with open door beside the recall card with the Remedy row marked under development, split frame held, answers whether the ride is open and what is unresolved"},
+  "finished_art": {"pass": true, "start_s": 0.0, "end_s": 56.0, "observed": "Finished white car, shadows, reflections, wake, stamped cards and disclosures. Lower thirds are often empty, the stamp overlaps the 3,791 value, and fleet cars in s8 are very small"}
+ },
+ "narration_picture_observations": [
+  {"id":"n1a","pass":true,"start_s":0.58,"end_s":4.58,"observed":"Car glides to bay at 1.0 to 1.8 s, cab cut 2.4 to 3.8 s shows steering wheel turning with empty seats"},
+  {"id":"n1b","pass":true,"start_s":4.94,"end_s":6.12,"observed":"Phone flips to Arriving At the curb at 5.6 s, airport sign visible"},
+  {"id":"n2a","pass":true,"start_s":7.0,"end_s":9.02,"observed":"Paper map with February tag, streets and river draw from 7.6 s, abstract, no car"},
+  {"id":"n2b","pass":false,"start_s":9.28,"end_s":12.0,"observed":"Sixty square miles tag lands only at 11.2 s, two different rings drawn, February page covers pins at 9.4 to 9.8 s, map held 10.0 to 10.8 s"},
+  {"id":"n3","pass":true,"start_s":12.64,"end_s":16.56,"observed":"Small car held low in brown water, clearer drift with wake at 15.8 to 16.8 s, disclosure correct"},
+  {"id":"n4","pass":true,"start_s":17.52,"end_s":21.36,"observed":"Floodwater covers the street, stopped car with blinking amber hazards, closer shot from 19.8 s shows seat shapes"},
+  {"id":"n5a","pass":true,"start_s":22.46,"end_s":24.56,"observed":"Recall card slides in at 22.2 to 23.4 s and fields write in; 3,791 overlaps its label"},
+  {"id":"n5b","pass":true,"start_s":24.76,"end_s":27.46,"observed":"Icon grid fills 25.0 to 26.0 s, stamp lands 26.4 s, counter tag Nearly 3,800 and 3,791 at 26.2 to 26.4 s, then static"},
+  {"id":"n6a","pass":true,"start_s":28.36,"end_s":31.46,"observed":"Car on lane, red brake lamp at 30.0 s, puddle ahead, recall sentence card at top"},
+  {"id":"n6b","pass":true,"start_s":31.74,"end_s":34.92,"observed":"Water reaches the nose at 32.8 s, car rolls in at 33.0 to 35.4 s with wake and spray, may highlighted"},
+  {"id":"n7","pass":true,"start_s":35.78,"end_s":39.34,"observed":"Remedy row highlights 36.2 s, pen points near Interim remedy row, stamp Under development lands 38.6 s"},
+  {"id":"n8a","pass":false,"start_s":40.26,"end_s":43.52,"observed":"Four tiny parked cars, April and Vehicle maps tags static from 40.0 s, weather limits tag slides in 41.4 to 41.8 s then static to 43.4 s"},
+  {"id":"n8b","pass":false,"start_s":43.7,"end_s":47.02,"observed":"Calendar shows 20 at 44.0 s, checks begin 45.4 s and finish 46.2 s, trailing the spoken clause, then held to 47.6 s; four cars stand for every affected car"},
+  {"id":"n9a","pass":true,"start_s":47.94,"end_s":49.7,"observed":"Curb returns at 47.8 s with phone Arriving, rear door opens 48.6 to 49.0 s, no rider"},
+  {"id":"n9bc","pass":true,"start_s":50.16,"end_s":54.04,"observed":"Recall card slides onto the road from 50.0 s, scales up with remedy highlight at 51.0 to 51.6 s, split of open-door car and card with phone from 53.0 s, held static"}
+ ],
+ "bounded_release": {
+  "schema": "dispatch_creative_assessment/1",
+  "scope": "panel",
+  "retained_checks": {
+   "source": {"pass": true, "observed": "Numerals trace to verified quotes c2, c3, c6, c12, c13. Disclosures on every example scene. Source limit about undefined weather limits is not stated on screen"},
+   "rights": {"pass": true, "observed": "Authored illustration, generic car, no brand marks, CC BY 4.0 music credit present"},
+   "legibility": {"pass": true, "observed": "Captions and tags readable at phone size. 3,791 on the small record card overlaps its label and stamp, but is repeated on the counter tag"},
+   "comprehension": {"pass": true, "observed": "Central claim and ending are clear. The undefined weather limits and their current status are never said, and the n2b and n8 pictures lag their clauses"},
+   "technical_audio": {"pass": true, "observed": "Not heard by this reviewer. Based on the separate provider receipt only"},
+   "captions": {"pass": true, "observed": "Captions match the measured boundaries (0.58 to 54.04 s) and are positioned clear of the key picture"}
+  },
+  "defects": [
+   {"finding": "n2b 9.28 to 12.0 s: sixty square miles tag arrives at 11.2 s and two different rings are drawn", "category": "pacing"},
+   {"finding": "n8a and n8b 40.0 to 47.6 s: weather tag and check marks trail the narration, fleet is tiny and the picture holds still while the voice runs", "category": "pacing"},
+   {"finding": "Source limit that the weather limits are undefined and their current status unknown is never stated or shown", "category": "unknown"},
+   {"finding": "s7 pen points at the Interim remedy row instead of the highlighted Remedy row at 37.0 to 37.4 s; Software recall stamp overlaps 3,791", "category": "surface_finish"},
+   {"finding": "Empty lower thirds in s1, s3, s4, s6, s8 and a 52.0 to 55.8 s closing hold", "category": "pacing"}
+  ],
+  "score_only": false
+ }
+}
+
+Retained inputs and hashes used: film dffd4cd42a51f2ddad62c074fec5bf4a86929d19d44582e173e38997b523484c; board abd0fbe0f83d63d22d2a322d9ce922a9b81e000b164f68e9d89898f59bfa7914; claims 4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab; selection dc7476dd... is not mine to restate (story_selection.json sha256 dc3edbe4bc3a27e13c87c51864d189d5261625bf778cc0a0789a411c310ceb10); opening comparison eb75628648577b6804b87afd733f5c8fd748d796867c9dc5b4618a77c1ed111e; opening selection 5561a8f178897fae17d11a1e7f4954ec18b97f0b735eab63d9d53364db8a1e53; rubric 51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1; scorer brief 41a86096f258f4fbe6185a6915fcb87b55b0ed472ff6a2595734661c10b2073e; motion index aaab31cd11265295c83667bd48b1d47627a91992ccbdd2cefee08483ded170b4. No agents were spawned, no email was sent and nothing was posted.
