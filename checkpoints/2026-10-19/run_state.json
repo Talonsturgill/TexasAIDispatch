@@ -1284,6 +1284,14 @@
       "note": "telemetry for audiovisual_reviews: 3641d592-66f3-4709-8753-4f5e777a08b2 sound exact film a8742b7cffee9d2ddd7cc7aa74dcf745ec02121fd68e6147f1644574c7390b90",
       "resource": "reported_tokens",
       "to": 898093
+    },
+    {
+      "at": "2026-10-20T20:01:05.193209Z",
+      "ceiling": 43,
+      "from": 12,
+      "note": "LATE DEBIT, recorded at the actual present time with no backdating, refund or replay: two real local-only exact MP4 audiovisual review reservations (picture 2026-10-20T19:52:13.808851Z and sound 2026-10-20T19:52:13.972275Z) from the parallel-lens ledger race that aborted before any provider call; original local ledger bytes and divergence evidence retained at out/dispatch/evidence/parallel-av-ledger-race/. The durable story reservation (2026-10-20T19:52:13.637658Z) also stays spent.",
+      "resource": "audiovisual_reviews",
+      "to": 14
     }
   ],
   "events": [
@@ -9954,10 +9962,28 @@
       "note": "3641d592-66f3-4709-8753-4f5e777a08b2 sound exact film a8742b7cffee9d2ddd7cc7aa74dcf745ec02121fd68e6147f1644574c7390b90",
       "reported_tokens": 79172,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-20T20:01:05.193234Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "LATE DEBIT, recorded at the actual present time with no backdating, refund or replay: two real local-only exact MP4 audiovisual review reservations (picture 2026-10-20T19:52:13.808851Z and sound 2026-10-20T19:52:13.972275Z) from the parallel-lens ledger race that aborted before any provider call; original local ledger bytes and divergence evidence retained at out/dispatch/evidence/parallel-av-ledger-race/. The durable story reservation (2026-10-20T19:52:13.637658Z) also stays spent.",
+      "now": 14,
+      "resource": "audiovisual_reviews",
+      "was": 12
+    },
+    {
+      "at": "2026-10-20T20:01:05.193246Z",
+      "kind": "reserved",
+      "note": "LATE DEBIT, recorded at the actual present time with no backdating, refund or replay: two real local-only exact MP4 audiovisual review reservations (picture 2026-10-20T19:52:13.808851Z and sound 2026-10-20T19:52:13.972275Z) from the parallel-lens ledger race that aborted before any provider call; original local ledger bytes and divergence evidence retained at out/dispatch/evidence/parallel-av-ledger-race/. The durable story reservation (2026-10-20T19:52:13.637658Z) also stays spent.",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 2
+      }
     }
   ],
   "limits": {
-    "audiovisual_reviews": 12,
+    "audiovisual_reviews": 14,
     "cleanup_renders": 1,
     "full_renders": 2,
     "image_generations": 2,
@@ -9977,7 +10003,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "b54f87eb361e1118869d0b87eb38b7aab97d65554b084e4ded5d7e4a769dee93",
+    "original_private_state_sha256": "cf2208ea651180652006e25c7cfc00e5db8d224edc8b7b8858727016e3d520b6",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -10005,9 +10031,9 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T20:00:25.565780Z",
+  "updated_at": "2026-10-20T20:01:05.193249Z",
   "usage": {
-    "audiovisual_reviews": 12,
+    "audiovisual_reviews": 14,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
