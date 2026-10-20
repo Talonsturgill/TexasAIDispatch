@@ -204,6 +204,29 @@ class PublicationOwnership(Base):
             controller.reserve(state_path, {'reboards': 1}, 'foreign restored reservation')
         self.assertEqual(saved, state_path.read_bytes())
 
+    def test_real_checkpoint_restore_keeps_owned_charge_and_consumed_worker_claim(self):
+        self.init_ledger()
+        self.take(workspace=self.root)
+        (self.state.parent / 'claude-host.json').write_text('{}')
+        self.save('before actual owned reservation')
+        with patch.object(owner, 'PRIMARY', self.root), patch.object(owner, 'enabled', return_value=True), \
+                patch.object(owner, 'now', return_value=MOMENT), \
+                patch.dict('os.environ', {'CLAUDE_CODE_SESSION_ID': 'first'}):
+            self.assertTrue(controller.reserve(self.state, {'reboards': 1}, 'owned builder attempt')[0])
+            claim = owner.claim_worker(self.state, 'scene-builder', 'reboards', 'b' * 64, 'builder')
+            original = self.ledger()
+            fresh = self.clone(self.root / 'fresh-restore-tools')
+            destination = self.root / 'restored-edition'
+            checkpoint.restore(fresh, RUN, dest=destination)
+            restored_state = destination / 'out/dispatch/run_state.json'
+            restored_claim = destination / claim.relative_to(self.repo)
+            self.assertEqual(claim.read_bytes(), restored_claim.read_bytes())
+            restored = owner.load(restored_state)
+            self.assertEqual(original['events'][-1], restored['events'][-1])
+            self.assertEqual(original['usage'], restored['usage'])
+            self.assertEqual(original['resource_envelope'], restored['resource_envelope'])
+            self.assertFalse(owner.claim_worker(restored_state, 'scene-builder', 'reboards', 'b' * 64, 'builder'))
+
     def test_release_refuses_unfinished_and_retains_lease_until_exact_closure(self):
         self.init_ledger(); self.take()
         before = owner.read_remote(self.repo)
