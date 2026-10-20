@@ -251,3 +251,4 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-20 native hero proof (cinema_proof) authorized and started (bg bogvt3uts).
 2026-10-20 native hero proof done (55 jobs); hero audiovisual review: first attempt killed by my own 118s timeout (charged, audiovisual_reviews reserved; no result), second run in background completed, receipt out/dispatch/cinema/hero-review.json.
 2026-10-20 hero AV review pass (gemini); cinema/hero.mp4 symlink replaced by regular copy of the new hero (3d401621); production_quality preview ok; music package ok; native headroom pass 20.008 GiB; full render authorized and started (bg blevr03ok).
+2026-10-20 native full render complete: film.mp4 a8742b7c (61.0s), render-manifest, frames extracted. Next: three audiovisual lenses, three scorers (panel), preship/finish publishable.
