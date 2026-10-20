@@ -1084,6 +1084,14 @@
       "note": "phone38 repair: creek fill-only water",
       "resource": "reboards",
       "to": 19
+    },
+    {
+      "at": "2026-10-20T17:53:04.704084Z",
+      "ceiling": 60,
+      "from": 57,
+      "note": "code-plan review round 39 after phone38 repair (mandatory gate: renderer digest changed), packet critic-packet-round39, same Opus critic aea70021",
+      "resource": "storyboard_critics",
+      "to": 58
     }
   ],
   "events": [
@@ -9010,6 +9018,24 @@
       "repair_revision": "9157b8ccdcd358ccbf2e863e603e81edf6551e58cadf45bad593549b2cdc7859",
       "repair_scope": "standard",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-20T17:53:04.704111Z",
+      "ceiling": 60,
+      "kind": "budget_escalated",
+      "note": "code-plan review round 39 after phone38 repair (mandatory gate: renderer digest changed), packet critic-packet-round39, same Opus critic aea70021",
+      "now": 58,
+      "resource": "storyboard_critics",
+      "was": 57
+    },
+    {
+      "at": "2026-10-20T17:53:04.704122Z",
+      "kind": "reserved",
+      "note": "code-plan review round 39 after phone38 repair (mandatory gate: renderer digest changed), packet critic-packet-round39, same Opus critic aea70021",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -9024,7 +9050,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 57,
+    "storyboard_critics": 58,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -9033,7 +9059,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "c7d9af34bf92ec8bf32f844b8eee4e2163fdd868c25e206444792d016c54caa6",
+    "original_private_state_sha256": "df46ee5290f10db7d60c533d5d850240aaa9911d8c3e9f08c9ad3d9c08e8dea2",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -9061,7 +9087,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T17:52:45.508800Z",
+  "updated_at": "2026-10-20T17:53:04.704124Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
@@ -9074,7 +9100,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 57,
+    "storyboard_critics": 58,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
