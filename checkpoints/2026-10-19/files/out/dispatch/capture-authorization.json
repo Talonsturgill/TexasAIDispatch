@@ -2,15 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "60a7675c01641d7f456e561e2e64476e21208d11252e75cd3e360f44446ddaa8",
+    "event_sha256": "6b047a483473c4816473d2be2d36a90765184168fabe89373cd518649ecb6018",
     "resource": "preflight_renders",
-    "at": "2026-10-20T11:35:01.293873Z",
-    "note": "exact-phone-b motion-image review extraction"
+    "at": "2026-10-20T12:43:21.925048Z",
+    "note": "two opening comparison batch"
   },
   "boards": [
     {
-      "path": "out/dispatch/openings/b.json",
-      "sha256": "dcd774b19cd67711da4f12db73b0c7bdbc53c52cf44d41372278ed850cdc490c"
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "35e0e4fc0ff8f100100b0bb349b89eb76b32b3d58cc0e550660f57e4d0f544b9"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "a992ce9f7325c3e8fa88ed8e81da21f8a01a2c8562b834b3749931ce995cdc53"
     }
   ],
   "bound": {
@@ -147,9 +151,9 @@
       "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx": "ac1332a3188d6c8e4f602047244011078b47aed2e9357672b9a0b087ddb28ff5",
       "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx": "876c56b2a5d37aa079a6c57a359eaf0977830a3118ca9f3b7c3ebe03f5638911",
       "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx": "9ef763d4110c040f6a5091a529e12e5a527beb4e39868e4a613b1016c57faaa1",
-      "video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx": "ff252ac0fe14cd8746d851b5b7294a676d64c56ca6b8e94171eec94687abba02",
-      "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
-      "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx": "f3a186891ff7cad4a659461ca82e2576355e9459e626506507e6c6a9f6ac89a5",
+      "video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx": "f1d17fd56d55331972a5ceb86f2b5e68bb8a86c83a5736294d947d3ce193a23f",
+      "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx": "9f8e54f86eb4e0a684f2b8ba04dae178f92dd7514f6362a8d94618f4335ed55a",
+      "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx": "8cb4550dc823743665ed096ad4a0f85b71ac638a445f0f31701d41a273093ed4",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
       "video-engine/src/modern/registry.tsx": "07cb406c8ea8ead0e2be903b3db2d88a441e4adaa79bf678f7d1dd0427d2b474",
       "video-engine/src/modern/texasCounties.json": "e39f5cabababc5bf91e7ae0b5c70d3060875fc309f36ce9d34da6ae4c506bad8",
@@ -157,37 +161,37 @@
       "video-engine/package-lock.json": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71"
     },
     "authored_art": {
-      "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
-      "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx": "f3a186891ff7cad4a659461ca82e2576355e9459e626506507e6c6a9f6ac89a5"
+      "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx": "9f8e54f86eb4e0a684f2b8ba04dae178f92dd7514f6362a8d94618f4335ed55a",
+      "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx": "8cb4550dc823743665ed096ad4a0f85b71ac638a445f0f31701d41a273093ed4"
     }
   },
   "commands": [
     {
-      "id": "650b5f859f6694f86c08e8542965d850baf99165b16be2a2040534d997b85c4c",
-      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option b --board out/dispatch/openings/b.json --film out/dispatch/openings/b.mp4 --state out/dispatch/run_state.json --out out/dispatch/openings/motion-b",
-      "consumed": "2026-10-20T11:35:18.187942+00:00"
+      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
+      "consumed": "2026-10-20T12:43:30.645257+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.043
+    "free_gib": 20.026
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261020T113441.json",
-    "receipt_sha256": "2eaba2df9448dfbb7f965a3a083f0a1dfee7a854c11760ab768581676e37897b",
+    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261020T124314.json",
+    "receipt_sha256": "6d2525748a022b038be73e144fb4fc3e7ab673c938bc078cd2062918eaa644d2",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-20T11:35:08.918804+00:00",
-  "expires_at": "2026-10-20T12:20:08.918804+00:00",
+  "issued_at": "2026-10-20T12:43:27.789872+00:00",
+  "expires_at": "2026-10-20T13:28:27.789872+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "exact-phone-b motion-image review extraction",
+    "operation": "two opening comparison batch",
     "resource": "preflight_renders",
     "run_id": "2026-10-19",
-    "event_sha256": "60a7675c01641d7f456e561e2e64476e21208d11252e75cd3e360f44446ddaa8",
-    "input_identity": "dfbf0bf697c160ede4166bbba40f99e9b59b378131efa5be4f8f6804c4a77ea5"
+    "event_sha256": "6b047a483473c4816473d2be2d36a90765184168fabe89373cd518649ecb6018",
+    "input_identity": "e52f53935f147cbb45a1f3bb0732217b754f15d2c8003ca166835b5f2935c33d"
   }
 }
