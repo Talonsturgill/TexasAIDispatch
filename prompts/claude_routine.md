@@ -106,7 +106,18 @@ Also run `python scripts/checkpoint_discovery.py`. This read-only catalog holds 
 commit in its own temporary ref, so another Git fetch cannot change the selected snapshot.
 Select the OLDEST unfinished edition by its run identity and creation time
 (`checkpoint_discovery.py --oldest-unfinished`, never the first row of the newest-save-first list)
-and resume its existing ledger. It is restored
+and resume its existing ledger. From the October 21 startup, BEFORE restoring or initializing it,
+run `publication_owner.py acquire --repo <current-clean-checkout> --run-id <selected-id> --workspace /home/user --wait-seconds 55`.
+The helper binds the actual native session identity to one append-only global publisher record.
+`busy` means wait on that same condition without restoring, arming, reserving or dispatching.
+Do not start another publisher or interrupt its paid work. The preinstalled Stop hook keeps this
+observer open without an owner question. After the owner completes, rerun the catalog and select
+the oldest unfinished edition or today's normal identity. `resume_required` names the unfinished
+edition that must retain its ledger. An expired ownership record is never provider-outage evidence.
+`complete` requires selecting again, not another copy of the shipped edition.
+Use the current main ownership and worker-claim helpers in a supported source adoption if a restored
+checkout predates them; preserve frozen quality-policy bytes, media, event history and charges.
+The selected edition is restored
 with `python scripts/claude_checkpoint.py restore --run-id <id> --origin-workspace <shared-parent>`.
 Finish the actual catalog task before restoration, and run no other Git fetch while the
 retained restore command is active. The checkpoint codec and its prelaunch guard stay unchanged.
@@ -240,6 +251,15 @@ frontmatter. Fail on a mismatch; never set a global effort override.
 The director is `claude-sonnet-5-5` at medium effort. Read the exact role map from
 `config/claude_runtime.json`; do not use Codex `spawn_args` in Claude's Agent tool. Use the existing
 role roster, adding only the named `scene-builder` leaf definition for the existing builder task.
+From the October 21 startup, plan once to inspect the assignment, reserve a fresh owned call,
+then rerun the exact plan to obtain dispatch arguments and its durable single-use reservation claim.
+`dispatch_ready: false` supplies no executable arguments: charge a new attempt and rerun it.
+A restored reservation cannot fund another worker. Each final scorer claims its own role in the
+same atomic panel reservation. For a paid content correction on the existing leaf, pass
+`--resume-agent <actual-worker-id>` and use the loaded native SendMessage schema with its returned
+message; do not spawn a replacement. Completed unchanged handback formatting remains ungraded
+mechanical work, with every actual turn included in usage. Failed or interrupted workers still
+require a fresh charged attempt. Retain both actual responses after an observed duplicate.
 Pin exact model ids and supported effort in versioned agent frontmatter and project settings.
 The owner refined the route on October 9th: scene-builder, storyboard-critic and validator use
 Opus 5.5 at high effort. These calls own the authored picture, its independent critique and source

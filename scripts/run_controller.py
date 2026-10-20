@@ -96,6 +96,8 @@ def digest(path: Path) -> str:
 
 
 def save(path: Path, state: dict) -> None:
+    from publication_owner import require_owner
+    require_owner(path, state)
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp_name = tempfile.mkstemp(prefix=path.name + ".", dir=path.parent)
     try:
@@ -472,6 +474,8 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
     if preview_identity == state.get("preflight_retry"):
         state.pop("preflight_retry", None)
     binding = {'full_render_identity': full_identity} if full_identity is not None else {}
+    from publication_owner import reservation_fields
+    binding.update(reservation_fields(path, state))
     event(state, "reserved", resources=amounts, note=note, preflight_identity=preview_identity, **binding)
     # CLEANUP LOCKS AT THE CEILING, NOT AT THE TARGET, and under escalation those are two
     # different numbers on purpose.

@@ -94,6 +94,8 @@ def arm(workspace, state_path):
     workspace = registered_workspace(workspace, state_path)
     state_path = location(workspace, state_path)
     state = read(state_path)
+    from publication_owner import require_owner
+    require_owner(state_path, state)
     if (state.get('mode') != 'production' or state.get('terminal_state') is not None
             or not re.fullmatch(r'\d{4}-\d{2}-\d{2}[\w-]*', state.get('run_id', ''))
             or state_path.parts[-3:] != ('out', 'dispatch', 'run_state.json')):
@@ -176,6 +178,15 @@ def decision(payload, workspace):
     if payload.get('hook_event_name') != 'Stop':
         return None
     workspace = Path(workspace).resolve()
+    from publication_owner import heartbeat_hook, waiting_reason
+    waiting = waiting_reason(payload, workspace)
+    if waiting:
+        return waiting
+    ownership_error = None
+    try:
+        heartbeat_hook(payload, workspace)
+    except Exception:
+        ownership_error = 'publication ownership needs source-backed recovery before another paid attempt'
     marker = workspace / MARKER
     if not marker.is_file():
         # A harmless one-shot host probe never arms or completes a production ledger.
@@ -196,9 +207,12 @@ def decision(payload, workspace):
             raise ValueError('the armed production identity changed')
         problems = closure_problems(state, state_path)
         if not problems:
+            from publication_owner import enabled, release
+            if enabled():
+                release(state_path.parents[2], state_path, workspace, session=payload.get('session_id'))
             return None
-        reason = '; '.join(problems)
-    except (OSError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired):
+        reason = '; '.join(problems + ([ownership_error] if ownership_error else []))
+    except (OSError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired, RuntimeError):
         reason = 'the selected production ledger or durable closure cannot yet be verified'
     running = [str(row.get('id')) for row in payload.get('background_tasks', [])
                if row.get('status') == 'running' and row.get('id')]
@@ -220,8 +234,9 @@ def response(payload, workspace, pause=None):
     reason = decision(payload, workspace)
     if reason is None:
         return None
+    from publication_owner import waiting_reason
     if (payload.get('stop_hook_active') is True
-            and (Path(workspace) / MARKER).is_file()):
+            and ((Path(workspace) / MARKER).is_file() or waiting_reason(payload, workspace))):
         (pause or time.sleep)(BACKGROUND_WAIT_SECONDS)
         # Back off an unchanged final/wait loop even when no worker is running.
         # A real writer may have completed the accepted archive during the wait.

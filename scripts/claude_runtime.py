@@ -476,7 +476,15 @@ def mechanical_admission(role, data, task):
             'effective_from': cfg['effective_from'], 'evidence': cfg['evidence'], 'scope_note': cfg['scope_note']}
 
 
-def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None):
+def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None, resume_agent=None):
+    if resume_agent and not re.fullmatch(r'[A-Za-z0-9_-]{1,128}', resume_agent):
+        raise ValueError('resume the actual existing worker identity')
+    import publication_owner
+    ownership_state = REPO / 'out/dispatch/run_state.json'
+    guarded = (publication_owner.enabled() and ownership_state.is_file()
+               and read(ownership_state).get('mode') == 'production')
+    if guarded:
+        publication_owner.require_owner(ownership_state)
     if os.environ.get('CLAUDE_CODE_REMOTE') == 'true':
         from source_view import git
         if git(REPO, 'config', '--get', 'core.sparseCheckout', optional=True).lower() == 'true':
@@ -602,6 +610,21 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
         result['mechanical'] = admitted
         result['model_binding'] = ('Mechanical route ' + admitted['route'] + ' overrides only the spawn model and '
                                    'effort for this admitted task. Any refusal keeps the unchanged Opus assignment.')
+    if guarded:
+        claim = publication_owner.claim_worker(ownership_state, role, route['resource'],
+                                               digest(packet_path), task_name)
+        result['dispatch_ready'] = bool(claim)
+        if not claim:
+            result.pop('agent_args')
+            result['reservation'] += (' No dispatch arguments are available. Reserve a fresh ' + route['resource']
+                + ' call owned by this context, then rerun this exact plan. A restored or spent reservation '
+                'cannot fund another execution.')
+            return result
+        result['reservation_claim'] = bound(claim)
+        result['agent_args']['description'] = task_name[:41] + '_' + digest(claim)[:8]
+    if resume_agent:
+        result['resume'] = {'agent_id': resume_agent, 'message': result.pop('agent_args')['prompt']}
+        result['model_binding'] += ' Use the loaded native SendMessage schema for this same worker.'
     return result
 
 
@@ -696,6 +719,7 @@ if __name__ == '__main__':
     p.add_argument('--task-name', required=True); p.add_argument('--scope', required=True)
     p.add_argument('--mechanical-task', choices=['code-only-review', 'mechanical-correction'])
     p.add_argument('--subject', help='actual concrete candidate object, required for researcher plans from October20')
+    p.add_argument('--resume-agent', help='actual existing worker id for a newly charged content follow-up')
     p.add_argument('--out', type=Path, required=True)
     p = sub.add_parser('phase'); p.add_argument('name'); p.add_argument('--root', type=Path, default=Path('out/dispatch'))
     p = sub.add_parser('audit'); p.add_argument('--session', type=Path, action='append', required=True)
@@ -716,7 +740,8 @@ if __name__ == '__main__':
                               [args.sequence_current] if args.sequence_current else [args.sequence_a, args.sequence_b],
                               current=bool(args.sequence_current))
     elif args.action == 'plan':
-        result = plan(args.role, args.packet, args.task_name, args.scope, args.mechanical_task, args.subject)
+        result = plan(args.role, args.packet, args.task_name, args.scope, args.mechanical_task, args.subject,
+                      args.resume_agent)
     elif args.action == 'verify-images':
         errors = image_coverage_problems(args.packet, args.coverage)
         result = {'schema': 'dispatch_claude_image_coverage_verification/1', 'complete': not errors,
