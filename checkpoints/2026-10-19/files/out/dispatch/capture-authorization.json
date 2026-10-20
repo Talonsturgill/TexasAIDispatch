@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "0ba8484018574d7d8019df014c4b24919f4cc4cd0a6cf2d49e0192ad098836fd",
+    "event_sha256": "83f063334efa8cd8b1e98f231ea3ab20819307693e5235662b819bf022718cd6",
     "resource": "preflight_renders",
-    "at": "2026-10-20T00:49:45.817965Z",
-    "note": "quarter-scale animatic"
+    "at": "2026-10-20T00:53:12.488724Z",
+    "note": "exact-phone-current motion-image review extraction"
   },
   "boards": [
     {
@@ -163,31 +163,31 @@
   },
   "commands": [
     {
-      "id": "492b8b700cac821910ea921ffcdb96a53e371b8ec40eed993430a0b11c93bf66",
-      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json",
-      "consumed": "2026-10-20T00:49:52.973497+00:00"
+      "id": "57faae4710432dcc2548c410d732a6f72c22dc790e1821eb28e3e3a90f70c994",
+      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option current --board out/dispatch/storyboard.json --film out/dispatch/preflight.mp4 --state out/dispatch/run_state.json --out out/dispatch/openings/motion-current",
+      "consumed": "2026-10-20T00:53:19.414540+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.279
+    "free_gib": 20.104
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261020T004937.json",
-    "receipt_sha256": "cea4b2add4029aaa90648f4c894de616e514fc922042e90f00be7bf5fa176aa5",
+    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261020T005305.json",
+    "receipt_sha256": "d84d7e423e8631c29a11efc35834c4463fb85f50a9af54f35624227b65b6d437",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-20T00:49:51.108905+00:00",
-  "expires_at": "2026-10-20T01:34:51.108905+00:00",
+  "issued_at": "2026-10-20T00:53:17.712350+00:00",
+  "expires_at": "2026-10-20T01:38:17.712350+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "quarter-scale animatic",
+    "operation": "exact-phone-current motion-image review extraction",
     "resource": "preflight_renders",
     "run_id": "2026-10-19",
-    "event_sha256": "0ba8484018574d7d8019df014c4b24919f4cc4cd0a6cf2d49e0192ad098836fd",
-    "input_identity": "8b4c2dd953813de6e68247c9de2a8a02be9f2718b7a6399c20910fe6c7204cf9"
+    "event_sha256": "83f063334efa8cd8b1e98f231ea3ab20819307693e5235662b819bf022718cd6",
+    "input_identity": "9177c68e9503727a39d54b159bb720dc116ce8c970616f307f0586ae55c9fb6e"
   }
 }
