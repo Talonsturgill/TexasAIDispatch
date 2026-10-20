@@ -1,0 +1,23 @@
+{
+ "date": "2026-10-19",
+ "source": "Final charged confirmation. Independent live re-fetch on 2026-10-19 of api.nhtsa.gov campaign 26E026 (compact JSON), TPR May 13th and May 10th, 2026 articles, and Waymo's October 14, 2026 post, with exact-string checks and negative controls through WebFetch (model-mediated text, not raw bytes). Waymo's February 24, 2026 post was confirmed in the two earlier rounds today and is not a claim URL. Inspected the current claims.json (c1 to c13), vo_script.txt (s1 to s9), vo_bindings.json (s5 now bound to c6, c7 and c13) and story_selection.json. The 12-clause caption split was not supplied or inspected. SHA256 not recomputed (no shell).",
+ "result": "PASS",
+ "verified_claim_ids": ["c1","c2","c3","c4","c5","c6","c7","c8","c9","c10","c11","c12","c13"],
+ "rejected": [],
+ "rejected_note": "No claim rejected. All 13 quotes independently re-fetched and verbatim. All sentences s1 to s9 are supported by their bound claims, and every spoken numeral appears in a verified quote. No qualifier needs to be added.",
+ "required_edits_applied": [
+  "c5 quote extended to the two adjacent TPR sentences",
+  "c6 text 'The federal recall record lists 3,791 potentially affected units.' with compact quote \"PotentialNumberofUnitsAffected\":3791",
+  "c13 added",
+  "c1 text aligned to 'including the San Antonio International Airport'",
+  "s5 to s9 replaced with the validated text, and s3 shortened",
+  "story_selection 'still' changed to 'currently', and application_change no longer implies area growth",
+  "vo_bindings.json s5 claim_ids now [\"c6\",\"c7\",\"c13\"] (verified in the current file)"
+ ],
+ "optional_edit_not_present": "The optional story_selection edit reported as applied is not in the file. filmability.action_support[0].relationship still says 'including to the San Antonio International Airport', and the packet's story_selection hash is unchanged (07ff5791...). Non-blocking.",
+ "reviewer_identity": "claude-opus-5-5 / validator agent",
+ "script_sha256": "f4a70b7d34c2354e8c5873a9f270a55b0e5bab5ee3fbe149a5b5ec4847bd5d2c (supplied by packet, not recomputed)",
+ "claims_sha256": "3a743b1548c88183ab403a0515bacffc18661e1142afac29da052262038955cb (supplied by packet, not recomputed)",
+ "bindings_sha256": "84814dc61af743f84ac9401fc770d3f27e9d1daa48d0ac218cdd6e32bf178851 (supplied by packet, not recomputed)",
+ "scope_note": "This PASS covers source truth of the claims, narration and bindings only. It does not approve any storyboard, picture or rendered film."
+}
