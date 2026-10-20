@@ -107,7 +107,7 @@ commit in its own temporary ref, so another Git fetch cannot change the selected
 Select the OLDEST unfinished edition by its run identity and creation time
 (`checkpoint_discovery.py --oldest-unfinished`, never the first row of the newest-save-first list)
 and resume its existing ledger. From the October 21 startup, BEFORE restoring or initializing it,
-run `publication_owner.py acquire --repo <current-clean-checkout> --run-id <selected-id> --workspace /home/user --wait-seconds 55`.
+run `python scripts/publication_owner.py acquire --repo <current-clean-checkout> --run-id <selected-id> --workspace /home/user --wait-seconds 55`.
 The helper binds the actual native session identity to one append-only global publisher record.
 `busy` means wait on that same condition without restoring, arming, reserving or dispatching.
 Do not start another publisher or interrupt its paid work. The preinstalled Stop hook keeps this

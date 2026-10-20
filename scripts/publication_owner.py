@@ -306,7 +306,7 @@ def waiting_reason(payload, workspace):
     if value.get('status') != 'busy':
         return None
     return ('Another active publisher owns ' + value['run_id'] + '. Keep this scheduled session open. '
-            'Run publication_owner.py acquire with --wait-seconds 55 against the actual ownership condition, '
+            'Run python scripts/publication_owner.py acquire with --wait-seconds 55 against the actual ownership condition, '
             'then rerun the checkpoint catalog and select the current unfinished edition or today. '
             'Do not restore the active owner, reuse its reservation, buy a duplicate worker or ask for permission.')
 
