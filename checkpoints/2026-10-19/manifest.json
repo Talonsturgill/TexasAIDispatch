@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T01:35:05.607724+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-20T01:35:12.163279+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -511,10 +511,34 @@
       "size": 4412321
     },
     {
+      "path": "out/dispatch/cinema/picture-review-response.json",
+      "class": "scratch",
+      "sha256": "072a006c549fca096a3d038b6b93cdedb2559bfc13ce63f4049d9964ae848c41",
+      "size": 131922
+    },
+    {
+      "path": "out/dispatch/cinema/picture-review.json",
+      "class": "scratch",
+      "sha256": "24c789113e739f74a0c90992a2769637d2d1a6db756deb109fc657d514ed90c6",
+      "size": 586
+    },
+    {
       "path": "out/dispatch/cinema/proof.json",
       "class": "scratch",
       "sha256": "561fb447ea2a06d1e70f00a80032fed0d6c0635795853df4ac2ae9a2c05559ff",
       "size": 27052
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/7e2c9b6aca54508ed534d0025c1fcfedd4eb3e42266a7559834119cc03eda997/picture-review-response.json",
+      "class": "scratch",
+      "sha256": "072a006c549fca096a3d038b6b93cdedb2559bfc13ce63f4049d9964ae848c41",
+      "size": 131922
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/7e2c9b6aca54508ed534d0025c1fcfedd4eb3e42266a7559834119cc03eda997/receipt.json",
+      "class": "scratch",
+      "sha256": "24c789113e739f74a0c90992a2769637d2d1a6db756deb109fc657d514ed90c6",
+      "size": 586
     },
     {
       "path": "out/dispatch/cinema/review-cache/f6cc54ebdce2123394ad7701d9a33dacda52137d5f56e0f819c71729b36ab1d7/hero-review-response.json",
@@ -14858,8 +14882,8 @@
     }
   ],
   "regenerable": {
-    "files": 122,
-    "bytes": 27655964
+    "files": 123,
+    "bytes": 27656108
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }
