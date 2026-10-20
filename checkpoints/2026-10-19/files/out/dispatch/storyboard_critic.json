@@ -4,37 +4,51 @@
  "review_scope": "code-plan",
  "board_bindings": {
   "storyboard": {
-   "path": "out/dispatch/storyboard.json",
-   "sha256": "8b972cf58ada1883fda89a27a7998dcc38e0697d63c5e84241a4547485eb8649"
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+   "sha256": "cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108"
   },
   "opening": {
-   "path": "out/dispatch/opening-a.json",
-   "sha256": "1d6019cb642888adfdf62840d0d5050630fb34aaca8a91c744e285d9fad6d466"
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+   "sha256": "cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108"
   }
  },
- "board_sha256": "8b972cf58ada1883fda89a27a7998dcc38e0697d63c5e84241a4547485eb8649",
- "concept_sha256": "669bf4214f49ba46137fa2a16a2c807535ea2eb24f4fd6e0fb0f88811027712a",
- "renderer_sha256": "d7612341aa0f6d4f22cc2d3402e1fdc4596861b20332a414f27cabdbf3c19e47",
+ "board_sha256": "cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108",
+ "concept_sha256": "ffe089ed23dd8c0d8592add791e89913a3bbd63214d7db4dfe4bfc88f48753fc",
+ "renderer_sha256": "a0a3f51f61987ca1fee3688e831dc74e044f1982137a0828e9dba5448d3d5210",
+ "binding_status": "The director supplied these digests in out/dispatch/evidence/code-round15/bindings.json. Copied unchanged; not recomputed by this Read-only reviewer.",
  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
- "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 12",
- "reviewed_at": "2026-10-20 (exact clock time unavailable to this Read-only reviewer)",
- "strongest_frame": "s6 wheels-water, 31.6 to 35.5 s: the car's speed eases from 850 to 150 units/s along s6-event-2's contact curve and never reaches zero. The front wheel meets the standing water, wakes start at each wheel, and 'may' lights on the source sentence. The whole recall mechanism is one performed move.",
- "weakest_frame": "46.9 to 48.4 s: the s8 close finishes the calendar flip at 46.92, then only the camera rise moves until the cut at 47.66. s9 curb-return then holds a waiting car until the door starts at 48.38. About 1.5 s with little subject change, inside the policy limits.",
+ "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 15",
+ "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
+ "strongest_frame": "s6 wheels-water, 32.705 to 36.86 s (authored clock). The car's speed eases from 850 to 150 units/s along s6-event-2's contact curve and never reaches zero. The front wheel enters the sheet about 0.7 s into s6-event-3 (33.79 to 34.89), wakes start at each wheel, and the amber box now lands on the laid-out glyphs of 'may'. The whole recall mechanism is one performed move.",
+ "weakest_frame": "s8 calendar-fleet, about 43.63 to 45.85 s. After the weather limits tag clips, only the cord taking up its slack and the damped swing move until the first check. 'Tightened' is carried by the label alone. This is within the 4 s limit and does not block.",
  "blocking_defects": [],
+ "round14_blocker_check": {
+  "scene_id": "s6",
+  "time_s": 33.79,
+  "status": "resolved in code; phone pixels still required",
+  "detail": "The estimated-width placement is gone. The box is the dilated glyph alpha of 'may' from an identical second text run, clipped to the band from -0.95 em to +0.30 em, with lit = progress of s6-event-3, held to the cut at 36.86 s."
+ },
  "notes": [
-  "Code-scope pass only. Legibility at phone size, the believability of the two hands in s7 (both arms entering from the right, same skin and sleeve, read as one seated person) and the s3 sweep speed need the timed phone review.",
-  "Possible false inference, not prevented on screen: a viewer may take the interim weather limits as current, or as coming after the recall. The record leaves them undefined and their status unknown, and the update deadline is the creek account's date, April 20th. Narration and the April 20 page are literal, and the close holds 'remedy under development'. A short tag line would be an optional fix.",
-  "The s8 events are listed out of chronological order (the check marks at 43.90 come before the calendar at 46.02). This is not a defect."
+  "Phone check: the underline relies on a feMorphology radius of '0 46.8' and may not render as a rule. The amber-ink underline crosses the descender of 'y'.",
+  "'may' is spoken in n6a around 29 to 30 s. The highlight lights during n6b at 33.79 to 34.89 s, a deliberate reprise of the hedge that the board declares. It is not synchronized to the spoken word.",
+  "Carried from round 14, not blocking, code unchanged:",
+  "- s1: the wide shot reaches D 534 by 1.3 s, and the cab shot then rolls the last 114 units (2.63 to 3.73 s).",
+  "- s2: the February page enters again from the lower right across the cut.",
+  "- s3: the screen direction of the exit is unresolved.",
+  "- s1 to s2: the car-pin bridge is only three map pins of radius 13.",
+  "Possible false inference, unchanged: a viewer may take the interim weather limits as current. The record does not say whether they apply now.",
+  "The retained comparison films predate support 5270e368\u2026, so the timed phone review needs a fresh capture."
  ],
  "story_review": {
-  "story_sha256": "f5347bfa95370bc392cfbcfc3e02a071a5e161e3bc7478adb31b2e9f396f3f7b",
+  "story_sha256": "19d95b92f0f83c1920fcf458f162e8e6515e676879326801362930eeebac5b55",
   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
   "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
   "verdict": "pass",
   "blocking_defects": [],
-  "one_viewing_summary": "Intended chain, from code and not observed. A generic white driverless car brakes into an airport bay while its empty steering wheel turns, and the phone says arriving. A map outlines the limited February area of sixty square miles. A different empty car is carried down Salado Creek, and another stops in street floodwater with hazards blinking. A recall card fills toward about 3,800 cars and is stamped Software recall. The recall sentence plays out as a car slows and rolls into standing water. The remedy row is stamped Under development while a pen rests on it. Four cars take interim checks under a weather limits tag and an April 20 page. The curb returns with the door open beside the underlined remedy card.",
-  "opening_to_ending": "The opening question (the ride is open, so what does the record say about the flood problem) is answered by the closing split: an open curb door beside 'The remedy is currently under development', underlined. No outcome is invented.",
-  "weakest_transition": "s7 to s8. The causal bridge 'unfinished remedy leads to the interim step' reads as a sequence, though the update was complete by April 20th, before the recall was reported. The weather limits' content and current status stay unshown."
+  "one_viewing_summary": "Intended chain, read from code and not observed. A generic white driverless car brakes into an airport bay while its empty wheel turns, and the phone says Arriving. A map outlines the limited February area of 60 square miles. A different empty car is carried down Salado Creek, and another stops in street floodwater with its hazards blinking. A recall card shows Software and 3,791 while the car-icon grid fills and the Software recall stamp lands. The recall sentence plays out as a car slows and then rolls into standing water while 'may' lights. The remedy row is stamped Under development. Four cars take interim checks under a weather limits tag and an April 20 page. The curb returns with the door open beside the underlined remedy card.",
+  "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the ride is open. The closing split answers it: an open curb door beside 'The remedy is currently under development'. No repair or outcome is invented.",
+  "weakest_transition": "s1 to s2. The board's bridge ('car pin rides from the curb onto the map') is carried only by three small map pins. No pin crosses the cut."
  },
  "action_reviews": [
   {
@@ -44,11 +58,11 @@
    "verdict": "pass",
    "blocking_defects": [],
    "code_observations": {
-    "source_fidelity": "c1, a fully autonomous ride: empty driver and passenger seats and headrests in the cab.",
-    "visible_action": "steer = 85*(p12-p13) on the contact curve; the curb and the plane-pictogram bay sign slide past the windshield.",
-    "consequence": "The phone turns to Arriving / At the curb on s1-event-3.",
-    "disclosure": "Production disclosure chip; no brand marks.",
-    "limits": "Not a Waymo vehicle or a real app."
+    "source_fidelity": "c1, a fully autonomous ride: Cab draws empty driver and passenger seat backs and headrests.",
+    "visible_action": "steer = 85*(p12-p13) rotates the wheel group about its hub. The curb and the airplane-pictogram sign slide through the windshield as the car rolls.",
+    "consequence": "The phone status turns to Arriving / At the curb on s1-event-3.",
+    "disclosure": "Chip: 'Illustration. Generic car with no brand mark'.",
+    "limits": "Not a Waymo vehicle or app."
    }
   },
   {
@@ -58,11 +72,11 @@
    "verdict": "pass",
    "blocking_defects": [],
    "code_observations": {
-    "source_fidelity": "c3 and c4: heavy rain, an unoccupied car (cabin see-through), a single brown sheet.",
-    "visible_action": "Drift integrates from 12.64 s; the camera follows at 0.62, so the car moves left on screen while the bank slides right; the current lifts and rolls it after s3-event-3.",
-    "consequence": "Carried downstream, tail first, never stopping.",
-    "disclosure": "'Illustration. A different car, April 20th account'.",
-    "limits": "No damage and no entry path drawn."
+    "source_fidelity": "c3 and c4: rain, a see-through empty cabin (cabin 1), one brown sheet.",
+    "visible_action": "Drift integrates from S3.v0 to S3.v. The camera follows at 0.62. The car lifts, rolls by -4.5 degrees and bobs. The water piles against its upstream nose.",
+    "consequence": "The car is carried downstream tail first and never stops.",
+    "disclosure": "Chip: 'Illustration. A different car, April 20th account'.",
+    "limits": "No entry path or damage is drawn."
    }
   },
   {
@@ -72,51 +86,51 @@
    "verdict": "pass",
    "blocking_defects": [],
    "code_observations": {
-    "source_fidelity": "c7 wording: slows, then drives into standing water; 'may' highlighted; no crash.",
-    "visible_action": "Speed eases 850 to 150 along the contact curve; brake lamps; frontIn and rearIn wakes.",
-    "consequence": "Wheels enter the sheet with spray.",
-    "disclosure": "'Illustration. The recall wording, not a recorded event'.",
+    "source_fidelity": "c7 verbatim on the QuoteCard. Slows, then drives into standing water. No stop and no crash.",
+    "visible_action": "X6 runs at vHi, then follows the contact-curve integral down to vLo. The brake lamps light on s6-event-2. frontIn and rearIn drive the wakes.",
+    "consequence": "The wheels enter the sheet with spray, and 'may' is now marked from the real glyph layout (support 5270e368\u2026).",
+    "disclosure": "Chip: 'Illustration. The recall wording, not a recorded event'.",
     "limits": "No speed, depth or real road."
    }
   },
   {
    "action_id": "service-area-opens",
-   "module_sha256": "3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00",
+   "module_sha256": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985",
    "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
    "verdict": "pass",
    "blocking_defects": [],
    "code_observations": {
     "source_fidelity": "c2: February, limited area, 60 square miles.",
-    "visible_action": "The map draws in; one outline traces; the calendar slides in below the zone.",
-    "consequence": "The outline closes with fill; the tag appears from 9.28 s.",
+    "visible_action": "The map strokes draw in. The ZONE outline traces from 0.3*e2 + 0.7*e3. The tag drops in over 0.35 s.",
+    "consequence": "The outline closes with a fill around the moving pins.",
     "disclosure": "The credits say the outline is editorial.",
     "limits": "Not the operator's map."
    }
   },
   {
    "action_id": "recall-filed-count",
-   "module_sha256": "3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00",
+   "module_sha256": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985",
    "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
    "verdict": "pass",
    "blocking_defects": [],
    "code_observations": {
-    "source_fidelity": "c6 3,791 and c13 nearly 3,800 are both printed; only the type and units rows appear.",
-    "visible_action": "The card slides in, rows write in, and a 50-icon grid fills.",
-    "consequence": "The counter settles; the stamp comes in along its forearm and lands in the header slot, off the data rows; the counter tag jolts.",
+    "source_fidelity": "c6 3,791 and c13 'Nearly 3,800' are both printed. Only the type and units rows are shown.",
+    "visible_action": "The card slides in and its rows write in. A 50-icon grid fills. The stamp arrives along its forearm.",
+    "consequence": "The Software recall imprint lands in the header slot and the counter tag jolts.",
     "disclosure": "Illustration chip.",
-    "limits": "Icons stand for the count; they are not a literal count."
+    "limits": "The icons are not a literal count."
    }
   },
   {
    "action_id": "remedy-under-development",
-   "module_sha256": "3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00",
+   "module_sha256": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985",
    "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
    "verdict": "pass",
    "blocking_defects": [],
    "code_observations": {
-    "source_fidelity": "c8 verbatim; no interim rows on the card.",
-    "visible_action": "The remedy row writes in on n7's first word; the pen rests through the clause; the stamp presses into the slot under the words.",
-    "consequence": "The mark stays and carries to the s9 remedy card, which is underlined.",
+    "source_fidelity": "c8 verbatim. No interim rows appear on the card.",
+    "visible_action": "The remedy row writes in and lights. The pen rests past the last word until n7 ends. The stamp presses into the slot under the words.",
+    "consequence": "The imprint stays and carries to the s9 remedy card, which is underlined.",
     "disclosure": "Illustration chip.",
     "limits": "Not a real record page."
    }

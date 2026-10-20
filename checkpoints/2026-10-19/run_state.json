@@ -23,7 +23,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 24,
+    "storyboard_critics": 25,
     "tts_calls": 12,
     "validator_agents": 4,
     "voice_directors": 2
@@ -3995,6 +3995,110 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-20T05:29:12.995345Z",
+      "failure_evidence_json": "{\n \"treatment\": \"a\",\n \"verdict\": \"pass\",\n \"review_scope\": \"code-plan\",\n \"board_bindings\": {\n  \"storyboard\": {\n   \"path\": \"{REPO}/out/dispatch/storyboard.json\",\n   \"sha256\": \"cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108\"\n  },\n  \"opening\": {\n   \"path\": \"{REPO}/out/dispatch/opening-a.json\",\n   \"sha256\": \"cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108\"\n  }\n },\n \"board_sha256\": \"cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108\",\n \"concept_sha256\": \"ffe089ed23dd8c0d8592add791e89913a3bbd63214d7db4dfe4bfc88f48753fc\",\n \"renderer_sha256\": \"a0a3f51f61987ca1fee3688e831dc74e044f1982137a0828e9dba5448d3d5210\",\n \"binding_status\": \"The director supplied these digests in out/dispatch/evidence/code-round15/bindings.json. Copied unchanged; not recomputed by this Read-only reviewer.\",\n \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n \"claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 15\",\n \"reviewed_at\": \"2026-10-20 (date only; clock time unavailable to this Read-only reviewer)\",\n \"strongest_frame\": \"s6 wheels-water, 32.705 to 36.86 s (authored clock). The car's speed eases from 850 to 150 units/s along s6-event-2's contact curve and never reaches zero. The front wheel enters the sheet about 0.7 s into s6-event-3 (33.79 to 34.89), wakes start at each wheel, and the amber box now lands on the laid-out glyphs of 'may'. The whole recall mechanism is one performed move.\",\n \"weakest_frame\": \"s8 calendar-fleet, about 43.63 to 45.85 s. After the weather limits tag clips, only the cord taking up its slack and the damped swing move until the first check. 'Tightened' is carried by the label alone. This is within the 4 s limit and does not block.\",\n \"blocking_defects\": [],\n \"round14_blocker_check\": {\n  \"scene_id\": \"s6\",\n  \"time_s\": 33.79,\n  \"status\": \"resolved in code; phone pixels still required\",\n  \"detail\": \"The estimated-width placement is gone. The box is the dilated glyph alpha of 'may' from an identical second text run, clipped to the band from -0.95 em to +0.30 em, with lit = progress of s6-event-3, held to the cut at 36.86 s.\"\n },\n \"notes\": [\n  \"Phone check: the underline relies on a feMorphology radius of '0 46.8' and may not render as a rule. The amber-ink underline crosses the descender of 'y'.\",\n  \"'may' is spoken in n6a around 29 to 30 s. The highlight lights during n6b at 33.79 to 34.89 s, a deliberate reprise of the hedge that the board declares. It is not synchronized to the spoken word.\",\n  \"Carried from round 14, not blocking, code unchanged:\",\n  \"- s1: the wide shot reaches D 534 by 1.3 s, and the cab shot then rolls the last 114 units (2.63 to 3.73 s).\",\n  \"- s2: the February page enters again from the lower right across the cut.\",\n  \"- s3: the screen direction of the exit is unresolved.\",\n  \"- s1 to s2: the car-pin bridge is only three map pins of radius 13.\",\n  \"Possible false inference, unchanged: a viewer may take the interim weather limits as current. The record does not say whether they apply now.\",\n  \"The retained comparison films predate support 5270e368\\u2026, so the timed phone review needs a fresh capture.\"\n ],\n \"story_review\": {\n  \"story_sha256\": \"19d95b92f0f83c1920fcf458f162e8e6515e676879326801362930eeebac5b55\",\n  \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n  \"claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n  \"verdict\": \"pass\",\n  \"blocking_defects\": [],\n  \"one_viewing_summary\": \"Intended chain, read from code and not observed. A generic white driverless car brakes into an airport bay while its empty wheel turns, and the phone says Arriving. A map outlines the limited February area of 60 square miles. A different empty car is carried down Salado Creek, and another stops in street floodwater with its hazards blinking. A recall card shows Software and 3,791 while the car-icon grid fills and the Software recall stamp lands. The recall sentence plays out as a car slows and then rolls into standing water while 'may' lights. The remedy row is stamped Under development. Four cars take interim checks under a weather limits tag and an April 20 page. The curb returns with the door open beside the underlined remedy card.\",\n  \"opening_to_ending\": \"The opening question asks what the federal record says about the flood problem now that the ride is open. The closing split answers it: an open curb door beside 'The remedy is currently under development'. No repair or outcome is invented.\",\n  \"weakest_transition\": \"s1 to s2. The board's bridge ('car pin rides from the curb onto the map') is carried only by three small map pins. No pin crosses the cut.\"\n },\n \"action_reviews\": [\n  {\n   \"action_id\": \"wheel-turns-itself\",\n   \"module_sha256\": \"b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c1, a fully autonomous ride: Cab draws empty driver and passenger seat backs and headrests.\",\n    \"visible_action\": \"steer = 85*(p12-p13) rotates the wheel group about its hub. The curb and the airplane-pictogram sign slide through the windshield as the car rolls.\",\n    \"consequence\": \"The phone status turns to Arriving / At the curb on s1-event-3.\",\n    \"disclosure\": \"Chip: 'Illustration. Generic car with no brand mark'.\",\n    \"limits\": \"Not a Waymo vehicle or app.\"\n   }\n  },\n  {\n   \"action_id\": \"car-swept-into-creek\",\n   \"module_sha256\": \"b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c3 and c4: rain, a see-through empty cabin (cabin 1), one brown sheet.\",\n    \"visible_action\": \"Drift integrates from S3.v0 to S3.v. The camera follows at 0.62. The car lifts, rolls by -4.5 degrees and bobs. The water piles against its upstream nose.\",\n    \"consequence\": \"The car is carried downstream tail first and never stops.\",\n    \"disclosure\": \"Chip: 'Illustration. A different car, April 20th account'.\",\n    \"limits\": \"No entry path or damage is drawn.\"\n   }\n  },\n  {\n   \"action_id\": \"car-slows-into-water\",\n   \"module_sha256\": \"b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c7 verbatim on the QuoteCard. Slows, then drives into standing water. No stop and no crash.\",\n    \"visible_action\": \"X6 runs at vHi, then follows the contact-curve integral down to vLo. The brake lamps light on s6-event-2. frontIn and rearIn drive the wakes.\",\n    \"consequence\": \"The wheels enter the sheet with spray, and 'may' is now marked from the real glyph layout (support 5270e368\\u2026).\",\n    \"disclosure\": \"Chip: 'Illustration. The recall wording, not a recorded event'.\",\n    \"limits\": \"No speed, depth or real road.\"\n   }\n  },\n  {\n   \"action_id\": \"service-area-opens\",\n   \"module_sha256\": \"5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c2: February, limited area, 60 square miles.\",\n    \"visible_action\": \"The map strokes draw in. The ZONE outline traces from 0.3*e2 + 0.7*e3. The tag drops in over 0.35 s.\",\n    \"consequence\": \"The outline closes with a fill around the moving pins.\",\n    \"disclosure\": \"The credits say the outline is editorial.\",\n    \"limits\": \"Not the operator's map.\"\n   }\n  },\n  {\n   \"action_id\": \"recall-filed-count\",\n   \"module_sha256\": \"5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c6 3,791 and c13 'Nearly 3,800' are both printed. Only the type and units rows are shown.\",\n    \"visible_action\": \"The card slides in and its rows write in. A 50-icon grid fills. The stamp arrives along its forearm.\",\n    \"consequence\": \"The Software recall imprint lands in the header slot and the counter tag jolts.\",\n    \"disclosure\": \"Illustration chip.\",\n    \"limits\": \"The icons are not a literal count.\"\n   }\n  },\n  {\n   \"action_id\": \"remedy-under-development\",\n   \"module_sha256\": \"5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c8 verbatim. No interim rows appear on the card.\",\n    \"visible_action\": \"The remedy row writes in and lights. The pen rests past the last word until n7 ends. The stamp presses into the slot under the words.\",\n    \"consequence\": \"The imprint stays and carries to the s9 remedy card, which is underlined.\",\n    \"disclosure\": \"Illustration chip.\",\n    \"limits\": \"Not a real record page.\"\n   }\n  }\n ],\n \"phone_observations\": null,\n \"modern_observations\": null,\n \"pixel_basis\": \"None. Code approval includes no pixel observations.\"\n}",
+      "failure_evidence_sha256": "fc0cbd403c48eef039347647ea3ef4a132d637b663e5d5130128dae9e575f948",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 26,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 25,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 26,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 25,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "984ba66d20973a693089cfa65645f6d419845748462dd51d814142660492fb38",
+      "plan_json": "{\n  \"repair_scope\": \"standard\",\n  \"completion_reason\": \"finish-current\",\n  \"mechanism_id\": \"finish-current-capacity-r15\",\n  \"failure_family\": \"unclassified\",\n  \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n  \"root_cause\": \"Retained independent code-plan PASS round 15 for treatment A on the current corrected renderer and boards. The funded critic path is exhausted at 24 of 24 while a code re-review of treatment B (director replaced its s1 and s4 overhead shots with A's reviewed ground-level shots after the round 15 REVISE), the silent comparison renewal, the silent two-option phone review and the timed phone review remain required.\",\n  \"repair\": \"None. Finish the current film.\",\n  \"mechanism_change\": \"None\",\n  \"expected_visible_result\": \"Finish the retained cut.\",\n  \"failure_evidence\": \"{REPO}/out/dispatch/evidence/code-round15/report-a.json\",\n  \"failure_evidence_sha256\": \"fc0cbd403c48eef039347647ea3ef4a132d637b663e5d5130128dae9e575f948\",\n  \"changed_inputs\": [],\n  \"resources\": {}\n}",
+      "plan_sha256": "d15e62bff64b9c8684c877716e5fe9c944a214e5a24cd0235353e972df5c514e",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"finish-current\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":37,\"required\":8,\"used\":6},\"full_renders\":{\"ceiling\":14,\"remaining\":13,\"required\":1,\"used\":1},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":0,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":8,\"required\":1,\"used\":1},\"preflight_renders\":{\"ceiling\":26,\"remaining\":4,\"required\":2,\"used\":22},\"reboards\":{\"ceiling\":10,\"remaining\":0,\"required\":0,\"used\":10},\"scorer_calls\":{\"ceiling\":27,\"remaining\":24,\"required\":3,\"used\":3},\"storyboard_critics\":{\"ceiling\":24,\"remaining\":0,\"required\":1,\"used\":24},\"tts_calls\":{\"ceiling\":12,\"remaining\":6,\"required\":2,\"used\":6},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "d7438ccf52bd861b3da16165ad7ab58db3e26337d276142de13ca269c7cad447",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 26,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 24,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 26,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 24,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "reason": "finish-current",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-19",
+      "usage_unchanged": {
+        "audiovisual_reviews": 6,
+        "cleanup_renders": 0,
+        "full_renders": 1,
+        "image_generations": 0,
+        "panel_rounds": 1,
+        "preflight_renders": 22,
+        "reboards": 10,
+        "reported_tokens": 523483,
+        "rescue_renders": 0,
+        "research_agents": 3,
+        "scorer_calls": 3,
+        "storyboard_critics": 24,
+        "tts_calls": 6,
+        "validator_agents": 4,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -4018,7 +4122,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "04f9db16a2bfaabef3146f5c06a357b1738194b1150031be3993dafa92ef96df",
+    "original_private_state_sha256": "14ab745c5e036fa64ef7fd6a5ed7c6eeafa4e06458927ff45fed4eda4f6be979",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -4046,7 +4150,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T05:13:16.017062Z",
+  "updated_at": "2026-10-20T05:29:12.995382Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,

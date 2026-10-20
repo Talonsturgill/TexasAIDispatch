@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T05:18:38.332556+00:00",
-  "note": "restored; r15 critic spawned",
+  "saved_at": "2026-10-20T05:29:16.857529+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "9f3585d4280e219070be5407221e4d6ee24ae568691e9f4cbf40a82df3b0d228"
   },
   "deleted_source": [],
-  "ledger_sha256": "0dd9e2e8273d98d5c3797c8a6c96296d96303baf5f90355391e1980e3ccbb0d5",
-  "original_private_ledger_sha256": "04f9db16a2bfaabef3146f5c06a357b1738194b1150031be3993dafa92ef96df",
+  "ledger_sha256": "08f2c2f67739dfdadc07904c732ef9058e1e560425cee03527671fd50ad50cdd",
+  "original_private_ledger_sha256": "14ab745c5e036fa64ef7fd6a5ed7c6eeafa4e06458927ff45fed4eda4f6be979",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -68,6 +68,11 @@
       "event_index": 209,
       "authorization_sha256": "3a73a109b04ba64edff0dec7b155707414897d8cb4de0ecc4a169f1b20dee28e",
       "root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch"
+    },
+    {
+      "event_index": 214,
+      "authorization_sha256": "d15e62bff64b9c8684c877716e5fe9c944a214e5a24cd0235353e972df5c514e",
+      "root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch"
     }
   ],
   "usage": {
@@ -91,8 +96,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "1cc09039319db0580427c380e7fd43bdeb8d77b477c8ed6780240e5ab00dc455",
-      "size": 37126
+      "sha256": "ba3b0a7c59f822cb2d8bd1da7ff249a96a665a4b9fdf63cfe598ee99ad2aa880",
+      "size": 37508
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -1677,6 +1682,54 @@
       "class": "scratch",
       "sha256": "d932c56edd725d6e9a9ef75df23311bb8212a8956939242b8436352303d46839",
       "size": 17569
+    },
+    {
+      "path": "out/dispatch/evidence/code-round15/bindings.json",
+      "class": "scratch",
+      "sha256": "d63991d0ef5d95a886f773dfd726d4d5d3f31e81cbf2aef21a2803d876d87697",
+      "size": 1849
+    },
+    {
+      "path": "out/dispatch/evidence/code-round15/handback-corrected.txt",
+      "class": "scratch",
+      "sha256": "8bb05b93146eaf9448fa59b6d80fe466166a071eb736fd06095c8870fa8c1672",
+      "size": 17782
+    },
+    {
+      "path": "out/dispatch/evidence/code-round15/opening-a-critic.pre-r15.json",
+      "class": "scratch",
+      "sha256": "429186effcbb93dddbbb56551b5ae8c3896f5dcd3089a12263bd6c69cdeabaf7",
+      "size": 8541
+    },
+    {
+      "path": "out/dispatch/evidence/code-round15/opening-b-critic.pre-r15.json",
+      "class": "scratch",
+      "sha256": "ae08e117524bf7161ff33790f0342c62e524d3e93542df3ad3778a6ef074a44e",
+      "size": 4696
+    },
+    {
+      "path": "out/dispatch/evidence/code-round15/opening-b.pre-director-s1s4.json",
+      "class": "scratch",
+      "sha256": "7accc69f2fb6a704cab1ccea1305c3ae6bad43ac7ea379b0d3e5618dea3f1489",
+      "size": 177315
+    },
+    {
+      "path": "out/dispatch/evidence/code-round15/report-a.json",
+      "class": "scratch",
+      "sha256": "fc0cbd403c48eef039347647ea3ef4a132d637b663e5d5130128dae9e575f948",
+      "size": 9732
+    },
+    {
+      "path": "out/dispatch/evidence/code-round15/report-b.json",
+      "class": "scratch",
+      "sha256": "a4bec269655eb093e5f4a3d892cb00a597eca2265099719cfd64a4d0af05ffcb",
+      "size": 8780
+    },
+    {
+      "path": "out/dispatch/evidence/code-round15/storyboard_critic.pre-r15.json",
+      "class": "scratch",
+      "sha256": "429186effcbb93dddbbb56551b5ae8c3896f5dcd3089a12263bd6c69cdeabaf7",
+      "size": 8541
     },
     {
       "path": "out/dispatch/evidence/code-round6/handback.txt",
@@ -5637,6 +5690,12 @@
       "class": "scratch",
       "sha256": "3a73a109b04ba64edff0dec7b155707414897d8cb4de0ecc4a169f1b20dee28e",
       "size": 935
+    },
+    {
+      "path": "out/dispatch/finish-current-plan-8.json",
+      "class": "scratch",
+      "sha256": "d15e62bff64b9c8684c877716e5fe9c944a214e5a24cd0235353e972df5c514e",
+      "size": 1063
     },
     {
       "path": "out/dispatch/finish-current-plan.json",
@@ -12037,8 +12096,8 @@
     {
       "path": "out/dispatch/opening-a-critic.json",
       "class": "scratch",
-      "sha256": "429186effcbb93dddbbb56551b5ae8c3896f5dcd3089a12263bd6c69cdeabaf7",
-      "size": 8541
+      "sha256": "fc0cbd403c48eef039347647ea3ef4a132d637b663e5d5130128dae9e575f948",
+      "size": 9732
     },
     {
       "path": "out/dispatch/opening-a.json",
@@ -12055,14 +12114,14 @@
     {
       "path": "out/dispatch/opening-b-critic.json",
       "class": "scratch",
-      "sha256": "ae08e117524bf7161ff33790f0342c62e524d3e93542df3ad3778a6ef074a44e",
-      "size": 4696
+      "sha256": "a4bec269655eb093e5f4a3d892cb00a597eca2265099719cfd64a4d0af05ffcb",
+      "size": 8780
     },
     {
       "path": "out/dispatch/opening-b.json",
       "class": "scratch",
-      "sha256": "7accc69f2fb6a704cab1ccea1305c3ae6bad43ac7ea379b0d3e5618dea3f1489",
-      "size": 177315
+      "sha256": "b219e9fccf4160df7f1a47b78d1c31e00beb2ec5481d0a57580ac641382f5584",
+      "size": 177537
     },
     {
       "path": "out/dispatch/openings/a-inspection-d4244f4a8e39167a.json",
@@ -14665,8 +14724,8 @@
     {
       "path": "out/dispatch/storyboard_critic.json",
       "class": "scratch",
-      "sha256": "429186effcbb93dddbbb56551b5ae8c3896f5dcd3089a12263bd6c69cdeabaf7",
-      "size": 8541
+      "sha256": "fc0cbd403c48eef039347647ea3ef4a132d637b663e5d5130128dae9e575f948",
+      "size": 9732
     },
     {
       "path": "out/dispatch/takes/prompt.txt",

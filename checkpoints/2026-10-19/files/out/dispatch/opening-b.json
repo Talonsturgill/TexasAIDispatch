@@ -105,7 +105,7 @@
           "duration_s": 0.8775
         }
       ],
-      "camera_strategy": "craneDown",
+      "camera_strategy": "dollyThrough",
       "visual_family": "robotaxi-s1-b",
       "payload_mode": "picture",
       "treatment": "b",
@@ -671,7 +671,7 @@
           "duration_s": 1.1
         }
       ],
-      "camera_strategy": "riseWith",
+      "camera_strategy": "truckAcross",
       "visual_family": "robotaxi-s4-b",
       "payload_mode": "picture",
       "treatment": "b",
@@ -1896,12 +1896,12 @@
         "scene_id": "s1",
         "start_s": 0.0,
         "duration_s": 2.6125,
-        "framing": "overhead",
+        "framing": "wide",
         "transition": "cut",
-        "view": "curb-plan",
+        "view": "curb-wide",
         "event_id": "s1-event-1",
-        "purpose": "From above, the car follows the curb line to its bay mark.",
-        "carry": "The same white car as a roof pod seen from above",
+        "purpose": "The white car glides to the airport curb and brakes at the bay.",
+        "carry": "The generic white car design that every later example repeats",
         "narration_ids": [
           "n1a"
         ],
@@ -1917,8 +1917,8 @@
         "transition": "match",
         "view": "cab-wheel",
         "event_id": "s1-event-2",
-        "purpose": "Inside the cab the steering wheel turns by itself with the driver seat empty.",
-        "carry": "The generic airport car seen through its windshield",
+        "purpose": "Through the windshield the steering wheel turns by itself with the driver seat empty.",
+        "carry": "The same white car now close, its driver seat empty",
         "narration_ids": [
           "n1a"
         ],
@@ -1934,7 +1934,7 @@
         "transition": "match",
         "view": "phone-hail",
         "event_id": "s1-event-3",
-        "purpose": "The phone pin meets the car at the bay and changes to arriving.",
+        "purpose": "The phone request turns to arriving as the car settles at the bay mark.",
         "carry": "The same car at the same bay",
         "narration_ids": [
           "n1b"
@@ -2015,12 +2015,12 @@
         "scene_id": "s4",
         "start_s": 17.61,
         "duration_s": 2.29,
-        "framing": "overhead",
+        "framing": "wide",
         "transition": "cut",
-        "view": "street-plan",
+        "view": "street-flood",
         "event_id": "s4-event-1",
-        "purpose": "From above, the water spreads along the street around a white car.",
-        "carry": "The same generic roof pod design seen from above",
+        "purpose": "Floodwater spreads across the street and reaches a white car.",
+        "carry": "A different car in a different April event, disclosed on screen",
         "narration_ids": [
           "n4"
         ],
@@ -2032,12 +2032,12 @@
         "scene_id": "s4",
         "start_s": 19.9,
         "duration_s": 2.29,
-        "framing": "medium",
+        "framing": "detail",
         "transition": "match",
-        "view": "wheel-water",
+        "view": "hazard-close",
         "event_id": "s4-event-3",
-        "purpose": "The hazard lamps blink with water at the wheel arches.",
-        "carry": "The same car body at the water line",
+        "purpose": "Hazard lamps blink on the stopped car and the cabin is empty.",
+        "carry": "The same generic car design in the earlier April example",
         "narration_ids": [
           "n4"
         ],
@@ -3615,7 +3615,7 @@
     "palette": "Airport concrete, flood tan, storm slate, one amber hazard lamp",
     "metaphor": "Two entries on one page, a ride and a record"
   },
-  "divergence_note": "B reads the same story from above and from inside the cab: roof pods on a plan of the curb, the map, the creek and the lane, a grid of icons that fills, record cards laid flat and details of the empty steering wheel, the cabin and the hazard lamps, and it closes from above on the same bay with the record card sliding in. It trades the ground-level traverse of A for a ledger of plans and details.",
+  "divergence_note": "B reads the same story from above and from inside the cab in the middle of the film: roof pods on plans of the map, the creek and the lane, a grid of icons that fills, record cards laid flat and details of the empty steering wheel and the cabin. Its opening at the airport curb and its street flood scene use the same ground-level shots as A, because the round 15 code review found its overhead versions lacked an airport cue and readable hazard lamps. It trades the ground-level traverse of A for a ledger of plans and details between those scenes.",
   "hook_strategy": "human_stakes",
   "hook_payoff_s": 0.75,
   "creative_direction": {
