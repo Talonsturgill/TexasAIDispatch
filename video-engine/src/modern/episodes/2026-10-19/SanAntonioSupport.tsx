@@ -9,16 +9,21 @@ import {useUid} from '../../../lib/uid';
  *
  *  - a generic airport pickup curb: a concrete canopy on two columns, a stained sidewalk with
  *    expansion joints, a leaning bay sign carrying only pictograms (a plane, a car, an arrow) with a
- *    rust drip under its bolt, a steel bench, a hard shell suitcase, worn bollards, a planter with a
- *    lopsided mesquite, and a painted bay box on the asphalt. No real signage text.
+ *    rust drip under its bolt, a steel bench, a hard shell suitcase, worn bollards, a dry laid limestone
+ *    planter with a young live oak leaning out of it, and a painted bay box on the asphalt. No real
+ *    signage text.
  *  - a worn phone whose plain map screen carries a ride request pin that turns to arriving. No brand.
  *  - a flat street map on a weathered picnic table: the river line, the street grid, a loop road,
  *    an outlined limited area that traces closed with a sixty square miles tag, a February calendar.
  *  - Salado Creek as a limestone bank of stacked pale ledges under live oaks, fast brown water running
  *    toward the viewer, a near bank edge with brush and a live oak, and rain; a flooded residential street of one-storey stucco
  *    and limestone houses, a live oak and a leaning blank street sign; a higher speed roadway with a
- *    median barrier, lane dashes and a sheet of standing water; a fleet lot behind a chain link fence.
- *  - a desk and the federal recall record card with field rows, a lit remedy row and stamps; a grid of
+ *    median barrier, live oaks and mesquite beyond it, dark blackland clay in the verge, lane dashes and a
+ *    sheet of standing water; a fleet lot behind a chain link fence on a dry laid limestone wall, with a
+ *    live oak and a mesquite behind it.
+ *  - a desk and the federal recall record card, each row's label stacked over its value in type sized for
+ *    a phone, a lit remedy row, a header slot and a remedy slot where the stamps land clear of the words,
+ *    and a wooden rubber stamp seen from above, as the card is; a grid of
  *    small white car icons that fills; a counter tag; the recall sentence card whose word may lights;
  *    a pen; a tear-off calendar that flips to April 20; check marks; a weather limits tag; a small
  *    updated vehicle map card; and the plans of the same places seen straight down.
@@ -268,10 +273,12 @@ export const Curb: React.FC<{phone?: React.ReactNode}> = ({phone}) => {
   {Array.from({length: 9}, (_, i) => {const x = -60 + i * 150; return <path key={i} d={`M${x} ${farY}L${x + (x - 540) * .14} ${curbY}`} stroke="#A89F8E" strokeWidth={1.6}/>;})}
   {Array.from({length: 12}, () => [r() * 1100, lerp(farY + 10, curbY - 8, r()), lerp(6, 18, r())]).map(([x, y, s], i) =>
    <ellipse key={i} cx={x} cy={y} rx={s} ry={s * .35} fill="#8F8676" opacity={.25}/>)}
-  {/* planter with a lopsided mesquite */}
-  <g transform={`translate(${CURB.planter[0]} ${CURB.planter[1]})`}>
-   <rect x={0} y={-60} width={130} height={60} fill="#B8AE9C"/><rect x={0} y={-60} width={130} height={8} fill="#D4CCBC"/>
-   <path d="M0 -60h130" stroke="#8A8171" strokeWidth={2}/><g transform="translate(58 -58)"><Mesquite h={250} seed={4}/></g>
+  {/* a dry laid limestone planter with a young live oak leaning out of it */}
+  <g transform={`translate(${CURB.planter[0]} ${CURB.planter[1]})`} data-part="limestone-planter">
+   <g transform="translate(62 -58)"><Oak h={240} seed={6} flip/></g>
+   {[0, 1, 2].map(row => [0, 1, 2].map(i => <rect key={row + '-' + i} x={(row % 2 ? -14 : 0) + i * 48} y={-60 + row * 20} width={row % 2 && i === 0 ? 34 : 46} height={19} rx={3}
+    fill={(i + row) % 2 ? SA.limestone : '#CEC4AE'} stroke={SA.limestoneShade} strokeWidth={1.5}/>))}
+   <path d="M0 -60h140" stroke="#8A8171" strokeWidth={2}/>
   </g>
   <BaySign/><Bench/><Suitcase/>
   {phone}
@@ -396,9 +403,11 @@ export const StreetMap: React.FC<{w: number; h: number; draw: number; zone: numb
     {Array.from({length: 6}, (_, i) => <path key={'c' + i} d={d([[.4, .38 + i * .025], [.6, .38 + i * .025]])} fill="none"/>)}
     {Array.from({length: 6}, (_, i) => <path key={'e' + i} d={d([[.42 + i * .03, .37], [.42 + i * .03, .52]])} fill="none"/>)}
    </g>
-   <path d={d(loop)} stroke="#E0B067" strokeWidth={9} fill="none" strokeLinejoin="round" {...dash(draw)}/>
+   {/* the loop road and the radial highways are drawn as roads, thin and pale like the grid, so the
+    * limited area's outline is the only ring on the map */}
+   <path d={d(loop)} stroke="#D6C29C" strokeWidth={3.5} fill="none" strokeLinejoin="round" {...dash(draw)}/>
    {[[[.5, .46], [.95, .02]], [[.5, .46], [.06, .94]], [[.5, .46], [.02, .2]], [[.5, .46], [.98, .78]], [[.5, .46], [.52, 0]]].map((ps, i) =>
-    <path key={'r' + i} d={d(ps as P[])} stroke="#E0B067" strokeWidth={7} fill="none" {...dash(draw)}/>)}
+    <path key={'r' + i} d={d(ps as P[])} stroke="#D6C29C" strokeWidth={4} fill="none" {...dash(draw)}/>)}
    <path d={d(river)} stroke="#6FA3C4" strokeWidth={8} fill="none" strokeLinejoin="round" strokeLinecap="round" {...dash(draw)}/>
    <path d={d(salado)} stroke="#88B4CF" strokeWidth={4} fill="none" strokeLinejoin="round" {...dash(draw)}/>
   </g>
@@ -466,6 +475,8 @@ export const Calendar: React.FC<{month: string; day?: string; flip?: number; w?:
  * (the episode's FloodSheet) starts at the far bank's foot, `waterY` is its surface where the car sits,
  * and the near bank stands in the right foreground, upstream. */
 export const CREEK = {bankY: 1092, carY: 1236, waterY: 1170, nearBank: {x1: 330, y0: 1150, mirror: 1190}};
+/** The far bank's live oaks: world x, height and seed. Uneven spacing and heights, never a row. */
+const CREEK_OAKS: [number, number, number][] = [[-640, 290, 27], [-250, 240, 28], [80, 310, 29], [420, 250, 22], [930, 330, 23], [1280, 270, 24]];
 /** The far limestone bank of Salado Creek under live oaks. The water is the episode's continuous sheet.
  * No crossing, no gauge: nothing says how a car came to be in it. */
 export const CreekBack: React.FC<{t: number; flow: number; width?: [number, number]}> = ({width = [-80, 1160]}) => {
@@ -478,8 +489,9 @@ export const CreekBack: React.FC<{t: number; flow: number; width?: [number, numb
    {Array.from({length: 26}, () => [lerp(x0, x1, r()), lerp(bankY - 92, bankY - 4, r()), lerp(12, 40, r())]).map(([x, y, l], i) =>
     <path key={i} d={`M${x} ${y}l${l} ${(r() - .5) * 6}`} stroke={SA.limestoneDeep} strokeWidth={2} opacity={.55}/>)}
    <path d={`M${x0} ${bankY - 110}C${x0 + 260} ${bankY - 126} ${x1 - 400} ${bankY - 104} ${x1} ${bankY - 118}L${x1} ${bankY - 90}L${x0} ${bankY - 88}Z`} fill={SA.grass}/>
-   <g transform={`translate(420 ${bankY - 100})`}><Oak h={250} seed={22} flip/></g>
-   <g transform={`translate(930 ${bankY - 108})`}><Oak h={330} seed={23}/></g>
+   {/* live oaks stand along the whole bank, so a camera following the car downstream keeps passing them */}
+   {CREEK_OAKS.filter(([x]) => x > x0 - 100 && x < x1 + 100).map(([x, h, seed], i) =>
+    <g key={i} transform={`translate(${x} ${bankY - 100 - (i % 2) * 8})`}><Oak h={h} seed={seed} flip={i % 2 === 0}/></g>)}
   </g>
  </g>;
 };
@@ -575,7 +587,9 @@ export const LaneBack: React.FC<{xa: number; xb: number}> = ({xa, xb}) => {
  const {barrierY, farLane, dashY, shoulderY, dash} = LANE, k0 = Math.floor(xa / dash) - 1, k1 = Math.ceil(xb / dash) + 1;
  const ks = Array.from({length: k1 - k0 + 1}, (_, i) => k0 + i);
  return <g data-part="higher-speed-road">
+  {/* behind the barrier: live oaks and mesquite on the blackland verge, never in a row */}
   {ks.filter(k => k % 4 === 1).map(k => <g key={'m' + k} transform={`translate(${k * dash + 330} ${barrierY - 30})`}><Mesquite h={120} seed={k}/></g>)}
+  {ks.filter(k => k % 4 === 3).map(k => <g key={'o' + k} transform={`translate(${k * dash + 210} ${barrierY - 34})`}><Oak h={200 + 30 * ((k * 7) % 3)} seed={50 + k} flip={k % 8 === 3}/></g>)}
   <path d={`M${xa} ${barrierY + 8}H${xb}V${farLane}H${xa}Z`} fill="#55585C"/>
   <path d={`M${xa} ${barrierY - 40}H${xb}V${barrierY}H${xa}Z`} fill="#C9C2B4"/>
   <path d={`M${xa} ${barrierY}H${xb}V${barrierY + 10}H${xa}Z`} fill="#A39B8C"/>
@@ -588,6 +602,8 @@ export const LaneBack: React.FC<{xa: number; xb: number}> = ({xa, xb}) => {
   <path d={`M${xa} ${shoulderY - 8}H${xb}`} stroke={SA.paint} strokeWidth={8}/>
   <path d={`M${xa} ${shoulderY}H${xb}V${shoulderY + 70}H${xa}Z`} fill="#6A6B62"/>
   <path d={`M${xa} ${shoulderY + 70}H${xb}V1940H${xa}Z`} fill={SA.grass}/>
+  {/* the dark blackland clay showing through the verge grass after rain */}
+  {ks.map(k => <path key={'c' + k} d={`M${k * dash + 70} ${shoulderY + 84}c60 -8 150 -6 220 2c-40 14 -150 16 -220 -2Z`} fill={SA.clay} opacity={.55}/>)}
   {/* low bunch grass on the verge, every blade below the shoulder, so nothing of the roadside ever rises
    * in front of the car's wheels; the mesquites stand behind the median barrier instead */}
   {ks.map(k => <g key={'g' + k} data-part="verge-grass">{[0, 1, 2, 3].map(j => {const x = k * dash + 40 + j * 150 + (j % 2) * 37, y = shoulderY + 96 + ((k + j) % 3) * 34;
@@ -595,18 +611,25 @@ export const LaneBack: React.FC<{xa: number; xb: number}> = ({xa, xb}) => {
  </g>;
 };
 // ---------------------------------------------------------------- lot --------------------------------
-export const LOT = {fenceY: 1086, carY: 1190, cordY: 520, poles: [60, 1020]};
-/** A fleet lot in elevation: chain link fence with a mesquite behind it, two poles with a cord
- * between them for the tag, parking stall lines on worn asphalt. */
-export const LotBack: React.FC = () => {
- const {fenceY, cordY, poles} = LOT;
+export const LOT = {fenceY: 1086, carY: 1190, cordY: 520, poles: [60, 1020], sag: 30};
+/** The cord's height at x for a mid-span sag: the quadratic the cord is drawn with, exactly. */
+export const cordAt = (x: number, sag = LOT.sag) => {const [a, b] = LOT.poles, u = (x - (a + b) / 2) / ((b - a) / 2); return LOT.cordY + sag * (1 - u * u);};
+/** A fleet lot in elevation: a dry laid limestone wall under a chain link fence, a live oak and a
+ * mesquite behind it, two poles with a cord between them for the tag (it sags `sag` at mid-span, and
+ * pulls tight when the tag's weight is taken up), parking stall lines on worn asphalt. */
+export const LotBack: React.FC<{sag?: number}> = ({sag = LOT.sag}) => {
+ const {fenceY, cordY, poles} = LOT, r = rng(33);
  return <g data-part="fleet-lot">
-  <g transform={`translate(860 ${fenceY - 6})`}><Mesquite h={260} seed={8}/></g>
-  <path d={`M-60 ${fenceY - 150}H1160`} stroke="#8E959A" strokeWidth={4}/>
-  <path d={Array.from({length: 60}, (_, i) => `M${-60 + i * 21} ${fenceY - 148}l21 140`).join('')} stroke="#A3AAAE" strokeWidth={1.2} opacity={.6}/>
-  {Array.from({length: 8}, (_, i) => <path key={i} d={`M${-20 + i * 160} ${fenceY - 152}v150`} stroke="#7C8388" strokeWidth={5}/>)}
+  <g transform={`translate(330 ${fenceY - 40})`}><Oak h={330} seed={36}/></g>
+  <g transform={`translate(880 ${fenceY - 34})`}><Mesquite h={250} seed={8}/></g>
+  <g data-part="limestone-wall">{Array.from({length: 2}, (_, row) => Array.from({length: 14}, (_, i) => {
+   const w = 70 + r() * 40, x = -70 + i * 92 + (row ? 40 : 0) + (r() - .5) * 10, y = fenceY - 40 + row * 20;
+   return <rect key={row + '-' + i} x={x} y={y} width={w} height={19} rx={4} fill={(i + row) % 3 ? SA.limestone : '#CEC4AE'} stroke={SA.limestoneShade} strokeWidth={1.5}/>;}))}</g>
+  <path d={`M-60 ${fenceY - 190}H1160`} stroke="#8E959A" strokeWidth={4}/>
+  <path d={Array.from({length: 60}, (_, i) => `M${-60 + i * 21} ${fenceY - 188}l21 148`).join('')} stroke="#A3AAAE" strokeWidth={1.2} opacity={.6}/>
+  {Array.from({length: 8}, (_, i) => <path key={i} d={`M${-20 + i * 160} ${fenceY - 192}v152`} stroke="#7C8388" strokeWidth={5}/>)}
   {poles.map(x => <g key={x}><rect x={x - 6} y={cordY - 40} width={12} height={fenceY - cordY + 40} fill="#6D7479"/><rect x={x - 6} y={cordY - 40} width={4} height={fenceY - cordY + 40} fill="#9AA2A7"/></g>)}
-  <path d={`M${poles[0]} ${cordY}Q540 ${cordY + 60} ${poles[1]} ${cordY}`} stroke="#3B3F46" strokeWidth={3} fill="none"/>
+  <path d={`M${poles[0]} ${cordY}Q540 ${(cordY + 2 * sag).toFixed(2)} ${poles[1]} ${cordY}`} stroke="#3B3F46" strokeWidth={3} fill="none"/>
   <path d={`M-80 ${fenceY}H1160V1940H-80Z`} fill="#56595D"/>
   {Array.from({length: 8}, (_, i) => {const x = -20 + i * 190; return <path key={i} d={`M${x} ${fenceY + 30}L${x + (x - 540) * .4} 1300`} stroke={SA.paint} strokeWidth={6} opacity={.55}/>;})}
   <path d="M100 1250l160 -6M640 1270l140 4" stroke="#45484C" strokeWidth={3} opacity={.7}/>
@@ -624,12 +647,50 @@ export const RECORD_ROWS: {label: string; value: string}[] = [
  {label: 'Interim update', value: 'All affected vehicles by April 20th, 2026'},
 ];
 export const REMEDY_ROW = 3;
-/** Row geometry for a card `w` wide: each row's top, its height and its value lines. */
-export function recordLayout(w = 760) {
- const head = 112, labelW = w * .3, vx = labelW + 44, vw = w - vx - 34, size = 25, lead = 31;
+/** The card's type, sized for a phone: each row stacks its label over its value, so a long label can
+ * never run into the value beside it, and the value takes the whole width. At the card's on-screen
+ * scale of 1 or more, a label is about 11.5 px and a value about 16 px on a 390 px phone. */
+export const RECORD_TYPE = {label: 32, value: 44, lead: 54, head: 226, pad: 34, labelY: 42, valueY: 98,
+ title: 42, titleY: 64, sub: 30, subY: 108};
+/** The two stamp marks' sizes in card units. */
+export const STAMP_SIZE = {header: 30, remedy: 32};
+/** Which of the record's rows a card shows: the first n, or the listed indices in order. */
+export type RowPick = number | number[];
+const picked = (pick: RowPick) => typeof pick === 'number' ? RECORD_ROWS.map((_, i) => i).slice(0, pick) : pick;
+/** Row geometry for a card `w` wide showing the picked rows: each row's top, its height, its value lines
+ * and baselines. The remedy row carries a stamp slot under its words, so its mark lands on the row and
+ * never on the sentence. The header's right side carries the software recall slot, under the title's
+ * line and right of its subtitle, off every data row. */
+export function recordLayout(w = 760, pick: RowPick = RECORD_ROWS.length) {
+ const {head, pad, label, value: size, lead, labelY, valueY} = RECORD_TYPE, vx = pad, vw = w - 2 * pad;
  let y = head + 14;
- const rows = RECORD_ROWS.map(r => {const lines = wrap(r.value, size, vw, true); const h = Math.max(56, lines.length * lead + 26); const row = {...r, y, h, lines, vx}; y += h; return row;});
- return {w, h: y + 26, head, labelW, vx, vw, size, lead, rows};
+ const rows = picked(pick).map(index => {
+  const r = RECORD_ROWS[index], lines = wrap(r.value, size, vw, true), last = y + valueY + (lines.length - 1) * lead;
+  // the slot sits far enough under the words that the raised stamp and the hand on its knob clear them
+  const slot = index === REMEDY_ROW ? {y: last + 112, h: 100} : undefined;
+  const h = slot ? slot.y - y + slot.h / 2 + 12 : valueY + (lines.length - 1) * lead + 26;
+  const row = {...r, index, y, h, lines, vx, labelY: y + labelY, baselines: lines.map((_, k) => y + valueY + k * lead), last, slot};
+  y += h; return row;
+ });
+ const hw = imprintSize('Software recall', STAMP_SIZE.header).w;
+ const header = {x: w - 24 - hw / 2, y: head - 50};
+ return {w, h: y + 26, head, vx, vw, size, label, lead, rows, header};
+}
+const remedyOf = (w: number, pick: RowPick) => {
+ const rem = recordLayout(w, pick).rows.find(r => r.index === REMEDY_ROW);
+ if (!rem) throw new Error('This record card does not show the remedy row');
+ return rem;
+};
+/** Where the stamp marks land in card units: the header slot, and the remedy row's slot under its words. */
+export function stampSlots(w = 760, pick: RowPick = REMEDY_ROW + 1) {
+ const rem = remedyOf(w, pick), uw = imprintSize('Under development', STAMP_SIZE.remedy).w;
+ return {header: recordLayout(w, pick).header, remedy: {x: rem.vx + uw / 2 + 6, y: rem.slot!.y}};
+}
+/** Where a pen tip rests at the end of the remedy sentence, in card units: just past its last word, at
+ * the middle of that line's letters. */
+export function remedyPenTip(w = 760, pick: RowPick = REMEDY_ROW + 1) {
+ const rem = remedyOf(w, pick);
+ return {x: rem.vx + widthOf(rem.lines[rem.lines.length - 1], RECORD_TYPE.value, true) + 16, y: rem.last - 14};
 }
 /** A stamp mark in card units. `solid` stamps carry an inked plate tone inside the border, so the mark
  * reads as one block over the printed row rather than as a second line of type tangled in it. */
@@ -652,47 +713,67 @@ const ImprintMark: React.FC<Imprint & {id: string}> = ({text, p, x, y, rot, size
   </g>
  </g>;
 };
-export const RecordCard: React.FC<{w?: number; rows: number; remedyLit?: number; underline?: number; imprints?: Imprint[]}> =
- ({w = 760, rows, remedyLit = 0, underline = 0, imprints = []}) => {
- const id = useUid('sar'), L = recordLayout(w), n = RECORD_ROWS.length;
+/** The record card showing the picked rows; `rows` writes them in, 0 to 1. Rows not picked are not on the
+ * card at all, so a fact is never on screen before its clause. */
+export const RecordCard: React.FC<{w?: number; rows: number; pick?: RowPick; remedyLit?: number; underline?: number; imprints?: Imprint[]}> =
+ ({w = 760, rows, pick = RECORD_ROWS.length, remedyLit = 0, underline = 0, imprints = []}) => {
+ const id = useUid('sar'), L = recordLayout(w, pick), n = L.rows.length, T = RECORD_TYPE;
  return <g data-part="recall-record">
   <rect x={10} y={14} width={w} height={L.h} rx={10} fill="#1A1814" opacity={.22}/>
   <path d={`M0 10Q0 0 10 0H${w - 30}L${w} 30V${L.h - 10}Q${w} ${L.h} ${w - 10} ${L.h}H10Q0 ${L.h} 0 ${L.h - 10}Z`} fill={SA.paper} stroke={SA.paperEdge} strokeWidth={2}/>
   <path d={`M${w - 30} 0L${w} 30H${w - 30}Z`} fill="#DDD3BE"/>
-  <rect x={26} y={24} width={14} height={64} fill={SA.ink}/>
-  <text x={56} y={62} fontFamily={FONT.body} fontWeight={800} fontSize={36} fill={SA.ink}>Federal recall record</text>
-  <text x={57} y={92} fontFamily={FONT.mono} fontWeight={500} fontSize={19} fill="#5A626B">Vehicle safety recall</text>
+  <rect x={26} y={24} width={14} height={92} fill={SA.ink}/>
+  <text x={56} y={T.titleY} fontFamily={FONT.body} fontWeight={800} fontSize={T.title} fill={SA.ink}>Federal recall record</text>
+  <text x={57} y={T.subY} fontFamily={FONT.mono} fontWeight={500} fontSize={T.sub} fill="#5A626B">Vehicle safety recall</text>
   <path d={`M26 ${L.head}H${w - 26}`} stroke={SA.ink} strokeWidth={2.5}/>
   {L.rows.map((row, i) => {
-   const shown = clamp(rows * n - i), lit = i === REMEDY_ROW ? clamp(remedyLit) : 0;
-   return <g key={i} data-part={i === REMEDY_ROW ? 'remedy-row' : 'record-row'}>
+   const remedy = row.index === REMEDY_ROW, shown = clamp(rows * n - i), lit = remedy ? clamp(remedyLit) : 0;
+   return <g key={row.index} data-part={remedy ? 'remedy-row' : 'record-row'}>
     {lit > 0 && <rect x={18} y={row.y + 4} width={w - 36} height={row.h - 8} rx={8} fill="#FFE2B6" opacity={.85 * lit}/>}
     {lit > 0 && <rect x={18} y={row.y + 4} width={7} height={row.h - 8} rx={3} fill={SA.ink} opacity={lit}/>}
     <defs><clipPath id={`${id}r${i}`}><rect x={0} y={row.y} width={w * ease(shown)} height={row.h}/></clipPath></defs>
     <g clipPath={`url(#${id}r${i})`}>
-     <text x={34} y={row.y + 36} fontFamily={FONT.mono} fontWeight={600} fontSize={19} fill="#4F5862">{row.label}</text>
-     {row.lines.map((l, k) => <text key={k} x={row.vx} y={row.y + 36 + k * L.lead} fontFamily={FONT.body} fontWeight={i === REMEDY_ROW ? 800 : 700} fontSize={L.size} fill={SA.ink}>{l}</text>)}
+     <text x={row.vx} y={row.labelY} fontFamily={FONT.mono} fontWeight={600} fontSize={L.label} fill="#4F5862">{row.label}</text>
+     {row.lines.map((l, k) => <text key={k} x={row.vx} y={row.baselines[k]} fontFamily={FONT.body} fontWeight={remedy ? 800 : 700} fontSize={L.size} fill={SA.ink}>{l}</text>)}
     </g>
     {shown < 1 && shown > 0 && <rect x={w * ease(shown) - 3} y={row.y + 12} width={4} height={row.h - 22} fill={SA.ink} opacity={.7}/>}
-    <path d={`M26 ${row.y + row.h}H${w - 26}`} stroke="#D9CFBA" strokeWidth={1.5}/>
-    {i === REMEDY_ROW && underline > 0 && <path d={`M${row.vx} ${row.y + row.h - 12}h${(w - row.vx - 40) * clamp(underline)}`} stroke={SA.ink} strokeWidth={6} strokeLinecap="round"/>}
+    {i + 1 < n && <path d={`M26 ${row.y + row.h}H${w - 26}`} stroke="#D9CFBA" strokeWidth={1.5}/>}
+    {remedy && underline > 0 && <path d={`M${row.vx} ${row.last + 14}h${(w - row.vx - 40) * clamp(underline)}`} stroke={SA.ink} strokeWidth={6} strokeLinecap="round"/>}
    </g>;
   })}
   {imprints.map((im, i) => <ImprintMark key={i} {...im} id={`${id}i${i}`}/>)}
  </g>;
 };
-/** A wooden office rubber stamp, its rubber `w` long so it is as long as the mark it makes; the base's
- * centre is at (0,0). The rubber carries a line of amber ink. */
-export const Stamp: React.FC<{w?: number}> = ({w = 184}) => <g data-part="rubber-stamp">
- <rect x={-w / 2} y={-18} width={w} height={18} rx={4} fill="#3B2F26"/>
- <rect x={-w / 2 + 3} y={-5} width={w - 6} height={5} rx={2} fill={SA.amberInk} opacity={.9}/>
- <rect x={-w / 2 + 6} y={-60} width={w - 12} height={44} rx={8} fill={SA.wood} stroke={SA.woodDark} strokeWidth={2}/>
- <path d={`M${-w / 2 + 12} -54h${w * .8}`} stroke="#C49B70" strokeWidth={4} opacity={.7}/>
- <path d={`M${-w / 2 + 6} -22h${w - 12}`} stroke={SA.woodDark} strokeWidth={2} opacity={.6}/>
- <path d="M-26 -60C-30 -100 -40 -120 -36 -140C-30 -170 30 -170 36 -140C40 -120 30 -100 26 -60Z" fill="#7E5B3C" stroke={SA.woodDark} strokeWidth={2}/>
- <ellipse cx={0} cy={-150} rx={42} ry={28} fill="#8E6845" stroke={SA.woodDark} strokeWidth={2}/>
- <ellipse cx={-12} cy={-160} rx={16} ry={8} fill="#B38962" opacity={.8}/>
-</g>;
+/** A wooden office rubber stamp seen from above and a little in front, as the card is: its footprint is
+ * the mark it leaves (`w` by `h`, centred at (0,0)), its block's top face and front edge, and a turned
+ * neck and knob rising from the middle. `lift` raises it off the paper toward the camera: the stamp
+ * grows a little and rides up, and its shadow drops away down and to the right of the light. */
+export const Stamp: React.FC<{w: number; h: number; lift?: number}> = ({w, h, lift = 0}) => {
+ const L = clamp(lift), up = 24 * L, k = 1 + .07 * L, face = Math.max(10, h * .26), kr = Math.min(h * .62, 46);
+ return <g data-part="rubber-stamp">
+  <g data-part="stamp-shadow" transform={`translate(${(5 + 26 * L).toFixed(2)} ${(7 + 30 * L).toFixed(2)})`}>
+   <rect x={-w / 2 - 6} y={-h / 2 - 4} width={w + 12} height={h + 10} rx={10} fill="#1A1814" opacity={.16 + .06 * (1 - L)}/>
+   <rect x={-w / 2} y={-h / 2} width={w} height={h + 2} rx={8} fill="#1A1814" opacity={.18 * (1 - .6 * L)}/>
+  </g>
+  <g transform={`translate(0 ${(-up).toFixed(2)}) scale(${k.toFixed(4)})`}>
+   {/* the rubber's inked edge, only a hairline from this angle */}
+   <rect x={-w / 2 + 2} y={h / 2 - 3} width={w - 4} height={5} rx={2} fill={SA.amberInk} opacity={.85}/>
+   {/* the block's front edge in shade, then its top face lit from the upper left */}
+   <rect x={-w / 2} y={h / 2 - face - 2} width={w} height={face} rx={5} fill={SA.woodDark}/>
+   <rect x={-w / 2} y={-h / 2 - 4} width={w} height={h - face + 4} rx={7} fill={SA.wood} stroke={SA.woodDark} strokeWidth={2}/>
+   {[.22, .5, .76].map((f, i) => <path key={i} d={`M${-w / 2 + 14} ${-h / 2 + (h - face) * f}c${w * .3} ${-3 + i} ${w * .6} ${3 - i} ${w - 28} ${i - 1}`} stroke="#B58C62" strokeWidth={2} fill="none" opacity={.55}/>)}
+   <path d={`M${-w / 2 + 10} ${-h / 2}h${w * .55}`} stroke="#D2AE84" strokeWidth={3} opacity={.7}/>
+   {/* the neck and knob */}
+   <ellipse cx={4} cy={-h * .08 + 6} rx={kr * .7} ry={kr * .32} fill="#1A1814" opacity={.25}/>
+   <path d={`M${-kr * .42} ${-h * .08}L${-kr * .3} ${-h * .08 - kr * .5}H${kr * .3}L${kr * .42} ${-h * .08}Z`} fill="#6E4F33"/>
+   <ellipse cx={0} cy={-h * .08 - kr * .55} rx={kr} ry={kr * .7} fill="#8E6845" stroke={SA.woodDark} strokeWidth={2}/>
+   <ellipse cx={-kr * .3} cy={-h * .08 - kr * .75} rx={kr * .42} ry={kr * .22} fill="#B38962" opacity={.8}/>
+  </g>
+ </g>;
+};
+/** How far above the footprint's centre the knob sits, at a lift, for a stamp of footprint height `h`:
+ * where the hand closes. */
+export const stampKnob = (h: number, lift = 0) => -24 * clamp(lift) - (1 + .07 * clamp(lift)) * (h * .08 + Math.min(h * .62, 46) * .55);
 /** A ballpoint pen with its tip at (0,0), its body running along angle `rot` (degrees; -38 lies up and
  * to the right). */
 export const Pen: React.FC<{rot?: number}> = ({rot = -38}) => <g data-part="pen" transform={`rotate(${rot})`}>
@@ -733,19 +814,48 @@ export const IconGrid: React.FC<{cols: number; rows: number; fill: number; dx?: 
 };
 /** The recall sentence, the source's words, with may lit. Top left at (0,0). */
 export const QUOTE_TEXT = 'The software may allow the vehicle to slow and then drive into standing water on higher speed roadways.';
+/** The highlight band around a marked word, in ems of the line's size from its baseline: the amber box
+ * from `top` to `bottom`, the underline from `ulTop` to `ulBottom`, and the box's side margin. */
+export const MARK_BAND = {top: -.95, bottom: .3, ulTop: .16, ulBottom: .3, side: 8};
+/** One line of type with one word marked. The mark is NOT placed from an estimated width: the line is set
+ * twice, as two identical runs (same x, y, face, size, the same words and per-word weights), so the
+ * browser lays both out the same way. In the second run only the marked word is painted; an SVG
+ * morphology filter dilates that word's own glyphs and a clip keeps the dilation to the line's band, so
+ * the amber box and the underline sit exactly on the word as it is actually laid out, at any size, scale
+ * or font. `lit` fades both in. */
+export const MarkedLine: React.FC<{text: string; mark: string; x: number; y: number; size: number; lit: number; ink: string}> =
+ ({text, mark, x, y, size, lit, ink}) => {
+ const id = useUid('sml'), words = text.split(' '), W = 4000, B = MARK_BAND;
+ const run = (paint: 'line' | 'mark') => <text x={x} y={y} fontFamily={FONT.body} fontWeight={700} fontSize={size}
+  fill={paint === 'line' ? ink : 'none'} data-run={paint}>{words.map((word, i) => <tspan key={i} fontWeight={word === mark ? 800 : 700}
+  fill={paint === 'line' ? undefined : word === mark ? '#000000' : 'none'}>{(i ? ' ' : '') + word}</tspan>)}</text>;
+ const band = (key: string, top: number, bottom: number, side: number, color: string, opacity: number) => <g key={key} opacity={opacity}>
+  <defs>
+   <filter id={`${id}${key}f`} filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" x={x - 400} y={y - size * 2.5} width={W} height={size * 4}
+    colorInterpolationFilters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius={`${side} ${(size * 1.3).toFixed(2)}`} result="d"/>
+    <feFlood floodColor={color} result="c"/><feComposite in="c" in2="d" operator="in"/>
+   </filter>
+   <clipPath id={`${id}${key}c`}><rect x={x - 400} y={y + top * size} width={W} height={(bottom - top) * size}/></clipPath>
+  </defs>
+  <g clipPath={`url(#${id}${key}c)`}><g filter={`url(#${id}${key}f)`}>{run('mark')}</g></g>
+ </g>;
+ const has = words.includes(mark);
+ return <g data-part="marked-line">
+  {has && lit > 0 && <g data-part="may-highlight">{band('box', B.top, B.bottom, B.side, SA.amber, clamp(lit))}</g>}
+  {run('line')}
+  {has && lit > 0 && <g data-part="may-underline">{band('ul', B.ulTop, B.ulBottom, 0, SA.amberInk, clamp(lit * 1.4))}</g>}
+ </g>;
+};
 export const QuoteCard: React.FC<{w: number; lit: number; size?: number}> = ({w, lit, size = 36}) => {
  const pad = 34, lines = wrap(QUOTE_TEXT, size, w - 2 * pad, true), lead = size * 1.3, h = lines.length * lead + pad * 2 + 46;
- const sp = widthOf(' ', size, true);
  return <g data-part="recall-sentence">
   <rect x={8} y={10} width={w} height={h} rx={12} fill="#1A1814" opacity={.22}/>
   <rect x={0} y={0} width={w} height={h} rx={12} fill={SA.paper} stroke={SA.paperEdge} strokeWidth={2}/>
   <text x={pad} y={pad + 18} fontFamily={FONT.mono} fontWeight={600} fontSize={20} fill="#5A626B">Federal recall record</text>
-  {lines.map((line, k) => {let x = pad; const y = pad + 46 + (k + 1) * lead - size * .3;
-   return <g key={k}>{line.split(' ').map((word, j) => {const ww = widthOf(word, size, true), x0 = x; x += ww + sp;
-    const may = word === 'may';
-    return <g key={j}>{may && lit > 0 && <rect x={x0 - 8} y={y - size * .95} width={ww + 16} height={size * 1.25} rx={6} fill={SA.amber} opacity={lit} data-part="may-highlight"/>}
-     <text x={x0} y={y} fontFamily={FONT.body} fontWeight={may ? 800 : 700} fontSize={size} fill={SA.ink}>{word}</text>
-     {may && lit > 0 && <path d={`M${x0} ${y + 8}h${ww * clamp(lit * 1.4)}`} stroke={SA.amberInk} strokeWidth={5} strokeLinecap="round"/>}</g>;})}</g>;})}
+  {/* each line is ONE run of type, so the font's own spacing sets every word gap, and the word may is
+    * marked from that same run's layout, never from an estimate */}
+  {lines.map((line, k) => <MarkedLine key={k} text={line} mark="may" x={pad} y={pad + 46 + (k + 1) * lead - size * .3} size={size} lit={lit} ink={SA.ink}/>)}
  </g>;
 };
 /** A check badge popping onto a car, 0 to 1. Centre at (0,0). */
@@ -776,25 +886,29 @@ export const MapCard: React.FC<{updated: number; w?: number}> = ({updated, w = 3
 
 /** The record's remedy row on its own card, large enough to read on a phone: the header, the label and
  * the source's sentence, lit, with the under development mark and an underline. Top left at (0,0). */
-export function remedyLayout(w = 760, size = 46) {
- const lines = wrap(RECORD_ROWS[REMEDY_ROW].value, size, w - 80, true), lead = size * 1.22, top = 196;
- return {w, size, lead, lines, top, h: top + lines.length * lead + 40};
+export function remedyLayout(w = REMEDY_W, size = 50) {
+ const lines = wrap(RECORD_ROWS[REMEDY_ROW].value, size, w - 80, true), lead = size * 1.22, top = 254;
+ // the bottom band under the sentence holds the under development mark clear of the words
+ return {w, size, lead, lines, top, h: top + (lines.length - 1) * lead + 132};
 }
-export const RemedyCard: React.FC<{w?: number; lit?: number; underline?: number; imprint?: number}> = ({w = 760, lit = 0, underline = 0, imprint = 0}) => {
- const id = useUid('srm'), R = remedyLayout(w), last = R.top + (R.lines.length - 1) * R.lead;
+/** The remedy card's width and type: at its on-screen scale of about 0.84 its label reads at about 11.5 px
+ * and its sentence at about 15.5 px on a 390 px phone. */
+export const REMEDY_W = 860, REMEDY_TYPE = {title: 42, sub: 36, label: 38};
+export const RemedyCard: React.FC<{w?: number; lit?: number; underline?: number; imprint?: number}> = ({w = REMEDY_W, lit = 0, underline = 0, imprint = 0}) => {
+ const id = useUid('srm'), R = remedyLayout(w), last = R.top + (R.lines.length - 1) * R.lead, T = REMEDY_TYPE;
  return <g data-part="remedy-card">
   <rect x={10} y={14} width={w} height={R.h} rx={10} fill="#1A1814" opacity={.24}/>
   <path d={`M0 10Q0 0 10 0H${w - 30}L${w} 30V${R.h - 10}Q${w} ${R.h} ${w - 10} ${R.h}H10Q0 ${R.h} 0 ${R.h - 10}Z`} fill={SA.paper} stroke={SA.paperEdge} strokeWidth={2}/>
-  <rect x={26} y={24} width={14} height={64} fill={SA.ink}/>
-  <text x={56} y={62} fontFamily={FONT.body} fontWeight={800} fontSize={36} fill={SA.ink}>Federal recall record</text>
-  <text x={57} y={92} fontFamily={FONT.mono} fontWeight={500} fontSize={19} fill="#5A626B">Vehicle safety recall</text>
-  <path d={`M26 112H${w - 26}`} stroke={SA.ink} strokeWidth={2.5}/>
-  {lit > 0 && <rect x={18} y={124} width={w - 36} height={R.h - 140} rx={8} fill="#FFE2B6" opacity={.85 * clamp(lit)}/>}
-  {lit > 0 && <rect x={18} y={124} width={7} height={R.h - 140} rx={3} fill={SA.ink} opacity={clamp(lit)} data-part="remedy-row"/>}
-  <text x={40} y={160} fontFamily={FONT.mono} fontWeight={700} fontSize={26} fill="#4F5862" data-part="remedy-row">Remedy</text>
+  <rect x={26} y={24} width={14} height={96} fill={SA.ink}/>
+  <text x={56} y={64} fontFamily={FONT.body} fontWeight={800} fontSize={T.title} fill={SA.ink}>Federal recall record</text>
+  <text x={57} y={112} fontFamily={FONT.mono} fontWeight={500} fontSize={T.sub} fill="#5A626B">Vehicle safety recall</text>
+  <path d={`M26 132H${w - 26}`} stroke={SA.ink} strokeWidth={2.5}/>
+  {lit > 0 && <rect x={18} y={144} width={w - 36} height={R.h - 160} rx={8} fill="#FFE2B6" opacity={.85 * clamp(lit)}/>}
+  {lit > 0 && <rect x={18} y={144} width={7} height={R.h - 160} rx={3} fill={SA.ink} opacity={clamp(lit)} data-part="remedy-row"/>}
+  <text x={40} y={190} fontFamily={FONT.mono} fontWeight={700} fontSize={T.label} fill="#4F5862" data-part="remedy-row">Remedy</text>
   {R.lines.map((l, k) => <text key={k} x={40} y={R.top + k * R.lead} fontFamily={FONT.body} fontWeight={800} fontSize={R.size} fill={SA.ink}>{l}</text>)}
-  {underline > 0 && <path d={`M40 ${last + 14}h${(w - 120) * clamp(underline)}`} stroke={SA.ink} strokeWidth={7} strokeLinecap="round"/>}
-  <ImprintMark text="Under development" p={imprint} x={w - 230} y={R.h - 38} rot={-6} size={30} id={`${id}i`}/>
+  {underline > 0 && <path d={`M40 ${last + 16}h${(w - 120) * clamp(underline)}`} stroke={SA.ink} strokeWidth={7} strokeLinecap="round"/>}
+  <ImprintMark text="Under development" p={imprint} x={w - 240} y={R.h - 64} rot={-4} size={32} id={`${id}i`}/>
  </g>;
 };
 /** A working hand and forearm holding a stamp knob or a pen at (0,0), the arm running off toward `dir`
@@ -802,37 +916,55 @@ export const RemedyCard: React.FC<{w?: number; lit?: number; underline?: number;
  * its knuckles and thumb, the wrist is the narrowest part, the forearm swells toward a rolled shirt cuff
  * and the sleeve carries folds. Shaded as a cylinder lit from the upper left whatever way it points.
  * Skin is a fill value; the line work is the same for any hand. */
-export const Arm: React.FC<{dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?: string; scale?: number}> =
- ({dir, grip, skin = '#A8744F', shirt = '#5B6E80', scale = 1}) => {
- const id = useUid('sarm'), ang = Math.atan2(dir[1], dir[0]);
+export const Arm: React.FC<{dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?: string; scale?: number; shadow?: number}> =
+ ({dir, grip, skin = '#A8744F', shirt = '#5B6E80', scale = 1, shadow = 1}) => {
+ const id = useUid('sarm'), ang = Math.atan2(dir[1], dir[0]), deg = (ang * 180 / Math.PI).toFixed(2);
  // the local +y side faces the upper-left key when it points up-left in the frame
  const plusLit = -Math.sin(ang) * -.7 + Math.cos(ang) * -.7 > 0;
- const shade = (light: string, dark: string, key: string) => <linearGradient id={`${id}${key}`} x1="0" y1={plusLit ? 70 : -70} x2="0" y2={plusLit ? -70 : 70} gradientUnits="userSpaceOnUse">
-  <stop offset="0" stopColor={light}/><stop offset=".45" stopColor={light}/><stop offset="1" stopColor={dark}/></linearGradient>;
- const skinDark = '#6A4630';
- return <g data-part="arm" transform={`rotate(${(ang * 180 / Math.PI).toFixed(2)}) scale(${scale})`}>
-  <defs>{shade('#C38E66', '#7C5134', 's')}{shade('#7A8DA0', '#3C4B5B', 'c')}</defs>
+ const shade = (light: string, dark: string, key: string) => <linearGradient id={`${id}${key}`} x1="0" y1={plusLit ? 60 : -60} x2="0" y2={plusLit ? -60 : 60} gradientUnits="userSpaceOnUse">
+  <stop offset="0" stopColor={light}/><stop offset=".5" stopColor={light}/><stop offset="1" stopColor={dark}/></linearGradient>;
+ const skinDark = '#6A4630', skinLit = '#C9946B';
+ // a forearm, not a tube: narrow at the wrist, swelling over the muscle toward the elbow, then the
+ // rolled cuff and a sleeve that keeps its folds out of the frame
+ const forearm = 'M44 -21C80 -23 120 -30 170 -38C215 -45 255 -46 296 -44L296 46C255 48 215 46 170 39C120 31 80 24 44 22Z';
+ const sleeve = 'M326 -54C520 -58 900 -64 1500 -68L1500 68C900 64 520 60 326 56Z';
+ // the hand closing over the knob from above: the back of the hand from the wrist to the knuckles,
+ // four fingers curled down round the far side of the knob, the thumb hooked under the near side
+ const knobHand = 'M50 -26C34 -36 6 -40 -16 -36C-34 -32 -46 -20 -48 -4C-50 14 -40 28 -22 34C0 40 30 36 50 26Z';
+ const silhouette = <g>
+  <path d={sleeve}/><path d="M290 -52L346 -56L346 58L290 52Z"/><path d={forearm}/>
+  {grip === 'knob' ? <path d={knobHand}/> : <path d="M50 -24C26 -34 2 -30 -12 -16L-22 2C-18 14 -6 18 8 14C24 28 44 26 50 22Z"/>}
+ </g>;
+ return <g data-part="arm">
+  {/* the arm is above the paper, so its shadow falls down and to the right of the light */}
+  {shadow > 0 && <g transform={`translate(${(16 * scale).toFixed(1)} ${(20 * scale).toFixed(1)}) rotate(${deg}) scale(${scale})`} fill="#1A1814" opacity={.2 * shadow} data-part="arm-shadow">{silhouette}</g>}
+  <g transform={`rotate(${deg}) scale(${scale})`}>
+  <defs>{shade(skinLit, '#7C5134', 's')}{shade('#7A8DA0', '#3C4B5B', 'c')}</defs>
   {/* sleeve to the shoulder, with folds */}
-  <path d="M318 -56C520 -60 900 -66 1500 -70L1500 70C900 66 520 60 318 56Z" fill={`url(#${id}c)`}/>
-  {[430, 560, 760].map((x, k) => <path key={x} d={`M${x} ${-52 - k * 2}c18 26 14 70 -6 ${104 + k * 4}`} stroke="#33414F" strokeWidth={3} fill="none" opacity={.55}/>)}
+  <path d={sleeve} fill={`url(#${id}c)`}/>
+  {[440, 590, 790].map((x, k) => <path key={x} d={`M${x} ${-50 - k * 2}c18 26 14 70 -6 ${100 + k * 4}`} stroke="#33414F" strokeWidth={3} fill="none" opacity={.5}/>)}
   {/* the rolled cuff */}
-  <path d="M286 -50C300 -54 326 -56 340 -54L344 54C326 56 300 54 286 50Z" fill={shirt} stroke="#33414F" strokeWidth={2.5}/>
-  <path d="M300 -52L302 52" stroke="#8A9CAE" strokeWidth={3} opacity={.7}/>
-  {/* forearm, wrist to cuff, and the heel of the hand */}
-  <path d="M40 -24C110 -27 200 -38 292 -44L292 44C200 38 110 27 40 24Z" fill={`url(#${id}s)`} stroke={skinDark} strokeWidth={2}/>
-  <path d="M120 -18C170 -22 220 -26 270 -30" stroke={skinDark} strokeWidth={1.5} opacity={.35} fill="none"/>
+  <path d="M290 -52C306 -56 332 -58 346 -56L346 58C332 60 306 56 290 52Z" fill={shirt} stroke="#33414F" strokeWidth={2.5}/>
+  <path d="M306 -54L308 54" stroke="#8A9CAE" strokeWidth={3} opacity={.7}/>
+  {/* forearm, with the long line of the ulna and the tendon toward the wrist */}
+  <path d={forearm} fill={`url(#${id}s)`} stroke={skinDark} strokeWidth={2}/>
+  <path d="M70 -14C130 -20 200 -28 280 -32" stroke={skinDark} strokeWidth={1.5} opacity={.3} fill="none"/>
+  <path d="M60 10C110 14 150 16 190 20" stroke={skinLit} strokeWidth={3} opacity={.35} fill="none"/>
   {grip === 'knob' ? <g data-part="hand-on-knob">
-   {/* a fist round the knob seen from the side: back of the hand, four curled fingers, the thumb */}
-   <path d="M48 -30C24 -42 -14 -42 -34 -26C-46 -14 -48 8 -38 22C-20 42 20 44 50 30Z" fill={`url(#${id}s)`} stroke={skinDark} strokeWidth={2.5}/>
-   {[-24, -10, 4, 18].map(y => <path key={y} d={`M-30 ${y}C-42 ${y + 3} -42 ${y + 10} -32 ${y + 12}`} stroke={skinDark} strokeWidth={2.5} fill="none"/>)}
-   <path d="M-18 -30C-8 -40 14 -40 24 -32" stroke={skinDark} strokeWidth={2} fill="none" opacity={.7}/>
-   <path d="M30 24C14 34 -6 36 -16 30" stroke={skinDark} strokeWidth={2.5} fill="none"/>
+   <path d={knobHand} fill={`url(#${id}s)`} stroke={skinDark} strokeWidth={2.5}/>
+   {/* the knuckles across the back of the hand, then each curled finger's joint over the knob's rim */}
+   {[-24, -10, 4, 18].map((y, k) => <ellipse key={'k' + y} cx={-14 - (k % 2) * 3} cy={y + 2} rx={7} ry={5.5} fill={skinLit} opacity={.55}/>)}
+   {[-24, -10, 4, 18].map(y => <path key={y} d={`M-36 ${y - 3}C-48 ${y} -50 ${y + 8} -40 ${y + 11}`} stroke={skinDark} strokeWidth={2.5} fill="none"/>)}
+   {/* the thumb hooked under the near side */}
+   <path d="M38 26C26 40 4 44 -12 38C-4 34 10 30 20 22Z" fill={`url(#${id}s)`} stroke={skinDark} strokeWidth={2.2}/>
+   <path d="M44 -20C30 -12 22 2 26 16" stroke={skinDark} strokeWidth={1.5} opacity={.4} fill="none"/>
   </g> : <g data-part="hand-on-pen">
    {/* fingers pinching the barrel: thumb over, index along it, the rest curled under */}
    <path d="M50 -24C26 -34 2 -30 -12 -16L-22 2C-18 14 -6 18 8 14C24 28 44 26 50 22Z" fill={`url(#${id}s)`} stroke={skinDark} strokeWidth={2.5}/>
    <path d="M-12 -16C-26 -12 -32 -2 -26 8" stroke={skinDark} strokeWidth={2.5} fill="none"/>
    <path d="M2 10C10 16 22 18 32 14" stroke={skinDark} strokeWidth={2} fill="none" opacity={.7}/>
   </g>}
+  </g>
  </g>;
 };
 
@@ -935,14 +1067,25 @@ export const PuddlePlan: React.FC<{x0: number; x1: number; y0: number; y1: numbe
  </g>;
 };
 /** A fleet lot straight down: stall lines in two rows. */
-export const LOT_PLAN = {rows: [560, 1000] as P, stall: 170, x0: 90};
+/** The fleet lot from above: ONE row of four stalls, the same four cars the elevation shows, large enough
+ * to count; B's overhead and its closer detail both stand in this lot. */
+export const LOT_PLAN = {row: 760, cars: 4, stall: 240, x0: 60, scale: .7};
 export const LotPlan: React.FC = () => {
- const {rows, stall, x0} = LOT_PLAN;
+ const {row, cars, stall, x0} = LOT_PLAN;
  return <g data-part="lot-plan">
-  <rect x={40} y={260} width={1000} height={1160} rx={12} fill="#56595D"/>
-  <path d="M40 300H1040" stroke="#8E959A" strokeWidth={4} strokeDasharray="10 6"/>
-  {rows.map(y => Array.from({length: 6}, (_, i) => <path key={y + '-' + i} d={`M${x0 + i * stall} ${y - 140}v280`} stroke={SA.paint} strokeWidth={6} opacity={.6}/>))}
-  <g transform="translate(980 330)"><Mesquite h={160} seed={8}/></g>
+  <rect x={30} y={220} width={1020} height={1200} rx={12} fill="#56595D"/>
+  {/* the same dry laid limestone wall under the chain link that the elevation shows, seen from above */}
+  <g data-part="limestone-wall-plan">{Array.from({length: 13}, (_, i) => <rect key={i} x={34 + i * 78 + (i % 3) * 3} y={226} width={72 + (i % 2) * 4} height={18} rx={3}
+   fill={i % 3 ? SA.limestone : '#CEC4AE'} stroke={SA.limestoneShade} strokeWidth={1.5}/>)}</g>
+  <path d="M30 248H1050" stroke="#8E959A" strokeWidth={4} strokeDasharray="10 6"/>
+  {Array.from({length: cars + 1}, (_, i) => <path key={i} d={`M${x0 + i * stall + (i % 2) * 3} ${row - 215}v430`} stroke={SA.paint} strokeWidth={6} opacity={.6}/>)}
+  <path d={`M${x0} ${row + 215}H${x0 + cars * stall}`} stroke={SA.paint} strokeWidth={5} opacity={.4}/>
+  {/* oil stains and a patched seam: the same worn asphalt as the elevation */}
+  {[[200, row + 40], [690, row - 30], [930, row + 60]].map(([x, y], i) => <ellipse key={'o' + i} cx={x} cy={y} rx={46} ry={28} fill="#3E4145" opacity={.45}/>)}
+  <path d={`M40 ${row + 330}C300 ${row + 324} 700 ${row + 338} 1040 ${row + 330}`} stroke="#45484C" strokeWidth={4} fill="none" opacity={.7}/>
+  {/* a live oak's crown over the lot's corner, seen from above */}
+  <g data-part="oak-crown-plan"><ellipse cx={1010} cy={300} rx={120} ry={96} fill="#000000" opacity={.18}/>
+   <ellipse cx={990} cy={280} rx={118} ry={94} fill={SA.oakDark}/><ellipse cx={968} cy={262} rx={78} ry={60} fill={SA.oak}/></g>
  </g>;
 };
 
@@ -967,12 +1110,12 @@ type SupportProps =
  | {part: 'map'; w: number; h: number; draw: number; zone: number; fill: number; t: number; pins?: number; layer?: 'base' | 'zone' | 'pins'}
  | {part: 'tag'; lines: string[]; size?: number; tone?: 'paper' | 'accent' | 'ink'; swing?: number; icon?: 'rain'; sub?: number}
  | {part: 'calendar'; month: string; day?: string; flip?: number; w?: number}
- | {part: 'creekback'; t: number; flow: number}
+ | {part: 'creekback'; t: number; flow: number; width?: [number, number]}
  | {part: 'creekbank'; t: number}
  | {part: 'pile'; p: number; t: number; len: number; h: number; dir?: 1 | -1}
  | {part: 'creekplan'; t: number; rain: number; flow: number}
  | {part: 'remedycard'; w?: number; lit?: number; underline?: number; imprint?: number}
- | {part: 'arm'; dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?: string; scale?: number}
+ | {part: 'arm'; dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?: string; scale?: number; shadow?: number}
  | ({part: 'flood'} & React.ComponentProps<typeof FloodSheet>)
  | {part: 'wake'; amount: number; t: number; scale?: number; dir?: 1 | -1}
  | {part: 'rain'; t: number; w?: number; h?: number; amount?: number; seed?: number}
@@ -981,10 +1124,10 @@ type SupportProps =
  | {part: 'lane'; xa: number; xb: number}
  | {part: 'laneplan'; ya: number; yb: number}
  | {part: 'puddleplan'; x0: number; x1: number; y0: number; y1: number; t: number}
- | {part: 'lot'}
+ | {part: 'lot'; sag?: number}
  | {part: 'lotplan'}
- | {part: 'record'; w?: number; rows: number; remedyLit?: number; underline?: number; imprints?: Imprint[]}
- | {part: 'stamp'; w?: number}
+ | {part: 'record'; w?: number; rows: number; pick?: RowPick; remedyLit?: number; underline?: number; imprints?: Imprint[]}
+ | {part: 'stamp'; w: number; h: number; lift?: number}
  | {part: 'pen'; rot?: number}
  | {part: 'desk'; x0: number; x1: number; y0: number; h: number; top?: boolean}
  | {part: 'grid'; cols: number; rows: number; fill: number; dx?: number; dy?: number}
@@ -1017,7 +1160,7 @@ export const SanAntonioSupport: React.FC<SupportProps> = (props) => {
  case 'lane': return <LaneBack {...props}/>;
  case 'laneplan': return <LanePlan {...props}/>;
  case 'puddleplan': return <PuddlePlan {...props}/>;
- case 'lot': return <LotBack/>;
+ case 'lot': return <LotBack {...props}/>;
  case 'lotplan': return <LotPlan/>;
  case 'record': return <RecordCard {...props}/>;
  case 'stamp': return <Stamp {...props}/>;

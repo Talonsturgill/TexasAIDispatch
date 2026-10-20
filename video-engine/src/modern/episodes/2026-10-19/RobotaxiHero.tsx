@@ -89,12 +89,15 @@ const Wheel: React.FC<{cx: number; deg: number; id: string}> = ({cx, deg, id}) =
  </g>;
 };
 
+/** How far past fully open (1) a held-open curbside door may ease as it settles onto its check stop. */
+export const DOOR_STOP = 1.1;
+
 export type SideProps = {
  /** wheel rotation, degrees */ wheel?: number;
  /** brake lamps 0..1 */ brake?: number;
  /** amber hazard lamps 0..1 (the episode blinks it) */ hazard?: number;
  /** mud line height above the ground, car units; it only rises */ wetTo?: number;
- /** curbside rear door open 0..1 */ door?: number;
+ /** curbside rear door open 0..1; up to DOOR_STOP past 1 the held-open door eases on to its check stop */ door?: number;
  /** nose dip, degrees, about the rear axle */ dip?: number;
  /** ground and contact shadow 0..1 (0 when the car floats) */ shadow?: number;
  /** how clearly the empty cabin reads through the glass 0..1 */ cabin?: number;
@@ -116,7 +119,7 @@ const Side: React.FC<SideProps> = ({wheel = 0, brake = 0, hazard = 0, wetTo = 0,
   const x = -264 + i * 24;
   return `${i ? 'L' : 'M'}${x} ${(-wetTo + 3.2 * Math.sin(x * .071 + seed) + 1.6 * Math.sin(x * .19 + seed * 2)).toFixed(1)}`;
  }).join('') : '';
- const openAng = 64 * clamp(door);
+ const openAng = 64 * Math.min(DOOR_STOP, Math.max(0, door));
  const k = Math.cos(openAng * Math.PI / 180);
  return <g data-part="robotaxi-side">
   <defs>
