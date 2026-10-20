@@ -204,6 +204,29 @@ class RuntimeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'bindings are missing or stale'):
                 runtime.plan('storyboard-critic', packet, 'code_review', 'Review the current callable treatments.')
 
+    def test_phone_packet_cannot_replace_fixed_rubric_with_a_director_promise(self):
+        data, _ = self.code_data()
+        data['instructions'] = 'Review both complete current films independently.'
+        packet = self.root / 'phone-source.json'; packet.write_text(json.dumps(data))
+        rows = []
+        for option in ('a', 'b'):
+            sequence = self.root / ('motion-' + option + '.json'); sequence.write_text('{}')
+            rows.append({'board': runtime.bound(self.root / ('opening-' + option + '.json')),
+                         'motion_sequence': {'path': str(sequence)},
+                         'report_bindings': {'story_review': {}}})
+        with patch.object(runtime, 'phone_options', side_effect=lambda *a, **k: json.loads(json.dumps(rows))), \
+                patch.object(runtime, 'image_reading'):
+            result = runtime.phone_packet(packet, self.root / 'run_state.json', ['a', 'b'])
+            self.assertEqual(runtime.phone_decision_scope(), result['phone_decision_scope'])
+            self.assertIn('director repair promises cannot add hard requirements', result['instructions'])
+            self.assertNotRegex(json.dumps(result['phone_decision_scope']), r'"(?:verdict|score|pass)"')
+            result['phone_decision_scope']['director_targets'] = 'Every promised tiny mark must disappear.'
+            with self.assertRaisesRegex(ValueError, 'phone decision scope is missing or changed'):
+                runtime.phone_review_inputs(result)
+            del result['phone_decision_scope']
+            with self.assertRaisesRegex(ValueError, 'phone decision scope is missing or changed'):
+                runtime.phone_review_inputs(result)
+
     def test_historical_assignment_is_not_replaced(self):
         with self.assertRaises(ValueError):
             runtime.assignment('picture', '2026-10-08')

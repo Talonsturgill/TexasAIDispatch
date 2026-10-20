@@ -56,6 +56,13 @@ speed and surface beauty need current pixels; an unrendered preference cannot st
 code repair. Carry that uncertainty to the existing exact-film review. Consolidate all
 code-proven defects together. This adds no reviewer or assignment and changes no role model.
 
+Phone packets also bind the fixed-rubric decision scope before paid review. A director's
+named repair promise cannot grow into an additional hard criterion. Judge the actual current
+picture, source and spoken clause. A missing promised technique or a small mark blocks only
+when its own observed effect fails the fixed comprehension or finish standard for the style.
+Retain every genuine mandatory failure and all original reports. This supplies no automatic
+pass and never converts an old rejected report into approval.
+
 This supplies no review pass. Modern action, finish, timing, source, rights, caption, sound,
 native PNG/CRF16, independent scoring and every shipment gate remain required. A fallback must
 pass its actual current reviews. Do not ask the owner to choose an internal recovery route.

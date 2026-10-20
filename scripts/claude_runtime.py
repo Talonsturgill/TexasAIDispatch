@@ -374,6 +374,22 @@ def phone_options(state_path, sequences, current=False):
     return rows
 
 
+def phone_decision_scope():
+    import quality_contract
+    return {'schema': 'dispatch_phone_decision_scope/1',
+            'quality_contract_sha256': quality_contract.fingerprint(),
+            'standard': 'Judge the complete current film against the fixed quality rubric and actual source/narration limits.',
+            'blocking_basis': 'Each blocker needs a timed observed defect and its own concrete effect on comprehension '
+                              'or finish for the chosen style. Preserve genuine source, rights, action, recognition, '
+                              'finish, pacing and ending failures.',
+            'director_targets': 'A named repair target or promised technique is not an additional hard requirement. '
+                                'A missed target blocks only when the actual picture independently fails a fixed '
+                                'criterion. Do not turn zero marks, a particular shadow or an unreported physical '
+                                'technique into a new gate. Optional preferences remain notes.',
+            'independence': 'Return your own original findings. Never infer approval from coverage, old grades or '
+                            'the director rationale, and never change an old report to fit this scope.'}
+
+
 def phone_packet(packet_path, state_path, sequences, current=False):
     data = read(packet_path)
     data.pop('code_report_bindings', None)
@@ -389,6 +405,10 @@ def phone_packet(packet_path, state_path, sequences, current=False):
         raise ValueError('current phone packet needs the exact current timed board binding')
     for row in data['phone_options']:
         row['report_bindings']['story_review']['claims_sha256'] = data['claims']['sha256']
+    if data['date'] >= '2026-10-20':
+        data['phone_decision_scope'] = phone_decision_scope()
+        data['instructions'] += (' Follow phone_decision_scope: the fixed rubric judges the actual picture; '
+                                 'director repair promises cannot add hard requirements. ')
     data['instructions'] += (' Review every chronological image page for ' +
         ('the exact current timed film' if current else 'both options') + ' before the director rationale. '
         'These images establish only their sampled pixels, with no direct playback or listening. '
@@ -417,6 +437,8 @@ def phone_review_inputs(data):
         row['report_bindings']['story_review']['claims_sha256'] = data['claims']['sha256']
     if rows != expected:
         raise ValueError('Claude phone review inputs or computed bindings changed')
+    if data['date'] >= '2026-10-20' and data.get('phone_decision_scope') != phone_decision_scope():
+        raise ValueError('phone decision scope is missing or changed; regenerate the fixed-rubric packet before paid review')
 
 
 def mechanical_admission(role, data, task):

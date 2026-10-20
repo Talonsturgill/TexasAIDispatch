@@ -33,6 +33,11 @@ mechanical format correction on unchanged reviewed content can reuse that call.
 In the Claude Read-only phone assignment, require the complete movie-derived chronological
 images for both exact previews from the versioned phone packet. Read every page before the
 director rationale. A scene midpoint sheet cannot establish timed action or continuity.
+For new October 20 phone packets follow phone_decision_scope. Judge the fixed rubric, actual
+source and spoken clauses. A director's named repair or proposed physical technique cannot
+add a hard requirement. A tiny mark, particular shadow or missed promise blocks only when
+the current picture independently fails a fixed criterion, with its actual effect on viewer
+comprehension or finish stated. Keep genuine mandatory failures; optional preferences stay notes.
 For editions from October 17th, first follow the packet's one-page access probe before guide
 traversal. An unseen probe requires the literal transport error and a partial handback without
 a verdict; successful access still requires every full guide and complete chronological coverage.
