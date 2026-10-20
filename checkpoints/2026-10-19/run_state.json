@@ -1156,6 +1156,14 @@
       "note": "exact-phone-current motion-image review extraction",
       "resource": "preflight_renders",
       "to": 59
+    },
+    {
+      "at": "2026-10-20T19:07:18.830885Z",
+      "ceiling": 62,
+      "from": 61,
+      "note": "timed exact-phone review of the measured film after the round 40 replacement pass, packet phone-critic-packet-round41",
+      "resource": "storyboard_critics",
+      "to": 62
     }
   ],
   "events": [
@@ -9487,6 +9495,24 @@
       "input_identity": "27ae889d667894efd876071e1ba6c0fa3fd2e86cdad4763da72dab2a792f8b95",
       "kind": "prepared_capture_claimed",
       "operation": "exact-phone-current motion-image review extraction"
+    },
+    {
+      "at": "2026-10-20T19:07:18.830911Z",
+      "ceiling": 62,
+      "kind": "budget_escalated",
+      "note": "timed exact-phone review of the measured film after the round 40 replacement pass, packet phone-critic-packet-round41",
+      "now": 62,
+      "resource": "storyboard_critics",
+      "was": 61
+    },
+    {
+      "at": "2026-10-20T19:07:18.830923Z",
+      "kind": "reserved",
+      "note": "timed exact-phone review of the measured film after the round 40 replacement pass, packet phone-critic-packet-round41",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -9501,7 +9527,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 61,
+    "storyboard_critics": 62,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -9510,7 +9536,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d8f3f5b847cb7bcffade0e57eba667e8f5d891f9a7dc74bf8e8ede28b74ef275",
+    "original_private_state_sha256": "d278f26fd58d03120b46c48226918cfe0ae98f577bdcb9cd681cb4960d9c2fe5",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -9538,7 +9564,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T19:06:41.198972Z",
+  "updated_at": "2026-10-20T19:07:18.830925Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
@@ -9551,7 +9577,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 61,
+    "storyboard_critics": 62,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
