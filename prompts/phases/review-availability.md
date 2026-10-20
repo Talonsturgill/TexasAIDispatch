@@ -74,6 +74,8 @@ actor, observed_at and error. The supported exact capacity message is "Selected 
 capacity. Please try a different model." Supported machine error codes are server_overloaded,
 rate_limit_exceeded, usage_limit_exceeded, context_length_exceeded and session_budget_exceeded.
 The exact host results `collab tool failed: agent thread limit reached` and `collab spawn failed: agent thread limit reached` also qualify. Record that full result in `raw_error` and use `agent thread limit reached` for `error`; never substitute an overload code. The file records an observed tool result, never a guessed outage. No verdict means no verdict.
+Take observed_at from actual event metadata or a UTC clock command; never guess a timestamp
+from the conversation. Preserve an inaccurate earlier note and append its measured correction.
 Include reservation_event_index, the exact reserved event as reservation, its canonical JSON
 reservation_sha256 from independent_review.fingerprint, and assignment with role, actor,
 board_sha256 and film_sha256 (null at code scope). Copy the actual allocation and compact
@@ -81,9 +83,18 @@ assignment, not a different role's reservation. A completed current host pass or
 refuses fallback. The provider echoes a digest of its complete request context; downstream
 gates reject rebinding an unchanged response to other media, sources, code or actors.
 
-If the owner has changed the model or availability has otherwise changed, resume the already
-reserved uncompleted worker once with its compact packet. Do not create a second critic or
-refund the failed reservation. Never change the saved automation model or schedule implicitly.
+For unfinished editions from October 19th, a failed or interrupted worker's restart is a new
+attempt even when SendMessage resumes the same agent on the same unchanged compact packet.
+Retain the failed reservation and actual error; reserve the next attempt before resuming that
+worker once. Protect the complete remaining path first if capacity is insufficient. Reusing an
+agent or packet never reuses a spent reservation. A mechanical format correction to an already
+completed handback needs no fresh content reservation, but its actual API usage is still counted.
+If a restart already happened without a fresh reservation, retain its actual response, timestamp
+and failure evidence, disclose the accounting defect and append an honest late controller charge
+before shipment. Never describe it as precharged, backdate it, refund it or replay the old charge.
+For earlier completed editions, retain their original evidence and policy. Never change the saved
+automation model or schedule implicitly.
+Process termination alone does not establish eligible host unavailability for provider fallback.
 If that transport remains unavailable, immediately use the existing configured independent
 audiovisual provider. Do not keep polling the unavailable model or end production at capacity.
 
