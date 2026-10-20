@@ -257,6 +257,12 @@ complete package byte-identically, renew the same two treatments on current sour
 and obtain fresh comparison and selection verdicts. Do not add a continuation exemption or
 relabel old films as current. Fund the complete remaining path before additional attempts:
 
+Before preparing a renewed comparison after retiming, retain the measured board byte-identically
+and restore the current inspected provisional opening board as `storyboard.json`. The prepared
+operator checks that edition and board identity before charging a capture. After the new selection,
+retime the selected board again against the retained measured voice; the provisional board does
+not replace the final timed-film gate or authorize another voice take.
+
 Source-changing repair of a registered native film requires the current complete comparison
 profile. Initial code review before the first comparison keeps its existing admission path;
 never require a nonexistent retained film. The current profile protects eight preflight

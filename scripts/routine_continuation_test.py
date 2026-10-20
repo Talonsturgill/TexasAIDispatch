@@ -67,6 +67,18 @@ class ContinuationTests(unittest.TestCase):
         self.arm()
         self.assertIsNone(continuation.decision({'hook_event_name': 'SubagentStop'}, self.workspace))
 
+    def test_post_pivot_shortfall_gets_executable_recovery_before_last_call_is_spent(self):
+        state = {'usage': {'storyboard_critics': 29}, 'limits': {'storyboard_critics': 30},
+            'events': [{'kind': 'mandatory_completion_grant', 'reason': 'modern-film-floor',
+                        'plan_json': '{}', 'failure_evidence_json': json.dumps({'review_scope': 'exact-muted-phone-preflight'})},
+                       {'kind': 'reserved', 'resources': {'storyboard_critics': 1}}]}
+        before = copy.deepcopy(state)
+        hint = continuation.capacity_recovery_hint(state)
+        self.assertIn('--parent-grant 0', hint)
+        self.assertIn('completion_forecast.py', hint)
+        self.assertIn('no owner permission', hint)
+        self.assertEqual(before, state)
+
     def test_early_final_and_repeated_waiting_continue_without_ledger_mutation(self):
         self.arm(); before = self.state.read_bytes()
         for _ in range(2):

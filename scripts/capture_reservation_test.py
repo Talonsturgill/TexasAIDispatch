@@ -399,7 +399,9 @@ class Reservation(unittest.TestCase):
                              controller.read_state(self.state)['events'][-1]['event_sha256'])
 
     def comparison_inputs(self):
-        board = {'runtime_s': 4, 'scenes': [], 'story_art': {'entries': [{
+        run_id = controller.read_state(self.state)['run_id']
+        board = {'run_id': run_id, 'date': run_id[:10],
+            'runtime_s': 4, 'scenes': [], 'story_art': {'entries': [{
             'request_id': 'test-hero', 'file': 'scripts/capture_reservation.py',
             'sha256': guard.sha(self.root / 'scripts/capture_reservation.py'),
             'creation_id': 'authored-' + 'a' * 20, 'created_at': '2026-10-18T00:00:00Z'}]},
@@ -407,9 +409,33 @@ class Reservation(unittest.TestCase):
         boards = [self.state.with_name('opening-' + key + '.json') for key in ('a', 'b')]
         for key, path in zip(('a', 'b'), boards):
             path.write_text(json.dumps({**board, 'treatment': key}))
+        self.board.write_bytes(boards[0].read_bytes())
         command = ('bash scripts/run_with_env.sh python scripts/opening_compare.py'
                    ' --root out/dispatch --state out/dispatch/run_state.json')
         return boards, command
+
+    def test_wrong_comparison_edition_or_measured_board_is_refused_before_reservation(self):
+        for failure in ('measured-board', 'foreign-run', 'foreign-date'):
+            with self.subTest(failure=failure):
+                boards, command = self.comparison_inputs()
+                path = self.board if failure == 'measured-board' else boards[1]
+                value = json.loads(path.read_text())
+                if failure == 'measured-board':
+                    value['retimed_to'] = 'retained-measured-read'
+                elif failure == 'foreign-run':
+                    value['run_id'] = 'another-edition'
+                else:
+                    value['date'] = '2099-01-01'
+                path.write_text(json.dumps(value))
+                before = self.state.read_bytes()
+                inputs = {p: p.read_bytes() for p in (self.board, *boards)}
+                with mock.patch.object(controller, 'reserve') as reserve, \
+                        self.assertRaisesRegex(ValueError, 'current owned edition and provisional board'):
+                    prepared.prepare(self.root, self.state, [command])
+                reserve.assert_not_called()
+                self.assertEqual(before, self.state.read_bytes())
+                self.assertEqual(inputs, {p: p.read_bytes() for p in inputs})
+                self.assertFalse((self.root / guard.AUTHORIZATION).exists())
 
     def test_comparison_prepares_claims_and_consumes_exactly_once_with_both_boards(self):
         boards, command = self.comparison_inputs()

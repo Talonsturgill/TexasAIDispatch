@@ -156,6 +156,31 @@ def capacity_recovery_hint(state):
     ceilings = [row.get('storyboard_critics') for row in
                 (state.get('limits'), state.get('escalation_ceiling')) if isinstance(row, dict)]
     ceilings = [value for value in ceilings if type(value) is int and value >= 0]
+    if type(used) is int and ceilings and max(ceilings) - used < 4:
+        for index in range(len(state.get('events', [])) - 1, -1, -1):
+            row = state['events'][index]
+            if row.get('kind') != 'mandatory_completion_grant' or row.get('reason') != 'modern-film-floor':
+                continue
+            try:
+                parent = json.loads(row['plan_json'])
+                report = json.loads(row['failure_evidence_json'])
+                later = state['events'][index + 1:]
+                planning = any(e.get('kind') == 'reserved' and e.get('resources', {}).get('storyboard_critics') for e in later)
+                started = any(e.get('kind') == 'repair_started' or e.get('kind') == 'reserved'
+                    and set(e.get('resources', {})) - {'storyboard_critics', 'reported_tokens'} for e in later)
+                if (report.get('review_scope') == 'exact-muted-phone-preflight'
+                        and not parent.get('capture_completion_budget') and planning and not started):
+                    return (' The complete remaining critic path is underfunded even though a call remains.'
+                        ' Preserve the charged pivot work. Use the post-pivot section of'
+                        ' knowledge/craft/AUTONOMOUS_COMPLETION.md: python scripts/completion_forecast.py'
+                        ' --state <actual-state> --parent-grant ' + str(index) +
+                        ' --comparison <retained-comparison> --repair-plan <hash-bound-passed-pivot-plan>'
+                        ' --output <fresh-capacity-plan>. Admit completion-capacity on that plan,'
+                        ' then begin-repair on its returned complete-comparison repair plan.'
+                        ' Retain all failed evidence, actual debits and the unchanged envelope.'
+                        ' This internal shortfall needs no owner permission and never permits a failed modern floor to ship.')
+            except (KeyError, ValueError, TypeError):
+                continue
     if type(used) is not int or not ceilings or used < max(ceilings):
         return ''
     return (' Critic capacity is exhausted. Before another substantive review, read the'
