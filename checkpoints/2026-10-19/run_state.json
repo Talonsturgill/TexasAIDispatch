@@ -348,6 +348,14 @@
       "note": "telemetry for audiovisual_reviews: 241a3db8-8618-4e01-8699-0cd633ac21f4 hero exact film 600425cda7076431e5671ef815a1e70ad22388dd75272bec60b077c8076b6ce7",
       "resource": "reported_tokens",
       "to": 284049
+    },
+    {
+      "at": "2026-10-20T01:34:57.734824Z",
+      "ceiling": 900000,
+      "from": 284049,
+      "note": "telemetry for audiovisual_reviews: 0870f7c2-e4d5-4181-81c0-bad4454928bd picture exact film dffd4cd42a51f2ddad62c074fec5bf4a86929d19d44582e173e38997b523484c",
+      "resource": "reported_tokens",
+      "to": 364265
     }
   ],
   "events": [
@@ -3086,6 +3094,24 @@
       "resources": {
         "audiovisual_reviews": 1
       }
+    },
+    {
+      "at": "2026-10-20T01:34:57.734850Z",
+      "ceiling": 900000,
+      "kind": "budget_escalated",
+      "note": "telemetry for audiovisual_reviews: 0870f7c2-e4d5-4181-81c0-bad4454928bd picture exact film dffd4cd42a51f2ddad62c074fec5bf4a86929d19d44582e173e38997b523484c",
+      "now": 364265,
+      "resource": "reported_tokens",
+      "was": 284049
+    },
+    {
+      "at": "2026-10-20T01:34:57.734870Z",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 0870f7c2-e4d5-4181-81c0-bad4454928bd picture exact film dffd4cd42a51f2ddad62c074fec5bf4a86929d19d44582e173e38997b523484c",
+      "preflight_identity": null,
+      "resources": {
+        "reported_tokens": 80216
+      }
     }
   ],
   "limits": {
@@ -3096,7 +3122,7 @@
     "panel_rounds": 1,
     "preflight_renders": 17,
     "reboards": 7,
-    "reported_tokens": 284049,
+    "reported_tokens": 364265,
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
@@ -3109,7 +3135,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "ad3eb8c603b075ced40b904bbdbe8f3bdcfee1d65fb2b190b1cee57b97bef357",
+    "original_private_state_sha256": "0d87b0c11f7972871afb02efba01d6e15ab5a80e6c792485983a9080dd88ad07",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3137,7 +3163,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T01:34:05.178233Z",
+  "updated_at": "2026-10-20T01:34:57.734873Z",
   "usage": {
     "audiovisual_reviews": 4,
     "cleanup_renders": 0,
@@ -3146,7 +3172,7 @@
     "panel_rounds": 0,
     "preflight_renders": 17,
     "reboards": 7,
-    "reported_tokens": 284049,
+    "reported_tokens": 364265,
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
