@@ -1,0 +1,54 @@
+{
+  "repair_scope": "standard",
+  "mechanism_id": "creek-readable-lift-sparse-current",
+  "failure_family": "unclassified",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The independent exact-phone review round 34 (selected option B film 7419049d, option A film a7cd9147) accepted the bank-launch staging, the smooth foam collar, the carry past the oak and slab and the exit before the cut, and rejected both films only in s3 for three readability defects. (1) No visible lift: the blurred contact shadow is too faint on brown water and the .50 to .55 scale rise is invisible at 270 px. (2) No long streamline passes the car: the water still reads as rows of short rippled white strokes with dots and flecks (the 10 streamlines are 360 to 520 px, width 6, mixed with 13 foam flecks and 14 rain rings). (3) The word empty is not legible: the roof reads as a dark panel with a round sensor until about 16.0 s.",
+  "repair": "Change the readability, not the staging. (1) Lift: the car scale rises .50 to about .66 across the lift, the contact shadow becomes a dark (#0A0604) blurred ellipse at opacity .60 falling to .35 with an offset growing to about 44 plan px down and right plus a thin pale foam rim around the hull at full lift, so the car visibly rises off a visibly separate shadow. (2) Current: delete the 13 drifting foam flecks and the rain rings in the creek, and replace the 10 short streamlines with 4 or 5 long (600 to 900 px), thick (width 12 to 14), gentle single-curve streamlines at opacity .5 that move faster than the car, so no short thin or tightly rippled mark remains and one long stripe visibly passes the car. (3) Empty: draw the cabin glass lighter (pale blue-grey) and larger with two clearly bare dark seats and no round shape reading as a head, raise the car scale in shot 1 to about .60 and keep the car fully above the caption band.",
+  "mechanism_change": "Earlier repairs changed shapes and staging. This repair changes the scale and contrast hierarchy of the same accepted staging, making the lift, the passing current and the empty cabin large and high contrast, and removes every small mark from the water so the passing streamline is the only current cue.",
+  "expected_visible_result": "At phone size the car visibly grows and rises off a separate dark shadow as it leaves the bank, one long stripe of current visibly passes it, no hatch or fleck marks remain in the water, and two bare seats are readable in the pale roof glass from 13.2 s.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round34/report-b.json",
+  "failure_evidence_sha256": "c8a7e989d87ddfd8be2b1a8143884144de2c5a1dded472c957bdfe53f554f897",
+  "changed_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round34/baseline/RobotaxiFilm.tsx",
+      "before_sha256": "534664a1b571616db8b573f93bf13da32cfc47193cfbabe9dce77fea95d38e43",
+      "after_sha256": "534664a1b571616db8b573f93bf13da32cfc47193cfbabe9dce77fea95d38e43"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round34/baseline/RobotaxiHero.tsx",
+      "before_sha256": "d1654ec8995d4a6e92881c344f7107223f8efb0b58f51f1c07d05c0f1b24e0d1",
+      "after_sha256": "d1654ec8995d4a6e92881c344f7107223f8efb0b58f51f1c07d05c0f1b24e0d1"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round34/baseline/SanAntonioSupport.tsx",
+      "before_sha256": "af83b9af4e93eca1e88007b93a753988f5b77b61e901411f79c890031a516a3e",
+      "after_sha256": "af83b9af4e93eca1e88007b93a753988f5b77b61e901411f79c890031a516a3e"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round34/baseline/storyboard.json",
+      "before_sha256": "3369666c3794ea31b835878167eb83371769a13fd2cd18f1c7c021d03b4629a2",
+      "after_sha256": "3369666c3794ea31b835878167eb83371769a13fd2cd18f1c7c021d03b4629a2"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round34/baseline/opening-a.json",
+      "before_sha256": "bf2d85c1a683f6b92e5069f9291b8e14351cdb6992f8047e28d56b3fc4034b9d",
+      "after_sha256": "bf2d85c1a683f6b92e5069f9291b8e14351cdb6992f8047e28d56b3fc4034b9d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round34/baseline/opening-b.json",
+      "before_sha256": "3369666c3794ea31b835878167eb83371769a13fd2cd18f1c7c021d03b4629a2",
+      "after_sha256": "3369666c3794ea31b835878167eb83371769a13fd2cd18f1c7c021d03b4629a2"
+    }
+  ],
+  "resources": {
+    "reboards": 1
+  },
+  "failed_film_sha256": "7419049da616d741e4543b078dc6e309960f1afd670be9dcf3df46dcaeadd1db"
+}
