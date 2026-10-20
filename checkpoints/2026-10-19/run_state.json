@@ -980,6 +980,14 @@
       "note": "code-plan review round 35 after phone34 repair (mandatory gate: renderer digest changed), packet critic-packet-round35, same Opus critic aea70021",
       "resource": "storyboard_critics",
       "to": 52
+    },
+    {
+      "at": "2026-10-20T16:03:43.622904Z",
+      "ceiling": 56,
+      "from": 48,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 49
     }
   ],
   "events": [
@@ -8086,6 +8094,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-20T16:03:43.622948Z",
+      "ceiling": 56,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 49,
+      "resource": "preflight_renders",
+      "was": 48
+    },
+    {
+      "at": "2026-10-20T16:03:43.623013Z",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "c2ff4cef71934c369f2ef305c8defec8f3220f3e5c5dcaab5fbdc800c1c53af7",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -8094,7 +8120,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 48,
+    "preflight_renders": 49,
     "reboards": 17,
     "reported_tokens": 523483,
     "rescue_renders": 1,
@@ -8109,7 +8135,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cfd0401b4e3f64522d5fee630e42f5c22877dd489238c1ac5702a21b096c04b2",
+    "original_private_state_sha256": "b2fa7f02aee8e2d744ab6b81dfe78ceb13c9eb818fa1b38a6e591158fa77a435",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -8137,14 +8163,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T15:58:31.348938Z",
+  "updated_at": "2026-10-20T16:03:43.623020Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
     "full_renders": 1,
     "image_generations": 0,
     "panel_rounds": 1,
-    "preflight_renders": 48,
+    "preflight_renders": 49,
     "reboards": 17,
     "reported_tokens": 523483,
     "rescue_renders": 0,
