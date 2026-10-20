@@ -1,0 +1,168 @@
+{
+  "treatment": "a",
+  "verdict": "pass",
+  "review_scope": "code-plan",
+  "board_bindings": {
+    "opening": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+      "sha256": "50a313ac0193226f1e0cd37bca7254276a680c1cdaed3f92e8af0ff7032092f8"
+    }
+  },
+  "board_sha256": "50a313ac0193226f1e0cd37bca7254276a680c1cdaed3f92e8af0ff7032092f8",
+  "concept_sha256": "25f3c8981d283e7394d8d4d75d7ae122c416e027b443a596838aaacb37d4f33b",
+  "renderer_sha256": "9281dea1f419e845879c9446d0b58a5258b9f7d02b18e8ac6ac8abcbc5bf4bd1",
+  "binding_status": "Director-supplied digests from out/dispatch/evidence/code-round31-bindings.json, copied unchanged and not recomputed. storyboard.json holds B's bytes and is not bound here.",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 31, distinct from the Sonnet director",
+  "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
+  "round30_blocker_check": {
+    "scene_id": "s3",
+    "time_s": 15.32,
+    "status": "resolved in code; phone pixels still required",
+    "detail": [
+      "Each wake arm is now a sampled streamline: wakeArm(sgn, u0, u1) returns 6 points.",
+      "x = -262 - wakeL\u00b7u",
+      "y = sgn\u00b7(78 + spread\u00b7u) - wakeBow\u00b7wakeL\u00b7sin(\u03c0u)",
+      "wakeL = 220 + 85g, spread = 50 + 50g, wakeBow = .25",
+      "The sine term is zero at both ends and reaches .25\u00b7wakeL mid-arm, so each arm bows by about 24 percent of its length. That is about 61 to 76 car units on arms of 245 to 305 car units.",
+      "At scale .5 to .55 the arms are about 123 to 168 plan px along x and about 143 to 198 plan px along the curve. Both meet the 20 to 25 percent bow and 120 to 200 px length targets.",
+      "Both arms bow toward -y, so the V swings the same way with the current. The far-side arm flares outward and the near-side arm bends in without crossing the centreline: its y stays at about 27 to 52 or more car units mid-arm.",
+      "Each arm is still cut into three pieces (u 0 to .3, .36 to .66 and .72 to 1). Each piece is a smooth path through 6 points, about 40 to 60 plan px of visible curve, with widths 22, 16 and 10, fading opacity, round caps and joins.",
+      "The wake is drawn after the two contact-shadow rects and before the wheel-water, the car and the collar, so it lies under the car and the collar.",
+      "Bounds:",
+      "- The lowest wake point rotated with yaw is about 101 plan px below cy at the cut, or about screen y 1245 in shot 2. It is about 1112 in shot 1, and about 1155 at full lift in shot 2.",
+      "- The car, collar and offset shadow stay within about 1217 to 1240, as in round 30. That is inside the rows accepted in rounds 23 to 30.",
+      "- The chip (y about 132 to 252) is clear.",
+      "Unchanged: the rest of the creek-plan case is as I read it in round 30. That covers CREEK_PLAN_CLOSE, creekPlanCloser, the cx, cy, yaw, scale, lift and shadow formulas, the wheel-water, the collar and top() with cabin 1. s6 lane-plan was cabin-free in round 30, and the coordinator states the shared code is otherwise unchanged.",
+      "A's film_direction.rewards s3-event-1 visible_change now reads 'Heavy rain rings spread on fast brown creek water running along the limestone bank.', which matches B."
+    ]
+  },
+  "strongest_frame": "s3-shot-2 creek-plan closer, 15.32 to 17.61 s (authored clock). The empty glass-roofed car lifts off the white-water lip, its shadow sliding out from under it. It is carried about 565 plan px left, past the oak crown and the ledge slab and out of frame, trailing a curved V wake while the current overtakes it.",
+  "weakest_frame": "s3-shot-1 creek-plan, 13.03 to 14.9 s. Before the lift the car only rocks inside its collar and wheel-water rings while the current runs past. This is the interval named weakest in rounds 24, 26 and 29.",
+  "blocking_defects": [],
+  "notes": [
+    "Phone-scope risks, non-blocking:",
+    "- The dark headrests (about 2 \u00d7 4 phone px in shot 1) could read as heads from above. You have kept them by choice.",
+    "- The contact shadow has hard edges, with no blur.",
+    "- The streaks and flecks could clutter the channel around the car.",
+    "- The 50 px lip band runs about 630 px upstream. Check that it reads as white water, not a painted stripe.",
+    "- The asymmetric wake should read as one V bending with the current.",
+    "- creekPlanCloser stays keyed on scene_fraction_start.",
+    "Not shown on screen and stale: A's angle 'at ground level', A's divergence_note 'riding a creek crossing', the support prompt's 'depth post', and the other A prose copies you left unchanged on purpose.",
+    "A and B differ in 4 of 20 shots: s2-shot-1, s5-shot-1, s6-shot-1 and s7-shot-1.",
+    "Carried non-blocking items: the s2 to s3 handoff, the s6 wide water ellipse, the flat lower bands, the s7 forearm, the s9 card over the road and the thousands separator in 3,791.",
+    "This is a code pass only."
+  ],
+  "story_review": {
+    "story_sha256": "f824641157baaf171aded405bcfaea1e9ddaa9541b539906fabd775583dcf12e",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Intended chain, read from code and not observed.",
+    "one_viewing_summary_detail": [
+      "The empty-wheel airport arrival.",
+      "The table map closes the limited area.",
+      "From above, an empty glass-roofed car sits on a creek shelf by a white-water lip, inside a foam collar.",
+      "Closer, it lifts off and is carried well downstream past the oak and the ledge, trailing a curved wake, as the current overtakes it.",
+      "The stranded street car with hazards.",
+      "The desk record, the grid and the stamp.",
+      "The ground-level slow roll into standing water with 'may' lit.",
+      "The remedy row stamped Under development.",
+      "The wet-lot tag and the April 20 checks.",
+      "The open curb door beside the remedy card."
+    ],
+    "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No repair, speed, depth or outcome is invented.",
+    "weakest_transition": "s2 to s3 at 13.03 s. The angled table map cuts to an overhead creek with a different car, carried by 'In April' and the disclosure chip."
+  },
+  "action_reviews": [
+    {
+      "action_id": "wheel-turns-itself",
+      "module_sha256": "37fe3c066cca6ecd6952eecb01eb9ceb23a265d23f06b2abf700bcb58821ddcd",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c1: empty seats.",
+        "visible_action": "The wheel turns 85 degrees and back with no hands on it.",
+        "consequence": "The phone says Arriving.",
+        "disclosure": "Chip.",
+        "limits": "Generic car."
+      }
+    },
+    {
+      "action_id": "car-swept-into-creek",
+      "module_sha256": "37fe3c066cca6ecd6952eecb01eb9ceb23a265d23f06b2abf700bcb58821ddcd",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c3 and c4: the glass roof shows empty seats; no crossing is shown.",
+        "visible_action": "Foam collar, lift (the shadow slides out, scale .50 to .55), a curved V wake bowing about 24 percent, and a carry of about 715 plan px past the crown and the slab while the current runs at 430 px/s.",
+        "consequence": "Carried out of frame downstream.",
+        "disclosure": "April 20th chip.",
+        "limits": "Overhead editorial drawing. No damage or depth."
+      }
+    },
+    {
+      "action_id": "car-slows-into-water",
+      "module_sha256": "37fe3c066cca6ecd6952eecb01eb9ceb23a265d23f06b2abf700bcb58821ddcd",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c7 verbatim.",
+        "visible_action": "lane-wide, then wheels-water.",
+        "consequence": "The wheels enter the water.",
+        "disclosure": "Chip.",
+        "limits": "No speed or depth."
+      }
+    },
+    {
+      "action_id": "service-area-opens",
+      "module_sha256": "be1f76cfd4e0054e414754683c0a78caf70ffb81471cb11310fea26349191452",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c2.",
+        "visible_action": "map-table, then map-zone.",
+        "consequence": "The outline closes.",
+        "disclosure": "Credits.",
+        "limits": "Editorial outline."
+      }
+    },
+    {
+      "action_id": "recall-filed-count",
+      "module_sha256": "be1f76cfd4e0054e414754683c0a78caf70ffb81471cb11310fea26349191452",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c6 and c13.",
+        "visible_action": "record-desk, then count-grid.",
+        "consequence": "The stamp lands.",
+        "disclosure": "Chip.",
+        "limits": "Icons are not a literal count."
+      }
+    },
+    {
+      "action_id": "remedy-under-development",
+      "module_sha256": "be1f76cfd4e0054e414754683c0a78caf70ffb81471cb11310fea26349191452",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c8 verbatim.",
+        "visible_action": "record-close, then stamp-detail.",
+        "consequence": "The imprint carries to s9.",
+        "disclosure": "Chip.",
+        "limits": "Not a real record."
+      }
+    }
+  ],
+  "phone_observations": null,
+  "modern_observations": null,
+  "pixel_basis": "None. Code approval includes no pixel observations."
+}

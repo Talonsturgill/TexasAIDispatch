@@ -5,105 +5,94 @@
   "board_bindings": {
     "opening": {
       "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
-      "sha256": "a68f77579af83045551da804c46bd056b0d88fd8dcbd85da4bdc2049ca843bfb"
+      "sha256": "3369666c3794ea31b835878167eb83371769a13fd2cd18f1c7c021d03b4629a2"
     },
     "storyboard": {
       "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
-      "sha256": "a68f77579af83045551da804c46bd056b0d88fd8dcbd85da4bdc2049ca843bfb"
+      "sha256": "3369666c3794ea31b835878167eb83371769a13fd2cd18f1c7c021d03b4629a2"
     }
   },
-  "board_sha256": "a68f77579af83045551da804c46bd056b0d88fd8dcbd85da4bdc2049ca843bfb",
-  "concept_sha256": "9b890178c7399d4a07f5f79b5a44a040d3c45010c05893a4293102209c995232",
-  "renderer_sha256": "9281dea1f419e845879c9446d0b58a5258b9f7d02b18e8ac6ac8abcbc5bf4bd1",
-  "binding_status": "Director-supplied digests from out/dispatch/evidence/code-round31-bindings.json, copied unchanged and not recomputed. storyboard.json is stated to be the same bytes as opening-b.json.",
+  "board_sha256": "3369666c3794ea31b835878167eb83371769a13fd2cd18f1c7c021d03b4629a2",
+  "concept_sha256": "c03c8b0cf08b768dcfba991697d295e65af8727bd9025bd5c58bf4c3bb0b6e29",
+  "renderer_sha256": "614ca479c4e5da3cdd86afae44960e7bb82c0204433369f5cd3172d479e1d81e",
+  "binding_status": "Director-supplied digests from out/dispatch/evidence/code-round33-bindings.json, copied unchanged and not recomputed. storyboard.json is stated to be the same bytes as opening-b.json.",
   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
   "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-  "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 31, distinct from the Sonnet director",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 33, distinct from the Sonnet director",
   "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
-  "round30_blocker_check": {
+  "pivot32_check": {
     "scene_id": "s3",
     "time_s": 15.32,
-    "status": "resolved in code; phone pixels still required",
+    "status": "notes 1 to 13 met in code; phone pixels still required",
     "detail": [
-      "The shared creek-plan code is the same as in A's report.",
-      "Each wake arm is a 6-point sampled streamline with wakeL = 220 + 85g and spread = 50 + 50g.",
-      "It bows .25\u00b7wakeL\u00b7sin(\u03c0u) toward -y, about 24 percent of its length.",
-      "Each arm is about 143 to 198 plan px along the curve at scale .5 to .55.",
-      "It is drawn in three fading smooth-path pieces under the car and the collar.",
-      "The lowest wake point is about screen y 1245 in shot 2 at the cut and about 1112 in shot 1. The chip is clear.",
-      "Nothing else in the creek-plan case changed from round 30. B's board changed only by rebinding.",
-      "s6 lane-plan's top() has no cabin and is unchanged."
+      "The code and computed timings are the same as in A's report:",
+      "- The arc-length path from (800, 1105).",
+      "- s = 160\u00b7I(e2) + 340\u00b7I(e3).",
+      "- Lift from about 15.24 to 15.95 s.",
+      "- Under the crown at about 15.99 s and over the slab at about 16.33 s.",
+      "- Fully off the left edge (cx < -151 with f [470, 930], s 1.25) at about 17.39 to 17.42 s, before 17.61 s.",
+      "Rounded shapes only: flood ellipses, the blurred shadow, the continuous three-stroke streamline wake, the ellipse collar, smooth streamlines at 600 px/s and soft foam. No triangle, chevron, dash, tick, zigzag or wobble stroke remains.",
+      "Headrests are #8A929B. s6 lane-plan's top() has no cabin. The s3-shot-2 purpose has been rewritten.",
+      "No registry change: same view and item ids."
     ]
   },
-  "strongest_frame": "s3-shot-2 creek-plan closer, 15.32 to 17.61 s (authored clock). The empty glass-roofed car lifts off the bold white-water lip, its shadow sliding out from under it. It is carried past the oak crown and the ledge slab and out of frame, trailing a curved V wake while the current overtakes it.",
-  "weakest_frame": "s3-shot-1 creek-plan, 13.03 to 14.9 s. Before the lift the car only rocks inside its collar and wheel-water rings while the current runs past.",
+  "strongest_frame": "s3-shot-2 creek-plan closer, 15.32 to 17.61 s (authored clock). The empty glass-roofed car lifts off the bank edge with its shadow separating. It is swept along one smooth path, trailing a curved V, under the oak crown, over the ledge slab and out of frame left before the cut, while the streamlines overtake it.",
+  "weakest_frame": "s3-shot-1 creek-plan, 13.03 to 14.04 s. Before e2 the car only rocks slightly while the collar breathes and the current passes.",
   "blocking_defects": [],
   "notes": [
-    "Phone-scope risks, non-blocking:",
-    "- The dark headrests could read as heads from above. You have kept them by choice.",
-    "- The contact shadow has hard edges.",
-    "- The streaks and flecks could clutter the channel around the car.",
-    "- The 50 px lip band runs about 630 px upstream. Check that it reads as white water.",
-    "- The asymmetric wake should read as one V.",
-    "- creekPlanCloser stays keyed on scene_fraction_start.",
+    "Phone-scope checks, the same as A:",
+    "- Caption clearance of the flood ellipses (about screen y 1257 at the cut) and the wake tip (about 1250 at about 15.95 s). The builder reports 15 px minimum clearance.",
+    "- The crown corner possibly touching the chip at about x 490 to 498, y 237 to 252.",
+    "- Exit speed of about 21 px per frame.",
+    "- Empty seats readable.",
+    "- The blurred shadow reading as lift.",
+    "- creekPlanCloser keyed on scene_fraction_start.",
     "Carried non-blocking items: the s6 lane water partly behind the quote panel and chip from 29.2 to 31.8 s, the s8 tag-only interval from 41.6 to 45.4 s, the s9 card on the road and the thousands separator in 3,791.",
-    "Stale and not shown on screen: medium_choice, the attention continuity_from entries and fingerprint.pov (not re-read this round), and the support prompt's 'depth post'.",
-    "This is a code pass only. Film c92c7a2f... stays rejected."
+    "Stale code comments and the support prompt's 'depth post' are not shown on screen.",
+    "This is a code pass only. Film 0dbbb680... stays rejected."
   ],
   "story_review": {
-    "story_sha256": "c231996286983aaf1f27731103149a328a614c4f5438e96474f8f79ddd558288",
+    "story_sha256": "7792b48b322ea248e82e11f2b1af120335e4d64124a72e4ed8ebc6dfb731fd14",
     "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
     "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
     "verdict": "pass",
     "blocking_defects": [],
-    "one_viewing_summary": "Intended chain, read from code and not observed.",
-    "one_viewing_summary_detail": [
-      "The empty-wheel airport arrival.",
-      "The flat map plan, then the limited area closing.",
-      "From above, an empty glass-roofed car sits on a creek shelf by a white-water lip, inside a foam collar.",
-      "Closer, it lifts off and is carried well downstream past the oak and the ledge, trailing a curved wake, as the current overtakes it.",
-      "The stranded street car with hazards.",
-      "The flat record card, the grid and the stamp.",
-      "From above, a car brakes toward standing water; then from the side it rolls in with 'may' lit.",
-      "The remedy row stamped Under development.",
-      "The wet-lot tag and the April 20 checks.",
-      "The open curb door beside the remedy card."
-    ],
+    "one_viewing_summary": "Intended chain, read from code and not observed.\n- The empty-wheel airport arrival.\n- The flat map plan, then the limited area closing.\n- From above, an empty glass-roofed car stands in shallow flood water at the creek's limestone bank edge. Foam swells and it starts to slide.\n- Closer, it lifts free and is swept past the oak and the ledge and out of frame.\n- The stranded street car with hazards.\n- The flat record card, the grid and the stamp.\n- From above, a car brakes toward standing water. Then from the side it rolls in with 'may' lit.\n- The remedy row stamped Under development.\n- The wet-lot tag and the April 20 checks.\n- The open curb door beside the remedy card.",
     "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No outcome is invented.",
     "weakest_transition": "s2 to s3 at 13.03 s: overhead map to overhead creek with a different car, carried by the disclosure chip."
   },
   "action_reviews": [
     {
       "action_id": "wheel-turns-itself",
-      "module_sha256": "37fe3c066cca6ecd6952eecb01eb9ceb23a265d23f06b2abf700bcb58821ddcd",
+      "module_sha256": "d1654ec8995d4a6e92881c344f7107223f8efb0b58f51f1c07d05c0f1b24e0d1",
       "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
       "verdict": "pass",
       "blocking_defects": [],
       "code_observations": {
         "source_fidelity": "Same cab as A.",
         "visible_action": "Same steer.",
-        "consequence": "The phone says Arriving.",
+        "consequence": "Arriving.",
         "disclosure": "Chip.",
         "limits": "Generic car."
       }
     },
     {
       "action_id": "car-swept-into-creek",
-      "module_sha256": "37fe3c066cca6ecd6952eecb01eb9ceb23a265d23f06b2abf700bcb58821ddcd",
+      "module_sha256": "d1654ec8995d4a6e92881c344f7107223f8efb0b58f51f1c07d05c0f1b24e0d1",
       "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
       "verdict": "pass",
       "blocking_defects": [],
       "code_observations": {
-        "source_fidelity": "c3 and c4; empty seats shown through the glass roof.",
-        "visible_action": "Collar, lift, a curved V wake bowing about 24 percent, and a carry of about 715 plan px past the crown and the slab while the current runs at 430 px/s.",
-        "consequence": "Carried out of frame downstream.",
+        "source_fidelity": "c3 and c4. Shallow flood water at the bank edge, never parked. The glass roof shows empty seats.",
+        "visible_action": "Collar and slide (e2), then lift and the swept arc-length carry (e3) under the crown and over the slab.",
+        "consequence": "Out of frame left at about 17.4 s, before the cut.",
         "disclosure": "April 20th chip.",
         "limits": "Overhead editorial drawing."
       }
     },
     {
       "action_id": "car-slows-into-water",
-      "module_sha256": "37fe3c066cca6ecd6952eecb01eb9ceb23a265d23f06b2abf700bcb58821ddcd",
+      "module_sha256": "d1654ec8995d4a6e92881c344f7107223f8efb0b58f51f1c07d05c0f1b24e0d1",
       "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
       "verdict": "pass",
       "blocking_defects": [],
@@ -117,7 +106,7 @@
     },
     {
       "action_id": "service-area-opens",
-      "module_sha256": "be1f76cfd4e0054e414754683c0a78caf70ffb81471cb11310fea26349191452",
+      "module_sha256": "af83b9af4e93eca1e88007b93a753988f5b77b61e901411f79c890031a516a3e",
       "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
       "verdict": "pass",
       "blocking_defects": [],
@@ -131,7 +120,7 @@
     },
     {
       "action_id": "recall-filed-count",
-      "module_sha256": "be1f76cfd4e0054e414754683c0a78caf70ffb81471cb11310fea26349191452",
+      "module_sha256": "af83b9af4e93eca1e88007b93a753988f5b77b61e901411f79c890031a516a3e",
       "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
       "verdict": "pass",
       "blocking_defects": [],
@@ -145,7 +134,7 @@
     },
     {
       "action_id": "remedy-under-development",
-      "module_sha256": "be1f76cfd4e0054e414754683c0a78caf70ffb81471cb11310fea26349191452",
+      "module_sha256": "af83b9af4e93eca1e88007b93a753988f5b77b61e901411f79c890031a516a3e",
       "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
       "verdict": "pass",
       "blocking_defects": [],
