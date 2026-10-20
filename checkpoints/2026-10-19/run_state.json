@@ -23,7 +23,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 60,
+    "storyboard_critics": 61,
     "tts_calls": 12,
     "validator_agents": 4,
     "voice_directors": 2
@@ -9187,6 +9187,110 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-20T18:30:53.224333Z",
+      "failure_evidence_json": "{\n \"treatment\": \"a\",\n \"verdict\": \"pass\",\n \"review_scope\": \"code-plan\",\n \"board_bindings\": {\n  \"opening\": {\n   \"path\": \"{REPO}/out/dispatch/opening-a.json\",\n   \"sha256\": \"198cc61cffdb327cbdf9c68351f13392fa9f5f8c2a76531bacca0fd222d5cf7a\"\n  },\n  \"storyboard\": {\n   \"path\": \"{REPO}/out/dispatch/storyboard.json\",\n   \"sha256\": \"198cc61cffdb327cbdf9c68351f13392fa9f5f8c2a76531bacca0fd222d5cf7a\"\n  }\n },\n \"board_sha256\": \"198cc61cffdb327cbdf9c68351f13392fa9f5f8c2a76531bacca0fd222d5cf7a\",\n \"concept_sha256\": \"467731263c25d53e8576b331bfa76118979e1058b4e15abd8f329c2557c7317c\",\n \"renderer_sha256\": \"f2ceb3777c1080a7df3625cd4144b3b6355cd4601ee8a440d93c26efbde0cacd\",\n \"binding_status\": \"Digests are the director-supplied values in out/dispatch/evidence/code-round39-bindings.json, copied unchanged and not recomputed. storyboard.json is stated to be the same bytes as opening-a.json.\",\n \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n \"claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 39, distinct from the Sonnet director\",\n \"reviewed_at\": \"2026-10-20 (date only; clock time unavailable to this Read-only reviewer)\",\n \"pivot38_check\": {\n  \"scene_id\": \"s3\",\n  \"time_s\": 14.4,\n  \"status\": \"notes 1 to 10 met in code; phone pixels still required\",\n  \"detail\": [\n   \"Rain (note 3a/b).\",\n   \"- The six stroked rain rings are gone.\",\n   \"- 'rain-patches' sits inside rain > 0, is clipped to the water and uses group opacity rain.\",\n   \"- One radialGradient, id `${id}rp` (useUid, unique per CreekPlan instance), objectBoundingBox, stops .12 / .06 / 0.\",\n   \"- Three filled circles with no stroke at (950 - 30(t - 13.03), 735, r 150), (640 - 30(t - 13.03), 705, r 130) and (170 - 30(t - 13.03), 1030, r 140).\",\n   \"- Each radius breathes \\u00b16 percent on the board clock.\",\n   \"- The patch edges fade to 0, so the water clip leaves no visible arc. P1 and P2 reach the far edge (about y 580 to 589) only at near-zero intensity.\",\n   \"Slab (note 3c). The slab is one filled smoothPath (SA.limestone). The outline stroke and the dark undercut path are deleted.\",\n   \"Camera (note 4). CREEK_PLAN_NEAR is f [770, 1025], s 1.6, so shot 1's left edge is plan x 432.5.\",\n   \"- The slab's right end (lb + 6 = 414, plus any small Catmull-Rom overshoot) lies outside the frame by about 18 plan px. The builder reports 18.\",\n   \"- The crown at (230, 560) and its shadow are off shot 1.\",\n   \"- The car's start lands at screen (588, 960) and the collar's right extent at about screen 918.\",\n   \"- CREEK_PLAN_CARRY is unchanged.\",\n   \"Wake fade (note 2e, optional). The v-wake opacity is now smooth(clamp(lift\\u00d72.5)), so it is full strength by lift \\u2248 .4.\",\n   \"Full CreekPlan re-audit (strokes):\",\n   \"- Stone shelf outline (#AFA48C, 3 px): long wavy lines on the grass side of both shelves, running from plan x -180 to 1250, past both edges of both frames. Not in the water, not on the ledge, not short.\",\n   \"- Bank foam lines T and B (pale, 5 px): continuous from x -180 to 1250, past both frame edges.\",\n   \"- Stripes: three 30 px endless smoothPaths from x -700 to 1800 with a repeat-gradient pulse. No ends, no dashes.\",\n   \"- No other stroke exists in CreekPlan.\",\n   \"Full CreekPlan re-audit (fills):\",\n   \"- Mottling ellipses: large soft fills (50 to 140 plan) on the grass only. The stone and water cover them elsewhere. Where a frame edge cuts one, it reads as background texture, not a stub.\",\n   \"- Crowns: soft fill ellipses. (880, 260) is cut at shot 2's top-right corner. The lower crowns are background under the caption band.\",\n   \"- Water gradient and slab fill: fills.\",\n   \"Car layer: the flood ellipses, the blurred shadow, the collar ellipses and the deliberate 3-strand wake. The only short dark shapes left are the car's own tyre rects, on the car, which no review has flagged.\",\n   \"Board text (note 5). These A fields now read 'Soft pale patches of heavy rain drift on the fast brown creek water running along the limestone bank': on_screen, what_moves, visual_events s3-event-1 'what', visual_sentence.action, visual_proof.mute_takeaway and the s3-event-1 reward visible_change.\",\n   \"- The s3-rain plane label and props label read 'soft pale patches of heavy rain on the creek water'.\",\n   \"- The s3-shot-1 purpose reads 'Close from above, soft rain patches drift on fast creek water around the large white roof...'.\",\n   \"- I spot-checked B's s3-rain plane and mute_takeaway, which are identical.\",\n   \"- The item id s3-rain is kept and the registry is unchanged.\"\n  ]\n },\n \"strongest_frame\": \"s3-shot-1 creek-plan near, 13.03 to 15.32 s (authored clock). At 1.6\\u00d7 the large empty car, with bare seats in its pale roof glass, stands in shallow flood water at the bank edge. Thick pulsing current stripes run past it under soft rain patches, with no stray marks.\",\n \"weakest_frame\": \"s3 rain, 13.03 to 17.61 s. The three soft patches peak at only .12 opacity, so the 'heavy rain' the text now names may barely read at 270 px.\",\n \"blocking_defects\": [],\n \"notes\": [\n  \"Phone-scope checks, non-blocking:\",\n  \"- Rain: the soft patches (peak .12) must visibly read as rain on the water. If they don't, that becomes a narration and picture mismatch for the rain wording, though the n3 narration itself does not mention rain.\",\n  \"- Ticks and lines: none should remain in the water, at the frame edges or on the ledge.\",\n  \"- Slab: it should read as pale stone with no outline.\",\n  \"- Round 38 cues: every cue round 38 confirmed should still be present.\",\n  \"Stale and not shown on screen:\",\n  \"- Code comments: CREEK_CAR, CREEK_CAM, 'under the oak's crown'.\",\n  \"- Board text: A's angle 'at ground level' and A's divergence_note.\",\n  \"- Support prompt: 'depth post'.\",\n  \"A and B differ in 4 of 20 shots: s2-shot-1, s5-shot-1, s6-shot-1 and s7-shot-1.\",\n  \"Carried non-blocking items:\",\n  \"- the s2 to s3 handoff;\",\n  \"- the s6 wide water ellipse;\",\n  \"- the flat lower bands;\",\n  \"- the s7 forearm;\",\n  \"- the s9 card over the road;\",\n  \"- the thousands separator in 3,791.\",\n  \"This is a code pass only. Film cec660e4... stays rejected.\"\n ],\n \"story_review\": {\n  \"story_sha256\": \"200f7906833d6db28976441117e995cfe095105ebab5a2602755594a249a7915\",\n  \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n  \"claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n  \"verdict\": \"pass\",\n  \"blocking_defects\": [],\n  \"one_viewing_summary\": \"Intended chain, read from code and not observed.\\n- The empty-wheel airport arrival.\\n- The table map closes the limited area.\\n- Close from above, a large empty car with bare seats in its pale roof glass stands in shallow flood water at the creek's limestone bank edge. Soft rain patches drift and current stripes run past.\\n- From a little higher, it grows and rises off a sliding dark shadow, then is swept past the oak and the pale ledge and out of frame.\\n- The stranded street car with hazards.\\n- The desk record, the grid and the stamp.\\n- The ground-level slow roll into standing water with 'may' lit.\\n- The remedy row stamped Under development.\\n- The wet-lot tag and the April 20 checks.\\n- The open curb door beside the remedy card.\",\n  \"opening_to_ending\": \"The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No repair, speed, depth, parking or outcome is invented.\",\n  \"weakest_transition\": \"s2 to s3 at 13.03 s. The angled table map cuts to a close overhead creek with a different car, carried by 'In April' and the disclosure chip.\"\n },\n \"action_reviews\": [\n  {\n   \"action_id\": \"wheel-turns-itself\",\n   \"module_sha256\": \"df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c1: empty seats.\",\n    \"visible_action\": \"The steering wheel turns 85 degrees and back with no hands on it.\",\n    \"consequence\": \"The phone shows Arriving.\",\n    \"disclosure\": \"Chip.\",\n    \"limits\": \"Generic car.\"\n   }\n  },\n  {\n   \"action_id\": \"car-swept-into-creek\",\n   \"module_sha256\": \"df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c3 (heavy rain, swept into Salado Creek) and c4 (unoccupied). Shallow flood water at the bank edge, never shown parked. Bare seats visible in the roof glass.\",\n    \"visible_action\": \"In the locked 1.6\\u00d7 shot the car stands and slides. In the locked 1.4\\u00d7 shot it lifts (scale .60 to .78, dark shadow sliding up to 60 px) and is swept past the crown and the slab while stripes overtake it. The rain is drawn as soft fills.\",\n    \"consequence\": \"Fully off the left edge at about 17.3 s, before the 17.61 s cut.\",\n    \"disclosure\": \"April 20th chip.\",\n    \"limits\": \"Overhead editorial drawing. No damage or depth shown.\"\n   }\n  },\n  {\n   \"action_id\": \"car-slows-into-water\",\n   \"module_sha256\": \"df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c7 verbatim.\",\n    \"visible_action\": \"lane-wide, then wheels-water.\",\n    \"consequence\": \"The wheels enter the water.\",\n    \"disclosure\": \"Chip.\",\n    \"limits\": \"No speed or depth.\"\n   }\n  },\n  {\n   \"action_id\": \"service-area-opens\",\n   \"module_sha256\": \"7255a7b01a107a1bcefd479db38d31ca250a7709526b37b5603ddf6bc2d4ba3f\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c2.\",\n    \"visible_action\": \"map-table, then map-zone.\",\n    \"consequence\": \"The outline closes.\",\n    \"disclosure\": \"Credits.\",\n    \"limits\": \"Editorial outline.\"\n   }\n  },\n  {\n   \"action_id\": \"recall-filed-count\",\n   \"module_sha256\": \"7255a7b01a107a1bcefd479db38d31ca250a7709526b37b5603ddf6bc2d4ba3f\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c6 and c13.\",\n    \"visible_action\": \"record-desk, then count-grid.\",\n    \"consequence\": \"The stamp lands.\",\n    \"disclosure\": \"Chip.\",\n    \"limits\": \"Icons are not a literal count.\"\n   }\n  },\n  {\n   \"action_id\": \"remedy-under-development\",\n   \"module_sha256\": \"7255a7b01a107a1bcefd479db38d31ca250a7709526b37b5603ddf6bc2d4ba3f\",\n   \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n   \"verdict\": \"pass\",\n   \"blocking_defects\": [],\n   \"code_observations\": {\n    \"source_fidelity\": \"c8 verbatim.\",\n    \"visible_action\": \"record-close, then stamp-detail.\",\n    \"consequence\": \"The imprint carries to s9.\",\n    \"disclosure\": \"Chip.\",\n    \"limits\": \"Not a real record.\"\n   }\n  }\n ],\n \"phone_observations\": null,\n \"modern_observations\": null,\n \"pixel_basis\": \"None. Code approval includes no pixel observations.\"\n}",
+      "failure_evidence_sha256": "8fcb5ce51aa19edd4e0dbc2d75239e461b61e8c88de5448053b9a78c7d3d8609",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 62,
+        "reboards": 19,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 61,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 62,
+        "reboards": 19,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 61,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "984ba66d20973a693089cfa65645f6d419845748462dd51d814142660492fb38",
+      "plan_json": "{\n  \"repair_scope\": \"standard\",\n  \"completion_reason\": \"finish-current\",\n  \"mechanism_id\": \"finish-current-capacity-r40-interrupted\",\n  \"failure_family\": \"unclassified\",\n  \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n  \"root_cause\": \"Retained independent code-plan PASS round 39 for treatment A (the selected film) on the current renderer and boards (storyboard.json is a byte copy of opening-a.json). The exact-phone round 40 critic worker a6b1ef80 was interrupted (UI marks it Stopped) after 13 of 128 page annotations and returned no handback. The original reservation 59 is retained and charged. One process-interruption completion of the same independent exact-phone review is required to finish the current cut, followed by the final timed phone review.\",\n  \"repair\": \"None. Finish the current film.\",\n  \"mechanism_change\": \"None\",\n  \"expected_visible_result\": \"Finish the retained cut.\",\n  \"failure_evidence\": \"{REPO}/out/dispatch/evidence/code-round39/report-a.json\",\n  \"failure_evidence_sha256\": \"8fcb5ce51aa19edd4e0dbc2d75239e461b61e8c88de5448053b9a78c7d3d8609\",\n  \"changed_inputs\": [],\n  \"resources\": {}\n}",
+      "plan_sha256": "2b3259cc2bbfff078fc5441b38770fb4ab36050b58fc640a2177e2fa4a510295",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"finish-current\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":37,\"required\":8,\"used\":6},\"full_renders\":{\"ceiling\":14,\"remaining\":13,\"required\":1,\"used\":1},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":0,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":8,\"required\":1,\"used\":1},\"preflight_renders\":{\"ceiling\":62,\"remaining\":5,\"required\":2,\"used\":57},\"reboards\":{\"ceiling\":19,\"remaining\":0,\"required\":0,\"used\":19},\"scorer_calls\":{\"ceiling\":27,\"remaining\":24,\"required\":3,\"used\":3},\"storyboard_critics\":{\"ceiling\":60,\"remaining\":0,\"required\":1,\"used\":60},\"tts_calls\":{\"ceiling\":12,\"remaining\":6,\"required\":2,\"used\":6},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "95dba157010700bda181c601b17b2e55eccf8a14c1d2d8ae259731aece0ef793",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 62,
+        "reboards": 19,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 60,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 62,
+        "reboards": 19,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 60,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "reason": "finish-current",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-19",
+      "usage_unchanged": {
+        "audiovisual_reviews": 6,
+        "cleanup_renders": 0,
+        "full_renders": 1,
+        "image_generations": 0,
+        "panel_rounds": 1,
+        "preflight_renders": 57,
+        "reboards": 19,
+        "reported_tokens": 523483,
+        "rescue_renders": 0,
+        "research_agents": 3,
+        "scorer_calls": 3,
+        "storyboard_critics": 60,
+        "tts_calls": 6,
+        "validator_agents": 4,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -9210,7 +9314,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cb36dd7fdd4ea190883c389c7bbf9309e108433ec53800fde3d5901f3a184d37",
+    "original_private_state_sha256": "d644efdc3f8c656bd2575e02b585daf27bbb444c0ecbdec25e9191bffb881f23",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -9238,7 +9342,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T18:30:10.242510Z",
+  "updated_at": "2026-10-20T18:30:53.224399Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
