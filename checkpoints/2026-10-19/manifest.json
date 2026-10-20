@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T01:36:16.528526+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-20T01:36:22.783561+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -529,6 +529,18 @@
       "size": 27052
     },
     {
+      "path": "out/dispatch/cinema/review-cache/171e90635f4334368304cbc342ce70e774d9c6025770fb9255301ca9c8140118/receipt.json",
+      "class": "scratch",
+      "sha256": "7f573360cd89b33eb64454f5282efbaf19884bc38ef0a9dc230240496b9f5583",
+      "size": 582
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/171e90635f4334368304cbc342ce70e774d9c6025770fb9255301ca9c8140118/story-review-response.json",
+      "class": "scratch",
+      "sha256": "2f67c0bfcc5fc3284cecfce845bfc24493e16537581a3deaf6021fbc2abf463e",
+      "size": 129239
+    },
+    {
       "path": "out/dispatch/cinema/review-cache/7e2c9b6aca54508ed534d0025c1fcfedd4eb3e42266a7559834119cc03eda997/picture-review-response.json",
       "class": "scratch",
       "sha256": "072a006c549fca096a3d038b6b93cdedb2559bfc13ce63f4049d9964ae848c41",
@@ -875,6 +887,18 @@
       "class": "scratch",
       "sha256": "8a4a267ab2b52720ca5555a1bfd4f968b455268150954ab94efd1dd49c3e5175",
       "size": 47311
+    },
+    {
+      "path": "out/dispatch/cinema/story-review-response.json",
+      "class": "scratch",
+      "sha256": "2f67c0bfcc5fc3284cecfce845bfc24493e16537581a3deaf6021fbc2abf463e",
+      "size": 129239
+    },
+    {
+      "path": "out/dispatch/cinema/story-review.json",
+      "class": "scratch",
+      "sha256": "7f573360cd89b33eb64454f5282efbaf19884bc38ef0a9dc230240496b9f5583",
+      "size": 582
     },
     {
       "path": "out/dispatch/claims.json",
@@ -14882,8 +14906,8 @@
     }
   ],
   "regenerable": {
-    "files": 123,
-    "bytes": 27656108
+    "files": 124,
+    "bytes": 27656248
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }
