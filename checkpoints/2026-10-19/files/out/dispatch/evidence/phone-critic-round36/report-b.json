@@ -1,0 +1,251 @@
+{
+ "option": "b",
+ "review_scope": "exact-muted-phone-preflight",
+ "reviewed_preflight_sha256": "778f0335580fd8054469329de823582fd884f3f47c2506d494626f1b007ded55",
+ "concept_sha256": "aebd0fae8a2710dc7fda7a1165ac415755fa04b94435253a22258a7a1ced63a3",
+ "renderer_sha256": "fd7e71075342dbd76a16b4967a22aec35ab584eac61860b773526b0383a6dfe3",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "storyboard-critic claude-opus-5-5 high, isolated exact-muted-phone review round36",
+ "reviewed_at": "2026-10-20",
+ "verdict": "revise",
+ "blocking_defects": [
+  {
+   "category": "surface_finish",
+   "scene_id": "s3",
+   "time_s": 14.0,
+   "defect": "Same as option a: current stripes hairline-thin 13.2-17.4 s; no long thick stripe passes the car. Criterion surface_finish."
+  },
+  {
+   "category": "surface_finish",
+   "scene_id": "s3",
+   "time_s": 14.4,
+   "defect": "Same as option a: dot bubbles beside the slab and in the foam, short edge stubs 14.0-16.8 s, a short bank stub 13.2-15.2 s, tiny ticks 17.2-17.4 s. Criterion surface_finish."
+  },
+  {
+   "category": "motion",
+   "scene_id": "s3",
+   "time_s": 15.6,
+   "defect": "Same as option a: no readable lift off a separate dark shadow; the growth comes from the 15.4 s cut and the car reads as sliding and pivoting. Criterion contact_and_consequence; unresolved."
+  },
+  {
+   "category": "legibility",
+   "scene_id": "s3",
+   "time_s": 15.4,
+   "defect": "Same as option a: an oak crown abuts the disclosure chip at 15.4 s; the top-left corner is uncertain 15.6-16.8 s."
+  },
+  {
+   "category": "comprehension",
+   "scene_id": "s6",
+   "time_s": 30.4,
+   "defect": "Overhead lane 29.2-32.6 s: the standing water the car approaches lies mostly under the recall-sentence card and disclosure chip, and the brake cue is two red pinpoints at 30.8-32.4 s, so 'slow' and 'standing water ahead' are hard to read until the close-up at 32.8 s. Criterion dominant_action/subject_recognition."
+  }
+ ],
+ "action_reviews": [],
+ "phone_observations": {
+  "subject_recognition": {
+   "pass": false,
+   "start_s": 29.2,
+   "end_s": 32.6,
+   "observed": "The car reads throughout, but in the overhead lane shot it is small and the water patch ahead is mostly covered by the recall card and the disclosure chip; brake lamps are pinpoints. All other scenes match option a."
+  },
+  "contact_and_consequence": {
+   "pass": false,
+   "start_s": 13.2,
+   "end_s": 17.4,
+   "observed": "Identical creek: the carry completes and the car is out left by 17.4 s, but the lift off a separate shadow is not readable."
+  },
+  "surface_finish": {
+   "pass": false,
+   "start_s": 13.2,
+   "end_s": 17.4,
+   "observed": "Identical creek water defects: hairline stripes, dot bubbles, edge stubs, bank stub, ticks; scalloped foam with hard dots; thin smooth wake curves."
+  },
+  "closing_payoff": {
+   "pass": true,
+   "start_s": 50.0,
+   "end_s": 58.4,
+   "observed": "Same close as option a: the open-door generic airport ride beside the stamped remedy card, held in the split frame 56.4-58.4 s."
+  }
+ },
+ "modern_observations": {
+  "film_sha256": "778f0335580fd8054469329de823582fd884f3f47c2506d494626f1b007ded55",
+  "first_frame": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 1.4,
+   "observed": "Same curb arrival as option a from frame 0."
+  },
+  "visual_progression": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 58.4,
+   "observed": "Same causal chain as option a, with an overhead map 7.0-9.2 s, overhead desk 22.2-28.2 s and 37.0-41.4 s, and an overhead lane 28.4-32.6 s."
+  },
+  "shot_variety": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 58.4,
+   "observed": "Adds overhead plan views of the map, desk and lane to the ground-level shots shared with option a."
+  },
+  "performed_turn": {
+   "pass": true,
+   "start_s": 32.8,
+   "end_s": 36.8,
+   "observed": "Same close-up of the wheels entering water with 'may' lit as option a; the overhead approach before it is weakened by occlusion."
+  },
+  "pace": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 58.4,
+   "observed": "Same holds as option a; no unchanged interval longer than about 3 s."
+  },
+  "closing_answer": {
+   "pass": true,
+   "start_s": 50.0,
+   "end_s": 58.4,
+   "observed": "Same close as option a."
+  },
+  "finished_art": {
+   "pass": false,
+   "start_s": 13.2,
+   "end_s": 17.4,
+   "observed": "Same creek finish defects as option a; the overhead lane water also reads as a pale blob partly under overlays."
+  }
+ },
+ "narration_picture_observations": {
+  "film_sha256": "778f0335580fd8054469329de823582fd884f3f47c2506d494626f1b007ded55",
+  "clauses": [
+   {
+    "id": "n1a",
+    "pass": true,
+    "start_s": 0.2,
+    "end_s": 5.05,
+    "observed": "Same as option a."
+   },
+   {
+    "id": "n1b",
+    "pass": true,
+    "start_s": 5.4,
+    "end_s": 6.57,
+    "observed": "Same as option a."
+   },
+   {
+    "id": "n2a",
+    "pass": true,
+    "start_s": 7.12,
+    "end_s": 9.11,
+    "observed": "Overhead map with February page; river and roads draw."
+   },
+   {
+    "id": "n2b",
+    "pass": true,
+    "start_s": 9.46,
+    "end_s": 12.68,
+    "observed": "Same tag and closing outline as option a."
+   },
+   {
+    "id": "n3",
+    "pass": true,
+    "start_s": 13.23,
+    "end_s": 17.26,
+    "observed": "Same creek carry as option a; subject and action match; finish and lift defects listed separately."
+   },
+   {
+    "id": "n4",
+    "pass": true,
+    "start_s": 17.81,
+    "end_s": 21.84,
+    "observed": "Same as option a."
+   },
+   {
+    "id": "n5a",
+    "pass": true,
+    "start_s": 22.39,
+    "end_s": 24.38,
+    "observed": "Flat overhead card types 'Software'."
+   },
+   {
+    "id": "n5b",
+    "pass": true,
+    "start_s": 24.73,
+    "end_s": 27.95,
+    "observed": "Same grid, tag and stamp as option a."
+   },
+   {
+    "id": "n6a",
+    "pass": false,
+    "start_s": 28.5,
+    "end_s": 32.53,
+    "observed": "Overhead car advances with pinpoint brake marks from 30.8 s; the standing water ahead is mostly hidden under the sentence card and chip, so 'slow' toward water is weakly pictured."
+   },
+   {
+    "id": "n6b",
+    "pass": true,
+    "start_s": 32.88,
+    "end_s": 36.51,
+    "observed": "Same close-up of the wheels entering water with 'may' lit as option a."
+   },
+   {
+    "id": "n7",
+    "pass": true,
+    "start_s": 37.06,
+    "end_s": 41.09,
+    "observed": "Flat card; remedy row, pen, stamp as in option a."
+   },
+   {
+    "id": "n8a",
+    "pass": true,
+    "start_s": 41.64,
+    "end_s": 45.26,
+    "observed": "Same as option a."
+   },
+   {
+    "id": "n8b",
+    "pass": true,
+    "start_s": 45.61,
+    "end_s": 49.65,
+    "observed": "Same as option a."
+   },
+   {
+    "id": "n9a",
+    "pass": true,
+    "start_s": 50.2,
+    "end_s": 52.6,
+    "observed": "Same as option a."
+   },
+   {
+    "id": "n9bc",
+    "pass": true,
+    "start_s": 52.95,
+    "end_s": 58.1,
+    "observed": "Same as option a."
+   }
+  ]
+ },
+ "story_review": {
+  "story_sha256": "8a5be5e790a91c07dc87ac25f801bcf33c06308f6bf47d959d04a8fcc929b873",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "revise",
+  "blocking_defects": [
+   {
+    "category": "surface_finish",
+    "scene_id": "s3",
+    "time_s": 14.0,
+    "defect": "Same unfinished creek water as option a."
+   },
+   {
+    "category": "comprehension",
+    "scene_id": "s6",
+    "time_s": 30.4,
+    "defect": "The mechanism's standing water is occluded by overlays in the overhead approach."
+   }
+  ],
+  "one_viewing_summary": "Same story as option a, read more from above; the lane mechanism is clear only once the close-up arrives at 32.8 s.",
+  "opening_to_ending": "Same as option a.",
+  "weakest_transition": "s5 to s6 at 28.4 s: a flat record desk cuts to a flat overhead road where the sentence card then covers the water the car is heading for."
+ },
+ "notes": "Same sampled-image basis as option a. Creek pages are identical to option a (page 014 byte-identical).",
+ "strongest_frame": "34.2 s, same close-up as option a.",
+ "weakest_frame": "30.4 s, overhead lane: small car, water under the sentence card and chip."
+}

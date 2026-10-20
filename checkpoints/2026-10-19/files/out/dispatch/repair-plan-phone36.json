@@ -1,0 +1,54 @@
+{
+  "repair_scope": "standard",
+  "mechanism_id": "creek-locked-zoom-bold-current",
+  "failure_family": "unclassified",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The independent exact-phone review round 36 (selected option A film 66ea1a32, option B film 778f0335) again rejected both films only in the s3 creek (13.2 to 17.4 s) at 270 px. The empty cabin, the carry, the exit before the cut and the smooth foam are accepted. Remaining: (1) the five current stripes (width 13 at a .25 phone scale) still read as hairlines and one passes above the car; (2) short dotted and stub marks remain (round dot bubbles by the ledge slab and in the foam, stripe end stubs at both frame edges 14.0 to 16.8 s, a short pale stub on the lower-left bank, tiny ticks near the slab at 17.2 to 17.4 s); (3) the lift is not readable because the pale halo covers the dark shadow and the car's growth is hidden by the cut; (4) an oak crown abuts the disclosure chip at 15.4 s. These are all scale defects of a wide overhead framing where every cue is 3 phone pixels. The prior pivot reviewer named the next change: a locked tighter overhead on the bank-launch spot so the car is large from the first frame.",
+  "repair": "Change the camera scale, then fix the marks at that scale. (1) Shot 1 becomes a locked overhead at about 1.6x centred on the car's bank spot so the car and its surroundings are large from the first frame, and shot 2 follows the car with a camera pan at about 1.4x that keeps the fixed oak crown and the ledge slab passing through frame while the car is carried out of the left edge before the 17.6 s cut. (2) Current: 3 or 4 stripes, width about 30 plan px at opacity .6, each longer than the visible frame width so no end or stub ever appears in frame. (3) Delete every dot, stub and tick in the creek: the drifting soft circles in the collar, the slab's foam ellipses, the short bank foam line segments and worn-path stub on the lower-left bank, and the small rain rings. Soft foam remains only as the collar ellipses and the continuous wake. (4) Lift: delete the pale halo, draw the dark blurred shadow offset up to about 60 plan px at constant opacity .60 and let the car scale rise .60 to about .78 inside the shot so the growth is seen within a shot, not at the cut. (5) Keep every crown ellipse at least 24 px from the disclosure chip box and everything above the caption band.",
+  "mechanism_change": "The framing and scale change from a wide overhead plus a 1.25x close to a locked 1.6x overhead plus a following pan, so every cue is drawn at roughly 1.3 to 1.6 times the phone size, and the lift is shown by shadow separation and growth inside one shot rather than across a cut.",
+  "expected_visible_result": "At phone size the car is large from 13.2 s with two bare seats, thick stripes of current pass it with no stubs or dots, it visibly grows and rises off a dark separate shadow inside shot 2, and it is carried past the oak and slab and out of frame with the crown clear of the chip.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/report-a.json",
+  "failure_evidence_sha256": "bf3f255599de95fedc9ea1c48b298f116e15a2179edb11eee31c3ab8d4e0d506",
+  "changed_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/RobotaxiFilm.tsx",
+      "before_sha256": "eda2cb131d45275bda57d1dd8bbf739ca2f969c32831c110793dc10a78ae1d75",
+      "after_sha256": "eda2cb131d45275bda57d1dd8bbf739ca2f969c32831c110793dc10a78ae1d75"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/RobotaxiHero.tsx",
+      "before_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+      "after_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/SanAntonioSupport.tsx",
+      "before_sha256": "fc9d9a963134f5140699d081b73c63ea15fc299b1331dd5fe6adacadd9909504",
+      "after_sha256": "fc9d9a963134f5140699d081b73c63ea15fc299b1331dd5fe6adacadd9909504"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/storyboard.json",
+      "before_sha256": "0c0b76df990fc7bfee3eee4acf04c4182400c7a19c98899287e0d55ff05b0565",
+      "after_sha256": "0c0b76df990fc7bfee3eee4acf04c4182400c7a19c98899287e0d55ff05b0565"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/opening-a.json",
+      "before_sha256": "0c0b76df990fc7bfee3eee4acf04c4182400c7a19c98899287e0d55ff05b0565",
+      "after_sha256": "0c0b76df990fc7bfee3eee4acf04c4182400c7a19c98899287e0d55ff05b0565"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/opening-b.json",
+      "before_sha256": "ce10443e571118519d702d68af027707a1beb12a597dd986baf16ccea284361d",
+      "after_sha256": "ce10443e571118519d702d68af027707a1beb12a597dd986baf16ccea284361d"
+    }
+  ],
+  "resources": {
+    "reboards": 1
+  },
+  "failed_film_sha256": "66ea1a321c7c84564ce9ee2e03e11683bb1d0345c380fb4776d37eeb26f58452"
+}

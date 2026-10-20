@@ -1,0 +1,93 @@
+{
+  "repair_scope": "standard",
+  "mechanism_id": "creek-locked-zoom-bold-current",
+  "failure_family": "unclassified",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The independent exact-phone review round 36 (selected option A film 66ea1a32, option B film 778f0335) again rejected both films only in the s3 creek (13.2 to 17.4 s) at 270 px. The empty cabin, the carry, the exit before the cut and the smooth foam are accepted. Remaining: (1) the five current stripes (width 13 at a .25 phone scale) still read as hairlines and one passes above the car; (2) short dotted and stub marks remain (round dot bubbles by the ledge slab and in the foam, stripe end stubs at both frame edges 14.0 to 16.8 s, a short pale stub on the lower-left bank, tiny ticks near the slab at 17.2 to 17.4 s); (3) the lift is not readable because the pale halo covers the dark shadow and the car's growth is hidden by the cut; (4) an oak crown abuts the disclosure chip at 15.4 s. These are all scale defects of a wide overhead framing where every cue is 3 phone pixels. The prior pivot reviewer named the next change: a locked tighter overhead on the bank-launch spot so the car is large from the first frame.",
+  "repair": "Change the camera scale, then fix the marks at that scale. (1) Shot 1 becomes a locked overhead at about 1.6x centred on the car's bank spot so the car and its surroundings are large from the first frame, and shot 2 follows the car with a camera pan at about 1.4x that keeps the fixed oak crown and the ledge slab passing through frame while the car is carried out of the left edge before the 17.6 s cut. (2) Current: 3 or 4 stripes, width about 30 plan px at opacity .6, each longer than the visible frame width so no end or stub ever appears in frame. (3) Delete every dot, stub and tick in the creek: the drifting soft circles in the collar, the slab's foam ellipses, the short bank foam line segments and worn-path stub on the lower-left bank, and the small rain rings. Soft foam remains only as the collar ellipses and the continuous wake. (4) Lift: delete the pale halo, draw the dark blurred shadow offset up to about 60 plan px at constant opacity .60 and let the car scale rise .60 to about .78 inside the shot so the growth is seen within a shot, not at the cut. (5) Keep every crown ellipse at least 24 px from the disclosure chip box and everything above the caption band.",
+  "mechanism_change": "The framing and scale change from a wide overhead plus a 1.25x close to a locked 1.6x overhead plus a following pan, so every cue is drawn at roughly 1.3 to 1.6 times the phone size, and the lift is shown by shadow separation and growth inside one shot rather than across a cut.",
+  "expected_visible_result": "At phone size the car is large from 13.2 s with two bare seats, thick stripes of current pass it with no stubs or dots, it visibly grows and rises off a dark separate shadow inside shot 2, and it is carried past the oak and slab and out of frame with the crown clear of the chip.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/report-a.json",
+  "failure_evidence_sha256": "bf3f255599de95fedc9ea1c48b298f116e15a2179edb11eee31c3ab8d4e0d506",
+  "changed_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/RobotaxiFilm.tsx",
+      "before_sha256": "eda2cb131d45275bda57d1dd8bbf739ca2f969c32831c110793dc10a78ae1d75",
+      "after_sha256": "eda2cb131d45275bda57d1dd8bbf739ca2f969c32831c110793dc10a78ae1d75"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/RobotaxiHero.tsx",
+      "before_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+      "after_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/SanAntonioSupport.tsx",
+      "before_sha256": "fc9d9a963134f5140699d081b73c63ea15fc299b1331dd5fe6adacadd9909504",
+      "after_sha256": "fc9d9a963134f5140699d081b73c63ea15fc299b1331dd5fe6adacadd9909504"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/storyboard.json",
+      "before_sha256": "0c0b76df990fc7bfee3eee4acf04c4182400c7a19c98899287e0d55ff05b0565",
+      "after_sha256": "0c0b76df990fc7bfee3eee4acf04c4182400c7a19c98899287e0d55ff05b0565"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/opening-a.json",
+      "before_sha256": "0c0b76df990fc7bfee3eee4acf04c4182400c7a19c98899287e0d55ff05b0565",
+      "after_sha256": "0c0b76df990fc7bfee3eee4acf04c4182400c7a19c98899287e0d55ff05b0565"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round36/baseline/opening-b.json",
+      "before_sha256": "ce10443e571118519d702d68af027707a1beb12a597dd986baf16ccea284361d",
+      "after_sha256": "ce10443e571118519d702d68af027707a1beb12a597dd986baf16ccea284361d"
+    }
+  ],
+  "resources": {
+    "reboards": 1
+  },
+  "failed_film_sha256": "66ea1a321c7c84564ce9ee2e03e11683bb1d0345c380fb4776d37eeb26f58452",
+  "capture_completion_budget": {
+    "schema": "dispatch_capture_completion_budget_evidence/3",
+    "run_id": "2026-10-19",
+    "policy_json": "{\n  \"schema\": \"dispatch_capture_completion_budget/3\",\n  \"effective_date\": \"2026-10-17\",\n  \"applies_to\": \"new evidence-bound capacity plans for active unfinished production\",\n  \"path\": \"renewed-two-treatment-comparison-with-phone-sequences\",\n  \"minimum_remaining\": {\"preflight_renders\": 8, \"storyboard_critics\": 4, \"full_renders\": 2, \"audiovisual_reviews\": 11, \"panel_rounds\": 1, \"scorer_calls\": 3},\n  \"preflight_operators\": {\"opening_compare_hook_and_entry\": 2, \"comparison_phone_sequences\": 2, \"final_timed_phone\": 1, \"timed_phone_sequence\": 1, \"native_hero\": 1, \"exact_film_motion\": 1},\n  \"native_render_hook_and_entry\": 2,\n  \"authorization_source_label\": \"Standing owner autonomous completion and complete remaining-path instruction, October 3rd and October 7th, 2026\",\n  \"invariants\": [\n    \"Bind the retained successful comparison and its actual two charged reservations.\",\n    \"Retain both original option boards and films byte-identically.\",\n    \"Use prepared single-claim authorization for the supported phone, hero and motion operators; opening comparison and native rendering retain their actual hook and entry charges.\",\n    \"Fund all eight preflight reservations and both native-render reservations before a new mandatory correction.\",\n    \"Keep prior v1 and v2 policy bytes, grants, failures, frozen envelopes and cumulative charges unchanged.\",\n    \"Use existing independent mandatory admission and obtain fresh code, comparison, timed phone, native, audiovisual, three-scorer and shipment evidence.\",\n    \"Capacity grants no creative approval, optional polish, lower-quality render or delivery waiver.\"\n  ]\n}\n",
+    "policy_sha256": "a24e8f717afde205194f77dcc47756285e7e257fe2f8e2dea0b957c1ce61d0e8",
+    "comparison_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/comparison.json",
+    "comparison_json": "{\n  \"schema\": \"dispatch-opening-comparison/1\",\n  \"policy_sha256\": \"77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765\",\n  \"renderer_sha256\": \"fd7e71075342dbd76a16b4967a22aec35ab584eac61860b773526b0383a6dfe3\",\n  \"producer_sha256\": \"942ce0a64942aea8781654be90f305964542eb23bc48332f4a6d235433cfbc02\",\n  \"reservation\": {\n    \"identity\": \"c2ff4cef71934c369f2ef305c8defec8f3220f3e5c5dcaab5fbdc800c1c53af7\",\n    \"run_id\": \"2026-10-19\",\n    \"event_index\": 388\n  },\n  \"options\": [\n    {\n      \"id\": \"a\",\n      \"concept_sha256\": \"0eac6cd7e1de1299d73f9ddd77f790e31f9dca3dc5f41373018cf992d95972ff\",\n      \"renderer_sha256\": \"fd7e71075342dbd76a16b4967a22aec35ab584eac61860b773526b0383a6dfe3\",\n      \"board\": {\n        \"file\": \"a.json\",\n        \"sha256\": \"0c0b76df990fc7bfee3eee4acf04c4182400c7a19c98899287e0d55ff05b0565\"\n      },\n      \"film\": {\n        \"file\": \"a.mp4\",\n        \"sha256\": \"66ea1a321c7c84564ce9ee2e03e11683bb1d0345c380fb4776d37eeb26f58452\"\n      },\n      \"inspection\": {\n        \"file\": \"a-inspection-c384e001b5a5f138.json\",\n        \"sha256\": \"101a93b40616a3121a30e2091aa3936833e40d4f249e3e828a67d5f4f0e8925f\"\n      }\n    },\n    {\n      \"id\": \"b\",\n      \"concept_sha256\": \"cf945dddc04a12444f0326a2f2fdf22ee7cca762acfdd6adffc884b8848c1b1a\",\n      \"renderer_sha256\": \"fd7e71075342dbd76a16b4967a22aec35ab584eac61860b773526b0383a6dfe3\",\n      \"board\": {\n        \"file\": \"b.json\",\n        \"sha256\": \"ce10443e571118519d702d68af027707a1beb12a597dd986baf16ccea284361d\"\n      },\n      \"film\": {\n        \"file\": \"b.mp4\",\n        \"sha256\": \"778f0335580fd8054469329de823582fd884f3f47c2506d494626f1b007ded55\"\n      },\n      \"inspection\": {\n        \"file\": \"b-inspection-8d9b2788677f4917.json\",\n        \"sha256\": \"ef284fec4129bd031a6a61303e2ca6c2a0d98c807030cc61a9d4b0883cc715dc\"\n      }\n    }\n  ],\n  \"inspection_problems\": [],\n  \"inspection_pass\": true\n}\n",
+    "comparison_sha256": "08717be9034bebdfbe7a492a4041ce0baf61418e0a72e1ae6b2e7e8ebc3027b2",
+    "retained_files": [
+      {
+        "option": "a",
+        "kind": "board",
+        "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/a.json",
+        "sha256": "0c0b76df990fc7bfee3eee4acf04c4182400c7a19c98899287e0d55ff05b0565"
+      },
+      {
+        "option": "a",
+        "kind": "film",
+        "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/a.mp4",
+        "sha256": "66ea1a321c7c84564ce9ee2e03e11683bb1d0345c380fb4776d37eeb26f58452"
+      },
+      {
+        "option": "b",
+        "kind": "board",
+        "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/b.json",
+        "sha256": "ce10443e571118519d702d68af027707a1beb12a597dd986baf16ccea284361d"
+      },
+      {
+        "option": "b",
+        "kind": "film",
+        "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/b.mp4",
+        "sha256": "778f0335580fd8054469329de823582fd884f3f47c2506d494626f1b007ded55"
+      }
+    ],
+    "hook_event_index": 388,
+    "hook_event_sha256": "8d20de2cf9a7db12c7fbd359cacb88ae08724b8623bcbdaf4c6867566efcc2a0",
+    "entry_event_index": 388,
+    "entry_event_sha256": "8d20de2cf9a7db12c7fbd359cacb88ae08724b8623bcbdaf4c6867566efcc2a0"
+  }
+}
