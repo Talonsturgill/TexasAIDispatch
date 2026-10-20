@@ -591,9 +591,11 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   const planCam=creekPlanCloser(shot as typeof shot&{scene_fraction_start?:number})?CREEK_PLAN_CLOSE:ID;
   const yaw=-12*off+3*(1-off)*(.3+.7*pr)*Math.sin(2*Math.PI*1.1*t),sc=.5+.05*smooth(off),g=clamp(.3+.5*pr+.4*off);
   const lift=smooth(off),sd=3+13*lift;
-  /** A point on a quadratic curve, for a wake arm cut into separate fading pieces. */
-  const q=(a:Pt,c:Pt,b:Pt,u:number):Pt=>[(1-u)*(1-u)*a[0]+2*u*(1-u)*c[0]+u*u*b[0],(1-u)*(1-u)*a[1]+2*u*(1-u)*c[1]+u*u*b[1]];
-  const wakeL=150+130*g,spread=50+50*g;
+  // each wake arm is a real downstream streamline: sampled along its length, spreading off the stern and bowed
+  // toward the channel side (-y) by a quarter of its own length, about 143 to 197 plan px along the arm as g grows
+  const wakeL=220+85*g,spread=50+50*g,wakeBow=.25;
+  const wakeArm=(sgn:number,u0:number,u1:number):Pt[]=>Array.from({length:6},(_,i)=>{const u=lerp(u0,u1,i/5);
+   return [-262-wakeL*u,sgn*(78+spread*u)-wakeBow*wakeL*Math.sin(Math.PI*u)] as Pt;});
   const local=(node:React.ReactNode,dx=0,dy=0,k2=1)=><g transform={`translate(${(cx+dx).toFixed(2)} ${(cy+dy).toFixed(2)}) rotate(${yaw.toFixed(3)}) scale(${(sc*k2).toFixed(4)})`}>{node}</g>;
   pic=<CamG c={planCam} z={1}>
    <Item id="s3-creek"><Item id="s3-crossing"><Item id="s3-rain"><SanAntonioSupport part="creekplan" t={t} rain={S.s3.rain} flow={S.s3.flow} off={off}/></Item></Item></Item>
@@ -602,11 +604,8 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
     {local(<rect x={-262} y={-118} width={524} height={236} rx={84} fill="#120C06" opacity={.32*lift}/>,sd*1.3,sd*1.3,1.1)}
     {local(<rect x={-256} y={-112} width={512} height={224} rx={80} fill="#120C06" opacity={.5-.28*lift}/>,sd,sd)}
     {/* the curved V wake off the stern, bending with the channel and fading in pieces */}
-    {local(<g data-part="v-wake">{[-1,1].map(sgn=>[[0,.3],[.38,.64],[.72,1]].map(([u0,u1],j)=>{
-      const a:Pt=[-262,sgn*78],c:Pt=[-262-wakeL*.55,sgn*(78+spread*.35)+12],b:Pt=[-262-wakeL,sgn*(78+spread)+16];
-      const pts=[0,.5,1].map(v=>q(a,c,b,lerp(u0,u1,v)));
-      return <path key={sgn+'-'+j} d={'M'+pts[0][0].toFixed(1)+' '+pts[0][1].toFixed(1)+'Q'+pts[1][0].toFixed(1)+' '+pts[1][1].toFixed(1)+' '+pts[2][0].toFixed(1)+' '+pts[2][1].toFixed(1)}
-       stroke="#F2EEE4" strokeWidth={22-6*j} fill="none" strokeLinecap="round" opacity={(.8-.22*j)*(.5+.5*g)}/>;}))}</g>)}
+    {local(<g data-part="v-wake">{[-1,1].map(sgn=>[[0,.3],[.36,.66],[.72,1]].map(([u0,u1],j)=>
+      <path key={sgn+'-'+j} d={smoothPath(wakeArm(sgn,u0,u1),false)} stroke="#F2EEE4" strokeWidth={22-6*j} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={(.8-.22*j)*(.5+.5*g)}/>))}</g>)}
     {/* water rushing round the wheels from the first frame */}
     {local(<g data-part="wheel-water">{[[-168,-122],[-168,122],[172,-122],[172,122]].map(([x,y],i)=>{const ph=frac(t*1.4+i*.27);
       return <ellipse key={i} cx={x-30*ph} cy={y+(y>0?8:-8)*ph} rx={30+26*ph} ry={14+8*ph} fill="none" stroke="#F2EEE4" strokeWidth={10-5*ph} opacity={.85*(1-ph)}/>;})}</g>)}
