@@ -7,7 +7,7 @@ import {PlaceSubject,usePlace} from '../../PlaceStage';
 import type {FilmRenderProps} from '../../types';
 import {RobotaxiHero,CAR,SIDE_BOX,TOP_BOX,DOOR_STOP,type SideProps,type TopProps} from './RobotaxiHero';
 import {SanAntonioSupport,CURB,CURB_PLAN,CREEK,CREEK_MARKS,STREET,LANE,LOT,LOT_PLAN,LOT_PLAN_CLOSE,LANE_PLAN,STREET_PLAN,CREEK_PLAN,
- QUOTE_TEXT,REMEDY_ROW,floodFoot,puddleFoot,imprintSize,stampSlots,remedyPenTip,stampKnob,cordAt,cordAtClose,STAMP_SIZE,type Imprint} from './SanAntonioSupport';
+ QUOTE_TEXT,REMEDY_ROW,floodFoot,puddleFoot,creekToePts,smoothPath,imprintSize,stampSlots,remedyPenTip,stampKnob,cordAt,cordAtClose,STAMP_SIZE,type Imprint} from './SanAntonioSupport';
 
 /**
  * robotaxi-recall-v1: the ride and the recall (2026-10-19, Bexar County).
@@ -547,15 +547,17 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   // its lower body in front of it, with the foam line where the current meets it and its reflection.
   const {p,ks,rot,wl}=s3Car(S,t),pr=S.s3.press,wy=CREEK.waterY,half=258*ks;
   const car=side(p,ks,{wheel:0,brake:0,wetTo:wl+10,shadow:0,cabin:1},rot);
-  const ext={x0:-300,x1:1500,y0:CREEK.bankY-6,y1:1960};
-  const foot=`M${ext.x0} ${ext.y1}L${ext.x0} ${ext.y0}`+Array.from({length:24},(_,i)=>`L${lerp(ext.x0,ext.x1,(i+1)/24).toFixed(1)} ${(ext.y0+3*Math.sin(i*1.9)).toFixed(1)}`).join('')+`L${ext.x1} ${ext.y1}Z`;
-  const sheet=(layer:'back'|'front')=><SanAntonioSupport part="flood" layer={layer} foot={foot} {...ext} t={t} drift={S3.drift} seed={17} marks={170}
+  // the sheet's far edge follows the far bank's wandering toe (creekToe), the same row its lowest stone course
+  // and slumped blocks stand in, so the water never meets the bank along a ruled line
+  const ext={x0:-300,x1:1500,y0:CREEK.bankY-20,y1:1960},toe=creekToePts(ext.x0,ext.x1,24);
+  const foot=`M${ext.x0} ${ext.y1}L${toe[0][0].toFixed(1)} ${toe[0][1].toFixed(1)}`+smoothPath(toe,false).replace(/^M[^C]*/,'')+`L${ext.x1} ${ext.y1}Z`;
+  const sheet=(layer:'back'|'front')=><SanAntonioSupport part="flood" layer={layer} foot={foot} {...ext} t={t} drift={S3.drift} seed={17} marks={170} lit={.002}
    line={{y:wy,x0:p[0]-half,x1:p[0]+half}} reflect={mirrorAbout(wy,car)} press={pr}/>;
   // the bow wave on the upstream end grows as the water presses and stays while the current carries it
   const bow=.3+.7*pr+.25*S.s3.off;
   const world=<Grounded baseY={CREEK_CAR.y} on={exterior}>
    <Item id="s3-creek"><SanAntonioSupport part="creekback" t={t} flow={S.s3.flow} width={[ext.x0,ext.x1]}/>{sheet('back')}
-    <SanAntonioSupport part="creekledge" t={t}/></Item>
+    <SanAntonioSupport part="creektoe" t={t} width={[ext.x0,ext.x1]}/><SanAntonioSupport part="creekledge" t={t}/></Item>
    <Item id="s3-crossing"><SanAntonioSupport part="creekshelf" t={t} layer="back" drift={S3.drift}/></Item>
    <Item id="s3-car">{car}</Item>
    {sheet('front')}
