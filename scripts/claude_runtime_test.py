@@ -1,6 +1,7 @@
 """Actual host packets and deduplicated Claude transcript usage stay explicit."""
 import json
 import copy
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -52,6 +53,60 @@ class RuntimeTests(unittest.TestCase):
                 patch('source_view.git', return_value='true'), \
                 self.assertRaisesRegex(ValueError, 'before reserving any content worker'):
             runtime.plan('researcher', self.root/'not-started.json', 'researcher', 'Inspect current sources.')
+
+    def cloud_visual_fixture(self):
+        import bootstrap_claude_hooks
+        import visual_observations
+        primary = (self.root / 'primary').resolve()
+        primary.mkdir()
+        bootstrap_claude_hooks.bootstrap(primary, runtime.REPO, prelaunch_router=True)
+        visual_observations.install(runtime.REPO, primary)
+        data = runtime.image_reading({'role': 'picture', 'date': '2026-10-20',
+            'agent_assignment': runtime.assignment('picture', '2026-10-20'),
+            'brief': '.claude/agents/scorer.md', 'instructions': 'Read every current guide.'})
+        packet = self.root / 'cloud-visual.json'
+        packet.write_text(json.dumps(data))
+        return primary, packet
+
+    def test_cloud_visual_plan_checks_the_registered_primary_without_changing_home_or_settings(self):
+        primary, packet = self.cloud_visual_fixture()
+        process_home = self.root / 'different-process-home'
+        original_home = os.environ.get('HOME')
+        settings = primary / '.claude/settings.json'
+        before = settings.read_bytes()
+        with patch.dict('os.environ', {'CLAUDE_CODE_REMOTE': 'true'}), \
+                patch('source_view.git', return_value=''), \
+                patch('pathlib.Path.home', return_value=process_home), \
+                patch.object(runtime, 'CLOUD_PRIMARY_WORKSPACE', primary), \
+                patch('agent_runtime.required_inputs'), patch('agent_runtime.validate_references'), \
+                patch.object(runtime, 'motion_inputs'):
+            result = runtime.plan('picture', packet, 'picture', 'Review the exact final film independently.')
+        self.assertEqual('dispatch-visual-scorer', result['agent_args']['subagent_type'])
+        self.assertEqual(original_home, os.environ.get('HOME'))
+        self.assertEqual(before, settings.read_bytes())
+        self.assertFalse(process_home.exists())
+
+    def test_cloud_primary_still_refuses_a_missing_actual_write_hook_before_returning_arguments(self):
+        primary, packet = self.cloud_visual_fixture()
+        settings = primary / '.claude/settings.json'
+        data = json.loads(settings.read_text())
+        data['hooks']['PostToolUse'] = [row for row in data['hooks']['PostToolUse']
+                                       if row['matcher'] != 'Write']
+        settings.write_text(json.dumps(data))
+        before = settings.read_bytes()
+        with patch.dict('os.environ', {'CLAUDE_CODE_REMOTE': 'true'}), \
+                patch('source_view.git', return_value=''), \
+                patch.object(runtime, 'CLOUD_PRIMARY_WORKSPACE', primary), \
+                patch('agent_runtime.required_inputs'), patch('agent_runtime.validate_references'), \
+                patch.object(runtime, 'motion_inputs'), \
+                self.assertRaisesRegex(ValueError, 'primary-scope visual hooks are missing or changed'):
+            runtime.plan('picture', packet, 'picture', 'Review the exact final film independently.')
+        self.assertEqual(before, settings.read_bytes())
+
+    def test_cloud_primary_path_matches_the_saved_prelaunch_setup_contract(self):
+        setup = (runtime.REPO / 'scripts/claude_environment_setup.sh').read_text()
+        for command in ('scripts/bootstrap_claude_hooks.py', 'scripts/visual_observations.py install'):
+            self.assertIn(command + ' --workspace ' + str(runtime.CLOUD_PRIMARY_WORKSPACE), setup)
 
     def test_current_early_workers_require_actual_provider_availability(self):
         source = self.root/'source.json'; source.write_text('{}')

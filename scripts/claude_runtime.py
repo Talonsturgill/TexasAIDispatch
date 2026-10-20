@@ -13,6 +13,8 @@ import agent_runtime
 
 REPO = Path(__file__).resolve().parents[1]
 POLICY = REPO / 'config/claude_runtime.json'
+# Prelaunch setup registers project hooks here even when the process home is /root.
+CLOUD_PRIMARY_WORKSPACE = Path('/home/user')
 
 
 def read(path):
@@ -573,7 +575,7 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
     from visual_observations import CONTRACT, check_installation
     if data.get('public_visual_evidence') == CONTRACT:
         if os.environ.get('CLAUDE_CODE_REMOTE') == 'true':
-            check_installation(REPO, Path.home())
+            check_installation(REPO, CLOUD_PRIMARY_WORKSPACE)
         result['agent_args']['subagent_type'] = ('dispatch-visual-critic' if role == 'storyboard-critic'
                                                 else 'dispatch-visual-scorer')
         result['model_binding'] += (' The guarded visual leaf preserves this exact role model, effort, '
