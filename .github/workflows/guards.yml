@@ -101,6 +101,7 @@ jobs:
           python3 scripts/rights_repair_precharge_test.py
           python3 scripts/native_sample_plan_test.py
           python3 scripts/dispatch_housekeeping_test.py
+          python3 scripts/owned_git_compaction_test.py
 
       - name: Independent review survives host capacity without changing verdicts
         run: |

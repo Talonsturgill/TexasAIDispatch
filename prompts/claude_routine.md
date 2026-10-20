@@ -95,6 +95,13 @@ Before every native render, calculate scripts/native_headroom.py on the current 
 that housekeeping command with --require-headroom --min-free-gib set to its required_free_gib.
 Retain at least two completed packages. Missing process inspection or unverifiable archives never
 authorize cleanup; recover the actual capacity condition through the controller.
+If eligible cleanup leaves insufficient room, compact the selected isolated edition's Git object
+storage with `python scripts/owned_git_compaction.py --repo <actual-edition-checkout> --apply --out <fresh-edition-receipt.json>`.
+This uses Git's keep-unreachable mode and verifies all prior object identities, refs, dirty state
+and ledger bytes. It refuses shared storage or active Git locks; wait for the actual lock and retry
+with a fresh receipt. Then rerun the full native planner and housekeeping at the unchanged target.
+Do not uninstall unrelated host toolchains, delete retained evidence or ask the owner to free space.
+Keep a real refusal and continue the configured capacity recovery if compaction is insufficient.
 
 Read knowledge/craft/AUTHORED_STORY_ART.md and config/authored_story_art.json during the
 picture phase. Use its actual record, verify and stage commands. There is no ImageGen call
