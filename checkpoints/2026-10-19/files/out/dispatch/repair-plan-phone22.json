@@ -1,0 +1,54 @@
+{
+  "repair_scope": "standard",
+  "mechanism_id": "creek-water-patch-edge-removal",
+  "failure_family": "unclassified",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The independent timed exact-phone review (round 22, film cadf6e2d, A) rejected the repaired cut for one nondeferrable surface_finish and finished_art defect. In the s3 car-swept medium shot (about 14.8 to 17.2 s) a lighter brown rectangular water region sits right of center with a ragged near-vertical left edge and a ruler-straight horizontal bottom edge. It stays fixed while the car drifts left out of frame and reads as an unfinished compositing box instead of a submerged shelf or bank.",
+  "repair": "In the s3 car-swept view remove the fixed lighter water patch or redraw it with loose hand-cut edges visibly anchored to the limestone bank, or keep it out of the medium framing, so no straight horizontal or vertical edge is visible between 14.8 and 17.2 s. Leave the creek displacement, carry action, timing, words, claims, voice, captions and every other scene unchanged.",
+  "mechanism_change": "The hard-edged shelf layer in the swept medium view is replaced by a bank-anchored hand-cut edge or removed from that framing, a drawing change to one surface rather than a change to the camera, motion or timing.",
+  "expected_visible_result": "At phone size the creek water in the s3 medium shot has no rectangular patch or straight edge, and the car is still visibly carried past the fixed ledge and oak.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/report.json",
+  "failure_evidence_sha256": "a55ca888b1bd8cada7a2235975c13a5dced6d8e4c9d2ec0a80725cd0f0a52719",
+  "changed_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/RobotaxiFilm.tsx",
+      "before_sha256": "9b0c17114ab0bf5409c9af7cdd9030dd6ee03696b709ffd644e1a3fb52e03192",
+      "after_sha256": "9b0c17114ab0bf5409c9af7cdd9030dd6ee03696b709ffd644e1a3fb52e03192"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/RobotaxiHero.tsx",
+      "before_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+      "after_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/SanAntonioSupport.tsx",
+      "before_sha256": "724d305bea0e78afb04e18a4a266e8e985478dc0605c62f11707e4770fe421c0",
+      "after_sha256": "724d305bea0e78afb04e18a4a266e8e985478dc0605c62f11707e4770fe421c0"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/storyboard.json",
+      "before_sha256": "1acbdace7815e07d2360ad309601a819e40156676ca8b7abe84098dffe46ac1d",
+      "after_sha256": "1acbdace7815e07d2360ad309601a819e40156676ca8b7abe84098dffe46ac1d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/opening-a.json",
+      "before_sha256": "0cd19a78bf8c310452c6c9436523b3e84743ece2c3e421958ae7c1a80066bcfa",
+      "after_sha256": "0cd19a78bf8c310452c6c9436523b3e84743ece2c3e421958ae7c1a80066bcfa"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/opening-b.json",
+      "before_sha256": "7e4afc72ecaf35b6227b5b1964532a381e1d6047fe5da556a42faed1ecdf706e",
+      "after_sha256": "7e4afc72ecaf35b6227b5b1964532a381e1d6047fe5da556a42faed1ecdf706e"
+    }
+  ],
+  "resources": {
+    "reboards": 1
+  },
+  "failed_film_sha256": "cadf6e2dfa1b5c557163e683de0ad001aa2a200f4830e061c3378d5bf501717a"
+}

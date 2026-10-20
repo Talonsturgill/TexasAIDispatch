@@ -1,0 +1,93 @@
+{
+  "repair_scope": "standard",
+  "mechanism_id": "creek-water-patch-edge-removal",
+  "failure_family": "unclassified",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The independent timed exact-phone review (round 22, film cadf6e2d, A) rejected the repaired cut for one nondeferrable surface_finish and finished_art defect. In the s3 car-swept medium shot (about 14.8 to 17.2 s) a lighter brown rectangular water region sits right of center with a ragged near-vertical left edge and a ruler-straight horizontal bottom edge. It stays fixed while the car drifts left out of frame and reads as an unfinished compositing box instead of a submerged shelf or bank.",
+  "repair": "In the s3 car-swept view remove the fixed lighter water patch or redraw it with loose hand-cut edges visibly anchored to the limestone bank, or keep it out of the medium framing, so no straight horizontal or vertical edge is visible between 14.8 and 17.2 s. Leave the creek displacement, carry action, timing, words, claims, voice, captions and every other scene unchanged.",
+  "mechanism_change": "The hard-edged shelf layer in the swept medium view is replaced by a bank-anchored hand-cut edge or removed from that framing, a drawing change to one surface rather than a change to the camera, motion or timing.",
+  "expected_visible_result": "At phone size the creek water in the s3 medium shot has no rectangular patch or straight edge, and the car is still visibly carried past the fixed ledge and oak.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/report.json",
+  "failure_evidence_sha256": "a55ca888b1bd8cada7a2235975c13a5dced6d8e4c9d2ec0a80725cd0f0a52719",
+  "changed_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/RobotaxiFilm.tsx",
+      "before_sha256": "9b0c17114ab0bf5409c9af7cdd9030dd6ee03696b709ffd644e1a3fb52e03192",
+      "after_sha256": "9b0c17114ab0bf5409c9af7cdd9030dd6ee03696b709ffd644e1a3fb52e03192"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/RobotaxiHero.tsx",
+      "before_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+      "after_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/SanAntonioSupport.tsx",
+      "before_sha256": "724d305bea0e78afb04e18a4a266e8e985478dc0605c62f11707e4770fe421c0",
+      "after_sha256": "724d305bea0e78afb04e18a4a266e8e985478dc0605c62f11707e4770fe421c0"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/storyboard.json",
+      "before_sha256": "1acbdace7815e07d2360ad309601a819e40156676ca8b7abe84098dffe46ac1d",
+      "after_sha256": "1acbdace7815e07d2360ad309601a819e40156676ca8b7abe84098dffe46ac1d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/opening-a.json",
+      "before_sha256": "0cd19a78bf8c310452c6c9436523b3e84743ece2c3e421958ae7c1a80066bcfa",
+      "after_sha256": "0cd19a78bf8c310452c6c9436523b3e84743ece2c3e421958ae7c1a80066bcfa"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round22/baseline/opening-b.json",
+      "before_sha256": "7e4afc72ecaf35b6227b5b1964532a381e1d6047fe5da556a42faed1ecdf706e",
+      "after_sha256": "7e4afc72ecaf35b6227b5b1964532a381e1d6047fe5da556a42faed1ecdf706e"
+    }
+  ],
+  "resources": {
+    "reboards": 1
+  },
+  "failed_film_sha256": "cadf6e2dfa1b5c557163e683de0ad001aa2a200f4830e061c3378d5bf501717a",
+  "capture_completion_budget": {
+    "schema": "dispatch_capture_completion_budget_evidence/3",
+    "run_id": "2026-10-19",
+    "policy_json": "{\n  \"schema\": \"dispatch_capture_completion_budget/3\",\n  \"effective_date\": \"2026-10-17\",\n  \"applies_to\": \"new evidence-bound capacity plans for active unfinished production\",\n  \"path\": \"renewed-two-treatment-comparison-with-phone-sequences\",\n  \"minimum_remaining\": {\"preflight_renders\": 8, \"storyboard_critics\": 4, \"full_renders\": 2, \"audiovisual_reviews\": 11, \"panel_rounds\": 1, \"scorer_calls\": 3},\n  \"preflight_operators\": {\"opening_compare_hook_and_entry\": 2, \"comparison_phone_sequences\": 2, \"final_timed_phone\": 1, \"timed_phone_sequence\": 1, \"native_hero\": 1, \"exact_film_motion\": 1},\n  \"native_render_hook_and_entry\": 2,\n  \"authorization_source_label\": \"Standing owner autonomous completion and complete remaining-path instruction, October 3rd and October 7th, 2026\",\n  \"invariants\": [\n    \"Bind the retained successful comparison and its actual two charged reservations.\",\n    \"Retain both original option boards and films byte-identically.\",\n    \"Use prepared single-claim authorization for the supported phone, hero and motion operators; opening comparison and native rendering retain their actual hook and entry charges.\",\n    \"Fund all eight preflight reservations and both native-render reservations before a new mandatory correction.\",\n    \"Keep prior v1 and v2 policy bytes, grants, failures, frozen envelopes and cumulative charges unchanged.\",\n    \"Use existing independent mandatory admission and obtain fresh code, comparison, timed phone, native, audiovisual, three-scorer and shipment evidence.\",\n    \"Capacity grants no creative approval, optional polish, lower-quality render or delivery waiver.\"\n  ]\n}\n",
+    "policy_sha256": "a24e8f717afde205194f77dcc47756285e7e257fe2f8e2dea0b957c1ce61d0e8",
+    "comparison_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/comparison.json",
+    "comparison_json": "{\n  \"schema\": \"dispatch-opening-comparison/1\",\n  \"policy_sha256\": \"77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765\",\n  \"renderer_sha256\": \"5afdc2ce4785bd1c8b5cd696bf06897c18a614480ea833b43bd0be2d08f95640\",\n  \"producer_sha256\": \"942ce0a64942aea8781654be90f305964542eb23bc48332f4a6d235433cfbc02\",\n  \"reservation\": {\n    \"identity\": \"7ab9f6ba5770a2ef1da36bfffc340e24cd45412f50ca1d23285f24af7f72d411\",\n    \"run_id\": \"2026-10-19\",\n    \"event_index\": 256\n  },\n  \"options\": [\n    {\n      \"id\": \"a\",\n      \"concept_sha256\": \"14401cda983c7a3add5877a64a79f180ea68e2562ca6df597bb2e42e4a2aed5c\",\n      \"renderer_sha256\": \"5afdc2ce4785bd1c8b5cd696bf06897c18a614480ea833b43bd0be2d08f95640\",\n      \"board\": {\n        \"file\": \"a.json\",\n        \"sha256\": \"60537bf3188cc7f5b423f4fa3e82d6992112f34fc96fc41c36a947e33539f812\"\n      },\n      \"film\": {\n        \"file\": \"a.mp4\",\n        \"sha256\": \"3178e0bf8c0fcc76188d98a0ddd5532674aef0cf2fd178b3eb9b2e067c21749b\"\n      },\n      \"inspection\": {\n        \"file\": \"a-inspection-321edc751c2f849a.json\",\n        \"sha256\": \"27ae8af7860c57c457a04169487bec87bf5e9d789093d63b0561de416b541608\"\n      }\n    },\n    {\n      \"id\": \"b\",\n      \"concept_sha256\": \"f3e0bea5cd0bbf5959c4dc7babb7912415b32c9431893f7e9e34220640d32855\",\n      \"renderer_sha256\": \"5afdc2ce4785bd1c8b5cd696bf06897c18a614480ea833b43bd0be2d08f95640\",\n      \"board\": {\n        \"file\": \"b.json\",\n        \"sha256\": \"4648fa6d81f6dc446224565875b94c60495df8a27f127f07674bb7c14344fb1d\"\n      },\n      \"film\": {\n        \"file\": \"b.mp4\",\n        \"sha256\": \"f560e624216bf55e577eb9fb9d586ae426db2b7a3d76d94c52b4fb4e0841abdb\"\n      },\n      \"inspection\": {\n        \"file\": \"b-inspection-858bf17041ac573a.json\",\n        \"sha256\": \"8512be37f88438bf0ecdf86576054b6c34e0b7e6dffe0d0d25ba5a8a35ba1ed4\"\n      }\n    }\n  ],\n  \"inspection_problems\": [],\n  \"inspection_pass\": true\n}\n",
+    "comparison_sha256": "19e0b39b491b374b4c03388d2ab5b7bc751146b0af4a5bf0a53244b3f0d6da39",
+    "retained_files": [
+      {
+        "option": "a",
+        "kind": "board",
+        "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/a.json",
+        "sha256": "60537bf3188cc7f5b423f4fa3e82d6992112f34fc96fc41c36a947e33539f812"
+      },
+      {
+        "option": "a",
+        "kind": "film",
+        "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/a.mp4",
+        "sha256": "3178e0bf8c0fcc76188d98a0ddd5532674aef0cf2fd178b3eb9b2e067c21749b"
+      },
+      {
+        "option": "b",
+        "kind": "board",
+        "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/b.json",
+        "sha256": "4648fa6d81f6dc446224565875b94c60495df8a27f127f07674bb7c14344fb1d"
+      },
+      {
+        "option": "b",
+        "kind": "film",
+        "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/openings/b.mp4",
+        "sha256": "f560e624216bf55e577eb9fb9d586ae426db2b7a3d76d94c52b4fb4e0841abdb"
+      }
+    ],
+    "hook_event_index": 256,
+    "hook_event_sha256": "604a7968a973dd7041f4093045749669b2f16844309c00f360eef0c29f3b5ede",
+    "entry_event_index": 256,
+    "entry_event_sha256": "604a7968a973dd7041f4093045749669b2f16844309c00f360eef0c29f3b5ede"
+  }
+}
