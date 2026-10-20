@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T01:37:23.241262+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-20T01:37:35.491487+00:00",
+  "note": "phase final-review",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -529,6 +529,18 @@
       "size": 27052
     },
     {
+      "path": "out/dispatch/cinema/review-cache/03093fca0fa19795fae35caaeb87259f75c1b0cc76d1b7a355a1488fb312ad5e/receipt.json",
+      "class": "scratch",
+      "sha256": "40d4a37d91ae8faf82d839d4c2d088312d6b77487622299125d27b620f4c2fff",
+      "size": 582
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/03093fca0fa19795fae35caaeb87259f75c1b0cc76d1b7a355a1488fb312ad5e/sound-review-response.json",
+      "class": "scratch",
+      "sha256": "1e185ca606b69597c1732a327590fc690628b0eb37f1c156064765a891f1ca02",
+      "size": 116748
+    },
+    {
       "path": "out/dispatch/cinema/review-cache/171e90635f4334368304cbc342ce70e774d9c6025770fb9255301ca9c8140118/receipt.json",
       "class": "scratch",
       "sha256": "7f573360cd89b33eb64454f5282efbaf19884bc38ef0a9dc230240496b9f5583",
@@ -889,6 +901,18 @@
       "size": 47311
     },
     {
+      "path": "out/dispatch/cinema/sound-review-response.json",
+      "class": "scratch",
+      "sha256": "1e185ca606b69597c1732a327590fc690628b0eb37f1c156064765a891f1ca02",
+      "size": 116748
+    },
+    {
+      "path": "out/dispatch/cinema/sound-review.json",
+      "class": "scratch",
+      "sha256": "40d4a37d91ae8faf82d839d4c2d088312d6b77487622299125d27b620f4c2fff",
+      "size": 582
+    },
+    {
       "path": "out/dispatch/cinema/story-review-response.json",
       "class": "scratch",
       "sha256": "2f67c0bfcc5fc3284cecfce845bfc24493e16537581a3deaf6021fbc2abf463e",
@@ -915,8 +939,8 @@
     {
       "path": "out/dispatch/claude-phases.jsonl",
       "class": "scratch",
-      "sha256": "d9b7ec8b800c3e25e12cb5530cea2ce59bc65fd2350b60142ec2aeeac941bce3",
-      "size": 457
+      "sha256": "76d86984912d5e1d3731e0cb056fa309e39cf5ac6443b4eef8c9d145bbf7c0f4",
+      "size": 525
     },
     {
       "path": "out/dispatch/credits.txt",
@@ -14907,7 +14931,7 @@
   ],
   "regenerable": {
     "files": 124,
-    "bytes": 27656248
+    "bytes": 27656388
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }
