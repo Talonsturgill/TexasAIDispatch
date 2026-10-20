@@ -5,57 +5,81 @@
   "board_bindings": {
     "opening": {
       "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
-      "sha256": "a50f119e6b3fd0cb0d9b90d2d5cc13f47e4a0874ce91b4bbb464c9dce57eaf51"
+      "sha256": "70f133159f3d74625cf1d7838d596412354b4692da0210b6a0d7550ad582a840"
     },
     "storyboard": {
       "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
-      "sha256": "a50f119e6b3fd0cb0d9b90d2d5cc13f47e4a0874ce91b4bbb464c9dce57eaf51"
+      "sha256": "70f133159f3d74625cf1d7838d596412354b4692da0210b6a0d7550ad582a840"
     }
   },
-  "board_sha256": "a50f119e6b3fd0cb0d9b90d2d5cc13f47e4a0874ce91b4bbb464c9dce57eaf51",
-  "concept_sha256": "deb0ba3e565c9011b25723e34407fb18dfb0ade64ef07958405ae0b1d454808a",
-  "renderer_sha256": "861f22231c3dba4123715a0f7edd3a8b1487a860cb73c58bd96e58985f8e3955",
-  "binding_status": "The director supplied these digests in out/dispatch/evidence/code-round23-bindings.json. I copied them unchanged and did not recompute them.",
+  "board_sha256": "70f133159f3d74625cf1d7838d596412354b4692da0210b6a0d7550ad582a840",
+  "concept_sha256": "66e56db798d84e80ff2071182e8d3e639e4a07ef65b79f2d05ed0c4e20ac4049",
+  "renderer_sha256": "5f8a81133759a3747902c09993398319411ab9cc3a241e983bf921770fec8cf7",
+  "binding_status": "These are the director-supplied digests from out/dispatch/evidence/code-round25-bindings.json, copied unchanged and not recomputed. Changed modules per the coordinator: RobotaxiFilm.tsx ff252ac0... and SanAntonioSupport.tsx f3a18689.... The hero, b5c81839..., is unchanged.",
   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
   "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-  "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 23",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 25, distinct from the Sonnet director",
   "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
-  "round22_blocker_check": {
+  "round24_blocker_check": {
     "scene_id": "s3",
-    "time_s": 14.8,
-    "status": "resolved in code; phone pixels still required",
+    "time_s": 15.4,
+    "status": "resolved in code against pivot notes 1 to 10; phone pixels still required",
     "detail": [
-      "Straight bottom edge: CreekShelf's area is now a closed smoothPath through three runs. The 'far' side wanders at y0 \u00b1 12 (y0 = waterY - 46). The lip 'edge' runs as 11 points from y0+6 to y1-6. The 'near' side wanders at y1 \u00b1 15 (y1 = waterY + 150). The straight closing row 'L x1 y1 Z' that drew round 22's ruler-straight bottom is gone.",
-      "Fade: a vertical gradient mask fades the whole shelf, including its fill, riffles, lip stroke and spray. Opacity goes from 0 at y0-12, to 1 between 20 and 62 percent of the span, back to 0 at y1+14. The far and near sides therefore dissolve into the channel.",
-      "Mask bounds: the mask's rectangle runs from y0-60 to y1+60. It lies wholly outside the gradient's nonzero band, so its straight bounds draw nothing.",
-      "Smooth path's closing segment: the only near-straight run is at x of about 1560, which is off frame. In car-swept (f [458,1070], scale 1.18) it maps to screen x of about 1840; in creek-wide (f [540,1012], scale 1) to about 1560.",
-      "Seam: the old rectangular back and front clip bands, with a 5-unit gap at the waterline, are replaced by complementary clips along the same 31-point swell the creek FloodSheet uses for its front layer. The parameters match: span [-300,1500] equals the film's ext.x0 and ext.x1; seed 17 equals the sheet's seed; amplitude is 1.8 with the calm term 0; the row is waterY. The two layers meet on one curve with no gap. At most an antialiasing hairline remains, on the line where the sheet already splits.",
-      "Vertical edge: the only remaining near-vertical edge is the intended lip. It is ragged (a sine-stepped slant), carries a limestone-shade stroke of width 7 and a foam stroke of width 6, and has spray falling downstream. Two broken blocks stand on the back layer. It is fully opaque through the middle rows, so it still reads as the landmark the car is pushed off. It fades toward its far and near ends instead of stopping on a ruled line."
+      "Notes 1 and 2, the far-bank strata and grass (CreekBack, shared by creek-wide and car-swept). The four full-width ruled bands are gone. Each of the four courses (rows about bankY-96+22c) is now a run of separate blocks:",
+      "- blocks 70 to 150 units long, each drawn as a 9-point polygon whose top is jittered about \u00b12.5 units;",
+      "- each block's own row moves up or down by up to about 6 units, so neighbouring blocks step;",
+      "- each block is 19 to 28 units thick;",
+      "- 14 percent of blocks are skipped, and the dark limestoneDeep backing shows through the gap;",
+      "- 25 percent of joints open 6 to 22 units;",
+      "- 10 percent of blocks in the upper courses are slumped, tilted up to \u00b13.5 degrees and dropped 4 units;",
+      "- clusters of brush ellipses fall every 110 units over the joints, and cracks are short and angled.",
+      "No block edge is longer than 150 units. The grass is one closed smooth path, with points every 38 units on both its top and its lower edge. Each edge combines three sine waves with random jitter, of \u00b16 on the top and \u00b17 (plus an occasional +8 droop) on the lower edge. Tufts hang below the lower edge. The closing verticals at x -360 and 1560 are off frame in both cameras.",
+      "Notes 3 to 5, the water's far edge and the pale band. The s3 sheet footprint now follows creekToe sampled every 24 units through a smooth path. creekToe is 1086 plus three sines (amplitudes 7, 4 and 2.5; periods about 483, 134 and 48) plus a 13-unit Gaussian bulge round each of the 5 slumped blocks. Across the visible span (world x of about 0 to 916 in car-swept), that gives about 14 units of peak-to-peak swing every 240 units plus the bulges, so the edge is not a near-collinear run. ext.y0 is now bankY-20, and lit is .002, so the pale SA.waterLit top colour reaches SA.water by about y 1074. That is above the lowest point of the toe, so no pale band remains along the top of the water. The lowest course and the backing end at toe+16 and toe+24, under the water. CreekToe adds the following on the sheet: overlapping shadow pools of uneven depth, oak shadows, scattered short pale reflections, slumped blocks with foam collars and shed eddies, and foam in pieces every 90 units.",
+      "Note 6, the landmark ledge (CreekLedge). Its waterline is a 13-point wandering line with a 9-unit dip where a block has slumped from its middle. The straight 210-unit bottom is gone. The undercut band runs over 9 jittered points, its top is hand-stepped and its foam is broken into 4 pieces. The ledge's position is unchanged at [90, 250].",
+      "Note 6, the near bank (CreekBank). Each course's top and bottom are now zigzag polylines with points every 55 units. The white water on the bank face is in 3 broken strokes, and two more brush clumps were added.",
+      "Note 6, the swell hairline (CreekShelf). The shelf fill is now opaque #977E58 (about the old .7 tint over this water). The back layer is drawn whole. The front layer is clipped 1.5 units above the FloodSheet's swell, so the two overlap with no antialiased seam. At row 1170 the mask is fully opaque, so drawing twice leaves no mark. The far and near sides now have 14 wandering points each. The back layer's clip rectangle (x -700..1900, y 724..1720) lies outside the mask's nonzero rows, so it draws no edge.",
+      "Unchanged and verified in code:",
+      "- s4: no lit prop, so the gradient keeps the tone's own midAt; ext and floodFoot as before. Other FloodSheet users receive no lit.",
+      "- CREEK, CREEK_MARKS, CREEK_CAR, CREEK_CAM, S3, s3Off, s3Car, CREEK_PLAN and the creek-plan case are as in rounds 19 and 23.",
+      "- With width [-300, 1500], CREEK_OAKS still places the landmark oak at x 420, base 992.",
+      "- The layer order is the same, with CreekToe added between the back sheet and CreekLedge.",
+      "- All rows that changed lie between world y of about 976 and 1130, which is about 924 to 1078 on screen in creek-wide and about 850 to 1031 in car-swept. That is well above the caption band. The near bank's rows are unchanged."
     ]
   },
-  "unchanged_check": "CREEK (waterY 1170, bankY 1092, nearBank mirror 1290), CREEK_MARKS (lip 570, oak 420, ledge 90 to 250) and CREEK_PLAN are unchanged. The film's CREEK_CAR, CREEK_CAM, S3 and s3Car were not edited. So the car path, the landmarks and the screen rows relative to the caption band are unchanged from round 19. The car spans screen y of about 900 to 1180 in car-swept, and the shelf's faded near side ends at about screen y 1255 to 1268. Nothing else changed in A's scenes, shots, timing or claims, apart from the support entry hashes in story_art.",
-  "strongest_frame": "s3 car-swept, 14.80 to 16.56 s (measured clock). The car is shoved off the stone lip and carried about 472 px past the fixed oak and ledge within n3, tail down, with the waterline climbing its doors. It now crosses a shelf that dissolves into the channel, not a box.",
-  "weakest_frame": "s9-shot-2 record-slide, 49.93 to 52.97 s. Unchanged: the remedy card first reads as lying on the road and then covers the car's wheels (round 22 non-blocking). Also unchanged: the s7 straight forearm and the flat lower bands.",
+  "strongest_frame": "s3 car-swept, 14.80 to 16.56 s (measured clock). The car is shoved off the stone lip and carried about 472 px past the fixed oak and ledge, tail down, with the waterline climbing its doors. In code, a broken, stepped limestone bank and a wandering toe with slumped blocks now stand behind it, not ruled bands.",
+  "weakest_frame": "s9-shot-2 record-slide, 49.93 to 52.97 s. Unchanged: the remedy card first reads as lying on the road and then covers the car's wheels (round 22, non-blocking).",
   "blocking_defects": [],
   "notes": [
-    "The timed phone review still needs to confirm, on new bytes, at 12.4 to 17.2 s:",
-    "- no straight edge, box or seam anywhere in the creek water;",
-    "- the shelf reads as paler shallow water over stone, with the lip and its white water legible;",
-    "- the slide off the lip and the carry past the landmarks are unchanged.",
-    "One risk to check: the shelf fill now fades at its top (far side). Make sure the wider faded band does not read as a soft rectangle at phone size.",
-    "Round 22 non-blocking items remain as non-blocking notes, unchanged: the s2 to s3 handoff, the s6 wide water ellipse, the flat lower bands, the s7 forearm, the s9 card on the road, the thousands separator in 3,791, and the place note that creek and lot oaks have umbrella-like canopies.",
-    "Stale prose from round 19 remains: A's divergence_note still says 'riding a creek crossing', and the creek-rush sound cue still says 'low crossing'. Neither is shown on screen, so neither blocks.",
-    "This is a code pass only. Film cadf6e2d\u2026 predates these bytes."
+    "Phone-scope checks at 12.4 to 17.4 s, from code risks:",
+    "- The block-to-block steps are small, up to about \u00b16 units: roughly 2 to 5 phone px in car-swept. Confirm the four courses read as broken limestone and not as nearly ruled horizontal strata.",
+    "- The CreekToe shadow pools overlap into a continuous scalloped dark zone along the toe. Confirm it does not read as one uniform dark stripe. Also confirm the pale reflection strokes do not merge into a band.",
+    "- New minor contact risk: while the car stands on the shelf (about 12.4 to 14.6 s), the opaque front shelf now covers most of the lower half of the car's waterline foam and its 0.3 reflection where the shelf is fully opaque. Previously the shelf was 70 percent translucent. The bow wave (pile) stays mostly above the waterline and visible. Confirm contact with the water still reads on the shelf.",
+    "- Classify the round 24 'vertical pale streak at 17.0 to 17.4 s'. It is most likely the intended lip and its foam, or the cut into s4.",
+    "- The region plate's horizon behind the bank can't be judged in code.",
+    "Carried, non-blocking: the s2 to s3 handoff, the s6 wide water ellipse, the flat lower bands, the s7 straight forearm, the s9 card on the road and the thousands separator in 3,791.",
+    "Stale prose remains: A's divergence_note still says 'riding a creek crossing', and the creek-rush sound cue still says 'low crossing'. Neither is shown on screen.",
+    "This is a code pass only. Films a2b15e61... and 8ecdd5ce... predate these bytes and stay rejected."
   ],
   "story_review": {
-    "story_sha256": "7711169aa46dd8562f749c4b4bec98b8261e30c004e89e49b4b2bf0a3ac7de99",
+    "story_sha256": "2297dd4eae829ae2cb10a1ffafa1d7e7127c3b70b8e2ed6a9b764f8ae1e9b987",
     "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
     "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
     "verdict": "pass",
     "blocking_defects": [],
-    "one_viewing_summary": "Intended chain, read from code and not observed. A generic white driverless car brakes into an airport bay while its empty wheel turns, and the phone says Arriving. A map outlines the limited February area of 60 square miles. A different empty car stands at a creek's shallow edge in rain, and the current shoves it off the stone lip and carries it downstream past a fixed oak and ledge. Another empty car stops in rising street floodwater with its hazards blinking. A recall card shows Software and 3,791, the icon grid fills and a stamp lands. A car slows and then rolls into standing water while 'may' lights on the recall sentence. The remedy row is stamped Under development. In a wet lot a weather limits tag clips above four cars, then in a low close each car takes its check and an April 20 page flips. The curb returns with the door open beside the remedy card.",
+    "one_viewing_summary": "Intended chain, read from code and not observed:",
+    "one_viewing_summary_detail": [
+      "A generic white driverless car brakes into an airport bay while its empty wheel turns, and the phone says Arriving.",
+      "A map outlines the limited February area of 60 square miles.",
+      "A different empty car stands at a creek's shallow edge in rain, under a broken limestone bank with live oaks. The current shoves it off the stone lip and carries it past a fixed oak and ledge.",
+      "Another empty car stops in rising street floodwater with its hazards blinking.",
+      "A recall card shows Software and 3,791, the icon grid fills and a stamp lands.",
+      "A car slows and then rolls into standing water while 'may' lights.",
+      "The remedy row is stamped Under development.",
+      "In a wet lot a weather limits tag clips above four cars. In a low close each car takes its check and an April 20 page flips.",
+      "The curb returns with the door open beside the remedy card."
+    ],
     "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No repair or outcome is invented.",
-    "weakest_transition": "s2 to s3 at 12.36 s. The map cuts to the creek with no carried subject; the handoff relies on 'In April' and the new disclosure (round 22)."
+    "weakest_transition": "s2 to s3 at 12.36 s. The map cuts to the creek with no carried subject; the handoff relies on 'In April' and the disclosure."
   },
   "action_reviews": [
     {
@@ -66,7 +90,7 @@
       "blocking_defects": [],
       "code_observations": {
         "source_fidelity": "c1: empty seats and headrests.",
-        "visible_action": "steer = 85*(p12-p13); the curb and sign slide through the windshield.",
+        "visible_action": "steer = 85*(p12-p13); the curb and sign slide past.",
         "consequence": "The phone turns to Arriving.",
         "disclosure": "Generic car chip.",
         "limits": "Not a Waymo vehicle or app."
@@ -80,10 +104,10 @@
       "blocking_defects": [],
       "code_observations": {
         "source_fidelity": "c3 and c4: shallow edge, no crossing, unoccupied.",
-        "visible_action": "Locked camera. The car slides along the shelf and off the lip, then is carried past the fixed oak and ledge. The shelf is now drawn with wandering, faded sides and no ruled edge or seam (support c693803c\u2026).",
+        "visible_action": "Locked camera. The car slides along the shelf and off the lip, then is carried past the fixed oak and ledge. The bank, the toe, the ledge waterline and the near bank are now irregular (support f3a18689..., film ff252ac0...).",
         "consequence": "Carried downstream, leaving frame left after n3.",
         "disclosure": "'Illustration. A different car, April 20th account'.",
-        "limits": "No damage, occupant or entry path."
+        "limits": "No damage, occupant or entry path. The bank's shape carries no claim."
       }
     },
     {
@@ -102,7 +126,7 @@
     },
     {
       "action_id": "service-area-opens",
-      "module_sha256": "c693803c7fbe7b8c34671af04d8abb097f01dcfbdaf959d2864bc8f541cc7538",
+      "module_sha256": "f3a186891ff7cad4a659461ca82e2576355e9459e626506507e6c6a9f6ac89a5",
       "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
       "verdict": "pass",
       "blocking_defects": [],
@@ -116,7 +140,7 @@
     },
     {
       "action_id": "recall-filed-count",
-      "module_sha256": "c693803c7fbe7b8c34671af04d8abb097f01dcfbdaf959d2864bc8f541cc7538",
+      "module_sha256": "f3a186891ff7cad4a659461ca82e2576355e9459e626506507e6c6a9f6ac89a5",
       "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
       "verdict": "pass",
       "blocking_defects": [],
@@ -130,7 +154,7 @@
     },
     {
       "action_id": "remedy-under-development",
-      "module_sha256": "c693803c7fbe7b8c34671af04d8abb097f01dcfbdaf959d2864bc8f541cc7538",
+      "module_sha256": "f3a186891ff7cad4a659461ca82e2576355e9459e626506507e6c6a9f6ac89a5",
       "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
       "verdict": "pass",
       "blocking_defects": [],
