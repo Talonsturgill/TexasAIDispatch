@@ -57,6 +57,16 @@ class RoutingTests(unittest.TestCase):
     def test_unrelated_read_is_allowed(self):
         self.assertIsNone(router.decision(self.payload('git status --short'), self.workspace))
 
+    def test_retained_film_inspection_routes_to_the_real_checkout_without_capture_issuance(self):
+        (self.repo / 'scripts/preflight_animatic.py').write_text('fixture')
+        command = (f"bash scripts/run_with_env.sh bash -c 'cd {self.repo} && "
+                   "python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only'")
+        self.assertIsNone(router.decision(self.payload(command), self.workspace))
+        mixed = command + '; cd ' + str(self.repo) + ' && npx remotion still Dispatch frame.png'
+        self.assertIn('no current capture authorization', router.decision(self.payload(mixed), self.workspace))
+        unresolved = "cd \"$UNKNOWN\" && python scripts/preflight_animatic.py --inspect-only"
+        self.assertIn('Capture refused', router.decision(self.payload(unresolved), self.workspace))
+
     def test_unknown_outside_and_multiple_roots_are_denied(self):
         for command in ('npx remotion still Dispatch x.png',
                         'cd /tmp && npx remotion still Dispatch x.png',
