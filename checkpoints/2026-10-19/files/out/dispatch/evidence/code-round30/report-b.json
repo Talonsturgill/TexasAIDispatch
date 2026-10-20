@@ -1,0 +1,167 @@
+{
+ "treatment": "b",
+ "verdict": "revise",
+ "review_scope": "code-plan",
+ "board_bindings": {
+  "opening": {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+   "sha256": "b2ace2b8cb656b6d0088838e55ae8d59b2a1e8baf89e66075b8aaa61319a48ec"
+  },
+  "storyboard": {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+   "sha256": "b2ace2b8cb656b6d0088838e55ae8d59b2a1e8baf89e66075b8aaa61319a48ec"
+  }
+ },
+ "board_sha256": "b2ace2b8cb656b6d0088838e55ae8d59b2a1e8baf89e66075b8aaa61319a48ec",
+ "concept_sha256": "06a6b03a96f5c987d9c7afd44384d057c94f562557fc01965dbde7a1eca197ae",
+ "renderer_sha256": "490209fdd391a92c72b3af29da5fd6ec05fce63c4c1fd36b8d49536eee570333",
+ "binding_status": "Director-supplied digests from out/dispatch/evidence/code-round30-bindings.json, copied unchanged and not recomputed. storyboard.json is stated to be the same bytes as opening-b.json.",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 30, distinct from the Sonnet director",
+ "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
+ "pivot29_check": {
+  "scene_id": "s3",
+  "time_s": 15.32,
+  "status": "targets (a), (b), (d), (e), (f), (g) and (h) met in code; (c) wake fails",
+  "detail": [
+   "The findings and bounds are the same as A's: the shared creek-plan case and CreekPlan, with identical s3 shot records.",
+   "(a) Lip: a solid width-50 white-water band on a notched re-cut lip, a dark width-60 band on the channel side, 12 spilling tongues, an edge stroke, blocks and 34 large flecks. No dash pattern.",
+   "(b) Shelf: no near-straight run over about 150 px in frame.",
+   "(d) Lift: the contact shadow slides out 3 to 21 px and fades, the scale goes .50 to .55, and the shelf corner closes. The lift spans the cut (about 14.9 to 16.2 s).",
+   "(e) Carry: k 1.1. About 565 plan px in shot 2, past the crown at about 15.75 s and the slab at about 16.2 to 16.6 s, then out of frame left.",
+   "(f) Flow: 26 curved streaks and 40 flecks at 430 px/s; rain rings cut to 14 at .45.",
+   "(g) Empty: the opt-in glass cabin, about 63 \u00d7 88 plan px, with two bare seats and a hands-free wheel.",
+   "(h) Activity: wheel-water rings and the collar from the first frame.",
+   "(c) Wake: FAILS (see blocking_defects). The collar is met.",
+   "Scope: no new item ids, no registry change, s6 lane-plan's top() has no cabin and is unchanged, and the s3 shot 2 purpose is updated.",
+   "Bounds: the lowest extent is about screen y 1125 in shot 1 and 1217 to 1240 in shot 2. The chip is clear. The caption check should confirm."
+  ]
+ },
+ "strongest_frame": "s3-shot-2 creek-plan closer, 15.32 to 17.61 s (authored clock). The empty glass-roofed car lifts off the bold white-water lip, its shadow sliding out, and is carried left past the oak crown and the ledge slab and out of frame, while the current overtakes it.",
+ "weakest_frame": "s3 wake, 13.03 to 17.61 s. The V wake off the stern is two near-straight dashed lines.",
+ "blocking_defects": [
+  {
+   "category": "surface_finish",
+   "criterion": "surface_finish",
+   "scene_id": "s3",
+   "time_s": 15.32,
+   "defect": "From 13.03 to 17.61 s, worst in the 1.25\u00d7 closer shot from 15.32 s, the s3 creek-plan V wake (RobotaxiFilm.tsx creek-plan case, the 'v-wake' group) is still near-straight. Each arm's quadratic control point sits only about 9 to 16 car units off the straight line between its ends, so the arm bows about 4 to 8 units: 2 to 4 plan px on 75 to 140 plan px arms, a 2 to 4 percent sag. Cut in three pieces, it reads as straight dashes of about 25 to 40 plan px. This repeats the round 29 rejection ('the wake strokes are straight') and fails pivot target (c). Required: a visible bend of at least 20 to 25 percent of the arm length (or sampling along the channel's current streamline), length about 120 to 200 plan px, still in fading pieces."
+  }
+ ],
+ "notes": [
+  "Phone-scope risks, non-blocking at code scope:",
+  "- The dark headrest ellipses could read as heads from above. Prefer headrests in the seat tone, or lighter.",
+  "- The contact shadow has hard edges, with no blur.",
+  "- The streaks and flecks could clutter the channel around the car.",
+  "- The 50 px lip band runs about 630 px upstream. Check that it reads as white water, not a painted stripe.",
+  "- creekPlanCloser stays keyed on scene_fraction_start.",
+  "B's rewards text is updated ('Heavy rain rings spread...'). A's still is not.",
+  "Carried non-blocking items: the s6 lane water partly behind the quote panel and chip from 29.2 to 31.8 s, the s8 tag-only interval from 41.6 to 45.4 s, the s9 card on the road and the thousands separator in 3,791.",
+  "Stale prose remains: medium_choice, the attention continuity_from entries and fingerprint.pov were not re-read this round, and the support prompt still says 'depth post'. None of it is shown on screen.",
+  "This is a code review only. Film c92c7a2f... stays rejected."
+ ],
+ "story_review": {
+  "story_sha256": "c231996286983aaf1f27731103149a328a614c4f5438e96474f8f79ddd558288",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "revise",
+  "blocking_defects": [
+   "s3 15.32 s: V wake still drawn as near-straight dashed lines (surface_finish), repeating round 29"
+  ],
+  "one_viewing_summary": "Intended chain, read from code and not observed. The empty-wheel airport arrival. The flat map plan, then the limited area closing. From above, an empty glass-roofed car on a creek shelf by a white-water lip with a foam collar. Closer, it lifts off and is carried well downstream past the oak and the ledge as the current overtakes it. The stranded street car with hazards. The flat record card, the grid and the stamp. From above, a car brakes toward standing water, then from the side it rolls in with 'may' lit. The remedy stamped. The wet-lot tag and April 20 checks. The open curb door beside the remedy card.",
+  "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No outcome is invented.",
+  "weakest_transition": "s2 to s3 at 13.03 s: overhead map to overhead creek with a different car, carried by the disclosure chip."
+ },
+ "action_reviews": [
+  {
+   "action_id": "wheel-turns-itself",
+   "module_sha256": "37fe3c066cca6ecd6952eecb01eb9ceb23a265d23f06b2abf700bcb58821ddcd",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "Same cab as A.",
+    "visible_action": "Same steer.",
+    "consequence": "Arriving.",
+    "disclosure": "Chip.",
+    "limits": "Generic car."
+   }
+  },
+  {
+   "action_id": "car-swept-into-creek",
+   "module_sha256": "37fe3c066cca6ecd6952eecb01eb9ceb23a265d23f06b2abf700bcb58821ddcd",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "revise",
+   "blocking_defects": [
+    "The s3 V wake is near-straight (2 to 4 percent sag), repeating round 29."
+   ],
+   "code_observations": {
+    "source_fidelity": "c3 and c4; empty seats shown through the glass roof.",
+    "visible_action": "Collar, lift, a carry of about 715 plan px past the crown and the slab, current at 430 px/s.",
+    "consequence": "Carried out of frame downstream.",
+    "disclosure": "April 20th chip.",
+    "limits": "Overhead editorial drawing."
+   }
+  },
+  {
+   "action_id": "car-slows-into-water",
+   "module_sha256": "37fe3c066cca6ecd6952eecb01eb9ceb23a265d23f06b2abf700bcb58821ddcd",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c7.",
+    "visible_action": "lane-plan (no cabin, unchanged), then wheels-water.",
+    "consequence": "Wheels in the water, 'may' marked.",
+    "disclosure": "Chip.",
+    "limits": "No speed or depth."
+   }
+  },
+  {
+   "action_id": "service-area-opens",
+   "module_sha256": "be1f76cfd4e0054e414754683c0a78caf70ffb81471cb11310fea26349191452",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c2.",
+    "visible_action": "map-plan, then map-zone.",
+    "consequence": "The outline closes.",
+    "disclosure": "Credits.",
+    "limits": "Editorial outline."
+   }
+  },
+  {
+   "action_id": "recall-filed-count",
+   "module_sha256": "be1f76cfd4e0054e414754683c0a78caf70ffb81471cb11310fea26349191452",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c6 and c13.",
+    "visible_action": "record-wall, then count-grid.",
+    "consequence": "Header stamp.",
+    "disclosure": "Chip.",
+    "limits": "Icons are not a literal count."
+   }
+  },
+  {
+   "action_id": "remedy-under-development",
+   "module_sha256": "be1f76cfd4e0054e414754683c0a78caf70ffb81471cb11310fea26349191452",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c8.",
+    "visible_action": "record-wall with the pen, then stamp-detail.",
+    "consequence": "The imprint carries to s9.",
+    "disclosure": "Chip.",
+    "limits": "Not a real record page."
+   }
+  }
+ ],
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None at code scope. Code approval includes no pixel observations."
+}
