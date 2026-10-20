@@ -397,6 +397,11 @@ def phone_edition(data):
     return edition
 
 
+def phone_scope_required(data):
+    from completion_progress import enabled
+    return phone_edition(data) >= '2026-10-20' or enabled(read(data['phone_state']))
+
+
 def phone_packet(packet_path, state_path, sequences, current=False):
     data = read(packet_path)
     data.pop('code_report_bindings', None)
@@ -413,7 +418,7 @@ def phone_packet(packet_path, state_path, sequences, current=False):
         raise ValueError('current phone packet needs the exact current timed board binding')
     for row in data['phone_options']:
         row['report_bindings']['story_review']['claims_sha256'] = data['claims']['sha256']
-    if data['date'] >= '2026-10-20':
+    if phone_scope_required(data):
         data['phone_decision_scope'] = phone_decision_scope()
         data['instructions'] += (' Follow phone_decision_scope: the fixed rubric judges the actual picture; '
                                  'director repair promises cannot add hard requirements. ')
@@ -445,7 +450,7 @@ def phone_review_inputs(data):
         row['report_bindings']['story_review']['claims_sha256'] = data['claims']['sha256']
     if rows != expected:
         raise ValueError('Claude phone review inputs or computed bindings changed')
-    if phone_edition(data) >= '2026-10-20' and data.get('phone_decision_scope') != phone_decision_scope():
+    if phone_scope_required(data) and data.get('phone_decision_scope') != phone_decision_scope():
         raise ValueError('phone decision scope is missing or changed; regenerate the fixed-rubric packet before paid review')
 
 

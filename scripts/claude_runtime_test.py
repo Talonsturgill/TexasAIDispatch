@@ -233,6 +233,15 @@ class RuntimeTests(unittest.TestCase):
             del result['phone_decision_scope']
             with self.assertRaisesRegex(ValueError, 'phone decision scope is missing or changed'):
                 runtime.phone_review_inputs(result)
+            state.write_text(json.dumps({'run_id': '2026-10-19', 'mode': 'production',
+                'events': [{'kind': 'reserved', 'completion_progress_policy': '2026-10-20',
+                            'publication_owner_sha256': 'a'*64, 'publication_epoch': 'new-epoch'}]}))
+            adopted = runtime.phone_packet(packet, state, ['a', 'b'])
+            self.assertEqual('2026-10-19', adopted['date'])
+            self.assertEqual(runtime.phone_decision_scope(), adopted['phone_decision_scope'])
+            del adopted['phone_decision_scope']
+            with self.assertRaisesRegex(ValueError, 'phone decision scope is missing or changed'):
+                runtime.phone_review_inputs(adopted)
 
     def test_historical_assignment_is_not_replaced(self):
         with self.assertRaises(ValueError):

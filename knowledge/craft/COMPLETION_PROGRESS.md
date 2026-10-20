@@ -1,7 +1,12 @@
 # Completion progress and native waits
 
-Effective for new editions from October 20th, 2026, after the owning source rollout. Historical ledgers and original policy bytes
-remain unchanged. Preserve the three-round creative boundary, every charge and actual failure.
+Effective for new editions from October 20th, 2026, after the owning source rollout. An older
+unfinished edition adopts the same operational boundary at its first newly owned reservation
+from this source. That appended event records `completion_progress_policy`; it never rewrites
+the old events, frozen envelope, original quality policy or verdicts. An already admitted batch
+can finish, but its next repair cannot use the edition's old date to renew a failed construction.
+Finished editions retain their original evidence. Preserve the three-round creative boundary,
+every charge and actual failure.
 
 The October 19 recovery repeatedly funded a new failed report while keeping the same creek
 implementation. Changing its mechanism name and obtaining another pivot paragraph did not

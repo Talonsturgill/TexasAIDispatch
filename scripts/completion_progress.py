@@ -7,14 +7,19 @@ from pathlib import Path
 import re
 
 EFFECTIVE_DATE = '2026-10-20'
+ROLLOUT_FIELD = 'completion_progress_policy'
 FIELD = 'retained_replacement'
 SCHEMA = 'dispatch_retained_scene_replacement/1'
 REPO = Path(__file__).resolve().parents[1]
 
 
 def enabled(state):
-    return (state.get('mode') == 'production'
-            and str(state.get('run_id', ''))[:10] >= EFFECTIVE_DATE)
+    return (state.get('mode') == 'production' and not state.get('terminal_state')
+            and (str(state.get('run_id', ''))[:10] >= EFFECTIVE_DATE
+                 or any(row.get('kind') == 'reserved'
+                        and row.get(ROLLOUT_FIELD) == EFFECTIVE_DATE
+                        and row.get('publication_owner_sha256') and row.get('publication_epoch')
+                        for row in state.get('events', []))))
 
 
 def digest(path):
@@ -131,7 +136,15 @@ def admission_problems(state, plan):
 
 def authorization_problems(state, plan, board):
     if enabled(state) and state.get('active_repair'):
-        started = [e for e in state.get('events', []) if e.get('kind') == 'repair_started']
+        events = state.get('events', [])
+        started = [e for e in events if e.get('kind') == 'repair_started']
+        if str(state.get('run_id', ''))[:10] < EFFECTIVE_DATE and started:
+            adoption = next((index for index, row in enumerate(events)
+                             if row.get('kind') == 'reserved'
+                             and row.get(ROLLOUT_FIELD) == EFFECTIVE_DATE
+                             and row.get('publication_owner_sha256') and row.get('publication_epoch')), None)
+            if adoption is not None and events.index(started[-1]) < adoption:
+                return []  # Finish an already admitted batch; the next repair uses the new boundary.
         recorded = started[-1].get('progress_replacement_required') if started else None
         if recorded != state['active_repair'].get('progress_replacement_required'):
             return ['the original repair progress admission changed after opening']

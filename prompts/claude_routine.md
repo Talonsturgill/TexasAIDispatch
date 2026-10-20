@@ -131,6 +131,20 @@ edition that must retain its ledger. An expired ownership record is never provid
 `complete` requires selecting again, not another copy of the shipped edition.
 Use the current main ownership and worker-claim helpers in a supported source adoption if a restored
 checkout predates them; preserve frozen quality-policy bytes, media, event history and charges.
+Restoration deliberately retains the old source pin. It does not adopt this rollout by itself.
+After the restore below and before another paid reservation, integrate the verified current main
+tooling source into that same edition with an ordinary Git merge of the current main commit.
+Use the actual SessionStart receipt and clean tools HEAD to identify that commit. Retain the
+pre-adoption checkpoint and inspect both staged and working changes first. Preserve authored
+scene, board and artwork changes; resolve any actual tooling conflict against their retained
+baselines rather than resetting the checkout or changing an original policy. Commit only the
+resolved tooling integration, retain its real source pin and save the same ledger checkpoint.
+Verify that publication_owner.py, completion_progress.py, native_task_wait.py and claude_runtime.py
+are the current main implementations before reserving again. The first newly owned reservation
+then appends the operational progress adoption even for an older unfinished edition. Its old
+date cannot preserve the review spiral. An already admitted batch retains its original admission;
+the next repair uses the finite structural route. No reservation is replayed and no film is approved
+by this source integration. Never resume a session the human explicitly stopped.
 The selected edition is restored
 with `python scripts/claude_checkpoint.py restore --run-id <id> --origin-workspace <shared-parent>`.
 Finish the actual catalog task before restoration, and run no other Git fetch while the

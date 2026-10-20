@@ -81,6 +81,39 @@ class CompletionProgress(unittest.TestCase):
         self.assertEqual([], progress.admission_problems(self.state,
             {**self.plan, 'repair_scope': 'technical-integrity'}))
 
+    def test_restored_old_edition_cannot_keep_legacy_spiral_after_a_new_owned_reservation(self):
+        import publication_owner
+        import run_controller as controller
+        path = self.repo / 'out/dispatch/run_state.json'
+        self.assertTrue(controller.initialise(path, '2026-10-19', 'production')[0])
+        for _ in range(3):
+            self.assertTrue(controller.reserve(path, {'reboards': 1}, 'offline old charged batch')[0])
+        before = json.loads(path.read_text())
+        self.assertFalse(progress.enabled(before))
+        with patch.object(publication_owner, 'require_owner', return_value={
+                'owner_sha256': 'a'*64, 'epoch': 'new-owned-epoch'}):
+            self.assertTrue(controller.reserve(path, {'storyboard_critics': 1}, 'offline rollout reservation')[0])
+        after = json.loads(path.read_text())
+        self.assertEqual(before['events'], after['events'][:-1])
+        self.assertIn('resource_envelope', before)
+        for name in ('repair_policy', 'quality_contract', 'creative_policy', 'resource_envelope'):
+            self.assertEqual(before.get(name), after.get(name))
+        self.assertTrue(progress.enabled(after))
+        self.assertIn('creative boundary', progress.admission_problems(after, self.plan)[0])
+        after['terminal_state'] = 'shipped'
+        self.assertFalse(progress.enabled(after))
+
+    def test_rollout_does_not_retroactively_change_an_already_admitted_batch(self):
+        state = {**self.state, 'run_id': '2026-10-19', 'events': [
+            {'kind': 'repair_started'},
+            {'kind': 'reserved', progress.ROLLOUT_FIELD: progress.EFFECTIVE_DATE,
+             'publication_owner_sha256': 'a'*64, 'publication_epoch': 'new-epoch'}],
+            'active_repair': {'failure_sha256': 'original-failure'}}
+        self.assertEqual([], progress.authorization_problems(state, self.plan, {}))
+        state['events'].append({'kind': 'repair_started', 'progress_replacement_required': True})
+        state['active_repair']['progress_replacement_required'] = True
+        self.assertIn('creative boundary', progress.authorization_problems(state, self.plan, {})[0])
+
     def test_whole_replacement_needs_original_independent_decision_and_current_source(self):
         proof, report = self.replacement()
         self.assertEqual([], progress.admission_problems(self.state, self.plan))

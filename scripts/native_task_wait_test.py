@@ -81,6 +81,19 @@ class NativeWait(unittest.TestCase):
             wait.retain(self.state, tasks)
         self.assertEqual([], list(outside.iterdir()))
 
+    def test_restored_edition_adopts_paid_wakes_only_after_a_new_bound_reservation(self):
+        self.value['run_id'] = '2026-10-19'
+        self.assertEqual([], wait.eligible(self.payload, self.state, self.value))
+        event = self.value['events'][0]
+        event['completion_progress_policy'] = '2026-10-20'
+        claim = json.loads(self.claim.read_text())
+        claim.update(run_id=self.value['run_id'], reservation_sha256=hashlib.sha256(
+            json.dumps(event, sort_keys=True, separators=(',', ':')).encode()).hexdigest())
+        self.claim.write_text(json.dumps(claim))
+        self.payload['background_tasks'][0]['description'] = (
+            'phone_visual_facts_' + hashlib.sha256(self.claim.read_bytes()).hexdigest()[:8])
+        self.assertEqual(1, len(wait.eligible(self.payload, self.state, self.value)))
+
 
 if __name__ == '__main__':
     unittest.main()

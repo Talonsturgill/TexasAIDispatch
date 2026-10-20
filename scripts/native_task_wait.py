@@ -14,8 +14,9 @@ ROLES = {'researcher': {'researcher'}, 'validator': {'validator'}, 'scene-builde
 
 def eligible(payload, state_path, state):
     """Only the host task registry plus an exact owned reservation permits this yield."""
+    from completion_progress import enabled
     if (state.get('mode') != 'production' or state.get('terminal_state')
-            or str(state.get('run_id', ''))[:10] < EFFECTIVE_DATE):
+            or (str(state.get('run_id', ''))[:10] < EFFECTIVE_DATE and not enabled(state))):
         return []
     folder = Path(state_path).parent / 'worker-dispatch-claims'
     if folder.is_symlink():

@@ -313,7 +313,9 @@ def waiting_reason(payload, workspace):
 
 def reservation_fields(state_path, state):
     owner = require_owner(state_path, state)
+    from completion_progress import EFFECTIVE_DATE, ROLLOUT_FIELD
     return ({'publication_owner_sha256': owner['owner_sha256'], 'publication_epoch': owner['epoch']}
+            | {ROLLOUT_FIELD: EFFECTIVE_DATE}
             if owner else {})
 
 
