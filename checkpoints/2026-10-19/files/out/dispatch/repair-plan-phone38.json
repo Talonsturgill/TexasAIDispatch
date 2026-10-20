@@ -1,0 +1,54 @@
+{
+  "repair_scope": "standard",
+  "mechanism_id": "creek-fill-only-water-no-stroke-marks",
+  "failure_family": "unclassified",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The independent exact-phone review round 38 (selected option A film cec660e4, option B film ae780a33) accepted every creek cue after the locked-zoom repair (large empty car with bare seats from 13.2 s, thick passing stripes with no ends, a visible rise off a dark shadow, soft foam, a curved wake, the carry past the oak and slab, out of frame before the cut, crown clear of the chip, above the caption band) and returned revise for ONE defect: stray short tick, dash and curved marks remain in the creek water and on the ledge (14.4 s upper-left tick and dash, 14.8 s dash and slanted mark, 15.2 and 15.6 s short curved strokes, 16.2 to 17.4 s thin line at the ledge slab edge). In the frames these are the clipped arc remnants of the six stroked rain rings and the slab's thin outline stroke.",
+  "repair": "Make the water fill-only. Delete the six stroked rain rings in CreekPlan and draw the s3-rain item as a few large soft filled discs with radial-gradient fills that fade to transparent at their edge (no stroke, no visible edge, opacity at most .12, each at least 120 plan px in radius, kept off the car's carry path) that gently swell and fade on the board clock, so no arc end can appear. Delete the ledge slab's outline stroke and any thin line at its edge, leaving the filled slab with its filled undercut shape. Keep everything else byte-for-byte: cameras, path, car, shadow, foam, wake, stripes, crowns, bank foam lines, hero. Reword the board's s3 'rain rings' text to match the soft ripple discs in opening-a.json, opening-b.json and storyboard.json (identical s3 edits).",
+  "mechanism_change": "The class of drawn element changes from stroked arcs and outlines (which leave clipped partial ticks at phone size) to fill-only gradient shapes with no edges, removing the cause of every flagged mark rather than moving or thinning them.",
+  "expected_visible_result": "At phone size the creek water and the ledge show no short tick, dash, arc or line anywhere, only soft tone, the thick stripes, the foam and the car.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round38/report-a.json",
+  "failure_evidence_sha256": "47b67d8c7a4c775a90baff04bd0943c0c8db3344c5b1545394f02aaa6bd8ff99",
+  "changed_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round38/baseline/RobotaxiFilm.tsx",
+      "before_sha256": "b357ff444bd290def5e34176e84e4e7b8dabc7465eb08ec879a98a38294df2d1",
+      "after_sha256": "b357ff444bd290def5e34176e84e4e7b8dabc7465eb08ec879a98a38294df2d1"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round38/baseline/RobotaxiHero.tsx",
+      "before_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+      "after_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round38/baseline/SanAntonioSupport.tsx",
+      "before_sha256": "98208ebb106146ea84c52e4b70b0d9649b8178d4057b49f6c55ded457d298888",
+      "after_sha256": "98208ebb106146ea84c52e4b70b0d9649b8178d4057b49f6c55ded457d298888"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round38/baseline/storyboard.json",
+      "before_sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e",
+      "after_sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round38/baseline/opening-a.json",
+      "before_sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e",
+      "after_sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round38/baseline/opening-b.json",
+      "before_sha256": "5446fcf3da1ca0e2a5014c8987d12283caee7d6c8f1086823ab141a94bdf11d7",
+      "after_sha256": "5446fcf3da1ca0e2a5014c8987d12283caee7d6c8f1086823ab141a94bdf11d7"
+    }
+  ],
+  "resources": {
+    "reboards": 1
+  },
+  "failed_film_sha256": "cec660e48917fd339d4d92ff5a0362a1f249a8a69d963ea465b0d0ddb1b2b5d3"
+}
