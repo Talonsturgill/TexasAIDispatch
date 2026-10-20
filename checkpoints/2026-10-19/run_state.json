@@ -788,6 +788,14 @@
       "note": "phone26 repair: overhead creek carry in B s3, bold lip, ledge slab",
       "resource": "reboards",
       "to": 14
+    },
+    {
+      "at": "2026-10-20T12:27:08.598553Z",
+      "ceiling": 43,
+      "from": 40,
+      "note": "code-plan review round 27 after phone26 repair (mandatory gate: renderer digest changed), packet critic-packet-round27, same Opus critic aea70021",
+      "resource": "storyboard_critics",
+      "to": 41
     }
   ],
   "events": [
@@ -6583,6 +6591,24 @@
       "repair_revision": "12fe1cc07e5b9433d18bf6a7bf251f3b35a1a99376ce95469ee530952040ed6d",
       "repair_scope": "standard",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-20T12:27:08.598585Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "code-plan review round 27 after phone26 repair (mandatory gate: renderer digest changed), packet critic-packet-round27, same Opus critic aea70021",
+      "now": 41,
+      "resource": "storyboard_critics",
+      "was": 40
+    },
+    {
+      "at": "2026-10-20T12:27:08.598604Z",
+      "kind": "reserved",
+      "note": "code-plan review round 27 after phone26 repair (mandatory gate: renderer digest changed), packet critic-packet-round27, same Opus critic aea70021",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -6597,7 +6623,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 40,
+    "storyboard_critics": 41,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -6606,7 +6632,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "f55b99e0ad4fcf1dd9075ce901b2e65438ad662adf51c9a0dc857eeb324b82d4",
+    "original_private_state_sha256": "77519df12acde83c2d234a602b83f1ac32f302b5c25aba25299dbfd1e47d098d",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -6634,7 +6660,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T12:26:51.252308Z",
+  "updated_at": "2026-10-20T12:27:08.598608Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
@@ -6647,7 +6673,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 40,
+    "storyboard_critics": 41,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
