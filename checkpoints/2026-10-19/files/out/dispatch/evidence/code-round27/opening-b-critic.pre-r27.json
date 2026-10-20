@@ -1,0 +1,151 @@
+{
+  "treatment": "b",
+  "verdict": "pass",
+  "review_scope": "code-plan",
+  "board_bindings": {
+    "opening": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+      "sha256": "dcd774b19cd67711da4f12db73b0c7bdbc53c52cf44d41372278ed850cdc490c"
+    }
+  },
+  "board_sha256": "dcd774b19cd67711da4f12db73b0c7bdbc53c52cf44d41372278ed850cdc490c",
+  "concept_sha256": "4a7a26248676425079842be46e19bc1b5413bea949282de09dc0cdb3d868fc87",
+  "renderer_sha256": "5f8a81133759a3747902c09993398319411ab9cc3a241e983bf921770fec8cf7",
+  "binding_status": "These are the director-supplied digests from out/dispatch/evidence/code-round25-bindings.json, copied unchanged and not recomputed. Changed modules per the coordinator: RobotaxiFilm.tsx ff252ac0... and SanAntonioSupport.tsx f3a18689.... The hero, b5c81839..., is unchanged.",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 25, distinct from the Sonnet director",
+  "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
+  "round24_blocker_check": {
+    "scene_id": "s3",
+    "time_s": 15.4,
+    "status": "resolved in code; phone pixels still required",
+    "detail": "B's blocked interval, 15.4 to 17.4 s, is the shared car-swept shot. It now draws the same rebuilt bank as A. That means:\n- the far bank in broken, stepped blocks under an irregular grass edge;\n- the toe that wanders and pushes out round 5 slumped blocks;\n- the water's far edge following the toe, with no pale top band (lit .002, y0 bankY-20);\n- CreekToe's broken shadows, reflections and foam;\n- the irregular ledge waterline;\n- the zigzag near-bank courses;\n- the overlapping CreekShelf layers.\nB's creek-plan (CreekPlan and the creek-plan case) is unchanged, and it was clean in round 24. CREEK_PLAN, CREEK_CAM, CREEK_CAR, S3 and the landmarks are unchanged, and all changed rows sit above the caption band. s4 is unchanged: no lit prop, the same ext and the same floodFoot."
+  },
+  "strongest_frame": "s3 creek-plan into car-swept, 13.03 to 17.61 s (authored clock). From above, the roof pod moves off the pale shelf with its hand-cut lip toward the channel. Then the locked side view carries it past the fixed oak and ledge, in front of the rebuilt broken limestone bank.",
+  "weakest_frame": "s3 creek-plan, 13.2 to 15.2 s on the film clock (round 24's own pick): a small overhead roof that barely moves. Close behind it is s6-shot-1 lane-plan, 28.3 to 32.705 s.",
+  "blocking_defects": [],
+  "notes": [
+    "The same phone checks as A apply to the shared car-swept shot:",
+    "- whether the stepped courses read as broken limestone;",
+    "- whether the toe's shadow reads as one stripe;",
+    "- whether waterline contact under the now-opaque front shelf is lost while the car is on the shelf;",
+    "- what the vertical pale streak is;",
+    "- the plate's horizon, which can't be judged in code.",
+    "Stale B prose remains, as noted in round 20; none of it is shown on screen:",
+    "- the s1, s4 and s8 attention continuity_from still says 'seen from above';",
+    "- film_direction.angle and medium_choice still describe an overhead curb treatment;",
+    "- fingerprint.pov is still 'top-down-map'.",
+    "B is unselected and runs on the authored clock. Its divergence from A is unchanged at 5 of 20 shots, about 13.7 s.",
+    "This is a code pass only."
+  ],
+  "story_review": {
+    "story_sha256": "5b96fb0df8495f63b551f767e13542731496ae24fdf6c75b8c2adf9be11545a1",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Intended chain, read from code and not observed:",
+    "one_viewing_summary_detail": [
+      "The same ground-level airport curb opening as A, then a flat map plan and the table map close.",
+      "From above, an empty car at a creek's shallow edge is carried off the shelf. Then a locked side view carries it past a fixed oak and ledge, under a broken limestone bank.",
+      "The same street flood with hazards as A.",
+      "A flat record card, then the grid with its stamp.",
+      "From above, a car runs a lane toward standing water. Then the close shows its wheels rolling in while 'may' lights.",
+      "The remedy row lies flat and is stamped.",
+      "A's wet-lot tag, then the low close with checks and the April 20 page.",
+      "The curb with the open door beside the remedy card."
+    ],
+    "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No outcome is invented.",
+    "weakest_transition": "s2 to s3: overhead map to overhead creek. The new example is carried only by the disclosure label, and the creek car is small (round 24)."
+  },
+  "action_reviews": [
+    {
+      "action_id": "wheel-turns-itself",
+      "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "Same cab as A.",
+        "visible_action": "Same steer, after the curb-wide arrival.",
+        "consequence": "Arriving status.",
+        "disclosure": "Chip.",
+        "limits": "Generic car."
+      }
+    },
+    {
+      "action_id": "car-swept-into-creek",
+      "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c3 and c4; shallow edge, no crossing.",
+        "visible_action": "creek-plan moves the car off the shelf, then the shared locked car-swept view runs in front of the rebuilt irregular bank and toe.",
+        "consequence": "Carried downstream past fixed landmarks.",
+        "disclosure": "April 20th chip.",
+        "limits": "No entry path. The bank's shape carries no claim."
+      }
+    },
+    {
+      "action_id": "car-slows-into-water",
+      "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c7 card.",
+        "visible_action": "lane-plan, then the shared wheels-water close.",
+        "consequence": "Wheels in the water, 'may' marked.",
+        "disclosure": "Recall-wording chip.",
+        "limits": "No speed or depth."
+      }
+    },
+    {
+      "action_id": "service-area-opens",
+      "module_sha256": "f3a186891ff7cad4a659461ca82e2576355e9459e626506507e6c6a9f6ac89a5",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c2.",
+        "visible_action": "map-plan, then map-zone.",
+        "consequence": "The outline closes with the tag.",
+        "disclosure": "Credits.",
+        "limits": "Editorial outline."
+      }
+    },
+    {
+      "action_id": "recall-filed-count",
+      "module_sha256": "f3a186891ff7cad4a659461ca82e2576355e9459e626506507e6c6a9f6ac89a5",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c6 and c13.",
+        "visible_action": "record-wall, then count-grid.",
+        "consequence": "Header stamp.",
+        "disclosure": "Chip.",
+        "limits": "Icons are not a literal count."
+      }
+    },
+    {
+      "action_id": "remedy-under-development",
+      "module_sha256": "f3a186891ff7cad4a659461ca82e2576355e9459e626506507e6c6a9f6ac89a5",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c8.",
+        "visible_action": "record-wall with the pen, then stamp-detail.",
+        "consequence": "The imprint carries to s9.",
+        "disclosure": "Chip.",
+        "limits": "Not a real record page."
+      }
+    }
+  ],
+  "phone_observations": null,
+  "modern_observations": null,
+  "pixel_basis": "None at code scope. Code approval includes no pixel observations."
+}
