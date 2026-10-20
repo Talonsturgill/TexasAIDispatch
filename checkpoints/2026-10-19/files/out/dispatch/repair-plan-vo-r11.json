@@ -1,0 +1,22 @@
+{
+ "repair_scope": "narration-performance",
+ "mechanism_id": "measured-pause-length-before-closing-phrase",
+ "failure_family": "human-performance",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The final line is one 77 character caption cue because the only boundary inside it, between remedy and as, measured 0.20 s of silence in take 3 against the 0.24 s minimum, so caption_board_fit refuses it for two lines at 40 pixels. Earlier directions asked for a quarter second breath or no breath at that edge and the voice gave 0.20 s or none.",
+ "repair": "Direct a longer, explicitly timed pause: stop after the word remedy for a clear half second of true silence (no breath noise, no filler), then speak as currently under development in its own phrase. Direction text only. The spoken script, board, claims, sources and renderer are untouched.",
+ "mechanism_change": "The pause is specified as a half second of silence the picture can cut on, replacing the quarter second breath wording that produced 0.20 s, and the earlier request to run the edge straight through.",
+ "expected_visible_result": "A measured silence of at least 0.24 s between remedy and as, so the final cue splits into two measured cues that each fit two lines at 40 pixels, with every word and the closing hedge intact.",
+ "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/caption-fit-take3/failure.txt",
+ "failure_evidence_sha256": "955d660e205e0253835bb08ce68958c5de0cc5081dbc9b12a85a36749a5db6dc",
+ "changed_inputs": [
+  {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/vo_direction.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/vo-direction-r11-baseline/vo_direction.json",
+   "before_sha256": "7a613dbe6c2f2b11b33b7d6e3b5518110e8b8f7faa86476e2819d549ab8319c6"
+  }
+ ],
+ "resources": {
+  "tts_calls": 2
+ }
+}

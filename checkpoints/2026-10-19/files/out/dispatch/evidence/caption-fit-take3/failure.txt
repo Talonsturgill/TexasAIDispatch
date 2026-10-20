@@ -1,0 +1,6 @@
+2026-10-20 timed preview refusal on the measured take 3 (takes3/take1.wav) after runtime_s 58.45 -> 56.0, realign, fold, retime stable.
+preflight_animatic: refused: exact board captions or credits overflow the readable phone area; no animatic was spent
+  FAIL caption c15 needs shorter measured clauses for two lines at 40 or more; never drop words or invent a boundary; characters 77
+caption_board_fit: 1 failure(s); all 15 cues inspected
+Cause: the only candidate boundary inside c15 ("and the federal record lists the flood remedy as currently under development.") is remedy 52.42 -> as 52.62, a measured silence of 0.20 s against CLAUSE_PAUSE_S 0.24 in vo_align.py. All other word gaps in the cue are 0.00 s. Take 3 was the best of three narration batches (take1 no pauses, take2 misheard "as").
+Charge note: the failed attempt left a prepared quarter-scale animatic reservation (events 141-142) unconsumed.
