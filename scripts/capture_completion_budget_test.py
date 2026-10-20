@@ -160,6 +160,30 @@ class PreparedFlowComparisonBudgetTest(ComparisonCompletionBudgetTest):
     native_required = 2
     prepared = True
 
+    def test_first_prepared_comparison_needs_no_earlier_preflight_charge(self):
+        # A fresh edition's two-treatment batch can be its first charged capture.
+        # Remove only the synthetic fixture's earlier preflight history and debit.
+        state = controller.read_state(self.state)
+        entry = self.plan[footprint.FIELD]['entry_event_index']
+        for event in state['events'][:entry]:
+            resources = event.get('resources', {})
+            if event.get('kind') == 'reserved' and 'preflight_renders' in resources:
+                state['usage']['preflight_renders'] -= resources.pop('preflight_renders')
+        controller.save(self.state, state)
+        self.assertFalse(any(event.get('resources', {}).get('preflight_renders')
+                             for event in state['events'][:entry]))
+        first_plan = self.root / 'first-prepared-complete-path.json'
+        footprint.prepare_comparison(self.state, self.original, self.comparison, first_plan)
+        plan = json.loads(first_plan.read_text())
+        self.assertEqual(entry, plan[footprint.FIELD]['hook_event_index'])
+        self.assertTrue(footprint.comparison_eligible(state, plan))
+        accepted, message = completion.grant_capacity(self.state, first_plan)
+        self.assertTrue(accepted, message)
+        granted = controller.read_state(self.state)
+        self.assertEqual(state['usage'], granted['usage'])
+        self.assertEqual(state['resource_envelope'], granted['resource_envelope'])
+        self.assertEqual(state['events'], granted['events'][:len(state['events'])])
+
     def test_wrong_pair_or_third_treatment_is_ineligible(self):
         plan = copy.deepcopy(self.plan)
         plan[footprint.FIELD]['hook_event_index'] = plan[footprint.FIELD]['entry_event_index'] - 1

@@ -287,11 +287,14 @@ def prepare_comparison(state_path, plan_path, comparison_path, output_path):
     entry_index = receipt['reservation']['event_index']
     candidates = [i for i in range(entry_index) if state['events'][i].get('kind') == 'reserved'
                   and state['events'][i].get('resources', {}).get('preflight_renders')]
-    hook_index = candidates[-1]
     if prepared_entry(state, entry_index):
         # The Claude prepared flow charges the batch once and claims that same event, so the
         # entry is its own hook. An earlier lost preparation is not this batch's hook.
         hook_index = entry_index
+    elif candidates:
+        hook_index = candidates[-1]
+    else:
+        raise ValueError('comparison entry has no earlier hook charge or claimed prepared reservation')
     policy, policy_sha256 = COMPARISON_POLICIES[CURRENT_COMPARISON_SCHEMA]
     proof = {'schema': CURRENT_COMPARISON_SCHEMA, 'run_id': state['run_id'],
              'policy_json': policy.read_text(), 'policy_sha256': policy_sha256,

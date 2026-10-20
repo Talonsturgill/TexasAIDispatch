@@ -544,6 +544,11 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
     handoff = (' Return only complete gate-ready JSON, with every required field, supplied binding and defect.'
                if role == 'storyboard-critic' and data['date'] >= '2026-10-20' and not mechanical_task else
                ' Return one complete handoff or consolidated defect list with exact hashes.')
+    if role in ('picture', 'story', 'sound') and data['date'] >= '2026-10-19':
+        handoff = (' With complete access return ONE original scorer-report JSON with all brief fields and supplied bindings, '
+                   'lowercase pass/revise verdict, modern_observations as a keyed object, and observation_directory. '
+                   'Preserve actual scores and findings. No prose or separate blocks. '
+                   'Actual access failure uses the packet partial/no-score path instead.')
     message = ('Work in ' + str(REPO) + '. Read the current compact packet ' +
                str(Path(packet_path).resolve()) + ' (SHA256 ' + digest(packet_path) +
                ') and every bound current guide in full. Verify the inputs before use. Scope: ' +
