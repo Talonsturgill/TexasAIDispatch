@@ -398,6 +398,21 @@ def pre_voice_problems(board_path, claims_path, script=None):
     return sorted(set(errors))
 
 
+def handoff_limit(date, compact_scorer):
+    """Characters a handoff may carry.
+
+    The three final Claude scorers bind the motion sequence, the film, their provider receipt,
+    the attention player, the feed composite and the image reading policy on top of the guides
+    every role reads. On a restored edition with a long absolute workspace path that crossed
+    the shared 10000 character cap by 840 characters on 2026-10-20 with nothing removable, so
+    the dated scorer cap below applies to those packets alone. Every other role keeps the cap.
+    """
+    cap = policy()["handoff_max_chars"]
+    if compact_scorer and str(date or "") >= policy().get("claude_scorer_handoff_from", "9999"):
+        cap = max(cap, policy().get("claude_scorer_handoff_max_chars", cap))
+    return cap
+
+
 def packet_text(data):
     """Remove JSON layout bytes before rejecting a complete current Claude scorer handoff."""
     encoded = json.dumps(data, indent=2) + '\n'
@@ -534,7 +549,8 @@ def packet(board_path, claims_path, role, state_path=None):
             'subjects/actions; wrong/absent pictures fail despite captions/provider prose.'
             if compact_scorer else ' Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words.')
     encoded = packet_text(data)
-    if len(encoded) > policy()["handoff_max_chars"] and isinstance(data["story"], dict):
+    limit = handoff_limit(board.get("date"), compact_scorer)
+    if len(encoded) > limit and isinstance(data["story"], dict):
         # Detailed scene/transition prose remains in the exact hash-bound board.
         # The handoff summarizes the contract rather than duplicating its full body.
         data["story"] = {k: data["story"][k] for k in ["director_identity", *policy()["story_fields"]]
@@ -542,7 +558,7 @@ def packet(board_path, claims_path, role, state_path=None):
         data["story_detail"] = {"reference": "board", "field": "story_contract"}
         data["instructions"] += " Read the complete story_contract, including scenes and transitions, in the bound board."
         encoded = packet_text(data)
-    if len(encoded) > policy()["handoff_max_chars"]:
+    if len(encoded) > limit:
         raise ValueError("handoff exceeds the compact packet limit; shorten the story contract, retain source paths")
     return data
 
