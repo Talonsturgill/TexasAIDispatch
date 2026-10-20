@@ -95,12 +95,17 @@ Before every native render, calculate scripts/native_headroom.py on the current 
 that housekeeping command with --require-headroom --min-free-gib set to its required_free_gib.
 Retain at least two completed packages. Missing process inspection or unverifiable archives never
 authorize cleanup; recover the actual capacity condition through the controller.
-If eligible cleanup leaves insufficient room, compact the selected isolated edition's Git object
+If eligible cleanup leaves insufficient room, compact the selected edition's Git object
 storage from that edition's wrapped internal `cd`, using
 `python scripts/owned_git_compaction.py --repo <actual-edition-checkout> --apply --out out/dispatch/evidence/owned-git-compaction-<attempt>.json`.
-This uses Git's keep-unreachable mode and verifies all prior object identities, refs, dirty state
-and ledger bytes. It refuses shared storage or active Git locks; wait for the actual lock and retry
-with a fresh receipt. Then rerun the full native planner and housekeeping at the unchanged target.
+This uses Git's keep-unreachable mode and verifies all prior object identities, refs, checkout
+states and ledger bytes. An isolated clone is eligible. A restored linked edition is eligible only
+when its installed primary continuation selects this exact ledger and its only peer checkout is
+the primary source clone; current publication ownership is still required. Borrowed storage,
+unregistered shared worktrees, a third checkout and active Git locks remain refused. Wait for an
+actual lock to clear before retrying with a fresh receipt. Run the compaction in the foreground
+with a tool deadline longer than its 300-second Git timeout. Then rerun the full native planner
+and housekeeping at the unchanged target.
 Do not uninstall unrelated host toolchains, delete retained evidence or ask the owner to free space.
 Keep a real refusal and continue the configured capacity recovery if compaction is insufficient.
 
