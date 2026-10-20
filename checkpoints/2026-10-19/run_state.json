@@ -1124,6 +1124,14 @@
       "note": "exact silent phone comparison of both renewed opening films after phone38 repair, packet phone-critic-packet-round40",
       "resource": "storyboard_critics",
       "to": 59
+    },
+    {
+      "at": "2026-10-20T18:30:10.242462Z",
+      "ceiling": 60,
+      "from": 59,
+      "note": "process-interruption completion of the exact silent phone review round 40 (worker a6b1ef80 stopped after 13 of 128 page annotations, no handback; original reservation 59 retained and charged, no refund or replay), same original independent critic, packet phone-critic-packet-round40",
+      "resource": "storyboard_critics",
+      "to": 60
     }
   ],
   "events": [
@@ -9161,6 +9169,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-20T18:30:10.242488Z",
+      "ceiling": 60,
+      "kind": "budget_escalated",
+      "note": "process-interruption completion of the exact silent phone review round 40 (worker a6b1ef80 stopped after 13 of 128 page annotations, no handback; original reservation 59 retained and charged, no refund or replay), same original independent critic, packet phone-critic-packet-round40",
+      "now": 60,
+      "resource": "storyboard_critics",
+      "was": 59
+    },
+    {
+      "at": "2026-10-20T18:30:10.242507Z",
+      "kind": "reserved",
+      "note": "process-interruption completion of the exact silent phone review round 40 (worker a6b1ef80 stopped after 13 of 128 page annotations, no handback; original reservation 59 retained and charged, no refund or replay), same original independent critic, packet phone-critic-packet-round40",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -9175,7 +9201,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 59,
+    "storyboard_critics": 60,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -9184,7 +9210,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "32b7fb2aa91ec1a5b77f6ead7fd0c7755516fcdf56a16a1e56363047ec4bf3d1",
+    "original_private_state_sha256": "cb36dd7fdd4ea190883c389c7bbf9309e108433ec53800fde3d5901f3a184d37",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -9212,7 +9238,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T18:06:34.214281Z",
+  "updated_at": "2026-10-20T18:30:10.242510Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
@@ -9225,7 +9251,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 59,
+    "storyboard_critics": 60,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
