@@ -1,4 +1,43 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/RobotaxiFilm.tsx",
+        "before_sha256": "144fd2107b5e4003311569d4ff2212a52d6bfae550e1577252dc7476b8c6ebc3",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/RobotaxiHero.tsx",
+        "before_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/SanAntonioSupport.tsx",
+        "before_sha256": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/storyboard.json",
+        "before_sha256": "3a7804013d2b97e7a2a4fbb8d96c678b9e8709323638858a05b56575a4ad21a0",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/opening-a.json",
+        "before_sha256": "cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/opening-b.json",
+        "before_sha256": "b219e9fccf4160df7f1a47b78d1c31e00beb2ec5481d0a57580ac641382f5584",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      }
+    ],
+    "failure_sha256": "34598e1b46e4117bd760453fe6e7ecaddc7f1397d3431870cfae7a2135f485a3",
+    "plan": "{REPO}/out/dispatch/post-pivot-capacity-r18-v2-comparison-plan.json",
+    "plan_sha256": "1265b206dd56f2cd05d7d9c5043e7bf761691325a0cfb7c9b8a945d27cff2442",
+    "reboards_before": 10,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-19T05:13:41.692242Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/dffd4cd42a51f2dd-abd0fbe0f83d63d2-b113a6d1a4b9b845/storyboard.json",
@@ -4814,6 +4853,61 @@
         "validator_agents": 4,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-20T07:52:27.796498Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/RobotaxiFilm.tsx",
+          "before_sha256": "144fd2107b5e4003311569d4ff2212a52d6bfae550e1577252dc7476b8c6ebc3",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/RobotaxiHero.tsx",
+          "before_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/SanAntonioSupport.tsx",
+          "before_sha256": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/storyboard.json",
+          "before_sha256": "3a7804013d2b97e7a2a4fbb8d96c678b9e8709323638858a05b56575a4ad21a0",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/opening-a.json",
+          "before_sha256": "cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round18/baseline/opening-b.json",
+          "before_sha256": "b219e9fccf4160df7f1a47b78d1c31e00beb2ec5481d0a57580ac641382f5584",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "unclassified",
+      "failure_sha256": "34598e1b46e4117bd760453fe6e7ecaddc7f1397d3431870cfae7a2135f485a3",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 11,
+          "to": 11
+        },
+        "storyboard_critics": {
+          "from": 35,
+          "to": 35
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "fixed-bank-displacement-and-new-composition-tag-close",
+      "plan_identity": null,
+      "plan_sha256": "1265b206dd56f2cd05d7d9c5043e7bf761691325a0cfb7c9b8a945d27cff2442",
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -4837,7 +4931,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "15f64fa803151be2d6b449c90b149e98e51ad78ce97486063418d2d190ee87f1",
+    "original_private_state_sha256": "7895ce47f8276b897617b1e11351d2f69da6b8d221b523e2c514db346a3b1013",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -4865,7 +4959,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T07:48:18.626429Z",
+  "updated_at": "2026-10-20T07:52:27.796540Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
