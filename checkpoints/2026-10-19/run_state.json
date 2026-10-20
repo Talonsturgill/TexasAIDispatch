@@ -1292,6 +1292,14 @@
       "note": "LATE DEBIT, recorded at the actual present time with no backdating, refund or replay: two real local-only exact MP4 audiovisual review reservations (picture 2026-10-20T19:52:13.808851Z and sound 2026-10-20T19:52:13.972275Z) from the parallel-lens ledger race that aborted before any provider call; original local ledger bytes and divergence evidence retained at out/dispatch/evidence/parallel-av-ledger-race/. The durable story reservation (2026-10-20T19:52:13.637658Z) also stays spent.",
       "resource": "audiovisual_reviews",
       "to": 14
+    },
+    {
+      "at": "2026-10-20T20:09:58.727209Z",
+      "ceiling": 62,
+      "from": 60,
+      "note": "exact-film motion-image review extraction",
+      "resource": "preflight_renders",
+      "to": 61
     }
   ],
   "events": [
@@ -9980,6 +9988,24 @@
       "resources": {
         "audiovisual_reviews": 2
       }
+    },
+    {
+      "at": "2026-10-20T20:09:58.727251Z",
+      "ceiling": 62,
+      "kind": "budget_escalated",
+      "note": "exact-film motion-image review extraction",
+      "now": 61,
+      "resource": "preflight_renders",
+      "was": 60
+    },
+    {
+      "at": "2026-10-20T20:09:58.727273Z",
+      "kind": "reserved",
+      "note": "exact-film motion-image review extraction",
+      "preflight_identity": "066e156ce37e5bf8c06e5fe46e110c6cf25753bc97f6934258b05fc7ccafde31",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -9988,7 +10014,7 @@
     "full_renders": 2,
     "image_generations": 2,
     "panel_rounds": 2,
-    "preflight_renders": 60,
+    "preflight_renders": 61,
     "reboards": 19,
     "reported_tokens": 898093,
     "rescue_renders": 1,
@@ -10003,7 +10029,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cf2208ea651180652006e25c7cfc00e5db8d224edc8b7b8858727016e3d520b6",
+    "original_private_state_sha256": "1e21a1fd65ff1038527769fe1e23260b3fbf72830b7d641c4c6793f3b2bfa29c",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -10031,14 +10057,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T20:01:05.193249Z",
+  "updated_at": "2026-10-20T20:09:58.727278Z",
   "usage": {
     "audiovisual_reviews": 14,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
     "panel_rounds": 2,
-    "preflight_renders": 60,
+    "preflight_renders": 61,
     "reboards": 19,
     "reported_tokens": 898093,
     "rescue_renders": 0,
