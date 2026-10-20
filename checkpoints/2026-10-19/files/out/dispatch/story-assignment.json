@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "story",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-sonnet-5-5",
+    "effort": "medium",
+    "agent": "scorer",
+    "resource": "scorer_calls",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/story-packet.json",
+    "sha256": "015ff78697dbfc2a5e3ae9973722b76757294a591a60972c140c2651e51bd383"
+  },
+  "brief": {
+    "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/.claude/agents/scorer.md",
+    "sha256": "41a86096f258f4fbe6185a6915fcb87b55b0ed472ff6a2595734661c10b2073e"
+  },
+  "agent_args": {
+    "subagent_type": "dispatch-visual-scorer",
+    "description": "story_score",
+    "prompt": "Work in /home/user/dispatch-editions/2026-10-19/TexasAIDispatch. Read the current compact packet /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/story-packet.json (SHA256 015ff78697dbfc2a5e3ae9973722b76757294a591a60972c140c2651e51bd383) and every bound current guide in full. Verify the inputs before use. Scope: Independently watch the exact finished film through the source, narrative and comprehension lens Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments. The guarded visual leaf preserves this exact role model, effort, brief and rubric while writing only its own public image annotations.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}

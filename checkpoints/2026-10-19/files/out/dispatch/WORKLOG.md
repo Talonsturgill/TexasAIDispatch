@@ -127,3 +127,5 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-20T03:05Z hero audiovisual pass (gemini), full native render complete (render_dispatch exit 0). Next: phase 04 review (3 audiovisual lenses, 3 scorers), release.
 
 2026-10-20T03:50Z full film rendered; cheap checks all clean; 3 AV lenses pass (gemini); motion-review (native) extracted+verified (preflight_renders 18 ceiling). Scorer packets exceed 10000-char cap (compact 10840): tooling PR 241 (dated claude scorer cap 12000), waiting CI then merge main into edition. Then: packets, plan, panel reserve, 3 scorers, panel_triage, deliver_run verify, finish publishable.
+
+2026-10-20T04:10Z PR 241 merged but it edited config/daily_production.json whose digest the story reviews bind -> preship red (story review does not bind current daily contract). Disclosed. PR 242 returns config to exact prior bytes (01bff518) and holds cap in code. After merge: merge main, re-run preship, packets, panel.
