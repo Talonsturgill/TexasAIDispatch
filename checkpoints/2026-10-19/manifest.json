@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T19:58:36.724147+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-20T19:59:08.697497+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -1670,6 +1670,18 @@
       "size": 586
     },
     {
+      "path": "out/dispatch/cinema/review-cache/bbbf6fd306feeb9fbc8f96ba71200d1df42d3fddc8a0d7bb19bebbac49802dfa/receipt.json",
+      "class": "scratch",
+      "sha256": "ebb3b2e9e11141b07c8e34a11499317f92ba0691c6d2e8052d2a3444fdbe259f",
+      "size": 582
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/bbbf6fd306feeb9fbc8f96ba71200d1df42d3fddc8a0d7bb19bebbac49802dfa/story-review-response.json",
+      "class": "scratch",
+      "sha256": "cadfd0539eba445952b5ee251b06c5806ec3ccc347209676b5d1fa107ba1ac05",
+      "size": 123470
+    },
+    {
       "path": "out/dispatch/cinema/review-cache/f6cc54ebdce2123394ad7701d9a33dacda52137d5f56e0f819c71729b36ab1d7/hero-review-response.json",
       "class": "scratch",
       "sha256": "ba815310a286576cb9450052b6e1d00659b0c2a0b2e5ff06ded0e6ba0166c0c7",
@@ -2020,8 +2032,14 @@
     {
       "path": "out/dispatch/cinema/story-review-response.json",
       "class": "scratch",
-      "sha256": "2f67c0bfcc5fc3284cecfce845bfc24493e16537581a3deaf6021fbc2abf463e",
-      "size": 129239
+      "sha256": "cadfd0539eba445952b5ee251b06c5806ec3ccc347209676b5d1fa107ba1ac05",
+      "size": 123470
+    },
+    {
+      "path": "out/dispatch/cinema/story-review.json",
+      "class": "scratch",
+      "sha256": "ebb3b2e9e11141b07c8e34a11499317f92ba0691c6d2e8052d2a3444fdbe259f",
+      "size": 582
     },
     {
       "path": "out/dispatch/claims.json",
