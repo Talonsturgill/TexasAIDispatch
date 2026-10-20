@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T08:36:28.562529+00:00",
-  "note": "capture authorization consumed e8dbad39d8cb",
+  "saved_at": "2026-10-20T08:38:45.188643+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "cf6f8e8e2119591b0464521798aad30ae5f471a1af357e376578d65a83ff1c4c"
   },
   "deleted_source": [],
-  "ledger_sha256": "1fcd54c9f5ce87663628d6df2c7eb1d0abcea1785fe84007b839a761c55db71c",
-  "original_private_ledger_sha256": "0227752452a143b6deb3cbb49f2f54aabfba3383a8473bf36980770021bb2afe",
+  "ledger_sha256": "e6ad85feead2bf0ce09fdf8c36857708ed2b7b4ba48548cb43db02a0a6cf63af",
+  "original_private_ledger_sha256": "6f55efd0462a0e3aaa6af17abef6efed7e66de7493abb3b698d085fbadc90a55",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -122,8 +122,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "f9bc8705a4618f4822f47a1b07d2febb00e1ab8e036d075a273ba9a47d346005",
-      "size": 46565
+      "sha256": "f947d4d8fca890bc8458aa233df2275ffa7fba6ad40f10b83a0a5126881e9871",
+      "size": 46779
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -2076,6 +2076,12 @@
       "size": 827
     },
     {
+      "path": "out/dispatch/evidence/compare-refusal-phone18/EVIDENCE.txt",
+      "class": "scratch",
+      "sha256": "eff64a5dc4a675c3637a9b5190e30379fb3c9f2030dc3c7fffcc3f840641a94e",
+      "size": 134
+    },
+    {
       "path": "out/dispatch/evidence/critic-code-round1-handback.json",
       "class": "scratch",
       "sha256": "5174df82ff0b21d834f97adb211442dcc2d3f324fd3ad505c46c64a1d4eec0b8",
@@ -2149,6 +2155,30 @@
     },
     {
       "path": "out/dispatch/evidence/measured-pre-compare/words.json",
+      "class": "scratch",
+      "sha256": "f23da2f928a101983d89f076389773c83c1ae74981d70fae4d6c15ad59408c9c",
+      "size": 33918
+    },
+    {
+      "path": "out/dispatch/evidence/measured-pre-phone18/captions.json",
+      "class": "scratch",
+      "sha256": "f42cf87cc017e60391950c298ed1ef26ee101bf481578d05b7c508b1019e9b4c",
+      "size": 4235
+    },
+    {
+      "path": "out/dispatch/evidence/measured-pre-phone18/sfx_events.json",
+      "class": "scratch",
+      "sha256": "379745f7ce35b7f170f5e2ed8b1af2d63c07f2b495ce322eac1ee6931d572a81",
+      "size": 2069
+    },
+    {
+      "path": "out/dispatch/evidence/measured-pre-phone18/storyboard.json",
+      "class": "scratch",
+      "sha256": "1acbdace7815e07d2360ad309601a819e40156676ca8b7abe84098dffe46ac1d",
+      "size": 179459
+    },
+    {
+      "path": "out/dispatch/evidence/measured-pre-phone18/words.json",
       "class": "scratch",
       "sha256": "f23da2f928a101983d89f076389773c83c1ae74981d70fae4d6c15ad59408c9c",
       "size": 33918
@@ -17594,8 +17624,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "1acbdace7815e07d2360ad309601a819e40156676ca8b7abe84098dffe46ac1d",
-      "size": 179459
+      "sha256": "0cd19a78bf8c310452c6c9436523b3e84743ece2c3e421958ae7c1a80066bcfa",
+      "size": 178264
     },
     {
       "path": "out/dispatch/storyboard_critic.json",

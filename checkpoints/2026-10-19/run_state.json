@@ -5084,6 +5084,14 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-20T08:38:42.043102Z",
+      "evidence": "{REPO}/out/dispatch/evidence/compare-refusal-phone18/EVIDENCE.txt",
+      "evidence_sha256": "eff64a5dc4a675c3637a9b5190e30379fb3c9f2030dc3c7fffcc3f840641a94e",
+      "input_identity": "7ab9f6ba5770a2ef1da36bfffc340e24cd45412f50ca1d23285f24af7f72d411",
+      "kind": "preflight_retry_authorized",
+      "reason": "Verified fix: storyboard.json is again the authored provisional board identical to opening-a.json (the measured retimed board is retained at evidence/measured-pre-phone18), so the comparison precondition holds. The refused attempt rendered nothing and stays charged."
     }
   ],
   "limits": {
@@ -5105,9 +5113,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "7ab9f6ba5770a2ef1da36bfffc340e24cd45412f50ca1d23285f24af7f72d411",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "0227752452a143b6deb3cbb49f2f54aabfba3383a8473bf36980770021bb2afe",
+    "original_private_state_sha256": "6f55efd0462a0e3aaa6af17abef6efed7e66de7493abb3b698d085fbadc90a55",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5135,7 +5144,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T08:36:15.045062Z",
+  "updated_at": "2026-10-20T08:38:42.043159Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
