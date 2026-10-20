@@ -188,3 +188,4 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-20 pivot3 PASS (evidence/pivot-phone22); begin-repair opened on comparison-completion-plan-phone22.json; reboards 12/12; builder a78a9fbe resumed for SanAntonioSupport CreekShelf edge fix (brief in evidence/phone-critic-round22).
 2026-10-20 builder phone22 done tsc 0 (Support c693803c); rebound renderer_inputs/native_media, recorded art on opening-b and copied entries, storyboard reset to opening-a copy, after_sha256 filled, authorize-repair run; code critic r23 35/35 sent to aea70021 (bindings evidence/code-round23-bindings.json).
 2026-10-20 headroom: also moved evidence/openings-pre-phone18-repair and evidence/opening-compare-live-r15-moved to /dev/shm (sha256 verified; on remote checkpoint).
+2026-10-20 code r23 A+B PASS installed (gates ok); openings retained at evidence/openings-pre-phone22-repair; comparison renewal started (bg blmko9mor).
