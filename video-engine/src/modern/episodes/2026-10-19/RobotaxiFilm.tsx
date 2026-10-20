@@ -6,8 +6,8 @@ import {actionProgress,actionWindows,requireNarration,type ActionWindow,type Dir
 import {PlaceSubject,usePlace} from '../../PlaceStage';
 import type {FilmRenderProps} from '../../types';
 import {RobotaxiHero,CAR,SIDE_BOX,TOP_BOX,DOOR_STOP,type SideProps,type TopProps} from './RobotaxiHero';
-import {SanAntonioSupport,CURB,CURB_PLAN,CREEK,STREET,LANE,LOT,LOT_PLAN,LANE_PLAN,STREET_PLAN,CREEK_PLAN,
- QUOTE_TEXT,REMEDY_ROW,floodFoot,puddleFoot,imprintSize,stampSlots,remedyPenTip,stampKnob,cordAt,STAMP_SIZE,type Imprint} from './SanAntonioSupport';
+import {SanAntonioSupport,CURB,CURB_PLAN,CREEK,CREEK_MARKS,STREET,LANE,LOT,LOT_PLAN,LOT_PLAN_CLOSE,LANE_PLAN,STREET_PLAN,
+ QUOTE_TEXT,REMEDY_ROW,floodFoot,puddleFoot,creekToePts,smoothPath,SA,imprintSize,stampSlots,remedyPenTip,stampKnob,cordAt,cordAtClose,STAMP_SIZE,type Imprint} from './SanAntonioSupport';
 
 /**
  * robotaxi-recall-v1: the ride and the recall (2026-10-19, Bexar County).
@@ -23,12 +23,18 @@ import {SanAntonioSupport,CURB,CURB_PLAN,CREEK,STREET,LANE,LOT,LOT_PLAN,LANE_PLA
  *  s2  a San Antonio street map draws in (linear); as the limited area is named a February calendar slides
  *      onto the map's corner from the side it stood on, the outline starts to trace and its sixty square
  *      miles tag drops in at once; the outline, the only ring on the map, closes around the moving pins.
- *  s3  rain streaks in and a fast brown current runs left along the limestone bank under live oaks; an
- *      EMPTY car (clear glass, bare seats), framed large, is already in it and the current starts carrying
- *      it downstream from the clause's first word; the water piles against its nose, then the current lifts
- *      it, rolls it and sweeps it on faster, tail first, while the camera follows at part of its speed so
- *      the bank slides past. One continuous water sheet closes over its wheels. Illustrated, no occupant,
- *      no damage.
+ *  s3  (A) rain streaks in and a fast brown current runs left along the limestone bank under live oaks. The
+ *      camera is LOCKED on fixed bank landmarks: the near bank's shallow limestone shelf and its broken lip,
+ *      the far bank's tall live oak and a pale ledge jutting into the water. An EMPTY car (clear glass, bare
+ *      seats) stands on the shelf at the shallow edge from the first frame, the water rushing round its
+ *      wheels; nothing shows how it came to be there. The water presses its upstream side, a bow wave builds
+ *      and it starts to slide along the shelf (s3-event-2); the current shoves it off the lip, tail first, so
+ *      the tail drops, the waterline climbs its doors, and carries it on downstream, faster, past the oak and
+ *      toward the ledge, across most of the frame (s3-event-3). One continuous water sheet closes over its
+ *      lower body. B reads the same carry straight down in both of its s3 shots (creek-plan): rain rings on
+ *      the channel round the large roof of the empty car at the shallow bank edge, seen near from above, then
+ *      the same plan from a little higher on a second locked camera as the current lifts it off the bank edge
+ *      and carries it past the oak and the pale ledge slab and out of frame. Illustrated, no occupant, no damage.
  *  s4  the residential street is already under brown water at the clause's first word; it spreads on and
  *      climbs to a second empty car's wheel arches, the car creeps, stops (its speed follows the board's
  *      contact curve) and its amber hazards start to blink; the camera finds the empty cabin as the water
@@ -49,11 +55,14 @@ import {SanAntonioSupport,CURB,CURB_PLAN,CREEK,STREET,LANE,LOT,LOT_PLAN,LANE_PLA
  *      under its words, presses into it and is carried out of the way, its forearm running out below the
  *      pen and the sentence. The summary sentence has its own card in s6, and the interim rows (the
  *      weather limits and the April 20th date) are never on the card.
- *  s8  a weather limits tag enters on the clause's first word, slides along a cord and clips above a row
- *      of four large cars; the cord takes up its slack and the tag swings and settles; each car takes a
- *      check mark left to right as every affected car is named, the vehicle map card is marked updated,
- *      and the April calendar flips to 20 on April twentieth. B reads the same four cars from above in one
- *      lot through both of its s8 shots, the detail being the same lot closer.
+ *  s8  in the wet fleet lot the four cars stand in a row of stalls running away from the camera, filling
+ *      the frame; a weather limits tag enters on the clause's first word, slides along the cord and clips
+ *      above them; the cord takes up its slack and the tag swings and settles. Then a SEPARATELY STAGED low
+ *      close at the near end of the row, the eye at door height: the tag hangs clipped on the cord near the
+ *      lens, the nearest car fills the frame and its roof pod takes its check large, the three behind it
+ *      take theirs left to right as every affected car is named, the vehicle map card clipped further along
+ *      the cord is marked updated, and the calendar on the far pole flips to 20 on April twentieth. B uses the
+ *      same two shots; its own fleet-plan and limits-detail views remain drawn for its overhead option.
  *  s9  back at the same curb bay the same car waits, its curbside rear door swings open, the record card,
  *      already standing back by the curb, slides into the foreground through the remedy's naming and its
  *      remedy row is underlined, still under development; the split sets the card and phone on the
@@ -72,6 +81,7 @@ type Box=[number,number,number,number];
 const clamp=(v:number)=>Math.min(1,Math.max(0,v));
 const lerp=(a:number,b:number,p:number)=>a+(b-a)*p;
 const smooth=(p:number)=>{const q=clamp(p);return q*q*(3-2*q);};
+const frac=(v:number)=>v-Math.floor(v);
 const DEG=180/Math.PI;
 /** The board's contact curve as a plain ease, for renderer-only setup moves outside an event window
  * (a pen withdrawing, a stamp poised): zero velocity and acceleration at both ends. */
@@ -121,14 +131,15 @@ export function robotaxiState(W:Record<string,ActionWindow>,t:number,N:Record<st
  const w22=w('s2-event-2'),p23=P('s2-event-3');
  const s2={draw:P('s2-event-1'),cal:P('s2-event-2'),zone:.3*P('s2-event-2')+.7*p23,fill:clamp((p23-.8)/.2),
   tag:w22?smooth((t-w22.start)/S2_TAG_IN):0};
- // s3: rain and a fast brown current running LEFT (downstream); the empty car is already in it and the
- // current starts carrying it from the clause's first word (s3-event-1's ramp to S3.v0), the water piles
- // against its upstream nose, then the current LIFTS it (it rides up and rolls) and sweeps it faster,
- // tail first, along s3-event-3's travel curve up to S3.v. Its speed only rises, so it never stops in
- // the water. Nothing shows how it came to be there.
- const w31=w('s3-event-1'),w33=w('s3-event-3'),lift=P('s3-event-3');
- const s3={rain:.25+.75*P('s3-event-1'),flow:1.2+1.2*P('s3-event-1'),press:P('s3-event-2'),lift,sweep:lift,
-  drift:(w31?S3.v0*curveIntegral(w31,t):0)+(w33?(S3.v-S3.v0)*curveIntegral(w33,t):0)};
+ // s3: rain and a fast brown current running LEFT (downstream). The empty car stands on the shallow shelf
+ // at the bank's edge, rocked by the water, until s3-event-2: the water presses its upstream side and it
+ // starts to slide along the shelf, its speed following that event's contact curve up to S3.v2; on
+ // s3-event-3 the current shoves it on, its speed following the travel curve up to S3.v, so it goes off
+ // the lip (`off`, by distance: its rear wheel reaches the lip, then its front wheel leaves it) and is
+ // carried downstream past the fixed landmarks. Its speed only rises, so it never stops in the water.
+ const w32=w('s3-event-2'),w33=w('s3-event-3');
+ const D3=(w32?S3.v2*curveIntegral(w32,t):0)+(w33?(S3.v-S3.v2)*curveIntegral(w33,t):0);
+ const s3={rain:.25+.75*P('s3-event-1'),flow:1.2+1.2*P('s3-event-1'),press:P('s3-event-2'),drift:D3,off:s3Off(D3)};
  // s4: the street is already under water at the clause's first word; the water spreads on and rises
  // to the wheel arches; the car creeps at a steady 60 world units a second, then its speed follows
  // s4-event-2's contact curve down to a stop; the hazards start blinking in that event
@@ -172,8 +183,10 @@ export function robotaxiState(W:Record<string,ActionWindow>,t:number,N:Record<st
  // settles; each car takes its check left to right as every affected car is named, the vehicle map card
  // is marked updated, and the calendar flips to 20 on April twentieth
  const w81=w('s8-event-1'),w83=w('s8-event-3'),n8a=N['n8a'],in8=n8a&&w81?Math.min(n8a.start,w81.start):w81?.start??0;
+ // once it has settled, the clipped tag sways a little in the wet breeze, a slow swing that fades in from rest
  const s8={tag:w81?contactQ((t-in8)/(w81.end-in8)):0,tagIn:w81?clamp((t-in8)/.12):0,tight:w81?smooth((t-w81.end-S8.tightAt)/S8.tightDur):0,
   swing:w81?damped(t-w81.end,6,1.1,2.2)+damped(t-w81.end-S8.tightAt,3.5,1.3,2.6):0,
+  sway:w81?1.6*Math.sin(2*Math.PI*.42*(t-w81.end))*smooth((t-w81.end-.8)/1.4):0,
   flip:P('s8-event-2'),checks:P('s8-event-3'),updated:w83?smooth((t-w83.end)/.6):0};
  // s9: door opens, card slides in, remedy underlined
  // the held-open door eases on to its check stop after the underline: the last small movement of the ride
@@ -187,27 +200,97 @@ export type RobotaxiState=ReturnType<typeof robotaxiState>;
 // composes the values this file draws with (Cam, then the plate camera's PlaceSubject). ------------
 export const CURB_CAR={y:1240,s:.88,x0:80};
 export const curbCarX=(D:number)=>CURB_CAR.x0+D*CURB_CAR.s;
-export const CREEK_CAR={x:700,s:.72,y:1236};
-/** s3's two cameras: closer than the creek's full width, each following the carried car at `follow` of
- * its drift so the car keeps moving on screen against a bank that slides the other way. */
-export const CREEK_CAM={wide:{f0:640,fy:1130,s:1.3,a:[540,1000] as Pt},swept:{f0:600,fy:1150,s:1.55,a:[540,960] as Pt},follow:.62,plan:.5};
+/** s3's car: its start on the shelf (world x of its centre, 191 units upstream of the lip, so its tail
+ * stands at the lip's edge) and its scale. `y` is the row the creek world is grounded on. */
+export const CREEK_CAR={x:CREEK_MARKS.lip+191,s:.72,y:1236};
+/** s3's two cameras, both LOCKED: world point f lands on screen point a at scale s for the whole shot, so
+ * the bank, the shelf's lip, the landmark oak and the ledge never move and the car's travel past them is
+ * the current's. The wide holds the whole reach, the ledge to the near bank; the medium holds the reach
+ * the car is carried down, from the lip past the oak to the ledge. */
+/** The two overhead creek shots, each on one LOCKED camera (plan point f on screen point a at scale s for the
+ * whole shot, no pan). The first is near, at 1.6, on the empty car standing at the near bank's edge, so its
+ * roof and bare seats read large. The second is a little higher, at 1.4, on the reach it is carried down: the
+ * bank edge it lifts off, the landmark oak's crown and the pale ledge slab, under the disclosure chip and
+ * above the caption band, until it leaves the frame to the left. The plan and the car's path are the same in
+ * both shots, so nothing resets at the cut. */
+export const CREEK_PLAN_NEAR:Cam={f:[770,1025],s:1.6,a:[540,960]};
+export const CREEK_PLAN_CARRY:Cam={f:[515,970],s:1.4,a:[540,960]};
+/** s3's overhead carry, one path for both creek-plan shots (plan pixels): the empty car stands in shallow flood
+ * water at the near bank's limestone edge, its near-side wheels on the stone and its far-side wheels in the
+ * water; the current takes it along the bank, lifts it off the edge into the channel and carries it downstream
+ * under the oak's crown, over the pale ledge slab and out of frame to the left. */
+export const S3_PLAN_PATH:Pt[]=[[800,1105],[650,1040],[520,940],[380,890],[-142,875],[-420,868]];
+/** Its speeds along the path, plan pixels a second: sliding along the bank edge (s3-event-2's contact curve)
+ * and swept once the current has it (s3-event-3's travel curve). The current itself runs faster. */
+export const S3_PLAN_SPEED={slide:160,swept:380};
+/** The path as a Catmull-Rom curve, sampled with its cumulative arc length. */
+const S3_PATH_TABLE=(()=>{const P=S3_PLAN_PATH,n=P.length,per=40,pts:Pt[]=[],len:number[]=[];
+ for(let i=0;i<n-1;i++){const p0=P[Math.max(0,i-1)],p1=P[i],p2=P[i+1],p3=P[Math.min(n-1,i+2)];
+  for(let j=(i?1:0);j<=per;j++){const u=j/per,u2=u*u,u3=u2*u;
+   const c=(a:number,b:number,cc:number,d:number)=>.5*(2*b+(-a+cc)*u+(2*a-5*b+4*cc-d)*u2+(-a+3*b-3*cc+d)*u3);
+   const q:Pt=[c(p0[0],p1[0],p2[0],p3[0]),c(p0[1],p1[1],p2[1],p3[1])];
+   len.push(pts.length?len[len.length-1]+Math.hypot(q[0]-pts[pts.length-1][0],q[1]-pts[pts.length-1][1]):0);pts.push(q);}}
+ return {pts,len};})();
+/** The path point at arc length s, continuing straight past its last point if ever needed. */
+export function s3PlanAt(s:number):Pt{const {pts,len}=S3_PATH_TABLE,n=pts.length;
+ if(s<=0)return pts[0];
+ if(s>=len[n-1]){const a=pts[n-2],b=pts[n-1],d=Math.hypot(b[0]-a[0],b[1]-a[1])||1,e=s-len[n-1];return [b[0]+(b[0]-a[0])/d*e,b[1]+(b[1]-a[1])/d*e];}
+ let lo=0,hi=n-1;while(hi-lo>1){const m=(lo+hi)>>1;if(len[m]<=s)lo=m;else hi=m;}
+ const u=(s-len[lo])/((len[hi]-len[lo])||1);return [lerp(pts[lo][0],pts[hi][0],u),lerp(pts[lo][1],pts[hi][1],u)];}
+/** s3's overhead pose at time t, pure, shared with the bound check: the distance carried along the path, the
+ * point, the lift off the bank edge (0 standing, 1 swept), the scale (it grows by nearly a third toward the
+ * lens as it lifts, .60 to .78), its yaw (rocked while it stands and presses, turned as it is swept), how wet the bank edge is as the
+ * rain sets in, the press of the current and the growth of the foam collar and wake. */
+export function s3PlanPose(W:Record<string,ActionWindow>,t:number){
+ const w1=W['s3-event-1'],w2=W['s3-event-2'],w3=W['s3-event-3'];
+ const s=(w2?S3_PLAN_SPEED.slide*curveIntegral(w2,t):0)+(w3?S3_PLAN_SPEED.swept*curveIntegral(w3,t):0);
+ const press=w2?actionProgress(w2,t):0,lift=smooth((s-120)/180),sc=.60+.18*lift;
+ const yaw=-22*lift+2*(1-lift)*(.3+.7*press)*Math.sin(2*Math.PI*1.1*t);
+ const wet=clamp(.45+.55*(w1?actionProgress(w1,t):0)),g=clamp(.3+.5*press+.4*lift);
+ return {s,p:s3PlanAt(s),press,lift,sc,yaw,wet,g};
+}
+/** Whether a creek-plan shot is the scene's second (carry) shot, from its shot record. */
+export const creekPlanSecond=(shot:{scene_fraction_start?:number})=>(shot.scene_fraction_start??0)>=.25;
+export const CREEK_CAM={wide:{f:[540,1012] as Pt,s:1,a:[540,960] as Pt},swept:{f:[458,1070] as Pt,s:1.18,a:[540,960] as Pt}};
 /** s4's floodwater: its front and depth at the clause's first word and at the end of s4-event-1. */
 export const S4={front0:960,front1:1260,lvl0:24,lvl1:66};
 /** s2: how long the sixty square miles tag takes to drop in from the start of s2-event-2 (seconds). */
 export const S2_TAG_IN=.35;
 export const STREET_CAR={y:1222,s:.8};
 export const LANE_CAR={s:.7};
-/** s8's fleet: four cars large enough to read at phone size, nose to tail along the row. */
-export const LOT_CARS={y:1190,s:.42,xs:[180,410,640,870]};
-export const LOT_AT={calendar:[170,700] as Pt,map:[700,800] as Pt};
+/** s8's fleet in the wide: the same four cars side by side in a row of stalls that runs away from the
+ * camera toward the upper right, the nearest at the lower left, so each stands a stall deeper, smaller and
+ * higher than the one before it, every roof pod clears the car in front, and the row fills the frame. Base
+ * points and scales, listed left to right, the order the checks land in. */
+export const LOT_CARS={xs:[290,500,705,905],ys:[1265,1170,1088,1012],ss:[1,.84,.71,.6]};
+/** The tear-off calendar on the far (right) pole and the vehicle map card clipped on the cord, in the wide. */
+export const LOT_AT={calendar:[934,612] as Pt,calendarW:140,map:[863,0] as Pt,mapW:180};
+/** s8's close, a separately staged low view at the near end of the same row (screen pixels): the eye at
+ * door height on LOT_CLOSE.horizon, so each car's window line sits on it; the nearest car large at the
+ * left with its roof pod under the lens, the other three receding toward the right edge. The tag hangs
+ * clipped on the cord at `tagX` near the lens, the map card at `mapX`, the calendar on the far pole. */
+export const CLOSE_CARS={xs:[430,686,826,920],ys:[1248,1166,1121,1091],ss:[1.55,1,.7,.5]};
+export const CLOSE_AT={tagX:345,tagSize:50,mapX:780,mapW:210,calendar:[988,640] as Pt,calendarW:150};
 /** s8's cord: when it takes up its slack after the tag clips (seconds after s8-event-1 ends), how long
  * that takes, and how much of the sag it removes. */
 export const S8={tightAt:.1,tightDur:.8,tightBy:.7};
-/** B's s8 close: the SAME lot from above as fleet-plan, the same four roofs, closer. The camera puts lot
- * point f on screen point a at scale s; the vehicle map card lies on the lot's near edge. */
-export const LIMITS_DETAIL={cam:{f:[540,700] as Pt,s:1.12,a:[540,780] as Pt},map:[700,960] as Pt,mapW:240};
 /** Where the tag pins and the calendar lies in B's lot plan. */
-export const LOT_PLAN_AT={tagY:246,calendar:[150,262] as Pt,calendarW:150};
+export const LOT_PLAN_AT={calendar:[960,404] as Pt,calendarW:150};
+/** A check badge's centre over a side-view car's roof pod (the dome spans car x -78 to -2, its top at -249),
+ * and its radius, for a car at base point (x, y) and scale s. */
+/** The painted stall lines under a side-on row of cars (base points xs, ys, scales ss, nearest first): a
+ * level divider midway in depth between each pair of stalls, one in front of the nearest and one behind the
+ * farthest, and the stall-end line running away through the cars' rear ends. */
+export function stallsFor(xs:number[],ys:number[],ss:number[]){
+ const n=xs.length,rear=(i:number)=>xs[i]-264*ss[i],front=(i:number)=>xs[i]+264*ss[i];
+ const dividers:[number,number,number][]=[[rear(0)-40,front(0)+40,ys[0]+(ys[0]-ys[1])*.55]];
+ for(let i=0;i+1<n;i++)dividers.push([(rear(i)+rear(i+1))/2-20,(front(i)+front(i+1))/2+30,(ys[i]+ys[i+1])/2]);
+ dividers.push([rear(n-1)-20,front(n-1)+40,ys[n-1]-(ys[n-2]-ys[n-1])*.5]);
+ return {dividers,ends:xs.map((_,i)=>[rear(i)-18,ys[i]+(i?(ys[i-1]-ys[i])*.12:30)] as Pt)};
+}
+export const podCheck=(x:number,y:number,s:number)=>{const r=Math.max(24,46*s);return {c:[x-40*s,y-249*s-r-10] as Pt,r};};
+/** A check badge on a roof pod seen from above, for a car facing up at (x, y) and scale s: on the dome. */
+export const podCheckTop=(x:number,y:number,s:number)=>({c:[x+26*s,y+40*s-26*s] as Pt,r:Math.max(26,30*s)});
 export const CARD_W=760;
 /** Which of the record's rows each scene shows: the recall type and count in s5; the recall type, count
  * and remedy in s7 (the summary sentence has its own card in s6). The interim rows (the weather limits and
@@ -218,7 +301,7 @@ export const COUNT_TAG={at:[300,772] as Pt,size:40,lines:['Nearly 3,800','vehicl
 export const COUNT_GRID={at:[56,1000] as Pt,cols:10,rows:5,dx:82,dy:50};
 /** s5's slow push in on the count after the stamp lands: the point it closes on and how far. */
 export const COUNT_PUSH={at:[540,700] as Pt,by:.05};
-export const LOT_TAG={x:520,size:38};
+export const LOT_TAG={x:495,size:38};
 /** Where the weather limits tag starts its slide: its right half already in frame at the left edge, so
  * it is on screen from the clause's first word. */
 export const S8_TAG_FROM=40;
@@ -250,16 +333,27 @@ export function cardImprints(st:RobotaxiState):Imprint[]{
  return [{text:'Software recall',p:st.s5.imprint,x:S.header.x,y:S.header.y,rot:-4,size:STAMP_SIZE.header},
   {text:'Under development',p:st.s7.imprint,x:S.remedy.x,y:S.remedy.y,rot:-4,size:STAMP_SIZE.remedy,solid:true}];
 }
-/** s3: the car's waterline in car units before and after the current lifts it, its drift speeds
- * downstream (world units a second, leftward: v0 from the clause's first word, v once it is lifted),
- * the roll as the upstream nose rides up, the nudge when the water piles against it, the bob once it
- * floats, and the ripples' drift. The water surface never moves. */
-export const S3={wlStart:92,wlLift:62,v0:110,v:260,roll:-4.5,nudge:10,bob:3,drift:-360};
-/** The car pose in s3 at time t: base point, scale and rotation. Pure, shared with the bound check. */
+/** s3: the car's waterline in car units standing on the shelf and once it is off the lip (the water climbs
+ * its doors), its speeds downstream in world units a second (v2 sliding along the shelf, v carried in the
+ * channel), how far its tail drops going off the lip (degrees), its bob once it floats, and the current's
+ * own speed (the ripples and riffles, negative runs left), faster than the car so the water streams past it.
+ * The water surface row never moves. */
+export const S3={wlShelf:44,wlDeep:118,v2:170,v:240,tip:7,bob:3,drift:-520};
+/** How far the car is off the shelf, 0 to 1, by distance carried: from its rear wheel reaching the lip to
+ * its front wheel leaving it. */
+export function s3Off(D:number){
+ const x=CREEK_CAR.x-D,ks=CREEK_CAR.s,lip=CREEK_MARKS.lip;
+ return smooth((lip-(x+CAR.wheels[0]*ks))/((CAR.wheels[1]-CAR.wheels[0])*ks));
+}
+/** The car pose in s3 at time t: base point, scale and rotation. Pure, shared with the bound check. On the
+ * shelf the current only rocks it as it presses; going off the lip its tail drops first, then it floats,
+ * still a little tail down, bobbing and rolling in the current. */
 export function s3Car(st:RobotaxiState,t:number){
- const {press,lift,drift}=st.s3,ks=CREEK_CAR.s,wl=lerp(S3.wlStart,S3.wlLift,lift);
- const bob=lift*S3.bob*Math.sin(2*Math.PI*.8*t),rot=-1.5*press*(1-lift)+S3.roll*lift+.8*lift*Math.sin(2*Math.PI*.6*t+1);
- return {p:[CREEK_CAR.x-S3.nudge*press-drift,CREEK.waterY+wl*ks+bob] as Pt,ks,rot,wl};
+ const {press,drift,off}=st.s3,ks=CREEK_CAR.s,wl=lerp(S3.wlShelf,S3.wlDeep,off);
+ const tip=off<.6?Math.sin(Math.PI/2*off/.6):1-.65*smooth((off-.6)/.4);
+ const rock=(1-off)*(.3+.7*press)*.8*Math.sin(2*Math.PI*1.1*t);
+ const bob=off*S3.bob*Math.sin(2*Math.PI*.8*t),roll=off*.9*Math.sin(2*Math.PI*.6*t+1);
+ return {p:[CREEK_CAR.x-drift,CREEK.waterY+wl*ks+bob] as Pt,ks,rot:-S3.tip*tip+rock+roll,wl};
 }
 /** s1: how far the steering wheel turns by itself as the car swings into the bay (degrees). */
 export const S1_STEER=85;
@@ -309,18 +403,18 @@ export function viewCam(view:string,sid:string,v:V,t:number,st:RobotaxiState,sho
  case 'curb-record-split':{const u=smooth((t-shot.start_s)/shot.duration_s);return {f:[600,1100],s:1.3*(1+SPLIT_PUSH*u),a:[540,540]};}
  // s9 slide: the curb closes slowly behind the record card through the shot, starting and ending at rest
  case 'record-slide':{const u=smooth((t-shot.start_s)/shot.duration_s);return {f:[640,1120],s:1+SLIDE_PUSH*u,a:[600,760]};}
- // s3: closer than the creek's width, each camera follows the carried car at part of its drift, so the
- // car stays large and keeps moving left on screen while the bank, the oaks and the water slide right
- case 'creek-wide':{const c=CREEK_CAM.wide;return {f:[c.f0-CREEK_CAM.follow*st.s3.drift,c.fy],s:c.s,a:c.a};}
- case 'car-swept':{const c=CREEK_CAM.swept;return {f:[c.f0-CREEK_CAM.follow*st.s3.drift,c.fy],s:c.s,a:c.a};}
+ // s3: both cameras are locked on the bank; only the car and the water move
+ case 'creek-wide':return CREEK_CAM.wide;
+ case 'car-swept':return CREEK_CAM.swept;
  // s4 detail: the whole car, hazard lamps to tail, centred on it as it creeps and stops
  case 'hazard-close':{const e=st.s4.calm,x=st.s4.X;return {f:[x+lerp(40,20,e),1100],s:1.6,a:[540,940]};}
  case 'wheel-water':{const e=st.s4.calm,x=st.s4.X;return {f:[x,lerp(1150,1110,e)],s:lerp(1.35,1.5,e),a:[540,930]};}
  case 'lane-wide':return {f:[st.s6.C*S6.kWide+180,960],s:1,a:[540,960]};
  case 'wheels-water':{const k=S6.kWide;return {f:[(st.s6.X+CAR.wheels[1])*k-75,1180],s:1.5/k,a:[540,1000]};}
  case 'lane-plan':return {f:[540,1400-st.s6.C*S6.kPlan-140],s:1,a:[540,960]};
- // s8 close: the whole row of four cars, the calendar and the map card, rising gently through the shot
- case 'limits-tag':{const u=smooth((t-shot.start_s)/shot.duration_s);return {f:[525,lerp(900,876,u)],s:1.1,a:[540,860]};}
+ // s8: the wide and the close are each drawn in their own frame pixels and held; the place stage's own
+ // move is the only camera movement
+ case 'calendar-fleet':case 'limits-tag':return ID;
  case 'map-zone':case 'map-table':case 'map-plan':return ID;
  default:return ID;
  }
@@ -391,6 +485,10 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
  const tag=(lines:string[],shown:number,o:{size?:number;tone?:'paper'|'accent'|'ink';icon?:'rain';sub?:number;dir?:number;swing?:number}={})=>
   shown<=0?null:<g transform={`translate(0 ${(-36*(1-smooth(shown))).toFixed(2)})`} opacity={clamp(shown*3)}>
    <SanAntonioSupport part="tag" lines={lines} size={o.size} tone={o.tone} icon={o.icon} sub={o.sub} swing={9*(1-smooth(shown))*(o.dir??1)+(o.swing??0)}/></g>;
+ /** A steel spring clip closed on the cord at p, `h` pixels tall, holding what hangs below it. */
+ const clipOn=(p:Pt,h:number)=><g data-part="cord-clip" transform={`translate(${p[0].toFixed(2)} ${p[1].toFixed(2)})`}>
+  <rect x={-h*.32} y={-h*.55} width={h*.64} height={h*1.25} rx={h*.16} fill="#5E666B" stroke="#2E3238" strokeWidth={Math.max(1,h*.1)}/>
+  <rect x={-h*.2} y={-h*.45} width={h*.14} height={h*1.05} rx={h*.06} fill="#B9C0C4" opacity={.8}/></g>;
  const card=(k:string,o:{rows:number;pick:number|number[];lit?:number;underline?:number})=>{const c=CARD_AT[k];
   return <At p={[c.x,c.y]} s={c.s}><SanAntonioSupport part="record" w={CARD_W} rows={o.rows} pick={o.pick} remedyLit={o.lit} underline={o.underline} imprints={imprints}/></At>;};
  /** The rubber stamp at a pose from stampPose, seen from above as the card is: its footprint `w` by `h`
@@ -487,40 +585,81 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   break;}
  case 'creek-wide':
  case 'car-swept':{
-  // s3, an illustration of the April 20th account: a DIFFERENT car from the airport ride. Rain streaks in
-  // and fast brown water runs left along the limestone bank; an empty car is already in the current from
-  // the first frame (nothing shows how it got there). On s3-event-2 the water piles against its upstream
-  // nose and nudges it; on s3-event-3 the current lifts it (it rides up and rolls) and carries it
-  // downstream, tail first, cabin still empty. No crossing, no gauge, no damage.
-  // ONE brown sheet runs the whole creek: behind the car, and the same sheet closing over its wheels and
-  // lower body in front of it, with the foam line where the current meets it and its reflection.
-  const {p,ks,rot}=s3Car(S,t),pr=S.s3.press,wy=CREEK.waterY,half=258*ks;
-  const car=side(p,ks,{wheel:0,brake:0,wetTo:S3.wlStart+16,shadow:0,cabin:1},rot);
-  // the creek runs well past both frame edges, so the following camera never reaches its end
-  const ext={x0:-900,x1:1400,y0:CREEK.bankY-6,y1:1960};
-  const foot=`M${ext.x0} ${ext.y1}L${ext.x0} ${ext.y0}`+Array.from({length:24},(_,i)=>`L${lerp(ext.x0,ext.x1,(i+1)/24).toFixed(1)} ${(ext.y0+3*Math.sin(i*1.9)).toFixed(1)}`).join('')+`L${ext.x1} ${ext.y1}Z`;
-  const sheet=(layer:'back'|'front')=><SanAntonioSupport part="flood" layer={layer} foot={foot} {...ext} t={t} drift={S3.drift} seed={17} marks={110}
+  // s3, an illustration of the April 20th account: a DIFFERENT car from the airport ride. The camera is
+  // locked on the bank. Rain streaks in and fast brown water runs left along the limestone bank; an empty
+  // car stands on the shallow shelf at the near bank's edge from the first frame (nothing shows how it got
+  // there). On s3-event-2 the water piles against its upstream nose, a bow wave builds and it slides along
+  // the shelf; on s3-event-3 the current shoves it off the lip, tail first, and carries it downstream past
+  // the landmark oak toward the ledge, the water climbing its doors, cabin still empty. No crossing, no
+  // gauge, no damage. ONE brown sheet runs the whole creek: behind the car, and the same sheet closing over
+  // its lower body in front of it, with the foam line where the current meets it and its reflection.
+  const {p,ks,rot,wl}=s3Car(S,t),pr=S.s3.press,wy=CREEK.waterY,half=258*ks;
+  const car=side(p,ks,{wheel:0,brake:0,wetTo:wl+10,shadow:0,cabin:1},rot);
+  // the sheet's far edge follows the far bank's wandering toe (creekToe), the same row its lowest stone course
+  // and slumped blocks stand in, so the water never meets the bank along a ruled line
+  const ext={x0:-300,x1:1500,y0:CREEK.bankY-20,y1:1960},toe=creekToePts(ext.x0,ext.x1,24);
+  const foot=`M${ext.x0} ${ext.y1}L${toe[0][0].toFixed(1)} ${toe[0][1].toFixed(1)}`+smoothPath(toe,false).replace(/^M[^C]*/,'')+`L${ext.x1} ${ext.y1}Z`;
+  const sheet=(layer:'back'|'front')=><SanAntonioSupport part="flood" layer={layer} foot={foot} {...ext} t={t} drift={S3.drift} seed={17} marks={170} lit={.002}
    line={{y:wy,x0:p[0]-half,x1:p[0]+half}} reflect={mirrorAbout(wy,car)} press={pr}/>;
+  // the bow wave on the upstream end grows as the water presses and stays while the current carries it
+  const bow=.3+.7*pr+.25*S.s3.off;
   const world=<Grounded baseY={CREEK_CAR.y} on={exterior}>
-   <Item id="s3-creek"><SanAntonioSupport part="creekback" t={t} flow={S.s3.flow} width={[ext.x0,ext.x1]}/>{sheet('back')}</Item>
+   <Item id="s3-creek"><SanAntonioSupport part="creekback" t={t} flow={S.s3.flow} width={[ext.x0,ext.x1]}/>{sheet('back')}
+    <SanAntonioSupport part="creektoe" t={t} width={[ext.x0,ext.x1]}/><SanAntonioSupport part="creekledge" t={t}/></Item>
+   <Item id="s3-crossing"><SanAntonioSupport part="creekshelf" t={t} layer="back" drift={S3.drift}/></Item>
    <Item id="s3-car">{car}</Item>
    {sheet('front')}
-   <g data-part="current-on-car"><At p={[p[0]+half,wy]} s={ks}><SanAntonioSupport part="pile" p={pr} t={t} len={258} h={120} dir={1}/></At></g>
-   <Item id="s3-crossing"><SanAntonioSupport part="creekbank" t={t}/></Item>
+   <g data-part="current-on-car"><At p={[p[0]+half,wy]} s={ks*1.15}><SanAntonioSupport part="pile" p={bow} t={t} len={258} h={150} dir={1}/></At></g>
+   <Item id="s3-crossing"><SanAntonioSupport part="creekshelf" t={t} layer="front" drift={S3.drift}/><SanAntonioSupport part="creekbank" t={t}/></Item>
   </Grounded>;
   pic=<g><CamG c={cam} z={z}>{world}</CamG><Item id="s3-rain">{rain(S.s3.rain)}</Item></g>;
   break;}
  case 'creek-plan':{
-  // s3 from above: the brown channel runs across the frame and its current runs LEFT, as in the elevation
-  // shots; the white roof and dome sit in it nose upstream (right), a bow wave builds on the nose, wakes
-  // trail downstream, then (if the shot ran on) it would drift left with the current, tail first.
-  const {carX,carY}=CREEK_PLAN,pr=S.s3.press,sw=S.s3.sweep,cx=carX+80-CREEK_CAM.plan*S.s3.drift,cy=carY;
-  pic=<g>
+  // s3 from above, locked. The empty car (its glass roof shows two bare seats and a wheel with no hands) stands
+  // nose upstream in shallow flood water at the near bank's limestone edge, the water round its wheels and a
+  // foam collar on its upstream side from the first frame. The current presses it and it slides along the edge;
+  // then it LIFTS off the edge (it grows toward the lens by nearly a third, rising off one dark shadow that slides
+  // out from under it, and the flood water it stood in falls behind), turns, and is carried downstream along one
+  // path (s3PlanPose), a smooth V wake trailing off its stern, under the oak's crown, over the pale ledge slab
+  // and out of frame to the left. Every shape is a filled ellipse or one smooth stroke.
+  // Each creek shot has its own locked camera: near on the standing car, then a little higher on the carry
+  // (creekPlanSecond), so the car's place, pose, collar and wake carry across the cut.
+  const Q=s3PlanPose(W,t),[cx,cy]=Q.p,{sc,yaw,lift,g,wet}=Q;
+  const planCam=creekPlanSecond(shot as typeof shot&{scene_fraction_start?:number})?CREEK_PLAN_CARRY:CREEK_PLAN_NEAR;
+  // each wake arm is a real downstream streamline: spreading off the stern and bowed toward the channel side
+  // (-y) by a quarter of its own length, drawn as one continuous stroke
+  const wakeL=220+85*g,spread=50+50*g,wakeBow=.25;
+  const wakeArm=(sgn:number):Pt[]=>Array.from({length:9},(_,i)=>{const u=i/8;
+   return [-262-wakeL*u,sgn*(78+spread*u)-wakeBow*wakeL*Math.sin(Math.PI*u)] as Pt;});
+  const local=(node:React.ReactNode,dx=0,dy=0)=><g transform={`translate(${(cx+dx).toFixed(2)} ${(cy+dy).toFixed(2)}) rotate(${yaw.toFixed(3)}) scale(${sc.toFixed(4)})`}>{node}</g>;
+  const [x0,y0]=S3_PLAN_PATH[0],sd=4+56*lift;
+  // the wake has its own transform at a FIXED .5 scale, so its arms never grow with the car toward the captions
+  const wakeAt=(node:React.ReactNode)=><g transform={`translate(${cx.toFixed(2)} ${cy.toFixed(2)}) rotate(${yaw.toFixed(3)}) scale(.5)`}>{node}</g>;
+  pic=<CamG c={planCam} z={1}>
    <Item id="s3-creek"><Item id="s3-crossing"><Item id="s3-rain"><SanAntonioSupport part="creekplan" t={t} rain={S.s3.rain} flow={S.s3.flow}/></Item></Item></Item>
-   <Item id="s3-car">{top([cx,cy],.5,-10*sw,{shadow:.2,wetTo:60})}
-    {pr>0&&<path d={`M${cx+118} ${cy-64}Q${cx+136+56*pr} ${cy} ${cx+118} ${cy+64}`} stroke="#E9E1CF" strokeWidth={8} fill="none" opacity={clamp(pr*1.5)}/>}
-    {[-1,1].map(sgn=><path key={sgn} d={`M${cx-128} ${cy+sgn*52}q-40 ${sgn*12} -120 ${sgn*30}`} stroke="#E9E1CF" strokeWidth={4} fill="none" opacity={.4+.4*pr}/>)}</Item>
-  </g>;
+   <Item id="s3-car">
+    {/* (a) the shallow flood water over the bank edge the car stands in, round its wheels from the first frame,
+      * falling behind as it is carried off */}
+    {lift<1&&<g data-part="bank-flood">{[[-110,-6,92,48],[-30,8,98,52],[50,-8,86,46],[120,6,80,44]].map(([dx,dy,rx,ry],i)=>{const b=Math.sin(t*.9+i*1.7);
+     return <ellipse key={i} cx={x0+dx} cy={y0+dy} rx={(rx+6*b).toFixed(1)} ry={(ry+3*b).toFixed(1)} fill={SA.water} opacity={((.35+.2*(i%2))*wet*(1-lift)).toFixed(3)}/>;})}</g>}
+    {/* (b) one dark contact shadow under everything of the car, at one strength, sliding out up to 60 plan px
+      * as it lifts; no halo */}
+    <defs><filter id="rtx-s3-shadow-soft" x="-30%" y="-40%" width="160%" height="180%"><feGaussianBlur stdDeviation={8}/></filter></defs>
+    {local(<ellipse cx={0} cy={0} rx={270} ry={125} fill="#0A0604" filter="url(#rtx-s3-shadow-soft)" opacity={.60}/>,sd,sd)}
+    {/* (c) the V wake off the stern once it is carried: each arm one continuous streamline, three stacked strokes,
+      * reaching full strength early in the lift so it never shows as a faint fragment */}
+    {lift>0&&wakeAt(<g data-part="v-wake" opacity={smooth(clamp(lift*2.5)).toFixed(3)}>{[-1,1].map(sgn=>{const d=smoothPath(wakeArm(sgn),false);
+     return <g key={sgn}>{[[24,.3],[14,.45],[6,.65]].map(([w,o],j)=><path key={j} d={d} stroke="#F2EEE4" strokeWidth={w} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={o}/>)}</g>;})}</g>)}
+    {/* (e) the car, its glass roof showing the empty cabin */}
+    {top([cx,cy],sc,yaw,{shadow:0,wetTo:lerp(30,90,lift),cabin:1})}
+    {/* (d) the foam collar on the upstream side: overlapping filled ellipses that grow with the press and the lift;
+      * no strokes and no flecks */}
+    {local(<g data-part="foam-collar">
+     {Array.from({length:7},(_,i)=>{const a=-1+i/3,b=Math.sin(t*1.2+i*1.3);
+      return <ellipse key={i} cx={(290-60*a*a).toFixed(1)} cy={(125*a).toFixed(1)} rx={(30+20*g+3*b).toFixed(1)} ry={(20+15*g+2*b).toFixed(1)} fill="#F4F0E6" opacity={(.55+.25*g).toFixed(3)}/>;})}
+    </g>)}
+   </Item>
+  </CamG>;
   break;}
  case 'street-flood':
  case 'hazard-close':
@@ -652,43 +791,76 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
    <Item id="s6-quote"><At p={[60,300]} o={clamp(S.s6.e1*2)}><SanAntonioSupport part="quote" w={720} lit={S.s6.may} size={32}/></At></Item>
   </g>;
   break;}
- case 'calendar-fleet':
- case 'limits-tag':{
-  // s8 at the fleet lot. The weather limits tag enters from the left on the clause's first word, slides
-  // along the cord and clips above the row (contact); the cord takes up its slack and the tag swings and
-  // settles; each of the four cars takes a check, left to right, as every affected car is named; the
-  // small vehicle map card is marked updated; the tear-off calendar on the pole flips from April to 20.
-  const {y,s,xs}=LOT_CARS,n=xs.length,sag=LOT.sag*(1-S8.tightBy*S.s8.tight);
-  const tagX=lerp(S8_TAG_FROM,LOT_TAG.x,S.s8.tag),cordY=cordAt(tagX,sag);
-  const world=<Grounded baseY={y} on={exterior}>
-   <SanAntonioSupport part="lot" sag={sag}/>
-   <Item id="s8-fleet">{xs.map((x,i)=><g key={i}>{side([x,y],s,{wheel:0,shadow:1,cabin:.5,seed:i})}
-    <At p={[x,y-260*s-40]}><SanAntonioSupport part="check" p={clamp(S.s8.checks*n-i)} r={34}/></At></g>)}</Item>
-   <Item id="s8-calendar"><At p={LOT_AT.calendar}><SanAntonioSupport part="calendar" month="April" day="20" flip={S.s8.flip} w={200}/></At></Item>
-   <Item id="s8-map"><At p={LOT_AT.map}><SanAntonioSupport part="mapcard" updated={S.s8.updated} w={230}/></At></Item>
-   <Item id="s8-limits"><At p={[tagX,cordY]}>{tag(['Weather limits','tightened'],S.s8.tagIn,{size:LOT_TAG.size,icon:'rain',dir:-1,swing:S.s8.swing})}</At></Item>
+ case 'calendar-fleet':{
+  // s8 wide, the wet fleet lot: the four cars stand side by side in a row of stalls running away toward the
+  // upper right and fill the frame, their reflections lying in the wet asphalt. The weather limits tag
+  // enters from the left on the clause's first word, slides along the cord and clips above them (contact);
+  // the cord takes up its slack and the tag swings and settles. The tear-off calendar hangs by the far pole
+  // and the vehicle map card hangs on the cord; both change in the close.
+  const {xs,ys,ss}=LOT_CARS,n=xs.length,sag=LOT.sag*(1-S8.tightBy*S.s8.tight);
+  const tagX=lerp(S8_TAG_FROM,LOT_TAG.x,S.s8.tag),cordY=cordAt(tagX,sag),mx=LOT_AT.map[0];
+  const far=xs.map((_,i)=>n-1-i);
+  const world=<Grounded baseY={ys[0]} on={exterior}>
+   <SanAntonioSupport part="lot" sag={sag} stalls={stallsFor(xs,ys,ss)}/>
+   <Item id="s8-calendar"><path d={`M1014 ${LOT_AT.calendar[1]+8}H${LOT_AT.calendar[0]+LOT_AT.calendarW/2-6}`} stroke="#6D7479" strokeWidth={6}/>
+    <At p={LOT_AT.calendar}><SanAntonioSupport part="calendar" month="April" day="20" flip={S.s8.flip} w={LOT_AT.calendarW}/></At></Item>
+   <Item id="s8-map">{clipOn([mx,cordAt(mx,sag)],10)}<At p={[mx-LOT_AT.mapW/2,cordAt(mx,sag)+7]} r={1.5}><SanAntonioSupport part="mapcard" updated={S.s8.updated} w={LOT_AT.mapW}/></At></Item>
+   <Item id="s8-fleet">
+    <g data-part="wet-reflections" opacity={.2}>{far.map(i=><g key={i}>{mirrorAbout(ys[i],side([xs[i],ys[i]],ss[i],{wheel:0,shadow:0,cabin:.5,seed:i}))}</g>)}</g>
+    {far.map(i=><g key={i}>{side([xs[i],ys[i]],ss[i],{wheel:0,shadow:1,cabin:.5,seed:i})}</g>)}
+    {xs.map((x,i)=>{const k=podCheck(x,ys[i],ss[i]);return <At key={i} p={k.c}><SanAntonioSupport part="check" p={clamp(S.s8.checks*n-i)} r={k.r}/></At>;})}</Item>
+   <Item id="s8-limits"><At p={[tagX,cordY]}>{tag(['Weather limits','tightened'],S.s8.tagIn,{size:LOT_TAG.size,icon:'rain',dir:-1,swing:S.s8.swing+S.s8.sway})}</At></Item>
   </Grounded>;
   pic=<CamG c={cam} z={z}>{world}</CamG>;
   break;}
- case 'fleet-plan':
- case 'limits-detail':{
-  // s8 in B, both shots in ONE lot seen from above: the same four roofs and domes in their stalls that A's
-  // row shows, large enough to count. In the overhead the weather limits tag slides in from the left on
-  // n8a's first word and pins above the row, then swings and settles, and the April calendar lies on the
-  // lot's edge. The detail is the same lot, closer: the same tag pinned, the calendar flipping to 20,
-  // each roof taking its check left to right and the vehicle map card on the near edge marked updated.
-  // (The registry keeps the shot's view name; the picture is this lot, never a separate panel.)
-  const {row,cars,stall,x0,scale}=LOT_PLAN,detail=view==='limits-detail',cx=(i:number)=>x0+stall/2+i*stall;
-  const lot=<g>
-   <SanAntonioSupport part="lotplan"/>
-   <Item id="s8-fleet">{Array.from({length:cars},(_,i)=><g key={i}>{top([cx(i),row],scale,-90,{shadow:.5})}
-    <At p={[cx(i),row-235]}><SanAntonioSupport part="check" p={clamp(S.s8.checks*cars-i)} r={30}/></At></g>)}</Item>
-   <Item id="s8-limits"><At p={[lerp(S8_TAG_FROM,540,S.s8.tag),LOT_PLAN_AT.tagY]}>{tag(['Weather limits','tightened'],S.s8.tagIn,{size:40,icon:'rain',dir:-1,swing:S.s8.swing})}</At></Item>
+ case 'limits-tag':{
+  // s8 close, a SEPARATELY STAGED low view at the near end of the same row, the eye at door height. The
+  // tag hangs clipped on the taut cord near the lens; the nearest car fills the frame below it and its roof
+  // pod takes its check large as every affected car is named, then the three cars receding toward the right
+  // take theirs, left to right; the vehicle map card clipped further along the cord is marked updated, and
+  // the tear-off calendar on the far pole flips from April to 20 on April twentieth.
+  const {xs,ys,ss}=CLOSE_CARS,n=xs.length,sag=18*(1-S8.tightBy*S.s8.tight),A=CLOSE_AT;
+  const far=xs.map((_,i)=>n-1-i),mapY=cordAtClose(A.mapX,sag);
+  const world=<Grounded baseY={ys[0]} on={exterior}>
+   <SanAntonioSupport part="lotclose" sag={sag} stalls={stallsFor(xs,ys,ss)}/>
+   <Item id="s8-calendar"><At p={A.calendar}><SanAntonioSupport part="calendar" month="April" day="20" flip={S.s8.flip} w={A.calendarW}/></At></Item>
+   <Item id="s8-fleet">
+    <g data-part="wet-reflections" opacity={.22}>{far.map(i=><g key={i}>{mirrorAbout(ys[i],side([xs[i],ys[i]],ss[i],{wheel:0,shadow:0,cabin:.6,seed:i}))}</g>)}</g>
+    {far.map(i=><g key={i}>{side([xs[i],ys[i]],ss[i],{wheel:0,shadow:1,cabin:.6,seed:i})}</g>)}
+    {xs.map((x,i)=>{const k=podCheck(x,ys[i],ss[i]);return <At key={i} p={k.c}><SanAntonioSupport part="check" p={clamp(S.s8.checks*n-i)} r={k.r}/></At>;})}</Item>
+   <Item id="s8-map">{clipOn([A.mapX,mapY],14)}<At p={[A.mapX-A.mapW/2,mapY+9]} r={2}><SanAntonioSupport part="mapcard" updated={S.s8.updated} w={A.mapW}/></At></Item>
+   <Item id="s8-limits">{clipOn([A.tagX,cordAtClose(A.tagX,sag)],16)}
+    <At p={[A.tagX,cordAtClose(A.tagX,sag)]}>{tag(['Weather limits','tightened'],S.s8.tagIn,{size:A.tagSize,icon:'rain',dir:-1,swing:S.s8.swing+S.s8.sway})}</At></Item>
+  </Grounded>;
+  pic=<CamG c={cam} z={z}>{world}</CamG>;
+  break;}
+ case 'fleet-plan':{
+  // s8 in B from above: the lot refilled by the same four roofs and domes in their stalls, filling its
+  // width. The weather limits tag slides in along the cord from the left on n8a's first word and pins
+  // above the row, then swings and settles; the April calendar lies by the lot's far corner.
+  const L=LOT_PLAN,cx=(i:number)=>L.x0+L.stall/2+i*L.stall;
+  pic=<g>
+   <SanAntonioSupport part="lotplan" lay={L}/>
    <Item id="s8-calendar"><At p={LOT_PLAN_AT.calendar} r={-6}><SanAntonioSupport part="calendar" month="April" day="20" flip={S.s8.flip} w={LOT_PLAN_AT.calendarW}/></At></Item>
-   {detail&&<Item id="s8-map"><At p={LIMITS_DETAIL.map} r={3}><SanAntonioSupport part="mapcard" updated={S.s8.updated} w={LIMITS_DETAIL.mapW}/></At></Item>}
+   <Item id="s8-fleet">{Array.from({length:L.cars},(_,i)=><g key={i}>{top([cx(i),L.row],L.scale,-90,{shadow:.5})}</g>)}
+    {Array.from({length:L.cars},(_,i)=>{const k=podCheckTop(cx(i),L.row,L.scale);return <At key={i} p={k.c}><SanAntonioSupport part="check" p={clamp(S.s8.checks*L.cars-i)} r={k.r}/></At>;})}</Item>
+   <Item id="s8-limits"><At p={[lerp(S8_TAG_FROM,540,S.s8.tag),L.cordY]}>{tag(['Weather limits','tightened'],S.s8.tagIn,{size:40,icon:'rain',dir:-1,swing:S.s8.swing+S.s8.sway})}</At></Item>
   </g>;
-  // the lot is drawn at plan scale, not on the plate's ground, so its camera carries no plate zoom
-  pic=detail?<CamG c={LIMITS_DETAIL.cam} z={1}>{lot}</CamG>:lot;
+  break;}
+ case 'limits-detail':{
+  // s8 in B, a SEPARATELY STAGED close straight down from just over the nearest roof: the cord crosses near
+  // the lens with the tag clipped on it, large; below it the nearest roof's pod takes its check as every
+  // affected car is named, then the next roofs take theirs left to right; the vehicle map card clipped on
+  // the cord is marked updated and the calendar lying at the lot's edge flips to 20.
+  const L=LOT_PLAN_CLOSE,cx=(i:number)=>L.x0+L.stall/2+i*L.stall;
+  pic=<g>
+   <SanAntonioSupport part="lotplan" lay={L} close/>
+   <Item id="s8-calendar"><At p={L.calendar} r={-6}><SanAntonioSupport part="calendar" month="April" day="20" flip={S.s8.flip} w={L.calendarW}/></At></Item>
+   <Item id="s8-fleet">{Array.from({length:L.cars},(_,i)=><g key={i}>{top([cx(i),L.row],L.scale,-90,{shadow:.5})}</g>)}
+    {Array.from({length:L.cars},(_,i)=>{const k=podCheckTop(cx(i),L.row,L.scale);return <At key={i} p={k.c}><SanAntonioSupport part="check" p={clamp(S.s8.checks*L.cars-i)} r={k.r*1.4}/></At>;})}</Item>
+   <Item id="s8-map">{clipOn([L.mapX,L.cordY],12)}<At p={[L.mapX-L.mapW/2,L.cordY+8]} r={2}><SanAntonioSupport part="mapcard" updated={S.s8.updated} w={L.mapW}/></At></Item>
+   <Item id="s8-limits">{clipOn([L.tagX,L.cordY],14)}<At p={[L.tagX,L.cordY]}>{tag(['Weather limits','tightened'],S.s8.tagIn,{size:50,icon:'rain',dir:-1,swing:S.s8.swing+S.s8.sway})}</At></Item>
+  </g>;
   break;}
  case 'curb-plan':{
   if(sid!=='s1')throw new Error('curb-plan draws the s1 arrival only');
