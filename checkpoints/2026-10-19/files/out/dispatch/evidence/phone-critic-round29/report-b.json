@@ -1,0 +1,229 @@
+{
+ "option": "b",
+ "review_scope": "exact-muted-phone-preflight",
+ "reviewed_preflight_sha256": "c92c7a2f24e7309277cb95203fe194f187a33455d004b2aa4bc1c581415198f7",
+ "concept_sha256": "386387ece2036d6065544de1fb1ede82b734fdd52205cd94a2224552dfbbba80",
+ "renderer_sha256": "1dac9c7557164a375eefcce05022f536d2810acd54fef4a7b496a089c806b78e",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "storyboard-critic claude-opus-5-5 high, isolated visual leaf, phone round 29",
+ "reviewed_at": "2026-10-20 (time of day unknown)",
+ "verdict": "revise",
+ "blocking_defects": [
+  {
+   "category": "motion",
+   "criterion": "contact_and_consequence",
+   "scene_id": "s3",
+   "time_s": 14.4,
+   "defect": "Same pages as a (014-017 byte-identical): no white water or pile-up; the roof rotates and slides left off the shelf at 14.4-15.2 s with no visible lift; it drifts about one car length in the closer shot (15.4-17.4 s) and stops just right of the slab; no flow cue shows downstream."
+  },
+  {
+   "category": "surface_finish",
+   "criterion": "surface_finish",
+   "scene_id": "s3",
+   "time_s": 16.0,
+   "defect": "Thin pale dotted lip with no white water in both overhead shots. The shelf is a flat lighter patch with a near-horizontal top edge and a near-vertical left edge to the lower bank (a rounded box) in 15.4-17.4 s; the wake strokes are straight. Fails finished_art."
+  },
+  {
+   "category": "comprehension",
+   "criterion": "dominant_action",
+   "scene_id": "s3",
+   "time_s": 13.23,
+   "defect": "Clause n3 qualifier 'empty' is not pictured from overhead."
+  }
+ ],
+ "action_reviews": [],
+ "phone_observations": {
+  "subject_recognition": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 58.4,
+   "observed": "Same recognizable subjects as a, plus overhead map (7.0-9.2 s), overhead record desk (22.2-24.4, 37.0-39.2 s) and an overhead lane with the car roof and the water ahead (28.4-32.6 s)."
+  },
+  "contact_and_consequence": {
+   "pass": false,
+   "start_s": 13.2,
+   "end_s": 17.4,
+   "observed": "The creek current shows no white water or lift and only a short drift. In the lane plan the car brakes short of the water (31.0-32.6 s) and the close shot shows it entering at 34.0-35.8 s."
+  },
+  "surface_finish": {
+   "pass": false,
+   "start_s": 13.2,
+   "end_s": 17.4,
+   "observed": "Thin lip and a box-shaped shelf in the creek; other scenes look finished."
+  },
+  "closing_payoff": {
+   "pass": true,
+   "start_s": 50.0,
+   "end_s": 58.4,
+   "observed": "Same close as a: open-door car, record card, split frame with the remedy underlined."
+  }
+ },
+ "modern_observations": {
+  "film_sha256": "c92c7a2f24e7309277cb95203fe194f187a33455d004b2aa4bc1c581415198f7",
+  "first_frame": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 1.0,
+   "observed": "The car rolls into the curb bay with 'Ride requested' on the phone."
+  },
+  "visual_progression": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 58.4,
+   "observed": "Each scene changes state, as in a."
+  },
+  "shot_variety": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 58.4,
+   "observed": "Wide, detail, close, medium, six overhead shots, and split."
+  },
+  "performed_turn": {
+   "pass": true,
+   "start_s": 29.2,
+   "end_s": 36.8,
+   "observed": "From above the water appears ahead (29.2 s) and the car brakes with red dots (30.8-32.6 s); in the close shot the wheel enters the water and 'may' lights (34.0-35.8 s)."
+  },
+  "pace": {
+   "pass": true,
+   "start_s": 0.0,
+   "end_s": 58.4,
+   "observed": "No shot longer than 5 s; longest low-change interval is 42.8-45.4 s."
+  },
+  "closing_answer": {
+   "pass": true,
+   "start_s": 50.0,
+   "end_s": 58.4,
+   "observed": "The open ride and the under-development remedy are held together."
+  },
+  "finished_art": {
+   "pass": false,
+   "start_s": 13.2,
+   "end_s": 17.4,
+   "observed": "The creek lip and shelf are unfinished."
+  }
+ },
+ "narration_picture_observations": {
+  "film_sha256": "c92c7a2f24e7309277cb95203fe194f187a33455d004b2aa4bc1c581415198f7",
+  "clauses": [
+   {
+    "id": "n1a",
+    "pass": true,
+    "start_s": 0.2,
+    "end_s": 5.05,
+    "observed": "Car arrives; the wheel turns with no hands."
+   },
+   {
+    "id": "n1b",
+    "pass": true,
+    "start_s": 5.4,
+    "end_s": 6.57,
+    "observed": "Phone reads 'Arriving' at the airport sign."
+   },
+   {
+    "id": "n2a",
+    "pass": true,
+    "start_s": 7.12,
+    "end_s": 9.11,
+    "observed": "Overhead map draws; the February page sits at its corner."
+   },
+   {
+    "id": "n2b",
+    "pass": true,
+    "start_s": 9.46,
+    "end_s": 12.68,
+    "observed": "Tabletop map: outline closes; 60 square miles tag."
+   },
+   {
+    "id": "n3",
+    "pass": false,
+    "start_s": 13.23,
+    "end_s": 17.26,
+    "observed": "Slow drift with no white water or lift; 'empty' not pictured."
+   },
+   {
+    "id": "n4",
+    "pass": true,
+    "start_s": 17.81,
+    "end_s": 21.84,
+    "observed": "Water over the arches, hazards blink, empty seats."
+   },
+   {
+    "id": "n5a",
+    "pass": true,
+    "start_s": 22.39,
+    "end_s": 24.38,
+    "observed": "Overhead card types its fields."
+   },
+   {
+    "id": "n5b",
+    "pass": true,
+    "start_s": 24.73,
+    "end_s": 27.95,
+    "observed": "Grid fills, tag, stamp."
+   },
+   {
+    "id": "n6a",
+    "pass": true,
+    "start_s": 28.5,
+    "end_s": 32.53,
+    "observed": "Lane plan: water ahead, car brakes. The caption overlaps the roof at 28.6-28.8 s (minor)."
+   },
+   {
+    "id": "n6b",
+    "pass": true,
+    "start_s": 32.88,
+    "end_s": 36.51,
+    "observed": "Wheel enters the water; 'may' lights."
+   },
+   {
+    "id": "n7",
+    "pass": true,
+    "start_s": 37.06,
+    "end_s": 41.09,
+    "observed": "Remedy row, pen, stamp."
+   },
+   {
+    "id": "n8a",
+    "pass": true,
+    "start_s": 41.64,
+    "end_s": 45.26,
+    "observed": "Weather limits tag pins over the cars."
+   },
+   {
+    "id": "n8b",
+    "pass": true,
+    "start_s": 45.61,
+    "end_s": 49.65,
+    "observed": "Checks; calendar shows 20 at 48.8 s."
+   },
+   {
+    "id": "n9a",
+    "pass": true,
+    "start_s": 50.2,
+    "end_s": 52.6,
+    "observed": "Curb; door opens."
+   },
+   {
+    "id": "n9bc",
+    "pass": true,
+    "start_s": 52.95,
+    "end_s": 58.1,
+    "observed": "Card beside the curb; split frame; underline."
+   }
+  ]
+ },
+ "story_review": {
+  "story_sha256": "24d2f7505d250805806ee0df35143c16aedf09b3a3b0be7640038a0b4d5b6970",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Same causal chain as a. The overhead lane makes the water ahead and the braking readable before the close shot.",
+  "opening_to_ending": "Open ride to open ride beside the unfinished remedy.",
+  "weakest_transition": "s2 to s3 at 13.2 s, plus the overhead-to-tabletop map change at 9.4 s."
+ },
+ "weakest_frame": "15.6-17.4 s: the creek shelf box and the slow drift.",
+ "strongest_frame": "29.2-31.8 s: the overhead lane with water ahead and the brake dots, then 34.0-35.8 s.",
+ "notes": "Selected option. The verdict is revise because of the s3 picture defects."
+}
