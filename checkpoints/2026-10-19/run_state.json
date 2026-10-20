@@ -313,6 +313,14 @@
       "note": "exact-phone-current motion-image review extraction",
       "resource": "preflight_renders",
       "to": 16
+    },
+    {
+      "at": "2026-10-20T00:54:49.135170Z",
+      "ceiling": 19,
+      "from": 18,
+      "note": "timed final phone review of current measured film, packet 08d043f9",
+      "resource": "storyboard_critics",
+      "to": 19
     }
   ],
   "events": [
@@ -2825,6 +2833,24 @@
       "input_identity": "9177c68e9503727a39d54b159bb720dc116ce8c970616f307f0586ae55c9fb6e",
       "kind": "prepared_capture_claimed",
       "operation": "exact-phone-current motion-image review extraction"
+    },
+    {
+      "at": "2026-10-20T00:54:49.135191Z",
+      "ceiling": 19,
+      "kind": "budget_escalated",
+      "note": "timed final phone review of current measured film, packet 08d043f9",
+      "now": 19,
+      "resource": "storyboard_critics",
+      "was": 18
+    },
+    {
+      "at": "2026-10-20T00:54:49.135201Z",
+      "kind": "reserved",
+      "note": "timed final phone review of current measured film, packet 08d043f9",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -2839,7 +2865,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 18,
+    "storyboard_critics": 19,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -2848,7 +2874,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "e391d924e75df4a59827933e3b056c2783dd2eff26a471ee3d61c7880bfc1c10",
+    "original_private_state_sha256": "894712e3c8f6e11b432164402dea5724d483ac9278984837b932c5bd4585564b",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2876,7 +2902,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T00:53:28.498757Z",
+  "updated_at": "2026-10-20T00:54:49.135203Z",
   "usage": {
     "audiovisual_reviews": 2,
     "cleanup_renders": 0,
@@ -2889,7 +2915,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 18,
+    "storyboard_critics": 19,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
