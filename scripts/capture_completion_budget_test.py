@@ -18,6 +18,7 @@ class ComparisonCompletionBudgetTest(unittest.TestCase):
     schema = footprint.COMPARISON_SCHEMA
     preflight_required = 5
     native_required = 1
+    prepared = False
 
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -33,10 +34,17 @@ class ComparisonCompletionBudgetTest(unittest.TestCase):
         controller.event(state, 'reserved', resources={k: state['usage'][k]
                          for k in completion.resource_requirements(state)}, note='offline charged history')
         controller.save(self.state, state)
-        for note in ('capture authorization reservation for opening comparison', 'two opening comparison batch'):
+        notes = (('two opening comparison batch',) if self.prepared else
+                 ('capture authorization reservation for opening comparison', 'two opening comparison batch'))
+        for note in notes:
             self.assertTrue(controller.reserve(self.state, {'preflight_renders': 1}, note)[0])
+        if self.prepared:
+            # The Claude prepared handoff charges once and then claims that same reservation.
+            state = controller.read_state(self.state)
+            controller.event(state, 'prepared_capture_claimed')
+            controller.save(self.state, state)
         state = controller.read_state(self.state)
-        entry = len(state['events']) - 1
+        entry = len(state['events']) - (2 if self.prepared else 1)
         options = []
         for key in ('a', 'b'):
             row = {'id': key}
@@ -143,6 +151,39 @@ class ComparisonCompletionBudgetTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             footprint.prepare_comparison(self.state, self.original, self.comparison, self.root / 'optional.json')
         self.assertEqual(self.before, controller.read_state(self.state))
+
+
+class PreparedFlowComparisonBudgetTest(ComparisonCompletionBudgetTest):
+    """The Claude prepared handoff has no separate hook charge; the batch entry is its own hook."""
+    schema = footprint.PHONE_COMPARISON_SCHEMA
+    preflight_required = 8
+    native_required = 2
+    prepared = True
+
+    def test_wrong_pair_or_third_treatment_is_ineligible(self):
+        plan = copy.deepcopy(self.plan)
+        plan[footprint.FIELD]['hook_event_index'] = plan[footprint.FIELD]['entry_event_index'] - 1
+        self.assertFalse(footprint.eligible(self.before, plan))
+        plan = copy.deepcopy(self.plan)
+        proof = plan[footprint.FIELD]
+        receipt = json.loads(proof['comparison_json'])
+        receipt['options'].append(copy.deepcopy(receipt['options'][0]))
+        proof['comparison_json'] = json.dumps(receipt)
+        proof['comparison_sha256'] = footprint.sha(proof['comparison_json'])
+        self.assertFalse(footprint.eligible(self.before, plan))
+
+    def test_unclaimed_single_entry_is_not_a_prepared_hook(self):
+        state = copy.deepcopy(self.before)
+        entry = self.plan[footprint.FIELD]['entry_event_index']
+        state['events'][entry + 1] = {**state['events'][entry + 1], 'kind': 'other'}
+        self.assertFalse(footprint.eligible(state, self.plan))
+
+    def test_prepared_entry_funds_the_complete_path(self):
+        proof = self.plan[footprint.FIELD]
+        self.assertEqual(proof['hook_event_index'], proof['entry_event_index'])
+        self.assertTrue(footprint.comparison_eligible(controller.read_state(self.state), self.plan))
+        accepted, message = completion.grant_capacity(self.state, self.plan_path)
+        self.assertTrue(accepted, message)
 
 
 class CompletePhoneComparisonBudgetTest(ComparisonCompletionBudgetTest):
