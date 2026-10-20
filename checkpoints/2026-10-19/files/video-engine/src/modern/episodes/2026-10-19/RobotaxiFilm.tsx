@@ -23,7 +23,7 @@ import {SanAntonioSupport,CURB,CURB_PLAN,CREEK,CREEK_MARKS,STREET,LANE,LOT,LOT_P
  *  s2  a San Antonio street map draws in (linear); as the limited area is named a February calendar slides
  *      onto the map's corner from the side it stood on, the outline starts to trace and its sixty square
  *      miles tag drops in at once; the outline, the only ring on the map, closes around the moving pins.
- *  s3  rain streaks in and a fast brown current runs left along the limestone bank under live oaks. The
+ *  s3  (A) rain streaks in and a fast brown current runs left along the limestone bank under live oaks. The
  *      camera is LOCKED on fixed bank landmarks: the near bank's shallow limestone shelf and its broken lip,
  *      the far bank's tall live oak and a pale ledge jutting into the water. An EMPTY car (clear glass, bare
  *      seats) stands on the shelf at the shallow edge from the first frame, the water rushing round its
@@ -31,7 +31,10 @@ import {SanAntonioSupport,CURB,CURB_PLAN,CREEK,CREEK_MARKS,STREET,LANE,LOT,LOT_P
  *      and it starts to slide along the shelf (s3-event-2); the current shoves it off the lip, tail first, so
  *      the tail drops, the waterline climbs its doors, and carries it on downstream, faster, past the oak and
  *      toward the ledge, across most of the frame (s3-event-3). One continuous water sheet closes over its
- *      lower body. Illustrated, no occupant, no damage.
+ *      lower body. B reads the same carry straight down in both of its s3 shots (creek-plan): rain rings on
+ *      the channel, the roof on the shallow shelf by the bold white lip, then the same plan held closer by a
+ *      locked camera as the current lifts it off the shelf and carries it past the oak toward the pale ledge
+ *      slab. Illustrated, no occupant, no damage.
  *  s4  the residential street is already under brown water at the clause's first word; it spreads on and
  *      climbs to a second empty car's wheel arches, the car creeps, stops (its speed follows the board's
  *      contact curve) and its amber hazards start to blink; the camera finds the empty cabin as the water
@@ -58,8 +61,8 @@ import {SanAntonioSupport,CURB,CURB_PLAN,CREEK,CREEK_MARKS,STREET,LANE,LOT,LOT_P
  *      close at the near end of the row, the eye at door height: the tag hangs clipped on the cord near the
  *      lens, the nearest car fills the frame and its roof pod takes its check large, the three behind it
  *      take theirs left to right as every affected car is named, the vehicle map card clipped further along
- *      the cord is marked updated, and the calendar on the far pole flips to 20 on April twentieth. B reads
- *      the lot straight down, refilled, then a separately staged top-down close over the nearest roof.
+ *      the cord is marked updated, and the calendar on the far pole flips to 20 on April twentieth. B uses the
+ *      same two shots; its own fleet-plan and limits-detail views remain drawn for its overhead option.
  *  s9  back at the same curb bay the same car waits, its curbside rear door swings open, the record card,
  *      already standing back by the curb, slides into the foreground through the remedy's naming and its
  *      remedy row is underlined, still under development; the split sets the card and phone on the
@@ -203,6 +206,13 @@ export const CREEK_CAR={x:CREEK_MARKS.lip+191,s:.72,y:1236};
  * the bank, the shelf's lip, the landmark oak and the ledge never move and the car's travel past them is
  * the current's. The wide holds the whole reach, the ledge to the near bank; the medium holds the reach
  * the car is carried down, from the lip past the oak to the ledge. */
+/** B's second overhead creek shot: the SAME plan, held closer by one locked camera (plan point f on screen
+ * point a at scale s for the whole shot), chosen so the landmark oak's crown, the pale ledge slab, the lip and
+ * the car's whole carry stay in frame, under the disclosure chip and above the caption band. The plan mapping
+ * and the car's path are the first overhead shot's, so nothing resets at the cut. */
+export const CREEK_PLAN_CLOSE:Cam={f:[510,885],s:1.25,a:[540,960]};
+/** Whether a creek-plan shot is B's closer second shot: the scene's later shot, from its shot record. */
+export const creekPlanCloser=(shot:{scene_fraction_start?:number})=>(shot.scene_fraction_start??0)>=.25;
 export const CREEK_CAM={wide:{f:[540,1012] as Pt,s:1,a:[540,960] as Pt},swept:{f:[458,1070] as Pt,s:1.18,a:[540,960] as Pt}};
 /** s4's floodwater: its front and depth at the clause's first word and at the end of s4-event-1. */
 export const S4={front0:960,front1:1260,lvl0:24,lvl1:66};
@@ -571,13 +581,18 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   // elevation shots; the white roof and dome stand nose upstream (right) on the pale shallow shelf at the
   // near bank's edge, a bow wave builds on the nose and wakes trail downstream; the same distance the
   // elevation carries it moves it left, and going off the shelf takes it out into the channel, yawing.
+  // B's second creek shot is the same plan held closer by a locked camera (creekPlanCloser), so the roof, the
+  // pod and the empty cabin's glass read larger while the car's place, pose and bow wave carry across the cut.
   const {carX,edgeY,carY,k}=CREEK_PLAN,pr=S.s3.press,off=S.s3.off,cx=carX-k*S.s3.drift,cy=lerp(edgeY,carY,off);
-  pic=<g>
+  const planCam=creekPlanCloser(shot as typeof shot&{scene_fraction_start?:number})?CREEK_PLAN_CLOSE:ID;
+  pic=<CamG c={planCam} z={1}>
    <Item id="s3-creek"><Item id="s3-crossing"><Item id="s3-rain"><SanAntonioSupport part="creekplan" t={t} rain={S.s3.rain} flow={S.s3.flow}/></Item></Item></Item>
-   <Item id="s3-car">{top([cx,cy],.5,-12*off+2*(1-off)*pr*Math.sin(2*Math.PI*1.1*t),{shadow:.2,wetTo:lerp(30,90,off)})}
-    {pr>0&&<path d={`M${cx+118} ${cy-64}Q${cx+136+56*pr} ${cy} ${cx+118} ${cy+64}`} stroke="#E9E1CF" strokeWidth={8} fill="none" opacity={clamp(pr*1.5)}/>}
-    {[-1,1].map(sgn=><path key={sgn} d={`M${cx-128} ${cy+sgn*52}q-40 ${sgn*12} -120 ${sgn*30}`} stroke="#E9E1CF" strokeWidth={4} fill="none" opacity={.4+.4*pr}/>)}</Item>
-  </g>;
+   <Item id="s3-car">{top([cx,cy],.5,-12*off+3*(1-off)*(.3+.7*pr)*Math.sin(2*Math.PI*1.1*t),{shadow:.2,wetTo:lerp(30,90,off)})}
+    {/* the water rushing round its wheels from the first frame, then the bow wave building on the nose */}
+    <path d={`M${cx+118} ${cy-66}Q${cx+132+60*(.25+.75*pr)} ${cy} ${cx+118} ${cy+66}`} stroke="#E9E1CF" strokeWidth={12} fill="none" strokeLinecap="round" opacity={.45+.5*pr}/>
+    <path d={`M${cx+124} ${cy-46}Q${cx+128+38*(.25+.75*pr)} ${cy} ${cx+124} ${cy+46}`} stroke="#FFFFFF" strokeWidth={5} fill="none" opacity={.3+.5*pr}/>
+    {[-1,1].map(sgn=><path key={sgn} d={`M${cx-128} ${cy+sgn*52}q-40 ${sgn*12} -120 ${sgn*30}`} stroke="#E9E1CF" strokeWidth={6} fill="none" strokeLinecap="round" opacity={.45+.4*pr}/>)}</Item>
+  </CamG>;
   break;}
  case 'street-flood':
  case 'hazard-close':
