@@ -428,6 +428,18 @@ SPEECH_EDGE_UNDER_PEAK_DB = 38.0
 # A caption cue should be readable. Two lines of about forty characters.
 MAX_CUE_CHARS = 84
 
+# THE PHONE FIT GATE REFUSES WHAT THE COMPACT SEGMENTER ALLOWS, and it did so on 2026-10-19.
+# caption_board_fit.mjs holds a modern cue to two lines at 40 pixels or more, which the
+# renderer's own layout reaches for roughly 64 characters of this show's copy (a 59 character
+# cue fits at 44 and a 67 character cue does not). The compact profile above allows 84, so a
+# 77 character closing cue was emitted whole across a measured 0.20 second silence the
+# segmenter could have used, and the preview was refused with no usable boundary. From the
+# date below the segmenter takes an existing measured boundary when declining it would
+# carry the cue past this ceiling. It still selects only silences the aligner measured and
+# never invents or moves a time. Earlier editions keep compact-measured-clauses-v1 exactly.
+PHONE_FIT_CUE_CHARS = 64
+PHONE_FIT_FROM = '2026-10-19'
+
 # HOW LONG A CUE MAY HOLD, and six seconds was far too generous.
 #
 # A cue holds until the next measured boundary, so a long ceiling does not merely allow a
@@ -733,7 +745,8 @@ def split_at_clauses(groups, words, clauses):
 
 
 def cues(words: list[dict], cuts: list[float] | None = None,
-         clauses: list[dict] | None = None, *, compact: bool = False) -> list[dict]:
+         clauses: list[dict] | None = None, *, compact: bool = False,
+         fit_chars: int | None = None) -> list[dict]:
     """Cues that break ONLY on measured boundaries, and PREFER the ones that make sense.
 
     MEASURED IS NOT THE SAME AS READABLE, and this took the whole difference on the chin.
@@ -754,6 +767,8 @@ def cues(words: list[dict], cuts: list[float] | None = None,
     # Current phone captions prefer short complete clauses. Only measured acoustic
     # boundaries are candidates; an indivisible long run still needs a new voice take.
     hard_chars = MAX_CUE_CHARS if compact else HARD_CUE_CHARS
+    if compact and fit_chars:
+        hard_chars = min(hard_chars, fit_chars)
     hard_seconds = MAX_CUE_S if compact else HARD_CUE_S
     overshoot = 1.2 if compact else OVERSHOOT
 
@@ -1558,6 +1573,7 @@ def main() -> int:
     # passed as numbers, because the board is the only place the cuts actually are.
     cut_times: list[float] = []
     compact = False
+    phone_fit = False
     clauses, clause_meta = None, None
     saved_caps = json.loads((out / "captions.json").read_text()) if a.verify else None
     clause_mode = a.clause_boundaries or bool((saved_caps or {}).get("narration_clause_segmentation"))
@@ -1567,6 +1583,7 @@ def main() -> int:
     if a.cuts:
         board = json.loads(Path(a.cuts).read_text())
         compact = str(board.get('date', ''))[:10] >= '2026-10-15'
+        phone_fit = str(board.get('date', ''))[:10] >= PHONE_FIT_FROM
         cut_times = sorted(float(s["start_s"]) for s in board.get("scenes", [])
                            if s.get("start_s"))
         if clause_mode:
@@ -1580,7 +1597,8 @@ def main() -> int:
                 cut_times = []
 
     try:
-        grouped = cues(res["words"], cut_times, clauses, compact=compact)
+        grouped = cues(res["words"], cut_times, clauses, compact=compact,
+                       fit_chars=PHONE_FIT_CUE_CHARS if phone_fit else None)
         if clause_mode:
             clause_meta, _ = clause_contract(res["words"], clauses)
     except (ValueError, TypeError, KeyError) as exc:
@@ -1594,7 +1612,8 @@ def main() -> int:
     if clause_meta is not None:
         caps["narration_clause_segmentation"] = clause_meta
     if compact:
-        caps['grouping_profile'] = 'compact-measured-clauses-v1'
+        caps['grouping_profile'] = ('compact-measured-clauses-v2' if phone_fit
+                                    else 'compact-measured-clauses-v1')
     if a.verify:
         saved_words = json.loads((out / "words.json").read_text())
         if Path(saved_caps.get("words_file", "")).resolve() == (out / "words.json").resolve():

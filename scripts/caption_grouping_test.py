@@ -79,6 +79,32 @@ class GroupingTests(unittest.TestCase):
         self.assertEqual(result[0]['text'], 'At the crossing the gauge detects the rising water.')
         self.assertEqual((result[0]['start'], result[0]['end']), (0.0, 3.9))
 
+    def test_phone_fit_profile_takes_an_existing_measured_boundary_before_an_unfit_cue(self):
+        # 2026-10-19: one 77 character closing cue across a measured 0.20 s silence.
+        words = []
+        for text, start, end in [('and the federal record lists the flood remedy', 0.0, 2.26),
+                                  ('as currently under development.', 2.46, 3.88)]:
+            run = distribute(text.split(), start, end)
+            run[0]['anchored_start'] = True
+            run[-1]['anchored_end'] = True
+            words.extend(run)
+        v1 = cues(words, compact=True)
+        self.assertEqual(len(v1), 1)
+        self.assertGreater(len(v1[0]['text']), 64)
+        v2 = cues(words, compact=True, fit_chars=64)
+        self.assertEqual([c['text'] for c in v2],
+                         ['and the federal record lists the flood remedy',
+                          'as currently under development.'])
+        self.assertEqual((v2[0]['start'], v2[0]['end'], v2[1]['start'], v2[1]['end']),
+                         (0.0, 2.26, 2.46, 3.88))
+        self.assertTrue(all(c['start_measured'] and c['end_measured'] for c in v2))
+
+    def test_phone_fit_profile_never_invents_a_boundary_inside_one_run(self):
+        words = measured_runs(['and the federal record lists the flood remedy as currently under development.'])
+        result = cues(words, compact=True, fit_chars=64)
+        self.assertEqual(len(result), 1)
+        self.assertEqual((result[0]['start'], result[0]['end']), (words[0]['start'], words[-1]['end']))
+
 
 if __name__ == "__main__":
     unittest.main()
