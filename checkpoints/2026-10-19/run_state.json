@@ -676,6 +676,14 @@
       "note": "phone22 repair: creek shelf water edge removal",
       "resource": "reboards",
       "to": 12
+    },
+    {
+      "at": "2026-10-20T10:00:32.498623Z",
+      "ceiling": 37,
+      "from": 34,
+      "note": "code-plan review round 23 of both treatments after phone22 repair, packet critic-packet-round23, same Opus critic aea70021",
+      "resource": "storyboard_critics",
+      "to": 35
     }
   ],
   "events": [
@@ -5633,6 +5641,24 @@
       "repair_revision": "a4c53c8048d946bff0116551d94252d26c9ffd61a190b70e9a21db4905118d18",
       "repair_scope": "standard",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-20T10:00:32.498651Z",
+      "ceiling": 37,
+      "kind": "budget_escalated",
+      "note": "code-plan review round 23 of both treatments after phone22 repair, packet critic-packet-round23, same Opus critic aea70021",
+      "now": 35,
+      "resource": "storyboard_critics",
+      "was": 34
+    },
+    {
+      "at": "2026-10-20T10:00:32.498663Z",
+      "kind": "reserved",
+      "note": "code-plan review round 23 of both treatments after phone22 repair, packet critic-packet-round23, same Opus critic aea70021",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -5647,7 +5673,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 34,
+    "storyboard_critics": 35,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -5656,7 +5682,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "700c259578e5fb06db778ad6a148ed22bca75717df9102e62ad7103009ebb500",
+    "original_private_state_sha256": "9829000b1abc28ce9f83aec779ebad18fb954f12f90f17b27e9d09cd7ba4a67e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5684,7 +5710,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T10:00:17.661232Z",
+  "updated_at": "2026-10-20T10:00:32.498666Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
@@ -5697,7 +5723,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 34,
+    "storyboard_critics": 35,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
