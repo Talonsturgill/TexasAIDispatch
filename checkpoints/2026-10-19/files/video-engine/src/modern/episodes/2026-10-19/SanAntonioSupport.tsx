@@ -814,20 +814,48 @@ export const IconGrid: React.FC<{cols: number; rows: number; fill: number; dx?: 
 };
 /** The recall sentence, the source's words, with may lit. Top left at (0,0). */
 export const QUOTE_TEXT = 'The software may allow the vehicle to slow and then drive into standing water on higher speed roadways.';
+/** The highlight band around a marked word, in ems of the line's size from its baseline: the amber box
+ * from `top` to `bottom`, the underline from `ulTop` to `ulBottom`, and the box's side margin. */
+export const MARK_BAND = {top: -.95, bottom: .3, ulTop: .16, ulBottom: .3, side: 8};
+/** One line of type with one word marked. The mark is NOT placed from an estimated width: the line is set
+ * twice, as two identical runs (same x, y, face, size, the same words and per-word weights), so the
+ * browser lays both out the same way. In the second run only the marked word is painted; an SVG
+ * morphology filter dilates that word's own glyphs and a clip keeps the dilation to the line's band, so
+ * the amber box and the underline sit exactly on the word as it is actually laid out, at any size, scale
+ * or font. `lit` fades both in. */
+export const MarkedLine: React.FC<{text: string; mark: string; x: number; y: number; size: number; lit: number; ink: string}> =
+ ({text, mark, x, y, size, lit, ink}) => {
+ const id = useUid('sml'), words = text.split(' '), W = 4000, B = MARK_BAND;
+ const run = (paint: 'line' | 'mark') => <text x={x} y={y} fontFamily={FONT.body} fontWeight={700} fontSize={size}
+  fill={paint === 'line' ? ink : 'none'} data-run={paint}>{words.map((word, i) => <tspan key={i} fontWeight={word === mark ? 800 : 700}
+  fill={paint === 'line' ? undefined : word === mark ? '#000000' : 'none'}>{(i ? ' ' : '') + word}</tspan>)}</text>;
+ const band = (key: string, top: number, bottom: number, side: number, color: string, opacity: number) => <g key={key} opacity={opacity}>
+  <defs>
+   <filter id={`${id}${key}f`} filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" x={x - 400} y={y - size * 2.5} width={W} height={size * 4}
+    colorInterpolationFilters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius={`${side} ${(size * 1.3).toFixed(2)}`} result="d"/>
+    <feFlood floodColor={color} result="c"/><feComposite in="c" in2="d" operator="in"/>
+   </filter>
+   <clipPath id={`${id}${key}c`}><rect x={x - 400} y={y + top * size} width={W} height={(bottom - top) * size}/></clipPath>
+  </defs>
+  <g clipPath={`url(#${id}${key}c)`}><g filter={`url(#${id}${key}f)`}>{run('mark')}</g></g>
+ </g>;
+ const has = words.includes(mark);
+ return <g data-part="marked-line">
+  {has && lit > 0 && <g data-part="may-highlight">{band('box', B.top, B.bottom, B.side, SA.amber, clamp(lit))}</g>}
+  {run('line')}
+  {has && lit > 0 && <g data-part="may-underline">{band('ul', B.ulTop, B.ulBottom, 0, SA.amberInk, clamp(lit * 1.4))}</g>}
+ </g>;
+};
 export const QuoteCard: React.FC<{w: number; lit: number; size?: number}> = ({w, lit, size = 36}) => {
  const pad = 34, lines = wrap(QUOTE_TEXT, size, w - 2 * pad, true), lead = size * 1.3, h = lines.length * lead + pad * 2 + 46;
  return <g data-part="recall-sentence">
   <rect x={8} y={10} width={w} height={h} rx={12} fill="#1A1814" opacity={.22}/>
   <rect x={0} y={0} width={w} height={h} rx={12} fill={SA.paper} stroke={SA.paperEdge} strokeWidth={2}/>
   <text x={pad} y={pad + 18} fontFamily={FONT.mono} fontWeight={600} fontSize={20} fill="#5A626B">Federal recall record</text>
-  {/* each line is ONE run of type, so the font's own spacing sets every word gap; the highlight sits
-    * behind the word may at its measured offset */}
-  {lines.map((line, k) => {const y = pad + 46 + (k + 1) * lead - size * .3, words = line.split(' '), j = words.indexOf('may');
-   const x0 = j < 0 ? 0 : pad + widthOf(words.slice(0, j).join(' ') + (j ? ' ' : ''), size, true), ww = widthOf('may', size, true);
-   return <g key={k}>{j >= 0 && lit > 0 && <rect x={x0 - 8} y={y - size * .95} width={ww + 16} height={size * 1.25} rx={6} fill={SA.amber} opacity={lit} data-part="may-highlight"/>}
-    <text x={pad} y={y} fontFamily={FONT.body} fontWeight={700} fontSize={size} fill={SA.ink}>{words.map((word, i) =>
-     <tspan key={i} fontWeight={word === 'may' ? 800 : 700}>{(i ? ' ' : '') + word}</tspan>)}</text>
-    {j >= 0 && lit > 0 && <path d={`M${x0} ${y + 8}h${ww * clamp(lit * 1.4)}`} stroke={SA.amberInk} strokeWidth={5} strokeLinecap="round"/>}</g>;})}
+  {/* each line is ONE run of type, so the font's own spacing sets every word gap, and the word may is
+    * marked from that same run's layout, never from an estimate */}
+  {lines.map((line, k) => <MarkedLine key={k} text={line} mark="may" x={pad} y={pad + 46 + (k + 1) * lead - size * .3} size={size} lit={lit} ink={SA.ink}/>)}
  </g>;
 };
 /** A check badge popping onto a car, 0 to 1. Centre at (0,0). */
