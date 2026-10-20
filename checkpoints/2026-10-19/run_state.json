@@ -492,6 +492,14 @@
       "note": "code-plan review round 15 of both treatments after the s6 highlight fix in SanAntonioSupport, packet critic-packet-round15",
       "resource": "storyboard_critics",
       "to": 24
+    },
+    {
+      "at": "2026-10-20T05:29:37.971071Z",
+      "ceiling": 25,
+      "from": 24,
+      "note": "code-plan re-review round 16 of treatment B after director s1/s4 shot replacement, packet critic-packet-round16",
+      "resource": "storyboard_critics",
+      "to": 25
     }
   ],
   "events": [
@@ -4099,6 +4107,24 @@
         "validator_agents": 4,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-20T05:29:37.971088Z",
+      "ceiling": 25,
+      "kind": "budget_escalated",
+      "note": "code-plan re-review round 16 of treatment B after director s1/s4 shot replacement, packet critic-packet-round16",
+      "now": 25,
+      "resource": "storyboard_critics",
+      "was": 24
+    },
+    {
+      "at": "2026-10-20T05:29:37.971099Z",
+      "kind": "reserved",
+      "note": "code-plan re-review round 16 of treatment B after director s1/s4 shot replacement, packet critic-packet-round16",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -4113,7 +4139,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 24,
+    "storyboard_critics": 25,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -4122,7 +4148,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "14ab745c5e036fa64ef7fd6a5ed7c6eeafa4e06458927ff45fed4eda4f6be979",
+    "original_private_state_sha256": "f99f8aab2f783a241f46fe5f30211956841f4a5bb4e4ba30be6d33fe14940a78",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -4150,7 +4176,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T05:29:12.995382Z",
+  "updated_at": "2026-10-20T05:29:37.971102Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
@@ -4163,7 +4189,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 24,
+    "storyboard_critics": 25,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
