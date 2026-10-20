@@ -1,67 +1,78 @@
 {
   "treatment": "a",
-  "verdict": "revise",
+  "verdict": "pass",
   "review_scope": "code-plan",
   "board_bindings": {
     "opening": {
       "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
-      "sha256": "3fd007d0f2914323e8dbd8800b8d66bc8f9756e545a97871eb734ab1a9ec88f6"
+      "sha256": "35e0e4fc0ff8f100100b0bb349b89eb76b32b3d58cc0e550660f57e4d0f544b9"
     }
   },
-  "board_sha256": "3fd007d0f2914323e8dbd8800b8d66bc8f9756e545a97871eb734ab1a9ec88f6",
-  "concept_sha256": "d52ccc22abd796c666943662d55c6815ddda533655fa93a4f767b2005dd2c99a",
+  "board_sha256": "35e0e4fc0ff8f100100b0bb349b89eb76b32b3d58cc0e550660f57e4d0f544b9",
+  "concept_sha256": "05617d25288228a4d8b141eff6fda5a8a167756481ed582be5e67f8955dbed5b",
   "renderer_sha256": "1dac9c7557164a375eefcce05022f536d2810acd54fef4a7b496a089c806b78e",
-  "binding_status": "Director-supplied digests from out/dispatch/evidence/code-round27-bindings.json, copied unchanged and not recomputed. storyboard.json is now B's bytes, so it is not bound here.",
+  "binding_status": "Director-supplied digests from out/dispatch/evidence/code-round28-bindings.json, copied unchanged and not recomputed. storyboard.json holds B's bytes and is not bound here.",
   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
   "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-  "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 27, distinct from the Sonnet director",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 28, distinct from the Sonnet director",
   "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
-  "unchanged_check": "A's shared creek-wide and car-swept cases in RobotaxiFilm.tsx are byte-for-byte the round 25 code. That covers CREEK_CAM, CREEK_CAR, S3, s3Car, the toe-following FloodSheet foot with lit .002, CreekBack, CreekToe, CreekLedge, CreekShelf and CreekBank. creekPlanCloser and CREEK_PLAN_CLOSE affect only the creek-plan view, which A never uses. A's s3 pixels are therefore expected to repeat film aa1ed75e....",
-  "strongest_frame": "s6 wheels-water, 32.88 to 36.51 s: the wheel meets the standing water with a wake while 'may' is lit.",
-  "weakest_frame": "s3 creek-wide and car-swept, 12.36 to 17.24 s (measured clock). The eye-level far bank reads as one near-straight band, and the lip's white water is illegible at phone size (round 26).",
-  "blocking_defects": [
-    {
-      "category": "surface_finish",
-      "criterion": "surface_finish",
-      "scene_id": "s3",
-      "time_s": 13.2,
-      "defect": "Carried, code unchanged, from the round 26 exact-phone report on film aa1ed75e.... From 13.2 to 17.4 s, the pale layered far-bank stone (CreekBack courses with the toe-following water edge) spans the full frame width. Its lower edge against the brown water reads as one near-straight horizontal line at phone size. The eye-level bank has failed this test twice (rounds 24 and 26), so a third redraw of the same layout is not an acceptable repair. A would need the overhead or another changed composition, as B now has."
-    },
-    {
-      "category": "surface_finish",
-      "criterion": "surface_finish",
-      "scene_id": "s3",
-      "time_s": 14.0,
-      "defect": "Carried, code unchanged. From 14.0 to 14.8 s, a slightly lighter brown area right of the vertical drop under the car's front has a faint horizontal lower edge and reads as a squared box. This is most likely the opaque CreekShelf fill (#977E58) against the sheet gradient where the shelf mask is fully opaque."
-    },
-    {
-      "category": "surface_finish",
-      "criterion": "subject_recognition",
-      "scene_id": "s3",
-      "time_s": 13.2,
-      "defect": "Carried, code unchanged. From 13.2 to 17.4 s, the shelf lip shows as a dark vertical drop and later as a pale-edged jagged line with small flecks (CreekShelf lip stroke 7, foam stroke 6, spray radius 2.5 to 5). Its white water is not legible at phone size."
-    }
-  ],
+  "round27_blocker_check": {
+    "scene_id": "s3",
+    "time_s": 13.03,
+    "status": "resolved in code by replacement; phone pixels still required",
+    "detail": [
+      "A's s3 now matches B's reviewed s3, apart from the treatment 'a' and visual_family 'robotaxi-s3-a' labels:",
+      "- timing 13.03 to 17.61 s, events e1, e2 and e3 at the same authored offsets and curves;",
+      "- on_screen, what_moves and s3-event-1 'what' read 'Heavy rain rings...';",
+      "- s3-shot-1 is creek-plan, overhead, scene_fraction_start 0.0;",
+      "- s3-shot-2 is creek-plan, overhead, scene_fraction_start 0.5, transition match.",
+      "So creekPlanCloser selects CREEK_PLAN_CLOSE for shot 2 only, exactly as in my round 27 B check. That check covered:",
+      "- the carry from plan x of about 666 to 311 in shot 2, with the lift off the shelf at about 14.9 to 16.2 s;",
+      "- the oak crown at screen (552, 329), clear of the chip;",
+      "- the ledge slab at screen x 274 to 412;",
+      "- the bold lip and 30 flecks, and the 34 rain rings;",
+      "- the car's lowest row at about 1260, above the caption band;",
+      "- no full-width straight run in shot 2.",
+      "A no longer reaches the eye-level creek-wide or car-swept cases. Those cases, together with CreekBack, CreekToe, CreekShelf and the toe-following sheet, are now unused code. That removes the round 26 sources: the straight far-bank band, the squared shelf patch at 14.0 to 14.8 s and the illegible lip.",
+      "A's story_art requests and entries are identical to B's: hero 9f8e54f8... and support 8cb4550d.... The s3 hero action_use is car-swept-into-creek on view creek-plan, and the registry already lists that view under narration_views and both authored_art lists."
+    ]
+  },
+  "divergence_check": "A still differs visibly from B, but only in 4 of 20 shots, about 11.4 s of 58.45 on the authored clock:\n- s2-shot-1: A's angled map-table, medium, versus B's flat map-plan;\n- s5-shot-1: A's record-desk, medium, versus B's overhead record-wall;\n- s6-shot-1: A's eye-level lane-wide, wide, versus B's overhead lane-plan;\n- s7-shot-1: A's record-close, close, versus B's overhead record-wall.\nThe s1, s3, s4 and s8 shots, all second shots and all of s9 are now the same views in both. s3's 'robotaxi-s3-a' versus 'robotaxi-s3-b' visual_family is a label difference over identical pixels. As a comparison A is now a light variant of B. That is acceptable only because B was already selected; it would not have passed as a genuine second treatment at the original two-treatment stage. I record this as a note, not a quality defect, because the fixed rubric has no divergence criterion that fails A's own film.",
+  "place_and_wall_check": "Overhead shots exempt from region share: 2 (s3-shot-1 and s3-shot-2, both framing 'overhead'). Wall views per the registry: record-desk, count-grid, record-close and stamp-detail. That is 4 of 18 held non-overhead shots, about 22 percent, under the 40 percent cap. All other exterior shots are ground-level views drawn through PlaceSubject or Grounded on the blackland plate, as in my round 19 to 25 reads: curb-wide, phone-hail, street-flood, hazard-close, lane-wide, wheels-water, calendar-fleet, limits-tag, curb-return, record-slide and curb-record-split. Region 'blackland' for Bexar County is unchanged.",
+  "strongest_frame": "s3-shot-2 creek-plan closer, 15.32 to 17.61 s (authored clock). The empty white roof and pod lift off the pale shelf past the bold white-water lip, yaw into the channel and are carried about 355 plan px downstream, under the fixed oak crown and toward the pale ledge slab.",
+  "weakest_frame": "s3-shot-1 creek-plan, 13.03 to 15.32 s. The small roof (top part at scale .5) only rocks, with its bow arc and the rain rings, until it starts to move at about 14.9 s. Rounds 24 and 26 found this the weakest interval in the overhead creek.",
+  "blocking_defects": [],
   "notes": [
-    "This is not the selected film. The revise records the honest state of A's unchanged code against standing phone evidence, and it does not block B.",
-    "All other A scenes match my round 19, 20, 23 and 25 reads. That includes the curb, the map, the street flood (no lit prop), the record, the lane, the lot close and the curb return.",
-    "Carried non-blocking notes: the s2 to s3 handoff, the s6 water ellipse, the flat lower bands, the s7 forearm, the s9 card on the road and the thousands separator in 3,791.",
-    "Stale prose remains: A's divergence_note says 'riding a creek crossing'.",
-    "The support prompt in story_art still mentions 'a depth post', and the creek-rush sound cue says 'low crossing'. Neither is shown on screen."
+    "A-only scenes:",
+    "- s2 map-table, s5 record-desk, s6 lane-wide and s7 record-close are unchanged from my round 19 to 25 reads.",
+    "- In the round 26 exact-phone report on A (film aa1ed75e...), the only blockers were the three s3 defects. Subject recognition, contact and consequence, and closing payoff passed.",
+    "- So no A-only scene carries a blocking defect.",
+    "Remaining mandatory items, all at once:",
+    "(1) The fresh exact-phone review of A's new film is mandatory for the shared overhead s3. Check 13.0 to 17.7 s for the same five risks named in my round 27 B report:",
+    "- the long, nearly horizontal upstream run of the bold lip, from plan x 666 to 1320, could read as a straight white line;",
+    "- the ledge slab is small, about 35 \u00d7 23 phone px;",
+    "- the lift off the shelf must show after the cut;",
+    "- the roof and pod must read at scale .5 \u00d7 1.25;",
+    "- the shot 2 lower crowns sit behind the caption band.",
+    "(2) creekPlanCloser is keyed on the board field scene_fraction_start. The exact-film review must confirm that the closer framing actually renders.",
+    "No other mandatory defect found in code.",
+    "Text to correct in the same pass (not shown on screen, but it conflicts with the pixels):",
+    "- A's film_direction.rewards s3-event-1 visible_change still says 'Heavy rain streaks in and fast brown creek water runs along the limestone bank'. B's reads 'Heavy rain rings spread...'. A draws no streaks in s3, so update A to match.",
+    "- A's film_direction.angle ('Follow one white driverless car ... at ground level') no longer describes s3, which is overhead.",
+    "- A's divergence_note ('riding a creek crossing'), the support prompt's 'depth post' and the creek-rush sound cue's 'low crossing' are stale from earlier rounds.",
+    "Times quoted are A's board times, which now match B's authored clock: s3 13.03 to 17.61 s.",
+    "Carried non-blocking items: the s2 to s3 handoff, the s6 wide water ellipse, the flat lower bands, the s7 straight forearm, the s9 card over the road and wheels, and the thousands separator in 3,791.",
+    "This is a code pass only. Film aa1ed75e... stays rejected."
   ],
   "story_review": {
-    "story_sha256": "9d5bce44e96e61b65adb60f908afe6e09abf4b89aa7c8c95641ff36c7c99aba4",
+    "story_sha256": "ec78e4fc76dfc98dcd3d22753015f3d72e39580d137c337b9b047d797f8a6e64",
     "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
     "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-    "verdict": "revise",
-    "blocking_defects": [
-      "s3 13.2 s: straight full-width far-bank band at eye level (surface_finish), carried and unchanged",
-      "s3 14.0 s: squared lighter patch in the creek water (surface_finish), carried and unchanged",
-      "s3 13.2 s: lip white water illegible (subject_recognition), carried and unchanged"
-    ],
-    "one_viewing_summary": "Intended chain, read from code and not observed. The empty-wheel airport arrival, the limited February map, the empty car carried off a creek lip past a fixed oak and ledge (eye level), the stranded street car with hazards, the recall card and grid with stamp, the slow roll into standing water with 'may' lit, the remedy stamped under development, the wet-lot limits tag and April 20 checks, and the open curb door beside the remedy card.",
-    "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No outcome is invented.",
-    "weakest_transition": "s2 to s3 at 12.36 s. The map cuts to the creek with no carried subject, and the creek it lands on carries the unresolved finish defects."
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Intended chain, read from code and not observed:\n- A white driverless car brakes into an airport bay while its empty wheel turns, and the phone says Arriving.\n- A street map on a picnic table draws in, then from above the limited February area of 60 square miles closes.\n- From above, an empty white roof at a creek's shallow edge in rain rings. Closer, it lifts off the shelf past a bold white-water lip and is carried downstream under a fixed oak toward a pale ledge.\n- Another empty car stops in rising street floodwater with its hazards blinking.\n- A recall card slides onto a desk, the grid fills and a stamp lands.\n- At ground level a car slows on a lane and rolls into standing water while 'may' lights.\n- The remedy row is close and stamped Under development.\n- In a wet lot a weather limits tag clips above four cars, then each takes its check and an April 20 page flips.\n- The curb returns with the door open beside the remedy card.",
+    "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No repair, speed, depth or outcome is invented.",
+    "weakest_transition": "s2 to s3 at 13.03 s. A's angled table map (map-zone close) cuts to an overhead creek with a different car. The handoff rests on 'In April' and the disclosure chip, and the creek car is small."
   },
   "action_reviews": [
     {
@@ -72,26 +83,24 @@
       "blocking_defects": [],
       "code_observations": {
         "source_fidelity": "c1: empty seats.",
-        "visible_action": "The steering wheel turns 85 degrees and back with no hands on it.",
+        "visible_action": "The wheel turns 85 degrees and back with no hands on it.",
         "consequence": "Arriving.",
-        "disclosure": "Chip.",
-        "limits": "Generic car. The hero edit is a comment only."
+        "disclosure": "Generic car chip.",
+        "limits": "Not a Waymo vehicle or app; the hero edit is a comment only."
       }
     },
     {
       "action_id": "car-swept-into-creek",
       "module_sha256": "9f8e54f86eb4e0a684f2b8ba04dae178f92dd7514f6362a8d94618f4335ed55a",
       "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-      "verdict": "revise",
-      "blocking_defects": [
-        "The s3 lip and white water are illegible, and the far-bank band and squared patch remain. This is the unchanged eye-level code (round 26)."
-      ],
+      "verdict": "pass",
+      "blocking_defects": [],
       "code_observations": {
-        "source_fidelity": "c3 and c4.",
-        "visible_action": "Locked eye-level slide off the lip and a carry past the oak and ledge, implemented as before.",
-        "consequence": "Carried downstream.",
-        "disclosure": "April 20th chip.",
-        "limits": "No entry path."
+        "source_fidelity": "c3 and c4: shallow edge, no crossing, unoccupied.",
+        "visible_action": "creek-plan in both s3 shots, the same code as B. The car is pressed (bow arc), lifts off the shelf across the bold lip (off 0 to 1, yaw -12) and is carried left in the locked closer shot.",
+        "consequence": "Carried into the channel and downstream, under the fixed oak toward the ledge slab.",
+        "disclosure": "'Illustration. A different car, April 20th account'.",
+        "limits": "Overhead editorial drawing, not aerial footage. No damage, depth or entry path."
       }
     },
     {
@@ -101,10 +110,10 @@
       "verdict": "pass",
       "blocking_defects": [],
       "code_observations": {
-        "source_fidelity": "c7 verbatim.",
-        "visible_action": "Speed eases from 850 to 150; brake lamps; wakes.",
+        "source_fidelity": "c7 verbatim; 'may' marked from the real glyph layout.",
+        "visible_action": "lane-wide then wheels-water. Speed eases from 850 to 150 and never stops; brake lamps; wakes.",
         "consequence": "The wheels enter the water.",
-        "disclosure": "Chip.",
+        "disclosure": "Recall-wording chip.",
         "limits": "No speed or depth."
       }
     },
@@ -116,7 +125,7 @@
       "blocking_defects": [],
       "code_observations": {
         "source_fidelity": "c2.",
-        "visible_action": "The outline traces.",
+        "visible_action": "map-table draws in, then map-zone traces the ZONE outline.",
         "consequence": "The outline closes with the tag.",
         "disclosure": "Credits.",
         "limits": "Editorial outline."
@@ -130,8 +139,8 @@
       "blocking_defects": [],
       "code_observations": {
         "source_fidelity": "c6 and c13.",
-        "visible_action": "The rows write in and the grid fills.",
-        "consequence": "The stamp lands.",
+        "visible_action": "record-desk slide and rows, then count-grid fills.",
+        "consequence": "The header stamp lands and the counter tag jolts.",
         "disclosure": "Chip.",
         "limits": "Icons are not a literal count."
       }
@@ -144,14 +153,14 @@
       "blocking_defects": [],
       "code_observations": {
         "source_fidelity": "c8 verbatim.",
-        "visible_action": "The row lights, the pen rests and the stamp presses.",
+        "visible_action": "record-close: the row lights and the pen rests, then stamp-detail presses into the slot.",
         "consequence": "The imprint carries to s9.",
         "disclosure": "Chip.",
-        "limits": "Not a real record."
+        "limits": "Not a real record page."
       }
     }
   ],
   "phone_observations": null,
   "modern_observations": null,
-  "pixel_basis": "None. Code approval includes no pixel observations. The carried defects cite the round 26 exact-phone report on film aa1ed75e..., whose s3 code is unchanged."
+  "pixel_basis": "None. Code approval includes no pixel observations."
 }
