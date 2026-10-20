@@ -1,166 +1,219 @@
 {
- "treatment": "a",
- "verdict": "pass",
- "review_scope": "code-plan",
- "board_bindings": {
-  "opening": {
-   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
-   "sha256": "0cd19a78bf8c310452c6c9436523b3e84743ece2c3e421958ae7c1a80066bcfa"
-  },
-  "storyboard": {
-   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
-   "sha256": "1acbdace7815e07d2360ad309601a819e40156676ca8b7abe84098dffe46ac1d"
-  }
- },
- "board_sha256": "0cd19a78bf8c310452c6c9436523b3e84743ece2c3e421958ae7c1a80066bcfa",
- "concept_sha256": "fd66aeb431446f7da2ae229b31da9fa27598812c1658630579113a5cc73096fd",
- "renderer_sha256": "5afdc2ce4785bd1c8b5cd696bf06897c18a614480ea833b43bd0be2d08f95640",
- "binding_status": "The director supplied these digests in out/dispatch/evidence/code-round19-bindings.json and critic-packet-round19.json. I copied them unchanged and did not recompute them.",
- "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
- "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
- "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 19",
- "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
- "strongest_frame": "s3 car-swept, 14.80 to 16.56 s (measured clock). The camera is locked at f [458,1070], scale 1.18. The car is shoved off the shelf lip at x 570, tail first: its tail drops and the waterline rises from 44 to 118 car units, up the doors. It is carried past the fixed landmark oak at x 420 toward the pale ledge at x 90 to 250. By the end of n3 it has moved about 472 px, roughly 44 percent of the frame width. The bow wave sits on its upstream nose and the shelf riffles stream past it.",
- "weakest_frame": "s9-shot-2 record-slide, 49.93 to 52.97 s. This is unchanged: the remedy card grows over the roadway and the car's wheels with no support or shadow (round 18 non-blocking ending_artistry). Also unchanged: the s1 state order at 1.4 to 5.6 s.",
- "blocking_defects": [],
- "pivot_conditions_check": [
-  {
-   "condition": "3(a) camera locked, no residual follow",
-   "status": "met in code",
-   "detail": "viewCam returns the constant CREEK_CAM.wide and CREEK_CAM.swept. The old CREEK_CAM.follow is gone. The ledge (CreekLedge), the shelf and lip (CreekShelf) and the landmark oak (CREEK_OAKS at CREEK_MARKS.oak, height 380) are fixed world drawings. The place stage's own move applies to them and to the car together."
-  },
-  {
-   "condition": "3(a) large travel past the landmarks within n3, above the caption band",
-   "status": "met in code",
-   "detail": "Drift D3 starts on s3-event-2 (13.42 s), at speed v2 = 170 along the contact curve, then rises to v = 240 on s3-event-3's travel curve. D is about 159 units at the cut (14.80 s), 560 at the end of n3 (16.56 s) and 723 at the end of the scene. In the swept shot that is about 472 px by 16.56 s and 665 px by 17.24 s. The car spans screen y of roughly 900 to 1180, far above the bottom caption band. The shove starts about 0.8 s after n3 begins; until then the car rocks on the shelf."
-  },
-  {
-   "condition": "3(b) the s8 close is a distinct drawing at a different scale and eye height, with no composition held past about 4 s",
-   "status": "met in code",
-   "detail": "The wide uses LotBack, fence at y 930, cars at scales 1 to 0.6 receding to the upper right, held from 39.98 to 43.61 s. The tag slides from 40.26 s, clips by 42.05 s, then the cord tightens, the tag swings and sways. The close is a separate LotClose drawing with its eye line at y 1016 and a near cord running from the top left. Its nearest car is at scale 1.55 (about 820 px long) with a check badge of radius 71 on its pod. Checks land 43.90 to 44.80 s, the map card updates 44.80 to 45.40 s, and the calendar flips 46.02 to 46.92 s. The cut is at 43.61 s and no composition holds more than about 3.6 to 4.05 s."
-  },
-  {
-   "condition": "4 source limit (shallow edge, no crossing shown)",
-   "status": "met in picture",
-   "detail": "The car stands on the shelf from the first frame. CreekBack and CREEK_MARKS say 'Nothing shows a crossing'. The disclosure is 'Illustration. A different car, April 20th account'."
-  },
-  {
-   "condition": "5 board text",
-   "status": "partly met",
-   "detail": "The s3 event-2 text, the on_screen text and the s3 attention beats now say 'stands at the creek's shallow bank edge'. The support story_art request no longer says low crossing, but its prompt now says 'a submerged shelf and a depth post', and no depth post is drawn. The builder fact that the A divergence note was replaced is not true: divergence_note in opening-a.json and storyboard.json still reads 'riding a creek crossing'."
-  }
- ],
- "notes": [
-  "Not blocking. Correct the stale prose:",
-  "- the A divergence_note's 'riding a creek crossing';",
-  "- the support prompt's 'depth post';",
-  "- the 'creek-rush' sound cue, which still says 'over the low crossing'. The sound cue is designed audio and makes no picture claim. I accept the director's reason for leaving it, since its digest is bound to the mix. Fix it in the next sound remix.",
-  "Item id 's3-crossing' now binds both the shelf and the near bank. It appears twice as data-item in the creek views, which is harmless.",
-  "Carried from round 18, not blocking: the s1 state order (the phone still says 'Ride requested' until s1-event-3), the faint s1 to s2 pin bridge, the flat lane standing water, the rigid forearms in s5 and s7, and the ungrounded s9 card. The builder brief listed s1 and s9 as optional and they are unchanged.",
-  "Phone-scope checks still required:",
-  "- whether the shelf riffles and the lip foam read as current at 270 px;",
-  "- the s8 close's tag and badge at the 43.61 s cut;",
-  "- the wide lot's lower frame, where the asphalt below y of about 1520 is still empty under the caption band;",
-  "- the 'may' underline from round 15.",
-  "The film eefad941\u2026 and all earlier previews predate these bytes. A fresh timed capture is needed. This is a code pass only."
- ],
- "story_review": {
-  "story_sha256": "39ccd25de7baa952eb7d6192a3e516310d39a3f23c7b37bfd3cc50a140f350c7",
-  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
-  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "option": "a",
+  "review_scope": "exact-muted-phone-preflight",
+  "reviewed_preflight_sha256": "3178e0bf8c0fcc76188d98a0ddd5532674aef0cf2fd178b3eb9b2e067c21749b",
+  "concept_sha256": "fd66aeb431446f7da2ae229b31da9fa27598812c1658630579113a5cc73096fd",
+  "renderer_sha256": "5afdc2ce4785bd1c8b5cd696bf06897c18a614480ea833b43bd0be2d08f95640",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "reviewer_identity": "storyboard-critic claude-opus-5-5 high, isolated exact-muted-phone round 21 leaf",
+  "reviewed_at": "2026-10-20",
   "verdict": "pass",
   "blocking_defects": [],
-  "one_viewing_summary": "Intended chain, read from code and not observed. A generic white driverless car brakes into an airport bay while its empty wheel turns, and the phone says Arriving. A map outlines the limited February area of 60 square miles. A different empty car stands at a creek's shallow edge in rain, and the current shoves it off the stone lip and carries it downstream past a fixed oak and ledge. Another empty car stops in rising street floodwater with its hazards blinking. A recall card shows Software and 3,791, the icon grid fills and a stamp lands. A car slows and then rolls into standing water while 'may' lights on the recall sentence. The remedy row is stamped Under development. In a wet lot a weather limits tag clips above four cars, then in a low close each car takes its check and an April 20 page flips. The curb returns with the door open beside the remedy card.",
-  "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No repair or outcome is invented.",
-  "weakest_transition": "s1 to s2 at 6.72 s. The curb cuts to a map table, and the declared car-pin bridge is only small map pins."
- },
- "action_reviews": [
-  {
-   "action_id": "wheel-turns-itself",
-   "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
-   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-   "verdict": "pass",
-   "blocking_defects": [],
-   "code_observations": {
-    "source_fidelity": "c1: empty seats and headrests.",
-    "visible_action": "steer = 85*(p12-p13); the curb and sign slide through the windshield.",
-    "consequence": "The phone turns to Arriving on s1-event-3.",
-    "disclosure": "Generic car chip.",
-    "limits": "Not a Waymo vehicle or app."
-   }
+  "action_reviews": [],
+  "strongest_frame": "34.0-35.8 s: close side view as the standing-water sheet reaches the front tire and spreads under the white car with fanned wakes while 'may' turns amber in the recall sentence above. The slow-then-drive-in wording is pictured in one move.",
+  "weakest_frame": "30.8-32.6 s (s6 lane approach): the water target appears at the right frame edge with its lower half behind the caption bar, and the braking car never reaches it inside this shot. The 'slows at the edge of the water' relationship rests on the brake glow until the 32.8 s cut.",
+  "notes": "Basis: 64 chronological pages decoded from the exact 270x480 film at 5 samples per second plus the final frame. No direct playback or listening. Smoothness at 30 fps is unproven from 5 fps samples and native finish is out of scope here; both stay unresolved for the native hero review. Sound was not assessed. Non-blocking: (1) the car is parked in the bay by 1.6 s, the interior shot shows it still moving at 3.0-3.8 s, and the phone turns to Arriving only at 6.2 s; (2) the February page is visible at 7.0 s and slides in again at 9.6 s; (3) the curb-to-map 'car pin' bridge is not visible (plain circle pins); (4) rounded window shapes at 16.0-16.8 s could be misread as occupants at phone size, though they match the empty headrests at 20.0-21.8 s; (5) unexplained dark gray shape at the right edge at 17.6-18.6 s; (6) 42.8-45.6 s shows only the tag swaying; (7) the recall card lies on the road at 52.8-54.0 s before scaling up to overlay the car. Unresolved: credit-line numerals for the existing numeral gate.",
+  "phone_observations": {
+    "subject_recognition": {
+      "pass": true,
+      "start_s": 0.0,
+      "end_s": 6.8,
+      "observed": "A white SUV with a roof sensor pod enters from the left at 0.0 s and settles in a chevron pickup bay under an airport canopy by a blue plane-and-car sign. The interior at 2.6-4.8 s shows a steering wheel turning with both front seats empty."
+    },
+    "contact_and_consequence": {
+      "pass": true,
+      "start_s": 32.8,
+      "end_s": 36.8,
+      "observed": "The pale water sheet slides toward the car and reaches the front tire at 34.0 s. It spreads under both wheels with splash marks and fanned wakes by 35.8 s while the background drifts left; the result holds to 36.8 s. Stamps also press visibly at 26.8 s and 40.4 s, leaving 'Software recall' and 'Under development'."
+    },
+    "dominant_action": {
+      "pass": true,
+      "start_s": 13.2,
+      "end_s": 17.4,
+      "observed": "The empty car in brown creek water is pushed away from the fixed limestone ledges with a growing bow wave (13.2-15.2 s). After the 15.4 s match cut it tilts and sinks to the window line, and the current carries it left until it leaves the frame at 17.4 s."
+    },
+    "surface_finish": {
+      "pass": true,
+      "start_s": 0.0,
+      "end_s": 58.45,
+      "observed": "At phone size the flat illustration style holds. Cars have rims, sensor pods and water reflections; record cards have readable type and stamps. Map lines are thin and low contrast at 7.8-9.0 s, and the creek car is about a third of frame width. Native finish is not assessed here."
+    },
+    "continuity": {
+      "pass": true,
+      "start_s": 13.2,
+      "end_s": 50.8,
+      "observed": "Each new example is disclosed on screen as it appears: 'A different car, April 20th account' at 13.2 s, 'Another car, earlier in April' at 17.6 s, 'The recall wording, not a recorded event' at 28.4 s, 'A generic airport ride, not the flood cars' at 50.0 s. The same white car design and record card carry through."
+    },
+    "closing_payoff": {
+      "pass": true,
+      "start_s": 50.0,
+      "end_s": 58.45,
+      "observed": "The airport curb returns and the car's rear door opens at 51.2 s. The recall card with 'The remedy is currently under development' and its stamp joins the car at 52.8-56.2 s. The split at 56.4-58.45 s holds the open-door car above the card while an underline draws under the remedy text."
+    }
   },
-  {
-   "action_id": "car-swept-into-creek",
-   "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
-   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-   "verdict": "pass",
-   "blocking_defects": [],
-   "code_observations": {
-    "source_fidelity": "c3 and c4: rain and an unoccupied see-through cabin. Starting at the shallow edge, with no crossing or route shown, stays within 'swept up in flood waters and washed into Salado Creek'.",
-    "visible_action": "Locked camera. s3Car slides along the shelf and off the lip (s3Off), the tail tips by up to 7 degrees, the waterline climbs from 44 to 118, then the car floats with bob and roll at drift D3, about 472 px of screen travel within n3.",
-    "consequence": "The car is carried downstream past fixed landmarks and leaves frame left after the clause.",
-    "disclosure": "'Illustration. A different car, April 20th account'.",
-    "limits": "No damage, occupant or entry path."
-   }
+  "modern_observations": {
+    "film_sha256": "3178e0bf8c0fcc76188d98a0ddd5532674aef0cf2fd178b3eb9b2e067c21749b",
+    "first_frame": {
+      "pass": true,
+      "start_s": 0.0,
+      "end_s": 1.4,
+      "observed": "The first frame shows an airport curb, a phone reading 'Ride requested', a blue airport sign, and a white sensor-roofed car already entering from the left. The caption starts at 0.2 s and the car glides into the bay by 1.4 s."
+    },
+    "visual_progression": {
+      "pass": true,
+      "start_s": 0.0,
+      "end_s": 58.45,
+      "observed": "The picture moves through nine distinct states: curb arrival, empty-cab steering, phone 'Arriving', service map closing on a 60-square-mile zone, creek car carried off, street car stranded with blinking lamps, recall card with a filling icon grid and stamp, lane car rolling into water, remedy stamped, fleet row checked by April 20, and the curb answer."
+    },
+    "shot_variety": {
+      "pass": true,
+      "start_s": 0.0,
+      "end_s": 58.45,
+      "observed": "Framings include a curb wide shot, cab detail, phone close-up, map on a table, eye-level creek wide and medium, street wide and close, record card and grid, side-on lane and close wheels, stamp detail, lot medium and close, and a final split."
+    },
+    "performed_turn": {
+      "pass": true,
+      "start_s": 28.4,
+      "end_s": 36.8,
+      "observed": "The car runs the lane with a red brake glow at 30.2-31.4 s and creeps toward water at the frame edge. After the 32.8 s cut it rolls on into the standing-water sheet with wakes at 34.0-35.8 s while 'may' lights amber. Weakness: the water's lower half sits behind the caption at 30.8-32.6 s."
+    },
+    "pace": {
+      "pass": true,
+      "start_s": 0.0,
+      "end_s": 58.45,
+      "observed": "A new visible change arrives at least every 3 seconds in the samples. The longest low-information stretch is 42.8-45.6 s, where only the tag sways; the cab hold at 3.8-5.4 s is about 1.6 s. No shot exceeds about 4.4 s."
+    },
+    "closing_answer": {
+      "pass": true,
+      "start_s": 50.0,
+      "end_s": 58.45,
+      "observed": "The close pairs the open-door airport ride with the remedy card stamped 'Under development'. It answers the opening question without inventing a rider or a repair outcome."
+    },
+    "finished_art": {
+      "pass": true,
+      "start_s": 0.0,
+      "end_s": 58.45,
+      "observed": "Phone-size art is finished for the flat style: consistent car design, readable cards and stamps, worn lot and street detail, water reflections. Native-scale surfaces, contact shadows and 30 fps motion are unresolved for the native hero review."
+    }
   },
-  {
-   "action_id": "car-slows-into-water",
-   "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
-   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-   "verdict": "pass",
-   "blocking_defects": [],
-   "code_observations": {
-    "source_fidelity": "c7 verbatim; 'may' marked from the actual glyph layout.",
-    "visible_action": "Speed eases from 850 to 150 and never reaches zero; brake lamps; frontIn and rearIn wakes.",
-    "consequence": "The wheels enter the water with spray.",
-    "disclosure": "Recall-wording chip.",
-    "limits": "No speed, depth or real road."
-   }
+  "narration_picture_observations": {
+    "film_sha256": "3178e0bf8c0fcc76188d98a0ddd5532674aef0cf2fd178b3eb9b2e067c21749b",
+    "clauses": [
+      {
+        "id": "n1a",
+        "pass": true,
+        "start_s": 0.2,
+        "end_s": 5.05,
+        "observed": "The car glides to the airport curb and settles in the bay. The cab interior shows the steering wheel turning with both seats empty at 3.0-3.8 s."
+      },
+      {
+        "id": "n1b",
+        "pass": true,
+        "start_s": 5.4,
+        "end_s": 6.57,
+        "observed": "A large phone in front of the parked car beside the airport sign changes from 'Ride requested' to 'Arriving, At the curb' at 6.2 s."
+      },
+      {
+        "id": "n2a",
+        "pass": true,
+        "start_s": 7.12,
+        "end_s": 9.11,
+        "observed": "A paper street map on a table draws its blue river and gray highways, with a February calendar page beside it."
+      },
+      {
+        "id": "n2b",
+        "pass": true,
+        "start_s": 9.46,
+        "end_s": 12.68,
+        "observed": "A '60 square miles, Limited area' tag pins on and the February page lands. A black outline traces and closes around the pins at 11.2 s, then fills gray."
+      },
+      {
+        "id": "n3",
+        "pass": true,
+        "start_s": 13.23,
+        "end_s": 17.26,
+        "observed": "Under the 'A different car, April 20th account' disclosure, the white car in brown creek water is pushed off the limestone bank. It sinks to the window line and is carried left out of frame."
+      },
+      {
+        "id": "n4",
+        "pass": true,
+        "start_s": 17.81,
+        "end_s": 21.84,
+        "observed": "On a flooded residential street, water climbs past a white car's wheel arches as it stops. Amber corner lamps blink and the windows show empty headrests."
+      },
+      {
+        "id": "n5a",
+        "pass": true,
+        "start_s": 22.39,
+        "end_s": 24.38,
+        "observed": "A 'Federal recall record' card slides onto the desk and types 'Recall type: Software' and 'Potential units affected: 3,791'."
+      },
+      {
+        "id": "n5b",
+        "pass": true,
+        "start_s": 24.73,
+        "end_s": 27.95,
+        "observed": "A grid of car icons fills row by row. A 'Nearly 3,800 vehicles / 3,791 potentially affected in the record' tag drops in and a hand stamps 'Software recall'."
+      },
+      {
+        "id": "n6a",
+        "pass": true,
+        "start_s": 28.5,
+        "end_s": 32.53,
+        "observed": "The recall sentence card sits above a road. The white car drives right with a brake glow at 30.2-31.4 s and slows toward water appearing at the frame edge, partly under the caption."
+      },
+      {
+        "id": "n6b",
+        "pass": true,
+        "start_s": 32.88,
+        "end_s": 36.51,
+        "observed": "Close side view: the car rolls into a pale standing-water sheet with wakes at both wheels as the background drifts, and 'may' lights amber."
+      },
+      {
+        "id": "n7",
+        "pass": true,
+        "start_s": 37.06,
+        "end_s": 41.09,
+        "observed": "The remedy row types 'The remedy is currently under development' and lights amber. A pen rests on it at 38.6 s and a stamp lands 'Under development' at 40.4 s."
+      },
+      {
+        "id": "n8a",
+        "pass": true,
+        "start_s": 41.64,
+        "end_s": 45.26,
+        "observed": "Over a wet lot of four parked white cars, a 'Weather limits, tightened' tag with a cloud icon slides along a wire and pins."
+      },
+      {
+        "id": "n8b",
+        "pass": true,
+        "start_s": 45.61,
+        "end_s": 49.65,
+        "observed": "In a closer row view, each car takes a check badge front to back (46.0-46.8 s), the vehicle-maps card is checked, and the calendar flips to April 20 at 48.8 s."
+      },
+      {
+        "id": "n9a",
+        "pass": true,
+        "start_s": 50.2,
+        "end_s": 52.6,
+        "observed": "Back at the airport curb, the parked generic car's rear door swings open at 51.2 s, with the phone showing Arriving."
+      },
+      {
+        "id": "n9bc",
+        "pass": true,
+        "start_s": 52.95,
+        "end_s": 58.1,
+        "observed": "The remedy card grows in front of the open-door car (54.0-54.4 s). The split at 56.4 s holds car and card, and an underline draws under 'under development'."
+      }
+    ]
   },
-  {
-   "action_id": "service-area-opens",
-   "module_sha256": "724d305bea0e78afb04e18a4a266e8e985478dc0605c62f11707e4770fe421c0",
-   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-   "verdict": "pass",
-   "blocking_defects": [],
-   "code_observations": {
-    "source_fidelity": "c2.",
-    "visible_action": "The map draws in and the ZONE outline traces.",
-    "consequence": "The outline closes with the 60 square miles tag.",
-    "disclosure": "The credits say the outline is editorial.",
-    "limits": "Not the operator's map."
-   }
-  },
-  {
-   "action_id": "recall-filed-count",
-   "module_sha256": "724d305bea0e78afb04e18a4a266e8e985478dc0605c62f11707e4770fe421c0",
-   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-   "verdict": "pass",
-   "blocking_defects": [],
-   "code_observations": {
-    "source_fidelity": "c6 and c13; type and units rows only.",
-    "visible_action": "The card slides in, its rows write in, and the grid fills.",
-    "consequence": "The header stamp lands and the counter tag jolts.",
-    "disclosure": "Chip.",
-    "limits": "Icons are not a literal count."
-   }
-  },
-  {
-   "action_id": "remedy-under-development",
-   "module_sha256": "724d305bea0e78afb04e18a4a266e8e985478dc0605c62f11707e4770fe421c0",
-   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-   "verdict": "pass",
-   "blocking_defects": [],
-   "code_observations": {
-    "source_fidelity": "c8 verbatim.",
-    "visible_action": "The remedy row lights, the pen rests, and the stamp presses into the slot.",
-    "consequence": "The imprint carries to s9.",
-    "disclosure": "Chip.",
-    "limits": "Not a real record page."
-   }
+  "story_review": {
+    "story_sha256": "39ccd25de7baa952eb7d6192a3e516310d39a3f23c7b37bfd3cc50a140f350c7",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "A driverless white car arrives at a San Antonio airport curb for a phone request in a limited service zone. Two empty cars were caught in April floodwater, one carried off in a creek. The federal recall card counts the cars and says the software may let a car slow and then drive into standing water, and the remedy is stamped under development. Tighter weather limits reached every car by April 20, and the close sets the open airport ride beside that unfinished remedy.",
+    "opening_to_ending": "It opens on the newly open airport ride and ends on that same curb ride paired with the remedy card stamped 'under development'. The return now carries the flood record, without implying a rider, outcome or fix.",
+    "weakest_transition": "s1 to s2 at 6.9-7.2 s: the board's 'car pin rides from curb onto map' bridge does not appear (plain circle pins), and the February page re-enters at 9.6 s after already being visible."
   }
- ],
- "phone_observations": null,
- "modern_observations": null,
- "pixel_basis": "None. Code approval includes no pixel observations."
 }
