@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T01:38:22.541836+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-20T01:40:36.647942+00:00",
+  "note": "final review prerequisites",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -81,8 +81,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "9fea5b6ae4595aaf302776410fd83b10565a09b0ac206c3a46106cf4fdedfe12",
-      "size": 30244
+      "sha256": "9adfb22bd6c095266d496f43388bd4082ed3a5f43d1fc5230500edd6c00583bf",
+      "size": 30652
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -7993,6 +7993,384 @@
       "size": 5856044
     },
     {
+      "path": "out/dispatch/motion-review/index.json",
+      "class": "scratch",
+      "sha256": "aaab31cd11265295c83667bd48b1d47627a91992ccbdd2cefee08483ded170b4",
+      "size": 35375
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-000.png",
+      "class": "scratch",
+      "sha256": "b56f3320b5dccbfb357614261603dee006296c8f77bdb94ab6526e375cbf111b",
+      "size": 448368
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-001.png",
+      "class": "scratch",
+      "sha256": "b7efec193f8db6a2cf7fe0da2ec93971134e6ff77db6fead1b06fb21388c395e",
+      "size": 543211
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-002.png",
+      "class": "scratch",
+      "sha256": "2c517e2cd0fb10469cdb062c429c7fe03cb2abe01204de5591a01d7a99b602fa",
+      "size": 484532
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-003.png",
+      "class": "scratch",
+      "sha256": "3271b7e009cabe2e3f228834603741879c4a80e1395e0cd5634b87e4c4a90cb9",
+      "size": 314618
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-004.png",
+      "class": "scratch",
+      "sha256": "fb636e65faeb57a12b8f2623a6a394db16a739ad96e8b34af6ad64c31bfdbc7e",
+      "size": 361518
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-005.png",
+      "class": "scratch",
+      "sha256": "1325d3e6488e4e8e9450f9c2327a8d2a6cd9209d726c23f50cd92c504f954238",
+      "size": 452971
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-006.png",
+      "class": "scratch",
+      "sha256": "efea93f2aa646b7b07c7c002b8287b2081fca624d1c85c63fdd2f6514ad9fbf8",
+      "size": 443369
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-007.png",
+      "class": "scratch",
+      "sha256": "d56ff1d1221e54ef1aa001f12504e5fb67ad038b76341a69e34f7ee50b6b0b4c",
+      "size": 307002
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-008.png",
+      "class": "scratch",
+      "sha256": "acfc2ee15acd1338ea629f722779322fed1618b00dede331f59b2000e4990511",
+      "size": 346661
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-009.png",
+      "class": "scratch",
+      "sha256": "91b23aaf33d84317555347a97b9247ba28de113fa3e1ea6c09839f1ec6b9706e",
+      "size": 410177
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-010.png",
+      "class": "scratch",
+      "sha256": "48c6877b095c0b1b70950e6571d01d50b57b363a371e89f65d1b8dd5f89671cf",
+      "size": 299552
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-011.png",
+      "class": "scratch",
+      "sha256": "1d94ba5da3f783f50ed8bd6c56719cdfd212483858308ac78a3fc75390f95290",
+      "size": 346293
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-012.png",
+      "class": "scratch",
+      "sha256": "702e8aba896226c0fc858c9f3253067b5cc111652514fcdc882c8c93b8536666",
+      "size": 503982
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-013.png",
+      "class": "scratch",
+      "sha256": "5ffa9be27508de239869b56a5a2c40f56dd922549315d6c2643d1c1cb67fa0ef",
+      "size": 637587
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-014.png",
+      "class": "scratch",
+      "sha256": "9aae104212ad50f98c00ac81798ec2d27ce2764e2b756b3b119ef63ce84eadd8",
+      "size": 672356
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-015.png",
+      "class": "scratch",
+      "sha256": "faae166ea3bc327014e6b83974984e28d7283c205ef527c33f7e115a4b4e4a8f",
+      "size": 572508
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-016.png",
+      "class": "scratch",
+      "sha256": "a94722b16bd88aa7c1827b07bdd1daf29310e27331d2836d23a64da3faf23349",
+      "size": 584039
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-017.png",
+      "class": "scratch",
+      "sha256": "d1c93a58404ef72b09c6547c31fc816ec371c866c3513a489ec2a6cb67cc028b",
+      "size": 565737
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-018.png",
+      "class": "scratch",
+      "sha256": "9a7b6897bdec10200af386acdb44c02697ef67bb29bd03f6efa987246997af36",
+      "size": 525683
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-019.png",
+      "class": "scratch",
+      "sha256": "07fe7d8c9cae85abc60d9d006c0c864eb367629a537a4f834998e62776587190",
+      "size": 567483
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-020.png",
+      "class": "scratch",
+      "sha256": "2eaae8c438c2e7fbda582a240ba86f5679fa605f711c724e63316ba3e63ce8b0",
+      "size": 616963
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-021.png",
+      "class": "scratch",
+      "sha256": "ca6d5ede6a1b5fcdba6f767a9771c972158667d9074e4b484e9fe13c623e4b15",
+      "size": 572335
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-022.png",
+      "class": "scratch",
+      "sha256": "5a9de8a78a8be98a77c302f5684572a8f46df1d18a3c88300b7de496db188e8a",
+      "size": 299510
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-023.png",
+      "class": "scratch",
+      "sha256": "6b434d6adba1766dba4ed49ffd08075e274b887bf03414e686b97375d1759882",
+      "size": 267709
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-024.png",
+      "class": "scratch",
+      "sha256": "f2ce4befeeb869607ecf77369c400ee4bfa1be56a2cd86efb10edd70a0b4d3a6",
+      "size": 360179
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-025.png",
+      "class": "scratch",
+      "sha256": "f6271b4c984de72c77dc42f37201f60894977d388f50011d380d46c1e6a6dc19",
+      "size": 360103
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-026.png",
+      "class": "scratch",
+      "sha256": "f50bf5e44c6f88c95e9127fd167babc79bf109bb7d4cdc472ee13f97d0f2a821",
+      "size": 398572
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-027.png",
+      "class": "scratch",
+      "sha256": "ebc2699014c5bce6cb15fe6cbcb3ecebb736ca9c0a1fe20e724329dbaff27b33",
+      "size": 331070
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-028.png",
+      "class": "scratch",
+      "sha256": "91e2096c4f8b03dfa4b7de417481543276316470c62e5d89a539c34c4cc64071",
+      "size": 457231
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-029.png",
+      "class": "scratch",
+      "sha256": "129f3766175b7ad241b37aabda99cac1a7db27771b09a23efaf8351305b5e6f2",
+      "size": 425056
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-030.png",
+      "class": "scratch",
+      "sha256": "e6119a37d9a5f4f5a6ff6f8f634cf80a27ddb1b5be493a78961eac3c0cda865c",
+      "size": 431041
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-031.png",
+      "class": "scratch",
+      "sha256": "df6602fb19afb13cac8d21212d09cb5c5d20d0d952045466d7b69b49357a8ea1",
+      "size": 399415
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-032.png",
+      "class": "scratch",
+      "sha256": "730704c8335ce68276faba0c6a6b4448e1ca02d9341aca24d2857ee92ac09f6d",
+      "size": 361435
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-033.png",
+      "class": "scratch",
+      "sha256": "9577d7c8ed5db8c6b1f8a3ff2fcb4276c35bfa863f5658790d4987036b9e8905",
+      "size": 388217
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-034.png",
+      "class": "scratch",
+      "sha256": "42f21bb23292357516af756a293acb93a9a6ccff02e4f0a3f13640433e9871d8",
+      "size": 402265
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-035.png",
+      "class": "scratch",
+      "sha256": "f934a456b5ae90a41c8da62d56d400cf2e221da93193740b7737596116af902e",
+      "size": 316453
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-036.png",
+      "class": "scratch",
+      "sha256": "23445685f316db0568f0bfb01df9bf2c16a1fec92fffd5346e5726ea9882c978",
+      "size": 262201
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-037.png",
+      "class": "scratch",
+      "sha256": "7ff36663fd3859f97e3049b01072db52f0a8ddc4b2c517c749de295151b55da0",
+      "size": 338765
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-038.png",
+      "class": "scratch",
+      "sha256": "1e4596f681b08e90bcadaab737c9332cfd81b5a702af7d1cbce08bf3173df17b",
+      "size": 387410
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-039.png",
+      "class": "scratch",
+      "sha256": "fef1d395521dd222c360237b49092cde6b4cb407efc9124b547f3e87e18a0d0e",
+      "size": 335993
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-040.png",
+      "class": "scratch",
+      "sha256": "66f813d741fdcfb6aa8395242b2b8cc9efc8d0edb44a3cd8c75f7c28eca63b98",
+      "size": 416752
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-041.png",
+      "class": "scratch",
+      "sha256": "bc4a011799f8e2e398201e1956afbbbd63954d6194efdf806ee68a99772763c1",
+      "size": 513344
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-042.png",
+      "class": "scratch",
+      "sha256": "47b908794d19e10ff747305b2dd449b0bdeeaf4ab0444c77e7ebd61515e7f918",
+      "size": 535252
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-043.png",
+      "class": "scratch",
+      "sha256": "1e594a0a3fc1743f24459f55e321d6d36876e34fe1f0ad204a70e7d10824ca83",
+      "size": 538917
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-044.png",
+      "class": "scratch",
+      "sha256": "6a271eb82b573f7a6dc3d1b8c0562ece67bfc78f495529835ad1c14091775bae",
+      "size": 555991
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-045.png",
+      "class": "scratch",
+      "sha256": "73f7040da645a57ab2a37afeabf92b688113e3968902c13c2fe215cb2ac19bb6",
+      "size": 555669
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-046.png",
+      "class": "scratch",
+      "sha256": "19624d8b649c8af2e198b6be9b123aa76e8a244f4fae313bcc0f93abf6b79a61",
+      "size": 561739
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-047.png",
+      "class": "scratch",
+      "sha256": "0aa258bbcded0a56d4df450e28fe6ae5356390fc5702a9c100cb36c426ce8e60",
+      "size": 553413
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-048.png",
+      "class": "scratch",
+      "sha256": "8428b3c5b63da5fc4d13364afa2b9df42e91326de413f4f1cb35b95d247b23ae",
+      "size": 482684
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-049.png",
+      "class": "scratch",
+      "sha256": "cf99847ceb7f6ad223d9d2bddb64c771e42260fcf5f1ba28d53893c9ac598a8d",
+      "size": 521971
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-050.png",
+      "class": "scratch",
+      "sha256": "6e0836600910f6b270d1d52baaaa3a73eb174bf3815f7a3ad084571cfada11e5",
+      "size": 397885
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-051.png",
+      "class": "scratch",
+      "sha256": "5245f1b202650854ef89d4de86248dfd2cd744cb3d1f8a1ef832c9cb9bb67382",
+      "size": 456654
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-052.png",
+      "class": "scratch",
+      "sha256": "cbcbaca8efdea6388462365723fcb3a3c0a369ff49d37d49acfbdb484249a4ab",
+      "size": 417460
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-053.png",
+      "class": "scratch",
+      "sha256": "2c41edc4a613bbdd9267354fd0d31b13221850377d555f4e610e224f4d3d7c43",
+      "size": 423417
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-054.png",
+      "class": "scratch",
+      "sha256": "d3eed778e621a7b1ab48873726d98c0c26e98146e465075b751a1282e37e1893",
+      "size": 405306
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-055.png",
+      "class": "scratch",
+      "sha256": "e67fdc3e69eccf0e7ddaf5be41017a467d2a6b78943a3654aa35cc51f6cfb84b",
+      "size": 370555
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-056.png",
+      "class": "scratch",
+      "sha256": "c5de2c852a6745f815911448f3c7c1dcd3b06eed47ac651be0ff30ca5b78357e",
+      "size": 173524
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-057.png",
+      "class": "scratch",
+      "sha256": "c26604a780ba3c5fc041284386b130f2ea68f95241870f7b0291a17cf611e7bc",
+      "size": 149135
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-058.png",
+      "class": "scratch",
+      "sha256": "dd2951adf3b9ca80f7d462d4f70655958d9b378c593cd0b5ab9b99ba16ffaebb",
+      "size": 148031
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-059.png",
+      "class": "scratch",
+      "sha256": "d599734260be3e1ec902b8f8968ce934eb83d7ae906748063b59db71c28552a2",
+      "size": 148829
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-060.png",
+      "class": "scratch",
+      "sha256": "cdbce2e85219b8cfe9bed11eaece76f2590de71f7eb0a6282db821b85d80d1aa",
+      "size": 148380
+    },
+    {
+      "path": "out/dispatch/motion-review/sequence-061.png",
+      "class": "scratch",
+      "sha256": "0440751a0db237d65f4fe0456618f9ae631f61b3d3f0b3b2c53e86b6c996fc12",
+      "size": 72936
+    },
+    {
       "path": "out/dispatch/music_bed.json",
       "class": "scratch",
       "sha256": "1aa1cad449f1978976299338d760e61caf8d69e80b99ed75ee7656963ad35fab",
@@ -14942,8 +15320,8 @@
     }
   ],
   "regenerable": {
-    "files": 124,
-    "bytes": 27656388
+    "files": 125,
+    "bytes": 27656970
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }

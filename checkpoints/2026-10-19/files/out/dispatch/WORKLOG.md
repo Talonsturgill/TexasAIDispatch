@@ -125,3 +125,5 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-20T02:20Z timed phone r12 (acb11912) PASS, 62 pages, coverage complete+verified, installed as storyboard_critic.json (prior kept). completion-capacity r12 (+2 preflight, +1 critic). cinema_proof native hero rendered (55 jobs). Next: hero audiovisual review, full render, finals.
 
 2026-10-20T03:05Z hero audiovisual pass (gemini), full native render complete (render_dispatch exit 0). Next: phase 04 review (3 audiovisual lenses, 3 scorers), release.
+
+2026-10-20T03:50Z full film rendered; cheap checks all clean; 3 AV lenses pass (gemini); motion-review (native) extracted+verified (preflight_renders 18 ceiling). Scorer packets exceed 10000-char cap (compact 10840): tooling PR 241 (dated claude scorer cap 12000), waiting CI then merge main into edition. Then: packets, plan, panel reserve, 3 scorers, panel_triage, deliver_run verify, finish publishable.
