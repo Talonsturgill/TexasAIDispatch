@@ -438,6 +438,10 @@ class LosslessScorerTransport(unittest.TestCase):
 
     def test_layout_only_compression_preserves_every_value_and_the_unchanged_cap(self):
         self.assertEqual(10000,d.policy()['handoff_max_chars'])
+        # The dated Claude scorer cap leaves every other role and date on the shared cap.
+        self.assertEqual(10000,d.handoff_limit('2026-10-19',False))
+        self.assertEqual(10000,d.handoff_limit('2026-10-18',True))
+        self.assertEqual(12000,d.handoff_limit('2026-10-19',True))
         for role in ('picture','story','sound'):
             data=self.current(role); original=copy.deepcopy(data)
             self.assertGreater(len(json.dumps(data,indent=2)),10000)
