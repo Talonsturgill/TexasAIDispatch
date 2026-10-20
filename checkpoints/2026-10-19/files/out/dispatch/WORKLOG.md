@@ -232,3 +232,4 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-20 pivot9 PASS (evidence/pivot-phone36, mechanism creek-locked-zoom-bold-current; reviewer amendment: shot 2 locked, no pan); begin-repair opened on comparison-completion-plan-phone36.json; reboards 18/18; builder a78a9fbe resumed (packet builder-packet-phone36 d4109a79; brief evidence/phone-critic-round36/builder-brief.md). Critics 54/54 (ceiling 57).
 2026-10-20 builder phone36 done (Film b357ff44, Support 98208ebb, Hero unchanged); rebound boards A/storyboard bc41e8f7, B 5446fcf3; art recorded; after_sha filled; authorize-repair ok; code r37 55/57 sent (bindings evidence/code-round37-bindings.json).
 2026-10-20 code r37 A+B PASS installed (gates ok); local openings (round 36 comparison, 140 files verified on checkpoint tip) removed for headroom; comparison renewal after phone36 repair next.
+2026-10-20 comparison renewal after phone36 repair started (bg b83pd5z1i).
