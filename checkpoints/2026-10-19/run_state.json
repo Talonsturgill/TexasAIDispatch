@@ -556,6 +556,14 @@
       "note": "timed exact-phone review of the measured film, packet phone-critic-packet-round18",
       "resource": "storyboard_critics",
       "to": 27
+    },
+    {
+      "at": "2026-10-20T06:52:17.810538Z",
+      "ceiling": 30,
+      "from": 27,
+      "note": "independent recurrence-pivot review before repair plan phone18 (s3 creek current, s8 lot close), same Opus critic aea70021",
+      "resource": "storyboard_critics",
+      "to": 28
     }
   ],
   "events": [
@@ -4657,6 +4665,24 @@
         "validator_agents": 4,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-20T06:52:17.810556Z",
+      "ceiling": 30,
+      "kind": "budget_escalated",
+      "note": "independent recurrence-pivot review before repair plan phone18 (s3 creek current, s8 lot close), same Opus critic aea70021",
+      "now": 28,
+      "resource": "storyboard_critics",
+      "was": 27
+    },
+    {
+      "at": "2026-10-20T06:52:17.810568Z",
+      "kind": "reserved",
+      "note": "independent recurrence-pivot review before repair plan phone18 (s3 creek current, s8 lot close), same Opus critic aea70021",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -4671,7 +4697,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 27,
+    "storyboard_critics": 28,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -4680,7 +4706,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "e9889815f1b2ef416045b8cf8060bb74d792e7cd69433a86bc0aa5aab521328a",
+    "original_private_state_sha256": "27b2272fadabdca1fe39e8d1f4b8114eb32b9cc15f9b69021a822d2764d010a0",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -4708,7 +4734,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T06:51:26.042890Z",
+  "updated_at": "2026-10-20T06:52:17.810570Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
@@ -4721,7 +4747,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 27,
+    "storyboard_critics": 28,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
