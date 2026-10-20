@@ -1,0 +1,6 @@
+# Builder brief, phone 22 repair (pivot-approved mechanism creek-water-patch-edge-removal), 2026-10-19
+
+Evidence: evidence/phone-critic-round22/report.json (film cadf6e2d), evidence/pivot-phone22/pivot-review.json (read notes 2 to 4). Edit ONLY video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx (the shared CreekShelf drawing). Do not touch RobotaxiFilm.tsx, RobotaxiHero.tsx, the boards, camera, motion, timing, words, claims, voice or captions. Run the real typecheck, do not render.
+
+Defect: in the s3 car-swept medium shot (14.8 to 17.2 s) a fixed lighter brown water rectangle with a ragged left edge and a ruler-straight bottom edge reads as an unfinished layer box.
+Fix in the shared CreekShelf so it holds in both creek-wide and car-swept: replace the straight closing row with an irregular hand-cut smoothPath edge, or a vertical gradient that dissolves into the channel colour; remove any visible seam between the back and front clip bands (overlap them, or use the waterline swell instead of rectangular clips); keep the lip and its white water legible so "pushed off the edge" still reads. Do not move the car, landmarks or waterline relative to the caption band. Do NOT solve it by keeping the shelf out of the medium framing. No straight horizontal or vertical edge, seam or box may remain anywhere in the creek water at 12.4 to 17.2 s.
