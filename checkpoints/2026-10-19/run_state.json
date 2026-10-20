@@ -1300,6 +1300,22 @@
       "note": "exact-film motion-image review extraction",
       "resource": "preflight_renders",
       "to": 61
+    },
+    {
+      "at": "2026-10-20T20:25:46.610064Z",
+      "ceiling": 9,
+      "from": 2,
+      "note": "process-failure replacement panel: prior picture and story workers hit the image request limit at pages 0-22 and wrote invalid notes; sound completed. Original panel stays charged, no refund or backdating",
+      "resource": "panel_rounds",
+      "to": 3
+    },
+    {
+      "at": "2026-10-20T20:25:46.610109Z",
+      "ceiling": 27,
+      "from": 6,
+      "note": "process-failure replacement panel: prior picture and story workers hit the image request limit at pages 0-22 and wrote invalid notes; sound completed. Original panel stays charged, no refund or backdating",
+      "resource": "scorer_calls",
+      "to": 9
     }
   ],
   "events": [
@@ -10013,6 +10029,34 @@
       "input_identity": "066e156ce37e5bf8c06e5fe46e110c6cf25753bc97f6934258b05fc7ccafde31",
       "kind": "prepared_capture_claimed",
       "operation": "exact-film motion-image review extraction"
+    },
+    {
+      "at": "2026-10-20T20:25:46.610097Z",
+      "ceiling": 9,
+      "kind": "budget_escalated",
+      "note": "process-failure replacement panel: prior picture and story workers hit the image request limit at pages 0-22 and wrote invalid notes; sound completed. Original panel stays charged, no refund or backdating",
+      "now": 3,
+      "resource": "panel_rounds",
+      "was": 2
+    },
+    {
+      "at": "2026-10-20T20:25:46.610113Z",
+      "ceiling": 27,
+      "kind": "budget_escalated",
+      "note": "process-failure replacement panel: prior picture and story workers hit the image request limit at pages 0-22 and wrote invalid notes; sound completed. Original panel stays charged, no refund or backdating",
+      "now": 9,
+      "resource": "scorer_calls",
+      "was": 6
+    },
+    {
+      "at": "2026-10-20T20:25:46.610131Z",
+      "kind": "reserved",
+      "note": "process-failure replacement panel: prior picture and story workers hit the image request limit at pages 0-22 and wrote invalid notes; sound completed. Original panel stays charged, no refund or backdating",
+      "preflight_identity": null,
+      "resources": {
+        "panel_rounds": 1,
+        "scorer_calls": 3
+      }
     }
   ],
   "limits": {
@@ -10020,13 +10064,13 @@
     "cleanup_renders": 1,
     "full_renders": 2,
     "image_generations": 2,
-    "panel_rounds": 2,
+    "panel_rounds": 3,
     "preflight_renders": 61,
     "reboards": 19,
     "reported_tokens": 898093,
     "rescue_renders": 1,
     "research_agents": 3,
-    "scorer_calls": 6,
+    "scorer_calls": 9,
     "storyboard_critics": 62,
     "tts_calls": 6,
     "validator_agents": 4,
@@ -10036,7 +10080,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "60219604beecc23504e54ebe1f56c549374f49cfdefa364102c1275ca3c2424c",
+    "original_private_state_sha256": "c409fc2b702a7403df94565faaa8c99ea5a01912c67323e922cea5f61e002deb",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -10064,19 +10108,19 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T20:10:25.663675Z",
+  "updated_at": "2026-10-20T20:25:46.610137Z",
   "usage": {
     "audiovisual_reviews": 14,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
-    "panel_rounds": 2,
+    "panel_rounds": 3,
     "preflight_renders": 61,
     "reboards": 19,
     "reported_tokens": 898093,
     "rescue_renders": 0,
     "research_agents": 3,
-    "scorer_calls": 6,
+    "scorer_calls": 9,
     "storyboard_critics": 62,
     "tts_calls": 6,
     "validator_agents": 4,
