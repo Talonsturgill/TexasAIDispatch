@@ -1316,6 +1316,14 @@
       "note": "process-failure replacement panel: prior picture and story workers hit the image request limit at pages 0-22 and wrote invalid notes; sound completed. Original panel stays charged, no refund or backdating",
       "resource": "scorer_calls",
       "to": 9
+    },
+    {
+      "at": "2026-10-20T21:03:15.713385Z",
+      "ceiling": 63,
+      "from": 62,
+      "note": "LATE DEBIT 1 of 2, actual present time, no backdating/refund/replay: reservation 188 critic20 exited 137; abbd12ae restarted after the 03:49 reboard with no new reservation, restart time unknown. Provenance: evidence-only PR250 commit 80c41bd55cc87e58d60f3e3a7e7bf28cff3d0529, original handback sha f737d63652a69ecc7607df56d11a5aa5bcfa549c5027b46e938f39d51ab9d5fe. Not charging 192/194/208, failed-resume 60 or the two AV late debits.",
+      "resource": "storyboard_critics",
+      "to": 63
     }
   ],
   "events": [
@@ -10172,6 +10180,24 @@
         "validator_agents": 4,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-20T21:03:15.713411Z",
+      "ceiling": 63,
+      "kind": "budget_escalated",
+      "note": "LATE DEBIT 1 of 2, actual present time, no backdating/refund/replay: reservation 188 critic20 exited 137; abbd12ae restarted after the 03:49 reboard with no new reservation, restart time unknown. Provenance: evidence-only PR250 commit 80c41bd55cc87e58d60f3e3a7e7bf28cff3d0529, original handback sha f737d63652a69ecc7607df56d11a5aa5bcfa549c5027b46e938f39d51ab9d5fe. Not charging 192/194/208, failed-resume 60 or the two AV late debits.",
+      "now": 63,
+      "resource": "storyboard_critics",
+      "was": 62
+    },
+    {
+      "at": "2026-10-20T21:03:15.713422Z",
+      "kind": "reserved",
+      "note": "LATE DEBIT 1 of 2, actual present time, no backdating/refund/replay: reservation 188 critic20 exited 137; abbd12ae restarted after the 03:49 reboard with no new reservation, restart time unknown. Provenance: evidence-only PR250 commit 80c41bd55cc87e58d60f3e3a7e7bf28cff3d0529, original handback sha f737d63652a69ecc7607df56d11a5aa5bcfa549c5027b46e938f39d51ab9d5fe. Not charging 192/194/208, failed-resume 60 or the two AV late debits.",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -10186,7 +10212,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 9,
-    "storyboard_critics": 62,
+    "storyboard_critics": 63,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -10195,7 +10221,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "914baf6a2f20b073d415cd472f6f5edd8e5519d2dfa225109b8a764bad29b61f",
+    "original_private_state_sha256": "fe7b2177a5aef20e0046a999d1e852c04258c85dc5ee24b81a9ff43022bcfdb0",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -10223,7 +10249,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T21:02:44.507423Z",
+  "updated_at": "2026-10-20T21:03:15.713425Z",
   "usage": {
     "audiovisual_reviews": 14,
     "cleanup_renders": 0,
@@ -10236,7 +10262,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 9,
-    "storyboard_critics": 62,
+    "storyboard_critics": 63,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
