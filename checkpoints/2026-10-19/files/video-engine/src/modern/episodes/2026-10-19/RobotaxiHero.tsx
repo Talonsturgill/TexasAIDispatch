@@ -315,7 +315,7 @@ const Top: React.FC<TopProps> = ({brake = 0, hazard = 0, door = 0, shadow = 1, w
    {[-46, 46].map(y => <g key={y}>
     <rect x={20} y={y - 27} width={20} height={54} rx={7} fill="#3A4048"/>
     <rect x={40} y={y - 24} width={40} height={48} rx={9} fill="#565D66"/>
-    <ellipse cx={24} cy={y} rx={8} ry={17} fill="#2A3038"/>
+    <ellipse cx={24} cy={y} rx={8} ry={17} fill="#8A929B"/>
    </g>)}
    {/* the steering wheel ahead of the driver's (left, -y) seat, no hands on it, and the dash */}
    <ellipse cx={100} cy={-46} rx={9} ry={25} fill="none" stroke="#1E2328" strokeWidth={6}/>
