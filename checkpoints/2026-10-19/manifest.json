@@ -1,9 +1,9 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T21:04:22.786611+00:00",
+  "saved_at": "2026-10-20T21:11:29.252014+00:00",
   "note": "ledger write",
-  "phase": "active_repair",
+  "phase": "publishing",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-19T05:13:41.692242Z",
@@ -16,8 +16,8 @@
     "sha256": "cf6f8e8e2119591b0464521798aad30ae5f471a1af357e376578d65a83ff1c4c"
   },
   "deleted_source": [],
-  "ledger_sha256": "29f0055596de2d7def187595d7f2a99dbc72024ec0b07a4412930e794bf0e05b",
-  "original_private_ledger_sha256": "654a99b450d86d54b5a6c64a43efc79ec1c7ef0293eb923c5b0999404fad2380",
+  "ledger_sha256": "908de01be35d9673009f9977566d4373a1f4d06086036b71a78fcdc6fdf7fdce",
+  "original_private_ledger_sha256": "0aa53fff1210993b253af12ad25954da8f6b6fbf1ab5a3fe1fc0aae9a04a03a8",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -174,16 +174,10 @@
   },
   "files": [
     {
-      "path": "out/dispatch/.public-ledger-VoyJL2",
-      "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
-    },
-    {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "99e456a1c4efa1fa2ef1d84d7ef7e677dc72f0907af7cc14e3a7dd23c9865c7c",
-      "size": 72609
+      "sha256": "26a92c846a8ac1197ce16afb2c9388158dc58b5c928c3c09a830607f96984e45",
+      "size": 72908
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -3400,6 +3394,12 @@
       "class": "scratch",
       "sha256": "6574376f4a84cf783c0fdf3b203363d73f4fca88f9779844d222709bcd74c867",
       "size": 16164
+    },
+    {
+      "path": "out/dispatch/evidence/deliver-verify-only.log",
+      "class": "scratch",
+      "sha256": "f196738d9f4b1c922e73b333f7228ec53486092c418c3531466b3f5c23753142",
+      "size": 945
     },
     {
       "path": "out/dispatch/evidence/episode-round1/RobotaxiFilm.tsx",
