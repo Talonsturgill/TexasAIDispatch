@@ -41,12 +41,49 @@ def replacement_required(state):
     return cap_reached(state)
 
 
+def source_epoch(state):
+    """Only a genuinely validated source/script pivot renews the structural route."""
+    from validation_completion import FIELD as SOURCE_FIELD, READY, source_validation_problems
+    epoch = 0
+    for index, row in enumerate(state.get('events', [])):
+        if row.get('kind') not in {'mandatory_completion_grant', READY}:
+            continue
+        try:
+            if SOURCE_FIELD in json.loads(row.get('plan_json', '{}')):
+                epoch = index + 1
+        except (TypeError, ValueError):
+            continue
+    return epoch if epoch and not source_validation_problems(state, REPO / 'out/dispatch') else 0
+
+
+def source_pivot_plan(state, plan):
+    """Keep the existing charged independent source-pivot and validation path reachable."""
+    from validation_completion import FIELD as SOURCE_FIELD, eligible
+    if SOURCE_FIELD not in plan:
+        return False
+    try:
+        evidence = Path(plan['failure_evidence'])
+        return (digest(evidence) == plan['failure_evidence_sha256']
+                and eligible(state, plan, json.loads(evidence.read_text())))
+    except (KeyError, TypeError, ValueError, OSError):
+        return False
+
+
 def admission_problems(state, plan):
     """This changes repair admission, never a review verdict or release eligibility."""
     if not replacement_required(state) or not plan.get('changed_inputs'):
         return []
     if plan.get('repair_scope') in {'technical-integrity', 'review-context', 'narration-performance'}:
         return []  # Their existing independent classifications and frozen dependencies still apply.
+    if source_pivot_plan(state, plan):
+        return []  # Existing capacity/file checks and fresh source validation still apply.
+    if any(row.get('kind') == 'repair_started' and FIELD in row
+           and row.get('failure_sha256') != plan.get('failure_evidence_sha256')
+           for row in state.get('events', [])[source_epoch(state):]):
+        return ['the whole-scene replacement route is exhausted for this validated script; '
+                'use the existing precharged independent source-pivot and fresh validation path '
+                'to choose a different filmable angle before another structural correction; '
+                'a new module, mechanism name or capacity increment cannot renew this route']
     message = ('creative boundary reached: replace the whole failed scene implementation using '
                'retained source evidence; another renamed or cosmetic repair is not admitted')
     try:

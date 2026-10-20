@@ -290,5 +290,20 @@ class SourceCompletionTest(unittest.TestCase):
         self.assertTrue(json.loads(output.getvalue())['feasible'])
 
 
+    def test_progress_boundary_keeps_real_precharged_source_pivot_reachable(self):
+        import completion_progress as progress
+        self.fixture()
+        plan = json.loads(self.plan.read_text()); plan['repair_scope'] = 'standard'
+        self.plan.write_text(json.dumps(plan))
+        output = self.root / 'progress-source-plan.json'
+        prepared = source.prepare(self.state, self.plan, self.receipt, self.proposed, output)
+        state = controller.read_state(self.state)
+        # The retained fixture keeps its original date; exercise the new boundary without rewriting it.
+        with patch.object(progress, 'replacement_required', return_value=True):
+            self.assertEqual([], progress.admission_problems(state, prepared))
+            prepared['failure_evidence_sha256'] = '0' * 64
+            self.assertIn('original independent', progress.admission_problems(state, prepared)[0])
+
+
 if __name__ == '__main__':
     unittest.main()

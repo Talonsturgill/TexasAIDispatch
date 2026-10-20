@@ -20,6 +20,10 @@ From October 20th read the bound COMPLETION_PROGRESS.md contract. A required pos
 pivot replaces the complete failed implementation, retaining sources and every actual rejection.
 Return its original structured retained_replacement decision with all current defects together;
 do not approve another renamed cosmetic repair. Code approval still supplies no film approval.
+There is only one post-boundary structural replacement per validated script. A new rejection
+after it requires the existing separately precharged source-pivot and fresh-validation route,
+with a different filmable source-backed construction. Do not keep approving the same scene
+under new module names or cosmetic script paraphrases. Preserve every original rejection.
 
 A changed-proposal content follow-up, including a narration pivot, needs its own caller reservation
 before execution. Reusing your task ID does not make it free. Return the full original handback;

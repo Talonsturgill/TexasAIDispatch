@@ -34,6 +34,20 @@ admission before granting capacity and opening a repair, then verifies the real 
 authorizing capture. Independently classified technical corrections keep their existing scope.
 An unchanged best cut can still proceed through the evidenced bounded release route.
 
+There is one complete structural replacement after the boundary for a validated script.
+If that replacement receives another actual rejection, a different module filename or mechanism
+cannot buy another structural attempt. Retire the unfilmable angle through the existing
+precharged independent source-pivot route in repair.md and validation_completion.py. Choose
+a different source-backed event or claim-to-picture construction, with a genuinely revised
+script, the required fresh source validation and a fully funded remaining path before edits.
+If diagnosis needs capacity, use a capacity-only plan with no changed inputs bound to the
+actual current mandatory rejection, then precharge the source-pivot call. Such a grant permits
+no production edits and cannot authorize another structural replacement.
+A cosmetic paraphrase that asks the same failed staging to work is not that pivot. Retain the
+old script, takes, source, failed films and charges. Only actual current source validation can
+renew the one-replacement route. Missing validation or a forged pivot field supplies no reset.
+This does not release a rejected film or defer any action, finish, sound or shipment criterion.
+
 Keep the evidence scopes distinct. The code packet binds its decision boundary before the
 caller can reserve the reviewer. A source contradiction, missing executable action, invalid
 dependency or provable bounds failure can block capture. An unresolved implementation of an

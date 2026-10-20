@@ -25,6 +25,9 @@ From October 20th follow the bound COMPLETION_PROGRESS.md contract. At the creat
 replace the complete independently diagnosed failed scene implementation using retained sources.
 Retire its actual renderer dependency instead of another numeric, colour or easing patch.
 Preserve the failed code and media; consolidate all current defects before the next exact review.
+If that one replacement fails, stop patching that script's scene. Follow the separately
+precharged independent source-pivot and fresh-validation path to a different filmable angle.
+Changing a filename, a mechanism label or a few spoken words cannot renew the failed route.
 
 When the weekly recurring-defect packet is due, consider at most one reusable capability in
 this same assignment. Reproduce its retained failure, write a meaningful regression and prove

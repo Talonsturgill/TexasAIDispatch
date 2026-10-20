@@ -122,9 +122,61 @@ class CompletionProgress(unittest.TestCase):
         proof, _ = self.replacement()
         self.state['events'] = [{'kind': 'repair_started', 'failure_sha256': 'b'*64,
                                  progress.FIELD: copy.deepcopy(proof)}]
-        self.assertIn('recycled', progress.admission_problems(self.state, self.plan)[0])
+        self.assertIn('route is exhausted', progress.admission_problems(self.state, self.plan)[0])
         self.state['events'][0]['failure_sha256'] = self.plan['failure_evidence_sha256']
         self.assertEqual([], progress.admission_problems(self.state, self.plan))
+
+    def test_new_module_and_mechanism_cannot_renew_a_rejected_whole_replacement(self):
+        proof, _ = self.replacement()
+        self.state['events'] = [{'kind': 'repair_started', 'failure_sha256': 'b'*64,
+                                 progress.FIELD: copy.deepcopy(proof)}]
+        self.new = self.old.with_name('AnotherEntirelyNewScene.tsx')
+        self.plan['mechanism_id'] = 'eighth-new-description'
+        self.replacement()
+        self.assertIn('source-pivot', progress.admission_problems(self.state, self.plan)[0])
+
+    def test_forged_source_pivot_field_does_not_reset_the_route(self):
+        proof, _ = self.replacement()
+        self.state['events'] = [{'kind': 'repair_started', 'failure_sha256': 'b'*64,
+                                 progress.FIELD: proof}]
+        self.plan['source_validation_completion'] = {'schema': 'pretend'}
+        self.assertIn('route is exhausted', progress.admission_problems(self.state, self.plan)[0])
+
+    def test_source_epoch_requires_actual_current_source_validation(self):
+        proof, _ = self.replacement()
+        self.state['events'] = [
+            {'kind': 'repair_started', 'failure_sha256': 'b'*64, progress.FIELD: proof},
+            {'kind': 'mandatory_completion_grant',
+             'plan_json': json.dumps({'source_validation_completion': {'offline_fixture': True}})}]
+        self.new = self.old.with_name('NewValidatedAngle.tsx'); self.replacement()
+        with patch('validation_completion.source_validation_problems', return_value=['missing actual validation']):
+            self.assertIn('route is exhausted', progress.admission_problems(self.state, self.plan)[0])
+        with patch('validation_completion.source_validation_problems', return_value=[]):
+            self.assertEqual([], progress.admission_problems(self.state, self.plan))
+
+    def test_real_capacity_entry_cannot_fund_a_second_replacement(self):
+        import autonomous_completion as capacity
+        import run_controller as controller
+        path = self.repo / 'out/dispatch/run_state.json'
+        self.assertTrue(controller.initialise(path, '2026-10-21', 'production')[0])
+        for _ in range(3):
+            self.assertTrue(controller.reserve(path, {'reboards': 1}, 'offline charged repair fixture')[0])
+        proof, _ = self.replacement()
+        state = controller.read_state(path)
+        retained_plan = self.repo / 'out/dispatch/first-replacement-plan.json'
+        retained_plan.write_text(json.dumps(self.plan))
+        controller.event(state, 'repair_started', failure_sha256='b'*64,
+                         plan_sha256=progress.digest(retained_plan),
+                         baselines=copy.deepcopy(proof['retired_inputs']), grants={},
+                         **{progress.FIELD: proof})
+        controller.save(path, state)
+        self.new = self.old.with_name('RenamedNewScene.tsx'); self.replacement()
+        plan = self.repo / 'out/dispatch/plan.json'; plan.write_text(json.dumps(self.plan))
+        before = path.read_bytes()
+        accepted, message = capacity.grant_capacity(path, plan)
+        self.assertFalse(accepted)
+        self.assertIn('route is exhausted', message)
+        self.assertEqual(before, path.read_bytes())
 
 
 if __name__ == '__main__':
