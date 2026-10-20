@@ -315,3 +315,17 @@ and retained comparison under `config/completion_forecast_v1.json`. It records o
 capture and critic deficits once as a separate event. The already reserved builder remains
 charged. This accounting correction approves no pivot, source, art, film or shipment. Use the
 normal independent review and controller repair gates for all changed production bytes.
+
+An older exact-phone grant can expose the same omission only after charged recurrence planning.
+When that planning has an independent source-backed pivot PASS and no correction or capture has
+started, use the separate pinned `config/completion_forecast_v2.json` route. It binds the original
+grant, all actual planning debits, retained paired capture, passed pivot and unchanged source
+baselines. Preserve every original report and increment. It protects the complete path and two
+retained actual incident debits; unused capacity does not authorize optional polish or new calls.
+
+Run `python scripts/completion_forecast.py --state out/dispatch/run_state.json --parent-grant <event-index> --comparison out/dispatch/openings/comparison.json --repair-plan <passed-pivot-plan.json> --output out/dispatch/post-pivot-capacity.json`.
+Admit that capacity plan through `run_controller.py completion-capacity`, then use the returned
+`post-pivot-capacity-comparison-plan.json` for normal `begin-repair`. Every later execution still
+requires its own prior reservation. The rejected film stays rejected until fresh mandatory reviews
+pass. Capture, native PNG/CRF16, audio, captions, independent scoring and shipment remain required.
+New phone planning grants from October20 require the complete comparison before their first grant.
