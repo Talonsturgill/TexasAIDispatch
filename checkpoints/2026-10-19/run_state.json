@@ -1,43 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/RobotaxiFilm.tsx",
-        "before_sha256": "b357ff444bd290def5e34176e84e4e7b8dabc7465eb08ec879a98a38294df2d1",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/RobotaxiHero.tsx",
-        "before_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/SanAntonioSupport.tsx",
-        "before_sha256": "98208ebb106146ea84c52e4b70b0d9649b8178d4057b49f6c55ded457d298888",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/storyboard.json",
-        "before_sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/opening-a.json",
-        "before_sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/opening-b.json",
-        "before_sha256": "5446fcf3da1ca0e2a5014c8987d12283caee7d6c8f1086823ab141a94bdf11d7",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      }
-    ],
-    "failure_sha256": "47b67d8c7a4c775a90baff04bd0943c0c8db3344c5b1545394f02aaa6bd8ff99",
-    "plan": "{REPO}/out/dispatch/comparison-completion-plan-phone38.json",
-    "plan_sha256": "c2df2f1dcbc7ad566a43ee62e1d944347224dc6462c77fcefc62d631ed7dfad0",
-    "reboards_before": 18,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-19T05:13:41.692242Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/dffd4cd42a51f2dd-abd0fbe0f83d63d2-b113a6d1a4b9b845/storyboard.json",
@@ -8938,6 +8899,117 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-20T17:52:45.508735Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 423,
+        "reservation_sha256": "37ed5a2c151165f5c3cabe357456fa4bde07bcfe32db1ceba81406949d5ddc43",
+        "start_event_index": 421
+      },
+      "repair_plan": {
+        "capture_completion_budget": {
+          "comparison_json": "{\n  \"schema\": \"dispatch-opening-comparison/1\",\n  \"policy_sha256\": \"77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765\",\n  \"renderer_sha256\": \"c6e2dc8e28e519c48429b5ebc8e59f78f490a3bc1ad173a976093062302750a2\",\n  \"producer_sha256\": \"942ce0a64942aea8781654be90f305964542eb23bc48332f4a6d235433cfbc02\",\n  \"reservation\": {\n    \"identity\": \"c37b2b6d4fa0a61d36519ba91cc90530bfda48b5b5a4d2ad44deb661a8f20be8\",\n    \"run_id\": \"2026-10-19\",\n    \"event_index\": 408\n  },\n  \"options\": [\n    {\n      \"id\": \"a\",\n      \"concept_sha256\": \"99f1e299694e424be53a90d171c997679281eb0c816e0386bf5a309564315135\",\n      \"renderer_sha256\": \"c6e2dc8e28e519c48429b5ebc8e59f78f490a3bc1ad173a976093062302750a2\",\n      \"board\": {\n        \"file\": \"a.json\",\n        \"sha256\": \"bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e\"\n      },\n      \"film\": {\n        \"file\": \"a.mp4\",\n        \"sha256\": \"cec660e48917fd339d4d92ff5a0362a1f249a8a69d963ea465b0d0ddb1b2b5d3\"\n      },\n      \"inspection\": {\n        \"file\": \"a-inspection-3df0368c27f53080.json\",\n        \"sha256\": \"e194d439f1d18d49bc1102e9ead6645834fed1702be95fec794e2882876c1ff4\"\n      }\n    },\n    {\n      \"id\": \"b\",\n      \"concept_sha256\": \"7294a8b61d5fbb2fef247ec2ec5ef905c21c10f522211bbb02fd58629d3b2758\",\n      \"renderer_sha256\": \"c6e2dc8e28e519c48429b5ebc8e59f78f490a3bc1ad173a976093062302750a2\",\n      \"board\": {\n        \"file\": \"b.json\",\n        \"sha256\": \"5446fcf3da1ca0e2a5014c8987d12283caee7d6c8f1086823ab141a94bdf11d7\"\n      },\n      \"film\": {\n        \"file\": \"b.mp4\",\n        \"sha256\": \"ae780a33f71d361edeff7df1dc624cb26ce4f0d50a3acb257fa62e0d989e2628\"\n      },\n      \"inspection\": {\n        \"file\": \"b-inspection-e59a27ae2c094e37.json\",\n        \"sha256\": \"41a3fa855fb327549dfee1335d3d2821ce68f1321528a15b40800fd246732700\"\n      }\n    }\n  ],\n  \"inspection_problems\": [],\n  \"inspection_pass\": true\n}\n",
+          "comparison_path": "{REPO}/out/dispatch/openings/comparison.json",
+          "comparison_sha256": "bd8ec63fbbe075439cbb783852abb060570d3edeae49c6e4f67d76bf05099686",
+          "entry_event_index": 408,
+          "entry_event_sha256": "5dae87d482cb343f7ca0aaa00402fbcb455bdf099c47e3561402d76fbeab0b41",
+          "hook_event_index": 408,
+          "hook_event_sha256": "5dae87d482cb343f7ca0aaa00402fbcb455bdf099c47e3561402d76fbeab0b41",
+          "policy_json": "{\n  \"schema\": \"dispatch_capture_completion_budget/3\",\n  \"effective_date\": \"2026-10-17\",\n  \"applies_to\": \"new evidence-bound capacity plans for active unfinished production\",\n  \"path\": \"renewed-two-treatment-comparison-with-phone-sequences\",\n  \"minimum_remaining\": {\"preflight_renders\": 8, \"storyboard_critics\": 4, \"full_renders\": 2, \"audiovisual_reviews\": 11, \"panel_rounds\": 1, \"scorer_calls\": 3},\n  \"preflight_operators\": {\"opening_compare_hook_and_entry\": 2, \"comparison_phone_sequences\": 2, \"final_timed_phone\": 1, \"timed_phone_sequence\": 1, \"native_hero\": 1, \"exact_film_motion\": 1},\n  \"native_render_hook_and_entry\": 2,\n  \"authorization_source_label\": \"Standing owner autonomous completion and complete remaining-path instruction, October 3rd and October 7th, 2026\",\n  \"invariants\": [\n    \"Bind the retained successful comparison and its actual two charged reservations.\",\n    \"Retain both original option boards and films byte-identically.\",\n    \"Use prepared single-claim authorization for the supported phone, hero and motion operators; opening comparison and native rendering retain their actual hook and entry charges.\",\n    \"Fund all eight preflight reservations and both native-render reservations before a new mandatory correction.\",\n    \"Keep prior v1 and v2 policy bytes, grants, failures, frozen envelopes and cumulative charges unchanged.\",\n    \"Use existing independent mandatory admission and obtain fresh code, comparison, timed phone, native, audiovisual, three-scorer and shipment evidence.\",\n    \"Capacity grants no creative approval, optional polish, lower-quality render or delivery waiver.\"\n  ]\n}\n",
+          "policy_sha256": "a24e8f717afde205194f77dcc47756285e7e257fe2f8e2dea0b957c1ce61d0e8",
+          "retained_files": [
+            {
+              "kind": "board",
+              "option": "a",
+              "path": "{REPO}/out/dispatch/openings/a.json",
+              "sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e"
+            },
+            {
+              "kind": "film",
+              "option": "a",
+              "path": "{REPO}/out/dispatch/openings/a.mp4",
+              "sha256": "cec660e48917fd339d4d92ff5a0362a1f249a8a69d963ea465b0d0ddb1b2b5d3"
+            },
+            {
+              "kind": "board",
+              "option": "b",
+              "path": "{REPO}/out/dispatch/openings/b.json",
+              "sha256": "5446fcf3da1ca0e2a5014c8987d12283caee7d6c8f1086823ab141a94bdf11d7"
+            },
+            {
+              "kind": "film",
+              "option": "b",
+              "path": "{REPO}/out/dispatch/openings/b.mp4",
+              "sha256": "ae780a33f71d361edeff7df1dc624cb26ce4f0d50a3acb257fa62e0d989e2628"
+            }
+          ],
+          "run_id": "2026-10-19",
+          "schema": "dispatch_capture_completion_budget_evidence/3"
+        },
+        "changed_inputs": [
+          {
+            "after_sha256": "e5530e9ab55d158c0175d3d3fb034e078ef15d37492292ce0341d826a8209c02",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/RobotaxiFilm.tsx",
+            "before_sha256": "b357ff444bd290def5e34176e84e4e7b8dabc7465eb08ec879a98a38294df2d1",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx"
+          },
+          {
+            "after_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/RobotaxiHero.tsx",
+            "before_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx"
+          },
+          {
+            "after_sha256": "7255a7b01a107a1bcefd479db38d31ca250a7709526b37b5603ddf6bc2d4ba3f",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/SanAntonioSupport.tsx",
+            "before_sha256": "98208ebb106146ea84c52e4b70b0d9649b8178d4057b49f6c55ded457d298888",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx"
+          },
+          {
+            "after_sha256": "198cc61cffdb327cbdf9c68351f13392fa9f5f8c2a76531bacca0fd222d5cf7a",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/storyboard.json",
+            "before_sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "198cc61cffdb327cbdf9c68351f13392fa9f5f8c2a76531bacca0fd222d5cf7a",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/opening-a.json",
+            "before_sha256": "bc41e8f7eb082ec5277bdd48aa0fb35f83b2d9511fece23c107848f197623a5e",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "5f099813ef9619d1898cfd41092dcd933e1591ed1daf9c03693d49a917f90320",
+            "before_path": "{REPO}/out/dispatch/evidence/phone-critic-round38/baseline/opening-b.json",
+            "before_sha256": "5446fcf3da1ca0e2a5014c8987d12283caee7d6c8f1086823ab141a94bdf11d7",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "At phone size the creek water and the ledge show no short tick, dash, arc or line anywhere, only soft tone, the thick stripes, the foam and the car.",
+        "failed_film_sha256": "cec660e48917fd339d4d92ff5a0362a1f249a8a69d963ea465b0d0ddb1b2b5d3",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/phone-critic-round38/report-a.json",
+        "failure_evidence_sha256": "47b67d8c7a4c775a90baff04bd0943c0c8db3344c5b1545394f02aaa6bd8ff99",
+        "failure_family": "unclassified",
+        "mechanism_change": "The class of drawn element changes from stroked arcs and outlines (which leave clipped partial ticks at phone size) to fill-only gradient shapes with no edges, removing the cause of every flagged mark rather than moving or thinning them.",
+        "mechanism_id": "creek-fill-only-water-no-stroke-marks",
+        "pivot_review": {
+          "path": "{REPO}/out/dispatch/evidence/pivot-phone38/pivot-review.json",
+          "sha256": "a79e7fbdb538c73489aaddda0ea26ec2f50c525744f509e1cd194b276ed8bece"
+        },
+        "repair": "Make the water fill-only. Delete the six stroked rain rings in CreekPlan and draw the s3-rain item as a few large soft filled discs with radial-gradient fills that fade to transparent at their edge (no stroke, no visible edge, opacity at most .12, each at least 120 plan px in radius, kept off the car's carry path) that gently swell and fade on the board clock, so no arc end can appear. Delete the ledge slab's outline stroke and any thin line at its edge, leaving the filled slab with its filled undercut shape. Keep everything else byte-for-byte: cameras, path, car, shadow, foam, wake, stripes, crowns, bank foam lines, hero. Reword the board's s3 'rain rings' text to match the soft ripple discs in opening-a.json, opening-b.json and storyboard.json (identical s3 edits).",
+        "repair_scope": "standard",
+        "resources": {
+          "reboards": 1
+        },
+        "root_cause": "The independent exact-phone review round 38 (selected option A film cec660e4, option B film ae780a33) accepted every creek cue after the locked-zoom repair (large empty car with bare seats from 13.2 s, thick passing stripes with no ends, a visible rise off a dark shadow, soft foam, a curved wake, the carry past the oak and slab, out of frame before the cut, crown clear of the chip, above the caption band) and returned revise for ONE defect: stray short tick, dash and curved marks remain in the creek water and on the ledge (14.4 s upper-left tick and dash, 14.8 s dash and slanted mark, 15.2 and 15.6 s short curved strokes, 16.2 to 17.4 s thin line at the ledge slab edge). In the frames these are the clipped arc remnants of the six stroked rain rings and the slab's thin outline stroke."
+      },
+      "repair_plan_sha256": "3d4b1f123b523b697710d52689ee3160b63f7c517414f807eb33c2ce6eec5813",
+      "repair_revision": "9157b8ccdcd358ccbf2e863e603e81edf6551e58cadf45bad593549b2cdc7859",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -8961,7 +9033,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "35300eb6d6189211c319baa813eb15962fd3b036e7566a774b9212661bb0cc29",
+    "original_private_state_sha256": "c7d9af34bf92ec8bf32f844b8eee4e2163fdd868c25e206444792d016c54caa6",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -8989,7 +9061,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T17:47:39.797828Z",
+  "updated_at": "2026-10-20T17:52:45.508800Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,

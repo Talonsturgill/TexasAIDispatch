@@ -1178,7 +1178,7 @@ export const Arm: React.FC<{dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?:
 // ---------------------------------------------------------------- plans from above ------------------
 /** Salado Creek straight down. The channel runs ACROSS the frame and its current runs LEFT, the same way
  * as the elevation shots, so a cut between them keeps the flow. Meandering banks, smooth limestone shelves
- * along both banks, mottled ground with oaks, light rain rings on the water. No crossing. `creek` is the
+ * along both banks, mottled ground with oaks, soft pale patches of heavy rain on the water. No crossing. `creek` is the
  * channel's mean far (top) and near (bottom) bank rows; the far bank's pale landmark ledge slab spans plan x
  * `ledge`, and the landmark oak's crown stands on the far bank at plan (230, 560), just upstream left of it. The car's own path, its stand at the near bank's
  * edge in shallow flood water and its carry downstream, belong to the episode (S3_PLAN_PATH, s3PlanPose); this
@@ -1230,20 +1230,22 @@ export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t,
     return [x, lerp(creek[0] + 40 * Math.sin(x * .0052 + .4), creek[1] + 40 * Math.sin(x * .0052 + 1.7), u)] as P;});
    return <path key={i} d={smoothPath(pts, false)} stroke={`url(#${id}p)`} strokeWidth={30} fill="none" strokeLinecap="round" strokeLinejoin="round"/>;})}</g>
   {[T, B].map((b, i) => <path key={'e' + i} d={smoothPath(b, false)} stroke={SA.foam} strokeWidth={5} fill="none" opacity={.55 + .15 * Math.sin(t * 5 + i)}/>)}
-  {/* the far bank's pale landmark ledge slab, jutting into the channel: hand cut, its water side dark beneath it
-    * as one filled shape of the slab dropped lower, never a separate line */}
+  {/* the far bank's pale landmark ledge slab, jutting into the channel: hand cut, one pale filled stone shape on the
+    * brown water, with no outline and no dark band along its edge */}
   <g data-part="ledge-slab-plan">
-   <path d={smoothPath([...ledgeWater.map(([x, y]) => [x, y + 9] as P), ...ledgeBank], true)} fill="#3E2F20" opacity={.55}/>
-   <path d={smoothPath(ledgeSlab, true)} fill={SA.limestone} stroke={SA.limestoneShade} strokeWidth={3}/>
+   <path d={smoothPath(ledgeSlab, true)} fill={SA.limestone}/>
   </g>
   {[[880, 260, 150], [230, 560, 75], [150, 1460, 140], [930, 1420, 120], [600, 1540, 100]].map(([x, y, rr], i) => <g key={i}>
    <ellipse cx={x + 22} cy={y + 18} rx={rr} ry={rr * .85} fill="#000000" opacity={.18}/>
    <ellipse cx={x} cy={y} rx={rr} ry={rr * .85} fill={SA.oakDark}/><ellipse cx={x - rr * .2} cy={y - rr * .18} rx={rr * .7} ry={rr * .55} fill={SA.oak}/>
    <ellipse cx={x - rr * .4} cy={y - rr * .35} rx={rr * .3} ry={rr * .2} fill={SA.oakLit}/></g>)}
-  {/* heavy rain rings: a few large faint rings away from the car's path, each fading in already wide, so none
-    * ever shows as a dot and they never out-read the current */}
-  {rain > 0 && <g clipPath={`url(#${id}c)`} data-part="rain-rings">{[[180, 700], [330, 1060], [900, 700], [1000, 1000], [90, 900], [620, 690]].map(([x, y], i) => {const ph = frac(i * .17 + t * 1.3);
-   return <circle key={i} cx={x} cy={y} r={(30 + 50 * ph).toFixed(1)} fill="none" stroke="#EEE7D8" strokeWidth={2} opacity={(rain * .28 * Math.sin(Math.PI * ph)).toFixed(3)}/>;})}</g>}
+  {/* heavy rain on the water: three large soft pale patches, filled, fading to nothing at their edges so no
+    * arc, ring or edge ever shows, drifting slowly downstream in the far half of the channel, off the car's path */}
+  {rain > 0 && <g clipPath={`url(#${id}c)`} data-part="rain-patches" opacity={rain}>
+   <defs><radialGradient id={`${id}rp`}><stop offset="0" stopColor="#EEE7D8" stopOpacity={.12}/><stop offset=".55" stopColor="#EEE7D8" stopOpacity={.06}/><stop offset="1" stopColor="#EEE7D8" stopOpacity={0}/></radialGradient></defs>
+   {[[950, 735, 150, 0], [640, 705, 130, 2], [170, 1030, 140, 4]].map(([x, y, rr, ph], i) =>
+    <circle key={i} cx={(x - 30 * (t - 13.03)).toFixed(2)} cy={y} r={(rr * (1 + .06 * Math.sin(1.1 * t + ph))).toFixed(2)} fill={`url(#${id}rp)`}/>)}
+  </g>}
  </g>;
 };
 /** The plan's water front: water spreads from the left along the street, its leading edge a lobed

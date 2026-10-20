@@ -213,7 +213,7 @@ export const CREEK_CAR={x:CREEK_MARKS.lip+191,s:.72,y:1236};
  * bank edge it lifts off, the landmark oak's crown and the pale ledge slab, under the disclosure chip and
  * above the caption band, until it leaves the frame to the left. The plan and the car's path are the same in
  * both shots, so nothing resets at the cut. */
-export const CREEK_PLAN_NEAR:Cam={f:[720,1025],s:1.6,a:[540,960]};
+export const CREEK_PLAN_NEAR:Cam={f:[770,1025],s:1.6,a:[540,960]};
 export const CREEK_PLAN_CARRY:Cam={f:[515,970],s:1.4,a:[540,960]};
 /** s3's overhead carry, one path for both creek-plan shots (plan pixels): the empty car stands in shallow flood
  * water at the near bank's limestone edge, its near-side wheels on the stone and its far-side wheels in the
@@ -646,8 +646,9 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
       * as it lifts; no halo */}
     <defs><filter id="rtx-s3-shadow-soft" x="-30%" y="-40%" width="160%" height="180%"><feGaussianBlur stdDeviation={8}/></filter></defs>
     {local(<ellipse cx={0} cy={0} rx={270} ry={125} fill="#0A0604" filter="url(#rtx-s3-shadow-soft)" opacity={.60}/>,sd,sd)}
-    {/* (c) the V wake off the stern once it is carried: each arm one continuous streamline, three stacked strokes */}
-    {lift>0&&wakeAt(<g data-part="v-wake" opacity={lift}>{[-1,1].map(sgn=>{const d=smoothPath(wakeArm(sgn),false);
+    {/* (c) the V wake off the stern once it is carried: each arm one continuous streamline, three stacked strokes,
+      * reaching full strength early in the lift so it never shows as a faint fragment */}
+    {lift>0&&wakeAt(<g data-part="v-wake" opacity={smooth(clamp(lift*2.5)).toFixed(3)}>{[-1,1].map(sgn=>{const d=smoothPath(wakeArm(sgn),false);
      return <g key={sgn}>{[[24,.3],[14,.45],[6,.65]].map(([w,o],j)=><path key={j} d={d} stroke="#F2EEE4" strokeWidth={w} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={o}/>)}</g>;})}</g>)}
     {/* (e) the car, its glass roof showing the empty cabin */}
     {top([cx,cy],sc,yaw,{shadow:0,wetTo:lerp(30,90,lift),cabin:1})}
