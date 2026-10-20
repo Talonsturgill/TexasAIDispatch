@@ -123,3 +123,5 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-20T01:20Z (machine) PR 239 merged (bb510cdb), main merged into edition (a376ba72); captions v2 16 cues all fit; timed preview rendered (preflight_renders 15/16), motion-current extracted, phone packet round11 08d043f9. claude_runtime.plan needs HOME=/home/user (Path.home tooling defect, no code change; my /root visual install removed). Reserving critic 19/19 and spawning timed phone critic.
 
 2026-10-20T02:20Z timed phone r12 (acb11912) PASS, 62 pages, coverage complete+verified, installed as storyboard_critic.json (prior kept). completion-capacity r12 (+2 preflight, +1 critic). cinema_proof native hero rendered (55 jobs). Next: hero audiovisual review, full render, finals.
+
+2026-10-20T03:05Z hero audiovisual pass (gemini), full native render complete (render_dispatch exit 0). Next: phase 04 review (3 audiovisual lenses, 3 scorers), release.
