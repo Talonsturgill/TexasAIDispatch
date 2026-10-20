@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T02:25:14.612135+00:00",
-  "note": "panel round 1 recorded",
+  "saved_at": "2026-10-20T02:38:41.992616+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-19T05:13:41.692242Z",
   "repo_root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch",
-  "source_pin": "3090df52b8810693253807579856f6b7396ef7c9",
+  "source_pin": "34cc26a68c6540792472e5b6add910e1907ce112",
   "source_branch": "claude/dispatch-2026-10-19",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "9f3585d4280e219070be5407221e4d6ee24ae568691e9f4cbf40a82df3b0d228"
   },
   "deleted_source": [],
-  "ledger_sha256": "86e16df5784d110e9f647dcfcba9fed0723c2081965acdd78b7d6a7730e30803",
-  "original_private_ledger_sha256": "893c2c89817a162250cf724828bc2a30d2880c9b3358bdafa36a8d297dc90400",
+  "ledger_sha256": "df4a3bfc349823dbcc8f22896a63d020b206e66cf4b2f24b6b6d7c842780726c",
+  "original_private_ledger_sha256": "43a697c71aab62d5b5ef7687b43e9ebf39c5244ce7d06416b7f70af208590e3b",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -58,6 +58,11 @@
       "event_index": 153,
       "authorization_sha256": "c759700fd4a02245ec2eb37add9676f8d600f5793d018dfe97641059e77d828c",
       "root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch"
+    },
+    {
+      "event_index": 182,
+      "authorization_sha256": "327f9785b273d7d1cdf37cffdad1c7383fd0771f11407034b5890ddbe336b2d1",
+      "root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch"
     }
   ],
   "usage": {
@@ -81,8 +86,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "336f0ef57655bd19ea7fc5fd74c9efa521044c54c466b9502a295979cbf568be",
-      "size": 32073
+      "sha256": "dfd30d08f52c97a1010cd3522fbbbc725ea4b9837efa96f95d4416c3842bb659",
+      "size": 32542
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -953,6 +958,12 @@
       "class": "scratch",
       "sha256": "f61251f4850d406418cad1a283a1f6fba62718c0326649ed2396e74757d74e55",
       "size": 586
+    },
+    {
+      "path": "out/dispatch/comparison-completion-plan-panel1.json",
+      "class": "scratch",
+      "sha256": "327f9785b273d7d1cdf37cffdad1c7383fd0771f11407034b5890ddbe336b2d1",
+      "size": 10713
     },
     {
       "path": "out/dispatch/credits.txt",
@@ -3397,6 +3408,42 @@
       "size": 177865
     },
     {
+      "path": "out/dispatch/evidence/panel-round1/baseline/RobotaxiFilm.tsx",
+      "class": "scratch",
+      "sha256": "d0683d7d6a6e797cd9b34f037371adf02d9aeeea1f862cd1e7dee3f102f60d2d",
+      "size": 50726
+    },
+    {
+      "path": "out/dispatch/evidence/panel-round1/baseline/RobotaxiHero.tsx",
+      "class": "scratch",
+      "sha256": "3c05416fbd756cef0d6f5dcffe611476f9a5956cfd313eb2ca0112c543005950",
+      "size": 30849
+    },
+    {
+      "path": "out/dispatch/evidence/panel-round1/baseline/SanAntonioSupport.tsx",
+      "class": "scratch",
+      "sha256": "ce46debec8f8d5eb1e69e2ce56c45a443042b5f345f58c049b9dd5ad749af05c",
+      "size": 86612
+    },
+    {
+      "path": "out/dispatch/evidence/panel-round1/baseline/opening-a.json",
+      "class": "scratch",
+      "sha256": "6ea821b1f771fc9c7fbdf6c58619b25807dc4f58c4d179776bc137b946a07459",
+      "size": 177865
+    },
+    {
+      "path": "out/dispatch/evidence/panel-round1/baseline/opening-b.json",
+      "class": "scratch",
+      "sha256": "b4051a217f6472f65db532b949819e56f29c30c000f835543d917e5ab7beb83d",
+      "size": 177266
+    },
+    {
+      "path": "out/dispatch/evidence/panel-round1/baseline/storyboard.json",
+      "class": "scratch",
+      "sha256": "abd0fbe0f83d63d22d2a322d9ce922a9b81e000b164f68e9d89898f59bfa7914",
+      "size": 179092
+    },
+    {
       "path": "out/dispatch/evidence/panel-round1/picture-coverage-verification.json",
       "class": "scratch",
       "sha256": "99a01cbdb51c8e59c8f47c414552675efbade5034e6d508260110a9aaaa3ec43",
@@ -3407,6 +3454,18 @@
       "class": "scratch",
       "sha256": "d6965f90a7f19e031017ce3e9a651d0b68bb87891b19e196d9f610276ae2c47a",
       "size": 75476
+    },
+    {
+      "path": "out/dispatch/evidence/panel-round1/picture-format-corrected-handback.txt",
+      "class": "scratch",
+      "sha256": "f56a97dbfe41212d9c2640eb62aa476dcf481c5eff6c54b7fd9e754a20c0ba39",
+      "size": 9038
+    },
+    {
+      "path": "out/dispatch/evidence/panel-round1/picture-format-corrected.json",
+      "class": "scratch",
+      "sha256": "2994d5232a6ddad875af02c3b1237013ad4f2206a07c2e80ce9a37a46d7f34b2",
+      "size": 10227
     },
     {
       "path": "out/dispatch/evidence/panel-round1/picture-handback.txt",
@@ -12379,6 +12438,12 @@
       "size": 3578
     },
     {
+      "path": "out/dispatch/repair-plan-panel1.json",
+      "class": "scratch",
+      "sha256": "e38deb2c129574ebc572f0d93919a706b53be2d6533a74668c82faf9f0286c98",
+      "size": 5096
+    },
+    {
       "path": "out/dispatch/repair-plan-r7.json",
       "class": "scratch",
       "sha256": "b7a9541c561fc59d93142a47b03cc0452faa631e7dd357320cd0420ef238167a",
@@ -18830,8 +18895,8 @@
     }
   ],
   "regenerable": {
-    "files": 125,
-    "bytes": 27656970
+    "files": 127,
+    "bytes": 27658411
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }

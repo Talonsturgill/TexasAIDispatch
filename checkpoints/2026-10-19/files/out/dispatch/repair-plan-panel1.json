@@ -1,0 +1,54 @@
+{
+ "repair_scope": "standard",
+ "mechanism_id": "legible-record-card-and-scene-timing-at-phone-scale",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "root_cause": "The first atomic panel on the finished 2026-10-19 film (picture 6.79, story 6.956, sound 6.79, recorded 6.845) failed the modern finished_art observation and flagged pacing and motion. The recall card label Potential units affected overprints its value and reads affec3,791, stamps cover data rows and the Remedy text, the stamp arm is crude, card text is tiny at phone size, the wide creek car is tiny and nearly static from 12.4 to 14.8, the s8 weather limits tag lands at 41.4 against a clause that begins at 40.26 with tiny cars and late checks, the s2 area tag lands at 11.2 over two rings, and several holds near 27, 42 to 43.4, 46.2 to 47.6 and 52 to 56 show no new information.",
+ "repair": "Respace the recall card label and value and move both stamps off the data rows, enlarge card type, redraw the stamp hand as a believable arm, point the pen at the Remedy row. Frame the creek car larger and start the sweep at the head of its clause. Enlarge the s8 fleet, land the weather limits tag at the head of n8a and sync the checks to the update clause. Draw one outline in s2 and land the area tag by 9.4 s. Give the listed holds a small physical continuation. Words, claims, narration, voice take and measured captions are unchanged. Shared parts change in both treatments.",
+ "mechanism_change": "Card layout, stamp rig, subject scale and event-to-clause timing change together in the renderer and authored event fractions, replacing the overprinted card, tiny subjects and late tags with spaced type, larger subjects and clause-aligned actions.",
+ "expected_visible_result": "At phone size 3,791 reads cleanly under its own label, stamps land beside rather than over data, the creek car is readable and sweeps within its clause, the weather tag and checks arrive with the words, and no hold repeats an unchanged picture for more than about 1.5 seconds.",
+ "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/panel-round1/picture-format-corrected.json",
+ "failure_evidence_sha256": "2994d5232a6ddad875af02c3b1237013ad4f2206a07c2e80ce9a37a46d7f34b2",
+ "changed_inputs": [
+  {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/panel-round1/baseline/RobotaxiFilm.tsx",
+   "before_sha256": "d0683d7d6a6e797cd9b34f037371adf02d9aeeea1f862cd1e7dee3f102f60d2d",
+   "after_sha256": "d0683d7d6a6e797cd9b34f037371adf02d9aeeea1f862cd1e7dee3f102f60d2d"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/panel-round1/baseline/RobotaxiHero.tsx",
+   "before_sha256": "3c05416fbd756cef0d6f5dcffe611476f9a5956cfd313eb2ca0112c543005950",
+   "after_sha256": "3c05416fbd756cef0d6f5dcffe611476f9a5956cfd313eb2ca0112c543005950"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/panel-round1/baseline/SanAntonioSupport.tsx",
+   "before_sha256": "ce46debec8f8d5eb1e69e2ce56c45a443042b5f345f58c049b9dd5ad749af05c",
+   "after_sha256": "ce46debec8f8d5eb1e69e2ce56c45a443042b5f345f58c049b9dd5ad749af05c"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/panel-round1/baseline/storyboard.json",
+   "before_sha256": "abd0fbe0f83d63d22d2a322d9ce922a9b81e000b164f68e9d89898f59bfa7914",
+   "after_sha256": "abd0fbe0f83d63d22d2a322d9ce922a9b81e000b164f68e9d89898f59bfa7914"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/panel-round1/baseline/opening-a.json",
+   "before_sha256": "6ea821b1f771fc9c7fbdf6c58619b25807dc4f58c4d179776bc137b946a07459",
+   "after_sha256": "6ea821b1f771fc9c7fbdf6c58619b25807dc4f58c4d179776bc137b946a07459"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/panel-round1/baseline/opening-b.json",
+   "before_sha256": "b4051a217f6472f65db532b949819e56f29c30c000f835543d917e5ab7beb83d",
+   "after_sha256": "b4051a217f6472f65db532b949819e56f29c30c000f835543d917e5ab7beb83d"
+  }
+ ],
+ "resources": {
+  "reboards": 1
+ },
+ "failed_film_sha256": "dffd4cd42a51f2ddad62c074fec5bf4a86929d19d44582e173e38997b523484c"
+}
