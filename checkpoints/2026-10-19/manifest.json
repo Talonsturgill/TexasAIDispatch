@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T19:52:16.395155+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-20T19:55:23.178961+00:00",
+  "note": "recover",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "cf6f8e8e2119591b0464521798aad30ae5f471a1af357e376578d65a83ff1c4c"
   },
   "deleted_source": [],
-  "ledger_sha256": "aa19b4679f798740d18f8c995723acbad32a2751ceed390a307b655fb940af29",
-  "original_private_ledger_sha256": "21c914621aecb01db75c1b2bda2208a64d57552b88554f0179cc6b6b1457ca96",
+  "ledger_sha256": "9f732bbc219d1b1de33bce8f75eaedce6f107e4e80a3949787d22ad06d2928a3",
+  "original_private_ledger_sha256": "495b4298853dff4b964c8e361df1115a00b0767fea159ad929cbd7f88e2f5d09",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -1574,6 +1574,12 @@
       "size": 1043
     },
     {
+      "path": "out/dispatch/checkpoint-unbacked.json",
+      "class": "scratch",
+      "sha256": "81531aa4a287df4af9f8f1f5ee3f23708d364742519589bd749a944af64a9eff",
+      "size": 236
+    },
+    {
       "path": "out/dispatch/cinema/hero-review-response.json",
       "class": "scratch",
       "sha256": "aa56873f57f07e9f77049d95b3385b978adfa482ffbfd33d483c2e4e346cdee2",
@@ -2010,12 +2016,6 @@
       "class": "scratch",
       "sha256": "2f67c0bfcc5fc3284cecfce845bfc24493e16537581a3deaf6021fbc2abf463e",
       "size": 129239
-    },
-    {
-      "path": "out/dispatch/cinema/story-review.json",
-      "class": "scratch",
-      "sha256": "7f573360cd89b33eb64454f5282efbaf19884bc38ef0a9dc230240496b9f5583",
-      "size": 582
     },
     {
       "path": "out/dispatch/claims.json",
@@ -3636,6 +3636,36 @@
       "class": "scratch",
       "sha256": "c6df2ac677a3b7b2c247f3d909f8651bd77532826367466954fbcbd6bd818aa8",
       "size": 10811
+    },
+    {
+      "path": "out/dispatch/evidence/parallel-av-ledger-race/av-picture.log",
+      "class": "scratch",
+      "sha256": "71a0c183e761dbdc6b538e20c74c7689d7726abdc4bbdfbe0a6be4039d3db4fc",
+      "size": 2286
+    },
+    {
+      "path": "out/dispatch/evidence/parallel-av-ledger-race/av-sound.log",
+      "class": "scratch",
+      "sha256": "71a0c183e761dbdc6b538e20c74c7689d7726abdc4bbdfbe0a6be4039d3db4fc",
+      "size": 2286
+    },
+    {
+      "path": "out/dispatch/evidence/parallel-av-ledger-race/av-story.log",
+      "class": "scratch",
+      "sha256": "faceecbffa7a85c93dfdcce4f90e325c19c7f531b5a7de474f951378783c45ba",
+      "size": 1263
+    },
+    {
+      "path": "out/dispatch/evidence/parallel-av-ledger-race/checkpoint-unbacked.json",
+      "class": "scratch",
+      "sha256": "81531aa4a287df4af9f8f1f5ee3f23708d364742519589bd749a944af64a9eff",
+      "size": 236
+    },
+    {
+      "path": "out/dispatch/evidence/parallel-av-ledger-race/run_state.local-before-repair.json",
+      "class": "scratch",
+      "sha256": "671ed0a71c85d788d044a1404913826c0cc45233a6348fc3651ccbcb33462ce1",
+      "size": 1048383
     },
     {
       "path": "out/dispatch/evidence/phone-critic-packet.round2.json",

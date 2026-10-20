@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/scripts/claude_checkpoint.py", line 610, in mirror
+    result = save_with_recovery(repo_of(state_path), state_path, note)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/scripts/claude_checkpoint.py", line 587, in save_with_recovery
+    return save(repo, state_path, note, remote, environ)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/scripts/claude_checkpoint.py", line 521, in save
+    raise RegressionError("checkpoint would weaken the durable record: " + "; ".join(errors[:6]))
+claude_checkpoint.RegressionError: checkpoint would weaken the durable record: the earlier event history was altered, removed or reordered; recorded increments were altered or removed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/scripts/audiovisual_review.py", line 303, in <module>
+    review(a.film, a.role, a.state, a.out)
+  File "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/scripts/audiovisual_review.py", line 241, in review
+    ok, message = reserve(state, {"audiovisual_reviews": 1}, "exact MP4 audiovisual review " + role)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/scripts/run_controller.py", line 500, in reserve
+    save(path, state)
+  File "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/scripts/run_controller.py", line 112, in save
+    claude_checkpoint.mirror(path, "ledger write")
+  File "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/scripts/claude_checkpoint.py", line 613, in mirror
+    raise UnbackedError("checkpoint failed; paid work is stopped until it is recovered: " + str(exc)[:300]) from exc
+claude_checkpoint.UnbackedError: checkpoint failed; paid work is stopped until it is recovered: checkpoint would weaken the durable record: the earlier event history was altered, removed or reordered; recorded increments were altered or removed
