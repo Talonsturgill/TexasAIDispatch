@@ -1,0 +1,54 @@
+{
+  "repair_scope": "standard",
+  "mechanism_id": "fixed-bank-displacement-and-new-composition-tag-close",
+  "failure_family": "unclassified",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "root_cause": "The independent timed exact-phone review (round 18, A, film eefad941) rejected the measured cut for two mandatory modern observations. In s3 (12.4 to 17.2 s) the creek water is a flat calm sheet and the car sits level with only a slow drift, so 'swept into Salado Creek' is not performed. In s8 (40.0 to 47.6 s) one wide parking-lot composition holds for 7.6 s, the declared close limits-tag shot is a relabel of the same view, and the cars sit in a thin strip with about 45 percent empty asphalt.",
+  "repair": "s3: lock the camera on fixed bank landmarks (a limestone ledge and a live oak on the bank) and start the car at the low crossing or shallow bank edge, so the current visibly pushes it off that edge and carries it across a large share of the frame past those fixed landmarks within the n3 clause, with a bow wave on its upstream side and the waterline climbing the doors. s8: replace the relabelled wide-lot close with a newly staged low close composition with new content, the weather limits tag clipping onto the cord in the foreground and the nearest roof pod with its check filling a large share of the frame, cut inside 4 seconds, and refill the wide lot so the cars fill the frame. Words, claims, narration, voice take, measured captions and scene starts unchanged.",
+  "mechanism_change": "The creek changes from a following camera on a car in a brown sheet to a locked camera with fixed landmarks past which the car is displaced by the current, and the s8 close changes from a rescaled view of the same lot drawing to a separately staged foreground composition.",
+  "expected_visible_result": "At phone size the creek car visibly travels across the frame past fixed bank landmarks within n3, and s8 cuts from the wide lot to a distinct foreground close of the tag on its cord and a checked roof pod within four seconds.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round18/report.json",
+  "failure_evidence_sha256": "34598e1b46e4117bd760453fe6e7ecaddc7f1397d3431870cfae7a2135f485a3",
+  "changed_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round18/baseline/RobotaxiFilm.tsx",
+      "before_sha256": "144fd2107b5e4003311569d4ff2212a52d6bfae550e1577252dc7476b8c6ebc3",
+      "after_sha256": "144fd2107b5e4003311569d4ff2212a52d6bfae550e1577252dc7476b8c6ebc3"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round18/baseline/RobotaxiHero.tsx",
+      "before_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+      "after_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round18/baseline/SanAntonioSupport.tsx",
+      "before_sha256": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985",
+      "after_sha256": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round18/baseline/storyboard.json",
+      "before_sha256": "3a7804013d2b97e7a2a4fbb8d96c678b9e8709323638858a05b56575a4ad21a0",
+      "after_sha256": "3a7804013d2b97e7a2a4fbb8d96c678b9e8709323638858a05b56575a4ad21a0"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round18/baseline/opening-a.json",
+      "before_sha256": "cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108",
+      "after_sha256": "cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/evidence/phone-critic-round18/baseline/opening-b.json",
+      "before_sha256": "b219e9fccf4160df7f1a47b78d1c31e00beb2ec5481d0a57580ac641382f5584",
+      "after_sha256": "b219e9fccf4160df7f1a47b78d1c31e00beb2ec5481d0a57580ac641382f5584"
+    }
+  ],
+  "resources": {
+    "reboards": 1
+  },
+  "failed_film_sha256": "eefad94132ae365ad8b0f2183735f39d48b7022d3d343e5a5e51985e16bd637e"
+}
