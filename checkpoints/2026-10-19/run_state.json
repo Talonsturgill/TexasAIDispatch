@@ -1132,6 +1132,14 @@
       "note": "process-interruption completion of the exact silent phone review round 40 (worker a6b1ef80 stopped after 13 of 128 page annotations, no handback; original reservation 59 retained and charged, no refund or replay), same original independent critic, packet phone-critic-packet-round40",
       "resource": "storyboard_critics",
       "to": 60
+    },
+    {
+      "at": "2026-10-20T18:33:50.029497Z",
+      "ceiling": 61,
+      "from": 60,
+      "note": "NEW precharge for ONE fresh replacement dispatch-visual-critic for the stopped round 40 exact-phone worker a6b1ef80 (failed resume spent, never replayed), same packet phone-critic-packet-round40, funded with the complete remaining path",
+      "resource": "storyboard_critics",
+      "to": 61
     }
   ],
   "events": [
@@ -9291,6 +9299,24 @@
         "validator_agents": 4,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-20T18:33:50.029528Z",
+      "ceiling": 61,
+      "kind": "budget_escalated",
+      "note": "NEW precharge for ONE fresh replacement dispatch-visual-critic for the stopped round 40 exact-phone worker a6b1ef80 (failed resume spent, never replayed), same packet phone-critic-packet-round40, funded with the complete remaining path",
+      "now": 61,
+      "resource": "storyboard_critics",
+      "was": 60
+    },
+    {
+      "at": "2026-10-20T18:33:50.029546Z",
+      "kind": "reserved",
+      "note": "NEW precharge for ONE fresh replacement dispatch-visual-critic for the stopped round 40 exact-phone worker a6b1ef80 (failed resume spent, never replayed), same packet phone-critic-packet-round40, funded with the complete remaining path",
+      "preflight_identity": null,
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -9305,7 +9331,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 60,
+    "storyboard_critics": 61,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
@@ -9314,7 +9340,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d644efdc3f8c656bd2575e02b585daf27bbb444c0ecbdec25e9191bffb881f23",
+    "original_private_state_sha256": "67c7148926fcd803f0878462f2bf016538e4fe9cd7ae87b4ea2f495f24e849fc",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -9342,7 +9368,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T18:30:53.224399Z",
+  "updated_at": "2026-10-20T18:33:50.029551Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
@@ -9355,7 +9381,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 60,
+    "storyboard_critics": 61,
     "tts_calls": 6,
     "validator_agents": 4,
     "voice_directors": 1
