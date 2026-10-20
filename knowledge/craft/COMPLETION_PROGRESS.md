@@ -34,6 +34,14 @@ admission before granting capacity and opening a repair, then verifies the real 
 authorizing capture. Independently classified technical corrections keep their existing scope.
 An unchanged best cut can still proceed through the evidenced bounded release route.
 
+Keep the evidence scopes distinct. The code packet binds its decision boundary before the
+caller can reserve the reviewer. A source contradiction, missing executable action, invalid
+dependency or provable bounds failure can block capture. An unresolved implementation of an
+actual retained film defect also remains a blocker. Perceived foam, cabin recognition, apparent
+speed and surface beauty need current pixels; an unrendered preference cannot start another
+code repair. Carry that uncertainty to the existing exact-film review. Consolidate all
+code-proven defects together. This adds no reviewer or assignment and changes no role model.
+
 This supplies no review pass. Modern action, finish, timing, source, rights, caption, sound,
 native PNG/CRF16, independent scoring and every shipment gate remain required. A fallback must
 pass its actual current reviews. Do not ask the owner to choose an internal recovery route.

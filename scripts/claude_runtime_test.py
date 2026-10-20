@@ -187,6 +187,23 @@ class RuntimeTests(unittest.TestCase):
         self.assertIn('or consolidated defect list', result['agent_args']['prompt'])
         self.assertNotIn('run_in_background', result['agent_args'])
 
+    def test_code_scope_boundary_is_required_before_paid_assignment(self):
+        import critic_gate
+        data, source = self.code_data()
+        packet = self.root / 'code-scope.json'
+        with patch.object(critic_gate, 'REPO', self.root), patch.object(critic_gate, 'renderer_files', return_value=[source]), \
+                patch('agent_runtime.required_inputs'):
+            data['code_report_bindings'] = runtime.code_report_bindings(data)
+            scope = data['code_report_bindings']['decision_scope']
+            self.assertIn('unknown without current rendered evidence', scope['unrendered_picture'])
+            self.assertIn('retained actual-film failure remains a blocker', scope['blocking_basis'])
+            packet.write_text(json.dumps(data))
+            runtime.plan('storyboard-critic', packet, 'code_review', 'Review the current callable treatments.')
+            del data['code_report_bindings']['decision_scope']
+            packet.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError, 'bindings are missing or stale'):
+                runtime.plan('storyboard-critic', packet, 'code_review', 'Review the current callable treatments.')
+
     def test_historical_assignment_is_not_replaced(self):
         with self.assertRaises(ValueError):
             runtime.assignment('picture', '2026-10-08')

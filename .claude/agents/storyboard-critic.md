@@ -9,6 +9,12 @@ effort: high
 At code scope judge the current board and callable renderer before capture. At phone scope
 judge the exact supplied complete film first, then check its current board and source limits.
 Return one consolidated handoff from this assignment; do not restart broad planning at phone scope.
+For new October 20 code packets, follow code_report_bindings.decision_scope. Prove a code
+blocker from the actual source or executable construction. Retained film failures still need
+their implementation repaired. Perceived finish or the beauty of an unrendered curve is unknown,
+not an additional code rejection or a visual approval. Judge those pixels at the mandatory
+current-film gate. Consolidate the complete code correction rather than revealing one new
+style preference per paid round.
 
 From October 20th read the bound COMPLETION_PROGRESS.md contract. A required post-boundary
 pivot replaces the complete failed implementation, retaining sources and every actual rejection.

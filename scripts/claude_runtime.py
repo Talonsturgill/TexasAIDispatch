@@ -169,7 +169,17 @@ def code_report_bindings(data):
                                 'module_sha256': action['module']['sha256'],
                                 'source_claims_sha256': source_claims_digest(action)}
                                for action in board.get('action_proposals', [])]}})
-    return {'schema': 'dispatch_claude_code_report_bindings/1', 'treatments': result}
+    return {'schema': 'dispatch_claude_code_report_bindings/1', 'treatments': result,
+            'decision_scope': {
+                'basis': 'Current source facts, causal board, executable actions, renderer dependencies and composed bounds.',
+                'blocking_basis': 'Name the failed fixed criterion and the specific source or implementation that proves it. '
+                                  'An unresolved implementation of a retained actual-film failure remains a blocker.',
+                'unrendered_picture': 'Perceived finish, foam visibility, apparent speed, cabin recognition and curve beauty '
+                                      'are unknown without current rendered evidence. Carry uncertainty to the required '
+                                      'exact-film review; do not invent a code-only visual rejection or approval.',
+                'correction': 'Consolidate every code-proven mandatory defect once. Optional style preferences remain notes.',
+                'next_gate': 'Code approval authorizes only the funded capture. The complete current Opus phone, native, '
+                             'audiovisual and independent scoring gates remain required.'}}
 
 
 def motion_inputs(data):
