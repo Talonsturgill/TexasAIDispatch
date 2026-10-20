@@ -1,0 +1,146 @@
+STORYBOARD-CRITIC CODE-PLAN HANDBACK, round 11, edition 2026-10-19 (resumed after the host restart)
+
+Result: both treatments are REVISE. One integrity binding defect blocks both: the board names the wrong hash for the support module. B also has a continuity defect. Every builder-brief item checks out in A's callable code. This approves no pixels and no timed motion.
+
+SCOPE AND BASIS
+- Packet: /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/critic-packet-round11.json. Its SHA256 should be c5a9008ce79865855588f4daf93a0541842c1be84ab2af0545259134e884c844. I could not check that or any other hash. This role has Read only and no Bash. Every hash below is copied from the packet or the board, not computed by me.
+- The packet does not contain the concept or renderer digests (critic_gate.concept_digest / renderer_digest) or the story_review policy_sha256. I left those fields null. Per the brief, the director should give the gate-computed bindings back to this same reviewer for a format correction. I did not invent any hash.
+- The brief is at out/dispatch/evidence/panel-round1/builder-brief.md. The path in the assignment (evidence/panel-round1/ at the repo root) does not exist.
+
+Read in full:
+- The brief .claude/agents/storyboard-critic.md, AGENTS.md, CLAUDE.md (already in context), prompts/claude_routine.md, config/claude_runtime.json.
+- config/quality_contract.json, knowledge/craft/QUALITY_CONTRACT.md, config/dispatch_rubric.yaml, knowledge/craft/AUTONOMOUS_COMPLETION.md, config/autonomous_completion_v2.json.
+- knowledge/craft/visual-storytelling/viewer-plan.md, README.md, news-reporting.md, evidence-led-imagery.md.
+- knowledge/craft/MODERN_FILM.md, config/modern_film.json, config/modern_episode_registry.json, knowledge/craft/STORY_ART.md, config/story_art.json, config/critic_concept_v2.json, knowledge/craft/AUTHORED_STORY_ART.md, config/authored_story_art.json.
+- knowledge/craft/ART_DIRECTION.md, config/art_direction.json, knowledge/craft/cinematic_reference_bank.json, prompts/roles/scene-builder.md.
+- knowledge/craft/CREATIVE_DIRECTION.md, knowledge/craft/DAILY_PRODUCTION.md, config/daily_production.json, config/story_visuals.json, config/creative_production.json, config/documentary.json.
+- All three boards (storyboard.json, opening-a.json, opening-b.json), claims.json, story_selection.json, openings/selection.json and openings/comparison.json.
+- The panel round 1 evidence (picture-format-corrected.json, story.json, sound.json, builder-brief.md).
+- The complete RobotaxiFilm.tsx, RobotaxiHero.tsx and SanAntonioSupport.tsx.
+- Bounded excerpts of scripts/critic_gate.py (lines 1-250) and scripts/independent_review.py (lines 1-500) for the report format.
+
+Not read: scripts/daily_production.py review_problems and action_problems, and the visual-storytelling dossiers that are not bound to this packet (sentence-to-shot.md, cinematic-scene.md, explanatory-animation.md). No pixels were inspected at this scope.
+
+CONSOLIDATED DEFECT LIST
+
+1. Integrity, blocks A and B.
+- In all three boards, native_media[san-antonio-support].sha256 is ce46debec8f8d5eb1e69e2ce56c45a443042b5f345f58c049b9dd5ad749af05c.
+- The same board's story_art.entries[san-antonio-support].sha256 is f8dde091d6b24f2533c5c432feaf0f0904c05114554e70de53f1a058592139a7. So is the packet's asset_inputs binding.
+- That entry was created 2026-10-20T03:18:47Z under reservation index 185 ("corrective reboard ... panel round 1"). The native_media row was not updated with it.
+- So the board declares support bytes that the renderer no longer runs. That is undeclared renderer media under the story_visuals rule.
+- That row's subject text also still says "a creek crossing", but the current code says "No crossing".
+- Fix: rebind the row mechanically to the recorded entry hash and correct the subject text. No picture change is needed. This changes the concept identity, so a fresh code pass on the rebound boards is needed.
+
+2. Continuity, blocks B only. B's s8-shot-1 (fleet-plan) shows 10 roofs in two stalled rows in a lot. The match-cut to s8-shot-2 (limits-detail, B clock 45.435 s) replaces them with 6 car icons on a chain-link close, with the region plate behind. The fleet count, the way it is drawn and the place all change across one cut. The earlier phone selection observed the same break, and the code is unchanged.
+
+Everything below is a note, not a blocker:
+- Possible false inference: a viewer may take the interim weather limits as in force now, or as having come after the recall. In fact the record leaves their content and current status unknown. The update deadline (April 20th) is the same day as the creek account, and it is earlier than the recall reporting. Narration and the April 20 page are literal and match the source. The close holds "remedy under development", which counters "fixed". The source limit is still never shown. An optional fix is a short tag line such as "Limits not defined in the record". That is on-screen text, not narration.
+- The s7 pen tip rests only about 0.15 s (37.18 to 37.33) and is gone by 37.69. "currently under development" is spoken at about 37.9 to 39.3. It is a support beat; the phone review should judge it.
+- In s5 the stamp hand slides in level from the right while its forearm points up and right at a fixed angle. That is a rigid sideways translation and could read as a sliding cutout. s7 approaches along the arm's own axis, which reads better. I suggest giving s5 the same approach.
+- The 52 to 56 s hold: the underline performs 52.99 to 53.88. After that only the split-panel camera push (6%) and a small phone pin pulse move, for about 2.1 s before credits. That is at the 2.0 s intentional-hold policy limit; the phone review should judge it.
+- B: about 10 of 20 shots are overhead or wall views (8 overhead plus count-grid and stamp-detail). If overhead counts toward MODERN_FILM's 40 percent wall-view limit, B exceeds it. place_check should decide.
+- B still has no readable airport cue from 0 to 2.61 s (the plan sign is a 58 by 10 rectangle). B's s4 street-plan roofs are still flat rectangles with diagonals, which a phone reviewer previously saw as triangle squares.
+
+Brief items 1 to 6, checked in A's code:
+- Item 1, recall card. Labels sit above their values: label 36 and value 82 card units below the row top (RECORD_TYPE.labelY / valueY). The "Software recall" mark sits in the header slot, between the subtitle and the rule. The "Under development" mark sits in a slot 104 units under the remedy words. The arm is a tapered forearm with a cuff and sleeve; in s7 it runs below the sentence. The pen tip is at the end of the Remedy sentence. The card shows only 2 rows in s5 and 4 in s7, and the interim rows never appear. The remedy row writes in at the head of n7 (35.78 s).
+  - Phone legibility risk: labels are 24 units, about 8 to 9 CSS px at 390 wide. Values are 36 units, about 12 to 13 px.
+- Item 2, s3 and s4.
+  - s3: drift runs on s3-event-1's clock from 12.64 s. The camera follows at 0.62, so the car moves left on screen while the bank slides right. The car is larger (scale 0.72 at camera 1.3 and 1.55).
+  - s4: water front 960 and level 24 at the first frame of the clause.
+- Item 3, s8. The tag starts at min(n8a.start, event start) = 40.26 s. There are four cars at scale 0.42. Checks run 43.90 to 44.82 and the calendar flips 46.02 to 46.92, both inside n8b.
+- Item 4, s2. The outline is the only ring; the loop road is drawn pale. The tag drops in at 9.28 to 9.63 s.
+- Item 5, holds. The holds get the stamp-jolt decay, the cord tightening and tag swing, the calendar flip and the underline. The partial-camera holds are listed in the notes.
+- Item 6, place. Live oak, limestone ledges and planter, mesquite and blackland clay all appear; the plate is blackland-san-antonio.
+
+REPORT A (selected; storyboard.json plus opening-a.json)
+```json
+{
+ "treatment": "a",
+ "verdict": "revise",
+ "review_scope": "code-plan",
+ "board_bindings": {"storyboard": {"path": "out/dispatch/storyboard.json", "sha256": "a57a6fb68d7a0d81b903d7bad59b5b453eba84756ef50e13b5156383dc360114"}, "opening": {"path": "out/dispatch/opening-a.json", "sha256": "bc6e5500ae0b368cf0f7c6ab6787b9f068ea8e0feef6ef24e580d66ec152afbf"}},
+ "concept_sha256": null,
+ "renderer_sha256": null,
+ "binding_note": "Gate-computed concept and renderer digests were not supplied in the packet; Read-only reviewer cannot compute them.",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 11, resumed after host restart",
+ "reviewed_at": "2026-10-20 (exact clock time unavailable to this Read-only reviewer)",
+ "strongest_frame": "s6 wheels-water, about 31.6 to 35.5 s on the measured clock: the car eases from vHi to vLo on s6-event-2's contact curve (never zero), the front wheel meets the sheet, a wake starts at each wheel and 'may' lights on the source sentence. The whole recall mechanism is one performed movement.",
+ "weakest_frame": "s7 record-close, 36.6 to 37.7 s: the pen enters, rests about 0.15 s on the Remedy row and leaves before 'currently under development' is spoken. The card labels are about 8 to 9 px at phone width, so the frame carries almost no performance beyond the row lighting.",
+ "blocking_defects": [
+  {"category": "integrity", "criterion": "story_visuals native_media provenance (declared renderer media must match executed bytes)", "scene_id": "s1", "time_s": 0.0, "defect": "Applies to s1 to s9. In storyboard.json and opening-a.json, native_media[san-antonio-support].sha256 is ce46debec8f8d5eb1e69e2ce56c45a443042b5f345f58c049b9dd5ad749af05c. The same board's story_art.entries[san-antonio-support] and the packet's asset_inputs bind f8dde091d6b24f2533c5c432feaf0f0904c05114554e70de53f1a058592139a7 (entry created 2026-10-20T03:18:47Z, reservation index 185). The row also still describes 'a creek crossing', but the current module says 'No crossing'. The board therefore declares support bytes the renderer no longer executes. Rebind the row mechanically to the recorded entry and correct the subject text, with no picture change, then obtain fresh code bindings."}
+ ],
+ "notes": [
+  "Brief items 1 to 6 are implemented in callable code; see the consolidated list. Code is not pixel proof: card legibility, arm credibility and the s3 sweep speed (about 54 px/s rising to about 150 px/s on screen) need the phone pass.",
+  "Possible false inference: interim weather limits taken as current or as following the recall. The record leaves them undefined and their status unknown. Not prevented on screen; optional tag line suggested.",
+  "s5 stamp approach slides level from the right while the forearm keeps an up-right angle (rigid sideways translation). Consider the s7 approach along the arm axis.",
+  "After the s9 underline (53.88 s) only the camera push and a small phone pin pulse move until 56.0 s. That is at the 2.0 s intentional-hold limit; the phone review should judge it.",
+  "The s8 events are listed out of chronological order (event-3 checks at 43.90 s before event-2 calendar at 46.02 s), and the rewards follow the same order. This is not a defect, but the s8-shot-2 view name 'limits-tag' no longer describes its content."
+ ],
+ "story_review": {
+  "story_sha256": "5158ddf3fa0c28f66b00d3089b4ffdb2674bdfbb8d4030b1bfcce04b314ea84e",
+  "policy_sha256": null,
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "revise",
+  "blocking_defects": [{"category": "integrity", "criterion": "native_media provenance", "scene_id": "s1", "time_s": 0.0, "defect": "Stale native_media hash for SanAntonioSupport (ce46debe... declared, f8dde091... recorded and executed); see report blocking_defects."}],
+  "one_viewing_summary": "Intended chain, from the plan and not observed. A generic white driverless car brakes into an airport bay with an empty wheel turning, and the phone says arriving. A map outlines the limited February area. A different empty car is swept down Salado Creek and another sits stranded with hazards. A recall card fills to about 3,800 cars. The illustrated recall sentence plays out as a car slows and rolls into standing water. The remedy row is stamped under development. Four cars take interim checks under a weather limits tag and an April 20 page. The curb returns beside the remedy card.",
+  "opening_to_ending": "The opening question (the ride is open, so what does the record say about water) is answered by the closing split: an open curb door beside 'The remedy is currently under development', underlined. No outcome is invented.",
+  "weakest_transition": "s7 to s8. The causal-consequence bridge ('the unfinished remedy leads to the interim step') reads as a sequence, but the interim update was complete by April 20th, the creek account's date, before the recall was reported. The weather limits' content and current status stay unshown."
+ },
+ "action_reviews": [
+  {"action_id": "wheel-turns-itself", "module_sha256": "3c05416fbd756cef0d6f5dcffe611476f9a5956cfd313eb2ca0112c543005950", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c1 says a fully autonomous ride; the cabin draws empty driver and passenger headrests and seats.", "visible_action": "Cab steer = S1_STEER*(p12-p13): 85 degrees on the contact curve, unwinding on s1-event-3; the curb slides past the windshield.", "consequence": "The phone status turns Arriving / At the curb at s1-event-3.", "disclosure": "Chip 'Illustration. Generic car with no brand mark'; no logos in RobotaxiHero.", "limits": "Not a Waymo vehicle or a real app screen."}},
+  {"action_id": "car-swept-into-creek", "module_sha256": "3c05416fbd756cef0d6f5dcffe611476f9a5956cfd313eb2ca0112c543005950", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c3 and c4 (April 20, heavy rain, unoccupied): see-through empty cabin (cabin 1), rain, a single brown sheet.", "visible_action": "Drift integrates S3.v0 from 12.64 s and S3.v after lift; roll, bob and a nose pile; the camera follows at 0.62 so the bank slides opposite.", "consequence": "The car is carried downstream, tail first, never stopping.", "disclosure": "'Illustration. A different car, April 20th account'.", "limits": "Shows no damage and nothing about how the car entered the creek."}},
+  {"action_id": "car-slows-into-water", "module_sha256": "3c05416fbd756cef0d6f5dcffe611476f9a5956cfd313eb2ca0112c543005950", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c7 wording: slows, then drives into standing water; 'may' highlighted; no stop and no crash.", "visible_action": "X6 speed eases 850 to 150 along s6-event-2's curve; brake lamps; frontIn and rearIn wakes.", "consequence": "Wheels enter the sheet with spray.", "disclosure": "'Illustration. The recall wording, not a recorded event'.", "limits": "No speed, depth or real road."}},
+  {"action_id": "service-area-opens", "module_sha256": "f8dde091d6b24f2533c5c432feaf0f0904c05114554e70de53f1a058592139a7", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c2: February, limited area, 60 square miles.", "visible_action": "The map draws; the calendar slides below the zone; the outline traces 0.3*e2 + 0.7*e3.", "consequence": "A single outline closes with fill; the tag appears from 9.28 s.", "disclosure": "The credits say the outline is editorial.", "limits": "Not the operator's map."}},
+  {"action_id": "recall-filed-count", "module_sha256": "f8dde091d6b24f2533c5c432feaf0f0904c05114554e70de53f1a058592139a7", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c6 3,791 and c13 nearly 3,800 are both printed; the card shows only Recall type and Units.", "visible_action": "The card slides in, rows write in, and a 60-icon grid fills.", "consequence": "The counter settles and the stamp lands in the header slot off the data rows.", "disclosure": "Illustration chip.", "limits": "60 icons stand for the count; it is not a literal count."}},
+  {"action_id": "remedy-under-development", "module_sha256": "f8dde091d6b24f2533c5c432feaf0f0904c05114554e70de53f1a058592139a7", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c8 sentence verbatim; no interim rows on the card.", "visible_action": "The remedy row writes in and lights on n7's first word; the pen rests at the sentence end; the stamp presses into the slot under the words.", "consequence": "The mark is retained and carried onto the s9 remedy card.", "disclosure": "Illustration chip.", "limits": "Not a real record page."}}
+ ],
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None. Code approval includes no pixel observations; timed motion and legibility are unresolved until the phone review."
+}
+```
+
+REPORT B (opening-b.json)
+```json
+{
+ "treatment": "b",
+ "verdict": "revise",
+ "review_scope": "code-plan",
+ "board_bindings": {"opening": {"path": "out/dispatch/opening-b.json", "sha256": "3485980f0bd61b351207854ee904e77091ad3363725fe61877c217a7b36dde66"}},
+ "concept_sha256": null,
+ "renderer_sha256": null,
+ "binding_note": "Gate-computed digests not supplied; Read-only reviewer cannot compute them.",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 11, resumed after host restart",
+ "reviewed_at": "2026-10-20 (exact clock time unavailable to this Read-only reviewer)",
+ "strongest_frame": "s6 lane-plan to wheels-water, 28.3 to 36.86 s (authored B clock): from above, the roof runs up the lane toward the puddle and slows, then the shared wheels-in-water close performs the turn. The overhead shows the water ahead more clearly than A.",
+ "weakest_frame": "s8 limits-detail, 45.435 to 50.0 s: the cut from 10 roofs in a lot to 6 icons on a chain-link close with the plate behind it. The fleet the checks are supposed to update is no longer the same subject.",
+ "blocking_defects": [
+  {"category": "integrity", "criterion": "story_visuals native_media provenance", "scene_id": "s1", "time_s": 0.0, "defect": "Applies to s1 to s9. opening-b.json native_media[san-antonio-support].sha256 is ce46debec8f8d5eb1e69e2ce56c45a443042b5f345f58c049b9dd5ad749af05c, but its story_art entry and the packet bind f8dde091d6b24f2533c5c432feaf0f0904c05114554e70de53f1a058592139a7. The subject text still says 'a creek crossing'. Mechanical rebind needed."},
+  {"category": "continuity", "criterion": "continuity (each cut conserves a recognizable subject)", "scene_id": "s8", "time_s": 45.435, "defect": "fleet-plan draws 10 roofs (LOT_PLAN 2 rows by 5). The match cut to limits-detail draws 6 caricon icons (LIMITS_DETAIL.icons) on a chain-link panel at 0.85 opacity with the exterior plate behind. The count, the depiction and the place change while the checks claim the same 'every affected car'. This is unchanged from the earlier observed rejection; keep one fleet identity through the cut."}
+ ],
+ "notes": [
+  "From 0 to 2.61 s no readable airport cue in curb-plan (the sign plan is a 58 by 10 rectangle). It arrives with cab-wheel and phone-hail before 'the airport included'.",
+  "Overhead and wall views are about 10 of 20 shots. If overhead counts toward MODERN_FILM's 40 percent wall-view limit, B exceeds it; place_check should decide.",
+  "s4 street-plan roofs are flat rectangles with diagonal ridges, a surface-finish risk at phone size.",
+  "It shares A's possible false inference about the interim limits and the s7 pen and s5 stamp-arm notes."
+ ],
+ "story_review": {
+  "story_sha256": "5158ddf3fa0c28f66b00d3089b4ffdb2674bdfbb8d4030b1bfcce04b314ea84e",
+  "policy_sha256": null,
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "revise",
+  "blocking_defects": [{"category": "continuity", "criterion": "continuity", "scene_id": "s8", "time_s": 45.435, "defect": "Fleet identity break, 10 roofs to 6 icons; see report."}, {"category": "integrity", "criterion": "native_media provenance", "scene_id": "s1", "time_s": 0.0, "defect": "Stale SanAntonioSupport native_media hash."}],
+  "one_viewing_summary": "Intended chain, not observed: the same story as A, read from above and from inside the cab. A roof pod brakes into the bay plan, the wheel turns itself and the phone says arriving. Then a map plan, a creek plan with the car in the current then swept, a street plan then a hazard close, a flat record wall and grid, the lane plan and wheels in water, a record wall and stamp, a fleet plan then a limits detail, and the curb return with the remedy card.",
+  "opening_to_ending": "Same answer as A: the open-door curb beside the remedy row underlined under development, with no outcome invented.",
+  "weakest_transition": "s8-shot-1 to s8-shot-2, the fleet identity break."
+ },
+ "action_reviews": "Same six authored actions and modules as A (shared hero and support groups). B adds the plan views curb-plan, creek-plan, street-plan, lane-plan and fleet-plan and the limits-detail view. Each performs its event on the same robotaxiState clock. Verdicts are pass at code level, except that limits-detail's fleet substitution is recorded above as a continuity blocker.",
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None at code scope."
+}
+```
+
+Next step for the director: a mechanical native_media rebind in all three boards (plus the B s8 fleet fix only if B is ever used). Then give the gate-computed concept, renderer and policy digests back to this same reviewer, and run the charged fresh code review that the changed boards require. No subagents were launched and nothing was sent or posted.
