@@ -1188,6 +1188,14 @@
       "note": "telemetry for audiovisual_reviews: 2f9d7830-ad85-43d9-9cbf-7f0440270025 hero exact film 3d4016217e8f922691fe82647e6a559dc3b937ad7302ca1496eef5c87dfa6ad4",
       "resource": "reported_tokens",
       "to": 596774
+    },
+    {
+      "at": "2026-10-20T19:34:15.572503Z",
+      "ceiling": 43,
+      "from": 7,
+      "note": "exact MP4 audiovisual review hero",
+      "resource": "audiovisual_reviews",
+      "to": 8
     }
   ],
   "events": [
@@ -9598,10 +9606,28 @@
       "resources": {
         "reported_tokens": 73291
       }
+    },
+    {
+      "at": "2026-10-20T19:34:15.572534Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review hero",
+      "now": 8,
+      "resource": "audiovisual_reviews",
+      "was": 7
+    },
+    {
+      "at": "2026-10-20T19:34:15.572545Z",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review hero",
+      "preflight_identity": null,
+      "resources": {
+        "audiovisual_reviews": 1
+      }
     }
   ],
   "limits": {
-    "audiovisual_reviews": 7,
+    "audiovisual_reviews": 8,
     "cleanup_renders": 1,
     "full_renders": 1,
     "image_generations": 2,
@@ -9621,7 +9647,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "4db4b3c09b0e1ff56fab5929c178500c7d25d18e3ef18b712b0ab087f20e3edf",
+    "original_private_state_sha256": "b9a1aeb7b6e64a28cc6270990f5545ee30d2edc0e4270faae99bf5eb812dd70e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -9649,9 +9675,9 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T19:33:52.407612Z",
+  "updated_at": "2026-10-20T19:34:15.572548Z",
   "usage": {
-    "audiovisual_reviews": 7,
+    "audiovisual_reviews": 8,
     "cleanup_renders": 0,
     "full_renders": 1,
     "image_generations": 0,
