@@ -309,17 +309,16 @@ const Top: React.FC<TopProps> = ({brake = 0, hazard = 0, door = 0, shadow = 1, w
   <path d="M-150 -92L-150 92C-170 90 -192 84 -204 76C-210 30 -210 -30 -204 -76C-192 -84 -170 -90 -150 -92Z" fill={`url(#${id}g)`}/>
   <path d="M66 -98L-150 -94L-150 -84L66 -88ZM66 98L-150 94L-150 84L66 88Z" fill="#1E2731"/>
   {cabin > 0 && <g data-part="empty-cabin-from-above" opacity={clamp(cabin)}>
-   {/* clear glass over the front cabin, from behind the front seats to the windshield's foot */}
-   <path d="M18 -86L66 -88C92 -88 118 -86 136 -82C144 -50 144 50 136 82C118 86 92 88 66 88L18 86Z" fill="#C9D5DE" stroke="#1E2731" strokeWidth={3}/>
-   {/* two bare front seats, backs and cushions, each with its headrest and no head on it */}
+   {/* large pale glass over the front cabin, from behind the front seats to the windshield's foot */}
+   <path d="M0 -92L66 -96C100 -96 126 -94 142 -88C150 -50 150 50 142 88C126 94 100 96 66 96L0 92Z" fill="#DCE6EE" stroke="#1E2731" strokeWidth={3}/>
+   {/* two bare front seats, dark on the pale glass: back, cushion and headrest, and nobody in them */}
    {[-46, 46].map(y => <g key={y}>
-    <rect x={20} y={y - 27} width={20} height={54} rx={7} fill="#3A4048"/>
-    <rect x={40} y={y - 24} width={40} height={48} rx={9} fill="#565D66"/>
-    <ellipse cx={24} cy={y} rx={8} ry={17} fill="#8A929B"/>
+    <rect x={4} y={y - 32} width={26} height={64} rx={6} fill="#2E343B"/>
+    <rect x={30} y={y - 29} width={54} height={58} rx={9} fill="#2E343B"/>
+    <rect x={-6} y={y - 17} width={12} height={34} rx={4} fill="#2E343B"/>
    </g>)}
-   {/* the steering wheel ahead of the driver's (left, -y) seat, no hands on it, and the dash */}
-   <ellipse cx={100} cy={-46} rx={9} ry={25} fill="none" stroke="#1E2328" strokeWidth={6}/>
-   <path d="M100 -46h22" stroke="#1E2328" strokeWidth={5}/>
+   {/* a thin steering wheel ahead of the driver's (left, -y) seat, no hands on it, and the dash */}
+   <ellipse cx={112} cy={-46} rx={8} ry={24} fill="none" stroke="#1E2328" strokeWidth={5}/>
    <path d="M126 -80C132 -40 132 40 126 80" stroke="#2A3038" strokeWidth={8} fill="none"/>
    <path d="M30 -78L60 -80" stroke="#FFFFFF" strokeWidth={4} opacity={.55}/>
   </g>}

@@ -211,7 +211,7 @@ export const CREEK_CAR={x:CREEK_MARKS.lip+191,s:.72,y:1236};
  * point a at scale s for the whole shot), chosen so the landmark oak's crown, the pale ledge slab, the lip and
  * the car's whole carry stay in frame, under the disclosure chip and above the caption band. The plan mapping
  * and the car's path are the first overhead shot's, so nothing resets at the cut. */
-export const CREEK_PLAN_CLOSE:Cam={f:[470,930],s:1.25,a:[540,960]};
+export const CREEK_PLAN_CLOSE:Cam={f:[450,930],s:1.25,a:[540,960]};
 /** s3's overhead carry, one path for both creek-plan shots (plan pixels): the empty car stands in shallow flood
  * water at the near bank's limestone edge, its near-side wheels on the stone and its far-side wheels in the
  * water; the current takes it along the bank, lifts it off the edge into the channel and carries it downstream
@@ -219,7 +219,7 @@ export const CREEK_PLAN_CLOSE:Cam={f:[470,930],s:1.25,a:[540,960]};
 export const S3_PLAN_PATH:Pt[]=[[800,1105],[650,1040],[520,940],[380,890],[-142,875],[-420,868]];
 /** Its speeds along the path, plan pixels a second: sliding along the bank edge (s3-event-2's contact curve)
  * and swept once the current has it (s3-event-3's travel curve). The current itself runs faster. */
-export const S3_PLAN_SPEED={slide:160,swept:340};
+export const S3_PLAN_SPEED={slide:160,swept:380};
 /** The path as a Catmull-Rom curve, sampled with its cumulative arc length. */
 const S3_PATH_TABLE=(()=>{const P=S3_PLAN_PATH,n=P.length,per=40,pts:Pt[]=[],len:number[]=[];
  for(let i=0;i<n-1;i++){const p0=P[Math.max(0,i-1)],p1=P[i],p2=P[i+1],p3=P[Math.min(n-1,i+2)];
@@ -241,7 +241,7 @@ export function s3PlanAt(s:number):Pt{const {pts,len}=S3_PATH_TABLE,n=pts.length
 export function s3PlanPose(W:Record<string,ActionWindow>,t:number){
  const w1=W['s3-event-1'],w2=W['s3-event-2'],w3=W['s3-event-3'];
  const s=(w2?S3_PLAN_SPEED.slide*curveIntegral(w2,t):0)+(w3?S3_PLAN_SPEED.swept*curveIntegral(w3,t):0);
- const press=w2?actionProgress(w2,t):0,lift=smooth((s-120)/180),sc=.5+.05*lift;
+ const press=w2?actionProgress(w2,t):0,lift=smooth((s-120)/180),sc=.60+.06*lift;
  const yaw=-22*lift+2*(1-lift)*(.3+.7*press)*Math.sin(2*Math.PI*1.1*t);
  const wet=clamp(.45+.55*(w1?actionProgress(w1,t):0)),g=clamp(.3+.5*press+.4*lift);
  return {s,p:s3PlanAt(s),press,lift,sc,yaw,wet,g};
@@ -615,8 +615,8 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   // s3 from above, locked. The empty car (its glass roof shows two bare seats and a wheel with no hands) stands
   // nose upstream in shallow flood water at the near bank's limestone edge, the water round its wheels and a
   // foam collar on its upstream side from the first frame. The current presses it and it slides along the edge;
-  // then it LIFTS off the edge (its soft contact shadow slides out from under it and fades, it grows a little
-  // toward the lens and the flood water it stood in falls behind), turns, and is carried downstream along one
+  // then it LIFTS off the edge (it grows toward the lens, rising off a dark shadow that slides out from under it
+  // onto a pale foam halo, and the flood water it stood in falls behind), turns, and is carried downstream along one
   // path (s3PlanPose), a smooth V wake trailing off its stern, under the oak's crown, over the pale ledge slab
   // and out of frame to the left. Every shape is a filled ellipse or one smooth stroke.
   // The second creek shot is the same plan held closer by a locked camera (creekPlanCloser), so the car's
@@ -629,7 +629,9 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   const wakeArm=(sgn:number):Pt[]=>Array.from({length:9},(_,i)=>{const u=i/8;
    return [-262-wakeL*u,sgn*(78+spread*u)-wakeBow*wakeL*Math.sin(Math.PI*u)] as Pt;});
   const local=(node:React.ReactNode,dx=0,dy=0)=><g transform={`translate(${(cx+dx).toFixed(2)} ${(cy+dy).toFixed(2)}) rotate(${yaw.toFixed(3)}) scale(${sc.toFixed(4)})`}>{node}</g>;
-  const [x0,y0]=S3_PLAN_PATH[0],sd=4+16*lift;
+  const [x0,y0]=S3_PLAN_PATH[0],sd=4+36*lift;
+  // the wake has its own transform at a FIXED .5 scale, so its arms never grow with the car toward the captions
+  const wakeAt=(node:React.ReactNode)=><g transform={`translate(${cx.toFixed(2)} ${cy.toFixed(2)}) rotate(${yaw.toFixed(3)}) scale(.5)`}>{node}</g>;
   pic=<CamG c={planCam} z={1}>
    <Item id="s3-creek"><Item id="s3-crossing"><Item id="s3-rain"><SanAntonioSupport part="creekplan" t={t} rain={S.s3.rain} flow={S.s3.flow}/></Item></Item></Item>
    <Item id="s3-car">
@@ -637,11 +639,13 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
       * falling behind as it is carried off */}
     {lift<1&&<g data-part="bank-flood">{[[-110,-6,92,48],[-30,8,98,52],[50,-8,86,46],[120,6,80,44]].map(([dx,dy,rx,ry],i)=>{const b=Math.sin(t*.9+i*1.7);
      return <ellipse key={i} cx={x0+dx} cy={y0+dy} rx={(rx+6*b).toFixed(1)} ry={(ry+3*b).toFixed(1)} fill={SA.water} opacity={((.35+.2*(i%2))*wet*(1-lift)).toFixed(3)}/>;})}</g>}
-    {/* (b) one soft contact shadow, sliding out from under the car and fading as it lifts */}
-    <defs><filter id="rtx-s3-shadow-soft" x="-30%" y="-40%" width="160%" height="180%"><feGaussianBlur stdDeviation={10}/></filter></defs>
-    {local(<ellipse cx={0} cy={0} rx={270} ry={125} fill="#120C06" filter="url(#rtx-s3-shadow-soft)" opacity={.45-.25*lift}/>,sd,sd)}
+    {/* (b) one dark contact shadow under everything of the car, sliding out up to 40 px as it lifts */}
+    <defs><filter id="rtx-s3-shadow-soft" x="-30%" y="-40%" width="160%" height="180%"><feGaussianBlur stdDeviation={8}/></filter></defs>
+    {local(<ellipse cx={0} cy={0} rx={270} ry={125} fill="#0A0604" filter="url(#rtx-s3-shadow-soft)" opacity={.60-.25*lift}/>,sd,sd)}
+    {/* the pale foam halo the lifted car rides on, filled, no ring */}
+    {lift>0&&local(<ellipse cx={0} cy={0} rx={292} ry={140} fill="#F2EEE4" opacity={.55*lift}/>)}
     {/* (c) the V wake off the stern once it is carried: each arm one continuous streamline, three stacked strokes */}
-    {lift>0&&local(<g data-part="v-wake" opacity={lift}>{[-1,1].map(sgn=>{const d=smoothPath(wakeArm(sgn),false);
+    {lift>0&&wakeAt(<g data-part="v-wake" opacity={lift}>{[-1,1].map(sgn=>{const d=smoothPath(wakeArm(sgn),false);
      return <g key={sgn}>{[[24,.3],[14,.45],[6,.65]].map(([w,o],j)=><path key={j} d={d} stroke="#F2EEE4" strokeWidth={w} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={o}/>)}</g>;})}</g>)}
     {/* (e) the car, its glass roof showing the empty cabin */}
     {top([cx,cy],sc,yaw,{shadow:0,wetTo:lerp(30,90,lift),cabin:1})}

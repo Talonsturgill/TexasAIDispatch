@@ -1186,8 +1186,8 @@ export const Arm: React.FC<{dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?:
  * no tooth, chevron, dash, tick, zigzag or wobbling stroke. */
 export const CREEK_PLAN = {creek: [620, 1140] as P, ledge: [297, 408] as P};
 /** The current's own speed on the plan, plan pixels a second, faster than the carried car's peak (500), so the
- * water visibly passes it. */
-export const CREEK_PLAN_FLOW = 600;
+ * water visibly passes it (peak 540). */
+export const CREEK_PLAN_FLOW = 700;
 export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t, rain}) => {
  const id = useUid('scp'), {creek} = CREEK_PLAN, r = rng(15);
  // each bank meanders on its own: two slow waves and a short one, so the channel narrows and widens
@@ -1218,14 +1218,13 @@ export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t,
   <path d={stone} fill={SA.limestone} stroke={SA.limestoneShade} strokeWidth={3}/>
   {/* the brown channel, deeper at its banks */}
   <path d={water} fill={`url(#${id}w)`}/>
-  {/* the current: single smooth streamlines between the banks, each at its own share of the channel's width,
-    * bending only as the banks meander, running left faster than the carried car, with soft foam riding them */}
-  <g clipPath={`url(#${id}c)`} data-part="current-streamlines">{Array.from({length: 10}, (_, i) => {const u = .2 + .6 * frac(i * .382 + .1), L = 360 + (i % 5) * 40, W = 1900;
-   const x0 = frac(i * .291 - t * CREEK_PLAN_FLOW / W) * W - 560;
-   const pts: P[] = Array.from({length: 11}, (_, j) => {const x = x0 + L * j / 10; return [x, lerp(farEdge(x), nearEdge(x), u)] as P;});
-   return <path key={i} d={smoothPath(pts, false)} stroke="#E3D8C2" strokeWidth={6} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={.45 + .1 * (i % 2)}/>;})}
-   {Array.from({length: 13}, (_, i) => {const u = .12 + .76 * frac(i * .618), W = 1700, x = frac(i * .173 - t * CREEK_PLAN_FLOW / W) * W - 300, y = lerp(farEdge(x), nearEdge(x), u);
-    return <ellipse key={'df' + i} cx={x.toFixed(1)} cy={y.toFixed(1)} rx={8 + (i % 5)} ry={5 + (i % 4)} fill={SA.foam} opacity={.7}/>;})}</g>
+  {/* the current: five long, thick stripes between the banks, each at its own share of the channel's width,
+    * following only the banks' slow meander, running left faster than the carried car so they overtake it */}
+  <g clipPath={`url(#${id}c)`} data-part="current-streamlines">{[.30, .42, .55, .68, .80].map((u, i) => {const L = [900, 700, 820, 640, 760][i], W = 2600;
+   const x0 = frac(i * .37 - t * CREEK_PLAN_FLOW / W) * W - 1000;
+   const pts: P[] = Array.from({length: 13}, (_, j) => {const x = x0 + L * j / 12;
+    return [x, lerp(creek[0] + 40 * Math.sin(x * .0052 + .4), creek[1] + 40 * Math.sin(x * .0052 + 1.7), u)] as P;});
+   return <path key={i} d={smoothPath(pts, false)} stroke="#E3D8C2" strokeWidth={13} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={.5}/>;})}</g>
   {[T, B].map((b, i) => <path key={'e' + i} d={smoothPath(b, false)} stroke={SA.foam} strokeWidth={5} fill="none" opacity={.55 + .15 * Math.sin(t * 5 + i)}/>)}
   {/* the far bank's pale landmark ledge slab, jutting into the channel: hand cut, undercut dark on its water side,
     * and soft foam piling against its upstream (right) end */}
@@ -1239,9 +1238,10 @@ export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t,
    <ellipse cx={x + 22} cy={y + 18} rx={rr} ry={rr * .85} fill="#000000" opacity={.18}/>
    <ellipse cx={x} cy={y} rx={rr} ry={rr * .85} fill={SA.oakDark}/><ellipse cx={x - rr * .2} cy={y - rr * .18} rx={rr * .7} ry={rr * .55} fill={SA.oak}/>
    <ellipse cx={x - rr * .4} cy={y - rr * .35} rx={rr * .3} ry={rr * .2} fill={SA.oakLit}/></g>)}
-  {/* rain rings, kept light so they never out-read the current */}
-  {rain > 0 && <g clipPath={`url(#${id}c)`} data-part="rain-rings">{Array.from({length: 14}, (_, i) => {const ph = frac(i * .61 + t * 1.3), x = ((i * 173) % 1040) + 20, y = lerp(creek[0] + 40, creek[1] - 40, (i * .43) % 1);
-   return <circle key={i} cx={x} cy={y} r={8 + 24 * ph} fill="none" stroke="#EEE7D8" strokeWidth={2.5 - ph} opacity={rain * .45 * (1 - ph)}/>;})}</g>}
+  {/* heavy rain rings: a few large faint rings away from the car's path, each fading in already wide, so none
+    * ever shows as a dot and they never out-read the current */}
+  {rain > 0 && <g clipPath={`url(#${id}c)`} data-part="rain-rings">{[[180, 700], [330, 1060], [900, 700], [1000, 1000], [90, 900], [620, 690]].map(([x, y], i) => {const ph = frac(i * .17 + t * 1.3);
+   return <circle key={i} cx={x} cy={y} r={(30 + 50 * ph).toFixed(1)} fill="none" stroke="#EEE7D8" strokeWidth={2} opacity={(rain * .28 * Math.sin(Math.PI * ph)).toFixed(3)}/>;})}</g>}
  </g>;
 };
 /** The plan's water front: water spreads from the left along the street, its leading edge a lobed
