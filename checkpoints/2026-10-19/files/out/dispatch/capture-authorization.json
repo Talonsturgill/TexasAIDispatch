@@ -2,15 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "fa0cd8e552d469b7404384e0e735bd9dfda5ebf03ee72693b4cb042fc7036013",
+    "event_sha256": "8ec0fc3397f60bddf9852af951fbc7c9bb111d0c3fbf16f0f84d1cb17bd05eda",
     "resource": "preflight_renders",
-    "at": "2026-10-20T04:33:34.796565Z",
-    "note": "exact-phone-b motion-image review extraction"
+    "at": "2026-10-20T05:47:55.561989Z",
+    "note": "two opening comparison batch"
   },
   "boards": [
     {
-      "path": "out/dispatch/openings/b.json",
-      "sha256": "b17e722c377c20524f8d33af4079b0da77766179fe6cc24383543897b8ee4925"
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "b219e9fccf4160df7f1a47b78d1c31e00beb2ec5481d0a57580ac641382f5584"
     }
   ],
   "bound": {
@@ -149,7 +153,7 @@
       "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx": "9ef763d4110c040f6a5091a529e12e5a527beb4e39868e4a613b1016c57faaa1",
       "video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx": "144fd2107b5e4003311569d4ff2212a52d6bfae550e1577252dc7476b8c6ebc3",
       "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
-      "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx": "3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00",
+      "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
       "video-engine/src/modern/registry.tsx": "07cb406c8ea8ead0e2be903b3db2d88a441e4adaa79bf678f7d1dd0427d2b474",
       "video-engine/src/modern/texasCounties.json": "e39f5cabababc5bf91e7ae0b5c70d3060875fc309f36ce9d34da6ae4c506bad8",
@@ -158,36 +162,36 @@
     },
     "authored_art": {
       "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
-      "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx": "3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00"
+      "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985"
     }
   },
   "commands": [
     {
-      "id": "650b5f859f6694f86c08e8542965d850baf99165b16be2a2040534d997b85c4c",
-      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option b --board out/dispatch/openings/b.json --film out/dispatch/openings/b.mp4 --state out/dispatch/run_state.json --out out/dispatch/openings/motion-b",
-      "consumed": "2026-10-20T04:33:43.048479+00:00"
+      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
+      "consumed": "2026-10-20T05:48:06.803710+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.047
+    "free_gib": 20.557
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261020T043325.json",
-    "receipt_sha256": "c6eb77b912aff32fd836a673c2907ebceafa8174cc4d565fab7b7a6e68f5e5f5",
+    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261020T054748.json",
+    "receipt_sha256": "4d36cd6f88606680c7d1ae5e16ae20a4551e04adb70fadce57ec582c4991a289",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-20T04:33:39.851718+00:00",
-  "expires_at": "2026-10-20T05:18:39.851718+00:00",
+  "issued_at": "2026-10-20T05:48:00.869372+00:00",
+  "expires_at": "2026-10-20T06:33:00.869372+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "exact-phone-b motion-image review extraction",
+    "operation": "two opening comparison batch",
     "resource": "preflight_renders",
     "run_id": "2026-10-19",
-    "event_sha256": "fa0cd8e552d469b7404384e0e735bd9dfda5ebf03ee72693b4cb042fc7036013",
-    "input_identity": "3bd71bdbe8e3e5fc8d9ad7e604c957896cc2f74ebca0dcd3dc76e294644e7bdc"
+    "event_sha256": "8ec0fc3397f60bddf9852af951fbc7c9bb111d0c3fbf16f0f84d1cb17bd05eda",
+    "input_identity": "e85c6ce0f9a87b39e0ec6f87524934a16a37d6ec3a065d53e1f5447c277cb788"
   }
 }
