@@ -2,6 +2,7 @@
 """Obtain an independent Gemini picture-and-sound review of exact MP4 bytes."""
 import argparse
 import base64
+import fcntl
 import hashlib
 import json
 import os
@@ -230,6 +231,17 @@ def source_context(film):
 
 
 def review(film, role, state, out):
+    # Three lens CLIs share both reservations and later telemetry writes. Hold the
+    # same process lock throughout, including exact-byte cache lookup, so parallel
+    # launches cannot overwrite one another's ledger or buy a duplicate review.
+    ledger = Path(state).resolve()
+    ledger.parent.mkdir(parents=True, exist_ok=True)
+    with ledger.with_name("." + ledger.name + ".av-review.lock").open("a+b") as lock:
+        fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
+        return _review_serial(film, role, state, out)
+
+
+def _review_serial(film, role, state, out):
     cache, reused = cached_review(film, role, state, out)
     if reused:
         return

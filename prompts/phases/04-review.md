@@ -51,6 +51,10 @@ preship establishes current integrity. Production has no blanket bypass. The fin
 knowledge/craft/BOUNDED_CREATIVE_RELEASE.md may separately defer classified artistic failures.
 Then obtain all three exact-byte audiovisual lenses
 on the same final MP4, even when an earlier lens rejects. Collect defects together.
+Run these three commands sequentially in the foreground. Each lens writes the shared ledger;
+the CLI also serializes concurrent lens launches before cache lookup, charging and telemetry.
+If an older runtime already raced, retain every divergent ledger and append honest late debits
+for actual local-only reservations. Never discard a charge by restoring the durable prefix.
 
 ```sh
 python scripts/audiovisual_review.py --role picture --film out/dispatch/film.mp4 --out out/dispatch/cinema/picture-review.json

@@ -1,5 +1,6 @@
 """No provider calls. Exercise reuse and rejection at the actual review entry point."""
 import json
+import multiprocessing
 import tempfile
 import unittest
 from pathlib import Path
@@ -7,6 +8,68 @@ from unittest.mock import patch
 import audiovisual_review as av
 
 class ReviewReuse(unittest.TestCase):
+    def test_concurrent_lenses_keep_every_reservation_and_receipt(self):
+        from unittest.mock import Mock
+        ctx = multiprocessing.get_context("fork")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            film = root / "film.mp4"; film.write_bytes(b"exact unchanged film")
+            state = root / "run_state.json"; state.write_text('{"roles": []}')
+            first_read, release, other_read = ctx.Event(), ctx.Event(), ctx.Event()
+            started = [ctx.Event(), ctx.Event()]
+
+            def reserve_fixture(path, resources, note):
+                ledger = json.loads(path.read_text())
+                role = note.rsplit(" ", 1)[-1]
+                if role == "picture":
+                    first_read.set()
+                    if not release.wait(10):
+                        raise AssertionError("first reservation was never released")
+                else:
+                    other_read.set()
+                ledger["roles"].append(role)
+                path.write_text(json.dumps(ledger))
+                return True, "reserved"
+
+            def worker(role, signal=None):
+                if signal is not None:
+                    signal.set()
+                response = Mock(status_code=200)
+                with patch.dict(av.os.environ, {"GEMINI_API_KEY": "fixture-only"}), \
+                     patch.object(av, "cached_review", return_value=(root / ("cache-" + role), False)), \
+                     patch.object(av, "reserve", side_effect=reserve_fixture), \
+                     patch.object(av, "record_telemetry"), \
+                     patch.object(av, "source_context", return_value="fixture source context"), \
+                     patch.object(av, "media_part", return_value=({}, None, av.digest(film))), \
+                     patch.object(av, "remove_upload"), \
+                     patch.object(av.requests, "post", return_value=response), \
+                     patch.object(av, "streamed_response", return_value={"usageMetadata": {"totalTokenCount": 7}}), \
+                     patch.object(av, "av_problems", return_value=[]):
+                    av.review(film, role, state, root / (role + ".json"))
+
+            jobs = [ctx.Process(target=worker, args=("picture",))]
+            jobs[0].start()
+            try:
+                self.assertTrue(first_read.wait(10))
+                for role, signal in zip(("story", "sound"), started):
+                    job = ctx.Process(target=worker, args=(role, signal))
+                    jobs.append(job); job.start()
+                for signal in started:
+                    self.assertTrue(signal.wait(10))
+                self.assertFalse(other_read.wait(.3), "a second lens reached the stale ledger")
+            finally:
+                release.set()
+                for job in jobs:
+                    job.join(10)
+                    if job.is_alive():
+                        job.terminate(); job.join()
+            self.assertEqual([job.exitcode for job in jobs], [0, 0, 0])
+            self.assertCountEqual(json.loads(state.read_text())["roles"], ["picture", "story", "sound"])
+            for role in ("picture", "story", "sound"):
+                receipt = json.loads((root / (role + ".json")).read_text())
+                self.assertEqual(receipt["film_sha256"], av.digest(film))
+                self.assertEqual(receipt["role"], role)
+
     def test_current_source_context_is_bound_and_does_not_supply_prior_verdicts(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp); (root / "cinema").mkdir()
