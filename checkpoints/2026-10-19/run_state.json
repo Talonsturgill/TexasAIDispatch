@@ -23,7 +23,7 @@
     "rescue_renders": 2,
     "research_agents": 4,
     "scorer_calls": 27,
-    "storyboard_critics": 23,
+    "storyboard_critics": 24,
     "tts_calls": 12,
     "validator_agents": 4,
     "voice_directors": 2
@@ -3839,6 +3839,110 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-20T05:03:26.574976Z",
+      "failure_evidence_json": "{\n \"treatment\": \"a\",\n \"verdict\": \"pass\",\n \"review_scope\": \"code-plan\",\n \"board_bindings\": {\"storyboard\": {\"path\": \"out/dispatch/storyboard.json\", \"sha256\": \"8b972cf58ada1883fda89a27a7998dcc38e0697d63c5e84241a4547485eb8649\"}, \"opening\": {\"path\": \"out/dispatch/opening-a.json\", \"sha256\": \"1d6019cb642888adfdf62840d0d5050630fb34aaca8a91c744e285d9fad6d466\"}},\n \"board_sha256\": \"8b972cf58ada1883fda89a27a7998dcc38e0697d63c5e84241a4547485eb8649\",\n \"concept_sha256\": \"669bf4214f49ba46137fa2a16a2c807535ea2eb24f4fd6e0fb0f88811027712a\",\n \"renderer_sha256\": \"d7612341aa0f6d4f22cc2d3402e1fdc4596861b20332a414f27cabdbf3c19e47\",\n \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 12\",\n \"reviewed_at\": \"2026-10-20 (exact clock time unavailable to this Read-only reviewer)\",\n \"strongest_frame\": \"s6 wheels-water, 31.6 to 35.5 s: the car's speed eases from 850 to 150 units/s along s6-event-2's contact curve and never reaches zero. The front wheel meets the standing water, wakes start at each wheel, and 'may' lights on the source sentence. The whole recall mechanism is one performed move.\",\n \"weakest_frame\": \"46.9 to 48.4 s: the s8 close finishes the calendar flip at 46.92, then only the camera rise moves until the cut at 47.66. s9 curb-return then holds a waiting car until the door starts at 48.38. About 1.5 s with little subject change, inside the policy limits.\",\n \"blocking_defects\": [],\n \"notes\": [\n  \"Code-scope pass only. Legibility at phone size, the believability of the two hands in s7 (both arms entering from the right, same skin and sleeve, read as one seated person) and the s3 sweep speed need the timed phone review.\",\n  \"Possible false inference, not prevented on screen: a viewer may take the interim weather limits as current, or as coming after the recall. The record leaves them undefined and their status unknown, and the update deadline is the creek account's date, April 20th. Narration and the April 20 page are literal, and the close holds 'remedy under development'. A short tag line would be an optional fix.\",\n  \"The s8 events are listed out of chronological order (the check marks at 43.90 come before the calendar at 46.02). This is not a defect.\"\n ],\n \"story_review\": {\n  \"story_sha256\": \"f5347bfa95370bc392cfbcfc3e02a071a5e161e3bc7478adb31b2e9f396f3f7b\",\n  \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n  \"claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\",\n  \"verdict\": \"pass\",\n  \"blocking_defects\": [],\n  \"one_viewing_summary\": \"Intended chain, from code and not observed. A generic white driverless car brakes into an airport bay while its empty steering wheel turns, and the phone says arriving. A map outlines the limited February area of sixty square miles. A different empty car is carried down Salado Creek, and another stops in street floodwater with hazards blinking. A recall card fills toward about 3,800 cars and is stamped Software recall. The recall sentence plays out as a car slows and rolls into standing water. The remedy row is stamped Under development while a pen rests on it. Four cars take interim checks under a weather limits tag and an April 20 page. The curb returns with the door open beside the underlined remedy card.\",\n  \"opening_to_ending\": \"The opening question (the ride is open, so what does the record say about the flood problem) is answered by the closing split: an open curb door beside 'The remedy is currently under development', underlined. No outcome is invented.\",\n  \"weakest_transition\": \"s7 to s8. The causal bridge 'unfinished remedy leads to the interim step' reads as a sequence, though the update was complete by April 20th, before the recall was reported. The weather limits' content and current status stay unshown.\"\n },\n \"action_reviews\": [\n  {\"action_id\": \"wheel-turns-itself\", \"module_sha256\": \"b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563\", \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\", \"verdict\": \"pass\", \"blocking_defects\": [], \"code_observations\": {\"source_fidelity\": \"c1, a fully autonomous ride: empty driver and passenger seats and headrests in the cab.\", \"visible_action\": \"steer = 85*(p12-p13) on the contact curve; the curb and the plane-pictogram bay sign slide past the windshield.\", \"consequence\": \"The phone turns to Arriving / At the curb on s1-event-3.\", \"disclosure\": \"Production disclosure chip; no brand marks.\", \"limits\": \"Not a Waymo vehicle or a real app.\"}},\n  {\"action_id\": \"car-swept-into-creek\", \"module_sha256\": \"b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563\", \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\", \"verdict\": \"pass\", \"blocking_defects\": [], \"code_observations\": {\"source_fidelity\": \"c3 and c4: heavy rain, an unoccupied car (cabin see-through), a single brown sheet.\", \"visible_action\": \"Drift integrates from 12.64 s; the camera follows at 0.62, so the car moves left on screen while the bank slides right; the current lifts and rolls it after s3-event-3.\", \"consequence\": \"Carried downstream, tail first, never stopping.\", \"disclosure\": \"'Illustration. A different car, April 20th account'.\", \"limits\": \"No damage and no entry path drawn.\"}},\n  {\"action_id\": \"car-slows-into-water\", \"module_sha256\": \"b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563\", \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\", \"verdict\": \"pass\", \"blocking_defects\": [], \"code_observations\": {\"source_fidelity\": \"c7 wording: slows, then drives into standing water; 'may' highlighted; no crash.\", \"visible_action\": \"Speed eases 850 to 150 along the contact curve; brake lamps; frontIn and rearIn wakes.\", \"consequence\": \"Wheels enter the sheet with spray.\", \"disclosure\": \"'Illustration. The recall wording, not a recorded event'.\", \"limits\": \"No speed, depth or real road.\"}},\n  {\"action_id\": \"service-area-opens\", \"module_sha256\": \"3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00\", \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\", \"verdict\": \"pass\", \"blocking_defects\": [], \"code_observations\": {\"source_fidelity\": \"c2: February, limited area, 60 square miles.\", \"visible_action\": \"The map draws in; one outline traces; the calendar slides in below the zone.\", \"consequence\": \"The outline closes with fill; the tag appears from 9.28 s.\", \"disclosure\": \"The credits say the outline is editorial.\", \"limits\": \"Not the operator's map.\"}},\n  {\"action_id\": \"recall-filed-count\", \"module_sha256\": \"3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00\", \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\", \"verdict\": \"pass\", \"blocking_defects\": [], \"code_observations\": {\"source_fidelity\": \"c6 3,791 and c13 nearly 3,800 are both printed; only the type and units rows appear.\", \"visible_action\": \"The card slides in, rows write in, and a 50-icon grid fills.\", \"consequence\": \"The counter settles; the stamp comes in along its forearm and lands in the header slot, off the data rows; the counter tag jolts.\", \"disclosure\": \"Illustration chip.\", \"limits\": \"Icons stand for the count; they are not a literal count.\"}},\n  {\"action_id\": \"remedy-under-development\", \"module_sha256\": \"3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00\", \"source_claims_sha256\": \"4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab\", \"verdict\": \"pass\", \"blocking_defects\": [], \"code_observations\": {\"source_fidelity\": \"c8 verbatim; no interim rows on the card.\", \"visible_action\": \"The remedy row writes in on n7's first word; the pen rests through the clause; the stamp presses into the slot under the words.\", \"consequence\": \"The mark stays and carries to the s9 remedy card, which is underlined.\", \"disclosure\": \"Illustration chip.\", \"limits\": \"Not a real record page.\"}}\n ],\n \"phone_observations\": null,\n \"modern_observations\": null,\n \"pixel_basis\": \"None. Code approval includes no pixel observations.\"\n}",
+      "failure_evidence_sha256": "41a7f81d8f2c51bcea35758cfb7ecc0f30a0a1333394a93f906888fe1ca6c9da",
+      "grants_no_review_approval": true,
+      "kind": "mandatory_completion_grant",
+      "new_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 26,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 24,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "new_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 26,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 24,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "original_envelope_sha256": "984ba66d20973a693089cfa65645f6d419845748462dd51d814142660492fb38",
+      "plan_json": "{\n \"repair_scope\": \"standard\",\n \"completion_reason\": \"finish-current\",\n \"mechanism_id\": \"finish-current-capacity-r14\",\n \"failure_family\": \"unclassified\",\n \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n \"root_cause\": \"Retained independent code-plan PASS round 12 for treatment A on the current corrected renderer and boards. The funded critic path is exhausted at 23 of 23 while the timed final phone review, a code rereview and a silent comparison renewal for the independently found highlight defect remain required.\",\n \"repair\": \"None. Finish the current film.\",\n \"mechanism_change\": \"None\",\n \"expected_visible_result\": \"Finish the retained cut.\",\n \"failure_evidence\": \"{REPO}/out/dispatch/evidence/code-round12/report-a.json\",\n \"failure_evidence_sha256\": \"41a7f81d8f2c51bcea35758cfb7ecc0f30a0a1333394a93f906888fe1ca6c9da\",\n \"changed_inputs\": [],\n \"resources\": {}\n}",
+      "plan_sha256": "3a73a109b04ba64edff0dec7b155707414897d8cb4de0ecc4a169f1b20dee28e",
+      "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+      "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
+      "precheck_json": "{\"current_phone_reused\":false,\"deficits\":{\"storyboard_critics\":1},\"errors\":[],\"feasible\":false,\"path\":\"finish-current\",\"resources\":{\"audiovisual_reviews\":{\"ceiling\":43,\"remaining\":37,\"required\":8,\"used\":6},\"full_renders\":{\"ceiling\":14,\"remaining\":13,\"required\":1,\"used\":1},\"image_generations\":{\"ceiling\":6,\"remaining\":6,\"required\":0,\"used\":0},\"panel_rounds\":{\"ceiling\":9,\"remaining\":8,\"required\":1,\"used\":1},\"preflight_renders\":{\"ceiling\":26,\"remaining\":4,\"required\":2,\"used\":22},\"reboards\":{\"ceiling\":10,\"remaining\":1,\"required\":0,\"used\":9},\"scorer_calls\":{\"ceiling\":27,\"remaining\":24,\"required\":3,\"used\":3},\"storyboard_critics\":{\"ceiling\":23,\"remaining\":0,\"required\":1,\"used\":23},\"tts_calls\":{\"ceiling\":12,\"remaining\":6,\"required\":2,\"used\":6},\"voice_directors\":{\"ceiling\":2,\"remaining\":1,\"required\":0,\"used\":1}},\"review_route\":\"host\",\"scope\":\"Conservative complete path including independent provider recovery, three separate scorers and one take/soundcheck pair. No allowance, voice reuse or shipment approval\"}",
+      "precheck_sha256": "4918aa90bf4042ed3585eb3b16d94e02ee9f8b0efc17754470aa3d96be130d30",
+      "previous_ceiling": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 26,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 23,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "previous_envelope": {
+        "audiovisual_reviews": 43,
+        "cleanup_renders": 3,
+        "full_renders": 14,
+        "image_generations": 6,
+        "panel_rounds": 9,
+        "preflight_renders": 26,
+        "reboards": 10,
+        "reported_tokens": 900000,
+        "rescue_renders": 2,
+        "research_agents": 4,
+        "scorer_calls": 27,
+        "storyboard_critics": 23,
+        "tts_calls": 12,
+        "validator_agents": 4,
+        "voice_directors": 2
+      },
+      "reason": "finish-current",
+      "resource_increments": {
+        "storyboard_critics": 1
+      },
+      "run_id": "2026-10-19",
+      "usage_unchanged": {
+        "audiovisual_reviews": 6,
+        "cleanup_renders": 0,
+        "full_renders": 1,
+        "image_generations": 0,
+        "panel_rounds": 1,
+        "preflight_renders": 22,
+        "reboards": 9,
+        "reported_tokens": 523483,
+        "rescue_renders": 0,
+        "research_agents": 3,
+        "scorer_calls": 3,
+        "storyboard_critics": 23,
+        "tts_calls": 6,
+        "validator_agents": 4,
+        "voice_directors": 1
+      }
     }
   ],
   "limits": {
@@ -3862,7 +3966,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "98736cf3e3f5fde6e02ca10abff646410329975f77d39dd3353f220799703c42",
+    "original_private_state_sha256": "cf4ae48f0123f957eb19f969340a92c0df18b6839795ea429e65176d8e54ea67",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3890,7 +3994,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T04:34:31.993766Z",
+  "updated_at": "2026-10-20T05:03:26.575019Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,

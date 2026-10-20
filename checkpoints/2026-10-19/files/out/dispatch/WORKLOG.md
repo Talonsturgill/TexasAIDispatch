@@ -152,3 +152,4 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 
 2026-10-20T04:50Z comparison renewed on code-r12/13 boards (retry-preflight after my provisional-board error; reservation 19 charged+retry). a.mp4 8af72888 b.mp4 ab24d7ae, inspections pass. NOTE storyboard.json currently = authored provisional (copy of opening-a.json). Measured board saved in evidence/measured-pre-compare; must re-run captions+retime+runtime 56 after selection. Next: motion a, motion b, phone packet, silent phone critic.
 2026-10-20T05:00Z disk headroom: removed host image dev tools poetry/pyright from /root/.local/share/uv/tools (unrelated to production) plus caches; production data untouched.
+2026-10-20T05:20Z motion a/b extracted, phone packet round14 d02268a3, critic 23/23 reserved, visual critic spawning. Timed phone will need +1 critic (ceiling).
