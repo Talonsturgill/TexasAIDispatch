@@ -48,6 +48,8 @@ def contracts(role):
              'config/dispatch_rubric.yaml', '.claude/agents/' + row['agent'] + '.md']
     if role == 'scene-builder':
         files.append('prompts/roles/scene-builder.md')
+    if role in ('scene-builder', 'storyboard-critic'):
+        files.append('knowledge/craft/COMPLETION_PROGRESS.md')
     return [bound(REPO / path) for path in files]
 
 
@@ -591,8 +593,8 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
             'format correction to an already completed handback needs no new content reservation; '
             'include every actual turn in API usage. An already unreserved restart requires an honest '
             'late controller charge and disclosure before shipment, never backdating or replay.')
-    if data['date'] >= '2026-10-20' and role not in ('picture', 'story', 'sound'):
-        result['agent_args']['run_in_background'] = False
+    if data['date'] >= '2026-10-20':
+        result['agent_args']['run_in_background'] = True
     from visual_observations import CONTRACT, check_installation
     if data.get('public_visual_evidence') == CONTRACT:
         if os.environ.get('CLAUDE_CODE_REMOTE') == 'true':

@@ -397,6 +397,10 @@ def failure_family_problems(plan):
 
 
 def plan_problems(state, plan):
+    from completion_progress import admission_problems
+    progress_errors = admission_problems(state, plan)
+    if progress_errors:
+        return progress_errors
     if not enabled(state):
         return []
     mechanism = str(plan.get("mechanism_id", "")).strip()

@@ -2,6 +2,12 @@
 
 Owner instruction from October 3rd, 2026. Read knowledge/craft/AUTONOMOUS_COMPLETION.md before applying older resource-boundary language below. Internal review ceilings and host capacity errors trigger autonomous mandatory completion recovery, never an approval stop or an unfinished-capacity final response. Preserve exact failures, the original frozen envelope and cumulative charges. Only accepted finish --result shipped completes production.
 
+For new editions from October 20th also load knowledge/craft/COMPLETION_PROGRESS.md. After the
+creative boundary, capacity cannot renew the same failed staging under a new mechanism name.
+Bind the original independent whole-scene replacement decision before a grant or repair;
+retire that complete implementation from the real renderer closure. Continue through all
+current quality and delivery gates. This never turns a failed modern-film floor into a pass.
+
 For a current modern-film edition, read knowledge/craft/MODERN_FILM.md,
 knowledge/craft/STORY_ART.md and config/modern_film.json before applying generic artistic
 deferral. The current nondeferrable_categories override that older route. Motion, pacing,

@@ -119,13 +119,14 @@ Also run `python scripts/checkpoint_discovery.py`. This read-only catalog holds 
 commit in its own temporary ref, so another Git fetch cannot change the selected snapshot.
 Select the OLDEST unfinished edition by its run identity and creation time
 (`checkpoint_discovery.py --oldest-unfinished`, never the first row of the newest-save-first list)
-and resume its existing ledger. From the October 21 startup, BEFORE restoring or initializing it,
+and resume its existing ledger. From the October 20 source rollout, BEFORE restoring or initializing it,
 run `python scripts/publication_owner.py acquire --repo <current-clean-checkout> --run-id <selected-id> --workspace /home/user --wait-seconds 55`.
 The helper binds the actual native session identity to one append-only global publisher record.
-`busy` means wait on that same condition without restoring, arming, reserving or dispatching.
-Do not start another publisher or interrupt its paid work. The preinstalled Stop hook keeps this
-observer open without an owner question. After the owner completes, rerun the catalog and select
-the oldest unfinished edition or today's normal identity. `resume_required` names the unfinished
+`busy` after this one bounded wait means end this duplicate observer without restoring, arming,
+reserving, dispatching, monitoring or claiming shipment. Preserve the active publisher and all
+paid work. The preinstalled Stop helper permits this unowned observer to end; it does not finish
+or release the other owner. The active owner completes the oldest unfinished edition, then any
+due current-day edition sequentially. `resume_required` names the unfinished
 edition that must retain its ledger. An expired ownership record is never provider-outage evidence.
 `complete` requires selecting again, not another copy of the shipped edition.
 Use the current main ownership and worker-claim helpers in a supported source adoption if a restored
@@ -264,7 +265,7 @@ frontmatter. Fail on a mismatch; never set a global effort override.
 The director is `claude-sonnet-5-5` at medium effort. Read the exact role map from
 `config/claude_runtime.json`; do not use Codex `spawn_args` in Claude's Agent tool. Use the existing
 role roster, adding only the named `scene-builder` leaf definition for the existing builder task.
-From the October 21 startup, plan once to inspect the assignment, reserve a fresh owned call,
+From the October 20 source rollout, plan once to inspect the assignment, reserve a fresh owned call,
 then rerun the exact plan to obtain dispatch arguments and its durable single-use reservation claim.
 `dispatch_ready: false` supplies no executable arguments: charge a new attempt and rerun it.
 A restored reservation cannot fund another worker. Each final scorer claims its own role in the
@@ -293,17 +294,25 @@ remain distinct identities and an atomic charged panel on the same finished film
 cannot count self-review as independence. Provider recovery is used only after actual observed
 host unavailability, under the existing recovery policy.
 
-For editions from October 20, use each generated serial worker's exact Agent arguments, including
-`run_in_background: false`. Let the required worker return in the foreground. The three final
-scorers may run concurrently after their atomic panel reservation. Starting a background serial
-worker merely to wait for it creates unnecessary primary turns and context reads.
+For new editions from October 20 use the generated background arguments and
+knowledge/craft/COMPLETION_PROGRESS.md. A native running subagent plus its exact durable owned
+reservation claim allows the Stop helper to yield to its automatic completion notification,
+with production still unfinished. Do not purchase primary polling turns while that verified
+native wake owns the next step. Collect the original handback when it arrives and continue.
+No synthetic wake, UI badge, shell sleep or observer monitor supplies this authority. The
+legacy bounded wait below remains only when no verified native completion wake is present.
+The three final scorers may run concurrently after their unchanged atomic panel reservation.
+
+At the finite creative boundary the same contract requires a complete source-backed scene
+replacement before further mandatory structural capacity. A new report or mechanism name
+cannot renew failed staging. Keep original code, films, reports, allocation and actual usage.
 
 Future code packets supply `code_report_bindings` for both treatments, including each actual
 story hash. These are mechanical identities, never findings or approval. Retain the critic's
 complete original JSON unchanged. A formatting failure returns to that same reviewer with the
 actual errors and bindings; never reconstruct a current pass from earlier reports or prose.
 
-While a background worker owns required work, use a blocking output wait for that exact task
+When no verified native completion wake is present, use a blocking output wait for that exact task
 and collect its full handback. If TaskOutput is available, load its current schema and use
 blocking mode with a timeout of up to sixty seconds. Reissue that same bounded wait if it times
 out while the task is running. Do not poll transcript sizes, create another progress monitor or

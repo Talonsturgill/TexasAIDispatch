@@ -18,6 +18,10 @@ MOMENT = datetime(2026, 10, 21, 5, 0, tzinfo=timezone.utc)
 
 
 class PublicationOwnership(Base):
+    def test_every_native_role_uses_its_actual_configured_controller_resource(self):
+        for role, route in runtime.read(runtime.POLICY)['roles'].items():
+            self.assertEqual(route['resource'], owner.RESOURCES.get(role), role)
+
     def take(self, repo=None, workspace=None, session='first', moment=MOMENT):
         return owner.acquire(repo or self.repo, RUN, workspace or self.root / 'primary',
                              session=session, moment=moment)
@@ -72,7 +76,11 @@ class PublicationOwnership(Base):
         result = self.take(workspace=self.root / 'primary', session='observer')
         self.assertEqual('busy', result['status'])
         reason = continuation.decision({'hook_event_name': 'Stop', 'session_id': 'observer'}, self.root / 'primary')
-        self.assertIn('Do not restore', reason)
+        self.assertIsNone(reason)
+        pause = unittest.mock.Mock()
+        self.assertIsNone(continuation.response({'hook_event_name': 'Stop', 'session_id': 'observer',
+                                                'stop_hook_active': True}, self.root / 'primary', pause=pause))
+        pause.assert_not_called()
         self.assertEqual(before, (marker.read_bytes(), self.state.read_bytes()))
         with patch.dict('os.environ', {'CLAUDE_CODE_SESSION_ID': 'observer'}), \
                 self.assertRaisesRegex(ValueError, 'does not own publication'):
@@ -175,6 +183,13 @@ class PublicationOwnership(Base):
             self.assertTrue(admitted['dispatch_ready'])
             self.assertEqual(('claude-opus-5-5', 'high'),
                 tuple(admitted['assignment'][key] for key in ('model', 'effort')))
+            import native_task_wait
+            with patch.object(native_task_wait, 'EFFECTIVE_DATE', RUN[:10]):
+                tasks = native_task_wait.eligible({'background_tasks': [{
+                    'id': 'native-task', 'type': 'subagent', 'status': 'running',
+                    'agent_type': admitted['agent_args']['subagent_type'],
+                    'description': admitted['agent_args']['description']}]}, state_path, owner.load(state_path))
+            self.assertEqual(['native-task'], [task['task_id'] for task in tasks])
             refused = runtime.plan(role, packet, 'different_name', 'Correct the bound current scene.')
             self.assertFalse(refused['dispatch_ready'])
             self.assertNotIn('agent_args', refused)

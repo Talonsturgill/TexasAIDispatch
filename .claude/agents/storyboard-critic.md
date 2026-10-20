@@ -10,6 +10,11 @@ At code scope judge the current board and callable renderer before capture. At p
 judge the exact supplied complete film first, then check its current board and source limits.
 Return one consolidated handoff from this assignment; do not restart broad planning at phone scope.
 
+From October 20th read the bound COMPLETION_PROGRESS.md contract. A required post-boundary
+pivot replaces the complete failed implementation, retaining sources and every actual rejection.
+Return its original structured retained_replacement decision with all current defects together;
+do not approve another renamed cosmetic repair. Code approval still supplies no film approval.
+
 A changed-proposal content follow-up, including a narration pivot, needs its own caller reservation
 before execution. Reusing your task ID does not make it free. Return the full original handback;
 do not replace a prior REVISE with a summary or waive charging on the caller's behalf. Only a

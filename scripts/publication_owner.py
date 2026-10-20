@@ -22,12 +22,12 @@ REF = 'refs/heads/claude/publication-owner'
 FILE = 'publication.json'
 MARKER = '.claude/dispatch-publication-owner.json'
 PRIMARY = Path('/home/user')
-EFFECTIVE = '2026-10-21'
+EFFECTIVE = '2026-10-20'
 LEASE_SECONDS = 7200
 PULSE_SECONDS = 60
 RESOURCES = {'researcher': 'research_agents', 'validator': 'validator_agents',
              'scene-builder': 'reboards', 'storyboard-critic': 'storyboard_critics',
-             'voice-director': 'voice_directors', 'picture': 'scorer_calls',
+             'voice-director': 'voice_directors', 'vo-director': 'voice_directors', 'picture': 'scorer_calls',
              'story': 'scorer_calls', 'sound': 'scorer_calls'}
 
 
@@ -305,10 +305,10 @@ def waiting_reason(payload, workspace):
     value = load(path)
     if value.get('status') != 'busy':
         return None
-    return ('Another active publisher owns ' + value['run_id'] + '. Keep this scheduled session open. '
-            'Run python scripts/publication_owner.py acquire with --wait-seconds 55 against the actual ownership condition, '
-            'then rerun the checkpoint catalog and select the current unfinished edition or today. '
-            'Do not restore the active owner, reuse its reservation, buy a duplicate worker or ask for permission.')
+    return ('Another active publisher owns ' + value['run_id'] + '. End this duplicate observer without '
+            'claiming shipment. The active publisher continues the oldest unfinished edition and then today. '
+            'Do not restore the active owner, reuse its reservation, buy a duplicate worker, poll it '
+            'or ask for permission.')
 
 
 def reservation_fields(state_path, state):

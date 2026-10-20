@@ -314,6 +314,9 @@ def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None
                              "plan": str(plan_path.resolve()), "plan_sha256": digest(plan_path),
                              "reboards_before": state["usage"]["reboards"] - (1 if prepaid is not None else 0),
                              "repair_scope": scope}
+    from completion_progress import replacement_required, enabled as progress_enabled
+    if progress_enabled(state):
+        state['active_repair']['progress_replacement_required'] = replacement_required(state)
     if prepaid is not None:
         state['active_repair']['prepaid_reboard'] = prepaid
     if plan.get("existing_critic_reservations"):
@@ -331,6 +334,11 @@ def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None
           authorization="diagnosed repair within recorded run envelope" if state.get("repair_policy") else "legacy autonomous repair instruction 2026-09-26",
           mechanism_id=plan.get("mechanism_id"), failure_family=plan.get("failure_family", "unclassified"),
           director_identity=plan.get("director_identity"))
+    from completion_progress import FIELD, enabled as progress_enabled
+    if progress_enabled(state):
+        state['events'][-1]['progress_replacement_required'] = state['active_repair']['progress_replacement_required']
+        if FIELD in plan:
+            state['events'][-1][FIELD] = plan[FIELD]
     if prepaid is not None:
         state['events'][-1]['prepaid_reboard'] = prepaid
     if plan.get("existing_critic_reservations"):
@@ -383,6 +391,11 @@ def authorize_repair(path, plan_path):
             return False, '; '.join(errors)
     if plan.get("repair_scope", "standard") != scope:
         return False, "repair_scope changed after begin-repair"
+    from completion_progress import authorization_problems, enabled as progress_enabled
+    if progress_enabled(state):
+        progress_errors = authorization_problems(state, plan, load_json(path.parent / 'storyboard.json'))
+        if progress_errors:
+            return False, '; '.join(progress_errors)
     frozen_proof = {}
     if scope == CONTEXT_SCOPE:
         import review_context

@@ -231,7 +231,7 @@ class RuntimeTests(unittest.TestCase):
                               subject='MD Anderson SPACER T cells cut a mucin barrier')
         self.assertEqual(result['assignment']['model'], 'claude-haiku-5-5')
         self.assertEqual(result['assignment']['effort'], 'high')
-        self.assertIs(result['agent_args']['run_in_background'], False)
+        self.assertIs(result['agent_args']['run_in_background'], True)
         self.assertLessEqual(len(result['agent_args']['prompt']), 1800)
         self.assertIn('mucin barrier', result['agent_args']['prompt'])
         report = result['story_subject_screen']
@@ -255,7 +255,7 @@ class RuntimeTests(unittest.TestCase):
                 with patch('agent_runtime.required_inputs'), patch('agent_runtime.validate_references'), \
                         patch.object(runtime, 'motion_inputs'):
                     result = runtime.plan(role, packet, role, 'Review the exact final film independently.')
-                self.assertNotIn('run_in_background', result['agent_args'])
+                self.assertIs(result['agent_args']['run_in_background'], True)
                 self.assertEqual('dispatch-visual-scorer', result['agent_args']['subagent_type'])
                 self.assertEqual(('claude-sonnet-5-5', 'medium', 'scorer_calls'),
                     tuple(result['assignment'][field] for field in ('model', 'effort', 'resource')))

@@ -151,6 +151,14 @@ def closure_problems(state, state_path):
 
 def capacity_recovery_hint(state):
     """Name the existing recovery route without granting or reserving anything."""
+    from completion_progress import replacement_required
+    if replacement_required(state):
+        return (' The creative boundary is reached. Load knowledge/craft/COMPLETION_PROGRESS.md: '
+                'use the retained source-backed whole-scene replacement, with the original independent '
+                'retained_replacement decision before capacity or begin-repair. Retire the complete '
+                'failed renderer dependency, consolidate all defects, and preserve every charge and '
+                'quality gate. Do not rename the same staging, buy another cosmetic pivot or ask '
+                'the owner for an internal recovery choice. Continue the actual remaining shipment path.')
     usage = state.get('usage')
     used = usage.get('storyboard_critics') if isinstance(usage, dict) else None
     ceilings = [row.get('storyboard_critics') for row in
@@ -206,7 +214,7 @@ def decision(payload, workspace):
     from publication_owner import heartbeat_hook, waiting_reason
     waiting = waiting_reason(payload, workspace)
     if waiting:
-        return waiting
+        return None  # An unowned duplicate observer ends; the actual publisher and its ledger continue.
     ownership_error = None
     try:
         heartbeat_hook(payload, workspace)
@@ -237,6 +245,12 @@ def decision(payload, workspace):
                 release(state_path.parents[2], state_path, workspace, session=payload.get('session_id'))
             return None
         reason = '; '.join(problems + ([ownership_error] if ownership_error else []))
+        if ownership_error is None:
+            from native_task_wait import eligible, retain
+            tasks = eligible(payload, state_path, state)
+            if tasks:
+                retain(state_path, tasks)
+                return None  # Native completion wakes this same unfinished owner; no success or release.
     except (OSError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired, RuntimeError):
         reason = 'the selected production ledger or durable closure cannot yet be verified'
     running = [str(row.get('id')) for row in payload.get('background_tasks', [])
