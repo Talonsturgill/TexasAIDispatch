@@ -1,3 +1,0 @@
-vo_align: ASR does not reconcile with the locked script: + 3,800 - 30 - 8 - hundred
-Whisper small.en wrote the spoken words "thirty eight hundred" as the single token 3,800. The script spells it as words, so the exact lexical reconciliation refuses it. The rest of the passage reconciled.
-Command: python3 scripts/vo_align.py --wav out/dispatch/mix.wav --script out/dispatch/vo_script.txt --voice out/dispatch/mix_vo.wav --out out/dispatch --cuts out/dispatch/storyboard.json --clause-boundaries
