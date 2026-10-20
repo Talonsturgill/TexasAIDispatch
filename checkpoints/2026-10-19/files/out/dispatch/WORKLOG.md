@@ -164,3 +164,4 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-20 headroom recovered by git repack -a -d of the shared object store (no history changed) after package-manager cache clean; free ~20.6 GiB.
 2026-10-20 Docket sibling worktree created at /home/user/dispatch-editions/2026-10-19/TexasAIDocket (detached at origin/main 06d7c8e0, sparse docs/videos).
 2026-10-20 opening_compare renewal started (bg task bqo17406j) after authorize --prepare; prior openings retained in evidence/opening-compare-live-r15-moved.
+2026-10-20 comparison renewed (a.mp4 d3fa8d91 b.mp4 b22eea2b, inspections pass), motion a/b extracted, phone packet round17 ae295807, critic 26/26 reserved, dispatch-visual-critic a0dd97fb spawned. Next: coverage via visual_observations.py coverage, verify-images, selection, install, then retime/captions/timed phone (needs bound grant).
