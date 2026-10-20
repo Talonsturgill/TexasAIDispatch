@@ -3706,6 +3706,14 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-20T04:27:01.194538Z",
+      "evidence": "{REPO}/out/dispatch/evidence/compare-refusal-panel1/EVID",
+      "evidence_sha256": "70a78963a18bbf8651669ef2f2ec852be5610215efe6646a5af6001dea95bef4",
+      "input_identity": "92c1d3ba5b5d6fd8af880adb2bebe1b1a2aedc2a3f21b5bade291274078ff8de",
+      "kind": "preflight_retry_authorized",
+      "reason": "Verified fix: storyboard.json is now the authored provisional board identical to opening-a.json, so the comparison precondition holds. The refused attempt rendered nothing and stays charged."
     }
   ],
   "limits": {
@@ -3727,9 +3735,10 @@
   },
   "mode": "production",
   "phase": "active_repair",
+  "preflight_retry": "92c1d3ba5b5d6fd8af880adb2bebe1b1a2aedc2a3f21b5bade291274078ff8de",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "f33c12b5355b40b3af25e26f72bcc71c03ff35680e00e532d24fda7e666fd54c",
+    "original_private_state_sha256": "f07cb2f970d7caa1729d47ee3efae01ec0019160dac4053905597761b97dbf2e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3757,7 +3766,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T04:25:50.811037Z",
+  "updated_at": "2026-10-20T04:27:01.194578Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
