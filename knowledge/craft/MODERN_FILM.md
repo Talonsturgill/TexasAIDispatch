@@ -1,5 +1,12 @@
 # Direct the film before describing its look
 
+Owner update from October 20th, 2026. config/review_limit.json closes editorial review after
+five paid attempts, including retries and pivots. At that boundary only, a genuine independent
+surface-finish classification can enter the existing bounded release route without changing
+the original failed grade. It cannot waive actual performed action, source truth, rights,
+comprehension, timing, native, sound, caption or shipment requirements. This narrow owner update
+takes precedence over the older blanket surface-finish deferral prohibition below.
+
 Owner instruction, October 7th, 2026. Active for newly planned editions from October 8th,
 or an explicit `film_direction` opt-in. The original source, rights, minimum action,
 native PNG/CRF16, audio, caption, independent panel and autonomous shipment gates remain.

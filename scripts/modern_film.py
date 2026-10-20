@@ -436,7 +436,7 @@ def problems(board, repo=REPO):
     return sorted(set(errors))
 
 
-def review_problems(board, report, film_sha=None, *, _scope=True):
+def review_problems(board, report, film_sha=None, *, _scope=True, _surface_deferred=False):
     if not required(board):
         return []
     rows = report.get('modern_observations')
@@ -456,9 +456,16 @@ def review_problems(board, report, film_sha=None, *, _scope=True):
         if (item.get('pass') is not True or not finite(start) or not finite(end)
                 or not 0 <= start < end <= runtime + .1 or not prose(item.get('observed'))):
             admitted = False
+            if (key == 'finished_art' and _surface_deferred and item.get('pass') is False
+                    and finite(start) and finite(end) and 0 <= start < end <= runtime + .1
+                    and prose(item.get('observed'))):
+                admitted = True
             if _scope and key == 'finished_art':
                 from review_scope import admits
                 admitted = admits(board, report, expected)
+                if not admitted:
+                    from creative_release import artistic_surface
+                    admitted = artistic_surface(board, report)
             if not admitted:
                 errors.append('modern engagement or finish unproven: ' + key)
     if narration_required(board):
@@ -481,10 +488,13 @@ def review_problems(board, report, film_sha=None, *, _scope=True):
     return errors
 
 
-def assessment_problems(board, assessment):
+def assessment_problems(board, assessment, *, _surface_deferred=False):
     if not required(board):
         return []
-    if any(row.get('category') in policy()['nondeferrable_categories'] for row in assessment.get('defects', [])):
+    blocked = set(policy()['nondeferrable_categories'])
+    if _surface_deferred:
+        blocked.discard('surface_finish')
+    if any(row.get('category') in blocked for row in assessment.get('defects', [])):
         return ['modern film cannot defer pacing, performed motion, finish or the closing answer']
     return []
 

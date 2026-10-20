@@ -76,6 +76,10 @@ def source_pivot_plan(state, plan):
 
 def admission_problems(state, plan):
     """This changes repair admission, never a review verdict or release eligibility."""
+    from review_limit import repair_problems
+    hard_errors = repair_problems(state, plan)
+    if hard_errors:
+        return hard_errors
     if not replacement_required(state) or not plan.get('changed_inputs'):
         return []
     if plan.get('repair_scope') in {'technical-integrity', 'review-context', 'narration-performance'}:

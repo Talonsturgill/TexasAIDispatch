@@ -48,6 +48,42 @@ class CreativeReleaseTests(unittest.TestCase):
     def allowed(self):
         return c.review_allows(self.board, self.report, self.root)
 
+    def test_fifth_review_can_retain_only_a_genuine_surface_rejection_without_regrading(self):
+        import modern_film
+        self.board.update(date='2026-10-20', runtime_s=10, narration_picture={'clauses': []})
+        self.state.update(run_id=self.board['date'], usage={'reboards': 1, 'storyboard_critics': 5})
+        self.report['blocking_defects'] = [{'id': 'surface', 'observed': 'Small decorative marks weaken the water surface finish.'}]
+        self.report['phone_observations'] = {'dominant_action': {'pass': True},
+                                           'surface_finish': {'pass': False, 'observed': 'Small marks remain.'}}
+        film = self.report['reviewed_preflight_sha256']
+        self.report['modern_observations'] = {'film_sha256': film}
+        for name in modern_film.policy()['review_criteria']:
+            self.report['modern_observations'][name] = {'pass': name != 'finished_art',
+                'start_s': 1, 'end_s': 2,
+                'observed': 'The current visible source-bound action is readable and physically performed.'}
+        self.report['narration_picture_observations'] = {'film_sha256': film, 'clauses': []}
+        self.write('storyboard.json', self.board); self.write('run_state.json', self.state)
+        self.write('critic.json', self.report)
+        self.assessment_path = c.template(self.root/'storyboard.json', self.root/'critic.json',
+                                          self.root/'preflight.mp4', 'phone', None)
+        self.assessment = c.read(self.assessment_path)
+        self.assessment.update(reviewer_identity='critic', reviewed_at='now')
+        for row in self.assessment['retained_checks'].values():
+            row.update({'pass': True, 'observed': 'Specific independently observed evidence proves this retained check.'})
+        for row in self.assessment['defects']:
+            row['category'] = 'surface_finish'
+        self.save_assessment(); original = (self.root/'critic.json').read_bytes()
+        with patch('creative_production.treatment_problems', return_value=[]), patch.object(c, 'REPO', self.repo):
+            self.assertTrue(self.allowed())
+            self.assertEqual([], modern_film.review_problems(self.board, self.report))
+            self.state['usage']['storyboard_critics'] = 4; self.write('run_state.json', self.state)
+            self.assertFalse(self.allowed())
+            self.state['usage']['storyboard_critics'] = 5; self.write('run_state.json', self.state)
+            self.assessment['retained_checks']['source']['pass'] = False; self.save_assessment()
+            self.assertFalse(self.allowed())
+        self.assertEqual(original, (self.root/'critic.json').read_bytes())
+        self.assertEqual('revise', self.report['verdict'])
+
 
     def test_technical_charges_do_not_exhaust_creative_rounds(self):
         state = {"mode": "production", "run_id": "2026-09-30", "usage": {"reboards": 3},

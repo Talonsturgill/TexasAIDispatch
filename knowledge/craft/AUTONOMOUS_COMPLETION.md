@@ -1,5 +1,12 @@
 # Autonomous completion capacity
 
+The owner's October 20th, 2026 instruction imposes config/review_limit.json as a hard five
+editorial review attempts per video. Completion capacity, a new worker, source pivot, retry
+or mechanism cannot extend that cap. Preserve all cumulative charges and finish the strongest
+existing cut through the final acceptance and delivery path once. The controller enforces this
+before charging and before granting another review-dependent creative correction. This newer
+instruction takes precedence over older unlimited artistic recovery language in this guide.
+
 ## Actual occupied native review output
 
 For unfinished editions from October 15th, the separately pinned

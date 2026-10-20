@@ -348,6 +348,10 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
             f"run controller: {state['terminal_state']} is terminal. "
             "No further expensive action is allowed."
         )
+    from review_limit import reservation_problems as hard_review_problems
+    hard_review_errors = hard_review_problems(state, amounts)
+    if hard_review_errors:
+        return False, '; '.join(hard_review_errors)
     from narration_recovery import paid_work_problems
     narration_errors = paid_work_problems(state, amounts)
     if narration_errors:

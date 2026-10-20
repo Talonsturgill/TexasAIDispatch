@@ -212,6 +212,13 @@ already shipped, verify that shipment and do not manufacture another ordinary ed
 
 ## Durable checkpoints and effective effort
 
+The owner sets a hard five editorial review rounds for the whole video in config/review_limit.json.
+Budget code, silent phone, any consolidated correction and final timed phone inside those five
+paid attempts. Every pivot and retry counts too. Never extend or reset this limit. After the cap
+or diminishing returns, freeze the strongest existing cut and complete the final native/AV,
+three-scorer and delivery path once. Stop creative editing; use the genuine bounded surface
+finish classification when applicable. Do not run a sixth review to pursue a nicer grade.
+
 `out/` is gitignored and dies with the container. For an edition marked by
 `out/dispatch/claude-host.json`, every controller ledger write is mirrored to
 `claude/checkpoint/<run-id>` before the writer returns, so each reservation is durable before its

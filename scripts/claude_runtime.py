@@ -62,6 +62,7 @@ def contracts(role):
         files.append('prompts/roles/scene-builder.md')
     if role in ('scene-builder', 'storyboard-critic'):
         files.append('knowledge/craft/COMPLETION_PROGRESS.md')
+    files.append('config/review_limit.json')
     return [bound(REPO / path) for path in files]
 
 

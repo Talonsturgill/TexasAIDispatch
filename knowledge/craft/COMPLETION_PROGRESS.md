@@ -1,5 +1,20 @@
 # Completion progress and native waits
 
+The owner's October 20th instruction sets a hard five-round limit in config/review_limit.json.
+Every paid code, phone, pivot or interrupted reviewer attempt shares the cumulative
+storyboard_critics counter. The final timed phone check must fit inside it. Target one initial
+code/phone pair, at most one consolidated correction pair, then the final timed phone check.
+Stop earlier when improvements have become cosmetic. Do not commission a separate pivot review
+that would consume the final required check. The controller refuses a sixth attempt before
+charging, even with larger ceilings, a fresh script or a new worker. After the cap, no more
+creative rebuilds or recovery grants for review. Complete the final acceptance and delivery
+path once on the strongest existing cut. Preserve all original scores, failures and charges.
+An independently classified surface finish rejection can use the existing bounded release
+route at this hard boundary. Actual source, rights, minimum action, comprehension, performed
+turn, pacing, closing action, native, audio, captions and shipment checks stay required.
+Historical counts are never reset or clamped to five; an already overrun legacy edition stops
+creative work immediately and completes its remaining final verification once.
+
 Effective for new editions from October 20th, 2026, after the owning source rollout. An older
 unfinished edition adopts the same operational boundary at its first newly owned reservation
 from this source. That appended event records `completion_progress_policy`; it never rewrites
