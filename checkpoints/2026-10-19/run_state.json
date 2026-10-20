@@ -684,6 +684,14 @@
       "note": "code-plan review round 23 of both treatments after phone22 repair, packet critic-packet-round23, same Opus critic aea70021",
       "resource": "storyboard_critics",
       "to": 35
+    },
+    {
+      "at": "2026-10-20T10:04:44.098341Z",
+      "ceiling": 41,
+      "from": 33,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 34
     }
   ],
   "events": [
@@ -5659,6 +5667,24 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-20T10:04:44.098377Z",
+      "ceiling": 41,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 34,
+      "resource": "preflight_renders",
+      "was": 33
+    },
+    {
+      "at": "2026-10-20T10:04:44.098391Z",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "436aaa5862d1e9796f53430767ab10971adc7aa5ebd6ea5d5048da45a3396847",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -5667,7 +5693,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 33,
+    "preflight_renders": 34,
     "reboards": 12,
     "reported_tokens": 523483,
     "rescue_renders": 1,
@@ -5682,7 +5708,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "9829000b1abc28ce9f83aec779ebad18fb954f12f90f17b27e9d09cd7ba4a67e",
+    "original_private_state_sha256": "2ffa30860066567de3774eea8edce2befbf2e66baa3aa468040ef2e0df50f08d",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5710,14 +5736,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T10:00:32.498666Z",
+  "updated_at": "2026-10-20T10:04:44.098395Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
     "full_renders": 1,
     "image_generations": 0,
     "panel_rounds": 1,
-    "preflight_renders": 33,
+    "preflight_renders": 34,
     "reboards": 12,
     "reported_tokens": 523483,
     "rescue_renders": 0,
