@@ -43,6 +43,7 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual('researcher', result['agent_args']['subagent_type'])
         self.assertEqual('claude-haiku-5-5', result['assignment']['model'])
         self.assertEqual('high', result['assignment']['effort'])
+        self.assertNotIn('run_in_background', result['agent_args'])
         self.assertNotIn('spawn_args', result)
         self.assertLessEqual(len(result['agent_args']['prompt']), 1800)
 
@@ -74,6 +75,62 @@ class RuntimeTests(unittest.TestCase):
         source.write_text('{"changed":true}')
         with self.assertRaisesRegex(ValueError, 'changed'):
             runtime.plan('validator', packet, 'validator', 'Validate current source claims.')
+
+    def code_data(self, edition='2026-10-20'):
+        source = self.root / 'Film.tsx'; source.write_text('export const Film = 1;')
+        claims = self.root / 'claims.json'; claims.write_text('{"claims":[]}')
+        for option in ('a', 'b'):
+            (self.root / ('opening-' + option + '.json')).write_text(json.dumps({
+                'date': edition, 'scenes': [{'id': 's1', 'visual_description': option}]}))
+        board = self.root / 'storyboard.json'; board.write_bytes((self.root / 'opening-a.json').read_bytes())
+        role = 'storyboard-critic'
+        return {'role': role, 'date': edition, 'agent_assignment': runtime.assignment(role, edition),
+                'brief': '.claude/agents/storyboard-critic.md', 'agent_contracts': runtime.contracts(role),
+                'board': runtime.bound(board), 'claims': runtime.bound(claims),
+                'treatments': [runtime.bound(self.root / ('opening-' + option + '.json')) for option in ('a', 'b')]}, source
+
+    def test_code_bindings_supply_both_actual_story_hashes_without_any_grade(self):
+        import critic_gate
+        import daily_production
+        data, source = self.code_data()
+        with patch.object(critic_gate, 'REPO', self.root), patch.object(critic_gate, 'renderer_files', return_value=[source]), \
+                patch('agent_runtime.treatment_assets', return_value=[]):
+            result = runtime.code_report_bindings(data)
+            self.assertEqual(result, runtime.adapt_packet(data)['code_report_bindings'])
+        self.assertEqual(['a', 'b'], [row['id'] for row in result['treatments']])
+        for row in result['treatments']:
+            board = runtime.read(row['board']['path'])
+            self.assertEqual(daily_production.story_digest(board), row['report_bindings']['story_review']['story_sha256'])
+            self.assertEqual(data['claims']['sha256'], row['report_bindings']['story_review']['claims_sha256'])
+        self.assertNotEqual(*[row['report_bindings']['story_review']['story_sha256'] for row in result['treatments']])
+        self.assertNotRegex(json.dumps(result), r'"(?:verdict|score|pass|blocking_defects)"')
+
+    def test_future_code_plan_requires_fresh_bindings_before_returning_json_only_arguments(self):
+        import critic_gate
+        data, source = self.code_data()
+        packet = self.root / 'code.json'
+        with patch.object(critic_gate, 'REPO', self.root), patch.object(critic_gate, 'renderer_files', return_value=[source]), \
+                patch('agent_runtime.required_inputs'):
+            packet.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError, 'bindings are missing or stale'):
+                runtime.plan('storyboard-critic', packet, 'code_review', 'Review both callable treatments at code scope.')
+            data['code_report_bindings'] = runtime.code_report_bindings(data)
+            packet.write_text(json.dumps(data))
+            result = runtime.plan('storyboard-critic', packet, 'code_review', 'Review both callable treatments at code scope.')
+            self.assertIn('complete gate-ready JSON', result['agent_args']['prompt'])
+            self.assertNotIn('or consolidated defect list', result['agent_args']['prompt'])
+            self.assertEqual(('claude-opus-5-5', 'high'), tuple(result['assignment'][k] for k in ('model', 'effort')))
+            source.write_text('export const Film = 2;')
+            with self.assertRaisesRegex(ValueError, 'bindings are missing or stale'):
+                runtime.plan('storyboard-critic', packet, 'code_review', 'Review both callable treatments at code scope.')
+
+    def test_historical_code_plan_does_not_require_or_rewrite_future_report_bindings(self):
+        data, _ = self.code_data('2026-10-19')
+        packet = self.root / 'code.json'; packet.write_text(json.dumps(data))
+        with patch('agent_runtime.required_inputs'):
+            result = runtime.plan('storyboard-critic', packet, 'code_review', 'Review both callable treatments at code scope.')
+        self.assertIn('or consolidated defect list', result['agent_args']['prompt'])
+        self.assertNotIn('run_in_background', result['agent_args'])
 
     def test_historical_assignment_is_not_replaced(self):
         with self.assertRaises(ValueError):
@@ -119,6 +176,7 @@ class RuntimeTests(unittest.TestCase):
                               subject='MD Anderson SPACER T cells cut a mucin barrier')
         self.assertEqual(result['assignment']['model'], 'claude-haiku-5-5')
         self.assertEqual(result['assignment']['effort'], 'high')
+        self.assertIs(result['agent_args']['run_in_background'], False)
         self.assertLessEqual(len(result['agent_args']['prompt']), 1800)
         self.assertIn('mucin barrier', result['agent_args']['prompt'])
         report = result['story_subject_screen']
@@ -130,6 +188,22 @@ class RuntimeTests(unittest.TestCase):
         with patch('dedupe.check_subject', side_effect=AssertionError('must preserve active policy')):
             result = runtime.plan('researcher', packet, 'researcher', 'Research the sourced action.')
         self.assertNotIn('story_subject_screen', result)
+        self.assertNotIn('run_in_background', result['agent_args'])
+
+    def test_future_final_panel_keeps_three_independent_scorers_available_for_concurrent_execution(self):
+        for role in ('picture', 'story', 'sound'):
+            with self.subTest(role=role):
+                data = runtime.image_reading({'role': role, 'date': '2026-10-20',
+                    'agent_assignment': runtime.assignment(role, '2026-10-20'),
+                    'brief': '.claude/agents/scorer.md', 'instructions': 'Read every current guide.'})
+                packet = self.root / (role + '.json'); packet.write_text(json.dumps(data))
+                with patch('agent_runtime.required_inputs'), patch('agent_runtime.validate_references'), \
+                        patch.object(runtime, 'motion_inputs'):
+                    result = runtime.plan(role, packet, role, 'Review the exact final film independently.')
+                self.assertNotIn('run_in_background', result['agent_args'])
+                self.assertEqual('dispatch-visual-scorer', result['agent_args']['subagent_type'])
+                self.assertEqual(('claude-sonnet-5-5', 'medium', 'scorer_calls'),
+                    tuple(result['assignment'][field] for field in ('model', 'effort', 'resource')))
 
     def test_phone_scope_cannot_launch_from_midpoint_only_packet(self):
         role = 'storyboard-critic'; edition = '2026-10-15'

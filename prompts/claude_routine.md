@@ -256,6 +256,16 @@ remain distinct identities and an atomic charged panel on the same finished film
 cannot count self-review as independence. Provider recovery is used only after actual observed
 host unavailability, under the existing recovery policy.
 
+For editions from October 20, use each generated serial worker's exact Agent arguments, including
+`run_in_background: false`. Let the required worker return in the foreground. The three final
+scorers may run concurrently after their atomic panel reservation. Starting a background serial
+worker merely to wait for it creates unnecessary primary turns and context reads.
+
+Future code packets supply `code_report_bindings` for both treatments, including each actual
+story hash. These are mechanical identities, never findings or approval. Retain the critic's
+complete original JSON unchanged. A formatting failure returns to that same reviewer with the
+actual errors and bindings; never reconstruct a current pass from earlier reports or prose.
+
 While a background worker owns required work, use a blocking output wait for that exact task
 and collect its full handback. If TaskOutput is available, load its current schema and use
 blocking mode with a timeout of up to sixty seconds. Reissue that same bounded wait if it times
@@ -642,6 +652,12 @@ including the trial limitations, and it supports no wider claim.
 For a multi-repository cloud session, the environment setup registers the capture hook at its
 actual primary workspace before launch with
 `python scripts/bootstrap_claude_hooks.py --workspace /home/user --prelaunch-router`.
+The same prelaunch command registers the visual Read/Write guard and actual Write observer at
+primary settings scope. Agent-frontmatter hooks alone are not a supported cloud registration.
+Verify all three visual registrations before reserving a visual worker. Its first image/Write
+probe must receive the actual Write acknowledgment before it reads another image; a missing
+receipt stops that attempt early. Retain the original failure, every observation and charge;
+never backfill a Write receipt from a transcript or relabel an incomplete review as approved.
 The preinstalled router selects the actual production checkout from the command's explicit
 working directory, including restored checkouts, and runs the unchanged authorization gate.
 Never replace this registration during an agent turn. The helper preserves model, effort,

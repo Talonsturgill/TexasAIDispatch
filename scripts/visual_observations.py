@@ -25,7 +25,10 @@ INSTRUCTION = ('Use the installed visual leaf and its guarded Write tool for pub
     'a later history placeholder is not an initial transport failure. Keep quality conclusions '
     'and concise public explanations for the final review. Read your own saved facts when earlier '
     'images leave context. Return the observation directory with the complete final review; the '
-    'caller mechanically builds coverage from the original annotations and actual Write receipts. ')
+    'caller mechanically builds coverage from the original annotations and actual Write receipts. '
+    'After the first Write, require the actual hook acknowledgment Public image annotation retained '
+    'with actual Write evidence. If it is missing, stop with the original tool result and a partial '
+    'handoff before another image Read; do not reconstruct a receipt. ')
 
 
 def digest(path):
@@ -176,6 +179,12 @@ def guard(payload, workspace):
                 raise ValueError('An image was unseen: return the retained partial handback before further image Reads')
     else:
         raise ValueError('the visual leaf only reads inputs and writes its own new public annotations')
+
+
+def pre_tool(payload, workspace):
+    """Route primary-scope events without restricting unrelated agents or the director."""
+    if payload.get('agent_type') in ROLE_NAMES:
+        guard(payload, workspace)
 
 
 def record_write(payload, workspace):
@@ -348,11 +357,36 @@ def check_installation(source, workspace):
            or (Path(workspace) / '.claude/agents' / name).read_text() != text
            for name, text in expected.items()):
         raise ValueError('install the current guarded visual leaves before reserving a visual task')
+    settings_path = Path(workspace) / '.claude/settings.json'
+    registration_path = Path(workspace) / '.claude/dispatch-capture-registration.json'
+    if any(p.is_symlink() for p in (settings_path, registration_path)):
+        raise ValueError('visual hook registration cannot follow symbolic links')
+    if not settings_path.is_file() or not registration_path.is_file():
+        raise ValueError('register the primary-scope visual hooks in prelaunch setup before a paid review')
+    settings, registration = load(settings_path), load(registration_path)
+    for event, key, command in (
+        ('PreToolUse', 'visual_guard_registration', 'pre-tool'),
+        ('PostToolUse', 'visual_write_registration', 'record'),
+    ):
+        expected = {'matcher': 'Read|Write' if event == 'PreToolUse' else 'Write',
+                    'hooks': [{'type': 'command', 'command': 'python3 %s %s --workspace %s' %
+                        (shlex.quote(str(guard_source / 'scripts/visual_observations.py')),
+                         command, shlex.quote(str(Path(workspace).resolve())))}]}
+        if (registration.get(key) != expected
+                or expected not in settings.get('hooks', {}).get(event, [])):
+            raise ValueError('the primary-scope visual hooks are missing or changed; use prelaunch setup')
+    image_expected = {'matcher': 'Read', 'hooks': [{'type': 'command', 'command':
+        'python3 %s --workspace %s' % (shlex.quote(str(guard_source / 'scripts/image_read_receipt.py')),
+                                     shlex.quote(str(Path(workspace).resolve())))}]}
+    if (registration.get('image_registration') != image_expected
+            or image_expected not in settings.get('hooks', {}).get('PostToolUse', [])):
+        raise ValueError('the primary image Read observer is missing or changed; use prelaunch setup')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__); sub = parser.add_subparsers(dest='command', required=True)
     p = sub.add_parser('guard'); p.add_argument('--workspace', type=Path, required=True)
+    p = sub.add_parser('pre-tool'); p.add_argument('--workspace', type=Path, required=True)
     p = sub.add_parser('record'); p.add_argument('--workspace', type=Path, required=True)
     p = sub.add_parser('install'); p.add_argument('--workspace', type=Path, required=True)
     p = sub.add_parser('coverage'); p.add_argument('--packet', type=Path, required=True)
@@ -360,13 +394,15 @@ def main():
     p.add_argument('--partial', action='store_true')
     args = parser.parse_args()
     try:
-        if args.command in ('guard', 'record'):
+        if args.command in ('guard', 'pre-tool', 'record'):
             raw = sys.stdin.buffer.read(32769)
             if len(raw) > 32768:
                 raise ValueError('bounded visual hook input exceeded')
             payload = json.loads(raw)
             if args.command == 'guard':
                 guard(payload, args.workspace)
+            elif args.command == 'pre-tool':
+                pre_tool(payload, args.workspace)
             else:
                 result = record_write(payload, args.workspace)
                 if result:
@@ -378,7 +414,7 @@ def main():
             print(json.dumps({'complete': not args.partial, 'coverage': str(args.output), 'creative_approval': False}))
     except (OSError, ValueError, KeyError, TypeError) as exc:
         print(str(exc), file=sys.stderr)
-        return 2 if args.command == 'guard' else 1
+        return 2 if args.command in ('guard', 'pre-tool') else 1
     return 0
 
 
