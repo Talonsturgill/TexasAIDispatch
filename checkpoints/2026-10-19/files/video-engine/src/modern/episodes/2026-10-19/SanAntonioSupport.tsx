@@ -1181,11 +1181,15 @@ export const Arm: React.FC<{dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?:
  * shelves, mottled ground with oaks, rain rings on the water. No crossing. `creek` is the channel's mean
  * far (top) and near (bottom) bank rows. The car starts at (carX, edgeY) on the pale shallow shelf along the
  * near bank, upstream of the shelf's lip at `lipX`, and the current carries it out to the channel's middle
- * row `carY` as it washes it left, `k` plan pixels per creek world unit. The far bank's pale landmark ledge
- * spans plan x `ledge`, where the elevation's ledge (CREEK_MARKS.ledge) maps, and the landmark oak's crown
- * stands at plan x 520, where CREEK_MARKS.oak maps. */
-export const CREEK_PLAN = {creek: [620, 1140] as P, carX: 760, edgeY: 1040, carY: 880, lipX: 640, k: .69, ledge: [297, 408] as P};
-export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t, rain}) => {
+ * row `carY` as it washes it left, `k` plan pixels per unit of the carried distance. k is the plan's own carry
+ * gain (1.1), set so the car is carried several of its own lengths, past the landmark oak's crown at plan x 520
+ * and the pale ledge slab at plan x `ledge`, within the clause; the elevation views no longer share this
+ * mapping. `off`, the car's progress off the shelf, lets the shelf-side water close over the corner it leaves. */
+export const CREEK_PLAN = {creek: [620, 1140] as P, carX: 760, edgeY: 1040, carY: 880, lipX: 640, k: 1.1, ledge: [297, 408] as P};
+/** The current's own speed on the plan, plan pixels a second, faster than the carried car (k times its fastest
+ * carried speed), so the water visibly passes it. */
+export const CREEK_PLAN_FLOW = 430;
+export const CreekPlan: React.FC<{t: number; rain: number; flow: number; off?: number}> = ({t, rain, off = 0}) => {
  const id = useUid('scp'), {creek} = CREEK_PLAN, r = rng(15);
  // each bank meanders on its own: two slow waves and a short one, so the channel narrows and widens
  const bank = (y: number, ph: number, k: number): P[] => Array.from({length: 14}, (_, i) => {const x = -180 + i * 110;
@@ -1195,14 +1199,19 @@ export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t,
  const water = smoothPath([...T, ...B.slice().reverse()]);
  // the shallow shelf's lip, from the near bank up to the channel side, then along the channel side upstream
  const {lipX, edgeY} = CREEK_PLAN;
- const planShelfLip: P[] = [[lipX - 38, 1300], [lipX - 22, 1190], [lipX - 30, 1100], [lipX - 8, edgeY - 46], [lipX + 26, edgeY - 98],
-  [lipX + 120, edgeY - 124], [lipX + 260, edgeY - 108], [lipX + 420, edgeY - 128], [lipX + 600, edgeY - 112], [1320, edgeY - 122]];
+ // re-cut by hand: the climb from the near bank steps in and out, a notch at a time; the channel side runs
+ // upstream broken into short bites and points, never more than a few tens of pixels straight
+ const climb: P[] = [[602, 1300], [620, 1258], [606, 1222], [624, 1188], [612, 1146], [631, 1108], [614, 1066], [634, 1030], [624, edgeY - 44], [652, edgeY - 78], [676, edgeY - 104]];
+ const bite = [0, -16, 7, -11, 15, -5, 18, -13, 5, -18, 11, -7, 16, -10];
+ const upstream: P[] = Array.from({length: 13}, (_, i) => {const x = 712 + i * 50; return [x + (i % 3 === 1 ? 9 : 0), edgeY - 112 + 9 * Math.sin(x * .011) + bite[i]] as P;});
+ const planShelfLip: P[] = [...climb, ...upstream, [1340, edgeY - 120]];
  // the lip's normal toward the channel (left of its run, which climbs from the near bank and then turns upstream)
  const lipNormal: P[] = planShelfLip.map((_, i) => {const a = planShelfLip[Math.max(0, i - 1)], b = planShelfLip[Math.min(planShelfLip.length - 1, i + 1)];
   const dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1; return [dy / L, -dx / L] as P;});
  const lipAlong = (d: number) => planShelfLip.map(([x, y], i) => [x + lipNormal[i][0] * d, y + lipNormal[i][1] * d] as P);
  // the far bank's edge, as the sampled bank T traces it, for the landmark ledge slab that juts from it
  const farEdge = (x: number) => creek[0] + 40 * Math.sin(x * .0052 + .4) + 16 * Math.sin(x * .016 + .8) + 6 * Math.sin(x * .047 + 1);
+ const nearEdge = (x: number) => creek[1] + 40 * Math.sin(x * .0052 + 1.7) + 16 * Math.sin(x * .016 + 3.4) + 6 * Math.sin(x * .047 + 2);
  const [la, lb] = CREEK_PLAN.ledge, lxs = [la, la + 21, la + 45, la + 69, la + 91, lb];
  const ledgeWater: P[] = lxs.map((x, i) => [x, farEdge(x) + 34 + [6, 14, 9, 17, 8, 4][i]] as P);
  const ledgeBank: P[] = lxs.slice().reverse().map((x, i) => [x + (i % 2 ? 4 : -3), farEdge(x) - 26 - (i % 3) * 5] as P);
@@ -1225,25 +1234,41 @@ export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t,
    return <path key={'l' + i} d={`M${x.toFixed(1)} ${y.toFixed(1)}l${(u - .5) * 10} ${(16 + 26 * u) * (k < .5 ? -1 : 1)}`} stroke={SA.limestoneDeep} strokeWidth={2.5} opacity={.6}/>;})}
   {/* the brown channel, deeper at its banks; its current streaks run left and bend with the banks */}
   <path d={water} fill={`url(#${id}w)`}/>
-  <g clipPath={`url(#${id}c)`}>{Array.from({length: 40}, (_, i) => {const u = (i * .37) % 1, x = frac(i * .29 - t * .2) * 1500 - 220;
-   const k = idxAt(x), y = lerp(T[k][1], B[k][1], u), lean = (B[Math.max(0, k - 1)][1] - B[k][1]) * .25, l = 40 + (i % 4) * 20;
-   return <path key={i} d={`M${x.toFixed(1)} ${y.toFixed(1)}q${(-l / 2).toFixed(1)} ${(lean / 2).toFixed(1)} ${(-l).toFixed(1)} ${lean.toFixed(1)}`} stroke={SA.foam} strokeWidth={3} fill="none" opacity={.38}/>;})}</g>
+  {/* the current: long streaks that bend with both banks' meander and run left faster than the carried car, with
+    * foam drifting on them, so the water visibly passes it */}
+  <g clipPath={`url(#${id}c)`} data-part="current-streaks">{Array.from({length: 26}, (_, i) => {const u = .1 + .8 * frac(i * .382), L = 180 + (i % 5) * 30, W = 1700;
+   const x0 = frac(i * .291 - t * CREEK_PLAN_FLOW / W) * W - 360;
+   const pts: P[] = [0, .125, .25, .375, .5, .625, .75, .875, 1].map(v => {const x = x0 + v * L; return [x, lerp(farEdge(x), nearEdge(x), u) + 13 * Math.sin(3 * Math.PI * v + i * 1.3)] as P;});
+   return <path key={i} d={smoothPath(pts, false)} stroke="#E3D8C2" strokeWidth={6 + (i % 3)} fill="none" strokeLinecap="round" opacity={.6 + .1 * (i % 2)}/>;})}
+   {Array.from({length: 40}, (_, i) => {const u = .08 + .84 * frac(i * .618), W = 1600, x = frac(i * .173 - t * CREEK_PLAN_FLOW * 1.05 / W) * W - 260, y = lerp(farEdge(x), nearEdge(x), u);
+    return <ellipse key={'df' + i} cx={x.toFixed(1)} cy={y.toFixed(1)} rx={5 + (i % 4)} ry={3 + (i % 3)} fill={SA.foam} opacity={.8}/>;})}</g>
   {/* the near bank's shallow shelf upstream of its lip: paler water over stone, riffled, white along the lip */}
   <g clipPath={`url(#${id}c)`} data-part="shallow-shelf-plan">
    {/* its lip and channel side are one hand-cut curve, never ruled; the bank's own edge closes it below */}
-   <path d={smoothPath([...planShelfLip, [1320, 1420], [CREEK_PLAN.lipX - 60, 1420]], true)} fill="#A68C63" opacity={.7}/>
-   {/* the lip, bold enough to read on a phone in both overhead shots: a darker drop on its channel side, a
-     * ragged band of white water pouring over it and big flecks thrown off it into the channel, drifting down */}
+   <path d={smoothPath([...planShelfLip, [1340, 1420], [CREEK_PLAN.lipX - 60, 1420]], true)} fill="#A68C63" opacity={.6}/>
+   {/* the lip, solid white water about 50 px wide that reads on a phone in both overhead shots: dark channel water
+     * under it on the downstream side, white tongues spilling 60 to 120 px down into the channel and bending
+     * downstream, broken limestone blocks along its shelf side, and big spray flecks thrown off it */}
    <g data-part="lip-white-water">
-    <path d={smoothPath(lipAlong(16), false)} stroke="#3E2F20" strokeWidth={18} fill="none" opacity={.5} strokeLinecap="round"/>
-    <path d={smoothPath(planShelfLip, false)} stroke={SA.foam} strokeWidth={20} fill="none" opacity={.86 + .1 * Math.sin(t * 8)} strokeLinecap="round"/>
-    <path d={smoothPath(planShelfLip, false)} stroke="#FFFFFF" strokeWidth={26} fill="none" opacity={.55} strokeDasharray="22 9 14 12 30 7 10 14"
-     strokeDashoffset={(-t * 60).toFixed(1)} strokeLinecap="round"/>
-    <path d={smoothPath(lipAlong(-7), false)} stroke="#D9CCB2" strokeWidth={5} fill="none" opacity={.7}/>
-    {Array.from({length: 30}, (_, i) => {const k = i % (planShelfLip.length - 1), u = frac(i * .37), a = planShelfLip[k], b = planShelfLip[k + 1], ph = frac(i * .53 + t * 1.6);
-     const nx = lerp(lipNormal[k][0], lipNormal[k + 1][0], u), ny = lerp(lipNormal[k][1], lipNormal[k + 1][1], u), d = 8 + 46 * ph;
-     return <circle key={'fl' + i} cx={(lerp(a[0], b[0], u) + nx * d - 30 * ph).toFixed(1)} cy={(lerp(a[1], b[1], u) + ny * d).toFixed(1)} r={(6 + 6 * (1 - ph)).toFixed(1)}
-      fill={SA.foam} opacity={(.9 * (1 - ph)).toFixed(3)}/>;})}
+    <path d={smoothPath(lipAlong(42), false)} stroke="#2B2014" strokeWidth={60} fill="none" opacity={.5} strokeLinecap="round"/>
+    {planShelfLip.slice(1, -1).map((p, i) => {const k = i + 1, n = lipNormal[k], a = planShelfLip[k - 1], b = planShelfLip[k + 1];
+     const tl = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, tx = (b[0] - a[0]) / tl, ty = (b[1] - a[1]) / tl;
+     const L = 60 + 60 * frac(k * .43) + 10 * Math.sin(t * 6 + k), w = 16 + 6 * (k % 3), dn = -18 - .2 * L;
+     const tip: P = [p[0] + n[0] * L + dn, p[1] + n[1] * L], mid = (f: number, s: number): P => [p[0] + n[0] * L * f + tx * w * s + dn * f, p[1] + n[1] * L * f + ty * w * s];
+     return <path key={'sp' + k} d={smoothPath([[p[0] - tx * w, p[1] - ty * w], mid(.5, -.8), tip, mid(.5, .8), [p[0] + tx * w, p[1] + ty * w]], true)} fill="#F2EEE4" opacity={.72}/>;})}
+    <path d={smoothPath(planShelfLip, false)} stroke="#F4F0E6" strokeWidth={50} fill="none" opacity={.96} strokeLinecap="round" strokeLinejoin="round"/>
+    <path d={smoothPath(lipAlong(-22), false)} stroke="#FFFFFF" strokeWidth={8} fill="none" opacity={.6 + .2 * Math.sin(t * 7)}/>
+    {planShelfLip.filter((_, i) => i % 3 === 1).map((p, i) => {const k = planShelfLip.indexOf(p), n = lipNormal[k], c: P = [p[0] - n[0] * 36, p[1] - n[1] * 36], w = 22 + (i * 7) % 14;
+     return <path key={'lb' + i} d={smoothPath([[c[0] - w / 2, c[1] + 6], [c[0] - w / 3, c[1] - 9], [c[0] + w / 4, c[1] - 11], [c[0] + w / 2, c[1] + 2], [c[0] + w / 5, c[1] + 10]], true)}
+      fill={SA.limestone} stroke={SA.limestoneShade} strokeWidth={2.5}/>;})}
+    {Array.from({length: 34}, (_, i) => {const k = i % (planShelfLip.length - 1), u = frac(i * .37), a = planShelfLip[k], b = planShelfLip[k + 1], ph = frac(i * .53 + t * 1.6);
+     const nx = lerp(lipNormal[k][0], lipNormal[k + 1][0], u), ny = lerp(lipNormal[k][1], lipNormal[k + 1][1], u), d = 26 + 80 * ph;
+     return <circle key={'fl' + i} cx={(lerp(a[0], b[0], u) + nx * d - 40 * ph).toFixed(1)} cy={(lerp(a[1], b[1], u) + ny * d).toFixed(1)} r={(10 + 6 * (1 - ph)).toFixed(1)}
+      fill="#F7F4EC" opacity={(.9 * (1 - ph)).toFixed(3)}/>;})}
+    {/* the shelf-side water closing over the corner the car leaves: white water pouring across where it stood */}
+    {off > 0 && [0, 1, 2, 3].map(k => {const ph = frac(t * 1.3 + k * .25), g = clamp(off * 1.4);
+     return <path key={'cl' + k} d={`M${(700 + 26 * k).toFixed(1)} ${(edgeY - 64 + 18 * k).toFixed(1)}c-30 ${(-24 * g).toFixed(1)} -70 ${(-30 * g).toFixed(1)} -${(70 + 50 * ph).toFixed(1)} ${(-8 * g).toFixed(1)}`}
+      stroke="#F4F0E6" strokeWidth={(10 + 14 * g * (1 - ph)).toFixed(1)} fill="none" strokeLinecap="round" opacity={(g * (.85 - .5 * ph)).toFixed(3)}/>;})}
    </g>
    {Array.from({length: 18}, (_, i) => {const x = CREEK_PLAN.lipX + frac(i * .41 - t * .5) * 700, y = CREEK_PLAN.edgeY - 90 + (i * 37) % 150;
     return <path key={i} d={`M${x.toFixed(1)} ${y}l18 -6l18 6`} stroke={SA.foam} strokeWidth={3} fill="none" opacity={.55}/>;})}
@@ -1267,8 +1292,9 @@ export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t,
    <ellipse cx={x + 22} cy={y + 18} rx={rr} ry={rr * .85} fill="#000000" opacity={.18}/>
    <ellipse cx={x} cy={y} rx={rr} ry={rr * .85} fill={SA.oakDark}/><ellipse cx={x - rr * .2} cy={y - rr * .18} rx={rr * .7} ry={rr * .55} fill={SA.oak}/>
    <ellipse cx={x - rr * .4} cy={y - rr * .35} rx={rr * .3} ry={rr * .2} fill={SA.oakLit}/></g>)}
-  {rain > 0 && <g clipPath={`url(#${id}c)`} data-part="rain-rings">{Array.from({length: 34}, (_, i) => {const ph = frac(i * .61 + t * 1.3), x = ((i * 173) % 1040) + 20, y = lerp(creek[0] + 40, creek[1] - 40, (i * .43) % 1);
-   return <circle key={i} cx={x} cy={y} r={8 + 30 * ph} fill="none" stroke="#EEE7D8" strokeWidth={4.5 - 2 * ph} opacity={rain * .75 * (1 - ph)}/>;})}</g>}
+  {/* rain rings, kept light so they never out-read the current */}
+  {rain > 0 && <g clipPath={`url(#${id}c)`} data-part="rain-rings">{Array.from({length: 14}, (_, i) => {const ph = frac(i * .61 + t * 1.3), x = ((i * 173) % 1040) + 20, y = lerp(creek[0] + 40, creek[1] - 40, (i * .43) % 1);
+   return <circle key={i} cx={x} cy={y} r={8 + 24 * ph} fill="none" stroke="#EEE7D8" strokeWidth={2.5 - ph} opacity={rain * .45 * (1 - ph)}/>;})}</g>}
  </g>;
 };
 /** The plan's water front: water spreads from the left along the street, its leading edge a lobed
@@ -1385,7 +1411,7 @@ type SupportProps =
  | {part: 'creektoe'; t: number; width?: [number, number]}
  | {part: 'creekshelf'; t: number; layer: 'back' | 'front'; drift: number}
  | {part: 'pile'; p: number; t: number; len: number; h: number; dir?: 1 | -1}
- | {part: 'creekplan'; t: number; rain: number; flow: number}
+ | {part: 'creekplan'; t: number; rain: number; flow: number; off?: number}
  | {part: 'remedycard'; w?: number; lit?: number; underline?: number; imprint?: number}
  | {part: 'arm'; dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?: string; scale?: number; shadow?: number}
  | ({part: 'flood'} & React.ComponentProps<typeof FloodSheet>)

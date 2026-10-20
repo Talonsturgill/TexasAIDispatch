@@ -81,6 +81,7 @@ type Box=[number,number,number,number];
 const clamp=(v:number)=>Math.min(1,Math.max(0,v));
 const lerp=(a:number,b:number,p:number)=>a+(b-a)*p;
 const smooth=(p:number)=>{const q=clamp(p);return q*q*(3-2*q);};
+const frac=(v:number)=>v-Math.floor(v);
 const DEG=180/Math.PI;
 /** The board's contact curve as a plain ease, for renderer-only setup moves outside an event window
  * (a pen withdrawing, a stamp poised): zero velocity and acceleration at both ends. */
@@ -577,21 +578,46 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   pic=<g><CamG c={cam} z={z}>{world}</CamG><Item id="s3-rain">{rain(S.s3.rain)}</Item></g>;
   break;}
  case 'creek-plan':{
-  // s3 from above, locked: the brown channel runs across the frame and its current runs LEFT, as in the
-  // elevation shots; the white roof and dome stand nose upstream (right) on the pale shallow shelf at the
-  // near bank's edge, a bow wave builds on the nose and wakes trail downstream; the same distance the
-  // elevation carries it moves it left, and going off the shelf takes it out into the channel, yawing.
-  // B's second creek shot is the same plan held closer by a locked camera (creekPlanCloser), so the roof, the
-  // pod and the empty cabin's glass read larger while the car's place, pose and bow wave carry across the cut.
+  // s3 from above, locked: the brown channel runs across the frame and its current runs LEFT, faster than the
+  // car. The empty car (its glass roof shows two bare seats and a wheel with no hands) stands nose upstream on
+  // the pale shallow shelf by the white-water lip, the water rushing round its wheels and a foam collar on its
+  // upstream side from the first frame. As the current takes it, the collar grows; going off the shelf it LIFTS
+  // (its contact shadow slides out from under it and softens, and it grows a little toward the lens) while the
+  // shelf-side water closes over the corner it left, and a curved V wake trails off its stern as it is carried
+  // left, several of its own lengths, past the oak's crown and the pale ledge slab.
+  // The second creek shot is the same plan held closer by a locked camera (creekPlanCloser), so the car's
+  // place, pose, collar and wake carry across the cut.
   const {carX,edgeY,carY,k}=CREEK_PLAN,pr=S.s3.press,off=S.s3.off,cx=carX-k*S.s3.drift,cy=lerp(edgeY,carY,off);
   const planCam=creekPlanCloser(shot as typeof shot&{scene_fraction_start?:number})?CREEK_PLAN_CLOSE:ID;
+  const yaw=-12*off+3*(1-off)*(.3+.7*pr)*Math.sin(2*Math.PI*1.1*t),sc=.5+.05*smooth(off),g=clamp(.3+.5*pr+.4*off);
+  const lift=smooth(off),sd=3+13*lift;
+  /** A point on a quadratic curve, for a wake arm cut into separate fading pieces. */
+  const q=(a:Pt,c:Pt,b:Pt,u:number):Pt=>[(1-u)*(1-u)*a[0]+2*u*(1-u)*c[0]+u*u*b[0],(1-u)*(1-u)*a[1]+2*u*(1-u)*c[1]+u*u*b[1]];
+  const wakeL=150+130*g,spread=50+50*g;
+  const local=(node:React.ReactNode,dx=0,dy=0,k2=1)=><g transform={`translate(${(cx+dx).toFixed(2)} ${(cy+dy).toFixed(2)}) rotate(${yaw.toFixed(3)}) scale(${(sc*k2).toFixed(4)})`}>{node}</g>;
   pic=<CamG c={planCam} z={1}>
-   <Item id="s3-creek"><Item id="s3-crossing"><Item id="s3-rain"><SanAntonioSupport part="creekplan" t={t} rain={S.s3.rain} flow={S.s3.flow}/></Item></Item></Item>
-   <Item id="s3-car">{top([cx,cy],.5,-12*off+3*(1-off)*(.3+.7*pr)*Math.sin(2*Math.PI*1.1*t),{shadow:.2,wetTo:lerp(30,90,off)})}
-    {/* the water rushing round its wheels from the first frame, then the bow wave building on the nose */}
-    <path d={`M${cx+118} ${cy-66}Q${cx+132+60*(.25+.75*pr)} ${cy} ${cx+118} ${cy+66}`} stroke="#E9E1CF" strokeWidth={12} fill="none" strokeLinecap="round" opacity={.45+.5*pr}/>
-    <path d={`M${cx+124} ${cy-46}Q${cx+128+38*(.25+.75*pr)} ${cy} ${cx+124} ${cy+46}`} stroke="#FFFFFF" strokeWidth={5} fill="none" opacity={.3+.5*pr}/>
-    {[-1,1].map(sgn=><path key={sgn} d={`M${cx-128} ${cy+sgn*52}q-40 ${sgn*12} -120 ${sgn*30}`} stroke="#E9E1CF" strokeWidth={6} fill="none" strokeLinecap="round" opacity={.45+.4*pr}/>)}</Item>
+   <Item id="s3-creek"><Item id="s3-crossing"><Item id="s3-rain"><SanAntonioSupport part="creekplan" t={t} rain={S.s3.rain} flow={S.s3.flow} off={off}/></Item></Item></Item>
+   <Item id="s3-car">
+    {/* the contact shadow: under the car on the shelf, sliding out from under it and softening as it lifts */}
+    {local(<rect x={-262} y={-118} width={524} height={236} rx={84} fill="#120C06" opacity={.32*lift}/>,sd*1.3,sd*1.3,1.1)}
+    {local(<rect x={-256} y={-112} width={512} height={224} rx={80} fill="#120C06" opacity={.5-.28*lift}/>,sd,sd)}
+    {/* the curved V wake off the stern, bending with the channel and fading in pieces */}
+    {local(<g data-part="v-wake">{[-1,1].map(sgn=>[[0,.3],[.38,.64],[.72,1]].map(([u0,u1],j)=>{
+      const a:Pt=[-262,sgn*78],c:Pt=[-262-wakeL*.55,sgn*(78+spread*.35)+12],b:Pt=[-262-wakeL,sgn*(78+spread)+16];
+      const pts=[0,.5,1].map(v=>q(a,c,b,lerp(u0,u1,v)));
+      return <path key={sgn+'-'+j} d={'M'+pts[0][0].toFixed(1)+' '+pts[0][1].toFixed(1)+'Q'+pts[1][0].toFixed(1)+' '+pts[1][1].toFixed(1)+' '+pts[2][0].toFixed(1)+' '+pts[2][1].toFixed(1)}
+       stroke="#F2EEE4" strokeWidth={22-6*j} fill="none" strokeLinecap="round" opacity={(.8-.22*j)*(.5+.5*g)}/>;}))}</g>)}
+    {/* water rushing round the wheels from the first frame */}
+    {local(<g data-part="wheel-water">{[[-168,-122],[-168,122],[172,-122],[172,122]].map(([x,y],i)=>{const ph=frac(t*1.4+i*.27);
+      return <ellipse key={i} cx={x-30*ph} cy={y+(y>0?8:-8)*ph} rx={30+26*ph} ry={14+8*ph} fill="none" stroke="#F2EEE4" strokeWidth={10-5*ph} opacity={.85*(1-ph)}/>;})}</g>)}
+    {top([cx,cy],sc,yaw,{shadow:0,wetTo:lerp(30,90,off),cabin:1})}
+    {/* the foam collar wrapping the upstream (right) side, growing with the press and as the car is carried */}
+    {local(<g data-part="foam-collar">
+     <path d={`M90 -132C${(230+60*g).toFixed(1)} -150 ${(330+80*g).toFixed(1)} -70 ${(330+80*g).toFixed(1)} 0S${(230+60*g).toFixed(1)} 150 90 132`} stroke="#F4F0E6" strokeWidth={(18+26*g).toFixed(1)} fill="none" strokeLinecap="round" opacity={.6+.35*g}/>
+     <path d={`M150 -104C${(250+40*g).toFixed(1)} -110 ${(300+50*g).toFixed(1)} -50 ${(300+50*g).toFixed(1)} 0S${(250+40*g).toFixed(1)} 110 150 104`} stroke="#FFFFFF" strokeWidth={8} fill="none" opacity={.5+.4*g}/>
+     {Array.from({length:9},(_,i)=>{const ph=frac(t*1.8+i*.37),a=(-1+i/4)*1.2;return <circle key={i} cx={(300+70*g)*Math.cos(a)+40*ph} cy={(150+40*g)*Math.sin(a)} r={10+8*(1-ph)} fill="#F7F4EC" opacity={.8*(1-ph)}/>;})}
+    </g>)}
+   </Item>
   </CamG>;
   break;}
  case 'street-flood':
