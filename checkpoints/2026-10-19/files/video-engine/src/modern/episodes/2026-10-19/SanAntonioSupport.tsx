@@ -648,38 +648,49 @@ export const RECORD_ROWS: {label: string; value: string}[] = [
 ];
 export const REMEDY_ROW = 3;
 /** The card's type, sized for a phone: each row stacks its label over its value, so a long label can
- * never run into the value beside it, and the value takes the whole width. */
-export const RECORD_TYPE = {label: 24, value: 36, lead: 44, head: 192, pad: 34, labelY: 36, valueY: 82};
+ * never run into the value beside it, and the value takes the whole width. At the card's on-screen
+ * scale of 1 or more, a label is about 11.5 px and a value about 16 px on a 390 px phone. */
+export const RECORD_TYPE = {label: 32, value: 44, lead: 54, head: 226, pad: 34, labelY: 42, valueY: 98,
+ title: 42, titleY: 64, sub: 30, subY: 108};
 /** The two stamp marks' sizes in card units. */
-export const STAMP_SIZE = {header: 28, remedy: 30};
-/** Row geometry for a card `w` wide showing its first `upto` rows: each row's top, its height, its value
- * lines and baselines. The remedy row carries a stamp slot under its words, so its mark lands on the
- * row and never on the sentence. The header's right side carries the software recall slot, under the
- * title's line and right of its subtitle, off every data row. */
-export function recordLayout(w = 760, upto = RECORD_ROWS.length) {
+export const STAMP_SIZE = {header: 30, remedy: 32};
+/** Which of the record's rows a card shows: the first n, or the listed indices in order. */
+export type RowPick = number | number[];
+const picked = (pick: RowPick) => typeof pick === 'number' ? RECORD_ROWS.map((_, i) => i).slice(0, pick) : pick;
+/** Row geometry for a card `w` wide showing the picked rows: each row's top, its height, its value lines
+ * and baselines. The remedy row carries a stamp slot under its words, so its mark lands on the row and
+ * never on the sentence. The header's right side carries the software recall slot, under the title's
+ * line and right of its subtitle, off every data row. */
+export function recordLayout(w = 760, pick: RowPick = RECORD_ROWS.length) {
  const {head, pad, label, value: size, lead, labelY, valueY} = RECORD_TYPE, vx = pad, vw = w - 2 * pad;
  let y = head + 14;
- const rows = RECORD_ROWS.slice(0, upto).map((r, i) => {
-  const lines = wrap(r.value, size, vw, true), last = y + valueY + (lines.length - 1) * lead;
+ const rows = picked(pick).map(index => {
+  const r = RECORD_ROWS[index], lines = wrap(r.value, size, vw, true), last = y + valueY + (lines.length - 1) * lead;
   // the slot sits far enough under the words that the raised stamp and the hand on its knob clear them
-  const slot = i === REMEDY_ROW ? {y: last + 104, h: 96} : undefined;
-  const h = slot ? slot.y - y + slot.h / 2 + 12 : valueY + (lines.length - 1) * lead + 22;
-  const row = {...r, y, h, lines, vx, labelY: y + labelY, baselines: lines.map((_, k) => y + valueY + k * lead), last, slot};
+  const slot = index === REMEDY_ROW ? {y: last + 112, h: 100} : undefined;
+  const h = slot ? slot.y - y + slot.h / 2 + 12 : valueY + (lines.length - 1) * lead + 26;
+  const row = {...r, index, y, h, lines, vx, labelY: y + labelY, baselines: lines.map((_, k) => y + valueY + k * lead), last, slot};
   y += h; return row;
  });
  const hw = imprintSize('Software recall', STAMP_SIZE.header).w;
- const header = {x: w - 24 - hw / 2, y: head - 44};
+ const header = {x: w - 24 - hw / 2, y: head - 50};
  return {w, h: y + 26, head, vx, vw, size, label, lead, rows, header};
 }
+const remedyOf = (w: number, pick: RowPick) => {
+ const rem = recordLayout(w, pick).rows.find(r => r.index === REMEDY_ROW);
+ if (!rem) throw new Error('This record card does not show the remedy row');
+ return rem;
+};
 /** Where the stamp marks land in card units: the header slot, and the remedy row's slot under its words. */
-export function stampSlots(w = 760) {
- const L = recordLayout(w, REMEDY_ROW + 1), rem = L.rows[REMEDY_ROW], uw = imprintSize('Under development', STAMP_SIZE.remedy).w;
- return {header: L.header, remedy: {x: rem.vx + uw / 2 + 6, y: rem.slot!.y}};
+export function stampSlots(w = 760, pick: RowPick = REMEDY_ROW + 1) {
+ const rem = remedyOf(w, pick), uw = imprintSize('Under development', STAMP_SIZE.remedy).w;
+ return {header: recordLayout(w, pick).header, remedy: {x: rem.vx + uw / 2 + 6, y: rem.slot!.y}};
 }
-/** Where a pen tip rests at the end of the remedy sentence, in card units: just past its last word. */
-export function remedyPenTip(w = 760) {
- const L = recordLayout(w, REMEDY_ROW + 1), rem = L.rows[REMEDY_ROW];
- return {x: rem.vx + widthOf(rem.lines[rem.lines.length - 1], L.size, true) + 20, y: rem.last - 10};
+/** Where a pen tip rests at the end of the remedy sentence, in card units: just past its last word, at
+ * the middle of that line's letters. */
+export function remedyPenTip(w = 760, pick: RowPick = REMEDY_ROW + 1) {
+ const rem = remedyOf(w, pick);
+ return {x: rem.vx + widthOf(rem.lines[rem.lines.length - 1], RECORD_TYPE.value, true) + 16, y: rem.last - 14};
 }
 /** A stamp mark in card units. `solid` stamps carry an inked plate tone inside the border, so the mark
  * reads as one block over the printed row rather than as a second line of type tangled in it. */
@@ -702,32 +713,32 @@ const ImprintMark: React.FC<Imprint & {id: string}> = ({text, p, x, y, rot, size
   </g>
  </g>;
 };
-/** The record card showing its first `upto` rows; `rows` writes them in, 0 to 1. Rows past `upto` are
- * not on the card at all, so a fact is never on screen before its clause. */
-export const RecordCard: React.FC<{w?: number; rows: number; upto?: number; remedyLit?: number; underline?: number; imprints?: Imprint[]}> =
- ({w = 760, rows, upto = RECORD_ROWS.length, remedyLit = 0, underline = 0, imprints = []}) => {
- const id = useUid('sar'), L = recordLayout(w, upto), n = L.rows.length;
+/** The record card showing the picked rows; `rows` writes them in, 0 to 1. Rows not picked are not on the
+ * card at all, so a fact is never on screen before its clause. */
+export const RecordCard: React.FC<{w?: number; rows: number; pick?: RowPick; remedyLit?: number; underline?: number; imprints?: Imprint[]}> =
+ ({w = 760, rows, pick = RECORD_ROWS.length, remedyLit = 0, underline = 0, imprints = []}) => {
+ const id = useUid('sar'), L = recordLayout(w, pick), n = L.rows.length, T = RECORD_TYPE;
  return <g data-part="recall-record">
   <rect x={10} y={14} width={w} height={L.h} rx={10} fill="#1A1814" opacity={.22}/>
   <path d={`M0 10Q0 0 10 0H${w - 30}L${w} 30V${L.h - 10}Q${w} ${L.h} ${w - 10} ${L.h}H10Q0 ${L.h} 0 ${L.h - 10}Z`} fill={SA.paper} stroke={SA.paperEdge} strokeWidth={2}/>
   <path d={`M${w - 30} 0L${w} 30H${w - 30}Z`} fill="#DDD3BE"/>
-  <rect x={26} y={24} width={14} height={64} fill={SA.ink}/>
-  <text x={56} y={62} fontFamily={FONT.body} fontWeight={800} fontSize={36} fill={SA.ink}>Federal recall record</text>
-  <text x={57} y={98} fontFamily={FONT.mono} fontWeight={500} fontSize={24} fill="#5A626B">Vehicle safety recall</text>
+  <rect x={26} y={24} width={14} height={92} fill={SA.ink}/>
+  <text x={56} y={T.titleY} fontFamily={FONT.body} fontWeight={800} fontSize={T.title} fill={SA.ink}>Federal recall record</text>
+  <text x={57} y={T.subY} fontFamily={FONT.mono} fontWeight={500} fontSize={T.sub} fill="#5A626B">Vehicle safety recall</text>
   <path d={`M26 ${L.head}H${w - 26}`} stroke={SA.ink} strokeWidth={2.5}/>
   {L.rows.map((row, i) => {
-   const shown = clamp(rows * n - i), lit = i === REMEDY_ROW ? clamp(remedyLit) : 0;
-   return <g key={i} data-part={i === REMEDY_ROW ? 'remedy-row' : 'record-row'}>
+   const remedy = row.index === REMEDY_ROW, shown = clamp(rows * n - i), lit = remedy ? clamp(remedyLit) : 0;
+   return <g key={row.index} data-part={remedy ? 'remedy-row' : 'record-row'}>
     {lit > 0 && <rect x={18} y={row.y + 4} width={w - 36} height={row.h - 8} rx={8} fill="#FFE2B6" opacity={.85 * lit}/>}
     {lit > 0 && <rect x={18} y={row.y + 4} width={7} height={row.h - 8} rx={3} fill={SA.ink} opacity={lit}/>}
     <defs><clipPath id={`${id}r${i}`}><rect x={0} y={row.y} width={w * ease(shown)} height={row.h}/></clipPath></defs>
     <g clipPath={`url(#${id}r${i})`}>
      <text x={row.vx} y={row.labelY} fontFamily={FONT.mono} fontWeight={600} fontSize={L.label} fill="#4F5862">{row.label}</text>
-     {row.lines.map((l, k) => <text key={k} x={row.vx} y={row.baselines[k]} fontFamily={FONT.body} fontWeight={i === REMEDY_ROW ? 800 : 700} fontSize={L.size} fill={SA.ink}>{l}</text>)}
+     {row.lines.map((l, k) => <text key={k} x={row.vx} y={row.baselines[k]} fontFamily={FONT.body} fontWeight={remedy ? 800 : 700} fontSize={L.size} fill={SA.ink}>{l}</text>)}
     </g>
     {shown < 1 && shown > 0 && <rect x={w * ease(shown) - 3} y={row.y + 12} width={4} height={row.h - 22} fill={SA.ink} opacity={.7}/>}
     {i + 1 < n && <path d={`M26 ${row.y + row.h}H${w - 26}`} stroke="#D9CFBA" strokeWidth={1.5}/>}
-    {i === REMEDY_ROW && underline > 0 && <path d={`M${row.vx} ${row.last + 12}h${(w - row.vx - 40) * clamp(underline)}`} stroke={SA.ink} strokeWidth={6} strokeLinecap="round"/>}
+    {remedy && underline > 0 && <path d={`M${row.vx} ${row.last + 14}h${(w - row.vx - 40) * clamp(underline)}`} stroke={SA.ink} strokeWidth={6} strokeLinecap="round"/>}
    </g>;
   })}
   {imprints.map((im, i) => <ImprintMark key={i} {...im} id={`${id}i${i}`}/>)}
@@ -847,26 +858,29 @@ export const MapCard: React.FC<{updated: number; w?: number}> = ({updated, w = 3
 
 /** The record's remedy row on its own card, large enough to read on a phone: the header, the label and
  * the source's sentence, lit, with the under development mark and an underline. Top left at (0,0). */
-export function remedyLayout(w = 760, size = 46) {
- const lines = wrap(RECORD_ROWS[REMEDY_ROW].value, size, w - 80, true), lead = size * 1.22, top = 196;
+export function remedyLayout(w = REMEDY_W, size = 50) {
+ const lines = wrap(RECORD_ROWS[REMEDY_ROW].value, size, w - 80, true), lead = size * 1.22, top = 254;
  // the bottom band under the sentence holds the under development mark clear of the words
- return {w, size, lead, lines, top, h: top + lines.length * lead + 84};
+ return {w, size, lead, lines, top, h: top + (lines.length - 1) * lead + 132};
 }
-export const RemedyCard: React.FC<{w?: number; lit?: number; underline?: number; imprint?: number}> = ({w = 760, lit = 0, underline = 0, imprint = 0}) => {
- const id = useUid('srm'), R = remedyLayout(w), last = R.top + (R.lines.length - 1) * R.lead;
+/** The remedy card's width and type: at its on-screen scale of about 0.84 its label reads at about 11.5 px
+ * and its sentence at about 15.5 px on a 390 px phone. */
+export const REMEDY_W = 860, REMEDY_TYPE = {title: 42, sub: 36, label: 38};
+export const RemedyCard: React.FC<{w?: number; lit?: number; underline?: number; imprint?: number}> = ({w = REMEDY_W, lit = 0, underline = 0, imprint = 0}) => {
+ const id = useUid('srm'), R = remedyLayout(w), last = R.top + (R.lines.length - 1) * R.lead, T = REMEDY_TYPE;
  return <g data-part="remedy-card">
   <rect x={10} y={14} width={w} height={R.h} rx={10} fill="#1A1814" opacity={.24}/>
   <path d={`M0 10Q0 0 10 0H${w - 30}L${w} 30V${R.h - 10}Q${w} ${R.h} ${w - 10} ${R.h}H10Q0 ${R.h} 0 ${R.h - 10}Z`} fill={SA.paper} stroke={SA.paperEdge} strokeWidth={2}/>
-  <rect x={26} y={24} width={14} height={64} fill={SA.ink}/>
-  <text x={56} y={62} fontFamily={FONT.body} fontWeight={800} fontSize={36} fill={SA.ink}>Federal recall record</text>
-  <text x={57} y={92} fontFamily={FONT.mono} fontWeight={500} fontSize={19} fill="#5A626B">Vehicle safety recall</text>
-  <path d={`M26 112H${w - 26}`} stroke={SA.ink} strokeWidth={2.5}/>
-  {lit > 0 && <rect x={18} y={124} width={w - 36} height={R.h - 140} rx={8} fill="#FFE2B6" opacity={.85 * clamp(lit)}/>}
-  {lit > 0 && <rect x={18} y={124} width={7} height={R.h - 140} rx={3} fill={SA.ink} opacity={clamp(lit)} data-part="remedy-row"/>}
-  <text x={40} y={160} fontFamily={FONT.mono} fontWeight={700} fontSize={26} fill="#4F5862" data-part="remedy-row">Remedy</text>
+  <rect x={26} y={24} width={14} height={96} fill={SA.ink}/>
+  <text x={56} y={64} fontFamily={FONT.body} fontWeight={800} fontSize={T.title} fill={SA.ink}>Federal recall record</text>
+  <text x={57} y={112} fontFamily={FONT.mono} fontWeight={500} fontSize={T.sub} fill="#5A626B">Vehicle safety recall</text>
+  <path d={`M26 132H${w - 26}`} stroke={SA.ink} strokeWidth={2.5}/>
+  {lit > 0 && <rect x={18} y={144} width={w - 36} height={R.h - 160} rx={8} fill="#FFE2B6" opacity={.85 * clamp(lit)}/>}
+  {lit > 0 && <rect x={18} y={144} width={7} height={R.h - 160} rx={3} fill={SA.ink} opacity={clamp(lit)} data-part="remedy-row"/>}
+  <text x={40} y={190} fontFamily={FONT.mono} fontWeight={700} fontSize={T.label} fill="#4F5862" data-part="remedy-row">Remedy</text>
   {R.lines.map((l, k) => <text key={k} x={40} y={R.top + k * R.lead} fontFamily={FONT.body} fontWeight={800} fontSize={R.size} fill={SA.ink}>{l}</text>)}
-  {underline > 0 && <path d={`M40 ${last + 14}h${(w - 120) * clamp(underline)}`} stroke={SA.ink} strokeWidth={7} strokeLinecap="round"/>}
-  <ImprintMark text="Under development" p={imprint} x={w - 230} y={R.h - 46} rot={-4} size={30} id={`${id}i`}/>
+  {underline > 0 && <path d={`M40 ${last + 16}h${(w - 120) * clamp(underline)}`} stroke={SA.ink} strokeWidth={7} strokeLinecap="round"/>}
+  <ImprintMark text="Under development" p={imprint} x={w - 240} y={R.h - 64} rot={-4} size={32} id={`${id}i`}/>
  </g>;
 };
 /** A working hand and forearm holding a stamp knob or a pen at (0,0), the arm running off toward `dir`
@@ -1025,13 +1039,22 @@ export const PuddlePlan: React.FC<{x0: number; x1: number; y0: number; y1: numbe
  </g>;
 };
 /** A fleet lot straight down: stall lines in two rows. */
-export const LOT_PLAN = {rows: [660, 1060] as P, stall: 196, x0: 50, scale: .58};
+/** The fleet lot from above: ONE row of four stalls, the same four cars the elevation shows, large enough
+ * to count; B's overhead and its closer detail both stand in this lot. */
+export const LOT_PLAN = {row: 760, cars: 4, stall: 240, x0: 60, scale: .7};
 export const LotPlan: React.FC = () => {
- const {rows, stall, x0} = LOT_PLAN;
+ const {row, cars, stall, x0} = LOT_PLAN;
  return <g data-part="lot-plan">
   <rect x={30} y={220} width={1020} height={1200} rx={12} fill="#56595D"/>
+  {/* the same dry laid limestone wall under the chain link that the elevation shows, seen from above */}
+  <g data-part="limestone-wall-plan">{Array.from({length: 13}, (_, i) => <rect key={i} x={34 + i * 78 + (i % 3) * 3} y={226} width={72 + (i % 2) * 4} height={18} rx={3}
+   fill={i % 3 ? SA.limestone : '#CEC4AE'} stroke={SA.limestoneShade} strokeWidth={1.5}/>)}</g>
   <path d="M30 248H1050" stroke="#8E959A" strokeWidth={4} strokeDasharray="10 6"/>
-  {rows.map(y => Array.from({length: 6}, (_, i) => <path key={y + '-' + i} d={`M${x0 + i * stall} ${y - 170}v340`} stroke={SA.paint} strokeWidth={6} opacity={.6}/>))}
+  {Array.from({length: cars + 1}, (_, i) => <path key={i} d={`M${x0 + i * stall + (i % 2) * 3} ${row - 215}v430`} stroke={SA.paint} strokeWidth={6} opacity={.6}/>)}
+  <path d={`M${x0} ${row + 215}H${x0 + cars * stall}`} stroke={SA.paint} strokeWidth={5} opacity={.4}/>
+  {/* oil stains and a patched seam: the same worn asphalt as the elevation */}
+  {[[200, row + 40], [690, row - 30], [930, row + 60]].map(([x, y], i) => <ellipse key={'o' + i} cx={x} cy={y} rx={46} ry={28} fill="#3E4145" opacity={.45}/>)}
+  <path d={`M40 ${row + 330}C300 ${row + 324} 700 ${row + 338} 1040 ${row + 330}`} stroke="#45484C" strokeWidth={4} fill="none" opacity={.7}/>
   {/* a live oak's crown over the lot's corner, seen from above */}
   <g data-part="oak-crown-plan"><ellipse cx={1010} cy={300} rx={120} ry={96} fill="#000000" opacity={.18}/>
    <ellipse cx={990} cy={280} rx={118} ry={94} fill={SA.oakDark}/><ellipse cx={968} cy={262} rx={78} ry={60} fill={SA.oak}/></g>
@@ -1075,7 +1098,7 @@ type SupportProps =
  | {part: 'puddleplan'; x0: number; x1: number; y0: number; y1: number; t: number}
  | {part: 'lot'; sag?: number}
  | {part: 'lotplan'}
- | {part: 'record'; w?: number; rows: number; upto?: number; remedyLit?: number; underline?: number; imprints?: Imprint[]}
+ | {part: 'record'; w?: number; rows: number; pick?: RowPick; remedyLit?: number; underline?: number; imprints?: Imprint[]}
  | {part: 'stamp'; w: number; h: number; lift?: number}
  | {part: 'pen'; rot?: number}
  | {part: 'desk'; x0: number; x1: number; y0: number; h: number; top?: boolean}

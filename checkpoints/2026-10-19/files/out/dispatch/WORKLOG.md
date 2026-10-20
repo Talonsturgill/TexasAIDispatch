@@ -141,3 +141,5 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-20T07:10Z builder panel1 done (tsc 0); boards renderer_inputs rebound, art re-recorded and unified to opening-b entries (as r9), after_sha256 filled, authorize-repair ok. Code critic r11 reserved, packet c5a9008c.
 
 2026-10-20T08:05Z CONTAINER RESTART killed code critic r11 (agent abbd12ae, reserved 20/20) mid-read, no verdict produced (transcript 128 lines, last event reading config). Filesystem intact, continuation re-armed. Resuming the SAME worker by SendMessage on the unchanged packet c5a9008c as continuation of the already charged assignment (no new content, no changed proposal); disclosed.
+
+2026-10-20T08:40Z Code critic r11 (resumed abbd12ae after restart) REVISE both: stale native_media support hash/subject (mine to rebind), B s8 fleet continuity, label scale risk. Reboard follow-up 9/9 charged; builder addeca51 resumed for B fleet, label scale, s5 stamp axis, s7 pen rest, s9 hold. Then: I rebind native_media+renderer_inputs+art, after_sha256 refresh (authorize-repair already done: edited bytes after authorize need re-check), fresh code review (needs capacity).

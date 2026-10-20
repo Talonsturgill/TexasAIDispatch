@@ -1,0 +1,30 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "storyboard-critic",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "storyboard-critic",
+    "resource": "storyboard_critics",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/critic-packet-round12.json",
+    "sha256": "bf3398bc215dd898f9e8815d73affab0f364ebb7f284f59f01c5473d1bd60a8c"
+  },
+  "brief": {
+    "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/.claude/agents/storyboard-critic.md",
+    "sha256": "fdb8be9d241d878c1d87f2c9d18746dc290c1d402371b4e458f48825fa7082c0"
+  },
+  "agent_args": {
+    "subagent_type": "storyboard-critic",
+    "description": "code_review_panel1_r2",
+    "prompt": "Work in /home/user/dispatch-editions/2026-10-19/TexasAIDispatch. Read the current compact packet /home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/critic-packet-round12.json (SHA256 bf3398bc215dd898f9e8815d73affab0f364ebb7f284f59f01c5473d1bd60a8c) and every bound current guide in full. Verify the inputs before use. Scope: Fresh code-plan review after the round 11 REVISE fixes, both treatments. See evidence/code-round11 and out/dispatch/evidence/panel-round1/builder-brief.md. Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film."
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel."
+}

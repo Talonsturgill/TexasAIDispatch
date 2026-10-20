@@ -5,7 +5,7 @@ import {useArtDirection} from '../../../lib/artDirection';
 import {actionProgress,actionWindows,requireNarration,type ActionWindow,type DirectedScene} from '../../../lib/direction';
 import {PlaceSubject,usePlace} from '../../PlaceStage';
 import type {FilmRenderProps} from '../../types';
-import {RobotaxiHero,CAR,SIDE_BOX,TOP_BOX,type SideProps,type TopProps} from './RobotaxiHero';
+import {RobotaxiHero,CAR,SIDE_BOX,TOP_BOX,DOOR_STOP,type SideProps,type TopProps} from './RobotaxiHero';
 import {SanAntonioSupport,CURB,CURB_PLAN,CREEK,STREET,LANE,LOT,LOT_PLAN,LANE_PLAN,STREET_PLAN,CREEK_PLAN,
  QUOTE_TEXT,REMEDY_ROW,floodFoot,puddleFoot,imprintSize,stampSlots,remedyPenTip,stampKnob,cordAt,STAMP_SIZE,type Imprint} from './SanAntonioSupport';
 
@@ -35,27 +35,30 @@ import {SanAntonioSupport,CURB,CURB_PLAN,CREEK,STREET,LANE,LOT,LOT_PLAN,LANE_PLA
  *      stills. The mud line stays.
  *  s5  the recall record card, already at the desk's edge, slides into place and its two rows write in
  *      (the recall type, the potential units affected, each label over its value); a grid of car icons
- *      fills row by row, the counter tag settles and a software recall stamp, brought in level from the
- *      right by a hand whose forearm runs up off the frame, lands in the card's header slot, off every
- *      data row; its blow jostles the counter tag and the camera settles in on the count.
+ *      fills row by row, the counter tag settles and a software recall stamp, brought in along its own
+ *      forearm from the lower right, as in s7, lands in the card's header slot, off every data row; its
+ *      blow jostles the counter tag and the camera settles in on the count.
  *  s6  THE TURN. The car runs the higher speed lane, slows with its brake lamps lit (its speed eases
  *      down along the board's contact curve), releases and rolls on into standing water with a wake at
  *      its wheels. Its speed never reaches zero: there is no stop state and no crash. The recall
  *      sentence's word may lights as the front wheel meets the water.
- *  s7  the remedy row writes in and lights on the clause's first word, a hand brings a pen in from the
- *      right to rest just past the sentence's last word and takes it away before the cut; in the detail
- *      only the stamp's hand, from the same side, is at the row: the stamp, raised over the row's slot
+ *  s7  the card (recall type, units affected, remedy) fills the frame; the remedy row writes in and
+ *      lights on the clause's first word, a hand brings a pen in from the right to rest just past the
+ *      sentence's last word, and the tip stays there through currently under development, across the cut
+ *      to the detail, leaving after the clause ends; in the detail the stamp, raised over the row's slot
  *      under its words, presses into it and is carried out of the way, its forearm running out below the
- *      sentence, leaving the row and its mark clear for more than a second before the cut. The interim
- *      rows (the weather limits and the April 20th date) are never on the card.
+ *      pen and the sentence. The summary sentence has its own card in s6, and the interim rows (the
+ *      weather limits and the April 20th date) are never on the card.
  *  s8  a weather limits tag enters on the clause's first word, slides along a cord and clips above a row
  *      of four large cars; the cord takes up its slack and the tag swings and settles; each car takes a
  *      check mark left to right as every affected car is named, the vehicle map card is marked updated,
- *      and the April calendar flips to 20 on April twentieth.
+ *      and the April calendar flips to 20 on April twentieth. B reads the same four cars from above in one
+ *      lot through both of its s8 shots, the detail being the same lot closer.
  *  s9  back at the same curb bay the same car waits, its curbside rear door swings open, the record card,
  *      already standing back by the curb, slides into the foreground through the remedy's naming and its
  *      remedy row is underlined, still under development; the split sets the card and phone on the
- *      record's desk while the top panel closes slowly on the open door.
+ *      record's desk while the top panel closes slowly on the open door, which, held open, eases on to
+ *      its check stop after the underline.
  *
  * The region stands behind every exterior shot (PlaceStage); this episode never paints a full-frame
  * background. Ground-standing worlds ride the plate camera through PlaceSubject. Documents and the map
@@ -159,7 +162,10 @@ export function robotaxiState(W:Record<string,ActionWindow>,t:number,N:Record<st
  // right before the cut to the detail, so only the stamp's hand is ever at the row there; the stamp lands
  // early in its window and is carried away
  const r73=R('s7-event-3'),w72=w('s7-event-2');
- const s7={lit:P('s7-event-1'),pen:w72?smooth((t-w72.start-PEN.inAt)/PEN.inDur):0,penOut:w72?smooth((t-w72.start-PEN.outAt)/PEN.outDur):0,
+ // the pen comes in for s7-event-2 and rests on the remedy row through the rest of the clause, past its
+ // last word, so the tip is there while currently under development is spoken; it leaves after n7 ends
+ const n7=N['n7'],penOutAt=w72?Math.max(w72.start+PEN.outAt,n7?n7.end:0):0;
+ const s7={lit:P('s7-event-1'),pen:w72?smooth((t-w72.start-PEN.inAt)/PEN.inDur):0,penOut:w72?smooth((t-penOutAt)/PEN.outDur):0,
   stamp:r73,imprint:clamp((r73-STAMP.press-.01)/.05)};
  // s8: the tag enters on n8a's first word and slides along the cord, one stroke from rest to rest, braking
  // into its clip on s8-event-1 (the pinning); the cord then takes up its slack and the tag swings and
@@ -170,7 +176,9 @@ export function robotaxiState(W:Record<string,ActionWindow>,t:number,N:Record<st
   swing:w81?damped(t-w81.end,6,1.1,2.2)+damped(t-w81.end-S8.tightAt,3.5,1.3,2.6):0,
   flip:P('s8-event-2'),checks:P('s8-event-3'),updated:w83?smooth((t-w83.end)/.6):0};
  // s9: door opens, card slides in, remedy underlined
- const s9={door:P('s9-event-1'),slide:P('s9-event-2'),underline:P('s9-event-3')};
+ // the held-open door eases on to its check stop after the underline: the last small movement of the ride
+ const w93=w('s9-event-3');
+ const s9={door:P('s9-event-1')+(w93?(DOOR_STOP-1)*smooth((t-w93.end-.15)/1.1):0),slide:P('s9-event-2'),underline:P('s9-event-3')};
  return {s1,s2,s3,s4,s5,s6,s7,s8,s9};
 }
 export type RobotaxiState=ReturnType<typeof robotaxiState>;
@@ -195,16 +203,21 @@ export const LOT_AT={calendar:[170,700] as Pt,map:[700,800] as Pt};
 /** s8's cord: when it takes up its slack after the tag clips (seconds after s8-event-1 ends), how long
  * that takes, and how much of the sag it removes. */
 export const S8={tightAt:.1,tightDur:.8,tightBy:.7};
-export const LIMITS_DETAIL={tag:[470,290] as Pt,calendar:[250,640] as Pt,map:[500,680] as Pt,icons:[140,290,440,590,740,890],iconY:1190,iconK:2.1};
+/** B's s8 close: the SAME lot from above as fleet-plan, the same four roofs, closer. The camera puts lot
+ * point f on screen point a at scale s; the vehicle map card lies on the lot's near edge. */
+export const LIMITS_DETAIL={cam:{f:[540,700] as Pt,s:1.12,a:[540,780] as Pt},map:[700,960] as Pt,mapW:240};
+/** Where the tag pins and the calendar lies in B's lot plan. */
+export const LOT_PLAN_AT={tagY:246,calendar:[150,262] as Pt,calendarW:150};
 export const CARD_W=760;
-/** How many of the record's rows each scene shows: the recall type and count in s5, through the remedy
- * in s7. The interim rows (the weather limits and the April 20th date) are never on the card. */
-export const CARD_ROWS={s5:2,s7:4};
-export const COUNT_TAG={at:[330,652] as Pt,size:40,lines:['Nearly 3,800','vehicles','3,791 potentially','affected in the record']};
+/** Which of the record's rows each scene shows: the recall type and count in s5; the recall type, count
+ * and remedy in s7 (the summary sentence has its own card in s6). The interim rows (the weather limits and
+ * the April 20th date) are never on the card. */
+export const CARD_ROWS:{s5:number;s7:number[]}={s5:2,s7:[0,1,3]};
+export const COUNT_TAG={at:[300,772] as Pt,size:40,lines:['Nearly 3,800','vehicles','3,791 potentially','affected in the record']};
 /** s5's grid of car icons, under the counter tag and above the caption band. */
-export const COUNT_GRID={at:[56,900] as Pt,cols:10,rows:6,dx:82,dy:56};
+export const COUNT_GRID={at:[56,1000] as Pt,cols:10,rows:5,dx:82,dy:50};
 /** s5's slow push in on the count after the stamp lands: the point it closes on and how far. */
-export const COUNT_PUSH={at:[540,520] as Pt,by:.05};
+export const COUNT_PUSH={at:[540,700] as Pt,by:.05};
 export const LOT_TAG={x:520,size:38};
 /** Where the weather limits tag starts its slide: its right half already in frame at the left edge, so
  * it is on screen from the clause's first word. */
@@ -218,7 +231,7 @@ export const PHONE_HAIL={at:[96,646] as Pt,rot:-5,w:300};
 export const PHONE_INSET={at:[60,300] as Pt,w:250};
 /** s9's record: the remedy row on its own card, sliding into the foreground (record-slide) and in the
  * split's lower panel beside the phone (curb-record-split). */
-export const REMEDY_AT={'record-slide':{x:40,y:930,s:.84,back:[300,1040] as Pt,backS:.52},'curb-record-split':{x:36,y:936,s:.83,phone:[742,936] as Pt,phoneW:162,panelY:930}};
+export const REMEDY_AT={'record-slide':{x:40,y:890,s:.84,back:[300,1030] as Pt,backS:.5},'curb-record-split':{x:36,y:890,s:.84,phone:[772,890] as Pt,phoneW:140,panelY:880}};
 /** s9's split: how far the top panel's camera closes on the open door over the shot; and how far the
  * curb closes behind the sliding record card, which then settles toward the viewer by `SLIDE_SETTLE` px. */
 export const SPLIT_PUSH=.06,SLIDE_PUSH=.05,SLIDE_SETTLE=14;
@@ -227,13 +240,13 @@ export const SPLIT_PUSH=.06,SLIDE_PUSH=.05,SLIDE_SETTLE=14;
 export const S5_SLIDE={dx:300,dy:40};
 /** Where the record card sits in each document view: top left and scale. */
 export const CARD_AT:Record<string,{x:number;y:number;s:number}>={
- 'record-desk':{x:120,y:760,s:1.0},'count-grid':{x:70,y:236,s:.9},'record-wall':{x:140,y:280,s:1.0},'record-wall-s5':{x:122,y:560,s:1.04},
- 'record-close':{x:80,y:280,s:1.0},'stamp-detail':{x:22,y:236,s:1.05}};
+ 'record-desk':{x:120,y:740,s:1.0},'count-grid':{x:70,y:236,s:1.0},'record-wall':{x:140,y:280,s:1.0},'record-wall-s5':{x:122,y:560,s:1.04},
+ 'record-close':{x:80,y:280,s:1.0},'stamp-detail':{x:22,y:236,s:1.1}};
 /** The s5 and s7 stamp marks, in card units: software recall in the header's slot, off every data row;
  * under development in the remedy row's slot under its words. They stay on the card for the rest of
  * the film. */
 export function cardImprints(st:RobotaxiState):Imprint[]{
- const S=stampSlots(CARD_W);
+ const S=stampSlots(CARD_W,CARD_ROWS.s7);
  return [{text:'Software recall',p:st.s5.imprint,x:S.header.x,y:S.header.y,rot:-4,size:STAMP_SIZE.header},
   {text:'Under development',p:st.s7.imprint,x:S.remedy.x,y:S.remedy.y,rot:-4,size:STAMP_SIZE.remedy,solid:true}];
 }
@@ -278,11 +291,11 @@ export function stampPose(win:ActionWindow|undefined,t:number,mark:Pt,o:StampPla
  * the fingers hold it, and its timing against s7-event-2's start: in from 0.55 s before to 0.05 s after,
  * resting with its tip just past the remedy sentence's last word, out from 0.2 s to 0.56 s after, gone
  * at the cut. */
-export const PEN={rot:20,armDir:[.9,.436] as Pt,reach:330,out:250,grip:110,inAt:-.55,inDur:.6,outAt:.2,outDur:.36};
-/** s5: the stamp comes in raised and level from the frame's right edge, so it never passes over the
- * title, hangs over the header slot, presses, and is carried back off the same way; its arm runs up and
- * right to the frame's top right, clear of the title and the chip. */
-export const S5_STAMP:StampPlan={approach:1.15,reach:520,dir:[.6,-.8],from:[1,0],away:[1,0],v:700,arm:.85};
+export const PEN={rot:8,armDir:[.99,.14] as Pt,reach:330,out:250,grip:110,inAt:-.55,inDur:.6,outAt:.2,outDur:.36};
+/** s5: as in s7, the stamp comes in raised along its own forearm from the lower right, below the title and
+ * right of the short row values, hangs over the header slot, presses, and is carried back off along the
+ * forearm. */
+export const S5_STAMP:StampPlan={approach:1.15,reach:520,dir:[.92,.39],v:700,arm:.85};
 /** s7: the detail opens with the stamp already coming in raised from the lower right; its arm runs out
  * to the right and down, below the remedy sentence, so neither the hand nor the forearm covers a word. */
 export const S7_STAMP:StampPlan={approach:.7,reach:330,dir:[.92,.39],v:700,arm:.95};
@@ -378,8 +391,8 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
  const tag=(lines:string[],shown:number,o:{size?:number;tone?:'paper'|'accent'|'ink';icon?:'rain';sub?:number;dir?:number;swing?:number}={})=>
   shown<=0?null:<g transform={`translate(0 ${(-36*(1-smooth(shown))).toFixed(2)})`} opacity={clamp(shown*3)}>
    <SanAntonioSupport part="tag" lines={lines} size={o.size} tone={o.tone} icon={o.icon} sub={o.sub} swing={9*(1-smooth(shown))*(o.dir??1)+(o.swing??0)}/></g>;
- const card=(k:string,o:{rows:number;upto:number;lit?:number;underline?:number})=>{const c=CARD_AT[k];
-  return <At p={[c.x,c.y]} s={c.s}><SanAntonioSupport part="record" w={CARD_W} rows={o.rows} upto={o.upto} remedyLit={o.lit} underline={o.underline} imprints={imprints}/></At>;};
+ const card=(k:string,o:{rows:number;pick:number|number[];lit?:number;underline?:number})=>{const c=CARD_AT[k];
+  return <At p={[c.x,c.y]} s={c.s}><SanAntonioSupport part="record" w={CARD_W} rows={o.rows} pick={o.pick} remedyLit={o.lit} underline={o.underline} imprints={imprints}/></At>;};
  /** The rubber stamp at a pose from stampPose, seen from above as the card is: its footprint `w` by `h`
   * screen pixels, the size of the mark it leaves, turned to the mark's angle; the hand closes over its
   * knob and the forearm runs off the frame along the plan's direction, with its shadow on the paper. */
@@ -555,7 +568,7 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
    pic=<g>
     <SanAntonioSupport part="desk" x0={wall?60:-40} x1={wall?1020:1120} y0={wall?250:700} h={wall?1060:820} top={wall}/>
     <Item id="s5-record"><At p={[c.x+off*S5_SLIDE.dx,c.y+off*(wall?0:S5_SLIDE.dy)]} r={lerp(wall?-6:7,wall?-1:-1.5,S.s5.slide)} s={c.s}>
-     <SanAntonioSupport part="record" w={CARD_W} rows={S.s5.rows} upto={CARD_ROWS.s5} imprints={imprints}/></At></Item>
+     <SanAntonioSupport part="record" w={CARD_W} rows={S.s5.rows} pick={CARD_ROWS.s5} imprints={imprints}/></At></Item>
     <At p={wall?[880,1230]:[900,1262]}><SanAntonioSupport part="pen"/></At>
    </g>;
    break;
@@ -565,11 +578,11 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
    // filling row by row (linear) below both; the software recall stamp comes in raised from above the
    // frame's top right, its arm running up and right clear of the title and the chip, and lands in the
    // header's slot, off every data row. Its blow jostles the counter tag, and the camera settles in.
-   const c=CARD_AT[view],slot=stampSlots(CARD_W).header,mark=cardPoint(view,slot.x,slot.y),im=imprintSize('Software recall',STAMP_SIZE.header);
+   const c=CARD_AT[view],slot=stampSlots(CARD_W,CARD_ROWS.s7).header,mark=cardPoint(view,slot.x,slot.y),im=imprintSize('Software recall',STAMP_SIZE.header);
    const zk=1+COUNT_PUSH.by*S.s5.settle,[zx,zy]=COUNT_PUSH.at;
    pic=<g transform={`translate(${zx} ${zy}) scale(${zk.toFixed(5)}) translate(${-zx} ${-zy})`}>
     <SanAntonioSupport part="desk" x0={-40} x1={1120} y0={200} h={1180}/>
-    <Item id="s5-record">{card(view,{rows:1,upto:CARD_ROWS.s5})}</Item>
+    <Item id="s5-record">{card(view,{rows:1,pick:CARD_ROWS.s5})}</Item>
     <Item id="s5-count"><At p={COUNT_GRID.at}><SanAntonioSupport part="grid" cols={COUNT_GRID.cols} rows={COUNT_GRID.rows} fill={S.s5.grid} dx={COUNT_GRID.dx} dy={COUNT_GRID.dy}/></At></Item>
     <Item id="s5-total"><At p={COUNT_TAG.at}>{tag(COUNT_TAG.lines,S.s5.tag,{size:COUNT_TAG.size,sub:2,swing:S.s5.jolt})}</At></Item>
     <Item id="s5-stamp">{stampAt(stampPose(W['s5-event-3'],t,mark,S5_STAMP),im.w*c.s,im.h*c.s,-4,S5_STAMP)}</Item>
@@ -581,15 +594,15 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   // the words (detail). B's overhead record-wall shows the first two.
   const k=view==='record-wall'?'record-wall':view,c=CARD_AT[k];
   // the pen and the hand run off to the right; it slides in and out along its own axis
-  const tipC=remedyPenTip(CARD_W),tip=cardPoint(k,tipC.x,tipC.y),pa=PEN.rot*Math.PI/180,u:Pt=[Math.cos(pa),Math.sin(pa)];
+  const tipC=remedyPenTip(CARD_W,CARD_ROWS.s7),tip=cardPoint(k,tipC.x,tipC.y),pa=PEN.rot*Math.PI/180,u:Pt=[Math.cos(pa),Math.sin(pa)];
   const along=PEN.reach*(1-S.s7.pen)+PEN.out*S.s7.penOut;
   const penAt:Pt=[tip[0]+u[0]*along,tip[1]+u[1]*along],grip:Pt=[penAt[0]+u[0]*PEN.grip,penAt[1]+u[1]*PEN.grip];
-  const slot=stampSlots(CARD_W).remedy,mark=cardPoint(k,slot.x,slot.y),im=imprintSize('Under development',STAMP_SIZE.remedy);
+  const slot=stampSlots(CARD_W,CARD_ROWS.s7).remedy,mark=cardPoint(k,slot.x,slot.y),im=imprintSize('Under development',STAMP_SIZE.remedy);
   pic=<g>
    <SanAntonioSupport part="desk" x0={-40} x1={1120} y0={view==='record-wall'?250:220} h={1150} top={view==='record-wall'}/>
    {/* the rows the film has already named stand on the card; the remedy row writes in as it lights, on
      * the clause's first word, so its sentence is never readable before it is spoken */}
-   <Item id={ids.card}><Item id={ids.row}>{card(k,{rows:(REMEDY_ROW+S.s7.lit)/CARD_ROWS.s7,upto:CARD_ROWS.s7,lit:S.s7.lit})}</Item></Item>
+   <Item id={ids.card}><Item id={ids.row}>{card(k,{rows:(CARD_ROWS.s7.indexOf(REMEDY_ROW)+S.s7.lit)/CARD_ROWS.s7.length,pick:CARD_ROWS.s7,lit:S.s7.lit})}</Item></Item>
    <Item id="s7-cursor">{S.s7.pen>0&&S.s7.penOut<1&&<g><At p={penAt}><SanAntonioSupport part="pen" rot={PEN.rot}/></At>
     <At p={grip}><SanAntonioSupport part="arm" dir={PEN.armDir} grip="pen" scale={.9}/></At></g>}</Item>
    <Item id="s7-stamp">{view==='stamp-detail'&&stampAt(stampPose(W['s7-event-3'],t,mark,S7_STAMP),im.w*c.s,im.h*c.s,-4,S7_STAMP)}</Item>
@@ -657,36 +670,25 @@ export const RobotaxiFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,va
   </Grounded>;
   pic=<CamG c={cam} z={z}>{world}</CamG>;
   break;}
- case 'fleet-plan':{
-  // s8 from above: two rows of roofs and domes in their stalls, large enough to count; the weather limits
-  // tag slides in from the left on the clause's first word and pins above the first row, then swings and
-  // settles; the April calendar lies on the lot's edge, not yet turned.
-  const {rows,stall,x0,scale}=LOT_PLAN;
-  pic=<g>
-   <SanAntonioSupport part="lotplan"/>
-   <Item id="s8-fleet">{rows.map((ry,r)=>[0,1,2,3,4].map(i=><g key={r+'-'+i}>{top([x0+stall/2+i*stall,ry],scale,-90,{shadow:.5})}
-    <At p={[x0+stall/2+i*stall,ry-185]}><SanAntonioSupport part="check" p={clamp(S.s8.checks*10-(r*5+i))} r={26}/></At></g>))}</Item>
-   <Item id="s8-limits"><At p={[lerp(S8_TAG_FROM,540,S.s8.tag),246]}>{tag(['Weather limits','tightened'],S.s8.tagIn,{size:40,icon:'rain',dir:-1,swing:S.s8.swing})}</At></Item>
-   <Item id="s8-calendar"><At p={[150,262]} r={-6}><SanAntonioSupport part="calendar" month="April" day="20" flip={S.s8.flip} w={150}/></At></Item>
-  </g>;
-  break;}
+ case 'fleet-plan':
  case 'limits-detail':{
-  // s8 detail on the chain link: the tag hangs pinned, the calendar flips to 20, the map card is
-  // marked updated and a row of car icons takes its checks left to right.
-  pic=<g>
-   <g data-part="chain-link-close" opacity={.85}>
-    {[90,560,1000].map(x=><rect key={x} x={x-9} y={200} width={18} height={1080} fill="#7C8388"/>)}
-    <path d={Array.from({length:44},(_,i)=>`M${-80+i*30} 220l120 1060`).join('')+Array.from({length:44},(_,i)=>`M${-80+i*30} 1280l120 -1060`).join('')}
-     stroke="#A3AAAE" strokeWidth={2} opacity={.5}/>
-   </g>
-   <Item id="s8-limits"><At p={LIMITS_DETAIL.tag}>{tag(['Weather limits','tightened','Interim step'],1,{size:54,icon:'rain',sub:2,swing:.5*S.s8.swing})}</At></Item>
-   <Item id="s8-calendar"><At p={LIMITS_DETAIL.calendar}><SanAntonioSupport part="calendar" month="April" day="20" flip={S.s8.flip} w={250}/></At></Item>
-   <Item id="s8-map"><At p={LIMITS_DETAIL.map}><SanAntonioSupport part="mapcard" updated={S.s8.updated} w={330}/></At></Item>
-   <Item id="s8-fleet">{LIMITS_DETAIL.icons.map((x,i)=><g key={i} transform={`translate(${x} ${LIMITS_DETAIL.iconY})`}>
-    <ellipse cx={4} cy={2} rx={34*LIMITS_DETAIL.iconK} ry={7} fill="#1A1814" opacity={.25}/>
-    <g transform={`scale(${LIMITS_DETAIL.iconK})`}><SanAntonioSupport part="caricon" fill={1}/></g>
-    <At p={[0,-56*LIMITS_DETAIL.iconK]}><SanAntonioSupport part="check" p={clamp(S.s8.checks*6-i)} r={26}/></At></g>)}</Item>
+  // s8 in B, both shots in ONE lot seen from above: the same four roofs and domes in their stalls that A's
+  // row shows, large enough to count. In the overhead the weather limits tag slides in from the left on
+  // n8a's first word and pins above the row, then swings and settles, and the April calendar lies on the
+  // lot's edge. The detail is the same lot, closer: the same tag pinned, the calendar flipping to 20,
+  // each roof taking its check left to right and the vehicle map card on the near edge marked updated.
+  // (The registry keeps the shot's view name; the picture is this lot, never a separate panel.)
+  const {row,cars,stall,x0,scale}=LOT_PLAN,detail=view==='limits-detail',cx=(i:number)=>x0+stall/2+i*stall;
+  const lot=<g>
+   <SanAntonioSupport part="lotplan"/>
+   <Item id="s8-fleet">{Array.from({length:cars},(_,i)=><g key={i}>{top([cx(i),row],scale,-90,{shadow:.5})}
+    <At p={[cx(i),row-235]}><SanAntonioSupport part="check" p={clamp(S.s8.checks*cars-i)} r={30}/></At></g>)}</Item>
+   <Item id="s8-limits"><At p={[lerp(S8_TAG_FROM,540,S.s8.tag),LOT_PLAN_AT.tagY]}>{tag(['Weather limits','tightened'],S.s8.tagIn,{size:40,icon:'rain',dir:-1,swing:S.s8.swing})}</At></Item>
+   <Item id="s8-calendar"><At p={LOT_PLAN_AT.calendar} r={-6}><SanAntonioSupport part="calendar" month="April" day="20" flip={S.s8.flip} w={LOT_PLAN_AT.calendarW}/></At></Item>
+   {detail&&<Item id="s8-map"><At p={LIMITS_DETAIL.map} r={3}><SanAntonioSupport part="mapcard" updated={S.s8.updated} w={LIMITS_DETAIL.mapW}/></At></Item>}
   </g>;
+  // the lot is drawn at plan scale, not on the plate's ground, so its camera carries no plate zoom
+  pic=detail?<CamG c={LIMITS_DETAIL.cam} z={1}>{lot}</CamG>:lot;
   break;}
  case 'curb-plan':{
   if(sid!=='s1')throw new Error('curb-plan draws the s1 arrival only');
