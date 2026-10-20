@@ -398,6 +398,12 @@ def pre_voice_problems(board_path, claims_path, script=None):
     return sorted(set(errors))
 
 
+# Held in code, not in config/daily_production.json, because the independent story reviews bind
+# that file's digest and an edit to it would void every review already on a frozen edition.
+CLAUDE_SCORER_HANDOFF_FROM = "2026-10-19"
+CLAUDE_SCORER_HANDOFF_MAX_CHARS = 12000
+
+
 def handoff_limit(date, compact_scorer):
     """Characters a handoff may carry.
 
@@ -408,8 +414,8 @@ def handoff_limit(date, compact_scorer):
     the dated scorer cap below applies to those packets alone. Every other role keeps the cap.
     """
     cap = policy()["handoff_max_chars"]
-    if compact_scorer and str(date or "") >= policy().get("claude_scorer_handoff_from", "9999"):
-        cap = max(cap, policy().get("claude_scorer_handoff_max_chars", cap))
+    if compact_scorer and str(date or "") >= CLAUDE_SCORER_HANDOFF_FROM:
+        cap = max(cap, CLAUDE_SCORER_HANDOFF_MAX_CHARS)
     return cap
 
 
