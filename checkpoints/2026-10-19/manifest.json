@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T07:13:08.390343+00:00",
-  "note": "renderer edits committed e26740ce",
+  "saved_at": "2026-10-20T07:49:14.576499+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "cf6f8e8e2119591b0464521798aad30ae5f471a1af357e376578d65a83ff1c4c"
   },
   "deleted_source": [],
-  "ledger_sha256": "767674838102a74d125f654494adab12f345515a1012fa8f268f8b56992f6612",
-  "original_private_ledger_sha256": "f27ddf7e39d2731ce0254b7b8867ba245f20b0ceb69b43637b1d59d1c441497f",
+  "ledger_sha256": "8e59d012bef59728d7f2c715f6b46ef3767333cdd82383ea85acfdef91790a4d",
+  "original_private_ledger_sha256": "15f64fa803151be2d6b449c90b149e98e51ad78ce97486063418d2d190ee87f1",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -88,6 +88,11 @@
       "event_index": 238,
       "authorization_sha256": "472d55821d9a5656713c69bdf7733895a74651188655224a6c0ca76ee61a9940",
       "root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch"
+    },
+    {
+      "event_index": 243,
+      "authorization_sha256": "03924756ce957859f5346c6e675740beaa3851e913d0887d6e1eba77cce5f87e",
+      "root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch"
     }
   ],
   "usage": {
@@ -108,6 +113,12 @@
     "voice_directors": 1
   },
   "files": [
+    {
+      "path": "config/completion_forecast_v2.json",
+      "class": "source",
+      "sha256": "da01ca352c06c979e322e152cd8d9650c7c0bba05b09f42e9846d91e1a1ff8d0",
+      "size": 1490
+    },
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
@@ -16919,6 +16930,24 @@
       "class": "scratch",
       "sha256": "d021f3ba70976f54d8b9fc05dbf59c91612005861865bf56a4a45cfea7334438",
       "size": 3646
+    },
+    {
+      "path": "out/dispatch/post-pivot-capacity-r18-v2-comparison-plan.json",
+      "class": "scratch",
+      "sha256": "1265b206dd56f2cd05d7d9c5043e7bf761691325a0cfb7c9b8a945d27cff2442",
+      "size": 10963
+    },
+    {
+      "path": "out/dispatch/post-pivot-capacity-r18-v2-original-plan.json",
+      "class": "scratch",
+      "sha256": "472d55821d9a5656713c69bdf7733895a74651188655224a6c0ca76ee61a9940",
+      "size": 5126
+    },
+    {
+      "path": "out/dispatch/post-pivot-capacity-r18-v2.json",
+      "class": "scratch",
+      "sha256": "03924756ce957859f5346c6e675740beaa3851e913d0887d6e1eba77cce5f87e",
+      "size": 27413
     },
     {
       "path": "out/dispatch/poster.png",
