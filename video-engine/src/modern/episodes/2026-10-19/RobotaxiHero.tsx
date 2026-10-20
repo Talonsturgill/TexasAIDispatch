@@ -23,6 +23,14 @@ import {useUid} from '../../../lib/uid';
  * the right shades the lower body, a long soft shadow falls to the right. Nothing is symmetric: the
  * dome sits behind the roof's centre, the side sensors differ front and rear, the dent is on one door.
  *
+ * Performed uses. The side drawing performs the curb arrival, A's creek carry (creek-wide, car-swept), the
+ * stranded street car, the lane roll into standing water and the open door at the curb; the cab performs the
+ * empty steering wheel. From the October 20th repair, the s3 creek-swept use (s3-event-3) is performed through
+ * the overhead creek-plan view in both s3 shots of both treatments: the top part, the same car design seen
+ * straight down with its roof dome, glass and mirrors, is drawn on the creek plan, held closer in the second
+ * shot, while the current carries it off the shallow shelf. There the top part's opt-in glass roof (`cabin`)
+ * shows the empty front cabin from above: two bare seats with headrests and a wheel with no hands on it.
+ *
  * Disclosed illustration of a generic car. Not a Waymo vehicle, not a vehicle named in the recall,
  * no real road, speed, depth or rider. Pure function of its props; the episode drives every prop
  * from the film frame clock.
@@ -266,11 +274,14 @@ const Side: React.FC<SideProps> = ({wheel = 0, brake = 0, hazard = 0, wetTo = 0,
  </g>;
 };
 
-export type TopProps = {brake?: number; hazard?: number; door?: number; shadow?: number; wetTo?: number};
+/** `cabin` (opt-in, 0 by default so every existing top view is unchanged) turns the roof over the front cabin
+ * into clear glass, 0 to 1, so the EMPTY cabin reads from above: two bare front seats with their headrests and
+ * nobody in them, and a steering wheel with no hands on it. */
+export type TopProps = {brake?: number; hazard?: number; door?: number; shadow?: number; wetTo?: number; cabin?: number};
 const TOP_BODY = 'M-256 -92C-262 -50 -262 50 -256 92C-248 106 -228 112 -196 112L188 110C226 108 250 98 258 72'
  + 'C264 30 264 -30 258 -72C250 -98 226 -108 188 -110L-196 -112C-228 -112 -248 -106 -256 -92Z';
 /** The car straight down from above, facing +x. Its curbside (right) is +y. */
-const Top: React.FC<TopProps> = ({brake = 0, hazard = 0, door = 0, shadow = 1, wetTo = 0}) => {
+const Top: React.FC<TopProps> = ({brake = 0, hazard = 0, door = 0, shadow = 1, wetTo = 0, cabin = 0}) => {
  const id = useUid('rtt');
  const amber = mixHex(CAR_PAINT.amberOff, CAR_PAINT.amber, hazard);
  const red = mixHex(CAR_PAINT.brakeOff, CAR_PAINT.brake, brake);
@@ -297,6 +308,20 @@ const Top: React.FC<TopProps> = ({brake = 0, hazard = 0, door = 0, shadow = 1, w
   <path d="M138 -90C120 -96 92 -98 66 -98L66 98C92 98 120 96 138 90C146 60 146 -60 138 -90Z" fill={`url(#${id}g)`}/>
   <path d="M-150 -92L-150 92C-170 90 -192 84 -204 76C-210 30 -210 -30 -204 -76C-192 -84 -170 -90 -150 -92Z" fill={`url(#${id}g)`}/>
   <path d="M66 -98L-150 -94L-150 -84L66 -88ZM66 98L-150 94L-150 84L66 88Z" fill="#1E2731"/>
+  {cabin > 0 && <g data-part="empty-cabin-from-above" opacity={clamp(cabin)}>
+   {/* large pale glass over the front cabin, from behind the front seats to the windshield's foot */}
+   <path d="M0 -92L66 -96C100 -96 126 -94 142 -88C150 -50 150 50 142 88C126 94 100 96 66 96L0 92Z" fill="#DCE6EE" stroke="#1E2731" strokeWidth={3}/>
+   {/* two bare front seats, dark on the pale glass: back, cushion and headrest, and nobody in them */}
+   {[-46, 46].map(y => <g key={y}>
+    <rect x={4} y={y - 32} width={26} height={64} rx={6} fill="#2E343B"/>
+    <rect x={30} y={y - 29} width={54} height={58} rx={9} fill="#2E343B"/>
+    <rect x={-6} y={y - 17} width={12} height={34} rx={4} fill="#2E343B"/>
+   </g>)}
+   {/* a thin steering wheel ahead of the driver's (left, -y) seat, no hands on it, and the dash */}
+   <ellipse cx={112} cy={-46} rx={8} ry={24} fill="none" stroke="#1E2328" strokeWidth={5}/>
+   <path d="M126 -80C132 -40 132 40 126 80" stroke="#2A3038" strokeWidth={8} fill="none"/>
+   <path d="M30 -78L60 -80" stroke="#FFFFFF" strokeWidth={4} opacity={.55}/>
+  </g>}
   <path d="M106 -110L118 -132L134 -130L128 -110ZM106 110L118 132L134 130L128 110Z" fill="#E4E9ED" stroke="#8B959E" strokeWidth={1}/>
   <path d="M118 -131L134 -129M118 131L134 129" stroke={amber} strokeWidth={3}/>
   {/* the roof dome from above: a white disc, its dark scanning band as a ring, a lit cap */}
