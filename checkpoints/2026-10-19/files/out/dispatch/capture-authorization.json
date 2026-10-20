@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "c349dd0a2fc9ef99860f66281d4bdadcc4b21fc590da0946785baf8126e64629",
-    "resource": "full_renders",
-    "at": "2026-10-20T01:22:49.976764Z",
-    "note": "full-resolution Dispatch render"
+    "event_sha256": "1de4579b0bdc1af5de5894e9b721ce6212bbb4162d2529b973ed5956243ab0da",
+    "resource": "preflight_renders",
+    "at": "2026-10-20T01:38:01.140509Z",
+    "note": "exact-film motion-image review extraction"
   },
   "boards": [
     {
@@ -163,31 +163,31 @@
   },
   "commands": [
     {
-      "id": "5871238ae2c9b2902335a85fe9099bad84dc1c390e744999be04d83bd828ca9d",
-      "text": "bash scripts/run_with_env.sh bash scripts/render_dispatch.sh",
-      "consumed": "2026-10-20T01:22:58.059877+00:00"
+      "id": "0e09184c8a03c2ea776c5fb006a648d9b1d26d9594b1ac86ea9effb40e6169a5",
+      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json",
+      "consumed": "2026-10-20T01:38:08.749517+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.087
+    "free_gib": 20.11
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261020T012243.json",
-    "receipt_sha256": "f43c68bedd1938ec4c56350aefd7619b37a16d6a2c87d48309fb6041d0a744e6",
+    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261020T013754.json",
+    "receipt_sha256": "fb9d60557f75220620cf1f6b47184558aa26eea923ff9fe229b878bd137e15ba",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-20T01:22:55.385348+00:00",
-  "expires_at": "2026-10-20T02:07:55.385348+00:00",
+  "issued_at": "2026-10-20T01:38:06.874019+00:00",
+  "expires_at": "2026-10-20T02:23:06.874019+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "full-resolution Dispatch render",
-    "resource": "full_renders",
+    "operation": "exact-film motion-image review extraction",
+    "resource": "preflight_renders",
     "run_id": "2026-10-19",
-    "event_sha256": "c349dd0a2fc9ef99860f66281d4bdadcc4b21fc590da0946785baf8126e64629",
-    "input_identity": "9a3ac50ecef35f4d757c6176430a07d46cc046e8d7fd90e692225d06d7bd78b6"
+    "event_sha256": "1de4579b0bdc1af5de5894e9b721ce6212bbb4162d2529b973ed5956243ab0da",
+    "input_identity": "42963e00dfe6c3f804e626594ffafde6fc824547183bdb7566fb6e2eb4863f37"
   }
 }
