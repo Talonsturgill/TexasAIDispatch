@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T04:27:32.694215+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-20T04:32:34.837659+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -86,8 +86,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "17af026ec3cec8f206b24447339657d9b37b46aef7946447019ac61ee98225ae",
-      "size": 35070
+      "sha256": "3b0fedbf1fbd8ceb1efe875b67534b9ecaa9afc81de43fccbdf4c8ba371f2a63",
+      "size": 35689
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -426,6 +426,12 @@
       "size": 18540
     },
     {
+      "path": "out/dispatch/capture-authorization-history/c3ce1892400f34475dbc6a11d9b0005f3bf6b648d599b6a84eb7fb920e233870.json",
+      "class": "scratch",
+      "sha256": "c3ce1892400f34475dbc6a11d9b0005f3bf6b648d599b6a84eb7fb920e233870",
+      "size": 18571
+    },
+    {
       "path": "out/dispatch/capture-authorization-history/debceaae990881bae57470df85853b2874376b9af49077a2249fc0810c61cd8c.json",
       "class": "scratch",
       "sha256": "debceaae990881bae57470df85853b2874376b9af49077a2249fc0810c61cd8c",
@@ -639,6 +645,12 @@
       "path": "out/dispatch/capture-housekeeping-20261020T042707.json",
       "class": "scratch",
       "sha256": "d70c4fdad2382086324e08841473bd545d2ea2dd61257048e2be753cd87306b5",
+      "size": 1043
+    },
+    {
+      "path": "out/dispatch/capture-housekeeping-20261020T043233.json",
+      "class": "scratch",
+      "sha256": "03a38f4312c2d15626d7246a268327404b6839203d6a64221e876ab588050748",
       "size": 1043
     },
     {
@@ -11132,8 +11144,8 @@
     {
       "path": "out/dispatch/native-headroom.json",
       "class": "scratch",
-      "sha256": "305607d42e5306a5adfd2e9e113a602333593f1f8231d44ecf9ec5e80f8ecf32",
-      "size": 308
+      "sha256": "575a94a356ec0024abb2a4ca7cb311d8fb9e88b66731a1fb163f2effee1896de",
+      "size": 307
     },
     {
       "path": "out/dispatch/opening-a-critic-round1.json",
@@ -11170,6 +11182,66 @@
       "class": "scratch",
       "sha256": "0c7bc0a4fe4e00fb3609e4815c875390cb4d0ce53412aa3ccd199706b1ab3070",
       "size": 177372
+    },
+    {
+      "path": "out/dispatch/openings/a-inspection-d4244f4a8e39167a.json",
+      "class": "scratch",
+      "sha256": "3d13c96230143cc20a8dd7995efe9d3599b647da1bad2a3a8e22cc3f4c50879e",
+      "size": 2060
+    },
+    {
+      "path": "out/dispatch/openings/a.json",
+      "class": "scratch",
+      "sha256": "e01aab2255301df1fdd7cf8874f375af10ab76ce9de334d217f78b54110d822e",
+      "size": 177970
+    },
+    {
+      "path": "out/dispatch/openings/a.mp4",
+      "class": "scratch",
+      "sha256": "8af72888ce1403f94b68d84643cc2dae74651df1b70d6a1ffeb655068f624a2f",
+      "size": 469531
+    },
+    {
+      "path": "out/dispatch/openings/b-inspection-8017f7e9ac86ae40.json",
+      "class": "scratch",
+      "sha256": "62985c0ba32f503cc092cf3c0e20c572f6e0d1cf0e7a18383ba3008ba5495054",
+      "size": 2058
+    },
+    {
+      "path": "out/dispatch/openings/b.json",
+      "class": "scratch",
+      "sha256": "b17e722c377c20524f8d33af4079b0da77766179fe6cc24383543897b8ee4925",
+      "size": 177373
+    },
+    {
+      "path": "out/dispatch/openings/b.mp4",
+      "class": "scratch",
+      "sha256": "ab24d7ae79855517900d27a2214e6f36e6a683d3fe2b72e72a7a44fdd99befdb",
+      "size": 406363
+    },
+    {
+      "path": "out/dispatch/openings/batch-report.json",
+      "class": "scratch",
+      "sha256": "7112c7c4bc17ebca7851131f3eaf22ce2ff51bd64982431dea12c4279b7f5112",
+      "size": 131
+    },
+    {
+      "path": "out/dispatch/openings/batch.json",
+      "class": "scratch",
+      "sha256": "dc17ea6edf135d9b4c3d865f080338e669672f12b5e2d06f300e4b15c26ea95e",
+      "size": 658
+    },
+    {
+      "path": "out/dispatch/openings/comparison-before-inspection-221d1e6dc2f60df9.json",
+      "class": "scratch",
+      "sha256": "221d1e6dc2f60df981ce9e4104920da489c6732ca13871d309d84c7fb11e6546",
+      "size": 1463
+    },
+    {
+      "path": "out/dispatch/openings/comparison.json",
+      "class": "scratch",
+      "sha256": "5adcbd8fb26b3d84b246d19d77ca2db435775db171a23f96f2443035c578d3b3",
+      "size": 1859
     },
     {
       "path": "out/dispatch/panel-round-1.json",
@@ -19165,8 +19237,8 @@
     }
   ],
   "regenerable": {
-    "files": 131,
-    "bytes": 27659887
+    "files": 19,
+    "bytes": 823840
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }

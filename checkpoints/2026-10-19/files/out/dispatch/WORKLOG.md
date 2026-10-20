@@ -149,3 +149,6 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-20T10:05Z code r12: A PASS, B REVISE (s8 limits-detail eroded plate bands). Saved evidence/code-round12/report-{a,b}.json. Director changed opening-b s8-shot-2 framing detail->overhead (one field). B concept ae222968, board 0c7bc0a4. Critic r13 (B only) reserved 22/23.
 
 2026-10-20T10:30Z code r12 A PASS, r13 B PASS (resumed critic abbd12ae). Reports installed (opening-a-critic, storyboard_critic=A; opening-b-critic=B), pre copies in evidence/code-round12. critic_gate ok. Next: opening_compare renewal (authorize), motion a/b, silent phone critic (visual leaf), selection.
+
+2026-10-20T04:50Z comparison renewed on code-r12/13 boards (retry-preflight after my provisional-board error; reservation 19 charged+retry). a.mp4 8af72888 b.mp4 ab24d7ae, inspections pass. NOTE storyboard.json currently = authored provisional (copy of opening-a.json). Measured board saved in evidence/measured-pre-compare; must re-run captions+retime+runtime 56 after selection. Next: motion a, motion b, phone packet, silent phone critic.
+2026-10-20T05:00Z disk headroom: removed host image dev tools poetry/pyright from /root/.local/share/uv/tools (unrelated to production) plus caches; production data untouched.
