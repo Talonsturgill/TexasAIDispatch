@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "83f063334efa8cd8b1e98f231ea3ab20819307693e5235662b819bf022718cd6",
+    "event_sha256": "56c0b341e020096798e0e430dc6c6a9bd19917a350230558107ee88c19e6b86e",
     "resource": "preflight_renders",
-    "at": "2026-10-20T00:53:12.488724Z",
-    "note": "exact-phone-current motion-image review extraction"
+    "at": "2026-10-20T01:16:17.625182Z",
+    "note": "finished cinematic hero and stage ablation batch"
   },
   "boards": [
     {
@@ -163,31 +163,31 @@
   },
   "commands": [
     {
-      "id": "57faae4710432dcc2548c410d732a6f72c22dc790e1821eb28e3e3a90f70c994",
-      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option current --board out/dispatch/storyboard.json --film out/dispatch/preflight.mp4 --state out/dispatch/run_state.json --out out/dispatch/openings/motion-current",
-      "consumed": "2026-10-20T00:53:19.414540+00:00"
+      "id": "a5cb8b6171c08295b1bc86b8f2ba08302aa1d83259485343a0b2a65d37219ca8",
+      "text": "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json",
+      "consumed": "2026-10-20T01:16:25.027655+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.104
+    "free_gib": 20.015
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261020T005305.json",
-    "receipt_sha256": "d84d7e423e8631c29a11efc35834c4463fb85f50a9af54f35624227b65b6d437",
+    "receipt": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/capture-housekeeping-20261020T011611.json",
+    "receipt_sha256": "23b43289b946b5e88ea3b3ba5e2ec2652cddc0749d5056f4475b62d95ea9373d",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-20T00:53:17.712350+00:00",
-  "expires_at": "2026-10-20T01:38:17.712350+00:00",
+  "issued_at": "2026-10-20T01:16:23.133649+00:00",
+  "expires_at": "2026-10-20T02:01:23.133649+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "exact-phone-current motion-image review extraction",
+    "operation": "finished cinematic hero and stage ablation batch",
     "resource": "preflight_renders",
     "run_id": "2026-10-19",
-    "event_sha256": "83f063334efa8cd8b1e98f231ea3ab20819307693e5235662b819bf022718cd6",
-    "input_identity": "9177c68e9503727a39d54b159bb720dc116ce8c970616f307f0586ae55c9fb6e"
+    "event_sha256": "56c0b341e020096798e0e430dc6c6a9bd19917a350230558107ee88c19e6b86e",
+    "input_identity": "49744d16209254ed30351a6e657c26e31b6f788cfd1f00cac189751b718f74e9"
   }
 }
