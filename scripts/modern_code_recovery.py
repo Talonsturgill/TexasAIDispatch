@@ -17,7 +17,7 @@ def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def eligible(state, plan, report):
+def eligible(state, plan, report, *, preparing=False):
     from autonomous_completion import CODE_ADOPTION, sha
     from critic_gate import concept_digest
     try:
@@ -29,7 +29,7 @@ def eligible(state, plan, report):
         board_rows = {row['path']: row for row in rows if row['kind'] == 'board'}
         if (state.get('mode') != 'production' or state.get('terminal_state') is not None
                 or str(state.get('run_id', ''))[:10] < '2026-10-09'
-                or not any(e.get('kind') == CODE_ADOPTION for e in state['events'])
+                or not (preparing or any(e.get('kind') == CODE_ADOPTION for e in state['events']))
                 or proof.get('schema') != 'dispatch_modern_code_evidence/1'
                 or sha(proof['policy_json']) != POLICY_SHA256
                 or proof['policy_sha256'] != POLICY_SHA256
@@ -180,7 +180,10 @@ def prepare(state_path, plan_path, packet_path, output):
         'guide_text': (root / 'knowledge/craft/MODERN_FILM.md').read_text(),
         'packet_path': str(Path(packet_path).resolve()), 'packet_json': text, 'packet_sha256': sha(text),
         'reviewed_board_path': reviewed, 'renderer_sha256': renderer_digest(board), 'inputs': list(rows.values())}
-    if not eligible(state, plan, report):
+    # Preparation only binds evidence. The capacity grant adopts the standing code amendment itself,
+    # then replays this same check with the adoption present, so a ledger that never used the
+    # earlier code route can still be prepared.
+    if not eligible(state, plan, report, preparing=True):
         raise ValueError('independent current code rejection does not prove a mandatory modern floor')
     errors = file_problems(plan)
     if errors:

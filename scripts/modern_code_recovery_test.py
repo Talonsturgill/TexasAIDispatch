@@ -225,6 +225,15 @@ class ModernCodeRecoveryTest(unittest.TestCase):
         ok, msg = lifecycle.authorize_repair(self.state, self.plan); self.assertTrue(ok, msg)
         self.assertEqual(capacity.replay(controller.read_state(self.state))[1], [])
 
+    def test_preparing_binds_without_prior_code_adoption_but_replay_still_requires_it(self):
+        # A ledger that never used the earlier code route is prepared; the grant adopts the amendment.
+        state = controller.read_state(self.state)
+        state['events'] = [e for e in state['events'] if e.get('kind') != capacity.CODE_ADOPTION]
+        plan = json.loads(self.plan.read_text())
+        report = json.loads(Path(plan['failure_evidence']).read_text())
+        self.assertTrue(modern.eligible(state, plan, report, preparing=True))
+        self.assertFalse(modern.eligible(state, plan, report))
+
     def test_duplicate_and_mutated_policy_evidence_or_budget_refused(self):
         self.assertTrue(capacity.grant_capacity(self.state, self.plan)[0])
         before = self.state.read_bytes()
