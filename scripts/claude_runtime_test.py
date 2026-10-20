@@ -160,6 +160,27 @@ class RuntimeTests(unittest.TestCase):
         self.assertNotEqual(*[row['report_bindings']['story_review']['story_sha256'] for row in result['treatments']])
         self.assertNotRegex(json.dumps(result), r'"(?:verdict|score|pass|blocking_defects)"')
 
+    def test_restored_edition_adopts_scope_and_background_work_without_changing_its_role(self):
+        import critic_gate
+        data, source = self.code_data('2026-10-19')
+        self.assertFalse(runtime.operational_recovery(data))
+        state = self.root / 'run_state.json'
+        state.write_text(json.dumps({'run_id': data['date'], 'mode': 'production', 'events': [
+            {'kind': 'reserved', 'completion_progress_policy': '2026-10-20',
+             'publication_owner_sha256': 'a'*64, 'publication_epoch': 'new-epoch'}]}))
+        with patch.object(critic_gate, 'REPO', self.root), \
+                patch.object(critic_gate, 'renderer_files', return_value=[source]), \
+                patch('agent_runtime.treatment_assets', return_value=[]), \
+                patch('agent_runtime.required_inputs'):
+            adopted = runtime.adapt_packet(data)
+            self.assertIn('decision_scope', adopted['code_report_bindings'])
+            packet = self.root / 'adopted.json'; packet.write_text(json.dumps(adopted))
+            planned = runtime.plan('storyboard-critic', packet, 'adopted_code', 'Review current code.')
+        self.assertTrue(planned['agent_args']['run_in_background'])
+        self.assertEqual(data['agent_assignment'], planned['assignment'])
+        self.assertEqual('claude-opus-5-5', planned['assignment']['model'])
+        self.assertEqual('high', planned['assignment']['effort'])
+
     def test_future_code_plan_requires_fresh_bindings_before_returning_json_only_arguments(self):
         import critic_gate
         data, source = self.code_data()

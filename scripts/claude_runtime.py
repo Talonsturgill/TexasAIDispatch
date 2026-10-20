@@ -29,6 +29,18 @@ def bound(path):
     return {'path': str(Path(path).resolve()), 'sha256': digest(path)}
 
 
+def operational_recovery(data):
+    if str(data.get('date', '')) >= '2026-10-20':
+        return True
+    parent = Path(data['board']['path']).parent if data.get('board') else REPO / 'out/dispatch'
+    path = Path(data.get('phone_state') or parent / 'run_state.json')
+    if not path.is_file():
+        return False
+    from completion_progress import enabled
+    state = read(path)
+    return str(state.get('run_id', ''))[:10] == data.get('date') and enabled(state)
+
+
 def assignment(role, edition):
     cfg = read(POLICY)
     if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(edition)):
@@ -131,7 +143,7 @@ def adapt_packet(data):
     if role in ('scene-builder', 'storyboard-critic'):
         data['treatments'] = agent_runtime.treatment_bindings(data['board']['path'])
         data['asset_inputs'] = agent_runtime.treatment_assets(data['treatments'])
-    if role == 'storyboard-critic' and data['date'] >= '2026-10-20':
+    if role == 'storyboard-critic' and operational_recovery(data):
         data['code_report_bindings'] = code_report_bindings(data)
     return data
 
@@ -590,14 +602,14 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
                                        or re.search(r'\bphone\b', scope, re.I)):
         phone_review_inputs(data)
         image_policy_inputs(data)
-    elif role == 'storyboard-critic' and data['date'] >= '2026-10-20' and not mechanical_task:
+    elif role == 'storyboard-critic' and operational_recovery(data) and not mechanical_task:
         if data.get('code_report_bindings') != code_report_bindings(data):
             raise ValueError('code report bindings are missing or stale; regenerate the current packet before reserving review')
     expected = '.claude/agents/' + route['agent'] + '.md'
     if data.get('brief') != expected:
         raise ValueError('Claude packet names the wrong leaf brief')
     handoff = (' Return only complete gate-ready JSON, with every required field, supplied binding and defect.'
-               if role == 'storyboard-critic' and data['date'] >= '2026-10-20' and not mechanical_task else
+               if role == 'storyboard-critic' and operational_recovery(data) and not mechanical_task else
                ' Return one complete handoff or consolidated defect list with exact hashes.')
     if role in ('picture', 'story', 'sound') and data['date'] >= '2026-10-19':
         handoff = (' With complete access return ONE original scorer-report JSON with all brief fields and supplied bindings, '
@@ -638,7 +650,7 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
             'format correction to an already completed handback needs no new content reservation; '
             'include every actual turn in API usage. An already unreserved restart requires an honest '
             'late controller charge and disclosure before shipment, never backdating or replay.')
-    if data['date'] >= '2026-10-20':
+    if operational_recovery(data):
         result['agent_args']['run_in_background'] = True
     from visual_observations import CONTRACT, check_installation
     if data.get('public_visual_evidence') == CONTRACT:
