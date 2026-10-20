@@ -700,6 +700,14 @@
       "note": "exact-phone-a motion-image review extraction",
       "resource": "preflight_renders",
       "to": 35
+    },
+    {
+      "at": "2026-10-20T10:16:05.880408Z",
+      "ceiling": 41,
+      "from": 35,
+      "note": "exact-phone-b motion-image review extraction",
+      "resource": "preflight_renders",
+      "to": 36
     }
   ],
   "events": [
@@ -5725,6 +5733,24 @@
       "input_identity": "52792d2cf9d7f7b515ae472df7f15615a5b8bdda1c5a59907ddfeee1bb0fdaae",
       "kind": "prepared_capture_claimed",
       "operation": "exact-phone-a motion-image review extraction"
+    },
+    {
+      "at": "2026-10-20T10:16:05.880476Z",
+      "ceiling": 41,
+      "kind": "budget_escalated",
+      "note": "exact-phone-b motion-image review extraction",
+      "now": 36,
+      "resource": "preflight_renders",
+      "was": 35
+    },
+    {
+      "at": "2026-10-20T10:16:05.880494Z",
+      "kind": "reserved",
+      "note": "exact-phone-b motion-image review extraction",
+      "preflight_identity": "f749d4572730477a1df677947ab7b118d4f67e4bb42951f1f3ef39444907d156",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -5733,7 +5759,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 35,
+    "preflight_renders": 36,
     "reboards": 12,
     "reported_tokens": 523483,
     "rescue_renders": 1,
@@ -5748,7 +5774,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "20c6f970c172bc7fc43b20945fc7002c5ff4de1940088897569c7e22e2a6d9c7",
+    "original_private_state_sha256": "4f5b5c94536f3ac55628f7b636fd344f9ba1b9a94cf1c11a1c0076a3a128e21b",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -5776,14 +5802,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-20T10:13:51.522943Z",
+  "updated_at": "2026-10-20T10:16:05.880498Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
     "full_renders": 1,
     "image_generations": 0,
     "panel_rounds": 1,
-    "preflight_renders": 35,
+    "preflight_renders": 36,
     "reboards": 12,
     "reported_tokens": 523483,
     "rescue_renders": 0,
