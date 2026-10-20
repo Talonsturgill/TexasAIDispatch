@@ -151,6 +151,16 @@ def closure_problems(state, state_path):
 
 def capacity_recovery_hint(state):
     """Name the existing recovery route without granting or reserving anything."""
+    from review_limit import finishing
+    if finishing(state):
+        return (' The owner hard limit is FIVE cumulative editorial reviews, including retries and pivots.'
+                ' Creative iteration is closed to protect final review and delivery. Finish any already'
+                ' admitted exact-cut review, keep the final timed phone check inside five, and freeze'
+                ' the strongest existing cut. Preserve original grades; use the genuine bounded'
+                ' surface-finish classification when eligible. Complete native, AV, the three separate'
+                ' scorers, permanent media, real phone playback, the verified unsent draft with music'
+                ' credits and durable archive. No new creative capacity, whole-scene replacement,'
+                ' renamed source pivot, sixth reviewer or owner permission question.')
     from completion_progress import replacement_required
     if replacement_required(state):
         return (' The creative boundary is reached. Load knowledge/craft/COMPLETION_PROGRESS.md: '

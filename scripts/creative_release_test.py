@@ -76,9 +76,10 @@ class CreativeReleaseTests(unittest.TestCase):
         with patch('creative_production.treatment_problems', return_value=[]), patch.object(c, 'REPO', self.repo):
             self.assertTrue(self.allowed())
             self.assertEqual([], modern_film.review_problems(self.board, self.report))
-            self.state['usage']['storyboard_critics'] = 4; self.write('run_state.json', self.state)
+            self.state['usage']['storyboard_critics'] = 2; self.write('run_state.json', self.state)
             self.assertFalse(self.allowed())
-            self.state['usage']['storyboard_critics'] = 5; self.write('run_state.json', self.state)
+            self.state['usage']['storyboard_critics'] = 3; self.write('run_state.json', self.state)
+            self.assertTrue(self.allowed())
             self.assessment['retained_checks']['source']['pass'] = False; self.save_assessment()
             self.assertFalse(self.allowed())
         self.assertEqual(original, (self.root/'critic.json').read_bytes())

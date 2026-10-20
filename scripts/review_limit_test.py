@@ -87,6 +87,27 @@ class ReviewLimit(unittest.TestCase):
         self.assertTrue(creative_release.finishing_required(value))
         self.assertEqual(2, limit.MAX_ROUNDS - limit.used(value))
 
+    def test_actual_continuation_feedback_closes_creative_recovery_instead_of_extending_it(self):
+        import routine_continuation
+        self.assertTrue(self.charge(3)[0]); value = json.loads(self.state.read_text())
+        hint = routine_continuation.capacity_recovery_hint(value)
+        self.assertIn('FIVE cumulative editorial reviews', hint)
+        self.assertIn('verified unsent draft with music', hint)
+        self.assertNotIn('completion-capacity', hint)
+        self.assertNotIn('retained_replacement decision', hint)
+        self.assertEqual(3, value['usage']['storyboard_critics'])
+
+    def test_last_slot_accepts_only_the_final_timed_phone_and_cannot_dispatch_six(self):
+        self.assertTrue(self.charge(4)[0]); value = json.loads(self.state.read_text())
+        self.assertTrue(limit.worker_plan_problems(value, {'role': 'storyboard-critic'}))
+        current = {'role': 'storyboard-critic', 'phone_mode': 'current',
+                   'review_scope': 'exact-muted-phone-preflight'}
+        self.assertEqual([], limit.worker_plan_problems(value, current))
+        value['usage']['storyboard_critics'] = 5
+        self.assertEqual([], limit.worker_plan_problems(value, current))
+        value['usage']['storyboard_critics'] = 6
+        self.assertTrue(limit.worker_plan_problems(value, current))
+
     def test_surface_boundary_keeps_timed_observations_and_actual_action(self):
         board = {'date': '2026-10-20', 'runtime_s': 10, 'narration_picture': {'clauses': []}}
         report = {'film_sha256': 'a'*64, 'modern_observations': {'film_sha256': 'a'*64},

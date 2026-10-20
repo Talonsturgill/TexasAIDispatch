@@ -10,7 +10,10 @@ charging, even with larger ceilings, a fresh script or a new worker. After the c
 creative rebuilds or recovery grants for review. Complete the final acceptance and delivery
 path once on the strongest existing cut. Preserve all original scores, failures and charges.
 An independently classified surface finish rejection can use the existing bounded release
-route at this hard boundary. Actual source, rights, minimum action, comprehension, performed
+route when another complete correction would consume the protected final path, or at the cap.
+The continuation hook directs shipment at that boundary instead of requesting another pivot.
+The last review slot accepts only the exact current timed phone packet. Actual source,
+rights, minimum action, comprehension, performed
 turn, pacing, closing action, native, audio, captions and shipment checks stay required.
 Historical counts are never reset or clamped to five; an already overrun legacy edition stops
 creative work immediately and completes its remaining final verification once.

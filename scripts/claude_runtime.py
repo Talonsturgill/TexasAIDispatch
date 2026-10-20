@@ -559,6 +559,11 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
     data = read(packet_path); route = assignment(role, data.get('date'))
     if data.get('role') != role or data.get('agent_assignment') != route:
         raise ValueError('Claude packet does not carry its exact current host role')
+    if ownership_state.is_file():
+        from review_limit import worker_plan_problems
+        hard_errors = worker_plan_problems(read(ownership_state), data)
+        if hard_errors:
+            raise ValueError('; '.join(hard_errors))
     from provider_availability import EFFECTIVE_DATE, research_receipt
     if role in ('researcher', 'validator') and str(data.get('date', '')) >= EFFECTIVE_DATE:
         if data.get('provider_availability') != research_receipt(REPO/'out/dispatch/run_state.json', data['date']):

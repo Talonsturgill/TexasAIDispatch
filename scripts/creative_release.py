@@ -102,8 +102,8 @@ def finishing_required(state):
     The effective ceiling is the controller's frozen envelope plus replayed owner
     grants, never the current config default. run_discipline verifies that ledger.
     """
-    from review_limit import reached, enabled, used, MAX_ROUNDS
-    if cap_reached(state) or reached(state) or (enabled(state) and MAX_ROUNDS - used(state) < 3):
+    from review_limit import finishing
+    if cap_reached(state) or finishing(state):
         return True
     p = policy()
     usage = state.get("usage") or {}
@@ -292,10 +292,10 @@ def review_allows(board, report, root=None, scope="phone", *, embedded=False):
     """
     root = Path(root or REPO / "out/dispatch")
     import modern_film
-    from review_limit import reached
+    from review_limit import finishing
     try:
         state = read(root / 'run_state.json')
-        surface_cap = reached(state) and str(state.get('run_id', ''))[:10] == board.get('date')
+        surface_cap = finishing(state) and str(state.get('run_id', ''))[:10] == board.get('date')
     except (OSError, ValueError, TypeError):
         surface_cap = False
     if modern_film.review_problems(board, report, _scope=not surface_cap, _surface_deferred=surface_cap):
@@ -348,11 +348,11 @@ def artistic_observation(board, report, criterion, root=None):
 
 
 def artistic_surface(board, report):
-    """At five attempts only, preserve an independently classified surface rejection."""
-    from review_limit import reached
+    """Preserve surface findings when another correction would consume final review."""
+    from review_limit import finishing
     try:
         state = read(REPO / 'out/dispatch/run_state.json')
-        if not reached(state) or str(state.get('run_id', ''))[:10] != board.get('date'):
+        if not finishing(state) or str(state.get('run_id', ''))[:10] != board.get('date'):
             return False
     except (OSError, ValueError, TypeError):
         return False

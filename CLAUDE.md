@@ -5,7 +5,7 @@ five paid editorial review rounds per video, including code, phone, pivot, retry
 attempts. Reserve the final timed phone review inside those five. No recovery allowance,
 script pivot or renamed mechanism can extend the limit. After diminishing returns or the cap,
 freeze the strongest credible cut and finish the existing native, audiovisual, three-scorer
-and delivery path once. Do not reopen creative editing from those final checks. At the cap,
+and delivery path once. Do not reopen creative editing from those final checks. At that finishing boundary,
 the existing bounded route can retain an original independently classified surface-finish
 rejection; source, rights, minimum action, comprehension, pacing, closing action, audio,
 captions, native PNG/CRF16 and actual shipment verification remain required. Never invent a pass.
