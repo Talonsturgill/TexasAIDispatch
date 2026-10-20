@@ -190,3 +190,4 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-20 headroom: also moved evidence/openings-pre-phone18-repair and evidence/opening-compare-live-r15-moved to /dev/shm (sha256 verified; on remote checkpoint).
 2026-10-20 code r23 A+B PASS installed (gates ok); openings retained at evidence/openings-pre-phone22-repair; comparison renewal started (bg blmko9mor).
 2026-10-20 headroom: also moved evidence/alignment-numeral-failure, mix-take1, mix-take2 to /dev/shm (sha verified, on remote checkpoint).
+2026-10-20 comparison renewed after phone22 repair (inspections pass), motion a/b extracted, phone packet round24 c9234054, critic 36/36, dispatch-visual-critic a861c376 spawned. Next: coverage, selection, retime, timed preflight, timed phone.
