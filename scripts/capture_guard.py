@@ -186,17 +186,58 @@ def segment_is_capture(tokens):
     return False
 
 
-def analyze(command, cwd):
+def retained_film_inspection(tokens, cwd, root):
+    """Only this checkout's literal Python inspection entry point can skip capture issuance.
+
+    Both modes return without calling render(). Inspection may decode existing film
+    frames and write its structural report; it cannot create a replacement film.
+    Keep generic capture detection conservative until the checkout is identified.
+    """
+    if root is None or cwd is UNKNOWN or len(tokens) < 3:
+        return False
+    if Path(tokens[0]).name not in ('python', 'python3'):
+        return False
+    expected = Path(root).resolve() / 'scripts/preflight_animatic.py'
+    try:
+        if resolve(tokens[1], cwd).resolve() != expected or not expected.is_file():
+            return False
+    except OSError:
+        return False
+    args = tokens[2:]
+    if '--inspect-only' in args:
+        return True  # store_true cannot be undone by a later option.
+    # An empty --verify-report is false in the entry point and would render.
+    # Require literal nonempty values and reject duplicate/abbreviated flags,
+    # including a later abbreviation that could replace the verified path.
+    value_flags = {'--board', '--film', '--claims', '--sheet', '--report', '--state',
+                   '--verify-report', '--rebind-review-text'}
+    values, index = {}, 0
+    while index < len(args):
+        flag, equal, value = args[index].partition('=')
+        if flag not in value_flags or flag in values:
+            return False
+        if not equal:
+            index += 1
+            value = args[index] if index < len(args) else ''
+        if not value or value.startswith('-') or UNRESOLVED.search(value):
+            return False
+        values[flag] = value
+        index += 1
+    return '--verify-report' in values
+
+
+def analyze(command, cwd, root=None):
     """The capture segments of a command, or None when it cannot be parsed but looks like a capture."""
     try:
         segments = simple_commands(command, cwd)
     except ValueError:
         return None if CAPTURE_COMMAND.search(strip_text_payloads(command)) else []
-    return [(t, d) for t, d in segments if t and segment_is_capture(t)]
+    return [(t, d) for t, d in segments if t and segment_is_capture(t)
+            and not retained_film_inspection(t, d, root)]
 
 
-def is_capture(command, cwd='.'):
-    found = analyze(command, cwd)
+def is_capture(command, cwd='.', root=None):
+    found = analyze(command, cwd, root)
     return found is None or bool(found)
 
 
@@ -231,7 +272,7 @@ def bound_hashes(board, root):
 
 def capture_problems(command, auth, cwd, root, free_gib=None):
     """Why a capture command may not run now. Empty means it may."""
-    segments = analyze(command, cwd)
+    segments = analyze(command, cwd, root)
     if segments == []:
         return []
     errors = []
@@ -339,7 +380,7 @@ def decide(payload, project):
         return None
     command = (payload.get('tool_input') or {}).get('command', '')
     cwd = payload.get('cwd') or project
-    if not is_capture(command, cwd):
+    if not is_capture(command, cwd, project):
         return None
     try:
         auth = json.loads((Path(project) / AUTHORIZATION).read_text())
@@ -412,7 +453,7 @@ def retain_previous_authorization(root):
     auth = json.loads(previous)
     for entry in auth.get('commands', []):
         command = entry.get('text', '')
-        if (not entry.get('consumed') and is_capture(command, str(root))
+        if (not entry.get('consumed') and is_capture(command, str(root), root)
                 and not capture_problems(command, auth, str(root), root, free_gib=float('inf'))):
             raise ValueError('an unused capture authorization is pending; execute its exact command before '
                              'preparing another capture: ' + command)
@@ -456,7 +497,7 @@ def _authorize(root, state_path, board_paths, commands, resource, housekeeping, 
     if not boards or not commands:
         raise ValueError('name the exact boards and the exact capture commands to authorize')
     for command in commands:
-        if not is_capture(command, str(root)) or 'scripts/run_with_env.sh' not in command:
+        if not is_capture(command, str(root), root) or 'scripts/run_with_env.sh' not in command:
             raise ValueError('not a wrapped capture command: ' + command[:80])
     retain_previous_authorization(root)
     used_path = root / USED

@@ -66,6 +66,61 @@ class Fixture(unittest.TestCase):
 
 
 class Boundary(Fixture):
+    def inspection_script(self):
+        scripts = self.root / 'scripts'
+        scripts.mkdir(exist_ok=True)
+        (scripts / 'preflight_animatic.py').write_text('fixture for checkout identity')
+
+    def test_retained_inspection_needs_no_new_capture_and_does_not_spend_pending_capture(self):
+        self.inspection_script()
+        self.authorize()
+        auth = (self.root / guard.AUTHORIZATION).read_bytes()
+        ledger = self.state.read_bytes()
+        commands = [
+            WRAP + 'python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --inspect-only',
+            WRAP + f"bash -c 'cd {self.root} && python scripts/preflight_animatic.py --inspect-only'",
+            WRAP + 'python3 scripts/preflight_animatic.py --verify-report out/dispatch/preflight.json',
+            WRAP + 'python3 scripts/preflight_animatic.py --verify-report=out/dispatch/preflight.json',
+        ]
+        with mock.patch.object(guard, 'consume', side_effect=AssertionError('inspection spent capture')):
+            for command in commands:
+                self.assertIsNone(self.hook(command), command)
+                self.assertEqual([], guard.capture_problems(command, None, str(self.root), self.root))
+        self.assertEqual(auth, (self.root / guard.AUTHORIZATION).read_bytes())
+        self.assertEqual(ledger, self.state.read_bytes())
+        self.assertIsNone(self.hook(self.command))
+        self.assertIn('already used', self.hook(self.command))
+
+    def test_inspection_does_not_authorize_a_render_or_a_different_script(self):
+        self.inspection_script()
+        inspect = WRAP + 'python scripts/preflight_animatic.py --inspect-only'
+        commands = [
+            WRAP + 'python scripts/preflight_animatic.py --board out/dispatch/storyboard.json',
+            inspect + '; npx remotion still Dispatch frame.png',
+            inspect + '; ' + WRAP + 'python scripts/preflight_animatic.py --board out/dispatch/storyboard.json',
+            WRAP + 'python /tmp/preflight_animatic.py --inspect-only',
+            WRAP + 'python scripts/cinema_proof.py --inspect-only',
+            WRAP + 'python scripts/preflight_animatic.py --verify-report=',
+            WRAP + 'python scripts/preflight_animatic.py --verify-report ""',
+            WRAP + 'python scripts/preflight_animatic.py --verify-report "$EMPTY"',
+            WRAP + 'python scripts/preflight_animatic.py --verify-report r.json --verify-report=',
+            WRAP + 'python scripts/preflight_animatic.py --verify-report r.json --verify-r ""',
+        ]
+        for command in commands:
+            self.assertIn('no current capture authorization', self.hook(command), command)
+        with self.assertRaisesRegex(ValueError, 'not a wrapped capture command'):
+            self.authorize([inspect], prepare=True)
+
+    def test_inspection_cannot_follow_a_script_symlink_outside_the_checkout(self):
+        self.inspection_script()
+        script = self.root / 'scripts/preflight_animatic.py'
+        external = Path(self.tmp.name) / 'external-preflight.py'
+        external.write_text('fixture')
+        script.unlink()
+        script.symlink_to(external)
+        self.assertIn('no current capture authorization', self.hook(
+            WRAP + 'python scripts/preflight_animatic.py --inspect-only'))
+
     def test_the_observed_private_capture_is_denied_by_the_real_hook_process(self):
         observed = ('cd video-engine && time (npx --no-install remotion still Dispatch /tmp/a-f030.png '
                     '--props=/tmp/inspect-a.json --frame=30 --log=error)')
