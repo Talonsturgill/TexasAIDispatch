@@ -64,6 +64,13 @@ def live_budget_state(state, plan):
     return result
 
 
+def prepared_entry(state, index):
+    """True when the entry was charged once by the prepared handoff and claimed as that charge."""
+    events = state['events']
+    return (index + 1 < len(events) and events[index].get('kind') == 'reserved'
+            and events[index + 1].get('kind') == 'prepared_capture_claimed')
+
+
 def comparison_eligible(state, plan):
     """A retained paid comparison funds a fresh complete path, never reuses its verdict."""
     try:
@@ -86,7 +93,8 @@ def comparison_eligible(state, plan):
                 or reservation['run_id'] != state['run_id']
                 or reservation['event_index'] != entry_index
                 or any(type(i) is not int for i in (hook_index, entry_index))
-                or not 0 <= hook_index < entry_index < len(state['events'])
+                or not (0 <= hook_index < entry_index < len(state['events'])
+                        or (hook_index == entry_index and prepared_entry(state, entry_index)))
                 or 'capture_retry_evidence' in plan):
             return False
         options = receipt['options']
@@ -103,6 +111,9 @@ def comparison_eligible(state, plan):
             if (row.get('kind') != 'reserved' or row.get('resources') != {'preflight_renders': 1}
                     or sha(canonical(row)) != proof[name + '_event_sha256']):
                 return False
+        if hook_index == entry_index:
+            return (entry['note'] == 'two opening comparison batch'
+                    and entry['preflight_identity'] == reservation['identity'])
         if (hook['note'] != 'capture authorization reservation for opening comparison'
                 or entry['note'] != 'two opening comparison batch'
                 or entry['preflight_identity'] != reservation['identity']
@@ -277,6 +288,10 @@ def prepare_comparison(state_path, plan_path, comparison_path, output_path):
     candidates = [i for i in range(entry_index) if state['events'][i].get('kind') == 'reserved'
                   and state['events'][i].get('resources', {}).get('preflight_renders')]
     hook_index = candidates[-1]
+    if prepared_entry(state, entry_index):
+        # The Claude prepared flow charges the batch once and claims that same event, so the
+        # entry is its own hook. An earlier lost preparation is not this batch's hook.
+        hook_index = entry_index
     policy, policy_sha256 = COMPARISON_POLICIES[CURRENT_COMPARISON_SCHEMA]
     proof = {'schema': CURRENT_COMPARISON_SCHEMA, 'run_id': state['run_id'],
              'policy_json': policy.read_text(), 'policy_sha256': policy_sha256,
