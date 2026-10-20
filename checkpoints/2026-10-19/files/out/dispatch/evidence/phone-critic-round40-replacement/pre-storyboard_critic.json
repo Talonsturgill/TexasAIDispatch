@@ -1,0 +1,181 @@
+{
+  "treatment": "a",
+  "verdict": "pass",
+  "review_scope": "code-plan",
+  "board_bindings": {
+    "opening": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-a.json",
+      "sha256": "198cc61cffdb327cbdf9c68351f13392fa9f5f8c2a76531bacca0fd222d5cf7a"
+    },
+    "storyboard": {
+      "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/storyboard.json",
+      "sha256": "198cc61cffdb327cbdf9c68351f13392fa9f5f8c2a76531bacca0fd222d5cf7a"
+    }
+  },
+  "board_sha256": "198cc61cffdb327cbdf9c68351f13392fa9f5f8c2a76531bacca0fd222d5cf7a",
+  "concept_sha256": "467731263c25d53e8576b331bfa76118979e1058b4e15abd8f329c2557c7317c",
+  "renderer_sha256": "f2ceb3777c1080a7df3625cd4144b3b6355cd4601ee8a440d93c26efbde0cacd",
+  "binding_status": "Digests are the director-supplied values in out/dispatch/evidence/code-round39-bindings.json, copied unchanged and not recomputed. storyboard.json is stated to be the same bytes as opening-a.json.",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 39, distinct from the Sonnet director",
+  "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
+  "pivot38_check": {
+    "scene_id": "s3",
+    "time_s": 14.4,
+    "status": "notes 1 to 10 met in code; phone pixels still required",
+    "detail": [
+      "Rain (note 3a/b).",
+      "- The six stroked rain rings are gone.",
+      "- 'rain-patches' sits inside rain > 0, is clipped to the water and uses group opacity rain.",
+      "- One radialGradient, id `${id}rp` (useUid, unique per CreekPlan instance), objectBoundingBox, stops .12 / .06 / 0.",
+      "- Three filled circles with no stroke at (950 - 30(t - 13.03), 735, r 150), (640 - 30(t - 13.03), 705, r 130) and (170 - 30(t - 13.03), 1030, r 140).",
+      "- Each radius breathes \u00b16 percent on the board clock.",
+      "- The patch edges fade to 0, so the water clip leaves no visible arc. P1 and P2 reach the far edge (about y 580 to 589) only at near-zero intensity.",
+      "Slab (note 3c). The slab is one filled smoothPath (SA.limestone). The outline stroke and the dark undercut path are deleted.",
+      "Camera (note 4). CREEK_PLAN_NEAR is f [770, 1025], s 1.6, so shot 1's left edge is plan x 432.5.",
+      "- The slab's right end (lb + 6 = 414, plus any small Catmull-Rom overshoot) lies outside the frame by about 18 plan px. The builder reports 18.",
+      "- The crown at (230, 560) and its shadow are off shot 1.",
+      "- The car's start lands at screen (588, 960) and the collar's right extent at about screen 918.",
+      "- CREEK_PLAN_CARRY is unchanged.",
+      "Wake fade (note 2e, optional). The v-wake opacity is now smooth(clamp(lift\u00d72.5)), so it is full strength by lift \u2248 .4.",
+      "Full CreekPlan re-audit (strokes):",
+      "- Stone shelf outline (#AFA48C, 3 px): long wavy lines on the grass side of both shelves, running from plan x -180 to 1250, past both edges of both frames. Not in the water, not on the ledge, not short.",
+      "- Bank foam lines T and B (pale, 5 px): continuous from x -180 to 1250, past both frame edges.",
+      "- Stripes: three 30 px endless smoothPaths from x -700 to 1800 with a repeat-gradient pulse. No ends, no dashes.",
+      "- No other stroke exists in CreekPlan.",
+      "Full CreekPlan re-audit (fills):",
+      "- Mottling ellipses: large soft fills (50 to 140 plan) on the grass only. The stone and water cover them elsewhere. Where a frame edge cuts one, it reads as background texture, not a stub.",
+      "- Crowns: soft fill ellipses. (880, 260) is cut at shot 2's top-right corner. The lower crowns are background under the caption band.",
+      "- Water gradient and slab fill: fills.",
+      "Car layer: the flood ellipses, the blurred shadow, the collar ellipses and the deliberate 3-strand wake. The only short dark shapes left are the car's own tyre rects, on the car, which no review has flagged.",
+      "Board text (note 5). These A fields now read 'Soft pale patches of heavy rain drift on the fast brown creek water running along the limestone bank': on_screen, what_moves, visual_events s3-event-1 'what', visual_sentence.action, visual_proof.mute_takeaway and the s3-event-1 reward visible_change.",
+      "- The s3-rain plane label and props label read 'soft pale patches of heavy rain on the creek water'.",
+      "- The s3-shot-1 purpose reads 'Close from above, soft rain patches drift on fast creek water around the large white roof...'.",
+      "- I spot-checked B's s3-rain plane and mute_takeaway, which are identical.",
+      "- The item id s3-rain is kept and the registry is unchanged."
+    ]
+  },
+  "strongest_frame": "s3-shot-1 creek-plan near, 13.03 to 15.32 s (authored clock). At 1.6\u00d7 the large empty car, with bare seats in its pale roof glass, stands in shallow flood water at the bank edge. Thick pulsing current stripes run past it under soft rain patches, with no stray marks.",
+  "weakest_frame": "s3 rain, 13.03 to 17.61 s. The three soft patches peak at only .12 opacity, so the 'heavy rain' the text now names may barely read at 270 px.",
+  "blocking_defects": [],
+  "notes": [
+    "Phone-scope checks, non-blocking:",
+    "- Rain: the soft patches (peak .12) must visibly read as rain on the water. If they don't, that becomes a narration and picture mismatch for the rain wording, though the n3 narration itself does not mention rain.",
+    "- Ticks and lines: none should remain in the water, at the frame edges or on the ledge.",
+    "- Slab: it should read as pale stone with no outline.",
+    "- Round 38 cues: every cue round 38 confirmed should still be present.",
+    "Stale and not shown on screen:",
+    "- Code comments: CREEK_CAR, CREEK_CAM, 'under the oak's crown'.",
+    "- Board text: A's angle 'at ground level' and A's divergence_note.",
+    "- Support prompt: 'depth post'.",
+    "A and B differ in 4 of 20 shots: s2-shot-1, s5-shot-1, s6-shot-1 and s7-shot-1.",
+    "Carried non-blocking items:",
+    "- the s2 to s3 handoff;",
+    "- the s6 wide water ellipse;",
+    "- the flat lower bands;",
+    "- the s7 forearm;",
+    "- the s9 card over the road;",
+    "- the thousands separator in 3,791.",
+    "This is a code pass only. Film cec660e4... stays rejected."
+  ],
+  "story_review": {
+    "story_sha256": "200f7906833d6db28976441117e995cfe095105ebab5a2602755594a249a7915",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Intended chain, read from code and not observed.\n- The empty-wheel airport arrival.\n- The table map closes the limited area.\n- Close from above, a large empty car with bare seats in its pale roof glass stands in shallow flood water at the creek's limestone bank edge. Soft rain patches drift and current stripes run past.\n- From a little higher, it grows and rises off a sliding dark shadow, then is swept past the oak and the pale ledge and out of frame.\n- The stranded street car with hazards.\n- The desk record, the grid and the stamp.\n- The ground-level slow roll into standing water with 'may' lit.\n- The remedy row stamped Under development.\n- The wet-lot tag and the April 20 checks.\n- The open curb door beside the remedy card.",
+    "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No repair, speed, depth, parking or outcome is invented.",
+    "weakest_transition": "s2 to s3 at 13.03 s. The angled table map cuts to a close overhead creek with a different car, carried by 'In April' and the disclosure chip."
+  },
+  "action_reviews": [
+    {
+      "action_id": "wheel-turns-itself",
+      "module_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c1: empty seats.",
+        "visible_action": "The steering wheel turns 85 degrees and back with no hands on it.",
+        "consequence": "The phone shows Arriving.",
+        "disclosure": "Chip.",
+        "limits": "Generic car."
+      }
+    },
+    {
+      "action_id": "car-swept-into-creek",
+      "module_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c3 (heavy rain, swept into Salado Creek) and c4 (unoccupied). Shallow flood water at the bank edge, never shown parked. Bare seats visible in the roof glass.",
+        "visible_action": "In the locked 1.6\u00d7 shot the car stands and slides. In the locked 1.4\u00d7 shot it lifts (scale .60 to .78, dark shadow sliding up to 60 px) and is swept past the crown and the slab while stripes overtake it. The rain is drawn as soft fills.",
+        "consequence": "Fully off the left edge at about 17.3 s, before the 17.61 s cut.",
+        "disclosure": "April 20th chip.",
+        "limits": "Overhead editorial drawing. No damage or depth shown."
+      }
+    },
+    {
+      "action_id": "car-slows-into-water",
+      "module_sha256": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c7 verbatim.",
+        "visible_action": "lane-wide, then wheels-water.",
+        "consequence": "The wheels enter the water.",
+        "disclosure": "Chip.",
+        "limits": "No speed or depth."
+      }
+    },
+    {
+      "action_id": "service-area-opens",
+      "module_sha256": "7255a7b01a107a1bcefd479db38d31ca250a7709526b37b5603ddf6bc2d4ba3f",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c2.",
+        "visible_action": "map-table, then map-zone.",
+        "consequence": "The outline closes.",
+        "disclosure": "Credits.",
+        "limits": "Editorial outline."
+      }
+    },
+    {
+      "action_id": "recall-filed-count",
+      "module_sha256": "7255a7b01a107a1bcefd479db38d31ca250a7709526b37b5603ddf6bc2d4ba3f",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c6 and c13.",
+        "visible_action": "record-desk, then count-grid.",
+        "consequence": "The stamp lands.",
+        "disclosure": "Chip.",
+        "limits": "Icons are not a literal count."
+      }
+    },
+    {
+      "action_id": "remedy-under-development",
+      "module_sha256": "7255a7b01a107a1bcefd479db38d31ca250a7709526b37b5603ddf6bc2d4ba3f",
+      "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "code_observations": {
+        "source_fidelity": "c8 verbatim.",
+        "visible_action": "record-close, then stamp-detail.",
+        "consequence": "The imprint carries to s9.",
+        "disclosure": "Chip.",
+        "limits": "Not a real record."
+      }
+    }
+  ],
+  "phone_observations": null,
+  "modern_observations": null,
+  "pixel_basis": "None. Code approval includes no pixel observations."
+}
