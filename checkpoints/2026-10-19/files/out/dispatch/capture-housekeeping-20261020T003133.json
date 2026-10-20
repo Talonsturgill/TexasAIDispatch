@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/opt/texas-dispatch-runtime/venv/bin/python",
+    "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/scripts/dispatch_housekeeping.py",
+    "--workspace",
+    "/home/user/dispatch-editions/2026-10-19",
+    "--dispatch-repo",
+    "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch",
+    "--docket-repo",
+    "/home/user/dispatch-editions/2026-10-19/TexasAIDocket",
+    "--apply",
+    "--fetch",
+    "--summary",
+    "--require-headroom",
+    "--min-free-gib",
+    "20"
+  ],
+  "exit_code": 2,
+  "stdout": "",
+  "stderr": "housekeeping: inspection failed; no unchecked target was removed (CalledProcessError)\n",
+  "at": "2026-10-20T00:31:33.999300+00:00"
+}

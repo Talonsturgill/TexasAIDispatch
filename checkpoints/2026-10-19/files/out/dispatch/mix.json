@@ -1,12 +1,12 @@
 {
-  "duration_s": 63.45,
-  "cut_s": 63.45,
+  "duration_s": 61.0,
+  "cut_s": 61.0,
   "peak_dbfs_premaster": -1.6,
-  "lufs_premaster": -20.79,
+  "lufs_premaster": -20.77,
   "lufs_target": -16.0,
-  "lufs_achieved": -16.08,
-  "lufs_shortfall_db": 0.0799999999999983,
-  "crest_factor_db": 19.19,
+  "lufs_achieved": -16.09,
+  "lufs_shortfall_db": 0.08999999999999986,
+  "crest_factor_db": 19.17,
   "limiter": true,
   "mix_notes": [
     "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
@@ -45,21 +45,21 @@
       "true_peak_dbtp": -0.0
     },
     "after": {
-      "integrated_lufs": -16.08,
-      "true_peak_dbtp": -1.98
+      "integrated_lufs": -16.09,
+      "true_peak_dbtp": -1.97
     },
-    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.68:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.27:measured_TP=-6.05:measured_LRA=3.70:measured_thresh=-35.87:offset=0.98",
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.68:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.27:measured_TP=-6.05:measured_LRA=3.70:measured_thresh=-35.71:offset=0.97",
     "measurement": {
       "input_i": "-24.27",
       "input_tp": "-6.05",
       "input_lra": "3.70",
-      "input_thresh": "-35.87",
-      "output_i": "-16.08",
+      "input_thresh": "-35.71",
+      "output_i": "-16.09",
       "output_tp": "-2.00",
-      "output_lra": "14.80",
-      "output_thresh": "-27.46",
+      "output_lra": "5.20",
+      "output_thresh": "-27.30",
       "normalization_type": "dynamic",
-      "target_offset": "0.40"
+      "target_offset": "0.41"
     },
     "attempts": [
       {
@@ -68,35 +68,35 @@
           "integrated_lufs": -16.32,
           "true_peak_dbtp": -1.99
         },
-        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.27:measured_TP=-6.05:measured_LRA=3.70:measured_thresh=-35.87:offset=0.89"
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.27:measured_TP=-6.05:measured_LRA=3.70:measured_thresh=-35.71:offset=0.88"
       },
       {
         "requested_lufs": -15.68,
         "measured": {
-          "integrated_lufs": -16.08,
-          "true_peak_dbtp": -1.98
+          "integrated_lufs": -16.09,
+          "true_peak_dbtp": -1.97
         },
-        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.68:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.27:measured_TP=-6.05:measured_LRA=3.70:measured_thresh=-35.87:offset=0.98"
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.68:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.27:measured_TP=-6.05:measured_LRA=3.70:measured_thresh=-35.71:offset=0.97"
       }
     ],
     "correction": null,
-    "samples": 3045600,
+    "samples": 2928000,
     "sample_rate": 48000,
     "time_stretch": 1.0,
     "limiter": true
   },
   "master_file": "out/dispatch/mix.wav",
-  "master_sha256": "ec6c1e7dd086e07e889afac83995534ac03cad27af0fe3e26b830bfd51065e59",
-  "sound_direction_sha256": "38c4d3fb5134c1a60d8d60ade7d5711b59f849166d0cdc7c555be707039184af",
+  "master_sha256": "de7e96b2d4a50c8d7812e31cf659ec0bcb3cbdeb885fe9224256369b72923624",
+  "sound_direction_sha256": "4781ebed1ad5d6176a45d5874489847ab19810aa22bb2c025a590b787589a9e1",
   "sound_cues": [
     {
       "id": "curb-glide",
       "role": "environment",
-      "duration_s": 1.2,
+      "duration_s": 1.1999999999999997,
       "intent": "A soft electric glide and tires on dry concrete as the white car slows to the airport curb.",
       "provenance": "Original designed ambience, not recorded at any airport.",
       "event_id": "s1-event-1",
-      "at_s": 0.2
+      "at_s": 0.58
     },
     {
       "id": "creek-rush",
@@ -105,7 +105,7 @@
       "intent": "Rain on a road and a rising rush of brown creek water over the low crossing.",
       "provenance": "Original designed ambience, not recorded at Salado Creek.",
       "event_id": "s3-event-1",
-      "at_s": 13.229999999999999
+      "at_s": 12.639999999999999
     },
     {
       "id": "hazard-tick",
@@ -114,7 +114,7 @@
       "intent": "A steady relay tick as the hazard lamps blink on the stopped car.",
       "provenance": "Original designed foley, not recorded from a real vehicle.",
       "event_id": "s4-event-2",
-      "at_s": 19.3414
+      "at_s": 18.9792
     },
     {
       "id": "lane-wash",
@@ -123,7 +123,7 @@
       "intent": "A low wash of water under the wheels as the car rolls on into the standing water.",
       "provenance": "Original designed foley, not recorded on a real road.",
       "event_id": "s6-event-3",
-      "at_s": 33.7875
+      "at_s": 32.535
     },
     {
       "id": "stamp-thump",
@@ -132,7 +132,7 @@
       "intent": "A dull paper stamp thump as under development lands on the remedy row.",
       "provenance": "Original designed foley, not a recorded record office.",
       "event_id": "s7-event-3",
-      "at_s": 39.9616
+      "at_s": 38.3432
     },
     {
       "id": "remedy-quiet",
@@ -142,7 +142,7 @@
       "provenance": "Authored event-clock background contrast.",
       "event_id": "s7-event-2",
       "gain": 0.3,
-      "at_s": 38.5914
+      "at_s": 37.1328
     }
   ],
   "sound_assets": [
@@ -173,5 +173,5 @@
   "bed_preparation_manifest": "out/dispatch/music_bed.json",
   "bed_preparation_sha256": "1aa1cad449f1978976299338d760e61caf8d69e80b99ed75ee7656963ad35fab",
   "voice_stem": "out/dispatch/mix_vo.wav",
-  "voice_stem_samples": 3045600
+  "voice_stem_samples": 2928000
 }
