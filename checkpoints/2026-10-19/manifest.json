@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-20T10:16:07.832967+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-20T10:17:05.180279+00:00",
+  "note": "capture authorization consumed 650b5f859f66",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -673,7 +673,7 @@
     {
       "path": "out/dispatch/capture-authorization.json",
       "class": "scratch",
-      "sha256": "dad2a435a6cf2937dbbe2bb2e582d3f48db6c18494b5cd7abc0ffb05c07c4542",
+      "sha256": "64a6c39f9c1a1d2f98e8d191f0f7abead69cdd0c2e06d1442811655edfe8b5d9",
       "size": 18574
     },
     {
@@ -685,8 +685,8 @@
     {
       "path": "out/dispatch/capture-authorizations-used.json",
       "class": "scratch",
-      "sha256": "799d7d5a15db053135a296c74a58475406895a0aa6baf3fd75ab41ef7893d702",
-      "size": 5367
+      "sha256": "72275419a48237d67ce9e3577fd1b30087aa16d94e5021a0c35ea3e4b28d2f8c",
+      "size": 5516
     },
     {
       "path": "out/dispatch/capture-housekeeping-20261019T151435.json",
@@ -2205,36 +2205,6 @@
       "class": "scratch",
       "sha256": "f23da2f928a101983d89f076389773c83c1ae74981d70fae4d6c15ad59408c9c",
       "size": 33918
-    },
-    {
-      "path": "out/dispatch/evidence/mix-take3-runtime58/captions.json",
-      "class": "scratch",
-      "sha256": "ee81832a9b81b881034cac75897ec312f317711d1fffd209cd80af682f473cf5",
-      "size": 4051
-    },
-    {
-      "path": "out/dispatch/evidence/mix-take3-runtime58/mix.json",
-      "class": "scratch",
-      "sha256": "42ab403c20d113b75253f89bb3a0f4eeb414b2a0875a7aacc9e4fe883284ef84",
-      "size": 6012
-    },
-    {
-      "path": "out/dispatch/evidence/mix-take3-runtime58/mix.wav",
-      "class": "scratch",
-      "sha256": "ec6c1e7dd086e07e889afac83995534ac03cad27af0fe3e26b830bfd51065e59",
-      "size": 6091278
-    },
-    {
-      "path": "out/dispatch/evidence/mix-take3-runtime58/mix_vo.wav",
-      "class": "scratch",
-      "sha256": "c6fc9a8d2467bb5759bd0461e276b8141707716cf34c1505b05552a1038e24e4",
-      "size": 6091244
-    },
-    {
-      "path": "out/dispatch/evidence/mix-take3-runtime58/words.json",
-      "class": "scratch",
-      "sha256": "d3e57e46744b450de0b62632f85b400fbf1d763041817562804399b54c87b7ea",
-      "size": 33922
     },
     {
       "path": "out/dispatch/evidence/motion-a-stranded/EVIDENCE.txt",
@@ -27466,6 +27436,10 @@
     },
     {
       "path": "out/dispatch/evidence/mix-take2",
+      "reason": "symbolic link is not retained"
+    },
+    {
+      "path": "out/dispatch/evidence/mix-take3-runtime58",
       "reason": "symbolic link is not retained"
     },
     {
