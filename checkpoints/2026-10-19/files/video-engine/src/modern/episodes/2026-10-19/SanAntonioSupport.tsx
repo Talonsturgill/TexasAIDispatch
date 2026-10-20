@@ -1180,13 +1180,14 @@ export const Arm: React.FC<{dir: P; grip: 'knob' | 'pen'; skin?: string; shirt?:
  * as the elevation shots, so a cut between them keeps the flow. Meandering banks, smooth limestone shelves
  * along both banks, mottled ground with oaks, light rain rings on the water. No crossing. `creek` is the
  * channel's mean far (top) and near (bottom) bank rows; the far bank's pale landmark ledge slab spans plan x
- * `ledge`, and the landmark oak's crown stands at plan x 520. The car's own path, its stand at the near bank's
+ * `ledge`, and the landmark oak's crown stands on the far bank at plan (230, 560), just upstream left of it. The car's own path, its stand at the near bank's
  * edge in shallow flood water and its carry downstream, belong to the episode (S3_PLAN_PATH, s3PlanPose); this
  * drawing holds only the creek, which never moves. Every shape here is a filled ellipse or one smooth curve:
- * no tooth, chevron, dash, tick, zigzag or wobbling stroke. */
+ * no tooth, chevron, dash, tick, stub, dot, zigzag or wobbling stroke, and every stroke runs past both frame
+ * edges. */
 export const CREEK_PLAN = {creek: [620, 1140] as P, ledge: [297, 408] as P};
-/** The current's own speed on the plan, plan pixels a second, faster than the carried car's peak (500), so the
- * water visibly passes it (peak 540). */
+/** The current's own speed on the plan, plan pixels a second: its bright pulses run faster than the carried
+ * car's peak (540), so the water visibly passes it. */
 export const CREEK_PLAN_FLOW = 700;
 export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t, rain}) => {
  const id = useUid('scp'), {creek} = CREEK_PLAN, r = rng(15);
@@ -1209,32 +1210,33 @@ export const CreekPlan: React.FC<{t: number; rain: number; flow: number}> = ({t,
    <linearGradient id={`${id}w`} x1="0" y1={creek[0] - 60} x2="0" y2={creek[1] + 60} gradientUnits="userSpaceOnUse">
     <stop offset="0" stopColor={SA.waterDeep}/><stop offset=".22" stopColor={SA.water}/><stop offset=".55" stopColor="#866D4B"/>
     <stop offset=".85" stopColor={SA.water}/><stop offset="1" stopColor={SA.waterDeep}/></linearGradient></defs>
-  {/* the ground either side: grass mottled with bare caliche, leaf litter and a worn path, not a flat field */}
+  {/* the ground either side: grass mottled with bare caliche and leaf litter, not a flat field */}
   <rect x={-40} y={-40} width={1160} height={2000} fill={SA.grass}/>
   {Array.from({length: 26}, () => [r() * 1080, r() * 1920, lerp(50, 140, r()), r()]).map(([x, y, rr, k], i) =>
    <ellipse key={'m' + i} cx={x} cy={y} rx={rr} ry={rr * lerp(.5, .9, k)} fill={k < .4 ? '#7D8049' : k < .75 ? '#A3A26B' : '#B9AE8E'} opacity={.55}/>)}
-  <path d={smoothPath([[-40, 1440], [60, 1372], [150, 1414], [236, 1346], [312, 1318], [384, 1262]], false) + 'M700 420C760 380 900 360 1120 372'} stroke="#BBAF90" strokeWidth={26} fill="none" strokeLinecap="round" opacity={.7}/>
   {/* smooth limestone shelves along both banks */}
   <path d={stone} fill={SA.limestone} stroke={SA.limestoneShade} strokeWidth={3}/>
   {/* the brown channel, deeper at its banks */}
   <path d={water} fill={`url(#${id}w)`}/>
-  {/* the current: five long, thick stripes between the banks, each at its own share of the channel's width,
-    * following only the banks' slow meander, running left faster than the carried car so they overtake it */}
-  <g clipPath={`url(#${id}c)`} data-part="current-streamlines">{[.30, .42, .55, .68, .80].map((u, i) => {const L = [900, 700, 820, 640, 760][i], W = 2600;
-   const x0 = frac(i * .37 - t * CREEK_PLAN_FLOW / W) * W - 1000;
-   const pts: P[] = Array.from({length: 13}, (_, j) => {const x = x0 + L * j / 12;
+  {/* the current: three thick endless stripes between the banks, each at its own share of the channel's width,
+    * following only the banks' slow meander and running past both frame edges, with no end and no dash. A soft
+    * bright pulse runs left along each, faster than the carried car, so the water visibly passes it. */}
+  <defs><linearGradient id={`${id}p`} x1="0" y1="0" x2="600" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="repeat"
+   gradientTransform={`translate(${(-(t * CREEK_PLAN_FLOW % 600)).toFixed(2)} 0)`}>
+   <stop offset="0" stopColor="#E3D8C2" stopOpacity={.25}/><stop offset=".45" stopColor="#F2EEE4" stopOpacity={.70}/>
+   <stop offset=".55" stopColor="#F2EEE4" stopOpacity={.70}/><stop offset="1" stopColor="#E3D8C2" stopOpacity={.25}/></linearGradient></defs>
+  <g clipPath={`url(#${id}c)`} data-part="current-stripes">{[.35, .55, .75].map((u, i) => {
+   const pts: P[] = Array.from({length: 51}, (_, j) => {const x = -700 + 50 * j;
     return [x, lerp(creek[0] + 40 * Math.sin(x * .0052 + .4), creek[1] + 40 * Math.sin(x * .0052 + 1.7), u)] as P;});
-   return <path key={i} d={smoothPath(pts, false)} stroke="#E3D8C2" strokeWidth={13} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={.5}/>;})}</g>
+   return <path key={i} d={smoothPath(pts, false)} stroke={`url(#${id}p)`} strokeWidth={30} fill="none" strokeLinecap="round" strokeLinejoin="round"/>;})}</g>
   {[T, B].map((b, i) => <path key={'e' + i} d={smoothPath(b, false)} stroke={SA.foam} strokeWidth={5} fill="none" opacity={.55 + .15 * Math.sin(t * 5 + i)}/>)}
-  {/* the far bank's pale landmark ledge slab, jutting into the channel: hand cut, undercut dark on its water side,
-    * and soft foam piling against its upstream (right) end */}
+  {/* the far bank's pale landmark ledge slab, jutting into the channel: hand cut, its water side dark beneath it
+    * as one filled shape of the slab dropped lower, never a separate line */}
   <g data-part="ledge-slab-plan">
-   <path d={smoothPath(ledgeWater.map(([x, y]) => [x, y + 9] as P), false)} stroke="#3E2F20" strokeWidth={12} fill="none" opacity={.55} strokeLinecap="round"/>
+   <path d={smoothPath([...ledgeWater.map(([x, y]) => [x, y + 9] as P), ...ledgeBank], true)} fill="#3E2F20" opacity={.55}/>
    <path d={smoothPath(ledgeSlab, true)} fill={SA.limestone} stroke={SA.limestoneShade} strokeWidth={3}/>
-   {[0, 1, 2, 3].map(k => {const ph = Math.sin(t * 1.6 + k * 1.4), y = farEdge(lb) + 14 + 13 * k;
-    return <ellipse key={'lf' + k} cx={(lb + 16 + 6 * k + 3 * ph).toFixed(1)} cy={y.toFixed(1)} rx={(20 - 2 * k + 3 * ph).toFixed(1)} ry={(11 - k + 2 * ph).toFixed(1)} fill={SA.foam} opacity={.75}/>;})}
   </g>
-  {[[180, 330, 120], [880, 260, 150], [520, 380, 90], [150, 1460, 140], [930, 1420, 120], [600, 1540, 100]].map(([x, y, rr], i) => <g key={i}>
+  {[[880, 260, 150], [230, 560, 75], [150, 1460, 140], [930, 1420, 120], [600, 1540, 100]].map(([x, y, rr], i) => <g key={i}>
    <ellipse cx={x + 22} cy={y + 18} rx={rr} ry={rr * .85} fill="#000000" opacity={.18}/>
    <ellipse cx={x} cy={y} rx={rr} ry={rr * .85} fill={SA.oakDark}/><ellipse cx={x - rr * .2} cy={y - rr * .18} rx={rr * .7} ry={rr * .55} fill={SA.oak}/>
    <ellipse cx={x - rr * .4} cy={y - rr * .35} rx={rr * .3} ry={rr * .2} fill={SA.oakLit}/></g>)}
