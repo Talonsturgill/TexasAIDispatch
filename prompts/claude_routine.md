@@ -102,10 +102,14 @@ in this lane and no fabricated image-generation charge.
 
 Run `run_controller.py pending` and resume the oldest unfinished production before making a new
 edition. A cloud container is reclaimed, so `pending` alone sees only worktrees that still exist.
-Also run `python scripts/claude_checkpoint.py discover`. Select the OLDEST unfinished edition by its run identity and creation time
-(`claude_checkpoint.py discover --oldest-unfinished`, never the first row of the newest-save-first list)
+Also run `python scripts/checkpoint_discovery.py`. This read-only catalog holds each fetched
+commit in its own temporary ref, so another Git fetch cannot change the selected snapshot.
+Select the OLDEST unfinished edition by its run identity and creation time
+(`checkpoint_discovery.py --oldest-unfinished`, never the first row of the newest-save-first list)
 and resume its existing ledger. It is restored
 with `python scripts/claude_checkpoint.py restore --run-id <id> --origin-workspace <shared-parent>`.
+Finish the actual catalog task before restoration, and run no other Git fetch while the
+retained restore command is active. The checkpoint codec and its prelaunch guard stay unchanged.
 The recorded original root preserves absolute paths inside unchanged hash-bound historical events;
 the fresh scheduled October 18 recovery proved this route after a different-root restore failed.
 The helper accepts only an empty real directory inside the selected shared workspace and never
