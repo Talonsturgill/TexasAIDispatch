@@ -390,6 +390,13 @@ def phone_decision_scope():
                             'the director rationale, and never change an old report to fit this scope.'}
 
 
+def phone_edition(data):
+    edition = str(read(data['phone_state'])['run_id'])[:10]
+    if data.get('date') not in (None, edition):
+        raise ValueError('phone packet date differs from the actual controller edition')
+    return edition
+
+
 def phone_packet(packet_path, state_path, sequences, current=False):
     data = read(packet_path)
     data.pop('code_report_bindings', None)
@@ -399,6 +406,7 @@ def phone_packet(packet_path, state_path, sequences, current=False):
         raise ValueError('phone packet must use the current owned edition')
     data['review_scope'] = 'exact-muted-phone-preflight'
     data['phone_state'] = str(Path(state_path).resolve())
+    data['date'] = phone_edition(data)
     data['phone_mode'] = 'current' if current else 'comparison'
     data['phone_options'] = phone_options(state_path, sequences, current)
     if current and data['board'] != data['phone_options'][0]['board']:
@@ -437,7 +445,7 @@ def phone_review_inputs(data):
         row['report_bindings']['story_review']['claims_sha256'] = data['claims']['sha256']
     if rows != expected:
         raise ValueError('Claude phone review inputs or computed bindings changed')
-    if data['date'] >= '2026-10-20' and data.get('phone_decision_scope') != phone_decision_scope():
+    if phone_edition(data) >= '2026-10-20' and data.get('phone_decision_scope') != phone_decision_scope():
         raise ValueError('phone decision scope is missing or changed; regenerate the fixed-rubric packet before paid review')
 
 

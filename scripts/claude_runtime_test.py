@@ -206,6 +206,8 @@ class RuntimeTests(unittest.TestCase):
 
     def test_phone_packet_cannot_replace_fixed_rubric_with_a_director_promise(self):
         data, _ = self.code_data()
+        del data['date']  # Legacy packet shape; the real controller still decides the edition.
+        state = self.root / 'run_state.json'; state.write_text('{"run_id":"2026-10-20"}')
         data['instructions'] = 'Review both complete current films independently.'
         packet = self.root / 'phone-source.json'; packet.write_text(json.dumps(data))
         rows = []
@@ -216,13 +218,18 @@ class RuntimeTests(unittest.TestCase):
                          'report_bindings': {'story_review': {}}})
         with patch.object(runtime, 'phone_options', side_effect=lambda *a, **k: json.loads(json.dumps(rows))), \
                 patch.object(runtime, 'image_reading'):
-            result = runtime.phone_packet(packet, self.root / 'run_state.json', ['a', 'b'])
+            result = runtime.phone_packet(packet, state, ['a', 'b'])
+            self.assertEqual('2026-10-20', result['date'])
             self.assertEqual(runtime.phone_decision_scope(), result['phone_decision_scope'])
             self.assertIn('director repair promises cannot add hard requirements', result['instructions'])
             self.assertNotRegex(json.dumps(result['phone_decision_scope']), r'"(?:verdict|score|pass)"')
             result['phone_decision_scope']['director_targets'] = 'Every promised tiny mark must disappear.'
             with self.assertRaisesRegex(ValueError, 'phone decision scope is missing or changed'):
                 runtime.phone_review_inputs(result)
+            result['date'] = '2026-10-19'
+            with self.assertRaisesRegex(ValueError, 'actual controller edition'):
+                runtime.phone_review_inputs(result)
+            result['date'] = '2026-10-20'
             del result['phone_decision_scope']
             with self.assertRaisesRegex(ValueError, 'phone decision scope is missing or changed'):
                 runtime.phone_review_inputs(result)
