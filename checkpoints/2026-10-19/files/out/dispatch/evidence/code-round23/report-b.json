@@ -1,0 +1,136 @@
+{
+ "treatment": "b",
+ "verdict": "pass",
+ "review_scope": "code-plan",
+ "board_bindings": {
+  "opening": {
+   "path": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch/out/dispatch/opening-b.json",
+   "sha256": "520a237c45b99f760befef965d840eae51936433142b8a715f3bf916d7d232a6"
+  }
+ },
+ "board_sha256": "520a237c45b99f760befef965d840eae51936433142b8a715f3bf916d7d232a6",
+ "concept_sha256": "9d44be9625be2c553238603748ed4a196cc0b10d83b8f9f351510bbd14e60f3d",
+ "renderer_sha256": "861f22231c3dba4123715a0f7edd3a8b1487a860cb73c58bd96e58985f8e3955",
+ "binding_status": "The director supplied these digests in out/dispatch/evidence/code-round23-bindings.json. I copied them unchanged and did not recompute them.",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 23",
+ "reviewed_at": "2026-10-20 (date only; clock time unavailable to this Read-only reviewer)",
+ "creek_plan_check": {
+  "scene_id": "s3",
+  "time_s": 13.03,
+  "status": "no ruled edge in visible water",
+  "detail": "CreekPlan's shelf is now one closed smoothPath. It runs through the hand-cut planShelfLip, ten points from (lipX-38, 1300) through the lip at about edgeY-46 to 98, then along the channel side upstream to (1320, edgeY-122), and closes through (1320, 1420) and (lipX-60, 1420). The fill is clipped to the meandering channel path. Its straight closing row at y 1420 lies below the near bank (channel near side at about y 1140 \u00b1 56), so it is never drawn. Its right side at x 1320 is off frame. The foam lip stroke follows the same hand-cut curve. CREEK_PLAN values are unchanged (carX 760, edgeY 1040, carY 880, lipX 640, k 0.69), so the car's start on the shelf and its 98 px move toward the channel before the cut are unchanged. B's car-swept shot uses the same corrected CreekShelf as A."
+ },
+ "unchanged_check": "Apart from the support entry hashes, B's scenes, shots and timing are unchanged from round 20. That includes A's ground-level s1, s4 and s8, and B's overhead map-plan, creek-plan, record-wall and lane-plan. Divergence is unchanged: 5 of 20 shots differ from A, about 13.7 s. The place and wall rules still pass: 5 overhead shots are exempt, and 2 of 15 held shots are wall views, about 13 percent.",
+ "strongest_frame": "s3 creek-plan into car-swept, 13.03 to 17.61 s (authored clock). From above, the roof pod moves off the pale shelf, which now has a hand-cut lip, toward the channel. Then the locked side view carries it past the fixed oak and ledge.",
+ "weakest_frame": "s6-shot-1 lane-plan, 28.3 to 32.705 s. Unchanged: a small overhead roof pod, the quote card possibly covering the upper water, and a slow advance that may read as a stop.",
+ "blocking_defects": [],
+ "notes": [
+  "The same phone-scope checks as A apply to the shared car-swept shot. In creek-plan, also check that the pale shelf reads as shallow water over stone with its foam lip, and not as a patch.",
+  "Stale B prose remains, as noted in round 20; none of it is shown on screen, so it does not block:",
+  "- the s1, s4 and s8 attention continuity_from still says 'seen from above';",
+  "- film_direction.angle and creative_direction.medium_choice still describe an overhead curb treatment;",
+  "- fingerprint.pov is still 'top-down-map'.",
+  "B is the unselected treatment and runs on the authored clock. This is a code pass only."
+ ],
+ "story_review": {
+  "story_sha256": "9ba75d2891bd9140d4d9c4d0912df9b1695f0823bc6882a17e2978920a244ca8",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Intended chain, read from code and not observed. The same ground-level airport curb opening as A, then a flat map plan and the table map close. From above, an empty car at a creek's shallow edge is carried off the shelf, then a locked side view carries it past a fixed oak and ledge. The same street flood with hazards as A follows, then a flat record card and the grid with its stamp. From above, a car runs a lane toward standing water, then the close shows its wheels rolling in while 'may' lights. The remedy row lies flat and is stamped. Then A's wet-lot tag and the low close with checks and the April 20 page, and the curb with the open door beside the remedy card.",
+  "opening_to_ending": "The opening question asks what the federal record says about the flood problem now that the airport ride is open. The close answers it: the open curb door beside 'The remedy is currently under development'. No outcome is invented.",
+  "weakest_transition": "s6-shot-1 to s6-shot-2 at 32.705 s. The car cuts from a small overhead roof pod moving up the frame to a large side view moving right, across the turn's key moment."
+ },
+ "action_reviews": [
+  {
+   "action_id": "wheel-turns-itself",
+   "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "Same cab as A.",
+    "visible_action": "Same steer, after the curb-wide arrival.",
+    "consequence": "Arriving status.",
+    "disclosure": "Chip.",
+    "limits": "Generic car."
+   }
+  },
+  {
+   "action_id": "car-swept-into-creek",
+   "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c3 and c4; shallow edge, no crossing.",
+    "visible_action": "creek-plan moves the car off the shelf with its hand-cut lip, then the shared locked car-swept view uses the corrected CreekShelf.",
+    "consequence": "Carried downstream past fixed landmarks.",
+    "disclosure": "April 20th chip.",
+    "limits": "No entry path."
+   }
+  },
+  {
+   "action_id": "car-slows-into-water",
+   "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c7 card.",
+    "visible_action": "lane-plan, then the shared wheels-water close.",
+    "consequence": "Wheels in the water, 'may' marked.",
+    "disclosure": "Recall-wording chip.",
+    "limits": "No speed or depth."
+   }
+  },
+  {
+   "action_id": "service-area-opens",
+   "module_sha256": "c693803c7fbe7b8c34671af04d8abb097f01dcfbdaf959d2864bc8f541cc7538",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c2.",
+    "visible_action": "map-plan, then map-zone.",
+    "consequence": "The outline closes with the tag.",
+    "disclosure": "Credits.",
+    "limits": "Editorial outline."
+   }
+  },
+  {
+   "action_id": "recall-filed-count",
+   "module_sha256": "c693803c7fbe7b8c34671af04d8abb097f01dcfbdaf959d2864bc8f541cc7538",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c6 and c13.",
+    "visible_action": "record-wall, then count-grid.",
+    "consequence": "Header stamp.",
+    "disclosure": "Chip.",
+    "limits": "Icons are not a literal count."
+   }
+  },
+  {
+   "action_id": "remedy-under-development",
+   "module_sha256": "c693803c7fbe7b8c34671af04d8abb097f01dcfbdaf959d2864bc8f541cc7538",
+   "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+   "verdict": "pass",
+   "blocking_defects": [],
+   "code_observations": {
+    "source_fidelity": "c8.",
+    "visible_action": "record-wall with the pen, then stamp-detail.",
+    "consequence": "The imprint carries to s9.",
+    "disclosure": "Chip.",
+    "limits": "Not a real record page."
+   }
+  }
+ ],
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None at code scope. Code approval includes no pixel observations."
+}
