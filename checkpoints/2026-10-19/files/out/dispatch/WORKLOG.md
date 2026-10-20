@@ -238,3 +238,4 @@ Code critic round 2 = PASS both treatments, but critic_gate needed a story_contr
 2026-10-20 pivot10 PASS (evidence/pivot-phone38; reviewer also found slab sliver at left edge of shot 1 and set CREEK_PLAN_NEAR f [770,1025]); begin-repair opened on comparison-completion-plan-phone38.json; reboards 19/19; builder a78a9fbe resumed (packet builder-packet-phone38 59d03981; brief evidence/phone-critic-round38/builder-brief.md). Critics 57/57.
 2026-10-20 builder phone38 done (Film e5530e9a, Support 7255a7b0, Hero unchanged); rebound boards A/storyboard 198cc61c, B 5f099813; art recorded; after_sha filled; authorize-repair ok; code r39 58/60 sent (bindings evidence/code-round39-bindings.json).
 2026-10-20 code r39 A+B PASS installed (gates ok); local openings (round 38 comparison, 140 files verified on checkpoint tip) removed; comparison renewal after phone38 repair next.
+2026-10-20 comparison renewal after phone38 repair started (bg bnq53pq53).
