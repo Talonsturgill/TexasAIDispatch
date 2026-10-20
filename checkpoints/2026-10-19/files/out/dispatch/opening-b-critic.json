@@ -1,205 +1,41 @@
 {
-  "verdict": "pass",
-  "reviewer_identity": "storyboard-critic claude-opus-5-5 high, isolated code-plan assignment (packet round 9), distinct from director claude-sonnet-5-5",
-  "reviewed_at": "2026-10-19",
-  "review_scope": "code-plan round 9, Treatment B (out/dispatch/opening-b.json, board sha256 b4051a217f6472f65db532b949819e56f29c30c000f835543d917e5ab7beb83d; packet critic-packet-round9.json ab76a32fc873898ef0e6ec35c3119d2313ac0bc6ca58211387a09f0210ac31f5). Scope is the final renderer-only correction (RobotaxiFilm.tsx, RobotaxiHero.tsx, SanAntonioSupport.tsx) judged by code and board only. No rendered pixels, film or audio were inspected. This authorizes nothing beyond the phone path.",
-  "concept_sha256": "77e6c68dbe493f8a7ef7835f72edd2de22ea000a40374450f0c144c3718e9db7",
-  "renderer_sha256": "f3962864cb37285b3da0d127d9134dc754f10926efd81fadbd5b9e8801d4d9a0",
-  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
-  "notes": "HASHES: none were recomputed (Read only, no Bash). concept_sha256, renderer_sha256 and claims_sha256 are the gate-computed values the caller supplied. story_sha256 is null on purpose: the director stamps it, and it is not a reviewer value. policy_sha256 is copied from the retained round 6 and round 7 reports and must match the current daily_production.json digest. ROUND 8 BLOCKER RESOLVED IN CODE: the creek-plan rectangle is replaced by a meandering channel built from 14-point banks with two slow meanders and one short wave. It is one closed smoothPath whose closing segments sit off-frame, with ragged cracked limestone shelves, mottled ground, oaks, current streaks running left at about 300 px/s and bending with the banks, and rain rings clipped to the water. The car's nose points upstream with the bow wave on the nose and wakes trailing left, matching the elevation shots across the match cut. Builder passes on shared views (s4 edge and sidewalk, s7 one hand per shot, s9 one phone per shot, s5 relayout) are resolved in code as for Treatment A. NON-BLOCKING: (1) curb-plan draws a 0.16-scale plan phone as well as the 250 px inset, two phone renderings in one shot, though the plan phone is about 17 px at phone width. (2) Ten of the 21 shots use the same view as Treatment A, and the divergence_note's 'closes from above' does not match the eye-level s9 shots. (3) The plan panels leave 20 to 60 px wall margins, and the street-plan water has a straight left side at the panel edge, x 20. (4) Treatment A's risks apply to the shared views: zero-margin pen exit, count tag near the card edge, s9 split caption-band clearance, traffic-side door, paraphrased c9 row.",
-  "strongest_frame": "s6-shot-1 lane-plan into s6-shot-2 wheels-water, 28.3 to 36.86 s (authored): from above, the roof pod runs up the lane toward the puddle and its brake glow lights as the camera sheds speed and the car eases ahead. The cut lands on the side close as the front wheel enters the water with a wake and 'may' lights.",
-  "weakest_frame": "s3-shot-1 creek-plan, 13.03 to 15.32 s (authored): the car stays still in plan at 0.5 scale, about a quarter of the frame width, because drift only starts at 16.13 s. Only the bow wave (from 14.76 s), the leftward streaks and the rain rings change. The empty cabin cannot read from above and is left to the car-swept shot. Not blocking.",
-  "blocking_defects": [],
-  "story_review": {
-    "story_sha256": "578845c895136b247b87861e666a57e5784100a26e0e7ca19cae1bac0c27789c",
-    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
-    "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
-    "verdict": "pass",
-    "blocking_defects": [],
-    "one_viewing_summary": "Planned chain from code and board, not observed pixels. From above, a white roof pod pulls into an airport bay while a phone inset turns to Arriving, and inside the cab the wheel turns with nobody in the seat. A plan map draws the 60 square mile February area. From above, an empty car sits in a meandering brown creek, then at eye level it is lifted and carried downstream. From above, water spreads along a street around a second car whose hazards blink. The record card writes in flat, icons fill and a stamp lands. From above, the car slows toward standing water, then from the side it rolls in as 'may' lights. The remedy row is stamped. A weather limits tag pins over rows of roofs, April 20 flips and checks land. The curb returns with the door open beside the remedy card.",
-    "opening_to_ending": "It opens on the open airport ride and asks what the federal record says about the flood problem. It closes on the curb, door open, beside 'The remedy is currently under development.' That answers the question without an invented fix or outcome.",
-    "weakest_transition": "s8 to s9 at 50.0 s (authored): the overhead ledger and chain-link detail hand off to the first eye-level exterior since s1. Continuity rests on the disclosed generic car and the remedy card rather than a carried object."
-  },
-  "action_reviews": [],
-  "story_art_action_uses": [
-    {
-      "request_id": "robotaxi-hero",
-      "scene_id": "s1",
-      "event_id": "s1-event-2",
-      "view": "cab-wheel",
-      "action_id": "wheel-turns-itself",
-      "consumption": "s1-shot-2, 2.6125 to 5.225 s: the same cab view as Treatment A. An 85 deg self-turn with a top band and a grip arc, empty seats, the curb sliding past the windshield and the phone inset with the request."
-    },
-    {
-      "request_id": "robotaxi-hero",
-      "scene_id": "s3",
-      "event_id": "s3-event-3",
-      "view": "car-swept",
-      "action_id": "car-swept-into-creek",
-      "consumption": "s3-shot-2, 15.32 to 17.61 s: the match cut from the creek plan, with the same nose-upstream orientation and leftward current. The camera holds while the empty see-through car is lifted, rolls and is carried downstream tail first, about 340 screen px."
-    },
-    {
-      "request_id": "robotaxi-hero",
-      "scene_id": "s6",
-      "event_id": "s6-event-3",
-      "view": "wheels-water",
-      "action_id": "car-slows-into-water",
-      "consumption": "s6-shot-2, 32.705 to 36.86 s: after the lane plan, the car rolls at vLo into the puddle sheet with wakes and never stops; 'may' lights on P(s6-event-3)."
-    },
-    {
-      "request_id": "san-antonio-support",
-      "scene_id": "s2",
-      "event_id": "s2-event-3",
-      "view": "map-zone",
-      "action_id": "service-area-opens",
-      "consumption": "s2-shot-2, 9.285 to 13.03 s: the calendar lands, the zone traces and fills, the 60 square miles tag swings in and the pins move inside it."
-    },
-    {
-      "request_id": "san-antonio-support",
-      "scene_id": "s5",
-      "event_id": "s5-event-3",
-      "view": "count-grid",
-      "action_id": "recall-filed-count",
-      "consumption": "s5-shot-2, 24.555 to 28.3 s: card right, tag left, the grid fills, the 'Nearly 3,800 / 3,791' tag settles and the up-right-armed stamp presses 'Software recall' and is carried away."
-    },
-    {
-      "request_id": "san-antonio-support",
-      "scene_id": "s7",
-      "event_id": "s7-event-3",
-      "view": "stamp-detail",
-      "action_id": "remedy-under-development",
-      "consumption": "s7-shot-2, 39.15 to 41.44 s: only the stamp hand. The stamp is poised, presses 'Under development' on the lit remedy row and lifts away, leaving about 1.05 s clear. The imprint carries into the s9 RemedyCard."
-    }
-  ],
-  "narration_picture_plan_review": [
-    {
-      "id": "n1a",
-      "start_s": 0.2,
-      "end_s": 5.05,
-      "claims": "c1",
-      "match": "pass",
-      "planned_picture": "curb-plan: from above, the roof pod comes up the curb lane and brakes inside the painted bay box while the phone inset reads 'Ride requested'. Then cab-wheel: the empty seat and the self-turning wheel."
-    },
-    {
-      "id": "n1b",
-      "start_s": 5.4,
-      "end_s": 6.57,
-      "claims": "c1",
-      "match": "pass",
-      "planned_picture": "phone-hail: the bench phone turns to 'Arriving / At the curb' as the car settles."
-    },
-    {
-      "id": "n2a",
-      "start_s": 7.12,
-      "end_s": 9.11,
-      "claims": "c2",
-      "match": "pass",
-      "planned_picture": "map-plan: a straight-down map draws in its river and grid, with the February calendar lying on it."
-    },
-    {
-      "id": "n2b",
-      "start_s": 9.46,
-      "end_s": 12.68,
-      "claims": "c2",
-      "match": "pass",
-      "planned_picture": "map-zone: the calendar lands, the outline closes around the pins and the 60 square miles tag pins."
-    },
-    {
-      "id": "n3",
-      "start_s": 13.23,
-      "end_s": 17.26,
-      "claims": "c3, c4",
-      "match": "pass",
-      "planned_picture": "creek-plan then car-swept: under the chip for a different car, April 20th account, a white roof sits nose upstream in a meandering brown channel with leftward streaks, rain rings and a building bow wave. At eye level the empty car is then lifted and carried downstream."
-    },
-    {
-      "id": "n4",
-      "start_s": 17.81,
-      "end_s": 21.84,
-      "claims": "c5",
-      "match": "pass",
-      "planned_picture": "street-plan then wheel-water: water spreads along the street around a creeping roof that stops as its four amber corners blink. The medium shows hazards and the see-through empty cabin at the wheel arches as the water calms."
-    },
-    {
-      "id": "n5a",
-      "start_s": 22.39,
-      "end_s": 24.38,
-      "claims": "c6",
-      "match": "pass",
-      "planned_picture": "record-wall: the record card slides flat onto the desk top and its rows write in."
-    },
-    {
-      "id": "n5b",
-      "start_s": 24.73,
-      "end_s": 27.95,
-      "claims": "c6, c13",
-      "match": "pass",
-      "planned_picture": "count-grid: the grid fills, the 'Nearly 3,800 / 3,791' tag settles and the stamp presses 'Software recall'."
-    },
-    {
-      "id": "n6a",
-      "start_s": 28.5,
-      "end_s": 32.53,
-      "claims": "c7",
-      "match": "pass",
-      "planned_picture": "lane-plan: the recall sentence card fades in above, the roof pod runs up the lane and its brake glow lights as it slows toward the puddle."
-    },
-    {
-      "id": "n6b",
-      "start_s": 32.88,
-      "end_s": 36.51,
-      "claims": "c7",
-      "match": "pass",
-      "planned_picture": "wheels-water: the car rolls on into the standing water with wakes and does not stop; 'may' lights."
-    },
-    {
-      "id": "n7",
-      "start_s": 37.06,
-      "end_s": 41.09,
-      "claims": "c8",
-      "match": "pass",
-      "planned_picture": "record-wall then stamp-detail: the remedy row lights flat on the desk, a single pen hand rests at the row's end and withdraws, and the stamp lands 'Under development' and lifts away."
-    },
-    {
-      "id": "n8a",
-      "start_s": 41.64,
-      "end_s": 45.26,
-      "claims": "c9",
-      "match": "pass",
-      "planned_picture": "fleet-plan: the 'Weather limits tightened' tag slides in and pins over two rows of roof pods in their stalls."
-    },
-    {
-      "id": "n8b",
-      "start_s": 45.61,
-      "end_s": 49.65,
-      "claims": "c12",
-      "match": "pass",
-      "planned_picture": "limits-detail: on the chain link the April page flips to 20, six car icons take checks left to right and the map card is marked updated."
-    },
-    {
-      "id": "n9a",
-      "start_s": 50.2,
-      "end_s": 52.6,
-      "claims": "c1",
-      "match": "pass",
-      "planned_picture": "curb-return: under the generic-airport-ride disclosure, the rear door swings open, and the phone inset (the only phone in the shot) reads Arriving."
-    },
-    {
-      "id": "n9bc",
-      "start_s": 52.95,
-      "end_s": 58.1,
-      "claims": "c8",
-      "match": "pass",
-      "planned_picture": "record-slide then curb-record-split, the same as Treatment A: the remedy card stands back, then slides into the foreground with its imprint, and the split holds the open-door car above and the card plus one Arriving phone below. The underline draws on s9-event-3."
-    }
-  ],
-  "code_observations": {
-    "narration_binding": "All 15 clauses bind subjects, actions and events implemented by the registry narration_views of B's views (curb-plan, map-plan, creek-plan, street-plan, record-wall, lane-plan, fleet-plan, limits-detail and the shared views). n9bc covers both s9 framing subdivisions.",
-    "source_fidelity": "The same verbatim recall sentence, remedy and summary rows as Treatment A, with the c9 row paraphrased. The plan views draw no crossing, cause, stop or crash.",
-    "motion": "The plan car-follow camera in lane-plan sheds speed while the car only slows to vLo. curb-plan follows D on the s1 curves. The creek-plan car is still until s3-event-3, which falls after the cut.",
-    "framing": "Longest shot is 4.565 s, the first reward is at 0.75 s and reward gaps are at most about 3.4 s. The s9 split caption-band clearance needs the phone check.",
-    "region": "Bexar, Blackland. Eight overhead shots are exempt from the place probe. Wall views are 2 of 13 held shots. Exterior eye-level shots stand on the plate.",
-    "finish": "The creek plan has meandering smooth banks, shelves and mottled ground. Plan panels keep small wall margins. Pixel finish is unverified.",
-    "disclosure": "The chip renders production_disclosure on every scene, including the three source-example disclosures and the s9 generic-ride disclosure."
+ "treatment": "b",
+ "verdict": "pass",
+ "review_scope": "code-plan",
+ "board_bindings": {
+  "opening": {
+   "path": "out/dispatch/opening-b.json",
+   "sha256": "0c7bc0a4fe4e00fb3609e4815c875390cb4d0ce53412aa3ccd199706b1ab3070"
   }
+ },
+ "board_sha256": "0c7bc0a4fe4e00fb3609e4815c875390cb4d0ce53412aa3ccd199706b1ab3070",
+ "concept_sha256": "ae222968ab0940e846a0870c1836433f8c078cccb1ffb41baddcd24c1876d7be",
+ "renderer_sha256": "d7612341aa0f6d4f22cc2d3402e1fdc4596861b20332a414f27cabdbf3c19e47",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 13",
+ "reviewed_at": "2026-10-20 (exact clock time unavailable to this Read-only reviewer)",
+ "strongest_frame": "s6 lane-plan into wheels-water, 28.3 to 36.86 s (B's authored clock): from above, the roof runs up the lane toward the standing water and slows, then the shared close performs the roll into the water while 'may' lights.",
+ "weakest_frame": "0.0 to 2.61 s, s1 curb-plan: a roof dome brakes into a painted bay seen straight down, with no readable airport cue (the sign plan is a 58 by 10 rectangle). The airport arrives with the cab-wheel and phone-hail shots, before 'the airport included' is spoken.",
+ "blocking_defects": [],
+ "notes": [
+  "Round 12 blocker resolved: s8-shot-2 is now in overhead mode, a flat ground-tone fill around the lot that matches s8-shot-1, with zoom 1 and no defocus. The same 4 roofs, tag, calendar, checks and map card carry across the match cut.",
+  "Place weakness, not a gate failure: 9 of 20 shots are overhead and show no Blackland region. place_check exempts overhead framings; the wall-view share of the remaining shots is 2 of 11.",
+  "In fleet-plan the weather limits tag (y 246) starts its slide at x 40 and passes under the April calendar at (150,262), which draws on top of it, early in the slide. The tag clears once it reaches x 540. A phone check is enough.",
+  "Possible false inference shared with A: a viewer may take the interim weather limits as current, or as coming after the recall. The record leaves them undefined and their status unknown. Not prevented on screen; narration is literal and the close holds 'remedy under development'.",
+  "In s7 stamp-detail the resting pen hand and the stamp hand do not intersect (checked in round 12); a phone check is still needed."
+ ],
+ "story_review": {
+  "story_sha256": "ec32012bc1c8d7b9d1123b5368e8b2b803038b27de81d5d79113cbd16ac664d9",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Intended chain, from code and not observed. The same story as A, read from above and from inside the cab. A roof pod brakes into the bay plan, the empty wheel turns and the phone says arriving. Then a map plan with the limited area, the creek from above with the empty car in the current and then swept downstream, a street plan with hazards and water at the wheels, the recall record and its icon grid with the Software recall stamp, the lane from above and the wheels rolling into water. Then the remedy row stamped Under development while a pen rests on it, one fleet lot from above where the weather limits tag pins and, closer, the April 20 page flips and each of the 4 roofs takes a check. Last, the curb return beside the underlined remedy card.",
+  "opening_to_ending": "The opening question (the ride is open, so what does the record say about the flood problem) is answered by the closing split: an open curb door beside 'The remedy is currently under development', underlined. No outcome is invented.",
+  "weakest_transition": "s7 to s8. The causal bridge 'unfinished remedy leads to the interim step' reads as a sequence, though the update was complete by April 20th, before the recall was reported. The weather limits' content and current status stay unshown."
+ },
+ "action_reviews": "The same six authored actions and module hashes as A's round 12 report (hero b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563, support 3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00, claims 4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab). Every action passes at code level. B's plan views (curb-plan, creek-plan, street-plan, lane-plan, fleet-plan) and the limits-detail lot run on the same robotaxiState clock.",
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None. Code approval includes no pixel observations."
 }
