@@ -18,3 +18,10 @@
 - openings rendered (openings/a.mp4,b.mp4), motion-a/b extracted. Review 4/5 (silent phone compare) agent aa8ee1ce7c657d8ca (dispatch-visual-critic) launched; storyboard_critics=4. NOTE: run visual_observations.py install ONLY via /opt/texas-dispatch-tools/scripts (guard_root must stay /opt/texas-dispatch-tools). Remaining: review 5 = final timed phone.
 - review 4/5 DONE: A selected, phone pass (storyboard_critic.json, openings/selection.json, preflight.mp4, coverage verified). Next: voice (vo-director, TTS), alignment, retime, timed phone = review 5 (last).
 - REPAIR: cached whisper-cli (built on other CPU) died SIGILL in vo_align. Rebuilt the SAME pinned commit 306c88f4 with GGML_NATIVE=OFF (AVX2/FMA, no AVX512) and replaced /opt/texas-dispatch-runtime/bin/whisper-cli; original kept in scratchpad whisper-cli.original-sigill. Same model/version.
+
+## Audio/retime resolution (context 3)
+- Retake (takes2/take1.wav, TTS calls 3 and 4) with boundary-rest direction. Soundcheck passed. Derived files, all silence-only: take1_compact.wav (cap .55), take1_beats.wav (digital-zero rests inserted at quietest frames of existing pauses + one sentence gap shortened; report boundary_rest.json). Mix uses takes2/take1_beats.wav, vo-at 0.2, cut 61.32. Original take1 and mix retained under attempt1/.
+- vo_align --clause-boundaries now passes (all 18 boundaries measured).
+- board_retime needed exclusive shots per clause; storyboard.json shots re-assigned (A frozen file untouched), s3-shot-4 added, event clause fractions re-set (events 1.15 s max, s3-event-3 straddles n3c/n3d, s9-event-3 late), rewards s3-event-3 .1 s9-event-3 .1. Retime uses --lead 0.16 (scene s3 ceiling). Stable: 0 scenes moved.
+- picture_precheck (out/dispatch/picture-precheck-final latest) 15 of 15 pass.
+- NEXT: final timed phone preview (capture_guard authorize --prepare + preflight_animatic), phone-packet --sequence-current, review 5 of 5, then native etc.

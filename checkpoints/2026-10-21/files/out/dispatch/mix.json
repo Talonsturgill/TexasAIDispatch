@@ -4,8 +4,8 @@
   "peak_dbfs_premaster": -1.61,
   "lufs_premaster": -19.41,
   "lufs_target": -16.0,
-  "lufs_achieved": -16.06,
-  "lufs_shortfall_db": 0.05999999999999872,
+  "lufs_achieved": -16.08,
+  "lufs_shortfall_db": 0.0799999999999983,
   "crest_factor_db": 17.8,
   "limiter": true,
   "mix_notes": [
@@ -29,54 +29,54 @@
       "time_stretch": 1.0,
       "gap_below_voice_db": 19.0,
       "source_lufs": -19.38,
-      "gain_db": -19.01
+      "gain_db": -19.02
     }
   ],
   "bed": true,
   "bed_track_id": "deep_haze",
   "bed_gap_below_voice_db": 19.0,
   "bed_source_lufs": -19.38,
-  "bed_gain_db": -19.01,
+  "bed_gain_db": -19.02,
   "sfx_events": 9,
   "mastering": {
     "method": "FFmpeg loudnorm dynamic gain control",
     "before": {
-      "integrated_lufs": -17.83,
+      "integrated_lufs": -17.84,
       "true_peak_dbtp": 0.01
     },
     "after": {
-      "integrated_lufs": -16.06,
-      "true_peak_dbtp": -1.99
+      "integrated_lufs": -16.08,
+      "true_peak_dbtp": -1.98
     },
-    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.66:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.85:measured_TP=-6.05:measured_LRA=11.30:measured_thresh=-34.68:offset=0.93",
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.64:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.87:measured_TP=-6.02:measured_LRA=11.70:measured_thresh=-34.67:offset=0.95",
     "measurement": {
-      "input_i": "-23.85",
-      "input_tp": "-6.05",
-      "input_lra": "11.30",
-      "input_thresh": "-34.68",
-      "output_i": "-15.91",
+      "input_i": "-23.87",
+      "input_tp": "-6.02",
+      "input_lra": "11.70",
+      "input_thresh": "-34.67",
+      "output_i": "-15.92",
       "output_tp": "-2.00",
-      "output_lra": "3.00",
-      "output_thresh": "-26.30",
+      "output_lra": "4.20",
+      "output_thresh": "-26.26",
       "normalization_type": "dynamic",
-      "target_offset": "0.25"
+      "target_offset": "0.28"
     },
     "attempts": [
       {
         "requested_lufs": -16.0,
         "measured": {
-          "integrated_lufs": -16.34,
-          "true_peak_dbtp": -1.99
+          "integrated_lufs": -16.36,
+          "true_peak_dbtp": -1.98
         },
-        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.85:measured_TP=-6.05:measured_LRA=11.30:measured_thresh=-34.68:offset=0.88"
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.87:measured_TP=-6.02:measured_LRA=11.70:measured_thresh=-34.67:offset=0.89"
       },
       {
-        "requested_lufs": -15.66,
+        "requested_lufs": -15.64,
         "measured": {
-          "integrated_lufs": -16.06,
-          "true_peak_dbtp": -1.99
+          "integrated_lufs": -16.08,
+          "true_peak_dbtp": -1.98
         },
-        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.66:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.85:measured_TP=-6.05:measured_LRA=11.30:measured_thresh=-34.68:offset=0.93"
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.64:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-23.87:measured_TP=-6.02:measured_LRA=11.70:measured_thresh=-34.67:offset=0.95"
       }
     ],
     "correction": null,
@@ -86,8 +86,8 @@
     "limiter": true
   },
   "master_file": "out/dispatch/mix.wav",
-  "master_sha256": "5fbc336a33e3af1ec87d27f06fff8a82c13d20f6ef30851f33de8292c3ab89dc",
-  "sound_direction_sha256": "173a6cce9ed80c73a4dce6292d56c2f0b84deb3ba705036913ce90c86ba8e4e6",
+  "master_sha256": "d1404d4db5317197b3b3af2ec353f3168e111be332b84a92dadaac16bcc54047",
+  "sound_direction_sha256": "5d202ca6cccb506fcd79fa0882427e2934a91cdc87dafba5b68c3ab80f158eca",
   "sound_cues": [
     {
       "id": "cue-s1",
@@ -96,7 +96,7 @@
       "intent": "A rising electric whine as the rotors spin up over wind and distant pump machinery.",
       "provenance": "Original designed ambience, not recorded at any well pad.",
       "event_id": "s1-event-1",
-      "at_s": 0.246
+      "at_s": 0.48
     },
     {
       "id": "cue-s2",
@@ -105,16 +105,16 @@
       "intent": "A soft chime as the alert flag lights.",
       "provenance": "Original designed foley, not a recorded software sound.",
       "event_id": "s2-event-2",
-      "at_s": 8.061
+      "at_s": 9.1
     },
     {
       "id": "cue-s3",
       "role": "contact",
-      "duration_s": 1.1999999999999993,
+      "duration_s": 1.200000000000001,
       "intent": "A paper slide, then a rubber stamp thump.",
       "provenance": "Original designed foley, not recorded at any agency.",
       "event_id": "s3-event-2",
-      "at_s": 14.45
+      "at_s": 14.94
     },
     {
       "id": "cue-s4",
@@ -123,7 +123,7 @@
       "intent": "A steady rotor hum with a faint camera shutter whirr at each point of interest.",
       "provenance": "Original designed ambience, not recorded from a drone.",
       "event_id": "s4-event-1",
-      "at_s": 20.064
+      "at_s": 21.84
     },
     {
       "id": "cue-s5",
@@ -132,7 +132,7 @@
       "intent": "A soft click as the inspector mark lands, then a tag swish.",
       "provenance": "Original designed foley, not a recorded interface.",
       "event_id": "s5-event-2",
-      "at_s": 28.933999999999997
+      "at_s": 30.160000000000004
     },
     {
       "id": "cue-s6",
@@ -141,7 +141,7 @@
       "intent": "Soft paper scroll and a small highlighter squeak.",
       "provenance": "Original designed foley, not a recorded document.",
       "event_id": "s6-event-2",
-      "at_s": 35.341
+      "at_s": 35.499900000000004
     },
     {
       "id": "cue-s7",
@@ -150,7 +150,7 @@
       "intent": "A calendar page flip and a paper tag landing.",
       "provenance": "Original designed foley, not recorded at any agency.",
       "event_id": "s7-event-2",
-      "at_s": 40.621
+      "at_s": 40.09
     },
     {
       "id": "cue-s8",
@@ -159,7 +159,7 @@
       "intent": "A calendar page flip and a paper tag landing.",
       "provenance": "Original designed foley, not recorded at any agency.",
       "event_id": "s8-event-2",
-      "at_s": 45.742
+      "at_s": 45.6532
     },
     {
       "id": "cue-s9",
@@ -168,7 +168,7 @@
       "intent": "A single soft confirmation tone, then room tone.",
       "provenance": "Original designed ambience, not recorded in any office.",
       "event_id": "s9-event-2",
-      "at_s": 51.533
+      "at_s": 49.620000000000005
     },
     {
       "id": "mark-quiet",
@@ -178,7 +178,7 @@
       "provenance": "Authored event-clock background contrast.",
       "event_id": "s9-event-2",
       "gain": 0.3,
-      "at_s": 51.533
+      "at_s": 49.620000000000005
     }
   ],
   "sound_assets": [

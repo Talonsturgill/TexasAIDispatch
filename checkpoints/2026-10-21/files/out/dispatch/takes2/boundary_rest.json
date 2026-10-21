@@ -1,10 +1,10 @@
 {
-  "schema": "dispatch_boundary_rest/1",
+  "schema": "dispatch_boundary_rest/2",
   "source": "out/dispatch/takes2/take1_compact.wav",
   "source_sha256": "8d438cd6c897e79c0109446525b08d01048d5957ee718016493fa6a772965cef",
   "output": "out/dispatch/takes2/take1_beats.wav",
-  "output_sha256": "ba022fccbe0e88b96ecc3162db80548570b444acb40f09a2bdaed0ebdec05d15",
-  "insertions": [
+  "output_sha256": "856dd7d14e540d9dedf0cb91790aafc01487e81977d5736405e561b0f89c8116",
+  "edits": [
     {
       "boundary": "n2a",
       "take_time_s": 8.601,
@@ -14,13 +14,13 @@
     {
       "boundary": "n3b",
       "take_time_s": 16.737,
-      "inserted_s": 0.3,
+      "inserted_s": 0.23,
       "quiet_frame_db": -68.6
     },
     {
       "boundary": "n3c",
       "take_time_s": 19.07,
-      "inserted_s": 0.3,
+      "inserted_s": 0.17,
       "quiet_frame_db": -75.5
     },
     {
@@ -40,7 +40,13 @@
       "take_time_s": 40.645,
       "inserted_s": 0.2,
       "quiet_frame_db": -82.4
+    },
+    {
+      "boundary": "sentence3-end",
+      "cut_from_s": 21.53,
+      "removed_s": 0.25,
+      "peak_dbfs": -64.7
     }
   ],
-  "note": "Digital silence inserted at the quietest 10 ms frame of an existing pause. No voiced frame removed or altered, no resampling, no time stretch."
+  "note": "Digital silence inserted at the quietest 10 ms frame of existing pauses, and one existing silence shortened by cutting only measured silence before the next phrase. No voiced frame removed or altered, no resampling, no time stretch."
 }
