@@ -1,0 +1,65 @@
+{
+ "schema_note": "Round-3 code-plan report for treatment B only, from the same storyboard-critic. A's round-2 pass (out/dispatch/code-critic-2.json) stands unchanged because A's board (ce491db1...) and the renderer closure (02a32fa8...) are byte-identical. The round-1 and round-2 reports are left exactly as they were. Save this JSON exactly as returned.",
+ "packet": {
+  "path": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/critic-packet.json",
+  "sha256_note": "Read-only reviewer with no Bash; the packet digest was not recomputed. It binds opening-b.json at 4d675dd1fcc6ab6cf7f7802ca5ae2e6f5f83789398ce18ac2b07184ed34b2c69 and the unchanged renderer_sha256 02a32fa8c5f19be4c642371c6fa917c74725396c1b03c042e7a5b6dd96c44882."
+ },
+ "input_verification": "Every guide, contract, claims, selection and asset hash in this packet is identical to the round-2 packet, and I read all of them in full earlier in this session. The renderer digest is unchanged, so the LeakReviewFilm, LeakReviewSupport and InspectionDroneHero code I read in full in round 2 is the code that executes. This round I re-read opening-b.json: s1 and s2 complete, s3 header and chip, s7 and s8 complete, story_art action_uses, all film_direction shots, angle and promise, story_contract transitions, fingerprint, divergence_note and creative_direction.",
+ "reports": {
+  "b": {
+   "treatment": "b",
+   "review_scope": "code-plan",
+   "board": {
+    "path": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/opening-b.json",
+    "sha256": "4d675dd1fcc6ab6cf7f7802ca5ae2e6f5f83789398ce18ac2b07184ed34b2c69"
+   },
+   "verdict": "pass",
+   "concept_sha256": "085cd399624cf614437de6956825c0b3f4592888f56fcf9182c12fb13e8f404a",
+   "renderer_sha256": "02a32fa8c5f19be4c642371c6fa917c74725396c1b03c042e7a5b6dd96c44882",
+   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+   "reviewer_identity": "storyboard-critic:claude-opus-5-5:high:isolated-code-plan-reviewer",
+   "director_identity": "claude-sonnet-5-5 director, this session",
+   "reviewed_at": "2026-10-21",
+   "strongest_frame": "s5 review-panel (28.51 to 30.91 s). The generic inspector's stylus tip leads the outline round the shimmer, because outline progress equals the stylus position via outlinePoint(trace). Her left index finger presses the green confirmation onto the footage. Reach is verified at 448 of 568 px for the stylus and 432 of 514 px for the finger. The room shots before it (s5 room-review) and after it (s6 room-letter) keep the deciding person in frame.",
+   "weakest_frame": "s3 room-desk, letter-desk and stamp-reaction (11.44 to 19.8 s). The approval letter slides in and both rubber stamps descend from above and press with no hand, while the seated inspector only watches and taps a pen. This is not a source contradiction, but it is the one moment where a person shares the frame with an unsupported tool, and a viewer could read her as the approver. Judge at phone scope under contact_and_consequence and comprehension.",
+   "blocking_defects": [],
+   "retained_defect_disposition": {
+    "round2_B_s1_s2_pilot_identity": "Resolved. s1 now uses equipment-low (0 to 3.08 s) and station-wide (3.08 to 6.16 s), and s2 uses panel-wide (6.16 to 8.8 s) and alert-panel (8.8 to 11.44 s). These are A's views and cuts. Both scenes carry A's chip 'Illustration. Generic drone, no brand mark', and their planes contain no inspector item. In the callable renderer, these view cases draw only padWorld/locatorCard and the tablet/claim tag. The only person calls in those branches are guarded by view==='room-window' or view==='room-monitor', which B no longer uses. The variant prop is written only to a data-variant attribute and selects no staging, so no inspector or room leaks into these views when the variant is b.",
+    "round2_B_s7_s8_separate_program": "Resolved. s7 uses program-wide and program-calendar, and s8 uses proposal-wide and proposal-close. Both chips read 'Illustration. A separate program, no drone' and the planes contain no inspector. The renderer's restingPerson calls in those cases are guarded by view==='room-calendar' or view==='room-proposal', which B does not use. The story_contract keeps the source-example transitions s2 to s3 ('Illustration of EPA's method, generic inspector', matching the s3 chip exactly), s6 to s7 and s8 to s9.",
+    "earlier_rounds": "The fixes recorded in round 2 are unchanged in code: the human turn and close with verified reach, the blue companies' flag on the pump-pressure row away from the methane point of interest, one meaning per colour, the s8 chip, the action-use bindings, and title-detail as B's only wall view."
+   },
+   "complete_treatment_divergence": "B still differs from A as a complete treatment, though less than in round 2. The first 11.44 s (s1 and s2) and s7 to s8 (38.72 to 48.84 s) are now intentionally identical to A, about 21.56 s or 38 percent of the 56.32 s story runtime. From the approval onward (s3 to s6 and s9, about 34.76 s or 62 percent), B's staging, framing and emphasis differ. The letter arrives on the inspector's desk (room-desk, stamp-reaction), the flight is watched on her wall monitor (room-feed, feed-lens), the review runs room-review, then review-panel, then mark-hands, the letter is read in her holder (room-letter), and the close is room-hold, then confirm-hold, then blank-box. That gives the viewer a person-first experience of the mechanism, turn and answer, not a camera-pose relabel. B's revised angle and opening_promise ('Watch a drone work, then watch a person at a desk decide what its footage shows') match this construction, and its fingerprint light_story is now 'noon-hard'. A consequence to note: the silent opening comparison will show identical openings for the first 11.44 s, so the phone choice must rest on the whole sequence.",
+   "notes": [
+    "The rubric bar is read from config/dispatch_rubric.yaml and not restated here.",
+    "This code-plan pass authorizes only the funded capture. It contains no pixel observations, selection or film approval. The silent phone comparison, timed phone, native, audiovisual, three-scorer and delivery gates all remain.",
+    "action_uses: s1-event-2 (2.218 to 3.418 s) is declared at station-wide, but with A's s1 cut at 3.08 about 72 percent plays in equipment-low, the same partial overlap noted for A. s6-event-2 is 74 percent in title-detail, and s4, s5 and s7 bind fully. Let the authored_story_art verify gate decide, or rebind the view.",
+    "Phone checks to carry forward. Does the inspector read as the approver in s3, with stamps self-pressing beside her? In s4 she watches the live 'Feed' during flight under the EPA-method chip while the letter describes review of collected footage; confirm it reads as monitoring rather than her review. In s9 the station and pad through her window are the same generic design as s1, under the EPA-method chip; this is acceptable as illustration, as in A, but confirm the chip reads at the cut. Also check hand occlusion of the shimmer and green mark, small type ('Pump pressure', 'Anomaly', chips), the large-monitor scale of the review tablet, the 86 percent unsupported arc of the flicked follow-up tag, and inspector likeness.",
+    "In s5 room-review (26.4 to 28.51 s), the stylus starts its approach toward an outline start beyond her far-arm reach in that framing, and personArm clamps it short. The trace begins only at 28.934 s in review-panel, where it is reachable, so nothing draws unsupported. Avoid ending the shot on a visibly overreaching arm.",
+    "Stale planning prose (not executed): creative_direction.viewer_question ('When a drone flags a leak'), the s3 to s4 'dissolves into the drone' bridge, visual_sentence annotations reading 'Generic drone with no brand mark', the hero request purpose ('the equipment the EPA letter approves') and the registry note ('B reads the same events from the desk and from above'). The on-screen chips are correct.",
+    "Regulator and source checks are unchanged: numerals match the fetched quotes, the protocol title is verbatim c8, no seal, logo or brand mark is drawn, the county plate stands behind the exteriors and through the room windows, and there is 1 wall view of 22 shots."
+   ],
+   "code_observations": {
+    "opening": "Identical to A. equipment-low shows the hood opening, rotor spin-up and the lift and fly-out as one travel stroke. station-wide holds the cruise while the Texas card pins Permian Basin and Austin. No person is present.",
+    "central_mechanism": "s3 in the room (desk, letter, stamps, the watching inspector). s4: room-feed wall monitor, then poi-close flight, then the feed-lens infrared inset. s5: room-review, then the review-panel stylus trace and finger press, then the mark-hands flick of the follow-up tag.",
+    "closing": "room-hold, confirm-hold, then blank-box: her stylus re-presses the green mark, the empty AI box draws, and the station closes in the window.",
+    "pixel_observations": null
+   },
+   "story_review": {
+    "story_sha256": "e0deae97be1a04b1d41a003a79f9790cfe16acc70639438600bc1e472855d6ad",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "The intended chain, reconstructed from the executable code: A generic drone's station opens on a caliche Permian pad and the drone lifts and flies out over the equipment while a Texas card pins the Permian and Austin. The companies' blue 'Anomaly' flag rises on a pump-pressure reading, tagged 'The companies say'. Under an 'Illustration of EPA's method' chip, an approval letter lands on an inspector's desk and takes its September 30th, 2025 date and Approved marks while she watches. On her wall monitor the drone flies its plan to a valve ring and an illustrative infrared view opens. At the review screen she traces the shimmer with her stylus, presses a green confirmation and flicks a follow-up tag to the valve. In her document holder the protocol title highlights AI once. A separate, disclosed program, with no inspector present, is delayed to January 22nd, 2027 and proposed for rescission on October 7th. Back in her room she re-presses her green mark beside an empty AI box as the station closes outside her window.",
+    "opening_to_ending": "It opens on the machine and the companies' claim with no person, then hands every step of the approved method to one visible person, and ends with that person's confirmation beside an empty AI box. The question 'who decides' is answered by a performed human action, and the example boundaries (pilot, approved method, separate program) are disclosed on screen and not crossed by the person.",
+    "weakest_transition": "s2 to s3 (11.44 s). This is the switch from the pilot claim to EPA's method. It is honest and disclosed, but it changes setting from the screen-only pilot world to the inspector's room at the same cut, so the viewer must absorb both a new source example and a new place at once. Check at phone scope that the chip and the letter arrival read together."
+   },
+   "action_reviews": []
+  }
+ },
+ "comparison": {
+  "code_scope_result": "Both treatments now pass at code-plan scope: A from round 2 (unchanged bytes) and B in this round. Neither report contains pixel observations or a selection.",
+  "observation": "A follows the machine at ground level and brings the person in only at the turn and close. B shares A's first 11.44 s and the separate-program passage, then stages the approved method, the turn and the close entirely through the inspector's room. Because the openings are now identical, the silent comparison must judge the complete sequences, especially s3 to s6 and s9, and the choice belongs to the exact phone review.",
+  "remaining_code_proven_defects": "None. Remaining items are phone-scope uncertainties and non-blocking binding and prose notes, listed in reports.b.notes."
+ }
+}
