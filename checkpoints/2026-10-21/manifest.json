@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-21T17:23:07.560114+00:00",
-  "note": "code critic launched",
+  "saved_at": "2026-10-21T17:43:29.215813+00:00",
+  "note": "ledger write",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "e161e2e553e4c04c6edcd2d995828e829193dcc1bde8086cd4e301046082dfb0"
   },
   "deleted_source": [],
-  "ledger_sha256": "087181ca744337c417f9b1931f3fc2de4d45a671452f89de3330ea9bad7a3128",
-  "original_private_ledger_sha256": "d040d6df08e5bad95de5df308c58d6e599828d46f9b3d742862c887f7786b931",
+  "ledger_sha256": "0574e2368415794c4101f2bdbe2ecb079d47d55e4f4c510f988575cbf65f4ce6",
+  "original_private_ledger_sha256": "f9f2ce84c9d539e8aee0b2acca2b1317198e885118e30cf8b4568e328e71c483",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -72,6 +72,60 @@
       "class": "scratch",
       "sha256": "c6b9ca1d51d13df8c7c2ce92263ae68020cca33ded45b924c9f0ac63166c955a",
       "size": 27039
+    },
+    {
+      "path": "out/dispatch/attempt1/code-critic-round1-response.txt",
+      "class": "scratch",
+      "sha256": "213372530f4874b21f9d48f8892cfb6cc464a7e4577697fa73b2dd4661b9da7f",
+      "size": 38963
+    },
+    {
+      "path": "out/dispatch/attempt1/code1-baseline/InspectionDroneHero.tsx",
+      "class": "scratch",
+      "sha256": "f456b1aa31140ace69ad58d8c1157d4280004f2e71852604bdce4b431bbda765",
+      "size": 25391
+    },
+    {
+      "path": "out/dispatch/attempt1/code1-baseline/LeakReviewFilm.tsx",
+      "class": "scratch",
+      "sha256": "aa07e5ead7c2cf5572e61b9cb6a82c1bfc58c19b2c93682a68c3e92aedbfceeb",
+      "size": 50541
+    },
+    {
+      "path": "out/dispatch/attempt1/code1-baseline/LeakReviewSupport.tsx",
+      "class": "scratch",
+      "sha256": "36ac0f9672a153b8c9d1120e6255f4090fa6dcdfacc644ed24394b4da7b095c7",
+      "size": 56597
+    },
+    {
+      "path": "out/dispatch/attempt1/code1-baseline/modern_episode_registry.json",
+      "class": "scratch",
+      "sha256": "cb66bf5d254a9609dc60d039d04d80ea827c49f8978e2c90365d1a9845cbc95f",
+      "size": 58484
+    },
+    {
+      "path": "out/dispatch/attempt1/code1-baseline/opening-a.json",
+      "class": "scratch",
+      "sha256": "c008dc98596a15edad4812460e72d5a65ebb1b61654cf40871c77d5706e96cb7",
+      "size": 190228
+    },
+    {
+      "path": "out/dispatch/attempt1/code1-baseline/opening-b.json",
+      "class": "scratch",
+      "sha256": "3c6b9de11522e06aa69341eaeac0673666b3ede6196c76b0cc6d0ded73453fa1",
+      "size": 190217
+    },
+    {
+      "path": "out/dispatch/attempt1/code1-baseline/registry.tsx",
+      "class": "scratch",
+      "sha256": "761a35eb1f64e9b9288e6a892b2fc1c806f69cfc9521df1c3e5d7fcb226c72ad",
+      "size": 1224
+    },
+    {
+      "path": "out/dispatch/attempt1/code1-baseline/storyboard.json",
+      "class": "scratch",
+      "sha256": "c008dc98596a15edad4812460e72d5a65ebb1b61654cf40871c77d5706e96cb7",
+      "size": 190228
     },
     {
       "path": "out/dispatch/attempt1/opening-a-builder-v1.json",
@@ -194,6 +248,12 @@
       "size": 127
     },
     {
+      "path": "out/dispatch/code-critic-1.json",
+      "class": "scratch",
+      "sha256": "bebc64b0f07a4fe210cc13eb9b50b093fb300f841795a5a4f7111f6d18a5a149",
+      "size": 37662
+    },
+    {
       "path": "out/dispatch/critic-assignment.json",
       "class": "scratch",
       "sha256": "3827458f8b4aeb0b68a37cda5dad73da5ad2474a997f2394f4e7eb1615a1f6f7",
@@ -224,10 +284,22 @@
       "size": 426
     },
     {
+      "path": "out/dispatch/opening-a-critic-1.json",
+      "class": "scratch",
+      "sha256": "12d0055fb0f7292be4edeaa9cb1be3dd7b4972270ecbf0cb0f6c81929a51de78",
+      "size": 17561
+    },
+    {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
       "sha256": "c008dc98596a15edad4812460e72d5a65ebb1b61654cf40871c77d5706e96cb7",
       "size": 190228
+    },
+    {
+      "path": "out/dispatch/opening-b-critic-1.json",
+      "class": "scratch",
+      "sha256": "552c9c78ec08bfc63e6f02b30ea85ef5d172aa1be0f8705e0bdc63a5d68ab869",
+      "size": 12857
     },
     {
       "path": "out/dispatch/opening-b.json",
@@ -942,6 +1014,18 @@
       "class": "scratch",
       "sha256": "fdbcb2efae22ac0bd91955eb72e2a5cb9ca588777d71d504fd0ff7438e7b787d",
       "size": 1071
+    },
+    {
+      "path": "out/dispatch/repair-plan-code.json",
+      "class": "scratch",
+      "sha256": "a7c66c19b2a443ee12b63fbd1b2e02a875d2c84b56ff18f6fba9773a15c5cb1a",
+      "size": 5804
+    },
+    {
+      "path": "out/dispatch/repair-plan.json",
+      "class": "scratch",
+      "sha256": "94000b0b53bcdbc93d6245a91eac9a76f4bbd9a39bfad9879d7240d91df161de",
+      "size": 3870
     },
     {
       "path": "out/dispatch/research.json",

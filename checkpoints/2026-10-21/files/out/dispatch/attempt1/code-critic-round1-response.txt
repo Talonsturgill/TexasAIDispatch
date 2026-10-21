@@ -1,0 +1,336 @@
+{
+  "schema_note": "Combined A/B code-plan handoff from the existing storyboard-critic. Each report under reports.a / reports.b stands alone and uses the packet's code_report_bindings unchanged. The director should save the JSON exactly as returned.",
+  "role": "storyboard-critic",
+  "review_scope": "code-plan",
+  "edition": "2026-10-21",
+  "packet": {
+    "path": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/critic-packet.json",
+    "sha256_as_supplied": "c9565ce572acd8caf13fdb078151b2d4f9b3eb20e754aeb1ae0888e431847f44"
+  },
+  "input_verification": "I had Read only, with no Bash, so I did not recompute any SHA256. Every digest below is copied unchanged from the packet's code_report_bindings and file bindings. Consistency checks I could make: the packet's treatment A sha256 equals its storyboard.json sha256 (c008dc98...). The story_art entries and native_media rows in both boards carry the same module hashes as asset_inputs (InspectionDroneHero f456b1aa..., LeakReviewSupport 36ac0f96...). Both boards' renderer_inputs bind LeakReviewFilm.tsx at aa07e5ea..., and I read that file in full.",
+  "coverage": {
+    "boards_read_in_full": [
+      "out/dispatch/opening-a.json (lines 1-5029)",
+      "out/dispatch/opening-b.json (lines 1-5029)"
+    ],
+    "sources_read": [
+      "out/dispatch/claims.json (c1-c19)",
+      "out/dispatch/story_selection.json",
+      "out/dispatch/sources/dronelife.txt"
+    ],
+    "renderer_read_in_full": [
+      "video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx",
+      "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx",
+      "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx"
+    ],
+    "renderer_dependencies_inspected": [
+      "video-engine/src/lib/safearea.ts",
+      "video-engine/src/lib/DispatchOverlays.tsx (caption band)",
+      "video-engine/src/modern/PlaceStage.tsx (lines 1-140: plate, window and overhead/wall rules)"
+    ],
+    "guides_read_in_full": [
+      ".claude/agents/storyboard-critic.md 14ddb5c2...",
+      "AGENTS.md efdece80...",
+      "CLAUDE.md efe79ee1... (supplied in context)",
+      "prompts/claude_routine.md 4029dd30...",
+      "config/claude_runtime.json e66d527d...",
+      "config/quality_contract.json f54137ad...",
+      "config/dispatch_rubric.yaml 51f97080...",
+      "knowledge/craft/COMPLETION_PROGRESS.md c0bd03f6...",
+      "config/review_limit.json 2d62fcc4...",
+      "knowledge/craft/AUTONOMOUS_COMPLETION.md 65d6e496...",
+      "config/autonomous_completion_v2.json 8e43da16...",
+      "knowledge/craft/visual-storytelling/viewer-plan.md bfa3dc1c...",
+      "knowledge/craft/visual-storytelling/README.md 9aa84715...",
+      "knowledge/craft/visual-storytelling/news-reporting.md 5839865e...",
+      "knowledge/craft/visual-storytelling/evidence-led-imagery.md 626f4efc...",
+      "knowledge/craft/MODERN_FILM.md 58d96117...",
+      "config/modern_film.json 9cbc00a5...",
+      "config/modern_episode_registry.json cb66bf5d... (all 2150 lines)",
+      "knowledge/craft/STORY_ART.md 9926ea67...",
+      "config/story_art.json 209469d6...",
+      "config/critic_concept_v2.json 7316f8f4...",
+      "knowledge/craft/AUTHORED_STORY_ART.md 7e6d8f31...",
+      "config/authored_story_art.json 351805e0...",
+      "knowledge/craft/ART_DIRECTION.md c86d5e77...",
+      "config/art_direction.json c0d8f792...",
+      "knowledge/craft/cinematic_reference_bank.json f1e873dc...",
+      "prompts/roles/scene-builder.md c5246957...",
+      "knowledge/craft/CREATIVE_DIRECTION.md",
+      "knowledge/craft/DAILY_PRODUCTION.md",
+      "knowledge/craft/QUALITY_CONTRACT.md",
+      "config/documentary.json",
+      "config/creative_release.json"
+    ],
+    "gate_excerpts_read_for_format": [
+      "scripts/critic_gate.py (problems, concept_digest, renderer_digest)",
+      "scripts/independent_review.py (project, evidence_problems)",
+      "scripts/daily_production.py (review_problems, packet)",
+      "scripts/quality_contract.py",
+      "scripts/creative_release.py (categories)"
+    ],
+    "limits": "Code scope only. I made no pixel observations and rendered nothing. I did not recompute any hash. Perceived finish, motion smoothness and phone-size recognition stay unknown and pass to the exact-film phone review."
+  },
+  "reports": {
+    "a": {
+      "treatment": "a",
+      "review_scope": "code-plan",
+      "board": {
+        "path": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/opening-a.json",
+        "sha256": "c008dc98596a15edad4812460e72d5a65ebb1b61654cf40871c77d5706e96cb7"
+      },
+      "verdict": "revise",
+      "concept_sha256": "67fe45553a6906a67dbda4d481e6909a7701633f13e47d9e2f8a8284e4e42ba8",
+      "renderer_sha256": "2f64d85bcb0db0d6049f5c27b2ce5874f50fea28bba0555077dfbcd86c47ac9a",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "reviewer_identity": "storyboard-critic:claude-opus-5-5:high:isolated-code-plan-reviewer",
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "reviewed_at": "2026-10-21",
+      "strongest_frame": "s4 infrared-view (24.2 to 26.4 s). The drone holds at the point-of-interest ring and the illustrated infrared view opens out of its lens along dashed sight lines. The inset is labelled 'Illustrative infrared view' and the IrView shimmer is a function of the film clock. This is the clearest input-to-evidence relation in the film. Runner-up is s1 station-wide (0 to 3.08 s): the hood finishes opening, the rotors spin up and the drone lifts out of the bay over a caliche pad with a pumpjack. That gives a real action in the first second, with the first reward at 0.546 s.",
+      "weakest_frame": "s5 review-wide (28.75 to 31.09 s), the film's declared signature shot and performed turn. A paper seal reading 'Certified inspector' scales down from 1.4x and fades onto the survey footage by itself, and a dashed outline draws itself round the shimmer. No person, hand, stylus or cursor exists anywhere in the film. With labels covered, the software appears to certify the leak.",
+      "blocking_defects": [
+        {
+          "category": "comprehension",
+          "scene_id": "s5",
+          "time_s": 28.934,
+          "failed_criterion": "quality_contract.dominant_action and contact_and_consequence. Storyboard-critic brief: 'A person must perform the claimed action'. MODERN_FILM narration-picture: 'A topic match, caption or label cannot replace a pictured causal step'.",
+          "defect": "The certified inspector's review is the story's turn (cinematic_contract.turn_scene s5, art_direction.signature_shot s5-event-2, clauses n5a and n5b 'Then a certified inspector reviews the footage to identify any emissions'), but nobody performs it. In LeakReviewSupport.ReviewScreen/InspectorMark, the mark's scale runs from 1+0.4*(1-smooth(mark)) and its opacity from clamp(mark*2.5), so a seal reading 'Certified inspector' zooms and fades onto the footage on its own. DrawnDashes then draws the outline round the shimmer by itself, and in LeakReviewFilm.followUp the 'Follow-up inspection' tag flies along a Bezier curve from the screen into a valve vignette with no hand or carrier. The support module's header confirms 'no ... person: the inspector appears only as a mark and a line'. The only proof of who acts is printed text. The mark uses the same self-animating UI grammar and the same amber accent (the InspectorMark check stroke is LR.amber) as the software's 'Anomaly' flag in s2 and the amber point-of-interest ring in s4. With labels covered, a viewer sees the software flag the valve, the drone confirm it and the system stamp it, which inverts the answer the film exists to give. The source permits a generic human: c7 (a certified OGI inspector reviews the survey footage) and c15 (an emission visually confirmed by a certified OGI inspector). Earlier registered Claude-lane episodes show this engine can perform it: clinic-answer-v1 uses anonymous hands, and flood-station-v1 has an articulated seated responder and a technician. Required correction: author a generic, unnamed, disclosed certified inspector at the review screen. Show at least shoulder to hand, oriented toward the footage. That person's own stylus or scrub action must draw the outline round the shimmer and press the confirmation, and the follow-up must leave through a visible handoff that person makes. Give the human confirmation a colour and shape grammar distinct from the AI amber."
+        },
+        {
+          "category": "comprehension",
+          "scene_id": "s9",
+          "time_s": 49.139,
+          "failed_criterion": "quality_contract.closing_payoff and dominant_action. Captions and labels can't supply a missing principal action.",
+          "defect": "The close repeats the s5 construction. s9-event-1 re-presses the same self-drawing InspectorMark (press = sin(pi*r/0.3)*0.06) and draws an amber check stroke with no actor. s9-event-2 then draws a dashed box labelled 'AI' that stays empty. The opening question asks 'who decides', and the closing image answers it only with the printed words 'Certified inspector' on a badge. That mark is indistinguishable in kind from the software's s2 flag, so the closing image doesn't show a person deciding (n8a 'a certified inspector confirms the leak'). Required correction: carry the s5 inspector into the close. The person confirms beside the empty AI box, and the station in the window may stay as the bookend."
+        },
+        {
+          "category": "source",
+          "scene_id": "s2",
+          "time_s": 8.061,
+          "failed_criterion": "quality_contract.continuity and the story_contract source_limit ('the letter doesn't say what the AI adds'). news-reporting.md: 'An outline or highlight identifies a region; it does not prove that a machine detected, measured or classified it.'",
+          "defect": "The companies' AI alert claim is drawn on the very valve that later leaks. FlightScreen's own doc says 'the anomaly marker sits on the point of interest valve'. The flag rises at route[1] over a valve symbol, and that valve is the s4 point-of-interest ring (lit amber on arrival), the s4/s5 infrared shimmer, the inspector's outline and the follow-up tag's destination. The film therefore asserts visually that the AI flagged this leak and the inspector then confirmed it. c4 is a companies' claim about alerts for 'anomalies to normal operations'. Its scope note says it does not mention methane and the EPA letter doesn't describe it. c8 and the closing line say the letter doesn't say what the AI adds. The picture invents a specific AI contribution, the leak location, and contradicts the film's own empty AI box. The attribution tag 'The companies say' labels the claim but does not undo the invented causal link. Required correction: show the claimed alert as a generic operations anomaly that is not placed on the methane point of interest or emission chain, and keep the attribution tag. Stop sharing the AI-alert amber with the point-of-interest arrival and the inspector's confirmation."
+        },
+        {
+          "category": "source",
+          "scene_id": "s4",
+          "time_s": 19.8,
+          "failed_criterion": "quality_contract.continuity ('explicitly introduces a sourced example; do not imply stock illustration is the actual case'). Brief: distinct source examples need an honest visible disclosure. story_contract.source_limit ('No source shows Chevron's drone is the approved Air Max').",
+          "defect": "One drone and one station carry two different source examples with no visible disclosure of the switch. s1 narrates Chevron's Permian pilot (c3, c17, DroneLife). s3 to s5 narrate the EPA-approved Air Max method (c5, c6, c12, c7). The code reuses the identical InspectionDroneHero and the identical station at PAD.stationX/stationY on the same pad in s4 (s4Station), and the s9 window shows the same station and equipment with the drone docked. The story_art hero purpose says this drone is 'the equipment the EPA letter approves', while the native_media basis says it is 'not ... the approved Air Max'. The s3 to s4 bridge reads 'the approved mark on the letter dissolves into the drone'. Every scene's disclosure chip says only 'Illustration. Generic drone with no brand mark'. The likely false inference is that Chevron's Permian pilot drones are the approved system and their footage goes to a certified inspector under this approval. No source reports that. Required correction: disclose the change of example on screen when the film moves from the pilot to the approved method, for example 'Illustration of the method as EPA's letter describes it, not the Chevron pilot'. Alternatively restage so the review room and the s9 window do not return to the s1 pilot pad. Bind DroneLife's drone-in-a-box and base-station sentence as a claim if the s1 station stays, because c2 (the EPA letter's weather-proof station) is pictured in s1 but not bound to s1."
+        },
+        {
+          "category": "source",
+          "scene_id": "s8",
+          "time_s": 44.0,
+          "failed_criterion": "quality_contract.continuity. DAILY_PRODUCTION: a distinct source example needs an honest visible disclosure.",
+          "defect": "s7 correctly displays 'Illustration. A separate program, no drone'. At the s7 to s8 cut, the chip changes to 'Illustration. Generic drone with no brand mark' (s8 production_disclosure, drawn by LeakReviewFilm's disclosure chip) while the picture is still the separate Super Emitter program tag receiving 'Will propose to rescind' (n7c '... said it will propose to rescind it'). No drone is pictured. The false label invites the inference that EPA proposes to rescind the drone approval. The s3 and s6 chips also announce a drone that is not pictured. Required correction: keep the separate-program disclosure through s8 and make every chip state what is actually illustrated."
+        },
+        {
+          "category": "layout",
+          "scene_id": "s4",
+          "time_s": 22.176,
+          "failed_criterion": "AUTHORED_STORY_ART.md: each action use binds 'the actual scene event, directed shot and registry narration view'.",
+          "defect": "In treatment A, three declared authored-art action uses are performed in a shot whose view differs from the declared one. (1) drone-flies-route is declared at view poi-close for s4-event-2 (22.176 to 23.376 s), but A's poi-close is s4-shot-1 (19.8 to 22.0 s), where travel is 0 and only the hover and pod swing occur. The flight plays in s4-shot-2 route-wide at camera scale 1, with the drone at DS 0.75 (DRONE_SIDE_BOX is 344 units, about 258 px of 1080). (2) inspector-confirms-leak is declared at review-panel for s5-event-2 (28.934 s), but A shows it in s5-shot-2 review-wide. (3) program-delayed is declared at program-calendar for s7-event-3 (42.416 s), but A shows it in s7-shot-2 program-wide. The hero's declared signature flight therefore never appears in its declared close. Required correction: reorder or rebind A's shots so each declared view contains its event (for example, perform the flight in a poi-close shot), or correct the action_uses to A's actual views."
+        }
+      ],
+      "notes": [
+        "The rubric bar is read from config/dispatch_rubric.yaml and not restated here.",
+        "Code scope only. Phone-size recognition of the drone, the legibility of tag and flag text, motion smoothness and surface finish need the exact phone film. The 'Anomaly' flag text is 26 px native, about 6.5 px at a 270 px phone width; check it there.",
+        "s3 rubber stamps descend from 1100 px above and press with no hand or arm (stampAt). That is an unsupported tool. The institutional metaphor may read acceptably, but judge visible support at phone scope under contact_and_consequence.",
+        "s1 shows two Texas maps after about 2 s: the stage's CountyLocator and the episode's two-pin card at [44,262]. Check for clutter at phone size.",
+        "The board prose says 'first numbered point of interest ring', but PoiRing draws no number. That is good for the numeral gate; correct the prose.",
+        "story_contract.opening_question ('When a drone flags a leak...') presumes the drone flags leaks. It is unspoken and unrendered, but it repeats the s2 false link. Rephrase it when correcting s2.",
+        "The s6 to s7 detour into the separate Super Emitter program is about 10.1 s of tags and calendar pages, and it is the weakest information handoff. Dates may rely on text; keep the separate-example disclosure honest (see the s8 defect).",
+        "Text-tag payloads ('The companies say', 'AI appears once, in a title', 'Delayed', 'Will propose to rescind') carry much of s2 and s6 to s8. That is acceptable for dates and attribution but not for the principal action. The inspector correction above is the mandatory part.",
+        "Positives verified in code. Every visible state is a closed function of the frame clock and board windows. leakState and stampState take no wall clock or random input, and the scatter uses a seeded hash. Travel and contact eases start and end at rest. No shot exceeds 5 s and the first reward is at 0.546 s. Onscreen numerals (September 30th, 2025; January 22nd, 2027; October 7) match quotes c11, c9 and c14. The protocol title is verbatim c8. No seal, logo or brand mark is drawn. The disclosure chip renders production_disclosure on every scene. Caption-band clearance: principal subjects sit above y=1290 relative to SAFE_BOTTOM 1421. A has one wall view of 22 shots (title-detail).",
+        "Region: Ector County on the high_plains plate, with caliche, mesquite, creosote and a pumpjack. Plausible; the mechanical place_check must still confirm the plate share."
+      ],
+      "code_observations": {
+        "opening": "0.246 s: the drone lifts out of an opening hooded station (S1.lift 420 station units at SS 0.75). It then pitches and flies over the separator, valves and tank, and the Texas card drops a Permian Basin pin, draws a line and drops an Austin pin.",
+        "central_mechanism": "s4: the pod swings toward the valve, the dashed route draws, the drone travels to ring one, and the infrared inset opens from lensWorld(). s5: the footage slides in, the self-applied inspector seal lands, the outline draws and the tag flies to the vignette valve.",
+        "closing": "s9: the seal re-presses and draws an amber check, an empty dashed 'AI' box draws, and the station hood closes over the docked drone with its lamp turning green through the window.",
+        "bounds_and_place": "Interiors use the stage window (scene.interior true). The exteriors s1 and s4 are Grounded through PlaceSubject with horizonCam keeping the plate horizon. No full-frame background is painted.",
+        "pixel_observations": null
+      },
+      "story_review": {
+        "story_sha256": "ac33b41fafd24f380f92f03c9b92774f23c36be1354f9d4b2feee20f810118de",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
+        "verdict": "revise",
+        "blocking_defects": [
+          {
+            "category": "comprehension",
+            "scene_id": "s5",
+            "time_s": 28.934,
+            "defect": "The causal turn from machine footage to human judgment has no human. The inspector exists only as a self-applied badge, so the chain reads as software flags, drone films and system certifies, which inverts the closing answer. The same construction repeats at s9 (49.139 s)."
+          },
+          {
+            "category": "source",
+            "scene_id": "s2",
+            "time_s": 8.061,
+            "defect": "The companies' AI alert is placed on the same valve that becomes the confirmed emission. That invents what the AI adds and contradicts the 'letter doesn't say what the AI adds' limit."
+          },
+          {
+            "category": "source",
+            "scene_id": "s4",
+            "time_s": 19.8,
+            "defect": "The Chevron pilot drone (s1) and the EPA-approved method drone (s4 to s5) are one undisclosed object on one pad, and s9 returns to it. That implies an identity the story_contract's own source_limit says no source establishes."
+          },
+          {
+            "category": "source",
+            "scene_id": "s8",
+            "time_s": 44.0,
+            "defect": "The separate-program disclosure drops at the s7 to s8 cut and is replaced by a drone disclosure while 'Will propose to rescind' attaches. That invites the inference that the drone approval is being rescinded."
+          }
+        ],
+        "one_viewing_summary": "The intended chain, reconstructed from the executable code: A generic drone lifts from a hooded station on a caliche Permian pad and flies out while a Texas card pins the Permian and Austin. A desk tablet's flight screen raises an amber 'Anomaly' flag on a valve, and a paper tag reading 'The companies say' hooks onto it. An unsealed approval letter takes a crooked 'September 30th, 2025' stamp and an 'Approved' mark beside 'Periodic methane screening'. The drone flies a dashed route to a ring over that valve and an illustrative infrared view of the valve's warm shimmer opens. On a review screen a 'Certified inspector' seal lands on the footage, rings the shimmer and sends a 'Follow-up inspection' tag to the valve. A long letter scrolls to its protocol title, where AI is highlighted once. A separate leak-reporting program tag gets a 'Delayed' bar beside January 22nd, 2027, then an October 7th card and a 'Will propose to rescind' tag. Finally the seal draws a check beside an empty AI box while the station closes outside the window.",
+        "opening_to_ending": "The film opens on a machine acting alone (the drone leaving its station) under the question of who decides a leak is real. It ends on a badge check and an empty AI box. Because no person ever acts and the AI flag sits on the same valve the badge confirms, the ending's answer, a person and not the software, survives only in printed words. The bookend station in the window closes the loop visually, but the answer itself is not pictured.",
+        "weakest_transition": "s4 to s5 (26.4 s). The infrared footage slides onto the review panel, but the reviewer never enters. The handoff from machine sensing to human judgment, the one the whole film turns on, is carried by an object that applies itself. The secondary weak point is s6 to s7 (38.72 s), the detour into a separate program."
+      },
+      "action_reviews": []
+    },
+    "b": {
+      "treatment": "b",
+      "review_scope": "code-plan",
+      "board": {
+        "path": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/opening-b.json",
+        "sha256": "3c6b9de11522e06aa69341eaeac0673666b3ede6196c76b0cc6d0ded73453fa1"
+      },
+      "verdict": "revise",
+      "concept_sha256": "7e80071340ca9fee04180978046c36b2fa23e34dfc66912b50764fd540d7c4f3",
+      "renderer_sha256": "2f64d85bcb0db0d6049f5c27b2ce5874f50fea28bba0555077dfbcd86c47ac9a",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "reviewer_identity": "storyboard-critic:claude-opus-5-5:high:isolated-code-plan-reviewer",
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "reviewed_at": "2026-10-21",
+      "strongest_frame": "s4 poi-close (21.78 to 24.02 s). Unlike A, B performs the drone's flight in its declared close. The camera follows 0.6 of s4-event-2's own travel curve at scale 1.9 from rest to rest, keeping the drone large as it reaches the ring over the valve, before camera-pod opens the infrared inset.",
+      "weakest_frame": "s5 review-panel (28.51 to 30.91 s), the same self-applying 'Certified inspector' seal on the footage with no person present. B's own angle promised to start with this person and never shows one.",
+      "blocking_defects": [
+        {
+          "category": "comprehension",
+          "scene_id": "s5",
+          "time_s": 28.934,
+          "failed_criterion": "quality_contract.dominant_action and contact_and_consequence. Brief: 'A person must perform the claimed action'. MODERN_FILM: a label cannot replace a pictured causal step.",
+          "defect": "This is the same shared implementation as treatment A. LeakReviewSupport.ReviewScreen/InspectorMark makes a seal reading 'Certified inspector' scale from 1.4x and fade onto the footage by itself. DrawnDashes outlines the shimmer with no actor, and the 'Follow-up inspection' tag flies along a Bezier curve from the screen to the valve vignette with no carrier. No person, hand, stylus or cursor exists anywhere in the film. In B, the panel-overhead, review-panel and inspector-mark shots enlarge the seal, which makes the absence more prominent. It uses the same grammar and the same amber as the software 'Anomaly' flag (s2) and the point-of-interest ring (s4), so with labels covered the software appears to certify the leak. Sources c7 and c15 permit a generic disclosed certified inspector, and prior registered episodes in this engine draw hands and articulated people. Required correction: author a generic, unnamed, disclosed inspector at the review screen whose own action draws the outline, confirms, and hands off the follow-up, with confirmation styling distinct from the AI amber."
+        },
+        {
+          "category": "comprehension",
+          "scene_id": "s9",
+          "time_s": 49.139,
+          "failed_criterion": "quality_contract.closing_payoff and dominant_action.",
+          "defect": "The close (panel-wide-hold, then confirm-hold, then blank-box) re-presses the same actorless seal and draws its amber check, then draws an empty 'AI' box. 'Who decides' is answered only by printed words on a badge, and nobody is pictured deciding. The s5 human must carry into the close."
+        },
+        {
+          "category": "source",
+          "scene_id": "s2",
+          "time_s": 8.061,
+          "failed_criterion": "quality_contract.continuity and the story_contract source_limit ('the letter doesn't say what the AI adds').",
+          "defect": "This is the same shared FlightScreen as A. The companies' AI 'Anomaly' flag rises on the point-of-interest valve, and that valve becomes the s4 amber ring, the infrared shimmer, the inspector's outline and the follow-up target. That asserts visually that the AI flagged the leak the inspector then confirmed, which c4's scope (no methane, not described by EPA) and c8 do not support, and which contradicts the empty AI box. Required correction: decouple the claimed alert from the methane point-of-interest chain, and stop sharing the amber with the point-of-interest arrival and the inspector confirmation."
+        },
+        {
+          "category": "source",
+          "scene_id": "s4",
+          "time_s": 19.8,
+          "failed_criterion": "quality_contract.continuity, the brief's honest visible disclosure of distinct source examples, and the story_contract source_limit.",
+          "defect": "This is the same shared construction as A. The Chevron pilot drone and station of s1 (pad-overhead and station-wide) are reused unchanged as the EPA-approved method drone in s4 (route-overhead, poi-close and camera-pod draw the same stationTop/station and pad). The s9 blank-box and panel-wide-hold windows show that same station. The disclosure chip says only 'Generic drone with no brand mark'. That implies an identity that the story_contract and the native_media basis both say no source shows. Required correction: disclose the change of example on screen, or restage so the pilot pad does not become the approved-method and review location."
+        },
+        {
+          "category": "source",
+          "scene_id": "s8",
+          "time_s": 44.0,
+          "failed_criterion": "quality_contract.continuity and honest visible disclosure.",
+          "defect": "In proposal-overhead and proposal-close, the chip reads 'Illustration. Generic drone with no brand mark' while the separate Super Emitter program tag receives 'Will propose to rescind'. s7's 'A separate program, no drone' disclosure is dropped at the cut, which invites the inference that the drone approval is to be rescinded. Required correction: keep the separate-program disclosure through s8."
+        },
+        {
+          "category": "comprehension",
+          "scene_id": "s1",
+          "time_s": 0.0,
+          "failed_criterion": "MODERN_FILM.md two complete treatments ('Different shot ordering, staging and visual emphasis must give a viewer a different experience. Two camera poses on the same tableau are one treatment'). The brief's 'Genuine divergence, not a relabel'.",
+          "defect": "B is a relabel of A, not a different treatment. Its scenes, visual_events, items, narration_picture, scene order, timing, art_direction and sound are identical to A. Apart from relabelled visual_family and camera_strategy fields, the difference is mostly an overhead or wall-view first shot in each scene. B's declared angle, opening_promise and divergence_note say it 'starts at the records and the review panel on the desk' so the viewer 'sees who confirms the leak before the machine', but B's first frame is s1 pad-overhead (the drone rising off its station), and the review panel first appears at 26.4 s, exactly as in A. B's fingerprint light_story 'night-practical' also contradicts its unchanged daylight lighting profile. Required correction: either build B's stated order (open on the review decision, then reveal the drone that supplied the footage) with genuinely different staging, or replace B with a different complete approach."
+        },
+        {
+          "category": "layout",
+          "scene_id": "s1",
+          "time_s": 0.0,
+          "failed_criterion": "MODERN_FILM.md, 'The region stands behind every current film': 'No more than 40 percent of a film's shots may be wall views'. Rubric place axis.",
+          "defect": "10 of B's 22 shots (about 45 percent, and about 24.0 s of the 56.32 s runtime) are overhead or registry wall_views: pad-overhead, desk-overhead, letter-overhead, date-detail, route-overhead, panel-overhead, letter-overhead-scan, title-detail, program-overhead and proposal-overhead. This exceeds the cap. It includes B's opening shot (0 to 2.59 s), so the hook's first frame stands on a plain wall/ground tone (PlaceStage overhead rule) rather than the Ector County region plate, and the same applies to the first shot of the s4 hero scene. Required correction: bring wall views to 40 percent or less, keeping the region behind the opening."
+        },
+        {
+          "category": "layout",
+          "scene_id": "s1",
+          "time_s": 0.246,
+          "failed_criterion": "AUTHORED_STORY_ART.md: each action use binds the actual scene event, directed shot and registry narration view.",
+          "defect": "The authored hero action drone-leaves-station is declared at view station-wide for s1-event-1 (0.246 to 1.446 s), but B performs that event in s1-shot-1 pad-overhead (0 to 2.587 s). B's station-wide shot begins at 2.587 s, after the lift. Required correction: rebind or reorder so the declared view contains the event."
+        }
+      ],
+      "notes": [
+        "The rubric bar is read from config/dispatch_rubric.yaml and not restated here.",
+        "Code scope only. Recognition of a top-down quadcopter in the overhead hook, tag and flag legibility, and motion and finish need the exact phone film.",
+        "B's blank-box view places the tablet at x=-170, so the left 140 px of the footage are off frame. The shimmer (about x=152) and the seal (about x=364) remain on frame, but check composition at phone size.",
+        "The same s3 handless stamps, the s1 double map, the 'numbered' ring prose and the opening_question premise notes from report A apply to B.",
+        "Positives verified in code. B's poi-close follow camera starts and stops at rest on the event's travel curve. There are no shots over 5 s and the first reward is at 0.546 s. Numerals match the fetched quotes. No seal or brand mark is drawn. The disclosure chip renders on every scene."
+      ],
+      "code_observations": {
+        "opening": "pad-overhead: the station leaves fold out, the drone (top view) scales up to 1.4x as it rises toward the lens with its shadow sliding down-right, then heads toward the valves. The pad is drawn as the PadTop polygon over a plain stage ground or wall tone with no region plate.",
+        "central_mechanism": "route-overhead plan and cone, then poi-close flight with a 0.6 follow camera, then the camera-pod infrared inset. s5 panel-overhead, review-panel and inspector-mark carry the same actorless seal.",
+        "closing": "panel-wide-hold, confirm-hold, then blank-box: the seal check, the empty AI box, and an own-window station closing in the top right.",
+        "pixel_observations": null
+      },
+      "story_review": {
+        "story_sha256": "1d1f3d5fd804c61b11bcb6f7cf0dacdb7678e20691ed8dbc85f84799998ef1b3",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
+        "verdict": "revise",
+        "blocking_defects": [
+          {
+            "category": "comprehension",
+            "scene_id": "s5",
+            "time_s": 28.934,
+            "defect": "No human performs the review that answers the question. The self-applied badge makes the software appear to decide, which inverts the answer; the same construction repeats at s9 (49.139 s)."
+          },
+          {
+            "category": "source",
+            "scene_id": "s2",
+            "time_s": 8.061,
+            "defect": "The AI anomaly flag sits on the same valve that becomes the confirmed emission, which invents what the AI adds."
+          },
+          {
+            "category": "source",
+            "scene_id": "s4",
+            "time_s": 19.8,
+            "defect": "The pilot drone and pad are reused as the approved-method drone and review location without disclosure, contrary to the stated source limit."
+          },
+          {
+            "category": "source",
+            "scene_id": "s8",
+            "time_s": 44.0,
+            "defect": "The separate-program disclosure is replaced by a drone disclosure as 'Will propose to rescind' attaches."
+          },
+          {
+            "category": "comprehension",
+            "scene_id": "s1",
+            "time_s": 0.0,
+            "defect": "B's stated order (decision first, machine second) is not executed. The causal sequence is A's, so the treatment offers no different story experience."
+          }
+        ],
+        "one_viewing_summary": "The intended chain, reconstructed from the executable code, is identical in substance to A but seen mostly from above. Straight down on a caliche pad, a drone rises off its station and heads for the valves while a Texas card pins the Permian and Austin. A flat tablet seen from above lights a flight map, an amber 'Anomaly' flag rises on a valve, and 'The companies say' hooks on. A letter seen from above takes a 'September 30th, 2025' stamp and an 'Approved' mark. Seen from above, the plan draws over the pad, then a close follows the drone to the valve ring and the infrared inset opens. A 'Certified inspector' seal lands on the footage and a follow-up tag flies to the valve. The letter's protocol title highlights AI once. A separate program tag is marked 'Delayed' for January 22nd, 2027 and gets 'Will propose to rescind' on October 7th. The seal checks beside an empty AI box as the window station closes.",
+        "opening_to_ending": "B promises to start with who confirms the leak but starts with the drone, exactly like A. It ends on the same actorless badge and empty AI box. The question of who decides is answered only in printed words. The overhead framing adds wall views rather than a new line of understanding.",
+        "weakest_transition": "s4 to s5 (26.4 s): the footage moves from the drone's camera to a review screen where no reviewer exists, so the decisive human handoff is missing. B's overhead first shot at s5 (panel-overhead) emphasizes the empty desk."
+      },
+      "action_reviews": []
+    }
+  },
+  "comparison": {
+    "preference_for_correction_base": "a",
+    "reason": "A is the genuinely constructed treatment. It has ground-level continuity of the drone and pad, one wall view of 22 shots, and region plates behind both exteriors. B repeats A's story with overhead first shots, exceeds the wall-view cap at about 45 percent, and does not execute its declared decision-first angle. B does have one advantage: its poi-close actually contains the hero flight, while A's does not. This is a code-plan preference only, not a phone selection and not film approval.",
+    "both_verdicts": "revise"
+  },
+  "consolidated_correction": [
+    "1. Human turn (s5, and carried into s9): add a generic, unnamed, disclosed certified inspector at the review screen, visible from shoulder to hand and facing the footage. That person's own stylus or scrub action draws the outline on the shimmer and confirms, and dispatches the follow-up through a visible handoff. Give human confirmation its own colour and shape grammar, separate from the AI amber. The engine has precedent for this (clinic-answer-v1 hands, flood-station-v1 articulated responder and technician).",
+    "2. AI claim (s2): move the companies' 'Anomaly' alert off the methane point-of-interest valve and the emission chain. Keep 'The companies say'. Stop reusing the alert amber for point-of-interest arrival and inspector confirmation.",
+    "3. Example identity (s1, s3 to s4, s9): disclose on screen when the film moves from the Chevron pilot (DroneLife) to the EPA-described approved method, or restage so the review room and closing window do not return to the s1 pilot pad. If the s1 station stays, bind the DroneLife drone-in-a-box and base-station sentence as a claim.",
+    "4. Disclosures: keep 'Illustration. A separate program, no drone' through s8, and make every chip state what is actually illustrated.",
+    "5. Authored-art bindings: make each action_uses view match the shot that performs its event in each treatment (A: s4 flight in poi-close, s5 review-panel, s7 program-calendar; B: s1 station-wide).",
+    "6. Treatment B: rebuild it as a genuinely different complete treatment that executes its decision-first angle, or replace it, and bring wall views to 40 percent or less with the region behind the opening.",
+    "These corrections reuse the existing two authored groups and the unchanged script and claims (the claim addition in item 3 needs validator binding). They add no third treatment or reviewer. A code pass after correction authorizes capture only; the silent phone comparison, timed phone, native, audiovisual, scorer and delivery gates all remain."
+  ]
+}
