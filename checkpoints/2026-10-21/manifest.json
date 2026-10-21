@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-21T15:29:50.161171+00:00",
-  "note": "claim worker dispatch researcher",
+  "saved_at": "2026-10-21T15:52:03.490576+00:00",
+  "note": "before paid reservation",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -40,8 +40,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "d9a01f16300bc3b04318d11dba7993a3dbad67a733924e213b39e1faab09db28",
-      "size": 640
+      "sha256": "b0e472364556e3b66feea63b6eddaead01bfcc13b9e73c4a6bbd5d696de4e9d5",
+      "size": 1173
     },
     {
       "path": "out/dispatch/attempt1/research-methane.json",
@@ -54,6 +54,12 @@
       "class": "scratch",
       "sha256": "739b83c663bba83c8dbcebe71defdd628e63be7d838d1d8708c3883ee5823121",
       "size": 3431
+    },
+    {
+      "path": "out/dispatch/claims.json",
+      "class": "scratch",
+      "sha256": "573b49083af5788324c942d6b0044e6e18f755f2a5e262035f6c44a81851ad50",
+      "size": 9824
     },
     {
       "path": "out/dispatch/claude-host.json",
@@ -118,8 +124,8 @@
     {
       "path": "out/dispatch/research.json",
       "class": "scratch",
-      "sha256": "c7db3cf71d5d47c2d9925cf3899d9416605777748bd442208ac679f0e12a47a9",
-      "size": 50275
+      "sha256": "1e49e12239d408398d8e7677140c85387f9caec07083ee58d0eef1980e0d4c0e",
+      "size": 49326
     },
     {
       "path": "out/dispatch/researcher-assignment.json",
@@ -132,6 +138,12 @@
       "class": "scratch",
       "sha256": "739b83c663bba83c8dbcebe71defdd628e63be7d838d1d8708c3883ee5823121",
       "size": 3431
+    },
+    {
+      "path": "out/dispatch/researcher-assignment3.json",
+      "class": "scratch",
+      "sha256": "ff32a5f6136d846dcf666fb5c39059c3ce5283afb22d02e363c8c54ecadbe1a4",
+      "size": 3662
     },
     {
       "path": "out/dispatch/researcher-packet-subject-9ee701d6abbc74f2.json",
@@ -162,6 +174,156 @@
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
+    },
+    {
+      "path": "out/dispatch/sources/aphis.html",
+      "class": "scratch",
+      "sha256": "3c08b6ebcdb37be2163bb7ac4b3edae7e275c9e5194ba1de5d61b9f178cb8da7",
+      "size": 519
+    },
+    {
+      "path": "out/dispatch/sources/aphis.txt",
+      "class": "scratch",
+      "sha256": "f3082bf504e8447093d7005e268b6e039d7e355a63cbdf4b2fc3c10b93f693de",
+      "size": 309
+    },
+    {
+      "path": "out/dispatch/sources/ars.html",
+      "class": "scratch",
+      "sha256": "b1fccf7c009f1041378670b56959783e37183b018efb7ad54a74ac8702417a16",
+      "size": 34029
+    },
+    {
+      "path": "out/dispatch/sources/ars.txt",
+      "class": "scratch",
+      "sha256": "f9e868bbc5a513de422c6ae8462bbbcf061b00aba56b72c0b9a388fa3bb2892d",
+      "size": 7555
+    },
+    {
+      "path": "out/dispatch/sources/dronelife.html",
+      "class": "scratch",
+      "sha256": "290fd4207c3d5fa7f3964417b0112ea379dae94606d266763faa2f055a3f96f7",
+      "size": 241528
+    },
+    {
+      "path": "out/dispatch/sources/dronelife.txt",
+      "class": "scratch",
+      "sha256": "9daa3d3e585e765ead1e77f7a6e5ff4fd4dfc93f74bd71c591203b724e453a96",
+      "size": 15492
+    },
+    {
+      "path": "out/dispatch/sources/exxon.html",
+      "class": "scratch",
+      "sha256": "507e53fab68e06befae1fc8f9c5d7b761225b5aef4b0e403964a9945c0a681e6",
+      "size": 490
+    },
+    {
+      "path": "out/dispatch/sources/percept_letter.pdf",
+      "class": "scratch",
+      "sha256": "27a26a09ce4537e47c9bf04a39e12caab2b3934830fb399e7ee29ef737efd928",
+      "size": 321069
+    },
+    {
+      "path": "out/dispatch/sources/percept_letter.txt",
+      "class": "scratch",
+      "sha256": "aa19ae67bc5286d68c90fd5e7f62ac9369a63804078fa6cf0d71c865e82407f9",
+      "size": 21366
+    },
+    {
+      "path": "out/dispatch/sources/percepto_matm.pdf",
+      "class": "scratch",
+      "sha256": "13d28e4c55cc8e30b24b1f2906be51e8671215bfd7883cca4d2bc0fbcf696996",
+      "size": 1449259
+    },
+    {
+      "path": "out/dispatch/sources/percepto_matm.txt",
+      "class": "scratch",
+      "sha256": "694e0cfc28d34087a488036fab91f5a3df727ab40c3ad8071da679d02710dd67",
+      "size": 59968
+    },
+    {
+      "path": "out/dispatch/sources/super.html",
+      "class": "scratch",
+      "sha256": "906ddad3adf1e4a0ea0fae4f51854ad84c23ca836fcdc2f7c7b1c29f70e8fb74",
+      "size": 70948
+    },
+    {
+      "path": "out/dispatch/sources/super.txt",
+      "class": "scratch",
+      "sha256": "e6df98d1cbd4ffad38a49f165c32d3c85f088b87fac77807c1813c58d7ebac6a",
+      "size": 8382
+    },
+    {
+      "path": "out/dispatch/sources/tahc_nws.html",
+      "class": "scratch",
+      "sha256": "6f17327abf55944cf7fb7e651a314dd5a909385110869527c887565cc63e3c80",
+      "size": 43450
+    },
+    {
+      "path": "out/dispatch/sources/tahc_nws.txt",
+      "class": "scratch",
+      "sha256": "82bafd6242de8b5a21383d5486163aecf6c3518a4318ea7a4041724d7c8c3559",
+      "size": 16803
+    },
+    {
+      "path": "out/dispatch/sources/tahc_release.pdf",
+      "class": "scratch",
+      "sha256": "8500159a601be32c51a7cdf674a7c0a3287cb54a6d24b360f35c9862c3ca8dca",
+      "size": 134947
+    },
+    {
+      "path": "out/dispatch/sources/tahc_release.txt",
+      "class": "scratch",
+      "sha256": "cd6b428a3448b552e13b7275e8b6afa75c715ff363c70a80b5ad26a6419cad8d",
+      "size": 3401
+    },
+    {
+      "path": "out/dispatch/sources/zeldin.html",
+      "class": "scratch",
+      "sha256": "2ad1784af061163cc8b024ff7f4ba0555080a3f53d1fffbb21a8c84aa836d90f",
+      "size": 59813
+    },
+    {
+      "path": "out/dispatch/sources/zeldin.txt",
+      "class": "scratch",
+      "sha256": "7c8d68f3fa7182b398675fc81f499eea3c2868a938f32873b3a23ffb9a94969a",
+      "size": 5775
+    },
+    {
+      "path": "out/dispatch/story_selection.json",
+      "class": "scratch",
+      "sha256": "239b654d9f9d05ae39cbc0ae72b4cbc93c028e20428164993d1f14e7954ddd10",
+      "size": 10396
+    },
+    {
+      "path": "out/dispatch/validator-assignment.json",
+      "class": "scratch",
+      "sha256": "a4408fe0a68df51a250b2ef0bdb5bd4692e927ad4ec2954ccbe53fe1581c38a7",
+      "size": 2087
+    },
+    {
+      "path": "out/dispatch/validator-packet-subject-1c9e972072d326c5.json",
+      "class": "scratch",
+      "sha256": "1c9e972072d326c516566443eebdee3ed8c8851e63c0b59036de3c58aa4b046c",
+      "size": 8718
+    },
+    {
+      "path": "out/dispatch/validator-packet.json",
+      "class": "scratch",
+      "sha256": "2721bcb13ef1efbd647a2accb551781365726619b8abb1bceba6a8f8ce188a75",
+      "size": 3852
+    },
+    {
+      "path": "out/dispatch/vo_bindings.json",
+      "class": "scratch",
+      "sha256": "1a881860697aff238f5d72637b22236ccbb90ecc2824915493b2b20fa08566f7",
+      "size": 1611
+    },
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "class": "scratch",
+      "sha256": "535e5819c051c0d03d3bad0b99f830bc853f790a39ff85174c2495a49523b9b4",
+      "size": 854
     },
     {
       "path": "out/dispatch/worker-dispatch-claims/1e3057b712facc68b1dd4859243a05f492b1f72932b719f2d7747df562fd312a-researcher.json",

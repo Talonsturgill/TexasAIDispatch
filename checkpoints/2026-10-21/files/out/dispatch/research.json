@@ -1,549 +1,667 @@
 {
- "beat": "Permian Basin methane leak detection from satellite or drone imagery by AI, as used by an operator or the Railroad Commission",
- "subject_screen": "Subject kept as screened. Operator-side drone screening is supported. The Railroad Commission leg is unsupported: no RRC methane detection program, AI or satellite, was found in any fetched RRC page. The AI leg is only partly supported (vendor and trade claims, and an EPA protocol title). The subject is not a repeat of the record: no methane or leak-detection item appears in the public record index. The dedupe.py check was not run (no shell).",
- "status": "Research complete for one candidate with dated movements. Recommended angle is operator-side drone methane screening under an EPA-approved method, set against the federal satellite route that EPA has paused and proposed to rescind. Not a film approval. Not a code approval.",
- "packet_verification": {
-  "packet_path": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/researcher-packet.json",
-  "packet_sha256_recorded": "619a0545020995910c4c17d6b2f690d9bb07eb9c5c4dc272ea9ddab740b7db98",
-  "packet_sha256_recomputed": false,
-  "hash_defect": "This worker has only Read, WebSearch and WebFetch. No shell or hashing tool was available, so no SHA256 was recomputed for the packet or any input. Every input below was opened and read by content. The director must run sha256sum on the packet and each input before accepting this handoff.",
-  "packet_contents_checked": "Packet is role researcher, host claude, model claude-haiku-5-5, effort high, resource research_agents, context isolated. This matches config/claude_runtime.json roles.researcher (claude-haiku-5-5, high, research_agents).",
-  "inputs_read_in_full": [
-   "TexasAIDispatch/.claude/agents/researcher.md (brief)",
-   "TexasAIDispatch/prompts/phases/01-research.md",
-   "TexasAIDispatch/knowledge/texas/APPLICATIONS.md (packet recorded sha256 ba6477684329e78ad36d15ee0f99e0056a1c0fae519e29d0bd8614a46cc0cd8d)",
-   "TexasAIDispatch/config/claude_runtime.json (packet recorded sha256 e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10)",
-   "TexasAIDispatch/config/review_limit.json (packet recorded sha256 2d62fc...; hard maximum of 5 rounds, extensions_allowed false)",
-   "TexasAIDispatch/config/production_actions.json (demonstrated-actions/1; three actions: street-capture-v1, curb-selection-v1, document-accumulation-v1)",
-   "TexasAIDispatch/config/dispatch_rubric.yaml (packet recorded sha256 51f97080...)",
-   "TexasAIDispatch/config/quality_contract.json (dispatch-quality/1, effective 2026-09-27; packet recorded sha256 f54137ad...)",
-   "TexasAIDispatch/prompts/claude_routine.md (packet recorded sha256 4029dd30...)",
-   "TexasAIDispatch/AGENTS.md (packet recorded sha256 efdece80...)",
-   "TexasAIDispatch/CLAUDE.md (packet recorded sha256 efe79ee1...)",
-   "TexasAIDispatch/knowledge/craft/visual-storytelling/README.md, viewer-plan.md, news-reporting.md",
-   "TexasAIDispatch/knowledge/craft/CREATIVE_DIRECTION.md",
-   "TexasAIDispatch/knowledge/craft/DAILY_PRODUCTION.md (253 lines, full)"
+ "handoff_status": "Research complete for one beat, with a consolidated defect list. Not a film approval. Subject retained: USDA ARS Kerrville predictive models for New World screwworm sterile fly release, aircraft and traps, with TAHC movement rules for ranchers. Filmable only through a director-bound source-backed-action proposal (illustration with disclosure). No rights-cleared footage was found.",
+ "beat": "New World screwworm (NWS) in Texas: how USDA's Kerrville predictive models are described as informing sterile fly release, surveillance and trapping, and what TAHC movement rules require of a rancher inside an infested zone. Anchor record: Docket tx-2026-0218.",
+ "input_verification": {
+  "hash_status": "NOT RECOMPUTED. This session has no shell tool, so sha256sum could not run. The hashes below are the values declared in the packet. The director must recompute them before acceptance.",
+  "packet": {
+   "path": "out/dispatch/researcher-packet.json",
+   "declared_sha256": "619a0545020995910c4c17d6b2f690d9bb07eb9c5c4dc272ea9ddab740b7db98",
+   "read": "full"
+  },
+  "bound_inputs_read_in_full_or_stated": [
+   {
+    "path": "TexasAIDocket/ledger/docket.json",
+    "declared_sha256": "d64066787abe4cf35a047d8a84a7dfc3c9f0dee6751f1efba346b0c63b7c5f8a",
+    "read": "NOT read in full (37,000 lines). Read item tx-2026-0218 (lines 35851 to 36064) and its neighbors, and the file tail to confirm ordering."
+   },
+   {
+    "path": "TexasAIDispatch/knowledge/texas/APPLICATIONS.md",
+    "declared_sha256": "ba6477684329e78ad36d15ee0f99e0056a1c0fae519e29d0bd8614a46cc0cd8d",
+    "read": "full"
+   },
+   {
+    "path": "AGENTS.md",
+    "declared_sha256": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094",
+    "read": "full"
+   },
+   {
+    "path": "CLAUDE.md",
+    "declared_sha256": "efe79ee10f6c2fa167c59f2c0ecf67322150598efe421db9eee1288752c4d07f",
+    "read": "full"
+   },
+   {
+    "path": "prompts/claude_routine.md",
+    "declared_sha256": "4029dd305bd846dfcba74f7915dc5c27475b884a66355ed56c1570431fce6773",
+    "read": "full"
+   },
+   {
+    "path": "config/claude_runtime.json",
+    "declared_sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10",
+    "read": "full"
+   },
+   {
+    "path": "config/quality_contract.json",
+    "declared_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+    "read": "full"
+   },
+   {
+    "path": "config/dispatch_rubric.yaml",
+    "declared_sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+    "read": "full. Bar not restated here."
+   },
+   {
+    "path": ".claude/agents/researcher.md",
+    "declared_sha256": "c618bf0ccc1b37412f4cb9f188a972543c555863db36990c9ecc10518510a49e",
+    "read": "full"
+   },
+   {
+    "path": "config/review_limit.json",
+    "declared_sha256": "2d62fcc421118fda5a3235b23b6c267f86ce0c1337af207f46a7c2a4c096eb08",
+    "read": "full. Five paid review rounds, no extensions."
+   },
+   {
+    "path": "prompts/phases/01-research.md",
+    "declared_sha256": "5f0feff2ba8ddfb51a69425d5c5ed500a2edd648b1f47676df6adfb381bf69c6",
+    "read": "full"
+   },
+   {
+    "path": "out/dispatch/provider-availability/startup/receipt.json",
+    "declared_sha256": "1504a8e5669af087944e723aee517c7a4ee1a148412dfcb81f19d1060289e679",
+    "read": "full. available true, HTTP 200, finished 2026-10-21T15:05:18Z. Its reservation charged audiovisual_reviews 1 (note: unscored provider generation availability). The director should confirm this precharge is expected."
+   }
   ],
-  "inputs_partially_read": [
-   "TexasAIDocket/ledger/docket.json (packet recorded sha256 d64066787abe4cf35a047d8a84a7dfc3c9f0dee6751f1efba346b0c63b7c5f8a). The file is 1.9 MB, over the Read limit and with no grep. Only its first 120 lines were read. Record coverage came from the public index at texasaidocket.com/llms.txt, which lists titles and one-line summaries only. Its full text was not fetched. A title-level search found no methane, leak, Permian, emissions or Railroad Commission entry."
+  "additional_guides_read": [
+   "config/production_actions.json (full; three starter actions, none matches this story)",
+   "knowledge/craft/CREATIVE_DIRECTION.md (full)",
+   "knowledge/craft/DAILY_PRODUCTION.md (full, including the source-backed admission rule)",
+   "knowledge/craft/visual-storytelling/README.md, news-reporting.md, viewer-plan.md, explanatory-animation.md, evidence-led-imagery.md (full)",
+   "config/story_visuals.json (max 6 searches, max 8 candidates)",
+   "config/daily_production.json (max 1 new source-backed mechanism)"
   ],
   "not_read": [
-   "TexasAIDispatch/out/dispatch/provider-availability/startup/receipt.json (not in this worker scope)",
-   "config/story_visuals.json, sentence-to-shot.md and the approach dossiers (not bound in the packet)",
-   "MATM-14 method PDF pages after page 4 (the document is longer; the AI check covers pages 1 to 4 only)",
-   "EPA 'AI Software' protocol (named in the approval letter; not obtained)",
-   "Odessa American article 'Drones zoom oilfields to curb methane emissions' (HTTP 403 on fetch; search snippet only, no body)"
+   "visual-storytelling observed-documentary.md, cinematic-scene.md, sentence-to-shot.md, broadcast-cadence-study.md, october-2-pavement-case.md. Not needed for the chosen approaches, but the director must read sentence-to-shot.md before boarding."
+  ]
+ },
+ "controller_and_gate_status": {
+  "not_run_no_shell": [
+   "python scripts/dedupe.py list --days 30 and dedupe check (the recent-narration and entity screen is still required before voice)",
+   "story_selection_check.py",
+   "run_controller.py consume --resource research_agents (this researcher made no reservation)",
+   "scripts/place_photos.py",
+   "sha256sum verification of every input",
+   "subject-screen through claude_runtime.py plan --subject"
   ],
-  "dedupe_read": "TexasAIDocket/docs/videos/videos.json, first 200 lines (back to 2026-09-26). No methane or leak-detection episode. Nearest oilfield episode: 'The lease behind the well' (2026-09-28, Ward County, Battalion Oil). Days September 21st to 25th were not read. The 30-day dedupe window was therefore not fully checked."
+  "lyda_hill_search": "Library of Congress Lyda Hill search via WebSearch found no record naming Kerrville, Kerr County, Zavala County, La Pryor or Edinburg. The loc.gov search URL returned HTTP 403. The bounded LOC pass is therefore NOT satisfied."
  },
  "docket_movements": [
   {
-   "record_status": "absent_from_record_index",
-   "record_id": null,
-   "event_type": "federal_method_approval",
-   "date": "2025-09-30",
-   "actor": "U.S. EPA, Office of Air Quality Planning and Standards",
-   "action": "Approved Percepto's Air Max OGI drone system as an alternative test method for periodic screening under 40 CFR 60.5398b(b) and (d). Stated it would post the letter as MATM-011.",
-   "object": "Percepto Air Max OGI UAS, sponsor Percepto Corporation, located in Austin, Texas",
-   "county": "none. Federal approval with no Texas site named.",
-   "next_step": "EPA posts MATM-011. Its docket is EPA-HQ-OAR-2024-0619. Operators may use the method for periodic screening.",
-   "who_can_act": "Owners and operators of covered facilities choosing the method. Percepto. EPA. The letter gives no public comment right.",
-   "evidence": "Primary, verified from the page images of the EPA letter."
+   "record_status": "ledger item tx-2026-0218, status decided, admitted 2026-10-18, last_verified 2026-10-21",
+   "record_id": "tx-2026-0218",
+   "event_type": "agency research announcement with a TAHC count update",
+   "date": "2026-10-12 filed (KRGV drone report); ARS page last modified 2026-09-15 (no publication date); TAHC count 44 undated on the page as read",
+   "actor": "USDA Agricultural Research Service, Knipling-Bushland Livestock Insects Research Laboratory, Kerrville, TX (Kim Lohmeyer, director)",
+   "action": "ARS says predictive models that use analytic tools and AI inform USDA choices of where, when and how many sterile flies to release and where surveillance and trapping go. The ARS text does not name aircraft. KRGV reports USDA drone flights and says no cases were found.",
+   "object": "sterile fly release sites, timing and numbers; livestock and wildlife surveillance; adult fly trapping",
+   "county": "Zavala is the first detection (2026-06-03). The TAHC page's current restriction list names 12 counties: Brewster, Crockett, Edwards, Jeff Davis, Pecos, Presidio, Schleicher, Starr, Sutton, Terrell, Val Verde, Zapata. TAHC confirms 17 counties with detections but does not name them on the page as read.",
+   "next_step": "None dated on the record. TAHC page refers to an October 13, 2026 executive director order that could not be located or read.",
+   "who_can_act": "USDA ARS and APHIS (release and model use). TAHC (zone orders, inspections, movement authorization). Ranchers (report suspicions within 24 hours, never move an animal showing signs)."
   },
   {
-   "record_status": "absent_from_record_index",
-   "record_id": null,
-   "event_type": "operator_pilot",
-   "date": "2025-03-14",
-   "actor": "Chevron, with Percepto",
-   "action": "Described a drone pilot with optical gas imaging and automated alerts. One system is deployed at a West Texas shale asset and another is tested at a Colorado asset.",
-   "object": "Permian Basin of West Texas, unnamed site",
-   "county": "unresolved. No site or county named.",
-   "next_step": "Pilot was slated to run through the end of 2025. No results or 2026 status found.",
-   "who_can_act": "Chevron. Percepto.",
-   "evidence": "Trade journalism (DroneLife), interview-based. Not a primary Chevron source. Status after 2025 unknown."
+   "record_status": "NOT IN LEDGER. Primary TAHC release found by this research.",
+   "record_id": "none (new to record; ledger tx-2026-0218 omits it)",
+   "event_type": "movement restrictions released from zones",
+   "date": "2026-08-31",
+   "actor": "TAHC Executive Director, Dr. Bud Dinges (quoted in the release as executive director and state veterinarian)",
+   "action": "Released movement restrictions in designated areas of Gillespie, Kerr, Kimble, La Salle and Webb counties (zones 02.A and 03). The release states that the wild NWS population in those areas was eliminated, per the eradication strategy.",
+   "object": "movement restrictions on animals in the released areas",
+   "county": "Gillespie, Kerr, Kimble, La Salle, Webb",
+   "next_step": "TAHC, USDA and partners may continue regulatory activities in released areas, including sterile fly releases, fly surveillance trapping and animal surveillance. The TAHC interactive map shows zones that still carry requirements.",
+   "who_can_act": "TAHC (zone status), USDA (releases and trapping), landowners (monitor and report)"
   },
   {
-   "record_status": "absent_from_record_index",
-   "record_id": null,
-   "event_type": "operator_commitment",
-   "date": "2026-05-05",
-   "actor": "ExxonMobil",
-   "action": "Says it expects to deploy continuous methane monitoring on all key operated Permian Basin sites by the end of 2026. Says it has deployed it at more than 400 heritage sites. Overlays satellites on its work.",
-   "object": "Permian Basin key operated sites",
-   "county": "unresolved. Permian-wide, no county.",
-   "next_step": "Deployment on the remaining Permian sites by end of 2026, company-reported.",
-   "who_can_act": "ExxonMobil. No regulator is named on the page.",
-   "evidence": "Company primary (sustainability report, date shown as May 5th, 2026). Does not mention AI, the Railroad Commission or any Texas agency."
+   "record_status": "NOT IN LEDGER. Referenced on the TAHC NWS page as read. Not located or read.",
+   "record_id": "none",
+   "event_type": "executive director order (unread lead)",
+   "date": "2026-10-13 (as named on the TAHC page)",
+   "actor": "TAHC",
+   "action": "UNKNOWN. Could not be read.",
+   "object": "UNKNOWN",
+   "county": "UNKNOWN",
+   "next_step": "Read the order from tahc.texas.gov/regs before any rule statement is drafted from the current period.",
+   "who_can_act": "TAHC"
   },
   {
-   "record_status": "absent_from_record_index",
-   "record_id": null,
-   "event_type": "federal_deadline_extension",
-   "date": "2025-07-31",
-   "actor": "U.S. EPA",
-   "action": "Interim final rule (90 FR 35966) extended future implementation of the Methane Super Emitter Program to January 22, 2027, per EPA's own page (last updated September 16th, 2026).",
-   "object": "Methane Super Emitter Program, third-party notices of 100 kilograms per hour or greater, remote sensing by satellites, aerial vehicles or mobile monitoring",
-   "county": "none. Federal.",
-   "next_step": "Implementation date January 22, 2027, unless changed. Proposed rescission announced for the next oil and gas proposal (see next entry).",
-   "who_can_act": "EPA. Certified third-party notifiers. Owners and operators.",
-   "evidence": "Primary EPA page, fetched and read. The Federal Register citation was not independently fetched."
+   "record_status": "NOT IN LEDGER. Secondary TSLN report, not confirmed on a TAHC or USDA primary page.",
+   "record_id": "none",
+   "event_type": "second confirmed case report",
+   "date": "2026-06-05",
+   "actor": "TSLN (Ruth Wiechmann) reporting USDA and TAHC confirmations",
+   "action": "Reports a 30-day-old calf in Zavala County confirmed as NWS, located within the existing infested zone.",
+   "object": "second Zavala calf",
+   "county": "Zavala",
+   "next_step": "Verify against TAHC or USDA primary before any use.",
+   "who_can_act": "TAHC, USDA"
   },
   {
-   "record_status": "absent_from_record_index",
-   "record_id": null,
-   "event_type": "federal_proposal_announced",
-   "date": "2026-10-07",
-   "actor": "EPA Administrator Lee Zeldin",
-   "action": "Previewed a forthcoming proposal, 'in the coming days', at the New Mexico Oil and Gas Association's annual meeting in Santa Fe. Proposal would rescind the Methane Super Emitter Program and revisit the 2024 OOOOb/c rules, including marginal wells, covers and closed vent systems, associated gas and control device monitoring. EPA estimates $45 billion in savings.",
-   "object": "Second part of EPA's oil and gas methane reconsideration",
-   "county": "none. Federal. The EPA release names no Texas or Permian reference.",
-   "next_step": "Federal Register publication, then comment. As of Mother Jones (October 14th, 2026) the standards were still in review at OIRA. No Federal Register publication was found in searches on October 21st, 2026. Inside Climate News (October 20th, 2026) reports the proposal is expected this month.",
-   "who_can_act": "EPA. OIRA. Public commenters once published. Operators.",
-   "evidence": "Primary EPA release, fetched and read. Publication status from secondary sources only."
-  },
-  {
-   "record_status": "absent_from_record_index",
-   "record_id": null,
-   "event_type": "state_commission_position",
-   "date": "2025-01-14",
-   "actor": "Texas Railroad Commissioner Wayne Christian",
-   "action": "Sent a letter to TCEQ commissioners with concerns and a request to halt implementation of the federal methane rule in Texas. Cites a 2024 RRC vote instructing the Attorney General to challenge the rule.",
-   "object": "Federal methane rule as applied in Texas via TCEQ",
-   "county": "none. Statewide.",
-   "next_step": "TCEQ rulemaking, Rule Project Number 2024-027-113-AI. Current status not verified.",
-   "who_can_act": "TCEQ. The Railroad Commission. The Attorney General.",
-   "evidence": "Primary RRC news release, fetched and read. Shows RRC opposition to the methane rule, not any detection program."
-  },
-  {
-   "record_status": "adjacent_not_methane",
-   "record_id": null,
-   "event_type": "state_satellite_program",
-   "date": "2026-09-03",
-   "actor": "Railroad Commission of Texas, with B3 Insight and SatSense",
-   "action": "Agreement to supply satellite ground-motion data (InSAR) for the RRC's Underground Injection Control program across the Permian Basin, compared against injection data.",
-   "object": "Permian Basin injection activity. Ground deformation, not methane.",
-   "county": "Permian Basin, unnamed counties",
-   "next_step": "Updates as satellite acquisitions are processed. Terms, cost and timeline not independently confirmed.",
-   "who_can_act": "RRC. B3 Insight. SatSense.",
-   "evidence": "Trade journalism (World Oil), fetched in full. Neither methane nor emissions is mentioned in the article. Use only as a rejected alternative."
+   "record_status": "LEAD ONLY. Secondary search summary, not fetched.",
+   "record_id": "none",
+   "event_type": "entry order for Mexican-origin cattle",
+   "date": "on or after 2026-08-24 (per secondary summary)",
+   "actor": "TAHC executive director order",
+   "action": "Cattle of Mexican origin entering through a port outside Texas must carry official RFID, an electronic certificate of veterinary inspection and an entry permit before entering Texas (secondary summary only).",
+   "object": "Mexican-origin cattle entering Texas",
+   "county": "statewide entry rule",
+   "next_step": "Fetch the TAHC order before use.",
+   "who_can_act": "TAHC, importers, ranchers receiving animals"
   }
  ],
  "findings": [
   {
-   "claim": "EPA approved Percepto's Air Max OGI system as an alternative test method for periodic screening, and EPA found it meets the periodic screening requirements for the 1 kg/hr detection threshold.",
-   "quote": "EPA has determined that Percepto's Air Max OGI System meets the periodic screening requirements for the1 kg/hr detection threshold. (The source PDF reads 'for the1'.)",
-   "url": "https://www.epa.gov/system/files/documents/2025-09/percepto-approval-letter_v1-no-track-changes-508.pdf",
+   "claim": "USDA's ARS says its predictive models use advanced analytic tools and artificial intelligence to interpret ecological, environmental and historical information to predict where NWS may establish and how it may spread.",
+   "quote": "Predictive models use advanced analytic tools and artificial intelligence (AI) to interpret ecological, environmental, and historical information to predict where New World screwworm is likely to become established and the potential pathways it may follow to spread.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high (sentence confirmed in a second targeted fetch; the fetch tool returns quotes through a summarizer, so the validator should re-fetch)",
+   "why_it_matters": "The only primary statement that AI is part of the models. It describes a description of the models, not model output, so the film cannot show a specific AI decision.",
+   "supports_movement": "tx-2026-0218 claim c1"
+  },
+  {
+   "claim": "USDA says it uses insights from the models to choose release locations, timing and number of sterile flies.",
+   "quote": "USDA uses insights from the models to identify optimal locations, timing, and the number of sterile flies to release for the most effective application, to interrupt their reproductive cycle and spread.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
    "retrieved": "2026-10-21",
    "source_type": "primary_official",
    "confidence": "high",
-   "quote_status": "verified in the page images, pages 2 and 3 of the letter",
-   "why_it_matters": "This is the dated federal movement. It names the detection threshold EPA actually accepted, and EPA's threshold is 1 kg/hr, not the 100 g/hr that the vendor advertises.",
-   "supports_movement": "docket movement 1 (2025-09-30)"
+   "why_it_matters": "Says insights inform USDA choices. The record title says the models pick where, when and how many flies. That is stronger than this sentence. Use the ARS wording.",
+   "supports_movement": "tx-2026-0218 claim c2 (title overstates it, see defect D1)"
   },
   {
-   "claim": "After collection, a certified OGI inspector reviews the survey footage to identify emissions, which triggers a follow-up inspection.",
-   "quote": "Once the data are collected from the Air Max, a certified OGI inspector reviews the collected survey footage to identify any emissions, triggering a follow-up inspection.",
-   "url": "https://www.epa.gov/system/files/documents/2025-09/percepto-approval-letter_v1-no-track-changes-508.pdf",
+   "claim": "Lohmeyer says the models are already used to select areas for surveillance, adult fly trapping and sterile insect release.",
+   "quote": "ARS developed predictive New World screwworm models that incorporate historic data like habitat use, host preferences, and environmental conditions into a science-based platform that are already being utilized to select areas for increased livestock and wildlife surveillance, adult fly trapping, and for implementing SIT, said Lohmeyer.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (named director, Kim Lohmeyer, Director, ARS Knipling-Bushland Livestock Insects Research Laboratory in Kerrville, TX)",
+   "confidence": "high for the quote; low for any release-level outcome",
+   "why_it_matters": "Named human source with present tense 'already being utilized', but no site, date or outcome is given. It tells the viewer areas were chosen, not which ones.",
+   "supports_movement": "tx-2026-0218 claim c3"
+  },
+  {
+   "claim": "The model's limit, stated by its own director.",
+   "quote": "However, these models cannot predict every scenario, especially those impacted by unpredictable variables like people transporting infested animals.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
    "retrieved": "2026-10-21",
    "source_type": "primary_official",
    "confidence": "high",
-   "quote_status": "verified in the page image, page 2",
-   "why_it_matters": "This is the strongest source answer to the opening question of who decides it is a leak. The approval letter places a certified human in that step, and it does not describe any AI detection step.",
-   "supports_movement": "docket movement 1"
+   "why_it_matters": "The strongest source limit and the earned turn for the film. The variable the model cannot predict is the rancher's own movement of animals, which TAHC rules govern.",
+   "supports_movement": "tx-2026-0218 claim c16"
   },
   {
-   "claim": "The only AI reference in the approval letter is the title of a separate sampling protocol. The software named AIM is an acronym for autonomous inspection and monitoring, not artificial intelligence.",
-   "quote": "Sampling protocol (alternative test method) titled 'Percepto Autonomous OGI UAS & AI Software Alternative Test Method' (March 26, 2025, updated September 1, 2025). Also: 'Percepto Autonomous Inspection & Monitoring (AIM) cloud-based software to execute flights, and view and retrieve collected data.' MATM-14 section 3.1.1: 'Autonomous Inspection & Monitoring or AIM means the software through which the Site Owner/Operator can interact with the UAS, execute flights, and view and retrieve collected data.'",
-   "url": "https://www.epa.gov/system/files/documents/2025-09/percepto-approval-letter_v1-no-track-changes-508.pdf",
+   "claim": "Hutchins, USDA Under Secretary for Research, Education and Economics, on placement.",
+   "quote": "Modeling their movement and using this information for optimal placement maximizes our impact and hastens eradication.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
    "retrieved": "2026-10-21",
-   "source_type": "primary_official",
-   "confidence": "high",
-   "quote_status": "verified in the page images. MATM-14 wording verified in the page images, pages 3 and 4",
-   "why_it_matters": "This is the single most important false-inference guard. The AI label is a protocol title. The 'AIM' software is not AI. The AI role in detection is not described by the EPA letter and remains unverified.",
-   "supports_movement": "docket movement 1"
+   "source_type": "primary_official (named USDA official, Dr. Scott Hutchins)",
+   "confidence": "high for the quote",
+   "why_it_matters": "A named USDA voice claiming impact. No measured effect is given, so the film should label it as the agency's claim.",
+   "supports_movement": "not in ledger (new named source)"
   },
   {
-   "claim": "The approval letter says the pilot is trained to identify emissions, and the approval is not an endorsement of any company or product.",
-   "quote": "a US Federal Aviation Administration (FAA) certified pilot who is also trained to identify potential emissions. / This approval letter is not an implied or express endorsement by EPA of any specific companies or products, as EPA does not promote the products, services, or enterprises of non-federal entities.",
-   "url": "https://www.epa.gov/system/files/documents/2025-09/percepto-approval-letter_v1-no-track-changes-508.pdf",
+   "claim": "The ARS page contains no validation or accuracy statement for the models.",
+   "quote": "No accuracy statement found. The page's only limitation sentence is: However, these models cannot predict every scenario, especially those impacted by unpredictable variables like people transporting infested animals.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
    "retrieved": "2026-10-21",
-   "source_type": "primary_official",
-   "confidence": "high",
-   "quote_status": "verified in the page images, pages 1 and 3",
-   "why_it_matters": "Two human roles are named, the FAA-certified pilot and the certified OGI inspector. The EPA letter does not endorse Percepto, so the story can't present the approval as an endorsement of the vendor's performance.",
-   "supports_movement": "docket movement 1"
+   "source_type": "primary_official (absence finding from a full-page read)",
+   "confidence": "medium (an absence finding through a summarizer)",
+   "why_it_matters": "Explains why no accuracy figure can be shown. Any film line implying the model is accurate would be unsupported.",
+   "supports_movement": "limit for tx-2026-0218"
   },
   {
-   "claim": "The EPA method document describes a drone flying a pre-programmed flight plan to points of interest, with a notice that identifies the time in the footage when a leak occurred.",
-   "quote": "The Air Max OGI UAS is deployed via a ruggedized, weather-proof solution permanently installed in close proximity to the equipment to be surveyed. / If a leak is identified, after the mission is completed, Percepto sends a notification to the Site Owner/Operator that identifies the specific time in the video footage of the mission when the leak occurred.",
-   "url": "https://www.epa.gov/system/files/documents/2025-09/percepto-matm-014-508-9.26-to-edit.pdf",
-   "retrieved": "2026-10-21",
-   "source_type": "primary_official",
-   "confidence": "high",
-   "quote_status": "verified in the page images, pages 2 and 3 of the MATM-14 document",
-   "why_it_matters": "This is the mechanism to picture: a permanent station, a planned route, a footage bookmark and a notice. It is the source for the opening and consequence rows.",
-   "supports_movement": "docket movement 1"
-  },
-  {
-   "claim": "The method was submitted by the vendor with a field-verified sensitivity of 0.1 kg/hr at 90 percent probability, under wind speeds up to 20 kph and standoff distances of 20 to 140 feet. This is the method's own claim, not an EPA-verified figure.",
-   "quote": "This method has a field-verified method sensitivity to reliably detect fugitive methane emissions of 0.1 kg/hr with a 90% probability of detection under a variety of real-world operational conditions, including variable wind speeds up to 20 kph and at standoff detection distances ranging from 20 to 140 feet.",
-   "url": "https://www.epa.gov/system/files/documents/2025-09/percepto-matm-014-508-9.26-to-edit.pdf",
+   "claim": "ARS page dating: no publication date, last modified September 15, 2026. The page does not mention drones.",
+   "quote": "Last modified: 9/15/2026 (page metadata as read through the fetch summary). No separate publication date appears on the page.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
    "retrieved": "2026-10-21",
    "source_type": "primary_official",
    "confidence": "medium",
-   "quote_status": "verified in the page image, page 1",
-   "why_it_matters": "This is the method document's own sensitivity claim. It is numerically different from the threshold EPA found met (1 kg/hr), so the story must name which one is which.",
-   "supports_movement": "docket movement 1"
+   "why_it_matters": "The drone AI story is not part of the ARS page. Keep the two apart.",
+   "supports_movement": "tx-2026-0218 admission note"
   },
   {
-   "claim": "A single FAA-certified pilot may oversee up to 30 drones, and the operator may run the drone itself if it uses FAA-certified pilots.",
-   "quote": "The FAA waiver enables a single pilot to remotely operate up to 30 UAVs simultaneously. / Percepto employs UAS operators; however the Site Owner/Operator can operate the UAS if they use FAA-certified pilots and otherwise adhere to all applicable regulations.",
-   "url": "https://www.epa.gov/system/files/documents/2025-09/percepto-matm-014-508-9.26-to-edit.pdf",
+   "claim": "First confirmed detection in Texas: a calf in Zavala County, June 3, 2026.",
+   "quote": "On June 3, 2026, New World screwworm (NWS) was confirmed in a calf in Zavala County, Texas.",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
    "retrieved": "2026-10-21",
    "source_type": "primary_official",
    "confidence": "high",
-   "quote_status": "verified in the page images, pages 2 and footnote 3",
-   "why_it_matters": "The operator can run the drone itself. That makes the 'operator' leg of the subject a real choice rather than a vendor service, and it limits any picture of a drone flying alone.",
-   "supports_movement": "docket movement 1"
+   "why_it_matters": "The anchor date and county for the human story. Zavala is not on the TAHC page's current restriction list (see D2).",
+   "supports_movement": "tx-2026-0218 claim c9"
   },
   {
-   "claim": "Pages 1 to 4 of the method document describe thermography and optical gas imaging, and do not use the words artificial intelligence or machine learning.",
-   "quote": "This OGI payload ... enables efficient and accurate methane emissions detection by leveraging advanced thermography principles. Upon detection of such an event, the system is designed to provide a clear and timely alert to the site operator, which serves to trigger the required leak detection, localization, and repair response actions.",
-   "url": "https://www.epa.gov/system/files/documents/2025-09/percepto-matm-014-508-9.26-to-edit.pdf",
+   "claim": "Umbilical lesion in a three-week-old calf, first detection report.",
+   "quote": "has been detected in a three-week-old calf in Zavala County, Texas. NWS maggots were found in the umbilical area of the calf. So far there is only a single detection.",
+   "url": "https://www.cidrap.umn.edu/new-world-screwworm/texas-reports-new-world-screwworm-3-week-old-calf",
    "retrieved": "2026-10-21",
-   "source_type": "primary_official",
+   "source_type": "journalism (CIDRAP, article undated in fetched text)",
    "confidence": "medium",
-   "quote_status": "verified in the page images, pages 1 to 4 only. The rest of the document was not read.",
-   "why_it_matters": "The EPA method document does not describe AI in the pages read. The AI claim must come from the vendor or the unread protocol, and must be labeled that way.",
-   "supports_movement": "docket movement 1"
+   "why_it_matters": "The physical detail of the first case, usable as a sourced visual description. The article is undated and does not name TAHC, so it cannot stand in for the primary date.",
+   "supports_movement": "tx-2026-0218 background"
   },
   {
-   "claim": "The Chevron pilot runs in the Permian Basin of West Texas and in Colorado, with an automated alert for anomalies. It was slated to run through the end of 2025.",
-   "quote": "the Permian Basin of West Texas and the Rocky Mountain region of western Colorado. / We have one of our systems deployed in our West Texas shale asset. / The pilot program is slated to run through the end of this year. / AI built into the software enables automated alerts when it detects any anomalies to normal operations.",
-   "url": "https://dronelife.com/?p=105638",
-   "retrieved": "2026-10-21",
-   "source_type": "trade_journalism",
-   "confidence": "medium",
-   "quote_status": "fetch-extracted quotes from the article, read in full. Article dated March 14th, 2025.",
-   "why_it_matters": "This is the only sourced Texas operator pilot with an AI-described alert. Its location is named as West Texas, but its site is unnamed and its 2026 status is unknown. The article does not say who reviews the AI alerts.",
-   "supports_movement": "docket movement 2 (2025-03-14)"
-  },
-  {
-   "claim": "A journalism report says Permian operators use AI drones to detect methane in real time. The operator count is attributed only to MRT, and the basis is vendor-supplied.",
-   "quote": "Drones equipped with artificial intelligence now enable Permian Basin operators to detect methane leaks in real time. / The technology flags emissions in real time, providing verified alerts with precise geolocation, timestamps. / Percepto has worked with about four different Permian Basin operators.",
-   "url": "https://dronexl.co/2025/07/19/ai-powered-drones-methane-leak-detection",
-   "retrieved": "2026-10-21",
-   "source_type": "trade_journalism",
-   "confidence": "low to medium",
-   "quote_status": "fetch-extracted quotes, article read in full. Dated July 19th, 2025.",
-   "why_it_matters": "This is the strongest 'AI detects Permian leaks' sentence in the record, and it is journalism repeating vendor claims. It can be used only as a reported claim, with the EPA letter's human-review sentence beside it.",
-   "supports_movement": "docket movement 2"
-  },
-  {
-   "claim": "ExxonMobil expects continuous monitoring on all key operated Permian sites by the end of 2026, using fixed cameras, satellites and airplane or drone surveys. The page does not mention AI.",
-   "quote": "We expect to deploy continuous monitoring on all key operated sites in the Permian Basin by the end of 2026. / Periodic monitoring using airplanes or drones can further expand coverage to dozens of onshore sites per day. / but we're overlaying this work with satellites to enhance detection across larger areas on a more continuous basis.",
-   "url": "https://corporate.exxonmobil.com/publications/advancing-climate-solutions/driving-reductions-in-methane-emissions",
-   "retrieved": "2026-10-21",
-   "source_type": "company_primary",
-   "confidence": "high for the company's own words; company-reported",
-   "quote_status": "fetch-extracted quotes, page read in full. The page is dated May 5th, 2026 in its report block.",
-   "why_it_matters": "This is the operator-scale movement with a dated commitment. It does not support AI, so it can serve as an operator counter-image, not as the AI proof.",
-   "supports_movement": "docket movement 3"
-  },
-  {
-   "claim": "A trade association says companies are deploying continuous monitoring, drone and satellite detection, and automated shut-in capabilities in West Texas and Southeast New Mexico. It names no operator or vendor and does not mention AI.",
-   "quote": "Companies are deploying continuous monitoring systems, drone and satellite detection and automated shut-in capabilities.",
-   "url": "https://www.pbpa.info/newsroom/oilfield-environmental-progress-under-reported",
-   "retrieved": "2026-10-21",
-   "source_type": "trade_association",
-   "confidence": "medium",
-   "quote_status": "fetch-extracted quote, article read in full. Byline Bob Campbell, Odessa American, dated March 10th, 2026.",
-   "why_it_matters": "This is dated 2026 operator-practice context from the industry's own voice. It is general, so it can't carry the AI claim or any count.",
-   "supports_movement": "docket movement 3 (context)"
-  },
-  {
-   "claim": "EPA's Super Emitter Program defines a super emitter event as a leak of 100 kg per hour or more, detected by EPA-approved remote sensing including satellites and aerial vehicles. Its future implementation is extended to January 22, 2027.",
-   "quote": "Super emitter events are large leaks or releases of methane located at or near an oil and natural gas facility with an emission rate of 100 kilograms per hour of methane or greater. / using EPA-approved remote-sensing technology (e.g., satellites, aerial vehicles, and mobile monitoring). / Future implementation of the Methane Super Emitter Program is extended until January 22, 2027.",
-   "url": "https://www.epa.gov/compliance/methane-super-emitter-program",
+   "claim": "TAHC counts 17 Texas counties with a confirmed detection (counties not named).",
+   "quote": "Total Texas counties with a confirmed NWS detection: 17",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
    "retrieved": "2026-10-21",
    "source_type": "primary_official",
    "confidence": "high",
-   "quote_status": "fetch-extracted quotes, page read. The page says 'Last updated on September 16, 2026.' The extension cites 90 FR 35966, July 31, 2025, per the certified notifiers page.",
-   "why_it_matters": "This is the federal satellite route. It is paused, and EPA has announced it will propose to rescind it. Its existence explains why a satellite leak notice does not yet reach a Texas operator.",
-   "supports_movement": "docket movement 4"
+   "why_it_matters": "The county list is not published on the page. Do not name counties as detection counties from the ledger's geography array (see D1).",
+   "supports_movement": "tx-2026-0218 claim c10"
   },
   {
-   "claim": "EPA said it would propose rescinding the Super Emitter Program in days, citing serious legal concerns and the view that it is not necessary to meet Clean Air Act requirements. The release names no Texas, Permian, satellite or drone reference.",
-   "quote": "The Trump EPA is days not weeks away from announcing our proposal for the second part of the oil and gas reconsideration. / After hearing about serious legal concerns with the program. / The agency does not think it is necessary to meet Clean Air Act requirements and is not effective.",
-   "url": "https://www.epa.gov/newsreleases/administrator-zeldin-announces-epa-days-away-unveiling-next-oil-gas-proposal",
+   "claim": "TAHC counts 44 Texas premises with a confirmed detection. The page as read carries no date for this figure.",
+   "quote": "Total Texas premises confirmed with at least one NWS detection: 44",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
    "retrieved": "2026-10-21",
    "source_type": "primary_official",
-   "confidence": "high for what was announced; the proposal text is unpublished",
-   "quote_status": "fetch-extracted quotes, page read in full. Dated October 7th, 2026, page updated October 8th.",
-   "why_it_matters": "This is the consequence the story can't skip. The federal satellite route is set for rescission, while the operator-run drone route is already approved. Whether leak-detection requirements change is not in this release.",
-   "supports_movement": "docket movement 5"
+   "confidence": "high for the number; the date 2026-10-21 in the ledger is not shown on the page",
+   "why_it_matters": "The count rose from 43 per the ledger. The film should carry this as undated TAHC page text as read on October 21, 2026.",
+   "supports_movement": "tx-2026-0218 claims c11 (43) and c17 (44)"
   },
   {
-   "claim": "Mother Jones reports the proposal would rescind the Super Emitter Program, that the standards were still in OIRA review, and that the reconsideration was to be published within days.",
-   "quote": "would also rescind the agency's Methane Super Emitter Program. / are still in review at the Office of Information and Regulatory Affairs / the reconsideration would be published within days.",
-   "url": "https://www.motherjones.com/environment/2026/10/epa-zeldin-methane-emissions-rules-rollback-oil-gas-super-emitter-program/",
+   "claim": "Current movement restrictions are in an established infested zone in parts of 12 named counties.",
+   "quote": "There are currently movement restrictions in place due to an established New World Screwworm Infested Zone in parts of the following Texas counties: Brewster, Crockett, Edwards, Jeff Davis, Pecos, Presidio, Schleicher, Starr, Sutton, Terrell, Val Verde, Zapata.",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "why_it_matters": "This list differs from the ledger's 14 county geography array. Zavala and Kerr are absent from it.",
+   "supports_movement": "tx-2026-0218 claim c13"
+  },
+  {
+   "claim": "Animals in an infested zone may not leave without prior TAHC authorization. An owner must contact TAHC for an inspection, and a movement certificate must accompany the animals.",
+   "quote": "all warm-blooded animals in an Infested Zone may not move out of the zone without prior authorization. Animals leaving a zone must contact the TAHC or a NWS Certified Inspector to set up an inspection. A NWS Movement/Treatment certificate must accompany the movement.",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (quoted through a summarizer; re-read the verbatim text before use)",
+   "confidence": "medium-high (the exact sentence is not yet confirmed verbatim)",
+   "why_it_matters": "This is the rancher-facing physical task, the honest human consequence, and the picture the film can show without footage. It is a rule, not a result.",
+   "supports_movement": "not in ledger. New candidate claim."
+  },
+  {
+   "claim": "Reporting rule for suspected NWS.",
+   "quote": "NWS is reportable to the TAHC and should be reported within 24 hours of suspicion. Report all suspected and confirmed cases of NWS immediately.",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high for the 24-hour sentence (matches ledger claim c14); medium for the second sentence (summarizer)",
+   "why_it_matters": "Gives the rancher a concrete action within a time limit.",
+   "supports_movement": "tx-2026-0218 claim c14"
+  },
+  {
+   "claim": "The TAHC 2026-08-31 release lifts restrictions in five counties and says partners may continue sterile fly releases and trapping in released areas.",
+   "quote": "The executive director officially released movement restrictions for areas of Texas previously deemed as New World screwworm (NWS) Infested Zones. Following months of coordinated surveillance and eradication activities, designated areas of Gillespie, Kerr, Kimble, La Salle, and Webb Counties were released from New World Screwworm (NWS) movement restrictions on August 31, 2026. TAHC, USDA, and other response partners may continue to conduct regulatory activities in areas released from NWS Infested Zones. These activities can include sterile fly releases, fly surveillance trapping, and animal surveillance.",
+   "url": "https://www.tahc.texas.gov/news/2026/2026-08-31_EDO_NWSZoneReleases.pdf",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (press release PDF, read as rendered page 1 after WebFetch returned binary; saved copy read with the PDF reader)",
+   "confidence": "high (rendered page read directly)",
+   "why_it_matters": "The release and the restriction track are separate. Sterile fly releases continue in areas that are no longer restricted. The ledger omits this release entirely.",
+   "supports_movement": "not in ledger. New movement."
+  },
+  {
+   "claim": "TAHC's stated basis for the release, and the state veterinarian's quote on vigilance.",
+   "quote": "The comprehensive eradication strategy implemented by state, federal, industry, veterinary, and local partners delivered sufficient evidence that the wild NWS population in these affected areas have been eliminated. We are pleased with the incredible work and cooperation that has led us to the release of these first zones, said Dr. Bud Dinges, TAHC executive director and Texas state veterinarian. While we are certainly celebrating this milestone, we can't take our eye off the ball and must remain vigilant in monitoring animals and reporting any suspicions in these newly released areas and beyond.",
+   "url": "https://www.tahc.texas.gov/news/2026/2026-08-31_EDO_NWSZoneReleases.pdf",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "why_it_matters": "The release is a conclusion from a strategy, with no population figure shown. The film must present it as the agency's conclusion. The quote is also a named human voice.",
+   "supports_movement": "not in ledger"
+  },
+  {
+   "claim": "Reporting contact for suspected NWS (TAHC phone digits conflict, see D3).",
+   "quote": "All suspicions of NWS infestations must be reported to a TAHC Region Office or 1-800-55-8242, Texas Parks and Wildlife Department wildlife biologist or 512-389-4505, or your private veterinarian.",
+   "url": "https://www.tahc.texas.gov/news/2026/2026-08-31_EDO_NWSZoneReleases.pdf",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "medium. The rendered PDF appears to read 1-800-55-8242. The ledger and the HTML page read 1-800-550-8242.",
+   "why_it_matters": "A wrong phone digit printed in a film would send a rancher to the wrong number. Do not print a number until verified.",
+   "supports_movement": "tx-2026-0218 claim c15 (conflict)"
+  },
+  {
+   "claim": "APHIS: the Edinburg dispersal facility at Moore Air Force Base deploys more than 80 million sterile flies a week over Texas and Mexico.",
+   "quote": "USDA has completed construction of a domestic sterile fly dispersal facility at Moore Air Force Base in Edinburg, Texas. This $8.5 million facility is now used to deploy more than 80 million sterile flies per week over Texas and Mexico.",
+   "url": "https://www.aphis.usda.gov/animals/animal-health/livestock-and-poultry-disease/usda-continues-lead-aggressive-national-nws",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (page last modified July 31, 2026)",
+   "confidence": "high for the quote; the 80 million figure is dated to a July 31 page",
+   "why_it_matters": "The named dispersal site. Its figure is a capacity statement on a dated page, not a count of flies released over any ranch.",
+   "supports_movement": "tx-2026-0218 claim c12"
+  },
+  {
+   "claim": "APHIS: earlier drone and trap counts, and aircraft relocated to Texas (undated in the summary).",
+   "quote": "over 1,000 drone surveillance flights in Texas, observing over 20,000 animals. more than 100 NWS-specific traps and more than 8,000 insect traps across Texas, Arizona, New Mexico, and California. in 72 hours, planes were relocated to Texas to expand sterile fly coverage in the U.S.",
+   "url": "https://www.aphis.usda.gov/animals/animal-health/livestock-and-poultry-disease/usda-continues-lead-aggressive-national-nws",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (quoted through a summarizer)",
+   "confidence": "medium",
+   "why_it_matters": "Earlier counts conflict with the KRGV counts. Use time stamps. The aircraft line is the only primary aircraft statement found, and it is not tied to the model.",
+   "supports_movement": "background; not in ledger"
+  },
+  {
+   "claim": "APHIS and USDA announced the Moore Air Base dispersal facility's completion on February 9, 2026.",
+   "quote": "This facility expands USDA's ability to disperse sterile flies along the border and into the United States, if necessary.",
+   "url": "https://www.aphis.usda.gov/news/agency-announcements/usda-announces-completion-sterile-fly-dispersal-facility-texas",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (summary only; full release text not readable)",
+   "confidence": "medium-high",
+   "why_it_matters": "Fixes the facility's date. Governor Greg Abbott and Secretary Brooke Rollins are named as present. No quotes from either were readable.",
+   "supports_movement": "background"
+  },
+  {
+   "claim": "USDA drone flights and animal counts, as reported by KRGV.",
+   "quote": "The USDA said it observed more than 36,000 animals and found no screwworm cases.",
+   "url": "https://www.krgv.com/news/no-screwworm-cases-found-after-usda-conducts-2-000-drone-flights-over-texas",
+   "retrieved": "2026-10-21",
+   "source_type": "journalism (KRGV, byline Santiago Caicedo, dated October 12, 2026 10:37 PM as read)",
+   "confidence": "medium-high for the reporter's attribution; no USDA primary page carrying these counts was found",
+   "why_it_matters": "A count of what was observed, not proof of absence. The article says drones are not foolproof.",
+   "supports_movement": "tx-2026-0218 claim c6"
+  },
+  {
+   "claim": "USDA says drones are not foolproof and use AI to inspect wounds. This AI is a different system from the model.",
+   "quote": "USDA officials said drones are not foolproof for detecting screwworms, but they use artificial intelligence to inspect animal wounds more effectively.",
+   "url": "https://www.krgv.com/news/no-screwworm-cases-found-after-usda-conducts-2-000-drone-flights-over-texas",
    "retrieved": "2026-10-21",
    "source_type": "journalism",
-   "confidence": "medium",
-   "quote_status": "fetch-extracted quotes, article read in full. Dated October 14th, 2026. The article does not mention satellites or the Permian.",
-   "why_it_matters": "This is the second source for the rescission and the OIRA status. It is the only source that sets the rescission inside 'a third-party monitoring system'.",
-   "supports_movement": "docket movement 5"
+   "confidence": "medium-high",
+   "why_it_matters": "The false inference risk. Viewers will connect 'AI' and 'drones' with the release decisions. The KRGV linked headline says 'AI-equipped drones to detect screwworm' but the article body does not give a model or accuracy figure.",
+   "supports_movement": "tx-2026-0218 claim c7"
   },
   {
-   "claim": "The Permian is a focus of the article's framing, but the article says the new rules are not specific to Texas or the Permian.",
-   "quote": "Paraphrase, not verbatim: Inside Climate News (Dylan Baddour, October 20th, 2026) says the article centers on the Permian Basin and Texas, but does not say the new rules are specific to either. It says the administration will release proposed rules on methane from oil and gas this month, followed by public comment.",
-   "url": "https://insideclimatenews.org/news/20102026/trump-administration-promises-new-methane-rules/",
+   "claim": "A second confirmed Zavala calf, 30 days old, within the existing zone (secondary report).",
+   "quote": "This second confirmed case is located within the existing infested zone.",
+   "url": "https://www.tsln.com/news/not-if-but-when-new-world-screwworm-detected-in-zavala-county-texas-calves/",
    "retrieved": "2026-10-21",
-   "source_type": "journalism",
-   "confidence": "medium",
-   "quote_status": "paraphrase from fetch output. Not used as a verbatim quote.",
-   "why_it_matters": "It confirms the Permian and Texas framing is the reporter's, not a rule's, and it gives the 'this month' timing for the proposal.",
-   "supports_movement": "docket movement 5 (timing)"
+   "source_type": "journalism (TSLN, Ruth Wiechmann, June 5, 2026)",
+   "confidence": "low until TAHC or USDA confirms it",
+   "why_it_matters": "The ledger describes only the first detection. A film of the Zavala story must not omit or assert this without primary confirmation.",
+   "supports_movement": "not in ledger"
   },
   {
-   "claim": "Texas oil and gas releases are estimated to be 3 to 4.5 times the operator-reported volume, using a 12-month subset to November 2024. The study covers venting and flaring, not leak detection.",
-   "quote": "Texas is estimated to have wasted 3 to 4.5 times more gas than operators reported. (Source uses an en dash in '3-4.5'. Paraphrased in range form.) / the RRC does not rigorously enforce reporting and seems not to test the validity of the gas volumes that are reported.",
-   "url": "https://rmi.org/drilling-down-on-methane-loss/",
+   "claim": "A named rancher, quoted in June 2026, in LaSalle County. LaSalle was released from restrictions August 31 (TAHC).",
+   "quote": "I am the fifth generation living and working on this ranch in LaSalle County, Texas.",
+   "url": "https://www.tsln.com/news/not-if-but-when-new-world-screwworm-detected-in-zavala-county-texas-calves/",
    "retrieved": "2026-10-21",
-   "source_type": "primary_nongovernmental",
-   "confidence": "high",
-   "quote_status": "fetch-extracted quotes, page read. Publication date March 16th, 2026, with a correction in September 2026. Headline 551 Bcf versus 120 Bcf self-reported, per the page.",
-   "why_it_matters": "This is the strongest primary Texas oversight claim in the record. It is about gas volumes, not about detection tools, so it can frame the regulator's reporting gap but not any drone or AI capability.",
-   "supports_movement": "context for RRC oversight"
+   "source_type": "journalism (named quote, Susan Storey Rubio)",
+   "confidence": "medium-high for the quote as read through a summarizer",
+   "why_it_matters": "A real named producer with a published June quote. Her view today is not sourced, and the film must not manufacture it. A new interview would be needed for any present-tense feeling.",
+   "supports_movement": "human source, not in ledger"
   },
   {
-   "claim": "The Railroad Commission's drone team is described as an emergency-response resource. The page does not mention methane, optical gas imaging, thermal sensors or AI.",
-   "quote": "The Railroad Commission of Texas has launched a statewide drone inspection team.",
-   "url": "https://www.rrc.texas.gov/about-us/organization-and-activities/programs/drone-program",
+   "claim": "TAHC will inspect livestock before movement, and producers should not move animals when NWS is suspected.",
+   "quote": "The Texas Animal Health Commission will inspect livestock prior to movement out of the vicinity of the location where NWS was detected. If you suspect NWS in your livestock or domestic animals, contact the TAHC immediately and do not move your animals.",
+   "url": "https://www.tsln.com/news/not-if-but-when-new-world-screwworm-detected-in-zavala-county-texas-calves/",
    "retrieved": "2026-10-21",
-   "source_type": "primary_official",
-   "confidence": "high",
-   "quote_status": "fetch-extracted quote, page read. Shows only a copyright footer date (2026), no last-updated date.",
-   "why_it_matters": "This is the RRC's own description of its drones. It is the reason the Railroad Commission can't be shown detecting methane with drones or AI.",
-   "supports_movement": "rejected alternative (RRC as detector)"
+   "source_type": "journalism quoting TAHC",
+   "confidence": "medium (the TAHC zone document it cites was not readable)",
+   "why_it_matters": "Second source for the inspection step. It does not name a certificate.",
+   "supports_movement": "supports tx-2026-0218 rule context"
   },
   {
-   "claim": "In January 2025, Commissioner Wayne Christian asked TCEQ to halt implementation of the federal methane rule in Texas. He cited a 2024 RRC vote directing the Attorney General to challenge the rule.",
-   "quote": "sent a letter to the TCEQ commissioners with concerns and a request to halt implementation. / the three Texas Railroad Commissioners voted to instruct",
-   "url": "https://rrc.texas.gov/news/011425-christian_callson_tceq_bidenmethanerule_jan_2025",
+   "claim": "ARS image rights statement.",
+   "quote": "Photos in our Image Gallery are available free of charge and are copyright-free, and public domain, images unless otherwise indicated. When using these photos, we ask that you credit the Agricultural Research Service. Photo by (photographer's name), USDA Agricultural Research Service.",
+   "url": "https://www.ars.usda.gov/oc/images/copyright",
    "retrieved": "2026-10-21",
    "source_type": "primary_official",
    "confidence": "high",
-   "quote_status": "fetch-extracted quotes, page read. Dated January 14th, 2025.",
-   "why_it_matters": "This is the RRC's documented stance, which is opposition to the methane rule. A story that puts the RRC in charge of AI detection would contradict this record, not just lack support.",
-   "supports_movement": "docket movement 6"
+   "why_it_matters": "The rights basis for the one ARS image found. It does not cover third-party images, people or logos, and gives no permission contact.",
+   "supports_movement": "asset rights"
   },
   {
-   "claim": "The only AI reference in that RRC release is a TCEQ rulemaking identifier, not artificial intelligence.",
-   "quote": "Rule Project Number 2024-027-113-AI",
-   "url": "https://rrc.texas.gov/news/011425-christian_callson_tceq_bidenmethanerule_jan_2025",
+   "claim": "ARS-hosted screwworm larva photograph, with caption.",
+   "quote": "Tusklike mandibles protruding from the screwworm larva's mouth rasp the flesh of living warm-blooded animals. A wound may contain hundreds of such larvae. Photo by John Kucharski.",
+   "url": "https://www.ars.usda.gov/oc/images/photos/k7576-1",
    "retrieved": "2026-10-21",
-   "source_type": "primary_official",
-   "confidence": "high",
-   "quote_status": "fetch-extracted, page read",
-   "why_it_matters": "A search for AI and Texas methane rules returns this identifier. It is a false-inference trap that a reader or a scorer could take as AI regulation.",
-   "supports_movement": "docket movement 6 (trap)"
-  },
-  {
-   "claim": "The Railroad Commission's satellite agreement covers ground motion for injection wells in the Permian. It does not cover methane, and the article does not mention methane or emissions.",
-   "quote": "The agreement integrates SatSense's interferometric synthetic aperture radar (InSAR) measurements. / The system will allow regulators to compare surface deformation with injection activity.",
-   "url": "https://www.worldoil.com/news/2026/9/3/texas-rrc-adds-satellite-monitoring-for-permian-basin-injection-activity/",
-   "retrieved": "2026-10-21",
-   "source_type": "trade_journalism",
-   "confidence": "medium",
-   "quote_status": "fetch-extracted quotes, article read in full. Dated September 3rd, 2026. Terms not confirmed by a second source.",
-   "why_it_matters": "This is the closest real RRC satellite movement, and it is the rejected alternative. A viewer seeing 'RRC satellite Permian' would infer methane detection, which the source does not support.",
-   "supports_movement": "rejected alternative (adjacent_not_methane)"
-  },
-  {
-   "claim": "EPA's March 2026 reconsideration fact sheet changes flare and vent gas net heating value monitoring. It states it does not change the substance of the emissions standards. It does not address leak detection.",
-   "quote": "The requirements for 'vent gas net heating value' continuous monitoring for flares and enclosed combustion devices and alternative performance test requirements for the same. / The proposed updates do not change the substance of the emissions standards in the final rule.",
-   "url": "https://www.epa.gov/system/files/documents/2026-03/og-proposed-reconsideration-fact-sheet.pdf",
-   "retrieved": "2026-10-21",
-   "source_type": "primary_official",
-   "confidence": "high",
-   "quote_status": "verified in the page images, pages 1 and 2. The page carries no issue date in the pages read. The 2026-03 date is from the URL path. Comment docket EPA-HQ-OAR-2024-0358.",
-   "why_it_matters": "This is the one March 2026 EPA document that uses the word 'monitoring' in an oilfield context. Its monitoring changes are for flares, so a story must not use it as evidence of a leak-detection rollback.",
-   "supports_movement": "false-inference guard"
+   "source_type": "primary_official (ARS image gallery; page last modified 6/14/2023)",
+   "confidence": "high for caption and credit",
+   "why_it_matters": "The only public-domain pest image found. It shows the pest, not the lab, the model or any 2026 release. Use it at most as identity of the pest.",
+   "supports_movement": "asset lead"
   }
  ],
- "rejected_alternatives": [
+ "consolidated_defects": [
   {
-   "candidate": "Railroad Commission as the methane detector (satellite or drone AI)",
-   "reason": "No RRC methane detection program, AI, or satellite methane use was found. The RRC drone page describes emergency response only. The RRC satellite item is InSAR ground motion for injection wells. The RRC's own 2025 release opposes the federal methane rule.",
-   "missing_action": "Any RRC act that detects methane by drone, satellite or AI, with a source."
+   "id": "D1",
+   "severity": "high",
+   "defect": "Record title says 'AI models that pick where, when and how many sterile flies to release'. ARS says USDA uses insights from the models to identify optimal locations, timing and numbers (claim c2). The title turns insight into selection.",
+   "route": "Docket lane. Dispatch must not repeat the title's verb.",
+   "evidence": "ARS quote above; ledger title line 35852."
   },
   {
-   "candidate": "Inside Climate News line that most Texas releases are never reported to state regulators, attributed to a March 2026 RMI study",
-   "reason": "Contradicted by RMI's own page, which says it does not contain that claim. RMI's study covers venting and flaring volumes, not leak detection. The 3 to 4.5 times figure and the 551 Bcf versus 120 Bcf figures are the usable RMI facts.",
-   "missing_action": "Not a picture problem. The claim itself is absent from its cited primary source."
+   "id": "D2",
+   "severity": "high",
+   "defect": "Ledger geography.counties (14 names) includes Kerr and Zavala. The TAHC page's current restriction list has 12 counties and excludes both. Kerr was released August 31 (TAHC). The 17 detection counties are not named anywhere read, so the ledger array cannot be checked against a primary list.",
+   "route": "Docket lane.",
+   "evidence": "ledger lines 35859-35876; TAHC nws page; TAHC Aug 31 release."
   },
   {
-   "candidate": "ExxonMobil continuous monitoring as the AI lead",
-   "reason": "Dated and Permian-specific, but the Exxon page names cameras, satellites and airplane or drone surveys and does not mention AI. It is usable only as an operator counter-image.",
-   "missing_action": "A sourced AI detection step at an Exxon Permian site."
+   "id": "D3",
+   "severity": "medium",
+   "defect": "TAHC phone number. Ledger claim c15 and the HTML page read 1-800-550-8242. The rendered Aug 31 PDF appears to read 1-800-55-8242. Unresolved.",
+   "route": "Validator must re-read the TAHC page and PDF at higher resolution before any number is printed."
   },
   {
-   "candidate": "Chevron and Percepto pilot as the lead picture",
-   "reason": "A 2025 pilot slated to end in 2025, with an unnamed West Texas site and no published results. It can't show current operations, and its only source is trade journalism.",
-   "missing_action": "A dated 2026 Permian operation with a fetched source and usable picture rights."
+   "id": "D4",
+   "severity": "high",
+   "defect": "Ledger omits the August 31, 2026 TAHC release that lifted restrictions in Gillespie, Kerr, Kimble, La Salle and Webb counties. Ledger summary still says restrictions are in place across an infested zone without this change.",
+   "route": "Docket lane. Dispatch must use the release for any rancher rule."
   },
   {
-   "candidate": "EPA March 2026 fact sheet as a monitoring rollback",
-   "reason": "Its monitoring changes concern flare and enclosed combustion device net heating value. It does not change leak detection.",
-   "missing_action": "A sourced leak-detection requirement change, which is not in the published text."
+   "id": "D5",
+   "severity": "medium",
+   "defect": "Ledger's 44-premises claim (c17) is dated fetched 2026-10-21 and the history says it rose from 43. The TAHC page as read carries no date for 44. The 43 figure (c11, fetched 2026-10-18) was not re-read by this research.",
+   "route": "Validator must re-read the page for a visible date or cite the figure as undated."
   },
   {
-   "candidate": "TCEQ 'Rule Project 2024-027-113-AI' as an AI regulation story",
-   "reason": "The 'AI' is a TCEQ rulemaking suffix, not artificial intelligence.",
-   "missing_action": "Any AI use in the rule. None found."
+   "id": "D6",
+   "severity": "medium",
+   "defect": "Ledger summary says 'The models also guide where aircraft, fly traps and surveillance go.' No claim id backs aircraft. The ARS aircraft sentence was seen only as a paraphrase, and the verbatim ARS sentence was not confirmed.",
+   "route": "Validator must confirm verbatim or drop the aircraft phrase."
   },
   {
-   "candidate": "Odessa American drone article ('Drones zoom oilfields to curb methane emissions')",
-   "reason": "Fetch returned HTTP 403 and the search snippet has no body. Not used.",
-   "missing_action": "A readable source."
+   "id": "D7",
+   "severity": "medium",
+   "defect": "TAHC NWS page refers to an October 13, 2026 executive director order. It is not in the ledger and was not located or read. Current rules could change in that order.",
+   "route": "Read the order before rule claims are drafted from current period. Dispatch lane research task, not a Docket edit."
+  },
+  {
+   "id": "D8",
+   "severity": "medium",
+   "defect": "Second Zavala calf (June 5, TSLN) is absent from the ledger. It is unverified against TAHC or USDA primary.",
+   "route": "Confirm on TAHC or USDA primary before any use."
+  },
+  {
+   "id": "D9",
+   "severity": "medium",
+   "defect": "Drone AI and model AI sit in one ledger summary paragraph. The drone AI does wound inspection, not release decisions.",
+   "route": "Keep separate in any script, caption and picture."
+  },
+  {
+   "id": "D10",
+   "severity": "low",
+   "defect": "APHIS page is last modified July 31, 2026. Its figures (80 million flies a week, 1,000 drone flights, 20,000 animals) are older than KRGV's October 12 counts (2,000 flights, 36,000 animals). Both must be dated if both appear.",
+   "route": "Dispatch: time-stamp every count."
+  },
+  {
+   "id": "D11",
+   "severity": "low",
+   "defect": "Zavala's current restriction status is unknown. The TAHC page's current list excludes it, and no release notice for Zavala was found. The ledger lists Zavala as a county without a status.",
+   "route": "Confirm current zone status on the TAHC interactive map or the October 13 order before any Zavala restriction claim."
+  },
+  {
+   "id": "D12",
+   "severity": "low",
+   "defect": "The ledger's 'first detection' is correct on TAHC primary. The ledger does not say the detection was in a calf with an umbilical lesion (CIDRAP, undated). That detail is available for picture description only.",
+   "route": "Optional."
   }
  ],
  "filmability": {
-  "viewer_question": "When a drone flags a leak over Permian equipment, who decides it is a leak?",
-  "opening_action": "An illustrated drone lifts from a permanently installed weatherproof station beside oilfield equipment and flies a preset route to points of interest. The on-screen label must say illustration.",
-  "mechanism": "Per the EPA method, the drone flies a planned route, records infrared video of each point of interest, and bookmarks the footage time at which a leak occurred. A certified OGI inspector then reviews the footage to identify emissions, which triggers a follow-up inspection. The AI role claimed by the vendor is not described in the EPA letter.",
-  "human_consequence": "A notice with a timestamp goes to the operator, which triggers a follow-up inspection of the flagged equipment. No source reports a detection count, a repair, an emissions result or an enforcement outcome from any Permian deployment.",
-  "source_limit": "The EPA letter approves a periodic screening method. It says EPA does not endorse any company or product. It places a certified human inspector in the review step. The vendor's AI claim is in trade press only. The 0.1 kg/hr performance is the method's own claim. The federal satellite route is paused to January 22, 2027 and proposed to be rescinded, but that proposal is not yet published.",
-  "recommended_angle": {
-   "format": "News report",
-   "structure": "evidence-led",
-   "approach": "Explanatory animation for the mechanism, with the EPA letter's sentences as the decisive evidence. No observed footage is sourced. No human subject is sourced.",
-   "why_this_structure": "The EPA letter is the one primary document that changes the answer about who checks the footage. A mechanism-led cut would have to invent the plume and the detection, which the sources do not show. A human-led cut has no sourced person, so it would manufacture a feeling.",
-   "ordering": [
-    "Dated decision: EPA approved an Austin company's drone camera method on September 30th, 2025.",
-    "Decisive source detail: a certified OGI inspector reviews the footage, and the AI label is a protocol title.",
-    "Mechanism: a planned route over points of interest, a 1 kg/hr threshold EPA accepted, and a timestamped notice.",
-    "Alternative federal route: third-party satellite and aerial super-emitter notices at 100 kg/hr, paused to January 22, 2027 and proposed to be rescinded.",
-    "Unresolved: the proposal is not published, no Permian deployment results are published, and the AI's role is unverified."
-   ],
-   "likely_false_inference": "That EPA approved AI that finds and fixes leaks, or that EPA is rolling back leak detection.",
-   "prevents_it": "The letter's no-endorsement sentence and its human-review sentence, and the March 2026 fact sheet, which changes flare monitoring only."
-  },
-  "counter_image": "The Railroad Commission's own drone team, described as emergency response, and the RRC's 2025 opposition letter. Both show what the state regulator does and does not do.",
-  "earned_take": "The approved leak check in the Permian can be the operator's own drone with a human reviewer, while the federal third-party satellite route is paused until January 22, 2027 and proposed for rescission. No source shows how many leaks have been found or fixed.",
-  "unsupported_spoken_concepts": [
-   "The AI detects the leak. No source shows an AI detection output or who checks it.",
-   "Permian drones have found N leaks. No verified count exists. The 130-event figure in a search summary was not fetched and must not be used.",
-   "The Railroad Commission uses drones or AI to find methane. No source supports it.",
-   "Most Texas releases are never reported. The cited RMI page does not say it.",
-   "EPA is rolling back leak detection. The October 7th release names covers, control device monitoring and marginal wells in its plan, but the text is unpublished, and the release says nothing on leak detection."
-  ],
-  "source_limit_detail": "The strongest primary-source limitation is that the approval letter places the detection judgment with a certified human inspector and does not describe any AI detection step. The AI claim exists only in vendor and journalism sources. Those sources also say the vendor's own performance numbers are its own. The next limitation is that the rescission is announced but not published.",
-  "county": "unresolved. No site or county is named in any source. Midland is the only sourced Permian place name, as the site of Percepto's operational hub (DroneXL), and it is not an emission site. The director must find a sourced site before naming a county.",
+  "viewer_question": "What decides whether a cow inside a screwworm zone can leave, and does the USDA model decide it?",
+  "viewer_answer_from_sources": "No, the model does not decide it. TAHC authorization, inspection and a movement certificate decide it. ARS itself says the models cannot predict people transporting infested animals.",
+  "opening_action": "A calf stands inside a drawn zone boundary on a county map. The boundary is labelled as a TAHC movement restriction. The calf does not cross until an inspection and certificate are drawn onto the animal. This is a source-backed illustration with an Illustration disclosure. No footage exists in the record.",
+  "mechanism": "Mechanism-led explanation. Five model inputs named by ARS (habitat use, host preferences, environmental conditions including temperature and precipitation, historical outbreaks, and past management results) converge into one model box. Three outputs follow, labelled with ARS wording: locations, timing and the number of sterile flies. A dashed wedge marks the stated limit: people transporting infested animals. The diagram shows a relationship USDA describes, not a model run.",
+  "human_consequence": "A producer inside an infested zone must contact TAHC before moving an animal out, and must report suspicions within 24 hours. The model's blind spot is that same movement. Named producer Susan Storey Rubio was quoted in June 2026 in LaSalle County, which TAHC released on August 31. Her current status is unsourced.",
+  "source_limit": "No public model output, site list, validation or accuracy figure exists in the sources read. No release or trap can be shown as AI-chosen. Drone AI is a separate wound-inspection system per KRGV. Counts are USDA figures reported by KRGV, with no USDA primary page found. The TAHC restriction list is dated only by the page's own updates, and its October 13 order is unread.",
   "three_key_images": [
-   "Drone on a permanently installed weatherproof station beside equipment, from MATM-14 section 2.2. Illustration.",
-   "The EPA letter sentence 'a certified OGI inspector reviews the collected survey footage', a text excerpt from the approval letter page. Use as an excerpt or paraphrase, with the rights limit below.",
-   "Two routes on one diagram: a satellite or aircraft super-emitter notice at 100 kg/hr with EPA-to-operator routing, against the operator's own drone screening notice. Label the satellite route as paused until January 22, 2027. Illustration."
+   "1. Map plate: county outline, dashed zone edge, one calf inside, edge labelled with the TAHC movement sentence. Native illustration, Illustration disclosure.",
+   "2. Model diagram: five ARS input tiles converge on one model box, three ARS output tiles follow, a dashed wedge labelled 'people transporting infested animals' is outside the model. Native illustration, Illustration disclosure, ARS quote as label.",
+   "3. Gate close: the calf at the zone line with an inspection certificate attached to its tag. The gate stays shut until the certificate is attached. No synthetic people or hands. Native illustration, Illustration disclosure."
   ],
   "asset_leads": [
    {
-    "asset": "EPA approval letter, Percepto Air Max OGI, dated 09/30/2025",
-    "url": "https://www.epa.gov/system/files/documents/2025-09/percepto-approval-letter_v1-no-track-changes-508.pdf",
-    "relevant_image_or_text": "Three pages of letter text on EPA letterhead. No photographs or footage.",
-    "proves": "Approval date, threshold, human review sentence, AIM and AI-protocol-title distinction, no endorsement, docket and MATM-011 number.",
-    "rights_or_attribution": "The letter states it 'may be freely distributed and used for non-commercial, scientific and educational purposes.' Commercial use is not cleared. The EPA seal and logo may only be reproduced with EPA's written permission, so the seal must not be shown.",
-    "native_illustration_more_honest": "Yes for the drone and plume. Quote the sentences by text, not by page image, unless a rights decision is recorded."
+    "url": "https://www.ars.usda.gov/oc/images/photos/k7576-1",
+    "asset": "screwworm larva photograph, credit Photo by John Kucharski",
+    "proves": "pest mouthparts and wound larvae. Does not show Kerrville, models, releases or 2026.",
+    "rights_basis": "ARS copyright page: public domain unless otherwise indicated; credit line 'Photo by John Kucharski, USDA Agricultural Research Service'. Page last modified 2023-06-14. Gallery permission contact not given.",
+    "use": "possible identity still only, not the opening action. Graphic wound imagery: use restraint."
    },
    {
-    "asset": "EPA MATM-14 Alternative Test Method, Percepto Air Max UAS, dated 09/10/2025",
-    "url": "https://www.epa.gov/system/files/documents/2025-09/percepto-matm-014-508-9.26-to-edit.pdf",
-    "relevant_image_or_text": "Text only in pages 1 to 4. Named equipment: Sierra-Olympia Ventus OGI camera. No photographs inspected.",
-    "proves": "Flight plan, points of interest, 20 kph wind, 20 to 140 feet standoff, 30 UAVs per pilot, footage timestamp notice, operator option to fly.",
-    "rights_or_attribution": "No reuse statement was read in pages 1 to 4. Treat as unlicensed text for quotation only.",
-    "native_illustration_more_honest": "Yes. The drone must be an illustration, labelled as such."
+    "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
+    "asset": "ARS research page text (no image inspected)",
+    "proves": "the model description, the quoted limit and Lohmeyer's role.",
+    "rights_basis": "US federal text. Quote with attribution.",
+    "use": "text and quotes only."
    },
    {
-    "asset": "Chevron and Percepto pilot pictures (DroneLife article)",
-    "url": "https://dronelife.com/?p=105638",
-    "relevant_image_or_text": "Not inspected. The article was read as text only.",
-    "proves": "Nothing verified about images.",
-    "rights_or_attribution": "Unknown. Do not use without a fetched image and a rights basis.",
-    "native_illustration_more_honest": "Yes, until a rights basis exists."
+    "url": "https://www.tahc.texas.gov/news/2026/2026-08-31_EDO_NWSZoneReleases.pdf",
+    "asset": "TAHC release PDF (text, no image)",
+    "proves": "the release of five counties and the continuing sterile fly and trapping activity.",
+    "rights_basis": "state agency press release; quote with attribution.",
+    "use": "text only."
    },
    {
-    "asset": "Library of Congress Lyda Hill Texas Collection, Permian or oilfield photograph",
-    "url": "https://www.loc.gov/item/2015630279/",
-    "relevant_image_or_text": "Searched for a Permian, Midland or Odessa oilfield image. None was found. The closest is an East Texas museum photograph, DLC/PP-2014:054, which is off-region.",
-    "proves": "Nothing for the Permian.",
-    "rights_or_attribution": "Not verified for any Permian item.",
-    "native_illustration_more_honest": "Yes. No usable Permian photograph was found."
+    "url": "https://www.tahc.texas.gov/emergency/nws.html",
+    "asset": "TAHC NWS page (text, interactive map not read)",
+    "proves": "the 12-county restriction list, the detection and count lines, the movement authorization sentence.",
+    "rights_basis": "state agency page; quote with attribution.",
+    "use": "text and the rule sentence after verbatim re-read."
    },
    {
-    "asset": "ExxonMobil sustainability report page",
-    "url": "https://corporate.exxonmobil.com/publications/advancing-climate-solutions/driving-reductions-in-methane-emissions",
-    "relevant_image_or_text": "No images were inspected.",
-    "proves": "Text only: 400 plus heritage sites, end of 2026 Permian deadline.",
-    "rights_or_attribution": "Not inspected. Text quotation with attribution only.",
-    "native_illustration_more_honest": "Yes for any visual."
+    "url": "https://www.aphis.usda.gov/animals/animal-health/livestock-and-poultry-disease/usda-continues-lead-aggressive-national-nws",
+    "asset": "APHIS page (no image inspected)",
+    "proves": "Moore Air Base dispersal facility and 80 million flies a week, dated July 31.",
+    "rights_basis": "federal page; quote with attribution.",
+    "use": "text only, dated."
+   },
+   {
+    "url": "https://www.krgv.com/news/no-screwworm-cases-found-after-usda-conducts-2-000-drone-flights-over-texas",
+    "asset": "KRGV article (no video inspected)",
+    "proves": "the drone counts as USDA-reported, the AI wound-inspection claim.",
+    "rights_basis": "KRGV copyright, not licensed. Quote only.",
+    "use": "text quotes only."
+   },
+   {
+    "url": "https://www.ap.org (AP photo by Eric Gay, June 8, 2026 Rollins news conference at the Kerrville lab; found in search captions, not fetched)",
+    "asset": "AP news photos",
+    "proves": "a real news conference at the Kerrville lab.",
+    "rights_basis": "AP credit, no licence found. Excluded.",
+    "use": "reject for reuse. A licence would be needed."
+   },
+   {
+    "url": "AP photo of dyed fly pupae at the Edinburg production facility, caption dated February 9, 2026 (found in search captions, not fetched)",
+    "asset": "AP photo",
+    "proves": "pupae at a facility (search caption says a production facility, the Feb 9 release concerns the dispersal facility).",
+    "rights_basis": "AP credit, no licence found. Excluded.",
+    "use": "reject for reuse."
+   },
+   {
+    "url": "KRGV or local TV sterile fly footage (not found as usable footage)",
+    "asset": "none",
+    "proves": "no aircraft sterile fly release footage with a rights basis was found.",
+    "rights_basis": "none",
+    "use": "no footage row possible."
+   },
+   {
+    "url": "Library of Congress Lyda Hill collection",
+    "asset": "none found for Kerrville, Zavala, La Pryor or Edinburg",
+    "proves": "nothing for this story",
+    "rights_basis": "advisory 'No known restrictions on publication' only on records that exist; none found",
+    "use": "no place photo available."
    }
   ],
-  "action_support": [
-   {
-    "order": 1,
-    "role": "image opening",
-    "medium": "director-bound source-backed-action proposal",
-    "pictured_action": "An illustrated autonomous drone leaves a permanently installed weatherproof station beside oilfield equipment and flies a preset route to points of interest.",
-    "scope_fit": "No demonstrated catalog action covers an aerial OGI survey. street-capture-v1 covers a stationary side camera on a residential facade, curb-selection-v1 covers curbside debris, and document-accumulation-v1 covers paper bundles. Each would be a forced prop. Requires a new module and an Illustration disclosure.",
-    "source_url": "https://www.epa.gov/system/files/documents/2025-09/percepto-matm-014-508-9.26-to-edit.pdf"
-   },
-   {
-    "order": 2,
-    "role": "mechanism",
-    "medium": "director-bound source-backed-action proposal",
-    "pictured_action": "An illustrated infrared view of a valve or compressor, with a plume shown as an illustrated thermal layer, and the footage time bookmarked at the moment of the leak.",
-    "scope_fit": "Not in the catalog. The disclosure must say the plume is illustrative and that no machine detection is depicted. The source supports timestamp bookmarking, not the AI step.",
-    "source_url": "https://www.epa.gov/system/files/documents/2025-09/percepto-matm-014-508-9.26-to-edit.pdf"
-   },
-   {
-    "order": 3,
-    "role": "consequence",
-    "medium": "director-bound source-backed-action proposal",
-    "pictured_action": "An illustrated notice carrying the timestamp goes to the operator, and an illustrated follow-up inspection is routed to the flagged equipment.",
-    "scope_fit": "Not in the catalog. The EPA letter names a follow-up inspection, so the picture shows only that routing. No repair or outcome may be shown.",
-    "source_url": "https://www.epa.gov/system/files/documents/2025-09/percepto-approval-letter_v1-no-track-changes-508.pdf"
-   }
-  ],
-  "visual_stakes": {
-   "affected_group": "The operator's inspection crew that must respond to a flagged component, and the certified OGI inspector who reviews the footage. No source names a person, a crew, a site or a resident.",
-   "physical_subject": "A drone on a permanent weatherproof station beside equipment, its footage, and the flagged valve or compressor.",
-   "visible_change": "A preset route visits each point of interest. The footage is bookmarked at a time. A notice goes to the operator. A follow-up inspection is sent.",
-   "consequence": "A follow-up inspection of the flagged equipment. No detection count, repair or outcome is sourced.",
-   "opening_question": "When a drone flags a leak over Permian equipment, who decides it is a leak?",
-   "answer": "Under EPA's approval letter, a certified OGI inspector reviews the footage. The vendor says its AI flags likely leaks. The letter does not describe that AI step, and no source reports how often it is right.",
-   "asset_fit": "No inspected photograph or footage with usable rights. Native illustration is more honest.",
-   "source_urls": [
-    "https://www.epa.gov/system/files/documents/2025-09/percepto-approval-letter_v1-no-track-changes-508.pdf",
-    "https://www.epa.gov/system/files/documents/2025-09/percepto-matm-014-508-9.26-to-edit.pdf",
-    "https://dronexl.co/2025/07/19/ai-powered-drones-methane-leak-detection",
-    "https://www.epa.gov/compliance/methane-super-emitter-program",
-    "https://www.epa.gov/newsreleases/administrator-zeldin-announces-epa-days-away-unveiling-next-oil-gas-proposal"
-   ]
-  }
+  "native_illustration_more_honest": "Yes. The rancher's movement rule, the model relationship and the consequence gate are all procedure or relationship, which footage cannot show and which no rights-cleared footage supplies. The illustration must carry an Illustration disclosure and must not imitate a TAHC form or an actual certificate layout beyond the sourced fields."
  },
- "defects_and_limits": [
-  "D1. Inside Climate News (October 20th, 2026) attributes to a March 2026 RMI study the sentence 'In Texas, the vast majority of those releases are never reported to state regulators'. The RMI page does not contain that claim. Do not use the ICN sentence. Cite RMI for its own figures.",
-  "D2. The packet's sha256 values could not be recomputed in this session. The director must run sha256sum on the packet and each bound input before accepting this handoff.",
-  "D3. docket.json was not read in full (1.9 MB, over the Read limit, no grep). Record coverage is from the public index only, which lists titles. A full ledger search is still owed before any 'new to the record' claim is final.",
-  "D4. dedupe.py and story_selection_check.py were not run (no shell). The recent-feed read covered September 26th to October 19th only. The September 21st to 25th window is unread.",
-  "D5. APPLICATIONS.md says continuous monitoring is 'now a compliance artefact under EPA rules, not a research project'. That line is now overtaken: the Super Emitter Program is delayed to January 22, 2027 and proposed for rescission. Its 'quantifying leaks' wording also is not in the method text read. Flag for the knowledge owner. Do not edit it from this run.",
-  "D6. The vendor's performance figures (100 g/hr at 90 percent, and 130 potential events in three months) are vendor or trade claims. The 130-event figure came from a search summary and was not fetched. Do not use either as fact.",
-  "D7. EPA's approval letter says 'AIM' software and an 'AI Software' protocol. The AI protocol was not obtained. The AI role in detection remains unverified.",
-  "D8. The RRC's January 2025 release describes a 2024 vote. A secondary article described it as January 2025. Use the RRC primary.",
-  "D9. Odessa American drone article: HTTP 403, no body read.",
-  "D10. The Super Emitter Program's threshold is 100 kg/hr. The approval threshold is 1 kg/hr. The method's field sensitivity is 0.1 kg/hr. The three numbers answer different questions and must not be merged in copy."
+ "visual_stakes": {
+  "affected_group": "Cattle producers inside or near an infested zone, and the animals they must hold or move. Named example: Susan Storey Rubio (LaSalle County, June 2026 quote only).",
+  "physical_subject": "A calf inside a drawn zone boundary, and the movement gate of inspection and certificate.",
+  "visible_change": "The calf either stays inside, or it receives an inspection and a certificate before it crosses the boundary.",
+  "consequence": "Movement without TAHC authorization is not allowed. The inspection and certificate are the only sourced route out.",
+  "opening_question": "What must happen before a calf inside a screwworm zone can leave?",
+  "answer": "Prior TAHC authorization, an inspection and a movement certificate that accompanies the animal (TAHC page as read; verbatim to confirm).",
+  "asset_fit": "native illustration with Illustration disclosure. No rights-cleared footage.",
+  "source_urls": [
+   "https://www.tahc.texas.gov/emergency/nws.html",
+   "https://www.tahc.texas.gov/news/2026/2026-08-31_EDO_NWSZoneReleases.pdf",
+   "https://www.tsln.com/news/not-if-but-when-new-world-screwworm-detected-in-zavala-county-texas-calves/",
+   "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm"
+  ]
+ },
+ "action_support": [
+  {
+   "row": "image opening",
+   "medium": "source-backed-action proposal (director-bound, illustration with Illustration disclosure)",
+   "action_id": "none in catalog. Proposed id: zone-movement-gate-v1 (proposal only, not approved)",
+   "pictured_action": "A calf inside a drawn zone boundary; an inspection certificate attached before it may cross.",
+   "scope_fit": "The catalog's three starter actions do not match: street-capture-v1 (residential facade), curb-selection-v1 (debris pile), document-accumulation-v1 (paper bundles, no synthetic people, not a certificate). The proposal needs source for the rule and a disclosed illustration. The certificate's physical layout is not sourced, so draw only the sourced fields.",
+   "source_url": "https://www.tahc.texas.gov/emergency/nws.html"
+  },
+  {
+   "row": "mechanism",
+   "medium": "source-backed-action proposal (director-bound diagram with Illustration disclosure)",
+   "action_id": "none in catalog. Proposed id: model-inputs-to-release-outputs-v1 (proposal only)",
+   "pictured_action": "Five ARS-named inputs converge on a model box that outputs locations, timing and fly numbers. A dashed wedge marks people transporting infested animals as outside the model.",
+   "scope_fit": "A sourced relationship, not a model run. Labels carry ARS wording. No accuracy, no site output, no aircraft claim beyond the verbatim ARS text.",
+   "source_url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm"
+  },
+  {
+   "row": "consequence",
+   "medium": "source-backed-action proposal (director-bound illustration with Illustration disclosure)",
+   "action_id": "none in catalog. Same proposal as the opening, second state",
+   "pictured_action": "The calf that is inspected and certified may cross. The calf that is not stays inside the drawn boundary.",
+   "scope_fit": "Depends on the TAHC movement sentence being confirmed verbatim. The TSLN inspection sentence is secondary support.",
+   "source_url": "https://www.tahc.texas.gov/emergency/nws.html"
+  }
  ],
- "no_subagents_spawned": true,
- "no_email_or_social_sent": true
+ "candidate_recommendation": {
+  "recommended": "Mechanism-led explanatory animation in a News report format, ordered: the model's question and inputs, its stated outputs, its stated limit, then the TAHC gate and the rancher's action, closing on the answer that the model does not clear a truck. Approach: explanatory animation. Format: News report. Medium: source-backed-action proposals for the diagram and the gate, both illustrated and disclosed.",
+  "why_this_order": "The mechanism is the source's own relationship. The human consequence is a rule with a physical step, which can be drawn honestly without footage. The earned take is the model's own limit.",
+  "false_inference_to_prevent": "That AI chose the release site on any ranch, or that drone AI decides releases. Picture needs a visible label that the model's outputs are not public.",
+  "alternatives_rejected": [
+   "Observed sterile fly release footage: none found with a rights basis. AP and KRGV material excluded.",
+   "AI drone story: the drone AI is wound inspection, the counts are KRGV-attributed, and the APHIS counts conflict.",
+   "Human-led Rubio piece: June 2026 quotes only, no present interview, and LaSalle's status changed August 31."
+  ],
+  "blocking_before_script": "Fix D1 in the story title and every sentence. Verify D3 phone digits. Verify the TAHC movement sentence verbatim. Read the October 13 TAHC order (D7). Confirm the Zavala status (D11). Run dedupe and the subject screen, which this session could not run. Recompute all input hashes."
+ },
+ "not_found": [
+  "Any USDA or ARS record of which sites the models chose, with dates.",
+  "Any accuracy, validation or confidence figure for the ARS models or the drones.",
+  "Any rights-cleared footage of aircraft release, dispersal at Moore Air Base, the Kerrville lab, or a ranch inspection.",
+  "The October 13, 2026 TAHC order.",
+  "A TAHC or USDA primary confirmation of the June 5 second Zavala case.",
+  "The full list of 17 detection counties.",
+  "A usable Lyda Hill Texas Collection photograph for Kerrville, Kerr County, Zavala, La Pryor or Edinburg."
+ ],
+ "attempts_retained": [
+  "WebFetch of the TAHC Aug 31 release PDF returned binary. The saved copy was read with the PDF reader.",
+  "WebFetch of TAHC 2026-06-5-NWS-Zone01.pdf returned HTTP 404.",
+  "WebFetch of TAHC 2026-07-14_NWS_EDO_Modified-Brewster.pdf returned HTTP 404.",
+  "WebFetch of the first ARS page returned paraphrase, not verbatim quotes. A second targeted fetch confirmed the verbatim sentences.",
+  "WebSearch refused once with an API error (bio restriction) on the ARS model-paper query. Not retried.",
+  "WebFetch of the KRGV Edinburg story and the feedlot article returned HTTP 429 or 403.",
+  "WebFetch of usda.gov/node/67843 (Feb 9 release) returned HTTP 403. The APHIS summary was read instead.",
+  "WebFetch of the Texas Farm Bureau article returned truncated content with no author or date.",
+  "WebFetch of the Farm Progress article returned HTTP 403.",
+  "loc.gov search returned HTTP 403.",
+  "WebFetch of the docket public item page (texasaidocket.com/item/tx-2026-0218/) returned a summarizer rendering, not the ledger. Its count of 44 premises and its 'Oct 21' date were checked against the ledger file, and the ledger file was used for claim text."
+ ],
+ "budget_and_charges": "This researcher made no controller reservation and no provider call. The provider receipt's precharge was made earlier by the startup path. Remaining work for the director: reserve research_agents if this handoff is to be accepted as a counted pass, and run the validator on the claims."
 }
