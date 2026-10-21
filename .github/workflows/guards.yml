@@ -31,6 +31,12 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+      - name: Finish Git maintenance before fixture cleanup
+        # Temporary repositories must have no detached writer when a test removes them.
+        # Keep maintenance enabled and synchronous on this disposable runner only.
+        run: |
+          git config --global gc.autoDetach false
+          git config --global maintenance.autoDetach false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
