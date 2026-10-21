@@ -41,6 +41,14 @@
       "note": "review 4 of 5 silent exact-phone comparison of openings a and b",
       "resource": "storyboard_critics",
       "to": 4
+    },
+    {
+      "at": "2026-10-21T19:53:23.646467Z",
+      "ceiling": 12,
+      "from": 2,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 3
     }
   ],
   "events": [
@@ -666,6 +674,27 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "reported_tokens": 2540,
       "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-21T19:53:23.646489Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 3,
+      "resource": "tts_calls",
+      "was": 2
+    },
+    {
+      "at": "2026-10-21T19:53:23.646938Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "publication_epoch": "93458148392c477895e7769812dfda6e",
+      "publication_owner_sha256": "c42ecee61b21d6627ea7eace8f5176c8a4a000d9f5a9d174392b34268af760f4",
+      "resources": {
+        "tts_calls": 1
+      }
     }
   ],
   "limits": {
@@ -681,7 +710,7 @@
     "research_agents": 3,
     "scorer_calls": 3,
     "storyboard_critics": 4,
-    "tts_calls": 2,
+    "tts_calls": 3,
     "validator_agents": 4,
     "voice_directors": 1
   },
@@ -689,7 +718,7 @@
   "phase": "audio",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "55e4fedb8672f6fc95b903c2f74c61e43e0402f90a69b6d64b83559cc063e054",
+    "original_private_state_sha256": "f48077f703579bd6b0b05fe8634892768e6fec33ab1e170b409fc55e363c26c2",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -717,7 +746,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-21T19:45:34.262168Z",
+  "updated_at": "2026-10-21T19:53:23.646945Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -731,7 +760,7 @@
     "research_agents": 3,
     "scorer_calls": 0,
     "storyboard_critics": 4,
-    "tts_calls": 2,
+    "tts_calls": 3,
     "validator_agents": 4,
     "voice_directors": 1
   }
