@@ -25,3 +25,11 @@
 - board_retime needed exclusive shots per clause; storyboard.json shots re-assigned (A frozen file untouched), s3-shot-4 added, event clause fractions re-set (events 1.15 s max, s3-event-3 straddles n3c/n3d, s9-event-3 late), rewards s3-event-3 .1 s9-event-3 .1. Retime uses --lead 0.16 (scene s3 ceiling). Stable: 0 scenes moved.
 - picture_precheck (out/dispatch/picture-precheck-final latest) 15 of 15 pass.
 - NEXT: final timed phone preview (capture_guard authorize --prepare + preflight_animatic), phone-packet --sequence-current, review 5 of 5, then native etc.
+
+## BLOCKER (context 3, 2026-10-21 ~20:50 UTC)
+- preflight_animatic refused the final timed phone preview: "story changed since continuity approval ... the independent critique belongs to a different creative plan".
+- Cause (my authoring defect in frozen plan A, found only at retime): A's film_direction shots carry overlapping narration_ids (e.g. [n1a,n1b]) and every visual event spans clause_fraction 0..1 (windows up to 4.2 s, over the documentary 1.2 s ceiling). modern_film.compile_narration requires one exclusive shot per clause, and documentary_check rejects the long windows, so A can't be retimed to the measured voice. Both fields are inside critic_gate.concept_digest and daily_production.story_digest, so the only retimeable board has a new digest that no review covers.
+- Corrected board is in out/dispatch/storyboard.json (exclusive shots, s3-shot-4, event windows <=1.15 s, retimed with --lead 0.16; picture_precheck 15 of 15 pass; vo_align clause boundaries pass). Pre-correction boards retained in out/dispatch/attempt1/.
+- Reviews used 4 of 5. The fifth is reserved for the exact timed phone film, but that film can't be rendered without a critique matching the new digest. A code review of the new plan would be the fifth and leave none for the phone film; a sixth is refused by config/review_limit.json.
+- No hand-edited derived times, no tooling change, no forged digest. Nothing shipped, no draft, no PR.
+- Owner decision needed (any one): (a) allow one extra review to approve the corrected plan; (b) accept a tooling change so the approved plan A's digest survives retime (not safe, events would still fail documentary_check); (c) abandon this edition and open a fresh story under a new ledger.
