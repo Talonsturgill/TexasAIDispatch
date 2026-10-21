@@ -1,0 +1,38 @@
+{
+ "date": "2026-10-21",
+ "source": "Round 2 independent validator re-fetch on 2026-10-21. Covers the EPA Percepto approval letter PDF (rendered pages 1, 2 and 5 re-read), DroneLife of March 14th, 2025, the EPA Methane Super Emitter Program page, the EPA release of October 7th, 2026 and the EPA MATM-14 Percepto method PDF (page 15, section 12.1). Checked against current claims c1 to c16 and the current eight-sentence vo_script and vo_bindings (s1 to s8). Subject is the Percepto Air Max optical gas imaging drone system.",
+ "result": "REVISE",
+ "result_note": "Every claim verified. PASS is withheld only for s1 place framing, the s1 binding to c2 and the s3 implied identity. validation_check.py will refuse REVISE, and that is the correct gate until R2-E1 to R2-E4 are applied and re-reviewed.",
+ "verified_claim_ids": [
+  "c1",
+  "c2",
+  "c3",
+  "c4",
+  "c5",
+  "c6",
+  "c7",
+  "c8",
+  "c9",
+  "c10",
+  "c11",
+  "c12",
+  "c13",
+  "c14",
+  "c15",
+  "c16"
+ ],
+ "rejected": [
+  "s1 'from a company located in Austin, in the Permian Basin' reads as Austin being in the Permian Basin. That is false place framing.",
+  "s1 binds c2, an Air Max claim, to Chevron's pilot drones. No source says those drones are the Air Max.",
+  "s3 'the Air Max' is an unintroduced definite reference that implies the Chevron-tested drones are the Air Max. That is unsupported.",
+  "No claim id was rejected. All 16 quotes were found verbatim on fresh fetches."
+ ],
+ "required_edits_applied": [
+  "Round 1 edits E1 to E9 are confirmed applied in the current files. The c3 quote was extended. c11, c12, c13, c14, c15 and c16 were added. s2 keeps its attribution and qualifier. s3 and s7 numerals are now in claim quotes. The s8 closing line is limited to the letter. The selection's earned_take, why_today and counter_image are limited to sources.",
+  "Round 2 edits R2-E1 to R2-E4 are NOT applied. They are pending for the director and need a charged follow-up review."
+ ],
+ "reviewer_identity": "claude-opus-5-5 validator agent",
+ "claims_sha256": "5651a66fab94cbda51777580d786040c652c5eb3205be270362898b3739bd8b6",
+ "script_sha256": null,
+ "hash_status": "claims_sha256 is copied from the packet and not recomputed. script_sha256 is MISSING because the current eight-sentence vo_script.txt postdates the packet hash 7420ab01..., and this leaf can't compute a hash. The director must bind the actual current bytes."
+}
