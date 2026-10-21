@@ -102,7 +102,8 @@ def finishing_required(state):
     The effective ceiling is the controller's frozen envelope plus replayed owner
     grants, never the current config default. run_discipline verifies that ledger.
     """
-    if cap_reached(state):
+    from review_limit import finishing
+    if cap_reached(state) or finishing(state):
         return True
     p = policy()
     usage = state.get("usage") or {}
@@ -291,7 +292,13 @@ def review_allows(board, report, root=None, scope="phone", *, embedded=False):
     """
     root = Path(root or REPO / "out/dispatch")
     import modern_film
-    if modern_film.review_problems(board, report):
+    from review_limit import finishing
+    try:
+        state = read(root / 'run_state.json')
+        surface_cap = finishing(state) and str(state.get('run_id', ''))[:10] == board.get('date')
+    except (OSError, ValueError, TypeError):
+        surface_cap = False
+    if modern_film.review_problems(board, report, _scope=not surface_cap, _surface_deferred=surface_cap):
         return False
     if not eligible(board, root):
         return False
@@ -327,7 +334,7 @@ def review_allows(board, report, root=None, scope="phone", *, embedded=False):
             if report.get("reviewer_identity") and identity != report["reviewer_identity"]:
                 return False
         return not (assessment_problems(assessment, report, scope)
-                    or modern_film.assessment_problems(board, assessment))
+                    or modern_film.assessment_problems(board, assessment, _surface_deferred=surface_cap))
     except (OSError, ValueError, TypeError, KeyError):
         return False
 
@@ -338,6 +345,24 @@ def artistic_observation(board, report, criterion, root=None):
     if treatment_required(board) and criterion == "dominant_action":
         return False
     return criterion in {"dominant_action", "surface_finish", "closing_payoff"} and review_allows(board, report, root)
+
+
+def artistic_surface(board, report):
+    """Preserve surface findings when another correction would consume final review."""
+    from review_limit import finishing
+    try:
+        state = read(REPO / 'out/dispatch/run_state.json')
+        if not finishing(state) or str(state.get('run_id', ''))[:10] != board.get('date'):
+            return False
+    except (OSError, ValueError, TypeError):
+        return False
+    if review_allows(board, report):
+        return True
+    from independent_review import evidence_problems
+    scope = (report.get('bounded_release') or {}).get('scope')
+    return (scope in {'phone', 'av', 'panel'} and bool(report.get('provider_evidence'))
+            and not evidence_problems(report)
+            and review_allows(board, report, scope=scope, embedded=True))
 
 
 MOTION_ERRORS = (

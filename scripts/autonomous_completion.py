@@ -793,6 +793,10 @@ def grant_capacity(state_path, plan_path, policy_path=None):
     try:
         plan_text = Path(plan_path).read_text(encoding="utf-8")
         plan = json.loads(plan_text)
+        from completion_progress import admission_problems as progress_problems
+        progress_errors = progress_problems(state, plan)
+        if progress_errors:
+            return False, '; '.join(progress_errors)
         from repair_guard import failure_family_problems, RIGHTS_FAMILY
         errors = failure_family_problems(plan)
         if plan.get('failure_family') == RIGHTS_FAMILY:

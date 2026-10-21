@@ -436,7 +436,7 @@ def problems(board, repo=REPO):
     return sorted(set(errors))
 
 
-def review_problems(board, report, film_sha=None, *, _scope=True):
+def review_problems(board, report, film_sha=None, *, _scope=True, _surface_deferred=False):
     if not required(board):
         return []
     rows = report.get('modern_observations')
@@ -456,9 +456,16 @@ def review_problems(board, report, film_sha=None, *, _scope=True):
         if (item.get('pass') is not True or not finite(start) or not finite(end)
                 or not 0 <= start < end <= runtime + .1 or not prose(item.get('observed'))):
             admitted = False
+            if (key == 'finished_art' and _surface_deferred and item.get('pass') is False
+                    and finite(start) and finite(end) and 0 <= start < end <= runtime + .1
+                    and prose(item.get('observed'))):
+                admitted = True
             if _scope and key == 'finished_art':
                 from review_scope import admits
                 admitted = admits(board, report, expected)
+                if not admitted:
+                    from creative_release import artistic_surface
+                    admitted = artistic_surface(board, report)
             if not admitted:
                 errors.append('modern engagement or finish unproven: ' + key)
     if narration_required(board):
@@ -481,10 +488,13 @@ def review_problems(board, report, film_sha=None, *, _scope=True):
     return errors
 
 
-def assessment_problems(board, assessment):
+def assessment_problems(board, assessment, *, _surface_deferred=False):
     if not required(board):
         return []
-    if any(row.get('category') in policy()['nondeferrable_categories'] for row in assessment.get('defects', [])):
+    blocked = set(policy()['nondeferrable_categories'])
+    if _surface_deferred:
+        blocked.discard('surface_finish')
+    if any(row.get('category') in blocked for row in assessment.get('defects', [])):
         return ['modern film cannot defer pacing, performed motion, finish or the closing answer']
     return []
 
@@ -503,7 +513,8 @@ def review_instruction(board):
         if narration_required(board) else '')
     return (clause_instruction+'Watch the complete current film at normal speed before reading its rationale. '
             'Return modern_observations with film_sha256 and timed fields ' + keys +
-            ', each with pass, start_s, end_s and concrete observed. First_frame tests a readable '
+            ', each with pass, start_s, end_s and concrete observed. Keep these windows within '
+            'board.runtime_s (' + str(board.get('runtime_s')) + ' seconds), excluding separate music credits. First_frame tests a readable '
             'scroll-stop question or action; visual_progression requires successive new information, '
             'not scanning the same prop. Shot_variety requires visibly different useful framing. '
             'Performed_turn and closing_answer must occur in picture. Pace rejects long empty holds '
@@ -513,8 +524,10 @@ def review_instruction(board):
             'Finished_art must identify this edition\'s fresh hero and supporting art in the actual film, '
             'and reject generated assets that are unused, merely decorative or replaced by old library props. '
             'Do not reward a palette declaration, number of cuts, '
-            'technical gates or a director rationale. These current requirements cannot use artistic '
-            'deferral. Preserve actual failed observations and source limits. ')
+            'technical gates or a director rationale. Apply the bound owner hard-five completion '
+            'contract at its finishing boundary: only an independently classified surface_finish '
+            'defect can use its existing bounded route. Preserve actual failures; source, rights, '
+            'action, comprehension, pacing, closing action, native, audio and captions remain required. ')
 
 
 if __name__ == '__main__':

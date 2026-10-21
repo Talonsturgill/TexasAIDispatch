@@ -261,6 +261,21 @@ def inspection_problems(receipt, output, *, allow_bounded=False):
     return errors
 
 
+def owned_boards(root, state):
+    """Check edition and provisional-board identity before buying a capture."""
+    from run_controller import read_state
+    root = Path(root)
+    boards = [creative.read(root / f"opening-{key}.json") for key in ("a", "b")]
+    ledger = read_state(state)
+    if (not all(b.get("run_id", b.get("date")) == ledger["run_id"]
+                and b.get("date") == ledger["run_id"][:10] for b in boards)
+            or creative.read(root / "storyboard.json") not in boards):
+        raise ValueError("opening alternatives must belong to the current owned edition and provisional board; "
+                         "preserve the measured board, then restore its inspected provisional board "
+                         "before preparing the comparison")
+    return boards
+
+
 def build(root, state):
     root, state = Path(root).resolve(), Path(state).resolve()
     if state.parent != root:
@@ -275,10 +290,7 @@ def build(root, state):
     from story_selection_check import problems as selection_problems
     from engine_lint import check_files, LIB
     from documentary_check import check as documentary
-    boards = [creative.read(root / f"opening-{key}.json") for key in ("a", "b")]
-    ledger = read_state(state)
-    if not all(b.get("run_id", b.get("date")) == ledger["run_id"] and b.get("date") == ledger["run_id"][:10] for b in boards) or creative.read(root / "storyboard.json") not in boards:
-        raise ValueError("opening alternatives must belong to the current owned edition and provisional board")
+    boards = owned_boards(root, state)
     if not all(creative.required(b) for b in boards) or body(boards[0]) != body(boards[1]):
         raise ValueError("two alternatives must share dated facts, narration, timing and assets; legacy editions also share the visual body")
     if boards[0]["scenes"][0]["duration_s"] != boards[1]["scenes"][0]["duration_s"]:

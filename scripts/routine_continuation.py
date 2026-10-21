@@ -94,6 +94,8 @@ def arm(workspace, state_path):
     workspace = registered_workspace(workspace, state_path)
     state_path = location(workspace, state_path)
     state = read(state_path)
+    from publication_owner import require_owner
+    require_owner(state_path, state)
     if (state.get('mode') != 'production' or state.get('terminal_state') is not None
             or not re.fullmatch(r'\d{4}-\d{2}-\d{2}[\w-]*', state.get('run_id', ''))
             or state_path.parts[-3:] != ('out', 'dispatch', 'run_state.json')):
@@ -149,6 +151,24 @@ def closure_problems(state, state_path):
 
 def capacity_recovery_hint(state):
     """Name the existing recovery route without granting or reserving anything."""
+    from review_limit import finishing
+    if finishing(state):
+        return (' The owner hard limit is FIVE cumulative editorial reviews, including retries and pivots.'
+                ' Creative iteration is closed to protect final review and delivery. Finish any already'
+                ' admitted exact-cut review, keep the final timed phone check inside five, and freeze'
+                ' the strongest existing cut. Preserve original grades; use the genuine bounded'
+                ' surface-finish classification when eligible. Complete native, AV, the three separate'
+                ' scorers, permanent media, real phone playback, the verified unsent draft with music'
+                ' credits and durable archive. No new creative capacity, whole-scene replacement,'
+                ' renamed source pivot, sixth reviewer or owner permission question.')
+    from completion_progress import replacement_required
+    if replacement_required(state):
+        return (' The creative boundary is reached. Load knowledge/craft/COMPLETION_PROGRESS.md: '
+                'use the retained source-backed whole-scene replacement, with the original independent '
+                'retained_replacement decision before capacity or begin-repair. Retire the complete '
+                'failed renderer dependency, consolidate all defects, and preserve every charge and '
+                'quality gate. Do not rename the same staging, buy another cosmetic pivot or ask '
+                'the owner for an internal recovery choice. Continue the actual remaining shipment path.')
     usage = state.get('usage')
     used = usage.get('storyboard_critics') if isinstance(usage, dict) else None
     ceilings = [row.get('storyboard_critics') for row in
@@ -201,6 +221,15 @@ def decision(payload, workspace):
     if payload.get('hook_event_name') != 'Stop':
         return None
     workspace = Path(workspace).resolve()
+    from publication_owner import heartbeat_hook, waiting_reason
+    waiting = waiting_reason(payload, workspace)
+    if waiting:
+        return None  # An unowned duplicate observer ends; the actual publisher and its ledger continue.
+    ownership_error = None
+    try:
+        heartbeat_hook(payload, workspace)
+    except Exception:
+        ownership_error = 'publication ownership needs source-backed recovery before another paid attempt'
     marker = workspace / MARKER
     if not marker.is_file():
         # A harmless one-shot host probe never arms or completes a production ledger.
@@ -221,9 +250,18 @@ def decision(payload, workspace):
             raise ValueError('the armed production identity changed')
         problems = closure_problems(state, state_path)
         if not problems:
+            from publication_owner import enabled, release
+            if enabled():
+                release(state_path.parents[2], state_path, workspace, session=payload.get('session_id'))
             return None
-        reason = '; '.join(problems)
-    except (OSError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired):
+        reason = '; '.join(problems + ([ownership_error] if ownership_error else []))
+        if ownership_error is None:
+            from native_task_wait import eligible, retain
+            tasks = eligible(payload, state_path, state)
+            if tasks:
+                retain(state_path, tasks)
+                return None  # Native completion wakes this same unfinished owner; no success or release.
+    except (OSError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired, RuntimeError):
         reason = 'the selected production ledger or durable closure cannot yet be verified'
     running = [str(row.get('id')) for row in payload.get('background_tasks', [])
                if row.get('status') == 'running' and row.get('id')]
@@ -245,8 +283,9 @@ def response(payload, workspace, pause=None):
     reason = decision(payload, workspace)
     if reason is None:
         return None
+    from publication_owner import waiting_reason
     if (payload.get('stop_hook_active') is True
-            and (Path(workspace) / MARKER).is_file()):
+            and ((Path(workspace) / MARKER).is_file() or waiting_reason(payload, workspace))):
         (pause or time.sleep)(BACKGROUND_WAIT_SECONDS)
         # Back off an unchanged final/wait loop even when no worker is running.
         # A real writer may have completed the accepted archive during the wait.

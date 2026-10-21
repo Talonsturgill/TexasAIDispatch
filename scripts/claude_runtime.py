@@ -29,6 +29,18 @@ def bound(path):
     return {'path': str(Path(path).resolve()), 'sha256': digest(path)}
 
 
+def operational_recovery(data):
+    if str(data.get('date', '')) >= '2026-10-20':
+        return True
+    parent = Path(data['board']['path']).parent if data.get('board') else REPO / 'out/dispatch'
+    path = Path(data.get('phone_state') or parent / 'run_state.json')
+    if not path.is_file():
+        return False
+    from completion_progress import enabled
+    state = read(path)
+    return str(state.get('run_id', ''))[:10] == data.get('date') and enabled(state)
+
+
 def assignment(role, edition):
     cfg = read(POLICY)
     if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(edition)):
@@ -48,6 +60,9 @@ def contracts(role):
              'config/dispatch_rubric.yaml', '.claude/agents/' + row['agent'] + '.md']
     if role == 'scene-builder':
         files.append('prompts/roles/scene-builder.md')
+    if role in ('scene-builder', 'storyboard-critic'):
+        files.append('knowledge/craft/COMPLETION_PROGRESS.md')
+    files.append('config/review_limit.json')
     return [bound(REPO / path) for path in files]
 
 
@@ -129,7 +144,7 @@ def adapt_packet(data):
     if role in ('scene-builder', 'storyboard-critic'):
         data['treatments'] = agent_runtime.treatment_bindings(data['board']['path'])
         data['asset_inputs'] = agent_runtime.treatment_assets(data['treatments'])
-    if role == 'storyboard-critic' and data['date'] >= '2026-10-20':
+    if role == 'storyboard-critic' and operational_recovery(data):
         data['code_report_bindings'] = code_report_bindings(data)
     return data
 
@@ -167,7 +182,17 @@ def code_report_bindings(data):
                                 'module_sha256': action['module']['sha256'],
                                 'source_claims_sha256': source_claims_digest(action)}
                                for action in board.get('action_proposals', [])]}})
-    return {'schema': 'dispatch_claude_code_report_bindings/1', 'treatments': result}
+    return {'schema': 'dispatch_claude_code_report_bindings/1', 'treatments': result,
+            'decision_scope': {
+                'basis': 'Current source facts, causal board, executable actions, renderer dependencies and composed bounds.',
+                'blocking_basis': 'Name the failed fixed criterion and the specific source or implementation that proves it. '
+                                  'An unresolved implementation of a retained actual-film failure remains a blocker.',
+                'unrendered_picture': 'Perceived finish, foam visibility, apparent speed, cabin recognition and curve beauty '
+                                      'are unknown without current rendered evidence. Carry uncertainty to the required '
+                                      'exact-film review; do not invent a code-only visual rejection or approval.',
+                'correction': 'Consolidate every code-proven mandatory defect once. Optional style preferences remain notes.',
+                'next_gate': 'Code approval authorizes only the funded capture. The complete current Opus phone, native, '
+                             'audiovisual and independent scoring gates remain required.'}}
 
 
 def motion_inputs(data):
@@ -362,6 +387,34 @@ def phone_options(state_path, sequences, current=False):
     return rows
 
 
+def phone_decision_scope():
+    import quality_contract
+    return {'schema': 'dispatch_phone_decision_scope/1',
+            'quality_contract_sha256': quality_contract.fingerprint(),
+            'standard': 'Judge the complete current film against the fixed quality rubric and actual source/narration limits.',
+            'blocking_basis': 'Each blocker needs a timed observed defect and its own concrete effect on comprehension '
+                              'or finish for the chosen style. Preserve genuine source, rights, action, recognition, '
+                              'finish, pacing and ending failures.',
+            'director_targets': 'A named repair target or promised technique is not an additional hard requirement. '
+                                'A missed target blocks only when the actual picture independently fails a fixed '
+                                'criterion. Do not turn zero marks, a particular shadow or an unreported physical '
+                                'technique into a new gate. Optional preferences remain notes.',
+            'independence': 'Return your own original findings. Never infer approval from coverage, old grades or '
+                            'the director rationale, and never change an old report to fit this scope.'}
+
+
+def phone_edition(data):
+    edition = str(read(data['phone_state'])['run_id'])[:10]
+    if data.get('date') not in (None, edition):
+        raise ValueError('phone packet date differs from the actual controller edition')
+    return edition
+
+
+def phone_scope_required(data):
+    from completion_progress import enabled
+    return phone_edition(data) >= '2026-10-20' or enabled(read(data['phone_state']))
+
+
 def phone_packet(packet_path, state_path, sequences, current=False):
     data = read(packet_path)
     data.pop('code_report_bindings', None)
@@ -371,12 +424,17 @@ def phone_packet(packet_path, state_path, sequences, current=False):
         raise ValueError('phone packet must use the current owned edition')
     data['review_scope'] = 'exact-muted-phone-preflight'
     data['phone_state'] = str(Path(state_path).resolve())
+    data['date'] = phone_edition(data)
     data['phone_mode'] = 'current' if current else 'comparison'
     data['phone_options'] = phone_options(state_path, sequences, current)
     if current and data['board'] != data['phone_options'][0]['board']:
         raise ValueError('current phone packet needs the exact current timed board binding')
     for row in data['phone_options']:
         row['report_bindings']['story_review']['claims_sha256'] = data['claims']['sha256']
+    if phone_scope_required(data):
+        data['phone_decision_scope'] = phone_decision_scope()
+        data['instructions'] += (' Follow phone_decision_scope: the fixed rubric judges the actual picture; '
+                                 'director repair promises cannot add hard requirements. ')
     data['instructions'] += (' Review every chronological image page for ' +
         ('the exact current timed film' if current else 'both options') + ' before the director rationale. '
         'These images establish only their sampled pixels, with no direct playback or listening. '
@@ -405,6 +463,8 @@ def phone_review_inputs(data):
         row['report_bindings']['story_review']['claims_sha256'] = data['claims']['sha256']
     if rows != expected:
         raise ValueError('Claude phone review inputs or computed bindings changed')
+    if phone_scope_required(data) and data.get('phone_decision_scope') != phone_decision_scope():
+        raise ValueError('phone decision scope is missing or changed; regenerate the fixed-rubric packet before paid review')
 
 
 def mechanical_admission(role, data, task):
@@ -476,7 +536,15 @@ def mechanical_admission(role, data, task):
             'effective_from': cfg['effective_from'], 'evidence': cfg['evidence'], 'scope_note': cfg['scope_note']}
 
 
-def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None):
+def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None, resume_agent=None):
+    if resume_agent and not re.fullmatch(r'[A-Za-z0-9_-]{1,128}', resume_agent):
+        raise ValueError('resume the actual existing worker identity')
+    import publication_owner
+    ownership_state = REPO / 'out/dispatch/run_state.json'
+    guarded = (publication_owner.enabled() and ownership_state.is_file()
+               and read(ownership_state).get('mode') == 'production')
+    if guarded:
+        publication_owner.require_owner(ownership_state)
     if os.environ.get('CLAUDE_CODE_REMOTE') == 'true':
         from source_view import git
         if git(REPO, 'config', '--get', 'core.sparseCheckout', optional=True).lower() == 'true':
@@ -491,6 +559,14 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
     data = read(packet_path); route = assignment(role, data.get('date'))
     if data.get('role') != role or data.get('agent_assignment') != route:
         raise ValueError('Claude packet does not carry its exact current host role')
+    if ownership_state.is_file():
+        from review_limit import worker_plan_problems
+        charged = (guarded and role == 'storyboard-critic'
+                   and publication_owner.has_unclaimed_worker_reservation(
+                       ownership_state, role, route['resource']))
+        hard_errors = worker_plan_problems(read(ownership_state), data, charged=charged)
+        if hard_errors:
+            raise ValueError('; '.join(hard_errors))
     from provider_availability import EFFECTIVE_DATE, research_receipt
     if role in ('researcher', 'validator') and str(data.get('date', '')) >= EFFECTIVE_DATE:
         if data.get('provider_availability') != research_receipt(REPO/'out/dispatch/run_state.json', data['date']):
@@ -535,14 +611,14 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
                                        or re.search(r'\bphone\b', scope, re.I)):
         phone_review_inputs(data)
         image_policy_inputs(data)
-    elif role == 'storyboard-critic' and data['date'] >= '2026-10-20' and not mechanical_task:
+    elif role == 'storyboard-critic' and operational_recovery(data) and not mechanical_task:
         if data.get('code_report_bindings') != code_report_bindings(data):
             raise ValueError('code report bindings are missing or stale; regenerate the current packet before reserving review')
     expected = '.claude/agents/' + route['agent'] + '.md'
     if data.get('brief') != expected:
         raise ValueError('Claude packet names the wrong leaf brief')
     handoff = (' Return only complete gate-ready JSON, with every required field, supplied binding and defect.'
-               if role == 'storyboard-critic' and data['date'] >= '2026-10-20' and not mechanical_task else
+               if role == 'storyboard-critic' and operational_recovery(data) and not mechanical_task else
                ' Return one complete handoff or consolidated defect list with exact hashes.')
     if role in ('picture', 'story', 'sound') and data['date'] >= '2026-10-19':
         handoff = (' With complete access return ONE original scorer-report JSON with all brief fields and supplied bindings, '
@@ -583,8 +659,8 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
             'format correction to an already completed handback needs no new content reservation; '
             'include every actual turn in API usage. An already unreserved restart requires an honest '
             'late controller charge and disclosure before shipment, never backdating or replay.')
-    if data['date'] >= '2026-10-20' and role not in ('picture', 'story', 'sound'):
-        result['agent_args']['run_in_background'] = False
+    if operational_recovery(data):
+        result['agent_args']['run_in_background'] = True
     from visual_observations import CONTRACT, check_installation
     if data.get('public_visual_evidence') == CONTRACT:
         if os.environ.get('CLAUDE_CODE_REMOTE') == 'true':
@@ -602,6 +678,21 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
         result['mechanical'] = admitted
         result['model_binding'] = ('Mechanical route ' + admitted['route'] + ' overrides only the spawn model and '
                                    'effort for this admitted task. Any refusal keeps the unchanged Opus assignment.')
+    if guarded:
+        claim = publication_owner.claim_worker(ownership_state, role, route['resource'],
+                                               digest(packet_path), task_name)
+        result['dispatch_ready'] = bool(claim)
+        if not claim:
+            result.pop('agent_args')
+            result['reservation'] += (' No dispatch arguments are available. Reserve a fresh ' + route['resource']
+                + ' call owned by this context, then rerun this exact plan. A restored or spent reservation '
+                'cannot fund another execution.')
+            return result
+        result['reservation_claim'] = bound(claim)
+        result['agent_args']['description'] = task_name[:41] + '_' + digest(claim)[:8]
+    if resume_agent:
+        result['resume'] = {'agent_id': resume_agent, 'message': result.pop('agent_args')['prompt']}
+        result['model_binding'] += ' Use the loaded native SendMessage schema for this same worker.'
     return result
 
 
@@ -696,6 +787,7 @@ if __name__ == '__main__':
     p.add_argument('--task-name', required=True); p.add_argument('--scope', required=True)
     p.add_argument('--mechanical-task', choices=['code-only-review', 'mechanical-correction'])
     p.add_argument('--subject', help='actual concrete candidate object, required for researcher plans from October20')
+    p.add_argument('--resume-agent', help='actual existing worker id for a newly charged content follow-up')
     p.add_argument('--out', type=Path, required=True)
     p = sub.add_parser('phase'); p.add_argument('name'); p.add_argument('--root', type=Path, default=Path('out/dispatch'))
     p = sub.add_parser('audit'); p.add_argument('--session', type=Path, action='append', required=True)
@@ -716,7 +808,8 @@ if __name__ == '__main__':
                               [args.sequence_current] if args.sequence_current else [args.sequence_a, args.sequence_b],
                               current=bool(args.sequence_current))
     elif args.action == 'plan':
-        result = plan(args.role, args.packet, args.task_name, args.scope, args.mechanical_task, args.subject)
+        result = plan(args.role, args.packet, args.task_name, args.scope, args.mechanical_task, args.subject,
+                      args.resume_agent)
     elif args.action == 'verify-images':
         errors = image_coverage_problems(args.packet, args.coverage)
         result = {'schema': 'dispatch_claude_image_coverage_verification/1', 'complete': not errors,

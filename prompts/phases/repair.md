@@ -2,6 +2,12 @@
 
 Owner instruction from October 3rd, 2026. Read knowledge/craft/AUTONOMOUS_COMPLETION.md before applying older resource-boundary language below. Internal review ceilings and host capacity errors trigger autonomous mandatory completion recovery, never an approval stop or an unfinished-capacity final response. Preserve exact failures, the original frozen envelope and cumulative charges. Only accepted finish --result shipped completes production.
 
+For new editions from October 20th also load knowledge/craft/COMPLETION_PROGRESS.md. After the
+creative boundary, capacity cannot renew the same failed staging under a new mechanism name.
+Bind the original independent whole-scene replacement decision before a grant or repair;
+retire that complete implementation from the real renderer closure. Continue through all
+current quality and delivery gates. This never turns a failed modern-film floor into a pass.
+
 For a current modern-film edition, read knowledge/craft/MODERN_FILM.md,
 knowledge/craft/STORY_ART.md and config/modern_film.json before applying generic artistic
 deferral. The current nondeferrable_categories override that older route. Motion, pacing,
@@ -256,6 +262,12 @@ An authored-source edit can also invalidate the earlier two-treatment comparison
 complete package byte-identically, renew the same two treatments on current source and receipts,
 and obtain fresh comparison and selection verdicts. Do not add a continuation exemption or
 relabel old films as current. Fund the complete remaining path before additional attempts:
+
+Before preparing a renewed comparison after retiming, retain the measured board byte-identically
+and restore the current inspected provisional opening board as `storyboard.json`. The prepared
+operator checks that edition and board identity before charging a capture. After the new selection,
+retime the selected board again against the retained measured voice; the provisional board does
+not replace the final timed-film gate or authorize another voice take.
 
 Source-changing repair of a registered native film requires the current complete comparison
 profile. Initial code review before the first comparison keeps its existing admission path;

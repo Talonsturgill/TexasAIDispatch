@@ -269,6 +269,15 @@ fi
 # still binds the same film bytes, and does not inherit an out/ path from the working player.
 python3 scripts/documentary_review.py --board "$DEST/storyboard.json" \
     --film "$DEST/dispatch.mp4" --out "$DEST/attention-review.json"
+# Prepare predictable feed assets before the first pushed candidate and its CI.
+python3 - "$DEST" <<'PY_PHONE_MEDIA'
+from pathlib import Path
+import sys
+sys.path.insert(0, 'scripts')
+from publish_feed import renditions
+if not all(renditions(Path(sys.argv[1]))):
+    raise SystemExit('The complete delivery package needs its phone rendition and thumbnail.')
+PY_PHONE_MEDIA
 ls -la "$DEST" | tail -n +2
 
 # ---------------------------------------------------------------- 4. commit and push, out loud

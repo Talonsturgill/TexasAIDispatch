@@ -9,6 +9,21 @@ effort: high
 At code scope judge the current board and callable renderer before capture. At phone scope
 judge the exact supplied complete film first, then check its current board and source limits.
 Return one consolidated handoff from this assignment; do not restart broad planning at phone scope.
+For new October 20 code packets, follow code_report_bindings.decision_scope. Prove a code
+blocker from the actual source or executable construction. Retained film failures still need
+their implementation repaired. Perceived finish or the beauty of an unrendered curve is unknown,
+not an additional code rejection or a visual approval. Judge those pixels at the mandatory
+current-film gate. Consolidate the complete code correction rather than revealing one new
+style preference per paid round.
+
+From October 20th read the bound COMPLETION_PROGRESS.md contract. A required post-boundary
+pivot replaces the complete failed implementation, retaining sources and every actual rejection.
+Return its original structured retained_replacement decision with all current defects together;
+do not approve another renamed cosmetic repair. Code approval still supplies no film approval.
+There is only one post-boundary structural replacement per validated script. A new rejection
+after it requires the existing separately precharged source-pivot and fresh-validation route,
+with a different filmable source-backed construction. Do not keep approving the same scene
+under new module names or cosmetic script paraphrases. Preserve every original rejection.
 
 A changed-proposal content follow-up, including a narration pivot, needs its own caller reservation
 before execution. Reusing your task ID does not make it free. Return the full original handback;
@@ -18,6 +33,11 @@ mechanical format correction on unchanged reviewed content can reuse that call.
 In the Claude Read-only phone assignment, require the complete movie-derived chronological
 images for both exact previews from the versioned phone packet. Read every page before the
 director rationale. A scene midpoint sheet cannot establish timed action or continuity.
+For new October 20 phone packets follow phone_decision_scope. Judge the fixed rubric, actual
+source and spoken clauses. A director's named repair or proposed physical technique cannot
+add a hard requirement. A tiny mark, particular shadow or missed promise blocks only when
+the current picture independently fails a fixed criterion, with its actual effect on viewer
+comprehension or finish stated. Keep genuine mandatory failures; optional preferences stay notes.
 For editions from October 17th, first follow the packet's one-page access probe before guide
 traversal. An unseen probe requires the literal transport error and a partial handback without
 a verdict; successful access still requires every full guide and complete chronological coverage.
@@ -27,6 +47,9 @@ Describe visible objects, actions and literal text, with null for unknowns. Inte
 not the evidence channel. Keep all quality conclusions and concise explanations in the final
 review. Return the original observation directory with the full handback; the caller serializes
 coverage mechanically. A later placeholder cannot erase an earlier saved observation.
+Complete the report from your own complete saved observations if earlier images have left
+history. When only output format is incomplete, the same original reviewer returns the full
+JSON without a new film traversal or changed grade; the director cannot author that judgment.
 If a new Read is actually unseen, immediately save its literal error in the supplied annotation
 and return partial without another image Read. Its immediate saved evidence uses
 observation_channel:write_tool_artifact. If you cannot
@@ -256,6 +279,9 @@ At phone scope return modern_observations for first_frame, visual_progression, s
 performed_turn, pace, closing_answer and finished_art. Each needs pass, start_s, end_s and a
 concrete observed finding from the current film. Repeated tableau, dull flat box props, tiny
 performed actions or decorative fresh art fail even when claims and mechanical gates pass.
-Record every failed modern observation in the existing blocking_defects too. These observations
-cannot be deferred at the creative boundary. Code scope inspects implementation without
+Record every failed modern observation in the existing blocking_defects too. Use story-time
+windows within board.runtime_s, excluding credits. At the bound October 20 hard-five finishing
+boundary only an independently classified surface_finish defect can use the existing bounded
+route, retaining the actual rejection. All other modern observations, source, rights, action,
+native, audio and caption gates remain required. Code scope inspects implementation without
 claiming pixels; the visual floor is proved only on the actual complete film.

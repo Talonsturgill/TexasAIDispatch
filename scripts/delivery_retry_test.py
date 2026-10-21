@@ -32,8 +32,14 @@ class DeliveryRetry(unittest.TestCase):
         node = self.bin/'node'
         node.write_text('#!/bin/sh\nprintf "node\\n" >> "$DELIVERY_TEST_LOG"\n')
         node.chmod(0o755)
+        ffmpeg = self.bin/'ffmpeg'
+        ffmpeg.write_text('#!'+sys.executable+'\n'+
+                         'import os,sys\nfrom pathlib import Path\n'+
+                         'if os.environ.get("FAIL_RENDITION"):raise SystemExit(1)\n'+
+                         'Path(sys.argv[-1]).write_bytes(b"fixture derived media")\n')
+        ffmpeg.chmod(0o755)
         source = Path(__file__).parent
-        for name in ('deliver_run.sh','dedupe.py'):
+        for name in ('deliver_run.sh','dedupe.py','publish_feed.py'):
             shutil.copy2(source/name,self.scripts/name)
         body = '''import json,os,sys
 from pathlib import Path
@@ -115,6 +121,16 @@ elif name in ('documentary_review','feed_composite_check') and '--out' in sys.ar
         self.assertEqual((self.dest/'dispatch.mp4').read_bytes(),(self.out/'film.mp4').read_bytes())
         self.assertEqual(json.loads(self.history.read_text())['dispatches'],[self.entry])
         self.assertIn('--no-push',result.stdout)
+        for name in ('dispatch-720.mp4','poster-540.jpg'):
+            self.assertEqual((self.dest/name).read_bytes(),b'fixture derived media')
+            self.assertEqual(self.git('show','HEAD:runs/2099-01-01/'+name),b'fixture derived media')
+
+    def test_rendition_failure_does_not_commit_an_incomplete_release(self):
+        before = self.git('rev-parse','HEAD')
+        result = self.deliver({'FAIL_RENDITION':'1'})
+        self.assertNotEqual(result.returncode,0)
+        self.assertEqual(self.git('rev-parse','HEAD'),before)
+        self.assertFalse((self.dest/'dispatch-720.mp4').exists())
 
     def test_shipped_and_different_existing_movies_refuse_without_changes(self):
         self.partial(shipped=True)

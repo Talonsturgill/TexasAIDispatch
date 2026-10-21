@@ -51,6 +51,10 @@ preship establishes current integrity. Production has no blanket bypass. The fin
 knowledge/craft/BOUNDED_CREATIVE_RELEASE.md may separately defer classified artistic failures.
 Then obtain all three exact-byte audiovisual lenses
 on the same final MP4, even when an earlier lens rejects. Collect defects together.
+Run these three commands sequentially in the foreground. Each lens writes the shared ledger;
+the CLI also serializes concurrent lens launches before cache lookup, charging and telemetry.
+If an older runtime already raced, retain every divergent ledger and append honest late debits
+for actual local-only reservations. Never discard a charge by restoring the durable prefix.
 
 ```sh
 python scripts/audiovisual_review.py --role picture --film out/dispatch/film.mp4 --out out/dispatch/cinema/picture-review.json
@@ -89,6 +93,12 @@ separate raw audiovisual responses. Name image-sequence access and indirect soun
 honestly. Require every guide, source, rights, native, audio, caption, timed modern, clause and
 shipment check under the unchanged rubric. An unknown observation stays blocking; this is media
 access recovery, never artistic deferral, a provider outage or a director's replacement verdict.
+
+Read saved public observations when earlier images leave history. A later placeholder does not
+turn an originally visible image into a transport outage. If the complete original observations
+exist but the handback is malformed, have that same original reviewer return the complete JSON
+from its own evidence without re-traversing the film or changing its judgments. Keep both
+handbacks. Modern observation windows end at board.runtime_s, before the separate music credits.
 
 ```sh
 python scripts/agent_runtime.py --plan --role picture --packet out/dispatch/picture-packet.json --task-name picture_score --scope "Independently watch the exact finished film through the picture lens and all required timed observations" --out out/dispatch/picture-assignment.json

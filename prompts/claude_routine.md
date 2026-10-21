@@ -95,6 +95,19 @@ Before every native render, calculate scripts/native_headroom.py on the current 
 that housekeeping command with --require-headroom --min-free-gib set to its required_free_gib.
 Retain at least two completed packages. Missing process inspection or unverifiable archives never
 authorize cleanup; recover the actual capacity condition through the controller.
+If eligible cleanup leaves insufficient room, compact the selected edition's Git object
+storage from that edition's wrapped internal `cd`, using
+`python scripts/owned_git_compaction.py --repo <actual-edition-checkout> --apply --out out/dispatch/evidence/owned-git-compaction-<attempt>.json`.
+This uses Git's keep-unreachable mode and verifies all prior object identities, refs, checkout
+states and ledger bytes. An isolated clone is eligible. A restored linked edition is eligible only
+when its installed primary continuation selects this exact ledger and its only peer checkout is
+the primary source clone; current publication ownership is still required. Borrowed storage,
+unregistered shared worktrees, a third checkout and active Git locks remain refused. Wait for an
+actual lock to clear before retrying with a fresh receipt. Run the compaction in the foreground
+with a tool deadline longer than its 300-second Git timeout. Then rerun the full native planner
+and housekeeping at the unchanged target.
+Do not uninstall unrelated host toolchains, delete retained evidence or ask the owner to free space.
+Keep a real refusal and continue the configured capacity recovery if compaction is insufficient.
 
 Read knowledge/craft/AUTHORED_STORY_ART.md and config/authored_story_art.json during the
 picture phase. Use its actual record, verify and stage commands. There is no ImageGen call
@@ -106,9 +119,38 @@ Also run `python scripts/checkpoint_discovery.py`. This read-only catalog holds 
 commit in its own temporary ref, so another Git fetch cannot change the selected snapshot.
 Select the OLDEST unfinished edition by its run identity and creation time
 (`checkpoint_discovery.py --oldest-unfinished`, never the first row of the newest-save-first list)
-and resume its existing ledger. It is restored
+and resume its existing ledger. From the October 20 source rollout, BEFORE restoring or initializing it,
+run `python scripts/publication_owner.py acquire --repo <current-clean-checkout> --run-id <selected-id> --workspace /home/user --wait-seconds 55`.
+The helper binds the actual native session identity to one append-only global publisher record.
+`busy` after this one bounded wait means end this duplicate observer without restoring, arming,
+reserving, dispatching, monitoring or claiming shipment. Preserve the active publisher and all
+paid work. The preinstalled Stop helper permits this unowned observer to end; it does not finish
+or release the other owner. The active owner completes the oldest unfinished edition, then any
+due current-day edition sequentially. `resume_required` names the unfinished
+edition that must retain its ledger. An expired ownership record is never provider-outage evidence.
+`complete` requires selecting again, not another copy of the shipped edition.
+Use the current main ownership and worker-claim helpers in a supported source adoption if a restored
+checkout predates them; preserve frozen quality-policy bytes, media, event history and charges.
+Restoration deliberately retains the old source pin. It does not adopt this rollout by itself.
+After the restore below and before another paid reservation, integrate the verified current main
+tooling source into that same edition with an ordinary Git merge of the current main commit.
+Use the actual SessionStart receipt and clean tools HEAD to identify that commit. Retain the
+pre-adoption checkpoint and inspect both staged and working changes first. Preserve authored
+scene, board and artwork changes; resolve any actual tooling conflict against their retained
+baselines rather than resetting the checkout or changing an original policy. Commit only the
+resolved tooling integration, retain its real source pin and save the same ledger checkpoint.
+Verify that publication_owner.py, completion_progress.py, native_task_wait.py and claude_runtime.py
+are the current main implementations before reserving again. The first newly owned reservation
+then appends the operational progress adoption even for an older unfinished edition. Its old
+date cannot preserve the review spiral. An already admitted batch retains its original admission;
+the next repair uses the finite structural route. No reservation is replayed and no film is approved
+by this source integration. Never resume a session the human explicitly stopped.
+The selected edition is restored
 with `python scripts/claude_checkpoint.py restore --run-id <id> --origin-workspace <shared-parent>`.
-Finish the actual catalog task before restoration, and run no other Git fetch while the
+If the selected checkpoint is already publishing, read Phase 5 from current main before
+taking action. Its release-resume path preserves the reviewed film, existing candidate and
+running verification job. A stopped host does not invalidate that work or authorize another
+editorial attempt. Finish the actual catalog task before restoration, and run no other Git fetch while the
 retained restore command is active. The checkpoint codec and its prelaunch guard stay unchanged.
 The recorded original root preserves absolute paths inside unchanged hash-bound historical events;
 the fresh scheduled October 18 recovery proved this route after a different-root restore failed.
@@ -172,6 +214,13 @@ Normal scheduled production uses today's date. If today's scheduled film is
 already shipped, verify that shipment and do not manufacture another ordinary edition.
 
 ## Durable checkpoints and effective effort
+
+The owner sets a hard five editorial review rounds for the whole video in config/review_limit.json.
+Budget code, silent phone, any consolidated correction and final timed phone inside those five
+paid attempts. Every pivot and retry counts too. Never extend or reset this limit. After the cap
+or diminishing returns, freeze the strongest existing cut and complete the final native/AV,
+three-scorer and delivery path once. Stop creative editing; use the genuine bounded surface
+finish classification when applicable. Do not run a sixth review to pursue a nicer grade.
 
 `out/` is gitignored and dies with the container. For an edition marked by
 `out/dispatch/claude-host.json`, every controller ledger write is mirrored to
@@ -240,6 +289,15 @@ frontmatter. Fail on a mismatch; never set a global effort override.
 The director is `claude-sonnet-5-5` at medium effort. Read the exact role map from
 `config/claude_runtime.json`; do not use Codex `spawn_args` in Claude's Agent tool. Use the existing
 role roster, adding only the named `scene-builder` leaf definition for the existing builder task.
+From the October 20 source rollout, plan once to inspect the assignment, reserve a fresh owned call,
+then rerun the exact plan to obtain dispatch arguments and its durable single-use reservation claim.
+`dispatch_ready: false` supplies no executable arguments: charge a new attempt and rerun it.
+A restored reservation cannot fund another worker. Each final scorer claims its own role in the
+same atomic panel reservation. For a paid content correction on the existing leaf, pass
+`--resume-agent <actual-worker-id>` and use the loaded native SendMessage schema with its returned
+message; do not spawn a replacement. Completed unchanged handback formatting remains ungraded
+mechanical work, with every actual turn included in usage. Failed or interrupted workers still
+require a fresh charged attempt. Retain both actual responses after an observed duplicate.
 Pin exact model ids and supported effort in versioned agent frontmatter and project settings.
 The owner refined the route on October 9th: scene-builder, storyboard-critic and validator use
 Opus 5.5 at high effort. These calls own the authored picture, its independent critique and source
@@ -260,17 +318,25 @@ remain distinct identities and an atomic charged panel on the same finished film
 cannot count self-review as independence. Provider recovery is used only after actual observed
 host unavailability, under the existing recovery policy.
 
-For editions from October 20, use each generated serial worker's exact Agent arguments, including
-`run_in_background: false`. Let the required worker return in the foreground. The three final
-scorers may run concurrently after their atomic panel reservation. Starting a background serial
-worker merely to wait for it creates unnecessary primary turns and context reads.
+For new editions from October 20 use the generated background arguments and
+knowledge/craft/COMPLETION_PROGRESS.md. A native running subagent plus its exact durable owned
+reservation claim allows the Stop helper to yield to its automatic completion notification,
+with production still unfinished. Do not purchase primary polling turns while that verified
+native wake owns the next step. Collect the original handback when it arrives and continue.
+No synthetic wake, UI badge, shell sleep or observer monitor supplies this authority. The
+legacy bounded wait below remains only when no verified native completion wake is present.
+The three final scorers may run concurrently after their unchanged atomic panel reservation.
+
+At the finite creative boundary the same contract requires a complete source-backed scene
+replacement before further mandatory structural capacity. A new report or mechanism name
+cannot renew failed staging. Keep original code, films, reports, allocation and actual usage.
 
 Future code packets supply `code_report_bindings` for both treatments, including each actual
 story hash. These are mechanical identities, never findings or approval. Retain the critic's
 complete original JSON unchanged. A formatting failure returns to that same reviewer with the
 actual errors and bindings; never reconstruct a current pass from earlier reports or prose.
 
-While a background worker owns required work, use a blocking output wait for that exact task
+When no verified native completion wake is present, use a blocking output wait for that exact task
 and collect its full handback. If TaskOutput is available, load its current schema and use
 blocking mode with a timeout of up to sixty seconds. Reissue that same bounded wait if it times
 out while the task is running. Do not poll transcript sizes, create another progress monitor or

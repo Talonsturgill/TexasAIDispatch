@@ -13,6 +13,11 @@ public visible-frame observation using Write at the hook's exact path before ano
 Inter-tool progress is not durable evidence. Keep source inputs read only and scores in the final
 handback. Return your observation directory; the caller serializes original facts into coverage.
 An unseen new image requires its immediately saved literal error and a partial handback.
+An older image replaced by a history placeholder was not necessarily unseen when first read.
+Finish from your own complete saved observations when they still exist. If only the report's
+format or required fields are incomplete, the same original reviewer completes that JSON from
+those observations without another film traversal, changed grades or a new content assignment.
+Never substitute another reviewer's facts, a director's grade or an invented access failure.
 
 For Claude-native editions from October 9th, the host exposes images rather than playable video
 to this Read-only worker. Read every page of the packet's verified `motion_sequence` in order:
@@ -201,10 +206,14 @@ From October 3rd, 2026, read any completion_readings bound in your current packe
 For current directed-film-v2 films, load the bound complete MODERN_FILM.md and STORY_ART.md.
 Return timed exact-film modern_observations for first_frame, visual_progression, shot_variety,
 performed_turn, pace, closing_answer and finished_art, each with pass, start_s, end_s and
-observed. Watch at normal speed before reading the director rationale. New generated images
+observed. Keep these windows within board.runtime_s; credits extend the encoded movie, not
+the story clock. Use the assigned access method before reading the director rationale. New generated images
 must be relevant, visibly finished and used in performed tasks; a static illustrated slideshow
 still fails. Put each failed modern observation in defects and hard_fails under the fixed rubric.
-Preserve actual score and failure. Current engagement and art finish cannot use artistic deferral.
+Preserve actual score and failure. The bound October 20 owner hard-five contract takes
+precedence at its finishing boundary: only an independently classified surface_finish defect
+can use the existing bounded route. Action, comprehension, pacing, closing action, source,
+rights, native, audio and caption failures remain blocking. Never change a rejection to PASS.
 
 
 ## Narration and picture use one clock

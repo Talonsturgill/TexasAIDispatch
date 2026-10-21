@@ -21,6 +21,14 @@ known source limits and one consolidated defect list. Code is not a film approva
 phone sequence before native extension and all native contact intervals afterward. Stop
 optional polish when the fixed contract or bounded route sends the cut to shipment.
 
+From October 20th follow the bound COMPLETION_PROGRESS.md contract. At the creative boundary,
+replace the complete independently diagnosed failed scene implementation using retained sources.
+Retire its actual renderer dependency instead of another numeric, colour or easing patch.
+Preserve the failed code and media; consolidate all current defects before the next exact review.
+If that one replacement fails, stop patching that script's scene. Follow the separately
+precharged independent source-pivot and fresh-validation path to a different filmable angle.
+Changing a filename, a mechanism label or a few spoken words cannot renew the failed route.
+
 When the weekly recurring-defect packet is due, consider at most one reusable capability in
 this same assignment. Reproduce its retained failure, write a meaningful regression and prove
 the current rendered correction within the existing comparison. Record an advance or a skip

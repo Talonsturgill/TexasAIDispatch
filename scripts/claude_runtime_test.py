@@ -160,6 +160,27 @@ class RuntimeTests(unittest.TestCase):
         self.assertNotEqual(*[row['report_bindings']['story_review']['story_sha256'] for row in result['treatments']])
         self.assertNotRegex(json.dumps(result), r'"(?:verdict|score|pass|blocking_defects)"')
 
+    def test_restored_edition_adopts_scope_and_background_work_without_changing_its_role(self):
+        import critic_gate
+        data, source = self.code_data('2026-10-19')
+        self.assertFalse(runtime.operational_recovery(data))
+        state = self.root / 'run_state.json'
+        state.write_text(json.dumps({'run_id': data['date'], 'mode': 'production', 'events': [
+            {'kind': 'reserved', 'completion_progress_policy': '2026-10-20',
+             'publication_owner_sha256': 'a'*64, 'publication_epoch': 'new-epoch'}]}))
+        with patch.object(critic_gate, 'REPO', self.root), \
+                patch.object(critic_gate, 'renderer_files', return_value=[source]), \
+                patch('agent_runtime.treatment_assets', return_value=[]), \
+                patch('agent_runtime.required_inputs'):
+            adopted = runtime.adapt_packet(data)
+            self.assertIn('decision_scope', adopted['code_report_bindings'])
+            packet = self.root / 'adopted.json'; packet.write_text(json.dumps(adopted))
+            planned = runtime.plan('storyboard-critic', packet, 'adopted_code', 'Review current code.')
+        self.assertTrue(planned['agent_args']['run_in_background'])
+        self.assertEqual(data['agent_assignment'], planned['assignment'])
+        self.assertEqual('claude-opus-5-5', planned['assignment']['model'])
+        self.assertEqual('high', planned['assignment']['effort'])
+
     def test_future_code_plan_requires_fresh_bindings_before_returning_json_only_arguments(self):
         import critic_gate
         data, source = self.code_data()
@@ -186,6 +207,62 @@ class RuntimeTests(unittest.TestCase):
             result = runtime.plan('storyboard-critic', packet, 'code_review', 'Review both callable treatments at code scope.')
         self.assertIn('or consolidated defect list', result['agent_args']['prompt'])
         self.assertNotIn('run_in_background', result['agent_args'])
+
+    def test_code_scope_boundary_is_required_before_paid_assignment(self):
+        import critic_gate
+        data, source = self.code_data()
+        packet = self.root / 'code-scope.json'
+        with patch.object(critic_gate, 'REPO', self.root), patch.object(critic_gate, 'renderer_files', return_value=[source]), \
+                patch('agent_runtime.required_inputs'):
+            data['code_report_bindings'] = runtime.code_report_bindings(data)
+            scope = data['code_report_bindings']['decision_scope']
+            self.assertIn('unknown without current rendered evidence', scope['unrendered_picture'])
+            self.assertIn('retained actual-film failure remains a blocker', scope['blocking_basis'])
+            packet.write_text(json.dumps(data))
+            runtime.plan('storyboard-critic', packet, 'code_review', 'Review the current callable treatments.')
+            del data['code_report_bindings']['decision_scope']
+            packet.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError, 'bindings are missing or stale'):
+                runtime.plan('storyboard-critic', packet, 'code_review', 'Review the current callable treatments.')
+
+    def test_phone_packet_cannot_replace_fixed_rubric_with_a_director_promise(self):
+        data, _ = self.code_data()
+        del data['date']  # Legacy packet shape; the real controller still decides the edition.
+        state = self.root / 'run_state.json'; state.write_text('{"run_id":"2026-10-20"}')
+        data['instructions'] = 'Review both complete current films independently.'
+        packet = self.root / 'phone-source.json'; packet.write_text(json.dumps(data))
+        rows = []
+        for option in ('a', 'b'):
+            sequence = self.root / ('motion-' + option + '.json'); sequence.write_text('{}')
+            rows.append({'board': runtime.bound(self.root / ('opening-' + option + '.json')),
+                         'motion_sequence': {'path': str(sequence)},
+                         'report_bindings': {'story_review': {}}})
+        with patch.object(runtime, 'phone_options', side_effect=lambda *a, **k: json.loads(json.dumps(rows))), \
+                patch.object(runtime, 'image_reading'):
+            result = runtime.phone_packet(packet, state, ['a', 'b'])
+            self.assertEqual('2026-10-20', result['date'])
+            self.assertEqual(runtime.phone_decision_scope(), result['phone_decision_scope'])
+            self.assertIn('director repair promises cannot add hard requirements', result['instructions'])
+            self.assertNotRegex(json.dumps(result['phone_decision_scope']), r'"(?:verdict|score|pass)"')
+            result['phone_decision_scope']['director_targets'] = 'Every promised tiny mark must disappear.'
+            with self.assertRaisesRegex(ValueError, 'phone decision scope is missing or changed'):
+                runtime.phone_review_inputs(result)
+            result['date'] = '2026-10-19'
+            with self.assertRaisesRegex(ValueError, 'actual controller edition'):
+                runtime.phone_review_inputs(result)
+            result['date'] = '2026-10-20'
+            del result['phone_decision_scope']
+            with self.assertRaisesRegex(ValueError, 'phone decision scope is missing or changed'):
+                runtime.phone_review_inputs(result)
+            state.write_text(json.dumps({'run_id': '2026-10-19', 'mode': 'production',
+                'events': [{'kind': 'reserved', 'completion_progress_policy': '2026-10-20',
+                            'publication_owner_sha256': 'a'*64, 'publication_epoch': 'new-epoch'}]}))
+            adopted = runtime.phone_packet(packet, state, ['a', 'b'])
+            self.assertEqual('2026-10-19', adopted['date'])
+            self.assertEqual(runtime.phone_decision_scope(), adopted['phone_decision_scope'])
+            del adopted['phone_decision_scope']
+            with self.assertRaisesRegex(ValueError, 'phone decision scope is missing or changed'):
+                runtime.phone_review_inputs(adopted)
 
     def test_historical_assignment_is_not_replaced(self):
         with self.assertRaises(ValueError):
@@ -231,7 +308,7 @@ class RuntimeTests(unittest.TestCase):
                               subject='MD Anderson SPACER T cells cut a mucin barrier')
         self.assertEqual(result['assignment']['model'], 'claude-haiku-5-5')
         self.assertEqual(result['assignment']['effort'], 'high')
-        self.assertIs(result['agent_args']['run_in_background'], False)
+        self.assertIs(result['agent_args']['run_in_background'], True)
         self.assertLessEqual(len(result['agent_args']['prompt']), 1800)
         self.assertIn('mucin barrier', result['agent_args']['prompt'])
         report = result['story_subject_screen']
@@ -255,7 +332,7 @@ class RuntimeTests(unittest.TestCase):
                 with patch('agent_runtime.required_inputs'), patch('agent_runtime.validate_references'), \
                         patch.object(runtime, 'motion_inputs'):
                     result = runtime.plan(role, packet, role, 'Review the exact final film independently.')
-                self.assertNotIn('run_in_background', result['agent_args'])
+                self.assertIs(result['agent_args']['run_in_background'], True)
                 self.assertEqual('dispatch-visual-scorer', result['agent_args']['subagent_type'])
                 self.assertEqual(('claude-sonnet-5-5', 'medium', 'scorer_calls'),
                     tuple(result['assignment'][field] for field in ('model', 'effort', 'resource')))

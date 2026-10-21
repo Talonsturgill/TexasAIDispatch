@@ -1,15 +1,23 @@
 # Merge, publish, verify and close
 
 Read knowledge/craft/SHIPMENT_CONTRACT.md and the current cross-repository ownership contract.
-Only publishable production enters delivery. Run the program rather than reproducing its
-ledger, freshness, copy and commit steps manually:
+Only publishable production enters delivery. On a restored publishing edition, first inspect
+the existing exact film, controller, published Dispatch package, Docket branch/PR and remote
+verification executions. Resume the first incomplete delivery step. Reuse unchanged reviewed
+media and completed checks; do not repeat production, regenerate a candidate already under
+verification, or start another suite because the original host stopped. For the retained
+October 19th edition, also read prompts/recovery/2026-10-19-release.md from current main.
+For an edition not yet packaged, run the program rather than reproducing its ledger,
+freshness, copy and commit steps manually:
 
 ```sh
 python scripts/validation_check.py --validation out/dispatch/validation.json --claims out/dispatch/claims.json --board out/dispatch/storyboard.json
 bash scripts/deliver_run.sh --date <date> --topic "<topic>" --slug <slug> --beat <beat> --entities "<a,b,c>"
 ```
 
-Keep generated phone media and poster in the reviewed Dispatch package. Open a ready PR, attach it
+The delivery helper prepares the existing phone rendition and thumbnail before its first commit
+and push. Keep them in the reviewed Dispatch package; do not open a PR with predictable media
+still missing and then cancel its CI to add them. Open a ready PR, attach it
 to the task, add codex and codex-automation labels when available, wait for all required checks on
 its exact head, then merge. Inspect a failing job, reproduce and repair the cause before retrying.
 Never merge red CI or overwrite newer published artifacts.
@@ -67,7 +75,31 @@ background task ID with bounded native task tools, never a process pattern match
 
 Dispatch authors only the contracted videos.json input. Other permitted changes are generated
 pages rebuilt by the site program. Commit the exact candidate with TXDOCKET_ACTOR=dispatch,
-then run the full local suite and read its atomic verdict before pushing:
+then keep that candidate unchanged. On Claude cloud push the exact committed candidate and
+open its ready PR first, so GitHub can check out those bytes. Obtain the full-runner verdict
+before merging. Use the durable Docket executor from current approved main against that same
+unchanged feed candidate:
+
+```sh
+python <approved-docket-tools-checkout>/scripts/shared/guards_remote.py --repo <owned-docket-checkout>
+```
+
+The tools path is a verified clean Docket checkout of the approved main source, which may
+be the primary sibling checkout. It is separate from an older frozen feed candidate that
+predates this helper. Never copy tools into that candidate or commit another version just to
+invoke the helper. Preserve an already admitted workflow definition while its execution is
+pending; recover the exact candidate's existing execution before considering a new dispatch.
+
+Exit 3 is pending, never a pass. Reuse the actual returned GitHub run ID; wait on that execution
+and call the helper again after it completes. The helper admits one dispatch, verifies the
+approved workflow and candidate, preserves its exact full-run artifacts and asks the original
+local verdict reader. Keep its actual execution.json, verdict.json, full-run.log and local
+readback with the edition's release evidence. Name GitHub Actions as the execution host.
+The four-hour finite job executes the full original suite; ordinary hosted CI alone does not
+supply this verdict. A Claude worker restart or native wait timeout never authorizes a duplicate
+job or a replay of the expensive full suite. Preserve both interrupted native logs.
+
+On a host that can complete the full native invocation, run it before pushing:
 
 ```sh
 python scripts/shared/guards_local.py
@@ -78,6 +110,9 @@ Keep that candidate HEAD and working tree unchanged until the verdict completes.
 must describe the committed candidate; committing after the run would invalidate that verdict.
 Push a ready PR, wait for exact-head green guards, merge, then verify matching main CI and Pages
 deployment. CI permits the merge; the full local verdict remains required for completed delivery.
+The observed Claude suite exceeds one hour and can exceed its native 7,200,000 ms ceiling;
+its foreground limit is 600,000 ms. Use the durable executor on that host from the first
+attempt. A partial list of passing steps never proves completion. Do not restart a running suite.
 
 Stale Docket records are repair work in the daily actor lane. First inspect same-day verified
 daily work; reuse only sound source-supported updates. Otherwise re-fetch cited sources.
@@ -199,5 +234,6 @@ config/cinematic_learning.json and ART_DIRECTION.md, inside the existing compari
 that decision occurs. No new daily reviewer, paid attempt or grant is introduced. Report
 observed results; five future editions cannot be inferred from an engineering rehearsal.
 
-A retrospective may produce up to three bounded verified upgrades. Cross-lane changes need the
-owning workflow. Do not extend the shipped film with optional polish or defer required repairs.
+Record retrospective findings for later maintenance. Daily production does not implement
+optional engineering upgrades, run paid benchmarks, train itself, or reopen a shipped film.
+Repair only an observed mandatory delivery failure in its owning source with focused evidence.

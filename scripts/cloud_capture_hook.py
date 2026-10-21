@@ -30,6 +30,13 @@ def checkout(directory, workspace):
 def decision(payload, workspace):
     if payload.get('tool_name') != 'Bash':
         return None
+    ownership_error = None
+    try:
+        from publication_owner import heartbeat_hook
+        heartbeat_hook(payload, workspace)
+    except Exception:
+        # Read-only diagnosis remains possible; an ownership failure cannot skip capture admission.
+        ownership_error = 'Publication ownership could not be verified. Inspect publication_owner.py status before another capture.'
     command = (payload.get('tool_input') or {}).get('command', '')
     cwd = payload.get('cwd') or workspace
     # The pinned node tree is shared outside edition workspaces. Deleting a path
@@ -58,7 +65,14 @@ def decision(payload, workspace):
         roots = {checkout(directory, workspace) for _, directory in captures}
         if len(roots) != 1:
             raise ValueError('one capture call must use exactly one Dispatch checkout')
-        return guard.decide(payload, str(roots.pop()))
+        root = roots.pop()
+        if ownership_error:
+            return ownership_error  # Deny before consuming the unchanged capture authorization.
+        from publication_owner import require_owner
+        state_path = root / 'out/dispatch/run_state.json'
+        if state_path.is_file():
+            require_owner(state_path)
+        return guard.decide(payload, str(root))
     except Exception as exc:
         return 'Capture refused. Prelaunch workspace guard could not verify the checkout: ' + str(exc)[:200]
 
