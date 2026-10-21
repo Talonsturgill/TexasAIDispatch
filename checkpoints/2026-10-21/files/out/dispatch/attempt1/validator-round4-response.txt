@@ -1,0 +1,71 @@
+{
+ "handoff": "validator round 4 (charged follow-up, final allowance)",
+ "edition_date": "2026-10-21",
+ "subject": "Percepto Air Max optical gas imaging drone system",
+ "summary": "PASS. I re-fetched the October 7th, 2026 EPA release and c19's quote, 'U.S. Environmental Protection Agency (EPA)', is on the page verbatim. Sentence s3 is fully supported by c5, c11, c16, c18, c1 and c19. Claims c1 to c18 have the same text and quotes I verified in round 3, and the script is unchanged.\n\nOne thing in your message is wrong. You said nothing else changed, but story_selection.json did: its packet hash moved from a4c1ae08... to bdfff2e2.... I read it in full. The only change is that the footage-bookmark wording I flagged as an advisory was removed. That doesn't affect any claim or spoken sentence. One edit left a garbled phrase, covered under the advisories below.",
+
+ "input_verification": {
+  "packet": {"path": "out/dispatch/validator-packet.json", "declared_sha256": "e68fc83453d4da257ceffcca45dfe829f2edcbc1be54b88e238d484f0d3d76d1", "read": "full"},
+  "hash_status": "NOT RECOMPUTED. This leaf has only Read and WebFetch. The values below come from the packet and the director's message, and they agree with each other.",
+  "inputs_validated": [
+   {"path": "out/dispatch/vo_script.txt", "sha256": "e12410d70ae4bfd710a2f8751544c02973d9b97aa5fa3435e7f46a92a95c22d6", "read": "full. The text matches the round 3 script."},
+   {"path": "out/dispatch/vo_bindings.json", "sha256": "35103d5453081dd97aedf1cbee79c83158cec0c71d3095558ccdaf1de316b1e9", "read": "full. Only change is s3 now also binds c19."},
+   {"path": "out/dispatch/claims.json", "sha256": "d00508f683eddd194f4260aec5693defa341edc20070b2b0f8ffa7beeefe0648", "read": "full. c1 to c18 have the same text, quotes and URLs I verified in round 3. Only the verdict and verification fields were updated. c19 is new."},
+   {"path": "out/dispatch/story_selection.json", "sha256": "bdfff2e2919bd7c63a37a7f0f4ffa1cdf3a93e7ad9eeedadbe2305bf54d3d455", "read": "full. Changed from round 3, contrary to the message: the bookmark wording was removed from three_key_images[1], action_support (mechanism) and visual_stakes.visible_change."},
+   {"path": "out/dispatch/research.json", "sha256": "c7db3cf71d5d47c2d9925cf3899d9416605777748bd442208ac679f0e12a47a9", "read": "Unchanged hash. Read in full in round 2."}
+  ],
+  "guides": "The guide and phase hashes are the same as in earlier rounds, and I read every one in full earlier in this session."
+ },
+
+ "source_fetch_round4": {
+  "url": "https://www.epa.gov/newsreleases/administrator-zeldin-announces-epa-days-away-unveiling-next-oil-gas-proposal",
+  "result": "Exact string 'U.S. Environmental Protection Agency (EPA)' found. It sits in the release's opening sentence, 'While at the New Mexico Oil and Gas Association’s annual meeting in Santa Fe, New Mexico, U.S. Environmental Protection Agency (EPA)...'. The page also still shows the release date 'October 7, 2026' under the heading, which backs c14, and 'EPA will propose to rescind it.', which backs c10."
+ },
+
+ "claims": [
+  {"id": "c1", "verdict": "VERIFIED"}, {"id": "c2", "verdict": "VERIFIED"}, {"id": "c3", "verdict": "VERIFIED"},
+  {"id": "c4", "verdict": "VERIFIED"}, {"id": "c5", "verdict": "VERIFIED"}, {"id": "c6", "verdict": "VERIFIED"},
+  {"id": "c7", "verdict": "VERIFIED"}, {"id": "c8", "verdict": "VERIFIED"}, {"id": "c9", "verdict": "VERIFIED"},
+  {"id": "c10", "verdict": "VERIFIED"}, {"id": "c11", "verdict": "VERIFIED"}, {"id": "c12", "verdict": "VERIFIED"},
+  {"id": "c13", "verdict": "VERIFIED"}, {"id": "c14", "verdict": "VERIFIED"}, {"id": "c15", "verdict": "VERIFIED"},
+  {"id": "c16", "verdict": "VERIFIED"}, {"id": "c17", "verdict": "VERIFIED"}, {"id": "c18", "verdict": "VERIFIED"},
+  {"id": "c19", "verdict": "VERIFIED", "evidence": "The quote is a verbatim excerpt of the release's opening sentence. The scope note calls this the 'release dateline paragraph'. More precisely it is the first body sentence, which follows the 'WASHINGTON' dateline. The claim text is accurate."}
+ ],
+
+ "sentence_checks": [
+  {"id": "s3", "status": "OK", "findings": "'Environmental Protection Agency' is now in a bound quote (c19). The numerals 30 and 2025 are in the c11 quote. 'that company's Air Max drone system' is backed by c1 and c5. 'periodic' is backed by c5 and c16, and 'methane' by c18."},
+  {"id": "s1, s2, s4 to s8", "status": "OK", "findings": "The text and bindings match round 3, where each sentence was found supported."}
+ ],
+
+ "advisories_non_blocking": [
+  "The edit to story_selection.filmability.action_support[1].pictured_action left a garbled phrase: 'An illustrated infrared view of a valve with then a certified inspector's review panel marks the emission.' Fix the wording before boarding. It makes no factual claim.",
+  "Ector County: no claim places any drone, pilot or site there. Use it only to choose the regional plate and never name it on screen or in captions. No fetched source in this validation checks the high_plains region choice.",
+  "Any record card naming the method number needs attribution: the letter says MATM-011, while EPA's listing and the attachment say MATM-014.",
+  "agency.next_step reports what EPA said on October 7th. This validation did not establish whether the proposal had been published by October 21st."
+ ],
+
+ "rejected": [
+  "Nothing rejected in round 4. All 19 claims are verified against fetched sources, with c19 re-fetched this round. All eight spoken sentences, s1 to s8, are supported by their bound claims."
+ ],
+
+ "validation": {
+  "date": "2026-10-21",
+  "source": "Independent validator, round 4, 2026-10-21. Re-fetched the EPA release of October 7th, 2026 and confirmed c19 ('U.S. Environmental Protection Agency (EPA)') verbatim, with c10 and c14 still present. c1 to c18 have the same text and quotes as in round 3, when I confirmed them against fresh fetches of the EPA approval letter and memo, the DroneLife article of March 14th, 2025, the EPA Super Emitter Program page and the EPA MATM-14 method. I checked all eight narration sentences and their bindings. Subject: Percepto Air Max optical gas imaging drone system.",
+  "result": "PASS",
+  "verified_claim_ids": ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19"],
+  "rejected": [
+   "None in round 4. All 19 claims were independently verified and s1 to s8 are supported. Earlier rejections were resolved by applied edits. Round 1: the s8 contradiction and the Chevron-to-Air Max link. Round 2: the s1 place framing, the s1 binding to c2 and the s3 implied identity."
+  ],
+  "required_edits_applied": [
+   "Round 1, E1 to E9: quotes extended or added for c3, c11, c12, c13, c14, c15 and c16, s2 kept its attribution and qualifier, numerals in s3 and s7 now sit in claim quotes, the closing line is limited to the letter, and the selection's framing is limited to what sources say.",
+   "Round 2, R2-E1 to R2-E4: s1 reordered so Austin is not placed in the Permian, s1 now binds c17 instead of c2, s3 now says 'that company's Air Max drone system' with c18 bound, and three_key_images[2] now reads 'leak reporting program tag'.",
+   "Round 4: c19 added and bound to s3 so the spoken agency name sits in a quote. Footage-bookmark wording removed from story_selection."
+  ],
+  "reviewer_identity": "claude-opus-5-5 validator agent",
+  "script_sha256": "e12410d70ae4bfd710a2f8751544c02973d9b97aa5fa3435e7f46a92a95c22d6",
+  "claims_sha256": "d00508f683eddd194f4260aec5693defa341edc20070b2b0f8ffa7beeefe0648",
+  "hash_status": "Supplied by the director and the packet, which agree. Not recomputed by this validator, which has no shell."
+ },
+
+ "charges_and_scope": "One validator follow-up. No subagents, nothing sent or posted. This PASS covers the source truth of the claims and the narration only. It approves no board, picture or film."
+}

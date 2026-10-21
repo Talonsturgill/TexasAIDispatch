@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-21T16:15:55.016676+00:00",
-  "note": "claim worker dispatch validator",
+  "saved_at": "2026-10-21T16:19:06.446317+00:00",
+  "note": "before paid reservation",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -37,6 +37,12 @@
     "voice_directors": 0
   },
   "files": [
+    {
+      "path": "config/modern_episode_registry.json",
+      "class": "source",
+      "sha256": "cb66bf5d254a9609dc60d039d04d80ea827c49f8978e2c90365d1a9845cbc95f",
+      "size": 58484
+    },
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
@@ -110,10 +116,22 @@
       "size": 9804
     },
     {
+      "path": "out/dispatch/attempt1/validator-round4-response.txt",
+      "class": "scratch",
+      "sha256": "e19598058f1bdca22a86460e1763b0df4bcd2b02614f9e578b9865db9d2523e8",
+      "size": 7916
+    },
+    {
+      "path": "out/dispatch/builder-packet.json",
+      "class": "scratch",
+      "sha256": "6e40a608c43a5b3dec0bb4536aa4537a6031959e0843b83b1bf850ce0cbbf062",
+      "size": 7678
+    },
+    {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
-      "sha256": "d00508f683eddd194f4260aec5693defa341edc20070b2b0f8ffa7beeefe0648",
-      "size": 19151
+      "sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
+      "size": 19246
     },
     {
       "path": "out/dispatch/claude-host.json",
@@ -148,14 +166,14 @@
     {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
-      "sha256": "00029e1282f879e13238371df01c6c0157c2876da93de48509c517ffcd99814c",
-      "size": 136319
+      "sha256": "4449854d86f81ff7a35b8f77c6970d1a099bc64749974b7f3a34fb1dbec74ea7",
+      "size": 138862
     },
     {
       "path": "out/dispatch/opening-b.json",
       "class": "scratch",
-      "sha256": "ef162f4ba79604e0558e449c6b130b0c92d84b003a92dda136fdce82e3837a84",
-      "size": 136308
+      "sha256": "30edb87b44d6fe288b2c011dc62ab05ebfe514b7b4890151ab1d03ff9e40e0a7",
+      "size": 138851
     },
     {
       "path": "out/dispatch/provider-availability/startup/attempt.json",
@@ -358,20 +376,20 @@
     {
       "path": "out/dispatch/story_selection.json",
       "class": "scratch",
-      "sha256": "bdfff2e2919bd7c63a37a7f0f4ffa1cdf3a93e7ad9eeedadbe2305bf54d3d455",
-      "size": 10335
+      "sha256": "58d24be7e7af339db889b6b1699a7ed3a1e81223227473ae829b085443ab13e1",
+      "size": 10331
     },
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "00029e1282f879e13238371df01c6c0157c2876da93de48509c517ffcd99814c",
-      "size": 136319
+      "sha256": "4449854d86f81ff7a35b8f77c6970d1a099bc64749974b7f3a34fb1dbec74ea7",
+      "size": 138862
     },
     {
       "path": "out/dispatch/validation.json",
       "class": "scratch",
-      "sha256": "ad4810d3413666ef6eabd3ec046264e080d9c017090a938766ba9d7eaf303fec",
-      "size": 2211
+      "sha256": "55fa9e68cb317392cb11ea73fb5ad54fd21db5d827c3fdbed5a0e253edfd0e04",
+      "size": 2164
     },
     {
       "path": "out/dispatch/validator-assignment.json",
@@ -390,6 +408,12 @@
       "class": "scratch",
       "sha256": "d7f58ae31c256430bdef4a2efe9ae1cffc7be43d063a63282b636c3f1242dfe2",
       "size": 3146
+    },
+    {
+      "path": "out/dispatch/validator-assignment4.json",
+      "class": "scratch",
+      "sha256": "cf15d9041bc1267c94dbd4a54f4e8f4f4503d62a89ff5634ba22ba8e42da0790",
+      "size": 3093
     },
     {
       "path": "out/dispatch/validator-packet-subject-1c9e972072d326c5.json",
