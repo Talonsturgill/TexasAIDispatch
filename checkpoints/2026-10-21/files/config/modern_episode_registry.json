@@ -1663,49 +1663,40 @@
         "alert-panel",
         "approval-close",
         "blank-box",
-        "camera-pod",
         "confirm-close",
         "confirm-hold",
-        "date-detail",
-        "desk-overhead",
         "equipment-low",
+        "feed-lens",
         "followup-tag",
         "infrared-view",
-        "inspector-mark",
         "letter-desk",
-        "letter-overhead",
-        "letter-overhead-scan",
         "letter-scroll",
         "letter-wide",
-        "pad-overhead",
-        "panel-overhead",
+        "mark-hands",
         "panel-wide",
-        "panel-wide-hold",
         "poi-close",
         "program-calendar",
-        "program-overhead",
         "program-wide",
         "proposal-close",
-        "proposal-overhead",
         "proposal-wide",
         "review-panel",
         "review-wide",
-        "route-overhead",
+        "room-calendar",
+        "room-desk",
+        "room-feed",
+        "room-hold",
+        "room-letter",
+        "room-monitor",
+        "room-proposal",
+        "room-review",
+        "room-window",
         "route-wide",
+        "stamp-reaction",
         "station-wide",
         "title-detail",
         "window-wide"
       ],
       "wall_views": [
-        "date-detail",
-        "desk-overhead",
-        "letter-overhead",
-        "letter-overhead-scan",
-        "pad-overhead",
-        "panel-overhead",
-        "program-overhead",
-        "proposal-overhead",
-        "route-overhead",
         "title-detail"
       ],
       "subject": "A generic inspection drone design that leaves a weatherproof station on a Permian well pad, flies a flight plan with an infrared camera, and the records around it: a software panel with an alert flag, an approval letter with a date stamp, a review panel with a certified inspector mark and a follow-up tag, a letter title with a highlighted AI, a leak reporting program tag with calendar pages and a proposal tag, and a blank AI box",
@@ -1742,17 +1733,6 @@
             "inspector-confirms-leak-ai-unknown"
           ]
         },
-        "camera-pod": {
-          "subject_ids": [
-            "s4-drone",
-            "s4-infrared",
-            "s4-poi",
-            "s4-route"
-          ],
-          "action_ids": [
-            "drone-flies-route"
-          ]
-        },
         "confirm-close": {
           "subject_ids": [
             "s9-ai-box",
@@ -1775,26 +1755,6 @@
             "inspector-confirms-leak-ai-unknown"
           ]
         },
-        "date-detail": {
-          "subject_ids": [
-            "s3-approval",
-            "s3-date",
-            "s3-letter"
-          ],
-          "action_ids": [
-            "epa-approves-method"
-          ]
-        },
-        "desk-overhead": {
-          "subject_ids": [
-            "s2-alert",
-            "s2-claim",
-            "s2-software"
-          ],
-          "action_ids": [
-            "software-alert-claim"
-          ]
-        },
         "equipment-low": {
           "subject_ids": [
             "s1-drone",
@@ -1804,6 +1764,18 @@
           ],
           "action_ids": [
             "drone-leaves-station"
+          ]
+        },
+        "feed-lens": {
+          "subject_ids": [
+            "s4-drone",
+            "s4-infrared",
+            "s4-inspector",
+            "s4-poi",
+            "s4-route"
+          ],
+          "action_ids": [
+            "drone-flies-route"
           ]
         },
         "followup-tag": {
@@ -1828,17 +1800,6 @@
             "drone-flies-route"
           ]
         },
-        "inspector-mark": {
-          "subject_ids": [
-            "s5-emission",
-            "s5-followup",
-            "s5-footage",
-            "s5-inspector"
-          ],
-          "action_ids": [
-            "inspector-confirms-leak"
-          ]
-        },
         "letter-desk": {
           "subject_ids": [
             "s3-approval",
@@ -1847,26 +1808,6 @@
           ],
           "action_ids": [
             "epa-approves-method"
-          ]
-        },
-        "letter-overhead": {
-          "subject_ids": [
-            "s3-approval",
-            "s3-date",
-            "s3-letter"
-          ],
-          "action_ids": [
-            "epa-approves-method"
-          ]
-        },
-        "letter-overhead-scan": {
-          "subject_ids": [
-            "s6-count",
-            "s6-letter",
-            "s6-title"
-          ],
-          "action_ids": [
-            "ai-appears-in-title"
           ]
         },
         "letter-scroll": {
@@ -1889,18 +1830,7 @@
             "epa-approves-method"
           ]
         },
-        "pad-overhead": {
-          "subject_ids": [
-            "s1-drone",
-            "s1-equipment",
-            "s1-locator",
-            "s1-station"
-          ],
-          "action_ids": [
-            "drone-leaves-station"
-          ]
-        },
-        "panel-overhead": {
+        "mark-hands": {
           "subject_ids": [
             "s5-emission",
             "s5-followup",
@@ -1919,17 +1849,6 @@
           ],
           "action_ids": [
             "software-alert-claim"
-          ]
-        },
-        "panel-wide-hold": {
-          "subject_ids": [
-            "s9-ai-box",
-            "s9-footage",
-            "s9-inspector",
-            "s9-station"
-          ],
-          "action_ids": [
-            "inspector-confirms-leak-ai-unknown"
           ]
         },
         "poi-close": {
@@ -1953,16 +1872,6 @@
             "program-delayed"
           ]
         },
-        "program-overhead": {
-          "subject_ids": [
-            "s7-calendar",
-            "s7-delay",
-            "s7-program"
-          ],
-          "action_ids": [
-            "program-delayed"
-          ]
-        },
         "program-wide": {
           "subject_ids": [
             "s7-calendar",
@@ -1974,16 +1883,6 @@
           ]
         },
         "proposal-close": {
-          "subject_ids": [
-            "s8-date",
-            "s8-program",
-            "s8-proposal"
-          ],
-          "action_ids": [
-            "program-proposed-ended"
-          ]
-        },
-        "proposal-overhead": {
           "subject_ids": [
             "s8-date",
             "s8-program",
@@ -2025,15 +1924,105 @@
             "inspector-confirms-leak"
           ]
         },
-        "route-overhead": {
+        "room-calendar": {
+          "subject_ids": [
+            "s7-calendar",
+            "s7-delay",
+            "s7-inspector",
+            "s7-program"
+          ],
+          "action_ids": [
+            "program-delayed"
+          ]
+        },
+        "room-desk": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-inspector",
+            "s3-letter"
+          ],
+          "action_ids": [
+            "epa-approves-method"
+          ]
+        },
+        "room-feed": {
           "subject_ids": [
             "s4-drone",
             "s4-infrared",
+            "s4-inspector",
             "s4-poi",
             "s4-route"
           ],
           "action_ids": [
             "drone-flies-route"
+          ]
+        },
+        "room-hold": {
+          "subject_ids": [
+            "s9-ai-box",
+            "s9-footage",
+            "s9-inspector",
+            "s9-station"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak-ai-unknown"
+          ]
+        },
+        "room-letter": {
+          "subject_ids": [
+            "s6-count",
+            "s6-inspector",
+            "s6-letter",
+            "s6-title"
+          ],
+          "action_ids": [
+            "ai-appears-in-title"
+          ]
+        },
+        "room-monitor": {
+          "subject_ids": [
+            "s2-alert",
+            "s2-claim",
+            "s2-inspector",
+            "s2-software"
+          ],
+          "action_ids": [
+            "software-alert-claim"
+          ]
+        },
+        "room-proposal": {
+          "subject_ids": [
+            "s8-date",
+            "s8-inspector",
+            "s8-program",
+            "s8-proposal"
+          ],
+          "action_ids": [
+            "program-proposed-ended"
+          ]
+        },
+        "room-review": {
+          "subject_ids": [
+            "s5-emission",
+            "s5-followup",
+            "s5-footage",
+            "s5-inspector"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak"
+          ]
+        },
+        "room-window": {
+          "subject_ids": [
+            "s1-drone",
+            "s1-equipment",
+            "s1-inspector",
+            "s1-locator",
+            "s1-station"
+          ],
+          "action_ids": [
+            "drone-leaves-station"
           ]
         },
         "route-wide": {
@@ -2045,6 +2034,17 @@
           ],
           "action_ids": [
             "drone-flies-route"
+          ]
+        },
+        "stamp-reaction": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-inspector",
+            "s3-letter"
+          ],
+          "action_ids": [
+            "epa-approves-method"
           ]
         },
         "station-wide": {
@@ -2087,15 +2087,15 @@
           "export": "InspectionDroneHero",
           "views": [
             "blank-box",
-            "camera-pod",
             "confirm-close",
             "confirm-hold",
             "equipment-low",
+            "feed-lens",
             "infrared-view",
-            "pad-overhead",
-            "panel-wide-hold",
             "poi-close",
-            "route-overhead",
+            "room-feed",
+            "room-hold",
+            "room-window",
             "route-wide",
             "station-wide",
             "window-wide"
@@ -2109,35 +2109,35 @@
             "alert-panel",
             "approval-close",
             "blank-box",
-            "camera-pod",
             "confirm-close",
             "confirm-hold",
-            "date-detail",
-            "desk-overhead",
             "equipment-low",
+            "feed-lens",
             "followup-tag",
             "infrared-view",
-            "inspector-mark",
             "letter-desk",
-            "letter-overhead",
-            "letter-overhead-scan",
             "letter-scroll",
             "letter-wide",
-            "pad-overhead",
-            "panel-overhead",
+            "mark-hands",
             "panel-wide",
-            "panel-wide-hold",
             "poi-close",
             "program-calendar",
-            "program-overhead",
             "program-wide",
             "proposal-close",
-            "proposal-overhead",
             "proposal-wide",
             "review-panel",
             "review-wide",
-            "route-overhead",
+            "room-calendar",
+            "room-desk",
+            "room-feed",
+            "room-hold",
+            "room-letter",
+            "room-monitor",
+            "room-proposal",
+            "room-review",
+            "room-window",
             "route-wide",
+            "stamp-reaction",
             "station-wide",
             "title-detail",
             "window-wide"
