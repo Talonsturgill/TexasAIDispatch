@@ -636,7 +636,9 @@ class Durability(Base):
     def test_ordinary_runs_are_untouched(self):
         (self.scratch / "claude-host.json").unlink()
         self.break_remote()
-        ok, _ = controller.reserve(self.state, {"research_agents": 1}, "no host marker")
+        with mock.patch.object(ck, "save") as save:
+            ok, _ = controller.reserve(self.state, {"research_agents": 1}, "no host marker")
+        save.assert_not_called()
         self.assertTrue(ok)
         self.assertFalse(ck.flag_path(self.state).exists())
 

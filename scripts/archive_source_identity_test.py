@@ -180,6 +180,77 @@ class ArchiveSourceIdentityTest(unittest.TestCase):
         self.assertEqual(current["events"][:-1], self.new["events"])
         self.assertEqual(current["shipment"]["manifest_sha256"], "b" * 64)
 
+    def test_published_shipment_accepts_append_only_verified_refresh(self):
+        self.base = self.git("rev-parse", "HEAD")
+        self.mutate_state(self.repeat_shipment)
+        with self.context():
+            self.assertEqual(archive.historical_identity("producer"), self.identity["producer"])
+            self.assertEqual(archive.historical_identity("inspector"), self.identity["inspector"])
+        current = json.loads((self.repo / self.runfile("run_state.json")).read_text())
+        self.assertEqual(current["events"][:-1], self.new["events"])
+        self.assertEqual(current["usage"], self.new["usage"])
+        self.assertEqual(current["resource_envelope"], self.new["resource_envelope"])
+
+    def test_shallow_published_shipment_refresh_retains_exact_parent(self):
+        self.base = self.git("rev-parse", "HEAD")
+        self.mutate_state(self.repeat_shipment)
+        clone = self.shallow_clone_with_base(self.base)
+        with archive.validation_context(clone, self.base, self.day):
+            self.assertEqual(archive.historical_identity("producer"), self.identity["producer"])
+
+    def test_refresh_cannot_edit_original_published_shipment_receipt(self):
+        self.base = self.git("rev-parse", "HEAD")
+        def change(state):
+            self.repeat_shipment(state)
+            state["events"][-2]["shipment_sha256"] = "c" * 64
+        self.mutate_state(change)
+        self.rejected()
+
+    def test_refresh_rejects_invalid_base_shipment_binding(self):
+        self.new["shipment"]["manifest_sha256"] = "c" * 64
+        self.write(self.runfile("run_state.json"), self.new)
+        self.base = self.commit()
+        self.mutate_state(self.repeat_shipment)
+        self.rejected()
+
+    def test_refresh_rejects_invalid_base_shipment_receipt(self):
+        self.new["events"][-1]["at"] = " "
+        self.write(self.runfile("run_state.json"), self.new)
+        self.base = self.commit()
+        self.mutate_state(self.repeat_shipment)
+        self.rejected()
+
+    def test_refresh_rejects_changed_production_media(self):
+        self.base = self.git("rev-parse", "HEAD")
+        self.write(self.runfile("dispatch.mp4"), b"unreviewed replacement")
+        self.mutate_state(self.repeat_shipment)
+        self.rejected()
+
+    def test_refresh_rejects_changed_report_and_rebound_hash(self):
+        self.base = self.git("rev-parse", "HEAD")
+        report = self.write(self.runfile("report_card.json"), {"judges": ["unreviewed replacement"]})
+        def change(state):
+            self.repeat_shipment(state)
+            state["final_report"]["sha256"] = archive._file_sha(report)
+        self.mutate_state(change)
+        self.rejected()
+
+    def test_refresh_rejects_latest_receipt_not_bound_to_current_shipment(self):
+        self.base = self.git("rev-parse", "HEAD")
+        def change(state):
+            self.repeat_shipment(state)
+            state["shipment"]["manifest_sha256"] = "a" * 64
+        self.mutate_state(change)
+        self.rejected()
+
+    def test_refresh_rejects_counter_changes(self):
+        self.base = self.git("rev-parse", "HEAD")
+        def change(state):
+            self.repeat_shipment(state)
+            state["usage"]["scorers"] = 0
+        self.mutate_state(change)
+        self.rejected()
+
     def test_nonfinished_appended_event_is_rejected(self):
         self.mutate_state(lambda s: s["events"].append({"kind": "reserved", "resources": {"scorers": 1}}))
         self.rejected()

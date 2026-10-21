@@ -56,6 +56,19 @@ def _read(repo, revision, name):
     return json.loads(_git(repo, "show", revision + ":" + name))
 
 
+def _finished_receipts(receipts):
+    if not receipts or any(not isinstance(row, dict) or row.get("kind") != "finished"
+            or row.get("result") != "shipped" or not isinstance(row.get("at"), str) or not row["at"].strip()
+            or re.fullmatch(r"[0-9a-f]{64}", str(row.get("shipment_sha256"))) is None for row in receipts):
+        raise ValueError("archive closure requires complete shipment receipts")
+
+
+def _shipment_binding(shipment, receipt, film):
+    if (not isinstance(shipment, dict) or shipment.get("film_sha256") != film
+            or shipment.get("manifest_sha256") != receipt["shipment_sha256"]):
+        raise ValueError("archive closure lost its shipment binding")
+
+
 def _closure(repo, base, day):
     prefix = "runs/" + day + "/"
     before, after = _tree(repo, base, prefix), _tree(repo, "HEAD", prefix)
@@ -63,8 +76,9 @@ def _closure(repo, base, day):
     if state_path not in before or state_path not in after:
         return None
     old, new = _read(repo, base, state_path), _read(repo, "HEAD", state_path)
-    if new.get("terminal_state") != "shipped" or old.get("terminal_state") is not None:
+    if new.get("terminal_state") != "shipped" or old.get("terminal_state") not in (None, "shipped"):
         return None
+    already_shipped = old.get("terminal_state") == "shipped"
     # A depth-one CI checkout retains its immutable parent IDs even though Git's
     # ancestry walk treats HEAD as a root. An exact parent still proves lineage.
     base_oid = _git(repo, "rev-parse", base + "^{commit}").decode().strip()
@@ -83,31 +97,29 @@ def _closure(repo, base, day):
         if path.is_symlink() or _git(repo, "hash-object", "--no-filters", name).decode().strip() != oid:
             raise ValueError("archive closure has uncommitted evidence substitutions")
     if (old.get("mode") != "production" or old.get("run_id") != day
-            or old.get("phase") != "publishing" or old.get("release_status") != "publishable"
+            or old.get("phase") != ("shipped" if already_shipped else "publishing")
+            or old.get("release_status") != "publishable"
             or new.get("phase") != "shipped"
             or {k: v for k, v in old.items() if k not in STATE_FIELDS} != {k: v for k, v in new.items() if k not in STATE_FIELDS}):
         raise ValueError("archive closure changed its accepted production ledger")
     events, appended = old.get("events", []), new.get("events", [])
     if not events or len(appended) <= len(events) or appended[:len(events)] != events:
         raise ValueError("archive closure must retain its exact event prefix")
-    for receipt in appended[len(events):]:
-        if (not isinstance(receipt, dict) or receipt.get("kind") != "finished"
-                or receipt.get("result") != "shipped"
-                or not isinstance(receipt.get("at"), str) or not receipt["at"].strip()
-                or re.fullmatch(r"[0-9a-f]{64}", str(receipt.get("shipment_sha256"))) is None):
-            raise ValueError("archive closure may append only complete shipment receipts")
-    release, finish = events[-1], appended[-1]
+    _finished_receipts(appended[len(events):])
+    releases = [i for i, row in enumerate(events) if isinstance(row, dict) and row.get("kind") == "release_authorized"]
+    if not releases or (not already_shipped and releases[-1] != len(events) - 1):
+        raise ValueError("archive closure lacks its original publication authorization")
+    release = events[releases[-1]]
     film = _file_sha(repo / prefix / "dispatch.mp4")
     report = old.get("final_report") or {}
-    shipment = new.get("shipment") or {}
+    if already_shipped:
+        _finished_receipts(events[releases[-1] + 1:])
+        _shipment_binding(old.get("shipment"), events[-1], film)
+    _shipment_binding(new.get("shipment"), appended[-1], film)
     if (release.get("kind") != "release_authorized" or release.get("result") != "publishable"
             or release.get("report_sha256") != report.get("sha256")
             or report.get("sha256") != _file_sha(repo / prefix / "report_card.json")
-            or report.get("film_sha256") != film or (old.get("deliverable") or {}).get("film_sha256") != film
-            or finish.get("kind") != "finished" or finish.get("result") != "shipped"
-            or shipment.get("film_sha256") != film
-            or re.fullmatch(r"[0-9a-f]{64}", str(shipment.get("manifest_sha256"))) is None
-            or finish.get("shipment_sha256") != shipment.get("manifest_sha256")):
+            or report.get("film_sha256") != film or (old.get("deliverable") or {}).get("film_sha256") != film):
         raise ValueError("archive closure lost its publication or shipment binding")
     return prefix
 
