@@ -237,3 +237,17 @@ observed results; five future editions cannot be inferred from an engineering re
 Record retrospective findings for later maintenance. Daily production does not implement
 optional engineering upgrades, run paid benchmarks, train itself, or reopen a shipped film.
 Repair only an observed mandatory delivery failure in its owning source with focused evidence.
+
+Before the final response, complete the shipped checkpoint, verify the continuation closure and
+run post-shipment housekeeping. Preserve the restored edition worktree, including checkpointed
+source edits and scratch evidence. Those retained files do not require another commit, reset or
+deletion, and are not a reason to ask the owner for cleanup permission.
+
+Return the actual native Bash/session working directory to the clean primary Dispatch checkout
+recorded at startup. Use the host's directory selection or native `cd`; a `cd` confined to the
+runtime wrapper's child shell does not change the host session directory. In a subsequent native
+Bash call, confirm `pwd` identifies that primary checkout; run the wrapped Git status check there
+and verify it is clean and level with the verified `origin/main`. Continue running Dispatch
+commands through the runtime wrapper. Then report completion once. This prevents the host's
+Git completion hook from treating intentionally retained edition evidence as unfinished source.
+Keep every host hook enabled; do not change approval settings or alter the archived evidence.

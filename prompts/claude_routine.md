@@ -248,6 +248,11 @@ From the October 17 edition, the cinema producer creates its duplicate render ca
 `out/dispatch/tmp/cinema-render-cache`. Canonical proof images, hero, provenance and every failed
 proof remain under `cinema/` and are retained. Earlier editions keep their original cache path.
 After `finish --result shipped` and the metadata archive, save once more so the checkpoint reads finished.
+Complete Phase 5's final host-checkout step before replying: preserve the archived edition
+worktree, return the actual native Bash/session directory to the clean primary checkout recorded
+at startup, and verify its directory and Git status. A wrapper-only `cd` does not change the host
+directory. Retained edition evidence needs no cleanup question or extra commit; keep host hooks
+and approval settings unchanged.
 
 Immediately after selecting or restoring the production ledger, arm its preinstalled completion
 guard through the current checkout. Resolve the actual registered primary workspace, then run:
