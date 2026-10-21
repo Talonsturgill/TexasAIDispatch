@@ -450,11 +450,18 @@ format details instead of rereading entire controller modules. Every required gu
 exact film and independent observation stays in scope. Continue independent work while a render
 runs. Never end the turn with a promise to perform the next phase.
 
-For a GitHub PR CI wait, use the native `claude-code-remote: subscribe pr activity` tool on the
-exact owning repository and PR, and retain its actual external-event wake acknowledgment.
-A turn may yield to that registered wake or a real background task; production stays open and
-must resume through shipped and durable closure. Recheck the exact head and every required
-conclusion after waking. For post-merge deployment, retain the actual workflow and process
+For a GitHub PR CI wait, retain the exact owning repository, PR, head and workflow execution.
+The native `claude-code-remote: subscribe pr activity` acknowledgment does not currently satisfy
+the installed Stop hook: that hook recognizes only the separately verified paid-subagent wake.
+Do not end the turn with a waiting response after subscribing, including after controller
+shipment while the archive is pending. That creates another Stop-hook turn and spends tokens
+without advancing delivery. Use one finite foreground `gh run watch <actual-run-id> --repo
+<actual-owner/repo> --exit-status --interval 60`, inside the runtime wrapper, with the host's
+explicit supported tool timeout (up to ten minutes for this passive CI wait). Keep its output
+in a log. If the host returns a live task handle, block on that same handle with TaskOutput;
+do not create another observer or emit a final waiting response. A wait timeout is pending,
+not a failed workflow or permission question. Recheck the exact head and every required
+conclusion when the actual job finishes. For post-merge deployment, retain the workflow and process
 handles; a merged PR alone does not prove a deployment. Prefer the connected GitHub Actions
 read tools for workflow status, with authenticated `gh` reads when those tools are unavailable.
 An October 18 anonymous curl status poll was classifier-denied without an explanation; the

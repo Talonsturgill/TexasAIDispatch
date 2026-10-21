@@ -96,6 +96,8 @@ class ContinuationTests(unittest.TestCase):
         pause.assert_called_once_with(60)
         self.assertEqual(result['decision'], 'block')
         self.assertIn('ci-monitor', result['reason'])
+        self.assertIn('PR subscription alone is not a verified Stop-hook wake', result['reason'])
+        self.assertIn('finite foreground gh run watch', result['reason'])
         self.assertEqual(self.state.read_bytes(), before)
 
     def test_exhausted_critic_wait_names_existing_capacity_and_pivot_actions_without_mutation(self):

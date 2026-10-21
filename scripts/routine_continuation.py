@@ -272,6 +272,9 @@ def decision(payload, workspace):
     recovery = capacity_recovery_hint(state) if state is not None and not running else ''
     return ('Texas production remains unfinished: ' + reason + '.' + wait +
             recovery +
+            ' A PR subscription alone is not a verified Stop-hook wake. For pending CI or archive'
+            ' checks, use the finite foreground gh run watch command in prompts/claude_routine.md'
+            ' and block on its exact returned task handle; do not emit another final waiting response.'
             ' Continue the same edition through prompts/claude_routine.md and its versioned recovery.'
             ' Internal repair or capacity needs do not require owner permission. Use a tool to inspect'
             ' the actual state and take the next required action; do not repeat a final waiting message.'
