@@ -236,6 +236,43 @@ class ArchiveSourceIdentityTest(unittest.TestCase):
         with self.context():
             self.assertIsNone(archive.historical_identity("producer"))
 
+    def shallow_clone_with_base(self, base):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        clone = Path(temporary.name) / "checkout"
+        subprocess.run(["git", "clone", "--quiet", "--depth=1", "--no-local", self.repo.as_uri(), str(clone)],
+                       check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(clone), "fetch", "--quiet", "--depth=1", "origin", base],
+                       check=True, capture_output=True)
+        shallow = (clone / ".git/shallow").read_text().splitlines()
+        head = subprocess.check_output(["git", "-C", str(clone), "rev-parse", "HEAD"], text=True).strip()
+        self.assertIn(head, shallow)
+        self.assertIn(base, shallow)
+        ancestry = subprocess.run(["git", "-C", str(clone), "merge-base", "--is-ancestor", base, "HEAD"],
+                                  capture_output=True)
+        self.assertEqual(ancestry.returncode, 1, ancestry.stderr.decode())
+        return clone
+
+    def test_shallow_checkout_admits_exact_trusted_parent_after_depth_one_fetch(self):
+        clone = self.shallow_clone_with_base(self.base)
+        header = subprocess.check_output(["git", "-C", str(clone), "cat-file", "-p", "HEAD"], text=True)
+        self.assertIn("parent " + self.base, header.split("\n\n", 1)[0].splitlines())
+        with archive.validation_context(clone, self.base, self.day):
+            self.assertEqual(archive.historical_identity("producer"), self.identity["producer"])
+            self.assertEqual(archive.historical_identity("inspector"), self.identity["inspector"])
+        self.assertIsNone(archive.historical_identity("producer"))
+
+    def test_shallow_checkout_rejects_unrelated_base_with_identical_package(self):
+        unrelated = self.git("commit-tree", self.base + "^{tree}", "-m", "Unrelated fixture base")
+        self.git("update-ref", "refs/heads/unrelated-archive-base", unrelated)
+        clone = self.shallow_clone_with_base(unrelated)
+        header = subprocess.check_output(["git", "-C", str(clone), "cat-file", "-p", "HEAD"], text=True)
+        self.assertNotIn("parent " + unrelated, header.split("\n\n", 1)[0].splitlines())
+        with self.assertRaises(ValueError):
+            with archive.validation_context(clone, unrelated, self.day):
+                self.fail("an unrelated fetched base must never supply historical identities")
+        self.assertIsNone(archive.historical_identity("producer"))
+
 
 if __name__ == "__main__":
     unittest.main()

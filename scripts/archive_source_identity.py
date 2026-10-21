@@ -65,7 +65,13 @@ def _closure(repo, base, day):
     old, new = _read(repo, base, state_path), _read(repo, "HEAD", state_path)
     if new.get("terminal_state") != "shipped" or old.get("terminal_state") is not None:
         return None
-    _git(repo, "merge-base", "--is-ancestor", base, "HEAD")
+    # A depth-one CI checkout retains its immutable parent IDs even though Git's
+    # ancestry walk treats HEAD as a root. An exact parent still proves lineage.
+    base_oid = _git(repo, "rev-parse", base + "^{commit}").decode().strip()
+    commit_header = _git(repo, "cat-file", "-p", "HEAD").split(b"\n\n", 1)[0]
+    parents = {line[7:].decode() for line in commit_header.splitlines() if line.startswith(b"parent ")}
+    if base_oid not in parents:
+        _git(repo, "merge-base", "--is-ancestor", base, "HEAD")
     allowed = {prefix + name for name in METADATA}
     if set(before) - set(after) or any(before.get(p) != after.get(p) for p in set(before) | set(after) if p not in allowed):
         raise ValueError("archive closure changed published production evidence")
