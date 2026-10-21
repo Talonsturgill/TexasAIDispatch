@@ -1,0 +1,88 @@
+{
+ "handoff": "validator round 3 (charged follow-up)",
+ "edition_date": "2026-10-21",
+ "subject": "Percepto Air Max optical gas imaging drone system",
+ "summary": "PASS. All 18 claims are verified. I re-fetched the sources myself and found c17 and c18 verbatim. All eight spoken sentences (s1 to s8) are supported by the claims bound to them. Every spoken numeral appears in a verified claim's quote. R2-E1 to R2-E4 are applied in the current files. The round 1 and round 2 defects are resolved. Advisories that don't block remain for the board phase.",
+
+ "input_verification": {
+  "packet": {"path": "out/dispatch/validator-packet.json", "declared_sha256": "06016cf5edc4b78752869d77f28817d66283d12915b581ffdcf5057e01f6bc78", "read": "full"},
+  "hash_status": "NOT RECOMPUTED by this validator. It has only Read and WebFetch, with no shell. The hashes below were computed by the director and appear in the round 3 message and the packet. The packet's input hashes match the director's values exactly. They identify the files I read, and I did not verify their byte identity myself.",
+  "inputs_validated": [
+   {"path": "out/dispatch/vo_script.txt", "sha256": "e12410d70ae4bfd710a2f8751544c02973d9b97aa5fa3435e7f46a92a95c22d6", "read": "full, 8 sentences"},
+   {"path": "out/dispatch/vo_bindings.json", "sha256": "cd15576c420b01e5f407bdd250ed2d06555a187c115571980f123ce7af048fc2", "read": "full, s1 to s8"},
+   {"path": "out/dispatch/claims.json", "sha256": "e891a1d1c91ae0461ce3068ea0c6c44da0ba7cf85c776f524078ffc92dbba216", "read": "full, c1 to c18"},
+   {"path": "out/dispatch/story_selection.json", "sha256": "a4c1ae089e91c754167d674535ee80870abc8969032a740537de9202220ea143", "read": "full"},
+   {"path": "out/dispatch/research.json", "sha256": "c7db3cf71d5d47c2d9925cf3899d9416605777748bd442208ac679f0e12a47a9", "read": "full in round 2, unchanged hash"}
+  ],
+  "guides": "The packet's guide and phase hashes are identical to rounds 1 and 2. I read every one in full earlier in this session and did not re-read them in round 3."
+ },
+
+ "source_fetches": {
+  "round3_fresh": [
+   {"url": "https://dronelife.com/2025/03/14/the-inside-story-on-chevrons-autonomous-drone-inspections-with-percepto/", "result": "c17 is an exact match. Its sentence begins 'While the system is designed to enable the drones to perform autonomous inspections on a regularly scheduled basis, operators...', and the article uses it to describe Percepto's system in the Chevron pilot. c3 and c4 were re-confirmed as exact."},
+   {"url": "https://www.epa.gov/system/files/documents/2025-09/percepto-approval-letter_v1-no-track-changes-508.pdf", "result": "The PDF came back as binary, so I read its rendered page 1. c18 matches: the page reads 'seeks approval of an “Alternative Test Method for Methane Detection Technology”', with a line break after 'Method'. The curly quotation marks are outside the claim quote. c1, c6 and c12 were re-confirmed on the same page."}
+  ],
+  "earlier_this_session_unchanged_claims": "c2, c5, c7, c8, c9, c10, c11, c13, c14, c15 and c16 were confirmed verbatim against fresh fetches in round 2. Their claim text and quotes are byte-identical in the current claims.json. Sources: letter pages 1, 2 and 5, the Super Emitter page, the October 7th release, and MATM-14 page 15."
+ },
+
+ "claims": [
+  {"id": "c1", "verdict": "VERIFIED"}, {"id": "c2", "verdict": "VERIFIED"}, {"id": "c3", "verdict": "VERIFIED"},
+  {"id": "c4", "verdict": "VERIFIED"}, {"id": "c5", "verdict": "VERIFIED"}, {"id": "c6", "verdict": "VERIFIED"},
+  {"id": "c7", "verdict": "VERIFIED"}, {"id": "c8", "verdict": "VERIFIED"}, {"id": "c9", "verdict": "VERIFIED"},
+  {"id": "c10", "verdict": "VERIFIED"}, {"id": "c11", "verdict": "VERIFIED"}, {"id": "c12", "verdict": "VERIFIED"},
+  {"id": "c13", "verdict": "VERIFIED"}, {"id": "c14", "verdict": "VERIFIED", "note": "The quote is the page heading followed directly by the dateline, with nothing between them."},
+  {"id": "c15", "verdict": "VERIFIED", "note": "MATM-14 section 12.1, after NFKC normalisation of the 'fi' ligature."},
+  {"id": "c16", "verdict": "VERIFIED"},
+  {"id": "c17", "verdict": "VERIFIED", "note": "An excerpt from inside a sentence that begins with 'While'."},
+  {"id": "c18", "verdict": "VERIFIED", "note": "The source's curly quotation marks are excluded, and the line break is whitespace only."}
+ ],
+
+ "sentence_checks": [
+  {"id": "s1", "status": "OK", "findings": "'In the Permian Basin' now comes first, so Austin is no longer placed in the Permian. c3 supports the test in the Permian Basin. c17 supports 'autonomous' with DroneLife's own words about the pilot system. c1 supports 'located in Austin'. c2 is no longer bound, so the Chevron to Air Max link is gone."},
+  {"id": "s2", "status": "OK", "findings": "Bound to c4. The attribution is to both companies and the 'anomalies to normal operations' qualifier is kept."},
+  {"id": "s3", "status": "OK", "findings": "The numerals 30 and 2025 are in the c11 quote. 'that company's Air Max drone system' identifies the Austin company's product (c1, and c5's 'Percepto's Air Max OGI System') without saying Chevron tested it. 'periodic ... screening' is supported by c5 and c16. 'methane' is supported by c18."},
+  {"id": "s4", "status": "OK", "findings": "c12 (infrared camera) and c6 (flight plan to points of interest)."},
+  {"id": "s5", "status": "OK", "findings": "c7."},
+  {"id": "s6", "status": "OK", "findings": "c8, with the absence check over the whole letter and the attached memo."},
+  {"id": "s7", "status": "OK", "findings": "The numerals 22 and 2027 are in the c9 quote, and 7 is in the c14 quote. c13 supports 'leak reporting program' and c10 supports 'rescind'."},
+  {"id": "s8", "status": "OK", "findings": "c15 and c7 support the inspector confirming the leak. c8 supports the second sentence, which covers the letter only."}
+ ],
+
+ "advisories_non_blocking": [
+  "story_selection.county is Ector. No claim places any drone, pilot or site in Ector County, so it may only pick the regional plate and must never be named on screen or in captions. The selection says the same. The 'high_plains' region choice for Ector is an art and place decision. No fetched source in this validation checks it, so check it against the Texas region notes before boarding.",
+  "story_selection still mentions footage bookmarks in three_key_images[1], action_support (mechanism) and visual_stakes.visible_change. The director says the film won't use them. No claim covers bookmarks, so a bookmark on the board would need a new claim first. MATM-14 sections 8.2.2.2 and 12.1.3 would support one. Otherwise, remove that wording before boarding.",
+  "Any record card naming the method number needs an attribution. The letter says 'MATM-011', while EPA's listing and the attachment say MATM-014.",
+  "agency.next_step correctly reports what EPA said on October 7th. Whether the proposal had been published by October 21st was not established."
+ ],
+
+ "rejected": [
+  "No claim or spoken sentence was rejected in round 3. All 18 claims were verified against fetched sources, with c17 and c18 re-fetched in this round, and all eight sentences s1 to s8 are supported by their bound claims."
+ ],
+
+ "validation": {
+  "date": "2026-10-21",
+  "source": "Independent validator, round 3, 2026-10-21. c17 was re-fetched from DroneLife of March 14th, 2025. c18, c1, c6 and c12 were re-checked on rendered page 1 of a fresh fetch of the EPA Percepto approval letter PDF. The other claims were confirmed verbatim against fresh fetches in round 2 and are byte-identical in the current claims (EPA approval letter and memo, EPA Super Emitter Program page, EPA release of October 7th, 2026, EPA MATM-14 method). All eight narration sentences and their bindings were checked. Subject is the Percepto Air Max optical gas imaging drone system.",
+  "result": "PASS",
+  "verified_claim_ids": ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18"],
+  "rejected": [
+   "None in round 3. All 18 claims were independently verified, and sentences s1 to s8 are supported by their bound claims. Earlier rejections were resolved by applied edits: in round 1 the s8 contradiction and the Chevron to Air Max link, in round 2 the s1 place framing, the s1 binding to c2 and the s3 implied identity."
+  ],
+  "required_edits_applied": [
+   "Round 1, E1 to E9: quotes extended or added for c3, c11, c12, c13, c14, c15 and c16. s2 attribution and qualifier kept. Numerals in s3 and s7 are now in claim quotes. The closing line covers the letter only. Selection framing limited to sources.",
+   "Round 2, R2-E1: s1 reordered to 'In the Permian Basin, Chevron tested autonomous drones from a company located in Austin.'",
+   "Round 2, R2-E2: s1 now binds c17, the DroneLife autonomous inspections sentence, instead of c2.",
+   "Round 2, R2-E3: s3 now says 'that company's Air Max drone system' and binds c18 for 'methane' and c1.",
+   "Round 2, R2-E4: three_key_images[2] now says 'leak reporting program tag'."
+  ],
+  "reviewer_identity": "claude-opus-5-5 validator agent",
+  "script_sha256": "e12410d70ae4bfd710a2f8751544c02973d9b97aa5fa3435e7f46a92a95c22d6",
+  "claims_sha256": "e891a1d1c91ae0461ce3068ea0c6c44da0ba7cf85c776f524078ffc92dbba216",
+  "hash_status": "Computed by the director and matching the packet. This validator, with no shell, did not recompute them."
+ },
+
+ "raw_retained_paths": [
+  "/root/.claude/projects/-home-user/4aaf77b6-3ce3-5372-a69f-f48388b152c1/tool-results/webfetch-1792598979802-s7qs57.pdf (approval letter PDF from the round 3 fetch; read only)"
+ ],
+
+ "charges_and_scope": "One validator follow-up, no subagents, nothing sent or posted. This PASS covers source truth for the claims and narration only. It approves no board, picture or film."
+}
