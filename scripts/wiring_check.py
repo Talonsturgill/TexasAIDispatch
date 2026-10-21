@@ -46,6 +46,7 @@ REPO = Path(__file__).resolve().parents[1]
 # Scripts that are legitimately run by a person and not by a routine. Each needs a reason,
 # because "it is standalone" is what an orphan says about itself.
 STANDALONE = {
+    "archive_source_identity.py": "Library called by production_quality.changed_runs around the complete publication gate. It admits only byte-identical published evidence and an append-only shipment closure, binding the original capture and inspector sources; archive_source_identity_test exercises real Git provenance and tampering rejection.",
     "completion_progress.py": "Controller library invoked on real plans by completion-capacity, repair_guard.plan_problems and production_lifecycle.authorize_repair; its tests prove a real capacity refusal before ledger mutation, complete renderer retirement, stale proof rejection and historical compatibility.",
     "review_limit.py": "Owner-directed five-attempt controller library, invoked before real reservations and repair/capacity admission. Its real-controller regression refuses a sixth attempt despite larger ceilings, blocks script/mechanism resets, preserves historical counters and leaves final delivery resources available.",
     "native_task_wait.py": "Lifecycle library invoked by the actual armed Stop hook on the host task registry. Tests bind the real runtime.plan dispatch description to an owned reservation, reject unpaid or foreign tasks, preserve unfinished controller bytes and resume the ordinary guard after completion; no tool permissions or shipment gate are changed.",

@@ -42,6 +42,10 @@ def body(board):
 
 def inspection_producer():
     """Bind reports to the measurement code and its policy dependencies."""
+    from archive_source_identity import historical_identity
+    historical = historical_identity("inspector")
+    if historical is not None:
+        return historical
     files = ("opening_compare.py", "preflight_animatic.py", "creative_production.py", "documentary_check.py")
     return creative.fingerprint({name: creative.digest(REPO / "scripts" / name) for name in files})
 
