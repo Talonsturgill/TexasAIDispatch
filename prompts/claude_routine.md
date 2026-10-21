@@ -147,7 +147,10 @@ the next repair uses the finite structural route. No reservation is replayed and
 by this source integration. Never resume a session the human explicitly stopped.
 The selected edition is restored
 with `python scripts/claude_checkpoint.py restore --run-id <id> --origin-workspace <shared-parent>`.
-Finish the actual catalog task before restoration, and run no other Git fetch while the
+If the selected checkpoint is already publishing, read Phase 5 from current main before
+taking action. Its release-resume path preserves the reviewed film, existing candidate and
+running verification job. A stopped host does not invalidate that work or authorize another
+editorial attempt. Finish the actual catalog task before restoration, and run no other Git fetch while the
 retained restore command is active. The checkpoint codec and its prelaunch guard stay unchanged.
 The recorded original root preserves absolute paths inside unchanged hash-bound historical events;
 the fresh scheduled October 18 recovery proved this route after a different-root restore failed.

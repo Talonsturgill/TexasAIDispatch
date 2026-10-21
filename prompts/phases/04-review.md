@@ -94,6 +94,12 @@ honestly. Require every guide, source, rights, native, audio, caption, timed mod
 shipment check under the unchanged rubric. An unknown observation stays blocking; this is media
 access recovery, never artistic deferral, a provider outage or a director's replacement verdict.
 
+Read saved public observations when earlier images leave history. A later placeholder does not
+turn an originally visible image into a transport outage. If the complete original observations
+exist but the handback is malformed, have that same original reviewer return the complete JSON
+from its own evidence without re-traversing the film or changing its judgments. Keep both
+handbacks. Modern observation windows end at board.runtime_s, before the separate music credits.
+
 ```sh
 python scripts/agent_runtime.py --plan --role picture --packet out/dispatch/picture-packet.json --task-name picture_score --scope "Independently watch the exact finished film through the picture lens and all required timed observations" --out out/dispatch/picture-assignment.json
 python scripts/agent_runtime.py --plan --role story --packet out/dispatch/story-packet.json --task-name story_score --scope "Independently watch the exact finished film through the source, narrative and comprehension lens" --out out/dispatch/story-assignment.json

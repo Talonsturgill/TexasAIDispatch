@@ -53,6 +53,39 @@ class LifecycleTest(unittest.TestCase):
         p.write_text(json.dumps(data))
         return p
 
+    def test_delivery_prepares_both_feed_assets_and_preserves_the_master_before_push(self):
+        import publish_feed
+        script = Path(c.__file__).with_name('deliver_run.sh').read_text()
+        code = script.split("<<'PY_PHONE_MEDIA'\n", 1)[1].split('\nPY_PHONE_MEDIA', 1)[0]
+        run = self.root / 'package'
+        run.mkdir()
+        master, poster = run / 'dispatch.mp4', run / 'poster.png'
+        master.write_bytes(b'exact reviewed native master')
+        poster.write_bytes(b'exact reviewed native poster')
+        calls = []
+        def encode(args, **kwargs):
+            calls.append(args)
+            Path(args[-1]).write_bytes(b'new derived feed asset')
+        with patch('sys.argv', ['delivery-media', str(run)]), \
+                patch.object(publish_feed, 'FFMPEG', Path('/mock/ffmpeg')), \
+                patch.object(publish_feed.subprocess, 'run', side_effect=encode):
+            exec(compile(code, 'actual-delivery-phone-media', 'exec'), {})
+            exec(compile(code, 'actual-delivery-phone-media', 'exec'), {})
+        self.assertEqual(len(calls), 2)
+        self.assertTrue((run / 'dispatch-720.mp4').is_file())
+        self.assertTrue((run / 'poster-540.jpg').is_file())
+        self.assertEqual(master.read_bytes(), b'exact reviewed native master')
+        self.assertEqual(poster.read_bytes(), b'exact reviewed native poster')
+        self.assertLess(script.index("<<'PY_PHONE_MEDIA'"), script.index('say "commit"'))
+
+    def test_delivery_refuses_missing_derived_media_instead_of_pushing_an_incomplete_package(self):
+        import publish_feed
+        script = Path(c.__file__).with_name('deliver_run.sh').read_text()
+        code = script.split("<<'PY_PHONE_MEDIA'\n", 1)[1].split('\nPY_PHONE_MEDIA', 1)[0]
+        with patch('sys.argv', ['delivery-media', str(self.root)]), \
+                patch.object(publish_feed, 'FFMPEG', None), self.assertRaises(SystemExit):
+            exec(compile(code, 'actual-delivery-phone-media', 'exec'), {})
+
     def plan(self):
         source = self.root / "scene.tsx"
         baseline = self.root / "scene.before.tsx"

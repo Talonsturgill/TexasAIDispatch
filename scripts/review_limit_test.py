@@ -104,7 +104,8 @@ class ReviewLimit(unittest.TestCase):
                    'review_scope': 'exact-muted-phone-preflight'}
         self.assertEqual([], limit.worker_plan_problems(value, current))
         value['usage']['storyboard_critics'] = 5
-        self.assertEqual([], limit.worker_plan_problems(value, current))
+        self.assertEqual([], limit.worker_plan_problems(value, current, charged=True))
+        self.assertTrue(limit.worker_plan_problems(value, current))
         value['usage']['storyboard_critics'] = 6
         self.assertTrue(limit.worker_plan_problems(value, current))
 

@@ -319,25 +319,42 @@ def reservation_fields(state_path, state):
             if owner else {})
 
 
+def _worker_reservation(state_path, state, owner, role, resource):
+    if RESOURCES.get(role) != resource:
+        raise ValueError('worker claim names the wrong controller resource')
+    choices = [(index, row) for index, row in enumerate(state.get('events', []))
+               if row.get('kind') == 'reserved' and (row.get('resources') or {}).get(resource)]
+    if not choices:
+        return None
+    index, event = choices[-1]
+    if (event.get('publication_owner_sha256') != owner['owner_sha256']
+            or event.get('publication_epoch') != owner['epoch']):
+        return None
+    fingerprint = hashlib.sha256(json.dumps(event, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+    path = Path(state_path).parent / 'worker-dispatch-claims' / (fingerprint + '-' + role + '.json')
+    return index, fingerprint, path
+
+
+def has_unclaimed_worker_reservation(state_path, role, resource):
+    owner = require_owner(state_path)
+    if owner is None:
+        return False
+    with locked(PRIMARY):
+        pending = _worker_reservation(state_path, load(state_path), owner, role, resource)
+        return bool(pending and not pending[2].exists())
+
+
 def claim_worker(state_path, role, resource, packet_sha256, task_name):
     owner = require_owner(state_path)
     if owner is None:
         return None
-    if RESOURCES.get(role) != resource:
-        raise ValueError('worker claim names the wrong controller resource')
     state_path = Path(state_path)
     with locked(PRIMARY):
         state = load(state_path)
-        choices = [(index, row) for index, row in enumerate(state.get('events', []))
-                   if row.get('kind') == 'reserved' and (row.get('resources') or {}).get(resource)]
-        if not choices:
-            return False
-        index, event = choices[-1]
-        if (event.get('publication_owner_sha256') != owner['owner_sha256']
-                or event.get('publication_epoch') != owner['epoch']):
+        pending = _worker_reservation(state_path, state, owner, role, resource)
+        if pending is None:
             return False  # A restore never transfers another host's spent reservation.
-        fingerprint = hashlib.sha256(json.dumps(event, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
-        path = state_path.parent / 'worker-dispatch-claims' / (fingerprint + '-' + role + '.json')
+        index, fingerprint, path = pending
         path.parent.mkdir(parents=True, exist_ok=True)
         claim = {'schema': 'dispatch_worker_dispatch_claim/1', 'run_id': state['run_id'],
                  'role': role, 'task_name': task_name, 'packet_sha256': packet_sha256,

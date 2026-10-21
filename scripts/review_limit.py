@@ -38,12 +38,13 @@ def finishing(state):
     return enabled(state) and MAX_ROUNDS - used(state) < 3
 
 
-def worker_plan_problems(state, packet):
+def worker_plan_problems(state, packet, *, charged=False):
     if not enabled(state) or packet.get('role') != 'storyboard-critic':
         return []
-    if used(state) > MAX_ROUNDS:
+    ordinal = used(state) + (0 if charged else 1)
+    if ordinal > MAX_ROUNDS:
         return ['hard five-review limit reached; no further editorial worker dispatch']
-    if used(state) >= MAX_ROUNDS - 1 and not (
+    if ordinal == MAX_ROUNDS and not (
             packet.get('phone_mode') == 'current'
             and packet.get('review_scope') == 'exact-muted-phone-preflight'):
         return ['the fifth review is protected for the exact current timed phone film; '

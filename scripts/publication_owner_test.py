@@ -219,6 +219,42 @@ class PublicationOwnership(Base):
             controller.reserve(state_path, {'reboards': 1}, 'foreign restored reservation')
         self.assertEqual(saved, state_path.read_bytes())
 
+    def test_hard_five_real_plan_charge_replan_keeps_fourth_review_and_final_slot(self):
+        self.init_ledger(); original = self.state.read_bytes()
+        state_path = self.owned(); state_path.write_bytes(original)
+        repo = state_path.parents[2]
+        role, brief = 'storyboard-critic', '.claude/agents/storyboard-critic.md'
+        (repo / brief).parent.mkdir(parents=True, exist_ok=True)
+        (repo / brief).write_bytes((runtime.REPO / brief).read_bytes())
+        packet = state_path.parent / 'phone-packet.json'
+        data = {'role': role, 'date': '2026-10-21', 'brief': brief,
+                'agent_assignment': runtime.assignment(role, '2026-10-21'),
+                'review_scope': 'exact-muted-phone-preflight', 'phone_mode': 'comparison'}
+        packet.write_text(json.dumps(data))
+        with patch.object(runtime, 'REPO', repo), patch.object(runtime, 'contracts', return_value=[]), \
+                patch('agent_runtime.required_inputs'), patch('agent_runtime.validate_references'), \
+                patch.object(runtime, 'phone_review_inputs'), patch.object(runtime, 'image_policy_inputs'), \
+                patch.object(checkpoint, 'mirror'):
+            for index in range(3):
+                self.assertTrue(controller.reserve(state_path, {'storyboard_critics': 1}, 'offline prior review')[0])
+                self.assertTrue(owner.claim_worker(state_path, role, 'storyboard_critics', 'b' * 64,
+                                                  'prior_' + str(index)))
+            inspect = runtime.plan(role, packet, 'phone_four', 'Inspect the current phone comparison.')
+            self.assertFalse(inspect['dispatch_ready'])
+            self.assertTrue(controller.reserve(state_path, {'storyboard_critics': 1}, 'fourth comparison')[0])
+            fourth = runtime.plan(role, packet, 'phone_four', 'Inspect the current phone comparison.')
+            self.assertTrue(fourth['dispatch_ready'])
+            self.assertEqual(owner.load(state_path)['usage']['storyboard_critics'], 4)
+            with self.assertRaisesRegex(ValueError, 'fifth review'):
+                runtime.plan(role, packet, 'another_comparison', 'Inspect another phone comparison.')
+            data['phone_mode'] = 'current'; packet.write_text(json.dumps(data))
+            self.assertFalse(runtime.plan(role, packet, 'phone_final', 'Inspect the final timed phone film.')['dispatch_ready'])
+            self.assertTrue(controller.reserve(state_path, {'storyboard_critics': 1}, 'fifth final timed phone')[0])
+            self.assertTrue(runtime.plan(role, packet, 'phone_final', 'Inspect the final timed phone film.')['dispatch_ready'])
+            saved = state_path.read_bytes()
+            self.assertFalse(controller.reserve(state_path, {'storyboard_critics': 1}, 'sixth refused')[0])
+            self.assertEqual(saved, state_path.read_bytes())
+
     def test_real_checkpoint_restore_keeps_owned_charge_and_consumed_worker_claim(self):
         self.init_ledger()
         self.take(workspace=self.root)

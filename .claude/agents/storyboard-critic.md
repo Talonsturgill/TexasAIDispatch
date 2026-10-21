@@ -47,6 +47,9 @@ Describe visible objects, actions and literal text, with null for unknowns. Inte
 not the evidence channel. Keep all quality conclusions and concise explanations in the final
 review. Return the original observation directory with the full handback; the caller serializes
 coverage mechanically. A later placeholder cannot erase an earlier saved observation.
+Complete the report from your own complete saved observations if earlier images have left
+history. When only output format is incomplete, the same original reviewer returns the full
+JSON without a new film traversal or changed grade; the director cannot author that judgment.
 If a new Read is actually unseen, immediately save its literal error in the supplied annotation
 and return partial without another image Read. Its immediate saved evidence uses
 observation_channel:write_tool_artifact. If you cannot
@@ -276,6 +279,9 @@ At phone scope return modern_observations for first_frame, visual_progression, s
 performed_turn, pace, closing_answer and finished_art. Each needs pass, start_s, end_s and a
 concrete observed finding from the current film. Repeated tableau, dull flat box props, tiny
 performed actions or decorative fresh art fail even when claims and mechanical gates pass.
-Record every failed modern observation in the existing blocking_defects too. These observations
-cannot be deferred at the creative boundary. Code scope inspects implementation without
+Record every failed modern observation in the existing blocking_defects too. Use story-time
+windows within board.runtime_s, excluding credits. At the bound October 20 hard-five finishing
+boundary only an independently classified surface_finish defect can use the existing bounded
+route, retaining the actual rejection. All other modern observations, source, rights, action,
+native, audio and caption gates remain required. Code scope inspects implementation without
 claiming pixels; the visual floor is proved only on the actual complete film.

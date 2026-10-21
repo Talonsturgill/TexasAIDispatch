@@ -513,7 +513,8 @@ def review_instruction(board):
         if narration_required(board) else '')
     return (clause_instruction+'Watch the complete current film at normal speed before reading its rationale. '
             'Return modern_observations with film_sha256 and timed fields ' + keys +
-            ', each with pass, start_s, end_s and concrete observed. First_frame tests a readable '
+            ', each with pass, start_s, end_s and concrete observed. Keep these windows within '
+            'board.runtime_s (' + str(board.get('runtime_s')) + ' seconds), excluding separate music credits. First_frame tests a readable '
             'scroll-stop question or action; visual_progression requires successive new information, '
             'not scanning the same prop. Shot_variety requires visibly different useful framing. '
             'Performed_turn and closing_answer must occur in picture. Pace rejects long empty holds '
@@ -523,8 +524,10 @@ def review_instruction(board):
             'Finished_art must identify this edition\'s fresh hero and supporting art in the actual film, '
             'and reject generated assets that are unused, merely decorative or replaced by old library props. '
             'Do not reward a palette declaration, number of cuts, '
-            'technical gates or a director rationale. These current requirements cannot use artistic '
-            'deferral. Preserve actual failed observations and source limits. ')
+            'technical gates or a director rationale. Apply the bound owner hard-five completion '
+            'contract at its finishing boundary: only an independently classified surface_finish '
+            'defect can use its existing bounded route. Preserve actual failures; source, rights, '
+            'action, comprehension, pacing, closing action, native, audio and captions remain required. ')
 
 
 if __name__ == '__main__':
