@@ -1,0 +1,58 @@
+{
+ "schema": "dispatch_archive_verification/1",
+ "run_id": "2026-10-19",
+ "note": "Each checkpoint below passed claude_checkpoint.verify_checkpoint (manifest, ledger and every file hash). The final checkpoint descends from the original and later-package checkpoints and is an additional parent of the archive merge, so main retains the actual objects. Counts and digests only; no private identifiers.",
+ "checkpoints": {
+  "original": {
+   "commit": "9ee0a87af6216c7df4a1efdda96dcc3043989289",
+   "tree": "310e825574e6445e2433b7d0b0c5d3f650bb2ef2",
+   "manifest_sha256": "dfbe49c56b2ad95774823f482a68e01d41a9c904ab5e5931b9c332dd4157957c",
+   "ledger_sha256": "93dd6cfc45126d72978b8efc992a096ef7f7c358f73377f8e6dedbd26aca2e75",
+   "files": 5141,
+   "bytes": 652649944,
+   "phase": "active_repair",
+   "terminal_state": null,
+   "recovery_path": "git show 9ee0a87af6216c7df4a1efdda96dcc3043989289:checkpoints/2026-10-19/files/<path> for each manifest row; verified with claude_checkpoint.verify_checkpoint"
+  },
+  "later_package": {
+   "commit": "f0da85fa2ccd81f8a7261b0030b641b5a8719ca1",
+   "tree": "a7419362f405a90868b3730731c303858ccf207c",
+   "manifest_sha256": "dd6e9d7936c37ed8ef4d6ab7fd9b3b82465c01e4541f283fdd4b91b83d5f06f1",
+   "ledger_sha256": "7292e7bde0aa02b6c92e0e8cbf182b00d9d65df9ad37eadba48ef6a665618dc3",
+   "files": 9212,
+   "bytes": 194593834,
+   "phase": "shipped",
+   "terminal_state": "shipped",
+   "recovery_path": "git show f0da85fa2ccd81f8a7261b0030b641b5a8719ca1:checkpoints/2026-10-19/files/<path> for each manifest row; verified with claude_checkpoint.verify_checkpoint"
+  },
+  "final": {
+   "commit": "134bc4374ca971518f7fd642514beaed20dd4cdf",
+   "tree": "44b694a78855942beba2efeccaa829aae985350d",
+   "manifest_sha256": "ba5bfbe83a425bdfb4160d305a19d893c1adedce704901b50dfc5ffbd5a50314",
+   "ledger_sha256": "bf3c67871e41c5ebec1ef70a6beebb99e469de2bf11a1d9784ba9298d8e101fc",
+   "files": 9213,
+   "bytes": 194593935,
+   "phase": "shipped",
+   "terminal_state": "shipped",
+   "recovery_path": "git show 134bc4374ca971518f7fd642514beaed20dd4cdf:checkpoints/2026-10-19/files/<path> for each manifest row; verified with claude_checkpoint.verify_checkpoint"
+  }
+ },
+ "accepted_shipment_receipts": [
+  "802f830111aaff1dccd2123cb3e01feb1518bb1245b37ddf8907163d4b77e354",
+  "5e8c0cb858d56f28382ffd83421d77ca10dd225202bffdae5b4b56bd81be9239"
+ ],
+ "gmail_final_draft": {
+  "raw_bytes": 6177460,
+  "raw_sha256": "7ddf349bd8c1438b6d5c85fff875ad3107c72db0a6beb2e770147812867be524",
+  "attachments": [
+   {
+    "name": "dispatch-720.mp4",
+    "bytes": 3762584
+   },
+   {
+    "name": "poster.png",
+    "bytes": 804674
+   }
+  ]
+ }
+}
