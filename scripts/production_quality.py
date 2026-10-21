@@ -356,8 +356,10 @@ def changed_runs(base, repo=REPO):
                 continue
             if required(data):
                 report = read(directory / "report_card.json")
-                errors += [day + ": " + e for e in publication_problems(
-                    board, directory / "dispatch.mp4", report.get("judges", []))]
+                from archive_source_identity import validation_context
+                with validation_context(repo, base, day):
+                    errors += [day + ": " + e for e in publication_problems(
+                        board, directory / "dispatch.mp4", report.get("judges", []))]
         except (OSError, ValueError, KeyError, TypeError) as exc:
             errors.append(day + " production package unavailable: " + str(exc))
     return errors

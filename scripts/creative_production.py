@@ -240,6 +240,10 @@ def opening_digest(board):
 
 
 def opening_producer(legacy_orchestrator_sha256=None):
+    from archive_source_identity import historical_identity
+    historical = historical_identity("producer")
+    if historical is not None and legacy_orchestrator_sha256 is None:
+        return historical
     repo = POLICY.parents[1]
     files = [repo / "scripts/opening_compare.py", repo / "video-engine/scripts/render-batch.mjs",
              repo / "video-engine/package-lock.json"]
