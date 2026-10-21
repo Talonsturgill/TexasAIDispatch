@@ -15,6 +15,8 @@ import tempfile
 REPO = Path(__file__).resolve().parents[1]
 SCHEMA = 'dispatch_public_visual_observation/1'
 ROLE_NAMES = ('dispatch-visual-critic', 'dispatch-visual-scorer')
+MAX_HOOK_INPUT_BYTES = 1024 * 1024
+MAX_VISUAL_INPUT_BYTES = 32768
 CONTRACT = {'schema': SCHEMA, 'channel': 'Write', 'retention': 'one immutable file per image Read',
             'production_inputs': 'read only', 'evaluation': 'final report only'}
 INSTRUCTION = ('Use the installed visual leaf and its guarded Write tool for public image annotations. '
@@ -395,10 +397,17 @@ def main():
     args = parser.parse_args()
     try:
         if args.command in ('guard', 'pre-tool', 'record'):
-            raw = sys.stdin.buffer.read(32769)
-            if len(raw) > 32768:
-                raise ValueError('bounded visual hook input exceeded')
+            raw = sys.stdin.buffer.read(MAX_HOOK_INPUT_BYTES + 1)
+            if len(raw) > MAX_HOOK_INPUT_BYTES:
+                raise ValueError('bounded hook transport input exceeded')
             payload = json.loads(raw)
+            if not isinstance(payload, dict):
+                raise ValueError('hook input must be a complete JSON object')
+            # Primary hooks also receive ordinary source writes. Route their full,
+            # bounded event before applying the stricter visual evidence limit.
+            if (args.command == 'guard' or payload.get('agent_type') in ROLE_NAMES):
+                if len(raw) > MAX_VISUAL_INPUT_BYTES:
+                    raise ValueError('bounded visual hook input exceeded')
             if args.command == 'guard':
                 guard(payload, args.workspace)
             elif args.command == 'pre-tool':
