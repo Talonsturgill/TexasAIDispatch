@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-21T06:15:12.227585+00:00",
-  "note": "shipped",
+  "saved_at": "2026-10-21T08:17:40.537895+00:00",
+  "note": "ledger write",
   "phase": "shipped",
   "terminal_state": "shipped",
   "shipment_recorded": true,
@@ -16,8 +16,8 @@
     "sha256": "cf6f8e8e2119591b0464521798aad30ae5f471a1af357e376578d65a83ff1c4c"
   },
   "deleted_source": [],
-  "ledger_sha256": "7292e7bde0aa02b6c92e0e8cbf182b00d9d65df9ad37eadba48ef6a665618dc3",
-  "original_private_ledger_sha256": "48ef1a7b5e14f2187122bc7c896432006f3345459b164a41547af035f2fed297",
+  "ledger_sha256": "bf3c67871e41c5ebec1ef70a6beebb99e469de2bf11a1d9784ba9298d8e101fc",
+  "original_private_ledger_sha256": "64694b95b3c56f61c3042966563b15af6b523fcad7410d28c14614aff6d1f7f4",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -5704,6 +5704,12 @@
       "class": "scratch",
       "sha256": "6a0d55c4e79b3b443bd15fd9df397887e24334c954de54c9cf3bbbc6fd62c873",
       "size": 101
+    },
+    {
+      "path": "out/dispatch/finish2.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/frame-index.json",
@@ -55452,11 +55458,23 @@
       "reason": "private path component"
     },
     {
+      "path": "out/dispatch/gmail_attachments_verification.json",
+      "reason": "private path component"
+    },
+    {
       "path": "out/dispatch/gmail_readback.json",
       "reason": "private path component"
     },
     {
+      "path": "out/dispatch/gmail_readback2.json",
+      "reason": "private path component"
+    },
+    {
       "path": "out/dispatch/gmail_readback_message.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail_readback_message2.json",
       "reason": "private path component"
     },
     {
@@ -55466,11 +55484,15 @@
     {
       "path": "out/dispatch/shipment.json",
       "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/shipment2.json",
+      "reason": "private path component"
     }
   ],
   "regenerable": {
-    "files": 1,
-    "bytes": 1196347
+    "files": 2,
+    "bytes": 2428791
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }
