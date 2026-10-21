@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-21T18:39:02.237759+00:00",
-  "note": "capture authorization consumed e8dbad39d8cb",
+  "saved_at": "2026-10-21T18:39:13.198225+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "e161e2e553e4c04c6edcd2d995828e829193dcc1bde8086cd4e301046082dfb0"
   },
   "deleted_source": [],
-  "ledger_sha256": "9d3a7a693aa27822ce9166165969ac0013b12b5f4f008cebc990a12b2c37e247",
-  "original_private_ledger_sha256": "4b705d3f6734b35dc553c5478c0880431312118268537b1fa171a9e6d6120e4e",
+  "ledger_sha256": "64371a0d244280b3b400f44e270721e21da8885b2116271087ae0b9efa494616",
+  "original_private_ledger_sha256": "e370522522f28491980b7e40c7fcb2a67e8c961ce12f9e31220df874ae684962",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -1830,6 +1830,12 @@
       "class": "scratch",
       "sha256": "619a0545020995910c4c17d6b2f690d9bb07eb9c5c4dc272ea9ddab740b7db98",
       "size": 3076
+    },
+    {
+      "path": "out/dispatch/run_state.json.capture-claim.lock",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/run_state.json.independent.lock",
