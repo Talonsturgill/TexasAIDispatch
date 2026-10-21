@@ -1,0 +1,119 @@
+I've reviewed both openings in full and chose option a, with a pass verdict. Report below.
+
+**Coverage and access**
+- I viewed all 124 chronological pages, one image Read per step: option a pages 000 to 061 and option b pages 000 to 061, which is every sample from 0.0 to 61.3 s in both films, credits included.
+- A public annotation was written after every Read, and every Write returned the hook acknowledgment "Public image annotation retained with actual Write evidence."
+- Observation directory: /home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/visual-observations/66dc130490ec619a92d2573e73ac1fed78a723258e828134ca6efd9051b4e4c2
+- I read every required guide in full before judging, and read the director rationale (/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/openings/comparison.json) only after viewing everything.
+- Format details came from bounded excerpts of scripts/critic_gate.py, scripts/quality_contract.py, scripts/modern_film.py and scripts/daily_production.py.
+
+**Limits**
+- These are sampled images only. I had no MP4 playback and no listening, so sound is excluded and smoothness between samples is unproven.
+- I computed no hashes. Every binding below is copied exactly from the packet.
+- The packet's mechanical concept digest for a (82965cfd…) differs from the concept_sha256 stored in comparison.json (a283854a…). I copied the packet value as instructed and did not resolve the difference. The film and board hashes in both sequence indexes match the packet.
+
+```json
+{
+  "status": "complete",
+  "observation_directory": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/visual-observations/66dc130490ec619a92d2573e73ac1fed78a723258e828134ca6efd9051b4e4c2",
+  "coverage_summary": {"option_a_pages": "sequence-000..061 (62 pages, 308 samples, 0.0 to 61.3 s)", "option_b_pages": "sequence-000..061 (62 pages, 308 samples, 0.0 to 61.3 s)", "unseen_pages": [], "basis": "movie-derived chronological phone images; no direct playback or listening"},
+  "selection": {
+    "comparison_sha256": "0c74fa2e4c82985b312bfdf388f6f3467ec547c306987ccab39100ede527934f",
+    "selected": "a",
+    "director_identity": "claude-sonnet-5-5 director, this session",
+    "reviewer_identity": "storyboard-critic leaf, claude-opus-5-5 high effort, independent exact-muted-phone reviewer (this assignment)",
+    "reason": "The two films share about 85 percent of their pixels: identical pad opening (0 to 6.2 s), software panel (6.2 to 11.4 s), drone route and infrared inset (22.0 to 26.2 s), inspector review (26.4 to 33.4 s), protocol detail, program and proposal scenes. Where they differ, a keeps the evidence direct and source-faithful. In s3 (11.6 to 19.6 s) the approval letter is stamped with no person present, so muted viewers see EPA's record rather than a reviewer approving. The hero passage starts on the pad itself (19.8 to 22.0 s) with the drone in frame, instead of a tiny drone icon on a wall screen. In s9 the close shot holds the stylus on the green check next to a pad window card (49.0 to 51.2 s), then shows the empty AI box drawn on the review monitor (51.8 to 53.8 s).",
+    "rejected_reason": "In b the generic inspector is placed in record scenes where the source gives her no role. At 11.6 to 13.8 s the EPA approval letter slides onto her desk, and from 16.8 to 19.6 s she raises a pen toward the letter while the Approved mark lands. Muted, this reads as the reviewer receiving or approving EPA's decision. From 19.8 to 21.6 s, during 'The drone carries an infrared camera', the drone is a tiny icon on a wall-mounted feed screen and the camera is not legible. The inspector sits idle facing right, and watching the live feed implies real-time review, while the letter describes review after the data are collected. She is also held in an unchanging pose at 11.6 to 13.8, 19.8 to 21.6 and 33.6 to 35.6 s. B's ending is stronger: the large empty AI box and pad window card are fully readable from 53.8 to 56.2 s. That alone does not outweigh the implied-role and hero-legibility costs.",
+    "blocking_defects": []
+  },
+  "report": {
+    "option": "a",
+    "review_scope": "exact-muted-phone-preflight",
+    "reviewed_preflight_sha256": "f439d5026c5d0509c274307bc47a94bdfb44bb94f3e9768c30223a15cf33770b",
+    "concept_sha256": "82965cfd6a305fa0bee895504f484a18a543b1bae6ca5f8c22678c9073097a75",
+    "renderer_sha256": "02a32fa8c5f19be4c642371c6fa917c74725396c1b03c042e7a5b6dd96c44882",
+    "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+    "verdict": "pass",
+    "reviewer_identity": "storyboard-critic leaf, claude-opus-5-5 high effort, independent exact-muted-phone reviewer (this assignment)",
+    "reviewed_at": "2026-10-21",
+    "strongest_frame": "s5 29.0 to 32.6 s: the inspector's raised stylus traces a dashed outline around the shimmer on the survey footage, presses a green check, then pulls a 'Follow-up inspection' tag off the check and lands it on the round valve inset. Input, human judgement and consequence all happen in one continuous close action.",
+    "weakest_frame": "s9 54.0 to 56.2 s: a static wide room shot ends the story. The empty 'AI' box and the confirmed footage shrink to a few phone pixels, and the drone station through the window is only faintly visible, so the final image restates the answer at its smallest legible size (the box was readable in medium at 52.0 to 53.8 s).",
+    "blocking_defects": [],
+    "notes": [
+      "Non-blocking: n3c 'that company's Air Max drone system' (15.4 to 17.92 s) plays over a static stamped letter (15.4 to 16.8 s) with no drone pictured. The approval relationship is carried by the record; the drone identity relies on narration and the s1 drone.",
+      "Non-blocking: n4a (19.9 to 22.32 s): the camera pod is a tiny dark shape in the wide and is not visibly swinging. It becomes legible in the 22.0 s close, and the infrared view is established at 24.8 to 25.8 s with an 'Illustrative infrared view' label. From 21.0 to 21.8 s the wide is near static.",
+      "Non-blocking: in s2 the 'The companies say' tag slides across the Anomaly flag and settles at the monitor's lower left rather than pinned to the flag (10.8 to 11.4 s). The attribution still reads on the same panel.",
+      "Non-blocking holds under 2 s, all with completed results or settling motion: 15.4 to 16.8, 35.0 to 35.6, 39.4 to 40.8, 49.0 to 51.2 and 52.6 to 53.8 s. No held slide approaches 5 s.",
+      "Minor occlusions: the caption bar overlaps the letter's lower edge at 13.2 to 13.8 s; the inspector's head and forearm overlap the footage label and plume while outlining at 28.8 to 29.8 s; the proposal tag passes behind the caption bar at 45.8 to 46.2 s but lands above it.",
+      "Surface finish was judged at phone size only. Drone, dock, tanks, valves and inspector read as finished flat-vector forms with soft contact shadows. The office set, letters (placeholder grey lines) and monitors are plain. Native-crop finish is unverified here and remains for the native hero review.",
+      "Muted review only; sound and caption alignment were not assessed. This review used sampled images, so motion smoothness between samples is unresolved."
+    ],
+    "phone_observations": {
+      "subject_recognition": {"pass": true, "start_s": 0.0, "end_s": 33.4, "observed": "Generic quadcopter with rotors, legs and a camera pod in a grey hooded dock beside a horizontal tank, valves and a ladder tank on caliche (0.0 to 6.0 s). A 'Survey flight' monitor with an Anomaly flag (7.0 to 11.4 s), a stamped 'Approval letter' (11.6 to 19.6 s), and a seated woman inspector at a 'Survey footage' monitor (26.4 to 33.4 s). Every principal subject is nameable without the board; the drone is small in the wides."},
+      "contact_and_consequence": {"pass": true, "start_s": 26.4, "end_s": 33.4, "observed": "Footage slides onto the monitor (27.2 to 27.6 s). The inspector's stylus contacts the screen and traces a closed dashed outline around the shimmer (29.0 to 29.8 s), and a green check appears under her hand (30.0 s). The follow-up tag leaves the check and lands on the valve inset (31.6 to 32.4 s), then rests there through 33.4 s."},
+      "dominant_action": {"pass": true, "start_s": 22.0, "end_s": 33.4, "observed": "The focal subjects perform the narrated changes. The drone tilts and travels along the dashed route into a point-of-interest ring that brightens (22.6 to 23.4 s), and an infrared inset opens from it (24.8 to 25.8 s). The inspector herself outlines, confirms and sends the follow-up tag. None of this is carried by labels or camera drift."},
+      "surface_finish": {"pass": true, "start_s": 0.0, "end_s": 56.2, "observed": "At phone size the drone shell, rotor blur, dock lids, tank gauge and ladder, valve wheels and the inspector's glasses and articulated arm read as deliberate flat-vector finish with soft shadows. Interiors are sparse and documents use placeholder lines. Native crop detail was not visible in these samples."},
+      "continuity": {"pass": true, "start_s": 6.0, "end_s": 49.0, "observed": "The same drone design, pad, review monitor and inspector recur. Cuts carry the map-tile drone icon (7.0 s), the approval letter (11.6 s), and the infrared valve from the drone inset to the review footage (26.4 to 27.6 s). The separate program is disclosed as 'Illustration. A separate program, no drone' from 38.8 s, and the inspector as 'generic inspector' from 26.4 s."},
+      "closing_payoff": {"pass": true, "start_s": 48.94, "end_s": 56.02, "observed": "The close holds the inspector's stylus on the green check beside a pad window card (49.0 to 51.2 s). The empty dashed 'AI' box then draws on the review monitor and stays empty (51.8 to 53.8 s), and a wide shows the seated inspector, check and box (54.0 to 56.0 s). This answers who decides and shows the unstated AI role, without implying a repair or outcome. The box is small in the final wide."}
+    },
+    "modern_observations": {
+      "film_sha256": "f439d5026c5d0509c274307bc47a94bdfb44bb94f3e9768c30223a15cf33770b",
+      "first_frame": {"pass": true, "start_s": 0.0, "end_s": 1.5, "observed": "A readable oil pad with a closed drone dock; its lids swing open at 0.6 to 0.8 s revealing the drone, a visible change inside one second. The subject is small, with the upper half empty sky."},
+      "visual_progression": {"pass": true, "start_s": 0.0, "end_s": 56.02, "observed": "Each beat adds new information: lift-off and the Permian and Austin locator, the alert flag and 'companies say' tag, the dated and approved letter, the route and infrared view, the inspector's outline, check and follow-up, AI highlighted once in the protocol title, the Delayed bar and January 22 2027 calendar, the unstamped rescind proposal, and the empty AI box."},
+      "shot_variety": {"pass": true, "start_s": 0.0, "end_s": 56.02, "observed": "Wide pad (0 to 6 s), medium monitor (9 s), wide then close letter (12 to 19 s), close route (22 s), over-shoulder close of the tag hand-off (31.2 s), detail protocol title (36.2 s), medium calendar (41.4 s), close proposal (46.6 s), close check (49 s) and wide room (54 s)."},
+      "performed_turn": {"pass": true, "start_s": 28.6, "end_s": 33.4, "observed": "The person, not software, performs the turn on screen: the stylus outlines the emission, the green check is pressed (30.0 s), and the follow-up tag is pulled to the valve inset (31.6 to 32.4 s)."},
+      "pace": {"pass": true, "start_s": 0.0, "end_s": 56.02, "observed": "No hold exceeds about 1.4 s without change: letter at 15.4 to 16.8 s, pad wide at 21.0 to 21.8 s, program tag settling at 39.4 to 40.8 s, and the static end at 54.0 to 56.0 s with the completed answer. There are no repeated scans of one prop."},
+      "closing_answer": {"pass": true, "start_s": 48.94, "end_s": 56.02, "observed": "The green check holds under the inspector's stylus, then an empty dashed 'AI' box is drawn beside the confirmed footage and remains empty through the final wide. The answer is in picture, with reduced legibility after 54.0 s."},
+      "finished_art": {"pass": true, "start_s": 0.0, "end_s": 56.02, "observed": "The edition's own drone, dock and pad hero performs lift-off and the route. Support art (panel, letter, stamps, review monitor, valve inset, calendars, tags, AI box) is used for every record. No library boxes stand in for the machinery. Phone-size finish is consistent; plain interiors and placeholder text lines are the weakest surfaces, and native finish was not seen."}
+    },
+    "narration_picture_observations": {
+      "film_sha256": "f439d5026c5d0509c274307bc47a94bdfb44bb94f3e9768c30223a15cf33770b",
+      "clauses": [
+        {"id": "n1a", "pass": true, "start_s": 0.1, "end_s": 1.64, "observed": "A caliche well pad with tanks and a dock under open sky; the dock lids open at 0.6 to 0.8 s exposing the drone."},
+        {"id": "n1b", "pass": true, "start_s": 1.76, "end_s": 5.86, "observed": "The drone lifts off the dock (2.4 to 2.8 s) and hovers above the tank. The locator draws a Permian Basin pin (4.6 s) and an Austin pin joined by a dashed line (5.2 to 5.8 s). Chevron is named only in narration."},
+        {"id": "n2a", "pass": true, "start_s": 6.26, "end_s": 8.24, "observed": "Cut to an office monitor that lights with a 'Survey flight' map tile and Battery, Link and Pump pressure rows (6.8 to 7.8 s). The alert itself arrives at 8.4 s, just after the clause."},
+        {"id": "n2b", "pass": true, "start_s": 8.36, "end_s": 11.14, "observed": "A blue 'Anomaly' flag rises on the Pump pressure row (8.4 to 8.8 s), and a 'The companies say' tag slides across and settles on the same panel (10.0 to 10.8 s), marking the claim as the companies'."},
+        {"id": "n3a", "pass": true, "start_s": 11.54, "end_s": 13.08, "observed": "An 'Approval letter' slides onto the desk and its lines write in. The September 30th, 2025 date appears on the stamp at 15.2 s, after the clause."},
+        {"id": "n3b", "pass": true, "start_s": 13.2, "end_s": 15.28, "observed": "A wooden stamp drops onto the letter heading (14.2 to 14.8 s) and lifts to leave a crooked amber 'September 30th, 2025' impression (15.2 s)."},
+        {"id": "n3c", "pass": true, "start_s": 15.4, "end_s": 17.92, "observed": "The stamped letter holds, then a close shot shows a second stamp landing beside the 'Periodic methane screening' tag (17.0 to 17.8 s). The drone system itself is not pictured; the approval record carries the clause."},
+        {"id": "n3d", "pass": true, "start_s": 18.04, "end_s": 19.5, "observed": "The stamp lifts to reveal an amber checked 'Approved' mark beside the 'Periodic methane screening' tag (18.2 to 18.4 s), and the finished letter holds."},
+        {"id": "n4a", "pass": true, "start_s": 19.9, "end_s": 22.32, "observed": "The drone hovers over the pad in a wide where its pod is a small dark shape (19.8 to 21.8 s). The close at 22.0 s shows the camera pod clearly. Weak but present."},
+        {"id": "n4b", "pass": true, "start_s": 22.44, "end_s": 26.1, "observed": "The drone travels along white dashes into a ring that brightens at the tall tank (22.6 to 23.4 s), holds there, and an 'Illustrative infrared view' of a valve with shimmer opens (24.8 to 25.8 s)."},
+        {"id": "n5a", "pass": true, "start_s": 26.5, "end_s": 29.36, "observed": "A seated woman inspector faces a 'Survey footage' monitor; the valve footage slides in (27.2 to 27.6 s) and her stylus rises to it (28.6 to 28.8 s)."},
+        {"id": "n5b", "pass": true, "start_s": 29.48, "end_s": 31.12, "observed": "Her stylus traces a dashed outline around the shimmer (29.2 to 29.8 s) and a green check appears under her hand (30.0 s)."},
+        {"id": "n5c", "pass": true, "start_s": 31.24, "end_s": 33.14, "observed": "A 'Follow-up inspection' tag emerges from the check, is pulled down by her hand and lands on the round valve inset (31.6 to 32.4 s), then rests there."},
+        {"id": "n6", "pass": true, "start_s": 33.54, "end_s": 38.42, "observed": "The letter page scrolls to the boxed protocol title (33.6 to 34.8 s), an amber highlight lands on 'AI' (35.8 s), the detail shows the title large (36.2 s), and an 'AI appears once, in a title' tag settles (37.4 to 37.8 s)."},
+        {"id": "n7a", "pass": true, "start_s": 38.82, "end_s": 42.12, "observed": "Disclosed as a separate program. A 'Leak reporting by certified third parties' tag drops and settles (38.8 to 40.8 s), and the calendar flips to January 22 2027 (41.0 to 41.8 s)."},
+        {"id": "n7b", "pass": true, "start_s": 42.24, "end_s": 43.7, "observed": "The January 22 2027 calendar holds as an amber 'Delayed' bar slides onto the program tag (42.8 to 43.4 s)."},
+        {"id": "n7c", "pass": true, "start_s": 44.1, "end_s": 48.54, "observed": "The calendar flips to October 7 and an 'EPA release' card slides in (44.4 to 45.6 s). A 'Will propose to rescind' tag is clipped to the Delayed program tag (46.0 to 47.0 s) and its stamp box is drawn empty (47.6 to 48.4 s)."},
+        {"id": "n8a", "pass": true, "start_s": 48.94, "end_s": 52.68, "observed": "Close on the inspector's stylus at the green check beside the outlined emission, with a pad window card (49.0 to 51.2 s). In the medium shot she sits at the monitor while the empty 'AI' box begins drawing (51.8 to 52.4 s)."},
+        {"id": "n8b", "pass": true, "start_s": 52.8, "end_s": 56.02, "observed": "The dashed 'AI' box beside the confirmed footage stays empty in medium (52.8 to 53.8 s) and in the final wide room (54.0 to 56.0 s), where it is small."}
+      ]
+    },
+    "action_reviews": [],
+    "story_review": {
+      "story_sha256": "4301497c8ab0d945e00ff9b105bed1e651cd61c8b008370c42b5ec740975a528",
+      "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+      "claims_sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
+      "verdict": "pass",
+      "blocking_defects": [],
+      "one_viewing_summary": "A generic drone leaves its station on a Permian pad. A software panel shows an anomaly flag that the companies, not EPA, claim. EPA's dated letter approves the method. The drone flies its route and an illustrative infrared view opens. A certified inspector outlines and confirms the emission and sends a follow-up tag to the valve. The letter names AI once, in a protocol title, and a separate leak reporting program is delayed and proposed for rescission. The close leaves the inspector's check beside an empty AI box.",
+      "opening_to_ending": "The opening asks what a drone over oil equipment does and who calls a leak. The ending answers in picture: the person's green check on the outlined emission, beside an AI box that stays empty. No repair, leak count or outcome is implied.",
+      "weakest_transition": "s3 to s4 at 19.6 to 19.8 s: a hard cut from the static approved letter to a wide pad with a small hovering drone. The planned visual link (approved mark becoming the drone) is not visible, so the causal link from approved method to drone performing it relies on narration."
+    },
+    "phone_decision_scope_applied": "Judged against the fixed rubric and quality contract only. The director's promised techniques (camera-pod swing, the station seen through the window at the close, the stamp dissolving into the drone) were not visibly executed. They were treated as notes, not hard requirements, because the picture still meets the fixed criteria."
+  },
+  "comparison_option_b_summary": {
+    "film_sha256": "9d28263636cd5851f02ed58356896d8f4d9125a745ce045ec95bc554a89c39ae",
+    "observed_differences_from_a": [
+      "11.6 to 13.8 s: wide room with the seated inspector holding a pen while the approval letter slides onto her desk.",
+      "16.8 to 19.6 s: close letter with the inspector lower left raising a pen as the stamp lands; her head partly behind the caption bar.",
+      "19.8 to 21.6 s: room with a wall feed screen showing a tiny drone and rings; the inspector is static and faces right.",
+      "24.2 to 26.2 s: over-shoulder view of the inspector watching the infrared inset on the wall screen.",
+      "33.6 to 35.6 s: the inspector seated facing the letter on its stand.",
+      "49.0 to 51.0 s: wide room with the inspector touching the check, pad shapes in the window.",
+      "53.8 to 56.2 s: detail with a large empty AI box, the checked emission and a pad window card. This is the strongest close of the two films."
+    ]
+  }
+}
+```
