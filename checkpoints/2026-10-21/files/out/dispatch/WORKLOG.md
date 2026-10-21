@@ -16,3 +16,4 @@
 - code reviews done: A pass (r2), B pass (r3); opening-a/b-critic.json set; storyboard_critics=3 (reviews used 3/5). Docket edition worktree sparse-checkout excludes runs/ for headroom: RESTORE with 'git sparse-checkout disable' before release. opening_compare running (bg task b1wkbolmx) after authorize --prepare.
 - freed pip and npm caches (regenerable) to restore native headroom
 - openings rendered (openings/a.mp4,b.mp4), motion-a/b extracted. Review 4/5 (silent phone compare) agent aa8ee1ce7c657d8ca (dispatch-visual-critic) launched; storyboard_critics=4. NOTE: run visual_observations.py install ONLY via /opt/texas-dispatch-tools/scripts (guard_root must stay /opt/texas-dispatch-tools). Remaining: review 5 = final timed phone.
+- review 4/5 DONE: A selected, phone pass (storyboard_critic.json, openings/selection.json, preflight.mp4, coverage verified). Next: voice (vo-director, TTS), alignment, retime, timed phone = review 5 (last).
