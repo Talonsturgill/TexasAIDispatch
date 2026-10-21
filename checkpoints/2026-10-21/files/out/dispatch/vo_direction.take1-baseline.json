@@ -1,0 +1,499 @@
+{
+  "schema": "dispatch_vo_direction/1",
+  "role": "vo-director",
+  "date": "2026-10-21",
+  "run_id": "2026-10-21",
+  "status": "director_bound",
+  "synthesis_ready": true,
+  "synthesis_block_reasons": [],
+  "bindings": {
+    "packet": {
+      "path": "out/dispatch/vo-director-packet.json",
+      "sha256_stated": "7fd61dd1c96218b8065da54ec8ae0db2ad24ebd560b22f55e14b744d2b605efa",
+      "recomputed": false
+    },
+    "story_sha256": {
+      "value": "4301497c8ab0d945e00ff9b105bed1e651cd61c8b008370c42b5ec740975a528",
+      "recomputed": false
+    },
+    "board": {
+      "path": "out/dispatch/storyboard.json",
+      "sha256_stated": "ce491db1cc56620f11099690fce8d7d2c0edc034e836d00c66f8305a9d6a1b9d",
+      "recomputed": false
+    },
+    "claims": {
+      "path": "out/dispatch/claims.json",
+      "sha256_stated": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
+      "recomputed": false
+    },
+    "selection": {
+      "path": "out/dispatch/story_selection.json",
+      "sha256_stated": "58d24be7e7af339db889b6b1699a7ed3a1e81223227473ae829b085443ab13e1",
+      "recomputed": false
+    },
+    "opening_comparison": {
+      "path": "out/dispatch/openings/comparison.json",
+      "sha256_stated": "0c74fa2e4c82985b312bfdf388f6f3467ec547c306987ccab39100ede527934f",
+      "recomputed": false
+    },
+    "opening_selection": {
+      "path": "out/dispatch/openings/selection.json",
+      "sha256_stated": "d6da5ea0af99cff7edf05b83bbeff1a0ef24dfdaf5379ae902abe244312f2fcb",
+      "recomputed": false
+    },
+    "creative_contract": "knowledge/craft/CREATIVE_DIRECTION.md",
+    "creative_direction_policy_sha256": "77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765",
+    "story_review": {
+      "path": "out/dispatch/storyboard_critic.json",
+      "verdict": "pass",
+      "scope": "exact-muted-phone-preflight, option a",
+      "reviewed_preflight_sha256": "f439d5026c5d0509c274307bc47a94bdfb44bb94f3e9768c30223a15cf33770b",
+      "recomputed": false
+    },
+    "sound_direction_sha256": "6270ba4ef7fd4095f4311998c54ae9c866693fb0273fd69bab47f60d4c853b38",
+    "sound_direction_sha256_status": "NOT COMPUTED. The creative_direction.sound object must be canonically hashed by the pipeline and written here before synthesis."
+  },
+  "script": {
+    "path": "out/dispatch/vo_script.txt",
+    "line_count": 9,
+    "sha256": "172addaabe8a0d4ffe232e4a3919c460879fd65c2c4e82d8bc65ce582088fc1c",
+    "sha256_status": "NOT COMPUTED in this session.",
+    "text_matches_file": "Read from the file. Every lines[].text equals its file line, and the top-level text equals the full file content including its final newline."
+  },
+  "voice": {
+    "name": "Charon",
+    "status": "default_pending_audition",
+    "primary_model": "gemini-3.1-flash-tts-preview",
+    "failover_model": "gemini-2.5-pro-preview-tts",
+    "takes": 1,
+    "calls_for_one_take": 2,
+    "calls_note": "One whole-passage synthesis and one verbatim soundcheck. Each is reserved before it runs.",
+    "tts_calls_used_in_packet": 0,
+    "run_limit_target": 2,
+    "escalation_ceiling": 12
+  },
+  "clock": {
+    "timing_mode": "authored",
+    "note": "Every time in an audit field is from the authored board clock. board_retime.py replaces these with measured caption and word boundaries after alignment. Nothing here is a numeric pause instruction."
+  },
+  "overall": "Read the passage as one connected account, dry and plain, like someone who knows the record and is telling you what it says. Open brisk and curious, drop to a plainer level on the companies' claim, lift for the regulator's dated decision and the inspector's review, keep the limits exact, and close lowest and most even. Breaths fall at complete clauses and full stops, never after a preposition, and no date, figure or qualifier is split.",
+  "performance_arc": "Plain and even at the pad, a little drier at the claim, steady through the record, and slower and level on the last two lines.",
+  "lines": [
+    {
+      "index": 1,
+      "text": "In the Permian Basin, Chevron tested autonomous drones from a company located in Austin.",
+      "intent": "Curious opening, placing the pad and the drone at once",
+      "emphasis": "autonomous drones",
+      "energy": "Lifted from the first word, the brightest start",
+      "pause_after": "Breath after 'Basin,' and a full stop after 'Austin.'",
+      "audit": {
+        "job": "orient",
+        "scene_id": "s1",
+        "narration_clauses": [
+          "n1a",
+          "n1b"
+        ],
+        "event_ids": [
+          "s1-event-1",
+          "s1-event-2",
+          "s1-event-3"
+        ],
+        "claim_ids": [
+          "c1",
+          "c3",
+          "c17"
+        ],
+        "picture": "The station hood opens and the drone lifts over the well pad. The Texas locator draws the Austin and Permian pins.",
+        "source_limit": "c3 is trade press about a pilot run with Percepto and names no drone model. c1's scope note says the attached EPA memo also places the company in Modi'in, Israel. See D1.",
+        "pronunciation": "Permian, Chevron and Austin are not in the bound lexicon. See D9."
+      }
+    },
+    {
+      "index": 2,
+      "text": "The companies say AI alerts when it detects anomalies to normal operations.",
+      "intent": "Drier, attributing the claim to the companies",
+      "emphasis": "The companies say",
+      "energy": "Drops from the opening to a plainer, drier level",
+      "pause_after": "Light breath after 'alerts'. Keep 'The companies say AI alerts' in one breath group.",
+      "audit": {
+        "job": "qualify",
+        "scene_id": "s2",
+        "narration_clauses": [
+          "n2a",
+          "n2b"
+        ],
+        "event_ids": [
+          "s2-event-1",
+          "s2-event-2",
+          "s2-event-3"
+        ],
+        "claim_ids": [
+          "c4"
+        ],
+        "picture": "The flight software panel lights. The alert flag lights at about 8.2 s. The companies say tag lands at about 10.2 s, after the words. See D5.",
+        "source_limit": "c4 is the companies' own claim, quoted by DroneLife. It does not mention methane and EPA's letter does not describe it."
+      }
+    },
+    {
+      "index": 3,
+      "text": "On September 30th, 2025, the Environmental Protection Agency approved that company's Air Max drone system for periodic methane screening.",
+      "intent": "Plain regulator's record, dated and firm",
+      "emphasis": "approved",
+      "energy": "Rises a step from the claim, firm and factual, with no triumph",
+      "pause_after": "Breath after '2025,' and after 'system'. No breath after 'for'. Keep 'periodic methane screening' with its approval.",
+      "audit": {
+        "job": "reveal",
+        "scene_id": "s3",
+        "narration_clauses": [
+          "n3a",
+          "n3b",
+          "n3c",
+          "n3d"
+        ],
+        "event_ids": [
+          "s3-event-1",
+          "s3-event-2",
+          "s3-event-3"
+        ],
+        "claim_ids": [
+          "c5",
+          "c11",
+          "c16",
+          "c18",
+          "c1",
+          "c19"
+        ],
+        "picture": "The letter slides in. The date stamp lands at about 14.8 s, after the date is spoken at 11.5 to 13.1 s. The approved mark lands beside the periodic screening tag. No drone and no Air Max name appears in this scene. See D3.",
+        "source_limit": "c16 says EPA approves the solution for an alternative periodic screening process. c5 says the system meets the 1 kg/hr detection threshold. This is approval of an alternative test method, not a general finding."
+      }
+    },
+    {
+      "index": 4,
+      "text": "The drone carries an infrared camera and follows a flight plan to points of interest.",
+      "intent": "Explain the method step by step, even and clear",
+      "emphasis": "flight plan",
+      "energy": "Steady and a touch below the approval line",
+      "pause_after": "Breath after 'camera.' No breath inside 'follows a flight plan'.",
+      "audit": {
+        "job": "explain",
+        "scene_id": "s4",
+        "narration_clauses": [
+          "n4a",
+          "n4b"
+        ],
+        "event_ids": [
+          "s4-event-1",
+          "s4-event-2",
+          "s4-event-3"
+        ],
+        "claim_ids": [
+          "c12",
+          "c6"
+        ],
+        "picture": "A disclosed generic illustration. The drone hovers, its camera pod swings, a dashed route reaches the points of interest, and an illustrated infrared view of a valve opens.",
+        "source_limit": "c12 and c6 describe the Air Max in EPA's letter. The picture is a generic drone, disclosed as Illustration, and is not the approved system."
+      }
+    },
+    {
+      "index": 5,
+      "text": "Then a certified inspector reviews the footage to identify any emissions, which triggers a follow-up inspection.",
+      "intent": "The turn: a person reviews the footage and decides",
+      "emphasis": "reviews the footage",
+      "energy": "The film's clearest step up so far, weighted and not loud",
+      "pause_after": "Breath after 'emissions,' only. Keep 'reviews the footage' and 'a follow-up inspection' whole.",
+      "audit": {
+        "job": "resolve the mechanism and turn",
+        "scene_id": "s5",
+        "narration_clauses": [
+          "n5a",
+          "n5b",
+          "n5c"
+        ],
+        "event_ids": [
+          "s5-event-1",
+          "s5-event-2",
+          "s5-event-3"
+        ],
+        "claim_ids": [
+          "c7"
+        ],
+        "picture": "Footage arrives at about 27.0 s. The inspector's outline and green check appear at about 29.2 s, after clause n5a starts at 26.5 s. The follow-up tag moves to the valve at about 31.6 s. See D4.",
+        "source_limit": "c7 is EPA's description of the method. The letter says the inspector reviews the footage and triggers a follow-up. It does not describe a repair."
+      }
+    },
+    {
+      "index": 6,
+      "text": "The approval letter mentions AI only in the title of a protocol.",
+      "intent": "Dry and exact, a count of the letter's text",
+      "emphasis": "mentions AI only",
+      "energy": "Drops after the turn to a dry, exact level",
+      "pause_after": "Natural breath at the full stop only. No breath after 'letter' or after 'AI'.",
+      "audit": {
+        "job": "qualify, the limit",
+        "scene_id": "s6",
+        "narration_clauses": [
+          "n6"
+        ],
+        "event_ids": [
+          "s6-event-1",
+          "s6-event-2",
+          "s6-event-3"
+        ],
+        "claim_ids": [
+          "c8"
+        ],
+        "picture": "The letter scrolls. AI is highlighted in the protocol title at about 35.5 s. A counter reads AI appears once, in a title.",
+        "source_limit": "c8 is scoped to the letter only. The protocol itself is not in the letter, so the film says nothing about what the protocol contains."
+      }
+    },
+    {
+      "index": 7,
+      "text": "EPA also delayed a separate leak reporting program to January 22nd, 2027,",
+      "intent": "A second, dated fact stated plainly",
+      "emphasis": "January 22nd, 2027",
+      "energy": "Lifts a little at the new subject",
+      "pause_after": "Light breath after '2027,'. No breath after 'to'.",
+      "audit": {
+        "job": "reveal, then qualify",
+        "scene_ids": [
+          "s7",
+          "s8"
+        ],
+        "narration_clauses": [
+          "n7a",
+          "n7b",
+          "n7c"
+        ],
+        "event_ids": [
+          "s7-event-1",
+          "s7-event-2",
+          "s7-event-3",
+          "s8-event-1",
+          "s8-event-2",
+          "s8-event-3"
+        ],
+        "claim_ids": [
+          "c9",
+          "c13",
+          "c10",
+          "c14"
+        ],
+        "picture": "The program tag settles. The calendar reads January 22nd, 2027 at about 40.8 s. The delay bar lands at about 42.7 s, after 'delayed' is spoken. The calendar turns to October 7th at about 44.5 s, and the proposal tag holds unstamped at about 47.7 s. See D6.",
+        "source_limit": "c9 says future implementation is extended to January 22, 2027. c10 says EPA will propose to rescind, and the proposal was not confirmed published when checked. 'Leak reporting program' is the film's gloss and appears in no fetched quote. See D8."
+      }
+    },
+    {
+      "index": 8,
+      "text": "and on October 7th said it will propose to rescind it.",
+      "intent": "The stated plan kept as a plan",
+      "emphasis": "will propose",
+      "energy": "Settles lower on the plan, level",
+      "pause_after": "Full stop at the end only.",
+      "audit": {
+        "job": "reveal, then qualify",
+        "scene_ids": [
+          "s7",
+          "s8"
+        ],
+        "narration_clauses": [
+          "n7a",
+          "n7b",
+          "n7c"
+        ],
+        "event_ids": [
+          "s7-event-1",
+          "s7-event-2",
+          "s7-event-3",
+          "s8-event-1",
+          "s8-event-2",
+          "s8-event-3"
+        ],
+        "claim_ids": [
+          "c9",
+          "c13",
+          "c10",
+          "c14"
+        ],
+        "picture": "The program tag settles. The calendar reads January 22nd, 2027 at about 40.8 s. The delay bar lands at about 42.7 s, after 'delayed' is spoken. The calendar turns to October 7th at about 44.5 s, and the proposal tag holds unstamped at about 47.7 s. See D6.",
+        "source_limit": "c9 says future implementation is extended to January 22, 2027. c10 says EPA will propose to rescind, and the proposal was not confirmed published when checked. 'Leak reporting program' is the film's gloss and appears in no fetched quote. See D8."
+      }
+    },
+    {
+      "index": 9,
+      "text": "Under this approval, a certified inspector confirms the leak. The letter doesn't say what the AI adds.",
+      "intent": "Closing answer then the closing limit",
+      "emphasis": "certified inspector",
+      "energy": "Lower and level on the answer, then the quietest, slower, ending low on the limit",
+      "pause_after": "Full stop after 'leak.' and at the end only. No breath inside 'what the AI adds'.",
+      "audit": {
+        "job": "resolve, closing answer, first sentence",
+        "scene_id": "s9",
+        "narration_clauses": [
+          "n8a"
+        ],
+        "event_ids": [
+          "s9-event-1",
+          "s9-event-2"
+        ],
+        "claim_ids": [
+          "c15",
+          "c7",
+          "c8"
+        ],
+        "picture": "The inspector's stylus confirms the emission at about 49.4 s. The blank dashed AI box appears at about 51.8 s.",
+        "source_limit": "c15 defines a detection as a fugitive emission visually confirmed by a certified OGI inspector under the method. 'Under this approval' keeps the claim scoped to the approved method. This is the first appearance of the closing answer's opening words, so subtitles cannot show it earlier."
+      }
+    }
+  ],
+  "text": "In the Permian Basin, Chevron tested autonomous drones from a company located in Austin.\nThe companies say AI alerts when it detects anomalies to normal operations.\nOn September 30th, 2025, the Environmental Protection Agency approved that company's Air Max drone system for periodic methane screening.\nThe drone carries an infrared camera and follows a flight plan to points of interest.\nThen a certified inspector reviews the footage to identify any emissions, which triggers a follow-up inspection.\nThe approval letter mentions AI only in the title of a protocol.\nEPA also delayed a separate leak reporting program to January 22nd, 2027,\nand on October 7th said it will propose to rescind it.\nUnder this approval, a certified inspector confirms the leak. The letter doesn't say what the AI adds.\n",
+  "defects": [
+    {
+      "id": "D0",
+      "blocks_synthesis": true,
+      "owner": "pipeline and director",
+      "finding": "sound_direction_sha256 is not bound. This session could not compute a canonical hash of creative_direction.sound.",
+      "decision": "Hash creative_direction.sound canonically, write the value here, and confirm the plan's sound binding before synthesis."
+    },
+    {
+      "id": "D1",
+      "blocks_synthesis": true,
+      "owner": "director",
+      "line": 1,
+      "finding": "The line says the company is 'located in Austin' with no qualifier. Claim c1 quotes EPA's letter, which says Austin, Texas. Its scope note says the attached EPA memo also says the company is based in Modi'in, Israel and Austin, Texas. The qualifier is missing from the spoken line.",
+      "decision": "Director judgment on a source-limit change. Any change to the text is a complete story correction, which requires a new direction file. Budget: the packet records storyboard_critics at 4 of the 5 counted review rounds, and the owner's rule keeps the final timed phone review inside that limit. A corrected story therefore cannot take a fresh paid critic and still keep the timed phone review inside the limit without the director's explicit budget decision."
+    },
+    {
+      "id": "D2",
+      "blocks_synthesis": true,
+      "owner": "director, before the TTS call",
+      "finding": "script_evidence_check was not run in this session because no shell tool was available. build_prompt runs it and refuses before any call. Date formats differ from the quotes: the script says 'January 22nd, 2027' and c9 says 'January 22, 2027'. The script says 'September 30th, 2025' and c11 says 'September 30, 2025'. 'Leak reporting program' in line 7 matches no quote (see D8).",
+      "decision": "Run scripts/script_evidence_check.py against the board and claims and read its exit code. A refusal means a story correction, not a silent edit."
+    },
+    {
+      "id": "D3",
+      "blocks_synthesis": false,
+      "owner": "director, picture",
+      "line": 3,
+      "finding": "The date is spoken in clause n3a at 11.5 to 13.1 s, but the date stamp lands at about 14.8 s in n3b. The clause 'that company's Air Max drone system' is pictured as an approved mark and a periodic screening tag. No drone and no Air Max name appears in scene 3.",
+      "decision": "Show the Air Max name on the record card or in the stamp, and move the stamp earlier or accept the lag. The words stay as written."
+    },
+    {
+      "id": "D4",
+      "blocks_synthesis": false,
+      "owner": "director, picture",
+      "line": 5,
+      "finding": "'A certified inspector reviews the footage' starts at 26.5 s, but the inspector is first drawn at about 29.2 s. The subject appears after its clause begins. The storyboard critic's own strongest frame also dates the inspector at 29.0 s.",
+      "decision": "Bring the inspector on screen before 26.5 s."
+    },
+    {
+      "id": "D5",
+      "blocks_synthesis": false,
+      "owner": "director, picture",
+      "line": 2,
+      "finding": "'The companies say' is spoken at 6.3 to 8.2 s. The alert flag lights at about 8.2 s. The attribution tag lands at about 10.2 s, after the words and during 'normal operations'.",
+      "decision": "Land the attribution tag while 'The companies say' is heard, or accept the lag."
+    },
+    {
+      "id": "D6",
+      "blocks_synthesis": false,
+      "owner": "director, picture",
+      "line": 7,
+      "finding": "'Delayed' is spoken from about 38.8 s, but the delay bar lands at about 42.7 s, during 'to January 22nd, 2027'. The clause that names the delay is pictured by a bar that arrives after the verb.",
+      "decision": "Align the delay bar to the verb, or accept the lag."
+    },
+    {
+      "id": "D7",
+      "blocks_synthesis": false,
+      "owner": "director, comprehension",
+      "line": 9,
+      "finding": "'The letter doesn't say what the AI adds' is spoken over a scene with no letter on screen. The closing picture shows a blank dashed AI box and a small station through the window. The storyboard critic's weakest frame also says the closing wide shot restates the answer at phone-small size.",
+      "decision": "Decide whether the letter is on screen at the close. This is a picture decision, and the words stay as written."
+    },
+    {
+      "id": "D8",
+      "blocks_synthesis": false,
+      "owner": "director, claim wording",
+      "line": 7,
+      "finding": "'A separate leak reporting program' is a gloss. No fetched quote says 'leak reporting'. c9 names the Methane Super Emitter Program, and c13 defines super emitter events.",
+      "decision": "Either tie the gloss to a quoted claim or name the program the way the source does. Any wording change is a story correction, see D1."
+    },
+    {
+      "id": "D9",
+      "blocks_synthesis": false,
+      "owner": "director, pronunciation",
+      "lines": [
+        1,
+        3,
+        7
+      ],
+      "finding": "Permian, Chevron, Austin, Air Max and EPA are not in the bound pronunciation guide. The guide says an unlisted spoken proper noun is unverified and the honest move is to rewrite the line rather than guess. The guide has no entry for Permian, so no respelling is given here.",
+      "decision": "Verify Permian against a fetched source or the guide before the take, or rewrite line 1. No respelling was applied."
+    },
+    {
+      "id": "D10",
+      "blocks_synthesis": false,
+      "owner": "controller",
+      "finding": "The packet records storyboard_critics at 4 of the 5 counted rounds. The final timed phone review must stay reserved inside those five.",
+      "decision": "Plan any picture or script correction against one remaining counted round. This is not a voice defect."
+    }
+  ],
+  "pronunciation": {
+    "guide": "TexasAIDocket knowledge/shared/TEXAS_PRONUNCIATION.md, read in full",
+    "respellings_applied": [],
+    "terms_not_in_guide": [
+      "Permian",
+      "Chevron",
+      "Austin",
+      "Air Max",
+      "EPA"
+    ],
+    "rule": "Unlisted names are unverified. No pronunciation rule is invented. See D9."
+  },
+  "guides_read": [
+    "knowledge/craft/visual-storytelling/viewer-plan.md",
+    "knowledge/craft/visual-storytelling/README.md",
+    "knowledge/craft/visual-storytelling/news-reporting.md",
+    "knowledge/craft/visual-storytelling/evidence-led-imagery.md",
+    "knowledge/craft/MODERN_FILM.md",
+    "knowledge/craft/CREATIVE_DIRECTION.md",
+    "knowledge/craft/STORY_ART.md",
+    "knowledge/craft/AUTHORED_STORY_ART.md",
+    "knowledge/craft/ART_DIRECTION.md",
+    "knowledge/craft/AUTONOMOUS_COMPLETION.md",
+    "config/quality_contract.json (read in full; knowledge/craft/QUALITY_CONTRACT.md was not read because the packet does not bind it)",
+    "config/modern_film.json",
+    "config/modern_episode_registry.json",
+    "config/story_art.json",
+    "config/authored_story_art.json",
+    "config/art_direction.json",
+    "config/critic_concept_v2.json",
+    "config/autonomous_completion_v2.json",
+    "config/claude_runtime.json",
+    "config/review_limit.json",
+    "config/creative_production.json",
+    "config/run_limits.json",
+    "config/voices.yaml",
+    "prompts/claude_routine.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    ".claude/agents/vo-director.md",
+    "scripts/vo_synth_gemini.py (consumer of this file)"
+  ],
+  "guides_not_read": [
+    "prompts/roles/scene-builder.md (picture builder, not narration)",
+    "knowledge/craft/cinematic_reference_bank.json (cinematic reference, not narration)",
+    "config/dispatch_rubric.yaml (scoring bar, not a voice input)",
+    "knowledge/craft/visual-storytelling/observed-documentary.md, explanatory-animation.md and cinematic-scene.md (approaches not chosen; the director named News report and Evidence-led imagery)"
+  ],
+  "no_numeric_timing_in_synth_fields": true,
+  "no_emotion_tags_in_synth_fields": true,
+  "sound_direction_sha256": "6270ba4ef7fd4095f4311998c54ae9c866693fb0273fd69bab47f60d4c853b38",
+  "director_resolution": {
+    "D0": "bound by the director from creative_direction.sound",
+    "D1": "EPA's letter says located in Austin, Texas (validated claim c1). The spoken line keeps that wording.",
+    "D2": "script_evidence_check passed",
+    "D3_to_D7": "picture timing is retimed to the measured voice by board_retime; words unchanged",
+    "D8": "validated sentence unchanged, claims c9 and c13",
+    "D9": "Permian Chevron Austin are common words, no respelling invented"
+  }
+}
