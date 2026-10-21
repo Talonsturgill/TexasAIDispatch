@@ -1,0 +1,667 @@
+{
+ "handoff_status": "Research complete for one beat, with a consolidated defect list. Not a film approval. Subject retained: USDA ARS Kerrville predictive models for New World screwworm sterile fly release, aircraft and traps, with TAHC movement rules for ranchers. Filmable only through a director-bound source-backed-action proposal (illustration with disclosure). No rights-cleared footage was found.",
+ "beat": "New World screwworm (NWS) in Texas: how USDA's Kerrville predictive models are described as informing sterile fly release, surveillance and trapping, and what TAHC movement rules require of a rancher inside an infested zone. Anchor record: Docket tx-2026-0218.",
+ "input_verification": {
+  "hash_status": "NOT RECOMPUTED. This session has no shell tool, so sha256sum could not run. The hashes below are the values declared in the packet. The director must recompute them before acceptance.",
+  "packet": {
+   "path": "out/dispatch/researcher-packet.json",
+   "declared_sha256": "619a0545020995910c4c17d6b2f690d9bb07eb9c5c4dc272ea9ddab740b7db98",
+   "read": "full"
+  },
+  "bound_inputs_read_in_full_or_stated": [
+   {
+    "path": "TexasAIDocket/ledger/docket.json",
+    "declared_sha256": "d64066787abe4cf35a047d8a84a7dfc3c9f0dee6751f1efba346b0c63b7c5f8a",
+    "read": "NOT read in full (37,000 lines). Read item tx-2026-0218 (lines 35851 to 36064) and its neighbors, and the file tail to confirm ordering."
+   },
+   {
+    "path": "TexasAIDispatch/knowledge/texas/APPLICATIONS.md",
+    "declared_sha256": "ba6477684329e78ad36d15ee0f99e0056a1c0fae519e29d0bd8614a46cc0cd8d",
+    "read": "full"
+   },
+   {
+    "path": "AGENTS.md",
+    "declared_sha256": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094",
+    "read": "full"
+   },
+   {
+    "path": "CLAUDE.md",
+    "declared_sha256": "efe79ee10f6c2fa167c59f2c0ecf67322150598efe421db9eee1288752c4d07f",
+    "read": "full"
+   },
+   {
+    "path": "prompts/claude_routine.md",
+    "declared_sha256": "4029dd305bd846dfcba74f7915dc5c27475b884a66355ed56c1570431fce6773",
+    "read": "full"
+   },
+   {
+    "path": "config/claude_runtime.json",
+    "declared_sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10",
+    "read": "full"
+   },
+   {
+    "path": "config/quality_contract.json",
+    "declared_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+    "read": "full"
+   },
+   {
+    "path": "config/dispatch_rubric.yaml",
+    "declared_sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
+    "read": "full. Bar not restated here."
+   },
+   {
+    "path": ".claude/agents/researcher.md",
+    "declared_sha256": "c618bf0ccc1b37412f4cb9f188a972543c555863db36990c9ecc10518510a49e",
+    "read": "full"
+   },
+   {
+    "path": "config/review_limit.json",
+    "declared_sha256": "2d62fcc421118fda5a3235b23b6c267f86ce0c1337af207f46a7c2a4c096eb08",
+    "read": "full. Five paid review rounds, no extensions."
+   },
+   {
+    "path": "prompts/phases/01-research.md",
+    "declared_sha256": "5f0feff2ba8ddfb51a69425d5c5ed500a2edd648b1f47676df6adfb381bf69c6",
+    "read": "full"
+   },
+   {
+    "path": "out/dispatch/provider-availability/startup/receipt.json",
+    "declared_sha256": "1504a8e5669af087944e723aee517c7a4ee1a148412dfcb81f19d1060289e679",
+    "read": "full. available true, HTTP 200, finished 2026-10-21T15:05:18Z. Its reservation charged audiovisual_reviews 1 (note: unscored provider generation availability). The director should confirm this precharge is expected."
+   }
+  ],
+  "additional_guides_read": [
+   "config/production_actions.json (full; three starter actions, none matches this story)",
+   "knowledge/craft/CREATIVE_DIRECTION.md (full)",
+   "knowledge/craft/DAILY_PRODUCTION.md (full, including the source-backed admission rule)",
+   "knowledge/craft/visual-storytelling/README.md, news-reporting.md, viewer-plan.md, explanatory-animation.md, evidence-led-imagery.md (full)",
+   "config/story_visuals.json (max 6 searches, max 8 candidates)",
+   "config/daily_production.json (max 1 new source-backed mechanism)"
+  ],
+  "not_read": [
+   "visual-storytelling observed-documentary.md, cinematic-scene.md, sentence-to-shot.md, broadcast-cadence-study.md, october-2-pavement-case.md. Not needed for the chosen approaches, but the director must read sentence-to-shot.md before boarding."
+  ]
+ },
+ "controller_and_gate_status": {
+  "not_run_no_shell": [
+   "python scripts/dedupe.py list --days 30 and dedupe check (the recent-narration and entity screen is still required before voice)",
+   "story_selection_check.py",
+   "run_controller.py consume --resource research_agents (this researcher made no reservation)",
+   "scripts/place_photos.py",
+   "sha256sum verification of every input",
+   "subject-screen through claude_runtime.py plan --subject"
+  ],
+  "lyda_hill_search": "Library of Congress Lyda Hill search via WebSearch found no record naming Kerrville, Kerr County, Zavala County, La Pryor or Edinburg. The loc.gov search URL returned HTTP 403. The bounded LOC pass is therefore NOT satisfied."
+ },
+ "docket_movements": [
+  {
+   "record_status": "ledger item tx-2026-0218, status decided, admitted 2026-10-18, last_verified 2026-10-21",
+   "record_id": "tx-2026-0218",
+   "event_type": "agency research announcement with a TAHC count update",
+   "date": "2026-10-12 filed (KRGV drone report); ARS page last modified 2026-09-15 (no publication date); TAHC count 44 undated on the page as read",
+   "actor": "USDA Agricultural Research Service, Knipling-Bushland Livestock Insects Research Laboratory, Kerrville, TX (Kim Lohmeyer, director)",
+   "action": "ARS says predictive models that use analytic tools and AI inform USDA choices of where, when and how many sterile flies to release and where surveillance and trapping go. The ARS text does not name aircraft. KRGV reports USDA drone flights and says no cases were found.",
+   "object": "sterile fly release sites, timing and numbers; livestock and wildlife surveillance; adult fly trapping",
+   "county": "Zavala is the first detection (2026-06-03). The TAHC page's current restriction list names 12 counties: Brewster, Crockett, Edwards, Jeff Davis, Pecos, Presidio, Schleicher, Starr, Sutton, Terrell, Val Verde, Zapata. TAHC confirms 17 counties with detections but does not name them on the page as read.",
+   "next_step": "None dated on the record. TAHC page refers to an October 13, 2026 executive director order that could not be located or read.",
+   "who_can_act": "USDA ARS and APHIS (release and model use). TAHC (zone orders, inspections, movement authorization). Ranchers (report suspicions within 24 hours, never move an animal showing signs)."
+  },
+  {
+   "record_status": "NOT IN LEDGER. Primary TAHC release found by this research.",
+   "record_id": "none (new to record; ledger tx-2026-0218 omits it)",
+   "event_type": "movement restrictions released from zones",
+   "date": "2026-08-31",
+   "actor": "TAHC Executive Director, Dr. Bud Dinges (quoted in the release as executive director and state veterinarian)",
+   "action": "Released movement restrictions in designated areas of Gillespie, Kerr, Kimble, La Salle and Webb counties (zones 02.A and 03). The release states that the wild NWS population in those areas was eliminated, per the eradication strategy.",
+   "object": "movement restrictions on animals in the released areas",
+   "county": "Gillespie, Kerr, Kimble, La Salle, Webb",
+   "next_step": "TAHC, USDA and partners may continue regulatory activities in released areas, including sterile fly releases, fly surveillance trapping and animal surveillance. The TAHC interactive map shows zones that still carry requirements.",
+   "who_can_act": "TAHC (zone status), USDA (releases and trapping), landowners (monitor and report)"
+  },
+  {
+   "record_status": "NOT IN LEDGER. Referenced on the TAHC NWS page as read. Not located or read.",
+   "record_id": "none",
+   "event_type": "executive director order (unread lead)",
+   "date": "2026-10-13 (as named on the TAHC page)",
+   "actor": "TAHC",
+   "action": "UNKNOWN. Could not be read.",
+   "object": "UNKNOWN",
+   "county": "UNKNOWN",
+   "next_step": "Read the order from tahc.texas.gov/regs before any rule statement is drafted from the current period.",
+   "who_can_act": "TAHC"
+  },
+  {
+   "record_status": "NOT IN LEDGER. Secondary TSLN report, not confirmed on a TAHC or USDA primary page.",
+   "record_id": "none",
+   "event_type": "second confirmed case report",
+   "date": "2026-06-05",
+   "actor": "TSLN (Ruth Wiechmann) reporting USDA and TAHC confirmations",
+   "action": "Reports a 30-day-old calf in Zavala County confirmed as NWS, located within the existing infested zone.",
+   "object": "second Zavala calf",
+   "county": "Zavala",
+   "next_step": "Verify against TAHC or USDA primary before any use.",
+   "who_can_act": "TAHC, USDA"
+  },
+  {
+   "record_status": "LEAD ONLY. Secondary search summary, not fetched.",
+   "record_id": "none",
+   "event_type": "entry order for Mexican-origin cattle",
+   "date": "on or after 2026-08-24 (per secondary summary)",
+   "actor": "TAHC executive director order",
+   "action": "Cattle of Mexican origin entering through a port outside Texas must carry official RFID, an electronic certificate of veterinary inspection and an entry permit before entering Texas (secondary summary only).",
+   "object": "Mexican-origin cattle entering Texas",
+   "county": "statewide entry rule",
+   "next_step": "Fetch the TAHC order before use.",
+   "who_can_act": "TAHC, importers, ranchers receiving animals"
+  }
+ ],
+ "findings": [
+  {
+   "claim": "USDA's ARS says its predictive models use advanced analytic tools and artificial intelligence to interpret ecological, environmental and historical information to predict where NWS may establish and how it may spread.",
+   "quote": "Predictive models use advanced analytic tools and artificial intelligence (AI) to interpret ecological, environmental, and historical information to predict where New World screwworm is likely to become established and the potential pathways it may follow to spread.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high (sentence confirmed in a second targeted fetch; the fetch tool returns quotes through a summarizer, so the validator should re-fetch)",
+   "why_it_matters": "The only primary statement that AI is part of the models. It describes a description of the models, not model output, so the film cannot show a specific AI decision.",
+   "supports_movement": "tx-2026-0218 claim c1"
+  },
+  {
+   "claim": "USDA says it uses insights from the models to choose release locations, timing and number of sterile flies.",
+   "quote": "USDA uses insights from the models to identify optimal locations, timing, and the number of sterile flies to release for the most effective application, to interrupt their reproductive cycle and spread.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "why_it_matters": "Says insights inform USDA choices. The record title says the models pick where, when and how many flies. That is stronger than this sentence. Use the ARS wording.",
+   "supports_movement": "tx-2026-0218 claim c2 (title overstates it, see defect D1)"
+  },
+  {
+   "claim": "Lohmeyer says the models are already used to select areas for surveillance, adult fly trapping and sterile insect release.",
+   "quote": "ARS developed predictive New World screwworm models that incorporate historic data like habitat use, host preferences, and environmental conditions into a science-based platform that are already being utilized to select areas for increased livestock and wildlife surveillance, adult fly trapping, and for implementing SIT, said Lohmeyer.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (named director, Kim Lohmeyer, Director, ARS Knipling-Bushland Livestock Insects Research Laboratory in Kerrville, TX)",
+   "confidence": "high for the quote; low for any release-level outcome",
+   "why_it_matters": "Named human source with present tense 'already being utilized', but no site, date or outcome is given. It tells the viewer areas were chosen, not which ones.",
+   "supports_movement": "tx-2026-0218 claim c3"
+  },
+  {
+   "claim": "The model's limit, stated by its own director.",
+   "quote": "However, these models cannot predict every scenario, especially those impacted by unpredictable variables like people transporting infested animals.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "why_it_matters": "The strongest source limit and the earned turn for the film. The variable the model cannot predict is the rancher's own movement of animals, which TAHC rules govern.",
+   "supports_movement": "tx-2026-0218 claim c16"
+  },
+  {
+   "claim": "Hutchins, USDA Under Secretary for Research, Education and Economics, on placement.",
+   "quote": "Modeling their movement and using this information for optimal placement maximizes our impact and hastens eradication.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (named USDA official, Dr. Scott Hutchins)",
+   "confidence": "high for the quote",
+   "why_it_matters": "A named USDA voice claiming impact. No measured effect is given, so the film should label it as the agency's claim.",
+   "supports_movement": "not in ledger (new named source)"
+  },
+  {
+   "claim": "The ARS page contains no validation or accuracy statement for the models.",
+   "quote": "No accuracy statement found. The page's only limitation sentence is: However, these models cannot predict every scenario, especially those impacted by unpredictable variables like people transporting infested animals.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (absence finding from a full-page read)",
+   "confidence": "medium (an absence finding through a summarizer)",
+   "why_it_matters": "Explains why no accuracy figure can be shown. Any film line implying the model is accurate would be unsupported.",
+   "supports_movement": "limit for tx-2026-0218"
+  },
+  {
+   "claim": "ARS page dating: no publication date, last modified September 15, 2026. The page does not mention drones.",
+   "quote": "Last modified: 9/15/2026 (page metadata as read through the fetch summary). No separate publication date appears on the page.",
+   "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "medium",
+   "why_it_matters": "The drone AI story is not part of the ARS page. Keep the two apart.",
+   "supports_movement": "tx-2026-0218 admission note"
+  },
+  {
+   "claim": "First confirmed detection in Texas: a calf in Zavala County, June 3, 2026.",
+   "quote": "On June 3, 2026, New World screwworm (NWS) was confirmed in a calf in Zavala County, Texas.",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "why_it_matters": "The anchor date and county for the human story. Zavala is not on the TAHC page's current restriction list (see D2).",
+   "supports_movement": "tx-2026-0218 claim c9"
+  },
+  {
+   "claim": "Umbilical lesion in a three-week-old calf, first detection report.",
+   "quote": "has been detected in a three-week-old calf in Zavala County, Texas. NWS maggots were found in the umbilical area of the calf. So far there is only a single detection.",
+   "url": "https://www.cidrap.umn.edu/new-world-screwworm/texas-reports-new-world-screwworm-3-week-old-calf",
+   "retrieved": "2026-10-21",
+   "source_type": "journalism (CIDRAP, article undated in fetched text)",
+   "confidence": "medium",
+   "why_it_matters": "The physical detail of the first case, usable as a sourced visual description. The article is undated and does not name TAHC, so it cannot stand in for the primary date.",
+   "supports_movement": "tx-2026-0218 background"
+  },
+  {
+   "claim": "TAHC counts 17 Texas counties with a confirmed detection (counties not named).",
+   "quote": "Total Texas counties with a confirmed NWS detection: 17",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "why_it_matters": "The county list is not published on the page. Do not name counties as detection counties from the ledger's geography array (see D1).",
+   "supports_movement": "tx-2026-0218 claim c10"
+  },
+  {
+   "claim": "TAHC counts 44 Texas premises with a confirmed detection. The page as read carries no date for this figure.",
+   "quote": "Total Texas premises confirmed with at least one NWS detection: 44",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high for the number; the date 2026-10-21 in the ledger is not shown on the page",
+   "why_it_matters": "The count rose from 43 per the ledger. The film should carry this as undated TAHC page text as read on October 21, 2026.",
+   "supports_movement": "tx-2026-0218 claims c11 (43) and c17 (44)"
+  },
+  {
+   "claim": "Current movement restrictions are in an established infested zone in parts of 12 named counties.",
+   "quote": "There are currently movement restrictions in place due to an established New World Screwworm Infested Zone in parts of the following Texas counties: Brewster, Crockett, Edwards, Jeff Davis, Pecos, Presidio, Schleicher, Starr, Sutton, Terrell, Val Verde, Zapata.",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "why_it_matters": "This list differs from the ledger's 14 county geography array. Zavala and Kerr are absent from it.",
+   "supports_movement": "tx-2026-0218 claim c13"
+  },
+  {
+   "claim": "Animals in an infested zone may not leave without prior TAHC authorization. An owner must contact TAHC for an inspection, and a movement certificate must accompany the animals.",
+   "quote": "all warm-blooded animals in an Infested Zone may not move out of the zone without prior authorization. Animals leaving a zone must contact the TAHC or a NWS Certified Inspector to set up an inspection. A NWS Movement/Treatment certificate must accompany the movement.",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (quoted through a summarizer; re-read the verbatim text before use)",
+   "confidence": "medium-high (the exact sentence is not yet confirmed verbatim)",
+   "why_it_matters": "This is the rancher-facing physical task, the honest human consequence, and the picture the film can show without footage. It is a rule, not a result.",
+   "supports_movement": "not in ledger. New candidate claim."
+  },
+  {
+   "claim": "Reporting rule for suspected NWS.",
+   "quote": "NWS is reportable to the TAHC and should be reported within 24 hours of suspicion. Report all suspected and confirmed cases of NWS immediately.",
+   "url": "https://www.tahc.texas.gov/emergency/nws.html",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high for the 24-hour sentence (matches ledger claim c14); medium for the second sentence (summarizer)",
+   "why_it_matters": "Gives the rancher a concrete action within a time limit.",
+   "supports_movement": "tx-2026-0218 claim c14"
+  },
+  {
+   "claim": "The TAHC 2026-08-31 release lifts restrictions in five counties and says partners may continue sterile fly releases and trapping in released areas.",
+   "quote": "The executive director officially released movement restrictions for areas of Texas previously deemed as New World screwworm (NWS) Infested Zones. Following months of coordinated surveillance and eradication activities, designated areas of Gillespie, Kerr, Kimble, La Salle, and Webb Counties were released from New World Screwworm (NWS) movement restrictions on August 31, 2026. TAHC, USDA, and other response partners may continue to conduct regulatory activities in areas released from NWS Infested Zones. These activities can include sterile fly releases, fly surveillance trapping, and animal surveillance.",
+   "url": "https://www.tahc.texas.gov/news/2026/2026-08-31_EDO_NWSZoneReleases.pdf",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (press release PDF, read as rendered page 1 after WebFetch returned binary; saved copy read with the PDF reader)",
+   "confidence": "high (rendered page read directly)",
+   "why_it_matters": "The release and the restriction track are separate. Sterile fly releases continue in areas that are no longer restricted. The ledger omits this release entirely.",
+   "supports_movement": "not in ledger. New movement."
+  },
+  {
+   "claim": "TAHC's stated basis for the release, and the state veterinarian's quote on vigilance.",
+   "quote": "The comprehensive eradication strategy implemented by state, federal, industry, veterinary, and local partners delivered sufficient evidence that the wild NWS population in these affected areas have been eliminated. We are pleased with the incredible work and cooperation that has led us to the release of these first zones, said Dr. Bud Dinges, TAHC executive director and Texas state veterinarian. While we are certainly celebrating this milestone, we can't take our eye off the ball and must remain vigilant in monitoring animals and reporting any suspicions in these newly released areas and beyond.",
+   "url": "https://www.tahc.texas.gov/news/2026/2026-08-31_EDO_NWSZoneReleases.pdf",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "why_it_matters": "The release is a conclusion from a strategy, with no population figure shown. The film must present it as the agency's conclusion. The quote is also a named human voice.",
+   "supports_movement": "not in ledger"
+  },
+  {
+   "claim": "Reporting contact for suspected NWS (TAHC phone digits conflict, see D3).",
+   "quote": "All suspicions of NWS infestations must be reported to a TAHC Region Office or 1-800-55-8242, Texas Parks and Wildlife Department wildlife biologist or 512-389-4505, or your private veterinarian.",
+   "url": "https://www.tahc.texas.gov/news/2026/2026-08-31_EDO_NWSZoneReleases.pdf",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "medium. The rendered PDF appears to read 1-800-55-8242. The ledger and the HTML page read 1-800-550-8242.",
+   "why_it_matters": "A wrong phone digit printed in a film would send a rancher to the wrong number. Do not print a number until verified.",
+   "supports_movement": "tx-2026-0218 claim c15 (conflict)"
+  },
+  {
+   "claim": "APHIS: the Edinburg dispersal facility at Moore Air Force Base deploys more than 80 million sterile flies a week over Texas and Mexico.",
+   "quote": "USDA has completed construction of a domestic sterile fly dispersal facility at Moore Air Force Base in Edinburg, Texas. This $8.5 million facility is now used to deploy more than 80 million sterile flies per week over Texas and Mexico.",
+   "url": "https://www.aphis.usda.gov/animals/animal-health/livestock-and-poultry-disease/usda-continues-lead-aggressive-national-nws",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (page last modified July 31, 2026)",
+   "confidence": "high for the quote; the 80 million figure is dated to a July 31 page",
+   "why_it_matters": "The named dispersal site. Its figure is a capacity statement on a dated page, not a count of flies released over any ranch.",
+   "supports_movement": "tx-2026-0218 claim c12"
+  },
+  {
+   "claim": "APHIS: earlier drone and trap counts, and aircraft relocated to Texas (undated in the summary).",
+   "quote": "over 1,000 drone surveillance flights in Texas, observing over 20,000 animals. more than 100 NWS-specific traps and more than 8,000 insect traps across Texas, Arizona, New Mexico, and California. in 72 hours, planes were relocated to Texas to expand sterile fly coverage in the U.S.",
+   "url": "https://www.aphis.usda.gov/animals/animal-health/livestock-and-poultry-disease/usda-continues-lead-aggressive-national-nws",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (quoted through a summarizer)",
+   "confidence": "medium",
+   "why_it_matters": "Earlier counts conflict with the KRGV counts. Use time stamps. The aircraft line is the only primary aircraft statement found, and it is not tied to the model.",
+   "supports_movement": "background; not in ledger"
+  },
+  {
+   "claim": "APHIS and USDA announced the Moore Air Base dispersal facility's completion on February 9, 2026.",
+   "quote": "This facility expands USDA's ability to disperse sterile flies along the border and into the United States, if necessary.",
+   "url": "https://www.aphis.usda.gov/news/agency-announcements/usda-announces-completion-sterile-fly-dispersal-facility-texas",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (summary only; full release text not readable)",
+   "confidence": "medium-high",
+   "why_it_matters": "Fixes the facility's date. Governor Greg Abbott and Secretary Brooke Rollins are named as present. No quotes from either were readable.",
+   "supports_movement": "background"
+  },
+  {
+   "claim": "USDA drone flights and animal counts, as reported by KRGV.",
+   "quote": "The USDA said it observed more than 36,000 animals and found no screwworm cases.",
+   "url": "https://www.krgv.com/news/no-screwworm-cases-found-after-usda-conducts-2-000-drone-flights-over-texas",
+   "retrieved": "2026-10-21",
+   "source_type": "journalism (KRGV, byline Santiago Caicedo, dated October 12, 2026 10:37 PM as read)",
+   "confidence": "medium-high for the reporter's attribution; no USDA primary page carrying these counts was found",
+   "why_it_matters": "A count of what was observed, not proof of absence. The article says drones are not foolproof.",
+   "supports_movement": "tx-2026-0218 claim c6"
+  },
+  {
+   "claim": "USDA says drones are not foolproof and use AI to inspect wounds. This AI is a different system from the model.",
+   "quote": "USDA officials said drones are not foolproof for detecting screwworms, but they use artificial intelligence to inspect animal wounds more effectively.",
+   "url": "https://www.krgv.com/news/no-screwworm-cases-found-after-usda-conducts-2-000-drone-flights-over-texas",
+   "retrieved": "2026-10-21",
+   "source_type": "journalism",
+   "confidence": "medium-high",
+   "why_it_matters": "The false inference risk. Viewers will connect 'AI' and 'drones' with the release decisions. The KRGV linked headline says 'AI-equipped drones to detect screwworm' but the article body does not give a model or accuracy figure.",
+   "supports_movement": "tx-2026-0218 claim c7"
+  },
+  {
+   "claim": "A second confirmed Zavala calf, 30 days old, within the existing zone (secondary report).",
+   "quote": "This second confirmed case is located within the existing infested zone.",
+   "url": "https://www.tsln.com/news/not-if-but-when-new-world-screwworm-detected-in-zavala-county-texas-calves/",
+   "retrieved": "2026-10-21",
+   "source_type": "journalism (TSLN, Ruth Wiechmann, June 5, 2026)",
+   "confidence": "low until TAHC or USDA confirms it",
+   "why_it_matters": "The ledger describes only the first detection. A film of the Zavala story must not omit or assert this without primary confirmation.",
+   "supports_movement": "not in ledger"
+  },
+  {
+   "claim": "A named rancher, quoted in June 2026, in LaSalle County. LaSalle was released from restrictions August 31 (TAHC).",
+   "quote": "I am the fifth generation living and working on this ranch in LaSalle County, Texas.",
+   "url": "https://www.tsln.com/news/not-if-but-when-new-world-screwworm-detected-in-zavala-county-texas-calves/",
+   "retrieved": "2026-10-21",
+   "source_type": "journalism (named quote, Susan Storey Rubio)",
+   "confidence": "medium-high for the quote as read through a summarizer",
+   "why_it_matters": "A real named producer with a published June quote. Her view today is not sourced, and the film must not manufacture it. A new interview would be needed for any present-tense feeling.",
+   "supports_movement": "human source, not in ledger"
+  },
+  {
+   "claim": "TAHC will inspect livestock before movement, and producers should not move animals when NWS is suspected.",
+   "quote": "The Texas Animal Health Commission will inspect livestock prior to movement out of the vicinity of the location where NWS was detected. If you suspect NWS in your livestock or domestic animals, contact the TAHC immediately and do not move your animals.",
+   "url": "https://www.tsln.com/news/not-if-but-when-new-world-screwworm-detected-in-zavala-county-texas-calves/",
+   "retrieved": "2026-10-21",
+   "source_type": "journalism quoting TAHC",
+   "confidence": "medium (the TAHC zone document it cites was not readable)",
+   "why_it_matters": "Second source for the inspection step. It does not name a certificate.",
+   "supports_movement": "supports tx-2026-0218 rule context"
+  },
+  {
+   "claim": "ARS image rights statement.",
+   "quote": "Photos in our Image Gallery are available free of charge and are copyright-free, and public domain, images unless otherwise indicated. When using these photos, we ask that you credit the Agricultural Research Service. Photo by (photographer's name), USDA Agricultural Research Service.",
+   "url": "https://www.ars.usda.gov/oc/images/copyright",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official",
+   "confidence": "high",
+   "why_it_matters": "The rights basis for the one ARS image found. It does not cover third-party images, people or logos, and gives no permission contact.",
+   "supports_movement": "asset rights"
+  },
+  {
+   "claim": "ARS-hosted screwworm larva photograph, with caption.",
+   "quote": "Tusklike mandibles protruding from the screwworm larva's mouth rasp the flesh of living warm-blooded animals. A wound may contain hundreds of such larvae. Photo by John Kucharski.",
+   "url": "https://www.ars.usda.gov/oc/images/photos/k7576-1",
+   "retrieved": "2026-10-21",
+   "source_type": "primary_official (ARS image gallery; page last modified 6/14/2023)",
+   "confidence": "high for caption and credit",
+   "why_it_matters": "The only public-domain pest image found. It shows the pest, not the lab, the model or any 2026 release. Use it at most as identity of the pest.",
+   "supports_movement": "asset lead"
+  }
+ ],
+ "consolidated_defects": [
+  {
+   "id": "D1",
+   "severity": "high",
+   "defect": "Record title says 'AI models that pick where, when and how many sterile flies to release'. ARS says USDA uses insights from the models to identify optimal locations, timing and numbers (claim c2). The title turns insight into selection.",
+   "route": "Docket lane. Dispatch must not repeat the title's verb.",
+   "evidence": "ARS quote above; ledger title line 35852."
+  },
+  {
+   "id": "D2",
+   "severity": "high",
+   "defect": "Ledger geography.counties (14 names) includes Kerr and Zavala. The TAHC page's current restriction list has 12 counties and excludes both. Kerr was released August 31 (TAHC). The 17 detection counties are not named anywhere read, so the ledger array cannot be checked against a primary list.",
+   "route": "Docket lane.",
+   "evidence": "ledger lines 35859-35876; TAHC nws page; TAHC Aug 31 release."
+  },
+  {
+   "id": "D3",
+   "severity": "medium",
+   "defect": "TAHC phone number. Ledger claim c15 and the HTML page read 1-800-550-8242. The rendered Aug 31 PDF appears to read 1-800-55-8242. Unresolved.",
+   "route": "Validator must re-read the TAHC page and PDF at higher resolution before any number is printed."
+  },
+  {
+   "id": "D4",
+   "severity": "high",
+   "defect": "Ledger omits the August 31, 2026 TAHC release that lifted restrictions in Gillespie, Kerr, Kimble, La Salle and Webb counties. Ledger summary still says restrictions are in place across an infested zone without this change.",
+   "route": "Docket lane. Dispatch must use the release for any rancher rule."
+  },
+  {
+   "id": "D5",
+   "severity": "medium",
+   "defect": "Ledger's 44-premises claim (c17) is dated fetched 2026-10-21 and the history says it rose from 43. The TAHC page as read carries no date for 44. The 43 figure (c11, fetched 2026-10-18) was not re-read by this research.",
+   "route": "Validator must re-read the page for a visible date or cite the figure as undated."
+  },
+  {
+   "id": "D6",
+   "severity": "medium",
+   "defect": "Ledger summary says 'The models also guide where aircraft, fly traps and surveillance go.' No claim id backs aircraft. The ARS aircraft sentence was seen only as a paraphrase, and the verbatim ARS sentence was not confirmed.",
+   "route": "Validator must confirm verbatim or drop the aircraft phrase."
+  },
+  {
+   "id": "D7",
+   "severity": "medium",
+   "defect": "TAHC NWS page refers to an October 13, 2026 executive director order. It is not in the ledger and was not located or read. Current rules could change in that order.",
+   "route": "Read the order before rule claims are drafted from current period. Dispatch lane research task, not a Docket edit."
+  },
+  {
+   "id": "D8",
+   "severity": "medium",
+   "defect": "Second Zavala calf (June 5, TSLN) is absent from the ledger. It is unverified against TAHC or USDA primary.",
+   "route": "Confirm on TAHC or USDA primary before any use."
+  },
+  {
+   "id": "D9",
+   "severity": "medium",
+   "defect": "Drone AI and model AI sit in one ledger summary paragraph. The drone AI does wound inspection, not release decisions.",
+   "route": "Keep separate in any script, caption and picture."
+  },
+  {
+   "id": "D10",
+   "severity": "low",
+   "defect": "APHIS page is last modified July 31, 2026. Its figures (80 million flies a week, 1,000 drone flights, 20,000 animals) are older than KRGV's October 12 counts (2,000 flights, 36,000 animals). Both must be dated if both appear.",
+   "route": "Dispatch: time-stamp every count."
+  },
+  {
+   "id": "D11",
+   "severity": "low",
+   "defect": "Zavala's current restriction status is unknown. The TAHC page's current list excludes it, and no release notice for Zavala was found. The ledger lists Zavala as a county without a status.",
+   "route": "Confirm current zone status on the TAHC interactive map or the October 13 order before any Zavala restriction claim."
+  },
+  {
+   "id": "D12",
+   "severity": "low",
+   "defect": "The ledger's 'first detection' is correct on TAHC primary. The ledger does not say the detection was in a calf with an umbilical lesion (CIDRAP, undated). That detail is available for picture description only.",
+   "route": "Optional."
+  }
+ ],
+ "filmability": {
+  "viewer_question": "What decides whether a cow inside a screwworm zone can leave, and does the USDA model decide it?",
+  "viewer_answer_from_sources": "No, the model does not decide it. TAHC authorization, inspection and a movement certificate decide it. ARS itself says the models cannot predict people transporting infested animals.",
+  "opening_action": "A calf stands inside a drawn zone boundary on a county map. The boundary is labelled as a TAHC movement restriction. The calf does not cross until an inspection and certificate are drawn onto the animal. This is a source-backed illustration with an Illustration disclosure. No footage exists in the record.",
+  "mechanism": "Mechanism-led explanation. Five model inputs named by ARS (habitat use, host preferences, environmental conditions including temperature and precipitation, historical outbreaks, and past management results) converge into one model box. Three outputs follow, labelled with ARS wording: locations, timing and the number of sterile flies. A dashed wedge marks the stated limit: people transporting infested animals. The diagram shows a relationship USDA describes, not a model run.",
+  "human_consequence": "A producer inside an infested zone must contact TAHC before moving an animal out, and must report suspicions within 24 hours. The model's blind spot is that same movement. Named producer Susan Storey Rubio was quoted in June 2026 in LaSalle County, which TAHC released on August 31. Her current status is unsourced.",
+  "source_limit": "No public model output, site list, validation or accuracy figure exists in the sources read. No release or trap can be shown as AI-chosen. Drone AI is a separate wound-inspection system per KRGV. Counts are USDA figures reported by KRGV, with no USDA primary page found. The TAHC restriction list is dated only by the page's own updates, and its October 13 order is unread.",
+  "three_key_images": [
+   "1. Map plate: county outline, dashed zone edge, one calf inside, edge labelled with the TAHC movement sentence. Native illustration, Illustration disclosure.",
+   "2. Model diagram: five ARS input tiles converge on one model box, three ARS output tiles follow, a dashed wedge labelled 'people transporting infested animals' is outside the model. Native illustration, Illustration disclosure, ARS quote as label.",
+   "3. Gate close: the calf at the zone line with an inspection certificate attached to its tag. The gate stays shut until the certificate is attached. No synthetic people or hands. Native illustration, Illustration disclosure."
+  ],
+  "asset_leads": [
+   {
+    "url": "https://www.ars.usda.gov/oc/images/photos/k7576-1",
+    "asset": "screwworm larva photograph, credit Photo by John Kucharski",
+    "proves": "pest mouthparts and wound larvae. Does not show Kerrville, models, releases or 2026.",
+    "rights_basis": "ARS copyright page: public domain unless otherwise indicated; credit line 'Photo by John Kucharski, USDA Agricultural Research Service'. Page last modified 2023-06-14. Gallery permission contact not given.",
+    "use": "possible identity still only, not the opening action. Graphic wound imagery: use restraint."
+   },
+   {
+    "url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm",
+    "asset": "ARS research page text (no image inspected)",
+    "proves": "the model description, the quoted limit and Lohmeyer's role.",
+    "rights_basis": "US federal text. Quote with attribution.",
+    "use": "text and quotes only."
+   },
+   {
+    "url": "https://www.tahc.texas.gov/news/2026/2026-08-31_EDO_NWSZoneReleases.pdf",
+    "asset": "TAHC release PDF (text, no image)",
+    "proves": "the release of five counties and the continuing sterile fly and trapping activity.",
+    "rights_basis": "state agency press release; quote with attribution.",
+    "use": "text only."
+   },
+   {
+    "url": "https://www.tahc.texas.gov/emergency/nws.html",
+    "asset": "TAHC NWS page (text, interactive map not read)",
+    "proves": "the 12-county restriction list, the detection and count lines, the movement authorization sentence.",
+    "rights_basis": "state agency page; quote with attribution.",
+    "use": "text and the rule sentence after verbatim re-read."
+   },
+   {
+    "url": "https://www.aphis.usda.gov/animals/animal-health/livestock-and-poultry-disease/usda-continues-lead-aggressive-national-nws",
+    "asset": "APHIS page (no image inspected)",
+    "proves": "Moore Air Base dispersal facility and 80 million flies a week, dated July 31.",
+    "rights_basis": "federal page; quote with attribution.",
+    "use": "text only, dated."
+   },
+   {
+    "url": "https://www.krgv.com/news/no-screwworm-cases-found-after-usda-conducts-2-000-drone-flights-over-texas",
+    "asset": "KRGV article (no video inspected)",
+    "proves": "the drone counts as USDA-reported, the AI wound-inspection claim.",
+    "rights_basis": "KRGV copyright, not licensed. Quote only.",
+    "use": "text quotes only."
+   },
+   {
+    "url": "https://www.ap.org (AP photo by Eric Gay, June 8, 2026 Rollins news conference at the Kerrville lab; found in search captions, not fetched)",
+    "asset": "AP news photos",
+    "proves": "a real news conference at the Kerrville lab.",
+    "rights_basis": "AP credit, no licence found. Excluded.",
+    "use": "reject for reuse. A licence would be needed."
+   },
+   {
+    "url": "AP photo of dyed fly pupae at the Edinburg production facility, caption dated February 9, 2026 (found in search captions, not fetched)",
+    "asset": "AP photo",
+    "proves": "pupae at a facility (search caption says a production facility, the Feb 9 release concerns the dispersal facility).",
+    "rights_basis": "AP credit, no licence found. Excluded.",
+    "use": "reject for reuse."
+   },
+   {
+    "url": "KRGV or local TV sterile fly footage (not found as usable footage)",
+    "asset": "none",
+    "proves": "no aircraft sterile fly release footage with a rights basis was found.",
+    "rights_basis": "none",
+    "use": "no footage row possible."
+   },
+   {
+    "url": "Library of Congress Lyda Hill collection",
+    "asset": "none found for Kerrville, Zavala, La Pryor or Edinburg",
+    "proves": "nothing for this story",
+    "rights_basis": "advisory 'No known restrictions on publication' only on records that exist; none found",
+    "use": "no place photo available."
+   }
+  ],
+  "native_illustration_more_honest": "Yes. The rancher's movement rule, the model relationship and the consequence gate are all procedure or relationship, which footage cannot show and which no rights-cleared footage supplies. The illustration must carry an Illustration disclosure and must not imitate a TAHC form or an actual certificate layout beyond the sourced fields."
+ },
+ "visual_stakes": {
+  "affected_group": "Cattle producers inside or near an infested zone, and the animals they must hold or move. Named example: Susan Storey Rubio (LaSalle County, June 2026 quote only).",
+  "physical_subject": "A calf inside a drawn zone boundary, and the movement gate of inspection and certificate.",
+  "visible_change": "The calf either stays inside, or it receives an inspection and a certificate before it crosses the boundary.",
+  "consequence": "Movement without TAHC authorization is not allowed. The inspection and certificate are the only sourced route out.",
+  "opening_question": "What must happen before a calf inside a screwworm zone can leave?",
+  "answer": "Prior TAHC authorization, an inspection and a movement certificate that accompanies the animal (TAHC page as read; verbatim to confirm).",
+  "asset_fit": "native illustration with Illustration disclosure. No rights-cleared footage.",
+  "source_urls": [
+   "https://www.tahc.texas.gov/emergency/nws.html",
+   "https://www.tahc.texas.gov/news/2026/2026-08-31_EDO_NWSZoneReleases.pdf",
+   "https://www.tsln.com/news/not-if-but-when-new-world-screwworm-detected-in-zavala-county-texas-calves/",
+   "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm"
+  ]
+ },
+ "action_support": [
+  {
+   "row": "image opening",
+   "medium": "source-backed-action proposal (director-bound, illustration with Illustration disclosure)",
+   "action_id": "none in catalog. Proposed id: zone-movement-gate-v1 (proposal only, not approved)",
+   "pictured_action": "A calf inside a drawn zone boundary; an inspection certificate attached before it may cross.",
+   "scope_fit": "The catalog's three starter actions do not match: street-capture-v1 (residential facade), curb-selection-v1 (debris pile), document-accumulation-v1 (paper bundles, no synthetic people, not a certificate). The proposal needs source for the rule and a disclosed illustration. The certificate's physical layout is not sourced, so draw only the sourced fields.",
+   "source_url": "https://www.tahc.texas.gov/emergency/nws.html"
+  },
+  {
+   "row": "mechanism",
+   "medium": "source-backed-action proposal (director-bound diagram with Illustration disclosure)",
+   "action_id": "none in catalog. Proposed id: model-inputs-to-release-outputs-v1 (proposal only)",
+   "pictured_action": "Five ARS-named inputs converge on a model box that outputs locations, timing and fly numbers. A dashed wedge marks people transporting infested animals as outside the model.",
+   "scope_fit": "A sourced relationship, not a model run. Labels carry ARS wording. No accuracy, no site output, no aircraft claim beyond the verbatim ARS text.",
+   "source_url": "https://www.ars.usda.gov/news-events/news/research-news/2026/tracking-the-path-of-new-world-screwworm"
+  },
+  {
+   "row": "consequence",
+   "medium": "source-backed-action proposal (director-bound illustration with Illustration disclosure)",
+   "action_id": "none in catalog. Same proposal as the opening, second state",
+   "pictured_action": "The calf that is inspected and certified may cross. The calf that is not stays inside the drawn boundary.",
+   "scope_fit": "Depends on the TAHC movement sentence being confirmed verbatim. The TSLN inspection sentence is secondary support.",
+   "source_url": "https://www.tahc.texas.gov/emergency/nws.html"
+  }
+ ],
+ "candidate_recommendation": {
+  "recommended": "Mechanism-led explanatory animation in a News report format, ordered: the model's question and inputs, its stated outputs, its stated limit, then the TAHC gate and the rancher's action, closing on the answer that the model does not clear a truck. Approach: explanatory animation. Format: News report. Medium: source-backed-action proposals for the diagram and the gate, both illustrated and disclosed.",
+  "why_this_order": "The mechanism is the source's own relationship. The human consequence is a rule with a physical step, which can be drawn honestly without footage. The earned take is the model's own limit.",
+  "false_inference_to_prevent": "That AI chose the release site on any ranch, or that drone AI decides releases. Picture needs a visible label that the model's outputs are not public.",
+  "alternatives_rejected": [
+   "Observed sterile fly release footage: none found with a rights basis. AP and KRGV material excluded.",
+   "AI drone story: the drone AI is wound inspection, the counts are KRGV-attributed, and the APHIS counts conflict.",
+   "Human-led Rubio piece: June 2026 quotes only, no present interview, and LaSalle's status changed August 31."
+  ],
+  "blocking_before_script": "Fix D1 in the story title and every sentence. Verify D3 phone digits. Verify the TAHC movement sentence verbatim. Read the October 13 TAHC order (D7). Confirm the Zavala status (D11). Run dedupe and the subject screen, which this session could not run. Recompute all input hashes."
+ },
+ "not_found": [
+  "Any USDA or ARS record of which sites the models chose, with dates.",
+  "Any accuracy, validation or confidence figure for the ARS models or the drones.",
+  "Any rights-cleared footage of aircraft release, dispersal at Moore Air Base, the Kerrville lab, or a ranch inspection.",
+  "The October 13, 2026 TAHC order.",
+  "A TAHC or USDA primary confirmation of the June 5 second Zavala case.",
+  "The full list of 17 detection counties.",
+  "A usable Lyda Hill Texas Collection photograph for Kerrville, Kerr County, Zavala, La Pryor or Edinburg."
+ ],
+ "attempts_retained": [
+  "WebFetch of the TAHC Aug 31 release PDF returned binary. The saved copy was read with the PDF reader.",
+  "WebFetch of TAHC 2026-06-5-NWS-Zone01.pdf returned HTTP 404.",
+  "WebFetch of TAHC 2026-07-14_NWS_EDO_Modified-Brewster.pdf returned HTTP 404.",
+  "WebFetch of the first ARS page returned paraphrase, not verbatim quotes. A second targeted fetch confirmed the verbatim sentences.",
+  "WebSearch refused once with an API error (bio restriction) on the ARS model-paper query. Not retried.",
+  "WebFetch of the KRGV Edinburg story and the feedlot article returned HTTP 429 or 403.",
+  "WebFetch of usda.gov/node/67843 (Feb 9 release) returned HTTP 403. The APHIS summary was read instead.",
+  "WebFetch of the Texas Farm Bureau article returned truncated content with no author or date.",
+  "WebFetch of the Farm Progress article returned HTTP 403.",
+  "loc.gov search returned HTTP 403.",
+  "WebFetch of the docket public item page (texasaidocket.com/item/tx-2026-0218/) returned a summarizer rendering, not the ledger. Its count of 44 premises and its 'Oct 21' date were checked against the ledger file, and the ledger file was used for claim text."
+ ],
+ "budget_and_charges": "This researcher made no controller reservation and no provider call. The provider receipt's precharge was made earlier by the startup path. Remaining work for the director: reserve research_agents if this handoff is to be accepted as a counted pass, and run the validator on the claims."
+}

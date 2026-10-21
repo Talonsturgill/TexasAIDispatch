@@ -1,0 +1,27 @@
+{
+ "date": "2026-10-21",
+ "source": "Independent validator re-fetch on 2026-10-21. Covers the EPA Percepto approval letter PDF (all 10 rendered pages), DroneLife of March 14th, 2025, the EPA Methane Super Emitter Program page and the EPA release of October 7th, 2026. Context fetched from the EPA alternative test methods listing and the public Percepto MATM-14 method PDF (all 22 pages). Checked against the current story_selection, claims, vo_script and vo_bindings. Subject is the Percepto Air Max optical gas imaging drone system.",
+ "result": "REVISE",
+ "result_note": "The caller asked for PASS or PASS_WITH_DROPS. Neither can be issued truthfully. Spoken numerals in s3 and s8 have no fetched quote behind them (rubric hard fail). The second sentence of s9 is contradicted by the sources. s1 makes an unsupported identity link. All of these need script and claims corrections, and drops alone don't fix them. validation_check.py will refuse this result, and that refusal is the correct gate.",
+ "verified_claim_ids": [
+  "c1",
+  "c2",
+  "c4",
+  "c7",
+  "c8",
+  "c9"
+ ],
+ "rejected": [
+  "s9 'What the software adds isn't in the record' is contradicted. The letter says AIM software is used 'to execute flights, and view and retrieve collected data', and the public MATM-14 method describes the software's functions. Only an AI-specific absence is supported.",
+  "s1 with s3 implies Chevron's Permian pilot drone is the EPA-approved Air Max. DroneLife never names the model, so the link is unsupported.",
+  "story_selection.why_today 'stays in place' is unsupported. The October 7th, 2026 release reconsiders OOOOb/c, the subpart this approval was issued under.",
+  "No claim id was found false or unreachable. c3, c5, c6 and c10 are held because their text says more than their verbatim quotes. s3 and s8 numerals (September 30th, 2025 and October 7th) are not in any claim quote."
+ ],
+ "required_edits_applied": [
+  "None applied. This validator is read-only. Pending required edits E1 to E9 (s1, s2, s3, s4, s7, s8, s9, story_selection, and the quotes for c3, c5, c6 and c10) must be made by the director and get a charged follow-up review from this validator before PASS."
+ ],
+ "reviewer_identity": "claude-opus-5-5 validator agent",
+ "script_sha256": "535e5819c051c0d03d3bad0b99f830bc853f790a39ff85174c2495a49523b9b4",
+ "claims_sha256": "573b49083af5788324c942d6b0044e6e18f755f2a5e262035f6c44a81851ad50",
+ "hash_status": "Copied from the packet, not recomputed. The leaf has no shell."
+}
