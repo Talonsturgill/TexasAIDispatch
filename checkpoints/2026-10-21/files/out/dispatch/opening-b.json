@@ -48,7 +48,7 @@
     {
      "id": "s1-event-1",
      "at_s_authored": 0.246,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s1-drone",
       "s1-station"
@@ -63,12 +63,12 @@
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
      "at_s": 0.246,
-     "duration_s": 1.4
+     "duration_s": 1.2
     },
     {
      "id": "s1-event-2",
      "at_s_authored": 2.218,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s1-drone",
       "s1-equipment"
@@ -83,19 +83,19 @@
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
      "at_s": 2.218,
-     "duration_s": 1.4
+     "duration_s": 1.2
     },
     {
      "id": "s1-event-3",
      "at_s_authored": 4.312,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s1-locator",
       "s1-drone"
      ],
      "what": "A Texas locator draws an Austin pin and a Permian Basin pin joined by a line as the drone passes over the pad.",
      "motion": {
-      "curve": "reveal",
+      "curve": "smoothstep",
       "anticipation": 0.0,
       "settle": 0.03
      },
@@ -103,7 +103,7 @@
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
      "at_s": 4.312,
-     "duration_s": 1.4
+     "duration_s": 1.2
     }
    ],
    "camera_strategy": "riseWith",
@@ -182,29 +182,52 @@
        }
       }
      ]
+    },
+    {
+     "z": 100,
+     "label": "Permian well pad caliche ground under a wide sky with a pumpjack silhouette",
+     "items": [
+      {
+       "id": "s1-setting",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "Permian well pad caliche ground under a wide sky with a pumpjack silhouette"
+       }
+      }
+     ]
     }
    ],
    "visual_proof": {
     "mute_takeaway": "A generic inspection drone lifts from its weatherproof station and flies out over oil and gas equipment.",
     "must_show": [
      {
-      "concept": "drone",
+      "concept": "inspection drone",
       "item_ids": [
-       "s1-station"
+       "s1-drone"
       ]
      },
      {
-      "concept": "weatherproof station",
+      "concept": "Permian Basin well pad equipment",
       "item_ids": [
-       "s1-drone"
+       "s1-equipment"
+      ]
+     },
+     {
+      "concept": "Austin pin and Permian Basin pin",
+      "item_ids": [
+       "s1-locator"
       ]
      }
     ],
     "change": {
      "description": "A Texas locator draws an Austin pin and a Permian Basin pin joined by a line as the drone passes over the pad.",
      "item_ids": [
-      "s1-locator",
-      "s1-drone"
+      "s1-drone",
+      "s1-equipment",
+      "s1-locator"
      ]
     }
    },
@@ -235,26 +258,26 @@
     {
      "id": "s2-event-1",
      "at_s_authored": 0.211,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s2-software"
      ],
      "what": "The flight software panel lights with a map strip and a status row.",
      "motion": {
-      "curve": "reveal",
+      "curve": "smoothstep",
       "anticipation": 0.0,
       "settle": 0.03
      },
      "narration_id": "n2",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 6.371,
-     "duration_s": 1.4
+     "at_s": 0.211,
+     "duration_s": 1.2
     },
     {
      "id": "s2-event-2",
      "at_s_authored": 1.901,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s2-alert",
       "s2-software"
@@ -268,13 +291,13 @@
      "narration_id": "n2",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 8.061,
-     "duration_s": 1.4
+     "at_s": 1.901,
+     "duration_s": 1.2
     },
     {
      "id": "s2-event-3",
      "at_s_authored": 3.696,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s2-claim",
       "s2-alert"
@@ -288,8 +311,8 @@
      "narration_id": "n2",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 9.856,
-     "duration_s": 1.4
+     "at_s": 3.696,
+     "duration_s": 1.2
     }
    ],
    "camera_strategy": "craneDown",
@@ -352,29 +375,46 @@
        }
       }
      ]
+    },
+    {
+     "z": 100,
+     "label": "worn desk and wall with a window light and a plain wooden frame",
+     "items": [
+      {
+       "id": "s2-setting",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "worn desk and wall with a window light and a plain wooden frame"
+       }
+      }
+     ]
     }
    ],
    "visual_proof": {
     "mute_takeaway": "A software panel lights an alert flag and a tag marks it as the companies claim.",
     "must_show": [
      {
-      "concept": "software panel",
+      "concept": "flight software panel",
       "item_ids": [
        "s2-software"
       ]
      },
      {
-      "concept": "alert flag",
+      "concept": "the companies say tag",
       "item_ids": [
-       "s2-alert"
+       "s2-claim"
       ]
      }
     ],
     "change": {
      "description": "A tag reading the companies say attaches to the alert flag, separating the claim from the record.",
      "item_ids": [
+      "s2-alert",
       "s2-claim",
-      "s2-alert"
+      "s2-software"
      ]
     }
    },
@@ -398,7 +438,8 @@
     "c11",
     "c16",
     "c18",
-    "c1"
+    "c1",
+    "c19"
    ],
    "super": "",
    "caption": "",
@@ -409,7 +450,7 @@
     {
      "id": "s3-event-1",
      "at_s_authored": 0.334,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s3-letter"
      ],
@@ -422,13 +463,13 @@
      "narration_id": "n3a",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 11.774,
-     "duration_s": 1.4
+     "at_s": 0.334,
+     "duration_s": 1.2
     },
     {
      "id": "s3-event-2",
      "at_s_authored": 3.01,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s3-date",
       "s3-letter"
@@ -442,13 +483,13 @@
      "narration_id": "n3a",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 14.45,
-     "duration_s": 1.4
+     "at_s": 3.01,
+     "duration_s": 1.2
     },
     {
      "id": "s3-event-3",
      "at_s_authored": 5.852,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s3-approval",
       "s3-letter"
@@ -462,8 +503,8 @@
      "narration_id": "n3b",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 17.292,
-     "duration_s": 1.4
+     "at_s": 5.852,
+     "duration_s": 1.2
     }
    ],
    "camera_strategy": "orbitReveal",
@@ -526,6 +567,22 @@
        }
       }
      ]
+    },
+    {
+     "z": 100,
+     "label": "worn desk and wall with a window light and a plain wooden frame",
+     "items": [
+      {
+       "id": "s3-setting",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "worn desk and wall with a window light and a plain wooden frame"
+       }
+      }
+     ]
     }
    ],
    "visual_proof": {
@@ -538,9 +595,15 @@
       ]
      },
      {
-      "concept": "date stamp",
+      "concept": "September 30th, 2025 date stamp",
       "item_ids": [
        "s3-date"
+      ]
+     },
+     {
+      "concept": "periodic methane screening",
+      "item_ids": [
+       "s3-approval"
       ]
      }
     ],
@@ -548,6 +611,7 @@
      "description": "An approved mark lands beside a tag reading periodic methane screening.",
      "item_ids": [
       "s3-approval",
+      "s3-date",
       "s3-letter"
      ]
     }
@@ -580,26 +644,26 @@
     {
      "id": "s4-event-1",
      "at_s_authored": 0.264,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s4-drone"
      ],
      "what": "The drone hovers above the well pad as its infrared camera pod swings toward the equipment.",
      "motion": {
-      "curve": "reveal",
+      "curve": "smoothstep",
       "anticipation": 0.0,
       "settle": 0.03
      },
      "narration_id": "n4a",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 20.064,
-     "duration_s": 1.4
+     "at_s": 0.264,
+     "duration_s": 1.2
     },
     {
      "id": "s4-event-2",
      "at_s_authored": 2.376,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s4-drone",
       "s4-route",
@@ -614,28 +678,28 @@
      "narration_id": "n4b",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 22.176,
-     "duration_s": 1.4
+     "at_s": 2.376,
+     "duration_s": 1.2
     },
     {
      "id": "s4-event-3",
      "at_s_authored": 4.62,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s4-infrared",
       "s4-drone"
      ],
      "what": "An illustrated infrared view of the valve opens as the drone holds at the point of interest.",
      "motion": {
-      "curve": "reveal",
+      "curve": "smoothstep",
       "anticipation": 0.0,
       "settle": 0.03
      },
      "narration_id": "n4b",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 24.42,
-     "duration_s": 1.4
+     "at_s": 4.62,
+     "duration_s": 1.2
     }
    ],
    "camera_strategy": "dollyThrough",
@@ -714,13 +778,29 @@
        }
       }
      ]
+    },
+    {
+     "z": 100,
+     "label": "Permian well pad caliche ground under a wide sky with a pumpjack silhouette",
+     "items": [
+      {
+       "id": "s4-setting",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "Permian well pad caliche ground under a wide sky with a pumpjack silhouette"
+       }
+      }
+     ]
     }
    ],
    "visual_proof": {
     "mute_takeaway": "The drone follows a dashed flight plan to a point of interest and an infrared view of the valve opens.",
     "must_show": [
      {
-      "concept": "drone with infrared camera",
+      "concept": "infrared camera pod drone",
       "item_ids": [
        "s4-drone"
       ]
@@ -730,13 +810,21 @@
       "item_ids": [
        "s4-route"
       ]
+     },
+     {
+      "concept": "point of interest",
+      "item_ids": [
+       "s4-poi"
+      ]
      }
     ],
     "change": {
      "description": "An illustrated infrared view of the valve opens as the drone holds at the point of interest.",
      "item_ids": [
+      "s4-drone",
       "s4-infrared",
-      "s4-drone"
+      "s4-poi",
+      "s4-route"
      ]
     }
    },
@@ -767,26 +855,26 @@
     {
      "id": "s5-event-1",
      "at_s_authored": 0.282,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s5-footage"
      ],
      "what": "Survey footage arrives on the review panel showing the illustrated infrared valve.",
      "motion": {
-      "curve": "reveal",
+      "curve": "smoothstep",
       "anticipation": 0.0,
       "settle": 0.03
      },
      "narration_id": "n5a",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 26.682,
-     "duration_s": 1.4
+     "at_s": 0.282,
+     "duration_s": 1.2
     },
     {
      "id": "s5-event-2",
      "at_s_authored": 2.534,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s5-inspector",
       "s5-emission",
@@ -801,13 +889,13 @@
      "narration_id": "n5a",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 28.934,
-     "duration_s": 1.4
+     "at_s": 2.534,
+     "duration_s": 1.2
     },
     {
      "id": "s5-event-3",
      "at_s_authored": 4.928,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s5-followup",
       "s5-emission"
@@ -821,8 +909,8 @@
      "narration_id": "n5b",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 31.328,
-     "duration_s": 1.4
+     "at_s": 4.928,
+     "duration_s": 1.2
     }
    ],
    "camera_strategy": "orbitReveal",
@@ -901,29 +989,53 @@
        }
       }
      ]
+    },
+    {
+     "z": 100,
+     "label": "worn desk and wall with a window light and a plain wooden frame",
+     "items": [
+      {
+       "id": "s5-setting",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "worn desk and wall with a window light and a plain wooden frame"
+       }
+      }
+     ]
     }
    ],
    "visual_proof": {
     "mute_takeaway": "A certified inspector mark confirms the emission on the footage and a follow-up tag goes to the valve.",
     "must_show": [
      {
-      "concept": "review panel",
+      "concept": "survey footage",
       "item_ids": [
        "s5-footage"
       ]
      },
      {
-      "concept": "inspector mark",
+      "concept": "certified inspector",
       "item_ids": [
        "s5-inspector"
+      ]
+     },
+     {
+      "concept": "follow-up inspection tag",
+      "item_ids": [
+       "s5-followup"
       ]
      }
     ],
     "change": {
      "description": "A follow-up inspection tag travels from the review panel to the valve on the pad.",
      "item_ids": [
+      "s5-emission",
       "s5-followup",
-      "s5-emission"
+      "s5-footage",
+      "s5-inspector"
      ]
     }
    },
@@ -954,7 +1066,7 @@
     {
      "id": "s6-event-1",
      "at_s_authored": 0.211,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s6-letter"
      ],
@@ -967,13 +1079,13 @@
      "narration_id": "n6",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 33.651,
-     "duration_s": 1.4
+     "at_s": 0.211,
+     "duration_s": 1.2
     },
     {
      "id": "s6-event-2",
      "at_s_authored": 1.901,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s6-title",
       "s6-letter"
@@ -987,28 +1099,28 @@
      "narration_id": "n6",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 35.341,
-     "duration_s": 1.4
+     "at_s": 1.901,
+     "duration_s": 1.2
     },
     {
      "id": "s6-event-3",
      "at_s_authored": 3.696,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s6-count",
       "s6-title"
      ],
      "what": "A counter tag reads AI appears once, in a title.",
      "motion": {
-      "curve": "reveal",
+      "curve": "smoothstep",
       "anticipation": 0.0,
       "settle": 0.03
      },
      "narration_id": "n6",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 37.136,
-     "duration_s": 1.4
+     "at_s": 3.696,
+     "duration_s": 1.2
     }
    ],
    "camera_strategy": "craneDown",
@@ -1071,6 +1183,22 @@
        }
       }
      ]
+    },
+    {
+     "z": 100,
+     "label": "worn desk and wall with a window light and a plain wooden frame",
+     "items": [
+      {
+       "id": "s6-setting",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "worn desk and wall with a window light and a plain wooden frame"
+       }
+      }
+     ]
     }
    ],
    "visual_proof": {
@@ -1083,7 +1211,7 @@
       ]
      },
      {
-      "concept": "highlighted AI",
+      "concept": "protocol title",
       "item_ids": [
        "s6-title"
       ]
@@ -1093,6 +1221,7 @@
      "description": "A counter tag reads AI appears once, in a title.",
      "item_ids": [
       "s6-count",
+      "s6-letter",
       "s6-title"
      ]
     }
@@ -1103,55 +1232,53 @@
   {
    "id": "s7",
    "start_s": 38.72,
-   "duration_s": 10.12,
-   "duration_authored": 10.12,
+   "duration_s": 5.28,
+   "duration_authored": 5.28,
    "county": "Ector",
    "region": "high_plains",
    "interior": true,
    "cast": [],
    "beat": "emotion",
-   "story_role": "agency",
-   "vo": "EPA also delayed a separate leak reporting program to January 22nd, 2027, and on October 7th said it will propose to rescind it.",
+   "story_role": "scale",
+   "vo": "EPA also delayed a separate leak reporting program to January 22nd, 2027,",
    "vo_claims": [
     "c9",
-    "c13",
-    "c10",
-    "c14"
+    "c13"
    ],
    "super": "",
    "caption": "",
-   "on_screen": "A program tag reading leak reporting by certified third parties settles on the desk. A wall calendar flips to January 22nd, 2027 and a delayed bar slides over the program tag. A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
-   "what_moves": "A program tag reading leak reporting by certified third parties settles on the desk. A wall calendar flips to January 22nd, 2027 and a delayed bar slides over the program tag. A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
-   "production_disclosure": "Illustration. Generic drone with no brand mark",
+   "on_screen": "A program tag reading leak reporting by certified third parties settles on the desk. A wall calendar flips to January 22nd, 2027 beside the program tag. A delayed bar slides over the program tag as the calendar page holds.",
+   "what_moves": "A program tag reading leak reporting by certified third parties settles on the desk. A wall calendar flips to January 22nd, 2027 beside the program tag. A delayed bar slides over the program tag as the calendar page holds.",
+   "production_disclosure": "Illustration. A separate program, no drone",
    "visual_events": [
     {
      "id": "s7-event-1",
-     "at_s_authored": 0.405,
-     "duration_s_authored": 1.4,
+     "at_s_authored": 0.211,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s7-program"
      ],
      "what": "A program tag reading leak reporting by certified third parties settles on the desk.",
      "motion": {
-      "curve": "reveal",
+      "curve": "smoothstep",
       "anticipation": 0.0,
       "settle": 0.03
      },
      "narration_id": "n7a",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 39.125,
-     "duration_s": 1.4
+     "at_s": 0.211,
+     "duration_s": 1.2
     },
     {
      "id": "s7-event-2",
-     "at_s_authored": 3.643,
-     "duration_s_authored": 1.4,
+     "at_s_authored": 1.901,
+     "duration_s_authored": 1.2,
      "item_ids": [
       "s7-calendar",
       "s7-program"
      ],
-     "what": "A wall calendar flips to January 22nd, 2027 and a delayed bar slides over the program tag.",
+     "what": "A wall calendar flips to January 22nd, 2027 beside the program tag.",
      "motion": {
       "curve": "travel",
       "anticipation": 0.0,
@@ -1160,29 +1287,29 @@
      "narration_id": "n7a",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 42.363,
-     "duration_s": 1.4
+     "at_s": 1.901,
+     "duration_s": 1.2
     },
     {
      "id": "s7-event-3",
-     "at_s_authored": 7.084,
-     "duration_s_authored": 1.4,
+     "at_s_authored": 3.696,
+     "duration_s_authored": 1.2,
      "item_ids": [
-      "s7-date",
-      "s7-proposal",
-      "s7-program"
+      "s7-delay",
+      "s7-program",
+      "s7-calendar"
      ],
-     "what": "A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
+     "what": "A delayed bar slides over the program tag as the calendar page holds.",
      "motion": {
       "curve": "contact",
       "anticipation": 0.0,
       "settle": 0.03
      },
-     "narration_id": "n7b",
+     "narration_id": "n7a",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 45.804,
-     "duration_s": 1.4
+     "at_s": 3.696,
+     "duration_s": 1.2
     }
    ],
    "camera_strategy": "truckAcross",
@@ -1192,9 +1319,9 @@
    "hero": "program tag reading leak reporting by certified third partie",
    "place_plate": "high-plains-wide",
    "visual_sentence": {
-    "subject": "A leak reporting program tag, a calendar flipping to January 22nd, 2027, and a second calendar page for October 7th with a proposal tag reading will propose to rescind",
-    "action": "A program tag reading leak reporting by certified third parties settles on the desk. A wall calendar flips to January 22nd, 2027 and a delayed bar slides over the program tag. A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
-    "emotion": "Unhurried as the calendar turns and the tag waits unstamped.",
+    "subject": "A leak reporting program tag by certified third parties and a wall calendar flipping to January 22nd, 2027 with a delayed bar",
+    "action": "A program tag reading leak reporting by certified third parties settles on the desk. A wall calendar flips to January 22nd, 2027 beside the program tag. A delayed bar slides over the program tag as the calendar page holds.",
+    "emotion": "Unhurried as the calendar turns.",
     "annotation": "Illustration. Generic drone with no brand mark"
    },
    "planes": [
@@ -1232,10 +1359,167 @@
     },
     {
      "z": 500,
+     "label": "delayed bar that slides over the program tag",
+     "items": [
+      {
+       "id": "s7-delay",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "delayed bar that slides over the program tag"
+       }
+      }
+     ]
+    },
+    {
+     "z": 100,
+     "label": "worn desk and wall with a window light and a plain wooden frame",
+     "items": [
+      {
+       "id": "s7-setting",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "worn desk and wall with a window light and a plain wooden frame"
+       }
+      }
+     ]
+    }
+   ],
+   "visual_proof": {
+    "mute_takeaway": "A program tag takes a delay bar beside a calendar page reading January 22nd, 2027.",
+    "must_show": [
+     {
+      "concept": "leak reporting program tag",
+      "item_ids": [
+       "s7-program"
+      ]
+     },
+     {
+      "concept": "January 22nd, 2027 calendar page",
+      "item_ids": [
+       "s7-calendar"
+      ]
+     }
+    ],
+    "change": {
+     "description": "A delayed bar slides over the program tag as the calendar page holds.",
+     "item_ids": [
+      "s7-calendar",
+      "s7-delay",
+      "s7-program"
+     ]
+    }
+   },
+   "hook_strategy": "visual_anomaly",
+   "hook_payoff_s": 0.75
+  },
+  {
+   "id": "s8",
+   "start_s": 44.0,
+   "duration_s": 4.84,
+   "duration_authored": 4.84,
+   "county": "Ector",
+   "region": "high_plains",
+   "interior": true,
+   "cast": [],
+   "beat": "revelation",
+   "story_role": "agency",
+   "vo": "and on October 7th said it will propose to rescind it.",
+   "vo_claims": [
+    "c10",
+    "c14"
+   ],
+   "super": "",
+   "caption": "",
+   "on_screen": "A calendar page turns to October 7th and a release card lands beside it. A proposal tag reading will propose to rescind attaches to the program tag, unstamped. The proposal tag holds unstamped on the delayed program tag.",
+   "what_moves": "A calendar page turns to October 7th and a release card lands beside it. A proposal tag reading will propose to rescind attaches to the program tag, unstamped. The proposal tag holds unstamped on the delayed program tag.",
+   "production_disclosure": "Illustration. Generic drone with no brand mark",
+   "visual_events": [
+    {
+     "id": "s8-event-1",
+     "at_s_authored": 0.194,
+     "duration_s_authored": 1.2,
+     "item_ids": [
+      "s8-date"
+     ],
+     "what": "A calendar page turns to October 7th and a release card lands beside it.",
+     "motion": {
+      "curve": "travel",
+      "anticipation": 0.0,
+      "settle": 0.03
+     },
+     "narration_id": "n7b",
+     "clause_fraction_start": 0.0,
+     "clause_fraction_end": 1.0,
+     "at_s": 0.194,
+     "duration_s": 1.2
+    },
+    {
+     "id": "s8-event-2",
+     "at_s_authored": 1.742,
+     "duration_s_authored": 1.2,
+     "item_ids": [
+      "s8-proposal",
+      "s8-program"
+     ],
+     "what": "A proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
+     "motion": {
+      "curve": "contact",
+      "anticipation": 0.0,
+      "settle": 0.03
+     },
+     "narration_id": "n7b",
+     "clause_fraction_start": 0.0,
+     "clause_fraction_end": 1.0,
+     "at_s": 1.742,
+     "duration_s": 1.2
+    },
+    {
+     "id": "s8-event-3",
+     "at_s_authored": 3.388,
+     "duration_s_authored": 1.2,
+     "item_ids": [
+      "s8-proposal",
+      "s8-program",
+      "s8-date"
+     ],
+     "what": "The proposal tag holds unstamped on the delayed program tag.",
+     "motion": {
+      "curve": "smoothstep",
+      "anticipation": 0.0,
+      "settle": 0.03
+     },
+     "narration_id": "n7b",
+     "clause_fraction_start": 0.0,
+     "clause_fraction_end": 1.0,
+     "at_s": 3.388,
+     "duration_s": 1.2
+    }
+   ],
+   "camera_strategy": "dollyThrough",
+   "visual_family": "leak-s8-b",
+   "payload_mode": "picture",
+   "treatment": "b",
+   "hero": "calendar page reading October 7th and a release card",
+   "place_plate": "high-plains-wide",
+   "visual_sentence": {
+    "subject": "A calendar page for October 7th with a proposal tag reading will propose to rescind attached to the delayed program tag, unstamped",
+    "action": "A calendar page turns to October 7th and a release card lands beside it. A proposal tag reading will propose to rescind attaches to the program tag, unstamped. The proposal tag holds unstamped on the delayed program tag.",
+    "emotion": "Even as the tag waits unstamped.",
+    "annotation": "Illustration. Generic drone with no brand mark"
+   },
+   "planes": [
+    {
+     "z": 900,
      "label": "calendar page reading October 7th and a release card",
      "items": [
       {
-       "id": "s7-date",
+       "id": "s8-date",
        "kind": "applicationRecord",
        "x": 540,
        "y": 900,
@@ -1247,11 +1531,11 @@
      ]
     },
     {
-     "z": 300,
+     "z": 700,
      "label": "proposal tag reading will propose to rescind, attached but not stamped",
      "items": [
       {
-       "id": "s7-proposal",
+       "id": "s8-proposal",
        "kind": "applicationRecord",
        "x": 540,
        "y": 900,
@@ -1261,30 +1545,68 @@
        }
       }
      ]
+    },
+    {
+     "z": 500,
+     "label": "program tag reading leak reporting by certified third parties, delayed",
+     "items": [
+      {
+       "id": "s8-program",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "program tag reading leak reporting by certified third parties, delayed"
+       }
+      }
+     ]
+    },
+    {
+     "z": 100,
+     "label": "worn desk and wall with a window light and a plain wooden frame",
+     "items": [
+      {
+       "id": "s8-setting",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "worn desk and wall with a window light and a plain wooden frame"
+       }
+      }
+     ]
     }
    ],
    "visual_proof": {
-    "mute_takeaway": "A program tag takes a delay to January 22nd, 2027 and a proposal tag to rescind it, unstamped.",
+    "mute_takeaway": "A proposal tag to rescind waits unstamped on the delayed program tag beside an October 7th calendar page.",
     "must_show": [
      {
-      "concept": "program tag",
+      "concept": "proposal tag to rescind",
       "item_ids": [
-       "s7-program"
+       "s8-proposal"
       ]
      },
      {
-      "concept": "calendar",
+      "concept": "October 7th calendar page",
       "item_ids": [
-       "s7-calendar"
+       "s8-date"
+      ]
+     },
+     {
+      "concept": "leak reporting program tag",
+      "item_ids": [
+       "s8-program"
       ]
      }
     ],
     "change": {
-     "description": "A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
+     "description": "The proposal tag holds unstamped on the delayed program tag.",
      "item_ids": [
-      "s7-date",
-      "s7-proposal",
-      "s7-program"
+      "s8-date",
+      "s8-program",
+      "s8-proposal"
      ]
     }
    },
@@ -1292,7 +1614,7 @@
    "hook_payoff_s": 0.75
   },
   {
-   "id": "s8",
+   "id": "s9",
    "start_s": 48.84,
    "duration_s": 7.48,
    "duration_authored": 7.48,
@@ -1315,12 +1637,12 @@
    "production_disclosure": "Illustration. Generic drone with no brand mark",
    "visual_events": [
     {
-     "id": "s8-event-1",
+     "id": "s9-event-1",
      "at_s_authored": 0.299,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
-      "s8-inspector",
-      "s8-footage"
+      "s9-inspector",
+      "s9-footage"
      ],
      "what": "The certified inspector mark confirms the emission on the footage and holds.",
      "motion": {
@@ -1331,53 +1653,53 @@
      "narration_id": "n8a",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 49.139,
-     "duration_s": 1.4
+     "at_s": 0.299,
+     "duration_s": 1.2
     },
     {
-     "id": "s8-event-2",
+     "id": "s9-event-2",
      "at_s_authored": 2.693,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
-      "s8-ai-box",
-      "s8-footage"
+      "s9-ai-box",
+      "s9-footage"
      ],
      "what": "A blank dashed box labelled AI draws beside the footage and stays empty.",
      "motion": {
-      "curve": "reveal",
+      "curve": "smoothstep",
       "anticipation": 0.0,
       "settle": 0.03
      },
      "narration_id": "n8b",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 51.533,
-     "duration_s": 1.4
+     "at_s": 2.693,
+     "duration_s": 1.2
     },
     {
-     "id": "s8-event-3",
+     "id": "s9-event-3",
      "at_s_authored": 5.236,
-     "duration_s_authored": 1.4,
+     "duration_s_authored": 1.2,
      "item_ids": [
-      "s8-station",
-      "s8-inspector",
-      "s8-ai-box"
+      "s9-station",
+      "s9-inspector",
+      "s9-ai-box"
      ],
      "what": "The drone station stands in the window beside the equipment as the frame holds on the inspector mark and the blank box.",
      "motion": {
-      "curve": "reveal",
+      "curve": "smoothstep",
       "anticipation": 0.0,
       "settle": 0.03
      },
      "narration_id": "n8b",
      "clause_fraction_start": 0.0,
      "clause_fraction_end": 1.0,
-     "at_s": 54.076,
-     "duration_s": 1.4
+     "at_s": 5.236,
+     "duration_s": 1.2
     }
    ],
    "camera_strategy": "dollyThrough",
-   "visual_family": "leak-s8-b",
+   "visual_family": "leak-s9-b",
    "payload_mode": "picture",
    "treatment": "b",
    "hero": "drone footage on the review panel with the illustrated infra",
@@ -1394,7 +1716,7 @@
      "label": "drone footage on the review panel with the illustrated infrared valve",
      "items": [
       {
-       "id": "s8-footage",
+       "id": "s9-footage",
        "kind": "applicationRecord",
        "x": 540,
        "y": 900,
@@ -1410,7 +1732,7 @@
      "label": "certified inspector mark confirming the emission, no person drawn",
      "items": [
       {
-       "id": "s8-inspector",
+       "id": "s9-inspector",
        "kind": "applicationRecord",
        "x": 540,
        "y": 900,
@@ -1426,7 +1748,7 @@
      "label": "blank dashed box labelled AI, what it adds is not in the letter",
      "items": [
       {
-       "id": "s8-ai-box",
+       "id": "s9-ai-box",
        "kind": "applicationRecord",
        "x": 540,
        "y": 900,
@@ -1442,7 +1764,7 @@
      "label": "weatherproof drone station seen through the window beside the equipment",
      "items": [
       {
-       "id": "s8-station",
+       "id": "s9-station",
        "kind": "applicationRecord",
        "x": 540,
        "y": 900,
@@ -1452,30 +1774,53 @@
        }
       }
      ]
+    },
+    {
+     "z": 100,
+     "label": "worn desk and wall with a window light and a plain wooden frame",
+     "items": [
+      {
+       "id": "s9-setting",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "worn desk and wall with a window light and a plain wooden frame"
+       }
+      }
+     ]
     }
    ],
    "visual_proof": {
     "mute_takeaway": "The inspector mark confirms the emission and a blank AI box stays empty beside the footage.",
     "must_show": [
      {
-      "concept": "inspector mark",
+      "concept": "certified inspector",
       "item_ids": [
-       "s8-footage"
+       "s9-inspector"
       ]
      },
      {
-      "concept": "footage",
+      "concept": "blank AI box",
       "item_ids": [
-       "s8-inspector"
+       "s9-ai-box"
+      ]
+     },
+     {
+      "concept": "drone footage",
+      "item_ids": [
+       "s9-footage"
       ]
      }
     ],
     "change": {
      "description": "The drone station stands in the window beside the equipment as the frame holds on the inspector mark and the blank box.",
      "item_ids": [
-      "s8-station",
-      "s8-inspector",
-      "s8-ai-box"
+      "s9-ai-box",
+      "s9-footage",
+      "s9-inspector",
+      "s9-station"
      ]
     }
    },
@@ -1501,7 +1846,8 @@
      "s5",
      "s6",
      "s7",
-     "s8"
+     "s8",
+     "s9"
     ],
     "purpose": "Give the film one generic inspection drone design that leaves its weatherproof station, flies a flight plan between points of interest with an infrared camera, and stands in the window at the close, so the equipment the EPA letter approves is a recognizable object that changes state through the film.",
     "prompt": "Author an original finished React and SVG object in the current Remotion engine. A compact four-rotor inspection drone with a pale gray shell, a slung infrared camera pod with a dark lens, small status lamps, visible rotor discs that blur at speed, short landing legs and a weatherproof charging station with a hinged hood, a pad of worn steel and a leaning post beside it. Late warm desert light from the upper left, cool fill from the right, a soft shadow on the pad. No logos, no brand marks and no real model badge. Maintained but worn, nothing symmetric. A disclosed illustration, never a real drone or station.",
@@ -1543,7 +1889,8 @@
      "s5",
      "s6",
      "s7",
-     "s8"
+     "s8",
+     "s9"
     ],
     "purpose": "Give the drone its world and its records: a Permian well pad with a separator, valves and a tank, a Texas locator, a flight software panel, an approval letter with a date stamp, an illustrated infrared valve, a review panel with an inspector mark and a follow-up tag, a highlighted protocol title, a leak reporting program tag with calendar pages and a proposal tag, and a blank AI box.",
     "prompt": "Author an original finished React and SVG support group in the current Remotion engine. A West Texas well pad with a separator vessel, valves, a tank and a pumpjack silhouette on caliche ground, a flat Texas locator with two pins, a software panel with a status row and an amber alert flag, an unsealed plain approval letter with worn corners and a crooked date stamp, a gray infrared valve view with a warm illustrative shimmer, a review panel with a certified inspector mark and follow-up tag, a protocol title with a highlighted AI, wall calendar pages, a program tag and an unstamped proposal tag, and a dashed blank AI box. Maintained but worn, nothing symmetric, warm paper against cool gray steel. No agency seal, no logos, no brand marks.",
@@ -1851,62 +2198,79 @@
     "id": "s7-shot-1",
     "scene_id": "s7",
     "start_s": 38.72,
-    "duration_s": 3.036,
+    "duration_s": 2.2176,
     "framing": "overhead",
     "transition": "cut",
     "view": "program-overhead",
     "event_id": "s7-event-1",
     "purpose": "A program tag reading leak reporting by certified third parties settles on the desk.",
-    "carry": "A leak reporting program tag",
+    "carry": "A leak reporting program tag by certified third parties and a wall calendar flipping to Ja",
     "narration_ids": [
      "n7a"
     ],
     "scene_fraction_start": 0.0,
-    "scene_fraction_end": 0.3
+    "scene_fraction_end": 0.42
    },
    {
     "id": "s7-shot-2",
     "scene_id": "s7",
-    "start_s": 41.756,
-    "duration_s": 3.4408,
+    "start_s": 40.9376,
+    "duration_s": 3.0624,
     "framing": "medium",
     "transition": "match",
     "view": "program-calendar",
     "event_id": "s7-event-2",
-    "purpose": "A wall calendar flips to January 22nd, 2027 and a delayed bar slides over the program tag.",
-    "carry": "A leak reporting program tag",
+    "purpose": "A wall calendar flips to January 22nd, 2027 beside the program tag.",
+    "carry": "A leak reporting program tag by certified third parties and a wall calendar flipping to Ja",
     "narration_ids": [
      "n7a"
     ],
-    "scene_fraction_start": 0.3,
-    "scene_fraction_end": 0.64
-   },
-   {
-    "id": "s7-shot-3",
-    "scene_id": "s7",
-    "start_s": 45.1968,
-    "duration_s": 3.6432,
-    "framing": "wide",
-    "transition": "continuous",
-    "view": "proposal-wide",
-    "event_id": "s7-event-3",
-    "purpose": "A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
-    "carry": "A leak reporting program tag",
-    "narration_ids": [
-     "n7b"
-    ],
-    "scene_fraction_start": 0.64,
+    "scene_fraction_start": 0.42,
     "scene_fraction_end": 1.0
    },
    {
     "id": "s8-shot-1",
     "scene_id": "s8",
+    "start_s": 44.0,
+    "duration_s": 2.0328,
+    "framing": "overhead",
+    "transition": "cut",
+    "view": "proposal-overhead",
+    "event_id": "s8-event-1",
+    "purpose": "A calendar page turns to October 7th and a release card lands beside it.",
+    "carry": "A calendar page for October 7th with a proposal tag reading will propose to rescind attach",
+    "narration_ids": [
+     "n7b"
+    ],
+    "scene_fraction_start": 0.0,
+    "scene_fraction_end": 0.42
+   },
+   {
+    "id": "s8-shot-2",
+    "scene_id": "s8",
+    "start_s": 46.0328,
+    "duration_s": 2.8072,
+    "framing": "close",
+    "transition": "match",
+    "view": "proposal-close",
+    "event_id": "s8-event-2",
+    "purpose": "A proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
+    "carry": "A calendar page for October 7th with a proposal tag reading will propose to rescind attach",
+    "narration_ids": [
+     "n7b"
+    ],
+    "scene_fraction_start": 0.42,
+    "scene_fraction_end": 1.0
+   },
+   {
+    "id": "s9-shot-1",
+    "scene_id": "s9",
     "start_s": 48.84,
     "duration_s": 2.244,
     "framing": "wide",
     "transition": "cut",
     "view": "panel-wide-hold",
-    "event_id": "s8-event-1",
+    "event_id": "s9-event-1",
     "purpose": "The certified inspector mark confirms the emission on the footage and holds.",
     "carry": "A certified inspector mark confirming the emission on the footage beside a blank box label",
     "narration_ids": [
@@ -1916,14 +2280,14 @@
     "scene_fraction_end": 0.3
    },
    {
-    "id": "s8-shot-2",
-    "scene_id": "s8",
+    "id": "s9-shot-2",
+    "scene_id": "s9",
     "start_s": 51.084,
     "duration_s": 2.5432,
     "framing": "medium",
     "transition": "match",
     "view": "confirm-hold",
-    "event_id": "s8-event-2",
+    "event_id": "s9-event-2",
     "purpose": "A blank dashed box labelled AI draws beside the footage and stays empty.",
     "carry": "A certified inspector mark confirming the emission on the footage beside a blank box label",
     "narration_ids": [
@@ -1933,14 +2297,14 @@
     "scene_fraction_end": 0.64
    },
    {
-    "id": "s8-shot-3",
-    "scene_id": "s8",
+    "id": "s9-shot-3",
+    "scene_id": "s9",
     "start_s": 53.6272,
     "duration_s": 2.6928,
     "framing": "detail",
     "transition": "continuous",
     "view": "blank-box",
-    "event_id": "s8-event-3",
+    "event_id": "s9-event-3",
     "purpose": "The drone station stands in the window beside the equipment as the frame holds on the inspector mark and the blank box.",
     "carry": "A certified inspector mark confirming the emission on the footage beside a blank box label",
     "narration_ids": [
@@ -1954,7 +2318,7 @@
    {
     "shot_id": "s1-shot-1",
     "event_id": "s1-event-1",
-    "at_s": 0.946,
+    "at_s": 0.846,
     "kind": "action",
     "visible_change": "The drone lifts from the weatherproof station beside the oil and gas equipment as its rotors spin up.",
     "event_fraction": 0.5
@@ -1962,7 +2326,7 @@
    {
     "shot_id": "s1-shot-2",
     "event_id": "s1-event-2",
-    "at_s": 2.918,
+    "at_s": 2.818,
     "kind": "action",
     "visible_change": "The drone climbs and flies out over the separator, valves and tank on the well pad.",
     "event_fraction": 0.5
@@ -1970,7 +2334,7 @@
    {
     "shot_id": "s2-shot-1",
     "event_id": "s2-event-1",
-    "at_s": 7.071,
+    "at_s": 0.811,
     "kind": "reveal",
     "visible_change": "The flight software panel lights with a map strip and a status row.",
     "event_fraction": 0.5
@@ -1978,7 +2342,7 @@
    {
     "shot_id": "s2-shot-2",
     "event_id": "s2-event-2",
-    "at_s": 8.761,
+    "at_s": 2.501,
     "kind": "evidence",
     "visible_change": "An amber alert flag lights on an anomaly marker in the panel.",
     "event_fraction": 0.5
@@ -1986,7 +2350,7 @@
    {
     "shot_id": "s3-shot-1",
     "event_id": "s3-event-1",
-    "at_s": 12.474,
+    "at_s": 0.934,
     "kind": "action",
     "visible_change": "An approval letter slides onto the desk and its first lines write in.",
     "event_fraction": 0.5
@@ -1994,7 +2358,7 @@
    {
     "shot_id": "s3-shot-2",
     "event_id": "s3-event-2",
-    "at_s": 15.15,
+    "at_s": 3.61,
     "kind": "evidence",
     "visible_change": "A date stamp reading September 30th, 2025 lands crooked on the letter.",
     "event_fraction": 0.5
@@ -2002,7 +2366,7 @@
    {
     "shot_id": "s3-shot-3",
     "event_id": "s3-event-3",
-    "at_s": 17.992,
+    "at_s": 6.452,
     "kind": "evidence",
     "visible_change": "An approved mark lands beside a tag reading periodic methane screening.",
     "event_fraction": 0.5
@@ -2010,7 +2374,7 @@
    {
     "shot_id": "s4-shot-1",
     "event_id": "s4-event-1",
-    "at_s": 20.764,
+    "at_s": 0.864,
     "kind": "reveal",
     "visible_change": "The drone hovers above the well pad as its infrared camera pod swings toward the equipment.",
     "event_fraction": 0.5
@@ -2018,7 +2382,7 @@
    {
     "shot_id": "s4-shot-2",
     "event_id": "s4-event-2",
-    "at_s": 22.876,
+    "at_s": 2.976,
     "kind": "action",
     "visible_change": "The drone follows a dashed flight plan to the first numbered point of interest ring above the equipment.",
     "event_fraction": 0.5
@@ -2026,7 +2390,7 @@
    {
     "shot_id": "s4-shot-3",
     "event_id": "s4-event-3",
-    "at_s": 25.12,
+    "at_s": 5.22,
     "kind": "reveal",
     "visible_change": "An illustrated infrared view of the valve opens as the drone holds at the point of interest.",
     "event_fraction": 0.5
@@ -2034,7 +2398,7 @@
    {
     "shot_id": "s5-shot-1",
     "event_id": "s5-event-1",
-    "at_s": 27.382,
+    "at_s": 0.882,
     "kind": "reveal",
     "visible_change": "Survey footage arrives on the review panel showing the illustrated infrared valve.",
     "event_fraction": 0.5
@@ -2042,7 +2406,7 @@
    {
     "shot_id": "s5-shot-2",
     "event_id": "s5-event-2",
-    "at_s": 29.634,
+    "at_s": 3.134,
     "kind": "evidence",
     "visible_change": "The certified inspector mark lands on the footage and outlines the emission shimmer.",
     "event_fraction": 0.5
@@ -2050,7 +2414,7 @@
    {
     "shot_id": "s5-shot-3",
     "event_id": "s5-event-3",
-    "at_s": 32.028,
+    "at_s": 5.528,
     "kind": "action",
     "visible_change": "A follow-up inspection tag travels from the review panel to the valve on the pad.",
     "event_fraction": 0.5
@@ -2058,7 +2422,7 @@
    {
     "shot_id": "s6-shot-1",
     "event_id": "s6-event-1",
-    "at_s": 34.351,
+    "at_s": 0.811,
     "kind": "action",
     "visible_change": "The approval letter body scrolls past in rows of text lines.",
     "event_fraction": 0.5
@@ -2066,7 +2430,7 @@
    {
     "shot_id": "s6-shot-2",
     "event_id": "s6-event-2",
-    "at_s": 36.041,
+    "at_s": 2.501,
     "kind": "evidence",
     "visible_change": "A highlight lands on the letters AI inside the protocol title line.",
     "event_fraction": 0.5
@@ -2074,7 +2438,7 @@
    {
     "shot_id": "s7-shot-1",
     "event_id": "s7-event-1",
-    "at_s": 39.825,
+    "at_s": 0.811,
     "kind": "reveal",
     "visible_change": "A program tag reading leak reporting by certified third parties settles on the desk.",
     "event_fraction": 0.5
@@ -2082,39 +2446,47 @@
    {
     "shot_id": "s7-shot-2",
     "event_id": "s7-event-2",
-    "at_s": 43.063,
+    "at_s": 2.501,
     "kind": "action",
-    "visible_change": "A wall calendar flips to January 22nd, 2027 and a delayed bar slides over the program tag.",
-    "event_fraction": 0.5
-   },
-   {
-    "shot_id": "s7-shot-3",
-    "event_id": "s7-event-3",
-    "at_s": 46.504,
-    "kind": "evidence",
-    "visible_change": "A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
+    "visible_change": "A wall calendar flips to January 22nd, 2027 beside the program tag.",
     "event_fraction": 0.5
    },
    {
     "shot_id": "s8-shot-1",
     "event_id": "s8-event-1",
-    "at_s": 49.839,
-    "kind": "evidence",
-    "visible_change": "The certified inspector mark confirms the emission on the footage and holds.",
+    "at_s": 0.794,
+    "kind": "action",
+    "visible_change": "A calendar page turns to October 7th and a release card lands beside it.",
     "event_fraction": 0.5
    },
    {
     "shot_id": "s8-shot-2",
     "event_id": "s8-event-2",
-    "at_s": 52.233,
+    "at_s": 2.342,
+    "kind": "evidence",
+    "visible_change": "A proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s9-shot-1",
+    "event_id": "s9-event-1",
+    "at_s": 0.899,
+    "kind": "evidence",
+    "visible_change": "The certified inspector mark confirms the emission on the footage and holds.",
+    "event_fraction": 0.5
+   },
+   {
+    "shot_id": "s9-shot-2",
+    "event_id": "s9-event-2",
+    "at_s": 3.293,
     "kind": "reveal",
     "visible_change": "A blank dashed box labelled AI draws beside the footage and stays empty.",
     "event_fraction": 0.5
    },
    {
-    "shot_id": "s8-shot-3",
-    "event_id": "s8-event-3",
-    "at_s": 54.776,
+    "shot_id": "s9-shot-3",
+    "event_id": "s9-event-3",
+    "at_s": 5.836,
     "kind": "reveal",
     "visible_change": "The drone station stands in the window beside the equipment as the frame holds on the inspector mark and the blank box.",
     "event_fraction": 0.5
@@ -2227,7 +2599,8 @@
      "c11",
      "c16",
      "c18",
-     "c1"
+     "c1",
+     "c19"
     ],
     "event_ids": [
      "s3-event-1",
@@ -2257,7 +2630,8 @@
      "c11",
      "c16",
      "c18",
-     "c1"
+     "c1",
+     "c19"
     ],
     "event_ids": [
      "s3-event-3"
@@ -2412,21 +2786,21 @@
     "scene_id": "s7",
     "subject_ids": [
      "s7-calendar",
+     "s7-delay",
      "s7-program"
     ],
-    "action_id": "program-delayed-then-proposed-ended",
+    "action_id": "program-delayed",
     "claim_ids": [
      "c9",
-     "c13",
-     "c10",
-     "c14"
+     "c13"
     ],
     "event_ids": [
      "s7-event-1",
-     "s7-event-2"
+     "s7-event-2",
+     "s7-event-3"
     ],
     "start_s": 38.82,
-    "end_s": 43.88,
+    "end_s": 43.7,
     "word_range": [
      88,
      100
@@ -2438,23 +2812,23 @@
     "cue_ids": [
      "c12"
     ],
-    "scene_id": "s7",
+    "scene_id": "s8",
     "subject_ids": [
-     "s7-date",
-     "s7-program",
-     "s7-proposal"
+     "s8-date",
+     "s8-program",
+     "s8-proposal"
     ],
-    "action_id": "program-delayed-then-proposed-ended",
+    "action_id": "program-proposed-ended",
     "claim_ids": [
-     "c9",
-     "c13",
      "c10",
      "c14"
     ],
     "event_ids": [
-     "s7-event-3"
+     "s8-event-1",
+     "s8-event-2",
+     "s8-event-3"
     ],
-    "start_s": 44.0,
+    "start_s": 44.1,
     "end_s": 48.54,
     "word_range": [
      100,
@@ -2467,10 +2841,10 @@
     "cue_ids": [
      "c13"
     ],
-    "scene_id": "s8",
+    "scene_id": "s9",
     "subject_ids": [
-     "s8-footage",
-     "s8-inspector"
+     "s9-footage",
+     "s9-inspector"
     ],
     "action_id": "inspector-confirms-leak-ai-unknown",
     "claim_ids": [
@@ -2479,7 +2853,7 @@
      "c8"
     ],
     "event_ids": [
-     "s8-event-1"
+     "s9-event-1"
     ],
     "start_s": 48.94,
     "end_s": 52.68,
@@ -2494,12 +2868,12 @@
     "cue_ids": [
      "c14"
     ],
-    "scene_id": "s8",
+    "scene_id": "s9",
     "subject_ids": [
-     "s8-ai-box",
-     "s8-footage",
-     "s8-inspector",
-     "s8-station"
+     "s9-ai-box",
+     "s9-footage",
+     "s9-inspector",
+     "s9-station"
     ],
     "action_id": "inspector-confirms-leak-ai-unknown",
     "claim_ids": [
@@ -2508,8 +2882,8 @@
      "c8"
     ],
     "event_ids": [
-     "s8-event-2",
-     "s8-event-3"
+     "s9-event-2",
+     "s9-event-3"
     ],
     "start_s": 52.8,
     "end_s": 56.02,
@@ -2557,7 +2931,8 @@
      "c11",
      "c16",
      "c18",
-     "c1"
+     "c1",
+     "c19"
     ],
     "advances": "An approval letter slides onto the desk and its first lines write in. A date stamp reading September 30th, 2025 lands crooked on the letter. An approved mark lands beside a tag reading periodic methane screening."
    },
@@ -2591,14 +2966,21 @@
     "role": "evidence",
     "claim_ids": [
      "c9",
-     "c13",
-     "c10",
-     "c14"
+     "c13"
     ],
-    "advances": "A program tag reading leak reporting by certified third parties settles on the desk. A wall calendar flips to January 22nd, 2027 and a delayed bar slides over the program tag. A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped."
+    "advances": "A program tag reading leak reporting by certified third parties settles on the desk. A wall calendar flips to January 22nd, 2027 beside the program tag. A delayed bar slides over the program tag as the calendar page holds."
    },
    {
     "scene_id": "s8",
+    "role": "evidence",
+    "claim_ids": [
+     "c10",
+     "c14"
+    ],
+    "advances": "A calendar page turns to October 7th and a release card lands beside it. A proposal tag reading will propose to rescind attaches to the program tag, unstamped. The proposal tag holds unstamped on the delayed program tag."
+   },
+   {
+    "scene_id": "s9",
     "role": "answer",
     "claim_ids": [
      "c15",
@@ -2610,46 +2992,61 @@
   ],
   "transitions": [
    {
-    "from_scene": "s1",
-    "to_scene": "s2",
-    "carried": "A generic inspection drone leaving a weatherproof station beside oil and gas equ",
-    "bridge": "From A generic inspection drone lifts from its weatherproof station and fli to A software panel lights an alert flag and a tag marks it as the compan"
+    "from": "s1",
+    "to": "s2",
+    "kind": "same-subject",
+    "because": "The drone leaving its station leads to the software that runs its flights.",
+    "visible_bridge": "The drone passes over the pad and the flight software panel opens on the same drone icon."
    },
    {
-    "from_scene": "s2",
-    "to_scene": "s3",
-    "carried": "A software panel with an alert flag and a tag reading the companies say",
-    "bridge": "From A software panel lights an alert flag and a tag marks it as the compan to An approval letter takes a date stamp and an approved mark for periodi"
+    "from": "s2",
+    "to": "s3",
+    "kind": "causal-consequence",
+    "because": "The companies claim about the software leads to what the regulator actually approved.",
+    "visible_bridge": "The amber alert flag slides off the panel and an approval letter slides onto the desk."
    },
    {
-    "from_scene": "s3",
-    "to_scene": "s4",
-    "carried": "An approval letter with a date stamp and an approved mark for periodic methane s",
-    "bridge": "From An approval letter takes a date stamp and an approved mark for periodi to The drone follows a dashed flight plan to a point of interest and an i"
+    "from": "s3",
+    "to": "s4",
+    "kind": "same-subject",
+    "because": "The approved method leads to the drone doing what the method describes.",
+    "visible_bridge": "The approved mark on the letter dissolves into the drone at its first point of interest."
    },
    {
-    "from_scene": "s4",
-    "to_scene": "s5",
-    "carried": "The generic drone with an infrared camera flying a flight plan between points of",
-    "bridge": "From The drone follows a dashed flight plan to a point of interest and an i to A certified inspector mark confirms the emission on the footage and a "
+    "from": "s4",
+    "to": "s5",
+    "kind": "causal-consequence",
+    "because": "The infrared footage the drone collects goes to a reviewer.",
+    "visible_bridge": "The infrared valve view slides from the drone camera onto the review panel."
    },
    {
-    "from_scene": "s5",
-    "to_scene": "s6",
-    "carried": "A review panel where a certified inspector mark confirms an emission in the dron",
-    "bridge": "From A certified inspector mark confirms the emission on the footage and a  to A highlight lands on AI inside a protocol title and a counter reads on"
+    "from": "s5",
+    "to": "s6",
+    "kind": "same-subject",
+    "because": "The review step leads back to the letter that describes it and its one mention of AI.",
+    "visible_bridge": "The inspector mark shrinks into the approval letter whose text lines scroll into view."
    },
    {
-    "from_scene": "s6",
-    "to_scene": "s7",
-    "carried": "The approval letter with a highlight on the letters AI inside a protocol title a",
-    "bridge": "From A highlight lands on AI inside a protocol title and a counter reads on to A program tag takes a delay to January 22nd, 2027 and a proposal tag t"
+    "from": "s6",
+    "to": "s7",
+    "kind": "source-example",
+    "because": "The letter about the drone method leads to a separate federal program and its dates.",
+    "visible_bridge": "The highlighted title slides away and a program tag settles on the desk with a calendar.",
+    "disclosure": "Illustration. A separate program, no drone"
    },
    {
-    "from_scene": "s7",
-    "to_scene": "s8",
-    "carried": "A leak reporting program tag",
-    "bridge": "From A program tag takes a delay to January 22nd, 2027 and a proposal tag t to The inspector mark confirms the emission and a blank AI box stays empt"
+    "from": "s7",
+    "to": "s8",
+    "kind": "same-subject",
+    "because": "The delayed program tag leads to the proposal to end it.",
+    "visible_bridge": "The delayed program tag stays on the desk as the calendar turns to October 7th and a proposal tag arrives."
+   },
+   {
+    "from": "s8",
+    "to": "s9",
+    "kind": "causal-consequence",
+    "because": "After the program dates the film returns to the approval and who confirms the leak.",
+    "visible_bridge": "The calendar and tags fall away and the inspector mark returns beside a blank AI box."
    }
   ]
  },
@@ -2666,7 +3063,8 @@
     "s5",
     "s6",
     "s7",
-    "s8"
+    "s8",
+    "s9"
    ]
   },
   "turn_scene": "s5",
@@ -2682,13 +3080,13 @@
   "source_limit": "Disclosed illustration of EPA's letter and method. It shows no real site, leak, plume or person, and the letter doesn't say what the AI adds."
  },
  "fingerprint": {
-  "pov": "overhead-plan",
-  "motion_vector": "vertical-rise",
-  "hero_treatment": "record-as-subject",
-  "layout": "split-panel",
+  "pov": "instrument-screen",
+  "motion_vector": "scroll-data",
+  "hero_treatment": "data-as-subject",
+  "layout": "fullbleed-split",
   "register": "naturalistic-scene",
   "camera_strategy": "riseWith",
-  "light_story": "overcast-soft",
+  "light_story": "night-practical",
   "palette": "Caliche tan, galvanized steel gray, drone pale gray, warm paper and one amber alert lamp",
   "metaphor": "A drone that finds footage and a person who signs it"
  },
@@ -2771,7 +3169,7 @@
     "enter_on": "The approval letter body scrolls past in rows of text lines.",
     "leave_on": "A counter tag reads AI appears once, in a title.",
     "cut_after_event_id": "s6-event-3",
-    "next_connection": "From The approval letter with a highlight on the letters AI inside a protocol title and a count to A leak reporting program tag, a calendar flipping to January 22nd, 2027, and a second cale.",
+    "next_connection": "From The approval letter with a highlight on the letters AI inside a protocol title and a count to A leak reporting program tag by certified third parties and a wall calendar flipping to Ja.",
     "sentence_to_shot": {
      "clause": "The approval letter mentions AI only in the title of a protocol.",
      "subject": "The approval letter with a highlight on the letters AI inside a protocol title and a counter reading once",
@@ -2782,21 +3180,34 @@
    {
     "scene_id": "s7",
     "enter_on": "A program tag reading leak reporting by certified third parties settles on the desk.",
-    "leave_on": "A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
+    "leave_on": "A delayed bar slides over the program tag as the calendar page holds.",
     "cut_after_event_id": "s7-event-3",
-    "next_connection": "From A leak reporting program tag, a calendar flipping to January 22nd, 2027, and a second cale to A certified inspector mark confirming the emission on the footage beside a blank box label.",
+    "next_connection": "From A leak reporting program tag by certified third parties and a wall calendar flipping to Ja to A calendar page for October 7th with a proposal tag reading will propose to rescind attach.",
     "sentence_to_shot": {
-     "clause": "EPA also delayed a separate leak reporting program to January 22nd, 2027, and on October 7th said it will propose to rescind it.",
-     "subject": "A leak reporting program tag, a calendar flipping to January 22nd, 2027, and a second calendar page for October 7th with a proposal tag reading will propose to rescind",
-     "relationship": "A program tag reading leak reporting by certified third parties settles on the desk. A wall calendar flips to January 22nd, 2027 and a delayed bar slides over the program tag. A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
+     "clause": "EPA also delayed a separate leak reporting program to January 22nd, 2027,",
+     "subject": "A leak reporting program tag by certified third parties and a wall calendar flipping to January 22nd, 2027 with a delayed bar",
+     "relationship": "A program tag reading leak reporting by certified third parties settles on the desk. A wall calendar flips to January 22nd, 2027 beside the program tag. A delayed bar slides over the program tag as the calendar page holds.",
      "source_limit": "Disclosed illustration of the sources. It shows no real site, leak, plume, EPA seal or person, and the letter doesn't say what the AI adds."
     }
    },
    {
     "scene_id": "s8",
+    "enter_on": "A calendar page turns to October 7th and a release card lands beside it.",
+    "leave_on": "The proposal tag holds unstamped on the delayed program tag.",
+    "cut_after_event_id": "s8-event-3",
+    "next_connection": "From A calendar page for October 7th with a proposal tag reading will propose to rescind attach to A certified inspector mark confirming the emission on the footage beside a blank box label.",
+    "sentence_to_shot": {
+     "clause": "and on October 7th said it will propose to rescind it.",
+     "subject": "A calendar page for October 7th with a proposal tag reading will propose to rescind attached to the delayed program tag, unstamped",
+     "relationship": "A calendar page turns to October 7th and a release card lands beside it. A proposal tag reading will propose to rescind attaches to the program tag, unstamped. The proposal tag holds unstamped on the delayed program tag.",
+     "source_limit": "Disclosed illustration of the sources. It shows no real site, leak, plume, EPA seal or person, and the letter doesn't say what the AI adds."
+    }
+   },
+   {
+    "scene_id": "s9",
     "enter_on": "The certified inspector mark confirms the emission on the footage and holds.",
     "leave_on": "The drone station stands in the window beside the equipment as the frame holds on the inspector mark and the blank box.",
-    "cut_after_event_id": "s8-event-3",
+    "cut_after_event_id": "s9-event-3",
     "next_connection": "From A certified inspector mark confirming the emission on the footage beside a blank box label to the held close.",
     "sentence_to_shot": {
      "clause": "Under this approval, a certified inspector confirms the leak. The letter doesn't say what the AI adds.",
@@ -2871,9 +3282,17 @@
      "id": "cue-s8",
      "role": "contact",
      "duration_s": 1.2,
+     "intent": "A calendar page flip and a paper tag landing.",
+     "provenance": "Original designed foley, not recorded at any agency.",
+     "event_id": "s8-event-2"
+    },
+    {
+     "id": "cue-s9",
+     "role": "contact",
+     "duration_s": 1.2,
      "intent": "A single soft confirmation tone, then room tone.",
      "provenance": "Original designed ambience, not recorded in any office.",
-     "event_id": "s8-event-2"
+     "event_id": "s9-event-2"
     },
     {
      "id": "mark-quiet",
@@ -2881,7 +3300,7 @@
      "duration_s": 1.2,
      "intent": "Pull the music back while the inspector mark holds and the AI box stays blank.",
      "provenance": "Authored event-clock background contrast.",
-     "event_id": "s8-event-2",
+     "event_id": "s9-event-2",
      "gain": 0.3
     }
    ]
@@ -3037,6 +3456,12 @@
     "x": 0,
     "y": 0,
     "reason": "Hold the authored composition; the episode camera moves only with the performing drone, card or mark."
+   },
+   "s9": {
+    "scale": 1,
+    "x": 0,
+    "y": 0,
+    "reason": "Hold the authored composition; the episode camera moves only with the performing drone, card or mark."
    }
   }
  },
@@ -3134,7 +3559,7 @@
   {
    "id": "c11",
    "start": 38.82,
-   "end": 43.88,
+   "end": 43.7,
    "text": "EPA also delayed a separate leak reporting program to January 22nd, 2027,",
    "source": "authored_estimate",
    "start_measured": false,
@@ -3142,7 +3567,7 @@
   },
   {
    "id": "c12",
-   "start": 44.0,
+   "start": 44.1,
    "end": 48.54,
    "text": "and on October 7th said it will propose to rescind it.",
    "source": "authored_estimate",
@@ -3195,7 +3620,7 @@
     "subject": "An approval letter with a date stamp and an approved mark for periodic methane screening, with no agency seal",
     "action": "An approval letter slides onto the desk and its first lines write in.",
     "consequence": "An approved mark lands beside a tag reading periodic methane screening.",
-    "source_basis": "Claims c5, c11, c16, c18, c1. Disclosed illustration of the sources. It shows no real site, leak, plume or person.",
+    "source_basis": "Claims c5, c11, c16, c18, c1, c19. Disclosed illustration of the sources. It shows no real site, leak, plume or person.",
     "medium_evidence": "Registered leak-review-v1 with the fresh authored InspectionDroneHero and LeakReviewSupport groups performing board events on the film clock."
    },
    {
@@ -3228,14 +3653,23 @@
    {
     "scene_id": "s7",
     "medium": "diagram",
-    "subject": "A leak reporting program tag, a calendar flipping to January 22nd, 2027, and a second calendar page for October 7th with a proposal tag reading will propose to rescind",
+    "subject": "A leak reporting program tag by certified third parties and a wall calendar flipping to January 22nd, 2027 with a delayed bar",
     "action": "A program tag reading leak reporting by certified third parties settles on the desk.",
-    "consequence": "A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
-    "source_basis": "Claims c9, c13, c10, c14. Disclosed illustration of the sources. It shows no real site, leak, plume or person.",
+    "consequence": "A delayed bar slides over the program tag as the calendar page holds.",
+    "source_basis": "Claims c9, c13. Disclosed illustration of the sources. It shows no real site, leak, plume or person.",
     "medium_evidence": "Registered leak-review-v1 with the fresh authored InspectionDroneHero and LeakReviewSupport groups performing board events on the film clock."
    },
    {
     "scene_id": "s8",
+    "medium": "diagram",
+    "subject": "A calendar page for October 7th with a proposal tag reading will propose to rescind attached to the delayed program tag, unstamped",
+    "action": "A calendar page turns to October 7th and a release card lands beside it.",
+    "consequence": "The proposal tag holds unstamped on the delayed program tag.",
+    "source_basis": "Claims c10, c14. Disclosed illustration of the sources. It shows no real site, leak, plume or person.",
+    "medium_evidence": "Registered leak-review-v1 with the fresh authored InspectionDroneHero and LeakReviewSupport groups performing board events on the film clock."
+   },
+   {
+    "scene_id": "s9",
     "medium": "diagram",
     "subject": "A certified inspector mark confirming the emission on the footage beside a blank box labelled AI, what it adds is not in the letter",
     "action": "The certified inspector mark confirms the emission on the footage and holds.",
@@ -3497,8 +3931,8 @@
     "s7-program"
    ],
    "change_type": "reveal",
-   "visible_change": "A wall calendar flips to January 22nd, 2027 and a delayed bar slides over the program tag.",
-   "viewer_reward": "A wall calendar flips to January 22nd, 2027 and a delayed bar slides over the program tag.",
+   "visible_change": "A wall calendar flips to January 22nd, 2027 beside the program tag.",
+   "viewer_reward": "A wall calendar flips to January 22nd, 2027 beside the program tag.",
    "continuity_from": "The generic inspection drone and the records that every later scene returns to.",
    "sound_action": "A calendar page flip and a paper tag landing."
   },
@@ -3506,13 +3940,13 @@
    "id": "s7-event-3-attention",
    "event_id": "s7-event-3",
    "item_ids": [
-    "s7-date",
-    "s7-proposal",
-    "s7-program"
+    "s7-delay",
+    "s7-program",
+    "s7-calendar"
    ],
    "change_type": "resolution",
-   "visible_change": "A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
-   "viewer_reward": "A second calendar page for October 7th turns and a proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
+   "visible_change": "A delayed bar slides over the program tag as the calendar page holds.",
+   "viewer_reward": "A delayed bar slides over the program tag as the calendar page holds.",
    "continuity_from": "The generic inspection drone and the records that every later scene returns to.",
    "sound_action": "A calendar page flip and a paper tag landing."
   },
@@ -3520,8 +3954,47 @@
    "id": "s8-event-1-attention",
    "event_id": "s8-event-1",
    "item_ids": [
-    "s8-inspector",
-    "s8-footage"
+    "s8-date"
+   ],
+   "change_type": "location_reveal",
+   "visible_change": "A calendar page turns to October 7th and a release card lands beside it.",
+   "viewer_reward": "A calendar page turns to October 7th and a release card lands beside it.",
+   "continuity_from": "The generic inspection drone and the records that every later scene returns to.",
+   "sound_action": "A calendar page flip and a paper tag landing."
+  },
+  {
+   "id": "s8-event-2-attention",
+   "event_id": "s8-event-2",
+   "item_ids": [
+    "s8-proposal",
+    "s8-program"
+   ],
+   "change_type": "reveal",
+   "visible_change": "A proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
+   "viewer_reward": "A proposal tag reading will propose to rescind attaches to the program tag, unstamped.",
+   "continuity_from": "The generic inspection drone and the records that every later scene returns to.",
+   "sound_action": "A calendar page flip and a paper tag landing."
+  },
+  {
+   "id": "s8-event-3-attention",
+   "event_id": "s8-event-3",
+   "item_ids": [
+    "s8-proposal",
+    "s8-program",
+    "s8-date"
+   ],
+   "change_type": "resolution",
+   "visible_change": "The proposal tag holds unstamped on the delayed program tag.",
+   "viewer_reward": "The proposal tag holds unstamped on the delayed program tag.",
+   "continuity_from": "The generic inspection drone and the records that every later scene returns to.",
+   "sound_action": "A calendar page flip and a paper tag landing."
+  },
+  {
+   "id": "s9-event-1-attention",
+   "event_id": "s9-event-1",
+   "item_ids": [
+    "s9-inspector",
+    "s9-footage"
    ],
    "change_type": "location_reveal",
    "visible_change": "The certified inspector mark confirms the emission on the footage and holds.",
@@ -3530,11 +4003,11 @@
    "sound_action": "A single soft confirmation tone, then room tone."
   },
   {
-   "id": "s8-event-2-attention",
-   "event_id": "s8-event-2",
+   "id": "s9-event-2-attention",
+   "event_id": "s9-event-2",
    "item_ids": [
-    "s8-ai-box",
-    "s8-footage"
+    "s9-ai-box",
+    "s9-footage"
    ],
    "change_type": "reveal",
    "visible_change": "A blank dashed box labelled AI draws beside the footage and stays empty.",
@@ -3543,12 +4016,12 @@
    "sound_action": "A single soft confirmation tone, then room tone."
   },
   {
-   "id": "s8-event-3-attention",
-   "event_id": "s8-event-3",
+   "id": "s9-event-3-attention",
+   "event_id": "s9-event-3",
    "item_ids": [
-    "s8-station",
-    "s8-inspector",
-    "s8-ai-box"
+    "s9-station",
+    "s9-inspector",
+    "s9-ai-box"
    ],
    "change_type": "resolution",
    "visible_change": "The drone station stands in the window beside the equipment as the frame holds on the inspector mark and the blank box.",
