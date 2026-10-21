@@ -1,11 +1,11 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-19",
-  "saved_at": "2026-10-21T05:15:07.820015+00:00",
-  "note": "phase release",
-  "phase": "publishing",
-  "terminal_state": null,
-  "shipment_recorded": false,
+  "saved_at": "2026-10-21T06:14:56.662291+00:00",
+  "note": "ledger write",
+  "phase": "shipped",
+  "terminal_state": "shipped",
+  "shipment_recorded": true,
   "created_at": "2026-10-19T05:13:41.692242Z",
   "repo_root": "/home/user/dispatch-editions/2026-10-19/TexasAIDispatch",
   "source_pin": "6d675ee7f0f6f9bfe2665aa252f5a21efc557246",
@@ -16,8 +16,8 @@
     "sha256": "cf6f8e8e2119591b0464521798aad30ae5f471a1af357e376578d65a83ff1c4c"
   },
   "deleted_source": [],
-  "ledger_sha256": "5ef86491156d559114a57b4c81ef37982a84770ca7243e4b7eb96b744ccaff5e",
-  "original_private_ledger_sha256": "ec7b327d0f46e2489e21d271db82a5cf70fdfbaceb53f835e70e20a4628a5d4b",
+  "ledger_sha256": "7292e7bde0aa02b6c92e0e8cbf182b00d9d65df9ad37eadba48ef6a665618dc3",
+  "original_private_ledger_sha256": "48ef1a7b5e14f2187122bc7c896432006f3345459b164a41547af035f2fed297",
   "grant_origin_roots": [
     {
       "event_index": 74,
@@ -2574,10 +2574,22 @@
       "size": 179773
     },
     {
+      "path": "out/dispatch/dispatch-720.mp4",
+      "class": "scratch",
+      "sha256": "68a0f0f280cb082d79b65277db5672293b12fadaf7c9325d9c56bcb26a9fffab",
+      "size": 3762584
+    },
+    {
       "path": "out/dispatch/effective-effort.json",
       "class": "scratch",
       "sha256": "5432d824a4e5942d658ee0b27fd900c059149eef208605848a0a16fab6717774",
       "size": 1742
+    },
+    {
+      "path": "out/dispatch/email.html",
+      "class": "scratch",
+      "sha256": "603ec28eff8e9a2c52f4ebac91220b5167bf79f82ce9027a63385f02a4bb98e6",
+      "size": 4250
     },
     {
       "path": "out/dispatch/evidence/builder-r7-ratelimit/FAILED-TOOL-RESULT.txt",
@@ -5680,6 +5692,12 @@
       "class": "scratch",
       "sha256": "a498b6f699b73d5ce4944a2971b86cdb9704d42a9f77d9a224394540f5551aca",
       "size": 776
+    },
+    {
+      "path": "out/dispatch/finish.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/frame-index.json",
@@ -22842,6 +22860,18 @@
       "size": 0
     },
     {
+      "path": "out/dispatch/live-check.log",
+      "class": "scratch",
+      "sha256": "1fa26796228c0f9fe47980c51df706e92100ef6ec0633cbf74cb2d38e1a9260a",
+      "size": 824
+    },
+    {
+      "path": "out/dispatch/live-check2.log",
+      "class": "scratch",
+      "sha256": "e4a49191faec903d8b9e19a3b131da57278041c8fb07b2efb4dbe8d07c65d7eb",
+      "size": 195
+    },
+    {
       "path": "out/dispatch/mix.json",
       "class": "scratch",
       "sha256": "a589d871e1f4202d4ee0728c8145d97593a571dc23e75cc0a71cf6f480633002",
@@ -23662,6 +23692,48 @@
       "class": "scratch",
       "sha256": "a92aa00ac53ffc890137fbeadadc617d6882d8b92777ce3c3ecdb39ace6926e1",
       "size": 2385
+    },
+    {
+      "path": "out/dispatch/phone.log",
+      "class": "scratch",
+      "sha256": "a7aeb8db327790e9b0168fecbe93c59579954557a746c7cf1c95eba1e6c88f84",
+      "size": 77
+    },
+    {
+      "path": "out/dispatch/phone/01-before-tap.png",
+      "class": "scratch",
+      "sha256": "9c2ad5a779f23b514f21039ac67197151803ae4427c02c052003835acf4cbfd4",
+      "size": 226315
+    },
+    {
+      "path": "out/dispatch/phone/02-paused-by-tap.png",
+      "class": "scratch",
+      "sha256": "5a3bc120454fbaabc11877d2cb14d77216e5a4eae24aab00eda2d98122f9fc0b",
+      "size": 203170
+    },
+    {
+      "path": "out/dispatch/phone/03-playing-a.png",
+      "class": "scratch",
+      "sha256": "95f6eb269932b3ec714465419d0074b4ce670e231eac3f2dbc578541b091b17c",
+      "size": 245654
+    },
+    {
+      "path": "out/dispatch/phone/04-playing-b.png",
+      "class": "scratch",
+      "sha256": "3ae205436b6bd72f9d043e3e03c7fd3328e1b93c9971f23ea5635135f217f4f4",
+      "size": 356730
+    },
+    {
+      "path": "out/dispatch/phone/05-playing-c.png",
+      "class": "scratch",
+      "sha256": "fbf8b816892e2972cc90bcba9f0a7979ba1b4abe42b3d80f81b8005d439ba949",
+      "size": 446705
+    },
+    {
+      "path": "out/dispatch/phone/phone_playback.json",
+      "class": "scratch",
+      "sha256": "e90d6d33d32d3338b7115b7de9b308cf9516c4267952ae7bd4f35bf5911ace03",
+      "size": 6747
     },
     {
       "path": "out/dispatch/picture-assignment.json",
@@ -55364,7 +55436,23 @@
   ],
   "excluded": [
     {
+      "path": "out/dispatch/delivery_routing.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail_readback.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail_readback_message.json",
+      "reason": "private path component"
+    },
+    {
       "path": "out/dispatch/grant-projection-roots.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/shipment.json",
       "reason": "private path component"
     }
   ],
