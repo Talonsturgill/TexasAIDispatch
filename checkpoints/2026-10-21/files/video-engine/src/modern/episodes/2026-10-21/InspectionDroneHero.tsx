@@ -40,9 +40,10 @@ const smooth=(p:number)=>{const q=clamp(p);return q*q*(3-2*q);};
 const f2=(v:number)=>v.toFixed(2);
 const RAD=Math.PI/180;
 
-/** The drone's paint and lamp values, shared with the support group so its icons match the hero. */
+/** The drone's paint and lamp values. No amber, green or blue on the machine: amber is the approval stamp's,
+ * the highlighted AI's and the delay bar's, green is the inspector's confirmation, blue is the companies' claim. */
 export const DRONE_PAINT={lit:'#F7F8F8',shell:'#E4E8EA',shade:'#BCC4CA',deep:'#8E989F',belly:'#6F7880',trim:'#2B3339',
- ink:'#1E262B',lens:'#10161B',lensRing:'#47525B',rotor:'#2F393F',guard:'#9AA3A9',amber:'#E8A11C',green:'#63C371',red:'#C8553D',white:'#FFF8E8'};
+ ink:'#1E262B',lens:'#10161B',lensRing:'#47525B',rotor:'#2F393F',guard:'#9AA3A9',lamp:'#C9D3D8',deck:'#E2DDCE',red:'#C8553D',white:'#FFF8E8'};
 /** Side geometry in drone units: facing +x, feet on y 0, up is negative y. */
 export const DRONE={bodyTop:-92,bodyBottom:-36,rotorY:-102,rotorRx:52,rotorRy:8,nearArm:[-114,112] as Pt,farArm:[-96,98] as Pt,
  pivot:[40,-26] as Pt,podLen:30,podR:12};
@@ -139,7 +140,7 @@ const DroneSide:React.FC<DroneSideProps>=({spin,phase,pod,lamp=1,ready=0,cone=0,
   <path d="M10 -46q8 -3 16 0" stroke={P.deep} strokeWidth={2} fill="none" opacity={.8}/>
   {/* status strip on the spine, nose and tail lamps */}
   <rect x={-14} y={-98} width={30} height={6} rx={3} fill={P.trim}/>
-  <rect x={-11} y={-97} width={24} height={4} rx={2} fill={ready>.5?P.green:P.amber} opacity={.35+.65*lamp}/>
+  <rect x={-11} y={-97} width={24} height={4} rx={2} fill={ready>.5?P.white:P.lamp} opacity={.35+.65*lamp}/>
   <circle cx={89} cy={-62} r={4.2} fill={P.white} opacity={.6+.4*lamp}/>
   <circle cx={-64} cy={-58} r={3.6} fill={P.red} opacity={.4+.6*lamp}/>
   <path d="M-46 -94l-5 -16" stroke={P.trim} strokeWidth={3} strokeLinecap="round"/><circle cx={-51.5} cy={-111} r={2.6} fill={P.trim}/>
@@ -200,7 +201,7 @@ const DroneTop:React.FC<DroneTopProps>=({spin,phase,yaw=0,lamp=1,ready=0,cone=0,
   <path d="M-48 -30H58C66 -30 70 -20 70 0" stroke={P.deep} strokeWidth={2} fill="none" opacity={.7}/>
   <circle cx={-30} cy={14} r={13} fill={P.lit} stroke={P.deep} strokeWidth={2}/>
   <rect x={4} y={-8} width={26} height={8} rx={4} fill={P.trim}/>
-  <rect x={6} y={-6.5} width={22} height={5} rx={2.5} fill={ready>.5?P.green:P.amber} opacity={.35+.65*lamp}/>
+  <rect x={6} y={-6.5} width={22} height={5} rx={2.5} fill={ready>.5?P.white:P.lamp} opacity={.35+.65*lamp}/>
   <path d="M-58 -10v20" stroke={P.red} strokeWidth={4} strokeLinecap="round" opacity={.4+.6*lamp}/>
   <path d="M20 26q10 4 20 0" stroke={P.deep} strokeWidth={2} fill="none"/>
  </g>;
@@ -248,7 +249,7 @@ const Station:React.FC<StationProps>=({open,lamp=1,ready=0,t=0,children,post=tru
   {/* the open bay behind the deck */}
   <path d="M-172 -110H172V-60H-172Z" fill={`url(#${id}i)`} opacity={inner}/>
   <ellipse cx={0} cy={-72} rx={150} ry={10} fill="#2F373C" opacity={inner}/>
-  <ellipse cx={4} cy={-73} rx={92} ry={6} fill="none" stroke={P.amber} strokeWidth={3} opacity={.8*inner}/>
+  <ellipse cx={4} cy={-73} rx={92} ry={6} fill="none" stroke={P.deck} strokeWidth={3} opacity={.8*inner}/>
   {/* the drone, docked or lifting */}
   <g data-part="station-bay">{children}</g>
   {/* cabinet */}
@@ -260,7 +261,7 @@ const Station:React.FC<StationProps>=({open,lamp=1,ready=0,t=0,children,post=tru
   <path d="M118 -40q2 10 -1 22" stroke="#9A5B32" strokeWidth={3.4} opacity={.75} strokeLinecap="round" fill="none"/>
   <path d="M-96 -30q14 4 28 0" stroke="#7B8489" strokeWidth={2.4} fill="none" opacity={.8}/>
   <rect x={128} y={-92} width={30} height={14} rx={4} fill={P.trim}/>
-  <circle cx={143} cy={-85} r={5} fill={ready>.5?P.green:P.amber} opacity={.4+.6*lamp}/>
+  <circle cx={143} cy={-85} r={5} fill={ready>.5?P.white:P.lamp} opacity={.4+.6*lamp}/>
   {/* the two leaves of the hood, each on its own hinge */}
   <g transform={`translate(${STATION.hinge[0]} ${STATION.hinge[1]}) rotate(${f2(aL)})`}>
    <path d="M0 0V-88Q0 -128 40 -128H184V0Z" fill={`url(#${id}h)`} stroke={P.ink} strokeWidth={2.4}/>
@@ -288,8 +289,8 @@ const StationTop:React.FC<StationProps>=({open,lamp=1,ready=0,children})=>{
   <rect x={-196} y={-140} width={392} height={280} rx={6} fill="#5C656A"/>
   <rect x={-180} y={-130} width={360} height={260} rx={4} fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={3}/>
   <rect x={-160} y={-110} width={320} height={220} rx={6} fill="#3A4247"/>
-  <circle cx={0} cy={0} r={96} fill="none" stroke={P.amber} strokeWidth={5} opacity={.85}/>
-  <circle cx={146} cy={-112} r={8} fill={ready>.5?P.green:P.amber} opacity={.4+.6*lamp}/>
+  <circle cx={0} cy={0} r={96} fill="none" stroke={P.deck} strokeWidth={5} opacity={.85}/>
+  <circle cx={146} cy={-112} r={8} fill={ready>.5?P.white:P.lamp} opacity={.4+.6*lamp}/>
   <g data-part="station-bay">{children}</g>
   <rect x={l0} y={-132} width={l1-l0} height={264} rx={5} fill={o>.5?'#6A7378':'#C9CED0'} stroke={P.ink} strokeWidth={3}/>
   <path d={`M${f2(l0+12)} -100q20 10 40 0`} stroke="#5A6368" strokeWidth={3} fill="none" opacity={o}/>
@@ -301,7 +302,7 @@ const StationTop:React.FC<StationProps>=({open,lamp=1,ready=0,children})=>{
 };
 
 /** The station as seen through the review room's window at the close: small, soft, its hood closing
- * over the docked drone and its lamp turning green. Hazed by the window's light. */
+ * over the docked drone and its lamp settling to a steady white. Hazed by the window's light. */
 const WindowStation:React.FC<{open:number;ready:number;lamp:number}>=({open,ready,lamp})=>
  <g data-part="window-station">
   <Station open={open} ready={ready} lamp={lamp} post>
