@@ -214,7 +214,11 @@ def source_context(film):
     board = json.loads(files['storyboard.json'].read_text())
     import modern_film
     context['modern_film_review_instruction'] = modern_film.review_instruction(board)
-    context['narration_picture'] = board.get('narration_picture')
+    import review_board_projection
+    view = review_board_projection.project(board, context['bindings']['storyboard.json'])
+    context['narration_picture'] = view.get('narration_picture')
+    if review_board_projection.projected(view):
+        context['review_board_projection'] = review_board_projection.TRANSPORT_NOTE
     if art_direction.required(board):
         from daily_production import craft_reading_paths
         readings = craft_reading_paths(board)
@@ -258,13 +262,13 @@ def _review_serial(film, role, state, out):
         raise ValueError("GEMINI_API_KEY is unavailable; audiovisual approval cannot be invented")
     if film.stat().st_size > 70_000_000:
         raise ValueError("review film exceeds the bounded media size; preserve for review")
+    prompt = request_prompt(film, role)
     ok, message = reserve(state, {"audiovisual_reviews": 1}, "exact MP4 audiovisual review " + role)
     if not ok:
         raise ValueError(message)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.unlink(missing_ok=True)
     request_id = str(uuid.uuid4())
-    prompt = request_prompt(film, role)
     part, upload, film_hash = media_part(film, key)
     payload = {"contents": [{"role": "user", "parts": [
         part,

@@ -179,7 +179,7 @@ def plateau(history: list[dict], mean: float) -> tuple[bool, list[float]]:
     return (max(means) - min(means)) < PLATEAU_SPAN, means
 
 
-def render(t: dict) -> str:
+def render(t: dict, card: dict | None = None, *, review_capped: bool = False) -> str:
     out = [f"\n  panel mean {t['mean']:.3f}   bar {t['bar']:.2f}   "
            + ("CLEARS THE BAR" if t["ship"] else f"gap {t['gap']:.3f}"), ""]
     out.append(f"  {'axis':<9}{'mean':>6}{'weight':>8}{'costs':>9}{'judges differ by':>18}")
@@ -188,9 +188,25 @@ def render(t: dict) -> str:
                    f"{r['cost']:>+9.3f}{r['spread']:>18.1f}")
     out.append("")
 
+    if card and card["hard_fails"]:
+        out.append("  The original panel rejects this cut. A passing mean does not clear its findings.")
+    if review_capped:
+        out.append("  The editorial ceiling is exhausted. Preserve this cut and its original findings.")
+        out.append("  Start no new correction, render, reviewer or panel; finish only admitted evidence")
+        out.append("  and evaluate the existing release path. Production remains NOT SHIPPED until")
+        out.append("  the controller accepts finish --result shipped.")
+        return "\n".join(out)
+    if card and card["hard_fails"]:
+        out.append("  Follow the current eligibility and controller guidance below; this score")
+        out.append("  supplies no release approval and changes no original classification.")
+        return "\n".join(out)
     if t["ship"]:
-        out.append("  Over the bar. Stop editing and deliver: every further round is a chance")
-        out.append("  to regress something that already passes, and this run has done that.")
+        if card and card["ship"]:
+            out.append("  The panel passes. Stop optional editing and continue remaining acceptance")
+            out.append("  and delivery checks.")
+        else:
+            out.append("  The score clears the bar. Complete original-verdict checks; the mean alone")
+            out.append("  supplies no release approval.")
         return "\n".join(out)
 
     worth = [r for r in t["rows"] if r["cost"] >= RIDE_ALONG]
@@ -297,8 +313,14 @@ def self_test() -> int:
     # regression gets shipped, and the controller has a terminal state for that reason.
     high = [dict(zip(weights, (9, 9, 9, 9, 9, 9)))]
     ht = triage(high, bar, weights)
-    ok("a passing panel is told to deliver, not to keep editing",
-       ht["ship"] and "deliver" in render(ht))
+    approved = report_card(ht, [{"axes": high[0], "hard_fails": []}], 1)
+    ok("an approved panel continues acceptance and delivery without optional editing",
+       approved["ship"] and "delivery checks" in render(ht, approved))
+    rejected = report_card(ht, [{"axes": high[0], "hard_fails": ["unsupported source claim"]}], 1)
+    rejected_text = render(ht, rejected)
+    ok("a high mean with an original mandatory rejection never directs delivery",
+       "original panel rejects" in rejected_text and "delivery checks" not in rejected_text
+       and "Stop editing and deliver" not in rejected_text and rejected["ship"] is False)
 
     # THE PLATEAU RULE, which is the only thing here that changes what the run DOES.
     flat = [{"mean": 6.743}, {"mean": 6.753}, {"mean": 6.769}]
@@ -307,6 +329,12 @@ def self_test() -> int:
     ok("a flat mean across three rounds is detected", t2["plateau"][0], str(t2["plateau"]))
     ok("...and the report says to stop fixing props and re-board",
        "STOP FIXING PROPS" in render(t2) and "PHASE 4" in render(t2))
+    capped_text = render(t2, report_card(t2, [{"hard_fails": ["unsupported source claim"]}], 1),
+                         review_capped=True)
+    ok("an exhausted review allowance emits no new edit, reboard or render instruction",
+       "Start no new correction" in capped_text and "NOT SHIPPED" in capped_text
+       and "WORK " not in capped_text and "Re-enter PHASE 4" not in capped_text
+       and "Batch them into ONE" not in capped_text)
     # AND IT MUST NOT FIRE ON A RUN THAT IS ACTUALLY CLIMBING, or it would send a working run
     # back to the board and cost it the round it was about to win.
     climbing = [{"mean": 6.20}, {"mean": 6.55}, {"mean": 6.80}]
@@ -417,8 +445,8 @@ def main() -> int:
 
     if a.round is not None and (a.round < 1 or a.round > panel_round_limit()):
         print(f"panel_triage: round {a.round} is outside the mechanical 1 to "
-              f"{panel_round_limit()} limit. Do no-panel hard-fail cleanup and persist the "
-              "playable review video instead of scoring again.",
+              f"{panel_round_limit()} limit. No additional panel is admitted. Preserve "
+              "the evidence and follow the controller's remaining-work decision.",
               file=sys.stderr)
         return 1
     if a.record and (a.round is None or not a.run_id):
@@ -440,25 +468,25 @@ def main() -> int:
         attention_errors += documentary_review.publication_problems(board_path, film, raw_reports)
     elif a.out_report:
         attention_errors += ["the report cannot certify an absent storyboard"]
+    card = report_card(t, raw_reports, a.round)
+    card["hard_fails"].extend(attention_errors)
+    card["ship"] = card["ship"] and not attention_errors
+    state_path = board_path.with_name('run_state.json')
+    current_state = json.loads(state_path.read_text()) if state_path.is_file() else None
+    from review_limit import reached
+    review_capped = current_state is not None and reached(current_state)
     if attention_errors:
         print("Attention review blocks delivery: " + "; ".join(attention_errors))
-    else:
-        print(render(t))
+    print(render(t, card, review_capped=review_capped))
 
     if a.out_report:
-        card = report_card(t, raw_reports, a.round)
-        card["hard_fails"].extend(attention_errors)
-        card["ship"] = card["ship"] and not attention_errors
         target = Path(a.out_report)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(json.dumps(card, indent=2) + "\n", encoding="utf-8")
-        print(f"\n  report card -> {target} ({'ship' if card['ship'] else 'correction required'})")
-        if not card['ship']:
-            board_path = Path(a.board)
-            current_board = json.loads(board_path.read_text()) if board_path.is_file() else None
-            state_path = board_path.with_name('run_state.json')
-            current_state = json.loads(state_path.read_text()) if state_path.is_file() else None
-            print(recovery_guidance(current_board, current_state))
+        print(f"\n  report card -> {target} ({'ship' if card['ship'] else 'not approved'})")
+    if not card['ship']:
+        current_board = json.loads(board_path.read_text()) if board_path.is_file() else None
+        print(recovery_guidance(current_board, current_state))
 
     if a.record:
         history_path.parent.mkdir(parents=True, exist_ok=True)

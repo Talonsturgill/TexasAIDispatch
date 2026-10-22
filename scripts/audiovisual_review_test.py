@@ -105,6 +105,49 @@ class ReviewReuse(unittest.TestCase):
             film.write_bytes(b'different encoded film fixture')
             self.assertNotEqual(context, av.source_context(film))
 
+    def test_future_context_excludes_nested_old_critique_and_keeps_current_evidence(self):
+        import review_board_projection as views
+        from review_board_projection_test import retained_board
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); film = root/'film.mp4'; film.write_bytes(b'exact film fixture')
+            board = retained_board(); path = root/'storyboard.json'
+            path.write_text(json.dumps(board)); before = path.read_bytes()
+            (root/'vo_script.txt').write_text('Exact current authored transcript.')
+            (root/'claims.json').write_text(json.dumps({'claims': [
+                {'id': 'c1', 'verdict': 'VERIFIED', 'quote': 'Complete fetched quote.',
+                 'url': 'https://example.test/source'}]}))
+            context = json.loads(av.source_context(film).rsplit('\n', 1)[-1])
+            self.assertEqual(context['bindings']['storyboard.json'], av.digest(path))
+            self.assertEqual(context['narration_picture']['clauses'], board['narration_picture']['clauses'])
+            self.assertEqual(context['fetched_source_excerpts'][0]['quote'], 'Complete fetched quote.')
+            self.assertEqual(context['authored_transcript'], 'Exact current authored transcript.')
+            self.assertEqual(context['review_board_projection'], views.TRANSPORT_NOTE)
+            self.assertNotIn('critique_json', context['narration_picture']['timing_provenance']['approved_retime'])
+            for name, content in context.get('craft_guides', {}).items():
+                self.assertEqual(content, (av.Path(__file__).resolve().parents[1]/name).read_text())
+            self.assertEqual(before, path.read_bytes())
+            board['date'] = '2026-10-21'; path.write_text(json.dumps(board))
+            old = json.loads(av.source_context(film).rsplit('\n', 1)[-1])
+            self.assertEqual(old['narration_picture'], board['narration_picture'])
+            self.assertNotIn('review_board_projection', old)
+
+    def test_invalid_archival_proof_is_refused_before_av_reservation_or_provider(self):
+        from review_board_projection_test import retained_board
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); film = root/'film.mp4'; film.write_bytes(b'exact film fixture')
+            board = retained_board()
+            board['narration_picture']['timing_provenance']['approved_retime']['critique_json'] += ' '
+            (root/'storyboard.json').write_text(json.dumps(board))
+            (root/'claims.json').write_text('{"claims":[]}')
+            (root/'vo_script.txt').write_text('Current transcript.')
+            with patch.dict(av.os.environ, {'GEMINI_API_KEY': 'fixture-only'}), \
+                    patch.object(av, 'cached_review', return_value=(root/'cache', False)), \
+                    patch.object(av, 'reserve') as reserve, \
+                    patch.object(av.requests, 'post') as provider:
+                with self.assertRaisesRegex(ValueError, 'critique bytes changed'):
+                    av.review(film, 'story', root/'state.json', root/'receipt.json')
+                reserve.assert_not_called(); provider.assert_not_called()
+
     def test_hero_scope_does_not_require_complete_film_credits(self):
         hero = av.review_prompt("hero")
         self.assertIn("short finished passage", hero)

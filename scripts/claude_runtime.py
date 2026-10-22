@@ -146,6 +146,8 @@ def adapt_packet(data):
         data['asset_inputs'] = agent_runtime.treatment_assets(data['treatments'])
     if role == 'storyboard-critic' and operational_recovery(data):
         data['code_report_bindings'] = code_report_bindings(data)
+    import review_board_projection
+    review_board_projection.bind_native(data)
     return data
 
 
@@ -460,6 +462,8 @@ def phone_packet(packet_path, state_path, sequences, current=False):
         'Do not run Bash, write files, invent hashes, or infer approval from structural measurements.')
     image_reading(data)
     phone_review_inputs(data)
+    import review_board_projection
+    review_board_projection.bind_native(data)
     return data
 
 
@@ -589,6 +593,8 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
     else:
         agent_runtime.required_inputs(data, role, contracts(role))
     agent_runtime.validate_references(data)
+    import review_board_projection
+    review_view_instruction = review_board_projection.validate_native(data)
     freshness = None
     if role in ('researcher', 'validator') and data['date'] >= '2026-10-20':
         if role == 'validator':
@@ -647,6 +653,7 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
     if data.get('mode') == 'initial_authored_build':
         import modern_film
         message += modern_film.literal_clause_instruction(data)
+    message += review_view_instruction
     if freshness:
         message += ' Screened story subject: ' + freshness['subject'] + '. Keep this subject in the handoff.'
     admitted = mechanical_admission(role, data, mechanical_task) if mechanical_task else None
