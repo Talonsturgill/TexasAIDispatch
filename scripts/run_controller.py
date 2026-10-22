@@ -2250,6 +2250,10 @@ def main() -> int:
     p.add_argument("--repair-plan", type=Path, required=True)
     p.add_argument("--confirm", required=True)
 
+    p = sub.add_parser("grant-codex-opening-retry")
+    p.add_argument("--failure-result", type=Path, required=True)
+    p.add_argument("--failure-log", type=Path, required=True)
+
     p = sub.add_parser("grant-owner-review")
     p.add_argument("--authorization", type=Path, required=True)
     p.add_argument("--failure-evidence", type=Path, required=True)
@@ -2462,6 +2466,9 @@ def main() -> int:
         elif a.command == "grant-codex-repair":
             from manual_codex_repair import grant
             accepted, message = grant(state_path, a.authorization, a.repair_plan, a.confirm)
+        elif a.command == "grant-codex-opening-retry":
+            from manual_codex_repair import grant_opening_retry
+            accepted, message = grant_opening_retry(state_path, a.failure_result, a.failure_log)
         elif a.command == "grant-owner-review":
             accepted, message = grant_owner_review(
                 state_path, a.authorization, a.failure_evidence, a.additional_calls, a.confirm)

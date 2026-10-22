@@ -489,7 +489,9 @@ class Reservation(unittest.TestCase):
             'film_direction': {'renderer_inputs': []}}
         boards = [self.state.with_name('opening-' + key + '.json') for key in ('a', 'b')]
         for key, path in zip(('a', 'b'), boards):
-            path.write_text(json.dumps({**board, 'treatment': key}))
+            path.write_text(json.dumps({**board, 'treatment': key, 'scenes': [
+                {'id': 's1', 'start_s': 0, 'duration_s': 4, 'vo': 'The record reaches the reader.',
+                 'vo_claims': ['c1'], 'picture': {'subject': 'Distinct fixture treatment ' + key}}]}))
         self.board.write_bytes(boards[0].read_bytes())
         command = ('bash scripts/run_with_env.sh python scripts/opening_compare.py'
                    ' --root out/dispatch --state out/dispatch/run_state.json')
