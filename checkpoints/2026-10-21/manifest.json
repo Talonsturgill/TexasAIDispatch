@@ -1,13 +1,13 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T02:11:11.191087+00:00",
-  "note": "Current timed phone extraction charge; source wiring and failure retention fixed",
+  "saved_at": "2026-10-22T02:15:46.018289+00:00",
+  "note": "capture authorization consumed a1ce9cc589be",
   "phase": "audio",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
-  "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
+  "repo_root": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch",
   "source_pin": "c9cc0305de3769b38e9f5cbc3522af64d1f48ff4",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
@@ -16,8 +16,8 @@
     "sha256": "e161e2e553e4c04c6edcd2d995828e829193dcc1bde8086cd4e301046082dfb0"
   },
   "deleted_source": [],
-  "ledger_sha256": "188a094423538a193373edc7879a3e808ccb23f6c55cf207bfa54ed77ca80b6d",
-  "original_private_ledger_sha256": "df29f1f34c5037341d8180d3d2f09663885498b3b7bb6edad16f0c2fecd66f99",
+  "ledger_sha256": "e346ad0fd2681ceb3569870f1dfe64e44516f06d0167445391dee7d5190e1db0",
+  "original_private_ledger_sha256": "abbdea6a11e4ad5b50bc70bda3475fdc4332fdc30645881c1d44b15a099e4453",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -568,8 +568,8 @@
     {
       "path": "out/dispatch/capture-authorization.json",
       "class": "scratch",
-      "sha256": "17ed2e8a56a43f1c3d68c0f15e97da4455768f098f640b4724aae657cdd4a95a",
-      "size": 18875
+      "sha256": "7e8dd9027ffc6acea9ac3bdaf9428879224bc8395ab54792a62c9f46325bbe34",
+      "size": 19030
     },
     {
       "path": "out/dispatch/capture-authorization.json.lock",
@@ -580,8 +580,8 @@
     {
       "path": "out/dispatch/capture-authorizations-used.json",
       "class": "scratch",
-      "sha256": "99c64b263df04f41b86ce1427b2c58a13175c079b8e067c0e1075c98d528975a",
-      "size": 748
+      "sha256": "1b1900d1484a578c99d55f14d23b9a86b0cf7826ec79c9e0f8e675acd5683a47",
+      "size": 897
     },
     {
       "path": "out/dispatch/capture-housekeeping-20261021T183841.json",
@@ -614,6 +614,12 @@
       "size": 1055
     },
     {
+      "path": "out/dispatch/capture-housekeeping-20261022T021544.json",
+      "class": "scratch",
+      "sha256": "3d6bfed6b37988fda71bfe2cc963a4025594391eb7ed45a74d28e3214d5c9627",
+      "size": 1055
+    },
+    {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
       "sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
@@ -622,7 +628,7 @@
     {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
-      "sha256": "70be3bd5c5c72f0379dc938dbfd1bd9d4bd8ed63d3e273a05610f6dc339646f4",
+      "sha256": "00cfd9719a7d0764e55531104a5e443e7a9fb7cd4b2566fd58089e850407a0df",
       "size": 128
     },
     {
@@ -706,7 +712,7 @@
     {
       "path": "out/dispatch/github-capture-activation.json",
       "class": "scratch",
-      "sha256": "d84a7133ce763b03b1c6abb82599c6d58e1cea19794d80d160ee149670801ba8",
+      "sha256": "3dc2079906284cfdfffd032e36394e4d2c2481da0267682a2b2417077725203c",
       "size": 283
     },
     {
@@ -754,7 +760,7 @@
     {
       "path": "out/dispatch/github-native-headroom.json",
       "class": "scratch",
-      "sha256": "c505c30de951b723d99a7581098d7ffb08eb351b1529f78bddf4f646b1c4614a",
+      "sha256": "0a296fc18209acf095901f0732a5d65e46ab7a00ac43af597eff5efac96d2b08",
       "size": 308
     },
     {
@@ -6345,10 +6351,6 @@
     }
   ],
   "excluded": [
-    {
-      "path": "out/dispatch/delivery-routing.private.json",
-      "reason": "private path component"
-    },
     {
       "path": "out/dispatch/grant-projection-roots.private.json",
       "reason": "private path component"
