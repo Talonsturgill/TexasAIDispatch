@@ -1,13 +1,13 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T19:54:08.054077+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-22T20:09:43.111805+00:00",
+  "note": "capture authorization consumed 1bc52c384197",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
-  "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
+  "repo_root": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch",
   "source_pin": "781a9c83f77ff2275e7462ba01e4da3e92f5ff2a",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
@@ -16,8 +16,8 @@
     "sha256": "32a7090a0d8d5512fc05ec97c58a38936cfbffa785d5f86a4326cdfb0c30981e"
   },
   "deleted_source": [],
-  "ledger_sha256": "96a6917c4e3bcc2f7e7421aedf4235386940a6586739fd75bfb376688e32075f",
-  "original_private_ledger_sha256": "923a4a4d3ecec5b2131d5128c687260159f18db0d054c735f267d131494c5f3e",
+  "ledger_sha256": "923e9fabcadecfc3efd68172cbeeb52b08d95cfa0e7b9b9898365b93ee13664b",
+  "original_private_ledger_sha256": "8c13158cb33a559808bdb0814b3b155c0ec431f2c02db23d4bb5d7e1b3baf59f",
   "grant_origin_roots": [
     {
       "event_index": 96,
@@ -710,6 +710,12 @@
       "size": 18826
     },
     {
+      "path": "out/dispatch/capture-authorization-history/813e9343e1676523d2d740fe2e3cab03d0b01df9b038145b0d3f94d27fe24c18.json",
+      "class": "scratch",
+      "sha256": "813e9343e1676523d2d740fe2e3cab03d0b01df9b038145b0d3f94d27fe24c18",
+      "size": 19016
+    },
+    {
       "path": "out/dispatch/capture-authorization-history/87da253c22f67a6cf047af3fcbbed44f293b6c6a37fe6ab0a40f46651ca1e323.json",
       "class": "scratch",
       "sha256": "87da253c22f67a6cf047af3fcbbed44f293b6c6a37fe6ab0a40f46651ca1e323",
@@ -742,8 +748,8 @@
     {
       "path": "out/dispatch/capture-authorization.json",
       "class": "scratch",
-      "sha256": "813e9343e1676523d2d740fe2e3cab03d0b01df9b038145b0d3f94d27fe24c18",
-      "size": 19016
+      "sha256": "2b77d7dc96dc6b1e3f99f8b6203078cd1a1b074a7f08c57d92aee40916d1234e",
+      "size": 18875
     },
     {
       "path": "out/dispatch/capture-authorization.json.lock",
@@ -754,8 +760,8 @@
     {
       "path": "out/dispatch/capture-authorizations-used.json",
       "class": "scratch",
-      "sha256": "53128a89ec0fbb755b7eb4804a9034dfb49e861af8c7426d15f7c88c09c4b22c",
-      "size": 2238
+      "sha256": "6fcf72ae7fadf31242c5be708a1771eeb8f437eb6b4027f69bd03f77383c23a2",
+      "size": 2387
     },
     {
       "path": "out/dispatch/capture-housekeeping-20261021T183841.json",
@@ -845,6 +851,12 @@
       "path": "out/dispatch/capture-housekeeping-20261022T183235.json",
       "class": "scratch",
       "sha256": "c09227a3eacb2dbeb9d6bddf8e5f792585a4a650f95087ffaee03c7958335aef",
+      "size": 1055
+    },
+    {
+      "path": "out/dispatch/capture-housekeeping-20261022T200912.json",
+      "class": "scratch",
+      "sha256": "466f26e77015a2f0e69b4f5b5119b2e4792d6caee22960dd43ef414b1de61270",
       "size": 1055
     },
     {
@@ -1318,7 +1330,7 @@
     {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
-      "sha256": "bf44d4fe61c152c370cf3bd8ea5187f230380f173062cd9319af29e52624dc02",
+      "sha256": "122f4edf270d77f140c05e6e82f9a8ef5deaa4560f13a476b9a5eee7685111ce",
       "size": 128
     },
     {
@@ -3189,7 +3201,7 @@
     {
       "path": "out/dispatch/github-capture-activation.json",
       "class": "scratch",
-      "sha256": "3004d3ee473cb89d8abfbda50c47674afaa4cb87864270a4fb1ae8a5a4453786",
+      "sha256": "f3c2d46b4098c538c11a8a355ef072a3dcf38df36eadf01ea4e7987254c0093f",
       "size": 283
     },
     {
@@ -4113,8 +4125,8 @@
     {
       "path": "out/dispatch/github-native-headroom.json",
       "class": "scratch",
-      "sha256": "1c4d663ac906dbf3d909718cb447ae10a6d433ca7a9b2939d38520572cec2a85",
-      "size": 307
+      "sha256": "addaeb0d2821c522fba150fab34b833b54e8e88983608eb03f02e4c7e9c7bfa0",
+      "size": 308
     },
     {
       "path": "out/dispatch/github-request-cinema.json",
@@ -13808,85 +13820,13 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 1416638344,
-    "unique_blob_bytes": 740947464,
-    "unique_blobs": 1558
+    "logical_bytes": 1416658424,
+    "unique_blob_bytes": 740967544,
+    "unique_blobs": 1560
   },
   "excluded": [
     {
-      "path": "out/dispatch/delivery-prep-copy.private.txt",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-draft.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography-http.private.txt",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography-ordinance.private.pdf",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography-ordinance.private.txt",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-next-actions.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-next-commands.private.md",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-readiness.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-routing.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/duplicate-media-clone-exchange.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/original-builder-first-launch.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/original-builder-handoff-completed.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/owner-authorization.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/public-evidence-lossless-storage.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/unlaunched-builder-audit.private.json",
-      "reason": "private path component"
-    },
-    {
       "path": "out/dispatch/grant-projection-roots.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/retained-before-manual-repair-35331bbd/retention-manifest.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/verify-final-gmail.private.py",
       "reason": "private path component"
     }
   ],
