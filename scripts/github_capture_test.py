@@ -373,6 +373,82 @@ class CaptureTest(unittest.TestCase):
             self.assertEqual(capture.current_identity(repo,repo/'state.json','unit-operation'),
                              'state.json:unit-operation')
 
+
+    def test_admission_subprocess_uses_restored_source_and_preserves_each_gate(self):
+        import shutil
+        import sys
+        with tempfile.TemporaryDirectory() as temporary:
+            repo=Path(temporary).resolve()/'restored';scripts=repo/'scripts';scripts.mkdir(parents=True)
+            # Real gate modules run in the second checkout; no mocks suppress source or report checks.
+            for path in Path(capture.__file__).parent.glob('*.py'):
+                if not path.name.endswith('_test.py'):
+                    shutil.copyfile(path,scripts/path.name)
+            (scripts/'run_with_env.sh').write_text('#!/bin/sh\nexec "$@"\n')
+            engine=repo/'video-engine/src'
+            modules=['Dispatch.tsx','Episode.tsx','lib/cinema/CinematicStage.tsx',
+                     'lib/cinema/Studio.tsx','lib/cinema/ProofContext.tsx',
+                     'lib/cinema/projection.ts','lib/direction.ts','Hero.tsx','Support.tsx']
+            for relative in modules:
+                path=engine/relative;path.parent.mkdir(parents=True,exist_ok=True);path.write_text('// distinct fixture source '+relative)
+            (engine/'Dispatch.tsx').write_text("import { Episode } from './Episode';\n"
+                "if(cinematic_template === 'fixture-art'){ return <Episode/>; }\n")
+            entries=[{'request_id':name,'file':'video-engine/src/'+name+'.tsx',
+                      'sha256':capture.digest(engine/(name+'.tsx'))} for name in ('Hero','Support')]
+            board={'date':'2026-10-21','cinematic_template':'fixture-art',
+                   'story_art':{'version':'authored-story-art-v1','entries':entries},
+                   'native_media':[{**e,'basis':'Offline regression source ownership and exact authored bytes.'} for e in entries]}
+            output=repo/'out/dispatch/openings';output.mkdir(parents=True)
+            state={'run_id':'2026-10-21','terminal_state':None}
+            (output.parent/'run_state.json').write_text(json.dumps(state))
+            for option in ('a','b'):
+                (output/(option+'.json')).write_text(json.dumps(board))
+                (output/(option+'.mp4')).write_bytes(('unchanged fixture movie '+option).encode())
+            code=('import sys,json;sys.path.insert(0,"scripts");import critic_gate,opening_compare;'
+                  'b=json.load(open("out/dispatch/openings/a.json"));'
+                  'print(json.dumps([critic_gate.renderer_digest(b),opening_compare.inspection_producer()]))')
+            renderer,inspector=json.loads(subprocess.check_output([sys.executable,'-c',code],cwd=repo,text=True))
+            receipt={'renderer_sha256':renderer,'options':[]}
+            def ref(path):return {'file':path.name,'sha256':capture.digest(path)}
+            for option in ('a','b'):
+                bp=output/(option+'.json');film=output/(option+'.mp4');report=output/(option+'-inspection.json')
+                report.write_text(json.dumps({'board_sha256':capture.digest(bp),'film_sha256':capture.digest(film),
+                    'renderer_sha256':renderer,'inspector_sha256':inspector,'pass':True,'problems':[]}))
+                receipt['options'].append({'id':option,'board':ref(bp),'film':ref(film),'inspection':ref(report)})
+            comparison=output/'comparison.json';comparison.write_text(json.dumps(receipt))
+            original={p:p.read_bytes() for p in output.iterdir()}
+            with self.assertRaises(ValueError):
+                capture.operation_precheck(repo,'phone-motion-a',state)
+            for operation in ('phone-motion-a','phone-motion-b'):
+                capture.checkout_operation_precheck(repo,operation,state)
+            self.assertEqual(original,{p:p.read_bytes() for p in output.iterdir()})
+            hero=engine/'Hero.tsx';hero_bytes=hero.read_bytes();hero.unlink()
+            with self.assertRaisesRegex(ValueError,'authored source module is missing'):
+                capture.checkout_operation_precheck(repo,'phone-motion-a',state)
+            outside=Path(temporary)/'outside.tsx';outside.write_bytes(hero_bytes);hero.symlink_to(outside)
+            with self.assertRaisesRegex(ValueError,'authored source module is missing or outside'):
+                capture.checkout_operation_precheck(repo,'phone-motion-a',state)
+            hero.unlink();hero.write_bytes(hero_bytes)
+            report=output/'a-inspection.json';forged=json.loads(report.read_text());forged['inspector_sha256']='f'*64
+            report.write_text(json.dumps(forged));receipt['options'][0]['inspection']=ref(report)
+            comparison.write_text(json.dumps(receipt))
+            with self.assertRaisesRegex(ValueError,'stale inspector_sha256'):
+                capture.checkout_operation_precheck(repo,'phone-motion-a',state)
+
+    def test_restored_admission_passes_each_operation_and_exact_state_without_reinterpretation(self):
+        state={'deliverable':{'film_sha256':'a'*64},'events':[{'kind':'reserved'}]}
+        with patch.object(capture.subprocess,'run',return_value=subprocess.CompletedProcess([],0,'','')) as run:
+            for operation in capture.OPS:
+                capture.checkout_operation_precheck(Path('/restored'),operation,state)
+                args,kwargs=run.call_args
+                self.assertEqual(args[0][-1],operation)
+                self.assertEqual(kwargs['cwd'],Path('/restored'))
+                self.assertEqual(json.loads(kwargs['input']),state)
+                self.assertEqual(kwargs['timeout'],120)
+                self.assertIn('sys.path.insert(0,"scripts")',args[0][-2])
+        with patch.object(capture.subprocess,'run',side_effect=subprocess.TimeoutExpired(['gate'],120)):
+            with self.assertRaisesRegex(ValueError,'finite 120-second'):
+                capture.checkout_operation_precheck(Path('/restored'),'phone-motion-a',state)
+
     def test_prologue_failure_is_retained_without_render_or_recharge(self):
         with tempfile.TemporaryDirectory() as temporary:
             repo=Path(temporary).resolve();(repo/'out/dispatch').mkdir(parents=True)
@@ -707,7 +783,7 @@ class UnstartedContinuationTest(unittest.TestCase):
                         patch.object(capture.ck,'verify_checkpoint',return_value=(manifest,raw)), \
                         patch.object(capture.ck,'restore',side_effect=lambda *a,**kw:order.append('restore')), \
                         patch.object(capture,'current_identity',return_value=identity), \
-                        patch.object(capture,'operation_precheck',side_effect=lambda *a:order.append('precheck')), \
+                        patch.object(capture,'checkout_operation_precheck',side_effect=lambda *a:order.append('precheck')), \
                         patch.object(publication_owner,'read_remote',side_effect=[owner,None if fenced else owner]), \
                         patch.object(capture,'commit_record',return_value='8'*40), \
                         patch.object(capture,'claim_once',side_effect=lambda *a:order.append('claim')) as claim, \
