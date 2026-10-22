@@ -88,14 +88,15 @@ def record(payload, workspace):
     if payload.get('hook_event_name') != 'SubagentStop':
         return
     message = payload.get('last_assistant_message')
-    handbacks = list(folder.glob('handback-' + key + '-*.json'))
-    if handbacks:
-        handback = max(handbacks, key=lambda path: path.stat().st_mtime_ns)
-        message = read(local(state_path.parents[2], handback))['message']
     try:
         report = json.loads(message)
     except (TypeError, ValueError):
-        return  # Missing or malformed final content is not completed review evidence.
+        handbacks = list(folder.glob('handback-' + key + '-*.json'))
+        if not handbacks:
+            return  # Missing final content is not completed review evidence.
+        handback = max(handbacks, key=lambda path: path.stat().st_mtime_ns)
+        message = read(local(state_path.parents[2], handback))['message']
+        report = json.loads(message)
     if not isinstance(report, dict):
         return
     for path in (state_path.parent / 'worker-dispatch-claims').glob('*.json'):
