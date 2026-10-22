@@ -11,6 +11,7 @@ import re
 SCHEMA = 'dispatch_codex_image_coverage/1'
 NOTE_SCHEMA = 'dispatch_codex_public_visual_observation/1'
 PREFIX = 'CODEX_VISUAL_OBSERVATION '
+CHECKSUM_CORRECTION_NOTE = 'This annotation corrects the prior incorrectly transcribed image hash.'
 CONTRACT = {'schema': 'dispatch_codex_public_visual_evidence/1',
             'image_tool': 'view_image', 'detail': 'original',
             'annotation_channel': 'commentary', 'one_image_per_step': True,
@@ -209,7 +210,7 @@ def analyze(packet_path, session, records, paths=None):
         raise ValueError('public tool records must retain their actual strict line order')
     packet = paths.read(packet_path) if paths else read(packet_path)
     expected = [(ref, page) for ref, pages in packet_pages(packet, paths) for page in pages]
-    calls, pending, pairs = {}, None, []
+    calls, pending, pairs, corrections = {}, None, [], {}
     for record in records:
         p = record['event']['payload']
         kind = p.get('type')
@@ -232,14 +233,49 @@ def analyze(packet_path, session, records, paths=None):
             note = annotation(p)
             if note is not None:
                 if pending is None:
+                    # A checksum transcription may be corrected before the next
+                    # image. Keep both source events and forbid changes to facts,
+                    # packet identity, reception or the viewed path.
+                    if not calls and pairs:
+                        call, output, previous, old = pairs[-1]
+                        cid = call['event']['payload']['call_id']
+                        old_facts = {k: v for k, v in old.items() if k != 'image_sha256'}
+                        new_facts = {k: v for k, v in note.items() if k != 'image_sha256'}
+                        if new_facts.get('observed') == str(old_facts.get('observed', '')) + ' ' + CHECKSUM_CORRECTION_NOTE:
+                            new_facts['observed'] = old_facts['observed']
+                        if (cid not in corrections and old_facts == new_facts
+                                and old.get('image_sha256') != note.get('image_sha256')):
+                            corrections[cid] = {'call_id': cid, 'original_annotation_line': previous['line'],
+                                                'corrected_annotation_line': record['line'],
+                                                'original_image_sha256': old.get('image_sha256')}
+                            pairs[-1] = (call, output, record, note)
+                            continue
                     raise ValueError('public image annotation lacks preceding actual image delivery')
                 pairs.append((*pending, record, note))
                 pending = None
-    if calls or pending is not None or len(pairs) != len(expected):
+    if calls or pending is not None or len(pairs) < len(expected):
         raise ValueError('complete chronological image delivery and public annotation coverage required')
-    rows = []
-    for (ref, page), (call, output, observed, note) in zip(expected, pairs, strict=True):
-        raw_image = Path(ref['path']).parent / page['file']
+    rows, supplemental = [], []
+    required_images = {(Path(ref['path']).parent / page['file']).resolve() for ref, page in expected}
+    package_root = (paths.origin / paths.path(packet_path).relative_to(paths.root).parent
+                    if paths else Path(packet_path).resolve().parent)
+    for position, (call, output, observed, note) in enumerate(pairs):
+        chronological = position < len(expected)
+        if chronological:
+            ref, page = expected[position]
+            raw_image = Path(ref['path']).parent / page['file']
+        else:
+            # Native crops and feed images are inspected after the complete film
+            # sequence. Retain and verify them without counting them as pages.
+            raw_image = view_path(call['event']['payload'])
+            if (raw_image is None or raw_image in required_images
+                    or not raw_image.is_relative_to(package_root)
+                    or raw_image.suffix.lower() != '.png'):
+                raise ValueError('supplemental image must be an owned PNG after complete chronology')
+            declared = Path(note.get('page', ''))
+            if any(q.is_symlink() for q in (declared, *declared.parents)):
+                raise ValueError('supplemental image cannot follow symbolic links')
+            page = {'file': raw_image.name, 'sha256': note.get('image_sha256')}
         image = raw_image.resolve()
         local_image = paths.path(image) if paths else image
         if (Path(page['file']).name != page['file']
@@ -267,14 +303,23 @@ def analyze(packet_path, session, records, paths=None):
                 raise ValueError('public facts must be brief string lists or null')
         if not call['line'] < output['line'] < observed['line']:
             raise ValueError('actual public annotation chronology is invalid')
-        rows.append({'index_sha256': ref['sha256'], 'file': page['file'],
-                     'first_frame': page['samples'][0]['frame'], 'last_frame': page['samples'][-1]['frame'],
-                     'image_sha256': page['sha256'], 'returned_sha256': hashlib.sha256(returned).hexdigest(),
+        result_row = {'image_sha256': page['sha256'], 'returned_sha256': hashlib.sha256(returned).hexdigest(),
                      'received': True, 'observed': note['observed'],
                      'call_id': call['event']['payload']['call_id'],
-                     'call_line': call['line'], 'output_line': output['line'], 'annotation_line': observed['line']})
-    return {'schema': SCHEMA, 'packet_sha256': digest(packet_path), 'reviewer_session_id': session,
-            'planning_or_creative_approval': False, 'audio_access': 'not_established', 'pages': rows}
+                     'call_line': call['line'], 'output_line': output['line'], 'annotation_line': observed['line']}
+        if chronological:
+            result_row.update({'index_sha256': ref['sha256'], 'file': page['file'],
+                               'first_frame': page['samples'][0]['frame'], 'last_frame': page['samples'][-1]['frame']})
+            rows.append(result_row)
+        else:
+            supplemental.append(dict(result_row, path=str(image)))
+    result = {'schema': SCHEMA, 'packet_sha256': digest(packet_path), 'reviewer_session_id': session,
+              'planning_or_creative_approval': False, 'audio_access': 'not_established', 'pages': rows}
+    if supplemental:
+        result['supplemental_images'] = supplemental
+    if corrections:
+        result['metadata_corrections'] = list(corrections.values())
+    return result
 
 
 def coverage(packet_path, rollout_path, output_directory):

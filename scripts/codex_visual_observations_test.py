@@ -59,6 +59,118 @@ class CodexVisualTest(unittest.TestCase):
         self.assertFalse(result['planning_or_creative_approval'])
         self.assertEqual(result['audio_access'], 'not_established')
 
+    def supplementary(self, path=None):
+        path = path or self.root / 'native-crop.png'
+        path.write_bytes(PNG)
+        extra = copy.deepcopy(self.records[:3])
+        extra[0]['event']['payload']['call_id'] = 'crop-call'
+        extra[0]['event']['payload']['input'] = 'const delivered = await tools.view_image(' + json.dumps(
+            {'path': str(path), 'detail': 'original'}) + '); image(delivered.image_url,"original");'
+        extra[1]['event']['payload']['call_id'] = 'crop-call'
+        text = extra[2]['event']['payload']['content'][0]
+        note = json.loads(text['text'][len(visual.PREFIX):])
+        note['page'] = str(path)
+        text['text'] = visual.PREFIX + json.dumps(note)
+        for n, row in enumerate(extra): row['line'] = len(self.records)+n+2
+        return extra
+
+    def test_extra_native_observations_retained_after_complete_chronology(self):
+        self.records += self.supplementary()
+        result = self.analyze()
+        self.assertEqual(len(result['pages']), 2)
+        self.assertEqual(len(result['supplemental_images']), 1)
+        self.assertEqual(result['supplemental_images'][0]['call_id'], 'crop-call')
+        self.assertFalse(result['planning_or_creative_approval'])
+
+    def test_extra_cannot_replace_missing_or_reordered_required_page(self):
+        extra = self.supplementary()
+        for records in (self.records[:3]+extra, extra+self.records):
+            for n, row in enumerate(records): row['line'] = n+2
+            with self.assertRaisesRegex(ValueError, 'chronological page'):
+                visual.analyze(self.packet, 'unit', records)
+
+    def test_extra_wrong_pixels_outside_package_or_repeated_page_refuse(self):
+        extra = self.supplementary()
+        extra[1]['event']['payload']['output'][0]['image_url'] += 'AAAA'
+        with self.assertRaises(ValueError):
+            visual.analyze(self.packet, 'unit', self.records+extra)
+        for path in (self.root/'page0.png', self.root.parent/(self.root.name+'-outside.png')):
+            try:
+                with self.assertRaisesRegex(ValueError, 'supplemental image'):
+                    visual.analyze(self.packet, 'unit', self.records+self.supplementary(path))
+            finally:
+                if path.parent != self.root: path.unlink()
+
+    def test_export_keeps_all_supplementary_source_lines_and_old_shape_unchanged(self):
+        self.assertNotIn('supplemental_images', self.analyze())
+        self.records += self.supplementary()
+        rollout = self.root/'extra-rollout.jsonl'
+        rows = [{'type': 'session_meta', 'payload': {'id': 'unit-reviewer-session'}}]
+        rows += [r['event'] for r in self.records]
+        rollout.write_text(''.join(json.dumps(x)+'\n' for x in rows))
+        result = visual.coverage(self.packet, rollout, self.root/'extra-evidence')
+        retained = json.loads(Path(result['public_events']['path']).read_text())
+        self.assertEqual(len(retained['records']), 9)
+        target = self.root/'extra-coverage.json'; target.write_text(json.dumps(result))
+        self.assertEqual(visual.coverage_problems(self.packet, target), [])
+
+    def with_checksum_correction(self):
+        fixed = copy.deepcopy(self.records[2])
+        text = self.records[2]['event']['payload']['content'][0]
+        note = json.loads(text['text'][len(visual.PREFIX):])
+        note['image_sha256'] = 'short-typing-error'
+        text['text'] = visual.PREFIX+json.dumps(note)
+        self.records.insert(3, fixed)
+        for n, row in enumerate(self.records): row['line'] = n+2
+
+    def test_checksum_only_correction_retains_original_line_without_new_image(self):
+        self.with_checksum_correction()
+        result = self.analyze()
+        self.assertEqual(len(result['pages']), 2)
+        self.assertEqual(result['metadata_corrections'][0]['original_image_sha256'], 'short-typing-error')
+        self.assertEqual(result['pages'][0]['annotation_line'], self.records[3]['line'])
+
+    def test_checksum_note_can_explain_metadata_but_cannot_append_new_facts(self):
+        self.with_checksum_correction()
+        text = self.records[3]['event']['payload']['content'][0]
+        note = json.loads(text['text'][len(visual.PREFIX):])
+        note['observed'] += ' ' + visual.CHECKSUM_CORRECTION_NOTE
+        text['text'] = visual.PREFIX+json.dumps(note)
+        self.assertEqual(len(self.analyze()['metadata_corrections']), 1)
+        note['observed'] += ' An additional person acted here.'
+        text['text'] = visual.PREFIX+json.dumps(note)
+        with self.assertRaisesRegex(ValueError, 'lacks preceding actual image'):
+            self.analyze()
+
+    def test_supplemental_symlink_refuses(self):
+        target = self.root/'crop-target.png'; target.write_bytes(PNG)
+        link = self.root/'crop-link.png'; link.symlink_to(target)
+        with self.assertRaisesRegex(ValueError, 'symbolic links'):
+            visual.analyze(self.packet, 'unit', self.records+self.supplementary(link))
+
+    def test_correction_cannot_change_facts_or_replace_an_unseen_image(self):
+        self.with_checksum_correction()
+        text = self.records[3]['event']['payload']['content'][0]
+        note = json.loads(text['text'][len(visual.PREFIX):])
+        for key, value in [('observed', 'Different facts about an image never actually seen.'),
+                           ('received', False), ('page', str(self.root/'page1.png')),
+                           ('packet_sha256', '0'*64)]:
+            changed = dict(note, **{key: value})
+            text['text'] = visual.PREFIX+json.dumps(changed)
+            with self.assertRaisesRegex(ValueError, 'lacks preceding actual image'):
+                self.analyze()
+        text['text'] = visual.PREFIX+json.dumps(dict(note, image_sha256='still-incorrect'))
+        with self.assertRaisesRegex(ValueError, 'exact packet'):
+            self.analyze()
+
+    def test_late_checksum_correction_after_another_image_refuses(self):
+        self.with_checksum_correction()
+        correction = self.records.pop(3)
+        self.records.append(correction)
+        for n, row in enumerate(self.records): row['line'] = n+2
+        with self.assertRaisesRegex(ValueError, 'lacks preceding actual image'):
+            self.analyze()
+
     def test_byte_changed_output_refuses_even_with_source_path(self):
         self.records[1]['event']['payload']['output'][0]['image_url'] = 'data:image/png;base64,'+base64.b64encode(PNG+b'changed').decode()
         with self.assertRaisesRegex(ValueError, 'delivered PNG bytes differ'):
