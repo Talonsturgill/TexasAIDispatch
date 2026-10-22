@@ -470,6 +470,7 @@ jobs:
           # as the number 600 and reported a correct figure as unauthorised, which is how a gate
           # gets switched off. The bar is READ from the rubric and never restated here.
           python3 scripts/ship_gate.py --self-test
+          python3 scripts/gmail_mime_check_test.py
 
       - name: Every region has a world, and the county has a map
         run: |
