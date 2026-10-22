@@ -2,6 +2,7 @@
 from __future__ import annotations
 import argparse
 import base64
+from datetime import datetime
 import hashlib
 import json
 from pathlib import Path
@@ -59,7 +60,8 @@ def view_path(payload):
 
 
 def annotation(payload):
-    if payload.get('type') != 'message' or payload.get('role') != 'assistant' or payload.get('channel') != 'commentary':
+    if (payload.get('type') != 'message' or payload.get('role') != 'assistant'
+            or payload.get('channel',payload.get('phase')) != 'commentary'):
         return None
     content = payload.get('content') or []
     text = ''.join(x.get('text', '') for x in content if x.get('type') in ('output_text', 'text'))
@@ -68,17 +70,31 @@ def annotation(payload):
 
 def public_records(rollout):
     """Do not retain or inspect reasoning payloads, prompts, credentials or user messages."""
-    session, records = None, []
+    session, records, ancestors, started = None, [], set(), None
     with Path(rollout).open() as stream:
         for number, raw in enumerate(stream, 1):
             row = json.loads(raw)
             if row.get('type') == 'session_meta':
-                if session is not None and session != row['payload']['id']:
-                    raise ValueError('one actual reviewer session must supply all image observations')
-                session = row['payload']['id']
+                meta = row['payload']
+                source = meta.get('source')
+                parent = ((source.get('subagent') or {}).get('thread_spawn') or {}).get('parent_thread_id') if isinstance(source,dict) else None
+                if session is None:
+                    # A fork rollout starts with its own metadata, followed by the
+                    # inherited parent's older metadata/history. The parent is not
+                    # the current reviewer and must never replace that first ID.
+                    session, started = meta['id'], meta.get('timestamp')
+                elif meta['id'] != session:
+                    if (meta['id'] not in ancestors or not started or not meta.get('timestamp')
+                            or datetime.fromisoformat(meta['timestamp'].replace('Z','+00:00'))
+                            > datetime.fromisoformat(started.replace('Z','+00:00'))):
+                        raise ValueError('one actual reviewer session must supply all image observations')
+                if parent: ancestors.add(parent)
                 continue
             if row.get('type') != 'response_item':
                 continue
+            if (started and row.get('timestamp') and datetime.fromisoformat(row['timestamp'].replace('Z','+00:00'))
+                    < datetime.fromisoformat(started.replace('Z','+00:00'))):
+                continue  # Inherited tool history is not this reviewer's delivery.
             p = row.get('payload', {})
             if p.get('type') in ('function_call', 'custom_tool_call'):
                 # Keep only a native image call, not arbitrary tool source.

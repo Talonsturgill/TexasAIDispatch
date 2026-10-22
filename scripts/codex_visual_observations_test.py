@@ -90,6 +90,12 @@ class CodexVisualTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'annotation must precede'):
             self.analyze()
 
+    def test_actual_public_commentary_phase_is_supported(self):
+        for r in self.records:
+            payload=r['event']['payload']
+            if payload.get('type')=='message':payload['phase']=payload.pop('channel')
+        self.assertEqual(len(self.analyze()['pages']),2)
+
     def test_current_guide_and_packet_binding_are_required(self):
         self.guide.write_text('changed')
         with self.assertRaisesRegex(ValueError, 'guide changed'):
@@ -136,6 +142,23 @@ class CodexVisualTest(unittest.TestCase):
             r['line'] = n+2
         scoped = visual.packet_records(self.packet, combined)
         self.assertEqual(len(scoped), 6)
+
+    def test_actual_fork_metadata_keeps_child_identity_and_excludes_parent_history(self):
+        rollout=self.root/'fork.jsonl'
+        rows=[{'type':'session_meta','payload':{'id':'child','timestamp':'2026-10-22T01:00:00Z',
+                'source':{'subagent':{'thread_spawn':{'parent_thread_id':'parent'}}}}},
+              {'type':'session_meta','payload':{'id':'parent','timestamp':'2026-10-21T01:00:00Z','source':'vscode'}},
+              {'type':'response_item','timestamp':'2026-10-21T02:00:00Z',
+               'payload':self.records[0]['event']['payload']}]
+        rows += [dict(r['event'],timestamp='2026-10-22T02:00:00Z') for r in self.records]
+        rollout.write_text(''.join(json.dumps(r)+'\n' for r in rows))
+        session,records=visual.public_records(rollout)
+        self.assertEqual(session,'child');self.assertEqual(len(records),6)
+        self.assertEqual(visual.analyze(self.packet,session,records)['reviewer_session_id'],'child')
+        rows[1]['payload']['id']='unrelated'
+        rollout.write_text(''.join(json.dumps(r)+'\n' for r in rows))
+        with self.assertRaisesRegex(ValueError,'one actual reviewer'):
+            visual.public_records(rollout)
 
 
 if __name__ == '__main__':
