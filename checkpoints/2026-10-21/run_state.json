@@ -188,6 +188,14 @@
       "note": "two opening comparison batch",
       "resource": "preflight_renders",
       "to": 12
+    },
+    {
+      "at": "2026-10-22T17:21:09.309954Z",
+      "ceiling": 20,
+      "from": 12,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 13
     }
   ],
   "events": [
@@ -2366,6 +2374,28 @@
         "validator_agents": 4,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-22T17:21:09.310005Z",
+      "ceiling": 20,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 13,
+      "resource": "preflight_renders",
+      "was": 12
+    },
+    {
+      "at": "2026-10-22T17:21:09.312635Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "dff1fe799f092eebd7c3c426caee536b912fa1a9a9a5014146e4b77735a576a9",
+      "preflight_identity_version": 2,
+      "publication_epoch": "d744f35e86334f3e8b799684b47fef97",
+      "publication_owner_sha256": "5232d8954f17c36778aee290c81bdbc318d79e519d860519f4afd94116d853f4",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -2374,7 +2404,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 12,
+    "preflight_renders": 13,
     "reboards": 4,
     "reported_tokens": 681107,
     "rescue_renders": 1,
@@ -2389,7 +2419,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "93126024ec66b50da142a44094e1687263226e0839396122edd9499aa8e931e5",
+    "original_private_state_sha256": "317ca9480a2b94d8b57cf440a15a00fc148f00324807476deaa7b81c6cb359d1",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2417,14 +2447,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-22T17:19:53.038460Z",
+  "updated_at": "2026-10-22T17:21:09.312639Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
     "full_renders": 1,
     "image_generations": 0,
     "panel_rounds": 1,
-    "preflight_renders": 12,
+    "preflight_renders": 13,
     "reboards": 3,
     "reported_tokens": 681107,
     "rescue_renders": 0,
