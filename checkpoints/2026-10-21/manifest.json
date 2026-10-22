@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T22:19:51.199702+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-22T22:20:37.770365+00:00",
+  "note": "before paid reservation",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -944,10 +944,34 @@
       "size": 2632691
     },
     {
+      "path": "out/dispatch/cinema/picture-review-response.json",
+      "class": "scratch",
+      "sha256": "b350813f7a97a83b8812f430833a35b4a5e065e96aa4b177f60aa0c59249143b",
+      "size": 119915
+    },
+    {
+      "path": "out/dispatch/cinema/picture-review.json",
+      "class": "scratch",
+      "sha256": "272e9934af602442ed1c7de5a00155522fce7deb9482e03e60f63d2dae40fbe1",
+      "size": 586
+    },
+    {
       "path": "out/dispatch/cinema/proof.json",
       "class": "scratch",
       "sha256": "452aa9d38aabb29bdbcecb45bd4de6bcc9b416c9f818bf6cbe2d3a7ec3eec565",
       "size": 26986
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/3138b269a9653a7400701e4fdc7a4a79696201dee6450443d8709ec8033e8b22/picture-review-response.json",
+      "class": "scratch",
+      "sha256": "b350813f7a97a83b8812f430833a35b4a5e065e96aa4b177f60aa0c59249143b",
+      "size": 119915
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/3138b269a9653a7400701e4fdc7a4a79696201dee6450443d8709ec8033e8b22/receipt.json",
+      "class": "scratch",
+      "sha256": "272e9934af602442ed1c7de5a00155522fce7deb9482e03e60f63d2dae40fbe1",
+      "size": 586
     },
     {
       "path": "out/dispatch/cinema/review-cache/872159a433b0603c9ef949f6812dbcfdd47ad205fea0d7eac201d30ea4c9b756/hero-review-response.json",
@@ -1371,6 +1395,12 @@
     },
     {
       "path": "out/dispatch/codex-final-picture-av-command.log",
+      "class": "scratch",
+      "sha256": "3fda52299c5e4771cdeb273e14fc034ccf12ba65e9434b87b086539c8fc2f4ce",
+      "size": 144
+    },
+    {
+      "path": "out/dispatch/codex-final-story-av-command.log",
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
@@ -15530,9 +15560,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 1579991062,
-    "unique_blob_bytes": 876126805,
-    "unique_blobs": 1780
+    "logical_bytes": 1580232208,
+    "unique_blob_bytes": 876247306,
+    "unique_blobs": 1782
   },
   "excluded": [
     {
