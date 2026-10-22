@@ -352,6 +352,10 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
             _use_prepared_capture: bool = True, _prepare_full: bool = False
             ) -> tuple[bool, str]:
     import claude_checkpoint
+    from completion_yield import admission_problems
+    closed_errors = admission_problems(read_state(path), amounts)
+    if closed_errors:
+        return False, '; '.join(closed_errors)
     claude_checkpoint.require_backed(path)  # unbacked charges or outputs stop new paid work
     # A different cloud writer may have advanced the edition since this host last saved.
     # Verify and retain the current snapshot before changing any counter. The post-write

@@ -36,7 +36,7 @@ class ContinuationTests(unittest.TestCase):
     def install_primary_hooks(self):
         (self.repo / 'scripts').mkdir(exist_ok=True)
         for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py', 'claude_session_start.py',
-                     'visual_observations.py'):
+                     'visual_observations.py', 'completion_yield.py'):
             (self.repo / 'scripts' / name).write_text('# fixture\n')
         bootstrap.bootstrap(self.workspace, self.repo, prelaunch_router=True)
 
@@ -308,7 +308,7 @@ class ContinuationTests(unittest.TestCase):
     def test_prelaunch_registration_is_additive_idempotent_and_preserves_permissions(self):
         scripts = self.repo / 'scripts'; scripts.mkdir()
         for name in ('cloud_capture_hook.py', 'routine_continuation.py', 'image_read_receipt.py', 'claude_session_start.py',
-                     'visual_observations.py'):
+                     'visual_observations.py', 'completion_yield.py'):
             (scripts / name).write_text('# offline fixture\n')
         directory = self.workspace / '.claude'; directory.mkdir()
         target = directory / 'settings.json'

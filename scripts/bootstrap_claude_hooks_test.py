@@ -18,6 +18,7 @@ class BootstrapTests(unittest.TestCase):
         self.repo = self.workspace / 'Dispatch'
         (self.repo / 'scripts').mkdir(parents=True)
         (self.repo / 'scripts/capture_guard.py').write_text('# fixture\n')
+        (self.repo / 'scripts/completion_yield.py').write_text('# fixture\n')
         self.directory = self.workspace / '.claude'
         self.directory.mkdir()
         self.target = self.directory / 'settings.json'
@@ -141,7 +142,7 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(before, self.target.read_bytes())
         result = self.load()
         self.assertIn(foreign, result['hooks']['PostToolUse'])
-        self.assertEqual(len(result['hooks']['PostToolUse']), 3)
+        self.assertEqual(len(result['hooks']['PostToolUse']), 4)
         self.assertIn('image_read_receipt.py', result['hooks']['PostToolUse'][1]['hooks'][0]['command'])
         self.assertEqual(result['hooks']['PostToolUse'][2]['matcher'], 'Write')
         self.assertIn('visual_observations.py record --workspace',
@@ -150,6 +151,9 @@ class BootstrapTests(unittest.TestCase):
         self.assertIn('visual_observations.py pre-tool --workspace',
                       result['hooks']['PreToolUse'][-1]['hooks'][0]['command'])
         self.assertEqual(len(result['hooks']['SessionStart']), 1)
+        self.assertEqual(len(result['hooks']['SubagentStop']), 1)
+        self.assertIn('completion_yield.py', result['hooks']['SubagentStop'][0]['hooks'][0]['command'])
+        self.assertEqual(result['hooks']['PostToolUse'][-1]['matcher'], 'SubagentHandback')
         self.assertIn('claude_session_start.py', result['hooks']['SessionStart'][0]['hooks'][0]['command'])
         for key in ('model', 'effortLevel', 'env', 'permissions'):
             self.assertEqual(result[key], self.settings[key])

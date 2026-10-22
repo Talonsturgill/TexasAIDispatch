@@ -313,8 +313,14 @@ def installed_files(source, workspace, guard_source=None):
 
 
 def install(source, workspace):
-    """Cache only two owned leaf definitions; leave permission settings and foreign agents intact."""
+    """Refresh owned prelaunch observers and leaves; preserve permissions and foreign agents."""
     source, workspace = Path(source).resolve(), Path(workspace).resolve()
+    # Cached SessionStart imports this installer AFTER fetching current source. Keeping
+    # registration here upgrades even a cached copy of the older startup Python function.
+    # This installer is a setup/startup operation, never a production-worker action.
+    if (source / 'scripts/completion_yield.py').is_file():
+        from bootstrap_claude_hooks import bootstrap
+        bootstrap(workspace, source, prelaunch_router=True)
     files = installed_files(source, workspace)
     folder = workspace / '.claude/agents'; marker = workspace / '.claude/dispatch-visual-reviewers.json'
     if any(p.is_symlink() for p in (folder, marker, *folder.parents)):

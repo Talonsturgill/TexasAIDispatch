@@ -1,7 +1,8 @@
 """Keep an explicitly armed production routine running through accepted shipment and closure.
 
 The prelaunch Stop hook is inert for ordinary coding sessions and leaf agents. It performs
-only local reads in production, approves no tool or permission, and never changes the ledger.
+read-only checks in production, approves no tool or permission, and never changes the ledger.
+An evidence-bound expenditure yield also verifies the exact remote checkpoint; it is not shipment.
 Official protocol: https://code.claude.com/docs/en/hooks#stop-decision-control
 """
 import argparse
@@ -261,6 +262,9 @@ def decision(payload, workspace):
             if tasks:
                 retain(state_path, tasks)
                 return None  # Native completion wakes this same unfinished owner; no success or release.
+            from completion_yield import permits
+            if permits(payload, state_path, state):
+                return None  # Expenditure is closed; production remains incomplete and owned.
     except (OSError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired, RuntimeError):
         reason = 'the selected production ledger or durable closure cannot yet be verified'
     running = [str(row.get('id')) for row in payload.get('background_tasks', [])

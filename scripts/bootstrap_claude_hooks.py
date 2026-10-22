@@ -87,6 +87,7 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
     start_registration = previous.get('start_registration') if previous else None
     visual_guard_registration = previous.get('visual_guard_registration') if previous else None
     visual_write_registration = previous.get('visual_write_registration') if previous else None
+    completion_registrations = previous.get('completion_registrations', {}) if previous else {}
     if prelaunch_router:
         stops = hooks.setdefault('Stop', [])
         if not isinstance(stops, list):
@@ -121,6 +122,22 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
             'python3 %s record --workspace %s' % (shlex.quote(str(visual_handler)), shlex.quote(str(workspace)))}]}
         if visual_write_registration not in images:
             images.append(visual_write_registration)
+        completion = repo / 'scripts/completion_yield.py'
+        if not completion.is_file():
+            raise ValueError('the native scorer completion observer is missing')
+        for event_name, matcher in (('SubagentStop', None), ('PostToolUse', 'SubagentHandback')):
+            collection = hooks.setdefault(event_name, [])
+            if not isinstance(collection, list):
+                raise ValueError('existing completion hooks must be an array')
+            old = completion_registrations.get(event_name)
+            collection[:] = [row for row in collection if row != old]
+            item = {'hooks': [{'type': 'command', 'command': 'python3 %s --workspace %s' %
+                    (shlex.quote(str(completion)), shlex.quote(str(workspace)))}]}
+            if matcher:
+                item['matcher'] = matcher
+            if item not in collection:
+                collection.append(item)
+            completion_registrations[event_name] = item
         # Added only by prelaunch setup. Cached environments retain this command,
         # which refreshes its owned source at every actual start or resume.
         if start_handler.is_file():
@@ -147,6 +164,8 @@ def bootstrap(workspace, repo=None, prelaunch_router=False):
         saved['visual_guard_registration'] = visual_guard_registration
     if visual_write_registration:
         saved['visual_write_registration'] = visual_write_registration
+    if completion_registrations:
+        saved['completion_registrations'] = completion_registrations
     write_json(record, saved)
     return {'ok': True, 'workspace': str(workspace), 'active_checkout': str(repo),
             'capture_handler': str(handler), 'capture_authorized': False,

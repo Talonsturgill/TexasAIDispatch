@@ -238,8 +238,17 @@ def render(t: dict) -> str:
     return "\n".join(out)
 
 
-def recovery_guidance(board=None):
+def recovery_guidance(board=None, state=None):
     """Describe the next production action without changing a verdict or granting anything."""
+    from review_limit import reached
+    if state is not None and reached(state):
+        return ('The hard five-review ceiling is exhausted. Preserve this original rejection. '
+                'Finish the already-admitted final evidence once; do not start a new correction, '
+                'render, reviewer or panel. Use the unchanged bounded release checks only for '
+                'eligible original classifications. If the completed final panel has a mandatory '
+                'failure, follow the evidence-bound completion_yield.py procedure in '
+                'prompts/phases/04-review.md. Production remains incomplete and NOT SHIPPED; '
+                'only accepted finish --result shipped completes production.')
     message = ('Continue the existing production through prompts/phases/repair.md. '
         'No routine creative approval question is needed. Retain exact failures and charges, '
         'then fund the complete mandatory path through the versioned controller before correction. '
@@ -447,7 +456,9 @@ def main() -> int:
         if not card['ship']:
             board_path = Path(a.board)
             current_board = json.loads(board_path.read_text()) if board_path.is_file() else None
-            print(recovery_guidance(current_board))
+            state_path = board_path.with_name('run_state.json')
+            current_state = json.loads(state_path.read_text()) if state_path.is_file() else None
+            print(recovery_guidance(current_board, current_state))
 
     if a.record:
         history_path.parent.mkdir(parents=True, exist_ok=True)

@@ -67,6 +67,25 @@ class SessionStartTests(unittest.TestCase):
             self.assertEqual(git(self.tools, 'rev-parse', 'HEAD'), self.cached)
             git(self.tools, 'checkout', '--', 'scripts/public_state.py') if relative.startswith('scripts/') else target.unlink()
 
+    def test_old_cached_start_installs_new_completion_observer_from_fresh_source(self):
+        # Reproduce the already-saved startup function: it imports install only AFTER checkout.
+        # No saved environment edit or agent turn is needed to discover the new observer.
+        settings = self.workspace / '.claude/settings.json'; settings.parent.mkdir()
+        foreign = {'hooks': [{'type': 'command', 'command': 'foreign-stop'}]}
+        settings.write_text(json.dumps({'model': 'saved-sonnet', 'effortLevel': 'medium',
+            'permissions': {'deny': ['send']}, 'hooks': {'Stop': [foreign]}}))
+        (self.source / 'scripts/completion_yield.py').write_text('new native completion observer')
+        git(self.source, 'add', '-A'); git(self.source, 'commit', '-qm', 'completion observer rollout')
+        receipt = self.refresh(); saved = json.loads(settings.read_text())
+        self.assertEqual(receipt['previous_head'], self.cached)
+        self.assertEqual(receipt['head'], git(self.source, 'rev-parse', 'HEAD'))
+        self.assertEqual(saved['model'], 'saved-sonnet'); self.assertEqual(saved['effortLevel'], 'medium')
+        self.assertEqual(saved['permissions'], {'deny': ['send']})
+        self.assertIn(foreign, saved['hooks']['Stop'])
+        self.assertIn(str(self.tools / 'scripts/completion_yield.py'),
+                      saved['hooks']['SubagentStop'][0]['hooks'][0]['command'])
+        before = settings.read_bytes(); self.refresh(); self.assertEqual(settings.read_bytes(), before)
+
     def test_foreign_origin_symlink_and_production_nested_cache_are_refused(self):
         with self.assertRaisesRegex(ValueError, 'origin changed'):
             start.refresh(self.tools, self.workspace)

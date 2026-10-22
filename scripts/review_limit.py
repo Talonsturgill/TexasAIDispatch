@@ -39,6 +39,9 @@ def finishing(state):
 
 
 def worker_plan_problems(state, packet, *, charged=False):
+    from completion_yield import admission_problems
+    if admission_problems(state):
+        return admission_problems(state)
     if not enabled(state) or packet.get('role') != 'storyboard-critic':
         return []
     ordinal = used(state) + (0 if charged else 1)
@@ -53,6 +56,9 @@ def worker_plan_problems(state, packet, *, charged=False):
 
 
 def reservation_problems(state, amounts):
+    from completion_yield import admission_problems
+    if admission_problems(state, amounts):
+        return admission_problems(state, amounts)
     if not enabled(state):
         return []
     requested = amounts.get('storyboard_critics', 0)
