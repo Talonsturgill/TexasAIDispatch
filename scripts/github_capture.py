@@ -18,6 +18,9 @@ REPOSITORY = 'Talonsturgill/TexasAIDispatch'
 REQUEST_FILE = 'capture-request.json'
 SCHEMA = 'dispatch_github_capture_request/1'
 OPS = {
+    'openings': ('two opening comparison batch', 'preflight_renders',
+                 ['python', 'scripts/opening_compare.py', '--root', 'out/dispatch',
+                  '--state', 'out/dispatch/run_state.json']),
     'preship': ('exact-film mechanical preship probes', 'preflight_renders',
                 ['python', 'scripts/preship_compute.py']),
     'preflight': ('quarter-scale animatic', 'preflight_renders',
@@ -32,6 +35,14 @@ OPS = {
              ['python', 'scripts/claude_motion_review.py', '--phone-option', 'current',
               '--board', 'out/dispatch/storyboard.json', '--film', 'out/dispatch/preflight.mp4',
               '--out', 'out/dispatch/phone-motion-current', '--state', 'out/dispatch/run_state.json']),
+    'phone-motion-a': ('exact-phone-a motion-image review extraction', 'preflight_renders',
+             ['python', 'scripts/claude_motion_review.py', '--phone-option', 'a',
+              '--board', 'out/dispatch/openings/a.json', '--film', 'out/dispatch/openings/a.mp4',
+              '--out', 'out/dispatch/openings/phone-motion-a', '--state', 'out/dispatch/run_state.json']),
+    'phone-motion-b': ('exact-phone-b motion-image review extraction', 'preflight_renders',
+             ['python', 'scripts/claude_motion_review.py', '--phone-option', 'b',
+              '--board', 'out/dispatch/openings/b.json', '--film', 'out/dispatch/openings/b.mp4',
+              '--out', 'out/dispatch/openings/phone-motion-b', '--state', 'out/dispatch/run_state.json']),
     'full-motion': ('exact-film motion-image review extraction', 'preflight_renders',
              ['python', 'scripts/claude_motion_review.py', '--board', 'out/dispatch/storyboard.json',
               '--film', 'out/dispatch/film.mp4', '--out', 'out/dispatch/motion-review',
@@ -116,16 +127,24 @@ def operation_precheck(repo, operation, state):
         if (Path(repo)/'out/dispatch/preship-compute').exists():
             raise ValueError('preship compute evidence already exists; retain it before another attempt')
         return
-    if operation not in ('phone-motion', 'full-motion'):
+    if operation == 'openings':
+        from capture_reservation import opening_output_precheck
+        from opening_compare import owned_boards
+        package = Path(repo)/'out/dispatch'
+        opening_output_precheck(package)
+        owned_boards(package, package/'run_state.json')
+        return
+    if operation not in ('phone-motion', 'phone-motion-a', 'phone-motion-b', 'full-motion'):
         return
     import capture_reservation
     repo = Path(repo).resolve()
     argv = OPS[operation][2]
-    capture_reservation.motion_output_precheck(argv, repo, repo/'out/dispatch')
-    board = repo/'out/dispatch/storyboard.json'
-    if operation == 'phone-motion':
+    board = repo/argv[argv.index('--board')+1]
+    capture_reservation.motion_output_precheck(argv, repo, board.parent)
+    if '--phone-option' in argv:
         from claude_motion_review import phone_inputs
-        phone_inputs(repo/'out/dispatch/run_state.json', 'current', board, repo/'out/dispatch/preflight.mp4')
+        phone_inputs(repo/'out/dispatch/run_state.json', argv[argv.index('--phone-option')+1],
+                     board, repo/argv[argv.index('--film')+1])
     else:
         deliverable = state.get('deliverable') or {}
         if (deliverable.get('review_only') is not False
@@ -270,6 +289,10 @@ def stage(repo, request_oid, expected_sha, destination):
 
 def perform_capture(repo, state_path, request, phase):
     note, resource, argv = OPS[request['operation']]
+    boards = ([repo/('out/dispatch/opening-'+key+'.json') for key in ('a','b')]
+              if request['operation'] == 'openings' else
+              [repo/argv[argv.index('--board')+1]] if '--board' in argv else
+              [repo/'out/dispatch/storyboard.json'])
     import capture_guard
     import capture_reservation
     phase('deterministic-foley')
@@ -285,10 +308,10 @@ def perform_capture(repo, state_path, request, phase):
     command = 'bash scripts/run_with_env.sh '+shlex.join(argv)
     phase('native-headroom')
     subprocess.run(['bash', 'scripts/run_with_env.sh', 'python', 'scripts/native_headroom.py',
-                    '--board', 'out/dispatch/storyboard.json', '--out',
+                    '--board', str(boards[0].relative_to(repo)), '--out',
                     'out/dispatch/github-native-headroom.json'], cwd=repo, check=True)
     phase('housekeeping-and-authorization')
-    auth = capture_guard.authorize(repo, state_path, [repo/'out/dispatch/storyboard.json'],
+    auth = capture_guard.authorize(repo, state_path, boards,
                                    [command], resource=resource, housekeeping=True)
     if auth['render_reservation']['event_sha256'] != request['reservation_event_sha256']:
         raise ValueError('runner authorization selected another render charge')

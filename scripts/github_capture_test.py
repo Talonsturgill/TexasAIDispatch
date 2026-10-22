@@ -56,7 +56,8 @@ class CaptureTest(unittest.TestCase):
         for operation in ['publish', 'shell', 'send', 'cinema; anything']:
             row = self.request(); row['operation'] = operation
             self.assertTrue(capture.context_problems(row, self.environment()))
-        self.assertEqual(set(capture.OPS), {'preflight','cinema','full','phone-motion','full-motion','preship'})
+        self.assertEqual(set(capture.OPS), {'openings','preflight','cinema','full','phone-motion',
+                                         'phone-motion-a','phone-motion-b','full-motion','preship'})
 
     def test_preship_fixed_command_is_native_and_prepaid(self):
         import capture_reservation
@@ -139,12 +140,97 @@ class CaptureTest(unittest.TestCase):
         from capture_reservation import operation_for
         import shlex
         from claude_motion_review import PHONE_OPERATIONS
-        for operation in ('phone-motion','full-motion'):
+        for operation in ('openings','phone-motion','phone-motion-a','phone-motion-b','full-motion'):
             note,resource,argv = capture.OPS[operation]
             command='bash scripts/run_with_env.sh '+shlex.join(argv)
             self.assertEqual(operation_for([command],Path('/unit')),note)
             self.assertEqual(resource,'preflight_renders')
         self.assertEqual(capture.OPS['phone-motion'][0],PHONE_OPERATIONS['current'])
+        self.assertEqual(capture.OPS['phone-motion-a'][0],PHONE_OPERATIONS['a'])
+        self.assertEqual(capture.OPS['phone-motion-b'][0],PHONE_OPERATIONS['b'])
+
+    def test_opening_precheck_requires_empty_output_and_owned_provisional_board(self):
+        import run_controller
+        with tempfile.TemporaryDirectory() as temporary:
+            repo=Path(temporary).resolve(); package=repo/'out/dispatch';package.mkdir(parents=True)
+            (package/'run_state.json').write_text(json.dumps(
+                {'schema':run_controller.SCHEMA,'run_id':'2026-10-21','limits':run_controller.limits()}))
+            boards=[{'date':'2026-10-21','run_id':'2026-10-21','option':key} for key in ('a','b')]
+            for key,board in zip(('a','b'),boards):
+                (package/('opening-'+key+'.json')).write_text(json.dumps(board))
+            (package/'storyboard.json').write_text(json.dumps(boards[0]))
+            capture.operation_precheck(repo,'openings',{})
+            (package/'storyboard.json').write_text(json.dumps({'date':'2026-10-21','option':'changed'}))
+            with self.assertRaisesRegex(ValueError,'provisional board'):
+                capture.operation_precheck(repo,'openings',{})
+            (package/'storyboard.json').write_text(json.dumps(boards[0]))
+            previous=package/'openings';previous.mkdir();(previous/'comparison.json').write_text('{}')
+            with self.assertRaisesRegex(ValueError,'already exists'):
+                capture.operation_precheck(repo,'openings',{})
+
+    def test_option_motion_precheck_uses_exact_option_and_keeps_retained_output(self):
+        import claude_motion_review
+        for option in ('a','b'):
+            with self.subTest(option=option), tempfile.TemporaryDirectory() as temporary:
+                repo=Path(temporary).resolve(); package=repo/'out/dispatch/openings';package.mkdir(parents=True)
+                operation='phone-motion-'+option
+                with patch.object(claude_motion_review,'phone_inputs') as inputs:
+                    capture.operation_precheck(repo,operation,{})
+                    inputs.assert_called_once_with(repo/'out/dispatch/run_state.json',option,
+                                                   package/(option+'.json'),package/(option+'.mp4'))
+                with patch.object(claude_motion_review,'phone_inputs',side_effect=ValueError('stale exact option')):
+                    with self.assertRaisesRegex(ValueError,'stale exact option'):
+                        capture.operation_precheck(repo,operation,{})
+                (package/('phone-motion-'+option)).mkdir()
+                with patch.object(claude_motion_review,'phone_inputs') as inputs:
+                    with self.assertRaisesRegex(ValueError,'already exists'):
+                        capture.operation_precheck(repo,operation,{})
+                    inputs.assert_not_called()
+
+    def test_new_operations_require_their_own_unused_exact_charge(self):
+        for operation in ('openings','phone-motion-a','phone-motion-b'):
+            with self.subTest(operation=operation):
+                note,resource,_=capture.OPS[operation]
+                event={'kind':'reserved','note':note,'resources':{resource:1}}
+                hashed=capture_guard.event_digest(event);state={'events':[event]}
+                self.assertEqual(capture.prepaid(state,operation,hashed),event)
+                with self.assertRaises(ValueError):
+                    capture.prepaid(state,'phone-motion',hashed)
+                state['events'].append({'kind':'prepared_capture_claimed','event_sha256':hashed})
+                with self.assertRaisesRegex(ValueError,'unused prepaid'):
+                    capture.prepaid(state,operation,hashed)
+
+    def test_new_operators_bind_exact_boards_and_consume_before_execution(self):
+        import capture_reservation
+        for operation in ('openings','phone-motion-a','phone-motion-b'):
+            with self.subTest(operation=operation), tempfile.TemporaryDirectory() as temporary:
+                repo=Path(temporary).resolve(); package=repo/'out/dispatch';package.mkdir(parents=True)
+                state_path=package/'run_state.json'
+                state_path.write_text(json.dumps({'run_id':'2026-10-21'}))
+                note,resource,argv=capture.OPS[operation]
+                expected=([package/('opening-'+key+'.json') for key in ('a','b')]
+                          if operation=='openings' else [package/'openings'/(operation[-1]+'.json')])
+                auth={'render_reservation':{'event_sha256':'a'*64}}
+                consumed=[]
+                def execute(command,**kwargs):
+                    if command[3]=='scripts/native_headroom.py':
+                        self.assertEqual(command[command.index('--board')+1],str(expected[0].relative_to(repo)))
+                    else:
+                        self.assertEqual(command,['bash','scripts/run_with_env.sh',*argv])
+                        self.assertEqual(consumed,[True])
+                    return subprocess.CompletedProcess(command,0)
+                with patch.object(capture,'prepaid',return_value={'preflight_identity':'unit-input'}), \
+                        patch.object(capture,'operation_precheck'), \
+                        patch.object(capture_guard,'authorize',return_value=auth) as authorize, \
+                        patch.object(capture_guard,'atomic_json'), \
+                        patch.object(capture_guard,'capture_problems',return_value=[]), \
+                        patch.object(capture_guard,'consume',side_effect=lambda *a:consumed.append(True) or True), \
+                        patch.object(capture_reservation,'input_identity',return_value='unit-input'), \
+                        patch.object(capture.subprocess,'run',side_effect=execute):
+                    self.assertEqual(capture.perform_capture(repo,state_path,
+                        {'operation':operation,'reservation_event_sha256':'a'*64},lambda _:None),0)
+                    self.assertEqual(authorize.call_args.args[2],expected)
+                    self.assertEqual(authorize.call_args.kwargs,{'resource':resource,'housekeeping':True})
 
     def test_motion_destination_cannot_overwrite_retained_sequence(self):
         with tempfile.TemporaryDirectory() as temporary:

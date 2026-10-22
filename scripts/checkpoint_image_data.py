@@ -55,6 +55,56 @@ def metadata(raw):
     return '\n'.join(t.decode('latin1') for t in texts)
 
 
+def evidence_roots(repo, coverage, packet, reference):
+    """Discover a complete retained logical tree, never individual substitute files."""
+    yield repo
+    origin = Path(json.loads(packet.read_text())['repo_root'])
+    logical = Path(reference).parent / coverage.name
+    if not origin.is_absolute() or '..' in origin.parts or '..' in logical.parts:
+        return
+    relative = logical.relative_to(origin)
+    if not relative.parts or coverage.parts[-len(relative.parts):] != relative.parts:
+        return
+    retained = coverage.parents[len(relative.parts)-1]
+    if retained == repo or not retained.is_relative_to(repo/'out/dispatch'):
+        return
+    if any(p.is_symlink() for p in (retained, *retained.parents)):
+        return
+    yield retained
+
+
+def verified_proof(repo, path, data):
+    from codex_visual_observations import coverage_problems, digest, EvidencePaths
+    hashed = hashlib.sha256(data).hexdigest()
+    candidates = [path.with_name('codex-image-coverage.json')]
+    candidates += sorted((repo/'out/dispatch').rglob('codex-image-coverage.json'))
+    packets = None
+    for coverage in dict.fromkeys(candidates):
+        if coverage.is_symlink() or not coverage.is_file(): continue
+        try:
+            proof = json.loads(coverage.read_text())
+            ref = proof.get('public_events') if isinstance(proof, dict) else None
+            if not isinstance(ref, dict) or hashed != ref.get('sha256'): continue
+            if packets is None:
+                packets = [(p, digest(p)) for p in (repo/'out/dispatch').rglob('*.json')
+                           if not p.is_symlink() and p.stat().st_size < 2*1024*1024]
+            for packet, packet_hash in packets:
+                if packet_hash != proof['packet_sha256']: continue
+                EvidencePaths(packet, repo).path(path)
+                for root in evidence_roots(repo, coverage, packet, ref['path']):
+                    if not packet.is_relative_to(root): continue
+                    try:
+                        paths = EvidencePaths(packet, root)
+                        if paths.path(ref['path']).read_bytes() != data: continue
+                        if not coverage_problems(packet, coverage, repository=root):
+                            return proof
+                    except (OSError,ValueError,KeyError,TypeError):
+                        continue
+        except (OSError,ValueError,KeyError,TypeError):
+            continue
+    return None
+
+
 def scan_view(repo, rel, data, pattern, values):
     """Return a verified scan-only view, or None to retain the ordinary strict scan.
 
@@ -64,31 +114,13 @@ def scan_view(repo, rel, data, pattern, values):
     """
     if Path(rel).name not in {'codex-public-image-events.json', 'all-public-image-events.json'}:
         return None
-    from codex_visual_observations import coverage_problems, digest, EvidencePaths
-    path = Path(repo)/rel
+    repo = Path(repo).resolve()
+    path = repo/rel
     try:
-        hashed = hashlib.sha256(data).hexdigest()
         # A retained complete excerpt may sit beside an earlier partial coverage.
-        # Find an exact content binding, then validate its original canonical file.
-        candidates = [path.with_name('codex-image-coverage.json')]
-        candidates += sorted((Path(repo)/'out/dispatch').rglob('codex-image-coverage.json'))
-        for coverage in dict.fromkeys(candidates):
-            if coverage.is_symlink() or not coverage.is_file(): continue
-            proof = json.loads(coverage.read_text())
-            ref = proof.get('public_events') if isinstance(proof, dict) else None
-            if isinstance(ref, dict) and hashed == ref.get('sha256'): break
-        else:
-            return None
-        # Historical handoffs bind the packet digest, not its filename. Do not
-        # infer its identity from a naming convention the evidence never promised.
-        packets = (Path(repo)/'out/dispatch').rglob('*.json')
-        packet = next((p for p in packets if not p.is_symlink() and p.stat().st_size < 2*1024*1024
-                       and digest(p)==proof['packet_sha256']),None)
-        if packet is None: return None
-        paths = EvidencePaths(packet,repo)
-        paths.path(path)  # Refuse escaping or symlinked retained copies too.
-        if paths.path(proof['public_events']['path']).read_bytes() != data: return None
-        if coverage_problems(packet,coverage,repository=repo): return None
+        # Validate its original canonical file and complete exact evidence tree.
+        proof = verified_proof(repo, path, data)
+        if proof is None: return None
         document = json.loads(data)
         images = proof['pages'] + proof.get('supplemental_images', [])
         allowed = {p['returned_sha256'] for p in images}

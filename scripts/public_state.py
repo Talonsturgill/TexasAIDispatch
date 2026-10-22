@@ -335,6 +335,44 @@ def filesystem_scan_text(text, state, codec):
     return text
 
 
+def reviewer_identity_projection(state, public, codec):
+    """Public-only digest labels for exact original Codex role identities, never filesystem access."""
+    result = copy.deepcopy(public); labels = {}
+    for index, event in enumerate(state.get('events', [])):
+        if event.get('kind') != 'owner_codex_repair_granted':
+            continue
+        if sha(event['failure_evidence_json']) != event['failure_evidence_sha256']:
+            raise ValueError('public reviewer identity projection requires unchanged rejected evidence')
+        report = json.loads(event['failure_evidence_json'])
+        for judge in report['judges']:
+            identity = judge.get('reviewer_identity', '')
+            packet = judge.get('packet_sha256', '')
+            if (not isinstance(identity, str) or not re.fullmatch(r'[0-9a-f]{64}', packet)
+                    or packet not in identity
+                    or not re.search(r'/root/[a-z0-9_]+(?=[;,: ]|$)', identity)):
+                continue
+            # A complete typed identity is replaced; arbitrary paths elsewhere still fail the scanner.
+            label = '{REVIEWER_IDENTITY_SHA256_' + sha(identity) + '}'
+            quoted = json.dumps(identity, ensure_ascii=False)[1:-1]
+            if label in json.dumps(public):
+                raise ValueError('public reviewer identity token collision')
+            field = result['events'][index]['failure_evidence_json']
+            result['events'][index]['failure_evidence_json'] = field.replace(quoted, label)
+            labels[label] = quoted
+    restored = result
+    for label, original in labels.items():
+        restored = _replace_label(restored, label, original)
+    if restored != public:
+        raise ValueError('public reviewer identity projection changed evidence')
+    if labels:
+        result['public_export']['reviewer_identity_projection'] = {
+            'schema':'dispatch_public_reviewer_identities/1', 'exact_inverse_verified':True,
+            'original_public_projection_sha256':sha(json.dumps(public, sort_keys=True)),
+            'identities':[{'token':label,'identity_sha256':sha(json.loads('"'+original+'"'))}
+                          for label,original in sorted(labels.items())]}
+    return result
+
+
 def sanitized_export(state, root):
     """The canonical public export: the derived account, then the project's own sanitizer, then three refusals.
 
@@ -362,6 +400,7 @@ def sanitized_export(state, root):
         raise ValueError('public export refused: the sanitizer would replace protected evidence: ' + problem)
     public = historical_path_projection(state, public, origins, root, c)
     public = board_pointer_projection(state, public, root, c)
+    public = reviewer_identity_projection(state, public, c)
     text = json.dumps(public, indent=2, sort_keys=True) + '\n'
     found = ABSOLUTE_PATH.search(filesystem_scan_text(text,state,c))
     if found:
