@@ -1,12 +1,17 @@
 """A checkpoint lets a fresh container resume the same ledger, and never weakens or leaks the record."""
 import copy
+import base64
+import hashlib
 import errno
 import json
 import os
 import subprocess
 import sys
 import tempfile
+import shutil
+import struct
 import unittest
+import zlib
 from pathlib import Path
 from unittest import mock
 
@@ -17,6 +22,117 @@ from render_manifest import build as build_manifest
 SCRIPTS = Path(__file__).resolve().parent
 RUN = "2026-10-09-claude-pilot"
 os.environ["DISPATCH_CHECKPOINT_BACKOFF"] = "0"
+
+
+class PublicImageCheckpointTest(unittest.TestCase):
+    """Unit transports bind one retained public PNG, never a production verdict."""
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name).resolve() / 'original'
+        self.root.mkdir()
+        # Original public delivered PNG, not the 55 MB production record. Its
+        # compressed pixels happen to contain a Google-key-shaped base64 run.
+        self.png = (SCRIPTS/'fixtures/codex-checkpoint-pixel-pattern.png').read_bytes()
+        self.secret = 'AIza' + 'A'*35  # Deliberately noncredential unit negative.
+        self.rel = 'out/dispatch/evidence/codex-public-image-events.json'
+
+    def bind(self, png=None, prose='A public unit image with visible shapes and a plain background.'):
+        import codex_visual_observations as visual
+        png = self.png if png is None else png
+        folder = self.root/'out/dispatch'; folder.mkdir(parents=True, exist_ok=True)
+        image = folder/'page.png'; image.write_bytes(png)
+        guide = self.root/'guide.md'; guide.write_text('Bound unit craft guide.\n')
+        index = folder/'index.json'
+        index.write_text(json.dumps({'pages':[{'file':image.name,'sha256':visual.digest(image),
+            'samples':[{'frame':0},{'frame':29}]}]}))
+        packet = folder/'packet.json'
+        packet.write_text(json.dumps({'repo_root':str(self.root),'role':'picture',
+            'local_recovery':{'runtime':'codex'},'codex_visual_evidence':visual.CONTRACT,
+            'motion_sequence':{'path':str(index),'sha256':visual.digest(index)},
+            'craft_readings':[{'path':'guide.md','sha256':visual.digest(guide)}]}))
+        payloads = [
+            {'type':'custom_tool_call','name':'exec','call_id':'unit-call','input':
+                'const delivered = await tools.view_image('+json.dumps({'path':str(image),'detail':'original'})+
+                '); image(delivered.image_url,"original");'},
+            {'type':'custom_tool_call_output','call_id':'unit-call','output':[
+                {'type':'input_image','image_url':'data:image/png;base64,'+base64.b64encode(png).decode()}]},
+            {'type':'message','role':'assistant','channel':'commentary','content':[{'type':'output_text',
+                'text':visual.PREFIX+json.dumps({'schema':visual.NOTE_SCHEMA,'packet_sha256':visual.digest(packet),
+                'page':str(image),'image_sha256':visual.digest(image),'received':True,
+                'objects':['unit shapes'],'actions':None,'literal_text':None,'observed':prose})}]}]
+        records=[]
+        for number,payload in enumerate(payloads,1):
+            event={'type':'response_item','payload':payload}
+            raw=json.dumps(event)+'\n'
+            records.append({'line':number,'event':event,'public_source_line':raw,
+                'source_line_sha256':hashlib.sha256(raw.encode()).hexdigest()})
+        events=self.root/self.rel; events.parent.mkdir(exist_ok=True)
+        events.write_text(json.dumps({'session_id':'unit-session','records':records}))
+        proof=visual.analyze(packet,'unit-session',records,visual.EvidencePaths(packet,self.root))
+        proof['public_events']={'path':str(events),'sha256':visual.digest(events)}
+        coverage=events.with_name('codex-image-coverage.json'); coverage.write_text(json.dumps(proof))
+        return events,coverage
+
+    def scan(self, events, root=None, environ=None):
+        return ck.leaks([(self.rel,events.read_bytes())],environ or {},repo=root or self.root)
+
+    def chunk(self, kind, data):
+        return struct.pack('>I',len(data))+kind+data+struct.pack('>I',zlib.crc32(kind+data)&0xffffffff)
+
+    def test_real_pixel_falsepositive_admitted_without_evidence_rewrite(self):
+        events,_=self.bind(); before=events.read_bytes()
+        self.assertTrue(ck.SECRET_TEXT.search(before.decode()))
+        self.assertEqual(self.scan(events),[])
+        self.assertEqual(events.read_bytes(),before)
+
+    def test_relocation_preserves_original_paths_hashes_and_bytes(self):
+        events,_=self.bind(); before=events.read_bytes()
+        relocated=self.root.with_name('restored'); shutil.copytree(self.root,relocated)
+        shutil.rmtree(self.root)
+        self.assertEqual(self.scan(relocated/self.rel,relocated),[])
+        self.assertEqual((relocated/self.rel).read_bytes(),before)
+        (relocated/'out/dispatch/page.png').write_bytes(self.png+b'changed')
+        self.assertEqual(self.scan(relocated/self.rel,relocated),[self.rel])
+
+    def test_unbound_or_changed_coverage_keeps_strict_scan(self):
+        events,coverage=self.bind(); coverage.unlink()
+        self.assertEqual(self.scan(events),[self.rel])
+        events,coverage=self.bind(); proof=json.loads(coverage.read_text())
+        proof['public_events']['sha256']='0'*64; coverage.write_text(json.dumps(proof))
+        self.assertEqual(self.scan(events),[self.rel])
+
+    def test_secret_shaped_public_prose_is_never_masked(self):
+        events,_=self.bind(prose='Public unit observation includes '+self.secret)
+        self.assertEqual(self.scan(events),[self.rel])
+
+    def test_original_configured_credential_value_is_always_refused(self):
+        value='unit-configured-secret-value-123456789'
+        events,_=self.bind(prose='Public unit observation includes '+value)
+        self.assertEqual(self.scan(events,environ={'GOOGLE_API_KEY':value}),[self.rel])
+
+    def test_plain_and_compressed_png_text_secrets_are_refused(self):
+        secret=self.secret.encode()
+        for kind,data in [(b'tEXt',b'Comment\0'+secret),
+                          (b'zTXt',b'Comment\0\0'+zlib.compress(secret)),
+                          (b'iTXt',b'Comment\0\1\0\0\0'+zlib.compress(secret))]:
+            with self.subTest(chunk=kind):
+                png=self.png[:-12]+self.chunk(kind,data)+self.png[-12:]
+                events,_=self.bind(png)
+                self.assertEqual(self.scan(events),[self.rel])
+
+    def test_changed_png_crc_retains_strict_scan(self):
+        png=bytearray(self.png); png[29]^=1
+        events,_=self.bind(bytes(png))
+        self.assertEqual(self.scan(events),[self.rel])
+
+    def test_relocated_guide_escape_or_symlink_is_refused(self):
+        import codex_visual_observations as visual
+        events,coverage=self.bind(); packet=self.root/'out/dispatch/packet.json'
+        paths=visual.EvidencePaths(packet,self.root)
+        with self.assertRaisesRegex(ValueError,'escapes'):
+            paths.path(self.root.parent/'outside.json')
+        guide=self.root/'guide.md'; guide.unlink(); guide.symlink_to('/etc/hosts')
+        self.assertEqual(self.scan(events),[self.rel])
 
 
 def sh(*args, cwd=None):
