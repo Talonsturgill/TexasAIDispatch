@@ -37,6 +37,53 @@ def read(path):
     return expand_packet_bindings(json.loads(Path(path).read_text()))
 
 
+class EvidencePaths:
+    """Relocate filesystem reads while retaining original logical path identities."""
+    def __init__(self, packet_path, repository):
+        self.root = Path(repository).resolve()
+        raw = json.loads(Path(packet_path).read_text())
+        self.origin = Path(raw.get('repo_root', str(self.root)))
+        if (not self.origin.is_absolute() or '..' in self.origin.parts
+                or self.origin == Path('/') or str(self.origin) != raw.get('repo_root', str(self.root))
+                or (raw.get('local_recovery') or {}).get('runtime') != 'codex'):
+            raise ValueError('relocated evidence needs one canonical owned packet root')
+
+    def path(self, value):
+        path = Path(value)
+        if not path.is_absolute() or '..' in path.parts:
+            raise ValueError('evidence path must be canonical and absolute')
+        if path.is_relative_to(self.root):
+            relative = path.relative_to(self.root)
+        elif path.is_relative_to(self.origin):
+            relative = path.relative_to(self.origin)
+        else:
+            raise ValueError('evidence path escapes the bound repository')
+        local = self.root / relative
+        if any((self.root / Path(*relative.parts[:n])).is_symlink()
+               for n in range(1, len(relative.parts)+1)):
+            raise ValueError('relocated evidence cannot follow symbolic links')
+        return local
+
+    def digest(self, path):
+        return digest(self.path(path))
+
+    def read(self, path):
+        data = json.loads(self.path(path).read_text())
+        if isinstance(data, dict) and 'repo_root' in data:
+            if data['repo_root'] != str(self.origin):
+                raise ValueError('compact evidence roots differ')
+            from agent_runtime import GUIDE_BINDINGS
+            for key in GUIDE_BINDINGS:
+                for row in data.get(key, []):
+                    relative = Path(row['path'])
+                    if (relative.is_absolute() or '..' in relative.parts
+                            or relative.as_posix() != row['path']):
+                        raise ValueError('compact guide path escapes the bound repository')
+                    row['path'] = str(self.origin / relative)
+            data.pop('repo_root')
+        return data
+
+
 def image_parts(payload):
     output = payload.get('output')
     return [p for p in output if isinstance(p, dict) and p.get('type') == 'input_image'] if isinstance(output, list) else []
@@ -132,34 +179,36 @@ def packet_records(packet_path, records):
     return records[calls[0]:positions[-1]+1]
 
 
-def packet_pages(packet):
+def packet_pages(packet, paths=None):
+    read_bound = paths.read if paths else read
+    hash_bound = paths.digest if paths else digest
     if packet.get('codex_visual_evidence') != CONTRACT or (packet.get('local_recovery') or {}).get('runtime') != 'codex':
         raise ValueError('Codex image evidence requires the explicit owned local recovery packet')
     refs = ([r['motion_sequence'] for r in packet['phone_options']]
             if packet.get('role') == 'storyboard-critic' else [packet['motion_sequence']])
     result = []
     for ref in refs:
-        if digest(ref['path']) != ref['sha256']:
+        if hash_bound(ref['path']) != ref['sha256']:
             raise ValueError('assigned sequence index changed')
-        pages = read(ref['path'])['pages']
+        pages = read_bound(ref['path'])['pages']
         if not pages:
             raise ValueError('assigned chronological sequence has no pages')
         result.append((ref, pages))
     # Keep all original guides bound; a new runtime is not a new craft contract.
     for row in packet.get('craft_readings', []) + packet.get('completion_readings', []):
-        if digest(row['path']) != row['sha256']:
+        if hash_bound(row['path']) != row['sha256']:
             raise ValueError('bound current guide changed')
     return result
 
 
-def analyze(packet_path, session, records):
+def analyze(packet_path, session, records, paths=None):
     if not isinstance(session, str) or not session:
         raise ValueError('one actual reviewer session identity is required')
     numbers = [r['line'] for r in records]
     if any(type(n) is not int for n in numbers) or numbers != sorted(set(numbers)):
         raise ValueError('public tool records must retain their actual strict line order')
-    packet = read(packet_path)
-    expected = [(ref, page) for ref, pages in packet_pages(packet) for page in pages]
+    packet = paths.read(packet_path) if paths else read(packet_path)
+    expected = [(ref, page) for ref, pages in packet_pages(packet, paths) for page in pages]
     calls, pending, pairs = {}, None, []
     for record in records:
         p = record['event']['payload']
@@ -192,9 +241,10 @@ def analyze(packet_path, session, records):
     for (ref, page), (call, output, observed, note) in zip(expected, pairs, strict=True):
         raw_image = Path(ref['path']).parent / page['file']
         image = raw_image.resolve()
+        local_image = paths.path(image) if paths else image
         if (Path(page['file']).name != page['file']
                 or any(q.is_symlink() for q in (raw_image, *raw_image.parents))
-                or digest(image) != page['sha256']):
+                or digest(local_image) != page['sha256']):
             raise ValueError('assigned PNG page missing or changed')
         if view_path(call['event']['payload']) != image:
             raise ValueError('actual image call differs from assigned chronological page')
@@ -202,7 +252,7 @@ def analyze(packet_path, session, records):
         if not uri.startswith('data:image/png;base64,'):
             raise ValueError('actual tool result does not contain delivered PNG bytes')
         returned = base64.b64decode(uri.split(',', 1)[1], validate=True)
-        if not returned.startswith(b'\x89PNG\r\n\x1a\n') or returned != image.read_bytes():
+        if not returned.startswith(b'\x89PNG\r\n\x1a\n') or returned != local_image.read_bytes():
             raise ValueError('actual delivered PNG bytes differ from assigned original page')
         fields = {'schema', 'packet_sha256', 'page', 'image_sha256', 'received',
                   'objects', 'actions', 'literal_text', 'observed'}
@@ -246,13 +296,16 @@ def coverage(packet_path, rollout_path, output_directory):
     return result
 
 
-def coverage_problems(packet_path, coverage_path):
+def coverage_problems(packet_path, coverage_path, repository=None):
     try:
-        actual = read(coverage_path)
+        paths = EvidencePaths(packet_path, repository) if repository is not None else None
+        read_bound = paths.read if paths else read
+        hash_bound = paths.digest if paths else digest
+        actual = read_bound(coverage_path)
         ref = actual['public_events']
-        if Path(ref['path']).is_symlink() or digest(ref['path']) != ref['sha256']:
+        if Path(ref['path']).is_symlink() or hash_bound(ref['path']) != ref['sha256']:
             return ['actual public Codex tool records are missing or changed']
-        evidence = read(ref['path'])
+        evidence = read_bound(ref['path'])
         for record in evidence['records']:
             raw = record['public_source_line']
             if (hashlib.sha256(raw.encode()).hexdigest() != record['source_line_sha256']
@@ -261,7 +314,7 @@ def coverage_problems(packet_path, coverage_path):
             payload = record['event']['payload']
             if not (view_path(payload) is not None or image_parts(payload) or annotation(payload) is not None):
                 return ['public Codex excerpt contains nonvisual or private records']
-        expected = analyze(packet_path, evidence['session_id'], evidence['records'])
+        expected = analyze(packet_path, evidence['session_id'], evidence['records'], paths)
         expected['public_events'] = ref
         return [] if actual == expected else ['Codex visual coverage differs from actual delivered pixels and public facts']
     except (OSError, ValueError, TypeError, KeyError, IndexError) as exc:

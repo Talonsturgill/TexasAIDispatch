@@ -341,7 +341,7 @@ def candidates(repo):
     return chosen, excluded, problems, regenerable, sorted(deleted)
 
 
-def leaks(items, environ):
+def leaks(items, environ, repo=None):
     """Relative paths whose stored text carries a credential value or key-shaped string."""
     values = credential_values(environ)
     found = []
@@ -349,7 +349,18 @@ def leaks(items, environ):
         if Path(rel).suffix.lower() not in TEXT_SUFFIX:
             continue
         text = data.decode(errors="replace")
-        if SECRET_TEXT.search(text) or any(v in text for v in values):
+        if any(v in text for v in values):
+            found.append(rel)
+            continue
+        if repo is not None:
+            from checkpoint_image_data import scan_view, SecretImageMetadata
+            try:
+                view = scan_view(repo,rel,data,SECRET_TEXT,values)
+            except SecretImageMetadata:
+                found.append(rel)
+                continue
+            if view is not None: text=view
+        if SECRET_TEXT.search(text):
             found.append(rel)
     return found
 
@@ -424,7 +435,7 @@ def build_bundle(repo, state_path, note, environ=None):
     if problems:
         raise RetentionError("required evidence cannot be retained: " + "; ".join(problems[:6]))
     stored = {rel: stored_bytes(repo, rel) for rel in chosen}
-    bad = leaks(stored.items(), environ)
+    bad = leaks(stored.items(), environ, repo=repo)
     if SECRET_TEXT.search(ledger) or any(v in ledger for v in credential_values(environ)):
         bad.append("ledger")
     if bad:
