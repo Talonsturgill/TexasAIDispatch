@@ -1,13 +1,13 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T01:58:46.724640+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-22T02:05:59.918403+00:00",
+  "note": "capture authorization consumed 1bc52c384197",
   "phase": "audio",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
-  "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
+  "repo_root": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch",
   "source_pin": "3ef6499334e5cca192f56ac561a7df4c0a633e45",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
@@ -16,8 +16,8 @@
     "sha256": "e161e2e553e4c04c6edcd2d995828e829193dcc1bde8086cd4e301046082dfb0"
   },
   "deleted_source": [],
-  "ledger_sha256": "6f328b6832c88721a4df55dad3bd72ed91ada2ff97f64221747fb129101e3741",
-  "original_private_ledger_sha256": "c3a352e1d1287d6e1e8c06fc51da862755c11193f33c97718a90fcd13b54808e",
+  "ledger_sha256": "274cc5f56ef6b97aad56ce0069208eb140932801be3972a29923f11f0f807fa9",
+  "original_private_ledger_sha256": "050cb212dbc4bf03ad888adaad1b809ae82b205d161c17ea0b8181a286c65cbc",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -544,8 +544,8 @@
     {
       "path": "out/dispatch/capture-authorization.json",
       "class": "scratch",
-      "sha256": "bd1107d6e59b1f44de0643689a25285a0d21fb18633e0709938ae90e558c4c59",
-      "size": 18838
+      "sha256": "17ed2e8a56a43f1c3d68c0f15e97da4455768f098f640b4724aae657cdd4a95a",
+      "size": 18875
     },
     {
       "path": "out/dispatch/capture-authorization.json.lock",
@@ -556,8 +556,8 @@
     {
       "path": "out/dispatch/capture-authorizations-used.json",
       "class": "scratch",
-      "sha256": "ae1054ba9c007c06b6ad4e93d4eda88618d4545076dadab61dec984f3969e837",
-      "size": 599
+      "sha256": "99c64b263df04f41b86ce1427b2c58a13175c079b8e067c0e1075c98d528975a",
+      "size": 748
     },
     {
       "path": "out/dispatch/capture-housekeeping-20261021T183841.json",
@@ -584,6 +584,12 @@
       "size": 1043
     },
     {
+      "path": "out/dispatch/capture-housekeeping-20261022T020558.json",
+      "class": "scratch",
+      "sha256": "8498188c67a232271e4c1de145d47bad8772444c05cb7a04558c561e260e08fb",
+      "size": 1055
+    },
+    {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
       "sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
@@ -592,7 +598,7 @@
     {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
-      "sha256": "fde5f7cdf91b5a12af1c4e1de6940caeb37577a23fd2ed0234f180b9b4a8a1df",
+      "sha256": "70be3bd5c5c72f0379dc938dbfd1bd9d4bd8ed63d3e273a05610f6dc339646f4",
       "size": 128
     },
     {
@@ -672,6 +678,18 @@
       "class": "scratch",
       "sha256": "092950b3544f3f1a84508e412d0d9fd169297767bfbaecbccf508709f20df9b5",
       "size": 897
+    },
+    {
+      "path": "out/dispatch/github-capture-activation.json",
+      "class": "scratch",
+      "sha256": "d84a7133ce763b03b1c6abb82599c6d58e1cea19794d80d160ee149670801ba8",
+      "size": 283
+    },
+    {
+      "path": "out/dispatch/github-native-headroom.json",
+      "class": "scratch",
+      "sha256": "c505c30de951b723d99a7581098d7ffb08eb351b1529f78bddf4f646b1c4614a",
+      "size": 308
     },
     {
       "path": "out/dispatch/image-tool-delivery/06325a1ef6043e793b4ccacc719bc4d9cf80cfbece63233a1bcd14340b944f66.json",

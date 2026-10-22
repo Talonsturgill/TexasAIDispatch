@@ -2,15 +2,15 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "fc3a032712b563b5958fdc10297c439b319b9b6e4bc2a654f26628f5eb86f846",
+    "event_sha256": "1094e5da821461ac385f054979dfbbad15c4382c8bea683eb8c9340d276fe338",
     "resource": "preflight_renders",
-    "at": "2026-10-21T20:22:09.462332Z",
+    "at": "2026-10-22T01:58:46.434693Z",
     "note": "quarter-scale animatic"
   },
   "boards": [
     {
       "path": "out/dispatch/storyboard.json",
-      "sha256": "e7de1c8fe20a453954150a138db169213b595c9f26cb369d50c36b1c67ba03ac"
+      "sha256": "ebfe42e9f8a062061a576c2c22f1cf493e8aee0d8e526194b0adfaa2a91c8f3c"
     }
   ],
   "bound": {
@@ -166,31 +166,31 @@
   },
   "commands": [
     {
-      "id": "492b8b700cac821910ea921ffcdb96a53e371b8ec40eed993430a0b11c93bf66",
-      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json",
-      "consumed": "2026-10-21T20:22:17.028180+00:00"
+      "id": "1bc52c3841975b69520855e2af87c71433348370e03f2f427cbad4a7cd92d394",
+      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json --state out/dispatch/run_state.json",
+      "consumed": "2026-10-22T02:05:58.850967+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 20.035
+    "free_gib": 74.841
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/capture-housekeeping-20261021T202204.json",
-    "receipt_sha256": "0c7b8fb6580002faa42901932aee330fa037d863dca3e0f2e4c322788105ff53",
+    "receipt": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/capture-housekeeping-20261022T020558.json",
+    "receipt_sha256": "8498188c67a232271e4c1de145d47bad8772444c05cb7a04558c561e260e08fb",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-21T20:22:14.987388+00:00",
-  "expires_at": "2026-10-21T21:07:14.987388+00:00",
+  "issued_at": "2026-10-22T02:05:58.728626+00:00",
+  "expires_at": "2026-10-22T02:50:58.728626+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
     "operation": "quarter-scale animatic",
     "resource": "preflight_renders",
     "run_id": "2026-10-21",
-    "event_sha256": "fc3a032712b563b5958fdc10297c439b319b9b6e4bc2a654f26628f5eb86f846",
-    "input_identity": "451b057886da536a8b1f0b5c0f2332763f69b3c7f585735a8b96684e24e7b0bf"
+    "event_sha256": "1094e5da821461ac385f054979dfbbad15c4382c8bea683eb8c9340d276fe338",
+    "input_identity": "6dc3f64e9648a4bfba1a0c35a99198d127ffffb6fc98ec99195640bfed2d7d08"
   }
 }

@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/opt/hostedtoolcache/Python/3.11.17/x64/bin/python",
+    "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/scripts/dispatch_housekeeping.py",
+    "--workspace",
+    "/home/runner/work/_temp/dispatch-capture",
+    "--dispatch-repo",
+    "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch",
+    "--docket-repo",
+    "/home/runner/work/_temp/dispatch-capture/TexasAIDocket",
+    "--apply",
+    "--fetch",
+    "--summary",
+    "--require-headroom",
+    "--min-free-gib",
+    "20"
+  ],
+  "exit_code": 0,
+  "stdout": "{\n  \"schema\": \"dispatch-housekeeping/1\",\n  \"mode\": \"apply\",\n  \"observed_at\": \"2026-10-22T02:05:58.720494+00:00\",\n  \"free_gib_before\": 74.84,\n  \"free_gib_after\": 74.84,\n  \"reclaimed_gib\": -0.0,\n  \"target_free_gib\": 20.0,\n  \"headroom_ready\": true,\n  \"keep_completed_scratch_packages\": 2,\n  \"planned\": 0,\n  \"removed\": [],\n  \"preserved\": {\n    \"unfinished, unverified, or malformed state\": 1\n  }\n}\n",
+  "stderr": "",
+  "at": "2026-10-22T02:05:58.728406+00:00"
+}
