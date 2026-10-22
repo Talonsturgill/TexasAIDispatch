@@ -52,6 +52,40 @@ class CaptureTest(unittest.TestCase):
                 env = self.environment(); env[key] = value
                 self.assertTrue(capture.context_problems(self.request(), env))
 
+    def test_both_installers_rewrite_actual_mirror_file_and_keep_signed_sources(self):
+        import shlex
+        import sys
+        import yaml
+        workflow=yaml.safe_load((Path(__file__).resolve().parents[1]/'.github/workflows/guards.yml').read_text())
+        sources=('Types: deb\nURIs: mirror+file:/etc/apt/apt-mirrors.txt\n'
+                 'Suites: noble noble-updates noble-backports noble-security\n'
+                 'Components: main restricted universe multiverse\n'
+                 'Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg\n')
+        mirrors=('http://azure.archive.ubuntu.com/ubuntu/\tpriority:1\n'
+                 'https://archive.ubuntu.com/ubuntu/\tpriority:2\n'
+                 'https://security.ubuntu.com/ubuntu/\tpriority:3\n')
+        expected=mirrors.replace('http://azure.archive.ubuntu.com/ubuntu/',
+                                 'https://archive.ubuntu.com/ubuntu/')
+        for job in ('capture','guards'):
+            commands=[line.strip() for step in workflow['jobs'][job]['steps']
+                      for line in step.get('run','').splitlines() if 'sudo find /etc/apt ' in line]
+            self.assertEqual(len(commands),1)
+            with self.subTest(job=job), tempfile.TemporaryDirectory() as temporary:
+                root=Path(temporary);(root/'sources.list.d').mkdir()
+                source=root/'sources.list.d/ubuntu.sources';source.write_text(sources)
+                mirror=root/'apt-mirrors.txt';mirror.write_text(mirrors)
+                secondary=root/'apt-mirrors-security.txt';secondary.write_text(mirrors)
+                unrelated=root/'notes.txt';unrelated.write_text(mirrors)
+                command=commands[0].removeprefix('sudo ').replace('/etc/apt',shlex.quote(str(root)))
+                if sys.platform=='darwin':
+                    # BSD sed spells the same no-backup in-place operation with an empty argument.
+                    command=command.replace('sed -i ',"sed -i '' ")
+                subprocess.run(['bash','-c',command],check=True)
+                self.assertEqual(source.read_text(),sources)
+                self.assertEqual(mirror.read_text(),expected)
+                self.assertEqual(secondary.read_text(),expected)
+                self.assertEqual(unrelated.read_text(),mirrors)
+
     def test_only_fixed_compute_operations(self):
         for operation in ['publish', 'shell', 'send', 'cinema; anything']:
             row = self.request(); row['operation'] = operation
