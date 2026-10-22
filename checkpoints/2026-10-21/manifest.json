@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T04:23:38.064282+00:00",
-  "note": "claim worker dispatch sound",
+  "saved_at": "2026-10-22T05:33:45.680231+00:00",
+  "note": "Preserve complete original rejected final panel and exact native film; five editorial attempts unchanged; no shipment or new correction",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
   "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
-  "source_pin": "225f195b567d38850bbd4b76205a32963b94f464",
+  "source_pin": "9d494a0300525e5678f0250f2164eade2cf96047",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
     "root": "video-engine",
@@ -722,6 +722,12 @@
       "size": 1055
     },
     {
+      "path": "out/dispatch/checkpoint-final-panel-refusal.json",
+      "class": "scratch",
+      "sha256": "af2704497d016c8cee60e537eda3df1d6e14b3e3a74c4193a65b0683e0d749a1",
+      "size": 430
+    },
+    {
       "path": "out/dispatch/cinema/final-av-command-results.json",
       "class": "scratch",
       "sha256": "1a5766dd74687ce06bf9bbd22c667adf47882f6a850fc3d3b1ba9869310bc9c1",
@@ -1238,10 +1244,106 @@
       "size": 10730
     },
     {
+      "path": "out/dispatch/codex-picture-full-public-coverage/codex-image-coverage.json",
+      "class": "scratch",
+      "sha256": "37136227a61bd689e06701c4e92238e6e42d91e46435fba55ef9efbb84181237",
+      "size": 49053
+    },
+    {
+      "path": "out/dispatch/codex-picture-full-public-coverage/codex-public-image-events.json",
+      "class": "scratch",
+      "sha256": "232af9ae110f7f2fccff01d9d5ba6744898782b1b4120a5ede1ef732dee19d8f",
+      "size": 68489473
+    },
+    {
+      "path": "out/dispatch/codex-picture-original/codex-image-coverage.json",
+      "class": "scratch",
+      "sha256": "6cb994c4642d3c71e5ffbd4ee96cec3897f0dc8c8039e1516b95efc8af9aca99",
+      "size": 44768
+    },
+    {
+      "path": "out/dispatch/codex-picture-original/codex-public-image-events.json",
+      "class": "scratch",
+      "sha256": "41afa0ab45d82024e07ac687324b54e7fd6acd11dc2ecf4076dbd16e61a2eccf",
+      "size": 55005391
+    },
+    {
+      "path": "out/dispatch/codex-picture-original/create_report.py",
+      "class": "scratch",
+      "sha256": "c8a88f0cdca5c58535e2e5274815e434db5d79a360f7b9a0a0d005317f37adef",
+      "size": 20003
+    },
+    {
+      "path": "out/dispatch/codex-picture-original/report.json",
+      "class": "scratch",
+      "sha256": "c6f34c72aad02999a3dc5a129118e68c67e8fa71a3ccd55048860a9504685b58",
+      "size": 86194
+    },
+    {
+      "path": "out/dispatch/codex-sound-final-assignment.json",
+      "class": "scratch",
+      "sha256": "43defcc308459dfd9fc3dc24868f9aca8831967e3fed12ef61c4c1d7c23f4428",
+      "size": 2899
+    },
+    {
       "path": "out/dispatch/codex-sound-final-packet.json",
       "class": "scratch",
       "sha256": "d019bc294ac29ec42b4ebfb3df9310c09964409670353f304bc8b283628d2052",
       "size": 10724
+    },
+    {
+      "path": "out/dispatch/codex-sound-full-evidence-report.json",
+      "class": "scratch",
+      "sha256": "ce0acd70c3392a6d34807ab85377554ed1d8aa95d520bff75e1ec68858db0b7e",
+      "size": 66755
+    },
+    {
+      "path": "out/dispatch/codex-sound-full-public-coverage/codex-image-coverage.json",
+      "class": "scratch",
+      "sha256": "4b7cb66003287ed78ff688eab63b79a0ffb17e646f90f995434260565d61664e",
+      "size": 45663
+    },
+    {
+      "path": "out/dispatch/codex-sound-full-public-coverage/codex-public-image-events.json",
+      "class": "scratch",
+      "sha256": "37ee0c59025d2d132c52b1d1df51a3fb4cca75e6051bb930f0cd532426a1d749",
+      "size": 67068978
+    },
+    {
+      "path": "out/dispatch/codex-sound-original-report.json",
+      "class": "scratch",
+      "sha256": "91ebd6e0dccf3c2233d9adbce4742b3fabedb3fb6d66843e1696581258dcc7cf",
+      "size": 62087
+    },
+    {
+      "path": "out/dispatch/codex-sound-public-coverage/all-public-image-events.json",
+      "class": "scratch",
+      "sha256": "37ee0c59025d2d132c52b1d1df51a3fb4cca75e6051bb930f0cd532426a1d749",
+      "size": 67068978
+    },
+    {
+      "path": "out/dispatch/codex-sound-public-coverage/codex-image-coverage.json",
+      "class": "scratch",
+      "sha256": "d31c6249f1de7e4edc5151b9279c64ac1ca3712419265a4152f260b7a93983b8",
+      "size": 42222
+    },
+    {
+      "path": "out/dispatch/codex-sound-public-coverage/codex-public-image-events.json",
+      "class": "scratch",
+      "sha256": "2859024f179f8b2fd5a7d31b32296dee1fa2ba642267142d4ca440c3e18ae86b",
+      "size": 54999035
+    },
+    {
+      "path": "out/dispatch/codex-sound-public-coverage/original-export-refusal.txt",
+      "class": "scratch",
+      "sha256": "9a60363c2cf9c55f7703c131cdf9b08bbba8dd17f9e27a6c6dcf780cdae5f2d2",
+      "size": 116
+    },
+    {
+      "path": "out/dispatch/codex-story-export-failure.txt",
+      "class": "scratch",
+      "sha256": "4fb26d25d5814632d88751a57fca13eb48ed7ec248dfeb54af46fe374e576105",
+      "size": 100
     },
     {
       "path": "out/dispatch/codex-story-final-assignment.json",
@@ -1254,6 +1356,30 @@
       "class": "scratch",
       "sha256": "bbf2649b08b6e11bf58d2f2d02c8afd914f9d315f0eb834cd4d7575ab19108af",
       "size": 10724
+    },
+    {
+      "path": "out/dispatch/codex-story-original-report-draft.json",
+      "class": "scratch",
+      "sha256": "35f18c99b8e0b2a715ace896451e35c32c3c90ce0097b90aaec30e3c60d8a775",
+      "size": 30175
+    },
+    {
+      "path": "out/dispatch/codex-story-original-report.json",
+      "class": "scratch",
+      "sha256": "e25356c2c3cfd0c947a0a5d4cbd66e4c59d6caf9fc10f7be311334ac29b958be",
+      "size": 76758
+    },
+    {
+      "path": "out/dispatch/codex-story-public-export-final/codex-image-coverage.json",
+      "class": "scratch",
+      "sha256": "61beccd09843ba4063120b21a6ca826232364b5c7d85e7348715adb63469d777",
+      "size": 44133
+    },
+    {
+      "path": "out/dispatch/codex-story-public-export-final/codex-public-image-events.json",
+      "class": "scratch",
+      "sha256": "094fcca0085e9802f3c05957881faa86667db94d8e262fa287b3b6413b811fbb",
+      "size": 55008452
     },
     {
       "path": "out/dispatch/credits.txt",
@@ -1294,8 +1420,8 @@
     {
       "path": "out/dispatch/daily-production-scoreboard.json",
       "class": "scratch",
-      "sha256": "0ca3e79d9ab444b81858accd1e9b6d84aefc380d327086ebd34b65913c8d5cbc",
-      "size": 6300
+      "sha256": "01dac9c201f593436a5e50498c8e385c3cf519a0916831c87db57e415c2466b4",
+      "size": 6655
     },
     {
       "path": "out/dispatch/deliverables/35331bbd2cce687d-ebfe42e9f8a06206-8226b57d3a40ef68/dispatch.mp4",
@@ -4682,6 +4808,18 @@
       "size": 2047
     },
     {
+      "path": "out/dispatch/panel-round-1.json",
+      "class": "scratch",
+      "sha256": "16e84b104c7603953527543f6622847f79d66fbb780a4b313fc6856af2f452e5",
+      "size": 238959
+    },
+    {
+      "path": "out/dispatch/panel_history.json",
+      "class": "scratch",
+      "sha256": "18e2038068b61f3970e6ffad9a1b3e2de61d3d36892201940b46257729fb4306",
+      "size": 381
+    },
+    {
       "path": "out/dispatch/phone-assignment.json",
       "class": "scratch",
       "sha256": "625609dd05b3c1e39abb1f1bd7c4b936a3b4d6ec3e47566b680043c8d01fcf25",
@@ -6740,6 +6878,12 @@
       "size": 3841
     },
     {
+      "path": "out/dispatch/report_card.json",
+      "class": "scratch",
+      "sha256": "b3da02b11730aded430bd4ad75ca9a9f33aac9fbb9dfb46cf65638ff3e81d8fa",
+      "size": 249967
+    },
+    {
       "path": "out/dispatch/research.json",
       "class": "scratch",
       "sha256": "c7db3cf71d5d47c2d9925cf3899d9416605777748bd442208ac679f0e12a47a9",
@@ -8754,6 +8898,12 @@
       "class": "scratch",
       "sha256": "226b20835b7a74717bfc1940a4723e4004fe8952b07a83c14b6198d935b3412b",
       "size": 556
+    },
+    {
+      "path": "out/dispatch/write-sound-original.py",
+      "class": "scratch",
+      "sha256": "6de1cb07264c7bb607ed03e9d9659ffb47d9c82502b6c5d7b83412945ea18e07",
+      "size": 11365
     },
     {
       "path": "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx",

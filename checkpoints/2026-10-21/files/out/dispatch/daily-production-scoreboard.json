@@ -200,29 +200,46 @@
     },
     {
       "run_id": "2026-10-21",
-      "state": "wake",
+      "state": "review",
       "shipped": false,
-      "score": null,
+      "score": 7.183,
       "usage": {
-        "audiovisual_reviews": 0,
+        "audiovisual_reviews": 5,
         "cleanup_renders": 0,
-        "full_renders": 0,
+        "full_renders": 1,
         "image_generations": 0,
-        "panel_rounds": 0,
-        "preflight_renders": 0,
-        "reboards": 0,
-        "reported_tokens": 0,
+        "panel_rounds": 1,
+        "preflight_renders": 11,
+        "reboards": 2,
+        "reported_tokens": 681107,
         "rescue_renders": 0,
-        "research_agents": 0,
-        "scorer_calls": 0,
-        "storyboard_critics": 0,
-        "tts_calls": 0,
-        "validator_agents": 0,
-        "voice_directors": 0
+        "research_agents": 3,
+        "scorer_calls": 3,
+        "storyboard_critics": 5,
+        "tts_calls": 4,
+        "validator_agents": 4,
+        "voice_directors": 1
       },
       "first_panel_pass": false,
-      "over_targets": {},
-      "elapsed_seconds": 0.055534,
+      "over_targets": {
+        "preflight_renders": {
+          "used": 11,
+          "target": 3
+        },
+        "audiovisual_reviews": {
+          "used": 5,
+          "target": 4
+        },
+        "tts_calls": {
+          "used": 4,
+          "target": 2
+        },
+        "storyboard_critics": {
+          "used": 5,
+          "target": 3
+        }
+      },
+      "elapsed_seconds": 47879.589354,
       "account_tokens": null,
       "accounting_note": "reported_tokens covers provider telemetry only; Codex conversation and agent totals are unavailable here"
     }
