@@ -49,6 +49,14 @@ python scripts/run_controller.py panel --judges 3 --note "current finished cut"
 The controller reserves a whole round and all three scorers atomically, only after current
 preship establishes current integrity. Production has no blanket bypass. The finite policy in
 knowledge/craft/BOUNDED_CREATIVE_RELEASE.md may separately defer classified artistic failures.
+When the owned local host lacks native probe headroom, use the existing immutable GitHub
+compute transport with operation `preship`. Its sole operator is
+`python scripts/preship_compute.py`: prepare one `preflight_renders` reservation through
+capture_reservation, checkpoint it, and create the fixed request through github_capture.
+The runner retains the unchanged preship verdict and logs under out/dispatch/preship-compute;
+verified checkpoint import installs the exact verdict into out/gates only when the locked
+native film, board, helper inputs and returned verdict hashes remain current. Never run a
+second local probe or substitute a typed verdict for this evidence.
 Then obtain all three exact-byte audiovisual lenses
 on the same final MP4, even when an earlier lens rejects. Collect defects together.
 Run these three commands sequentially in the foreground. Each lens writes the shared ledger;

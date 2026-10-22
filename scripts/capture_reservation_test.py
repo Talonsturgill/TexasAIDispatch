@@ -67,6 +67,26 @@ class Reservation(unittest.TestCase):
         self.assertFalse(prepared.claim(self.state, prepared.OPERATIONS['cinema_proof.py'])[0])
         self.assertEqual(after['usage'], controller.read_state(self.state)['usage'])
 
+    def test_preship_prepare_identity_is_portable_and_binds_locked_film(self):
+        import preship_compute
+        for name in ('film.mp4','mix.wav','mix.json','mix_vo.wav','sfx_events.json','captions.json',
+                     'words.json','vo_script.txt','claims.json','credits.txt','preflight.json','preflight.mp4'):
+            self.state.with_name(name).write_text('unit '+name)
+        state=controller.read_state(self.state)
+        state['deliverable']={'review_only':False,'film_sha256':controller.digest(self.state.with_name('film.mp4')),
+                              'board_sha256':controller.digest(self.board)}
+        self.state.write_text(json.dumps(state))
+        receipt=prepared.prepare(self.root,self.state,['bash scripts/run_with_env.sh python scripts/preship_compute.py'])
+        charged=controller.read_state(self.state)
+        self.assertEqual(charged['usage']['preflight_renders'],1)
+        with tempfile.TemporaryDirectory() as tmp:
+            relocated=Path(tmp).resolve()/'restored'; shutil.copytree(self.root,relocated)
+            with mock.patch.object(controller,'REPO',relocated):
+                path=relocated/'out/dispatch/run_state.json'
+                self.assertEqual(prepared.input_identity(path,preship_compute.NOTE),receipt['input_identity'])
+                path.with_name('film.mp4').write_bytes(b'changed film')
+                self.assertNotEqual(prepared.input_identity(path,preship_compute.NOTE),receipt['input_identity'])
+
     def test_relocated_prepaid_capture_preserves_inputs_and_claims_once(self):
         receipt, _ = self.authorise()
         old = copy.deepcopy(controller.read_state(self.state))
@@ -127,8 +147,9 @@ class Reservation(unittest.TestCase):
         self.assertEqual(2, current['events'][-1]['preflight_identity_version'])
 
     def test_real_phone_hero_and_motion_operations_have_distinct_identities(self):
-        identities = [controller.preflight_identity(self.state, note) for note in prepared.OPERATIONS.values()]
-        self.assertEqual(len(prepared.OPERATIONS), len(set(identities)))
+        notes = [note for script,note in prepared.OPERATIONS.items() if script != 'preship_compute.py']
+        identities = [controller.preflight_identity(self.state, note) for note in notes]
+        self.assertEqual(len(notes), len(set(identities)))
         self.assertEqual(controller.preflight_identity(self.state, 'animatic'), identities[0])
         self.assertEqual(controller.preflight_identity(self.state, 'hero'), identities[1])
         self.assertEqual(controller.preflight_identity(self.state, 'arbitrary rewritten note'), identities[0])

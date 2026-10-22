@@ -199,6 +199,10 @@ def preflight_identity(path: Path, note: str, *, version: int = 2) -> str | None
     board = path.parent / "storyboard.json"
     if not board.is_file():
         return None  # Research before the board exists.
+    if note == 'exact-film mechanical preship probes':
+        inputs = [path.parent/name for name in ('film.mp4','mix_vo.wav','sfx_events.json')]
+        content = [(p.name, digest(p)) for p in inputs]
+        return hashlib.sha256(json.dumps(['preship-probes', full_render_identity(path), content]).encode()).hexdigest()
     files = [board]
     if note == "retained opening structural inspection":
         files = [path.parent/'openings'/name for name in ('a.json', 'b.json', 'a.mp4', 'b.mp4')]

@@ -56,7 +56,84 @@ class CaptureTest(unittest.TestCase):
         for operation in ['publish', 'shell', 'send', 'cinema; anything']:
             row = self.request(); row['operation'] = operation
             self.assertTrue(capture.context_problems(row, self.environment()))
-        self.assertEqual(set(capture.OPS), {'preflight','cinema','full','phone-motion','full-motion'})
+        self.assertEqual(set(capture.OPS), {'preflight','cinema','full','phone-motion','full-motion','preship'})
+
+    def test_preship_fixed_command_is_native_and_prepaid(self):
+        import capture_reservation
+        import shlex
+        note,resource,argv=capture.OPS['preship']
+        command='bash scripts/run_with_env.sh '+shlex.join(argv)
+        self.assertTrue(capture_guard.is_capture(command,'/unit',Path('/unit')))
+        self.assertEqual(capture_reservation.operation_for([command],Path('/unit')),note)
+        self.assertEqual(resource,'preflight_renders')
+
+    def test_preship_refuses_unregistered_or_changed_native_film(self):
+        import preship_compute as preship
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp); output=root/'out/dispatch';output.mkdir(parents=True)
+            (output/'film.mp4').write_bytes(b'unit native film')
+            (output/'storyboard.json').write_text('{}')
+            state={'deliverable':{'review_only':False,'film_sha256':preship.digest(output/'film.mp4'),
+                                 'board_sha256':preship.digest(output/'storyboard.json')}}
+            capture.operation_precheck(root,'preship',state)
+            (output/'film.mp4').write_bytes(b'changed')
+            with self.assertRaisesRegex(ValueError,'registered exact native film'):
+                capture.operation_precheck(root,'preship',state)
+
+    def test_preship_import_preserves_real_verdict_and_refuses_stale_film(self):
+        import preship_compute as preship
+        import capture_reservation
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp).resolve(); output=root/'out/dispatch';output.mkdir(parents=True)
+            (output/'film.mp4').write_bytes(b'unit film');(output/'storyboard.json').write_text('{}')
+            state={'deliverable':{'review_only':False,'film_sha256':preship.digest(output/'film.mp4'),
+                                 'board_sha256':preship.digest(output/'storyboard.json')}}
+            (output/'run_state.json').write_text(json.dumps(state))
+            package=root/preship.PACKAGE;package.mkdir()
+            raw=json.dumps({'schema':'dispatch_preship/1','board_sha256':state['deliverable']['board_sha256'],
+                            'gates':['unit original mechanical gate']},indent=1).encode()
+            (package/'preship.json').write_bytes(raw)
+            receipt={'schema':'dispatch_remote_preship/1','exit_code':0,
+                     **preship.current_inputs(root,state),'input_identity':'unit bound identity',
+                     'verdict_sha256':preship.digest(package/'preship.json')}
+            (package/'receipt.json').write_text(json.dumps(receipt))
+            result={'operation':'preship','exit_code':0}; request={'operation':'preship'}
+            with patch.object(capture_reservation,'input_identity',return_value='unit bound identity'):
+                preship.import_verdict(root,result,request)
+                self.assertEqual((root/'out/gates/preship.json').read_bytes(),raw)
+                for key,value in [('input_identity','changed'),('verdict_sha256','0'*64),('exit_code',1)]:
+                    bad={**receipt,key:value};(package/'receipt.json').write_text(json.dumps(bad))
+                    with self.assertRaises(ValueError):preship.import_verdict(root,result,request)
+                (package/'receipt.json').write_text(json.dumps(receipt))
+                (output/'film.mp4').write_bytes(b'changed film')
+                with self.assertRaisesRegex(ValueError,'registered exact native film'):
+                    preship.import_verdict(root,result,request)
+
+    def test_preship_operator_claims_before_checks_and_retains_real_failure(self):
+        import preship_compute as preship
+        import capture_reservation
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp).resolve(); output=root/'out/dispatch';output.mkdir(parents=True)
+            (output/'film.mp4').write_bytes(b'unit film');(output/'storyboard.json').write_text('{}')
+            state={'deliverable':{'review_only':False,'film_sha256':preship.digest(output/'film.mp4'),
+                                 'board_sha256':preship.digest(output/'storyboard.json')}}
+            (output/'run_state.json').write_text(json.dumps(state))
+            stale=root/'out/gates/preship.json';stale.parent.mkdir();stale.write_text('stale')
+            called=[]
+            def claim(*args):
+                called.append('claim');return True,'unit prepaid claim'
+            def operator(argv,**kwargs):
+                self.assertEqual(called,['claim']);self.assertFalse(stale.exists())
+                self.assertIn('scripts/preship_check.py',argv)
+                return subprocess.CompletedProcess(argv,1,b'actual unit gate failed\n',b'unit stderr\n')
+            with patch.object(capture_reservation,'claim',side_effect=claim), \
+                    patch.object(capture_reservation,'input_identity',return_value='unit identity'), \
+                    patch.object(preship.subprocess,'run',side_effect=operator):
+                self.assertEqual(preship.run(root),1)
+            package=root/preship.PACKAGE
+            self.assertEqual((package/'stdout.txt').read_bytes(),b'actual unit gate failed\n')
+            self.assertEqual(preship.read(package/'receipt.json')['exit_code'],1)
+            self.assertFalse((package/'preship.json').exists())
 
     def test_motion_commands_use_original_exact_operator_notes(self):
         from capture_reservation import operation_for

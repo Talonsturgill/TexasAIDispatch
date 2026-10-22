@@ -18,6 +18,8 @@ REPOSITORY = 'Talonsturgill/TexasAIDispatch'
 REQUEST_FILE = 'capture-request.json'
 SCHEMA = 'dispatch_github_capture_request/1'
 OPS = {
+    'preship': ('exact-film mechanical preship probes', 'preflight_renders',
+                ['python', 'scripts/preship_compute.py']),
     'preflight': ('quarter-scale animatic', 'preflight_renders',
                   ['python', 'scripts/preflight_animatic.py', '--board', 'out/dispatch/storyboard.json',
                    '--state', 'out/dispatch/run_state.json']),
@@ -108,6 +110,12 @@ def claim_once(repo, ref, commit):
 
 def operation_precheck(repo, operation, state):
     """Use the original extractor admission before shipping or consuming a claim."""
+    if operation == 'preship':
+        from preship_compute import current_inputs
+        current_inputs(repo,state)
+        if (Path(repo)/'out/dispatch/preship-compute').exists():
+            raise ValueError('preship compute evidence already exists; retain it before another attempt')
+        return
     if operation not in ('phone-motion', 'full-motion'):
         return
     import capture_reservation
@@ -410,6 +418,9 @@ def import_result(repo, checkpoint_oid):
         for index,grant in enumerate(new.get('events',[])) if grant.get('kind') in ck.GRANT_KINDS]
     publication_owner.write(repo/ck.GRANT_ROOTS_FILE,{'schema':1,'entries':origins})
     publication_owner.write(path, restored)
+    if request.get('operation') == 'preship':
+        from preship_compute import import_verdict
+        import_verdict(repo, result, request)
     return {'checkpoint_oid': checkpoint_oid, 'changed_files': len(changed), 'monotonic': True, 'approval': False}
 
 
