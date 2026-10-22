@@ -268,6 +268,14 @@
       "note": "telemetry for audiovisual_reviews: ee8001b5-fd2f-436d-86bd-dc7736e26b64 hero exact film 0042ffe984615f117ff51deb474fb56b36da36ff182e94e459e20d1277b59f59",
       "resource": "reported_tokens",
       "to": 839478
+    },
+    {
+      "at": "2026-10-22T21:34:30.479260Z",
+      "ceiling": 14,
+      "from": 1,
+      "note": "full-resolution Dispatch render",
+      "resource": "full_renders",
+      "to": 2
     }
   ],
   "events": [
@@ -2712,12 +2720,39 @@
       "note": "ee8001b5-fd2f-436d-86bd-dc7736e26b64 hero exact film 0042ffe984615f117ff51deb474fb56b36da36ff182e94e459e20d1277b59f59",
       "reported_tokens": 158371,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-22T21:34:30.479307Z",
+      "ceiling": 14,
+      "kind": "budget_escalated",
+      "note": "full-resolution Dispatch render",
+      "now": 2,
+      "resource": "full_renders",
+      "was": 1
+    },
+    {
+      "at": "2026-10-22T21:34:30.479325Z",
+      "film_sha256": "35331bbd2cce687d279878d41a2399fa79b2643e4206adbd7cfa84d0c3e10f59",
+      "kind": "render_reserved_with_last_good_preserved"
+    },
+    {
+      "at": "2026-10-22T21:34:30.480381Z",
+      "completion_progress_policy": "2026-10-20",
+      "full_render_identity": "dfa5590ee9bedc7cad668357d17b2696ecd3567da65039fd4bd8dd2d0242b9ec",
+      "kind": "reserved",
+      "note": "full-resolution Dispatch render",
+      "preflight_identity": null,
+      "publication_epoch": "d744f35e86334f3e8b799684b47fef97",
+      "publication_owner_sha256": "5232d8954f17c36778aee290c81bdbc318d79e519d860519f4afd94116d853f4",
+      "resources": {
+        "full_renders": 1
+      }
     }
   ],
   "limits": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 1,
-    "full_renders": 1,
+    "full_renders": 2,
     "image_generations": 2,
     "panel_rounds": 1,
     "preflight_renders": 18,
@@ -2735,7 +2770,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "ce8244da7fe01b598eb0f2f0298176a2ff92808cbdd94524a824d3635afd590b",
+    "original_private_state_sha256": "d88b82df67d76dca068e305712790361cfd6ba36d003c8ddb548d91bfd197c77",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2763,11 +2798,11 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-22T21:32:43.993109Z",
+  "updated_at": "2026-10-22T21:34:30.480384Z",
   "usage": {
     "audiovisual_reviews": 6,
     "cleanup_renders": 0,
-    "full_renders": 1,
+    "full_renders": 2,
     "image_generations": 0,
     "panel_rounds": 1,
     "preflight_renders": 18,
