@@ -644,6 +644,9 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
                scope.strip() + handoff + ' Do NOT launch or spawn any subagents; do the work yourself and return your '
                'result. Never send email or post socially. Preserve actual rejected evidence. '
                'A code plan does not approve a rendered film.')
+    if data.get('mode') == 'initial_authored_build':
+        import modern_film
+        message += modern_film.literal_clause_instruction(data)
     if freshness:
         message += ' Screened story subject: ' + freshness['subject'] + '. Keep this subject in the handoff.'
     admitted = mechanical_admission(role, data, mechanical_task) if mechanical_task else None

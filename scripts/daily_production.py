@@ -575,6 +575,9 @@ def packet(board_path, claims_path, role, state_path=None, runtime=None):
         data['instructions'] += (' Match measured board.narration_picture clauses to visible '
             'subjects/actions; wrong/absent pictures fail despite captions/provider prose.'
             if compact_scorer else ' Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words.')
+    if role in ('scene-builder', 'storyboard-critic'):
+        import modern_film
+        data['instructions'] += modern_film.literal_clause_instruction(board)
     encoded = packet_text(data)
     limit = handoff_limit(board.get("date"), compact_scorer)
     if len(encoded) > limit and isinstance(data["story"], dict):
