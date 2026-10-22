@@ -1,13 +1,13 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T20:27:17.280314+00:00",
-  "note": "delegated GitHub capture fixed-operator result",
+  "saved_at": "2026-10-22T20:30:43.317077+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
-  "repo_root": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch",
+  "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
   "source_pin": "781a9c83f77ff2275e7462ba01e4da3e92f5ff2a",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
@@ -16,8 +16,8 @@
     "sha256": "32a7090a0d8d5512fc05ec97c58a38936cfbffa785d5f86a4326cdfb0c30981e"
   },
   "deleted_source": [],
-  "ledger_sha256": "74323841122ec4a53b3df9c5db411ef2957048e8a18903e6da840ae32fc62a4e",
-  "original_private_ledger_sha256": "93ecfa5b73b2e1262f8b7c291a6e71ecaaffc9505ba34dcceca7eb13d3ff0f15",
+  "ledger_sha256": "c97e643cab2b896ca43ba4317df75f56fd8d2e3957ee1297372c434e7d3e4ca9",
+  "original_private_ledger_sha256": "736e96732735ee1ba18f9d4b513e037a322c17002fec2d245f9439739a36c292",
   "grant_origin_roots": [
     {
       "event_index": 96,
@@ -1374,6 +1374,24 @@
       "class": "scratch",
       "sha256": "4383fbffc482ee9f64a5613cb872a1b7922aa6b0a1274f6c2b44dbcc93ba4e96",
       "size": 8963
+    },
+    {
+      "path": "out/dispatch/codex-final-phone-base.json",
+      "class": "scratch",
+      "sha256": "250a6cc170c95345a534a1070944559df0cdc78bb5917e07ab4d1e7b47d4da29",
+      "size": 8973
+    },
+    {
+      "path": "out/dispatch/codex-final-phone-packet.json",
+      "class": "scratch",
+      "sha256": "3d22892f9c4764f9e5a488b15cf4124da213521ae1535d7146ff46ee5210a862",
+      "size": 14759
+    },
+    {
+      "path": "out/dispatch/codex-final-phone-plan-before-charge.json",
+      "class": "scratch",
+      "sha256": "b2763708e566d20aa34f9b0fb3a24625d0471a3f898fc6fae15fc0d170fef985",
+      "size": 1101
     },
     {
       "path": "out/dispatch/codex-phone-current.json",
@@ -3247,6 +3265,12 @@
       "size": 308
     },
     {
+      "path": "out/dispatch/github-capture-import-baseline/122f4edf270d77f140c05e6e82f9a8ef5deaa4560f13a476b9a5eee7685111ce",
+      "class": "scratch",
+      "sha256": "122f4edf270d77f140c05e6e82f9a8ef5deaa4560f13a476b9a5eee7685111ce",
+      "size": 128
+    },
+    {
       "path": "out/dispatch/github-capture-import-baseline/125e83011256e474cd57d0b2d581f1928a99e95494de9c6103729d90251aa3c6",
       "class": "scratch",
       "sha256": "125e83011256e474cd57d0b2d581f1928a99e95494de9c6103729d90251aa3c6",
@@ -3305,6 +3329,12 @@
       "class": "scratch",
       "sha256": "27b18726d690931b6ee5d8835f6ca5e2c888563d303765c8146bef146edf0dfb",
       "size": 1940
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/2b77d7dc96dc6b1e3f99f8b6203078cd1a1b074a7f08c57d92aee40916d1234e",
+      "class": "scratch",
+      "sha256": "2b77d7dc96dc6b1e3f99f8b6203078cd1a1b074a7f08c57d92aee40916d1234e",
+      "size": 18875
     },
     {
       "path": "out/dispatch/github-capture-import-baseline/3004d3ee473cb89d8abfbda50c47674afaa4cb87864270a4fb1ae8a5a4453786",
@@ -3425,6 +3455,12 @@
       "class": "scratch",
       "sha256": "69e61d8b1663ec7c9b65d65ffbad7b4f7fde304beab14193b3a172ff7313ac1d",
       "size": 18827
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/6fcf72ae7fadf31242c5be708a1771eeb8f437eb6b4027f69bd03f77383c23a2",
+      "class": "scratch",
+      "sha256": "6fcf72ae7fadf31242c5be708a1771eeb8f437eb6b4027f69bd03f77383c23a2",
+      "size": 2387
     },
     {
       "path": "out/dispatch/github-capture-import-baseline/70be3bd5c5c72f0379dc938dbfd1bd9d4bd8ed63d3e273a05610f6dc339646f4",
@@ -3553,6 +3589,12 @@
       "size": 2089
     },
     {
+      "path": "out/dispatch/github-capture-import-baseline/addaeb0d2821c522fba150fab34b833b54e8e88983608eb03f02e4c7e9c7bfa0",
+      "class": "scratch",
+      "sha256": "addaeb0d2821c522fba150fab34b833b54e8e88983608eb03f02e4c7e9c7bfa0",
+      "size": 308
+    },
+    {
       "path": "out/dispatch/github-capture-import-baseline/ae1054ba9c007c06b6ad4e93d4eda88618d4545076dadab61dec984f3969e837",
       "class": "scratch",
       "sha256": "ae1054ba9c007c06b6ad4e93d4eda88618d4545076dadab61dec984f3969e837",
@@ -3631,6 +3673,12 @@
       "size": 19006
     },
     {
+      "path": "out/dispatch/github-capture-import-baseline/d6732dee634147b62d53a77b5e713471f5fcf6169d7c8510675a198f0f123ef9",
+      "class": "scratch",
+      "sha256": "d6732dee634147b62d53a77b5e713471f5fcf6169d7c8510675a198f0f123ef9",
+      "size": 923
+    },
+    {
       "path": "out/dispatch/github-capture-import-baseline/d84a7133ce763b03b1c6abb82599c6d58e1cea19794d80d160ee149670801ba8",
       "class": "scratch",
       "sha256": "d84a7133ce763b03b1c6abb82599c6d58e1cea19794d80d160ee149670801ba8",
@@ -3695,6 +3743,12 @@
       "class": "scratch",
       "sha256": "f206232965a177646b38aaa5c92c3e4ccec6ac9b165aa8c49ad2aa9efba87d54",
       "size": 128
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/f3c2d46b4098c538c11a8a355ef072a3dcf38df36eadf01ea4e7987254c0093f",
+      "class": "scratch",
+      "sha256": "f3c2d46b4098c538c11a8a355ef072a3dcf38df36eadf01ea4e7987254c0093f",
+      "size": 283
     },
     {
       "path": "out/dispatch/github-capture-import-baseline/f439d5026c5d0509c274307bc47a94bdfb44bb94f3e9768c30223a15cf33770b",
@@ -14294,13 +14348,85 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 1440812752,
-    "unique_blob_bytes": 763243171,
-    "unique_blobs": 1633
+    "logical_bytes": 1440860489,
+    "unique_blob_bytes": 763272033,
+    "unique_blobs": 1641
   },
   "excluded": [
     {
+      "path": "out/dispatch/delivery-prep-copy.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-draft.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-http.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-ordinance.private.pdf",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-ordinance.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-next-actions.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-next-commands.private.md",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-readiness.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-routing.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/duplicate-media-clone-exchange.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/original-builder-first-launch.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/original-builder-handoff-completed.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/owner-authorization.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/public-evidence-lossless-storage.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/evidence/codex-owner-repair-2026-10-22/unlaunched-builder-audit.private.json",
+      "reason": "private path component"
+    },
+    {
       "path": "out/dispatch/grant-projection-roots.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/retained-before-manual-repair-35331bbd/retention-manifest.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/verify-final-gmail.private.py",
       "reason": "private path component"
     }
   ],
