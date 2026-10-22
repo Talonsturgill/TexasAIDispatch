@@ -89,6 +89,14 @@
       "note": "review 5 of 5 exact current timed phone in Codex",
       "resource": "storyboard_critics",
       "to": 5
+    },
+    {
+      "at": "2026-10-22T03:07:50.218288Z",
+      "ceiling": 16,
+      "from": 6,
+      "note": "finished cinematic hero and stage ablation batch",
+      "resource": "preflight_renders",
+      "to": 7
     }
   ],
   "events": [
@@ -896,6 +904,28 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-22T03:07:50.218307Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "finished cinematic hero and stage ablation batch",
+      "now": 7,
+      "resource": "preflight_renders",
+      "was": 6
+    },
+    {
+      "at": "2026-10-22T03:07:52.616280Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "finished cinematic hero and stage ablation batch",
+      "preflight_identity": "e06c04753cc012774ed66d932f5ea10377292b5a0822c90d4c333b68e61c68f7",
+      "preflight_identity_version": 2,
+      "publication_epoch": "e5d3a58f1a2845a5bd38f04c9456d8ef",
+      "publication_owner_sha256": "5232d8954f17c36778aee290c81bdbc318d79e519d860519f4afd94116d853f4",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -904,7 +934,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 6,
+    "preflight_renders": 7,
     "reboards": 4,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -919,7 +949,7 @@
   "phase": "audio",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "c5e9f0c3a4c2d73449ad6fcbc1a4b304fe9d1adc46b0b36faac538b13b5059d2",
+    "original_private_state_sha256": "8468e20412debfdef7d1d3c7c84bd7425e6d22b2526007999b4ca3faf28a860b",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -947,14 +977,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-22T02:29:01.620195Z",
+  "updated_at": "2026-10-22T03:07:52.616299Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 6,
+    "preflight_renders": 7,
     "reboards": 2,
     "reported_tokens": 10712,
     "rescue_renders": 0,
