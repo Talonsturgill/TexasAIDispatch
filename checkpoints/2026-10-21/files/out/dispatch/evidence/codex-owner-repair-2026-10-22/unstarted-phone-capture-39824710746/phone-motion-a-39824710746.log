@@ -1,0 +1,1169 @@
+capture	Set up job	﻿2026-10-22T17:40:12.0344132Z Current runner version: '2.338.0'
+capture	Set up job	2026-10-22T17:40:12.0364050Z ##[group]Runner Image Provisioner
+capture	Set up job	2026-10-22T17:40:12.0364641Z Hosted Compute Agent
+capture	Set up job	2026-10-22T17:40:12.0365153Z Version: 20261015.610
+capture	Set up job	2026-10-22T17:40:12.0365584Z Commit: 267fdb4e8bbec4ab5ea31367f3a00d5c480c7656
+capture	Set up job	2026-10-22T17:40:12.0366065Z Build Date: 2026-10-14T17:06:54Z
+capture	Set up job	2026-10-22T17:40:12.0366494Z Worker ID: {a8a576f8-52e3-4d16-8916-733ebf51de1d}
+capture	Set up job	2026-10-22T17:40:12.0366910Z Region: centralus
+capture	Set up job	2026-10-22T17:40:12.0367301Z Cloud: Azure
+capture	Set up job	2026-10-22T17:40:12.0367672Z ##[endgroup]
+capture	Set up job	2026-10-22T17:40:12.0368489Z ##[group]Operating System
+capture	Set up job	2026-10-22T17:40:12.0368875Z Ubuntu
+capture	Set up job	2026-10-22T17:40:12.0369205Z 24.04.5
+capture	Set up job	2026-10-22T17:40:12.0369565Z LTS
+capture	Set up job	2026-10-22T17:40:12.0369957Z ##[endgroup]
+capture	Set up job	2026-10-22T17:40:12.0370514Z ##[group]Runner Image
+capture	Set up job	2026-10-22T17:40:12.0370935Z Image: ubuntu-24.04
+capture	Set up job	2026-10-22T17:40:12.0371287Z Version: 20261018.339.1
+capture	Set up job	2026-10-22T17:40:12.0372270Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261018.339/images/ubuntu/Ubuntu2404-Readme.md
+capture	Set up job	2026-10-22T17:40:12.0373412Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261018.339
+capture	Set up job	2026-10-22T17:40:12.0374053Z ##[endgroup]
+capture	Set up job	2026-10-22T17:40:12.0374881Z ##[group]GITHUB_TOKEN Permissions
+capture	Set up job	2026-10-22T17:40:12.0376385Z Actions: read
+capture	Set up job	2026-10-22T17:40:12.0376746Z Contents: write
+capture	Set up job	2026-10-22T17:40:12.0377154Z Metadata: read
+capture	Set up job	2026-10-22T17:40:12.0377519Z ##[endgroup]
+capture	Set up job	2026-10-22T17:40:12.0378949Z Secret source: Actions
+capture	Set up job	2026-10-22T17:40:12.0379641Z Cache mode: write
+capture	Set up job	2026-10-22T17:40:12.0380070Z Prepare workflow directory
+capture	Set up job	2026-10-22T17:40:12.0724851Z Prepare all required actions
+capture	Set up job	2026-10-22T17:40:12.0756665Z Getting action download info
+capture	Set up job	2026-10-22T17:40:12.2991015Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+capture	Set up job	2026-10-22T17:40:12.3676250Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+capture	Set up job	2026-10-22T17:40:12.4751784Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+capture	Set up job	2026-10-22T17:40:12.5936440Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+capture	Set up job	2026-10-22T17:40:12.7901057Z Complete job name: capture
+capture	Initialize finite capture paths from the actual runner	﻿2026-10-22T17:40:12.8361192Z ##[group]Run printf 'CAPTURE_ROOT=%s\n' "$RUNNER_TEMP/dispatch-capture/TexasAIDispatch" >> "$GITHUB_ENV"
+capture	Initialize finite capture paths from the actual runner	2026-10-22T17:40:12.8361977Z ^[[36;1mprintf 'CAPTURE_ROOT=%s\n' "$RUNNER_TEMP/dispatch-capture/TexasAIDispatch" >> "$GITHUB_ENV"^[[0m
+capture	Initialize finite capture paths from the actual runner	2026-10-22T17:40:12.8362835Z ^[[36;1mprintf 'DISPATCH_GITHUB_CAPTURE_REQUEST=%s\n' "$RUNNER_TEMP/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-activation.json" >> "$GITHUB_ENV"^[[0m
+capture	Initialize finite capture paths from the actual runner	2026-10-22T17:40:12.8496532Z shell: /usr/bin/bash -e {0}
+capture	Initialize finite capture paths from the actual runner	2026-10-22T17:40:12.8497119Z env:
+capture	Initialize finite capture paths from the actual runner	2026-10-22T17:40:12.8497430Z   CAPTURE_REQUEST: 0dae2f1b94fdd314f1ad6c2d6d069a1d47530964
+capture	Initialize finite capture paths from the actual runner	2026-10-22T17:40:12.8498019Z   CAPTURE_REQUEST_SHA256: 4f8fbdb0f0c0a139ad5b28745ffcf00e3a821813d59dbbbeaded88f1d16e0589
+capture	Initialize finite capture paths from the actual runner	2026-10-22T17:40:12.8500521Z   GH_TOKEN: ***
+capture	Initialize finite capture paths from the actual runner	2026-10-22T17:40:12.8500763Z ##[endgroup]
+capture	Run actions/checkout@v4	﻿2026-10-22T17:40:12.8745885Z ##[group]Run actions/checkout@v4
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8746243Z with:
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8746500Z   ref: 7f5ecbb6b520c96789aae14868fa69b7cd709af3
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8746819Z   fetch-depth: 0
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8747078Z   repository: Talonsturgill/TexasAIDispatch
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8749120Z   token: ***
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8749354Z   ssh-strict: true
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8749591Z   ssh-user: git
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8749830Z   persist-credentials: true
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8750089Z   clean: true
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8750471Z   sparse-checkout-cone-mode: true
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8750751Z   fetch-tags: false
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8750989Z   show-progress: true
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8751226Z   lfs: false
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8751449Z   submodules: false
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8751687Z   set-safe-directory: true
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8751956Z   allow-unsafe-pr-checkout: false
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8752222Z env:
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8752716Z   CAPTURE_REQUEST: 0dae2f1b94fdd314f1ad6c2d6d069a1d47530964
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8753215Z   CAPTURE_REQUEST_SHA256: 4f8fbdb0f0c0a139ad5b28745ffcf00e3a821813d59dbbbeaded88f1d16e0589
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8755316Z   GH_TOKEN: ***
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8755636Z   CAPTURE_ROOT: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8756314Z   DISPATCH_GITHUB_CAPTURE_REQUEST: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-activation.json
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.8757014Z ##[endgroup]
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9458030Z Syncing repository: Talonsturgill/TexasAIDispatch
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9459797Z ##[group]Getting Git version info
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9460698Z Working directory is '/home/runner/work/TexasAIDispatch/TexasAIDispatch'
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9461911Z [command]/usr/bin/git version
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9519095Z git version 2.55.0
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9550653Z ##[endgroup]
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9556386Z Temporarily overriding HOME='/home/runner/work/_temp/bc5ecc6a-83ff-4967-a4aa-0d87e40a7445' before making global git config changes
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9557190Z Adding repository directory to the temporary git global config as a safe directory
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9558429Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TexasAIDispatch/TexasAIDispatch
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9600787Z Deleting the contents of '/home/runner/work/TexasAIDispatch/TexasAIDispatch'
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9603993Z ##[group]Initializing the repository
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9608166Z [command]/usr/bin/git init /home/runner/work/TexasAIDispatch/TexasAIDispatch
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9771257Z hint: Using 'master' as the name for the initial branch. This default branch name
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9772691Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9773666Z hint: to use in all of your new repositories, which will suppress this warning,
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9774380Z hint: call:
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9774789Z hint:
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9775381Z hint: 	git config --global init.defaultBranch <name>
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9776010Z hint:
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9776605Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9777377Z hint: 'development'. The just-created branch can be renamed via this command:
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9777836Z hint:
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9778104Z hint: 	git branch -m <name>
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9778407Z hint:
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9778796Z hint: Disable this message with "git config set advice.defaultBranchName false"
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9779587Z Initialized empty Git repository in /home/runner/work/TexasAIDispatch/TexasAIDispatch/.git/
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9782604Z [command]/usr/bin/git remote add origin https://github.com/Talonsturgill/TexasAIDispatch
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9838355Z ##[endgroup]
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9838936Z ##[group]Disabling automatic garbage collection
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9843124Z [command]/usr/bin/git config --local gc.auto 0
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9878406Z ##[endgroup]
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9879167Z ##[group]Setting up auth
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9884622Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+capture	Run actions/checkout@v4	2026-10-22T17:40:12.9928876Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+capture	Run actions/checkout@v4	2026-10-22T17:40:13.0244573Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+capture	Run actions/checkout@v4	2026-10-22T17:40:13.0289267Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+capture	Run actions/checkout@v4	2026-10-22T17:40:13.0493063Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+capture	Run actions/checkout@v4	2026-10-22T17:40:13.0532217Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+capture	Run actions/checkout@v4	2026-10-22T17:40:13.0734906Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+capture	Run actions/checkout@v4	2026-10-22T17:40:13.0784545Z ##[endgroup]
+capture	Run actions/checkout@v4	2026-10-22T17:40:13.0785322Z ##[group]Fetching the repository
+capture	Run actions/checkout@v4	2026-10-22T17:40:13.0792760Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8603889Z From https://github.com/Talonsturgill/TexasAIDispatch
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8604937Z  * [new branch]        capture/oct21-codex-repair-5aa67accd091 -> origin/capture/oct21-codex-repair-5aa67accd091
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8605770Z  * [new branch]        capture/oct21-codex-repair-7f5ecbb6b520 -> origin/capture/oct21-codex-repair-7f5ecbb6b520
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8606435Z  * [new branch]        capture/oct21-codex-repair-90277cc02c58 -> origin/capture/oct21-codex-repair-90277cc02c58
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8607062Z  * [new branch]        chore/dispatch-2026-09-28-shipment -> origin/chore/dispatch-2026-09-28-shipment
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8607754Z  * [new branch]        chore/dispatch-2026-09-29-shipment -> origin/chore/dispatch-2026-09-29-shipment
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8608500Z  * [new branch]        claude/checkpoint/2026-10-09-claude-pilot -> origin/claude/checkpoint/2026-10-09-claude-pilot
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8609126Z  * [new branch]        claude/checkpoint/2026-10-11 -> origin/claude/checkpoint/2026-10-11
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8609654Z  * [new branch]        claude/checkpoint/2026-10-15 -> origin/claude/checkpoint/2026-10-15
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8610190Z  * [new branch]        claude/checkpoint/2026-10-19 -> origin/claude/checkpoint/2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8610856Z  * [new branch]        claude/checkpoint/2026-10-21 -> origin/claude/checkpoint/2026-10-21
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8611373Z  * [new branch]        claude/dispatch-2026-08-28 -> origin/claude/dispatch-2026-08-28
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8611919Z  * [new branch]        claude/dispatch-2026-09-01 -> origin/claude/dispatch-2026-09-01
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8612466Z  * [new branch]        claude/dispatch-2026-09-01-email -> origin/claude/dispatch-2026-09-01-email
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8613060Z  * [new branch]        claude/dispatch-2026-09-03 -> origin/claude/dispatch-2026-09-03
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8613632Z  * [new branch]        claude/dispatch-2026-09-06 -> origin/claude/dispatch-2026-09-06
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8614213Z  * [new branch]        claude/dispatch-2026-09-08 -> origin/claude/dispatch-2026-09-08
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8614701Z  * [new branch]        claude/dispatch-2026-09-09 -> origin/claude/dispatch-2026-09-09
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8615238Z  * [new branch]        claude/dispatch-2026-09-09-post-v2 -> origin/claude/dispatch-2026-09-09-post-v2
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8615594Z  * [new branch]        claude/dispatch-2026-09-12 -> origin/claude/dispatch-2026-09-12
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8615912Z  * [new branch]        claude/dispatch-2026-09-13 -> origin/claude/dispatch-2026-09-13
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8616235Z  * [new branch]        claude/dispatch-2026-09-14 -> origin/claude/dispatch-2026-09-14
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8616552Z  * [new branch]        claude/dispatch-2026-09-15 -> origin/claude/dispatch-2026-09-15
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8617113Z  * [new branch]        claude/dispatch-2026-09-16 -> origin/claude/dispatch-2026-09-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8617423Z  * [new branch]        claude/dispatch-2026-09-17 -> origin/claude/dispatch-2026-09-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8617747Z  * [new branch]        claude/dispatch-2026-09-18 -> origin/claude/dispatch-2026-09-18
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8618098Z  * [new branch]        claude/dispatch-2026-09-19 -> origin/claude/dispatch-2026-09-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8618588Z  * [new branch]        claude/dispatch-2026-09-20 -> origin/claude/dispatch-2026-09-20
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8619090Z  * [new branch]        claude/dispatch-2026-09-24 -> origin/claude/dispatch-2026-09-24
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8619541Z  * [new branch]        claude/dispatch-2026-09-24-email -> origin/claude/dispatch-2026-09-24-email
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8619977Z  * [new branch]        claude/dispatch-2026-09-24-media -> origin/claude/dispatch-2026-09-24-media
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8620663Z  * [new branch]        claude/dispatch-2026-09-25 -> origin/claude/dispatch-2026-09-25
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8621128Z  * [new branch]        claude/dispatch-2026-09-26-review -> origin/claude/dispatch-2026-09-26-review
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8621476Z  * [new branch]        claude/dispatch-2026-09-28 -> origin/claude/dispatch-2026-09-28
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8621801Z  * [new branch]        claude/dispatch-2026-09-29 -> origin/claude/dispatch-2026-09-29
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8622130Z  * [new branch]        claude/dispatch-2026-09-30 -> origin/claude/dispatch-2026-09-30
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8622463Z  * [new branch]        claude/dispatch-2026-10-01 -> origin/claude/dispatch-2026-10-01
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8622796Z  * [new branch]        claude/dispatch-2026-10-02 -> origin/claude/dispatch-2026-10-02
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8623160Z  * [new branch]        claude/dispatch-2026-10-02-second -> origin/claude/dispatch-2026-10-02-second
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8623591Z  * [new branch]        claude/dispatch-2026-10-02-second-closure -> origin/claude/dispatch-2026-10-02-second-closure
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8623984Z  * [new branch]        claude/dispatch-2026-10-03 -> origin/claude/dispatch-2026-10-03
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8624318Z  * [new branch]        claude/dispatch-2026-10-05 -> origin/claude/dispatch-2026-10-05
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8624731Z  * [new branch]        claude/dispatch-2026-10-06 -> origin/claude/dispatch-2026-10-06
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8625128Z  * [new branch]        claude/dispatch-2026-10-06-closure -> origin/claude/dispatch-2026-10-06-closure
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8625481Z  * [new branch]        claude/dispatch-2026-10-07 -> origin/claude/dispatch-2026-10-07
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8626033Z  * [new branch]        claude/dispatch-2026-10-09-claude-pilot -> origin/claude/dispatch-2026-10-09-claude-pilot
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8626649Z  * [new branch]        claude/dispatch-2026-10-11 -> origin/claude/dispatch-2026-10-11
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8627145Z  * [new branch]        claude/dispatch-2026-10-11-closure -> origin/claude/dispatch-2026-10-11-closure
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8627562Z  * [new branch]        claude/dispatch-2026-10-11-renditions -> origin/claude/dispatch-2026-10-11-renditions
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8627954Z  * [new branch]        claude/dispatch-2026-10-15 -> origin/claude/dispatch-2026-10-15
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8628300Z  * [new branch]        claude/dispatch-2026-10-15-archive -> origin/claude/dispatch-2026-10-15-archive
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8628683Z  * [new branch]        claude/dispatch-2026-10-15-renditions -> origin/claude/dispatch-2026-10-15-renditions
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8629042Z  * [new branch]        claude/dispatch-2026-10-19 -> origin/claude/dispatch-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8629354Z  * [new branch]        claude/dispatch-2026-10-21 -> origin/claude/dispatch-2026-10-21
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8629772Z  * [new branch]        claude/dispatch-archive-2026-10-09-claude-pilot -> origin/claude/dispatch-archive-2026-10-09-claude-pilot
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8630206Z  * [new branch]        claude/dispatch-close-2026-10-07 -> origin/claude/dispatch-close-2026-10-07
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8630847Z  * [new branch]        claude/dispatch-close-2026-10-08 -> origin/claude/dispatch-close-2026-10-08
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8631217Z  * [new branch]        claude/dispatch-closure-2026-10-09 -> origin/claude/dispatch-closure-2026-10-09
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8631586Z  * [new branch]        claude/dispatch-email-2026-09-06 -> origin/claude/dispatch-email-2026-09-06
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8631948Z  * [new branch]        claude/dispatch-media-2026-09-06 -> origin/claude/dispatch-media-2026-09-06
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8632368Z  * [new branch]        claude/dispatch-modern-film-2026-10-07 -> origin/claude/dispatch-modern-film-2026-10-07
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8632756Z  * [new branch]        claude/dispatch-post-2026-09-10 -> origin/claude/dispatch-post-2026-09-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8633123Z  * [new branch]        claude/dispatch-release-2026-10-08 -> origin/claude/dispatch-release-2026-10-08
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8633622Z  * [new branch]        claude/dispatch-release-2026-10-09 -> origin/claude/dispatch-release-2026-10-09
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8634013Z  * [new branch]        claude/dispatch-release-repair-rule -> origin/claude/dispatch-release-repair-rule
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8634423Z  * [new branch]        claude/dispatch-shipment-2026-09-30 -> origin/claude/dispatch-shipment-2026-09-30
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8634809Z  * [new branch]        claude/dispatch-shipment-2026-10-01 -> origin/claude/dispatch-shipment-2026-10-01
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8635189Z  * [new branch]        claude/dispatch-shipment-2026-10-02 -> origin/claude/dispatch-shipment-2026-10-02
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8635568Z  * [new branch]        claude/dispatch-shipment-2026-10-03 -> origin/claude/dispatch-shipment-2026-10-03
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8635946Z  * [new branch]        claude/dispatch-shipment-2026-10-05 -> origin/claude/dispatch-shipment-2026-10-05
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8636382Z  * [new branch]        claude/dispatch-shipment-integrity-2026-09-30 -> origin/claude/dispatch-shipment-integrity-2026-09-30
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8636839Z  * [new branch]        claude/host-a-fork-evidence-2026-10-19 -> origin/claude/host-a-fork-evidence-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8637305Z  * [new branch]        claude/learning-authored-art-and-report-card -> origin/claude/learning-authored-art-and-report-card
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8637813Z  * [new branch]        claude/public-export-sanitizer -> origin/claude/public-export-sanitizer
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8638192Z  * [new branch]        claude/publication-owner -> origin/claude/publication-owner
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8638573Z  * [new branch]        claude/shipment-claude-connector-readback -> origin/claude/shipment-claude-connector-readback
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8638998Z  * [new branch]        claude/texas-ai-docket-setup-vf2a23 -> origin/claude/texas-ai-docket-setup-vf2a23
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8639346Z  * [new branch]        codex/bounded-dispatch -> origin/codex/bounded-dispatch
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8639920Z  * [new branch]        codex/capture-claims/2026-10-21/1094e5da821461ac385f054979dfbbad15c4382c8bea683eb8c9340d276fe338 -> origin/codex/capture-claims/2026-10-21/1094e5da821461ac385f054979dfbbad15c4382c8bea683eb8c9340d276fe338
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8641035Z  * [new branch]        codex/capture-claims/2026-10-21/1b7970a5312e38f937703b3182f4a2820d2de9c4096e4103288115f9e2e0f7c2 -> origin/codex/capture-claims/2026-10-21/1b7970a5312e38f937703b3182f4a2820d2de9c4096e4103288115f9e2e0f7c2
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8641843Z  * [new branch]        codex/capture-claims/2026-10-21/26aa1a5326bd1609df2790c2f74cfa38a3a64d33fd2d8ca6366502819bfd8f26 -> origin/codex/capture-claims/2026-10-21/26aa1a5326bd1609df2790c2f74cfa38a3a64d33fd2d8ca6366502819bfd8f26
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8642657Z  * [new branch]        codex/capture-claims/2026-10-21/27845e241e499a13cec4fe0e56881fa63ed35325930e7fc5c356433da3c91118 -> origin/codex/capture-claims/2026-10-21/27845e241e499a13cec4fe0e56881fa63ed35325930e7fc5c356433da3c91118
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8643474Z  * [new branch]        codex/capture-claims/2026-10-21/850a177039ae286972de2e42b68c6a44ac835c0179afcd6f6a394bb5234a0020 -> origin/codex/capture-claims/2026-10-21/850a177039ae286972de2e42b68c6a44ac835c0179afcd6f6a394bb5234a0020
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8644399Z  * [new branch]        codex/capture-claims/2026-10-21/a293b3360bb5799627c20f390f7f67cc553658bd4ab06ddc0ca93a40806b4680 -> origin/codex/capture-claims/2026-10-21/a293b3360bb5799627c20f390f7f67cc553658bd4ab06ddc0ca93a40806b4680
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8645211Z  * [new branch]        codex/capture-claims/2026-10-21/a4ad3aedac95792e0a1859657219fc8ab0a68f7e06410a18558d172baaf626a8 -> origin/codex/capture-claims/2026-10-21/a4ad3aedac95792e0a1859657219fc8ab0a68f7e06410a18558d172baaf626a8
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8646040Z  * [new branch]        codex/capture-claims/2026-10-21/b2da5caba554f461c406cf616e670d5e4f7d7a267c1ec4fecbec6513f8bb57ad -> origin/codex/capture-claims/2026-10-21/b2da5caba554f461c406cf616e670d5e4f7d7a267c1ec4fecbec6513f8bb57ad
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8646960Z  * [new branch]        codex/capture-claims/2026-10-21/d730f5d8fa6c45f485d3376d70cc7543dce4c7d71f19f53a9df88a51d58c7a7d -> origin/codex/capture-claims/2026-10-21/d730f5d8fa6c45f485d3376d70cc7543dce4c7d71f19f53a9df88a51d58c7a7d
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8647784Z  * [new branch]        codex/capture-claims/2026-10-21/ef2f00221d716e41f1fde07b68a0394002519b0b05d3a7a0dece18499aa74f5c -> origin/codex/capture-claims/2026-10-21/ef2f00221d716e41f1fde07b68a0394002519b0b05d3a7a0dece18499aa74f5c
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8648664Z  * [new branch]        codex/capture-continuation-requests/2026-10-21/a4ad3aedac95792e0a1859657219fc8ab0a68f7e06410a18558d172baaf626a8 -> origin/codex/capture-continuation-requests/2026-10-21/a4ad3aedac95792e0a1859657219fc8ab0a68f7e06410a18558d172baaf626a8
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8649581Z  * [new branch]        codex/capture-continuations/2026-10-21/a4ad3aedac95792e0a1859657219fc8ab0a68f7e06410a18558d172baaf626a8 -> origin/codex/capture-continuations/2026-10-21/a4ad3aedac95792e0a1859657219fc8ab0a68f7e06410a18558d172baaf626a8
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8650275Z  * [new branch]        codex/capture-operation-reservations-2026-10-12 -> origin/codex/capture-operation-reservations-2026-10-12
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8651022Z  * [new branch]        codex/capture-requests/0dae2f1b94fdd314f1ad6c2d6d069a1d47530964 -> origin/codex/capture-requests/0dae2f1b94fdd314f1ad6c2d6d069a1d47530964
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8651628Z  * [new branch]        codex/capture-requests/14cebbbf21064cd73e05ce11d195beab17d17b47 -> origin/codex/capture-requests/14cebbbf21064cd73e05ce11d195beab17d17b47
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8652210Z  * [new branch]        codex/capture-requests/240f638a5dac31ce4ed549b26f9fe18397532fa0 -> origin/codex/capture-requests/240f638a5dac31ce4ed549b26f9fe18397532fa0
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8652782Z  * [new branch]        codex/capture-requests/41329754c67278ed57f4d45fa111bbdc07307c6f -> origin/codex/capture-requests/41329754c67278ed57f4d45fa111bbdc07307c6f
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8653354Z  * [new branch]        codex/capture-requests/5097f5774b625283d696dcfbc257727754e9d968 -> origin/codex/capture-requests/5097f5774b625283d696dcfbc257727754e9d968
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8653932Z  * [new branch]        codex/capture-requests/5290af6946dc15b8c68b0476031a028435fbc64b -> origin/codex/capture-requests/5290af6946dc15b8c68b0476031a028435fbc64b
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8654504Z  * [new branch]        codex/capture-requests/83fdea1a6b3dd8026585c17ca66ccc8961ef47bf -> origin/codex/capture-requests/83fdea1a6b3dd8026585c17ca66ccc8961ef47bf
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8655080Z  * [new branch]        codex/capture-requests/976d97da8298103711359e91ebb054f40ccbb2b0 -> origin/codex/capture-requests/976d97da8298103711359e91ebb054f40ccbb2b0
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8655657Z  * [new branch]        codex/capture-requests/a34e57e4d080bccff10e50673aac45c37a5ebd90 -> origin/codex/capture-requests/a34e57e4d080bccff10e50673aac45c37a5ebd90
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8656227Z  * [new branch]        codex/capture-requests/b8021c41a6637ee86d483101641777fe26991733 -> origin/codex/capture-requests/b8021c41a6637ee86d483101641777fe26991733
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8656805Z  * [new branch]        codex/capture-requests/bcdb73ea65d5bd0a3f55ac7a4f8b24d2f9c582e2 -> origin/codex/capture-requests/bcdb73ea65d5bd0a3f55ac7a4f8b24d2f9c582e2
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8657483Z  * [new branch]        codex/capture-requests/d380904e39aa626a5921b48f8d150652719bd8f0 -> origin/codex/capture-requests/d380904e39aa626a5921b48f8d150652719bd8f0
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8658034Z  * [new branch]        codex/cinematic-engine-2026-09-23 -> origin/codex/cinematic-engine-2026-09-23
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8658446Z  * [new branch]        codex/claude-bounded-handback-2026-10-10 -> origin/codex/claude-bounded-handback-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8658863Z  * [new branch]        codex/claude-cache-compat-2026-10-12 -> origin/codex/claude-cache-compat-2026-10-12
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8659311Z  * [new branch]        codex/claude-capture-retry-capacity-2026-10-11 -> origin/codex/claude-capture-retry-capacity-2026-10-11
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8659772Z  * [new branch]        codex/claude-completion-audit-2026-10-10 -> origin/codex/claude-completion-audit-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8660495Z  * [new branch]        codex/claude-completion-capture-footprint-2026-10-11 -> origin/codex/claude-completion-capture-footprint-2026-10-11
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8661083Z  * [new branch]        codex/claude-exact-motion-review-2026-10-11 -> origin/codex/claude-exact-motion-review-2026-10-11
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8661533Z  * [new branch]        codex/claude-handoff-efficiency-2026-10-11 -> origin/codex/claude-handoff-efficiency-2026-10-11
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8661959Z  * [new branch]        codex/claude-hook-scope-2026-10-10 -> origin/codex/claude-hook-scope-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8662426Z  * [new branch]        codex/claude-measured-clause-cues-2026-10-10 -> origin/codex/claude-measured-clause-cues-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8663144Z  * [new branch]        codex/claude-modern-code-recovery-2026-10-10 -> origin/codex/claude-modern-code-recovery-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8663766Z  * [new branch]        codex/claude-paired-workspace-2026-10-10 -> origin/codex/claude-paired-workspace-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8664200Z  * [new branch]        codex/claude-pivot-recovery-2026-10-10 -> origin/codex/claude-pivot-recovery-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8664641Z  * [new branch]        codex/claude-prelaunch-capture-2026-10-12 -> origin/codex/claude-prelaunch-capture-2026-10-12
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8665098Z  * [new branch]        codex/claude-restored-preflight-2026-10-12 -> origin/codex/claude-restored-preflight-2026-10-12
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8665576Z  * [new branch]        codex/claude-review-coverage-recovery-2026-10-10 -> origin/codex/claude-review-coverage-recovery-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8666137Z  * [new branch]        codex/claude-review-scope-2026-10-10 -> origin/codex/claude-review-scope-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8666557Z  * [new branch]        codex/comparison-path-budget-2026-10-12 -> origin/codex/comparison-path-budget-2026-10-12
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8667078Z  * [new branch]        codex/directed-film-native-proof-2026-10-10 -> origin/codex/directed-film-native-proof-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8667499Z  * [new branch]        codex/dispatch-2026-08-30-dry-run -> origin/codex/dispatch-2026-08-30-dry-run
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8667871Z  * [new branch]        codex/dispatch-2026-09-26-shipment -> origin/codex/dispatch-2026-09-26-shipment
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8668357Z  * [new branch]        codex/dispatch-action-admission-2026-09-28 -> origin/codex/dispatch-action-admission-2026-09-28
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8668835Z  * [new branch]        codex/dispatch-agent-efficiency-2026-10-09 -> origin/codex/dispatch-agent-efficiency-2026-10-09
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8669273Z  * [new branch]        codex/dispatch-automation-efficiency -> origin/codex/dispatch-automation-efficiency
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8669739Z  * [new branch]        codex/dispatch-cinematic-upgrade-2026-10-06 -> origin/codex/dispatch-cinematic-upgrade-2026-10-06
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8670212Z  * [new branch]        codex/dispatch-claude-migration-2026-10-09 -> origin/codex/dispatch-claude-migration-2026-10-09
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8671012Z  * [new branch]        codex/dispatch-credit-sequence-2026-10-01 -> origin/codex/dispatch-credit-sequence-2026-10-01
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8671478Z  * [new branch]        codex/dispatch-daily-production-2026-09-27 -> origin/codex/dispatch-daily-production-2026-09-27
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8672052Z  * [new branch]        codex/dispatch-hero-context-recovery-2026-10-01 -> origin/codex/dispatch-hero-context-recovery-2026-10-01
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8672723Z  * [new branch]        codex/dispatch-measured-frame-intervals-2026-10-10 -> origin/codex/dispatch-measured-frame-intervals-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8673297Z  * [new branch]        codex/dispatch-owner-release-2026-09-25 -> origin/codex/dispatch-owner-release-2026-09-25
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8673794Z  * [new branch]        codex/dispatch-owner-review-grant-2026-09-28 -> origin/codex/dispatch-owner-review-grant-2026-09-28
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8674383Z  * [new branch]        codex/dispatch-pacing-2026-09-23 -> origin/codex/dispatch-pacing-2026-09-23
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8674816Z  * [new branch]        codex/dispatch-pivot-binding-2026-09-28 -> origin/codex/dispatch-pivot-binding-2026-09-28
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8675215Z  * [new branch]        codex/dispatch-preflight-repair -> origin/codex/dispatch-preflight-repair
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8675627Z  * [new branch]        codex/dispatch-quality-recovery-2026-09-27 -> origin/codex/dispatch-quality-recovery-2026-09-27
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8676023Z  * [new branch]        codex/dispatch-review-closure -> origin/codex/dispatch-review-closure
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8676457Z  * [new branch]        codex/dispatch-review-protocol-recovery-2026-10-01 -> origin/codex/dispatch-review-protocol-recovery-2026-10-01
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8676945Z  * [new branch]        codex/dispatch-runtime-efficiency-2026-09-27 -> origin/codex/dispatch-runtime-efficiency-2026-09-27
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8677359Z  * [new branch]        codex/dispatch-shipped-contract -> origin/codex/dispatch-shipped-contract
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8677741Z  * [new branch]        codex/enforce-cinematic-production -> origin/codex/enforce-cinematic-production
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8678157Z  * [new branch]        codex/native-sample-precheck-2026-10-12 -> origin/codex/native-sample-precheck-2026-10-12
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8678567Z  * [new branch]        codex/review-availability-2026-09-30 -> origin/codex/review-availability-2026-09-30
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8679001Z  * [new branch]        codex/visual-storytelling-dossiers-2026-10-02 -> origin/codex/visual-storytelling-dossiers-2026-10-02
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8679432Z  * [new branch]        feat/cinematic-editorial-direction -> origin/feat/cinematic-editorial-direction
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8679820Z  * [new branch]        fix/align-percent-symbol-2026-10-16 -> origin/fix/align-percent-symbol-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8680273Z  * [new branch]        fix/align-single-token-internal-pauses-2026-10-16 -> origin/fix/align-single-token-internal-pauses-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8680930Z  * [new branch]        fix/archival-review-transport-2026-10-22 -> origin/fix/archival-review-transport-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8681363Z  * [new branch]        fix/archive-source-identity-2026-10-21 -> origin/fix/archive-source-identity-2026-10-21
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8681799Z  * [new branch]        fix/authored-comparison-receipts-2026-10-22 -> origin/fix/authored-comparison-receipts-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8682219Z  * [new branch]        fix/av-common-prefix-2026-10-22 -> origin/fix/av-common-prefix-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8682605Z  * [new branch]        fix/bar-check-object-key-2026-10-17 -> origin/fix/bar-check-object-key-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8683003Z  * [new branch]        fix/bounded-native-context-2026-10-18 -> origin/fix/bounded-native-context-2026-10-18
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8683457Z  * [new branch]        fix/bounded-nonterminal-cost-closure-2026-10-22 -> origin/fix/bounded-nonterminal-cost-closure-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8683985Z  * [new branch]        fix/bounded-production-autonomy -> origin/fix/bounded-production-autonomy
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8684541Z  * [new branch]        fix/caption-fit-cue-ceiling-2026-10-20 -> origin/fix/caption-fit-cue-ceiling-2026-10-20
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8684989Z  * [new branch]        fix/checkpoint-discovery-snapshot-2026-10-20 -> origin/fix/checkpoint-discovery-snapshot-2026-10-20
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8685445Z  * [new branch]        fix/checkpoint-fixture-cleanup-2026-10-21 -> origin/fix/checkpoint-fixture-cleanup-2026-10-21
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8685892Z  * [new branch]        fix/checkpoint-grant-projection-2026-10-16 -> origin/fix/checkpoint-grant-projection-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8686310Z  * [new branch]        fix/checkpoint-total-cap-2026-10-17 -> origin/fix/checkpoint-total-cap-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8686723Z  * [new branch]        fix/claude-scorer-handoff-cap-2026-10-20 -> origin/fix/claude-scorer-handoff-cap-2026-10-20
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8687153Z  * [new branch]        fix/code-comparison-capacity-2026-10-18 -> origin/fix/code-comparison-capacity-2026-10-18
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8687669Z  * [new branch]        fix/code-review-json-bindings-2026-10-19 -> origin/fix/code-review-json-bindings-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8688115Z  * [new branch]        fix/codex-builder-packet-layout-2026-10-22 -> origin/fix/codex-builder-packet-layout-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8688556Z  * [new branch]        fix/codex-coverage-completion-2026-10-22 -> origin/fix/codex-coverage-completion-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8689002Z  * [new branch]        fix/codex-image-checkpoint-scan-2026-10-22 -> origin/fix/codex-image-checkpoint-scan-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8689458Z  * [new branch]        fix/compact-final-scorer-handoff-2026-10-17 -> origin/fix/compact-final-scorer-handoff-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8689887Z  * [new branch]        fix/comparison-admission-2026-10-20 -> origin/fix/comparison-admission-2026-10-20
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8690403Z  * [new branch]        fix/complete-phone-review-evidence-2026-10-16 -> origin/fix/complete-phone-review-evidence-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8690899Z  * [new branch]        fix/complete-source-validation-pass-2026-10-19 -> origin/fix/complete-source-validation-pass-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8691363Z  * [new branch]        fix/completion-budget-sequence-2026-10-16 -> origin/fix/completion-budget-sequence-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8691840Z  * [new branch]        fix/continue-unfinished-claude-routines-2026-10-16 -> origin/fix/continue-unfinished-claude-routines-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8692333Z  * [new branch]        fix/dispatch-blocking-worker-wait-2026-10-19 -> origin/fix/dispatch-blocking-worker-wait-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8692789Z  * [new branch]        fix/dispatch-delivery-captions-2026-10-15 -> origin/fix/dispatch-delivery-captions-2026-10-15
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8693166Z  * [new branch]        fix/dispatch-review-path -> origin/fix/dispatch-review-path
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8693529Z  * [new branch]        fix/dispatch-smooth-motion-2026-10-06 -> origin/fix/dispatch-smooth-motion-2026-10-06
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8693919Z  * [new branch]        fix/dispatch-treatment-repair -> origin/fix/dispatch-treatment-repair
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8694317Z  * [new branch]        fix/durable-image-observations-2026-10-19 -> origin/fix/durable-image-observations-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8694766Z  * [new branch]        fix/durable-visual-observations-2026-10-19 -> origin/fix/durable-visual-observations-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8695195Z  * [new branch]        fix/final-checkout-closure-2026-10-21 -> origin/fix/final-checkout-closure-2026-10-21
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8695629Z  * [new branch]        fix/final-native-review-context-2026-10-18 -> origin/fix/final-native-review-context-2026-10-18
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8696066Z  * [new branch]        fix/final-scorer-json-handoff-2026-10-19 -> origin/fix/final-scorer-json-handoff-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8696510Z  * [new branch]        fix/first-pivot-continuation-2026-10-19 -> origin/fix/first-pivot-continuation-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8696940Z  * [new branch]        fix/foreground-leaf-plans-2026-10-19 -> origin/fix/foreground-leaf-plans-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8697431Z  * [new branch]        fix/full-render-precharge-2026-10-17 -> origin/fix/full-render-precharge-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8697878Z  * [new branch]        fix/fund-mandatory-source-validation-2026-10-16 -> origin/fix/fund-mandatory-source-validation-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8698365Z  * [new branch]        fix/future-measured-concept-digest-2026-10-16 -> origin/fix/future-measured-concept-digest-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8698856Z  * [new branch]        fix/historical-public-path-projection-2026-10-18 -> origin/fix/historical-public-path-projection-2026-10-18
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8699416Z  * [new branch]        fix/idempotent-delivery-package-2026-10-18 -> origin/fix/idempotent-delivery-package-2026-10-18
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8699955Z  * [new branch]        fix/immediate-media-failure-proof-2026-10-19 -> origin/fix/immediate-media-failure-proof-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8700963Z  * [new branch]        fix/independent-phone-media-limit-2026-10-16 -> origin/fix/independent-phone-media-limit-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8701480Z  * [new branch]        fix/literal-clause-handoff-2026-10-22 -> origin/fix/literal-clause-handoff-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8702003Z  * [new branch]        fix/load-aware-claude-image-review-2026-10-16 -> origin/fix/load-aware-claude-image-review-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8702450Z  * [new branch]        fix/lossless-native-packets-2026-10-18 -> origin/fix/lossless-native-packets-2026-10-18
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8702882Z  * [new branch]        fix/modern-code-prepare-before-adoption -> origin/fix/modern-code-prepare-before-adoption
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8703321Z  * [new branch]        fix/motion-execution-recovery-2026-10-17 -> origin/fix/motion-execution-recovery-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8703765Z  * [new branch]        fix/music-credit-before-render-2026-10-17 -> origin/fix/music-credit-before-render-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8704222Z  * [new branch]        fix/narration-pivot-completion-2026-10-16 -> origin/fix/narration-pivot-completion-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8704606Z  * [new branch]        fix/narration-repair-scope -> origin/fix/narration-repair-scope
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8704971Z  * [new branch]        fix/one-time-codex-repair-2026-10-22 -> origin/fix/one-time-codex-repair-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8705386Z  * [new branch]        fix/phone-recovery-capacity-2026-10-20 -> origin/fix/phone-recovery-capacity-2026-10-20
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8705813Z  * [new branch]        fix/phone-review-packet-scope-2026-10-16 -> origin/fix/phone-review-packet-scope-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8706267Z  * [new branch]        fix/phone-sequence-capture-budget-2026-10-17 -> origin/fix/phone-sequence-capture-budget-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8706695Z  * [new branch]        fix/precharge-checkpoint-2026-10-17 -> origin/fix/precharge-checkpoint-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8707093Z  * [new branch]        fix/prelaunch-media-cache-2026-10-17 -> origin/fix/prelaunch-media-cache-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8707509Z  * [new branch]        fix/prelaunch-source-headroom-2026-10-19 -> origin/fix/prelaunch-source-headroom-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8707928Z  * [new branch]        fix/prepaid-rights-budget-2026-10-17 -> origin/fix/prepaid-rights-budget-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8708349Z  * [new branch]        fix/prepared-capture-comparison-funding -> origin/fix/prepared-capture-comparison-funding
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8708785Z  * [new branch]        fix/primary-clause-deadline-2026-10-22 -> origin/fix/primary-clause-deadline-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8709230Z  * [new branch]        fix/provider-availability-recovery-2026-10-16 -> origin/fix/provider-availability-recovery-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8709691Z  * [new branch]        fix/provider-packet-compaction-2026-10-16 -> origin/fix/provider-packet-compaction-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8710140Z  * [new branch]        fix/public-visual-prompt-repair-2026-10-19 -> origin/fix/public-visual-prompt-repair-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8710835Z  * [new branch]        fix/publisher-ownership-2026-10-20 -> origin/fix/publisher-ownership-2026-10-20
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8711222Z  * [new branch]        fix/remote-preship-check-2026-10-22 -> origin/fix/remote-preship-check-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8711607Z  * [new branch]        fix/repair-bound-inputs-2026-10-15 -> origin/fix/repair-bound-inputs-2026-10-15
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8712017Z  * [new branch]        fix/repair-checkpoint-capture-2026-10-22 -> origin/fix/repair-checkpoint-capture-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8712456Z  * [new branch]        fix/report-all-caption-failures-2026-10-16 -> origin/fix/report-all-caption-failures-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8712915Z  * [new branch]        fix/restore-modern-audit-root-2026-10-17 -> origin/fix/restore-modern-audit-root-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8713386Z  * [new branch]        fix/restored-continuation-target-2026-10-17 -> origin/fix/restored-continuation-target-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8713945Z  * [new branch]        fix/resume-measured-audio-clock-2026-10-16 -> origin/fix/resume-measured-audio-clock-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8714381Z  * [new branch]        fix/retained-film-inspection-2026-10-19 -> origin/fix/retained-film-inspection-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8714806Z  * [new branch]        fix/rights-repair-preflight-2026-10-17 -> origin/fix/rights-repair-preflight-2026-10-17
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8715256Z  * [new branch]        fix/route-audio-integrity-recovery-2026-10-16 -> origin/fix/route-audio-integrity-recovery-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8715718Z  * [new branch]        fix/scheduled-bootstrap-refresh-2026-10-19 -> origin/fix/scheduled-bootstrap-refresh-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8716147Z  * [new branch]        fix/scorer-cap-outside-bound-policy -> origin/fix/scorer-cap-outside-bound-policy
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8716556Z  * [new branch]        fix/shallow-archive-lineage-2026-10-21 -> origin/fix/shallow-archive-lineage-2026-10-21
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8716976Z  * [new branch]        fix/source-credit-numerals-2026-10-22 -> origin/fix/source-credit-numerals-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8717427Z  * [new branch]        fix/source-pivot-comparison-funding-2026-10-16 -> origin/fix/source-pivot-comparison-funding-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8717869Z  * [new branch]        fix/spoken-decimal-figures-2026-10-15 -> origin/fix/spoken-decimal-figures-2026-10-15
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8718232Z  * [new branch]        fix/story-specific-visuals -> origin/fix/story-specific-visuals
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8718628Z  * [new branch]        fix/story-structure-before-critic-2026-10-19 -> origin/fix/story-structure-before-critic-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8719118Z  * [new branch]        fix/subject-check-before-paid-research-2026-10-19 -> origin/fix/subject-check-before-paid-research-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8719602Z  * [new branch]        fix/timed-phone-review-evidence-2026-10-16 -> origin/fix/timed-phone-review-evidence-2026-10-16
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8720077Z  * [new branch]        fix/verified-public-image-checkpoint-2026-10-22 -> origin/fix/verified-public-image-checkpoint-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8720710Z  * [new branch]        fix/visual-hook-source-writes-2026-10-21 -> origin/fix/visual-hook-source-writes-2026-10-21
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8721123Z  * [new branch]        fix/visual-leaf-identity-2026-10-19 -> origin/fix/visual-leaf-identity-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8721522Z  * [new branch]        fix/visual-leaf-write-hooks-2026-10-19 -> origin/fix/visual-leaf-write-hooks-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8721944Z  * [new branch]        fix/visual-primary-workspace-2026-10-19 -> origin/fix/visual-primary-workspace-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8722392Z  * [new branch]        fix/visual-write-hook-registration-2026-10-19 -> origin/fix/visual-write-hook-registration-2026-10-19
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8722834Z  * [new branch]        fix/worker-retry-accounting-2026-10-20 -> origin/fix/worker-retry-accounting-2026-10-20
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8723169Z  * [new branch]        main                   -> origin/main
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8723562Z  * [new branch]        tooling/lossless-critic-packet -> origin/tooling/lossless-critic-packet
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8723906Z  * [new branch]        tooling/native-refusal-text -> origin/tooling/native-refusal-text
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8724291Z  * [new branch]        tooling/numeral-spoken-integer-alignment -> origin/tooling/numeral-spoken-integer-alignment
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8724679Z  * [new branch]        tsturg/fervent-edison-ywyo50 -> origin/tsturg/fervent-edison-ywyo50
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8725045Z  * [new branch]        tsturg/hopeful-johnson-5mmhbb -> origin/tsturg/hopeful-johnson-5mmhbb
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8725373Z  * [new branch]        tsturg/nifty-euler-6abvmn -> origin/tsturg/nifty-euler-6abvmn
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8725710Z  * [new branch]        tsturg/practical-fermat-p4j9e5 -> origin/tsturg/practical-fermat-p4j9e5
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8726139Z  * [new branch]        tsturg/wizardly-tesla-eg83py -> origin/tsturg/wizardly-tesla-eg83py
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8726487Z  * [new branch]        tsturg/youthful-noether-fo2jtp -> origin/tsturg/youthful-noether-fo2jtp
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8726895Z  * [new branch]        weekly/production-completion-docs-2026-10-10 -> origin/weekly/production-completion-docs-2026-10-10
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8728041Z [command]/usr/bin/git rev-parse --verify --quiet 7f5ecbb6b520c96789aae14868fa69b7cd709af3^{object}
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8728343Z 7f5ecbb6b520c96789aae14868fa69b7cd709af3
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8728866Z ##[endgroup]
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8729125Z ##[group]Determining the checkout info
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8729392Z ##[endgroup]
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8729555Z [command]/usr/bin/git sparse-checkout disable
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8758399Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8806983Z ##[group]Checking out the ref
+capture	Run actions/checkout@v4	2026-10-22T17:40:55.8809975Z [command]/usr/bin/git checkout --progress --force 7f5ecbb6b520c96789aae14868fa69b7cd709af3
+capture	Run actions/checkout@v4	2026-10-22T17:40:56.8972609Z Updating files:  23% (811/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:56.9028667Z Updating files:  24% (814/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:56.9240280Z Updating files:  25% (848/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:56.9582026Z Updating files:  26% (882/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:56.9695933Z Updating files:  27% (916/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.0092175Z Updating files:  28% (950/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.0131274Z Updating files:  29% (984/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.0372400Z Updating files:  30% (1018/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.0424505Z Updating files:  31% (1052/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.0530554Z Updating files:  32% (1086/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.0707136Z Updating files:  33% (1120/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.0836890Z Updating files:  34% (1153/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.0976588Z Updating files:  35% (1187/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.1081089Z Updating files:  36% (1221/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.1269125Z Updating files:  37% (1255/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.1431921Z Updating files:  38% (1289/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.1656683Z Updating files:  39% (1323/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.1814272Z Updating files:  40% (1357/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.2239022Z Updating files:  41% (1391/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.2509066Z Updating files:  42% (1425/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.2653875Z Updating files:  43% (1459/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.2819850Z Updating files:  44% (1493/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.3030932Z Updating files:  45% (1526/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.3239518Z Updating files:  46% (1560/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.3531758Z Updating files:  47% (1594/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.3843585Z Updating files:  48% (1628/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.4004569Z Updating files:  49% (1662/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.4199948Z Updating files:  50% (1696/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.4434436Z Updating files:  51% (1730/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.4605749Z Updating files:  52% (1764/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.4775694Z Updating files:  53% (1798/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.4943974Z Updating files:  54% (1832/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.4963069Z Updating files:  55% (1866/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.5104063Z Updating files:  56% (1899/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.5308655Z Updating files:  57% (1933/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.5407200Z Updating files:  58% (1967/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.5422944Z Updating files:  59% (2001/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.5700884Z Updating files:  60% (2035/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.6084791Z Updating files:  61% (2069/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.6127665Z Updating files:  62% (2103/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.6521660Z Updating files:  63% (2137/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.6809132Z Updating files:  64% (2171/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.7169989Z Updating files:  65% (2205/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.7522536Z Updating files:  66% (2239/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.7851600Z Updating files:  67% (2272/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.7919409Z Updating files:  68% (2306/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.8459380Z Updating files:  69% (2340/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.8786144Z Updating files:  70% (2374/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.8903748Z Updating files:  71% (2408/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.8994826Z Updating files:  71% (2409/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.9303279Z Updating files:  72% (2442/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:57.9664631Z Updating files:  73% (2476/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.0353766Z Updating files:  74% (2510/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.0954034Z Updating files:  75% (2544/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.0973810Z Updating files:  76% (2578/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.0985191Z Updating files:  77% (2612/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.1286230Z Updating files:  78% (2645/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.1536011Z Updating files:  79% (2679/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.1972651Z Updating files:  80% (2713/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.2510282Z Updating files:  81% (2747/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.2553657Z Updating files:  82% (2781/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.2579885Z Updating files:  83% (2815/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.2606807Z Updating files:  84% (2849/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.2653695Z Updating files:  85% (2883/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.2681508Z Updating files:  86% (2917/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.2707182Z Updating files:  87% (2951/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.2736675Z Updating files:  88% (2985/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.3428467Z Updating files:  89% (3018/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.3835458Z Updating files:  90% (3052/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.3979100Z Updating files:  91% (3086/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4049067Z Updating files:  92% (3120/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4128343Z Updating files:  93% (3154/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4200805Z Updating files:  94% (3188/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4223351Z Updating files:  95% (3222/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4248514Z Updating files:  96% (3256/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4278697Z Updating files:  97% (3290/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4320200Z Updating files:  98% (3324/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4339013Z Updating files:  99% (3358/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4339220Z Updating files: 100% (3391/3391)
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4339475Z Updating files: 100% (3391/3391), done.
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4369699Z Note: switching to '7f5ecbb6b520c96789aae14868fa69b7cd709af3'.
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4369887Z 
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4370038Z You are in 'detached HEAD' state. You can look around, make experimental
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4370444Z changes and commit them, and you can discard any commits you make in this
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4370840Z state without impacting any branches by switching back to a branch.
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4371077Z 
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4371233Z If you want to create a new branch to retain commits you create, you may
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4371540Z do so (now or later) by using -c with the switch command. Example:
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4371679Z 
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4371742Z   git switch -c <new-branch-name>
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4371837Z 
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4371899Z Or undo this operation with:
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4371987Z 
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4372038Z   git switch -
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4372108Z 
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4372222Z Turn off this advice by setting config variable advice.detachedHead to false
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4372388Z 
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4374894Z HEAD is now at 7f5ecbb6 Merge pull request #273 from Talonsturgill/fix/authored-comparison-receipts-2026-10-22
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4696780Z ##[endgroup]
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4758918Z [command]/usr/bin/git log -1 --format=%H
+capture	Run actions/checkout@v4	2026-10-22T17:40:58.4786509Z 7f5ecbb6b520c96789aae14868fa69b7cd709af3
+capture	Run actions/setup-python@v5	﻿2026-10-22T17:40:58.4961512Z ##[group]Run actions/setup-python@v5
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4961696Z with:
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4961816Z   python-version: 3.11
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4961947Z   check-latest: false
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4963263Z   token: ***
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4963389Z   update-environment: true
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4963532Z   allow-prereleases: false
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4963674Z   freethreaded: false
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4963800Z env:
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4963953Z   CAPTURE_REQUEST: 0dae2f1b94fdd314f1ad6c2d6d069a1d47530964
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4964245Z   CAPTURE_REQUEST_SHA256: 4f8fbdb0f0c0a139ad5b28745ffcf00e3a821813d59dbbbeaded88f1d16e0589
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4965704Z   GH_TOKEN: ***
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4965884Z   CAPTURE_ROOT: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4966410Z   DISPATCH_GITHUB_CAPTURE_REQUEST: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-activation.json
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.4966736Z ##[endgroup]
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.5890657Z ##[group]Installed versions
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.5953887Z (node:2117) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.5954446Z (Use `node --trace-deprecation ...` to show where the warning was created)
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.5954785Z Successfully set up CPython (3.11.17)
+capture	Run actions/setup-python@v5	2026-10-22T17:40:58.5955193Z ##[endgroup]
+capture	Run actions/setup-node@v4	﻿2026-10-22T17:40:58.6181542Z ##[group]Run actions/setup-node@v4
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6181721Z with:
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6181841Z   node-version: 22
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6181960Z   always-auth: false
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6182085Z   check-latest: false
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6183466Z   token: ***
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6183590Z env:
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6183759Z   CAPTURE_REQUEST: 0dae2f1b94fdd314f1ad6c2d6d069a1d47530964
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6184043Z   CAPTURE_REQUEST_SHA256: 4f8fbdb0f0c0a139ad5b28745ffcf00e3a821813d59dbbbeaded88f1d16e0589
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6185372Z   GH_TOKEN: ***
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6185545Z   CAPTURE_ROOT: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6185927Z   DISPATCH_GITHUB_CAPTURE_REQUEST: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-activation.json
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6186289Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6186543Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6186822Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6187037Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6187243Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6187453Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.6187637Z ##[endgroup]
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.8019434Z (node:2125) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.8020007Z (Use `node --trace-deprecation ...` to show where the warning was created)
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.8020724Z Found in cache @ /opt/hostedtoolcache/node/22.23.3/x64
+capture	Run actions/setup-node@v4	2026-10-22T17:40:58.8026696Z ##[group]Environment details
+capture	Run actions/setup-node@v4	2026-10-22T17:40:59.1403916Z node: v22.23.3
+capture	Run actions/setup-node@v4	2026-10-22T17:40:59.1404386Z npm: 10.9.9
+capture	Run actions/setup-node@v4	2026-10-22T17:40:59.1404739Z yarn: 1.22.22
+capture	Run actions/setup-node@v4	2026-10-22T17:40:59.1405976Z ##[endgroup]
+capture	Provision finite capture dependencies	﻿2026-10-22T17:40:59.1540002Z ##[group]Run if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1540613Z ^[[36;1mif ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then^[[0m
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1541525Z ^[[36;1m  sudo find /etc/apt -maxdepth 2 -type f \( -name '*.list' -o -name '*.sources' -o -name 'apt-mirrors*.txt' \) -exec sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g;s|https://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' {} +^[[0m
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1542265Z ^[[36;1m  sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update^[[0m
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1542711Z ^[[36;1m  sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install --yes --no-install-recommends ffmpeg^[[0m
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1543057Z ^[[36;1mfi^[[0m
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1543182Z ^[[36;1mffmpeg -version | head -n 1^[[0m
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1543341Z ^[[36;1mffprobe -version | head -n 1^[[0m
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1543552Z ^[[36;1mpip install --quiet -r requirements.txt^[[0m
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1598588Z shell: /usr/bin/bash -e {0}
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1598754Z env:
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1598919Z   CAPTURE_REQUEST: 0dae2f1b94fdd314f1ad6c2d6d069a1d47530964
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1599208Z   CAPTURE_REQUEST_SHA256: 4f8fbdb0f0c0a139ad5b28745ffcf00e3a821813d59dbbbeaded88f1d16e0589
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1601168Z   GH_TOKEN: ***
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1601355Z   CAPTURE_ROOT: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1601739Z   DISPATCH_GITHUB_CAPTURE_REQUEST: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-activation.json
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1602102Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1602336Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1602569Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1602782Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1603000Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1603216Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.1603402Z ##[endgroup]
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.2445068Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [139 B]
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.2892592Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.3487715Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [568 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.3722863Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [631 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:40:59.9653001Z Hit:2 https://archive.ubuntu.com/ubuntu noble InRelease
+capture	Provision finite capture dependencies	2026-10-22T17:41:00.0780588Z Get:3 https://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:00.4714348Z Get:4 https://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:00.6440954Z Get:5 https://archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:00.8069909Z Get:9 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1400 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:01.2548052Z Get:10 https://archive.ubuntu.com/ubuntu noble-updates/main Translation-en [310 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:01.3742710Z Get:11 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1706 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:01.5663983Z Get:12 https://archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:01.6826054Z Get:13 https://archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1146 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:01.8302932Z Get:14 https://archive.ubuntu.com/ubuntu noble-security/main Translation-en [231 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:01.9422484Z Get:15 https://archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1222 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:04.8597925Z Fetched 7938 kB in 3s (2787 kB/s)
+capture	Provision finite capture dependencies	2026-10-22T17:41:05.7014901Z Reading package lists...
+capture	Provision finite capture dependencies	2026-10-22T17:41:05.7352217Z Reading package lists...
+capture	Provision finite capture dependencies	2026-10-22T17:41:05.9544477Z Building dependency tree...
+capture	Provision finite capture dependencies	2026-10-22T17:41:05.9550593Z Reading state information...
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1033099Z The following additional packages will be installed:
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1033932Z   libass9 libasyncns0 libavc1394-0 libavcodec60 libavdevice60 libavfilter9
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1034648Z   libavformat60 libavutil58 libblas3 libbluray2 libbs2b0 libcaca0
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1035450Z   libcdio-cdda2t64 libcdio-paranoia2t64 libcdio19t64 libchromaprint1 libcjson1
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1036123Z   libcodec2-1.2 libdav1d7 libdc1394-25 libdecor-0-0 libflac12t64 libflite1
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1036771Z   libgme0 libgsm1 libhwy1t64 libiec61883-0 libjack-jackd2-0 libjxl0.7
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1037439Z   liblapack3 liblilv-0-0 libmbedcrypto7t64 libmp3lame0 libmpg123-0t64
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1038152Z   libmysofa1 libopenal-data libopenal1 libopenmpt0t64 libopus0 libplacebo338
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1038900Z   libpocketsphinx3 libpostproc57 libpulse0 librav1e0 libraw1394-11 librist4
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1039805Z   librsvg2-2 librubberband2 libsamplerate0 libsdl2-2.0-0 libserd-0-0 libshine3
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1040631Z   libsndfile1 libsndio7.0 libsord-0-0 libsoxr0 libspeex1 libsphinxbase3t64
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1041201Z   libsratom-0-0 libsrt1.5-gnutls libssh-gcrypt-4 libsvtav1enc1d1
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1041822Z   libswresample4 libswscale7 libtheora0 libtwolame0 libudfread0 libunibreak5
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1043109Z   libva-drm2 libva-x11-2 libva2 libvdpau1 libvidstab1.1 libvorbisenc2 libvpl2
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1043716Z   libvpx9 libx264-164 libx265-199 libxcb-shape0 libxv1 libxvidcore4 libzimg2
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1044261Z   libzix-0-0 libzvbi-common libzvbi0t64 ocl-icd-libopencl1
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1048869Z Suggested packages:
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1049185Z   ffmpeg-doc libcuda1 libnvcuvid1 libnvidia-encode1 libbluray-bdj jackd2
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1051893Z   libportaudio2 opus-tools pulseaudio libraw1394-doc librsvg2-bin serdi sndiod
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1052237Z   sordi speex opencl-icd
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1052474Z Recommended packages:
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1052770Z   libaacs0 default-libdecor-0-plugin-1 | libdecor-0-plugin-1
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1053177Z   pocketsphinx-en-us librsvg2-common va-driver-all | va-driver
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1053452Z   vdpau-driver-all | vdpau-driver
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1379884Z The following NEW packages will be installed:
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1380642Z   ffmpeg libass9 libasyncns0 libavc1394-0 libavcodec60 libavdevice60
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1381072Z   libavfilter9 libavformat60 libavutil58 libblas3 libbluray2 libbs2b0 libcaca0
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1381397Z   libcdio-cdda2t64 libcdio-paranoia2t64 libcdio19t64 libchromaprint1 libcjson1
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1381789Z   libcodec2-1.2 libdav1d7 libdc1394-25 libdecor-0-0 libflac12t64 libflite1
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1382149Z   libgme0 libgsm1 libhwy1t64 libiec61883-0 libjack-jackd2-0 libjxl0.7
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1382508Z   liblapack3 liblilv-0-0 libmbedcrypto7t64 libmp3lame0 libmpg123-0t64
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1382892Z   libmysofa1 libopenal-data libopenal1 libopenmpt0t64 libopus0 libplacebo338
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1383272Z   libpocketsphinx3 libpostproc57 libpulse0 librav1e0 libraw1394-11 librist4
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1386068Z   librsvg2-2 librubberband2 libsamplerate0 libsdl2-2.0-0 libserd-0-0 libshine3
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1386725Z   libsndfile1 libsndio7.0 libsord-0-0 libsoxr0 libspeex1 libsphinxbase3t64
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1387429Z   libsratom-0-0 libsrt1.5-gnutls libssh-gcrypt-4 libsvtav1enc1d1
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1388119Z   libswresample4 libswscale7 libtheora0 libtwolame0 libudfread0 libunibreak5
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1388889Z   libva-drm2 libva-x11-2 libva2 libvdpau1 libvidstab1.1 libvorbisenc2 libvpl2
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1389537Z   libvpx9 libx264-164 libx265-199 libxcb-shape0 libxv1 libxvidcore4 libzimg2
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1391495Z   libzix-0-0 libzvbi-common libzvbi0t64 ocl-icd-libopencl1
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1595022Z 0 upgraded, 87 newly installed, 0 to remove and 55 not upgraded.
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1595857Z Need to get 62.8 MB of archives.
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1596221Z After this operation, 173 MB of additional disk space will be used.
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.1596628Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [139 B]
+capture	Provision finite capture dependencies	2026-10-22T17:41:06.8225869Z Get:2 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 libva2 amd64 2.20.0-2ubuntu0.2 [66.4 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:07.2782369Z Get:3 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 libva-drm2 amd64 2.20.0-2ubuntu0.2 [7124 B]
+capture	Provision finite capture dependencies	2026-10-22T17:41:07.4318533Z Get:4 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 libva-x11-2 amd64 2.20.0-2ubuntu0.2 [12.0 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:07.5921837Z Get:5 https://archive.ubuntu.com/ubuntu noble/main amd64 libvdpau1 amd64 1.5-2build1 [27.8 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:07.7702643Z Get:6 https://archive.ubuntu.com/ubuntu noble/universe amd64 libvpl2 amd64 2023.3.0-1build1 [99.8 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:08.0369871Z Get:7 https://archive.ubuntu.com/ubuntu noble/universe amd64 ocl-icd-libopencl1 amd64 2.3.2-1build1 [38.5 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:08.2180662Z Get:8 https://archive.ubuntu.com/ubuntu noble/universe amd64 libavutil58 amd64 7:6.1.1-3ubuntu5 [401 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:08.6842620Z Get:9 https://archive.ubuntu.com/ubuntu noble/universe amd64 libcodec2-1.2 amd64 1.2.0-2build1 [8998 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:09.5314039Z Get:10 https://archive.ubuntu.com/ubuntu noble/universe amd64 libdav1d7 amd64 1.4.1-1build1 [604 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:09.6862315Z Get:11 https://archive.ubuntu.com/ubuntu noble/universe amd64 libgsm1 amd64 1.0.22-1build1 [27.8 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:09.8347937Z Get:12 https://archive.ubuntu.com/ubuntu noble/universe amd64 libhwy1t64 amd64 1.0.7-8.1build1 [584 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:09.9895976Z Get:13 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 libjxl0.7 amd64 0.7.0-10.2ubuntu6.1 [1001 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:10.1490952Z Get:14 https://archive.ubuntu.com/ubuntu noble/main amd64 libmp3lame0 amd64 3.100-6build1 [142 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:10.2985758Z Get:15 https://archive.ubuntu.com/ubuntu noble/main amd64 libopus0 amd64 1.4-1build1 [208 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:10.5618071Z Get:16 https://archive.ubuntu.com/ubuntu noble/universe amd64 librav1e0 amd64 0.7.1-2 [1022 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:10.7998742Z Get:17 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 librsvg2-2 amd64 2.58.0+dfsg-1ubuntu0.1 [2141 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:11.0303536Z Get:18 https://archive.ubuntu.com/ubuntu noble/universe amd64 libshine3 amd64 3.1.1-2build1 [23.2 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:11.2604925Z Get:19 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 libspeex1 amd64 1.2.1-2ubuntu2.24.04.1 [59.6 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:11.4900525Z Get:20 https://archive.ubuntu.com/ubuntu noble/universe amd64 libsvtav1enc1d1 amd64 1.7.0+dfsg-2build1 [2425 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:11.9103279Z Get:21 https://archive.ubuntu.com/ubuntu noble/universe amd64 libsoxr0 amd64 0.1.3-4build3 [80.0 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:12.0591705Z Get:22 https://archive.ubuntu.com/ubuntu noble/universe amd64 libswresample4 amd64 7:6.1.1-3ubuntu5 [63.8 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:12.2702875Z Get:23 https://archive.ubuntu.com/ubuntu noble/main amd64 libtheora0 amd64 1.1.1+dfsg.1-16.1build3 [211 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:12.4695779Z Get:24 https://archive.ubuntu.com/ubuntu noble/main amd64 libtwolame0 amd64 0.4.0-2build3 [52.3 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:12.6296686Z Get:25 https://archive.ubuntu.com/ubuntu noble/main amd64 libvorbisenc2 amd64 1.3.7-1build3 [80.8 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:12.8107089Z Get:26 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 libvpx9 amd64 1.14.0-1ubuntu2.3 [1143 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:12.9912824Z Get:27 https://archive.ubuntu.com/ubuntu noble/universe amd64 libx264-164 amd64 2:0.164.3108+git31e19f9-1 [604 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:13.1701084Z Get:28 https://archive.ubuntu.com/ubuntu noble/universe amd64 libx265-199 amd64 3.5-2build1 [1226 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:13.3502467Z Get:29 https://archive.ubuntu.com/ubuntu noble/universe amd64 libxvidcore4 amd64 2:1.3.7-1build1 [219 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:13.5198260Z Get:30 https://archive.ubuntu.com/ubuntu noble/universe amd64 libzvbi-common all 0.2.42-2 [42.4 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:13.7196024Z Get:31 https://archive.ubuntu.com/ubuntu noble/universe amd64 libzvbi0t64 amd64 0.2.42-2 [261 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:13.9098707Z Get:32 https://archive.ubuntu.com/ubuntu noble/universe amd64 libavcodec60 amd64 7:6.1.1-3ubuntu5 [5851 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:14.2105136Z Get:33 https://archive.ubuntu.com/ubuntu noble/main amd64 libraw1394-11 amd64 2.1.2-2build3 [26.2 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:14.4196672Z Get:34 https://archive.ubuntu.com/ubuntu noble/main amd64 libavc1394-0 amd64 0.5.4-5build3 [15.4 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:14.6296120Z Get:35 https://archive.ubuntu.com/ubuntu noble/universe amd64 libunibreak5 amd64 5.1-2build1 [25.0 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:14.8400672Z Get:36 https://archive.ubuntu.com/ubuntu noble/universe amd64 libass9 amd64 1:0.17.1-2build1 [104 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:15.0400703Z Get:37 https://archive.ubuntu.com/ubuntu noble/universe amd64 libudfread0 amd64 1.1.2-1build1 [19.0 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:15.2600025Z Get:38 https://archive.ubuntu.com/ubuntu noble/universe amd64 libbluray2 amd64 1:1.3.4-1build1 [159 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:15.4192929Z Get:39 https://archive.ubuntu.com/ubuntu noble/universe amd64 libchromaprint1 amd64 1.5.1-5 [30.5 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:15.8197279Z Get:40 https://archive.ubuntu.com/ubuntu noble/universe amd64 libgme0 amd64 0.6.3-7build1 [134 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:15.9801477Z Get:41 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 libmpg123-0t64 amd64 1.32.5-1ubuntu1.1 [169 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:16.1298964Z Get:42 https://archive.ubuntu.com/ubuntu noble/universe amd64 libopenmpt0t64 amd64 0.7.3-1.1build3 [647 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:16.2851797Z Get:43 https://archive.ubuntu.com/ubuntu noble/universe amd64 libcjson1 amd64 1.7.17-1 [24.8 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:16.4339017Z Get:44 https://archive.ubuntu.com/ubuntu noble/universe amd64 libmbedcrypto7t64 amd64 2.28.8-1 [209 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:16.5839667Z Get:45 https://archive.ubuntu.com/ubuntu noble/universe amd64 librist4 amd64 0.2.10+dfsg-2 [74.9 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:16.7328347Z Get:46 https://archive.ubuntu.com/ubuntu noble/universe amd64 libsrt1.5-gnutls amd64 1.5.3-1build2 [316 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:16.8842137Z Get:47 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 libssh-gcrypt-4 amd64 0.10.6-2ubuntu0.5 [226 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:17.0349587Z Get:48 https://archive.ubuntu.com/ubuntu noble/universe amd64 libavformat60 amd64 7:6.1.1-3ubuntu5 [1153 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:17.1959284Z Get:49 https://archive.ubuntu.com/ubuntu noble/universe amd64 libbs2b0 amd64 3.1.0+dfsg-7build1 [10.6 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:17.3444088Z Get:50 https://archive.ubuntu.com/ubuntu noble/universe amd64 libflite1 amd64 2.2-6build3 [13.6 MB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:17.6500964Z Get:51 https://archive.ubuntu.com/ubuntu noble/universe amd64 libserd-0-0 amd64 0.32.2-1 [43.6 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:17.7986884Z Get:52 https://archive.ubuntu.com/ubuntu noble/universe amd64 libzix-0-0 amd64 0.4.2-2build1 [23.6 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:17.9471376Z Get:53 https://archive.ubuntu.com/ubuntu noble/universe amd64 libsord-0-0 amd64 0.16.16-2build1 [15.8 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:18.0960978Z Get:54 https://archive.ubuntu.com/ubuntu noble/universe amd64 libsratom-0-0 amd64 0.6.16-1build1 [17.3 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:18.2449116Z Get:55 https://archive.ubuntu.com/ubuntu noble/universe amd64 liblilv-0-0 amd64 0.24.22-1build1 [41.0 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:18.3936010Z Get:56 https://archive.ubuntu.com/ubuntu noble/universe amd64 libmysofa1 amd64 1.3.2+dfsg-2ubuntu2 [1158 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:18.5472831Z Get:57 https://archive.ubuntu.com/ubuntu noble/universe amd64 libplacebo338 amd64 6.338.2-2build1 [2654 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:18.7075203Z Get:58 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 libblas3 amd64 3.12.0-3build1.1 [238 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:18.8573564Z Get:59 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 liblapack3 amd64 3.12.0-3build1.1 [2646 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:19.2068110Z Get:60 https://archive.ubuntu.com/ubuntu noble/main amd64 libasyncns0 amd64 0.8-6build4 [11.3 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:19.3561083Z Get:61 https://archive.ubuntu.com/ubuntu noble/main amd64 libflac12t64 amd64 1.4.3+ds-2.1ubuntu2 [197 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:19.5058734Z Get:62 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 libsndfile1 amd64 1.2.2-1ubuntu5.24.04.1 [209 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:19.6553130Z Get:63 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpulse0 amd64 1:16.1+dfsg1-2ubuntu10.1 [292 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:19.8053854Z Get:64 https://archive.ubuntu.com/ubuntu noble/universe amd64 libsphinxbase3t64 amd64 0.8+5prealpha+1-17build2 [126 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:19.9543866Z Get:65 https://archive.ubuntu.com/ubuntu noble/universe amd64 libpocketsphinx3 amd64 0.8.0+real5prealpha+1-15ubuntu5 [133 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:20.1033704Z Get:66 https://archive.ubuntu.com/ubuntu noble/universe amd64 libpostproc57 amd64 7:6.1.1-3ubuntu5 [49.9 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:20.2524048Z Get:67 https://archive.ubuntu.com/ubuntu noble/main amd64 libsamplerate0 amd64 0.2.2-4build1 [1344 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:20.4071950Z Get:68 https://archive.ubuntu.com/ubuntu noble/universe amd64 librubberband2 amd64 3.3.0+dfsg-2build1 [130 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:20.5562923Z Get:69 https://archive.ubuntu.com/ubuntu noble/universe amd64 libswscale7 amd64 7:6.1.1-3ubuntu5 [193 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:20.7053953Z Get:70 https://archive.ubuntu.com/ubuntu noble/universe amd64 libvidstab1.1 amd64 1.1.0-2build1 [38.5 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:20.8543549Z Get:71 https://archive.ubuntu.com/ubuntu noble/universe amd64 libzimg2 amd64 3.0.5+ds1-1build1 [254 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:21.0038130Z Get:72 https://archive.ubuntu.com/ubuntu noble/universe amd64 libavfilter9 amd64 7:6.1.1-3ubuntu5 [4235 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:21.1718215Z Get:73 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcaca0 amd64 0.99.beta20-4ubuntu0.2 [209 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:21.3212163Z Get:74 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcdio19t64 amd64 2.1.0-4.1ubuntu1.2 [62.4 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:21.4698113Z Get:75 https://archive.ubuntu.com/ubuntu noble/main amd64 libcdio-cdda2t64 amd64 10.2+2.0.1-1.1build2 [16.5 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:21.6182192Z Get:76 https://archive.ubuntu.com/ubuntu noble/main amd64 libcdio-paranoia2t64 amd64 10.2+2.0.1-1.1build2 [16.6 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:21.7671373Z Get:77 https://archive.ubuntu.com/ubuntu noble/universe amd64 libdc1394-25 amd64 2.2.6-4build1 [90.1 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:22.1035684Z Get:78 https://archive.ubuntu.com/ubuntu noble/main amd64 libiec61883-0 amd64 1.2.0-6build1 [24.5 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:22.2524192Z Get:79 https://archive.ubuntu.com/ubuntu noble/main amd64 libjack-jackd2-0 amd64 1.9.21~dfsg-3ubuntu3 [289 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:22.4021261Z Get:80 https://archive.ubuntu.com/ubuntu noble/universe amd64 libopenal-data all 1:1.23.1-4build1 [161 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:22.5511421Z Get:81 https://archive.ubuntu.com/ubuntu noble/universe amd64 libsndio7.0 amd64 1.9.0-0.3build3 [29.6 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:22.6998158Z Get:82 https://archive.ubuntu.com/ubuntu noble/universe amd64 libopenal1 amd64 1:1.23.1-4build1 [540 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:22.8510219Z Get:83 https://archive.ubuntu.com/ubuntu noble/main amd64 libdecor-0-0 amd64 0.2.2-1build2 [16.5 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:22.9996417Z Get:84 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 libsdl2-2.0-0 amd64 2.30.0+dfsg-1ubuntu3.1 [686 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.1514864Z Get:85 https://archive.ubuntu.com/ubuntu noble/main amd64 libxcb-shape0 amd64 1.15-1ubuntu2 [6100 B]
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.2999157Z Get:86 https://archive.ubuntu.com/ubuntu noble/main amd64 libxv1 amd64 2:1.0.11-1.1build1 [10.7 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.4484325Z Get:87 https://archive.ubuntu.com/ubuntu noble/universe amd64 libavdevice60 amd64 7:6.1.1-3ubuntu5 [82.3 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.5972232Z Get:88 https://archive.ubuntu.com/ubuntu noble/universe amd64 ffmpeg amd64 7:6.1.1-3ubuntu5 [1879 kB]
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.8633293Z Fetched 62.8 MB in 17s (3600 kB/s)
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.8846815Z Selecting previously unselected package libva2:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9054913Z (Reading database ... 
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9055189Z (Reading database ... 5%
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9055352Z (Reading database ... 10%
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9055805Z (Reading database ... 15%
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9055954Z (Reading database ... 20%
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9056097Z (Reading database ... 25%
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9056237Z (Reading database ... 30%
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9056376Z (Reading database ... 35%
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9056515Z (Reading database ... 40%
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9056699Z (Reading database ... 45%
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9056838Z (Reading database ... 50%
+capture	Provision finite capture dependencies	2026-10-22T17:41:23.9089231Z (Reading database ... 55%
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.0212889Z (Reading database ... 60%
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.2035755Z (Reading database ... 65%
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.3130734Z (Reading database ... 70%
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.4055050Z (Reading database ... 75%
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.5224064Z (Reading database ... 80%
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.6554854Z (Reading database ... 85%
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.7641353Z (Reading database ... 90%
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.8582616Z (Reading database ... 95%
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.8582960Z (Reading database ... 100%
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.8583245Z (Reading database ... 214410 files and directories currently installed.)
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.8623093Z Preparing to unpack .../00-libva2_2.20.0-2ubuntu0.2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.8651901Z Unpacking libva2:amd64 (2.20.0-2ubuntu0.2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.8884730Z Selecting previously unselected package libva-drm2:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.8995816Z Preparing to unpack .../01-libva-drm2_2.20.0-2ubuntu0.2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.9004369Z Unpacking libva-drm2:amd64 (2.20.0-2ubuntu0.2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.9234481Z Selecting previously unselected package libva-x11-2:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.9348206Z Preparing to unpack .../02-libva-x11-2_2.20.0-2ubuntu0.2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.9356219Z Unpacking libva-x11-2:amd64 (2.20.0-2ubuntu0.2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.9577426Z Selecting previously unselected package libvdpau1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.9689929Z Preparing to unpack .../03-libvdpau1_1.5-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.9698816Z Unpacking libvdpau1:amd64 (1.5-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:24.9924130Z Selecting previously unselected package libvpl2.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.0034388Z Preparing to unpack .../04-libvpl2_2023.3.0-1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.0045183Z Unpacking libvpl2 (2023.3.0-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.0281242Z Selecting previously unselected package ocl-icd-libopencl1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.0393934Z Preparing to unpack .../05-ocl-icd-libopencl1_2.3.2-1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.0402545Z Unpacking ocl-icd-libopencl1:amd64 (2.3.2-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.0660427Z Selecting previously unselected package libavutil58:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.0773930Z Preparing to unpack .../06-libavutil58_7%3a6.1.1-3ubuntu5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.0783107Z Unpacking libavutil58:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.1040583Z Selecting previously unselected package libcodec2-1.2:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.1156690Z Preparing to unpack .../07-libcodec2-1.2_1.2.0-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.1164658Z Unpacking libcodec2-1.2:amd64 (1.2.0-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.2444114Z Selecting previously unselected package libdav1d7:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.2556634Z Preparing to unpack .../08-libdav1d7_1.4.1-1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.2564223Z Unpacking libdav1d7:amd64 (1.4.1-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.2880230Z Selecting previously unselected package libgsm1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.2992591Z Preparing to unpack .../09-libgsm1_1.0.22-1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.3000789Z Unpacking libgsm1:amd64 (1.0.22-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.3221238Z Selecting previously unselected package libhwy1t64:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.3332813Z Preparing to unpack .../10-libhwy1t64_1.0.7-8.1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.3340087Z Unpacking libhwy1t64:amd64 (1.0.7-8.1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.3729367Z Selecting previously unselected package libjxl0.7:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.3840265Z Preparing to unpack .../11-libjxl0.7_0.7.0-10.2ubuntu6.1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.3847489Z Unpacking libjxl0.7:amd64 (0.7.0-10.2ubuntu6.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.4283451Z Selecting previously unselected package libmp3lame0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.4394262Z Preparing to unpack .../12-libmp3lame0_3.100-6build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.4402049Z Unpacking libmp3lame0:amd64 (3.100-6build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.4627449Z Selecting previously unselected package libopus0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.4739659Z Preparing to unpack .../13-libopus0_1.4-1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.4747508Z Unpacking libopus0:amd64 (1.4-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.4981730Z Selecting previously unselected package librav1e0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.5096232Z Preparing to unpack .../14-librav1e0_0.7.1-2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.5104452Z Unpacking librav1e0:amd64 (0.7.1-2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.5494549Z Selecting previously unselected package librsvg2-2:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.5606318Z Preparing to unpack .../15-librsvg2-2_2.58.0+dfsg-1ubuntu0.1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.5614913Z Unpacking librsvg2-2:amd64 (2.58.0+dfsg-1ubuntu0.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.6331351Z Selecting previously unselected package libshine3:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.6445699Z Preparing to unpack .../16-libshine3_3.1.1-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.6454799Z Unpacking libshine3:amd64 (3.1.1-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.6686386Z Selecting previously unselected package libspeex1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.6805777Z Preparing to unpack .../17-libspeex1_1.2.1-2ubuntu2.24.04.1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.6816119Z Unpacking libspeex1:amd64 (1.2.1-2ubuntu2.24.04.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.7045062Z Selecting previously unselected package libsvtav1enc1d1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.7159004Z Preparing to unpack .../18-libsvtav1enc1d1_1.7.0+dfsg-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.7167830Z Unpacking libsvtav1enc1d1:amd64 (1.7.0+dfsg-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.7894486Z Selecting previously unselected package libsoxr0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.8009274Z Preparing to unpack .../19-libsoxr0_0.1.3-4build3_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.8017372Z Unpacking libsoxr0:amd64 (0.1.3-4build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.8246904Z Selecting previously unselected package libswresample4:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.8359571Z Preparing to unpack .../20-libswresample4_7%3a6.1.1-3ubuntu5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.8368014Z Unpacking libswresample4:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.8596561Z Selecting previously unselected package libtheora0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.8709184Z Preparing to unpack .../21-libtheora0_1.1.1+dfsg.1-16.1build3_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.8717880Z Unpacking libtheora0:amd64 (1.1.1+dfsg.1-16.1build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.8966724Z Selecting previously unselected package libtwolame0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.9080140Z Preparing to unpack .../22-libtwolame0_0.4.0-2build3_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.9086636Z Unpacking libtwolame0:amd64 (0.4.0-2build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.9659178Z Selecting previously unselected package libvorbisenc2:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.9784956Z Preparing to unpack .../23-libvorbisenc2_1.3.7-1build3_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:25.9791869Z Unpacking libvorbisenc2:amd64 (1.3.7-1build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.0035353Z Selecting previously unselected package libvpx9:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.0151661Z Preparing to unpack .../24-libvpx9_1.14.0-1ubuntu2.3_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.0158156Z Unpacking libvpx9:amd64 (1.14.0-1ubuntu2.3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.0502152Z Selecting previously unselected package libx264-164:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.0616473Z Preparing to unpack .../25-libx264-164_2%3a0.164.3108+git31e19f9-1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.0624403Z Unpacking libx264-164:amd64 (2:0.164.3108+git31e19f9-1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.0954598Z Selecting previously unselected package libx265-199:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.1068553Z Preparing to unpack .../26-libx265-199_3.5-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.1075576Z Unpacking libx265-199:amd64 (3.5-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.2292281Z Selecting previously unselected package libxvidcore4:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.2403704Z Preparing to unpack .../27-libxvidcore4_2%3a1.3.7-1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.2410543Z Unpacking libxvidcore4:amd64 (2:1.3.7-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.2632270Z Selecting previously unselected package libzvbi-common.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.2745481Z Preparing to unpack .../28-libzvbi-common_0.2.42-2_all.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.2751918Z Unpacking libzvbi-common (0.2.42-2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.3010516Z Selecting previously unselected package libzvbi0t64:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.3120188Z Preparing to unpack .../29-libzvbi0t64_0.2.42-2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.3127700Z Unpacking libzvbi0t64:amd64 (0.2.42-2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.3367064Z Selecting previously unselected package libavcodec60:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.3478818Z Preparing to unpack .../30-libavcodec60_7%3a6.1.1-3ubuntu5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.3486277Z Unpacking libavcodec60:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.4875281Z Selecting previously unselected package libraw1394-11:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.4985037Z Preparing to unpack .../31-libraw1394-11_2.1.2-2build3_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.4992914Z Unpacking libraw1394-11:amd64 (2.1.2-2build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.5203477Z Selecting previously unselected package libavc1394-0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.5313915Z Preparing to unpack .../32-libavc1394-0_0.5.4-5build3_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.5320736Z Unpacking libavc1394-0:amd64 (0.5.4-5build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.5534168Z Selecting previously unselected package libunibreak5:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.5644828Z Preparing to unpack .../33-libunibreak5_5.1-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.5651758Z Unpacking libunibreak5:amd64 (5.1-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.5863576Z Selecting previously unselected package libass9:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.5974755Z Preparing to unpack .../34-libass9_1%3a0.17.1-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.5981910Z Unpacking libass9:amd64 (1:0.17.1-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.6199104Z Selecting previously unselected package libudfread0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.6311674Z Preparing to unpack .../35-libudfread0_1.1.2-1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.6321427Z Unpacking libudfread0:amd64 (1.1.2-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.6534689Z Selecting previously unselected package libbluray2:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.6648055Z Preparing to unpack .../36-libbluray2_1%3a1.3.4-1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.6654962Z Unpacking libbluray2:amd64 (1:1.3.4-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.6887414Z Selecting previously unselected package libchromaprint1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.6998668Z Preparing to unpack .../37-libchromaprint1_1.5.1-5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.7005940Z Unpacking libchromaprint1:amd64 (1.5.1-5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.7217497Z Selecting previously unselected package libgme0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.7329118Z Preparing to unpack .../38-libgme0_0.6.3-7build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.7335964Z Unpacking libgme0:amd64 (0.6.3-7build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.7561294Z Selecting previously unselected package libmpg123-0t64:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.7674897Z Preparing to unpack .../39-libmpg123-0t64_1.32.5-1ubuntu1.1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.7682713Z Unpacking libmpg123-0t64:amd64 (1.32.5-1ubuntu1.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.7919759Z Selecting previously unselected package libopenmpt0t64:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.8033497Z Preparing to unpack .../40-libopenmpt0t64_0.7.3-1.1build3_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.8041141Z Unpacking libopenmpt0t64:amd64 (0.7.3-1.1build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.8307571Z Selecting previously unselected package libcjson1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.8421138Z Preparing to unpack .../41-libcjson1_1.7.17-1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.8428585Z Unpacking libcjson1:amd64 (1.7.17-1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.8648185Z Selecting previously unselected package libmbedcrypto7t64:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.8760993Z Preparing to unpack .../42-libmbedcrypto7t64_2.28.8-1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.8768083Z Unpacking libmbedcrypto7t64:amd64 (2.28.8-1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.8994816Z Selecting previously unselected package librist4:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.9107467Z Preparing to unpack .../43-librist4_0.2.10+dfsg-2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.9113852Z Unpacking librist4:amd64 (0.2.10+dfsg-2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.9324760Z Selecting previously unselected package libsrt1.5-gnutls:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.9437249Z Preparing to unpack .../44-libsrt1.5-gnutls_1.5.3-1build2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.9445185Z Unpacking libsrt1.5-gnutls:amd64 (1.5.3-1build2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.9691002Z Selecting previously unselected package libssh-gcrypt-4:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.9803773Z Preparing to unpack .../45-libssh-gcrypt-4_0.10.6-2ubuntu0.5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:26.9812135Z Unpacking libssh-gcrypt-4:amd64 (0.10.6-2ubuntu0.5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.0044725Z Selecting previously unselected package libavformat60:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.0158368Z Preparing to unpack .../46-libavformat60_7%3a6.1.1-3ubuntu5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.0165015Z Unpacking libavformat60:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.0548424Z Selecting previously unselected package libbs2b0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.0660695Z Preparing to unpack .../47-libbs2b0_3.1.0+dfsg-7build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.0666733Z Unpacking libbs2b0:amd64 (3.1.0+dfsg-7build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.0897935Z Selecting previously unselected package libflite1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.1012798Z Preparing to unpack .../48-libflite1_2.2-6build3_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.1019881Z Unpacking libflite1:amd64 (2.2-6build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.2609588Z Selecting previously unselected package libserd-0-0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.2722275Z Preparing to unpack .../49-libserd-0-0_0.32.2-1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.2728568Z Unpacking libserd-0-0:amd64 (0.32.2-1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.2940804Z Selecting previously unselected package libzix-0-0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.3056899Z Preparing to unpack .../50-libzix-0-0_0.4.2-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.3063753Z Unpacking libzix-0-0:amd64 (0.4.2-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.3274460Z Selecting previously unselected package libsord-0-0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.3383967Z Preparing to unpack .../51-libsord-0-0_0.16.16-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.3391670Z Unpacking libsord-0-0:amd64 (0.16.16-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.3600825Z Selecting previously unselected package libsratom-0-0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.3711692Z Preparing to unpack .../52-libsratom-0-0_0.6.16-1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.3719874Z Unpacking libsratom-0-0:amd64 (0.6.16-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.3938298Z Selecting previously unselected package liblilv-0-0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.4050483Z Preparing to unpack .../53-liblilv-0-0_0.24.22-1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.4057427Z Unpacking liblilv-0-0:amd64 (0.24.22-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.4274307Z Selecting previously unselected package libmysofa1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.4386169Z Preparing to unpack .../54-libmysofa1_1.3.2+dfsg-2ubuntu2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.4393032Z Unpacking libmysofa1:amd64 (1.3.2+dfsg-2ubuntu2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.4628674Z Selecting previously unselected package libplacebo338:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.4739610Z Preparing to unpack .../55-libplacebo338_6.338.2-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.4745506Z Unpacking libplacebo338:amd64 (6.338.2-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.5593776Z Selecting previously unselected package libblas3:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.5705333Z Preparing to unpack .../56-libblas3_3.12.0-3build1.1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.5746871Z Unpacking libblas3:amd64 (3.12.0-3build1.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.5983415Z Selecting previously unselected package liblapack3:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.6093985Z Preparing to unpack .../57-liblapack3_3.12.0-3build1.1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.6130887Z Unpacking liblapack3:amd64 (3.12.0-3build1.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.6838194Z Selecting previously unselected package libasyncns0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.6954624Z Preparing to unpack .../58-libasyncns0_0.8-6build4_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.6961339Z Unpacking libasyncns0:amd64 (0.8-6build4) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.7179955Z Selecting previously unselected package libflac12t64:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.7292412Z Preparing to unpack .../59-libflac12t64_1.4.3+ds-2.1ubuntu2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.7299979Z Unpacking libflac12t64:amd64 (1.4.3+ds-2.1ubuntu2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.7530503Z Selecting previously unselected package libsndfile1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.7643041Z Preparing to unpack .../60-libsndfile1_1.2.2-1ubuntu5.24.04.1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.7652449Z Unpacking libsndfile1:amd64 (1.2.2-1ubuntu5.24.04.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.7916137Z Selecting previously unselected package libpulse0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.8028393Z Preparing to unpack .../61-libpulse0_1%3a16.1+dfsg1-2ubuntu10.1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.8101661Z Unpacking libpulse0:amd64 (1:16.1+dfsg1-2ubuntu10.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.8354564Z Selecting previously unselected package libsphinxbase3t64:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.8469405Z Preparing to unpack .../62-libsphinxbase3t64_0.8+5prealpha+1-17build2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.8477004Z Unpacking libsphinxbase3t64:amd64 (0.8+5prealpha+1-17build2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.8714682Z Selecting previously unselected package libpocketsphinx3:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.8829679Z Preparing to unpack .../63-libpocketsphinx3_0.8.0+real5prealpha+1-15ubuntu5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.8838275Z Unpacking libpocketsphinx3:amd64 (0.8.0+real5prealpha+1-15ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.9077540Z Selecting previously unselected package libpostproc57:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.9191633Z Preparing to unpack .../64-libpostproc57_7%3a6.1.1-3ubuntu5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.9286346Z Unpacking libpostproc57:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.9514359Z Selecting previously unselected package libsamplerate0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.9627701Z Preparing to unpack .../65-libsamplerate0_0.2.2-4build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.9635120Z Unpacking libsamplerate0:amd64 (0.2.2-4build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:27.9892155Z Selecting previously unselected package librubberband2:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.0006001Z Preparing to unpack .../66-librubberband2_3.3.0+dfsg-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.0013415Z Unpacking librubberband2:amd64 (3.3.0+dfsg-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.0242816Z Selecting previously unselected package libswscale7:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.0356047Z Preparing to unpack .../67-libswscale7_7%3a6.1.1-3ubuntu5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.0363833Z Unpacking libswscale7:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.0595154Z Selecting previously unselected package libvidstab1.1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.0707612Z Preparing to unpack .../68-libvidstab1.1_1.1.0-2build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.0715382Z Unpacking libvidstab1.1:amd64 (1.1.0-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.0934238Z Selecting previously unselected package libzimg2:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.1048774Z Preparing to unpack .../69-libzimg2_3.0.5+ds1-1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.1056306Z Unpacking libzimg2:amd64 (3.0.5+ds1-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.1301159Z Selecting previously unselected package libavfilter9:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.1416060Z Preparing to unpack .../70-libavfilter9_7%3a6.1.1-3ubuntu5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.1422553Z Unpacking libavfilter9:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.2587693Z Selecting previously unselected package libcaca0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.2701237Z Preparing to unpack .../71-libcaca0_0.99.beta20-4ubuntu0.2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.2707178Z Unpacking libcaca0:amd64 (0.99.beta20-4ubuntu0.2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.2956330Z Selecting previously unselected package libcdio19t64:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.3068529Z Preparing to unpack .../72-libcdio19t64_2.1.0-4.1ubuntu1.2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.3075903Z Unpacking libcdio19t64:amd64 (2.1.0-4.1ubuntu1.2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.3302408Z Selecting previously unselected package libcdio-cdda2t64:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.3416458Z Preparing to unpack .../73-libcdio-cdda2t64_10.2+2.0.1-1.1build2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.3423663Z Unpacking libcdio-cdda2t64:amd64 (10.2+2.0.1-1.1build2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.3647237Z Selecting previously unselected package libcdio-paranoia2t64:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.3759202Z Preparing to unpack .../74-libcdio-paranoia2t64_10.2+2.0.1-1.1build2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.3767511Z Unpacking libcdio-paranoia2t64:amd64 (10.2+2.0.1-1.1build2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.3986986Z Selecting previously unselected package libdc1394-25:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.4099728Z Preparing to unpack .../75-libdc1394-25_2.2.6-4build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.4107390Z Unpacking libdc1394-25:amd64 (2.2.6-4build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.4334545Z Selecting previously unselected package libiec61883-0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.4446148Z Preparing to unpack .../76-libiec61883-0_1.2.0-6build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.4453288Z Unpacking libiec61883-0:amd64 (1.2.0-6build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.4667731Z Selecting previously unselected package libjack-jackd2-0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.4779990Z Preparing to unpack .../77-libjack-jackd2-0_1.9.21~dfsg-3ubuntu3_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.4787726Z Unpacking libjack-jackd2-0:amd64 (1.9.21~dfsg-3ubuntu3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.5237354Z Selecting previously unselected package libopenal-data.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.5352544Z Preparing to unpack .../78-libopenal-data_1%3a1.23.1-4build1_all.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.5360049Z Unpacking libopenal-data (1:1.23.1-4build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.5594278Z Selecting previously unselected package libsndio7.0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.5708425Z Preparing to unpack .../79-libsndio7.0_1.9.0-0.3build3_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.5717591Z Unpacking libsndio7.0:amd64 (1.9.0-0.3build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.5945643Z Selecting previously unselected package libopenal1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.6060718Z Preparing to unpack .../80-libopenal1_1%3a1.23.1-4build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.6069094Z Unpacking libopenal1:amd64 (1:1.23.1-4build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.6329193Z Selecting previously unselected package libdecor-0-0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.6442588Z Preparing to unpack .../81-libdecor-0-0_0.2.2-1build2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.6449993Z Unpacking libdecor-0-0:amd64 (0.2.2-1build2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.6673401Z Selecting previously unselected package libsdl2-2.0-0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.6787429Z Preparing to unpack .../82-libsdl2-2.0-0_2.30.0+dfsg-1ubuntu3.1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.6808922Z Unpacking libsdl2-2.0-0:amd64 (2.30.0+dfsg-1ubuntu3.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.7563571Z Selecting previously unselected package libxcb-shape0:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.7676976Z Preparing to unpack .../83-libxcb-shape0_1.15-1ubuntu2_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.7683760Z Unpacking libxcb-shape0:amd64 (1.15-1ubuntu2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.7899610Z Selecting previously unselected package libxv1:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.8011533Z Preparing to unpack .../84-libxv1_2%3a1.0.11-1.1build1_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.8019362Z Unpacking libxv1:amd64 (2:1.0.11-1.1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.8241661Z Selecting previously unselected package libavdevice60:amd64.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.8356337Z Preparing to unpack .../85-libavdevice60_7%3a6.1.1-3ubuntu5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.8364107Z Unpacking libavdevice60:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.8585753Z Selecting previously unselected package ffmpeg.
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.8699275Z Preparing to unpack .../86-ffmpeg_7%3a6.1.1-3ubuntu5_amd64.deb ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.8705880Z Unpacking ffmpeg (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9214017Z Setting up libgme0:amd64 (0.6.3-7build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9236136Z Setting up libchromaprint1:amd64 (1.5.1-5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9252114Z Setting up libssh-gcrypt-4:amd64 (0.10.6-2ubuntu0.5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9268290Z Setting up libhwy1t64:amd64 (1.0.7-8.1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9284396Z Setting up libudfread0:amd64 (1.1.2-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9298642Z Setting up libraw1394-11:amd64 (2.1.2-2build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9315715Z Setting up libspeex1:amd64 (1.2.1-2ubuntu2.24.04.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9332276Z Setting up libshine3:amd64 (3.1.1-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9345980Z Setting up libcaca0:amd64 (0.99.beta20-4ubuntu0.2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9360840Z Setting up libvpl2 (2023.3.0-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9376769Z Setting up libx264-164:amd64 (2:0.164.3108+git31e19f9-1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9393232Z Setting up libtwolame0:amd64 (0.4.0-2build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9409179Z Setting up libmbedcrypto7t64:amd64 (2.28.8-1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9424930Z Setting up libgsm1:amd64 (1.0.22-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9440286Z Setting up libsoxr0:amd64 (0.1.3-4build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9459617Z Setting up libzix-0-0:amd64 (0.4.2-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9477221Z Setting up libcodec2-1.2:amd64 (1.2.0-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9491870Z Setting up libmysofa1:amd64 (1.3.2+dfsg-2ubuntu2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9510750Z Setting up libxcb-shape0:amd64 (1.15-1ubuntu2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9525256Z Setting up libcdio19t64:amd64 (2.1.0-4.1ubuntu1.2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9543664Z Setting up libsvtav1enc1d1:amd64 (1.7.0+dfsg-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9559836Z Setting up libmpg123-0t64:amd64 (1.32.5-1ubuntu1.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9574494Z Setting up libcjson1:amd64 (1.7.17-1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9592729Z Setting up libxvidcore4:amd64 (2:1.3.7-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9607415Z Setting up librav1e0:amd64 (0.7.1-2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9623296Z Setting up libcdio-cdda2t64:amd64 (10.2+2.0.1-1.1build2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9641167Z Setting up librist4:amd64 (0.2.10+dfsg-2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9655550Z Setting up librsvg2-2:amd64 (2.58.0+dfsg-1ubuntu0.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9670725Z Setting up libblas3:amd64 (3.12.0-3build1.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9723077Z update-alternatives: using /usr/lib/x86_64-linux-gnu/blas/libblas.so.3 to provide /usr/lib/x86_64-linux-gnu/libblas.so.3 (libblas.so.3-x86_64-linux-gnu) in auto mode
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9736298Z Setting up libplacebo338:amd64 (6.338.2-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9750925Z Setting up libva2:amd64 (2.20.0-2ubuntu0.2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9767312Z Setting up libopus0:amd64 (1.4-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9781887Z Setting up libcdio-paranoia2t64:amd64 (10.2+2.0.1-1.1build2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9795261Z Setting up libdc1394-25:amd64 (2.2.6-4build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9812048Z Setting up libxv1:amd64 (2:1.0.11-1.1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9825902Z Setting up libunibreak5:amd64 (5.1-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9841717Z Setting up libjxl0.7:amd64 (0.7.0-10.2ubuntu6.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9856307Z Setting up libx265-199:amd64 (3.5-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9870180Z Setting up libsndio7.0:amd64 (1.9.0-0.3build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9885727Z Setting up libvidstab1.1:amd64 (1.1.0-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9899096Z Setting up libvpx9:amd64 (1.14.0-1ubuntu2.3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9919092Z Setting up libsrt1.5-gnutls:amd64 (1.5.3-1build2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9933129Z Setting up libflite1:amd64 (2.2-6build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9947490Z Setting up libdav1d7:amd64 (1.4.1-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9964409Z Setting up libva-drm2:amd64 (2.20.0-2ubuntu0.2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9978336Z Setting up ocl-icd-libopencl1:amd64 (2.3.2-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:28.9992772Z Setting up libasyncns0:amd64 (0.8-6build4) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0012294Z Setting up libvdpau1:amd64 (1.5-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0032365Z Setting up libbs2b0:amd64 (3.1.0+dfsg-7build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0048822Z Setting up libtheora0:amd64 (1.1.1+dfsg.1-16.1build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0064582Z Setting up libdecor-0-0:amd64 (0.2.2-1build2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0079241Z Setting up libzimg2:amd64 (3.0.5+ds1-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0096342Z Setting up libopenal-data (1:1.23.1-4build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0116254Z Setting up libflac12t64:amd64 (1.4.3+ds-2.1ubuntu2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0133667Z Setting up libbluray2:amd64 (1:1.3.4-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0148539Z Setting up libsamplerate0:amd64 (0.2.2-4build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0162758Z Setting up libva-x11-2:amd64 (2.20.0-2ubuntu0.2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0179156Z Setting up libopenmpt0t64:amd64 (0.7.3-1.1build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0194123Z Setting up libzvbi-common (0.2.42-2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0211661Z Setting up libmp3lame0:amd64 (3.100-6build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0225831Z Setting up libvorbisenc2:amd64 (1.3.7-1build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0239809Z Setting up libiec61883-0:amd64 (1.2.0-6build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0256776Z Setting up libserd-0-0:amd64 (0.32.2-1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0272245Z Setting up libavc1394-0:amd64 (0.5.4-5build3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0285758Z Setting up liblapack3:amd64 (3.12.0-3build1.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0336928Z update-alternatives: using /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3 to provide /usr/lib/x86_64-linux-gnu/liblapack.so.3 (liblapack.so.3-x86_64-linux-gnu) in auto mode
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0350954Z Setting up libzvbi0t64:amd64 (0.2.42-2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0374301Z Setting up libavutil58:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0388873Z Setting up libopenal1:amd64 (1:1.23.1-4build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0403703Z Setting up libass9:amd64 (1:0.17.1-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0421443Z Setting up libswresample4:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0436089Z Setting up libavcodec60:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0450213Z Setting up librubberband2:amd64 (3.3.0+dfsg-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0465827Z Setting up libjack-jackd2-0:amd64 (1.9.21~dfsg-3ubuntu3) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0480689Z Setting up libsord-0-0:amd64 (0.16.16-2build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0496507Z Setting up libpostproc57:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0514724Z Setting up libsratom-0-0:amd64 (0.6.16-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0532848Z Setting up libsndfile1:amd64 (1.2.2-1ubuntu5.24.04.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0552012Z Setting up liblilv-0-0:amd64 (0.24.22-1build1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0568350Z Setting up libswscale7:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0586993Z Setting up libpulse0:amd64 (1:16.1+dfsg1-2ubuntu10.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0655145Z Setting up libavformat60:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0672892Z Setting up libsphinxbase3t64:amd64 (0.8+5prealpha+1-17build2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.0689806Z Setting up libsdl2-2.0-0:amd64 (2.30.0+dfsg-1ubuntu3.1) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.1368201Z Setting up libpocketsphinx3:amd64 (0.8.0+real5prealpha+1-15ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.1384309Z Setting up libavfilter9:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.1397852Z Setting up libavdevice60:amd64 (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.1414238Z Setting up ffmpeg (7:6.1.1-3ubuntu5) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.1435686Z Processing triggers for man-db (2.12.0-4build2) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.1456557Z Not building database; man-db/auto-update is not 'true'.
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.1468891Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.8223895Z 
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.8224596Z Running kernel seems to be up-to-date.
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.8224854Z 
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.8225023Z No services need to be restarted.
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.8225215Z 
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.8225348Z No containers need to be restarted.
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.8225504Z 
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.8225662Z No user sessions are running outdated binaries.
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.8225846Z 
+capture	Provision finite capture dependencies	2026-10-22T17:41:29.8226086Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+capture	Provision finite capture dependencies	2026-10-22T17:41:30.8481302Z ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
+capture	Provision finite capture dependencies	2026-10-22T17:41:30.8873834Z ffprobe version 6.1.1-3ubuntu5 Copyright (c) 2007-2023 the FFmpeg developers
+capture	Provision finite capture dependencies	2026-10-22T17:41:35.3748975Z 
+capture	Provision finite capture dependencies	2026-10-22T17:41:35.3749808Z [notice] A new release of pip is available: 26.2.1 -> 26.2.2
+capture	Provision finite capture dependencies	2026-10-22T17:41:35.3750699Z [notice] To update, run: pip install --upgrade pip
+capture	Verify immutable request and claim its original charge once	﻿2026-10-22T17:41:35.4511082Z ##[group]Run bash scripts/run_with_env.sh python scripts/github_capture.py stage --request "$CAPTURE_REQUEST" --request-sha256 "$CAPTURE_REQUEST_SHA256" --destination "$CAPTURE_ROOT"
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4511778Z ^[[36;1mbash scripts/run_with_env.sh python scripts/github_capture.py stage --request "$CAPTURE_REQUEST" --request-sha256 "$CAPTURE_REQUEST_SHA256" --destination "$CAPTURE_ROOT"^[[0m
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4512339Z ^[[36;1mgit clone --quiet --depth 1 https://github.com/Talonsturgill/TexasAIDocket.git "$(dirname "$CAPTURE_ROOT")/TexasAIDocket"^[[0m
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4557855Z shell: /usr/bin/bash -e {0}
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4558015Z env:
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4558170Z   CAPTURE_REQUEST: 0dae2f1b94fdd314f1ad6c2d6d069a1d47530964
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4558455Z   CAPTURE_REQUEST_SHA256: 4f8fbdb0f0c0a139ad5b28745ffcf00e3a821813d59dbbbeaded88f1d16e0589
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4560044Z   GH_TOKEN: ***
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4560225Z   CAPTURE_ROOT: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4560731Z   DISPATCH_GITHUB_CAPTURE_REQUEST: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-activation.json
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4561096Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4561329Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4561706Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4561913Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4562122Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4562333Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:35.4562513Z ##[endgroup]
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:54.6722156Z delegated GitHub capture refused: opening a: bound structural inspection unavailable: authored source module is missing or outside the repository; opening b: bound structural inspection unavailable: authored source module is missing or outside the repository
+capture	Verify immutable request and claim its original charge once	2026-10-22T17:41:54.6918201Z ##[error]Process completed with exit code 1.
+capture	Retain public compute result and media without publishing	﻿2026-10-22T17:41:54.7023519Z ##[group]Run actions/upload-artifact@v4
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7023700Z with:
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7023838Z   name: delegated-native-capture-39824710746
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7024021Z   if-no-files-found: warn
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7024152Z   retention-days: 7
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7025578Z   path: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/github-capture-public-result.json
+capture	Retain public compute result and media without publishing	/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-results/*.json
+capture	Retain public compute result and media without publishing	/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/github-native-headroom.json
+capture	Retain public compute result and media without publishing	/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/preship-compute/*.json
+capture	Retain public compute result and media without publishing	/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/preship-compute/*.txt
+capture	Retain public compute result and media without publishing	/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/film.mp4
+capture	Retain public compute result and media without publishing	/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/preflight.mp4
+capture	Retain public compute result and media without publishing	/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/cinema/hero.mp4
+capture	Retain public compute result and media without publishing	
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7027043Z   compression-level: 6
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7027169Z   overwrite: false
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7027293Z   include-hidden-files: false
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7027434Z env:
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7027583Z   CAPTURE_REQUEST: 0dae2f1b94fdd314f1ad6c2d6d069a1d47530964
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7027871Z   CAPTURE_REQUEST_SHA256: 4f8fbdb0f0c0a139ad5b28745ffcf00e3a821813d59dbbbeaded88f1d16e0589
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7029419Z   GH_TOKEN: ***
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7029603Z   CAPTURE_ROOT: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7029991Z   DISPATCH_GITHUB_CAPTURE_REQUEST: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-activation.json
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7030548Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7030784Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7031018Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7031229Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7031443Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7031660Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.7031842Z ##[endgroup]
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.8228742Z (node:5580) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.8229349Z (Use `node --trace-deprecation ...` to show where the warning was created)
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.8412593Z Multiple search paths detected. Calculating the least common ancestor of all paths
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.8414333Z The least common ancestor is /home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out. This will be the root directory of the artifact
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.8414959Z With the provided path, there will be 16 files uploaded
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.8415259Z Artifact name is valid!
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:54.8415426Z Root directory input is valid!
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:55.1288461Z Beginning upload of artifact content to blob storage
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:55.3314045Z (node:5580) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:55.7606012Z Uploaded bytes 8388608
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:55.9022872Z Uploaded bytes 12316466
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:55.9423155Z Finished uploading artifact content to blob storage!
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:55.9423930Z SHA256 digest of uploaded artifact zip is e94ed1fa2df0bd9f251721e6277bf1d8f31fd02962f49c7a97db79dab622a4e3
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:55.9424808Z Finalizing artifact upload
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:56.4168464Z Artifact delegated-native-capture-39824710746.zip successfully finalized. Artifact ID 12446546170
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:56.4169221Z Artifact delegated-native-capture-39824710746 has been successfully uploaded! Final size is 12316466 bytes. Artifact ID is 12446546170
+capture	Retain public compute result and media without publishing	2026-10-22T17:41:56.4174866Z Artifact download URL: https://github.com/Talonsturgill/TexasAIDispatch/actions/runs/39824710746/artifacts/12446546170
+capture	Post Run actions/checkout@v4	﻿2026-10-22T17:41:56.4386228Z Post job cleanup.
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5014593Z [command]/usr/bin/git version
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5051436Z git version 2.55.0
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5091282Z Temporarily overriding HOME='/home/runner/work/_temp/a66f9b1d-1709-4bc6-974f-d581f1990cda' before making global git config changes
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5091955Z Adding repository directory to the temporary git global config as a safe directory
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5092510Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TexasAIDispatch/TexasAIDispatch
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5135556Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5160913Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5416567Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5452557Z http.https://github.com/.extraheader
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5463308Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5505827Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5737445Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+capture	Post Run actions/checkout@v4	2026-10-22T17:41:56.5778642Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+capture	Complete job	﻿2026-10-22T17:41:56.6121943Z Cleaning up orphan processes
+capture	Complete job	2026-10-22T17:41:56.6374559Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
