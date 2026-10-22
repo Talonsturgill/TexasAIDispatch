@@ -1,0 +1,222 @@
+{
+  "request_oid": "7d1a20ae1c6164d2bc43623de126ab82d9b017ec",
+  "request_sha256": "34a29ed54741a055efa08476f009db1790c0aa0c4f05d80ce13b4a36ac35c9b1",
+  "request_ref": "refs/heads/codex/capture-continuation-requests/2026-10-21/a4ad3aedac95792e0a1859657219fc8ab0a68f7e06410a18558d172baaf626a8",
+  "request": {
+    "schema": "dispatch_github_capture_request/1",
+    "repository": "Talonsturgill/TexasAIDispatch",
+    "run_id": "2026-10-21",
+    "owner_sha256": "5232d8954f17c36778aee290c81bdbc318d79e519d860519f4afd94116d853f4",
+    "epoch": "d744f35e86334f3e8b799684b47fef97",
+    "github_actor": "Talonsturgill",
+    "checkpoint_oid": "966e43060f87ce328032d9784c6655eeb850b075",
+    "ledger_sha256": "325bc05089500090f3c130f7a09705bff3f94aba6aa7e3ec6dfc49f62cb61524",
+    "source_commit": "5aa67accd091328ef382b5365f595651ca6480c1",
+    "operation": "openings",
+    "reservation_event_sha256": "a4ad3aedac95792e0a1859657219fc8ab0a68f7e06410a18558d172baaf626a8",
+    "approval": false,
+    "publication_allowed": false,
+    "unstarted_continuation": {
+      "schema": "dispatch_unstarted_capture_continuation/1",
+      "original_request_oid": "bcdb73ea65d5bd0a3f55ac7a4f8b24d2f9c582e2",
+      "original_request_sha256": "78f5cf944240caef30df8560946e591108cf0b55b0e1ae2740be8b333b379227",
+      "original_claim_commit": "505026136d734761519cb230d405d9a4e69a2686",
+      "run": {
+        "id": 39801377869,
+        "run_attempt": 1,
+        "status": "completed",
+        "conclusion": "failure",
+        "event": "workflow_dispatch",
+        "head_sha": "90277cc02c5885f30e0cdc584f498d1d562383a8",
+        "path": ".github/workflows/guards.yml",
+        "actor": {
+          "login": "Talonsturgill",
+          "id": 217072424,
+          "node_id": "U_kgDODPBDKA",
+          "avatar_url": "https://avatars.githubusercontent.com/u/217072424?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Talonsturgill",
+          "html_url": "https://github.com/Talonsturgill",
+          "followers_url": "https://api.github.com/users/Talonsturgill/followers",
+          "following_url": "https://api.github.com/users/Talonsturgill/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Talonsturgill/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Talonsturgill/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Talonsturgill/subscriptions",
+          "organizations_url": "https://api.github.com/users/Talonsturgill/orgs",
+          "repos_url": "https://api.github.com/users/Talonsturgill/repos",
+          "events_url": "https://api.github.com/users/Talonsturgill/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Talonsturgill/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "triggering_actor": {
+          "login": "Talonsturgill",
+          "id": 217072424,
+          "node_id": "U_kgDODPBDKA",
+          "avatar_url": "https://avatars.githubusercontent.com/u/217072424?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Talonsturgill",
+          "html_url": "https://github.com/Talonsturgill",
+          "followers_url": "https://api.github.com/users/Talonsturgill/followers",
+          "following_url": "https://api.github.com/users/Talonsturgill/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Talonsturgill/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Talonsturgill/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Talonsturgill/subscriptions",
+          "organizations_url": "https://api.github.com/users/Talonsturgill/orgs",
+          "repos_url": "https://api.github.com/users/Talonsturgill/repos",
+          "events_url": "https://api.github.com/users/Talonsturgill/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Talonsturgill/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        }
+      },
+      "job": {
+        "id": 119902689891,
+        "run_id": 39801377869,
+        "workflow_name": "guards",
+        "head_branch": "capture/oct21-codex-repair-90277cc02c58",
+        "run_url": "https://api.github.com/repos/Talonsturgill/TexasAIDispatch/actions/runs/39801377869",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOT1pCxM8AAAAb6sHaYw",
+        "head_sha": "90277cc02c5885f30e0cdc584f498d1d562383a8",
+        "url": "https://api.github.com/repos/Talonsturgill/TexasAIDispatch/actions/jobs/119902689891",
+        "html_url": "https://github.com/Talonsturgill/TexasAIDispatch/actions/runs/39801377869/job/119902689891",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-10-22T15:04:35Z",
+        "started_at": "2026-10-22T15:04:37Z",
+        "completed_at": "2026-10-22T15:12:14Z",
+        "name": "capture",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-22T15:04:38Z",
+            "completed_at": "2026-10-22T15:04:39Z"
+          },
+          {
+            "name": "Initialize finite capture paths from the actual runner",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-22T15:04:39Z",
+            "completed_at": "2026-10-22T15:04:39Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-22T15:04:39Z",
+            "completed_at": "2026-10-22T15:05:32Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-22T15:05:32Z",
+            "completed_at": "2026-10-22T15:05:32Z"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-22T15:05:32Z",
+            "completed_at": "2026-10-22T15:05:32Z"
+          },
+          {
+            "name": "Provision finite capture dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-22T15:05:32Z",
+            "completed_at": "2026-10-22T15:11:41Z"
+          },
+          {
+            "name": "Verify immutable request and claim its original charge once",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 7,
+            "started_at": "2026-10-22T15:11:41Z",
+            "completed_at": "2026-10-22T15:12:06Z"
+          },
+          {
+            "name": "Install the episode's locked renderer and managed browser",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 8,
+            "started_at": "2026-10-22T15:12:06Z",
+            "completed_at": "2026-10-22T15:12:06Z"
+          },
+          {
+            "name": "Execute only the fixed prepaid operation and checkpoint its bytes",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 9,
+            "started_at": "2026-10-22T15:12:06Z",
+            "completed_at": "2026-10-22T15:12:06Z"
+          },
+          {
+            "name": "Retain public compute result and media without publishing",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-22T15:12:06Z",
+            "completed_at": "2026-10-22T15:12:11Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 18,
+            "started_at": "2026-10-22T15:12:11Z",
+            "completed_at": "2026-10-22T15:12:11Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 19,
+            "started_at": "2026-10-22T15:12:11Z",
+            "completed_at": "2026-10-22T15:12:11Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-10-22T15:12:11Z",
+            "completed_at": "2026-10-22T15:12:12Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-10-22T15:12:12Z",
+            "completed_at": "2026-10-22T15:12:12Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/Talonsturgill/TexasAIDispatch/check-runs/119902689891",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000019675,
+        "runner_name": "GitHub Actions 1000019675",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      "job_log_sha256": "d4be05e882c26491f4a32cb43afe2bfd195600859389ff1b1af548fb057b9689",
+      "restore_refusal": [
+        "2026-10-22T15:12:06.5862110Z delegated GitHub capture refused: restored edition fails its audit: active film route failed: approved measured retime provenance invalid: authored source bytes changed after their receipt: video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx; fresh authored story art invalid: authored source bytes are absent or changed; modern episode and shared renderer bytes changed since boarding"
+      ],
+      "workflow_sha256": "869a1b30d1b34538458f4901768787af5acff30bb18cbb9788c3c10f0d781fa0"
+    }
+  }
+}
