@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T04:20:13.074578+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-22T04:20:17.256555+00:00",
+  "note": "before paid reservation",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -742,14 +742,38 @@
     {
       "path": "out/dispatch/cinema/picture-final-command.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "3fda52299c5e4771cdeb273e14fc034ccf12ba65e9434b87b086539c8fc2f4ce",
+      "size": 144
+    },
+    {
+      "path": "out/dispatch/cinema/picture-review-response.json",
+      "class": "scratch",
+      "sha256": "2c78590240d7186f93bd441474c307503d6e80c18007a96889c8c7787b53f88a",
+      "size": 150823
+    },
+    {
+      "path": "out/dispatch/cinema/picture-review.json",
+      "class": "scratch",
+      "sha256": "342ec4a13846c800a565ed996e9152233b1b45a0eff247d363c534472f65fb08",
+      "size": 586
     },
     {
       "path": "out/dispatch/cinema/proof.json",
       "class": "scratch",
       "sha256": "7dc329ca6cd3cf6bab5a8a7d4864bd67cebe016a7cd2f14cb644c21db1ba61ff",
       "size": 26897
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/738dde9473de37b3e6bae35d4e69d32187dff0562b399b8eee0b454bf375f6c9/picture-review-response.json",
+      "class": "scratch",
+      "sha256": "2c78590240d7186f93bd441474c307503d6e80c18007a96889c8c7787b53f88a",
+      "size": 150823
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/738dde9473de37b3e6bae35d4e69d32187dff0562b399b8eee0b454bf375f6c9/receipt.json",
+      "class": "scratch",
+      "sha256": "342ec4a13846c800a565ed996e9152233b1b45a0eff247d363c534472f65fb08",
+      "size": 586
     },
     {
       "path": "out/dispatch/cinema/review-cache/bb34505c9bda41d46d440065cf7442724eb7682010e04b8e31ea4a8b4e7bcd02/hero-review-response.json",
@@ -1086,6 +1110,12 @@
       "class": "scratch",
       "sha256": "75d739acdd4ba2edd647713b478ee51903669b12bc70f46795d74b3b06bf0ab4",
       "size": 54566
+    },
+    {
+      "path": "out/dispatch/cinema/story-final-command.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/claims.json",
