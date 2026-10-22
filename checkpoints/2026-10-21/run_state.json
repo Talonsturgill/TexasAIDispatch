@@ -348,6 +348,14 @@
       "note": "exact MP4 audiovisual review sound",
       "resource": "audiovisual_reviews",
       "to": 9
+    },
+    {
+      "at": "2026-10-22T22:25:58.311841Z",
+      "ceiling": 1544092,
+      "from": 1193773,
+      "note": "telemetry for audiovisual_reviews: a5ab5377-0734-446b-bbd5-0d872fac981e sound exact film 23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba",
+      "resource": "reported_tokens",
+      "to": 1372709
     }
   ],
   "events": [
@@ -3048,6 +3056,27 @@
       "resources": {
         "audiovisual_reviews": 1
       }
+    },
+    {
+      "at": "2026-10-22T22:25:58.311860Z",
+      "ceiling": 1544092,
+      "kind": "budget_escalated",
+      "note": "telemetry for audiovisual_reviews: a5ab5377-0734-446b-bbd5-0d872fac981e sound exact film 23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba",
+      "now": 1372709,
+      "resource": "reported_tokens",
+      "was": 1193773
+    },
+    {
+      "at": "2026-10-22T22:25:58.312151Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: a5ab5377-0734-446b-bbd5-0d872fac981e sound exact film 23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba",
+      "preflight_identity": null,
+      "publication_epoch": "d744f35e86334f3e8b799684b47fef97",
+      "publication_owner_sha256": "5232d8954f17c36778aee290c81bdbc318d79e519d860519f4afd94116d853f4",
+      "resources": {
+        "reported_tokens": 178936
+      }
     }
   ],
   "limits": {
@@ -3058,7 +3087,7 @@
     "panel_rounds": 2,
     "preflight_renders": 20,
     "reboards": 4,
-    "reported_tokens": 1193773,
+    "reported_tokens": 1372709,
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 6,
@@ -3071,7 +3100,7 @@
   "phase": "review",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "b57cdc79e1253243dc059c202aa82a0815a5abadd8490cd3c049cbe03592eecc",
+    "original_private_state_sha256": "7cf7869333c5be6c99b902c8e1314067c2d663d52126eed31f2193f1089b9d70",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3099,7 +3128,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-22T22:24:16.961273Z",
+  "updated_at": "2026-10-22T22:25:58.312153Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,
@@ -3108,7 +3137,7 @@
     "panel_rounds": 2,
     "preflight_renders": 20,
     "reboards": 3,
-    "reported_tokens": 1193773,
+    "reported_tokens": 1372709,
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 6,
