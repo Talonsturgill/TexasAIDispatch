@@ -46,7 +46,9 @@ CLAIM = re.compile(
     r"(ship[_ ]?threshold"
     r"|(?:the |a )?\bbar\b (?:is|was|of|at|to|stands? at|holds? at|sits? at)"
     r"|holds? the \bbar\b (?:at|to)"
-    r"|\bbar\b:(?!\s*(?:'[A-Za-z_$][\w$-]*'|\"[A-Za-z_$][\w$-]*\"|`[A-Za-z_$][\w$-]*`))"
+    r"|\bbar\b:(?!\s*(?:'[A-Za-z_$][\w$-]*'|\"[A-Za-z_$][\w$-]*\"|`[A-Za-z_$][\w$-]*`"
+    r"|[A-Za-z_$][\w$]*\(\s*(?:'[A-Za-z_$][\w$-]*'|\"[A-Za-z_$][\w$-]*\")\s*\)(?=\s*(?:[,;}\n]|$))"
+    r"|number\s*[,;)]))"
     r"|threshold (?:is|of|at|:)"
     r"|scores? (?:above|below|of))"
     r"[^\n\d]{0,24}(\d+(?:\.\d+)?)", re.I)
@@ -144,6 +146,16 @@ def self_test() -> int:
     ok("...and still catches an unquoted 'bar: N' line", bool(CLAIM.search("bar: 7.5")))
     ok("...and still catches a quoted numeric bar: \"7.5\"", bool(CLAIM.search('bar: "7.5"')))
     ok("...and still catches a quoted threshold phrase", bool(CLAIM.search("bar: 'set at 7.5'")))
+    # Actual native preship false positives: digits belong to a complete symbolic
+    # event argument or a later parameter's scene identifier, never a bar value.
+    ok("does NOT read a one-symbol event lookup as a rubric threshold",
+       not CLAIM.search("const s7={flip:P('s7-event-2'),bar:P('s7-event-3'),jostle:0};"))
+    ok("does NOT scan past a completed numeric parameter type into another parameter",
+       not CLAIM.search("drop:number,bar:number,wob:number,sc:'s7'|'s8'"))
+    for value in ("7.5", '"7.5"', "P(7.5)", "P('7.5')", "P('x',7.5)", "P('x')+7.5", "number=7.5"):
+        ok("a numeric bar value remains caught: "+value,bool(CLAIM.search("bar:"+value)))
+    ok("a symbolic geometry lookup cannot hide a separate copied rubric key",
+       bool(CLAIM.search("const row={bar:P('s7-event-3'),ship_threshold:7.5};")))
     ok("...and does not flag a sentence that says the bar is READ rather than what it is",
        not CLAIM.search("the bar is read out of the rubric and never quoted"))
 
