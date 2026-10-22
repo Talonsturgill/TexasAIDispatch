@@ -56,7 +56,84 @@ class CaptureTest(unittest.TestCase):
         for operation in ['publish', 'shell', 'send', 'cinema; anything']:
             row = self.request(); row['operation'] = operation
             self.assertTrue(capture.context_problems(row, self.environment()))
-        self.assertEqual(set(capture.OPS), {'preflight','cinema','full','phone-motion','full-motion'})
+        self.assertEqual(set(capture.OPS), {'preflight','cinema','full','phone-motion','full-motion','preship'})
+
+    def test_preship_fixed_command_is_native_and_prepaid(self):
+        import capture_reservation
+        import shlex
+        note,resource,argv=capture.OPS['preship']
+        command='bash scripts/run_with_env.sh '+shlex.join(argv)
+        self.assertTrue(capture_guard.is_capture(command,'/unit',Path('/unit')))
+        self.assertEqual(capture_reservation.operation_for([command],Path('/unit')),note)
+        self.assertEqual(resource,'preflight_renders')
+
+    def test_preship_refuses_unregistered_or_changed_native_film(self):
+        import preship_compute as preship
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp); output=root/'out/dispatch';output.mkdir(parents=True)
+            (output/'film.mp4').write_bytes(b'unit native film')
+            (output/'storyboard.json').write_text('{}')
+            state={'deliverable':{'review_only':False,'film_sha256':preship.digest(output/'film.mp4'),
+                                 'board_sha256':preship.digest(output/'storyboard.json')}}
+            capture.operation_precheck(root,'preship',state)
+            (output/'film.mp4').write_bytes(b'changed')
+            with self.assertRaisesRegex(ValueError,'registered exact native film'):
+                capture.operation_precheck(root,'preship',state)
+
+    def test_preship_import_preserves_real_verdict_and_refuses_stale_film(self):
+        import preship_compute as preship
+        import capture_reservation
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp).resolve(); output=root/'out/dispatch';output.mkdir(parents=True)
+            (output/'film.mp4').write_bytes(b'unit film');(output/'storyboard.json').write_text('{}')
+            state={'deliverable':{'review_only':False,'film_sha256':preship.digest(output/'film.mp4'),
+                                 'board_sha256':preship.digest(output/'storyboard.json')}}
+            (output/'run_state.json').write_text(json.dumps(state))
+            package=root/preship.PACKAGE;package.mkdir()
+            raw=json.dumps({'schema':'dispatch_preship/1','board_sha256':state['deliverable']['board_sha256'],
+                            'gates':['unit original mechanical gate']},indent=1).encode()
+            (package/'preship.json').write_bytes(raw)
+            receipt={'schema':'dispatch_remote_preship/1','exit_code':0,
+                     **preship.current_inputs(root,state),'input_identity':'unit bound identity',
+                     'verdict_sha256':preship.digest(package/'preship.json')}
+            (package/'receipt.json').write_text(json.dumps(receipt))
+            result={'operation':'preship','exit_code':0}; request={'operation':'preship'}
+            with patch.object(capture_reservation,'input_identity',return_value='unit bound identity'):
+                preship.import_verdict(root,result,request)
+                self.assertEqual((root/'out/gates/preship.json').read_bytes(),raw)
+                for key,value in [('input_identity','changed'),('verdict_sha256','0'*64),('exit_code',1)]:
+                    bad={**receipt,key:value};(package/'receipt.json').write_text(json.dumps(bad))
+                    with self.assertRaises(ValueError):preship.import_verdict(root,result,request)
+                (package/'receipt.json').write_text(json.dumps(receipt))
+                (output/'film.mp4').write_bytes(b'changed film')
+                with self.assertRaisesRegex(ValueError,'registered exact native film'):
+                    preship.import_verdict(root,result,request)
+
+    def test_preship_operator_claims_before_checks_and_retains_real_failure(self):
+        import preship_compute as preship
+        import capture_reservation
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp).resolve(); output=root/'out/dispatch';output.mkdir(parents=True)
+            (output/'film.mp4').write_bytes(b'unit film');(output/'storyboard.json').write_text('{}')
+            state={'deliverable':{'review_only':False,'film_sha256':preship.digest(output/'film.mp4'),
+                                 'board_sha256':preship.digest(output/'storyboard.json')}}
+            (output/'run_state.json').write_text(json.dumps(state))
+            stale=root/'out/gates/preship.json';stale.parent.mkdir();stale.write_text('stale')
+            called=[]
+            def claim(*args):
+                called.append('claim');return True,'unit prepaid claim'
+            def operator(argv,**kwargs):
+                self.assertEqual(called,['claim']);self.assertFalse(stale.exists())
+                self.assertIn('scripts/preship_check.py',argv)
+                return subprocess.CompletedProcess(argv,1,b'actual unit gate failed\n',b'unit stderr\n')
+            with patch.object(capture_reservation,'claim',side_effect=claim), \
+                    patch.object(capture_reservation,'input_identity',return_value='unit identity'), \
+                    patch.object(preship.subprocess,'run',side_effect=operator):
+                self.assertEqual(preship.run(root),1)
+            package=root/preship.PACKAGE
+            self.assertEqual((package/'stdout.txt').read_bytes(),b'actual unit gate failed\n')
+            self.assertEqual(preship.read(package/'receipt.json')['exit_code'],1)
+            self.assertFalse((package/'preship.json').exists())
 
     def test_motion_commands_use_original_exact_operator_notes(self):
         from capture_reservation import operation_for
@@ -117,6 +194,48 @@ class CaptureTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'request bytes differ'):
                 capture.stage(Path('/unit'),'a'*40,'2'*64,Path('/new'))
             restore.assert_not_called();claim.assert_not_called()
+
+    def test_failed_isolated_restore_audit_cannot_activate_or_execute_operator(self):
+        import publication_owner
+        request={**self.request(),'run_id':'unit-run','checkpoint_oid':'b'*40,
+                 'ledger_sha256':'c'*64,'owner_sha256':'d'*64,'epoch':'e'*32,
+                 'reservation_event_sha256':'f'*64}
+        owner={k:request[k] for k in ('run_id','owner_sha256','epoch')}
+        owner.update(runtime='codex',status='held',expires_at='2099-01-01T00:00:00+00:00')
+        with tempfile.TemporaryDirectory() as tmp:
+            repo=Path(tmp).resolve()/'source';repo.mkdir(); destination=repo.parent/'restored'
+            def git(*args,**kwargs):
+                return subprocess.CompletedProcess([],0,('a'*40).encode() if args[1:3]==('rev-parse','HEAD') else b'',b'')
+            with patch.object(capture,'request_at',return_value=(request,'1'*64)), \
+                    patch.object(capture,'context_problems',return_value=[]), \
+                    patch.object(capture.ck,'git',side_effect=git), \
+                    patch.object(capture.ck,'remote_tip',return_value=request['checkpoint_oid']), \
+                    patch.object(capture.ck,'verify_checkpoint',return_value=({'ledger_sha256':'c'*64},b'{}')), \
+                    patch.object(capture,'prepaid'),patch.object(publication_owner,'read_remote',return_value=owner), \
+                    patch.object(capture,'commit_record',return_value='2'*40),patch.object(capture,'claim_once') as claim, \
+                    patch.dict(capture.os.environ,{'GITHUB_RUN_ID':'123','GITHUB_ACTOR':'unit'}), \
+                    patch.object(capture.ck,'restore',side_effect=capture.ck.CheckpointError('unit actual audit failed')) as restore, \
+                    patch.object(capture,'perform_capture') as operator:
+                with self.assertRaisesRegex(capture.ck.CheckpointError,'actual audit failed'):
+                    capture.stage(repo,'3'*40,'1'*64,destination)
+                restore.assert_called_once_with(repo,'unit-run',dest=destination,helper_source=repo/'scripts')
+                claim.assert_called_once();operator.assert_not_called()
+                self.assertFalse((destination/'out/dispatch/github-capture-activation.json').exists())
+
+    def test_foreign_or_dirty_helper_source_refuses_before_claim(self):
+        for head,dirty in [('b'*40,False),('a'*40,True)]:
+            def git(*args,**kwargs):
+                if args[1:3]==('rev-parse','HEAD'):
+                    return subprocess.CompletedProcess([],0,head.encode(),b'')
+                return subprocess.CompletedProcess([],int(dirty),b'',b'')
+            with self.subTest(head=head,dirty=dirty), \
+                    patch.object(capture,'request_at',return_value=(self.request(),'1'*64)), \
+                    patch.object(capture,'context_problems',return_value=[]), \
+                    patch.object(capture.ck,'git',side_effect=git), \
+                    patch.object(capture,'claim_once') as claim,patch.object(capture.ck,'restore') as restore:
+                with self.assertRaisesRegex(ValueError,'helper source'):
+                    capture.stage(Path('/unit'),'a'*40,'1'*64,Path('/new'))
+                claim.assert_not_called();restore.assert_not_called()
 
     def test_unpinned_request_rejected(self):
         with self.assertRaisesRegex(ValueError,'immutable commit'):
@@ -224,8 +343,9 @@ class CaptureTest(unittest.TestCase):
             new = copy.deepcopy(old);new[key]=value
             self.assertTrue(capture.ck.monotonic_problems(old,new))
 
-    def test_import_streams_changed_bytes_and_preserves_grant_origins(self):
+    def test_failed_preship_import_preserves_bytes_charges_and_invalidates_old_pass(self):
         import publication_owner
+        import preship_compute
         with tempfile.TemporaryDirectory() as temporary:
             repo = Path(temporary).resolve()
             subprocess.run(['git','init','-q',str(repo)],check=True)
@@ -236,9 +356,11 @@ class CaptureTest(unittest.TestCase):
             (package/'same.txt').write_text('unchanged')
             unchanged_time = (package/'same.txt').stat().st_mtime_ns
             (package/'changed.txt').write_text('retained baseline')
+            stale=repo/'out/gates/preship.json';stale.parent.mkdir();stale.write_text('old PASS')
             owner = {'owner_sha256':'a'*64,'epoch':'b'*32}
             result = {'owner_sha256':owner['owner_sha256'],'epoch':owner['epoch'],
-                      'request_oid':'c'*40,'request_sha256':'d'*64,'source_commit':'e'*40}
+                      'request_oid':'c'*40,'request_sha256':'d'*64,'source_commit':'e'*40,
+                      'operation':'preship','exit_code':1}
             base = repo/'checkpoints/2026-10-21';(base/'files/out/dispatch').mkdir(parents=True)
             payloads = {'same.txt':b'unchanged','changed.txt':b'new captured bytes',
                         'github-capture-result.json':json.dumps(result).encode()}
@@ -264,12 +386,17 @@ class CaptureTest(unittest.TestCase):
             with patch.object(publication_owner,'require_owner',return_value=owner), \
                     patch.object(capture.ck,'remote_tip',return_value=oid),patch.object(capture.ck,'git',side_effect=git), \
                     patch.object(capture,'request_at',return_value=({'source_commit':'e'*40,
-                        'run_id':state['run_id'],'checkpoint_oid':oid},'d'*64)):
+                        'run_id':state['run_id'],'checkpoint_oid':oid,'operation':'preship'},'d'*64)), \
+                    patch.object(preship_compute,'import_verdict') as install:
                 imported=capture.import_result(repo,oid)
+                install.assert_not_called()
             self.assertEqual(imported['changed_files'],2)
             self.assertEqual((package/'same.txt').stat().st_mtime_ns,unchanged_time)
             self.assertEqual((package/'changed.txt').read_bytes(),b'new captured bytes')
             self.assertTrue(list((package/'github-capture-import-baseline').glob('*')))
+            self.assertFalse(stale.exists())
+            self.assertEqual(json.loads((package/'run_state.json').read_text())['usage'],state['usage'])
+            self.assertEqual(json.loads((package/'github-capture-result.json').read_text())['exit_code'],1)
             self.assertEqual(json.loads((repo/capture.ck.GRANT_ROOTS_FILE).read_text()),{'schema':1,'entries':origins})
 
 

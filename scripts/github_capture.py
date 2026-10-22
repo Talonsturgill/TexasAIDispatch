@@ -18,6 +18,8 @@ REPOSITORY = 'Talonsturgill/TexasAIDispatch'
 REQUEST_FILE = 'capture-request.json'
 SCHEMA = 'dispatch_github_capture_request/1'
 OPS = {
+    'preship': ('exact-film mechanical preship probes', 'preflight_renders',
+                ['python', 'scripts/preship_compute.py']),
     'preflight': ('quarter-scale animatic', 'preflight_renders',
                   ['python', 'scripts/preflight_animatic.py', '--board', 'out/dispatch/storyboard.json',
                    '--state', 'out/dispatch/run_state.json']),
@@ -108,6 +110,12 @@ def claim_once(repo, ref, commit):
 
 def operation_precheck(repo, operation, state):
     """Use the original extractor admission before shipping or consuming a claim."""
+    if operation == 'preship':
+        from preship_compute import current_inputs
+        current_inputs(repo,state)
+        if (Path(repo)/'out/dispatch/preship-compute').exists():
+            raise ValueError('preship compute evidence already exists; retain it before another attempt')
+        return
     if operation not in ('phone-motion', 'full-motion'):
         return
     import capture_reservation
@@ -231,6 +239,10 @@ def stage(repo, request_oid, expected_sha, destination):
     errors = context_problems(request, os.environ)
     if errors:
         raise ValueError('; '.join(errors))
+    if ck.git(repo,'rev-parse','HEAD').stdout.decode().strip() != request['source_commit']:
+        raise ValueError('staging checkout differs from immutable request helper source')
+    if ck.git(repo,'diff','--quiet','HEAD','--','scripts',check=False).returncode:
+        raise ValueError('staging helper source has uncommitted changes')
     if ck.remote_tip(repo, request['run_id'], 'origin') != request['checkpoint_oid']:
         raise ValueError('checkpoint advanced before the single-use capture claim; create a fresh request')
     manifest, raw = ck.verify_checkpoint(repo, request['checkpoint_oid'], request['run_id'])
@@ -247,10 +259,10 @@ def stage(repo, request_oid, expected_sha, destination):
              'github_run_id': os.environ['GITHUB_RUN_ID'], 'github_actor': os.environ['GITHUB_ACTOR']}
     commit = commit_record(repo, 'claim.json', claim, 'Claim one delegated render')
     claim_once(repo, 'refs/heads/codex/capture-claims/'+request['run_id']+'/'+request['reservation_event_sha256'], commit)
-    ck.restore(repo, request['run_id'], dest=destination)
+    ck.restore(repo, request['run_id'], dest=destination,helper_source=repo/'scripts')
     # The immutable request source supplies current gate helpers, while restore keeps
     # the recorded renderer/art/source closure and every original checkpoint byte.
-    shutil.copytree(repo/'scripts', destination/'scripts', dirs_exist_ok=True)
+    # restore installed this exact helper source before its isolated audit.
     activation = destination/'out/dispatch/github-capture-activation.json'
     activation.write_text(json.dumps({**claim, 'claim_commit': commit}, indent=2)+'\n')
     return {'destination': str(destination), 'activation': str(activation), 'request': request}
@@ -410,6 +422,17 @@ def import_result(repo, checkpoint_oid):
         for index,grant in enumerate(new.get('events',[])) if grant.get('kind') in ck.GRANT_KINDS]
     publication_owner.write(repo/ck.GRANT_ROOTS_FILE,{'schema':1,'entries':origins})
     publication_owner.write(path, restored)
+    if request.get('operation') == 'preship':
+        if result.get('exit_code') == 0:
+            from preship_compute import import_verdict
+            import_verdict(repo, result, request)
+        else:
+            # Failed mechanical checks are still durable evidence and charged work.
+            # Import their original checkpoint without trying to install a PASS.
+            verdict = repo/'out/gates/preship.json'
+            if any(p.is_symlink() for p in (verdict, *verdict.parents)):
+                raise ValueError('failed preship import cannot follow symbolic links')
+            verdict.unlink(missing_ok=True)
     return {'checkpoint_oid': checkpoint_oid, 'changed_files': len(changed), 'monotonic': True, 'approval': False}
 
 

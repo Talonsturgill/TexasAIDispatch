@@ -354,6 +354,8 @@ class RemoteConsumption(Fixture):
         sp.run(['git', 'config', 'user.name', 'T'], cwd=self.root, check=True)
         sp.run(['git', 'config', 'user.email', 't@e.test'], cwd=self.root, check=True)
         (self.root / '.gitignore').write_text('out/\n')
+        from claude_checkpoint_test import copy_restore_helpers
+        copy_restore_helpers(self.root)
         sp.run(['git', 'add', '-A'], cwd=self.root, check=True)
         sp.run(['git', 'commit', '-qm', 'seed'], cwd=self.root, check=True)
         sp.run(['git', 'remote', 'add', 'origin', str(bare)], cwd=self.root, check=True)

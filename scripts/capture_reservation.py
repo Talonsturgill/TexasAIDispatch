@@ -8,6 +8,7 @@ OPERATIONS = {
     'cinema_proof.py': 'finished cinematic hero and stage ablation batch',
     'claude_motion_review.py': 'exact-film motion-image review extraction',
     'opening_compare.py': 'two opening comparison batch',
+    'preship_compute.py': 'exact-film mechanical preship probes',
 }
 FULL_OPERATION = 'full-resolution Dispatch render'
 from claude_motion_review import PHONE_OPERATIONS
@@ -98,6 +99,11 @@ def prepare(root, state_path, commands, resource=None):
     if state_path != root / 'out/dispatch/run_state.json':
         raise ValueError('prepared capture must use this checkout ledger')
     note = operation_for(commands, root)
+    if note == OPERATIONS['preship_compute.py']:
+        from preship_compute import current_inputs
+        current_inputs(root, json.loads(state_path.read_text()))
+        if (root/'out/dispatch/preship-compute').exists():
+            raise ValueError('preship compute evidence already exists; retain it before preparing another attempt')
     owned_resource = resource_for(note)
     if resource is not None and resource != owned_resource:
         raise ValueError('prepared operator uses ' + owned_resource)

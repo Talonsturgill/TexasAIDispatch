@@ -96,6 +96,8 @@ jobs:
             ${{ env.CAPTURE_ROOT }}/out/github-capture-public-result.json
             ${{ env.CAPTURE_ROOT }}/out/dispatch/github-capture-results/*.json
             ${{ env.CAPTURE_ROOT }}/out/dispatch/github-native-headroom.json
+            ${{ env.CAPTURE_ROOT }}/out/dispatch/preship-compute/*.json
+            ${{ env.CAPTURE_ROOT }}/out/dispatch/preship-compute/*.txt
             ${{ env.CAPTURE_ROOT }}/out/dispatch/film.mp4
             ${{ env.CAPTURE_ROOT }}/out/dispatch/preflight.mp4
             ${{ env.CAPTURE_ROOT }}/out/dispatch/cinema/hero.mp4
@@ -468,6 +470,7 @@ jobs:
           # as the number 600 and reported a correct figure as unauthorised, which is how a gate
           # gets switched off. The bar is READ from the rubric and never restated here.
           python3 scripts/ship_gate.py --self-test
+          python3 scripts/gmail_mime_check_test.py
 
       - name: Every region has a world, and the county has a map
         run: |
@@ -712,6 +715,7 @@ jobs:
           # worthless while still reporting green.
           cd video-engine
           node tests/render_batch.mjs
+          node tests/place_probes.mjs
           node tests/credit_tail.mjs
           node tests/caption_board_fit.mjs --self-test
           node tests/caption_board_fit.mjs --board ../examples/board.json

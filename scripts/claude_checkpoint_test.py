@@ -97,6 +97,8 @@ class PublicImageCheckpointTest(unittest.TestCase):
     def test_unbound_or_changed_coverage_keeps_strict_scan(self):
         events,coverage=self.bind(); coverage.unlink()
         self.assertEqual(self.scan(events),[self.rel])
+
+
         events,coverage=self.bind(); proof=json.loads(coverage.read_text())
         proof['public_events']['sha256']='0'*64; coverage.write_text(json.dumps(proof))
         self.assertEqual(self.scan(events),[self.rel])
@@ -135,8 +137,56 @@ class PublicImageCheckpointTest(unittest.TestCase):
         self.assertEqual(self.scan(events),[self.rel])
 
 
+class RestoredAuditTest(unittest.TestCase):
+    """Exercise real nested authored-byte checks in a fresh relocated import graph."""
+    def test_scoped_authored_receipts_survive_removed_origin_and_refuse_stale_or_escape(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            origin=Path(tmp).resolve()/'original';scripts=origin/'scripts';scripts.mkdir(parents=True)
+            shutil.copyfile(SCRIPTS/'render_manifest.py',scripts/'render_manifest.py')
+            (scripts/'production_lifecycle.py').write_text('def allowance_problems(state): return []\n')
+            (scripts/'run_controller.py').write_text(
+                'import json\nimport render_manifest as nested\n'
+                'def read_state(path): return json.loads(path.read_text())\n'
+                'def deliverable_problems(state):\n'
+                '    try: nested.authored_media_paths(state["board"],nested.REPO); return []\n'
+                '    except (ValueError,OSError) as exc: return [str(exc)]\n')
+            entries=[]
+            for name in ('Hero','Support'):
+                relative='video-engine/src/'+name+'.tsx'; path=origin/relative
+                path.parent.mkdir(parents=True,exist_ok=True);path.write_text('unit authored '+name)
+                entries.append({'file':relative,'request_id':name,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
+            board={'story_art':{'entries':entries},'native_media':[
+                {**row,'basis':'Unit authored source receipt preserves exact byte identity across hosts.'} for row in entries]}
+            package=origin/'out/dispatch';package.mkdir(parents=True)
+            state=package/'run_state.json';state.write_text(json.dumps({'deliverable':True,'board':board}))
+            original=state.read_bytes()
+            self.assertEqual(ck.restored_audit(origin),[])
+            restored=origin.with_name('restored');shutil.copytree(origin,restored);shutil.rmtree(origin)
+            self.assertEqual(ck.restored_audit(restored),[])
+            self.assertEqual((restored/'out/dispatch/run_state.json').read_bytes(),original)
+            path=restored/entries[0]['file'];prior=path.read_bytes();path.write_bytes(prior+b'changed')
+            self.assertTrue(any('source bytes changed' in e for e in ck.restored_audit(restored)))
+            path.write_bytes(prior)
+            outside=restored.parent/'outside.tsx';outside.write_bytes(prior)
+            path.unlink();path.symlink_to(outside)
+            self.assertTrue(any('outside' in e for e in ck.restored_audit(restored)))
+
+
 def sh(*args, cwd=None):
     return subprocess.run(args, cwd=cwd, check=True, capture_output=True, text=True).stdout
+
+
+def copy_restore_helpers(repo):
+    """Seed executable pinned gates, preserving each fixture's explicit policies."""
+    repo=Path(repo);scripts=repo/'scripts';scripts.mkdir(exist_ok=True)
+    for source in SCRIPTS.glob('*.py'):
+        if not source.name.endswith('_test.py'):
+            shutil.copyfile(source,scripts/source.name)
+    for source in (SCRIPTS.parent/'config').rglob('*'):
+        if source.is_file():
+            target=repo/'config'/source.relative_to(SCRIPTS.parent/'config')
+            if not target.exists():
+                target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,target)
 
 
 def fixture_ffmpeg():
@@ -178,6 +228,13 @@ class Base(unittest.TestCase):
         sh("git", "config", "user.name", "Test", cwd=path); sh("git", "config", "user.email", "t@example.com", cwd=path)
         return Path(path)
 
+    def pin_real_helpers(self):
+        """A restore fixture must carry executable pinned gates like a real checkout."""
+        copy_restore_helpers(self.repo)
+        sh('git','add','scripts','config',cwd=self.repo)
+        sh('git','commit','-qm','Pin real restore audit helpers',cwd=self.repo)
+        sh('git','push','-q','origin','main',cwd=self.repo)
+
     def init_ledger(self, mode="production", run=RUN):
         controller.initialise(self.state, run, mode)
 
@@ -211,6 +268,7 @@ class CodecRuntime(Base):
 class ReservationDurability(Base):
     def setUp(self):
         super().setUp()
+        self.pin_real_helpers()
         self.scratch.mkdir(parents=True)
         (self.scratch / "claude-host.json").write_text("{}")
         self.init_ledger("dry-run")
@@ -253,6 +311,29 @@ class ReservationDurability(Base):
 
 
 class RoundTrip(Base):
+    def setUp(self):
+        super().setUp()
+        self.pin_real_helpers()
+
+    def test_generic_restore_uses_pinned_refusal_and_preserves_original_evidence(self):
+        helper=self.repo/'scripts/production_lifecycle.py'
+        helper.write_text(helper.read_text()+'\n\ndef allowance_problems(state):\n'
+                          '    return ["unit pinned audit deliberately refused"]\n')
+        sh('git','add','scripts/production_lifecycle.py',cwd=self.repo)
+        sh('git','commit','-qm','Pin unit audit refusal',cwd=self.repo)
+        pin=sh('git','rev-parse','HEAD',cwd=self.repo).strip()
+        self.init_ledger('dry-run')
+        evidence=self.scratch/'source-receipt.json';evidence.write_text('{"unit_original":"unchanged"}\n')
+        raw=evidence.read_bytes();helpers=helper.read_bytes()
+        self.save('retain refusing pinned audit')
+        fresh=self.clone(self.root/'fresh-audit');destination=self.root/'refused-restore'
+        with self.assertRaisesRegex(ck.CheckpointError,'unit pinned audit deliberately refused'):
+            ck.restore(fresh,RUN,dest=destination)
+        self.assertEqual(sh('git','rev-parse','HEAD',cwd=destination).strip(),pin)
+        self.assertEqual((destination/'scripts/production_lifecycle.py').read_bytes(),helpers)
+        self.assertEqual((destination/'out/dispatch/source-receipt.json').read_bytes(),raw)
+        self.assertEqual(evidence.read_bytes(),raw)
+
     def test_original_root_restore_preserves_paths_without_overwriting_the_old_host(self):
         # macOS exposes tempfile's /var through /private/var. The supported route uses
         # actual workspace paths, and deliberately refuses a symlink alias as an origin.

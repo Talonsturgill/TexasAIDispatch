@@ -34,7 +34,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-CAPTURE_COMMAND = re.compile(r'remotion\s+(still|render)|ffmpeg\b.*\s-i\s|preflight_animatic|cinema_proof|render_dispatch|opening_compare|claude_motion_review')
+CAPTURE_COMMAND = re.compile(r'remotion\s+(still|render)|ffmpeg\b.*\s-i\s|preflight_animatic|cinema_proof|render_dispatch|opening_compare|claude_motion_review|preship_compute')
 RENDER_RESOURCES = ('preflight_renders', 'full_renders', 'cleanup_renders', 'rescue_renders')
 AUTHORIZATION = 'out/dispatch/capture-authorization.json'
 HISTORY = 'out/dispatch/capture-authorization-history'
@@ -73,7 +73,7 @@ def strip_text_payloads(command):
 
 SHELLS = {'bash', 'sh', 'zsh', 'dash'}
 PREFIXES = {'time', 'command', 'exec', 'nohup', 'env', 'nice', 'sudo'}
-CAPTURE_SCRIPTS = {'preflight_animatic.py', 'cinema_proof.py', 'opening_compare.py', 'render_dispatch.sh'}
+CAPTURE_SCRIPTS = {'preflight_animatic.py', 'cinema_proof.py', 'opening_compare.py', 'render_dispatch.sh', 'preship_compute.py'}
 
 
 def newlines_as_separators(text):

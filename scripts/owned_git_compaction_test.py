@@ -14,6 +14,7 @@ import owned_git_compaction as compact
 
 class OwnedCompaction(Base):
     def restored_selection(self):
+        self.pin_real_helpers()
         self.init_ledger()
         self.save('real linked edition fixture')
         tree = self.root / 'selected-edition'
