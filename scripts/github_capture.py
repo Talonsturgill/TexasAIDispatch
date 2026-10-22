@@ -153,6 +153,21 @@ def operation_precheck(repo, operation, state):
             raise ValueError('full motion extraction requires the current registered exact native film')
 
 
+def checkout_operation_precheck(repo, operation, state):
+    """Import every admission dependency from the restored edition, never the staging checkout."""
+    code = ('from pathlib import Path; import json,sys; sys.path.insert(0,"scripts"); '
+            'import github_capture; '
+            'github_capture.operation_precheck(Path.cwd(),sys.argv[1],json.load(sys.stdin))')
+    try:
+        result = subprocess.run(['bash', 'scripts/run_with_env.sh', 'python', '-c', code, operation],
+                                cwd=repo, input=json.dumps(state), text=True,
+                                capture_output=True, timeout=120)
+    except subprocess.TimeoutExpired as exc:
+        raise ValueError('restored checkout admission exceeded its finite 120-second limit') from exc
+    if result.returncode:
+        raise ValueError('restored checkout admission refused: ' + (result.stderr or result.stdout)[-4000:].strip())
+
+
 def current_identity(repo, state_path, note):
     # -c does not add the checkout's scripts directory as a script-file invocation does.
     code = ('from pathlib import Path; import sys; sys.path.insert(0,"scripts"); '
@@ -396,7 +411,7 @@ def stage(repo, request_oid, expected_sha, destination):
             or current_identity(destination, destination/'out/dispatch/run_state.json',
                                 OPS[request['operation']][0]) != event.get(field)):
         raise ValueError('restored ledger or prepaid native input identity changed before claim')
-    operation_precheck(destination, request['operation'], restored_state)
+    checkout_operation_precheck(destination, request['operation'], restored_state)
     owner = publication_owner.read_remote(repo)
     if (not owner or owner.get('runtime') != 'codex' or owner.get('status') != 'held'
             or any(owner.get(k) != request[k] for k in ('run_id', 'owner_sha256', 'epoch'))
