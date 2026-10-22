@@ -45,9 +45,11 @@ jobs:
     env:
       CAPTURE_REQUEST: ${{ inputs.capture_request }}
       CAPTURE_REQUEST_SHA256: ${{ inputs.capture_request_sha256 }}
-      CAPTURE_ROOT: ${{ runner.temp }}/dispatch-capture/TexasAIDispatch
-      DISPATCH_GITHUB_CAPTURE_REQUEST: ${{ runner.temp }}/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-activation.json
     steps:
+      - name: Initialize finite capture paths from the actual runner
+        run: |
+          printf 'CAPTURE_ROOT=%s\n' "$RUNNER_TEMP/dispatch-capture/TexasAIDispatch" >> "$GITHUB_ENV"
+          printf 'DISPATCH_GITHUB_CAPTURE_REQUEST=%s\n' "$RUNNER_TEMP/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-activation.json" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}

@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+import re
 from unittest.mock import patch
 
 import capture_guard
@@ -26,6 +27,21 @@ class CaptureTest(unittest.TestCase):
 
     def test_exact_identity_admission(self):
         self.assertEqual(capture.context_problems(self.request(), self.environment()), [])
+
+    def test_workflow_job_env_uses_only_supported_job_contexts(self):
+        import yaml
+        workflow=yaml.safe_load((Path(__file__).resolve().parents[1]/'.github/workflows/guards.yml').read_text())
+        allowed={'github','needs','strategy','matrix','vars','secrets','inputs'}
+        for job in workflow['jobs'].values():
+            for value in job.get('env',{}).values():
+                expressions=re.findall(r'\$\{\{(.*?)\}\}',str(value))
+                for expression in expressions:
+                    self.assertTrue(set(re.findall(r'\b([a-z_]+)\.',expression))<=allowed)
+        first=workflow['jobs']['capture']['steps'][0]['run']
+        self.assertIn('$RUNNER_TEMP/dispatch-capture/TexasAIDispatch',first)
+        self.assertIn('CAPTURE_ROOT=%s',first)
+        self.assertIn('DISPATCH_GITHUB_CAPTURE_REQUEST=%s',first)
+        self.assertEqual(first.count('>> "$GITHUB_ENV"'),2)
 
     def test_wrong_actor_epoch_host_workflow_and_retry_refuse(self):
         for key, value in [('GITHUB_ACTOR','other'), ('GITHUB_TRIGGERING_ACTOR','other'),
