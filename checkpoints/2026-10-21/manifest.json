@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T22:24:13.370646+00:00",
-  "note": "claim worker dispatch story",
+  "saved_at": "2026-10-22T22:24:40.217209+00:00",
+  "note": "ledger write",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "32a7090a0d8d5512fc05ec97c58a38936cfbffa785d5f86a4326cdfb0c30981e"
   },
   "deleted_source": [],
-  "ledger_sha256": "1fa24ef93693dfe3f75c01f615e0fe8b4729680af9ae7a3d29d1a5d6458cfd46",
-  "original_private_ledger_sha256": "a96b702252365a71c50c824b81ed2168c6a867add640412dac0232922713a279",
+  "ledger_sha256": "8a099aace2e4840496b4f35c53f2e8114300ad18c87cf0f8f329b7f388e798ae",
+  "original_private_ledger_sha256": "b57cdc79e1253243dc059c202aa82a0815a5abadd8490cd3c049cbe03592eecc",
   "grant_origin_roots": [
     {
       "event_index": 96,
@@ -26,7 +26,7 @@
     }
   ],
   "usage": {
-    "audiovisual_reviews": 8,
+    "audiovisual_reviews": 9,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
@@ -1440,6 +1440,12 @@
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
+    },
+    {
+      "path": "out/dispatch/codex-final-story-assignment.json",
+      "class": "scratch",
+      "sha256": "10349ba035faee96f89486a9fed011a7d7c4073d1b91a0c66fccb24c039af76e",
+      "size": 2696
     },
     {
       "path": "out/dispatch/codex-final-story-av-command.log",
@@ -15620,9 +15626,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 1580482532,
-    "unique_blob_bytes": 876385037,
-    "unique_blobs": 1789
+    "logical_bytes": 1580485228,
+    "unique_blob_bytes": 876387733,
+    "unique_blobs": 1790
   },
   "excluded": [
     {
