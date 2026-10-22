@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "a293b3360bb5799627c20f390f7f67cc553658bd4ab06ddc0ca93a40806b4680",
-    "resource": "preflight_renders",
-    "at": "2026-10-22T03:07:52.616280Z",
-    "note": "finished cinematic hero and stage ablation batch"
+    "event_sha256": "b2da5caba554f461c406cf616e670d5e4f7d7a267c1ec4fecbec6513f8bb57ad",
+    "resource": "full_renders",
+    "at": "2026-10-22T03:19:03.979503Z",
+    "note": "full-resolution Dispatch render"
   },
   "boards": [
     {
@@ -166,31 +166,31 @@
   },
   "commands": [
     {
-      "id": "a5cb8b6171c08295b1bc86b8f2ba08302aa1d83259485343a0b2a65d37219ca8",
-      "text": "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json",
-      "consumed": "2026-10-22T03:11:39.717265+00:00"
+      "id": "5871238ae2c9b2902335a85fe9099bad84dc1c390e744999be04d83bd828ca9d",
+      "text": "bash scripts/run_with_env.sh bash scripts/render_dispatch.sh",
+      "consumed": "2026-10-22T03:22:29.320460+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 74.706
+    "free_gib": 74.655
   },
   "housekeeping": {
-    "receipt": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/capture-housekeeping-20261022T031139.json",
-    "receipt_sha256": "6e26ce9d083ed412b98ea5a3b78e49fc8cd13db53c900ae080f7bc0b37eade21",
+    "receipt": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/capture-housekeeping-20261022T032229.json",
+    "receipt_sha256": "940e4c9bf79ceb2639a53388c5960ffd6fdc8683075c757d52a5d6d74de8f7f3",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-22T03:11:39.557754+00:00",
-  "expires_at": "2026-10-22T03:56:39.557754+00:00",
+  "issued_at": "2026-10-22T03:22:29.188006+00:00",
+  "expires_at": "2026-10-22T04:07:29.188006+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "finished cinematic hero and stage ablation batch",
-    "resource": "preflight_renders",
+    "operation": "full-resolution Dispatch render",
+    "resource": "full_renders",
     "run_id": "2026-10-21",
-    "event_sha256": "a293b3360bb5799627c20f390f7f67cc553658bd4ab06ddc0ca93a40806b4680",
-    "input_identity": "e06c04753cc012774ed66d932f5ea10377292b5a0822c90d4c333b68e61c68f7"
+    "event_sha256": "b2da5caba554f461c406cf616e670d5e4f7d7a267c1ec4fecbec6513f8bb57ad",
+    "input_identity": "f7ef32fdeda4161d9a062a6e334d3e34b6dcc2cf6ccac305ed25e017bf646dea"
   }
 }
