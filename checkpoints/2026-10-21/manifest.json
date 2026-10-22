@@ -1,13 +1,13 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T03:52:36.442676+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-22T03:56:10.824320+00:00",
+  "note": "capture authorization consumed 7039c5c7e093",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
-  "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
+  "repo_root": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch",
   "source_pin": "7d40a6ada8dc9ff91fb2c334dfc7bcb5b06c7299",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
@@ -16,8 +16,8 @@
     "sha256": "e161e2e553e4c04c6edcd2d995828e829193dcc1bde8086cd4e301046082dfb0"
   },
   "deleted_source": [],
-  "ledger_sha256": "08f6af3ddb00255e9860eb8edcd336ab81353e18e484a351afa721911c40135d",
-  "original_private_ledger_sha256": "5bf650b42c29185977152b375c932f3b0c4cb4eecf74e792c90efbcf3add19ec",
+  "ledger_sha256": "0f40be98179cfb4f9e03a5bc0076252c18844a3872f5494e7cafe0c7b3d1fa9d",
+  "original_private_ledger_sha256": "69709fa525c2331f2cd713f0c3cc0ea2d7964680358ecb0fdce666d62d6b95e0",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 2,
@@ -610,8 +610,8 @@
     {
       "path": "out/dispatch/capture-authorization.json",
       "class": "scratch",
-      "sha256": "1882ff7d4d8cd5a35d330cb01f0cb57254df0fcd0d593a23d689e9dfeb5cb448",
-      "size": 18977
+      "sha256": "69e61d8b1663ec7c9b65d65ffbad7b4f7fde304beab14193b3a172ff7313ac1d",
+      "size": 18827
     },
     {
       "path": "out/dispatch/capture-authorization.json.lock",
@@ -622,8 +622,8 @@
     {
       "path": "out/dispatch/capture-authorizations-used.json",
       "class": "scratch",
-      "sha256": "0571d4ee06b61f15439fcf0fcfb95be5a98c4e1697865a8be1d88da53d0fb898",
-      "size": 1344
+      "sha256": "3d563819b7072788243780a501b9be3b11b609dbdbe9b8caf3b150bfff57e2eb",
+      "size": 1493
     },
     {
       "path": "out/dispatch/capture-housekeeping-20261021T183841.json",
@@ -677,6 +677,12 @@
       "path": "out/dispatch/capture-housekeeping-20261022T034914.json",
       "class": "scratch",
       "sha256": "8e4e51fff802f209cad9eadbff39387f6ade354de22cec663802422b4cf4e404",
+      "size": 1055
+    },
+    {
+      "path": "out/dispatch/capture-housekeeping-20261022T035609.json",
+      "class": "scratch",
+      "sha256": "e608ecc46d3f026274bb8a2499e9f35cd981e138d3d3bbdaf79fcf33d9a760bb",
       "size": 1055
     },
     {
@@ -1048,7 +1054,7 @@
     {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
-      "sha256": "36740575cd6fd7cff062d0ebf096060f2d0bfbff46e85c5a4f2aa4cf59191c1b",
+      "sha256": "e0e3e8eb24eb51ebca36556092851ca94f2de5d680c02067d9a86279a22eaab0",
       "size": 128
     },
     {
@@ -1342,7 +1348,7 @@
     {
       "path": "out/dispatch/github-capture-activation.json",
       "class": "scratch",
-      "sha256": "b4c5065d551bc224dc44a6ef190b69d7979d2c704404a5773ad8c52ff7ca708c",
+      "sha256": "24711dd4a93b9013b6b2c532c3a8cdedd3724f79ac192f94f230d09e880181a7",
       "size": 283
     },
     {
@@ -1810,7 +1816,7 @@
     {
       "path": "out/dispatch/github-native-headroom.json",
       "class": "scratch",
-      "sha256": "cabbcbf639e5b528aa5a670e26c2ae366b6e690f9937a193401827df12ba5516",
+      "sha256": "076489b8dd71a8e095cdda3e054028f2b277f175d57dd1f4f635e0cf62176a6a",
       "size": 308
     },
     {
@@ -8278,51 +8284,7 @@
   ],
   "excluded": [
     {
-      "path": "out/dispatch/delivery-prep-copy.private.txt",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-draft.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography-http.private.txt",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography-ordinance.private.pdf",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography-ordinance.private.txt",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-next-actions.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-next-commands.private.md",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-readiness.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-routing.private.json",
-      "reason": "private path component"
-    },
-    {
       "path": "out/dispatch/grant-projection-roots.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/verify-final-gmail.private.py",
       "reason": "private path component"
     }
   ],

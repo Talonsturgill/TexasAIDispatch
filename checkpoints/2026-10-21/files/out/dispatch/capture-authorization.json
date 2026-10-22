@@ -2,10 +2,10 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "1b7970a5312e38f937703b3182f4a2820d2de9c4096e4103288115f9e2e0f7c2",
+    "event_sha256": "850a177039ae286972de2e42b68c6a44ac835c0179afcd6f6a394bb5234a0020",
     "resource": "preflight_renders",
-    "at": "2026-10-22T03:45:47.397473Z",
-    "note": "exact-film motion-image review extraction"
+    "at": "2026-10-22T03:52:35.074578Z",
+    "note": "exact-film mechanical preship probes"
   },
   "boards": [
     {
@@ -166,31 +166,31 @@
   },
   "commands": [
     {
-      "id": "0e09184c8a03c2ea776c5fb006a648d9b1d26d9594b1ac86ea9effb40e6169a5",
-      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --out out/dispatch/motion-review --state out/dispatch/run_state.json",
-      "consumed": "2026-10-22T03:49:14.271877+00:00"
+      "id": "7039c5c7e093f825b9638078ca7a738d98cdc66cebde10ded8f4a46a19002618",
+      "text": "bash scripts/run_with_env.sh python scripts/preship_compute.py",
+      "consumed": "2026-10-22T03:56:09.270732+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 74.581
+    "free_gib": 75.262
   },
   "housekeeping": {
-    "receipt": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/capture-housekeeping-20261022T034914.json",
-    "receipt_sha256": "8e4e51fff802f209cad9eadbff39387f6ade354de22cec663802422b4cf4e404",
+    "receipt": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/capture-housekeeping-20261022T035609.json",
+    "receipt_sha256": "e608ecc46d3f026274bb8a2499e9f35cd981e138d3d3bbdaf79fcf33d9a760bb",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-22T03:49:14.130628+00:00",
-  "expires_at": "2026-10-22T04:34:14.130628+00:00",
+  "issued_at": "2026-10-22T03:56:09.154163+00:00",
+  "expires_at": "2026-10-22T04:41:09.154163+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "exact-film motion-image review extraction",
+    "operation": "exact-film mechanical preship probes",
     "resource": "preflight_renders",
     "run_id": "2026-10-21",
-    "event_sha256": "1b7970a5312e38f937703b3182f4a2820d2de9c4096e4103288115f9e2e0f7c2",
-    "input_identity": "2c1ce8081d5dee04876383d93ea49642e4fc83b7e5928d956ee3234cbe0535e5"
+    "event_sha256": "850a177039ae286972de2e42b68c6a44ac835c0179afcd6f6a394bb5234a0020",
+    "input_identity": "429b4ec230f4471e00c67e840a568912fac8450fac59e96197e2d6400eaff9e1"
   }
 }
