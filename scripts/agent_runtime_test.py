@@ -217,4 +217,197 @@ class RuntimeTest(unittest.TestCase):
         self.assertIn("An empty rejected list is valid",text)
 
 
+class CompactRecoveryGuides(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name).resolve() / ('restored-original-checkpoint-' * 5)
+        self.root.mkdir()
+        self.repo = patch.object(a, 'REPO', self.root); self.repo.start()
+        self.addCleanup(self.repo.stop)
+        self.guides = []
+        for index in range(19):
+            path = self.root / 'knowledge/craft' / (str(index) + '.md')
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text('Complete guide text ' + str(index))
+            self.guides.append(a.bound(path))
+        self.packet = {'role': 'storyboard-critic', 'date': '2026-10-21',
+            'local_recovery': {'runtime': 'codex'}, 'instructions': 'Read every bound guide in full.',
+            'board': a.bound(self.guides[0]['path']),
+            'craft_readings': self.guides, 'completion_readings': self.guides[:2],
+            'agent_contracts': self.guides[:6], 'source_runtime_contracts': self.guides[:9]}
+
+    def test_long_restored_path_roundtrips_all_guides_and_native_phone_fields(self):
+        import claude_runtime, codex_visual_observations
+        # Phone policy and observation instructions are genuine source contracts, not verdicts.
+        self.packet.update(phone_decision_scope=claude_runtime.phone_decision_scope(),
+            phone_options=[{'board': self.packet['board'], 'motion_sequence': self.packet['board']}])
+        claude_runtime.image_reading(self.packet)
+        before = copy.deepcopy(self.packet)
+        self.assertGreater(len(json.dumps(before, separators=(',', ':'))), 10000)
+        encoded = d.packet_text(self.packet)
+        self.assertLessEqual(len(encoded), 10000)
+        compact = json.loads(encoded)
+        self.assertEqual(str(self.root), compact['repo_root'])
+        self.assertEqual(before['board'], compact['board'])
+        self.assertEqual(before, a.expand_packet_bindings(compact))
+        self.assertEqual(before, self.packet)
+        path = self.root / 'packet.json'; path.write_text(encoded)
+        with patch('os.getcwd', return_value='/unrelated/worker/directory'):
+            for reader in (a.read, claude_runtime.read, codex_visual_observations.read):
+                self.assertEqual(before, reader(path))
+        a.validate_references(a.read(path))
+        self.assertEqual(10000, d.policy()['handoff_max_chars'])
+        # A guide hash is never replaced by a successful path expansion.
+        Path(self.guides[0]['path']).write_text('Changed current guide')
+        with self.assertRaisesRegex(ValueError, 'input changed'):
+            a.validate_references(a.read(path))
+
+    def test_wrong_root_traversal_alias_and_runtime_are_rejected(self):
+        compact = a.compact_packet_bindings(self.packet)
+        for mutation in ('root', 'traversal', 'absolute', 'alias', 'runtime'):
+            value = copy.deepcopy(compact)
+            if mutation == 'root':
+                value['repo_root'] = str(self.root.parent)
+            elif mutation == 'runtime':
+                value['local_recovery']['runtime'] = 'claude'
+            elif mutation == 'alias':
+                (self.root / 'alias.md').symlink_to(self.guides[0]['path'])
+                value['craft_readings'][0]['path'] = 'alias.md'
+            else:
+                value['craft_readings'][0]['path'] = ('../elsewhere.md' if mutation == 'traversal'
+                                                      else self.guides[0]['path'])
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                a.expand_packet_bindings(value)
+
+    def test_normal_route_and_real_excess_are_not_exempted(self):
+        ordinary = copy.deepcopy(self.packet); ordinary.pop('local_recovery')
+        self.assertEqual(ordinary, json.loads(d.packet_text(ordinary)))
+        self.packet['instructions'] = 'x' * 11000
+        self.assertGreater(len(d.packet_text(self.packet)), 10000)
+
+
+class LocalRecoveryRouting(unittest.TestCase):
+    setUp = RuntimeTest.setUp
+    source_packet = RuntimeTest.source_packet
+    # Scratch bindings exercise routing only; they assert no media quality or review verdict.
+    def recovery_packet(self, role='vo-director'):
+        import claude_runtime
+        self.state = self.root / 'out/dispatch/run_state.json'
+        self.state.parent.mkdir(parents=True, exist_ok=True)
+        self.state.write_text(json.dumps({'run_id': '2026-10-21', 'mode': 'production',
+            'terminal_state': None, 'usage': {'storyboard_critics': 4}, 'events': [], 'phase': 'active_repair'}))
+        self.board = self.state.with_name('storyboard.json')
+        self.claims = self.state.with_name('claims.json')
+        self.board.write_text(json.dumps({'date': '2026-10-21', 'scenes': [],
+            'creative_direction': {'medium_choice': 'explanatory animation'},
+            'story_art': {'version': 'authored-story-art-v1', 'runtime': 'claude',
+                          'edition_id': '2026-10-21', 'requests': []}}))
+        self.claims.write_text('{"claims":[]}')
+        self.owner = {'runtime': 'codex', 'run_id': '2026-10-21', 'owner_sha256': 'a' * 64, 'epoch': 'b' * 32}
+        with patch('publication_owner.require_owner', return_value=self.owner):
+            data = d.packet(self.board, self.claims, role, self.state, runtime='codex')
+        self.packet.write_text(json.dumps(data))
+        return data
+
+    def test_explicit_local_route_preserves_original_art_guides_and_default_claude(self):
+        import claude_runtime
+        data = self.recovery_packet()
+        before = self.board.read_bytes()
+        self.assertEqual(a.assignment('vo-director', '2026-10-21'), data['agent_assignment'])
+        self.assertEqual(claude_runtime.contracts('vo-director'), data['source_runtime_contracts'])
+        self.assertEqual('codex', data['local_recovery']['runtime'])
+        self.assertEqual(before, self.board.read_bytes())
+        original = d.packet(self.board, self.claims, 'vo-director', self.state)
+        self.assertEqual(claude_runtime.assignment('vo-director', '2026-10-21'), original['agent_assignment'])
+        self.assertEqual(original['craft_readings'], data['craft_readings'])
+        self.assertEqual(original['board'], data['board'])
+        self.assertEqual(original['claims'], data['claims'])
+        with patch('publication_owner.require_owner', return_value=None), self.assertRaisesRegex(ValueError, 'ownership'):
+            d.packet(self.board, self.claims, 'vo-director', self.state, runtime='codex')
+        with self.assertRaisesRegex(ValueError, 'original authored board'):
+            d.packet(self.board, self.claims, 'vo-director', runtime='codex')
+
+    def test_local_visual_contract_dispatches_actual_codex_evidence_only(self):
+        import claude_runtime
+        import codex_visual_observations as visual
+        data = self.recovery_packet()
+        claude_runtime.image_reading(data)
+        self.assertEqual(visual.CONTRACT, data['codex_visual_evidence'])
+        self.assertIn('CODEX_VISUAL_OBSERVATION', data['instructions'])
+        self.assertNotIn('before another image Read', data['instructions'])
+        claude_runtime.image_policy_inputs(data)
+        self.packet.write_text(json.dumps(data))
+        coverage = self.root / 'coverage.json'; coverage.write_text('{}')
+        with patch.object(visual, 'coverage_problems', return_value=['native evidence missing']) as verifier:
+            self.assertEqual(['native evidence missing'], claude_runtime.image_coverage_problems(self.packet, coverage))
+            verifier.assert_called_once_with(self.packet, coverage)
+        data.pop('local_recovery'); self.packet.write_text(json.dumps(data))
+        with patch.object(visual, 'coverage_problems') as verifier:
+            self.assertTrue(claude_runtime.image_coverage_problems(self.packet, coverage))
+            verifier.assert_not_called()
+
+    def test_local_plan_requires_own_fresh_claim_and_retains_all_bound_inputs(self):
+        data = self.recovery_packet()
+        brief = self.root / data['brief']; brief.parent.mkdir(parents=True, exist_ok=True)
+        brief.write_bytes((a.REPO / data['brief']).read_bytes())
+        contract_rows = data['agent_contracts']
+        with patch.object(a, 'REPO', self.root), patch.object(a, 'contracts', return_value=contract_rows), \
+                patch('publication_owner.require_owner', return_value=self.owner), \
+                patch('publication_owner.has_unclaimed_worker_reservation', return_value=False), \
+                patch('publication_owner.claim_worker', return_value=False) as claim:
+            result = a.plan('vo-director', self.packet, 'voice', 'Retain current exact evidence')
+            self.assertFalse(result['dispatch_ready']); self.assertNotIn('spawn_args', result)
+            claim.assert_called_once()
+            data['source_runtime_contracts'][0]['sha256'] = '0' * 64
+            self.packet.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError, 'original authored runtime'):
+                a.plan('vo-director', self.packet, 'voice', 'Retain current exact evidence')
+            self.assertEqual(1, claim.call_count)
+
+    def test_recovery_binding_cannot_be_removed_from_owned_local_plan(self):
+        self.source_packet()
+        with patch('publication_owner.local_workspace', return_value=self.root), \
+                self.assertRaisesRegex(ValueError, 'cannot drop'):
+            a.plan('researcher', self.packet, 'researcher', 'One actual beat')
+
+    def test_fifth_local_review_refuses_code_and_replay_without_new_capacity(self):
+        import claude_runtime
+        data = self.recovery_packet()
+        role = 'storyboard-critic'
+        data.update(role=role, agent_assignment=a.assignment(role, '2026-10-21'),
+                    agent_contracts=a.contracts(role), source_runtime_contracts=claude_runtime.contracts(role),
+                    brief=a.policy()['roles'][role]['brief'])
+        self.packet.write_text(json.dumps(data))
+        with patch.object(a, 'REPO', self.root), \
+                patch('publication_owner.require_owner', return_value=self.owner), \
+                patch('publication_owner.has_unclaimed_worker_reservation', return_value=False), \
+                patch('publication_owner.claim_worker') as claim:
+            with self.assertRaisesRegex(ValueError, 'fifth review is protected'):
+                a.plan(role, self.packet, 'critic', 'Current code')
+            data.update(phone_mode='current', review_scope='exact-muted-phone-preflight')
+            self.packet.write_text(json.dumps(data))
+            state = json.loads(self.state.read_text()); state['usage']['storyboard_critics'] = 5
+            self.state.write_text(json.dumps(state))
+            with self.assertRaisesRegex(ValueError, 'hard five-review limit reached'):
+                a.plan(role, self.packet, 'critic', 'Current timed phone')
+            claim.assert_not_called()
+        brief = self.root / data['brief']; brief.parent.mkdir(parents=True, exist_ok=True)
+        brief.write_bytes((a.REPO / data['brief']).read_bytes())
+        claim_path = self.root / 'claim.json'; claim_path.write_text('{"fixture":"new owned reservation"}')
+        # Gate stubs isolate reservation plumbing; no observation, media pass or score is created.
+        with patch.object(a, 'REPO', self.root), patch.object(a, 'required_inputs'), \
+                patch('publication_owner.require_owner', return_value=self.owner), \
+                patch('publication_owner.has_unclaimed_worker_reservation', return_value=True), \
+                patch('publication_owner.claim_worker', return_value=claim_path), \
+                patch.object(claude_runtime, 'phone_review_inputs') as phone_gate, \
+                patch.object(claude_runtime, 'image_policy_inputs') as image_gate:
+            result = a.plan(role, self.packet, 'critic', 'Current timed phone')
+            self.assertTrue(result['dispatch_ready'])
+            self.assertEqual('gpt-6.1-sol', result['spawn_args']['model'])
+            self.assertEqual('high', result['spawn_args']['reasoning_effort'])
+            self.assertEqual('none', result['spawn_args']['fork_turns'])
+            phone_gate.assert_called_once(); image_gate.assert_called_once()
+
+
 if __name__=="__main__":unittest.main()

@@ -117,14 +117,21 @@ def paths(board,public=PUBLIC):
 
 
 def stage(board_path,repo=REPO):
-    """Carry the exact ignored raster assets into the release's clean checkout."""
+    """Carry current artwork and its executable authored dependencies into the release."""
     import subprocess
-    from modern_film import required
+    import authored_story_art
+    from modern_film import required, renderer_inputs
     board=read(board_path)
     if not required(board):return []
     errors=problems(board,repo)+charge_problems(board,Path(board_path).parent)
     if errors:raise ValueError('; '.join(errors))
     media=paths(board,Path(repo)/'video-engine/public')
+    if authored_story_art.selected(board):
+        # The two art sources alone cannot execute the episode in a clean checkout.
+        # Stage the same local dependency closure bound by the current renderer gates,
+        # including its episode module and both registries, never all dirty source.
+        media=sorted(set(media) | {Path(repo)/row['path'] for row in
+                     renderer_inputs(board['film_direction']['episode'],repo)})
     subprocess.run(['git','-C',str(repo),'--literal-pathspecs','add','-f','--',*[str(p.resolve()) for p in media]],check=True)
     return media
 
@@ -177,7 +184,7 @@ if __name__=='__main__':
     if a.action=='reserve':
         result=reserve(a.board,a.state,a.request);a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(result,indent=2)+'\n');print('Fresh ImageGen call charged; use this exact request, then record the original output.')
     elif a.action=='record':print(json.dumps(record(a.board,a.source,a.request,a.generation_id,a.generated_at,a.charge),indent=2))
-    elif a.action=='stage':print('Exact fresh raster assets staged: '+str(len(stage(a.board))))
+    elif a.action=='stage':print('Exact artwork and required source files staged: '+str(len(stage(a.board))))
     else:
         errors=problems(read(a.board))+charge_problems(read(a.board),a.board.parent)
         print('\n'.join(errors) if errors else 'Fresh storyboard artwork, exact pixels and pre-execution charges verified.')

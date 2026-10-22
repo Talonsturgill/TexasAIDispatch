@@ -21,10 +21,10 @@ def resource_for(note):
     raise ValueError('unsupported prepared capture operation')
 
 
-def input_identity(state_path, note):
+def input_identity(state_path, note, *, version=2):
     import run_controller as controller
     return (controller.full_render_identity(state_path) if note == FULL_OPERATION
-            else controller.preflight_identity(state_path, note))
+            else controller.preflight_identity(state_path, note, version=version))
 
 
 def operation_for(commands, root):
@@ -201,6 +201,8 @@ def claim(state_path, note):
         fcntl.flock(lock, fcntl.LOCK_EX)
         state = controller.read_state(state_path)
         receipt = prepared.get('event_sha256')
+        reservation = next((e for e in state.get('events', []) if guard.event_digest(e) == receipt), None)
+        version = (reservation or {}).get('preflight_identity_version', 1)
         errors = []
         if state_path != root / 'out/dispatch/run_state.json':
             errors.append('prepared ledger path differs')
@@ -211,12 +213,12 @@ def claim(state_path, note):
             errors.append('prepared operator differs')
         if state.get('terminal_state') or state.get('run_id') != prepared.get('run_id'):
             errors.append('prepared ledger differs or is terminal')
-        if (prepared.get('input_identity') != input_identity(state_path, note)
+        if (version not in (1, 2)
+                or prepared.get('input_identity') != input_identity(state_path, note, version=version)
                 or auth.get('render_reservation', {}).get('event_sha256') != receipt):
             errors.append('prepared inputs or reservation changed')
         if not all(c.get('consumed') for c in auth.get('commands', [])):
             errors.append('capture hook has not consumed this command')
-        reservation = next((e for e in state.get('events', []) if guard.event_digest(e) == receipt), None)
         if (not reservation or reservation.get('kind') != 'reserved'
                 or reservation.get('resources') != {resource: 1}
                 or reservation.get('note') != note

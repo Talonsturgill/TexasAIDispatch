@@ -2,6 +2,7 @@
 from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest import mock
@@ -156,6 +157,39 @@ class AuthoredArtTests(unittest.TestCase):
         for name in ('claims.json', 'run_state.json'):
             (destination / name).write_bytes((self.root / name).read_bytes())
         self.assertEqual([], art.charge_problems(self.board, destination))
+
+    def test_release_index_contains_executable_episode_and_registries_without_unrelated_work(self):
+        from modern_film import renderer_seed_paths, renderer_inputs
+        for name in renderer_seed_paths('pilot', self.repo) + ['video-engine/package-lock.json']:
+            path = self.repo / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            if not path.exists():
+                path.write_text('{}' if path.suffix == '.json' else '')
+        (self.repo / '.gitignore').write_text('video-engine/src/modern/episodes/\n')
+        unrelated = self.repo / 'unrelated-private.txt'
+        unrelated.write_text('Keep this outside the release.')
+        subprocess.run(['git', 'init', '-q', str(self.repo)], check=True)
+        expected = renderer_inputs('pilot', self.repo)
+        story_art.stage(self.board_path, self.repo)
+        staged = set(subprocess.check_output(['git', '-C', str(self.repo), 'diff',
+                       '--cached', '--name-only'], text=True).splitlines())
+        self.assertEqual(staged, {row['path'] for row in expected})
+        self.assertIn('video-engine/src/modern/Pilot.tsx', staged)
+        self.assertIn('video-engine/src/modern/registry.tsx', staged)
+        self.assertIn('config/modern_episode_registry.json', staged)
+        self.assertNotIn(unrelated.name, staged)
+        clean = self.repo / 'clean-release'; clean.mkdir()
+        subprocess.run(['git', '-C', str(self.repo), 'checkout-index', '--all',
+                        '--prefix=' + str(clean) + '/'], check=True)
+        self.assertEqual(renderer_inputs('pilot', clean), expected)
+        self.assertEqual(unrelated.read_text(), 'Keep this outside the release.')
+
+    def test_release_refuses_missing_renderer_dependency_before_staging(self):
+        subprocess.run(['git', 'init', '-q', str(self.repo)], check=True)
+        with self.assertRaisesRegex(ValueError, 'dependency is missing|input missing'):
+            story_art.stage(self.board_path, self.repo)
+        self.assertEqual(subprocess.check_output(['git', '-C', str(self.repo),
+                         'diff', '--cached', '--name-only']), b'')
 
     def test_unperformed_view_is_rejected(self):
         self.board['story_art']['requests'][0]['action_uses'][0]['view'] = 'decorative'

@@ -2,6 +2,7 @@
 import copy
 import contextlib
 import json
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -65,6 +66,65 @@ class Reservation(unittest.TestCase):
         self.assertEqual(before['usage'], after['usage'])
         self.assertFalse(prepared.claim(self.state, prepared.OPERATIONS['cinema_proof.py'])[0])
         self.assertEqual(after['usage'], controller.read_state(self.state)['usage'])
+
+    def test_relocated_prepaid_capture_preserves_inputs_and_claims_once(self):
+        receipt, _ = self.authorise()
+        old = copy.deepcopy(controller.read_state(self.state))
+        self.assertEqual(2, old['events'][-1]['preflight_identity_version'])
+        with tempfile.TemporaryDirectory() as directory:
+            destination = Path(directory).resolve() / 'restored'
+            shutil.copytree(self.root, destination)
+            relocated = destination / 'out/dispatch/run_state.json'
+            note = prepared.OPERATIONS['cinema_proof.py']
+            with mock.patch.object(controller, 'REPO', destination):
+                self.assertEqual(receipt['input_identity'], prepared.input_identity(relocated, note))
+                accepted, message = prepared.claim(relocated, note)
+                self.assertTrue(accepted, message)
+                current = controller.read_state(relocated)
+                self.assertEqual(old['usage'], current['usage'])
+                self.assertEqual(old['events'], current['events'][:len(old['events'])])
+                self.assertFalse(prepared.claim(relocated, note)[0])
+                (destination / 'scripts/cinema_proof.py').write_text('# changed operator\n')
+                self.assertNotEqual(receipt['input_identity'], prepared.input_identity(relocated, note))
+
+    def test_legacy_prepaid_capture_keeps_its_exact_identity(self):
+        note = prepared.OPERATIONS['cinema_proof.py']
+        _, auth = self.authorise()
+        state = controller.read_state(self.state)
+        event = state['events'][-1]
+        event.pop('preflight_identity_version')
+        event['preflight_identity'] = controller.preflight_identity(self.state, note, version=1)
+        receipt = guard.event_digest(event)
+        auth['prepared_capture'].update(event_sha256=receipt, input_identity=event['preflight_identity'])
+        auth['render_reservation']['event_sha256'] = receipt
+        controller.save(self.state, state)
+        (self.root / guard.AUTHORIZATION).write_text(json.dumps(auth))
+        accepted, message = prepared.claim(self.state, note)
+        self.assertTrue(accepted, message)
+        self.assertEqual(event, controller.read_state(self.state)['events'][-2])
+
+    def test_legacy_charge_cannot_buy_unchanged_inputs_again(self):
+        note = prepared.OPERATIONS['cinema_proof.py']
+        self.authorise()
+        state = controller.read_state(self.state)
+        state['events'][-1].pop('preflight_identity_version')
+        state['events'][-1]['preflight_identity'] = controller.preflight_identity(self.state, note, version=1)
+        controller.save(self.state, state)
+        accepted, message = controller.reserve(self.state, {'preflight_renders': 1}, note,
+                                               _use_prepared_capture=False)
+        self.assertFalse(accepted, message)
+        self.assertEqual(state, controller.read_state(self.state))
+        failure = self.state.parent / 'legacy-failure.txt'
+        failure.write_text('Retained fixture failure for one explicit infrastructure retry.\n')
+        self.assertTrue(controller.retry_preflight(self.state, 'hero', failure,
+            'Verified fixture repair permits this one exact infrastructure retry')[0])
+        accepted, message = controller.reserve(self.state, {'preflight_renders': 1}, note,
+                                               _use_prepared_capture=False)
+        self.assertTrue(accepted, message)
+        current = controller.read_state(self.state)
+        self.assertEqual(state['events'], current['events'][:len(state['events'])])
+        self.assertEqual(2, current['usage']['preflight_renders'])
+        self.assertEqual(2, current['events'][-1]['preflight_identity_version'])
 
     def test_real_phone_hero_and_motion_operations_have_distinct_identities(self):
         identities = [controller.preflight_identity(self.state, note) for note in prepared.OPERATIONS.values()]

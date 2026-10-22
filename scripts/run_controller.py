@@ -190,8 +190,12 @@ def initialise(path: Path, run_id: str, mode: str) -> tuple[bool, str]:
     return True, f"run controller: initialised {run_id} in {mode} mode at {path}"
 
 
-def preflight_identity(path: Path, note: str) -> str | None:
+def preflight_identity(path: Path, note: str, *, version: int = 2) -> str | None:
     """Hash production inputs, scoped by operation (animatic versus hero)."""
+    if version not in (1, 2):
+        raise ValueError('unknown preflight input identity version')
+    if version == 2:
+        path = Path(path).resolve()
     board = path.parent / "storyboard.json"
     if not board.is_file():
         return None  # Research before the board exists.
@@ -232,7 +236,15 @@ def preflight_identity(path: Path, note: str) -> str | None:
         operator = 'claude_motion_review.py'
     if operator:
         files += [p for p in (REPO / "scripts" / operator, REPO / "scripts/capture_reservation.py") if p.is_file()]
-    content = [(str(p), digest(p)) for p in sorted(set(files))]
+    def identity_path(file):
+        if version == 1:
+            return str(file)
+        resolved = file.resolve()
+        if resolved.is_relative_to(path.parent):
+            return 'out/dispatch/' + resolved.relative_to(path.parent).as_posix()
+        return resolved.relative_to(REPO.resolve()).as_posix()
+
+    content = sorted((identity_path(p), digest(p)) for p in set(files))
     if operation == 'opening-inspection':
         from opening_compare import capture_record
         original = capture_record(load_json(path.parent/'openings/comparison.json'))
@@ -240,6 +252,14 @@ def preflight_identity(path: Path, note: str) -> str | None:
     if operation == 'motion-review':
         content.append(('registered-native-film', read_state(path).get('deliverable', {}).get('film_sha256')))
     return hashlib.sha256(json.dumps([operation, content]).encode()).hexdigest()
+
+
+def preflight_identities(path: Path, note: str) -> list[str | None]:
+    """Match retained legacy receipts without changing their recorded hashes."""
+    supplied = Path(path)
+    return [preflight_identity(supplied, note),
+            preflight_identity(supplied.resolve(), note, version=1),
+            preflight_identity(supplied, note, version=1)]
 
 
 def full_render_identity(path: Path) -> str:
@@ -264,9 +284,7 @@ def retry_preflight(path: Path, operation: str, evidence: Path, reason: str) -> 
     state = read_state(path)
     # Prepared operators reserve with an absolute ledger path. Match that canonical
     # identity first while retaining the original relative-path route for old calls.
-    supplied = Path(path)
-    candidates = [preflight_identity(supplied.resolve(), operation),
-                  preflight_identity(supplied, operation)]
+    candidates = preflight_identities(path, operation)
     previous = {e.get("preflight_identity") for e in state.get("events", [])}
     identity = next((value for value in candidates if value and value in previous), None)
     if state.get("terminal_state") or not any(candidates) or len(reason.strip()) < 20 or not evidence.is_file():
@@ -348,6 +366,17 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
             f"run controller: {state['terminal_state']} is terminal. "
             "No further expensive action is allowed."
         )
+    if amounts.get('storyboard_critics') and state.get('usage', {}).get('storyboard_critics', 0) == 0:
+        from retime_feasibility import problems as retime_problems
+        try:
+            for name in ('storyboard.json', 'opening-a.json', 'opening-b.json'):
+                board_path = Path(path).with_name(name)
+                if board_path.is_file():
+                    errors = retime_problems(load_json(board_path))
+                    if errors:
+                        return False, 'authored retime feasibility before first review: ' + '; '.join(errors)
+        except (OSError, ValueError, KeyError, TypeError, ZeroDivisionError) as exc:
+            return False, 'authored retime feasibility unavailable: ' + str(exc)
     from review_limit import reservation_problems as hard_review_problems
     hard_review_errors = hard_review_problems(state, amounts)
     if hard_review_errors:
@@ -381,11 +410,12 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
         return False, "; ".join(envelope_errors) + "; preserve the film and resolve the recorded production plan"
 
     preview_identity = preflight_identity(path, note) if "preflight_renders" in amounts else None
+    preview_candidates = preflight_identities(path, note) if preview_identity else []
     if _prepare_full and (amounts != {'full_renders': 1} or note != 'full-resolution Dispatch render'):
         return False, 'prepared full render requires its exact resource and operation'
     full_identity = full_render_identity(path) if _prepare_full else None
-    if (preview_identity and state.get("preflight_retry") != preview_identity
-            and any(e.get("preflight_identity") == preview_identity for e in state.get("events", []))):
+    if (preview_identity and state.get("preflight_retry") not in preview_candidates
+            and any(e.get("preflight_identity") in preview_candidates for e in state.get("events", []))):
         return False, ("run controller: identical preflight inputs were already reserved for this operation. "
                        "Reuse the existing preview; repair production inputs before rendering again.")
 
@@ -475,9 +505,11 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
         # render is attempted: reserving work is not evidence that the replacement succeeded.
         event(state, "render_reserved_with_last_good_preserved",
               film_sha256=state["deliverable"].get("film_sha256"))
-    if preview_identity == state.get("preflight_retry"):
+    if preview_identity and state.get("preflight_retry") in preview_candidates:
         state.pop("preflight_retry", None)
     binding = {'full_render_identity': full_identity} if full_identity is not None else {}
+    if preview_identity:
+        binding['preflight_identity_version'] = 2
     from publication_owner import reservation_fields
     binding.update(reservation_fields(path, state))
     event(state, "reserved", resources=amounts, note=note, preflight_identity=preview_identity, **binding)

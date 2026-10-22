@@ -86,7 +86,15 @@ def find_line(words: list[dict], line: str, search_from: int) -> tuple[int, floa
 
 def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
            lead: float = LEAD_DEFAULT, min_conf: float = 0.5, *,
-           narration_captions=None, acoustic_words=None) -> tuple[dict, list[str]]:
+           narration_captions=None, acoustic_words=None, _compile_modern=True) -> tuple[dict, list[str]]:
+    import measured_retime
+    if _compile_modern and measured_retime.receipt(board) is not None:
+        try:
+            measured_retime.compile(board, narration_captions, acoustic_words,
+                                    min_scene=min_scene, lead=lead)
+            return board, []
+        except (KeyError, ValueError, TypeError) as exc:
+            return board, ['approved measured retiming failed: ' + str(exc)]
     # A board that has already been retimed legitimately carries `at_s` values that differ
     # from `at_s_authored`, so the hand-edit warning below only applies on a first pass.
     _retimed_before = bool(board.get("retimed_to"))
@@ -255,6 +263,8 @@ def retime(board: dict, words: list[dict], min_scene: float = MIN_SCENE_DEFAULT,
                 "when they did not, so this counts both rather than claiming all are measured.",
     }
     board["_retime_moved"] = moved
+    if not _compile_modern:
+        return board, []
     import modern_film
     modern_errors = modern_film.retime(board, narration_captions, acoustic_words)
     if modern_errors:
@@ -505,6 +515,8 @@ def main() -> int:
     ap.add_argument("--board")
     ap.add_argument("--words")
     ap.add_argument("--captions", help="measured clause cues; defaults beside the board")
+    ap.add_argument("--approved-board", help="exact retained independently approved authored board for explicit measured recovery")
+    ap.add_argument("--approved-critique", help="exact original passing critique for --approved-board; never rewritten")
     ap.add_argument("--sfx", help="sfx_events.json, re-anchored to wherever its scenes went")
     ap.add_argument("--min-scene", type=float, default=MIN_SCENE_DEFAULT)
     ap.add_argument("--lead", type=float, default=LEAD_DEFAULT)
@@ -518,6 +530,16 @@ def main() -> int:
         return 2
 
     board = json.load(open(a.board))
+    if bool(a.approved_board) != bool(a.approved_critique):
+        print('board_retime: approved recovery requires both original board and critique', file=sys.stderr)
+        return 2
+    if a.approved_board:
+        import measured_retime
+        try:
+            measured_retime.attach(board, open(a.approved_board).read(), open(a.approved_critique).read())
+        except (KeyError, ValueError, TypeError) as exc:
+            print('board_retime: retained approval refused: ' + str(exc), file=sys.stderr)
+            return 1
     wf = json.load(open(a.words))
     words = wf["words"] if isinstance(wf, dict) else wf
     clause_captions = None

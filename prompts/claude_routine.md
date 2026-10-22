@@ -328,6 +328,12 @@ knowledge/craft/COMPLETION_PROGRESS.md. A native running subagent plus its exact
 reservation claim allows the Stop helper to yield to its automatic completion notification,
 with production still unfinished. Do not purchase primary polling turns while that verified
 native wake owns the next step. Collect the original handback when it arrives and continue.
+After a funded native Agent or resumed worker is running and no independent production step
+remains, end the current assistant turn without a waiting/status message. The Stop hook performs
+the task-registry and reservation verification at that point; do not first try to prove that
+future Stop event by polling. Its accepted yield leaves this same edition active and the native
+completion notification resumes it. If the hook refuses the yield, use the bounded exact-task
+wait below. Never substitute transcript-tail/stop_reason grep loops for the native handback.
 No synthetic wake, UI badge, shell sleep or observer monitor supplies this authority. The
 legacy bounded wait below remains only when no verified native completion wake is present.
 The three final scorers may run concurrently after their unchanged atomic panel reservation.

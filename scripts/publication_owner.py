@@ -51,11 +51,16 @@ def instant(value):
     return parsed
 
 
-def identity(session=None):
-    value = session or os.environ.get('CLAUDE_CODE_SESSION_ID')
+def identity(session=None, runtime='claude'):
+    if runtime not in ('claude', 'codex'):
+        raise ValueError('unknown publication runtime')
+    if runtime == 'codex' and session is not None:
+        raise ValueError('Codex ownership uses the actual CODEX_THREAD_ID, never a supplied session')
+    value = (os.environ.get('CODEX_THREAD_ID') if runtime == 'codex'
+             else session or os.environ.get('CLAUDE_CODE_SESSION_ID'))
     if not isinstance(value, str) or not value or len(value) > 256:
-        raise ValueError('the actual Claude session identity is unavailable; inspect startup before paid work')
-    return hashlib.sha256(value.encode()).hexdigest()
+        raise ValueError('the actual ' + runtime + ' session identity is unavailable; inspect startup before paid work')
+    return hashlib.sha256((('codex:' if runtime == 'codex' else '') + value).encode()).hexdigest()
 
 
 def load(path):
@@ -102,7 +107,8 @@ def read_remote(repo):
             or not checkpoint.RUN_ID.fullmatch(value.get('run_id', ''))
             or not re.fullmatch(r'[0-9a-f]{64}', value.get('owner_sha256', ''))
             or not re.fullmatch(r'[0-9a-f]{32}', value.get('epoch', ''))
-            or value.get('status') not in ('held', 'complete')):
+            or value.get('status') not in ('held', 'complete')
+            or value.get('runtime', 'claude') not in ('claude', 'codex')):
         raise ValueError('publication ownership metadata is invalid; preserve it and repair its source')
     instant(value['expires_at'])
     return {**value, 'commit': commit}
@@ -177,11 +183,11 @@ def completed_proof(repo, run_id, record=None):
             'archive_commit': commit, 'run_id': run_id}
 
 
-def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None):
+def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runtime='claude'):
     if not checkpoint.RUN_ID.fullmatch(run_id):
         raise ValueError('invalid publication run identity')
     repo, workspace, moment = Path(repo).resolve(), Path(workspace).resolve(), moment or now()
-    owner = identity(session)
+    owner = identity(session, runtime)
     with locked(workspace):
         marker = workspace / MARKER
         local = load(marker) if marker.is_file() else None
@@ -210,6 +216,17 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None):
             if not previous_proof and value['run_id'] != run_id:
                 return {'status': 'resume_required', 'run_id': value['run_id'], 'review_approval': False,
                         'provider_unavailable': False}
+        recovery = None
+        if runtime == 'codex':
+            if (not value or value['status'] != 'held' or value['run_id'] != run_id
+                    or instant(value['expires_at']) > moment):
+                raise ValueError('local recovery requires the same expired held publication owner')
+            record = checkpoint_record(repo, run_id)
+            if (not record or record[1].get('run_id') != run_id
+                    or record[1].get('mode') != 'production' or record[1].get('terminal_state')):
+                raise ValueError('local recovery requires the original verified unfinished checkpoint')
+            recovery = {'previous_owner_sha256': value['owner_sha256'], 'previous_epoch': value['epoch'],
+                        'ledger_sha256': record[0]['ledger_sha256'], 'source_pin': record[0]['source_pin']}
         if value is None:
             legacy = checkpoint_record(repo, run_id)
             if legacy:
@@ -230,6 +247,8 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None):
                     'previous_commit': previous, 'review_approval': False, 'provider_unavailable': False}
         if previous_proof:
             proposed['previous_publication'] = previous_proof
+        if runtime == 'codex':
+            proposed.update(runtime=runtime, recovery=recovery)
         try:
             held = append(repo, proposed, previous)
         except checkpoint.CheckpointError as exc:
@@ -247,15 +266,16 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None):
                 'fresh_reservations_required': True, 'review_approval': False}
 
 
-def current(repo, run_id, workspace=PRIMARY, *, session=None, moment=None):
+def current(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runtime='claude'):
     workspace, repo, moment = Path(workspace), Path(repo), moment or now()
-    owner = identity(session)
+    owner = identity(session, runtime)
     marker = workspace / MARKER
     if not marker.is_file():
         raise ValueError('acquire publication ownership before restoring or paying for this edition')
     with locked(workspace):
         local = load(marker)
-        if (local.get('run_id') != run_id or local.get('owner_sha256') != owner
+        if (local.get('runtime', 'claude') != runtime
+                or local.get('run_id') != run_id or local.get('owner_sha256') != owner
                 or local.get('status') != 'held' or instant(local['expires_at']) <= moment):
             raise ValueError('this context does not own publication; preserve its work and wait for the active owner')
         if (moment - instant(local['verified_at'])).total_seconds() < PULSE_SECONDS:
@@ -273,12 +293,30 @@ def current(repo, run_id, workspace=PRIMARY, *, session=None, moment=None):
         return local
 
 
+def local_workspace(state_path):
+    for parent in Path(state_path).resolve().parents:
+        marker = parent / MARKER
+        if marker.is_file() and load(marker).get('runtime') == 'codex':
+            return parent
+    return None
+
+
 def require_owner(state_path, state=None):
-    if not enabled():
-        return None
     state_path = Path(state_path).resolve()
     state = state or load(state_path)
     if state.get('mode') != 'production':
+        return None
+    if os.environ.get('DISPATCH_GITHUB_CAPTURE_REQUEST'):
+        from github_capture import require_delegate
+        delegated = require_delegate(state_path, state=state)
+        if (not isinstance(delegated, dict) or delegated.get('status') != 'held'
+                or delegated.get('run_id') != state.get('run_id')):
+            raise ValueError('delegated capture did not verify the original held publication owner')
+        return delegated
+    workspace = local_workspace(state_path)
+    if workspace is not None:
+        return current(state_path.parents[2], state['run_id'], workspace=workspace, runtime='codex')
+    if not enabled():
         return None
     if not state_path.is_relative_to(PRIMARY.resolve()):
         raise ValueError('cloud publication ledger is outside its primary workspace')
@@ -339,7 +377,7 @@ def has_unclaimed_worker_reservation(state_path, role, resource):
     owner = require_owner(state_path)
     if owner is None:
         return False
-    with locked(PRIMARY):
+    with locked(local_workspace(state_path) or PRIMARY):
         pending = _worker_reservation(state_path, load(state_path), owner, role, resource)
         return bool(pending and not pending[2].exists())
 
@@ -349,7 +387,7 @@ def claim_worker(state_path, role, resource, packet_sha256, task_name):
     if owner is None:
         return None
     state_path = Path(state_path)
-    with locked(PRIMARY):
+    with locked(local_workspace(state_path) or PRIMARY):
         state = load(state_path)
         pending = _worker_reservation(state_path, state, owner, role, resource)
         if pending is None:
@@ -371,7 +409,7 @@ def claim_worker(state_path, role, resource, packet_sha256, task_name):
         return path
 
 
-def release(repo, state_path, workspace=PRIMARY, *, session=None):
+def release(repo, state_path, workspace=PRIMARY, *, session=None, runtime='claude'):
     state = load(state_path)
     from routine_continuation import closure_problems
     problems = closure_problems(state, Path(state_path))
@@ -381,9 +419,9 @@ def release(repo, state_path, workspace=PRIMARY, *, session=None):
         value = read_remote(repo)
         marker = Path(workspace) / MARKER
         local = load(marker) if marker.is_file() else None
-        if not local or local.get('run_id') != state['run_id'] or local.get('owner_sha256') != identity(session):
+        if not local or local.get('run_id') != state['run_id'] or local.get('owner_sha256') != identity(session, runtime):
             return {'status': 'complete', 'run_id': state['run_id'], 'remote_owner_unchanged': True}
-        if not value or value['epoch'] != local['epoch'] or value['owner_sha256'] != identity(session):
+        if not value or value['epoch'] != local['epoch'] or value['owner_sha256'] != identity(session, runtime):
             # The accepted canonical closure is already proven. Do not modify another owner's lease.
             write(Path(workspace) / MARKER, {**local, 'status': 'complete', 'completed_at': stamp(now())})
             return {'status': 'complete', 'run_id': state['run_id'], 'remote_owner_unchanged': True}
@@ -403,6 +441,7 @@ def main():
     parser.add_argument('--workspace', type=Path, default=PRIMARY)
     parser.add_argument('--run-id')
     parser.add_argument('--state', type=Path)
+    parser.add_argument('--runtime', choices=['claude', 'codex'], default='claude')
     parser.add_argument('--wait-seconds', type=int, default=0)
     args = parser.parse_args()
     if not 0 <= args.wait_seconds <= 55:
@@ -412,11 +451,11 @@ def main():
         if args.action == 'acquire':
             if not args.run_id:
                 parser.error('acquire requires --run-id')
-            result = acquire(args.repo, args.run_id, args.workspace)
+            result = acquire(args.repo, args.run_id, args.workspace, runtime=args.runtime)
         elif args.action == 'release':
             if not args.state:
                 parser.error('release requires --state')
-            result = release(args.repo, args.state, args.workspace)
+            result = release(args.repo, args.state, args.workspace, runtime=args.runtime)
         else:
             value = read_remote(args.repo)
             result = value or {'status': 'unowned'}

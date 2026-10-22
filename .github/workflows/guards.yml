@@ -16,16 +16,91 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      capture_request:
+        description: Immutable commit containing one prepaid Codex capture request
+        required: false
+        type: string
+        default: ''
+      capture_request_sha256:
+        description: Exact SHA256 of capture-request.json
+        required: false
+        type: string
+        default: ''
 
 permissions:
   contents: read
 
 concurrency:
-  group: guards-${{ github.ref }}
-  cancel-in-progress: true
+  group: ${{ inputs.capture_request != '' && 'dispatch-native-capture' || format('guards-{0}', github.ref) }}
+  cancel-in-progress: ${{ inputs.capture_request == '' }}
 
 jobs:
+  capture:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.capture_request != '' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    env:
+      CAPTURE_REQUEST: ${{ inputs.capture_request }}
+      CAPTURE_REQUEST_SHA256: ${{ inputs.capture_request_sha256 }}
+    steps:
+      - name: Initialize finite capture paths from the actual runner
+        run: |
+          printf 'CAPTURE_ROOT=%s\n' "$RUNNER_TEMP/dispatch-capture/TexasAIDispatch" >> "$GITHUB_ENV"
+          printf 'DISPATCH_GITHUB_CAPTURE_REQUEST=%s\n' "$RUNNER_TEMP/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-activation.json" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Provision finite capture dependencies
+        timeout-minutes: 18
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo find /etc/apt -maxdepth 2 -type f \( -name '*.list' -o -name '*.sources' \) -exec sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g;s|https://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' {} +
+            sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update
+            sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install --yes --no-install-recommends ffmpeg
+          fi
+          ffmpeg -version | head -n 1
+          ffprobe -version | head -n 1
+          pip install --quiet -r requirements.txt
+      - name: Verify immutable request and claim its original charge once
+        run: |
+          bash scripts/run_with_env.sh python scripts/github_capture.py stage --request "$CAPTURE_REQUEST" --request-sha256 "$CAPTURE_REQUEST_SHA256" --destination "$CAPTURE_ROOT"
+          git clone --quiet --depth 1 https://github.com/Talonsturgill/TexasAIDocket.git "$(dirname "$CAPTURE_ROOT")/TexasAIDocket"
+      - name: Install the episode's locked renderer and managed browser
+        timeout-minutes: 15
+        run: |
+          cd "$CAPTURE_ROOT/video-engine"
+          npm ci --no-audit --no-fund
+          npx --no-install remotion browser ensure
+      - name: Execute only the fixed prepaid operation and checkpoint its bytes
+        run: |
+          cd "$CAPTURE_ROOT"
+          bash scripts/run_with_env.sh python scripts/github_capture.py run --repo "$CAPTURE_ROOT"
+      - name: Retain public compute result and media without publishing
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: delegated-native-capture-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 7
+          path: |
+            ${{ env.CAPTURE_ROOT }}/out/github-capture-public-result.json
+            ${{ env.CAPTURE_ROOT }}/out/dispatch/github-capture-results/*.json
+            ${{ env.CAPTURE_ROOT }}/out/dispatch/github-native-headroom.json
+            ${{ env.CAPTURE_ROOT }}/out/dispatch/film.mp4
+            ${{ env.CAPTURE_ROOT }}/out/dispatch/preflight.mp4
+            ${{ env.CAPTURE_ROOT }}/out/dispatch/cinema/hero.mp4
   guards:
+    if: ${{ !inputs.capture_request }}
     # Pin the runner image. Media measurements are part of the product contract,
     # so silently inheriting a new `ubuntu-latest` image is not reproducible CI.
     runs-on: ubuntu-24.04
@@ -73,7 +148,12 @@ jobs:
           pip install --quiet -r requirements.txt
 
       - name: Isolated role routing preserves evidence and honest usage
-        run: python3 scripts/agent_runtime_test.py
+        run: |
+          python3 scripts/agent_runtime_test.py
+          python3 scripts/measured_retime_test.py
+          python3 scripts/retime_feasibility_test.py
+          python3 scripts/codex_visual_observations_test.py
+          python3 scripts/github_capture_test.py
 
       - name: Image-only Claude review covers the exact native film
         run: python3 scripts/claude_motion_review_test.py
@@ -100,6 +180,7 @@ jobs:
           python3 scripts/cloud_capture_hook_test.py
           python3 scripts/phone_playback_test.py
           python3 scripts/claude_checkpoint_test.py
+          python3 scripts/claude_checkpoint_verify_test.py
           python3 scripts/checkpoint_discovery_test.py
           python3 scripts/publication_owner_test.py
           python3 scripts/public_state_test.py

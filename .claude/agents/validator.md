@@ -24,6 +24,15 @@ does not go in the claims file, and if it is not in the claims file it does not 
 **Verify every quote verbatim.** A paraphrase presented as a quote is the most damaging thing that
 can ship here.
 
+Before returning, inspect every exact sentence in `vo_bindings.json` against the claims that
+sentence cites. Include full spoken names and expanded agency names, not only their acronyms.
+Every spoken numeral needs support in those claims' fetched quotes; a name may also be supported
+by the cited source URL or source type. If the submitted excerpt omits relevant source context,
+retain an exact, genuinely fetched excerpt that supports the unchanged sentence, or include the
+binding defect in this same consolidated handback. Do not mark a claim VERIFIED from a familiar
+name, infer an unavailable quote, or claim to have run a Python checker: your tools are Read and
+WebFetch. The director still runs the mechanical narration check before synthesis.
+
 Return one JSON handoff containing `claims`, `rejected`, and `validation`. Keep each claim's
 stable id, text, exact quote, URL, retrieval time, source type and independently established
 verdict. The `validation` object is your complete dated report for `validation_check.py`:

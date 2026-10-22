@@ -2,6 +2,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 import json
+from types import SimpleNamespace
 from threading import Barrier, Lock
 import unittest
 from unittest.mock import patch
@@ -302,6 +303,105 @@ class PublicationOwnership(Base):
             decide.assert_not_called()
         with patch.object(owner, 'heartbeat_hook', side_effect=ValueError('lost owner')):
             self.assertIsNone(router.decision({'tool_name': 'Bash', 'tool_input': {'command': 'git status --short'}}, self.root))
+
+
+class DelegatedCaptureOwnership(unittest.TestCase):
+    def test_explicit_delegate_validates_proposed_state_without_native_identity(self):
+        state = {'run_id': '2026-10-21', 'mode': 'production', 'events': [{'kind': 'capture_registered'}]}
+        held = {'status': 'held', 'run_id': state['run_id'], 'owner_sha256': 'a' * 64, 'epoch': 'b' * 32}
+        validator = unittest.mock.Mock(return_value=held)
+        with patch.dict('os.environ', {'DISPATCH_GITHUB_CAPTURE_REQUEST': '/actual/request.json',
+                                      'CODEX_THREAD_ID': '', 'CLAUDE_CODE_SESSION_ID': ''}), \
+                patch.dict('sys.modules', {'github_capture': SimpleNamespace(require_delegate=validator)}), \
+                patch.object(owner, 'current', side_effect=AssertionError('no native session impersonation')):
+            path = checkpoint.REPO / 'out/dispatch/run_state.json'
+            self.assertEqual(held, owner.require_owner(path, state))
+            validator.assert_called_once_with(path.resolve(), state=state)
+
+    def test_unverified_or_failed_delegate_never_falls_back_to_local_access(self):
+        state = {'run_id': '2026-10-21', 'mode': 'production'}
+        validator = unittest.mock.Mock(return_value=None)
+        with patch.dict('os.environ', {'DISPATCH_GITHUB_CAPTURE_REQUEST': '/actual/request.json'}), \
+                patch.dict('sys.modules', {'github_capture': SimpleNamespace(require_delegate=validator)}):
+            with self.assertRaisesRegex(ValueError, 'did not verify'):
+                owner.require_owner(checkpoint.REPO / 'out/dispatch/run_state.json', state)
+            validator.side_effect = ValueError('expired original owner')
+            with self.assertRaisesRegex(ValueError, 'expired original owner'):
+                owner.require_owner(checkpoint.REPO / 'out/dispatch/run_state.json', state)
+
+
+class LocalRecoveryOwnership(Base):
+    def prepare(self):
+        self.init_ledger()
+        self.cloud_workspace = self.root / 'cloud'
+        self.local_workspace = self.root
+        self.first = owner.acquire(self.repo, RUN, self.cloud_workspace, session='cloud', moment=MOMENT)
+        self.save('original unfinished production')
+        self.expired = MOMENT + timedelta(seconds=owner.LEASE_SECONDS + 1)
+        for context in (patch.dict('os.environ', {'CODEX_THREAD_ID': 'actual-local-thread',
+                                                  'CLAUDE_CODE_REMOTE': ''}),
+                        patch.object(owner, 'now', return_value=self.expired)):
+            context.start(); self.addCleanup(context.stop)
+
+    def test_expired_original_owner_transfers_with_real_checkpoint_and_no_ledger_change(self):
+        self.prepare()
+        before = self.state.read_bytes()
+        previous = owner.read_remote(self.repo)
+        result = owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex')
+        current = owner.read_remote(self.repo)
+        self.assertEqual('owned', result['status'])
+        self.assertEqual('codex', current['runtime'])
+        self.assertEqual(previous['commit'], current['previous_commit'])
+        self.assertEqual(previous['owner_sha256'], current['recovery']['previous_owner_sha256'])
+        self.assertNotEqual(previous['epoch'], current['epoch'])
+        self.assertEqual(before, self.state.read_bytes())
+        self.assertEqual(current['epoch'], owner.require_owner(self.state)['epoch'])
+        self.assertNotIn('actual-local-thread', json.dumps(current))
+        self.assertEqual('2', sh('git', 'rev-list', '--count', owner.REF, cwd=self.origin).strip())
+
+    def test_live_owner_is_busy_and_local_thread_cannot_spoof_a_session(self):
+        self.prepare()
+        before = owner.read_remote(self.repo)['commit']
+        result = owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex', moment=MOMENT)
+        self.assertEqual('busy', result['status'])
+        self.assertEqual(before, owner.read_remote(self.repo)['commit'])
+        self.assertFalse((self.local_workspace / owner.MARKER).exists())
+        with self.assertRaisesRegex(ValueError, 'never a supplied session'):
+            owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex', session='cloud')
+        with patch.dict('os.environ', {'CODEX_THREAD_ID': ''}), self.assertRaisesRegex(ValueError, 'identity is unavailable'):
+            owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex')
+
+    def test_local_recovery_cannot_create_a_new_run_or_skip_original_checkpoint(self):
+        self.init_ledger()
+        with patch.dict('os.environ', {'CODEX_THREAD_ID': 'local'}):
+            with self.assertRaisesRegex(ValueError, 'same expired held'):
+                owner.acquire(self.repo, RUN, self.root, runtime='codex', moment=MOMENT)
+            owner.acquire(self.repo, RUN, self.root / 'cloud', session='cloud', moment=MOMENT)
+            expired = MOMENT + timedelta(seconds=owner.LEASE_SECONDS + 1)
+            with self.assertRaisesRegex(ValueError, 'original verified unfinished checkpoint'):
+                owner.acquire(self.repo, RUN, self.root, runtime='codex', moment=expired)
+            result = owner.acquire(self.repo, '2026-10-22', self.root, runtime='codex', moment=expired)
+            self.assertEqual('resume_required', result['status'])
+            self.assertEqual(RUN, result['run_id'])
+
+    def test_local_reservation_claim_is_fenced_and_never_replays_old_owner(self):
+        self.prepare()
+        owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex')
+        state = self.ledger()
+        state['events'].append({'kind': 'reserved', 'resources': {'storyboard_critics': 1},
+                               'publication_owner_sha256': owner.identity('cloud'),
+                               'publication_epoch': self.first['epoch']})
+        self.write_ledger(state)
+        self.assertFalse(owner.claim_worker(self.state, 'storyboard-critic', 'storyboard_critics', 'b' * 64, 'phone'))
+        state['events'].append({'kind': 'reserved', 'resources': {'storyboard_critics': 1},
+                               **owner.reservation_fields(self.state, state)})
+        self.write_ledger(state)
+        with patch.object(checkpoint, 'mirror') as mirror:
+            self.assertTrue(owner.claim_worker(self.state, 'storyboard-critic', 'storyboard_critics', 'b' * 64, 'phone'))
+            self.assertFalse(owner.claim_worker(self.state, 'storyboard-critic', 'storyboard_critics', 'b' * 64, 'phone'))
+            mirror.assert_called_once()
+        with patch.dict('os.environ', {'CODEX_THREAD_ID': 'different-thread'}), self.assertRaisesRegex(ValueError, 'does not own'):
+            owner.require_owner(self.state)
 
 
 if __name__ == '__main__':

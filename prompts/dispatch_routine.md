@@ -103,6 +103,21 @@ Reuse the existing builder/critic for compact follow-ups, retain all actual fail
 collect linked defects in one correction. The saved director model and schedule stay intact.
 Phase 5 measures actual next-five-edition outcomes; cost and quality targets remain unproven.
 
+For a Codex visual worker whose packet requires public image evidence, follow its exact native
+image delivery and immediate public annotation contract. After that same worker completes,
+bind `PACKET` to its exact assigned packet, `REVIEWER_ROLLOUT` to its original local rollout and
+`COVERAGE_DIR` to a dedicated directory inside that packet's package, then run:
+
+```sh
+python scripts/codex_visual_observations.py export --packet "$PACKET" --rollout "$REVIEWER_ROLLOUT" --out "$COVERAGE_DIR"
+python scripts/codex_visual_observations.py check --packet "$PACKET" --coverage "$COVERAGE_DIR/codex-image-coverage.json"
+```
+
+Retain the exported public image events and coverage with the original independent handback.
+The exporter filters actual delivered PNGs and public visual facts; never copy the full private
+rollout into the package, fabricate host hook events or treat image coverage as film approval.
+This path applies to Codex workers only; Claude workers retain their native guarded coverage.
+
 ## Environment and ownership
 
 Run every Dispatch command through bash scripts/run_with_env.sh. Each shell needs the wrapper.

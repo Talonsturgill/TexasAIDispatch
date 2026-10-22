@@ -184,6 +184,11 @@ class VisualEvidence(unittest.TestCase):
             return subprocess.run(shlex.split(entry['hooks'][0]['command']),
                                   input=json.dumps(payload), capture_output=True, text=True)
         _, _, _, write = self.delivered()
+        large_note = {**write, 'tool_input': {**write['tool_input'], 'content': ' ' * 8193}}
+        for event, matcher, code in (('PreToolUse', 'Read|Write', 2), ('PostToolUse', 'Write', 1)):
+            result = invoke(event, matcher, {**large_note, 'hook_event_name': event})
+            self.assertEqual(result.returncode, code)
+            self.assertIn('bounded public JSON object', result.stderr)
         blocked = invoke('PreToolUse', 'Read|Write', {**self.read, 'hook_event_name': 'PreToolUse'})
         self.assertEqual(blocked.returncode, 2)
         self.assertEqual(invoke('PreToolUse', 'Read|Write', write).returncode, 0)
@@ -196,6 +201,39 @@ class VisualEvidence(unittest.TestCase):
         self.assertTrue(witness.is_file())
         self.assertEqual(invoke('PostToolUse', 'Write', {**write, 'hook_event_name': 'PostToolUse'}).returncode, 0)
         self.assertEqual(invoke('PreToolUse', 'Read|Write', {**self.read, 'hook_event_name': 'PreToolUse'}).returncode, 0)
+
+        retained = {p: p.read_bytes() for p in self.package.rglob('*.json')}
+        for role in (None, 'scene-builder', 'researcher'):
+            ordinary = {**write, 'agent_type': role, 'tool_input': {
+                'file_path': str(self.repo / 'scripts/generated-board.py'),
+                'content': '# ordinary source\n' * 3000}}
+            self.assertGreater(len(json.dumps(ordinary).encode()), 32768)
+            for event, matcher in (('PreToolUse', 'Read|Write'), ('PostToolUse', 'Write')):
+                result = invoke(event, matcher, {**ordinary, 'hook_event_name': event})
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(result.stdout, '')
+        self.assertEqual({p: p.read_bytes() for p in self.package.rglob('*.json')}, retained)
+
+        oversized_visual = {**write, 'tool_input': {**write['tool_input'], 'content': 'x' * 32769}}
+        for event, matcher, code in (('PreToolUse', 'Read|Write', 2), ('PostToolUse', 'Write', 1)):
+            result = invoke(event, matcher, {**oversized_visual, 'hook_event_name': event})
+            self.assertEqual(result.returncode, code)
+            self.assertIn('bounded visual hook input exceeded', result.stderr)
+
+    def test_hook_transport_is_bounded_and_requires_a_complete_object(self):
+        import sys
+        command = [sys.executable, visual.__file__, 'pre-tool', '--workspace', str(self.workspace)]
+        for raw in ('[]', '{"agent_type": "scene-builder",',
+                    json.dumps({'agent_type': 'scene-builder', 'content': 'x' * (1024 * 1024)})):
+            result = subprocess.run(command, input=raw, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 2, result.stderr)
+            self.assertEqual(result.stdout, '')
+        command[2] = 'guard'
+        result = subprocess.run(command, input=json.dumps({
+            'agent_type': 'scene-builder', 'content': 'x' * 32769}), capture_output=True, text=True)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn('bounded visual hook input exceeded', result.stderr)
+        self.assertFalse((self.package / 'visual-observation-receipts').exists())
 
     def test_missing_or_changed_primary_hooks_refuse_paid_admission(self):
         visual.install(visual.REPO, self.workspace)

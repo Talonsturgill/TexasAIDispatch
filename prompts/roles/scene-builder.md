@@ -77,6 +77,15 @@ For new production from October 8th, every spoken clause has a narration-picture
 
 Before voice exists, use timing_mode authored with an explicit provisional cue plan for the silent two-treatment comparison. These estimated windows approve only planning. After alignment, board_retime.py replaces them with measured_caption_boundaries from the actual captions and acoustic word stream. Timed capture, preship and delivery require those measured inputs and reject an authored clock.
 
+Before handing either authored treatment to paid code review, run
+`python scripts/retime_feasibility.py --board <treatment-board>` through the environment wrapper.
+Each shot owns exactly one narration clause; several useful framings may subdivide that same
+clause. Derive each authored event window from its clause fractions and check the projected
+duration against the existing documentary limits. A short declared duration cannot conceal
+a whole-clause fraction that expands into a long action. The picture precheck runs this free
+planning gate too. It establishes no acoustic timing or film approval; retain every measured
+post-voice check. Historical approved-plan adaptation follows its separate verified path.
+
 After acoustic alignment, compile every clause window from complete measured caption boundaries and the matched positional word stream. Use modern_film.compile_narration with the actual captions and words. Derive cut handoffs from silence between clauses. Only framing subdivisions inside the same subject/action may use fractions. Renderer performances consume requireNarration on the film-global clock, and retain completed consequences across cuts. Never stretch speech, scale cue times, or proportionally place a different narrated action inside a scene.
 
 Run scripts/modern_film.py with --board, --captions, --words, --script and --claims before timed capture and preship. The gate rejects missing or duplicated clauses, omitted qualifiers, stale timing, wrong condition identity, incompatible renderer views and gaps in matching picture coverage. These checks establish bindings, not audience understanding. Code, phone and final reviewers inspect the actual subject and performed action for every clause. Return narration_picture_observations bound to the exact film, with ordered clauses containing id, pass, exact start_s/end_s and observed. Preserve a wrong or absent picture as a source/comprehension blocker even if provider metadata says pass.
