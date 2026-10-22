@@ -423,8 +423,16 @@ def import_result(repo, checkpoint_oid):
     publication_owner.write(repo/ck.GRANT_ROOTS_FILE,{'schema':1,'entries':origins})
     publication_owner.write(path, restored)
     if request.get('operation') == 'preship':
-        from preship_compute import import_verdict
-        import_verdict(repo, result, request)
+        if result.get('exit_code') == 0:
+            from preship_compute import import_verdict
+            import_verdict(repo, result, request)
+        else:
+            # Failed mechanical checks are still durable evidence and charged work.
+            # Import their original checkpoint without trying to install a PASS.
+            verdict = repo/'out/gates/preship.json'
+            if any(p.is_symlink() for p in (verdict, *verdict.parents)):
+                raise ValueError('failed preship import cannot follow symbolic links')
+            verdict.unlink(missing_ok=True)
     return {'checkpoint_oid': checkpoint_oid, 'changed_files': len(changed), 'monotonic': True, 'approval': False}
 
 

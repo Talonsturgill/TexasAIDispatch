@@ -343,8 +343,9 @@ class CaptureTest(unittest.TestCase):
             new = copy.deepcopy(old);new[key]=value
             self.assertTrue(capture.ck.monotonic_problems(old,new))
 
-    def test_import_streams_changed_bytes_and_preserves_grant_origins(self):
+    def test_failed_preship_import_preserves_bytes_charges_and_invalidates_old_pass(self):
         import publication_owner
+        import preship_compute
         with tempfile.TemporaryDirectory() as temporary:
             repo = Path(temporary).resolve()
             subprocess.run(['git','init','-q',str(repo)],check=True)
@@ -355,9 +356,11 @@ class CaptureTest(unittest.TestCase):
             (package/'same.txt').write_text('unchanged')
             unchanged_time = (package/'same.txt').stat().st_mtime_ns
             (package/'changed.txt').write_text('retained baseline')
+            stale=repo/'out/gates/preship.json';stale.parent.mkdir();stale.write_text('old PASS')
             owner = {'owner_sha256':'a'*64,'epoch':'b'*32}
             result = {'owner_sha256':owner['owner_sha256'],'epoch':owner['epoch'],
-                      'request_oid':'c'*40,'request_sha256':'d'*64,'source_commit':'e'*40}
+                      'request_oid':'c'*40,'request_sha256':'d'*64,'source_commit':'e'*40,
+                      'operation':'preship','exit_code':1}
             base = repo/'checkpoints/2026-10-21';(base/'files/out/dispatch').mkdir(parents=True)
             payloads = {'same.txt':b'unchanged','changed.txt':b'new captured bytes',
                         'github-capture-result.json':json.dumps(result).encode()}
@@ -383,12 +386,17 @@ class CaptureTest(unittest.TestCase):
             with patch.object(publication_owner,'require_owner',return_value=owner), \
                     patch.object(capture.ck,'remote_tip',return_value=oid),patch.object(capture.ck,'git',side_effect=git), \
                     patch.object(capture,'request_at',return_value=({'source_commit':'e'*40,
-                        'run_id':state['run_id'],'checkpoint_oid':oid},'d'*64)):
+                        'run_id':state['run_id'],'checkpoint_oid':oid,'operation':'preship'},'d'*64)), \
+                    patch.object(preship_compute,'import_verdict') as install:
                 imported=capture.import_result(repo,oid)
+                install.assert_not_called()
             self.assertEqual(imported['changed_files'],2)
             self.assertEqual((package/'same.txt').stat().st_mtime_ns,unchanged_time)
             self.assertEqual((package/'changed.txt').read_bytes(),b'new captured bytes')
             self.assertTrue(list((package/'github-capture-import-baseline').glob('*')))
+            self.assertFalse(stale.exists())
+            self.assertEqual(json.loads((package/'run_state.json').read_text())['usage'],state['usage'])
+            self.assertEqual(json.loads((package/'github-capture-result.json').read_text())['exit_code'],1)
             self.assertEqual(json.loads((repo/capture.ck.GRANT_ROOTS_FILE).read_text()),{'schema':1,'entries':origins})
 
 
