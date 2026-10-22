@@ -230,6 +230,14 @@ def source_context(film):
             + json.dumps(context, ensure_ascii=False))
 
 
+def request_prompt(film, role):
+    """Keep exact common evidence first so independent lenses can share prefix caching."""
+    from creative_release import assessment_prompt
+    # Each request still contains every guide and its own complete rubric. No
+    # response or previous verdict enters this shared, immutable input prefix.
+    return source_context(film) + "\n" + assessment_prompt("av") + "\n" + review_prompt(role)
+
+
 def review(film, role, state, out):
     # Three lens CLIs share both reservations and later telemetry writes. Hold the
     # same process lock throughout, including exact-byte cache lookup, so parallel
@@ -256,8 +264,7 @@ def _review_serial(film, role, state, out):
     out.parent.mkdir(parents=True, exist_ok=True)
     out.unlink(missing_ok=True)
     request_id = str(uuid.uuid4())
-    from creative_release import assessment_prompt
-    prompt = review_prompt(role) + "\n" + assessment_prompt("av") + source_context(film)
+    prompt = request_prompt(film, role)
     part, upload, film_hash = media_part(film, key)
     payload = {"contents": [{"role": "user", "parts": [
         part,

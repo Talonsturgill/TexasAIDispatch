@@ -8,6 +8,20 @@ from unittest.mock import patch
 import audiovisual_review as av
 
 class ReviewReuse(unittest.TestCase):
+    def test_lenses_share_complete_evidence_prefix_without_sharing_verdicts(self):
+        import creative_release
+        evidence = "exact source and guide bytes\n" * 1000
+        assessment = creative_release.assessment_prompt("av")
+        with patch.object(av, "source_context", return_value=evidence):
+            prompts = {role: av.request_prompt(Path("film.mp4"), role)
+                       for role in ("hero", "picture", "story", "sound")}
+        common = evidence + "\n" + assessment + "\n"
+        for role, prompt in prompts.items():
+            self.assertTrue(prompt.startswith(common))
+            self.assertEqual(prompt[len(common):], av.review_prompt(role))
+            self.assertEqual(prompt.count(evidence), 1)
+        self.assertEqual(len(set(prompts.values())), 4)
+
     def test_concurrent_lenses_keep_every_reservation_and_receipt(self):
         from unittest.mock import Mock
         ctx = multiprocessing.get_context("fork")
