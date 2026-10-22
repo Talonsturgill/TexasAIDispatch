@@ -36,7 +36,8 @@ class PublicImageCheckpointTest(unittest.TestCase):
         self.secret = 'AIza' + 'A'*35  # Deliberately noncredential unit negative.
         self.rel = 'out/dispatch/evidence/codex-public-image-events.json'
 
-    def bind(self, png=None, prose='A public unit image with visible shapes and a plain background.'):
+    def bind(self, png=None, prose='A public unit image with visible shapes and a plain background.',
+             supplemental_png=None):
         import codex_visual_observations as visual
         png = self.png if png is None else png
         folder = self.root/'out/dispatch'; folder.mkdir(parents=True, exist_ok=True)
@@ -60,6 +61,17 @@ class PublicImageCheckpointTest(unittest.TestCase):
                 'text':visual.PREFIX+json.dumps({'schema':visual.NOTE_SCHEMA,'packet_sha256':visual.digest(packet),
                 'page':str(image),'image_sha256':visual.digest(image),'received':True,
                 'objects':['unit shapes'],'actions':None,'literal_text':None,'observed':prose})}]}]
+        if supplemental_png is not None:
+            extra = folder/'supplemental.png'; extra.write_bytes(supplemental_png)
+            additional = copy.deepcopy(payloads)
+            additional[0]['call_id'] = additional[1]['call_id'] = 'unit-supplemental-call'
+            additional[0]['input'] = additional[0]['input'].replace(str(image), str(extra))
+            additional[1]['output'][0]['image_url'] = ('data:image/png;base64,'+
+                base64.b64encode(supplemental_png).decode())
+            note = json.loads(additional[2]['content'][0]['text'][len(visual.PREFIX):])
+            note.update(page=str(extra), image_sha256=visual.digest(extra))
+            additional[2]['content'][0]['text'] = visual.PREFIX+json.dumps(note)
+            payloads += additional
         records=[]
         for number,payload in enumerate(payloads,1):
             event={'type':'response_item','payload':payload}
@@ -74,7 +86,8 @@ class PublicImageCheckpointTest(unittest.TestCase):
         return events,coverage
 
     def scan(self, events, root=None, environ=None):
-        return ck.leaks([(self.rel,events.read_bytes())],environ or {},repo=root or self.root)
+        root = root or self.root
+        return ck.leaks([(str(events.relative_to(root)),events.read_bytes())],environ or {},repo=root)
 
     def chunk(self, kind, data):
         return struct.pack('>I',len(data))+kind+data+struct.pack('>I',zlib.crc32(kind+data)&0xffffffff)
@@ -84,6 +97,73 @@ class PublicImageCheckpointTest(unittest.TestCase):
         self.assertTrue(ck.SECRET_TEXT.search(before.decode()))
         self.assertEqual(self.scan(events),[])
         self.assertEqual(events.read_bytes(),before)
+
+    def supplemental(self):
+        return self.png[:-12]+self.chunk(b'tEXt',b'Comment\0Unit supplemental PNG.')+self.png[-12:]
+
+    def test_verified_supplemental_pixels_keep_exact_original_records(self):
+        events,coverage=self.bind(supplemental_png=self.supplemental())
+        before=events.read_bytes(); proof=json.loads(coverage.read_text())
+        self.assertEqual(len(proof['pages']),1)
+        self.assertEqual(len(proof['supplemental_images']),1)
+        self.assertEqual(self.scan(events),[])
+        self.assertEqual(events.read_bytes(),before)
+        (self.root/'out/dispatch/supplemental.png').write_bytes(self.png)
+        self.assertEqual(self.scan(events),[self.rel])
+
+    def retained_copy(self, events):
+        folder=self.root/'out/dispatch/earlier'; folder.mkdir(exist_ok=True)
+        retained=folder/'all-public-image-events.json'
+        retained.write_bytes(events.read_bytes())
+        # A nearby partial proof must never substitute for the full byte binding.
+        (folder/'codex-image-coverage.json').write_text(json.dumps(
+            {'public_events':{'sha256':'0'*64}}))
+        return retained
+
+    def test_identical_retained_copy_requires_valid_canonical_evidence(self):
+        events,coverage=self.bind(supplemental_png=self.supplemental())
+        retained=self.retained_copy(events); before=retained.read_bytes()
+        self.assertEqual(self.scan(retained),[])
+        self.assertEqual(retained.read_bytes(),before)
+        retained.with_name('codex-image-coverage.json').write_text('[]')
+        self.assertEqual(self.scan(retained),[])
+        events.unlink()
+        self.assertEqual(self.scan(retained),[str(retained.relative_to(self.root))])
+
+    def test_changed_or_unbound_retained_copy_keeps_strict_scan(self):
+        events,coverage=self.bind(supplemental_png=self.supplemental())
+        retained=self.retained_copy(events)
+        retained.write_bytes(retained.read_bytes()+b'\n')
+        self.assertEqual(self.scan(retained),[str(retained.relative_to(self.root))])
+        retained.write_bytes(events.read_bytes()); coverage.unlink()
+        self.assertEqual(self.scan(retained),[str(retained.relative_to(self.root))])
+
+    def test_retained_copy_preserves_guide_and_symlink_guards(self):
+        events,_=self.bind(supplemental_png=self.supplemental())
+        retained=self.retained_copy(events)
+        (self.root/'guide.md').write_text('Changed guide.\n')
+        self.assertEqual(self.scan(retained),[str(retained.relative_to(self.root))])
+        events,_=self.bind(supplemental_png=self.supplemental())
+        retained.unlink(); retained.symlink_to(events)
+        self.assertEqual(self.scan(retained),[str(retained.relative_to(self.root))])
+
+    def test_supplemental_metadata_and_copy_prose_secrets_are_refused(self):
+        png=self.png[:-12]+self.chunk(b'tEXt',b'Comment\0'+self.secret.encode())+self.png[-12:]
+        events,_=self.bind(supplemental_png=png)
+        self.assertEqual(self.scan(events),[self.rel])
+        events,_=self.bind(prose='Public unit observation includes '+self.secret,
+                           supplemental_png=self.supplemental())
+        retained=self.retained_copy(events)
+        self.assertEqual(self.scan(retained),[str(retained.relative_to(self.root))])
+
+    def test_retained_copy_relocation_keeps_bound_paths_and_bytes(self):
+        events,_=self.bind(supplemental_png=self.supplemental())
+        retained=self.retained_copy(events); rel=retained.relative_to(self.root)
+        before=retained.read_bytes()
+        relocated=self.root.with_name('restored'); shutil.copytree(self.root,relocated)
+        shutil.rmtree(self.root)
+        self.assertEqual(self.scan(relocated/rel,relocated),[])
+        self.assertEqual((relocated/rel).read_bytes(),before)
 
     def test_relocation_preserves_original_paths_hashes_and_bytes(self):
         events,_=self.bind(); before=events.read_bytes()

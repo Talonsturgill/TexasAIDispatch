@@ -62,13 +62,23 @@ def scan_view(repo, rel, data, pattern, values):
     bytes, hashes and public chronology. No path alone admits binary treatment.
     Original environment credential values are checked before this function.
     """
-    if Path(rel).name != 'codex-public-image-events.json': return None
+    if Path(rel).name not in {'codex-public-image-events.json', 'all-public-image-events.json'}:
+        return None
     from codex_visual_observations import coverage_problems, digest, EvidencePaths
     path = Path(repo)/rel
-    coverage = path.with_name('codex-image-coverage.json')
     try:
-        proof = json.loads(coverage.read_text())
-        if hashlib.sha256(data).hexdigest()!=proof['public_events']['sha256']: return None
+        hashed = hashlib.sha256(data).hexdigest()
+        # A retained complete excerpt may sit beside an earlier partial coverage.
+        # Find an exact content binding, then validate its original canonical file.
+        candidates = [path.with_name('codex-image-coverage.json')]
+        candidates += sorted((Path(repo)/'out/dispatch').rglob('codex-image-coverage.json'))
+        for coverage in dict.fromkeys(candidates):
+            if coverage.is_symlink() or not coverage.is_file(): continue
+            proof = json.loads(coverage.read_text())
+            ref = proof.get('public_events') if isinstance(proof, dict) else None
+            if isinstance(ref, dict) and hashed == ref.get('sha256'): break
+        else:
+            return None
         # Historical handoffs bind the packet digest, not its filename. Do not
         # infer its identity from a naming convention the evidence never promised.
         packets = (Path(repo)/'out/dispatch').rglob('*.json')
@@ -76,10 +86,12 @@ def scan_view(repo, rel, data, pattern, values):
                        and digest(p)==proof['packet_sha256']),None)
         if packet is None: return None
         paths = EvidencePaths(packet,repo)
-        if paths.path(proof['public_events']['path']) != path: return None
+        paths.path(path)  # Refuse escaping or symlinked retained copies too.
+        if paths.path(proof['public_events']['path']).read_bytes() != data: return None
         if coverage_problems(packet,coverage,repository=repo): return None
         document = json.loads(data)
-        allowed = {p['returned_sha256'] for p in proof['pages']}
+        images = proof['pages'] + proof.get('supplemental_images', [])
+        allowed = {p['returned_sha256'] for p in images}
         image_count = 0
         for record in document['records']:
             event = record['event']
@@ -104,7 +116,7 @@ def scan_view(repo, rel, data, pattern, values):
             # Parse the duplicate original JSON string; never remove its prose or
             # replace the entire source record merely because it includes pixels.
             record['public_source_line']=json.dumps(original,separators=(',',':'))
-        if image_count!=2*len(proof['pages']): return None
+        if image_count!=2*len(images): return None
         return json.dumps(document,separators=(',',':'))
     except SecretImageMetadata:
         raise
