@@ -30,6 +30,7 @@ Rules the saves enforce, each with a negative fixture:
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
 import errno
 import hashlib
 import json
@@ -39,9 +40,10 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 from datetime import datetime, timezone
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 REPO = Path(__file__).resolve().parents[1]
 SCHEMA = "dispatch_claude_checkpoint/2"
@@ -617,17 +619,104 @@ def mirror(state_path, note="ledger write"):
 
 # ---- discover and restore -------------------------------------------------------------------
 
+@contextmanager
+def _checkpoint_blob_reader(repo):
+    """One Git process; stream bodies and reuse only immutable OIDs within this call."""
+    with tempfile.TemporaryFile() as errors:
+        process = subprocess.Popen(['git', '-C', str(repo), 'cat-file', '--batch'],
+                                   stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=errors)
+        timer = threading.Timer(900, process.kill)
+        timer.daemon = True
+        timer.start()
+        hashes = {}
+
+        def read(oid, retain=False):
+            if oid in hashes and not retain:
+                size, digest = hashes[oid]
+                return size, digest, None
+            process.stdin.write(oid.encode('ascii') + b'\n')
+            process.stdin.flush()
+            header = process.stdout.readline(256).strip().split()
+            if (len(header) != 3 or header[0].decode('ascii', errors='replace') != oid
+                    or header[1] != b'blob' or not header[2].isdigit()):
+                raise CheckpointError('checkpoint object is missing or is not a blob: ' + oid)
+            size = remaining = int(header[2])
+            digest = hashlib.sha256()
+            body = bytearray() if retain else None
+            while remaining:
+                chunk = process.stdout.read(min(1 << 20, remaining))
+                if not chunk:
+                    raise CheckpointError('checkpoint blob stream ended before its declared size: ' + oid)
+                digest.update(chunk)
+                if body is not None:
+                    body.extend(chunk)
+                remaining -= len(chunk)
+            if process.stdout.read(1) != b'\n':
+                raise CheckpointError('checkpoint blob stream has an invalid terminator: ' + oid)
+            hashes[oid] = (size, digest.hexdigest())
+            return size, digest.hexdigest(), bytes(body) if body is not None else None
+
+        try:
+            yield read
+            process.stdin.close()
+            if process.wait(timeout=30):
+                errors.seek(0)
+                raise CheckpointError('git cat-file failed: ' + errors.read(400).decode(errors='replace'))
+        except (BrokenPipeError, subprocess.TimeoutExpired) as exc:
+            raise CheckpointError('checkpoint blob reader failed or timed out') from exc
+        finally:
+            timer.cancel()
+            if process.poll() is None:
+                process.kill()
+            process.wait()
+            process.stdin.close()
+            process.stdout.close()
+
+
 def verify_checkpoint(repo, commit, run_id):
+    if not isinstance(run_id, str) or not RUN_ID.fullmatch(run_id):
+        raise CheckpointError('checkpoint run id is not a safe path')
     base = f"{ROOT}/{run_id}"
-    manifest = json.loads(show(repo, commit, f"{base}/manifest.json"))
-    ledger = show(repo, commit, f"{base}/run_state.json")
-    if manifest.get("schema") != SCHEMA or manifest.get("run_id") != run_id:
-        raise CheckpointError("checkpoint manifest belongs to another run or schema")
-    if sha256(ledger) != manifest["ledger_sha256"]:
-        raise CheckpointError("checkpoint ledger differs from its manifest")
-    for row in manifest["files"]:
-        if sha256(show(repo, commit, f"{base}/files/{row['path']}")) != row["sha256"]:
-            raise CheckpointError("checkpoint file differs from its manifest: " + row["path"])
+    # Resolve the caller's ref once. Every path is then looked up in that exact tree,
+    # never interpolated into another revision expression or followed through symlinks.
+    pin = git(repo, 'rev-parse', '--verify', '--end-of-options', str(commit)+'^{commit}').stdout.decode().strip()
+    entries = {}
+    listing = git(repo, 'ls-tree', '-r', '-z', '--full-tree', pin, '--', base).stdout
+    for entry in filter(None, listing.split(b'\0')):
+        metadata, path = entry.split(b'\t', 1)
+        mode, kind, oid = metadata.decode('ascii').split()
+        entries[path.decode('utf-8', errors='surrogateescape')] = (mode, kind, oid)
+
+    def blob(path):
+        row = entries.get(path)
+        if row is None:
+            raise CheckpointError('checkpoint file is missing: ' + path)
+        mode, kind, oid = row
+        if kind != 'blob' or mode not in {'100644', '100755'}:
+            raise CheckpointError('checkpoint file is not a regular blob: ' + path)
+        return oid
+
+    with _checkpoint_blob_reader(repo) as read:
+        _, _, raw = read(blob(f'{base}/manifest.json'), retain=True)
+        manifest = json.loads(raw)
+        _, ledger_digest, ledger = read(blob(f'{base}/run_state.json'), retain=True)
+        if manifest.get("schema") != SCHEMA or manifest.get("run_id") != run_id:
+            raise CheckpointError("checkpoint manifest belongs to another run or schema")
+        if ledger_digest != manifest["ledger_sha256"]:
+            raise CheckpointError("checkpoint ledger differs from its manifest")
+        seen = set()
+        for row in manifest["files"]:
+            rel = row['path']
+            if (not isinstance(rel, str) or not rel or '\0' in rel
+                    or PurePosixPath(rel).is_absolute() or '..' in PurePosixPath(rel).parts
+                    or PurePosixPath(rel).as_posix() != rel or rel in seen):
+                raise CheckpointError('checkpoint manifest has an invalid or repeated file path: ' + str(rel))
+            seen.add(rel)
+            size, digest, _ = read(blob(f'{base}/files/{rel}'))
+            if digest != row['sha256']:
+                raise CheckpointError("checkpoint file differs from its manifest: " + rel)
+            if 'size' in row and (type(row['size']) is not int or size != row['size']):
+                raise CheckpointError('checkpoint file size differs from its manifest: ' + rel)
     return manifest, ledger
 
 
