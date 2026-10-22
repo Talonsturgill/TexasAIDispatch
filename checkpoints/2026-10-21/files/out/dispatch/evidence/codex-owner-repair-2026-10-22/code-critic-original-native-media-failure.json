@@ -1,0 +1,45 @@
+{
+  "schema": "dispatch_code_critic_retained_failure/1",
+  "reviewer_identity": "Codex /root/codex_repair_code_critic, independent storyboard critic",
+  "scope": "code-plan",
+  "initial_packet": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/out/dispatch/codex-repair-code-critic-packet.json",
+    "sha256": "3c1c07dac2da70607ab3e8ca0209a1920e53d434d0fb3de32aeed8c7ca1d4db3"
+  },
+  "first_observed_error": "ValueError: authored inventory row differs from its receipt: video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx",
+  "reproduced_on_retained_original_boards": [
+    {
+      "option": "a",
+      "board": {
+        "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/out/dispatch/evidence/codex-owner-repair-2026-10-22/before-native-receipt-sync-opening-a.json",
+        "sha256": "ed9dcff1c02089e3b8fc9ac67745ef8d369f44f015193edadfa38f93a89307b2"
+      },
+      "failure": {
+        "type": "ValueError",
+        "message": "authored inventory row differs from its receipt: video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx",
+        "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 15, in <module>\n  File \"/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/scripts/critic_gate.py\", line 82, in renderer_digest\n    files.extend(native_media_paths(board))\n                 ~~~~~~~~~~~~~~~~~~^^^^^^^\n  File \"/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/scripts/render_manifest.py\", line 89, in native_media_paths\n    return authored_media_paths(data, root.parents[1])\n  File \"/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/scripts/render_manifest.py\", line 64, in authored_media_paths\n    raise ValueError(\"authored inventory row differs from its receipt: \" + relative)\nValueError: authored inventory row differs from its receipt: video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx\n"
+      }
+    },
+    {
+      "option": "b",
+      "board": {
+        "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/out/dispatch/evidence/codex-owner-repair-2026-10-22/before-native-receipt-sync-opening-b.json",
+        "sha256": "c2e4b708478ae1a7ac14c508377688a4b29f499619c0c088246a48815f60fe7c"
+      },
+      "failure": {
+        "type": "ValueError",
+        "message": "authored inventory row differs from its receipt: video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx",
+        "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 15, in <module>\n  File \"/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/scripts/critic_gate.py\", line 82, in renderer_digest\n    files.extend(native_media_paths(board))\n                 ~~~~~~~~~~~~~~~~~~^^^^^^^\n  File \"/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/scripts/render_manifest.py\", line 89, in native_media_paths\n    return authored_media_paths(data, root.parents[1])\n  File \"/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/scripts/render_manifest.py\", line 64, in authored_media_paths\n    raise ValueError(\"authored inventory row differs from its receipt: \" + relative)\nValueError: authored inventory row differs from its receipt: video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx\n"
+      }
+    }
+  ],
+  "resolution": "The same assignment independently verified the four-field native_media receipt sync against each unchanged story_art entry. All other structured fields and renderer bytes are unchanged.",
+  "supplement": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/out/dispatch/codex-repair-code-critic-provenance-supplement.json",
+    "sha256": "ff44b38643f1f3ee14e7dde3b86d423c92b966528a8ed9340589228a3d50008b"
+  },
+  "sync_receipt": {
+    "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/out/dispatch/evidence/codex-owner-repair-2026-10-22/native-media-receipt-sync.json",
+    "sha256": "2da1e40fe6cc40a6ee2e6164730bce8cf28774fe0c010356b362cc47fe0907d3"
+  }
+}
