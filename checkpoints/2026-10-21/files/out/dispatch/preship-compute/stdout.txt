@@ -1,0 +1,29 @@
+  ok    narration_picture
+  ok    storyboard_check
+  ok    watchability_check
+  ok    documentary_review
+  ok    staging_check
+  ok    flow_check
+  ok    board_scale_check
+  FAIL  place_check
+        FAIL shot s9-shot-2 (medium confirm-hold): the region shows on 0.000 of the frame, under 0.05. The episode covers its place: leave its background open and draw the room's floor and props in front of the stage
+        FAIL shot s9-shot-3 (wide window-wide): the region shows on 0.000 of the frame, under 0.05. The episode covers its place: leave its background open and draw the room's floor and props in front of the stage
+  ok    floor_check
+  ok    script_evidence_check
+  ok    super_evidence_check
+  ok    acoustic_alignment
+  ok    safe_area_check
+  ok    font_check
+  ok    engine_lint
+  FAIL  bar_check
+        
+          - video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx:133: 'bar:P('s7' states the bar. It lives in config/dispatch_rubric.yaml and nowhere else. Read it, never restate it.
+          - video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx:545: 'bar:number,wob:number,sc:'s7' states the bar. It lives in config/dispatch_rubric.yaml and nowhere else. Read it, never restate it.
+        
+          A number restated in a second place is a number that will be wrong in one of
+          them. The sibling lost five panel rounds to exactly this.
+  ok    run_discipline
+
+preship: 2 gate(s) red. DO NOT SPEND A PANEL ON THIS.
+  Three judges cannot see any of these, and the panel is the expensive
+  half. Fix them, then reserve the round.
