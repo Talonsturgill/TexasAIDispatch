@@ -257,6 +257,7 @@ class PublicationOwnership(Base):
             self.assertEqual(saved, state_path.read_bytes())
 
     def test_real_checkpoint_restore_keeps_owned_charge_and_consumed_worker_claim(self):
+        self.pin_real_helpers()
         self.init_ledger()
         self.take(workspace=self.root)
         (self.state.parent / 'claude-host.json').write_text('{}')

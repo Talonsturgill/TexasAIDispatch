@@ -292,6 +292,14 @@ class ModernFilmTest(unittest.TestCase):
             board_data['film_direction']['renderer_inputs'] = modern.renderer_inputs(new_key, root)
             self.assertEqual([], modern.problems(board_data, repo=root))
             self.assertTrue(modern.problems(board_data))
+            from claude_checkpoint_test import copy_restore_helpers
+            copy_restore_helpers(root)
+            # This source-only unit fixture deliberately has no playable movie.
+            # Pin its existing decoder stub inside the isolated helper process;
+            # every real source, artwork, registry and manifest gate still runs.
+            pinned_controller=root/'scripts/run_controller.py'
+            pinned_controller.write_text(pinned_controller.read_text()+
+                '\n\ndef playability_problems(film, runtime):\n    return []\n')
             def git(*args, cwd=root):
                 return subprocess.run(['git', *args], cwd=cwd, capture_output=True, text=True, check=True).stdout.strip()
             subprocess.run(['git', 'init', '--bare', '-q', str(origin)], check=True)

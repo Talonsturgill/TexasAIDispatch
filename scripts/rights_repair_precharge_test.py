@@ -221,7 +221,9 @@ class UnusedRightsReboard(unittest.TestCase):
         (self.root / '.gitignore').write_text('out/\nfresh/\nrestored/\n')
         source = self.root / 'video-engine/src/fixture.tsx'; source.parent.mkdir(parents=True)
         source.write_text('export const fixture = true;')
-        git('add', '.gitignore', 'video-engine'); git('commit', '-qm', 'fixture source')
+        from claude_checkpoint_test import copy_restore_helpers
+        copy_restore_helpers(self.root)
+        git('add', '.gitignore', 'video-engine','scripts','config'); git('commit', '-qm', 'fixture source')
         git('remote', 'add', 'origin', str(origin)); git('push', '-q', 'origin', 'main')
         git('symbolic-ref', 'HEAD', 'refs/heads/main', cwd=origin)
         self.assertTrue(lifecycle.begin_repair(self.state, self.plan, prepaid_reboard=self.receipt)[0])

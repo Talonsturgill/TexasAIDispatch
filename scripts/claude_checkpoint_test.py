@@ -176,6 +176,19 @@ def sh(*args, cwd=None):
     return subprocess.run(args, cwd=cwd, check=True, capture_output=True, text=True).stdout
 
 
+def copy_restore_helpers(repo):
+    """Seed executable pinned gates, preserving each fixture's explicit policies."""
+    repo=Path(repo);scripts=repo/'scripts';scripts.mkdir(exist_ok=True)
+    for source in SCRIPTS.glob('*.py'):
+        if not source.name.endswith('_test.py'):
+            shutil.copyfile(source,scripts/source.name)
+    for source in (SCRIPTS.parent/'config').rglob('*'):
+        if source.is_file():
+            target=repo/'config'/source.relative_to(SCRIPTS.parent/'config')
+            if not target.exists():
+                target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,target)
+
+
 def fixture_ffmpeg():
     """A full ffmpeg with the lavfi sources. Fails, rather than skips, when none exists."""
     for directory in os.environ.get("PATH", "").split(os.pathsep):
@@ -217,11 +230,7 @@ class Base(unittest.TestCase):
 
     def pin_real_helpers(self):
         """A restore fixture must carry executable pinned gates like a real checkout."""
-        scripts=self.repo/'scripts';scripts.mkdir(exist_ok=True)
-        for source in SCRIPTS.glob('*.py'):
-            if not source.name.endswith('_test.py'):
-                shutil.copyfile(source,scripts/source.name)
-        shutil.copytree(SCRIPTS.parent/'config',self.repo/'config',dirs_exist_ok=True)
+        copy_restore_helpers(self.repo)
         sh('git','add','scripts','config',cwd=self.repo)
         sh('git','commit','-qm','Pin real restore audit helpers',cwd=self.repo)
         sh('git','push','-q','origin','main',cwd=self.repo)
