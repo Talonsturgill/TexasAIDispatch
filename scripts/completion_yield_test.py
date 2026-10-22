@@ -137,6 +137,21 @@ class CompletionYieldTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'preserve the original'):
             closure.record(changed, self.workspace)
 
+    def test_same_original_metadata_completion_retains_all_responses_and_judgments(self):
+        original = self.payloads[0]; updated = json.loads(original['last_assistant_message'])
+        updated['coverage_completion'] = {'metadata_only': True, 'actual_pages': 67}
+        closure.record({**original, 'last_assistant_message': json.dumps(updated)}, self.workspace)
+        panel = closure.read(self.plan['panel']); panel['judges'][0] = updated
+        self.write(Path(self.plan['panel']), panel)
+        evidence = self.validate()
+        receipts = [p for p in evidence['files'] if closure.RECEIPTS in p]
+        self.assertEqual(len(receipts), 4)
+        changed = copy.deepcopy(updated); changed['score'] += .1
+        closure.record({**original, 'last_assistant_message': json.dumps(changed)}, self.workspace)
+        panel['judges'][0] = changed; self.write(Path(self.plan['panel']), panel)
+        with self.assertRaisesRegex(ValueError, 'change an original judgment'):
+            self.validate()
+
     def test_handback_is_retained_only_after_native_stop(self):
         role = 'picture'; receipt = next((self.out / closure.RECEIPTS).glob(run_controller.digest(Path(self.plan['packets'][role])) + '-*.json'))
         receipt.unlink(); payload = self.payloads[0]

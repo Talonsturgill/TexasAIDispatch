@@ -13,6 +13,8 @@ import sys
 KIND = 'hard_limit_expenditure_closed'
 ROLES = ('picture', 'story', 'sound')
 RECEIPTS = 'native-scorer-completions'
+JUDGMENTS = ('score', 'weighted_score', 'ship', 'verdict', 'axes', 'hard_fails', 'defects',
+             'attention_review', 'modern_observations', 'narration_picture_observations', 'bounded_release')
 
 
 def read(path):
@@ -26,6 +28,12 @@ def digest(value):
 def require(condition, reason):
     if not condition:
         raise ValueError(reason)
+
+
+def retains(original, current):
+    if isinstance(original, dict):
+        return isinstance(current, dict) and all(k in current and retains(v, current[k]) for k, v in original.items())
+    return type(original) is type(current) and original == current
 
 
 def closed(state):
@@ -191,6 +199,12 @@ def validate(state_path, plan):
                      if read(local(root, p)).get('report') == judge]
         require(len(completed) == 1, 'original completed scorer response is missing or changed')
         receipt = read(bind(completed[0]))
+        for previous in (state_path.parent / RECEIPTS).glob(file_sha(packet_path) + '-*.json'):
+            original = read(bind(previous))
+            require(original.get('agent_id') == receipt.get('agent_id')
+                    and original.get('claim_sha256') == receipt.get('claim_sha256')
+                    and all(k not in original['report'] or retains(original['report'][k], judge.get(k)) for k in JUDGMENTS),
+                    'metadata completion cannot replace its original scorer or change an original judgment')
         require(receipt.get('schema') == 'dispatch_native_scorer_completion/1' and receipt.get('run_id') == state['run_id']
                 and receipt.get('reservation_sha256') == digest(panels[0]) and receipt.get('role') == role
                 and receipt.get('packet_sha256') == file_sha(packet_path) and receipt.get('report') == judge
