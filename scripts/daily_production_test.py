@@ -501,6 +501,38 @@ class LosslessScorerTransport(unittest.TestCase):
         data['date']='2026-10-15'; data['instructions']='x'*11000
         self.assertGreater(len(d.packet_text(data)),10000)
 
+    def test_codex_builder_layout_excess_preserves_complete_bound_packet(self):
+        import agent_runtime
+        root = Path('/owned/current')
+        data = self.current('scene-builder')
+        data.pop('motion_sequence'); data.pop('image_read_policy')
+        data['local_recovery'] = {'runtime':'codex', 'run_id':'2026-10-21', 'epoch':'actual-owner-epoch'}
+        data['date'] = '2026-10-21'
+        data['board'] = {'path':str(root/'out/dispatch/storyboard.json'), 'sha256':'b'*64}
+        data['treatments'] = [{'path':str(root/('out/dispatch/opening-'+v+'.json')), 'sha256':v*64}
+                              for v in ('a','b')]
+        with patch.object(agent_runtime,'REPO',root):
+            compact = agent_runtime.compact_packet_bindings(data)
+            # Actual observed builder packet: 10570 layout characters, below 10000 without layout.
+            data['instructions'] += 'x' * (10569-len(json.dumps(compact,indent=2)))
+            original = copy.deepcopy(data); expected = agent_runtime.compact_packet_bindings(data)
+            self.assertEqual(10570,len(json.dumps(expected,indent=2)+'\n'))
+            encoded = d.packet_text(data)
+            self.assertLessEqual(len(encoded),10000)
+            self.assertEqual(expected,json.loads(encoded))
+            self.assertEqual(original,data)
+            self.assertEqual(original['craft_readings'],agent_runtime.expand_packet_bindings(json.loads(encoded))['craft_readings'])
+            data['instructions'] += 'x'*10000
+            self.assertGreater(len(d.packet_text(data)),10000)
+            self.assertEqual(agent_runtime.compact_packet_bindings(data),json.loads(d.packet_text(data)))
+        self.assertEqual(10000,d.policy()['handoff_max_chars'])
+
+    def test_other_builder_runtimes_keep_existing_layout(self):
+        data = self.current('scene-builder')
+        data.pop('motion_sequence'); data.pop('image_read_policy')
+        self.assertGreater(len(json.dumps(data,indent=2)),10000)
+        self.assertEqual(json.dumps(data,indent=2)+'\n',d.packet_text(data))
+
     def test_small_and_historical_packets_keep_their_exact_original_serialization(self):
         small={'role':'picture','date':'2026-10-15','instructions':'Read all current guides.'}
         self.assertEqual(json.dumps(small,indent=2)+'\n',d.packet_text(small))
