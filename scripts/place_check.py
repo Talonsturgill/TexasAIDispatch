@@ -10,9 +10,12 @@ episode that paints a full-frame background of its own, as both episodes on the 
 October 9th, 2026, hides the region completely, and the film looks exactly as it did when place was
 the show's weakest axis. No board field and no code review says so. A render does.
 
-So this renders the film's own frames with the plate replaced by solid magenta (the board's
-`__placeProbe`), one still per shot at the point a viewer is most likely to be looking, and counts
-the magenta left in the finished frame. A shot that shows less than PLACE_MIN_SHARE of its frame
+So this renders the film's own frames with the plate replaced by black and then white (the board's
+`__placeProbe`), paired stills per shot at the point a viewer is most likely to be looking. The
+diagnostic bundles substitute only the probe constant, leaving production source bytes untouched.
+The difference measures plate light transmitted through the episode's actual overlays: a tinted
+window still shows its region, while opaque or nearly opaque coverage does not. A shot that shows
+less than PLACE_MIN_SHARE of its frame
 as region fails, and names the shot. Overhead shots look down at a floor, where no horizon could
 show, and source scenes show a source's own picture, so neither is held to it.
 
@@ -65,6 +68,9 @@ EXEMPT_FRAMINGS = {"overhead"}
 WALL_SHARE_MAX = 0.4
 REGISTRY = REPO / "config" / "modern_episode_registry.json"
 SHOT_POINT = 0.6          # how far into a shot the probe still is taken
+# Count only pixels where the plate contributes at least half of every RGB channel. This is a
+# visibility measurement, not a colour match; an unrelated painted magenta object cannot pass.
+PROBE_MIN_TRANSMISSION = 0.5
 
 
 def load_manifest(path: Path = MANIFEST) -> dict:
@@ -152,10 +158,12 @@ def wall_problems(board: dict, registry: dict, shots: list[dict]) -> list[str]:
     return out
 
 
-def probe_share(rgb: np.ndarray) -> float:
-    """The share of a frame still showing the probe's solid magenta."""
-    r, g, b = rgb[..., 0].astype(int), rgb[..., 1].astype(int), rgb[..., 2].astype(int)
-    return float(np.mean((r >= 230) & (g <= 40) & (b >= 230)))
+def probe_share(black: np.ndarray, white: np.ndarray) -> float:
+    """Share with substantial plate transmission, independent of foreground paint colour."""
+    if black.shape != white.shape or black.ndim != 3 or black.shape[2] != 3 or not black.size:
+        raise ValueError("place probe pair must have identical nonempty RGB dimensions")
+    delta = white.astype(np.int16) - black.astype(np.int16)
+    return float(np.mean(np.min(delta, axis=2) >= 255 * PROBE_MIN_TRANSMISSION))
 
 
 def judge(shots: list[dict], shares: dict[str, float]) -> list[str]:
@@ -183,15 +191,17 @@ def render_probes(board: dict, shots: list[dict], work: Path) -> dict[str, float
         return {}
     spec = work / "batch.json"
     spec.write_text(json.dumps({"jobs": jobs}), encoding="utf-8")
-    r = subprocess.run(["node", str(ENGINE / "scripts" / "render-batch.mjs"), str(spec)], cwd=ENGINE,
+    r = subprocess.run(["node", str(REPO / "scripts" / "place_probes.mjs"), str(spec)], cwd=ENGINE,
                        capture_output=True, text=True, env=dict(os.environ))
     if r.returncode != 0:
         raise RuntimeError("the probe render failed: " + (r.stderr or r.stdout).strip()[-600:])
     shares = {}
     for s in shots:
-        out = work / f"{s['id']}.png"
-        if not s["exempt"] and not s["wall"] and out.exists():
-            shares[s["id"]] = round(probe_share(np.asarray(Image.open(out).convert("RGB"))), 4)
+        black, white = [work / f"{s['id']}-{tone}.png" for tone in ("black", "white")]
+        if not s["exempt"] and not s["wall"] and black.exists() and white.exists():
+            with Image.open(black) as a, Image.open(white) as b:
+                shares[s["id"]] = round(probe_share(np.asarray(a.convert("RGB")),
+                                                     np.asarray(b.convert("RGB"))), 4)
     return shares
 
 
@@ -218,6 +228,8 @@ def check(board_path: Path, render: bool, report: Path | None = REPORT, opt_in: 
         report.parent.mkdir(parents=True, exist_ok=True)
         report.write_text(json.dumps({"schema": "dispatch-place-check/1", "board": str(board_path),
                                       "min_share": PLACE_MIN_SHARE, "rendered": render,
+                                      "measurement": "paired-black-white",
+                                      "min_transmission": PROBE_MIN_TRANSMISSION,
                                       "shots": [dict(s, share=shares.get(s["id"])) for s in shots],
                                       "problems": lines}, indent=1) + "\n", encoding="utf-8")
     if lines:
@@ -258,11 +270,26 @@ def self_test() -> int:
        "a Harris County story could not choose the Gulf Prairies' own plate")
     ok(plate_for({"region": "gulf", "county": "Harris", "place_plate": "blackland-wide"}, man)[0] is None,
        "a plate of another region passed")
-    frame = np.zeros((100, 100, 3), dtype=np.uint8)
-    frame[:30, :] = [255, 0, 255]
-    ok(abs(probe_share(frame) - 0.3) < 1e-9, "probe share miscounted")
-    frame[:30, :] = [255, 64, 255]                 # a magenta the episode tinted is not the region showing
-    ok(probe_share(frame) == 0.0, "tinted probe counted as region")
+    black = np.zeros((100, 100, 3), dtype=np.uint8)
+    white = black.copy()
+    white[:30, :] = 255
+    ok(abs(probe_share(black, white) - 0.3) < 1e-9, "probe share miscounted")
+    paper = np.array([239, 229, 204])
+    tinted = lambda a: np.rint(a * .72 + paper * .28).astype(np.uint8)
+    ok(abs(probe_share(tinted(black), tinted(white)) - .3) < 1e-9,
+       "the October 21 transparent paper window haze erased visible region")
+    opaque = np.full_like(black, [255, 0, 255])
+    ok(probe_share(opaque, opaque) == 0, "unrelated opaque magenta counted as region")
+    ok(probe_share(black, np.rint(white * .05).astype(np.uint8)) == 0,
+       "a nearly opaque layer counted as visible region")
+    ok(probe_share(white, black) == 0, "reversed or invalid probe pair counted")
+    white[:30, :, 1] = 0
+    ok(probe_share(black, white) == 0, "single-channel blockage counted as full region transmission")
+    try:
+        probe_share(black, white[:1])
+        ok(False, "mismatched probe dimensions passed")
+    except ValueError:
+        pass
     board = {"scenes": [{"id": "s1", "camera_strategy": "dollyThrough"}, {"id": "s2", "camera_strategy": "sourcePicture"}],
              "film_direction": {"shots": [
                  {"id": "a", "scene_id": "s1", "framing": "wide", "start_s": 0, "duration_s": 2},
