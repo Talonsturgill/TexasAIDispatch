@@ -189,7 +189,10 @@ class CaptureTest(unittest.TestCase):
             repo=Path(temporary).resolve(); package=repo/'out/dispatch';package.mkdir(parents=True)
             (package/'run_state.json').write_text(json.dumps(
                 {'schema':run_controller.SCHEMA,'run_id':'2026-10-21','limits':run_controller.limits()}))
-            boards=[{'date':'2026-10-21','run_id':'2026-10-21','option':key} for key in ('a','b')]
+            boards=[{'date':'2026-10-21','run_id':'2026-10-21','option':key, 'scenes': [
+                {'id':'s1','start_s':0,'duration_s':4,'vo':'The record reaches the reader.',
+                 'vo_claims':['c1'],'picture':{'subject':'Distinct fixture treatment '+key}}]}
+                for key in ('a','b')]
             for key,board in zip(('a','b'),boards):
                 (package/('opening-'+key+'.json')).write_text(json.dumps(board))
             (package/'storyboard.json').write_text(json.dumps(boards[0]))

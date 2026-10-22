@@ -24,9 +24,44 @@ RETAINED_ORCHESTRATOR_SHA256 = "f72e20dc4f21bf55f0bdfd52b3207f7ba91651c6e0659d8d
 PREPARED_PREDECESSOR_SHA256 = "0a9e5e1f96a64a8ba0c6d5af3f7dcd227f1befd7ee838db7a0557c6ec03e19ed"
 
 
+def shared_native_media(board):
+    """Compare authored asset content after binding each treatment's own receipt."""
+    import authored_story_art
+    media = board.get("native_media")
+    if not authored_story_art.selected(board):
+        return media
+    plan = board["story_art"]
+    requests, entries = plan.get("requests") or [], plan.get("entries") or []
+    inventory = [row for row in media or [] if not str(row.get("file", "")).startswith("evidence/")]
+    ids = [row.get("request_id") for row in inventory]
+    if (len(requests) != 2 or len(entries) != 2 or len(ids) != 2
+            or any(not isinstance(key, str) or not key for key in ids) or len(set(ids)) != 2
+            or set(ids) != {row.get("id") for row in requests}
+            or set(ids) != {row.get("request_id") for row in entries}):
+        raise ValueError("authored comparison needs both unique inventory, receipt and request bindings")
+    result = []
+    for row in media:
+        if str(row.get("file", "")).startswith("evidence/"):
+            result.append(row)
+            continue
+        entry = next(e for e in entries if e.get("request_id") == row["request_id"])
+        request = next(r for r in requests if r.get("id") == row["request_id"])
+        fields = ("file", "sha256", "creation_id", "request_sha256", "created_at", "tool")
+        if (any(not isinstance(entry.get(key), str) or not entry[key]
+                or row.get(key) != entry[key] for key in fields)
+                or entry["file"] != request.get("file")
+                or entry["request_sha256"] != creative.fingerprint(request)):
+            raise ValueError("authored comparison inventory differs from its own receipt or request: "
+                             + row["request_id"])
+        result.append({key: value for key, value in row.items()
+                       if key not in ("creation_id", "request_sha256")})
+    return result
+
+
 def body(board):
     if creative.treatment_required(board):
-        return {**{k: board.get(k) for k in ("date", "title", "beat", "runtime_s", "credits_s", "native_media")},
+        return {**{k: board.get(k) for k in ("date", "title", "beat", "runtime_s", "credits_s")},
+                "native_media": shared_native_media(board),
                 "question": (board.get("creative_direction") or {}).get("viewer_question"),
                 "scenes": [{k: s.get(k) for k in ("id", "start_s", "duration_s", "vo", "vo_claims")}
                            for s in board["scenes"]]}
@@ -266,7 +301,7 @@ def inspection_problems(receipt, output, *, allow_bounded=False):
 
 
 def owned_boards(root, state):
-    """Check edition and provisional-board identity before buying a capture."""
+    """Check owned identities and the cheap pair constraints before buying a capture."""
     from run_controller import read_state
     root = Path(root)
     boards = [creative.read(root / f"opening-{key}.json") for key in ("a", "b")]
@@ -277,6 +312,16 @@ def owned_boards(root, state):
         raise ValueError("opening alternatives must belong to the current owned edition and provisional board; "
                          "preserve the measured board, then restore its inspected provisional board "
                          "before preparing the comparison")
+    shared = [body(board) for board in boards]
+    if not all(creative.required(b) for b in boards) or shared[0] != shared[1]:
+        raise ValueError("two alternatives must share dated facts, narration, timing and assets; legacy editions also share the visual body")
+    if boards[0]["scenes"][0]["duration_s"] != boards[1]["scenes"][0]["duration_s"]:
+        raise ValueError("opening alternatives must keep the same planned cut boundary")
+    # Receipt identities cannot turn identical pictures into distinct alternatives.
+    concepts = [creative.opening_digest({**board, "native_media": common.get("native_media")})
+                for board, common in zip(boards, shared)]
+    if concepts[0] == concepts[1]:
+        raise ValueError("opening alternatives must differ visibly")
     return boards
 
 
@@ -295,12 +340,6 @@ def build(root, state):
     from engine_lint import check_files, LIB
     from documentary_check import check as documentary
     boards = owned_boards(root, state)
-    if not all(creative.required(b) for b in boards) or body(boards[0]) != body(boards[1]):
-        raise ValueError("two alternatives must share dated facts, narration, timing and assets; legacy editions also share the visual body")
-    if boards[0]["scenes"][0]["duration_s"] != boards[1]["scenes"][0]["duration_s"]:
-        raise ValueError("opening alternatives must keep the same planned cut boundary")
-    if creative.opening_digest(boards[0]) == creative.opening_digest(boards[1]):
-        raise ValueError("opening alternatives must differ visibly")
     claims = creative.read(root / "claims.json")
     errors = check_files(LIB)
     errors += selection_problems(creative.read(root / "story_selection.json"), edition=boards[0]["date"])

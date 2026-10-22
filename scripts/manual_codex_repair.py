@@ -17,6 +17,22 @@ PREFLIGHTS = ('two opening comparison batch', 'exact-phone-a motion-image review
              'exact-phone-current motion-image review extraction',
              'finished cinematic hero and stage ablation batch',
              'exact-film motion-image review extraction', 'exact-film mechanical preship probes')
+# Exactly one real operator-admission failure inside the original authorized repair.
+RETRY_EVENT = 'owner_codex_opening_retry_granted'
+FAILED_CHECKPOINT = '488d18ec0ccc485ca29b2e0976708e3eac98ec64'
+FAILED_MANIFEST = 'b32ed1ed9cc4eb8f980216085b9cc37d3d7dc7ff5ec8ab5c2ae83881754b9792'
+FAILED_RUN = '39814130847'
+FAILED_REQUEST = '7d1a20ae1c6164d2bc43623de126ab82d9b017ec'
+FAILED_RESERVATION = 'a4ad3aedac95792e0a1859657219fc8ab0a68f7e06410a18558d172baaf626a8'
+FAILED_INPUT = 'cb256b6cce4fee52f5357f140794fdbb49b5a427fe04d93b28b0d2b7536f3e38'
+FAILED_PREFIX = '7af91835e49908d810772dab6386de7d41507ec9723e489c1267975109b6d3ba'
+FAILED_LIFECYCLE = 'out/dispatch/github-capture-results/4e53b06d20945167a4475d47b154c64222b0aa06a9b21fb66dca51e39d563dce.json'
+FAILED_LIFECYCLE_SHA = 'add32733934d577067017e3524d8132688260f1a9f24e238f851a0014c6eac7e'
+FAILED_LOG = '55ab0d14785ed00ad1b57c3f33e8d29b1d0d0bf69d89201a26476f8aa6f318f7'
+FAILED_RESULT = '51e204733e6b4c1b4c755bce26ca9bf593f09fad0cf6fc8ccc6281f10b0db299'
+OLD_HELPER = 'e4c4e802627e0a5b52c47c9fbdcb7f27d77e8453946c6fe82fbf3fc5dda2e712'
+RETRY_PROTECTED = 'a69a409a5d1e3af2fc0c1720edd4e53d5e1be316e356405e71c7eac582975aac'
+REFUSAL = 'opening comparison refused: two alternatives must share dated facts, narration, timing and assets; legacy editions also share the visual body'
 FROZEN = ('claims.json', 'vo_script.txt', 'mix_vo.wav')
 ALIGNMENT = ('words.json', 'captions.json')
 EDITABLE = {'out/dispatch/' + name for name in
@@ -144,6 +160,11 @@ def validate_event(state, row, index, effective=None):
         if any(e.get('kind') in {EVENT, 'mandatory_completion_grant', 'owner_review_grant',
                                 'owner_validator_grant'} for e in later):
             raise ValueError('the manual path cannot renew capacity')
+        retries = [(i, e) for i, e in enumerate(state['events']) if e.get('kind') == RETRY_EVENT]
+        if len(retries) > 1 or any(validate_retry_event(state, e, i) for i, e in retries):
+            raise ValueError('invalid single opening compute retry')
+        if retries:
+            funded['preflight_renders'] += 1
         for key, old in row['usage_before'].items():
             charged = sum(e.get('resources', {}).get(key, 0) for e in later if e.get('kind') == 'reserved')
             if state['usage'][key] != old + charged or charged > funded.get(key, 0):
@@ -153,7 +174,8 @@ def validate_event(state, row, index, effective=None):
             raise ValueError('one consolidated repair only')
         notes = [e.get('note') for e in later if e.get('kind') == 'reserved'
                  and e.get('resources', {}).get('preflight_renders')]
-        if len(notes) != len(set(notes)) or any(note not in PREFLIGHTS for note in notes):
+        if any(note not in PREFLIGHTS for note in notes) or any(
+                notes.count(note) > (2 if retries and note == PREFLIGHTS[0] else 1) for note in notes):
             raise ValueError('one capture per declared operation')
     except (KeyError, ValueError, TypeError) as exc:
         return ['invalid one-time Codex repair: ' + str(exc)]
@@ -232,15 +254,22 @@ def reservation_problems(state, amounts, *, note=None, state_path=None):
     errors = runtime_problems(row, state_path)
     for key, count in amounts.items():
         allowed = row['token_forecast']['reported_tokens_allowance'] if key == 'reported_tokens' else RESOURCES.get(key, 0)
+        if key == 'preflight_renders' and any(e.get('kind') == RETRY_EVENT for e in state['events']):
+            allowed += 1
         spent = state['usage'][key] - row['usage_before'][key]
         if type(count) is not int or count < 1 or spent + count > allowed:
             errors.append('one-time Codex repair has no remaining ' + key + ' allowance')
     if note is not None and amounts.get('preflight_renders'):
         if note not in PREFLIGHTS or amounts != {'preflight_renders': 1}:
             errors.append('manual capture requires one exact declared preflight operation')
-        elif any(e.get('kind') == 'reserved' and e.get('note') == note
-                 for e in state['events'][next(i for i, e in enumerate(state['events']) if e is row) + 1:]):
-            errors.append('this manual capture operation was already charged')
+        else:
+            count = sum(e.get('kind') == 'reserved' and e.get('note') == note
+                        for e in state['events'][next(i for i, e in enumerate(state['events']) if e is row) + 1:])
+            retry = next((e for e in state['events'] if e.get('kind') == RETRY_EVENT), None)
+            if count and not (note == PREFLIGHTS[0] and count == 1 and retry):
+                errors.append('this manual capture operation was already charged')
+            elif count and state_path is not None:
+                errors += retry_input_problems(Path(state_path).resolve().parents[2], retry)
     if note is not None and amounts.get('full_renders') and (amounts != {'full_renders': 1} or note != 'full-resolution Dispatch render'):
         errors.append('manual native capture requires its exact full-render operation')
     return errors
@@ -272,6 +301,8 @@ def budget(state, review_route):
     from production_lifecycle import allowance_problems
     effective = effective_envelope(state)
     funded = {**RESOURCES, 'reported_tokens': row['token_forecast']['reported_tokens_allowance']}
+    if any(e.get('kind') == RETRY_EVENT for e in state['events']):
+        funded['preflight_renders'] += 1
     resources = {}
     for key, total in funded.items():
         remaining = total - (state['usage'][key] - row['usage_before'][key])
@@ -284,7 +315,7 @@ def budget(state, review_route):
     deficits = budget_deficits(resources)
     return {'feasible': not errors and not deficits, 'errors': errors, 'deficits': deficits,
             'resources': resources, 'review_route': review_route, 'path':'one-time-owner-codex-repair',
-            'scope':'Only the unspent portion of the exact approved repair; no new take, artwork, retry or review cycle.'}
+            'scope':'Only the unspent approved repair and, if separately recorded, its exact single opening compute retry; no new creative or review cycle.'}
 
 
 def plan_problems(state, plan):
@@ -383,3 +414,156 @@ def grant(state_path, authorization_path, plan_path, confirmation):
     except (OSError, KeyError, ValueError, TypeError) as exc:
         return False, 'manual Codex repair refused: ' + str(exc)
 
+
+
+def opening_retry_identity(root, helper_sha):
+    """Reconstruct the original operator identity with only its helper byte digest substituted."""
+    root = Path(root)
+    paths = [root/'out/dispatch'/name for name in ('opening-a.json', 'opening-b.json')]
+    paths += [root/name for name in ('scripts/opening_compare.py', 'video-engine/scripts/render-batch.mjs',
+                                    'video-engine/package-lock.json')]
+    for name in ('video-engine/src', 'video-engine/public'):
+        paths += [p for p in (root/name).rglob('*') if p.is_file()]
+    content = sorted((p.relative_to(root).as_posix(),
+                      helper_sha if p == root/'scripts/opening_compare.py' else file_sha(p)) for p in set(paths))
+    return sha(json.dumps(['opening-comparison', content]))
+
+
+def retry_input_problems(root, row):
+    try:
+        if (opening_retry_identity(root, OLD_HELPER) != FAILED_INPUT
+                or file_sha(root/'scripts/opening_compare.py') != row['corrected_helper_sha256']
+                or opening_retry_identity(root, row['corrected_helper_sha256']) != row['retry_input_sha256']
+                or any(file_sha(root/f['path']) != f['sha256'] for f in row['protected_inputs'])):
+            return ['opening retry requires unchanged failed production inputs and the admitted corrected helper']
+    except (OSError, ValueError, KeyError, TypeError):
+        return ['opening retry production inputs are missing or invalid']
+    return []
+
+
+def validate_retry_event(state, row, index, effective=None):
+    """Replay one fixed compute increment; the original repair grant is never rewritten."""
+    try:
+        from capture_guard import event_digest
+        original = next(e for e in state['events'][:index] if e.get('kind') == EVENT)
+        owner = json.loads(original['authorization_json'])['publication_owner']
+        expected = {'failure_checkpoint': FAILED_CHECKPOINT, 'failure_manifest_sha256': FAILED_MANIFEST,
+                    'failure_lifecycle_sha256': FAILED_LIFECYCLE_SHA, 'failure_log_sha256': FAILED_LOG,
+                    'failure_result_sha256': FAILED_RESULT, 'failed_reservation_sha256': FAILED_RESERVATION,
+                    'failed_input_sha256': FAILED_INPUT, 'run_id': RUN_ID,
+                    'original_authorization_sha256': original['authorization_sha256'],
+                    'plan_identity': original['plan_identity'], 'owner_sha256': owner['owner_sha256'],
+                    'epoch': owner['epoch'], 'resources': {'preflight_renders': 1},
+                    'grants_no_review_approval': True, 'daily_review_limit_unchanged': True}
+        prefix = state['events'][:index]
+        spent = [e for e in prefix if event_digest(e) == FAILED_RESERVATION]
+        if (any(row.get(k) != v for k, v in expected.items())
+                or len([e for e in state['events'] if e.get('kind') == RETRY_EVENT]) != 1
+                or accounting_prefix(prefix) != FAILED_PREFIX
+                or row['accounting_prefix_sha256'] != FAILED_PREFIX
+                or len(spent) != 1 or spent[0].get('preflight_identity') != FAILED_INPUT
+                or spent[0].get('note') != PREFLIGHTS[0] or spent[0].get('resources') != {'preflight_renders': 1}
+                or sha(canonical(row['protected_inputs'])) != RETRY_PROTECTED
+                or row['corrected_helper_sha256'] == OLD_HELPER
+                or len(row['corrected_helper_sha256']) != 64 or len(row['retry_input_sha256']) != 64
+                or row['retry_input_sha256'] == FAILED_INPUT):
+            raise ValueError('exact original failure, owner, repair, unchanged content or one-use binding')
+        before = row['previous_envelope']
+        if (effective is not None and effective != before
+                or row['new_envelope'] != {k: n + (k == 'preflight_renders') for k, n in before.items()}
+                or row['new_ceiling'] != {k: n + (k == 'preflight_renders')
+                                          for k, n in row['previous_ceiling'].items()}):
+            raise ValueError('exactly one additional preflight; no other resource increment')
+        funded = {**RESOURCES, 'preflight_renders': RESOURCES['preflight_renders'] + 1,
+                  'reported_tokens': original['token_forecast']['reported_tokens_allowance']}
+        required = {k: total - (row['usage_before'][k] - original['usage_before'][k])
+                    for k, total in funded.items()}
+        if (row['remaining_path'] != required or any(n < 0 or row['new_envelope'][k] - row['usage_before'][k] < n
+                                                    for k, n in required.items())
+                or any(state['usage'][k] != old + sum(e.get('resources', {}).get(k, 0)
+                       for e in state['events'][index+1:] if e.get('kind') == 'reserved')
+                       for k, old in row['usage_before'].items())):
+            raise ValueError('complete remaining path or cumulative usage changed')
+        captures = [e for e in state['events'][index+1:] if e.get('kind') == 'reserved'
+                    and e.get('note') == PREFLIGHTS[0]]
+        if len(captures) > 1 or any(e.get('preflight_identity') != row['retry_input_sha256']
+                                    or e.get('resources') != {'preflight_renders': 1} for e in captures):
+            raise ValueError('one newly charged opening retry only')
+    except (KeyError, TypeError, ValueError, StopIteration) as exc:
+        return ['invalid manual opening retry: ' + str(exc)]
+    return []
+
+
+def grant_opening_retry(state_path, result_path, log_path):
+    """Fund the one observed operator refusal; never execute or refund an operation."""
+    from run_controller import read_state, save, event
+    from autonomous_completion import effective_envelope
+    from production_lifecycle import allowance_problems
+    import claude_checkpoint as ck
+    state_path = Path(state_path).resolve(); root = state_path.parents[2]
+    try:
+        state = read_state(state_path); original = record(state)
+        if (original is None or state.get('terminal_state') is not None
+                or state.get('phase') != 'active_repair'
+                or any(e.get('kind') == RETRY_EVENT for e in state['events'])):
+            raise ValueError('only the original unfinished authorized repair can receive this single increment')
+        errors = runtime_problems(original, state_path) + allowance_problems(state)
+        if errors:
+            raise ValueError('; '.join(errors))
+        if (file_sha(result_path) != FAILED_RESULT or file_sha(log_path) != FAILED_LOG
+                or REFUSAL not in Path(log_path).read_text()
+                or file_sha(state['deliverable']['film']) != FILM
+                or state['deliverable']['film_sha256'] != FILM):
+            raise ValueError('original public result, operator refusal log or failed film changed')
+        result = read(result_path)
+        manifest, raw_ledger = ck.verify_checkpoint(root, FAILED_CHECKPOINT, RUN_ID)
+        base = f'{ck.ROOT}/{RUN_ID}'
+        raw_manifest = ck.show(root, FAILED_CHECKPOINT, base+'/manifest.json')
+        raw_lifecycle = ck.show(root, FAILED_CHECKPOINT, base+'/files/'+FAILED_LIFECYCLE)
+        lifecycle = json.loads(raw_lifecycle); failed = json.loads(raw_ledger)
+        if (hashlib.sha256(raw_manifest).hexdigest() != FAILED_MANIFEST
+                or hashlib.sha256(raw_lifecycle).hexdigest() != FAILED_LIFECYCLE_SHA
+                or result != {**lifecycle, 'checkpoint_oid': FAILED_CHECKPOINT,
+                              'lifecycle_evidence': {'path': FAILED_LIFECYCLE, 'sha256': FAILED_LIFECYCLE_SHA}}
+                or lifecycle.get('github_run_id') != FAILED_RUN or lifecycle.get('request_oid') != FAILED_REQUEST
+                or lifecycle.get('capture_started') is not True or lifecycle.get('capture_exit_code') != 1
+                or lifecycle.get('phase') != 'fixed-operator' or lifecycle.get('operation') != 'openings'
+                or lifecycle.get('approval') is not False or lifecycle.get('publication_allowed') is not False
+                or failed['usage'] != state['usage']
+                or accounting_prefix(failed['events']) != accounting_prefix(state['events'])
+                or any(f['path'].startswith('out/dispatch/openings/') for f in manifest['files'])):
+            raise ValueError('verified remote failure does not prove this exact spent operator admission with no output')
+        protected = sorted([{'path': f['path'], 'sha256': f['sha256']} for f in manifest['files']
+                           if f['path'] in EDITABLE], key=lambda f: f['path'])
+        helper = file_sha(root/'scripts/opening_compare.py')
+        owner = json.loads(original['authorization_json'])['publication_owner']
+        if any(lifecycle.get(k) != owner[k] for k in ('owner_sha256', 'epoch')):
+            raise ValueError('failed operator belongs to another owner or epoch')
+        before = effective_envelope(state); caps = dict(state['escalation_ceiling'])
+        row = dict(run_id=RUN_ID, failure_checkpoint=FAILED_CHECKPOINT, failure_manifest_sha256=FAILED_MANIFEST,
+                   failure_lifecycle_sha256=FAILED_LIFECYCLE_SHA, failure_log_sha256=FAILED_LOG,
+                   failure_result_sha256=FAILED_RESULT, failed_reservation_sha256=FAILED_RESERVATION,
+                   failed_input_sha256=FAILED_INPUT, original_authorization_sha256=original['authorization_sha256'],
+                   plan_identity=original['plan_identity'], owner_sha256=owner['owner_sha256'], epoch=owner['epoch'],
+                   resources={'preflight_renders': 1}, accounting_prefix_sha256=accounting_prefix(state['events']),
+                   usage_before=dict(state['usage']), protected_inputs=protected, corrected_helper_sha256=helper,
+                   retry_input_sha256=opening_retry_identity(root, helper), previous_envelope=before,
+                   new_envelope={k: n + (k == 'preflight_renders') for k, n in before.items()},
+                   previous_ceiling=caps, new_ceiling={k: n + (k == 'preflight_renders') for k, n in caps.items()},
+                   grants_no_review_approval=True, daily_review_limit_unchanged=True,
+                   failure_result_path=Path(result_path).resolve().relative_to(root).as_posix(),
+                   failure_log_path=Path(log_path).resolve().relative_to(root).as_posix())
+        errors = retry_input_problems(root, row)
+        if errors:
+            raise ValueError('; '.join(errors))
+        funded = {**RESOURCES, 'preflight_renders': RESOURCES['preflight_renders'] + 1,
+                  'reported_tokens': original['token_forecast']['reported_tokens_allowance']}
+        row['remaining_path'] = {k: n - (state['usage'][k] - original['usage_before'][k]) for k, n in funded.items()}
+        state['escalation_ceiling'] = row['new_ceiling']; event(state, RETRY_EVENT, **row)
+        errors = allowance_problems(state)
+        if errors:
+            raise ValueError('; '.join(errors))
+        save(state_path, state)
+        return True, 'one separate opening compute increment recorded; old attempt remains spent; reserve the corrected opening once'
+    except (OSError, ValueError, KeyError, TypeError, ck.CheckpointError) as exc:
+        return False, 'manual opening retry refused: ' + str(exc)

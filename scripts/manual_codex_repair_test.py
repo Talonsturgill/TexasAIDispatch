@@ -286,6 +286,141 @@ class ManualRepair(unittest.TestCase):
         before=other.read_bytes(); self.assertFalse(controller.reserve(other,{'storyboard_critics':1},'sixth')[0])
         self.assertEqual(before,other.read_bytes())
 
+
+    def failed_opening(self):
+        import claude_checkpoint as ck
+        import capture_guard
+        self.accepted()
+        self.assertTrue(production_lifecycle.begin_repair(self.state,self.plan_file,reserve_reboard=True)[0])
+        self.assertTrue(controller.reserve(self.state,{'storyboard_critics':1},'actual first code critic')[0])
+        for relative in manual.EDITABLE | {'scripts/opening_compare.py', 'video-engine/scripts/render-batch.mjs',
+                                          'video-engine/package-lock.json'}:
+            path=self.root/relative; path.parent.mkdir(parents=True,exist_ok=True)
+            if not path.exists(): path.write_text('retained '+relative)
+        # Fixture uses exact native identity code, including its real filename ordering.
+        controller_root=patch.object(controller,'REPO',self.root); controller_root.start(); self.addCleanup(controller_root.stop)
+        self._patch_retry('OLD_HELPER',controller.digest(self.root/'scripts/opening_compare.py'))
+        self.assertTrue(controller.reserve(self.state,{'preflight_renders':1},manual.PREFLIGHTS[0])[0])
+        failed=controller.read_state(self.state); original=failed['events'][-1]
+        self._patch_retry('FAILED_RESERVATION',capture_guard.event_digest(original))
+        self._patch_retry('FAILED_INPUT',original['preflight_identity'])
+        self._patch_retry('FAILED_PREFIX',manual.accounting_prefix(failed['events']))
+        self.protected=sorted([{'path':rel,'sha256':controller.digest(self.root/rel)} for rel in manual.EDITABLE],key=lambda x:x['path'])
+        self._patch_retry('RETRY_PROTECTED',manual.sha(manual.canonical(self.protected)))
+        self.lifecycle={'schema':'dispatch_github_capture_result/1','approval':False,'publication_allowed':False,
+            'github_run_id':manual.FAILED_RUN,'request_oid':manual.FAILED_REQUEST,
+            'request_sha256':'a'*64,'observed_at':'2026-10-22T16:30:33.613129+00:00',
+            'source_commit':'5aa67accd091328ef382b5365f595651ca6480c1',
+            'exit_code':1,'phase':'fixed-operator','operation':'openings','owner_verified':True,
+            'owner_sha256':self.owner['owner_sha256'],'epoch':self.owner['epoch'],
+            'capture_started':True,'capture_exit_code':1,
+            'error':{'type':'OperatorExit','message':'Fixed operator returned 1'}}
+        raw_lifecycle=json.dumps(self.lifecycle).encode()
+        self._patch_retry('FAILED_LIFECYCLE_SHA',__import__('hashlib').sha256(raw_lifecycle).hexdigest())
+        self.result=self.out/'original-public-result.json'
+        self.result.write_text(json.dumps({**self.lifecycle,'checkpoint_oid':manual.FAILED_CHECKPOINT,
+            'lifecycle_evidence':{'path':manual.FAILED_LIFECYCLE,'sha256':manual.FAILED_LIFECYCLE_SHA}}))
+        self.log=self.out/'original-job.log'; self.log.write_text(manual.REFUSAL+'\n')
+        self._patch_retry('FAILED_LOG',controller.digest(self.log))
+        self._patch_retry('FAILED_RESULT',controller.digest(self.result))
+        self.manifest={'schema':ck.SCHEMA,'run_id':manual.RUN_ID,'files':copy.deepcopy(self.protected)}
+        self.raw_manifest=json.dumps(self.manifest).encode()
+        self._patch_retry('FAILED_MANIFEST',__import__('hashlib').sha256(self.raw_manifest).hexdigest())
+        self.failed_raw=json.dumps(failed).encode()
+        base=f'{ck.ROOT}/{manual.RUN_ID}'
+        def show(repo,oid,path):
+            self.assertEqual(manual.FAILED_CHECKPOINT,oid)
+            return {base+'/manifest.json':self.raw_manifest,
+                    base+'/files/'+manual.FAILED_LIFECYCLE:raw_lifecycle}[path]
+        self.verify=patch.object(ck,'verify_checkpoint',return_value=(self.manifest,self.failed_raw))
+        self.mock_verify=self.verify.start(); self.addCleanup(self.verify.stop)
+        show_patch=patch.object(ck,'show',side_effect=show); show_patch.start(); self.addCleanup(show_patch.stop)
+        (self.root/'scripts/opening_compare.py').write_text('corrected receipt identity projection')
+        return failed
+
+    def _patch_retry(self,key,value):
+        item=patch.object(manual,key,value); item.start(); self.addCleanup(item.stop)
+
+    def retry_grant(self):
+        return manual.grant_opening_retry(self.state,self.result,self.log)
+
+    def test_exact_failed_opening_gets_one_separate_compute_increment_and_remaining_path(self):
+        before=self.failed_opening()
+        ok,why=self.retry_grant(); self.assertTrue(ok,why)
+        state=controller.read_state(self.state)
+        self.assertEqual(before['events'],state['events'][:-1])
+        self.assertEqual(before['usage'],state['usage'])
+        self.assertEqual(before['resource_envelope'],state['resource_envelope'])
+        self.assertEqual({'preflight_renders':1},state['events'][-1]['resources'])
+        self.mock_verify.assert_called_once_with(self.root.resolve(),manual.FAILED_CHECKPOINT,manual.RUN_ID)
+        self.assertEqual([],autonomous_completion.replay(state)[1])
+        self.assertEqual([],production_lifecycle.allowance_problems(state))
+        budget=manual.budget(state,'host')
+        self.assertTrue(budget['feasible'],budget)
+        self.assertEqual(8,budget['resources']['preflight_renders']['required'])
+        self.assertEqual(2,budget['resources']['storyboard_critics']['required'])
+        self.assertTrue(controller.reserve(self.state,{'preflight_renders':1},manual.PREFLIGHTS[0])[0])
+        charged=controller.read_state(self.state)
+        self.assertEqual(before['usage']['preflight_renders']+1,charged['usage']['preflight_renders'])
+        self.assertEqual([],autonomous_completion.replay(charged)[1])
+        old=self.state.read_bytes()
+        self.assertFalse(self.retry_grant()[0])
+        self.assertFalse(controller.reserve(self.state,{'preflight_renders':1},manual.PREFLIGHTS[0])[0])
+        self.assertEqual(old,self.state.read_bytes())
+        for note in manual.PREFLIGHTS[1:]:
+            with patch.object(controller,'preflight_identity',return_value=None):
+                ok,why=controller.reserve(self.state,{'preflight_renders':1},note)
+            self.assertTrue(ok,why)
+        self.assertEqual([],production_lifecycle.allowance_problems(controller.read_state(self.state)))
+        self.assertFalse(controller.reserve(self.state,{'storyboard_critics':3},'extra editorial cycle')[0])
+
+    def test_opening_retry_rejects_changed_content_owner_film_or_false_proof_without_mutation(self):
+        self.failed_opening(); before=self.state.read_bytes()
+        for path in (self.board,self.root/'video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx',
+                     self.root/'video-engine/scripts/render-batch.mjs',self.out/'vo_script.txt',self.film,self.log,self.result):
+            original=path.read_bytes(); path.write_bytes(original+b'changed')
+            ok,why=self.retry_grant(); self.assertFalse(ok,(path,why))
+            self.assertEqual(before,self.state.read_bytes()); path.write_bytes(original)
+        for owner in ({**self.owner,'epoch':'changed'},{**self.owner,'runtime':'claude'}):
+            with patch.object(publication_owner,'require_owner',return_value=owner):
+                self.assertFalse(self.retry_grant()[0])
+            self.assertEqual(before,self.state.read_bytes())
+        self.manifest['files'].append({'path':'out/dispatch/openings/a.mp4','sha256':'b'*64})
+        self.assertFalse(self.retry_grant()[0])
+        self.assertEqual(before,self.state.read_bytes())
+
+    def test_retry_replay_rejects_extra_resources_changed_failure_or_repeat(self):
+        self.failed_opening(); self.assertTrue(self.retry_grant()[0])
+        state=controller.read_state(self.state)
+        for mutate in (lambda s:s['events'][-1]['resources'].update(storyboard_critics=1),
+                       lambda s:s['events'][-1]['new_envelope'].update(storyboard_critics=99),
+                       lambda s:s['events'][-1].update(failure_checkpoint='f'*40),
+                       lambda s:s['events'][-1].update(owner_sha256='0'*64),
+                       lambda s:s['events'][-1]['protected_inputs'][0].update(sha256='0'*64),
+                       lambda s:s['events'].append(copy.deepcopy(s['events'][-1]))):
+            changed=copy.deepcopy(state); mutate(changed)
+            self.assertTrue(autonomous_completion.replay(changed)[1])
+
+    def test_retry_checkpoint_roundtrip_and_precise_reservation_binding(self):
+        import claude_checkpoint as ck
+        self.failed_opening(); self.assertTrue(self.retry_grant()[0])
+        state=controller.read_state(self.state)
+        public,origins=ck.public_projection(state,self.root)
+        restored=ck.restored_ledger(public,Path('/home/runner/restored'),
+            {'repo_root':str(self.root),'grant_origin_roots':origins})
+        self.assertEqual([],autonomous_completion.replay(restored)[1])
+        self.assertEqual([],production_lifecycle.allowance_problems(restored))
+        self.assertEqual(state['events'][-1],restored['events'][-1])
+        original=self.board.read_bytes(); self.board.write_bytes(original+b'changed')
+        before=self.state.read_bytes()
+        self.assertFalse(controller.reserve(self.state,{'preflight_renders':1},manual.PREFLIGHTS[0])[0])
+        self.assertEqual(before,self.state.read_bytes())
+        self.board.write_bytes(original)
+        self.assertTrue(controller.reserve(self.state,{'preflight_renders':1},manual.PREFLIGHTS[0])[0])
+        changed=controller.read_state(self.state)
+        changed['events'][-1]['preflight_identity']='c'*64
+        self.assertTrue(autonomous_completion.replay(changed)[1])
+
 if __name__=='__main__':
     unittest.main()
 

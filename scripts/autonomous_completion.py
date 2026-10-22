@@ -565,6 +565,12 @@ def replay(state):
                 if errors:
                     return effective, errors
                 effective = dict(row['new_envelope'])
+            elif kind == 'owner_codex_opening_retry_granted':
+                from manual_codex_repair import validate_retry_event
+                errors = validate_retry_event(state, row, index, effective)
+                if errors:
+                    return effective, errors
+                effective = dict(row['new_envelope'])
             elif kind in ("owner_review_grant", "owner_validator_grant"):
                 if kind == 'owner_validator_grant':
                     from repair_guard import validator_grant_problems

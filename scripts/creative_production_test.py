@@ -163,6 +163,126 @@ class CreativeTest(unittest.TestCase):
         self.assertNotEqual(opening_compare.body(a), opening_compare.body(b))
         self.assertEqual(c.opening_digest(a), c.opening_digest(b))
 
+    def authored_pair(self):
+        a = copy.deepcopy(self.board)
+        a["date"] = "2026-10-21"
+        a["story_art"] = {"version": "authored-story-art-v1", "requests": [], "entries": []}
+        for index, key in enumerate(("hero", "support")):
+            request = {"id": key, "file": key + ".tsx", "view": "approval-close"}
+            receipt = {"request_id": key, "file": request["file"], "sha256": str(index)*64,
+                       "creation_id": "authored-fixture-a-" + key,
+                       "request_sha256": c.fingerprint(request),
+                       "created_at": "2026-10-21T12:00:00+00:00", "tool": "original authored source"}
+            a["story_art"]["requests"].append(request)
+            a["story_art"]["entries"].append(receipt)
+            a["native_media"].append({**receipt, "rights_basis": "Original fixture source.",
+                                      "claim_ids": ["c1"], "scene_ids": ["s1", "s2"]})
+        b = copy.deepcopy(a)
+        b["scenes"][0]["picture"]["nodes"][0]["label"] = "document"
+        b["story_art"]["requests"][1]["view"] = "stamp-reaction"
+        for row in (b["story_art"]["entries"][1], b["native_media"][1]):
+            row["creation_id"] = "authored-fixture-b-support"
+            row["request_sha256"] = c.fingerprint(b["story_art"]["requests"][1])
+        return a, b
+
+    def write_pair(self, a, b, prefix=""):
+        for name, value in (("opening-a.json", a), ("opening-b.json", b), ("storyboard.json", a),
+                            ("run_state.json", {"schema": run_controller.SCHEMA, "run_id": a["date"],
+                                                "limits": run_controller.limits()})):
+            self.write(prefix + name, value)
+
+    def test_authored_pair_keeps_exact_receipts_and_shares_asset_content(self):
+        a, b = self.authored_pair()
+        original = copy.deepcopy((a, b))
+        self.write_pair(a, b)
+        files = {path: path.read_bytes() for path in self.root.glob("*.json")}
+        self.assertEqual(opening_compare.body(a), opening_compare.body(b))
+        self.assertEqual(opening_compare.owned_boards(self.root, self.root/"run_state.json"), [a, b])
+        self.assertEqual((a, b), original)
+        self.assertEqual({path: path.read_bytes() for path in files}, files)
+        expected = copy.deepcopy(a["native_media"])
+        for row in expected:
+            del row["creation_id"], row["request_sha256"]
+        self.assertEqual(opening_compare.body(a)["native_media"], expected)
+
+    def test_authored_comparison_refuses_inventory_receipt_and_request_mismatches(self):
+        a, b = self.authored_pair()
+        for field in ("file", "sha256", "creation_id", "request_sha256", "created_at", "tool"):
+            with self.subTest(field=field):
+                changed = copy.deepcopy(b)
+                changed["native_media"][1][field] = "altered"
+                with self.assertRaisesRegex(ValueError, "receipt or request"):
+                    opening_compare.body(changed)
+        changed = copy.deepcopy(b)
+        changed["story_art"]["requests"][1]["view"] = "unrecorded-view"
+        with self.assertRaisesRegex(ValueError, "receipt or request"):
+            opening_compare.body(changed)
+        for field in ("requests", "entries"):
+            with self.subTest(duplicate=field):
+                changed = copy.deepcopy(a)
+                changed["story_art"][field][1] = copy.deepcopy(changed["story_art"][field][0])
+                with self.assertRaisesRegex(ValueError, "unique inventory"):
+                    opening_compare.body(changed)
+
+    def test_authored_pair_rejects_content_changes_before_prepared_capture_charge(self):
+        import capture_reservation
+        a, b = self.authored_pair()
+        cases = {}
+        for field, value in (("vo", "Different narration."), ("vo_claims", ["c2"]),
+                             ("start_s", 4), ("duration_s", 4)):
+            changed = copy.deepcopy(b); changed["scenes"][1][field] = value
+            cases[field] = changed
+        for field, value in (("rights_basis", "Changed rights."), ("claim_ids", ["c2"]),
+                             ("scene_ids", ["s1"]), ("basis", "Changed disclosure.")):
+            changed = copy.deepcopy(b); changed["native_media"][1][field] = value
+            cases[field] = changed
+        changed = copy.deepcopy(b)
+        changed["native_media"][1]["sha256"] = changed["story_art"]["entries"][1]["sha256"] = "f"*64
+        cases["asset bytes"] = changed
+        changed = copy.deepcopy(b); changed["native_media"][1]["creation_id"] = "unbound"
+        cases["receipt"] = changed
+        command = ("python scripts/opening_compare.py --root out/dispatch "
+                   "--state out/dispatch/run_state.json")
+        for label, changed in cases.items():
+            with self.subTest(change=label), patch("run_controller.reserve") as reserve:
+                self.write_pair(a, changed, "out/dispatch/")
+                before = (self.root/"out/dispatch/run_state.json").read_bytes()
+                with self.assertRaisesRegex(ValueError, "share dated facts|receipt or request"):
+                    capture_reservation.prepare(self.root, self.root/"out/dispatch/run_state.json", [command])
+                reserve.assert_not_called()
+                self.assertEqual((self.root/"out/dispatch/run_state.json").read_bytes(), before)
+
+    def test_distinct_receipts_do_not_make_identical_pictures_distinct(self):
+        a, b = self.authored_pair()
+        b["scenes"] = copy.deepcopy(a["scenes"])
+        self.assertNotEqual(c.opening_digest(a), c.opening_digest(b))
+        self.write_pair(a, b)
+        with self.assertRaisesRegex(ValueError, "differ visibly"):
+            opening_compare.owned_boards(self.root, self.root/"run_state.json")
+
+    def test_legacy_and_other_media_keep_exact_inventory_equality(self):
+        a, b = self.authored_pair()
+        a["date"] = b["date"] = "2026-09-29"
+        self.assertNotEqual(opening_compare.body(a), opening_compare.body(b))
+        a["date"] = b["date"] = "2026-10-21"
+        del a["story_art"], b["story_art"]
+        self.assertNotEqual(opening_compare.body(a), opening_compare.body(b))
+        a, b = self.authored_pair()
+        a["native_media"].append({"file": "evidence/source.png", "sha256": "a"*64,
+                                   "creation_id": "source-a", "request_sha256": "b"*64})
+        b["native_media"].append({**a["native_media"][-1], "creation_id": "source-b"})
+        self.assertNotEqual(opening_compare.body(a), opening_compare.body(b))
+
+    def test_legacy_pair_cut_boundary_is_checked_before_capture_charge(self):
+        import capture_reservation
+        a = copy.deepcopy(self.board); b = copy.deepcopy(a)
+        b["scenes"][0]["duration_s"] += 1
+        self.write_pair(a, b, "out/dispatch/")
+        command = "python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json"
+        with patch("run_controller.reserve") as reserve, self.assertRaisesRegex(ValueError, "cut boundary"):
+            capture_reservation.prepare(self.root, self.root/"out/dispatch/run_state.json", [command])
+        reserve.assert_not_called()
+
     def test_new_full_treatment_digest_survives_retiming(self):
         a = copy.deepcopy(self.board)
         a["date"] = "2026-09-30"

@@ -597,7 +597,7 @@ def allowance_problems(state):
                         or not caps[name] <= grant["to"] <= caps[name] + batch[name]):
                     return ["repair authorization exceeds its batch"]
                 caps[name] = grant["to"]
-        elif e.get("kind") == "owner_codex_repair_granted":
+        elif e.get("kind") in {"owner_codex_repair_granted", "owner_codex_opening_retry_granted"}:
             if e.get("previous_ceiling") != caps:
                 return ["manual Codex repair lacks its matching allowance chain"]
             caps = dict(e["new_ceiling"])
