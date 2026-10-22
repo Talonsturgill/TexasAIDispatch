@@ -348,6 +348,17 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
             f"run controller: {state['terminal_state']} is terminal. "
             "No further expensive action is allowed."
         )
+    if amounts.get('storyboard_critics') and state.get('usage', {}).get('storyboard_critics', 0) == 0:
+        from retime_feasibility import problems as retime_problems
+        try:
+            for name in ('storyboard.json', 'opening-a.json', 'opening-b.json'):
+                board_path = Path(path).with_name(name)
+                if board_path.is_file():
+                    errors = retime_problems(load_json(board_path))
+                    if errors:
+                        return False, 'authored retime feasibility before first review: ' + '; '.join(errors)
+        except (OSError, ValueError, KeyError, TypeError, ZeroDivisionError) as exc:
+            return False, 'authored retime feasibility unavailable: ' + str(exc)
     from review_limit import reservation_problems as hard_review_problems
     hard_review_errors = hard_review_problems(state, amounts)
     if hard_review_errors:

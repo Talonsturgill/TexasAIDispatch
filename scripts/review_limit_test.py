@@ -37,6 +37,36 @@ class ReviewLimit(unittest.TestCase):
         self.assertFalse(self.charge(2)[0]); self.assertEqual(before, self.state.read_bytes())
         self.assertTrue(self.charge()[0])
 
+    def test_first_review_refuses_actual_authored_deadlock_before_any_charge(self):
+        fixture = json.loads((Path(__file__).parent / 'fixtures/retime_feasibility_2026_10_21.json').read_text())
+        board = self.root / 'storyboard.json'
+        board.write_text(json.dumps(fixture['original_s1_projection']))
+        before = self.state.read_bytes()
+        accepted, message = self.charge()
+        self.assertFalse(accepted)
+        self.assertIn('authored retime feasibility before first review', message)
+        self.assertIn('s1-shot-1', message)
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_first_review_checks_other_treatment_and_accepts_compilable_plan(self):
+        from retime_feasibility_test import valid
+        board = self.root / 'storyboard.json'; board.write_text(json.dumps(valid()))
+        other = valid(); other['film_direction']['shots'][0]['narration_ids'] = ['n1', 'n2']
+        treatment = self.root / 'opening-b.json'; treatment.write_text(json.dumps(other))
+        before = self.state.read_bytes()
+        self.assertFalse(self.charge()[0]); self.assertEqual(before, self.state.read_bytes())
+        treatment.write_text(json.dumps(valid()))
+        accepted, message = self.charge()
+        self.assertTrue(accepted, message)
+        self.assertEqual(1, json.loads(self.state.read_text())['usage']['storyboard_critics'])
+
+    def test_retained_four_review_recovery_is_not_a_new_code_review(self):
+        self.assertTrue(self.charge(4)[0])
+        (self.root / 'opening-a.json').write_text(json.dumps({'narration_picture': {'timing_mode': 'authored'}}))
+        accepted, message = self.charge(note='reserved fifth exact timed phone')
+        self.assertTrue(accepted, message)
+        self.assertEqual(5, json.loads(self.state.read_text())['usage']['storyboard_critics'])
+
     def test_larger_ceilings_new_script_and_recovery_names_cannot_reset_counter(self):
         self.assertTrue(self.charge(5)[0])
         value = json.loads(self.state.read_text())

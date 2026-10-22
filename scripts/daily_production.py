@@ -434,7 +434,7 @@ def packet_text(data):
     return encoded
 
 
-def packet(board_path, claims_path, role, state_path=None):
+def packet(board_path, claims_path, role, state_path=None, runtime=None):
     """Bound references, not copied history. Reviewers load their assigned sources themselves."""
     board, claims = read(board_path), read(claims_path)
     data = {
@@ -449,16 +449,31 @@ def packet(board_path, claims_path, role, state_path=None):
     }
     import agent_runtime
     import authored_story_art
-    claude_route = authored_story_art.selected(board)
-    compact_scorer = (claude_route and role in ('picture','story','sound')
+    authored_route = authored_story_art.selected(board)
+    if runtime not in (None, 'codex'):
+        raise ValueError('only explicit codex local recovery overrides the existing packet route')
+    claude_route = authored_route and runtime != 'codex'
+    compact_scorer = (authored_route and role in ('picture','story','sound')
                       and str(board.get('date','')) >= '2026-10-15')
     if compact_scorer:
         data['instructions'] = ('Read all bound inputs, sources, briefs and full guides. Read '
             'board.story_contract fully, including scenes, transitions and source limits. Return one '
             'verdict under unchanged rubric. Resource/extraction/provider checks approve nothing. '
             'Text never proves audio access.')
-    if claude_route:
+    if authored_route:
         import claude_runtime
+    if runtime == 'codex':
+        if not authored_route or not state_path or Path(board_path).resolve().parent != Path(state_path).resolve().parent:
+            raise ValueError('local recovery needs the original authored board and its production ledger')
+        import publication_owner
+        owner = publication_owner.require_owner(state_path)
+        if not owner or owner.get('runtime') != 'codex':
+            raise ValueError('acquire explicit Codex recovery ownership before building local packets')
+        data['local_recovery'] = {'runtime': 'codex', 'state': str(Path(state_path).resolve()),
+                                 'run_id': owner['run_id'], 'owner_sha256': owner['owner_sha256'],
+                                 'epoch': owner['epoch']}
+        data['source_runtime_contracts'] = claude_runtime.contracts(role)
+    if claude_route:
         route = claude_runtime.assignment(role, board["date"])
     else:
         route = agent_runtime.assignment(role, board["date"])
@@ -517,7 +532,7 @@ def packet(board_path, claims_path, role, state_path=None):
             data['retained_phone_host_context'] = retained
             data['instructions'] += (' Read retained_phone_host_context fully after viewing. Reassess '
                 'received notes with times; keep retractions/unknowns. No prior grade.')
-        if claude_route:
+        if authored_route:
             import claude_motion_review
             sequence = root / 'motion-review' / 'index.json'
             errors = claude_motion_review.problems(sequence, board_path, root / 'film.mp4')
@@ -669,7 +684,10 @@ def main():
     p.add_argument("--packet", choices=["validator", "scene-builder", "storyboard-critic", "vo-director", "picture", "story", "sound"])
     p.add_argument("--scoreboard", action="store_true")
     p.add_argument("--out", type=Path)
+    p.add_argument("--runtime", choices=['codex'], help="explicit owned local recovery; preserve authored art")
     a = p.parse_args()
+    if a.runtime and not a.packet:
+        p.error('--runtime applies only to an explicit local recovery packet')
     if a.structure_only and any((a.catalog_check, a.digest, a.packet, a.scoreboard)):
         p.error("--structure-only cannot be combined with another action")
     try:
@@ -695,7 +713,7 @@ def main():
                   "current story/source structure passes; independent review still required")
             return int(bool(errors))
         elif a.packet:
-            data = packet(a.board, a.claims, a.packet, a.state)
+            data = packet(a.board, a.claims, a.packet, a.state, a.runtime)
         else:
             errors = pre_voice_problems(a.board, a.claims)
             print("\n".join(errors) if errors else "current story and demonstrated action checks pass")

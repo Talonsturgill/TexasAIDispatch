@@ -229,6 +229,11 @@ def image_reading(data, *, compact=False):
     if str(data.get('date', '')) >= '2026-10-19':
         from visual_observations import CONTRACT, INSTRUCTION
         data['public_visual_evidence'] = json.loads(json.dumps(CONTRACT))
+        if (data.get('local_recovery') or {}).get('runtime') == 'codex':
+            import codex_visual_observations
+            data['codex_visual_evidence'] = json.loads(json.dumps(codex_visual_observations.CONTRACT))
+            data['instructions'] += codex_visual_observations.INSTRUCTION
+            return data
         data['instructions'] += INSTRUCTION
     if data['image_read_policy'].get('note_channel'):
         data['instructions'] += (' For an actually unseen new Read, immediately save its literal error with Write and '
@@ -295,6 +300,11 @@ def image_policy_inputs(data):
         from visual_observations import CONTRACT
         if data.get('public_visual_evidence') != CONTRACT:
             raise ValueError('Claude image review needs the current sequential delivery and durable Write evidence policy')
+    if data.get('codex_visual_evidence') or (data.get('local_recovery') or {}).get('runtime') == 'codex':
+        from codex_visual_observations import CONTRACT
+        if ((data.get('local_recovery') or {}).get('runtime') != 'codex'
+                or data.get('codex_visual_evidence') != CONTRACT):
+            raise ValueError('local image review needs its explicit Codex delivery evidence contract')
 
 
 def image_coverage_problems(packet_path, coverage_path):
@@ -304,6 +314,9 @@ def image_coverage_problems(packet_path, coverage_path):
         if not isinstance(data, dict) or not isinstance(coverage, dict):
             return ['image coverage and packet must be objects']
         image_policy_inputs(data)
+        if (data.get('local_recovery') or {}).get('runtime') == 'codex':
+            from codex_visual_observations import coverage_problems
+            return coverage_problems(packet_path, coverage_path)
         refs = ([r['motion_sequence'] for r in data['phone_options']] if data.get('role') == 'storyboard-critic'
                 else [data['motion_sequence']])
         if not refs:

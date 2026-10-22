@@ -141,6 +141,11 @@ def required_inputs(data, role, expected_contracts=None):
         if role == "storyboard-critic":
             for row in rows:
                 treatment = read(row["path"])
+                if data.get('review_scope') != 'exact-muted-phone-preflight':
+                    from retime_feasibility import problems as retime_problems
+                    errors = retime_problems(treatment)
+                    if errors:
+                        raise ValueError('authored retime feasibility: ' + '; '.join(errors))
                 inputs = (treatment.get("film_direction") or {}).get("renderer_inputs")
                 import modern_film
                 expected = modern_film.renderer_inputs(treatment["film_direction"]["episode"], repo=REPO)
@@ -183,11 +188,38 @@ def plan(role, packet_path, task_name, scope):
     if not scope.strip() or len(scope) > 1000:
         raise ValueError("assignment needs a compact, concrete scope")
     data = read(packet_path)
+    import publication_owner
+    if publication_owner.local_workspace(REPO / 'out/dispatch/run_state.json') and not data.get('local_recovery'):
+        raise ValueError('an owned local recovery cannot drop its publication binding')
     route = assignment(role, data.get("date"))
     if route is None or data.get("role") != role or data.get("agent_assignment") != route:
         raise ValueError("packet does not carry the current role assignment")
     if route["fork_turns"] != "none":
         raise ValueError("role overrides require an isolated fork")
+    recovery = data.get('local_recovery')
+    if recovery:
+        import publication_owner
+        state_path = Path(recovery['state']).resolve()
+        if state_path != (REPO / 'out/dispatch/run_state.json').resolve():
+            raise ValueError('local recovery must use this checkout original ledger')
+        owner = publication_owner.require_owner(state_path)
+        if not owner or recovery != {'runtime': 'codex', 'state': str(state_path),
+                'run_id': owner['run_id'], 'owner_sha256': owner['owner_sha256'], 'epoch': owner['epoch']}:
+            raise ValueError('local recovery packet belongs to another publication owner')
+        import claude_runtime
+        if data.get('source_runtime_contracts') != claude_runtime.contracts(role):
+            raise ValueError('preserve the original authored runtime contracts')
+        from review_limit import worker_plan_problems
+        charged = publication_owner.has_unclaimed_worker_reservation(state_path, role, route['resource'])
+        errors = worker_plan_problems(read(state_path), data, charged=charged)
+        if errors:
+            raise ValueError('; '.join(errors))
+        if role in ('picture', 'story', 'sound'):
+            claude_runtime.motion_inputs(data)
+            claude_runtime.image_policy_inputs(data)
+        if role == 'storyboard-critic' and data.get('review_scope') == 'exact-muted-phone-preflight':
+            claude_runtime.phone_review_inputs(data)
+            claude_runtime.image_policy_inputs(data)
     required_inputs(data, role)
     validate_references(data)
     brief = REPO / policy()["roles"][role]["brief"]
@@ -202,10 +234,20 @@ def plan(role, packet_path, task_name, scope):
                "Plans and code do not approve a film. Preserve actual failed evidence.")
     if len(message) > policy()["max_assignment_chars"]:
         raise ValueError("spawn message exceeds compact assignment limit")
-    return {"assignment": route, "packet": bound(packet_path), "brief": bound(brief),
+    result = {"assignment": route, "packet": bound(packet_path), "brief": bound(brief),
             "spawn_args": {"task_name": task_name, "fork_turns": "none", "model": route["model"],
                            "reasoning_effort": route["reasoning_effort"], "message": message},
             "reservation": "Use the existing controller reservation before execution. Three final scorers remain one atomic panel; this plan spends nothing."}
+    if recovery:
+        claim = publication_owner.claim_worker(state_path, role, route['resource'], digest(packet_path), task_name)
+        result['dispatch_ready'] = bool(claim)
+        if claim:
+            result['reservation_claim'] = bound(claim)
+        else:
+            result.pop('spawn_args')
+            result['reservation'] = ('No dispatch arguments. A restored or spent reservation cannot fund '
+                                     'a new attempt; preserve every charge and the hard five-review limit.')
+    return result
 
 
 def instant(value):
@@ -318,6 +360,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     group = p.add_mutually_exclusive_group(required=True)
     group.add_argument("--plan", action="store_true")
+    group.add_argument("--phone-packet", action="store_true")
     group.add_argument("--input-packet", action="store_true")
     group.add_argument("--audit-session", type=Path)
     group.add_argument("--measure", action="store_true")
@@ -325,6 +368,8 @@ def main():
     p.add_argument("--edition")
     p.add_argument("--input", type=Path, action="append", default=[])
     p.add_argument("--packet", type=Path)
+    p.add_argument("--state", type=Path)
+    p.add_argument("--sequence-current", type=Path)
     p.add_argument("--task-name")
     p.add_argument("--scope", default="")
     p.add_argument("--through")
@@ -332,7 +377,16 @@ def main():
     p.add_argument("--out", type=Path)
     a = p.parse_args()
     try:
-        if a.plan:
+        if a.phone_packet:
+            if not all((a.packet, a.state, a.sequence_current)):
+                p.error('phone-packet needs packet, state and sequence-current')
+            import publication_owner
+            owner = publication_owner.require_owner(a.state)
+            if not owner or owner.get('runtime') != 'codex' or not read(a.packet).get('local_recovery'):
+                raise ValueError('phone packet needs the explicit owned local recovery route')
+            from claude_runtime import phone_packet
+            data = phone_packet(a.packet, a.state, [a.sequence_current], current=True)
+        elif a.plan:
             if not all((a.role, a.packet, a.task_name)):
                 p.error("plan needs role, packet and task-name")
             data = plan(a.role, a.packet, a.task_name, a.scope)
