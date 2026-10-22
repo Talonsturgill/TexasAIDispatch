@@ -557,22 +557,20 @@ def import_result(repo, checkpoint_oid):
         if rel.is_absolute() or '..' in rel.parts:
             raise ValueError('unsafe checkpoint capture path')
         # All original blobs are verified above; materialize changed outputs only.
-        spec = checkpoint_oid+':'+base+'/files/'+row['path']
         if str(rel).startswith('out/dispatch/') and rel.name != 'run_state.json':
             target = repo/rel
             if any(p.is_symlink() for p in (target, *target.parents)):
                 raise ValueError('capture import cannot overwrite a symbolic link')
             if not target.is_file() or digest(target) != row['sha256']:
-                changed.append((target,spec,row['sha256']))
+                changed.append((target,row))
     temporary_root = repo/'out/dispatch/tmp'
     temporary_root.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='github-capture-import-',dir=temporary_root) as staging:
         staged = []
-        for index,(target,spec,expected) in enumerate(changed):
+        for index,(target,row) in enumerate(changed):
             temporary = Path(staging)/str(index)
-            with temporary.open('wb') as stream:
-                subprocess.run(['git','-C',str(repo),'show',spec],stdout=stream,check=True)
-            if digest(temporary) != expected:
+            ck.materialize_checkpoint_file(repo, checkpoint_oid, state['run_id'], row, temporary)
+            if digest(temporary) != row['sha256']:
                 raise ValueError('staged capture output differs from verified blob')
             staged.append((target,temporary))
         for target,temporary in staged:

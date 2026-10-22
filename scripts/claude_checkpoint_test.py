@@ -898,6 +898,57 @@ class Privacy(Base):
 
 
 class Retention(Base):
+    def test_oversized_text_storage_preserves_original_identity_and_safe_reuse(self):
+        self.pin_real_helpers()
+        self.init_ledger('dry-run')
+        body = b'original independently observed image evidence\n' * 100
+        path = self.scratch / 'public-events.json'
+        path.write_bytes(body)
+        first = self.save()
+        first_manifest, _ = ck.verify_checkpoint(self.repo, first['commit'], RUN)
+        raw_row = next(row for row in first_manifest['files'] if row['path'].endswith('public-events.json'))
+        self.assertNotIn('storage', raw_row)
+        with mock.patch.object(ck, 'MAX_FILE', 1024):
+            encoded = self.save()
+            manifest, _ = ck.verify_checkpoint(self.repo, encoded['commit'], RUN)
+            row = next(row for row in manifest['files'] if row['path'] == raw_row['path'])
+            self.assertEqual((row['size'], row['sha256']), (len(body), ck.sha256(body)))
+            self.assertEqual(row['storage']['encoding'], 'gzip/1')
+            self.assertEqual(manifest['storage_accounting'], first_manifest['storage_accounting'])
+            stored = ck.show(self.repo, encoded['commit'], f'checkpoints/{RUN}/files/'+row['path'])
+            self.assertLess(len(stored), ck.MAX_FILE)
+            self.assertNotEqual(stored, body)
+            restored = self.root / 'restored-original.json'
+            ck.materialize_checkpoint_file(self.repo, encoded['commit'], RUN, row, restored)
+            self.assertEqual(restored.read_bytes(), body)
+            self.assertEqual(path.read_bytes(), body)
+            self.assertEqual(self.save()['commit'], encoded['commit'])
+            fresh = self.clone(self.root / 'codec-fresh')
+            destination = self.root / 'codec-restored'
+            ck.restore(fresh, RUN, dest=destination)
+            self.assertEqual((destination / row['path']).read_bytes(), body)
+            returned = json.loads((destination / 'out/dispatch/run_state.json').read_text())
+            self.assertEqual(returned['events'], self.ledger()['events'])
+            self.assertEqual(returned['usage'], self.ledger()['usage'])
+
+    def test_oversized_original_is_scanned_before_encoding(self):
+        path = self.scratch / 'public-events.json'
+        path.write_text('x' * 2048 + 'AIza' + 'A' * 35)
+        with mock.patch.object(ck, 'MAX_FILE', 1024), mock.patch.object(ck, 'encoded_storage') as encode:
+            with self.assertRaisesRegex(ck.CheckpointError, 'credential-shaped'):
+                self.save()
+            encode.assert_not_called()
+        self.assertEqual('', sh('git', 'ls-remote', '--heads', 'origin', 'claude/checkpoint/*', cwd=self.repo))
+
+    def test_compression_cannot_extend_distinct_original_budget_or_blob_limit(self):
+        payload = os.urandom(4096)
+        with mock.patch.object(ck, 'MAX_FILE', 1024), self.assertRaises(ck.RetentionError):
+            ck.encoded_storage(payload)
+        (self.scratch / 'public-events.json').write_bytes(b'x' * 5000)
+        with mock.patch.object(ck, 'MAX_FILE', 1024), mock.patch.object(ck, 'MAX_TOTAL', 4500):
+            with self.assertRaises(ck.RetentionError):
+                self.save()
+
     def test_distinct_blob_budget_preserves_every_duplicate_path_and_refuses_unique_overflow(self):
         self.init_ledger(); payload=b'bounded duplicate evidence\n'*100
         first=self.scratch/'first.txt';second=self.scratch/'retained/second.txt'

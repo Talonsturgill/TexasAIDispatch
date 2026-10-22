@@ -33,6 +33,9 @@ import argparse
 from contextlib import contextmanager
 import errno
 import hashlib
+import gzip
+import io
+import zlib
 import json
 import os
 import re
@@ -312,7 +315,7 @@ def candidates(repo):
             excluded.append({"path": rel, "reason": "private path component"})
         elif path.is_symlink():
             excluded.append({"path": rel, "reason": "symbolic link is not retained"})
-        elif path.stat().st_size > MAX_FILE:
+        elif path.stat().st_size > MAX_FILE and (path.stat().st_size > MAX_TOTAL or path.suffix.lower() not in TEXT_SUFFIX):
             problems.append("%s is %d bytes, over the %d byte limit" % (rel, path.stat().st_size, MAX_FILE))
         elif path.suffix.lower() == ".json" and path.name != "run_state.json" and _private_json(path):
             excluded.append({"path": rel, "reason": "private data structure"})
@@ -430,6 +433,96 @@ def storage_accounting(files):
             'unique_blob_bytes': sum(size for _, size in unique), 'unique_blobs': len(unique)}
 
 
+def encoded_storage(data):
+    """Deterministic transport only: the original evidence is never rewritten."""
+    buffer = io.BytesIO()
+    with gzip.GzipFile(fileobj=buffer, mode='wb', filename='', mtime=0, compresslevel=6) as stream:
+        for at in range(0, len(data), 1 << 20):
+            stream.write(data[at:at+(1 << 20)])
+            if buffer.tell() > MAX_FILE:
+                raise RetentionError('lossless encoded evidence exceeds the unchanged blob limit')
+    encoded = buffer.getvalue()
+    if len(encoded) > MAX_FILE:
+        raise RetentionError('lossless encoded evidence exceeds the unchanged blob limit')
+    return encoded
+
+
+def storage_metadata(row):
+    storage = row.get('storage')
+    if storage is None:
+        return None
+    if (not isinstance(storage, dict) or set(storage) != {'encoding', 'size', 'sha256'}
+            or storage['encoding'] != 'gzip/1' or type(storage['size']) is not int
+            or not 0 < storage['size'] <= MAX_FILE
+            or re.fullmatch('[0-9a-f]{64}', str(storage['sha256'])) is None
+            or Path(row['path']).suffix.lower() not in TEXT_SUFFIX
+            or type(row.get('size')) is not int or not MAX_FILE < row['size'] <= MAX_TOTAL
+            or re.fullmatch('[0-9a-f]{64}', str(row.get('sha256'))) is None):
+        raise CheckpointError('invalid encoded checkpoint metadata: ' + str(row.get('path')))
+    return storage
+
+
+def consume_checkpoint_row(read, oid, row, sink=None):
+    """Stream and verify stored bytes, then exact original bytes with a bounded decoder."""
+    storage = storage_metadata(row)
+    if storage is None:
+        size, digest, _ = read(oid, consume=sink, max_size=MAX_FILE)
+    else:
+        decoder = zlib.decompressobj(16 + zlib.MAX_WBITS)
+        original = hashlib.sha256(); size = 0
+
+        def consume(chunk):
+            nonlocal size
+            pending = chunk
+            try:
+                while pending:
+                    decoded = decoder.decompress(pending, min(1 << 20, row['size'] - size + 1))
+                    size += len(decoded)
+                    if size > row['size']:
+                        raise CheckpointError('decoded checkpoint exceeds its original size: ' + row['path'])
+                    original.update(decoded)
+                    if sink is not None:
+                        sink(decoded)
+                    if decoder.unused_data:
+                        raise CheckpointError('encoded checkpoint has trailing data: ' + row['path'])
+                    pending = decoder.unconsumed_tail
+            except zlib.error as exc:
+                raise CheckpointError('invalid encoded checkpoint stream: ' + row['path']) from exc
+
+        stored_size, stored_digest, _ = read(oid, consume=consume, max_size=MAX_FILE)
+        if stored_size != storage['size'] or stored_digest != storage['sha256']:
+            raise CheckpointError('encoded checkpoint differs from stored binding: ' + row['path'])
+        if not decoder.eof or decoder.unused_data or decoder.unconsumed_tail:
+            raise CheckpointError('encoded checkpoint is truncated or has trailing data: ' + row['path'])
+        digest = original.hexdigest()
+    if digest != row['sha256']:
+        raise CheckpointError('checkpoint file differs from its manifest: ' + row['path'])
+    if 'size' in row and (type(row['size']) is not int or size != row['size']):
+        raise CheckpointError('checkpoint file size differs from its manifest: ' + row['path'])
+
+
+def materialize_checkpoint_file(repo, commit, run_id, row, target):
+    """Write one verified logical file; callers stage it before replacing active evidence."""
+    relative = row['path']
+    if (not RUN_ID.fullmatch(run_id) or not re.fullmatch('[0-9a-f]{40}', commit)
+            or not isinstance(relative, str) or not relative or '\0' in relative
+            or PurePosixPath(relative).is_absolute() or '..' in PurePosixPath(relative).parts
+            or PurePosixPath(relative).as_posix() != relative):
+        raise CheckpointError('unsafe checkpoint materialization path')
+    path = f'{ROOT}/{run_id}/files/{relative}'
+    listing = git(repo, 'ls-tree', '-z', '--full-tree', commit, '--', path).stdout
+    entries = list(filter(None, listing.split(b'\0')))
+    if len(entries) != 1 or b'\t' not in entries[0]:
+        raise CheckpointError('checkpoint file is missing: ' + relative)
+    metadata, actual_path = entries[0].split(b'\t', 1)
+    mode, kind, oid = metadata.decode('ascii').split()
+    if (actual_path.decode('utf-8', errors='surrogateescape') != path
+            or kind != 'blob' or mode not in {'100644', '100755'}):
+        raise CheckpointError('checkpoint file is not a regular blob: ' + relative)
+    with _checkpoint_blob_reader(repo) as read, Path(target).open('wb') as output:
+        consume_checkpoint_row(read, oid, row, output.write)
+
+
 def build_bundle(repo, state_path, note, environ=None):
     environ = os.environ if environ is None else environ
     repo = Path(repo)
@@ -454,6 +547,15 @@ def build_bundle(repo, state_path, note, environ=None):
     total = storage['unique_blob_bytes']
     if total > MAX_TOTAL:
         raise RetentionError("required distinct evidence totals %d bytes, over the %d byte limit" % (total, MAX_TOTAL))
+    encodings = {}
+    for row in files:
+        if row['size'] > MAX_FILE:
+            key = (row['sha256'], row['size'])
+            if key not in encodings:
+                encodings[key] = encoded_storage(stored[row['path']])
+            data = encodings[key]
+            row['storage'] = {'encoding': 'gzip/1', 'size': len(data), 'sha256': sha256(data)}
+            stored[row['path']] = data
     pin = git(repo, "rev-parse", "HEAD").stdout.decode().strip()
     closure = git(repo, "ls-tree", "-r", pin, "--", "video-engine").stdout
     branch = git(repo, "branch", "--show-current", check=False).stdout.decode().strip()
@@ -478,7 +580,9 @@ def commit_tree(repo, run_id, manifest, ledger, stored, parent, pin, old_manifes
         for line in git(repo, "ls-tree", "-r", parent, "--", f"{base}/files").stdout.decode().splitlines():
             meta, path = line.split("\t", 1)
             old_blobs[path[len(base) + 7:]] = meta.split()[2]
-    old_hash = {row["path"]: row["sha256"] for row in (old_manifest or {}).get("files", [])}
+    def identity(row):
+        return row['sha256'], row.get('size'), row.get('storage')
+    old_hash = {row["path"]: identity(row) for row in (old_manifest or {}).get("files", [])}
     with tempfile.TemporaryDirectory() as directory:
         env = {"GIT_INDEX_FILE": str(Path(directory) / "index")}
         lines = []
@@ -492,7 +596,7 @@ def commit_tree(repo, run_id, manifest, ledger, stored, parent, pin, old_manifes
         add(f"{base}/run_state.json", write(ledger.encode()))
         add(f"{base}/manifest.json", write((json.dumps(manifest, indent=2) + "\n").encode()))
         for row in manifest["files"]:
-            reuse = old_blobs.get(row["path"]) if old_hash.get(row["path"]) == row["sha256"] else None
+            reuse = old_blobs.get(row["path"]) if old_hash.get(row["path"]) == identity(row) else None
             add(f"{base}/files/{row['path']}", reuse or write(stored[row["path"]]))
         git(repo, "update-index", "--add", "--index-info", env=env, data="".join(lines).encode())
         tree = git(repo, "write-tree", env=env).stdout.decode().strip()
@@ -652,9 +756,11 @@ def _checkpoint_blob_reader(repo):
         timer.start()
         hashes = {}
 
-        def read(oid, retain=False):
-            if oid in hashes and not retain:
+        def read(oid, retain=False, consume=None, max_size=None):
+            if oid in hashes and not retain and consume is None:
                 size, digest = hashes[oid]
+                if max_size is not None and size > max_size:
+                    raise CheckpointError('checkpoint stored blob exceeds its byte limit: ' + oid)
                 return size, digest, None
             process.stdin.write(oid.encode('ascii') + b'\n')
             process.stdin.flush()
@@ -663,6 +769,8 @@ def _checkpoint_blob_reader(repo):
                     or header[1] != b'blob' or not header[2].isdigit()):
                 raise CheckpointError('checkpoint object is missing or is not a blob: ' + oid)
             size = remaining = int(header[2])
+            if max_size is not None and size > max_size:
+                raise CheckpointError('checkpoint stored blob exceeds its byte limit: ' + oid)
             digest = hashlib.sha256()
             body = bytearray() if retain else None
             while remaining:
@@ -670,6 +778,8 @@ def _checkpoint_blob_reader(repo):
                 if not chunk:
                     raise CheckpointError('checkpoint blob stream ended before its declared size: ' + oid)
                 digest.update(chunk)
+                if consume is not None:
+                    consume(chunk)
                 if body is not None:
                     body.extend(chunk)
                 remaining -= len(chunk)
@@ -726,7 +836,7 @@ def verify_checkpoint(repo, commit, run_id):
             raise CheckpointError("checkpoint manifest belongs to another run or schema")
         if ledger_digest != manifest["ledger_sha256"]:
             raise CheckpointError("checkpoint ledger differs from its manifest")
-        seen = set()
+        seen = set(); decoded = set()
         for row in manifest["files"]:
             rel = row['path']
             if (not isinstance(rel, str) or not rel or '\0' in rel
@@ -734,11 +844,12 @@ def verify_checkpoint(repo, commit, run_id):
                     or PurePosixPath(rel).as_posix() != rel or rel in seen):
                 raise CheckpointError('checkpoint manifest has an invalid or repeated file path: ' + str(rel))
             seen.add(rel)
-            size, digest, _ = read(blob(f'{base}/files/{rel}'))
-            if digest != row['sha256']:
-                raise CheckpointError("checkpoint file differs from its manifest: " + rel)
-            if 'size' in row and (type(row['size']) is not int or size != row['size']):
-                raise CheckpointError('checkpoint file size differs from its manifest: ' + rel)
+            oid = blob(f'{base}/files/{rel}')
+            key = (oid, row['sha256'], row.get('size'), json.dumps(row.get('storage'), sort_keys=True))
+            storage_metadata(row)  # Every path still validates its own typed metadata.
+            if row.get('storage') is None or key not in decoded:
+                consume_checkpoint_row(read, oid, row)
+                decoded.add(key)
         if ('storage_accounting' in manifest
                 and manifest['storage_accounting'] != storage_accounting(manifest['files'])):
             raise CheckpointError('checkpoint storage accounting differs from its verified files')
@@ -870,10 +981,10 @@ def restore(repo=REPO, run_id=None, remote="origin", dest=None, *, origin_worksp
     for row in manifest["files"]:
         target = dest / row["path"]
         target.parent.mkdir(parents=True, exist_ok=True)
-        data = show(repo, tip, f"{ROOT}/{run_id}/files/{row['path']}")
+        materialize_checkpoint_file(repo, tip, run_id, row, target)
         if target.name == "run_state.json":
-            data = (json.dumps(restored_ledger(json.loads(data), dest, manifest), indent=2, sort_keys=True) + "\n").encode()
-        target.write_bytes(data)
+            target.write_text(json.dumps(restored_ledger(json.loads(target.read_text()), dest, manifest),
+                                         indent=2, sort_keys=True) + "\n")
     state_path = dest / SCRATCH_ROOT / "run_state.json"
     state_path.parent.mkdir(parents=True, exist_ok=True)
     source_ledger = json.loads(ledger)
