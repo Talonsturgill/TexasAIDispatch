@@ -57,11 +57,58 @@ def measured_shot_interval(start, end):
     raise ValueError('measured shot length cannot reproduce its declared cut')
 
 
+def narration_event_problems(board):
+    """Dated temporal ownership only; this cannot certify a spoken semantic match.
+
+    Later references may hold a completed consequence, but cannot extend the
+    primary clause's action deadline. Preserve historical frozen clock adapters.
+    """
+    edition = str(board.get('date', ''))[:10]
+    if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', edition) or edition < '2026-10-22':
+        return []
+    plan = board.get('narration_picture') or {}
+    clauses = plan.get('clauses') or []
+    by_id = {c.get('id'): c for c in clauses}
+    errors = []
+    for scene in board.get('scenes', []):
+        for event in scene.get('visual_events', []):
+            eid = event.get('id')
+            if not event.get('narration_id') and not any(
+                    eid in (row.get('event_ids') or []) for row in clauses):
+                continue  # Unreferenced silent actions have no spoken deadline.
+            owner = by_id.get(event.get('narration_id'))
+            if (not owner or owner.get('scene_id') != scene.get('id')
+                    or eid not in (owner.get('event_ids') or [])):
+                errors.append(str(eid)+': action needs reciprocal primary clause ownership in its scene')
+                continue
+            values = (scene.get('start_s'), event.get('at_s'), event.get('duration_s'),
+                      owner.get('start_s'), owner.get('end_s'))
+            if (not all(finite(v) for v in values) or values[2] <= 0
+                    or values[4] <= values[3]):
+                errors.append(str(eid)+': primary clause action needs finite positive timing')
+                continue
+            scene_start, offset, duration, clause_start, clause_end = values
+            start, end = scene_start+offset, scene_start+offset+duration
+            if start < clause_start-.001 or end > clause_end+.001:
+                errors.append(str(eid)+': complete action leaves its primary narration clause')
+            if plan.get('timing_mode') == 'authored':
+                lo, hi = event.get('clause_fraction_start'), event.get('clause_fraction_end')
+                if not finite(lo) or not finite(hi) or not 0 <= lo < hi <= 1:
+                    errors.append(str(eid)+': authored action fractions leave its primary narration clause')
+            for row in clauses:
+                if row is owner or eid not in (row.get('event_ids') or []):
+                    continue
+                if (row.get('scene_id') != scene.get('id') or not finite(row.get('start_s'))
+                        or end > row['start_s']+.001):
+                    errors.append(str(eid)+': another clause may reference only its completed retained consequence')
+    return errors
+
+
 def narration_problems(board, captions=None, words=None, script=None, claims=None, *, repo=None):
     """Check coverage and executable bindings, without pretending metadata judges pixels."""
     if not narration_required(board, repo):
         return []
-    errors = []
+    errors = narration_event_problems(board)
     plan = board.get('narration_picture') or {}
     clauses = plan.get('clauses') or []
     if plan.get('version') != 'narration-picture-v1' or not clauses:
