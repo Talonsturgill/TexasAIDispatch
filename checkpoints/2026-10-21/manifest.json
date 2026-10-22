@@ -1,23 +1,23 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T03:58:04.665954+00:00",
-  "note": "delegated GitHub capture fixed-operator result",
+  "saved_at": "2026-10-22T04:09:10.532341+00:00",
+  "note": "before paid reservation",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
-  "repo_root": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch",
-  "source_pin": "7d40a6ada8dc9ff91fb2c334dfc7bcb5b06c7299",
+  "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
+  "source_pin": "225f195b567d38850bbd4b76205a32963b94f464",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
     "root": "video-engine",
-    "files": 357,
-    "sha256": "e161e2e553e4c04c6edcd2d995828e829193dcc1bde8086cd4e301046082dfb0"
+    "files": 358,
+    "sha256": "32a7090a0d8d5512fc05ec97c58a38936cfbffa785d5f86a4326cdfb0c30981e"
   },
   "deleted_source": [],
-  "ledger_sha256": "3c688e2e4a8d751eb688a67bb89acc2552a8d9ed0952796708a90dfcf5f98e90",
-  "original_private_ledger_sha256": "635e22e426e0788cccdbd66597c4c7097a35bc08ac82f2e492eb00970cc83d3c",
+  "ledger_sha256": "059dac6d4e5fcc917d5b9309f203e9a5bafc32856172e45ca17a129c406bb453",
+  "original_private_ledger_sha256": "4b48106ddfde510fa8cf3b0e3a23e8e6866b5cd47b99ee6c5622878899c0f718",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 2,
@@ -356,6 +356,30 @@
       "size": 20479
     },
     {
+      "path": "out/dispatch/attempt1/preship-39719279656-failed/place_check.json",
+      "class": "scratch",
+      "sha256": "125e83011256e474cd57d0b2d581f1928a99e95494de9c6103729d90251aa3c6",
+      "size": 4438
+    },
+    {
+      "path": "out/dispatch/attempt1/preship-39719279656-failed/receipt.json",
+      "class": "scratch",
+      "sha256": "94c88e6794c6d04cc4293819acea130066e7e530e19586ee090dff6ee5e08736",
+      "size": 342
+    },
+    {
+      "path": "out/dispatch/attempt1/preship-39719279656-failed/stderr.txt",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/attempt1/preship-39719279656-failed/stdout.txt",
+      "class": "scratch",
+      "sha256": "d43d492f21ca5f351515c89b58df6cd19eb8f45863dbe08363071080c3246a88",
+      "size": 1579
+    },
+    {
       "path": "out/dispatch/attempt1/renderer-inputs-round2.json",
       "class": "scratch",
       "sha256": "bbbb1c40b2326d18edfe861a9fca38c32b554b3041bba2f8e8acc02ea30a2d6c",
@@ -582,6 +606,12 @@
       "class": "scratch",
       "sha256": "603cf26c3a6bc85dbf4d6f77bd4d96a082937155dae5d4c4953fe5d64aa71990",
       "size": 18805
+    },
+    {
+      "path": "out/dispatch/capture-authorization-history/69e61d8b1663ec7c9b65d65ffbad7b4f7fde304beab14193b3a172ff7313ac1d.json",
+      "class": "scratch",
+      "sha256": "69e61d8b1663ec7c9b65d65ffbad7b4f7fde304beab14193b3a172ff7313ac1d",
+      "size": 18827
     },
     {
       "path": "out/dispatch/capture-authorization-history/7e8dd9027ffc6acea9ac3bdaf9428879224bc8395ab54792a62c9f46325bbe34.json",
@@ -1358,6 +1388,12 @@
       "size": 128
     },
     {
+      "path": "out/dispatch/github-capture-import-baseline/0571d4ee06b61f15439fcf0fcfb95be5a98c4e1697865a8be1d88da53d0fb898",
+      "class": "scratch",
+      "sha256": "0571d4ee06b61f15439fcf0fcfb95be5a98c4e1697865a8be1d88da53d0fb898",
+      "size": 1344
+    },
+    {
       "path": "out/dispatch/github-capture-import-baseline/0a296fc18209acf095901f0732a5d65e46ab7a00ac43af597eff5efac96d2b08",
       "class": "scratch",
       "sha256": "0a296fc18209acf095901f0732a5d65e46ab7a00ac43af597eff5efac96d2b08",
@@ -1376,16 +1412,34 @@
       "size": 18875
     },
     {
+      "path": "out/dispatch/github-capture-import-baseline/1882ff7d4d8cd5a35d330cb01f0cb57254df0fcd0d593a23d689e9dfeb5cb448",
+      "class": "scratch",
+      "sha256": "1882ff7d4d8cd5a35d330cb01f0cb57254df0fcd0d593a23d689e9dfeb5cb448",
+      "size": 18977
+    },
+    {
       "path": "out/dispatch/github-capture-import-baseline/1b1900d1484a578c99d55f14d23b9a86b0cf7826ec79c9e0f8e675acd5683a47",
       "class": "scratch",
       "sha256": "1b1900d1484a578c99d55f14d23b9a86b0cf7826ec79c9e0f8e675acd5683a47",
       "size": 897
     },
     {
+      "path": "out/dispatch/github-capture-import-baseline/27510e7c257b97b94d17daf94a78544115264a3603e02e06d68fdf6c2ea9bd07",
+      "class": "scratch",
+      "sha256": "27510e7c257b97b94d17daf94a78544115264a3603e02e06d68fdf6c2ea9bd07",
+      "size": 3981
+    },
+    {
       "path": "out/dispatch/github-capture-import-baseline/33914977a522657df022f8e227eb0de11ce9657ccc8f198c73e727666c97bb9d",
       "class": "scratch",
       "sha256": "33914977a522657df022f8e227eb0de11ce9657ccc8f198c73e727666c97bb9d",
       "size": 918
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/36740575cd6fd7cff062d0ebf096060f2d0bfbff46e85c5a4f2aa4cf59191c1b",
+      "class": "scratch",
+      "sha256": "36740575cd6fd7cff062d0ebf096060f2d0bfbff46e85c5a4f2aa4cf59191c1b",
+      "size": 128
     },
     {
       "path": "out/dispatch/github-capture-import-baseline/3dc2079906284cfdfffd032e36394e4d2c2481da0267682a2b2417077725203c",
@@ -1466,6 +1520,12 @@
       "size": 599
     },
     {
+      "path": "out/dispatch/github-capture-import-baseline/b4c5065d551bc224dc44a6ef190b69d7979d2c704404a5773ad8c52ff7ca708c",
+      "class": "scratch",
+      "sha256": "b4c5065d551bc224dc44a6ef190b69d7979d2c704404a5773ad8c52ff7ca708c",
+      "size": 283
+    },
+    {
       "path": "out/dispatch/github-capture-import-baseline/bd1107d6e59b1f44de0643689a25285a0d21fb18633e0709938ae90e558c4c59",
       "class": "scratch",
       "sha256": "bd1107d6e59b1f44de0643689a25285a0d21fb18633e0709938ae90e558c4c59",
@@ -1496,6 +1556,12 @@
       "size": 308
     },
     {
+      "path": "out/dispatch/github-capture-import-baseline/cabbcbf639e5b528aa5a670e26c2ae366b6e690f9937a193401827df12ba5516",
+      "class": "scratch",
+      "sha256": "cabbcbf639e5b528aa5a670e26c2ae366b6e690f9937a193401827df12ba5516",
+      "size": 308
+    },
+    {
       "path": "out/dispatch/github-capture-import-baseline/cd542c75457897d43dffbdcf28ece3f2c928123a251dda8db3823b1184c1a667",
       "class": "scratch",
       "sha256": "cd542c75457897d43dffbdcf28ece3f2c928123a251dda8db3823b1184c1a667",
@@ -1506,6 +1572,12 @@
       "class": "scratch",
       "sha256": "d84a7133ce763b03b1c6abb82599c6d58e1cea19794d80d160ee149670801ba8",
       "size": 283
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/e0863a1d5a1a299af8cc9accf8b0d39e096c4a12a2a03bc02662aa361fcb0c9a",
+      "class": "scratch",
+      "sha256": "e0863a1d5a1a299af8cc9accf8b0d39e096c4a12a2a03bc02662aa361fcb0c9a",
+      "size": 925
     },
     {
       "path": "out/dispatch/github-capture-import-baseline/e7352f86b70aec20542c4b78001954584641f2862cf002a11f308a928273cddc",
@@ -1820,6 +1892,96 @@
       "size": 5869
     },
     {
+      "path": "out/dispatch/github-capture-results/preship-39719279656-failed.log",
+      "class": "scratch",
+      "sha256": "daccd3723daea1d61521cd1182dbec74de4b381835c2c38d52d56f29a077b9ac",
+      "size": 8406
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656-watch.log",
+      "class": "scratch",
+      "sha256": "4a21d67474f04a8822779797a4370e72c5e9095f617e1bee80fea466e003e44e",
+      "size": 7643
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/cinema/hero.mp4",
+      "class": "scratch",
+      "sha256": "5d8164b911066338e4d2c1e461d2139a6339777c37793582957c7fe7dc5d772f",
+      "size": 2624821
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/film.mp4",
+      "class": "scratch",
+      "sha256": "35331bbd2cce687d279878d41a2399fa79b2643e4206adbd7cfa84d0c3e10f59",
+      "size": 9493782
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/github-capture-results/0230c19f239467e16f73110a24f465ad6ebecfb20f038fcf6f7a1c9250d4cac8.json",
+      "class": "scratch",
+      "sha256": "124e5497b8d5d9db44f788c386c95c985e4e9c1dcd22b1d30cc8468e93ba5a07",
+      "size": 777
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/github-capture-results/1449878e34e7242e50e057171215d434115868df9677cd92038a47a0f4dcbd30.json",
+      "class": "scratch",
+      "sha256": "689c7cfa73609669e3a7264f2018d9543cafadff7125f3d0ea924bd0590b55d0",
+      "size": 692
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/github-capture-results/43a8c7b59fb4f9d8616336acc3717a631d385ba2e620eec1943b93913ad8bb74.json",
+      "class": "scratch",
+      "sha256": "c6f4ed3e6e117229022058fa164e46fa1ad0ec78145cce45b36c156c61c42cfa",
+      "size": 685
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/github-capture-results/6f7ccc2259b6185214e59942004c54c33c8ccbbb69e0f0bfcb3403f8a9e94f43.json",
+      "class": "scratch",
+      "sha256": "b078800df742e1feefd17579e99781d10560223e6c4509bf461ffb74590b739c",
+      "size": 687
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/github-capture-results/b253fd8c1d8c095c28742a56e495e151b04564b2b323e8fba7327a4973d455bd.json",
+      "class": "scratch",
+      "sha256": "b9b3f19ad29e2803d0ffc72026f23abaf7cc884e021a8ede17820fd41a569d6f",
+      "size": 693
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/github-native-headroom.json",
+      "class": "scratch",
+      "sha256": "076489b8dd71a8e095cdda3e054028f2b277f175d57dd1f4f635e0cf62176a6a",
+      "size": 308
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/preflight.mp4",
+      "class": "scratch",
+      "sha256": "8a3eb9e89cc3b19c6bbc0742579b83249da7c33bf8bc774e9b109b831fa5a397",
+      "size": 314183
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/preship-compute/receipt.json",
+      "class": "scratch",
+      "sha256": "94c88e6794c6d04cc4293819acea130066e7e530e19586ee090dff6ee5e08736",
+      "size": 342
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/preship-compute/stderr.txt",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/dispatch/preship-compute/stdout.txt",
+      "class": "scratch",
+      "sha256": "d43d492f21ca5f351515c89b58df6cd19eb8f45863dbe08363071080c3246a88",
+      "size": 1579
+    },
+    {
+      "path": "out/dispatch/github-capture-results/preship-39719279656/github-capture-public-result.json",
+      "class": "scratch",
+      "sha256": "1371480c0140940b1ab9f6cecbeaf6db879c1020494388d6138886c14d538b76",
+      "size": 1074
+    },
+    {
       "path": "out/dispatch/github-native-headroom.json",
       "class": "scratch",
       "sha256": "076489b8dd71a8e095cdda3e054028f2b277f175d57dd1f4f635e0cf62176a6a",
@@ -1866,6 +2028,12 @@
       "class": "scratch",
       "sha256": "3c9c1bace110f176beba6c0313dbfbb19e9a9860c26b7720db9aceb0c9ea40d9",
       "size": 977
+    },
+    {
+      "path": "out/dispatch/github-request-preship.json",
+      "class": "scratch",
+      "sha256": "2f10bf640dc92560029a776ff242a313b1ddcc743966963c67b8ba4e2f9b6ba7",
+      "size": 975
     },
     {
       "path": "out/dispatch/image-tool-delivery/06325a1ef6043e793b4ccacc719bc4d9cf80cfbece63233a1bcd14340b944f66.json",
@@ -6212,24 +6380,6 @@
       "size": 314183
     },
     {
-      "path": "out/dispatch/preship-compute/receipt.json",
-      "class": "scratch",
-      "sha256": "94c88e6794c6d04cc4293819acea130066e7e530e19586ee090dff6ee5e08736",
-      "size": 342
-    },
-    {
-      "path": "out/dispatch/preship-compute/stderr.txt",
-      "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
-    },
-    {
-      "path": "out/dispatch/preship-compute/stdout.txt",
-      "class": "scratch",
-      "sha256": "d43d492f21ca5f351515c89b58df6cd19eb8f45863dbe08363071080c3246a88",
-      "size": 1579
-    },
-    {
       "path": "out/dispatch/provider-availability/startup/attempt.json",
       "class": "scratch",
       "sha256": "39628ee1f9dd3fbd54a23a699ffd9a5e489483f5cfdc37122ce23cc7b7f78dee",
@@ -8308,7 +8458,51 @@
   ],
   "excluded": [
     {
+      "path": "out/dispatch/delivery-prep-copy.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-draft.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-http.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-ordinance.private.pdf",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-ordinance.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-next-actions.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-next-commands.private.md",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-readiness.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-routing.private.json",
+      "reason": "private path component"
+    },
+    {
       "path": "out/dispatch/grant-projection-roots.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/verify-final-gmail.private.py",
       "reason": "private path component"
     }
   ],
