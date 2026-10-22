@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T22:23:18.496913+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-22T22:23:48.885171+00:00",
+  "note": "before paid reservation",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -986,6 +986,18 @@
       "size": 574
     },
     {
+      "path": "out/dispatch/cinema/review-cache/9f1278e38419bf6daf066100ec874fd12cf31ff706da5b2db70f38f0be085cd2/receipt.json",
+      "class": "scratch",
+      "sha256": "234bfce65801b6b23a413f605a2b2838d4d3d72292ca378194fa5bd849264e04",
+      "size": 582
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/9f1278e38419bf6daf066100ec874fd12cf31ff706da5b2db70f38f0be085cd2/story-review-response.json",
+      "class": "scratch",
+      "sha256": "41e5fc1b1c8120d52f616274643b97dd6c529b1e6cd50958737a29f2618ef3d4",
+      "size": 111871
+    },
+    {
       "path": "out/dispatch/cinema/s1-0-normal.png",
       "class": "scratch",
       "sha256": "4442f231fcfbada6e2408ca816d599432ad13909d23967b4cecb6314d81edb3f",
@@ -1310,6 +1322,18 @@
       "size": 54566
     },
     {
+      "path": "out/dispatch/cinema/story-review-response.json",
+      "class": "scratch",
+      "sha256": "41e5fc1b1c8120d52f616274643b97dd6c529b1e6cd50958737a29f2618ef3d4",
+      "size": 111871
+    },
+    {
+      "path": "out/dispatch/cinema/story-review.json",
+      "class": "scratch",
+      "sha256": "234bfce65801b6b23a413f605a2b2838d4d3d72292ca378194fa5bd849264e04",
+      "size": 582
+    },
+    {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
       "sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
@@ -1412,10 +1436,16 @@
       "size": 10731
     },
     {
-      "path": "out/dispatch/codex-final-story-av-command.log",
+      "path": "out/dispatch/codex-final-sound-av-command.log",
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
+    },
+    {
+      "path": "out/dispatch/codex-final-story-av-command.log",
+      "class": "scratch",
+      "sha256": "94c5a3f0f5e12e0f12d092fb69023d8a7baba89a71d231c483fdbaf99bb5e33a",
+      "size": 140
     },
     {
       "path": "out/dispatch/codex-phone-current.json",
@@ -15578,9 +15608,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 1580246191,
-    "unique_blob_bytes": 876261289,
-    "unique_blobs": 1785
+    "logical_bytes": 1580471237,
+    "unique_blob_bytes": 876373742,
+    "unique_blobs": 1787
   },
   "excluded": [
     {
