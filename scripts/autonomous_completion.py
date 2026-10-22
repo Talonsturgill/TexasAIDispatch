@@ -559,6 +559,12 @@ def replay(state):
                         or row.get('grants_no_review_approval') is not True):
                     return effective, ['source validation completion amendment is invalid or duplicated']
                 validation_adopted = True
+            elif kind == 'owner_codex_repair_granted':
+                from manual_codex_repair import validate_event
+                errors = validate_event(state, row, index, effective)
+                if errors:
+                    return effective, errors
+                effective = dict(row['new_envelope'])
             elif kind in ("owner_review_grant", "owner_validator_grant"):
                 if kind == 'owner_validator_grant':
                     from repair_guard import validator_grant_problems
@@ -785,6 +791,9 @@ def grant_capacity(state_path, plan_path, policy_path=None):
     from production_lifecycle import allowance_problems
     state = read_state(Path(state_path))
     policy_path = policy_path or selected_policy(state)
+    from manual_codex_repair import record
+    if record(state) is not None:
+        return False, "the single manual Codex repair cannot renew completion capacity"
     if state.get("mode") != "production" or state.get("terminal_state") is not None:
         return False, "completion capacity requires active production"
     errors = envelope_problems(state, {}) + allowance_problems(state)

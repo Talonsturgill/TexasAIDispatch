@@ -239,6 +239,10 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
                                minimum_action_failed=False, mandatory_repair=False, review_coverage=False,
                                modern_code_repair=False):
     """Read-only complete remaining review path, including the final timed phone."""
+    from manual_codex_repair import budget
+    manual = budget(state, review_route)
+    if manual is not None:
+        return manual
     from creative_release import finishing_required
     action_blocked = bool(finishing_required(state) and minimum_action_failed and not mandatory_repair)
     finishing = finishing_required(state) and not minimum_action_failed and not mandatory_repair

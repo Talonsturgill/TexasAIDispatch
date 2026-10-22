@@ -176,7 +176,7 @@ def has_private_structure(obj):
 GRANT_ROOTS_FILE = 'out/dispatch/grant-projection-roots.private.json'
 GRANT_KINDS = {'owner_review_grant', 'owner_validator_grant', 'mandatory_completion_grant',
                'narration_recovery_review_verified', 'narration_recovery_capacity_verified',
-               'source_validation_capacity_verified'}
+               'source_validation_capacity_verified', 'owner_codex_repair_granted'}
 GRANT_TEXTS = {'authorization_json': 'authorization_sha256',
                'failure_evidence_json': 'failure_evidence_sha256',
                'plan_json': 'plan_sha256', 'precheck_json': 'precheck_sha256',
@@ -193,7 +193,9 @@ def grant_anchor(grant):
 
 
 def grant_text_fields(grant):
-    required = ({'plan_json', 'failure_evidence_json', 'precheck_json', 'policy_json'}
+    required = ({'authorization_json', 'plan_json', 'failure_evidence_json'}
+                if grant['kind'] == 'owner_codex_repair_granted' else
+                {'plan_json', 'failure_evidence_json', 'precheck_json', 'policy_json'}
                 if grant['kind'] in {'mandatory_completion_grant', 'narration_recovery_capacity_verified', 'source_validation_capacity_verified'} else
                 {'receipt_json', 'report_json'} if grant['kind'] == 'narration_recovery_review_verified'
                 else {'authorization_json', 'failure_evidence_json'})

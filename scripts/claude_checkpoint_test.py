@@ -165,6 +165,73 @@ class PublicImageCheckpointTest(unittest.TestCase):
         self.assertEqual(self.scan(relocated/rel,relocated),[])
         self.assertEqual((relocated/rel).read_bytes(),before)
 
+    def retained_tree(self):
+        # Freeze the finite list before creating the destination: no self-copy.
+        files = [p for p in self.root.rglob('*') if p.is_file()]
+        retained = self.root/'out/dispatch/retained-original'
+        for path in files:
+            target = retained/path.relative_to(self.root)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(path,target)
+        return retained
+
+    def test_complete_retained_tree_survives_current_picture_and_packet_replacement(self):
+        events,coverage=self.bind(supplemental_png=self.supplemental())
+        duplicate=self.retained_copy(events); before=events.read_bytes()
+        retained=self.retained_tree()
+        for name in ('page.png','supplemental.png','index.json','packet.json'):
+            (self.root/'out/dispatch'/name).write_bytes(b'current replacement')
+        (self.root/'guide.md').write_text('Current changed guide.\n')
+        coverage.unlink()
+        self.assertEqual(self.scan(events),[])
+        self.assertEqual(self.scan(duplicate),[])
+        events.unlink()
+        self.assertEqual(self.scan(retained/self.rel),[])
+        self.assertEqual((retained/self.rel).read_bytes(),before)
+        self.assertEqual(duplicate.read_bytes(),before)
+
+    def test_retained_tree_requires_every_original_bound_file(self):
+        events,_=self.bind(supplemental_png=self.supplemental())
+        retained=self.retained_tree()
+        (self.root/'out/dispatch/page.png').write_bytes(b'current replacement')
+        for relative in ('guide.md','out/dispatch/page.png','out/dispatch/supplemental.png',
+                         'out/dispatch/index.json','out/dispatch/packet.json',self.rel,
+                         'out/dispatch/evidence/codex-image-coverage.json'):
+            with self.subTest(relative=relative):
+                target=retained/relative; before=target.read_bytes()
+                target.write_bytes(b'changed original evidence')
+                self.assertEqual(self.scan(events),[self.rel])
+                target.unlink()
+                self.assertEqual(self.scan(events),[self.rel])
+                target.write_bytes(before)
+        self.assertEqual(self.scan(events),[])
+
+    def test_retained_tree_cannot_follow_symlinks_or_infer_loose_pixel_aliases(self):
+        events,_=self.bind(supplemental_png=self.supplemental())
+        retained=self.retained_tree()
+        page=self.root/'out/dispatch/page.png'; page.write_bytes(b'current replacement')
+        original=retained/'out/dispatch/page.png'; before=original.read_bytes()
+        loose=self.root/'out/dispatch/loose.png'; loose.write_bytes(before)
+        original.unlink(); original.symlink_to(loose)
+        self.assertEqual(self.scan(events),[self.rel])
+        original.unlink()
+        self.assertEqual(self.scan(events),[self.rel])
+        original.write_bytes(before)
+        outside=self.root.with_name('outside'); retained.rename(outside); retained.symlink_to(outside)
+        self.assertEqual(self.scan(events),[self.rel])
+
+    def test_retained_tree_keeps_actual_secret_checks(self):
+        events,_=self.bind(prose='Public unit observation includes '+self.secret)
+        self.retained_tree()
+        (self.root/'out/dispatch/page.png').write_bytes(b'current replacement')
+        self.assertEqual(self.scan(events),[self.rel])
+        shutil.rmtree(self.root/'out/dispatch/retained-original')
+        png=self.png[:-12]+self.chunk(b'tEXt',b'Comment\0'+self.secret.encode())+self.png[-12:]
+        events,_=self.bind(supplemental_png=png)
+        self.retained_tree()
+        (self.root/'out/dispatch/page.png').write_bytes(b'current replacement')
+        self.assertEqual(self.scan(events),[self.rel])
+
     def test_relocation_preserves_original_paths_hashes_and_bytes(self):
         events,_=self.bind(); before=events.read_bytes()
         relocated=self.root.with_name('restored'); shutil.copytree(self.root,relocated)

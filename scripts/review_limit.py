@@ -42,6 +42,10 @@ def worker_plan_problems(state, packet, *, charged=False):
     from completion_yield import admission_problems
     if admission_problems(state):
         return admission_problems(state)
+    from manual_codex_repair import worker_problems
+    manual = worker_problems(state, packet, charged=charged)
+    if manual is not None:
+        return manual
     if not enabled(state) or packet.get('role') != 'storyboard-critic':
         return []
     ordinal = used(state) + (0 if charged else 1)
@@ -59,6 +63,9 @@ def reservation_problems(state, amounts):
     from completion_yield import admission_problems
     if admission_problems(state, amounts):
         return admission_problems(state, amounts)
+    from manual_codex_repair import record, reservation_problems as manual_problems
+    if record(state) is not None:
+        return manual_problems(state, amounts)
     if not enabled(state):
         return []
     requested = amounts.get('storyboard_critics', 0)
@@ -73,6 +80,10 @@ def reservation_problems(state, amounts):
 
 
 def repair_problems(state, plan):
+    from manual_codex_repair import plan_problems
+    manual = plan_problems(state, plan)
+    if manual is not None:
+        return manual
     errors = reservation_problems(state, plan.get('resources') or {})
     if reached(state) and plan.get('changed_inputs') and plan.get('repair_scope') not in {
             'technical-integrity', 'review-context'}:

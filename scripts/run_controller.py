@@ -385,6 +385,10 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
                         return False, 'authored retime feasibility before first review: ' + '; '.join(errors)
         except (OSError, ValueError, KeyError, TypeError, ZeroDivisionError) as exc:
             return False, 'authored retime feasibility unavailable: ' + str(exc)
+    from manual_codex_repair import reservation_problems as manual_problems
+    manual_errors = manual_problems(state, amounts, note=note, state_path=path)
+    if manual_errors:
+        return False, '; '.join(manual_errors)
     from review_limit import reservation_problems as hard_review_problems
     hard_review_errors = hard_review_problems(state, amounts)
     if hard_review_errors:
@@ -2207,6 +2211,11 @@ def main() -> int:
     p = sub.add_parser("completion-capacity")
     p.add_argument("--repair-plan", type=Path, required=True)
 
+    p = sub.add_parser("grant-codex-repair")
+    p.add_argument("--authorization", type=Path, required=True)
+    p.add_argument("--repair-plan", type=Path, required=True)
+    p.add_argument("--confirm", required=True)
+
     p = sub.add_parser("grant-owner-review")
     p.add_argument("--authorization", type=Path, required=True)
     p.add_argument("--failure-evidence", type=Path, required=True)
@@ -2416,6 +2425,9 @@ def main() -> int:
         elif a.command == "completion-capacity":
             from autonomous_completion import grant_capacity
             accepted, message = grant_capacity(state_path, a.repair_plan)
+        elif a.command == "grant-codex-repair":
+            from manual_codex_repair import grant
+            accepted, message = grant(state_path, a.authorization, a.repair_plan, a.confirm)
         elif a.command == "grant-owner-review":
             accepted, message = grant_owner_review(
                 state_path, a.authorization, a.failure_evidence, a.additional_calls, a.confirm)
