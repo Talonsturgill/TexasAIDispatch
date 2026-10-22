@@ -248,6 +248,18 @@ class DailyTest(unittest.TestCase):
                                        'callable source', 'chronological pixels', 'no review, report field'):
                             self.assertIn(phrase, packet['instructions'])
 
+    def test_future_critic_packet_generates_bound_reading_view_without_replacing_board(self):
+        import review_board_projection as views
+        from review_board_projection_test import retained_board
+        self.board.update(date='2026-10-22', narration_picture=retained_board()['narration_picture'])
+        self.save(); before = self.bp.read_bytes()
+        with patch('agent_runtime.assignment', return_value=None):
+            packet = d.packet(self.bp, self.cp, 'storyboard-critic')
+        self.assertEqual(packet['board']['sha256'], d.digest(self.bp))
+        self.assertIn(packet['board']['sha256'], packet[views.FIELD])
+        self.assertEqual(views.validate_native(packet), views.NATIVE_NOTE)
+        self.assertEqual(before, self.bp.read_bytes())
+
     def test_current_craft_readings_are_bound_compact_and_keep_historical_packets(self):
         self.assertNotIn("craft_readings", d.packet(self.bp,self.cp,"storyboard-critic"))
         self.assertEqual([], d.craft_reading_paths({"date":"test-fixture"}))

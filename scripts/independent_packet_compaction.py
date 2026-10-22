@@ -413,11 +413,15 @@ def final_code_context(text, board_path, bindings, role):
                     'provider_final_code_context_policy_sha256': sha(FINAL_POLICY)}
 
 
-def compact(text, package, role, repo):
+def compact(text, package, role, repo, board_path=None):
     policy = json.loads(POLICY.read_text()); board = text.get('board')
     if not isinstance(board, dict) or str(board.get('date', '')) < policy['effective_edition'] or role not in policy['roles']:
         return text, None
-    text = copy.deepcopy(text); board = text['board']; repo = Path(repo).resolve(); package = Path(package).resolve()
+    import review_board_projection
+    package = Path(package).resolve()
+    text = review_board_projection.provider_board(text, board_path or package/'storyboard.json')
+    text = copy.deepcopy(text); board = text['board']; repo = Path(repo).resolve()
+    archival_projection = review_board_projection.projected(board)
     files = text['files']; episodes = {(board.get('film_direction') or {}).get('episode')}
     for key, value in list(files.items()):
         path = (repo / key).resolve()
@@ -432,6 +436,9 @@ def compact(text, package, role, repo):
         elif isinstance(parsed, dict) and parsed.get('provider_evidence'):
             files[key] = prior_review_context(parsed, sha(path))
         elif isinstance(parsed, dict) and isinstance(parsed.get('scenes'), list) and parsed.get('date') == board.get('date'):
+            if review_board_projection.enabled(parsed) and review_board_projection.archive(parsed) is not None:
+                parsed = review_board_projection.from_file(path, parsed)
+                archival_projection = archival_projection or review_board_projection.projected(parsed)
             episodes.add((parsed.get('film_direction') or {}).get('episode'))
             operations = delta(board, parsed)
             if apply_delta(board, operations) != parsed:
@@ -499,5 +506,7 @@ def compact(text, package, role, repo):
         text['verified_code_source_inventory'] = [reviewed[key] for key in sorted(reviewed)]
     text['packet_compaction'] = {'version': policy['version'], 'policy_sha256': sha(POLICY),
                                  'active_episodes': sorted(episodes)}
+    if archival_projection:
+        text['packet_compaction']['archival_retime_projection'] = review_board_projection.SCHEMA
     files['config/independent_packet_compaction.json'] = POLICY.read_text()
     return text, sha(POLICY)

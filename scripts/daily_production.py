@@ -578,6 +578,8 @@ def packet(board_path, claims_path, role, state_path=None, runtime=None):
     if role in ('scene-builder', 'storyboard-critic'):
         import modern_film
         data['instructions'] += modern_film.literal_clause_instruction(board)
+    import review_board_projection
+    review_board_projection.bind_native(data)
     encoded = packet_text(data)
     limit = handoff_limit(board.get("date"), compact_scorer)
     if len(encoded) > limit and isinstance(data["story"], dict):

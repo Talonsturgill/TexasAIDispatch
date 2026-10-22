@@ -266,6 +266,8 @@ def plan(role, packet_path, task_name, scope):
             claude_runtime.image_policy_inputs(data)
     required_inputs(data, role)
     validate_references(data)
+    import review_board_projection
+    review_view_instruction = review_board_projection.validate_native(data)
     brief = REPO / policy()["roles"][role]["brief"]
     if data.get("brief") != str(brief.relative_to(REPO)):
         raise ValueError("packet names the wrong role brief")
@@ -277,6 +279,7 @@ def plan(role, packet_path, task_name, scope):
                " Return one complete handoff or consolidated defect list with exact input hashes. " +
                "You are a leaf worker. Never spawn agents, send email or post socially. " +
                "Plans and code do not approve a film. Preserve actual failed evidence.")
+    message += review_view_instruction
     if len(message) > policy()["max_assignment_chars"]:
         raise ValueError("spawn message exceeds compact assignment limit")
     result = {"assignment": route, "packet": bound(packet_path), "brief": bound(brief),

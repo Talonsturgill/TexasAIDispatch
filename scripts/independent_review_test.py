@@ -97,7 +97,7 @@ class FinalPacketCapacityTest(unittest.TestCase):
         for role in ('code', 'phone', 'picture'):
             text = {'board': {'date': '2026-10-15'}, 'files': {'full-guide.md': 'G' * 540000}}
             with patch('independent_packet_compaction.current_paths', return_value=(Path('/tmp/board.json'),)), \
-                    patch('independent_packet_compaction.compact', side_effect=lambda t,*a:(t,None)), \
+                    patch('independent_packet_compaction.compact', side_effect=lambda t,*a,**k:(t,None)), \
                     patch('independent_packet_compaction.phone_code_context', side_effect=lambda t,p,b:(t,b)), \
                     patch('independent_packet_compaction.final_code_context', side_effect=lambda t,p,b,r:(t,b)):
                 with self.assertRaises(ValueError):

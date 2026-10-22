@@ -71,6 +71,30 @@ class Compaction(unittest.TestCase):
         self.assertEqual(result['retained_host_media_review'], original['retained_host_media_review'])
         self.assertEqual(policy_sha, compact.sha(compact.POLICY))
 
+    def test_all_five_roles_exclude_verified_archive_from_common_and_treatment_views(self):
+        import review_board_projection as views
+        from review_board_projection_test import retained_board
+        narration = retained_board()['narration_picture']
+        for board in (self.board, self.a, self.b):
+            board.update(date='2026-10-22', narration_picture=copy.deepcopy(narration))
+        self.write('out/dispatch/storyboard.json', json.dumps(self.board))
+        for name, board in (('a', self.a), ('b', self.b)):
+            key = 'out/dispatch/openings/' + name + '.json'
+            self.write(key, json.dumps(board)); self.text['files'][key] = (self.repo/key).read_text()
+        before = copy.deepcopy(self.text)
+        for role in ('code', 'phone', 'picture', 'story', 'sound'):
+            result, _ = compact.compact(self.text, self.package, role, self.repo)
+            self.assertEqual(result, compact.compact(result, self.package, role, self.repo)[0])
+            self.assertEqual(result['claims'], before['claims'])
+            self.assertEqual(result['files']['knowledge/craft/current-guide.md'], self.guide)
+            self.assertTrue(views.projected(result['board']))
+            for name in ('a', 'b'):
+                key = 'out/dispatch/openings/' + name + '.json'; item = result['files'][key]
+                self.assertTrue(views.projected(compact.document(item, result['board'])))
+                self.assertEqual(item['original_sha256'], compact.sha(self.repo/key))
+            self.assertNotIn('"critique_json":', compact.canonical(result))
+        self.assertEqual(self.text, before)
+
     def test_only_inactive_registered_source_bodies_become_inventories(self):
         result, _ = compact.compact(self.text, self.package, 'phone', self.repo)
         self.assertEqual({r['path'] for r in result['inactive_renderer_source_inventory']}, {self.old, self.oldhero})

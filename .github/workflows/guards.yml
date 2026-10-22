@@ -201,6 +201,7 @@ jobs:
           python3 scripts/provider_availability_test.py
           python3 scripts/independent_review_test.py
           python3 scripts/independent_packet_compaction_test.py
+          python3 scripts/review_board_projection_test.py
 
       - name: Engine lint self-test (the defects tsc is structurally blind to)
         run: |

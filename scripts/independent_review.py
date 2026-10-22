@@ -738,7 +738,7 @@ def bounded_packet(text, board_path, role, bindings):
         text, bindings = phone_code_context(text, board_path, bindings)
     elif role in ('picture', 'story', 'sound'):
         text, bindings = final_code_context(text, board_path, bindings, role)
-    text, policy_sha = compact(text, board_path.parent, role, REPO)
+    text, policy_sha = compact(text, board_path.parent, role, REPO, board_path=board_path)
     if policy_sha is not None:
         bindings = {**bindings, 'provider_packet_compaction_sha256': policy_sha}
     allowance = final_text_capacity(text,role,bindings) if role in ('picture','story','sound') else None
@@ -1048,6 +1048,10 @@ def prompt(role, text):
         instruction += ('Grade the identified primary_film and its current board. Other comparison movies '
                         'are retained context; never borrow their pixels or timing for the primary report. ')
     if text.get('packet_compaction'):
+        import review_board_projection
+        if (review_board_projection.projected(text.get('board', {}))
+                or text['packet_compaction'].get('archival_retime_projection') == review_board_projection.SCHEMA):
+            instruction += review_board_projection.TRANSPORT_NOTE
         instruction += ('Run JSON inputs are lossless structured documents. A dispatch_lossless_json_file '
             'contains its complete value. For dispatch_lossless_board_delta, start with the complete common '
             'board and apply its ordered add/remove/replace JSON-pointer operations to obtain that full '
