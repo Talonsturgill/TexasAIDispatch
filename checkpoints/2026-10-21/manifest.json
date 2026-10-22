@@ -1,13 +1,13 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T03:15:43.915651+00:00",
-  "note": "delegated GitHub capture fixed-operator result",
+  "saved_at": "2026-10-22T03:16:47.217008+00:00",
+  "note": "before paid reservation",
   "phase": "audio",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
-  "repo_root": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch",
+  "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
   "source_pin": "d165c2c00d4f1b2f7f76bf3c3985fae897b68548",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
@@ -16,8 +16,8 @@
     "sha256": "e161e2e553e4c04c6edcd2d995828e829193dcc1bde8086cd4e301046082dfb0"
   },
   "deleted_source": [],
-  "ledger_sha256": "d0dcaba7d8555e348959c4f8fb9c26db2efb88a6630787be78de47dfab3f170e",
-  "original_private_ledger_sha256": "fafd3f15813366fe780885d29d1ff0e07b0f0a560279e73d62f7e7d770792970",
+  "ledger_sha256": "41a0a4a111b111f5acb01f388079bfc4b4d20da96761be87784a647b583ad061",
+  "original_private_ledger_sha256": "c7763c4727990dbf7717fd784ac8d2c813fec2e7b78b9cd8807536c84551ab5d",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -42,6 +42,12 @@
       "class": "source",
       "sha256": "1aeaaf2bf59acfaab6e15b329c24123c2138729795c85f01d75c60f1601b456f",
       "size": 58363
+    },
+    {
+      "path": "out/dispatch/.run_state.json.av-review.lock",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/WORKLOG.md",
@@ -1112,16 +1118,46 @@
       "size": 283
     },
     {
+      "path": "out/dispatch/github-capture-import-baseline/00cfd9719a7d0764e55531104a5e443e7a9fb7cd4b2566fd58089e850407a0df",
+      "class": "scratch",
+      "sha256": "00cfd9719a7d0764e55531104a5e443e7a9fb7cd4b2566fd58089e850407a0df",
+      "size": 128
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/0a296fc18209acf095901f0732a5d65e46ab7a00ac43af597eff5efac96d2b08",
+      "class": "scratch",
+      "sha256": "0a296fc18209acf095901f0732a5d65e46ab7a00ac43af597eff5efac96d2b08",
+      "size": 308
+    },
+    {
       "path": "out/dispatch/github-capture-import-baseline/17ed2e8a56a43f1c3d68c0f15e97da4455768f098f640b4724aae657cdd4a95a",
       "class": "scratch",
       "sha256": "17ed2e8a56a43f1c3d68c0f15e97da4455768f098f640b4724aae657cdd4a95a",
       "size": 18875
     },
     {
+      "path": "out/dispatch/github-capture-import-baseline/1b1900d1484a578c99d55f14d23b9a86b0cf7826ec79c9e0f8e675acd5683a47",
+      "class": "scratch",
+      "sha256": "1b1900d1484a578c99d55f14d23b9a86b0cf7826ec79c9e0f8e675acd5683a47",
+      "size": 897
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/3dc2079906284cfdfffd032e36394e4d2c2481da0267682a2b2417077725203c",
+      "class": "scratch",
+      "sha256": "3dc2079906284cfdfffd032e36394e4d2c2481da0267682a2b2417077725203c",
+      "size": 283
+    },
+    {
       "path": "out/dispatch/github-capture-import-baseline/70be3bd5c5c72f0379dc938dbfd1bd9d4bd8ed63d3e273a05610f6dc339646f4",
       "class": "scratch",
       "sha256": "70be3bd5c5c72f0379dc938dbfd1bd9d4bd8ed63d3e273a05610f6dc339646f4",
       "size": 128
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/7e8dd9027ffc6acea9ac3bdaf9428879224bc8395ab54792a62c9f46325bbe34",
+      "class": "scratch",
+      "sha256": "7e8dd9027ffc6acea9ac3bdaf9428879224bc8395ab54792a62c9f46325bbe34",
+      "size": 19030
     },
     {
       "path": "out/dispatch/github-capture-import-baseline/99c64b263df04f41b86ce1427b2c58a13175c079b8e067c0e1075c98d528975a",
@@ -1140,6 +1176,12 @@
       "class": "scratch",
       "sha256": "bd1107d6e59b1f44de0643689a25285a0d21fb18633e0709938ae90e558c4c59",
       "size": 18838
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/be0dbf1b26b5b75b62e6f8f7d079aa99ef6f76cddbf5b29bd0cfa5d3714f2a19",
+      "class": "scratch",
+      "sha256": "be0dbf1b26b5b75b62e6f8f7d079aa99ef6f76cddbf5b29bd0cfa5d3714f2a19",
+      "size": 926
     },
     {
       "path": "out/dispatch/github-capture-import-baseline/c505c30de951b723d99a7581098d7ffb08eb351b1529f78bddf4f646b1c4614a",
@@ -1214,6 +1256,42 @@
       "size": 990
     },
     {
+      "path": "out/dispatch/github-capture-results/39715191411/dispatch/cinema/hero.mp4",
+      "class": "scratch",
+      "sha256": "5d8164b911066338e4d2c1e461d2139a6339777c37793582957c7fe7dc5d772f",
+      "size": 2624821
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39715191411/dispatch/github-capture-results/6f7ccc2259b6185214e59942004c54c33c8ccbbb69e0f0bfcb3403f8a9e94f43.json",
+      "class": "scratch",
+      "sha256": "b078800df742e1feefd17579e99781d10560223e6c4509bf461ffb74590b739c",
+      "size": 687
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39715191411/dispatch/github-capture-results/b253fd8c1d8c095c28742a56e495e151b04564b2b323e8fba7327a4973d455bd.json",
+      "class": "scratch",
+      "sha256": "b9b3f19ad29e2803d0ffc72026f23abaf7cc884e021a8ede17820fd41a569d6f",
+      "size": 693
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39715191411/dispatch/github-native-headroom.json",
+      "class": "scratch",
+      "sha256": "e7d0509fb1c2a9f0f71016146f25d12ed4672643ac6128cb900cf64bc1e3ee17",
+      "size": 308
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39715191411/dispatch/preflight.mp4",
+      "class": "scratch",
+      "sha256": "8a3eb9e89cc3b19c6bbc0742579b83249da7c33bf8bc774e9b109b831fa5a397",
+      "size": 314183
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39715191411/github-capture-public-result.json",
+      "class": "scratch",
+      "sha256": "94b22f3d4eedfdb4989397da2d51860835ffb3793bc0e646d1db49161de08ac2",
+      "size": 984
+    },
+    {
       "path": "out/dispatch/github-capture-results/6f7ccc2259b6185214e59942004c54c33c8ccbbb69e0f0bfcb3403f8a9e94f43.json",
       "class": "scratch",
       "sha256": "b078800df742e1feefd17579e99781d10560223e6c4509bf461ffb74590b739c",
@@ -1226,10 +1304,22 @@
       "size": 693
     },
     {
+      "path": "out/dispatch/github-capture-results/cinema-39715191411-watch.log",
+      "class": "scratch",
+      "sha256": "a3c0f924020cdcdd48b286f4e04667f7de34955d8d2264a1d0729856cd9f2c86",
+      "size": 13714
+    },
+    {
       "path": "out/dispatch/github-native-headroom.json",
       "class": "scratch",
       "sha256": "e7d0509fb1c2a9f0f71016146f25d12ed4672643ac6128cb900cf64bc1e3ee17",
       "size": 308
+    },
+    {
+      "path": "out/dispatch/github-request-cinema.json",
+      "class": "scratch",
+      "sha256": "7ca155dea2f860f7e0d57c05307fc027f0ab23126d7f9a9b78a98e156ba06750",
+      "size": 974
     },
     {
       "path": "out/dispatch/github-request-phone.json",
@@ -7216,13 +7306,53 @@
   ],
   "excluded": [
     {
+      "path": "out/dispatch/delivery-prep-copy.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-draft.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-http.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-ordinance.private.pdf",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-ordinance.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-next-actions.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-next-commands.private.md",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-readiness.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-routing.private.json",
+      "reason": "private path component"
+    },
+    {
       "path": "out/dispatch/grant-projection-roots.private.json",
       "reason": "private path component"
     }
   ],
   "regenerable": {
-    "files": 112,
-    "bytes": 28234166
+    "files": 0,
+    "bytes": 0
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }
