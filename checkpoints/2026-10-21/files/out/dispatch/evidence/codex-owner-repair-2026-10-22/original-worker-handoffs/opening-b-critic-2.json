@@ -1,0 +1,71 @@
+{
+ "treatment": "b",
+ "review_scope": "code-plan",
+ "board": {
+  "path": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/opening-b.json",
+  "sha256": "d130fe41df9996104086e9fb3faff0399ca275429884da24650e8e0258765432"
+ },
+ "verdict": "revise",
+ "concept_sha256": "d4b6978a274f87e58603bff23230787ebce2261520bd9db608d729e5fe957255",
+ "renderer_sha256": "02a32fa8c5f19be4c642371c6fa917c74725396c1b03c042e7a5b6dd96c44882",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "storyboard-critic:claude-opus-5-5:high:isolated-code-plan-reviewer",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "reviewed_at": "2026-10-21",
+ "strongest_frame": "s5 review-panel (28.51 to 30.91 s). As in A, her stylus leads the outline and her finger presses the green confirmation. Reach is verified at 448 of 568 px for the stylus and 432 of 514 px for the finger. B's room views also keep the deciding person in frame before and after the machine events, which is the treatment's genuine new idea.",
+ "weakest_frame": "s1 room-window (0 to 2.59 s). The certified inspector sits at her desk watching the Chevron pilot drone launch through her window, under the chip 'Illustration. Generic drone and inspector'. This is the hook, and it puts the EPA-method reviewer inside the pilot example.",
+ "blocking_defects": [
+  {
+   "category": "source",
+   "scene_id": "s1",
+   "time_s": 0.0,
+   "failed_criterion": "quality_contract.continuity ('explicitly introduces a sourced example; do not imply stock illustration is the actual case'). Brief: distinct source examples need an honest visible disclosure. story_contract.source_limit ('No source shows Chevron's drone is the approved Air Max'). This is an unresolved implementation of retained round-1 defect SD4 in treatment B.",
+   "defect": "B's board treats s1 and s2 as the Chevron pilot (DroneLife c3, c4, c17) and switches to 'Illustration of EPA's method, generic inspector' at s3, through a source-example transition. But the renderer draws the same generic certified inspector in the pilot scenes. In s1 room-window, restingPerson turns her toward the window as the pilot drone's hood opens and it lifts off (registry room-window subject_ids include s1-inspector). In s2 room-monitor she watches the companies' alert on her tablet (s2-inspector). The person, room and window then continue unchanged into the EPA-method scenes, and the s9 window returns to the same pad. The s1 and s2 chip reads only 'Illustration. Generic drone and inspector'. The continuous person therefore cancels the s3 disclosure. The likely false inference is that Chevron's Permian pilot drones were already watched and confirmed by a certified inspector on site, under this approval. No source reports that: DroneLife describes monitoring and AI analytics from remote control centers, and EPA's letter describes review of collected footage under the approved method. Required correction: keep the EPA-method inspector out of the pilot scenes, for example by starting B's room story at s3. Alternatively, stage s1 and s2 with a visibly different, disclosed role and place, such as an operator at a remote control center as DroneLife describes, with a chip that says so. Do not return the review room's window to the pilot pad as if it were the same site, or disclose it as the illustrated method's generic pad."
+  },
+  {
+   "category": "source",
+   "scene_id": "s7",
+   "time_s": 38.72,
+   "failed_criterion": "quality_contract.continuity. The disclosure must cover what the separate example pictures.",
+   "defect": "In s7 room-calendar and s8 room-proposal, the same certified inspector sits at her desk reacting as the separate Super Emitter program's tag ('Leak reporting by certified third parties') takes 'Delayed' and then 'Will propose to rescind' (registry subject_ids s7-inspector and s8-inspector). The chip says 'Illustration. A separate program, no drone', which discloses the drone's absence but not that she is not part of that program. Putting the film's certified reviewer at the centre of a 'certified third parties' program that is delayed and to be rescinded invites the inference that the certified human check is what EPA is rescinding. That contradicts the closing answer and the narration's 'separate'. A avoids this because it has no person in s7 and s8. Required correction: either keep her out of s7 and s8, or extend the separate-program disclosure so it visibly covers the scene she is in."
+  }
+ ],
+ "notes": [
+  "The rubric bar is read from config/dispatch_rubric.yaml and not restated here.",
+  "Resolved since round 1: the human turn and close, the AI flag decoupled from the valve, the s8 chip, the treatment now genuinely diverging from A with its opening promise executed, the wall-view share (1 of 22), and the action-use bindings.",
+  "Phone checks to carry forward. In s3 (room-desk, letter-desk, stamp-reaction), the approval stamps press by themselves beside the seated inspector while she taps a pen; check that she doesn't read as the approver. In s4 room-feed and feed-lens she watches the drone's live 'Feed' during flight under the EPA-method chip; EPA's letter describes the certified inspector reviewing collected footage, so confirm the monitor reads as monitoring rather than her review. Also check hand occlusion, likeness, small type and the large-monitor scale of the review tablet, as for A.",
+  "In s5 room-review (26.4 to 28.51 s), the stylus starts its approach toward the outline start, which sits outside her far-arm reach in that framing (top of the outline about 427 px from a 379 px reach). The trace begins only at 28.934 s, in review-panel, where it is reachable, so personArm's clamp stops the approaching hand short without drawing anything. Not blocking, but avoid ending the shot on a visibly overreaching arm.",
+  "The fingerprint light_story 'night-practical' contradicts B's daylight plate and window. The registry note still says 'B reads the same events from the desk and from above'. Both are stale prose.",
+  "The same stale planning fields, palette and source checks as in A's notes apply."
+ ],
+ "code_observations": {
+  "opening": "room-window (0 to 2.59 s): the inspection-room wall with a real cut-out window over the outdoor plate. The station hood opens and the drone lifts as she turns toward it, then station-wide holds the fly-out and Texas card.",
+  "central_mechanism": "s4: the room-feed wall monitor shows the same pad world through FEED_CAM, then poi-close flies the plan and feed-lens opens the infrared inset inside the feed. s5: room-review, then the review-panel trace and press, then the mark-hands flick.",
+  "closing": "room-hold, confirm-hold, then blank-box: her stylus re-presses the green mark, the empty AI box draws, and the own-window station closes.",
+  "pixel_observations": null
+ },
+ "story_review": {
+  "story_sha256": "1db16ccf3857fb8882a3ac3c6478596b59b2f7c23facceb3e8e2e6f8b61dbb7c",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
+  "verdict": "revise",
+  "blocking_defects": [
+   {
+    "category": "source",
+    "scene_id": "s1",
+    "time_s": 0.0,
+    "defect": "The EPA-method inspector is present in the Chevron pilot scenes (s1 to s2) and carries continuously into the method scenes. That merges two source examples the board itself separates at s2 to s3."
+   },
+   {
+    "category": "source",
+    "scene_id": "s7",
+    "time_s": 38.72,
+    "defect": "The same certified inspector is centred in the separate 'certified third parties' program as it is delayed and proposed for rescission, under a chip that discloses only that no drone is shown."
+   }
+  ],
+  "one_viewing_summary": "The intended chain, reconstructed from the executable code: In an inspection room a seated inspector turns to her window as a drone station's hood opens on the pad outside and the drone lifts off. On her tablet the companies' blue 'Anomaly' flag rises on a pump-pressure reading, tagged 'The companies say'. An approval letter slides onto her desk and takes its date and Approved stamps while she watches and taps a pen. On her wall monitor's live feed the drone flies to a valve ring and an infrared view opens. At the review screen she traces the shimmer, presses green and flicks a follow-up tag to the valve. She reads the protocol title, where AI is highlighted once, then the separate program's delay and proposed rescission. Finally she re-presses her green mark beside an empty AI box as the station closes outside her window.",
+  "opening_to_ending": "B opens and closes on the same person, which makes 'who decides' visibly human throughout. Because that same person is also present in the pilot scenes and the separate-program scenes, the film implies she belongs to Chevron's pilot and to the program being rescinded. That blurs the limits the ending must keep clear.",
+  "weakest_transition": "s2 to s3 (11.44 s). The board marks this cut as a switch of source example to EPA's method, but the same inspector, desk and window continue straight through it, so the picture does not change example."
+ },
+ "action_reviews": []
+}

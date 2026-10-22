@@ -1,0 +1,47 @@
+{
+ "treatment": "a",
+ "review_scope": "code-plan",
+ "board": {
+  "path": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/opening-a.json",
+  "sha256": "ce491db1cc56620f11099690fce8d7d2c0edc034e836d00c66f8305a9d6a1b9d"
+ },
+ "verdict": "pass",
+ "concept_sha256": "82965cfd6a305fa0bee895504f484a18a543b1bae6ca5f8c22678c9073097a75",
+ "renderer_sha256": "02a32fa8c5f19be4c642371c6fa917c74725396c1b03c042e7a5b6dd96c44882",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "storyboard-critic:claude-opus-5-5:high:isolated-code-plan-reviewer",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "reviewed_at": "2026-10-21",
+ "strongest_frame": "s5 review-panel (28.75 to 31.09 s). The generic inspector's stylus tip leads the dashed outline round the shimmer, because the outline is drawn only to outlinePoint(trace). Her left index finger then presses the green confirmation onto the footage, which jolts on her press, and she reaches for the follow-up tag. The narrated human action is now performed by a person in the dominant image.",
+ "weakest_frame": "s3 letter-desk (14.45 to 15.65 s, s3-event-2). The rubber stamp descends from 1100 px above the frame, presses the crooked date and lifts away with no hand or supporting arm. It is the last unsupported tool in A and the only remaining self-moving object at a moment of agency. It is an institutional metaphor rather than a claimed human action, so it is not blocking, but judge it at phone scope under contact_and_consequence.",
+ "blocking_defects": [],
+ "notes": [
+  "The rubric bar is read from config/dispatch_rubric.yaml and not restated here.",
+  "This code-plan pass authorizes only the funded capture. It contains no pixel observations, selection or film approval. The silent phone comparison, timed phone, native, audiovisual, scorer and delivery gates all remain.",
+  "Two action_uses events straddle a cut and sit mostly outside their declared view. s1-event-2 (2.218-3.418) is declared at station-wide, but 72 percent of it plays in equipment-low (cut at 3.08). s6-event-2 (35.341-36.541) is declared at title-detail, but 62 percent plays in letter-scroll (cut at 36.08). Both registered views implement the same action, so this is not a blocker; let the authored_story_art verify gate decide, or rebind the views.",
+  "Clause n5a ('Then a certified inspector reviews the footage') binds subject_ids [s5-footage] only. The inspector is drawn and leaning in during its review-wide shot, so consider adding s5-inspector to the binding.",
+  "Phone checks to carry forward (pixels unknown here). Can her forearm or hand occlude the shimmer or green mark during the trace and press? Do the 'Pump pressure', 'Anomaly' and disclosure-chip type read at phone size? The review 'tablet' is drawn about 2.5 to 3 times her torso width, so it will read as a large monitor; confirm that reads coherently. Does the flicked follow-up tag fly about 86 percent of its arc unsupported into the valve vignette and read as a motivated throw rather than a floating transfer? Is the inspector recognizable at phone size in the shoulder-to-hand close views?",
+  "Palette: the non-point-of-interest gate-valve handwheel is still steel blue (#3C6E8F in Valves). That is minor against the 'blue means the companies' claim' rule; check at phone scope.",
+  "Stale planning prose (not executed): story_art hero purpose ('the equipment the EPA letter approves'), creative_direction.viewer_question ('When a drone flags a leak'), the s3 to s4 'dissolves into the drone' bridge, and the visual_sentence annotations still reading 'Generic drone with no brand mark'. The on-screen chips are correct. Update these fields when convenient.",
+  "Regulator and source checks: on-screen numerals (September 30th, 2025; January 22nd, 2027; October 7) match the fetched quotes. The protocol title is verbatim c8. No seal, logo or brand mark is drawn. The county plate stands behind the exteriors and through the stage window in s9. A has 1 wall view of 22 shots.",
+  "Region: Ector County on the high_plains plate, with caliche, mesquite, creosote and a pumpjack, unchanged; place_check must still measure it."
+ ],
+ "code_observations": {
+  "opening": "equipment-low (0 to 3.08 s). The hood leaves open on smoothstep, the rotors spin up, then the lift and fly-out run as one quadratic travel stroke (s1Path) over the separator, valves and tank. station-wide then holds the cruise while the Texas card pins Permian Basin and Austin.",
+  "central_mechanism": "s4: the pod swings toward the valve, the plan and white rings draw, and the poi-close camera follows 0.6 of the flight from rest to rest before the illustrative infrared inset opens. s5: the person traces, presses green and flicks the follow-up.",
+  "closing": "s9: her stylus re-presses the green mark (one green ring pulse), an empty dashed AI box draws, and the station hood closes in the stage window with its lamp steady white.",
+  "human_performance": "Inspector arms are solved two-bone from rotated shoulders with lower-elbow selection. Reach is verified at every contact view as listed in retained_defect_disposition.",
+  "pixel_observations": null
+ },
+ "story_review": {
+  "story_sha256": "4301497c8ab0d945e00ff9b105bed1e651cd61c8b008370c42b5ec740975a528",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "The intended chain, reconstructed from the executable code: A generic drone's station opens on a caliche Permian pad and the drone lifts and flies out over the equipment while a Texas card pins the Permian and Austin. A flight screen lights and the companies' blue 'Anomaly' flag rises on a pump-pressure reading, tagged 'The companies say'. Under an 'Illustration of the method in EPA's letter' chip, an approval letter takes a September 30th, 2025 stamp and an Approved mark for periodic methane screening. The drone flies its plan to a white ring over a valve and an illustrative infrared view of the valve's shimmer opens. A seated inspector traces the shimmer with her stylus, presses a green confirmation with her finger and flicks a follow-up tag to the valve. The letter's protocol title highlights AI once. A separate, disclosed program is delayed to January 22nd, 2027 and proposed for rescission on October 7th. She presses her green mark again beside an empty AI box while the station closes outside.",
+  "opening_to_ending": "It opens on a machine acting (the drone leaving its station) under the question of who decides that footage shows a leak. It ends on the person who performed the outline and confirmation re-pressing her green mark beside an empty AI box. The answer, a certified person, and the limit, the letter is silent on AI, are both pictured rather than only printed.",
+  "weakest_transition": "s6 to s7 (38.72 s). The disclosed detour from the approval letter into the separate Super Emitter program is about 10.1 s of tags and calendar pages connected by news peg rather than cause. It is honest and labelled, but it is the least picture-led stretch before the close."
+ },
+ "action_reviews": []
+}

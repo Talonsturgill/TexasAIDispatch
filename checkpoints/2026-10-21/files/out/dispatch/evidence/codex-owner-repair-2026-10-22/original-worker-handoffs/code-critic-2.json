@@ -1,0 +1,165 @@
+{
+ "schema_note": "Round-2 combined A/B code-plan handoff from the same storyboard-critic. reports.a and reports.b each stand alone and use the current packet's code_report_bindings unchanged. The round-1 REVISE (out/dispatch/code-critic-1.json) stays as it was and is neither rewritten nor superseded as evidence. Save this JSON exactly as returned.",
+ "role": "storyboard-critic",
+ "review_scope": "code-plan",
+ "edition": "2026-10-21",
+ "packet": {
+  "path": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/critic-packet.json",
+  "sha256_as_supplied": "5b2829bd7e8ab5d2accdeaa7bc8e8bc9c73f4ee2192af4ba0ce05467db54019e"
+ },
+ "input_verification": "I had Read only, with no Bash, so I recomputed no SHA256. All digests are copied unchanged from the packet. Consistency checks: the packet's treatment A sha256 equals its storyboard.json sha256 (ce491db1...). Both boards' story_art.entries carry the asset_inputs module hashes (InspectionDroneHero 9d397904..., LeakReviewSupport c97c40b8...). The packet's guide and contract hashes match the files I read in full earlier in this session, except config/modern_episode_registry.json, which changed (now 1aeaaf2b...).",
+ "coverage": {
+  "renderer_read_in_full": [
+   "video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx (current, 767 lines)",
+   "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx (current, 825 lines; lines 1-80 and 80-825)",
+   "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx (current, 332 lines)"
+  ],
+  "boards_read": "opening-a.json: s1 to s2 headers and chips, s3 to s9 chips, s5 and s9 complete, s6 events, story_art with all action_uses, all film_direction shots, narration_picture n5a to n8b, and the complete story_contract. opening-b.json: s1 to s4 including chips, events and the inspector planes, the s5 visual_proof, s7 chip and planes, story_art action_uses and entries, all film_direction shots, angle and promise, the complete story_contract with transitions, fingerprint and divergence_note. Sections not re-read this round (rewards, renderer_inputs, captions, attention_beats, native_media, sound) were reviewed in round 1. This round's changes were checked through the shots, chips, events, action_uses and the executable views.",
+  "registry": "Re-read the complete leak-review-v1 entry of the changed registry (views, wall_views, note, narration_views and authored_art; lines 1650-2150). The other episode entries occupy the same line positions as the round-1 full read.",
+  "guides": "Read in full this session, and their hashes in this packet are unchanged: storyboard-critic brief, AGENTS.md, CLAUDE.md, claude_routine.md, claude_runtime.json, quality_contract.json, dispatch_rubric.yaml, COMPLETION_PROGRESS.md, review_limit.json, AUTONOMOUS_COMPLETION.md, autonomous_completion_v2.json, the four visual-storytelling guides, MODERN_FILM.md, modern_film.json, STORY_ART.md, story_art.json, critic_concept_v2.json, AUTHORED_STORY_ART.md, authored_story_art.json, ART_DIRECTION.md, art_direction.json, cinematic_reference_bank.json, scene-builder.md and CREATIVE_DIRECTION.md. claims.json is unchanged (9ced2c87...) and was read in full, as was out/dispatch/sources/dronelife.txt.",
+  "limits": "Code scope only, with no pixel observations. Arm reach and caption-band clearance below come from the composed code geometry (PERSON_AT, TABLET, reviewGeom, personArm). Likeness, small type, apparent speed, occlusion and finish pass to the exact phone review."
+ },
+ "retained_defect_disposition": {
+  "SD1_s5_human_turn": "Resolved in code for both treatments. A seated, generic, unnamed inspector (LeakReviewSupport Inspector, two-bone arms solved from her own shoulders) traces the outline. reviewHands sets the stylus tip to outlinePoint(trace), so the dashed outline exists only as far as the tip has travelled. Her left index finger presses the green mark (press contactQ, confirm smooth at r52 0.77-0.83), and her finger carries the follow-up tag for the first 0.14 of its flight. Reach is verified at the declared contact views. In review-panel (both treatments), the far shoulder sits at about (196,1000) against a stylus reach of 568 px; the outline top is 448 px away and the green mark 384 px. The near finger's reach is 514 px against 432 px to the green. A followup-tag and B mark-hands finger reach exceeds the pick point (662 of 720 px and 703 of 789 px).",
+  "SD2_s9_close": "Resolved. The same inspector's stylus returns to and presses her green mark in every s9 contact view. Reach is verified: A confirm-close 757 of 834 px, confirm-hold same as review-panel, window-wide 305 of 360 px, B room-hold 345 of 379 px.",
+  "SD3_s2_ai_on_valve": "Resolved. FlightScreen raises the companies' blue 'Anomaly' flag from the 'Pump pressure' status row (FLIGHT_FLAG.alertRow 2). It sits on no valve, route, point of interest or emission. The point-of-interest ring is white and gray. Amber is used only for stamps, the AI highlight and the delay bar, and green only for the inspector. The hero palette has no amber, green or blue.",
+  "SD4_example_identity": "Resolved in A. Its chips switch from 'Illustration. Generic drone, no brand mark' (s1-s2) to 'Illustration of the method in EPA's letter' (s3, s4, s6) and 'Illustration of EPA's method, generic inspector' (s5, s9). The story_contract marks s2 to s3 as a source-example with that exact disclosure. Not resolved in B; see B's blocking defects.",
+  "SD5_s8_chip": "Resolved in both. s7 and s8 both display 'Illustration. A separate program, no drone'.",
+  "AD1_A_action_views": "Resolved. In A, s4-event-2 plays in poi-close (22.0-24.2), s5-event-2 in review-panel (28.75-31.09) and s7-event-3 in program-calendar (41.36-44.0). Two events straddle a cut, which is noted below.",
+  "BD1_BD2_BD3": "Resolved. B is now a genuinely different, person-first room treatment. Its first frame (room-window) shows the inspector at her desk with the pad through a real cut-out window. Registry wall_views lists only title-detail, so B has 1 wall view of 22 shots. B's action_uses bind to shots containing their events (s1-event-2 is 69 percent in station-wide; s6-event-2 is 74 percent in title-detail)."
+ },
+ "reports": {
+  "a": {
+   "treatment": "a",
+   "review_scope": "code-plan",
+   "board": {
+    "path": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/opening-a.json",
+    "sha256": "ce491db1cc56620f11099690fce8d7d2c0edc034e836d00c66f8305a9d6a1b9d"
+   },
+   "verdict": "pass",
+   "concept_sha256": "82965cfd6a305fa0bee895504f484a18a543b1bae6ca5f8c22678c9073097a75",
+   "renderer_sha256": "02a32fa8c5f19be4c642371c6fa917c74725396c1b03c042e7a5b6dd96c44882",
+   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+   "reviewer_identity": "storyboard-critic:claude-opus-5-5:high:isolated-code-plan-reviewer",
+   "director_identity": "claude-sonnet-5-5 director, this session",
+   "reviewed_at": "2026-10-21",
+   "strongest_frame": "s5 review-panel (28.75 to 31.09 s). The generic inspector's stylus tip leads the dashed outline round the shimmer, because the outline is drawn only to outlinePoint(trace). Her left index finger then presses the green confirmation onto the footage, which jolts on her press, and she reaches for the follow-up tag. The narrated human action is now performed by a person in the dominant image.",
+   "weakest_frame": "s3 letter-desk (14.45 to 15.65 s, s3-event-2). The rubber stamp descends from 1100 px above the frame, presses the crooked date and lifts away with no hand or supporting arm. It is the last unsupported tool in A and the only remaining self-moving object at a moment of agency. It is an institutional metaphor rather than a claimed human action, so it is not blocking, but judge it at phone scope under contact_and_consequence.",
+   "blocking_defects": [],
+   "notes": [
+    "The rubric bar is read from config/dispatch_rubric.yaml and not restated here.",
+    "This code-plan pass authorizes only the funded capture. It contains no pixel observations, selection or film approval. The silent phone comparison, timed phone, native, audiovisual, scorer and delivery gates all remain.",
+    "Two action_uses events straddle a cut and sit mostly outside their declared view. s1-event-2 (2.218-3.418) is declared at station-wide, but 72 percent of it plays in equipment-low (cut at 3.08). s6-event-2 (35.341-36.541) is declared at title-detail, but 62 percent plays in letter-scroll (cut at 36.08). Both registered views implement the same action, so this is not a blocker; let the authored_story_art verify gate decide, or rebind the views.",
+    "Clause n5a ('Then a certified inspector reviews the footage') binds subject_ids [s5-footage] only. The inspector is drawn and leaning in during its review-wide shot, so consider adding s5-inspector to the binding.",
+    "Phone checks to carry forward (pixels unknown here). Can her forearm or hand occlude the shimmer or green mark during the trace and press? Do the 'Pump pressure', 'Anomaly' and disclosure-chip type read at phone size? The review 'tablet' is drawn about 2.5 to 3 times her torso width, so it will read as a large monitor; confirm that reads coherently. Does the flicked follow-up tag fly about 86 percent of its arc unsupported into the valve vignette and read as a motivated throw rather than a floating transfer? Is the inspector recognizable at phone size in the shoulder-to-hand close views?",
+    "Palette: the non-point-of-interest gate-valve handwheel is still steel blue (#3C6E8F in Valves). That is minor against the 'blue means the companies' claim' rule; check at phone scope.",
+    "Stale planning prose (not executed): story_art hero purpose ('the equipment the EPA letter approves'), creative_direction.viewer_question ('When a drone flags a leak'), the s3 to s4 'dissolves into the drone' bridge, and the visual_sentence annotations still reading 'Generic drone with no brand mark'. The on-screen chips are correct. Update these fields when convenient.",
+    "Regulator and source checks: on-screen numerals (September 30th, 2025; January 22nd, 2027; October 7) match the fetched quotes. The protocol title is verbatim c8. No seal, logo or brand mark is drawn. The county plate stands behind the exteriors and through the stage window in s9. A has 1 wall view of 22 shots.",
+    "Region: Ector County on the high_plains plate, with caliche, mesquite, creosote and a pumpjack, unchanged; place_check must still measure it."
+   ],
+   "code_observations": {
+    "opening": "equipment-low (0 to 3.08 s). The hood leaves open on smoothstep, the rotors spin up, then the lift and fly-out run as one quadratic travel stroke (s1Path) over the separator, valves and tank. station-wide then holds the cruise while the Texas card pins Permian Basin and Austin.",
+    "central_mechanism": "s4: the pod swings toward the valve, the plan and white rings draw, and the poi-close camera follows 0.6 of the flight from rest to rest before the illustrative infrared inset opens. s5: the person traces, presses green and flicks the follow-up.",
+    "closing": "s9: her stylus re-presses the green mark (one green ring pulse), an empty dashed AI box draws, and the station hood closes in the stage window with its lamp steady white.",
+    "human_performance": "Inspector arms are solved two-bone from rotated shoulders with lower-elbow selection. Reach is verified at every contact view as listed in retained_defect_disposition.",
+    "pixel_observations": null
+   },
+   "story_review": {
+    "story_sha256": "4301497c8ab0d945e00ff9b105bed1e651cd61c8b008370c42b5ec740975a528",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "The intended chain, reconstructed from the executable code: A generic drone's station opens on a caliche Permian pad and the drone lifts and flies out over the equipment while a Texas card pins the Permian and Austin. A flight screen lights and the companies' blue 'Anomaly' flag rises on a pump-pressure reading, tagged 'The companies say'. Under an 'Illustration of the method in EPA's letter' chip, an approval letter takes a September 30th, 2025 stamp and an Approved mark for periodic methane screening. The drone flies its plan to a white ring over a valve and an illustrative infrared view of the valve's shimmer opens. A seated inspector traces the shimmer with her stylus, presses a green confirmation with her finger and flicks a follow-up tag to the valve. The letter's protocol title highlights AI once. A separate, disclosed program is delayed to January 22nd, 2027 and proposed for rescission on October 7th. She presses her green mark again beside an empty AI box while the station closes outside.",
+    "opening_to_ending": "It opens on a machine acting (the drone leaving its station) under the question of who decides that footage shows a leak. It ends on the person who performed the outline and confirmation re-pressing her green mark beside an empty AI box. The answer, a certified person, and the limit, the letter is silent on AI, are both pictured rather than only printed.",
+    "weakest_transition": "s6 to s7 (38.72 s). The disclosed detour from the approval letter into the separate Super Emitter program is about 10.1 s of tags and calendar pages connected by news peg rather than cause. It is honest and labelled, but it is the least picture-led stretch before the close."
+   },
+   "action_reviews": []
+  },
+  "b": {
+   "treatment": "b",
+   "review_scope": "code-plan",
+   "board": {
+    "path": "/home/user/dispatch-editions/2026-10-21/TexasAIDispatch/out/dispatch/opening-b.json",
+    "sha256": "d130fe41df9996104086e9fb3faff0399ca275429884da24650e8e0258765432"
+   },
+   "verdict": "revise",
+   "concept_sha256": "d4b6978a274f87e58603bff23230787ebce2261520bd9db608d729e5fe957255",
+   "renderer_sha256": "02a32fa8c5f19be4c642371c6fa917c74725396c1b03c042e7a5b6dd96c44882",
+   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+   "reviewer_identity": "storyboard-critic:claude-opus-5-5:high:isolated-code-plan-reviewer",
+   "director_identity": "claude-sonnet-5-5 director, this session",
+   "reviewed_at": "2026-10-21",
+   "strongest_frame": "s5 review-panel (28.51 to 30.91 s). As in A, her stylus leads the outline and her finger presses the green confirmation. Reach is verified at 448 of 568 px for the stylus and 432 of 514 px for the finger. B's room views also keep the deciding person in frame before and after the machine events, which is the treatment's genuine new idea.",
+   "weakest_frame": "s1 room-window (0 to 2.59 s). The certified inspector sits at her desk watching the Chevron pilot drone launch through her window, under the chip 'Illustration. Generic drone and inspector'. This is the hook, and it puts the EPA-method reviewer inside the pilot example.",
+   "blocking_defects": [
+    {
+     "category": "source",
+     "scene_id": "s1",
+     "time_s": 0.0,
+     "failed_criterion": "quality_contract.continuity ('explicitly introduces a sourced example; do not imply stock illustration is the actual case'). Brief: distinct source examples need an honest visible disclosure. story_contract.source_limit ('No source shows Chevron's drone is the approved Air Max'). This is an unresolved implementation of retained round-1 defect SD4 in treatment B.",
+     "defect": "B's board treats s1 and s2 as the Chevron pilot (DroneLife c3, c4, c17) and switches to 'Illustration of EPA's method, generic inspector' at s3, through a source-example transition. But the renderer draws the same generic certified inspector in the pilot scenes. In s1 room-window, restingPerson turns her toward the window as the pilot drone's hood opens and it lifts off (registry room-window subject_ids include s1-inspector). In s2 room-monitor she watches the companies' alert on her tablet (s2-inspector). The person, room and window then continue unchanged into the EPA-method scenes, and the s9 window returns to the same pad. The s1 and s2 chip reads only 'Illustration. Generic drone and inspector'. The continuous person therefore cancels the s3 disclosure. The likely false inference is that Chevron's Permian pilot drones were already watched and confirmed by a certified inspector on site, under this approval. No source reports that: DroneLife describes monitoring and AI analytics from remote control centers, and EPA's letter describes review of collected footage under the approved method. Required correction: keep the EPA-method inspector out of the pilot scenes, for example by starting B's room story at s3. Alternatively, stage s1 and s2 with a visibly different, disclosed role and place, such as an operator at a remote control center as DroneLife describes, with a chip that says so. Do not return the review room's window to the pilot pad as if it were the same site, or disclose it as the illustrated method's generic pad."
+    },
+    {
+     "category": "source",
+     "scene_id": "s7",
+     "time_s": 38.72,
+     "failed_criterion": "quality_contract.continuity. The disclosure must cover what the separate example pictures.",
+     "defect": "In s7 room-calendar and s8 room-proposal, the same certified inspector sits at her desk reacting as the separate Super Emitter program's tag ('Leak reporting by certified third parties') takes 'Delayed' and then 'Will propose to rescind' (registry subject_ids s7-inspector and s8-inspector). The chip says 'Illustration. A separate program, no drone', which discloses the drone's absence but not that she is not part of that program. Putting the film's certified reviewer at the centre of a 'certified third parties' program that is delayed and to be rescinded invites the inference that the certified human check is what EPA is rescinding. That contradicts the closing answer and the narration's 'separate'. A avoids this because it has no person in s7 and s8. Required correction: either keep her out of s7 and s8, or extend the separate-program disclosure so it visibly covers the scene she is in."
+    }
+   ],
+   "notes": [
+    "The rubric bar is read from config/dispatch_rubric.yaml and not restated here.",
+    "Resolved since round 1: the human turn and close, the AI flag decoupled from the valve, the s8 chip, the treatment now genuinely diverging from A with its opening promise executed, the wall-view share (1 of 22), and the action-use bindings.",
+    "Phone checks to carry forward. In s3 (room-desk, letter-desk, stamp-reaction), the approval stamps press by themselves beside the seated inspector while she taps a pen; check that she doesn't read as the approver. In s4 room-feed and feed-lens she watches the drone's live 'Feed' during flight under the EPA-method chip; EPA's letter describes the certified inspector reviewing collected footage, so confirm the monitor reads as monitoring rather than her review. Also check hand occlusion, likeness, small type and the large-monitor scale of the review tablet, as for A.",
+    "In s5 room-review (26.4 to 28.51 s), the stylus starts its approach toward the outline start, which sits outside her far-arm reach in that framing (top of the outline about 427 px from a 379 px reach). The trace begins only at 28.934 s, in review-panel, where it is reachable, so personArm's clamp stops the approaching hand short without drawing anything. Not blocking, but avoid ending the shot on a visibly overreaching arm.",
+    "The fingerprint light_story 'night-practical' contradicts B's daylight plate and window. The registry note still says 'B reads the same events from the desk and from above'. Both are stale prose.",
+    "The same stale planning fields, palette and source checks as in A's notes apply."
+   ],
+   "code_observations": {
+    "opening": "room-window (0 to 2.59 s): the inspection-room wall with a real cut-out window over the outdoor plate. The station hood opens and the drone lifts as she turns toward it, then station-wide holds the fly-out and Texas card.",
+    "central_mechanism": "s4: the room-feed wall monitor shows the same pad world through FEED_CAM, then poi-close flies the plan and feed-lens opens the infrared inset inside the feed. s5: room-review, then the review-panel trace and press, then the mark-hands flick.",
+    "closing": "room-hold, confirm-hold, then blank-box: her stylus re-presses the green mark, the empty AI box draws, and the own-window station closes.",
+    "pixel_observations": null
+   },
+   "story_review": {
+    "story_sha256": "1db16ccf3857fb8882a3ac3c6478596b59b2f7c23facceb3e8e2e6f8b61dbb7c",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
+    "verdict": "revise",
+    "blocking_defects": [
+     {
+      "category": "source",
+      "scene_id": "s1",
+      "time_s": 0.0,
+      "defect": "The EPA-method inspector is present in the Chevron pilot scenes (s1 to s2) and carries continuously into the method scenes. That merges two source examples the board itself separates at s2 to s3."
+     },
+     {
+      "category": "source",
+      "scene_id": "s7",
+      "time_s": 38.72,
+      "defect": "The same certified inspector is centred in the separate 'certified third parties' program as it is delayed and proposed for rescission, under a chip that discloses only that no drone is shown."
+     }
+    ],
+    "one_viewing_summary": "The intended chain, reconstructed from the executable code: In an inspection room a seated inspector turns to her window as a drone station's hood opens on the pad outside and the drone lifts off. On her tablet the companies' blue 'Anomaly' flag rises on a pump-pressure reading, tagged 'The companies say'. An approval letter slides onto her desk and takes its date and Approved stamps while she watches and taps a pen. On her wall monitor's live feed the drone flies to a valve ring and an infrared view opens. At the review screen she traces the shimmer, presses green and flicks a follow-up tag to the valve. She reads the protocol title, where AI is highlighted once, then the separate program's delay and proposed rescission. Finally she re-presses her green mark beside an empty AI box as the station closes outside her window.",
+    "opening_to_ending": "B opens and closes on the same person, which makes 'who decides' visibly human throughout. Because that same person is also present in the pilot scenes and the separate-program scenes, the film implies she belongs to Chevron's pilot and to the program being rescinded. That blurs the limits the ending must keep clear.",
+    "weakest_transition": "s2 to s3 (11.44 s). The board marks this cut as a switch of source example to EPA's method, but the same inspector, desk and window continue straight through it, so the picture does not change example."
+   },
+   "action_reviews": []
+  }
+ },
+ "comparison": {
+  "code_scope_result": "A passes at code-plan scope. B needs one consolidated correction, the presence and disclosure of the inspector in s1-s2 and s7-s8. This is a code-plan result only, not a phone selection and not film approval.",
+  "observation": "Both treatments now perform the human turn with verified reach. B is a genuinely different, person-first construction and could be the stronger film once its example boundaries are honest. The two-treatment comparison capture renders both boards, so either correct B before that capture or follow the existing repair route. The choice between A and B belongs to the exact phone review.",
+  "both_verdicts": {
+   "a": "pass",
+   "b": "revise"
+  }
+ },
+ "consolidated_correction": [
+  "B only. 1. Remove the EPA-method inspector from the pilot scenes s1 and s2 (room-window and room-monitor), or restage those scenes with a visibly different, disclosed role and place (for example a remote control-center operator, per DroneLife) and a chip that says so. Keep the explicit switch disclosure at s3. Don't present the review room's window pad as the pilot site without disclosure.",
+  "B only. 2. In s7 and s8 (room-calendar and room-proposal), keep the inspector out of the separate program, or extend the separate-program disclosure so it visibly covers the scene she is in.",
+  "Non-blocking for both (notes): rebind or retime the two straddling action_uses (A: s1-event-2 and s6-event-2), add s5-inspector to the n5a binding, refresh the stale planning prose (hero purpose, viewer_question, dissolve bridge, annotations, B's fingerprint light_story, registry note), and consider changing the blue gate-valve handwheel. Carry hand occlusion, type size, the follow-up flick, stamp support, tablet scale and likeness to the exact phone review.",
+  "No other code-proven mandatory defect remains. Capture still requires its charged reservation, native headroom, the wrapper and genuine authored-art receipts. The silent phone comparison, timed phone, native, audiovisual, three-scorer and delivery gates all remain."
+ ]
+}
