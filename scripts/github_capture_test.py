@@ -131,6 +131,56 @@ class CaptureTest(unittest.TestCase):
             self.assertEqual(capture.current_identity(repo,repo/'state.json','unit-operation'),
                              'state.json:unit-operation')
 
+    def test_prologue_failure_is_retained_without_render_or_recharge(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo=Path(temporary).resolve();(repo/'out/dispatch').mkdir(parents=True)
+            active=repo/'activation.json';active.write_text(json.dumps({'request_oid':'a'*40,'request_sha256':'b'*64}))
+            request={**self.request(),'owner_sha256':'c'*64,'epoch':'d'*32}
+            def failure(root,state,request,phase):
+                phase('native-headroom');raise ValueError('Unit measured storage refusal')
+            with patch.dict(capture.os.environ,{'DISPATCH_GITHUB_CAPTURE_REQUEST':str(active),'GITHUB_RUN_ID':'123'}), \
+                    patch.object(capture,'request_at',return_value=(request,'b'*64)), \
+                    patch.object(capture,'require_delegate',return_value={'status':'held'}), \
+                    patch.object(capture,'perform_capture',side_effect=failure), \
+                    patch.object(capture.ck,'save_with_recovery',return_value={'commit':'e'*40}) as saved:
+                result=capture.run(repo)
+            self.assertEqual(result['phase'],'native-headroom')
+            self.assertFalse(result['capture_started'])
+            self.assertEqual(result['error']['message'],'Unit measured storage refusal')
+            self.assertEqual(result['checkpoint_oid'],'e'*40)
+            self.assertFalse(result['approval']);saved.assert_called_once()
+            self.assertTrue((repo/result['lifecycle_evidence']['path']).is_file())
+
+    def test_fenced_owner_retains_artifact_without_checkpoint_write(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo=Path(temporary).resolve();active=repo/'activation.json'
+            active.write_text(json.dumps({'request_oid':'a'*40,'request_sha256':'b'*64}))
+            request={**self.request(),'owner_sha256':'c'*64,'epoch':'d'*32}
+            with patch.dict(capture.os.environ,{'DISPATCH_GITHUB_CAPTURE_REQUEST':str(active)}), \
+                    patch.object(capture,'request_at',return_value=(request,'b'*64)), \
+                    patch.object(capture,'require_delegate',side_effect=ValueError('Unit owner fenced')), \
+                    patch.object(capture,'perform_capture') as render, \
+                    patch.object(capture.ck,'save_with_recovery') as saved:
+                result=capture.run(repo)
+            self.assertFalse(result['owner_verified']);render.assert_not_called();saved.assert_not_called()
+            self.assertEqual(result['error']['message'],'Unit owner fenced')
+            self.assertTrue((repo/'out/github-capture-public-result.json').is_file())
+
+    def test_checkpoint_failure_does_not_report_transport_success(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo=Path(temporary).resolve();active=repo/'activation.json'
+            active.write_text(json.dumps({'request_oid':'a'*40,'request_sha256':'b'*64}))
+            request={**self.request(),'owner_sha256':'c'*64,'epoch':'d'*32}
+            with patch.dict(capture.os.environ,{'DISPATCH_GITHUB_CAPTURE_REQUEST':str(active)}), \
+                    patch.object(capture,'request_at',return_value=(request,'b'*64)), \
+                    patch.object(capture,'require_delegate',return_value={'status':'held'}), \
+                    patch.object(capture,'perform_capture',return_value=0), \
+                    patch.object(capture.ck,'save_with_recovery',side_effect=capture.ck.CheckpointError('Unit push failed')):
+                result=capture.run(repo)
+            self.assertEqual(result['capture_exit_code'],0)
+            self.assertNotEqual(result['exit_code'],0)
+            self.assertEqual(result['checkpoint_error']['message'],'Unit push failed')
+
     def test_delegate_fences_changed_epoch_and_extra_controller_charge(self):
         import publication_owner
         with tempfile.TemporaryDirectory() as temporary:

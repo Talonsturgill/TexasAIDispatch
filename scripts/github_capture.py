@@ -256,30 +256,31 @@ def stage(repo, request_oid, expected_sha, destination):
     return {'destination': str(destination), 'activation': str(activation), 'request': request}
 
 
-def run(repo):
-    repo = Path(repo).resolve(); state_path = repo/'out/dispatch/run_state.json'
-    owner = require_delegate(state_path)
-    activation = read(os.environ['DISPATCH_GITHUB_CAPTURE_REQUEST'])
-    request, _ = request_at(repo, activation['request_oid'])
+def perform_capture(repo, state_path, request, phase):
     note, resource, argv = OPS[request['operation']]
     import capture_guard
     import capture_reservation
+    phase('deterministic-foley')
     catalog = repo/'assets/sfx/catalog.json'
     if catalog.is_file() and any(not (repo/row['wav']).is_file() for row in read(catalog)):
         subprocess.run(['bash','scripts/run_with_env.sh','python','scripts/foley.py',
                         '--build','assets/sfx'],cwd=repo,check=True)
+    phase('input-admission')
     state = read(state_path); event = prepaid(state, request['operation'], request['reservation_event_sha256'])
     operation_precheck(repo, request['operation'], state)
     # These existing gates compute complete native-frame storage and perform the real
     # portable housekeeping check on this runner before authorization or capture.
     command = 'bash scripts/run_with_env.sh '+shlex.join(argv)
+    phase('native-headroom')
     subprocess.run(['bash', 'scripts/run_with_env.sh', 'python', 'scripts/native_headroom.py',
                     '--board', 'out/dispatch/storyboard.json', '--out',
                     'out/dispatch/github-native-headroom.json'], cwd=repo, check=True)
+    phase('housekeeping-and-authorization')
     auth = capture_guard.authorize(repo, state_path, [repo/'out/dispatch/storyboard.json'],
                                    [command], resource=resource, housekeeping=True)
     if auth['render_reservation']['event_sha256'] != request['reservation_event_sha256']:
         raise ValueError('runner authorization selected another render charge')
+    phase('prepaid-input-identity')
     field = 'full_render_identity' if request['operation'] == 'full' else 'preflight_identity'
     identity = capture_reservation.input_identity(state_path, note)
     if event.get(field) != identity:
@@ -288,23 +289,60 @@ def run(repo):
         'resource': resource, 'run_id': state['run_id'], 'event_sha256': request['reservation_event_sha256'],
         'input_identity': identity}
     capture_guard.atomic_json(repo/capture_guard.AUTHORIZATION, auth)
+    phase('durable-authorization-consumption')
     errors = capture_guard.capture_problems(command, auth, repo, repo)
     if errors or not capture_guard.consume(repo, command):
         raise ValueError('finite capture authorization refused: '+'; '.join(errors))
+    phase('fixed-operator')
+    return subprocess.run(['bash', 'scripts/run_with_env.sh', *argv], cwd=repo, timeout=5400).returncode
+
+
+def run(repo):
+    """Retain actual failures throughout setup, authorization, capture and durability."""
+    repo = Path(repo).resolve(); state_path = repo/'out/dispatch/run_state.json'
+    receipt = {'schema':'dispatch_github_capture_result/1', 'approval':False,
+               'publication_allowed':False, 'github_run_id':os.environ.get('GITHUB_RUN_ID'),
+               'observed_at':datetime.now(timezone.utc).isoformat(), 'exit_code':1,
+               'phase':'load-activation', 'owner_verified':False, 'capture_started':False}
+    def phase(value):
+        receipt['phase'] = value
+        if value == 'fixed-operator': receipt['capture_started'] = True
     try:
-        result = subprocess.run(['bash', 'scripts/run_with_env.sh', *argv], cwd=repo, timeout=5400)
-        exit_code = result.returncode
-    except subprocess.TimeoutExpired:
-        exit_code = 124  # Preserve actual partial outputs and the original charge.
-    receipt = {'schema': 'dispatch_github_capture_result/1', 'request_oid': activation['request_oid'],
-               'request_sha256': activation['request_sha256'], 'owner_sha256': owner['owner_sha256'],
-               'epoch': owner['epoch'], 'github_run_id': os.environ['GITHUB_RUN_ID'],
-               'source_commit': request['source_commit'],
-               'operation': request['operation'], 'exit_code': exit_code,
-               'approval': False, 'publication_allowed': False}
-    (repo/'out/dispatch/github-capture-result.json').write_text(json.dumps(receipt, indent=2)+'\n')
-    saved = ck.save_with_recovery(repo, state_path, 'delegated GitHub native capture result')
-    receipt['checkpoint_oid'] = saved['commit']
+        activation = read(os.environ['DISPATCH_GITHUB_CAPTURE_REQUEST'])
+        receipt.update({k:activation[k] for k in ('request_oid','request_sha256')})
+        phase('load-immutable-request')
+        request, _ = request_at(repo, activation['request_oid'])
+        receipt.update({k:request[k] for k in ('source_commit','operation','owner_sha256','epoch')})
+        phase('delegate-validation')
+        require_delegate(state_path)
+        receipt['owner_verified'] = True
+        code = perform_capture(repo,state_path,request,phase)
+        receipt.update(exit_code=code,capture_exit_code=code)
+        if code:
+            receipt['error'] = {'type':'OperatorExit','message':'Fixed operator returned '+str(code)}
+    except (OSError, ValueError, KeyError, ck.CheckpointError, subprocess.SubprocessError) as exc:
+        receipt['exit_code'] = 124 if isinstance(exc,subprocess.TimeoutExpired) else (getattr(exc,'returncode',1) or 1)
+        receipt['error'] = {'type':type(exc).__name__,'message':str(exc)}
+    package = repo/'out/dispatch'
+    package.mkdir(parents=True,exist_ok=True)
+    evidence = package/'github-capture-results'
+    evidence.mkdir(exist_ok=True)
+    retained = evidence/(digest(canonical(receipt))+'.json')
+    retained.write_text(json.dumps(receipt,indent=2)+'\n')
+    receipt['lifecycle_evidence'] = {'path':str(retained.relative_to(repo)),'sha256':digest(retained)}
+    canonical_result = package/'github-capture-result.json'
+    canonical_result.write_text(json.dumps(receipt,indent=2)+'\n')
+    if receipt['owner_verified']:
+        try:
+            # Never overwrite another owner's checkpoint after a lease/epoch change.
+            require_delegate(state_path)
+            saved = ck.save_with_recovery(repo,state_path,'delegated GitHub capture '+receipt['phase']+' result')
+            receipt['checkpoint_oid'] = saved['commit']
+        except (OSError,ValueError,KeyError,ck.CheckpointError,subprocess.SubprocessError) as exc:
+            receipt['checkpoint_error'] = {'type':type(exc).__name__,'message':str(exc)}
+            receipt['exit_code'] = receipt['exit_code'] or 1
+            canonical_result.write_text(json.dumps(receipt,indent=2)+'\n')
+    # Even fenced or early setup failures survive in the public-safe Actions artifact.
     output = repo/'out/github-capture-public-result.json'
     output.write_text(json.dumps(receipt, indent=2)+'\n')
     return receipt

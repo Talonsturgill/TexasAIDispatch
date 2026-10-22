@@ -94,6 +94,8 @@ jobs:
           retention-days: 7
           path: |
             ${{ env.CAPTURE_ROOT }}/out/github-capture-public-result.json
+            ${{ env.CAPTURE_ROOT }}/out/dispatch/github-capture-results/*.json
+            ${{ env.CAPTURE_ROOT }}/out/dispatch/github-native-headroom.json
             ${{ env.CAPTURE_ROOT }}/out/dispatch/film.mp4
             ${{ env.CAPTURE_ROOT }}/out/dispatch/preflight.mp4
             ${{ env.CAPTURE_ROOT }}/out/dispatch/cinema/hero.mp4
