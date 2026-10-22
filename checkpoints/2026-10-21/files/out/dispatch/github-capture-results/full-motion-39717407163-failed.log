@@ -1,0 +1,18 @@
+capture	Verify immutable request and claim its original charge once	﻿2026-10-22T03:33:46.6768622Z ##[group]Run bash scripts/run_with_env.sh python scripts/github_capture.py stage --request "$CAPTURE_REQUEST" --request-sha256 "$CAPTURE_REQUEST_SHA256" --destination "$CAPTURE_ROOT"
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6769298Z ^[[36;1mbash scripts/run_with_env.sh python scripts/github_capture.py stage --request "$CAPTURE_REQUEST" --request-sha256 "$CAPTURE_REQUEST_SHA256" --destination "$CAPTURE_ROOT"^[[0m
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6769852Z ^[[36;1mgit clone --quiet --depth 1 https://github.com/Talonsturgill/TexasAIDocket.git "$(dirname "$CAPTURE_ROOT")/TexasAIDocket"^[[0m
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6813368Z shell: /usr/bin/bash -e {0}
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6813511Z env:
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6813655Z   CAPTURE_REQUEST: 976d97da8298103711359e91ebb054f40ccbb2b0
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6813940Z   CAPTURE_REQUEST_SHA256: 7a9b5c16aaee4df30b6e37cb8db73734310edc8f3f019f67e09a1b60b1d8e017
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6814241Z   CAPTURE_ROOT: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6814619Z   DISPATCH_GITHUB_CAPTURE_REQUEST: /home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/github-capture-activation.json
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6815001Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6815235Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6815460Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6815668Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6815875Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6816086Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:46.6816264Z ##[endgroup]
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:57.9941917Z delegated GitHub capture refused: restored edition fails its audit: active film route failed: approved measured retime provenance invalid: authored source module is missing or outside the repository
+capture	Verify immutable request and claim its original charge once	2026-10-22T03:33:58.0205988Z ##[error]Process completed with exit code 1.

@@ -1,0 +1,92 @@
+[
+  {
+    "command": "python scripts/engine_lint.py",
+    "exit_code": 0,
+    "log": "00.log"
+  },
+  {
+    "command": "python scripts/staging_check.py",
+    "exit_code": 0,
+    "log": "01.log"
+  },
+  {
+    "command": "python scripts/staging_check.py --board out/dispatch/storyboard.json",
+    "exit_code": 0,
+    "log": "02.log"
+  },
+  {
+    "command": "python scripts/watchability_check.py --board out/dispatch/storyboard.json",
+    "exit_code": 0,
+    "log": "03.log"
+  },
+  {
+    "command": "python scripts/documentary_check.py --board out/dispatch/storyboard.json",
+    "exit_code": 0,
+    "log": "04.log"
+  },
+  {
+    "command": "python scripts/documentary_review.py --board out/dispatch/storyboard.json --film out/dispatch/film.mp4 --verify",
+    "exit_code": 0,
+    "log": "05.log"
+  },
+  {
+    "command": "node video-engine/tests/direction.mjs",
+    "exit_code": 1,
+    "log": "06.log"
+  },
+  {
+    "command": "python scripts/flow_check.py --board out/dispatch/storyboard.json --sfx out/dispatch/sfx_events.json",
+    "exit_code": 0,
+    "log": "07.log"
+  },
+  {
+    "command": "python scripts/ship_gate.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --script out/dispatch/vo_script.txt --captions out/dispatch/captions.json --audio out/dispatch/mix.json --pre-panel",
+    "exit_code": 0,
+    "log": "08.log"
+  },
+  {
+    "command": "python scripts/music.py --verify-package out/dispatch/credits.txt --mix out/dispatch/mix.json --board out/dispatch/storyboard.json --master out/dispatch/mix.wav",
+    "exit_code": 0,
+    "log": "09.log"
+  },
+  {
+    "command": "python scripts/super_evidence_check.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json",
+    "exit_code": 0,
+    "log": "10.log"
+  },
+  {
+    "command": "python scripts/board_scale_check.py --board out/dispatch/storyboard.json",
+    "exit_code": 0,
+    "log": "11.log"
+  },
+  {
+    "command": "python scripts/floor_check.py --board out/dispatch/storyboard.json",
+    "exit_code": 0,
+    "log": "12.log"
+  },
+  {
+    "command": "python scripts/safe_area_check.py",
+    "exit_code": 0,
+    "log": "13.log"
+  },
+  {
+    "command": "python scripts/feed_composite_check.py --film out/dispatch/film.mp4 --board out/dispatch/storyboard.json --manifest out/dispatch/render-manifest.json --out out/dispatch/feed-composite.png --report out/dispatch/feed-composite.json",
+    "exit_code": 0,
+    "log": "14.log"
+  },
+  {
+    "command": "python scripts/freshness_check.py --film out/dispatch/film.mp4 --started out/dispatch/render_started --manifest out/dispatch/render-manifest.json --inputs out/dispatch/storyboard.json out/dispatch/mix.wav out/dispatch/captions.json",
+    "exit_code": 0,
+    "log": "15.log"
+  },
+  {
+    "command": "python scripts/run_discipline.py --state out/dispatch/run_state.json",
+    "exit_code": 0,
+    "log": "16.log"
+  },
+  {
+    "command": "python scripts/metadata_continuation.py --board out/dispatch/storyboard.json",
+    "exit_code": 0,
+    "log": "17.log"
+  }
+]

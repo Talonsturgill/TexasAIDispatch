@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T03:31:53.407048+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-22T03:45:39.595410+00:00",
+  "note": "before paid reservation",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
   "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
-  "source_pin": "d165c2c00d4f1b2f7f76bf3c3985fae897b68548",
+  "source_pin": "7d40a6ada8dc9ff91fb2c334dfc7bcb5b06c7299",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
     "root": "video-engine",
@@ -1154,6 +1154,18 @@
       "size": 897
     },
     {
+      "path": "out/dispatch/feed-composite.json",
+      "class": "scratch",
+      "sha256": "8086a783174af0c51204d991d5bb429a1444355a70d63172b9bde035abd44d42",
+      "size": 593
+    },
+    {
+      "path": "out/dispatch/feed-composite.png",
+      "class": "scratch",
+      "sha256": "a752f0cf8e125a6725780c78e4b518aa32711da98af38410a37067906653070d",
+      "size": 517991
+    },
+    {
       "path": "out/dispatch/film.mp4",
       "class": "scratch",
       "sha256": "35331bbd2cce687d279878d41a2399fa79b2643e4206adbd7cfa84d0c3e10f59",
@@ -1164,6 +1176,126 @@
       "class": "scratch",
       "sha256": "d482d99f3414a49623855395830177e5a5bed6046c627d4e47d9b094176e9788",
       "size": 895180
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/00.log",
+      "class": "scratch",
+      "sha256": "e026694296949cde9544b54e18af9291a4401ddb85d225d6f74936cdaf6398bc",
+      "size": 41
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/01.log",
+      "class": "scratch",
+      "sha256": "6fabc2d0531605ba0565bd7232857c7f2d53dc95221b50f5ec83b47ab67e31c7",
+      "size": 669
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/02.log",
+      "class": "scratch",
+      "sha256": "6bfa4a1c77fdda54e886791d5177dfc2efea9226c2c769c557812618342f9dff",
+      "size": 714
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/03.log",
+      "class": "scratch",
+      "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
+      "size": 91
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/04.log",
+      "class": "scratch",
+      "sha256": "bb8e5382f2184dcc06ca5dd38649d316088d2c2bfe7975c40ceb0c5bd7d1aa7c",
+      "size": 72
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/05.log",
+      "class": "scratch",
+      "sha256": "84f7d55aa02ee76a9074157a7df9d58ebaaf6715936812245431c6f0abd76eba",
+      "size": 91
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/06-correct-cwd.log",
+      "class": "scratch",
+      "sha256": "d21b35ccae6fad7d95f55682db01615230b22f4e72cfef1ed4dc2b9bf9c3fe4b",
+      "size": 275
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/06.log",
+      "class": "scratch",
+      "sha256": "13211a1739afc592f008b8887237727a3831ea641f5e002ea26e630a9c8d7a93",
+      "size": 1554
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/07.log",
+      "class": "scratch",
+      "sha256": "355952406773d16f41468a83afab8df92a992a94fff93c4d64e2ddabb7784544",
+      "size": 61
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/08.log",
+      "class": "scratch",
+      "sha256": "b1afdd5112751c6be7f3dfdbc65edf8fbbd87a370144d60c6e246f01c4209b43",
+      "size": 150
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/09.log",
+      "class": "scratch",
+      "sha256": "ae1beae5268a97631cc97c1c8a81ef68346a6d9227a7d04ad71d4d9e79a3e1f4",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/10.log",
+      "class": "scratch",
+      "sha256": "1562afb4ffda6341be41f25e0bad0ebdb3058654c7e15a0499bd9dcbec940add",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/11.log",
+      "class": "scratch",
+      "sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7",
+      "size": 244
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/12.log",
+      "class": "scratch",
+      "sha256": "04fc57652c39bc99fd20b302928ba2b99af0855922a0221c5adae3b640acabc6",
+      "size": 74
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/13.log",
+      "class": "scratch",
+      "sha256": "e7eb46a5143a0f9e5eeefef1087fe4d81d9f9e6a2586af96f6ee4ac389e2be17",
+      "size": 137
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/14.log",
+      "class": "scratch",
+      "sha256": "59f1ade9ed3244606e71756cde7f1a5cd046c5fd7eeb99f339bb6a38547c6000",
+      "size": 87
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/15.log",
+      "class": "scratch",
+      "sha256": "ff044705cf59247174d78a156e62d2cb428027c2cfe6168ce7635d8bf70d2430",
+      "size": 82
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/16.log",
+      "class": "scratch",
+      "sha256": "559af007fa90c003610dfb80d6fa06fa49c695bf14a8f8b55ad94dcdfc14f3ac",
+      "size": 346
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/17.log",
+      "class": "scratch",
+      "sha256": "af5d8a21858f42808c9bcc17012b77bcc2fd6ab3b071dbd4a05f13f410470541",
+      "size": 5
+    },
+    {
+      "path": "out/dispatch/final-mechanical-checks/result.json",
+      "class": "scratch",
+      "sha256": "b5770cbb5d90022eebd998cfd49f975b1d82f338fad55ac54f004825fd90ed46",
+      "size": 3006
     },
     {
       "path": "out/dispatch/final-phone-assignment.json",
@@ -1478,6 +1610,48 @@
       "size": 982
     },
     {
+      "path": "out/dispatch/github-capture-results/39717407163/dispatch/cinema/hero.mp4",
+      "class": "scratch",
+      "sha256": "5d8164b911066338e4d2c1e461d2139a6339777c37793582957c7fe7dc5d772f",
+      "size": 2624821
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39717407163/dispatch/film.mp4",
+      "class": "scratch",
+      "sha256": "35331bbd2cce687d279878d41a2399fa79b2643e4206adbd7cfa84d0c3e10f59",
+      "size": 9493782
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39717407163/dispatch/github-capture-results/43a8c7b59fb4f9d8616336acc3717a631d385ba2e620eec1943b93913ad8bb74.json",
+      "class": "scratch",
+      "sha256": "c6f4ed3e6e117229022058fa164e46fa1ad0ec78145cce45b36c156c61c42cfa",
+      "size": 685
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39717407163/dispatch/github-capture-results/6f7ccc2259b6185214e59942004c54c33c8ccbbb69e0f0bfcb3403f8a9e94f43.json",
+      "class": "scratch",
+      "sha256": "b078800df742e1feefd17579e99781d10560223e6c4509bf461ffb74590b739c",
+      "size": 687
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39717407163/dispatch/github-capture-results/b253fd8c1d8c095c28742a56e495e151b04564b2b323e8fba7327a4973d455bd.json",
+      "class": "scratch",
+      "sha256": "b9b3f19ad29e2803d0ffc72026f23abaf7cc884e021a8ede17820fd41a569d6f",
+      "size": 693
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39717407163/dispatch/github-native-headroom.json",
+      "class": "scratch",
+      "sha256": "c6946d2fc96cee51b5177f33c181fa63cc4abd7cf4586dab7afcbf7ae48cf806",
+      "size": 308
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39717407163/dispatch/preflight.mp4",
+      "class": "scratch",
+      "sha256": "8a3eb9e89cc3b19c6bbc0742579b83249da7c33bf8bc774e9b109b831fa5a397",
+      "size": 314183
+    },
+    {
       "path": "out/dispatch/github-capture-results/43a8c7b59fb4f9d8616336acc3717a631d385ba2e620eec1943b93913ad8bb74.json",
       "class": "scratch",
       "sha256": "c6f4ed3e6e117229022058fa164e46fa1ad0ec78145cce45b36c156c61c42cfa",
@@ -1508,6 +1682,18 @@
       "size": 11266
     },
     {
+      "path": "out/dispatch/github-capture-results/full-motion-39717407163-failed.log",
+      "class": "scratch",
+      "sha256": "8987503e86a66a6f2046a50ac931a68319b26c1b29cc9a00d1d5c89bddd7e172",
+      "size": 3273
+    },
+    {
+      "path": "out/dispatch/github-capture-results/full-motion-39717407163-watch.log",
+      "class": "scratch",
+      "sha256": "fe8b6099447ed50cba4ad2ce82cf462e38ef03e12d6a7caedd52d8147cfce36f",
+      "size": 2466
+    },
+    {
       "path": "out/dispatch/github-native-headroom.json",
       "class": "scratch",
       "sha256": "c6946d2fc96cee51b5177f33c181fa63cc4abd7cf4586dab7afcbf7ae48cf806",
@@ -1518,6 +1704,12 @@
       "class": "scratch",
       "sha256": "7ca155dea2f860f7e0d57c05307fc027f0ab23126d7f9a9b78a98e156ba06750",
       "size": 974
+    },
+    {
+      "path": "out/dispatch/github-request-full-motion.json",
+      "class": "scratch",
+      "sha256": "a2e8a9072f99e1a61116644757b1c82bb6571b08a4b482bc72f472ab09fed009",
+      "size": 979
     },
     {
       "path": "out/dispatch/github-request-full.json",
@@ -7629,6 +7821,10 @@
     },
     {
       "path": "out/dispatch/grant-projection-roots.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/verify-final-gmail.private.py",
       "reason": "private path component"
     }
   ],

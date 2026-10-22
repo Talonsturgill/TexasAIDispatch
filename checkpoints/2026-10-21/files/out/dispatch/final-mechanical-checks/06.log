@@ -1,0 +1,23 @@
+✘ [ERROR] Could not resolve "src/lib/direction.ts"
+
+/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/video-engine/node_modules/esbuild/lib/main.js:1752
+  let error = new Error(text);
+              ^
+
+Error: Build failed with 1 error:
+error: Could not resolve "src/lib/direction.ts"
+    at failureErrorWithLog (/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/video-engine/node_modules/esbuild/lib/main.js:1752:15)
+    at /Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/video-engine/node_modules/esbuild/lib/main.js:1211:25
+    at /Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/video-engine/node_modules/esbuild/lib/main.js:1163:52
+    at buildResponseToResult (/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/video-engine/node_modules/esbuild/lib/main.js:1209:7)
+    at /Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/video-engine/node_modules/esbuild/lib/main.js:1236:16
+    at responseCallbacks.<computed> (/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/video-engine/node_modules/esbuild/lib/main.js:886:9)
+    at handleIncomingPacket (/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/video-engine/node_modules/esbuild/lib/main.js:941:12)
+    at Socket.readFromStdout (/Users/t/Desktop/TexasAIDocket/repositories/TexasAIDispatch/video-engine/node_modules/esbuild/lib/main.js:864:7)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:567:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+Node.js v24.20.0
