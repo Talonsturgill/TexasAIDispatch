@@ -2,20 +2,24 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "26aa1a5326bd1609df2790c2f74cfa38a3a64d33fd2d8ca6366502819bfd8f26",
+    "event_sha256": "a4ad3aedac95792e0a1859657219fc8ab0a68f7e06410a18558d172baaf626a8",
     "resource": "preflight_renders",
-    "at": "2026-10-22T04:09:15.794787Z",
-    "note": "exact-film mechanical preship probes"
+    "at": "2026-10-22T15:03:35.556007Z",
+    "note": "two opening comparison batch"
   },
   "boards": [
     {
-      "path": "out/dispatch/storyboard.json",
-      "sha256": "ebfe42e9f8a062061a576c2c22f1cf493e8aee0d8e526194b0adfaa2a91c8f3c"
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "d3a9a2fbe0414743f3261174a5126a92f652288909f679eecff8a7b836b544f3"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "608c1720cb8d205ee15fadea9b2d787c867a5e8bf0368fd4eff610de3977c5d8"
     }
   ],
   "bound": {
     "renderer_inputs": {
-      "config/modern_episode_registry.json": "1aeaaf2bf59acfaab6e15b329c24123c2138729795c85f01d75c60f1601b456f",
+      "config/modern_episode_registry.json": "fe75b3d74d6a12f98698ccd13f0b04990e827f1fce679133b3a7502b1ddd9442",
       "config/modern_film.json": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e",
       "video-engine/src/AlloyLoopEpisode.tsx": "9ff8081c34104adc205a8b53ba08ec6c5009acc12cb57e6e1684b51027f7cf4d",
       "video-engine/src/ApplicationSheets.tsx": "b8ff7d9f6b329ab5c86212c7bcfe4970f1551d8c97bf945df86b4724d1247286",
@@ -151,8 +155,8 @@
       "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx": "df65ea12fe08ff4ae99f3b5819183b7ca0e2521a409c1e4bf58054829e2c5416",
       "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx": "7255a7b01a107a1bcefd479db38d31ca250a7709526b37b5603ddf6bc2d4ba3f",
       "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx": "9d397904a7a5173f55205e78a8dbe431d548d1ed0d3c4f6e90c5cb0689faf3fa",
-      "video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx": "ea1ea83a316c110de3965b81a15c9565034d27cb60b7c46cc85bb70cfcc20650",
-      "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx": "c97c40b8c328276b91008d7d5946c59e292692f9bb0bd9f2b83a13b8d44da202",
+      "video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx": "5fa2155da6c876b721db0ff28c7c05f404485e2cd7010b9b789af77a430df32b",
+      "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx": "13dd5f473f9f510ba001ee21cf8f054e26aff3b531449bdf3150de3adb38bdc9",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
       "video-engine/src/modern/registry.tsx": "761a35eb1f64e9b9288e6a892b2fc1c806f69cfc9521df1c3e5d7fcb226c72ad",
       "video-engine/src/modern/texasCounties.json": "e39f5cabababc5bf91e7ae0b5c70d3060875fc309f36ce9d34da6ae4c506bad8",
@@ -161,36 +165,36 @@
     },
     "authored_art": {
       "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx": "9d397904a7a5173f55205e78a8dbe431d548d1ed0d3c4f6e90c5cb0689faf3fa",
-      "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx": "c97c40b8c328276b91008d7d5946c59e292692f9bb0bd9f2b83a13b8d44da202"
+      "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx": "13dd5f473f9f510ba001ee21cf8f054e26aff3b531449bdf3150de3adb38bdc9"
     }
   },
   "commands": [
     {
-      "id": "7039c5c7e093f825b9638078ca7a738d98cdc66cebde10ded8f4a46a19002618",
-      "text": "bash scripts/run_with_env.sh python scripts/preship_compute.py",
-      "consumed": "2026-10-22T04:14:41.016724+00:00"
+      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
+      "consumed": "2026-10-22T16:30:43.126363+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 20,
-    "free_gib": 75.25
+    "free_gib": 74.32
   },
   "housekeeping": {
-    "receipt": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/capture-housekeeping-20261022T041440.json",
-    "receipt_sha256": "553f3b563d687289964a9c94bb6a327347a0249dbdfe4eea251eee5c07d19b43",
+    "receipt": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch/out/dispatch/capture-housekeeping-20261022T163042.json",
+    "receipt_sha256": "0aa89a2f2bc32c558e7a257139ef4ee0616c75a3806e53d7d3a7086a546dffc5",
     "exit_code": 0,
     "min_free_gib": 20
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-22T04:14:40.893883+00:00",
-  "expires_at": "2026-10-22T04:59:40.893883+00:00",
+  "issued_at": "2026-10-22T16:30:42.980071+00:00",
+  "expires_at": "2026-10-22T17:15:42.980071+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "exact-film mechanical preship probes",
+    "operation": "two opening comparison batch",
     "resource": "preflight_renders",
     "run_id": "2026-10-21",
-    "event_sha256": "26aa1a5326bd1609df2790c2f74cfa38a3a64d33fd2d8ca6366502819bfd8f26",
-    "input_identity": "c37e1902850f549fbbd2770aa4dd52b896156a6facb64523039d28c583a926b7"
+    "event_sha256": "a4ad3aedac95792e0a1859657219fc8ab0a68f7e06410a18558d172baaf626a8",
+    "input_identity": "cb256b6cce4fee52f5357f140794fdbb49b5a427fe04d93b28b0d2b7536f3e38"
   }
 }
