@@ -809,7 +809,7 @@ def restored_audit(destination):
             'from run_controller import deliverable_problems,read_state; '
             'state=read_state(Path("out/dispatch/run_state.json")); '
             'errors=allowance_problems(state); '
-            'errors+=deliverable_problems(state,repo=Path.cwd()) if state.get("deliverable") else []; '
+            'errors+=deliverable_problems(state) if state.get("deliverable") else []; '
             'print(json.dumps(errors))')
     result = subprocess.run([sys.executable,'-c',code],cwd=destination,
                             capture_output=True,text=True,timeout=300)
@@ -875,15 +875,10 @@ def restore(repo=REPO, run_id=None, remote="origin", dest=None, *, origin_worksp
         if helper_source == (dest/'scripts').resolve() or not (helper_source/'run_controller.py').is_file():
             raise CheckpointError('delegated audit needs the separate immutable helper source')
         shutil.copytree(helper_source,dest/'scripts',dirs_exist_ok=True)
-        problems = restored_audit(dest)
-        state = json.loads(state_path.read_text())
-    else:
-        from production_lifecycle import allowance_problems
-        from run_controller import deliverable_problems, read_state
-        state = read_state(state_path)
-        problems = allowance_problems(state)
-        if state.get("deliverable"):
-            problems += deliverable_problems(state, repo=dest)
+    # Without an explicit delegated source, these remain the recorded source
+    # pin's own helpers. Every nested gate must read that same restored edition.
+    problems = restored_audit(dest)
+    state = json.loads(state_path.read_text())
     if problems:
         raise CheckpointError("restored edition fails its audit: " + "; ".join(problems))
     return {"run_id": run_id, "checkpoint": tip, "dest": str(dest), "phase": manifest["phase"], "source_pin": pin,

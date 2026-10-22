@@ -147,7 +147,7 @@ class RestoredAuditTest(unittest.TestCase):
             (scripts/'run_controller.py').write_text(
                 'import json\nimport render_manifest as nested\n'
                 'def read_state(path): return json.loads(path.read_text())\n'
-                'def deliverable_problems(state,repo=None):\n'
+                'def deliverable_problems(state):\n'
                 '    try: nested.authored_media_paths(state["board"],nested.REPO); return []\n'
                 '    except (ValueError,OSError) as exc: return [str(exc)]\n')
             entries=[]
@@ -215,6 +215,17 @@ class Base(unittest.TestCase):
         sh("git", "config", "user.name", "Test", cwd=path); sh("git", "config", "user.email", "t@example.com", cwd=path)
         return Path(path)
 
+    def pin_real_helpers(self):
+        """A restore fixture must carry executable pinned gates like a real checkout."""
+        scripts=self.repo/'scripts';scripts.mkdir(exist_ok=True)
+        for source in SCRIPTS.glob('*.py'):
+            if not source.name.endswith('_test.py'):
+                shutil.copyfile(source,scripts/source.name)
+        shutil.copytree(SCRIPTS.parent/'config',self.repo/'config',dirs_exist_ok=True)
+        sh('git','add','scripts','config',cwd=self.repo)
+        sh('git','commit','-qm','Pin real restore audit helpers',cwd=self.repo)
+        sh('git','push','-q','origin','main',cwd=self.repo)
+
     def init_ledger(self, mode="production", run=RUN):
         controller.initialise(self.state, run, mode)
 
@@ -248,6 +259,7 @@ class CodecRuntime(Base):
 class ReservationDurability(Base):
     def setUp(self):
         super().setUp()
+        self.pin_real_helpers()
         self.scratch.mkdir(parents=True)
         (self.scratch / "claude-host.json").write_text("{}")
         self.init_ledger("dry-run")
@@ -290,6 +302,29 @@ class ReservationDurability(Base):
 
 
 class RoundTrip(Base):
+    def setUp(self):
+        super().setUp()
+        self.pin_real_helpers()
+
+    def test_generic_restore_uses_pinned_refusal_and_preserves_original_evidence(self):
+        helper=self.repo/'scripts/production_lifecycle.py'
+        helper.write_text(helper.read_text()+'\n\ndef allowance_problems(state):\n'
+                          '    return ["unit pinned audit deliberately refused"]\n')
+        sh('git','add','scripts/production_lifecycle.py',cwd=self.repo)
+        sh('git','commit','-qm','Pin unit audit refusal',cwd=self.repo)
+        pin=sh('git','rev-parse','HEAD',cwd=self.repo).strip()
+        self.init_ledger('dry-run')
+        evidence=self.scratch/'source-receipt.json';evidence.write_text('{"unit_original":"unchanged"}\n')
+        raw=evidence.read_bytes();helpers=helper.read_bytes()
+        self.save('retain refusing pinned audit')
+        fresh=self.clone(self.root/'fresh-audit');destination=self.root/'refused-restore'
+        with self.assertRaisesRegex(ck.CheckpointError,'unit pinned audit deliberately refused'):
+            ck.restore(fresh,RUN,dest=destination)
+        self.assertEqual(sh('git','rev-parse','HEAD',cwd=destination).strip(),pin)
+        self.assertEqual((destination/'scripts/production_lifecycle.py').read_bytes(),helpers)
+        self.assertEqual((destination/'out/dispatch/source-receipt.json').read_bytes(),raw)
+        self.assertEqual(evidence.read_bytes(),raw)
+
     def test_original_root_restore_preserves_paths_without_overwriting_the_old_host(self):
         # macOS exposes tempfile's /var through /private/var. The supported route uses
         # actual workspace paths, and deliberately refuses a symlink alias as an origin.
