@@ -126,6 +126,15 @@ def operation_precheck(repo, operation, state):
             raise ValueError('full motion extraction requires the current registered exact native film')
 
 
+def current_identity(repo, state_path, note):
+    # -c does not add the checkout's scripts directory as a script-file invocation does.
+    code = ('from pathlib import Path; import sys; sys.path.insert(0,"scripts"); '
+            'import capture_reservation; '
+            'print(capture_reservation.input_identity(Path(sys.argv[1]),sys.argv[2]))')
+    return subprocess.check_output(['bash','scripts/run_with_env.sh','python','-c',code,
+                                    str(state_path),note],cwd=repo,text=True).strip()
+
+
 def create(repo, source_repo, operation, out):
     import publication_owner
     import capture_guard
@@ -158,10 +167,7 @@ def create(repo, source_repo, operation, out):
         if not target.is_file() or digest(target) != digest(ck.show(source_repo, source, relative)):
             raise ValueError('episode helper differs from immutable workflow source: '+relative)
     # Fail on changed native inputs locally, before the remote one-use claim.
-    code = ('from pathlib import Path; import sys, capture_reservation; '
-            'print(capture_reservation.input_identity(Path(sys.argv[1]),sys.argv[2]))')
-    actual = subprocess.check_output(['bash', 'scripts/run_with_env.sh', 'python', '-c', code,
-                                     str(state_path), note], cwd=repo, text=True).strip()
+    actual = current_identity(repo,state_path,note)
     field = 'full_render_identity' if operation == 'full' else 'preflight_identity'
     if events[-1].get(field) != actual:
         raise ValueError('original prepaid render input identity is no longer current')

@@ -106,6 +106,15 @@ class CaptureTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'immutable commit'):
             capture.request_at('/unit','main')
 
+    def test_identity_probe_imports_checkout_scripts_in_actual_subprocess(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repo=Path(temporary).resolve();scripts=repo/'scripts';scripts.mkdir()
+            (scripts/'run_with_env.sh').write_text('#!/bin/sh\nexec "$@"\n')
+            (scripts/'capture_reservation.py').write_text(
+                'def input_identity(path,note):\n    return path.name+":"+note\n')
+            self.assertEqual(capture.current_identity(repo,repo/'state.json','unit-operation'),
+                             'state.json:unit-operation')
+
     def test_delegate_fences_changed_epoch_and_extra_controller_charge(self):
         import publication_owner
         with tempfile.TemporaryDirectory() as temporary:
