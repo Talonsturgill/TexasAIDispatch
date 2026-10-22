@@ -1,0 +1,4 @@
+Observed original audio, read-only verification October22:
+The selected source is out/dispatch/takes2/take1_beats.wav (53.76s/48kHz mono16). Applying the existing mix.py write_wav PCM encoding gives an exact contiguous byte match in current mix_vo.wav at 0.2s. No source waveform or stem was edited.
+After the corrected measured board and foley are admitted, use existing mix.py with --vo out/dispatch/takes2/take1_beats.wav --vo-at 0.2 --bed out/dispatch/music_bed.wav --bed-track deep_haze --bed-manifest out/dispatch/music_bed.json --bed-gap-db 19 --cut 61.32. Verify the resulting mix_vo.wav stays original SHA50d0adb37adefacb6d78d2f1efebe694d4bf8f6cb0cee50be0f1ee34374fcc39.
+Existing vo_align.transcribe reuses the original hash-valid ASR/meta when voice/model bindings match. Run the normal CLI to derive current mix provenance and then --verify; do not force ASR regeneration or hand-edit hashes. Preserve all original words/cues text and measured boundaries.

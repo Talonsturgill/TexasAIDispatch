@@ -1,0 +1,5159 @@
+{
+ "schema": "dispatch-place-plates/2",
+ "_why": "Each region's world, rendered once in the Docket's carousel engine as a sky, one ground and cards for the things standing on it, so PlaceStage can move a camera through Texas. Written by scripts/place_bake.py; every number in it was measured on the bake, never typed.",
+ "_how": "The ground moves by the exact homography a camera move gives the plane y = 0; a card moves as its depth_m, the geometric mean of its nearest and farthest thing. limits are the largest dolly, truck and rise that kept the ground covering the frame, slid no base over 2.0 px and magnified no card past 1.25. moves are the only camera PlaceStage has, in shares of those limits.",
+ "policy": {
+  "version": "place-plates-v2",
+  "effective_date": "2026-10-10"
+ },
+ "moves": {
+  "share": 0.6,
+  "profiles": {
+   "dollyThrough": {
+    "dolly": [
+     0.0,
+     1.0
+    ]
+   },
+   "truckAcross": {
+    "truck": [
+     -1.0,
+     1.0
+    ]
+   },
+   "riseWith": {
+    "rise": [
+     0.0,
+     1.0
+    ]
+   },
+   "craneDown": {
+    "rise": [
+     1.0,
+     0.0
+    ]
+   },
+   "orbitReveal": {
+    "truck": [
+     -1.0,
+     1.0
+    ],
+    "dolly": [
+     0.0,
+     0.35
+    ]
+   }
+  }
+ },
+ "engines": {
+  "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699": {
+   "docket_commit": "6326b02db66fbfca99cbc3ca2164ca1d045db2b4",
+   "files": {
+    "assets/js/three.module.min.js": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+    "assets/js/txthree.js": "731e164ca252500792cc508af0c16c0c06d4c7261e4a89064de2367bf875aac0",
+    "assets/js/txkit.js": "f1d05898dd31b3cea5a127fd114e438f6b55ac0c962241a5c79eedcf7866cd64",
+    "assets/js/txpost.js": "e46fc8aa813b870b7eaba8b152079b8b902081718369e612eac7fdd22cd816f0"
+   },
+   "kit": {
+    "civic.js": "4d4bc2f328dfb3fbac33ee7c738a22ae9146613bb6d2a1456997cfe7458024dd",
+    "homes.js": "1383ac63d05ef35a494cecffb1f284c5115095b020011a36669bc56b0be48b27",
+    "industry.js": "48d00c34e3c636990a2c8a2fb5207cc9fa75d5000cd3a7d34df07e6b5d49eb90",
+    "interior.js": "e3019561b85fc6b5934ece01320535805ff22c7f386cc89c9974fbc7cf076c1c",
+    "landscape.js": "9d378d9543eaa8957a242ba14486615e1ceb59d07bdec27242ace97f6a4b13a6",
+    "people.js": "8d3c5d396bed1565ea4d965caafaad57ec0a5a86e53fa8fd45f84957247f1217",
+    "power.js": "7eb5dd87b63fe3aa0532bf325b5972b81fed3e8f38e77c79abc4377777e75311",
+    "rural.js": "5c4e756377f994d1e73bb8bf636b9d4e51cf6106f74248317bf92de77f988d7c",
+    "trees.js": "96190c4d81c5fdf947fbb5d3462270349d842792403fba3e68942ed1ab9d7139",
+    "vehicles.js": "04fa64aa923e8feb5b92e4d4ecf99656a88166bc9b9fb68dbfcfff97fc353e9f"
+   }
+  }
+ },
+ "film": {
+  "w": 1080,
+  "h": 1920
+ },
+ "plate": {
+  "w": 1242,
+  "h": 2208
+ },
+ "plates": {
+  "blackland-austin": {
+   "id": "blackland-austin",
+   "region": "blackland",
+   "counties": [
+    "Travis"
+   ],
+   "also": [],
+   "scene": "assets/place/scenes/blackland-austin.html",
+   "scene_sha256": "837d48bad27cb827d37c746ae57672c011c653afd141a93836b46aa8e09e243a",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf",
+    "water.js": "98ebc83527974cadd614b685b3d7c4dd267ae09c0a8866b4759a224d61965b97"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     9.0,
+     60.0
+    ],
+    "right": [
+     0.999927,
+     0.0,
+     -0.012047
+    ],
+    "up": [
+     0.000225,
+     0.999826,
+     0.018669
+    ],
+    "forward": [
+     -0.012045,
+     0.01867,
+     -0.999753
+    ],
+    "fov": 40.0,
+    "fpx": 3033.215071,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1160.64,
+   "sky": {
+    "file": "place/blackland-austin/sky.webp",
+    "sha256": "9da09842e1ffb1d28a2081ca1043a4b7e1c20e7622eb8a33bddcc62624d0c378",
+    "bytes": 726300
+   },
+   "ground": {
+    "file": "place/blackland-austin/ground.webp",
+    "sha256": "a908e6590e088777fcd310695914672776e03a70a85806a7997d925f9b171ff1",
+    "bytes": 1225622
+   },
+   "cards": [
+    {
+     "file": "place/blackland-austin/card00.webp",
+     "sha256": "84a548a0daac05fcbd6299a1404d41df0f424f532dc40cde7d822990a35290f9",
+     "bytes": 239422,
+     "x": 0,
+     "y": 642,
+     "w": 1242,
+     "h": 527,
+     "depth_m": 1419.144,
+     "min_m": 855.166,
+     "max_m": 1664.07,
+     "things": 3,
+     "tall": [
+      "city_skyline"
+     ]
+    },
+    {
+     "file": "place/blackland-austin/card01.webp",
+     "sha256": "fa6f5a592d7b292135e277d0a4b666b03184cbc24112cfb42e55abb7576c335a",
+     "bytes": 109200,
+     "x": 0,
+     "y": 1080,
+     "w": 1242,
+     "h": 153,
+     "depth_m": 406.702,
+     "min_m": 398.116,
+     "max_m": 415.474,
+     "things": 44
+    }
+   ],
+   "sky_rgb": [
+    214,
+    219,
+    222
+   ],
+   "ground_rgb": [
+    139,
+    147,
+    93
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.75,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.417,
+    "reassembly_p999": 4.31,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.442,
+      "scale": 1.0099
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 1.52,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.52,
+      "scale": 1.0
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.166,
+      "scale": 1.015,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.001746,
+      "slide_px": 2.026,
+      "scale": 1.0,
+      "step": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.027,
+      "scale": 1.0,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 0.864,
+      "scale": 1.0059
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.912,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.214,
+      "scale": 1.0021
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.214,
+      "scale": 1.0021
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.214,
+     "scale": 1.0059
+    },
+    "surfaces": 13,
+    "things": 49,
+    "render_ms": 249913,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "blackland-dallas": {
+   "id": "blackland-dallas",
+   "region": "blackland",
+   "counties": [
+    "Dallas"
+   ],
+   "also": [],
+   "scene": "assets/place/scenes/blackland-dallas.html",
+   "scene_sha256": "36eadf8a1d716f0539d0f00ff14a270b480ba2bcc7dc9a7e417c33945f2e8e20",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     4.5,
+     60.0
+    ],
+    "right": [
+     0.999868,
+     -0.0,
+     0.016258
+    ],
+    "up": [
+     -0.000433,
+     0.999646,
+     0.02661
+    ],
+    "forward": [
+     0.016252,
+     0.026613,
+     -0.999514
+    ],
+    "fov": 40.0,
+    "fpx": 3033.215071,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1184.75,
+   "sky": {
+    "file": "place/blackland-dallas/sky.webp",
+    "sha256": "bb9a5f1004117fb4c93f90538c23e01838ece1a630ceec8b72aed44e7c2df463",
+    "bytes": 758346
+   },
+   "ground": {
+    "file": "place/blackland-dallas/ground.webp",
+    "sha256": "c891492628c95f4c40af24997351416d52469a4556f2571612e45052e9aba153",
+    "bytes": 1247212
+   },
+   "cards": [
+    {
+     "file": "place/blackland-dallas/card00.webp",
+     "sha256": "2e9dd7478b6f1d37fcadff3c59261ab192a4f65186dfa6678cd7e883ed217cbd",
+     "bytes": 173032,
+     "x": 0,
+     "y": 866,
+     "w": 1242,
+     "h": 326,
+     "depth_m": 2658.96,
+     "min_m": 2325.048,
+     "max_m": 3151.467,
+     "things": 3,
+     "tall": [
+      "city_skyline"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card01.webp",
+     "sha256": "4cd0574e37f0b7cb3977296bfe6d342f0ea9641c872d26a70bce6a1f83ee5097",
+     "bytes": 2468,
+     "x": 1047,
+     "y": 1167,
+     "w": 195,
+     "h": 25,
+     "depth_m": 1212.952,
+     "min_m": 1199.858,
+     "max_m": 1226.836,
+     "things": 3,
+     "tall": [
+      "earthen_berm"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card02.webp",
+     "sha256": "bb55a0a4b1a25167daba920516f8819809740c4091e113ab99d58262fbeaeaf2",
+     "bytes": 2976,
+     "x": 748,
+     "y": 1167,
+     "w": 249,
+     "h": 25,
+     "depth_m": 1211.314,
+     "min_m": 1197.76,
+     "max_m": 1224.993,
+     "things": 3,
+     "tall": [
+      "earthen_berm"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card03.webp",
+     "sha256": "9e951337525dda31d11a85fa11e71d9dedabe748a234be385249b6508316f29c",
+     "bytes": 2930,
+     "x": 447,
+     "y": 1167,
+     "w": 249,
+     "h": 25,
+     "depth_m": 1209.313,
+     "min_m": 1195.867,
+     "max_m": 1222.971,
+     "things": 3,
+     "tall": [
+      "earthen_berm"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card04.webp",
+     "sha256": "687185c9a2c8aa732eb30515aea86475d214b03fa3b8909741eb23a488e9ff26",
+     "bytes": 2898,
+     "x": 145,
+     "y": 1167,
+     "w": 250,
+     "h": 25,
+     "depth_m": 1207.456,
+     "min_m": 1193.952,
+     "max_m": 1221.094,
+     "things": 3,
+     "tall": [
+      "earthen_berm"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card05.webp",
+     "sha256": "e219af0f86c9d959d03002e1b3b66615fe9c46b77b543cef69c28ba40bed9e4e",
+     "bytes": 1220,
+     "x": 0,
+     "y": 1167,
+     "w": 94,
+     "h": 25,
+     "depth_m": 1205.237,
+     "min_m": 1192.007,
+     "max_m": 1219.073,
+     "things": 3,
+     "tall": [
+      "earthen_berm"
+     ]
+    },
+    {
+     "file": "place/blackland-dallas/card06.webp",
+     "sha256": "29bc6704e9fff214393ff203eb92212568087fe80ce3887c8c273167667fed48",
+     "bytes": 12402,
+     "x": 939,
+     "y": 1111,
+     "w": 237,
+     "h": 101,
+     "depth_m": 701.648,
+     "min_m": 661.017,
+     "max_m": 755.931,
+     "things": 3
+    },
+    {
+     "file": "place/blackland-dallas/card07.webp",
+     "sha256": "4a2e85c27a19a807fbd5397da42b30ad72e81219015141db5eabd5bf14d7da7a",
+     "bytes": 23622,
+     "x": 95,
+     "y": 1100,
+     "w": 408,
+     "h": 123,
+     "depth_m": 458.552,
+     "min_m": 438.687,
+     "max_m": 479.317,
+     "things": 2
+    }
+   ],
+   "sky_rgb": [
+    215,
+    218,
+    220
+   ],
+   "ground_rgb": [
+    154,
+    163,
+    96
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.3,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.446,
+    "reassembly_p999": 3.5,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.633,
+      "scale": 1.0088
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.688,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.722,
+      "scale": 1.0
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.454,
+      "scale": 1.0133,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.001316,
+      "slide_px": 1.147,
+      "scale": 1.0,
+      "step": 0.5
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.295,
+      "scale": 1.0001,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 0.979,
+      "scale": 1.0053
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.413,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.413,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.033,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.033,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.413,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.413,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.755,
+      "scale": 1.0018
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.755,
+      "scale": 1.0018
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.033,
+     "scale": 1.0053
+    },
+    "surfaces": 25,
+    "things": 7,
+    "render_ms": 508510,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "blackland-san-antonio": {
+   "id": "blackland-san-antonio",
+   "region": "blackland",
+   "counties": [
+    "Bexar"
+   ],
+   "also": [],
+   "scene": "assets/place/scenes/blackland-san-antonio.html",
+   "scene_sha256": "af40186769bd60d2f38d44d47057498b39a28b7526b5ece790c21b57339c5821",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf",
+    "water.js": "98ebc83527974cadd614b685b3d7c4dd267ae09c0a8866b4759a224d61965b97"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     4.5,
+     50.0
+    ],
+    "right": [
+     0.999972,
+     0.0,
+     0.007547
+    ],
+    "up": [
+     -0.000144,
+     0.999818,
+     0.019052
+    ],
+    "forward": [
+     0.007546,
+     0.019053,
+     -0.99979
+    ],
+    "fov": 40.0,
+    "fpx": 3033.215071,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1161.8,
+   "sky": {
+    "file": "place/blackland-san-antonio/sky.webp",
+    "sha256": "e5e5603d8710692c522f3aafcdcfd70eac0e849e3767ac2484bdd6673942c4d0",
+    "bytes": 709140
+   },
+   "ground": {
+    "file": "place/blackland-san-antonio/ground.webp",
+    "sha256": "a31255e11cf026c5852008eb202c22dd947ed6d1b5ef0aed5b3be0dedfc1688b",
+    "bytes": 850364
+   },
+   "cards": [
+    {
+     "file": "place/blackland-san-antonio/card00.webp",
+     "sha256": "6f5acc610d3f7ac24af3e60f7463e4c61eb148a11a2393fc8cdaa9e2e432d53f",
+     "bytes": 75174,
+     "x": 0,
+     "y": 965,
+     "w": 1242,
+     "h": 204,
+     "depth_m": 3596.476,
+     "min_m": 3263.535,
+     "max_m": 4003.924,
+     "things": 3,
+     "tall": [
+      "city_skyline"
+     ]
+    },
+    {
+     "file": "place/blackland-san-antonio/card01.webp",
+     "sha256": "7fc79463bc329227ff083c4d26fed01b5a359e8664aff4f3ad30d4d1b9dee1fc",
+     "bytes": 13660,
+     "x": 0,
+     "y": 1088,
+     "w": 849,
+     "h": 110,
+     "depth_m": 469.586,
+     "min_m": 469.134,
+     "max_m": 470.039,
+     "things": 2
+    },
+    {
+     "file": "place/blackland-san-antonio/card02.webp",
+     "sha256": "5b7fbff6f788997ae1195f199ab2477d1f26553255c88b0759c4081bab56e92c",
+     "bytes": 20734,
+     "x": 367,
+     "y": 1092,
+     "w": 707,
+     "h": 113,
+     "depth_m": 379.944,
+     "min_m": 379.665,
+     "max_m": 380.223,
+     "things": 2
+    },
+    {
+     "file": "place/blackland-san-antonio/card03.webp",
+     "sha256": "66710d712b0cfad9a0dbea48f911aae6c077e54f9f6c7c06f78a90300fad903b",
+     "bytes": 13450,
+     "x": 193,
+     "y": 1108,
+     "w": 141,
+     "h": 105,
+     "depth_m": 309.589,
+     "min_m": 309.589,
+     "max_m": 309.589,
+     "things": 1
+    },
+    {
+     "file": "place/blackland-san-antonio/card04.webp",
+     "sha256": "2eca73f7ac62d5d713d74fdf7650b5cafbe2fe04cb86aea2cfe760d65c0c170e",
+     "bytes": 51478,
+     "x": 835,
+     "y": 970,
+     "w": 254,
+     "h": 267,
+     "depth_m": 194.662,
+     "min_m": 189.419,
+     "max_m": 200.05,
+     "things": 2
+    },
+    {
+     "file": "place/blackland-san-antonio/card05.webp",
+     "sha256": "8b99b714f6ed4e866b66f2c0e141ce0b685f5791067d9e3c3fd74bdc76b5416a",
+     "bytes": 146642,
+     "x": 0,
+     "y": 871,
+     "w": 430,
+     "h": 423,
+     "depth_m": 114.882,
+     "min_m": 109.782,
+     "max_m": 120.218,
+     "things": 2
+    }
+   ],
+   "sky_rgb": [
+    216,
+    218,
+    219
+   ],
+   "ground_rgb": [
+    159,
+    159,
+    117
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.3,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.371,
+    "reassembly_p999": 3.25,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.353,
+      "scale": 1.0361
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.665,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.666,
+      "scale": 1.0001
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.107,
+      "scale": 1.0551,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.001728,
+      "slide_px": 1.109,
+      "scale": 1.0,
+      "step": 0.5
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.221,
+      "scale": 1.0002,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 0.788,
+      "scale": 1.0213
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.399,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.399,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.999,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.999,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.399,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.399,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.205,
+      "scale": 1.0074
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.666,
+      "scale": 1.0074
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 0.999,
+     "scale": 1.0213
+    },
+    "surfaces": 30,
+    "things": 13,
+    "render_ms": 303573,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "blackland-wide": {
+   "id": "blackland-wide",
+   "region": "blackland",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/blackland-wide.html",
+   "scene_sha256": "1758772dd7a59d89c626b76ba610124d6305f879d8e74e8a8dd100767079d219",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     1.9,
+     30.0
+    ],
+    "right": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "up": [
+     0.0,
+     0.999984,
+     0.005616
+    ],
+    "forward": [
+     -0.0,
+     0.005616,
+     -0.999984
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1117.3,
+   "sky": {
+    "file": "place/blackland-wide/sky.webp",
+    "sha256": "f54bae515c16e1895fdc8c35ecd3ba10a72588d5fdf1d59443002ef5017f29a4",
+    "bytes": 751544
+   },
+   "ground": {
+    "file": "place/blackland-wide/ground.webp",
+    "sha256": "c42069c067a602f05fcec9af89084c30b895c54cefc69dde5aebccd3c4b05fac",
+    "bytes": 1385240
+   },
+   "cards": [
+    {
+     "file": "place/blackland-wide/card00.webp",
+     "sha256": "e354193b151312595bd9233a1aa33ba711bef5d42cc0d5d8861fdcf99250a658",
+     "bytes": 4394,
+     "x": 131,
+     "y": 1067,
+     "w": 884,
+     "h": 61,
+     "depth_m": 2629.948,
+     "min_m": 641.98,
+     "max_m": 3129.94,
+     "things": 4
+    },
+    {
+     "file": "place/blackland-wide/card01.webp",
+     "sha256": "bbe1b794dd5c72c28aeed1624111ebfb190d3da5c8caac3cf5dd5b054a9f38c9",
+     "bytes": 60650,
+     "x": 408,
+     "y": 918,
+     "w": 834,
+     "h": 227,
+     "depth_m": 226.877,
+     "min_m": 219.985,
+     "max_m": 233.985,
+     "things": 12
+    }
+   ],
+   "sky_rgb": [
+    214,
+    217,
+    219
+   ],
+   "ground_rgb": [
+    106,
+    98,
+    72
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.1,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.551,
+    "reassembly_p999": 4.5,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.822,
+      "scale": 1.0179
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.242,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.815,
+      "scale": 1.0
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.743,
+      "scale": 1.0272,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.001623,
+      "slide_px": 0.484,
+      "scale": 1.0,
+      "step": 0.2
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.419,
+      "scale": 1.0,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 1.09,
+      "scale": 1.0107
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.145,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.145,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.089,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.089,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.145,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.145,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.235,
+      "scale": 1.0037
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.526,
+      "scale": 1.0037
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.09,
+     "scale": 1.0107
+    },
+    "surfaces": 33,
+    "things": 16,
+    "render_ms": 186641,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "cross-timbers-wide": {
+   "id": "cross-timbers-wide",
+   "region": "cross_timbers",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/cross-timbers-wide.html",
+   "scene_sha256": "4bdecff961f87f5ca7572ee8b71e40e6887c504f2a7f50b419b1b52f8ddb3bad",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     2.6,
+     40.0
+    ],
+    "right": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "up": [
+     0.0,
+     0.999989,
+     0.004595
+    ],
+    "forward": [
+     -0.0,
+     0.004595,
+     -0.999989
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1114.88,
+   "sky": {
+    "file": "place/cross-timbers-wide/sky.webp",
+    "sha256": "ef8f9a75d90196102d40935af57f6376b11c545ea774ef663201c79dbe01ff2c",
+    "bytes": 753944
+   },
+   "ground": {
+    "file": "place/cross-timbers-wide/ground.webp",
+    "sha256": "907e7cc539a8f9c4beefc487c0e43d815c48b96770d8f10e4db0e15dd6e6aad9",
+    "bytes": 1188712
+   },
+   "cards": [
+    {
+     "file": "place/cross-timbers-wide/card00.webp",
+     "sha256": "88829e8d65e9ea92d0c5250e7168c6515f52714308354502fffdd9c3829a29a6",
+     "bytes": 10646,
+     "x": 0,
+     "y": 1057,
+     "w": 1242,
+     "h": 67,
+     "depth_m": 3913.683,
+     "min_m": 787.34,
+     "max_m": 6701.016,
+     "things": 3,
+     "tall": [
+      "plate.rolling"
+     ]
+    },
+    {
+     "file": "place/cross-timbers-wide/card01.webp",
+     "sha256": "2f99014576b14b45858b641451b6c5f2e0807ad50f91b775687b47f9303eefab",
+     "bytes": 7576,
+     "x": 524,
+     "y": 1081,
+     "w": 718,
+     "h": 40,
+     "depth_m": 860.978,
+     "min_m": 648.98,
+     "max_m": 1050.976,
+     "things": 136
+    },
+    {
+     "file": "place/cross-timbers-wide/card02.webp",
+     "sha256": "eb157a1fa0bfc6fff7c45cb29b421d3dcc6c10bd6d357bd59e323f91bec0cd12",
+     "bytes": 30784,
+     "x": 646,
+     "y": 1070,
+     "w": 596,
+     "h": 65,
+     "depth_m": 459.851,
+     "min_m": 448.983,
+     "max_m": 470.982,
+     "things": 40
+    },
+    {
+     "file": "place/cross-timbers-wide/card03.webp",
+     "sha256": "01127fc80c631b2a37010af2dcd313eb518ff1f879d326de863fec2c811916f1",
+     "bytes": 42966,
+     "x": 0,
+     "y": 1056,
+     "w": 606,
+     "h": 80,
+     "depth_m": 339.806,
+     "min_m": 328.984,
+     "max_m": 350.984,
+     "things": 34
+    },
+    {
+     "file": "place/cross-timbers-wide/card04.webp",
+     "sha256": "a4349e7dceb27bf410e4b056e4ccd5ad3555c08bf347523ee7764ea1ce10a17b",
+     "bytes": 92360,
+     "x": 351,
+     "y": 1021,
+     "w": 891,
+     "h": 132,
+     "depth_m": 209.697,
+     "min_m": 198.985,
+     "max_m": 220.985,
+     "things": 26
+    },
+    {
+     "file": "place/cross-timbers-wide/card05.webp",
+     "sha256": "18ad1e993fa767f0760ace1595311e4a9ff318d59ac38717ba4ba33b0f74c9db",
+     "bytes": 34942,
+     "x": 296,
+     "y": 1023,
+     "w": 481,
+     "h": 138,
+     "depth_m": 158.466,
+     "min_m": 155.986,
+     "max_m": 160.986,
+     "things": 6
+    },
+    {
+     "file": "place/cross-timbers-wide/card06.webp",
+     "sha256": "72367e37553ead9aeeb533ce6b277ad637dbb42cb3952981cad92a13bd69401f",
+     "bytes": 135004,
+     "x": 0,
+     "y": 983,
+     "w": 959,
+     "h": 183,
+     "depth_m": 146.768,
+     "min_m": 138.986,
+     "max_m": 154.986,
+     "things": 16
+    },
+    {
+     "file": "place/cross-timbers-wide/card07.webp",
+     "sha256": "c2ee64f9c8a7c395fbc904f66cd9e4562d4af889a9034cb5a509a6cdb0ab1626",
+     "bytes": 25798,
+     "x": 0,
+     "y": 1162,
+     "w": 1242,
+     "h": 94,
+     "depth_m": 45.987,
+     "min_m": 45.984,
+     "max_m": 45.99,
+     "things": 5
+    }
+   ],
+   "sky_rgb": [
+    200,
+    211,
+    219
+   ],
+   "ground_rgb": [
+    177,
+    171,
+    120
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.2,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.416,
+    "reassembly_p999": 8.2,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.455,
+      "scale": 1.0953
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.487,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.825,
+      "scale": 1.0001
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.188,
+      "scale": 1.15,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.003455,
+      "slide_px": 0.73,
+      "scale": 1.0,
+      "step": 0.3
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.434,
+      "scale": 1.0001,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 0.871,
+      "scale": 1.0551
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.292,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.292,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.095,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 1.095,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.292,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.292,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.549,
+      "scale": 1.0186
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.43,
+      "scale": 1.0186
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.095,
+     "scale": 1.0551
+    },
+    "surfaces": 5,
+    "things": 263,
+    "render_ms": 400710,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "gulf-houston": {
+   "id": "gulf-houston",
+   "region": "gulf",
+   "counties": [
+    "Harris"
+   ],
+   "also": [],
+   "scene": "assets/place/scenes/gulf-houston.html",
+   "scene_sha256": "fb503d3183b088fd5a121ad1154c2359d24460843c48c8032607d873e88e5a17",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf",
+    "water.js": "98ebc83527974cadd614b685b3d7c4dd267ae09c0a8866b4759a224d61965b97"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     5.5,
+     60.0
+    ],
+    "right": [
+     0.999843,
+     0.0,
+     -0.017696
+    ],
+    "up": [
+     0.000427,
+     0.999709,
+     0.0241
+    ],
+    "forward": [
+     -0.017691,
+     0.024104,
+     -0.999553
+    ],
+    "fov": 40.0,
+    "fpx": 3033.215071,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1177.13,
+   "sky": {
+    "file": "place/gulf-houston/sky.webp",
+    "sha256": "563bdfb30f7fe8da5430dcc804e475112b96dc3780d8994902dab98490a9348a",
+    "bytes": 760762
+   },
+   "ground": {
+    "file": "place/gulf-houston/ground.webp",
+    "sha256": "36042cbf151968ffa9ac363f38e7999810d86bd01df0791989fe59a3f9916956",
+    "bytes": 429392
+   },
+   "cards": [
+    {
+     "file": "place/gulf-houston/card00.webp",
+     "sha256": "4b5684fb8d107f63761aa43639dc709680cd522007a5e462d82f8040ac81bc60",
+     "bytes": 242356,
+     "x": 0,
+     "y": 786,
+     "w": 1242,
+     "h": 398,
+     "depth_m": 2350.411,
+     "min_m": 1810.336,
+     "max_m": 2927.962,
+     "things": 3,
+     "tall": [
+      "city_skyline"
+     ]
+    },
+    {
+     "file": "place/gulf-houston/card01.webp",
+     "sha256": "5baefe7e33b313766ab097d1a825f215b992fd10c1f9be553bfe2130daf2ecf2",
+     "bytes": 5384,
+     "x": 712,
+     "y": 1147,
+     "w": 100,
+     "h": 61,
+     "depth_m": 699.005,
+     "min_m": 699.005,
+     "max_m": 699.005,
+     "things": 1
+    },
+    {
+     "file": "place/gulf-houston/card02.webp",
+     "sha256": "b854eeb9b383419ebe00f977bda6634680daa00c0f1e3911ab06393de43e1113",
+     "bytes": 10262,
+     "x": 164,
+     "y": 1145,
+     "w": 936,
+     "h": 68,
+     "depth_m": 599.139,
+     "min_m": 577.961,
+     "max_m": 621.094,
+     "things": 2
+    },
+    {
+     "file": "place/gulf-houston/card03.webp",
+     "sha256": "e664df03f37cc272a733addc55a5d0232a6313dadb4e697182eab74cd72ecd13",
+     "bytes": 9280,
+     "x": 776,
+     "y": 1119,
+     "w": 103,
+     "h": 100,
+     "depth_m": 478.525,
+     "min_m": 478.525,
+     "max_m": 478.525,
+     "things": 1
+    },
+    {
+     "file": "place/gulf-houston/card04.webp",
+     "sha256": "a7a7e816103c762f4f2591833e7e62fd42fb49f0896acb8c47c0f4abc556d425",
+     "bytes": 29358,
+     "x": 36,
+     "y": 1112,
+     "w": 1039,
+     "h": 119,
+     "depth_m": 374.474,
+     "min_m": 358.581,
+     "max_m": 391.072,
+     "things": 2
+    },
+    {
+     "file": "place/gulf-houston/card05.webp",
+     "sha256": "4fe765ce82d4dd43b7eec68ccd7e4c24ee3b450d4da3597d6231c9528f666dc3",
+     "bytes": 4666,
+     "x": 1190,
+     "y": 1138,
+     "w": 52,
+     "h": 87,
+     "depth_m": 268.706,
+     "min_m": 268.706,
+     "max_m": 268.706,
+     "things": 1
+    },
+    {
+     "file": "place/gulf-houston/card06.webp",
+     "sha256": "094c51ce9ba0315aadbeeb22ff10dd179bdd3c13260af0f57e2e0fda2c35d08e",
+     "bytes": 28332,
+     "x": 0,
+     "y": 1047,
+     "w": 138,
+     "h": 216,
+     "depth_m": 211.218,
+     "min_m": 211.218,
+     "max_m": 211.218,
+     "things": 1
+    },
+    {
+     "file": "place/gulf-houston/card07.webp",
+     "sha256": "37a9dccd4cb1b24c32fd8a3bbe01963b73fd92defeb2bd6471aa125c5b2570bf",
+     "bytes": 44980,
+     "x": 992,
+     "y": 1108,
+     "w": 250,
+     "h": 170,
+     "depth_m": 179.525,
+     "min_m": 179.525,
+     "max_m": 179.525,
+     "things": 1
+    },
+    {
+     "file": "place/gulf-houston/card08.webp",
+     "sha256": "0ef4f05f041a204a0fa0dea6bf96a62cc6034b378769081dca26c516f800a982",
+     "bytes": 55748,
+     "x": 0,
+     "y": 1013,
+     "w": 195,
+     "h": 299,
+     "depth_m": 130.94,
+     "min_m": 130.94,
+     "max_m": 130.94,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    218,
+    221,
+    223
+   ],
+   "ground_rgb": [
+    134,
+    141,
+    137
+   ],
+   "limits": {
+    "dolly_m": 6.0,
+    "truck_m": 0.5,
+    "rise_m": 1.5
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.548,
+    "reassembly_p999": 8.0,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.183,
+      "scale": 1.048
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.619,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.859,
+      "scale": 1.0003
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": null,
+     "truck_m": {
+      "cover": 0.006145,
+      "slide_px": 0.929,
+      "scale": 1.0,
+      "step": 0.75
+     },
+     "rise_m": null
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 3.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.709,
+      "scale": 1.0283
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.371,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.371,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.9
+      },
+      "cover": 0.0,
+      "slide_px": 1.115,
+      "scale": 1.0002
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.9
+      },
+      "cover": 0.0,
+      "slide_px": 1.115,
+      "scale": 1.0002
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.371,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.371,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.581,
+      "scale": 1.0097
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.581,
+      "scale": 1.0097
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.115,
+     "scale": 1.0283
+    },
+    "surfaces": 32,
+    "things": 14,
+    "render_ms": 403427,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "gulf-shipchannel": {
+   "id": "gulf-shipchannel",
+   "region": "gulf",
+   "counties": [],
+   "also": [
+    "Harris",
+    "Galveston",
+    "Jefferson",
+    "Brazoria",
+    "Chambers",
+    "Nueces"
+   ],
+   "scene": "assets/place/scenes/gulf-shipchannel.html",
+   "scene_sha256": "8253a900a5abd936bee4554d2f3d0efa7629ce0a6e2fca5ce76f31c08f274f09",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf",
+    "water.js": "98ebc83527974cadd614b685b3d7c4dd267ae09c0a8866b4759a224d61965b97"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     6.5,
+     48.0
+    ],
+    "right": [
+     0.998608,
+     0.0,
+     0.052743
+    ],
+    "up": [
+     0.000973,
+     0.99983,
+     -0.018431
+    ],
+    "forward": [
+     0.052734,
+     -0.018457,
+     -0.998438
+    ],
+    "fov": 48.0,
+    "fpx": 2479.624598,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1058.23,
+   "sky": {
+    "file": "place/gulf-shipchannel/sky.webp",
+    "sha256": "e12a5efeafc47c8ace0651f7c6c80dc0142a3c489cb2ce55a4989c52420f72f4",
+    "bytes": 719482
+   },
+   "ground": {
+    "file": "place/gulf-shipchannel/ground.webp",
+    "sha256": "f3178c4b43fe984f32025e72f5d2eb8334e8135a86a38229375e90c18edbd7b0",
+    "bytes": 707904
+   },
+   "cards": [
+    {
+     "file": "place/gulf-shipchannel/card00.webp",
+     "sha256": "4f7222b9b79977d8f7a07fe5d615a00f52ec3e7ede09a62ede9f99be2fae6a8a",
+     "bytes": 42476,
+     "x": 0,
+     "y": 841,
+     "w": 1242,
+     "h": 238,
+     "depth_m": 808.624,
+     "min_m": 757.963,
+     "max_m": 1858.556,
+     "things": 22
+    },
+    {
+     "file": "place/gulf-shipchannel/card01.webp",
+     "sha256": "161a5079b3edb675be729a9308a7f00065de544ebb6f3a4afd7842854b45f78c",
+     "bytes": 186344,
+     "x": 0,
+     "y": 903,
+     "w": 364,
+     "h": 541,
+     "depth_m": 30.882,
+     "min_m": 30.882,
+     "max_m": 30.882,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    222,
+    225,
+    226
+   ],
+   "ground_rgb": [
+    109,
+    117,
+    113
+   ],
+   "limits": {
+    "dolly_m": 6.0,
+    "truck_m": 0.5,
+    "rise_m": 1.5
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.998,
+    "reassembly_p999": 8.5,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 0.642,
+      "scale": 1.2411
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.484,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.452,
+      "scale": 1.0
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": null,
+     "truck_m": {
+      "cover": 0.004931,
+      "slide_px": 0.726,
+      "scale": 1.0,
+      "step": 0.75
+     },
+     "rise_m": null
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 3.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.383,
+      "scale": 1.1319
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.29,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.29,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.9
+      },
+      "cover": 0.0,
+      "slide_px": 0.872,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.9
+      },
+      "cover": 0.0,
+      "slide_px": 0.872,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.29,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.29,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.425,
+      "scale": 1.0425
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.158,
+      "scale": 1.0425
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 0.872,
+     "scale": 1.1319
+    },
+    "surfaces": 39,
+    "things": 25,
+    "render_ms": 211767,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "gulf-wide": {
+   "id": "gulf-wide",
+   "region": "gulf",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/gulf-wide.html",
+   "scene_sha256": "dccd86b9bdb67dda981dd06eec5b62dda37b988a9a81d00a6ad16adcec12e853",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf",
+    "water.js": "98ebc83527974cadd614b685b3d7c4dd267ae09c0a8866b4759a224d61965b97"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     6.5,
+     48.0
+    ],
+    "right": [
+     0.998608,
+     0.0,
+     0.052743
+    ],
+    "up": [
+     0.000973,
+     0.99983,
+     -0.018431
+    ],
+    "forward": [
+     0.052734,
+     -0.018457,
+     -0.998438
+    ],
+    "fov": 48.0,
+    "fpx": 2479.624598,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1058.23,
+   "sky": {
+    "file": "place/gulf-wide/sky.webp",
+    "sha256": "e12a5efeafc47c8ace0651f7c6c80dc0142a3c489cb2ce55a4989c52420f72f4",
+    "bytes": 719482
+   },
+   "ground": {
+    "file": "place/gulf-wide/ground.webp",
+    "sha256": "9c339193530ce4a256a1e2122cd939e630a960270139019f8d6b002fa27b070b",
+    "bytes": 699610
+   },
+   "cards": [
+    {
+     "file": "place/gulf-wide/card00.webp",
+     "sha256": "2a47a6dbc819c9c63e88ff48bd3bf50ed749d50ad4b443dc39126ebf5a5c5a95",
+     "bytes": 9796,
+     "x": 0,
+     "y": 1034,
+     "w": 1242,
+     "h": 45,
+     "depth_m": 1293.237,
+     "min_m": 757.963,
+     "max_m": 1457.531,
+     "things": 46
+    },
+    {
+     "file": "place/gulf-wide/card01.webp",
+     "sha256": "161a5079b3edb675be729a9308a7f00065de544ebb6f3a4afd7842854b45f78c",
+     "bytes": 186344,
+     "x": 0,
+     "y": 903,
+     "w": 364,
+     "h": 541,
+     "depth_m": 30.882,
+     "min_m": 30.882,
+     "max_m": 30.882,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    223,
+    226,
+    227
+   ],
+   "ground_rgb": [
+    109,
+    117,
+    113
+   ],
+   "limits": {
+    "dolly_m": 6.0,
+    "truck_m": 0.5,
+    "rise_m": 1.0
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 1.198,
+    "reassembly_p999": 10.0,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.489,
+      "scale": 1.2411
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.828,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.656,
+      "scale": 1.0
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": null,
+     "truck_m": {
+      "cover": 0.004931,
+      "slide_px": 1.242,
+      "scale": 1.0,
+      "step": 0.75
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.484,
+      "scale": 1.0,
+      "step": 1.5
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 3.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.889,
+      "scale": 1.1319
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.497,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.497,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.994,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.994,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.497,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.497,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": -0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.671,
+      "scale": 1.0425
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 1.26,
+       "truck": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.602,
+      "scale": 1.0425
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 0.994,
+     "scale": 1.1319
+    },
+    "surfaces": 39,
+    "things": 49,
+    "render_ms": 175276,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "high-plains-wide": {
+   "id": "high-plains-wide",
+   "region": "high_plains",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/high-plains-wide.html",
+   "scene_sha256": "c1c52c8d0496ed43789739d5b459328511dabf6bf97b3051fcba6d13ef6b18bc",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     3.0,
+     2.0,
+     40.0
+    ],
+    "right": [
+     0.999995,
+     -0.0,
+     -0.003191
+    ],
+    "up": [
+     4.8e-05,
+     0.999889,
+     0.014892
+    ],
+    "forward": [
+     -0.003191,
+     0.014892,
+     -0.999884
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1139.26,
+   "sky": {
+    "file": "place/high-plains-wide/sky.webp",
+    "sha256": "a3d46092bb99554cc8794c54f89535ccc57df77c25d133fe22f632fa3bec2860",
+    "bytes": 667104
+   },
+   "ground": {
+    "file": "place/high-plains-wide/ground.webp",
+    "sha256": "b502d5c871351334eba6bbe2632825e307432e9433ec78e374e6657f42fa3bab",
+    "bytes": 1273942
+   },
+   "cards": [
+    {
+     "file": "place/high-plains-wide/card00.webp",
+     "sha256": "8542cc2fdf2f204cb66d9309e7f535f8d667cb1e9cfbe4692b918608c24126e4",
+     "bytes": 13404,
+     "x": 190,
+     "y": 1066,
+     "w": 1052,
+     "h": 85,
+     "depth_m": 5231.939,
+     "min_m": 939.009,
+     "max_m": 5659.491,
+     "things": 22
+    }
+   ],
+   "sky_rgb": [
+    200,
+    207,
+    217
+   ],
+   "ground_rgb": [
+    212,
+    197,
+    164
+   ],
+   "limits": {
+    "dolly_m": 4.0,
+    "truck_m": 0.1,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.468,
+    "reassembly_p999": 4.0,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.797,
+      "scale": 1.0008
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.208,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.564,
+      "scale": 1.0
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.702,
+      "scale": 1.0011,
+      "step": 6.0
+     },
+     "truck_m": {
+      "cover": 0.000666,
+      "slide_px": 0.417,
+      "scale": 1.0,
+      "step": 0.2
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.085,
+      "scale": 1.0,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 2.4
+      },
+      "cover": 0.0,
+      "slide_px": 1.076,
+      "scale": 1.0005
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.125,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.125,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.938,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.938,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.125,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.125,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.501,
+      "scale": 1.0002
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.84,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.251,
+      "scale": 1.0002
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.076,
+     "scale": 1.0005
+    },
+    "surfaces": 76,
+    "things": 22,
+    "render_ms": 223474,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "hill-country-wide": {
+   "id": "hill-country-wide",
+   "region": "hill_country",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/hill-country-wide.html",
+   "scene_sha256": "7f5c403f28ba9994dd86751f062928913f79699db8a0b4cd527939c157ff7d63",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     1.9,
+     30.0
+    ],
+    "right": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "up": [
+     0.0,
+     0.999767,
+     0.021608
+    ],
+    "forward": [
+     -0.0,
+     0.021608,
+     -0.999767
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1155.17,
+   "sky": {
+    "file": "place/hill-country-wide/sky.webp",
+    "sha256": "1c330eb94eee013fa1c3b54aa88cf66f76dbafb41aa2ddffa9f6ae9c6386bdfb",
+    "bytes": 776468
+   },
+   "ground": {
+    "file": "place/hill-country-wide/ground.webp",
+    "sha256": "e9144df6aa95b7ec2024e6ab818cd64cfa31864206562812733cc1907e999e2d",
+    "bytes": 1199030
+   },
+   "cards": [
+    {
+     "file": "place/hill-country-wide/card00.webp",
+     "sha256": "773143fc89f18cfb3209410c1418ac710ed24d12afcf7279c809456f1c0c403c",
+     "bytes": 287420,
+     "x": 0,
+     "y": 918,
+     "w": 1242,
+     "h": 255,
+     "depth_m": 241.43,
+     "min_m": 147.577,
+     "max_m": 935.182,
+     "things": 3,
+     "tall": [
+      "hill_country_terrain"
+     ]
+    },
+    {
+     "file": "place/hill-country-wide/card01.webp",
+     "sha256": "f7ee6bfdfdf8adffef6218756152dd51f8a3b2cd6ea2261d0864bd002e173c97",
+     "bytes": 54446,
+     "x": 761,
+     "y": 1000,
+     "w": 314,
+     "h": 155,
+     "depth_m": 119.927,
+     "min_m": 119.927,
+     "max_m": 119.927,
+     "things": 1
+    },
+    {
+     "file": "place/hill-country-wide/card02.webp",
+     "sha256": "eac3f6f5a1b5fe6c827666dfae913307b450289d8a7a8b267e91509f8e59a259",
+     "bytes": 38196,
+     "x": 119,
+     "y": 1019,
+     "w": 218,
+     "h": 183,
+     "depth_m": 84.937,
+     "min_m": 84.937,
+     "max_m": 84.937,
+     "things": 1
+    },
+    {
+     "file": "place/hill-country-wide/card03.webp",
+     "sha256": "1537fbb3c3615f62c3316eb374ac247538f15fa629e8627878dcf63fde729c75",
+     "bytes": 47986,
+     "x": 614,
+     "y": 1003,
+     "w": 216,
+     "h": 222,
+     "depth_m": 69.94,
+     "min_m": 69.94,
+     "max_m": 69.94,
+     "things": 1
+    },
+    {
+     "file": "place/hill-country-wide/card04.webp",
+     "sha256": "b0c15543d5f416e3a919f6842c0a2271740d2996e7c697ec5766198f3351d5cb",
+     "bytes": 270884,
+     "x": 0,
+     "y": 785,
+     "w": 550,
+     "h": 487,
+     "depth_m": 41.945,
+     "min_m": 41.945,
+     "max_m": 41.945,
+     "things": 1
+    },
+    {
+     "file": "place/hill-country-wide/card05.webp",
+     "sha256": "1233f2159c2bb8f31581222358163c6ba3c7d869db0c09fa6c9ebe024af7813c",
+     "bytes": 165456,
+     "x": 904,
+     "y": 846,
+     "w": 338,
+     "h": 478,
+     "depth_m": 27.951,
+     "min_m": 27.951,
+     "max_m": 27.951,
+     "things": 1
+    },
+    {
+     "file": "place/hill-country-wide/card06.webp",
+     "sha256": "0aee5d7646fdbfedf521a0c52abad0b03eb6738411d745c475fc196c14dfc14f",
+     "bytes": 21620,
+     "x": 0,
+     "y": 1159,
+     "w": 789,
+     "h": 221,
+     "depth_m": 19.97,
+     "min_m": 19.97,
+     "max_m": 19.97,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    183,
+    202,
+    222
+   ],
+   "ground_rgb": [
+    185,
+    180,
+    145
+   ],
+   "limits": {
+    "dolly_m": 0.5,
+    "truck_m": 0.1,
+    "rise_m": 0.2
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.391,
+    "reassembly_p999": 6.63,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.056,
+      "scale": 1.0257
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.928,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.857,
+      "scale": 1.0002
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.118,
+      "scale": 1.0527,
+      "step": 1.0
+     },
+     "truck_m": {
+      "cover": 0.001043,
+      "slide_px": 1.856,
+      "scale": 1.0,
+      "step": 0.2
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.785,
+      "scale": 1.0003,
+      "step": 0.3
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.633,
+      "scale": 1.0152
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.557,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.557,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.114,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.114,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.557,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.557,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.105,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.779,
+      "scale": 1.0053
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.105,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.779,
+      "scale": 1.0053
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.114,
+     "scale": 1.0152
+    },
+    "surfaces": 22,
+    "things": 10,
+    "render_ms": 467595,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "piney-woods-wide": {
+   "id": "piney-woods-wide",
+   "region": "piney_woods",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/piney-woods-wide.html",
+   "scene_sha256": "0771ed0cc0c92e249bc3c3004c5e55493687cde40fc62146a559b1a3ec6137e0",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.5,
+     1.8,
+     30.0
+    ],
+    "right": [
+     0.999983,
+     -0.0,
+     -0.005814
+    ],
+    "up": [
+     9.7e-05,
+     0.99986,
+     0.016741
+    ],
+    "forward": [
+     -0.005813,
+     0.016742,
+     -0.999843
+    ],
+    "fov": 52.0,
+    "fpx": 2263.535441,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1141.9,
+   "sky": {
+    "file": "place/piney-woods-wide/sky.webp",
+    "sha256": "aab6fef433861b069ecd583cb64d119cbd4718593f3d342060d5aad80e1a65b8",
+    "bytes": 788122
+   },
+   "ground": {
+    "file": "place/piney-woods-wide/ground.webp",
+    "sha256": "a1b23bbe20d19a0cf68d89c7eae1411744466d07345ab56fbea99f874af39b7d",
+    "bytes": 490624
+   },
+   "cards": [
+    {
+     "file": "place/piney-woods-wide/card00.webp",
+     "sha256": "b06c72da0ff50e18cc878121dada25bdba8f422e774f26d303ddbd9e9d0430f1",
+     "bytes": 83072,
+     "x": 0,
+     "y": 1012,
+     "w": 1242,
+     "h": 144,
+     "depth_m": 1089.502,
+     "min_m": 1089.502,
+     "max_m": 1089.502,
+     "things": 1
+    },
+    {
+     "file": "place/piney-woods-wide/card01.webp",
+     "sha256": "deab9bcf7b7ba4a3f4ffbbea2109933fb1c560174d1d91f732f195bce6d574a4",
+     "bytes": 6670,
+     "x": 499,
+     "y": 1009,
+     "w": 244,
+     "h": 147,
+     "depth_m": 545.626,
+     "min_m": 544.095,
+     "max_m": 547.161,
+     "things": 4
+    },
+    {
+     "file": "place/piney-woods-wide/card02.webp",
+     "sha256": "83f6e1d79e5b59024ef277fc95d5e33d33ebbc75bbf9d1f2879695205e7bcb98",
+     "bytes": 26162,
+     "x": 498,
+     "y": 996,
+     "w": 285,
+     "h": 161,
+     "depth_m": 511.322,
+     "min_m": 483.572,
+     "max_m": 540.665,
+     "things": 40
+    },
+    {
+     "file": "place/piney-woods-wide/card03.webp",
+     "sha256": "21ed0dfd9d22fdcc785681a3be8995520909ef40a0f35ffd260566f2674a761e",
+     "bytes": 30676,
+     "x": 502,
+     "y": 980,
+     "w": 328,
+     "h": 178,
+     "depth_m": 454.665,
+     "min_m": 430.002,
+     "max_m": 480.742,
+     "things": 36
+    },
+    {
+     "file": "place/piney-woods-wide/card04.webp",
+     "sha256": "2ee9da30b0fb52190f49fe6e70e539e59bacd3403368ab568f7c25ccd86611de",
+     "bytes": 32352,
+     "x": 514,
+     "y": 951,
+     "w": 367,
+     "h": 208,
+     "depth_m": 403.83,
+     "min_m": 381.602,
+     "max_m": 427.353,
+     "things": 32
+    },
+    {
+     "file": "place/piney-woods-wide/card05.webp",
+     "sha256": "596e9d55f0d92adce56b89378f58240eedda41a80bff5724e85998da01608041",
+     "bytes": 33178,
+     "x": 506,
+     "y": 941,
+     "w": 379,
+     "h": 219,
+     "depth_m": 359.283,
+     "min_m": 340.548,
+     "max_m": 379.048,
+     "things": 27
+    },
+    {
+     "file": "place/piney-woods-wide/card06.webp",
+     "sha256": "9781a1fcc130d207d32f53468f7c6780ba585c3da716ff78f20e72b4a73112c4",
+     "bytes": 44212,
+     "x": 492,
+     "y": 907,
+     "w": 454,
+     "h": 255,
+     "depth_m": 321.334,
+     "min_m": 303.672,
+     "max_m": 340.023,
+     "things": 25
+    },
+    {
+     "file": "place/piney-woods-wide/card07.webp",
+     "sha256": "410db9053c83ceebdcd43049701768d0af73be37654d68859c3638f81160c98c",
+     "bytes": 45026,
+     "x": 506,
+     "y": 889,
+     "w": 500,
+     "h": 274,
+     "depth_m": 285.406,
+     "min_m": 270.675,
+     "max_m": 300.937,
+     "things": 22
+    },
+    {
+     "file": "place/piney-woods-wide/card08.webp",
+     "sha256": "96691d549331104b2a005de7288e546afe2c6ea79bfe47183378903f09d2e100",
+     "bytes": 51030,
+     "x": 462,
+     "y": 855,
+     "w": 554,
+     "h": 310,
+     "depth_m": 253.744,
+     "min_m": 240.097,
+     "max_m": 268.167,
+     "things": 20
+    },
+    {
+     "file": "place/piney-woods-wide/card09.webp",
+     "sha256": "4aeba19fc60cdf6cc8ac61c3517a021adc04da9bb8d324db58be7f9c057bd4d1",
+     "bytes": 56148,
+     "x": 461,
+     "y": 829,
+     "w": 644,
+     "h": 338,
+     "depth_m": 225.501,
+     "min_m": 213.553,
+     "max_m": 238.118,
+     "things": 18
+    },
+    {
+     "file": "place/piney-woods-wide/card10.webp",
+     "sha256": "326a8508423c72aa6fd5d2cc6a3b2abec53c726ff4da23ebca46871c228841a8",
+     "bytes": 57292,
+     "x": 464,
+     "y": 787,
+     "w": 644,
+     "h": 383,
+     "depth_m": 199.949,
+     "min_m": 189.551,
+     "max_m": 210.917,
+     "things": 16
+    },
+    {
+     "file": "place/piney-woods-wide/card11.webp",
+     "sha256": "e05ed312d135f5b6b0e492e514afb4b424821b60ac081ceb85c7d2e2091eef3f",
+     "bytes": 63134,
+     "x": 367,
+     "y": 731,
+     "w": 761,
+     "h": 441,
+     "depth_m": 177.975,
+     "min_m": 169.104,
+     "max_m": 187.312,
+     "things": 13
+    },
+    {
+     "file": "place/piney-woods-wide/card12.webp",
+     "sha256": "dd8d1263dac21857290ff8c6d319806f5514733f33d07ad84afe832999e0b2bf",
+     "bytes": 72290,
+     "x": 348,
+     "y": 681,
+     "w": 894,
+     "h": 494,
+     "depth_m": 159.063,
+     "min_m": 150.378,
+     "max_m": 168.249,
+     "things": 13
+    },
+    {
+     "file": "place/piney-woods-wide/card13.webp",
+     "sha256": "4b106a47fcee9397fde0ecc850efb8382281c9e620320462c10f876d84200cd3",
+     "bytes": 79514,
+     "x": 324,
+     "y": 647,
+     "w": 918,
+     "h": 531,
+     "depth_m": 140.184,
+     "min_m": 132.837,
+     "max_m": 147.937,
+     "things": 12
+    },
+    {
+     "file": "place/piney-woods-wide/card14.webp",
+     "sha256": "f00666fefaee3e65e80a1200c7dad4205ff17aaa543c777ba78b9f707cba38b9",
+     "bytes": 73176,
+     "x": 187,
+     "y": 585,
+     "w": 1055,
+     "h": 598,
+     "depth_m": 123.938,
+     "min_m": 118.06,
+     "max_m": 130.109,
+     "things": 10
+    },
+    {
+     "file": "place/piney-woods-wide/card15.webp",
+     "sha256": "4cb369ac14fd1acbd2cdcdac46d02527067383933660ad5c195a2bdd9863e8aa",
+     "bytes": 79598,
+     "x": 114,
+     "y": 532,
+     "w": 1128,
+     "h": 654,
+     "depth_m": 108.63,
+     "min_m": 102.789,
+     "max_m": 114.802,
+     "things": 10
+    },
+    {
+     "file": "place/piney-woods-wide/card16.webp",
+     "sha256": "e2fd8ef164eb199da102cfdb3ad55e7e375c07053839358c4cd58effa90e2d74",
+     "bytes": 81050,
+     "x": 77,
+     "y": 432,
+     "w": 1165,
+     "h": 761,
+     "depth_m": 95.021,
+     "min_m": 90.388,
+     "max_m": 99.891,
+     "things": 8
+    },
+    {
+     "file": "place/piney-woods-wide/card17.webp",
+     "sha256": "78fe7585bfe10851317d116562700e402edd7a2feeee24b0e9134a2a54539928",
+     "bytes": 78842,
+     "x": 0,
+     "y": 342,
+     "w": 1202,
+     "h": 856,
+     "depth_m": 83.58,
+     "min_m": 79.291,
+     "max_m": 88.102,
+     "things": 7
+    },
+    {
+     "file": "place/piney-woods-wide/card18.webp",
+     "sha256": "02e3c8b43367254eeb900ef6d4935d07899ec9f80880800bd9db12a9fd60a67a",
+     "bytes": 56454,
+     "x": 0,
+     "y": 261,
+     "w": 1242,
+     "h": 943,
+     "depth_m": 73.84,
+     "min_m": 69.815,
+     "max_m": 78.098,
+     "things": 7
+    },
+    {
+     "file": "place/piney-woods-wide/card19.webp",
+     "sha256": "9b19374a2f284af84b675f0e225c1f79a6eebcec828f03b7ac418c216d2e42c7",
+     "bytes": 59652,
+     "x": 95,
+     "y": 129,
+     "w": 1147,
+     "h": 1083,
+     "depth_m": 63.818,
+     "min_m": 60.63,
+     "max_m": 67.173,
+     "things": 6
+    },
+    {
+     "file": "place/piney-woods-wide/card20.webp",
+     "sha256": "b513340cccf644fac155dde72255c4c5840c83827d166e1383a97f8204822a19",
+     "bytes": 67438,
+     "x": 11,
+     "y": 0,
+     "w": 1231,
+     "h": 1205,
+     "depth_m": 55.333,
+     "min_m": 52.456,
+     "max_m": 58.368,
+     "things": 6
+    },
+    {
+     "file": "place/piney-woods-wide/card21.webp",
+     "sha256": "510d250e6cdf59415cba5c34d7b1efaa1fc15a634e2c00b5538b96eaab6c2aba",
+     "bytes": 42888,
+     "x": 232,
+     "y": 0,
+     "w": 1010,
+     "h": 1238,
+     "depth_m": 47.395,
+     "min_m": 45.755,
+     "max_m": 49.094,
+     "things": 4
+    },
+    {
+     "file": "place/piney-woods-wide/card22.webp",
+     "sha256": "9c97057f8a95725f5bd66682f5e104359f25c0a7e32b54697e9a11d3f095544f",
+     "bytes": 12294,
+     "x": 0,
+     "y": 0,
+     "w": 1242,
+     "h": 1203,
+     "depth_m": 35.627,
+     "min_m": 34.086,
+     "max_m": 37.238,
+     "things": 4
+    },
+    {
+     "file": "place/piney-woods-wide/card23.webp",
+     "sha256": "47d827750240cc12cdffb100d78878097d6939526cf4aa0826e74e2590d98d39",
+     "bytes": 7202,
+     "x": 986,
+     "y": 0,
+     "w": 256,
+     "h": 1203,
+     "depth_m": 29.622,
+     "min_m": 28.161,
+     "max_m": 31.159,
+     "things": 3
+    },
+    {
+     "file": "place/piney-woods-wide/card24.webp",
+     "sha256": "6669e780842592a333fd271e2c76b16b48fddcd7002dd65c7ff21a7886137736",
+     "bytes": 714,
+     "x": 1162,
+     "y": 69,
+     "w": 80,
+     "h": 30,
+     "depth_m": 18.978,
+     "min_m": 18.883,
+     "max_m": 19.074,
+     "things": 2
+    }
+   ],
+   "sky_rgb": [
+    192,
+    203,
+    211
+   ],
+   "ground_rgb": [
+    108,
+    67,
+    49
+   ],
+   "limits": {
+    "dolly_m": 3.0,
+    "truck_m": 0.1,
+    "rise_m": 0.75
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.24,
+    "reassembly_p999": 4.89,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.478,
+      "scale": 1.1877
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.213,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.598,
+      "scale": 1.0007
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.046,
+      "scale": 1.267,
+      "step": 4.0
+     },
+     "truck_m": {
+      "cover": 0.00208,
+      "slide_px": 0.426,
+      "scale": 1.0,
+      "step": 0.2
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.13,
+      "scale": 1.0009,
+      "step": 1.0
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 1.8
+      },
+      "cover": 0.0,
+      "slide_px": 0.848,
+      "scale": 1.1048
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.128,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.128,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.958,
+      "scale": 1.0004
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.45
+      },
+      "cover": 0.0,
+      "slide_px": 0.958,
+      "scale": 1.0004
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.128,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.128,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.63,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.211,
+      "scale": 1.0343
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.63,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.414,
+      "scale": 1.0343
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 0.958,
+     "scale": 1.1048
+    },
+    "surfaces": 4,
+    "things": 361,
+    "render_ms": 657242,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "post-oak-wide": {
+   "id": "post-oak-wide",
+   "region": "post_oak",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/post-oak-wide.html",
+   "scene_sha256": "c99288b0537bc7b70ea49883889520b1164d66eeea45e5df441a78ed4c4adeb8",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     2.2,
+     40.0
+    ],
+    "right": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "up": [
+     0.0,
+     0.999993,
+     0.003784
+    ],
+    "forward": [
+     -0.0,
+     0.003784,
+     -0.999993
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1112.96,
+   "sky": {
+    "file": "place/post-oak-wide/sky.webp",
+    "sha256": "c7e2ceef8641cdaf86c820f59f227da45ffd77a737567fe9f45fca64a52396d6",
+    "bytes": 742044
+   },
+   "ground": {
+    "file": "place/post-oak-wide/ground.webp",
+    "sha256": "671245ded02be96166dd3bca9bd22e45c47e195b50386bd539d1f66d10a5d8bc",
+    "bytes": 1166832
+   },
+   "cards": [
+    {
+     "file": "place/post-oak-wide/card00.webp",
+     "sha256": "fc8b439734a046e2037b6b649114fcc559bf7e74b9cc328ad8092a20db22d3fe",
+     "bytes": 6990,
+     "x": 0,
+     "y": 1077,
+     "w": 1242,
+     "h": 44,
+     "depth_m": 3811.307,
+     "min_m": 953.783,
+     "max_m": 6705.952,
+     "things": 3,
+     "tall": [
+      "plate.rolling"
+     ]
+    },
+    {
+     "file": "place/post-oak-wide/card01.webp",
+     "sha256": "dc91e58ec46c4584f2fb189ee495cb247907659d5d2a8d28083b984c4a362111",
+     "bytes": 2480,
+     "x": 171,
+     "y": 1073,
+     "w": 88,
+     "h": 41,
+     "depth_m": 2639.973,
+     "min_m": 679.986,
+     "max_m": 2639.973,
+     "things": 2
+    },
+    {
+     "file": "place/post-oak-wide/card02.webp",
+     "sha256": "94443464bb96fbff32fa3665e38e75133f91356308a34ef8f346043cded9019f",
+     "bytes": 1790,
+     "x": 748,
+     "y": 1083,
+     "w": 62,
+     "h": 45,
+     "depth_m": 599.987,
+     "min_m": 599.987,
+     "max_m": 599.987,
+     "things": 1
+    },
+    {
+     "file": "place/post-oak-wide/card03.webp",
+     "sha256": "30270664184e408b14fd48e2891840b204ad3115f77411e7bc6743aba7de90d6",
+     "bytes": 3678,
+     "x": 980,
+     "y": 1066,
+     "w": 71,
+     "h": 64,
+     "depth_m": 499.587,
+     "min_m": 479.988,
+     "max_m": 519.987,
+     "things": 2
+    },
+    {
+     "file": "place/post-oak-wide/card04.webp",
+     "sha256": "b6370394f7a90bb3f12cf65b7454149e3d0f70091aa60f3c1f825e05e35f9ae7",
+     "bytes": 4832,
+     "x": 381,
+     "y": 1069,
+     "w": 96,
+     "h": 65,
+     "depth_m": 384.696,
+     "min_m": 369.989,
+     "max_m": 399.988,
+     "things": 5
+    },
+    {
+     "file": "place/post-oak-wide/card05.webp",
+     "sha256": "5dab123cb9e4d4095768454da7e3139974f03b674b3752020a26325da7771944",
+     "bytes": 12966,
+     "x": 676,
+     "y": 1034,
+     "w": 137,
+     "h": 109,
+     "depth_m": 229.989,
+     "min_m": 229.989,
+     "max_m": 229.989,
+     "things": 1
+    },
+    {
+     "file": "place/post-oak-wide/card06.webp",
+     "sha256": "c2d5d12b6d13f3f2e20104b78bdd308dc5f58cbcba41af00dafd66d875688ae2",
+     "bytes": 26150,
+     "x": 0,
+     "y": 965,
+     "w": 138,
+     "h": 195,
+     "depth_m": 129.99,
+     "min_m": 129.99,
+     "max_m": 129.99,
+     "things": 1
+    },
+    {
+     "file": "place/post-oak-wide/card07.webp",
+     "sha256": "0d8e96df1b1b999485e88c8dc915ccf39f582ea4b078897878d532695b7de8fa",
+     "bytes": 61238,
+     "x": 982,
+     "y": 916,
+     "w": 260,
+     "h": 264,
+     "depth_m": 85.99,
+     "min_m": 85.99,
+     "max_m": 85.99,
+     "things": 1
+    },
+    {
+     "file": "place/post-oak-wide/card08.webp",
+     "sha256": "9872f68eb2f4d3c7c63f4208b46346689e29fd2c3cfa95dcdb2edcbc909ce4ac",
+     "bytes": 93042,
+     "x": 0,
+     "y": 878,
+     "w": 306,
+     "h": 321,
+     "depth_m": 61.991,
+     "min_m": 61.991,
+     "max_m": 61.991,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    193,
+    202,
+    209
+   ],
+   "ground_rgb": [
+    166,
+    127,
+    66
+   ],
+   "limits": {
+    "dolly_m": 3.0,
+    "truck_m": 0.2,
+    "rise_m": 0.5
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.451,
+    "reassembly_p999": 4.25,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.804,
+      "scale": 1.0509
+     },
+     "truck_m": {
+      "cover": 0.000162,
+      "slide_px": 0.578,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.444,
+      "scale": 1.0
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.491,
+      "scale": 1.069,
+      "step": 4.0
+     },
+     "truck_m": {
+      "cover": 0.008514,
+      "slide_px": 0.867,
+      "scale": 1.0,
+      "step": 0.3
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.166,
+      "scale": 1.0,
+      "step": 0.75
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 1.8
+      },
+      "cover": 0.0,
+      "slide_px": 1.038,
+      "scale": 1.0299
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.347,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.347,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.867,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.3
+      },
+      "cover": 0.0,
+      "slide_px": 0.867,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.347,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.347,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.63,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.445,
+      "scale": 1.0103
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.63,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.669,
+      "scale": 1.0103
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.038,
+     "scale": 1.0299
+    },
+    "surfaces": 33,
+    "things": 18,
+    "render_ms": 456349,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "rolling-plains-wide": {
+   "id": "rolling-plains-wide",
+   "region": "rolling_plains",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/rolling-plains-wide.html",
+   "scene_sha256": "6810d10fb74ec21e93420eebc6d01abfc03bf5f4d714b306fe3a5c201257f69b",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     2.4,
+     44.0
+    ],
+    "right": [
+     0.99991,
+     0.0,
+     0.01344
+    ],
+    "up": [
+     -6.5e-05,
+     0.999988,
+     0.004838
+    ],
+    "forward": [
+     0.013439,
+     0.004838,
+     -0.999898
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1115.45,
+   "sky": {
+    "file": "place/rolling-plains-wide/sky.webp",
+    "sha256": "234623495a2515397b50dc266718b9bb32aa2dd8673525c0cc5628b4c45ab8b7",
+    "bytes": 720118
+   },
+   "ground": {
+    "file": "place/rolling-plains-wide/ground.webp",
+    "sha256": "8bf5e8948977ba533b9cb912ce232d5bb274f94b1f1db45dd2441264c17db4f9",
+    "bytes": 1194800
+   },
+   "cards": [
+    {
+     "file": "place/rolling-plains-wide/card00.webp",
+     "sha256": "5faffa694fb58afe21a3c3d48e3f4b6efeda39d935dbbd05dbb6f69e48a8a7ac",
+     "bytes": 236,
+     "x": 347,
+     "y": 1051,
+     "w": 475,
+     "h": 30,
+     "depth_m": 6044.733,
+     "min_m": 6033.587,
+     "max_m": 6057.477,
+     "things": 7
+    },
+    {
+     "file": "place/rolling-plains-wide/card01.webp",
+     "sha256": "3c7761c2591b8d21e507670383f93ff91521d6fb865d3519ff71559933774f0b",
+     "bytes": 11248,
+     "x": 0,
+     "y": 1035,
+     "w": 1242,
+     "h": 90,
+     "depth_m": 3717.261,
+     "min_m": 727.249,
+     "max_m": 6747.972,
+     "things": 3,
+     "tall": [
+      "plate.rolling"
+     ]
+    },
+    {
+     "file": "place/rolling-plains-wide/card02.webp",
+     "sha256": "7a58d0b503941e881bcf0054203d6bcbb2485b322b788edc31b4c86023b2c4d8",
+     "bytes": 16030,
+     "x": 0,
+     "y": 1050,
+     "w": 558,
+     "h": 49,
+     "depth_m": 3603.283,
+     "min_m": 3108.643,
+     "max_m": 4158.206,
+     "things": 3,
+     "tall": [
+      "mesa"
+     ]
+    },
+    {
+     "file": "place/rolling-plains-wide/card03.webp",
+     "sha256": "3bdb24794c0ab89b967a7c48da1ed736a8316760a0832dc46546ebbd44016b1b",
+     "bytes": 4324,
+     "x": 42,
+     "y": 1049,
+     "w": 81,
+     "h": 100,
+     "depth_m": 213.41,
+     "min_m": 213.41,
+     "max_m": 213.41,
+     "things": 1
+    },
+    {
+     "file": "place/rolling-plains-wide/card04.webp",
+     "sha256": "1e26b2801cc4199202245e9dea616c467087ca3c7e4affad684e5fdb7dbf8d20",
+     "bytes": 392,
+     "x": 1223,
+     "y": 1094,
+     "w": 19,
+     "h": 32,
+     "depth_m": 164.616,
+     "min_m": 164.616,
+     "max_m": 164.616,
+     "things": 1
+    },
+    {
+     "file": "place/rolling-plains-wide/card05.webp",
+     "sha256": "b844bd1ea003553307c124a584dda12f9fbe57b1bf6437e3db217513d463a18d",
+     "bytes": 48242,
+     "x": 748,
+     "y": 985,
+     "w": 494,
+     "h": 205,
+     "depth_m": 87.976,
+     "min_m": 84.247,
+     "max_m": 91.871,
+     "things": 2
+    },
+    {
+     "file": "place/rolling-plains-wide/card06.webp",
+     "sha256": "3befae14b06ca7e6112243c29b8f4e05ac5b3cae055a64819a054afd61c59ac6",
+     "bytes": 31610,
+     "x": 0,
+     "y": 1043,
+     "w": 210,
+     "h": 171,
+     "depth_m": 61.793,
+     "min_m": 61.793,
+     "max_m": 61.793,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    185,
+    189,
+    202
+   ],
+   "ground_rgb": [
+    127,
+    76,
+    56
+   ],
+   "limits": {
+    "dolly_m": 1.5,
+    "truck_m": 0.2,
+    "rise_m": 0.3
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.372,
+    "reassembly_p999": 1.28,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.547,
+      "scale": 1.0249
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 0.878,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.318,
+      "scale": 1.0
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.089,
+      "scale": 1.0334,
+      "step": 2.0
+     },
+     "truck_m": {
+      "cover": 0.005565,
+      "slide_px": 1.318,
+      "scale": 1.0,
+      "step": 0.3
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.197,
+      "scale": 1.0,
+      "step": 0.5
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.9
+      },
+      "cover": 0.0,
+      "slide_px": 0.914,
+      "scale": 1.0148
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.527,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.527,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.791,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.18
+      },
+      "cover": 0.0,
+      "slide_px": 0.791,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.527,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.527,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.315,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.845,
+      "scale": 1.0051
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.315,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.492,
+      "scale": 1.0051
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 0.914,
+     "scale": 1.0148
+    },
+    "surfaces": 34,
+    "things": 18,
+    "render_ms": 383538,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "south-texas-wide": {
+   "id": "south-texas-wide",
+   "region": "south_texas",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/south-texas-wide.html",
+   "scene_sha256": "2106d1be2c31423d6d4b2ebc63c8068995f388cadc4d880db7a8398229dba1f2",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     1.0,
+     2.0,
+     38.0
+    ],
+    "right": [
+     0.999901,
+     -0.0,
+     0.014105
+    ],
+    "up": [
+     -6.6e-05,
+     0.999989,
+     0.004701
+    ],
+    "forward": [
+     0.014105,
+     0.004702,
+     -0.999889
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1115.13,
+   "sky": {
+    "file": "place/south-texas-wide/sky.webp",
+    "sha256": "fccb0010622317a12f134936786a282f9e068fbbdd12481c302eb206848acecf",
+    "bytes": 853400
+   },
+   "ground": {
+    "file": "place/south-texas-wide/ground.webp",
+    "sha256": "a1e2418aa4869cab8c63dba22f6b610e5efa441919a26b9f05f12f3e25abdd0e",
+    "bytes": 1082162
+   },
+   "cards": [
+    {
+     "file": "place/south-texas-wide/card00.webp",
+     "sha256": "bab5f9cb070178c67eacc0c1498ed15528d052aff8408d6884fed691e1ca9e42",
+     "bytes": 6810,
+     "x": 291,
+     "y": 1092,
+     "w": 875,
+     "h": 41,
+     "depth_m": 443.59,
+     "min_m": 422.326,
+     "max_m": 465.926,
+     "things": 7
+    },
+    {
+     "file": "place/south-texas-wide/card01.webp",
+     "sha256": "080cebeacf49ceb1bc1779cc46fcdc47c68c07891013f9c29caa2ca9fff407cc",
+     "bytes": 11764,
+     "x": 10,
+     "y": 1076,
+     "w": 1232,
+     "h": 59,
+     "depth_m": 398.15,
+     "min_m": 376.947,
+     "max_m": 420.547,
+     "things": 9
+    },
+    {
+     "file": "place/south-texas-wide/card02.webp",
+     "sha256": "9b02eb28249bdc295b2a40e1026308e7d08315bd605e11af79b12644314edec1",
+     "bytes": 8290,
+     "x": 191,
+     "y": 1087,
+     "w": 964,
+     "h": 49,
+     "depth_m": 348.764,
+     "min_m": 333.346,
+     "max_m": 364.895,
+     "things": 6
+    },
+    {
+     "file": "place/south-texas-wide/card03.webp",
+     "sha256": "3bb3d3e4b20b8f8f6ec14cef23d16d728c701fef88ec1479d8c75d505994661c",
+     "bytes": 7900,
+     "x": 353,
+     "y": 1084,
+     "w": 655,
+     "h": 54,
+     "depth_m": 305.113,
+     "min_m": 289.746,
+     "max_m": 321.295,
+     "things": 8
+    },
+    {
+     "file": "place/south-texas-wide/card04.webp",
+     "sha256": "ddeb9198c6e207a01d5e1e2e6eb1b359de0554483386ad372851b20fa7140b84",
+     "bytes": 6646,
+     "x": 0,
+     "y": 1082,
+     "w": 1198,
+     "h": 58,
+     "depth_m": 262.446,
+     "min_m": 248.035,
+     "max_m": 277.694,
+     "things": 5
+    },
+    {
+     "file": "place/south-texas-wide/card05.webp",
+     "sha256": "fc9a049c1ee16a50ec9d501658f4229ad4fb88364527e573b5fd840470161eb2",
+     "bytes": 8868,
+     "x": 71,
+     "y": 1077,
+     "w": 1171,
+     "h": 65,
+     "depth_m": 232.897,
+     "min_m": 220.263,
+     "max_m": 246.256,
+     "things": 9
+    },
+    {
+     "file": "place/south-texas-wide/card06.webp",
+     "sha256": "802fbeae994c5c039c60430548f8c70c618ba287b6156d0fc6c82bf7c5fb0884",
+     "bytes": 8934,
+     "x": 190,
+     "y": 1076,
+     "w": 745,
+     "h": 69,
+     "depth_m": 206.909,
+     "min_m": 196.046,
+     "max_m": 218.375,
+     "things": 7
+    },
+    {
+     "file": "place/south-texas-wide/card07.webp",
+     "sha256": "ce18e6d41e3519fd101849a868dfb932050b3c38da579d617d8c47b22a582e4b",
+     "bytes": 11566,
+     "x": 307,
+     "y": 1062,
+     "w": 877,
+     "h": 85,
+     "depth_m": 182.587,
+     "min_m": 174.159,
+     "max_m": 191.422,
+     "things": 10
+    },
+    {
+     "file": "place/south-texas-wide/card08.webp",
+     "sha256": "e8369b4c21c84e664dc2a5bae996ef716dc3a2697736c2f12255e16691eb9155",
+     "bytes": 14608,
+     "x": 61,
+     "y": 1065,
+     "w": 877,
+     "h": 86,
+     "depth_m": 162.117,
+     "min_m": 154.14,
+     "max_m": 170.507,
+     "things": 9
+    },
+    {
+     "file": "place/south-texas-wide/card09.webp",
+     "sha256": "1c52a5457e85eb3c1ad9be84b8ee80446a0ea7bcdef31caa7c9991c12f5c4d11",
+     "bytes": 13856,
+     "x": 167,
+     "y": 1064,
+     "w": 934,
+     "h": 91,
+     "depth_m": 142.416,
+     "min_m": 135.299,
+     "max_m": 149.908,
+     "things": 11
+    },
+    {
+     "file": "place/south-texas-wide/card10.webp",
+     "sha256": "67425e4846766fbadd6fddb0819788e0dfb86889d97ba65f07c9fccdf8a3b68f",
+     "bytes": 3098,
+     "x": 748,
+     "y": 1078,
+     "w": 494,
+     "h": 75,
+     "depth_m": 125.638,
+     "min_m": 119.232,
+     "max_m": 132.389,
+     "things": 7
+    },
+    {
+     "file": "place/south-texas-wide/card11.webp",
+     "sha256": "859c1c9d6966b6a2ee7df79afcfdce27eb8967b9dc0ff4ba3924735af75c3a88",
+     "bytes": 18462,
+     "x": 73,
+     "y": 1064,
+     "w": 1127,
+     "h": 98,
+     "depth_m": 111.409,
+     "min_m": 105.775,
+     "max_m": 117.344,
+     "things": 7
+    },
+    {
+     "file": "place/south-texas-wide/card12.webp",
+     "sha256": "19b8c2bd047923392d11cc37c2732a78b70548da70c2e928fc3ac2750524c3bf",
+     "bytes": 4772,
+     "x": 240,
+     "y": 1044,
+     "w": 803,
+     "h": 116,
+     "depth_m": 98.379,
+     "min_m": 93.599,
+     "max_m": 103.403,
+     "things": 8
+    },
+    {
+     "file": "place/south-texas-wide/card13.webp",
+     "sha256": "6935655f1db5b706c37f6ca8bb1c49896980ea837dc233a8c2deb2851d59fde1",
+     "bytes": 16648,
+     "x": 0,
+     "y": 1056,
+     "w": 286,
+     "h": 120,
+     "depth_m": 85.344,
+     "min_m": 81.311,
+     "max_m": 89.578,
+     "things": 7
+    },
+    {
+     "file": "place/south-texas-wide/card14.webp",
+     "sha256": "53d05862d9ffc3329a1c9f21d811ddeb50c2940d9495b4c8ddc94382daec959f",
+     "bytes": 8392,
+     "x": 355,
+     "y": 1045,
+     "w": 593,
+     "h": 143,
+     "depth_m": 71.776,
+     "min_m": 68.117,
+     "max_m": 75.632,
+     "things": 6
+    },
+    {
+     "file": "place/south-texas-wide/card15.webp",
+     "sha256": "9137db602d86159b977fcf177641ba59fc329ba62a798eed162b5f3a62ec7189",
+     "bytes": 4276,
+     "x": 1106,
+     "y": 1055,
+     "w": 54,
+     "h": 122,
+     "depth_m": 61.797,
+     "min_m": 58.567,
+     "max_m": 65.205,
+     "things": 4
+    },
+    {
+     "file": "place/south-texas-wide/card16.webp",
+     "sha256": "3b06b34114cec86513a05ad71de4ef67a6d8794060f820247bba424605e7c575",
+     "bytes": 7476,
+     "x": 107,
+     "y": 1031,
+     "w": 115,
+     "h": 183,
+     "depth_m": 39.739,
+     "min_m": 38.639,
+     "max_m": 40.871,
+     "things": 2
+    },
+    {
+     "file": "place/south-texas-wide/card17.webp",
+     "sha256": "7968b0cd5832175952c53a6a209e1ba81d03a7d19bc3acaa9850b2e0db2cab47",
+     "bytes": 9630,
+     "x": 57,
+     "y": 984,
+     "w": 85,
+     "h": 262,
+     "depth_m": 27.993,
+     "min_m": 27.993,
+     "max_m": 27.993,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    203,
+    208,
+    214
+   ],
+   "ground_rgb": [
+    235,
+    225,
+    203
+   ],
+   "limits": {
+    "dolly_m": 0.25,
+    "truck_m": 0.1,
+    "rise_m": 0.1
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.411,
+    "reassembly_p999": 3.28,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.031,
+      "scale": 1.009
+     },
+     "truck_m": {
+      "cover": 0.0,
+      "slide_px": 1.797,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.797,
+      "scale": 1.0
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.096,
+      "scale": 1.0182,
+      "step": 0.5
+     },
+     "truck_m": {
+      "cover": 0.00095,
+      "slide_px": 3.593,
+      "scale": 1.0,
+      "step": 0.2
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 3.594,
+      "scale": 1.0,
+      "step": 0.2
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.15
+      },
+      "cover": 0.0,
+      "slide_px": 0.615,
+      "scale": 1.0054
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.078,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0525,
+       "truck": -0.06
+      },
+      "cover": 0.0,
+      "slide_px": 0.876,
+      "scale": 1.0019
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0525,
+       "truck": 0.06
+      },
+      "cover": 0.0,
+      "slide_px": 1.29,
+      "scale": 1.0019
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.29,
+     "scale": 1.0054
+    },
+    "surfaces": 19,
+    "things": 135,
+    "render_ms": 670848,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  },
+  "trans-pecos-wide": {
+   "id": "trans-pecos-wide",
+   "region": "trans_pecos",
+   "counties": [],
+   "also": [],
+   "scene": "assets/place/scenes/trans-pecos-wide.html",
+   "scene_sha256": "41cb13a26903b68da2fbcd94ff684918fd5f3065c2f7795206a137ed99bcc9fc",
+   "modules": {
+    "plate.js": "546d40898a8dcb294de29aeb5c7ecfa690db71764001babb36638bac0ec25fcf"
+   },
+   "camera": {
+    "position": [
+     0.0,
+     2.2,
+     36.0
+    ],
+    "right": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "up": [
+     0.0,
+     0.999819,
+     0.019035
+    ],
+    "forward": [
+     -0.0,
+     0.019035,
+     -0.999819
+    ],
+    "fov": 50.0,
+    "fpx": 2367.53564,
+    "cx": 621.0,
+    "cy": 1104.0
+   },
+   "horizon_y": 1149.07,
+   "sky": {
+    "file": "place/trans-pecos-wide/sky.webp",
+    "sha256": "c7f2f4aa1c3880f9eca53d0e5b6e173d11602f260e4ef54a609d9af710bbec46",
+    "bytes": 795716
+   },
+   "ground": {
+    "file": "place/trans-pecos-wide/ground.webp",
+    "sha256": "a9e3c58deccda76f17db339b46a8e8d725e3d1f4bee553d6211f2cbdb1a9c571",
+    "bytes": 1070946
+   },
+   "cards": [
+    {
+     "file": "place/trans-pecos-wide/card00.webp",
+     "sha256": "31ac37b889cbff8d32817b042268cc93b5e57d96c7bb25b51f544d3a78fc84b2",
+     "bytes": 89922,
+     "x": 0,
+     "y": 779,
+     "w": 1242,
+     "h": 377,
+     "depth_m": 13833.451,
+     "min_m": 8834.357,
+     "max_m": 19832.364,
+     "things": 3
+    },
+    {
+     "file": "place/trans-pecos-wide/card01.webp",
+     "sha256": "783c8d0c65012380d7b39c9e47a48378009235883764f33aee00a8fe09b53304",
+     "bytes": 32244,
+     "x": 0,
+     "y": 1042,
+     "w": 391,
+     "h": 114,
+     "depth_m": 3650.532,
+     "min_m": 3336.249,
+     "max_m": 3961.074,
+     "things": 3,
+     "tall": [
+      "mesa"
+     ]
+    },
+    {
+     "file": "place/trans-pecos-wide/card02.webp",
+     "sha256": "6aacf3ab2763ea42d5810a125107d6d47124abb801b1e66786b5a9703450cc43",
+     "bytes": 704,
+     "x": 254,
+     "y": 1147,
+     "w": 387,
+     "h": 24,
+     "depth_m": 333.874,
+     "min_m": 329.047,
+     "max_m": 338.773,
+     "things": 2
+    },
+    {
+     "file": "place/trans-pecos-wide/card03.webp",
+     "sha256": "6ab9c5b1cf998196a3ff585488beeee30f9b2b94376f0db26e5aa46905cc0deb",
+     "bytes": 1336,
+     "x": 160,
+     "y": 1147,
+     "w": 1075,
+     "h": 24,
+     "depth_m": 302.98,
+     "min_m": 287.922,
+     "max_m": 318.825,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card04.webp",
+     "sha256": "cfd78f8608107d7723d24b51b222b77ae8e5994101d6e771c05a8551207f719c",
+     "bytes": 1906,
+     "x": 264,
+     "y": 1128,
+     "w": 908,
+     "h": 48,
+     "depth_m": 266.113,
+     "min_m": 255.8,
+     "max_m": 276.842,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card05.webp",
+     "sha256": "5155deb9bb7b4bca00cdb6bfa5b9fd9a9263695bda0f4cdcb6aca8743a29aa5f",
+     "bytes": 1052,
+     "x": 140,
+     "y": 1148,
+     "w": 536,
+     "h": 27,
+     "depth_m": 235.724,
+     "min_m": 226.013,
+     "max_m": 245.853,
+     "things": 3
+    },
+    {
+     "file": "place/trans-pecos-wide/card06.webp",
+     "sha256": "524aaf2e54775e2338989f54bfd8feaa9488d4056326e703f73ceb9630102e33",
+     "bytes": 1540,
+     "x": 0,
+     "y": 1149,
+     "w": 944,
+     "h": 30,
+     "depth_m": 204.845,
+     "min_m": 195.103,
+     "max_m": 215.074,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card07.webp",
+     "sha256": "5966dc6086ddc9caa5352f1370555d7d5a3b4798cd8ba69537010a8ba8c5797d",
+     "bytes": 952,
+     "x": 817,
+     "y": 1152,
+     "w": 44,
+     "h": 32,
+     "depth_m": 179.8,
+     "min_m": 173.961,
+     "max_m": 185.836,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card08.webp",
+     "sha256": "6c0618299737c8378020c76d19d2edb2047ca66101a323f8c01b310aaf920831",
+     "bytes": 1630,
+     "x": 108,
+     "y": 1153,
+     "w": 641,
+     "h": 34,
+     "depth_m": 158.316,
+     "min_m": 152.812,
+     "max_m": 164.017,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card09.webp",
+     "sha256": "ba1be1bb5378cf5e166c85820a648b1ed0e87bcf5ae3ad122f40835598da9398",
+     "bytes": 1312,
+     "x": 561,
+     "y": 1154,
+     "w": 47,
+     "h": 37,
+     "depth_m": 137.252,
+     "min_m": 131.82,
+     "max_m": 142.907,
+     "things": 3
+    },
+    {
+     "file": "place/trans-pecos-wide/card10.webp",
+     "sha256": "93e1d90267f9b857ac4ac320a1e0959b5937b4f9309b734f25ee716aed3c70ea",
+     "bytes": 4050,
+     "x": 1137,
+     "y": 1107,
+     "w": 105,
+     "h": 111,
+     "depth_m": 82.447,
+     "min_m": 80.945,
+     "max_m": 83.977,
+     "things": 2
+    },
+    {
+     "file": "place/trans-pecos-wide/card11.webp",
+     "sha256": "f615c1504ff0ce8197d1724ddfbdbe1b12908c38644ae7fb09b5ad98a6d29111",
+     "bytes": 1368,
+     "x": 0,
+     "y": 1095,
+     "w": 26,
+     "h": 129,
+     "depth_m": 73.03,
+     "min_m": 69.953,
+     "max_m": 76.243,
+     "things": 4
+    },
+    {
+     "file": "place/trans-pecos-wide/card12.webp",
+     "sha256": "1871d8a3e1231fb527bffe05508b2adf6bf795a5b9f56ffcb10ceca296c848d5",
+     "bytes": 7296,
+     "x": 5,
+     "y": 1090,
+     "w": 1055,
+     "h": 156,
+     "depth_m": 58.863,
+     "min_m": 57.839,
+     "max_m": 59.905,
+     "things": 2
+    },
+    {
+     "file": "place/trans-pecos-wide/card13.webp",
+     "sha256": "55f3463e25e8f58418ce8daa9045e6a0133331065c62bab3757f2679a9923f7b",
+     "bytes": 20344,
+     "x": 858,
+     "y": 997,
+     "w": 319,
+     "h": 263,
+     "depth_m": 49.98,
+     "min_m": 49.96,
+     "max_m": 50.0,
+     "things": 3
+    },
+    {
+     "file": "place/trans-pecos-wide/card14.webp",
+     "sha256": "f279549708a2b745d583b202e1bddba43346fc245c9e9fdfd349f277e552b17a",
+     "bytes": 27758,
+     "x": 57,
+     "y": 911,
+     "w": 207,
+     "h": 408,
+     "depth_m": 31.823,
+     "min_m": 31.823,
+     "max_m": 31.823,
+     "things": 1
+    }
+   ],
+   "sky_rgb": [
+    124,
+    124,
+    161
+   ],
+   "ground_rgb": [
+    79,
+    57,
+    56
+   ],
+   "limits": {
+    "dolly_m": 1.0,
+    "truck_m": 0.2,
+    "rise_m": 0.2
+   },
+   "checks": {
+    "reassembly_of": "encoded",
+    "reassembly_mean": 0.38,
+    "reassembly_p999": 1.25,
+    "at_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 1.494,
+      "scale": 1.0324
+     },
+     "truck_m": {
+      "cover": 2.5e-05,
+      "slide_px": 1.725,
+      "scale": 1.0
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 1.726,
+      "scale": 1.0001
+     }
+    },
+    "beyond_limits": {
+     "dolly_m": {
+      "cover": 0.0,
+      "slide_px": 2.276,
+      "scale": 1.0495,
+      "step": 1.5
+     },
+     "truck_m": {
+      "cover": 0.007149,
+      "slide_px": 2.587,
+      "scale": 1.0,
+      "step": 0.3
+     },
+     "rise_m": {
+      "cover": 0.0,
+      "slide_px": 2.589,
+      "scale": 1.0002,
+      "step": 0.3
+     }
+    },
+    "profiles": [
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "dollyThrough",
+      "move": {
+       "dolly": 0.6
+      },
+      "cover": 0.0,
+      "slide_px": 0.885,
+      "scale": 1.0192
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.035,
+      "scale": 1.0
+     },
+     {
+      "profile": "truckAcross",
+      "move": {
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.035,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "riseWith",
+      "move": {
+       "rise": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.036,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.036,
+      "scale": 1.0001
+     },
+     {
+      "profile": "craneDown",
+      "move": {
+       "rise": 0.0
+      },
+      "cover": 0.0,
+      "slide_px": 0.0,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.035,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.0,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.035,
+      "scale": 1.0
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.21,
+       "truck": -0.12
+      },
+      "cover": 0.0,
+      "slide_px": 1.344,
+      "scale": 1.0066
+     },
+     {
+      "profile": "orbitReveal",
+      "move": {
+       "dolly": 0.21,
+       "truck": 0.12
+      },
+      "cover": 0.0,
+      "slide_px": 0.742,
+      "scale": 1.0066
+     }
+    ],
+    "profiles_worst": {
+     "cover": 0.0,
+     "slide_px": 1.344,
+     "scale": 1.0192
+    },
+    "surfaces": 180,
+    "things": 52,
+    "render_ms": 420111,
+    "page_errors": 0
+   },
+   "engine": "30657b04a31025af5e29023683b269def361fca23005dbd4e5e42f5b0c6db699"
+  }
+ }
+}
