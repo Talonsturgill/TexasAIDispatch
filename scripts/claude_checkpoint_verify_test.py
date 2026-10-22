@@ -154,5 +154,86 @@ class CheckpointVerification(unittest.TestCase):
         self.assertEqual(self.verify(), (self.manifest, self.ledger))
 
 
+    def encoded_fixture(self, body=None):
+        body = body or (b'{"public_evidence":"original byte-bound page"}\n' * 300)
+        encoded = ck.encoded_storage(body)
+        self.manifest['files'] = [{
+            'path': 'evidence.json', 'sha256': ck.sha256(body), 'size': len(body),
+            'storage': {'encoding': 'gzip/1', 'size': len(encoded), 'sha256': ck.sha256(encoded)}}]
+        (self.files / 'evidence.json').write_bytes(encoded)
+        return body, encoded
+
+    @mock.patch.object(ck, 'MAX_FILE', 1024)
+    def test_lossless_deterministic_roundtrip_and_duplicate_storage(self):
+        body, encoded = self.encoded_fixture()
+        self.assertEqual(encoded, ck.encoded_storage(body))
+        self.assertLess(len(encoded), ck.MAX_FILE)
+        duplicate = copy.deepcopy(self.manifest['files'][0]); duplicate['path'] = 'duplicate.json'
+        self.manifest['files'].append(duplicate)
+        (self.files / 'duplicate.json').write_bytes(encoded)
+        commit = self.commit()
+        self.assertEqual(ck.verify_checkpoint(self.repo, commit, self.run_id), (self.manifest, self.ledger))
+        for row in self.manifest['files']:
+            target = self.repo / ('restored-' + row['path'])
+            ck.materialize_checkpoint_file(self.repo, commit, self.run_id, row, target)
+            self.assertEqual(target.read_bytes(), body)
+
+    @mock.patch.object(ck, 'MAX_FILE', 1024)
+    def test_encoded_corruption_truncation_and_trailing_members_refused(self):
+        _, encoded = self.encoded_fixture()
+        for bad in [encoded[:-1], encoded + b'extra', encoded + encoded,
+                    encoded[:20] + bytes([encoded[20] ^ 1]) + encoded[21:]]:
+            with self.subTest(length=len(bad)):
+                row = self.manifest['files'][0]
+                row['storage'].update(size=len(bad), sha256=ck.sha256(bad))
+                (self.files / 'evidence.json').write_bytes(bad)
+                with self.assertRaises(ck.CheckpointError):
+                    self.verify()
+
+    @mock.patch.object(ck, 'MAX_FILE', 1024)
+    def test_encoded_metadata_and_original_bindings_fail_closed(self):
+        self.encoded_fixture()
+        original = copy.deepcopy(self.manifest)
+        mutations = [('encoding', 'zip'), ('size', True), ('size', 1025),
+                     ('sha256', 'f' * 64), ('extra', 'unsupported')]
+        for key, value in mutations:
+            with self.subTest(key=key, value=value):
+                self.manifest = copy.deepcopy(original)
+                self.manifest['files'][0]['storage'][key] = value
+                with self.assertRaises(ck.CheckpointError):
+                    self.verify()
+        for key, value in [('size', 1025), ('size', ck.MAX_TOTAL + 1), ('sha256', '0' * 64),
+                           ('path', 'evidence.mp4')]:
+            with self.subTest(original_key=key):
+                self.manifest = copy.deepcopy(original)
+                self.manifest['files'][0][key] = value
+                with self.assertRaises(ck.CheckpointError):
+                    self.verify()
+
+    @mock.patch.object(ck, 'MAX_FILE', 1024)
+    def test_oversized_stored_blob_and_raw_blob_refused(self):
+        self.encoded_fixture()
+        (self.files / 'evidence.json').write_bytes(b'x' * 1025)
+        with self.assertRaisesRegex(ck.CheckpointError, 'stored blob exceeds'):
+            self.verify()
+        self.manifest['files'][0].pop('storage')
+        with self.assertRaisesRegex(ck.CheckpointError, 'stored blob exceeds'):
+            self.verify()
+
+    @mock.patch.object(ck, 'MAX_FILE', 1024)
+    def test_materializer_refuses_missing_symlink_and_unsafe_path(self):
+        self.encoded_fixture()
+        row = self.manifest['files'][0]
+        path = self.files / row['path']
+        path.unlink(); path.symlink_to('a.bin')
+        commit = self.commit()
+        with self.assertRaisesRegex(ck.CheckpointError, 'not a regular blob'):
+            ck.materialize_checkpoint_file(self.repo, commit, self.run_id, row, self.repo / 'result')
+        for relative in ['absent.json', '../outside.json', '/outside.json', 'bad\0.json']:
+            with self.subTest(path=relative), self.assertRaises(ck.CheckpointError):
+                ck.materialize_checkpoint_file(self.repo, commit, self.run_id,
+                    {**row, 'path': relative}, self.repo / 'result')
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -542,6 +542,7 @@ class CaptureTest(unittest.TestCase):
             new = copy.deepcopy(old);new[key]=value
             self.assertTrue(capture.ck.monotonic_problems(old,new))
 
+    @patch.object(capture.ck, 'MAX_FILE', 1024)
     def test_failed_preship_import_preserves_bytes_charges_and_invalidates_old_pass(self):
         import publication_owner
         import preship_compute
@@ -554,6 +555,9 @@ class CaptureTest(unittest.TestCase):
             (package/'run_state.json').write_text(json.dumps(state))
             (package/'same.txt').write_text('unchanged')
             unchanged_time = (package/'same.txt').stat().st_mtime_ns
+            large = b'original image evidence ' * 300
+            (package/'same-large.json').write_bytes(large)
+            unchanged_large_time = (package/'same-large.json').stat().st_mtime_ns
             (package/'changed.txt').write_text('retained baseline')
             stale=repo/'out/gates/preship.json';stale.parent.mkdir();stale.write_text('old PASS')
             owner = {'owner_sha256':'a'*64,'epoch':'b'*32}
@@ -567,6 +571,11 @@ class CaptureTest(unittest.TestCase):
             for name,data in payloads.items():
                 path=base/'files/out/dispatch'/name;path.write_bytes(data)
                 rows.append({'path':'out/dispatch/'+name,'sha256':capture.digest(data)})
+            for name in ['same-large.json', 'changed-large.json']:
+                encoded = capture.ck.encoded_storage(large)
+                (base/'files/out/dispatch'/name).write_bytes(encoded)
+                rows.append({'path':'out/dispatch/'+name,'size':len(large),'sha256':capture.digest(large),
+                             'storage':{'encoding':'gzip/1','size':len(encoded),'sha256':capture.digest(encoded)}})
             raw=(json.dumps(capture.ck.public_ledger(state,repo))).encode()
             (base/'run_state.json').write_bytes(raw)
             origins=[]
@@ -589,7 +598,9 @@ class CaptureTest(unittest.TestCase):
                     patch.object(preship_compute,'import_verdict') as install:
                 imported=capture.import_result(repo,oid)
                 install.assert_not_called()
-            self.assertEqual(imported['changed_files'],2)
+            self.assertEqual(imported['changed_files'],3)
+            self.assertEqual((package/'same-large.json').stat().st_mtime_ns,unchanged_large_time)
+            self.assertEqual((package/'changed-large.json').read_bytes(),large)
             self.assertEqual((package/'same.txt').stat().st_mtime_ns,unchanged_time)
             self.assertEqual((package/'changed.txt').read_bytes(),b'new captured bytes')
             self.assertTrue(list((package/'github-capture-import-baseline').glob('*')))
