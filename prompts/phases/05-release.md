@@ -159,6 +159,18 @@ Create or update the matching unsent Gmail draft; do not duplicate it. Read it b
 recipient, subject, body, media links, DRAFT present and SENT absent. Never send or post.
 The read-back body must also contain the exact copy-ready music credit block. Preserve existing
 attachments when updating a draft. A correct local email payload does not prove the Gmail body.
+Retain unchanged final FULL and RAW message objects, or their actual structuredContent tool
+envelopes, under private out/dispatch. Check them against the configured routing, committed
+email, actual mix credits, and exact final phone/poster attachments with the local helper:
+
+```sh
+python scripts/gmail_mime_check.py --full out/dispatch/gmail-full.json --raw out/dispatch/gmail-raw.json --draft-id <actual-draft-id> --run runs/<date> --routing out/dispatch/delivery-routing.private.json --out out/dispatch/gmail-mime-proof.json --readback out/dispatch/gmail-readback.json
+```
+
+The helper makes no account calls and preserves the observed message inside the shipment
+readback envelope. Its output records file hashes and MIME checks, not a Gmail observation.
+Read back again after every draft update. Replacing the connector payload replaces the complete
+MIME tree, so include both attachments when replacing the body. Never copy prior message IDs.
 
 ## Shipment and durable closure
 
