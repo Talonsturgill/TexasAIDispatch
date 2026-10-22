@@ -1,4 +1,79 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/storyboard.json",
+        "before_sha256": "ebfe42e9f8a062061a576c2c22f1cf493e8aee0d8e526194b0adfaa2a91c8f3c",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/opening-a.json",
+        "before_sha256": "ce491db1cc56620f11099690fce8d7d2c0edc034e836d00c66f8305a9d6a1b9d",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/opening-b.json",
+        "before_sha256": "4d675dd1fcc6ab6cf7f7802ca5ae2e6f5f83789398ce18ac2b07184ed34b2c69",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx",
+        "before_sha256": "ea1ea83a316c110de3965b81a15c9565034d27cb60b7c46cc85bb70cfcc20650",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx",
+        "before_sha256": "c97c40b8c328276b91008d7d5946c59e292692f9bb0bd9f2b83a13b8d44da202",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/config/modern_episode_registry.json",
+        "before_sha256": "1aeaaf2bf59acfaab6e15b329c24123c2138729795c85f01d75c60f1601b456f",
+        "path": "{REPO}/config/modern_episode_registry.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/credits.txt",
+        "before_sha256": "f1ad675b65daddb9164917decabaea87967bdc531a6f5f04053a5e6fb66aec60",
+        "path": "{REPO}/out/dispatch/credits.txt"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/sfx_events.json",
+        "before_sha256": "28497e3e9350b2705e7eff66715b172bf7957657f6b1c57e58212e94361597df",
+        "path": "{REPO}/out/dispatch/sfx_events.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/words.json",
+        "before_sha256": "1a84eac3b1faac7bc529885e7c9d6944ff5a1b9c7dc4bd5a7fe2201ace6f85b4",
+        "path": "{REPO}/out/dispatch/words.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/captions.json",
+        "before_sha256": "688b9002376c7b7febfcb5566fbf45e8bda2eb8d53b5e366b368947ac740a234",
+        "path": "{REPO}/out/dispatch/captions.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/acoustic-asr.json",
+        "before_sha256": "ea064357fc8f94968c04091c9b22de1f79c56c6de28ea4de5f4596f78f3bb426",
+        "path": "{REPO}/out/dispatch/acoustic-asr.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/acoustic-asr-meta.json",
+        "before_sha256": "83907b7e70386aa2028e9cbe2b00e0df7d8ec09ec67d83c9f15a0efbe4cf4777",
+        "path": "{REPO}/out/dispatch/acoustic-asr-meta.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/alignment-16k.wav",
+        "before_sha256": "c897d0c0d0bc8d5a32980b5e5659ef2ecb0c16aae0c2893eee196ec0740a369a",
+        "path": "{REPO}/out/dispatch/alignment-16k.wav"
+      }
+    ],
+    "failure_sha256": "b3da02b11730aded430bd4ad75ca9a9f33aac9fbb9dfb46cf65638ff3e81d8fa",
+    "plan": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/repair-plan.json",
+    "plan_sha256": "eaaf4ba6f0e670799a90797b9aa55379f13ab9d7f9d03e0babe0dcdbf14c680d",
+    "progress_replacement_required": false,
+    "reboards_before": 2,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-21T15:04:28.430861Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/35331bbd2cce687d-ebfe42e9f8a06206-8226b57d3a40ef68/storyboard.json",
@@ -1599,6 +1674,97 @@
         "validator_agents": 4,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-22T14:05:35.841935Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/storyboard.json",
+          "before_sha256": "ebfe42e9f8a062061a576c2c22f1cf493e8aee0d8e526194b0adfaa2a91c8f3c",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/opening-a.json",
+          "before_sha256": "ce491db1cc56620f11099690fce8d7d2c0edc034e836d00c66f8305a9d6a1b9d",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/opening-b.json",
+          "before_sha256": "4d675dd1fcc6ab6cf7f7802ca5ae2e6f5f83789398ce18ac2b07184ed34b2c69",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx",
+          "before_sha256": "ea1ea83a316c110de3965b81a15c9565034d27cb60b7c46cc85bb70cfcc20650",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx",
+          "before_sha256": "c97c40b8c328276b91008d7d5946c59e292692f9bb0bd9f2b83a13b8d44da202",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/config/modern_episode_registry.json",
+          "before_sha256": "1aeaaf2bf59acfaab6e15b329c24123c2138729795c85f01d75c60f1601b456f",
+          "path": "{REPO}/config/modern_episode_registry.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/credits.txt",
+          "before_sha256": "f1ad675b65daddb9164917decabaea87967bdc531a6f5f04053a5e6fb66aec60",
+          "path": "{REPO}/out/dispatch/credits.txt"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/sfx_events.json",
+          "before_sha256": "28497e3e9350b2705e7eff66715b172bf7957657f6b1c57e58212e94361597df",
+          "path": "{REPO}/out/dispatch/sfx_events.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/words.json",
+          "before_sha256": "1a84eac3b1faac7bc529885e7c9d6944ff5a1b9c7dc4bd5a7fe2201ace6f85b4",
+          "path": "{REPO}/out/dispatch/words.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/captions.json",
+          "before_sha256": "688b9002376c7b7febfcb5566fbf45e8bda2eb8d53b5e366b368947ac740a234",
+          "path": "{REPO}/out/dispatch/captions.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/acoustic-asr.json",
+          "before_sha256": "ea064357fc8f94968c04091c9b22de1f79c56c6de28ea4de5f4596f78f3bb426",
+          "path": "{REPO}/out/dispatch/acoustic-asr.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/acoustic-asr-meta.json",
+          "before_sha256": "83907b7e70386aa2028e9cbe2b00e0df7d8ec09ec67d83c9f15a0efbe4cf4777",
+          "path": "{REPO}/out/dispatch/acoustic-asr-meta.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/codex-owner-repair-2026-10-22/baseline/out/dispatch/alignment-16k.wav",
+          "before_sha256": "c897d0c0d0bc8d5a32980b5e5659ef2ecb0c16aae0c2893eee196ec0740a369a",
+          "path": "{REPO}/out/dispatch/alignment-16k.wav"
+        }
+      ],
+      "director_identity": "Codex /root, October 22 owner-authorized repair director",
+      "failure_family": "continuity",
+      "failure_sha256": "b3da02b11730aded430bd4ad75ca9a9f33aac9fbb9dfb46cf65638ff3e81d8fa",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 8,
+          "to": 8
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "literal-clause-evidence-timing-v1",
+      "plan_identity": null,
+      "plan_sha256": "eaaf4ba6f0e670799a90797b9aa55379f13ab9d7f9d03e0babe0dcdbf14c680d",
+      "progress_replacement_required": false,
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -1619,10 +1785,10 @@
     "voice_directors": 1
   },
   "mode": "production",
-  "phase": "review",
+  "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "245eaf2ac760391346c8784fe88ce7472f8bf3b32972dbca0cfb6beeb94949c1",
+    "original_private_state_sha256": "0ae5d0ac6c2afcfc2c956835d4a9ef70f8270317a5e941eef9b9d25ce84fe384",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1650,7 +1816,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-22T14:04:19.840379Z",
+  "updated_at": "2026-10-22T14:05:35.842082Z",
   "usage": {
     "audiovisual_reviews": 5,
     "cleanup_renders": 0,
