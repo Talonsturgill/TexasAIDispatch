@@ -162,7 +162,114 @@ def current_identity(repo, state_path, note):
                                     str(state_path),note],cwd=repo,text=True).strip()
 
 
-def create(repo, source_repo, operation, out):
+STAGE_STEP = 'Verify immutable request and claim its original charge once'
+INSTALL_STEP = "Install the episode's locked renderer and managed browser"
+EXECUTE_STEP = 'Execute only the fixed prepaid operation and checkpoint its bytes'
+CONTINUATION = 'dispatch_unstarted_capture_continuation/1'
+
+
+def claim_ref(request):
+    namespace = 'capture-continuations' if request.get('unstarted_continuation') else 'capture-claims'
+    return 'refs/heads/codex/'+namespace+'/'+request['run_id']+'/'+request['reservation_event_sha256']
+
+
+def continuation_request_ref(request):
+    return ('refs/heads/codex/capture-continuation-requests/'+request['run_id']+'/'+
+            request['reservation_event_sha256'])
+
+
+def github_api(endpoint, *, raw=False):
+    command = ['gh', 'api', 'repos/'+REPOSITORY+'/'+endpoint]
+    result = subprocess.run(command, capture_output=True)
+    # New gh versions refuse ANSI in raw job logs unless explicitly requested.
+    if raw and result.returncode and b'--allow-escape-sequences' in result.stderr:
+        result = subprocess.run(command[:2]+['--allow-escape-sequences']+command[2:], capture_output=True)
+    result.check_returncode()
+    return result.stdout if raw else json.loads(result.stdout)
+
+
+def unstarted_proof(repo, original_oid, current):
+    """Read the actual predecessor claim and completed GitHub attempt; never infer from a receipt."""
+    original, hashed = request_at(repo, original_oid)
+    if original.get('unstarted_continuation'):
+        raise ValueError('an unstarted continuation cannot itself be continued')
+    bindings = ('schema', 'repository', 'run_id', 'owner_sha256', 'epoch', 'github_actor',
+                'operation', 'reservation_event_sha256', 'ledger_sha256')
+    if any(original.get(key) != current.get(key) for key in bindings):
+        raise ValueError('unstarted continuation changed the original owner, charge or ledger')
+    base = ck.ROOT+'/'+original['run_id']
+    manifest = json.loads(ck.show(repo, original['checkpoint_oid'], base+'/manifest.json'))
+    raw = ck.show(repo, original['checkpoint_oid'], base+'/run_state.json')
+    if (manifest.get('schema') != ck.SCHEMA or manifest.get('run_id') != original['run_id']
+            or manifest.get('ledger_sha256') != original['ledger_sha256']
+            or digest(raw) != original['ledger_sha256']):
+        raise ValueError('original continuation ledger binding differs')
+    prepaid(json.loads(raw), original['operation'], original['reservation_event_sha256'])
+    ref = claim_ref(original)
+    listed = ck.git(repo, 'ls-remote', '--heads', 'origin', ref).stdout.decode().split()
+    if not listed:
+        raise ValueError('unstarted continuation requires its existing original claim')
+    oid = listed[0]
+    ck.git(repo, 'fetch', '--quiet', '--no-tags', 'origin', ref)
+    claim = json.loads(ck.show(repo, oid, 'claim.json'))
+    run_id = claim.get('github_run_id', '')
+    expected = {'request_oid': original_oid, 'request_sha256': hashed,
+                'github_actor': original['github_actor'], 'github_run_id': run_id}
+    if claim != expected or not re.fullmatch(r'\d+', str(run_id)):
+        raise ValueError('original single-use claim differs from the requested predecessor')
+    run = github_api('actions/runs/'+str(run_id))
+    required = {'id': int(run_id), 'run_attempt': 1, 'status': 'completed', 'conclusion': 'failure',
+                'event': 'workflow_dispatch', 'head_sha': original['source_commit'],
+                'path': '.github/workflows/guards.yml'}
+    if (any(run.get(key) != value for key, value in required.items())
+            or any((run.get(key) or {}).get('login') != original['github_actor']
+                   for key in ('actor', 'triggering_actor'))):
+        raise ValueError('original capture must be one completed failed first GitHub attempt')
+    jobs = github_api('actions/runs/'+str(run_id)+'/attempts/1/jobs?per_page=100')
+    rows = jobs.get('jobs', [])
+    matches = [job for job in rows if job.get('name') == 'capture']
+    if (jobs.get('total_count') != len(rows) or len(matches) != 1
+            or any(job.get('name') != 'capture' and job.get('conclusion') != 'skipped' for job in rows)):
+        raise ValueError('original capture job evidence is incomplete or ambiguous')
+    job = matches[0]
+    if any(job.get(key) != value for key, value in {
+            'run_id': int(run_id), 'run_attempt': 1, 'head_sha': original['source_commit'],
+            'status': 'completed', 'conclusion': 'failure'}.items()):
+        raise ValueError('original capture job identity or completion differs')
+    steps = {}
+    for name, conclusion in ((STAGE_STEP, 'failure'), (INSTALL_STEP, 'skipped'), (EXECUTE_STEP, 'skipped')):
+        matching = [step for step in job.get('steps', []) if step.get('name') == name]
+        if (len(matching) != 1 or matching[0].get('status') != 'completed'
+                or matching[0].get('conclusion') != conclusion):
+            raise ValueError('original native installation or execution was not provably skipped')
+        steps[name] = matching[0]
+    if not steps[STAGE_STEP]['number'] < steps[INSTALL_STEP]['number'] < steps[EXECUTE_STEP]['number']:
+        raise ValueError('original capture step order differs')
+    log = github_api('actions/jobs/'+str(job['id'])+'/logs', raw=True)
+    refusal = [line for line in log.decode().splitlines()
+               if 'delegated GitHub capture refused: restored edition fails its audit:' in line]
+    if len(refusal) != 1 or ck.SECRET_TEXT.search(refusal[0]):
+        raise ValueError('retain the actual unstarted restore-audit failure from GitHub')
+    return {'schema': CONTINUATION, 'original_request_oid': original_oid,
+            'original_request_sha256': hashed, 'original_claim_commit': oid,
+            'run': {key: run[key] for key in (*required, 'actor', 'triggering_actor')},
+            'job': job, 'job_log_sha256': digest(log), 'restore_refusal': refusal,
+            'workflow_sha256': digest(ck.show(repo, original['source_commit'], '.github/workflows/guards.yml'))}
+
+
+def verify_continuation(repo, request, request_oid):
+    proof = request.get('unstarted_continuation')
+    if proof is None:
+        return
+    if (not isinstance(proof, dict) or proof.get('schema') != CONTINUATION
+            or unstarted_proof(repo, proof['original_request_oid'], request) != proof):
+        raise ValueError('unstarted continuation predecessor proof changed')
+    listed = ck.git(repo, 'ls-remote', '--heads', 'origin', continuation_request_ref(request)).stdout.decode().split()
+    if not listed or listed[0] != request_oid:
+        raise ValueError('this is not the original reservation\'s one immutable continuation request')
+
+
+def create(repo, source_repo, operation, out, continue_unstarted_request=None):
     import publication_owner
     import capture_guard
     repo, source_repo = Path(repo).resolve(), Path(source_repo).resolve()
@@ -205,8 +312,13 @@ def create(repo, source_repo, operation, out):
         'checkpoint_oid': tip, 'ledger_sha256': manifest['ledger_sha256'], 'source_commit': source,
         'operation': operation, 'reservation_event_sha256': event_sha,
         'approval': False, 'publication_allowed': False}
+    if continue_unstarted_request:
+        request['unstarted_continuation'] = unstarted_proof(repo, continue_unstarted_request, request)
+        if ck.git(source_repo, 'ls-remote', '--heads', 'origin', continuation_request_ref(request)).stdout.strip():
+            raise ValueError('this original reservation already has its one unstarted continuation')
     oid = commit_record(source_repo, REQUEST_FILE, request, 'Delegate one prepaid native capture', source)
-    ref = 'refs/heads/codex/capture-requests/'+oid
+    ref = (continuation_request_ref(request) if continue_unstarted_request
+           else 'refs/heads/codex/capture-requests/'+oid)
     claim_once(source_repo, ref, oid)
     Path(out).write_text(json.dumps({'request_oid': oid, 'request_sha256': digest(canonical(request)),
         'request_ref': ref, 'request': request}, indent=2)+'\n')
@@ -222,12 +334,13 @@ def require_delegate(state_path, state=None):
     errors = context_problems(request, os.environ)
     if hashed != activation['request_sha256'] or os.environ.get('GITHUB_RUN_ID') != activation['github_run_id']:
         errors.append('immutable request or actual runner activation changed')
-    claim_ref = 'refs/heads/codex/capture-claims/'+request['run_id']+'/'+request['reservation_event_sha256']
-    listed = ck.git(repo, 'ls-remote', '--heads', 'origin', claim_ref).stdout.decode().split()
+    verify_continuation(repo, request, activation['request_oid'])
+    reference = claim_ref(request)
+    listed = ck.git(repo, 'ls-remote', '--heads', 'origin', reference).stdout.decode().split()
     if not listed or listed[0] != activation['claim_commit']:
         errors.append('single-use render claim is missing or changed')
     else:
-        ck.git(repo, 'fetch', '--quiet', '--no-tags', 'origin', claim_ref)
+        ck.git(repo, 'fetch', '--quiet', '--no-tags', 'origin', reference)
         claim = json.loads(ck.show(repo, listed[0], 'claim.json'))
         expected_claim = {'request_oid': activation['request_oid'], 'request_sha256': hashed,
                           'github_run_id': os.environ['GITHUB_RUN_ID'],
@@ -274,11 +387,26 @@ def stage(repo, request_oid, expected_sha, destination):
             or any(owner.get(k) != request[k] for k in ('run_id', 'owner_sha256', 'epoch'))
             or publication_owner.instant(owner['expires_at']) <= publication_owner.now()):
         raise ValueError('original Codex owner must remain live throughout capture')
+    verify_continuation(repo, request, request_oid)
+    ck.restore(repo, request['run_id'], dest=destination,helper_source=repo/'scripts')
+    restored_state = read(destination/'out/dispatch/run_state.json')
+    event = prepaid(restored_state, request['operation'], request['reservation_event_sha256'])
+    field = 'full_render_identity' if request['operation'] == 'full' else 'preflight_identity'
+    if (restored_state != ck.restored_ledger(json.loads(raw), destination, manifest)
+            or current_identity(destination, destination/'out/dispatch/run_state.json',
+                                OPS[request['operation']][0]) != event.get(field)):
+        raise ValueError('restored ledger or prepaid native input identity changed before claim')
+    operation_precheck(destination, request['operation'], restored_state)
+    owner = publication_owner.read_remote(repo)
+    if (not owner or owner.get('runtime') != 'codex' or owner.get('status') != 'held'
+            or any(owner.get(k) != request[k] for k in ('run_id', 'owner_sha256', 'epoch'))
+            or publication_owner.instant(owner['expires_at']) <= publication_owner.now()):
+        raise ValueError('original Codex owner was fenced before the capture claim')
+    verify_continuation(repo, request, request_oid)
     claim = {'request_oid': request_oid, 'request_sha256': hashed,
              'github_run_id': os.environ['GITHUB_RUN_ID'], 'github_actor': os.environ['GITHUB_ACTOR']}
     commit = commit_record(repo, 'claim.json', claim, 'Claim one delegated render')
-    claim_once(repo, 'refs/heads/codex/capture-claims/'+request['run_id']+'/'+request['reservation_event_sha256'], commit)
-    ck.restore(repo, request['run_id'], dest=destination,helper_source=repo/'scripts')
+    claim_once(repo, claim_ref(request), commit)
     # The immutable request source supplies current gate helpers, while restore keeps
     # the recorded renderer/art/source closure and every original checkpoint byte.
     # restore installed this exact helper source before its isolated audit.
@@ -465,6 +593,7 @@ def main():
     p = sub.add_parser('request'); p.add_argument('--repo', type=Path, required=True)
     p.add_argument('--source-repo', type=Path, required=True); p.add_argument('--operation', choices=OPS, required=True)
     p.add_argument('--out', type=Path, required=True)
+    p.add_argument('--continue-unstarted-request', help='Original immutable request for one verified never-started continuation')
     p = sub.add_parser('stage'); p.add_argument('--repo', type=Path, default=Path(__file__).resolve().parents[1])
     p.add_argument('--request', required=True); p.add_argument('--request-sha256', required=True)
     p.add_argument('--destination', type=Path, required=True)
@@ -472,7 +601,8 @@ def main():
     p = sub.add_parser('import'); p.add_argument('--repo', type=Path, required=True); p.add_argument('--checkpoint', required=True)
     args = parser.parse_args()
     try:
-        if args.action == 'request': result = create(args.repo, args.source_repo, args.operation, args.out)
+        if args.action == 'request':
+            result = create(args.repo, args.source_repo, args.operation, args.out, args.continue_unstarted_request)
         elif args.action == 'stage': result = stage(args.repo, args.request, args.request_sha256, args.destination)
         elif args.action == 'run': result = run(args.repo)
         else: result = import_result(args.repo, args.checkpoint)

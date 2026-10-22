@@ -641,7 +641,10 @@ def playability_problems(film: Path, expected_duration: float | None = None) -> 
     return errs
 
 
-def deliverable_problems(state: dict, *, publication: bool = False, repo: Path | None = None) -> list[str]:
+def deliverable_problems(state: dict, *, publication: bool = False, repo: Path | None = None,
+                         historical_artifact: bool = False) -> list[str]:
+    if publication and historical_artifact:
+        return ['historical artifact verification cannot authorize publication']
     saved = state.get("deliverable") or {}
     if not saved:
         return ["no playable deliverable is registered"]
@@ -662,7 +665,8 @@ def deliverable_problems(state: dict, *, publication: bool = False, repo: Path |
                 and run_date >= cfg['effective_date']):
             if board_data.get('date') != run_date:
                 return ['current production board date must match its edition']
-            modern_errors = (modern_film.problems(board_data) if repo is None
+            modern_errors = ([] if historical_artifact else
+                             modern_film.problems(board_data) if repo is None
                              else modern_film.problems(board_data, repo=repo))
             if modern_errors:
                 return ['active film route failed: ' + '; '.join(modern_errors)]
@@ -682,6 +686,36 @@ def deliverable_problems(state: dict, *, publication: bool = False, repo: Path |
         return checker(load_json(manifest_path), film, board)
     except (OSError, ValueError, KeyError, json.JSONDecodeError, ImportError) as exc:
         return [f"the registered deliverable cannot be verified: {exc}"]
+
+
+def restored_deliverable_problems(state: dict, state_path: Path) -> list[str]:
+    """Restore a repair's retained cut as evidence, checking the new board separately.
+
+    The allowance audit runs first. Only an authorized repair after the exact last
+    registration can have legitimately replaced that snapshot's authored modules.
+    Publication and ordinary deliverable checks retain their current-source gates.
+    """
+    saved = state.get('deliverable') or {}
+    events = state.get('events', [])
+    registered = [i for i, row in enumerate(events) if row.get('kind') == 'deliverable_registered']
+    index = registered[-1] if registered else -1
+    historical = (state.get('phase') == 'active_repair' and not state.get('terminal_state')
+                  and index >= 0
+                  and all(events[index].get(key) == saved.get(key)
+                          for key in ('film_sha256', 'manifest_sha256'))
+                  and any(row.get('kind') == 'repair_authorized' for row in events[index + 1:]))
+    errors = deliverable_problems(state, historical_artifact=historical)
+    if not historical:
+        return errors
+    try:
+        import modern_film
+        board = load_json(Path(state_path).with_name('storyboard.json'))
+        if board.get('date') != str(state.get('run_id', ''))[:10]:
+            errors.append('current repair board date must match its edition')
+        errors += ['current repair film route failed: ' + error for error in modern_film.problems(board)]
+    except (OSError, ValueError, KeyError, TypeError, ImportError) as exc:
+        errors.append('current repair board cannot be verified: ' + str(exc))
+    return errors
 
 
 def copy_exact(source: Path, target: Path, *, refuse_different: bool = False) -> None:

@@ -294,7 +294,7 @@ class RestoredAuditTest(unittest.TestCase):
             (scripts/'run_controller.py').write_text(
                 'import json\nimport render_manifest as nested\n'
                 'def read_state(path): return json.loads(path.read_text())\n'
-                'def deliverable_problems(state):\n'
+                'def restored_deliverable_problems(state,path):\n'
                 '    try: nested.authored_media_paths(state["board"],nested.REPO); return []\n'
                 '    except (ValueError,OSError) as exc: return [str(exc)]\n')
             entries=[]
@@ -317,6 +317,66 @@ class RestoredAuditTest(unittest.TestCase):
             outside=restored.parent/'outside.tsx';outside.write_bytes(prior)
             path.unlink();path.symlink_to(outside)
             self.assertTrue(any('outside' in e for e in ck.restored_audit(restored)))
+
+
+class HistoricalRepairRestoreTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name); self.state_path = self.root/'run_state.json'
+        self.board = self.root/'old-board.json'; self.film = self.root/'old-film.mp4'
+        self.manifest = self.root/'old-manifest.json'; self.current = self.root/'storyboard.json'
+        self.board.write_text(json.dumps({'date':'2026-10-21','runtime_s':61,'snapshot':'old'}))
+        self.film.write_bytes(b'unit exact native film')
+        self.current.write_text(json.dumps({'date':'2026-10-21','runtime_s':61,'snapshot':'repaired'}))
+        import render_manifest
+        self.manifest.write_text(json.dumps({'schema':render_manifest.SCHEMA,
+            'film_sha256':controller.digest(self.film),'board_sha256':controller.digest(self.board)}))
+        saved = {k:str(p) for k,p in [('film',self.film),('board',self.board),('manifest',self.manifest)]}
+        saved.update({k+'_sha256':controller.digest(Path(v)) for k,v in list(saved.items())})
+        self.state = {'run_id':'2026-10-21','mode':'production','phase':'active_repair',
+            'deliverable':saved,'events':[{'kind':'deliverable_registered',
+                'film_sha256':saved['film_sha256'],'manifest_sha256':saved['manifest_sha256']},
+                {'kind':'repair_started'},{'kind':'repair_authorized'}]}
+        play = mock.patch.object(controller,'playability_problems',return_value=[])
+        self.play = play.start(); self.addCleanup(play.stop)
+        modern = mock.patch('modern_film.problems',side_effect=lambda b:
+            ['old authored source bytes changed'] if b['snapshot']=='old' else [])
+        self.modern = modern.start(); self.addCleanup(modern.stop)
+
+    def test_authorized_repair_restores_old_exact_artifact_and_checks_current_board(self):
+        self.assertEqual(controller.restored_deliverable_problems(self.state,self.state_path),[])
+        self.modern.assert_called_once_with(json.loads(self.current.read_text()))
+        self.play.assert_called_once_with(self.film,61.0)
+        self.assertTrue(controller.deliverable_problems(self.state))
+        self.assertTrue(controller.deliverable_problems(self.state,publication=True))
+        self.assertTrue(controller.deliverable_problems(self.state,publication=True,historical_artifact=True))
+
+    def test_no_authorization_wrong_registration_or_new_cut_keeps_strict_sources(self):
+        for mutation in ('no_authorization','wrong_registration','new_registration','terminal'):
+            with self.subTest(mutation=mutation):
+                state=copy.deepcopy(self.state)
+                if mutation=='no_authorization': state['events'].pop()
+                elif mutation=='wrong_registration': state['events'][0]['film_sha256']='f'*64
+                elif mutation=='new_registration': state['events'].append(copy.deepcopy(state['events'][0]))
+                else: state['terminal_state']='shipped'
+                self.assertTrue(any('old authored' in e for e in
+                    controller.restored_deliverable_problems(state,self.state_path)))
+
+    def test_restore_refuses_tampered_artifact_current_source_missing_board_and_bad_media(self):
+        for path in (self.film,self.board,self.manifest):
+            with self.subTest(path=path.name):
+                raw=path.read_bytes();path.write_bytes(raw+b'changed')
+                self.assertTrue(controller.restored_deliverable_problems(self.state,self.state_path))
+                path.write_bytes(raw)
+        self.modern.side_effect=lambda b:['current authored bytes changed']
+        self.assertTrue(any('current repair' in e for e in
+            controller.restored_deliverable_problems(self.state,self.state_path)))
+        self.modern.side_effect=lambda b:[]
+        self.play.return_value=['wrong native dimensions']
+        self.assertIn('wrong native dimensions',controller.restored_deliverable_problems(self.state,self.state_path))
+        self.play.return_value=[];self.current.unlink()
+        self.assertTrue(any('cannot be verified' in e for e in
+            controller.restored_deliverable_problems(self.state,self.state_path)))
 
 
 def sh(*args, cwd=None):
@@ -838,6 +898,29 @@ class Privacy(Base):
 
 
 class Retention(Base):
+    def test_distinct_blob_budget_preserves_every_duplicate_path_and_refuses_unique_overflow(self):
+        self.init_ledger(); payload=b'bounded duplicate evidence\n'*100
+        first=self.scratch/'first.txt';second=self.scratch/'retained/second.txt'
+        first.write_bytes(payload);second.parent.mkdir();second.write_bytes(payload)
+        _,manifest,_,_,_=ck.build_bundle(self.repo,self.state,'measure',environ={})
+        storage=manifest['storage_accounting']
+        self.assertGreater(storage['logical_bytes'],storage['unique_blob_bytes'])
+        with mock.patch.object(ck,'MAX_TOTAL',storage['unique_blob_bytes']):
+            result=self.save()
+            verified,_=ck.verify_checkpoint(self.repo,result['commit'],RUN)
+            self.assertEqual(verified['storage_accounting'],storage)
+            self.assertEqual(result['bytes'],storage['logical_bytes'])
+            self.assertEqual(result['unique_blob_bytes'],storage['unique_blob_bytes'])
+            objects=[]
+            for path in (first,second):
+                name=f'checkpoints/{RUN}/files/'+path.relative_to(self.repo).as_posix()
+                self.assertEqual(ck.show(self.repo,result['commit'],name),payload)
+                objects.append(sh('git','rev-parse',result['commit']+':'+name,cwd=self.repo).strip())
+            self.assertEqual(objects[0],objects[1])
+            second.write_bytes(payload+b'genuinely distinct')
+            with self.assertRaisesRegex(ck.RetentionError,'distinct evidence totals'):
+                self.save()
+
     def setUp(self):
         super().setUp()
         self.init_ledger()

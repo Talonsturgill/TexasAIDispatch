@@ -42,9 +42,11 @@ jobs:
     timeout-minutes: 120
     permissions:
       contents: write
+      actions: read
     env:
       CAPTURE_REQUEST: ${{ inputs.capture_request }}
       CAPTURE_REQUEST_SHA256: ${{ inputs.capture_request_sha256 }}
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Initialize finite capture paths from the actual runner
         run: |

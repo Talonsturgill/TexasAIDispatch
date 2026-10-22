@@ -305,7 +305,7 @@ class CaptureTest(unittest.TestCase):
                 with self.assertRaisesRegex(capture.ck.CheckpointError,'actual audit failed'):
                     capture.stage(repo,'3'*40,'1'*64,destination)
                 restore.assert_called_once_with(repo,'unit-run',dest=destination,helper_source=repo/'scripts')
-                claim.assert_called_once();operator.assert_not_called()
+                claim.assert_not_called();operator.assert_not_called()
                 self.assertFalse((destination/'out/dispatch/github-capture-activation.json').exists())
 
     def test_foreign_or_dirty_helper_source_refuses_before_claim(self):
@@ -484,6 +484,203 @@ class CaptureTest(unittest.TestCase):
             self.assertEqual(json.loads((package/'run_state.json').read_text())['usage'],state['usage'])
             self.assertEqual(json.loads((package/'github-capture-result.json').read_text())['exit_code'],1)
             self.assertEqual(json.loads((repo/capture.ck.GRANT_ROOTS_FILE).read_text()),{'schema':1,'entries':origins})
+
+
+class UnstartedContinuationTest(unittest.TestCase):
+    def setUp(self):
+        self.original_oid='b'*40
+        self.hashed='c'*64
+        event={'kind':'reserved','resources':{'preflight_renders':1},
+               'note':capture.OPS['openings'][0],'preflight_identity':'actual-native-input'}
+        self.state={'run_id':'2026-10-21','mode':'production','events':[event],
+                    'usage':{'preflight_renders':1},'terminal_state':None}
+        self.original={'schema':capture.SCHEMA,'repository':capture.REPOSITORY,
+            'run_id':'2026-10-21','source_commit':'a'*40,'checkpoint_oid':'d'*40,
+            'ledger_sha256':capture.digest(json.dumps(self.state).encode()),'owner_sha256':'f'*64,'epoch':'1'*32,
+            'github_actor':'actual-unit-caller','operation':'openings',
+            'reservation_event_sha256':capture_guard.event_digest(event)}
+        self.current={**self.original,'source_commit':'2'*40,'checkpoint_oid':'3'*40}
+        self.claim={'request_oid':self.original_oid,'request_sha256':self.hashed,
+                    'github_actor':'actual-unit-caller','github_run_id':'39801377869'}
+        self.run={'id':39801377869,'run_attempt':1,'status':'completed','conclusion':'failure',
+                  'event':'workflow_dispatch','head_sha':'a'*40,'path':'.github/workflows/guards.yml',
+                  'actor':{'login':'actual-unit-caller'},'triggering_actor':{'login':'actual-unit-caller'}}
+        self.job={'id':119902689891,'run_id':39801377869,'run_attempt':1,'head_sha':'a'*40,
+                  'name':'capture','status':'completed','conclusion':'failure','steps':[
+            {'name':name,'number':number,'status':'completed','conclusion':conclusion}
+            for number,name,conclusion in [(7,capture.STAGE_STEP,'failure'),
+                (8,capture.INSTALL_STEP,'skipped'),(9,capture.EXECUTE_STEP,'skipped')]]}
+        self.jobs={'total_count':2,'jobs':[self.job,{'name':'guards','conclusion':'skipped'}]}
+        self.log=b'2026-10-22T15:12:06Z delegated GitHub capture refused: restored edition fails its audit: actual retained source mismatch\n'
+
+    def proof(self):
+        def git(repo,*args,**kwargs):
+            return subprocess.CompletedProcess(args,0,b'4444444444444444444444444444444444444444 refs/heads/unit\n'
+                if args[0]=='ls-remote' else b'',b'')
+        def api(endpoint,raw=False):
+            if endpoint.endswith('/logs'):return self.log
+            return self.jobs if '/jobs?' in endpoint else self.run
+        def show(repo,oid,path):
+            if path=='claim.json':return json.dumps(self.claim).encode()
+            if path.endswith('/run_state.json'):return json.dumps(self.state).encode()
+            if path.endswith('/manifest.json'):
+                return json.dumps({'schema':capture.ck.SCHEMA,'run_id':self.original['run_id'],
+                    'ledger_sha256':self.original['ledger_sha256']}).encode()
+            return b'actual pinned workflow'
+        with patch.object(capture,'request_at',return_value=(self.original,self.hashed)), \
+                patch.object(capture.ck,'git',side_effect=git), \
+                patch.object(capture.ck,'show',side_effect=show), \
+                patch.object(capture,'github_api',side_effect=api):
+            return capture.unstarted_proof(Path('/unit'),self.original_oid,self.current)
+
+    def test_completed_stage_failure_keeps_actual_api_log_and_original_charge(self):
+        original=copy.deepcopy(self.original);state=copy.deepcopy(self.state)
+        result=self.proof()
+        self.assertEqual(result['original_claim_commit'],'4'*40)
+        self.assertEqual(result['original_request_sha256'],self.hashed)
+        self.assertEqual(result['job'],self.job)
+        self.assertEqual(result['job_log_sha256'],capture.digest(self.log))
+        self.assertEqual(result['restore_refusal'],self.log.decode().splitlines())
+        self.assertEqual(self.original,original);self.assertEqual(self.state,state)
+        self.assertNotEqual(self.current['source_commit'],self.original['source_commit'])
+        self.assertNotEqual(self.current['checkpoint_oid'],self.original['checkpoint_oid'])
+
+    def test_started_rerun_wrong_actor_or_other_run_refuses(self):
+        for key,value in [('run_attempt',2),('status','in_progress'),('conclusion','success'),
+                          ('event','push'),('head_sha','5'*40),('id',123),('path','another.yml'),
+                          ('actor',{'login':'other'}),('triggering_actor',{'login':'other'})]:
+            with self.subTest(key=key):
+                original=self.run[key];self.run[key]=value
+                with self.assertRaises(ValueError):self.proof()
+                self.run[key]=original
+
+    def test_any_executed_installer_operator_or_fenced_run_refuses(self):
+        for index in (1,2):
+            for conclusion in ('success','failure','cancelled',None):
+                with self.subTest(step=index,conclusion=conclusion):
+                    self.job['steps'][index]['conclusion']=conclusion
+                    with self.assertRaises(ValueError):self.proof()
+            self.job['steps'][index]['conclusion']='skipped'
+        self.job['steps'][0]['conclusion']='skipped'
+        with self.assertRaises(ValueError):self.proof()
+        self.job['steps'][0]['conclusion']='failure'
+        self.log=b'delegated GitHub capture refused: original owner was fenced\n'
+        with self.assertRaisesRegex(ValueError,'restore-audit failure'):self.proof()
+
+    def test_missing_ambiguous_or_foreign_job_evidence_refuses(self):
+        baseline=copy.deepcopy(self.jobs)
+        mutations=[lambda:self.jobs.update(total_count=3),
+            lambda:self.jobs['jobs'].append(copy.deepcopy(self.job)),
+            lambda:self.job.update(head_sha='9'*40),
+            lambda:self.job.update(run_attempt=2),
+            lambda:self.job.update(status='in_progress'),
+            lambda:self.job['steps'].pop(),
+            lambda:self.job['steps'][2].update(number=1),
+            lambda:self.jobs['jobs'][1].update(conclusion='success')]
+        for mutate in mutations:
+            self.jobs=copy.deepcopy(baseline);self.job=self.jobs['jobs'][0]
+            mutate()
+            with self.assertRaises(ValueError):self.proof()
+
+    def test_changed_owner_charge_ledger_or_chained_continuation_refuses(self):
+        for key in ('owner_sha256','epoch','run_id','github_actor','operation',
+                    'reservation_event_sha256','ledger_sha256'):
+            with self.subTest(key=key):
+                before=self.current[key];self.current[key]='changed'
+                with self.assertRaisesRegex(ValueError,'original owner, charge or ledger'):self.proof()
+                self.current[key]=before
+        self.original['unstarted_continuation']={'schema':capture.CONTINUATION}
+        with self.assertRaisesRegex(ValueError,'itself be continued'):self.proof()
+
+    def test_claim_must_bind_exact_original_request_and_used_charge_stays_refused(self):
+        for key in ('request_oid','request_sha256','github_actor','github_run_id'):
+            before=self.claim[key];self.claim[key]='changed'
+            with self.assertRaises(ValueError):self.proof()
+            self.claim[key]=before
+        self.state['events'].append({'kind':'prepared_capture_claimed',
+            'event_sha256':self.original['reservation_event_sha256']})
+        self.original['ledger_sha256']=self.current['ledger_sha256']=capture.digest(json.dumps(self.state).encode())
+        with self.assertRaisesRegex(ValueError,'unused prepaid'):self.proof()
+
+    def test_delegate_rechecks_proof_and_one_immutable_continuation_request(self):
+        proof=self.proof();request={**self.current,'unstarted_continuation':proof}
+        with patch.object(capture,'unstarted_proof',return_value=proof) as verify, \
+                patch.object(capture.ck,'git',return_value=subprocess.CompletedProcess([],0,
+                    ('6'*40+' ref\n').encode(),b'')) as git:
+            capture.verify_continuation('/unit',request,'6'*40)
+            verify.assert_called_once_with('/unit',self.original_oid,request)
+            self.assertIn(capture.continuation_request_ref(request),git.call_args.args)
+            with self.assertRaisesRegex(ValueError,'one immutable continuation'):
+                capture.verify_continuation('/unit',request,'7'*40)
+            verify.return_value={**proof,'original_claim_commit':'7'*40}
+            with self.assertRaisesRegex(ValueError,'proof changed'):
+                capture.verify_continuation('/unit',request,'6'*40)
+
+    def test_real_git_one_continuation_request_and_claim_keep_original_claim(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);remote=root/'remote.git';repo=root/'repo'
+            subprocess.run(['git','init','--bare','-q',str(remote)],check=True)
+            subprocess.run(['git','init','-q',str(repo)],check=True)
+            subprocess.run(['git','-C',str(repo),'remote','add','origin',str(remote)],check=True)
+            old=capture.commit_record(repo,'claim.json',self.claim,'Original failed setup claim')
+            original_ref=capture.claim_ref(self.original);capture.claim_once(repo,original_ref,old)
+            request={**self.current,'unstarted_continuation':{'schema':capture.CONTINUATION}}
+            request_oid=capture.commit_record(repo,capture.REQUEST_FILE,request,'One setup continuation')
+            request_ref=capture.continuation_request_ref(request)
+            capture.claim_once(repo,request_ref,request_oid)
+            with self.assertRaisesRegex(ValueError,'already claimed'):
+                capture.claim_once(repo,request_ref,request_oid)
+            new=capture.commit_record(repo,'claim.json',{'request_oid':request_oid},'Continuation claim')
+            continued_ref=capture.claim_ref(request)
+            self.assertFalse(continued_ref.startswith(original_ref+'/'))
+            capture.claim_once(repo,continued_ref,new)
+            with self.assertRaisesRegex(ValueError,'already claimed'):
+                capture.claim_once(repo,continued_ref,new)
+            self.assertEqual(subprocess.check_output(['git','--git-dir',str(remote),
+                'rev-parse',original_ref],text=True).strip(),old)
+
+    def test_stage_restores_and_admits_before_claim_and_refuses_changed_or_fenced(self):
+        import publication_owner
+        with tempfile.TemporaryDirectory() as temporary:
+            repo=Path(temporary).resolve()/'source';repo.mkdir();destination=Path(temporary).resolve()/'episode'
+            state_path=destination/'out/dispatch/run_state.json';state_path.parent.mkdir(parents=True)
+            original_root=Path('/actual-original-host/episode')
+            original_state={**self.state,'board':str(original_root/'out/dispatch/storyboard.json')}
+            public=capture.ck.public_ledger(original_state,original_root)
+            raw=json.dumps(public).encode()
+            manifest={'ledger_sha256':self.current['ledger_sha256'],
+                      'repo_root':str(original_root),'grant_origin_roots':[]}
+            restored=capture.ck.restored_ledger(public,destination,manifest)
+            state_path.write_text(json.dumps(restored))
+            self.assertEqual(restored['board'],str(state_path.parent/'storyboard.json'))
+            self.assertNotEqual(capture.ck.public_ledger(restored,destination),public)
+            owner={key:self.current[key] for key in ('run_id','owner_sha256','epoch')}
+            owner.update(runtime='codex',status='held',expires_at='2099-01-01T00:00:00+00:00')
+            order=[]
+            def git(root,*args,**kwargs):
+                return subprocess.CompletedProcess(args,0,self.current['source_commit'].encode()
+                    if args[:2]==('rev-parse','HEAD') else b'',b'')
+            for identity,fenced in [('changed',False),('actual-native-input',True),('actual-native-input',False)]:
+                order.clear()
+                with self.subTest(identity=identity,fenced=fenced), \
+                        patch.object(capture,'request_at',return_value=(self.current,self.hashed)), \
+                        patch.object(capture,'context_problems',return_value=[]), \
+                        patch.object(capture.ck,'git',side_effect=git), \
+                        patch.object(capture.ck,'remote_tip',return_value=self.current['checkpoint_oid']), \
+                        patch.object(capture.ck,'verify_checkpoint',return_value=(manifest,raw)), \
+                        patch.object(capture.ck,'restore',side_effect=lambda *a,**kw:order.append('restore')), \
+                        patch.object(capture,'current_identity',return_value=identity), \
+                        patch.object(capture,'operation_precheck',side_effect=lambda *a:order.append('precheck')), \
+                        patch.object(publication_owner,'read_remote',side_effect=[owner,None if fenced else owner]), \
+                        patch.object(capture,'commit_record',return_value='8'*40), \
+                        patch.object(capture,'claim_once',side_effect=lambda *a:order.append('claim')) as claim, \
+                        patch.dict(capture.os.environ,{'GITHUB_RUN_ID':'123','GITHUB_ACTOR':'actual-unit-caller'}):
+                    if identity=='changed' or fenced:
+                        with self.assertRaises(ValueError):capture.stage(repo,'9'*40,self.hashed,destination)
+                        claim.assert_not_called()
+                    else:
+                        capture.stage(repo,'9'*40,self.hashed,destination)
+                        self.assertEqual(order,['restore','precheck','claim'])
 
 
 if __name__ == '__main__':
