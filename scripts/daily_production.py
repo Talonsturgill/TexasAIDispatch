@@ -422,7 +422,7 @@ def handoff_limit(date, compact_scorer):
 
 
 def packet_text(data):
-    """Remove JSON layout bytes before rejecting a complete current Claude scorer handoff."""
+    """Remove JSON layout bytes before rejecting a complete current review or Codex builder handoff."""
     encoded = json.dumps(data, indent=2) + '\n'
     if len(encoded) > policy()['handoff_max_chars'] and (data.get('local_recovery') or {}).get('runtime') == 'codex':
         from agent_runtime import compact_packet_bindings
@@ -435,7 +435,9 @@ def packet_text(data):
                   and data.get('motion_sequence') and data.get('image_read_policy'))
                  # The storyboard critic's packet gains opening and selection bindings after the
                  # comparison, so a current edition crossed the cap by indentation alone.
-                 or data.get('role') == 'storyboard-critic')):
+                 or data.get('role') == 'storyboard-critic'
+                 or (data.get('role') == 'scene-builder'
+                     and (data.get('local_recovery') or {}).get('runtime') == 'codex'))):
         encoded = json.dumps(data, separators=(',', ':')) + '\n'
     return encoded
 
