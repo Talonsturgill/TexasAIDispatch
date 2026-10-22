@@ -1,6 +1,7 @@
 """Explicit isolated worker plans and private, observed session accounting. No paid calls."""
 from __future__ import annotations
 import argparse
+import copy
 import hashlib
 import json
 import re
@@ -11,10 +12,53 @@ REPO = Path(__file__).resolve().parents[1]
 POLICY = REPO / "config/agent_runtime.json"
 TOKEN_KEYS = ("input_tokens", "cached_input_tokens", "cache_write_input_tokens",
               "output_tokens", "reasoning_output_tokens", "total_tokens")
+GUIDE_BINDINGS = ('agent_contracts', 'source_runtime_contracts', 'craft_readings', 'completion_readings')
 
 
 def read(path):
-    return json.loads(Path(path).read_text())
+    return expand_packet_bindings(json.loads(Path(path).read_text()))
+
+
+def expand_packet_bindings(data):
+    """Resolve compact recovery guides independently of the worker's current directory."""
+    if not isinstance(data, dict) or 'repo_root' not in data:
+        return data
+    root = REPO.resolve()
+    if (data.get('repo_root') != str(root)
+            or (data.get('local_recovery') or {}).get('runtime') != 'codex'):
+        raise ValueError('compact guide bindings need the current owned repository root')
+    data = copy.deepcopy(data)
+    data.pop('repo_root')
+    for key in GUIDE_BINDINGS:
+        rows = []
+        for row in data.get(key, []):
+            value = row['path']; path = Path(value)
+            if path.is_absolute() or path.as_posix() != value or '..' in path.parts:
+                raise ValueError('compact guide path must be canonical and repository relative')
+            target = root / path
+            if (not path.parts or not target.resolve().is_relative_to(root)
+                    or any((root / Path(*path.parts[:n])).is_symlink() for n in range(1, len(path.parts) + 1))):
+                raise ValueError('compact guide path cannot traverse or alias the repository')
+            rows.append({**row, 'path': str(target)})
+        if key in data:
+            data[key] = rows
+    return data
+
+
+def compact_packet_bindings(data):
+    """Shorten only repeated guide prefixes; keep exact source/media bindings and hashes."""
+    if (data.get('local_recovery') or {}).get('runtime') != 'codex':
+        return data
+    data = copy.deepcopy(expand_packet_bindings(data))
+    root = REPO.resolve()
+    data['repo_root'] = str(root)
+    for key in GUIDE_BINDINGS:
+        if key in data:
+            data[key] = [{**row, 'path': Path(row['path']).relative_to(root).as_posix()}
+                         for row in data[key]]
+    # Apply the same canonical-path checks before writing as before reading.
+    expand_packet_bindings(data)
+    return data
 
 
 def digest(path):
@@ -228,6 +272,7 @@ def plan(role, packet_path, task_name, scope):
     message = ("Work in " + str(REPO) + ". Read AGENTS.md, CLAUDE.md and " + str(brief) +
                ". Read the compact packet " + str(Path(packet_path).resolve()) +
                " (SHA256 " + digest(packet_path) + ") and every bound current guide in full. " +
+               "Resolve relative guide paths under the packet's repo_root. " +
                "Verify the bound inputs before use. Scope: " + scope.strip() +
                " Return one complete handoff or consolidated defect list with exact input hashes. " +
                "You are a leaf worker. Never spawn agents, send email or post socially. " +
@@ -398,9 +443,11 @@ def main():
             data = measurements(a.runs)
         if a.out:
             a.out.parent.mkdir(parents=True, exist_ok=True)
-            a.out.write_text(json.dumps(data, indent=2) + "\n")
+            from daily_production import packet_text
+            a.out.write_text(packet_text(data) if a.phone_packet else json.dumps(data, indent=2) + "\n")
         else:
-            print(json.dumps(data, indent=2))
+            from daily_production import packet_text
+            print(packet_text(data).rstrip('\n') if a.phone_packet else json.dumps(data, indent=2))
         return 0
     except (ValueError, KeyError, TypeError, OSError) as exc:
         print("agent runtime refused: " + str(exc))

@@ -18,7 +18,7 @@ CLOUD_PRIMARY_WORKSPACE = Path('/home/user')
 
 
 def read(path):
-    return json.loads(Path(path).read_text())
+    return agent_runtime.expand_packet_bindings(json.loads(Path(path).read_text()))
 
 
 def digest(path):

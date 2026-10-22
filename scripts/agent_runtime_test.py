@@ -217,6 +217,76 @@ class RuntimeTest(unittest.TestCase):
         self.assertIn("An empty rejected list is valid",text)
 
 
+class CompactRecoveryGuides(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name).resolve() / ('restored-original-checkpoint-' * 5)
+        self.root.mkdir()
+        self.repo = patch.object(a, 'REPO', self.root); self.repo.start()
+        self.addCleanup(self.repo.stop)
+        self.guides = []
+        for index in range(19):
+            path = self.root / 'knowledge/craft' / (str(index) + '.md')
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text('Complete guide text ' + str(index))
+            self.guides.append(a.bound(path))
+        self.packet = {'role': 'storyboard-critic', 'date': '2026-10-21',
+            'local_recovery': {'runtime': 'codex'}, 'instructions': 'Read every bound guide in full.',
+            'board': a.bound(self.guides[0]['path']),
+            'craft_readings': self.guides, 'completion_readings': self.guides[:2],
+            'agent_contracts': self.guides[:6], 'source_runtime_contracts': self.guides[:9]}
+
+    def test_long_restored_path_roundtrips_all_guides_and_native_phone_fields(self):
+        import claude_runtime, codex_visual_observations
+        # Phone policy and observation instructions are genuine source contracts, not verdicts.
+        self.packet.update(phone_decision_scope=claude_runtime.phone_decision_scope(),
+            phone_options=[{'board': self.packet['board'], 'motion_sequence': self.packet['board']}])
+        claude_runtime.image_reading(self.packet)
+        before = copy.deepcopy(self.packet)
+        self.assertGreater(len(json.dumps(before, separators=(',', ':'))), 10000)
+        encoded = d.packet_text(self.packet)
+        self.assertLessEqual(len(encoded), 10000)
+        compact = json.loads(encoded)
+        self.assertEqual(str(self.root), compact['repo_root'])
+        self.assertEqual(before['board'], compact['board'])
+        self.assertEqual(before, a.expand_packet_bindings(compact))
+        self.assertEqual(before, self.packet)
+        path = self.root / 'packet.json'; path.write_text(encoded)
+        with patch('os.getcwd', return_value='/unrelated/worker/directory'):
+            for reader in (a.read, claude_runtime.read, codex_visual_observations.read):
+                self.assertEqual(before, reader(path))
+        a.validate_references(a.read(path))
+        self.assertEqual(10000, d.policy()['handoff_max_chars'])
+        # A guide hash is never replaced by a successful path expansion.
+        Path(self.guides[0]['path']).write_text('Changed current guide')
+        with self.assertRaisesRegex(ValueError, 'input changed'):
+            a.validate_references(a.read(path))
+
+    def test_wrong_root_traversal_alias_and_runtime_are_rejected(self):
+        compact = a.compact_packet_bindings(self.packet)
+        for mutation in ('root', 'traversal', 'absolute', 'alias', 'runtime'):
+            value = copy.deepcopy(compact)
+            if mutation == 'root':
+                value['repo_root'] = str(self.root.parent)
+            elif mutation == 'runtime':
+                value['local_recovery']['runtime'] = 'claude'
+            elif mutation == 'alias':
+                (self.root / 'alias.md').symlink_to(self.guides[0]['path'])
+                value['craft_readings'][0]['path'] = 'alias.md'
+            else:
+                value['craft_readings'][0]['path'] = ('../elsewhere.md' if mutation == 'traversal'
+                                                      else self.guides[0]['path'])
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                a.expand_packet_bindings(value)
+
+    def test_normal_route_and_real_excess_are_not_exempted(self):
+        ordinary = copy.deepcopy(self.packet); ordinary.pop('local_recovery')
+        self.assertEqual(ordinary, json.loads(d.packet_text(ordinary)))
+        self.packet['instructions'] = 'x' * 11000
+        self.assertGreater(len(d.packet_text(self.packet)), 10000)
+
+
 class LocalRecoveryRouting(unittest.TestCase):
     setUp = RuntimeTest.setUp
     source_packet = RuntimeTest.source_packet

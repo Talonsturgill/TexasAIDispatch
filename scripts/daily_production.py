@@ -422,6 +422,10 @@ def handoff_limit(date, compact_scorer):
 def packet_text(data):
     """Remove JSON layout bytes before rejecting a complete current Claude scorer handoff."""
     encoded = json.dumps(data, indent=2) + '\n'
+    if len(encoded) > policy()['handoff_max_chars'] and (data.get('local_recovery') or {}).get('runtime') == 'codex':
+        from agent_runtime import compact_packet_bindings
+        data = compact_packet_bindings(data)
+        encoded = json.dumps(data, indent=2) + '\n'
     if (len(encoded) > policy()['handoff_max_chars']
             and re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(data.get('date', '')))
             and str(data.get('date', '')) >= '2026-10-15'

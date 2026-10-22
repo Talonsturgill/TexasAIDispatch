@@ -32,7 +32,8 @@ def digest(path):
 
 
 def read(path):
-    return json.loads(Path(path).read_text())
+    from agent_runtime import expand_packet_bindings
+    return expand_packet_bindings(json.loads(Path(path).read_text()))
 
 
 def image_parts(payload):
