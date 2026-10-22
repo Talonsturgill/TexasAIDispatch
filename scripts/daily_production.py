@@ -372,6 +372,8 @@ def pre_voice_problems(board_path, claims_path, script=None):
     except (OSError, ValueError, KeyError, TypeError) as exc:
         context_errors.append("review-context frozen story evidence invalid: " + str(exc))
     errors = context_errors + structure_problems(board, read(claims_path)) + action_problems(board) + review_problems(reviewed_board, report)
+    from super_evidence_check import check_source_credit_figures
+    errors += check_source_credit_figures(board, read(claims_path))
     import creative_production as creative
     errors += creative.plan_problems(board)
     errors += creative.opening_problems(board_path)

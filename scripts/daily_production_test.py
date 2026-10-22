@@ -135,6 +135,14 @@ class DailyTest(unittest.TestCase):
             changed = copy.deepcopy(self.board); mutate(changed)
             self.assertTrue(d.review_problems(changed, self.report), label)
 
+    def test_source_credit_numerals_fail_before_voice_and_accept_a_complete_quote(self):
+        self.board.update(date="2026-10-22", credits="SOURCES\nDroneLife, March 14th, 2025")
+        self.save()
+        self.assertTrue(any("credits:" in e for e in d.pre_voice_problems(self.bp, self.cp)))
+        self.claims["claims"][0]["quote"] += " Published March 14, 2025."
+        self.cp.write_text(json.dumps(self.claims))
+        self.assertFalse(any("credits:" in e for e in d.pre_voice_problems(self.bp, self.cp)))
+
     def test_measured_caption_and_timing_work_reuses_story_review(self):
         changed = copy.deepcopy(self.board)
         changed["captions"] = [{"text": "Measured words", "start": 0, "end": 2}]

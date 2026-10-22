@@ -266,6 +266,35 @@ def check_printed_figures_are_quoted(board: dict, claims: dict) -> list[str]:
     return fails
 
 
+def check_source_credit_figures(board: dict, claims: dict) -> list[str]:
+    """Cover the printed end card from October 22 without changing frozen editions.
+
+    Music's generated attribution is evidenced by its existing registry/package
+    checks. Only exact generated credit lines are excluded, never a whole section.
+    """
+    edition = str(board.get("date", ""))[:10]
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", edition) or edition < "2026-10-22":
+        return []
+    rows = [" ".join(row.split()) for row in str(board.get("credits") or "").splitlines()]
+    if not any(figures(row) for row in rows):
+        return []
+    import music
+    music_lines = {" ".join(music.credit_line(track).split()) for track in music.load()}
+    have = figures(" ".join(str(c.get("quote") or "") for c in claims.get("claims", [])
+                            if c.get("verdict") == "VERIFIED"))
+    fails = []
+    for row in rows:
+        if row in music_lines:
+            continue
+        missing = sorted(figures(row) - have)
+        if missing:
+            fails.append(f"credits: printed source credit {row!r} contains {missing} absent from "
+                         "every VERIFIED claim's fetched quote. Retain the complete fetched date "
+                         "or figure in a verified quote before production; statement, value_text "
+                         "and source-page metadata alone are insufficient.")
+    return fails
+
+
 def check(board: dict, claims: dict) -> tuple[list[str], list[str]]:
     fails: list[str] = []
     notes: list[str] = []
@@ -319,6 +348,7 @@ def check(board: dict, claims: dict) -> tuple[list[str], list[str]]:
                 f"cannot be moved to a different institution, machine or place by a headline.")
 
     fails += check_printed_figures_are_quoted(board, claims)
+    fails += check_source_credit_figures(board, claims)
     return fails, notes
 
 
@@ -461,6 +491,64 @@ def self_test() -> int:
     copy_board = {"scenes": [], "documentary_copy": {"award": "Award 987654321"}}
     ok("documentary source copy cannot print an unquoted figure",
        bool(check_printed_figures_are_quoted(copy_board, {"claims": []})))
+
+    # Actual October 21 credit wording, applied only to a new-edition test board.
+    # The historical film and independently returned failure remain unchanged.
+    credit_board = {"date": "2026-10-22", "scenes": [],
+                    "credits": "SOURCES\nDroneLife, March 14th, 2025\n"}
+    credit_claims = {"claims": [{"id": "source-date", "verdict": "VERIFIED",
+        "statement": "Published March 14th, 2025", "value_text": "March 14th, 2025",
+        "quote": "The company tested autonomous drones in 2025."}]}
+    ok("source credit date absent from fetched quote fails through the existing gate",
+       any("credits:" in x and "14.0" in x for x in check(credit_board, credit_claims)[0]))
+    credit_claims["claims"][0]["quote_is_excerpt"] = True
+    credit_claims["claims"][0]["excerpt_of"] = "publication metadata"
+    ok("source credit cannot borrow model-written date through an excerpt marker",
+       bool(check_source_credit_figures(credit_board, credit_claims)))
+    credit_claims["claims"][0]["quote"] = "Published March 14, 2025. The company tested autonomous drones."
+    ok("complete verified fetched date supports the source credit",
+       not check_source_credit_figures(credit_board, credit_claims))
+    credit_claims["claims"][0]["verdict"] = "PARTIAL"
+    ok("a partial quote cannot authorize printed source credit numerals",
+       bool(check_source_credit_figures(credit_board, credit_claims)))
+    credit_board["date"] = "2026-10-21"
+    ok("historical source credit behavior is preserved",
+       not check_source_credit_figures(credit_board, credit_claims))
+    credit_board["date"] = "2026-10-22"
+    from unittest.mock import patch
+    import music
+    licensed = {"title": "Deep Haze", "artist": "Kevin MacLeod",
+                "source_url": "https://incompetech.com/", "source_label": "incompetech.com",
+                "licence": "cc-by-4.0", "modified": True}
+    music_line = music.credit_line(licensed)
+    with patch.object(music, "load", return_value=[licensed]):
+        music_board = {"date": "2026-10-22", "credits": "MUSIC\n"+music_line}
+        ok("exact generated music license is handled by the existing rights gates",
+           not check_source_credit_figures(music_board, {"claims": []}))
+        music_board["credits"] += "\nDroneLife, March 14th, 2025"
+        ok("a music heading cannot hide an unsupported source date",
+           bool(check_source_credit_figures(music_board, {"claims": []})))
+        music_board["credits"] = "MUSIC\n"+music_line+" - published 2099"
+        ok("added unquoted numerals cannot borrow a generated music exclusion",
+           bool(check_source_credit_figures(music_board, {"claims": []})))
+    import tempfile
+    import preflight_animatic
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        bp, cp = root/"storyboard.json", root/"claims.json"
+        bp.write_text(json.dumps(credit_board)); cp.write_text(json.dumps(credit_claims))
+        with patch("preflight_animatic.subprocess.run") as command, \
+                patch("engine_lint.check_files", return_value=[]), \
+                patch("daily_production.pre_voice_problems", return_value=[]), \
+                patch("run_controller.reserve") as charge:
+            command.return_value.returncode = 0
+            refused = False
+            try:
+                preflight_animatic.render(bp, root/"film.mp4", root/"run_state.json", cp)
+            except RuntimeError as exc:
+                refused = "credits:" in str(exc) and "no animatic was spent" in str(exc)
+            ok("actual preview refuses unsupported source credit before reservation",
+               refused and not charge.called and command.call_count == 1)
     print(f"super_evidence_check: {fails} failure(s)")
     return 1 if fails else 0
 
