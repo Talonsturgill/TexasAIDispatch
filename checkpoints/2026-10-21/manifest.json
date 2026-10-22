@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T22:20:43.831222+00:00",
-  "note": "claim worker dispatch picture",
+  "saved_at": "2026-10-22T22:21:19.550150+00:00",
+  "note": "ledger write",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "32a7090a0d8d5512fc05ec97c58a38936cfbffa785d5f86a4326cdfb0c30981e"
   },
   "deleted_source": [],
-  "ledger_sha256": "a368dfab983beb6e6d59bb758f00e0477c030d14e6c847a9c17ca6b092d1ec9e",
-  "original_private_ledger_sha256": "6dc718be9e127cb7069fa84d50037f0bf22a972b205e7ab0f019f9d21589751e",
+  "ledger_sha256": "f358cfc8ec53d7770168ebb49edbd422d25b17ace553d5edefab1c0f3dc5ac8f",
+  "original_private_ledger_sha256": "66981a3c4d61132f1058f9b1b27505701782cf15e048b604a8f8dcb8f43896d7",
   "grant_origin_roots": [
     {
       "event_index": 96,
@@ -26,7 +26,7 @@
     }
   ],
   "usage": {
-    "audiovisual_reviews": 7,
+    "audiovisual_reviews": 8,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
@@ -1392,6 +1392,12 @@
       "class": "scratch",
       "sha256": "817fa981711b0073905b77913e692d914d723a6e377821e791cc819be12295f3",
       "size": 56622106
+    },
+    {
+      "path": "out/dispatch/codex-final-picture-assignment.json",
+      "class": "scratch",
+      "sha256": "b1572c2d1fa31e1ab16a72d5a6dd94c8d3e53ef046a2454a3bc7cf112fb3cab4",
+      "size": 2678
     },
     {
       "path": "out/dispatch/codex-final-picture-av-command.log",
@@ -15572,9 +15578,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 1580243513,
-    "unique_blob_bytes": 876258611,
-    "unique_blobs": 1784
+    "logical_bytes": 1580246191,
+    "unique_blob_bytes": 876261289,
+    "unique_blobs": 1785
   },
   "excluded": [
     {

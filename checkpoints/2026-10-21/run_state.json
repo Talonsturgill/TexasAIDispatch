@@ -324,6 +324,14 @@
       "note": "telemetry for audiovisual_reviews: ad380ffb-5486-4c4e-a80e-f4f695bd4cc7 picture exact film 23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba",
       "resource": "reported_tokens",
       "to": 1016743
+    },
+    {
+      "at": "2026-10-22T22:20:47.232441Z",
+      "ceiling": 43,
+      "from": 7,
+      "note": "exact MP4 audiovisual review story",
+      "resource": "audiovisual_reviews",
+      "to": 8
     }
   ],
   "events": [
@@ -2953,10 +2961,31 @@
       "note": "ad380ffb-5486-4c4e-a80e-f4f695bd4cc7 picture exact film 23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba",
       "reported_tokens": 177265,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-22T22:20:47.232491Z",
+      "ceiling": 43,
+      "kind": "budget_escalated",
+      "note": "exact MP4 audiovisual review story",
+      "now": 8,
+      "resource": "audiovisual_reviews",
+      "was": 7
+    },
+    {
+      "at": "2026-10-22T22:20:47.233172Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "exact MP4 audiovisual review story",
+      "preflight_identity": null,
+      "publication_epoch": "d744f35e86334f3e8b799684b47fef97",
+      "publication_owner_sha256": "5232d8954f17c36778aee290c81bdbc318d79e519d860519f4afd94116d853f4",
+      "resources": {
+        "audiovisual_reviews": 1
+      }
     }
   ],
   "limits": {
-    "audiovisual_reviews": 7,
+    "audiovisual_reviews": 8,
     "cleanup_renders": 1,
     "full_renders": 2,
     "image_generations": 2,
@@ -2976,7 +3005,7 @@
   "phase": "review",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6dc718be9e127cb7069fa84d50037f0bf22a972b205e7ab0f019f9d21589751e",
+    "original_private_state_sha256": "66981a3c4d61132f1058f9b1b27505701782cf15e048b604a8f8dcb8f43896d7",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3004,9 +3033,9 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-22T22:19:27.970474Z",
+  "updated_at": "2026-10-22T22:20:47.233175Z",
   "usage": {
-    "audiovisual_reviews": 7,
+    "audiovisual_reviews": 8,
     "cleanup_renders": 0,
     "full_renders": 2,
     "image_generations": 0,
