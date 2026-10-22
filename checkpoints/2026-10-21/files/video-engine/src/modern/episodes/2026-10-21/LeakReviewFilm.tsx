@@ -115,6 +115,7 @@ export function leakState(W:Record<string,ActionWindow>,t:number,N:Record<string
  // s3: the letter slides in and writes; two stamps
  const w31=w('s3-event-1'),w33=w('s3-event-3');
  const s3={slide:P('s3-event-1'),write:w31?clamp((t-(w31.start+.45*(w31.end-w31.start)))/1.5):0,date:stampState(w('s3-event-2'),t),approved:stampState(w33,t),
+  system:P('s3-event-4'),scope:P('s3-event-5'),
   // the inspector's pen taps twice on the desk after the approved mark lands
   tap:w33?Math.abs(Math.sin(2*Math.PI*1.6*Math.max(0,t-(w33.start+STAMP.press*(w33.end-w33.start)+.2))))*clamp(1.6-(t-(w33.start+.5))/.8)*smooth((t-(w33.start+.4))/.2):0};
  // s5: the footage arrives; her stylus traces the outline; her finger presses the green mark; she flicks the tag
@@ -480,11 +481,11 @@ export const LeakReviewFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
  /** The inspector resting in a room view (hands where they rest), reacting to the scene's events. */
  const restingPerson=(key:string,o:{nearOffset?:Pt}={})=>{const A=PERSON_AT[key],d=o.nearOffset??[0,0];
   return person(key,A.farRest,[A.nearRest[0]+d[0],A.nearRest[1]+d[1]]);};
- /** s2: the blue claim tag swings in on its string from the right and hooks onto the blue alert flag. */
+ /** s2: attribution rests visibly on the desk from the first frame, then hooks onto the blue flag. */
  const claimTag=(T:TabletAt,size:number)=>{
-  const p=S.s2.tag;if(p<=0)return null;
+  const p=S.s2.tag;
   const corner=tabletPt(T,flagHook(T.W,T.H));
-  const hole:Pt=[corner[0]-4,corner[1]+72],from:Pt=[hole[0]+620,hole[1]-240];
+  const hole:Pt=[corner[0]-4,corner[1]+72],from:Pt=[hole[0]-80,hole[1]+180];
   const pos:Pt=[lerp(from[0],hole[0],p),lerp(from[1],hole[1],p)-70*Math.sin(Math.PI*p)];
   const mid:Pt=[(corner[0]+pos[0])/2,(corner[1]+pos[1])/2+50*(1-p)];
   const z0=tagSize(['The companies','say'],size),flip=hole[0]+z0.w+44>905;
@@ -629,7 +630,12 @@ export const LeakReviewFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,
   const A=PERSON_AT[view];
   pic=<g>
    <Item id="s3-setting">{desk(view)}{deskProps(view)}</Item>
-   <Item id="s3-letter"><g transform={paperTransform(Lx)}><LeakReviewSupport part="letter" write={S.s3.write} date={S.s3.date.inked} approved={S.s3.approved.inked}/></g></Item>
+   <Item id="s3-letter"><g transform={paperTransform(Lx)}>
+    <LeakReviewSupport part="letter" write={S.s3.write} date={S.s3.date.inked} approved={S.s3.approved.inked} scope={S.s3.scope}/>
+    <Item id="s3-system"><g transform="translate(154 414) scale(.55)">
+     <InspectionDroneHero part="side" spin={0} phase={0} pod={8} lamp={.6}/>
+    </g><LeakReviewSupport part="systemIdentity" p={S.s3.system}/></Item>
+   </g></Item>
    <Item id="s3-date">{stampAt(Lx,letterMarks.date,S.s3.date,LETTER.date.w,LETTER.date.h,top,LETTER.date.rot)}</Item>
    <Item id="s3-approval">{stampAt(Lx,letterMarks.approved,S.s3.approved,LETTER.approved.w,LETTER.approved.h,top,LETTER.approved.rot)}</Item>
    {view==='room-desk'&&restingPerson(view)}

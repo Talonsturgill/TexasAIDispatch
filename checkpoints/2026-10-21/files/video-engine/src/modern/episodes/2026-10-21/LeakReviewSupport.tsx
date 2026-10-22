@@ -297,7 +297,7 @@ const FlightScreen:React.FC<{W:number;H:number;lit:number;flag:number;t:number;s
    {pole>0&&<path d={`M0 -9V${f2(-9-pole)}`} stroke={LR.paperLit} strokeWidth={5} strokeLinecap="round"/>}
    {cloth>0&&<g transform={`translate(0 ${f2(-9-pole)}) rotate(${f2(sway)}) scale(${f2(.3+.7*smooth(cloth))} 1)`}>
     <path d={`M0 0H${FLIGHT_FLAG.cloth[0]}l-16 23l16 23H0Z`} fill={LR.blue} stroke={LR.ink} strokeWidth={2.5}/>
-    <Txt x={10} y={32} size={26} bold fill={LR.paperLit} opacity={clamp(cloth*2-1)}>Anomaly</Txt>
+    <Txt x={10} y={32} size={24} bold fill={LR.paperLit} opacity={clamp(cloth*2-1)}>AI alert</Txt>
    </g>}
   </g>
  </g>;
@@ -415,7 +415,7 @@ export const LETTER={w:600,h:780,date:{x:66,y:178,rot:-6,w:476,h:70},tag:{x:40,y
 /** Where a stamp's die centre lands on the letter (letter units): the date stamp and the approved mark. */
 export const letterMarks={date:[LETTER.date.x+LETTER.date.w/2,LETTER.date.y+LETTER.date.h/2] as Pt,
  approved:[LETTER.approved.x+LETTER.approved.w/2,LETTER.approved.y+LETTER.approved.h/2] as Pt};
-const Letter:React.FC<{write:number;date:number;approved:number}>=({write,date,approved})=>{
+const Letter:React.FC<{write:number;date:number;approved:number;scope?:number}>=({write,date,approved,scope=0})=>{
  const id=useUid('lrlet'),L=LETTER,D=L.date,A=L.approved,G=L.tag;
  return <g data-part="letter">
   <defs><linearGradient id={id} x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stopColor={LR.paperLit}/><stop offset="1" stopColor={LR.paperShade}/></linearGradient></defs>
@@ -427,12 +427,13 @@ const Letter:React.FC<{write:number;date:number;approved:number}>=({write,date,a
   <rect x={40} y={40} width={L.w-80} height={6} fill={LR.ink}/>
   <Txt x={40} y={98} size={40} bold>Approval letter</Txt>
   <Lines x={40} y={140} w={L.w-80} n={6} gap={28} p={write} seed={11}/>
-  <Lines x={40} y={330} w={L.w-80} n={5} gap={28} p={clamp(write*1.2-.2)} seed={41}/>
   <Lines x={40} y={640} w={L.w-160} n={3} gap={28} p={clamp(write*1.2-.2)} seed={71}/>
-  <g transform={`translate(${G.x} ${G.y}) rotate(-2)`} data-part="letter-tag">
+  <g transform={`translate(${G.x} ${G.y}) rotate(-2)`} data-part="letter-tag" data-item="s3-scope">
    <rect x={4} y={6} width={G.w} height={G.h} rx={10} fill="#1A1410" opacity={.15}/>
    <rect x={0} y={0} width={G.w} height={G.h} rx={10} fill="#FFFDF5" stroke={LR.ink} strokeWidth={2.4}/>
+   <rect x={8} y={8} width={G.w-16} height={G.h-16} rx={6} fill={LR.amber} opacity={f2(.3*smooth(scope))}/>
    {['Periodic','methane','screening'].map((l,i)=><Txt key={i} x={20} y={40+i*39} size={32} bold>{l}</Txt>)}
+   <path d={`M20 ${G.h-14}h${f2((G.w-40)*smooth(scope))}`} stroke={LR.amberInk} strokeWidth={5} strokeLinecap="round"/>
    <path d="M30 -16v34q0 10 10 10h6q10 0 10 -10v-30" stroke="#9AA2A6" strokeWidth={4} fill="none"/>
   </g>
   {date>0&&<g transform={`translate(${D.x} ${D.y}) rotate(${D.rot})`} opacity={f2(.92*clamp(date))} data-part="date-stamp">
@@ -447,6 +448,16 @@ const Letter:React.FC<{write:number;date:number;approved:number}>=({write,date,a
   </g>}
  </g>;
 };
+/** A record identification beside the disclosed generic drone, never a hardware badge. */
+const SystemIdentity:React.FC<{p:number}>=({p})=>
+ <g data-part="system-identity">
+  <rect x={302} y={292} width={264} height={132} rx={8} fill={LR.paperLit} stroke={LR.ink} strokeWidth={2}/>
+  <rect x={310} y={300} width={248} height={48} rx={5} fill={LR.amber} opacity={f2(.32*smooth(p))}/>
+  <Txt x={318} y={338} size={38} bold>Air Max</Txt>
+  <Txt x={318} y={373} size={21} bold>Record name</Txt>
+  <Txt x={318} y={405} size={22}>Generic drone</Txt>
+  <path d={`M318 350h${f2(222*smooth(p))}`} stroke={LR.amberInk} strokeWidth={4} strokeLinecap="round"/>
+ </g>;
 /** The long letter page for the AI scene: paragraphs of lines and the protocol title, set so that AI
  * begins its line and the highlight lands on it exactly. `hl` 0 to 1 lays the highlight left to right,
  * overshooting its word a little. */
@@ -780,7 +791,7 @@ type Part=
  {part:'flightScreen';W:number;H:number;lit:number;flag:number;t:number;sway?:number}|
  {part:'reviewScreen';W:number;H:number;t:number;arrive:number;outline:number;confirm:number;pulse?:number;check?:number;box:number;jolt?:number}|
  {part:'irView';W:number;H:number;t:number;outline?:number;label?:number}|{part:'greenMark';r:number;p:number;pulse?:number;check?:number}|
- {part:'aiBox';w:number;h:number;p:number}|{part:'letter';write:number;date:number;approved:number}|{part:'longLetter';hl:number}|
+ {part:'aiBox';w:number;h:number;p:number}|{part:'letter';write:number;date:number;approved:number;scope?:number}|{part:'systemIdentity';p:number}|{part:'longLetter';hl:number}|
  {part:'stamp';top?:boolean;lift:number;w:number;h?:number}|
  {part:'tag';lines:string[];size:number;swing?:number;tone?:'paper'|'blue';extra?:number;flip?:boolean;children?:React.ReactNode}|
  {part:'delayBar';w:number;h:number}|{part:'calendar';w:number;flip:number}|{part:'dayBlock';w:number;flip:number}|{part:'releaseCard';w:number}|
@@ -801,7 +812,8 @@ export const LeakReviewSupport:React.FC<Part>=(p)=>{
  case 'irView':return <IrView W={p.W} H={p.H} t={p.t} outline={p.outline} label={p.label}/>;
  case 'greenMark':return <GreenMark r={p.r} p={p.p} pulse={p.pulse} check={p.check}/>;
  case 'aiBox':return <AiBox w={p.w} h={p.h} p={p.p}/>;
- case 'letter':return <Letter write={p.write} date={p.date} approved={p.approved}/>;
+ case 'letter':return <Letter write={p.write} date={p.date} approved={p.approved} scope={p.scope}/>;
+ case 'systemIdentity':return <SystemIdentity p={p.p}/>;
  case 'longLetter':return <LongLetter hl={p.hl}/>;
  case 'stamp':return <StampTool top={p.top} lift={p.lift} w={p.w} h={p.h}/>;
  case 'tag':return <Tag lines={p.lines} size={p.size} swing={p.swing} tone={p.tone} extra={p.extra} flip={p.flip}>{p.children}</Tag>;
