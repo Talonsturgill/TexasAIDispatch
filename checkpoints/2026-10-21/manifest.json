@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T21:33:07.311991+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-22T21:34:23.162452+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -602,12 +602,6 @@
       "size": 5979
     },
     {
-      "path": "out/dispatch/attention-review.json",
-      "class": "scratch",
-      "sha256": "f2d7c77217861f7dfd30421afb25cc8456788cca737aefa046c14213de066769",
-      "size": 23196
-    },
-    {
       "path": "out/dispatch/attention-review.png",
       "class": "scratch",
       "sha256": "9cc98298b4e5dea984a5d3688c3e0a906b0204712b0a5ed9757b594cf6970e76",
@@ -890,6 +884,18 @@
       "size": 430
     },
     {
+      "path": "out/dispatch/cinema/hero-review-response.json",
+      "class": "scratch",
+      "sha256": "b5b7490af8bcce60832ffbe4391efacf5640cfe708fd0c965bd9ec4f5162e997",
+      "size": 67180
+    },
+    {
+      "path": "out/dispatch/cinema/hero-review.json",
+      "class": "scratch",
+      "sha256": "3fc0f2570eaac8e4e06ab7182113da53868af58856a644c8e7196149f93c7dfd",
+      "size": 574
+    },
+    {
       "path": "out/dispatch/cinema/hero.mp4",
       "class": "scratch",
       "sha256": "0042ffe984615f117ff51deb474fb56b36da36ff182e94e459e20d1277b59f59",
@@ -900,6 +906,18 @@
       "class": "scratch",
       "sha256": "452aa9d38aabb29bdbcecb45bd4de6bcc9b416c9f818bf6cbe2d3a7ec3eec565",
       "size": 26986
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/872159a433b0603c9ef949f6812dbcfdd47ad205fea0d7eac201d30ea4c9b756/hero-review-response.json",
+      "class": "scratch",
+      "sha256": "b5b7490af8bcce60832ffbe4391efacf5640cfe708fd0c965bd9ec4f5162e997",
+      "size": 67180
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/872159a433b0603c9ef949f6812dbcfdd47ad205fea0d7eac201d30ea4c9b756/receipt.json",
+      "class": "scratch",
+      "sha256": "3fc0f2570eaac8e4e06ab7182113da53868af58856a644c8e7196149f93c7dfd",
+      "size": 574
     },
     {
       "path": "out/dispatch/cinema/s1-0-normal.png",
@@ -1565,12 +1583,6 @@
       "class": "scratch",
       "sha256": "6e91ce4721f9fc060b88d6597bcf974ae14b12f4bd423809affd6793e5e3db68",
       "size": 367
-    },
-    {
-      "path": "out/dispatch/credits_frame.png",
-      "class": "scratch",
-      "sha256": "80990ff022cac57faa6550b1391819478a868e90d3fb28daeec5af39bb14cc1e",
-      "size": 330457
     },
     {
       "path": "out/dispatch/critic-assignment-2.json",
@@ -2983,18 +2995,6 @@
       "size": 517991
     },
     {
-      "path": "out/dispatch/film.mp4",
-      "class": "scratch",
-      "sha256": "35331bbd2cce687d279878d41a2399fa79b2643e4206adbd7cfa84d0c3e10f59",
-      "size": 9493782
-    },
-    {
-      "path": "out/dispatch/final-contact-sheet.png",
-      "class": "scratch",
-      "sha256": "d482d99f3414a49623855395830177e5a5bed6046c627d4e47d9b094176e9788",
-      "size": 895180
-    },
-    {
       "path": "out/dispatch/final-mechanical-checks/00.log",
       "class": "scratch",
       "sha256": "e026694296949cde9544b54e18af9291a4401ddb85d225d6f74936cdaf6398bc",
@@ -3137,12 +3137,6 @@
       "class": "scratch",
       "sha256": "31af03afe41396431ec574bde4ae19cc7b3260cdc6c55ed9247bab630cc74e08",
       "size": 24322
-    },
-    {
-      "path": "out/dispatch/frame-index.json",
-      "class": "scratch",
-      "sha256": "34027650378bf8aeb8e4a4da9cb9b4a483de63c01a94e0a315784724548bc739",
-      "size": 1717
     },
     {
       "path": "out/dispatch/github-capture-activation.json",
@@ -8887,12 +8881,6 @@
       "size": 4090
     },
     {
-      "path": "out/dispatch/poster.png",
-      "class": "scratch",
-      "sha256": "5a318148de03c829e0744d7cc549126af269128028fe72d79b2ee15632b886db",
-      "size": 461102
-    },
-    {
       "path": "out/dispatch/preflight-contact-sheet.png",
       "class": "scratch",
       "sha256": "eb3629349f8fface272828b02bfd3108ba72362e59583afb3436f19bb86c68eb",
@@ -8963,18 +8951,6 @@
       "class": "scratch",
       "sha256": "fdbcb2efae22ac0bd91955eb72e2a5cb9ca588777d71d504fd0ff7438e7b787d",
       "size": 1071
-    },
-    {
-      "path": "out/dispatch/render-manifest.json",
-      "class": "scratch",
-      "sha256": "8226b57d3a40ef68ac3927936b2f349050ecfb90f38de81c84aff895d8210ffd",
-      "size": 705
-    },
-    {
-      "path": "out/dispatch/render_started",
-      "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
     },
     {
       "path": "out/dispatch/repair-plan-code.json",
@@ -11503,6 +11479,120 @@
       "size": 14208
     },
     {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/attention-review.json",
+      "class": "scratch",
+      "sha256": "f2d7c77217861f7dfd30421afb25cc8456788cca737aefa046c14213de066769",
+      "size": 23196
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/credits_frame.png",
+      "class": "scratch",
+      "sha256": "80990ff022cac57faa6550b1391819478a868e90d3fb28daeec5af39bb14cc1e",
+      "size": 330457
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/film.mp4",
+      "class": "scratch",
+      "sha256": "35331bbd2cce687d279878d41a2399fa79b2643e4206adbd7cfa84d0c3e10f59",
+      "size": 9493782
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/final-contact-sheet.png",
+      "class": "scratch",
+      "sha256": "d482d99f3414a49623855395830177e5a5bed6046c627d4e47d9b094176e9788",
+      "size": 895180
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/frame-index.json",
+      "class": "scratch",
+      "sha256": "34027650378bf8aeb8e4a4da9cb9b4a483de63c01a94e0a315784724548bc739",
+      "size": 1717
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/poster.png",
+      "class": "scratch",
+      "sha256": "5a318148de03c829e0744d7cc549126af269128028fe72d79b2ee15632b886db",
+      "size": 461102
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/render-manifest.json",
+      "class": "scratch",
+      "sha256": "8226b57d3a40ef68ac3927936b2f349050ecfb90f38de81c84aff895d8210ffd",
+      "size": 705
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/render_started",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/retention.json",
+      "class": "scratch",
+      "sha256": "51ce3180d6e7a5022920888a714b63234ad3a758c6f2122b7d8f5b63b5770b3a",
+      "size": 6671
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/scene_s1.png",
+      "class": "scratch",
+      "sha256": "738442d70288394672f35480c640ca47cc452d8bca294287e97b618dec6e8c0a",
+      "size": 564219
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/scene_s2.png",
+      "class": "scratch",
+      "sha256": "95e2327c0f4e4e2184fe10d07c45e44532d6c6a6ca4599dac1d80951d953a4d0",
+      "size": 532673
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/scene_s3.png",
+      "class": "scratch",
+      "sha256": "c0810f8d5c411ae27f3ff160f61e3b4daede67a82158b77459fc437bc37b0671",
+      "size": 614792
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/scene_s4.png",
+      "class": "scratch",
+      "sha256": "52cd95e3ec0f02ce613c07a2040f438684fc730b08c740e0669214850a4f849f",
+      "size": 444235
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/scene_s5.png",
+      "class": "scratch",
+      "sha256": "39a9a452a6beaf251b52a3e77c39bb454d515e69afbd05f8592f0549f607fe56",
+      "size": 586864
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/scene_s6.png",
+      "class": "scratch",
+      "sha256": "4a57009795584f84a04645b589ed0c4c5783818e284dac2679c0079fe2b28ca4",
+      "size": 515718
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/scene_s7.png",
+      "class": "scratch",
+      "sha256": "b8aa8f1152f9097ac9211a55d6896a322372a1d4d5e6a3dabf04106dcd4ec01f",
+      "size": 523649
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/scene_s8.png",
+      "class": "scratch",
+      "sha256": "7c823b5b71963c5aae6e35e9454df8e9294204715a6b44b46817e7a853c1a1ae",
+      "size": 408482
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/scene_s9.png",
+      "class": "scratch",
+      "sha256": "53a4d81de38e0d819d807621e51f788cf5bf7df78aa74d3e6e36fb37c5749092",
+      "size": 598343
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/full/silent.mp4",
+      "class": "scratch",
+      "sha256": "569046f95e4b27a09bf3812fec8a757877dde4b123b94446e85b2405b9ff05fd",
+      "size": 7918538
+    },
+    {
       "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/openings/capture-authorization.json",
       "class": "scratch",
       "sha256": "8128554db7e400709ab585e9464424767d6d30c2978a71d2fb0d46bfc2d3359b",
@@ -12751,60 +12841,6 @@
       "size": 0
     },
     {
-      "path": "out/dispatch/scene_s1.png",
-      "class": "scratch",
-      "sha256": "738442d70288394672f35480c640ca47cc452d8bca294287e97b618dec6e8c0a",
-      "size": 564219
-    },
-    {
-      "path": "out/dispatch/scene_s2.png",
-      "class": "scratch",
-      "sha256": "95e2327c0f4e4e2184fe10d07c45e44532d6c6a6ca4599dac1d80951d953a4d0",
-      "size": 532673
-    },
-    {
-      "path": "out/dispatch/scene_s3.png",
-      "class": "scratch",
-      "sha256": "c0810f8d5c411ae27f3ff160f61e3b4daede67a82158b77459fc437bc37b0671",
-      "size": 614792
-    },
-    {
-      "path": "out/dispatch/scene_s4.png",
-      "class": "scratch",
-      "sha256": "52cd95e3ec0f02ce613c07a2040f438684fc730b08c740e0669214850a4f849f",
-      "size": 444235
-    },
-    {
-      "path": "out/dispatch/scene_s5.png",
-      "class": "scratch",
-      "sha256": "39a9a452a6beaf251b52a3e77c39bb454d515e69afbd05f8592f0549f607fe56",
-      "size": 586864
-    },
-    {
-      "path": "out/dispatch/scene_s6.png",
-      "class": "scratch",
-      "sha256": "4a57009795584f84a04645b589ed0c4c5783818e284dac2679c0079fe2b28ca4",
-      "size": 515718
-    },
-    {
-      "path": "out/dispatch/scene_s7.png",
-      "class": "scratch",
-      "sha256": "b8aa8f1152f9097ac9211a55d6896a322372a1d4d5e6a3dabf04106dcd4ec01f",
-      "size": 523649
-    },
-    {
-      "path": "out/dispatch/scene_s8.png",
-      "class": "scratch",
-      "sha256": "7c823b5b71963c5aae6e35e9454df8e9294204715a6b44b46817e7a853c1a1ae",
-      "size": 408482
-    },
-    {
-      "path": "out/dispatch/scene_s9.png",
-      "class": "scratch",
-      "sha256": "53a4d81de38e0d819d807621e51f788cf5bf7df78aa74d3e6e36fb37c5749092",
-      "size": 598343
-    },
-    {
       "path": "out/dispatch/sfx-timed-candidate.json",
       "class": "scratch",
       "sha256": "ef53b7767a29c6bc45f29120112d326d03bc90c8a81cf7ccd1a565f41cdb5d3f",
@@ -12815,12 +12851,6 @@
       "class": "scratch",
       "sha256": "ef53b7767a29c6bc45f29120112d326d03bc90c8a81cf7ccd1a565f41cdb5d3f",
       "size": 3353
-    },
-    {
-      "path": "out/dispatch/silent.mp4",
-      "class": "scratch",
-      "sha256": "569046f95e4b27a09bf3812fec8a757877dde4b123b94446e85b2405b9ff05fd",
-      "size": 7918538
     },
     {
       "path": "out/dispatch/social-caption-draft-evidence.json",
@@ -14774,9 +14804,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 1523590797,
-    "unique_blob_bytes": 830254069,
-    "unique_blobs": 1667
+    "logical_bytes": 1523732976,
+    "unique_blob_bytes": 830328494,
+    "unique_blobs": 1670
   },
   "excluded": [
     {
