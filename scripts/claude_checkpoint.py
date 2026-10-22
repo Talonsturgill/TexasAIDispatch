@@ -76,7 +76,7 @@ MAX_FILE = 95 * 1024 * 1024          # GitHub rejects a blob over 100 MiB; fail 
 # A finished native edition carries the exact film, its hero proof and the complete exact-film motion
 # image sequence as required evidence (a restore would otherwise repurchase the charged extraction).
 # That reached 969 MB on 2026-10-15 and refused the save, stopping paid review work. Git stores each
-# blob once, so a larger total does not grow every save.
+# blob once. Bound distinct stored bytes, retaining every logical evidence path.
 MAX_TOTAL = 1280 * 1024 * 1024
 
 
@@ -424,6 +424,12 @@ def authorization_problems(old_files, new_files):
     return errors
 
 
+def storage_accounting(files):
+    unique = {(row['sha256'], row['size']) for row in files}
+    return {'logical_bytes': sum(row['size'] for row in files),
+            'unique_blob_bytes': sum(size for _, size in unique), 'unique_blobs': len(unique)}
+
+
 def build_bundle(repo, state_path, note, environ=None):
     environ = os.environ if environ is None else environ
     repo = Path(repo)
@@ -442,14 +448,15 @@ def build_bundle(repo, state_path, note, environ=None):
         bad.append("ledger")
     if bad:
         raise CheckpointError("checkpoint refused: credential-shaped content in " + ", ".join(bad))
-    total = sum(len(v) for v in stored.values())
+    files = [{"path": rel, "class": chosen[rel], "sha256": sha256(data), "size": len(data)}
+             for rel, data in sorted(stored.items())]
+    storage = storage_accounting(files)
+    total = storage['unique_blob_bytes']
     if total > MAX_TOTAL:
-        raise RetentionError("required evidence totals %d bytes, over the %d byte limit" % (total, MAX_TOTAL))
+        raise RetentionError("required distinct evidence totals %d bytes, over the %d byte limit" % (total, MAX_TOTAL))
     pin = git(repo, "rev-parse", "HEAD").stdout.decode().strip()
     closure = git(repo, "ls-tree", "-r", pin, "--", "video-engine").stdout
     branch = git(repo, "branch", "--show-current", check=False).stdout.decode().strip()
-    files = [{"path": rel, "class": chosen[rel], "sha256": sha256(data), "size": len(data)}
-             for rel, data in sorted(stored.items())]
     manifest = {"schema": SCHEMA, "run_id": run_id, "saved_at": now(), "note": note, "phase": state.get("phase"),
                 "terminal_state": state.get("terminal_state"), "shipment_recorded": bool(state.get("shipment")),
                 "created_at": state.get("created_at"), "repo_root": str(repo), "source_pin": pin, "source_branch": branch or None,
@@ -457,7 +464,8 @@ def build_bundle(repo, state_path, note, environ=None):
                 "deleted_source": deleted, "ledger_sha256": sha256(ledger.encode()),
                 "original_private_ledger_sha256": ledger_obj["public_export"]["original_private_state_sha256"],
                 "grant_origin_roots": grant_origin_roots,
-                "usage": state.get("usage"), "files": files, "excluded": excluded, "regenerable": regenerable,
+                "usage": state.get("usage"), "files": files, "storage_accounting": storage,
+                "excluded": excluded, "regenerable": regenerable,
                 "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."}
     return run_id, manifest, ledger, stored, ledger_obj
 
@@ -549,6 +557,7 @@ def save(repo=REPO, state_path=None, note="manual", remote="origin", environ=Non
     git(repo, "update-ref", f"refs/heads/{BRANCH}{run_id}", commit)
     return {"run_id": run_id, "commit": commit, "changed": changed, "files": len(manifest["files"]),
             "bytes": sum(f["size"] for f in manifest["files"]), "phase": manifest["phase"],
+            "unique_blob_bytes": manifest['storage_accounting']['unique_blob_bytes'],
             "excluded": len(manifest["excluded"]), "source_pin": manifest["source_pin"]}
 
 
@@ -730,6 +739,9 @@ def verify_checkpoint(repo, commit, run_id):
                 raise CheckpointError("checkpoint file differs from its manifest: " + rel)
             if 'size' in row and (type(row['size']) is not int or size != row['size']):
                 raise CheckpointError('checkpoint file size differs from its manifest: ' + rel)
+        if ('storage_accounting' in manifest
+                and manifest['storage_accounting'] != storage_accounting(manifest['files'])):
+            raise CheckpointError('checkpoint storage accounting differs from its verified files')
     return manifest, ledger
 
 
@@ -808,10 +820,11 @@ def restored_audit(destination):
     code = ('from pathlib import Path; import json,sys; '
             'sys.path.insert(0,str(Path.cwd()/"scripts")); '
             'from production_lifecycle import allowance_problems; '
-            'from run_controller import deliverable_problems,read_state; '
+            'from run_controller import restored_deliverable_problems,read_state; '
             'state=read_state(Path("out/dispatch/run_state.json")); '
             'errors=allowance_problems(state); '
-            'errors+=deliverable_problems(state) if state.get("deliverable") else []; '
+            'errors+=restored_deliverable_problems(state,Path("out/dispatch/run_state.json")) '
+            'if state.get("deliverable") and not errors else []; '
             'print(json.dumps(errors))')
     result = subprocess.run([sys.executable,'-c',code],cwd=destination,
                             capture_output=True,text=True,timeout=300)
