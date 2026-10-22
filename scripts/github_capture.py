@@ -239,6 +239,10 @@ def stage(repo, request_oid, expected_sha, destination):
     errors = context_problems(request, os.environ)
     if errors:
         raise ValueError('; '.join(errors))
+    if ck.git(repo,'rev-parse','HEAD').stdout.decode().strip() != request['source_commit']:
+        raise ValueError('staging checkout differs from immutable request helper source')
+    if ck.git(repo,'diff','--quiet','HEAD','--','scripts',check=False).returncode:
+        raise ValueError('staging helper source has uncommitted changes')
     if ck.remote_tip(repo, request['run_id'], 'origin') != request['checkpoint_oid']:
         raise ValueError('checkpoint advanced before the single-use capture claim; create a fresh request')
     manifest, raw = ck.verify_checkpoint(repo, request['checkpoint_oid'], request['run_id'])
@@ -255,10 +259,10 @@ def stage(repo, request_oid, expected_sha, destination):
              'github_run_id': os.environ['GITHUB_RUN_ID'], 'github_actor': os.environ['GITHUB_ACTOR']}
     commit = commit_record(repo, 'claim.json', claim, 'Claim one delegated render')
     claim_once(repo, 'refs/heads/codex/capture-claims/'+request['run_id']+'/'+request['reservation_event_sha256'], commit)
-    ck.restore(repo, request['run_id'], dest=destination)
+    ck.restore(repo, request['run_id'], dest=destination,helper_source=repo/'scripts')
     # The immutable request source supplies current gate helpers, while restore keeps
     # the recorded renderer/art/source closure and every original checkpoint byte.
-    shutil.copytree(repo/'scripts', destination/'scripts', dirs_exist_ok=True)
+    # restore installed this exact helper source before its isolated audit.
     activation = destination/'out/dispatch/github-capture-activation.json'
     activation.write_text(json.dumps({**claim, 'claim_commit': commit}, indent=2)+'\n')
     return {'destination': str(destination), 'activation': str(activation), 'request': request}

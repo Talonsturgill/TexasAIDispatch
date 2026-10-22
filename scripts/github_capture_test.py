@@ -195,6 +195,48 @@ class CaptureTest(unittest.TestCase):
                 capture.stage(Path('/unit'),'a'*40,'2'*64,Path('/new'))
             restore.assert_not_called();claim.assert_not_called()
 
+    def test_failed_isolated_restore_audit_cannot_activate_or_execute_operator(self):
+        import publication_owner
+        request={**self.request(),'run_id':'unit-run','checkpoint_oid':'b'*40,
+                 'ledger_sha256':'c'*64,'owner_sha256':'d'*64,'epoch':'e'*32,
+                 'reservation_event_sha256':'f'*64}
+        owner={k:request[k] for k in ('run_id','owner_sha256','epoch')}
+        owner.update(runtime='codex',status='held',expires_at='2099-01-01T00:00:00+00:00')
+        with tempfile.TemporaryDirectory() as tmp:
+            repo=Path(tmp).resolve()/'source';repo.mkdir(); destination=repo.parent/'restored'
+            def git(*args,**kwargs):
+                return subprocess.CompletedProcess([],0,('a'*40).encode() if args[1:3]==('rev-parse','HEAD') else b'',b'')
+            with patch.object(capture,'request_at',return_value=(request,'1'*64)), \
+                    patch.object(capture,'context_problems',return_value=[]), \
+                    patch.object(capture.ck,'git',side_effect=git), \
+                    patch.object(capture.ck,'remote_tip',return_value=request['checkpoint_oid']), \
+                    patch.object(capture.ck,'verify_checkpoint',return_value=({'ledger_sha256':'c'*64},b'{}')), \
+                    patch.object(capture,'prepaid'),patch.object(publication_owner,'read_remote',return_value=owner), \
+                    patch.object(capture,'commit_record',return_value='2'*40),patch.object(capture,'claim_once') as claim, \
+                    patch.dict(capture.os.environ,{'GITHUB_RUN_ID':'123','GITHUB_ACTOR':'unit'}), \
+                    patch.object(capture.ck,'restore',side_effect=capture.ck.CheckpointError('unit actual audit failed')) as restore, \
+                    patch.object(capture,'perform_capture') as operator:
+                with self.assertRaisesRegex(capture.ck.CheckpointError,'actual audit failed'):
+                    capture.stage(repo,'3'*40,'1'*64,destination)
+                restore.assert_called_once_with(repo,'unit-run',dest=destination,helper_source=repo/'scripts')
+                claim.assert_called_once();operator.assert_not_called()
+                self.assertFalse((destination/'out/dispatch/github-capture-activation.json').exists())
+
+    def test_foreign_or_dirty_helper_source_refuses_before_claim(self):
+        for head,dirty in [('b'*40,False),('a'*40,True)]:
+            def git(*args,**kwargs):
+                if args[1:3]==('rev-parse','HEAD'):
+                    return subprocess.CompletedProcess([],0,head.encode(),b'')
+                return subprocess.CompletedProcess([],int(dirty),b'',b'')
+            with self.subTest(head=head,dirty=dirty), \
+                    patch.object(capture,'request_at',return_value=(self.request(),'1'*64)), \
+                    patch.object(capture,'context_problems',return_value=[]), \
+                    patch.object(capture.ck,'git',side_effect=git), \
+                    patch.object(capture,'claim_once') as claim,patch.object(capture.ck,'restore') as restore:
+                with self.assertRaisesRegex(ValueError,'helper source'):
+                    capture.stage(Path('/unit'),'a'*40,'1'*64,Path('/new'))
+                claim.assert_not_called();restore.assert_not_called()
+
     def test_unpinned_request_rejected(self):
         with self.assertRaisesRegex(ValueError,'immutable commit'):
             capture.request_at('/unit','main')

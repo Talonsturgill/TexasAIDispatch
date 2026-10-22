@@ -795,7 +795,33 @@ def original_destination(repo, manifest, workspace):
     return dest
 
 
-def restore(repo=REPO, run_id=None, remote="origin", dest=None, *, origin_workspace=None):
+def restored_audit(destination):
+    """Run existing gates with the restored checkout as their real module root.
+
+    A caller importing gates from its own clean source checkout cannot supply the
+    restored authored modules merely by passing repo to the outermost gate.
+    Nested gates use their own __file__ roots, so isolate the whole import graph.
+    """
+    destination = Path(destination).resolve()
+    code = ('from pathlib import Path; import json,sys; '
+            'sys.path.insert(0,str(Path.cwd()/"scripts")); '
+            'from production_lifecycle import allowance_problems; '
+            'from run_controller import deliverable_problems,read_state; '
+            'state=read_state(Path("out/dispatch/run_state.json")); '
+            'errors=allowance_problems(state); '
+            'errors+=deliverable_problems(state,repo=Path.cwd()) if state.get("deliverable") else []; '
+            'print(json.dumps(errors))')
+    result = subprocess.run([sys.executable,'-c',code],cwd=destination,
+                            capture_output=True,text=True,timeout=300)
+    if result.returncode:
+        raise CheckpointError('restored isolated audit could not run: '+result.stderr[-1500:])
+    errors = json.loads(result.stdout)
+    if not isinstance(errors,list) or not all(isinstance(error,str) for error in errors):
+        raise CheckpointError('restored isolated audit did not return its actual gate findings')
+    return errors
+
+
+def restore(repo=REPO, run_id=None, remote="origin", dest=None, *, origin_workspace=None, helper_source=None):
     """Rebuild an unfinished edition in a NEW isolated checkout of its recorded source pin."""
     repo = Path(repo)
     tip = remote_tip(repo, run_id, remote)
@@ -842,12 +868,22 @@ def restore(repo=REPO, run_id=None, remote="origin", dest=None, *, origin_worksp
         for index, grant in enumerate(source_ledger.get('events', [])) if grant.get('kind') in GRANT_KINDS]
     (dest / GRANT_ROOTS_FILE).write_text(json.dumps({'schema': 1, 'entries': origins}, indent=2) + '\n')
     (state_path.parent / "claude-host.json").write_text(json.dumps({"run_id": run_id, "restored_from": tip, "at": now()}) + "\n")
-    from production_lifecycle import allowance_problems
-    from run_controller import deliverable_problems, read_state
-    state = read_state(state_path)
-    problems = allowance_problems(state)
-    if state.get("deliverable"):
-        problems += deliverable_problems(state, repo=dest)
+    if helper_source is not None:
+        # The compute caller has already verified its immutable request source.
+        # Install that same helper closure before any nested audit imports it.
+        helper_source = Path(helper_source).resolve()
+        if helper_source == (dest/'scripts').resolve() or not (helper_source/'run_controller.py').is_file():
+            raise CheckpointError('delegated audit needs the separate immutable helper source')
+        shutil.copytree(helper_source,dest/'scripts',dirs_exist_ok=True)
+        problems = restored_audit(dest)
+        state = json.loads(state_path.read_text())
+    else:
+        from production_lifecycle import allowance_problems
+        from run_controller import deliverable_problems, read_state
+        state = read_state(state_path)
+        problems = allowance_problems(state)
+        if state.get("deliverable"):
+            problems += deliverable_problems(state, repo=dest)
     if problems:
         raise CheckpointError("restored edition fails its audit: " + "; ".join(problems))
     return {"run_id": run_id, "checkpoint": tip, "dest": str(dest), "phase": manifest["phase"], "source_pin": pin,

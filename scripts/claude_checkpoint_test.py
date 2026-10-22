@@ -97,6 +97,8 @@ class PublicImageCheckpointTest(unittest.TestCase):
     def test_unbound_or_changed_coverage_keeps_strict_scan(self):
         events,coverage=self.bind(); coverage.unlink()
         self.assertEqual(self.scan(events),[self.rel])
+
+
         events,coverage=self.bind(); proof=json.loads(coverage.read_text())
         proof['public_events']['sha256']='0'*64; coverage.write_text(json.dumps(proof))
         self.assertEqual(self.scan(events),[self.rel])
@@ -133,6 +135,41 @@ class PublicImageCheckpointTest(unittest.TestCase):
             paths.path(self.root.parent/'outside.json')
         guide=self.root/'guide.md'; guide.unlink(); guide.symlink_to('/etc/hosts')
         self.assertEqual(self.scan(events),[self.rel])
+
+
+class RestoredAuditTest(unittest.TestCase):
+    """Exercise real nested authored-byte checks in a fresh relocated import graph."""
+    def test_scoped_authored_receipts_survive_removed_origin_and_refuse_stale_or_escape(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            origin=Path(tmp).resolve()/'original';scripts=origin/'scripts';scripts.mkdir(parents=True)
+            shutil.copyfile(SCRIPTS/'render_manifest.py',scripts/'render_manifest.py')
+            (scripts/'production_lifecycle.py').write_text('def allowance_problems(state): return []\n')
+            (scripts/'run_controller.py').write_text(
+                'import json\nimport render_manifest as nested\n'
+                'def read_state(path): return json.loads(path.read_text())\n'
+                'def deliverable_problems(state,repo=None):\n'
+                '    try: nested.authored_media_paths(state["board"],nested.REPO); return []\n'
+                '    except (ValueError,OSError) as exc: return [str(exc)]\n')
+            entries=[]
+            for name in ('Hero','Support'):
+                relative='video-engine/src/'+name+'.tsx'; path=origin/relative
+                path.parent.mkdir(parents=True,exist_ok=True);path.write_text('unit authored '+name)
+                entries.append({'file':relative,'request_id':name,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
+            board={'story_art':{'entries':entries},'native_media':[
+                {**row,'basis':'Unit authored source receipt preserves exact byte identity across hosts.'} for row in entries]}
+            package=origin/'out/dispatch';package.mkdir(parents=True)
+            state=package/'run_state.json';state.write_text(json.dumps({'deliverable':True,'board':board}))
+            original=state.read_bytes()
+            self.assertEqual(ck.restored_audit(origin),[])
+            restored=origin.with_name('restored');shutil.copytree(origin,restored);shutil.rmtree(origin)
+            self.assertEqual(ck.restored_audit(restored),[])
+            self.assertEqual((restored/'out/dispatch/run_state.json').read_bytes(),original)
+            path=restored/entries[0]['file'];prior=path.read_bytes();path.write_bytes(prior+b'changed')
+            self.assertTrue(any('source bytes changed' in e for e in ck.restored_audit(restored)))
+            path.write_bytes(prior)
+            outside=restored.parent/'outside.tsx';outside.write_bytes(prior)
+            path.unlink();path.symlink_to(outside)
+            self.assertTrue(any('outside' in e for e in ck.restored_audit(restored)))
 
 
 def sh(*args, cwd=None):
