@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T02:30:10.403958+00:00",
-  "note": "Codex fifth and final timed-phone reviewer launched; unchanged exact film, source fb9092de0; no Claude calls",
+  "saved_at": "2026-10-22T03:07:22.213521+00:00",
+  "note": "recover",
   "phase": "audio",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
   "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
-  "source_pin": "fb9092de0ca2fac4fb7cdff1bc06948c74bba4e7",
+  "source_pin": "d165c2c00d4f1b2f7f76bf3c3985fae897b68548",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
     "root": "video-engine",
@@ -192,6 +192,12 @@
       "class": "scratch",
       "sha256": "f439d5026c5d0509c274307bc47a94bdfb44bb94f3e9768c30223a15cf33770b",
       "size": 326530
+    },
+    {
+      "path": "out/dispatch/attempt1/checkpoint-unbacked-before-png-fix.json",
+      "class": "scratch",
+      "sha256": "1043c1fa7e074163f5f9028504ae60c0ea2e30d9db5791eb570755226615339a",
+      "size": 219
     },
     {
       "path": "out/dispatch/attempt1/code-critic-round1-response.txt",
@@ -380,6 +386,12 @@
       "size": 3346
     },
     {
+      "path": "out/dispatch/attempt1/silent-phone-critic-before-codex-final.json",
+      "class": "scratch",
+      "sha256": "08b4b02058545a30f45ca2881bc596e0b0ef9f725c709c8e4321b3eaebfc371a",
+      "size": 16497
+    },
+    {
       "path": "out/dispatch/attempt1/storyboard-after-captions-before-exclusive-shots.json",
       "class": "scratch",
       "sha256": "b9d79bbfa144be4f4eba449d7d6560b956e9603f68db9ef21bb9d94e6a1b0de2",
@@ -554,6 +566,12 @@
       "size": 19006
     },
     {
+      "path": "out/dispatch/capture-authorization-history/7e8dd9027ffc6acea9ac3bdaf9428879224bc8395ab54792a62c9f46325bbe34.json",
+      "class": "scratch",
+      "sha256": "7e8dd9027ffc6acea9ac3bdaf9428879224bc8395ab54792a62c9f46325bbe34",
+      "size": 19030
+    },
+    {
       "path": "out/dispatch/capture-authorization-history/bd1107d6e59b1f44de0643689a25285a0d21fb18633e0709938ae90e558c4c59.json",
       "class": "scratch",
       "sha256": "bd1107d6e59b1f44de0643689a25285a0d21fb18633e0709938ae90e558c4c59",
@@ -618,6 +636,12 @@
       "class": "scratch",
       "sha256": "3d6bfed6b37988fda71bfe2cc963a4025594391eb7ed45a74d28e3214d5c9627",
       "size": 1055
+    },
+    {
+      "path": "out/dispatch/checkpoint-unbacked.json",
+      "class": "scratch",
+      "sha256": "1043c1fa7e074163f5f9028504ae60c0ea2e30d9db5791eb570755226615339a",
+      "size": 219
     },
     {
       "path": "out/dispatch/claims.json",
@@ -726,6 +750,24 @@
       "class": "scratch",
       "sha256": "6f34d1a577dc841485083523d6c0b6d6170a7c31da1079b5d7a336453b24a363",
       "size": 2682
+    },
+    {
+      "path": "out/dispatch/final-phone-native-evidence/codex-image-coverage.json",
+      "class": "scratch",
+      "sha256": "b244507de6978be3d923a9e1f141630548ba02f8b33dcc478a2fa06ed7fc1373",
+      "size": 43903
+    },
+    {
+      "path": "out/dispatch/final-phone-native-evidence/codex-public-image-events.json",
+      "class": "scratch",
+      "sha256": "8f238ed8fb9cfee2e86a2f06aa2d94775fccd0249788b9f36892c5cec7bfe376",
+      "size": 55679053
+    },
+    {
+      "path": "out/dispatch/final-phone-native-evidence/original-reviewer-handback.json",
+      "class": "scratch",
+      "sha256": "31af03afe41396431ec574bde4ae19cc7b3260cdc6c55ed9247bab630cc74e08",
+      "size": 24322
     },
     {
       "path": "out/dispatch/github-capture-activation.json",
@@ -2862,6 +2904,12 @@
       "class": "scratch",
       "sha256": "e591ff5a51d6a46aa11135428fdb0acd55a499ecfff5112c34f765875f8cc553",
       "size": 19537
+    },
+    {
+      "path": "out/dispatch/phone-critic-current.json",
+      "class": "scratch",
+      "sha256": "31af03afe41396431ec574bde4ae19cc7b3260cdc6c55ed9247bab630cc74e08",
+      "size": 24322
     },
     {
       "path": "out/dispatch/phone-critic-packet.json",
@@ -5074,8 +5122,8 @@
     {
       "path": "out/dispatch/storyboard_critic.json",
       "class": "scratch",
-      "sha256": "08b4b02058545a30f45ca2881bc596e0b0ef9f725c709c8e4321b3eaebfc371a",
-      "size": 16497
+      "sha256": "31af03afe41396431ec574bde4ae19cc7b3260cdc6c55ed9247bab630cc74e08",
+      "size": 24322
     },
     {
       "path": "out/dispatch/takes/prompt.txt",
@@ -6825,6 +6873,42 @@
     }
   ],
   "excluded": [
+    {
+      "path": "out/dispatch/delivery-prep-copy.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-draft.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-http.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-ordinance.private.pdf",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography-ordinance.private.txt",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-geography.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-next-actions.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-next-commands.private.md",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/delivery-prep-readiness.private.json",
+      "reason": "private path component"
+    },
     {
       "path": "out/dispatch/delivery-routing.private.json",
       "reason": "private path component"
