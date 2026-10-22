@@ -15,6 +15,72 @@ import repair_guard
 import critic_gate
 
 
+class PrimaryClauseDeadlineTest(unittest.TestCase):
+    """Replay the actual crossed deadline without editing a frozen production run."""
+    def setUp(self):
+        # Timing subset of board ebfe42e9f8a062061a576c2c22f1cf493e8aee0d8e526194b0adfaa2a91c8f3c.
+        # This is engineering input, not a new film observation or approval.
+        self.board = {'date': '2026-10-22', 'narration_picture': {
+            'timing_mode': 'measured_caption_boundaries', 'clauses': [
+                {'id': 'n3c', 'scene_id': 's3', 'start_s': 17.48, 'end_s': 19.7,
+                 'event_ids': ['s3-event-3']},
+                {'id': 'n3d', 'scene_id': 's3', 'start_s': 19.98, 'end_s': 21.56,
+                 'event_ids': ['s3-event-3']}]},
+            'scenes': [{'id': 's3', 'start_s': 12.17, 'visual_events': [
+                {'id': 's3-event-3', 'narration_id': 'n3c', 'at_s': 6.9768,
+                 'duration_s': 1.2, 'clause_fraction_start': 0,
+                 'clause_fraction_end': 1}]}]}
+
+    def test_retained_actual_action_crosses_primary_deadline(self):
+        before = copy.deepcopy(self.board)
+        self.assertIn('s3-event-3: complete action leaves its primary narration clause',
+                      modern.narration_event_problems(self.board))
+        self.assertEqual(before, self.board)
+
+    def test_later_reference_cannot_extend_the_primary_deadline(self):
+        self.board['narration_picture']['clauses'][1]['end_s'] = 40
+        self.assertTrue(any('primary narration clause' in e
+                            for e in modern.narration_event_problems(self.board)))
+
+    def test_completed_action_can_be_retained_by_a_later_clause(self):
+        self.board['scenes'][0]['visual_events'][0]['at_s'] = 5.43  # 17.6 to 18.8
+        self.assertEqual([], modern.narration_event_problems(self.board))
+
+    def test_unreferenced_silent_action_has_no_spoken_deadline(self):
+        self.board['scenes'][0]['visual_events'][0]['at_s'] = 5.43
+        self.board['scenes'][0]['visual_events'].append(
+            {'id': 'silent-settle', 'at_s': 9.5, 'duration_s': .6})
+        self.assertEqual([], modern.narration_event_problems(self.board))
+
+    def test_reference_cannot_hold_a_consequence_before_completion(self):
+        self.board['scenes'][0]['visual_events'][0]['at_s'] = 5.43
+        self.board['narration_picture']['clauses'][1]['start_s'] = 18
+        self.assertTrue(any('completed retained consequence' in e
+                            for e in modern.narration_event_problems(self.board)))
+
+    def test_missing_reciprocal_and_cross_scene_ownership_fail(self):
+        for changes in ({'event_ids': []}, {'scene_id': 'another-scene'}):
+            board = copy.deepcopy(self.board)
+            board['narration_picture']['clauses'][0].update(changes)
+            self.assertTrue(any('reciprocal primary' in e
+                                for e in modern.narration_event_problems(board)))
+
+    def test_authored_fraction_cannot_borrow_the_next_clause(self):
+        self.board['scenes'][0]['visual_events'][0]['at_s'] = 5.43
+        self.board['narration_picture']['timing_mode'] = 'authored'
+        for lo, hi in ((-.1, .5), (.1, 1.1), (.5, .5), (0, float('nan'))):
+            event = self.board['scenes'][0]['visual_events'][0]
+            event.update(clause_fraction_start=lo, clause_fraction_end=hi)
+            self.assertTrue(any('authored action fractions' in e
+                                for e in modern.narration_event_problems(self.board)))
+
+    def test_historical_frozen_board_is_not_reinterpreted(self):
+        self.board['date'] = '2026-10-21'
+        before = copy.deepcopy(self.board)
+        self.assertEqual([], modern.narration_event_problems(self.board))
+        self.assertEqual(before, self.board)
+
+
 class NarrationPictureTest(unittest.TestCase):
     """Replay absent analysis, early cutaway and wrong-condition failures offline."""
     def setUp(self):
@@ -52,6 +118,12 @@ class NarrationPictureTest(unittest.TestCase):
     def test_complete_measured_contract_and_idempotent_compilation(self):
         self.assertEqual([],self.errors());before=copy.deepcopy(self.board)
         modern.compile_narration(self.board,self.captions,self.words);self.assertEqual(before,self.board)
+
+    def test_current_narration_gate_rejects_action_after_its_primary_clause(self):
+        self.board['date'] = '2026-10-22'
+        self.assertEqual([], self.errors())
+        self.board['scenes'][0]['visual_events'][0]['at_s'] = 2.4
+        self.assertTrue(any('complete action leaves its primary' in e for e in self.errors()))
 
     def test_explicit_restored_registry_overrides_the_launching_registry(self):
         target = self.root / 'restored'; (target / 'config').mkdir(parents=True)

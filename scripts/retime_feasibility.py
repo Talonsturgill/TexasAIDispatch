@@ -17,9 +17,9 @@ def problems(board):
     No input is changed and no synthetic word or acoustic evidence is constructed.
     """
     plan = board.get('narration_picture') or {}
+    errors = modern_film.narration_event_problems(board)
     if plan.get('timing_mode') != 'authored':
-        return []
-    errors = []
+        return errors
     clauses = plan.get('clauses') or []
     shots = (board.get('film_direction') or {}).get('shots') or []
     if not clauses or not shots:

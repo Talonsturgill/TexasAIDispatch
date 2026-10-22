@@ -76,6 +76,20 @@ class FeasibilityTest(unittest.TestCase):
         board['film_direction']['shots'][0]['narration_ids'] = ['n1', 'n2']
         self.assertEqual(gate.problems(board), [])
 
+    def test_future_authored_and_measured_checks_share_primary_deadlines(self):
+        board = valid()
+        board['date'] = '2026-10-22'
+        clauses = board['narration_picture']['clauses']
+        clauses[0]['event_ids'] = ['e1', 'e2']
+        clauses[1]['event_ids'] = ['e1', 'e3']  # retain e1 after its completion
+        self.assertEqual([], gate.problems(board))
+        for mode in ('authored', 'measured_caption_boundaries'):
+            late = copy.deepcopy(board)
+            late['narration_picture']['timing_mode'] = mode
+            late['scenes'][0]['visual_events'][0]['at_s'] = 2.3
+            self.assertTrue(any('complete action leaves its primary' in e
+                                for e in gate.problems(late)))
+
     def test_empty_authored_plan_is_not_feasible(self):
         self.assertTrue(gate.problems({'narration_picture': {'timing_mode': 'authored'}}))
 
