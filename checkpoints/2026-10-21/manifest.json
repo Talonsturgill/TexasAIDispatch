@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T02:08:02.467515+00:00",
-  "note": "delegated GitHub native capture result",
+  "saved_at": "2026-10-22T02:10:29.794164+00:00",
+  "note": "before paid reservation",
   "phase": "audio",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
-  "repo_root": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch",
-  "source_pin": "3ef6499334e5cca192f56ac561a7df4c0a633e45",
+  "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
+  "source_pin": "efbc6c90c39f8d3f7eef131d13a501be064ac843",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "e161e2e553e4c04c6edcd2d995828e829193dcc1bde8086cd4e301046082dfb0"
   },
   "deleted_source": [],
-  "ledger_sha256": "a2c97ea2cdd99b190321b61c756108ad41ddedd88db94cba98b6bbc2c60f86fd",
-  "original_private_ledger_sha256": "449df1160d8ef9be00bcce6535e80f2a74cb8d0f679ee3d60e921d8c389addca",
+  "ledger_sha256": "edb9a7c1c598beaa9cb43f6783bc02c2cf9ae78b6c336059e24907a4291f1200",
+  "original_private_ledger_sha256": "7906d49f40ceb826318c48a7b8274eaafef56ae8da536fa5d9e8308e487e7ed8",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -536,6 +536,12 @@
       "size": 5026
     },
     {
+      "path": "out/dispatch/capture-authorization-history/17ed2e8a56a43f1c3d68c0f15e97da4455768f098f640b4724aae657cdd4a95a.json",
+      "class": "scratch",
+      "sha256": "17ed2e8a56a43f1c3d68c0f15e97da4455768f098f640b4724aae657cdd4a95a",
+      "size": 18875
+    },
+    {
       "path": "out/dispatch/capture-authorization-history/1b165c194a1e7882652d3a995e03af769e6d5ca20d631db8eb081b5d61af9983.json",
       "class": "scratch",
       "sha256": "1b165c194a1e7882652d3a995e03af769e6d5ca20d631db8eb081b5d61af9983",
@@ -704,16 +710,64 @@
       "size": 283
     },
     {
+      "path": "out/dispatch/github-capture-import-baseline/ae1054ba9c007c06b6ad4e93d4eda88618d4545076dadab61dec984f3969e837",
+      "class": "scratch",
+      "sha256": "ae1054ba9c007c06b6ad4e93d4eda88618d4545076dadab61dec984f3969e837",
+      "size": 599
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/bd1107d6e59b1f44de0643689a25285a0d21fb18633e0709938ae90e558c4c59",
+      "class": "scratch",
+      "sha256": "bd1107d6e59b1f44de0643689a25285a0d21fb18633e0709938ae90e558c4c59",
+      "size": 18838
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/f439d5026c5d0509c274307bc47a94bdfb44bb94f3e9768c30223a15cf33770b",
+      "class": "scratch",
+      "sha256": "f439d5026c5d0509c274307bc47a94bdfb44bb94f3e9768c30223a15cf33770b",
+      "size": 326530
+    },
+    {
+      "path": "out/dispatch/github-capture-import-baseline/fde5f7cdf91b5a12af1c4e1de6940caeb37577a23fd2ed0234f180b9b4a8a1df",
+      "class": "scratch",
+      "sha256": "fde5f7cdf91b5a12af1c4e1de6940caeb37577a23fd2ed0234f180b9b4a8a1df",
+      "size": 128
+    },
+    {
       "path": "out/dispatch/github-capture-result.json",
       "class": "scratch",
       "sha256": "e7352f86b70aec20542c4b78001954584641f2862cf002a11f308a928273cddc",
       "size": 529
     },
     {
+      "path": "out/dispatch/github-capture-results/39709189538/dispatch/preflight.mp4",
+      "class": "scratch",
+      "sha256": "8a3eb9e89cc3b19c6bbc0742579b83249da7c33bf8bc774e9b109b831fa5a397",
+      "size": 314183
+    },
+    {
+      "path": "out/dispatch/github-capture-results/39709189538/github-capture-public-result.json",
+      "class": "scratch",
+      "sha256": "611a3fa3e4863b8903947652746b603998aeabe6c2a1f5ad959fe097b3acace1",
+      "size": 593
+    },
+    {
       "path": "out/dispatch/github-native-headroom.json",
       "class": "scratch",
       "sha256": "c505c30de951b723d99a7581098d7ffb08eb351b1529f78bddf4f646b1c4614a",
       "size": 308
+    },
+    {
+      "path": "out/dispatch/github-request-preflight-v2.json",
+      "class": "scratch",
+      "sha256": "5a7399b6c5490a896c6f1746303b9af8932a8c4cd33a6769d192618031183fa1",
+      "size": 977
+    },
+    {
+      "path": "out/dispatch/github-request-preflight.json",
+      "class": "scratch",
+      "sha256": "3c9c1bace110f176beba6c0313dbfbb19e9a9860c26b7720db9aceb0c9ea40d9",
+      "size": 977
     },
     {
       "path": "out/dispatch/image-tool-delivery/06325a1ef6043e793b4ccacc719bc4d9cf80cfbece63233a1bcd14340b944f66.json",
@@ -4400,6 +4454,18 @@
       "size": 3352
     },
     {
+      "path": "out/dispatch/social-caption-draft-evidence.json",
+      "class": "scratch",
+      "sha256": "225fb7ad6a8e00c8fc40f0b42afdf01b6b8dc0bc11dbf24e59de109d00b74d7e",
+      "size": 244
+    },
+    {
+      "path": "out/dispatch/social-caption-draft.txt",
+      "class": "scratch",
+      "sha256": "a52fe9501a7da9b90edbc53293fc1cfdfb8210b049031aa326732df302003e3f",
+      "size": 538
+    },
+    {
       "path": "out/dispatch/sources/aphis.html",
       "class": "scratch",
       "sha256": "3c08b6ebcdb37be2163bb7ac4b3edae7e275c9e5194ba1de5d61b9f178cb8da7",
@@ -6279,6 +6345,10 @@
     }
   ],
   "excluded": [
+    {
+      "path": "out/dispatch/delivery-routing.private.json",
+      "reason": "private path component"
+    },
     {
       "path": "out/dispatch/grant-projection-roots.private.json",
       "reason": "private path component"
