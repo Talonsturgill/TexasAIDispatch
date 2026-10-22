@@ -425,20 +425,20 @@ class RuntimeTests(unittest.TestCase):
             result = runtime.plan('picture', packet, 'picture', 'Review the exact final film.')
             self.assertEqual('claude-sonnet-5-5', result['assignment']['model'])
 
-    def planned_boards(self):
+    def planned_boards(self, edition='2026-10-09'):
         requests = []
         for role in ('hero', 'support'):
             requests.append({'id': role, 'role': role,
-                'file': 'video-engine/src/modern/episodes/2026-10-09-claude-pilot/' + role + '.tsx',
+                'file': 'video-engine/src/modern/episodes/' + edition + '-claude-pilot/' + role + '.tsx',
                 'export': role.title() + 'Rig', 'prompt': ' '.join(['finished'] * 32),
                 'purpose': 'A fresh recognizable subject performs the current action.',
                 'source_limit': 'Illustration of the sourced mechanism; no invented result.',
                 'scene_ids': ['s1'], 'action_uses': [{'scene_id': 's1', 'event_id': 'e1',
                     'view': 'wide', 'action_id': 'move', 'subject_ids': [role]}]})
-        board = {'date': '2026-10-09', 'scenes': [{'id': 's1', 'visual_events': [{'id': 'e1'}]}],
+        board = {'date': edition, 'scenes': [{'id': 's1', 'visual_events': [{'id': 'e1'}]}],
                  'film_direction': {'episode': 'new-pilot', 'variant': 'a', 'shots': [{'scene_id': 's1', 'view': 'wide'}]},
                  'story_art': {'version': 'authored-story-art-v1', 'runtime': 'claude-sonnet-v1',
-                    'edition_id': '2026-10-09-claude-pilot', 'requests': requests}}
+                    'edition_id': edition + '-claude-pilot', 'requests': requests}}
         for variant in ('a', 'b'):
             board['film_direction']['variant'] = variant
             (self.root / ('opening-' + variant + '.json')).write_text(json.dumps(board))
@@ -455,6 +455,27 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual('scene-builder', result['agent_args']['subagent_type'])
         self.assertEqual('claude-opus-5-5', result['assignment']['model'])
         self.assertEqual('high', result['assignment']['effort'])
+
+    def test_future_initial_builder_gets_literal_clause_examples_without_new_packet_fields(self):
+        import modern_film
+        for edition in ('2026-10-21', '2026-10-22'):
+            board, claims = self.planned_boards(edition)
+            data = runtime.authoring_packet(board, claims)
+            packet = self.root / 'builder.json'; packet.write_text(json.dumps(data))
+            scope = 'Author the fresh hero and support and implement both complete treatments on the current sources'
+            result = runtime.plan('scene-builder', packet, 'builder', scope)
+            with patch.object(modern_film, 'literal_clause_instruction', return_value=''):
+                prior = runtime.plan('scene-builder', packet, 'builder', scope)
+            message = result['agent_args']['prompt']
+            instruction = modern_film.literal_clause_instruction(data)
+            self.assertEqual(message, prior['agent_args']['prompt'] + instruction)
+            self.assertEqual(set(result), set(prior))
+            self.assertEqual(data, json.loads(packet.read_text()))
+            self.assertEqual('claude-opus-5-5', result['assignment']['model'])
+            self.assertEqual('high', result['assignment']['effort'])
+            self.assertEqual(prior['reservation'], result['reservation'])
+            self.assertLessEqual(len(message), 1800)
+            self.assertEqual('AI alerts' in message, edition == '2026-10-22')
 
     def test_initial_builder_cannot_receive_stale_guides(self):
         board, claims = self.planned_boards()

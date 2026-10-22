@@ -23,6 +23,21 @@ def finite(value):
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
 
 
+def literal_clause_instruction(board):
+    """A compact future-run comparison inside existing assignments, never a verdict."""
+    edition = str(board.get('date', ''))[:10]
+    if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', edition) or edition < '2026-10-22':
+        return ''
+    return (' Compare each literal spoken subject and verb with the implemented subject, change and '
+            'completed result; declared IDs establish wiring only. A loading screen does not depict '
+            '"AI alerts"; an arriving blank letter does not supply a spoken date; a date stamp does not '
+            'depict "approved"; an unidentified document does not identify Air Max. At code scope trace '
+            'the actual state and timing in callable source. At phone scope compare chronological '
+            'pixels within that clause. Record mismatches in existing consolidated findings and '
+            'clause observations. These examples explain the current comprehension rule; they add '
+            'no review, report field or approval.')
+
+
 def narration_required(board, repo=None):
     cfg = policy() if repo is None else policy(repo)
     return bool(board.get('narration_picture')) or (required(board, repo) and not board.get('reference_only')
