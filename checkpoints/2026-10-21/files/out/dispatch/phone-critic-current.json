@@ -1,363 +1,268 @@
 {
-  "schema": "dispatch_exact_phone_review/1",
-  "status": "completed",
-  "verdict": "pass",
-  "reviewer_identity": "codex:gpt-6.1-sol:01a16171-4d65-7023-a188-1ed420ac161a",
-  "reviewed_at": "2026-10-22T02:46:05Z",
   "review_scope": "exact-muted-phone-preflight",
-  "reviewed_preflight_sha256": "8a3eb9e89cc3b19c6bbc0742579b83249da7c33bf8bc774e9b109b831fa5a397",
-  "concept_sha256": "82965cfd6a305fa0bee895504f484a18a543b1bae6ca5f8c22678c9073097a75",
-  "renderer_sha256": "02a32fa8c5f19be4c642371c6fa917c74725396c1b03c042e7a5b6dd96c44882",
+  "reviewed_preflight_sha256": "c298d0c85b344665e37218e0da25ff6cbe15455330723a94dc94e15b26f832f7",
+  "concept_sha256": "94adfc7ab6ad21924c578ee0b70577b34bc03d934a7a5f9db5148f0ab24edc7d",
+  "renderer_sha256": "309f3e21cff16f028059cc9adeb21f7ecb6776906469d7f2363b02aac3253f4f",
   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
-  "notes": "Independent sampled-image phone pass. All 62 chronological pages, comprising 308 samples from the exact encoded film through its final frame, were viewed once and publicly annotated. The drone launch, route, infrared footage, inspector confirmation and follow-up consequence are recognizable. Illustrated records distinguish company claims, EPA approval and the separate reporting program. The ending preserves the unknown AI contribution. No blocking visual defect was established in this scope. This verdict does not establish audible quality, uninterrupted playback, motion between samples, native-resolution finish or shipment.",
-  "strongest_frame": "s5, 30.4 to 31.6 seconds. The inspector's raised hand traces the visible plume; the oval closes and the green confirmation appears on the same footage. The viewer can identify the human decision and its subject.",
-  "weakest_frame": "s9, 54.0 to 56.2 seconds. The wide desk hold leaves substantial empty foreground and makes the inspector, checked plume and empty AI box smaller. It is the least forceful composition, although the completed answer remains visible and this final hold is shorter than five seconds.",
-  "blocking_defects": [],
-  "action_reviews": [],
-  "review_basis": {
-    "direct_mp4_playback": false,
-    "direct_listening": false,
-    "sample_fps": 5,
-    "pages_viewed": 62,
-    "samples_viewed": 308,
-    "first_sample_s": 0,
-    "last_sample_s": 61.3,
-    "last_encoded_frame": 1839,
-    "story_runtime_s": 56.32,
-    "basis": "Chronological PNG pages decoded from the exact encoded phone film. Observed state changes are supported at the sampled instants. Clause comparisons use the current board's measured windows and visible captions; they do not establish audible delivery.",
-    "unresolved": [
-      {
-        "scope": "continuous_motion",
-        "start_s": 0,
-        "end_s": 56.32,
-        "finding": "Five samples per second cannot establish frame-by-frame smoothness, velocity continuity or absence of defects between samples. Those properties remain unresolved by this review."
-      },
-      {
-        "scope": "native_surface_finish",
-        "start_s": 21.67,
-        "end_s": 34.04,
-        "finding": "The supplied phone pixels support phone-scale recognition and finish. Native-resolution joints, texture and contact detail remain for the separate native hero review."
-      },
-      {
-        "scope": "sound_and_caption_provenance",
-        "start_s": 0,
-        "end_s": 61.333333,
-        "finding": "No audio was accessed. Voice, masking, effect synchronization and alignment provenance require their separate actual evidence."
-      }
-    ]
+  "reviewer_identity": "codex_repair_code_critic independent phone reviewer",
+  "reviewed_at": "2026-10-22T19:04:18Z",
+  "verdict": "pass",
+  "notes": [
+    "This is the unchanged original A judgment, now serialized with the missing timed observations.",
+    "Pass applies to the exact supplied muted phone-image sequence. It does not establish audio quality, normal-speed motion, native-resolution finish, shipment or public playback.",
+    "The current alert, date, approval impression and Air Max identifier are visible within their relevant clauses.",
+    "The final room hold is the least active interval, but it preserves the completed comparison between human confirmation and the unspecified AI contribution.",
+    "Small incidental interface and credit text does not carry the principal action."
+  ],
+  "strongest_frame": {
+    "scene_id": "s5",
+    "time_s": 31.2,
+    "observed": "The inspector's finger reaches the confirmation beside the completed plume oval and a green check appears, connecting human action to the visible result."
   },
+  "weakest_frame": {
+    "scene_id": "s9",
+    "time_s": 54,
+    "observed": "The wide room holds a comparatively small monitor with the confirmed plume and empty AI box after the final caption has cleared.",
+    "blocking": false
+  },
+  "blocking_defects": [],
   "phone_observations": {
     "subject_recognition": {
       "pass": true,
       "start_s": 0,
-      "end_s": 6.4,
-      "observed": "A metal dock beside recognizable industrial tanks opens to reveal a quadcopter. The quadcopter rises above the dock and moves over the yard. The dry ground, sparse horizon and equipment establish a generic West Texas industrial setting; map labels provide the specific regional attribution."
+      "end_s": 53.8,
+      "observed": "The station exposes a recognizable drone; the exterior camera view, letter labels, inspector, plume, calendar dates and empty AI box can be followed as distinct subjects."
     },
     "contact_and_consequence": {
       "pass": true,
-      "start_s": 29.4,
-      "end_s": 33.8,
-      "observed": "The inspector's articulated arms remain connected while a raised hand traces the plume on the monitor. The dotted oval completes, a green check appears beside the same plume, and the follow-up inspection slip moves toward the valve callout and settles. The completed result stays above the caption band."
+      "start_s": 12.8,
+      "end_s": 47.6,
+      "observed": "Stamp contact precedes visible date and approval impressions. The inspector traces the plume, presses confirmation and produces a follow-up instruction. The separate program receives a delay bar and an explicitly future-tense proposal tag."
     },
     "dominant_action": {
       "pass": true,
-      "start_s": 24.4,
+      "start_s": 29.8,
       "end_s": 33.8,
-      "observed": "The principal drone moves along the marked route, an illustrative infrared valve view opens, and the same valve-and-plume image appears on the inspector's monitor. The inspector then marks and confirms that plume. The focal picture supplies capture, review and confirmation rather than leaving those actions solely to captions."
+      "observed": "The connected inspector arm raises the stylus toward the plume, traces the white oval, reaches the green confirmation and releases the follow-up inspection tag toward the valve vignette. Those sampled changes form the dominant action; the monitor and caption support it. Smoothness between samples remains unproven."
     },
     "surface_finish": {
       "pass": true,
-      "start_s": 0.8,
-      "end_s": 33.8,
-      "observed": "At phone scale the drone has a distinct shell, rotor assemblies, landing legs and underslung camera; the dock has separate opening panels and a visible base. Tanks show shaded cylindrical volume. The monitor has a thick dark housing, and the inspector has a continuous head, torso and articulated arms. Broad desk surfaces and abstract document rules are the simplest surfaces. Native detail remains outside this phone-scale finding."
+      "start_s": 0,
+      "end_s": 56.2,
+      "observed": "The sampled story images maintain a consistent illustrated world, connected inspector gestures, readable primary labels and separated captions without an observed blocking clipping or layering failure."
     },
     "continuity": {
       "pass": true,
-      "start_s": 21.8,
-      "end_s": 47.6,
-      "observed": "The drone's infrared inset and the inspector monitor conserve the recognizable valve and yellow plume. The approval illustration carries its own disclosure. The later program sequence explicitly says it is a separate program with no drone, retains its reporting slip through the delay and proposal, and leaves the proposal unstamped."
+      "start_s": 6.6,
+      "end_s": 56.2,
+      "observed": "The company tag remains associated with the operational alert. Date, Air Max name, screening label and approval impression accumulate on the same letter. The valve footage persists through inspector identification, confirmation and follow-up. An explicit separate-program disclosure introduces the calendar sequence, and the ending returns to the confirmed plume beside an empty AI box. The sampled state relationships remain intelligible across cuts."
     },
     "closing_payoff": {
       "pass": true,
-      "start_s": 47.8,
+      "start_s": 48,
       "end_s": 56.2,
-      "observed": "The close returns to the inspector beside the circled plume and green confirmation, then draws an empty dashed AI box on the same monitor. The final wide view retains both the human confirmation and the empty box. It answers who confirms the leak while leaving the AI contribution unspecified, without depicting a repair or measured site outcome."
+      "observed": "The film returns to the inspector-confirmed plume and draws an empty AI box beside it. The closing caption states the letter's evidentiary limit without asserting that AI contributes nothing."
     }
   },
   "modern_observations": {
-    "film_sha256": "8a3eb9e89cc3b19c6bbc0742579b83249da7c33bf8bc774e9b109b831fa5a397",
+    "film_sha256": "c298d0c85b344665e37218e0da25ff6cbe15455330723a94dc94e15b26f832f7",
     "first_frame": {
       "pass": true,
       "start_s": 0,
       "end_s": 1.4,
-      "observed": "The film opens directly on a dock and industrial equipment. By 0.8 seconds the housing starts opening, and by 1.2 seconds its panels expose the drone. The recognizable reveal begins within the opening requirement; there is no introductory title hold."
+      "observed": "A grounded industrial pad and drone station establish the subject; the hood begins opening by 0.8 seconds and exposes the drone."
     },
     "visual_progression": {
       "pass": true,
-      "start_s": 0.8,
+      "start_s": 0,
       "end_s": 53.8,
-      "observed": "The sampled sequence develops from dock opening and launch to a software alert, dated method approval, route and infrared footage, human confirmation, follow-up inspection, the protocol's limited AI reference, separate-program delay and proposal, and the unresolved AI box. These successive states change the reported answer rather than repeatedly scanning one equipment tableau."
+      "observed": "The images progress from deployment to company-attributed alert, approval record, camera flight, inspector confirmation, source limitation, separate program status and closing evidentiary limit."
     },
     "shot_variety": {
       "pass": true,
-      "start_s": 12.2,
-      "end_s": 38.2,
-      "observed": "The letter moves from a wide desk view to a closer stamping view and a document detail. The drone sequence changes from the full yard to the camera-and-route view. Inspector review changes from a seated wide view to hand-and-footage detail. The protocol title receives a useful close view that makes the AI wording readable."
+      "start_s": 0,
+      "end_s": 53.8,
+      "observed": "Exterior pad, desk monitor, letter close views, drone camera view, inspector performance, protocol detail and calendar scene change scale and subject as the explanation develops."
     },
     "performed_turn": {
       "pass": true,
-      "start_s": 29.4,
+      "start_s": 29.8,
       "end_s": 33.8,
-      "observed": "The inspector raises a hand toward the plume, traces its perimeter, and the completed oval is followed by a green confirmation. The follow-up slip then leaves the screen area for the valve callout. This visibly assigns the decisive review to a person."
+      "observed": "The inspector raises the stylus, traces the plume, presses a confirmation and produces the follow-up instruction; the sequence shows changed states at the sampled times."
     },
     "pace": {
       "pass": true,
       "start_s": 0,
       "end_s": 56.2,
-      "observed": "Visible changes recur through the launch, interface loading, alert, two stamps, route, footage arrival, inspector mark, title highlight, calendar flips and program tags. Document holds provide reading time. The final wide hold from about 52.4 to 56.2 seconds is the weakest interval but retains the just-established answer and ends before becoming a five-second inert slide. Smoothness between sampled instants remains unresolved."
+      "observed": "Sampled changes occur through the explanatory clauses and the final tableau receives a sustained hold. Smoothness and normal-speed cadence between samples remain unresolved."
     },
     "closing_answer": {
       "pass": true,
       "start_s": 48,
       "end_s": 56.2,
-      "observed": "The closing picture places a human inspector and confirmed plume beside an empty AI-labeled box. The box remains empty through the final story frame. The image distinguishes the supported human confirmation from the letter's unexplained AI contribution and invents no completed repair."
+      "observed": "The confirmed plume remains beside the empty AI box, resolving the distinction between documented human confirmation and an unspecified AI contribution."
     },
     "finished_art": {
       "pass": true,
-      "start_s": 0.8,
-      "end_s": 53.8,
-      "observed": "The edition's authored drone-and-dock hero performs opening, launch and route actions. Supporting art supplies shaded equipment, desk monitor, approval paper, stamps, inspector, infrared valve, calendars and program tags. These assets carry the explanation rather than serving as unused decoration. Their phone-scale silhouettes, light and shade, edges and object separation are coherent for the illustrated style. Native-resolution finish remains separately unproved."
+      "start_s": 0,
+      "end_s": 56.2,
+      "observed": "Within the sampled story images at supplied phone size, the industrial equipment, paper surfaces, monitor, inspector and captions form a consistent finished illustration. This does not establish unseen native-resolution detail."
     }
   },
+  "credit_observations": {
+    "film_sha256": "c298d0c85b344665e37218e0da25ff6cbe15455330723a94dc94e15b26f832f7",
+    "start_s": 56.4,
+    "end_s": 61.3,
+    "observed": "The dark credits card retains the Texas flag, Texas AI Docket name, texasaidocket.com, four source lines and authored-diagram disclosure. The DroneLife line reads March 2025 without the previously unsupported day. These observations are separate from the modern story windows."
+  },
   "narration_picture_observations": {
-    "film_sha256": "8a3eb9e89cc3b19c6bbc0742579b83249da7c33bf8bc774e9b109b831fa5a397",
+    "film_sha256": "c298d0c85b344665e37218e0da25ff6cbe15455330723a94dc94e15b26f832f7",
+    "basis": "Measured clause intervals and visible captions were compared with sampled pictures; no direct listening occurred.",
     "clauses": [
       {
         "id": "n1a",
         "pass": true,
         "start_s": 0.48,
         "end_s": 1.68,
-        "observed": "The metal dock opens in a dry industrial yard and exposes the drone. Regional naming relies on the visible caption; the pictured equipment is disclosed as illustration."
+        "observed": "The industrial pad and opening drone station establish the Permian setting as an illustration."
       },
       {
         "id": "n1b",
         "pass": true,
         "start_s": 2.06,
         "end_s": 6.26,
-        "observed": "The drone rises from its dock and moves above the tanks. Texas map pins and a dotted connection identify Permian Basin and Austin. The company attribution is carried by the caption without adding a real product badge or actual-site claim."
+        "observed": "The drone launches while Texas map pins and a dotted Permian-to-Austin connection appear; no brand mark presents this as documentary footage."
       },
       {
         "id": "n2a",
         "pass": true,
         "start_s": 6.68,
         "end_s": 8.74,
-        "observed": "A desk monitor loads a survey-flight map and status rows. This establishes the software subject for the continuing alert sentence; the alert itself becomes visible during the following anomaly clause."
+        "observed": "The survey display lights and the blue AI alert is visible by 7.8–8.0, with a company-attribution tag already present."
       },
       {
         "id": "n2b",
         "pass": true,
         "start_s": 9.1,
         "end_s": 11.92,
-        "observed": "A blue Anomaly badge appears among the monitor's status rows. A white The companies say slip then crosses the screen and settles at its lower-left edge, preserving the claim's attribution."
+        "observed": "The blue alert persists among operational status rows as the company-attribution tag moves beside it."
       },
       {
         "id": "n3a",
         "pass": true,
         "start_s": 12.42,
         "end_s": 14.7,
-        "observed": "An illustrated approval letter centers on the desk and gains document rules around the periodic methane screening label. The exact date is available in captions here and is stamped visibly during the next clause."
+        "observed": "The date stamp contacts the letter and lifts to expose September 30th, 2025 before the clause ends."
       },
       {
         "id": "n3b",
         "pass": true,
         "start_s": 14.94,
         "end_s": 17.22,
-        "observed": "A wood-handled stamp descends, contacts the illustrated approval letter and lifts, leaving the September 30th, 2025 date mark on the page. No agency seal or actual document screenshot is depicted."
+        "observed": "The approval stamp lifts and exposes its check and Approved impression at 16.0."
       },
       {
         "id": "n3c",
         "pass": true,
         "start_s": 17.48,
         "end_s": 19.7,
-        "observed": "The dated letter remains visible with the periodic methane screening label. A second stamp approaches and presses beside it. The exact system name is attributed through the caption rather than a fabricated model badge."
+        "observed": "The letter's Air Max record-name label appears beside the generic drone and receives an amber highlight."
       },
       {
         "id": "n3d",
         "pass": true,
         "start_s": 19.98,
         "end_s": 21.56,
-        "observed": "The second stamp lifts, leaving an Approved checkmark beside Periodic methane screening. The completed approval remains readable in a close document view."
+        "observed": "The periodic methane screening label highlights while the approval impression and drone remain visible."
       },
       {
         "id": "n4a",
         "pass": true,
         "start_s": 21.84,
         "end_s": 23.92,
-        "observed": "The drone reappears above the same equipment with a dark underslung camera. Outlined route circles appear, and the closer view at 23.8 seconds makes the camera assembly easier to distinguish."
+        "observed": "The exterior view shows the drone and its underslung camera, with a viewing cone aimed toward the equipment."
       },
       {
         "id": "n4b",
         "pass": true,
         "start_s": 24.34,
         "end_s": 26.58,
-        "observed": "The drone banks and moves right along dotted connectors into a highlighted route circle. An inset enlarges to reveal a valve and yellow plume with an Illustrative infrared view disclosure."
+        "observed": "The drone travels along the dashed route to a bright point-of-interest ring and an illustrative infrared valve view opens."
       },
       {
         "id": "n5a",
         "pass": true,
         "start_s": 27.08,
         "end_s": 29.8,
-        "observed": "A seated generic inspector faces a large survey-footage monitor. The same illustrative valve-and-plume image loads on its screen, and the inspector leans and raises hands toward it."
+        "observed": "A recognizable seated inspector leans toward the monitor as the collected valve footage loads."
       },
       {
         "id": "n5b",
         "pass": true,
         "start_s": 30.16,
         "end_s": 31.82,
-        "observed": "The raised hand moves around the plume as a dotted oval closes around it. A green check appears beside that same marked plume, giving the review a visible confirmed result."
+        "observed": "The inspector traces an oval around the plume and presses the green confirmation."
       },
       {
         "id": "n5c",
         "pass": true,
         "start_s": 32.16,
         "end_s": 33.82,
-        "observed": "A white Follow-up inspection slip appears beside the confirmed plume, moves toward the circular valve callout and settles across it. The consequence remains visible above captions."
+        "observed": "A follow-up inspection tag emerges from the human confirmation and lands at the valve vignette; no completed repair is depicted."
       },
       {
         "id": "n6",
         "pass": true,
         "start_s": 34.26,
         "end_s": 37.98,
-        "observed": "A document's protocol title scrolls into view, then a close view highlights AI within the title. A white tag states AI appears once, in a title. The illustration presents the limited text reference rather than an AI analysis mechanism."
+        "observed": "The protocol title scrolls into view, AI is highlighted within that title, and a tag states that AI appears once in a title."
       },
       {
         "id": "n7a",
         "pass": true,
         "start_s": 38.5,
         "end_s": 41.68,
-        "observed": "A separate-program disclosure accompanies the leak-reporting slip. Its calendar flips to January 22, 2027. The drone and inspector footage are absent from this program example."
+        "observed": "A separately labeled leak-reporting program and calendar replace the approval scene; the calendar flips to its later date."
       },
       {
         "id": "n7b",
         "pass": true,
         "start_s": 42.04,
         "end_s": 44.42,
-        "observed": "The January 22, 2027 calendar stays visible while a yellow Delayed tag slides onto the certified-third-party reporting slip and settles."
+        "observed": "January 22, 2027 is prominent and an amber Delayed bar settles on the program tag."
       },
       {
         "id": "n7c",
         "pass": true,
         "start_s": 44.72,
         "end_s": 47.52,
-        "observed": "The calendar flips to October 7, an EPA release slip arrives, and a Will propose to rescind tag attaches to the same delayed reporting-program slip. Its dashed box remains unstamped, preserving the future proposal."
+        "observed": "October 7 and an EPA release appear, followed by a Will propose to rescind tag with an empty stamp area."
       },
       {
         "id": "n8a",
         "pass": true,
         "start_s": 48.04,
         "end_s": 51.2,
-        "observed": "The inspector returns beside the marked plume and green confirmation, with a raised hand at the confirmation area. The view widens and an empty AI-labeled dashed box draws beside the footage."
+        "observed": "The film returns to the inspector and confirmed plume, preserving the human confirmation rather than showing an AI confirmation."
       },
       {
         "id": "n8b",
         "pass": true,
         "start_s": 51.72,
         "end_s": 53.62,
-        "observed": "The AI box remains empty beside the confirmed plume. A wider view retains the inspector, monitor and equipment outside the window, making the unfilled AI contribution the closing source limit."
+        "observed": "The confirmed plume remains beside the empty AI box as the caption states that the letter does not say what AI adds."
       }
     ]
   },
+  "action_reviews": [],
   "story_review": {
-    "story_sha256": "4301497c8ab0d945e00ff9b105bed1e651cd61c8b008370c42b5ec740975a528",
+    "story_sha256": "17c2ee3f6e5ee891d38ae780da92b8e85de8d86534fc902d0c82fe3d85fdbf54",
     "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
     "claims_sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
     "verdict": "pass",
     "blocking_defects": [],
-    "one_viewing_summary": "A generic drone launches from a dock at an industrial yard. A software screen displays an attributed anomaly alert. An illustrated letter receives date and approval stamps for periodic methane screening. The drone follows a route and supplies illustrative infrared footage. A person marks the plume, confirms it and triggers follow-up inspection. The film then exposes the protocol's limited AI wording, distinguishes a separate delayed reporting program and its proposed rescission, and closes on human confirmation beside an empty AI box.",
-    "opening_to_ending": "The opening establishes the drone as the collecting machine. The middle shows that recognizable footage reaches a human reviewer, who marks and confirms its plume. The ending answers the question about who confirms the leak and retains the unknown AI contribution. It depicts neither a measured Permian leak nor an eventual repair.",
-    "weakest_transition": "The 38.2 to 38.6 second handoff from the protocol title to the separate reporting program is the largest conceptual departure from the drone-review chain. The explicit separate-program disclosure and the removal of the drone prevent it from being presented as the same approval, although this remains the least direct causal connection."
-  },
-  "image_coverage": {
-    "schema": "dispatch_codex_image_coverage/1",
-    "packet_sha256": "ca931f2febaca546fa0301ddf95fce3aa3ad2c6e55de7f387764e84f9627ad47",
-    "reviewer_session_id": "01a16171-4d65-7023-a188-1ed420ac161a",
-    "coverage_file": {
-      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/out/dispatch/final-phone-native-evidence/codex-image-coverage.json",
-      "sha256": "b244507de6978be3d923a9e1f141630548ba02f8b33dcc478a2fa06ed7fc1373"
-    },
-    "public_events": {
-      "path": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch/out/dispatch/final-phone-native-evidence/codex-public-image-events.json",
-      "sha256": "8f238ed8fb9cfee2e86a2f06aa2d94775fccd0249788b9f36892c5cec7bfe376"
-    },
-    "pages_received": 62,
-    "pages_expected": 62,
-    "all_page_hashes_verified": true,
-    "all_returned_image_hashes_match": true,
-    "public_events_hash_verified": true,
-    "coverage_supplies_creative_approval": false
-  },
-  "input_verification": {
-    "packet_sha256": "ca931f2febaca546fa0301ddf95fce3aa3ad2c6e55de7f387764e84f9627ad47",
-    "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
-    "bound_file_count": 40,
-    "all_bound_file_hashes_matched": true,
-    "final_recheck_at": "2026-10-22T02:45:13.101Z",
-    "changed_bound_files": [],
-    "board_sha256": "ebfe42e9f8a062061a576c2c22f1cf493e8aee0d8e526194b0adfaa2a91c8f3c",
-    "claims_sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
-    "motion_index_sha256": "f8122337d67c6ba3e310d9449417cd5f8049444e0f50a9b9296fbcd325eabc1d",
-    "story_selection_sha256": "58d24be7e7af339db889b6b1699a7ed3a1e81223227473ae829b085443ab13e1",
-    "hero_source_sha256": "9d397904a7a5173f55205e78a8dbe431d548d1ed0d3c4f6e90c5cb0689faf3fa",
-    "support_source_sha256": "c97c40b8c328276b91008d7d5946c59e292692f9bb0bd9f2b83a13b8d44da202",
-    "source_snapshot_hashes_verified": {
-      "out/dispatch/sources/percept_letter.txt": "aa19ae67bc5286d68c90fd5e7f62ac9369a63804078fa6cf0d71c865e82407f9",
-      "out/dispatch/sources/dronelife.txt": "8aa46537d1e11dbe1f53cb9c8226a26c59ae9b6ed4c94cf3154dbd32d16c2092",
-      "out/dispatch/sources/super.txt": "af873f19a33d8e25c5b335b3ba8d78a1f3cdd2169edf59c270e69e622d92c3e0",
-      "out/dispatch/sources/zeldin.txt": "c2cd4e0aa77ad249148b65cf8c8942346e2b632b0ad13b8fcf4f3a202123c7fc",
-      "out/dispatch/sources/percepto_matm.txt": "042b4ce0b9fb3cfd61ecebe228c8e59290e86798ddb10134334b8f402aeaa740"
-    },
-    "bound_guides_read_complete": true,
-    "guide_hashes": {
-      "AGENTS.md": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094",
-      "CLAUDE.md": "efe79ee10f6c2fa167c59f2c0ecf67322150598efe421db9eee1288752c4d07f",
-      ".claude/agents/storyboard-critic.md": "14ddb5c2ff51b8d6c6648ee6e49771f52a57bd9b2b6f3074da3169f0514a8851",
-      "prompts/claude_routine.md": "0d10a1a78f10c7728c670e0cfca57304150d9c53448f09240423fc08729779fb",
-      "config/claude_runtime.json": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10",
-      "config/agent_runtime.json": "a9218a4fc0bed84acf53c9894d9847b004595d9ab69d76aa4d034c6b533b0da5",
-      "config/quality_contract.json": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
-      "config/dispatch_rubric.yaml": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1",
-      "knowledge/craft/COMPLETION_PROGRESS.md": "c0bd03f6687cd677f2972edd8ca9b8a3e5004551b86362af82a8312df1eff820",
-      "config/review_limit.json": "2d62fcc421118fda5a3235b23b6c267f86ce0c1337af207f46a7c2a4c096eb08",
-      "knowledge/craft/AGENT_RUNTIME.md": "fe1eb5601f18b90d87ea13e49309b6d24283fd30d4bd46d917cec7a73e211e34",
-      "knowledge/craft/AUTONOMOUS_COMPLETION.md": "65d6e496152538a94364dd1067a0f04113c4da26595c38ad08e583056ae8f45a",
-      "config/autonomous_completion_v2.json": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b",
-      "knowledge/craft/visual-storytelling/viewer-plan.md": "bfa3dc1c81ba1ec62170d3b23c9b52747c366096c3637f665780f433620b0a06",
-      "knowledge/craft/visual-storytelling/README.md": "9aa84715c0a4947ab99d6286cc903386d3f84948e932e6f8830c66c897f2b9da",
-      "knowledge/craft/visual-storytelling/news-reporting.md": "5839865e0e74a12991df4258b91e4b62c6263427e9272ec62dc4834598512b0d",
-      "knowledge/craft/visual-storytelling/evidence-led-imagery.md": "626f4efc44b06c06ad76d691e98d139b6306418c020c7bf3a52a9d064324388a",
-      "knowledge/craft/MODERN_FILM.md": "58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb",
-      "config/modern_film.json": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e",
-      "config/modern_episode_registry.json": "1aeaaf2bf59acfaab6e15b329c24123c2138729795c85f01d75c60f1601b456f",
-      "knowledge/craft/STORY_ART.md": "9926ea6717a969517bba1a041629d9c93d20af377018d623b188221502b9f97d",
-      "config/story_art.json": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4",
-      "config/critic_concept_v2.json": "7316f8f48224c3e5f13397f3f65df6550ec80971db918d91af6b64fb330db25d",
-      "knowledge/craft/AUTHORED_STORY_ART.md": "7e6d8f3130e0bf702ce322d16c293fbc4b7214b28369a47af465d8ae1c5e970c",
-      "config/authored_story_art.json": "351805e0af4713d59152a720bdd07d0c47ac3d788e02f0e8ccd1b87bbbf69ca0",
-      "knowledge/craft/ART_DIRECTION.md": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5",
-      "config/art_direction.json": "c0d8f792de9b48c8e1130dd9623ca7a897504266eb86f2664a0f287dd6d17673",
-      "knowledge/craft/cinematic_reference_bank.json": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d",
-      "prompts/roles/scene-builder.md": "545a535986385c96f1e5397cac8611bcd8b95ecd09334cb3338a0138d15239f0",
-      "knowledge/craft/CREATIVE_DIRECTION.md": "4cdaa30c9bf2cc1fce9ad3bd4a6007b669f112cedb3e15eda1dbe97b0d103eb5"
-    },
-    "supplemental_guides_read_complete": {
-      "knowledge/craft/QUALITY_CONTRACT.md": "493abff87bc23ae5b4af6ef3d2830b8c577374fd5e8206a9a99f73e18e860bc9",
-      "knowledge/craft/DAILY_PRODUCTION.md": "471bc29d3d1326e60bb1569995cb6a3c4118e75840b851abad6043a76787c2a3",
-      "config/documentary.json": "c71c3880d30c2711027aa068fa7a77beb5eddffe3c0ed30e8140832c0663ac78"
-    }
-  },
-  "process_notes": [
-    "Before reading the packet's no-Bash instruction, two read-only shell calls inspected paths and read instructions. They made no file changes. Subsequent reading and verification used read-only filesystem access and the required individual image calls.",
-    "The sequence-031 public annotation initially had a mistyped prefix. Its correctly prefixed complete annotation was published immediately before the next image call. Both original public records remain preserved.",
-    "No production inputs were edited, no additional film traversal occurred, and no email or social action was taken. The task-owned JavaScript runtime was reset after verification."
-  ]
+    "one_viewing_summary": "A company-attributed drone and AI-alert pilot leads into a separately identified EPA-approved screening method. The method collects infrared footage for a certified inspector to confirm emissions and trigger follow-up. The letter's AI reference is limited to a protocol title. A separate reporting program has delayed and proposed-rescission status. The ending preserves what the letter does and does not establish.",
+    "opening_to_ending": "The opening introduces autonomous collection and a company AI alert; the ending returns to the human-confirmed plume and leaves the AI contribution visibly unspecified.",
+    "weakest_transition": "The move from the protocol limitation to the separate reporting program at 38.24 seconds is an editorial detour. The explicit separate-program disclosure and new program tag prevent an observed conflation."
+  }
 }
