@@ -1,13 +1,13 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T04:09:16.918207+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-22T04:14:42.851934+00:00",
+  "note": "capture authorization consumed 7039c5c7e093",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
-  "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
+  "repo_root": "/home/runner/work/_temp/dispatch-capture/TexasAIDispatch",
   "source_pin": "225f195b567d38850bbd4b76205a32963b94f464",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
@@ -16,8 +16,8 @@
     "sha256": "32a7090a0d8d5512fc05ec97c58a38936cfbffa785d5f86a4326cdfb0c30981e"
   },
   "deleted_source": [],
-  "ledger_sha256": "7d604c0f22d2c09e3545d899bd83e02337f1a51eacb20f039c7a20cccfd8b53d",
-  "original_private_ledger_sha256": "49b8387b715f49a63fc35696b925ef0d01e0c9bb071f56fa73d07d90ad1b59fb",
+  "ledger_sha256": "83b74be92ed94eb8ff9b3183eaacf320d374bce47143342b2ebd9c4a9a577508",
+  "original_private_ledger_sha256": "aabc56e41ec28cbdac2521a81e79b3a54352224845d6814b5f3b76745c07ef43",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 2,
@@ -640,8 +640,8 @@
     {
       "path": "out/dispatch/capture-authorization.json",
       "class": "scratch",
-      "sha256": "69e61d8b1663ec7c9b65d65ffbad7b4f7fde304beab14193b3a172ff7313ac1d",
-      "size": 18827
+      "sha256": "8128554db7e400709ab585e9464424767d6d30c2978a71d2fb0d46bfc2d3359b",
+      "size": 18826
     },
     {
       "path": "out/dispatch/capture-authorization.json.lock",
@@ -652,8 +652,8 @@
     {
       "path": "out/dispatch/capture-authorizations-used.json",
       "class": "scratch",
-      "sha256": "3d563819b7072788243780a501b9be3b11b609dbdbe9b8caf3b150bfff57e2eb",
-      "size": 1493
+      "sha256": "903a7240352269f348ea53cc80d8442721ece59d97839448ad31366de7cdee7d",
+      "size": 1642
     },
     {
       "path": "out/dispatch/capture-housekeeping-20261021T183841.json",
@@ -713,6 +713,12 @@
       "path": "out/dispatch/capture-housekeeping-20261022T035609.json",
       "class": "scratch",
       "sha256": "e608ecc46d3f026274bb8a2499e9f35cd981e138d3d3bbdaf79fcf33d9a760bb",
+      "size": 1055
+    },
+    {
+      "path": "out/dispatch/capture-housekeeping-20261022T041440.json",
+      "class": "scratch",
+      "sha256": "553f3b563d687289964a9c94bb6a327347a0249dbdfe4eea251eee5c07d19b43",
       "size": 1055
     },
     {
@@ -1084,7 +1090,7 @@
     {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
-      "sha256": "e0e3e8eb24eb51ebca36556092851ca94f2de5d680c02067d9a86279a22eaab0",
+      "sha256": "5aad9c5ce1d5f27859b6c442bfe1e70734c00c0355b28db2e3c0ab24801dda29",
       "size": 128
     },
     {
@@ -1378,7 +1384,7 @@
     {
       "path": "out/dispatch/github-capture-activation.json",
       "class": "scratch",
-      "sha256": "24711dd4a93b9013b6b2c532c3a8cdedd3724f79ac192f94f230d09e880181a7",
+      "sha256": "4c3cc8d8c19785c2797186ea7be3c02bcefc9f516c7be13c10c5a063d18a3d84",
       "size": 283
     },
     {
@@ -1984,8 +1990,8 @@
     {
       "path": "out/dispatch/github-native-headroom.json",
       "class": "scratch",
-      "sha256": "076489b8dd71a8e095cdda3e054028f2b277f175d57dd1f4f635e0cf62176a6a",
-      "size": 308
+      "sha256": "c46a899c9cd12616fdf078837976a8a9cf47323bf9529a31682daba444b411af",
+      "size": 307
     },
     {
       "path": "out/dispatch/github-request-cinema.json",
@@ -8458,51 +8464,7 @@
   ],
   "excluded": [
     {
-      "path": "out/dispatch/delivery-prep-copy.private.txt",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-draft.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography-http.private.txt",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography-ordinance.private.pdf",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography-ordinance.private.txt",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-geography.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-next-actions.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-next-commands.private.md",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-prep-readiness.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/delivery-routing.private.json",
-      "reason": "private path component"
-    },
-    {
       "path": "out/dispatch/grant-projection-roots.private.json",
-      "reason": "private path component"
-    },
-    {
-      "path": "out/dispatch/verify-final-gmail.private.py",
       "reason": "private path component"
     }
   ],
