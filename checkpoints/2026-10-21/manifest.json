@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T21:58:26.220822+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-22T21:58:52.554000+00:00",
+  "note": "before paid reservation",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -9073,30 +9073,6 @@
       "size": 313487
     },
     {
-      "path": "out/dispatch/preship-compute/preship.json",
-      "class": "scratch",
-      "sha256": "a19d7717cec8b77aab1fddd323de4e46a42c0d7eabde90a0994a4f3ce5c6a0ab",
-      "size": 486
-    },
-    {
-      "path": "out/dispatch/preship-compute/receipt.json",
-      "class": "scratch",
-      "sha256": "6321518be6c087c171406894265be0a6a88181e6d44df7ff8dbe06ec86d0697b",
-      "size": 430
-    },
-    {
-      "path": "out/dispatch/preship-compute/stderr.txt",
-      "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
-    },
-    {
-      "path": "out/dispatch/preship-compute/stdout.txt",
-      "class": "scratch",
-      "sha256": "b964caab914fa87a64a0d3538b8a4f61dd6fe70d2d9e70e83e31e0b98f090730",
-      "size": 544
-    },
-    {
       "path": "out/dispatch/provider-availability/startup/attempt.json",
       "class": "scratch",
       "sha256": "39628ee1f9dd3fbd54a23a699ffd9a5e489483f5cfdc37122ce23cc7b7f78dee",
@@ -13399,6 +13375,36 @@
       "size": 12329
     },
     {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/preship/preship-compute/preship.json",
+      "class": "scratch",
+      "sha256": "a19d7717cec8b77aab1fddd323de4e46a42c0d7eabde90a0994a4f3ce5c6a0ab",
+      "size": 486
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/preship/preship-compute/receipt.json",
+      "class": "scratch",
+      "sha256": "6321518be6c087c171406894265be0a6a88181e6d44df7ff8dbe06ec86d0697b",
+      "size": 430
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/preship/preship-compute/stderr.txt",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/preship/preship-compute/stdout.txt",
+      "class": "scratch",
+      "sha256": "b964caab914fa87a64a0d3538b8a4f61dd6fe70d2d9e70e83e31e0b98f090730",
+      "size": 544
+    },
+    {
+      "path": "out/dispatch/retired-outputs-before-manual-repair-35331bbd/preship/retention.json",
+      "class": "scratch",
+      "sha256": "6ef6e1e383b36182ad067c12610c928051e4c75b4480de528f8e55986c97e2b8",
+      "size": 951
+    },
+    {
       "path": "out/dispatch/run_state.json.capture-claim.lock",
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -15434,9 +15440,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 1579939886,
-    "unique_blob_bytes": 876095150,
-    "unique_blobs": 1768
+    "logical_bytes": 1579940837,
+    "unique_blob_bytes": 876096101,
+    "unique_blobs": 1769
   },
   "excluded": [
     {
