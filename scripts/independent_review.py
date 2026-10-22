@@ -1012,6 +1012,7 @@ def prompt(role, text):
                     'quota or particular medium merely as a preference. Compare audible words only when '
                     'actual audio is available; text never proves listening. ')
     if role in ('code', 'phone'):
+        instruction += modern_film.literal_clause_instruction(text.get('board', {}))
         instruction += ('Return verdict pass or revise, notes, strongest_frame, weakest_frame, blocking_defects, '
                         'story_review with verdict, blocking_defects, one_viewing_summary, opening_to_ending, '
                         'weakest_transition. Return action_reviews for each action_proposals id with action_id, '

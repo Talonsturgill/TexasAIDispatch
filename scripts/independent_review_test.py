@@ -15,6 +15,27 @@ import quality_contract as q
 import documentary_review as d
 
 
+class LiteralClausePromptTest(unittest.TestCase):
+    def test_dated_code_phone_recovery_keeps_original_evidence_and_report_contract(self):
+        import modern_film
+        for edition in ('2026-10-21', '2026-10-22'):
+            for role in ('code', 'phone', 'picture'):
+                text = {'board': {'date': edition, 'runtime_s': 20},
+                        'files': {'source.txt': 'Original source evidence.'}}
+                before = copy.deepcopy(text)
+                message = r.prompt(role, text)
+                with patch.object(modern_film, 'literal_clause_instruction', return_value=''):
+                    prior = r.prompt(role, text)
+                instruction = (modern_film.literal_clause_instruction(text['board'])
+                               if role in ('code', 'phone') else '')
+                self.assertEqual(message.replace(instruction, '', 1) if instruction else message, prior)
+                self.assertEqual(before, text)
+                self.assertEqual('AI alerts' in message,
+                                 edition == '2026-10-22' and role in ('code', 'phone'))
+                self.assertIn('Return JSON only under your supplied role brief and fixed rubric', message)
+                self.assertIn('without claiming observed pixels', message)
+
+
 class FinalPacketCapacityTest(unittest.TestCase):
     def make_packet(self, role='picture', size=540000):
         from independent_packet_compaction import FINAL_POLICY, sha

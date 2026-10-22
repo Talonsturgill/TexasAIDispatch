@@ -228,6 +228,26 @@ class DailyTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             d.packet(self.bp,self.cp,"picture")
 
+    def test_literal_clause_examples_reach_future_builder_and_critic_packets_only(self):
+        import modern_film
+        for edition in ('2026-10-21', '2026-10-22'):
+            self.board['date'] = edition; self.save()
+            # The tiny board tests packet instructions; it has no paid worker or authored assets.
+            with patch('agent_runtime.assignment', return_value=None):
+                for role in ('scene-builder', 'storyboard-critic', 'validator'):
+                    packet = d.packet(self.bp, self.cp, role)
+                    with patch.object(modern_film, 'literal_clause_instruction', return_value=''):
+                        prior = d.packet(self.bp, self.cp, role)
+                    expected = (modern_film.literal_clause_instruction(self.board)
+                                if role != 'validator' else '')
+                    self.assertEqual(packet['instructions'], prior['instructions'] + expected)
+                    self.assertEqual(set(packet), set(prior))
+                    self.assertLessEqual(len(d.packet_text(packet)), d.handoff_limit(edition, False))
+                    if expected:
+                        for phrase in ('AI alerts', 'spoken date', '"approved"', 'Air Max',
+                                       'callable source', 'chronological pixels', 'no review, report field'):
+                            self.assertIn(phrase, packet['instructions'])
+
     def test_current_craft_readings_are_bound_compact_and_keep_historical_packets(self):
         self.assertNotIn("craft_readings", d.packet(self.bp,self.cp,"storyboard-critic"))
         self.assertEqual([], d.craft_reading_paths({"date":"test-fixture"}))
