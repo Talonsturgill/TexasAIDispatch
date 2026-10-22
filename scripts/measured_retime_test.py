@@ -16,6 +16,7 @@ import critic_gate
 import documentary_check
 import measured_retime as adapter
 import modern_film
+import storyboard_check
 
 
 class ApprovedMeasuredRetimeTest(unittest.TestCase):
@@ -55,6 +56,7 @@ class ApprovedMeasuredRetimeTest(unittest.TestCase):
         self.assertEqual(adapter._semantic(self.original), adapter._semantic(board))
         self.assertEqual(self.report['concept_sha256'], critic_gate.concept_digest(board))
         self.assertEqual([], documentary_check.check(board))
+        self.assertEqual([], storyboard_check.check(board))
         self.assertTrue(all(.2 <= e['duration_s'] <= 1.2
                             for s in board['scenes'] for e in s['visual_events']))
         self.assertEqual([], adapter.problems(board))
@@ -117,6 +119,29 @@ class ApprovedMeasuredRetimeTest(unittest.TestCase):
         critic_gate.renderer_digest.return_value = '0' * 64
         with self.assertRaisesRegex(ValueError, 'different renderer bytes'):
             self.projected()
+
+    def test_real_scene_ceiling_and_late_ending_are_solved_inside_measured_windows(self):
+        board = self.projected()
+        self.assertTrue(all(s['duration_s'] <= storyboard_check.HARD_MAX_SCENE_S for s in board['scenes']))
+        changes = adapter.receipt(board)['scene_cut_adjustments']
+        self.assertTrue(changes)
+        for change in changes:
+            lo, hi = change['measured_silence']
+            self.assertLessEqual(lo, change['to_s']); self.assertLessEqual(change['to_s'], hi)
+        final = board['scenes'][-1]
+        self.assertGreaterEqual(final['visual_events'][-1]['at_s'],
+                                final['duration_s']*storyboard_check.LATE_BEAT_FRACTION)
+        self.assertEqual([], storyboard_check.check(board))
+
+    def test_impossible_scene_ceiling_does_not_move_a_cut_into_spoken_words(self):
+        board = {'runtime_s': 14, 'scenes': [
+            {'id': 'a', 'start_s': 0, 'duration_s': 11},
+            {'id': 'b', 'start_s': 11, 'duration_s': 3}],
+            'narration_picture': {'clauses': [
+                {'scene_id': 'a', 'start_s': .2, 'end_s': 10.5},
+                {'scene_id': 'b', 'start_s': 11.5, 'end_s': 13.8}]}}
+        with self.assertRaisesRegex(ValueError, 'unchanged scene limits'):
+            adapter._constrain_scene_cuts(board, board_retime.MIN_SCENE_DEFAULT)
 
 
 if __name__ == '__main__':

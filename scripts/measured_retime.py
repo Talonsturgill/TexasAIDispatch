@@ -104,6 +104,53 @@ def _warp(points, value):
     raise ValueError('approved retime authored action leaves its source-bound scene')
 
 
+def _constrain_scene_cuts(board, min_scene):
+    """Keep every cut in measured inter-scene silence while satisfying both floors."""
+    import storyboard_check
+    scenes = board['scenes']
+    groups = [[c for c in board['narration_picture']['clauses'] if c['scene_id'] == s['id']]
+              for s in scenes]
+    if any(not group for group in groups):
+        raise ValueError('approved scene constraint requires complete measured spoken scene bounds')
+    preferred = [s['start_s'] for s in scenes] + [board['runtime_s']]
+    lower, upper = [0.0], [0.0]
+    for left, right in zip(groups, groups[1:]):
+        lo, hi = left[-1]['end_s'], right[0]['start_s']
+        if not math.isfinite(lo) or not math.isfinite(hi) or hi <= lo:
+            raise ValueError('approved scene cut has no genuine measured silence interval')
+        lower.append(lo); upper.append(hi)
+    lower.append(board['runtime_s']); upper.append(board['runtime_s'])
+    ceiling = storyboard_check.HARD_MAX_SCENE_S
+    # Propagate difference constraints to a fixed point before choosing any cut.
+    for _ in range(len(preferred)*2):
+        before = (lower[:], upper[:])
+        for i in range(len(scenes)):
+            lower[i+1] = max(lower[i+1], lower[i]+min_scene)
+            upper[i+1] = min(upper[i+1], upper[i]+ceiling)
+        for i in range(len(scenes)-1, -1, -1):
+            lower[i] = max(lower[i], lower[i+1]-ceiling)
+            upper[i] = min(upper[i], upper[i+1]-min_scene)
+        if any(lo > hi+.000001 for lo, hi in zip(lower, upper)):
+            raise ValueError('approved scenes cannot fit measured silence within the unchanged scene limits')
+        if before == (lower, upper):
+            break
+    cuts = [0.0]
+    for i in range(1, len(preferred)):
+        lo = max(lower[i], cuts[-1]+min_scene)
+        hi = min(upper[i], cuts[-1]+ceiling)
+        if lo > hi+.000001:
+            raise ValueError('approved measured scene cut has no admissible position')
+        cuts.append(round(min(max(preferred[i], lo), hi), 4))
+    changes = []
+    for i, scene in enumerate(scenes):
+        if abs(cuts[i]-preferred[i]) > .00001:
+            changes.append({'scene_id': scene['id'], 'from_s': preferred[i], 'to_s': cuts[i],
+                            'measured_silence': [groups[i-1][-1]['end_s'], groups[i][0]['start_s']],
+                            'reason': 'unchanged scene duration floor and ceiling'})
+        scene.update(start_s=cuts[i], duration_s=round(cuts[i+1]-cuts[i], 4))
+    return changes
+
+
 def _project(board, proof, captions, words, min_scene, lead):
     original, report = originals(proof)
     if _semantic(board) != _semantic(original):
@@ -112,6 +159,7 @@ def _project(board, proof, captions, words, min_scene, lead):
     import modern_film as modern
     import documentary_check
     import critic_gate
+    import storyboard_check
     if report.get('renderer_sha256') != critic_gate.renderer_digest(original):
         raise ValueError('approved retime original reviewer belongs to different renderer bytes')
     if (not isinstance(min_scene, (int, float)) or not math.isfinite(min_scene)
@@ -128,6 +176,7 @@ def _project(board, proof, captions, words, min_scene, lead):
     if errors:
         raise ValueError('; '.join(errors))
     modern.compile_narration_clock(expected, captions, words)
+    scene_adjustments = _constrain_scene_cuts(expected, min_scene)
     old_scenes = {s['id']: s for s in original['scenes']}
     new_scenes = {s['id']: s for s in expected['scenes']}
     old_clauses = {c['id']: c for c in original['narration_picture']['clauses']}
@@ -171,6 +220,11 @@ def _project(board, proof, captions, words, min_scene, lead):
                 raise ValueError('approved action has no original narrated subject interval')
             low = max(scene['start_s'], min(c['start_s'] for c in clauses))
             high = min(scene['start_s']+scene['duration_s'], max(c['end_s'] for c in clauses))-duration
+            if (scene['duration_s'] > storyboard_check.MAX_SCENE_S+.001
+                    and prior is old['visual_events'][-1]):
+                # Round upward so a decimal boundary cannot land microscopically early.
+                late = math.ceil(scene['duration_s']*storyboard_check.LATE_BEAT_FRACTION*10000)/10000
+                low = max(low, scene['start_s']+late)
             for shot in expected['film_direction']['shots']:
                 if shot.get('event_id') == event['id']:
                     low = max(low, shot['start_s']-duration+.0002)
@@ -201,13 +255,14 @@ def _project(board, proof, captions, words, min_scene, lead):
         scene, event = events[reward['event_id']]
         reward['at_s'] = round(scene['start_s']+event['at_s']+event['duration_s']*reward['event_fraction'], 4)
     errors = modern.narration_problems(expected, captions, words)
-    errors += modern.problems(expected) + documentary_check.check(expected)
+    errors += modern.problems(expected) + documentary_check.check(expected) + storyboard_check.check(expected)
     if errors:
         raise ValueError('; '.join(sorted(set(errors))))
     expected.pop('_retime_moved', None)
     proof = copy.deepcopy(proof)
     proof.update(captions=copy.deepcopy(captions), words=copy.deepcopy(words),
-                 min_scene=min_scene, lead=lead, adjustments=adjustments)
+                 min_scene=min_scene, lead=lead, adjustments=adjustments,
+                 scene_cut_adjustments=scene_adjustments)
     expected['narration_picture']['timing_provenance'][KEY] = proof
     return expected
 
