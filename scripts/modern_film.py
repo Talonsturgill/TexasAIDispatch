@@ -139,8 +139,8 @@ def narration_problems(board, captions=None, words=None, script=None, claims=Non
     return errors
 
 
-def compile_narration(board, captions, words):
-    """Derive clauses, cuts and event windows from measured speech, never scene fractions."""
+def compile_narration_clock(board, captions, words):
+    """Bind complete authored clauses to genuine measured acoustic boundaries."""
     plan = board['narration_picture']; cues = {c['id']:c for c in captions['cues']}
     if captions.get('narration_clause_segmentation'):
         from vo_align import clause_contract
@@ -189,6 +189,16 @@ def compile_narration(board, captions, words):
     provenance=plan.setdefault('timing_provenance',{})
     provenance['cue_content_sha256']=cue_digest(captions['cues'])
     if 'method' in words: provenance['word_content_sha256']=narration_digest(words)
+    return board
+
+
+def compile_narration(board, captions, words):
+    """Derive clauses, cuts and event windows from measured speech, never scene fractions."""
+    import measured_retime
+    if measured_retime.receipt(board) is not None:
+        return measured_retime.compile(board, captions, words)
+    compile_narration_clock(board, captions, words)
+    plan = board['narration_picture']
     scenes = {s['id']:s for s in board['scenes']}
     rows = {r['id']:r for r in plan['clauses']}
     for sid,scene in scenes.items():
@@ -337,6 +347,8 @@ def problems(board, repo=REPO):
     if not isinstance(plan, dict):
         return ['modern production requires film_direction; the old renderer is historical only']
     errors = narration_problems(board, repo=repo)
+    import measured_retime
+    errors += measured_retime.problems(board)
     import story_art
     errors += story_art.problems(board, repo)
     if plan.get('version') != cfg['version'] or board.get('cinematic_template') != cfg['template']:

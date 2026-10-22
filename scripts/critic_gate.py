@@ -117,6 +117,9 @@ def measured_concept_policy(board: dict) -> dict | None:
 
 
 def concept_digest(board: dict) -> str:
+    import measured_retime
+    if measured_retime.receipt(board) is not None:
+        return measured_retime.approved_identity(board)
     plan = copy.deepcopy(board)
     if measured_concept_policy(board):
         # Code approval covers the authored causal plan. The measured clock

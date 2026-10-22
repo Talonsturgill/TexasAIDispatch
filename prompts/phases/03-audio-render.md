@@ -112,6 +112,19 @@ uses that same path. Keep the actual producer failures and charges. Do not reset
 board, use a separate board for the mix, or hand-edit derived times to pass a check. The passing
 retime supplies the measured clauses; then remix, realign, fold and verify stability as above.
 
+Retain the exact independently approved authored board and its original passing critique before
+audio work. If an older approved plan cannot pass ordinary clause compilation, preserve the
+failed board and use the explicit measured recovery on a diagnostic copy of that approved plan:
+`board_retime.py --approved-board <retained-board> --approved-critique <original-report>` with
+the actual current words and captions. Carry current runtime and complete music credits into
+the copy. The adapter must reproduce every shot, view, subject, source, action and reward binding
+and verify the original report and renderer; it may only derive clock changes from the measured
+speech and existing action constraints. Adopt the resulting measured board only after its
+provenance, picture and caption gates pass. It retains code approval, never approval of the new
+film. Use the reserved final timed phone review for that exact film; do not buy another code
+round for a verified timing transformation. A changed creative field or impossible timing
+constraint remains a failure. Never rewrite the original report or extend the five-review cap.
+
 Consolidate every failing cue and event before requesting a paid repair review. Check all cues,
 preserve the measured breaks that already work, and run proposed event timing through the free
 retime and picture gates on a separate diagnostic copy with the retained measured captions and
