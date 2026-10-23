@@ -400,7 +400,7 @@ class ProductionPanelSurfaceReleaseTests(unittest.TestCase):
                 "production_quality.audio_problems", "production_quality.av_problems",
                 "creative_production.opening_problems", "creative_production.mix_problems",
                 "documentary_review.direction.check", "documentary_review.report_problems"):
-            mocker = patch(target, return_value=[])
+            mocker = patch(target, side_effect=lambda *args, **kwargs: [])
             mocker.start(); self.addCleanup(mocker.stop)
 
     def save_state(self):
@@ -409,6 +409,104 @@ class ProductionPanelSurfaceReleaseTests(unittest.TestCase):
     def errors(self):
         import documentary_review
         return documentary_review.publication_problems(self.board_path, self.film, self.judges)
+
+    def archived_package(self, critics=5):
+        """Real immutable Git closure; all media and receipts here are test fixtures."""
+        import subprocess
+        self.archive_repo = Path(self.tmp.name) / "archive-repo"
+        package = self.archive_repo / "runs" / self.board["date"]
+        package.parent.mkdir(parents=True)
+        self.root.rename(package)
+        self.root = package
+        self.board_path = package / "storyboard.json"
+        self.film = (package / "film.mp4").rename(package / "dispatch.mp4")
+        report = package / "report_card.json"
+        report.write_text(json.dumps({"judges": self.judges}))
+        film_sha = c.digest(self.film)
+        self.state.update(phase="publishing", terminal_state=None, release_status="publishable",
+                          usage={"reboards": 1, "storyboard_critics": critics},
+                          final_report={"sha256": c.digest(report), "film_sha256": film_sha},
+                          deliverable={"film_sha256": film_sha},
+                          events=[{"kind": "release_authorized", "result": "publishable",
+                                   "report_sha256": c.digest(report)}])
+        self.save_state()
+        def git(*args):
+            return subprocess.check_output(["git", *args], cwd=self.archive_repo,
+                                           stderr=subprocess.PIPE, text=True).strip()
+        git("init", "-q"); git("config", "user.name", "Archive fixture")
+        git("config", "user.email", "fixture@example.invalid")
+        git("add", "--all"); git("commit", "-qm", "Synthetic publishing fixture")
+        self.archive_base = git("rev-parse", "HEAD")
+        self.state.update(phase="shipped", terminal_state="shipped",
+                          shipment={"film_sha256": film_sha, "manifest_sha256": "a" * 64})
+        self.state["events"].append({"kind": "finished", "result": "shipped",
+                                     "at": "2026-10-23T09:56:00Z", "shipment_sha256": "a" * 64})
+        self.save_state()
+        git("add", "--all"); git("commit", "-qm", "Synthetic accepted archive fixture")
+        return git
+
+    def archive_context(self):
+        import archive_source_identity as archive
+        return archive.validation_context(self.archive_repo, self.archive_base, self.board["date"])
+
+    def test_shipped_surface_boundary_is_bound_to_validated_package_and_resets(self):
+        import archive_source_identity as archive
+        import review_limit
+        self.archived_package(); original = copy.deepcopy(self.judges)
+        self.assertIn("modern engagement or finish unproven: finished_art", self.errors())
+        self.assertFalse(archive.retained_finishing(self.root))
+        with self.archive_context():
+            self.assertTrue(archive.retained_finishing(self.root))
+            self.assertFalse(archive.retained_finishing(self.root.parent / "another-edition"))
+            self.assertFalse(review_limit.enabled(self.state))
+            self.assertFalse(review_limit.finishing(self.state))
+            self.assertEqual([], self.errors())
+        self.assertFalse(archive.retained_finishing(self.root))
+        self.assertEqual(original, self.judges)
+        self.assertFalse(self.judges[-1]["ship"])
+
+    def test_shipped_archive_cannot_invent_prior_finishing_boundary(self):
+        self.archived_package(critics=2)
+        with self.archive_context():
+            self.assertIn("modern engagement or finish unproven: finished_art", self.errors())
+
+    def test_shipped_archive_keeps_independent_assessment_and_integrity_failures(self):
+        import modern_film
+        self.archived_package(); original = copy.deepcopy(self.judges[-1])
+        cases = ["missing", "unclassified", "category"] + list(original["bounded_release"]["retained_checks"])
+        with self.archive_context():
+            for change in cases:
+                with self.subTest(change=change):
+                    self.judges[-1] = copy.deepcopy(original)
+                    judge = self.judges[-1]
+                    if change == "missing": del judge["bounded_release"]
+                    elif change == "unclassified": judge["bounded_release"]["defects"] = []
+                    elif change == "category": judge["bounded_release"]["defects"][0]["category"] = "pacing"
+                    else: judge["bounded_release"]["retained_checks"][change]["pass"] = False
+                    self.assertTrue(self.errors())
+            self.judges[-1] = copy.deepcopy(original)
+            for key in modern_film.policy()["review_criteria"]:
+                if key == "finished_art":
+                    continue
+                with self.subTest(observation=key):
+                    self.judges[-1] = copy.deepcopy(original)
+                    self.judges[-1]["modern_observations"][key]["pass"] = False
+                    self.assertTrue(self.errors())
+
+    def test_shipped_archive_boundary_refuses_changed_state_and_cleans_on_error(self):
+        import archive_source_identity as archive
+        self.archived_package()
+        with self.assertRaisesRegex(RuntimeError, "test publication failure"):
+            with self.archive_context():
+                self.state["usage"]["storyboard_critics"] = 6
+                self.save_state()
+                self.assertFalse(archive.retained_finishing(self.root))
+                self.assertTrue(self.errors())
+                raise RuntimeError("test publication failure")
+        self.assertFalse(archive.retained_finishing(self.root))
+        with self.assertRaises(ValueError):
+            with self.archive_context():
+                self.fail("changed committed evidence must not be admitted")
 
     def test_original_surface_rejection_reaches_publication_without_regrading(self):
         original = copy.deepcopy(self.judges)
