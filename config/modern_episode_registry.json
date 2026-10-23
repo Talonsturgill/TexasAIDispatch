@@ -1651,6 +1651,514 @@
           ]
         }
       ]
+    },
+    "leak-review-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "alert-panel",
+        "approval-close",
+        "blank-box",
+        "confirm-close",
+        "confirm-hold",
+        "equipment-low",
+        "feed-lens",
+        "followup-tag",
+        "infrared-view",
+        "letter-desk",
+        "letter-scroll",
+        "letter-wide",
+        "mark-hands",
+        "panel-wide",
+        "poi-close",
+        "program-calendar",
+        "program-wide",
+        "proposal-close",
+        "proposal-wide",
+        "review-panel",
+        "review-wide",
+        "room-calendar",
+        "room-desk",
+        "room-feed",
+        "room-hold",
+        "room-letter",
+        "room-monitor",
+        "room-proposal",
+        "room-review",
+        "room-window",
+        "route-wide",
+        "stamp-reaction",
+        "station-wide",
+        "title-detail",
+        "window-wide"
+      ],
+      "wall_views": [
+        "title-detail"
+      ],
+      "subject": "A generic inspection drone design that leaves a weatherproof station on a Permian well pad, flies a flight plan with an infrared camera, and the records around it: a software panel with an alert flag, an approval letter with a date stamp, a review panel with a certified inspector mark and a follow-up tag, a letter title with a highlighted AI, a leak reporting program tag with calendar pages and a proposal tag, and a blank AI box",
+      "note": "Fresh authored Claude-lane episode for 2026-10-21 (EPA approval letter of September 30th, 2025 for an Austin company's drone, the Super Emitter Program delay and the October 7th, 2026 release). Hero InspectionDroneHero and support LeakReviewSupport are original React and SVG groups shared by both treatments. A follows the drone at ground level, B reads the same events from the desk and from above. Disclosed illustration, no brand marks, no real drone, station, site, leak, plume, agency seal, letter page or person.",
+      "narration_views": {
+        "alert-panel": {
+          "subject_ids": [
+            "s2-alert",
+            "s2-claim",
+            "s2-software"
+          ],
+          "action_ids": [
+            "software-alert-claim"
+          ]
+        },
+        "approval-close": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-letter",
+            "s3-system",
+            "s3-scope"
+          ],
+          "action_ids": [
+            "epa-approves-method"
+          ]
+        },
+        "blank-box": {
+          "subject_ids": [
+            "s9-ai-box",
+            "s9-footage",
+            "s9-inspector",
+            "s9-station"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak-ai-unknown"
+          ]
+        },
+        "confirm-close": {
+          "subject_ids": [
+            "s9-ai-box",
+            "s9-footage",
+            "s9-inspector",
+            "s9-station"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak-ai-unknown"
+          ]
+        },
+        "confirm-hold": {
+          "subject_ids": [
+            "s9-ai-box",
+            "s9-footage",
+            "s9-inspector",
+            "s9-station"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak-ai-unknown"
+          ]
+        },
+        "equipment-low": {
+          "subject_ids": [
+            "s1-drone",
+            "s1-equipment",
+            "s1-locator",
+            "s1-station"
+          ],
+          "action_ids": [
+            "drone-leaves-station"
+          ]
+        },
+        "feed-lens": {
+          "subject_ids": [
+            "s4-drone",
+            "s4-infrared",
+            "s4-inspector",
+            "s4-poi",
+            "s4-route"
+          ],
+          "action_ids": [
+            "drone-flies-route"
+          ]
+        },
+        "followup-tag": {
+          "subject_ids": [
+            "s5-emission",
+            "s5-followup",
+            "s5-footage",
+            "s5-inspector"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak"
+          ]
+        },
+        "infrared-view": {
+          "subject_ids": [
+            "s4-drone",
+            "s4-infrared",
+            "s4-poi",
+            "s4-route"
+          ],
+          "action_ids": [
+            "drone-flies-route"
+          ]
+        },
+        "letter-desk": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-letter",
+            "s3-system",
+            "s3-scope"
+          ],
+          "action_ids": [
+            "epa-approves-method"
+          ]
+        },
+        "letter-scroll": {
+          "subject_ids": [
+            "s6-count",
+            "s6-letter",
+            "s6-title"
+          ],
+          "action_ids": [
+            "ai-appears-in-title"
+          ]
+        },
+        "letter-wide": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-letter",
+            "s3-system",
+            "s3-scope"
+          ],
+          "action_ids": [
+            "epa-approves-method"
+          ]
+        },
+        "mark-hands": {
+          "subject_ids": [
+            "s5-emission",
+            "s5-followup",
+            "s5-footage",
+            "s5-inspector"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak"
+          ]
+        },
+        "panel-wide": {
+          "subject_ids": [
+            "s2-alert",
+            "s2-claim",
+            "s2-software"
+          ],
+          "action_ids": [
+            "software-alert-claim"
+          ]
+        },
+        "poi-close": {
+          "subject_ids": [
+            "s4-drone",
+            "s4-infrared",
+            "s4-poi",
+            "s4-route"
+          ],
+          "action_ids": [
+            "drone-flies-route"
+          ]
+        },
+        "program-calendar": {
+          "subject_ids": [
+            "s7-calendar",
+            "s7-delay",
+            "s7-program"
+          ],
+          "action_ids": [
+            "program-delayed"
+          ]
+        },
+        "program-wide": {
+          "subject_ids": [
+            "s7-calendar",
+            "s7-delay",
+            "s7-program"
+          ],
+          "action_ids": [
+            "program-delayed"
+          ]
+        },
+        "proposal-close": {
+          "subject_ids": [
+            "s8-date",
+            "s8-program",
+            "s8-proposal"
+          ],
+          "action_ids": [
+            "program-proposed-ended"
+          ]
+        },
+        "proposal-wide": {
+          "subject_ids": [
+            "s8-date",
+            "s8-program",
+            "s8-proposal"
+          ],
+          "action_ids": [
+            "program-proposed-ended"
+          ]
+        },
+        "review-panel": {
+          "subject_ids": [
+            "s5-emission",
+            "s5-followup",
+            "s5-footage",
+            "s5-inspector"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak"
+          ]
+        },
+        "review-wide": {
+          "subject_ids": [
+            "s5-emission",
+            "s5-followup",
+            "s5-footage",
+            "s5-inspector"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak"
+          ]
+        },
+        "room-calendar": {
+          "subject_ids": [
+            "s7-calendar",
+            "s7-delay",
+            "s7-inspector",
+            "s7-program"
+          ],
+          "action_ids": [
+            "program-delayed"
+          ]
+        },
+        "room-desk": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-inspector",
+            "s3-letter",
+            "s3-system",
+            "s3-scope"
+          ],
+          "action_ids": [
+            "epa-approves-method"
+          ]
+        },
+        "room-feed": {
+          "subject_ids": [
+            "s4-drone",
+            "s4-infrared",
+            "s4-inspector",
+            "s4-poi",
+            "s4-route"
+          ],
+          "action_ids": [
+            "drone-flies-route"
+          ]
+        },
+        "room-hold": {
+          "subject_ids": [
+            "s9-ai-box",
+            "s9-footage",
+            "s9-inspector",
+            "s9-station"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak-ai-unknown"
+          ]
+        },
+        "room-letter": {
+          "subject_ids": [
+            "s6-count",
+            "s6-inspector",
+            "s6-letter",
+            "s6-title"
+          ],
+          "action_ids": [
+            "ai-appears-in-title"
+          ]
+        },
+        "room-monitor": {
+          "subject_ids": [
+            "s2-alert",
+            "s2-claim",
+            "s2-inspector",
+            "s2-software"
+          ],
+          "action_ids": [
+            "software-alert-claim"
+          ]
+        },
+        "room-proposal": {
+          "subject_ids": [
+            "s8-date",
+            "s8-inspector",
+            "s8-program",
+            "s8-proposal"
+          ],
+          "action_ids": [
+            "program-proposed-ended"
+          ]
+        },
+        "room-review": {
+          "subject_ids": [
+            "s5-emission",
+            "s5-followup",
+            "s5-footage",
+            "s5-inspector"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak"
+          ]
+        },
+        "room-window": {
+          "subject_ids": [
+            "s1-drone",
+            "s1-equipment",
+            "s1-inspector",
+            "s1-locator",
+            "s1-station"
+          ],
+          "action_ids": [
+            "drone-leaves-station"
+          ]
+        },
+        "route-wide": {
+          "subject_ids": [
+            "s4-drone",
+            "s4-infrared",
+            "s4-poi",
+            "s4-route"
+          ],
+          "action_ids": [
+            "drone-flies-route"
+          ]
+        },
+        "stamp-reaction": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-inspector",
+            "s3-letter",
+            "s3-system",
+            "s3-scope"
+          ],
+          "action_ids": [
+            "epa-approves-method"
+          ]
+        },
+        "station-wide": {
+          "subject_ids": [
+            "s1-drone",
+            "s1-equipment",
+            "s1-locator",
+            "s1-station"
+          ],
+          "action_ids": [
+            "drone-leaves-station"
+          ]
+        },
+        "title-detail": {
+          "subject_ids": [
+            "s6-count",
+            "s6-letter",
+            "s6-title"
+          ],
+          "action_ids": [
+            "ai-appears-in-title"
+          ]
+        },
+        "window-wide": {
+          "subject_ids": [
+            "s9-ai-box",
+            "s9-footage",
+            "s9-inspector",
+            "s9-station"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak-ai-unknown"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx",
+          "export": "InspectionDroneHero",
+          "views": [
+            "approval-close",
+            "blank-box",
+            "confirm-close",
+            "confirm-hold",
+            "equipment-low",
+            "feed-lens",
+            "infrared-view",
+            "letter-desk",
+            "letter-wide",
+            "poi-close",
+            "room-desk",
+            "room-feed",
+            "room-hold",
+            "room-window",
+            "route-wide",
+            "stamp-reaction",
+            "station-wide",
+            "window-wide"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx",
+          "export": "LeakReviewSupport",
+          "views": [
+            "alert-panel",
+            "approval-close",
+            "blank-box",
+            "confirm-close",
+            "confirm-hold",
+            "equipment-low",
+            "feed-lens",
+            "followup-tag",
+            "infrared-view",
+            "letter-desk",
+            "letter-scroll",
+            "letter-wide",
+            "mark-hands",
+            "panel-wide",
+            "poi-close",
+            "program-calendar",
+            "program-wide",
+            "proposal-close",
+            "proposal-wide",
+            "review-panel",
+            "review-wide",
+            "room-calendar",
+            "room-desk",
+            "room-feed",
+            "room-hold",
+            "room-letter",
+            "room-monitor",
+            "room-proposal",
+            "room-review",
+            "room-window",
+            "route-wide",
+            "stamp-reaction",
+            "station-wide",
+            "title-detail",
+            "window-wide"
+          ]
+        }
+      ]
     }
   }
 }
