@@ -89,17 +89,112 @@ class CodexVisualTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'chronological page'):
                 visual.analyze(self.packet, 'unit', records)
 
-    def test_extra_wrong_pixels_outside_package_or_repeated_page_refuse(self):
+    def test_extra_wrong_pixels_or_outside_package_refuse(self):
         extra = self.supplementary()
         extra[1]['event']['payload']['output'][0]['image_url'] += 'AAAA'
         with self.assertRaises(ValueError):
             visual.analyze(self.packet, 'unit', self.records+extra)
-        for path in (self.root/'page0.png', self.root.parent/(self.root.name+'-outside.png')):
+        for path in (self.root.parent/(self.root.name+'-outside.png'),):
             try:
                 with self.assertRaisesRegex(ValueError, 'supplemental image'):
                     visual.analyze(self.packet, 'unit', self.records+self.supplementary(path))
             finally:
                 if path.parent != self.root: path.unlink()
+
+    def test_genuine_required_page_revisit_is_supplemental_only_after_complete_sequence(self):
+        extra = self.supplementary(self.root/'page0.png')
+        result = visual.analyze(self.packet, 'unit', self.records+extra)
+        self.assertEqual(len(result['pages']), 2)
+        self.assertEqual(len(result['supplemental_images']), 1)
+        self.assertTrue(result['supplemental_images'][0]['revisited_required_page'])
+        self.assertEqual([row['first_frame'] for row in result['pages']], [0, 30])
+        early = self.records[:3]+extra+self.records[3:]
+        for n, row in enumerate(early): row['line'] = n+2
+        with self.assertRaisesRegex(ValueError, 'chronological page'):
+            visual.analyze(self.packet, 'unit', early)
+
+    def change_note(self, record, **changes):
+        text = record['event']['payload']['content'][0]
+        note = json.loads(text['text'][len(visual.PREFIX):])
+        note.update(changes)
+        text['text'] = visual.PREFIX+json.dumps(note)
+
+    def test_explicit_null_transcription_binds_real_pixels_and_retains_original_facts(self):
+        self.change_note(self.records[2], image_sha256=None)
+        self.records += self.supplementary()
+        self.change_note(self.records[-1], image_sha256=None)
+        before = copy.deepcopy(self.records)
+        result = self.analyze()
+        self.assertEqual(self.records, before)
+        self.assertEqual(len(result['pages']), 2)
+        self.assertEqual(len(result['supplemental_images']), 1)
+        corrections = result['metadata_corrections']
+        self.assertEqual(len(corrections), 2)
+        for correction, observed, output in zip(corrections, (self.records[2], self.records[-1]),
+                                               (self.records[1], self.records[-2])):
+            self.assertEqual(correction['kind'], 'bind-null-transcription-to-delivered-png')
+            self.assertIsNone(correction['original_image_sha256'])
+            self.assertEqual(correction['bound_image_sha256'], visual.digest(self.root/'page0.png'))
+            self.assertEqual(correction['original_annotation_line'], observed['line'])
+            self.assertEqual(correction['delivered_output_line'], output['line'])
+
+    def test_null_transcription_never_accepts_wrong_pixels_path_packet_or_missing_delivery(self):
+        self.change_note(self.records[2], image_sha256=None)
+        baseline = copy.deepcopy(self.records)
+        for mutation in ('pixels', 'path', 'packet', 'no_output', 'no_annotation', 'no_hash_field'):
+            with self.subTest(mutation=mutation):
+                self.records = copy.deepcopy(baseline)
+                if mutation == 'pixels':
+                    self.records[1]['event']['payload']['output'][0]['image_url'] = (
+                        'data:image/png;base64,'+base64.b64encode(PNG+b'wrong').decode())
+                elif mutation == 'path':
+                    self.change_note(self.records[2], page=str(self.root/'page1.png'))
+                elif mutation == 'packet':
+                    self.change_note(self.records[2], packet_sha256='0'*64)
+                elif mutation in ('no_output', 'no_annotation'):
+                    self.records.pop(1 if mutation == 'no_output' else 2)
+                else:
+                    text = self.records[2]['event']['payload']['content'][0]
+                    note = json.loads(text['text'][len(visual.PREFIX):]); note.pop('image_sha256')
+                    text['text'] = visual.PREFIX+json.dumps(note)
+                with self.assertRaises(ValueError):
+                    self.analyze()
+
+    def test_nonnull_wrong_hash_is_never_mechanically_corrected(self):
+        for value in ('0'*64, '', False, 'typo'):
+            with self.subTest(value=value):
+                self.change_note(self.records[2], image_sha256=value)
+                with self.assertRaisesRegex(ValueError, 'exact packet'):
+                    self.analyze()
+        self.with_checksum_correction()
+        self.change_note(self.records[3], image_sha256=None)
+        with self.assertRaisesRegex(ValueError, 'explicit hash'):
+            self.analyze()
+
+    def test_null_supplemental_transcription_requires_exact_delivered_original_bytes(self):
+        extra = self.supplementary()
+        self.change_note(extra[-1], image_sha256=None)
+        (self.root/'native-crop.png').write_bytes(PNG+b'changed')
+        with self.assertRaisesRegex(ValueError, 'delivered PNG bytes differ'):
+            visual.analyze(self.packet, 'unit', self.records+extra)
+
+    def test_null_export_keeps_original_source_and_verifies_metadata_again(self):
+        self.change_note(self.records[2], image_sha256=None)
+        self.records += self.supplementary(self.root/'page0.png')
+        rollout = self.root/'null-rollout.jsonl'
+        rows = [{'type': 'session_meta', 'payload': {'id': 'unit-reviewer-session'}}]
+        rows += [r['event'] for r in self.records]
+        raw = ''.join(json.dumps(x)+'\n' for x in rows)
+        rollout.write_text(raw)
+        result = visual.coverage(self.packet, rollout, self.root/'null-evidence')
+        retained = json.loads(Path(result['public_events']['path']).read_text())
+        self.assertIsNone(visual.annotation(retained['records'][2]['event']['payload'])['image_sha256'])
+        self.assertTrue(all(row['public_source_line'] in raw for row in retained['records']))
+        target = self.root/'null-coverage.json'; target.write_text(json.dumps(result))
+        self.assertEqual(visual.coverage_problems(self.packet, target), [])
+        result['metadata_corrections'][0]['bound_image_sha256'] = '0'*64
+        target.write_text(json.dumps(result))
+        self.assertTrue(visual.coverage_problems(self.packet, target))
 
     def test_export_keeps_all_supplementary_source_lines_and_old_shape_unchanged(self):
         self.assertNotIn('supplemental_images', self.analyze())

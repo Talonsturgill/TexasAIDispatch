@@ -442,8 +442,10 @@ def packet_text(data):
     return encoded
 
 
-def packet(board_path, claims_path, role, state_path=None, runtime=None):
+def packet(board_path, claims_path, role, state_path=None, runtime=None, feed_path=None):
     """Bound references, not copied history. Reviewers load their assigned sources themselves."""
+    if feed_path is not None and role not in ('picture', 'story', 'sound'):
+        raise ValueError('an explicit feed applies only to a final picture, story or sound packet')
     board, claims = read(board_path), read(claims_path)
     data = {
         "role": role, "date": board["date"], "story_sha256": story_digest(board),
@@ -533,7 +535,12 @@ def packet(board_path, claims_path, role, state_path=None, runtime=None):
             if path.is_file():
                 data["opening_" + name.split(".")[0]] = {"path": str(path.resolve()), "sha256": digest(path)}
     if role in ("picture", "story", "sound"):
-        root = Path(board_path).parent
+        root = Path(board_path).resolve().parent
+        feed = Path(feed_path).absolute() if feed_path is not None else root / 'feed-composite.png'
+        feed_report = feed.with_suffix('.json')
+        if (feed.suffix.lower() != '.png' or any(path.is_symlink()
+                or not path.resolve().is_relative_to(root) for path in (feed, feed_report))):
+            raise ValueError('final feed PNG and paired JSON must stay inside the actual board package')
         from independent_review import prior_phone_partial_context
         retained = prior_phone_partial_context(board_path, claims_path, include_text=False)
         if retained:
@@ -560,11 +567,15 @@ def packet(board_path, claims_path, role, state_path=None, runtime=None):
                 'seven modern observations, clause observations and honest independent judgment remain required. '
                 'Do not infer a pass from extraction or provider approval; unproven observations remain blocking.')
         for key, name in (("film", "film.mp4"), ("av_receipt", f"cinema/{role}-review.json"),
-                          ("attention_player", "attention-review.html"), ("feed", "feed-composite.png")):
+                          ("attention_player", "attention-review.html"), ("feed", feed)):
             p = root / name
             if not p.is_file():
                 raise ValueError("final reviewer packet is missing " + str(p))
             data[key] = {"path": str(p.resolve()), "sha256": digest(p)}
+        from feed_composite_check import current_problems
+        errors = current_problems(root / 'film.mp4', feed, feed_report)
+        if errors:
+            raise ValueError('; '.join(errors))
     if state_path:
         state = read(state_path)
         data["usage"] = state["usage"]
@@ -698,9 +709,13 @@ def main():
     p.add_argument("--scoreboard", action="store_true")
     p.add_argument("--out", type=Path)
     p.add_argument("--runtime", choices=['codex'], help="explicit owned local recovery; preserve authored art")
+    p.add_argument("--feed", type=Path, help="current PNG with paired JSON inside the final scorer board package")
     a = p.parse_args()
     if a.runtime and not a.packet:
         p.error('--runtime applies only to an explicit local recovery packet')
+    if a.feed is not None and (a.packet not in ('picture', 'story', 'sound')
+                              or any((a.catalog_check, a.digest, a.scoreboard, a.structure_only))):
+        p.error('--feed applies only to a final picture, story or sound packet')
     if a.structure_only and any((a.catalog_check, a.digest, a.packet, a.scoreboard)):
         p.error("--structure-only cannot be combined with another action")
     try:
@@ -726,7 +741,7 @@ def main():
                   "current story/source structure passes; independent review still required")
             return int(bool(errors))
         elif a.packet:
-            data = packet(a.board, a.claims, a.packet, a.state, a.runtime)
+            data = packet(a.board, a.claims, a.packet, a.state, a.runtime, a.feed)
         else:
             errors = pre_voice_problems(a.board, a.claims)
             print("\n".join(errors) if errors else "current story and demonstrated action checks pass")

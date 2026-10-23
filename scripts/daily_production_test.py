@@ -72,6 +72,115 @@ class DailyTest(unittest.TestCase):
         self.bp.write_text(json.dumps(self.board))
         (self.root/"storyboard_critic.json").write_text(json.dumps(self.report))
 
+    def test_final_scorer_packet_rejects_retained_prior_film_feed_sheet(self):
+        for name in ("film.mp4", "feed-composite.png", "attention-review.html", "cinema/picture-review.json"):
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("fixture " + name)
+        report = self.root / "feed-composite.json"
+        evidence = {"schema": "dispatch_feed_composite/1", "pass": True,
+                    "film_sha256": d.digest(self.root / "film.mp4"),
+                    "contact_sheet_sha256": d.digest(self.root / "feed-composite.png")}
+        report.write_text(json.dumps(evidence))
+        self.assertEqual(d.digest(self.root / "feed-composite.png"),
+                         d.packet(self.bp, self.cp, "picture")["feed"]["sha256"])
+        for key in ("film_sha256", "contact_sheet_sha256", "pass"):
+            changed = dict(evidence)
+            changed[key] = False if key == "pass" else "0" * 64
+            report.write_text(json.dumps(changed))
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, "exact current film"):
+                d.packet(self.bp, self.cp, "picture")
+        report.unlink()
+        with self.assertRaisesRegex(ValueError, "missing or unreadable"):
+            d.packet(self.bp, self.cp, "picture")
+
+    def test_preship_builds_feed_sheet_from_the_same_final_film_before_panel(self):
+        import preship_check
+        commands = dict(preship_check.gates(self.bp, self.cp, self.root / "vo_script.txt",
+                        self.root / "captions.json", self.root / "mix.json",
+                        self.root / "sfx_events.json", self.root / "run_state.json"))
+        command = commands["feed_composite"]
+        for option, filename in (("--film", "film.mp4"), ("--board", "storyboard.json"),
+                                 ("--manifest", "render-manifest.json"),
+                                 ("--out", "feed-composite.png"), ("--report", "feed-composite.json")):
+            self.assertEqual(str(self.root / filename), command[command.index(option) + 1])
+
+    def final_feed_fixture(self):
+        for name in ('film.mp4', 'attention-review.html', 'cinema/picture-review.json',
+                     'cinema/story-review.json', 'cinema/sound-review.json'):
+            path = self.root / name; path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text('Fixture ' + name)
+        feed = self.root / 'supplemental' / 'feed-current-film.png'
+        feed.parent.mkdir(); feed.write_text('Current film contact sheet fixture')
+        evidence = {'schema': 'dispatch_feed_composite/1', 'pass': True,
+                    'film_sha256': d.digest(self.root / 'film.mp4'),
+                    'contact_sheet_sha256': d.digest(feed)}
+        feed.with_suffix('.json').write_text(json.dumps(evidence))
+        return feed, evidence
+
+    def test_unique_current_feed_binds_all_final_roles_without_replacing_old_evidence(self):
+        feed, evidence = self.final_feed_fixture()
+        old_feed = self.root / 'feed-composite.png'; old_feed.write_text('Original prior film sheet')
+        old_report = old_feed.with_suffix('.json'); old_report.write_text(json.dumps(
+            dict(evidence, film_sha256='0'*64, contact_sheet_sha256=d.digest(old_feed))))
+        original = old_feed.read_bytes(), old_report.read_bytes()
+        for role in ('picture', 'story', 'sound'):
+            with self.subTest(role=role):
+                data = d.packet(self.bp, self.cp, role, feed_path=feed)
+                self.assertEqual(data['feed'], {'path': str(feed.resolve()), 'sha256': d.digest(feed)})
+                self.assertEqual(original, (old_feed.read_bytes(), old_report.read_bytes()))
+                with self.assertRaisesRegex(ValueError, 'exact current film'):
+                    d.packet(self.bp, self.cp, role)
+
+    def test_unique_feed_requires_current_film_sheet_and_paired_report(self):
+        feed, evidence = self.final_feed_fixture()
+        report = feed.with_suffix('.json')
+        for key in ('film_sha256', 'contact_sheet_sha256', 'pass'):
+            with self.subTest(key=key):
+                report.write_text(json.dumps(dict(evidence, **{key: False if key == 'pass' else '0'*64})))
+                with self.assertRaisesRegex(ValueError, 'exact current film'):
+                    d.packet(self.bp, self.cp, 'sound', feed_path=feed)
+        report.unlink()
+        with self.assertRaisesRegex(ValueError, 'missing or unreadable'):
+            d.packet(self.bp, self.cp, 'sound', feed_path=feed)
+
+    def test_unique_feed_cannot_escape_board_package_or_alias_paired_report(self):
+        feed, evidence = self.final_feed_fixture()
+        outside = self.root.parent / (self.root.name + '-outside.png')
+        outside.write_bytes(feed.read_bytes())
+        outside.with_suffix('.json').write_text(json.dumps(evidence))
+        self.addCleanup(outside.unlink); self.addCleanup(outside.with_suffix('.json').unlink)
+        with self.assertRaisesRegex(ValueError, 'actual board package'):
+            d.packet(self.bp, self.cp, 'picture', feed_path=outside)
+        for target in (feed, feed.with_suffix('.json')):
+            original = target.read_bytes(); target.unlink()
+            target.symlink_to(outside if target == feed else outside.with_suffix('.json'))
+            with self.assertRaisesRegex(ValueError, 'actual board package'):
+                d.packet(self.bp, self.cp, 'picture', feed_path=feed)
+            target.unlink(); target.write_bytes(original)
+
+    def test_unique_feed_is_rejected_for_nonfinal_packet_roles_and_cli_actions(self):
+        feed, _ = self.final_feed_fixture()
+        for role in ('validator', 'scene-builder', 'storyboard-critic', 'vo-director'):
+            with self.subTest(role=role), self.assertRaisesRegex(ValueError, 'only to a final'):
+                d.packet(self.bp, self.cp, role, feed_path=feed)
+        for extra in ([], ['--packet', 'validator'], ['--packet', 'picture', '--digest'],
+                      ['--packet', 'sound', '--scoreboard'], ['--catalog-check'], ['--structure-only']):
+            with self.subTest(extra=extra), patch('sys.argv', ['daily_production.py', '--feed', str(feed), *extra]), \
+                    contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
+                d.main()
+            self.assertEqual(error.exception.code, 2)
+
+    def test_unique_feed_cli_writes_the_same_bound_final_packet(self):
+        feed, _ = self.final_feed_fixture()
+        out = self.root / 'sound-packet.json'
+        args = ['daily_production.py', '--board', str(self.bp), '--claims', str(self.cp),
+                '--packet', 'sound', '--feed', str(feed), '--out', str(out)]
+        with patch('sys.argv', args), contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(d.main(), 0)
+        self.assertEqual(json.loads(out.read_text())['feed'],
+                         {'path': str(feed.resolve()), 'sha256': d.digest(feed)})
+
     def structure_cli(self, *extra):
         args = ["daily_production.py", "--board", str(self.bp), "--claims", str(self.cp),
                 "--structure-only", *extra]

@@ -217,6 +217,7 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runti
                 return {'status': 'resume_required', 'run_id': value['run_id'], 'review_approval': False,
                         'provider_unavailable': False}
         recovery = None
+        continuing = False
         if runtime == 'codex':
             if (not value or value['status'] != 'held' or value['run_id'] != run_id
                     or instant(value['expires_at']) > moment):
@@ -227,6 +228,23 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runti
                 raise ValueError('local recovery requires the original verified unfinished checkpoint')
             recovery = {'previous_owner_sha256': value['owner_sha256'], 'previous_epoch': value['epoch'],
                         'ledger_sha256': record[0]['ledger_sha256'], 'source_pin': record[0]['source_pin']}
+            if value['owner_sha256'] == owner:
+                # An interrupted original thread keeps its prepaid claims only while
+                # both identities still name the same held epoch. The append below
+                # must win the ordinary remote CAS before local ownership is renewed.
+                expected = {'schema': SCHEMA, 'runtime': runtime, 'run_id': run_id,
+                            'owner_sha256': owner, 'epoch': value['epoch'], 'status': 'held',
+                            'repo': str(repo)}
+                if (value.get('runtime') != runtime or not isinstance(local, dict)
+                        or any(local.get(key) != item for key, item in expected.items())):
+                    raise ValueError('same-owner continuation requires its exact held local publication marker')
+                state_path = repo / 'out/dispatch/run_state.json'
+                state = load(state_path) if state_path.is_file() else None
+                if (not isinstance(state, dict) or state.get('run_id') != run_id
+                        or state.get('mode') != 'production' or state.get('terminal_state')
+                        or state.get('phase') == 'shipped' or record[0].get('terminal_state')):
+                    raise ValueError('same-owner continuation requires the original unfinished local ledger and checkpoint')
+                continuing = True
         if value is None:
             legacy = checkpoint_record(repo, run_id)
             if legacy:
@@ -241,13 +259,14 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runti
                     record_wait(workspace, owner, repo, result)
                     return result
         previous = value['commit'] if value else None
-        proposed = {'schema': SCHEMA, 'run_id': run_id, 'owner_sha256': owner,
-                    'epoch': uuid4().hex, 'status': 'held', 'acquired_at': stamp(moment),
-                    'heartbeat_at': stamp(moment), 'expires_at': stamp(moment + timedelta(seconds=LEASE_SECONDS)),
-                    'previous_commit': previous, 'review_approval': False, 'provider_unavailable': False}
+        proposed = ({k: v for k, v in value.items() if k != 'commit'} if continuing else
+                    {'schema': SCHEMA, 'run_id': run_id, 'owner_sha256': owner,
+                     'epoch': uuid4().hex, 'status': 'held', 'acquired_at': stamp(moment),
+                     'previous_commit': previous, 'review_approval': False, 'provider_unavailable': False})
+        proposed.update(heartbeat_at=stamp(moment), expires_at=stamp(moment + timedelta(seconds=LEASE_SECONDS)))
         if previous_proof:
             proposed['previous_publication'] = previous_proof
-        if runtime == 'codex':
+        if runtime == 'codex' and not continuing:
             proposed.update(runtime=runtime, recovery=recovery)
         try:
             held = append(repo, proposed, previous)
@@ -263,7 +282,7 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runti
         write(marker, {**held, 'repo': str(repo), 'verified_at': stamp(moment)})
         record_wait(workspace, owner, repo, {'status': 'resolved', 'run_id': run_id})
         return {'status': 'owned', 'run_id': run_id, 'epoch': held['epoch'],
-                'fresh_reservations_required': True, 'review_approval': False}
+                'fresh_reservations_required': not continuing, 'review_approval': False}
 
 
 def current(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runtime='claude'):

@@ -344,6 +344,144 @@ class LocalRecoveryOwnership(Base):
                         patch.object(owner, 'now', return_value=self.expired)):
             context.start(); self.addCleanup(context.stop)
 
+    def resumable(self):
+        self.prepare()
+        owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex')
+        self.resume_at = self.expired + timedelta(seconds=owner.LEASE_SECONDS + 1)
+        return owner.read_remote(self.repo)
+
+    def test_same_actual_thread_resumes_expired_epoch_without_recharging_or_replaying_panel(self):
+        previous = self.resumable()
+        state = self.ledger()
+        state['events'].append({'kind': 'reserved', 'resources': {'panel_rounds': 1, 'scorer_calls': 3},
+                               **owner.reservation_fields(self.state, state)})
+        state['usage']['panel_rounds'] += 1
+        state['usage']['scorer_calls'] += 3
+        self.write_ledger(state)
+        with patch.object(checkpoint, 'mirror'):
+            claimed = owner.claim_worker(self.state, 'picture', 'scorer_calls', 'b' * 64, 'original_picture')
+        self.save('original prepaid panel with one consumed role')
+        before = (self.state.read_bytes(), claimed.read_bytes())
+        with patch.object(owner, 'now', return_value=self.resume_at):
+            with self.assertRaisesRegex(ValueError, 'does not own publication'):
+                owner.require_owner(self.state)
+            result = owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex')
+            current = owner.require_owner(self.state)
+            self.assertEqual('owned', result['status'])
+            self.assertFalse(result['fresh_reservations_required'])
+            self.assertFalse(result['review_approval'])
+            self.assertEqual(previous['epoch'], current['epoch'])
+            self.assertEqual(previous['commit'], current['previous_commit'])
+            self.assertEqual(previous['acquired_at'], current['acquired_at'])
+            self.assertEqual(previous['recovery'], current['recovery'])
+            self.assertGreater(owner.instant(current['expires_at']), self.resume_at)
+            self.assertEqual(before, (self.state.read_bytes(), claimed.read_bytes()))
+            with patch.object(checkpoint, 'mirror') as mirror:
+                self.assertFalse(owner.claim_worker(self.state, 'picture', 'scorer_calls', 'b' * 64, 'original_picture'))
+                for role in ('story', 'sound'):
+                    self.assertTrue(owner.claim_worker(self.state, role, 'scorer_calls', 'c' * 64, role))
+                    self.assertFalse(owner.claim_worker(self.state, role, 'scorer_calls', 'c' * 64, role))
+                self.assertEqual(2, mirror.call_count)
+        self.assertEqual(before[0], self.state.read_bytes())
+        self.assertEqual('3', sh('git', 'rev-list', '--count', owner.REF, cwd=self.origin).strip())
+
+    def test_same_thread_cannot_continue_with_missing_foreign_or_fenced_marker(self):
+        previous = self.resumable()
+        marker = self.local_workspace / owner.MARKER
+        original = marker.read_bytes()
+        invalid = {'schema': 'other', 'runtime': 'claude', 'run_id': '2026-10-22',
+                   'owner_sha256': 'a' * 64, 'epoch': 'a' * 32, 'status': 'fenced',
+                   'repo': str(self.root / 'other-checkout')}
+        for field, value in [(None, None), *invalid.items()]:
+            with self.subTest(field=field):
+                marker.write_bytes(original)
+                if field is None:
+                    marker.unlink()
+                else:
+                    local = owner.load(marker); local[field] = value; owner.write(marker, local)
+                before = marker.read_bytes() if marker.exists() else None
+                with self.assertRaisesRegex(ValueError, 'exact held local publication marker'):
+                    owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex', moment=self.resume_at)
+                self.assertEqual(before, marker.read_bytes() if marker.exists() else None)
+                self.assertEqual(previous, owner.read_remote(self.repo))
+
+    def test_same_thread_cannot_continue_missing_wrong_or_completed_local_ledger(self):
+        previous = self.resumable()
+        original = self.state.read_bytes()
+        marker = (self.local_workspace / owner.MARKER).read_bytes()
+        for field, value in [(None, None), ('run_id', '2026-10-22'), ('mode', 'test'),
+                             ('terminal_state', 'shipped'), ('phase', 'shipped')]:
+            with self.subTest(field=field):
+                self.state.write_bytes(original)
+                if field is None:
+                    self.state.unlink()
+                else:
+                    state = self.ledger(); state[field] = value; self.write_ledger(state)
+                before = self.state.read_bytes() if self.state.exists() else None
+                with self.assertRaisesRegex(ValueError, 'original unfinished local ledger and checkpoint'):
+                    owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex', moment=self.resume_at)
+                self.assertEqual(before, self.state.read_bytes() if self.state.exists() else None)
+                self.assertEqual(marker, (self.local_workspace / owner.MARKER).read_bytes())
+                self.assertEqual(previous, owner.read_remote(self.repo))
+
+    def test_same_thread_cannot_continue_changed_remote_epoch_or_runtime(self):
+        previous = self.resumable()
+        original = (self.local_workspace / owner.MARKER).read_bytes()
+        for change in ({'epoch': 'a' * 32}, {'runtime': 'claude'}):
+            with self.subTest(change=change):
+                changed = {k: v for k, v in previous.items() if k != 'commit'}
+                changed.update(change)
+                winner = owner.append(self.repo, changed, owner.read_remote(self.repo)['commit'])
+                with self.assertRaisesRegex(ValueError, 'exact held local publication marker'):
+                    owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex', moment=self.resume_at)
+                self.assertEqual(winner, owner.read_remote(self.repo))
+                self.assertEqual(original, (self.local_workspace / owner.MARKER).read_bytes())
+
+    def test_same_thread_requires_unfinished_checkpoint_and_never_reopens_complete_owner(self):
+        previous = self.resumable()
+        record = owner.checkpoint_record(self.repo, RUN)
+        for record_value in (None, (record[0], {**record[1], 'terminal_state': 'shipped'}),
+                             ({**record[0], 'terminal_state': 'shipped'}, record[1])):
+            with self.subTest(record_value=record_value is None):
+                with patch.object(owner, 'checkpoint_record', return_value=record_value), \
+                        self.assertRaisesRegex(ValueError, 'unfinished'):
+                    owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex', moment=self.resume_at)
+                self.assertEqual(previous, owner.read_remote(self.repo))
+        complete = owner.append(self.repo, {k: v for k, v in {**previous, 'status': 'complete'}.items()
+                                          if k != 'commit'}, previous['commit'])
+        result = owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex', moment=self.resume_at)
+        self.assertEqual('complete', result['status'])
+        self.assertEqual(complete, owner.read_remote(self.repo))
+
+    def test_expired_different_codex_thread_keeps_fresh_epoch_and_reservation_fence(self):
+        previous = self.resumable()
+        with patch.dict('os.environ', {'CODEX_THREAD_ID': 'another-actual-thread'}):
+            result = owner.acquire(self.repo, RUN, self.root / 'other-local', runtime='codex', moment=self.resume_at)
+        self.assertTrue(result['fresh_reservations_required'])
+        self.assertNotEqual(previous['epoch'], result['epoch'])
+        self.assertNotEqual(previous['owner_sha256'], owner.read_remote(self.repo)['owner_sha256'])
+
+    def test_same_owner_renewal_loses_actual_git_cas_without_local_or_ledger_writes(self):
+        previous = self.resumable()
+        marker = self.local_workspace / owner.MARKER
+        before = (marker.read_bytes(), self.state.read_bytes())
+        append = owner.append
+        winner = None
+
+        def race(repo, proposed, parent):
+            nonlocal winner
+            rival = {k: v for k, v in previous.items() if k != 'commit'}
+            rival.update(owner_sha256='a' * 64, epoch='a' * 32)
+            winner = append(repo, rival, parent)
+            return append(repo, proposed, parent)
+
+        with patch.object(owner, 'append', side_effect=race):
+            result = owner.acquire(self.repo, RUN, self.local_workspace, runtime='codex', moment=self.resume_at)
+        self.assertEqual('busy', result['status'])
+        self.assertEqual(winner['owner_sha256'], result['owner_sha256'])
+        self.assertEqual(winner, owner.read_remote(self.repo))
+        self.assertEqual(before, (marker.read_bytes(), self.state.read_bytes()))
+
     def test_expired_original_owner_transfers_with_real_checkpoint_and_no_ledger_change(self):
         self.prepare()
         before = self.state.read_bytes()

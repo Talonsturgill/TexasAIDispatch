@@ -256,7 +256,7 @@ def analyze(packet_path, session, records, paths=None):
     if calls or pending is not None or len(pairs) < len(expected):
         raise ValueError('complete chronological image delivery and public annotation coverage required')
     rows, supplemental = [], []
-    required_images = {(Path(ref['path']).parent / page['file']).resolve() for ref, page in expected}
+    required_images = {(Path(ref['path']).parent / page['file']).resolve(): page for ref, page in expected}
     package_root = (paths.origin / paths.path(packet_path).relative_to(paths.root).parent
                     if paths else Path(packet_path).resolve().parent)
     for position, (call, output, observed, note) in enumerate(pairs):
@@ -265,17 +265,17 @@ def analyze(packet_path, session, records, paths=None):
             ref, page = expected[position]
             raw_image = Path(ref['path']).parent / page['file']
         else:
-            # Native crops and feed images are inspected after the complete film
-            # sequence. Retain and verify them without counting them as pages.
+            # Native crops, feed images and revisits are inspected after the
+            # complete film sequence; none can supply a missing chronological page.
             raw_image = view_path(call['event']['payload'])
-            if (raw_image is None or raw_image in required_images
-                    or not raw_image.is_relative_to(package_root)
+            if (raw_image is None or not raw_image.is_relative_to(package_root)
                     or raw_image.suffix.lower() != '.png'):
                 raise ValueError('supplemental image must be an owned PNG after complete chronology')
             declared = Path(note.get('page', ''))
             if any(q.is_symlink() for q in (declared, *declared.parents)):
                 raise ValueError('supplemental image cannot follow symbolic links')
-            page = {'file': raw_image.name, 'sha256': note.get('image_sha256')}
+            page = required_images.get(raw_image) or {
+                'file': raw_image.name, 'sha256': digest(paths.path(raw_image) if paths else raw_image)}
         image = raw_image.resolve()
         local_image = paths.path(image) if paths else image
         if (Path(page['file']).name != page['file']
@@ -293,7 +293,8 @@ def analyze(packet_path, session, records, paths=None):
         fields = {'schema', 'packet_sha256', 'page', 'image_sha256', 'received',
                   'objects', 'actions', 'literal_text', 'observed'}
         if (set(note) != fields or note['schema'] != NOTE_SCHEMA or note['packet_sha256'] != digest(packet_path)
-                or Path(note['page']).resolve() != image or note['image_sha256'] != page['sha256']
+                or Path(note['page']).resolve() != image
+                or (note['image_sha256'] is not None and note['image_sha256'] != page['sha256'])
                 or note['received'] is not True or not isinstance(note['observed'], str)
                 or len(note['observed'].strip()) < 30):
             raise ValueError('public observation lacks exact packet, delivered image or concrete visible facts')
@@ -303,6 +304,16 @@ def analyze(packet_path, session, records, paths=None):
                 raise ValueError('public facts must be brief string lists or null')
         if not call['line'] < output['line'] < observed['line']:
             raise ValueError('actual public annotation chronology is invalid')
+        if note['image_sha256'] is None:
+            cid = call['event']['payload']['call_id']
+            if cid in corrections:
+                raise ValueError('a corrected explicit hash cannot be replaced with a null transcription')
+            # Preserve the original null and every original fact. This is a byte
+            # binding from the actual PNG output, not a new visual observation.
+            corrections[cid] = {'kind': 'bind-null-transcription-to-delivered-png',
+                                'call_id': cid, 'original_annotation_line': observed['line'],
+                                'original_image_sha256': None, 'bound_image_sha256': page['sha256'],
+                                'delivered_output_line': output['line']}
         result_row = {'image_sha256': page['sha256'], 'returned_sha256': hashlib.sha256(returned).hexdigest(),
                      'received': True, 'observed': note['observed'],
                      'call_id': call['event']['payload']['call_id'],
@@ -312,7 +323,10 @@ def analyze(packet_path, session, records, paths=None):
                                'first_frame': page['samples'][0]['frame'], 'last_frame': page['samples'][-1]['frame']})
             rows.append(result_row)
         else:
-            supplemental.append(dict(result_row, path=str(image)))
+            extra = dict(result_row, path=str(image))
+            if image in required_images:
+                extra['revisited_required_page'] = True
+            supplemental.append(extra)
     result = {'schema': SCHEMA, 'packet_sha256': digest(packet_path), 'reviewer_session_id': session,
               'planning_or_creative_approval': False, 'audio_access': 'not_established', 'pages': rows}
     if supplemental:
