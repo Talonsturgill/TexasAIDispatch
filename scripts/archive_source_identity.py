@@ -8,6 +8,7 @@ import re
 import subprocess
 
 _IDENTITY = ContextVar("archive_source_identity", default=None)
+_FINISHING = ContextVar("archive_finishing_boundary", default=None)
 CONFIG = "config/retained_capture_sources.json"
 METADATA = {"run_state.json", "email.md", "cinematic-learning.json", "recurring-defects.json"}
 STATE_FIELDS = {"phase", "terminal_state", "events", "updated_at", "public_export", "shipment"}
@@ -18,6 +19,17 @@ INSPECTOR = {"opening_compare.py", "preflight_animatic.py", "creative_production
 def historical_identity(kind):
     """Return provenance only during an admitted archive publication check."""
     return (_IDENTITY.get() or {}).get(kind)
+
+
+def retained_finishing(root):
+    """Retain the admitted package's original boundary without reopening work."""
+    binding = _FINISHING.get()
+    try:
+        return bool(binding and Path(root).resolve() == binding[0]
+                    and _file_sha(Path(root) / "run_state.json") == binding[1]
+                    and binding[2])
+    except (OSError, TypeError):
+        return False
 
 
 def _git(repo, *args):
@@ -168,14 +180,25 @@ def _source_identity(repo, base, prefix):
 def validation_context(repo, base, day):
     """Select identities; the caller must still execute every publication gate."""
     token = _IDENTITY.set(None)
+    boundary_token = _FINISHING.set(None)
     try:
         repo = Path(repo).resolve()
         if re.fullmatch(r"\d{4}-\d{2}-\d{2}(?:-[a-zA-Z0-9_-]+)?", day) is None:
             raise ValueError("invalid archive edition directory")
         prefix = _closure(repo, base, day)
         _IDENTITY.set(_source_identity(repo, base, prefix) if prefix else None)
+        if prefix:
+            from review_limit import finishing
+            original = _read(repo, base, prefix + "run_state.json")
+            # _closure proved the original authorization, unchanged charges and
+            # append-only shipment receipts. Reconstruct only its past boundary;
+            # active worker and reservation admission still sees terminal state.
+            boundary = finishing(dict(original, terminal_state=None))
+            package = (repo / prefix).resolve()
+            _FINISHING.set((package, _file_sha(package / "run_state.json"), boundary))
         yield
     except (OSError, KeyError, TypeError, json.JSONDecodeError) as exc:
         raise ValueError("archive source evidence unavailable: " + str(exc)) from exc
     finally:
         _IDENTITY.reset(token)
+        _FINISHING.reset(boundary_token)
