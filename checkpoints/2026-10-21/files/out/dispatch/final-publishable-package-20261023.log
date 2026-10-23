@@ -1,0 +1,49 @@
+
+  panel mean 7.273   bar 7.00   CLEARS THE BAR
+
+  axis       mean  weight    costs  judges differ by
+  hook       6.93    0.18   +0.012               0.4
+  craft      7.03    0.14   -0.005               0.7
+  place      7.37    0.14   -0.051               0.6
+  picture    7.27    0.20   -0.053               0.4
+  voice      7.40    0.14   -0.056               0.2
+  story      7.60    0.20   -0.120               0.4
+
+  The original panel rejects this cut. A passing mean does not clear its findings.
+  The editorial ceiling is exhausted. Preserve this cut and its original findings.
+  Start no new correction, render, reviewer or panel; finish only admitted evidence
+  and evaluate the existing release path. Production remains NOT SHIPPED until
+  the controller accepts finish --result shipped.
+
+  report card -> out/dispatch/report_card.json (not approved)
+The hard five-review ceiling is exhausted. Preserve this original rejection. Finish the already-admitted final evidence once; do not start a new correction, render, reviewer or panel. Use the unchanged bounded release checks only for eligible original classifications. If the completed final panel has a mandatory failure, follow the evidence-bound completion_yield.py procedure in prompts/phases/04-review.md. Production remains incomplete and NOT SHIPPED; only accepted finish --result shipped completes production.
+
+=== gates
+  package_authority      exit=0
+  run_discipline         exit=0
+  storyboard_check       exit=0
+  caption_layout         exit=0
+  narration_picture      exit=0
+  watchability           exit=0
+  documentary_review     exit=0
+  staging_check          exit=0
+  flow_check             exit=0
+  acoustic_alignment     exit=0
+  music_sources          exit=0
+  music_registry         exit=0
+  ship_gate              exit=0
+  music_package          exit=0
+  super_evidence         exit=0
+  validation_match       exit=0
+  source_validation_proof exit=0
+  board_scale            exit=0
+  floor_check            exit=0
+  safe_area_check        exit=0
+  feed_composite         exit=0
+  bar_check              exit=0
+  mutation_check         exit=0
+  freshness_check        exit=0
+  public_ledger          exit=0
+
+=== publishing-disabled verification complete
+No ledger, run artifact, commit, push, PR, merge, or feed write was attempted.

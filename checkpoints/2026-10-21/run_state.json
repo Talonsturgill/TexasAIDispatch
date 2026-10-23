@@ -1,4 +1,19 @@
 {
+  "bounded_release": {
+    "assessments": [],
+    "native_findings": [],
+    "notice": "Released after the finite creative repair cap; original artistic rejections remain visible. Integrity and shipment checks remain required.",
+    "original_panel_hard_fails": [
+      "The seated inspector ends in a flat torso edge at the chair seat, with no visible lower body or supported leg silhouette in the wide review and closing views (27.0\u201329.8s and 51.6\u201356.32s)."
+    ],
+    "original_panel_score": 7.273,
+    "original_panel_ship": false,
+    "policy_sha256": "12efd5f7b886446ea4876b511ae4cd7159622248061ffdf7a5583a6104307fd4",
+    "publication_mode": "bounded_creative_release",
+    "rejected_audiovisual_reviews": [],
+    "repair_rounds": 3,
+    "schema": "dispatch_bounded_release/1"
+  },
   "created_at": "2026-10-21T15:04:28.430861Z",
   "deliverable": {
     "board": "{REPO}/out/dispatch/deliverables/23c100aebf914049-b742f4492b970a97-0cc81a2f4ae76f86/storyboard.json",
@@ -3085,8 +3100,26 @@
       "note": "a5ab5377-0734-446b-bbd5-0d872fac981e sound exact film 23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba",
       "reported_tokens": 178936,
       "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-23T04:02:37.362479Z",
+      "kind": "release_authorized",
+      "publication_mode": "bounded_creative_release",
+      "report_sha256": "20e633a40ea2f5259ad105013430f34b0934c1b7e72d9fb52bcae1da685e5622",
+      "result": "publishable",
+      "score": 7.273
     }
   ],
+  "final_report": {
+    "film_sha256": "23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba",
+    "original_hard_fails": [
+      "The seated inspector ends in a flat torso edge at the chair seat, with no visible lower body or supported leg silhouette in the wide review and closing views (27.0\u201329.8s and 51.6\u201356.32s)."
+    ],
+    "path": "out/dispatch/report_card.json",
+    "publication_mode": "bounded_creative_release",
+    "score": 7.273,
+    "sha256": "20e633a40ea2f5259ad105013430f34b0934c1b7e72d9fb52bcae1da685e5622"
+  },
   "limits": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 1,
@@ -3105,13 +3138,15 @@
     "voice_directors": 1
   },
   "mode": "production",
-  "phase": "review",
+  "phase": "publishing",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "5a4f5fe3279e94b41aaaee6890d5a26223792385c07218e22adb1c7d8ff17731",
+    "original_private_state_sha256": "8b721c5e928edca1cd6f92dbebf35221620688da4710755f3065f0244d9d6c86",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
+  "publication_mode": "bounded_creative_release",
+  "release_status": "publishable",
   "repair_policy": "quality-recovery/1",
   "resource_envelope": {
     "audiovisual_reviews": 43,
@@ -3136,7 +3171,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-22T22:26:24.060102Z",
+  "updated_at": "2026-10-23T04:02:37.362502Z",
   "usage": {
     "audiovisual_reviews": 9,
     "cleanup_renders": 0,

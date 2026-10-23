@@ -1,0 +1,456 @@
+{
+  "schema": "dispatch_codex_original_judge/1",
+  "date": "2026-10-21",
+  "reviewer_identity": {
+    "runtime": "codex",
+    "task": "codex_finish_sound_20261022",
+    "role": "sound",
+    "independent": true
+  },
+  "verdict": "revise",
+  "score": 7.012,
+  "ship": false,
+  "axes": {
+    "hook": 6.7,
+    "story": 7.4,
+    "picture": 7.0,
+    "place": 7.0,
+    "craft": 6.6,
+    "voice": 7.3
+  },
+  "hard_fails": [
+    "The seated inspector ends in a flat torso edge at the chair seat, with no visible lower body or supported leg silhouette in the wide review and closing views (27.0–29.8s and 51.6–56.32s)."
+  ],
+  "weakest_axis": "craft",
+  "one_sentence_fix": "Complete the seated inspector’s lower silhouette and its chair contact in the wide review and closing views, preserving the reviewed action and timing.",
+  "packet_sha256": "60354ade321b5d262082593e24276939b507b5bdda7ad4a87fc5c9d03a88d459",
+  "film_sha256": "23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba",
+  "board_sha256": "b742f4492b970a9785fb370d095ae0e6f8a1e7a2d7d9aef2c5b0a5154008eb26",
+  "claims_sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c",
+  "story_sha256": "17c2ee3f6e5ee891d38ae780da92b8e85de8d86534fc902d0c82fe3d85fdbf54",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "audiovisual_role": "sound",
+  "audiovisual_receipt_sha256": "f8a609ebcd2da2efede59344d9b127bca906fc08d39e647e92e7e4a87f0f8ac5",
+  "audiovisual_response_sha256": "7c9340c8c8ba173501447c065079bebfeef30370f8aa38c8f3c8172b01aeb937",
+  "access": {
+    "method": "chronological_sequence_plus_independent_complete_film_audiovisual_review",
+    "sequence_pages_viewed": 62,
+    "native_hero_images_viewed": 6,
+    "feed_composite_viewed": true,
+    "attention_sheet_viewed": true,
+    "direct_playback": false,
+    "personal_listening": false,
+    "public_visual_observations": "Immediate CODEX_VISUAL_OBSERVATION commentary after every image, retained in the original task rollout for mechanical export.",
+    "limitation": "The independent provider has audio access; I reviewed its exact-film receipt and raw response. Sequence images do not establish sound, and provider timestamp precision is not assumed."
+  },
+  "attention_review": {
+    "film_sha256": "23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba",
+    "pass": true,
+    "hook_observed": "A closed drone dock in a recognizable equipment yard begins opening by 0.8s and the drone rises before the geographic connection. The first action earns attention without a slogan card.",
+    "continuity_observed": "The same inspection chain runs from dock to monitored flag to approved method to infrared detection and inspector confirmation. The reporting-calendar segment uses a separate disclosure and returns to the inspector for the conclusion.",
+    "pacing_observed": "The first 34s provide frequent functional object changes. The letter-title and reporting-date section is denser and relies more on text; the closing tableau holds from about 53.8 to 56.32s after the final limiting clause.",
+    "comprehension_observed": "The date and method approval are separate from the reporting delay and proposed repeal. A person confirms the plume, while the empty AI box withholds a broader conclusion.",
+    "remembered_image": "The inspector’s stylus circle and green check over the yellow infrared plume, followed by the empty AI box.",
+    "weakest_interval": "The protocol-title close-up shifts from the performed inspection into a text-led distinction before the separate calendar. It remains clear but carries less visible action.",
+    "weakest_at_s": 34.26,
+    "weakest_end_s": 37.98,
+    "audio_basis": "Independent complete-film audiovisual receipt f8a609ebcd2da2efede59344d9b127bca906fc08d39e647e92e7e4a87f0f8ac5 reports audio_access true and a clear voice over restrained music; personal listening was not performed."
+  },
+  "modern_observations": {
+    "film_sha256": "23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba",
+    "first_frame": {
+      "pass": true,
+      "start_s": 0,
+      "end_s": 1.68,
+      "observed": "The tan caliche yard, separator equipment and closed dock provide a concrete opening image; lid motion begins within the first second."
+    },
+    "visual_progression": {
+      "pass": true,
+      "start_s": 0,
+      "end_s": 53.62,
+      "observed": "The dock opens, the drone rises, attributed monitoring becomes a dated approval letter, a waypoint leads to an infrared plume, and a human confirms that plume before the reporting-program distinction."
+    },
+    "shot_variety": {
+      "pass": true,
+      "start_s": 0,
+      "end_s": 53.62,
+      "observed": "Yard wides alternate with a desk monitor, letter close-ups, drone travel, infrared inset, inspector performance and calendar. The repeated desk worlds support the same investigation."
+    },
+    "performed_turn": {
+      "pass": true,
+      "start_s": 27.08,
+      "end_s": 33.82,
+      "observed": "The inspector leans in, raises a stylus, circles the plume, receives a green check and sends a follow-up tag to the valve inset. The human confirmation is acted rather than only captioned."
+    },
+    "pace": {
+      "pass": true,
+      "start_s": 0,
+      "end_s": 56.32,
+      "observed": "Object actions and reveals occur throughout the story: dock motion, monitor flag, date and approval stamps, waypoint arrival, stylus circle, title highlight and calendar reveals. The closing tableau holds after the limiting claim."
+    },
+    "closing_answer": {
+      "pass": true,
+      "start_s": 48.04,
+      "end_s": 56.32,
+      "observed": "The checked plume remains beside an empty AI box and the inspector raises a palm; the final image retains a working inspection method while withholding an unsupported broader AI conclusion."
+    },
+    "finished_art": {
+      "pass": false,
+      "start_s": 27,
+      "end_s": 56.32,
+      "observed": "The seated inspector ends in a flat torso edge at the chair seat, with no visible lower body or supported leg silhouette in the wide review and closing views (27.0–29.8s and 51.6–56.32s)."
+    }
+  },
+  "narration_picture_observations": {
+    "film_sha256": "23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba",
+    "clauses": [
+      {
+        "id": "n1a",
+        "pass": true,
+        "start_s": 0.48,
+        "end_s": 1.68,
+        "observed": "A tan equipment yard, valves and separators establish the inspection setting; the dock lid begins opening at about 0.8s."
+      },
+      {
+        "id": "n1b",
+        "pass": true,
+        "start_s": 2.06,
+        "end_s": 6.26,
+        "observed": "The drone lifts from its dock, then a map connects Permian and Austin; the operational tool and Texas geography are visible."
+      },
+      {
+        "id": "n2a",
+        "pass": true,
+        "start_s": 6.68,
+        "end_s": 8.74,
+        "observed": "A desk monitor lights and displays a pump-pressure flag, with The companies say attribution already visible."
+      },
+      {
+        "id": "n2b",
+        "pass": true,
+        "start_s": 9.1,
+        "end_s": 11.92,
+        "observed": "The desk-side attribution tag moves toward the monitor; the reported company claim stays attributed rather than becoming an unqualified government conclusion."
+      },
+      {
+        "id": "n3a",
+        "pass": true,
+        "start_s": 12.42,
+        "end_s": 14.7,
+        "observed": "The illustrated letter receives the September 30th 2025 date stamp; the document replaces the equipment yard as the evidence subject."
+      },
+      {
+        "id": "n3b",
+        "pass": true,
+        "start_s": 14.94,
+        "end_s": 17.22,
+        "observed": "The approval stamp descends and lifts, revealing Approved around 16.0s; its action supports the approval clause."
+      },
+      {
+        "id": "n3c",
+        "pass": true,
+        "start_s": 17.48,
+        "end_s": 19.7,
+        "observed": "The Air Max equipment card is highlighted beside the letter, identifying the approved drone method equipment rather than a generic AI approval."
+      },
+      {
+        "id": "n3d",
+        "pass": true,
+        "start_s": 19.98,
+        "end_s": 21.56,
+        "observed": "The method-scope area is highlighted on the letter, keeping approval attached to the detection method."
+      },
+      {
+        "id": "n4a",
+        "pass": true,
+        "start_s": 21.84,
+        "end_s": 23.92,
+        "observed": "The drone is shown with a camera pod and waypoint markers above the facility; the native crop resolves the camera hardware."
+      },
+      {
+        "id": "n4b",
+        "pass": true,
+        "start_s": 24.34,
+        "end_s": 26.58,
+        "observed": "The drone moves to a waypoint and an infrared inset expands over a valve with a yellow plume; illustrative labeling limits the image claim."
+      },
+      {
+        "id": "n5a",
+        "pass": true,
+        "start_s": 27.08,
+        "end_s": 29.8,
+        "observed": "The inspector leans toward loaded infrared footage on a monitor; a person visibly reviews the detection image."
+      },
+      {
+        "id": "n5b",
+        "pass": true,
+        "start_s": 30.16,
+        "end_s": 31.82,
+        "observed": "The stylus draws a circle around the plume and a green check appears, visibly performing the human confirmation turn."
+      },
+      {
+        "id": "n5c",
+        "pass": true,
+        "start_s": 32.16,
+        "end_s": 33.82,
+        "observed": "A follow-up tag appears and travels from the review workstation toward the valve inset, connecting confirmation to a site action."
+      },
+      {
+        "id": "n6",
+        "pass": true,
+        "start_s": 34.26,
+        "end_s": 37.98,
+        "observed": "The document scrolls to the protocol title; AI is highlighted in that title and the tag AI appears once, in a title enters around 37.2s. Surrounding body text is represented by gray lines, not readable full source text."
+      },
+      {
+        "id": "n7a",
+        "pass": true,
+        "start_s": 38.5,
+        "end_s": 41.68,
+        "observed": "A separate reporting-program disclosure replaces the drone scene; the calendar reveals January 22 2027, separating this date from the detection-method approval."
+      },
+      {
+        "id": "n7b",
+        "pass": true,
+        "start_s": 42.04,
+        "end_s": 44.42,
+        "observed": "The delay label enters beside the reporting calendar; the scene retains the reporting-program context."
+      },
+      {
+        "id": "n7c",
+        "pass": true,
+        "start_s": 44.72,
+        "end_s": 47.52,
+        "observed": "The wider calendar reveals October 7; a release card and proposal tag attach, followed by an empty dashed status rectangle. It depicts a future proposal rather than a completed rescission."
+      },
+      {
+        "id": "n8a",
+        "pass": true,
+        "start_s": 48.04,
+        "end_s": 51.2,
+        "observed": "The inspector touches the checked plume and lowers the stylus; an empty AI box draws beside the confirmed result, contrasting the demonstrated method with the unproven label."
+      },
+      {
+        "id": "n8b",
+        "pass": true,
+        "start_s": 51.72,
+        "end_s": 53.62,
+        "observed": "The wider inspector tableau holds a raised palm and empty AI box while the limiting caption remains visible; the background dock opens and closes without changing the source limit."
+      }
+    ]
+  },
+  "story_review": {
+    "story_sha256": "17c2ee3f6e5ee891d38ae780da92b8e85de8d86534fc902d0c82fe3d85fdbf54",
+    "pass": true,
+    "observed": "The chain supports a specific approved detection method with human confirmation, attributes company automation claims, and separates a later reporting-program proposal. The final empty AI box expresses the limit rather than claiming a general federal AI endorsement."
+  },
+  "sound_assessment": {
+    "pass": true,
+    "observed": "The provider describes crisp narration separated from a low score, restrained designed effects and no distortion. The mix’s nine designed cues, quiet late cue and preserved 1.0 playback rates are consistent with that receipt. No audible defect is independently established by the permitted evidence.",
+    "mix_sha256": "8c605124c487631e4d3b41f55dba32ea31a2d0a129a88efe8f03dd54347f27d8",
+    "integrated_lufs": -16.08,
+    "true_peak_dbtp": -1.99,
+    "provider_caveats": [
+      "The provider calls the letter body full text, but the viewed body is gray lines around the readable protocol title.",
+      "The provider places the title-count tag around 36.4s; the visible tag enters around 37.2s.",
+      "The provider describes a synchronized calendar sound at 42.5s, while the visible date reveal is 40.6–41.2s and the mix cue begins 40.2355s. This is imprecise provider timing, not proof of an audible synchronization fault.",
+      "The provider locates the approval imprint at 15.4s while the stamp is still down; the visible Approved reveal is around 16.0s.",
+      "The provider’s legally responsible phrasing is broader than the source-supported certified-inspector confirmation requirement."
+    ]
+  },
+  "bounded_release": {
+    "schema": "dispatch_creative_assessment/1",
+    "scope": "panel",
+    "retained_checks": {
+      "source": {
+        "pass": true,
+        "observed": "The dated approval, company attribution, method scope, certified-inspector confirmation and separate reporting proposal are supported by the bound letter, protocol and reporting sources; the film does not establish a general EPA AI endorsement."
+      },
+      "rights": {
+        "pass": true,
+        "observed": "The authored hero and support sources are bound to this cut; the mix identifies its licensed music source and designed effects, and the credits identify the music. No site-recorded sound claim is made."
+      },
+      "legibility": {
+        "pass": true,
+        "observed": "All 62 chronological phone sequence pages, six native hero images, the feed composite and attention sheet were viewed; the operational subjects, date reveals, attribution and limiting captions remain identifiable."
+      },
+      "comprehension": {
+        "pass": true,
+        "observed": "The human plume confirmation is visually performed and the reporting-program calendar is separated from the approved drone method; the empty AI box preserves the final source limit."
+      },
+      "technical_audio": {
+        "pass": true,
+        "observed": "The complete-film independent audiovisual receipt reports actual audio access, clear narration, low music and no clipping or distortion. The bound mix reports -16.08 LUFS and -1.99 dBTP; no personal listening is claimed."
+      },
+      "captions": {
+        "pass": true,
+        "observed": "The bound silence-anchored caption evidence measures all 20 cue starts and ends and reports 128 acoustic word matches; 82 interior word timings remain explicitly modeled rather than phoneme measured."
+      }
+    },
+    "defects": [
+      {
+        "finding": "The seated inspector ends in a flat torso edge at the chair seat, with no visible lower body or supported leg silhouette in the wide review and closing views (27.0–29.8s and 51.6–56.32s).",
+        "category": "surface_finish"
+      }
+    ],
+    "score_only": false
+  },
+  "input_verification": {
+    "all_bound_path_sha256_pairs_verified_before_use": true,
+    "mismatches": [],
+    "bindings": [
+      {
+        "path": "out/dispatch/storyboard.json",
+        "sha256": "b742f4492b970a9785fb370d095ae0e6f8a1e7a2d7d9aef2c5b0a5154008eb26"
+      },
+      {
+        "path": "out/dispatch/claims.json",
+        "sha256": "9ced2c87788219d3fca0230a1115726fa65f17957914a503e4001f6003bc2d5c"
+      },
+      {
+        "path": "AGENTS.md",
+        "sha256": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094"
+      },
+      {
+        "path": "CLAUDE.md",
+        "sha256": "efe79ee10f6c2fa167c59f2c0ecf67322150598efe421db9eee1288752c4d07f"
+      },
+      {
+        "path": "prompts/claude_routine.md",
+        "sha256": "0d10a1a78f10c7728c670e0cfca57304150d9c53448f09240423fc08729779fb"
+      },
+      {
+        "path": "config/claude_runtime.json",
+        "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+      },
+      {
+        "path": "config/quality_contract.json",
+        "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa"
+      },
+      {
+        "path": "config/dispatch_rubric.yaml",
+        "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1"
+      },
+      {
+        "path": ".claude/agents/scorer.md",
+        "sha256": "207f30955e9159abb5f110bf616f5dfbc5fe865f1616bc13a84ea11e28538cf6"
+      },
+      {
+        "path": "config/review_limit.json",
+        "sha256": "2d62fcc421118fda5a3235b23b6c267f86ce0c1337af207f46a7c2a4c096eb08"
+      },
+      {
+        "path": "config/agent_runtime.json",
+        "sha256": "a9218a4fc0bed84acf53c9894d9847b004595d9ab69d76aa4d034c6b533b0da5"
+      },
+      {
+        "path": "knowledge/craft/AGENT_RUNTIME.md",
+        "sha256": "fe1eb5601f18b90d87ea13e49309b6d24283fd30d4bd46d917cec7a73e211e34"
+      },
+      {
+        "path": "knowledge/craft/AUTONOMOUS_COMPLETION.md",
+        "sha256": "65d6e496152538a94364dd1067a0f04113c4da26595c38ad08e583056ae8f45a"
+      },
+      {
+        "path": "config/autonomous_completion_v2.json",
+        "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
+      },
+      {
+        "path": "out/dispatch/story_selection.json",
+        "sha256": "58d24be7e7af339db889b6b1699a7ed3a1e81223227473ae829b085443ab13e1"
+      },
+      {
+        "path": "knowledge/craft/visual-storytelling/viewer-plan.md",
+        "sha256": "bfa3dc1c81ba1ec62170d3b23c9b52747c366096c3637f665780f433620b0a06"
+      },
+      {
+        "path": "knowledge/craft/visual-storytelling/README.md",
+        "sha256": "9aa84715c0a4947ab99d6286cc903386d3f84948e932e6f8830c66c897f2b9da"
+      },
+      {
+        "path": "knowledge/craft/visual-storytelling/news-reporting.md",
+        "sha256": "5839865e0e74a12991df4258b91e4b62c6263427e9272ec62dc4834598512b0d"
+      },
+      {
+        "path": "knowledge/craft/visual-storytelling/evidence-led-imagery.md",
+        "sha256": "626f4efc44b06c06ad76d691e98d139b6306418c020c7bf3a52a9d064324388a"
+      },
+      {
+        "path": "knowledge/craft/MODERN_FILM.md",
+        "sha256": "58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb"
+      },
+      {
+        "path": "config/modern_film.json",
+        "sha256": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e"
+      },
+      {
+        "path": "config/modern_episode_registry.json",
+        "sha256": "fe75b3d74d6a12f98698ccd13f0b04990e827f1fce679133b3a7502b1ddd9442"
+      },
+      {
+        "path": "knowledge/craft/STORY_ART.md",
+        "sha256": "9926ea6717a969517bba1a041629d9c93d20af377018d623b188221502b9f97d"
+      },
+      {
+        "path": "config/story_art.json",
+        "sha256": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4"
+      },
+      {
+        "path": "config/critic_concept_v2.json",
+        "sha256": "7316f8f48224c3e5f13397f3f65df6550ec80971db918d91af6b64fb330db25d"
+      },
+      {
+        "path": "knowledge/craft/AUTHORED_STORY_ART.md",
+        "sha256": "7e6d8f3130e0bf702ce322d16c293fbc4b7214b28369a47af465d8ae1c5e970c"
+      },
+      {
+        "path": "config/authored_story_art.json",
+        "sha256": "351805e0af4713d59152a720bdd07d0c47ac3d788e02f0e8ccd1b87bbbf69ca0"
+      },
+      {
+        "path": "knowledge/craft/ART_DIRECTION.md",
+        "sha256": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5"
+      },
+      {
+        "path": "config/art_direction.json",
+        "sha256": "c0d8f792de9b48c8e1130dd9623ca7a897504266eb86f2664a0f287dd6d17673"
+      },
+      {
+        "path": "knowledge/craft/cinematic_reference_bank.json",
+        "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d"
+      },
+      {
+        "path": "prompts/roles/scene-builder.md",
+        "sha256": "545a535986385c96f1e5397cac8611bcd8b95ecd09334cb3338a0138d15239f0"
+      },
+      {
+        "path": "out/dispatch/openings/comparison.json",
+        "sha256": "602d955dfb5d5ce466c0da45f371a8d60cc3cc81320c91b2a71f0a1065733137"
+      },
+      {
+        "path": "out/dispatch/openings/selection.json",
+        "sha256": "e288205bb5af4cd8a370607b5e26dcf4903c6c343876c4736ff8bb624cee4970"
+      },
+      {
+        "path": "out/dispatch/motion-review/index.json",
+        "sha256": "313f4608ca86f7ddeaf82d1d7546abddb61a21baa7f29b1d8d740c9e2e775a69"
+      },
+      {
+        "path": "out/dispatch/film.mp4",
+        "sha256": "23c100aebf91404969dd7125ffb998eb97ec2ea9ab08d814533157ca38bb14ba"
+      },
+      {
+        "path": "out/dispatch/cinema/sound-review.json",
+        "sha256": "f8a609ebcd2da2efede59344d9b127bca906fc08d39e647e92e7e4a87f0f8ac5"
+      },
+      {
+        "path": "out/dispatch/attention-review.html",
+        "sha256": "419939c3c745dd2ae102845dc6d7878390e4d3438be3bf5e86765305787d8183"
+      },
+      {
+        "path": "out/dispatch/feed-composite-current-23c100ae.png",
+        "sha256": "008e723cdc9d44f1155b167b2657eb624afcad64b2f736c4cf4deb4f4c4f165d"
+      }
+    ]
+  }
+}
