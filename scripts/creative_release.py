@@ -121,7 +121,9 @@ def eligible(board, root=None, state=None):
     try:
         state = state if state is not None else read(Path(root or REPO / "out/dispatch") / "run_state.json")
         from creative_production import treatment_problems
-        return (not treatment_problems(board) and finishing_required(state)
+        from archive_source_identity import retained_finishing
+        return (not treatment_problems(board)
+                and (finishing_required(state) or retained_finishing(root))
                 and str(board.get("date", "")) == str(state.get("run_id", ""))[:10])
     except (OSError, ValueError, TypeError):
         return False
@@ -293,9 +295,11 @@ def review_allows(board, report, root=None, scope="phone", *, embedded=False):
     root = Path(root or REPO / "out/dispatch")
     import modern_film
     from review_limit import finishing
+    from archive_source_identity import retained_finishing
     try:
         state = read(root / 'run_state.json')
-        surface_cap = finishing(state) and str(state.get('run_id', ''))[:10] == board.get('date')
+        surface_cap = ((finishing(state) or retained_finishing(root))
+                       and str(state.get('run_id', ''))[:10] == board.get('date'))
     except (OSError, ValueError, TypeError):
         surface_cap = False
     if modern_film.review_problems(board, report, _scope=not surface_cap, _surface_deferred=surface_cap):
