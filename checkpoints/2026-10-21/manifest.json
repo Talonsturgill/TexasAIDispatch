@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-23T09:56:39.578359+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-23T11:03:34.496094+00:00",
+  "note": "Accepted October 21 shipment with verified public archive and original evidence; owner release waits for archive main CI",
   "phase": "shipped",
   "terminal_state": "shipped",
   "shipment_recorded": true,
@@ -1875,8 +1875,8 @@
     {
       "path": "out/dispatch/daily-production-scoreboard.json",
       "class": "scratch",
-      "sha256": "806c15b88d68dc4a027747d448e961f7483ff3db135c28cd46fee0b3ea1589dc",
-      "size": 6817
+      "sha256": "882e8385e7a4fb11485085c66d797a697e6213e30983bcd7bd91c724fa2fe3f0",
+      "size": 5469
     },
     {
       "path": "out/dispatch/deliver-verify-20261023.log",
@@ -9463,6 +9463,18 @@
       "size": 1071
     },
     {
+      "path": "out/dispatch/public-main-archive-local-proof.json",
+      "class": "scratch",
+      "sha256": "eea358ccee58b801eabf22bf57d57e1cc39410903318c6cd98518a8c2b773bd1",
+      "size": 273
+    },
+    {
+      "path": "out/dispatch/publishable-public-state-before-archive.json",
+      "class": "scratch",
+      "sha256": "a49d6dd6c14cfb34c1bb893700af684fd68f06ba8a90b55117865c6e32a4c823",
+      "size": 415468
+    },
+    {
       "path": "out/dispatch/publishing-checkpoint-20261023.json",
       "class": "scratch",
       "sha256": "96c61c21c39bb4ac0f64055bcbecaa0996f9454d2f1a14eefb177305060cb3d2",
@@ -15199,6 +15211,18 @@
       "size": 3353
     },
     {
+      "path": "out/dispatch/shipped-checkpoint-20261023.json",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/shipped-checkpoint-20261023.stderr.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/silent.mp4",
       "class": "scratch",
       "sha256": "593d8cf01e6bf1e533b82241f8c22e47704a03d745679f9f1dd3b66493103c62",
@@ -17150,9 +17174,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 2124304935,
-    "unique_blob_bytes": 1150159665,
-    "unique_blobs": 1828
+    "logical_bytes": 2124719328,
+    "unique_blob_bytes": 1150574058,
+    "unique_blobs": 1830
   },
   "excluded": [
     {
