@@ -1,19 +1,19 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-23T04:03:23.590271+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-23T04:41:22.749237+00:00",
+  "note": "Publishing package and original final reviewers retained; original Docket FULL pending",
   "phase": "publishing",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
   "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
-  "source_pin": "6a1002b44ba0ce9a43cfeb6f1d878df8ad1e3a68",
+  "source_pin": "32946a96ebc147432b5665fc7cb24e70f39406f7",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
     "root": "video-engine",
-    "files": 358,
-    "sha256": "32a7090a0d8d5512fc05ec97c58a38936cfbffa785d5f86a4326cdfb0c30981e"
+    "files": 361,
+    "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
   },
   "deleted_source": [],
   "ledger_sha256": "2e1f4fda02915c74507940e847dc60352c0909d19073f33ec966850f13c1c717",
@@ -43,12 +43,6 @@
     "voice_directors": 1
   },
   "files": [
-    {
-      "path": "config/modern_episode_registry.json",
-      "class": "source",
-      "sha256": "fe75b3d74d6a12f98698ccd13f0b04990e827f1fce679133b3a7502b1ddd9442",
-      "size": 58747
-    },
     {
       "path": "out/dispatch/.run_state.json.av-review.lock",
       "class": "scratch",
@@ -3453,8 +3447,8 @@
     {
       "path": "out/dispatch/final-publishable-package-20261023.log",
       "class": "scratch",
-      "sha256": "5f6ce62fbe3136b789522b83b78e096ee81e206530353483eb572576acc3e7f1",
-      "size": 2319
+      "sha256": "c54cd4f9e87ffa8d2ff0b43470b536a1f86d93ca5a80c1e3a5e4135ca80f8dd6",
+      "size": 16384
     },
     {
       "path": "out/dispatch/frame-index.json",
@@ -7195,6 +7189,12 @@
       "size": 553
     },
     {
+      "path": "out/dispatch/permanent-media-proof-20261023.json",
+      "class": "scratch",
+      "sha256": "d6d49448af435b78e9f50a74ac504ca3be0ca41592d13414af37f94f12f1f9d3",
+      "size": 1382
+    },
+    {
       "path": "out/dispatch/phase03-picture-precheck/1e5d65a7-0f44-43b1-98e9-b1f8f93e5895/authored_retime_feasibility.log",
       "class": "scratch",
       "sha256": "4625a6cabaad45e4d198fae0ca86c5cdf18ab7e4c6da675b222aba4417978b1a",
@@ -9431,6 +9431,12 @@
       "class": "scratch",
       "sha256": "fdbcb2efae22ac0bd91955eb72e2a5cb9ca588777d71d504fd0ff7438e7b787d",
       "size": 1071
+    },
+    {
+      "path": "out/dispatch/publishing-checkpoint-20261023.json",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/render-manifest.json",
@@ -17111,35 +17117,11 @@
       "class": "scratch",
       "sha256": "6de1cb07264c7bb607ed03e9d9659ffb47d9c82502b6c5d7b83412945ea18e07",
       "size": 11365
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx",
-      "class": "source",
-      "sha256": "9d397904a7a5173f55205e78a8dbe431d548d1ed0d3c4f6e90c5cb0689faf3fa",
-      "size": 25522
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx",
-      "class": "source",
-      "sha256": "5fa2155da6c876b721db0ff28c7c05f404485e2cd7010b9b789af77a430df32b",
-      "size": 58228
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx",
-      "class": "source",
-      "sha256": "13dd5f473f9f510ba001ee21cf8f054e26aff3b531449bdf3150de3adb38bdc9",
-      "size": 70074
-    },
-    {
-      "path": "video-engine/src/modern/registry.tsx",
-      "class": "source",
-      "sha256": "761a35eb1f64e9b9288e6a892b2fc1c806f69cfc9521df1c3e5d7fcb226c72ad",
-      "size": 1224
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 2124118743,
-    "unique_blob_bytes": 1149817906,
+    "logical_bytes": 2123920395,
+    "unique_blob_bytes": 1149775125,
     "unique_blobs": 1822
   },
   "excluded": [
