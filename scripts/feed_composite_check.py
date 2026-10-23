@@ -71,6 +71,19 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def current_problems(film: Path, sheet: Path, report: Path) -> list[str]:
+    """Prevent a retained prior-film sheet from entering a current scorer packet."""
+    try:
+        value = json.loads(report.read_text(encoding="utf-8"))
+        if (value.get("schema") != "dispatch_feed_composite/1" or value.get("pass") is not True
+                or value.get("film_sha256") != sha256(film)
+                or value.get("contact_sheet_sha256") != sha256(sheet)):
+            return ["feed composite must bind the exact current film and contact sheet"]
+    except (OSError, ValueError, TypeError, AttributeError):
+        return ["current feed composite evidence is missing or unreadable"]
+    return []
+
+
 def render_contact_sheet(film: Path, out: Path, config: dict,
                          bottom_reserve: float, right_reserve: float) -> dict:
     if not shutil.which("ffmpeg") or not shutil.which("ffprobe"):
@@ -205,6 +218,7 @@ def main() -> int:
             return 1
         result = render_contact_sheet(Path(args.film), Path(args.out), config, bottom, right)
         result.update({"schema": "dispatch_feed_composite/1", "pass": True,
+                       "contact_sheet_sha256": sha256(Path(args.out)),
                        "bottom_reserve_fraction": bottom, "right_reserve_fraction": right,
                        "render_manifest": str(args.manifest)})
         report = Path(args.report)

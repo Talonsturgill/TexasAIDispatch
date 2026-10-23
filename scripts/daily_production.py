@@ -565,6 +565,11 @@ def packet(board_path, claims_path, role, state_path=None, runtime=None):
             if not p.is_file():
                 raise ValueError("final reviewer packet is missing " + str(p))
             data[key] = {"path": str(p.resolve()), "sha256": digest(p)}
+        from feed_composite_check import current_problems
+        errors = current_problems(root / 'film.mp4', root / 'feed-composite.png',
+                                  root / 'feed-composite.json')
+        if errors:
+            raise ValueError('; '.join(errors))
     if state_path:
         state = read(state_path)
         data["usage"] = state["usage"]

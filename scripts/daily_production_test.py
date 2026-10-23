@@ -72,6 +72,39 @@ class DailyTest(unittest.TestCase):
         self.bp.write_text(json.dumps(self.board))
         (self.root/"storyboard_critic.json").write_text(json.dumps(self.report))
 
+    def test_final_scorer_packet_rejects_retained_prior_film_feed_sheet(self):
+        for name in ("film.mp4", "feed-composite.png", "attention-review.html", "cinema/picture-review.json"):
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("fixture " + name)
+        report = self.root / "feed-composite.json"
+        evidence = {"schema": "dispatch_feed_composite/1", "pass": True,
+                    "film_sha256": d.digest(self.root / "film.mp4"),
+                    "contact_sheet_sha256": d.digest(self.root / "feed-composite.png")}
+        report.write_text(json.dumps(evidence))
+        self.assertEqual(d.digest(self.root / "feed-composite.png"),
+                         d.packet(self.bp, self.cp, "picture")["feed"]["sha256"])
+        for key in ("film_sha256", "contact_sheet_sha256", "pass"):
+            changed = dict(evidence)
+            changed[key] = False if key == "pass" else "0" * 64
+            report.write_text(json.dumps(changed))
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, "exact current film"):
+                d.packet(self.bp, self.cp, "picture")
+        report.unlink()
+        with self.assertRaisesRegex(ValueError, "missing or unreadable"):
+            d.packet(self.bp, self.cp, "picture")
+
+    def test_preship_builds_feed_sheet_from_the_same_final_film_before_panel(self):
+        import preship_check
+        commands = dict(preship_check.gates(self.bp, self.cp, self.root / "vo_script.txt",
+                        self.root / "captions.json", self.root / "mix.json",
+                        self.root / "sfx_events.json", self.root / "run_state.json"))
+        command = commands["feed_composite"]
+        for option, filename in (("--film", "film.mp4"), ("--board", "storyboard.json"),
+                                 ("--manifest", "render-manifest.json"),
+                                 ("--out", "feed-composite.png"), ("--report", "feed-composite.json")):
+            self.assertEqual(str(self.root / filename), command[command.index(option) + 1])
+
     def structure_cli(self, *extra):
         args = ["daily_production.py", "--board", str(self.bp), "--claims", str(self.cp),
                 "--structure-only", *extra]
