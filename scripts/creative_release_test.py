@@ -341,6 +341,132 @@ class CreativeReleaseTests(unittest.TestCase):
             self.assertTrue(q.stage_sample_problems(board, cinema, samples, deferred=[]))
 
 
+class ProductionPanelSurfaceReleaseTests(unittest.TestCase):
+    """The final native panel bridge runs without a render or provider call."""
+    def setUp(self):
+        import modern_film
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name) / "retained-edition"
+        self.root.mkdir()
+        self.board = {"date": "2026-10-21", "runtime_s": 10,
+                      "narration_picture": {"clauses": [{"id": "c1", "start_s": 1, "end_s": 2}]}}
+        self.board_path = self.root / "storyboard.json"
+        self.board_path.write_text(json.dumps(self.board))
+        self.state = {"mode": "production", "run_id": self.board["date"],
+                      "usage": {"reboards": 1, "storyboard_critics": 5}}
+        self.save_state()
+        self.film = self.root / "film.mp4"
+        self.film.write_bytes(b"synthetic binding fixture; never rendered or published")
+        sha = c.digest(self.film)
+        for name in ("mix.json", "attention-review.json"):
+            (self.root / name).write_text("{}")
+        cinema = self.root / "cinema"; cinema.mkdir()
+        observed = "Specific independent evidence supports this exact-film observation."
+        self.judges = []
+        for role in ("picture", "story", "sound"):
+            response = cinema / (role + "-response.json")
+            response.write_text(json.dumps({"responseId": "synthetic-" + role}))
+            receipt = cinema / (role + "-review.json")
+            receipt.write_text(json.dumps({"response": {"file": response.name, "sha256": c.digest(response)}}))
+            judge = {"film_sha256": sha, "audiovisual_role": role,
+                     "audiovisual_receipt_sha256": c.digest(receipt), "hard_fails": [], "ship": True,
+                     "modern_observations": {"film_sha256": sha, **{
+                         key: {"pass": True, "start_s": 1, "end_s": 2, "observed": observed}
+                         for key in modern_film.policy()["review_criteria"]}},
+                     "narration_picture_observations": {"film_sha256": sha, "clauses": [
+                         {"id": "c1", "start_s": 1, "end_s": 2, "pass": True, "observed": observed}]},
+                     "attention_review": {"film_sha256": sha, "pass": True,
+                         "weakest_at_s": 1, "weakest_end_s": 2, **{key: observed for key in (
+                             "hook_observed", "continuity_observed", "remembered_image", "weakest_interval",
+                             "audio_basis", "pacing_observed", "comprehension_observed")}},
+                     "bounded_release": {"schema": "dispatch_creative_assessment/1", "scope": "panel",
+                         "score_only": True, "defects": [], "retained_checks": {
+                             key: {"pass": True, "observed": observed}
+                             for key in c.policy()["retained_checks"]["panel"]}}}
+            self.judges.append(judge)
+        sound = self.judges[-1]
+        sound["ship"] = False
+        sound["hard_fails"] = ["The inspector silhouette has limited surface detail."]
+        sound["modern_observations"]["finished_art"]["pass"] = False
+        sound["bounded_release"].update(score_only=False, defects=[{
+            "finding": sound["hard_fails"][0], "category": "surface_finish"}])
+        # Keep real ledger/classification/film/AV bindings. Unrelated native and
+        # asset gates have separate tests; no test starts a media process.
+        mocker = patch.object(c, "REPO", Path(self.tmp.name) / "unrelated-source")
+        mocker.start(); self.addCleanup(mocker.stop)
+        for target in ("creative_production.treatment_problems", "story_art.problems",
+                "story_art.charge_problems", "production_quality.preview_problems",
+                "production_quality.audio_problems", "production_quality.av_problems",
+                "creative_production.opening_problems", "creative_production.mix_problems",
+                "documentary_review.direction.check", "documentary_review.report_problems"):
+            mocker = patch(target, return_value=[])
+            mocker.start(); self.addCleanup(mocker.stop)
+
+    def save_state(self):
+        (self.root / "run_state.json").write_text(json.dumps(self.state))
+
+    def errors(self):
+        import documentary_review
+        return documentary_review.publication_problems(self.board_path, self.film, self.judges)
+
+    def test_original_surface_rejection_reaches_publication_without_regrading(self):
+        original = copy.deepcopy(self.judges)
+        self.assertEqual([], self.errors())
+        self.assertEqual(original, self.judges)
+        self.assertFalse(self.judges[-1]["ship"])
+
+    def test_assessment_category_film_and_receipt_remain_required(self):
+        original = copy.deepcopy(self.judges[-1])
+        for change in ("missing", "unclassified", "scope", "source", "category", "film", "receipt"):
+            with self.subTest(change=change):
+                self.judges[-1] = copy.deepcopy(original)
+                judge = self.judges[-1]; assessment = judge["bounded_release"]
+                if change == "missing": del judge["bounded_release"]
+                elif change == "unclassified": assessment["defects"] = []
+                elif change == "scope": assessment["scope"] = "phone"
+                elif change == "source": assessment["retained_checks"]["source"]["pass"] = False
+                elif change == "category": assessment["defects"][0]["category"] = "pacing"
+                elif change == "film": judge["modern_observations"]["film_sha256"] = "wrong-film"
+                else: judge["audiovisual_receipt_sha256"] = "wrong-receipt"
+                self.assertTrue(self.errors())
+
+    def test_pre_boundary_and_wrong_edition_cannot_defer_surface(self):
+        for usage, run_id in ((2, "2026-10-21"), (5, "2026-10-22")):
+            with self.subTest(usage=usage, run_id=run_id):
+                self.state.update(run_id=run_id, usage={"reboards": 1, "storyboard_critics": usage})
+                self.save_state()
+                self.assertIn("modern engagement or finish unproven: finished_art", self.errors())
+
+    def test_missing_or_malformed_surface_observation_stays_blocking(self):
+        original = copy.deepcopy(self.judges[-1]["modern_observations"])
+        for change in ("missing", "empty", "untimed", "out_of_film"):
+            with self.subTest(change=change):
+                self.judges[-1]["modern_observations"] = copy.deepcopy(original)
+                rows = self.judges[-1]["modern_observations"]
+                if change == "missing": del rows["finished_art"]
+                elif change == "empty": rows["finished_art"]["observed"] = ""
+                elif change == "untimed": del rows["finished_art"]["start_s"]
+                else: rows["finished_art"]["end_s"] = 20
+                self.assertIn("modern engagement or finish unproven: finished_art", self.errors())
+
+    def test_other_observations_and_audio_remain_blocking(self):
+        import modern_film
+        original = copy.deepcopy(self.judges[-1])
+        for key in modern_film.policy()["review_criteria"]:
+            if key == "finished_art": continue
+            with self.subTest(criterion=key):
+                self.judges[-1] = copy.deepcopy(original)
+                self.judges[-1]["modern_observations"][key]["pass"] = False
+                self.assertIn("modern engagement or finish unproven: " + key, self.errors())
+        self.judges[-1] = copy.deepcopy(original)
+        self.judges[-1]["narration_picture_observations"]["clauses"][0]["pass"] = False
+        self.assertIn("narration-picture relationship unproven: c1", self.errors())
+        self.judges[-1] = original
+        with patch("production_quality.av_problems", return_value=["reviewer lacked audible-media access"]):
+            self.assertIn("reviewer lacked audible-media access", self.errors())
+
+
 class ExactEffectNormalizationTests(unittest.TestCase):
     def setUp(self):
         self.report = {"pass": False, "audio_access": True, "defects": [
