@@ -312,8 +312,14 @@ def publication_problems(board_path, film, judges=None):
         seen = set()
         provider_ids = set()
         for judge in judges:
-            import modern_film
-            errors += modern_film.review_problems(board, judge, digest(film))
+            import creative_release as bounded
+            # The original panel assessment must authorize any surface deferral
+            # against this package ledger, including for native Codex reviewers.
+            surface_deferred = bounded.review_allows(
+                board, judge, Path(board_path).parent, "panel", embedded=True)
+            errors += modern_film.review_problems(
+                board, judge, digest(film), _scope=not surface_deferred,
+                _surface_deferred=surface_deferred)
             role = judge.get("audiovisual_role")
             if role not in ("picture", "story", "sound") or role in seen:
                 errors.append("judges must each use their own picture, story or sound review")
