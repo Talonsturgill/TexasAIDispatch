@@ -1,0 +1,182 @@
+{
+  "checked_at_utc": "2026-10-23T02:39:26.268772+00:00",
+  "ram_bytes": "8589934592",
+  "pressure_level": "2",
+  "memory_report": "The system has 8589934592 (524288 pages with a page size of 16384).\nSystem-wide memory free percentage: 41%",
+  "swap": "vm.swapusage: total = 3072.00M  used = 2672.19M  free = 399.81M  (encrypted)",
+  "disk_free_gib": 10.69,
+  "largest_user_processes": [
+    {
+      "pid": 924,
+      "parent": 659,
+      "resident_mib": 777.6,
+      "program": "Codex (Renderer)"
+    },
+    {
+      "pid": 1003,
+      "parent": 641,
+      "resident_mib": 440.6,
+      "program": "Claude Helper (Renderer)"
+    },
+    {
+      "pid": 659,
+      "parent": 1,
+      "resident_mib": 253.6,
+      "program": "ChatGPT"
+    },
+    {
+      "pid": 919,
+      "parent": 659,
+      "resident_mib": 240.6,
+      "program": "codex"
+    },
+    {
+      "pid": 1188,
+      "parent": 649,
+      "resident_mib": 147.6,
+      "program": "Google Chrome Helper (Aperitif Renderer)"
+    },
+    {
+      "pid": 649,
+      "parent": 1,
+      "resident_mib": 118.6,
+      "program": "Google Chrome"
+    },
+    {
+      "pid": 641,
+      "parent": 1,
+      "resident_mib": 118.2,
+      "program": "Claude"
+    },
+    {
+      "pid": 1189,
+      "parent": 649,
+      "resident_mib": 104.5,
+      "program": "Google Chrome Helper (Aperitif Renderer)"
+    },
+    {
+      "pid": 1291,
+      "parent": 659,
+      "resident_mib": 85.8,
+      "program": "Codex (Renderer)"
+    },
+    {
+      "pid": 3392,
+      "parent": 659,
+      "resident_mib": 61.8,
+      "program": "Codex (Renderer)"
+    },
+    {
+      "pid": 1180,
+      "parent": 649,
+      "resident_mib": 59.3,
+      "program": "Google Chrome Helper (Aperitif Renderer)"
+    },
+    {
+      "pid": 1311,
+      "parent": 659,
+      "resident_mib": 58.0,
+      "program": "Codex (Renderer)"
+    }
+  ],
+  "largest_memory_footprints": [
+    {
+      "pid": 924,
+      "parent": 659,
+      "program": "Codex (Renderer)",
+      "footprint_mib": 1252.0
+    },
+    {
+      "pid": 919,
+      "parent": 659,
+      "program": "codex",
+      "footprint_mib": 660.0
+    },
+    {
+      "pid": 1003,
+      "parent": 641,
+      "program": "Claude Helper (R",
+      "footprint_mib": 560.0
+    },
+    {
+      "pid": 659,
+      "parent": 1,
+      "program": "ChatGPT",
+      "footprint_mib": 468.0
+    },
+    {
+      "pid": 1188,
+      "parent": 649,
+      "program": "Google Chrome He",
+      "footprint_mib": 383.0
+    },
+    {
+      "pid": 1291,
+      "parent": 659,
+      "program": "Codex (Renderer)",
+      "footprint_mib": 382.0
+    },
+    {
+      "pid": 409,
+      "parent": 1,
+      "program": "WindowServer",
+      "footprint_mib": 356.0
+    },
+    {
+      "pid": 1189,
+      "parent": 649,
+      "program": "Google Chrome He",
+      "footprint_mib": 327.0
+    },
+    {
+      "pid": 1180,
+      "parent": 649,
+      "program": "Google Chrome He",
+      "footprint_mib": 259.0
+    },
+    {
+      "pid": 825,
+      "parent": 641,
+      "program": "Claude Helper",
+      "footprint_mib": 257.0
+    },
+    {
+      "pid": 649,
+      "parent": 1,
+      "program": "Google Chrome",
+      "footprint_mib": 241.0
+    },
+    {
+      "pid": 769,
+      "parent": 659,
+      "program": "Codex (Service)",
+      "footprint_mib": 231.0
+    },
+    {
+      "pid": 641,
+      "parent": 1,
+      "program": "Claude",
+      "footprint_mib": 224.0
+    },
+    {
+      "pid": 1311,
+      "parent": 659,
+      "program": "Codex (Renderer)",
+      "footprint_mib": 203.0
+    },
+    {
+      "pid": 1082,
+      "parent": 659,
+      "program": "node",
+      "footprint_mib": 102.0
+    }
+  ],
+  "footprint_status": "available",
+  "memory_metric_note": "Use footprint_mib to identify pressure contributors; resident_mib excludes compressed/swapped pages. Footprints are process charges, not additive RAM totals.",
+  "codex_database_mib": {
+    "thread_history_1.sqlite": 2520.0,
+    "logs_2.sqlite": 89.9,
+    "logs_2.sqlite-wal": 4.6
+  },
+  "mode": "read-only: no processes stopped or files removed"
+}

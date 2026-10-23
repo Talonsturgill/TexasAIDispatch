@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-22T22:26:46.655402+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-23T02:40:54.363858+00:00",
+  "note": "claim worker dispatch sound",
   "phase": "review",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-21T15:04:28.430861Z",
   "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
-  "source_pin": "781a9c83f77ff2275e7462ba01e4da3e92f5ff2a",
+  "source_pin": "f36e29c6a529b0433d5d5e72f9db3c008e08fbce",
   "source_branch": "claude/dispatch-2026-10-21",
   "source_closure": {
     "root": "video-engine",
@@ -998,6 +998,18 @@
       "size": 111871
     },
     {
+      "path": "out/dispatch/cinema/review-cache/dbadc7023b39729222f9b5a01b1d87f09351582081c7d5d90d65b0546256debc/receipt.json",
+      "class": "scratch",
+      "sha256": "f8a609ebcd2da2efede59344d9b127bca906fc08d39e647e92e7e4a87f0f8ac5",
+      "size": 582
+    },
+    {
+      "path": "out/dispatch/cinema/review-cache/dbadc7023b39729222f9b5a01b1d87f09351582081c7d5d90d65b0546256debc/sound-review-response.json",
+      "class": "scratch",
+      "sha256": "7c9340c8c8ba173501447c065079bebfeef30370f8aa38c8f3c8172b01aeb937",
+      "size": 147134
+    },
+    {
       "path": "out/dispatch/cinema/s1-0-normal.png",
       "class": "scratch",
       "sha256": "4442f231fcfbada6e2408ca816d599432ad13909d23967b4cecb6314d81edb3f",
@@ -1322,6 +1334,18 @@
       "size": 54566
     },
     {
+      "path": "out/dispatch/cinema/sound-review-response.json",
+      "class": "scratch",
+      "sha256": "7c9340c8c8ba173501447c065079bebfeef30370f8aa38c8f3c8172b01aeb937",
+      "size": 147134
+    },
+    {
+      "path": "out/dispatch/cinema/sound-review.json",
+      "class": "scratch",
+      "sha256": "f8a609ebcd2da2efede59344d9b127bca906fc08d39e647e92e7e4a87f0f8ac5",
+      "size": 582
+    },
+    {
       "path": "out/dispatch/cinema/story-review-response.json",
       "class": "scratch",
       "sha256": "41e5fc1b1c8120d52f616274643b97dd6c529b1e6cd50958737a29f2618ef3d4",
@@ -1430,6 +1454,24 @@
       "size": 144
     },
     {
+      "path": "out/dispatch/codex-final-picture-null-binding-validation-20261023/codex-image-coverage.json",
+      "class": "scratch",
+      "sha256": "7894693ec6b7fa177540ac4082df44871a6eb72ea80470349ed0bb81fbbb6671",
+      "size": 46188
+    },
+    {
+      "path": "out/dispatch/codex-final-picture-null-binding-validation-20261023/codex-public-image-events.json",
+      "class": "scratch",
+      "sha256": "d5670db3ed67fc697fd63c8310ab692caf9fdf8722c582ea67e64a045a110b72",
+      "size": 65850422
+    },
+    {
+      "path": "out/dispatch/codex-final-picture-original-report.json",
+      "class": "scratch",
+      "sha256": "cdf223107265b4097c54c1bfe53aa242508c941242c567435ed212409e0f4c14",
+      "size": 17960
+    },
+    {
       "path": "out/dispatch/codex-final-picture-packet.json",
       "class": "scratch",
       "sha256": "de602d07e03bd91ff12df776cfc361625a6436da7c4766251f3b5244990f2098",
@@ -1438,8 +1480,14 @@
     {
       "path": "out/dispatch/codex-final-sound-av-command.log",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "3aee97c77d53c4c1eb0293e8f088c86b402ab014dbcda47f78abf75a33cc1e3c",
+      "size": 140
+    },
+    {
+      "path": "out/dispatch/codex-final-sound-packet.json",
+      "class": "scratch",
+      "sha256": "60354ade321b5d262082593e24276939b507b5bdda7ad4a87fc5c9d03a88d459",
+      "size": 10742
     },
     {
       "path": "out/dispatch/codex-final-story-assignment.json",
@@ -3137,6 +3185,24 @@
       "class": "scratch",
       "sha256": "092950b3544f3f1a84508e412d0d9fd169297767bfbaecbccf508709f20df9b5",
       "size": 897
+    },
+    {
+      "path": "out/dispatch/feed-composite-current-23c100ae.json",
+      "class": "scratch",
+      "sha256": "ab939ab75c401e1ad0822a60d2d5562ab16d67ec06acbc21aa7f43b749cc4fa5",
+      "size": 704
+    },
+    {
+      "path": "out/dispatch/feed-composite-current-23c100ae.png",
+      "class": "scratch",
+      "sha256": "008e723cdc9d44f1155b167b2657eb624afcad64b2f736c4cf4deb4f4c4f165d",
+      "size": 564405
+    },
+    {
+      "path": "out/dispatch/feed-composite-health-20261023.json",
+      "class": "scratch",
+      "sha256": "c8140783cacafff0d1dcf17b2eee39c8ba61c9c445a60a0131721d2ca2264928",
+      "size": 4004
     },
     {
       "path": "out/dispatch/feed-composite.json",
@@ -15475,6 +15541,12 @@
       "size": 574
     },
     {
+      "path": "out/dispatch/worker-dispatch-claims/3831389089e898fd6f6dd0350346933e38253a1e2310eb4eb2ae3d9d9bc6123d-sound.json",
+      "class": "scratch",
+      "sha256": "8278ba6fd93ede57ac1ca6b9737a68285d119e4dc4d7d9dfff47c7b746e17790",
+      "size": 570
+    },
+    {
       "path": "out/dispatch/worker-dispatch-claims/3831389089e898fd6f6dd0350346933e38253a1e2310eb4eb2ae3d9d9bc6123d-story.json",
       "class": "scratch",
       "sha256": "064bfbd0789056d617438a9eeb397c17f6416fb5743efe92551237d4f664b7e5",
@@ -15626,9 +15698,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 1580485228,
-    "unique_blob_bytes": 876387733,
-    "unique_blobs": 1790
+    "logical_bytes": 1647275795,
+    "unique_blob_bytes": 943030444,
+    "unique_blobs": 1800
   },
   "excluded": [
     {
