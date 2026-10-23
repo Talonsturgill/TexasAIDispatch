@@ -25,6 +25,13 @@ class RuntimeTest(unittest.TestCase):
         self.packet.write_text(json.dumps(data))
         return data
 
+    def feed_fixture(self):
+        # Scratch byte-binding evidence only, never a production verdict.
+        (self.root / "feed-composite.json").write_text(json.dumps({
+            "schema": "dispatch_feed_composite/1", "pass": True,
+            "film_sha256": a.digest(self.root / "film.mp4"),
+            "contact_sheet_sha256": a.digest(self.root / "feed-composite.png")}))
+
     def test_explicit_isolated_models_and_efforts(self):
         for role in a.policy()["roles"]:
             route = a.assignment(role, "2026-10-10")
@@ -127,6 +134,7 @@ class RuntimeTest(unittest.TestCase):
             (self.root/("opening-"+variant+".json")).write_text(json.dumps(candidate))
         for name in ("film.mp4","attention-review.html","feed-composite.png"):
             (self.root/name).write_bytes(b"fixture-only non-media binding")
+        self.feed_fixture()
         (self.root/"cinema").mkdir()
         for role in ("picture","story","sound"):
             (self.root/("cinema/"+role+"-review.json")).write_text(json.dumps({"role":role,"film_sha256":a.digest(self.root/"film.mp4")}))
@@ -172,6 +180,7 @@ class RuntimeTest(unittest.TestCase):
         bp.write_text(json.dumps(board));cp.write_text('{"claims":[]}')
         for name in ("film.mp4","attention-review.html","feed-composite.png"):
             (self.root/name).write_bytes(b"fixture-only non-media input")
+        self.feed_fixture()
         (self.root/"cinema").mkdir()
         receipt=self.root/"cinema/sound-review.json"
         receipt.write_text(json.dumps({"film_sha256":a.digest(self.root/"film.mp4"),"role":"sound"}))
