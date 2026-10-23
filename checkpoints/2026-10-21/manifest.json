@@ -1,11 +1,11 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-21",
-  "saved_at": "2026-10-23T04:41:22.749237+00:00",
-  "note": "Publishing package and original final reviewers retained; original Docket FULL pending",
-  "phase": "publishing",
-  "terminal_state": null,
-  "shipment_recorded": false,
+  "saved_at": "2026-10-23T09:56:39.578359+00:00",
+  "note": "ledger write",
+  "phase": "shipped",
+  "terminal_state": "shipped",
+  "shipment_recorded": true,
   "created_at": "2026-10-21T15:04:28.430861Z",
   "repo_root": "/Users/t/Desktop/TexasAIDocket/.worktrees/dispatch-codex-recovery-2026-10-21/TexasAIDispatch",
   "source_pin": "32946a96ebc147432b5665fc7cb24e70f39406f7",
@@ -16,8 +16,8 @@
     "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
   },
   "deleted_source": [],
-  "ledger_sha256": "2e1f4fda02915c74507940e847dc60352c0909d19073f33ec966850f13c1c717",
-  "original_private_ledger_sha256": "8b721c5e928edca1cd6f92dbebf35221620688da4710755f3065f0244d9d6c86",
+  "ledger_sha256": "ceaf7cd04b7693442c4934e99cb7752eda97fd904c12855f46d2dd2828761f8a",
+  "original_private_ledger_sha256": "b2af98bb1254594701078ad5be1b36fda072f7126e6d23f38a246f87da6d2249",
   "grant_origin_roots": [
     {
       "event_index": 96,
@@ -642,6 +642,18 @@
       "class": "scratch",
       "sha256": "17b40a2b9ae40ea64970f689516ed4dea8fdd4cb4ed2b35c22273b4aeba51790",
       "size": 8583
+    },
+    {
+      "path": "out/dispatch/canonical-phone-playing-1.png",
+      "class": "scratch",
+      "sha256": "a265a3e35749707c84874e0bc86a19a9b2558047e82c84796dae95a66a9957ba",
+      "size": 194791
+    },
+    {
+      "path": "out/dispatch/canonical-phone-playing-2.png",
+      "class": "scratch",
+      "sha256": "97761c11969039268949e91a5b5e12e671e84b24b3682a0dd45a0e29337ae2c5",
+      "size": 184165
     },
     {
       "path": "out/dispatch/captions.json",
@@ -5503,6 +5515,12 @@
       "size": 1020
     },
     {
+      "path": "out/dispatch/live-check-20261023.log",
+      "class": "scratch",
+      "sha256": "4302e2522a5e55953c9b92a1e0a5d1c8865bed156364657a312bbc47a2379a85",
+      "size": 100
+    },
+    {
       "path": "out/dispatch/local-picture-precheck/0d1691dc-52ba-479b-82dc-11fcd1207084/authored_retime_feasibility.log",
       "class": "scratch",
       "sha256": "4625a6cabaad45e4d198fae0ca86c5cdf18ab7e4c6da675b222aba4417978b1a",
@@ -7813,6 +7831,18 @@
       "size": 135293
     },
     {
+      "path": "out/dispatch/phone-playback-tool-outputs.json",
+      "class": "scratch",
+      "sha256": "2a4ef2dec6edb32b0967b34c7674f25749745cb53de545dbfafef089f9ffe8a7",
+      "size": 1781
+    },
+    {
+      "path": "out/dispatch/phone-playback.json",
+      "class": "scratch",
+      "sha256": "7ba59a8689b4f254ef1a367fdabb73d6b2e35ed35421cb1f5cbd449ce01251b6",
+      "size": 3421
+    },
+    {
       "path": "out/dispatch/picture-precheck-a/596f57c8-52dd-4d2b-9ff2-f55073f90e16/board_scale_check.log",
       "class": "scratch",
       "sha256": "91ba9080ad8cadef9ff36a7fab23a2aa939a4dc3c0cad4f8d023682bd38c70f7",
@@ -9435,8 +9465,8 @@
     {
       "path": "out/dispatch/publishing-checkpoint-20261023.json",
       "class": "scratch",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
+      "sha256": "96c61c21c39bb4ac0f64055bcbecaa0996f9454d2f1a14eefb177305060cb3d2",
+      "size": 282
     },
     {
       "path": "out/dispatch/render-manifest.json",
@@ -17120,11 +17150,23 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 2123920395,
-    "unique_blob_bytes": 1149775125,
-    "unique_blobs": 1822
+    "logical_bytes": 2124304935,
+    "unique_blob_bytes": 1150159665,
+    "unique_blobs": 1828
   },
   "excluded": [
+    {
+      "path": "out/dispatch/accepted-shipment-20261023-after-pages.log",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/accepted-shipment-20261023.log",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/agent-runtime-usage.private.json",
+      "reason": "private path component"
+    },
     {
       "path": "out/dispatch/delivery-prep-copy.private.txt",
       "reason": "private path component"
@@ -17190,11 +17232,35 @@
       "reason": "private path component"
     },
     {
+      "path": "out/dispatch/gmail-create.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-full.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-mime-proof.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-raw.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/gmail-readback.json",
+      "reason": "private path component"
+    },
+    {
       "path": "out/dispatch/grant-projection-roots.private.json",
       "reason": "private path component"
     },
     {
       "path": "out/dispatch/retained-before-manual-repair-35331bbd/retention-manifest.private.json",
+      "reason": "private path component"
+    },
+    {
+      "path": "out/dispatch/shipment.json",
       "reason": "private path component"
     },
     {
