@@ -1,0 +1,113 @@
+{
+  "schema": "dispatch_vo_silence_edit/1",
+  "source": "out/dispatch/takes-3/take1.wav",
+  "source_sha256": "a1276801a1eab5e7ec6b8b1965827c7456e77f35b8e51f78936f89db9946e65c",
+  "output": "out/dispatch/takes-3/take1_compact.wav",
+  "output_sha256": "18e85cafd03a2a39e8093e708d4bf9d7d44f2ab8165994527baaaad3b1b46f54",
+  "threshold_dbfs": -38.0,
+  "min_silence_s": 0.48,
+  "max_retained_internal_silence_s": 0.3,
+  "retained_edge_silence_s": 0.12,
+  "time_stretch": 1.0,
+  "edit": "silence-only cuts from one continuous take",
+  "removed_intervals": [
+    {
+      "from_s": 3.74,
+      "to_s": 3.93,
+      "removed_s": 0.19,
+      "peak_dbfs": -53.28
+    },
+    {
+      "from_s": 8.76,
+      "to_s": 9.29,
+      "removed_s": 0.53,
+      "peak_dbfs": -60.77
+    },
+    {
+      "from_s": 12.27,
+      "to_s": 12.47,
+      "removed_s": 0.2,
+      "peak_dbfs": -62.7
+    },
+    {
+      "from_s": 14.65,
+      "to_s": 15.67,
+      "removed_s": 1.02,
+      "peak_dbfs": -31.36
+    },
+    {
+      "from_s": 18.66,
+      "to_s": 19.73,
+      "removed_s": 1.07,
+      "peak_dbfs": -34.75
+    },
+    {
+      "from_s": 24.07,
+      "to_s": 24.25,
+      "removed_s": 0.18,
+      "peak_dbfs": -40.07
+    },
+    {
+      "from_s": 27.23,
+      "to_s": 28.03,
+      "removed_s": 0.8,
+      "peak_dbfs": -61.06
+    },
+    {
+      "from_s": 30.24,
+      "to_s": 30.99,
+      "removed_s": 0.75,
+      "peak_dbfs": -33.3
+    },
+    {
+      "from_s": 37.42,
+      "to_s": 38.51,
+      "removed_s": 1.09,
+      "peak_dbfs": -59.94
+    },
+    {
+      "from_s": 41.9,
+      "to_s": 42.85,
+      "removed_s": 0.95,
+      "peak_dbfs": -29.53
+    },
+    {
+      "from_s": 47.61,
+      "to_s": 48.72,
+      "removed_s": 1.11,
+      "peak_dbfs": -32.82
+    },
+    {
+      "from_s": 51.77,
+      "to_s": 52.04,
+      "removed_s": 0.27,
+      "peak_dbfs": -63.46
+    },
+    {
+      "from_s": 54.96,
+      "to_s": 56.04,
+      "removed_s": 1.08,
+      "peak_dbfs": -32.67
+    },
+    {
+      "from_s": 58.8,
+      "to_s": 59.47,
+      "removed_s": 0.67,
+      "peak_dbfs": -63.46
+    },
+    {
+      "from_s": 63.24,
+      "to_s": 63.6,
+      "removed_s": 0.36,
+      "peak_dbfs": -58.71
+    }
+  ],
+  "removed_total_s": 10.27,
+  "measurements": {
+    "duration_s": 53.33,
+    "lufs": -19.67,
+    "pitch_variance_semitones": 7.671,
+    "speech_runs": 21,
+    "sample_rate": 48000
+  }
+}

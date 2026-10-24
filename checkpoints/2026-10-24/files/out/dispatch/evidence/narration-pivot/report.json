@@ -1,0 +1,23 @@
+{
+ "verdict": "revise",
+ "reviewer_identity": "claude-opus-5-5, independent read-only narration recurrence-pivot reviewer (subagent, distinct from the Sonnet director and the Haiku vo-director)",
+ "retired_mechanism_id": "narration-clause-breath-breaks",
+ "replacement_mechanism_id": "narration-clause-line-layout",
+ "reviewed_failure_sha256": [
+  "1b0e0675dfb132b9fa76872eb5fd7447e123eed67a08f8e5204b82a0c7fc1ad7",
+  "2d83e743a274f6481058b18df12e41b129e47ddc3acf4c5683ff3760f8258638",
+  "2440352420ecae3d45bd9a033ca5cbb0bf0e4e90091bbcb12a9e9e6d647df39a"
+ ],
+ "visible_difference": "The fenced spoken text changes from 10 script-line paragraphs (takes-2 and takes-3 prompt.txt lines 21 to 30) to 19 declared-clause lines (prompt-preview.txt lines 23 to 41). The per-line 'take a clear audible breath after X' intents are removed and replaced by a single Layout paragraph. The words, their order and the vo_script.txt bytes are unchanged.",
+ "source_basis": "storyboard.json narration_picture.clauses, as laid out by build_prompt (19 lines, refused unless they join to the locked script). Measured gaps in narration-2 and narration-3 failure.txt. The takes-2 and takes-3 prompts, and scripts/vo_synth_gemini.py build_prompt, pacing_notes and split_direction.",
+ "findings": [
+  "Mechanism change: yes with a qualification (Layout paragraph still prose).",
+  "BLOCKING: built prompt contradicts itself: unchanged pacing_notes ('natural breaths at complete clause boundaries', 'avoid equal pauses after every line') against the Layout note asking for a breath after each of 19 lines, and the closing Layout sentence invites run-together reading.",
+  "Plausibility moderate at best: takes 2 and 3 already had a line break at turnover.|It yet measured only 0.14 s.",
+  "vo_direction audit.breath notes for s2, s4, s5 forbid the breaths at declared boundaries.",
+  "No locked-script, soundcheck, claims or renderer blocker found.",
+  "Residual dead-air risk; compaction must remain removal only.",
+  "Consolidated correction: (1) drop conflicting pacing clauses when clause_layout; (2) reword the layout sentence; (3) align audit.breath notes; (4) rebuild preview, one fence, 19 lines; a changed-proposal follow-up needs its own reservation."
+ ],
+ "reasoning": "The built prompt contradicts itself at the failed boundaries and plausibility is only moderate, so the proposal as built is rejected. Correct the pacing text, the layout wording and the audit breath notes, then seek a changed-proposal pass."
+}
