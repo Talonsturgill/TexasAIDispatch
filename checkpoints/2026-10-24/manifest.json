@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-24",
-  "saved_at": "2026-10-24T09:56:47.866608+00:00",
-  "note": "phase audio",
+  "saved_at": "2026-10-24T09:59:49.436439+00:00",
+  "note": "blocked before voice: corrected treatment b cannot be re-approved within five-review cap",
   "phase": "wake",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -114,6 +114,12 @@
       "class": "scratch",
       "sha256": "50a5c26fefbf794d98e6eef2b9c2cff46d920835c9cb21bd2fe29f39ca6dfaae",
       "size": 218131
+    },
+    {
+      "path": "out/dispatch/blocker-report.json",
+      "class": "scratch",
+      "sha256": "45f0edaea5b9494b8a44262b82c2dea7e70e4e2632b84700bedfd59f9ab2f845",
+      "size": 2406
     },
     {
       "path": "out/dispatch/builder-assignment.json",
@@ -5228,6 +5234,12 @@
       "size": 969
     },
     {
+      "path": "out/dispatch/vo-director-packet.json",
+      "class": "scratch",
+      "sha256": "7d3be0a55dadcdeeccc48d658498929cd77a7dc9738291ec01ca728e76121609",
+      "size": 9545
+    },
+    {
       "path": "out/dispatch/vo_bindings-round1.json",
       "class": "scratch",
       "sha256": "4d3add5a5f58d5d02db81ff1dff5e6263b60302e478190463631d0d29a13f78f",
@@ -5250,6 +5262,12 @@
       "class": "scratch",
       "sha256": "deae8a6952aa1278b79da23a6fdd1563f90c0dcdc88adbf15444921b5d9969c9",
       "size": 834
+    },
+    {
+      "path": "out/dispatch/voice-director-assignment.json",
+      "class": "scratch",
+      "sha256": "46f06b1057184f7b890d39a49da53186e1d72ecd48501b0a11c056757fa47663",
+      "size": 1849
     },
     {
       "path": "out/dispatch/worker-dispatch-claims/002a40ed267fd0cb5190724756638d8eebfe53409c088a480f92a423b6855ba4-researcher.json",
@@ -5337,9 +5355,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 47389923,
-    "unique_blob_bytes": 43044286,
-    "unique_blobs": 678
+    "logical_bytes": 47403723,
+    "unique_blob_bytes": 43058086,
+    "unique_blobs": 681
   },
   "excluded": [],
   "regenerable": {
