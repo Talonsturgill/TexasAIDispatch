@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-24",
-  "saved_at": "2026-10-24T09:05:52.056763+00:00",
-  "note": "phase phone-review",
+  "saved_at": "2026-10-24T09:06:14.829407+00:00",
+  "note": "silent previews rendered motion sequences extracted phone critic running",
   "phase": "wake",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
   },
   "deleted_source": [],
-  "ledger_sha256": "1347a9380259bfd3c947e35d2ea816faff3d45d0fcd25c74797950cc6ed3d060",
-  "original_private_ledger_sha256": "57ea49113f80e65c8a737aee5797aacc8f202d1d8e2202cb5497c038a4ede6dc",
+  "ledger_sha256": "be221f06c80f615c19e4f075aef6661f725e6d24a214f8a9a854272405bd6e7b",
+  "original_private_ledger_sha256": "de0dbbb2c079970595834eb66859f37a6bedf74f48881ba0f540a141cbc6f3ce",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -31,7 +31,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 3,
+    "storyboard_critics": 4,
     "tts_calls": 0,
     "validator_agents": 2,
     "voice_directors": 0
@@ -1342,8 +1342,8 @@
     {
       "path": "out/dispatch/phone-critic-assignment.json",
       "class": "scratch",
-      "sha256": "1a36ccd5bcc2200bcb5d441fbd5cb6300335815f7f26bd1e8743894915d696eb",
-      "size": 2008
+      "sha256": "7f85386296749bf609a0d5c80a6f45fbaa4f4d9ec9972817e5179d68b4299b91",
+      "size": 3112
     },
     {
       "path": "out/dispatch/phone-critic-packet.json",
@@ -2540,6 +2540,12 @@
       "size": 560
     },
     {
+      "path": "out/dispatch/worker-dispatch-claims/5a308a3c8932bd238e615f09a67474eef0226ed06de5cf05f2f9ee57848d1c55-storyboard-critic.json",
+      "class": "scratch",
+      "sha256": "ea74f3c004f67d9a17f3337a61b2e854ce0101c5a8421fc54c7179613d79a839",
+      "size": 566
+    },
+    {
       "path": "out/dispatch/worker-dispatch-claims/6a3dfac2230d18684219a45ea6c1de3959115a900e46d64c0a93fa0564a3f329-validator.json",
       "class": "scratch",
       "sha256": "06e762c5b2ed58fb1d34908d9d797918676741f793dc4318418c30de23a9e50a",
@@ -2589,9 +2595,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 45050328,
-    "unique_blob_bytes": 42003630,
-    "unique_blobs": 265
+    "logical_bytes": 45051998,
+    "unique_blob_bytes": 42005300,
+    "unique_blobs": 266
   },
   "excluded": [],
   "regenerable": {
