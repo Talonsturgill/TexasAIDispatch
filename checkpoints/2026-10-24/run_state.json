@@ -41,6 +41,14 @@
       "note": "quarter-scale animatic",
       "resource": "preflight_renders",
       "to": 5
+    },
+    {
+      "at": "2026-10-24T12:44:41.909681Z",
+      "ceiling": 7,
+      "from": 4,
+      "note": "owner-granted extra review: code-plan review of the corrected selected treatment b, same critic",
+      "resource": "storyboard_critics",
+      "to": 5
     }
   ],
   "events": [
@@ -437,6 +445,27 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-10-24T12:44:41.909735Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "owner-granted extra review: code-plan review of the corrected selected treatment b, same critic",
+      "now": 5,
+      "resource": "storyboard_critics",
+      "was": 4
+    },
+    {
+      "at": "2026-10-24T12:44:41.910786Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "owner-granted extra review: code-plan review of the corrected selected treatment b, same critic",
+      "preflight_identity": null,
+      "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -451,7 +480,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 4,
+    "storyboard_critics": 5,
     "tts_calls": 2,
     "validator_agents": 2,
     "voice_directors": 1
@@ -460,7 +489,7 @@
   "phase": "wake",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "308bf3c416463b4f0910f913c365d4416055e202f55dabf202d7f7a0251810ac",
+    "original_private_state_sha256": "38c5692ce3240796154ab3ee7b59710fcb9d9f6e45f4eb0db052faebbb3296cd",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -488,7 +517,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-24T12:43:32.375589Z",
+  "updated_at": "2026-10-24T12:44:41.910797Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -501,7 +530,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 4,
+    "storyboard_critics": 5,
     "tts_calls": 0,
     "validator_agents": 2,
     "voice_directors": 0

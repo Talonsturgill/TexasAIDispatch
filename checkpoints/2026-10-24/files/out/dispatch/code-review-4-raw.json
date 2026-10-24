@@ -1,0 +1,120 @@
+{
+  "role": "storyboard-critic",
+  "review_scope": "code-plan",
+  "review_round": 4,
+  "date": "2026-10-24",
+  "consolidated_verdict": "pass",
+  "packet": {
+    "path": null,
+    "sha256": null,
+    "note": "The coordinator reported that no compact plan packet could be generated for this review (the compact handoff is over its character cap and treatment a is stale). The bindings below are copied mechanically from the coordinator's message and match /home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/code-review-4-bindings.json, which I read. I computed no hashes and used no Bash."
+  },
+  "review_allowance": {
+    "controller_storyboard_critics": 5,
+    "basis": "config/review_limit.json (read this round) keeps max_review_rounds 5 with extensions_allowed false. Its owner_grants entry for edition 2026-10-24 adds one cumulative review, citing the owner's October 24th chat instruction 'Extra review granted'. I relied on that recorded grant, not on the coordinator's message. Under it, this code review is the fifth charged attempt, and one attempt remains for the reserved final timed phone review. No further code or correction round fits without breaching the recorded allowance."
+  },
+  "prior_reviews": [
+    {"path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/code-review-1-raw.json", "use": "Same reviewer, review 1 (revise). Retained unchanged."},
+    {"path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/code-review-2-raw.json", "use": "Same reviewer, review 2 (revise). Retained unchanged."},
+    {"path": "review 3 handback (pass for a and b at code scope)", "use": "Same reviewer. Retained. Its watch items are re-checked below."},
+    {"path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/phone-review-1-raw.txt", "use": "The separate exact silent phone critic's complete handback, read in full before I traced the correction. It selected b with verdict revise and three required defects (s1 0.4 s subject_recognition and first_frame, s6 34.8 s source, s6 36.2 s pacing). That rejection remains actual evidence and this code review does not supersede it. Only the current-film phone gate can clear it in pixels."}
+  ],
+  "input_verification": {
+    "method": "Read tool only. The board digest 4d177974... and every report digest are copied from the coordinator and the saved bindings file. The board lists RoomCameraHero.tsx 50112c7b..., RoomClockFilm.tsx 2f745cb6... and StudyRecordSupport.tsx 0602fef6... among its renderer dependencies, but I could not verify those digests myself.",
+    "production_inputs_read_this_round": [
+      "config/review_limit.json",
+      "out/dispatch/code-review-4-bindings.json",
+      "out/dispatch/phone-review-1-raw.txt (complete)",
+      "out/dispatch/claims.json (c1 to c13, including the c6 quote and its scope note 'Empirical p of 0.182 across 11 units')",
+      "out/dispatch/opening-b.json: s1, s2 and s6 to s8 scene records, film_direction angle, opening_promise, performed_turn, closing_answer and the complete shot list",
+      "video-engine/src/modern/episodes/2026-10-24/RoomClockFilm.tsx: clockState, crewAt, stampState, roomLayout, FOCUS and NO_TIGHTEN, fitRecord, recordView, room, every s1, s2, s3 and s10 view",
+      "video-engine/src/modern/episodes/2026-10-24/StudyRecordSupport.tsx: lines 1 to 460 (S4B and the counter label, S5B, S6B with UnitToken and RubberStamp, S7B, S8B with the strap, S9B, BlankBox, RecordPanel, ResultCard)",
+      "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx: lines 400 to 683 (plate, phone, glove, tile panel, floor, side wall, PlanAttendant, PlanRoom cameras, lamps and wedges)",
+      "video-engine/src/modern/PlaceStage.tsx (complete: interior window, detail and close bokeh wash, overhead plain floor)"
+    ],
+    "not_read": "I did not diff the before-copies in out/dispatch/correction-3-before/. The baseline is the source I traced in review 3 plus the phone critic's pixel evidence."
+  },
+  "retained_replacement": {
+    "applicable": false,
+    "reason": "This is one consolidated correction of the selected treatment's existing construction after its first phone rejection, not a post-boundary structural replacement. The original phone rejection is retained."
+  },
+  "phone_review_1_disposition": {
+    "s1 0.0 to 3.8 s abstract plan, no recognizable operating room (subject_recognition, modern first_frame), required": "Resolved in code, pending pixels. s1-shot-1 is now camera-ring-view, framing wide, 0 to 3.66 s, which calls room(win('wide'),{flash:true}). That is the same perspective room, mounts and camera hero that the phone critic recorded in a as 'a recognizable perspective operating room with four wall cameras from 0.0 s'. At frame 0 the room light is .38, the cameras are parked 38 degrees down, the lamps are off and the plate is not yet shown. From s1-event-1 (0.48 to 1.43 s) the light rises to 1, the heads lift and scan plus or minus 16 degrees, and the lamps glow at 32 percent standby. At the 0.75 s hook payoff, e1 is about .2, so the lift and light change have only begun. The plate settles 2.06 to 3.16 s and holds 0.5 s before the cut. Flashes and sight lines stay at 0 in this shot because s1-event-3 starts at 3.89 s. Whether the first second earns the hook at phone size is for the final phone gate.",
+    "s6 equal-height placebo bars picture a null result against c6 (source), required": "Resolved in code. S6Board now draws eleven UnitTokens at size 58: ten gray 'Placebo runs' and the teal 'Suite' token, ringed, each with a small site glyph and a slight individual tilt. No token carries height or size, so the row encodes neither equality nor rank. The only verdict on it is the stamp 'SHORT OF / CONVENTIONAL SIGNIFICANCE', which matches the spoken clause and the second half of c6. The picture no longer states the opposite of 'directionally consistent'. It also does not depict that half, but the narration does not speak it, so nothing is contradicted. The count of 10 plus 1 follows from the 11-unit scope note and draws no numeral.",
+    "s6 stamp result held about 0.5 s before the cut (pacing; contact_and_consequence, performed_turn), required": "Resolved in code. s6-event-3 now runs 35.091 to 35.669 s (clause fractions .53 to .72) inside s6-shot-2 stamp-view (35.00 to 36.66 s). stampState presses by r .3 (35.264 s), shows the mark from then on, and lifts the block between r .45 and .75 (35.351 to 35.524 s). The amber impression is therefore visible about 1.40 s before the 36.66 s cut, and alone for about 1.14 s. In stamp-view (detail, NO_TIGHTEN, focus [130,300,880,740], s about 1.419), the stamp spans screen x about 55 to 983 and its two lines are about 61 px and 54 px tall at native size.",
+    "rollout tag cropped out of the s7 strike close (note)": "Resolved. ledger-strike-detail now uses focus [30,440,1000,900] (s about 1.097, ox about -25, oy about 28). The Camera rollout tag sits at screen x about 30 to 385, y 489 to 653, and the caused arrow starts at its right edge (403,785) and is struck at x about 491 to 732. The tally ends at x about 1071 and 'about 25 more' at about x 1050, both inside 1080. Side effect, as a note: the associated card's bottom strip (screen y 262 to 313, x 30 to 644) shows as a blank paper sliver under the clip row.",
+    "Bundled band hiding the tag label at s8 (note)": "Resolved. The kraft strap is now a rounded rectangle round S8B.loop [10,128,616,600], outside the tag (x 30 to 284), the 'Workflow changes' label (cap top about 144) and the four notes (right edge about 601 after rotation, bottom about 584). Clearances are about 4 to 9 board units, about 6 to 14 px in ledger-band-overhead at s 1.5625. The Bundled tab hangs below the strap (y 594 to 652 board, about 1168 px screen). No label is covered.",
+    "wall camera colliding with the s10 box heading (note)": "Resolved for the collision. In blank-box-view the camera moved to at (1012,672), s 1, mirrored. Its housing now spans about x 880 to 1036 and y 640 to 740, below the box (y 420 to 620, heading baselines about 370 and 404) and right of its right edge (864). The result card top is 830. New finish note: the camera's wall plate (x 1004 to 1034) sits about 4 px outside the tile panel's right edge (x 1000), on the detail framing's out-of-focus bokeh wash. After the 1.06 zoom, its drooping cable ends about 1 to 2 px from the frame's right edge."
+  },
+  "comparison": {
+    "preferred_base": "b",
+    "reason": "Treatment a is not reviewed this round. It is retained historical evidence, superseded by the phone critic's selection of b, which stands."
+  },
+  "reports": {
+    "a": "not reviewed: retained evidence, superseded by the selection",
+    "b": {
+      "treatment": "b",
+      "board": {
+        "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/opening-b.json",
+        "sha256": "4d1779741819324f65a77a0fe1c1f024c4c88999ab8d7116e5d2de77333f3e74"
+      },
+      "review_scope": "code-plan",
+      "verdict": "pass",
+      "concept_sha256": "df896add242621bcd0073e6f5a428d38167195954364e8ec8d5a2b08c82054a6",
+      "renderer_sha256": "52108039fb3e4fe30c8e698ed417b3dc232ab22ed8232daa8880dab1b066ed75",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated Read-only code-scope worker (same reviewer as code reviews 1 to 3; distinct from the claude-sonnet-5-5 director and from the separate phone critic)",
+      "reviewed_at": "2026-10-24",
+      "strongest_frame": "s2-shot-3 ledger-marker-row, 10.77 to 11.63 s (planned, not observed). A wall camera's pulse stamps the Draped row of the steel 'Room clock record' panel while, below it, two whole attendants open and lay the drape the third carried over the patient beside the parked gurney. The physical event and its record share one frame without overlap (crew heads at about y 1007, panel bottom at about 830). The phone critic's evidence also confirms that b's record panel reads at 390 px.",
+      "weakest_frame": "s1-shot-2 plan-overhead, 3.66 to 6.08 s (planned). After the room opening, the hook's second beat cuts to the plan at At(60,300) scale .95, which occupies only y about 300 to 1155. Below it, the frame down to the caption is plain overhead floor. The lamps light in turn (3.89 to 4.77 s) on camera icons about 80 px long with lamp glows of about 42 px radius at half opacity. The sight wedges now reach about 22 percent opacity (they were about 0.8 percent), so the beat should read. It is still the least dense picture in the opening. This is a phone-gate watch item, not a code blocker.",
+      "blocking_defects": [],
+      "notes": [
+        "Scope: code-plan only, with no pixel observations. This pass authorizes only the funded capture of the corrected b. It does not clear the phone critic's actual revise verdict, which only the current-film phone gate can clear in pixels. It approves no rendered film.",
+        "s3 drape handoff (retained watch item from review 3, code unchanged): from d0 of about 14.474 s, C's grips ease out with 1-dhE while B's and A's ease in with dhE. For about 14.55 to 14.69 s, straddling the desk-phone-wide to desk-drape-split cut at 14.66 s, no glove is within about 20 table units of a corner. The phone critic's 5 fps sampling did not flag it, but that sampling cannot resolve a 0.14 s interval. Check it at the final phone gate under contact_and_consequence.",
+        "s6 stamp placement: the stamp centre is at board (490,470), size 640 by 160, rotated -7 degrees. Its lower edge runs from about (182,588) to (817,510), so it lands just above the token row (row centre y 600) and touches only the top of the second token. It does not land 'across' the row as on_screen says. In stamp-view, the first placebo token (screen x about -77 to 5) is cut at the left frame edge, so nine full tokens show. No numeral is asserted, so no claim is falsified. These are finish notes.",
+        "s10 blank-box-view: move the camera mount to x of about 975 or less so its plate rests on the tile wall rather than on the bokeh wash beside the panel edge. That keeps it clear of the box (bottom 620) and the card (top 830). Optional finish.",
+        "s7 strike detail: the associated card's blank bottom strip shows across the top of the frame (y 262 to 313). Optional finish.",
+        "Not repaired and still non-blocking, as the phone critic classified them: the counter's 'a month' line in ledger-lines-overhead falls at screen y of about 1287, inside the caption band, during 19.40 to 21.58 s. The chart legend chips are small. The s2 plan Turnover tag is small. Empty ledger frames last about 0.2 s at the starts of s8-shot-3 (45.86 to 46.08 s) and s9-shot-1. Attendants are already in place on the plan at 10.0 s. The next patient is drawn identically to the first. The s3 arrival is partly behind the desk.",
+        "Stale code comments only, not rendered: the headers of RoomClockFilm.tsx (lines 37 to 38) and StudyRecordSupport.tsx (lines 16 to 17) still describe 'ten gray placebo bars ... all the same height'. camera_strategy values remain unexecuted, and the 'match' transitions are hard cuts.",
+        "Checked with no new defect: shot lengths (s1 3.66, 2.42 and 2.42 s; s6 1.66 and 1.66; s7 1.85, 1.85 and 2.18; s8 1.66, 1.66, 2.23 and 2.23; s9 1.66 and 1.66; s10 3.14 and 3.14), all within the pace limit. Caption-band clearance: the s6 detail label at about y 1015, the s8 overhead tab at about 1168, the s10 ledger box bottom at about 1224 and the result card bottom at about 1208, all above the 1232 picture row. The s1 room-to-plan cut carries the same four cameras and table from wall height to plan. Lamp state is continuous: standby .32 at the cut, then lit in turn on the plan. The plate is removed from the plan (it settled in the room shot). Crew, drape and closing-label construction are unchanged from review 3. The A-only split crop no longer applies."
+      ],
+      "clause_observations": [
+        {"id": "n1a", "pass": true, "observed": "Code: the perspective operating room opens dim at 0.0 s. From 0.48 s the room lights and its four wall cameras lift from park, scan and glow on standby. The plate 'Cardiothoracic suite / Houston Methodist Hospital' settles 2.06 to 3.16 s."},
+        {"id": "n1b", "pass": true, "observed": "Code: on the plan, the four cameras light one after another (3.89 to 4.77 s), each opening a visible sight wedge on the table. In the plan close, attendant A pushes the gurney along the corridor to the door threshold as the wedges turn to it. The gurney ends about 37 percent inside the clip (note)."},
+        {"id": "n2a", "pass": true, "observed": "Code: the ring draws on the steel wall record panel, with a system link from a lit wall camera."},
+        {"id": "n2b", "pass": true, "observed": "Code: Patient entry stamps on the plan clock as A brings the gurney through the door gap. The panel's Draped row stamps by camera pulse as B and C lay the drape below. Turnover stamps on the plan as the draped patient leaves and C lays the sheet. Each happens within its own shot."},
+        {"id": "n3a", "pass": true, "observed": "Code: the desk phone lifts and lights as a link draws from the wall camera. A wheels the next patient in (partly behind the desk) and slides them onto the sheet."},
+        {"id": "n3b", "pass": true, "observed": "Code: in the split, B and A lay the drape C carried, beside the waiting phone. The 'Patient draped' bubble slides on in the close. The handoff float is a watch item."},
+        {"id": "n4a", "pass": true, "observed": "Code: the study card lands on the ledger beside the empty counter slot."},
+        {"id": "n4b", "pass": true, "observed": "Code: overhead, the suite and comparison lines draw. The counter's 'a month' line sits in the caption band (note)."},
+        {"id": "n4c", "pass": true, "observed": "Code: the suite line climbs after 'Cameras on', 25 tiles pour, and 'about 25' lands."},
+        {"id": "n5a", "pass": true, "observed": "Code: the 7% rise badge stamps beside the counter."},
+        {"id": "n5b", "pass": true, "observed": "Code: the 95% confidence interval axis draws."},
+        {"id": "n5c", "pass": true, "observed": "Code: the whisker draws from 8.3 to 41.0 and the 'cases a month' tag lands."},
+        {"id": "n6a", "pass": true, "observed": "Code: ten gray placebo-run tokens drop into a row and the teal ringed Suite token joins as the eleventh, with no height or rank encoded. The amber 'SHORT OF CONVENTIONAL SIGNIFICANCE' stamp presses at 35.26 s, its block clears by 35.52 s, and the mark holds alone to the 36.66 s cut."},
+        {"id": "n7a", "pass": true, "observed": "Code: the 'Associated with the rollout' card slides in beside the Camera rollout tag, and the dashed 'associated' link draws to the 25 tally."},
+        {"id": "n7b", "pass": true, "observed": "Code: in the strike detail the rollout tag is now in frame, and the solid 'caused' arrow draws from it and is struck through."},
+        {"id": "n8a", "pass": true, "observed": "Code: the rollout tag slides beside the four review notes, and the kraft strap wraps the whole stack round its edge with a 'Bundled' tab below, covering no label."},
+        {"id": "n8b", "pass": true, "observed": "Code: the Apella Technology company tag, the empty owners ring and the Houston Methodist tag appear, then a teal minority slice lights with a dotted link and a 'Minority stake' label, with no number."},
+        {"id": "n9a", "pass": true, "observed": "Code: the future-work card with 'Turnover time' highlighted lands, the small clock draws, and the card's dashed tether tags the Turnover marker."},
+        {"id": "n9b", "pass": true, "observed": "Code: in the detail, the blank box with its heading stays empty beside the lit Turnover marker, with the result card below the tag and the wall camera now clear of the heading (its plate sits just off the wall's edge, note). In the final wide, the unsquashed ledger holds the blank box and the result card below the room's lit clock, with the lamps lit and the light lowering."}
+      ],
+      "story_review": {
+        "story_sha256": "b39d7cfa893bf18d463c7bb1915bab6b2e9758dfd0b3078fdc0fa6b35da60ae6",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
+        "verdict": "pass",
+        "blocking_defects": [],
+        "one_viewing_summary": "Intended chain, from code (not observed): a generic Houston cardiothoracic operating room, seen at wall height, wakes as its four wall cameras lift and scan and its name plate settles. On the plan the cameras light one by one, their wedges open on the table, and an attendant brings a gurney to the door. Camera pulses stamp Patient entry on the plan clock, Draped on a wall record panel as two attendants lay the drape, and Turnover as the draped patient leaves and a sheet is laid. A desk phone lights as the next patient is wheeled in, slid across and draped, and 'Patient draped' arrives. On the desk ledger the study shows the suite line climbing to about 25 more surgeries a month, 7 percent, 8.3 to 41.0. Eleven unit tokens, ten placebo runs and the suite, are stamped short of conventional significance and the stamp holds. The authors' card says associated with the rollout, and caused is struck through from the rollout tag. A strap bundles the rollout with four workflow reviews, and the hospital's minority stake in Apella lights. Future work tags turnover, and the film closes on the blank turnover box and the 25-case result card under the room's lit camera lamps.",
+        "opening_to_ending": "It now opens on a recognizable room with cameras waking, which poses 'add surgeries, or only count them?'. It answers at s6 and s7 with a held, honest verdict: short of significance, associated, not caused. It closes on the open turnover question beside the measured rise. The causal arc holds, and the s6 picture no longer misstates c6.",
+        "weakest_transition": "s1-shot-1 to s1-shot-2 (3.66 s). The cut goes from the full perspective room to the smaller plan with plain floor below it. The cameras lighting in turn then reads on icon-scale glyphs. The secondary watch item is the s3 handoff at 14.66 s."
+      },
+      "action_reviews": []
+    }
+  },
+  "consolidated_correction": [
+    "No code-proven mandatory defect remains in b. All three of the phone critic's required defects and the three named notes are implemented in the callable source and the corrected board, and I found no new blocking defect.",
+    "Optional finish, non-blocking (any change alters the renderer digest and needs its own binding, which the recorded review allowance no longer funds before the final phone gate): (1) seat the s10 camera plate on the tile wall (mount x of about 975 or less). (2) Lower the s6 stamp centre so it lands across the token row, and pull the first token inside the detail frame. (3) Hide the s7 card sliver under the clip row. (4) Lift the s4 counter's 'a month' line out of the caption band in ledger-lines-overhead. (5) Let B and A take the s3 drape corners before C releases. (6) Update the stale placebo comments."
+  ],
+  "next_gate": "This code-plan pass authorizes only the funded capture of the corrected b. It supplies no pixel observation and approves no film. Per config/review_limit.json and its recorded October 24th owner grant, one review attempt remains, and it is reserved for the final timed exact-phone review of the complete corrected film. That review must judge in pixels: the 0.0 to 1.5 s room opening and the 0.75 s hook, the plan beat at 3.66 to 6.08 s, the s6 token row and the held stamp at 35.26 to 36.66 s, the s7 tag-anchored strike, the s8 strap, the s10 camera seat and closing legibility, and the s3 handoff at 14.55 to 14.69 s. The phone critic's original revise verdict stays retained evidence. No further creative correction round is available after that review. The native PNG/CRF16, audiovisual, three-scorer, source, rights, caption, audio and shipment gates all remain required."
+}

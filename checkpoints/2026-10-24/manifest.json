@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-24",
-  "saved_at": "2026-10-24T12:44:37.631084+00:00",
-  "note": "phase code-review-4",
+  "saved_at": "2026-10-24T12:52:04.279570+00:00",
+  "note": "code review 4 pass on corrected b",
   "phase": "wake",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "bcdb35033178e3ba3dd72bf3b01f5083efbac89f403e3c1268a76ad679c544af"
   },
   "deleted_source": [],
-  "ledger_sha256": "25f28b998b6d47f89136612d72fb1e29d07047f93b5b93f155759d0536ff0af0",
-  "original_private_ledger_sha256": "308bf3c416463b4f0910f913c365d4416055e202f55dabf202d7f7a0251810ac",
+  "ledger_sha256": "60ff7597ef3cd7960fd95e19eae49804e1a0e68c9a8b4ad3c2602056e3f007aa",
+  "original_private_ledger_sha256": "38c5692ce3240796154ab3ee7b59710fcb9d9f6e45f4eb0db052faebbb3296cd",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -31,7 +31,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 4,
+    "storyboard_critics": 5,
     "tts_calls": 0,
     "validator_agents": 2,
     "voice_directors": 0
@@ -294,6 +294,18 @@
       "class": "scratch",
       "sha256": "1fe9f85752711554aff2031420ba29cdeb1ad174c8310a33e9e2404ae444ff92",
       "size": 795
+    },
+    {
+      "path": "out/dispatch/code-review-4-note.txt",
+      "class": "scratch",
+      "sha256": "ff48feec98b419cf6f8ec5f2d0e91f480ce6feaf9a90d9ec59ff439960150842",
+      "size": 329
+    },
+    {
+      "path": "out/dispatch/code-review-4-raw.json",
+      "class": "scratch",
+      "sha256": "983e1f3f5e6ee9b36e9d73915368d63b38f2961187c945dd819a3d944567a8ad",
+      "size": 22247
     },
     {
       "path": "out/dispatch/correction-1-before/RoomCameraHero.tsx",
@@ -1408,8 +1420,8 @@
     {
       "path": "out/dispatch/opening-b-critic.json",
       "class": "scratch",
-      "sha256": "8d58630c96c1b5bebc050afb4c0fc61350b37b5d4fe9fea2692ea196a2930cda",
-      "size": 8804
+      "sha256": "1243ae3d8843f6a6f0bd78a9f896fe18d486768ea1dd2ec2de32872bb536d393",
+      "size": 11932
     },
     {
       "path": "out/dispatch/opening-b.json",
@@ -3622,8 +3634,8 @@
     {
       "path": "out/dispatch/storyboard_critic.json",
       "class": "scratch",
-      "sha256": "8d58630c96c1b5bebc050afb4c0fc61350b37b5d4fe9fea2692ea196a2930cda",
-      "size": 8804
+      "sha256": "1243ae3d8843f6a6f0bd78a9f896fe18d486768ea1dd2ec2de32872bb536d393",
+      "size": 11932
     },
     {
       "path": "out/dispatch/validation-round1-summary.txt",
@@ -5355,9 +5367,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 47424966,
-    "unique_blob_bytes": 42959840,
-    "unique_blobs": 683
+    "logical_bytes": 47453798,
+    "unique_blob_bytes": 42985544,
+    "unique_blobs": 685
   },
   "excluded": [],
   "regenerable": {
