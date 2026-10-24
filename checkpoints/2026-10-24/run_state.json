@@ -759,6 +759,80 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "reported_tokens": 2219,
       "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-24T13:14:26.712294Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/narration-2/vo_direction-before.json",
+          "before_sha256": "c73fae435c8629f4d873d45ec9acab7a2e9d0dbb1569f892172fd2477447c1af",
+          "path": "{REPO}/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "unclassified",
+      "failure_sha256": "2d83e743a274f6481058b18df12e41b129e47ddc3acf4c5683ff3760f8258638",
+      "frozen_inputs": {
+        "files": {
+          "{REPO}/out/dispatch/claims.json": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
+          "{REPO}/out/dispatch/sources/hm.html": "f23e3df39f2d2a85c4c294ec0a7bc8d7f2f97ecc1b869f36228bbf2db01aa86e",
+          "{REPO}/out/dispatch/sources/hm.txt": "bf50fb0c7674096a565dff893b16617d1777bb2afbff4c4c2c2546561492b36c",
+          "{REPO}/out/dispatch/sources/hm2025.html": "dd7807bf1d4636657e1ecf2ef4abe0930ede64ddf3bd3106e1e2586f8491cdb4",
+          "{REPO}/out/dispatch/sources/hm2025.txt": "823e857864203f169f466f22afdc709a8bd98e11f7b3dbe828c709a71632a1bf",
+          "{REPO}/out/dispatch/sources/mdpi.html": "8c6bdbb8f03f6d92aee0189fb0ea93afda04e4a8107ce762e9138e1826f58c83",
+          "{REPO}/out/dispatch/sources/pmc.html": "04dad09e518e9d2ed8b96d6186fecd10cbbdd89f81d372862999667fa55852e2",
+          "{REPO}/out/dispatch/sources/pmc.txt": "8432aaeeaf45d66617b80c217c6d1efd088dd5ee6ecf9e763098ac71562373d2",
+          "{REPO}/out/dispatch/sources/pmc.xml": "699c17c821494bf8794810574b9a01512f1dc0d88fd74d78e72222cb39e6aad6",
+          "{REPO}/out/dispatch/storyboard.json": "4d1779741819324f65a77a0fe1c1f024c4c88999ab8d7116e5d2de77333f3e74",
+          "{REPO}/out/dispatch/vo_script.txt": "2282b70ddb3c5316dd9265223cc8e1cdf739d61107eeeba4b7ea851d013e69c4"
+        },
+        "renderer_sha256": "52108039fb3e4fe30c8e698ed417b3dc232ab22ed8232daa8880dab1b066ed75"
+      },
+      "grants": {},
+      "kind": "repair_started",
+      "mechanism_id": "narration-clause-breath-breaks",
+      "plan_identity": "0118e4b75ab5a00e1cad3954543dd25b747c78cda0982131e4774aeaa08f11ef",
+      "plan_sha256": "3100852af2d18caf3bd9088c4de3eb9138e71c90d34a5b82d2a5b30e7be23133",
+      "progress_replacement_required": true,
+      "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-10-24T13:14:33.231947Z",
+      "grants": {
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "6b4e2eddcede7a39c812bdd4c3002fb804fa3ccf78931310d3f9d2e72192bbf9",
+            "before_path": "{REPO}/out/dispatch/evidence/narration-2/vo_direction-before.json",
+            "before_sha256": "c73fae435c8629f4d873d45ec9acab7a2e9d0dbb1569f892172fd2477447c1af",
+            "path": "{REPO}/out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "Every declared clause boundary has measured silence, so captions and clause windows derive from the audio without any edit, stretch or hand shift.",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/narration-2/failure.txt",
+        "failure_evidence_sha256": "2d83e743a274f6481058b18df12e41b129e47ddc3acf4c5683ff3760f8258638",
+        "failure_family": "unclassified",
+        "mechanism_change": "Only the performance direction changes, adding named breath points. The script, claims, board and renderer stay frozen and bound.",
+        "mechanism_id": "narration-clause-breath-breaks",
+        "repair": "Direct an audible breath at each named unpunctuated clause break and synthesize one new take of the unchanged script.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "Take 2 reconciles with the script but its unpunctuated clause breaks carry no measured silence, so the narration-picture clause boundaries lack the quarter second of measured silence that alignment requires."
+      },
+      "repair_plan_sha256": "c4445150f49cd19536c5a316aa0578e32b8044854b8889166040db2a828ddb6a",
+      "repair_revision": "23b53b78eb6f6ab7f3933ad33ca9f67dd7a373929f4118d4f24010fe7a023708",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -782,7 +856,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "f0bacc84ad60abc4eb79eb8e3353ef1f4990363268128f1cd0f5182fef5bf26e",
+    "original_private_state_sha256": "986aa2e317e44fa35bf9bcfb7fbaf71024fecb1e36b5b2e0f3509948d8b300ac",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -810,7 +884,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-24T13:11:47.005046Z",
+  "updated_at": "2026-10-24T13:14:33.232000Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,

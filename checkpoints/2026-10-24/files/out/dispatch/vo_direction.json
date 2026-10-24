@@ -21,7 +21,7 @@
   "sound_direction_sha256": "b122f1e7e0eea78803cbec36706458d13288a28c30c0ede7e51a09e4234e2bdb",
   "sound_binding_method": "Compute fingerprint(board['creative_direction']['sound']) with scripts/creative_production.py on the current storyboard.json and write the hex digest here. Do not copy any other value.",
   "take": "One continuous take of the whole passage, followed by the existing soundcheck. No numeric pause instructions and no spoken tags.",
-  "direction": "A plain, conversational explainer in one continuous take. Open curious and close to the listener, let the numbers land flat and exact, and keep the limits dry rather than alarmed. Findings get a measured lift, never a triumphant one. The quietest and most settled delivery belongs to the closing answer. Breathe naturally at commas and full stops, and keep each clause whole.",
+  "direction": "A plain, conversational explainer in one continuous take. Open curious and close to the listener, let the numbers land flat and exact, and keep the limits dry rather than alarmed. Findings get a measured lift, never a triumphant one. The quietest and most settled delivery belongs to the closing answer. Breathe naturally at commas and full stops, and keep each clause whole. Where a line's intent names a breath point, leave that break clearly audible, a real pause with room tone, before continuing.",
   "lines": [
     {
       "scene_id": "s1",
@@ -51,7 +51,7 @@
     {
       "scene_id": "s2",
       "text": "The system timestamped patient entry, draping and room turnover.",
-      "intent": "Plain mechanism, a recorded sequence.",
+      "intent": "Plain mechanism, a recorded sequence. Take a clear audible breath after the word timestamped, then say patient entry, draping and room turnover.",
       "energy": "Settle a notch below the opening.",
       "emphasis": "patient entry",
       "audit": {
@@ -74,7 +74,7 @@
     {
       "scene_id": "s3",
       "text": "It also texted the surgeon when the patient was draped.",
-      "intent": "Consequence for the surgeon, matter of fact.",
+      "intent": "Consequence for the surgeon, matter of fact. Take a clear audible breath after the word surgeon, then say when the patient was draped.",
       "energy": "Small lift on the surgeon, then level.",
       "emphasis": "texted the surgeon",
       "audit": {
@@ -96,7 +96,7 @@
     {
       "scene_id": "s4",
       "text": "A hospital study compared that suite with other Houston Methodist sites and found about 25 more surgeries a month.",
-      "intent": "Reveal the comparison and its estimate.",
+      "intent": "Reveal the comparison and its estimate. Take a clear audible breath after that suite and another after Houston Methodist sites, then say and found about 25 more surgeries a month.",
       "energy": "Clear lift into the number, still measured.",
       "emphasis": "about 25 more surgeries a month",
       "audit": {
@@ -120,7 +120,7 @@
     {
       "scene_id": "s5",
       "text": "That is a rise of 7 percent. The 95 percent confidence interval runs from 8.3 to 41.0 cases a month.",
-      "intent": "Qualify the estimate with its range.",
+      "intent": "Qualify the estimate with its range. Take a clear audible breath after the words The 95 percent confidence interval, then say runs from 8.3 to 41.0 cases a month.",
       "energy": "Drop from the number to a steady, plainer line.",
       "emphasis": "8.3 to 41.0",
       "audit": {

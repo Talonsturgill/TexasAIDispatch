@@ -1,23 +1,23 @@
 {
   "repair_scope": "narration-performance",
-  "root_cause": "The audible take says authors, confirmed by the independent soundcheck transcript, but the pinned acoustic ASR hears offers, so forced alignment refuses to reconcile one non-name word with the locked script.",
-  "repair": "Direct the seventh line to articulate authors with its full first syllable and a clear final consonant cluster, then synthesize one new take of the unchanged script.",
-  "mechanism_change": "Only the performance direction for one line changes. The script, claims, board and renderer stay frozen and bound.",
-  "expected_visible_result": "The new take aligns exactly to the locked script, so measured captions and clause timing derive without any alias, edit or hand shift.",
-  "failure_evidence": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/evidence/narration-1/failure.txt",
-  "failure_evidence_sha256": "1b0e0675dfb132b9fa76872eb5fd7447e123eed67a08f8e5204b82a0c7fc1ad7",
+  "mechanism_id": "narration-clause-breath-breaks",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "failure_family": "unclassified",
+  "root_cause": "Take 2 reconciles with the script but its unpunctuated clause breaks carry no measured silence, so the narration-picture clause boundaries lack the quarter second of measured silence that alignment requires.",
+  "repair": "Direct an audible breath at each named unpunctuated clause break and synthesize one new take of the unchanged script.",
+  "mechanism_change": "Only the performance direction changes, adding named breath points. The script, claims, board and renderer stay frozen and bound.",
+  "expected_visible_result": "Every declared clause boundary has measured silence, so captions and clause windows derive from the audio without any edit, stretch or hand shift.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/evidence/narration-2/failure.txt",
+  "failure_evidence_sha256": "2d83e743a274f6481058b18df12e41b129e47ddc3acf4c5683ff3760f8258638",
   "changed_inputs": [
     {
       "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/vo_direction.json",
-      "before_path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/evidence/narration-1/vo_direction-before.json",
-      "before_sha256": "991eafc95ec3b118518887467c4e878e6484974e197cf6b272d63c96c2523cb8",
-      "after_sha256": "c73fae435c8629f4d873d45ec9acab7a2e9d0dbb1569f892172fd2477447c1af"
+      "before_path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/evidence/narration-2/vo_direction-before.json",
+      "before_sha256": "c73fae435c8629f4d873d45ec9acab7a2e9d0dbb1569f892172fd2477447c1af",
+      "after_sha256": "6b4e2eddcede7a39c812bdd4c3002fb804fa3ccf78931310d3f9d2e72192bbf9"
     }
   ],
   "resources": {
     "tts_calls": 2
-  },
-  "mechanism_id": "narration-word-clarity-authors",
-  "director_identity": "claude-sonnet-5-5 director, this session",
-  "failure_family": "unclassified"
+  }
 }
