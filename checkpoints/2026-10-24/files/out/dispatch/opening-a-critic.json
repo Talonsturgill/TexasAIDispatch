@@ -2,82 +2,57 @@
   "treatment": "a",
   "board": {
     "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/opening-a.json",
-    "sha256": "13feb290ff48f54aa7f3862c20c32583e312b7f71ba5dc08242c3fc67f8103a3"
+    "sha256": "50a5c26fefbf794d98e6eef2b9c2cff46d920835c9cb21bd2fe29f39ca6dfaae"
   },
   "review_scope": "code-plan",
-  "verdict": "revise",
-  "concept_sha256": "e20879eac8505fae507c69a198e52f69c98ca97fce22bdbb591b080868d8e6f9",
-  "renderer_sha256": "36c66ea316a199a820766c38dc3c48e91e58528255df78fd6af8ac79fef2df61",
+  "verdict": "pass",
+  "concept_sha256": "4c53458c0af2e75ebc95335c76bd88bfef2d01f4030399d35f95d3a2e766a38a",
+  "renderer_sha256": "7a1af4ffcf2a5841e4e9d4a1fcda2c69df7f37cfdd85a6bc6859920d3fa75cc4",
   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
-  "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated Read-only code-scope worker (same reviewer as review 1; distinct from the claude-sonnet-5-5 director)",
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated Read-only code-scope worker (same reviewer as reviews 1 and 2; distinct from the claude-sonnet-5-5 director)",
   "reviewed_at": "2026-10-24",
-  "strongest_frame": "s2-shot-2 clock-marker-close, 9.92 to 10.77 s (planned, not observed). A gloved hand pushes the gurney over the doorway threshold toward the table while a teal pulse runs from the wall camera's lens to the ring and 'Patient entry' stamps. Input, transformation and record appear in one composition.",
-  "weakest_frame": "s2-shot-3 drape-stamp-medium, 10.77 to 11.63 s (planned). For the first 0.14 s two pinching hands hold nothing. Their straight sleeves run 440 to 650 px to opposite frame edges, thicker than the patient's body, and the left sleeve crosses the bottom of the clock ring, all within a 0.85 s shot.",
-  "blocking_defects": [
-    {
-      "category": "action",
-      "criterion": "contact_and_consequence (believable agent performing the contact); brief: check physical scale and upper-arm/forearm lengths, reject stretched reach",
-      "scene_id": "s2",
-      "time_s": 10.7733,
-      "defect": "New in correction 1. The attendant hands that now perform every gurney, transfer, drape and sheet move are drawn at hs = ks*1.15 with a straight sleeve from local x 58 to len 900, widening to 80 units, and no elbow or upper arm. Against the patient on the same rig: the hand is about 85 table units long, 19 percent of the 440-unit patient (a real hand is about 11 percent of body length). The sleeve is 92 units thick at its far end, thicker than the lying patient's 76-unit silhouette (a forearm is about a third of chest depth). In drape-stamp-medium (medium window, ks .81, hs .93), the right drape hand grips at about (457,924) with dir -28. Its sleeve stays straight for about 650 px to the right frame edge (about 3 m at the patient's scale of roughly 209 px per metre). The left hand at about (391,917), dir -152, runs about 440 px straight to the left edge. The two arms leave opposite frame edges about 1.3 m apart, which no single attendant can do, though the code comment says 'an anonymous attendant'. The same construction drives clock-marker-close (guide), turnover-marker-view split (sheet), table-drape-medium and the s3 vignettes (slide and drape hands). Required result: hands at believable scale for the patient and gurney (about 11 percent of body length), with a forearm that bends at a visible elbow or leaves frame within about one forearm length. If two arms come from opposite sides, show them as two attendants. Check every rig and scale used."
-    },
-    {
-      "category": "action",
-      "criterion": "contact_and_consequence (continuous identity; the object exists before the agent handles it)",
-      "scene_id": "s3",
-      "time_s": 14.838,
-      "defect": "Residual from review 1. caseGroup draws the drape only when S.drape > 0, while the drape hands are drawn from drapeHands independently. In s2 (drape-stamp-medium), drapeHands has enter 1 from the cut at 10.773 s, but s2-event-3 starts at 10.915 s, so for 0.142 s two pinching hands hold nothing and the folded bundle then pops into their grip. In s3 the hands start descending at b1+0.35 = 14.604 s and only reach the bundle's corners at 15.054 s, but the bundle pops into existence at the s3-event-2 start (14.838 s) while the hands are still about 0.47*520*ks above it (about 200 px in table-drape-medium). The drape therefore appears from nothing and hangs unsupported before its handler arrives. Required result: draw the folded bundle (drapeShape(0)) whenever drapeHands is active, and have it arrive in the hands or rest on the screen bar before the hands take it. It must never appear at event start."
-    },
-    {
-      "category": "ending_artistry",
-      "criterion": "closing_payoff and legibility (closing labels unobstructed)",
-      "scene_id": "s10",
-      "time_s": 53.64,
-      "defect": "New in correction 1 (the second occlusion was already present in review 1, which I missed). (1) blank-box-view (53.64 to 56.78 s): the lit 'Turnover' tag of the clock at (300,540), r 170 (marker angle about 168.8 degrees, tag box x 344 to 528, y 736 to 791, text from x 357, baseline about 775) is overlapped by the new result card, drawn later, at (440,760) scale .92 (x 440 to 955). The card covers the lower half of the letters after x 440. (2) room-window-wide (56.78 to 59.92 s): the surgical light is drawn after the wall box. Its head (ellipse centre about (408,542), rx 85, y 525 to 559, with its dome above) covers the first characters of 'speed up turnover?' (baseline 547.6, from x 436) and the descenders of 'Did the rollout' (baseline 521.6). Its translucent cone also washes the upper-left of the box and result card. Required result: lay out both closing pictures so the Turnover tag, the box question and the result card are each fully unobstructed, and recheck the turnover angle after measured retiming."
-    }
-  ],
+  "strongest_frame": "s2-shot-2 clock-marker-close, 9.92 to 10.77 s (planned, not observed). Attendant A, a whole figure in scrubs with bent arms on the push bar, wheels the gurney over the doorway threshold toward the table while a teal pulse runs from the wall camera's lens to the ring and 'Patient entry' stamps. B and C wait behind the table, and C holds the folded drape. Input, agent and record share one composition.",
+  "weakest_frame": "The s3 drape handoff, about 14.55 to 14.69 s (planned), straddling the s3-shot-1 phone-hand-close to s3-shot-2 table-drape-medium cut at 14.66 s. As the folded drape travels about 108 table units from C's carry position to the table, C's hold eases out (1-dhE) while B and A ease in (dhOn = dhE). For about 4 frames, no glove is within about 20 table units of a corner (peak gap about 85 units, about 36 px at ks .42 and about 69 px at ks .81), so the bundle can read as sliding between hands rather than being passed. Non-blocking at code scope (see notes). Judge it in the phone pixels.",
+  "blocking_defects": [],
   "notes": [
-    "Scope: code-plan only, with no pixel claims. Capture remains unauthorized per the packet.",
-    "s1 shot 1 to shot 2: the same mounts and composition, a uniform 12.6 percent scale step from the wide to the medium PlaceStage window, so it reads as a jump cut. A held single shot or a genuinely closer angle would cut more cleanly. This is a craft preference; judge it at the phone gate.",
-    "table-low-detail (6.08 to 8.50 s): at the end of s1-event-4 the gurney (centre 1136, span 900 to 1372) is at most about 38 percent in frame. The guide hand at x about 1388 is off-frame, and the camera sight lines aim at the patient centre off-frame at x 1136. The gurney is drawn over the side wall with its wheels (y about 1194) below the doorway threshold line, so whether it reads as being in the doorway or in front of the wall is unknown until pixels exist.",
-    "phone-hand-close (12.48 to 14.66 s): the vignette doorway (x 520 to 610) and most of the next patient's arrival path (goff 723.7 to gwait 613.7) lie behind the palm strip (x about 491 to 560) and the phone (x 560 to 1010). The gurney is first seen emerging from behind the hand on its way to the table. The identical patient shape and gurney re-enter through the same door about 0.14 s after the turnover exit, so viewers may read it as the same patient returning. A visible difference would help. Non-blocking: the continuity fix I required is in place.",
-    "s2 now cuts every 0.85 s (three compositions in 2.56 s), with about 0.14 s holds around each stamp. Readability at phone size is unknown.",
-    "The placebo row's equal heights avoid an unclaimed rank. Unlabelled equal bars can still read as 'no different from placebo', while c6 also says 'directionally consistent'. Consider unit tokens rather than heights.",
-    "The result card in room-window-wide is drawn at scale .5 (text about 11 to 13 px native, about 4 to 5 px at a 390 px phone width), so the final wide relies on recognition carried over from the readable close shot.",
-    "In drape-stamp-medium the left drape sleeve crosses the bottom of the clock ring (about y 795 to 865 at x 228).",
-    "Prose that does not match the renderer: camera_strategy values remain unexecuted (flat_shots hold every frame), and DirectedFilm hard-cuts regardless of the 'match' label. The story_contract visible_bridge sentences now describe cuts truthfully.",
-    "Retained notes from review 1: 61 percent of story time (s4 to s9) is one record family; the minority slice spans 64 degrees with no size claimed. Fixed since review 1: stamp border in frame (screen x about 53 to 983), 8.3 label margin (now about 41 px), no phone sender, sanitizer pump instead of the mug."
+    "Scope: code-plan only, with no pixel observations. This pass authorizes only the funded capture. It approves no rendered film, and capture remains unauthorized in the current packet.",
+    "s3 handoff (contact_and_consequence watch item, not a code blocker): crewAt lerps C's corner grips toward rest with 1-dhE and B's and A's toward the corners with dhOn, so both sides touch only at the ends of the 0.3 s ease. I count it as a phone-gate check, not a mandatory code defect. It lasts about 0.14 s, about 0.11 s of it falls in the small vignette, there is no pop-in, and the drape's identity is continuous. If the native or phone pixels show a visible floating transfer, it fails contact_and_consequence there. Optional fix: let B and A close on the corners before C lets go, for example C's hold = 1 - ease5((dhE-.75)/.25). Any change alters the renderer digest and needs its own binding.",
+    "End of each drape fall: the foot-end corner settles at about (224,-20) table units. C's (s2) or A's (s3) forearm then passes behind the draped feet for about 20 to 30 units before its glove, drawn in front, appears on the hem. At phone size check that this reads as a hand over the edge and not as a detached glove.",
+    "Crew continuity: B and C first appear at the s1 to s2 cut (s2-shot-1 clock-wall-wide), already standing behind the table. A is off-frame right in table-low-detail (A at x about 1452 at s1-event-4's end) and in clock-wall-wide (about 1319), so the gurney is pushed from off-screen and A first appears in clock-marker-close. That is acceptable film grammar. Recognition of the partly visible gurney is a phone-gate question.",
+    "turnover-marker-view (split, 11.63 to 12.48 s): attendant B, at -250 table units on rig ks .45, stands at x about 608, against the divider (x 594 to 604) and the case clip (x >= 604), so only B's right half is visible. Moving B to about -300 or letting the clip take the whole figure would avoid a sliced body at the seam. This is a craft preference.",
+    "Layering, traced: in the medium room (drape-stamp-medium, table-drape-medium) crew heads top out at y about 895, against the ring's bottom at about 829 and the Draped tag at about 772 to 809. In the wide room (clock-wall-wide) they top out at about 842, against the ring's bottom at about 818. B at x 255 to 289 sits left of where the Turnover tag would start (x 289), and that tag is not stamped in that shot. In clock-marker-close they top out at about 958, against the ring's bottom at 700. Crew arms reach no higher than the bundle's hold row (-178 table units). No clamped or stretched reach occurs (stretch < 1 on every traced grip).",
+    "Retained craft notes from earlier reviews: the s1 shot 1 to shot 2 wide-to-medium step reads as a jump cut. The s3 arrival path is mostly behind the palm and phone in phone-hand-close. The next patient is drawn identically to the first. The s2 cuts come every 0.85 s. The equal-height placebo units may read as 'no different' (my own earlier suggestion, so a note only). The room-window-wide result card at scale .62 (text about 16 px native) relies on the preceding close. camera_strategy values remain unexecuted, and DirectedFilm hard-cuts the 'match' label. 61 percent of story time (s4 to s9) is one record family. The minority slice carries no size claim."
   ],
   "clause_observations": [
     {
       "id": "n1a",
       "pass": true,
-      "observed": "Code: the room lights up while the four cameras lift from park, scan and glow on standby, and the plate settles."
+      "observed": "Code: from s1-event-1 the room lights while the four wall cameras lift from park, scan plus or minus 16 degrees and glow on standby. The plate settles."
     },
     {
       "id": "n1b",
       "pass": true,
-      "observed": "Code: the lamps go full amber in turn with per-camera sight-line flashes, then the gurney rolls to the doorway as the camera heads turn. The gurney stays partly off-frame (note)."
+      "observed": "Code: the lamps go full amber in turn with per-camera sight-line flashes. Attendant A wheels the gurney to the doorway as the camera heads turn to it. A and most of the gurney are off-frame right in table-low-detail (note)."
     },
     {
       "id": "n2a",
       "pass": true,
-      "observed": "Code: the ring draws on the pier with a teal system link from a camera, and the gurney waits at the doorway."
+      "observed": "Code: the ring draws on the pier with a teal system link from a camera. The gurney waits at the doorway, and B and C stand behind the table, C holding the folded drape."
     },
     {
       "id": "n2b",
       "pass": true,
-      "observed": "Code: entry, draped and turnover each stamp by camera pulse within their own shot, with the matching physical events. The hand scale and drape pop-in are blocking under the action defects."
+      "observed": "Code: Patient entry stamps by camera pulse as A pushes the gurney over the threshold. Draped stamps as B and C, already pinching its corners, open and lay the drape C carried. Turnover stamps as A takes the draped patient out and C lays the fresh sheet, walking along the table. Each happens within its own shot."
     },
     {
       "id": "n3a",
       "pass": true,
-      "observed": "Code: the phone lights, a link draws from the wall camera, and the next patient is wheeled in and slid onto the fresh sheet (partly behind the phone)."
+      "observed": "Code: the phone lights in the gloved hand, a link draws from the wall camera, and A wheels the next patient in and slides them onto the fresh sheet. The arrival is partly behind the phone (note)."
     },
     {
       "id": "n3b",
-      "pass": false,
-      "observed": "Code: hands lay the drape and the alert slides on afterwards. But the bundle pops into existence below still-descending hands at 14.838 s, and the hands and sleeves are oversized and elbowless."
+      "pass": true,
+      "observed": "Code: C carries a new folded drape from the s3 cut, B and A take its corners (14.47 to 14.77 s) and lay it during s3-event-2, and the 'Patient draped' alert slides on afterwards. A mid-handoff float of about 0.14 s is a phone-gate watch item."
     },
     {
       "id": "n4a",
@@ -107,12 +82,12 @@
     {
       "id": "n5c",
       "pass": true,
-      "observed": "Code: the whisker runs from 8.3 to the 41.0 cap and the unit tag lands, with an improved left margin."
+      "observed": "Code: the whisker runs from 8.3 to the 41.0 cap and the unit tag lands."
     },
     {
       "id": "n6a",
       "pass": true,
-      "observed": "Code: 10 placebo bars rise, the suite bar joins as the 11th, and the stamp presses fully in frame."
+      "observed": "Code: 10 placebo bars rise, the suite bar joins as the 11th at the same height, and the stamp presses in frame."
     },
     {
       "id": "n7a",
@@ -132,50 +107,28 @@
     {
       "id": "n8b",
       "pass": true,
-      "observed": "Code: the company tag and ring appear in stake-wide, then the minority slice lights."
+      "observed": "Code: the company tag and ring appear, then the minority slice lights."
     },
     {
       "id": "n9a",
       "pass": true,
-      "observed": "Code: the future-work card lands, the ring draws within its own shot, and the card tags the Turnover marker."
+      "observed": "Code: the future-work card lands, the ring draws, and the card tags the Turnover marker."
     },
     {
       "id": "n9b",
-      "pass": false,
-      "observed": "Code: the blank box holds beside the lit Turnover marker, the lamps stay lit and the result card is present. But the card covers the Turnover tag in the close, and the surgical light head covers the question's start in the wide."
+      "pass": true,
+      "observed": "Code: the blank box holds beside the lit Turnover marker with the result card 39 px below the tag in the close. In the final wide, the box and card sit clear of the light head and cone and the clock reads over the cone. The room light lowers and all four lamps stay lit."
     }
   ],
   "story_review": {
-    "story_sha256": "459017c1c9c6071a5fa1a0f8682063c52988bb664d5c10fefd75840a66e6888c",
+    "story_sha256": "d621df08530f5017fca6b284817b8143c8db1a2260bceb0dbab988270746c287",
     "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
     "claims_sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
-    "verdict": "revise",
-    "blocking_defects": [
-      {
-        "category": "action",
-        "criterion": "contact_and_consequence; physical scale",
-        "scene_id": "s2",
-        "time_s": 10.7733,
-        "defect": "The attendant's hands and straight, elbowless sleeves are drawn at about 1.7 times hand scale and up to about 3 m of forearm against the patient. That is the agent of every physical step from entry to draping."
-      },
-      {
-        "category": "action",
-        "criterion": "contact_and_consequence",
-        "scene_id": "s3",
-        "time_s": 14.838,
-        "defect": "The folded drape pops into existence at event start, before or apart from the hands that handle it (s2 at 10.773 to 10.915 s; s3 at 14.838 to 15.054 s)."
-      },
-      {
-        "category": "ending_artistry",
-        "criterion": "closing_payoff; legibility",
-        "scene_id": "s10",
-        "time_s": 53.64,
-        "defect": "The result card covers the lit Turnover tag in the closing close shot, and the surgical light head covers the start of the box question in the final wide."
-      }
-    ],
-    "one_viewing_summary": "Intended chain, from code (not observed): a generic Houston cardiothoracic operating room lights up while its four wall cameras power up and scan, then light in turn and watch a gloved attendant wheel a patient to the doorway. A camera pulse stamps Patient entry as the gurney crosses the threshold, Draped as hands lay the drape, and Turnover as the draped patient leaves and a fresh sheet is laid. The next patient is wheeled in and draped, and a 'Patient draped' text reaches a surgeon's phone. On the suite's records desk the study card shows the suite pulling away from other Houston Methodist sites, with 25 tiles, 7 percent and 8.3 to 41.0. Eleven equal placebo units are stamped short of significance, then 'associated, not caused', bundled reviews, a minority stake and future work tagging turnover. The film closes on a blank turnover box beside the clock and a card of about 25 more a month linked to the rollout, the camera lamps still lit.",
-    "opening_to_ending": "It opens on cameras visibly powering up in the room, which serves the question 'add surgeries, or only count them?'. It answers at s7 (about 25 more, associated not caused) and closes on the open turnover box beside the 25-case result card with the cameras still watching. The causal arc now holds. The remaining defects are in execution: the agent's scale, the drape's appearance and closing-label occlusion.",
-    "weakest_transition": "s2-shot-2 to s2-shot-3 (10.773 s). The cut jumps from the close threshold crossing to a medium shot of the patient already on the table, where two oversized arms from opposite frame edges pinch empty air for 0.14 s before the drape bundle appears. The transfer is elided by the cut and the new agent's construction breaks the believable handoff."
+    "verdict": "pass",
+    "blocking_defects": [],
+    "one_viewing_summary": "Intended chain, from code (not observed): a generic Houston cardiothoracic operating room lights up while its four wall cameras power up and scan. They light in turn and turn to a gurney an attendant wheels to the doorway. Two more attendants wait behind the table, one holding a folded drape. A camera pulse stamps Patient entry on the wall clock as the gurney crosses the threshold. It stamps Draped as two attendants open and lay the drape, and Turnover as the draped patient is wheeled out and a fresh sheet is laid. The next patient is wheeled in and slid across, a new drape is passed and laid, and 'Patient draped' reaches a surgeon's phone. On the records desk the study shows the suite pulling away from other Houston Methodist sites: about 25 more a month, 7 percent, 8.3 to 41.0. Eleven equal placebo units are stamped short of significance, then 'associated, not caused', bundled reviews, a minority stake and future work tagging turnover. The film closes on a blank turnover box beside the clock and a card of about 25 more a month linked to the rollout, with the camera lamps still lit.",
+    "opening_to_ending": "It opens on cameras visibly powering up and watching people move a patient, which poses the question 'add surgeries, or only count them?'. It answers at s7 (about 25 more, associated, not caused) and closes on the open turnover box beside the 25-case result card in the same room, the cameras still watching. The causal arc holds, and the agents of every physical step are now believable whole figures.",
+    "weakest_transition": "s3-shot-1 to s3-shot-2 (14.66 s). The drape handoff from C to B and A straddles the cut, from the small vignette beside the phone to the medium room, with about 0.14 s where the moving bundle is between hands. It is unresolved until phone pixels exist."
   },
   "action_reviews": []
 }

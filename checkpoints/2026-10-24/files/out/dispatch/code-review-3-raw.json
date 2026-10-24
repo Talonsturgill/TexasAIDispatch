@@ -1,0 +1,177 @@
+{
+  "role": "storyboard-critic",
+  "review_scope": "code-plan",
+  "review_round": 3,
+  "date": "2026-10-24",
+  "consolidated_verdict": "pass",
+  "packet": {
+    "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/critic-packet.json",
+    "sha256": "127c5fa759b45f28dfef0c583d683f14af1b6192371b3706c48d8ba069d87190"
+  },
+  "prior_reviews": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/code-review-1-raw.json",
+      "use": "Same reviewer, review 1 (revise). Retained unchanged as evidence."
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/code-review-2-raw.json",
+      "use": "Same reviewer, review 2 (revise, three blockers per treatment). I re-traced each blocker against the current callable source. Review 2 is retained unchanged and is not superseded as evidence."
+    }
+  ],
+  "input_verification": {
+    "method": "I had only the Read tool, so I computed no SHA256 values. Every digest in this report is copied mechanically from the packet's code_report_bindings (schema dispatch_claude_code_report_bindings/1). The board path storyboard.json carries sha256 50a5c26f..., the same as opening-a.json, so I treated them as one board. The guide list matches the round-2 packet, including config/modern_episode_registry.json e24b6ab7..., and I read those guides in full earlier in this same session. RoomCameraHero.tsx is now 6d42a24d... (changed). StudyRecordSupport.tsx is 09dbbd59... (unchanged from round 2). Usage shows storyboard_critics 2 before this review, and capture.allowed is false.",
+    "production_inputs_read_this_round": [
+      "out/dispatch/critic-packet.json: bindings, usage, capture, decision_scope and the guide and asset lists",
+      "out/dispatch/code-review-2-raw.json (my round-2 report)",
+      "video-engine/src/modern/episodes/2026-10-24/RoomClockFilm.tsx, all of it: clockState, crewAt, carryOffset, turnoverTagBox, roomLayout, rig, caseGroup, room, every s1, s2, s3 and s10 view, and the plan crew",
+      "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx: lines 1 to 400 (TABLE, GURNEY, BODY, drapeShape, CREW, CREW_LOOKS, crewShoulders, restGrip, armReach, Glove, Arm, Attendant, FrontGloves, SurgicalLight, markAt, tagFont, ClockRing) and the plan section (PlanAttendant, PlanRoom)",
+      "out/dispatch/opening-a.json: s2 and s3 shot records",
+      "out/dispatch/opening-b.json: s10-shot-2 and the rewards list"
+    ],
+    "not_read": "I did not diff the before-copies in out/dispatch/correction-2-before/. My baseline is the source I traced in review 2."
+  },
+  "retained_replacement": {
+    "applicable": false,
+    "reason": "This is the second pre-film code correction of the same validated script and construction, not a post-boundary structural replacement. No film exists yet."
+  },
+  "review_2_disposition": {
+    "a": {
+      "Attendant hand and arm scale, no elbow (action; contact_and_consequence, physical scale)": "Resolved in code. CREW sets the hand at 46 table units against a patient of about 420 (11 percent), the upper arm at 72, the forearm at 62, and limb widths of 21 and 17 (at most 22, about a third of the patient's depth). armReach is a true two-bone solve. The wrist stops min(hand*.55, D*.5) short of the grip, the reach is clamped at U+F-1, and the elbow takes the lower, outer side. I traced every grip for stretch and none needs clamping. A to the bar: raw 44 and 80 against 133. A to the slide grips: about 70 and 50. A to the drape's foot corner from bx 180: 73 to 123. B from -200 or -190 to the head corner: 116 to 125. C carrying the folded drape at chest: 13 to 17, an elbow-down carry. C to the foot corner in s2: 90. C laying the sheet: 102. Each move has a whole attendant. A pushes, pulls and slides. B stands at the head end. C stands at the foot end, carries the drape and lays the sheet. Arms from opposite sides belong to two different bodies (B and C in s2, B and A in s3). Bodies are drawn behind the table, and FrontGloves draws the gloves in front of what they hold.",
+      "Drape identity and pop-in (action; contact_and_consequence)": "Resolved in code. crewAt returns a bundle offset whenever the drape is carried or held. caseGroup now draws the drape when bundle is not null or drape > 0, so the drape exists before any hand takes it. In s2 the folded drape is at carryOffset(225) in C's hands from s2's first frame. From the draped cut (10.7733 s) it is at [0,0] with drapeHands.enter = 1, so B's and C's pinches are on its corners from the shot's first frame, and the 0.142 s of empty pinching is gone. In s3, C carries a new folded drape at carryOffset(-60) from the s3 cut. From d0 = b1+0.22 (about 14.474 s) it travels to the table over 0.3 s while B and A take its corners. That is before s3-event-2 opens it at 14.838 s, so nothing appears at event start. A short handoff residual is recorded as a non-blocking note.",
+      "s10 closing layout (ending_artistry; closing_payoff, legibility)": "Resolved in code. blank-box-view: turnoverTagBox mirrors the ClockRing layout. For c (300,540), r 170, the marker at 168.8 degrees and tagFont 34, the lit Turnover tag spans x 344 to 528 and y 736 to 791, so cardY = max(830, 791+28) = 830 and the card's top sits 39 px below the tag. The box (560,420) and its question (baselines about 370 and 404) sit right of the ring (x 130 to 470). room-window-wide: the box and card start at x 580 (Wn.x+.545*Wn.w). The light head spans x about 324 to 494 at y about 518 to 559, and the cone's right edge is at x about 512 at the box bottom (y 717) and about 552 at the card bottom (y 901), so both are clear by 28 to 86 px. The clock and its Turnover tag (x 289 to 412, y 828 to 862) are now drawn over the cone. No crew is drawn in the close phase."
+    },
+    "b": {
+      "Attendant hand and arm scale": "Resolved. Shared crewAt, armReach and Attendant. ledger-marker-row (rig 420,1110, ks .5): crew heads top out at y about 1007, below the record panel's bottom (about 830). The old 700 px sleeve that grazed the Turnover stamp circle is gone. desk-phone-wide, desk-drape-split and alert-phone-view use the same bodies. The plan views use PlanAttendant with two-bone arms (U 58, F 52) and a carried bundle rectangle.",
+      "Drape identity and pop-in": "Resolved, through the shared bundle logic, as in A. The PlanRoom drape travels with the patient, and the plan sheet is laid from the foot by C.",
+      "s10 closing layout": "Resolved. blank-box-view uses the same tag-aware cardY (detail z 1.06 about (540,660), so the card bottom is about 1084, above the caption region). ledger-room-window no longer squashes the page. The desk is at y 900 and the ledger at translate(40,905) rotate(-1.2), 1000 by 330, with no vertical scale. The blank box at size .8 has its question at 34*.8, about 27 px native (baselines about 975 and 1009), and the box bottom is at about 1224. The result card at scale .98 (x 470 to 1019, y 963 to 1208) carries roughly native-size text. The room's clock tag (y 828 to 862) stays above the desk edge. Legibility at phone width is carried to the phone gate. Stale prose fixed: s10-shot-2's purpose now reads 'as the room light lowers and the camera lamps stay lit'."
+    }
+  },
+  "comparison": {
+    "preferred_base": "a",
+    "reason": "Both treatments now perform every narrated physical step in code with believable whole attendants, continuous drape identity and unobstructed closing labels, so both pass at code scope. A remains the stronger base on code evidence. It keeps the whole film at wall height in one room. Its first seconds put four 3D-shaded cameras at mount scale in a lit room, while B opens on plan glyphs about 55 px native with sight wedges at about 0.8 percent opacity. A's final wide also shows the empty table on its fresh sheet with the box and card, while B's final wide covers the room's table with the desk and ledger. This is a code-scope preference only. The binding choice belongs to the silent two-treatment phone comparison of actual previews."
+  },
+  "reports": {
+    "a": {
+      "treatment": "a",
+      "board": {
+        "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/opening-a.json",
+        "sha256": "50a5c26fefbf794d98e6eef2b9c2cff46d920835c9cb21bd2fe29f39ca6dfaae"
+      },
+      "review_scope": "code-plan",
+      "verdict": "pass",
+      "concept_sha256": "4c53458c0af2e75ebc95335c76bd88bfef2d01f4030399d35f95d3a2e766a38a",
+      "renderer_sha256": "7a1af4ffcf2a5841e4e9d4a1fcda2c69df7f37cfdd85a6bc6859920d3fa75cc4",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated Read-only code-scope worker (same reviewer as reviews 1 and 2; distinct from the claude-sonnet-5-5 director)",
+      "reviewed_at": "2026-10-24",
+      "strongest_frame": "s2-shot-2 clock-marker-close, 9.92 to 10.77 s (planned, not observed). Attendant A, a whole figure in scrubs with bent arms on the push bar, wheels the gurney over the doorway threshold toward the table while a teal pulse runs from the wall camera's lens to the ring and 'Patient entry' stamps. B and C wait behind the table, and C holds the folded drape. Input, agent and record share one composition.",
+      "weakest_frame": "The s3 drape handoff, about 14.55 to 14.69 s (planned), straddling the s3-shot-1 phone-hand-close to s3-shot-2 table-drape-medium cut at 14.66 s. As the folded drape travels about 108 table units from C's carry position to the table, C's hold eases out (1-dhE) while B and A ease in (dhOn = dhE). For about 4 frames, no glove is within about 20 table units of a corner (peak gap about 85 units, about 36 px at ks .42 and about 69 px at ks .81), so the bundle can read as sliding between hands rather than being passed. Non-blocking at code scope (see notes). Judge it in the phone pixels.",
+      "blocking_defects": [],
+      "notes": [
+        "Scope: code-plan only, with no pixel observations. This pass authorizes only the funded capture. It approves no rendered film, and capture remains unauthorized in the current packet.",
+        "s3 handoff (contact_and_consequence watch item, not a code blocker): crewAt lerps C's corner grips toward rest with 1-dhE and B's and A's toward the corners with dhOn, so both sides touch only at the ends of the 0.3 s ease. I count it as a phone-gate check, not a mandatory code defect. It lasts about 0.14 s, about 0.11 s of it falls in the small vignette, there is no pop-in, and the drape's identity is continuous. If the native or phone pixels show a visible floating transfer, it fails contact_and_consequence there. Optional fix: let B and A close on the corners before C lets go, for example C's hold = 1 - ease5((dhE-.75)/.25). Any change alters the renderer digest and needs its own binding.",
+        "End of each drape fall: the foot-end corner settles at about (224,-20) table units. C's (s2) or A's (s3) forearm then passes behind the draped feet for about 20 to 30 units before its glove, drawn in front, appears on the hem. At phone size check that this reads as a hand over the edge and not as a detached glove.",
+        "Crew continuity: B and C first appear at the s1 to s2 cut (s2-shot-1 clock-wall-wide), already standing behind the table. A is off-frame right in table-low-detail (A at x about 1452 at s1-event-4's end) and in clock-wall-wide (about 1319), so the gurney is pushed from off-screen and A first appears in clock-marker-close. That is acceptable film grammar. Recognition of the partly visible gurney is a phone-gate question.",
+        "turnover-marker-view (split, 11.63 to 12.48 s): attendant B, at -250 table units on rig ks .45, stands at x about 608, against the divider (x 594 to 604) and the case clip (x >= 604), so only B's right half is visible. Moving B to about -300 or letting the clip take the whole figure would avoid a sliced body at the seam. This is a craft preference.",
+        "Layering, traced: in the medium room (drape-stamp-medium, table-drape-medium) crew heads top out at y about 895, against the ring's bottom at about 829 and the Draped tag at about 772 to 809. In the wide room (clock-wall-wide) they top out at about 842, against the ring's bottom at about 818. B at x 255 to 289 sits left of where the Turnover tag would start (x 289), and that tag is not stamped in that shot. In clock-marker-close they top out at about 958, against the ring's bottom at 700. Crew arms reach no higher than the bundle's hold row (-178 table units). No clamped or stretched reach occurs (stretch < 1 on every traced grip).",
+        "Retained craft notes from earlier reviews: the s1 shot 1 to shot 2 wide-to-medium step reads as a jump cut. The s3 arrival path is mostly behind the palm and phone in phone-hand-close. The next patient is drawn identically to the first. The s2 cuts come every 0.85 s. The equal-height placebo units may read as 'no different' (my own earlier suggestion, so a note only). The room-window-wide result card at scale .62 (text about 16 px native) relies on the preceding close. camera_strategy values remain unexecuted, and DirectedFilm hard-cuts the 'match' label. 61 percent of story time (s4 to s9) is one record family. The minority slice carries no size claim."
+      ],
+      "clause_observations": [
+        {"id": "n1a", "pass": true, "observed": "Code: from s1-event-1 the room lights while the four wall cameras lift from park, scan plus or minus 16 degrees and glow on standby. The plate settles."},
+        {"id": "n1b", "pass": true, "observed": "Code: the lamps go full amber in turn with per-camera sight-line flashes. Attendant A wheels the gurney to the doorway as the camera heads turn to it. A and most of the gurney are off-frame right in table-low-detail (note)."},
+        {"id": "n2a", "pass": true, "observed": "Code: the ring draws on the pier with a teal system link from a camera. The gurney waits at the doorway, and B and C stand behind the table, C holding the folded drape."},
+        {"id": "n2b", "pass": true, "observed": "Code: Patient entry stamps by camera pulse as A pushes the gurney over the threshold. Draped stamps as B and C, already pinching its corners, open and lay the drape C carried. Turnover stamps as A takes the draped patient out and C lays the fresh sheet, walking along the table. Each happens within its own shot."},
+        {"id": "n3a", "pass": true, "observed": "Code: the phone lights in the gloved hand, a link draws from the wall camera, and A wheels the next patient in and slides them onto the fresh sheet. The arrival is partly behind the phone (note)."},
+        {"id": "n3b", "pass": true, "observed": "Code: C carries a new folded drape from the s3 cut, B and A take its corners (14.47 to 14.77 s) and lay it during s3-event-2, and the 'Patient draped' alert slides on afterwards. A mid-handoff float of about 0.14 s is a phone-gate watch item."},
+        {"id": "n4a", "pass": true, "observed": "Code: the study card lands on the suite records desk."},
+        {"id": "n4b", "pass": true, "observed": "Code: the suite and comparison lines draw with their labels."},
+        {"id": "n4c", "pass": true, "observed": "Code: the line climbs, 25 tiles pour into the tray, and 'about 25' lands."},
+        {"id": "n5a", "pass": true, "observed": "Code: the 7% rise badge stamps beside the counter."},
+        {"id": "n5b", "pass": true, "observed": "Code: the 95% confidence interval axis draws."},
+        {"id": "n5c", "pass": true, "observed": "Code: the whisker runs from 8.3 to the 41.0 cap and the unit tag lands."},
+        {"id": "n6a", "pass": true, "observed": "Code: 10 placebo bars rise, the suite bar joins as the 11th at the same height, and the stamp presses in frame."},
+        {"id": "n7a", "pass": true, "observed": "Code: the associated card slides in and the dashed 'associated' link draws to the tally."},
+        {"id": "n7b", "pass": true, "observed": "Code: the 'caused' arrow is struck through."},
+        {"id": "n8a", "pass": true, "observed": "Code: the rollout tag slides in and the 'Bundled' band wraps the notes."},
+        {"id": "n8b", "pass": true, "observed": "Code: the company tag and ring appear, then the minority slice lights."},
+        {"id": "n9a", "pass": true, "observed": "Code: the future-work card lands, the ring draws, and the card tags the Turnover marker."},
+        {"id": "n9b", "pass": true, "observed": "Code: the blank box holds beside the lit Turnover marker with the result card 39 px below the tag in the close. In the final wide, the box and card sit clear of the light head and cone and the clock reads over the cone. The room light lowers and all four lamps stay lit."}
+      ],
+      "story_review": {
+        "story_sha256": "d621df08530f5017fca6b284817b8143c8db1a2260bceb0dbab988270746c287",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
+        "verdict": "pass",
+        "blocking_defects": [],
+        "one_viewing_summary": "Intended chain, from code (not observed): a generic Houston cardiothoracic operating room lights up while its four wall cameras power up and scan. They light in turn and turn to a gurney an attendant wheels to the doorway. Two more attendants wait behind the table, one holding a folded drape. A camera pulse stamps Patient entry on the wall clock as the gurney crosses the threshold. It stamps Draped as two attendants open and lay the drape, and Turnover as the draped patient is wheeled out and a fresh sheet is laid. The next patient is wheeled in and slid across, a new drape is passed and laid, and 'Patient draped' reaches a surgeon's phone. On the records desk the study shows the suite pulling away from other Houston Methodist sites: about 25 more a month, 7 percent, 8.3 to 41.0. Eleven equal placebo units are stamped short of significance, then 'associated, not caused', bundled reviews, a minority stake and future work tagging turnover. The film closes on a blank turnover box beside the clock and a card of about 25 more a month linked to the rollout, with the camera lamps still lit.",
+        "opening_to_ending": "It opens on cameras visibly powering up and watching people move a patient, which poses the question 'add surgeries, or only count them?'. It answers at s7 (about 25 more, associated, not caused) and closes on the open turnover box beside the 25-case result card in the same room, the cameras still watching. The causal arc holds, and the agents of every physical step are now believable whole figures.",
+        "weakest_transition": "s3-shot-1 to s3-shot-2 (14.66 s). The drape handoff from C to B and A straddles the cut, from the small vignette beside the phone to the medium room, with about 0.14 s where the moving bundle is between hands. It is unresolved until phone pixels exist."
+      },
+      "action_reviews": []
+    },
+    "b": {
+      "treatment": "b",
+      "board": {
+        "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/opening-b.json",
+        "sha256": "0c08176f43972271035c5db7f357e42527f0c25c94512fa4b64d3db42bf5da2a"
+      },
+      "review_scope": "code-plan",
+      "verdict": "pass",
+      "concept_sha256": "e2e335c1c97c04470da6c1998ee4839b8c77c6337047c23fc6ebb9639c72e32b",
+      "renderer_sha256": "7a1af4ffcf2a5841e4e9d4a1fcda2c69df7f37cfdd85a6bc6859920d3fa75cc4",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated Read-only code-scope worker (same reviewer as reviews 1 and 2; distinct from the claude-sonnet-5-5 director)",
+      "reviewed_at": "2026-10-24",
+      "strongest_frame": "s2-shot-3 ledger-marker-row, 10.77 to 11.63 s (planned, not observed). A wall camera's pulse stamps the Draped row of the steel record panel while, below it, two whole attendants open and lay the folded drape over the patient beside the parked gurney. The physical event and its record share one frame without overlapping (crew heads at y about 1007, panel bottom at about 830).",
+      "weakest_frame": "s1-shot-1 plan-overhead, 0 to 3.66 s (planned). The opening payoff relies on camera glyphs about 55 px native turning plus or minus 16 degrees and lifting about 15 degrees. The sight wedges render at about 0.8 percent opacity (0.16 x 0.16 x 0.32), so 'sweep their sight wedges' is effectively invisible. Whether the first seconds read as cameras acting is a phone-gate question, not a code blocker: the lift and scan are executed.",
+      "blocking_defects": [],
+      "notes": [
+        "Scope: code-plan only, with no pixel observations. This pass authorizes only the funded capture and approves no rendered film. Capture remains unauthorized in the current packet.",
+        "The s3 drape handoff residual is the same shared crewAt code as A (about 14.55 to 14.69 s, straddling the desk-phone-wide to desk-drape-split cut at 14.66 s). It is a phone-gate contact_and_consequence watch item with the same optional fix.",
+        "End of each drape fall: the foot-corner forearm passes behind the draped feet before the front-drawn glove (shared). Check it at phone size.",
+        "Crew continuity: B and C first appear at the s1 to s2 cut. The plan crew shows attendant A at the push bar (pre, draped and turnover phases) and B and C on the far side, with C carrying the bundle rectangle before draping.",
+        "desk-phone-wide (12.48 to 14.66 s): the records desk, clipped to x >= 560, hides the doorway's right half and most of the arrival path, so A and the gurney emerge from behind the desk. In desk-drape-split, A has already stepped to the table foot (x about 299) by the 14.66 s cut, the parked gurney spans x about 330 to 520 left of the divider, and nothing crosses into the phone panel. The desk at y 1060 slightly overlaps the crew's feet.",
+        "ledger-room-window: the desk at y 900 covers the room's table and case, so the final wide shows the clock with its lit Turnover tag (y 828 to 862, clear of the desk), the lamps and the light, plus the ledger answer in the foreground. Text is about 25 to 27 px native, roughly 9 to 10 px at a 390 px phone width, comparable to A's closing close. Confirm at phone size.",
+        "Stale prose: the s2-shot-2 reward text says the marker stamps 'on the ring', while B's s2-shot-2 stamps the plan clock (a ring on the plan, so this is acceptable). camera_strategy values remain unexecuted. The s10-shot-2 'lamps dim' purpose is fixed.",
+        "The placebo equal-height reading risk, the identical next patient, the 0.85 s s2 cuts and the 61 percent record-family share are the same as A."
+      ],
+      "clause_observations": [
+        {"id": "n1a", "pass": true, "observed": "Code: the plan brightens, the plan cameras lift and scan with lamps on standby, and the plate settles. The sight wedges are effectively invisible (note)."},
+        {"id": "n1b", "pass": true, "observed": "Code: the wall-height room lights its four lamps in turn. On the plan, attendant A pushes the gurney along the corridor to the door threshold as the wedges turn to it."},
+        {"id": "n2a", "pass": true, "observed": "Code: the ring draws on the steel wall record panel with a system link from a lit wall camera."},
+        {"id": "n2b", "pass": true, "observed": "Code: Patient entry stamps on the plan clock as A brings the gurney through the door gap. The panel's Draped row stamps by camera pulse as B and C lay the drape below. Turnover stamps on the plan as the draped patient leaves and C lays the sheet from the foot. Each happens within its own shot."},
+        {"id": "n3a", "pass": true, "observed": "Code: the desk phone lifts and lights as a link draws from the camera. A wheels the next patient in (partly behind the desk) and slides them onto the sheet."},
+        {"id": "n3b", "pass": true, "observed": "Code: in the split, B and A lay the drape C carried, with no pop-in. The close alert follows. The shared handoff float is a watch item."},
+        {"id": "n4a", "pass": true, "observed": "Code: the study card lands on the ledger beside the empty counter slot."},
+        {"id": "n4b", "pass": true, "observed": "Code: overhead, the suite and comparison lines draw."},
+        {"id": "n4c", "pass": true, "observed": "Code: the tiles pour and 'about 25' lands."},
+        {"id": "n5a", "pass": true, "observed": "Code: the 7% badge stamps."},
+        {"id": "n5b", "pass": true, "observed": "Code: the 95% axis draws."},
+        {"id": "n5c", "pass": true, "observed": "Code: the whisker (8.3 to 41.0) and the unit tag land."},
+        {"id": "n6a", "pass": true, "observed": "Code: 10 plus 1 equal units rise and the stamp lands in frame (detail, NO_TIGHTEN)."},
+        {"id": "n7a", "pass": true, "observed": "Code: the card and the dashed associated link draw."},
+        {"id": "n7b", "pass": true, "observed": "Code: the caused arrow is struck."},
+        {"id": "n8a", "pass": true, "observed": "Code: the rollout tag and the band draw."},
+        {"id": "n8b", "pass": true, "observed": "Code: the company tag is inside both close framings while the slice lights."},
+        {"id": "n9a", "pass": true, "observed": "Code: the future card tags the Turnover marker."},
+        {"id": "n9b", "pass": true, "observed": "Code: in the detail shot, the box stays blank with the result card below the lit Turnover tag. In the final wide, the unsquashed ledger holds the blank box (question about 27 px native) and the result card at scale .98 below the room's lit clock, with the lamps lit and the light lowering."}
+      ],
+      "story_review": {
+        "story_sha256": "5511e4ce61518e8c6fdb93ab83f985c27db6d4736f41f5991b3b60da93c2cc18",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
+        "verdict": "pass",
+        "blocking_defects": [],
+        "one_viewing_summary": "Intended chain, from code (not observed): on an overhead plan of a generic Houston operating room, the four corner cameras power up. At wall height their lamps light in turn, and on the plan an attendant pushes a gurney along the corridor. Camera pulses stamp Patient entry on the plan clock as the gurney crosses the door. They stamp Draped on a steel wall record panel as two attendants lay the drape below it, and Turnover on the plan as the draped patient leaves and a sheet is laid. A desk phone lights as the next patient is wheeled in, slid across and draped, and the text arrives. The study records play on a desk ledger, ending on a blank turnover box beside a clock with a 25-case result card, then a cut to the room with its lamps lit and the same answer legible on the ledger.",
+        "opening_to_ending": "It opens on the plan with the cameras powering up and answers at s7. It closes on the detail box and result card, then on the room behind the ledger, where the same answer is now unsquashed. The causal arc holds, and the final picture can carry the answer on its own, subject to phone legibility.",
+        "weakest_transition": "s1-shot-1 to s1-shot-2 (3.66 s). The cut goes from the plan's faint camera glyphs to the wall-height room. If the plan's power-up does not read at phone size, the hook's first beat lands only at the cut. The shared s3 handoff at 14.66 s is the second watch item."
+      },
+      "action_reviews": []
+    }
+  },
+  "consolidated_correction": [
+    "No code-proven mandatory defect remains in either treatment. All three review-2 blockers are resolved in the callable source, and I found no new blocking defect.",
+    "Optional and non-blocking (any change alters the renderer digest and needs its own binding): (1) let B and A reach the drape corners before C releases (for example C's hold = 1 - ease5((dhE-.75)/.25)), so the s3 handoff never floats. (2) Move attendant B in the A turnover split to about -300 table units so the divider does not slice the figure. (3) A visible difference for the next patient. (4) Make B's plan sight wedges visible or drop the claim. (5) Unit tokens rather than equal-height placebo bars. (6) Retire the unexecuted camera_strategy prose and the 'match' label on hard cuts."
+  ],
+  "next_gate": "This code-plan pass authorizes only the funded capture under a charged render reservation. It supplies no pixel observation and approves no film. The packet shows storyboard_critics 2 before this third charged review, so under config/review_limit.json's five-round cap the remaining two rounds are the silent two-treatment phone comparison with whole-sequence review of the chosen preview, and the reserved final timed phone review. The watch items for those gates: the s3 drape handoff around 14.55 to 14.69 s, the foot-end glove after each drape fall, the split-seam crop of B in A at 11.63 to 12.48 s, B's plan-overhead first seconds, closing-text legibility at phone width, and the partly off-frame gurney in s1. The native PNG/CRF16, audiovisual, three-scorer, source, rights, caption, audio and shipment gates all remain required."
+}
