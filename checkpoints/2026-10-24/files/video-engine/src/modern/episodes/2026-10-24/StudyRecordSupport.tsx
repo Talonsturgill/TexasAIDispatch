@@ -13,15 +13,17 @@ import {useUid} from '../../../lib/uid';
  *        about 25 more surgeries a month.
  *  - s5  the counter again, a round teal badge reading 7% rise stamped beside it, an axis labelled 95%
  *        confidence interval, and a whisker that draws from 8.3 to 41.0 with end caps and a unit tag.
- *  - s6  a placebo test: a row of gray comparison bars rises, the teal suite bar joins them and stays
- *        under the tallest gray bar, and a crooked amber stamp lands across the row.
+ *  - s6  a placebo test over 11 units: a row of ten gray placebo bars rises, the teal suite bar joins as the
+ *        eleventh, every bar the same height so no rank is asserted, and a crooked amber stamp lands across.
  *  - s7  a camera rollout tag, a card reading associated with the rollout, a dashed link to the counter
  *        and a solid arrow marked caused that is struck through.
  *  - s8  the rollout tag bundled by a kraft band with four workflow review notes; a camera company tag
  *        with an empty ownership ring, a Houston Methodist tag, and a minority slice with no number.
  *  - s9  a future work card that tags the turnover marker on a small copy of the room clock.
- *  - s10 the dashed blank box beside the turnover marker, which stays blank.
- *  - a laminate desk for the room's record views and a ruled ledger page for the desk-ledger views.
+ *  - s10 the dashed blank box beside the turnover marker, which stays blank, and a small result card that
+ *        carries the counter and the dashed associated link from the rollout tag into the closing picture.
+ *  - a wall-mounted camera record panel whose rows the wall cameras stamp (B's s2 record, not a ledger).
+ *  - a laminate records desk in the suite (a sanitizer pump on it) and a ruled ledger page for B's desk views.
  *
  * Every board is drawn in its own local units, 1000 wide and 900 tall, so the episode can lay it on the
  * desk, on the ledger or close up without changing what it shows. Every numeral printed here is one the
@@ -213,10 +215,10 @@ const S5Board:React.FC<{badge:number;glow:number;axis:number;whisker:number;cap:
 };
 
 // ---- s6: the placebo test and its stamp -------------------------------------------------------------------
-export const S6B={base:700,x0:60,step:62,bw:44,heights:[120,210,90,260,150,334,180,110,240,140,200],suiteH:296,
+export const S6B={base:700,x0:60,step:66,bw:44,heights:[250,250,250,250,250,250,250,250,250,250],suiteH:250,
  stamp:[490,470] as Pt,focus:{row:[0,0,1000,820],stamp:[150,300,860,720]}};
 const S6Board:React.FC<{rise:number;suite:number;stamp:number;press:number;away:number}>=({rise,suite,stamp,press,away})=>{
- const B=S6B,sx=B.x0+11*B.step+6,s=ease5(suite);
+ const B=S6B,sx=B.x0+B.heights.length*B.step+6,s=ease5(suite);
  return <g data-part="s6-board">
   <Txt x={40} y={84} s={44}>Placebo test</Txt>
   <path d={`M40 ${B.base}H960`} stroke={C.trim} strokeWidth={4}/>
@@ -227,8 +229,8 @@ const S6Board:React.FC<{rise:number;suite:number;stamp:number;press:number;away:
     <path d={`M${B.x0+k*B.step+8} ${f2(B.base-hh+8)}V${B.base-8}`} stroke="#FFFFFF" strokeWidth={4} opacity={.5}/>
    </g>:null;})}
   {rise>.3&&<g opacity={f2(clamp((rise-.3)*2))}>
-   <path d={`M${B.x0} ${B.base+22}V${B.base+34}H${B.x0+10*B.step+B.bw}V${B.base+22}`} stroke={C.soft} strokeWidth={3} fill="none"/>
-   <Txt x={B.x0+5*B.step+B.bw/2} y={B.base+76} s={30} w={800} fill={C.soft} anchor="middle">Placebo runs</Txt>
+   <path d={`M${B.x0} ${B.base+22}V${B.base+34}H${B.x0+(B.heights.length-1)*B.step+B.bw}V${B.base+22}`} stroke={C.soft} strokeWidth={3} fill="none"/>
+   <Txt x={B.x0+(B.heights.length-1)*B.step/2+B.bw/2} y={B.base+76} s={30} w={800} fill={C.soft} anchor="middle">Placebo runs</Txt>
   </g>}
   {s>0&&<g transform={`translate(${f2(220*(1-s))} 0)`} data-part="suite-bar">
    <rect x={sx+5} y={f2(B.base-B.suiteH*s+6)} width={B.bw+12} height={f2(B.suiteH*s)} rx={6} fill={C.shadow} opacity={.14}/>
@@ -236,7 +238,7 @@ const S6Board:React.FC<{rise:number;suite:number;stamp:number;press:number;away:
    <path d={`M${sx+9} ${f2(B.base-B.suiteH*s+8)}V${B.base-8}`} stroke={C.tealLit} strokeWidth={5}/>
    <Txt x={sx+29} y={B.base+76} s={30} fill={C.teal} anchor="middle">Suite</Txt>
   </g>}
-  {stamp>0&&<RubberStamp at={B.stamp} lines={['SHORT OF','CONVENTIONAL SIGNIFICANCE']} w={720} h={170} rot={-8} inked={stamp} press={press} away={away}/>}
+  {stamp>0&&<RubberStamp at={B.stamp} lines={['SHORT OF','CONVENTIONAL SIGNIFICANCE']} w={640} h={160} rot={-7} inked={stamp} press={press} away={away}/>}
  </g>;
 };
 /** A rubber stamp mark (amber ink, crooked) and the stamp block that presses it. `press` is the block's
@@ -396,6 +398,48 @@ const BlankBox:React.FC<{draw:number;pulse?:number;size?:number}>=({draw,pulse=0
  </g>;
 };
 
+// ---- B's wall record panel ---------------------------------------------------------------------------------------
+/** A steel-framed record panel mounted on the suite wall, w by h from the origin, its rows stamped by the wall
+ * cameras (the episode draws the pulses). It is a fixed board, not paper, so nothing reads as hand kept. */
+export const PANEL={title:56,row:150};
+const RecordPanel:React.FC<{w:number;h:number;rows:{label:string;stamp:number;active:number}[];title?:string}>=({w,h,rows,title='Room clock record'})=>{
+ const id=useUid('srpanel');
+ return <g data-part="record-panel">
+  <defs><linearGradient id={id+'g'} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#E3EAEA"/><stop offset="1" stopColor="#C3CFD0"/></linearGradient></defs>
+  <rect x={10} y={14} width={w} height={h} rx={14} fill={C.shadow} opacity={.2}/>
+  <rect x={0} y={0} width={w} height={h} rx={14} fill="#8E9A9E" stroke={C.ink} strokeWidth={3}/>
+  <rect x={12} y={12} width={w-24} height={h-24} rx={8} fill={`url(#${id}g)`} stroke={C.ink} strokeWidth={2}/>
+  {[[22,22],[w-22,22],[22,h-22],[w-22,h-22]].map(([x,y],k)=><circle key={k} cx={x} cy={y} r={5} fill="#5D6970"/>)}
+  <rect x={12} y={12} width={w-24} height={PANEL.title} rx={8} fill={C.trim}/>
+  <Txt x={34} y={12+PANEL.title*.68} s={30} fill={C.paperLit}>{title}</Txt>
+  {rows.map((r,k)=>{const y=12+PANEL.title+12+k*PANEL.row,on=clamp(r.stamp),act=clamp(r.active);
+   return <g key={k}>
+    {act>0&&<rect x={20} y={y} width={w-40} height={PANEL.row-14} rx={10} fill="#D6EBE8" opacity={f2(act)}/>}
+    <path d={`M24 ${y+PANEL.row-8}H${w-24}`} stroke="#9FB0B3" strokeWidth={2}/>
+    <Txt x={w*.42} y={y+PANEL.row*.56} s={42} fill={on>0?C.ink:'#93A0A3'}>{r.label}</Txt>
+    <circle cx={w-70} cy={y+PANEL.row*.42} r={26} fill="none" stroke="#93A0A3" strokeWidth={3} strokeDasharray="6 6"/>
+    {on>0&&<g transform={`translate(${w-70} ${f2(y+PANEL.row*.42-(1-contactQ(on))*60)})`} opacity={f2(clamp(on*3))}>
+     <path d="M-15 -36L15 -36L8 18L-8 18Z" fill={C.teal} stroke={C.ink} strokeWidth={3}/></g>}
+   </g>;})}
+ </g>;
+};
+/** The closing result card: the camera rollout tag, a dashed link marked associated, and the counter's tray of
+ * 25 cases with about 25 more a month. `link` draws the dashed link. */
+export const RESULT={w:560,h:250};
+const ResultCard:React.FC<{link:number}>=({link})=>{
+ const l=clamp(link),x0=196,x1=318;
+ return <g data-part="result-card">
+  <Card w={RESULT.w} h={RESULT.h}>
+   <g transform="translate(18 60)"><Tag w={170} h={96} lines={['Camera','rollout']} size={26}/></g>
+   <path d={`M${x0} 108L${f2(lerp(x0,x1,ease5(l)))} 108`} stroke={C.teal} strokeWidth={6} strokeDasharray="14 10" strokeLinecap="round"/>
+   <Txt x={(x0+x1)/2} y={92} s={22} fill={C.teal} anchor="middle" o={clamp(l*2)}>associated</Txt>
+   <g transform="translate(330 22)"><Tally fill={1} pitch={24}/></g>
+   <Txt x={330} y={196} s={26} fill={C.teal}>about 25 more</Txt>
+   <Txt x={330} y={228} s={26}>a month</Txt>
+  </Card>
+ </g>;
+};
+
 // ---- the settings: the desk in the room, and the ledger page -------------------------------------------------
 /** The laminate desk top from its back edge at row y to the frame's bottom, a scuffed front corner, a mug and
  * a pen, never placed symmetrically. */
@@ -407,13 +451,13 @@ const Desk:React.FC<{y:number;mug?:Pt;pen?:Pt}>=({y,mug,pen})=>{
   <path d={`M-30 ${y}H1110`} stroke={C.ink} strokeWidth={3}/>
   <path d={`M-30 ${y+6}H1110`} stroke="#FFFFFF" strokeWidth={3} opacity={.4}/>
   {[.2,.5,.8].map((u,k)=><path key={k} d={`M-30 ${f2(y+(1960-y)*u*u)}Q540 ${f2(y+(1960-y)*u*u-6)} 1110 ${f2(y+(1960-y)*u*u+4)}`} stroke={C.deskDeep} strokeWidth={1.4} opacity={.3}/>)}
-  {mug&&<g transform={`translate(${mug[0]} ${mug[1]})`} data-part="mug">
-   <ellipse cx={8} cy={92} rx={58} ry={12} fill={C.shadow} opacity={.25}/>
-   <path d="M-44 0V78Q-44 96 -20 96H24Q46 96 46 78V0Z" fill="#E7E4DA" stroke={C.ink} strokeWidth={2.6}/>
-   <path d="M46 18Q78 18 76 46Q74 70 46 66" stroke={C.ink} strokeWidth={8} fill="none"/>
-   <ellipse cx={1} cy={0} rx={45} ry={12} fill="#6B4A31" stroke={C.ink} strokeWidth={2.6}/>
-   <path d="M-34 20V70" stroke="#FFFFFF" strokeWidth={5} opacity={.5}/>
-   <rect x={-20} y={34} width={40} height={18} rx={4} fill={C.teal} opacity={.7}/>
+  {mug&&<g transform={`translate(${mug[0]} ${mug[1]})`} data-part="sanitizer-pump">
+   <ellipse cx={8} cy={112} rx={52} ry={11} fill={C.shadow} opacity={.25}/>
+   <path d="M-34 30Q-34 18 -22 18H22Q34 18 34 30V100Q34 112 22 112H-22Q-34 112 -34 100Z" fill="#E9EEEE" stroke={C.ink} strokeWidth={2.6}/>
+   <path d="M-26 40V96" stroke="#FFFFFF" strokeWidth={5} opacity={.6}/>
+   <rect x={-22} y={52} width={44} height={30} rx={4} fill={C.tealPale} stroke={C.ink} strokeWidth={1.6}/>
+   <rect x={-8} y={-2} width={16} height={20} fill="#C9CED0" stroke={C.ink} strokeWidth={2}/>
+   <path d="M-6 -2H34Q40 -2 40 6" stroke={C.ink} strokeWidth={7} fill="none" strokeLinecap="round"/>
   </g>}
   {pen&&<g transform={`translate(${pen[0]} ${pen[1]}) rotate(-14)`} data-part="pen">
    <rect x={0} y={4} width={200} height={14} rx={7} fill={C.shadow} opacity={.2}/>
@@ -451,7 +495,9 @@ export type StudyRecordSupportProps=
  |{part:'counter';num:number;big:number;small:number;lines?:string[]}
  |{part:'tag';w:number;h:number;lines:string[];size:number;camera?:boolean}
  |{part:'desk';y:number;mug?:Pt;pen?:Pt}
- |{part:'ledger';w:number;h:number;rows?:number};
+ |{part:'ledger';w:number;h:number;rows?:number}
+ |{part:'panel';w:number;h:number;rows:{label:string;stamp:number;active:number}[];title?:string}
+ |{part:'result';link:number};
 export const StudyRecordSupport:React.FC<StudyRecordSupportProps>=(p)=>{
  switch(p.part){
  case 's4':return <S4Board card={p.card} draw={p.draw} climb={p.climb} fill={p.fill} num={p.num}/>;
@@ -466,5 +512,7 @@ export const StudyRecordSupport:React.FC<StudyRecordSupportProps>=(p)=>{
  case 'tag':return <Tag w={p.w} h={p.h} lines={p.lines} size={p.size} glyph={p.camera?<CamGlyph x={52} y={p.h/2+6} s={.38}/>:undefined}/>;
  case 'desk':return <Desk y={p.y} mug={p.mug} pen={p.pen}/>;
  case 'ledger':return <Ledger w={p.w} h={p.h} rows={p.rows}/>;
+ case 'panel':return <RecordPanel w={p.w} h={p.h} rows={p.rows} title={p.title}/>;
+ case 'result':return <ResultCard link={p.link}/>;
  }
 };

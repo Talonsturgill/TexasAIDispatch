@@ -18,7 +18,10 @@ import {useUid} from '../../../lib/uid';
  *  - a round room clock ring with ticks and no numerals, a sweeping hand, and event markers that stamp
  *    onto the bezel where the hand stands when the event is seen, each with a short worded tag.
  *  - the suite name plate, a surgeon phone with its text thread, and the gloved hand that holds it.
- *  - a top down plan of the same room for the overhead views.
+ *  - an anonymous attendant's blue nitrile gloved hands on scrub sleeves (no face, no body), the visible
+ *    agent that guides the gurney, slides the patient, carries and lays the folded drape and the sheet.
+ *  - a doorway in the side wall whose threshold the gurney crosses as the patient enters the room.
+ *  - a top down plan of the same room for the overhead views, with its corridor and door threshold.
  *
  * Light: cool overhead surgical light from the upper left, a soft cool fill from the right, the warm
  * amber camera lamps as small practicals, soft contact shadows to the lower right. Nothing is symmetric:
@@ -117,7 +120,7 @@ const WallCamera:React.FC<CameraProps>=({lamp,aim,mirror=false,droop=1,flash=0})
 /** Table geometry in table units: the pad top's centre at the origin, long axis along x. */
 export const TABLE={L:470,padTop:-14,baseY:180,box:[-250,-20,250,196] as [number,number,number,number]};
 /** The gurney: same pad height as the table, so the patient slides across level. */
-export const GURNEY={L:430,baseY:178,box:[-225,-80,250,196] as [number,number,number,number]};
+export const GURNEY={L:430,baseY:178,box:[-225,-80,250,196] as [number,number,number,number],rail:[-30,-34] as Pt,handle:[229,-74] as Pt};
 /** The patient shape's top contour above the pad (x, height), head end at the left. */
 const BODY:Pt[]=[[-205,-6],[-200,-34],[-182,-44],[-160,-40],[-146,-34],[-120,-50],[-80,-62],[-40,-58],[0,-50],[30,-48],[70,-52],[110,-58],[140,-52],[165,-44],[185,-52],[200,-40],[208,-10]];
 export const PATIENT_BOX:[number,number,number,number]=[-228,-76,212,0];
@@ -149,9 +152,11 @@ const SurgicalTable:React.FC<{sheet?:number;light?:number}>=({sheet=0,light=1})=
   <path d={`M${-h} -2Q${-h} -14 ${-h+12} -16L${-h+92} -22L${-h+98} 8L${-h+6} 8Q${-h} 8 ${-h} -2Z`} fill={`url(#${id}p)`} stroke={P.ink} strokeWidth={2.4} strokeLinejoin="round"/>
   <rect x={-h+100} y={-14} width={L-100} height={22} rx={9} fill={`url(#${id}p)`} stroke={P.ink} strokeWidth={2.4}/>
   <path d={`M${-h+108} -9H${h-12}`} stroke="#FFFFFF" strokeWidth={3} opacity={.35*light} strokeLinecap="round"/>
-  {sheet>0&&<g opacity={clamp(sheet)}>
-   <path d={`M${-h+104} -16H${h-6}Q${h} -16 ${h} -10V-4H${-h+104}Z`} fill={P.sheet} stroke={P.sheetShade} strokeWidth={1.6}/>
-   <path d={`M${-h+140} -12H${h-40}`} stroke="#FFFFFF" strokeWidth={2} opacity={.8}/>
+  {/* the fresh sheet unfurls from the foot end toward the head as it is laid */}
+  {sheet>0&&<g>
+   <path d={`M${f2(h-(L-110)*clamp(sheet))} -16H${h-6}Q${h} -16 ${h} -10V-4H${f2(h-(L-110)*clamp(sheet))}Z`} fill={P.sheet} stroke={P.sheetShade} strokeWidth={1.6}/>
+   {sheet>.3&&<path d={`M${f2(h-(L-110)*clamp(sheet)+30)} -12H${h-40}`} stroke="#FFFFFF" strokeWidth={2} opacity={.8}/>}
+   {sheet<1&&<ellipse cx={f2(h-(L-110)*clamp(sheet))} cy={-14} rx={9} ry={12} fill={P.sheetShade} stroke={P.ink} strokeWidth={1.4}/>}
   </g>}
  </g>;
 };
@@ -196,29 +201,61 @@ const PatientShape:React.FC=()=>{
   <path d="M-150 -46Q-148 -30 -140 -18M40 -60Q60 -40 50 -18M140 -64Q150 -44 146 -22" stroke={P.gownDeep} strokeWidth={2} opacity={.5} fill="none"/>
  </g>;
 };
-/** The drape: `drop` 0 floats flat above the patient, 1 has settled over the screen bar and the body with
- * its sides hanging, the near hem longer at the head end. */
-const Drape:React.FC<{drop:number;flutter?:number}>=({drop,flutter=0})=>{
- const id=useUid('rcdrape'),q=clamp(drop);
+/** The drape's folded bundle centre and the height it is held at before it is laid, in table units. */
+export const DRAPE={cx:30,holdY:-176,bundle:.2};
+/** The drape's shape for `drop`: at 0 a folded bundle held above the patient; it opens out to full width
+ * (first part of the stroke) while it is lowered, and settles over the screen bar and the body with its sides
+ * hanging, the near hem longer at the head end. Pure, so the hands can hold its two leading corners. */
+export function drapeShape(drop:number,flutter=0){
+ const q=clamp(drop),open=smoothQ(q/.5),low=smoothQ((q-.2)/.8);
  const xs=BODY.map(p=>p[0]).filter(x=>x>=-150);
- const settled=xs.map((x,i)=>{const b=BODY.find(p=>p[0]===x)!;return [x,b[1]+TABLE.padTop-7] as Pt;});
- // the screen bar lifts the head end of the drape into a short wall
+ const settled=xs.map(x=>{const b=BODY.find(p=>p[0]===x)!;return [x,b[1]+TABLE.padTop-7] as Pt;});
  const screen:Pt[]=[[-176,-128],[-160,-138]];
- const floatY=-250;
- const floating=xs.map((x,i)=>[x,floatY+8*Math.sin(i*1.3+flutter*6)*(1-q)] as Pt);
- const fscreen:Pt[]=[[-176,floatY-2],[-160,floatY-4]];
- const top=[...screen.map((p,i)=>[lerp(fscreen[i][0],p[0],q),lerp(fscreen[i][1],p[1],q)] as Pt),
-  ...settled.map((p,i)=>[p[0],lerp(floating[i][1],p[1],q)] as Pt)];
- const thick=lerp(26,0,q);
- const hemR:Pt=[lerp(232,224,q),lerp(floatY+thick,40,q)],hemL:Pt=[lerp(-182,-188,q),lerp(floatY+thick,64,q)];
- const hem=`L${f2(hemR[0])} ${f2(hemR[1])}Q${f2(lerp(150,120,q))} ${f2(lerp(floatY+thick+4,52,q))} ${f2(lerp(20,10,q))} ${f2(lerp(floatY+thick,46,q))}Q${f2(lerp(-90,-110,q))} ${f2(lerp(floatY+thick-3,70,q))} ${f2(hemL[0])} ${f2(hemL[1])}Z`;
- return <g data-part="drape" opacity={f2(clamp(q/.15))}>
+ const fy=DRAPE.holdY,squeeze=(x:number)=>DRAPE.cx+(x-DRAPE.cx)*lerp(DRAPE.bundle,1,open);
+ const floating=xs.map((x,i)=>[squeeze(x),fy+6*Math.sin(i*1.3+flutter*6)*open*(1-low)] as Pt);
+ const fscreen:Pt[]=[[squeeze(-176),fy-2],[squeeze(-160),fy-4]];
+ const top:Pt[]=[...screen.map((p,i)=>[lerp(fscreen[i][0],p[0],low),lerp(fscreen[i][1],p[1],low)] as Pt),
+  ...settled.map((p,i)=>[lerp(floating[i][0],p[0],low),lerp(floating[i][1],p[1],low)] as Pt)];
+ const thick=lerp(lerp(46,22,open),0,low);
+ const hemR:Pt=[lerp(squeeze(232),224,low),lerp(fy+thick,40,low)],hemL:Pt=[lerp(squeeze(-182),-188,low),lerp(fy+thick,64,low)];
+ return {top,thick,hemR,hemL,open,low,left:top[0],right:[hemR[0],lerp(top[top.length-1][1],hemR[1],.15)] as Pt};
+}
+const smoothQ=(p:number)=>{const x=clamp(p);return x*x*x*(10+x*(-15+6*x));};
+const Drape:React.FC<{drop:number;flutter?:number}>=({drop,flutter=0})=>{
+ const id=useUid('rcdrape'),d=drapeShape(drop,flutter),{top,thick,hemR,hemL,open,low}=d;
+ const fy=DRAPE.holdY;
+ const hem=`L${f2(hemR[0])} ${f2(hemR[1])}Q${f2(lerp(lerp(DRAPE.cx+60,150,open),120,low))} ${f2(lerp(fy+thick+4,52,low))} ${f2(lerp(lerp(DRAPE.cx,20,open),10,low))} ${f2(lerp(fy+thick,46,low))}Q${f2(lerp(lerp(DRAPE.cx-40,-90,open),-110,low))} ${f2(lerp(fy+thick-3,70,low))} ${f2(hemL[0])} ${f2(hemL[1])}Z`;
+ return <g data-part="drape">
   <defs><linearGradient id={id+'g'} x1="0" y1="0" x2=".25" y2="1"><stop offset="0" stopColor={P.drapeLit}/><stop offset=".5" stopColor={P.drape}/><stop offset="1" stopColor={P.drapeDeep}/></linearGradient></defs>
-  {q>.6&&<path d={`M-172 -132V${TABLE.padTop+2}`} stroke={P.steelDeep} strokeWidth={5} opacity={clamp((q-.6)*3)}/>}
+  {low>.6&&<path d={`M-172 -132V${TABLE.padTop+2}`} stroke={P.steelDeep} strokeWidth={5} opacity={clamp((low-.6)*3)}/>}
   <path d={smoothPath(top)+hem} fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.4} strokeLinejoin="round"/>
-  <path d={`M${f2(lerp(-60,-70,q))} ${f2(lerp(floatY+6,-70,q))}Q${f2(lerp(20,10,q))} ${f2(lerp(floatY+10,-30,q))} ${f2(lerp(40,30,q))} ${f2(lerp(floatY+14,30,q))}`} stroke={P.drapeDeep} strokeWidth={2.4} opacity={.55} fill="none"/>
-  <path d={`M${f2(lerp(120,110,q))} ${f2(lerp(floatY+4,-58,q))}Q${f2(lerp(150,140,q))} ${f2(lerp(floatY+12,-10,q))} ${f2(lerp(160,150,q))} ${f2(lerp(floatY+16,38,q))}`} stroke={P.drapeDeep} strokeWidth={2.2} opacity={.5} fill="none"/>
-  <path d={`M-140 ${f2(lerp(floatY-1,-76,q))}Q-60 ${f2(lerp(floatY-4,-84,q))} 20 ${f2(lerp(floatY-2,-72,q))}`} stroke="#FFFFFF" strokeWidth={3.4} opacity={.4} fill="none" strokeLinecap="round"/>
+  {/* the folds of the bundle, opening out */}
+  {open<1&&[0,1,2].map(k=><path key={k} d={`M${f2(lerp(DRAPE.cx-40,-120,open))} ${f2(fy+8+k*11*(1-open))}H${f2(lerp(DRAPE.cx+44,200,open))}`} stroke={P.drapeDeep} strokeWidth={2} opacity={f2(.7*(1-open))}/>)}
+  <path d={`M${f2(lerp(-60,-70,low))} ${f2(lerp(fy+6,-70,low))}Q${f2(lerp(20,10,low))} ${f2(lerp(fy+10,-30,low))} ${f2(lerp(40,30,low))} ${f2(lerp(fy+14,30,low))}`} stroke={P.drapeDeep} strokeWidth={2.4} opacity={f2(.55*open)} fill="none"/>
+  <path d={`M${f2(lerp(120,110,low))} ${f2(lerp(fy+4,-58,low))}Q${f2(lerp(150,140,low))} ${f2(lerp(fy+12,-10,low))} ${f2(lerp(160,150,low))} ${f2(lerp(fy+16,38,low))}`} stroke={P.drapeDeep} strokeWidth={2.2} opacity={f2(.5*open)} fill="none"/>
+ </g>;
+};
+
+// ---- the attendant's gloved hands ---------------------------------------------------------------------------
+export type HandPose='grip'|'flat'|'pinch';
+/** One anonymous attendant's gloved hand. The grip point sits at the origin; the forearm and its scrub sleeve
+ * run away along `dir` degrees (screen angle, 0 is +x, 90 is down) and out of frame. Mirrored for a left hand. */
+const AttendantHand:React.FC<{dir:number;pose?:HandPose;mirror?:boolean;len?:number}>=({dir,pose='grip',mirror=false,len=900})=>{
+ const id=useUid('rchand'),fingers=pose==='flat'?[-30,-30,-28,-24]:pose==='pinch'?[-14,-20,-18,-14]:[-12,-16,-15,-11];
+ return <g data-part="attendant-hand" transform={`rotate(${f2(dir)}) scale(1 ${mirror?-1:1})`}>
+  <defs><linearGradient id={id+'g'} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={P.glove}/><stop offset="1" stopColor={P.gloveDeep}/></linearGradient>
+   <linearGradient id={id+'s'} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#77A6A1"/><stop offset="1" stopColor="#3F6E6A"/></linearGradient></defs>
+  {/* the scrub sleeve and the glove's cuff */}
+  <path d={`M58 -27L${len} -40L${len} 40L58 27Z`} fill={`url(#${id}s)`} stroke={P.ink} strokeWidth={2.4}/>
+  <path d={`M120 -28Q200 -26 ${len} -34`} stroke="#9CC4BF" strokeWidth={3} opacity={.6} fill="none"/>
+  <rect x={40} y={-24} width={26} height={48} rx={9} fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.2}/>
+  {/* the palm, the four fingers (curled round a grip, flat on a surface, or pinching an edge) and the thumb */}
+  <path d="M44 -22Q14 -26 4 -14Q-4 0 4 14Q14 26 44 22Z" fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.4}/>
+  {fingers.map((l,k)=>{const y=-15+k*10;return <path key={k} d={`M8 ${y}L${l} ${y+(pose==='grip'?4:1)}`} stroke={P.ink} strokeWidth={10.5} strokeLinecap="round"/>;})}
+  {fingers.map((l,k)=>{const y=-15+k*10;return <path key={'f'+k} d={`M8 ${y}L${l} ${y+(pose==='grip'?4:1)}`} stroke={P.glove} strokeWidth={6.5} strokeLinecap="round"/>;})}
+  <path d={`M30 18Q18 34 ${pose==='pinch'?-8:2} ${pose==='pinch'?24:32}`} stroke={P.ink} strokeWidth={11} strokeLinecap="round" fill="none"/>
+  <path d={`M30 18Q18 34 ${pose==='pinch'?-8:2} ${pose==='pinch'?24:32}`} stroke={P.gloveShade} strokeWidth={7} strokeLinecap="round" fill="none"/>
+  <path d="M38 -16Q24 -18 16 -10" stroke="#BFD6EA" strokeWidth={2.4} opacity={.7} fill="none"/>
  </g>;
 };
 
@@ -305,8 +342,8 @@ const NamePlate:React.FC<{w?:number}>=({w=PLATE.w})=>{
 // ---- the phone and the gloved hand ----------------------------------------------------------------------
 export const PHONE={W:300,H:600};
 type PhoneProps={lit:number;alert:number;link?:number;scale?:number};
-/** The surgeon's phone, top left of its body at the origin. Its thread is from the suite cameras to the
- * surgeon; the alert bubble reading patient draped slides in when `alert` runs. */
+/** The surgeon's phone, top left of its body at the origin. Its thread is addressed to the surgeon and names
+ * no sender; the alert bubble reading patient draped slides in when `alert` runs. */
 const SurgeonPhone:React.FC<PhoneProps>=({lit,alert})=>{
  const id=useUid('rcphone'),{W,H}=PHONE,q=clamp(lit),a=clamp(alert);
  const bx=lerp(W-20,34,a);
@@ -321,9 +358,9 @@ const SurgeonPhone:React.FC<PhoneProps>=({lit,alert})=>{
    <rect x={14} y={14} width={W-28} height={H-28} fill={`url(#${id}s)`}/>
    {q>0&&<g opacity={q}>
     <rect x={14} y={14} width={W-28} height={120} fill={P.trim}/>
-    {/* a small camera glyph, then the thread's sender and its recipient */}
-    <g transform="translate(40 52) scale(.34)"><path d="M-14 -20Q-14 -29 -3 -29L56 -29Q86 -29 89 -1Q86 27 56 27L-3 27Q-14 27 -14 18Z" fill={P.shell}/><circle cx={80} cy={4} r={12} fill={P.lens}/></g>
-    <text x={84} y={66} fontFamily={FONT.body} fontSize={27} fontWeight={800} fill={P.paper}>Suite cameras</text>
+    {/* a message glyph and the thread's recipient; no sender is claimed */}
+    <path d="M38 44H74Q80 44 80 50V70Q80 76 74 76H52L42 84L44 76H38Q32 76 32 70V50Q32 44 38 44Z" fill={P.paper} opacity={.9}/>
+    <text x={94} y={68} fontFamily={FONT.body} fontSize={27} fontWeight={800} fill={P.paper}>Text message</text>
     <rect x={34} y={92} width={150} height={32} rx={16} fill={P.paper} opacity={.92}/>
     <text x={48} y={115} fontFamily={FONT.body} fontSize={21} fontWeight={800} fill={P.ink}>To surgeon</text>
     <path d={`M40 ${H-80}H${W-40}`} stroke="#B9C4C1" strokeWidth={2}/>
@@ -340,21 +377,29 @@ const SurgeonPhone:React.FC<PhoneProps>=({lit,alert})=>{
   <rect x={W/2-40} y={22} width={80} height={14} rx={7} fill="#0A0F12"/>
  </g>;
 };
-/** A blue nitrile gloved hand holding the phone from its lower right, the cuff and gown sleeve running out
- * of frame. Drawn in phone units; the fingertips wrap the right edge, the thumb the lower left. */
+/** A blue nitrile gloved hand holding the phone, drawn in phone units as ONE hand: the palm lies behind the
+ * phone and shows along its left edge and under its bottom edge, the thumb grows from that visible palm and
+ * crosses the left edge, the four fingertips curl round the right edge from behind, and the heel runs into
+ * the wrist, the cuff and the scrub sleeve out of the lower right of the frame. The same drawing serves every
+ * scale the film uses. */
 const GlovedHand:React.FC<{front:boolean}>=({front})=>{
  const id=useUid('rcglove'),{W,H}=PHONE;
  const g=<defs key="d"><linearGradient id={id+'g'} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor={P.glove}/><stop offset="1" stopColor={P.gloveDeep}/></linearGradient></defs>;
+ // the palm and back of the hand, behind the phone: from the left edge's lower half round under the phone to
+ // the right edge, then the wrist and sleeve running down and right
+ const palm=`M-46 ${H*.6}Q-50 ${H*.86} -16 ${H+40}Q${W*.4} ${H+92} ${W+40} ${H+60}L${W+34} ${H*.4}Q${W*.5} ${H*.38} 6 ${H*.5}Q-36 ${H*.52} -46 ${H*.6}Z`;
  if(!front)return <g data-part="gloved-hand-back">{g}
-  <path d={`M${W-30} ${H*.42}Q${W+90} ${H*.5} ${W+150} ${H*.95}L${W+260} ${H+240}L${W*.45} ${H+260}L${W*.3} ${H*.92}Q${W*.6} ${H*.7} ${W-30} ${H*.42}Z`} fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.6}/>
-  <path d={`M${W*.38} ${H+120}L${W+190} ${H+40}L${W+300} ${H+300}L${W*.5} ${H+320}Z`} fill={P.sleeve} stroke={P.ink} strokeWidth={2.6}/>
-  <path d={`M${W*.4} ${H+118}L${W+196} ${H+36}`} stroke={P.gloveShade} strokeWidth={12} strokeLinecap="round"/>
+  <path d={palm} fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.6}/>
+  <path d={`M${W*.1} ${H+52}Q${W*.6} ${H+120} ${W+70} ${H+40}L${W+300} ${H+320}L${W*.3} ${H+360}Z`} fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.6}/>
+  <path d={`M${W*.24} ${H+170}Q${W*.7} ${H+190} ${W+150} ${H+120}L${W+330} ${H+380}L${W*.44} ${H+420}Z`} fill={P.sleeve} stroke={P.ink} strokeWidth={2.6}/>
+  <path d={`M${W*.26} ${H+166}Q${W*.7} ${H+186} ${W+152} ${H+116}`} stroke={P.gloveShade} strokeWidth={12} strokeLinecap="round" fill="none"/>
  </g>;
  return <g data-part="gloved-hand">{g}
-  {/* four fingertips over the right edge, unevenly spaced, then the thumb across the lower left */}
+  {/* four fingertips curling round the right edge from the palm behind, unevenly spaced */}
   {[[.44,0],[.55,6],[.66,3],[.76,-4]].map(([y,dx],k)=><path key={k} d={`M${W+6} ${f2(H*y)}Q${W-26+dx} ${f2(H*y+4)} ${W-24+dx} ${f2(H*y+26)}Q${W-22+dx} ${f2(H*y+46)} ${W+8} ${f2(H*y+48)}`} fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.4}/>)}
-  <path d={`M-30 ${H*.86}Q20 ${H*.74} 66 ${H*.8}Q84 ${H*.86} 64 ${H*.92}Q20 ${H*.98} -26 ${H*1.02}Z`} fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.4}/>
-  <path d="M30 0" stroke="none"/>
+  {/* the thumb: its root is the visible palm along the left edge, its tip lies on the screen's lower left */}
+  <path d={`M-44 ${H*.7}Q-40 ${H*.62} -18 ${H*.66}Q30 ${H*.74} 70 ${H*.8}Q86 ${H*.86} 64 ${H*.91}Q18 ${H*.95} -30 ${H*.88}Q-48 ${H*.82} -44 ${H*.7}Z`} fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.4}/>
+  <path d={`M-20 ${H*.7}Q20 ${H*.74} 56 ${H*.8}`} stroke="#BFD6EA" strokeWidth={2.4} opacity={.6} fill="none"/>
  </g>;
 };
 
@@ -398,13 +443,25 @@ const RoomFloor:React.FC<{y0:number;vx:number;light?:number}>=({y0,vx,light=1})=
   <ellipse cx={f2(vx+150)} cy={f2(y0+150)} rx={260} ry={34} fill="#FFFFFF" opacity={.12*light}/>
  </g>;
 };
-/** A side wall strip at a frame edge, seen in perspective, x0 to x1, its far edge at row top..bottom. */
-const SideWall:React.FC<{x0:number;x1:number;topFar:number;botFar:number;light?:number}>=({x0,x1,topFar,botFar,light=1})=>{
- const id=useUid('rcside'),left=x0<x1;
+/** A side wall strip at a frame edge, seen in perspective, x0 to x1, its far edge at row top..bottom. `door`
+ * opens a doorway in it between u0 and u1 of its width, `top` of its height, onto a dim corridor. */
+export function sideWallPoint(x0:number,x1:number,topFar:number,botFar:number,u:number,v:number):Pt{
+ const x=lerp(x0,x1,u),top=lerp(-40,topFar,u),bot=lerp(botFar+130,botFar,u);return [x,lerp(bot,top,v)];
+}
+const SideWall:React.FC<{x0:number;x1:number;topFar:number;botFar:number;light?:number;door?:{u0:number;u1:number;top:number}}>=({x0,x1,topFar,botFar,light=1,door})=>{
+ const id=useUid('rcside'),left=x0<x1,pt=(u:number,v:number)=>sideWallPoint(x0,x1,topFar,botFar,u,v);
  return <g data-part="side-wall">
-  <defs><linearGradient id={id+'g'} x1={left?'0':'1'} y1="0" x2={left?'1':'0'} y2="0"><stop offset="0" stopColor={mix(P.grout,P.tileShade,light)}/><stop offset="1" stopColor={mix(P.tileShade,P.tile,light)}/></linearGradient></defs>
+  <defs><linearGradient id={id+'g'} x1={left?'0':'1'} y1="0" x2={left?'1':'0'} y2="0"><stop offset="0" stopColor={mix(P.grout,P.tileShade,light)}/><stop offset="1" stopColor={mix(P.tileShade,P.tile,light)}/></linearGradient>
+   <linearGradient id={id+'c'} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#3E4C52"/><stop offset="1" stopColor="#6B7A7E"/></linearGradient></defs>
   <path d={`M${x0} -40L${x1} ${topFar}L${x1} ${botFar}L${x0} ${botFar+130}Z`} fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.4}/>
-  {[.25,.5,.75].map((u,k)=><path key={k} d={`M${f2(lerp(x0,x1,u))} ${f2(lerp(-40,topFar,u))}V${f2(lerp(botFar+130,botFar,u))}`} stroke={P.grout} strokeWidth={1.6} opacity={.55}/>)}
+  {[.25,.5,.75].map((u,k)=>door&&u>door.u0-.04&&u<door.u1+.04?null:<path key={k} d={`M${f2(lerp(x0,x1,u))} ${f2(lerp(-40,topFar,u))}V${f2(lerp(botFar+130,botFar,u))}`} stroke={P.grout} strokeWidth={1.6} opacity={.55}/>)}
+  {door&&(()=>{const a=pt(door.u0,0),b=pt(door.u1,0),c=pt(door.u1,door.top),d=pt(door.u0,door.top);
+   return <g data-part="doorway">
+    <path d={`M${f2(a[0])} ${f2(a[1])}L${f2(b[0])} ${f2(b[1])}L${f2(c[0])} ${f2(c[1])}L${f2(d[0])} ${f2(d[1])}Z`} fill={`url(#${id}c)`}/>
+    <path d={`M${f2(a[0])} ${f2(a[1])}L${f2(d[0])} ${f2(d[1])}L${f2(c[0])} ${f2(c[1])}L${f2(b[0])} ${f2(b[1])}`} stroke={P.steelShade} strokeWidth={10} fill="none" strokeLinejoin="round"/>
+    <path d={`M${f2(a[0])} ${f2(a[1])}L${f2(b[0])} ${f2(b[1])}`} stroke={P.steelLit} strokeWidth={6}/>
+    <path d={`M${f2(lerp(a[0],d[0],.18))} ${f2(lerp(a[1],d[1],.18))}L${f2(lerp(b[0],c[0],.18))} ${f2(lerp(b[1],c[1],.18))}`} stroke={P.steelDeep} strokeWidth={3} opacity={.6}/>
+   </g>;})()}
  </g>;
 };
 
@@ -412,15 +469,20 @@ const SideWall:React.FC<{x0:number;x1:number;topFar:number;botFar:number;light?:
 /** Plan geometry in plan units: the room's inside is PLAN.w by PLAN.h from the origin. */
 export const PLAN={w:860,h:900,table:[430,470] as Pt,cams:[[70,70],[790,64],[40,560],[826,520]] as Pt[],clock:[40,300] as Pt,door:[860,760] as Pt};
 export type PlanProps={light:number;lamps:number[];aim:number[];watch:number;gurney:number;onTable:number;drape:number;
- marks?:ClockMark[];clockDraw?:number;hand?:number;clockTags?:boolean};
-/** The gurney's plan position for travel u: 0 outside the door, 1 parked alongside the table's near side.
- * It comes in through the door gap and turns up beside the table. */
+ marks?:ClockMark[];clockDraw?:number;hand?:number;clockTags?:boolean;sheet?:number;pulses?:number[];guide?:number};
+/** Where on its path the gurney waits with its head end at the door threshold. */
+export const PLAN_WAIT=.35;
+/** The gurney's plan position for travel u: 0 far down the corridor, PLAN_WAIT with its head end at the door
+ * threshold, 1 parked alongside the table's near side. It comes straight along the corridor, crosses the door
+ * gap and turns up beside the table. */
 export function planGurney(u:number):Pt{
- const q=clamp(u),door:Pt=[PLAN.w+70,PLAN.door[1]],turn:Pt=[PLAN.table[0]+240,PLAN.door[1]-30],park:Pt=[PLAN.table[0]+40,PLAN.table[1]+178];
- const a=(1-q)*(1-q),b=2*q*(1-q),c=q*q;
- return [a*door[0]+b*turn[0]+c*park[0],a*door[1]+b*turn[1]+c*park[1]];
+ const q=clamp(u),far:Pt=[PLAN.w+430,PLAN.door[1]],wait:Pt=[PLAN.w+212,PLAN.door[1]];
+ if(q<=PLAN_WAIT){const k=q/PLAN_WAIT;return [lerp(far[0],wait[0],k),far[1]];}
+ const k=(q-PLAN_WAIT)/(1-PLAN_WAIT),turn:Pt=[PLAN.table[0]+300,PLAN.door[1]-10],park:Pt=[PLAN.table[0]+40,PLAN.table[1]+178];
+ const a=(1-k)*(1-k),b=2*k*(1-k),c=k*k;
+ return [a*wait[0]+b*turn[0]+c*park[0],a*wait[1]+b*turn[1]+c*park[1]];
 }
-const PlanRoom:React.FC<PlanProps>=({light,lamps,aim,watch,gurney,onTable,drape,marks=[],clockDraw=0,hand=0,clockTags=false})=>{
+const PlanRoom:React.FC<PlanProps>=({light,lamps,aim,watch,gurney,onTable,drape,marks=[],clockDraw=0,hand=0,clockTags=false,sheet=0,pulses=[],guide=0})=>{
  const id=useUid('rcplan'),{w,h}=PLAN,[tx,ty]=PLAN.table,L=clamp(light);
  const patientTop=(x:number,y:number,k:number)=><g key={'p'+k} transform={`translate(${f2(x)} ${f2(y)})`}>
   <ellipse cx={-150} cy={0} rx={30} ry={26} fill={P.gown} stroke={P.ink} strokeWidth={2}/>
@@ -431,24 +493,41 @@ const PlanRoom:React.FC<PlanProps>=({light,lamps,aim,watch,gurney,onTable,drape,
   <defs><radialGradient id={id+'l'}><stop offset="0" stopColor="#FFFBEA" stopOpacity={.7*L}/><stop offset="1" stopColor="#FFFBEA" stopOpacity={0}/></radialGradient>
    <pattern id={id+'t'} width={60} height={60} patternUnits="userSpaceOnUse"><rect width={60} height={60} fill={mix(P.floor,P.floorLit,L)}/><path d="M60 0H0V60" stroke={P.floorDeep} strokeWidth={1.4} fill="none" opacity={.4}/></pattern></defs>
   <rect x={14} y={18} width={w} height={h} fill={P.shadow} opacity={.18}/>
+  {/* the corridor outside the door */}
+  <rect x={w} y={PLAN.door[1]-92} width={520} height={184} fill={mix(P.floorDeep,P.floor,L)} opacity={.9}/>
+  <path d={`M${w} ${PLAN.door[1]-92}H${w+520}M${w} ${PLAN.door[1]+92}H${w+520}`} stroke={P.trim} strokeWidth={8}/>
   <rect x={0} y={0} width={w} height={h} fill={`url(#${id}t)`}/>
   {/* walls with the window band on the top wall and the door gap low on the right */}
   <path d={`M0 0H${w}V${PLAN.door[1]-70}M${w} ${PLAN.door[1]+70}V${h}H0Z`} stroke={P.trim} strokeWidth={26} fill="none" strokeLinejoin="round"/>
   <rect x={300} y={-10} width={460} height={20} fill="#BFD7E3" stroke={P.ink} strokeWidth={2}/>
   <path d={`M${w} ${PLAN.door[1]-70}A140 140 0 0 1 ${w-140} ${PLAN.door[1]+70}`} stroke={P.trim} strokeWidth={3} fill="none" strokeDasharray="10 8"/>
+  <path d={`M${w} ${PLAN.door[1]-70}V${PLAN.door[1]+70}`} stroke={P.steelLit} strokeWidth={8}/>
   {/* the clock on the left wall, as the plan's round symbol */}
   {clockDraw>0&&<g transform={`translate(${PLAN.clock[0]+70} ${PLAN.clock[1]})`}><ClockRing r={64} draw={clockDraw} hand={hand} marks={marks} tags={clockTags}/></g>}
+  {/* the near camera's pulses to the plan clock: the system stamping what it saw */}
+  {clockDraw>0&&pulses.map((u,k)=>{if(u<0||!marks[k])return null;const c=PLAN.cams[0],pin=markAt(64,marks[k].angle).pin,e:Pt=[PLAN.clock[0]+70+pin[0],PLAN.clock[1]+pin[1]];
+   const p:Pt=[lerp(c[0],e[0],u),lerp(c[1],e[1],u)];
+   return <g key={'pl'+k} data-part="timestamp-pulse"><path d={`M${c[0]} ${c[1]}L${f2(p[0])} ${f2(p[1])}`} stroke={P.teal} strokeWidth={5} strokeDasharray="10 9" opacity={.8}/>
+    <circle cx={f2(p[0])} cy={f2(p[1])} r={13} fill={P.tealLit} stroke={P.ink} strokeWidth={2.4}/></g>;})}
+  {clockDraw>.8&&<path data-part="system-link" d={`M${PLAN.cams[0][0]} ${PLAN.cams[0][1]}L${PLAN.clock[0]+70} ${PLAN.clock[1]-70}`} stroke={P.teal} strokeWidth={3.4} strokeDasharray="6 10" opacity={.6}/>}
   {/* the light's pool, the table and whatever lies on it */}
   <ellipse cx={tx} cy={ty} rx={300} ry={230} fill={`url(#${id}l)`}/>
   <rect x={tx-240} y={ty-70} width={480} height={140} rx={22} fill={P.pad} stroke={P.ink} strokeWidth={2.6}/>
   <rect x={tx-232} y={ty-62} width={86} height={124} rx={16} fill={P.padLit} opacity={.8}/>
+  {/* the fresh sheet, laid from the foot end */}
+  {sheet>0&&<rect x={f2(tx+228-440*clamp(sheet))} y={ty-60} width={f2(440*clamp(sheet))} height={120} rx={14} fill={P.sheet} stroke={P.sheetShade} strokeWidth={2}/>}
   {gurney>0&&<g transform={`translate(${f2(g[0])} ${f2(g[1])})`}>
    <rect x={-210} y={-62} width={420} height={124} rx={18} fill={P.sheet} stroke={P.ink} strokeWidth={2.4}/>
    <path d="M210 -50V50" stroke={P.steelDeep} strokeWidth={10} strokeLinecap="round"/>
+   {/* the attendant's two gloved hands on the push bar while the gurney moves */}
+   {guide>0&&[-34,34].map((dy,k)=><g key={k} opacity={f2(clamp(guide))}><ellipse cx={226} cy={dy} rx={20} ry={15} fill={P.glove} stroke={P.ink} strokeWidth={2.2}/>
+    <path d={`M244 ${dy}H320`} stroke="#5C8A86" strokeWidth={22} strokeLinecap="round"/></g>)}
   </g>}
-  {(gurney>0||onTable>0)&&patientTop(lerp(gurney>0?g[0]:tx,tx,clamp(onTable)),lerp(gurney>0?g[1]:ty,ty,clamp(onTable)),0)}
-  {drape>0&&<rect x={tx-128} y={ty-82} width={312} height={164} rx={24} fill={P.drape} stroke={P.ink} strokeWidth={2.4} opacity={clamp(drape)}
-   transform={`translate(0 ${f2(-40*(1-clamp(drape)))})`}/>}
+  {(gurney>0||onTable>0)&&(()=>{const px=lerp(gurney>0?g[0]:tx,tx,clamp(onTable)),py=lerp(gurney>0?g[1]:ty,ty,clamp(onTable));
+   return <g>{patientTop(px,py,0)}
+    {/* the drape travels with the patient it covers */}
+    {drape>0&&(()=>{const dw=312*lerp(.3,1,clamp(drape));return <rect x={f2(px+28-dw/2)} y={f2(py-82)} width={f2(dw)} height={164} rx={24} fill={P.drape} stroke={P.ink} strokeWidth={2.4}/>;})()}
+   </g>;})()}
   <circle cx={tx-30} cy={ty-10} r={92} fill="none" stroke={P.steelShade} strokeWidth={6} opacity={.55}/>
   {/* the four cameras, each with its sight wedge when it watches; aim is an offset from facing the table */}
   {PLAN.cams.map((c,k)=>{
@@ -475,6 +554,7 @@ export type RoomCameraHeroProps=
  |{part:'gurney';wheel?:number}
  |{part:'patient'}
  |{part:'drape';drop:number;flutter?:number}
+ |{part:'hand';dir:number;pose?:HandPose;mirror?:boolean;len?:number}
  |{part:'light';on:number;pool?:Pt;poolW?:number}
  |{part:'clock';r:number;draw:number;hand:number;marks:ClockMark[];pulse?:number;tags?:boolean}
  |{part:'plate';w?:number}
@@ -482,7 +562,7 @@ export type RoomCameraHeroProps=
  |{part:'glove';front:boolean}
  |{part:'tile';w:number;h:number;tile?:number;light?:number;hole?:[number,number,number,number]}
  |{part:'floor';y0:number;vx:number;light?:number}
- |{part:'sideWall';x0:number;x1:number;topFar:number;botFar:number;light?:number}
+ |{part:'sideWall';x0:number;x1:number;topFar:number;botFar:number;light?:number;door?:{u0:number;u1:number;top:number}}
  |({part:'plan'}&PlanProps);
 export const RoomCameraHero:React.FC<RoomCameraHeroProps>=(p)=>{
  switch(p.part){
@@ -491,6 +571,7 @@ export const RoomCameraHero:React.FC<RoomCameraHeroProps>=(p)=>{
  case 'gurney':return <Gurney wheel={p.wheel}/>;
  case 'patient':return <PatientShape/>;
  case 'drape':return <Drape drop={p.drop} flutter={p.flutter}/>;
+ case 'hand':return <AttendantHand dir={p.dir} pose={p.pose} mirror={p.mirror} len={p.len}/>;
  case 'light':return <SurgicalLight on={p.on} pool={p.pool} poolW={p.poolW}/>;
  case 'clock':return <ClockRing r={p.r} draw={p.draw} hand={p.hand} marks={p.marks} pulse={p.pulse} tags={p.tags}/>;
  case 'plate':return <NamePlate w={p.w}/>;
@@ -498,7 +579,7 @@ export const RoomCameraHero:React.FC<RoomCameraHeroProps>=(p)=>{
  case 'glove':return <GlovedHand front={p.front}/>;
  case 'tile':return <TilePanel w={p.w} h={p.h} tile={p.tile} light={p.light} hole={p.hole}/>;
  case 'floor':return <RoomFloor y0={p.y0} vx={p.vx} light={p.light}/>;
- case 'sideWall':return <SideWall x0={p.x0} x1={p.x1} topFar={p.topFar} botFar={p.botFar} light={p.light}/>;
+ case 'sideWall':return <SideWall x0={p.x0} x1={p.x1} topFar={p.topFar} botFar={p.botFar} light={p.light} door={p.door}/>;
  case 'plan':return <PlanRoom {...p}/>;
  }
 };
