@@ -159,6 +159,17 @@ whether the water reads as water.
 
 ## Narration and picture use one clock
 
+For new editions from October 25th, author short complete spoken thoughts before drawing
+their shot timeline. Each declared clause must end at punctuation already in the locked
+script, fit the existing 64-character phone planning budget and keep its words and qualifiers
+intact. A comma, semicolon or colon may join coherent clauses; a line break after a transitive
+verb or inside its object does not create one. Rewrite the script with source evidence before
+approval instead of adding punctuation only to metadata or asking the reader to force a breath.
+One complete spoken clause may own several useful shots and performed events. Do not split
+its words merely to create a camera cut. The free plan gate runs before critic and voice-director
+packets and again before synthesis. It predicts no acoustic edge or renderer fit: measured
+alignment, actual two-line phone fit and all independent film checks remain required.
+
 For new production from October 8th, every spoken clause has a narration-picture-v1 binding in board.narration_picture. Write exact clause text, concrete subject_ids, executable action_id, source claim_ids, scene_id, cue_ids and event_ids before voice production. Cover all words and qualifiers once in their original order. The registered episode declares which views actually implement those subjects and actions. A topic match, caption or label cannot replace a pictured causal step.
 
 Before voice exists, use timing_mode authored with an explicit provisional cue plan for the silent two-treatment comparison. These estimated windows approve only planning. After alignment, board_retime.py replaces them with measured_caption_boundaries from the actual captions and acoustic word stream. Timed capture, preship and delivery require those measured inputs and reject an authored clock.

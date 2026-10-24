@@ -49,6 +49,53 @@ def narration_tokens(text):
             if re.sub(r'[^a-z0-9]', '', w.lower())]
 
 
+NARRATION_PLAN_FROM = '2026-10-25'
+
+
+def narration_plan_required(board):
+    edition = str(board.get('date', ''))[:10]
+    return bool(re.fullmatch(r'\d{4}-\d{2}-\d{2}', edition)
+                and edition >= NARRATION_PLAN_FROM and not board.get('reference_only'))
+
+
+def narration_plan_problems(board, script=None):
+    """Reject known unperformable text plans before voice spending, not grade audio.
+
+    The aligner's punctuation, closed-class tails and phone character budget are
+    reused here. They cannot prove grammar or guarantee a pause in a future take;
+    the independent story review and measured acoustic gates still do that work.
+    """
+    if not narration_plan_required(board):
+        return []
+    from vo_align import FUNCTION_TAIL, PHONE_FIT_CUE_CHARS
+    clauses = (board.get('narration_picture') or {}).get('clauses') or []
+    if not clauses:
+        return ['pre-voice narration plan needs complete ordered spoken clauses']
+    errors = []
+    for row in clauses:
+        text = ' '.join(str(row.get('text', '')).split())
+        terminal = text.rstrip('\"\u201d\u2019\')')
+        tokens = narration_tokens(text)
+        if not terminal.endswith(('.', '!', '?', ',', ';', ':')):
+            errors.append(str(row.get('id')) + ': unpunctuated narration boundary; rewrite '
+                'a short complete spoken thought in the source-grounded script before approval, '
+                'not a breath instruction after a verb or inside its object')
+        if tokens and tokens[-1] in FUNCTION_TAIL and not terminal.endswith(('.', '!', '?')):
+            errors.append(str(row.get('id')) + ': narration boundary strands a function word; '
+                'keep the complete phrase and its qualifier together')
+        if len(text) > PHONE_FIT_CUE_CHARS:
+            errors.append(str(row.get('id')) + ': narration clause exceeds the existing '
+                f'{PHONE_FIT_CUE_CHARS}-character phone planning budget; author shorter complete '
+                'thoughts without removing claims or qualifiers, then verify actual renderer fit')
+    narrated = ' '.join(str(s.get('vo', '')) for s in board.get('scenes', []))
+    locked = narrated if script is None else script
+    laid = ' '.join(' '.join(str(row.get('text', '')).split()) for row in clauses)
+    if laid != ' '.join(locked.split()):
+        errors.append('pre-voice clause wording and punctuation must exactly match the locked '
+                      'script; metadata punctuation cannot manufacture a spoken boundary')
+    return errors
+
+
 def narration_digest(value):
     return hashlib.sha256(json.dumps(value,sort_keys=True,separators=(',',':')).encode()).hexdigest()
 
@@ -123,7 +170,7 @@ def narration_problems(board, captions=None, words=None, script=None, claims=Non
     """Check coverage and executable bindings, without pretending metadata judges pixels."""
     if not narration_required(board, repo):
         return []
-    errors = narration_event_problems(board)
+    errors = narration_event_problems(board) + narration_plan_problems(board, script)
     plan = board.get('narration_picture') or {}
     clauses = plan.get('clauses') or []
     if plan.get('version') != 'narration-picture-v1' or not clauses:

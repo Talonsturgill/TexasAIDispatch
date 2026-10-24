@@ -73,6 +73,14 @@ charged late and never used as evidence. A private batch is a procedural defect,
 
 ## Narration and picture use one clock
 
+For new editions from October 25th, first author short coherent narration clauses using the
+current MODERN_FILM.md planning rule. Preserve every claim and qualifier, exact script
+punctuation and the existing 64-character phone planning ceiling. Run the free modern-film
+check before requesting code review. A camera change can subdivide the same spoken clause;
+it does not need a new speech boundary. Never split a verb from its object or rely on an
+instruction to insert a breath into an unpunctuated fragment. Source-grounded wording changes
+belong before approval. Actual measured captions and renderer fit remain mandatory afterward.
+
 For new production from October 8th, every spoken clause has a narration-picture-v1 binding in board.narration_picture. Write exact clause text, concrete subject_ids, executable action_id, source claim_ids, scene_id, cue_ids and event_ids before voice production. Cover all words and qualifiers once in their original order. The registered episode declares which views actually implement those subjects and actions. A topic match, caption or label cannot replace a pictured causal step.
 
 Before voice exists, use timing_mode authored with an explicit provisional cue plan for the silent two-treatment comparison. These estimated windows approve only planning. After alignment, board_retime.py replaces them with measured_caption_boundaries from the actual captions and acoustic word stream. Timed capture, preship and delivery require those measured inputs and reject an authored clock.

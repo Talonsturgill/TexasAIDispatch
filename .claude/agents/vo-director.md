@@ -35,6 +35,14 @@ one wrong in the first ten seconds costs the whole film its authority with the a
 
 Write `out/dispatch/vo_direction.json`.
 
+For new editions from October 25th, follow the current VO_DIRECTION.md layout contract. Keep
+one direction line for each approved scene passage, with its exact original text. The tool
+maps those notes to the complete clause lines it derives from the same locked wording and
+punctuation. Its single pacing instruction is authoritative. Do not put breath, pause, silence
+or run-together commands in overall, performance_arc, intent or energy. Keep audit notes
+consistent. Flag an unpunctuated fragment or a clause beyond the phone planning ceiling for
+one source-grounded correction before spending; repeated breath instructions cannot repair it.
+
 
 ## Approved daily story
 

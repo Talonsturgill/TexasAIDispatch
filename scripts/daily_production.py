@@ -371,7 +371,10 @@ def pre_voice_problems(board_path, claims_path, script=None):
             reviewed_board = read(baseline)
     except (OSError, ValueError, KeyError, TypeError) as exc:
         context_errors.append("review-context frozen story evidence invalid: " + str(exc))
-    errors = context_errors + structure_problems(board, read(claims_path)) + action_problems(board) + review_problems(reviewed_board, report)
+    import modern_film
+    errors = (context_errors + modern_film.narration_plan_problems(board, script)
+              + structure_problems(board, read(claims_path)) + action_problems(board)
+              + review_problems(reviewed_board, report))
     from super_evidence_check import check_source_credit_figures
     errors += check_source_credit_figures(board, read(claims_path))
     import creative_production as creative
@@ -447,6 +450,11 @@ def packet(board_path, claims_path, role, state_path=None, runtime=None, feed_pa
     if feed_path is not None and role not in ('picture', 'story', 'sound'):
         raise ValueError('an explicit feed applies only to a final picture, story or sound packet')
     board, claims = read(board_path), read(claims_path)
+    if role in ('storyboard-critic', 'vo-director'):
+        import modern_film
+        errors = modern_film.narration_plan_problems(board)
+        if errors:
+            raise ValueError('pre-paid narration planning failed: ' + '; '.join(errors))
     data = {
         "role": role, "date": board["date"], "story_sha256": story_digest(board),
         "board": {"path": str(Path(board_path).resolve()), "sha256": digest(board_path)},

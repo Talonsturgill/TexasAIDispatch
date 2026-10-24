@@ -107,7 +107,7 @@ FENCE_CLOSE = "-----END SPOKEN TEXT-----"
 
 # ---------------------------------------------------------------- prompt assembly
 
-def split_direction(plan: dict) -> str:
+def split_direction(plan: dict, line_labels: list[str] | None = None) -> str:
     """The director's notes, as a preamble. Never as tags inside the spoken text.
 
     `pause_after` IS DELIBERATELY NOT SENT TO THE READER, and 2026-08-28 is the day
@@ -137,7 +137,7 @@ def split_direction(plan: dict) -> str:
     if plan.get("performance_arc"):
         lines.append("Performance arc: " + str(plan["performance_arc"]).strip())
     for i, ln in enumerate(plan.get("lines", []), 1):
-        bits = [f"Line {i}"]
+        bits = [line_labels[i-1] if line_labels else f"Line {i}"]
         for k in ("intent", "emphasis", "energy"):
             if ln.get(k) not in (None, ""):
                 bits.append(f"{k.replace('_', ' ')}: {ln[k]}")
@@ -146,6 +146,15 @@ def split_direction(plan: dict) -> str:
 
 
 def pacing_notes(board: dict | None = None) -> str:
+    from modern_film import narration_plan_required
+    if board and narration_plan_required(board):
+        return (
+            "Pacing: perform one connected passage. Each fenced line is a complete spoken "
+            "thought from the approved script. Let its punctuation carry a natural audible "
+            "separation before the next thought. Keep each phrase connected, including numbers "
+            "with units and qualifiers with claims. Vary the cadence with the meaning; avoid "
+            "theatrical holds, robotic spacing and swallowed words. Keep the closing answer "
+            "in its own phrase. The picture follows the measured recording.\n\n")
     if board and str(board.get("date", ""))[:10] >= "2026-10-15":
         return (
             "Pacing: read it as one connected passage, exactly as written. Use natural breaths "
@@ -158,6 +167,45 @@ def pacing_notes(board: dict | None = None) -> str:
         "Never pause inside a sentence, and never hold a silence between sentences. The film "
         "is cut to this recording afterwards and the edit puts in every pause it needs, so "
         "silence left here becomes a hole in the finished picture.\n\n")
+
+
+def narration_layout(board: dict, script: str) -> tuple[str, list[str], list[str]]:
+    """Only whitespace changes; map existing scene notes to their actual fenced lines."""
+    from modern_film import narration_plan_problems, narration_plan_required
+    if not narration_plan_required(board):
+        return script.strip(), [], []
+    errors = narration_plan_problems(board, script)
+    if errors:
+        return script.strip(), [], errors
+    clauses = (board.get('narration_picture') or {}).get('clauses') or []
+    texts = [' '.join(row['text'].split()) for row in clauses]
+    labels, cursor = [], 0
+    for scene in board.get('scenes', []):
+        first, parts = cursor, []
+        while cursor < len(clauses) and clauses[cursor].get('scene_id') == scene.get('id'):
+            parts.append(texts[cursor]); cursor += 1
+        if not parts or ' '.join(parts) != ' '.join(str(scene.get('vo', '')).split()):
+            errors.append('narration layout must preserve each approved scene passage exactly')
+        labels.append(f'Fenced line {first+1}' if cursor == first+1
+                      else f'Fenced lines {first+1} through {cursor}')
+    if cursor != len(clauses):
+        errors.append('narration layout has clauses outside the approved scene order')
+    return '\n'.join(texts), labels, errors
+
+
+def narration_pacing_problems(board: dict, plan: dict) -> list[str]:
+    """One pacing authority; performance notes cannot revive forced fragment pauses."""
+    from modern_film import narration_plan_required
+    if not narration_plan_required(board):
+        return []
+    fields = [('overall', plan.get('overall', '')),
+              ('performance_arc', plan.get('performance_arc', ''))]
+    for i, line in enumerate(plan.get('lines', []), 1):
+        fields.extend((f'line {i} {key}', line.get(key, '')) for key in ('intent', 'energy'))
+    forbidden = r'\b(?:breath(?:e|s|ing)?|paus(?:e|es|ing)|silence|room tone|run together|no gaps)\b'
+    return [name + ': keep breath/pause commands out of synth-facing notes; the approved '
+            'clause layout and single pacing instruction govern separation'
+            for name, value in fields if re.search(forbidden, str(value), re.I)]
 
 
 def build_prompt(script: str, plan: dict,
@@ -258,6 +306,15 @@ def build_prompt(script: str, plan: dict,
     if not script.strip():
         refusals.append("the script is empty")
 
+    spoken, line_labels = script.strip(), []
+    if board is not None:
+        spoken, line_labels, layout_errors = narration_layout(board, script)
+        refusals.extend(layout_errors)
+        refusals.extend(narration_pacing_problems(board, plan))
+        if line_labels and len(line_labels) != len(plan.get('lines', [])):
+            refusals.append('direction lines must cover the unchanged approved scene passages')
+            line_labels = []
+
     preamble = (
         "You are performing a narration for a short documentary film. Read ONLY the text inside "
         "the fenced block at the end of this message, exactly as written, and speak none of "
@@ -271,8 +328,8 @@ def build_prompt(script: str, plan: dict,
         # in a prompt that already named a pause after every line. See split_direction for the
         # twenty seconds of dead air that bought. The film gets its air from the edit.
         + pacing_notes(board) +
-        "Per-line direction:\n" + (split_direction(plan) or "(none supplied)") + "\n\n"
-        + FENCE_OPEN + "\n" + script.strip() + "\n" + FENCE_CLOSE + "\n")
+        "Per-line direction:\n" + (split_direction(plan, line_labels) or "(none supplied)") + "\n\n"
+        + FENCE_OPEN + "\n" + spoken + "\n" + FENCE_CLOSE + "\n")
     return preamble, refusals
 
 

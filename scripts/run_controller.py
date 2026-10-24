@@ -349,7 +349,8 @@ def repair_plan_evidence(state: dict, name: str, plan_path: Path | None) -> tupl
 
 
 def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool = False,
-            _use_prepared_capture: bool = True, _prepare_full: bool = False
+            _use_prepared_capture: bool = True, _prepare_full: bool = False,
+            review_packet: Path | None = None
             ) -> tuple[bool, str]:
     import claude_checkpoint
     from completion_yield import admission_problems
@@ -393,6 +394,11 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
     hard_review_errors = hard_review_problems(state, amounts)
     if hard_review_errors:
         return False, '; '.join(hard_review_errors)
+    from review_limit import final_reservation_binding
+    try:
+        review_binding = final_reservation_binding(state, amounts, path, review_packet)
+    except (OSError, ValueError, KeyError, TypeError, IndexError) as exc:
+        return False, 'final timed-phone reservation refused: ' + str(exc)
     from narration_recovery import paid_work_problems
     narration_errors = paid_work_problems(state, amounts)
     if narration_errors:
@@ -520,6 +526,7 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
     if preview_identity and state.get("preflight_retry") in preview_candidates:
         state.pop("preflight_retry", None)
     binding = {'full_render_identity': full_identity} if full_identity is not None else {}
+    binding.update(review_binding)
     if preview_identity:
         binding['preflight_identity_version'] = 2
     from publication_owner import reservation_fields
@@ -2172,6 +2179,8 @@ def main() -> int:
     p.add_argument("--resource", required=True)
     p.add_argument("--amount", type=int, default=1)
     p.add_argument("--note", default="")
+    p.add_argument("--review-packet", type=Path,
+                   help="exact current timed-phone packet required before spending the fifth critic attempt")
 
     p = sub.add_parser("panel")
     p.add_argument("--judges", type=int, default=3)
@@ -2295,7 +2304,8 @@ def main() -> int:
         if a.command == "init":
             accepted, message = initialise(state_path, a.run_id, a.mode)
         elif a.command == "consume":
-            accepted, message = reserve(state_path, {a.resource: a.amount}, a.note)
+            accepted, message = reserve(state_path, {a.resource: a.amount}, a.note,
+                                        review_packet=a.review_packet)
         elif a.command == "panel":
             accepted, message = reserve_panel(state_path, a.judges, a.note,
                                               skip_preship=a.force_no_preship)

@@ -7,6 +7,18 @@ judges in the first two seconds without knowing they are judging it.
 This is the plan the `vo-director` agent writes into `out/dispatch/vo_direction.json` before a
 single sample is synthesised.
 
+For new editions from October 25th, the approved narration-picture clauses supply the spoken
+layout automatically. They must be short coherent thoughts with punctuation identical to the
+locked script, within the existing phone planning ceiling. Keep direction lines bound to the
+original scene passages; the synthesizer maps each one to its exact fenced clause-line range.
+It changes whitespace only and keeps one whole-passage take. Its single pacing instruction
+governs natural separation. Keep breath, pause, silence and run-together commands out of
+overall, performance_arc, intent and energy; use those fields for purpose, emphasis and energy.
+Keep audit explanations consistent with that layout. Do not add forced breaths after verbs,
+inside objects or between a figure and its qualifier to rescue a bad plan. Rewrite that plan
+before approval and spending. A valid plan does not establish measured silence: the unchanged
+acoustic, ASR, two-line caption and audible-performance gates still decide the actual take.
+
 ---
 
 ## The three rules that are not yours to change

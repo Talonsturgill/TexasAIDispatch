@@ -694,6 +694,14 @@ timed movie; neither phone profile can satisfy the native final profile. Inspect
 pages, consolidate one handback and recheck only specific uncertain intervals. Report unresolved
 observations directly instead of repeatedly viewing the film to pursue approval.
 
+For editions from October 24, the fifth critic reservation must bind this final current-phone
+packet before any spend. Plan the current-phone task, then consume with
+`run_controller.py consume --resource storyboard_critics --review-packet <exact current-phone packet> --note "final timed phone"`
+and dispatch the same packet unchanged. The controller validates its current movie, board,
+chronological sequence and critic assignment before charging; a generic code, pivot or phone
+label cannot spend the protected slot. Replanning after the charge must retain that exact packet.
+Do not add owner grants to the daily policy or modify the five-attempt limit during production.
+
 A cloud session has no desktop for Computer Use. Use `scripts/phone_playback.py`, real Chromium UI
 automation at 390x844 with touch input, against the published canonical URL:
 
