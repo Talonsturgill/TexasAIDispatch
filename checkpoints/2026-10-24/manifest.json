@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-24",
-  "saved_at": "2026-10-24T07:00:12.641682+00:00",
-  "note": "phase code-review",
+  "saved_at": "2026-10-24T07:00:24.710671+00:00",
+  "note": "builder handback authored art both treatments code critic running",
   "phase": "wake",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
   },
   "deleted_source": [],
-  "ledger_sha256": "8a0bf0cfd8e4617b8a331428dccadb9338f8883ed11778bfc023346c315e6c3e",
-  "original_private_ledger_sha256": "f853e33a8e58f78af12f10b35754af73eae1edbc8996f89f2af35ace6fc41f0f",
+  "ledger_sha256": "252023f4390c14f225b21416b369470cdd23e994994009dcf221db72d04ad2e1",
+  "original_private_ledger_sha256": "095ca879eab9cb3cb67dbce41686f97cc114a6d79baf30c17a98e7774e417655",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -31,7 +31,7 @@
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
-    "storyboard_critics": 0,
+    "storyboard_critics": 1,
     "tts_calls": 0,
     "validator_agents": 2,
     "voice_directors": 0
@@ -100,8 +100,8 @@
     {
       "path": "out/dispatch/critic-assignment.json",
       "class": "scratch",
-      "sha256": "4f6226b313b889ea2e7cec0b23b9740289ffc04ea4ec0491c70d8838592ab45d",
-      "size": 1867
+      "sha256": "069ba837ee62fbaab46fb10f562be1e66b1f9613ced0f0ce7c8b3e09e941b5ec",
+      "size": 2934
     },
     {
       "path": "out/dispatch/critic-packet.json",
@@ -890,6 +890,12 @@
       "size": 557
     },
     {
+      "path": "out/dispatch/worker-dispatch-claims/4129aacbb6889b190cb947347116df6b7853a46387fad64a198eee2cff899b4f-storyboard-critic.json",
+      "class": "scratch",
+      "sha256": "bafea81f0c204a1fcbc8d77695c582e904c4c5a832e843b58131da3304f7bc3f",
+      "size": 560
+    },
+    {
       "path": "out/dispatch/worker-dispatch-claims/6a3dfac2230d18684219a45ea6c1de3959115a900e46d64c0a93fa0564a3f329-validator.json",
       "class": "scratch",
       "sha256": "06e762c5b2ed58fb1d34908d9d797918676741f793dc4318418c30de23a9e50a",
@@ -939,9 +945,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 1543061,
-    "unique_blob_bytes": 1238572,
-    "unique_blobs": 82
+    "logical_bytes": 1544688,
+    "unique_blob_bytes": 1240199,
+    "unique_blobs": 83
   },
   "excluded": [],
   "regenerable": {
