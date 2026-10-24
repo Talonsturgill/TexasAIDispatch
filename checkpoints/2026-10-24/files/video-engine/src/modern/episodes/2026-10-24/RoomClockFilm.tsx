@@ -5,18 +5,19 @@ import {useArtDirection} from '../../../lib/artDirection';
 import {actionProgress,actionWindows,requireNarration,type ActionWindow,type DirectedScene} from '../../../lib/direction';
 import {usePlace} from '../../PlaceStage';
 import type {FilmRenderProps} from '../../types';
-import {RoomCameraHero,ROOM_PAINT,TABLE,GURNEY,PLATE,PLAN,PLAN_WAIT,cameraLens,aimAt,markAt,drapeShape,sideWallPoint,planGurney,type ClockMark,type HandPose} from './RoomCameraHero';
+import {RoomCameraHero,ROOM_PAINT,TABLE,GURNEY,PLATE,PLAN,PLAN_WAIT,cameraLens,aimAt,markAt,tagFont,drapeShape,sideWallPoint,planGurney,crewShoulders,restGrip,armReach,type ClockMark,type HandPose,type ArmDraw,type PlanCrew} from './RoomCameraHero';
 import {StudyRecordSupport,S4B,S5B,S6B,S7B,S8B,S9B,BLANK,PANEL,RESULT} from './StudyRecordSupport';
 
 /**
  * room-clock-v1: the room that watches itself (2026-10-24, Harris County, the Gulf coast plate of Houston).
- * Correction 1, after the independent code review of both treatments.
+ * Correction 2, after the independent code review 2 of both treatments.
  *
  * ONE generic cardiothoracic operating room (RoomCameraHero) and its records (StudyRecordSupport) carry the
  * film. Every performed state is a closed function of the film frame clock, the board's event and clause
  * windows and the board's own shot cuts (clockState), so any frame renders alone and the same twice, and a
- * measured retime moves every action with its event. An anonymous attendant, shown only as blue gloved hands
- * on scrub sleeves, is the visible agent of every move of the gurney, the patient, the drape and the sheet.
+ * measured retime moves every action with its event. Three anonymous attendants (crew) are the visible agents of
+ * every move of the gurney, the patient, the drape and the sheet: one pushes the gurney and slides the patient,
+ * two stand behind the table, one carrying the folded drape until two of them take its corners and lay it.
  *
  *  s1  from the first second the four wall cameras power up: their heads lift from rest and begin to scan the
  *      room and their lamps glow on standby as the room lights up (s1-event-1); the suite plate settles
@@ -74,10 +75,17 @@ export const MARK_LABELS=['Patient entry','Draped','Turnover'];
 export const EXIT_RATE=1.6;
 /** Within the first s3 clause: the next gurney's arrival and the slide onto the table, as clause fractions. */
 export const S3_ARRIVE:[number,number]=[0,.38],S3_SLIDE:[number,number]=[.48,.86];
+/** In s3, seconds after the slide ends when the folded drape starts across to the table, and how long it takes. */
+export const DRAPE_TAKE:[number,number]=[.22,.3];
 
 /** The clock's board-driven times: scene starts and the two s2 cuts, all on the native frame grid. */
 export type Starts={s1:number;s2:number;s3:number;s10:number;draped:number;turnover:number;n3a:[number,number]};
 
+/** The screen box of a clock's lit Turnover tag at its marker angle, as ClockRing lays it out. Pure. */
+export function turnoverTagBox(c:Pt,r:number,angle:number):Rect{
+ const fs=tagFont(r),{tag}=markAt(r,angle,1.34),w=MARK_LABELS[2].length*fs*.58+26,left=tag[0]<-4?-w:tag[0]>4?0:-w/2;
+ const x0=c[0]+tag[0]+left,y0=c[1]+tag[1]-fs*.8;return [x0,y0,x0+w,y0+fs*1.6];
+}
 /** The whole room's state at film time t. `u` is the gurney's path position: 0 out of sight, 1 waiting with
  * its head end at the door threshold, 2 parked beside the table's foot. `onTable` slides the patient from the
  * gurney (0) to the table (1). Hands are reported for the episode to draw at their grips. */
@@ -97,22 +105,25 @@ export function clockState(W:Record<string,ActionWindow>,t:number,S:Starts){
  // the case
  let u=0,onTable=0,drape=0,sheet=1,patient=0,guide=0,drapeOnGurney=false;
  let drapeHands:{drop:number;enter:number;withdraw:number}|null=null,sheetHands:{withdraw:number}|null=null,slideHands:{withdraw:number;enter:number}|null=null;
+ let phase:'pre'|'draped'|'turnover'|'next'|'close'='pre',s3t={a0:0,a1:0,b0:0,b1:0,d0:0};
  if(t<S.draped){
   u=t<S.s2?P('s1-event-4'):1+P('s2-event-2');patient=u>0?1:0;guide=u>0?1:0;
  }else if(t<S.turnover){
-  u=2;onTable=1;patient=1;drape=P('s2-event-3');
+  phase='draped';u=2;onTable=1;patient=1;drape=P('s2-event-3');
   drapeHands={drop:drape,enter:1,withdraw:ease5((t-end('s2-event-3'))/.4)};
  }else if(t<S.s3){
-  u=Math.max(0,2-EXIT_RATE*smoothInt(t,S.turnover,.3));patient=u>0?1:0;drape=1;drapeOnGurney=true;guide=u>0?1:0;
+  phase='turnover';u=Math.max(0,2-EXIT_RATE*smoothInt(t,S.turnover,.3));patient=u>0?1:0;drape=1;drapeOnGurney=true;guide=u>0?1:0;
   sheet=P('s2-event-4');sheetHands={withdraw:ease5((t-end('s2-event-4'))/.4)};
  }else if(t<S.s10){
   const [c0,c1]=S.n3a,len=c1-c0,a0=c0+S3_ARRIVE[0]*len,a1=c0+S3_ARRIVE[1]*len,b0=c0+S3_SLIDE[0]*len,b1=c0+S3_SLIDE[1]*len;
+  phase='next';s3t={a0,a1,b0,b1,d0:b1+DRAPE_TAKE[0]};
   u=t<a0?0:2*ease5((t-a0)/(a1-a0));patient=u>0?1:0;guide=u>0&&u<2?1:u>=2?1-ease5((t-a1)/.3):0;
   onTable=ease5((t-b0)/(b1-b0));drape=P('s3-event-2');
   if(t>=b0-.3&&t<b1+.5)slideHands={enter:ease5((t-(b0-.3))/.3),withdraw:ease5((t-b1)/.4)};
   const dEnd=end('s3-event-2');
-  if(t>=b1+.35&&t<dEnd+.5)drapeHands={drop:drape,enter:ease5((t-(b1+.35))/.45),withdraw:ease5((t-dEnd)/.4)};
- }
+  // the folded drape is carried to the table and its corners taken before it begins to open (s3-event-2)
+  if(t>=b1+DRAPE_TAKE[0]&&t<dEnd+.5)drapeHands={drop:drape,enter:ease5((t-(b1+DRAPE_TAKE[0]))/DRAPE_TAKE[1]),withdraw:ease5((t-dEnd)/.4)};
+ }else phase='close';
  // the clock: its hand sweeps from s2; each marker stamps where the hand stands at its stamp moment
  const handAt=(time:number)=>HAND.start+360*(time-S.s2)/HAND.period;
  const stampTime=(id:string)=>W[id]?W[id].start+STAMP_AT*(W[id].end-W[id].start):S.s2;
@@ -124,7 +135,7 @@ export function clockState(W:Record<string,ActionWindow>,t:number,S:Starts){
  const s2={draw:P('s2-event-1'),hand:t<S.s3?handAt(t):turnoverAngle+12};
  return {
   light,plate:P('s1-event-2'),lamps,flash,watch,scan,park,
-  u,onTable,drape,sheet,patient,guide,drapeOnGurney,drapeHands,sheetHands,slideHands,
+  u,onTable,drape,sheet,patient,guide,drapeOnGurney,drapeHands,sheetHands,slideHands,phase,s3t,inS2:t>=S.s2,
   s2,marks,pulses,markAngles,turnoverAngle,
   s3:{lit:P('s3-event-1'),link:ease5(R('s3-event-1')),alert:P('s3-event-3')},
   s4:{card:P('s4-event-1'),draw:P('s4-event-2'),climb:P('s4-event-3'),fill:P('s4-event-4'),num:clamp((R('s4-event-4')-.82)/.18)},
@@ -137,6 +148,69 @@ export function clockState(W:Record<string,ActionWindow>,t:number,S:Starts){
   P,R};
 }
 export type ClockState=ReturnType<typeof clockState>;
+
+// ---- the crew: three anonymous attendants, in table units about the table centre and the pad row ---------------
+export type CrewBody={id:'A'|'B'|'C';bx:number;turn:number;look:number;walk:number;arms:ArmDraw[]};
+/** Where the folded drape's corners are held from its hold position, carried by C in front of the body at bx. */
+export const carryOffset=(bx:number):Pt=>[bx-26,66];
+/** The crew at film time t, as a pure function of the room state, the gurney's centre gxu and the patient's
+ * centre pxu (table units from the table centre). A pushes the gurney in, waits at its bar, pulls it out and in
+ * s3 slides the next patient across and takes the drape's foot corner. B (head end) and C (foot end) stand
+ * behind the table from s2: C carries the folded drape, B and C (s2) or B and A (s3) take its corners and lay it,
+ * and C lays the fresh sheet walking along the table. `bundle` is the drape's offset from its hold position
+ * while it is carried (null when it is laid or gone), so the drape exists before any hand takes it. */
+export function crewAt(S:ClockState,t:number,gxu:number,pxu:number){
+ const bodies:CrewBody[]=[];
+ const dh=S.drapeHands,dhE=dh?dh.enter:0,dhW=dh?dh.withdraw:1,dhOn=dh?dh.enter*(1-dh.withdraw):0;
+ const arm=(Sh:Pt,side:number,G:Pt|null,w:number,pose:HandPose,base?:Pt):ArmDraw=>{
+  const rest=base??restGrip(Sh,side),tgt=G?[lerp(rest[0],G[0],clamp(w)),lerp(rest[1],G[1],clamp(w))] as Pt:rest;
+  return {...armReach(Sh,tgt,side),pose:G&&w>.3?pose:'flat',front:!!G&&w>=.6,side};
+ };
+ // the drape: where it is held and what shape it has now
+ let bundle:Pt|null=null;
+ if(S.phase==='pre'&&S.inS2)bundle=carryOffset(225);
+ else if(S.phase==='draped')bundle=[0,0];
+ else if(S.phase==='next'){const c=carryOffset(-60);bundle=t<S.s3t.d0?c:[lerp(c[0],0,dh?dhE:1),lerp(c[1],0,dh?dhE:1)];}
+ const d=drapeShape(S.drape,t),off=bundle??[0,0];
+ const cornerL:Pt=[d.left[0]+off[0],d.left[1]+off[1]],cornerR:Pt=[d.right[0]+off[0],d.right[1]+off[1]];
+ // A: the gurney's bar, or the patient it slides
+ const hx=gxu+GURNEY.handle[0],hy=GURNEY.handle[1],bar:Pt=[hx,hy],bar2:Pt=[hx+5,hy+3];
+ if(S.u>0&&S.phase!=='close'){
+  if(S.phase==='next'){
+   // A steps from the bar to the patient's far side, walks with the slide, then steps to the table's foot
+   const {b0,b1}=S.s3t,es=ease5((t-(b0-.45))/.45),wd=ease5((t-b1)/.4);
+   const bx=lerp(lerp(hx+58,pxu+60,es),180,wd),turn=lerp(-.75,0,wd),[l,r]=crewShoulders(bx,turn);
+   const s0:Pt=[pxu-40,-74],s1:Pt=[pxu+110,-76];
+   const T0:Pt=es<1?[lerp(bar[0],s0[0],es),lerp(bar[1],s0[1],es)]:s0,T1:Pt=es<1?[lerp(bar2[0],s1[0],es),lerp(bar2[1],s1[1],es)]:s1;
+   const w1=1-wd,base0:Pt=[lerp(restGrip(l,-1)[0],T0[0],w1),lerp(restGrip(l,-1)[1],T0[1],w1)];
+   const left=dhOn>0?arm(l,-1,cornerR,dhOn,'pinch',base0):arm(l,-1,T0,w1,es>.5?'flat':'grip');
+   if(dhOn>0&&w1>=.6)left.front=true;
+   bodies.push({id:'A',bx,turn,look:0,walk:bx/30,arms:[left,arm(r,1,T1,w1,es>.5?'flat':'grip')]});
+  }else{
+   const bx=hx+58,turn=-.75,[l,r]=crewShoulders(bx,turn);
+   bodies.push({id:'A',bx,turn,look:0,walk:bx/30,arms:[arm(l,-1,bar,1,'grip'),arm(r,1,bar2,1,'grip')]});
+  }
+ }
+ if(S.inS2&&S.phase!=='close'){
+  // B at the head end
+  const bB=S.phase==='turnover'?-250:S.phase==='next'?-190:-200,[bl,br]=crewShoulders(bB,0);
+  const bRight=(S.phase==='draped'||S.phase==='next')&&dhOn>0?arm(br,1,cornerL,dhOn,'pinch'):arm(br,1,null,0,'flat');
+  bodies.push({id:'B',bx:bB,turn:0,look:1,walk:0,arms:[arm(bl,-1,null,0,'flat'),bRight]});
+  // C at the foot end
+  if(S.phase==='turnover'){
+   const xs=TABLE.L/2-(TABLE.L-110)*S.sheet,bx=xs+70,turn=-.35,[l,r]=crewShoulders(bx,turn);
+   const w=S.sheetHands?1-S.sheetHands.withdraw:0;
+   bodies.push({id:'C',bx,turn,look:2,walk:bx/30,arms:[arm(l,-1,[xs,-14],w,'pinch'),arm(r,1,null,0,'flat')]});
+  }else{
+   const bx=S.phase==='next'?-60:225,[l,r]=crewShoulders(bx,0);
+   let arms:ArmDraw[];
+   if(S.phase==='draped')arms=[arm(l,-1,cornerR,dhOn,'pinch'),arm(r,1,null,0,'flat')];
+   else{const hold=S.phase==='next'&&t>=S.s3t.d0?1-(dh?dhE:1):1;arms=[arm(l,-1,cornerL,hold,'pinch'),arm(r,1,cornerR,hold,'pinch')];}
+   bodies.push({id:'C',bx,turn:0,look:2,walk:0,arms});
+  }
+ }
+ return {bodies,bundle};
+}
 /** The placebo stamp's choreography round its window: the block comes in, presses in the first quarter,
  * holds, then lifts away; the amber mark shows once the block is down. */
 export function stampState(win:ActionWindow|undefined,t:number){
@@ -167,7 +241,8 @@ export function roomLayout(Wn:Win){
  const side={x0:1080,x1:930,topFar:Wn.y-150*k,botFar:floorY-14};
  const xThr=sideWallPoint(side.x0,side.x1,side.topFar,side.botFar,DOOR.u1,0)[0];
  return {k,ks,pier,plate,clock,cams,floorY,TX,TY,side,xThr,light:[TX+60*ks,Wn.y-6] as Pt,
-  box:{x:pier.x+pier.w+20*k,y:Wn.y+120*k,size:.62*k},result:{x:pier.x+pier.w+20*k,y:Wn.y+330*k,s:.5*k}};
+  // the closing box and result card sit right of the surgical light's head and cone, clear of both
+  box:{x:Wn.x+.545*Wn.w,y:Wn.y+102*k,size:.7*k},result:{x:Wn.x+.545*Wn.w,y:Wn.y+306*k,s:.62*k}};
 }
 /** The gurney rig on a floor line: table centre TX and pad row TY at scale ks, the door threshold xThr. */
 export type Rig={TX:number;TY:number;ks:number;xThr:number;gpark:number;gwait:number;goff:number};
@@ -276,34 +351,27 @@ export const RoomClockFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   const a=Math.max(amount,each?.[k]??0),l=lensOf(c,k,target);if(a<=0||S.lamps[k]<=0)return null;
   return <path key={k} d={`M${f2(l[0])} ${f2(l[1])}L${f2(target[0])} ${f2(target[1])}`} stroke={P0.lampGlow} strokeWidth={3.4} strokeDasharray="12 10" opacity={f2(.75*a*S.lamps[k])}/>;})}</g>;
 
- // ---- the attendant's hands, the gurney, the patient, the drape, the table ----------------------------------------
- const hand=(key:string,p:Pt,dir:number,s:number,pose:HandPose='grip',mirror=false)=>
-  <At key={key} p={p} s={s}><RoomCameraHero part="hand" dir={dir} pose={pose} mirror={mirror}/></At>;
+ // ---- the crew, the gurney, the patient, the drape, the table ---------------------------------------------------
  /** Where the patient lies, in screen units, for a rig. */
  const patientAt=(g:Rig):Pt=>[lerp(gurneyX(g,S.u),g.TX,S.onTable),g.TY];
  const watchPoint=(g:Rig):Pt=>S.patient>0?[patientAt(g)[0],g.TY-46*g.ks]:[g.TX,g.TY-30*g.ks];
- /** The case on a rig: the table and its sheet, the gurney and the hand guiding it, the patient with the drape,
- * and the hands that slide the patient, lay the drape and lay the sheet. */
+ /** The case on a rig: the crew behind it, the table and its sheet, the gurney, the patient with the drape (on
+ * the gurney as it leaves, otherwise the folded or laid drape over the table), then the gloves that hold. */
  const caseGroup=(g:Rig,o:{hands?:boolean}={})=>{
   const {TX,TY,ks}=g,gx=gurneyX(g,S.u),showG=S.u>0;
-  const [px]=patientAt(g),hs=ks*1.15,hands=o.hands??true;
-  const d=drapeShape(S.drape,t),dh=S.drapeHands;
-  const lift=(w:number)=>-520*ks*w;
+  const [px]=patientAt(g),hands=o.hands??true;
+  const C=crewAt(S,t,(gx-TX)/ks,(px-TX)/ks);
+  const drapeOn=!S.drapeOnGurney&&(C.bundle!==null||S.drape>0),off=C.bundle??[0,0];
   return <g data-part="case">
+   {hands&&<At p={[TX,TY]} s={ks}><g data-part="crew">{C.bodies.map(b=><RoomCameraHero key={b.id} part="attendant" bx={b.bx} turn={b.turn} look={b.look} walk={b.walk} arms={b.arms}/>)}</g></At>}
    <Item id={sid+'-table'}><At p={[TX,TY]} s={ks}><RoomCameraHero part="table" sheet={S.sheet} light={S.light}/></At></Item>
-   {showG&&S.u>0&&<At p={[gx,TY]} s={ks}><RoomCameraHero part="gurney" wheel={(gx-g.gpark)/(13*ks)}/></At>}
+   {showG&&<At p={[gx,TY]} s={ks}><RoomCameraHero part="gurney" wheel={(gx-g.gpark)/(13*ks)}/></At>}
    {S.patient>0&&<Item id={sid+'-patient'}><At p={[px,TY]} s={ks}>
     <RoomCameraHero part="patient"/>
-    {S.drape>0&&<RoomCameraHero part="drape" drop={S.drapeOnGurney?1:S.drape} flutter={t}/>}
+    {S.drapeOnGurney&&<RoomCameraHero part="drape" drop={1} flutter={t}/>}
    </At></Item>}
-   {hands&&<g data-part="attendant-hands">
-    {S.guide>0&&S.u>0&&hand('guide',[gx+GURNEY.handle[0]*ks,TY+GURNEY.handle[1]*ks],-28,hs)}
-    {S.slideHands&&S.slideHands.withdraw<1&&[[-40,-60],[110,-62]].map(([x,y],k)=>
-     hand('slide'+k,[px+x*ks,TY+(y-14)*ks+lift(1-S.slideHands!.enter)+lift(S.slideHands!.withdraw)],k?-62:-108,hs,'flat',k===0))}
-    {dh&&dh.withdraw<1&&[d.left,d.right].map((c,k)=>
-     hand('drape'+k,[TX+c[0]*ks,TY+c[1]*ks+lift(1-dh.enter)+lift(dh.withdraw)],k?-28:-152,hs,'pinch',k===0))}
-    {S.sheetHands&&S.sheetHands.withdraw<1&&hand('sheet',[TX+(TABLE.L/2-(TABLE.L-110)*S.sheet)*ks,TY-20*ks+lift(S.sheetHands.withdraw)],-70,hs,'pinch')}
-   </g>}
+   {drapeOn&&<Item id={sid+'-patient'}><At p={[TX+off[0]*ks,TY+off[1]*ks]} s={ks}><RoomCameraHero part="drape" drop={S.drape} flutter={t}/></At></Item>}
+   {hands&&<At p={[TX,TY]} s={ks}><RoomCameraHero part="gloves" arms={C.bodies.flatMap(b=>b.arms)}/></At>}
   </g>;
  };
  /** The clock: ring, hand and markers, with pulses from a camera to each marker as it stamps. */
@@ -336,7 +404,6 @@ export const RoomClockFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
     {S.light<1&&<rect x={L.pier.x} y={L.pier.y} width={L.pier.w} height={L.pier.h} fill={P0.ink} opacity={f2(.35*(1-S.light)/.62)}/>}
    </Item>
    <Item id={sid+'-plate'}><At p={[L.plate.x,L.plate.y-50*(1-contactQ(S.plate))*L.k]} o={sid==='s1'?clamp(S.plate*4):1}><RoomCameraHero part="plate" w={L.plate.w}/></At></Item>
-   {draw>0&&<Item id={sid+'-clock'}><Item id={sid+'-markers'}>{clockAt(L.clock.c,L.clock.r,draw,o.clock??'all',{cam:L.cams[0],k:0,target},o.turnLit??0,o.pulse??0)}</Item></Item>}
    {o.box!==undefined&&<g data-part="wall-box">
     <path d={`M${f2(L.clock.c[0]+markAt(L.clock.r,S.turnoverAngle).pin[0])} ${f2(L.clock.c[1]+markAt(L.clock.r,S.turnoverAngle).pin[1])}Q${f2(L.box.x-20)} ${f2(L.box.y+200*L.k)} ${f2(L.box.x)} ${f2(L.box.y+BLANK.h*L.box.size*.6)}`}
      stroke={P0.trim} strokeWidth={3.4} strokeDasharray="10 9" fill="none" opacity={f2(clamp(o.box*2))}/>
@@ -344,6 +411,8 @@ export const RoomClockFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
     {result([L.result.x,L.result.y],L.result.s)}
    </g>}
    <At p={L.light} s={L.ks}><RoomCameraHero part="light" on={S.light>.5?S.light:S.light*.5} pool={[(g.TX-L.light[0])/L.ks,(g.TY-30*L.ks-L.light[1])/L.ks]} poolW={420}/></At>
+   {/* the clock and its tags read over the light's translucent cone, never under it */}
+   {draw>0&&<Item id={sid+'-clock'}><Item id={sid+'-markers'}>{clockAt(L.clock.c,L.clock.r,draw,o.clock??'all',{cam:L.cams[0],k:0,target},o.turnLit??0,o.pulse??0)}</Item></Item>}
    <Item id={sid+'-cameras'}><Item id={sid+'-lamps'}>{L.cams.map((c,k)=>camera(c,k,target))}</Item></Item>
    {sid==='s1'&&sights(L.cams,target,S.watch,o.flash?S.flash:undefined)}
    {(o.caseOn??true)&&(o.caseId?<Item id={o.caseId}>{caseGroup(g)}</Item>:caseGroup(g))}
@@ -423,8 +492,22 @@ export const RoomClockFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
    return (S.u>0&&S.patient>0&&S.onTable<1?d*S.watch:0)+S.park*.4+S.scan(k);
   });
   return {light:S.light,lamps:S.lamps,aim,watch:Math.max(S.watch,t>=start('s2')?1:0),gurney:S.u>0?planU(S.u):0,onTable:S.onTable,
-   drape:S.drape,sheet:S.sheet,guide:S.guide,clockDraw:o.clockDraw??0,hand:S.s2.hand,marks:o.marks??[],clockTags:o.tags??false,
+   drape:S.drape,sheet:S.sheet,crew:planCrew(),clockDraw:o.clockDraw??0,hand:S.s2.hand,marks:o.marks??[],clockTags:o.tags??false,
    pulses:o.clockDraw?S.pulses:[]};
+ };
+ /** The same crew from above: A at the gurney's push bar, B and C on the table's far side, C carrying the folded
+ * drape before it is laid and laying the sheet at turnover. Plan units. */
+ const planCrew=():PlanCrew[]=>{
+  const out:PlanCrew[]=[],[tx,ty]=PLAN.table,xs=(xu:number)=>tx+xu*480/TABLE.L,far=ty-112;
+  if(S.u>0&&S.phase!=='close'&&S.phase!=='next'){const gp=planGurney(planU(S.u));
+   out.push({pos:[gp[0]+262,gp[1]],face:180,look:0,grips:[[gp[0]+214,gp[1]-30],[gp[0]+214,gp[1]+30]]});}
+  if(S.inS2&&(S.phase==='pre'||S.phase==='draped'||S.phase==='turnover')){
+   out.push({pos:[xs(S.phase==='turnover'?-250:-200),far],face:90,look:1,grips:[null,null]});
+   if(S.phase==='turnover'){const gxp=tx+228-440*clamp(S.sheet),w=S.sheetHands?1-S.sheetHands.withdraw:0;
+    out.push({pos:[gxp+52,far],face:90,look:2,grips:[null,w>0?[lerp(gxp+52,gxp,w),lerp(far+40,ty-58,w)]:null]});}
+   else out.push({pos:[xs(225),far],face:90,look:2,grips:[[xs(225)+24,far+42],[xs(225)-24,far+42]],bundle:S.phase==='pre'});
+  }
+  return out;
  };
 
  let pic:React.ReactNode;
@@ -506,8 +589,6 @@ export const RoomClockFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
    // the gloved hands lay a fresh sheet on the bare table and the camera's pulse stamps Turnover on the clock.
    pic=<Items ids={['s2-room','s2-clock','s2-markers','s2-patient']}><At p={[150,310]} s={.84}>
     <RoomCameraHero part="plan" {...planProps({clockDraw:1,marks:S.marks(0,false),tags:true})}/>
-    {S.sheetHands&&S.sheetHands.withdraw<1&&<g transform={`translate(${f2(PLAN.table[0]+228-440*S.sheet)} ${f2(PLAN.table[1]-80*(1+S.sheetHands.withdraw*3))})`}>
-     <ellipse cx={0} cy={0} rx={22} ry={16} fill={P0.glove} stroke={P0.ink} strokeWidth={2.2}/><path d="M0 -14V-120" stroke="#5C8A86" strokeWidth={24} strokeLinecap="round"/></g>}
    </At></Items>;
    break;}
   // A split: at the left the ring stamps Turnover from a camera pulse; at the right the draped patient leaves on
@@ -524,7 +605,8 @@ export const RoomClockFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
    </Item>
    <Item id="s2-clock"><Item id="s2-markers">{clockAt([200,720],125,1,'all',{cam,k:0,target})}</Item></Item>
    {camera(cam,0,target)}
-   <Item id="s2-patient">{caseGroup(g)}</Item>
+   <defs><clipPath id="rc1024-splitR"><rect x={604} y={0} width={476} height={1920}/></clipPath></defs>
+   <g clipPath="url(#rc1024-splitR)"><Item id="s2-patient">{caseGroup(g)}</Item></g>
    <rect x={594} y={360} width={10} height={900} fill={P0.ink} opacity={.85}/>
   </g>;
   break;}
@@ -651,13 +733,15 @@ export const RoomClockFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   // 25 more a month, joined to the camera rollout tag by the associated link; the wall camera's lamp stays lit.
   need('s10');const z=fr==='detail'?1.06:1;
   const c:Pt=[300,540],r=170,pin=markAt(r,S.turnoverAngle).pin,box:Pt=[560,420];
+  // the result card goes below the lit Turnover tag wherever the measured retime puts the marker
+  const tb=turnoverTagBox(c,r,S.turnoverAngle),cardY=Math.max(830,tb[3]+28);
   pic=<g transform={`translate(540 660) scale(${z}) translate(-540 -660)`}>
    <Item id="s10-room"><Item id="s10-window"><At p={[60,280]}><RoomCameraHero part="tile" w={940} h={800} tile={88} light={S.light} hole={[40,600,210,170]}/></At></Item></Item>
    <Item id="s10-lamps">{camera({at:[930,330],s:1.1,mirror:true},1,[600,800])}</Item>
    <Item id="s10-clock">{clockAt(c,r,1,'turnover',undefined,1,S.s10.pulse)}</Item>
    <path d={`M${f2(c[0]+pin[0])} ${f2(c[1]+pin[1])}Q${f2(box[0]-40)} ${f2(box[1]+260)} ${box[0]} ${f2(box[1]+BLANK.h*.4)}`} stroke={P0.trim} strokeWidth={4} strokeDasharray="10 9" fill="none" opacity={f2(clamp(S.s10.box*2))}/>
    <Item id="s10-box"><At p={box}><StudyRecordSupport part="blank" draw={S.s10.box} size={.8} pulse={S.s10.pulse}/></At></Item>
-   {result([440,760],.92)}
+   {result([440,cardY],.92)}
   </g>;
   break;}
  case 'room-window-wide':{
@@ -666,13 +750,14 @@ export const RoomClockFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   need('s10');pic=<Items ids={['s10-window']}>{room(win(fr),{clock:'turnover',turnLit:1,box:1,pulse:S.s10.pulse})}</Items>;break;}
  case 'ledger-room-window':{
   // B wide: the room behind the desk, its clock's turnover marker lit, its room light lowering and its four
-  // camera lamps lit; on the ledger page in the foreground the blank box stays empty beside the result card.
-  need('s10');const Wn=win(fr);
+  // camera lamps lit; on the ledger page in the foreground, unsquashed and readable at phone size, the blank box
+  // stays empty beside the result card.
+  need('s10');const Wn=win(fr),deskY=900;
   pic=<Items ids={['s10-window']}>{room(Wn,{clock:'turnover',turnLit:1,extra:<g>
-   <StudyRecordSupport part="desk" y={Wn.y+Wn.h+80}/>
-   <g transform={`translate(120 ${Wn.y+Wn.h+96}) rotate(-2) scale(1 .62)`}><StudyRecordSupport part="ledger" w={760} h={330} rows={4}/>
-    <At p={[60,96]}><Item id="s10-box"><StudyRecordSupport part="blank" draw={1} size={.6} pulse={S.s10.pulse}/></Item></At>
-    <At p={[360,60]}>{result([0,0],.55)}</At></g>
+   <StudyRecordSupport part="desk" y={deskY}/>
+   <g transform={`translate(40 ${deskY+5}) rotate(-1.2)`}><StudyRecordSupport part="ledger" w={1000} h={330} rows={4}/>
+    <At p={[30,120]}><Item id="s10-box"><StudyRecordSupport part="blank" draw={1} size={.8} pulse={S.s10.pulse}/></Item></At>
+    {result([430,58],.98)}</g>
   </g>})}</Items>;
   break;}
  default:throw new Error('Unimplemented room clock view '+view);

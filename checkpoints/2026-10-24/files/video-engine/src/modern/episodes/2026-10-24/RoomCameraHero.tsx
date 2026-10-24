@@ -6,7 +6,7 @@ import {useUid} from '../../../lib/uid';
  * RoomCameraHero, the fresh authored hero group for the 2026-10-24 edition (room-clock-v1).
  *
  * ONE generic cardiothoracic operating room carries the film, drawn as a disclosed illustration. It is
- * not the Walter Tower suite and shows no vendor interface, logo, staff member, patient identity or
+ * not the Walter Tower suite and shows no vendor interface, logo, real staff member, patient identity or
  * second level timing. Its parts:
  *
  *  - four rounded wall cameras: a pale shell housing on a short steel arm, a dark lens with a small
@@ -18,8 +18,11 @@ import {useUid} from '../../../lib/uid';
  *  - a round room clock ring with ticks and no numerals, a sweeping hand, and event markers that stamp
  *    onto the bezel where the hand stands when the event is seen, each with a short worded tag.
  *  - the suite name plate, a surgeon phone with its text thread, and the gloved hand that holds it.
- *  - an anonymous attendant's blue nitrile gloved hands on scrub sleeves (no face, no body), the visible
- *    agent that guides the gurney, slides the patient, carries and lays the folded drape and the sheet.
+ *  - three anonymous attendants in scrubs, cap and mask with no face drawn, each with two bending arms
+ *    (upper arm, elbow, forearm) and blue nitrile gloved hands about 11 percent of the patient's length, the
+ *    visible agents that push the gurney, slide the patient, carry and lay the folded drape and the sheet.
+ *    Skin is a fill value only. Behind the table their bodies stand behind it and their gloves sit in front of
+ *    what they hold.
  *  - a doorway in the side wall whose threshold the gurney crosses as the patient enters the room.
  *  - a top down plan of the same room for the overhead views, with its corridor and door threshold.
  *
@@ -236,28 +239,93 @@ const Drape:React.FC<{drop:number;flutter?:number}>=({drop,flutter=0})=>{
  </g>;
 };
 
-// ---- the attendant's gloved hands ---------------------------------------------------------------------------
+// ---- the attendants ----------------------------------------------------------------------------------------
+/** An attendant's measures in table units, set against the patient shape (about 420 long): the gloved hand is
+ * 46 long (11 percent), the upper arm 72 and the forearm 62, and no limb is thicker than 22, a third of the
+ * lying patient's depth. Heights are above the pad row (negative up): hip, shoulders, head and the floor. */
+export const CREW={hipY:-28,shoulderY:-137,shoulderW:44,headY:-182,headR:23,upper:72,fore:62,hand:46,floorY:186,upperW:21,foreW:17};
 export type HandPose='grip'|'flat'|'pinch';
-/** One anonymous attendant's gloved hand. The grip point sits at the origin; the forearm and its scrub sleeve
- * run away along `dir` degrees (screen angle, 0 is +x, 90 is down) and out of frame. Mirrored for a left hand. */
-const AttendantHand:React.FC<{dir:number;pose?:HandPose;mirror?:boolean;len?:number}>=({dir,pose='grip',mirror=false,len=900})=>{
- const id=useUid('rchand'),fingers=pose==='flat'?[-30,-30,-28,-24]:pose==='pinch'?[-14,-20,-18,-14]:[-12,-16,-15,-11];
- return <g data-part="attendant-hand" transform={`rotate(${f2(dir)}) scale(1 ${mirror?-1:1})`}>
-  <defs><linearGradient id={id+'g'} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={P.glove}/><stop offset="1" stopColor={P.gloveDeep}/></linearGradient>
-   <linearGradient id={id+'s'} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#77A6A1"/><stop offset="1" stopColor="#3F6E6A"/></linearGradient></defs>
-  {/* the scrub sleeve and the glove's cuff */}
-  <path d={`M58 -27L${len} -40L${len} 40L58 27Z`} fill={`url(#${id}s)`} stroke={P.ink} strokeWidth={2.4}/>
-  <path d={`M120 -28Q200 -26 ${len} -34`} stroke="#9CC4BF" strokeWidth={3} opacity={.6} fill="none"/>
-  <rect x={40} y={-24} width={26} height={48} rx={9} fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.2}/>
-  {/* the palm, the four fingers (curled round a grip, flat on a surface, or pinching an edge) and the thumb */}
-  <path d="M44 -22Q14 -26 4 -14Q-4 0 4 14Q14 26 44 22Z" fill={`url(#${id}g)`} stroke={P.ink} strokeWidth={2.4}/>
-  {fingers.map((l,k)=>{const y=-15+k*10;return <path key={k} d={`M8 ${y}L${l} ${y+(pose==='grip'?4:1)}`} stroke={P.ink} strokeWidth={10.5} strokeLinecap="round"/>;})}
-  {fingers.map((l,k)=>{const y=-15+k*10;return <path key={'f'+k} d={`M8 ${y}L${l} ${y+(pose==='grip'?4:1)}`} stroke={P.glove} strokeWidth={6.5} strokeLinecap="round"/>;})}
-  <path d={`M30 18Q18 34 ${pose==='pinch'?-8:2} ${pose==='pinch'?24:32}`} stroke={P.ink} strokeWidth={11} strokeLinecap="round" fill="none"/>
-  <path d={`M30 18Q18 34 ${pose==='pinch'?-8:2} ${pose==='pinch'?24:32}`} stroke={P.gloveShade} strokeWidth={7} strokeLinecap="round" fill="none"/>
-  <path d="M38 -16Q24 -18 16 -10" stroke="#BFD6EA" strokeWidth={2.4} opacity={.7} fill="none"/>
+/** Three anonymous attendants. Skin is a fill value only; the line work, cap and mask are the same for all. */
+export const CREW_LOOKS=[{skin:'#8A5A3C',scrub:'#4E7E8A',cap:'#2E5B66',trouser:'#3C6572'},
+ {skin:'#E0B898',scrub:'#5C8A86',cap:'#6E5A86',trouser:'#466F6B'},{skin:'#B07A58',scrub:'#46727E',cap:'#3D5A46',trouser:'#38606C'}];
+/** The two shoulders (viewer's left, then right) of an attendant standing at bx; `turn` toward profile narrows them. */
+export function crewShoulders(bx:number,turn:number):[Pt,Pt]{
+ const sw=CREW.shoulderW*(1-.45*Math.abs(turn));return [[bx-sw,CREW.shoulderY],[bx+sw,CREW.shoulderY]];
+}
+/** Where a resting hand hangs, beside the thigh under shoulder S (side -1 left, +1 right). */
+export const restGrip=(S:Pt,side:number):Pt=>[S[0]+side*8,CREW.hipY+40];
+/** A two-bone reach from shoulder S toward the grip G. The wrist stops most of a palm short of G and never past
+ * the arm's own length, so an arm can bend but never stretch; the elbow takes the lower, outer of its two
+ * possible sides (side -1 for the viewer's left arm). `stretch` above 1 means G is out of reach. Pure. */
+export function armReach(S:Pt,G:Pt,side:number){
+ const U=CREW.upper,F=CREW.fore,dx=G[0]-S[0],dy=G[1]-S[1],D=Math.max(1e-6,Math.hypot(dx,dy));
+ const back=Math.min(CREW.hand*.55,D*.5),Wt:Pt=[G[0]-dx/D*back,G[1]-dy/D*back];
+ const wx=Wt[0]-S[0],wy=Wt[1]-S[1],raw=Math.hypot(wx,wy),d=Math.min(U+F-1,Math.max(Math.abs(U-F)+6,raw));
+ const base=Math.atan2(wy,wx),a=Math.acos(Math.min(1,Math.max(-1,(U*U+d*d-F*F)/(2*U*d))));
+ const cand=[base+a,base-a].map(e=>[S[0]+U*Math.cos(e),S[1]+U*Math.sin(e)] as Pt);
+ const score=(E:Pt)=>(E[1]-S[1])+side*(E[0]-S[0])*.6;
+ const E=score(cand[0])>=score(cand[1])?cand[0]:cand[1];
+ return {S,E,W:[S[0]+d*Math.cos(base),S[1]+d*Math.sin(base)] as Pt,G,stretch:raw/(U+F-1)};
+}
+export type ArmDraw=ReturnType<typeof armReach>&{pose:HandPose;front:boolean;side:number};
+/** A gloved hand from its wrist W toward its grip G, 46 long: cuff, palm, four fingers (curled round a bar,
+ * flat on a body or pinching an edge) and the thumb on the `side` the arm comes from. */
+const Glove:React.FC<{a:ArmDraw}>=({a})=>{
+ const ang=Math.atan2(a.G[1]-a.W[1],a.G[0]-a.W[0])/RAD,fl=a.pose==='flat'?20:a.pose==='pinch'?15:11,cy=a.pose==='grip'?3:.6;
+ const fingers=[-6,-2,2,6].map((y,k)=>`M26 ${y}l${fl-(k===0||k===3?3:0)} ${cy}`);
+ const thumb=a.pose==='pinch'?'M14 8Q22 14 30 8':'M14 8Q20 16 25 14';
+ return <g data-part="glove-hand" transform={`translate(${f2(a.W[0])} ${f2(a.W[1])}) rotate(${f2(ang)}) scale(1 ${a.side<0?-1:1})`}>
+  <rect x={-3} y={-9} width={11} height={18} rx={4} fill={P.gloveShade} stroke={P.ink} strokeWidth={1.6}/>
+  <path d="M6 -9Q22 -12 28 -8Q31 0 28 8Q22 12 6 9Z" fill={P.glove} stroke={P.ink} strokeWidth={1.8}/>
+  {fingers.map((d,k)=><path key={k} d={d} stroke={P.ink} strokeWidth={5.4} strokeLinecap="round"/>)}
+  {fingers.map((d,k)=><path key={'f'+k} d={d} stroke={P.glove} strokeWidth={3} strokeLinecap="round"/>)}
+  <path d={thumb} stroke={P.ink} strokeWidth={5.4} strokeLinecap="round" fill="none"/>
+  <path d={thumb} stroke={P.gloveShade} strokeWidth={3} strokeLinecap="round" fill="none"/>
  </g>;
 };
+/** One arm: scrub sleeve over the top of the upper arm, bare forearm, elbow, and the glove unless it is drawn in
+ * front of what it holds. */
+const Arm:React.FC<{a:ArmDraw;skin:string;scrub:string}>=({a,skin,scrub})=>{
+ const {S,E,W}=a,mid:Pt=[lerp(S[0],E[0],.5),lerp(S[1],E[1],.5)];
+ const seg=(p:Pt,q:Pt)=>`M${f2(p[0])} ${f2(p[1])}L${f2(q[0])} ${f2(q[1])}`;
+ return <g data-part="attendant-arm">
+  <path d={seg(E,W)} stroke={P.ink} strokeWidth={CREW.foreW+3.4} strokeLinecap="round"/>
+  <path d={seg(S,E)} stroke={P.ink} strokeWidth={CREW.upperW+3.4} strokeLinecap="round"/>
+  <path d={seg(E,W)} stroke={skin} strokeWidth={CREW.foreW} strokeLinecap="round"/>
+  <path d={seg(S,E)} stroke={skin} strokeWidth={CREW.upperW} strokeLinecap="round"/>
+  <path d={seg(S,mid)} stroke={scrub} strokeWidth={CREW.upperW+3} strokeLinecap="round"/>
+  {!a.front&&<Glove a={a}/>}
+ </g>;
+};
+/** An anonymous attendant in scrubs, cap and mask, no face drawn, standing with the hip at (bx, CREW.hipY). Arms
+ * come from the episode's reach; `walk` is a stride phase in radians, `turn` -1 to 1 toward profile. */
+const Attendant:React.FC<{bx:number;turn?:number;look?:number;walk?:number;arms:ArmDraw[]}>=({bx,turn=0,look=0,walk=0,arms})=>{
+ const L=CREW_LOOKS[look%CREW_LOOKS.length],q=1-.45*Math.abs(turn),sw=CREW.shoulderW*q,hw=38*q,hy=CREW.hipY,sy=CREW.shoulderY;
+ const swing=Math.sin(walk)*15*Math.min(1,Math.abs(turn)*1.4),hx=bx+turn*7;
+ const far=turn<-.3?0:turn>.3?1:-1;
+ const leg=(dx:number,k:number)=>{const fx=bx+dx+(k?-swing:swing);return <g key={k}>
+  <path d={`M${f2(bx+dx)} ${hy+4}L${f2(fx)} ${CREW.floorY-8}`} stroke={P.ink} strokeWidth={27} strokeLinecap="round"/>
+  <path d={`M${f2(bx+dx)} ${hy+4}L${f2(fx)} ${CREW.floorY-8}`} stroke={L.trouser} strokeWidth={23.4} strokeLinecap="round"/>
+  <ellipse cx={f2(fx+turn*-8)} cy={CREW.floorY-2} rx={17} ry={8} fill={P.trim} stroke={P.ink} strokeWidth={1.8}/></g>;};
+ return <g data-part="attendant">
+  {leg(-13*q,0)}{leg(13*q,1)}
+  {far>=0&&arms[far]&&<Arm a={arms[far]} skin={L.skin} scrub={L.scrub}/>}
+  {/* the scrub top, a little lopsided at the hem, and the neck */}
+  <path d={`M${f2(bx-sw)} ${sy+4}Q${f2(bx-sw+2)} ${sy-8} ${f2(bx-sw*.45)} ${sy-10}L${f2(hx-9)} ${sy-12}L${f2(hx)} ${sy+6}L${f2(hx+9)} ${sy-12}L${f2(bx+sw*.45)} ${sy-10}Q${f2(bx+sw-2)} ${sy-8} ${f2(bx+sw)} ${sy+4}L${f2(bx+hw+2)} ${hy+14}Q${f2(bx)} ${hy+20} ${f2(bx-hw)} ${hy+12}Z`}
+   fill={L.scrub} stroke={P.ink} strokeWidth={2.2} strokeLinejoin="round"/>
+  <path d={`M${f2(bx-hw*.5)} ${hy-30}h${f2(hw*.62)}`} stroke={P.ink} strokeWidth={1.4} opacity={.35}/>
+  <rect x={f2(hx-8)} y={sy-26} width={16} height={18} fill={L.skin} stroke={P.ink} strokeWidth={1.6}/>
+  {/* the head: skin, a scrub cap over the top and a mask over the lower half; no features */}
+  <circle cx={f2(hx)} cy={CREW.headY} r={CREW.headR} fill={L.skin} stroke={P.ink} strokeWidth={2}/>
+  <path d={`M${f2(hx-CREW.headR-1)} ${CREW.headY-2}Q${f2(hx-CREW.headR)} ${CREW.headY-CREW.headR-8} ${f2(hx+2)} ${CREW.headY-CREW.headR-5}Q${f2(hx+CREW.headR+2)} ${CREW.headY-CREW.headR} ${f2(hx+CREW.headR+1)} ${CREW.headY-3}Q${f2(hx)} ${CREW.headY-9} ${f2(hx-CREW.headR-1)} ${CREW.headY-2}Z`}
+   fill={L.cap} stroke={P.ink} strokeWidth={2}/>
+  <path d={`M${f2(hx-CREW.headR+2)} ${CREW.headY+5}Q${f2(hx)} ${CREW.headY+1} ${f2(hx+CREW.headR-2)} ${CREW.headY+5}Q${f2(hx+CREW.headR-5)} ${CREW.headY+CREW.headR} ${f2(hx)} ${CREW.headY+CREW.headR+1}Q${f2(hx-CREW.headR+5)} ${CREW.headY+CREW.headR} ${f2(hx-CREW.headR+2)} ${CREW.headY+5}Z`}
+   fill="#D7E6EC" stroke={P.ink} strokeWidth={1.6}/>
+  {arms.map((a,k)=>k===far||!a?null:<Arm key={k} a={a} skin={L.skin} scrub={L.scrub}/>)}
+ </g>;
+};
+/** The gloves that are drawn in front of what they hold (a drape corner, a sheet edge, a push bar). */
+const FrontGloves:React.FC<{arms:ArmDraw[]}>=({arms})=><g data-part="attendant-gloves">{arms.filter(a=>a.front).map((a,k)=><Glove key={k} a={a}/>)}</g>;
 
 // ---- the ceiling light -----------------------------------------------------------------------------------
 /** The surgical light. Origin is its ceiling pivot; the head hangs at HEAD. `on` lights it and its pool. */
@@ -469,7 +537,10 @@ const SideWall:React.FC<{x0:number;x1:number;topFar:number;botFar:number;light?:
 /** Plan geometry in plan units: the room's inside is PLAN.w by PLAN.h from the origin. */
 export const PLAN={w:860,h:900,table:[430,470] as Pt,cams:[[70,70],[790,64],[40,560],[826,520]] as Pt[],clock:[40,300] as Pt,door:[860,760] as Pt};
 export type PlanProps={light:number;lamps:number[];aim:number[];watch:number;gurney:number;onTable:number;drape:number;
- marks?:ClockMark[];clockDraw?:number;hand?:number;clockTags?:boolean;sheet?:number;pulses?:number[];guide?:number};
+ marks?:ClockMark[];clockDraw?:number;hand?:number;clockTags?:boolean;sheet?:number;pulses?:number[];crew?:PlanCrew[]};
+/** An attendant seen from above in plan units: where they stand, which way they face (degrees, 0 is +x), and
+ * what each hand holds (null hangs at the side). `bundle` puts the folded drape between their hands. */
+export type PlanCrew={pos:Pt;face:number;look:number;grips:(Pt|null)[];bundle?:boolean};
 /** Where on its path the gurney waits with its head end at the door threshold. */
 export const PLAN_WAIT=.35;
 /** The gurney's plan position for travel u: 0 far down the corridor, PLAN_WAIT with its head end at the door
@@ -482,7 +553,33 @@ export function planGurney(u:number):Pt{
  const a=(1-k)*(1-k),b=2*k*(1-k),c=k*k;
  return [a*wait[0]+b*turn[0]+c*park[0],a*wait[1]+b*turn[1]+c*park[1]];
 }
-const PlanRoom:React.FC<PlanProps>=({light,lamps,aim,watch,gurney,onTable,drape,marks=[],clockDraw=0,hand=0,clockTags=false,sheet=0,pulses=[],guide=0})=>{
+/** An attendant from above: shoulders, capped head, and two arms bent at the elbow to what the hands hold, in
+ * plan units (upper arm 58, forearm 52, glove about 11 percent of the patient's plan length). */
+const PlanAttendant:React.FC<{c:PlanCrew}>=({c})=>{
+ const L=CREW_LOOKS[c.look%CREW_LOOKS.length],a=c.face*RAD,fx=Math.cos(a),fy=Math.sin(a),[x,y]=c.pos;
+ const sh=[-1,1].map(k=>[x-fy*36*k,y+fx*36*k] as Pt),U=58,F=52;
+ const arm=(S:Pt,G:Pt|null,k:number)=>{
+  const tgt:Pt=G??[S[0]+fx*30,S[1]+fy*30],dx=tgt[0]-S[0],dy=tgt[1]-S[1],raw=Math.hypot(dx,dy)||1;
+  const back=Math.min(20,raw*.5),Wt:Pt=[tgt[0]-dx/raw*back,tgt[1]-dy/raw*back],wx=Wt[0]-S[0],wy=Wt[1]-S[1];
+  const d=Math.min(U+F-1,Math.max(12,Math.hypot(wx,wy))),base=Math.atan2(wy,wx),al=Math.acos(Math.min(1,Math.max(-1,(U*U+d*d-F*F)/(2*U*d))));
+  const cand=[base+al,base-al].map(e=>[S[0]+U*Math.cos(e),S[1]+U*Math.sin(e)] as Pt);
+  const out=(E:Pt)=>(E[0]-x)*(S[0]-x)+(E[1]-y)*(S[1]-y),E=out(cand[0])>=out(cand[1])?cand[0]:cand[1];
+  const W:Pt=[S[0]+d*Math.cos(base),S[1]+d*Math.sin(base)],seg=(p:Pt,q:Pt)=>`M${f2(p[0])} ${f2(p[1])}L${f2(q[0])} ${f2(q[1])}`;
+  return <g key={k}>
+   <path d={seg(S,E)+seg(E,W)} stroke={P.ink} strokeWidth={21} strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+   <path d={seg(E,W)} stroke={L.skin} strokeWidth={17} strokeLinecap="round"/>
+   <path d={seg(S,E)} stroke={L.scrub} strokeWidth={17} strokeLinecap="round"/>
+   <ellipse cx={f2(lerp(W[0],tgt[0],.6))} cy={f2(lerp(W[1],tgt[1],.6))} rx={15} ry={11} transform={`rotate(${f2(base/RAD)} ${f2(lerp(W[0],tgt[0],.6))} ${f2(lerp(W[1],tgt[1],.6))})`} fill={P.glove} stroke={P.ink} strokeWidth={2}/>
+  </g>;};
+ return <g data-part="plan-attendant">
+  <ellipse cx={x} cy={y} rx={46} ry={22} transform={`rotate(${f2(c.face+90)} ${x} ${y})`} fill={L.scrub} stroke={P.ink} strokeWidth={2.4}/>
+  {c.bundle&&<rect x={f2(x+fx*44-34)} y={f2(y+fy*44-20)} width={68} height={40} rx={8} fill={P.drape} stroke={P.ink} strokeWidth={2.2}/>}
+  {sh.map((S,k)=>arm(S,c.grips[k]??null,k))}
+  <circle cx={f2(x+fx*4)} cy={f2(y+fy*4)} r={20} fill={L.cap} stroke={P.ink} strokeWidth={2.2}/>
+  <path d={`M${f2(x+fx*4-fy*12)} ${f2(y+fy*4+fx*12)}Q${f2(x+fx*20)} ${f2(y+fy*20)} ${f2(x+fx*4+fy*12)} ${f2(y+fy*4-fx*12)}`} stroke="#D7E6EC" strokeWidth={6} fill="none"/>
+ </g>;
+};
+const PlanRoom:React.FC<PlanProps>=({light,lamps,aim,watch,gurney,onTable,drape,marks=[],clockDraw=0,hand=0,clockTags=false,sheet=0,pulses=[],crew=[]})=>{
  const id=useUid('rcplan'),{w,h}=PLAN,[tx,ty]=PLAN.table,L=clamp(light);
  const patientTop=(x:number,y:number,k:number)=><g key={'p'+k} transform={`translate(${f2(x)} ${f2(y)})`}>
   <ellipse cx={-150} cy={0} rx={30} ry={26} fill={P.gown} stroke={P.ink} strokeWidth={2}/>
@@ -519,9 +616,6 @@ const PlanRoom:React.FC<PlanProps>=({light,lamps,aim,watch,gurney,onTable,drape,
   {gurney>0&&<g transform={`translate(${f2(g[0])} ${f2(g[1])})`}>
    <rect x={-210} y={-62} width={420} height={124} rx={18} fill={P.sheet} stroke={P.ink} strokeWidth={2.4}/>
    <path d="M210 -50V50" stroke={P.steelDeep} strokeWidth={10} strokeLinecap="round"/>
-   {/* the attendant's two gloved hands on the push bar while the gurney moves */}
-   {guide>0&&[-34,34].map((dy,k)=><g key={k} opacity={f2(clamp(guide))}><ellipse cx={226} cy={dy} rx={20} ry={15} fill={P.glove} stroke={P.ink} strokeWidth={2.2}/>
-    <path d={`M244 ${dy}H320`} stroke="#5C8A86" strokeWidth={22} strokeLinecap="round"/></g>)}
   </g>}
   {(gurney>0||onTable>0)&&(()=>{const px=lerp(gurney>0?g[0]:tx,tx,clamp(onTable)),py=lerp(gurney>0?g[1]:ty,ty,clamp(onTable));
    return <g>{patientTop(px,py,0)}
@@ -529,6 +623,7 @@ const PlanRoom:React.FC<PlanProps>=({light,lamps,aim,watch,gurney,onTable,drape,
     {drape>0&&(()=>{const dw=312*lerp(.3,1,clamp(drape));return <rect x={f2(px+28-dw/2)} y={f2(py-82)} width={f2(dw)} height={164} rx={24} fill={P.drape} stroke={P.ink} strokeWidth={2.4}/>;})()}
    </g>;})()}
   <circle cx={tx-30} cy={ty-10} r={92} fill="none" stroke={P.steelShade} strokeWidth={6} opacity={.55}/>
+  {crew.map((c,k)=><PlanAttendant key={k} c={c}/>)}
   {/* the four cameras, each with its sight wedge when it watches; aim is an offset from facing the table */}
   {PLAN.cams.map((c,k)=>{
    const on=clamp(lamps[k]??0),d:Pt=[tx-c[0],ty-c[1]],len=Math.hypot(d[0],d[1]);
@@ -554,7 +649,8 @@ export type RoomCameraHeroProps=
  |{part:'gurney';wheel?:number}
  |{part:'patient'}
  |{part:'drape';drop:number;flutter?:number}
- |{part:'hand';dir:number;pose?:HandPose;mirror?:boolean;len?:number}
+ |{part:'attendant';bx:number;turn?:number;look?:number;walk?:number;arms:ArmDraw[]}
+ |{part:'gloves';arms:ArmDraw[]}
  |{part:'light';on:number;pool?:Pt;poolW?:number}
  |{part:'clock';r:number;draw:number;hand:number;marks:ClockMark[];pulse?:number;tags?:boolean}
  |{part:'plate';w?:number}
@@ -571,7 +667,8 @@ export const RoomCameraHero:React.FC<RoomCameraHeroProps>=(p)=>{
  case 'gurney':return <Gurney wheel={p.wheel}/>;
  case 'patient':return <PatientShape/>;
  case 'drape':return <Drape drop={p.drop} flutter={p.flutter}/>;
- case 'hand':return <AttendantHand dir={p.dir} pose={p.pose} mirror={p.mirror} len={p.len}/>;
+ case 'attendant':return <Attendant bx={p.bx} turn={p.turn} look={p.look} walk={p.walk} arms={p.arms}/>;
+ case 'gloves':return <FrontGloves arms={p.arms}/>;
  case 'light':return <SurgicalLight on={p.on} pool={p.pool} poolW={p.poolW}/>;
  case 'clock':return <ClockRing r={p.r} draw={p.draw} hand={p.hand} marks={p.marks} pulse={p.pulse} tags={p.tags}/>;
  case 'plate':return <NamePlate w={p.w}/>;

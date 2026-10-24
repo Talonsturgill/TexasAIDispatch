@@ -1,0 +1,272 @@
+{
+  "role": "storyboard-critic",
+  "date": "2026-10-24",
+  "story_sha256": "459017c1c9c6071a5fa1a0f8682063c52988bb664d5c10fefd75840a66e6888c",
+  "board": {
+    "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/storyboard.json",
+    "sha256": "13feb290ff48f54aa7f3862c20c32583e312b7f71ba5dc08242c3fc67f8103a3"
+  },
+  "claims": {
+    "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/claims.json",
+    "sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03"
+  },
+  "story": {
+    "reference": "board",
+    "field": "story_contract"
+  },
+  "quality_contract": "config/quality_contract.json",
+  "rubric": "config/dispatch_rubric.yaml",
+  "brief": ".claude/agents/storyboard-critic.md",
+  "instructions": "Read the bound current inputs and your brief. Load cited source evidence as needed. Do not copy production history. Return one consolidated verdict. Never infer audio access from text. Read the complete story_contract in the bound board, including all scenes, transitions and source limits. Mandatory completion capacity preserves the rubric and actual verdicts; no resource event approves a film. Read the bound craft guides in full. Use them to explain editorial decisions and inspect actual comprehension; they supply no approval or extra scoring criteria. Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words. Compare each literal spoken subject and verb with the implemented subject, change and completed result; declared IDs establish wiring only. A loading screen does not depict \"AI alerts\"; an arriving blank letter does not supply a spoken date; a date stamp does not depict \"approved\"; an unidentified document does not identify Air Max. At code scope trace the actual state and timing in callable source. At phone scope compare chronological pixels within that clause. Record mismatches in existing consolidated findings and clause observations. These examples explain the current comprehension rule; they add no review, report field or approval.",
+  "agent_assignment": {
+    "host": "claude",
+    "role": "storyboard-critic",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "storyboard-critic",
+    "resource": "storyboard_critics",
+    "context": "isolated"
+  },
+  "agent_contracts": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/AGENTS.md",
+      "sha256": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/CLAUDE.md",
+      "sha256": "efe79ee10f6c2fa167c59f2c0ecf67322150598efe421db9eee1288752c4d07f"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/prompts/claude_routine.md",
+      "sha256": "0d10a1a78f10c7728c670e0cfca57304150d9c53448f09240423fc08729779fb"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/quality_contract.json",
+      "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/dispatch_rubric.yaml",
+      "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/.claude/agents/storyboard-critic.md",
+      "sha256": "14ddb5c2ff51b8d6c6648ee6e49771f52a57bd9b2b6f3074da3169f0514a8851"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/knowledge/craft/COMPLETION_PROGRESS.md",
+      "sha256": "c0bd03f6687cd677f2972edd8ca9b8a3e5004551b86362af82a8312df1eff820"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/review_limit.json",
+      "sha256": "2d62fcc421118fda5a3235b23b6c267f86ce0c1337af207f46a7c2a4c096eb08"
+    }
+  ],
+  "treatments": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/opening-a.json",
+      "sha256": "13feb290ff48f54aa7f3862c20c32583e312b7f71ba5dc08242c3fc67f8103a3"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/opening-b.json",
+      "sha256": "0967c7f2067909274e8e4e78c442e98662092bff4745ebad9e2c7fb65360dd31"
+    }
+  ],
+  "asset_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx",
+      "sha256": "f6c62f8ff26659f72d1363a13359da208a12b861cdd0df982abbf025796ef17e"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-24/StudyRecordSupport.tsx",
+      "sha256": "09dbbd59693b11393678eacecbafb37e7c2a77254ed702cd0b4f51b4b48e3182"
+    }
+  ],
+  "completion_readings": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/knowledge/craft/AUTONOMOUS_COMPLETION.md",
+      "sha256": "65d6e496152538a94364dd1067a0f04113c4da26595c38ad08e583056ae8f45a"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/autonomous_completion_v2.json",
+      "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
+    }
+  ],
+  "selection": {
+    "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/story_selection.json",
+    "sha256": "9ef0f265a4d90e42f5aede70a19a250c1db8a40a40ff95c84b6589018f6bb255"
+  },
+  "creative_contract": "knowledge/craft/CREATIVE_DIRECTION.md",
+  "craft_readings": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/knowledge/craft/visual-storytelling/viewer-plan.md",
+      "sha256": "bfa3dc1c81ba1ec62170d3b23c9b52747c366096c3637f665780f433620b0a06"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/knowledge/craft/visual-storytelling/README.md",
+      "sha256": "9aa84715c0a4947ab99d6286cc903386d3f84948e932e6f8830c66c897f2b9da"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/knowledge/craft/visual-storytelling/news-reporting.md",
+      "sha256": "5839865e0e74a12991df4258b91e4b62c6263427e9272ec62dc4834598512b0d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/knowledge/craft/visual-storytelling/explanatory-animation.md",
+      "sha256": "1d868788a0486664e6920f6458a93e6216e2fbcaffdb1a23b55a3ba04a30973d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/knowledge/craft/MODERN_FILM.md",
+      "sha256": "58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/modern_film.json",
+      "sha256": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/modern_episode_registry.json",
+      "sha256": "e24b6ab7c146e71645b3807544fc219fac5558d235336cc747ddd15364c0eb6b"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/knowledge/craft/STORY_ART.md",
+      "sha256": "9926ea6717a969517bba1a041629d9c93d20af377018d623b188221502b9f97d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/story_art.json",
+      "sha256": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/autonomous_completion_v2.json",
+      "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/critic_concept_v2.json",
+      "sha256": "7316f8f48224c3e5f13397f3f65df6550ec80971db918d91af6b64fb330db25d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/knowledge/craft/AUTHORED_STORY_ART.md",
+      "sha256": "7e6d8f3130e0bf702ce322d16c293fbc4b7214b28369a47af465d8ae1c5e970c"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/authored_story_art.json",
+      "sha256": "351805e0af4713d59152a720bdd07d0c47ac3d788e02f0e8ccd1b87bbbf69ca0"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/prompts/claude_routine.md",
+      "sha256": "0d10a1a78f10c7728c670e0cfca57304150d9c53448f09240423fc08729779fb"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/knowledge/craft/ART_DIRECTION.md",
+      "sha256": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/config/art_direction.json",
+      "sha256": "c0d8f792de9b48c8e1130dd9623ca7a897504266eb86f2664a0f287dd6d17673"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/knowledge/craft/cinematic_reference_bank.json",
+      "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/prompts/roles/scene-builder.md",
+      "sha256": "545a535986385c96f1e5397cac8611bcd8b95ecd09334cb3338a0138d15239f0"
+    }
+  ],
+  "art_direction": {
+    "reference": "board",
+    "field": "art_direction",
+    "version": "directed-world-v1",
+    "hero_asset": "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx"
+  },
+  "usage": {
+    "audiovisual_reviews": 1,
+    "cleanup_renders": 0,
+    "full_renders": 0,
+    "image_generations": 0,
+    "panel_rounds": 0,
+    "preflight_renders": 0,
+    "reboards": 2,
+    "reported_tokens": 64,
+    "rescue_renders": 0,
+    "research_agents": 3,
+    "scorer_calls": 0,
+    "storyboard_critics": 1,
+    "tts_calls": 0,
+    "validator_agents": 2,
+    "voice_directors": 0
+  },
+  "phase": "wake",
+  "narration_picture": {
+    "reference": "board",
+    "field": "narration_picture"
+  },
+  "capture": {
+    "allowed": false,
+    "requires": [
+      "charged render reservation",
+      "computed passed native headroom",
+      "bash scripts/run_with_env.sh",
+      "genuine authored art receipts"
+    ]
+  },
+  "code_report_bindings": {
+    "schema": "dispatch_claude_code_report_bindings/1",
+    "treatments": [
+      {
+        "id": "a",
+        "board": {
+          "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/opening-a.json",
+          "sha256": "13feb290ff48f54aa7f3862c20c32583e312b7f71ba5dc08242c3fc67f8103a3"
+        },
+        "report_bindings": {
+          "review_scope": "code-plan",
+          "concept_sha256": "e20879eac8505fae507c69a198e52f69c98ca97fce22bdbb591b080868d8e6f9",
+          "renderer_sha256": "36c66ea316a199a820766c38dc3c48e91e58528255df78fd6af8ac79fef2df61",
+          "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+          "story_review": {
+            "story_sha256": "459017c1c9c6071a5fa1a0f8682063c52988bb664d5c10fefd75840a66e6888c",
+            "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+            "claims_sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03"
+          },
+          "action_reviews": []
+        }
+      },
+      {
+        "id": "b",
+        "board": {
+          "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/opening-b.json",
+          "sha256": "0967c7f2067909274e8e4e78c442e98662092bff4745ebad9e2c7fb65360dd31"
+        },
+        "report_bindings": {
+          "review_scope": "code-plan",
+          "concept_sha256": "1e1b7b7b9f833ab563ad8f9312125c4292609340689c126dbe1442f62406ad05",
+          "renderer_sha256": "36c66ea316a199a820766c38dc3c48e91e58528255df78fd6af8ac79fef2df61",
+          "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+          "story_review": {
+            "story_sha256": "506bed1c47ba40bb727f5d435b2df678eaa6b3d23a323a65fddf007a43e86a89",
+            "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+            "claims_sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03"
+          },
+          "action_reviews": []
+        }
+      }
+    ],
+    "decision_scope": {
+      "basis": "Current source facts, causal board, executable actions, renderer dependencies and composed bounds.",
+      "blocking_basis": "Name the failed fixed criterion and the specific source or implementation that proves it. An unresolved implementation of a retained actual-film failure remains a blocker.",
+      "unrendered_picture": "Perceived finish, foam visibility, apparent speed, cabin recognition and curve beauty are unknown without current rendered evidence. Carry uncertainty to the required exact-film review; do not invent a code-only visual rejection or approval.",
+      "correction": "Consolidate every code-proven mandatory defect once. Optional style preferences remain notes.",
+      "next_gate": "Code approval authorizes only the funded capture. The complete current Opus phone, native, audiovisual and independent scoring gates remain required."
+    }
+  }
+}
