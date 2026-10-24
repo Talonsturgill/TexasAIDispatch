@@ -1,0 +1,35 @@
+{
+ "treatment": "b",
+ "verdict": "revise",
+ "review_scope": "code-plan",
+ "board_bindings": {"opening": {"path": "out/dispatch/opening-b.json", "sha256": "7accc69f2fb6a704cab1ccea1305c3ae6bad43ac7ea379b0d3e5618dea3f1489"}},
+ "board_sha256": "7accc69f2fb6a704cab1ccea1305c3ae6bad43ac7ea379b0d3e5618dea3f1489",
+ "concept_sha256": "611a8c83ddac09c663176f3da2bd59e04c982f42dfc26118e539eb94ddedf3b6",
+ "renderer_sha256": "a0a3f51f61987ca1fee3688e831dc74e044f1982137a0828e9dba5448d3d5210",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 15",
+ "reviewed_at": "2026-10-20 (exact clock time unavailable to this Read-only reviewer)",
+ "strongest_frame": "s6 lane-plan into wheels-water, 28.3 to 36.86 s (B's authored clock): from above, the roof runs toward the standing water and slows, then the close performs the roll into the water as the box lights on 'may'.",
+ "weakest_frame": "s6 quote card from 33.79 s: the same broken 'may' underline as A.",
+ "blocking_defects": [
+  {"category": "surface_finish", "criterion": "surface_finish (finished native detail on the signature event)", "scene_id": "s6", "time_s": 33.7875, "defect": "Shared QuoteCard and MarkedLine: the underline runs feMorphology with radius '0 46.8' (side 0). Per the spec that disables the primitive, leaving only the y descender's slice; as a vertical-only dilation it leaves roughly 2 to 3 px gaps between m, a and y at native size. Either way it is never a continuous bar and it merges with the y tail. Use a positive side radius or derive the underline from the dilated box."}
+ ],
+ "notes": [
+  "The box technique is sound, as in report A.",
+  "Round 13's s8 overhead resolution and all other round 12 and 13 findings still hold. Place weakness: 9 of 20 shots are overhead, which place_check exempts. In fleet-plan the weather limits tag passes under the calendar early in its slide. From 0 to 2.61 s there is no airport cue."
+ ],
+ "story_review": {
+  "story_sha256": "5d6c487afec4f80f65004a645173c19d79cf3205a1ca4651b7d13c3aaa3c69e5",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "revise",
+  "blocking_defects": [{"category": "surface_finish", "criterion": "surface_finish", "scene_id": "s6", "time_s": 33.7875, "defect": "The 'may' underline uses a zero side radius and cannot form a continuous bar; see report."}],
+  "one_viewing_summary": "Intended chain, not observed: the same story as A, read from above and from inside the cab, ending at the curb beside the underlined remedy card.",
+  "opening_to_ending": "The same answer as A, with no outcome invented.",
+  "weakest_transition": "s7 to s8, as in A."
+ },
+ "action_reviews": "The same six authored actions and modules as report A (hero b5c81839..., support 5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985, claims 4b42adee...). Each passes at code level; the shared underline defect is recorded in blocking_defects.",
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None at code scope."
+}

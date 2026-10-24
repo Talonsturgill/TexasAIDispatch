@@ -1,0 +1,38 @@
+{
+ "treatment": "b",
+ "verdict": "revise",
+ "review_scope": "code-plan",
+ "board_bindings": {"opening": {"path": "out/dispatch/opening-b.json", "sha256": "ac4ea4263ce600cf357c1f519ece5ef271a9a3433a3f42ef846038356a8672c9"}},
+ "board_sha256": "ac4ea4263ce600cf357c1f519ece5ef271a9a3433a3f42ef846038356a8672c9",
+ "concept_sha256": "1f616cb4ea3d204dd159942ebdac524154b8271ade5d227811cb61ad0d359f19",
+ "renderer_sha256": "d7612341aa0f6d4f22cc2d3402e1fdc4596861b20332a414f27cabdbf3c19e47",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 12",
+ "reviewed_at": "2026-10-20 (exact clock time unavailable to this Read-only reviewer)",
+ "strongest_frame": "s6 lane-plan into wheels-water, 28.3 to 36.86 s (B's authored clock): from above, the roof runs up the lane toward the standing water and slows, then the shared close performs the roll into the water.",
+ "weakest_frame": "s8-shot-2 limits-detail, 45.435 to 50.0 s: the top-down lot sits between bands of eye-level region plate (see blocking defect).",
+ "blocking_defects": [
+  {"category": "surface_finish", "criterion": "surface_finish (coherent perspective and finished composition)", "scene_id": "s8", "time_s": 45.435, "defect": "s8-shot-2 uses framing 'detail' and view 'limits-detail'. That view is not in the registry's wall_views, so PlaceStage gives it mode 'exterior' and draws the full eye-level Blackland plate at zoom 1.3 with blur 3 (PlaceStage.tsx line 209). The renderer draws the top-down lot plan (lot y 220 to 1420) through LIMITS_DETAIL.cam (f [540,700], s 1.12, a [540,780]) at z 1, so the lot covers only screen y about 242 to 1586. The eye-level plate therefore shows in a band about 242 px tall at the top (behind the disclosure chip) and about 334 px at the bottom (caption band), around a straight-down parking lot. Within one shot the picture mixes overhead and horizon viewpoints, and the frame margins change at the match cut from the overhead shot's plain ground tone to sky and landscape. Fix: treat the close as overhead or wall (overhead framing, or list limits-detail in wall_views and recheck place_check's wall share), or frame the lot so the plan fills the frame without painting over an exterior plate."}
+ ],
+ "notes": [
+  "Round 11 blockers are resolved: provenance hashes rebound; s8 is one lot with the same 4 roofs in both shots, the map card on its near edge and checks per car.",
+  "In fleet-plan the weather limits tag (y 246) starts its slide at x 40 and passes under the April calendar at (150,262), which draws on top of it, early in the slide. The tag clears once it reaches x 540. This was already present; a phone check is enough.",
+  "From 0 to 2.61 s there is no readable airport cue in curb-plan; it arrives with cab-wheel before 'the airport included'.",
+  "Overhead and wall views make up about 10 of 20 shots; place_check should confirm the wall-view share.",
+  "B shares A's possible false inference about the interim limits."
+ ],
+ "story_review": {
+  "story_sha256": "f5347bfa95370bc392cfbcfc3e02a071a5e161e3bc7478adb31b2e9f396f3f7b",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "revise",
+  "blocking_defects": [{"category": "surface_finish", "criterion": "surface_finish", "scene_id": "s8", "time_s": 45.435, "defect": "limits-detail lot plan composited inside an exterior eye-level plate (bands at y 0 to 242 and 1586 to 1920); see report."}],
+  "one_viewing_summary": "Intended chain, not observed. The same story as A, read from above and from inside the cab: the roof pod brakes into the bay plan, the empty wheel turns, the phone says arriving; then a map plan, a creek plan then the sweep, a street plan then hazards at the wheels, a flat record and grid, a lane plan then wheels in water, the record and stamp, one lot from above then closer with checks, and the curb return beside the underlined remedy.",
+  "opening_to_ending": "The same answer as A: the open curb door beside 'The remedy is currently under development', underlined.",
+  "weakest_transition": "s8-shot-1 to s8-shot-2: the margins change from plain overhead ground to eye-level plate bands around the same lot."
+ },
+ "action_reviews": "The same six authored actions and the same module hashes as A (b5c81839... hero, 3cc33133... support, claims 4b42adee...). B adds the plan views curb-plan, creek-plan, street-plan, lane-plan and fleet-plan and the limits-detail view, each on the same robotaxiState clock. Every action passes at code level; the only blocker is the limits-detail composition above.",
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None at code scope."
+}

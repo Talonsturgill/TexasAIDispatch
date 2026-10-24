@@ -1,0 +1,112 @@
+STORYBOARD-CRITIC CODE-PLAN HANDBACK, round 12, edition 2026-10-19
+
+Result: A passes at code scope. B is REVISE on one new blocker: its s8 close shot shows the overhead fleet lot with the eye-level region plate visible above and below it. Both round 11 blockers are fixed. Neither verdict approves pixels, timed motion, the voice take or film bytes.
+
+Basis and hashes:
+- Packet out/dispatch/critic-packet-round12.json, given as bf3398bc215dd898f9e8815d73affab0f364ebb7f284f59f01c5473d1bd60a8c. I could not compute any hash (Read-only, no Bash). Every hash below is copied from the packet, the boards or your message.
+- The guide hashes in this packet match round 11's, and I read every guide in full this session. I did not reread them.
+- I reread in full: RobotaxiFilm.tsx (board renderer_inputs give 144fd2107b5e4003311569d4ff2212a52d6bfae550e1577252dc7476b8c6ebc3), the changed parts of RobotaxiHero.tsx (b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563), and the changed documents and lot-plan sections of SanAntonioSupport.tsx (3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00).
+- I also read modern/PlaceStage.tsx, because the B blocker depends on how it handles a detail framing.
+- In all three boards I reread story_art.entries, native_media and renderer_inputs, plus B's s8 shots.
+
+ROUND 11 BLOCKERS
+1. native_media provenance: fixed. In storyboard.json, opening-a.json and opening-b.json, native_media now gives b5c81839... for the hero and 3cc33133... for the support group. These match story_art.entries, which were recorded under reservation 190 (2026-10-20T03:49:52Z) and created at 03:54:49Z and 04:01:21Z, and they match the packet's asset_inputs. The support subject now says "a creek bank".
+2. B s8 fleet continuity: fixed. Both of B's s8 shots now draw the same lot: one row of 4 roofs (LOT_PLAN row 760, cars 4, stall 240, scale 0.7), matching A's four cars. The detail is that lot with a closer camera (f [540,700], scale 1.12), and the checks run per car (checks*4-i). That close shot introduces the new B blocker below.
+
+REQUESTED FIXES, CHECKED IN CODE
+- Label scale: done. Card type is now label 32, value 44, title 42, subtitle 30. count-grid scale went from 0.9 to 1.0 and stamp-detail is 1.1, so a label is about 11.5 px and a value about 16 px at 390 px phone width.
+  - The header slot sits at y 176, between the subtitle's bottom (about 115) and the rule at 226, and at x 446 to 736, clear of the subtitle, which ends about 435. The remedy slot is 112 units under the last remedy line.
+- s5 stamp axis: done. S5_STAMP now comes along its own forearm, dir [.92,.39] from the lower right, like s7. I traced the approach from (1139,615) to the mark (661,412). The footprint stays right of the row text, which ends about x 565. The hand stays above row 0 (screen y 476) and right of the title, which ends about x 609. The forearm runs over blank card and desk.
+- s7 pen rest: done. penOutAt = max(event-2 start + 0.2, n7.end) = 39.34 s, so the tip rests at the end of the Remedy sentence through "currently under development". It exits from 39.34 to 39.70, before the s8 cut at 39.98.
+  - The s7 card now shows rows [0,1,3]: type, units and remedy. The summary is on the s6 sentence card, and the interim rows never appear.
+  - In stamp-detail the pen hand and the stamp hand are both on screen. I checked the occupied volumes. At x 506 the pen arm is at y about 940 (half-width about 41) and the stamp forearm at about 1114 (half-width about 42). At the approach start, the stamp footprint (y 1158 to 1226) is well below the pen arm (bottom about 988). At the mark, the stamp's top is about 50 px under the remedy descenders, and the hand on its knob about 19 px. Nothing intersects.
+- s9 hold: done. The door eases from 1 to DOOR_STOP 1.1 between 54.03 and 55.13 s (open angle 64 to 70.4 degrees, a real change of door width). That joins the split's camera push, leaving about 0.9 s still before the end.
+
+REPORT A (storyboard.json and opening-a.json)
+```json
+{
+ "treatment": "a",
+ "verdict": "pass",
+ "review_scope": "code-plan",
+ "board_bindings": {"storyboard": {"path": "out/dispatch/storyboard.json", "sha256": "8b972cf58ada1883fda89a27a7998dcc38e0697d63c5e84241a4547485eb8649"}, "opening": {"path": "out/dispatch/opening-a.json", "sha256": "1d6019cb642888adfdf62840d0d5050630fb34aaca8a91c744e285d9fad6d466"}},
+ "board_sha256": "8b972cf58ada1883fda89a27a7998dcc38e0697d63c5e84241a4547485eb8649",
+ "concept_sha256": "669bf4214f49ba46137fa2a16a2c807535ea2eb24f4fd6e0fb0f88811027712a",
+ "renderer_sha256": "d7612341aa0f6d4f22cc2d3402e1fdc4596861b20332a414f27cabdbf3c19e47",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 12",
+ "reviewed_at": "2026-10-20 (exact clock time unavailable to this Read-only reviewer)",
+ "strongest_frame": "s6 wheels-water, 31.6 to 35.5 s: the car's speed eases from 850 to 150 units/s along s6-event-2's contact curve and never reaches zero. The front wheel meets the standing water, wakes start at each wheel, and 'may' lights on the source sentence. The whole recall mechanism is one performed move.",
+ "weakest_frame": "46.9 to 48.4 s: the s8 close finishes the calendar flip at 46.92, then only the camera rise moves until the cut at 47.66. s9 curb-return then holds a waiting car until the door starts at 48.38. About 1.5 s with little subject change, inside the policy limits.",
+ "blocking_defects": [],
+ "notes": [
+  "Code-scope pass only. Legibility at phone size, the believability of the two hands in s7 (both arms entering from the right, same skin and sleeve, read as one seated person) and the s3 sweep speed need the timed phone review.",
+  "Possible false inference, not prevented on screen: a viewer may take the interim weather limits as current, or as coming after the recall. The record leaves them undefined and their status unknown, and the update deadline is the creek account's date, April 20th. Narration and the April 20 page are literal, and the close holds 'remedy under development'. A short tag line would be an optional fix.",
+  "The s8 events are listed out of chronological order (the check marks at 43.90 come before the calendar at 46.02). This is not a defect."
+ ],
+ "story_review": {
+  "story_sha256": "f5347bfa95370bc392cfbcfc3e02a071a5e161e3bc7478adb31b2e9f396f3f7b",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Intended chain, from code and not observed. A generic white driverless car brakes into an airport bay while its empty steering wheel turns, and the phone says arriving. A map outlines the limited February area of sixty square miles. A different empty car is carried down Salado Creek, and another stops in street floodwater with hazards blinking. A recall card fills toward about 3,800 cars and is stamped Software recall. The recall sentence plays out as a car slows and rolls into standing water. The remedy row is stamped Under development while a pen rests on it. Four cars take interim checks under a weather limits tag and an April 20 page. The curb returns with the door open beside the underlined remedy card.",
+  "opening_to_ending": "The opening question (the ride is open, so what does the record say about the flood problem) is answered by the closing split: an open curb door beside 'The remedy is currently under development', underlined. No outcome is invented.",
+  "weakest_transition": "s7 to s8. The causal bridge 'unfinished remedy leads to the interim step' reads as a sequence, though the update was complete by April 20th, before the recall was reported. The weather limits' content and current status stay unshown."
+ },
+ "action_reviews": [
+  {"action_id": "wheel-turns-itself", "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c1, a fully autonomous ride: empty driver and passenger seats and headrests in the cab.", "visible_action": "steer = 85*(p12-p13) on the contact curve; the curb and the plane-pictogram bay sign slide past the windshield.", "consequence": "The phone turns to Arriving / At the curb on s1-event-3.", "disclosure": "Production disclosure chip; no brand marks.", "limits": "Not a Waymo vehicle or a real app."}},
+  {"action_id": "car-swept-into-creek", "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c3 and c4: heavy rain, an unoccupied car (cabin see-through), a single brown sheet.", "visible_action": "Drift integrates from 12.64 s; the camera follows at 0.62, so the car moves left on screen while the bank slides right; the current lifts and rolls it after s3-event-3.", "consequence": "Carried downstream, tail first, never stopping.", "disclosure": "'Illustration. A different car, April 20th account'.", "limits": "No damage and no entry path drawn."}},
+  {"action_id": "car-slows-into-water", "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c7 wording: slows, then drives into standing water; 'may' highlighted; no crash.", "visible_action": "Speed eases 850 to 150 along the contact curve; brake lamps; frontIn and rearIn wakes.", "consequence": "Wheels enter the sheet with spray.", "disclosure": "'Illustration. The recall wording, not a recorded event'.", "limits": "No speed, depth or real road."}},
+  {"action_id": "service-area-opens", "module_sha256": "3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c2: February, limited area, 60 square miles.", "visible_action": "The map draws in; one outline traces; the calendar slides in below the zone.", "consequence": "The outline closes with fill; the tag appears from 9.28 s.", "disclosure": "The credits say the outline is editorial.", "limits": "Not the operator's map."}},
+  {"action_id": "recall-filed-count", "module_sha256": "3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c6 3,791 and c13 nearly 3,800 are both printed; only the type and units rows appear.", "visible_action": "The card slides in, rows write in, and a 50-icon grid fills.", "consequence": "The counter settles; the stamp comes in along its forearm and lands in the header slot, off the data rows; the counter tag jolts.", "disclosure": "Illustration chip.", "limits": "Icons stand for the count; they are not a literal count."}},
+  {"action_id": "remedy-under-development", "module_sha256": "3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c8 verbatim; no interim rows on the card.", "visible_action": "The remedy row writes in on n7's first word; the pen rests through the clause; the stamp presses into the slot under the words.", "consequence": "The mark stays and carries to the s9 remedy card, which is underlined.", "disclosure": "Illustration chip.", "limits": "Not a real record page."}}
+ ],
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None. Code approval includes no pixel observations."
+}
+```
+
+REPORT B (opening-b.json)
+```json
+{
+ "treatment": "b",
+ "verdict": "revise",
+ "review_scope": "code-plan",
+ "board_bindings": {"opening": {"path": "out/dispatch/opening-b.json", "sha256": "ac4ea4263ce600cf357c1f519ece5ef271a9a3433a3f42ef846038356a8672c9"}},
+ "board_sha256": "ac4ea4263ce600cf357c1f519ece5ef271a9a3433a3f42ef846038356a8672c9",
+ "concept_sha256": "1f616cb4ea3d204dd159942ebdac524154b8271ade5d227811cb61ad0d359f19",
+ "renderer_sha256": "d7612341aa0f6d4f22cc2d3402e1fdc4596861b20332a414f27cabdbf3c19e47",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 12",
+ "reviewed_at": "2026-10-20 (exact clock time unavailable to this Read-only reviewer)",
+ "strongest_frame": "s6 lane-plan into wheels-water, 28.3 to 36.86 s (B's authored clock): from above, the roof runs up the lane toward the standing water and slows, then the shared close performs the roll into the water.",
+ "weakest_frame": "s8-shot-2 limits-detail, 45.435 to 50.0 s: the top-down lot sits between bands of eye-level region plate (see blocking defect).",
+ "blocking_defects": [
+  {"category": "surface_finish", "criterion": "surface_finish (coherent perspective and finished composition)", "scene_id": "s8", "time_s": 45.435, "defect": "s8-shot-2 uses framing 'detail' and view 'limits-detail'. That view is not in the registry's wall_views, so PlaceStage gives it mode 'exterior' and draws the full eye-level Blackland plate at zoom 1.3 with blur 3 (PlaceStage.tsx line 209). The renderer draws the top-down lot plan (lot y 220 to 1420) through LIMITS_DETAIL.cam (f [540,700], s 1.12, a [540,780]) at z 1, so the lot covers only screen y about 242 to 1586. The eye-level plate therefore shows in a band about 242 px tall at the top (behind the disclosure chip) and about 334 px at the bottom (caption band), around a straight-down parking lot. Within one shot the picture mixes overhead and horizon viewpoints, and the frame margins change at the match cut from the overhead shot's plain ground tone to sky and landscape. Fix: treat the close as overhead or wall (overhead framing, or list limits-detail in wall_views and recheck place_check's wall share), or frame the lot so the plan fills the frame without painting over an exterior plate."}
+ ],
+ "notes": [
+  "Round 11 blockers are resolved: provenance hashes rebound; s8 is one lot with the same 4 roofs in both shots, the map card on its near edge and checks per car.",
+  "In fleet-plan the weather limits tag (y 246) starts its slide at x 40 and passes under the April calendar at (150,262), which draws on top of it, early in the slide. The tag clears once it reaches x 540. This was already present; a phone check is enough.",
+  "From 0 to 2.61 s there is no readable airport cue in curb-plan; it arrives with cab-wheel before 'the airport included'.",
+  "Overhead and wall views make up about 10 of 20 shots; place_check should confirm the wall-view share.",
+  "B shares A's possible false inference about the interim limits."
+ ],
+ "story_review": {
+  "story_sha256": "f5347bfa95370bc392cfbcfc3e02a071a5e161e3bc7478adb31b2e9f396f3f7b",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "revise",
+  "blocking_defects": [{"category": "surface_finish", "criterion": "surface_finish", "scene_id": "s8", "time_s": 45.435, "defect": "limits-detail lot plan composited inside an exterior eye-level plate (bands at y 0 to 242 and 1586 to 1920); see report."}],
+  "one_viewing_summary": "Intended chain, not observed. The same story as A, read from above and from inside the cab: the roof pod brakes into the bay plan, the empty wheel turns, the phone says arriving; then a map plan, a creek plan then the sweep, a street plan then hazards at the wheels, a flat record and grid, a lane plan then wheels in water, the record and stamp, one lot from above then closer with checks, and the curb return beside the underlined remedy.",
+  "opening_to_ending": "The same answer as A: the open curb door beside 'The remedy is currently under development', underlined.",
+  "weakest_transition": "s8-shot-1 to s8-shot-2: the margins change from plain overhead ground to eye-level plate bands around the same lot."
+ },
+ "action_reviews": "The same six authored actions and the same module hashes as A (b5c81839... hero, 3cc33133... support, claims 4b42adee...). B adds the plan views curb-plan, creek-plan, street-plan, lane-plan and fleet-plan and the limits-detail view, each on the same robotaxiState clock. Every action passes at code level; the only blocker is the limits-detail composition above.",
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None at code scope."
+}
+```
+
+Next step: A can go to the silent and timed phone reviews. B needs only the s8 close framing fix if it is ever used. I launched no subagents, and nothing was sent or posted.

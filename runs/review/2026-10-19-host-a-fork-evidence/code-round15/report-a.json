@@ -1,0 +1,43 @@
+{
+ "treatment": "a",
+ "verdict": "revise",
+ "review_scope": "code-plan",
+ "board_bindings": {"storyboard": {"path": "out/dispatch/storyboard.json", "sha256": "cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108"}, "opening": {"path": "out/dispatch/opening-a.json", "sha256": "cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108"}},
+ "board_sha256": "cd77de636ffef1568e836cf8475f6567664fbd65a166ca899681c282bc696108",
+ "concept_sha256": "ffe089ed23dd8c0d8592add791e89913a3bbd63214d7db4dfe4bfc88f48753fc",
+ "renderer_sha256": "a0a3f51f61987ca1fee3688e831dc74e044f1982137a0828e9dba5448d3d5210",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 15",
+ "reviewed_at": "2026-10-20 (exact clock time unavailable to this Read-only reviewer)",
+ "strongest_frame": "s6 wheels-water, 31.6 to 35.5 s: the car eases to its rolling speed and enters the standing water with wakes, while the amber box, now built from the laid-out glyphs, lights exactly on 'may'.",
+ "weakest_frame": "s6 quote card from 32.5 s: the 'may' underline breaks into dashes under m, a and y (or shrinks to a recoloured y tail), on the signature event.",
+ "blocking_defects": [
+  {"category": "surface_finish", "criterion": "surface_finish (finished native detail on the signature event)", "scene_id": "s6", "time_s": 32.535, "defect": "SanAntonioSupport.tsx MarkedLine: the underline is band('ul', 0.16, 0.30, 0, amberInk), so feMorphology runs with radius '0 46.8'. A zero radius either disables the primitive (per the Filter Effects spec), leaving only the y descender's slice of the band recoloured amber-ink, or, as a vertical-only dilation, fills only columns where 'may' has ink. With Manrope ExtraBold's side bearings that leaves roughly 2 to 3 px gaps between m, a and y at native 36 px. The underline on the 'may' highlight is therefore never a continuous bar and merges with the y tail. Give the underline a positive side radius (for example 4, or the box's 8) or derive it from the dilated box, and recheck the y-tail overlap. The box itself is correct."}
+ ],
+ "notes": [
+  "The box technique is sound: identical twin runs, alpha only from 'may', side radius 8, clip band -0.95 to +0.30 em, user-space primitive units. It sits on the laid-out word at native and in the 270x480 preview, under the text, clear of the previous line's descenders.",
+  "Everything else is unchanged since round 12 and still passes at code scope: provenance, card type, the s5 stamp coming in along its forearm, the s7 pen resting through 'currently under development', and the s9 door easing to its stop.",
+  "The note about a possible false inference on the interim limits carries over unchanged."
+ ],
+ "story_review": {
+  "story_sha256": "19d95b92f0f83c1920fcf458f162e8e6515e676879326801362930eeebac5b55",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "revise",
+  "blocking_defects": [{"category": "surface_finish", "criterion": "surface_finish", "scene_id": "s6", "time_s": 32.535, "defect": "The 'may' underline uses a zero side radius and cannot form a continuous bar; see report."}],
+  "one_viewing_summary": "Intended chain, from code and not observed. A driverless car arrives at the airport bay with an empty wheel turning. A map outlines the limited February area. A different empty car is swept down Salado Creek, and another is stranded in floodwater. A recall card counts about 3,800 cars and is stamped. The recall sentence plays out as a car slows and rolls into standing water while 'may' is highlighted. The remedy row is stamped Under development. Four cars take interim checks under a weather limits tag and an April 20 page. The curb returns beside the underlined remedy card.",
+  "opening_to_ending": "The opening question is answered by the closing split: an open curb door beside 'The remedy is currently under development', underlined. No outcome is invented.",
+  "weakest_transition": "s7 to s8: 'unfinished remedy leads to the interim step' reads as a sequence, though the update was complete by April 20th, before the recall was reported."
+ },
+ "action_reviews": [
+  {"action_id": "car-slows-into-water", "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c7 wording is verbatim on the quote card; 'may' is marked from the laid-out run.", "visible_action": "The car slows from 850 to 150 units/s along the contact curve and rolls on with wakes.", "consequence": "Wheels in the water and 'may' lit; the underline defect is recorded in the report blocking_defects.", "disclosure": "'Illustration. The recall wording, not a recorded event'.", "limits": "No speed, depth or real road."}},
+  {"action_id": "wheel-turns-itself", "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "Unchanged since round 12.", "visible_action": "Unchanged.", "consequence": "Unchanged.", "disclosure": "Unchanged.", "limits": "Unchanged."}},
+  {"action_id": "car-swept-into-creek", "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "Unchanged since round 12.", "visible_action": "Unchanged.", "consequence": "Unchanged.", "disclosure": "Unchanged.", "limits": "Unchanged."}},
+  {"action_id": "service-area-opens", "module_sha256": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "Map code unchanged.", "visible_action": "Unchanged.", "consequence": "Unchanged.", "disclosure": "Unchanged.", "limits": "Unchanged."}},
+  {"action_id": "recall-filed-count", "module_sha256": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "Record card code unchanged.", "visible_action": "Unchanged.", "consequence": "Unchanged.", "disclosure": "Unchanged.", "limits": "Unchanged."}},
+  {"action_id": "remedy-under-development", "module_sha256": "5270e368bbca08e2a92936ab4a8903787051783cab0c1146eed71ba929437985", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c8 verbatim.", "visible_action": "Unchanged.", "consequence": "The remedy card fits beside the phone at the s9 split.", "disclosure": "Unchanged.", "limits": "Unchanged."}}
+ ],
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None. Code approval includes no pixel observations."
+}

@@ -1,0 +1,41 @@
+{
+ "treatment": "a",
+ "verdict": "pass",
+ "review_scope": "code-plan",
+ "board_bindings": {"storyboard": {"path": "out/dispatch/storyboard.json", "sha256": "8b972cf58ada1883fda89a27a7998dcc38e0697d63c5e84241a4547485eb8649"}, "opening": {"path": "out/dispatch/opening-a.json", "sha256": "1d6019cb642888adfdf62840d0d5050630fb34aaca8a91c744e285d9fad6d466"}},
+ "board_sha256": "8b972cf58ada1883fda89a27a7998dcc38e0697d63c5e84241a4547485eb8649",
+ "concept_sha256": "669bf4214f49ba46137fa2a16a2c807535ea2eb24f4fd6e0fb0f88811027712a",
+ "renderer_sha256": "d7612341aa0f6d4f22cc2d3402e1fdc4596861b20332a414f27cabdbf3c19e47",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (high), isolated Read-only code-plan review, packet round 12",
+ "reviewed_at": "2026-10-20 (exact clock time unavailable to this Read-only reviewer)",
+ "strongest_frame": "s6 wheels-water, 31.6 to 35.5 s: the car's speed eases from 850 to 150 units/s along s6-event-2's contact curve and never reaches zero. The front wheel meets the standing water, wakes start at each wheel, and 'may' lights on the source sentence. The whole recall mechanism is one performed move.",
+ "weakest_frame": "46.9 to 48.4 s: the s8 close finishes the calendar flip at 46.92, then only the camera rise moves until the cut at 47.66. s9 curb-return then holds a waiting car until the door starts at 48.38. About 1.5 s with little subject change, inside the policy limits.",
+ "blocking_defects": [],
+ "notes": [
+  "Code-scope pass only. Legibility at phone size, the believability of the two hands in s7 (both arms entering from the right, same skin and sleeve, read as one seated person) and the s3 sweep speed need the timed phone review.",
+  "Possible false inference, not prevented on screen: a viewer may take the interim weather limits as current, or as coming after the recall. The record leaves them undefined and their status unknown, and the update deadline is the creek account's date, April 20th. Narration and the April 20 page are literal, and the close holds 'remedy under development'. A short tag line would be an optional fix.",
+  "The s8 events are listed out of chronological order (the check marks at 43.90 come before the calendar at 46.02). This is not a defect."
+ ],
+ "story_review": {
+  "story_sha256": "f5347bfa95370bc392cfbcfc3e02a071a5e161e3bc7478adb31b2e9f396f3f7b",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab",
+  "verdict": "pass",
+  "blocking_defects": [],
+  "one_viewing_summary": "Intended chain, from code and not observed. A generic white driverless car brakes into an airport bay while its empty steering wheel turns, and the phone says arriving. A map outlines the limited February area of sixty square miles. A different empty car is carried down Salado Creek, and another stops in street floodwater with hazards blinking. A recall card fills toward about 3,800 cars and is stamped Software recall. The recall sentence plays out as a car slows and rolls into standing water. The remedy row is stamped Under development while a pen rests on it. Four cars take interim checks under a weather limits tag and an April 20 page. The curb returns with the door open beside the underlined remedy card.",
+  "opening_to_ending": "The opening question (the ride is open, so what does the record say about the flood problem) is answered by the closing split: an open curb door beside 'The remedy is currently under development', underlined. No outcome is invented.",
+  "weakest_transition": "s7 to s8. The causal bridge 'unfinished remedy leads to the interim step' reads as a sequence, though the update was complete by April 20th, before the recall was reported. The weather limits' content and current status stay unshown."
+ },
+ "action_reviews": [
+  {"action_id": "wheel-turns-itself", "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c1, a fully autonomous ride: empty driver and passenger seats and headrests in the cab.", "visible_action": "steer = 85*(p12-p13) on the contact curve; the curb and the plane-pictogram bay sign slide past the windshield.", "consequence": "The phone turns to Arriving / At the curb on s1-event-3.", "disclosure": "Production disclosure chip; no brand marks.", "limits": "Not a Waymo vehicle or a real app."}},
+  {"action_id": "car-swept-into-creek", "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c3 and c4: heavy rain, an unoccupied car (cabin see-through), a single brown sheet.", "visible_action": "Drift integrates from 12.64 s; the camera follows at 0.62, so the car moves left on screen while the bank slides right; the current lifts and rolls it after s3-event-3.", "consequence": "Carried downstream, tail first, never stopping.", "disclosure": "'Illustration. A different car, April 20th account'.", "limits": "No damage and no entry path drawn."}},
+  {"action_id": "car-slows-into-water", "module_sha256": "b5c81839a2f419bb43cb43417a05f6d495cf3cb63bc51afc41a06eaf4ab45563", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c7 wording: slows, then drives into standing water; 'may' highlighted; no crash.", "visible_action": "Speed eases 850 to 150 along the contact curve; brake lamps; frontIn and rearIn wakes.", "consequence": "Wheels enter the sheet with spray.", "disclosure": "'Illustration. The recall wording, not a recorded event'.", "limits": "No speed, depth or real road."}},
+  {"action_id": "service-area-opens", "module_sha256": "3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c2: February, limited area, 60 square miles.", "visible_action": "The map draws in; one outline traces; the calendar slides in below the zone.", "consequence": "The outline closes with fill; the tag appears from 9.28 s.", "disclosure": "The credits say the outline is editorial.", "limits": "Not the operator's map."}},
+  {"action_id": "recall-filed-count", "module_sha256": "3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c6 3,791 and c13 nearly 3,800 are both printed; only the type and units rows appear.", "visible_action": "The card slides in, rows write in, and a 50-icon grid fills.", "consequence": "The counter settles; the stamp comes in along its forearm and lands in the header slot, off the data rows; the counter tag jolts.", "disclosure": "Illustration chip.", "limits": "Icons stand for the count; they are not a literal count."}},
+  {"action_id": "remedy-under-development", "module_sha256": "3cc33133d5b65c7e3014ec25bfd839f410d097c2949a285f7bc14f68f4662d00", "source_claims_sha256": "4b42adeee101cb0941f7b9131f90093c0e4ce055e30e1ef473fe095df306abab", "verdict": "pass", "blocking_defects": [], "code_observations": {"source_fidelity": "c8 verbatim; no interim rows on the card.", "visible_action": "The remedy row writes in on n7's first word; the pen rests through the clause; the stamp presses into the slot under the words.", "consequence": "The mark stays and carries to the s9 remedy card, which is underlined.", "disclosure": "Illustration chip.", "limits": "Not a real record page."}}
+ ],
+ "phone_observations": null,
+ "modern_observations": null,
+ "pixel_basis": "None. Code approval includes no pixel observations."
+}
