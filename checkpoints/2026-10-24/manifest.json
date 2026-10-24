@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-24",
-  "saved_at": "2026-10-24T12:52:04.279570+00:00",
-  "note": "code review 4 pass on corrected b",
+  "saved_at": "2026-10-24T12:59:40.917504+00:00",
+  "note": "phase voice",
   "phase": "wake",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "bcdb35033178e3ba3dd72bf3b01f5083efbac89f403e3c1268a76ad679c544af"
   },
   "deleted_source": [],
-  "ledger_sha256": "60ff7597ef3cd7960fd95e19eae49804e1a0e68c9a8b4ad3c2602056e3f007aa",
-  "original_private_ledger_sha256": "38c5692ce3240796154ab3ee7b59710fcb9d9f6e45f4eb0db052faebbb3296cd",
+  "ledger_sha256": "f941d8776f508a84f0dca48c7f717a11e33c3b878427ea2aff5b374800959346",
+  "original_private_ledger_sha256": "9a8a1fa54d749a6f9230f89df114703ad1141c8f6666323892a0ce8525bffbfe",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -25,7 +25,7 @@
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 5,
+    "preflight_renders": 6,
     "reboards": 4,
     "reported_tokens": 64,
     "rescue_renders": 0,
@@ -110,6 +110,24 @@
       "size": 2826
     },
     {
+      "path": "out/dispatch/attention-review.html",
+      "class": "scratch",
+      "sha256": "3710375c7cfd99ade984d8f1c79dd5387d379e1e8563446bb4ae17b95479a76a",
+      "size": 6700
+    },
+    {
+      "path": "out/dispatch/attention-review.json",
+      "class": "scratch",
+      "sha256": "5c48758542e4e0e22ab83a8af59581beb329a5b0726f7f9447b90b8faa1bb769",
+      "size": 26347
+    },
+    {
+      "path": "out/dispatch/attention-review.png",
+      "class": "scratch",
+      "sha256": "6b7981a77534e599eec1646b57318862b3bf91086139af614c48f2e6f2f568ff",
+      "size": 1806861
+    },
+    {
       "path": "out/dispatch/before-selection/storyboard-A.json",
       "class": "scratch",
       "sha256": "50a5c26fefbf794d98e6eef2b9c2cff46d920835c9cb21bd2fe29f39ca6dfaae",
@@ -164,9 +182,15 @@
       "size": 19425
     },
     {
-      "path": "out/dispatch/capture-authorization.json",
+      "path": "out/dispatch/capture-authorization-history/f6c818128290e671cf0c069c4463307f1fbe7f63802a8f599d76c3f2c9e746d5.json",
       "class": "scratch",
       "sha256": "f6c818128290e671cf0c069c4463307f1fbe7f63802a8f599d76c3f2c9e746d5",
+      "size": 19257
+    },
+    {
+      "path": "out/dispatch/capture-authorization.json",
+      "class": "scratch",
+      "sha256": "5c41aa60c6fa1696e1183b912226242ee838cd61ddf04406d03e3a028d20b7ca",
       "size": 19257
     },
     {
@@ -178,8 +202,8 @@
     {
       "path": "out/dispatch/capture-authorizations-used.json",
       "class": "scratch",
-      "sha256": "c6c3460a3dbbbf08dba2eff57dcfdaa88487df7198103199a86280b143be3340",
-      "size": 748
+      "sha256": "30b9e196dab759026d873ef41e65b2c6c0bffcf12b43b487bda03c15adf8757a",
+      "size": 897
     },
     {
       "path": "out/dispatch/capture-hook-probe.txt",
@@ -224,6 +248,12 @@
       "size": 1045
     },
     {
+      "path": "out/dispatch/capture-housekeeping-20261024T125228.json",
+      "class": "scratch",
+      "sha256": "359044f62dbf5f9d6d662d7e0df38f3985a4e19327ae32448bc243c40a5aff2e",
+      "size": 1041
+    },
+    {
       "path": "out/dispatch/claims-reviewed-provisional.json",
       "class": "scratch",
       "sha256": "f57b41a4c90cf3319f2a0f01e89d6dea85c96f0a1c49b30b00c642aeb798afe4",
@@ -244,8 +274,8 @@
     {
       "path": "out/dispatch/claude-phases.jsonl",
       "class": "scratch",
-      "sha256": "4ba7fadb3f72c5905616adcf12e64548142110c6da392390f901a176e7418454",
-      "size": 589
+      "sha256": "bf42660e7822a9751cc3d52f65feb4c1234b2098e159b0ecf271e9c19b1f279a",
+      "size": 650
     },
     {
       "path": "out/dispatch/code-review-1-raw.json",
@@ -596,6 +626,12 @@
       "size": 304954
     },
     {
+      "path": "out/dispatch/evidence/preflight-1.failure.log",
+      "class": "scratch",
+      "sha256": "a736ffc51ba2c8dc7a8f0be5d3b078b9708b3495f34518e004824b267d5501de",
+      "size": 265
+    },
+    {
       "path": "out/dispatch/evidence/space-recovery-1.txt",
       "class": "scratch",
       "sha256": "3543ebb4967a55c5eb30ff231e130983b8e706078398fbb990307b6eb5ceb839",
@@ -780,6 +816,12 @@
       "class": "scratch",
       "sha256": "e97209e7f4b01f2d48e952cba572c6e282bd84d60fba6f48656677d88739a24b",
       "size": 1020
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/33a3925764b7dad7eb157e67f165ccf01bc8a2cd1fd9b59157026105fa60a770.json",
+      "class": "scratch",
+      "sha256": "585af569b38d19f402643b57ac0f8bc140080a9d88e171f32c2722d96e9adb8c",
+      "size": 736
     },
     {
       "path": "out/dispatch/image-tool-delivery/33b76cb30affcd7b3e4757a077afdccbd43a653d82f7babe86b53300ff3b2054.json",
@@ -2294,6 +2336,12 @@
       "size": 117201
     },
     {
+      "path": "out/dispatch/openings/post-selection-correction.json",
+      "class": "scratch",
+      "sha256": "ed566ec14446e5aea1e2f669b7a5f17bfb20f52e181ef82b9740b99309862976",
+      "size": 1213
+    },
+    {
       "path": "out/dispatch/openings/selection.json",
       "class": "scratch",
       "sha256": "736f70532bd6c8a99ce6734191ea58a6d2228f30a0edba89e2dcfb00e60e1f8e",
@@ -3462,6 +3510,24 @@
       "class": "scratch",
       "sha256": "001fcea034313544e0922f3c70e307a11cae0a28320cc34818da56b1ade20f86",
       "size": 91
+    },
+    {
+      "path": "out/dispatch/preflight-contact-sheet.png",
+      "class": "scratch",
+      "sha256": "5468e025e6d9e167926e7255a41880ed9ea209c430158438879e283893a2559d",
+      "size": 999844
+    },
+    {
+      "path": "out/dispatch/preflight.json",
+      "class": "scratch",
+      "sha256": "5045d147767f34626b7b6d9773f09fd8fb973b263a117b0b7ae867acfc24ad4f",
+      "size": 2353
+    },
+    {
+      "path": "out/dispatch/preflight.mp4",
+      "class": "scratch",
+      "sha256": "8bc952277c93d100b748207f79f251745fb308a83adc7574171b6229df4c5a58",
+      "size": 317183
     },
     {
       "path": "out/dispatch/provider-availability/startup/attempt.json",
@@ -5367,9 +5433,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 47453798,
-    "unique_blob_bytes": 42985544,
-    "unique_blobs": 685
+    "logical_bytes": 50635808,
+    "unique_blob_bytes": 46167554,
+    "unique_blobs": 696
   },
   "excluded": [],
   "regenerable": {
