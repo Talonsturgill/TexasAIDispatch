@@ -71,6 +71,117 @@
       },
       "kind": "initialised",
       "mode": "production"
+    },
+    {
+      "at": "2026-10-24T05:15:29.505159Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "unscored provider generation availability",
+      "preflight_identity": null,
+      "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "after_attempt": null,
+      "after_probe": null,
+      "at": "2026-10-24T05:15:29.506718Z",
+      "generation_protocol": "bounded-json-generation-v2",
+      "kind": "provider_availability_probe",
+      "model": "gemini-3.8-flash",
+      "request_id": "9c3e7c46-e0cc-46bb-8060-d60be5ec1b68",
+      "reservation": {
+        "at": "2026-10-24T05:15:29.505159Z",
+        "completion_progress_policy": "2026-10-20",
+        "kind": "reserved",
+        "note": "unscored provider generation availability",
+        "preflight_identity": null,
+        "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+        "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+        "resources": {
+          "audiovisual_reviews": 1
+        }
+      },
+      "reservation_event_index": 3,
+      "started_at": "2026-10-24T05:15:29.506467Z"
+    },
+    {
+      "at": "2026-10-24T05:15:32.661701Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 9c3e7c46-e0cc-46bb-8060-d60be5ec1b68 unscored provider generation availability",
+      "preflight_identity": null,
+      "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "reported_tokens": 64
+      }
+    },
+    {
+      "at": "2026-10-24T05:15:32.663252Z",
+      "elapsed_ms": 3153,
+      "kind": "telemetry",
+      "note": "9c3e7c46-e0cc-46bb-8060-d60be5ec1b68 unscored provider generation availability",
+      "reported_tokens": 64,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-10-24T05:15:32.665067Z",
+      "available": true,
+      "http_status": 200,
+      "kind": "provider_availability_result",
+      "receipt_sha256": "02170ec55c4130bfc3fd949258fddcb05b23352dbb8872bf6ba642f3519690b8",
+      "request_id": "9c3e7c46-e0cc-46bb-8060-d60be5ec1b68"
+    },
+    {
+      "at": "2026-10-24T05:15:50.454708Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "water digital twin beat",
+      "preflight_identity": null,
+      "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-10-24T05:23:37.746729Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "robot alloy lab beat; first beat unsupported",
+      "preflight_identity": null,
+      "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-10-24T05:28:22.681936Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "surgical suite cameras beat; first two beats lacked action",
+      "preflight_identity": null,
+      "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "research_agents": 1
+      }
+    },
+    {
+      "at": "2026-10-24T05:38:42.296315Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "current claims and script evidence",
+      "preflight_identity": null,
+      "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "validator_agents": 1
+      }
     }
   ],
   "limits": {
@@ -94,7 +205,7 @@
   "phase": "wake",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "80a61539e919bfc1c9793bf1ad440b985e3ecc20e296350352219589599a8ac3",
+    "original_private_state_sha256": "83e71752877320c9696d98dac66a66ba9fd720e831dcf5a402146ddad453d595",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -122,22 +233,22 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-24T05:15:13.341224Z",
+  "updated_at": "2026-10-24T05:38:42.296325Z",
   "usage": {
-    "audiovisual_reviews": 0,
+    "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 0,
     "reboards": 0,
-    "reported_tokens": 0,
+    "reported_tokens": 64,
     "rescue_renders": 0,
-    "research_agents": 0,
+    "research_agents": 3,
     "scorer_calls": 0,
     "storyboard_critics": 0,
     "tts_calls": 0,
-    "validator_agents": 0,
+    "validator_agents": 1,
     "voice_directors": 0
   }
 }

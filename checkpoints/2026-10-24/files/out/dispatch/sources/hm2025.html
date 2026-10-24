@@ -1,0 +1,1513 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Houston Methodist is using ambient intelligence to help predict the duration of procedures, a major stumbling block to operating room efficiency." >
+
+
+    <link rel="canonical" href="https://www.houstonmethodist.org/leading-medicine-blog/articles/2025/oct/ambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency/" >
+    
+
+    <title>Ambient Intelligence: Leveraging Computer Vision Technology to Improve OR Efficiency</title>
+
+    <link href="/medialibrary/style/custom/google-fonts.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer">
+
+    <script>
+        document.cookie = 'resolution = ' + Math.max(screen.width, screen.height) + ("devicePixelRatio" in window ? "," + devicePixelRatio : ",1") + '; path=/';
+    </script>
+
+    <!-- Open Graph -->
+    
+
+
+
+
+<!-- OG -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.houstonmethodist.org/leading-medicine-blog/articles/2025/oct/ambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency/" />
+
+    <meta property="og:title" content="Ambient Intelligence: Leveraging Computer Vision Technology to Improve OR Efficiency" />
+
+    <meta property="og:description" content="Houston Methodist is using ambient intelligence to help predict the duration of procedures, a major stumbling block to operating room efficiency." />
+
+    <meta property="og:image" content="https://www.houstonmethodist.org/-/media/images/physiciancontenthub/article-images/other-services-and-specialties/2025/lmblog_orambientintelligence_tile.jpg?mw=1382&amp;hash=4135380E5BDA358AF0B0E2FE431C52B8" />
+
+    <meta property="og:image:width" content="640" />
+
+    <meta property="og:image:height" content="360" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="https://www.houstonmethodist.org/leading-medicine-blog/articles/2025/oct/ambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency/" />
+
+    <meta name="twitter:title" content="Ambient Intelligence: Leveraging Computer Vision Technology to Improve OR Efficiency" />
+
+    <meta name="twitter:description" content="Houston Methodist is using ambient intelligence to help predict the duration of procedures, a major stumbling block to operating room efficiency." />
+
+    <meta name="twitter:image" content="https://www.houstonmethodist.org/-/media/images/physiciancontenthub/article-images/other-services-and-specialties/2025/lmblog_orambientintelligence_tile.jpg?mw=1382&amp;hash=4135380E5BDA358AF0B0E2FE431C52B8" />
+
+    <!-- End Open Graph -->
+    <!-- Layout Commons -->
+    <link href="/medialibrary/style/custom/commons?v=hVmlb8ugqcIOa-UbKk94YJ65cCg_3zgZvF5n3SxHpN41" rel="stylesheet"/>
+
+    <script src="/medialibrary/scripts/custom/commons?v=8O2Z3yqFUGwYekukC-GA9XFzKj7r2zf2inGsmg0-xQ01"></script>
+
+    <!--End Layout Commons -->
+    <!-- Layout Header Section -->
+    
+<link href="/medialibrary/style/custom/blogs/article?v=3xrC8gofUQ6h-ZPB5UB_aZ-673w6GCFs4umcFkb9nwY1" rel="stylesheet"/>
+<link href="/medialibrary/style/dynamic-layout-overrides?v=TDchotiXp8TP-9gEQzsPfIiHECEQ_NYxd3_uatTntSI1" rel="stylesheet"/>
+
+    <!-- End Layout Header Section -->
+    <!-- Page Header Section -->
+    
+    <!-- End Page Header Section -->
+    <!-- Form styles -->
+    
+    <!-- End Form styles -->
+    <!--[if lt IE 9]>
+        <html class="ie8 oldie">
+        <script type="text/javascript" src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/modernizr/2.8.3/modernizr.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+    <![endif]-->
+    <!-- OneTrust -->
+    
+
+
+
+<!-- OneTrust Cookies Consent Notice start for houstonmethodist.org -->
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="16949aa5-866f-4395-b825-c083221ee264" ></script>
+<script type="text/javascript">
+function OptanonWrapper() { }
+</script>
+<!-- OneTrust Cookies Consent Notice end for houstonmethodist.org -->
+    <!-- End OneTrust -->
+    <!-- Analytics Tag Manager Part 1 -->
+    
+
+
+
+<script src="/medialibrary/scripts/analytics/managers/adobe-tag-manager?v=WXnNQlNsuLpdcaFajV0x7_SN7vJ9lTyatM8TozVaHk81"></script>
+<script src="https://assets.adobedtm.com/1751ff8907df/117c66cb1309/launch-50d29ba2285a.min.js" async></script>
+<script type="text/javascript">methodist.analytics.initialize();
+methodist.analytics.push({"event":"appload","dl_spec":{"version":"1.2-beta","last_update":"11.17.23"}});
+methodist.analytics.push({"event":"pageload","visitor":{"sc_trkr":"6a405861-4bba-4dd4-b58d-6880e47c5396","sc_anon":["anonymous"],"visitor_traffic_type":"external","sc_postal":"","sc_metro_code":"","sc_city_code":"","sc_region_code":"","sc_country_code":"US"},"page":{"sc_item_id":"232b8973-2bf2-47c8-ae5f-60aa004c7f80","sc_site_type":"main-site","sc_page_type":"home-page/leading-medicine-blog","page_title":"Ambient Intelligence: Leveraging Computer Vision Technology to Improve OR Efficiency","page_name":"leading-medicine-blog/articles/2025/oct/ambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency","page_url":"https://www.houstonmethodist.org/leading-medicine-blog/articles/2025/oct/ambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency/","page_referring_url":"","page_language":"en","page_last_pub_date":"07/28/2026"},"content_hubs":{"content_blog_type":"LM","content_blog_id":"281474980472101","content_blog_title":"Ambient Intelligence: Leveraging Computer Vision Technology to Improve OR Efficiency","content_blog_post_date":"2025-10-02","content_blog_categories":"Digital Health Solutions","content_blog_tags":"Digital Health,Innovation","content_blog_ceros_interactive":false,"content_blog_serviceline":"clinical innovation","content_blog_subspecialty":"innovation"}});</script>
+
+    <!-- End Analytics Tag Manager Part 1 -->
+    
+<meta name="VIcurrentDateTime" content="639284170261771694" />
+<meta name="VirtualFolder" content="" />
+<script type="text/javascript" src="/layouts/system/VisitorIdentification.js"></script>
+
+    <!-- Global Templates -->
+    <script id="service-down-template" type="text/template">
+    <section class="service-down-boundary">
+        <div class="service-down-icon">
+            <svg
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 512 512"
+                height="1em"
+                width="1em"
+                role="presentation"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"
+                ></path>
+            </svg>
+        </div>
+        <div class="service-down-body">
+            <div class="service-down-title">
+                We're unable to load this content at the moment.
+                <br />
+                Please check back soon.
+            </div>
+        </div>
+    </section>
+</script>
+
+    <!-- End Global Templates -->
+</head>
+<body class="blog-article-page"
+      data-vimeo-mode="inline"
+      data-youtube-mode="external"
+      data-spotify-mode="external">
+<!-- Layout Body Top Section -->
+
+<!-- End Layout Body Top Section -->
+<!-- Page Body Top Section -->
+
+<!-- End Page Body Top Section -->
+<!-- Analytics Tag Manager Part 2 -->
+
+
+
+
+
+<!-- End Analytics Tag Manager Part 2 -->
+<!-- Start Detect Old browser -->
+
+
+
+
+
+<!-- End Detect Old browser -->
+<!-- Layout Body -->
+
+
+
+
+
+
+<div class="single-body-wrapper">
+    <div id="header" runat="server">
+        
+
+
+
+
+<header class="container-fluid light-black">
+    <div class="header">
+        
+
+
+
+
+<div class="top-navigation-container">
+    <div class="container">
+            <ul class="top-navigation-links" role="menubar">
+                    <li role="menuitem" data-active="true">
+                        <a class="active hide-in-mobile"
+                           href="https://www.houstonmethodist.org/"
+                           target="_self"
+                           title=""
+                           style="--text: 'Houston Methodist Main Site'"
+                           >
+                            Houston Methodist Main Site
+                        </a>
+
+                            <a class="active hide-in-desktop"
+                               href="https://www.houstonmethodist.org/leading-medicine-blog/"
+                               target="_self"
+                               title="Houston Methodist"
+                               style="--text: 'Leading Medicine'"
+                               >
+                                Leading Medicine
+                            </a>
+                    </li>
+                    <li role="menuitem" data-active="false">
+                        <a class=" hide-in-mobile"
+                           href="https://www.houstonmethodist.org/academic-institute/"
+                           target="_self"
+                           title=""
+                           style="--text: 'Academic Institute'"
+                           >
+                            Academic Institute
+                        </a>
+
+                            <a class="hide-in-desktop"
+                               href="https://www.houstonmethodist.org/leading-medicine-blog/"
+                               target="_self"
+                               title="Houston Methodist"
+                               style="--text: 'Leading Medicine'"
+                               >
+                                Leading Medicine
+                            </a>
+                    </li>
+                    <li role="menuitem" data-active="false">
+                        <a class=" hide-in-mobile"
+                           href="https://www.houstonmethodist.org/global/"
+                           target="_self"
+                           title=""
+                           style="--text: 'International Patients'"
+                           >
+                            International Patients
+                        </a>
+
+                            <a class="hide-in-desktop"
+                               href="https://www.houstonmethodist.org/leading-medicine-blog/"
+                               target="_self"
+                               title="Houston Methodist"
+                               style="--text: 'Leading Medicine'"
+                               >
+                                Leading Medicine
+                            </a>
+                    </li>
+                    <li role="menuitem" data-active="false">
+                        <a class=" hide-in-mobile"
+                           href="https://www.houstonmethodist.org/giving/"
+                           target="_self"
+                           title=""
+                           style="--text: 'Giving'"
+                           >
+                            Giving
+                        </a>
+
+                            <a class="hide-in-desktop"
+                               href="https://www.houstonmethodist.org/leading-medicine-blog/"
+                               target="_self"
+                               title="Houston Methodist"
+                               style="--text: 'Leading Medicine'"
+                               >
+                                Leading Medicine
+                            </a>
+                    </li>
+                    <li role="menuitem" data-active="false">
+                        <a class=" hide-in-mobile"
+                           href="https://www.houstonmethodistcareers.org/"
+                           target="_blank"
+                           title=""
+                           style="--text: 'Careers'"
+                           rel="noopener noreferrer">
+                            Careers
+                        </a>
+
+                            <a class="hide-in-desktop"
+                               href="https://www.houstonmethodist.org/leading-medicine-blog/"
+                               target="_self"
+                               title="Houston Methodist"
+                               style="--text: 'Leading Medicine'"
+                               >
+                                Leading Medicine
+                            </a>
+                    </li>
+            </ul>
+    </div>
+</div>
+
+        
+
+
+
+
+<div class="context-navigation-container">
+    <div class="container">
+    </div>
+</div>
+
+        
+
+
+
+
+        
+
+
+
+<div class="header-container">
+    <div class="container">
+        <div class="head has-title">
+            <div class="methodist-logo">
+                <a href="https://www.houstonmethodist.org/" title=""
+                   data-item-id="d2b8a40d-78e7-404e-8bdd-d2f241d0c802"
+                   data-rendering-id="152978c4-ecb0-47e5-aefa-6d82dd07e7a7">
+                    <picture>
+                        <source srcset="https://www.houstonmethodist.org/-/media/images/header-images/logo_blue.ashx?mw=1382&amp;hash=8A91EB4C01E3251453B1E00688D5C2F0" media="(max-width: 767px)">
+                        <source srcset="https://www.houstonmethodist.org/-/media/images/header-images/logo_white.ashx?mw=1382&amp;hash=483281660061F15626AB8FD21F573DB4">
+                        <img src="https://www.houstonmethodist.org/-/media/images/header-images/logo_white.ashx?mw=1382&amp;hash=483281660061F15626AB8FD21F573DB4" alt="Houston Methodist Leading Medicine" loading="lazy" />
+                    </picture>
+                </a>
+            </div>
+
+                <div class="site-title">
+                    <div>
+                            <a href="https://www.houstonmethodist.org/leading-medicine-blog/"
+                               title="Houston Methodist"
+                               
+                               data-item-id="d2b8a40d-78e7-404e-8bdd-d2f241d0c802"
+                               data-rendering-id="152978c4-ecb0-47e5-aefa-6d82dd07e7a7">
+                                <h1>Leading Medicine</h1> <span class="fa fa-home" role="presentation"></span>
+                            </a>
+                    </div>
+                </div>
+
+            
+
+
+
+
+<div class="secondary-navigation-container">
+
+        <ul class="quick-actions">
+
+                    <li class="quick-action-search">
+                        
+
+
+
+<div id="search-box-24b3a8ef-8c08-4d9b-b6af-2ca4877daccd"
+     class="global-search "
+     data-error-message="Please enter a valid search term"
+     data-target="https://www.houstonmethodist.org/leading-medicine-blog/search/"
+     role="search"
+     aria-expanded="false"
+     aria-label="Enter the term to search">
+    <input type="search"
+           placeholder="Type to search..."
+           class=""
+           name="search"
+           spellcheck="false"
+           aria-labelledby="search-box-24b3a8ef-8c08-4d9b-b6af-2ca4877daccd" />
+    <button type="button" aria-label="Search term">
+        <i class="fa fa-search"></i>
+    </button>
+</div>
+
+<script type="text/javascript">
+    methodist.utils.events.onload(function () {
+        methodist.components.globalSearch.init(
+            document.getElementById('search-box-24b3a8ef-8c08-4d9b-b6af-2ca4877daccd'),
+            {
+                argumentName: "keyword",
+                collapsible: true
+            }
+        );
+    }, true);
+</script>
+
+                    </li>
+        </ul>
+</div>
+
+
+            <div class="mobile-navigation-container">
+                <ul class="mobile-actions" data-name="Mobile Actions">
+                        <li>
+                            <a href="https://www.houstonmethodist.org/leading-medicine-blog/"
+                               title="Houston Methodist"
+                               class="home-page"
+                               data-description="Home Page Link">
+                                <span class="fa fa-home"></span>
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <button class="search-toggle"
+                                    aria-label="Search Houston Methodist"
+                                    data-description="Search Houston Methodist">
+                                <span class="fa fa-search"></span>
+                            </button>
+                        </li>
+
+                        <li>
+                            <button class="navigation-toggle"
+                                    aria-label="Toggle navigation menu"
+                                    aria-expanded="false"
+                                    aria-controls="navbar"
+                                    data-description="Toggle Navigation Menu">
+                                <div class="navigation-toggle-bar"></div>
+                            </button>
+                        </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        
+
+
+
+
+<nav id="navbar" class="navbar nav-accordion" data-nav-style="Accordion">
+    <div class="container">
+        <ul class="nav-sites-container">
+            <li class="nav-site main active">
+                <a href="https://www.houstonmethodist.org/"
+                   title="Go to Houston Methodist Main Site Site">
+                    Houston Methodist Main Site
+                </a>
+            </li>
+        </ul>
+
+            <ul class="nav-sections-container">
+                    <li class="nav-section nav-section-static" data-name="Research Areas" data-highlighted=False>
+                            <button type="button"
+                                    aria-label="Show Research Areas menu"
+                                    aria-expanded="false"
+                                    aria-controls="menu-230ecd9ca65846e29f6f8ff6374bac33">
+                                Research Areas
+                                <span>
+                                    <svg height="20px"
+                                         width="20px"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         viewBox="0 0 185.343 185.343"
+                                         xml:space="preserve"
+                                         stroke-width="0.00185343">
+                                        <path d="M51.707,185.343c-2.741,0-5.493-1.044-7.593-3.149c-4.194-4.194-4.194-10.981,0-15.175 l74.352-74.347L44.114,18.32c-4.194-4.194-4.194-10.987,0-15.175c4.194-4.194,10.987-4.194,15.18,0l81.934,81.934 c4.194,4.194,4.194,10.987,0,15.175l-81.934,81.939C57.201,184.293,54.454,185.343,51.707,185.343z"></path>
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="nav-section-title-container">
+                                <div class="nav-section-back">
+                                    <button type="button" aria-label="Back to Main Menu">
+                                        <span class="fa fa-caret-left"></span>
+                                    </button>
+                                </div>
+                                <div class="nav-section-title">
+                                    <h3>Research Areas</h3>
+                                </div>
+                            </div>
+                            <ul id="menu-230ecd9ca65846e29f6f8ff6374bac33" class="nav-menu-container ">
+
+
+
+
+<li  class="nav-menu" >
+    <ul id="menu-8e44cfecb8e5489c97e442e2918c5d03" >
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/digital-health-solutions/"
+                    target="_self"
+                    title="Digital Health Solutions"
+                    style="--text: 'Digital Health Solutions'">
+                    Digital Health Solutions
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/gastroenterology-and-gi-surgery/"
+                    target="_self"
+                    title="Gastroenterology &amp; GI Surgery"
+                    style="--text: 'Gastroenterology &amp; GI Surgery'">
+                    Gastroenterology & GI Surgery
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/heart-and-vascular/"
+                    target="_self"
+                    title="Heart &amp; Vascular"
+                    style="--text: 'Heart &amp; Vascular'">
+                    Heart & Vascular
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/infectious-disease/"
+                    target="_self"
+                    title="Infectious Disease"
+                    style="--text: 'Infectious Disease'">
+                    Infectious Disease
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/neurology/"
+                    target="_self"
+                    title="Neurology &amp; Neurosurgery"
+                    style="--text: 'Neurology &amp; Neurosurgery'">
+                    Neurology & Neurosurgery
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/obstetrics-and-gynecology/"
+                    target="_self"
+                    title="Obstetrics &amp; Gynecology"
+                    style="--text: 'Obstetrics &amp; Gynecology'">
+                    Obstetrics & Gynecology
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/oncology/"
+                    target="_self"
+                    title="Oncology"
+                    style="--text: 'Oncology'">
+                    Oncology
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/ophthalmology/"
+                    target="_self"
+                    title="Ophthalmology"
+                    style="--text: 'Ophthalmology'">
+                    Ophthalmology
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/orthopedics-and-sports-medicine/"
+                    target="_self"
+                    title="Orthopedics &amp; Sports Medicine"
+                    style="--text: 'Orthopedics &amp; Sports Medicine'">
+                    Orthopedics & Sports Medicine
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/otolaryngology/"
+                    target="_self"
+                    title="Otolaryngology"
+                    style="--text: 'Otolaryngology'">
+                    Otolaryngology
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/quality-and-safety/"
+                    target="_self"
+                    title="Quality &amp; Safety"
+                    style="--text: 'Quality &amp; Safety'">
+                    Quality & Safety
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/therapeutics/"
+                    target="_self"
+                    title="Therapeutics"
+                    style="--text: 'Therapeutics'">
+                    Therapeutics
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/transplant/"
+                    target="_self"
+                    title="Organ Transplant"
+                    style="--text: 'Transplant'">
+                    Transplant
+                </a>
+            </li>
+            <li>
+                <a href="https://www.houstonmethodist.org/leading-medicine-blog/categories/urology/"
+                    target="_self"
+                    title="Urology"
+                    style="--text: 'Urology'">
+                    Urology
+                </a>
+            </li>
+    </ul>
+</li>
+                                                                <li class="nav-menu-close">
+                                    <button type="button" aria-label="Close Research Areas Menu">
+                                        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16,16 L4,4"></path>
+                                            <path d="M16,4 L4,16"></path>
+                                        </svg>
+                                    </button>
+                                </li>
+                            </ul>
+                    </li>
+                    <li class="nav-section " data-name="Education" data-highlighted=False>
+                            <a href="https://www.houstonmethodist.org/leading-medicine-blog/topics/education/"
+                               title="Education | Houston Methodist Hospital"
+                               target="_self"
+                               >
+                                Education
+                            </a>
+                    </li>
+                    <li class="nav-section " data-name="Subscribe" data-highlighted=True>
+                            <a href="https://www.houstonmethodist.org/leading-medicine-blog-form/"
+                               title="Subscribe | Houston Methodist Hospital"
+                               target="_self"
+                               >
+                                Subscribe
+                            </a>
+                    </li>
+            </ul>
+
+        <ul class="nav-sites-container">
+                <li class="nav-site light-black">
+                    <a href="https://www.houstonmethodist.org/academic-institute/"
+                       title="Go to Academic Institute Site">
+                        Academic Institute
+                    </a>
+                </li>
+                <li class="nav-site dark-blue">
+                    <a href="https://www.houstonmethodist.org/global/"
+                       title="Go to International Patients Site">
+                        International Patients
+                    </a>
+                </li>
+                <li class="nav-site main">
+                    <a href="https://www.houstonmethodist.org/giving/"
+                       title="Go to Giving Site">
+                        Giving
+                    </a>
+                </li>
+                <li class="nav-site light-blue">
+                    <a href="https://www.houstonmethodistcareers.org/"
+                       title="Go to Careers Site">
+                        Careers
+                    </a>
+                </li>
+        </ul>
+    </div>
+</nav>
+
+    </div>
+</header>
+
+
+
+
+
+
+    </div>
+
+    <!-- Layout Body -->
+    
+<section class="grid-1280-container">
+    
+<article id="maincontent">
+    <div class="breadcrumb-navigation">
+        
+    </div>
+    <div class="pageTitle clearfix">
+        
+    </div>
+    <section class="container-fluid main-container">
+        
+
+
+
+<section class="article-banner blog">
+    <div class="article-banner-image" style="--article-banner-image-url: url('https://www.houstonmethodist.org/-/media/images/physiciancontenthub/article-images/other-services-and-specialties/2025/lmblog_orambientintelligence_tile.ashx?mw=1382&amp;hash=4135380E5BDA358AF0B0E2FE431C52B8')">
+        <picture>
+            <source srcset="https://www.houstonmethodist.org/-/media/images/physiciancontenthub/article-images/other-services-and-specialties/2025/lmblog_orambientintelligence_tile.ashx?mw=1382&amp;hash=4135380E5BDA358AF0B0E2FE431C52B8" media="(max-width: 808px)">
+            <source srcset="https://www.houstonmethodist.org/-/media/images/physiciancontenthub/article-images/other-services-and-specialties/2025/lmblog_orambientintelligence_tile.ashx?mw=1382&amp;hash=4135380E5BDA358AF0B0E2FE431C52B8">
+            <img src="https://www.houstonmethodist.org/-/media/images/physiciancontenthub/article-images/other-services-and-specialties/2025/lmblog_orambientintelligence_tile.ashx?mw=1382&amp;hash=4135380E5BDA358AF0B0E2FE431C52B8" alt="A team of surgeons and staff stand around a draped patient on an operating room table.">
+        </picture>
+    </div>
+    <div class="article-banner-body ">
+
+        <div class="article-banner-header">
+                <div class="article-banner-category">Digital Health Solutions</div>
+
+                <div class="article-banner-title-container">
+                    <h1 class="article-banner-title">Ambient Intelligence: Leveraging Computer Vision Technology to Improve OR Efficiency</h1>
+                </div>
+
+
+        </div>
+    </div>
+    <div class="article-banner-gradient"></div>
+</section>
+
+<div class="grid-808-container">
+    
+
+
+
+<section class="blog-article professional-hub">
+    <div class="blog-article-header">
+        <div class="print-only">
+                <div class="blog-article-logo">
+                    <img src="https://www.houstonmethodist.org/-/media/images/header-images/logo.ashx?mw=1382&amp;hash=D76AF01522D9D57A437E7CFE743ECFCD" alt="On Medicine's Logo"/>
+                </div>
+            <div class="blog-article-site-title">
+                On Medicine
+            </div>
+        </div>
+    </div>
+    <div class="blog-article-body">
+            <h2 class="blog-article-intro-copy">
+                Ambient intelligence uses computer vision, sensors and real-time alerts to improve operating room flow, communication and surgical scheduling.
+            </h2>
+
+            <div class="blog-article-top-body-section">
+                
+
+
+
+
+<div class="blog-metadata">
+        <div class="blog-metadata-published-date">Oct. 2, 2025</div>
+
+
+    <div class="blog-metadata-social-share">
+        
+
+
+
+
+<div class="social-share-container">
+
+            <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fwww.houstonmethodist.org%2fleading-medicine-blog%2farticles%2f2025%2foct%2fambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency%2f&amp;title=Ambient+Intelligence%3a+Leveraging+Computer+Vision+Technology+to+Improve+OR+Efficiency&amp;summary=Houston+Methodist+is+using+ambient+intelligence+to+help+predict+the+duration+of+procedures%2c+a+major+stumbling+block+to+operating+room+efficiency.&amp;utm_medium=social&amp;utm_campaign=hm_socialshare_%7b%7bname%7d%7d&amp;utm_source=%7b%7bname%7d%7d"
+               class="social-share-network"
+               title="Share this page to LinkedIn"
+               target="_blank"
+               data-social-network="LinkedIn">
+                <span class="sr-only">LinkedIn</span>
+                <span class="social-share-network-icon">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>
+                </span>
+            </a>
+            <a href="https://twitter.com/share/?text=Ambient+Intelligence%3a+Leveraging+Computer+Vision+Technology+to+Improve+OR+Efficiency&amp;url=https%3a%2f%2fwww.houstonmethodist.org%2fleading-medicine-blog%2farticles%2f2025%2foct%2fambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency%2f&amp;utm_medium=social&amp;utm_campaign=hm_socialshare_%7b%7bname%7d%7d&amp;utm_source=%7b%7bname%7d%7d"
+               class="social-share-network"
+               title="Share this page to X (Twitter)"
+               target="_blank"
+               data-social-network="X (Twitter)">
+                <span class="sr-only">X (Twitter)</span>
+                <span class="social-share-network-icon">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
+                </span>
+            </a>
+            <a href="https://wa.me?text=Visit Ambient+Intelligence%3a+Leveraging+Computer+Vision+Technology+to+Improve+OR+Efficiency at https%3a%2f%2fwww.houstonmethodist.org%2fleading-medicine-blog%2farticles%2f2025%2foct%2fambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency%2f&amp;utm_medium=social&amp;utm_campaign=hm_socialshare_%7b%7bname%7d%7d&amp;utm_source=%7b%7bname%7d%7d"
+               class="social-share-network"
+               title="Share this page to Whatsapp"
+               target="_blank"
+               data-social-network="Whatsapp">
+                <span class="sr-only">Whatsapp</span>
+                <span class="social-share-network-icon">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg>
+                </span>
+            </a>
+            <a href="javascript:navigator.clipboard.writeText(document.location.href)"
+               class="social-share-network"
+               title="Share this page to Copy"
+               target="_self"
+               data-social-network="Copy">
+                <span class="sr-only">Copy</span>
+                <span class="social-share-network-icon">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 576" height="1em" width="1em" ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M451.5 160C434.9 160 418.8 164.5 404.7 172.7C388.9 156.7 370.5 143.3 350.2 133.2C378.4 109.2 414.3 96 451.5 96C537.9 96 608 166 608 252.5C608 294 591.5 333.8 562.2 363.1L491.1 434.2C461.8 463.5 422 480 380.5 480C294.1 480 224 410 224 323.5C224 322 224 320.5 224.1 319C224.6 301.3 239.3 287.4 257 287.9C274.7 288.4 288.6 303.1 288.1 320.8C288.1 321.7 288.1 322.6 288.1 323.4C288.1 374.5 329.5 415.9 380.6 415.9C405.1 415.9 428.6 406.2 446 388.8L517.1 317.7C534.4 300.4 544.2 276.8 544.2 252.3C544.2 201.2 502.8 159.8 451.7 159.8zM307.2 237.3C305.3 236.5 303.4 235.4 301.7 234.2C289.1 227.7 274.7 224 259.6 224C235.1 224 211.6 233.7 194.2 251.1L123.1 322.2C105.8 339.5 96 363.1 96 387.6C96 438.7 137.4 480.1 188.5 480.1C205 480.1 221.1 475.7 235.2 467.5C251 483.5 269.4 496.9 289.8 507C261.6 530.9 225.8 544.2 188.5 544.2C102.1 544.2 32 474.2 32 387.7C32 346.2 48.5 306.4 77.8 277.1L148.9 206C178.2 176.7 218 160.2 259.5 160.2C346.1 160.2 416 230.8 416 317.1C416 318.4 416 319.7 416 321C415.6 338.7 400.9 352.6 383.2 352.2C365.5 351.8 351.6 337.1 352 319.4C352 318.6 352 317.9 352 317.1C352 283.4 334 253.8 307.2 237.5z"/></svg>
+                </span>
+            </a>
+            <a href="javascript:if(window.print)window.print()"
+               class="social-share-network"
+               title="Share this page to Print"
+               target="_self"
+               data-social-network="Print">
+                <span class="sr-only">Print</span>
+                <span class="social-share-network-icon">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"></path></svg>
+                </span>
+            </a>
+</div>
+
+    </div>
+
+        <ul class="blog-metadata-tags">
+                <li>
+                    <a href="https://www.houstonmethodist.org/leading-medicine-blog/topics/digital-health-institute/" title="View Digital Health Related Articles">
+                        Digital Health
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.houstonmethodist.org/leading-medicine-blog/topics/innovation/" title="View Innovation Related Articles">
+                        Innovation
+                    </a>
+                </li>
+        </ul>
+</div>
+
+            </div>
+
+        <div class="blog-article-mid-body-section">
+
+                <div class="blog-article-content-upper-copy">
+
+                    <p>Operating rooms are the site of some of hospitals' greatest success stories, but historically they haven't exactly been models of efficiency.</p>
+<p>More than 70% of surgeries don't start on time, according to a 2016 study, a reflection of the less-than-scientific manual documentation common at hospitals. Start times, turnover intervals and prep milestones often depend on staff recollection or hurried chart entries. They're often wrong.</p>
+<p>"If we're supposed to be in the operating room at 7:30 and we get in there at 7:36, it sometimes would get documented as 7:30," says Tony DeDominico, vice president of operations at Houston Methodist. "The recorded times often didn't match reality."</p>
+<p>Those small discrepancies can add up, creating inefficiencies no one was pinning down. Delays upend hospital timetables, sometimes pushing surgeries way behind schedule and requiring staffers to work overtime, other times leaving valuable blocks of time unused.</p>
+<p>Houston Methodist's new remedy: <a href="https://www.houstonmethodist.org/center-for-innovation/our-work/ambient-intelligence/">ambient intelligence</a>. The technology uses embedded, unobtrusive technologies like sensors, cameras and <a href="https://www.houstonmethodist.org/center-for-innovation/our-work/care-with-ai/">AI</a>&nbsp;to monitor and record OR activity from surgery prep to after-hours cleaning. Importantly, it provides <a href="https://www.houstonmethodist.org/leading-medicine-blog/articles/2025/nov/watch-leveraging-predictive-analytics-to-deliver-personalized-care-at-scale-innovation-spotlight/">predictive modeling</a>, such as detecting when a case is expected to run longer than scheduled.</p>
+<blockquote>
+<p>&ldquo;AI is part of the future of health care. The OR is a complex environment, but we've proven this kind of ambient intelligence can work. The result is better efficiency, better safety and better care.&rdquo;</p>
+<hr />
+<cite>Godfrey Ortiz<br />
+Director of Perioperative Services at Houston Methodist</cite> </blockquote>
+<p>"There are a lot of different ways you can use the information," says Godfrey Ortiz, director of perioperative services at Houston Methodist. "We use it for efficiency of course, but it also generates real-time clinical insights and retrospective clinical quality reviews."</p>
+<p>Houston Methodist launched the program, in partnership with San Francisco-based health care company Apella, in early 2023 as a pilot in the orthopedic and cardiovascular thoracic OR floors. It was rolled out systemwide in early 2024.</p>
+<p>The early returns have been striking. Data from the pilot program shows:</p>
+<ul>
+    <li>A 43% improvement in on-time first-case starts</li>
+    <li>A 20% decrease in turnover times</li>
+    <li>A 15% increase in surgical cases without added staff or space</li>
+</ul>
+<br />
+<p>The program uses four ceiling-mounted cameras in each OR and audio sensors in conjunction with patient data from the electronic health record. Using AI-driven computer vision, it watches for key events: when staff members arrive in the OR, when the room is ready, when anesthesia begins and ends.</p>
+<p>From such signals, the system generates real-time alerts. A surgeon gets a text message when the patient is wheeled in, another when the drape goes up. After the procedure, the surgeon is notified that the patient has left for recovery &mdash; and when the next case has arrived.</p>
+<p>The result is a smoother flow of communication. No more missed calls or delays in paging. The system simply keeps everyone in sync.</p>
+<p>But one great benefit occurs after the fact. Leaders can review the data &mdash; not the surgery itself, but the surrounding workflow &mdash; to identify bottlenecks: Did the anesthesia setup slow things down? Was the patient prep time too long? Did room cleaning take longer than expected?</p>
+<p>"It's just more of an overview," says DeDominico. "It's not about dissecting minute by minute or second by second, it's about looking at the overall flow of the room and figuring out where we can improve."</p>
+<p>The program also improves safety. Video and audio let teams review potentially adverse events. In one case, it identified the cause of a "close call" in which a malfunctioning laser burned through the surgical drape; in another, recurring equipment failures were quickly diagnosed instead of requiring weeks of interview and guesswork.</p>
+<p>But introducing cameras into the OR can raise eyebrows. Will patients be comfortable being recorded? Will surgeons feel scrutinized?</p>
+<p>DeDominico acknowledges the early concerns. "We heard the questions &mdash; who has access, how long is it saved, what about privacy?"</p>
+<p>Fortunately, safeguards are built into the system. Patients are made aware that multiple technologies are used throughout the hospital to provide safe and enhanced care and must consent upon arrival at the facility. Footage is automatically deleted after a short window, and review of recordings is governed by strict rules. Day-to-day users only interact with real-time insights; they don't comb through recordings.</p>
+<p>"It's a tool, not surveillance," DeDominico stresses. "We don't save the recordings. We just use it to improve efficiency and patient care."</p>
+<p>The potential benefits may not be limited to the OR. Possible future steps for ambient intelligence include expanding it into more inpatient hospital rooms, where integrating it with medical-grade wearable devices and smart sensors can lead to comprehensive remote patient monitoring for patient falls, distress or other safety-related events.</p>
+<p>For years, hospitals counted on the EHR for its OR data. But the EHR is meant for record-keeping and billing, not management and analysis. Given ORs are likely the most resource-intensive spaces in a hospital, where every minute of delay or inefficiency affects patients, providers and the bottom line, innovation is much needed.</p>
+<p><em>This article originally appeared in <a target="_blank" href="https://www.linkedin.com/newsletters/innovation-spotlight-7309961222760603649/" rel="noopener noreferrer">Innovation Spotlight</a>, a LinkedIn newsletter on how Houston Methodist is leveraging technology to shape a smarter health system.</em></p>
+                </div>
+
+
+
+                <div class="blog-article-after-content-copy-section">
+                    
+
+
+
+
+<link href="/medialibrary/style/custom/components/feedback-form?v=jH0Ndpb1dcq2IunIkUXtEXZXQWMy2_Oo5E6Axo9dIzk1" rel="stylesheet"/>
+    <style>
+        #submitBtn {
+            background-color: #124a7e;
+        }
+
+        #submitBtn:hover {
+            background-color: #749abb;
+        }
+
+        .feedback-container
+        {
+            align-items: Center;
+        }
+    </style>
+    <div class="feedback-container"
+         data-item-id="2a386052-83f8-4268-97df-716fde4de2c1"
+         data-page-name="ambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency"
+         data-session-id="r3wh3mate3qx3qzaowxdgyo5"
+         data-user-ip-address="160.79.106.23"
+         data-create-feedback-url="/api/sitecore/Feedback/CreateFeedback"
+         data-update-feedback-url="/api/sitecore/Feedback/UpdateFeedback">
+
+
+        <input name="__RequestVerificationToken" type="hidden" value="S3AeL8brgYV-u1LwDf7AUoKo7W7mJZ-FlhU9aXfXQowvXoFTlbR52EfvPi08jfHU-oCgHEhwNkbQn_5gam8E9efNiGFEqsjYG5k36O5Jox5TvcjB7vzLlUdXpGn21LI8cDSW0Ik1zyOFKbt0bIvc7Q2" />
+
+        <input name="fieldDataId_value" type="hidden" value="" />
+        <input name="formEntryId_value" type="hidden" value="" />
+
+        <div class="feedback-question">
+            <div class="feedback-question-text" aria-label="Did you find this article helpful?">Did you find this article helpful?</div>
+            <div class="feedback-btn-group">
+                <button class="yes-btn" title="Yes">
+                    <svg id="icon-yes" height="20px" width="20px" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                    </svg>
+                </button>
+                <button class="no-btn" title="No">
+                    <svg id="icon-no" height="20px" width="20px" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="feedback-form">
+            <textarea type="text"
+                      name="textfield"
+                      class="feedback-text"
+                      aria-label="How could this article be improved? (Optional)"
+                      autocomplete="off"
+                      placeholder="How could this article be improved? (Optional)"
+                      maxlength="300"></textarea>
+
+            <button type="button" class="feedback-submit-button">
+                Submit
+            </button>
+        </div>
+
+        <div class="feedback-thank-you-message">
+            <div>Thank you for your feedback.</div>
+        </div>
+    </div>
+<script type="text/javascript" src="/medialibrary/scripts/custom/components/feedback-form?v=xghvo2Sq4YZunCEDxNG1qZ5LPht4TqlBuOhVP1ZTLGM1" defer></script>
+
+
+                </div>
+        </div>
+
+            <div class="blog-article-bottom-body-section">
+                
+
+
+
+
+<div class="blog-metadata">
+        <div class="blog-metadata-published-date">Oct. 2, 2025</div>
+
+
+    <div class="blog-metadata-social-share">
+        
+
+
+
+
+<div class="social-share-container">
+
+            <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fwww.houstonmethodist.org%2fleading-medicine-blog%2farticles%2f2025%2foct%2fambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency%2f&amp;title=Ambient+Intelligence%3a+Leveraging+Computer+Vision+Technology+to+Improve+OR+Efficiency&amp;summary=Houston+Methodist+is+using+ambient+intelligence+to+help+predict+the+duration+of+procedures%2c+a+major+stumbling+block+to+operating+room+efficiency.&amp;utm_medium=social&amp;utm_campaign=hm_socialshare_%7b%7bname%7d%7d&amp;utm_source=%7b%7bname%7d%7d"
+               class="social-share-network"
+               title="Share this page to LinkedIn"
+               target="_blank"
+               data-social-network="LinkedIn">
+                <span class="sr-only">LinkedIn</span>
+                <span class="social-share-network-icon">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>
+                </span>
+            </a>
+            <a href="https://twitter.com/share/?text=Ambient+Intelligence%3a+Leveraging+Computer+Vision+Technology+to+Improve+OR+Efficiency&amp;url=https%3a%2f%2fwww.houstonmethodist.org%2fleading-medicine-blog%2farticles%2f2025%2foct%2fambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency%2f&amp;utm_medium=social&amp;utm_campaign=hm_socialshare_%7b%7bname%7d%7d&amp;utm_source=%7b%7bname%7d%7d"
+               class="social-share-network"
+               title="Share this page to X (Twitter)"
+               target="_blank"
+               data-social-network="X (Twitter)">
+                <span class="sr-only">X (Twitter)</span>
+                <span class="social-share-network-icon">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
+                </span>
+            </a>
+            <a href="https://wa.me?text=Visit Ambient+Intelligence%3a+Leveraging+Computer+Vision+Technology+to+Improve+OR+Efficiency at https%3a%2f%2fwww.houstonmethodist.org%2fleading-medicine-blog%2farticles%2f2025%2foct%2fambient-intelligence-leveraging-computer-vision-technology-to-improve-or-efficiency%2f&amp;utm_medium=social&amp;utm_campaign=hm_socialshare_%7b%7bname%7d%7d&amp;utm_source=%7b%7bname%7d%7d"
+               class="social-share-network"
+               title="Share this page to Whatsapp"
+               target="_blank"
+               data-social-network="Whatsapp">
+                <span class="sr-only">Whatsapp</span>
+                <span class="social-share-network-icon">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg>
+                </span>
+            </a>
+            <a href="javascript:navigator.clipboard.writeText(document.location.href)"
+               class="social-share-network"
+               title="Share this page to Copy"
+               target="_self"
+               data-social-network="Copy">
+                <span class="sr-only">Copy</span>
+                <span class="social-share-network-icon">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 576" height="1em" width="1em" ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M451.5 160C434.9 160 418.8 164.5 404.7 172.7C388.9 156.7 370.5 143.3 350.2 133.2C378.4 109.2 414.3 96 451.5 96C537.9 96 608 166 608 252.5C608 294 591.5 333.8 562.2 363.1L491.1 434.2C461.8 463.5 422 480 380.5 480C294.1 480 224 410 224 323.5C224 322 224 320.5 224.1 319C224.6 301.3 239.3 287.4 257 287.9C274.7 288.4 288.6 303.1 288.1 320.8C288.1 321.7 288.1 322.6 288.1 323.4C288.1 374.5 329.5 415.9 380.6 415.9C405.1 415.9 428.6 406.2 446 388.8L517.1 317.7C534.4 300.4 544.2 276.8 544.2 252.3C544.2 201.2 502.8 159.8 451.7 159.8zM307.2 237.3C305.3 236.5 303.4 235.4 301.7 234.2C289.1 227.7 274.7 224 259.6 224C235.1 224 211.6 233.7 194.2 251.1L123.1 322.2C105.8 339.5 96 363.1 96 387.6C96 438.7 137.4 480.1 188.5 480.1C205 480.1 221.1 475.7 235.2 467.5C251 483.5 269.4 496.9 289.8 507C261.6 530.9 225.8 544.2 188.5 544.2C102.1 544.2 32 474.2 32 387.7C32 346.2 48.5 306.4 77.8 277.1L148.9 206C178.2 176.7 218 160.2 259.5 160.2C346.1 160.2 416 230.8 416 317.1C416 318.4 416 319.7 416 321C415.6 338.7 400.9 352.6 383.2 352.2C365.5 351.8 351.6 337.1 352 319.4C352 318.6 352 317.9 352 317.1C352 283.4 334 253.8 307.2 237.5z"/></svg>
+                </span>
+            </a>
+            <a href="javascript:if(window.print)window.print()"
+               class="social-share-network"
+               title="Share this page to Print"
+               target="_self"
+               data-social-network="Print">
+                <span class="sr-only">Print</span>
+                <span class="social-share-network-icon">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"></path></svg>
+                </span>
+            </a>
+</div>
+
+    </div>
+
+        <ul class="blog-metadata-tags">
+                <li>
+                    <a href="https://www.houstonmethodist.org/leading-medicine-blog/topics/digital-health-institute/" title="View Digital Health Related Articles">
+                        Digital Health
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.houstonmethodist.org/leading-medicine-blog/topics/innovation/" title="View Innovation Related Articles">
+                        Innovation
+                    </a>
+                </li>
+        </ul>
+</div>
+
+
+
+
+<div class="article-subscribe-card screen-only">
+    <div class="article-subscribe-card-content green-card">
+            <div class="article-subscribe-card-header">
+                    <div class="article-subscribe-card-title">
+                        Subscribe to our Newsletter
+                    </div>
+
+            </div>
+
+            <div class="article-subscribe-card-input-box-container">
+                    <div class="article-subscribe-card-input-box">
+                        <div class="article-subscribe-card-input-box-email">
+                            <input class="article-subscribe-card-input-box-email-input"
+                                   type="email"
+                                   placeholder="Enter email address"
+                                   aria-label="Enter email address" />
+                        </div>
+                        <div class="article-subscribe-card-input-box-actions">
+                            <button class="article-subscribe-card-input-box-actions-button"
+                                    data-href="https://www.houstonmethodist.org/leading-medicine-blog-form/"
+                                    data-cookie="_subscribe_email"
+                                    data-analytics="blog:subscribe-button-wide">
+                                Subscribe
+                            </button>
+                        </div>
+                    </div>
+                    <div class="article-subscribe-card-input-box-errors">
+                        <div class="article-subscribe-card-input-box-error-text">Please enter an email</div>
+                        <div class="article-subscribe-card-input-box-error-text-valid">Please enter a valid email</div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+
+
+
+<link href="/medialibrary/style/custom/components/panel-tab-view?v=sTTHMPXLhWD2whILhy7H0Y_KEJ3maUvyOO-WWTnlrww1" rel="stylesheet"/>
+
+<script type="text/javascript" src="/medialibrary/scripts/custom/components/panel-view?v=5JWYFk01E-49ztgDZcpGVGNUIPy8RJRs-JVYIVfR4Rw1" defer></script>
+
+
+    <style>
+        #panel-view-df35d4a320d1461a948ab5408ad78da4 {
+            margin-top: 30px;
+            margin-bottom: 0px;
+        }
+
+        #panel-view-df35d4a320d1461a948ab5408ad78da4 .panel-view-header-title {
+            color: #000000;
+            font-weight: 400;
+        }
+
+        #panel-view-df35d4a320d1461a948ab5408ad78da4 .panel-view-header-description {
+            color: ;
+        }
+
+        #panel-view-df35d4a320d1461a948ab5408ad78da4 .glyphicon-plus {
+            -webkit-animation: openPanel 200ms linear;
+            animation: openPanel 200ms linear;
+        }
+
+        #panel-view-df35d4a320d1461a948ab5408ad78da4 .glyphicon-minus {
+            -webkit-animation: closePanel 200ms linear;
+            animation: closePanel 200ms linear;
+            position: relative;
+            left: -1px;
+        }
+
+            
+                #panel-view-df35d4a320d1461a948ab5408ad78da4 .panel-view-background {
+                    margin: 0;
+                    width: 100%;
+                }
+
+                #panel-view-df35d4a320d1461a948ab5408ad78da4 .panel-view-header,
+                #panel-view-df35d4a320d1461a948ab5408ad78da4 .panel-view-body {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            
+
+    </style>
+    <script type="text/javascript">
+        methodist.utils.events.onload(function () {
+            methodist.components.panels.setup("#panel-view-df35d4a320d1461a948ab5408ad78da4");
+        });
+    </script>
+    <div id="panel-view-df35d4a320d1461a948ab5408ad78da4"
+         class="panel-tab-view panel-view-container lazy-container single-panel "
+         data-color-swap="false"
+         data-analytics=""
+         data-name="Shared Related Content"
+         data-id="47731109-5671-4f9a-b3e7-7230da8a2de3"
+         data-rendering="df35d4a3-20d1-461a-948a-b5408ad78da4">
+        <div class="panel-view-background">
+
+            <div class="panel-view-body lazy" data-tab-container>
+                <div class="panel-view-body-panels" role="tablist">
+                        <div id="tab-panel-view-df35d4a320d1461a948ab5408ad78da4-related-blog-articles"
+                             class="panel-view-body-nav"
+                             role="tab"
+                             aria-selected="true"
+                             tabindex="0"
+                             aria-controls="panel-panel-view-df35d4a320d1461a948ab5408ad78da4-related-blog-articles"
+                             data-identifier="panel-view-df35d4a320d1461a948ab5408ad78da4-related-blog-articles"
+                             data-analytics="related-blog-articles-nav">
+                            <h4 class="panel-tab-header">Related Articles</h4>
+                        </div>
+                </div>
+                <div class="panel-view-body-panel">
+
+
+
+
+<div class="panel-container" data-analytics="related-blog-articles-nav">
+    <div class="panel-header" role="button" tabindex="0" data-identifier="panel-view-df35d4a320d1461a948ab5408ad78da4-related-blog-articles">
+        <span class="roller">
+            <i class="glyphicon glyphicon-plus"></i>
+        </span>
+        Related Articles
+        <span class="pointer">
+            <i class="glyphicon glyphicon-arrow-right"></i>
+        </span>
+    </div>
+    <div class="panel-body">
+
+
+    
+        <style>
+            #panel-view-df35d4a320d1461a948ab5408ad78da4 .panel-view-background.panel-view-df35d4a320d1461a948ab5408ad78da4-related-blog-articles {
+                margin: 0;
+                width: 100%;
+            }
+
+            #panel-view-df35d4a320d1461a948ab5408ad78da4 .panel-view-df35d4a320d1461a948ab5408ad78da4-related-blog-articles .panel-view-body {
+                padding: 0;
+            }
+        </style>
+    
+
+
+<div id="panel-view-df35d4a320d1461a948ab5408ad78da4-related-blog-articles"
+     class="panel-blogs linkable"
+     data-link="https://www.houstonmethodist.org/leading-medicine-blog/"
+     data-target="_self"
+     data-linkable="false"
+     data-hide-dates="true"
+     style="--blogs-columns: 3;">
+    <div class="panel-blogs-body skeleton ">
+            <div class="blogs-list-skeleton">
+                <div class="loading-skeleton image"></div>
+                <div class="grouper">
+                    <div class="loading-skeleton line-small"></div>
+                    <div class="loading-skeleton line-medium"></div>
+                </div>
+            </div>
+            <div class="blogs-list-skeleton">
+                <div class="loading-skeleton image"></div>
+                <div class="grouper">
+                    <div class="loading-skeleton line-small"></div>
+                    <div class="loading-skeleton line-medium"></div>
+                </div>
+            </div>
+            <div class="blogs-list-skeleton">
+                <div class="loading-skeleton image"></div>
+                <div class="grouper">
+                    <div class="loading-skeleton line-small"></div>
+                    <div class="loading-skeleton line-medium"></div>
+                </div>
+            </div>
+    </div>
+        <div class="panel-blogs-footer">
+            <a href="https://www.houstonmethodist.org/leading-medicine-blog/"
+               target="_self"
+               title=""
+               class="btn outerLinkBtn view-panel-cta"
+               data-analytics="related-blog-articles-view-all"
+               data-handled="true">
+                More on Leading Medicine Blog Articles
+            </a>
+        </div>
+</div>
+
+<script type="text/javascript">
+  methodist.utils.events.onload(function () {
+    createBlogsPanel("#panel-view-df35d4a320d1461a948ab5408ad78da4", "panel-view-df35d4a320d1461a948ab5408ad78da4-related-blog-articles", "related-blog-articles", "{2F97DCA7-3072-4025-A757-F564F49C1BB8}", "{232B8973-2BF2-47C8-AE5F-60AA004C7F80}", "3");
+  });
+</script>
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+            </div>
+    </div>
+</section>
+
+</div>
+        
+    </section>
+</article>
+
+</section>
+
+    <!-- End Layout Body -->
+
+
+    <div id="footer" runat="server">
+        
+
+
+<footer class="container-fluid footer-container light-black" data-analytics=footer-section>
+        <div class="footer-main-container">
+            <div class="footer-grid-container">
+                
+
+
+
+
+                
+
+
+    <div class="footer-interactive ">
+            <div class="footer-subscribe-card">
+                    <div id="subscribe-card-title" class="footer-subscribe-card-title">
+                        Get Updates from Houston Methodist
+                    </div>
+                <div class="footer-subscribe-card-input">
+                    <input class="subscribe-input"
+                           type="text"
+                           name="subscribe-input"
+                           autocomplete="off"
+                           aria-labelledby="subscribe-card-title"
+                           placeholder="Enter Your Email"
+                           data-analytics="footer-subscribe-textbox" />
+                    <span class="error-message">Please enter a valid email.</span>
+                </div>
+                <a href="javascript:void(0)"
+                   class="footer-subscribe-card-trigger"
+                   data-url="https://www.houstonmethodist.org/leading-medicine-blog-form/"
+                   data-cookie="_subscribe_email"
+                   data-analytics="footer-subscribe-cta-button">
+                    Submit
+                </a>
+            </div>
+
+            <div class="footer-social-networks">
+                    <div class="footer-social-networks-title">Stay Connected</div>
+
+                <div class="footer-social-networks-icon-groups">
+                        <ul class="footer-social-networks-icons">
+                                <li>
+                                    <a href="https://twitter.com/MethodistHosp" target="_blank" title="Houston Methodist X (Twitter) Page">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.youtube.com/user/methodisthospitalhou" target="_blank" title="Houston Methodist YouTube Channel">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path></svg>                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.linkedin.com/company/houston-methodist" target="_blank" title="Houston Methodist LinkedIn Page">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>                                    </a>
+                                </li>
+                        </ul>
+                </div>
+            </div>
+
+    </div>
+    <hr class="footer-interactive-divider" />
+
+                
+
+
+    <div class="footer-navigation">
+            <div class="footer-call-to-action" data-analytics=footer-donate-cta>
+                <div class="footer-call-to-action-header ">
+                    <img src="https://www.houstonmethodist.org/-/media/icons/giving.ashx?h=32&amp;iar=0&amp;mw=1382&amp;w=32&amp;hash=51B07F25B94F2E4551B750B36F5A83C6" alt="Giving" width="32" height="32" loading="lazy" />
+                    <span>Giving</span>
+                </div>
+                <div class="footer-call-to-action-body ">
+                    <p>With your support, Houston Methodist provides exceptional research, education and care that is truly leading medicine.</p>
+                </div>
+                    <div class="footer-call-to-action-footer">
+                        <a href="https://givingforms.houstonmethodist.org/GeneralGivingForm"
+                           target="_blank"
+                           title="Donate">
+                            Donate
+                        </a>
+                    </div>
+            </div>
+
+            <ul class="footer-navigation-columns" data-analytics=footer-section-links>
+                    <li class="footer-column footer-sites">
+                        <ul class="footer-list">
+                                <li>
+                                    <a href="https://www.houstonmethodist.org/" target="_self">Houston Methodist Main Site</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.houstonmethodist.org/academic-institute/" target="_self">Academic Institute</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.houstonmethodist.org/global/" target="_self">International Patients</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.houstonmethodistcareers.org/" target="_blank">Careers</a>
+                                </li>
+                        </ul>
+                    </li>
+
+                        <li class="footer-column">
+                                <div class="footer-section">
+                                    <div class="footer-section-title">
+                                            <div>
+                                                <a href="https://www.houstonmethodist.org/education/" target="_self">
+                                                    Education
+                                                </a>
+                                            </div>
+                                    </div>
+                                    <div class="footer-section-links">
+                                        <ul class="footer-list">
+                                                <li>
+                                                    <a href="https://www.houstonmethodist.org/education/" target="_self">Education Areas</a>
+                                                </li>
+                                                <li>
+                                                    <a href="">CME & Professionals</a>
+                                                </li>
+                                                <li>
+                                                    <a href="">GME & Residencies</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://www.houstonmethodist.org/academic-institute/education/research/" target="_self">Research Education</a>
+                                                </li>
+                                                <li>
+                                                    <a href="">Alumni Association</a>
+                                                </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                        </li>
+                        <li class="footer-column">
+                                <div class="footer-section">
+                                    <div class="footer-section-title">
+                                            <div>
+                                                <a href="https://www.houstonmethodist.org/research/" target="_self">
+                                                    Research
+                                                </a>
+                                            </div>
+                                    </div>
+                                    <div class="footer-section-links">
+                                        <ul class="footer-list">
+                                                <li>
+                                                    <a href="https://www.houstonmethodist.org/academic-institute/research/" target="_self">Areas of Research</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://www.houstonmethodist.org/academic-institute/research/cores/" target="_self">Core Facilities</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://www.houstonmethodist.org/academic-institute/research/clinical-trials-help/" target="_self">Clinical Trials</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://www.houstonmethodist.org/academic-institute/research/ott/" target="_self">Technology Transfer</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://www.houstonmethodist.org/academic-institute/research/labs/" target="_self">Our Labs</a>
+                                                </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                        </li>
+                        <li class="footer-column">
+                                <div class="footer-section">
+                                    <div class="footer-section-title">
+                                            <div>Departments & Centers</div>
+                                    </div>
+                                    <div class="footer-section-links">
+                                        <ul class="footer-list">
+                                                <li>
+                                                    <a href="https://www.houstonmethodist.org/for-health-professionals/department-programs/" target="_self">Departments</a>
+                                                </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                        </li>
+                        <li class="footer-column">
+                                <div class="footer-section">
+                                    <div class="footer-section-title">
+                                            <div>Faculty</div>
+                                    </div>
+                                    <div class="footer-section-links">
+                                        <ul class="footer-list">
+                                                <li>
+                                                    <a href="https://www.houstonmethodist.org/academic-institute/about-us/" target="_self">About Us</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://www.houstonmethodist.org/academic-institute/research/for-faculty/" target="_self">Our Faculty</a>
+                                                </li>
+                                                <li>
+                                                    <a href="">News & Events</a>
+                                                </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="footer-section">
+                                    <div class="footer-section-title">
+                                            <div>Discovery</div>
+                                    </div>
+                                    <div class="footer-section-links">
+                                        <ul class="footer-list">
+                                                <li>
+                                                    <a href="https://attend.houstonmethodist.org" target="_blank">Academic Calendar</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://www.houstonmethodist.org/leading-medicine-blog/" target="_self">Leading Medicine</a>
+                                                </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                        </li>
+            </ul>
+    </div>
+
+            </div>
+        </div>
+
+    <div class="footer-lower-container">
+        <div class="footer-grid-container">
+            
+
+
+<div class="footer-legal" data-analytics=footer-section-privacy-links>
+        <ul class="footer-privacy-disclaimers">
+                <li>
+                    <a href="https://www.houstonmethodist.org/privacy-disclaimer/" target="_self">Digital Privacy Policy, Disclaimer & Terms of Use</a>
+                </li>
+                <li>
+                    <a href="https://www.houstonmethodist.org/privacy-notice/" target="_self">Patient Privacy Practices</a>
+                </li>
+                <li>
+                    <a href="https://www.houstonmethodist.org/eu_website_privacy_notice/" target="_self">EU Website Privacy Notice</a>
+                </li>
+                <li>
+                    <a href="https://www.houstonmethodist.org/eu_patient_fair_processing_privacy_notice/" target="_self">EU Patient Privacy Notice</a>
+                </li>
+                <li>
+                    <a href="https://www.houstonmethodist.org/employee-fair-processing-privacy-notice/" target="_self">Employee Privacy Notice</a>
+                </li>
+        </ul>
+    <div class="footer-copyright">
+        &copy; 2026 Houston Methodist, Houston, TX. All rights reserved. 
+    </div>
+</div>
+
+        </div>
+    </div>    
+    
+</footer>
+
+
+
+    </div>
+</div>
+
+<!-- Chat section -->
+
+
+
+
+
+
+<!-- End Chat section -->
+
+
+
+<script type="text/javascript" src="/medialibrary/scripts/custom/blogs/article?v=vp0TiU1656GCDON70lO0hQZtwk4FAYr1dGBo7KPvOWU1" defer></script>
+
+<!-- End Layout Body -->
+<!-- Layout Body Bottom Section -->
+
+<!-- End Layout Body Bottom Section -->
+<!-- Page Body Bottom Section -->
+
+<!-- End Page Body Bottom Section -->
+<!-- Component Body Bottom Section -->
+<script type="text/javascript">
+    methodist.utils.events.register();
+</script>
+<!-- End Component Body Bototm Section -->
+<!-- Form scripts -->
+
+<!-- End Form styles -->
+<!-- Async fonts -->
+<script src="/medialibrary/scripts/custom/performance?v=WTjIOIxMCVUUjiFbAkvmZtpULszENQV5MDN7vhncqm81"></script>
+
+<!-- End Async fonts -->
+<input type="hidden" id="__scAnalyticsIdentifier" name="__scAnalyticsIdentifier" value="{232B8973-2BF2-47C8-AE5F-60AA004C7F80}"/>
+</body>
+</html>
