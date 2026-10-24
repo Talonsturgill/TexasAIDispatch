@@ -91,6 +91,22 @@ def restored_rebind(workspace, previous, state_path, state):
             'restored_from': checkpoint, 'ledger_sha256': manifest['ledger_sha256']}
 
 
+def failed_rebind(workspace, previous, state_path, state):
+    """Retain an old failed marker when a verified later daily edition is armed."""
+    from failed_editions import retained
+    old_id = previous.get('run_id', '')
+    if (previous.get('schema') != SCHEMA or old_id[:10] < '2026-10-24'
+            or state['run_id'][:10] <= old_id[:10]):
+        return None
+    old_path = location(workspace, previous['state'])
+    old_state = read(old_path) if old_path.is_file() else None
+    proof = retained(state_path.parents[2], old_id, state=old_state)
+    if proof is None:
+        return None
+    return {'previous_marker': previous, 'state': str(state_path),
+            'failed_edition': proof, 'production_finished': False}
+
+
 def arm(workspace, state_path):
     workspace = registered_workspace(workspace, state_path)
     state_path = location(workspace, state_path)
@@ -106,7 +122,10 @@ def arm(workspace, state_path):
     value = {'schema': SCHEMA, 'run_id': state['run_id'], 'state': str(state_path)}
     from bootstrap_claude_hooks import write_json
     if target.exists() and read(target) != value:
-        proof = restored_rebind(workspace, read(target), state_path, state)
+        previous = read(target)
+        proof = failed_rebind(workspace, previous, state_path, state)
+        if proof is None:
+            proof = restored_rebind(workspace, previous, state_path, state)
         audit = location(workspace, workspace / REBIND)
         history = read(audit) if audit.exists() else {'schema': SCHEMA, 'rebindings': []}
         if history.get('schema') != SCHEMA or not isinstance(history.get('rebindings'), list):
@@ -161,7 +180,9 @@ def capacity_recovery_hint(state):
                 ' --exhausted-required-review <original-ledger-bound-failure> through run_with_env.sh.'
                 ' Its validator must prove the original failure and exact ledger checkpoint. Stop may'
                 ' yield only with actual empty worker and cron registries. The edition stays NOT SHIPPED'
-                ' and owned; this grants no new edition, release or paid work.')
+                ' and owned. The next daily wake may retain this verified exhausted failure through'
+                ' failed_editions.py and start a strictly later edition after ordinary ownership fencing.'
+                ' No same-date restart, extra review or shipment approval is granted.')
     if finishing(state):
         return (' The owner hard limit is FIVE cumulative editorial reviews, including retries and pivots.'
                 ' Creative iteration is closed to protect final review and delivery. Finish any already'
@@ -235,12 +256,25 @@ def decision(payload, workspace):
     waiting = waiting_reason(payload, workspace)
     if waiting:
         return None  # An unowned duplicate observer ends; the actual publisher and its ledger continue.
+    marker = workspace / MARKER
+    if (marker.is_file() and payload.get('background_tasks') == []
+            and payload.get('session_crons') == []):
+        try:
+            armed = read(marker)
+            old_path = location(workspace, armed['state'])
+            old_state = read(old_path)
+            if (armed.get('schema') == SCHEMA and armed.get('run_id') == old_state.get('run_id')
+                    and str(old_state.get('run_id', ''))[:10] >= '2026-10-24'):
+                from failed_editions import retained
+                if retained(old_path.parents[2], armed['run_id'], state=old_state):
+                    return None  # Retained failure, never shipment or an owner release.
+        except (OSError, ValueError, KeyError, TypeError, RuntimeError):
+            pass  # An unverified disposition cannot end an armed production.
     ownership_error = None
     try:
         heartbeat_hook(payload, workspace)
     except Exception:
         ownership_error = 'publication ownership needs source-backed recovery before another paid attempt'
-    marker = workspace / MARKER
     if not marker.is_file():
         # A harmless one-shot host probe never arms or completes a production ledger.
         probe = workspace / PROBE

@@ -857,24 +857,9 @@ def verify_checkpoint(repo, commit, run_id):
 
 
 def discover(repo=REPO, remote="origin"):
-    """Unfinished checkpointed editions visible to a clean clone, newest save first."""
-    repo = Path(repo)
-    listed = git(repo, "ls-remote", "--heads", remote, f"refs/heads/{BRANCH}*")
-    found = []
-    for line in listed.stdout.decode().splitlines():
-        _, ref = line.split("\t")
-        run_id = ref[len(f"refs/heads/{BRANCH}"):]
-        if not RUN_ID.fullmatch(run_id):
-            continue
-        git(repo, "fetch", "--quiet", "--no-tags", remote, ref)
-        commit = git(repo, "rev-parse", "FETCH_HEAD").stdout.decode().strip()
-        manifest = json.loads(show(repo, commit, f"{ROOT}/{run_id}/manifest.json"))
-        done = manifest.get("terminal_state") == "shipped" and manifest.get("shipment_recorded")
-        found.append({"run_id": run_id, "commit": commit, "saved_at": manifest["saved_at"], "phase": manifest["phase"],
-                      "created_at": manifest.get("created_at"),
-                      "source_pin": manifest.get("source_pin"), "files": len(manifest["files"]),
-                      "finished": bool(done), "usage": manifest.get("usage")})
-    return sorted(found, key=lambda row: row["saved_at"], reverse=True)
+    """Use the same verified selection and isolated snapshots as the startup catalog."""
+    from checkpoint_discovery import discover as catalog
+    return catalog(repo, remote)
 
 
 def neutralize(repo, path, invocation, nature="synthetic scene render"):
@@ -902,7 +887,7 @@ def neutralize(repo, path, invocation, nature="synthetic scene render"):
 def oldest_unfinished(found):
     """The edition to resume first: oldest by run identity, then ledger creation time. Never found[0],
     which discover orders newest save first."""
-    open_rows = [row for row in found if not row["finished"]]
+    open_rows = [row for row in found if not row["finished"] and not row.get('failed_retained')]
     return min(open_rows, key=lambda row: (row["run_id"][:10], row.get("created_at") or "", row["run_id"]), default=None)
 
 

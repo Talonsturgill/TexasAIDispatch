@@ -73,7 +73,14 @@ Three things still stop and ask, in any session:
 
 ## PRODUCTION COMPLETION AND AUTONOMOUS REPAIR
 
-Production has one terminal state: `shipped`. A passing exact-film panel or the independently
+Successful production has one terminal state: `shipped`. The owner's October 24th, 2026
+instruction separately allows a verified exhausted edition to remain failed and unshipped so a
+later daily edition can start. Use only the versioned failed-edition retention and ownership
+handoff. Preserve its original checkpoint, frozen envelope, every charge and failed artifact.
+This disposition is not shipment, a quality waiver, another review, or a fresh budget for the
+same date. The normal five-review maximum never increases. An active publisher remains protected.
+
+A passing exact-film panel or the independently
 evidenced bounded creative route authorizes publication through `finish --result publishable`, which leaves production open in
 `publishing`. Completion requires merged exact-head green CI in both repositories,
 the matching Pages deployment, permanent media serving the reviewed bytes,
@@ -122,7 +129,8 @@ native rendering and fresh hero review within the existing envelope, without new
 or a creative round. It does not change the film or approve any rejected evidence.
 
 A checkpoint is crash recovery, never completion. `package_review_run.sh` saves the
-film and evidence with the controller still active. Resume that edition until it ships.
+film and evidence with the controller still active. Resume that edition until it ships or the
+verified exhausted-failure handoff retains it under the October 24th policy above.
 The legacy needs_review outcome is refused in production. Reopen a legacy stopped
 controller without resetting usage. Missing external access leaves work incomplete;
 record the real evidence and next executable step without claiming delivery.
@@ -132,7 +140,9 @@ Host reviewer capacity is a transport failure. Follow prompts/phases/review-avai
 to complete the same independent role through the configured provider, charging each request
 within the original frozen envelope. Protect that recovery path in production-budget before
 creative work. Preserve actual rejected verdicts and never replace them through this route.
-Resume the returned active worktree and its ledger before starting another date.
+Resume the returned eligible active worktree and its ledger before starting another date.
+Exclude a retained failed edition only through the current verified failure catalog, never
+because a filename, UI badge, elapsed day or agent-written summary says it is done.
 Preserve unrelated changes in place and use an isolated clean checkout for tooling
 repairs. Never delete a ledger or substitute a fresh budget.
 

@@ -505,7 +505,16 @@ def pending(repo):
                if item["legacy_terminal"] == "shipped" and item["shipment_recorded"]}
     for item in found:
         unique.setdefault(item["run_id"], item)
-    return [item for item in unique.values() if item["run_id"] not in shipped]
+    selected = []
+    for item in unique.values():
+        if item['run_id'] in shipped:
+            continue
+        if item['run_id'][:10] >= '2026-10-24':
+            from failed_editions import retained
+            if retained(repo, item['run_id'], state=read_state(Path(item['state']))):
+                continue  # Verify the authoritative mutable ledger, not an older crash copy.
+        selected.append(item)
+    return selected
 
 
 def allowance_problems(state):

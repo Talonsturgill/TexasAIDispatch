@@ -33,6 +33,9 @@ def discover(repo=checkpoint.REPO, remote='origin'):
     listed = checkpoint.git(repo, 'ls-remote', '--heads', remote,
                             'refs/heads/' + checkpoint.BRANCH + '*')
     found = []
+    import publication_owner
+    import failed_editions
+    ownership = publication_owner.read_remote(repo) if remote == 'origin' else {}
     for line in listed.stdout.decode().splitlines():
         _, ref = line.split('\t')
         run_id = ref[len('refs/heads/' + checkpoint.BRANCH):]
@@ -45,10 +48,11 @@ def discover(repo=checkpoint.REPO, remote='origin'):
                     or manifest.get('run_id') != run_id):
                 raise checkpoint.CheckpointError('catalog manifest belongs to another run or schema')
             done = manifest.get('terminal_state') == 'shipped' and manifest.get('shipment_recorded')
+            failed = bool(failed_editions.verified(repo, run_id, ownership or {}))
             found.append({'run_id': run_id, 'commit': commit, 'saved_at': manifest['saved_at'],
                           'phase': manifest['phase'], 'created_at': manifest.get('created_at'),
                           'source_pin': manifest.get('source_pin'), 'files': len(manifest['files']),
-                          'finished': bool(done), 'usage': manifest.get('usage')})
+                          'finished': bool(done), 'failed_retained': failed, 'usage': manifest.get('usage')})
     return sorted(found, key=lambda row: row['saved_at'], reverse=True)
 
 

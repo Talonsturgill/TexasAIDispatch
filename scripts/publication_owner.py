@@ -192,6 +192,8 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runti
         marker = workspace / MARKER
         local = load(marker) if marker.is_file() else None
         value = read_remote(repo)
+        from failed_editions import FIELD, assert_not_retained, verified, day
+        assert_not_retained(repo, run_id, value or {})
         if value and value['status'] == 'complete' and value['run_id'] == run_id:
             record_wait(workspace, owner, repo, {'status': 'resolved', 'run_id': run_id})
             return {'status': 'complete', 'run_id': run_id, 'review_approval': False}
@@ -207,13 +209,20 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runti
             record_wait(workspace, owner, repo, result)
             return result
         previous_proof = None
+        previous_failure = None
         if value and value['status'] == 'held':
             previous_proof = completed_proof(repo, value['run_id'])
             if previous_proof and value['run_id'] == run_id:
                 record_wait(workspace, owner, repo, {'status': 'resolved', 'run_id': run_id})
                 return {'status': 'complete', 'run_id': run_id, 'proof': previous_proof,
                         'review_approval': False}
-            if not previous_proof and value['run_id'] != run_id:
+            if not previous_proof:
+                previous_failure = verified(repo, value['run_id'], value)
+            if previous_failure:
+                if (day(run_id) <= day(value['run_id'])
+                        or day(run_id) != moment.astimezone(ZoneInfo('America/New_York')).date()):
+                    raise ValueError('a retained failed edition permits only the actual later daily date')
+            if not previous_proof and not previous_failure and value['run_id'] != run_id:
                 return {'status': 'resume_required', 'run_id': value['run_id'], 'review_approval': False,
                         'provider_unavailable': False}
         recovery = None
@@ -264,6 +273,11 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runti
                      'epoch': uuid4().hex, 'status': 'held', 'acquired_at': stamp(moment),
                      'previous_commit': previous, 'review_approval': False, 'provider_unavailable': False})
         proposed.update(heartbeat_at=stamp(moment), expires_at=stamp(moment + timedelta(seconds=LEASE_SECONDS)))
+        if value and value.get(FIELD):
+            proposed[FIELD] = value[FIELD]
+        if previous_failure:
+            proposed['previous_failed_edition'] = {'run_id': previous_failure['run_id'],
+                'checkpoint': previous_failure['checkpoint'], 'shipped': False}
         if previous_proof:
             proposed['previous_publication'] = previous_proof
         if runtime == 'codex' and not continuing:
@@ -293,6 +307,10 @@ def current(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runti
         raise ValueError('acquire publication ownership before restoring or paying for this edition')
     with locked(workspace):
         local = load(marker)
+        from failed_editions import assert_not_retained
+        # Failure retention changes no lease, but its old identity cannot renew or spend again.
+        # Check the remote catalog before the ordinary local heartbeat cache shortcut.
+        assert_not_retained(repo, run_id)
         if (local.get('runtime', 'claude') != runtime
                 or local.get('run_id') != run_id or local.get('owner_sha256') != owner
                 or local.get('status') != 'held' or instant(local['expires_at']) <= moment):

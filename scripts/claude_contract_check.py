@@ -104,7 +104,8 @@ def problems(repo=REPO, environ=None):
                          'A terminal shipped run is immutable', '<today>-claude-pilot',
                          'Resume an unfinished pilot instead of creating',
                          'verify that shipment and do not manufacture another ordinary edition',
-                         'OLDEST unfinished edition', 'bootstrap_claude_hooks.py --workspace',
+                         'OLDEST eligible unfinished edition', 'failed_editions.py retain',
+                         'bootstrap_claude_hooks.py --workspace',
                          'forbids routine permission stops',
                          'An internal repair never needs another owner approval'):
             if required not in authority:
@@ -240,7 +241,8 @@ class ContractTests(unittest.TestCase):
         text = p.read_text()
         self.assertEqual([], problems(self.repo, {}))
         for phrase in ("verify that shipment and do not manufacture another ordinary edition",
-                       'Resume an unfinished pilot instead of creating', 'OLDEST unfinished edition'):
+                       'Resume an unfinished pilot instead of creating', 'OLDEST eligible unfinished edition',
+                       'failed_editions.py retain'):
             p.write_text(text.replace(phrase, 'x'))
             self.assertTrue(any('lacks required authority' in e for e in problems(self.repo, {})), phrase)
         p.write_text(text)
