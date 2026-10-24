@@ -1,23 +1,23 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-24",
-  "saved_at": "2026-10-24T09:59:49.436439+00:00",
-  "note": "blocked before voice: corrected treatment b cannot be re-approved within five-review cap",
+  "saved_at": "2026-10-24T12:44:37.631084+00:00",
+  "note": "phase code-review-4",
   "phase": "wake",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-24T05:15:13.291526Z",
   "repo_root": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch",
-  "source_pin": "a214b0747a995aabbf2abbf608801b1c410d450c",
+  "source_pin": "a655bf470451918cb440234aa1ed6603f02c2a21",
   "source_branch": "claude/dispatch-2026-10-24",
   "source_closure": {
     "root": "video-engine",
-    "files": 361,
-    "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
+    "files": 364,
+    "sha256": "bcdb35033178e3ba3dd72bf3b01f5083efbac89f403e3c1268a76ad679c544af"
   },
   "deleted_source": [],
-  "ledger_sha256": "be4bdb91c1f21dbeeee507e575ba7b2949d06830df4ae84effbcee273812cd38",
-  "original_private_ledger_sha256": "842b7c2662545e6a24447795e76cb40883c322771ac8a8cc6c33e59e23288f27",
+  "ledger_sha256": "25f28b998b6d47f89136612d72fb1e29d07047f93b5b93f155759d0536ff0af0",
+  "original_private_ledger_sha256": "308bf3c416463b4f0910f913c365d4416055e202f55dabf202d7f7a0251810ac",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -25,7 +25,7 @@
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 4,
+    "preflight_renders": 5,
     "reboards": 4,
     "reported_tokens": 64,
     "rescue_renders": 0,
@@ -38,10 +38,10 @@
   },
   "files": [
     {
-      "path": "config/modern_episode_registry.json",
+      "path": "config/review_limit.json",
       "class": "source",
-      "sha256": "3d629cc28a3258c18cffa85dca55d4ec0e44a772c6e339e957bb76d46717fc24",
-      "size": 63855
+      "sha256": "d0df21568736489f0b2f5796c561f3a05c700355a8043a00d756d757c6c62857",
+      "size": 1243
     },
     {
       "path": "out/dispatch/artwork-originals/authored-08960d8d-a919-4b59-aa82-0b01d35ee042.tsx",
@@ -152,6 +152,12 @@
       "size": 19425
     },
     {
+      "path": "out/dispatch/capture-authorization-history/8a225e3e8edf4aa08b6d124d169d6c2f2e72dd6d18189dbdc8263ed33e7fdc72.json",
+      "class": "scratch",
+      "sha256": "8a225e3e8edf4aa08b6d124d169d6c2f2e72dd6d18189dbdc8263ed33e7fdc72",
+      "size": 19428
+    },
+    {
       "path": "out/dispatch/capture-authorization-history/e71937393d0c0a3cf8bce8ea230fd2ea6c2a15fa832ad456d1e38df15efe66fe.json",
       "class": "scratch",
       "sha256": "e71937393d0c0a3cf8bce8ea230fd2ea6c2a15fa832ad456d1e38df15efe66fe",
@@ -160,8 +166,8 @@
     {
       "path": "out/dispatch/capture-authorization.json",
       "class": "scratch",
-      "sha256": "8a225e3e8edf4aa08b6d124d169d6c2f2e72dd6d18189dbdc8263ed33e7fdc72",
-      "size": 19428
+      "sha256": "f6c818128290e671cf0c069c4463307f1fbe7f63802a8f599d76c3f2c9e746d5",
+      "size": 19257
     },
     {
       "path": "out/dispatch/capture-authorization.json.lock",
@@ -172,8 +178,8 @@
     {
       "path": "out/dispatch/capture-authorizations-used.json",
       "class": "scratch",
-      "sha256": "54f3958c414edfdf1ac2163a6ba458e1722b63ca65fea8e2a6569fa9e69aed05",
-      "size": 599
+      "sha256": "c6c3460a3dbbbf08dba2eff57dcfdaa88487df7198103199a86280b143be3340",
+      "size": 748
     },
     {
       "path": "out/dispatch/capture-hook-probe.txt",
@@ -212,6 +218,12 @@
       "size": 1043
     },
     {
+      "path": "out/dispatch/capture-housekeeping-20261024T124314.json",
+      "class": "scratch",
+      "sha256": "d6c75c39b08224249194c5b4fcd7fdc9b30f8e9b4929738e159c499d9758be60",
+      "size": 1045
+    },
+    {
       "path": "out/dispatch/claims-reviewed-provisional.json",
       "class": "scratch",
       "sha256": "f57b41a4c90cf3319f2a0f01e89d6dea85c96f0a1c49b30b00c642aeb798afe4",
@@ -232,8 +244,8 @@
     {
       "path": "out/dispatch/claude-phases.jsonl",
       "class": "scratch",
-      "sha256": "24724d7438a3d3930c64f565481ec1a14bbbd4cb46b13c00bd10347fddbe423e",
-      "size": 520
+      "sha256": "4ba7fadb3f72c5905616adcf12e64548142110c6da392390f901a176e7418454",
+      "size": 589
     },
     {
       "path": "out/dispatch/code-review-1-raw.json",
@@ -276,6 +288,12 @@
       "class": "scratch",
       "sha256": "4c4a76150e28a19c07ad42a3d80451b9ac7c444f97a993ce94065a179f52a8c5",
       "size": 29313
+    },
+    {
+      "path": "out/dispatch/code-review-4-bindings.json",
+      "class": "scratch",
+      "sha256": "1fe9f85752711554aff2031420ba29cdeb1ad174c8310a33e9e2404ae444ff92",
+      "size": 795
     },
     {
       "path": "out/dispatch/correction-1-before/RoomCameraHero.tsx",
@@ -542,6 +560,12 @@
       "size": 6300
     },
     {
+      "path": "out/dispatch/evidence/opening-a-retained-before-bookkeeping.json",
+      "class": "scratch",
+      "sha256": "50a5c26fefbf794d98e6eef2b9c2cff46d920835c9cb21bd2fe29f39ca6dfaae",
+      "size": 218131
+    },
+    {
       "path": "out/dispatch/evidence/opening-compare-1.failure.log",
       "class": "scratch",
       "sha256": "86c4c87078682b53b6c4ce6fd79c3a878cc8094fcaef55baecf54c7b1d95be6e",
@@ -552,6 +576,12 @@
       "class": "scratch",
       "sha256": "91c0413eb9ffa69c6a51c9ee638368eee32a5dd93d2140d2c6e3ad7fd28ca5ef",
       "size": 897
+    },
+    {
+      "path": "out/dispatch/evidence/pre-correction-preflight/preflight-b-selected.mp4",
+      "class": "scratch",
+      "sha256": "91bd13a5cf2910c07e0702a2db9712d7a568aa91785e6f059a935695cf73b370",
+      "size": 304954
     },
     {
       "path": "out/dispatch/evidence/space-recovery-1.txt",
@@ -1360,7 +1390,7 @@
     {
       "path": "out/dispatch/native-headroom.json",
       "class": "scratch",
-      "sha256": "a3f3a6f1d07f7d2456eb68e260e472c68243f951a2a5ba9af8da8a8be589837c",
+      "sha256": "3f5f85518397e7e66e182f55ce19ca56656e19335bc7dae0a99b6dfead0faa9e",
       "size": 308
     },
     {
@@ -3422,12 +3452,6 @@
       "size": 91
     },
     {
-      "path": "out/dispatch/preflight.mp4",
-      "class": "scratch",
-      "sha256": "91bd13a5cf2910c07e0702a2db9712d7a568aa91785e6f059a935695cf73b370",
-      "size": 304954
-    },
-    {
       "path": "out/dispatch/provider-availability/startup/attempt.json",
       "class": "scratch",
       "sha256": "02769a2641002d5b882f5d441a2d8766fceb0282be95b6e23d921090ff43c84d",
@@ -5328,36 +5352,12 @@
       "class": "scratch",
       "sha256": "9a5cb33092000cf07a952f3f0818f135faf73f3cc068f12d18495b0ce47eea05",
       "size": 563
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx",
-      "class": "source",
-      "sha256": "50112c7bcd8082aca637fd367e5eea1ef7563c637281f8051796bf13208f276c",
-      "size": 56852
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-24/RoomClockFilm.tsx",
-      "class": "source",
-      "sha256": "2f745cb6396326879c91995ff33dbae191f0035c80a4eaf41d03a9f8667ac224",
-      "size": 56949
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-24/StudyRecordSupport.tsx",
-      "class": "source",
-      "sha256": "0602fef676da13b6c95b10034ecaebb883481e9aed141e7b9e07f50293e29175",
-      "size": 40466
-    },
-    {
-      "path": "video-engine/src/modern/registry.tsx",
-      "class": "source",
-      "sha256": "e45e005ed1dd4d4b21f3e34d2e2b05d92b3aa2a01653f7d3b7c6548cec8ca5c7",
-      "size": 1324
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 47403723,
-    "unique_blob_bytes": 43058086,
-    "unique_blobs": 681
+    "logical_bytes": 47424966,
+    "unique_blob_bytes": 42959840,
+    "unique_blobs": 683
   },
   "excluded": [],
   "regenerable": {

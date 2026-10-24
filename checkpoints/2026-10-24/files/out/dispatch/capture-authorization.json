@@ -2,20 +2,20 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "59c8161e10a99e92a931248221196d05984da695b1a4909490138cd5830d8977",
+    "event_sha256": "5612090fe42b765d3c132364c38b175910f553c16f2299cd34a90a11fdf12143",
     "resource": "preflight_renders",
-    "at": "2026-10-24T09:04:51.765551Z",
-    "note": "exact-phone-b motion-image review extraction"
+    "at": "2026-10-24T12:43:32.375558Z",
+    "note": "quarter-scale animatic"
   },
   "boards": [
     {
-      "path": "out/dispatch/openings/b.json",
-      "sha256": "0c08176f43972271035c5db7f357e42527f0c25c94512fa4b64d3db42bf5da2a"
+      "path": "out/dispatch/storyboard.json",
+      "sha256": "4d1779741819324f65a77a0fe1c1f024c4c88999ab8d7116e5d2de77333f3e74"
     }
   ],
   "bound": {
     "renderer_inputs": {
-      "config/modern_episode_registry.json": "e24b6ab7c146e71645b3807544fc219fac5558d235336cc747ddd15364c0eb6b",
+      "config/modern_episode_registry.json": "3d629cc28a3258c18cffa85dca55d4ec0e44a772c6e339e957bb76d46717fc24",
       "config/modern_film.json": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e",
       "video-engine/src/AlloyLoopEpisode.tsx": "9ff8081c34104adc205a8b53ba08ec6c5009acc12cb57e6e1684b51027f7cf4d",
       "video-engine/src/ApplicationSheets.tsx": "b8ff7d9f6b329ab5c86212c7bcfe4970f1551d8c97bf945df86b4724d1247286",
@@ -153,9 +153,9 @@
       "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx": "9d397904a7a5173f55205e78a8dbe431d548d1ed0d3c4f6e90c5cb0689faf3fa",
       "video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx": "5fa2155da6c876b721db0ff28c7c05f404485e2cd7010b9b789af77a430df32b",
       "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx": "13dd5f473f9f510ba001ee21cf8f054e26aff3b531449bdf3150de3adb38bdc9",
-      "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx": "6d42a24dec9642c8a61877d2728658dd839fbf4509e63e505f8b71759b299b06",
-      "video-engine/src/modern/episodes/2026-10-24/RoomClockFilm.tsx": "f472a99857bbf627568d30ba7d3de0af9783a448b12874941cb71f1becbbed99",
-      "video-engine/src/modern/episodes/2026-10-24/StudyRecordSupport.tsx": "09dbbd59693b11393678eacecbafb37e7c2a77254ed702cd0b4f51b4b48e3182",
+      "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx": "50112c7bcd8082aca637fd367e5eea1ef7563c637281f8051796bf13208f276c",
+      "video-engine/src/modern/episodes/2026-10-24/RoomClockFilm.tsx": "2f745cb6396326879c91995ff33dbae191f0035c80a4eaf41d03a9f8667ac224",
+      "video-engine/src/modern/episodes/2026-10-24/StudyRecordSupport.tsx": "0602fef676da13b6c95b10034ecaebb883481e9aed141e7b9e07f50293e29175",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
       "video-engine/src/modern/registry.tsx": "e45e005ed1dd4d4b21f3e34d2e2b05d92b3aa2a01653f7d3b7c6548cec8ca5c7",
       "video-engine/src/modern/texasCounties.json": "e39f5cabababc5bf91e7ae0b5c70d3060875fc309f36ce9d34da6ae4c506bad8",
@@ -163,37 +163,37 @@
       "video-engine/package-lock.json": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71"
     },
     "authored_art": {
-      "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx": "6d42a24dec9642c8a61877d2728658dd839fbf4509e63e505f8b71759b299b06",
-      "video-engine/src/modern/episodes/2026-10-24/StudyRecordSupport.tsx": "09dbbd59693b11393678eacecbafb37e7c2a77254ed702cd0b4f51b4b48e3182"
+      "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx": "50112c7bcd8082aca637fd367e5eea1ef7563c637281f8051796bf13208f276c",
+      "video-engine/src/modern/episodes/2026-10-24/StudyRecordSupport.tsx": "0602fef676da13b6c95b10034ecaebb883481e9aed141e7b9e07f50293e29175"
     }
   },
   "commands": [
     {
-      "id": "650b5f859f6694f86c08e8542965d850baf99165b16be2a2040534d997b85c4c",
-      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option b --board out/dispatch/openings/b.json --film out/dispatch/openings/b.mp4 --state out/dispatch/run_state.json --out out/dispatch/openings/motion-b",
-      "consumed": "2026-10-24T09:04:53.720005+00:00"
+      "id": "492b8b700cac821910ea921ffcdb96a53e371b8ec40eed993430a0b11c93bf66",
+      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json",
+      "consumed": "2026-10-24T12:43:34.398986+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 21,
-    "free_gib": 21.143
+    "free_gib": 21.025
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/capture-housekeeping-20261024T090449.json",
-    "receipt_sha256": "71bdf59e63e9455ffd3416e04927bb79db56dad59778bd18b198fd83c134d92f",
+    "receipt": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/capture-housekeeping-20261024T124314.json",
+    "receipt_sha256": "d6c75c39b08224249194c5b4fcd7fdc9b30f8e9b4929738e159c499d9758be60",
     "exit_code": 0,
     "min_free_gib": 21
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-24T09:04:51.768975+00:00",
-  "expires_at": "2026-10-24T09:49:51.768975+00:00",
+  "issued_at": "2026-10-24T12:43:32.380199+00:00",
+  "expires_at": "2026-10-24T13:28:32.380199+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "exact-phone-b motion-image review extraction",
+    "operation": "quarter-scale animatic",
     "resource": "preflight_renders",
     "run_id": "2026-10-24",
-    "event_sha256": "59c8161e10a99e92a931248221196d05984da695b1a4909490138cd5830d8977",
-    "input_identity": "a6dfc0da0b22711ebdb3a6e464def6b12bfc3110ae8781e84bbfbb8a59fd462c"
+    "event_sha256": "5612090fe42b765d3c132364c38b175910f553c16f2299cd34a90a11fdf12143",
+    "input_identity": "dd62f755dacd867571895d9f659a41873930b6b99d46fa593939ad56b0d52806"
   }
 }
