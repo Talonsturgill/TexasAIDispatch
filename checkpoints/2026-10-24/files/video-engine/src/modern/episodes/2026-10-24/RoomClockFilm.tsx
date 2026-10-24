@@ -211,13 +211,13 @@ export function crewAt(S:ClockState,t:number,gxu:number,pxu:number){
  }
  return {bodies,bundle};
 }
-/** The placebo stamp's choreography round its window: the block comes in, presses in the first quarter,
- * holds, then lifts away; the amber mark shows once the block is down. */
+/** The placebo stamp's choreography round its window: the block comes in and presses in the first 30 percent,
+ * holds, then lifts clear by 75 percent, so the amber mark reads alone for the rest of the window and after. */
 export function stampState(win:ActionWindow|undefined,t:number){
  if(!win)return {press:0,stamp:0,away:0};
  const d=win.end-win.start,r=(t-win.start)/d;
  if(r<0)return {press:0,stamp:0,away:0};
- const press=contactQ(r/.28),stamp=r>=.28?1:0,away=ease5((r-.55)/.4);
+ const press=contactQ(r/.3),stamp=r>=.3?1:0,away=ease5((r-.45)/.3);
  return {press,stamp,away};
 }
 
@@ -270,7 +270,7 @@ export const FOCUS:Record<string,Rect>={
  'ledger-axis-overhead':S5B.focus.axis as Rect,'whisker-label-view':S5B.focus.whisker as Rect,
  'placebo-bars-wide':S6B.focus.row as Rect,'ledger-bars-overhead':S6B.focus.row as Rect,'stamp-view':S6B.focus.stamp as Rect,
  'card-medium':S7B.focus.card as Rect,'ledger-card-close':S7B.focus.card as Rect,'dashed-link-wide':S7B.focus.link as Rect,
- 'ledger-link-overhead':S7B.focus.link as Rect,'strike-close':S7B.focus.strike as Rect,'ledger-strike-detail':S7B.focus.strike as Rect,
+ 'ledger-link-overhead':S7B.focus.link as Rect,'strike-close':S7B.focus.strike as Rect,'ledger-strike-detail':[30,440,1000,900],
  'bundle-medium':S8B.focus.bundle as Rect,'ledger-bundle-wide':S8B.focus.stake as Rect,'bundle-band-close':S8B.focus.band as Rect,
  'ledger-band-overhead':S8B.focus.band as Rect,'stake-wide':S8B.focus.stake as Rect,'ledger-company-close':[500,100,1000,880],
  'stake-detail':S8B.focus.slice as Rect,'ledger-stake-detail':[500,100,1000,880],
@@ -537,12 +537,11 @@ export const RoomClockFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   </g>;
   break;}
  case 'plan-overhead':{
-  // B opens straight down on the suite's plan: as the room lights up the four cameras on its walls glow on
-  // standby and sweep their sight wedges; the name plate settles under the plan.
+  // B's second beat, straight down on the same suite's plan after the room opens it: the four cameras light one
+  // after another, each lamp's sight wedge opening onto the table as it comes on.
   need('s1');
-  pic=<Items ids={['s1-room','s1-table','s1-plate','s1-cameras']}><At p={[150,310]} s={.84}>
+  pic=<Items ids={['s1-room','s1-table','s1-cameras']}><At p={[60,300]} s={.95}>
    <RoomCameraHero part="plan" {...planProps()} watch={Math.max(.5*S.lamps[0],S.watch)}/>
-   <g transform={`translate(0 ${PLAN.h+40-60*(1-contactQ(S.plate))})`} opacity={f2(clamp(S.plate*4))}><RoomCameraHero part="plate" w={360}/></g>
   </At></Items>;
   break;}
  case 'plan-table-close':{
@@ -737,7 +736,8 @@ export const RoomClockFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   const tb=turnoverTagBox(c,r,S.turnoverAngle),cardY=Math.max(830,tb[3]+28);
   pic=<g transform={`translate(540 660) scale(${z}) translate(-540 -660)`}>
    <Item id="s10-room"><Item id="s10-window"><At p={[60,280]}><RoomCameraHero part="tile" w={940} h={800} tile={88} light={S.light} hole={[40,600,210,170]}/></At></Item></Item>
-   <Item id="s10-lamps">{camera({at:[930,330],s:1.1,mirror:true},1,[600,800])}</Item>
+   {/* the wall camera sits low on the right wall, clear of the box's heading and corners */}
+   <Item id="s10-lamps">{camera({at:[1012,672],s:1,mirror:true},1,[600,800])}</Item>
    <Item id="s10-clock">{clockAt(c,r,1,'turnover',undefined,1,S.s10.pulse)}</Item>
    <path d={`M${f2(c[0]+pin[0])} ${f2(c[1]+pin[1])}Q${f2(box[0]-40)} ${f2(box[1]+260)} ${box[0]} ${f2(box[1]+BLANK.h*.4)}`} stroke={P0.trim} strokeWidth={4} strokeDasharray="10 9" fill="none" opacity={f2(clamp(S.s10.box*2))}/>
    <Item id="s10-box"><At p={box}><StudyRecordSupport part="blank" draw={S.s10.box} size={.8} pulse={S.s10.pulse}/></At></Item>

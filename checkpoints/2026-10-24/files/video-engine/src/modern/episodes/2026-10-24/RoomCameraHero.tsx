@@ -102,7 +102,7 @@ const WallCamera:React.FC<CameraProps>=({lamp,aim,mirror=false,droop=1,flash=0})
   <circle cx={hx} cy={hy} r={10} fill={`url(#${id}p)`} stroke={P.ink} strokeWidth={2}/>
   <g transform={`translate(${hx} ${hy}) rotate(${f2(aim)})`}>
    {/* soft glow of the lit lamp, behind the housing */}
-   {on>0&&<circle cx={10} cy={-33} r={30} fill={`url(#${id}g)`} opacity={on*(.7+.3*flash)}/>}
+   {on>0&&<circle cx={11} cy={-33} r={36} fill={`url(#${id}g)`} opacity={on*(.75+.25*flash)}/>}
    <path d={housing} fill={`url(#${id}s)`} stroke={P.ink} strokeWidth={2.6} strokeLinejoin="round"/>
    <path d="M-6 -22Q20 -26 54 -25" stroke="#FFFFFF" strokeWidth={4} opacity={.75} fill="none" strokeLinecap="round"/>
    <path d="M38 -28V26" stroke={P.shellDeep} strokeWidth={1.8} opacity={.8}/>
@@ -112,8 +112,8 @@ const WallCamera:React.FC<CameraProps>=({lamp,aim,mirror=false,droop=1,flash=0})
    <circle cx={CAMERA.lens[0]+1} cy={CAMERA.lens[1]} r={12} fill={`url(#${id}l)`}/>
    <ellipse cx={CAMERA.lens[0]-3} cy={CAMERA.lens[1]-5} rx={4} ry={2.6} fill="#FFFFFF" opacity={.8}/>
    {/* the lamp on the spine */}
-   <rect x={2} y={-37} width={18} height={9} rx={4.5} fill={mix(P.lampOff,P.lamp,on)} stroke={P.ink} strokeWidth={1.6}/>
-   {on>.05&&<rect x={5} y={-35.5} width={7} height={3} rx={1.5} fill="#FFF3D0" opacity={on}/>}
+   <rect x={-2} y={-42} width={26} height={13} rx={6.5} fill={mix(P.lampOff,P.lamp,on)} stroke={P.ink} strokeWidth={1.8}/>
+   {on>.05&&<rect x={2} y={-39.5} width={10} height={4} rx={2} fill="#FFF3D0" opacity={on}/>}
    <path d="M18 23Q40 26 70 22" stroke={P.shellDeep} strokeWidth={2} opacity={.6} fill="none"/>
   </g>
  </g>;
@@ -631,9 +631,9 @@ const PlanRoom:React.FC<PlanProps>=({light,lamps,aim,watch,gurney,onTable,drape,
    const sp=.2,e1:Pt=[c[0]+len*.86*(u[0]*Math.cos(sp)-u[1]*Math.sin(sp)),c[1]+len*.86*(u[0]*Math.sin(sp)+u[1]*Math.cos(sp))];
    const e2:Pt=[c[0]+len*.86*(u[0]*Math.cos(-sp)-u[1]*Math.sin(-sp)),c[1]+len*.86*(u[0]*Math.sin(-sp)+u[1]*Math.cos(-sp))];
    return <g key={k}>
-    {watch>0&&on>0&&<path d={`M${c[0]} ${c[1]}L${f2(e1[0])} ${f2(e1[1])}L${f2(e2[0])} ${f2(e2[1])}Z`} fill={P.lampGlow} opacity={.16*watch*on}/>}
-    <g transform={`translate(${c[0]} ${c[1]}) rotate(${f2(a)}) scale(.62)`}>
-     {on>0&&<circle cx={6} cy={0} r={44} fill={P.lampGlow} opacity={.35*on}/>}
+    {on>0&&<path d={`M${c[0]} ${c[1]}L${f2(e1[0])} ${f2(e1[1])}L${f2(e2[0])} ${f2(e2[1])}Z`} fill={P.lampGlow} opacity={f2((.12+.2*clamp(watch))*on)}/>}
+    <g transform={`translate(${c[0]} ${c[1]}) rotate(${f2(a)}) scale(.82)`}>
+     {on>0&&<circle cx={6} cy={0} r={54} fill={P.lampGlow} opacity={.5*on}/>}
      <path d="M-14 -20Q-14 -29 -3 -29L56 -29Q86 -29 89 -1Q86 27 56 27L-3 27Q-14 27 -14 18Z" fill={P.shell} stroke={P.ink} strokeWidth={3}/>
      <circle cx={80} cy={0} r={13} fill={P.lens} stroke={P.ink} strokeWidth={2}/>
      <rect x={4} y={-9} width={20} height={18} rx={6} fill={mix(P.lampOff,P.lamp,on)} stroke={P.ink} strokeWidth={2}/>

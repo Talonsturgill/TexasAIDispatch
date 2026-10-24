@@ -34,6 +34,7 @@ import {useUid} from '../../../lib/uid';
  */
 
 export type Pt=[number,number];
+type Rect4=[number,number,number,number];
 const clamp=(v:number)=>Math.min(1,Math.max(0,v));
 const lerp=(a:number,b:number,p:number)=>a+(b-a)*p;
 const f2=(v:number)=>v.toFixed(2);
@@ -215,28 +216,36 @@ const S5Board:React.FC<{badge:number;glow:number;axis:number;whisker:number;cap:
 };
 
 // ---- s6: the placebo test and its stamp -------------------------------------------------------------------
-export const S6B={base:700,x0:60,step:66,bw:44,heights:[250,250,250,250,250,250,250,250,250,250],suiteH:250,
- stamp:[490,470] as Pt,focus:{row:[0,0,1000,820],stamp:[150,300,860,720]}};
+/** The placebo test as eleven unit tokens, one for each unit the test tried: ten gray placebo units and the teal
+ * suite unit. Tokens carry no height or size, so the row pictures neither a rank nor an equality; the stamp is
+ * the only verdict on it. */
+export const S6B={row:600,x0:70,step:70,tok:58,units:10,stamp:[490,470] as Pt,focus:{row:[0,0,1000,820],stamp:[130,300,880,740]}};
+/** One unit token: a rounded tile with a small site glyph (a block of windows), never two exactly alike. */
+const UnitToken:React.FC<{x:number;y:number;s:number;fill:string;ink?:string;k:number}>=({x,y,s,fill,ink=C.ink,k})=>{
+ const tilt=[-2,1.5,-1,2,-1.5,1,-2.5,1.8,-.8,1.2,0][k%11];
+ return <g transform={`translate(${f2(x)} ${f2(y)}) rotate(${tilt})`}>
+  <rect x={-s/2+4} y={-s/2+5} width={s} height={s} rx={12} fill={C.shadow} opacity={.13}/>
+  <rect x={-s/2} y={-s/2} width={s} height={s} rx={12} fill={fill} stroke={ink} strokeWidth={2.4}/>
+  <rect x={-s*.24} y={-s*.24} width={s*.48} height={s*.5} rx={3} fill="none" stroke={ink} strokeWidth={2} opacity={.55}/>
+  {[0,1].map(r=>[0,1].map(c=><rect key={r*2+c} x={f2(-s*.17+c*s*.2)} y={f2(-s*.16+r*s*.2)} width={f2(s*.12)} height={f2(s*.12)} fill={ink} opacity={.4}/>))}
+ </g>;
+};
 const S6Board:React.FC<{rise:number;suite:number;stamp:number;press:number;away:number}>=({rise,suite,stamp,press,away})=>{
- const B=S6B,sx=B.x0+B.heights.length*B.step+6,s=ease5(suite);
+ const B=S6B,s=ease5(suite),sx=B.x0+B.units*B.step+10;
  return <g data-part="s6-board">
   <Txt x={40} y={84} s={44}>Placebo test</Txt>
-  <path d={`M40 ${B.base}H960`} stroke={C.trim} strokeWidth={4}/>
-  {B.heights.map((h,k)=>{const r=ease5(clamp((rise-k*.04)/.6)),hh=h*r;
-   return hh>0?<g key={k}>
-    <rect x={B.x0+k*B.step+5} y={f2(B.base-hh+6)} width={B.bw} height={f2(hh)} rx={6} fill={C.shadow} opacity={.12}/>
-    <rect x={B.x0+k*B.step} y={f2(B.base-hh)} width={B.bw} height={f2(hh)} rx={6} fill={C.grayLight} stroke={C.ink} strokeWidth={2.2}/>
-    <path d={`M${B.x0+k*B.step+8} ${f2(B.base-hh+8)}V${B.base-8}`} stroke="#FFFFFF" strokeWidth={4} opacity={.5}/>
-   </g>:null;})}
+  {/* ten placebo units drop into the row one after another */}
+  {Array.from({length:B.units},(_,k)=>{const r=ease5(clamp((rise-k*.05)/.5));
+   return r>0?<g key={k} opacity={f2(clamp(r*2))}><UnitToken x={B.x0+k*B.step+B.tok/2} y={B.row-70*(1-r)} s={B.tok} fill={C.grayLight} k={k}/></g>:null;})}
   {rise>.3&&<g opacity={f2(clamp((rise-.3)*2))}>
-   <path d={`M${B.x0} ${B.base+22}V${B.base+34}H${B.x0+(B.heights.length-1)*B.step+B.bw}V${B.base+22}`} stroke={C.soft} strokeWidth={3} fill="none"/>
-   <Txt x={B.x0+(B.heights.length-1)*B.step/2+B.bw/2} y={B.base+76} s={30} w={800} fill={C.soft} anchor="middle">Placebo runs</Txt>
+   <path d={`M${B.x0} ${B.row+44}V${B.row+56}H${B.x0+(B.units-1)*B.step+B.tok}V${B.row+44}`} stroke={C.soft} strokeWidth={3} fill="none"/>
+   <Txt x={B.x0+((B.units-1)*B.step+B.tok)/2} y={B.row+98} s={30} w={800} fill={C.soft} anchor="middle">Placebo runs</Txt>
   </g>}
-  {s>0&&<g transform={`translate(${f2(220*(1-s))} 0)`} data-part="suite-bar">
-   <rect x={sx+5} y={f2(B.base-B.suiteH*s+6)} width={B.bw+12} height={f2(B.suiteH*s)} rx={6} fill={C.shadow} opacity={.14}/>
-   <rect x={sx} y={f2(B.base-B.suiteH*s)} width={B.bw+12} height={f2(B.suiteH*s)} rx={6} fill={C.teal} stroke={C.ink} strokeWidth={2.4}/>
-   <path d={`M${sx+9} ${f2(B.base-B.suiteH*s+8)}V${B.base-8}`} stroke={C.tealLit} strokeWidth={5}/>
-   <Txt x={sx+29} y={B.base+76} s={30} fill={C.teal} anchor="middle">Suite</Txt>
+  {/* the suite joins as the eleventh unit, marked in teal and ringed */}
+  {s>0&&<g transform={`translate(${f2(220*(1-s))} 0)`} opacity={f2(clamp(s*3))} data-part="suite-unit">
+   <circle cx={sx+B.tok/2} cy={B.row} r={B.tok*.78} fill="none" stroke={C.teal} strokeWidth={4} strokeDasharray="10 7"/>
+   <UnitToken x={sx+B.tok/2} y={B.row} s={B.tok} fill={C.teal} k={10}/>
+   <Txt x={sx+B.tok/2} y={B.row+98} s={30} fill={C.teal} anchor="middle">Suite</Txt>
   </g>}
   {stamp>0&&<RubberStamp at={B.stamp} lines={['SHORT OF','CONVENTIONAL SIGNIFICANCE']} w={640} h={160} rot={-7} inked={stamp} press={press} away={away}/>}
  </g>;
@@ -300,12 +309,12 @@ const S7Board:React.FC<{card:number;link:number;arrow:number;strike:number}>=({c
 };
 
 // ---- s8: the bundle and the stake -------------------------------------------------------------------------
-export const S8B={tag:[30,370,250,130],notes:[290,190],note:[300,84],ring:[790,520],ringR:140,company:[580,120,380,130],hospital:[560,760,400,96],
- slice:[-160,-96],focus:{bundle:[0,140,630,700],band:[0,250,630,620],stake:[0,80,1000,880],slice:[480,280,1000,880]}};
+export const S8B={loop:[10,128,616,600] as Rect4,tag:[30,370,250,130],notes:[290,190],note:[300,84],ring:[790,520],ringR:140,company:[580,120,380,130],hospital:[560,760,400,96],
+ slice:[-160,-96],focus:{bundle:[0,110,640,680],band:[0,110,640,680],stake:[0,80,1000,880],slice:[480,280,1000,880]}};
 export const NOTES=['Turnover review','Housekeeping review','Anesthesia review','Surgeon notices'];
 /** `only` 'stake' leaves the bundle (notes, tag and band) out of a stake close-up, whose frame starts right of them. */
 const S8Board:React.FC<{tag:number;band:number;stake:number;slice:number;only?:'stake'}>=({tag,band,stake,slice,only})=>{
- const id=useUid('srs8'),B=S8B,[tx,ty,tw,th]=B.tag,t=ease5(tag),b=clamp(band),s=ease5(stake),sl=clamp(slice);
+ const B=S8B,[tx,ty,tw,th]=B.tag,t=ease5(tag),b=clamp(band),s=ease5(stake),sl=clamp(slice);
  const [rx,ry]=B.ring,R=B.ringR,[a0,a1]=B.slice;
  const arc=(from:number,to:number,r:number)=>{const p=(a:number)=>[rx+r*Math.cos(a*Math.PI/180),ry+r*Math.sin(a*Math.PI/180)];
   const [x0,y0]=p(from),[x1,y1]=p(to);return `M${f2(x0)} ${f2(y0)}A${r} ${r} 0 ${to-from>180?1:0} 1 ${f2(x1)} ${f2(y1)}`;};
@@ -323,13 +332,18 @@ const S8Board:React.FC<{tag:number;band:number;stake:number;slice:number;only?:'
   </g>)}
   {t>0&&<g transform={`translate(${f2(tx-320*(1-t))} ${ty})`} opacity={f2(clamp(t*3))}><Tag w={tw} h={th} lines={['Camera','rollout']} size={36} glyph={<CamGlyph x={50} y={th/2+6} s={.36}/>}/></g>}
   {b>0&&<g data-part="bundle-band">
-   <defs><clipPath id={id+'b'}><rect x={0} y={0} width={f2(20+590*ease5(b))} height={900}/></clipPath></defs>
-   <g clipPath={`url(#${id}b)`}>
-    <path d="M14 404Q300 386 606 398L606 470Q300 458 14 476Z" fill={C.kraft} stroke={C.ink} strokeWidth={2.6}/>
-    <path d="M14 418Q300 400 606 412" stroke={C.kraftDeep} strokeWidth={2} opacity={.6} fill="none"/>
-    <Txt x={208} y={450} s={36} w={900} fill={C.ink}>Bundled</Txt>
-   </g>
-   {b>.95&&<rect x={590} y={392} width={26} height={86} rx={6} fill={C.kraftDeep} stroke={C.ink} strokeWidth={2.2} opacity={f2(clamp((b-.95)*20))}/>}
+   {/* a kraft strap wraps the whole stack, the rollout tag and the four notes, round its edge, so it hides no
+       label; its Bundled tab hangs from the strap's lower edge */}
+   {(()=>{const [x0,y0,x1,y1]=B.loop,per=2*((x1-x0)+(y1-y0)),d=ease5(b);
+    const path=`M${(x0+x1)/2} ${y1}H${x0+18}Q${x0} ${y1} ${x0} ${y1-18}V${y0+18}Q${x0} ${y0} ${x0+18} ${y0}H${x1-18}Q${x1} ${y0} ${x1} ${y0+18}V${y1-18}Q${x1} ${y1} ${x1-18} ${y1}Z`;
+    return <g>
+     <path d={path} fill="none" stroke={C.ink} strokeWidth={22} strokeDasharray={`${f2(per*d)} ${f2(per)}`} strokeLinejoin="round"/>
+     <path d={path} fill="none" stroke={C.kraft} strokeWidth={17} strokeDasharray={`${f2(per*d)} ${f2(per)}`} strokeLinejoin="round"/>
+     <path d={path} fill="none" stroke={C.kraftDeep} strokeWidth={2} strokeDasharray={`${f2(per*d)} ${f2(per)}`} opacity={.6}/>
+     {b>.9&&<g opacity={f2(clamp((b-.9)*10))} transform={`translate(${(x0+x1)/2} ${y1}) rotate(-1.5)`}>
+      <rect x={-92} y={-6} width={184} height={58} rx={10} fill={C.kraft} stroke={C.ink} strokeWidth={2.6}/>
+      <Txt x={0} y={36} s={36} w={900} fill={C.ink} anchor="middle">Bundled</Txt></g>}
+    </g>;})()}
   </g>}
   </g>}
   {s>0&&<g opacity={f2(clamp(s*2))} data-part="stake">

@@ -1175,8 +1175,8 @@
       ],
       "super": "",
       "caption": "",
-      "on_screen": "A row of ten gray placebo bars rises from the desk. The suite bar joins the row as the eleventh unit, every bar the same height. A stamp reading short of conventional significance lands crooked across the row.",
-      "what_moves": "A row of ten gray placebo bars rises from the desk. The suite bar joins the row as the eleventh unit, every bar the same height. A stamp reading short of conventional significance lands crooked across the row.",
+      "on_screen": "A row of ten gray placebo units drops onto the desk, one token for each placebo run. The suite joins the row as the eleventh unit, its token marked in teal. A stamp reading short of conventional significance lands crooked across the row.",
+      "what_moves": "A row of ten gray placebo units drops onto the desk, one token for each placebo run. The suite joins the row as the eleventh unit, its token marked in teal. A stamp reading short of conventional significance lands crooked across the row.",
       "production_disclosure": "Illustration. Generic room, no real staff or vendor interface",
       "visual_events": [
         {
@@ -1186,7 +1186,7 @@
           "item_ids": [
             "s6-bars"
           ],
-          "what": "A row of ten gray placebo bars rises from the desk.",
+          "what": "A row of ten gray placebo units drops onto the desk, one token for each placebo run.",
           "motion": {
             "curve": "travel",
             "anticipation": 0.0,
@@ -1206,7 +1206,7 @@
             "s6-bars",
             "s6-suite-bar"
           ],
-          "what": "The suite bar joins the row as the eleventh unit, every bar the same height.",
+          "what": "The suite joins the row as the eleventh unit, its token marked in teal.",
           "motion": {
             "curve": "smoothstep",
             "anticipation": 0.0,
@@ -1220,8 +1220,8 @@
         },
         {
           "id": "s6-event-3",
-          "at_s_authored": 2.2276,
-          "duration_s_authored": 0.912,
+          "at_s_authored": 1.7512,
+          "duration_s_authored": 0.5776,
           "item_ids": [
             "s6-stamp",
             "s6-bars"
@@ -1233,21 +1233,21 @@
             "settle": 0.03
           },
           "narration_id": "n6a",
-          "clause_fraction_start": 0.6867,
-          "clause_fraction_end": 0.9867,
-          "at_s": 2.2276,
-          "duration_s": 0.912
+          "clause_fraction_start": 0.53,
+          "clause_fraction_end": 0.72,
+          "at_s": 1.7512,
+          "duration_s": 0.5776
         }
       ],
       "camera_strategy": "riseWith",
       "visual_family": "clock-s6-b",
       "payload_mode": "picture",
       "treatment": "b",
-      "hero": "placebo stamp on a row of comparison bars",
+      "hero": "placebo stamp on a row of placebo units",
       "place_plate": "gulf-houston",
       "visual_sentence": {
-        "subject": "placebo stamp on a row of comparison bars in a generic Houston hospital room",
-        "action": "A row of ten gray placebo bars rises from the desk. The suite bar joins the row as the eleventh unit, every bar the same height. A stamp reading short of conventional significance lands crooked across the row.",
+        "subject": "placebo stamp on a row of placebo units in a generic Houston hospital room",
+        "action": "A row of ten gray placebo units drops onto the desk, one token for each placebo run. The suite joins the row as the eleventh unit, its token marked in teal. A stamp reading short of conventional significance lands crooked across the row.",
         "emotion": "A small doubt as the limit is stamped.",
         "annotation": "Illustration. Generic room, no real staff or vendor interface"
       },
@@ -1270,7 +1270,7 @@
         },
         {
           "z": 700,
-          "label": "a row of comparison bars, one for each unit the test tried, every bar the same height",
+          "label": "a row of placebo units, one token for each unit the test tried",
           "items": [
             {
               "id": "s6-bars",
@@ -1279,14 +1279,14 @@
               "y": 900,
               "scale": 1,
               "props": {
-                "label": "a row of comparison bars, one for each unit the test tried, every bar the same height"
+                "label": "a row of placebo units, one token for each unit the test tried"
               }
             }
           ]
         },
         {
           "z": 500,
-          "label": "the suite bar that joins the row",
+          "label": "the suite unit that joins the row, marked in teal",
           "items": [
             {
               "id": "s6-suite-bar",
@@ -1295,7 +1295,7 @@
               "y": 900,
               "scale": 1,
               "props": {
-                "label": "the suite bar that joins the row"
+                "label": "the suite unit that joins the row, marked in teal"
               }
             }
           ]
@@ -1318,16 +1318,16 @@
         }
       ],
       "visual_proof": {
-        "mute_takeaway": "A row of ten gray placebo bars rises from the desk. A stamp reading short of conventional significance lands crooked across the row.",
+        "mute_takeaway": "A row of ten gray placebo units drops onto the desk, one token for each placebo run. A stamp reading short of conventional significance lands crooked across the row.",
         "must_show": [
           {
-            "concept": "a row of comparison bars",
+            "concept": "a row of placebo units",
             "item_ids": [
               "s6-bars"
             ]
           },
           {
-            "concept": "the suite bar that joins the row",
+            "concept": "the suite unit that joins the row, marked in teal",
             "item_ids": [
               "s6-suite-bar"
             ]
@@ -2266,7 +2266,7 @@
           {
             "scene_id": "s1",
             "event_id": "s1-event-3",
-            "view": "camera-ring-view",
+            "view": "plan-overhead",
             "action_id": "cameras-light-in-turn",
             "subject_ids": [
               "s1-cameras",
@@ -2313,7 +2313,7 @@
           "s10"
         ],
         "purpose": "Give the room its records: a study card, a suite line against a dashed comparison line, a cases counter, a percent badge, an interval whisker, a placebo stamp, an associated with the rollout card, a bundle band, a minority stake slice and a blank turnover box.",
-        "prompt": "Author an original finished React and SVG support group in the current Remotion engine. A study card with worn corners, a solid teal suite line against a dashed gray comparison line, a monthly cases counter, a seven percent badge, an interval whisker with end caps and a cases a month label, a row of comparison bars with a crooked stamp reading short of conventional significance, a card reading associated with the rollout not caused by it with a dashed link and a struck solid arrow, a camera tag bound to workflow review notes by a band, a minority slice of a ring with no number, and a dashed blank turnover box. Warm paper against cool gray steel. No logos, no brand marks, no page images.",
+        "prompt": "Author an original finished React and SVG support group in the current Remotion engine. A study card with worn corners, a solid teal suite line against a dashed gray comparison line, a monthly cases counter, a seven percent badge, an interval whisker with end caps and a cases a month label, a row of placebo units with a crooked stamp reading short of conventional significance, a card reading associated with the rollout not caused by it with a dashed link and a struck solid arrow, a camera tag bound to workflow review notes by a band, a minority slice of a ring with no number, and a dashed blank turnover box. Warm paper against cool gray steel. No logos, no brand marks, no page images.",
         "source_limit": "Disclosed illustration of the study records. Every number is one the validated claims carry and none is invented.",
         "action_uses": [
           {
@@ -2363,19 +2363,19 @@
       {
         "request_id": "room-camera-hero",
         "file": "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx",
-        "sha256": "6d42a24dec9642c8a61877d2728658dd839fbf4509e63e505f8b71759b299b06",
-        "request_sha256": "27c27f960e379a2cfc445b4b36cf2c6943ab3c296dd86a369913298b3a49e16f",
-        "creation_id": "authored-32ecc14d-90b0-42ce-823a-cb493cedb585",
-        "created_at": "2026-10-24T08:21:48.070353+00:00",
+        "sha256": "50112c7bcd8082aca637fd367e5eea1ef7563c637281f8051796bf13208f276c",
+        "request_sha256": "575a7b794d078c24fcc54a86dc1e067eb9bdee208c9e7df64884b62da8fcfd61",
+        "creation_id": "authored-08960d8d-a919-4b59-aa82-0b01d35ee042",
+        "created_at": "2026-10-24T09:52:18.356356+00:00",
         "tool": "original authored source",
         "charge": {
           "kind": "production",
-          "index": 17,
+          "index": 30,
           "event": {
-            "at": "2026-10-24T08:10:12.245112Z",
+            "at": "2026-10-24T09:43:48.066293Z",
             "completion_progress_policy": "2026-10-20",
             "kind": "reserved",
-            "note": "second consolidated correction of the code review 2 blockers (attendant hand scale, drape pop-in, s10 layout)",
+            "note": "consolidated correction of the exact phone review 1 defects on the selected treatment b",
             "preflight_identity": null,
             "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
             "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
@@ -2383,27 +2383,27 @@
               "reboards": 1
             }
           },
-          "event_sha256": "271a10fb5765cceafb97dce990ad1ce787946fbf217c8283331c79acaec11ad8"
+          "event_sha256": "57ea1db11ae8ebd0796ef2433b9ae1883f64e7672487cb049a1322853c1c94be"
         },
         "source_claims_sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
-        "original_source": "artwork-originals/authored-32ecc14d-90b0-42ce-823a-cb493cedb585.tsx"
+        "original_source": "artwork-originals/authored-08960d8d-a919-4b59-aa82-0b01d35ee042.tsx"
       },
       {
         "request_id": "study-record-support",
         "file": "video-engine/src/modern/episodes/2026-10-24/StudyRecordSupport.tsx",
-        "sha256": "09dbbd59693b11393678eacecbafb37e7c2a77254ed702cd0b4f51b4b48e3182",
-        "request_sha256": "b8f6a638439e37c38002438c3851c4e3632d43e57ff5a41431f4f4853d1487c1",
-        "creation_id": "authored-4817f768-5013-4fe5-a8dc-31a0b32133f2",
-        "created_at": "2026-10-24T07:30:48.843666+00:00",
+        "sha256": "0602fef676da13b6c95b10034ecaebb883481e9aed141e7b9e07f50293e29175",
+        "request_sha256": "2a3651b7f2ebd7abac1e8438b2dd974ef97870e81d1a71996790920bfc9f88cc",
+        "creation_id": "authored-6a25686e-742c-4957-b4bb-a21388145889",
+        "created_at": "2026-10-24T09:51:28.782625+00:00",
         "tool": "original authored source",
         "charge": {
           "kind": "production",
-          "index": 15,
+          "index": 30,
           "event": {
-            "at": "2026-10-24T07:17:56.459583Z",
+            "at": "2026-10-24T09:43:48.066293Z",
             "completion_progress_policy": "2026-10-20",
             "kind": "reserved",
-            "note": "one consolidated correction of the independent code review 1 defects",
+            "note": "consolidated correction of the exact phone review 1 defects on the selected treatment b",
             "preflight_identity": null,
             "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
             "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
@@ -2411,10 +2411,10 @@
               "reboards": 1
             }
           },
-          "event_sha256": "195ee834e9abd100e539c477a726eb46e6d1d552e217b69bac7b1e3cc879cf55"
+          "event_sha256": "57ea1db11ae8ebd0796ef2433b9ae1883f64e7672487cb049a1322853c1c94be"
         },
         "source_claims_sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
-        "original_source": "artwork-originals/authored-4817f768-5013-4fe5-a8dc-31a0b32133f2.tsx"
+        "original_source": "artwork-originals/authored-6a25686e-742c-4957-b4bb-a21388145889.tsx"
       }
     ]
   },
@@ -2425,7 +2425,7 @@
     "renderer_inputs": [
       {
         "path": "config/modern_episode_registry.json",
-        "sha256": "e24b6ab7c146e71645b3807544fc219fac5558d235336cc747ddd15364c0eb6b"
+        "sha256": "3d629cc28a3258c18cffa85dca55d4ec0e44a772c6e339e957bb76d46717fc24"
       },
       {
         "path": "config/modern_film.json",
@@ -2977,15 +2977,15 @@
       },
       {
         "path": "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx",
-        "sha256": "6d42a24dec9642c8a61877d2728658dd839fbf4509e63e505f8b71759b299b06"
+        "sha256": "50112c7bcd8082aca637fd367e5eea1ef7563c637281f8051796bf13208f276c"
       },
       {
         "path": "video-engine/src/modern/episodes/2026-10-24/RoomClockFilm.tsx",
-        "sha256": "f472a99857bbf627568d30ba7d3de0af9783a448b12874941cb71f1becbbed99"
+        "sha256": "2f745cb6396326879c91995ff33dbae191f0035c80a4eaf41d03a9f8667ac224"
       },
       {
         "path": "video-engine/src/modern/episodes/2026-10-24/StudyRecordSupport.tsx",
-        "sha256": "09dbbd59693b11393678eacecbafb37e7c2a77254ed702cd0b4f51b4b48e3182"
+        "sha256": "0602fef676da13b6c95b10034ecaebb883481e9aed141e7b9e07f50293e29175"
       },
       {
         "path": "video-engine/src/modern/placePlates.json",
@@ -3008,9 +3008,9 @@
         "sha256": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71"
       }
     ],
-    "angle": "Read the suite from its plan, its wall record panel and the desk ledger, and drop into the room at wall height for the cameras, the phone and the close.",
-    "opening_promise": "Watch four cameras power up on the suite's plan, then see what their record does and does not show.",
-    "performed_turn": "The stamp lands crooked across the comparison bars and the solid caused arrow is struck through, so the number is shown as associated and not caused.",
+    "angle": "Open in the room at wall height as its four cameras power up, read the suite from its plan, its wall record panel and the desk ledger, and close back in the room behind the desk.",
+    "opening_promise": "Watch four wall cameras in an operating room power up, then see what their record does and does not show.",
+    "performed_turn": "The stamp lands crooked across the row of placebo units and the solid caused arrow is struck through, so the number is shown as associated and not caused.",
     "closing_answer": "A blank turnover box holds beside the room clock and the card of about 25 more cases a month joined to the rollout by its dashed associated link, the four camera lamps still lit, so the study does not show whether the rollout sped up turnover.",
     "shots": [
       {
@@ -3018,11 +3018,11 @@
         "scene_id": "s1",
         "start_s": 0.0,
         "duration_s": 3.66,
-        "framing": "overhead",
+        "framing": "wide",
         "transition": "cut",
-        "view": "plan-overhead",
+        "view": "camera-ring-view",
         "event_id": "s1-event-1",
-        "purpose": "Start overhead on the suite plan with the name plate.",
+        "purpose": "Open at wall height in the room as the four cameras lift their heads and glow and the name plate settles.",
         "carry": "generic cardiothoracic operating room with four wall cameras in the same Houston hospital room",
         "narration_ids": [
           "n1a"
@@ -3035,11 +3035,11 @@
         "scene_id": "s1",
         "start_s": 3.66,
         "duration_s": 2.42,
-        "framing": "wide",
+        "framing": "overhead",
         "transition": "match",
-        "view": "camera-ring-view",
+        "view": "plan-overhead",
         "event_id": "s1-event-3",
-        "purpose": "Drop to a ring of four cameras around the room.",
+        "purpose": "Rise to the suite's plan as the four cameras light in turn and their sight wedges open on the table.",
         "carry": "generic cardiothoracic operating room with four wall cameras in the same Houston hospital room",
         "narration_ids": [
           "n1b"
@@ -3294,8 +3294,8 @@
         "transition": "cut",
         "view": "ledger-bars-overhead",
         "event_id": "s6-event-1",
-        "purpose": "Overhead on the row of bars.",
-        "carry": "placebo stamp on a row of comparison bars on the desk ledger of the same Houston suite",
+        "purpose": "Overhead on the row of placebo units.",
+        "carry": "placebo stamp on a row of placebo units on the desk ledger of the same Houston suite",
         "narration_ids": [
           "n6a"
         ],
@@ -3312,7 +3312,7 @@
         "view": "stamp-view",
         "event_id": "s6-event-3",
         "purpose": "Detail on the stamp landing.",
-        "carry": "placebo stamp on a row of comparison bars on the desk ledger of the same Houston suite",
+        "carry": "placebo stamp on a row of placebo units on the desk ledger of the same Houston suite",
         "narration_ids": [
           "n6a"
         ],
@@ -3769,7 +3769,7 @@
         "event_id": "s6-event-1",
         "at_s": 33.708,
         "kind": "reveal",
-        "visible_change": "A row of ten gray placebo bars rises from the desk.",
+        "visible_change": "A row of ten gray placebo units drops onto the desk, one token for each placebo run.",
         "event_fraction": 0.25
       },
       {
@@ -3777,13 +3777,13 @@
         "event_id": "s6-event-1",
         "at_s": 34.0758,
         "kind": "reveal",
-        "visible_change": "A row of ten gray placebo bars rises from the desk.",
+        "visible_change": "A row of ten gray placebo units drops onto the desk, one token for each placebo run.",
         "event_fraction": 0.8
       },
       {
         "shot_id": "s6-shot-2",
         "event_id": "s6-event-3",
-        "at_s": 35.7956,
+        "at_s": 35.2356,
         "kind": "consequence",
         "visible_change": "A stamp reading short of conventional significance lands crooked across the row.",
         "event_fraction": 0.25
@@ -3791,7 +3791,7 @@
       {
         "shot_id": "s6-shot-2",
         "event_id": "s6-event-3",
-        "at_s": 36.2972,
+        "at_s": 35.5533,
         "kind": "consequence",
         "visible_change": "A stamp reading short of conventional significance lands crooked across the row.",
         "event_fraction": 0.8
@@ -4555,7 +4555,7 @@
         "claim_ids": [
           "c6"
         ],
-        "advances": "A row of ten gray placebo bars rises from the desk. The suite bar joins the row as the eleventh unit, every bar the same height. A stamp reading short of conventional significance lands crooked across the row."
+        "advances": "A row of ten gray placebo units drops onto the desk, one token for each placebo run. The suite joins the row as the eleventh unit, its token marked in teal. A stamp reading short of conventional significance lands crooked across the row."
       },
       {
         "scene_id": "s7",
@@ -4700,7 +4700,7 @@
     "palette": "Clinical gray-green, steel, warm paper, shell gray and one amber",
     "metaphor": "A room that keeps a clock and a ledger that questions it"
   },
-  "divergence_note": "B opens straight down on the suite plan as its four cameras power up, reads the stamps from the plan and a wall record panel, the study from a desk ledger, and closes behind the desk in the room.",
+  "divergence_note": "B opens in the room at wall height as its four cameras power up, rises to the suite plan as they light in turn, reads the stamps from the plan and a wall record panel, the study from a desk ledger, and closes behind the desk in the room.",
   "hook_strategy": "visual_anomaly",
   "hook_payoff_s": 0.75,
   "creative_direction": {
@@ -4766,7 +4766,7 @@
         "enter_on": "A 7 percent badge stamps beside the counter.",
         "leave_on": "The whisker reaches 41.0 and a label reading cases a month lands under it.",
         "cut_after_event_id": "s5-event-5",
-        "next_connection": "From seven percent badge and interval whisker to placebo stamp on a row of comparison bars.",
+        "next_connection": "From seven percent badge and interval whisker to placebo stamp on a row of placebo units.",
         "sentence_to_shot": {
           "clause": "That is a rise of 7 percent. The 95 percent confidence interval runs from 8.3 to 41.0 cases a month.",
           "subject": "seven percent badge and interval whisker",
@@ -4776,14 +4776,14 @@
       },
       {
         "scene_id": "s6",
-        "enter_on": "A row of ten gray placebo bars rises from the desk.",
+        "enter_on": "A row of ten gray placebo units drops onto the desk, one token for each placebo run.",
         "leave_on": "A stamp reading short of conventional significance lands crooked across the row.",
         "cut_after_event_id": "s6-event-3",
-        "next_connection": "From placebo stamp on a row of comparison bars to associated with the rollout card.",
+        "next_connection": "From placebo stamp on a row of placebo units to associated with the rollout card.",
         "sentence_to_shot": {
           "clause": "A placebo test did not reach conventional significance.",
-          "subject": "placebo stamp on a row of comparison bars",
-          "relationship": "A row of ten gray placebo bars rises from the desk. The suite bar joins the row as the eleventh unit, every bar the same height. A stamp reading short of conventional significance lands crooked across the row.",
+          "subject": "placebo stamp on a row of placebo units",
+          "relationship": "A row of ten gray placebo units drops onto the desk, one token for each placebo run. The suite joins the row as the eleventh unit, its token marked in teal. A stamp reading short of conventional significance lands crooked across the row.",
           "source_limit": "Disclosed illustration of the study. It shows no real room, staff member, patient or vendor interface."
         }
       },
@@ -4941,7 +4941,7 @@
   "documentary": {
     "schema": "dispatch_documentary/1",
     "viewer_question": "Does a camera that logs an operating room add surgeries, or only count them?",
-    "payoff": "The stamp lands across the comparison bars and the solid caused arrow is struck through, so the rise is shown as associated and not caused.",
+    "payoff": "The stamp lands across the row of placebo units and the solid caused arrow is struck through, so the rise is shown as associated and not caused.",
     "source_limit": "Disclosed illustration of the study. The paper left turnover time for future work.",
     "hero_image": "A drape lowering over the patient shape and a text alert landing on the surgeon phone.",
     "closing_answer": "The paper leaves turnover time for future work, so the study does not show whether the rollout sped up room turnover.",
@@ -5294,8 +5294,8 @@
       {
         "scene_id": "s6",
         "medium": "diagram",
-        "subject": "placebo stamp on a row of comparison bars in a generic Houston hospital room",
-        "action": "A row of ten gray placebo bars rises from the desk.",
+        "subject": "placebo stamp on a row of placebo units in a generic Houston hospital room",
+        "action": "A row of ten gray placebo units drops onto the desk, one token for each placebo run.",
         "consequence": "A stamp reading short of conventional significance lands crooked across the row.",
         "source_basis": "Claims c6. Disclosed illustration of the study. It shows no real room, staff member, patient or vendor interface.",
         "medium_evidence": "Registered room-clock-v1 with the fresh authored RoomCameraHero and StudyRecordSupport groups performing board events on the film clock."
@@ -5602,10 +5602,10 @@
         "s6-bars"
       ],
       "change_type": "reveal",
-      "visible_change": "A row of ten gray placebo bars rises from the desk.",
-      "viewer_reward": "A row of ten gray placebo bars rises from the desk.",
+      "visible_change": "A row of ten gray placebo units drops onto the desk, one token for each placebo run.",
+      "viewer_reward": "A row of ten gray placebo units drops onto the desk, one token for each placebo run.",
       "continuity_from": "The room, the clock and the records that every later scene returns to.",
-      "sound_action": "Soft bar risers."
+      "sound_action": "Soft token taps."
     },
     {
       "id": "s6-event-2-attention",
@@ -5615,8 +5615,8 @@
         "s6-suite-bar"
       ],
       "change_type": "comparison",
-      "visible_change": "The suite bar joins the row as the eleventh unit, every bar the same height.",
-      "viewer_reward": "The suite bar joins the row as the eleventh unit, every bar the same height.",
+      "visible_change": "The suite joins the row as the eleventh unit, its token marked in teal.",
+      "viewer_reward": "The suite joins the row as the eleventh unit, its token marked in teal.",
       "continuity_from": "The room, the clock and the records that every later scene returns to.",
       "sound_action": "A soft click."
     },
@@ -5809,10 +5809,10 @@
     {
       "request_id": "room-camera-hero",
       "file": "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx",
-      "sha256": "6d42a24dec9642c8a61877d2728658dd839fbf4509e63e505f8b71759b299b06",
-      "request_sha256": "27c27f960e379a2cfc445b4b36cf2c6943ab3c296dd86a369913298b3a49e16f",
-      "creation_id": "authored-32ecc14d-90b0-42ce-823a-cb493cedb585",
-      "created_at": "2026-10-24T08:21:48.070353+00:00",
+      "sha256": "50112c7bcd8082aca637fd367e5eea1ef7563c637281f8051796bf13208f276c",
+      "request_sha256": "575a7b794d078c24fcc54a86dc1e067eb9bdee208c9e7df64884b62da8fcfd61",
+      "creation_id": "authored-08960d8d-a919-4b59-aa82-0b01d35ee042",
+      "created_at": "2026-10-24T09:52:18.356356+00:00",
       "tool": "original authored source",
       "source_url": "authored://2026-10-24/room-camera-hero",
       "original_url": "authored://2026-10-24/room-camera-hero",
@@ -5853,14 +5853,14 @@
     {
       "request_id": "study-record-support",
       "file": "video-engine/src/modern/episodes/2026-10-24/StudyRecordSupport.tsx",
-      "sha256": "09dbbd59693b11393678eacecbafb37e7c2a77254ed702cd0b4f51b4b48e3182",
-      "request_sha256": "b8f6a638439e37c38002438c3851c4e3632d43e57ff5a41431f4f4853d1487c1",
-      "creation_id": "authored-4817f768-5013-4fe5-a8dc-31a0b32133f2",
-      "created_at": "2026-10-24T07:30:48.843666+00:00",
+      "sha256": "0602fef676da13b6c95b10034ecaebb883481e9aed141e7b9e07f50293e29175",
+      "request_sha256": "2a3651b7f2ebd7abac1e8438b2dd974ef97870e81d1a71996790920bfc9f88cc",
+      "creation_id": "authored-6a25686e-742c-4957-b4bb-a21388145889",
+      "created_at": "2026-10-24T09:51:28.782625+00:00",
       "tool": "original authored source",
       "source_url": "authored://2026-10-24/study-record-support",
       "original_url": "authored://2026-10-24/study-record-support",
-      "subject": "A study card, a suite line against a comparison line, a 25 cases a month counter with 7 percent, an interval whisker from 8.3 to 41.0 cases a month, a row of ten placebo bars and the suite bar with a short of conventional significance stamp, an associated not caused card, a bundle band, a minority stake ring, a camera-stamped wall record panel, a result card carrying about 25 more a month on the dashed associated link, and a blank turnover box",
+      "subject": "A study card, a suite line against a comparison line, a 25 cases a month counter with 7 percent, an interval whisker from 8.3 to 41.0 cases a month, a row of eleven unit tokens (ten gray placebo units and the teal suite unit, no heights) with a short of conventional significance stamp, an associated not caused card, a kraft strap that wraps the rollout tag and the review notes, a minority stake ring, a camera-stamped wall record panel, a result card carrying about 25 more a month on the dashed associated link, and a blank turnover box",
       "relevance": "Performs the study records the narration names, from the comparison and the estimate to the placebo stamp, the bundled rollout, the stake and the blank turnover box beside the carried result, and gives B its camera-stamped wall record.",
       "inspection": "Authored in this edition, type-checked and gate-checked; rendered pixels still need the independent code, phone and final reviews.",
       "rights_basis": "Fresh original authored React and SVG illustration created for this edition; no third-party image.",
