@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-24",
-  "saved_at": "2026-10-24T07:57:27.065518+00:00",
-  "note": "builder correction 1 done, code review 2 running",
+  "saved_at": "2026-10-24T08:10:12.430722+00:00",
+  "note": "code review 2 revise; correction 2 reserved",
   "phase": "wake",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
   },
   "deleted_source": [],
-  "ledger_sha256": "e92a537cef453643123d0c4b16be2587a14ffc9f1892dd79ce991f64dc42f62b",
-  "original_private_ledger_sha256": "38adbc75d6ec4ba6b0a3fcb0cef412464cdfe92fa600c633379e38c2d70506e7",
+  "ledger_sha256": "7b6de70ad5f4deeb98fd0c530fbccec316e22b72decbfb9201ebd3caf1010e12",
+  "original_private_ledger_sha256": "03811d23b1caa6c06ab8c3c25961b2b1ab1ca60f8898a3b50d06249c11a84cc0",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -26,7 +26,7 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 0,
-    "reboards": 2,
+    "reboards": 3,
     "reported_tokens": 64,
     "rescue_renders": 0,
     "research_agents": 3,
@@ -140,6 +140,12 @@
       "size": 13914
     },
     {
+      "path": "out/dispatch/code-review-2-raw.json",
+      "class": "scratch",
+      "sha256": "1f0437012c16f95378870e5214e56a17004e0fdfa20c2e064b153cdc8989065e",
+      "size": 34223
+    },
+    {
       "path": "out/dispatch/correction-1-before/RoomCameraHero.tsx",
       "class": "scratch",
       "sha256": "6f6c35cca2eff4b6934c4e61d03e880c0042f220aab46f00357b8fa53d6cecd6",
@@ -238,8 +244,8 @@
     {
       "path": "out/dispatch/opening-a-critic.json",
       "class": "scratch",
-      "sha256": "64314937640afca2022149b7081fa16afbea6cb07b6ef82c6e2ce6059d53f870",
-      "size": 21181
+      "sha256": "18609f45e49f14dcd5c358670f979206805379169b3a5d32a08976dcd84867ad",
+      "size": 14900
     },
     {
       "path": "out/dispatch/opening-a.json",
@@ -250,8 +256,8 @@
     {
       "path": "out/dispatch/opening-b-critic.json",
       "class": "scratch",
-      "sha256": "72ef3272f9f16684d7992af766edcbdb74c64ab4b4ef28f8d73b46c857b7d54d",
-      "size": 19311
+      "sha256": "52b4a5863ed70e5488c33ab010db3a8661395d5fcebbe081668b5a8aef3611be",
+      "size": 10699
     },
     {
       "path": "out/dispatch/opening-b.json",
@@ -1281,9 +1287,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 2703523,
-    "unique_blob_bytes": 2005667,
-    "unique_blobs": 100
+    "logical_bytes": 2722853,
+    "unique_blob_bytes": 2024997,
+    "unique_blobs": 101
   },
   "excluded": [],
   "regenerable": {
