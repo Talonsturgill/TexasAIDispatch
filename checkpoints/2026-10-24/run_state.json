@@ -57,6 +57,22 @@
       "note": "quarter-scale animatic",
       "resource": "preflight_renders",
       "to": 6
+    },
+    {
+      "at": "2026-10-24T13:11:22.754059Z",
+      "ceiling": 12,
+      "from": 2,
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "resource": "tts_calls",
+      "to": 3
+    },
+    {
+      "at": "2026-10-24T13:11:41.565421Z",
+      "ceiling": 12,
+      "from": 3,
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "resource": "tts_calls",
+      "to": 4
     }
   ],
   "events": [
@@ -661,6 +677,88 @@
       "repair_revision": "d8a65296f1de6d61b8b19830a806749cda1b0056607fe30c28cdf9ab6b943242",
       "repair_scope": "narration-performance",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-10-24T13:11:22.754112Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "now": 3,
+      "resource": "tts_calls",
+      "was": 2
+    },
+    {
+      "at": "2026-10-24T13:11:22.754865Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-24T13:11:41.146018Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "reported_tokens": 2115
+      }
+    },
+    {
+      "at": "2026-10-24T13:11:41.149502Z",
+      "elapsed_ms": 18386,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2115,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-24T13:11:41.565448Z",
+      "ceiling": 12,
+      "kind": "budget_escalated",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "now": 4,
+      "resource": "tts_calls",
+      "was": 3
+    },
+    {
+      "at": "2026-10-24T13:11:41.566043Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-24T13:11:47.002001Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "reported_tokens": 2219
+      }
+    },
+    {
+      "at": "2026-10-24T13:11:47.005025Z",
+      "elapsed_ms": 5431,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 2219,
+      "resource": "tts_calls"
     }
   ],
   "limits": {
@@ -676,7 +774,7 @@
     "research_agents": 3,
     "scorer_calls": 3,
     "storyboard_critics": 5,
-    "tts_calls": 2,
+    "tts_calls": 4,
     "validator_agents": 2,
     "voice_directors": 1
   },
@@ -684,7 +782,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "104937057cf2a5257c9655f843acffd85728e648566a4d4c5aafb951bfac9931",
+    "original_private_state_sha256": "f0bacc84ad60abc4eb79eb8e3353ef1f4990363268128f1cd0f5182fef5bf26e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -712,7 +810,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-24T13:11:07.469057Z",
+  "updated_at": "2026-10-24T13:11:47.005046Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -721,12 +819,12 @@
     "panel_rounds": 0,
     "preflight_renders": 6,
     "reboards": 4,
-    "reported_tokens": 4443,
+    "reported_tokens": 8777,
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
     "storyboard_critics": 5,
-    "tts_calls": 2,
+    "tts_calls": 4,
     "validator_agents": 2,
     "voice_directors": 1
   }

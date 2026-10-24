@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-24",
-  "saved_at": "2026-10-24T13:11:12.816978+00:00",
-  "note": "before narration repair take 2 and soundcheck",
+  "saved_at": "2026-10-24T13:11:55.103139+00:00",
+  "note": "after narration repair take 2 and soundcheck",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "bcdb35033178e3ba3dd72bf3b01f5083efbac89f403e3c1268a76ad679c544af"
   },
   "deleted_source": [],
-  "ledger_sha256": "bbdf225cb03536b526baa3241d183ebb85d50fdc1f1fc63f9f636f74664eee5d",
-  "original_private_ledger_sha256": "104937057cf2a5257c9655f843acffd85728e648566a4d4c5aafb951bfac9931",
+  "ledger_sha256": "84db4579f179194dbd9d2a3eb82faf7d00a469a20c1a727a9c72c940ffd22b08",
+  "original_private_ledger_sha256": "f0bacc84ad60abc4eb79eb8e3353ef1f4990363268128f1cd0f5182fef5bf26e",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -27,12 +27,12 @@
     "panel_rounds": 0,
     "preflight_renders": 6,
     "reboards": 4,
-    "reported_tokens": 4443,
+    "reported_tokens": 8777,
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
     "storyboard_critics": 5,
-    "tts_calls": 2,
+    "tts_calls": 4,
     "validator_agents": 2,
     "voice_directors": 1
   },
@@ -3818,6 +3818,24 @@
       "size": 11932
     },
     {
+      "path": "out/dispatch/takes-2/prompt.txt",
+      "class": "scratch",
+      "sha256": "38a2d484724543379547c10394a90fdf933fb9d6a9726af7d7cd0ffa9b0309f1",
+      "size": 3498
+    },
+    {
+      "path": "out/dispatch/takes-2/take1.wav",
+      "class": "scratch",
+      "sha256": "d3c6c9988e4547ab63ef0bfc7a25bf914eee2b6ff13b0c4741ebdecdeef405d1",
+      "size": 5080364
+    },
+    {
+      "path": "out/dispatch/takes-2/takes.json",
+      "class": "scratch",
+      "sha256": "26ccf4e05e3681f6cf07815978d46f09c722d54542ca05395a65b3282a961333",
+      "size": 1131
+    },
+    {
       "path": "out/dispatch/takes/prompt.txt",
       "class": "scratch",
       "sha256": "c9e502644d15d6bb43a40a76d1bd125c83b0fbf2acaaea79242f0165b87cb622",
@@ -5589,9 +5607,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 112291858,
-    "unique_blob_bytes": 102297153,
-    "unique_blobs": 719
+    "logical_bytes": 117376851,
+    "unique_blob_bytes": 107382146,
+    "unique_blobs": 722
   },
   "excluded": [],
   "regenerable": {
