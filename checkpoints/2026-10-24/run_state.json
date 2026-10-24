@@ -587,6 +587,80 @@
       "note": "verbatim soundcheck with gemini-3-flash-preview",
       "reported_tokens": 2177,
       "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-24T13:10:58.117437Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/evidence/narration-1/vo_direction-before.json",
+          "before_sha256": "991eafc95ec3b118518887467c4e878e6484974e197cf6b272d63c96c2523cb8",
+          "path": "{REPO}/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "unclassified",
+      "failure_sha256": "1b0e0675dfb132b9fa76872eb5fd7447e123eed67a08f8e5204b82a0c7fc1ad7",
+      "frozen_inputs": {
+        "files": {
+          "{REPO}/out/dispatch/claims.json": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
+          "{REPO}/out/dispatch/sources/hm.html": "f23e3df39f2d2a85c4c294ec0a7bc8d7f2f97ecc1b869f36228bbf2db01aa86e",
+          "{REPO}/out/dispatch/sources/hm.txt": "bf50fb0c7674096a565dff893b16617d1777bb2afbff4c4c2c2546561492b36c",
+          "{REPO}/out/dispatch/sources/hm2025.html": "dd7807bf1d4636657e1ecf2ef4abe0930ede64ddf3bd3106e1e2586f8491cdb4",
+          "{REPO}/out/dispatch/sources/hm2025.txt": "823e857864203f169f466f22afdc709a8bd98e11f7b3dbe828c709a71632a1bf",
+          "{REPO}/out/dispatch/sources/mdpi.html": "8c6bdbb8f03f6d92aee0189fb0ea93afda04e4a8107ce762e9138e1826f58c83",
+          "{REPO}/out/dispatch/sources/pmc.html": "04dad09e518e9d2ed8b96d6186fecd10cbbdd89f81d372862999667fa55852e2",
+          "{REPO}/out/dispatch/sources/pmc.txt": "8432aaeeaf45d66617b80c217c6d1efd088dd5ee6ecf9e763098ac71562373d2",
+          "{REPO}/out/dispatch/sources/pmc.xml": "699c17c821494bf8794810574b9a01512f1dc0d88fd74d78e72222cb39e6aad6",
+          "{REPO}/out/dispatch/storyboard.json": "4d1779741819324f65a77a0fe1c1f024c4c88999ab8d7116e5d2de77333f3e74",
+          "{REPO}/out/dispatch/vo_script.txt": "2282b70ddb3c5316dd9265223cc8e1cdf739d61107eeeba4b7ea851d013e69c4"
+        },
+        "renderer_sha256": "52108039fb3e4fe30c8e698ed417b3dc232ab22ed8232daa8880dab1b066ed75"
+      },
+      "grants": {},
+      "kind": "repair_started",
+      "mechanism_id": "narration-word-clarity-authors",
+      "plan_identity": "e3714023cbbce3210934d86d4de17a088304159a33fbfd2afe129be7a99d0628",
+      "plan_sha256": "d386e0d97ef4c6828f8eca7331630861042551e2628acba9d7fbbb8baee227e2",
+      "progress_replacement_required": true,
+      "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-10-24T13:11:07.469013Z",
+      "grants": {
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "c73fae435c8629f4d873d45ec9acab7a2e9d0dbb1569f892172fd2477447c1af",
+            "before_path": "{REPO}/out/dispatch/evidence/narration-1/vo_direction-before.json",
+            "before_sha256": "991eafc95ec3b118518887467c4e878e6484974e197cf6b272d63c96c2523cb8",
+            "path": "{REPO}/out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "The new take aligns exactly to the locked script, so measured captions and clause timing derive without any alias, edit or hand shift.",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/narration-1/failure.txt",
+        "failure_evidence_sha256": "1b0e0675dfb132b9fa76872eb5fd7447e123eed67a08f8e5204b82a0c7fc1ad7",
+        "failure_family": "unclassified",
+        "mechanism_change": "Only the performance direction for one line changes. The script, claims, board and renderer stay frozen and bound.",
+        "mechanism_id": "narration-word-clarity-authors",
+        "repair": "Direct the seventh line to articulate authors with its full first syllable and a clear final consonant cluster, then synthesize one new take of the unchanged script.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "The audible take says authors, confirmed by the independent soundcheck transcript, but the pinned acoustic ASR hears offers, so forced alignment refuses to reconcile one non-name word with the locked script."
+      },
+      "repair_plan_sha256": "197df02e4b9675040fa339da0d0b04b876de3e400fb09eab26baa2f5435dc7c6",
+      "repair_revision": "d8a65296f1de6d61b8b19830a806749cda1b0056607fe30c28cdf9ab6b943242",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -607,10 +681,10 @@
     "voice_directors": 1
   },
   "mode": "production",
-  "phase": "wake",
+  "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "30cdd294574107dde1c6b2e1dd2b4f8cf721407f9e2355c3383998f7fced183e",
+    "original_private_state_sha256": "104937057cf2a5257c9655f843acffd85728e648566a4d4c5aafb951bfac9931",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -638,7 +712,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-24T13:05:44.350954Z",
+  "updated_at": "2026-10-24T13:11:07.469057Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,

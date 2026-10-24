@@ -1,9 +1,9 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-24",
-  "saved_at": "2026-10-24T13:05:52.673437+00:00",
-  "note": "after voice synthesis take 1 and soundcheck",
-  "phase": "wake",
+  "saved_at": "2026-10-24T13:11:12.816978+00:00",
+  "note": "before narration repair take 2 and soundcheck",
+  "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-24T05:15:13.291526Z",
@@ -16,8 +16,8 @@
     "sha256": "bcdb35033178e3ba3dd72bf3b01f5083efbac89f403e3c1268a76ad679c544af"
   },
   "deleted_source": [],
-  "ledger_sha256": "130fab1fda4ff4defe9bf9ef8d19a3f1f01f5626faa28cb284e0c3bd0bfe224a",
-  "original_private_ledger_sha256": "30cdd294574107dde1c6b2e1dd2b4f8cf721407f9e2355c3383998f7fced183e",
+  "ledger_sha256": "bbdf225cb03536b526baa3241d183ebb85d50fdc1f1fc63f9f636f74664eee5d",
+  "original_private_ledger_sha256": "104937057cf2a5257c9655f843acffd85728e648566a4d4c5aafb951bfac9931",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -42,6 +42,30 @@
       "class": "source",
       "sha256": "d0df21568736489f0b2f5796c561f3a05c700355a8043a00d756d757c6c62857",
       "size": 1243
+    },
+    {
+      "path": "out/dispatch/acoustic-asr-meta.json",
+      "class": "scratch",
+      "sha256": "fcefe967aae5e2096180366b49211e369119dfece38c11e8d549b62827ed3a86",
+      "size": 720
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "f9fa5665233f770302476d80a11b4e34693b96423f772d5b31a2f3e0cfc9e15d",
+      "size": 71797
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.log",
+      "class": "scratch",
+      "sha256": "af99365ce56d077953230277d245fa3c41d0a6792428cf0cb4f71906b273b221",
+      "size": 82799
+    },
+    {
+      "path": "out/dispatch/alignment-16k.wav",
+      "class": "scratch",
+      "sha256": "cad7ac17a7ea780180b23e0ca899b4ec01d1d693e2d51bfd099821c74a55b57e",
+      "size": 1879876
     },
     {
       "path": "out/dispatch/artwork-originals/authored-08960d8d-a919-4b59-aa82-0b01d35ee042.tsx",
@@ -572,6 +596,12 @@
       "size": 218121
     },
     {
+      "path": "out/dispatch/credits.txt",
+      "class": "scratch",
+      "sha256": "ddb51fbbbe1c8c5c4f6d1e9a26deb18c5613d321e09580613e2fd6d63a186d35",
+      "size": 311
+    },
+    {
       "path": "out/dispatch/critic-assignment.json",
       "class": "scratch",
       "sha256": "069ba837ee62fbaab46fb10f562be1e66b1f9613ced0f0ce7c8b3e09e941b5ec",
@@ -600,6 +630,36 @@
       "class": "scratch",
       "sha256": "a3b0990c50aa9e079cf23e0c2a9e82e4b85a42038ebc0fd1851e9ef3283662a4",
       "size": 6300
+    },
+    {
+      "path": "out/dispatch/evidence/narration-1/failure.txt",
+      "class": "scratch",
+      "sha256": "1b0e0675dfb132b9fa76872eb5fd7447e123eed67a08f8e5204b82a0c7fc1ad7",
+      "size": 384
+    },
+    {
+      "path": "out/dispatch/evidence/narration-1/takes-take1/prompt.txt",
+      "class": "scratch",
+      "sha256": "c9e502644d15d6bb43a40a76d1bd125c83b0fbf2acaaea79242f0165b87cb622",
+      "size": 3373
+    },
+    {
+      "path": "out/dispatch/evidence/narration-1/takes-take1/take1.wav",
+      "class": "scratch",
+      "sha256": "ca96d44c1c327e4dafa057bb849a7d6736063374a90f6a3872af7c286b1ae29a",
+      "size": 5521964
+    },
+    {
+      "path": "out/dispatch/evidence/narration-1/takes-take1/takes.json",
+      "class": "scratch",
+      "sha256": "96105f9ece301b1c860ce98a1b5851fce0bc0efd3ed114230a144dcd4e73d8de",
+      "size": 1114
+    },
+    {
+      "path": "out/dispatch/evidence/narration-1/vo_direction-before.json",
+      "class": "scratch",
+      "sha256": "991eafc95ec3b118518887467c4e878e6484974e197cf6b272d63c96c2523cb8",
+      "size": 18760
     },
     {
       "path": "out/dispatch/evidence/opening-a-retained-before-bookkeeping.json",
@@ -1434,6 +1494,36 @@
       "class": "scratch",
       "sha256": "015be8193fd117115deef3d37a2607a1e9468882fa71ec3324b6d7dc9777226c",
       "size": 1020
+    },
+    {
+      "path": "out/dispatch/mix.json",
+      "class": "scratch",
+      "sha256": "1f5d76568b5c389fd9e7f38cfe56ea0bc83571da5396c35aa0ab8a0ae243c1d8",
+      "size": 7965
+    },
+    {
+      "path": "out/dispatch/mix.wav",
+      "class": "scratch",
+      "sha256": "3eb97cc8aef4813d87595793c268f3a362f06bbb00bca66cdf8339736c038e1b",
+      "size": 6232398
+    },
+    {
+      "path": "out/dispatch/mix_vo.wav",
+      "class": "scratch",
+      "sha256": "98c229c00f12cb10812276fdc074286bc919be821aa369fd6c0938fb5c205d70",
+      "size": 6232364
+    },
+    {
+      "path": "out/dispatch/music_bed.json",
+      "class": "scratch",
+      "sha256": "2e203826f7adab2035d0c690202b26aea914fe9836031efaef7ef39520333549",
+      "size": 716
+    },
+    {
+      "path": "out/dispatch/music_bed.wav",
+      "class": "scratch",
+      "sha256": "5e19c41c175f7227c6673bc41725ca9997ec3e396f70a478b48c5d92df64cab8",
+      "size": 36046550
     },
     {
       "path": "out/dispatch/music_brief.json",
@@ -3572,6 +3662,12 @@
       "size": 437
     },
     {
+      "path": "out/dispatch/repair-plan.json",
+      "class": "scratch",
+      "sha256": "197df02e4b9675040fa339da0d0b04b876de3e400fb09eab26baa2f5435dc7c6",
+      "size": 1642
+    },
+    {
       "path": "out/dispatch/research-rejected-1.txt",
       "class": "scratch",
       "sha256": "289dc5ee9d90385e3d206f8bc2ed7cb2ceb68a7838f62a5561916cba8c17f713",
@@ -3642,6 +3738,12 @@
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
+    },
+    {
+      "path": "out/dispatch/sfx_events.json",
+      "class": "scratch",
+      "sha256": "3d3e40853e411a9519e80c0b9ee21226c251e51be634af0fc2167f04c0024691",
+      "size": 3485
     },
     {
       "path": "out/dispatch/sources/hm.html",
@@ -5392,8 +5494,8 @@
     {
       "path": "out/dispatch/vo_direction.json",
       "class": "scratch",
-      "sha256": "991eafc95ec3b118518887467c4e878e6484974e197cf6b272d63c96c2523cb8",
-      "size": 18760
+      "sha256": "c73fae435c8629f4d873d45ec9acab7a2e9d0dbb1569f892172fd2477447c1af",
+      "size": 18885
     },
     {
       "path": "out/dispatch/vo_script-merged-line9.txt",
@@ -5487,9 +5589,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 56185515,
-    "unique_blob_bytes": 51717261,
-    "unique_blobs": 705
+    "logical_bytes": 112291858,
+    "unique_blob_bytes": 102297153,
+    "unique_blobs": 719
   },
   "excluded": [],
   "regenerable": {
