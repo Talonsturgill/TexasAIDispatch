@@ -17,6 +17,16 @@
     "validator_agents": 4,
     "voice_directors": 2
   },
+  "escalations": [
+    {
+      "at": "2026-10-24T09:04:51.764631Z",
+      "ceiling": 16,
+      "from": 3,
+      "note": "exact-phone-b motion-image review extraction",
+      "resource": "preflight_renders",
+      "to": 4
+    }
+  ],
   "events": [
     {
       "at": "2026-10-24T05:15:13.341005Z",
@@ -307,6 +317,55 @@
       "input_identity": "043fadc794658a469074cee757e6a35a0c53c42fc05c632bdd45650c75ac4682",
       "kind": "prepared_capture_claimed",
       "operation": "two opening comparison batch"
+    },
+    {
+      "at": "2026-10-24T09:04:33.456179Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "exact-phone-a motion-image review extraction",
+      "preflight_identity": "084e38d26bb38c9e2fc42193acb5aa67e55476ed02744cceb34f918f4915c69e",
+      "preflight_identity_version": 2,
+      "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-24T09:04:36.629152Z",
+      "event_sha256": "542ec4a1b94b49b75b64d3f71b701cdd2b60ef8e7673239a32af0ffe70cf9013",
+      "input_identity": "084e38d26bb38c9e2fc42193acb5aa67e55476ed02744cceb34f918f4915c69e",
+      "kind": "prepared_capture_claimed",
+      "operation": "exact-phone-a motion-image review extraction"
+    },
+    {
+      "at": "2026-10-24T09:04:51.764673Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "exact-phone-b motion-image review extraction",
+      "now": 4,
+      "resource": "preflight_renders",
+      "was": 3
+    },
+    {
+      "at": "2026-10-24T09:04:51.765551Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "exact-phone-b motion-image review extraction",
+      "preflight_identity": "a6dfc0da0b22711ebdb3a6e464def6b12bfc3110ae8781e84bbfbb8a59fd462c",
+      "preflight_identity_version": 2,
+      "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-24T09:04:54.825899Z",
+      "event_sha256": "59c8161e10a99e92a931248221196d05984da695b1a4909490138cd5830d8977",
+      "input_identity": "a6dfc0da0b22711ebdb3a6e464def6b12bfc3110ae8781e84bbfbb8a59fd462c",
+      "kind": "prepared_capture_claimed",
+      "operation": "exact-phone-b motion-image review extraction"
     }
   ],
   "limits": {
@@ -315,7 +374,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 3,
+    "preflight_renders": 4,
     "reboards": 4,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -330,7 +389,7 @@
   "phase": "wake",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "722ecbd002fc6f5e2c58d6b95df2394387f13ad01d05ced10bd66314fe4f1a17",
+    "original_private_state_sha256": "57ea49113f80e65c8a737aee5797aacc8f202d1d8e2202cb5497c038a4ede6dc",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -358,14 +417,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-24T08:55:42.410016Z",
+  "updated_at": "2026-10-24T09:04:54.825944Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 2,
+    "preflight_renders": 4,
     "reboards": 3,
     "reported_tokens": 64,
     "rescue_renders": 0,
