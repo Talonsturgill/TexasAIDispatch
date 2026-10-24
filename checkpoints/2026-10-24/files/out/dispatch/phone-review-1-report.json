@@ -1,0 +1,266 @@
+{
+  "option": "b",
+  "review_scope": "exact-muted-phone-preflight",
+  "reviewed_preflight_sha256": "91bd13a5cf2910c07e0702a2db9712d7a568aa91785e6f059a935695cf73b370",
+  "concept_sha256": "e2e335c1c97c04470da6c1998ee4839b8c77c6337047c23fc6ebb9639c72e32b",
+  "renderer_sha256": "7a1af4ffcf2a5841e4e9d4a1fcda2c69df7f37cfdd85a6bc6859920d3fa75cc4",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "reviewer_identity": "storyboard-critic leaf, claude-opus-5-5 high effort, isolated read-only phone comparison assignment",
+  "reviewed_at": "2026-10-24",
+  "verdict": "revise",
+  "strongest_frame": "b 16.4 s: a blue gloved hand holds the phone. The amber 'Text / Patient draped' bubble has settled under the 'Text message / To surgeon' header, a dotted amber arc runs from the wall camera, and the draped patient with three attendants sits soft in the background. Trigger, transport and result are in one readable frame.",
+  "weakest_frame": "b 0.4 s: a small gray top-down room plan with icon-sized cameras in the upper half, an empty lower half, and only the caption appearing. The subject is unrecognizable and nothing changes to stop a scroll.",
+  "blocking_defects": [
+    {
+      "category": "source",
+      "scene_id": "s6",
+      "time_s": 34.8,
+      "criterion": "source limit / false visual implication",
+      "defect": "Equal-height placebo and suite bars (34.0-36.6 s) picture a null effect. The verified claim c6 says the placebo result was directionally consistent with the estimate but not conventionally significant (p 0.182 across 11 units). The picture contradicts the source and overstates the limit. Use a construction that does not encode equality, e.g. the suite bar visibly above most units, with no numbers, or drop bar heights entirely."
+    },
+    {
+      "category": "pacing",
+      "scene_id": "s6",
+      "time_s": 36.2,
+      "criterion": "contact_and_consequence: completed readable result; performed_turn",
+      "defect": "The stamp's completed impression is visible about 0.5 s (36.2 to about 36.7 s) before the cut. The authored stamp window ends at 98.7 percent of clause n6a, so the result has no hold after measured retiming either. The first half of the performed turn can't be read in the picture."
+    },
+    {
+      "category": "subject_recognition",
+      "scene_id": "s1",
+      "time_s": 0.4,
+      "criterion": "subject_recognition; modern first_frame",
+      "defect": "The opening shot (0.0-3.8 s) is an abstract top-down plan occupying the upper half, with an empty lower half. The camera icons and table are a few pixels wide, and the first change is a faint table glow at 1.0-1.8 s. The suite is not recognizable as an operating room and there is no hook. Open on b's own perspective room shot (already used at 3.8-6.2 s) or another immediately recognizable performed image."
+    }
+  ],
+  "phone_observations": {
+    "subject_recognition": {
+      "pass": false,
+      "start_s": 0.0,
+      "end_s": 3.8,
+      "observed": "0.0-3.8 s: abstract top-down plan with icon-sized cameras and an empty lower half; not recognizable as an operating room at 390 px. From 3.8 s onward subjects read clearly: four wall cameras, gurney, attendants, phone in a gloved hand, study card, counter, stamp, tags, ring, clock."
+    },
+    "contact_and_consequence": {
+      "pass": false,
+      "start_s": 33.4,
+      "end_s": 36.8,
+      "observed": "The hero contact works: the drape is laid at 15.0-15.6 s, then the Patient draped bubble slides onto the phone at 16.0-16.4 s. The s6 stamp presses at 36.0 s and lifts at 36.2 s, but its result is held only about 0.5 s before the 36.8 s cut. Separately, the Bundled band lands across the Camera rollout tag and covers its label (44.8 s); it crosses one card row rather than wrapping the stack."
+    },
+    "surface_finish": {
+      "pass": true,
+      "start_s": 3.8,
+      "end_s": 59.9,
+      "observed": "Clean flat-vector room with tile, steel, motivated window light and soft shadows. A finished wooden stamp prop, paper cards with edges, a clear phone and glove. Unfinished layout points, non-blocking: the wall camera body overlaps the 'Did the rollout speed up turnover?' heading and box corner (54.4-56.6 s); the caption overlaps the counter's 'a month' label (19.6-21.4 s); chart legend chips are too small to read (17.4-21.4 s)."
+    },
+    "closing_payoff": {
+      "pass": true,
+      "start_s": 53.8,
+      "end_s": 59.9,
+      "observed": "A dashed tether runs from the Future work card to the clock's Turnover marker (53.0-53.4 s). A blank box headed 'Did the rollout speed up turnover?' draws beside the clock (54.4 s), and the marker glows (56.0-56.6 s). The cut back into the room (56.8 s) shows the four lit camera lamps above and, on a foreground ledger strip, the still-blank box beside the 'Camera rollout - associated - about 25 more a month' card, while the light dims slightly. It answers the opening question with the source limit and invents no outcome."
+    }
+  },
+  "modern_observations": {
+    "film_sha256": "91bd13a5cf2910c07e0702a2db9712d7a568aa91785e6f059a935695cf73b370",
+    "first_frame": {
+      "pass": false,
+      "start_s": 0.0,
+      "end_s": 3.8,
+      "observed": "Static abstract floor plan in the upper half with an empty lower half; the first change is a faint table glow at 1.0-1.8 s, then the locator (2.2 s) and name plate (2.4 s). No anomaly at 0.75 s and no recognizable operating room until 3.8 s."
+    },
+    "visual_progression": {
+      "pass": true,
+      "start_s": 3.8,
+      "end_s": 59.9,
+      "observed": "A causal chain of changing states: cameras light in the room, the clock record stamps entry, draping and turnover, the phone receives the draped text, the study card's lines separate and 25 tiles fill, then badge, interval, placebo row and stamp, the associated link and struck caused arrow, bundle and stake, future-work tether, and the blank box back in the room."
+    },
+    "shot_variety": {
+      "pass": true,
+      "start_s": 0.0,
+      "end_s": 59.9,
+      "observed": "Overhead plan, wide room, close plan, medium record panel, side-view split, phone close-up, desk wide, overhead ledger closes, detail closes on the axis, stamp and ring, wall-panel close, and a final room wide with a ledger foreground. Cuts follow new actions."
+    },
+    "performed_turn": {
+      "pass": false,
+      "start_s": 33.4,
+      "end_s": 42.5,
+      "observed": "The stamp's result is held about 0.5 s (36.2 to about 36.7 s) before the cut, and the equal bars beneath it misstate the source. The caused arrow is struck at 41.4 s and held to about 42.4 s, but the rollout tag that should anchor it is cropped out of frame in the close (40.4-42.4 s)."
+    },
+    "pace": {
+      "pass": true,
+      "start_s": 0.0,
+      "end_s": 59.9,
+      "observed": "Every interval is well inside the 4 s limit; the longest unchanged stretches are about 1.5-2.2 s (18.0-19.4, 26.0-28.0, 29.0-30.2, 46.8-48.4 s). The chart beats are steady rather than brisk. Unproven motion between 0.2 s samples is unresolved."
+    },
+    "closing_answer": {
+      "pass": true,
+      "start_s": 53.8,
+      "end_s": 59.9,
+      "observed": "The blank question box, glowing turnover marker, lit camera lamps, dimming room and the legible 'associated / about 25 more a month' card together state that the study finds a rise it can't attribute and doesn't show turnover. The camera overlap on the box heading at 54.4-56.6 s is a finish note."
+    },
+    "finished_art": {
+      "pass": true,
+      "start_s": 3.8,
+      "end_s": 59.9,
+      "observed": "Readable flat-vector finish with a consistent palette, Houston skyline-and-bayou window plate, and finished props (stamp, phone, cards, ring). Non-blocking finish notes: camera/heading collision (54.4-56.6 s), band hiding the tag label (44.8-45.8 s), tiny chart legends, attendants appear already in place on the overhead plan (10.0 s)."
+    }
+  },
+  "narration_picture_observations": {
+    "film_sha256": "91bd13a5cf2910c07e0702a2db9712d7a568aa91785e6f059a935695cf73b370",
+    "clauses": [
+      {
+        "id": "n1a",
+        "pass": true,
+        "start_s": 0.48,
+        "end_s": 3.52,
+        "observed": "Room plan with a name plate reading Cardiothoracic suite / Houston Methodist Hospital (2.4 s) and a Texas locator ringing Houston (2.2-3.4 s). Place is stated; the room itself is weakly recognizable."
+      },
+      {
+        "id": "n1b",
+        "pass": true,
+        "start_s": 3.8,
+        "end_s": 8.36,
+        "observed": "The perspective room shows four wall cameras whose tiny amber lamps light in turn (4.0-4.8 s). The overhead plan then shows camera view cones and a gurney with a patient shape parked at the doorway (6.8-8.4 s). The 'gloved hands wheel' action is not shown; the case's arrival is."
+      },
+      {
+        "id": "n2a",
+        "pass": true,
+        "start_s": 8.64,
+        "end_s": 9.78,
+        "observed": "Empty Room clock record panel under two lit wall cameras (8.6 s); a clock draws itself and its hands sweep (9.0-9.8 s)."
+      },
+      {
+        "id": "n2b",
+        "pass": true,
+        "start_s": 10.06,
+        "end_s": 12.34,
+        "observed": "Gurney wheeled through the doorway with a camera pulse and a tiny Patient entry tag (10.2-10.6 s). Panel row Patient entry lit (10.8 s). Drape laid in side view as the Draped row lights (11.0-11.4 s). Draped patient wheeled out and table reset on the overhead plan (12.0-12.4 s); that turnover stamp is not legible at this scale."
+      },
+      {
+        "id": "n3a",
+        "pass": true,
+        "start_s": 12.62,
+        "end_s": 14.52,
+        "observed": "Phone in a gloved hand lights with Text message and To surgeon, and a dotted amber arc runs from the wall camera (13.0-13.8 s); the body is blank until draping."
+      },
+      {
+        "id": "n3b",
+        "pass": true,
+        "start_s": 14.8,
+        "end_s": 16.7,
+        "observed": "Split view: attendants lay the drape (15.0-15.6 s) beside the waiting phone; the Patient draped bubble slides on and settles (16.0-16.4 s)."
+      },
+      {
+        "id": "n4a",
+        "pass": true,
+        "start_s": 16.98,
+        "end_s": 19.26,
+        "observed": "Hospital study card fades in and settles on the ledger (17.2-17.8 s) above an empty counter; static 18.0-19.2 s."
+      },
+      {
+        "id": "n4b",
+        "pass": true,
+        "start_s": 19.54,
+        "end_s": 21.44,
+        "observed": "Solid This suite line and dashed Other Houston Methodist sites line draw side by side (20.0-20.8 s)."
+      },
+      {
+        "id": "n4c",
+        "pass": true,
+        "start_s": 21.72,
+        "end_s": 24.76,
+        "observed": "The suite line climbs away after the Cameras on rule (22.0-22.8 s); 25 tiles fill the counter (23.4-24.2 s); 'about 25 more surgeries a month' appears (24.4 s)."
+      },
+      {
+        "id": "n5a",
+        "pass": true,
+        "start_s": 25.04,
+        "end_s": 27.7,
+        "observed": "Teal 7% rise badge stamps beside the counter (25.2-25.8 s); counter glows (26.8-27.2 s)."
+      },
+      {
+        "id": "n5b",
+        "pass": true,
+        "start_s": 27.98,
+        "end_s": 29.88,
+        "observed": "Axis labelled 95% confidence interval draws under the counter (28.2-28.8 s)."
+      },
+      {
+        "id": "n5c",
+        "pass": true,
+        "start_s": 30.16,
+        "end_s": 33.2,
+        "observed": "End cap at 8.3 (30.4 s), whisker grows, cap at 41.0 and a cases a month chip (32.0-32.4 s); completed interval held to 33.2 s."
+      },
+      {
+        "id": "n6a",
+        "pass": false,
+        "start_s": 33.48,
+        "end_s": 36.52,
+        "observed": "Placebo bars rise, then equal-height bars plus the suite bar (34.0-34.8 s); this contradicts the 'directionally consistent' source. The stamp lands at 36.0-36.2 s, and its readable result holds about 0.5 s before the cut."
+      },
+      {
+        "id": "n7a",
+        "pass": true,
+        "start_s": 36.8,
+        "end_s": 40.22,
+        "observed": "'Associated with the rollout' card with an Authors chip slides in above the Camera rollout tag (37.2-37.8 s); a dashed teal 'associated' link draws to the 25 counter (39.0-39.4 s)."
+      },
+      {
+        "id": "n7b",
+        "pass": true,
+        "start_s": 40.5,
+        "end_s": 42.4,
+        "observed": "Solid black 'caused' arrow draws (40.6-41.0 s) and is struck through and grayed (41.4-42.2 s). The rollout tag is cropped out of this close."
+      },
+      {
+        "id": "n8a",
+        "pass": true,
+        "start_s": 42.68,
+        "end_s": 45.72,
+        "observed": "Camera rollout tag slides against four review cards (43.2-43.8 s). A Bundled band slides across (44.4-44.8 s) but covers the tag's label and one card row."
+      },
+      {
+        "id": "n8b",
+        "pass": true,
+        "start_s": 46.0,
+        "end_s": 50.18,
+        "observed": "Apella Technology company tag, empty ownership ring and Houston Methodist tag appear (46.4-46.8 s); a teal minority wedge lights with a dotted link to Houston Methodist and a Minority stake label (48.6-49.8 s); no number."
+      },
+      {
+        "id": "n9a",
+        "pass": true,
+        "start_s": 50.46,
+        "end_s": 53.5,
+        "observed": "Future work card with Turnover time highlighted lands (50.8 s); a clock with a Turnover tag draws (51.4-51.8 s); a dashed tether runs from the card pin to the marker (53.0-53.4 s), with the card cropped to a sliver."
+      },
+      {
+        "id": "n9b",
+        "pass": true,
+        "start_s": 53.78,
+        "end_s": 58.72,
+        "observed": "Blank box headed 'Did the rollout speed up turnover?' draws beside the clock (54.4 s); the turnover marker glows (56.0-56.6 s); the room shows lit lamps and the box beside the associated 25 card as the light lowers (56.8-58.8 s)."
+      }
+    ]
+  },
+  "action_reviews": [],
+  "story_review": {
+    "story_sha256": "5511e4ce61518e8c6fdb93ab83f985c27db6d4736f41f5991b3b60da93c2cc18",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
+    "reviewer_identity": "storyboard-critic leaf, claude-opus-5-5 high effort, isolated read-only phone comparison assignment",
+    "verdict": "revise",
+    "blocking_defects": [
+      {
+        "category": "source",
+        "scene_id": "s6",
+        "time_s": 34.8,
+        "criterion": "source limit / false visual implication",
+        "defect": "Equal bar heights picture a null placebo result, against the 'directionally consistent' wording in claim c6."
+      }
+    ],
+    "one_viewing_summary": "Cameras in a generic Houston Methodist cardiothoracic room log patient entry, draping and turnover on a clock record, and text the surgeon when the patient is draped. A hospital study card shows the suite line rising above other sites to about 25 more surgeries a month (7 percent, interval 8.3 to 41.0). A placebo test is stamped short of significance, the authors' card says associated not caused, and the rollout is bundled with other reviews in a company the hospital partly owns. The paper leaves turnover for future work, so the turnover question box stays blank.",
+    "opening_to_ending": "The opening asks whether logging cameras add surgeries or only count them. The ending returns to the same room and lamps with a dashed associated link to about 25 more cases and a blank turnover box. It answers 'a rise was measured, not shown to be caused' without inventing an outcome. The opening image itself (an abstract plan) does not yet pose the question visually.",
+    "weakest_transition": "s6 to s7 at about 36.7 s: the crooked stamp is lifted and cut away after about 0.5 s, so the move from 'test short of significance' to 'associated, not caused' loses its readable bridge; the rollout tag then appears alone on a blank page."
+  },
+  "notes": "Sampled-image basis only: no MP4 playback, no listening, no audio or caption-sync judgment; motion between 0.2 s samples is unresolved. Region is correct: Harris County with a gulf-houston skyline-and-bayou window plate. All on-screen numerals (25, 7%, 95%, 8.3, 41.0) appear in the c5 quote. The Illustration disclosure stays visible. The 'Patient draped' message text is an illustrated stand-in, since the paper does not show the message text; acceptable under the persistent disclosure. Non-blocking notes: the phone shows a To surgeon header before draping, but the body stays blank until after the drape (13.0-15.8 s); camera status lamps are a few pixels at phone size (4.0-4.8 s); the struck caused arrow and dashed link originate off-frame once the tag is cropped (40.4-42.4 s); the band hides the rollout tag label (44.8-45.8 s); the question-box heading collides with the wall camera (54.4-56.6 s); b shows an empty ledger page at 46.0-46.2 and 50.4-50.6 s. One consolidated correction for b: open on a recognizable performed room image; redraw the placebo row so it does not encode equality and honours 'directionally consistent'; give the stamp result a hold of about 1 s or more before the cut; keep the rollout tag in frame for the struck arrow; let the bundle band wrap the tag and notes without hiding the tag label; clear the camera from the question-box heading."
+}

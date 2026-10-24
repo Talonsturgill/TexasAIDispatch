@@ -1,0 +1,31 @@
+{
+  "comparison_sha256": "413119c08d89a565025ba7371f79aee9a3b5aff7ef8914b09facd8f9f3e7beb7",
+  "selected": "b",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "reviewer_identity": "storyboard-critic leaf, claude-opus-5-5 high effort, isolated read-only phone comparison assignment",
+  "reason": "From 8.6 s to the end, b makes the mechanism and limits easier to read at phone size. Its Room clock record panel lists Patient entry, Draped and Turnover as rows, lit as each event happens (10.8-11.6 s). Its split at 14.8-15.6 s puts the drape being laid beside the waiting phone, so cause and alert sit in one frame before the Patient draped bubble lands (16.0-16.4 s). Its ledger framing keeps the placebo bars (34-36 s), the associated card and link (37-40 s), and the company, ring and holder of the stake (46.6-49.8 s) large and legible. Its close (56.8-59.9 s) returns to the room with the blank question box and the 'about 25 more a month / associated' card on a foreground ledger strip, readable at 390 px.",
+  "rejected_reason": "a has the stronger first frame: a recognizable perspective operating room with four wall cameras from 0.0 s. It loses legibility where the answer is carried. The gurney is a one-third sliver at the right frame edge for 6.6-8.4 s. Two attendants are already standing at the table at the 8.6 s cut, without being seen arriving. The phone during draping is a tiny inset at lower left (14.8-15.6 s). The rollout tag, 'associated' label and 25 counter are small at 38.6-39.8 s. The close-up of the ring drops the company tag (48.2 s). The final wide (56.8-59.9 s) puts the result card on the window glass at unreadable size. Both options share the s6 source and pacing defects, s3, and an identical s4-s5 chart sequence.",
+  "blocking_defects": [
+    {
+      "category": "source",
+      "scene_id": "s6",
+      "time_s": 34.8,
+      "criterion": "source limit / false visual implication",
+      "defect": "Shared by a and b. The ten placebo bars and the suite bar are drawn at identical height (34.0-36.6 s). That pictures a null result, i.e. the suite was no different from the placebo units. The verified source says the placebo permutation result was 'directionally consistent' with the main estimate but did not reach conventional significance (claim c6, empirical p 0.182 across 11 units). The picture states more than, and the opposite of, the reporting."
+    },
+    {
+      "category": "pacing",
+      "scene_id": "s6",
+      "time_s": 36.2,
+      "criterion": "contact_and_consequence: completed readable result",
+      "defect": "Shared by a and b. The stamp lands at 36.0 s and lifts at 36.2 s. The cut to the Camera rollout tag comes at about 36.7-36.8 s, so the four-word 'SHORT OF CONVENTIONAL SIGNIFICANCE' impression is held about 0.5 s. That is too short to read before the cut, so the first half of the performed turn depends on the caption."
+    },
+    {
+      "category": "subject_recognition",
+      "scene_id": "s1",
+      "time_s": 0.4,
+      "criterion": "subject_recognition / first_frame",
+      "defect": "b only. From 0.0 to 3.8 s the frame is a small abstract top-down floor plan in the upper half: a gray square, four camera icons a few pixels wide, a white table rectangle. The lower half is empty. The first change is a faint glow around the table (1.0-1.8 s). There is no visible anomaly at the board's 0.75 s hook payoff, and the operating room is not recognizable until the 3.8 s cut to the perspective room."
+    }
+  ]
+}
