@@ -13,6 +13,9 @@ until `finish --result shipped` accepts current release evidence, canonical phon
 correctly addressed, read-back unsent Gmail draft. Verify its durable public-safe archive too.
 Never send email or post socially. A cloud session marked successful is not shipment evidence.
 Never fabricate a review, replace a rejected verdict, discard charges, or loosen an integrity gate.
+The owner's October 24th instruction also allows a verified exhausted failure to remain unshipped
+and retained while a later daily edition starts. Use the startup handoff below; it is a failure
+disposition, never a successful delivery or permission to extend the five-review cap.
 
 The owner's October 16th instruction forbids routine permission stops. When an internal tool,
 packet, review, storage or controller defect blocks the next command, retain the actual error,
@@ -113,11 +116,27 @@ Read knowledge/craft/AUTHORED_STORY_ART.md and config/authored_story_art.json du
 picture phase. Use its actual record, verify and stage commands. There is no ImageGen call
 in this lane and no fabricated image-generation charge.
 
-Run `run_controller.py pending` and resume the oldest unfinished production before making a new
+Run `run_controller.py pending` and resume the oldest eligible unfinished production before making a new
 edition. A cloud container is reclaimed, so `pending` alone sees only worktrees that still exist.
 Also run `python scripts/checkpoint_discovery.py`. This read-only catalog holds each fetched
 commit in its own temporary ref, so another Git fetch cannot change the selected snapshot.
-Select the OLDEST unfinished edition by its run identity and creation time
+Before restoring the selected older edition, apply the owner's October 24th failed-edition policy
+from the verified current-main tools. If the older checkpoint has exhausted the hard five and has
+no native film or remaining reserved final timed-phone attempt, use
+`python scripts/failed_editions.py retain --repo <current-clean-checkout> --run-id <old-id> --next-date <actual-Eastern-date>`.
+The helper verifies the original immutable checkpoint, frozen envelope, all charges, original
+failure and worker claims. It refuses an active lease, any same-date or suffix restart, and any
+unresolved final-film path. A refusal retains the actual failure; never force it or buy another
+review. A noneligible unfinished edition follows its existing completion route.
+The helper only appends verified failed-backlog metadata to the publisher history. It does not
+change the original ledger, checkpoint, grades, owner epoch or media, and it does not mark the
+edition shipped. Rerun discovery and pending after successful retention. Rows marked
+`failed_retained: true` remain visible for audit with `finished: false` and are excluded from
+oldest-eligible selection. Use the ordinary acquire command for the later date. Its exclusive
+lease and atomic handoff still apply. Never reacquire a retained failure or create a suffix for it.
+This deterministic bookkeeping consumes no model review or paid production attempt. Do not
+ask the owner to repeat this standing lifecycle decision.
+Select the OLDEST eligible unfinished edition by its run identity and creation time
 (`checkpoint_discovery.py --oldest-unfinished`, never the first row of the newest-save-first list)
 and resume its existing ledger. From the October 20 source rollout, BEFORE restoring or initializing it,
 run `python scripts/publication_owner.py acquire --repo <current-clean-checkout> --run-id <selected-id> --workspace /home/user --wait-seconds 55`.
@@ -125,7 +144,7 @@ The helper binds the actual native session identity to one append-only global pu
 `busy` after this one bounded wait means end this duplicate observer without restoring, arming,
 reserving, dispatching, monitoring or claiming shipment. Preserve the active publisher and all
 paid work. The preinstalled Stop helper permits this unowned observer to end; it does not finish
-or release the other owner. The active owner completes the oldest unfinished edition, then any
+or release the other owner. The active owner completes the oldest eligible unfinished edition, then any
 due current-day edition sequentially. `resume_required` names the unfinished
 edition that must retain its ledger. An expired ownership record is never provider-outage evidence.
 `complete` requires selecting again, not another copy of the shipped edition.
@@ -181,7 +200,7 @@ source copy as a substitute for the production checkout's actual typecheck. Run 
 Never initialise a second
 ledger for an edition that has a checkpoint.
 
-For a new edition with no pending ledger or checkpoint, keep the primary bootstrap checkout clean.
+For a new edition with no eligible pending ledger or checkpoint, keep the primary bootstrap checkout clean.
 Create its production worktree at `<shared-parent>/dispatch-editions/<run-id>/TexasAIDispatch`
 from current `origin/main`, with the real Docket sibling required below. Use that owned checkout
 for the whole edition and record its actual paths. Its recorded origin is then empty on a fresh

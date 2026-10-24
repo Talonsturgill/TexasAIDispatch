@@ -67,6 +67,23 @@ class ContinuationTests(unittest.TestCase):
         self.arm()
         self.assertIsNone(continuation.decision({'hook_event_name': 'SubagentStop'}, self.workspace))
 
+    def test_retained_failure_stops_only_with_actual_idle_registries_without_shipping_or_renewing(self):
+        self.value['run_id'] = '2026-10-24'; self.save(); self.arm()
+        before = (self.state.read_bytes(), (self.workspace / continuation.MARKER).read_bytes())
+        with patch('failed_editions.retained', return_value={'run_id': '2026-10-24'}) as retained, \
+                patch('publication_owner.heartbeat_hook') as heartbeat, \
+                patch('publication_owner.release') as release:
+            self.assertIsNone(continuation.decision({**self.payload, 'background_tasks': [],
+                                                     'session_crons': []}, self.workspace))
+            retained.assert_called_once(); heartbeat.assert_not_called(); release.assert_not_called()
+            for payload in (self.payload, {**self.payload, 'background_tasks': [], 'session_crons': [{}]},
+                            {**self.payload, 'background_tasks': [{'id': 'paid', 'status': 'running'}],
+                             'session_crons': []}):
+                retained.reset_mock()
+                self.assertIsNotNone(continuation.decision(payload, self.workspace))
+                retained.assert_not_called()
+        self.assertEqual(before, (self.state.read_bytes(), (self.workspace / continuation.MARKER).read_bytes()))
+
     def test_post_pivot_shortfall_gets_executable_recovery_before_last_call_is_spent(self):
         state = {'usage': {'storyboard_critics': 29}, 'limits': {'storyboard_critics': 30},
             'events': [{'kind': 'mandatory_completion_grant', 'reason': 'modern-film-floor',
@@ -304,6 +321,50 @@ class ContinuationTests(unittest.TestCase):
                     import claude_checkpoint
                     manifest['ledger_sha256'] = hashlib.sha256(json.dumps(
                         claude_checkpoint.public_ledger(self.value, self.repo)).encode()).hexdigest()
+
+    def failed_daily_rearm_fixture(self, run_id='2026-10-25'):
+        self.value.update(run_id='2026-10-24', usage={'storyboard_critics': 6},
+                          resource_envelope={'storyboard_critics': 7},
+                          events=[{'kind': 'reserved', 'resources': {'storyboard_critics': 6}}])
+        self.save(); self.arm()
+        next_path = self.workspace / 'dispatch-editions' / run_id / 'Dispatch/out/dispatch/run_state.json'
+        next_path.parent.mkdir(parents=True)
+        next_path.write_text(json.dumps({'run_id': run_id, 'mode': 'production',
+            'terminal_state': None, 'events': [], 'usage': {'storyboard_critics': 0}}))
+        proof = {'run_id': '2026-10-24', 'checkpoint': 'a'*40,
+                 'ledger_sha256': hashlib.sha256(self.state.read_bytes()).hexdigest(),
+                 'production_finished': False, 'shipment_authorized': False}
+        return next_path, proof
+
+    def test_verified_retained_failure_rearms_later_daily_edition_without_resetting_old_state(self):
+        next_path, proof = self.failed_daily_rearm_fixture()
+        old_marker = continuation.read(self.workspace / continuation.MARKER)
+        before = (self.state.read_bytes(), next_path.read_bytes())
+        calls = []
+        def retained(repo, run_id, state=None, **kwargs):
+            calls.append((run_id, state))
+            return proof if run_id == self.value['run_id'] and state == self.value else None
+        with patch('failed_editions.retained', side_effect=retained):
+            continuation.arm(self.workspace, next_path)
+        self.assertEqual(before, (self.state.read_bytes(), next_path.read_bytes()))
+        self.assertEqual(str(next_path), continuation.read(self.workspace / continuation.MARKER)['state'])
+        audit = continuation.read(self.workspace / continuation.REBIND)
+        self.assertEqual(old_marker, audit['rebindings'][-1]['previous_marker'])
+        self.assertIn(proof['checkpoint'], json.dumps(audit))
+        self.assertIn((self.value['run_id'], self.value), calls)
+
+    def test_unverified_failure_or_same_day_rearm_preserves_marker_and_both_ledgers(self):
+        for run_id, verified in (('2026-10-25', False), ('2026-10-24', True),
+                                 ('2026-10-24-retry', True), ('2026-10-23', True)):
+            with self.subTest(run_id=run_id, verified=verified):
+                next_path, proof = self.failed_daily_rearm_fixture(run_id)
+                marker = self.workspace / continuation.MARKER
+                before = (marker.read_bytes(), self.state.read_bytes(), next_path.read_bytes())
+                with patch('failed_editions.retained', return_value=proof if verified else None):
+                    with self.assertRaises(ValueError):
+                        continuation.arm(self.workspace, next_path)
+                self.assertEqual(before, (marker.read_bytes(), self.state.read_bytes(), next_path.read_bytes()))
+                self.assertFalse((self.workspace / continuation.REBIND).exists())
 
     def test_prelaunch_registration_is_additive_idempotent_and_preserves_permissions(self):
         scripts = self.repo / 'scripts'; scripts.mkdir()

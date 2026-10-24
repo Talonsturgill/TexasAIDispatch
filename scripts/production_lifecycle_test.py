@@ -567,6 +567,76 @@ class LifecycleTest(unittest.TestCase):
             c.save(current / "run_state.json", state)
             self.assertFalse(life.pending(self.root))
 
+    def test_pending_skips_only_verified_retained_failure_without_touching_ledgers(self):
+        roots, states = {}, {}
+        for name, run_id in (('failed', '2026-10-24'), ('next', '2026-10-25')):
+            root = self.root / name
+            path = root / 'out/dispatch/run_state.json'
+            path.parent.mkdir(parents=True)
+            state = c.read_state(self.state)
+            state.update(run_id=run_id, phase='picture')
+            state['usage']['storyboard_critics'] = 6 if name == 'failed' else 0
+            c.save(path, state)
+            roots[name], states[name] = root, (path, state)
+        archived = roots['failed'] / 'runs/review/2026-10-24/run_state.json'
+        archived.parent.mkdir(parents=True)
+        stale = copy.deepcopy(states['failed'][1])
+        stale['usage']['storyboard_critics'] = 4
+        c.save(archived, stale)
+        archive_before = archived.read_bytes()
+        before = {name: path.read_bytes() for name, (path, _) in states.items()}
+        seen = []
+        def retained(repo, run_id, state=None, **kwargs):
+            seen.append((Path(repo), run_id, state))
+            if run_id == '2026-10-24' and state == states['failed'][1]:
+                return {'run_id': run_id, 'checkpoint': 'a'*40,
+                        'production_finished': False, 'shipment_authorized': False}
+            return None
+        listing = '\n'.join('worktree '+str(root) for root in roots.values())+'\n'
+        with patch.object(life.subprocess, 'check_output', return_value=listing), \
+                patch('failed_editions.retained', side_effect=retained):
+            rows = life.pending(self.root)
+        self.assertEqual(['2026-10-25'], [row['run_id'] for row in rows])
+        self.assertTrue(any(run_id == '2026-10-24' and state == states['failed'][1]
+                            for _, run_id, state in seen))
+        self.assertEqual(before, {name: path.read_bytes() for name, (path, _) in states.items()})
+        self.assertEqual(archive_before, archived.read_bytes())
+
+    def test_unverified_failure_labels_do_not_remove_the_oldest_pending_edition(self):
+        path = self.root / 'failed/out/dispatch/run_state.json'
+        path.parent.mkdir(parents=True)
+        state = c.read_state(self.state)
+        state.update(run_id='2026-10-24', phase='failed_retained', failed_retained=True)
+        state['usage']['storyboard_critics'] = 6
+        c.save(path, state)
+        archived = path.parents[2] / 'runs/review/2026-10-24/run_state.json'
+        archived.parent.mkdir(parents=True)
+        stale = copy.deepcopy(state); stale['phase'] = 'picture'
+        c.save(archived, stale)
+        before = (path.read_bytes(), archived.read_bytes())
+        def retained(repo, run_id, state=None, **kwargs):
+            return {'run_id': run_id, 'checkpoint': 'a'*40} if state == stale else None
+        with patch.object(life.subprocess, 'check_output',
+                          return_value='worktree '+str(path.parents[2])+'\n'), \
+                patch('failed_editions.retained', side_effect=retained):
+            rows = life.pending(self.root)
+        self.assertEqual(['2026-10-24'], [row['run_id'] for row in rows])
+        self.assertEqual(str(path), rows[0]['state'])
+        self.assertEqual(before, (path.read_bytes(), archived.read_bytes()))
+
+    def test_retained_edition_cannot_initialize_a_zero_usage_suffix_ledger(self):
+        for run_id in ('2026-10-24', '2026-10-24-retry'):
+            with self.subTest(run_id=run_id):
+                new_path = self.root / run_id / 'run_state.json'
+                with patch('publication_owner.enabled', return_value=True), \
+                        patch('failed_editions.assert_not_retained',
+                              side_effect=ValueError('retain original failed edition')) as admission:
+                    with self.assertRaisesRegex(ValueError, 'retain original'):
+                        c.initialise(new_path, run_id, 'production')
+                admission.assert_called_once_with(c.REPO, run_id)
+                self.assertFalse(new_path.exists())
+                self.assertFalse(new_path.parent.exists())
+
     def test_phone_plan_does_not_prove_finished_assets(self):
         board = {"date": "2026-09-26"}
         report = {"verdict": "pass", "reviewer_identity": "critic", "reviewed_at": "now",

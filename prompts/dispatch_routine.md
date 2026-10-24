@@ -146,7 +146,7 @@ bash scripts/run_with_env.sh git fetch origin main
 bash scripts/run_with_env.sh python scripts/run_controller.py pending
 ```
 
-Resume the returned active edition and its ledger before starting a new date. Confirm its
+Resume the returned eligible active edition and its ledger before starting a new date. Confirm its
 writer is not already active in another task. Merge fetched main into the clean owned edition
 branch, preserving its assets and charges. If no edition is active, create or resume the
 dated claude/dispatch-<date> branch from current main. Never substitute a new budget.
@@ -183,7 +183,12 @@ production-budget precheck. From September 29th, config/creative_release.json go
 creative editing. After its round cap or protected-completion boundary, finish the best reviewed
 cut through the evidence-bound creative release route, without an approval request. Preserve
 actual artistic scores/rejections and every source, rights, technical and shipment check.
-A budget boundary leaves an unfinished edition, never a substitute completion state.
+A budget boundary leaves an unfinished edition, never a substitute completion state. Under the
+owner's October 24th, 2026 direction, the current failed-edition retention helper may preserve a
+verified exhausted failure as unshipped and admit a genuinely later daily edition. Follow the
+host's current startup handoff before selection. Retain every original event, charge, frozen
+envelope and failed artifact; no same-date restart, active-owner preemption or extra review is
+authorized. A failed disposition never satisfies shipment or any film-quality gate.
 
 ## Timing and evidence reuse
 

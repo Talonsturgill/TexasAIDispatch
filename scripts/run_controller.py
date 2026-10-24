@@ -149,6 +149,11 @@ def event(state: dict, kind: str, **fields: object) -> None:
 
 
 def initialise(path: Path, run_id: str, mode: str) -> tuple[bool, str]:
+    if mode == 'production' and run_id[:10] >= '2026-10-24':
+        from publication_owner import enabled
+        if enabled():
+            from failed_editions import assert_not_retained
+            assert_not_retained(REPO, run_id)
     if path.exists():
         try:
             state = read_state(path)
