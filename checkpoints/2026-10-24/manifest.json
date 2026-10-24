@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-24",
-  "saved_at": "2026-10-24T12:59:40.917504+00:00",
-  "note": "phase voice",
+  "saved_at": "2026-10-24T13:05:10.793304+00:00",
+  "note": "before voice synthesis take 1 and soundcheck",
   "phase": "wake",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "bcdb35033178e3ba3dd72bf3b01f5083efbac89f403e3c1268a76ad679c544af"
   },
   "deleted_source": [],
-  "ledger_sha256": "f941d8776f508a84f0dca48c7f717a11e33c3b878427ea2aff5b374800959346",
-  "original_private_ledger_sha256": "9a8a1fa54d749a6f9230f89df114703ad1141c8f6666323892a0ce8525bffbfe",
+  "ledger_sha256": "878a0eee74e0074400d7d8d069e1b3d2cf969d5bd94bde5cb5beb4ab79ad34fd",
+  "original_private_ledger_sha256": "be61b7fe4d8181005827a898b36e34f1b641edfa56f98e7d94c6d61a7dc35e3d",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -34,7 +34,7 @@
     "storyboard_critics": 5,
     "tts_calls": 0,
     "validator_agents": 2,
-    "voice_directors": 0
+    "voice_directors": 1
   },
   "files": [
     {
@@ -1434,6 +1434,18 @@
       "class": "scratch",
       "sha256": "015be8193fd117115deef3d37a2607a1e9468882fa71ec3324b6d7dc9777226c",
       "size": 1020
+    },
+    {
+      "path": "out/dispatch/music_brief.json",
+      "class": "scratch",
+      "sha256": "3c1ee7ff0d06f9dab7de3094698d261347f1670d53f485bf25a5141441ca195f",
+      "size": 216
+    },
+    {
+      "path": "out/dispatch/music_credit.txt",
+      "class": "scratch",
+      "sha256": "c93a4862657cca1f05ac949572b3da81dfdb3f8446163b157477aa4ce9592161",
+      "size": 159
     },
     {
       "path": "out/dispatch/native-completion-waits/41d83f04f2d3884140a43f6c3f0d97577ce1a9bcbf9869273fcc3c3d5038c6a2.json",
@@ -5338,8 +5350,14 @@
     {
       "path": "out/dispatch/vo-director-packet.json",
       "class": "scratch",
-      "sha256": "7d3be0a55dadcdeeccc48d658498929cd77a7dc9738291ec01ca728e76121609",
+      "sha256": "68a09836a40b2dcdf6af328e93e39d0542b30bc394002ff1b830e1100c802630",
       "size": 9545
+    },
+    {
+      "path": "out/dispatch/vo_bindings-merged-s9.json",
+      "class": "scratch",
+      "sha256": "8810b3abeefa6dd1c0edf3ff344201745db28ec925bdefd4c71d347eb9808767",
+      "size": 1634
     },
     {
       "path": "out/dispatch/vo_bindings-round1.json",
@@ -5350,8 +5368,20 @@
     {
       "path": "out/dispatch/vo_bindings.json",
       "class": "scratch",
-      "sha256": "8810b3abeefa6dd1c0edf3ff344201745db28ec925bdefd4c71d347eb9808767",
-      "size": 1634
+      "sha256": "a19e413138810aea49f9d486857fde2d238227baf97d906449cce462e5e9e687",
+      "size": 1706
+    },
+    {
+      "path": "out/dispatch/vo_direction.json",
+      "class": "scratch",
+      "sha256": "991eafc95ec3b118518887467c4e878e6484974e197cf6b272d63c96c2523cb8",
+      "size": 18760
+    },
+    {
+      "path": "out/dispatch/vo_script-merged-line9.txt",
+      "class": "scratch",
+      "sha256": "deae8a6952aa1278b79da23a6fdd1563f90c0dcdc88adbf15444921b5d9969c9",
+      "size": 834
     },
     {
       "path": "out/dispatch/vo_script-round1.txt",
@@ -5362,14 +5392,14 @@
     {
       "path": "out/dispatch/vo_script.txt",
       "class": "scratch",
-      "sha256": "deae8a6952aa1278b79da23a6fdd1563f90c0dcdc88adbf15444921b5d9969c9",
+      "sha256": "2282b70ddb3c5316dd9265223cc8e1cdf739d61107eeeba4b7ea851d013e69c4",
       "size": 834
     },
     {
       "path": "out/dispatch/voice-director-assignment.json",
       "class": "scratch",
-      "sha256": "46f06b1057184f7b890d39a49da53186e1d72ecd48501b0a11c056757fa47663",
-      "size": 1849
+      "sha256": "e185c4d9656c451c206ea0354d204677b3488978dc9558c3a1575f80e6f6e4b8",
+      "size": 2868
     },
     {
       "path": "out/dispatch/worker-dispatch-claims/002a40ed267fd0cb5190724756638d8eebfe53409c088a480f92a423b6855ba4-researcher.json",
@@ -5426,6 +5456,12 @@
       "size": 555
     },
     {
+      "path": "out/dispatch/worker-dispatch-claims/a591b9c12989ce51f5701d3e1365d75b36db6a742fd3d57a3cc63cbc800bb864-vo-director.json",
+      "class": "scratch",
+      "sha256": "5f060be95e32ede34effc68d8f1f00b41512bdcf54c193afd8efe43f522c7580",
+      "size": 562
+    },
+    {
       "path": "out/dispatch/worker-dispatch-claims/cc1a96380444695c04127ca4b65b57fc72d1f27c2828a03447bb643c87d881b8-scene-builder.json",
       "class": "scratch",
       "sha256": "9a5cb33092000cf07a952f3f0818f135faf73f3cc068f12d18495b0ce47eea05",
@@ -5433,9 +5469,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 50635808,
-    "unique_blob_bytes": 46167554,
-    "unique_blobs": 696
+    "logical_bytes": 50659064,
+    "unique_blob_bytes": 46190810,
+    "unique_blobs": 702
   },
   "excluded": [],
   "regenerable": {
