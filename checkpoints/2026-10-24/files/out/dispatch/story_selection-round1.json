@@ -1,0 +1,140 @@
+{
+ "schema": "dispatch_story_selection/1",
+ "edition_date": "2026-10-24",
+ "selected": {
+  "title": "The room that watches itself",
+  "beat": "clinic-and-bench",
+  "county": "Harris",
+  "texas_link": "Houston Methodist Hospital ran the system in its 15 room cardiothoracic operating suite at Walter Tower in Houston. The film draws a generic operating room as an illustration and shows no real room, staff member or patient.",
+  "record_status": "in-record",
+  "record_id": "tx-2026-0222",
+  "record_url": "https://texasaidocket.com/item/tx-2026-0222/",
+  "movement": {
+   "actor": "Houston Methodist researchers",
+   "action": "published an observational study of camera based AI in an operating suite",
+   "object": "Apella image based AI cameras in the Walter Tower cardiothoracic suite",
+   "event_type": "published",
+   "date": "2026-06-27"
+  },
+  "why_today": "The Docket record on the study is current and the hospital's own August 14th, 2026 account repeats the result, while the open question about turnover time remains unanswered in the paper.",
+  "consequence": "Surgeons receive a text when a patient is draped, and the suite shows about 25 more cases a month that the authors say are associated with the system rather than caused by it.",
+  "application_change": "Operating room events that a nurse used to log by hand are timestamped from camera images, and surgeons are texted at the draping event.",
+  "counter_image": "The rollout was bundled with other workflow changes, the placebo test did not reach conventional significance, the hospital holds a minority stake in the vendor, and turnover time was left for future work.",
+  "earned_take": "The cameras log the room and text the surgeon, and the paper can't say they added the cases.",
+  "agency": {
+   "next_step": "The authors say future work should assess turnover time and whether the case volume gain holds across other surgical specialties.",
+   "who_can_act": "Houston Methodist researchers and operating room leaders can run that follow up, and other hospitals can test their own rooms.",
+   "open": "unknown"
+  },
+  "sources": [
+   {
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13412611/",
+    "retrieved": "2026-10-24",
+    "source_type": "primary",
+    "note": "Nguyen and colleagues, Journal of Imaging, open access, full text via Europe PMC, published online June 27th, 2026"
+   },
+   {
+    "url": "https://www.houstonmethodist.org/leading-medicine-blog/articles/2026/aug/image-based-ai-improves-or-efficiency-at-houston-methodist/",
+    "retrieved": "2026-10-24",
+    "source_type": "primary",
+    "note": "Houston Methodist blog of August 14th, 2026 describing the same system"
+   },
+   {
+    "url": "https://texasaidocket.com/item/tx-2026-0222/",
+    "retrieved": "2026-10-24",
+    "source_type": "primary",
+    "note": "Texas AI Docket record tx-2026-0222"
+   }
+  ],
+  "filmability": {
+   "viewer_question": "Does a camera that logs an operating room add surgeries, or only count them?",
+   "opening_action": "An illustrated wall camera in a generic operating room stamps the moment a patient is wheeled in, disclosed as Illustration.",
+   "mechanism": "Input: images from four cameras in each room. Transformation: a model timestamps patient entry, draping and turnover. Result: the surgeon gets a text at draping. Limit: the study measured case volume, not turnover, and calls the rise associated rather than caused.",
+   "human_consequence": "Surgeons are texted when a patient is draped, and staff raised surveillance and privacy concerns according to the hospital. No person is named or drawn.",
+   "source_limit": "Observational study, bundled rollout, placebo test short of conventional significance, hospital equity in the vendor and a vendor employee who ran the original analyses. No footage of the real room is cleared, so the room is an authored illustration.",
+   "three_key_images": [
+    "An illustrated wall camera stamping patient entry on a room clock in a generic operating room",
+    "An illustrated draping event with a text alert arriving on a phone",
+    "A record card reading about 25 more cases a month beside the words associated, not caused, and the interval 8.3 to 41.0"
+   ],
+   "asset_leads": [
+    {
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13412611/",
+     "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13412611/",
+     "relevant_image": "Paper figures 1, 3 and 4 carry Apella's written CC BY permission",
+     "what_it_proves": "Camera placement and an event timeline, per captions only",
+     "inspection": "Captions read. Pixels not used.",
+     "rights_basis": "CC BY 4.0 per the article, but consent notes say some faces are vendor generic images, so no figure is admitted.",
+     "decision": "reject images; authored illustration"
+    },
+    {
+     "url": "https://www.houstonmethodist.org/newsroom/walter-tower-media-kit/",
+     "source_url": "https://www.houstonmethodist.org/newsroom/walter-tower-media-kit/",
+     "relevant_image": "Operating room thumbnails",
+     "what_it_proves": "Nothing usable",
+     "inspection": "Not downloaded.",
+     "rights_basis": "All rights reserved, no licence stated.",
+     "decision": "reject; authored illustration"
+    }
+   ],
+   "action_support": [
+    {
+     "image": "opening",
+     "medium": "diagram",
+     "pictured_action": "An illustrated wall camera stamps a patient being wheeled into a generic operating room on a room clock.",
+     "scope_fit": "Disclosed illustration of the paper's detected entry event. It shows no real room, vendor interface or person.",
+     "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13412611/",
+     "disclosure": "Illustration",
+     "relationship": "The paper says the system detected patient entry, draping and room turnover."
+    },
+    {
+     "image": "mechanism",
+     "medium": "diagram",
+     "pictured_action": "The drape goes over an illustrated patient shape and an event marker lands on the room clock without second level times.",
+     "scope_fit": "Disclosed illustration of the draping event. No timing precision is shown.",
+     "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13412611/",
+     "disclosure": "Illustration",
+     "relationship": "The paper records a Patient Draped event between anesthesia ready and case start."
+    },
+    {
+     "image": "consequence",
+     "medium": "diagram",
+     "pictured_action": "A text alert arrives on an illustrated phone at the draping event, then a record card reads about 25 more cases a month, associated and not caused.",
+     "scope_fit": "Disclosed illustration of the text event and the paper's estimate. The surgeon's reaction is not pictured.",
+     "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13412611/",
+     "disclosure": "Illustration",
+     "relationship": "The paper says automated text notifications informed surgeons when patients were draped."
+    }
+   ]
+  },
+  "visual_stakes": {
+   "affected_group": "Surgeons and operating room staff at the Walter Tower cardiothoracic suite.",
+   "physical_subject": "a wall camera, a room clock with event markers and a surgeon's phone",
+   "visible_change": "the patient entry and draping events are stamped on the room clock and a text alert reaches the surgeon's phone",
+   "consequence": "about 25 more cases a month that the authors say are associated with the system, not caused by it",
+   "opening_question": "Does a camera that logs an operating room add surgeries, or only count them?",
+   "answer": "The study finds about 25 more cases a month and can't say the cameras caused them.",
+   "asset_fit": "Authored illustration only. No photographs are admitted, so no rights are in question.",
+   "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13412611/",
+    "https://www.houstonmethodist.org/leading-medicine-blog/articles/2026/aug/image-based-ai-improves-or-efficiency-at-houston-methodist/",
+    "https://texasaidocket.com/item/tx-2026-0222/"
+   ],
+   "affected_person": "No person is drawn. Staff appear only as a phone alert and an event clock, disclosed as illustration."
+  }
+ },
+ "rejected": [
+  {
+   "title": "Texas A&M AI digital twin of a small water system",
+   "reason": "The NSF award funds research only and names no town, operator or alert, so no worker action could be pictured honestly."
+  },
+  {
+   "title": "Texas A&M robot run alloy laboratory",
+   "reason": "The facility is planned with no opening date and no source shows a robot handling a sample."
+  },
+  {
+   "title": "Dallas brush truck code cameras",
+   "reason": "Screened against the published narrations and refused as a repeat of the September 26th story."
+  }
+ ]
+}
