@@ -523,6 +523,70 @@
       "resources": {
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-24T13:05:17.953059Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-24T13:05:38.862908Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+      "preflight_identity": null,
+      "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "reported_tokens": 2202
+      }
+    },
+    {
+      "at": "2026-10-24T13:05:38.865669Z",
+      "elapsed_ms": 20904,
+      "kind": "telemetry",
+      "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+      "reported_tokens": 2202,
+      "resource": "tts_calls"
+    },
+    {
+      "at": "2026-10-24T13:05:39.318609Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "tts_calls": 1
+      }
+    },
+    {
+      "at": "2026-10-24T13:05:44.346929Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+      "preflight_identity": null,
+      "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+      "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+      "resources": {
+        "reported_tokens": 2177
+      }
+    },
+    {
+      "at": "2026-10-24T13:05:44.350937Z",
+      "elapsed_ms": 5023,
+      "kind": "telemetry",
+      "note": "verbatim soundcheck with gemini-3-flash-preview",
+      "reported_tokens": 2177,
+      "resource": "tts_calls"
     }
   ],
   "limits": {
@@ -546,7 +610,7 @@
   "phase": "wake",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "be61b7fe4d8181005827a898b36e34f1b641edfa56f98e7d94c6d61a7dc35e3d",
+    "original_private_state_sha256": "30cdd294574107dde1c6b2e1dd2b4f8cf721407f9e2355c3383998f7fced183e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -574,7 +638,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-24T12:59:48.655261Z",
+  "updated_at": "2026-10-24T13:05:44.350954Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -583,12 +647,12 @@
     "panel_rounds": 0,
     "preflight_renders": 6,
     "reboards": 4,
-    "reported_tokens": 64,
+    "reported_tokens": 4443,
     "rescue_renders": 0,
     "research_agents": 3,
     "scorer_calls": 0,
     "storyboard_critics": 5,
-    "tts_calls": 0,
+    "tts_calls": 2,
     "validator_agents": 2,
     "voice_directors": 1
   }
