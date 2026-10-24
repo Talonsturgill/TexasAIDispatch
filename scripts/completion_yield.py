@@ -1,4 +1,4 @@
-"""Close expenditure after a complete rejected final panel, without completing production.
+"""Close proven exhausted expenditure without completing production.
 
 Only native hook-delivered final responses establish worker completion. Neither a missing
 task nor a director-authored report does. This creates no release authority or terminal state.
@@ -11,6 +11,7 @@ from pathlib import Path
 import sys
 
 KIND = 'hard_limit_expenditure_closed'
+EXHAUSTED_REQUIRED_REVIEW = 'exhausted-required-review-before-film'
 ROLES = ('picture', 'story', 'sound')
 RECEIPTS = 'native-scorer-completions'
 JUDGMENTS = ('score', 'weighted_score', 'ship', 'verdict', 'axes', 'hard_fails', 'defects',
@@ -237,6 +238,10 @@ def checkpoint_proof(state_path, evidence):
     manifest, ledger = cp.verify_checkpoint(root, tip, state['run_id'])
     require(ledger == cp.ledger_text(state, root).encode(), 'remote checkpoint does not contain the exact current ledger')
     files = {r['path']: r['sha256'] for r in manifest['files']}
+    if evidence.get('plan', {}).get('reason') == EXHAUSTED_REQUIRED_REVIEW:
+        claims = lambda rows: {p: h for p, h in rows.items() if p.startswith('out/dispatch/worker-dispatch-claims/')}
+        require(claims(files) == claims(evidence['files']),
+                'retain every original checkpoint worker claim before closing expenditure')
     for path, sha in evidence['files'].items():
         if files.get(path) == sha:
             continue
@@ -250,17 +255,94 @@ def checkpoint_proof(state_path, evidence):
     return tip
 
 
+def validate_exhausted_review(state_path, plan):
+    """Retain an impossible pre-film path without authorizing another attempt or shipment."""
+    from run_controller import digest as file_sha
+    from review_limit import reached, used, FINAL_PACKET_FROM
+    from manual_codex_repair import EVENT as manual_event
+    root = state_path.parents[2]; state = read(state_path); events = state['events']
+    require(set(plan) == {'reason', 'failure_evidence'} and plan['reason'] == EXHAUSTED_REQUIRED_REVIEW,
+            'exhausted-review closure needs its original failure evidence')
+    require(str(state.get('run_id', ''))[:10] >= FINAL_PACKET_FROM and reached(state)
+            and not state.get('terminal_state') and not state.get('shipment')
+            and not any(e.get('kind') == manual_event for e in events),
+            'only an exhausted ordinary daily production can close this path')
+    require(not state.get('deliverable') and not (state_path.parent / 'film.mp4').exists()
+            and all(state.get('usage', {}).get(k, 0) == 0 for k in
+                    ('full_renders', 'cleanup_renders', 'rescue_renders', 'panel_rounds', 'scorer_calls')),
+            'this closure cannot discard an existing native film or final panel')
+    frozen = [e for e in events if e.get('kind') == 'resource_envelope_frozen']
+    require(len(frozen) == 1 and frozen[0].get('envelope') == state.get('resource_envelope'),
+            'preserve the original frozen resource envelope')
+    reservations = [e for e in events if e.get('kind') == 'reserved'
+                    and e.get('resources', {}).get('storyboard_critics')]
+    require(all(type(e['resources']['storyboard_critics']) is int
+                and e['resources']['storyboard_critics'] > 0 for e in reservations)
+            and sum(e['resources']['storyboard_critics'] for e in reservations) == used(state),
+            'cumulative review usage must equal the original reservations')
+    # Conservatively retain any final reservation, including an unclaimed or ambiguous one.
+    # A failed final phone has a different completion path; this reason cannot retire it.
+    require(not any('final_timed_phone' in e for e in reservations),
+            'an existing reserved final timed-phone attempt must be resolved first')
+    bindings = {}
+    def bind(value):
+        path = local(root, str(value).replace('{REPO}', str(root)))
+        bindings[str(path.relative_to(root))] = file_sha(path)
+        return path
+    failure = bind(plan['failure_evidence']); failure_sha = file_sha(failure)
+    originals = [(i, e) for i, e in enumerate(events) if e.get('kind') == 'repair_authorized'
+                 and e.get('repair_plan', {}).get('failure_evidence_sha256') == failure_sha
+                 and local(root, str(e['repair_plan']['failure_evidence']).replace('{REPO}', str(root))) == failure]
+    require(bool(originals) and failure.stat().st_size > 0,
+            'closure requires an actual failure already bound by the original repair ledger')
+    # Keep every original worker claim. Never infer completion from a missing task or reuse it.
+    folder = state_path.parent / 'worker-dispatch-claims'
+    require(not folder.is_symlink() and any(folder.glob('*.json')), 'retain the original worker claims')
+    for path in sorted(folder.glob('*.json')):
+        claim = read(bind(path)); index = claim.get('reservation_event_index')
+        require(type(index) is int and 0 <= index < len(events), 'worker claim reservation is missing')
+        event = events[index]
+        require(claim.get('schema') == 'dispatch_worker_dispatch_claim/1'
+                and claim.get('run_id') == state['run_id'] and event.get('kind') == 'reserved'
+                and claim.get('reservation_sha256') == digest(event)
+                and claim.get('owner_sha256') == event.get('publication_owner_sha256')
+                and claim.get('epoch') == event.get('publication_epoch'), 'original worker claim changed')
+    # Any exact-phone verdict is conservatively retained for its existing completion path.
+    # This route only handles the observed pre-final-phone failure, not rejected finished work.
+    report = state_path.parent / 'storyboard_critic.json'
+    require(report.is_file(), 'retain the actual last critic report before closing expenditure')
+    require(read(bind(report)).get('review_scope') == 'code-plan',
+            'retain the last code-plan report; an existing exact-phone or unknown review cannot use this closure')
+    closure_indexes = [i for i, e in enumerate(events) if e.get('kind') == KIND]
+    require(len(closure_indexes) <= 1, 'preserve the single expenditure closure')
+    prefix = events[:closure_indexes[0]] if closure_indexes else events
+    index, original = originals[-1]
+    return {'plan': plan, 'files': bindings, 'failure_event_index': index,
+            'failure_event_sha256': digest(original), 'ledger_prefix_sha256': digest(prefix),
+            'paid_usage_sha256': digest({k: v for k, v in state['usage'].items() if k != 'reported_tokens'}),
+            'envelope_sha256': digest(state['resource_envelope']),
+            'production_finished': False, 'shipment_authorized': False}
+
+
+def validate_plan(state_path, plan):
+    if plan.get('reason') == EXHAUSTED_REQUIRED_REVIEW:
+        return validate_exhausted_review(state_path, plan)
+    return validate(state_path, plan)
+
+
 def close(state_path, plan):
     from run_controller import event, save
     from publication_owner import require_owner
     import claude_checkpoint as cp
-    require_owner(state_path); evidence = validate(state_path, plan); state = read(state_path)
+    require_owner(state_path); evidence = validate_plan(state_path, plan); state = read(state_path)
+    if plan.get('reason') == EXHAUSTED_REQUIRED_REVIEW:
+        checkpoint_proof(state_path, evidence)  # Original failure and ledger must already be durable.
     old = [r for r in state['events'] if r.get('kind') == KIND]
     if old:
         require(len(old) == 1 and old[0].get('evidence') == evidence, 'preserve the original expenditure closure')
     else:
         event(state, KIND, evidence=evidence); save(state_path, state)
-    cp.save_with_recovery(state_path.parents[2], state_path, 'retain complete rejected final panel and closed expenditure')
+    cp.save_with_recovery(state_path.parents[2], state_path, 'retain original failure and closed expenditure')
     return checkpoint_proof(state_path, evidence)
 
 
@@ -270,7 +352,7 @@ def permits(payload, state_path, state):
         return False
     events = [r for r in state['events'] if r.get('kind') == KIND]
     require(len(events) == 1 and not state.get('terminal_state'), 'nonterminal closure identity changed')
-    evidence = validate(state_path, events[0]['evidence']['plan'])
+    evidence = validate_plan(state_path, events[0]['evidence']['plan'])
     require(evidence == events[0]['evidence'], 'closed final evidence changed')
     checkpoint_proof(state_path, evidence)
     return True
@@ -280,6 +362,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--workspace', type=Path); parser.add_argument('--state', type=Path)
     parser.add_argument('--plan', type=Path)
+    parser.add_argument('--exhausted-required-review', type=Path, metavar='ORIGINAL_FAILURE')
     args = parser.parse_args()
     if args.workspace:
         payload = json.loads(sys.stdin.read(2 * 1024 * 1024 + 1))
@@ -288,8 +371,11 @@ def main():
         except FileNotFoundError:
             pass  # Ordinary sessions have no armed production.
     else:
-        require(args.state and args.plan, 'close expenditure with --state and --plan')
-        print(json.dumps({'checkpoint': close(args.state.resolve(), read(args.plan)), 'shipped': False}))
+        require(args.state and bool(args.plan) != bool(args.exhausted_required_review),
+                'close expenditure with --state and exactly one --plan or --exhausted-required-review')
+        plan = (read(args.plan) if args.plan else {'reason': EXHAUSTED_REQUIRED_REVIEW,
+                'failure_evidence': str(args.exhausted_required_review.resolve())})
+        print(json.dumps({'checkpoint': close(args.state.resolve(), plan), 'shipped': False}))
 
 
 if __name__ == '__main__':

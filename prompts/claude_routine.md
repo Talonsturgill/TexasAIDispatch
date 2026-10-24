@@ -139,6 +139,12 @@ pre-adoption checkpoint and inspect both staged and working changes first. Prese
 scene, board and artwork changes; resolve any actual tooling conflict against their retained
 baselines rather than resetting the checkout or changing an original policy. Commit only the
 resolved tooling integration, retain its real source pin and save the same ledger checkpoint.
+If a restored operational review policy contains unsupported `owner_grants`, first retain its
+exact bytes and SHA256 under `out/dispatch/retained-failures/`. Restore only that policy file
+from the verified current-main commit: five attempts, no extensions and no added grant fields.
+Keep the original ledger, frozen envelope, six-or-more spent attempts if present, and failed
+authorization evidence unchanged. Removing an unsupported policy addition refunds no attempt
+and permits no new review; an exhausted run must use its truthful expenditure-closure path.
 Verify that publication_owner.py, completion_progress.py, native_task_wait.py and claude_runtime.py
 are the current main implementations before reserving again. The first newly owned reservation
 then appends the operational progress adoption even for an older unfinished edition. Its old
@@ -693,6 +699,14 @@ and does not choose the silent treatment again. The silent comparison index cann
 timed movie; neither phone profile can satisfy the native final profile. Inspect all chronological
 pages, consolidate one handback and recheck only specific uncertain intervals. Report unresolved
 observations directly instead of repeatedly viewing the film to pursue approval.
+
+For editions from October 24, the fifth critic reservation must bind this final current-phone
+packet before any spend. Plan the current-phone task, then consume with
+`run_controller.py consume --resource storyboard_critics --review-packet <exact current-phone packet> --note "final timed phone"`
+and dispatch the same packet unchanged. The controller validates its current movie, board,
+chronological sequence and critic assignment before charging; a generic code, pivot or phone
+label cannot spend the protected slot. Replanning after the charge must retain that exact packet.
+Do not add owner grants to the daily policy or modify the five-attempt limit during production.
 
 A cloud session has no desktop for Computer Use. Use `scripts/phone_playback.py`, real Chromium UI
 automation at 390x844 with touch input, against the published canonical URL:

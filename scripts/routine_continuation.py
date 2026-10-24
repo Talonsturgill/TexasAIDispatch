@@ -152,7 +152,16 @@ def closure_problems(state, state_path):
 
 def capacity_recovery_hint(state):
     """Name the existing recovery route without granting or reserving anything."""
-    from review_limit import finishing
+    from review_limit import finishing, reached
+    if reached(state) and not state.get('deliverable') and not state.get('usage', {}).get('full_renders'):
+        return (' The five-review cap is exhausted before a native deliverable exists. Do not buy another'
+                ' review, replay a reservation, change the cap or claim shipment. Preserve every failed'
+                ' artifact and original claim. If no reserved final timed-phone attempt remains, use'
+                ' python scripts/completion_yield.py --state <actual-state>'
+                ' --exhausted-required-review <original-ledger-bound-failure> through run_with_env.sh.'
+                ' Its validator must prove the original failure and exact ledger checkpoint. Stop may'
+                ' yield only with actual empty worker and cron registries. The edition stays NOT SHIPPED'
+                ' and owned; this grants no new edition, release or paid work.')
     if finishing(state):
         return (' The owner hard limit is FIVE cumulative editorial reviews, including retries and pivots.'
                 ' Creative iteration is closed to protect final review and delivery. Finish any already'

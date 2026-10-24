@@ -243,5 +243,145 @@ class CompletionYieldTests(unittest.TestCase):
         self.assertTrue(closure.admission_problems(actual, {'full_renders': 1}))
 
 
+class ExhaustedRequiredReviewTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
+        self.repo = Path(self.tmp.name).resolve() / 'Dispatch'
+        self.out = self.repo / 'out/dispatch'; self.out.mkdir(parents=True)
+        self.path = self.out / 'run_state.json'
+        self.failure = self.out / 'evidence/narration-2/failure.txt'
+        self.failure.parent.mkdir(parents=True); self.failure.write_text('Original measured alignment refusal.\n')
+        self.report = self.out / 'storyboard_critic.json'
+        self.report.write_text(json.dumps({'review_scope': 'code-plan', 'verdict': 'PASS'}))
+        envelope = {'storyboard_critics': 7, 'full_renders': 14}
+        events = [{'kind': 'resource_envelope_frozen', 'envelope': envelope}]
+        for i in range(6):
+            events.append({'kind': 'reserved', 'resources': {'storyboard_critics': 1}, 'at': str(i),
+                           'publication_owner_sha256': 'original-owner', 'publication_epoch': 'original-epoch'})
+        events.append({'kind': 'repair_authorized', 'repair_plan': {
+            'failure_evidence': str(self.failure), 'failure_evidence_sha256': run_controller.digest(self.failure)}})
+        self.state = {'schema': run_controller.SCHEMA, 'run_id': '2026-10-24', 'mode': 'production',
+                      'terminal_state': None, 'resource_envelope': envelope, 'events': events,
+                      'usage': {'storyboard_critics': 6, 'full_renders': 0, 'reported_tokens': 123}}
+        self.claim = self.out / 'worker-dispatch-claims/original.json'; self.claim.parent.mkdir()
+        self.claim.write_text(json.dumps({'schema': 'dispatch_worker_dispatch_claim/1',
+            'run_id': self.state['run_id'], 'role': 'storyboard-critic', 'reservation_event_index': 5,
+            'reservation_sha256': closure.digest(events[5]), 'owner_sha256': 'original-owner',
+            'epoch': 'original-epoch', 'packet_sha256': 'original-spent-packet'}))
+        self.plan = {'reason': closure.EXHAUSTED_REQUIRED_REVIEW, 'failure_evidence': str(self.failure)}
+        self.save()
+
+    def save(self):
+        self.path.write_text(json.dumps(self.state, indent=2) + '\n')
+
+    def validate(self):
+        return closure.validate_plan(self.path, self.plan)
+
+    def test_original_overrun_is_retained_without_reset_or_native_panel_validation(self):
+        before = self.path.read_bytes(); evidence = self.validate()
+        self.assertEqual(self.path.read_bytes(), before)
+        self.assertIn('out/dispatch/worker-dispatch-claims/original.json', evidence['files'])
+        self.assertEqual(evidence['ledger_prefix_sha256'], closure.digest(self.state['events']))
+        self.assertFalse(evidence['production_finished']); self.assertFalse(evidence['shipment_authorized'])
+        with patch.object(closure, 'validate', side_effect=AssertionError('final panel unchanged')):
+            self.validate()
+
+    def test_unused_budget_and_available_final_reservation_cannot_close(self):
+        for change, message in [('unused', 'exhausted'), ('final', 'reserved final'),
+                                ('miscount', 'cumulative'), ('envelope', 'frozen')]:
+            original = copy.deepcopy(self.state)
+            if change == 'unused': self.state['usage']['storyboard_critics'] = 4
+            if change == 'final': self.state['events'][5]['final_timed_phone'] = {'packet': 'unclaimed'}
+            if change == 'miscount': self.state['usage']['storyboard_critics'] = 7
+            if change == 'envelope': self.state['resource_envelope'] = {'storyboard_critics': 8}
+            self.save()
+            with self.subTest(change=change), self.assertRaisesRegex(ValueError, message):
+                self.validate()
+            self.state = original
+        self.save()
+
+    def test_exact_five_closes_only_when_no_final_packet_was_reserved(self):
+        self.state['events'].pop(6)
+        self.state['usage']['storyboard_critics'] = 5
+        self.save()
+        self.assertFalse(self.validate()['production_finished'])
+        self.state['events'][5]['final_timed_phone'] = {}
+        self.save()
+        with self.assertRaisesRegex(ValueError, 'reserved final'):
+            self.validate()
+
+    def test_native_work_final_phone_and_one_time_manual_route_cannot_close(self):
+        for change, message in [('film', 'native film'), ('render', 'native film'),
+                                ('panel', 'native film'), ('phone', 'exact-phone'), ('manual', 'ordinary')]:
+            original = copy.deepcopy(self.state)
+            if change == 'film': self.state['deliverable'] = {'film': 'original.mp4'}
+            if change == 'render': self.state['usage']['full_renders'] = 1
+            if change == 'panel': self.state['usage']['panel_rounds'] = 1
+            if change == 'phone': self.report.write_text(json.dumps({'review_scope': 'exact-muted-phone-preflight'}))
+            if change == 'manual': self.state['events'].append({'kind': 'owner_codex_repair_granted'})
+            self.save()
+            with self.subTest(change=change), self.assertRaisesRegex(ValueError, message):
+                self.validate()
+            self.state = original; self.report.write_text(json.dumps({'review_scope': 'code-plan', 'verdict': 'PASS'}))
+        self.save()
+
+    def test_original_failure_and_worker_claim_cannot_be_replaced(self):
+        self.failure.write_text('Director replacement failure description.\n')
+        with self.assertRaisesRegex(ValueError, 'original repair ledger'):
+            self.validate()
+        self.failure.write_text('Original measured alignment refusal.\n')
+        claim = closure.read(self.claim); claim['reservation_sha256'] = 'changed'
+        self.claim.write_text(json.dumps(claim))
+        with self.assertRaisesRegex(ValueError, 'original worker claim'):
+            self.validate()
+
+    def test_close_requires_original_checkpoint_then_appends_only_one_nonterminal_event(self):
+        original = copy.deepcopy(self.state)
+        with patch('publication_owner.require_owner'), patch('claude_checkpoint.mirror'), \
+                patch('claude_checkpoint.save_with_recovery'), \
+                patch.object(closure, 'checkpoint_proof', side_effect=ValueError('original checkpoint absent')):
+            with self.assertRaisesRegex(ValueError, 'original checkpoint absent'):
+                closure.close(self.path, self.plan)
+        self.assertEqual(closure.read(self.path), original)
+        with patch('publication_owner.require_owner'), patch('claude_checkpoint.mirror'), \
+                patch('claude_checkpoint.save_with_recovery'), \
+                patch.object(closure, 'checkpoint_proof', return_value='verified') as proof:
+            self.assertEqual(closure.close(self.path, self.plan), 'verified')
+            self.assertEqual(proof.call_count, 2)
+            closed = closure.read(self.path); original_events = closed.pop('events')
+            self.assertEqual(original_events[:-1], original['events'])
+            self.assertTrue(closed.pop('updated_at'))  # Ordinary append-only controller timestamp.
+            self.assertEqual(closed, {k: v for k, v in original.items() if k != 'events'})
+            before = self.path.read_bytes(); closure.close(self.path, self.plan)
+            self.assertEqual(self.path.read_bytes(), before)
+            actual = closure.read(self.path)
+            for payload in ({}, {'background_tasks': []}, {'background_tasks': [], 'session_crons': [{}]},
+                            {'background_tasks': [{'id': 'paid-child'}], 'session_crons': []}):
+                self.assertFalse(closure.permits(payload, self.path, actual))
+            self.assertTrue(closure.permits({'background_tasks': [], 'session_crons': []}, self.path, actual))
+            self.assertTrue(closure.admission_problems(actual, {'storyboard_critics': 1}))
+            self.assertFalse(closure.admission_problems(actual, {'reported_tokens': 17}))
+
+    def test_stop_names_supported_command_without_permission_or_capacity(self):
+        hint = routine_continuation.capacity_recovery_hint(self.state)
+        self.assertIn('--exhausted-required-review', hint)
+        self.assertIn('NOT SHIPPED', hint)
+        self.assertNotIn('completion-capacity', hint)
+        self.assertNotIn('ask the owner', hint)
+
+    def test_checkpoint_refuses_omitted_original_worker_claim(self):
+        import claude_checkpoint as checkpoint
+        evidence = self.validate()
+        files = [{'path': p, 'sha256': sha} for p, sha in evidence['files'].items()]
+        ledger = checkpoint.ledger_text(self.state, self.repo).encode()
+        with patch.object(checkpoint, 'remote_tip', return_value='actual-checkpoint'), \
+                patch.object(checkpoint, 'verify_checkpoint', return_value=({'files': files}, ledger)) as verify:
+            self.assertEqual(closure.checkpoint_proof(self.path, evidence), 'actual-checkpoint')
+            verify.return_value = ({'files': files + [{'path': 'out/dispatch/worker-dispatch-claims/omitted.json',
+                                                     'sha256': 'original'}]}, ledger)
+            with self.assertRaisesRegex(ValueError, 'every original checkpoint worker claim'):
+                closure.checkpoint_proof(self.path, evidence)
+
+
 if __name__ == '__main__':
     unittest.main()

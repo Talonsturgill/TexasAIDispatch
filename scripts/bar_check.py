@@ -51,7 +51,7 @@ CLAIM = re.compile(
     r"|number\s*[,;)]))"
     r"|threshold (?:is|of|at|:)"
     r"|scores? (?:above|below|of))"
-    r"[^\n\d]{0,24}(\d+(?:\.\d+)?)", re.I)
+    r"[^\n\d]{0,24}(?<![\w$])(\d+(?:\.\d+)?)", re.I)
 
 SCAN_EXT = {".md", ".py", ".yaml", ".yml", ".txt", ".tsx", ".ts", ".json"}
 SKIP_DIRS = {"node_modules", ".git", "out", "runs", "docs"}
@@ -152,6 +152,14 @@ def self_test() -> int:
        not CLAIM.search("const s7={flip:P('s7-event-2'),bar:P('s7-event-3'),jostle:0};"))
     ok("does NOT scan past a completed numeric parameter type into another parameter",
        not CLAIM.search("drop:number,bar:number,wob:number,sc:'s7'|'s8'"))
+    # The October 24 scene uses two gurney grip points named bar and bar2.
+    # The digit belongs to the next identifier, not a numerical threshold.
+    # Require the matched numeral to begin a token; keep real numeric values checked.
+    geometry = "const hx=gxu+GURNEY.handle[0],hy=GURNEY.handle[1],bar:Pt=[hx,hy],bar2:Pt=[hx+5,hy+3];"
+    ok("does NOT read the next geometry identifier suffix as a threshold",
+       not CLAIM.search(geometry))
+    ok("a geometry identifier cannot hide a separate copied rubric key",
+       bool(CLAIM.search(geometry+" ship_threshold:7.5")))
     for value in ("7.5", '"7.5"', "P(7.5)", "P('7.5')", "P('x',7.5)", "P('x')+7.5", "number=7.5"):
         ok("a numeric bar value remains caught: "+value,bool(CLAIM.search("bar:"+value)))
     ok("a symbolic geometry lookup cannot hide a separate copied rubric key",

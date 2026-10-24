@@ -8,13 +8,18 @@ and remaining allowances come from the controller. Every take includes its audib
 
 Before the first take and each narration recovery, run the complete-path production budget,
 including the final timed phone, native hero, audiovisual reviews, three scorers and delivery.
-If spent critic calls leave a deficit, use the actual retained independent passing report in
-the existing capacity-only finish-current route before spending again. An exhausted critic
-counter is an internal recovery step, never an owner decision. Two failed narration repairs
-still require a precharged independent Opus recurrence-pivot review before a third correction.
-After that handback, fund the remaining path again before editing or synthesizing; the pivot
-call cannot consume a final review allowance unnoticed. Preserve every take, measured silence,
-ASR result, rejection and cumulative charge. A capacity grant approves no wording or timing.
+The daily five-attempt limit includes code, phone and recurrence-pivot reviews. Reserve the
+last attempt for the exact final timed phone film before any other critic charge. Capacity-only
+recovery cannot extend that limit, and an authority string in a local policy is not a grant.
+Two failed narration repairs still require an independent recurrence-pivot review before a
+third correction, but that review must fit an earlier available slot. Never spend the protected
+final slot on a pivot or buy another code review for a verified measured retime. Resolve the
+free narration-plan checks before the first paid story review so an unpronounceable clause
+split cannot first appear at this stage. Consolidate every actual defect into the remaining
+authorized correction; retain an existing valid take when its words and measurements still fit.
+If no compliant correction fits, retain the exact failure and remaining-path diagnosis without
+requesting an extra review, changing the cap or claiming shipment. Preserve every take, measured
+silence, ASR result, rejection and cumulative charge. No capacity grant approves wording or timing.
 
 At the finite creative boundary, have the same independent critic complete the separately
 bound assessment template from the retained exact phone evidence, then verify it before voice:
@@ -37,6 +42,14 @@ For current agent-runtime editions execute voice-director-assignment.json spawn_
 Spawn `vo-director` with the current approved script and vo-director-packet.json. Save per-line intent,
 emphasis and energy in vo_direction.json. Its text must exactly match vo_script.txt.
 Direction stays outside spoken wording. Run the prose scan before synthesis.
+
+For new editions from October 25th, the free narration plan check must already have passed
+before the first code-critic packet. Keep short coherent clauses at existing script punctuation
+within the phone planning ceiling; camera cuts may subdivide one clause. The synthesizer
+derives one clause per fenced line without changing words or punctuation and maps the unchanged
+scene-level notes to their actual line ranges. Use its single pacing instruction; conflicting
+breath or pause commands in performance notes refuse before a paid call. Preserve the original
+take and ASR on failure. No layout or planning check supplies acoustic timing or approves audio.
 
 For newly planned editions from October 3rd, its bound guides connect the performance to the
 chosen format and beat jobs. Direct emphasis to the visible discovery, explanation or source
