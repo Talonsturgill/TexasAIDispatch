@@ -74,7 +74,7 @@ charged late and never used as evidence. A private batch is a procedural defect,
 ## Narration and picture use one clock
 
 For new editions from October 25th, first author short coherent narration clauses using the
-current MODERN_FILM.md planning rule. Preserve every claim and qualifier, exact script
+dated knowledge/craft/VO_DIRECTION.md planning rule. Preserve every claim and qualifier, exact script
 punctuation and the existing 64-character phone planning ceiling. Run the free modern-film
 check before requesting code review. A camera change can subdivide the same spoken clause;
 it does not need a new speech boundary. Never split a verb from its object or rely on an

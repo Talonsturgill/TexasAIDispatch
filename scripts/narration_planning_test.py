@@ -100,6 +100,26 @@ class NarrationPlanningTest(unittest.TestCase):
             self.assertEqual([], modern_film.narration_problems(self.board, repo=root))
         self.assertEqual(4, len(self.board['film_direction']['shots']))
 
+    def test_dated_voice_guide_binding_preserves_frozen_modern_guide(self):
+        import modern_code_recovery
+        root = Path(__file__).resolve().parents[1]
+        guide = root / 'knowledge/craft/VO_DIRECTION.md'
+        for date, reference, expected in [('2026-10-24', False, False),
+                                           ('2026-10-25', False, True),
+                                           ('2026-10-25', True, False)]:
+            board = board_for(self.texts, date)
+            board['reference_only'] = reference
+            with self.subTest(date=date, reference=reference):
+                paths = daily_production.craft_reading_paths(board, repo=root)
+                bindings = [{'path': str(p.resolve()), 'sha256': daily_production.digest(p)}
+                            for p in paths]
+                bound_voice = [row for row in bindings if row['path'] == str(guide)]
+                self.assertEqual(int(expected), len(bound_voice))
+                if expected:
+                    self.assertEqual(daily_production.digest(guide), bound_voice[0]['sha256'])
+        self.assertEqual(modern_code_recovery.GUIDE_SHA256,
+                         modern_code_recovery.digest(root / 'knowledge/craft/MODERN_FILM.md'))
+
     def test_existing_complete_clause_punctuation_remains_available(self):
         for texts in [('The study found an association,', 'rather than a proven cause.'),
                       ('The camera records;', 'the surgeon receives a text.'),
