@@ -1,0 +1,320 @@
+{
+  "role": "storyboard-critic",
+  "review_scope": "code-plan",
+  "date": "2026-10-24",
+  "consolidated_verdict": "revise",
+  "packet": {
+    "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/critic-packet.json",
+    "sha256": "06f71eeab36835d54f8b42d85813d2ac52f1a319e4b0cc6135a5300b75216a3d"
+  },
+  "input_verification": {
+    "method": "I only had the Read tool, so I computed no SHA256 values. Every digest in this report is copied mechanically from the packet's code_report_bindings. As a consistency check, the asset hashes in the packet (RoomCameraHero 6f6c35cc..., StudyRecordSupport 5aefbe45...) match the story_art.entries, native_media and film_direction.renderer_inputs rows inside both treatment boards. The packet's board sha256 equals opening-a's, so I treated storyboard.json as byte-identical to opening-a.json and did not read it separately.",
+    "guides_read_in_full": [
+      ".claude/agents/storyboard-critic.md", "config/quality_contract.json", "config/dispatch_rubric.yaml", "knowledge/craft/COMPLETION_PROGRESS.md", "config/review_limit.json", "AGENTS.md", "prompts/claude_routine.md", "config/claude_runtime.json", "knowledge/craft/AUTONOMOUS_COMPLETION.md", "config/autonomous_completion_v2.json", "knowledge/craft/visual-storytelling/viewer-plan.md", "knowledge/craft/visual-storytelling/README.md", "knowledge/craft/visual-storytelling/news-reporting.md", "knowledge/craft/visual-storytelling/explanatory-animation.md", "knowledge/craft/MODERN_FILM.md", "config/modern_film.json", "config/modern_episode_registry.json", "knowledge/craft/STORY_ART.md", "config/story_art.json", "config/critic_concept_v2.json", "knowledge/craft/AUTHORED_STORY_ART.md", "config/authored_story_art.json", "knowledge/craft/ART_DIRECTION.md", "config/art_direction.json", "knowledge/craft/cinematic_reference_bank.json", "prompts/roles/scene-builder.md", "knowledge/craft/CREATIVE_DIRECTION.md", "knowledge/craft/DAILY_PRODUCTION.md", "knowledge/craft/QUALITY_CONTRACT.md", "config/documentary.json"
+    ],
+    "production_inputs_read": [
+      "out/dispatch/opening-a.json (all 5872 lines)", "out/dispatch/opening-b.json (scenes, story_art, film_direction shots, story_contract, cinematic_contract, fingerprint, creative_direction, art_direction; the remaining sections are structurally identical to A)", "out/dispatch/claims.json", "out/dispatch/story_selection.json", "out/dispatch/sources/pmc.txt (full article text)", "video-engine/src/modern/episodes/2026-10-24/RoomClockFilm.tsx", "video-engine/src/modern/episodes/2026-10-24/RoomCameraHero.tsx", "video-engine/src/modern/episodes/2026-10-24/StudyRecordSupport.tsx", "video-engine/src/lib/direction.ts", "video-engine/src/modern/DirectedFilm.tsx", "bounded excerpts of scripts/critic_gate.py, scripts/independent_review.py and scripts/daily_production.py for the report contract"
+    ],
+    "not_inspected": "PlaceStage.tsx and StoryArt.tsx bodies. Where a finding depends on the stage window, I give both the place.window case and the STAGE_WIN fallback."
+  },
+  "retained_replacement": {
+    "applicable": false,
+    "reason": "This is the initial two-treatment code review (storyboard_critics usage is 0 in the packet). No post-boundary structural replacement is in scope."
+  },
+  "comparison": {
+    "preferred_base": "a",
+    "reason": "Only A performs 'The system timestamped' in code: a teal pulse runs from a wall-camera lens to each clock marker (S.pulses in clock-wall-wide and clock-marker-close). A keeps a wall-height room throughline and frames the camera company tag. B shows stamps landing on a paper ledger with no camera link, leaves the drape behind on the table at turnover, and clips the company tag out of every n8b shot. B's declared counter-first opening is not implemented. Both treatments share every hero/support defect listed in consolidated_correction.",
+    "divergence_note": "From 16.84 to 53.64 s (s4 to s9) A and B draw the same StudyRecordSupport boards. Only the backing (desk or ledger), foreshortening and framings differ. The treatments genuinely diverge only in s1 to s3 and s10."
+  },
+  "reports": {
+    "a": {
+      "treatment": "a",
+      "board": {
+        "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/opening-a.json",
+        "sha256": "95f55a03e23cbba89102d1cc59140dfd926cff676af173815ca2cd55b419c342"
+      },
+      "review_scope": "code-plan",
+      "verdict": "revise",
+      "concept_sha256": "85fc3fe9c5c19930af92c1d922266b7e75475a7b9287ce42bc54de7e0d72c4d6",
+      "renderer_sha256": "98c6eb9a1be59b7b88e8c9d10aee9b98079ae724cb3866149e6552493771b058",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated Read-only code-scope worker (distinct from the claude-sonnet-5-5 director)",
+      "reviewed_at": "2026-10-24",
+      "strongest_frame": "s3-shot-3 alert-phone-view, 15.75 to 16.84 s (planned, not observed). One picture holds the draped patient on the table, the wall camera that saw it with its amber link lit, and the amber 'Patient draped' bubble sliding onto the phone. This is the whole mechanism (detect, notify) in one composition.",
+      "weakest_frame": "s1-shot-1 room-wall-wide, 0.00 to 3.66 s (planned). The room only brightens from dim (light .38 to 1) and a name plate settles. The four cameras are dark and nothing story-specific happens until 3.89 s. That is an establishing shot plus a title plate, and the cut at 3.66 s returns to the same tableau with re-posed cameras.",
+      "blocking_defects": [
+        {
+          "category": "pacing",
+          "criterion": "modern first_frame; the brief's early-payoff rule (config/documentary.json first_payoff_by_s 1.5); rubric hook axis",
+          "scene_id": "s1",
+          "time_s": 0.48,
+          "defect": "The first 3.66 s (s1-shot-1 room-wall-wide) contain only a lighting fade (clockState light .38 to 1 over s1-event-1, 0.48 to 1.43 s) and the name plate settling (s1-event-2, 2.06 to 3.16 s). The four wall cameras stay dark until s1-event-3 at 3.89 s. They first do something story-specific (heads turn, sight lines reach the gurney) at 6.17 s, and no timestamp appears until about 10.1 s. That is an establishing shot plus a title plate, not a picture payoff. The opening action selected in story_selection.json (a wall camera stamps the moment a patient is wheeled in) is not executed in s1. Required result: within the first 1.5 s the cameras themselves visibly act (lamps light, heads track the arriving gurney) while the plate settles, so the first frame states the strategy of a room that watches itself."
+        },
+        {
+          "category": "continuity",
+          "criterion": "continuity (conserved subject identity at a cut); genuine shot divergence",
+          "scene_id": "s1",
+          "time_s": 3.66,
+          "defect": "s1-shot-1 to s1-shot-2 is a match cut onto the same room() tableau, not a new viewpoint. camera-ring-view replaces the roomLayout cameras with RING_CAMS. The side-wall cameras drop from Wn.y-60/-70 to Wn.y+190/+180, about 250 px lower. Both pairs grow to scale 1.35 (far pair from .92, side pair from 1.05). With the STAGE_WIN fallback the whole room also rescales by 1000/888. Wall-mounted cameras therefore jump position and size at the cut while the pier, plate, table and window hold. Required result: either keep the shot-1 mounts and actually change viewpoint (a closer angle on the cameras), or establish the RING_CAMS mounts from the first frame."
+        },
+        {
+          "category": "source",
+          "criterion": "dominant_action; source fidelity to c2 and the paper's event definitions",
+          "scene_id": "s2",
+          "time_s": 10.106,
+          "defect": "The 'Patient entry' marker stamps during s2-event-2 (10.106 to 10.790 s), while clockState onTable slides the patient off the parked gurney onto the table. The actual roll-in (gurney travel, s1-event-4, 6.17 to 7.27 s) happened about 4 s earlier, in s1, before the clock exists, and got no stamp. The paper lists 'patient transfer to the OR table' as a separate detected event from 'patient entry'. So the picture under the spoken words 'patient entry' (n2b) labels a different event. The board's own s2-event-2 text ('as the patient shape rolls in') is also not what the renderer performs. Required result: the Patient entry stamp lands on the clock as the gurney crosses into the room, in the same shot. The table transfer is either unlabelled or not stamped as entry."
+        },
+        {
+          "category": "action",
+          "criterion": "contact_and_consequence (visible support and continuous identity) on the event that triggers the text",
+          "scene_id": "s3",
+          "time_s": 14.838,
+          "defect": "The Drape part (RoomCameraHero) does not exist at drop 0. It floats flat at floatY -250 table units above the pad and fades in (opacity clamp(q/.15)) as it descends, with no hands, no folded drape, no screen-bar source and no support. It is used for the s2 draping (s2-event-3 at 10.866 s, clock-marker-close at ks .62, about 155 px above the patient) and for the hero draping in s3-event-2 (14.838 to 15.693 s, table-drape-medium at ks 1.0, about 250 px above). The same agentless construction rolls the gurney in (s1-event-4) and slides the patient onto and off the table (s2-event-2, s2-event-4). Required result: the drape exists before it moves (for example folded on the screen bar or carried into frame) and is placed by visible anonymous gloved hands consistent with the glove already used in s3, or follows another supported physical path with continuous identity. Give the gurney push and the patient transfers the same visible agent so they do not read as self-propelled objects."
+        },
+        {
+          "category": "action",
+          "criterion": "contact_and_consequence (continuous identity of the hand holding the phone); the brief's 'reject disconnected hands'",
+          "scene_id": "s3",
+          "time_s": 12.48,
+          "defect": "GlovedHand (front) draws the thumb as a closed shape whose flat base runs from phone x -30 to -26 at y 516 to 612. That is outside the phone's left edge, where no palm, wrist or sleeve is drawn. The back palm is hidden behind the phone and only becomes visible below it from about x 97. The thumb therefore grows out of empty space about 100 phone units from the nearest visible glove: about 150 px at the 1.5 scale of phone-hand-close (12.48 to 14.66 s), and similar at the 1.55 scale of the signature alert-phone-view (15.75 to 16.84 s). Required result: one continuous hand volume with the thumb root joined to a visible palm or wrist, checked at every phone scale the film uses."
+        },
+        {
+          "category": "continuity",
+          "criterion": "continuity (conserved subject identity; no unmotivated appearance or erased consequence)",
+          "scene_id": "s3",
+          "time_s": 12.48,
+          "defect": "clockState switches branches at the s2 to s3 cut. s2 ends with the draped patient rolled out on the gurney and the table reset with a fresh sheet (sheet 1). For t >= S.s3 the code sets onTable 1, patient 1 and drape from s3-event-2, and leaves sheet at 0. An identical undraped patient appears already lying on the table, the fresh sheet vanishes, and the draping that s2 just stamped is performed again, with no arrival and no disclosure that this is the next case. The board's bridge ('the draped marker lifts off the ring and the surgeon phone lights') is not implemented. Required result: either s3 stays on the same case at the draping moment (the Draped marker or the draped patient carried into the phone shot), or it visibly brings in the next patient and keeps the reset sheet until that patient covers it."
+        },
+        {
+          "category": "pacing",
+          "criterion": "contact_and_consequence (completed readable result); CREATIVE_DIRECTION rule that an event completes before its cut",
+          "scene_id": "s2",
+          "time_s": 11.2,
+          "defect": "Three intra-scene cuts fall inside an event window. (1) s2-event-3 (10.866 to 11.550 s) crosses the 11.20 s cut from clock-marker-close (ring r 200 at 420,600) to turnover-marker-view (ring r 125 at 200,720). The Draped marker's contact (R .40 to .75, 11.140 to 11.379 s) lands 0.18 s after the cut in a different, smaller composition, and the drape finishes at ks .55 in the right half of the split. (2) s6-event-2 (34.554 to 35.466 s) crosses the 35.00 s cut, so the suite bar joins mid-slide. (3) s9-event-2 (51.534 to 52.446 s) crosses the 51.98 s cut, so the ring is mid-draw. Required result: move the frozen scene_fraction cut points (or the event fractions) so each named event starts and ends within one shot, above all the Draped stamp."
+        },
+        {
+          "category": "source",
+          "criterion": "source fidelity (visual certainty must not exceed the reporting; counts trace to a verified quote)",
+          "scene_id": "s6",
+          "time_s": 33.541,
+          "defect": "S6B.heights draws 11 gray placebo bars plus the teal suite bar, 12 units in all, under a 'Placebo runs' bracket spanning 11 bars. The paper's permutation test comprised 11 units in total (Walter Tower and the 10 donor sites that converged), and c6's scope note says 'across 11 units'. The drawn heights also assert a ranking: the suite bar (296) sits below one gray bar (334), i.e. second largest. No VERIFIED claim carries that ranking. Required result: 10 placebo bars plus the suite bar, and either a verified claim quoting the second-largest ratio or bar heights that do not assert a rank."
+        },
+        {
+          "category": "ending_artistry",
+          "criterion": "closing_payoff (answer the opening question without inventing an outcome)",
+          "scene_id": "s10",
+          "time_s": 57.172,
+          "defect": "s10-event-3 multiplies every camera lamp by (1 - .85*dim), so in the final 2.7 s all four lamps fall to 15 percent. That is an unsourced change to the principal subject which reads as the cameras being switched off; no source reports it. The final composition (room-window-wide: empty reset table, clock with the lit Turnover marker, blank box asking 'Did the rollout speed up turnover?') carries no trace of the added cases or the associated link. The closing image therefore poses a new turnover question instead of visibly answering 'add surgeries, or only count them'. Required result: keep the camera lamps on (if a light change is wanted, change the room light), and carry the s4/s7 result (about 25 more, the dashed associated link) into the closing picture beside the blank turnover box, so the open box visibly stands between the cameras and the added cases."
+        }
+      ],
+      "notes": [
+        "Scope: code-plan only. Nothing here approves pixels. Phone-size recognition of the room, cameras and plan, the drape's fall, surface finish and motion smoothness are unknown until rendered, and stay with the exact-phone and native gates. Capture remains unauthorized per the packet.",
+        "Structural risk, non-blocking at code scope: s4 to s9 (16.84 to 53.64 s, 36.8 s, 61 percent of story time) are all one family, StudyRecordSupport boards on a desk via recordView. The per-scene visual_family labels (clock-s4-a to clock-s9-a) hide this. The room, cameras and clock, which are the film's throughline subject, are absent for that whole stretch. The animated state changes (lines draw, tiles pour, stamp presses, strike, band, slice) give each record an action, but whether 37 s of cards holds attention must be judged on the phone film.",
+        "story_contract prose that does not match the renderer: 7 of 9 visible_bridge sentences are not executed (s2-s3, s3-s4, s5-s6, s6-s7, s7-s8, s8-s9, s9-s10). DirectedFilm hard-cuts every shot regardless of the 'match' or 'continuous' label. The declared camera_strategy values (dollyThrough, truckAcross, riseWith, craneDown, orbitReveal) are not executed either, because flat_shots hold every frame at scale 1. A held camera is consistent with the stated motion_language. Correct the prose or implement the bridges. s2-s3 is already blocking above.",
+        "The s4 record desk carries a coffee mug and reads as an office, while the shot carry text says 'in the same Houston hospital room'. No false claim results; correct the prose.",
+        "stamp-view (detail, 35.00 to 36.66 s): the rotated stamp border spans about -71 to 1102 px, wider than the 1080 px frame. The two text lines fit (about 33 to 997 px). This is a composition note, not a label or digit bounds failure.",
+        "whisker-label-view (detail, 30.02 to 33.34 s): after the 8 percent detail tightening, the '8.3' label's left edge sits about 4 px from the frame edge. It is in bounds but tight; check it at phone size.",
+        "The phone thread shows the sender 'Suite cameras', a 'To surgeon' pill and the message 'Patient draped'. c3's scope note says the paper does not show the message text. This is acceptable as a disclosed schematic, but the sender label attributes the text to the cameras themselves; consider dropping it.",
+        "The minority slice spans 64 degrees (about 18 percent). c9 gives no size. It is illustrative and labelled without a number, but it implies a magnitude.",
+        "The clock hand turns once every 6 s over 12 ticks, so the markers sit about 1.5 'hours' apart. This is illustrative, not claimed; no second-level timing is drawn, which is correct.",
+        "Place: the gulf-houston plate is correct for Harris County. Every on-screen numeral (25, 7%, 95%, 8.3, 41.0) appears in the c5 quote. 'Apella Technology' on the s8 tag is supported by c9."
+      ],
+      "clause_observations": [
+        {"id": "n1a", "pass": false, "observed": "Code: the room brightens and the 'Cardiothoracic suite / Houston Methodist Hospital' plate settles. The clause is literal, but it is the establishing interval that fails first_frame (see the s1 pacing defect)."},
+        {"id": "n1b", "pass": true, "observed": "Code: four lamps light in turn (contactQ staggered .21), then the gurney travels in while the camera heads aim at it and dashed sight lines reach it (watch). This performs 'watched each case'. The cut at 3.66 s re-poses the cameras (continuity defect)."},
+        {"id": "n2a", "pass": true, "observed": "Code: the clock ring draws on the pier with its hand sweeping, and a teal dashed system link runs from a camera lens to the ring once draw exceeds .8."},
+        {"id": "n2b", "pass": false, "observed": "Code: camera-to-marker pulses stamp three markers, but 'Patient entry' stamps on the table transfer rather than entry, and the Draped stamp lands after a cut."},
+        {"id": "n3a", "pass": true, "observed": "Code: the phone lights in a gloved hand and an amber link draws from a wall camera to the phone. The hand's thumb is disconnected (action defect)."},
+        {"id": "n3b", "pass": false, "observed": "Code: the alert arrives after the drape settles, which is the correct order. But the drape materializes midair with no support, and the undraped patient reappears on a table whose reset sheet has vanished."},
+        {"id": "n4a", "pass": true, "observed": "Code: the 'Hospital study' card drops onto the desk with a lift shadow."},
+        {"id": "n4b", "pass": true, "observed": "Code: the teal 'This suite' line and the dashed gray line labelled 'Other Houston / Methodist sites' draw under a clip reveal."},
+        {"id": "n4c", "pass": true, "observed": "Code: the suite line climbs after 'Cameras on', 25 tiles pour into the tray, and 'about 25 / more surgeries / a month' lands only when the tray is full."},
+        {"id": "n5a", "pass": true, "observed": "Code: the '7% rise' badge stamps beside the retained counter and the tally glows."},
+        {"id": "n5b", "pass": true, "observed": "Code: the axis labelled '95% confidence interval' draws, with ticks."},
+        {"id": "n5c", "pass": true, "observed": "Code: the whisker draws from 8.3 past the 25 marker, the 41.0 cap lands, and the 'cases a month' tag lands."},
+        {"id": "n6a", "pass": false, "observed": "Code: bars rise, the suite bar slides in, and an amber stamp presses and lifts. The bar count (12 units versus the paper's 11) and the implied rank exceed the source."},
+        {"id": "n7a", "pass": true, "observed": "Code: the 'Associated with the rollout' card with an 'Authors' tag slides in, and a dashed teal link labelled 'associated' draws from the 'Camera rollout' tag to the tally."},
+        {"id": "n7b", "pass": true, "observed": "Code: a solid arrow marked 'caused' draws and is struck through by a heavy stroke, then dims to 50 percent."},
+        {"id": "n8a", "pass": true, "observed": "Code: the rollout tag slides beside four review notes and a kraft band reading 'Bundled' wraps them."},
+        {"id": "n8b", "pass": true, "observed": "Code: the 'Camera company / Apella Technology' tag and an empty owners ring appear (inside the stake-wide frame), and the minority slice lights from a 'Houston Methodist' tag, with no number."},
+        {"id": "n9a", "pass": true, "observed": "Code: the 'Future work' card lands, the ring draws with the Turnover marker lit, and the card's 'Turnover time' row tags the marker."},
+        {"id": "n9b", "pass": false, "observed": "Code: the blank box draws and stays blank, which is correct. But the four camera lamps dim to 15 percent (unsourced shutdown inference) and the closing picture omits the added cases."}
+      ],
+      "story_review": {
+        "story_sha256": "6b3bc48665f6b4fa078e07caa1d165be0dc447a99dc39e07202fe67c44a0ed89",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
+        "verdict": "revise",
+        "blocking_defects": [
+          {"category": "pacing", "criterion": "modern first_frame; early payoff", "scene_id": "s1", "time_s": 0.48, "defect": "The opening 3.66 s is an establishing room plus a name plate. The cameras do not act until 3.89 s, and the selected opening action (camera stamps the entry) is absent from s1."},
+          {"category": "source", "criterion": "dominant_action; c2 event definitions", "scene_id": "s2", "time_s": 10.106, "defect": "'Patient entry' is stamped on the gurney-to-table transfer, which the paper names as a different event. The real roll-in happened unstamped in s1."},
+          {"category": "continuity", "criterion": "continuity", "scene_id": "s3", "time_s": 12.48, "defect": "At the s2 to s3 cut an undraped identical patient appears on the table, the reset sheet vanishes, and the draping repeats, with no arrival or disclosure of a next case."},
+          {"category": "source", "criterion": "source fidelity", "scene_id": "s6", "time_s": 33.541, "defect": "The placebo row draws 12 units against the paper's 11 and encodes an unclaimed second-place rank."},
+          {"category": "ending_artistry", "criterion": "closing_payoff", "scene_id": "s10", "time_s": 57.172, "defect": "The camera lamps dim (an unsourced shutdown inference), and the closing picture asks a new turnover question without any trace of the added cases it should answer."}
+        ],
+        "one_viewing_summary": "Intended chain, from code (not observed): in a generic illustrated Houston cardiothoracic operating room, four wall cameras light and watch a gurney roll in. A wall clock ring is stamped by pulses from a camera at entry, draping and turnover. A draped patient triggers an amber 'Patient draped' text on a surgeon's phone. A study card shows the suite line pulling away from other Houston Methodist sites while 25 case tiles pour into a tray. A 7 percent badge and a 8.3 to 41.0 interval whisker follow, then a placebo row with a 'short of conventional significance' stamp and an 'associated, not caused' card with a struck 'caused' arrow. Bundled review notes and a minority stake ring come next, then a future-work card tagging turnover, and finally a blank turnover box as the camera lamps dim.",
+        "opening_to_ending": "It opens on 'Does a camera that logs an operating room add surgeries, or only count them?' over a room that only brightens. The answer actually arrives at s7 (about 25 more, associated rather than caused). The film then closes on a blank turnover box and dimming camera lamps. As built, the close asks whether turnover sped up rather than visibly tying that open question back to the 25 added cases, and the dimming lamps add an unsupported implication that the cameras were switched off.",
+        "weakest_transition": "s2 to s3 (12.48 s). The draped patient is rolled out and the table reset with a fresh sheet. Then, with no arrival, an identical undraped patient lies on a sheetless table and is draped again under 'It also texted the surgeon when the patient was draped'. The declared bridge (the Draped marker lifts off the ring as the phone lights) is not implemented."
+      },
+      "action_reviews": []
+    },
+    "b": {
+      "treatment": "b",
+      "board": {
+        "path": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch/out/dispatch/opening-b.json",
+        "sha256": "508c9d4bea2169209b60c5cdb3cc648148e2851fd54392f53e51cf0fb665c2ad"
+      },
+      "review_scope": "code-plan",
+      "verdict": "revise",
+      "concept_sha256": "e39732356516ca466c533c78394c43451e275886e6bae805c20b98367792e1af",
+      "renderer_sha256": "98c6eb9a1be59b7b88e8c9d10aee9b98079ae724cb3866149e6552493771b058",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated Read-only code-scope worker (distinct from the claude-sonnet-5-5 director)",
+      "reviewed_at": "2026-10-24",
+      "strongest_frame": "s3-shot-3 alert-phone-view (close, scale 1.45), 15.75 to 16.84 s (planned, not observed). The draped patient and its wall camera sit at the left with the link lit, and the amber 'Patient draped' bubble slides onto the phone.",
+      "weakest_frame": "s2-shot-3 turnover-marker-view (overhead), 11.20 to 12.48 s (planned). On the floor plan the patient slides from the table back to the gurney while the green drape rectangle stays fixed on the now-empty table. 'Turnover' stamps on the plan clock with no camera link and no reset sheet.",
+      "blocking_defects": [
+        {
+          "category": "pacing",
+          "criterion": "modern first_frame; the brief's early-payoff rule (config/documentary.json first_payoff_by_s 1.5); rubric hook axis",
+          "scene_id": "s1",
+          "time_s": 0.48,
+          "defect": "The first 3.66 s (s1-shot-1 plan-overhead) are a static top-down floor plan. Its floor colour and light pool brighten over s1-event-1 (0.48 to 1.43 s) while the name plate settles under the plan (2.06 to 3.16 s). The plan's camera lamps stay at 0 until s1-event-3, which plays only after a hard cut into camera-ring-view at 3.66 s. B's own film_direction angle, opening_promise and divergence_note, and the registry note, all say B opens at the desk on the monthly counter and an empty turnover box. No s1 view draws a counter, a box or a ledger, so the declared treatment is not the executed one, and the executed opening is an establishing plan plus a title plate. Required result: the cameras visibly act within 1.5 s (as in A's correction), or implement the declared counter-first opening. Recognition of the plan at phone size stays unknown until pixels exist."
+        },
+        {
+          "category": "source",
+          "criterion": "dominant_action (the narrated transformation must be performed by its subject); source fidelity to c13",
+          "scene_id": "s2",
+          "time_s": 9.92,
+          "defect": "None of B's s2 views shows the system turning camera images into a timestamp. ledger-clock-desk draws the ring on a paper ledger with no system link (clockAt is called without fromCam). ledger-marker-row drops teal markers onto ruled paper rows titled 'Room clock record', with no camera and no pulse. The overhead turnover plan has no camera-to-clock link either; S.pulses is unused in every B view. A stamp landing on a ruled paper ledger invites the false inference of manual logging. That is the opposite of c13 ('automated, real-time documentation of perioperative events') and of the paper's point that events were captured independently of staff entry. Required result: in the n2a/n2b shots a wall camera visibly causes each stamp (A's camera-to-marker pulse is a working pattern), and the record surface does not read as a hand-kept ledger."
+        },
+        {
+          "category": "source",
+          "criterion": "dominant_action; source fidelity to c2 and the paper's event definitions",
+          "scene_id": "s2",
+          "time_s": 10.106,
+          "defect": "rowPicture k=0 slides the patient from the gurney onto the table beside the 'Patient entry' row while its marker stamps (s2-event-2, 10.106 to 10.790 s). The roll-in through the door already happened in plan-table-close during s1-event-4 (6.17 to 7.27 s), before any record existed. The paper names 'patient transfer to the OR table' as a separate event from 'patient entry'. Required result: as in A, the entry stamp coincides with the roll-in, and the transfer is not labelled as entry."
+        },
+        {
+          "category": "action",
+          "criterion": "contact_and_consequence (continuous identity, completed readable result)",
+          "scene_id": "s2",
+          "time_s": 11.626,
+          "defect": "In turnover-marker-view (overhead, 11.20 to 12.48 s), PlanRoom draws the drape as a rect fixed at (tx-128, ty-82), while planProps moves the patient from the table back onto the parked gurney as rollOut runs (s2-event-4, 11.626 to 12.310 s). The patient slides out from under a drape that stays on the empty table. The plan never shows the fresh sheet, so 'Turnover' stamps while the table still looks draped and occupied. This also contradicts A, where the drape travels with the patient. Required result: the drape leaves with the patient (or a visible agent removes it), and the table visibly resets before or as Turnover stamps."
+        },
+        {
+          "category": "action",
+          "criterion": "contact_and_consequence (visible support and continuous identity) on the event that triggers the text",
+          "scene_id": "s3",
+          "time_s": 14.838,
+          "defect": "B uses the same Drape construction: invisible at drop 0, floating flat at floatY -250 table units above the patient, fading in (clamp(q/.15)) as it descends, with no hands, source or support. It appears in desk-drape-split (s3-event-2, 14.838 to 15.693 s, ks .62, about 155 px above the patient) and in rowPicture k=1 (ks .34). The gurney and the patient transfers in plan-table-close and rowPicture likewise move with no agent. Required result: as in A, the drape exists before it moves and is placed by visible anonymous gloved hands or another supported path, and the gurney and transfers share that agent."
+        },
+        {
+          "category": "action",
+          "criterion": "contact_and_consequence (continuous identity of the hand holding the phone); the brief's 'reject disconnected hands'",
+          "scene_id": "s3",
+          "time_s": 12.48,
+          "defect": "B uses the same GlovedHand. The thumb's flat base at phone x -30 to -26, y 516 to 612, sits outside the phone's left edge with no palm, wrist or sleeve drawn there. The nearest visible glove begins near x 97 below the phone, about 100 phone units away. This shows in desk-phone-wide (scale .95, 12.48 to 14.66 s), desk-drape-split (.8, 14.66 to 15.75 s) and the signature alert-phone-view (1.45, 15.75 to 16.84 s, about 145 px gap). Required result: one continuous hand volume, checked at every scale used."
+        },
+        {
+          "category": "continuity",
+          "criterion": "continuity (conserved subject identity; no unmotivated appearance)",
+          "scene_id": "s3",
+          "time_s": 14.66,
+          "defect": "clockState's s3 branch sets onTable 1, patient 1 and sheet 0. B's s2 ends with the patient back on the gurney beside a table that still carries the stranded drape. At desk-drape-split (14.66 s) an identical undraped patient is lying on the table and is draped again, with no arrival and no disclosure of a next case. The board's s2 to s3 bridge is not implemented. Required result: as in A, either stay on the same case at the draping moment or visibly bring in the next patient."
+        },
+        {
+          "category": "pacing",
+          "criterion": "contact_and_consequence (completed readable result); CREATIVE_DIRECTION rule that an event completes before its cut",
+          "scene_id": "s2",
+          "time_s": 11.2,
+          "defect": "s2-shot-2 (ledger-marker-row, 9.92 to 11.20 s) explicitly declares event_id s2-event-3, but that event runs 10.866 to 11.550 s. Row 2's Draped stamp (contact R .40 to .75, 11.140 to 11.379 s) lands after the cut, inside the small overhead plan clock (r 64 at plan scale .84). s6-event-2 (34.554 to 35.466 s) crosses the 35.00 s overhead-to-detail cut. s9-event-2 (51.534 to 52.446 s) crosses the 51.98 s close-to-detail cut. Required result: each named event begins and ends within one shot, especially the Draped stamp."
+        },
+        {
+          "category": "source",
+          "criterion": "source fidelity (visual certainty must not exceed the reporting; counts trace to a verified quote)",
+          "scene_id": "s6",
+          "time_s": 33.541,
+          "defect": "This is the same S6Board as in A: 11 gray placebo bars plus the suite bar make 12 units, against the paper's 11 units (Walter Tower and the 10 donor sites that converged; c6 scope 'across 11 units'). The heights also assert an unclaimed second-largest rank. Required result: 10 placebo bars plus the suite bar, and either a verified rank claim or rank-neutral heights."
+        },
+        {
+          "category": "source",
+          "criterion": "subject_recognition / dominant_action (narrated subject absent from the picture)",
+          "scene_id": "s8",
+          "time_s": 46.084,
+          "defect": "ledger-company-close (s8-shot-3, 45.86 to 48.09 s) uses FOCUS slice [480,280,1000,880] at close scale (about 1.55, oy about -135). The camera company tag at board y 120 to 250 therefore maps to screen y about 51 to 253, entirely above the clip row at 262. ledger-stake-detail (48.09 to 50.32 s) tightens further. The stake group first appears at s8-event-3 (46.08 s), after both earlier s8 shots have ended. So in B the 'Camera company / Apella Technology' tag is never on screen during n8b ('a minority stake in the camera company'), and its gray connector line hangs from the clip edge down to the ring. Required result: the company tag sits inside the picture box while the slice lights, as A's stake-wide framing already does."
+        },
+        {
+          "category": "ending_artistry",
+          "criterion": "closing_payoff (answer the opening question without inventing an outcome)",
+          "scene_id": "s10",
+          "time_s": 57.172,
+          "defect": "ledger-room-window applies the same lamp dim ((1 - .85*dim)), so all four room cameras fall to 15 percent over s10-event-3 (57.172 to 58.272 s), reading as an unsourced shutdown. The foreground ledger's blank box asks only about turnover, with no trace of the added cases. Required result: as in A, keep the camera lamps on and connect the open turnover box to the 25 added cases in the closing picture."
+        }
+      ],
+      "notes": [
+        "Scope: code-plan only, with no pixel claims. The plan diagram's recognition as an operating room at 270 px, the ledger's look, the drape and the finish all stay with the phone and native gates. Capture remains unauthorized.",
+        "Divergence: B differs from A only in s1 to s3 and s10. From s4 to s9 it renders the same StudyRecordSupport boards on a ledger page instead of a desk, with overhead/close/detail framings in place of medium/close/detail. 61 percent of story time (16.84 to 53.64 s) is one record family in both treatments.",
+        "B's declared transitions 'continuous' (s1-shot-2, s10-shot-2) and camera_strategy craneDown/riseWith/orbitReveal are not executed. DirectedFilm hard-cuts and flat_shots hold every frame. 7 of 9 story_contract visible_bridge sentences are not implemented (s2-s3, s3-s4, s5-s6, s6-s7, s7-s8, s8-s9, s9-s10).",
+        "Overhead framings make up 7 of 30 shots (23 percent), within MODERN_FILM's 40 percent wall-view limit. Registry wall_views is empty.",
+        "stamp-view (detail): the stamp border exceeds the frame width, as in A, while the text fits. The phone thread's sender 'Suite cameras' and the 18 percent minority slice carry the same notes as A.",
+        "Place: the gulf-houston plate is correct for Harris County. All on-screen numerals appear in the c5 quote."
+      ],
+      "clause_observations": [
+        {"id": "n1a", "pass": false, "observed": "Code: a top-down plan brightens and the name plate settles under it. This is the establishing interval that fails first_frame, and the declared counter-first opening is absent."},
+        {"id": "n1b", "pass": true, "observed": "Code: hard cut to camera-ring-view at wall height, where four lamps light in turn. plan-table-close then shows the gurney entering through the door gap under lit sight wedges."},
+        {"id": "n2a", "pass": false, "observed": "Code: the ring draws on a paper ledger in a holder below two lit wall cameras, but with no system link or pulse. 'The system' is not shown acting."},
+        {"id": "n2b", "pass": false, "observed": "Code: ledger rows stamp with no camera cause. Entry is stamped on the table transfer, the Draped stamp lands after the cut, and the overhead turnover leaves the drape on the empty table."},
+        {"id": "n3a", "pass": true, "observed": "Code: the phone in a gloved hand lifts slightly from the desk as it lights, and an amber link draws from a wall camera. The thumb is disconnected."},
+        {"id": "n3b", "pass": false, "observed": "Code: in the split, the drape materializes midair over a reappeared undraped patient. The alert then lands on the phone close-up in the correct order."},
+        {"id": "n4a", "pass": true, "observed": "Code: the study card lands on the ledger in the wide view, beside the empty dashed counter slot."},
+        {"id": "n4b", "pass": true, "observed": "Code: overhead, the suite and comparison lines draw with their labels."},
+        {"id": "n4c", "pass": true, "observed": "Code: the suite line climbs, 25 tiles pour into the tray, and 'about 25' lands when the tray is full."},
+        {"id": "n5a", "pass": true, "observed": "Code: the 7% badge stamps beside the retained counter on the ledger (wide)."},
+        {"id": "n5b", "pass": true, "observed": "Code: overhead, the axis labelled 95% confidence interval draws."},
+        {"id": "n5c", "pass": true, "observed": "Code: close, the whisker runs from 8.3 to the 41.0 cap and the 'cases a month' tag lands."},
+        {"id": "n6a", "pass": false, "observed": "Code: placebo bars rise (overhead) and the stamp presses (detail). The 12-unit count and the implied rank exceed the source."},
+        {"id": "n7a", "pass": true, "observed": "Code: close on the 'Associated with the rollout' card, then overhead on the dashed 'associated' link to the tally."},
+        {"id": "n7b", "pass": true, "observed": "Code: detail on the 'caused' arrow being struck through."},
+        {"id": "n8a", "pass": true, "observed": "Code: the rollout tag slides beside the notes and the 'Bundled' band wraps them (wide, then overhead)."},
+        {"id": "n8b", "pass": false, "observed": "Code: the ring, the 'Houston Methodist' tag and the 'Minority stake' slice are visible, but the camera company tag is clipped above the picture box in both shots."},
+        {"id": "n9a", "pass": true, "observed": "Code: the future-work card lands on the ledger, and in detail its turnover line tags the lit marker."},
+        {"id": "n9b", "pass": false, "observed": "Code: the blank box holds in detail, then a hard cut to the room behind the desk, where the four camera lamps dim. Shutdown inference; no trace of the added cases."}
+      ],
+      "story_review": {
+        "story_sha256": "7145aeefe1f0ddbf3e0d313850b6f661af3f2ebcf3dbd1dd614fb9debb1d6d91",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
+        "verdict": "revise",
+        "blocking_defects": [
+          {"category": "pacing", "criterion": "modern first_frame; early payoff", "scene_id": "s1", "time_s": 0.48, "defect": "The opening is a brightening floor plan plus a name plate. The declared counter-first opening is not implemented."},
+          {"category": "source", "criterion": "dominant_action; c13", "scene_id": "s2", "time_s": 9.92, "defect": "The timestamps appear as stamps on a ruled paper ledger with no camera cause. That reads as manual logging, which contradicts automated documentation."},
+          {"category": "source", "criterion": "dominant_action; c2 event definitions", "scene_id": "s2", "time_s": 10.106, "defect": "'Patient entry' is stamped on the table transfer; the roll-in happened earlier in s1."},
+          {"category": "action", "criterion": "contact_and_consequence", "scene_id": "s2", "time_s": 11.626, "defect": "At turnover the drape stays on the empty table as the patient leaves, and no reset is shown."},
+          {"category": "continuity", "criterion": "continuity", "scene_id": "s3", "time_s": 14.66, "defect": "An identical undraped patient reappears on the table and is draped again, with no arrival."},
+          {"category": "source", "criterion": "source fidelity", "scene_id": "s6", "time_s": 33.541, "defect": "The placebo row draws 12 units against the paper's 11, plus an unclaimed rank."},
+          {"category": "source", "criterion": "subject_recognition", "scene_id": "s8", "time_s": 46.084, "defect": "The camera company tag is clipped out of every n8b shot."},
+          {"category": "ending_artistry", "criterion": "closing_payoff", "scene_id": "s10", "time_s": 57.172, "defect": "The camera lamps dim (shutdown inference), and the close omits the added cases it should answer."}
+        ],
+        "one_viewing_summary": "Intended chain, from code (not observed): a floor plan of a generic Houston operating room brightens under a suite plate. A cut to wall height shows four cameras lighting, and on the plan a gurney enters under their sight wedges. A ruled 'Room clock record' ledger stamps entry, draping and turnover row by row, then an overhead plan stamps turnover as the patient leaves. A desk phone in a gloved hand lights and receives 'Patient draped' after a split-screen draping. The same study, percent, interval, placebo, associated-not-caused, bundle and stake boards follow on a ledger page. A future-work card tags turnover, and the film ends on a blank turnover box on the ledger in front of the room as its camera lamps dim.",
+        "opening_to_ending": "It opens on the same question as A, but over a static plan, so the 'number first' promise is never shown. The answer arrives at s7. It closes on a blank turnover box on a desk ledger with the room's lamps dimming behind it. The ledger framing makes the record look hand-kept, which undercuts the 'camera logs the room' premise the ending relies on, and the close does not tie the open turnover question back to the 25 added cases.",
+        "weakest_transition": "s2 to s3 (12.48 to 14.66 s). The overhead plan leaves the drape stranded on an empty table as the patient rides out on the gurney. The cut goes to a desk phone with no table, and then a split shows an identical undraped patient back on the table being draped again. Identity, the reset state and cause are all broken across the handoff."
+      },
+      "action_reviews": []
+    }
+  },
+  "consolidated_correction": [
+    "Opening (both): make the cameras act within 1.5 s (lamps light, heads track the arriving gurney) while the plate settles. For B, either implement the declared counter-first opening or correct its angle, opening_promise, divergence_note and registry note.",
+    "Entry stamp (both): stamp 'Patient entry' as the gurney crosses into the room, on the clock, in one shot. Do not label the table transfer as entry.",
+    "Drape, gurney and transfers (both, shared RoomCameraHero): give the drape continuous identity and support (it exists before it moves, placed by visible anonymous gloved hands or another supported path), and give the gurney push and patient transfers the same agent.",
+    "Hand (both, shared GlovedHand): join the thumb root to a visible palm or wrist, and verify at scales .8, .95, 1.45, 1.5 and 1.55.",
+    "s2 to s3 continuity (both, clockState): either stay on the same draped case at the draping moment, or visibly bring in the next patient. Do not erase the reset sheet or teleport a patient onto the table.",
+    "Event-in-shot timing (both): move the frozen scene_fraction cut points so s2-event-3, s6-event-2 and s9-event-2 each complete within one shot, especially the Draped stamp.",
+    "Placebo row (both, StudyRecordSupport S6B): 10 placebo bars plus the suite bar, and either a verified rank claim or rank-neutral heights.",
+    "Ending (both): keep the camera lamps lit (use room light if any dimming is wanted) and bring the s4/s7 result (about 25 more, the associated link) into the closing composition beside the blank turnover box.",
+    "A only: remove the shot-1 to shot-2 camera re-posing in s1 (one consistent set of mounts, plus a real viewpoint change if a cut is kept).",
+    "B only: show a camera causing each s2 stamp and do not stage the record as a hand-kept ledger. Make the overhead turnover drape travel with the patient and show the reset. Reframe ledger-company-close and ledger-stake-detail so the camera company tag is in the picture box while the slice lights.",
+    "Prose only (both, non-blocking): correct the story_contract visible_bridge sentences, shot carry text, camera_strategy fields and 'continuous' transition labels so they match the renderer, or implement them."
+  ],
+  "next_gate": "This code-plan review approves nothing and supplies no pixel observation. Capture stays unauthorized. After one consolidated correction and a fresh code pass, the funded silent two-treatment phone comparison, the timed phone, native hero, three audiovisual lenses, scorers and every source, rights, caption, audio and shipment gate remain required. This review counts against the five-round cap in config/review_limit.json."
+}
