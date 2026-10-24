@@ -14,6 +14,17 @@ def policy():
     return data
 
 
+def limit(state):
+    """Five rounds, plus only an owner grant that names this exact edition."""
+    run = str(state.get('run_id', ''))[:10]
+    extra = 0
+    for grant in policy().get('owner_grants', []):
+        if (grant.get('edition') == run and type(grant.get('extra_reviews')) is int
+                and 0 < grant['extra_reviews'] <= 1 and len(str(grant.get('authority', ''))) > 40):
+            extra += grant['extra_reviews']
+    return MAX_ROUNDS + extra
+
+
 def enabled(state):
     if state.get('mode') != 'production' or state.get('terminal_state'):
         return False
@@ -31,11 +42,11 @@ def used(state):
 
 
 def reached(state):
-    return enabled(state) and used(state) >= MAX_ROUNDS
+    return enabled(state) and used(state) >= limit(state)
 
 
 def finishing(state):
-    return enabled(state) and MAX_ROUNDS - used(state) < 3
+    return enabled(state) and limit(state) - used(state) < 3
 
 
 def worker_plan_problems(state, packet, *, charged=False):
@@ -49,9 +60,9 @@ def worker_plan_problems(state, packet, *, charged=False):
     if not enabled(state) or packet.get('role') != 'storyboard-critic':
         return []
     ordinal = used(state) + (0 if charged else 1)
-    if ordinal > MAX_ROUNDS:
+    if ordinal > limit(state):
         return ['hard five-review limit reached; no further editorial worker dispatch']
-    if ordinal == MAX_ROUNDS and not (
+    if ordinal == limit(state) and not (
             packet.get('phone_mode') == 'current'
             and packet.get('review_scope') == 'exact-muted-phone-preflight'):
         return ['the fifth review is protected for the exact current timed phone film; '
@@ -71,7 +82,7 @@ def reservation_problems(state, amounts):
     requested = amounts.get('storyboard_critics', 0)
     if type(requested) is not int or requested < 0:
         return ['review reservation must retain its positive actual attempt count']
-    if used(state) + requested > MAX_ROUNDS and requested:
+    if used(state) + requested > limit(state) and requested:
         return ['hard five-review limit reached; no sixth code, phone, pivot or retry reviewer; '
                 'freeze the strongest current cut and finish delivery without another creative loop']
     if reached(state) and amounts.get('reboards'):

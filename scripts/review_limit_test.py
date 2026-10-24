@@ -32,6 +32,17 @@ class ReviewLimit(unittest.TestCase):
         self.assertEqual(before, self.state.read_bytes())
         self.assertEqual(5, json.loads(before)['usage']['storyboard_critics'])
 
+    def test_owner_grant_is_scoped_to_its_one_named_edition(self):
+        other = self.root / 'other.json'
+        self.assertTrue(controller.initialise(other, '2026-10-24', 'production')[0])
+        mine = {'run_id': '2026-10-24', 'mode': 'production', 'usage': {'storyboard_critics': 5}}
+        theirs = {'run_id': '2026-10-23', 'mode': 'production', 'usage': {'storyboard_critics': 5}}
+        self.assertEqual(6, limit.limit(mine))
+        self.assertEqual(5, limit.limit(theirs))
+        self.assertEqual([], limit.reservation_problems({**mine, 'usage': {'storyboard_critics': 5}}, {'storyboard_critics': 1}))
+        self.assertTrue(limit.reservation_problems({**mine, 'usage': {'storyboard_critics': 6}}, {'storyboard_critics': 1}))
+        self.assertTrue(limit.reservation_problems(theirs, {'storyboard_critics': 1}))
+
     def test_bulk_charge_cannot_cross_the_limit(self):
         self.assertTrue(self.charge(4)[0]); before = self.state.read_bytes()
         self.assertFalse(self.charge(2)[0]); self.assertEqual(before, self.state.read_bytes())

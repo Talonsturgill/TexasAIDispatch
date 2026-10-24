@@ -160,6 +160,14 @@ def pacing_notes(board: dict | None = None) -> str:
         "silence left here becomes a hole in the finished picture.\n\n")
 
 
+def pacing_layout_notes() -> str:
+    return (
+        "Pacing: read it as one connected passage, exactly as written. Keep numbers with their "
+        "units and qualifiers with their claims. Keep the closing answer in its own spoken "
+        "phrase. Avoid theatrical holds and rushed or swallowed words. The picture will "
+        "follow the measured recording.\n\n")
+
+
 def build_prompt(script: str, plan: dict,
                  evidence_dir: Path | None = None) -> tuple[str, list[str]]:
     """Return (prompt, refusals). A non-empty refusal list means do NOT call the API.
@@ -258,6 +266,22 @@ def build_prompt(script: str, plan: dict,
     if not script.strip():
         refusals.append("the script is empty")
 
+    layout_note = ""
+    layout = False
+    if plan.get("clause_layout") is True:
+        # Same words, same order. Each declared narration clause starts its own line, so the
+        # reader gets the board's own clause edges as line breaks rather than as a request.
+        clauses = ((board or {}).get("narration_picture") or {}).get("clauses") or []
+        laid = [" ".join(str(c.get("text", "")).split()) for c in clauses]
+        if not laid or " ".join(laid) != " ".join(script.split()):
+            refusals.append("clause layout needs declared clauses that spell the locked script exactly")
+        else:
+            script = "\n".join(laid)
+            layout_note = (
+                "Layout: each line of the fenced text is its own spoken phrase. End every line "
+                "with a short breath of room tone, then begin the next line. Keep one sentence's "
+                "intonation across its lines, and let it resolve only on the line that ends it.\n\n")
+            layout = True
     preamble = (
         "You are performing a narration for a short documentary film. Read ONLY the text inside "
         "the fenced block at the end of this message, exactly as written, and speak none of "
@@ -270,7 +294,7 @@ def build_prompt(script: str, plan: dict,
         # read "Willing to leave a silence", which was the third separate request for silence
         # in a prompt that already named a pause after every line. See split_direction for the
         # twenty seconds of dead air that bought. The film gets its air from the edit.
-        + pacing_notes(board) +
+        + (pacing_layout_notes() if layout else pacing_notes(board)) + layout_note +
         "Per-line direction:\n" + (split_direction(plan) or "(none supplied)") + "\n\n"
         + FENCE_OPEN + "\n" + script.strip() + "\n" + FENCE_CLOSE + "\n")
     return preamble, refusals

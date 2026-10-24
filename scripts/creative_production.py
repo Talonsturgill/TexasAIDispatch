@@ -397,6 +397,58 @@ def caption_renderer_continuation(board_path, receipt, selection, ledger):
         return None
 
 
+def post_selection_correction_problems(board, board_path, root, receipt, review, ledger):
+    """Accept one required correction of the SELECTED treatment after a revise selection.
+
+    The two-opening comparison and its independent selection stay untouched and hash bound. The
+    corrected concept is admitted only when (1) the owner granted an extra review to this exact
+    edition, (2) the correction is recorded against its own charged reboard, and (3) a distinct
+    independent critic passed the exact corrected concept and renderer at code-plan scope. The
+    exact-film phone, native, audiovisual and scorer reviews still decide the pictures.
+    """
+    errors = []
+    try:
+        side = read(root / "post-selection-correction.json")
+        if side.get("schema") != "dispatch-post-selection-correction/1":
+            return ["post-selection correction sidecar has the wrong schema"]
+        from review_limit import limit, MAX_ROUNDS
+        if limit(ledger) <= MAX_ROUNDS:
+            errors.append("a post-selection correction needs an owner grant naming this edition")
+        comparison = digest(root / "comparison.json")
+        if (side.get("comparison_sha256") != comparison or review.get("comparison_sha256") != comparison
+                or side.get("selection_sha256") != digest(root / "selection.json")):
+            errors.append("post-selection correction does not bind the retained comparison and selection")
+        for option in receipt["options"]:
+            for key in ("board", "film"):
+                ref = option[key]
+                path = (root / ref["file"]).resolve()
+                if not path.is_relative_to(root.resolve()) or digest(path) != ref["sha256"]:
+                    errors.append("retained opening comparison evidence changed: " + key)
+        chosen = next((r for r in receipt["options"] if r["id"] == review.get("selected")), None)
+        if not chosen or side.get("selected_concept_sha256") != chosen["concept_sha256"]:
+            errors.append("post-selection correction does not start from the selected concept")
+        if side.get("corrected_concept_sha256") != opening_digest(board):
+            errors.append("post-selection correction does not describe the current concept")
+        charge = ledger["events"][side["repair_event_index"]]
+        if (charge.get("kind") != "reserved" or not (charge.get("resources") or {}).get("reboards")):
+            errors.append("post-selection correction has no matching charged reboard")
+        ref = side["code_review"]
+        report_path = (Path(board_path).parent / ref["file"]).resolve()
+        if not report_path.is_relative_to(Path(board_path).parent.resolve()) or digest(report_path) != ref["sha256"]:
+            errors.append("post-selection code review evidence changed")
+        else:
+            report = read(report_path)
+            import critic_gate
+            director = (board.get("story_contract") or {}).get("director_identity")
+            if (report.get("review_scope") != "code-plan" or report.get("verdict") != "pass"
+                    or report.get("reviewer_identity") in (None, "", director)):
+                errors.append("post-selection correction needs a distinct independent code-plan pass")
+            errors += critic_gate.problems(board, report)
+        return errors
+    except (OSError, ValueError, KeyError, TypeError, IndexError) as exc:
+        return ["post-selection correction evidence unavailable: " + str(exc)]
+
+
 def opening_problems(board_path):
     board_path = Path(board_path)
     board = read(board_path)
@@ -415,6 +467,9 @@ def opening_problems(board_path):
         review = read(root / "selection.json")
         from critic_gate import renderer_digest
         errors = []
+        if (root / "post-selection-correction.json").is_file():
+            ledger_for_correction = read(board_path.with_name("run_state.json"))
+            return post_selection_correction_problems(board, board_path, root, receipt, review, ledger_for_correction)
         if receipt.get("policy_sha256") != digest(POLICY) or (not treatment_required(board) and receipt.get("renderer_sha256") != renderer_digest(board)):
             errors.append("opening comparison uses stale policy or renderer inputs")
         from opening_compare import adoption_problems

@@ -84,6 +84,9 @@ def canonical(text: str) -> list[str]:
     # both to the same lexical parts while retaining every original DTW position.
     # This is deliberately a spelling map, never fuzzy matching or dropped words.
     text = re.sub(r"\boilfield\b", "oil field", text, flags=re.IGNORECASE)
+    # Same rule for these two compounds, which whisper writes open or closed at random.
+    text = re.sub(r"\btimestamped\b", "time stamped", text, flags=re.IGNORECASE)
+    text = re.sub(r"\brollout\b", "roll out", text, flags=re.IGNORECASE)
     # These possessive and plural spellings encode the same spoken phonemes.
     # Keep the original script word and acoustic center outside this comparison.
     text = re.sub(r"\b([a-z]*[bcdfghjklmnpqrstvwxyz])y['\u2019]s\b", r"\1ies", text, flags=re.IGNORECASE)
