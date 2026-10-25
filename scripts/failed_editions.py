@@ -21,6 +21,54 @@ def day(value):
     return date.fromisoformat(value[:10])
 
 
+def _infeasible_evidence(repo, commit, run_id, manifest, ledger):
+    """Reprove a fourth original combined rejection without rendering or resuming it."""
+    state = json.loads(ledger); rows = {r['path']: r for r in manifest['files']}
+    closure.require(len(rows) == len(manifest['files'])
+                    and not {'out/dispatch/film.mp4', 'out/dispatch/cinema/hero.mp4'} & set(rows),
+                    'do not retire a native film or ambiguous checkpoint inventory')
+    claims = {p for p in rows if p.startswith('out/dispatch/worker-dispatch-claims/')}
+    receipts = {p for p in rows if p.startswith('out/dispatch/' + closure.CRITIC_RECEIPTS + '/')
+                and not PurePosixPath(p).name.startswith('handback-')}
+    closure.require(bool(claims) and bool(receipts), 'retain the actual original native critic completion')
+    with tempfile.TemporaryDirectory(prefix='dispatch-infeasible-proof-') as temporary:
+        root = Path(temporary).resolve() / 'Dispatch'; state_path = root / 'out/dispatch/run_state.json'
+        state_path.parent.mkdir(parents=True); state_path.write_bytes(ledger)
+        def materialize(rel):
+            closure.require(isinstance(rel, str) and '\0' not in rel
+                            and not PurePosixPath(rel).is_absolute() and '..' not in PurePosixPath(rel).parts
+                            and PurePosixPath(rel).as_posix() == rel,
+                            'failure evidence path must stay inside its owned checkpoint')
+            row = rows[rel]
+            closure.require(type(row.get('size')) is int and 0 < row['size'] <= 8 * 1024 * 1024,
+                            'administrative failure proof only materializes bounded original JSON evidence')
+            target = root / rel; target.parent.mkdir(parents=True, exist_ok=True)
+            checkpoint.materialize_checkpoint_file(repo, commit, run_id, row, target)
+            return target
+        for rel in sorted(claims | receipts):
+            materialize(rel)
+        reservations = [i for i, event in enumerate(state['events']) if event.get('kind') == 'reserved'
+                        and event.get('resources', {}).get('storyboard_critics')]
+        closure.require(bool(reservations), 'retain the actual paid critic reservations')
+        originals = []
+        for rel in sorted(receipts):
+            receipt, claim, _ = closure.critic_completion(root, root / rel)
+            if claim['reservation_event_index'] == reservations[-1]:
+                originals.append((rel, receipt))
+        closure.require(len(originals) == 1, 'retain the one complete original critic response for this charged attempt')
+        receipt_path, receipt = originals[0]
+        packets = [p for p, row in rows.items() if p.startswith('out/dispatch/') and p.endswith('.json')
+                   and row['sha256'] == receipt['packet_sha256']]
+        closure.require(bool(packets), 'retain the exact original paid critic packet')
+        materialize(sorted(packets)[0])
+        evidence = closure.validate_infeasible_review(state_path, {
+            'reason': closure.INFEASIBLE_REQUIRED_REVIEW, 'critic_completion': receipt_path})
+        closure.require(all(rows[p]['sha256'] == sha for p, sha in evidence['files'].items())
+                        and {p for p in evidence['files'] if p.startswith('out/dispatch/worker-dispatch-claims/')} == claims,
+                        'retain every original failure and worker claim')
+    return evidence
+
+
 def _proof(repo, commit, run_id, *, full=True):
     """Use the existing strict failure validator and only small working-copy files."""
     base = checkpoint.ROOT + '/' + run_id
@@ -35,6 +83,18 @@ def _proof(repo, commit, run_id, *, full=True):
     state = json.loads(ledger)
     closure.require(state.get('run_id') == run_id and not manifest.get('terminal_state')
                     and not manifest.get('shipment_recorded'), 'retain failure without claiming shipment')
+    closed_reasons = [e.get('evidence', {}).get('plan', {}).get('reason') for e in state['events']
+                      if e.get('kind') == closure.KIND]
+    native = any(r['path'].startswith('out/dispatch/' + closure.CRITIC_RECEIPTS + '/')
+                 for r in manifest['files'])
+    if (run_id[:10] >= '2026-10-25' and state.get('usage', {}).get('storyboard_critics') == 4
+            and (closed_reasons == [closure.INFEASIBLE_REQUIRED_REVIEW] or not closed_reasons and native)):
+        evidence = _infeasible_evidence(repo, commit, run_id, manifest, ledger)
+        return {'schema': SCHEMA, 'run_id': run_id, 'checkpoint': commit,
+                'ledger_sha256': manifest['ledger_sha256'], 'manifest_sha256': closure.digest(manifest),
+                'source_pin': manifest['source_pin'], 'repo_root': manifest['repo_root'],
+                'original_state': {k: state[k] for k in ('resource_envelope', 'usage', 'events')},
+                'evidence': evidence, 'production_finished': False, 'shipment_authorized': False}
     originals = [e['repair_plan'] for e in state['events'] if e.get('kind') == 'repair_authorized'
                  and e.get('repair_plan', {}).get('failure_evidence')]
     closure.require(bool(originals), 'retain the original ledger-bound failure')
@@ -63,8 +123,8 @@ def _proof(repo, commit, run_id, *, full=True):
                             'administrative failure proof only materializes small original evidence')
             target = root / rel; target.parent.mkdir(parents=True, exist_ok=True)
             checkpoint.materialize_checkpoint_file(repo, commit, run_id, row, target)
-        # Opening evidence decides whether the remaining reviews could still fund a film, so
-        # a present file must be seen by the validator. It is small JSON, never media.
+        # Preserve the producer's unfundable proof: present opening evidence must be
+        # seen before deciding whether the remaining path is still available.
         for name in ('openings/selection.json', 'opening-a-critic.json', 'opening-b-critic.json'):
             rel = 'out/dispatch/' + name
             if rel in rows:

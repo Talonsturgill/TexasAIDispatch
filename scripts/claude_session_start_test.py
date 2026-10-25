@@ -47,6 +47,10 @@ class SessionStartTests(unittest.TestCase):
         ledger = self.workspace / 'run_state.json'; ledger.write_bytes(b'unchanged ledger and charges')
         settings = self.workspace / '.claude/settings.json'; settings.parent.mkdir()
         settings.write_text('{"permissions":{"deny":["send"]},"model":"sonnet"}')
+        # A cached host already has its owned observers installed. New bindings now
+        # include that observer source, so retain the actual installed settings baseline.
+        import visual_observations
+        visual_observations.install(self.tools, self.workspace)
         old_settings = settings.read_bytes()
         receipt = self.refresh()
         self.assertEqual((receipt['previous_head'], receipt['head']), (self.cached, self.current))

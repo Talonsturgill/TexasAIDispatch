@@ -187,6 +187,60 @@ Record review_scope exact-muted-phone-preflight, reviewed_preflight_sha256 and c
 in storyboard_critic.json. A code-plan pass does not approve the phone film or native hero.
 Before voice, resolve every structural or source defect through prompts/phases/repair.md.
 
+### Combined fourth review under the hard five
+
+For October 25th onward, if three code attempts have left a genuine independent rejection,
+do not spend a fourth code-only call and strand the silent comparison. Run the current
+production-budget check. The supported combined route requires the original latest critic
+handback and native completion receipt, and an evidence-bound consolidated correction.
+Missing original evidence is not a pass or permission for a new call.
+
+When two corrections have already failed the same mechanism, the ordinary third code packet
+includes `conditional_recovery`. That same independent critic must assess a source-backed
+replacement in its original `recovery_review` if another correction is needed. The existing
+recurrence and whole-scene replacement gates still apply; a director-authored pivot cannot
+substitute. Extract the original nested decision before planning the correction:
+
+```sh
+python scripts/combined_review.py --state out/dispatch/run_state.json --extract-recovery out/dispatch/original-third-review-recovery.json
+```
+
+Bind that unchanged extraction as the repair plan's `pivot_review`, including its original
+whole-scene replacement proof when required. Use ordinary `begin-repair` and `authorize-repair`
+with retained source baselines and actual before/after hashes. Missing independent replacement
+evidence leaves the combined route unavailable; never manufacture it from a summary.
+
+After that correction, use `opening_compare.py --combined-code-review` with the usual root
+and state. This explicitly captures diagnostic A/B previews before code approval. It keeps
+source, rights, structural, caption, headroom, capture authorization and reservation checks.
+The diagnostic receipt authorizes no narration, selection, native film or shipment. Retain
+all previous outputs before preparing changed inputs; never overwrite rejected evidence.
+
+Extract both complete chronological phone sequences through the ordinary authorized path.
+Build the current critic packet and use `claude_runtime.py phone-packet --combined-code-review`
+with the ordinary packet, state, sequence-a, sequence-b and output arguments. Plan one existing
+Opus High critic role through the supported guarded visual leaf. The earlier code-only leaf
+does not acquire image-annotation permissions by being resumed. Reserve exactly one critic
+with `consume --resource storyboard_critics --review-packet <combined packet>` and dispatch
+that same packet. One worker must inspect both complete code treatments and every required
+page of both films. Its original handback contains separate A/B code reports, the selection
+and exact silent-phone report. No parent-authored verdict or copied grade can complete it.
+
+Save the original public handback unchanged. The existing native completion hook retains its
+original response and dispatch claim without another model call. Build ordinary image coverage
+from the worker's actual guarded observations, then import with:
+
+```sh
+python scripts/combined_review.py --packet <combined packet> --handback <original response JSON> --claim <original dispatch claim> --coverage <actual image coverage>
+```
+
+The importer retains the original reports and supplies no approval. Both ordinary independent
+code gates, full image coverage, comparison selection and exact-phone gates must pass before
+the chosen film advances. After selection, use the chosen board/film and the imported original
+`openings/combined-phone-review.json` for the ordinary phone check. The fifth attempt remains
+the separate measured final timed-phone review. A combined fourth rejection never authorizes
+a sixth review; retain its exact response and follow the strict infeasible-path procedure.
+
 Before voice or preview, include visual_research and complete native_media provenance under DAILY_PRODUCTION.md. Run the existing daily-production check and have the existing independent critic compare inserted media with the previous shipped edition. Use actual sites and source documents when they improve the shot. Preserve a tangible action
 and consequence through the film; choose source-grounded original illustration when it tells
 the story better. Relevant imagery alone never approves a treatment.

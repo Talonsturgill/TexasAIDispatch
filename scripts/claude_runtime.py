@@ -146,6 +146,19 @@ def adapt_packet(data):
         data['asset_inputs'] = agent_runtime.treatment_assets(data['treatments'])
     if role == 'storyboard-critic' and operational_recovery(data):
         data['code_report_bindings'] = code_report_bindings(data)
+        state = Path(data['board']['path']).resolve().parent / 'run_state.json'
+        if state.is_file() and str(data['date']) >= '2026-10-25':
+            from review_recovery_packet import recovery_requirements
+            recovery = recovery_requirements(state, data)
+            if recovery:
+                data['conditional_recovery'] = recovery
+                data['instructions'] = data.get('instructions', '') + (
+                    ' If this third code review rejects the construction, also return your original '
+                    'recovery_review satisfying conditional_recovery. It is an independent source-backed '
+                    'replacement plan for this same paid return, never a passing grade for unseen pixels. '
+                    'If you cannot substantiate it, return that limitation honestly. ')
+            else:
+                data.pop('conditional_recovery', None)
     import review_board_projection
     review_board_projection.bind_native(data)
     return data
@@ -430,9 +443,12 @@ def phone_scope_required(data):
     return phone_edition(data) >= '2026-10-20' or enabled(read(data['phone_state']))
 
 
-def phone_packet(packet_path, state_path, sequences, current=False):
+def phone_packet(packet_path, state_path, sequences, current=False, *, combined_code_review=False):
     data = read(packet_path)
-    data.pop('code_report_bindings', None)
+    if combined_code_review and current:
+        raise ValueError('combined review cannot replace the separate final timed-phone review')
+    if not combined_code_review:
+        data.pop('code_report_bindings', None)
     if data.get('role') != 'storyboard-critic':
         raise ValueError('phone packet requires the existing independent storyboard critic')
     if Path(data['board']['path']).resolve().parent != Path(state_path).resolve().parent:
@@ -442,6 +458,19 @@ def phone_packet(packet_path, state_path, sequences, current=False):
     data['date'] = phone_edition(data)
     data['phone_mode'] = 'current' if current else 'comparison'
     data['phone_options'] = phone_options(state_path, sequences, current)
+    if combined_code_review:
+        from combined_review import eligibility
+        data['combined_code_review'] = eligibility(state_path)
+        data['code_report_bindings'] = code_report_bindings(data)
+        data['instructions'] += (' This is one combined fourth assignment. Read both complete current code '
+            'treatments and every actual chronological image page. Return ONE original JSON object with '
+            'schema dispatch_combined_code_phone_handback/1, packet_sha256, reviewer_identity, '
+            'code_reports:{a:complete original code-plan report,b:complete original code-plan report}, '
+            'selection:complete original comparison selection, phone_review:complete original selected '
+            'exact-phone report, and observation_directory. Every nested report has your same original '
+            'reviewer_identity. Judge code and pixels independently; diagnostic capture grants no approval. '
+            'Never infer a PASS from capture, structural checks, prior grades or a repair promise. '
+            'The separate measured final timed-phone remains required. ')
     if current and data['board'] != data['phone_options'][0]['board']:
         raise ValueError('current phone packet needs the exact current timed board binding')
     for row in data['phone_options']:
@@ -482,6 +511,11 @@ def phone_review_inputs(data):
         raise ValueError('Claude phone review inputs or computed bindings changed')
     if phone_scope_required(data) and data.get('phone_decision_scope') != phone_decision_scope():
         raise ValueError('phone decision scope is missing or changed; regenerate the fixed-rubric packet before paid review')
+    if data.get('combined_code_review'):
+        from combined_review import packet_problems
+        errors = packet_problems(data)
+        if errors:
+            raise ValueError('; '.join(errors))
 
 
 def mechanical_admission(role, data, task):
@@ -574,6 +608,7 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
     if not re.fullmatch(r'[a-z][a-z0-9_]*', task_name) or not scope.strip() or len(scope) > 1000:
         raise ValueError('Claude leaf needs a compact named scope')
     data = read(packet_path); route = assignment(role, data.get('date'))
+    charged = False
     if data.get('role') != role or data.get('agent_assignment') != route:
         raise ValueError('Claude packet does not carry its exact current host role')
     if ownership_state.is_file():
@@ -581,7 +616,8 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
         charged = (guarded and role == 'storyboard-critic'
                    and publication_owner.has_unclaimed_worker_reservation(
                        ownership_state, role, route['resource']))
-        hard_errors = worker_plan_problems(read(ownership_state), data, charged=charged)
+        hard_errors = worker_plan_problems(read(ownership_state), data, charged=charged,
+                                          state_path=ownership_state)
         if hard_errors:
             raise ValueError('; '.join(hard_errors))
     from provider_availability import EFFECTIVE_DATE, research_receipt
@@ -630,15 +666,27 @@ def plan(role, packet_path, task_name, scope, mechanical_task=None, subject=None
                                        or re.search(r'\bphone\b', scope, re.I)):
         phone_review_inputs(data)
         image_policy_inputs(data)
+        if data.get('combined_code_review'):
+            if mechanical_task or resume_agent:
+                raise ValueError('combined review needs one fresh guarded visual critic at Opus High; '
+                                 'a Read-only code worker cannot perform its public image annotations')
     elif role == 'storyboard-critic' and operational_recovery(data) and not mechanical_task:
         if data.get('code_report_bindings') != code_report_bindings(data):
             raise ValueError('code report bindings are missing or stale; regenerate the current packet before reserving review')
+        state = Path(data['board']['path']).resolve().parent / 'run_state.json'
+        if state.is_file() and str(data['date']) >= '2026-10-25':
+            from review_recovery_packet import recovery_requirements
+            if data.get('conditional_recovery') != recovery_requirements(state, data, charged=charged):
+                raise ValueError('third code review needs its current source-backed conditional recovery packet')
     expected = '.claude/agents/' + route['agent'] + '.md'
     if data.get('brief') != expected:
         raise ValueError('Claude packet names the wrong leaf brief')
     handoff = (' Return only complete gate-ready JSON, with every required field, supplied binding and defect.'
                if role == 'storyboard-critic' and operational_recovery(data) and not mechanical_task else
                ' Return one complete handoff or consolidated defect list with exact hashes.')
+    if role == 'storyboard-critic' and operational_recovery(data) and not mechanical_task:
+        handoff += (' Include the exact packet_sha256 at top level so the native completion hook can retain '
+                    'your original public response. For two code reports return code_reports:{a:report,b:report}.')
     if role in ('picture', 'story', 'sound') and data['date'] >= '2026-10-19':
         handoff = (' With complete access return ONE original scorer-report JSON with all brief fields and supplied bindings, '
                    'lowercase pass/revise verdict, modern_observations as a keyed object, and observation_directory. '
@@ -803,6 +851,7 @@ if __name__ == '__main__':
     p.add_argument('--state', type=Path, required=True)
     p.add_argument('--sequence-a', type=Path); p.add_argument('--sequence-b', type=Path)
     p.add_argument('--sequence-current', type=Path)
+    p.add_argument('--combined-code-review', action='store_true')
     p.add_argument('--out', type=Path, required=True)
     p = sub.add_parser('verify-images'); p.add_argument('--packet', type=Path, required=True)
     p.add_argument('--coverage', type=Path, required=True); p.add_argument('--out', type=Path, required=True)
@@ -829,7 +878,7 @@ if __name__ == '__main__':
             parser.error('phone-packet needs either both comparison sequences or one current timed sequence')
         result = phone_packet(args.packet, args.state,
                               [args.sequence_current] if args.sequence_current else [args.sequence_a, args.sequence_b],
-                              current=bool(args.sequence_current))
+                              current=bool(args.sequence_current), combined_code_review=args.combined_code_review)
     elif args.action == 'plan':
         result = plan(args.role, args.packet, args.task_name, args.scope, args.mechanical_task, args.subject,
                       args.resume_agent)

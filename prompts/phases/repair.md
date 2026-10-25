@@ -1,5 +1,24 @@
 # Repair an active edition
 
+The owner's hard five-review maximum overrides every older critic-capacity example below.
+Preserve the original envelope, but do not treat its larger historical ceiling as spendable
+review capacity. Budget each unfinished code, silent comparison and measured final-phone gate
+from its actual evidence. Every rejection leaves the affected gate pending. Use phase 2's
+supported combined review only with its complete original code and film handback; it is one
+charged assignment, never a renamed extra review. If the strict remaining-path proof is
+infeasible, retain the actual independent failure and use the failed-edition lifecycle without
+spending unused slots or requesting an extension. No quality gate or shipment condition changes.
+
+For the supported combined fourth review, retain its original public response and native
+critic-completion receipt immediately. A mandatory rejection can leave both a corrected
+independent assessment and the final timed phone outstanding with only one attempt left.
+Use `completion_yield.py --state out/dispatch/run_state.json --infeasible-required-review
+<original native critic-completion receipt>` only when its strict proof accepts the exact
+original response, claim, frozen charges and remaining-path failure. This closes paid work,
+not production as shipped. Preserve the original checkpoint. The normal failed-edition helper
+may retain it on a later actual Eastern day after the existing owner's lease expires.
+A missing original response, a director summary, or an active worker never supplies this proof.
+
 Owner instruction from October 3rd, 2026. Read knowledge/craft/AUTONOMOUS_COMPLETION.md before applying older resource-boundary language below. Internal review ceilings and host capacity errors trigger autonomous mandatory completion recovery, never an approval stop or an unfinished-capacity final response. Preserve exact failures, the original frozen envelope and cumulative charges. Only accepted finish --result shipped completes production.
 
 For new editions from October 20th also load knowledge/craft/COMPLETION_PROGRESS.md. After the

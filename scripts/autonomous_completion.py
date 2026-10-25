@@ -40,8 +40,11 @@ def resource_requirements(state, plan=None):
     return result
 
 
-def finish_phone_critics(state, phone_complete=False):
+def finish_phone_critics(state, phone_complete=False, state_path=None, *, historical=False):
     """A corrected code plan still owes silent comparison and timed phone review."""
+    from review_limit import path_budget_enabled, remaining_review_path
+    if not historical and path_budget_enabled(state):
+        return remaining_review_path(state, state_path)['required']
     if phone_complete:
         return 0
     code_route = any(e.get("kind") == CODE_ADOPTION for e in state.get("events", []))
@@ -655,7 +658,7 @@ def replay(state):
                 required = dict(expected_required)
                 required["voice_directors"] = int(not usage.get("voice_directors", 0))
                 if reason in {"finish-current", HANDBACK_REASON}:
-                    required.update(reboards=0, storyboard_critics=finish_phone_critics(admission),
+                    required.update(reboards=0, storyboard_critics=finish_phone_critics(admission, historical=True),
                                     preflight_renders=2, audiovisual_reviews=8)
                     if 'image_generations' in required:
                         required['image_generations'] = 0
@@ -928,7 +931,7 @@ def grant_capacity(state_path, plan_path, policy_path=None):
                     minimum_action_failed=reason == "minimum-action",
                     mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, FORECAST_REASON, PROMPT_REPAIR_REASON, 'mandatory-source-pivot'},
                     review_coverage=reason == COVERAGE_REASON,
-                    modern_code_repair=reason in {MODERN_CODE_REASON, PIVOT_REASON})
+                    modern_code_repair=reason in {MODERN_CODE_REASON, PIVOT_REASON}, state_path=state_path)
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         from capture_completion_budget import apply_budget

@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import subprocess
+import sys
 import unittest
 from unittest.mock import patch
 
@@ -163,6 +164,291 @@ class ReviewLimit(unittest.TestCase):
         for category in ('motion', 'pacing', 'ending_artistry'):
             self.assertTrue(modern_film.assessment_problems(board,
                 {'defects': [{'category': category}]}, _surface_deferred=True))
+
+
+class ConditionalCodeRecovery(unittest.TestCase):
+    """The real third handback can admit one source-backed correction, never a sixth call."""
+
+    def setUp(self):
+        import completion_yield
+        import publication_owner
+        import routine_continuation
+        import review_recovery_packet as recovery
+        self.recovery = recovery
+        temporary = tempfile.TemporaryDirectory(); self.addCleanup(temporary.cleanup)
+        self.workspace = Path(temporary.name).resolve(); self.repo = self.workspace / 'Dispatch'
+        self.root = self.repo / 'out/dispatch'; self.root.mkdir(parents=True)
+        self.state = self.root / 'run_state.json'
+        self.owner = publication_owner.identity('fixture-parent')
+        self.addCleanup(patch.stopall)
+        patch('completion_progress.REPO', self.repo).start()
+        patch('publication_owner.require_owner', return_value={
+            'owner_sha256': self.owner, 'epoch': 'fixture-epoch'}).start()
+        self.assertTrue(controller.initialise(self.state, '2026-10-25', 'production')[0])
+        for number in range(2):
+            accepted, message = controller.reserve(self.state, {'storyboard_critics': 1},
+                                                  'original code attempt ' + str(number + 1))
+            self.assertTrue(accepted, message)
+        self.assertTrue(controller.reserve(self.state, {'reboards': 3}, 'initial and two corrected boards')[0])
+        self.old = self.repo / 'video-engine/src/modern/episodes/2026-10-25/OldFilm.tsx'
+        self.old.parent.mkdir(parents=True); self.old.write_text('export const OldFilm = () => <div/>;\n')
+        self.new = self.old.with_name('ReplacementFilm.tsx')
+        self.claims = self.write('claims.json', {'claims': [{'id': 'source-one', 'fact': 'Fixture original fact.'}]})
+        self.board = self.write('storyboard.json', {'date': '2026-10-25', 'scenes': [],
+            'story_contract': {'director_identity': 'fixture-director'}})
+        self.before = self.write('before-board.json', json.loads(self.board.read_text()))
+        value = controller.read_state(self.state)
+        for number in range(2):
+            failure = self.write('failure-' + str(number + 1) + '.json', {'verdict': 'revise',
+                'reviewer_identity': 'independent prior critic', 'blocking_defects': ['Fixture contact ' + str(number)]})
+            value['events'].extend([
+                {'kind': 'repair_started', 'mechanism_id': 'old-mechanism', 'failure_family': 'continuity',
+                 'failure_sha256': controller.digest(failure), 'repair_scope': 'standard'},
+                {'kind': 'repair_authorized', 'repair_plan': {'failure_evidence': str(failure),
+                 'failure_evidence_sha256': controller.digest(failure)}}])
+        controller.save(self.state, value)
+        self.packet = {'role': 'storyboard-critic', 'date': '2026-10-25',
+                       'board': recovery.bound(self.board), 'claims': recovery.bound(self.claims)}
+        with patch('critic_gate.renderer_files', return_value=[self.old]):
+            self.packet['conditional_recovery'] = recovery.recovery_requirements(self.state, self.packet)
+        self.packet_path = self.write('third-packet.json', self.packet)
+        accepted, message = controller.reserve(self.state, {'storyboard_critics': 1},
+                                               'original third code attempt', review_packet=self.packet_path)
+        self.assertTrue(accepted, message)
+        with patch('critic_gate.renderer_files', return_value=[self.old]):
+            self.assertEqual(self.packet['conditional_recovery'],
+                recovery.recovery_requirements(self.state, self.packet, charged=True))
+        value = controller.read_state(self.state)
+        self.index = len(value['events']) - 1
+        self.claim = self.write('worker-dispatch-claims/third.json', {
+            'schema': 'dispatch_worker_dispatch_claim/1', 'run_id': value['run_id'],
+            'role': 'storyboard-critic', 'packet_sha256': controller.digest(self.packet_path),
+            'reservation_event_index': self.index, 'reservation_sha256': completion_yield.digest(value['events'][self.index]),
+            'owner_sha256': self.owner, 'epoch': 'fixture-epoch'})
+        marker = self.workspace / routine_continuation.MARKER
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        marker.write_text(json.dumps({'schema': routine_continuation.SCHEMA,
+                                     'run_id': value['run_id'], 'state': str(self.state)}))
+        request = self.packet['conditional_recovery']
+        self.pivot = {'verdict': 'pass', 'reviewer_identity': 'independent fixture critic',
+            'reviewed_failure_sha256': [row['sha256'] for row in request['prior_failures']],
+            'retired_mechanism_id': 'old-mechanism', 'replacement_mechanism_id': 'replacement-mechanism',
+            'source_basis': 'The retained original source supports a complete physical clamp movement.',
+            'visible_difference': 'The replacement performs the complete contact action in one coherent scene.',
+            'retained_replacement': {'schema': 'dispatch_retained_scene_replacement/1',
+                'kind': 'whole-scene-replacement', 'source_evidence': recovery.bound(self.claims),
+                'retired_inputs': [{'path': str(self.old), 'before_path': str(self.old),
+                                    'before_sha256': controller.digest(self.old)}],
+                'replacement_paths': [str(self.new)]}}
+        # Match the genuine paired-code envelope: no top-level verdict or reviewer label.
+        self.report = {'packet_sha256': controller.digest(self.packet_path), 'review_scope': 'code-plan',
+            'combined_verdict': 'revise', 'reports': {key: {'review_scope': 'code-plan', 'verdict': 'revise',
+                'reviewer_identity': 'independent fixture critic', 'blocking_defects': ['Missing physical contact.']}
+                for key in ('a', 'b')}, 'recovery_review': self.pivot}
+
+    def write(self, name, value):
+        path = self.root / name; path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(value, sort_keys=True) + '\n'); return path
+
+    def original(self):
+        import completion_yield
+        completion_yield.record({'hook_event_name': 'SubagentStop', 'session_id': 'fixture-parent',
+            'agent_type': 'storyboard-critic', 'agent_id': 'actual-native-worker-id',
+            'last_assistant_message': json.dumps(self.report)}, self.workspace)
+        return completion_yield.original_critic_review(self.state, self.index)
+
+    def plan(self):
+        failure = self.write('third-original.json', self.report)
+        plan = {'repair_scope': 'standard', 'director_identity': 'fixture-director',
+            'mechanism_id': 'replacement-mechanism', 'failure_family': 'continuity',
+            'failure_evidence': str(failure), 'failure_evidence_sha256': controller.digest(failure),
+            'changed_inputs': [{'path': str(self.board), 'before_path': str(self.before),
+                                'before_sha256': controller.digest(self.before)}], 'resources': {'reboards': 1}}
+        for field in ('root_cause', 'repair', 'expected_visible_result', 'mechanism_change'):
+            plan[field] = 'Replace the failed physical clamp implementation with the independently assessed source-backed scene.'
+        if 'recovery_review' in self.report:
+            plan['pivot_review'] = self.recovery.bound(self.write('original-pivot.json', self.report['recovery_review']))
+            plan['retained_replacement'] = self.report['recovery_review']['retained_replacement']
+        return self.write('repair-plan.json', plan)
+
+    def test_original_conditional_pivot_admits_real_begin_repair_with_only_two_reviews_remaining(self):
+        import production_lifecycle
+        original = self.original()
+        self.assertNotEqual(original['reviewer_identity'], self.pivot['reviewer_identity'])
+        self.assertEqual([], self.recovery.recovery_problems(self.state, original))
+        before = controller.read_state(self.state)
+        path = limit.remaining_review_path(before, self.state)
+        self.assertEqual((3, 2, True), (path['ordinary_required'], path['required'], path['feasible']))
+        self.assertFalse(limit.unfundable(before, self.root))
+        accepted, message = production_lifecycle.begin_repair(self.state, self.plan(), reserve_reboard=True)
+        self.assertTrue(accepted, message)
+        after = controller.read_state(self.state)
+        self.assertEqual(before['events'], after['events'][:len(before['events'])])
+        self.assertEqual(before['resource_envelope'], after['resource_envelope'])
+        self.assertEqual((3, 4), (after['usage']['storyboard_critics'], after['usage']['reboards']))
+        self.assertEqual([], self.recovery.recovery_problems(self.state, original))
+        self.assertTrue(limit.remaining_review_path(after, self.state)['feasible'])
+
+    def test_missing_original_pivot_preserves_failure_and_refuses_repair_without_charging(self):
+        import production_lifecycle
+        self.report.pop('recovery_review')
+        original = self.original()
+        self.assertTrue(self.recovery.recovery_problems(self.state, original))
+        before = self.state.read_bytes()
+        path = limit.remaining_review_path(controller.read_state(self.state), self.state)
+        self.assertEqual((3, False), (path['required'], path['feasible']))
+        self.assertTrue(limit.unfundable(controller.read_state(self.state), self.root))
+        accepted, message = production_lifecycle.begin_repair(self.state, self.plan(), reserve_reboard=True)
+        self.assertFalse(accepted)
+        self.assertIn('whole failed scene', message)
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_original_unfundable_closure_retains_its_recorded_predicate(self):
+        self.original()
+        state = controller.read_state(self.state)
+        state['events'].append({'kind': 'hard_limit_expenditure_closed', 'evidence': {
+            'plan': {'reason': 'unfundable-required-review-before-film'}}})
+        with patch.object(limit, 'remaining_review_path', side_effect=AssertionError('no historical reinterpretation')):
+            self.assertTrue(limit.unfundable(state, self.root))
+            self.write('opening-a-critic.json', {'verdict': 'revise'})
+            self.assertFalse(limit.unfundable(state, self.root))
+
+
+class RemainingReviewPath(unittest.TestCase):
+    """Real controller charges with tiny evidence fixtures; no render or provider calls."""
+
+    def setUp(self):
+        from types import SimpleNamespace
+        self.temp = tempfile.TemporaryDirectory(); self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name); self.state = self.root / 'run_state.json'
+        self.assertTrue(controller.initialise(self.state, '2026-10-25', 'production')[0])
+        # Route eligibility has its own original-handback tests. Missing proof cannot
+        # discount this fixture's three pending independent gates.
+        self.combined = SimpleNamespace(
+            budget_eligibility=lambda *a, **k: (_ for _ in ()).throw(ValueError('no original handback')),
+            eligibility=lambda *a, **k: (_ for _ in ()).throw(ValueError('not ready')))
+        self.addCleanup(patch.stopall)
+        original = sys.modules.get('combined_review')
+        sys.modules['combined_review'] = self.combined
+        def restore_combined():
+            if original is None:
+                sys.modules.pop('combined_review', None)
+            else:
+                sys.modules['combined_review'] = original
+        self.addCleanup(restore_combined)
+        for name in ('quality_contract.plan_problems', 'daily_production.review_problems',
+                     'daily_production.action_problems', 'independent_review.evidence_problems'):
+            patch(name, return_value=[]).start()
+        patch('creative_release.review_allows', return_value=False).start()
+        for ordinal in range(1, 4):
+            accepted, message = controller.reserve(self.state, {'storyboard_critics': 1},
+                                                  'retained code attempt ' + str(ordinal))
+            self.assertTrue(accepted, message)
+
+    def write(self, name, value):
+        path = self.root / name; path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(value)); return path
+
+    def code_passes(self):
+        import critic_gate
+        claims = self.write('claims.json', {'claims': []})
+        for option in ('a', 'b'):
+            board = {'date': '2026-10-25', 'scenes': [], 'option': option}
+            self.write('opening-' + option + '.json', board)
+            self.write('opening-' + option + '-critic.json', {
+                'verdict': 'pass', 'review_scope': 'code-plan',
+                'concept_sha256': critic_gate.concept_digest(board),
+                'reviewer_identity': 'independent fixture critic', 'reviewed_at': '2026-10-25T10:00:00Z',
+                'weakest_frame': 'The closing scene has the least activity.',
+                'story_review': {'claims_sha256': controller.digest(claims)}})
+        self.write('storyboard.json', json.loads((self.root / 'opening-a.json').read_text()))
+
+    def packet(self, mode):
+        return {'role': 'storyboard-critic', 'review_scope': 'exact-muted-phone-preflight',
+                'phone_mode': mode}
+
+    def test_three_failed_reviews_preserve_envelope_but_cannot_fund_ordinary_path(self):
+        import repair_guard
+        import autonomous_completion
+        state = controller.read_state(self.state); before = self.state.read_bytes()
+        budget = repair_guard.production_budget_precheck(state, state_path=self.state)
+        row = budget['resources']['storyboard_critics']
+        self.assertEqual((3, 5, 3, 2), (row['required'], row['ceiling'], row['used'], row['remaining']))
+        self.assertEqual({'storyboard_critics': 1}, budget['deficits'])
+        self.assertFalse(budget['feasible'])
+        self.assertEqual(7, state['resource_envelope']['storyboard_critics'])
+        self.assertEqual(3, autonomous_completion.finish_phone_critics(state, True, self.state))
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_fourth_code_is_refused_before_any_ledger_change(self):
+        before = self.state.read_bytes()
+        accepted, message = controller.reserve(self.state, {'storyboard_critics': 1}, 'another code attempt')
+        self.assertFalse(accepted); self.assertIn('needs 3', message)
+        self.assertEqual(before, self.state.read_bytes())
+        state = controller.read_state(self.state)
+        self.assertTrue(limit.worker_plan_problems(state, {'role': 'storyboard-critic'}, state_path=self.state))
+
+    def test_real_code_hashes_and_claims_protect_the_two_remaining_phone_slots(self):
+        self.code_passes(); state = controller.read_state(self.state)
+        path = limit.remaining_review_path(state, self.state)
+        self.assertTrue(path['completed']['code']); self.assertEqual(2, path['required'])
+        self.assertTrue(path['feasible'])
+        board = json.loads((self.root / 'opening-b.json').read_text()); board['option'] = 'changed'
+        self.write('opening-b.json', board)
+        stale = limit.remaining_review_path(state, self.state)
+        self.assertFalse(stale['completed']['code']); self.assertEqual(3, stale['required'])
+        self.assertFalse(stale['feasible'])
+        self.code_passes(); self.write('claims.json', {'claims': ['changed source']})
+        self.assertFalse(limit.remaining_review_path(state, self.state)['completed']['code'])
+
+    def test_comparison_four_and_final_five_replans_do_not_double_charge(self):
+        self.code_passes()
+        comparison = self.packet('comparison'); comparison_path = self.write('phone-packet.json', comparison)
+        with patch('agent_runtime.validate_references'), patch('claude_runtime.phone_review_inputs'):
+            accepted, message = controller.reserve(self.state, {'storyboard_critics': 1}, 'silent comparison',
+                                                   review_packet=comparison_path)
+            self.assertTrue(accepted, message)
+            state = controller.read_state(self.state)
+            path = limit.remaining_review_path(state, self.state, comparison, charged=True)
+            self.assertEqual((1, 1), (path['required'], path['remaining'])); self.assertTrue(path['feasible'])
+            self.assertEqual([], limit.worker_plan_problems(state, comparison, charged=True, state_path=self.state))
+            self.assertTrue(limit.worker_plan_problems(state, comparison, state_path=self.state))
+            self.write('openings/comparison.json', {'fixture': 'already tested by its owning gate'})
+            self.write('openings/selection.json', {'selected': 'a'})
+            final = self.packet('current'); final_path = self.write('final-packet.json', final)
+            binding = {'final_timed_phone': {'packet_identity': limit.packet_identity(final)}}
+            with patch('creative_production.opening_problems', return_value=[]), \
+                    patch('review_limit.final_reservation_binding', return_value=binding):
+                self.assertEqual(1, limit.remaining_review_path(state, self.state, final)['required'])
+                accepted, message = controller.reserve(self.state, {'storyboard_critics': 1}, 'final timed phone',
+                                                       review_packet=final_path)
+                self.assertTrue(accepted, message)
+                final_state = controller.read_state(self.state)
+                path = limit.remaining_review_path(final_state, self.state, final, charged=True)
+                self.assertEqual((0, 0), (path['required'], path['remaining']))
+                self.assertTrue(path['feasible'])
+                self.assertEqual([], limit.worker_plan_problems(final_state, final, charged=True, state_path=self.state))
+                self.assertEqual(5, final_state['usage']['storyboard_critics'])
+
+    def test_only_verified_combined_route_fits_three_rejections_and_one_final_phone(self):
+        proof = {'original_handback_sha256': 'a' * 64}
+        self.combined.budget_eligibility = lambda *a, **k: proof
+        self.combined.eligibility = lambda *a, **k: proof
+        state = controller.read_state(self.state)
+        path = limit.remaining_review_path(state, self.state)
+        self.assertEqual((3, 2), (path['ordinary_required'], path['required']))
+        self.assertTrue(path['combined_eligible']); self.assertTrue(path['feasible'])
+        packet = {**self.packet('comparison'), 'combined_code_review': proof}
+        packet_path = self.write('combined-packet.json', packet)
+        with patch('agent_runtime.validate_references'), patch('claude_runtime.phone_review_inputs'):
+            accepted, message = controller.reserve(self.state, {'storyboard_critics': 1}, 'combined fourth',
+                                                   review_packet=packet_path)
+            self.assertTrue(accepted, message)
+            self.assertEqual([], limit.worker_plan_problems(controller.read_state(self.state), packet,
+                                                            charged=True, state_path=self.state))
+            changed = {**packet, 'combined_code_review': {'original_handback_sha256': 'b' * 64}}
+            self.assertTrue(limit.worker_plan_problems(controller.read_state(self.state), changed,
+                                                       charged=True, state_path=self.state))
 
 
 class FinalPhoneReservation(unittest.TestCase):

@@ -20,7 +20,9 @@ SCHEMA = 'dispatch_session_start/1'
 BOUND_FILES = ('public_state.py', 'claude_checkpoint.py', 'routine_continuation.py',
                'cloud_capture_hook.py', 'capture_guard.py', 'capture_reservation.py',
                'image_read_receipt.py', 'claude_session_start.py', 'visual_observations.py', 'source_view.py',
-               'publication_owner.py', 'checkpoint_discovery.py', 'failed_editions.py')
+               'publication_owner.py', 'checkpoint_discovery.py', 'failed_editions.py',
+               'review_limit.py', 'combined_review.py', 'completion_yield.py',
+               'review_recovery_packet.py')
 
 
 def git(tools, *args):

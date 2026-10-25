@@ -6,6 +6,7 @@ from pathlib import Path
 POLICY = Path(__file__).resolve().parents[1] / 'config/review_limit.json'
 MAX_ROUNDS = 5
 FINAL_PACKET_FROM = '2026-10-24'
+PATH_BUDGET_FROM = '2026-10-25'
 POLICY_FIELDS = {'schema', 'effective_date', 'max_review_rounds', 'counted_resource',
                  'counting_rule', 'completion_rule', 'extensions_allowed', 'authorization'}
 
@@ -42,20 +43,147 @@ def finishing(state):
     return enabled(state) and MAX_ROUNDS - used(state) < 3
 
 
+def path_budget_enabled(state):
+    return enabled(state) and str(state.get('run_id', ''))[:10] >= PATH_BUDGET_FROM
+
+
 OPENING_EVIDENCE = ('openings/selection.json', 'opening-a-critic.json', 'opening-b-critic.json')
 
 
 def unfundable(state, root):
-    """The remaining reviews can no longer buy the mandatory code gate, selection and final phone.
-
-    Finishing begins at the third review. A film still needs a passing code gate for both
-    treatments, the independent silent comparison and the protected exact timed phone, which
-    is three reviews. When none of that opening evidence exists, two remaining reviews cannot
-    complete the path, and the fifth review accepts only the timed phone packet. This adds no
-    review and approves nothing; it only lets the existing failure closure see the dead end.
-    """
+    """Retain recorded closure semantics; price a live edition's actual available path."""
+    original = any(event.get('kind') == 'hard_limit_expenditure_closed'
+                   and (event.get('evidence', {}).get('plan') or {}).get('reason')
+                   == 'unfundable-required-review-before-film'
+                   for event in state.get('events', []))
+    if original or not path_budget_enabled(state):
+        return (enabled(state) and finishing(state) and not reached(state)
+                and not any((Path(root) / name).exists() for name in OPENING_EVIDENCE))
+    path = remaining_review_path(state, Path(root) / 'run_state.json')
     return (enabled(state) and finishing(state) and not reached(state)
-            and not any((Path(root) / name).exists() for name in OPENING_EVIDENCE))
+            and not path['errors'] and not path['feasible'])
+
+
+def review_evidence(state, state_path=None):
+    """Count only current accepted gates; absent evidence leaves the gate pending."""
+    complete = dict(code=False, comparison=False, timed_phone=False)
+    errors = []
+    if state_path is None:
+        return complete, errors
+    root = Path(state_path).resolve().parent
+    read = lambda path: json.loads(path.read_text())
+    sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
+    try:
+        actual = read(Path(state_path))
+        if actual.get('run_id') != state.get('run_id'):
+            return complete, ['review path belongs to another edition']
+        claims = root / 'claims.json'
+        boards = [root / ('opening-' + option + '.json') for option in ('a', 'b')]
+        reports = [root / ('opening-' + option + '-critic.json') for option in ('a', 'b')]
+        if claims.is_file() and all(p.is_file() for p in boards + reports):
+            import critic_gate
+            valid = []
+            for board_path, report_path in zip(boards, reports):
+                board, report = read(board_path), read(report_path)
+                owned = (board.get('run_id', board.get('date')) == state['run_id']
+                         and board.get('date') == str(state['run_id'])[:10])
+                # A retained rejection is pending, not an invitation to reinterpret it.
+                valid.append(owned and report.get('review_scope') == 'code-plan'
+                    and (report.get('story_review') or {}).get('claims_sha256') == sha(claims)
+                    and not critic_gate.problems(board, report))
+            complete['code'] = all(valid)
+        board_path = root / 'storyboard.json'
+        if board_path.is_file() and claims.is_file():
+            board = read(board_path)
+            if (board.get('run_id', board.get('date')) != state['run_id']
+                    or board.get('date') != str(state['run_id'])[:10]):
+                return complete, ['current review board belongs to another edition']
+            if all((root / 'openings' / name).is_file() for name in ('comparison.json', 'selection.json')):
+                from creative_production import opening_problems
+                complete['comparison'] = not opening_problems(board_path)
+            timed = ['storyboard_critic.json', 'preflight.json', 'preflight.mp4',
+                     'captions.json', 'words.json', 'vo_script.txt']
+            if (board.get('narration_picture', {}).get('timing_mode') == 'measured_caption_boundaries'
+                    and all((root / name).is_file() for name in timed)):
+                import modern_film
+                from review_context import phone_problems
+                report = read(root / 'storyboard_critic.json')
+                complete['timed_phone'] = (
+                    (report.get('story_review') or {}).get('claims_sha256') == sha(claims)
+                    and not modern_film.narration_problems(board, read(root / 'captions.json'),
+                            read(root / 'words.json'), (root / 'vo_script.txt').read_text())
+                    and not phone_problems(board_path))
+    except (OSError, ValueError, KeyError, TypeError, IndexError, AttributeError) as exc:
+        errors.append('current review path evidence is invalid: ' + str(exc))
+    return complete, errors
+
+
+def remaining_review_path(state, state_path=None, packet=None, charged=False):
+    """Price the actual remaining gates, optionally including one proposed/charged call.
+
+    This does not approve a report or change the frozen envelope. A charged replan pays
+    for its call only once; its still-unreturned result cannot complete any other gate.
+    """
+    complete, errors = review_evidence(state, state_path)
+    pending = [name for name, passed in complete.items() if not passed]
+    spent = used(state)
+    remaining = max(0, MAX_ROUNDS - spent)
+    ordinary = len(pending)
+    combined = False
+    if state_path is not None and not complete['code'] and not complete['comparison']:
+        try:
+            from combined_review import budget_eligibility
+            budget_eligibility(state_path, state=state)
+            combined = True
+        except (ImportError, OSError, ValueError, KeyError, TypeError, IndexError):
+            pass  # An unavailable or unproved combined route cannot reduce its price.
+    route = 'combined-code-comparison' if combined else 'ordinary'
+    required = ordinary - int(combined)
+    if packet is not None:
+        covers = {'code'}
+        route = 'code'
+        if packet.get('role') != 'storyboard-critic':
+            errors.append('remaining review path requires the independent critic packet')
+        elif packet.get('review_scope') == 'exact-muted-phone-preflight':
+            mode = packet.get('phone_mode')
+            if mode not in ('comparison', 'current'):
+                errors.append('review path needs an exact comparison or timed phone packet')
+            else:
+                try:
+                    import agent_runtime
+                    import claude_runtime
+                    agent_runtime.validate_references(packet)
+                    claude_runtime.phone_review_inputs(packet)
+                    if mode == 'current':
+                        covers, route = {'timed_phone'}, 'timed-phone'
+                        if not complete['code'] or not complete['comparison']:
+                            errors.append('final timed phone still owes accepted code and silent comparison')
+                    elif packet.get('combined_code_review'):
+                        from combined_review import eligibility
+                        proof = eligibility(state_path, charged=charged)
+                        if packet['combined_code_review'] != proof:
+                            raise ValueError('combined review eligibility changed')
+                        covers, route = {'code', 'comparison'}, 'combined-code-comparison'
+                    else:
+                        covers, route = {'comparison'}, 'comparison'
+                        if not complete['code']:
+                            errors.append('ordinary silent comparison still owes current code approval')
+                except (ImportError, OSError, ValueError, KeyError, TypeError, IndexError) as exc:
+                    errors.append('proposed review path is invalid: ' + str(exc))
+        required = (0 if charged else 1) + len(set(pending) - covers)
+    return {'used': spent, 'ceiling': MAX_ROUNDS, 'remaining': remaining,
+            'completed': complete, 'pending': pending, 'ordinary_required': ordinary,
+            'required': required, 'route': route, 'combined_eligible': combined,
+            'feasible': required <= remaining and not errors, 'errors': errors}
+
+
+def path_problems(path):
+    if path['feasible']:
+        return []
+    return path['errors'] or [
+        'hard five-review path needs ' + str(path['required']) + ' remaining critic attempts but only '
+        + str(path['remaining']) + ' remain; use the evidence-bound combined route if eligible, '
+        'otherwise retain the original infeasible failure without buying another review']
 
 
 def packet_identity(packet):
@@ -110,7 +238,7 @@ def final_reservation_binding(state, amounts, state_path, packet_path=None):
             'film': row['film'], 'motion_sequence': row['motion_sequence'], 'narration_clock': clock}}
 
 
-def worker_plan_problems(state, packet, *, charged=False):
+def worker_plan_problems(state, packet, *, charged=False, state_path=None):
     from completion_yield import admission_problems
     if admission_problems(state):
         return admission_problems(state)
@@ -140,10 +268,12 @@ def worker_plan_problems(state, packet, *, charged=False):
             validate_references(binding)
         except (OSError, ValueError, KeyError, TypeError) as exc:
             return ['the reserved final timed-phone evidence changed: ' + str(exc)]
+    if path_budget_enabled(state):
+        return path_problems(remaining_review_path(state, state_path, packet, charged))
     return []
 
 
-def reservation_problems(state, amounts):
+def reservation_problems(state, amounts, *, state_path=None, packet_path=None):
     from completion_yield import admission_problems
     if admission_problems(state, amounts):
         return admission_problems(state, amounts)
@@ -160,6 +290,22 @@ def reservation_problems(state, amounts):
                 'freeze the strongest current cut and finish delivery without another creative loop']
     if reached(state) and amounts.get('reboards'):
         return ['hard five-review limit reached; no further paid creative rebuild']
+    # Historical replay and state-only repair classification cannot inspect live files.
+    # The actual controller reservation always supplies its owned state path.
+    if path_budget_enabled(state) and state_path is not None and (requested or amounts.get('reboards')):
+        packet = None
+        if requested:
+            if requested != 1:
+                return ['current review path reserves one actual critic assignment at a time']
+            try:
+                if packet_path is not None:
+                    from claude_runtime import read
+                    packet = read(packet_path)
+                else:
+                    packet = {'role': 'storyboard-critic', 'review_scope': 'code-plan'}
+            except (OSError, ValueError, TypeError) as exc:
+                return ['review packet is unavailable before reservation: ' + str(exc)]
+        return path_problems(remaining_review_path(state, state_path, packet))
     return []
 
 

@@ -396,7 +396,8 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
     if manual_errors:
         return False, '; '.join(manual_errors)
     from review_limit import reservation_problems as hard_review_problems
-    hard_review_errors = hard_review_problems(state, amounts)
+    hard_review_errors = hard_review_problems(state, amounts, state_path=path,
+                                             packet_path=review_packet)
     if hard_review_errors:
         return False, '; '.join(hard_review_errors)
     from review_limit import final_reservation_binding
@@ -2443,7 +2444,8 @@ def main() -> int:
                     return 1
             result = production_budget_precheck(budget_state, a.review_route, phone_complete,
                                                hero_rejected, context_ready, structural_ready, minimum_action_failed,
-                                               mandatory_repair, review_coverage, modern_code_repair)
+                                               mandatory_repair, review_coverage, modern_code_repair,
+                                               state_path=state_path)
             if a.repair_plan:
                 from capture_completion_budget import apply_budget
                 result = apply_budget(budget_state, budget_plan, result)
