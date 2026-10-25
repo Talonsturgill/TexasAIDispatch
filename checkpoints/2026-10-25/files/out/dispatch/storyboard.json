@@ -395,7 +395,7 @@
           }
         ],
         "change": {
-          "description": "A tag lands on one card in the pile.",
+          "description": "The hand stops as the cards bury the tray.",
           "item_ids": [
             "s2-pile",
             "s2-tag"
@@ -1116,8 +1116,8 @@
       ],
       "super": "",
       "caption": "",
-      "on_screen": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig. The ram comes down and loads the clamped sample. The sample bends under the ram and the needle gauge swings.",
-      "what_moves": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig. The ram comes down and loads the clamped sample. The sample bends under the ram and the needle gauge swings.",
+      "on_screen": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear. The ram comes down and loads the clamped sample. The sample bends under the ram and the needle gauge swings.",
+      "what_moves": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear. The ram comes down and loads the clamped sample. The sample bends under the ram and the needle gauge swings.",
       "production_disclosure": "Illustration of a planned lab. Generic arm and rig, no measured result",
       "visual_events": [
         {
@@ -1125,12 +1125,13 @@
           "at_s_authored": 0.36,
           "duration_s_authored": 1.2,
           "item_ids": [
-            "s6-arm",
-            "s6-sample"
+            "s6-rig",
+            "s6-sample",
+            "s6-arm"
           ],
-          "what": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig.",
+          "what": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear.",
           "motion": {
-            "curve": "travel",
+            "curve": "contact",
             "anticipation": 0.0,
             "settle": 0.03
           },
@@ -1188,8 +1189,8 @@
       "hero": "the same clamped sample loaded by the ram and bending in the rig",
       "place_plate": "post-oak-wide",
       "visual_sentence": {
-        "subject": "The same sample clamped in the test rig, cooling, loaded by the ram and bending as the needle swings",
-        "action": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig. The ram comes down and loads the clamped sample. The sample bends under the ram and the needle gauge swings.",
+        "subject": "The same sample clamped in the test rig, seated by the clamps as it cools, then loaded by the ram and bending as the needle swings",
+        "action": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear. The ram comes down and loads the clamped sample. The sample bends under the ram and the needle gauge swings.",
         "emotion": "Weight and heat as the real metal is loaded.",
         "annotation": "Illustration of a planned lab. Generic arm and rig, no measured result"
       },
@@ -1237,7 +1238,7 @@
               "y": 900,
               "scale": 1,
               "props": {
-                "label": "sample test rig with a ram, clamps and a needle gauge"
+                "label": "sample test rig with a ram, ratcheting clamps and a needle gauge"
               }
             }
           ]
@@ -1279,7 +1280,7 @@
         "mute_takeaway": "The same clamped sample cools, the ram loads it and it bends as the needle swings.",
         "must_show": [
           {
-            "concept": "the same clamped metal sample cooling with the arm parked clear",
+            "concept": "the same clamped metal sample cooling and seated with the arm parked clear",
             "item_ids": [
               "s6-arm",
               "s6-sample"
@@ -1713,8 +1714,8 @@
       ],
       "super": "",
       "caption": "",
-      "on_screen": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils. The arm tips the crucible and the amber melt pours into the mold until it is full. The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig.",
-      "what_moves": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils. The arm tips the crucible and the amber melt pours into the mold until it is full. The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig.",
+      "on_screen": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace. The arm tips the crucible and the amber melt pours into the mold until it is full. The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig.",
+      "what_moves": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace. The arm tips the crucible and the amber melt pours into the mold until it is full. The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig.",
       "production_disclosure": "Illustration of a planned lab. New candidate, no measured result",
       "visual_events": [
         {
@@ -1723,9 +1724,10 @@
           "duration_s_authored": 1.2,
           "item_ids": [
             "s9-ai",
-            "s9-test"
+            "s9-test",
+            "s9-arm"
           ],
-          "what": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils.",
+          "what": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace.",
           "motion": {
             "curve": "smoothstep",
             "anticipation": 0.0,
@@ -1787,7 +1789,7 @@
       "place_plate": "post-oak-wide",
       "visual_sentence": {
         "subject": "A new suggested recipe card dimming beside the glowing melt that the arm pours into a mold on the test rig",
-        "action": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils. The arm tips the crucible and the amber melt pours into the mold until it is full. The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig.",
+        "action": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace. The arm tips the crucible and the amber melt pours into the mold until it is full. The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig.",
         "emotion": "A settled, level answer.",
         "annotation": "Illustration of a planned lab. New candidate, no measured result"
       },
@@ -1819,7 +1821,7 @@
               "y": 900,
               "scale": 1,
               "props": {
-                "label": "generic robotic arm tipping a crucible"
+                "label": "generic robotic arm lifting a crucible from the furnace and tipping it"
               }
             }
           ]
@@ -1842,7 +1844,7 @@
         },
         {
           "z": 500,
-          "label": "test rig with the bent bar set aside and a mold",
+          "label": "test rig with its rear feed and a mold",
           "items": [
             {
               "id": "s9-test",
@@ -1851,7 +1853,7 @@
               "y": 900,
               "scale": 1,
               "props": {
-                "label": "test rig setting the bent bar aside into a bin and taking a mold"
+                "label": "test rig drawing its clamps up, sending the bent bar out its rear feed and taking a mold"
               }
             }
           ]
@@ -1890,7 +1892,7 @@
         }
       ],
       "visual_proof": {
-        "mute_takeaway": "A new recipe card replaces the old one, the bent bar is set aside, and the arm fills a mold with glowing melt as the card dims.",
+        "mute_takeaway": "A new recipe card replaces the old one, the rig sends the bent bar out the back, and the arm fills a mold with the next melt as the card dims.",
         "must_show": [
           {
             "concept": "new suggested recipe card",
@@ -1906,7 +1908,7 @@
             ]
           },
           {
-            "concept": "bent bar set aside and the mold on the test rig",
+            "concept": "bent bar sent out the back and the mold on the test rig",
             "item_ids": [
               "s9-test"
             ]
@@ -2053,16 +2055,16 @@
       {
         "request_id": "foundry-arm-hero",
         "file": "video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx",
-        "sha256": "273560ff2975d1fd40d5fe50f3825634238f4a6c655090498b5f7bb3ca7c9432",
+        "sha256": "8a46715fdff9371d645f78dded6f105280289c85ced4915c8a097ef9ed8355a6",
         "request_sha256": "fac4917afaa0be5982b4fbdaa87f36d7a06706b7ba13181bc894434d737332a0",
-        "creation_id": "authored-f1cdf9ed-a8c5-4a37-ae64-a68499ea583b",
-        "created_at": "2026-10-25T09:26:13.434949+00:00",
+        "creation_id": "authored-9854c9b2-95c3-4caa-b76d-14e65c2d422f",
+        "created_at": "2026-10-25T10:51:15.956197+00:00",
         "tool": "original authored source",
         "charge": {
           "kind": "production",
-          "index": 23,
+          "index": 27,
           "event": {
-            "at": "2026-10-25T09:11:25.436495Z",
+            "at": "2026-10-25T10:15:38.310753Z",
             "completion_progress_policy": "2026-10-20",
             "kind": "reserved",
             "note": "corrective reboard after accepted begin-repair",
@@ -2073,10 +2075,10 @@
               "reboards": 1
             }
           },
-          "event_sha256": "82cf6feeaa3551e68ec1f86aa3f3d9f51506e5e29479c8f9206951ef3a252a36"
+          "event_sha256": "5f7de0ab8751a644a41ea150c5754b50cf62f1964647be1d05a486e79044340c"
         },
         "source_claims_sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491",
-        "original_source": "artwork-originals/authored-f1cdf9ed-a8c5-4a37-ae64-a68499ea583b.tsx"
+        "original_source": "artwork-originals/authored-9854c9b2-95c3-4caa-b76d-14e65c2d422f.tsx"
       },
       {
         "request_id": "foundry-support",
@@ -2364,8 +2366,8 @@
         "transition": "cut",
         "view": "arm-lift",
         "event_id": "s6-event-1",
-        "purpose": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig.",
-        "carry": "The same sample clamped in the test rig, cooling, loaded by the ram and bending as the nee",
+        "purpose": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear.",
+        "carry": "The same sample clamped in the test rig, seated by the clamps as it cools, then loaded by ",
         "narration_ids": [
           "n6"
         ],
@@ -2382,7 +2384,7 @@
         "view": "rig-load",
         "event_id": "s6-event-2",
         "purpose": "The ram comes down and loads the clamped sample.",
-        "carry": "The same sample clamped in the test rig, cooling, loaded by the ram and bending as the nee",
+        "carry": "The same sample clamped in the test rig, seated by the clamps as it cools, then loaded by ",
         "narration_ids": [
           "n6"
         ],
@@ -2399,7 +2401,7 @@
         "view": "needle-detail",
         "event_id": "s6-event-3",
         "purpose": "The sample bends under the ram and the needle gauge swings.",
-        "carry": "The same sample clamped in the test rig, cooling, loaded by the ram and bending as the nee",
+        "carry": "The same sample clamped in the test rig, seated by the clamps as it cools, then loaded by ",
         "narration_ids": [
           "n6"
         ],
@@ -2517,7 +2519,7 @@
         "transition": "cut",
         "view": "ai-card",
         "event_id": "s9-event-1",
-        "purpose": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils.",
+        "purpose": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace.",
         "carry": "A new suggested recipe card dimming beside the glowing melt that the arm pours into a mold",
         "narration_ids": [
           "n9a"
@@ -2678,7 +2680,7 @@
         "event_id": "s6-event-1",
         "at_s": 30.33,
         "kind": "action",
-        "visible_change": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig.",
+        "visible_change": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear.",
         "event_fraction": 0.25
       },
       {
@@ -2750,7 +2752,7 @@
         "event_id": "s9-event-1",
         "at_s": 45.51,
         "kind": "action",
-        "visible_change": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils.",
+        "visible_change": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace.",
         "event_fraction": 0.25
       },
       {
@@ -2773,7 +2775,7 @@
     "renderer_inputs": [
       {
         "path": "config/modern_episode_registry.json",
-        "sha256": "f6260613a2fdc26084c03c62956384ad0462a6605fca2ab2a0bf1a736bcd06da"
+        "sha256": "947c33fc2bcad7a8905a3d50819f1edffbd1c28a34e5adb9f3c9eb13b5831cce"
       },
       {
         "path": "config/modern_film.json",
@@ -3325,11 +3327,11 @@
       },
       {
         "path": "video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx",
-        "sha256": "873a5dc33cba97c36d7c673a61132c29b77be2c02b05dc1b3a71daf2aa506d6c"
+        "sha256": "19e79b160bfc38376b913be49382c492a3b726b20b911ffbe9d070c4d6d70ec5"
       },
       {
         "path": "video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx",
-        "sha256": "273560ff2975d1fd40d5fe50f3825634238f4a6c655090498b5f7bb3ca7c9432"
+        "sha256": "8a46715fdff9371d645f78dded6f105280289c85ced4915c8a097ef9ed8355a6"
       },
       {
         "path": "video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx",
@@ -3822,7 +3824,7 @@
         "claim_ids": [
           "c7"
         ],
-        "advances": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig. The ram comes down and loads the clamped sample. The sample bends under the ram and the needle gauge swings."
+        "advances": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear. The ram comes down and loads the clamped sample. The sample bends under the ram and the needle gauge swings."
       },
       {
         "scene_id": "s7",
@@ -3850,7 +3852,7 @@
           "c6",
           "c7"
         ],
-        "advances": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils. The arm tips the crucible and the amber melt pours into the mold until it is full. The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig."
+        "advances": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace. The arm tips the crucible and the amber melt pours into the mold until it is full. The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig."
       }
     ],
     "transitions": [
@@ -3887,7 +3889,7 @@
         "to": "s6",
         "kind": "causal-consequence",
         "because": "Because no tool predicts the alloy, the sample has to go to the rig.",
-        "visible_bridge": "The empty gauge and question mark over the clamped sample cut to the same sample, still clamped, cooling as the arm waits parked."
+        "visible_bridge": "The empty gauge and question mark over the clamped sample cut to the same sample, still clamped, as the clamps ratchet down on it and the question mark fades."
       },
       {
         "from": "s6",
@@ -3908,7 +3910,7 @@
         "to": "s9",
         "kind": "causal-consequence",
         "because": "After the limits, the film returns to the line where the next candidate starts.",
-        "visible_bridge": "The blank date field holds to the cut, which returns to the line as a new recipe card replaces the old one and the bent bar is set aside."
+        "visible_bridge": "The blank date field holds to the cut, which returns to the line as a new recipe card writes in, the rig sends the bent bar out the back and the arm lifts the next crucible from the furnace."
       }
     ]
   },
@@ -3916,7 +3918,7 @@
     "throughline": {
       "subject": "One alloy candidate and the sample line it would travel, from the mesh of mixes to the melt.",
       "opening_state": "Several dozen periodic table tiles light on a lab wall.",
-      "closing_state": "A glowing sample holds on the test rig beside a dimmed recipe card.",
+      "closing_state": "A full glowing mold holds on the test rig beside a dimmed recipe card.",
       "scene_ids": [
         "s1",
         "s2",
@@ -4018,7 +4020,7 @@
         "enter_on": "A quote card slides in and the name Raymundo Arróyave writes under his quoted words.",
         "leave_on": "Over the clamped sample on the rig the same gauge stays empty and a question mark appears.",
         "cut_after_event_id": "s5-event-3",
-        "next_connection": "From A quote card attributed to Raymundo Arróyave and a prediction gauge th to The same sample clamped in the test rig, cooling, loaded by the ram an.",
+        "next_connection": "From A quote card attributed to Raymundo Arróyave and a prediction gauge th to The same sample clamped in the test rig, seated by the clamps as it co.",
         "sentence_to_shot": {
           "clause": "Raymundo Arróyave says a computer can predict some behavior, but no computer tool anywhere can predict an alloy's behavior.",
           "subject": "A quote card attributed to Raymundo Arróyave and a prediction gauge that fills partway and stays empty over the clamped sample",
@@ -4028,14 +4030,14 @@
       },
       {
         "scene_id": "s6",
-        "enter_on": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig.",
+        "enter_on": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear.",
         "leave_on": "The sample bends under the ram and the needle gauge swings.",
         "cut_after_event_id": "s6-event-3",
-        "next_connection": "From The same sample clamped in the test rig, cooling, loaded by the ram an to Calendar month pages that flip away to leave a one-week strip, with a.",
+        "next_connection": "From The same sample clamped in the test rig, seated by the clamps as it co to Calendar month pages that flip away to leave a one-week strip, with a.",
         "sentence_to_shot": {
           "clause": "So the work has to be done on the actual metal.",
-          "subject": "The same sample clamped in the test rig, cooling, loaded by the ram and bending as the needle swings",
-          "relationship": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig. The ram comes down and loads the clamped sample. The sample bends under the ram and the needle gauge swings.",
+          "subject": "The same sample clamped in the test rig, seated by the clamps as it cools, then loaded by the ram and bending as the needle swings",
+          "relationship": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear. The ram comes down and loads the clamped sample. The sample bends under the ram and the needle gauge swings.",
           "source_limit": "Disclosed illustration of the sources. It shows no real building, equipment, person or measured result, and the release gives no opening date."
         }
       },
@@ -4067,14 +4069,14 @@
       },
       {
         "scene_id": "s9",
-        "enter_on": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils.",
+        "enter_on": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace.",
         "leave_on": "The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig.",
         "cut_after_event_id": "s9-event-3",
         "next_connection": "From A new suggested recipe card dimming beside the glowing melt that the a to the end card and credits.",
         "sentence_to_shot": {
           "clause": "The AI can suggest. Only the melt can answer.",
           "subject": "A new suggested recipe card dimming beside the glowing melt that the arm pours into a mold on the test rig",
-          "relationship": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils. The arm tips the crucible and the amber melt pours into the mold until it is full. The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig.",
+          "relationship": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace. The arm tips the crucible and the amber melt pours into the mold until it is full. The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig.",
           "source_limit": "Disclosed illustration of the sources. It shows no real building, equipment, person or measured result, and the release gives no opening date."
         }
       }
@@ -4264,7 +4266,7 @@
       ]
     },
     "focal_hierarchy": "The arm or the glowing melt first, the recipe card or the gauge second, the tags and stamps third, the lab wall and window last.",
-    "motion_language": "The arm moves with continuous acceleration and braking, cards slide and settle without bounce, stamps land once, the gauge needle swings and settles, and the camera holds while objects perform.",
+    "motion_language": "The arm moves with continuous acceleration and braking, cards slide and settle without bounce, stamps land once, the clamps ratchet in clicks, the gauge needle swings and settles, and the camera drifts slowly while objects perform.",
     "shots": {},
     "signature_shot": {
       "scene_id": "s9",
@@ -4276,55 +4278,55 @@
         "scale": 1,
         "x": 0,
         "y": 0,
-        "reason": "No offset. The renderer runs this scene camera_strategy as one slow eased move over the whole scene, and shot cameras hold except the card follow in s4."
+        "reason": "No framing offset. The renderer drifts the whole s1 composition through its dollyThrough strategy, a slow eased push in of 4.5 percent about the frame centre over the scene, and shot cameras hold except the card follow in s4."
       },
       "s2": {
         "scale": 1,
         "x": 0,
         "y": 0,
-        "reason": "No offset. The renderer runs this scene camera_strategy as one slow eased move over the whole scene, and shot cameras hold except the card follow in s4."
+        "reason": "No framing offset. The renderer drifts the whole s2 composition through its truckAcross strategy, a slow eased 48 px truck, the picture sliding right to left over the scene, and shot cameras hold except the card follow in s4."
       },
       "s3": {
         "scale": 1,
         "x": 0,
         "y": 0,
-        "reason": "No offset. The renderer runs this scene camera_strategy as one slow eased move over the whole scene, and shot cameras hold except the card follow in s4."
+        "reason": "No framing offset. The renderer drifts the whole s3 composition through its dollyThrough strategy, a slow eased push in of 4.5 percent about the frame centre over the scene, and shot cameras hold except the card follow in s4."
       },
       "s4": {
         "scale": 1,
         "x": 0,
         "y": 0,
-        "reason": "No offset. The renderer runs this scene camera_strategy as one slow eased move over the whole scene, and shot cameras hold except the card follow in s4."
+        "reason": "No framing offset. The renderer drifts the whole s4 composition through its truckAcross strategy, a slow eased 48 px truck, the picture sliding right to left over the scene, and shot cameras hold except the card follow in s4."
       },
       "s5": {
         "scale": 1,
         "x": 0,
         "y": 0,
-        "reason": "No offset. The renderer runs this scene camera_strategy as one slow eased move over the whole scene, and shot cameras hold except the card follow in s4."
+        "reason": "No framing offset. The renderer drifts the whole s5 composition through its riseWith strategy, a slow eased 32 px rise, the picture settling downward over the scene, and shot cameras hold except the card follow in s4."
       },
       "s6": {
         "scale": 1,
         "x": 0,
         "y": 0,
-        "reason": "No offset. The renderer runs this scene camera_strategy as one slow eased move over the whole scene, and shot cameras hold except the card follow in s4."
+        "reason": "No framing offset. The renderer drifts the whole s6 composition through its dollyThrough strategy, a slow eased push in of 4.5 percent about the frame centre over the scene, and shot cameras hold except the card follow in s4."
       },
       "s7": {
         "scale": 1,
         "x": 0,
         "y": 0,
-        "reason": "No offset. The renderer runs this scene camera_strategy as one slow eased move over the whole scene, and shot cameras hold except the card follow in s4."
+        "reason": "No framing offset. The renderer drifts the whole s7 composition through its orbitReveal strategy, a slow eased 2.4 degree orbit about the frame centre over the scene, and shot cameras hold except the card follow in s4."
       },
       "s8": {
         "scale": 1,
         "x": 0,
         "y": 0,
-        "reason": "No offset. The renderer runs this scene camera_strategy as one slow eased move over the whole scene, and shot cameras hold except the card follow in s4."
+        "reason": "No framing offset. The renderer drifts the whole s8 composition through its truckAcross strategy, a slow eased 48 px truck, the picture sliding right to left over the scene, and shot cameras hold except the card follow in s4."
       },
       "s9": {
         "scale": 1,
         "x": 0,
         "y": 0,
-        "reason": "No offset. The renderer runs this scene camera_strategy as one slow eased move over the whole scene, and shot cameras hold except the card follow in s4."
+        "reason": "No framing offset. The renderer drifts the whole s9 composition through its riseWith strategy, a slow eased 32 px rise, the picture settling downward over the scene, and shot cameras hold except the card follow in s4."
       }
     }
   },
@@ -4379,8 +4381,8 @@
       {
         "scene_id": "s6",
         "medium": "diagram",
-        "subject": "The same sample clamped in the test rig, cooling, loaded by the ram and bending as the needle swings",
-        "action": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig.",
+        "subject": "The same sample clamped in the test rig, seated by the clamps as it cools, then loaded by the ram and bending as the needle swings",
+        "action": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear.",
         "consequence": "The sample bends under the ram and the needle gauge swings.",
         "source_basis": "Claim c7. Disclosed illustration of the sources. It shows no real building, equipment, person or measured result.",
         "medium_evidence": "Registered alloy-foundry-v1 with the fresh authored FoundryArmHero and FoundrySupport groups performing board events on the film clock."
@@ -4407,7 +4409,7 @@
         "scene_id": "s9",
         "medium": "diagram",
         "subject": "A new suggested recipe card dimming beside the glowing melt that the arm pours into a mold on the test rig",
-        "action": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils.",
+        "action": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace.",
         "consequence": "The new recipe card dims and the arm sets the crucible upright while the full mold holds its glow on the test rig.",
         "source_basis": "Claims c9, c5, c6, c7. Disclosed illustration of the sources. It shows no real building, equipment, person or measured result.",
         "medium_evidence": "Registered alloy-foundry-v1 with the fresh authored FoundryArmHero and FoundrySupport groups performing board events on the film clock."
@@ -4489,7 +4491,7 @@
       "visible_change": "A gloved hand sorts one card into a tray, reaches again, and stops as the cards bury the tray.",
       "viewer_reward": "A gloved hand sorts one card into a tray, reaches again, and stops as the cards bury the tray.",
       "continuity_from": "The one alloy candidate and the sample line that every later scene returns to.",
-      "sound_action": "A paper tag slap."
+      "sound_action": "A card dropping into the tray, then stillness."
     },
     {
       "id": "s3-event-1-attention",
@@ -4634,14 +4636,15 @@
       "id": "s6-event-1-attention",
       "event_id": "s6-event-1",
       "item_ids": [
-        "s6-arm",
-        "s6-sample"
+        "s6-rig",
+        "s6-sample",
+        "s6-arm"
       ],
-      "change_type": "human_action",
-      "visible_change": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig.",
-      "viewer_reward": "The clamped sample cools from amber to gray while the arm waits parked clear of the rig.",
+      "change_type": "mechanism",
+      "visible_change": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear.",
+      "viewer_reward": "The clamps ratchet down three clicks and seat on the cooling sample as the question mark fades, with the arm parked clear.",
       "continuity_from": "The one alloy candidate and the sample line that every later scene returns to.",
-      "sound_action": "Servo whir and a creak of hot metal."
+      "sound_action": "Three ratchet clicks as the clamps seat on the cooling metal."
     },
     {
       "id": "s6-event-2-attention",
@@ -4654,7 +4657,7 @@
       "visible_change": "The ram comes down and loads the clamped sample.",
       "viewer_reward": "The ram comes down and loads the clamped sample.",
       "continuity_from": "The one alloy candidate and the sample line that every later scene returns to.",
-      "sound_action": "A metal ping and a clamp closing."
+      "sound_action": "A low press as the ram meets the metal."
     },
     {
       "id": "s6-event-3-attention",
@@ -4748,13 +4751,15 @@
       "id": "s9-event-1-attention",
       "event_id": "s9-event-1",
       "item_ids": [
-        "s9-ai"
+        "s9-ai",
+        "s9-test",
+        "s9-arm"
       ],
       "change_type": "mechanism",
-      "visible_change": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils.",
-      "viewer_reward": "A new recipe card with new swatches writes on the panel and glows once, while the rig sets the bent bar aside and a mold slides onto the anvils.",
+      "visible_change": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace.",
+      "viewer_reward": "A new recipe card writes on the panel and glows once. The rig sends the bent bar out the back and takes a mold, and the arm lifts the next crucible from the furnace.",
       "continuity_from": "The one alloy candidate and the sample line that every later scene returns to.",
-      "sound_action": "A single soft tone."
+      "sound_action": "A single soft tone, then a feed clunk and the crucible scraping clear of the port."
     },
     {
       "id": "s9-event-2-attention",
@@ -4926,10 +4931,10 @@
     {
       "request_id": "foundry-arm-hero",
       "file": "video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx",
-      "sha256": "273560ff2975d1fd40d5fe50f3825634238f4a6c655090498b5f7bb3ca7c9432",
+      "sha256": "8a46715fdff9371d645f78dded6f105280289c85ced4915c8a097ef9ed8355a6",
       "request_sha256": "fac4917afaa0be5982b4fbdaa87f36d7a06706b7ba13181bc894434d737332a0",
-      "creation_id": "authored-f1cdf9ed-a8c5-4a37-ae64-a68499ea583b",
-      "created_at": "2026-10-25T09:26:13.434949+00:00",
+      "creation_id": "authored-9854c9b2-95c3-4caa-b76d-14e65c2d422f",
+      "created_at": "2026-10-25T10:51:15.956197+00:00",
       "tool": "original authored source",
       "source_url": "authored://2026-10-25/foundry-arm-hero",
       "original_url": "authored://2026-10-25/foundry-arm-hero",
