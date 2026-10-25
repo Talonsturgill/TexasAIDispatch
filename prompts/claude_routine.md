@@ -247,6 +247,21 @@ or diminishing returns, freeze the strongest existing cut and complete the final
 three-scorer and delivery path once. Stop creative editing; use the genuine bounded surface
 finish classification when applicable. Do not run a sixth review to pursue a nicer grade.
 
+## Review budget discipline and no empty-run acceptance
+
+An unshipped edition is a failure of this routine, never an outcome to report calmly. A closed
+or retained edition is the controller's record of that failure and it is irreversible, so never
+invoke a closure, retention or notification as a way of finishing. Before the first code review,
+write the budget into the worklog: reviews 1 and 2 reach a code PASS for both treatments, one
+silent comparison and selection follows, and the final timed phone review is the fifth. If that
+sequence no longer fits the remaining reviews, the edition is already in trouble, so cut scope
+at once. Pick the single strongest treatment, drop the second, and spend every remaining review
+on the defects that block ship. Never spend a review on polish while a mechanical defect with a
+known exact fix is still open, and fix every item in a critic report that names a fix in the same
+correction, optional items included, because a second round for leftovers is how the cap runs out.
+Never use a tooling change to explain away an unfundable edition. Ship it, or say plainly that
+it did not ship and why.
+
 `out/` is gitignored and dies with the container. For an edition marked by
 `out/dispatch/claude-host.json`, every controller ledger write is mirrored to
 `claude/checkpoint/<run-id>` before the writer returns, so each reservation is durable before its
