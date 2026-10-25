@@ -1,9 +1,9 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-25",
-  "saved_at": "2026-10-25T07:38:27.657199+00:00",
-  "note": "claim worker dispatch validator",
-  "phase": "research",
+  "saved_at": "2026-10-25T07:40:22.000166+00:00",
+  "note": "ledger write",
+  "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-25T07:13:09.659545Z",
@@ -16,8 +16,8 @@
     "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
   },
   "deleted_source": [],
-  "ledger_sha256": "6611ce15cc59afa778384088ef701bef35389c074f6cecc24b53e8abd13ce774",
-  "original_private_ledger_sha256": "0cfde67c782ea2c59b085629882138c4574d9cd77067924e0018de4779df48ac",
+  "ledger_sha256": "2ef5a20d9f989d46ad1cd06b3eede7967a953bf32b433d723589b0afb4d534df",
+  "original_private_ledger_sha256": "7c3c8929c70351627da37def5dccec5cdec4ec4035f082a829f58aacc93a5edb",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -40,8 +40,8 @@
     {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
-      "sha256": "5552388b37c271a26ac730477fb6e2c07993a89db754c650ebb405ae19858fb0",
-      "size": 10808
+      "sha256": "a04d9f9a7db5db4de7b8f389819eda7211704125ec39ea6b6737e9f2051e318c",
+      "size": 12535
     },
     {
       "path": "out/dispatch/claude-host.json",
@@ -194,10 +194,22 @@
       "size": 438
     },
     {
+      "path": "out/dispatch/validation.json",
+      "class": "scratch",
+      "sha256": "d8a21b57f4fcf28c02deb945a8c02f13f9f15e7725b6605a6cc6f050decd9134",
+      "size": 1692
+    },
+    {
       "path": "out/dispatch/validator-assignment-2.json",
       "class": "scratch",
       "sha256": "6f05431f25c6b546c41d5ea35560e7170a8d326544b26fe41977d2d09b736aa8",
       "size": 3155
+    },
+    {
+      "path": "out/dispatch/validator-assignment-3.json",
+      "class": "scratch",
+      "sha256": "93101d30212037a46e945bd205ff9aceaaebfa80f47a4a60bf5c2d37c09bf02f",
+      "size": 3141
     },
     {
       "path": "out/dispatch/validator-assignment.json",
@@ -285,9 +297,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 194772,
-    "unique_blob_bytes": 177402,
-    "unique_blobs": 38
+    "logical_bytes": 201332,
+    "unique_blob_bytes": 183962,
+    "unique_blobs": 40
   },
   "excluded": [],
   "regenerable": {
