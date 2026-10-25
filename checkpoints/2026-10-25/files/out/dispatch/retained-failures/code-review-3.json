@@ -1,0 +1,179 @@
+{
+ "schema": "dispatch_storyboard_critic_code_review/1",
+ "role": "storyboard-critic",
+ "review_scope": "code-plan",
+ "review_round": "review 3 of the hard five (code re-review of the second correction)",
+ "edition_id": "2026-10-25",
+ "packet": {"path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/critic-packet-3.json", "sha256": "98d74b460cd2d3696b5b78dc22094ff32e68038045f140c44e74ae79e60cc5d0"},
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic, high effort, isolated read-only code-plan reviewer, no subagents; distinct from the director (claude-sonnet-5-5 director, this session)",
+ "reviewed_at": "2026-10-25T12:00:00Z",
+ "combined_verdict": "revise",
+ "charging_note": "The packet's usage shows storyboard_critics 2. repair-plan-2.json requests only reboards 1. That means this third critic call's own reservation can't be verified from the inputs I was given. Charging is not waived. The caller must hold a reservation for this call inside config/review_limit.json's hard five. Three of the five paid reviews are now used, and the final timed phone review must stay reserved. So the correction below must be complete, and at most one more code re-review is affordable before the phone review.",
+ "input_verification": {
+  "method": "Read-only. I had no hashing tool and requested none. The digests are the packet's mechanically supplied values, cross-checked against repair-plan-2.json after_sha256 and the board story_art entries.",
+  "boards": {"a": "out/dispatch/opening-a.json 954e660bba70854835a8d2c0e2656dfb18535dd017d2ee282e1bd1849c74288c (equal to storyboard.json and repair-plan after_sha256)", "b": "out/dispatch/opening-b.json b663c1fcbb898241f25bc1cd2b66825dd38f4b2d922cf57c889f3d49ad0aa9dd (equal to repair-plan after_sha256)"},
+  "renderer_files": {"AlloyFoundryFilm.tsx": "19e79b160bfc38376b913be49382c492a3b726b20b911ffbe9d070c4d6d70ec5 (repair-plan after; board renderer_inputs)", "FoundryArmHero.tsx": "8a46715fdff9371d645f78dded6f105280289c85ced4915c8a097ef9ed8355a6 (packet asset_inputs, story_art entry, repair-plan after)", "FoundrySupport.tsx": "a654b1c24964bb19e23e2312965de74e1f94d965dc7d351c4d1f869d87f94e78 (unchanged, before = after)"},
+  "registry": "config/modern_episode_registry.json 947c33fc2bcad7a8905a3d50819f1edffbd1c28a34e5adb9f3c9eb13b5831cce",
+  "claims": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491",
+  "quality_contract": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "retained_evidence": "retained-failures/code-review-2.json c4d9f740d20503b07a49785903827ff6a6890c1df4a696ed6208cbf137dd8365, as bound in repair-plan-2.json. The original code-review-1 and code-review-2 verdicts are preserved unchanged."
+ },
+ "coverage": {
+  "renderer": "This round I re-read all three renderer files in full. AlloyFoundryFilm.tsx lines 1 to 861: constants, foundryState, the s4, s5, s6 and s9 line performances, cameras, strategyMove, every A and B world, the view switches and the disclosure chip. FoundryArmHero.tsx lines 1 to 551: armPose, GAP, RIG with crossL, seat, lift, feedY, sampleLen 84, clampX 40, ramContact, press, colL and baseL, plus feedTransform, the rig with its rear feed and ratchets, and the plan drawings. FoundrySupport.tsx lines 1 to 578.",
+  "boards": "I read both boards completely: every scene's on_screen, what_moves, events, planes and visual_proof, plus story_art, film_direction shots and rewards, renderer_inputs, narration_picture, story_contract scenes and transitions, cinematic_contract, creative_direction, art_direction including flat_shots, quality_plan, attention_beats, captions and native_media. For B I covered scenes s1 to s9, story_art, film_direction, story_contract and flat_shots. B's later sections share structure with A and were spot-read.",
+  "registry": "I read the complete alloy-foundry-v1 entry: module, assets, all 44 views, wall_views, the 44 narration_views and authored_art. Every view used by A and B is registered and routed in the renderer switch. I sampled the rest of the registry for structure only.",
+  "geometry": "Under the moved dimensions I recomputed the s4 rig station pose (reach 320), the s5 release path, the s6 seat and press, and the full s9 envelope: upright, mid tip and tip 45 degrees, rear-feed exit and mold arrival. All were checked against the columns, crosshead, clamp pads and rods, ram, anvils, mold and the composed cameras with strategyMove."
+ },
+ "retained_replacement": {
+  "required": false,
+  "decision": "No post-boundary structural replacement is triggered. There is no actual-film rejection of this mechanism yet, and every remaining defect is a code-proven implementation fix inside the same staged rig. It is not a recurrence of a rejected film mechanism. The one-replacement rule and the source-pivot route stay unused and are preserved."
+ },
+ "retained_review_disposition": {
+  "code_review_1": "Every first-review defect was accepted as corrected in review 2. It stays retained and unchanged.",
+  "code_review_2_blocking": [
+   {"defect": "s9 bar-height clamp pads close into the mold and melt", "status": "resolved in code", "evidence": "s9Line only lerps clampP from RIG.seat to RIG.lift (-1.6). That puts the pads at y -262 to -250 rig-local and the rods at -264 to -250, and they never return. The mold top is at -127."},
+   {"defect": "Upright and tipped crucible occupy the left column and left clamp rod", "status": "resolved in code", "evidence": "The left column is now at colL -92, outer face at world 60.1. At tilt 45 (wrist W1 152,-226) the crucible's leftmost point is its base corner at world 62.9,-173.7 including stroke, so the gap is about 1.5 units. Upright, the crucible spans world 104 to 193 (lip), and the right column inner face is at 195.9. The crucible top stays at least 22 units below the lifted pads, and the base clears the mold rim by at least 7 units through the whole tip, including the mid-tip rise."},
+   {"defect": "Bent bar and bin shelf cross the right column", "status": "resolved, but replaced by a new defect", "evidence": "The side shelf and bin are deleted. The bar now leaves through the rear feed between the columns (half-length 42 x 0.88 = 37, inside both columns). The new feed drop doesn't take the bar or the mold out of sight; see blocking D1."}
+  ],
+  "code_review_2_notes": [
+   {"note": "B prose and story_contract advances described A's bench", "status": "resolved; one small residual wording note (N7)"},
+   {"note": "flat_shots reasons did not match the executed drift", "status": "resolved; the reasons now name each strategyMove and its amount"},
+   {"note": "s9 started with the next melt already held before its suggestion", "status": "resolved; the arm starts empty at park, the card writes over sub(e1,0,.7) (45.21 to 46.05 s), and the grip starts at at(e1,.7) = 46.05 s"},
+   {"note": "s6 opened with about 1.5 s of colour-only change", "status": "resolved in code: three ratchet clicks run 30.03 to 31.11 s while the question mark dissolves (29.67 to 30.27 s). How legible they are at phone size is unknown (N3)"}
+  ]
+ },
+ "consolidated_correction": {
+  "mandatory": [
+   "C1 (D1, both treatments, shared hero code). The rear feed must take the bent bar fully out of sight before it is removed, and must bring the mold in from fully out of sight. Today feedTransform(back, y0) drops only 80 units at back 2. The bar's centre ends at -31 and the mold occupies -52 to -26, both above the clip line at -16 and in front of the dark feed slot. Then at at(s9-event-1,.62) = 45.954 s the bar is set to null and the mold is created at back 2, in the same place and the same frame. Fix: make the h term about 130 or more (the bar needs at least 100 units, the mold at least 118), or fade both with opacity 1-h, so the removal and the arrival happen below the base. Re-verify at 45.57 to 46.36 s in A's ai-card close and in B's plan-card section inset.",
+   "C2 (D2, both treatments, shared hero code). Connect each clamp screw to the crosshead. The rod rect starts at crossY+40 (-264) but the crosshead's underside is at crossY+26 (-278), so every clamp hangs 14 units below the crosshead. The ratchet wheel turns on the crosshead face, but the screw it should drive is visibly detached. Fix: start the rod at crossY+26 with height max(0, clampY-12-(crossY+26)). This applies in s4, s6 and s9, and in B's inset and section-detail."
+  ],
+  "recommended_in_same_batch_optional": [
+   "N1: clamp the ram body height to at least 0. At ram -0.35 it is about -0.1, which is an invalid SVG rect.",
+   "N2: widen the tipped crucible's clearance from the left column from about 1.5 units to 6 to 8 units (for example W1 x +6, or colL -98) so it can't read as touching at phone size.",
+   "N5: ramp the mold glow instead of the 0 to 0.85 jump at 47.535 s.",
+   "N6: let the stream's tail fall at the end of the pour instead of retracting it up to the lip.",
+   "N7: in B's s6 text, say 'in the section inset the clamps ratchet down', because the plan clamp outline moves only 0.74 units and the ratchet is drawn only in the inset."
+  ],
+  "unchanged": "Keep the claims, script, clauses, story_art request identities, s1 to s8 performances, the s4 to s6 geometry and the s9 pour layout. They pass at code scope with the clearances recorded here. Do not restage the pour."
+ },
+ "reports": {
+  "a": {
+   "treatment": "a",
+   "board": {"path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/opening-a.json", "sha256": "954e660bba70854835a8d2c0e2656dfb18535dd017d2ee282e1bd1849c74288c"},
+   "review_scope": "code-plan",
+   "verdict": "revise",
+   "concept_sha256": "92c83cad9eda227fcfae690d4104632ef87843e272c20dc8966fe982c45b90a1",
+   "renderer_sha256": "a55a76ccd479f502b32d5d7d99da7b19356106a1f8fb5a2d4bb24ff146c2d33a",
+   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+   "report_bindings": {"review_scope": "code-plan", "concept_sha256": "92c83cad9eda227fcfae690d4104632ef87843e272c20dc8966fe982c45b90a1", "renderer_sha256": "a55a76ccd479f502b32d5d7d99da7b19356106a1f8fb5a2d4bb24ff146c2d33a", "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa", "story_review": {"story_sha256": "5e0b278bad64876e79b5199293df6db4cb36a26e7f0acad2b3cbc7f5815bc237", "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0", "claims_sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491"}, "action_reviews": []},
+   "reviewer_identity": "claude-opus-5-5 storyboard-critic (independent, code-plan scope)",
+   "reviewed_at": "2026-10-25T12:00:00Z",
+   "strongest_frame": "s9-shot-2 melt-pour wide, 47.16 to 48.5 s (planned, not observed). The arm tips the crucible about its wrist inside the rig's open frame, the stream lands at world x 168 in the 104 to 180 cavity, and the fill rises from 47.535 s with the new card still on the panel. The clamps stay lifted and the clearances are positive.",
+   "weakest_frame": "s9-shot-1 ai-card close, 45.57 to 45.96 s. The bent bar slides back into the rear feed, stops while still visible over the slot, and in one frame at 45.954 s becomes a mold in the same place. It is a substitution pop in the opening beat of the close.",
+   "blocking_defects": [
+    {"category": "motion", "scene_id": "s9", "time_s": 45.954, "criterion": "continuity (contact_and_consequence: no unmotivated disappearance or appearance of a workpiece)", "defect": "Rear-feed swap pop. In FoundryArmHero, feedTransform(back, y0) moves a workpiece down only 80 units at back 2, and the behind-frame group's clip ends at y -16. In s9Line the bent bar (sample.back = out) reaches back 2 at at(s9-event-1,.62) = 45.954 s with its centre at y -31 (scale 0.88, its V-shaped middle visible from about -35 to -16 over the dark feed slot). It is then set to null, and in the same frame a mold is created at back 2 (base -26, top about -52), fully visible in the slot. The camera is s9-shot-1 ai-card (f 165,-266, s 1.6), so the slot sits around screen (430, 1134 to 1201) and the swap is about 77 px wide. The board says the bar is 'sent out the back' and the code comment says 'dropped out of sight into the feed', but the pixels will show the bar turning into a mold. This regression came from the review-2 fix. Repair per C1."},
+    {"category": "surface_finish", "scene_id": "s6", "time_s": 30.03, "criterion": "surface_finish and contact_and_consequence (the ratchet drives a screw that is not connected to it)", "defect": "Detached clamp screws on the hero rig. In the Rig component each clamp rod rect starts at y crossY+40 = -264, but the crosshead rect ends at crossY+26 = -278. Every clamp pad and screw therefore hangs from nothing, 14 units below the crosshead, while its ratchet wheel turns on the crosshead face (crossY+11). The s6 action is exactly that ratchet driving the screw down (three clicks, 30.03 to 31.11 s), so the mechanism the clause shows is visibly unlinked. The gap is about 24 px in s4 rig-clamp (s 1.7, 20.75 to 22.11 s), about 39 px in s6 needle-detail (s 2.8, 32.38 to 34.08 s) and about 31 px in s9 melt-hold (s 2.2, 48.5 to 50.11 s). The same gap was in the round-2 baseline and I missed it in reviews 1 and 2; I am disclosing it now so it gets fixed in this single batch. Repair per C2."}
+   ],
+   "story_review": {
+    "story_sha256": "5e0b278bad64876e79b5199293df6db4cb36a26e7f0acad2b3cbc7f5815bc237",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491",
+    "verdict": "revise",
+    "blocking_defects": [
+     {"category": "motion", "scene_id": "s9", "time_s": 45.954, "criterion": "continuity", "defect": "The bent bar becomes a mold in one frame in the visible rear feed (feedTransform drop of 80 units leaves both above the y -16 clip). See D1."},
+     {"category": "surface_finish", "scene_id": "s6", "time_s": 30.03, "criterion": "surface_finish / contact_and_consequence", "defect": "The clamp screws start 14 units below the crosshead, so the ratcheting clamps are not attached to the ratchet that drives them. See D2."}
+    ],
+    "one_viewing_summary": "Planned chain at code scope, not observed. Lit tiles weave into a trillion-way mesh. Cards bury a tray and a gloved hand stops sorting. A release card takes the Oct. 22, 2026 stamp, a $2 million grant tag and a PLANNED bay outline. On the PLANNED line the AI panel sends a card, and the arm drops the tubes into the crucible, sets it in the furnace and carries the hot sample into the rig, where the clamps close. The quote card arrives, the panel gauge fills partway, then aims at the clamped sample, drains and shows a question mark. The clamps ratchet and seat, the ram loads the same bar, it bends and the needle swings. Months flip to a week marked goal, then GOAL and not a result, and a blank opening date. A new card writes, the rig clears the bar out the back and takes a mold, and only then does the arm lift the next crucible and pour. The card dims beside the full glowing mold, which holds for about 1.16 s.",
+    "opening_to_ending": "The opening question (one good alloy among a trillion mixes) is answered by a closing action, not a restatement. The AI's new suggestion dims while the arm fills a mold with the next melt on the rig, with no claimed result. Cause order is correct in code: card 45.21 to 46.05 s, grip 46.05 s, carry ends 47.06 s, pour 47.16 to 48.23 s, upright 48.32 to 48.81 s, dim to 48.95 s, settled hold 48.95 to 50.11 s.",
+    "weakest_transition": "s8 to s9. The blank date cuts to the line, and the first new physical event in s9, the bar leaving through the feed, ends in the D1 swap pop at 45.954 s. Until C1 is fixed, the bridge's 'sends the bent bar out the back' isn't performed honestly."
+   },
+   "action_reviews": [],
+   "code_clause_observations": [
+    {"clause_id": "n1", "start_s": 0.48, "end_s": 4.23, "verdict": "pass", "observation": "s1-table lights 36 tiles over 0.48 to 1.33 s, the mesh draws over 1.605 to 2.805 s and the count tag settles over 2.955 to 4.155 s with the candidate glow. The subject and verb are literal."},
+    {"clause_id": "n2", "start_s": 4.89, "end_s": 7.44, "verdict": "pass", "observation": "The card stream starts at 4.89 s, the pile spills and the pencil rolls off in s2-event-2, and the hand sorts one card, reaches again and stops inside 6.28 to 7.44 s while 11 tray cards bury the tray."},
+    {"clause_id": "n3a", "start_s": 8.1, "end_s": 9.45, "verdict": "pass", "observation": "The release slides in (8.1 to 8.99 s) and the dateline stamp inks 'Oct. 22, 2026' within 8.64 to 9.45 s."},
+    {"clause_id": "n3b", "start_s": 9.75, "end_s": 12.6, "verdict": "pass", "observation": "The '$2 million grant' tag clips on and swings over 10.32 to 11.52 s in stamp-close."},
+    {"clause_id": "n3c", "start_s": 12.9, "end_s": 15.15, "verdict": "pass", "observation": "The bay outline draws, the title writes and PLANNED stamps over 12.9 to 14.1 s in bay-blueprint wide."},
+    {"clause_id": "n4a", "start_s": 15.81, "end_s": 18.36, "verdict": "pass", "observation": "The panel writes and sends the card (16.065 to 17.265 s). The printed card rides the wire to the rack while the camera follows it on the card's own window, and the arm lowers onto the tubes."},
+    {"clause_id": "n4b", "start_s": 18.66, "end_s": 21.81, "verdict": "pass", "observation": "The tubes are carried and dropped into the crucible (18.66 to 19.73 s), the crucible goes into the furnace port and glows (19.73 to 20.80 s), and the sample is carried to the rig with the clamps closing at 21.65 to 21.81 s. At reach 320 the gripper body (x 119 to 165, y -136 to -120) clears the closing pads (88 to 116 and 168 to 196) by about 1 unit. The detached clamp screws (D2) are visible in rig-clamp."},
+    {"clause_id": "n5a", "start_s": 22.47, "end_s": 25.62, "verdict": "pass", "observation": "The quote card slides and the name writes (22.47 to 23.67 s). The arm's release happens off screen under the quote card. The panel gauge fills to 0.4 with the 'some behavior' tag in 24.045 to 25.245 s."},
+    {"clause_id": "n5b", "start_s": 25.92, "end_s": 29.37, "verdict": "pass", "observation": "The aim line reaches the clamped sample, the gauge drains and searches but stays empty, and the question mark appears over 26.955 to 28.155 s."},
+    {"clause_id": "n6", "start_s": 30.03, "end_s": 33.78, "verdict": "revise", "observation": "Three ratchet clicks (30.03 to 31.11 s) seat the pads at y -106 on the bar top, the ram reaches contact at -106 (31.23 to 32.43 s), and the bar bends to bend 1 with the ram tip following the sag to within 0.7 units while the needle swings (32.43 to 33.63 s). The chain is literal, but the ratchet-driven screws aren't connected to the crosshead (D2). The pad travel is only 4 units, so the clicks carry the action (N3)."},
+    {"clause_id": "n7", "start_s": 34.44, "end_s": 38.49, "verdict": "pass", "observation": "Months flip, the week strip slides in and fills, and the goal tag lands, all in the s7 easel."},
+    {"clause_id": "n8a", "start_s": 39.15, "end_s": 42.0, "verdict": "pass", "observation": "The GOAL stamp inks (39.15 to 40.35 s) and the 'not a result' tag attaches (40.46 to 41.66 s)."},
+    {"clause_id": "n8b", "start_s": 42.3, "end_s": 44.55, "verdict": "pass", "observation": "The release returns with the opening date form, and its blank field takes one dash (42.525 to 43.725 s)."},
+    {"clause_id": "n9a", "start_s": 45.21, "end_s": 46.86, "verdict": "revise", "observation": "'The AI can suggest' is literal: the new card with NEXT_RECIPE swatches writes in 45.21 to 46.05 s and glows once. The clamps lift (45.26 to 45.57 s), the ram retracts and the feed opens. The bar exits the rear feed, but it is swapped for the mold in one visible frame at 45.954 s (D1). The arm starts empty, grips at 46.05 to 46.17 s and lifts at 46.17 to 46.45 s."},
+    {"clause_id": "n9b", "start_s": 47.16, "end_s": 49.11, "verdict": "pass", "observation": "The tip reaches 45 degrees by about 47.70 s, the stream starts at tilt 34 (about 47.46 s) and lands inside the cavity, the fill runs 47.535 to 48.23 s, and the crucible returns upright 48.32 to 48.81 s. The card dims by 48.95 s and the settled answer holds to 50.11 s. The left-column gap at full tilt is about 1.5 units (N2)."}
+   ],
+   "notes": [
+    "N1: in s9, ram -0.35 gives the ram body a height of about -0.1 (an invalid SVG rect) once up > 0.998. Clamp it to at least 0. It isn't visible because the head is behind the crosshead.",
+    "N2: at full tilt (about 47.70 to 48.32 s) the crucible's base corner sits about 1.5 units from the left column (about 1.7 px in melt-pour, about 3.3 px in melt-hold). There is no intersection, but check it for apparent touching at phone scope. An optional 6 to 8 unit margin is recommended.",
+    "N3: the s6 opening action is the ratchet levers (about 33 px swing per click at arm-lift wide, s 1.02) and wheels. The pads move only 4 units. Whether it is legible at phone size can't be known at code scope.",
+    "N4: in s4 the gripper body and the closing pads are about 1 unit apart. That is correct in code; check for apparent contact at phone scope.",
+    "N5: the mold glow jumps from 0 to 0.85 when the fill starts at 47.535 s. It is motivated by the arriving melt but abrupt; a ramp is optional.",
+    "N6: over the last about 0.1 s of s9-event-2 the stream retracts up toward the lip. A falling tail is optional.",
+    "N8: the arm's links pass in front of the left column and clamp under the declared open-front depth convention, with armShadow on the rig. This was accepted in earlier rounds; check it at phone scope.",
+    "No new intersections were found under the moved dimensions. The furnace pad works with the lift station (crucible base at -154 is above the port at -139). The bar (84 long) sits under the pads at plus or minus 40 with 16-unit overlaps over the anvils. The ram contact at -106 meets the bar top. The crosshead is at least 10 units above the forearm at the rig and pour poses. All shots are 5 s or shorter, the first reward is at 0.69 s, the region is post_oak for Brazos, and the claims, numerals and disclosure chip are unchanged.",
+    "A code pass would authorize only the funded capture. I make no pixel, motion-speed or finish observations here, and the exact phone, native, audiovisual and scorer gates remain required."
+   ]
+  },
+  "b": {
+   "treatment": "b",
+   "board": {"path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/opening-b.json", "sha256": "b663c1fcbb898241f25bc1cd2b66825dd38f4b2d922cf57c889f3d49ad0aa9dd"},
+   "review_scope": "code-plan",
+   "verdict": "revise",
+   "concept_sha256": "67ae191a4f357434524bca9df3e9c36b111a9b96cc4393ef343d45d41719eda6",
+   "renderer_sha256": "a55a76ccd479f502b32d5d7d99da7b19356106a1f8fb5a2d4bb24ff146c2d33a",
+   "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+   "report_bindings": {"review_scope": "code-plan", "concept_sha256": "67ae191a4f357434524bca9df3e9c36b111a9b96cc4393ef343d45d41719eda6", "renderer_sha256": "a55a76ccd479f502b32d5d7d99da7b19356106a1f8fb5a2d4bb24ff146c2d33a", "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa", "story_review": {"story_sha256": "ea405be4adb6bff2873bcedcf0058abbd234aee157c4863de6f197502aed5b8c", "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0", "claims_sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491"}, "action_reviews": []},
+   "reviewer_identity": "claude-opus-5-5 storyboard-critic (independent, code-plan scope)",
+   "reviewed_at": "2026-10-25T12:00:00Z",
+   "strongest_frame": "s6-shot-3 section-detail, 32.33 to 34.08 s (planned, not observed). The elevation section is drawn large (effective scale 1.2). The ram follows the bar's sag to bend 1 and the needle swings 138 degrees, the clearest picture of 'the actual metal' in B.",
+   "weakest_frame": "s9-shot-1 plan-card, 45.57 to 45.96 s, in the section inset (effective scale about 0.725). The bent bar slides into the rear feed and becomes a mold in one frame at 45.954 s. The plan itself fades the mold correctly (opacity 1 - clamp(back - 1)), so the plan and the inset disagree.",
+   "blocking_defects": [
+    {"category": "motion", "scene_id": "s9", "time_s": 45.954, "criterion": "continuity (contact_and_consequence: no unmotivated disappearance or appearance of a workpiece)", "defect": "Rear-feed swap pop in B's section inset. sectionInset draws the same Rig through rigNode. feedTransform's 80-unit drop leaves the bent bar (centre -31) and the arriving mold (-52 to -26) above the y -16 clip and over the visible feed slot. At at(s9-event-1,.62) = 45.954 s the bar is removed and a full mold created in the same place in one frame, inside s9-shot-1 plan-card (inset at about 0.725, swap about 35 px wide). The plan layer fades its mold in, so the two views of the same event contradict each other. Repair per C1."},
+    {"category": "surface_finish", "scene_id": "s6", "time_s": 32.33, "criterion": "surface_finish and contact_and_consequence (the ratchet drives a screw that is not connected to it)", "defect": "Detached clamp screws in the section. The rod rect starts at crossY+40 (-264) and the crosshead ends at crossY+26 (-278), so each clamp and its ratcheting screw hang 14 units below the crosshead. In section-detail (effective scale 1.2, 32.33 to 34.08 s) the gap is about 17 px, the largest picture of the rig in B. The same gap shows in the inset during s4 clamp-plan (20.9 to 22.11 s), the s6 ratchet clicks (30.03 to 31.11 s) and s9. It was present in the round-2 baseline and I missed it earlier. Repair per C2."}
+   ],
+   "story_review": {
+    "story_sha256": "ea405be4adb6bff2873bcedcf0058abbd234aee157c4863de6f197502aed5b8c",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "claims_sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491",
+    "verdict": "revise",
+    "blocking_defects": [
+     {"category": "motion", "scene_id": "s9", "time_s": 45.954, "criterion": "continuity", "defect": "In the section inset the bent bar becomes a mold in one frame in the visible rear feed, contradicting the plan's fade. See D1."},
+     {"category": "surface_finish", "scene_id": "s6", "time_s": 32.33, "criterion": "surface_finish / contact_and_consequence", "defect": "The clamp screws in the section start 14 units below the crosshead, so they are unlinked from the ratchet. See D2."}
+    ],
+    "one_viewing_summary": "Planned chain at code scope, not observed. The chart at the ledger head lights and weaves the trillion-way mesh. Cards fill the ruled rows, spill over the page edge and bury the margin pocket as the gloved hand stops. The release row takes the Oct. 22, 2026 stamp and the $2 million grant tag, and a drafting sheet slides over it, outlines the line and takes PLANNED. On the floor plan the panel face sends the card along the wire, and the arm drawn from above moves the tubes to the crucible and the crucible to the furnace while the route trace follows the one sample to the rig, with the section inset showing the clamps close. The quote row arrives, then the plan gauge fills partway, aims at the clamped bar and stays empty with a question mark. In the inset and then the large section, the clamps ratchet, the ram loads the bar, it bends and the needle swings. The calendar pad flips to a week row marked goal, then GOAL and not a result, and the ledger scrolls back to the release row for the blank date. On the plan a new card writes, the rig clears the bar and takes a mold, and the arm pours the next melt, on the plan and in the inset. The card dims beside the full mold.",
+    "opening_to_ending": "The opening question is answered by the plan's closing action: the new suggestion dims while the poured mold glows, with no claimed result. The s9 cause order matches A in code (card first, then grip at 46.05 s, then pour at 47.16 s). The settled hold runs 48.95 to 50.11 s in plan-hold. How readable the pour is from above (a squashed crucible disc and a stream line to the rig, plus the inset at about 0.525 in melt-pour) is unknown until the phone pass.",
+    "weakest_transition": "s8 to s9. The ledger's blank date row cuts to the plan, and the first physical event, the bar leaving through the rear feed, ends in the inset swap pop at 45.954 s (D1)."
+   },
+   "action_reviews": [],
+   "code_clause_observations": [
+    {"clause_id": "n1", "start_s": 0.48, "end_s": 4.23, "verdict": "pass", "observation": "The chart at the ledger head lights 36 tiles (0.48 to 1.33 s), the mesh draws (1.605 to 2.805 s) and the count tag settles (2.955 to 4.155 s)."},
+    {"clause_id": "n2", "start_s": 4.89, "end_s": 7.44, "verdict": "pass", "observation": "ledgerCard flies cards into row slots, the overflow goes over the page edge and the pencil rolls off. In ledger-sort the hand files one card into the pocket, reaches again and stops by 7.44 s."},
+    {"clause_id": "n3a", "start_s": 8.1, "end_s": 9.45, "verdict": "pass", "observation": "The release slides onto its row, and the 'Oct. 22, 2026' stamp inks within 8.64 to 9.45 s."},
+    {"clause_id": "n3b", "start_s": 9.75, "end_s": 12.6, "verdict": "pass", "observation": "The '$2 million grant' tag hooks onto the release row in grant-row detail (10.32 to 11.52 s)."},
+    {"clause_id": "n3c", "start_s": 12.9, "end_s": 15.15, "verdict": "pass", "observation": "The drafting sheet slides over the ledger (ease over the first 0.2 of the event), the outline draws, 'Aggie AI Foundry' writes and PLANNED stamps by about 14.1 s."},
+    {"clause_id": "n4a", "start_s": 15.81, "end_s": 18.36, "verdict": "pass", "observation": "The plan panel face writes and sends the card, and it rides the plan wire to the rack (16.065 to 18.66 s)."},
+    {"clause_id": "n4b", "start_s": 18.66, "end_s": 21.81, "verdict": "pass", "observation": "The plan arm moves the tubes to the crucible and the crucible into the glowing port while the route trace advances, and the bar is carried to the rig with the clamps closing, shown in the clamp-plan section inset at 21.65 to 21.81 s. The detached screws (D2) are visible in the inset."},
+    {"clause_id": "n5a", "start_s": 22.47, "end_s": 25.62, "verdict": "pass", "observation": "The quote row slides and the name writes, then gauge-plan shows the panel face as the gauge filling to 0.4 with the 'some behavior' tag."},
+    {"clause_id": "n5b", "start_s": 25.92, "end_s": 29.37, "verdict": "pass", "observation": "The aim line and ring reach the plan rig bar, the gauge stays empty, and the question mark appears at the rig (26.955 to 28.155 s)."},
+    {"clause_id": "n6", "start_s": 30.03, "end_s": 33.78, "verdict": "revise", "observation": "The ratchet clicks and seat are drawn in the section inset during sample-glow, the ram loads the bar in the rig-load inset, and the bend and needle are drawn large in section-detail. The chain is literal, but the screws are unlinked from the crosshead (D2). The board says 'on the plan' for the ratchet, but the plan clamp outline moves only 0.74 units (N7)."},
+    {"clause_id": "n7", "start_s": 34.44, "end_s": 38.49, "verdict": "pass", "observation": "The calendar pad on the ledger flips, the week row slides and fills, and the goal tag lands."},
+    {"clause_id": "n8a", "start_s": 39.15, "end_s": 42.0, "verdict": "pass", "observation": "The GOAL stamp inks on the week row, and the 'not a result' tag attaches."},
+    {"clause_id": "n8b", "start_s": 42.3, "end_s": 44.55, "verdict": "pass", "observation": "date-row scrolls from DATE_ROW_FROM to the release row over 0.9 s, the blank form slides in and the dash draws (42.525 to 43.725 s)."},
+    {"clause_id": "n9a", "start_s": 45.21, "end_s": 46.86, "verdict": "revise", "observation": "The new card writes on the plan panel face (45.21 to 46.05 s). The plan rig's feed opens and its mold fades in correctly, but the section inset swaps bar for mold in one frame at 45.954 s (D1). The plan arm grips at 46.05 s and lifts after."},
+    {"clause_id": "n9b", "start_s": 47.16, "end_s": 49.11, "verdict": "pass", "observation": "PlanCrucible foreshortens with the tilt and the plan stream runs from the lip to the rig, with the inset showing the elevation pour. The fill, upright, dim and hold times match A, and the elevation clearances are the same as A's (N2 applies in the inset)."}
+   ],
+   "notes": [
+    "N1, N2, N5 and N6 apply here through the same Rig and pour code (inset scale reduces visibility).",
+    "N3: the s6 ratchet is drawn only in the section inset. At sample-glow (about 0.7 effective) each lever is about 22 px. Its legibility at phone size is unknown at code scope.",
+    "N7: B's s6 on_screen, what_moves, event 1 and advances say 'On the plan the clamps ratchet down'. The ratchet and the seat exist only in the inset (the plan clamp outline's clampOff moves 0.74 units). Wording such as 'in the section inset' would match the picture. Not blocking: the action is drawn in the same shot.",
+    "N8: FoundrySupport PlanSheet's rig outline (x 62 to 222) no longer matches the plan rig base (40 to 222). It is hidden under the base from s4 on and only seen in s3's outline. Optional.",
+    "N9: the B pour's legibility from above (a squashed disc and a stream line) and in the inset (about 0.525 in melt-pour) is a phone-scope question, not a code rejection.",
+    "B's rewritten prose, story_contract advances, transitions and flat_shots reasons now match the ledger and plan worlds the code draws, including the s8 ledger scroll. Registry views and narration_views cover every B view.",
+    "A code pass would authorize only the funded capture. I make no pixel observations, and the exact phone, native, audiovisual and scorer gates remain required."
+   ]
+  }
+ }
+}

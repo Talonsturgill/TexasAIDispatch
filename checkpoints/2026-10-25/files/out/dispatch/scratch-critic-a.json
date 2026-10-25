@@ -1,0 +1,188 @@
+{
+ "treatment": "a",
+ "board": {
+  "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/opening-a.json",
+  "sha256": "954e660bba70854835a8d2c0e2656dfb18535dd017d2ee282e1bd1849c74288c"
+ },
+ "review_scope": "code-plan",
+ "verdict": "revise",
+ "concept_sha256": "92c83cad9eda227fcfae690d4104632ef87843e272c20dc8966fe982c45b90a1",
+ "renderer_sha256": "a55a76ccd479f502b32d5d7d99da7b19356106a1f8fb5a2d4bb24ff146c2d33a",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "report_bindings": {
+  "review_scope": "code-plan",
+  "concept_sha256": "92c83cad9eda227fcfae690d4104632ef87843e272c20dc8966fe982c45b90a1",
+  "renderer_sha256": "a55a76ccd479f502b32d5d7d99da7b19356106a1f8fb5a2d4bb24ff146c2d33a",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "story_review": {
+   "story_sha256": "5e0b278bad64876e79b5199293df6db4cb36a26e7f0acad2b3cbc7f5815bc237",
+   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+   "claims_sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491"
+  },
+  "action_reviews": []
+ },
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic (independent, code-plan scope)",
+ "reviewed_at": "2026-10-25T12:00:00Z",
+ "strongest_frame": "s9-shot-2 melt-pour wide, 47.16 to 48.5 s (planned, not observed). The arm tips the crucible about its wrist inside the rig's open frame, the stream lands at world x 168 in the 104 to 180 cavity, and the fill rises from 47.535 s with the new card still on the panel. The clamps stay lifted and the clearances are positive.",
+ "weakest_frame": "s9-shot-1 ai-card close, 45.57 to 45.96 s. The bent bar slides back into the rear feed, stops while still visible over the slot, and in one frame at 45.954 s becomes a mold in the same place. It is a substitution pop in the opening beat of the close.",
+ "blocking_defects": [
+  {
+   "category": "motion",
+   "scene_id": "s9",
+   "time_s": 45.954,
+   "criterion": "continuity (contact_and_consequence: no unmotivated disappearance or appearance of a workpiece)",
+   "defect": "Rear-feed swap pop. In FoundryArmHero, feedTransform(back, y0) moves a workpiece down only 80 units at back 2, and the behind-frame group's clip ends at y -16. In s9Line the bent bar (sample.back = out) reaches back 2 at at(s9-event-1,.62) = 45.954 s with its centre at y -31 (scale 0.88, its V-shaped middle visible from about -35 to -16 over the dark feed slot). It is then set to null, and in the same frame a mold is created at back 2 (base -26, top about -52), fully visible in the slot. The camera is s9-shot-1 ai-card (f 165,-266, s 1.6), so the slot sits around screen (430, 1134 to 1201) and the swap is about 77 px wide. The board says the bar is 'sent out the back' and the code comment says 'dropped out of sight into the feed', but the pixels will show the bar turning into a mold. This regression came from the review-2 fix. Repair per C1."
+  },
+  {
+   "category": "surface_finish",
+   "scene_id": "s6",
+   "time_s": 30.03,
+   "criterion": "surface_finish and contact_and_consequence (the ratchet drives a screw that is not connected to it)",
+   "defect": "Detached clamp screws on the hero rig. In the Rig component each clamp rod rect starts at y crossY+40 = -264, but the crosshead rect ends at crossY+26 = -278. Every clamp pad and screw therefore hangs from nothing, 14 units below the crosshead, while its ratchet wheel turns on the crosshead face (crossY+11). The s6 action is exactly that ratchet driving the screw down (three clicks, 30.03 to 31.11 s), so the mechanism the clause shows is visibly unlinked. The gap is about 24 px in s4 rig-clamp (s 1.7, 20.75 to 22.11 s), about 39 px in s6 needle-detail (s 2.8, 32.38 to 34.08 s) and about 31 px in s9 melt-hold (s 2.2, 48.5 to 50.11 s). The same gap was in the round-2 baseline and I missed it in reviews 1 and 2; I am disclosing it now so it gets fixed in this single batch. Repair per C2."
+  }
+ ],
+ "story_review": {
+  "story_sha256": "5e0b278bad64876e79b5199293df6db4cb36a26e7f0acad2b3cbc7f5815bc237",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491",
+  "verdict": "revise",
+  "blocking_defects": [
+   {
+    "category": "motion",
+    "scene_id": "s9",
+    "time_s": 45.954,
+    "criterion": "continuity",
+    "defect": "The bent bar becomes a mold in one frame in the visible rear feed (feedTransform drop of 80 units leaves both above the y -16 clip). See D1."
+   },
+   {
+    "category": "surface_finish",
+    "scene_id": "s6",
+    "time_s": 30.03,
+    "criterion": "surface_finish / contact_and_consequence",
+    "defect": "The clamp screws start 14 units below the crosshead, so the ratcheting clamps are not attached to the ratchet that drives them. See D2."
+   }
+  ],
+  "one_viewing_summary": "Planned chain at code scope, not observed. Lit tiles weave into a trillion-way mesh. Cards bury a tray and a gloved hand stops sorting. A release card takes the Oct. 22, 2026 stamp, a $2 million grant tag and a PLANNED bay outline. On the PLANNED line the AI panel sends a card, and the arm drops the tubes into the crucible, sets it in the furnace and carries the hot sample into the rig, where the clamps close. The quote card arrives, the panel gauge fills partway, then aims at the clamped sample, drains and shows a question mark. The clamps ratchet and seat, the ram loads the same bar, it bends and the needle swings. Months flip to a week marked goal, then GOAL and not a result, and a blank opening date. A new card writes, the rig clears the bar out the back and takes a mold, and only then does the arm lift the next crucible and pour. The card dims beside the full glowing mold, which holds for about 1.16 s.",
+  "opening_to_ending": "The opening question (one good alloy among a trillion mixes) is answered by a closing action, not a restatement. The AI's new suggestion dims while the arm fills a mold with the next melt on the rig, with no claimed result. Cause order is correct in code: card 45.21 to 46.05 s, grip 46.05 s, carry ends 47.06 s, pour 47.16 to 48.23 s, upright 48.32 to 48.81 s, dim to 48.95 s, settled hold 48.95 to 50.11 s.",
+  "weakest_transition": "s8 to s9. The blank date cuts to the line, and the first new physical event in s9, the bar leaving through the feed, ends in the D1 swap pop at 45.954 s. Until C1 is fixed, the bridge's 'sends the bent bar out the back' isn't performed honestly."
+ },
+ "action_reviews": [],
+ "code_clause_observations": [
+  {
+   "clause_id": "n1",
+   "start_s": 0.48,
+   "end_s": 4.23,
+   "verdict": "pass",
+   "observation": "s1-table lights 36 tiles over 0.48 to 1.33 s, the mesh draws over 1.605 to 2.805 s and the count tag settles over 2.955 to 4.155 s with the candidate glow. The subject and verb are literal."
+  },
+  {
+   "clause_id": "n2",
+   "start_s": 4.89,
+   "end_s": 7.44,
+   "verdict": "pass",
+   "observation": "The card stream starts at 4.89 s, the pile spills and the pencil rolls off in s2-event-2, and the hand sorts one card, reaches again and stops inside 6.28 to 7.44 s while 11 tray cards bury the tray."
+  },
+  {
+   "clause_id": "n3a",
+   "start_s": 8.1,
+   "end_s": 9.45,
+   "verdict": "pass",
+   "observation": "The release slides in (8.1 to 8.99 s) and the dateline stamp inks 'Oct. 22, 2026' within 8.64 to 9.45 s."
+  },
+  {
+   "clause_id": "n3b",
+   "start_s": 9.75,
+   "end_s": 12.6,
+   "verdict": "pass",
+   "observation": "The '$2 million grant' tag clips on and swings over 10.32 to 11.52 s in stamp-close."
+  },
+  {
+   "clause_id": "n3c",
+   "start_s": 12.9,
+   "end_s": 15.15,
+   "verdict": "pass",
+   "observation": "The bay outline draws, the title writes and PLANNED stamps over 12.9 to 14.1 s in bay-blueprint wide."
+  },
+  {
+   "clause_id": "n4a",
+   "start_s": 15.81,
+   "end_s": 18.36,
+   "verdict": "pass",
+   "observation": "The panel writes and sends the card (16.065 to 17.265 s). The printed card rides the wire to the rack while the camera follows it on the card's own window, and the arm lowers onto the tubes."
+  },
+  {
+   "clause_id": "n4b",
+   "start_s": 18.66,
+   "end_s": 21.81,
+   "verdict": "pass",
+   "observation": "The tubes are carried and dropped into the crucible (18.66 to 19.73 s), the crucible goes into the furnace port and glows (19.73 to 20.80 s), and the sample is carried to the rig with the clamps closing at 21.65 to 21.81 s. At reach 320 the gripper body (x 119 to 165, y -136 to -120) clears the closing pads (88 to 116 and 168 to 196) by about 1 unit. The detached clamp screws (D2) are visible in rig-clamp."
+  },
+  {
+   "clause_id": "n5a",
+   "start_s": 22.47,
+   "end_s": 25.62,
+   "verdict": "pass",
+   "observation": "The quote card slides and the name writes (22.47 to 23.67 s). The arm's release happens off screen under the quote card. The panel gauge fills to 0.4 with the 'some behavior' tag in 24.045 to 25.245 s."
+  },
+  {
+   "clause_id": "n5b",
+   "start_s": 25.92,
+   "end_s": 29.37,
+   "verdict": "pass",
+   "observation": "The aim line reaches the clamped sample, the gauge drains and searches but stays empty, and the question mark appears over 26.955 to 28.155 s."
+  },
+  {
+   "clause_id": "n6",
+   "start_s": 30.03,
+   "end_s": 33.78,
+   "verdict": "revise",
+   "observation": "Three ratchet clicks (30.03 to 31.11 s) seat the pads at y -106 on the bar top, the ram reaches contact at -106 (31.23 to 32.43 s), and the bar bends to bend 1 with the ram tip following the sag to within 0.7 units while the needle swings (32.43 to 33.63 s). The chain is literal, but the ratchet-driven screws aren't connected to the crosshead (D2). The pad travel is only 4 units, so the clicks carry the action (N3)."
+  },
+  {
+   "clause_id": "n7",
+   "start_s": 34.44,
+   "end_s": 38.49,
+   "verdict": "pass",
+   "observation": "Months flip, the week strip slides in and fills, and the goal tag lands, all in the s7 easel."
+  },
+  {
+   "clause_id": "n8a",
+   "start_s": 39.15,
+   "end_s": 42.0,
+   "verdict": "pass",
+   "observation": "The GOAL stamp inks (39.15 to 40.35 s) and the 'not a result' tag attaches (40.46 to 41.66 s)."
+  },
+  {
+   "clause_id": "n8b",
+   "start_s": 42.3,
+   "end_s": 44.55,
+   "verdict": "pass",
+   "observation": "The release returns with the opening date form, and its blank field takes one dash (42.525 to 43.725 s)."
+  },
+  {
+   "clause_id": "n9a",
+   "start_s": 45.21,
+   "end_s": 46.86,
+   "verdict": "revise",
+   "observation": "'The AI can suggest' is literal: the new card with NEXT_RECIPE swatches writes in 45.21 to 46.05 s and glows once. The clamps lift (45.26 to 45.57 s), the ram retracts and the feed opens. The bar exits the rear feed, but it is swapped for the mold in one visible frame at 45.954 s (D1). The arm starts empty, grips at 46.05 to 46.17 s and lifts at 46.17 to 46.45 s."
+  },
+  {
+   "clause_id": "n9b",
+   "start_s": 47.16,
+   "end_s": 49.11,
+   "verdict": "pass",
+   "observation": "The tip reaches 45 degrees by about 47.70 s, the stream starts at tilt 34 (about 47.46 s) and lands inside the cavity, the fill runs 47.535 to 48.23 s, and the crucible returns upright 48.32 to 48.81 s. The card dims by 48.95 s and the settled answer holds to 50.11 s. The left-column gap at full tilt is about 1.5 units (N2)."
+  }
+ ],
+ "notes": [
+  "N1: in s9, ram -0.35 gives the ram body a height of about -0.1 (an invalid SVG rect) once up > 0.998. Clamp it to at least 0. It isn't visible because the head is behind the crosshead.",
+  "N2: at full tilt (about 47.70 to 48.32 s) the crucible's base corner sits about 1.5 units from the left column (about 1.7 px in melt-pour, about 3.3 px in melt-hold). There is no intersection, but check it for apparent touching at phone scope. An optional 6 to 8 unit margin is recommended.",
+  "N3: the s6 opening action is the ratchet levers (about 33 px swing per click at arm-lift wide, s 1.02) and wheels. The pads move only 4 units. Whether it is legible at phone size can't be known at code scope.",
+  "N4: in s4 the gripper body and the closing pads are about 1 unit apart. That is correct in code; check for apparent contact at phone scope.",
+  "N5: the mold glow jumps from 0 to 0.85 when the fill starts at 47.535 s. It is motivated by the arriving melt but abrupt; a ramp is optional.",
+  "N6: over the last about 0.1 s of s9-event-2 the stream retracts up toward the lip. A falling tail is optional.",
+  "N8: the arm's links pass in front of the left column and clamp under the declared open-front depth convention, with armShadow on the rig. This was accepted in earlier rounds; check it at phone scope.",
+  "No new intersections were found under the moved dimensions. The furnace pad works with the lift station (crucible base at -154 is above the port at -139). The bar (84 long) sits under the pads at plus or minus 40 with 16-unit overlaps over the anvils. The ram contact at -106 meets the bar top. The crosshead is at least 10 units above the forearm at the rig and pour poses. All shots are 5 s or shorter, the first reward is at 0.69 s, the region is post_oak for Brazos, and the claims, numerals and disclosure chip are unchanged.",
+  "A code pass would authorize only the funded capture. I make no pixel, motion-speed or finish observations here, and the exact phone, native, audiovisual and scorer gates remain required."
+ ]
+}
