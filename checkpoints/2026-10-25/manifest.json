@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-25",
-  "saved_at": "2026-10-25T07:42:12.748991+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-25T07:42:17.099210+00:00",
+  "note": "claim worker dispatch validator",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -242,6 +242,12 @@
       "size": 4265
     },
     {
+      "path": "out/dispatch/validator-packet-4-subject-a6231c896c5445b8.json",
+      "class": "scratch",
+      "sha256": "a6231c896c5445b8ab3ee2028d562bff4aa95b1c4aac9dd5f82638ae3e798504",
+      "size": 8685
+    },
+    {
       "path": "out/dispatch/validator-packet-4.json",
       "class": "scratch",
       "sha256": "534b0e3082a31f3df0b1e6077cf5033b2b08e796f4f8b9e70e53bcb30051e781",
@@ -270,6 +276,12 @@
       "class": "scratch",
       "sha256": "92349a84cf662c17090baf1502ba0da8579412806dad2e0cce9cbeb5d650e4a5",
       "size": 657
+    },
+    {
+      "path": "out/dispatch/worker-dispatch-claims/0c6ecd91cedcb87b95798725a65f36535735d0700d2b481a3ff4d934ef4f22f5-validator.json",
+      "class": "scratch",
+      "sha256": "574cf7fbca3e75f16b5815a7c0e1f249757abbc926b73c9d59548231c3dad5e9",
+      "size": 555
     },
     {
       "path": "out/dispatch/worker-dispatch-claims/1291d627f7e5ec91e1a13e0718aad581adcc936bcc7af68cc3baf31eaeff8a9b-validator.json",
@@ -303,9 +315,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 205625,
-    "unique_blob_bytes": 188255,
-    "unique_blobs": 41
+    "logical_bytes": 214865,
+    "unique_blob_bytes": 188810,
+    "unique_blobs": 42
   },
   "excluded": [],
   "regenerable": {
