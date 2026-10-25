@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-25",
-  "saved_at": "2026-10-25T07:35:37.298247+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-25T07:35:42.043561+00:00",
+  "note": "claim worker dispatch validator",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -200,6 +200,12 @@
       "size": 3144
     },
     {
+      "path": "out/dispatch/validator-packet-2-subject-a6231c896c5445b8.json",
+      "class": "scratch",
+      "sha256": "a6231c896c5445b8ab3ee2028d562bff4aa95b1c4aac9dd5f82638ae3e798504",
+      "size": 8685
+    },
+    {
       "path": "out/dispatch/validator-packet-2.json",
       "class": "scratch",
       "sha256": "2ffc1627788ca89ea2f95027e150f32b8b6ee3a29cd87b1e7371d3c90e6655f0",
@@ -230,6 +236,12 @@
       "size": 671
     },
     {
+      "path": "out/dispatch/worker-dispatch-claims/1291d627f7e5ec91e1a13e0718aad581adcc936bcc7af68cc3baf31eaeff8a9b-validator.json",
+      "class": "scratch",
+      "sha256": "bf38b030f17ca724adcf433fb3490d109aa952894b65fde6ba121d21415c6610",
+      "size": 555
+    },
+    {
       "path": "out/dispatch/worker-dispatch-claims/8808195166439df20decabd88d4b888d56af864b75fa6abdce60b28e112d019f-researcher.json",
       "class": "scratch",
       "sha256": "10e0bd0c2084d586e5a1e46c375b9d83a633990466f09f8f5c618ed43038a0b0",
@@ -249,9 +261,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 168756,
-    "unique_blob_bytes": 168756,
-    "unique_blobs": 34
+    "logical_bytes": 177996,
+    "unique_blob_bytes": 169311,
+    "unique_blobs": 35
   },
   "excluded": [],
   "regenerable": {
