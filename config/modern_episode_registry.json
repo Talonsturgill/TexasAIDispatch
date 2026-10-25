@@ -2159,6 +2159,603 @@
           ]
         }
       ]
+    },
+    "alloy-foundry-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "ai-card",
+        "ai-panel",
+        "arm-lift",
+        "arm-vials",
+        "bay-blueprint",
+        "bench-edge",
+        "bench-overhead",
+        "calendar-months",
+        "card-dim",
+        "clamp-detail",
+        "date-field",
+        "desk-overhead",
+        "desk-pile",
+        "form-wide",
+        "furnace-glow",
+        "gauge-bench",
+        "gauge-fill",
+        "gauge-needle",
+        "goal-stamp",
+        "goal-tag",
+        "line-wide",
+        "melt-close",
+        "melt-hold",
+        "melt-pour",
+        "mesh-wide",
+        "needle-detail",
+        "outline-wide",
+        "pencil-drop",
+        "quote-card",
+        "quote-over",
+        "recipe-stream",
+        "release-desk",
+        "rig-clamp",
+        "rig-load",
+        "sample-glow",
+        "stamp-close",
+        "strip-close",
+        "tag-bench",
+        "unknown-sample",
+        "unmeasured-tag",
+        "wall-display",
+        "week-overhead",
+        "week-strip"
+      ],
+      "wall_views": [
+        "calendar-months",
+        "date-field",
+        "form-wide",
+        "quote-card",
+        "quote-over",
+        "wall-display",
+        "week-strip"
+      ],
+      "subject": "A planned automated alloy line where an AI panel proposes a recipe and a generic robotic arm mixes, melts and tests it, and the records around it: a periodic table of lit tiles and a mesh of mixes, recipe cards piling over a bench, a news release card with a dateline and grant tag, a quote card with a prediction gauge, calendar pages and a week strip, a GOAL stamp and a blank opening date field",
+      "note": "Fresh authored Claude-lane episode for 2026-10-25 (Texas A&M Engineering News of October 22nd, 2026 on the Aggie AI Foundry). Hero FoundryArmHero and support FoundrySupport are original React and SVG groups shared by both treatments. A follows the sample and the arm at bench level, B reads the same events from above the bench and through the window. Disclosed illustration of a planned lab, no brand marks, no real building, equipment, person or measured result.",
+      "narration_views": {
+        "ai-card": {
+          "subject_ids": [
+            "s9-ai",
+            "s9-arm",
+            "s9-melt",
+            "s9-test"
+          ],
+          "action_ids": [
+            "melt-answers"
+          ]
+        },
+        "ai-panel": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "arm-lift": {
+          "subject_ids": [
+            "s6-arm",
+            "s6-rig",
+            "s6-sample"
+          ],
+          "action_ids": [
+            "metal-is-tested"
+          ]
+        },
+        "arm-vials": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "bay-blueprint": {
+          "subject_ids": [
+            "s3-bay",
+            "s3-date",
+            "s3-grant",
+            "s3-release"
+          ],
+          "action_ids": [
+            "grant-announced"
+          ]
+        },
+        "bench-edge": {
+          "subject_ids": [
+            "s2-pile",
+            "s2-stream",
+            "s2-tag"
+          ],
+          "action_ids": [
+            "recipes-overwhelm"
+          ]
+        },
+        "bench-overhead": {
+          "subject_ids": [
+            "s1-count",
+            "s1-mesh",
+            "s1-table"
+          ],
+          "action_ids": [
+            "elements-mix-trillion"
+          ]
+        },
+        "calendar-months": {
+          "subject_ids": [
+            "s7-goal",
+            "s7-months",
+            "s7-week"
+          ],
+          "action_ids": [
+            "goal-week-not-months"
+          ]
+        },
+        "card-dim": {
+          "subject_ids": [
+            "s9-ai",
+            "s9-arm",
+            "s9-melt",
+            "s9-test"
+          ],
+          "action_ids": [
+            "melt-answers"
+          ]
+        },
+        "clamp-detail": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "date-field": {
+          "subject_ids": [
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date"
+          ]
+        },
+        "desk-overhead": {
+          "subject_ids": [
+            "s3-bay",
+            "s3-date",
+            "s3-grant",
+            "s3-release"
+          ],
+          "action_ids": [
+            "grant-announced"
+          ]
+        },
+        "desk-pile": {
+          "subject_ids": [
+            "s2-pile",
+            "s2-stream",
+            "s2-tag"
+          ],
+          "action_ids": [
+            "recipes-overwhelm"
+          ]
+        },
+        "form-wide": {
+          "subject_ids": [
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date"
+          ]
+        },
+        "furnace-glow": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "gauge-bench": {
+          "subject_ids": [
+            "s5-gauge",
+            "s5-quote",
+            "s5-sample"
+          ],
+          "action_ids": [
+            "computer-cannot-predict-alloy"
+          ]
+        },
+        "gauge-fill": {
+          "subject_ids": [
+            "s5-gauge",
+            "s5-quote",
+            "s5-sample"
+          ],
+          "action_ids": [
+            "computer-cannot-predict-alloy"
+          ]
+        },
+        "gauge-needle": {
+          "subject_ids": [
+            "s6-arm",
+            "s6-rig",
+            "s6-sample"
+          ],
+          "action_ids": [
+            "metal-is-tested"
+          ]
+        },
+        "goal-stamp": {
+          "subject_ids": [
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date"
+          ]
+        },
+        "goal-tag": {
+          "subject_ids": [
+            "s7-goal",
+            "s7-months",
+            "s7-week"
+          ],
+          "action_ids": [
+            "goal-week-not-months"
+          ]
+        },
+        "line-wide": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "melt-close": {
+          "subject_ids": [
+            "s9-ai",
+            "s9-arm",
+            "s9-melt",
+            "s9-test"
+          ],
+          "action_ids": [
+            "melt-answers"
+          ]
+        },
+        "melt-hold": {
+          "subject_ids": [
+            "s9-ai",
+            "s9-arm",
+            "s9-melt",
+            "s9-test"
+          ],
+          "action_ids": [
+            "melt-answers"
+          ]
+        },
+        "melt-pour": {
+          "subject_ids": [
+            "s9-ai",
+            "s9-arm",
+            "s9-melt",
+            "s9-test"
+          ],
+          "action_ids": [
+            "melt-answers"
+          ]
+        },
+        "mesh-wide": {
+          "subject_ids": [
+            "s1-count",
+            "s1-mesh",
+            "s1-table"
+          ],
+          "action_ids": [
+            "elements-mix-trillion"
+          ]
+        },
+        "needle-detail": {
+          "subject_ids": [
+            "s6-arm",
+            "s6-rig",
+            "s6-sample"
+          ],
+          "action_ids": [
+            "metal-is-tested"
+          ]
+        },
+        "outline-wide": {
+          "subject_ids": [
+            "s3-bay",
+            "s3-date",
+            "s3-grant",
+            "s3-release"
+          ],
+          "action_ids": [
+            "grant-announced"
+          ]
+        },
+        "pencil-drop": {
+          "subject_ids": [
+            "s2-pile",
+            "s2-stream",
+            "s2-tag"
+          ],
+          "action_ids": [
+            "recipes-overwhelm"
+          ]
+        },
+        "quote-card": {
+          "subject_ids": [
+            "s5-gauge",
+            "s5-quote",
+            "s5-sample"
+          ],
+          "action_ids": [
+            "computer-cannot-predict-alloy"
+          ]
+        },
+        "quote-over": {
+          "subject_ids": [
+            "s5-gauge",
+            "s5-quote",
+            "s5-sample"
+          ],
+          "action_ids": [
+            "computer-cannot-predict-alloy"
+          ]
+        },
+        "recipe-stream": {
+          "subject_ids": [
+            "s2-pile",
+            "s2-stream",
+            "s2-tag"
+          ],
+          "action_ids": [
+            "recipes-overwhelm"
+          ]
+        },
+        "release-desk": {
+          "subject_ids": [
+            "s3-bay",
+            "s3-date",
+            "s3-grant",
+            "s3-release"
+          ],
+          "action_ids": [
+            "grant-announced"
+          ]
+        },
+        "rig-clamp": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "rig-load": {
+          "subject_ids": [
+            "s6-arm",
+            "s6-rig",
+            "s6-sample"
+          ],
+          "action_ids": [
+            "metal-is-tested"
+          ]
+        },
+        "sample-glow": {
+          "subject_ids": [
+            "s6-arm",
+            "s6-rig",
+            "s6-sample"
+          ],
+          "action_ids": [
+            "metal-is-tested"
+          ]
+        },
+        "stamp-close": {
+          "subject_ids": [
+            "s3-bay",
+            "s3-date",
+            "s3-grant",
+            "s3-release",
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date",
+            "grant-announced"
+          ]
+        },
+        "strip-close": {
+          "subject_ids": [
+            "s7-goal",
+            "s7-months",
+            "s7-week"
+          ],
+          "action_ids": [
+            "goal-week-not-months"
+          ]
+        },
+        "tag-bench": {
+          "subject_ids": [
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date"
+          ]
+        },
+        "unknown-sample": {
+          "subject_ids": [
+            "s5-gauge",
+            "s5-quote",
+            "s5-sample"
+          ],
+          "action_ids": [
+            "computer-cannot-predict-alloy"
+          ]
+        },
+        "unmeasured-tag": {
+          "subject_ids": [
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date"
+          ]
+        },
+        "wall-display": {
+          "subject_ids": [
+            "s1-count",
+            "s1-mesh",
+            "s1-table"
+          ],
+          "action_ids": [
+            "elements-mix-trillion"
+          ]
+        },
+        "week-overhead": {
+          "subject_ids": [
+            "s7-goal",
+            "s7-months",
+            "s7-week"
+          ],
+          "action_ids": [
+            "goal-week-not-months"
+          ]
+        },
+        "week-strip": {
+          "subject_ids": [
+            "s7-goal",
+            "s7-months",
+            "s7-week"
+          ],
+          "action_ids": [
+            "goal-week-not-months"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx",
+          "export": "FoundryArmHero",
+          "views": [
+            "ai-card",
+            "ai-panel",
+            "arm-lift",
+            "arm-vials",
+            "card-dim",
+            "clamp-detail",
+            "furnace-glow",
+            "gauge-needle",
+            "line-wide",
+            "melt-close",
+            "melt-hold",
+            "melt-pour",
+            "needle-detail",
+            "rig-clamp",
+            "rig-load",
+            "sample-glow"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx",
+          "export": "FoundrySupport",
+          "views": [
+            "ai-card",
+            "ai-panel",
+            "arm-lift",
+            "arm-vials",
+            "bay-blueprint",
+            "bench-edge",
+            "bench-overhead",
+            "calendar-months",
+            "card-dim",
+            "clamp-detail",
+            "date-field",
+            "desk-overhead",
+            "desk-pile",
+            "form-wide",
+            "furnace-glow",
+            "gauge-bench",
+            "gauge-fill",
+            "gauge-needle",
+            "goal-stamp",
+            "goal-tag",
+            "line-wide",
+            "melt-close",
+            "melt-hold",
+            "melt-pour",
+            "mesh-wide",
+            "needle-detail",
+            "outline-wide",
+            "pencil-drop",
+            "quote-card",
+            "quote-over",
+            "recipe-stream",
+            "release-desk",
+            "rig-clamp",
+            "rig-load",
+            "sample-glow",
+            "stamp-close",
+            "strip-close",
+            "tag-bench",
+            "unknown-sample",
+            "unmeasured-tag",
+            "wall-display",
+            "week-overhead",
+            "week-strip"
+          ]
+        }
+      ]
     }
   }
 }
