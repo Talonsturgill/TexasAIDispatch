@@ -67,14 +67,27 @@ export function armPose(c:number,P:Pt,tilt=0):ArmPose{
  return {c,S,E,W,P,th1,th2,tilt};
 }
 /** The gripper finger tips' half gap when open and when holding each object. */
-export const GAP={open:46,tubes:33,crucible:42,sample:7,closed:5};
+export const GAP={open:46,tubes:33,crucible:36,sample:7,closed:5,release:20,port:38};
 
 /** Furnace and rig geometry, base centre at the origin. */
 export const FURNACE={half:70,top:-128,back:-150,portY:-139,portRx:46,portRy:9};
-/** The ram rests high (its pad at -232) and the open clamps sit at -164, so the arm can hold a sample on
- * the anvils with its wrist, gripper and forearm below the ram and clear of the crosshead and dial. */
-export const RIG={half:80,col:64,crossY:-304,anvil:36,anvilTop:-96,dial:[0,-338] as Pt,dialR:30,ramRest:-232,ramContact:-112,clampUp:-164,clampDown:-110,sampleLen:104,
- binX:118,binW:58};
+/** The ram rests high (its pad at -232, touching the bar's top at -106) and the open clamps sit at -164, so the arm can hold a sample on
+ * the anvils with its wrist and gripper below the ram and clear of the crosshead and dial. `clampP` 1 brings
+ * the pads to -110, just over the bar, and `seat` (1.074) seats them on it; a negative `clampP` draws the
+ * clamps up toward the crosshead (`lift`, -1.6, puts the pads at -262 to -250) to clear the rig for a mold and a pour.
+ * The frame is open front and back: the workpiece leaves and arrives through the rear feed (`feedY`, a slot
+ * behind the base), never sideways through a column. */
+export const RIG={half:80,col:64,crossY:-304,anvil:36,anvilTop:-96,dial:[0,-338] as Pt,dialR:30,ramRest:-232,ramContact:-106,clampUp:-164,clampDown:-110,sampleLen:84,clampX:40,
+ seat:1.074,lift:-1.6,feedY:-58,
+ /** past contact (ram 1) the pad follows the sag of the bar under its flat face (14.3 units at bend 1, which the film reaches at ram 1.85) */
+ press:14.3/.85,
+ /** the frame is not symmetric: the left column stands wider out (centre -92), so a tipped crucible fits
+  * between it and the right column (centre col) */
+ colL:-92,crossL:-107,baseL:-102};
+/** Where a workpiece is drawn while it moves through the rear feed: `back` 0 on the anvils, 1 slid back
+ * behind the frame (raised a little and smaller with depth), 2 dropped out of sight into the feed. */
+export function feedTransform(back:number,y0:number):string{const d=Math.min(back,1),h=Math.max(0,back-1);
+ return `translate(0 ${(y0-10*d+80*h).toFixed(2)}) scale(${(1-.12*d).toFixed(4)})`;}
 export const CRUCIBLE={h:64,top:38,bottom:26,hold:-46};
 
 // ---- small shared drawings -------------------------------------------------------------------------
@@ -266,16 +279,16 @@ const FurnaceFront:React.FC<{glow:number}>=({glow})=>{
 
 // ---- sample, mold and stream ------------------------------------------------------------------------
 /** Centre of the bar at the origin, lying along x. `temp` 0 gray to 1 glowing amber; `bend` 0..1 the
- * mid-span sag under the ram. */
+ * mid-span sag under the ram, between the anvils' inner edges only: over the anvils the bar stays flat. */
 const Sample:React.FC<{temp:number;bend?:number;len?:number}>=({temp,bend=0,len=RIG.sampleLen})=>{
  const P=HERO_PAINT,h=10,s=bend*15,L=len/2,id=useUid('fah-s');
  const col=temp>0?mix('#9AA0A4',temp<.5?'#C9603A':P.hot,clamp(temp*1.4)):'#9AA0A4';
- const top=`M${-L} ${-h/2}Q0 ${f2(-h/2+2*s)} ${L} ${-h/2}`,bot=`L${L} ${h/2}Q0 ${f2(h/2+2*s)} ${-L} ${h/2}Z`;
+ const xi=Math.min(L,RIG.anvil-7),top=`M${-L} ${-h/2}L${-xi} ${-h/2}Q0 ${f2(-h/2+2*s)} ${xi} ${-h/2}L${L} ${-h/2}`,bot=`L${L} ${h/2}L${xi} ${h/2}Q0 ${f2(h/2+2*s)} ${-xi} ${h/2}L${-L} ${h/2}Z`;
  return <g data-part="sample">
   <defs><radialGradient id={id} cx=".5" cy=".5" r=".5"><stop offset="0" stopColor={P.hot} stopOpacity={.6}/><stop offset="1" stopColor={P.amber} stopOpacity={0}/></radialGradient></defs>
   {temp>.05&&<ellipse cx={0} cy={s} rx={L*1.5} ry={34} fill={`url(#${id})`} opacity={temp}/>}
   <path d={top+bot} fill={col} stroke={P.trim} strokeWidth={2}/>
-  <path d={`M${-L+5} ${-h/2+2}Q0 ${f2(-h/2+2+2*s)} ${L-5} ${-h/2+2}`} stroke={temp>.3?P.core:'#D7DCDF'} strokeWidth={2} fill="none" opacity={.85}/>
+  <path d={`M${-L+5} ${-h/2+2}L${-xi} ${-h/2+2}Q0 ${f2(-h/2+2+2*s)} ${xi} ${-h/2+2}L${L-5} ${-h/2+2}`} stroke={temp>.3?P.core:'#D7DCDF'} strokeWidth={2} fill="none" opacity={.85}/>
   {[-.6,-.2,.25].map((u,k)=><path key={k} d={`M${f2(u*L)} ${f2(-1+s*(1-u*u))}l6 2`} stroke={P.steelDark} strokeWidth={1} opacity={.4*(1-temp)}/>)}
  </g>;};
 /** The sample mold, its base centre at the origin (it sits on the rig's anvils). */
@@ -308,40 +321,54 @@ function mix(a:string,b:string,p:number){
 /** Base centre at the origin. `ram` 0 at rest to 1 in contact (beyond 1 it presses: the sample bends),
  * `clamp` 0 open to 1 closed, `needle` degrees from rest. The rig carries the sample or the mold that
  * the arm has set on it. */
-type RigSample={temp:number;bend:number;dx?:number;dy?:number;rot?:number};
-type RigMold={fill:number;glow:number;dx?:number};
-const Rig:React.FC<{ram:number;clampP:number;needle:number;sample?:RigSample|null;mold?:RigMold|null;warm?:number;chute?:number;binned?:RigSample|null}>=
- ({ram,clampP,needle,sample,mold,warm=0,chute=0,binned=null})=>{
+type RigSample={temp:number;bend:number;back?:number};
+type RigMold={fill:number;glow:number;back?:number};
+const Rig:React.FC<{ram:number;clampP:number;needle:number;sample?:RigSample|null;mold?:RigMold|null;warm?:number;feed?:number;ratchet?:number}>=
+ ({ram,clampP,needle,sample,mold,warm=0,feed=0,ratchet=0})=>{
  const P=HERO_PAINT,{half,col,crossY,anvil,anvilTop,dial,dialR}=RIG,id=useUid('fah-rig');
- const ramTip=lerp(RIG.ramRest,RIG.ramContact,Math.min(ram,1))+Math.max(0,ram-1)*14;
+ const ramTip=lerp(RIG.ramRest,RIG.ramContact,Math.min(ram,1))+Math.max(0,ram-1)*RIG.press;
  const clampY=lerp(RIG.clampUp,RIG.clampDown,clampP);
  return <g data-part="test-rig">
   <defs><linearGradient id={id+'c'} x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor={P.steelLit}/><stop offset=".5" stopColor={P.steel}/><stop offset="1" stopColor={P.steelDark}/></linearGradient></defs>
-  <ellipse cx={10} cy={2} rx={half+16} ry={7} fill="#1A1D20" opacity={.22}/>
-  {[-col,col].map(x=><rect key={x} x={x-9} y={crossY} width={18} height={-crossY} fill={`url(#${id}c)`} stroke={P.trim} strokeWidth={2.2}/>)}
-  <rect x={-half} y={-16} width={2*half} height={16} rx={3} fill={P.steelDark} stroke={P.trim} strokeWidth={2.4}/>
+  <ellipse cx={(RIG.baseL+half)/2+10} cy={2} rx={(half-RIG.baseL)/2+16} ry={7} fill="#1A1D20" opacity={.22}/>
+  {/* behind the frame: the rear feed slot and anything travelling through it, cut off at the base */}
+  <defs><clipPath id={id+'k'}><rect x={RIG.baseL} y={crossY} width={half-RIG.baseL} height={-16-crossY}/></clipPath></defs>
+  {feed>0&&<g opacity={f2(clamp(feed))} data-part="rig-rear-feed">
+   <rect x={-50} y={RIG.feedY} width={100} height={-16-RIG.feedY} rx={4} fill="#1E2226" stroke={P.trim} strokeWidth={2}/>
+   <path d={`M-46 ${RIG.feedY+4}H46`} stroke={P.steelLit} strokeWidth={2} opacity={.5}/></g>}
+  <g clipPath={`url(#${id}k)`}>
+   {mold&&(mold.back??0)>0&&<g transform={feedTransform(mold.back??0,anvilTop)}><Mold fill={mold.fill} glow={mold.glow}/></g>}
+   {sample&&(sample.back??0)>0&&<g transform={feedTransform(sample.back??0,anvilTop-5)}><Sample temp={sample.temp} bend={sample.bend}/></g>}
+  </g>
+  {[RIG.colL,col].map(x=><rect key={x} x={x-9} y={crossY} width={18} height={-crossY} fill={`url(#${id}c)`} stroke={P.trim} strokeWidth={2.2}/>)}
+  <rect x={RIG.baseL} y={-16} width={half-RIG.baseL} height={16} rx={3} fill={P.steelDark} stroke={P.trim} strokeWidth={2.4}/>
   {[-anvil,anvil].map(x=><path key={x} d={`M${x-12} -16L${x-7} ${anvilTop}L${x+7} ${anvilTop}L${x+12} -16Z`} fill={P.steel} stroke={P.trim} strokeWidth={2}/>)}
-  {/* s9's feed shelf and sample bin on the rig's right side: the tested bar leaves into the bin and the
-     next mold slides in along the shelf */}
-  {chute>0&&<g opacity={f2(clamp(chute))} data-part="rig-shelf">
-   <rect x={RIG.binX-RIG.binW/2} y={-44} width={RIG.binW} height={44} rx={4} fill={P.steelDark} stroke={P.trim} strokeWidth={2}/>
-   <path d={`M${RIG.binX-RIG.binW/2+4} -40H${RIG.binX+RIG.binW/2-6}`} stroke={P.steelLit} strokeWidth={2} opacity={.6}/>
-   {binned&&<g transform={`translate(${RIG.binX} -34) rotate(-8)`}><Sample temp={binned.temp} bend={binned.bend} len={RIG.sampleLen*.55}/></g>}
-   <path d={`M${anvil+8} ${anvilTop}L${RIG.binX+40} ${anvilTop}L${RIG.binX+40} ${anvilTop+8}L${anvil+8} ${anvilTop+8}Z`} fill={P.steel} stroke={P.trim} strokeWidth={1.8}/>
-  </g>}
-  {mold&&<g transform={`translate(${f2(mold.dx??0)} ${anvilTop})`}><Mold fill={mold.fill} glow={mold.glow}/></g>}
-  {sample&&<g transform={`translate(${f2(sample.dx??0)} ${f2(anvilTop-5+(sample.dy??0))}) rotate(${f2(sample.rot??0)})`}><Sample temp={sample.temp} bend={sample.bend}/></g>}
+  {mold&&!((mold.back??0)>0)&&<g transform={`translate(0 ${anvilTop})`}><Mold fill={mold.fill} glow={mold.glow}/></g>}
+  {sample&&!((sample.back??0)>0)&&<g transform={`translate(0 ${anvilTop-5})`}><Sample temp={sample.temp} bend={sample.bend}/></g>}
   {/* the clamps over each end */}
   {[-1,1].map(s=><g key={s}>
-   <rect x={s*46-8} y={crossY+40} width={16} height={clampY-crossY-40} fill={P.steelDark} opacity={.9}/>
-   <rect x={s*46-14} y={clampY-12} width={28} height={12} rx={3} fill={P.steelDeep} stroke={P.trim} strokeWidth={2}/>
+   <rect x={s*RIG.clampX-8} y={crossY+40} width={16} height={f2(Math.max(0,clampY-crossY-40))} fill={P.steelDark} opacity={.9}/>
+   <rect x={s*RIG.clampX-14} y={f2(clampY-12)} width={28} height={12} rx={3} fill={P.steelDeep} stroke={P.trim} strokeWidth={2}/>
   </g>)}
   {/* the ram */}
   <rect x={-11} y={crossY+20} width={22} height={ramTip-crossY-28} fill={`url(#${id}c)`} stroke={P.trim} strokeWidth={2}/>
   <path d={`M-16 ${ramTip-10}H16L6 ${ramTip}H-6Z`} fill={P.steelDeep} stroke={P.trim} strokeWidth={2}/>
-  <rect x={-half-6} y={crossY-4} width={2*half+12} height={30} rx={5} fill={P.steel} stroke={P.trim} strokeWidth={2.6}/>
-  <path d={`M${-half} ${crossY+3}H${half-10}`} stroke={P.steelLit} strokeWidth={4} strokeLinecap="round"/>
-  <Bolt x={-half+4} y={crossY+16}/><Bolt x={half-4} y={crossY+16} rust/>
+  <rect x={RIG.crossL} y={crossY-4} width={half+6-RIG.crossL} height={30} rx={5} fill={P.steel} stroke={P.trim} strokeWidth={2.6}/>
+  <path d={`M${RIG.crossL+6} ${crossY+3}H${half-10}`} stroke={P.steelLit} strokeWidth={4} strokeLinecap="round"/>
+  <Bolt x={RIG.crossL+10} y={crossY+16}/><Bolt x={half-4} y={crossY+16} rust/>
+  {/* each clamp's ratchet wheel on the crosshead's face, over its screw: it turns a tooth per click as the
+     pad is screwed down, with its pawl dropping into the teeth */}
+  {[-1,1].map(s=><g key={'r'+s}>
+   <g transform={`translate(${s*RIG.clampX} ${crossY+11}) rotate(${f2(s*45*ratchet)})`}>
+    <circle cx={0} cy={0} r={8} fill={P.steelDark} stroke={P.trim} strokeWidth={1.8}/>
+    {Array.from({length:8},(_,k)=>{const a=k*45*RAD;return <path key={k} d={`M${f2(Math.cos(a)*8)} ${f2(Math.sin(a)*8)}L${f2(Math.cos(a+.3)*11)} ${f2(Math.sin(a+.3)*11)}L${f2(Math.cos(a+.6)*8)} ${f2(Math.sin(a+.6)*8)}`} fill={P.steelDark} stroke={P.trim} strokeWidth={1.2}/>;})}
+    <circle cx={0} cy={0} r={2.6} fill={P.steelLit}/></g>
+   <path d={`M${s*(RIG.clampX+20)} ${crossY+2}l${s*-8} 6`} stroke={P.trim} strokeWidth={3} strokeLinecap="round"/>
+   {/* the ratchet's lever: each click it swings out and back while the wheel advances a tooth */}
+   <g transform={`translate(${s*RIG.clampX} ${crossY+11}) rotate(${f2(s*(20+34*Math.sin(Math.PI*(ratchet-Math.floor(ratchet)))))})`}>
+    <rect x={-3} y={-32} width={6} height={32} rx={3} fill={P.steel} stroke={P.trim} strokeWidth={1.6}/>
+    <circle cx={0} cy={-32} r={5} fill={P.rubber} stroke={P.trim} strokeWidth={1.4}/></g>
+  </g>)}
   {warm>0&&<path d={`M${col+9} ${crossY+30}V-20`} stroke={P.hot} strokeWidth={3} opacity={.4*warm}/>}
   {/* the dial gauge on the crosshead */}
   <rect x={-6} y={dial[1]+dialR-4} width={12} height={crossY-dial[1]-dialR+6} fill={P.steelDark}/>
@@ -382,7 +409,7 @@ const Bed:React.FC<{x0:number;x1:number;floor:number;glowX?:number;glow?:number}
 /** Plan units share the line's x; y is depth (the bed's centre line on y 0, the rail behind at negative
  * y). The arm is drawn from above as its carriage, two articulated segments and a gripper; height shows
  * only as the offset of the shadow under the wrist and what it holds. */
-export const PLAN={bedHalf:60,railY:-104,wireY:-150,L1:170,L2:160,x0:-440,x1:440,panel:[330,-6] as Pt};
+export const PLAN={bedHalf:60,railY:-104,wireY:-150,L1:170,L2:160,x0:-440,x1:440,panel:[330,-6] as Pt,cru:-170,furn:-40,rig:142};
 export type PlanPose={c:number;S:Pt;E:Pt;W:Pt};
 /** Two-link plan inverse kinematics from the carriage's shoulder to the wrist, the elbow always on the rail
  * side (behind), so the drawing never flips. Pure. */
@@ -422,7 +449,7 @@ const PlanArm:React.FC<{pose:PlanPose;gap:number;lift:number;held?:React.ReactNo
  * the furnace with its port glowing, and the test rig turned so its crosshead runs front to back over the
  * sample, which stays visible on both sides. */
 export type PlanState={rackTaken:boolean;crucible:{where:'pad'|'held'|'furnace'|'none';fill:number;glow:number;mixed:number};furnace:number;
- rig:{ram:number;clampP:number;needle:number;sample:{temp:number;bend:number;dx?:number}|null;mold:{fill:number;glow:number;dx?:number}|null;binned?:boolean;chute?:number}};
+ rig:{ram:number;clampP:number;needle:number;sample:{temp:number;bend:number;back?:number}|null;mold:{fill:number;glow:number;back?:number}|null;feed?:number}};
 export const PlanCrucible:React.FC<{fill:number;glow:number;tilt?:number}>=({fill,glow,tilt=0})=>{const P=HERO_PAINT,sq=Math.max(.35,Math.cos(tilt*RAD));
  return <g transform={`rotate(${f2(tilt*.15)}) scale(${f2(sq)} 1)`} data-part="plan-crucible">
   {glow>0&&<circle cx={0} cy={0} r={58} fill={P.hot} opacity={.22*glow}/>}
@@ -448,33 +475,32 @@ const PlanStations:React.FC<{st:PlanState;t:number}>=({st,t})=>{
   <path d={`M${PLAN.x0+8} ${PLAN.railY-6}H${PLAN.x1-8}`} stroke={P.steelLit} strokeWidth={2} opacity={.5}/>
   <rect x={PLAN.x0} y={-PLAN.bedHalf} width={PLAN.x1-PLAN.x0} height={2*PLAN.bedHalf} rx={6} fill={P.bedTop} stroke={P.trim} strokeWidth={2.6}/>
   <path d={`M${PLAN.x0+10} ${-PLAN.bedHalf+6}H${PLAN.x1-10}`} stroke="#FFFFFF" strokeWidth={3} opacity={.35}/>
-  {st.furnace>0&&<ellipse cx={-10} cy={0} rx={190} ry={90} fill={P.hot} opacity={.16*st.furnace}/>}
+  {st.furnace>0&&<ellipse cx={PLAN.furn} cy={0} rx={190} ry={90} fill={P.hot} opacity={.16*st.furnace}/>}
   {/* the tube rack */}
   <g transform="translate(-290 0)"><rect x={-62} y={-24} width={124} height={48} rx={6} fill={P.steel} stroke={P.trim} strokeWidth={2.2}/>
    {TUBES.map((c,k)=><g key={k}><circle cx={(k-2)*TUBE.pitch} cy={0} r={8} fill={P.steelDeep}/>
     {!(st.rackTaken&&RECIPE.includes(k))&&<g><circle cx={(k-2)*TUBE.pitch} cy={0} r={8} fill={P_GLASS} stroke={P.trim} strokeWidth={1.4}/><circle cx={(k-2)*TUBE.pitch} cy={0} r={5} fill={c}/></g>}</g>)}</g>
   {/* the crucible pad and, when it is there, the crucible */}
-  <rect x={-150-42} y={-42} width={84} height={84} rx={8} fill="#7B6E62" stroke={P.trim} strokeWidth={2}/>
-  {st.crucible.where==='pad'&&<g transform="translate(-150 0)"><PlanCrucible fill={st.crucible.fill} glow={st.crucible.glow}/></g>}
+  <rect x={PLAN.cru-42} y={-42} width={84} height={84} rx={8} fill="#7B6E62" stroke={P.trim} strokeWidth={2}/>
+  {st.crucible.where==='pad'&&<g transform={`translate(${PLAN.cru} 0)`}><PlanCrucible fill={st.crucible.fill} glow={st.crucible.glow}/></g>}
   {/* the furnace and its port */}
-  <g transform="translate(-10 0)"><rect x={-70} y={-70} width={140} height={140} rx={10} fill={P.refractory} stroke={P.trim} strokeWidth={2.6}/>
+  <g transform={`translate(${PLAN.furn} 0)`}><rect x={-70} y={-70} width={140} height={140} rx={10} fill={P.refractory} stroke={P.trim} strokeWidth={2.6}/>
    <rect x={-62} y={-62} width={124} height={124} rx={8} fill="none" stroke={P.refShade} strokeWidth={3}/>
    <circle cx={0} cy={0} r={46} fill="#2A1E16" stroke={P.trim} strokeWidth={2.4}/>
    {st.furnace>0&&<circle cx={0} cy={0} r={40} fill={P.hot} opacity={st.furnace}/>}
    {st.furnace>0&&<circle cx={-6} cy={-6} r={20+3*Math.sin(t*5)} fill={P.core} opacity={.8*st.furnace}/>}
    <rect x={50} y={-62} width={14} height={124} rx={4} fill={P.refShade}/></g>
   {/* the test rig, crosshead front to back over the sample */}
-  <g transform="translate(142 0)">
-   <rect x={-R.half} y={-50} width={2*R.half} height={100} rx={6} fill={P.steelDark} stroke={P.trim} strokeWidth={2.4}/>
+  <g transform={`translate(${PLAN.rig} 0)`}>
+   <rect x={R.baseL} y={-50} width={R.half-R.baseL} height={100} rx={6} fill={P.steelDark} stroke={P.trim} strokeWidth={2.4}/>
    {[-R.anvil,R.anvil].map(x=><rect key={x} x={x-9} y={-22} width={18} height={44} rx={3} fill={P.steel} stroke={P.trim} strokeWidth={1.6}/>)}
-   {rig.chute&&rig.chute>0?<g opacity={f2(clamp(rig.chute))}><rect x={R.binX-R.binW/2} y={-34} width={R.binW} height={68} rx={5} fill="#262C31" stroke={P.trim} strokeWidth={2}/>
-    <rect x={R.anvil+8} y={-10} width={R.binX+40-R.anvil-8} height={20} rx={3} fill={P.steel} opacity={.8}/>
-    {rig.binned&&<g transform={`translate(${R.binX} 4) rotate(-12)`}><PlanBar temp={.1} len={R.sampleLen*.55}/></g>}</g>:null}
-   {rig.mold&&<g transform={`translate(${f2(rig.mold.dx??0)} 0)`}><rect x={-50} y={-26} width={100} height={52} rx={5} fill={P.steelDark} stroke={P.trim} strokeWidth={2}/>
+   {/* the rear feed at the rig's back edge: the bar leaves and the mold arrives through it, front to back */}
+   {(rig.feed??0)>0&&<g opacity={f2(clamp(rig.feed??0))}><rect x={-54} y={-62} width={108} height={14} rx={4} fill="#1E2226" stroke={P.trim} strokeWidth={2}/></g>}
+   {rig.mold&&<g transform={`translate(0 ${f2(-56*Math.min(rig.mold.back??0,1))})`} opacity={f2(1-clamp((rig.mold.back??0)-1))}><rect x={-50} y={-26} width={100} height={52} rx={5} fill={P.steelDark} stroke={P.trim} strokeWidth={2}/>
     <rect x={-38} y={-12} width={76} height={24} rx={3} fill="#1E2226"/>{rig.mold.fill>0&&<rect x={-36} y={-10} width={f2(72*rig.mold.fill)} height={20} rx={3} fill={P.hot}/>}
     {rig.mold.glow>0&&<rect x={-60} y={-36} width={120} height={72} rx={30} fill={P.hot} opacity={.25*rig.mold.glow}/>}</g>}
-   {rig.sample&&<g transform={`translate(${f2(rig.sample.dx??0)} 0)`}><PlanBar temp={rig.sample.temp}/></g>}
-   {[-1,1].map(s=><rect key={s} x={s*46-12} y={f2(-30-clampOff)} width={24} height={f2(60+2*clampOff)} rx={4} fill="none" stroke={P.steelDeep} strokeWidth={5}/>)}
+   {rig.sample&&<g transform={`translate(0 ${f2(-56*Math.min(rig.sample.back??0,1))})`} opacity={f2(1-clamp((rig.sample.back??0)-1))}><PlanBar temp={rig.sample.temp}/></g>}
+   {[-1,1].map(s=><rect key={s} x={s*R.clampX-12} y={f2(-30-clampOff)} width={24} height={f2(60+2*clampOff)} rx={4} fill="none" stroke={P.steelDeep} strokeWidth={5}/>)}
    {[-1,1].map(s=><rect key={'c'+s} x={-9} y={s>0?40:-58} width={18} height={18} rx={3} fill={P.steel} stroke={P.trim} strokeWidth={2}/>)}
    <rect x={-11} y={-66} width={22} height={132} rx={5} fill={P.steel} stroke={P.trim} strokeWidth={2.4} opacity={.92}/>
    <circle cx={0} cy={0} r={f2(13+4*clamp(rig.ram))} fill={P.steelDeep} stroke={P.trim} strokeWidth={2}/>
@@ -494,7 +520,7 @@ export type FoundryArmHeroProps=
  |{part:'crucible';fill:number;glow:number;mixed?:number}
  |{part:'furnaceBack';glow:number;t:number}
  |{part:'furnaceFront';glow:number}
- |{part:'rig';ram:number;clampP:number;needle:number;sample?:RigSample|null;mold?:RigMold|null;warm?:number;chute?:number;binned?:RigSample|null}
+ |{part:'rig';ram:number;clampP:number;needle:number;sample?:RigSample|null;mold?:RigMold|null;warm?:number;feed?:number;ratchet?:number}
  |{part:'planArm';pose:PlanPose;gap:number;lift:number;held?:React.ReactNode;warm?:number}
  |{part:'planStations';st:PlanState;t:number}
  |{part:'planCrucible';fill:number;glow:number;tilt?:number}
@@ -511,7 +537,7 @@ export const FoundryArmHero:React.FC<FoundryArmHeroProps>=(props)=>{
  case 'crucible':return <Crucible fill={props.fill} glow={props.glow} mixed={props.mixed}/>;
  case 'furnaceBack':return <FurnaceBack glow={props.glow} t={props.t}/>;
  case 'furnaceFront':return <FurnaceFront glow={props.glow}/>;
- case 'rig':return <Rig ram={props.ram} clampP={props.clampP} needle={props.needle} sample={props.sample} mold={props.mold} warm={props.warm} chute={props.chute} binned={props.binned}/>;
+ case 'rig':return <Rig ram={props.ram} clampP={props.clampP} needle={props.needle} sample={props.sample} mold={props.mold} warm={props.warm} feed={props.feed} ratchet={props.ratchet}/>;
  case 'planArm':return <PlanArm pose={props.pose} gap={props.gap} lift={props.lift} held={props.held} warm={props.warm}/>;
  case 'planStations':return <PlanStations st={props.st} t={props.t}/>;
  case 'planCrucible':return <PlanCrucible fill={props.fill} glow={props.glow} tilt={props.tilt}/>;

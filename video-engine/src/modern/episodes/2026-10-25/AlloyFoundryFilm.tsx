@@ -4,7 +4,7 @@ import {FONT,widthOf} from '../../../lib/type';
 import {useArtDirection} from '../../../lib/artDirection';
 import {actionProgress,actionWindows,requireNarration,type ActionWindow,type DirectedScene} from '../../../lib/direction';
 import type {FilmRenderProps} from '../../types';
-import {FoundryArmHero,armPose,planPose,GAP,RIG,CRUCIBLE,TUBE,PLAN,type ArmPose,type PlanState} from './FoundryArmHero';
+import {FoundryArmHero,armPose,planPose,GAP,RIG,CRUCIBLE,TUBE,PLAN,ARM,type ArmPose,type PlanState} from './FoundryArmHero';
 import {FoundrySupport,CABINET,CANDIDATE,CARD,PANEL,QUOTE,quoteHeight,FORM,RELEASE,WEEK_W,WEEK_H,LEDGER,SHEET_PLAN} from './FoundrySupport';
 
 /**
@@ -20,10 +20,17 @@ import {FoundrySupport,CABINET,CANDIDATE,CARD,PANEL,QUOTE,quoteHeight,FORM,RELEA
  * the port) and the arm holds it in the rig as the clamps close. In s5 the arm lets go and parks clear of
  * the rig while the AI panel's screen becomes the computer's prediction gauge over that same clamped,
  * cooling sample: it fills partway, then pointed at the sample it drains, tries and stays empty. s6
- * continues on it: it cools to gray, the ram comes down and loads it, it bends and the needle swings. s9
- * starts the next candidate plainly: a new recipe card with different swatches replaces the old one on the
- * panel while the rig sets the bent bar aside into its bin and a mold slides onto the anvils, then the arm
- * pours the melt. A PLANNED sign hangs over the line in every line scene.
+ * continues on it: the clamps ratchet down and seat on it as it cools, the ram comes down and loads it, it
+ * bends and the needle swings. s9 starts the next candidate in cause order: a new recipe card with different
+ * swatches replaces the old one on the panel while the rig draws its clamps up, retracts its ram and sends the
+ * bent bar out its rear feed for a mold; only after the card has written does the arm grip the next crucible
+ * in the furnace, lift it out and carry it in through the rig's open front, where it tips about its wrist
+ * inside the frame's free space and fills the mold. A PLANNED sign hangs over the line in every line scene.
+ *
+ * Depth, stated because an elevation can't show it: the rig is open front and back. The arm's links reach in
+ * through the open front and pass in front of the left column and the left clamp (they cast a soft shadow on
+ * the frame), and a tool travelling in or out (LineState.front) is drawn in front of the frame; once at the
+ * workpiece the tool, the held crucible or bar, the mold and the ram keep clear of every part of the rig.
  *
  * Treatment A watches the line side on at bench level, the records face on (easel, desk, wall). Treatment
  * B is a different argument: the line is a floor plan on a dark drafting sheet titled Aggie AI Foundry and
@@ -59,15 +66,22 @@ const hash=(i:number,k:number)=>(((i*73+k*151)%1000)+1000)%1000/1000;
 // ---- the sample line (line units, the bed's working surface on y 0) --------------------------------
 /** The crucible pad's top: the crucible stands this far above the bed surface. */
 export const PAD_TOP=4;
-export const LINE={x0:-440,x1:440,floor:330,rack:-290,cru:-150,furn:-10,rig:142,panel:330,wireY:-452,reach:110,rigReach:270,postX:-352,
+export const LINE={x0:-440,x1:440,floor:330,rack:-290,cru:-170,furn:-40,rig:142,panel:330,wireY:-452,reach:110,rigReach:320,postX:-352,
  clipX:-326,cardScale:.74,signX:-80,plates:[-220,236]};
 /** The grip points the arm works to. At the rig the arm reaches with its carriage LINE.rigReach to the left,
  * so its elbow sits left of the crosshead and the forearm passes under the resting ram. `park` holds the
- * arm clear of the rig over the furnace. */
-export const STATION={hover:[-290,-150] as Pt,tubes:[-290,TUBE.grip] as Pt,drop:[-150,-132] as Pt,cru:[-150,CRUCIBLE.hold-PAD_TOP] as Pt,
- furnIn:[-10,-115] as Pt,sampleIn:[-10,-108] as Pt,rig:[142,RIG.anvilTop-5] as Pt,park:[-40,-240] as Pt,pourHover:[20,-262] as Pt,pour:[94,-190] as Pt,pourBack:[60,-188] as Pt};
-/** s9's carriage: held still while the arm pours, its elbow left of the rig at every tilt. */
-export const POUR_CARRIAGE=-180;
+ * arm clear of the rig over the furnace; `lift` is over the furnace with the crucible's foot above the port. */
+export const STATION={hover:[-290,-150] as Pt,tubes:[-290,TUBE.grip] as Pt,drop:[LINE.cru,-132] as Pt,cru:[LINE.cru,CRUCIBLE.hold-PAD_TOP] as Pt,
+ furnIn:[LINE.furn,-122] as Pt,sampleIn:[LINE.furn,-108] as Pt,rig:[LINE.rig,RIG.anvilTop-5] as Pt,park:[-40,-240] as Pt,lift:[LINE.furn,-200] as Pt};
+/** s9's pour, defined at the wrist so the crucible turns about the arm's own wrist joint: upright at W0, the
+ * wrist easing right to W1 as it tips to POUR.tilt. With the rig's clamps drawn up (RIG.lift) and its ram
+ * retracted, the crucible and its whole tilt path stay inside the frame's free space: right of the left
+ * column, left of the right column, under the lifted pads and above the mold. The carriage holds still. */
+export const POUR={W0:[LINE.rig,-234] as Pt,W1:[LINE.rig+10,-226] as Pt,tilt:45,reach:307,carriage:LINE.rig-307,streamFrom:34};
+/** The crucible's foot swings lowest part way through the tip, so the wrist rises a little mid-tip to keep it
+ * clear of the mold's rim. */
+export const pourGrip=(tilt:number):Pt=>{const u=clamp(tilt/POUR.tilt),a=tilt*Math.PI/180,W0=lerpPt(POUR.W0,POUR.W1,u),W:Pt=[W0[0],W0[1]-8*Math.sin(Math.PI*u)];
+ return [W[0]-ARM.grip*Math.sin(a),W[1]+ARM.grip*Math.cos(a)];};
 export const poseAt=(P:Pt,tilt=0,reach:number=LINE.reach):ArmPose=>armPose(P[0]-reach,P,tilt);
 /** The held crucible's pour lip in line units: the lip tip in crucible units moved into the tool frame
  * (its base CRUCIBLE.hold below the grip) and turned with the tilt. Pure. */
@@ -79,10 +93,12 @@ export function crucibleLip(pose:ArmPose):Pt{
 const G=2600;
 
 type Held='none'|'tubes'|'crucible'|'sample';
-type RigState={ram:number;clampP:number;needle:number;sample:{temp:number;bend:number;dx?:number;dy?:number;rot?:number}|null;
- mold:{fill:number;glow:number;dx?:number}|null;chute:number;binned:{temp:number;bend:number}|null};
+type RigState={ram:number;clampP:number;needle:number;sample:{temp:number;bend:number;back?:number}|null;
+ mold:{fill:number;glow:number;back?:number}|null;feed:number;ratchet:number};
 type PanelState={write:number;glow:number;dim:number;sent:number;next:number;gauge:{show:number;fill:number;search:number}|null};
 export type LineState={P:Pt;tilt:number;reach:number;carriage:number|null;gap:number;held:Held;rackTaken:boolean;fallY:number|null;
+ /** the tool is travelling through the rig's open front (drawn in front of the frame), not yet at the workpiece */
+ front:boolean;
  crucible:{where:'pad'|'held'|'furnace'|'none';fill:number;glow:number;mixed:number};furnace:number;heldTemp:number;rig:RigState;
  stream:number;card:{x:number}|null;panel:PanelState;warm:number;
  /** how far the one sample has travelled: 0 tubes in the rack, 1 in the crucible, 2 in the furnace, 3 on the rig */
@@ -151,8 +167,8 @@ export function stampState(win:ActionWindow|undefined,t:number){
 
 // ---- the line's four performances, one sample through all of them -----------------------------------
 const PANEL_IDLE=():PanelState=>({write:1,glow:.18,dim:0,sent:1,next:0,gauge:null});
-const baseLine=():LineState=>({P:STATION.hover,tilt:0,reach:LINE.reach,carriage:null,gap:GAP.open,held:'none',rackTaken:true,fallY:null,
- crucible:{where:'furnace',fill:1,glow:1,mixed:1},furnace:1,heldTemp:.92,rig:{ram:0,clampP:0,needle:0,sample:null,mold:null,chute:0,binned:null},
+const baseLine=():LineState=>({P:STATION.hover,tilt:0,reach:LINE.reach,carriage:null,gap:GAP.open,held:'none',rackTaken:true,fallY:null,front:false,
+ crucible:{where:'furnace',fill:1,glow:1,mixed:1},furnace:1,heldTemp:.92,rig:{ram:0,clampP:0,needle:0,sample:null,mold:null,feed:0,ratchet:0},
  stream:0,card:{x:LINE.clipX},panel:PANEL_IDLE(),warm:.6,stage:3,aim:0,tag:0,tagSwing:0,question:0});
 /** s4: the panel writes and sends; the arm takes the tubes, drops them, sets the crucible deep in the
  * furnace, lifts the sample out and carries it to the rig, where the clamps close on it while it holds. */
@@ -171,7 +187,7 @@ export function s4Line(S:FoundryState,t:number):LineState{
  if(close>.5){st.held='tubes';st.rackTaken=true;}
  // s4-event-2: lift the tubes clear, ride to the crucible and open over it; they fall in and the arm comes down
  if(t>=g2){
-  st.P=bez(STATION.tubes,[-290,-150],[-200,-142],STATION.drop,subE(e2,0,.55));
+  st.P=bez(STATION.tubes,[-290,-150],[-210,-142],STATION.drop,subE(e2,0,.55));
   const open=ease5(sub(e2,.56,.64)),release=at(e2,.57);
   st.gap=lerp(GAP.tubes,GAP.open,open);
   if(t>=release){st.held='none';st.fallY=.5*G*(t-release)*(t-release);}
@@ -186,8 +202,11 @@ export function s4Line(S:FoundryState,t:number):LineState{
   const grip=ease5(sub(e3,0,.1)),carry=subE(e3,.1,.84),rel=ease5(sub(e3,.84,.92));
   st.P=STATION.cru;st.gap=lerp(GAP.open,GAP.crucible,grip);
   if(grip>.5){st.held='crucible';st.crucible.where='held';}
-  if(carry>0)st.P=bez(STATION.cru,[-150,-178],[-10,-205],STATION.furnIn,carry);
-  if(rel>0)st.gap=lerp(GAP.crucible,GAP.open,rel);
+  // up off the pad, over, and straight down through the furnace's port
+  if(carry>0)st.P=bez(STATION.cru,[LINE.cru,-250],[LINE.furn,-250],STATION.furnIn,carry);
+  // the carriage eases left under the high arc and back, so the arm stays open rather than folding up
+  st.reach=LINE.reach+80*Math.sin(Math.PI*carry);
+  if(rel>0)st.gap=lerp(GAP.crucible,GAP.port,rel);
   if(rel>.5){st.held='none';st.crucible.where='furnace';}
   st.furnace=ease5(sub(e3,.7,1));st.crucible.glow=st.furnace;
   if(rel>0)st.P=lerpPt(st.P,STATION.sampleIn,ease5(sub(e3,.9,1)));
@@ -197,12 +216,16 @@ export function s4Line(S:FoundryState,t:number):LineState{
  // carriage holds so its elbow ends left of the crosshead; the clamps close while the arm still holds it
  if(t>=at(e4,0)){
   const grip=ease5(sub(e4,0,.08)),carry=subE(e4,.08,.84),clampP=ease5(sub(e4,.84,1));
-  st.P=STATION.sampleIn;st.gap=lerp(GAP.open,GAP.sample,grip);st.heldTemp=.92;
+  st.P=STATION.sampleIn;st.gap=lerp(GAP.port,GAP.sample,grip);st.heldTemp=.92;
   if(grip>.5)st.held='sample';
-  if(carry>0)st.P=bez(STATION.sampleIn,[-10,-165],[142,-165],STATION.rig,carry);
+  // straight up out of the port, then across and in through the rig's open front
+  if(carry>0)st.P=bez(STATION.sampleIn,[LINE.furn,-230],[LINE.rig-60,-125],STATION.rig,carry);
   st.reach=lerp(LINE.reach,LINE.rigReach,carry);
+  // carried in through the rig's open front, it reaches the workpiece plane as the carry ends
+  st.front=carry>0&&carry<1;
   st.rig.clampP=clampP;
-  if(clampP>.5)st.rig.sample={temp:.92,bend:0};
+  // once the clamps have it the rig holds the bar; the gripper stays closed on it until s5 lets go
+  if(clampP>.5){st.rig.sample={temp:.92,bend:0};st.held='none';}
   st.stage=2+carry;
  }
  st.warm=.8*st.furnace;
@@ -213,7 +236,9 @@ export function s4Line(S:FoundryState,t:number):LineState{
 export function s5Line(S:FoundryState,t:number,start:number,dur:number):LineState{
  const st=baseLine(),u=clamp((t-start)/dur),s5=S.s5;
  const free=ease5((t-start-.05)/.18),away=ease5((t-start-.18)/1.25);
- st.gap=lerp(GAP.sample,GAP.open,free);st.held='none';
+ // the gripper eases just wide of the bar, inside the clamp pads, then backs out through the open front and
+ // opens fully once clear
+ st.gap=lerp(lerp(GAP.sample,GAP.release,free),GAP.open,ease5((away-.45)/.4));st.held='none';st.front=away>0;
  st.P=bez(STATION.rig,[60,-108],[-40,-150],STATION.park,away);st.reach=lerp(LINE.rigReach,LINE.reach,away);
  st.rig={...st.rig,clampP:1,sample:{temp:lerp(.92,.45,u),bend:0}};
  st.panel={...PANEL_IDLE(),gauge:{show:s5.gauge,fill:s5.fill,search:s5.search}};
@@ -222,48 +247,67 @@ export function s5Line(S:FoundryState,t:number,start:number,dur:number):LineStat
 }
 /** s6: the same clamped sample cools to gray with the arm parked clear; the ram comes down and loads it; it
  * bends and the needle swings. Nothing is lifted from the furnace again. */
-export function s6Line(S:FoundryState,t:number):LineState{
- const {has,subE,at,P}=S,e1='s6-event-1',e2='s6-event-2',e3='s6-event-3';
- const st:LineState={...baseLine(),P:STATION.park,rig:{ram:0,clampP:1,needle:0,sample:{temp:.45,bend:0},mold:null,chute:0,binned:null},warm:.3};
+export function s6Line(S:FoundryState,t:number,start:number):LineState{
+ const {has,sub,subE,at,P}=S,e1='s6-event-1',e2='s6-event-2',e3='s6-event-3';
+ const st:LineState={...baseLine(),P:STATION.park,rig:{ram:0,clampP:1,needle:0,sample:{temp:.45,bend:0},mold:null,feed:0,ratchet:0},warm:.3};
+ // s5's question mark dissolves as the scene opens
+ st.question=1-ease5((t-start)/.6);
  if(!has(e1)||!has(e2)||!has(e3))return st;
+ // s6-event-1: the clamps ratchet down three clicks and seat on the cooling bar, a tooth of the wheel a click
+ const clicks=[sub(e1,0,.22),sub(e1,.34,.56),sub(e1,.68,.9)].map(ease5),seat=(clicks[0]+clicks[1]+clicks[2])/3;
  const cool=lerp(.45,.1,P(e1));
  const load=P(e2),press=subE(e3,0,1),ram=load+.85*press,bend=clamp((ram-1)/.85);
- st.rig={...st.rig,ram,sample:{temp:cool,bend},needle:138*bend+damped(t-at(e3,0),10,2.2,3.4)+damped(S.after(e3),9,1.5,2.8)};
+ st.rig={...st.rig,clampP:lerp(1,RIG.seat,seat),ratchet:clicks[0]+clicks[1]+clicks[2],ram,sample:{temp:cool,bend},
+  needle:138*bend+damped(t-at(e3,0),10,2.2,3.4)+damped(S.after(e3),9,1.5,2.8)};
  return st;
 }
-/** s9: a new recipe card replaces the old one; the rig sets the bent bar aside into its bin and a mold slides
- * in; the arm, holding the next melt, pours it into the mold; the card dims and the crucible comes upright
- * while the full mold holds its glow. */
+/** s9: a new recipe card replaces the old one. Only then does the arm lift the next candidate's crucible out
+ * of the furnace and carry it into the rig through its open front, where the clamps have drawn up, the ram
+ * has retracted and the rear feed has taken the bent bar out the back and brought a mold in. The arm tips the
+ * crucible about its wrist and fills the mold, then sets it upright while the card dims and the full mold
+ * holds its glow. */
 export function s9Line(S:FoundryState,t:number):LineState{
  const {has,sub,subE,at}=S,e1='s9-event-1',e2='s9-event-2',e3='s9-event-3';
- const st:LineState={...baseLine(),P:STATION.pourHover,carriage:POUR_CARRIAGE,gap:GAP.crucible,held:'crucible',
-  crucible:{where:'held',fill:1,glow:1,mixed:1},furnace:.75,heldTemp:1,warm:.9,
-  rig:{ram:0,clampP:1,needle:0,sample:{temp:.1,bend:1},mold:null,chute:1,binned:null},stage:0,
+ const st:LineState={...baseLine(),P:STATION.park,gap:GAP.port,held:'none',
+  crucible:{where:'furnace',fill:1,glow:1,mixed:1},furnace:1,heldTemp:1,warm:.5,
+  rig:{ram:0,clampP:RIG.seat,needle:0,sample:{temp:.1,bend:1},mold:null,feed:0,ratchet:3},stage:0,
   panel:{write:1,glow:.18,dim:0,sent:1,next:0,gauge:null}};
  if(!has(e1)||!has(e2)||!has(e3))return st;
  // the next candidate's card writes in as the old one slides off, and glows once
  st.panel.next=sub(e1,0,.7);
  st.panel.glow=.3*smooth(sub(e1,.5,.8))+.7*Math.sin(Math.PI*sub(e1,.4,1));
- // the clamps open, the bent bar slides off along the shelf and drops into the bin, the mold slides in
- const open=ease5(sub(e1,.05,.2)),out=ease5(sub(e1,.18,.55)),drop=ease5(sub(e1,.5,.62)),inn=subE(e1,.62,1);
- st.rig.clampP=1-open;
- // the ram draws up into the crosshead as the clamps open, so the pour below it has the room
- st.rig.ram=-.35*ease5(sub(e1,.05,.25));
- if(drop<1)st.rig.sample={temp:.1,bend:1,dx:lerp(0,RIG.binX,out),dy:56*drop,rot:-14*drop};else{st.rig.sample=null;st.rig.binned={temp:.1,bend:1};}
- if(drop>=1||out>.95)st.rig.binned=drop>=1?{temp:.1,bend:1}:null;
- if(t>=at(e1,.62))st.rig.mold={fill:0,glow:0,dx:lerp(RIG.binX+40,0,inn)};
- st.rig.clampP=Math.max(st.rig.clampP,ease5((t-at(e1,1))/.25));
- // the arm comes down from its hover beside the crosshead, then across under the ram to the pour position,
- // once the mold is in; tipping back it eases left so the wrist stays under the ram's tip and clear of it
- st.P=bez(STATION.pourHover,[20,-210],[54,-190],STATION.pour,ease5((t-(at(e1,1)+.05))/.6));
- st.P=lerpPt(st.P,STATION.pourBack,ease5(sub(e3,0,.5)));
- const tip=100*subE(e2,0,.5),back=100*subE(e3,.1,.9);
+ // the rig makes room: the clamps draw up toward the crosshead and the ram retracts, the rear feed opens,
+ // the bent bar slides out the back and drops away, and a mold rises from the feed and slides onto the anvils
+ const up=ease5(sub(e1,.04,.3));
+ st.rig.clampP=lerp(RIG.seat,RIG.lift,up);st.rig.ram=-.35*up;st.rig.feed=ease5(sub(e1,0,.15));
+ const out=ease5(sub(e1,.3,.5))+ease5(sub(e1,.5,.62));
+ st.rig.sample=out<2?{temp:.1,bend:1,back:out}:null;
+ const inn=ease5(sub(e1,.62,.74))+ease5(sub(e1,.74,.96));
+ if(t>=at(e1,.62))st.rig.mold={fill:0,glow:0,back:2-inn};
+ // the arm goes down to the furnace while the card writes, and grips the crucible only once it has written
+ const down=ease5((t-at(e1,.2))/.55),grip=ease5((t-at(e1,.7))/.12),g1=at(e1,.7)+.12;
+ st.P=lerpPt(STATION.park,STATION.furnIn,down);
+ st.gap=lerp(GAP.port,GAP.crucible,grip);
+ if(grip>.5){st.held='crucible';st.crucible.where='held';st.furnace=.75;}
+ // lift it clear of the port, then carry it over the furnace's near wall and in through the rig's open front
+ const lift=ease5((t-g1)/.28),carry=ease5((t-g1-.28)/.61);
+ if(lift>0)st.P=lerpPt(STATION.furnIn,STATION.lift,lift);
+ if(carry>0)st.P=bez(STATION.lift,[LINE.furn+90,-200],[LINE.rig-60,-180],pourGrip(0),carry);
+ // the carriage runs left as the arm reaches out, so the arm extends and its elbow stays low, under the
+ // crosshead's level; from the pour on it holds still
+ st.reach=lerp(LINE.reach,POUR.reach,ease5((t-g1)/(.28+.61*.85)));
+ if(carry>=1)st.carriage=POUR.carriage;
+ st.front=carry>0&&carry<1;
+ // s9-event-2: tip about the wrist into the mold; s9-event-3: back upright
+ const tip=POUR.tilt*subE(e2,0,.5),back=POUR.tilt*subE(e3,.1,.9);
  st.tilt=Math.max(0,tip-back);
- // the stream thins out as the mold's fill completes, before the crucible starts back upright
- st.stream=t>=at(e2,0)?clamp((st.tilt-64)/16)*(1-smooth(sub(e2,.9,1))):0;
+ if(carry>=1)st.P=pourGrip(st.tilt);
+ // the stream runs once the lip is over the cavity and thins out as the fill completes
+ st.stream=t>=at(e2,0)?clamp((st.tilt-POUR.streamFrom)/10)*(1-smooth(sub(e2,.9,1))):0;
  const fill=ease5(sub(e2,.35,1));
  if(st.rig.mold)st.rig.mold={...st.rig.mold,fill,glow:fill>0?Math.max(fill,.85):0};
  st.crucible.fill=1-.85*fill;
+ st.warm=st.held==='crucible'?.9:.5;
  st.panel.dim=S.P(e3);
  st.panel.glow*=1-.85*st.panel.dim;
  st.stage=fill;
@@ -287,7 +331,7 @@ export const LINE_CAM:Record<string,Partial<Record<Framing,Cam>>>={
  'arm-lift':{wide:{f:[10,-200],s:1.02,a:[460,830]}},
  'rig-load':{close:{f:[60,-180],s:1.6,a:[470,880]}},
  'needle-detail':{detail:{f:[142,-220],s:2.8,a:[470,800]}},
- 'ai-card':{close:{f:[230,-250],s:1.7,a:[480,800]}},
+ 'ai-card':{close:{f:[165,-266],s:1.6,a:[467,801]}},
  'melt-pour':{wide:{f:[90,-220],s:1.12,a:[450,840]}},
  'melt-hold':{detail:{f:[220,-200],s:2.2,a:[430,890]}}};
 export function lineCam(view:string,fr:Framing):Cam{const c=LINE_CAM[view]?.[fr];if(!c)throw new Error('No line camera for '+view+' at '+fr);return c;}
@@ -305,7 +349,7 @@ export function lineCamAt(view:string,fr:Framing,S:FoundryState):Cam{
 export const PLAN_CAM:Record<string,Cam>={'plan-outline':{f:[-10,0],s:.85,a:[470,800]},'plan-line':{f:[-10,0],s:.85,a:[470,800]},
  'arm-vials':{f:[-230,-20],s:1.55,a:[470,820]},'furnace-glow':{f:[-70,-20],s:1.6,a:[470,820]},'clamp-plan':{f:[130,60],s:1.25,a:[470,800]},
  'gauge-plan':{f:[230,-10],s:1.55,a:[470,780]},'unknown-sample':{f:[200,0],s:1.75,a:[470,800]},
- 'sample-glow':{f:[60,40],s:1.4,a:[470,800]},'rig-load':{f:[120,110],s:1.3,a:[470,800]},'section-detail':{f:[130,210],s:2.5,a:[470,820]},
+ 'sample-glow':{f:[60,40],s:1.4,a:[470,800]},'rig-load':{f:[120,110],s:1.3,a:[470,800]},'section-detail':{f:[130,210],s:2.4,a:[467,820]},
  'plan-card':{f:[210,-10],s:1.45,a:[470,780]},'melt-pour':{f:[40,70],s:1.05,a:[470,780]},'plan-hold':{f:[-10,0],s:.85,a:[470,800]}};
 /** The scene's camera_strategy, executed as one slow eased move across the scene about the frame's centre:
  * a push in, a lateral truck, a rise, a descent, or on B's plan a slight overhead orbit. */
@@ -449,7 +493,7 @@ export const AlloyFoundryFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  const cam=(table:Record<string,Cam>,k:string)=>{const c=table[k];if(!c)throw new Error('No camera for '+k);return c;};
  const sceneOf=(id:string)=>board.scenes.find(s=>s.id===id);
  const s5scene=sceneOf('s5');
- const lineFor=(sc:'s4'|'s5'|'s6'|'s9')=>sc==='s4'?s4Line(S,t):sc==='s5'?s5Line(S,t,s5scene?.start_s??0,s5scene?.duration_s??1):sc==='s6'?s6Line(S,t):s9Line(S,t);
+ const lineFor=(sc:'s4'|'s5'|'s6'|'s9')=>sc==='s4'?s4Line(S,t):sc==='s5'?s5Line(S,t,s5scene?.start_s??0,s5scene?.duration_s??1):sc==='s6'?s6Line(S,t,sceneOf('s6')?.start_s??0):s9Line(S,t);
 
  /** PLANNED plates at LINE.plates: on A's bed front face (y 34) and in B's section inset, and laid on B's
   * floor plan in front of the bed (y 86). */
@@ -457,12 +501,19 @@ export const AlloyFoundryFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
   <rect x={-62} y={-17} width={124} height={34} rx={4} fill="#F7F1E3" stroke="#262C31" strokeWidth={2.2}/>
   <circle cx={-54} cy={0} r={2.6} fill="#5C646A"/><circle cx={54} cy={0} r={2.6} fill="#5C646A"/>
   <text x={0} y={8} textAnchor="middle" fontFamily={FONT.body} fontWeight={800} fontSize={22} fill="#A13F2F" letterSpacing={2}>PLANNED</text></g>)}</g>;
+ /** The arm's soft shadow on the rig frame only (key light upper left): the depth cue that the arm's links,
+  * which reach in through the rig's open front, pass in front of the left column and clamp, not through them. */
+ const armShadow=(L:LineState,key:string)=>{const p=linePose(L);
+  return <g data-part="arm-shadow-on-rig">
+   <defs><clipPath id={'af1025-shadow-'+key}><rect x={LINE.rig+RIG.crossL} y={RIG.crossY-4} width={RIG.half+6-RIG.crossL} height={-RIG.crossY+4-16}/></clipPath></defs>
+   <path clipPath={`url(#af1025-shadow-${key})`} d={`M${f2(p.S[0]+12)} ${f2(p.S[1]+16)}L${f2(p.E[0]+12)} ${f2(p.E[1]+16)}L${f2(p.W[0]+12)} ${f2(p.W[1]+16)}`}
+    stroke="#0B0F12" strokeWidth={34} strokeLinecap="round" strokeLinejoin="round" fill="none" opacity={.2}/></g>;};
  // ---- A: the sample line side on, drawn from one LineState in line units ----
  const heldNode=(L:LineState,tag:string)=>L.held==='tubes'?<FoundryArmHero part="tubes"/>:
   L.held==='crucible'?<g transform={`translate(0 ${-CRUCIBLE.hold})`}><FoundryArmHero part="crucible" fill={L.crucible.fill} glow={L.crucible.glow} mixed={L.crucible.mixed}/></g>:
   L.held==='sample'?<Item id={tag+'-sample'}><FoundryArmHero part="sample" temp={L.heldTemp}/></Item>:undefined;
  const rigNode=(L:LineState)=><FoundryArmHero part="rig" ram={L.rig.ram} clampP={L.rig.clampP} needle={L.rig.needle} sample={L.rig.sample} mold={L.rig.mold}
-  warm={L.rig.mold?.glow??(L.rig.sample?L.rig.sample.temp*.6:0)} chute={L.rig.chute} binned={L.rig.binned}/>;
+  warm={L.rig.mold?.glow??(L.rig.sample?L.rig.sample.temp*.6:0)} feed={L.rig.feed} ratchet={L.rig.ratchet}/>;
  const lineWorld=(L:LineState,tag:'s4'|'s5'|'s6'|'s9',c:Cam)=>{
   const pose=linePose(L),lip=crucibleLip(pose);
   const rigId=tag==='s4'?'s4-test':tag==='s5'?'s5-sample':tag==='s6'?'s6-rig':'s9-test';
@@ -491,7 +542,7 @@ export const AlloyFoundryFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    {tag==='s5'&&L.aim>0&&<path d={`M${f2(LINE.panel-40)} ${PANEL.cy+60}L${f2(lerp(LINE.panel-40,LINE.rig+30,L.aim))} ${f2(lerp(PANEL.cy+60,-112,L.aim))}`} stroke="#9BD0DF" strokeWidth={3} strokeDasharray="8 7"/>}
    {tag==='s5'&&L.tag>0&&<Item id="s5-gauge-tag"><g opacity={f2(clamp(L.tag*4))}><Str a={[gx,PANEL.cy+PANEL.h/2+20]} b={[gx-70,PANEL.cy+PANEL.h/2+70-50*(1-L.tag)]} w={2.2}/>
     <At p={[gx-70,PANEL.cy+PANEL.h/2+70-50*(1-L.tag)]}><FoundrySupport part="tag" lines={['some behavior']} size={16} tone="ai" swing={10*(1-L.tag)+L.tagSwing}/></At></g></Item>}
-   {tag==='s5'&&<At p={[LINE.rig+70,-160]}><FoundrySupport part="question" p={L.question}/></At>}
+   {(tag==='s5'||tag==='s6')&&L.question>0&&<At p={[LINE.rig+70,-160]}><FoundrySupport part="question" p={L.question}/></At>}
    {/* PLANNED, hung from the wire over the line, and plated on the bed's front face beside the rack and
       between the rig and the panel, so every line shot, wide or close, carries it */}
    <Item id={tag+'-planned'}><At p={[LINE.signX,LINE.wireY]} r={-2}>
@@ -499,6 +550,7 @@ export const AlloyFoundryFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
     <rect x={-80} y={22} width={160} height={48} rx={6} fill="#F7F1E3" stroke="#262C31" strokeWidth={2.6}/>
     <text x={0} y={57} textAnchor="middle" fontFamily={FONT.body} fontWeight={800} fontSize={30} fill="#A13F2F" letterSpacing={2}>PLANNED</text></At>
     {planPlates(34)}</Item>
+   {armShadow(L,'line-'+tag)}
    <Item id={tag==='s4'?'s4-arm':tag==='s6'?'s6-arm':tag==='s9'?'s9-arm':'s5-arm'}>
     <FoundryArmHero part="arm" pose={pose} gap={L.gap} held={heldNode(L,tag)} warm={L.warm} chainX={LINE.x1-40}/>
    </Item>
@@ -527,6 +579,7 @@ export const AlloyFoundryFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
      <Item id={tag+'-planned'}>{planPlates(34)}</Item>
      <Item id={tag==='s4'?'s4-test':tag==='s5'?'s5-sample':tag==='s6'?'s6-rig':'s9-test'}><At p={[LINE.rig,0]}>
       {tag==='s6'?<Item id="s6-sample">{rigNode(L)}</Item>:tag==='s9'?<Item id="s9-melt">{rigNode(L)}</Item>:rigNode(L)}</At></Item>
+     {(tag==='s4'||tag==='s9')&&armShadow(L,'inset-'+tag)}
      {(tag==='s4'||tag==='s9')&&<Item id={tag+'-arm'}><FoundryArmHero part="arm" pose={pose} gap={L.gap} held={heldNode(L,tag)} warm={L.warm} chainX={LINE.x1-40}/></Item>}
      {showCrucible&&L.stream>0&&<FoundryArmHero part="stream" from={crucibleLip(pose)} to={[crucibleLip(pose)[0]+2,RIG.anvilTop-24]} p={L.stream} t={t}/>}
     </g>
@@ -537,8 +590,8 @@ export const AlloyFoundryFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  const planWorld=(L:LineState,tag:'s4'|'s5'|'s6'|'s9',c:Cam,o:{inset:boolean})=>{
   const pose=linePose(L),pp=planPose(pose.c,[pose.P[0],0]),lift=-pose.P[1];
   const ps:PlanState={rackTaken:L.rackTaken,crucible:L.crucible,furnace:L.furnace,
-   rig:{ram:L.rig.ram,clampP:L.rig.clampP,needle:L.rig.needle,sample:L.rig.sample?{temp:L.rig.sample.temp,bend:L.rig.sample.bend,dx:L.rig.sample.dx}:null,
-    mold:L.rig.mold,binned:!!L.rig.binned,chute:L.rig.chute}};
+   rig:{ram:L.rig.ram,clampP:L.rig.clampP,needle:L.rig.needle,sample:L.rig.sample?{temp:L.rig.sample.temp,bend:L.rig.sample.bend,back:L.rig.sample.back}:null,
+    mold:L.rig.mold,feed:L.rig.feed}};
   const held=L.held==='tubes'?<FoundryArmHero part="planTubes"/>:L.held==='crucible'?<FoundryArmHero part="planCrucible" fill={L.crucible.fill} glow={L.crucible.glow} tilt={L.tilt}/>:
    L.held==='sample'?<FoundryArmHero part="planBar" temp={L.heldTemp}/>:undefined;
   // the one sample's route through the stations, traced as far as it has gone
@@ -564,7 +617,7 @@ export const AlloyFoundryFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
    {tag==='s5'&&L.aim>0&&<circle cx={LINE.rig} cy={0} r={f2(30+40*L.aim)} fill="none" stroke="#9BD0DF" strokeWidth={3} strokeDasharray="6 6" opacity={f2(L.aim)}/>}
    {tag==='s5'&&L.tag>0&&<Item id="s5-gauge-tag"><g opacity={f2(clamp(L.tag*4))}><Str a={[gx,gy-20]} b={[gx,gy+40-40*(1-L.tag)]} w={2.2} color="#BFD6E3"/>
     <At p={[gx,gy+40-40*(1-L.tag)]}><FoundrySupport part="tag" lines={['some behavior']} size={16} tone="ai" swing={8*(1-L.tag)+L.tagSwing}/></At></g></Item>}
-   {tag==='s5'&&<At p={[LINE.rig+10,-100]}><FoundrySupport part="question" p={L.question}/></At>}
+   {(tag==='s5'||tag==='s6')&&L.question>0&&<At p={[LINE.rig+10,-100]}><FoundrySupport part="question" p={L.question}/></At>}
    <Item id={tag==='s4'?'s4-arm':tag==='s6'?'s6-arm':tag==='s9'?'s9-arm':'s5-arm'}>
     <FoundryArmHero part="planArm" pose={pp} gap={L.gap} lift={lift} held={held} warm={L.warm}/></Item>
    {L.fallY!==null&&<g opacity={f2(1-clamp(L.fallY/140))}><At p={[LINE.cru,0]} s={1-.4*clamp(L.fallY/140)}><FoundryArmHero part="planTubes"/></At></g>}
@@ -752,7 +805,7 @@ export const AlloyFoundryFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  case 'ai-panel':case 'arm-vials':case 'furnace-glow':case 'rig-clamp':need('s4');pic=lineWorld(s4Line(S,t),'s4',lineCamAt(view,fr,S));break;
  case 'quote-card':need('s5');pic=<g>{quoteCard([470-QUOTE.w*1.5/2,760-quoteHeight()*1.5/2],1.5)}</g>;break;
  case 'gauge-fill':case 'unknown-sample':need('s5');pic=lineWorld(lineFor('s5'),'s5',lineCam(view,fr));break;
- case 'arm-lift':case 'rig-load':case 'needle-detail':need('s6');pic=lineWorld(s6Line(S,t),'s6',lineCam(view,fr));break;
+ case 'arm-lift':case 'rig-load':case 'needle-detail':need('s6');pic=lineWorld(lineFor('s6'),'s6',lineCam(view,fr));break;
  case 'ai-card':case 'melt-pour':case 'melt-hold':need('s9');pic=lineWorld(s9Line(S,t),'s9',lineCam(view,fr));break;
  // ===== s7, s8 on the easel =====
  case 'calendar-months':case 'week-strip':case 'goal-tag':need('s7');pic=easelWorld('s7',cam(S78_CAM,key),false);break;
@@ -783,10 +836,10 @@ export const AlloyFoundryFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_
  // ===== B: the floor plan =====
  case 'plan-line':case 'arm-vials':case 'furnace-glow':case 'clamp-plan':need('s4');pic=planWorld(s4Line(S,t),'s4',cam(PLAN_CAM,view),{inset:view==='clamp-plan'});break;
  case 'gauge-plan':case 'unknown-sample':need('s5');pic=planWorld(lineFor('s5'),'s5',cam(PLAN_CAM,view),{inset:false});break;
- case 'sample-glow':case 'rig-load':need('s6');pic=planWorld(s6Line(S,t),'s6',cam(PLAN_CAM,view),{inset:true});break;
+ case 'sample-glow':case 'rig-load':need('s6');pic=planWorld(lineFor('s6'),'s6',cam(PLAN_CAM,view),{inset:true});break;
  case 'section-detail':{
   // the section inset alone and close: the ram presses, the bar bends, the needle swings
-  need('s6');pic=<g transform={camT(cam(PLAN_CAM,view))}><Item id="s6-setting">{sectionInset(s6Line(S,t),'s6',true)}</Item></g>;break;}
+  need('s6');pic=<g transform={camT(cam(PLAN_CAM,view))}><Item id="s6-setting">{sectionInset(lineFor('s6'),'s6',true)}</Item></g>;break;}
  case 'plan-card':case 'melt-pour':case 'plan-hold':need('s9');pic=planWorld(s9Line(S,t),'s9',cam(PLAN_CAM,view),{inset:true});break;
  default:throw new Error('Unimplemented alloy foundry view '+view+' in treatment b');
  }
