@@ -19,6 +19,8 @@ import {TUBES,RECIPE} from './FoundryArmHero';
  *    a computer monitor with a bar gauge, a question mark;
  *  - a wall calendar whose month pages flip away, a seven cell week strip, a GOAL stamp, an opening
  *    date form field left blank with a dash;
+ *  - for treatment B, a long ruled ledger in a binder with a filing pocket, and a dark drafting sheet with
+ *    the line's outline, a title block naming the Aggie AI Foundry and a PLANNED stamp;
  *  - lab benches, a desk, an easel board, a bench top seen from above, a speckled floor, a mug, a
  *    beaker.
  *
@@ -143,9 +145,11 @@ const Tag:React.FC<{lines:string[];size:number;tone?:'paper'|'amber'|'ai';swing?
  </g>;};
 /** A recipe card, centre at the origin. `ai` gives it the AI's stripe and the recipe tubes' swatches. */
 export const CARD={w:150,h:96};
-const RecipeCard:React.FC<{w?:number;ai?:boolean;glow?:number;dim?:number;seed?:number}>=({w=CARD.w,ai=false,glow=0,dim=0,seed=0})=>{
+/** The next candidate's swatches (s9): a different recipe from the first card's, so the new card reads new. */
+export const NEXT_RECIPE=[0,4,1];
+const RecipeCard:React.FC<{w?:number;ai?:boolean;glow?:number;dim?:number;seed?:number;next?:boolean}>=({w=CARD.w,ai=false,glow=0,dim=0,seed=0,next=false})=>{
  const P=SUPPORT_PAINT,h=w*CARD.h/CARD.w,s=w/CARD.w,id=useUid('fs-card');
- const sw=ai?RECIPE.map(k=>TUBES[k]):[0,1,2].map(i=>TUBES[(seed*3+i*2)%TUBES.length]);
+ const sw=ai?(next?NEXT_RECIPE:RECIPE).map(k=>TUBES[k]):[0,1,2].map(i=>TUBES[(seed*3+i*2)%TUBES.length]);
  return <g data-part="recipe-card">
   <defs><radialGradient id={id} cx=".5" cy=".5" r=".5"><stop offset="0" stopColor={P.aiLit} stopOpacity={.85}/><stop offset="1" stopColor={P.ai} stopOpacity={0}/></radialGradient></defs>
   {glow>0&&<ellipse cx={0} cy={0} rx={w*.95} ry={h*1.05} fill={`url(#${id})`} opacity={glow}/>}
@@ -312,15 +316,21 @@ const Bay:React.FC<{p:number;title:number}>=({p,title})=>{const P=SUPPORT_PAINT,
 export const PANEL={w:170,h:212,cy:-336,pole:-230};
 /** The AI panel on its pole, pole foot at the origin. `write` draws the recipe card on its screen, `glow`
  * lights it, `dim` greys it, `sent` says the printed card has left its slot. */
-const AiPanel:React.FC<{write:number;glow:number;dim:number;sent:number}>=({write,glow,dim,sent})=>{
- const P=SUPPORT_PAINT,{w,h,cy}=PANEL,id=useUid('fs-ai'),x=-w/2,y=cy-h/2;
+/** The panel's screen modes: the first recipe card (write, glow, dim, sent), the next candidate's card
+ * replacing it (`next` 0..1: the old card slides off left as the new one writes in), and the computer's
+ * prediction gauge (`gauge` 0..1 shows it, `fill` 0..1, `search` a fill that tries and falls back).
+ * `face` draws the screen and bezel alone, the panel's glyph on treatment B's floor plan. */
+export type PanelGauge={show:number;fill:number;search:number};
+const AiPanel:React.FC<{write:number;glow:number;dim:number;sent:number;next?:number;gauge?:PanelGauge|null;face?:boolean}>=({write,glow,dim,sent,next=0,gauge=null,face=false})=>{
+ const P=SUPPORT_PAINT,{w,h,cy}=PANEL,id=useUid('fs-ai'),x=-w/2,y=cy-h/2,g=gauge?.show??0;
+ const segs=8,gx=x+16,gw=w-32,gy=cy+16,gh=26;
  return <g data-part="ai-panel">
   <defs><linearGradient id={id+'s'} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#25343D"/><stop offset="1" stopColor="#152027"/></linearGradient>
    <radialGradient id={id+'g'} cx=".5" cy=".5" r=".5"><stop offset="0" stopColor={P.aiLit} stopOpacity={.75}/><stop offset="1" stopColor={P.ai} stopOpacity={0}/></radialGradient></defs>
-  <ellipse cx={6} cy={2} rx={46} ry={7} fill="#121518" opacity={.25}/>
-  <rect x={-30} y={-12} width={60} height={12} rx={4} fill={P.steelDark} stroke={P.trim} strokeWidth={2}/>
-  <rect x={-8} y={PANEL.pole} width={16} height={-PANEL.pole-10} fill={P.steel} stroke={P.trim} strokeWidth={2}/>
-  <path d={`M-3 ${PANEL.pole+6}V-16`} stroke={P.steelLit} strokeWidth={3} opacity={.7}/>
+  {!face&&<g><ellipse cx={6} cy={2} rx={46} ry={7} fill="#121518" opacity={.25}/>
+   <rect x={-30} y={-12} width={60} height={12} rx={4} fill={P.steelDark} stroke={P.trim} strokeWidth={2}/>
+   <rect x={-8} y={PANEL.pole} width={16} height={-PANEL.pole-10} fill={P.steel} stroke={P.trim} strokeWidth={2}/>
+   <path d={`M-3 ${PANEL.pole+6}V-16`} stroke={P.steelLit} strokeWidth={3} opacity={.7}/></g>}
   {glow>0&&<ellipse cx={0} cy={cy} rx={w*1.1} ry={h*.9} fill={`url(#${id}g)`} opacity={glow*(1-dim*.8)}/>}
   <rect x={x-12} y={y-12} width={w+24} height={h+40} rx={14} fill={P.steelDark} stroke={P.trim} strokeWidth={3}/>
   <rect x={x} y={y} width={w} height={h} rx={6} fill={`url(#${id}s)`}/>
@@ -328,10 +338,27 @@ const AiPanel:React.FC<{write:number;glow:number;dim:number;sent:number}>=({writ
   <circle cx={x+w-18} cy={y+22} r={5} fill={P.ai} opacity={.6+.4*glow}/>
   <path d={`M${x+14} ${y+44}H${x+w-14}`} stroke={P.aiDeep} strokeWidth={2}/>
   {/* the recipe card it writes, on screen */}
-  {write>0&&<g transform={`translate(0 ${cy+22}) scale(${f2(.85+.15*smooth(write*2))})`} opacity={f2(clamp(write*3)*(1-.35*sent*(1-glow)))}>
-   <RecipeCard w={120} ai glow={glow} dim={dim}/>
+  <defs><clipPath id={id+'c'}><rect x={x} y={y+46} width={w} height={h-50}/></clipPath></defs>
+  <g clipPath={`url(#${id}c)`} opacity={f2(1-g)}>
+   {write>0&&<g transform={`translate(${f2(-w*1.1*smooth(next*1.6))} ${cy+22}) scale(${f2(.85+.15*smooth(write*2))})`} opacity={f2(clamp(write*3)*(1-.35*sent*(1-glow)))}>
+    <RecipeCard w={120} ai glow={next>0?0:glow} dim={next>0?0:dim}/>
+   </g>}
+   {next>0&&<g transform={`translate(0 ${cy+22}) scale(${f2(.85+.15*smooth((next-.35)*2))})`} opacity={f2(clamp((next-.3)*3))}>
+    <RecipeCard w={120} ai next glow={glow} dim={dim}/>
+   </g>}
+  </g>
+  {write>0&&write<1&&g<=0&&<rect x={x+20} y={cy+80} width={f2((w-40)*write)} height={5} rx={2.5} fill={P.ai}/>}
+  {next>.3&&next<1&&<rect x={x+20} y={cy+80} width={f2((w-40)*clamp((next-.3)/.7))} height={5} rx={2.5} fill={P.ai}/>}
+  {/* the computer's prediction gauge over the sample: a bar that fills partway, or tries and stays empty */}
+  {g>0&&<g opacity={f2(g)} data-part="panel-gauge">
+   {[0,1,2,3].map(k=><circle key={k} cx={gx+8+k*18} cy={cy-34} r={5} fill={k<2?P.aiLit:'#3E525C'}/>)}
+   <rect x={gx-6} y={gy-6} width={gw+12} height={gh+12} rx={7} fill="#0D1418" stroke="#5F7884" strokeWidth={2}/>
+   {Array.from({length:segs},(_,k)=>{const on=clamp((gauge?.fill??0)*segs-k);return <g key={k}>
+    <rect x={gx+k*gw/segs+2} y={gy} width={gw/segs-4} height={gh} rx={3} fill="#22313A"/>
+    {on>0&&<rect x={gx+k*gw/segs+2} y={gy} width={f2((gw/segs-4)*on)} height={gh} rx={3} fill={P.ai}/>}</g>;})}
+   {(gauge?.search??0)>0&&<rect x={gx+2} y={gy} width={f2((gauge?.search??0)*gw/segs*.7)} height={gh} rx={3} fill={P.aiLit} opacity={.5}/>}
+   {Array.from({length:segs+1},(_,k)=><path key={k} d={`M${f2(gx+k*gw/segs)} ${gy+gh+8}v${k%4?5:9}`} stroke="#8AA0AA" strokeWidth={1.6}/>)}
   </g>}
-  {write>0&&write<1&&<rect x={x+20} y={cy+80} width={f2((w-40)*write)} height={5} rx={2.5} fill={P.ai}/>}
   {/* the card slot */}
   <rect x={x+24} y={y+h+12} width={w-48} height={8} rx={3} fill="#0E1215"/>
   <path d={`M${x-6} ${y-4}H${x+w-40}`} stroke={P.steelLit} strokeWidth={3} opacity={.6}/>
@@ -441,12 +468,60 @@ const Form:React.FC<{dash:number}>=({dash})=>{const P=SUPPORT_PAINT,{w,h,label}=
   <rect x={22} y={198} width={w*.5} height={6} rx={3} fill={P.line}/>
  </g>;};
 
+
+// ---- treatment B: the ledger spine and the drafting plan sheet ---------------------------------------
+/** The ledger: one long ruled page in a binder, top left at the origin. Rows every LEDGER.row, a red margin
+ * rule, two faint column rules, the binder's rings down its left edge. B's records are entered on it row by
+ * row and the camera scrolls down it. */
+export const LEDGER={w:840,h:2760,row:62,margin:112,cols:[470,700]};
+const Ledger:React.FC<{}>=()=>{const P=SUPPORT_PAINT,{w,h,row,margin,cols}=LEDGER,id=useUid('fs-led');
+ const n=Math.floor(h/row);
+ return <g data-part="ledger">
+  <defs><linearGradient id={id} x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#E9E1CC"/><stop offset=".08" stopColor="#F6F0E0"/><stop offset="1" stopColor="#F1EAD8"/></linearGradient></defs>
+  <rect x={14} y={18} width={w} height={h} rx={10} fill="#0E1215" opacity={.3}/>
+  <rect x={0} y={0} width={w} height={h} rx={10} fill={`url(#${id})`} stroke={P.ink} strokeWidth={3}/>
+  {Array.from({length:n},(_,k)=><path key={k} d={`M${margin-30} ${(k+1)*row}H${w-14}`} stroke="#A9C0CF" strokeWidth={k%4===3?2.2:1.3} opacity={.9}/>)}
+  <path d={`M${margin} 8V${h-8}`} stroke="#C8553D" strokeWidth={2.4} opacity={.85}/>
+  {cols.map(x=><path key={x} d={`M${x} 8V${h-8}`} stroke="#A9C0CF" strokeWidth={1.2} opacity={.7}/>)}
+  {Array.from({length:Math.floor(h/150)},(_,k)=><g key={'r'+k}><circle cx={-6} cy={70+k*150} r={15} fill="none" stroke={P.steelDark} strokeWidth={7}/>
+   <circle cx={-6} cy={70+k*150} r={15} fill="none" stroke={P.steelLit} strokeWidth={2} opacity={.7}/><circle cx={22} cy={70+k*150} r={6} fill="#C9C2B0"/></g>)}
+  <rect x={-34} y={0} width={20} height={h} rx={6} fill={P.slate} stroke={P.ink} strokeWidth={2.4}/>
+ </g>;};
+/** A paper pocket glued into the ledger's margin, where a sorted card is filed. Top left at the origin. */
+const Pocket:React.FC<{w:number;h:number}>=({w,h})=><g data-part="ledger-pocket">
+ <rect x={6} y={8} width={w} height={h} rx={6} fill="#0E1215" opacity={.22}/>
+ <path d={`M0 0H${w}V${h}H0Z`} fill="#DCCFB2" stroke={SUPPORT_PAINT.ink} strokeWidth={2.4}/>
+ <path d={`M0 ${h*.36}Q${w/2} ${h*.52} ${w} ${h*.36}`} stroke={SUPPORT_PAINT.ink} strokeWidth={2} fill="none" opacity={.6}/></g>;
+/** The drafting sheet B's floor plan is drawn on: dark slate, a grid, a ruled border, and the title block
+ * naming the Aggie AI Foundry and stamped PLANNED. Plan units, centred on the line. `outline` draws the
+ * stations' pencil outlines on in order (the s3 outline), `planned` inks the stamp. */
+export const SHEET_PLAN={x:-520,y:-330,w:1040,h:660,title:[-492,236] as Pt};
+const PlanSheet:React.FC<{outline:number;planned:number;title?:number}>=({outline,planned,title=1})=>{
+ const P=SUPPORT_PAINT,{x,y,w,h}=SHEET_PLAN,id=useUid('fs-plan');
+ const lines=[`M-440 -60H440V60H-440Z`,`M-440 -116H440V-92H-440Z`,`M-352 -24H-228V24H-352Z`,`M-192 -42H-108V42H-192Z`,`M-80 -70H60V70H-80Z`,
+  `M-10 -46a46 46 0 1 0 .1 0`,`M62 -50H222V50H62Z`,`M132 -66H152V66H132Z`,`M255 -66H405V54H255Z`,`M-352 -150H330`];
+ return <g data-part="plan-sheet">
+  <defs><pattern id={id} width={40} height={40} patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#2D4757" strokeWidth={1.2}/></pattern></defs>
+  <rect x={x+14} y={y+18} width={w} height={h} rx={10} fill="#05080A" opacity={.35}/>
+  <rect x={x} y={y} width={w} height={h} rx={10} fill="#1C2E3A" stroke="#0E161C" strokeWidth={4}/>
+  <rect x={x+8} y={y+8} width={w-16} height={h-16} fill={`url(#${id})`}/>
+  <rect x={x+16} y={y+16} width={w-32} height={h-32} rx={4} fill="none" stroke="#8FB0C4" strokeWidth={2}/>
+  {lines.map((d,k)=>{const q=clamp(outline*lines.length*.8-k*.8);return q<=0?null:<path key={k} d={d} fill="none" stroke="#BFD6E3"
+   strokeWidth={k===9?2:2.6} strokeDasharray={k===9?'10 8':undefined} opacity={.75} pathLength={k===9?undefined:1} {...(k===9?{}:{strokeDasharray:1,strokeDashoffset:f2(1-q)})}/>;})}
+  <g transform={`translate(${SHEET_PLAN.title[0]} ${SHEET_PLAN.title[1]})`} opacity={f2(clamp(title*2))}>
+   <rect x={0} y={0} width={230} height={70} fill="#16242E" stroke="#8FB0C4" strokeWidth={2}/>
+   <path d="M0 28H230" stroke="#8FB0C4" strokeWidth={1.4}/>
+   <text x={12} y={21} fontFamily={FONT.body} fontWeight={800} fontSize={17} fill="#DCEAF2">Aggie AI Foundry</text>
+   <g transform="translate(118 50)"><Impression text="PLANNED" size={24} color="#E2735E" p={planned} rot={-6}/></g>
+  </g>
+ </g>;};
+
 // ---- the exported group -----------------------------------------------------------------------------
 export type FoundrySupportProps=
  |{part:'periodic';lit:number;mesh:number;candidate:number;t:number;frame?:boolean}
  |{part:'cabinetStand';h:number}
  |{part:'tag';lines:string[];size:number;tone?:'paper'|'amber'|'ai';swing?:number;extra?:number;children?:React.ReactNode}
- |{part:'card';w?:number;ai?:boolean;glow?:number;dim?:number;seed?:number}
+ |{part:'card';w?:number;ai?:boolean;glow?:number;dim?:number;seed?:number;next?:boolean}
  |{part:'impression';text:string;size:number;color:string;p:number;rot?:number}
  |{part:'stamp';w:number;top?:boolean;lift:number}
  |{part:'hand';pinch:number;rot?:number}
@@ -459,19 +534,22 @@ export type FoundrySupportProps=
  |{part:'easel';w:number;h:number;floor:number;legs?:boolean}
  |{part:'release';write:number}
  |{part:'bay';p:number;title:number}
- |{part:'aiPanel';write:number;glow:number;dim:number;sent:number}
+ |{part:'aiPanel';write:number;glow:number;dim:number;sent:number;next?:number;gauge?:PanelGauge|null;face?:boolean}
  |{part:'quote';name:number;hl:number}
  |{part:'monitor';fill:number;aim?:Pt|null;aimP?:number;search?:number}
  |{part:'question';p:number}
  |{part:'calendar';flip:number}
  |{part:'week';fill:number}
- |{part:'form';dash:number};
+ |{part:'form';dash:number}
+ |{part:'ledger'}
+ |{part:'pocket';w:number;h:number}
+ |{part:'planSheet';outline:number;planned:number;title?:number};
 export const FoundrySupport:React.FC<FoundrySupportProps>=(props)=>{
  switch(props.part){
  case 'periodic':return <Periodic lit={props.lit} mesh={props.mesh} candidate={props.candidate} t={props.t} frame={props.frame}/>;
  case 'cabinetStand':return <CabinetStand h={props.h}/>;
  case 'tag':return <Tag lines={props.lines} size={props.size} tone={props.tone} swing={props.swing} extra={props.extra}>{props.children}</Tag>;
- case 'card':return <RecipeCard w={props.w} ai={props.ai} glow={props.glow} dim={props.dim} seed={props.seed}/>;
+ case 'card':return <RecipeCard w={props.w} ai={props.ai} glow={props.glow} dim={props.dim} seed={props.seed} next={props.next}/>;
  case 'impression':return <Impression text={props.text} size={props.size} color={props.color} p={props.p} rot={props.rot}/>;
  case 'stamp':return <StampTool w={props.w} top={props.top} lift={props.lift}/>;
  case 'hand':return <Hand pinch={props.pinch} rot={props.rot}/>;
@@ -485,12 +563,15 @@ export const FoundrySupport:React.FC<FoundrySupportProps>=(props)=>{
  case 'easel':return <Easel w={props.w} h={props.h} floor={props.floor} legs={props.legs}/>;
  case 'release':return <Release write={props.write}/>;
  case 'bay':return <Bay p={props.p} title={props.title}/>;
- case 'aiPanel':return <AiPanel write={props.write} glow={props.glow} dim={props.dim} sent={props.sent}/>;
+ case 'aiPanel':return <AiPanel write={props.write} glow={props.glow} dim={props.dim} sent={props.sent} next={props.next} gauge={props.gauge} face={props.face}/>;
  case 'quote':return <Quote name={props.name} hl={props.hl}/>;
  case 'monitor':return <Monitor fill={props.fill} aim={props.aim} aimP={props.aimP} search={props.search}/>;
  case 'question':return <Question p={props.p}/>;
  case 'calendar':return <Calendar flip={props.flip}/>;
  case 'week':return <WeekStrip fill={props.fill}/>;
  case 'form':return <Form dash={props.dash}/>;
+ case 'ledger':return <Ledger/>;
+ case 'pocket':return <Pocket w={props.w} h={props.h}/>;
+ case 'planSheet':return <PlanSheet outline={props.outline} planned={props.planned} title={props.title}/>;
  }
 };

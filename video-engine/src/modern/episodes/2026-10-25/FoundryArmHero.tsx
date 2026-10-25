@@ -21,6 +21,9 @@ import {useUid} from '../../../lib/uid';
  *  - The sample bar (gray when cold, amber when hot, bending under the ram) and a small sample mold.
  *  - The line bed: a worn steel top, its front face, legs, and the rail behind it.
  *
+ * The same objects are also drawn from straight above for treatment B's floor plan (PlanArm, PlanStations,
+ * PlanCrucible, PlanTubes, PlanBar), sharing the line's x so a station sits at one x in both views.
+ *
  * Coordinates are line units, x to the right, y down, the bed's working surface on y 0. Every
  * object takes its base centre at its origin. The arm is posed by armPose (two link inverse
  * kinematics, elbow up, the gripper hanging down unless tilted), a pure function the episode and its
@@ -68,7 +71,10 @@ export const GAP={open:46,tubes:33,crucible:42,sample:7,closed:5};
 
 /** Furnace and rig geometry, base centre at the origin. */
 export const FURNACE={half:70,top:-128,back:-150,portY:-139,portRx:46,portRy:9};
-export const RIG={half:80,col:64,crossY:-304,anvil:36,anvilTop:-96,dial:[0,-338] as Pt,dialR:30,ramRest:-170,ramContact:-112,clampUp:-136,clampDown:-110,sampleLen:104};
+/** The ram rests high (its pad at -232) and the open clamps sit at -164, so the arm can hold a sample on
+ * the anvils with its wrist, gripper and forearm below the ram and clear of the crosshead and dial. */
+export const RIG={half:80,col:64,crossY:-304,anvil:36,anvilTop:-96,dial:[0,-338] as Pt,dialR:30,ramRest:-232,ramContact:-112,clampUp:-164,clampDown:-110,sampleLen:104,
+ binX:118,binW:58};
 export const CRUCIBLE={h:64,top:38,bottom:26,hold:-46};
 
 // ---- small shared drawings -------------------------------------------------------------------------
@@ -302,8 +308,10 @@ function mix(a:string,b:string,p:number){
 /** Base centre at the origin. `ram` 0 at rest to 1 in contact (beyond 1 it presses: the sample bends),
  * `clamp` 0 open to 1 closed, `needle` degrees from rest. The rig carries the sample or the mold that
  * the arm has set on it. */
-const Rig:React.FC<{ram:number;clampP:number;needle:number;sample?:{temp:number;bend:number}|null;mold?:{fill:number;glow:number}|null;warm?:number}>=
- ({ram,clampP,needle,sample,mold,warm=0})=>{
+type RigSample={temp:number;bend:number;dx?:number;dy?:number;rot?:number};
+type RigMold={fill:number;glow:number;dx?:number};
+const Rig:React.FC<{ram:number;clampP:number;needle:number;sample?:RigSample|null;mold?:RigMold|null;warm?:number;chute?:number;binned?:RigSample|null}>=
+ ({ram,clampP,needle,sample,mold,warm=0,chute=0,binned=null})=>{
  const P=HERO_PAINT,{half,col,crossY,anvil,anvilTop,dial,dialR}=RIG,id=useUid('fah-rig');
  const ramTip=lerp(RIG.ramRest,RIG.ramContact,Math.min(ram,1))+Math.max(0,ram-1)*14;
  const clampY=lerp(RIG.clampUp,RIG.clampDown,clampP);
@@ -313,8 +321,16 @@ const Rig:React.FC<{ram:number;clampP:number;needle:number;sample?:{temp:number;
   {[-col,col].map(x=><rect key={x} x={x-9} y={crossY} width={18} height={-crossY} fill={`url(#${id}c)`} stroke={P.trim} strokeWidth={2.2}/>)}
   <rect x={-half} y={-16} width={2*half} height={16} rx={3} fill={P.steelDark} stroke={P.trim} strokeWidth={2.4}/>
   {[-anvil,anvil].map(x=><path key={x} d={`M${x-12} -16L${x-7} ${anvilTop}L${x+7} ${anvilTop}L${x+12} -16Z`} fill={P.steel} stroke={P.trim} strokeWidth={2}/>)}
-  {mold&&<g transform={`translate(0 ${anvilTop})`}><Mold fill={mold.fill} glow={mold.glow}/></g>}
-  {sample&&<g transform={`translate(0 ${anvilTop-5})`}><Sample temp={sample.temp} bend={sample.bend}/></g>}
+  {/* s9's feed shelf and sample bin on the rig's right side: the tested bar leaves into the bin and the
+     next mold slides in along the shelf */}
+  {chute>0&&<g opacity={f2(clamp(chute))} data-part="rig-shelf">
+   <rect x={RIG.binX-RIG.binW/2} y={-44} width={RIG.binW} height={44} rx={4} fill={P.steelDark} stroke={P.trim} strokeWidth={2}/>
+   <path d={`M${RIG.binX-RIG.binW/2+4} -40H${RIG.binX+RIG.binW/2-6}`} stroke={P.steelLit} strokeWidth={2} opacity={.6}/>
+   {binned&&<g transform={`translate(${RIG.binX} -34) rotate(-8)`}><Sample temp={binned.temp} bend={binned.bend} len={RIG.sampleLen*.55}/></g>}
+   <path d={`M${anvil+8} ${anvilTop}L${RIG.binX+40} ${anvilTop}L${RIG.binX+40} ${anvilTop+8}L${anvil+8} ${anvilTop+8}Z`} fill={P.steel} stroke={P.trim} strokeWidth={1.8}/>
+  </g>}
+  {mold&&<g transform={`translate(${f2(mold.dx??0)} ${anvilTop})`}><Mold fill={mold.fill} glow={mold.glow}/></g>}
+  {sample&&<g transform={`translate(${f2(sample.dx??0)} ${f2(anvilTop-5+(sample.dy??0))}) rotate(${f2(sample.rot??0)})`}><Sample temp={sample.temp} bend={sample.bend}/></g>}
   {/* the clamps over each end */}
   {[-1,1].map(s=><g key={s}>
    <rect x={s*46-8} y={crossY+40} width={16} height={clampY-crossY-40} fill={P.steelDark} opacity={.9}/>
@@ -361,6 +377,115 @@ const Bed:React.FC<{x0:number;x1:number;floor:number;glowX?:number;glow?:number}
   {Array.from({length:Math.floor((x1-x0)/140)},(_,k)=><Bolt key={k} x={x0+40+k*140} y={34} rust={k===2}/>)}
  </g>;};
 
+
+// ---- the plan view: the same line from straight above (treatment B) ---------------------------------
+/** Plan units share the line's x; y is depth (the bed's centre line on y 0, the rail behind at negative
+ * y). The arm is drawn from above as its carriage, two articulated segments and a gripper; height shows
+ * only as the offset of the shadow under the wrist and what it holds. */
+export const PLAN={bedHalf:60,railY:-104,wireY:-150,L1:170,L2:160,x0:-440,x1:440,panel:[330,-6] as Pt};
+export type PlanPose={c:number;S:Pt;E:Pt;W:Pt};
+/** Two-link plan inverse kinematics from the carriage's shoulder to the wrist, the elbow always on the rail
+ * side (behind), so the drawing never flips. Pure. */
+export function planPose(c:number,W:Pt):PlanPose{
+ const S:Pt=[c,PLAN.railY],vx=W[0]-S[0],vy=W[1]-S[1],{L1,L2}=PLAN;
+ const d=Math.min(L1+L2-.5,Math.max(Math.abs(L1-L2)+1,Math.hypot(vx,vy)));
+ const base=Math.atan2(vy,vx),b=Math.acos(clamp((L1*L1+d*d-L2*L2)/(2*L1*d)));
+ const e1:Pt=[S[0]+L1*Math.cos(base-b),S[1]+L1*Math.sin(base-b)],e2:Pt=[S[0]+L1*Math.cos(base+b),S[1]+L1*Math.sin(base+b)];
+ return {c,S,E:e1[1]<e2[1]?e1:e2,W};
+}
+const PlanSegment:React.FC<{a:Pt;b:Pt;w:number}>=({a,b,w})=>{const P=HERO_PAINT;
+ return <g><path d={`M${f2(a[0])} ${f2(a[1])}L${f2(b[0])} ${f2(b[1])}`} stroke={P.trim} strokeWidth={w+5} strokeLinecap="round"/>
+  <path d={`M${f2(a[0])} ${f2(a[1])}L${f2(b[0])} ${f2(b[1])}`} stroke={P.shell} strokeWidth={w} strokeLinecap="round"/>
+  <path d={`M${f2(a[0])} ${f2(a[1]-w*.22)}L${f2(b[0])} ${f2(b[1]-w*.22)}`} stroke={P.lit} strokeWidth={w*.3} strokeLinecap="round"/></g>;};
+/** The arm from above. `lift` is the grip's height above the bed (line units), which only moves the shadow;
+ * `held` is drawn at the wrist in plan units. */
+const PlanArm:React.FC<{pose:PlanPose;gap:number;lift:number;held?:React.ReactNode;warm?:number}>=({pose,gap,lift,held,warm=0})=>{
+ const P=HERO_PAINT,{c,S,E,W}=pose,sh=Math.max(0,lift)*.16;
+ return <g data-part="plan-arm">
+  <rect x={c-48} y={PLAN.railY-16} width={96} height={32} rx={6} fill={P.steelDark} stroke={P.trim} strokeWidth={2.4}/>
+  <rect x={c-42} y={PLAN.railY-12} width={84} height={6} rx={3} fill={P.steelLit} opacity={.6}/>
+  {/* the shadow of what the gripper holds, falling down and right with height */}
+  <g transform={`translate(${f2(sh)} ${f2(sh*1.3)})`} opacity={.32}>{held&&<g transform={`translate(${f2(W[0])} ${f2(W[1])})`}><g style={{filter:'brightness(0)'}}>{held}</g></g>}
+   <circle cx={W[0]} cy={W[1]} r={18} fill="#0B1014"/></g>
+  <PlanSegment a={S} b={E} w={40}/>
+  <PlanSegment a={E} b={W} w={32}/>
+  {warm>0&&<path d={`M${f2(E[0])} ${f2(E[1]+12)}L${f2(W[0])} ${f2(W[1]+10)}`} stroke={P.hot} strokeWidth={5} opacity={.45*warm} strokeLinecap="round"/>}
+  {[S,E].map((j,k)=><g key={k}><circle cx={j[0]} cy={j[1]} r={k?22:28} fill={P.shell} stroke={P.trim} strokeWidth={2.4}/>
+   <circle cx={j[0]} cy={j[1]} r={k?12:15} fill={P.joint}/><circle cx={j[0]-4} cy={j[1]-4} r={4} fill={P.steelLit}/></g>)}
+  {held&&<g transform={`translate(${f2(W[0])} ${f2(W[1])})`}>{held}</g>}
+  {/* the gripper seen from above: its flange and two tong tips closing across the line */}
+  <circle cx={W[0]} cy={W[1]} r={17} fill={P.shell} stroke={P.trim} strokeWidth={2.2}/>
+  {[-1,1].map(s=><rect key={s} x={W[0]-5} y={f2(W[1]+s*(gap*.55+6)-4)} width={10} height={8} rx={2} fill={P.steelDeep} stroke={P.trim} strokeWidth={1.4}/>)}
+  <circle cx={W[0]} cy={W[1]} r={7} fill={P.joint}/>
+ </g>;};
+/** The stations from above: bed and rail, the tube rack, the crucible pad (and crucible if it is there),
+ * the furnace with its port glowing, and the test rig turned so its crosshead runs front to back over the
+ * sample, which stays visible on both sides. */
+export type PlanState={rackTaken:boolean;crucible:{where:'pad'|'held'|'furnace'|'none';fill:number;glow:number;mixed:number};furnace:number;
+ rig:{ram:number;clampP:number;needle:number;sample:{temp:number;bend:number;dx?:number}|null;mold:{fill:number;glow:number;dx?:number}|null;binned?:boolean;chute?:number}};
+export const PlanCrucible:React.FC<{fill:number;glow:number;tilt?:number}>=({fill,glow,tilt=0})=>{const P=HERO_PAINT,sq=Math.max(.35,Math.cos(tilt*RAD));
+ return <g transform={`rotate(${f2(tilt*.15)}) scale(${f2(sq)} 1)`} data-part="plan-crucible">
+  {glow>0&&<circle cx={0} cy={0} r={58} fill={P.hot} opacity={.22*glow}/>}
+  <circle cx={0} cy={0} r={36} fill={P.ceramic} stroke={P.trim} strokeWidth={2.4}/>
+  <circle cx={0} cy={0} r={28} fill="#2C2622"/>
+  {fill>0&&<circle cx={0} cy={0} r={f2(10+16*fill)} fill={glow>.02?P.hot:TUBES[RECIPE[1]]}/>}
+  {fill>0&&glow<.98&&RECIPE.map((k,i)=><circle key={k} cx={(i-1)*9} cy={3} r={4} fill={TUBES[k]} opacity={1-glow}/>)}
+  {fill>0&&glow>0&&<circle cx={-4} cy={-4} r={f2(6+8*fill)} fill={P.core} opacity={glow*.8}/>}
+  <path d="M-22 -18A28 28 0 0 1 10 -27" stroke="#FFFFFF" strokeWidth={4} fill="none" opacity={.45} strokeLinecap="round"/>
+  <path d="M34 -8l12 -2l0 10l-12 -2Z" fill={P.ceramic} stroke={P.trim} strokeWidth={1.6}/>
+ </g>;};
+export const PlanTubes:React.FC<{}>=()=><g data-part="plan-tubes">{RECIPE.map((k,i)=><g key={k}>
+ <circle cx={(i-1)*TUBE.pitch} cy={0} r={8} fill={P_GLASS} stroke={HERO_PAINT.trim} strokeWidth={1.6}/><circle cx={(i-1)*TUBE.pitch} cy={0} r={5} fill={TUBES[k]}/></g>)}</g>;
+const P_GLASS='#D7E7EA';
+export const PlanBar:React.FC<{temp:number;len?:number}>=({temp,len=RIG.sampleLen})=>{const P=HERO_PAINT,col=temp>0?mix('#9AA0A4',temp<.5?'#C9603A':P.hot,clamp(temp*1.4)):'#9AA0A4';
+ return <g data-part="plan-bar">{temp>.05&&<rect x={-len/2-14} y={-18} width={len+28} height={36} rx={18} fill={P.hot} opacity={.22*temp}/>}
+  <rect x={-len/2} y={-7} width={len} height={14} rx={3} fill={col} stroke={P.trim} strokeWidth={2}/>
+  <path d={`M${-len/2+5} -3H${len/2-5}`} stroke={temp>.3?P.core:'#D7DCDF'} strokeWidth={2} opacity={.8}/></g>;};
+const PlanStations:React.FC<{st:PlanState;t:number}>=({st,t})=>{
+ const P=HERO_PAINT,R=RIG,rig=st.rig,clampOff=lerp(10,0,rig.clampP);
+ return <g data-part="plan-stations">
+  <rect x={PLAN.x0} y={PLAN.railY-12} width={PLAN.x1-PLAN.x0} height={24} rx={4} fill={P.steelDeep} stroke={P.trim} strokeWidth={2}/>
+  <path d={`M${PLAN.x0+8} ${PLAN.railY-6}H${PLAN.x1-8}`} stroke={P.steelLit} strokeWidth={2} opacity={.5}/>
+  <rect x={PLAN.x0} y={-PLAN.bedHalf} width={PLAN.x1-PLAN.x0} height={2*PLAN.bedHalf} rx={6} fill={P.bedTop} stroke={P.trim} strokeWidth={2.6}/>
+  <path d={`M${PLAN.x0+10} ${-PLAN.bedHalf+6}H${PLAN.x1-10}`} stroke="#FFFFFF" strokeWidth={3} opacity={.35}/>
+  {st.furnace>0&&<ellipse cx={-10} cy={0} rx={190} ry={90} fill={P.hot} opacity={.16*st.furnace}/>}
+  {/* the tube rack */}
+  <g transform="translate(-290 0)"><rect x={-62} y={-24} width={124} height={48} rx={6} fill={P.steel} stroke={P.trim} strokeWidth={2.2}/>
+   {TUBES.map((c,k)=><g key={k}><circle cx={(k-2)*TUBE.pitch} cy={0} r={8} fill={P.steelDeep}/>
+    {!(st.rackTaken&&RECIPE.includes(k))&&<g><circle cx={(k-2)*TUBE.pitch} cy={0} r={8} fill={P_GLASS} stroke={P.trim} strokeWidth={1.4}/><circle cx={(k-2)*TUBE.pitch} cy={0} r={5} fill={c}/></g>}</g>)}</g>
+  {/* the crucible pad and, when it is there, the crucible */}
+  <rect x={-150-42} y={-42} width={84} height={84} rx={8} fill="#7B6E62" stroke={P.trim} strokeWidth={2}/>
+  {st.crucible.where==='pad'&&<g transform="translate(-150 0)"><PlanCrucible fill={st.crucible.fill} glow={st.crucible.glow}/></g>}
+  {/* the furnace and its port */}
+  <g transform="translate(-10 0)"><rect x={-70} y={-70} width={140} height={140} rx={10} fill={P.refractory} stroke={P.trim} strokeWidth={2.6}/>
+   <rect x={-62} y={-62} width={124} height={124} rx={8} fill="none" stroke={P.refShade} strokeWidth={3}/>
+   <circle cx={0} cy={0} r={46} fill="#2A1E16" stroke={P.trim} strokeWidth={2.4}/>
+   {st.furnace>0&&<circle cx={0} cy={0} r={40} fill={P.hot} opacity={st.furnace}/>}
+   {st.furnace>0&&<circle cx={-6} cy={-6} r={20+3*Math.sin(t*5)} fill={P.core} opacity={.8*st.furnace}/>}
+   <rect x={50} y={-62} width={14} height={124} rx={4} fill={P.refShade}/></g>
+  {/* the test rig, crosshead front to back over the sample */}
+  <g transform="translate(142 0)">
+   <rect x={-R.half} y={-50} width={2*R.half} height={100} rx={6} fill={P.steelDark} stroke={P.trim} strokeWidth={2.4}/>
+   {[-R.anvil,R.anvil].map(x=><rect key={x} x={x-9} y={-22} width={18} height={44} rx={3} fill={P.steel} stroke={P.trim} strokeWidth={1.6}/>)}
+   {rig.chute&&rig.chute>0?<g opacity={f2(clamp(rig.chute))}><rect x={R.binX-R.binW/2} y={-34} width={R.binW} height={68} rx={5} fill="#262C31" stroke={P.trim} strokeWidth={2}/>
+    <rect x={R.anvil+8} y={-10} width={R.binX+40-R.anvil-8} height={20} rx={3} fill={P.steel} opacity={.8}/>
+    {rig.binned&&<g transform={`translate(${R.binX} 4) rotate(-12)`}><PlanBar temp={.1} len={R.sampleLen*.55}/></g>}</g>:null}
+   {rig.mold&&<g transform={`translate(${f2(rig.mold.dx??0)} 0)`}><rect x={-50} y={-26} width={100} height={52} rx={5} fill={P.steelDark} stroke={P.trim} strokeWidth={2}/>
+    <rect x={-38} y={-12} width={76} height={24} rx={3} fill="#1E2226"/>{rig.mold.fill>0&&<rect x={-36} y={-10} width={f2(72*rig.mold.fill)} height={20} rx={3} fill={P.hot}/>}
+    {rig.mold.glow>0&&<rect x={-60} y={-36} width={120} height={72} rx={30} fill={P.hot} opacity={.25*rig.mold.glow}/>}</g>}
+   {rig.sample&&<g transform={`translate(${f2(rig.sample.dx??0)} 0)`}><PlanBar temp={rig.sample.temp}/></g>}
+   {[-1,1].map(s=><rect key={s} x={s*46-12} y={f2(-30-clampOff)} width={24} height={f2(60+2*clampOff)} rx={4} fill="none" stroke={P.steelDeep} strokeWidth={5}/>)}
+   {[-1,1].map(s=><rect key={'c'+s} x={-9} y={s>0?40:-58} width={18} height={18} rx={3} fill={P.steel} stroke={P.trim} strokeWidth={2}/>)}
+   <rect x={-11} y={-66} width={22} height={132} rx={5} fill={P.steel} stroke={P.trim} strokeWidth={2.4} opacity={.92}/>
+   <circle cx={0} cy={0} r={f2(13+4*clamp(rig.ram))} fill={P.steelDeep} stroke={P.trim} strokeWidth={2}/>
+   {rig.ram>1&&<circle cx={0} cy={0} r={f2(20+8*clamp(rig.ram-1))} fill="none" stroke={P.hot} strokeWidth={3} opacity={.6}/>}
+   {/* the dial gauge at the crosshead's back end */}
+   <g transform="translate(0 -92)"><circle cx={0} cy={0} r={28} fill={P.steelDark} stroke={P.trim} strokeWidth={2.2}/><circle cx={0} cy={0} r={23} fill="#F4EFE4"/>
+    {Array.from({length:11},(_,k)=>{const a=(-210+k*24)*RAD;return <path key={k} d={`M${f2(Math.cos(a)*17)} ${f2(Math.sin(a)*17)}L${f2(Math.cos(a)*21)} ${f2(Math.sin(a)*21)}`} stroke={P.trim} strokeWidth={k%5===0?2:1.2}/>;})}
+    <g transform={`rotate(${f2(-120+rig.needle)})`}><path d="M-2 3L0 -19L2 3Z" fill="#B5432F"/></g><circle cx={0} cy={0} r={3} fill={P.trim}/></g>
+  </g>
+ </g>;};
+
 // ---- the exported group -----------------------------------------------------------------------------
 export type FoundryArmHeroProps=
  |{part:'arm';pose:ArmPose;gap:number;held?:React.ReactNode;warm?:number;chainX?:number;front?:React.ReactNode}
@@ -369,7 +494,12 @@ export type FoundryArmHeroProps=
  |{part:'crucible';fill:number;glow:number;mixed?:number}
  |{part:'furnaceBack';glow:number;t:number}
  |{part:'furnaceFront';glow:number}
- |{part:'rig';ram:number;clampP:number;needle:number;sample?:{temp:number;bend:number}|null;mold?:{fill:number;glow:number}|null;warm?:number}
+ |{part:'rig';ram:number;clampP:number;needle:number;sample?:RigSample|null;mold?:RigMold|null;warm?:number;chute?:number;binned?:RigSample|null}
+ |{part:'planArm';pose:PlanPose;gap:number;lift:number;held?:React.ReactNode;warm?:number}
+ |{part:'planStations';st:PlanState;t:number}
+ |{part:'planCrucible';fill:number;glow:number;tilt?:number}
+ |{part:'planTubes'}
+ |{part:'planBar';temp:number;len?:number}
  |{part:'sample';temp:number;bend?:number}
  |{part:'stream';from:Pt;to:Pt;p:number;t:number}
  |{part:'bed';x0:number;x1:number;floor:number;glowX?:number;glow?:number};
@@ -381,7 +511,12 @@ export const FoundryArmHero:React.FC<FoundryArmHeroProps>=(props)=>{
  case 'crucible':return <Crucible fill={props.fill} glow={props.glow} mixed={props.mixed}/>;
  case 'furnaceBack':return <FurnaceBack glow={props.glow} t={props.t}/>;
  case 'furnaceFront':return <FurnaceFront glow={props.glow}/>;
- case 'rig':return <Rig ram={props.ram} clampP={props.clampP} needle={props.needle} sample={props.sample} mold={props.mold} warm={props.warm}/>;
+ case 'rig':return <Rig ram={props.ram} clampP={props.clampP} needle={props.needle} sample={props.sample} mold={props.mold} warm={props.warm} chute={props.chute} binned={props.binned}/>;
+ case 'planArm':return <PlanArm pose={props.pose} gap={props.gap} lift={props.lift} held={props.held} warm={props.warm}/>;
+ case 'planStations':return <PlanStations st={props.st} t={props.t}/>;
+ case 'planCrucible':return <PlanCrucible fill={props.fill} glow={props.glow} tilt={props.tilt}/>;
+ case 'planTubes':return <PlanTubes/>;
+ case 'planBar':return <PlanBar temp={props.temp} len={props.len}/>;
  case 'sample':return <Sample temp={props.temp} bend={props.bend}/>;
  case 'stream':return <Stream from={props.from} to={props.to} p={props.p} t={props.t}/>;
  case 'bed':return <Bed x0={props.x0} x1={props.x1} floor={props.floor} glowX={props.glowX} glow={props.glow}/>;
