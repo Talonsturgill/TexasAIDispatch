@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-25",
-  "saved_at": "2026-10-25T07:14:02.019470+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-25T07:15:02.618036+00:00",
+  "note": "before paid reservation",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -92,6 +92,24 @@
       "size": 1005
     },
     {
+      "path": "out/dispatch/researcher-assignment.json",
+      "class": "scratch",
+      "sha256": "f6982e5689040c9050950e96c958030e5e8cd760f8c757dcfda03149cfcb2459",
+      "size": 2091
+    },
+    {
+      "path": "out/dispatch/researcher-packet-subject-2c745803ba7403ec.json",
+      "class": "scratch",
+      "sha256": "2c745803ba7403ecd09abf0051069400431152be3bf736ddb41076abe43eeaad",
+      "size": 8762
+    },
+    {
+      "path": "out/dispatch/researcher-packet.json",
+      "class": "scratch",
+      "sha256": "f29878a4d23c0c483322c35e77f26cc35fecd13a090356596389d33f63db5647",
+      "size": 3076
+    },
+    {
       "path": "out/dispatch/run_state.json.independent.lock",
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -99,9 +117,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 12131,
-    "unique_blob_bytes": 12131,
-    "unique_blobs": 9
+    "logical_bytes": 26060,
+    "unique_blob_bytes": 26060,
+    "unique_blobs": 12
   },
   "excluded": [],
   "regenerable": {
