@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-25",
-  "saved_at": "2026-10-25T10:54:52.949268+00:00",
-  "note": "claim worker dispatch storyboard-critic",
+  "saved_at": "2026-10-25T11:12:25.300678+00:00",
+  "note": "stopped at hard review cap arithmetic: 3 code revisions spent, comparison and timed phone cannot both fit",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -37,6 +37,12 @@
     "voice_directors": 0
   },
   "files": [
+    {
+      "path": "out/dispatch/WORKLOG.md",
+      "class": "scratch",
+      "sha256": "e5e3963773d2408d6f0dbb11115dfac1c2640b7494922a5066212454c081ef4f",
+      "size": 2764
+    },
     {
       "path": "out/dispatch/artwork-originals/authored-3a41eac7-8abf-41ce-9c1c-cfbf2914ac5e.tsx",
       "class": "scratch",
@@ -228,6 +234,12 @@
       "class": "scratch",
       "sha256": "29320caa79db987d0c7ce5dc7f279077305c446d72917f361355ff3bac5c277a",
       "size": 2884
+    },
+    {
+      "path": "out/dispatch/critic-assignment-3.json",
+      "class": "scratch",
+      "sha256": "7c00776c4956142169e66bf5f6751bd4f1a2ce538722d875454eb759815e7eea",
+      "size": 2892
     },
     {
       "path": "out/dispatch/critic-assignment.json",
@@ -945,9 +957,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 2870455,
-    "unique_blob_bytes": 2072751,
-    "unique_blobs": 109
+    "logical_bytes": 2876111,
+    "unique_blob_bytes": 2078407,
+    "unique_blobs": 111
   },
   "excluded": [],
   "regenerable": {
