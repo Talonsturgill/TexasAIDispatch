@@ -12,6 +12,8 @@ import sys
 
 KIND = 'hard_limit_expenditure_closed'
 EXHAUSTED_REQUIRED_REVIEW = 'exhausted-required-review-before-film'
+UNFUNDABLE_REQUIRED_REVIEW = 'unfundable-required-review-before-film'
+PRE_FILM_REASONS = (EXHAUSTED_REQUIRED_REVIEW, UNFUNDABLE_REQUIRED_REVIEW)
 ROLES = ('picture', 'story', 'sound')
 RECEIPTS = 'native-scorer-completions'
 JUDGMENTS = ('score', 'weighted_score', 'ship', 'verdict', 'axes', 'hard_fails', 'defects',
@@ -238,7 +240,7 @@ def checkpoint_proof(state_path, evidence):
     manifest, ledger = cp.verify_checkpoint(root, tip, state['run_id'])
     require(ledger == cp.ledger_text(state, root).encode(), 'remote checkpoint does not contain the exact current ledger')
     files = {r['path']: r['sha256'] for r in manifest['files']}
-    if evidence.get('plan', {}).get('reason') == EXHAUSTED_REQUIRED_REVIEW:
+    if evidence.get('plan', {}).get('reason') in PRE_FILM_REASONS:
         claims = lambda rows: {p: h for p, h in rows.items() if p.startswith('out/dispatch/worker-dispatch-claims/')}
         require(claims(files) == claims(evidence['files']),
                 'retain every original checkpoint worker claim before closing expenditure')
@@ -258,12 +260,16 @@ def checkpoint_proof(state_path, evidence):
 def validate_exhausted_review(state_path, plan):
     """Retain an impossible pre-film path without authorizing another attempt or shipment."""
     from run_controller import digest as file_sha
-    from review_limit import reached, used, FINAL_PACKET_FROM
+    from review_limit import reached, unfundable, used, FINAL_PACKET_FROM
     from manual_codex_repair import EVENT as manual_event
     root = state_path.parents[2]; state = read(state_path); events = state['events']
-    require(set(plan) == {'reason', 'failure_evidence'} and plan['reason'] == EXHAUSTED_REQUIRED_REVIEW,
+    require(set(plan) == {'reason', 'failure_evidence'} and plan['reason'] in PRE_FILM_REASONS,
             'exhausted-review closure needs its original failure evidence')
-    require(str(state.get('run_id', ''))[:10] >= FINAL_PACKET_FROM and reached(state)
+    # The unfundable reason is the same dead end reached early: the remaining reviews cannot
+    # fund the code gate, selection and protected timed phone. Every other check below is shared.
+    closed_path = (reached(state) if plan['reason'] == EXHAUSTED_REQUIRED_REVIEW
+                   else unfundable(state, state_path.parent))
+    require(str(state.get('run_id', ''))[:10] >= FINAL_PACKET_FROM and closed_path
             and not state.get('terminal_state') and not state.get('shipment')
             and not any(e.get('kind') == manual_event for e in events),
             'only an exhausted ordinary daily production can close this path')
@@ -325,7 +331,7 @@ def validate_exhausted_review(state_path, plan):
 
 
 def validate_plan(state_path, plan):
-    if plan.get('reason') == EXHAUSTED_REQUIRED_REVIEW:
+    if plan.get('reason') in PRE_FILM_REASONS:
         return validate_exhausted_review(state_path, plan)
     return validate(state_path, plan)
 
@@ -335,7 +341,7 @@ def close(state_path, plan):
     from publication_owner import require_owner
     import claude_checkpoint as cp
     require_owner(state_path); evidence = validate_plan(state_path, plan); state = read(state_path)
-    if plan.get('reason') == EXHAUSTED_REQUIRED_REVIEW:
+    if plan.get('reason') in PRE_FILM_REASONS:
         checkpoint_proof(state_path, evidence)  # Original failure and ledger must already be durable.
     old = [r for r in state['events'] if r.get('kind') == KIND]
     if old:
@@ -363,6 +369,7 @@ def main():
     parser.add_argument('--workspace', type=Path); parser.add_argument('--state', type=Path)
     parser.add_argument('--plan', type=Path)
     parser.add_argument('--exhausted-required-review', type=Path, metavar='ORIGINAL_FAILURE')
+    parser.add_argument('--unfundable-required-review', type=Path, metavar='ORIGINAL_FAILURE')
     args = parser.parse_args()
     if args.workspace:
         payload = json.loads(sys.stdin.read(2 * 1024 * 1024 + 1))
@@ -371,10 +378,16 @@ def main():
         except FileNotFoundError:
             pass  # Ordinary sessions have no armed production.
     else:
-        require(args.state and bool(args.plan) != bool(args.exhausted_required_review),
-                'close expenditure with --state and exactly one --plan or --exhausted-required-review')
-        plan = (read(args.plan) if args.plan else {'reason': EXHAUSTED_REQUIRED_REVIEW,
-                'failure_evidence': str(args.exhausted_required_review.resolve())})
+        chosen = [x for x in (args.plan, args.exhausted_required_review, args.unfundable_required_review) if x]
+        require(args.state and len(chosen) == 1,
+                'close expenditure with --state and exactly one --plan, --exhausted-required-review '
+                'or --unfundable-required-review')
+        if args.plan:
+            plan = read(args.plan)
+        elif args.exhausted_required_review:
+            plan = {'reason': EXHAUSTED_REQUIRED_REVIEW, 'failure_evidence': str(args.exhausted_required_review.resolve())}
+        else:
+            plan = {'reason': UNFUNDABLE_REQUIRED_REVIEW, 'failure_evidence': str(args.unfundable_required_review.resolve())}
         print(json.dumps({'checkpoint': close(args.state.resolve(), plan), 'shipped': False}))
 
 

@@ -71,6 +71,25 @@ class FailedEditionTests(unittest.TestCase):
         changed = copy.deepcopy(self.state); changed['events'].pop()
         self.assertFalse(failed.matches_state(proof, changed))
 
+    def test_unfundable_pre_film_failure_is_retained_like_an_exhausted_one(self):
+        self.fixture.make_unfundable(); self.state = self.fixture.state
+        self.ledger = checkpoint.ledger_text(self.state, self.repo).encode()
+        raw = self.fixture.claim.read_bytes(); claim = self.fixture.claim.relative_to(self.repo).as_posix()
+        self.blobs[claim] = raw
+        self.manifest['ledger_sha256'] = hashlib.sha256(self.ledger).hexdigest()
+        for row in self.manifest['files']:
+            if row['path'] == claim: row.update(sha256=hashlib.sha256(raw).hexdigest(), size=len(raw))
+        proof = self.proof()
+        self.assertEqual(proof['evidence']['plan']['reason'], completion_yield.UNFUNDABLE_REQUIRED_REVIEW)
+        self.assertEqual(proof['original_state']['usage']['storyboard_critics'], 3)
+        self.assertFalse(proof['production_finished']); self.assertFalse(proof['shipment_authorized'])
+        # A checkpoint that carries opening evidence is not an unfundable dead end.
+        rel = 'out/dispatch/opening-a-critic.json'; blank = b'{}'
+        self.blobs[rel] = blank
+        self.manifest['files'].append({'path': rel, 'sha256': hashlib.sha256(blank).hexdigest(), 'size': len(blank)})
+        with self.assertRaisesRegex(ValueError, 'exhausted'):
+            self.proof()
+
     def test_administrative_retention_changes_only_catalog_and_never_checkpoint_or_ledger(self):
         before = self.fixture.path.read_bytes()
         with patch.object(owner, 'append', return_value={'commit': 'e' * 40}) as append:

@@ -42,6 +42,22 @@ def finishing(state):
     return enabled(state) and MAX_ROUNDS - used(state) < 3
 
 
+OPENING_EVIDENCE = ('openings/selection.json', 'opening-a-critic.json', 'opening-b-critic.json')
+
+
+def unfundable(state, root):
+    """The remaining reviews can no longer buy the mandatory code gate, selection and final phone.
+
+    Finishing begins at the third review. A film still needs a passing code gate for both
+    treatments, the independent silent comparison and the protected exact timed phone, which
+    is three reviews. When none of that opening evidence exists, two remaining reviews cannot
+    complete the path, and the fifth review accepts only the timed phone packet. This adds no
+    review and approves nothing; it only lets the existing failure closure see the dead end.
+    """
+    return (enabled(state) and finishing(state) and not reached(state)
+            and not any((Path(root) / name).exists() for name in OPENING_EVIDENCE))
+
+
 def packet_identity(packet):
     return hashlib.sha256(json.dumps(packet, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
