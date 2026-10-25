@@ -63,8 +63,25 @@ def _proof(repo, commit, run_id, *, full=True):
                             'administrative failure proof only materializes small original evidence')
             target = root / rel; target.parent.mkdir(parents=True, exist_ok=True)
             checkpoint.materialize_checkpoint_file(repo, commit, run_id, row, target)
-        evidence = closure.validate_exhausted_review(state_path, {
-            'reason': closure.EXHAUSTED_REQUIRED_REVIEW, 'failure_evidence': failure})
+        # Opening evidence decides whether the remaining reviews could still fund a film, so
+        # a present file must be seen by the validator. It is small JSON, never media.
+        for name in ('openings/selection.json', 'opening-a-critic.json', 'opening-b-critic.json'):
+            rel = 'out/dispatch/' + name
+            if rel in rows:
+                closure.require(type(rows[rel].get('size')) is int and 0 < rows[rel]['size'] <= 1024 * 1024,
+                                'administrative failure proof only materializes small original evidence')
+                target = root / rel; target.parent.mkdir(parents=True, exist_ok=True)
+                checkpoint.materialize_checkpoint_file(repo, commit, run_id, rows[rel], target)
+        evidence, refusal = None, None
+        for reason in closure.PRE_FILM_REASONS:
+            try:
+                evidence = closure.validate_exhausted_review(state_path, {
+                    'reason': reason, 'failure_evidence': failure})
+                break
+            except ValueError as error:
+                refusal = refusal or error
+        if evidence is None:
+            raise refusal
         closure.require(evidence['files'] == {p: rows[p]['sha256'] for p in required},
                         'retain every original failure and worker claim')
     return {'schema': SCHEMA, 'run_id': run_id, 'checkpoint': commit,

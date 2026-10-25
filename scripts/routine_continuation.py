@@ -169,9 +169,19 @@ def closure_problems(state, state_path):
     return []
 
 
-def capacity_recovery_hint(state):
+def capacity_recovery_hint(state, root=None):
     """Name the existing recovery route without granting or reserving anything."""
-    from review_limit import finishing, reached
+    from review_limit import finishing, reached, unfundable
+    if root is not None and unfundable(state, root) and not state.get('deliverable') \
+            and not state.get('usage', {}).get('full_renders'):
+        return (' The remaining reviews cannot fund the mandatory code gate, silent comparison and protected'
+                ' exact timed phone, and no opening evidence exists. Do not buy another review, replay a'
+                ' reservation, change the cap or claim shipment. Preserve every failed artifact and original'
+                ' claim. Save the last code-plan report as out/dispatch/storyboard_critic.json and use'
+                ' python scripts/completion_yield.py --state <actual-state> --unfundable-required-review'
+                ' <original-ledger-bound-failure> through run_with_env.sh. The edition stays NOT SHIPPED and'
+                ' owned. The next daily wake may retain this verified failure through failed_editions.py and'
+                ' start a strictly later edition. No same-date restart, extra review or shipment is granted.')
     if reached(state) and not state.get('deliverable') and not state.get('usage', {}).get('full_renders'):
         return (' The five-review cap is exhausted before a native deliverable exists. Do not buy another'
                 ' review, replay a reservation, change the cap or claim shipment. Preserve every failed'
@@ -316,7 +326,7 @@ def decision(payload, workspace):
             ' When TaskOutput is available, load its schema and request a blocking wait on that exact ID'
             ' for up to sixty seconds. Do not poll transcript sizes or launch another monitor.'
             if running else '')
-    recovery = capacity_recovery_hint(state) if state is not None and not running else ''
+    recovery = (capacity_recovery_hint(state, state_path.parent) if state is not None and not running else '')
     return ('Texas production remains unfinished: ' + reason + '.' + wait +
             recovery +
             ' A PR subscription alone is not a verified Stop-hook wake. For pending CI or archive'
