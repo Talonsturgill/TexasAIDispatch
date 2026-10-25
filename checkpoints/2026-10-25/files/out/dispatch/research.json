@@ -1,0 +1,47 @@
+{
+ "schema": "dispatch_research_record/1",
+ "edition_date": "2026-10-25",
+ "note": "Director transcription of the three charged researcher handbacks. Hash checks were not performed by the researchers (no shell). The validator re-fetches every source independently.",
+ "researchers": [
+  {
+   "task": "researcher",
+   "subject": "Texas A&M small town water system digital twin",
+   "verdict": "UNSUPPORTED as screened. NSF award 2640086 (Collaborative Research: AI-Enabled Digital Twins for Resilient Freshwater Infrastructure and Communities under Cascading Hazards, Texas A&M Engineering Experiment Station, PI Sudipta Chowdhury, obligated $122,169, 2026-09-15 to 2029-08-31) names no utility, town, pipe failure or deployment and describes no validation. Alternative lead: UTEP and El Paso Water NASA funded flood mapping announced 2026-10-08, no demonstrated action, deliverables by 2028.",
+   "urls": [
+    "https://api.nsf.gov/services/v1/awards/2640086.json",
+    "https://www.utep.edu/newsfeed/2026/October/from-space-to-the-streets-nasa-funded-research-takes-aim-at-el-paso-flooding.html"
+   ]
+  },
+  {
+   "task": "researcher_c",
+   "subject": "Texas A&M Aggie AI Foundry",
+   "verdict": "Supported as a facts only mechanism angle with blocking limits. Planned facility, every verb future tense, AI proposes (not chooses) alloys, no opening date, building or measured result, no authenticated picture of the facility (lead photo is Getty stock; ARM-MIP rendering needs permission and shows a different facility). Separate NSF ARM-MIP facility (award 2534344, RELLIS Bryan, $24.9 million) must not be merged. The 3,000 degree Celsius sentence is the university's characterisation and needs verbatim validation.",
+   "urls": [
+    "https://news.engineering.tamu.edu/news/2026/10/22/texas-am-researchers-pursue-autonomous-ai-foundry/",
+    "https://news.engineering.tamu.edu/news/2026/08/03/texas-am-to-build-first-national-self-driving-laboratory-for-metals-open-to-researchers-nationwide/",
+    "https://api.nsf.gov/services/v1/awards/2534344.json",
+    "https://interestingengineering.com/ai-robotics/us-foundry-lab-robots-alloy-discovery"
+   ],
+   "visual_research": {
+    "searches": [
+     {
+      "query": "Texas A&M Aggie AI Foundry robotic arms alloys melt test AI",
+      "finding": "University release and Interesting Engineering only. No photograph or footage of the facility."
+     },
+     {
+      "query": "Library of Congress Lyda Hill Texas Collection College Station Bryan RELLIS",
+      "finding": "No College Station, Bryan or RELLIS photograph in the collection."
+     }
+    ],
+    "candidates": [
+     {
+      "url": "https://news.engineering.tamu.edu/news/2026/10/22/texas-am-researchers-pursue-autonomous-ai-foundry/",
+      "decision": "reject lead photo",
+      "reason": "Getty Images stock of a generic lab with no licence terms."
+     }
+    ],
+    "decision": "No authenticated external picture exists. Use disclosed original illustration."
+   }
+  }
+ ]
+}

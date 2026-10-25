@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-25",
-  "saved_at": "2026-10-25T07:20:58.050906+00:00",
-  "note": "claim worker dispatch researcher",
+  "saved_at": "2026-10-25T07:29:40.188991+00:00",
+  "note": "phase validation",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -38,6 +38,12 @@
   },
   "files": [
     {
+      "path": "out/dispatch/claims.json",
+      "class": "scratch",
+      "sha256": "5012c2d001c11f02ee01fc3d118ee04124a183876c512a16cdaac11d4ddc12a8",
+      "size": 9275
+    },
+    {
       "path": "out/dispatch/claude-host.json",
       "class": "scratch",
       "sha256": "5ca770d033d14bd3ddbfe9db980e2c7a5457ad2b1f311206fefc5bfdbd1e825d",
@@ -46,8 +52,8 @@
     {
       "path": "out/dispatch/claude-phases.jsonl",
       "class": "scratch",
-      "sha256": "c1f873fa39fb7e72a5efb9969e7a79e0ced7c09f9bf458b94fa43672d4d88fbe",
-      "size": 64
+      "sha256": "0c32e2de2dcb5d8a1b323f653693785e86dac8bf5f568e7b0da75fccf7093eb3",
+      "size": 130
     },
     {
       "path": "out/dispatch/daily-production-scoreboard.json",
@@ -65,6 +71,12 @@
       "path": "out/dispatch/native-completion-waits/3d980795351cda9f6a177659252c00bcf23cfcdfe8c75c5fa28775d6c52a6bf6.json",
       "class": "scratch",
       "sha256": "3d980795351cda9f6a177659252c00bcf23cfcdfe8c75c5fa28775d6c52a6bf6",
+      "size": 426
+    },
+    {
+      "path": "out/dispatch/native-completion-waits/4152bace1f46e4a60076643327d339e21159f41997ce1e663ef647958d6713d0.json",
+      "class": "scratch",
+      "sha256": "4152bace1f46e4a60076643327d339e21159f41997ce1e663ef647958d6713d0",
       "size": 426
     },
     {
@@ -98,6 +110,12 @@
       "size": 1005
     },
     {
+      "path": "out/dispatch/research.json",
+      "class": "scratch",
+      "sha256": "f053451b317ac24fbbedd0ce47e9e0929325f9631bf1a2f00e1cf67a7d921c46",
+      "size": 2987
+    },
+    {
       "path": "out/dispatch/researcher-assignment.json",
       "class": "scratch",
       "sha256": "7a27cb628455cd703564183588e3e9996507bead80b6133ba49f4d6486a9aa9c",
@@ -112,8 +130,8 @@
     {
       "path": "out/dispatch/researcher-c-assignment.json",
       "class": "scratch",
-      "sha256": "aefafcf2de93c4e780cf24fbb14411b99130f62b8bcca4e9b0f3a2fb7b8b75f0",
-      "size": 2091
+      "sha256": "991c1a32440a5a3d925fe341cb6b5ef1af16e2b909b719e00ea496dd086d97b8",
+      "size": 3206
     },
     {
       "path": "out/dispatch/researcher-packet-subject-2c745803ba7403ec.json",
@@ -146,6 +164,36 @@
       "size": 0
     },
     {
+      "path": "out/dispatch/sources/aggie_release.html",
+      "class": "scratch",
+      "sha256": "88796d3537869599872ff90648f20b219975218491c697e8e4b3e95e890d3729",
+      "size": 64945
+    },
+    {
+      "path": "out/dispatch/sources/aggie_release.txt",
+      "class": "scratch",
+      "sha256": "e52f6ce6810e84432c08a5a0be8eec6ddd7517a382cc8bdacfb8b65be4e6d37b",
+      "size": 5801
+    },
+    {
+      "path": "out/dispatch/story_selection.json",
+      "class": "scratch",
+      "sha256": "33174ff1088605b3e7df418772b0d4cc8e1f66a4f83ceb93455405c178733022",
+      "size": 8430
+    },
+    {
+      "path": "out/dispatch/vo_bindings.json",
+      "class": "scratch",
+      "sha256": "a2410df7f9b70a85aaeb3069f3b6177456620dae3386ffd7ed4c18b1bd4f5280",
+      "size": 1394
+    },
+    {
+      "path": "out/dispatch/vo_script.txt",
+      "class": "scratch",
+      "sha256": "6584bfab66dca6e46c5aeae8ca5056018fd69909b7782c08d95a776a3d3cbc25",
+      "size": 627
+    },
+    {
       "path": "out/dispatch/worker-dispatch-claims/8808195166439df20decabd88d4b888d56af864b75fa6abdce60b28e112d019f-researcher.json",
       "class": "scratch",
       "sha256": "10e0bd0c2084d586e5a1e46c375b9d83a633990466f09f8f5c618ed43038a0b0",
@@ -159,9 +207,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 50390,
-    "unique_blob_bytes": 50390,
-    "unique_blobs": 19
+    "logical_bytes": 145456,
+    "unique_blob_bytes": 145456,
+    "unique_blobs": 27
   },
   "excluded": [],
   "regenerable": {
