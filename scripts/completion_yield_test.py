@@ -300,6 +300,58 @@ class ExhaustedRequiredReviewTests(unittest.TestCase):
             self.state = original
         self.save()
 
+    def make_unfundable(self):
+        """Three code reviews spent, no opening evidence: the remaining two cannot fund a film."""
+        events = self.state['events']
+        self.state['events'] = events[:4] + [events[7]]
+        self.state['usage']['storyboard_critics'] = 3
+        self.claim.write_text(json.dumps({'schema': 'dispatch_worker_dispatch_claim/1',
+            'run_id': self.state['run_id'], 'role': 'storyboard-critic', 'reservation_event_index': 3,
+            'reservation_sha256': closure.digest(self.state['events'][3]), 'owner_sha256': 'original-owner',
+            'epoch': 'original-epoch', 'packet_sha256': 'original-spent-packet'}))
+        self.plan = {'reason': closure.UNFUNDABLE_REQUIRED_REVIEW, 'failure_evidence': str(self.failure)}
+        self.save()
+
+    def test_unfundable_path_closes_at_the_third_review_without_opening_evidence(self):
+        self.make_unfundable()
+        before = self.path.read_bytes(); evidence = self.validate()
+        self.assertEqual(self.path.read_bytes(), before)
+        self.assertEqual(evidence['plan']['reason'], closure.UNFUNDABLE_REQUIRED_REVIEW)
+        self.assertFalse(evidence['production_finished']); self.assertFalse(evidence['shipment_authorized'])
+        self.assertIn('out/dispatch/worker-dispatch-claims/original.json', evidence['files'])
+
+    def test_unfundable_reason_cannot_close_a_fundable_or_unfinished_path(self):
+        self.make_unfundable()
+        for change, message in [('early', 'exhausted'), ('selection', 'exhausted'), ('code-a', 'exhausted'),
+                                ('code-b', 'exhausted'), ('final', 'reserved final'), ('film', 'native film'),
+                                ('exhausted-name', 'exhausted')]:
+            original = copy.deepcopy(self.state); plan = dict(self.plan); extra = None
+            if change == 'early':
+                self.state['events'].pop(3); self.state['usage']['storyboard_critics'] = 2
+            if change == 'selection': extra = self.out / 'openings/selection.json'
+            if change == 'code-a': extra = self.out / 'opening-a-critic.json'
+            if change == 'code-b': extra = self.out / 'opening-b-critic.json'
+            if change == 'final': self.state['events'][3]['final_timed_phone'] = {'packet': 'unclaimed'}
+            if change == 'film': self.state['deliverable'] = {'film': 'original.mp4'}
+            if change == 'exhausted-name': self.plan['reason'] = closure.EXHAUSTED_REQUIRED_REVIEW
+            if extra is not None:
+                extra.parent.mkdir(parents=True, exist_ok=True); extra.write_text('{}')
+            self.save()
+            with self.subTest(change=change), self.assertRaisesRegex(ValueError, message):
+                self.validate()
+            if extra is not None: extra.unlink()
+            self.state = original; self.plan = plan; self.save()
+
+    def test_exhausted_hint_and_unfundable_hint_name_their_own_supported_commands(self):
+        self.make_unfundable()
+        hint = routine_continuation.capacity_recovery_hint(self.state, self.out)
+        self.assertIn('--unfundable-required-review', hint); self.assertIn('NOT SHIPPED', hint)
+        self.assertNotIn('completion-capacity', hint); self.assertNotIn('ask the owner', hint)
+        (self.out / 'opening-a-critic.json').write_text('{}')
+        hint = routine_continuation.capacity_recovery_hint(self.state, self.out)
+        self.assertNotIn('--unfundable-required-review', hint)
+        self.assertIn('FIVE cumulative editorial reviews', hint)
+
     def test_exact_five_closes_only_when_no_final_packet_was_reserved(self):
         self.state['events'].pop(6)
         self.state['usage']['storyboard_critics'] = 5
@@ -381,6 +433,148 @@ class ExhaustedRequiredReviewTests(unittest.TestCase):
                                                      'sha256': 'original'}]}, ledger)
             with self.assertRaisesRegex(ValueError, 'every original checkpoint worker claim'):
                 closure.checkpoint_proof(self.path, evidence)
+
+
+class InfeasibleRequiredReviewTests(unittest.TestCase):
+    def write(self, path, value):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(value, indent=2) + '\n')
+        return path
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
+        self.workspace = Path(self.tmp.name).resolve(); self.repo = self.workspace / 'Dispatch'
+        self.out = self.repo / 'out/dispatch'; self.path = self.out / 'run_state.json'
+        owner = publication_owner.identity('parent'); envelope = {'storyboard_critics': 7, 'full_renders': 14}
+        self.state = {'schema': run_controller.SCHEMA, 'run_id': '2026-10-25', 'mode': 'production',
+            'terminal_state': None, 'resource_envelope': envelope,
+            'usage': {'storyboard_critics': 4, 'full_renders': 0, 'reported_tokens': 123},
+            'events': [{'kind': 'resource_envelope_frozen', 'envelope': envelope}] + [
+                {'kind': 'reserved', 'resources': {'storyboard_critics': 1}, 'at': str(i),
+                 'publication_owner_sha256': owner, 'publication_epoch': 'original-epoch'} for i in range(4)]}
+        self.write(self.path, self.state)
+        self.packet = self.write(self.out / 'combined-packet.json', {
+            'role': 'storyboard-critic', 'date': self.state['run_id'], 'phone_mode': 'comparison',
+            'review_scope': 'exact-muted-phone-preflight', 'combined_code_review': {'original_binding': True}})
+        self.claim = self.write(self.out / 'worker-dispatch-claims/fourth.json', {
+            'schema': 'dispatch_worker_dispatch_claim/1', 'run_id': self.state['run_id'],
+            'role': 'storyboard-critic', 'reservation_event_index': 4,
+            'reservation_sha256': closure.digest(self.state['events'][4]), 'owner_sha256': owner,
+            'epoch': 'original-epoch', 'packet_sha256': run_controller.digest(self.packet)})
+        self.report = {'schema': 'dispatch_combined_code_phone_handback/1',
+            'packet_sha256': run_controller.digest(self.packet), 'reviewer_identity': 'fourth-native-worker',
+            'code_reports': {key: {'review_scope': 'code-plan', 'verdict': 'revise',
+                'reviewer_identity': 'fourth-native-worker',
+                'blocking_defects': [{'category': 'motion', 'defect': 'The required contact never completes.'}]}
+                for key in ('a', 'b')}, 'selection': {'selected': 'a', 'reviewer_identity': 'fourth-native-worker'},
+            'phone_review': {'review_scope': 'exact-muted-phone-preflight', 'verdict': 'revise',
+                'reviewer_identity': 'fourth-native-worker',
+                'blocking_defects': [{'category': 'motion', 'defect': 'The contact remains unresolved in the current film.'}]}}
+        self.write(self.workspace / routine_continuation.MARKER, {
+            'schema': routine_continuation.SCHEMA, 'run_id': self.state['run_id'], 'state': str(self.path)})
+        self.refresh_receipt()
+
+    def refresh_receipt(self):
+        for path in (self.out / closure.CRITIC_RECEIPTS).glob('*.json'):
+            path.unlink()  # Independent temporary test fixture only.
+        self.payload = {'hook_event_name': 'SubagentStop', 'session_id': 'parent',
+            'agent_id': 'fourth-native-worker', 'agent_type': 'dispatch-visual-critic',
+            'last_assistant_message': json.dumps(self.report)}
+        closure.record(self.payload, self.workspace)
+        self.receipt = next((self.out / closure.CRITIC_RECEIPTS).glob('*.json'))
+        self.plan = {'reason': closure.INFEASIBLE_REQUIRED_REVIEW, 'critic_completion': str(self.receipt)}
+
+    def validate(self):
+        return closure.validate_plan(self.path, self.plan)
+
+    def test_four_actual_attempts_close_only_proven_infeasible_mandatory_path(self):
+        original = self.path.read_bytes(); evidence = self.validate()
+        self.assertEqual(evidence['review_path']['remaining'], 1)
+        self.assertEqual(evidence['review_path']['required'], 2)
+        self.assertFalse(evidence['production_finished']); self.assertFalse(evidence['shipment_authorized'])
+        self.assertEqual(self.path.read_bytes(), original)
+        self.assertEqual(closure.read(self.path)['usage']['storyboard_critics'], 4)
+
+    def test_original_handback_helper_requires_hook_response_and_immutable_packet_claim(self):
+        handback = self.write(self.out / 'returned-handback.json', self.report)
+        self.assertEqual(closure.verify_original_handback(self.repo, self.packet, handback, self.claim), self.report)
+        result = closure.original_critic_review(self.path, 4)
+        self.assertEqual(result['reviewer_identity'], 'fourth-native-worker')
+        self.assertEqual(result['report'], self.report)
+        changed = copy.deepcopy(self.report); changed['phone_review']['verdict'] = 'pass'
+        self.write(handback, changed)
+        with self.assertRaisesRegex(ValueError, 'absent or ambiguous'):
+            closure.verify_original_handback(self.repo, self.packet, handback, self.claim)
+        self.write(handback, self.report); self.packet.write_text('{"changed": true}')
+        with self.assertRaisesRegex(ValueError, 'exact paid packet'):
+            closure.verify_original_handback(self.repo, self.packet, handback, self.claim)
+
+    def test_missing_original_and_director_summary_never_create_rejection(self):
+        self.receipt.unlink()
+        self.write(self.out / 'storyboard_critic.json', self.report)
+        self.write(self.out / 'WORKLOG.json', {'claim': 'The missing fourth worker returned REVISE.'})
+        with self.assertRaisesRegex(ValueError, 'original critic response'):
+            self.validate()
+
+    def test_optional_surface_finish_and_incomplete_or_other_worker_reports_refused(self):
+        original = copy.deepcopy(self.report)
+        for case in ('surface', 'missing', 'identity', 'pass'):
+            self.report = copy.deepcopy(original)
+            if case == 'surface':
+                for row in [*self.report['code_reports'].values(), self.report['phone_review']]:
+                    row['blocking_defects'][0]['category'] = 'surface_finish'
+            if case == 'missing': self.report['code_reports'].pop('b')
+            if case == 'identity': self.report['phone_review']['reviewer_identity'] = 'another-worker'
+            if case == 'pass':
+                self.report['code_reports']['a']['verdict'] = self.report['phone_review']['verdict'] = 'pass'
+            self.refresh_receipt()
+            with self.subTest(case=case), self.assertRaises(ValueError):
+                self.validate()
+
+    def test_no_reserved_final_phone_native_work_count_reset_or_extra_review(self):
+        original = copy.deepcopy(self.state)
+        for case in ('three', 'five', 'final', 'native', 'manual', 'envelope'):
+            self.state = copy.deepcopy(original)
+            if case == 'three': self.state['usage']['storyboard_critics'] = 3
+            if case == 'five': self.state['usage']['storyboard_critics'] = 5
+            if case == 'final': self.state['events'][4]['final_timed_phone'] = {}
+            if case == 'native': self.state['usage']['full_renders'] = 1
+            if case == 'manual': self.state['events'].append({'kind': 'owner_codex_repair_granted'})
+            if case == 'envelope': self.state['resource_envelope'] = {'storyboard_critics': 8}
+            self.write(self.path, self.state)
+            with self.subTest(case=case), self.assertRaises(ValueError):
+                self.validate()
+        self.state = original; self.write(self.path, original)
+        hero = self.out / 'cinema/hero.mp4'; hero.parent.mkdir(); hero.write_bytes(b'original native hero')
+        with self.assertRaisesRegex(ValueError, 'native film'):
+            self.validate()
+
+    def test_only_native_stop_completes_a_handback_and_parent_cannot_change_receipt(self):
+        self.receipt.unlink()
+        closure.record({**self.payload, 'hook_event_name': 'PostToolUse', 'tool_name': 'SubagentHandback',
+                        'tool_input': {'message': self.payload['last_assistant_message']}}, self.workspace)
+        self.assertFalse(self.receipt.exists())
+        closure.record({**self.payload, 'last_assistant_message': 'Handback delivered.'}, self.workspace)
+        self.assertTrue(self.receipt.exists())
+        with self.assertRaisesRegex(ValueError, 'preserve the original'):
+            closure.record({**self.payload, 'agent_id': 'parent-replacement'}, self.workspace)
+
+    def test_close_requires_full_original_checkpoint_and_keeps_actual_four(self):
+        with patch('publication_owner.require_owner'), patch('claude_checkpoint.save_with_recovery'), \
+                patch.object(closure, 'checkpoint_proof', side_effect=ValueError('missing original checkpoint')):
+            with self.assertRaisesRegex(ValueError, 'original checkpoint'):
+                closure.close(self.path, self.plan)
+        self.assertEqual(closure.read(self.path), self.state)
+        with patch('publication_owner.require_owner'), patch('claude_checkpoint.mirror'), \
+                patch('claude_checkpoint.save_with_recovery'), \
+                patch.object(closure, 'checkpoint_proof', return_value='full-checkpoint') as proof:
+            closure.close(self.path, self.plan)
+            self.assertEqual(proof.call_count, 2)
+            state = closure.read(self.path)
+            self.assertEqual(state['usage']['storyboard_critics'], 4)
+            self.assertIsNone(state['terminal_state'])
+            self.assertFalse(closure.permits({'background_tasks': [{'id': 'paid-worker'}], 'session_crons': []}, self.path, state))
+            self.assertTrue(closure.permits({'background_tasks': [], 'session_crons': []}, self.path, state))
 
 
 if __name__ == '__main__':

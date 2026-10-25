@@ -12,8 +12,13 @@ import sys
 
 KIND = 'hard_limit_expenditure_closed'
 EXHAUSTED_REQUIRED_REVIEW = 'exhausted-required-review-before-film'
+UNFUNDABLE_REQUIRED_REVIEW = 'unfundable-required-review-before-film'
+PRE_FILM_REASONS = (EXHAUSTED_REQUIRED_REVIEW, UNFUNDABLE_REQUIRED_REVIEW)
+INFEASIBLE_REQUIRED_REVIEW = 'infeasible-required-review-before-film'
 ROLES = ('picture', 'story', 'sound')
 RECEIPTS = 'native-scorer-completions'
+CRITIC_RECEIPTS = 'native-critic-completions'
+CRITIC_SCHEMA = 'dispatch_native_critic_completion/1'
 JUDGMENTS = ('score', 'weighted_score', 'ship', 'verdict', 'axes', 'hard_fails', 'defects',
              'attention_review', 'modern_observations', 'narration_picture_observations', 'bounded_release')
 
@@ -74,12 +79,13 @@ def record(payload, workspace):
     require(armed.get('schema') == SCHEMA, 'completion observer needs the selected production')
     state_path = location(workspace, armed['state']); state = read(state_path)
     require(state.get('run_id') == armed['run_id'] and state.get('mode') == 'production', 'completion observer run changed')
-    if payload.get('agent_type') not in ('scorer', 'dispatch-visual-scorer'):
+    critic = payload.get('agent_type') in ('storyboard-critic', 'dispatch-visual-critic')
+    if not critic and payload.get('agent_type') not in ('scorer', 'dispatch-visual-scorer'):
         return
     agent = payload.get('agent_id'); session = payload.get('session_id')
     if not isinstance(agent, str) or not agent or not isinstance(session, str) or not session:
         return
-    folder = state_path.parent / RECEIPTS
+    folder = state_path.parent / (CRITIC_RECEIPTS if critic else RECEIPTS)
     key = digest([session, agent])
     if payload.get('hook_event_name') == 'PostToolUse' and payload.get('tool_name') == 'SubagentHandback':
         message = (payload.get('tool_input') or {}).get('message')
@@ -102,17 +108,101 @@ def record(payload, workspace):
         return
     for path in (state_path.parent / 'worker-dispatch-claims').glob('*.json'):
         claim = read(local(state_path.parents[2], path))
-        if (claim.get('role') not in ROLES or claim.get('packet_sha256') != report.get('packet_sha256')
+        if (claim.get('role') not in (('storyboard-critic',) if critic else ROLES)
+                or claim.get('packet_sha256') != report.get('packet_sha256')
                 or claim.get('run_id') != state['run_id'] or claim.get('owner_sha256') != identity(session)):
             continue
         event = state['events'][claim['reservation_event_index']]
         require(claim['reservation_sha256'] == digest(event), 'completion reservation changed')
-        value = {'schema': 'dispatch_native_scorer_completion/1', 'agent_id': agent,
+        value = {'schema': CRITIC_SCHEMA if critic else 'dispatch_native_scorer_completion/1', 'agent_id': agent,
                  'session_sha256': identity(session), 'claim_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
                  'reservation_sha256': digest(event), 'packet_sha256': claim['packet_sha256'],
                  'role': claim['role'], 'run_id': state['run_id'], 'report': report,
                  'original_final_response': message, 'production_finished': False}
+        if critic:
+            from visual_observations import actor
+            value['actor_sha256'] = actor(payload)
         immutable(folder / (claim['packet_sha256'] + '-' + digest(report) + '.json'), value)
+
+
+def critic_completion(root, receipt_path, *, state_path=None):
+    """Verify an original public native handback against its actual charged worker claim."""
+    from run_controller import digest as file_sha
+    root = Path(root).resolve(); state_path = Path(state_path or root / 'out/dispatch/run_state.json')
+    state = read(state_path); receipt_path = local(root, receipt_path); receipt = read(receipt_path)
+    require(receipt_path.parent == state_path.parent / CRITIC_RECEIPTS
+            and receipt.get('schema') == CRITIC_SCHEMA and receipt.get('role') == 'storyboard-critic'
+            and receipt.get('run_id') == state.get('run_id'), 'original native critic completion is missing')
+    report = receipt.get('report')
+    require(isinstance(report, dict) and json.loads(receipt['original_final_response']) == report
+            and report.get('packet_sha256') == receipt.get('packet_sha256')
+            and isinstance(receipt.get('agent_id'), str) and bool(receipt['agent_id'].strip()),
+            'retain the complete original public critic response')
+    claims = [p for p in (state_path.parent / 'worker-dispatch-claims').glob('*.json')
+              if file_sha(local(root, p)) == receipt.get('claim_sha256')]
+    require(len(claims) == 1, 'original critic completion needs its exact worker claim')
+    claim_path = claims[0]; claim = read(claim_path); index = claim.get('reservation_event_index')
+    require(type(index) is int and 0 <= index < len(state['events']), 'critic reservation is missing')
+    event = state['events'][index]
+    require(claim.get('schema') == 'dispatch_worker_dispatch_claim/1'
+            and claim.get('role') == 'storyboard-critic' and claim.get('run_id') == state['run_id']
+            and event.get('kind') == 'reserved' and event.get('resources', {}).get('storyboard_critics') == 1
+            and receipt.get('reservation_sha256') == claim.get('reservation_sha256') == digest(event)
+            and receipt.get('packet_sha256') == claim.get('packet_sha256')
+            and receipt.get('session_sha256') == claim.get('owner_sha256') == event.get('publication_owner_sha256')
+            and claim.get('epoch') == event.get('publication_epoch'),
+            'original critic completion changed owner, reservation or packet')
+    return receipt, claim, claim_path
+
+
+def verify_original_handback(root, packet_path, handback_path, claim_path):
+    """Return the unchanged native response; a parent-authored JSON file is never sufficient."""
+    from run_controller import digest as file_sha
+    root = Path(root).resolve(); packet_path = local(root, packet_path)
+    handback_path = local(root, handback_path); claim_path = local(root, claim_path)
+    report = read(handback_path); packet_sha = file_sha(packet_path)
+    require(isinstance(report, dict) and report.get('packet_sha256') == packet_sha,
+            'original handback must bind the exact paid packet')
+    matches = []
+    for path in (root / 'out/dispatch' / CRITIC_RECEIPTS).glob(packet_sha + '-*.json'):
+        receipt, claim, original_claim = critic_completion(root, path)
+        if receipt['report'] == report and original_claim == claim_path:
+            matches.append(receipt)
+    require(len(matches) == 1, 'original native critic response is absent or ambiguous; do not reconstruct grades')
+    return report
+
+
+def original_critic_review(state_path, reservation_event_index):
+    """Read the actual native completion for one charged attempt without creating a report."""
+    from run_controller import digest as file_sha
+    state_path = Path(state_path).resolve(); root = state_path.parents[2]
+    matches = []
+    for path in sorted((state_path.parent / CRITIC_RECEIPTS).glob('*.json')):
+        if path.name.startswith('handback-'):
+            continue
+        receipt, claim, claim_path = critic_completion(root, path, state_path=state_path)
+        if claim['reservation_event_index'] == reservation_event_index:
+            matches.append((path, receipt, claim_path))
+    require(len(matches) == 1, 'retain the one complete original critic response for this charged attempt')
+    receipt_path, receipt, claim_path = matches[0]
+    # Packet locations are not authority: only the charged exact bytes identify the input.
+    # Inspect bounded JSON inputs, never native transcripts or private reasoning.
+    packets = []
+    for path in sorted(state_path.parent.rglob('*.json')):
+        if (CRITIC_RECEIPTS in path.parts or 'worker-dispatch-claims' in path.parts
+                or path == state_path or not path.is_file() or path.stat().st_size > 8 * 1024 * 1024):
+            continue
+        if file_sha(local(root, path)) == receipt['packet_sha256']:
+            packets.append(path)
+    require(bool(packets), 'retain the exact original paid critic packet')
+    packet = read(packets[0])
+    require(packet.get('role') == 'storyboard-critic'
+            and packet.get('date') == read(state_path)['run_id'][:10],
+            'original critic packet belongs to another role or edition')
+    bound = lambda path: {'path': str(path), 'sha256': file_sha(path)}
+    return {'receipt': bound(receipt_path), 'packet': bound(packets[0]), 'claim': bound(claim_path),
+            'report': receipt['report'], 'reviewer_identity': receipt['agent_id'],
+            'actor_sha256': receipt.get('actor_sha256')}
 
 
 def complete_judge(judge, board, film_sha, film_runtime=None):
@@ -238,7 +328,7 @@ def checkpoint_proof(state_path, evidence):
     manifest, ledger = cp.verify_checkpoint(root, tip, state['run_id'])
     require(ledger == cp.ledger_text(state, root).encode(), 'remote checkpoint does not contain the exact current ledger')
     files = {r['path']: r['sha256'] for r in manifest['files']}
-    if evidence.get('plan', {}).get('reason') == EXHAUSTED_REQUIRED_REVIEW:
+    if evidence.get('plan', {}).get('reason') in (*PRE_FILM_REASONS, INFEASIBLE_REQUIRED_REVIEW):
         claims = lambda rows: {p: h for p, h in rows.items() if p.startswith('out/dispatch/worker-dispatch-claims/')}
         require(claims(files) == claims(evidence['files']),
                 'retain every original checkpoint worker claim before closing expenditure')
@@ -258,12 +348,16 @@ def checkpoint_proof(state_path, evidence):
 def validate_exhausted_review(state_path, plan):
     """Retain an impossible pre-film path without authorizing another attempt or shipment."""
     from run_controller import digest as file_sha
-    from review_limit import reached, used, FINAL_PACKET_FROM
+    from review_limit import reached, unfundable, used, FINAL_PACKET_FROM
     from manual_codex_repair import EVENT as manual_event
     root = state_path.parents[2]; state = read(state_path); events = state['events']
-    require(set(plan) == {'reason', 'failure_evidence'} and plan['reason'] == EXHAUSTED_REQUIRED_REVIEW,
+    require(set(plan) == {'reason', 'failure_evidence'} and plan['reason'] in PRE_FILM_REASONS,
             'exhausted-review closure needs its original failure evidence')
-    require(str(state.get('run_id', ''))[:10] >= FINAL_PACKET_FROM and reached(state)
+    # Preserve the producer's original unfundable closure and all original evidence.
+    # The current path budget also recognizes a genuinely available combined route.
+    closed_path = (reached(state) if plan['reason'] == EXHAUSTED_REQUIRED_REVIEW
+                   else unfundable(state, state_path.parent))
+    require(str(state.get('run_id', ''))[:10] >= FINAL_PACKET_FROM and closed_path
             and not state.get('terminal_state') and not state.get('shipment')
             and not any(e.get('kind') == manual_event for e in events),
             'only an exhausted ordinary daily production can close this path')
@@ -324,9 +418,105 @@ def validate_exhausted_review(state_path, plan):
             'production_finished': False, 'shipment_authorized': False}
 
 
+def validate_infeasible_review(state_path, plan):
+    """Retain a genuine fourth combined rejection; never buy a dummy fifth attempt."""
+    from run_controller import digest as file_sha
+    from review_limit import remaining_review_path
+    from manual_codex_repair import EVENT as manual_event
+    state_path = Path(state_path).resolve(); root = state_path.parents[2]
+    state = read(state_path); events = state['events']
+    require(set(plan) == {'reason', 'critic_completion'}
+            and plan['reason'] == INFEASIBLE_REQUIRED_REVIEW,
+            'infeasible-review closure requires its original native critic completion')
+    budget = remaining_review_path(state)
+    require(state.get('mode') == 'production' and str(state.get('run_id', ''))[:10] >= '2026-10-25'
+            and budget['used'] == 4 and budget['ceiling'] == 5 and budget['remaining'] == 1
+            and not state.get('terminal_state') and not state.get('shipment')
+            and not any(e.get('kind') == manual_event for e in events),
+            'only an ordinary fourth combined review can prove this remaining-path failure')
+    require(not state.get('deliverable')
+            and not any((state_path.parent / name).exists() for name in ('film.mp4', 'cinema/hero.mp4'))
+            and all(state.get('usage', {}).get(k, 0) == 0 for k in
+                    ('full_renders', 'cleanup_renders', 'rescue_renders', 'panel_rounds', 'scorer_calls')),
+            'this closure cannot discard an existing native film or final panel')
+    frozen = [e for e in events if e.get('kind') == 'resource_envelope_frozen']
+    require(len(frozen) == 1 and frozen[0].get('envelope') == state.get('resource_envelope'),
+            'preserve the original frozen resource envelope')
+    reservations = [(i, e) for i, e in enumerate(events) if e.get('kind') == 'reserved'
+                    and e.get('resources', {}).get('storyboard_critics')]
+    require(len(reservations) == 4 and all(e['resources']['storyboard_critics'] == 1
+            and type(e['resources']['storyboard_critics']) is int for _, e in reservations),
+            'cumulative review usage must equal the four original reservations')
+    require(not any('final_timed_phone' in e for _, e in reservations),
+            'an existing reserved final timed-phone attempt must be resolved first')
+    original = original_critic_review(state_path, reservations[-1][0])
+    require(local(root, plan['critic_completion']) == Path(original['receipt']['path']),
+            'closure must retain the latest actual original native critic response')
+    report = original['report']; packet = read(original['packet']['path'])
+    require(report.get('schema') == 'dispatch_combined_code_phone_handback/1'
+            and isinstance(report.get('reviewer_identity'), str) and bool(report['reviewer_identity'].strip())
+            and isinstance(original['actor_sha256'], str) and len(original['actor_sha256']) == 64
+            and packet.get('combined_code_review')
+            and packet.get('phone_mode') == 'comparison'
+            and packet.get('review_scope') == 'exact-muted-phone-preflight',
+            'only the complete original combined code and silent-phone review can use this closure')
+    codes = report.get('code_reports'); selection = report.get('selection')
+    phone = report.get('phone_review')
+    require(isinstance(codes, dict) and set(codes) == {'a', 'b'}
+            and all(isinstance(row, dict) and row.get('review_scope') == 'code-plan'
+                    and row.get('reviewer_identity') == report['reviewer_identity']
+                    and row.get('verdict') in ('pass', 'revise')
+                    and isinstance(row.get('blocking_defects'), list) for row in codes.values())
+            and isinstance(selection, dict) and selection.get('selected') in ('a', 'b')
+            and selection.get('reviewer_identity') == report['reviewer_identity']
+            and isinstance(phone, dict) and phone.get('review_scope') == 'exact-muted-phone-preflight'
+            and phone.get('reviewer_identity') == report['reviewer_identity']
+            and phone.get('verdict') in ('pass', 'revise')
+            and isinstance(phone.get('blocking_defects'), list),
+            'retain all separate original code, selection and phone reports')
+    mandatory = {'source', 'rights', 'legibility', 'comprehension', 'technical_audio',
+                 'captions', 'motion', 'pacing', 'ending_artistry'}
+    failed = [row for row in (codes[selection['selected']], phone) if row['verdict'] == 'revise']
+    require(any(isinstance(defect, dict) and defect.get('category') in mandatory
+                and isinstance(defect.get('defect'), str) and bool(defect['defect'].strip())
+                for row in failed for defect in row['blocking_defects']),
+            'a missing report or optional surface-finish rejection cannot prove mandatory path infeasibility')
+    # The original selected-cut mandatory rejection needs a fresh independent gate;
+    # the separately protected timed-phone gate has not been reserved. Even the
+    # shortest possible compliant continuation therefore costs two attempts, not one.
+    minimum = {'used': budget['used'], 'ceiling': budget['ceiling'], 'remaining': budget['remaining'],
+               'required': 2, 'pending': ['rejected-current-gate', 'timed_phone'], 'feasible': False}
+    bindings = {}
+    def bind(path):
+        path = local(root, path); bindings[str(path.relative_to(root))] = file_sha(path); return path
+    for name in ('receipt', 'packet', 'claim'):
+        bind(original[name]['path'])
+    folder = state_path.parent / 'worker-dispatch-claims'
+    for path in sorted(folder.glob('*.json')):
+        claim = read(bind(path)); index = claim.get('reservation_event_index')
+        require(type(index) is int and 0 <= index < len(events), 'worker claim reservation is missing')
+        event = events[index]
+        require(claim.get('schema') == 'dispatch_worker_dispatch_claim/1'
+                and claim.get('run_id') == state['run_id'] and event.get('kind') == 'reserved'
+                and claim.get('reservation_sha256') == digest(event)
+                and claim.get('owner_sha256') == event.get('publication_owner_sha256')
+                and claim.get('epoch') == event.get('publication_epoch'), 'original worker claim changed')
+    closure_indexes = [i for i, e in enumerate(events) if e.get('kind') == KIND]
+    require(len(closure_indexes) <= 1, 'preserve the single expenditure closure')
+    prefix = events[:closure_indexes[0]] if closure_indexes else events
+    return {'plan': plan, 'files': bindings, 'review_path': minimum,
+            'failure_event_index': reservations[-1][0], 'failure_event_sha256': digest(reservations[-1][1]),
+            'ledger_prefix_sha256': digest(prefix),
+            'paid_usage_sha256': digest({k: v for k, v in state['usage'].items() if k != 'reported_tokens'}),
+            'envelope_sha256': digest(state['resource_envelope']),
+            'production_finished': False, 'shipment_authorized': False}
+
+
 def validate_plan(state_path, plan):
-    if plan.get('reason') == EXHAUSTED_REQUIRED_REVIEW:
+    if plan.get('reason') in PRE_FILM_REASONS:
         return validate_exhausted_review(state_path, plan)
+    if plan.get('reason') == INFEASIBLE_REQUIRED_REVIEW:
+        return validate_infeasible_review(state_path, plan)
     return validate(state_path, plan)
 
 
@@ -335,7 +525,7 @@ def close(state_path, plan):
     from publication_owner import require_owner
     import claude_checkpoint as cp
     require_owner(state_path); evidence = validate_plan(state_path, plan); state = read(state_path)
-    if plan.get('reason') == EXHAUSTED_REQUIRED_REVIEW:
+    if plan.get('reason') in (*PRE_FILM_REASONS, INFEASIBLE_REQUIRED_REVIEW):
         checkpoint_proof(state_path, evidence)  # Original failure and ledger must already be durable.
     old = [r for r in state['events'] if r.get('kind') == KIND]
     if old:
@@ -363,6 +553,8 @@ def main():
     parser.add_argument('--workspace', type=Path); parser.add_argument('--state', type=Path)
     parser.add_argument('--plan', type=Path)
     parser.add_argument('--exhausted-required-review', type=Path, metavar='ORIGINAL_FAILURE')
+    parser.add_argument('--unfundable-required-review', type=Path, metavar='ORIGINAL_FAILURE')
+    parser.add_argument('--infeasible-required-review', type=Path, metavar='ORIGINAL_NATIVE_RECEIPT')
     args = parser.parse_args()
     if args.workspace:
         payload = json.loads(sys.stdin.read(2 * 1024 * 1024 + 1))
@@ -371,9 +563,15 @@ def main():
         except FileNotFoundError:
             pass  # Ordinary sessions have no armed production.
     else:
-        require(args.state and bool(args.plan) != bool(args.exhausted_required_review),
-                'close expenditure with --state and exactly one --plan or --exhausted-required-review')
-        plan = (read(args.plan) if args.plan else {'reason': EXHAUSTED_REQUIRED_REVIEW,
+        require(args.state and sum(bool(p) for p in (args.plan, args.exhausted_required_review, args.unfundable_required_review,
+                args.infeasible_required_review)) == 1,
+                'close expenditure with --state and one --plan, --exhausted-required-review, '
+                '--unfundable-required-review or --infeasible-required-review')
+        plan = (read(args.plan) if args.plan else {'reason': INFEASIBLE_REQUIRED_REVIEW,
+                'critic_completion': str(args.infeasible_required_review.resolve())}
+                if args.infeasible_required_review else {'reason': UNFUNDABLE_REQUIRED_REVIEW,
+                'failure_evidence': str(args.unfundable_required_review.resolve())}
+                if args.unfundable_required_review else {'reason': EXHAUSTED_REQUIRED_REVIEW,
                 'failure_evidence': str(args.exhausted_required_review.resolve())})
         print(json.dumps({'checkpoint': close(args.state.resolve(), plan), 'shipped': False}))
 

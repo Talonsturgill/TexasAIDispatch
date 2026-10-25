@@ -325,7 +325,7 @@ def owned_boards(root, state):
     return boards
 
 
-def build(root, state):
+def build(root, state, *, combined_code_review=False):
     root, state = Path(root).resolve(), Path(state).resolve()
     if state.parent != root:
         raise ValueError("opening batch must use its edition's existing controller")
@@ -340,6 +340,10 @@ def build(root, state):
     from engine_lint import check_files, LIB
     from documentary_check import check as documentary
     boards = owned_boards(root, state)
+    diagnostic = None
+    if combined_code_review:
+        from combined_review import eligibility
+        diagnostic = eligibility(state)
     claims = creative.read(root / "claims.json")
     errors = check_files(LIB)
     errors += selection_problems(creative.read(root / "story_selection.json"), edition=boards[0]["date"])
@@ -347,10 +351,11 @@ def build(root, state):
         errors += check(board) + structure_problems(board, claims) + documentary(board)
         errors += supers(board, claims)[0]
         errors += narration(board, claims)
-        review = creative.read(root / f"opening-{key}-critic.json")
-        errors += problems(board, review)
-        if (review.get("story_review") or {}).get("claims_sha256") != creative.digest(root / "claims.json"):
-            errors.append("opening critic reviewed different source claims")
+        if not diagnostic:
+            review = creative.read(root / f"opening-{key}-critic.json")
+            errors += problems(board, review)
+            if (review.get("story_review") or {}).get("claims_sha256") != creative.digest(root / "claims.json"):
+                errors.append("opening critic reviewed different source claims")
         native_media_paths(board)
     if errors:
         raise ValueError("opening checks failed before reservation: " + "; ".join(sorted(set(errors))))
@@ -370,6 +375,8 @@ def build(root, state):
     if existing.exists():
         old = creative.read(existing)
         if old.get("reservation", {}).get("identity") == identity:
+            if old.get('combined_code_review') != diagnostic:
+                raise ValueError('retained comparison has different diagnostic authority; preserve its original evidence')
             if (old.get("policy_sha256") != creative.digest(creative.POLICY) or old.get("renderer_sha256") != expected_renderer
                     or old.get("producer_sha256") != expected_producer):
                 raise ValueError("retained opening approval dependencies changed; preserve it before repair")
@@ -420,6 +427,9 @@ def build(root, state):
         raise ValueError("opening alternatives rendered identical pictures; preserve the charged attempt")
     receipt = {"schema": "dispatch-opening-comparison/1", "policy_sha256": creative.digest(creative.POLICY),
                "renderer_sha256": expected_renderer, "producer_sha256": expected_producer, "reservation": reservation, "options": options}
+    if diagnostic:
+        receipt['combined_code_review'] = diagnostic
+        receipt['approval'] = 'diagnostic only; original combined code and exact-phone approval remain required'
     existing.write_text(json.dumps(receipt, indent=2)+"\n")
     return inspect_options(output, receipt)
 
@@ -432,9 +442,15 @@ def main():
                         help="retain diagnostic failures for policy-authorized finishing; grants no approval")
     parser.add_argument("--inspect-retained", action="store_true",
                         help="inspect the reviewed legacy capture without reserving or rendering")
+    parser.add_argument('--combined-code-review', action='store_true',
+                        help='guarded fourth-attempt diagnostic comparison; grants no code or film approval')
     args = parser.parse_args()
     try:
-        result = inspect_retained(args.root, args.state) if args.inspect_retained else build(args.root, args.state)
+        if args.inspect_retained and args.combined_code_review:
+            raise ValueError('retain the original capture route when inspecting existing evidence')
+        result = (inspect_retained(args.root, args.state) if args.inspect_retained else
+                  build(args.root, args.state, combined_code_review=True) if args.combined_code_review else
+                  build(args.root, args.state))
         print(json.dumps(result, indent=2))
         failures = inspection_problems(result, args.root / "openings")
         if failures:

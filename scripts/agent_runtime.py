@@ -255,7 +255,7 @@ def plan(role, packet_path, task_name, scope):
             raise ValueError('preserve the original authored runtime contracts')
         from review_limit import worker_plan_problems
         charged = publication_owner.has_unclaimed_worker_reservation(state_path, role, route['resource'])
-        errors = worker_plan_problems(read(state_path), data, charged=charged)
+        errors = worker_plan_problems(read(state_path), data, charged=charged, state_path=state_path)
         if errors:
             raise ValueError('; '.join(errors))
         if role in ('picture', 'story', 'sound'):

@@ -237,7 +237,7 @@ def budget_deficits(rows):
 def production_budget_precheck(state, review_route="host", phone_complete=False,
                                hero_rejected=False, context_ready=False, structural_ready=False,
                                minimum_action_failed=False, mandatory_repair=False, review_coverage=False,
-                               modern_code_repair=False):
+                               modern_code_repair=False, state_path=None):
     """Read-only complete remaining review path, including the final timed phone."""
     from manual_codex_repair import budget
     manual = budget(state, review_route)
@@ -252,7 +252,7 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
         raise ValueError("unknown independent review route")
     from autonomous_completion import finish_phone_critics
     required = {"reboards": 0 if finishing else 1,
-                "storyboard_critics": (finish_phone_critics(state, phone_complete) if finishing else 3) if review_route == "host" else 0,
+                "storyboard_critics": (finish_phone_critics(state, phone_complete, state_path) if finishing else 3) if review_route == "host" else 0,
                 "preflight_renders": 2 if finishing else 3,
                 "full_renders": 1, "audiovisual_reviews": (7 if phone_complete else 8) if finishing else 11,
                 "panel_rounds": 1, "scorer_calls": 3}
@@ -290,6 +290,13 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
         return {"feasible": False, "errors": errors, "resources": {}, "deficits": {}}
     from autonomous_completion import effective_envelope
     effective = effective_envelope(snapshot)
+    from review_limit import path_budget_enabled, remaining_review_path, MAX_ROUNDS
+    review_path = None
+    if path_budget_enabled(snapshot):
+        review_path = remaining_review_path(snapshot, state_path)
+        required['storyboard_critics'] = review_path['required']
+        # This spendable ceiling never rewrites the original frozen seven-call envelope.
+        effective = {**effective, 'storyboard_critics': min(effective.get('storyboard_critics', 0), MAX_ROUNDS)}
     rows = {name: {"required": count, "ceiling": effective.get(name, 0),
                    "used": snapshot["usage"].get(name, 0),
                    "remaining": effective.get(name, 0) - snapshot["usage"].get(name, 0)}
@@ -304,9 +311,12 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
         rows['reboards']['prepaid'] = 1
     deficits = budget_deficits(rows)
     blockers = ["rejected native hero requires an evidence-bound repair; finish-current is unavailable"] if hero_rejected and not context_ready and not structural_ready else []
+    if review_path:
+        blockers += review_path['errors']
     if action_blocked:
         blockers.append("minimum picture action failed; finish-current is unavailable and complete correction capacity is required")
     return {"feasible": not deficits and not blockers, "errors": blockers, "resources": rows, "deficits": deficits,
+            **({'review_path': review_path} if review_path else {}),
             **({'prepaid_reboard': prepaid} if mandatory_repair and prepaid is not None else {}),
             "review_route": review_route,
             "current_phone_reused": bool(phone_complete and (finishing or context_ready)),

@@ -540,6 +540,19 @@ class Reservation(unittest.TestCase):
             self.assertEqual(auth['prepared_capture']['event_sha256'],
                              controller.read_state(self.state)['events'][-1]['event_sha256'])
 
+    def test_combined_diagnostic_flag_requires_eligibility_before_capture_charge(self):
+        _, command = self.comparison_inputs()
+        command += ' --combined-code-review'
+        before = self.state.read_bytes()
+        with mock.patch('combined_review.eligibility', side_effect=ValueError('original third review missing')), \
+                self.assertRaisesRegex(ValueError, 'original third review missing'):
+            prepared.prepare(self.root, self.state, [command])
+        self.assertEqual(before, self.state.read_bytes())
+        with mock.patch('combined_review.eligibility', return_value={'fixture': 'eligible'}) as verify:
+            prepared.prepare(self.root, self.state, [command])
+        verify.assert_called_once_with(self.state)
+        self.assertEqual(1, controller.read_state(self.state)['usage']['preflight_renders'])
+
     def test_occupied_or_partial_comparison_is_preserved_and_refused_before_any_charge(self):
         boards, command = self.comparison_inputs()
         output = self.state.parent / 'openings'; output.mkdir()

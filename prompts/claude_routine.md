@@ -121,8 +121,9 @@ edition. A cloud container is reclaimed, so `pending` alone sees only worktrees 
 Also run `python scripts/checkpoint_discovery.py`. This read-only catalog holds each fetched
 commit in its own temporary ref, so another Git fetch cannot change the selected snapshot.
 Before restoring the selected older edition, apply the owner's October 24th failed-edition policy
-from the verified current-main tools. If the older checkpoint has exhausted the hard five and has
-no native film or remaining reserved final timed-phone attempt, use
+from the verified current-main tools. If the older checkpoint has exhausted the hard five, or
+contains a verified infeasible fourth combined-review rejection, and has no native film or
+remaining reserved final timed-phone attempt, use
 `python scripts/failed_editions.py retain --repo <current-clean-checkout> --run-id <old-id> --next-date <actual-Eastern-date>`.
 The helper verifies the original immutable checkpoint, frozen envelope, all charges, original
 failure and worker claims. It refuses an active lease, any same-date or suffix restart, and any
@@ -246,6 +247,26 @@ paid attempts. Every pivot and retry counts too. Never extend or reset this limi
 or diminishing returns, freeze the strongest existing cut and complete the final native/AV,
 three-scorer and delivery path once. Stop creative editing; use the genuine bounded surface
 finish classification when applicable. Do not run a sixth review to pursue a nicer grade.
+
+Before the first critic, record the planned review sequence in the worklog. Aim to finish both
+code treatments within two attempts, then compare both complete silent films and protect the
+measured final-phone check. The unused slot is reserve, not a target to spend. Consolidate every
+mandatory defect from the current original report into one correction, and verify the named
+mechanical fixes before another paid review. Simplify the implementation within the existing
+story and quality requirements; keep both complete treatments until the independent comparison
+selects one. Optional polish cannot displace a required check or restart creative editing.
+
+From October 25th, budget the actual unfinished review stages under the hard five, even when
+the retained frozen envelope records a larger historical allowance. A code PASS, the silent
+two-treatment comparison and the measured final-phone check are separate gates. A rejected
+code attempt leaves its gate unfinished. Recompute the complete path after every original
+handback and before another paid correction. Use the supported combined code-and-silent-film
+route in phase 2 when it fits; a different label cannot combine assignments or supply a pass.
+Preserve the original independent response on disk and checkpoint it immediately, before
+another repair, reservation or stop. A summary saying REVISE cannot replace that response.
+When the verified remaining path cannot fit, use the strict failed-edition procedure with the
+actual original evidence and actual count. Never purchase dummy reviews to reach five or ask
+the owner for a sixth attempt. Failure remains unshipped.
 
 `out/` is gitignored and dies with the container. For an edition marked by
 `out/dispatch/claude-host.json`, every controller ledger write is mirrored to

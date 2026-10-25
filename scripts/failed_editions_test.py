@@ -71,6 +71,25 @@ class FailedEditionTests(unittest.TestCase):
         changed = copy.deepcopy(self.state); changed['events'].pop()
         self.assertFalse(failed.matches_state(proof, changed))
 
+    def test_unfundable_pre_film_failure_is_retained_like_an_exhausted_one(self):
+        self.fixture.make_unfundable(); self.state = self.fixture.state
+        self.ledger = checkpoint.ledger_text(self.state, self.repo).encode()
+        raw = self.fixture.claim.read_bytes(); claim = self.fixture.claim.relative_to(self.repo).as_posix()
+        self.blobs[claim] = raw
+        self.manifest['ledger_sha256'] = hashlib.sha256(self.ledger).hexdigest()
+        for row in self.manifest['files']:
+            if row['path'] == claim: row.update(sha256=hashlib.sha256(raw).hexdigest(), size=len(raw))
+        proof = self.proof()
+        self.assertEqual(proof['evidence']['plan']['reason'], completion_yield.UNFUNDABLE_REQUIRED_REVIEW)
+        self.assertEqual(proof['original_state']['usage']['storyboard_critics'], 3)
+        self.assertFalse(proof['production_finished']); self.assertFalse(proof['shipment_authorized'])
+        # A checkpoint that carries opening evidence is not an unfundable dead end.
+        rel = 'out/dispatch/opening-a-critic.json'; blank = b'{}'
+        self.blobs[rel] = blank
+        self.manifest['files'].append({'path': rel, 'sha256': hashlib.sha256(blank).hexdigest(), 'size': len(blank)})
+        with self.assertRaisesRegex(ValueError, 'exhausted'):
+            self.proof()
+
     def test_administrative_retention_changes_only_catalog_and_never_checkpoint_or_ledger(self):
         before = self.fixture.path.read_bytes()
         with patch.object(owner, 'append', return_value={'commit': 'e' * 40}) as append:
@@ -149,6 +168,60 @@ class FailedEditionTests(unittest.TestCase):
             owner.current(self.repo, self.run, workspace, session='original', moment=self.moment)
         append.assert_not_called()
 
+
+class InfeasibleFailedEditionTests(unittest.TestCase):
+    def setUp(self):
+        self.fixture = yield_tests.InfeasibleRequiredReviewTests(
+            'test_four_actual_attempts_close_only_proven_infeasible_mandatory_path')
+        self.fixture.setUp(); self.addCleanup(self.fixture.doCleanups)
+        self.repo = self.fixture.repo; self.state = self.fixture.state; self.run = self.state['run_id']
+        self.commit = 'a' * 40
+        self.ledger = checkpoint.ledger_text(self.state, self.repo).encode()
+        files = [self.fixture.packet, self.fixture.claim, self.fixture.receipt]
+        self.blobs = {p.relative_to(self.repo).as_posix(): p.read_bytes() for p in files}
+        self.manifest = {'schema': checkpoint.SCHEMA, 'run_id': self.run, 'source_pin': 'b' * 40,
+            'repo_root': str(self.repo), 'terminal_state': None, 'shipment_recorded': False,
+            'ledger_sha256': hashlib.sha256(self.ledger).hexdigest(), 'files': [
+                {'path': rel, 'sha256': hashlib.sha256(raw).hexdigest(), 'size': len(raw)}
+                for rel, raw in self.blobs.items()]}
+        def materialize(repo, commit, run_id, row, target):
+            raw = self.blobs[row['path']]
+            self.assertEqual(hashlib.sha256(raw).hexdigest(), row['sha256'])
+            Path(target).write_bytes(raw)
+        for target, kwargs in [
+            ('claude_checkpoint.verify_checkpoint', {'side_effect': lambda *a: (self.manifest, self.ledger)}),
+            ('claude_checkpoint.materialize_checkpoint_file', {'side_effect': materialize})]:
+            context = patch(target, **kwargs); context.start(); self.addCleanup(context.stop)
+
+    def proof(self):
+        return failed._proof(self.repo, self.commit, self.run)
+
+    def test_retention_reproves_original_fourth_rejection_and_preserves_actual_count(self):
+        before = self.fixture.path.read_bytes(); proof = self.proof()
+        self.assertEqual(self.fixture.path.read_bytes(), before)
+        self.assertEqual(proof['original_state']['usage']['storyboard_critics'], 4)
+        self.assertFalse(proof['production_finished']); self.assertFalse(proof['shipment_authorized'])
+        self.assertEqual(proof['evidence']['review_path']['required'], 2)
+        self.assertEqual(proof['evidence']['review_path']['remaining'], 1)
+        self.assertEqual(set(proof['evidence']['files']), set(self.blobs))
+        self.assertTrue(failed.matches_state(proof, self.state))
+        changed = copy.deepcopy(self.state); changed['usage']['storyboard_critics'] = 5
+        self.assertFalse(failed.matches_state(proof, changed))
+
+    def test_checkpoint_without_original_response_cannot_be_retired(self):
+        self.manifest['files'] = [row for row in self.manifest['files']
+                                  if completion_yield.CRITIC_RECEIPTS not in row['path']]
+        with self.assertRaisesRegex(ValueError, 'retain the (actual )?original'):
+            self.proof()
+
+    def test_native_hero_and_missing_packet_are_preserved_not_classified_as_rejection(self):
+        original = copy.deepcopy(self.manifest['files'])
+        self.manifest['files'].append({'path': 'out/dispatch/cinema/hero.mp4', 'size': 1, 'sha256': 'a' * 64})
+        with self.assertRaisesRegex(ValueError, 'native film'):
+            self.proof()
+        self.manifest['files'] = [row for row in original if row['path'] != 'out/dispatch/combined-packet.json']
+        with self.assertRaisesRegex(ValueError, 'original paid critic packet'):
+            self.proof()
 
 if __name__ == '__main__':
     unittest.main()

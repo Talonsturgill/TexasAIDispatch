@@ -426,6 +426,9 @@ def opening_problems(board_path):
         options = receipt["options"]
         from opening_compare import inspection_problems
         ledger = read(board_path.with_name("run_state.json"))
+        if receipt.get('combined_code_review'):
+            from combined_review import completed_problems
+            errors += completed_problems(board_path.parent)
         continuation = caption_renderer_continuation(board_path, receipt, review, ledger)
         if (root / "technical-continuation.json").exists() and not continuation:
             errors.append("historical treatment technical continuation is invalid")
