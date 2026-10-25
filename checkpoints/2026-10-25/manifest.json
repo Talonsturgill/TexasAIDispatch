@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-25",
-  "saved_at": "2026-10-25T07:15:19.616287+00:00",
-  "note": "claim worker dispatch researcher",
+  "saved_at": "2026-10-25T07:20:48.803041+00:00",
+  "note": "before paid reservation",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -62,6 +62,12 @@
       "size": 1742
     },
     {
+      "path": "out/dispatch/native-completion-waits/3d980795351cda9f6a177659252c00bcf23cfcdfe8c75c5fa28775d6c52a6bf6.json",
+      "class": "scratch",
+      "sha256": "3d980795351cda9f6a177659252c00bcf23cfcdfe8c75c5fa28775d6c52a6bf6",
+      "size": 426
+    },
+    {
       "path": "out/dispatch/provider-availability/startup/attempt.json",
       "class": "scratch",
       "sha256": "2283c81b45d312b6084a37ec1f0c4fc09c3d9d579859bc4538f177f15613ecf5",
@@ -94,7 +100,19 @@
     {
       "path": "out/dispatch/researcher-assignment.json",
       "class": "scratch",
-      "sha256": "f6982e5689040c9050950e96c958030e5e8cd760f8c757dcfda03149cfcb2459",
+      "sha256": "7a27cb628455cd703564183588e3e9996507bead80b6133ba49f4d6486a9aa9c",
+      "size": 3192
+    },
+    {
+      "path": "out/dispatch/researcher-b-assignment.json",
+      "class": "scratch",
+      "sha256": "c15683dd7e8b5c50005d548651ad06f9d76a3148cc8f5a223cb2aea0e547cef3",
+      "size": 2091
+    },
+    {
+      "path": "out/dispatch/researcher-c-assignment.json",
+      "class": "scratch",
+      "sha256": "aefafcf2de93c4e780cf24fbb14411b99130f62b8bcca4e9b0f3a2fb7b8b75f0",
       "size": 2091
     },
     {
@@ -102,6 +120,18 @@
       "class": "scratch",
       "sha256": "2c745803ba7403ecd09abf0051069400431152be3bf736ddb41076abe43eeaad",
       "size": 8762
+    },
+    {
+      "path": "out/dispatch/researcher-packet-subject-3d18831dcb75ca0e.json",
+      "class": "scratch",
+      "sha256": "3d18831dcb75ca0ebe21186d659a17f36193218b373134cf844286d24fff3540",
+      "size": 8757
+    },
+    {
+      "path": "out/dispatch/researcher-packet-subject-b7c001f362fced14.json",
+      "class": "scratch",
+      "sha256": "b7c001f362fced1401acd1f4bdbabe5e2fb4c630dc871ce8c612266af0af67c7",
+      "size": 8748
     },
     {
       "path": "out/dispatch/researcher-packet.json",
@@ -123,9 +153,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 26617,
-    "unique_blob_bytes": 26617,
-    "unique_blobs": 13
+    "logical_bytes": 49831,
+    "unique_blob_bytes": 49831,
+    "unique_blobs": 18
   },
   "excluded": [],
   "regenerable": {
