@@ -1,0 +1,91 @@
+{
+  "role": "validator",
+  "date": "2026-10-25",
+  "agent_assignment": {
+    "host": "claude",
+    "role": "validator",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "validator",
+    "resource": "validator_agents",
+    "context": "isolated"
+  },
+  "brief": ".claude/agents/validator.md",
+  "inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/research.json",
+      "sha256": "f053451b317ac24fbbedd0ce47e9e0929325f9631bf1a2f00e1cf67a7d921c46"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/story_selection.json",
+      "sha256": "8099984e94f6d94958f15aa0a506ee214c0f58f6144a41b77a97912a32b77e18"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/claims.json",
+      "sha256": "5552388b37c271a26ac730477fb6e2c07993a89db754c650ebb405ae19858fb0"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/vo_script.txt",
+      "sha256": "74e72e7d159b24683b5c70de0a54f2502a84164297ac43f15380f18993894986"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/vo_bindings.json",
+      "sha256": "c555ccf5abb7c8322f98491214dabe4f6b6c28b266f7c4dd2910ee2483a251eb"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/sources/aggie_release.txt",
+      "sha256": "e52f6ce6810e84432c08a5a0be8eec6ddd7517a382cc8bdacfb8b65be4e6d37b"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/validation-round1.json",
+      "sha256": "7f07d4b538e0df17830cc0244cb0dcce38a140aa5d6bab528be55ea2cc979a5e"
+    }
+  ],
+  "agent_contracts": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/AGENTS.md",
+      "sha256": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/CLAUDE.md",
+      "sha256": "f47fdc5b13b763718ecd080d5600f2ed1bf96befbfa70e469a5bcae5e9599abe"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/prompts/claude_routine.md",
+      "sha256": "54504f444e22ee1634e08570eb08da756f698cd46903e5d74d85c900e43f187a"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/config/quality_contract.json",
+      "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/config/dispatch_rubric.yaml",
+      "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/.claude/agents/validator.md",
+      "sha256": "ad7c828aec6e3efe573df96506f93c3d690f1a8776975fab42069c438dba63f7"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/config/review_limit.json",
+      "sha256": "2d62fcc421118fda5a3235b23b6c267f86ce0c1337af207f46a7c2a4c096eb08"
+    }
+  ],
+  "phase": {
+    "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/prompts/phases/01-research.md",
+    "sha256": "5f0feff2ba8ddfb51a69425d5c5ed500a2edd648b1f47676df6adfb381bf69c6"
+  },
+  "instructions": "Read the full current sources and relevant phase contracts. Return one source-backed handoff. Never spawn additional agents. Include your complete dated validation object and current verified claim ids; the director retains your original response and saves that object unchanged before paid picture work.",
+  "provider_availability": {
+    "path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/provider-availability/startup/receipt.json",
+    "sha256": "f0d7241e9156196485aea9cd46293251b49985355869387099dc8646b8dd31a2"
+  }
+}
