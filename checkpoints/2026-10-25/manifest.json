@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-25",
-  "saved_at": "2026-10-25T07:45:07.176288+00:00",
-  "note": "validator round 4 PASS, script locked",
+  "saved_at": "2026-10-25T07:52:21.688793+00:00",
+  "note": "ledger write",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
   },
   "deleted_source": [],
-  "ledger_sha256": "09b4400cf4445e6e3a14e150bdf652188f007ce5481a2db6e329f3c90efa7102",
-  "original_private_ledger_sha256": "6b441092abc6625717493d0100c61403560c132df611b1fdfce6f437d57b13c6",
+  "ledger_sha256": "f28d8314130cd4756cae18964ae404db7ef240c2028c2b20818c8fc3aaab34b7",
+  "original_private_ledger_sha256": "f59b3fb1b2fd65d00b3f1327257e386ac5aa3832aa437eaa7a75a178a1b9b727",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -38,10 +38,16 @@
   },
   "files": [
     {
+      "path": "config/modern_episode_registry.json",
+      "class": "source",
+      "sha256": "3694e95d005a3459e7e8ff4a7b9a282bd76f5edb76086cf581223758f30aa9f4",
+      "size": 75691
+    },
+    {
       "path": "out/dispatch/claims.json",
       "class": "scratch",
-      "sha256": "a04d9f9a7db5db4de7b8f389819eda7211704125ec39ea6b6737e9f2051e318c",
-      "size": 12535
+      "sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491",
+      "size": 12817
     },
     {
       "path": "out/dispatch/claude-host.json",
@@ -84,6 +90,18 @@
       "class": "scratch",
       "sha256": "db6fb31c209e3a425be15328cad19db9912aaefe2c66f0347d7fb05fb3a0e0ee",
       "size": 425
+    },
+    {
+      "path": "out/dispatch/opening-a.json",
+      "class": "scratch",
+      "sha256": "99e0bd6fdeaf63ccf0c5afca2ede0280289b62989e3b71266614a28212a8bd5d",
+      "size": 135367
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "class": "scratch",
+      "sha256": "1d9ade62462bdabb7fc78b75ec16bbc97675d27a61cab371d7d2dde0918431e8",
+      "size": 135412
     },
     {
       "path": "out/dispatch/provider-availability/startup/attempt.json",
@@ -186,6 +204,36 @@
       "class": "scratch",
       "sha256": "8099984e94f6d94958f15aa0a506ee214c0f58f6144a41b77a97912a32b77e18",
       "size": 8632
+    },
+    {
+      "path": "out/dispatch/storyboard.json",
+      "class": "scratch",
+      "sha256": "99e0bd6fdeaf63ccf0c5afca2ede0280289b62989e3b71266614a28212a8bd5d",
+      "size": 135367
+    },
+    {
+      "path": "out/dispatch/tools/gates.sh",
+      "class": "scratch",
+      "sha256": "09f0d4e3e34c7aae14b9393540fb54074addc7ece4827ba3ff6a0cb40935729e",
+      "size": 984
+    },
+    {
+      "path": "out/dispatch/tools/make_boards.py",
+      "class": "scratch",
+      "sha256": "b494501721ea8548a606e4cc7af2def461fa03a02bf44c4f3945beeed59fe881",
+      "size": 31109
+    },
+    {
+      "path": "out/dispatch/tools/register_episode.py",
+      "class": "scratch",
+      "sha256": "d48a0bbd217d799130bb296a77027a48043fc6dcd3fa15860176ed2c183dd4fa",
+      "size": 2735
+    },
+    {
+      "path": "out/dispatch/tools/spec.py",
+      "class": "scratch",
+      "sha256": "dbfe817851648f25a7ec1ec5c6a862eef6679e4e39d1576de66e72c4b37b25ce",
+      "size": 23280
     },
     {
       "path": "out/dispatch/validation-round1.json",
@@ -321,14 +369,14 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 218755,
-    "unique_blob_bytes": 192700,
-    "unique_blobs": 43
+    "logical_bytes": 758982,
+    "unique_blob_bytes": 597560,
+    "unique_blobs": 50
   },
   "excluded": [],
   "regenerable": {
-    "files": 0,
-    "bytes": 0
+    "files": 1,
+    "bytes": 21973
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }
