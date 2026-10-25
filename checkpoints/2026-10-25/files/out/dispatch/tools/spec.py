@@ -219,15 +219,15 @@ SHOTS = {
   's9': [('ai-card', 'close', 'cut', 'n9a', 'event-1'), ('melt-pour', 'wide', 'match', 'n9b', 'event-2'), ('melt-hold', 'detail', 'continuous', 'n9b', 'event-3')],
  },
  'b': {
-  's1': [('bench-overhead', 'overhead', 'cut', 'n1', 'event-1'), ('window-wall', 'wide', 'match', 'n1', 'event-3')],
+  's1': [('bench-overhead', 'overhead', 'cut', 'n1', 'event-1'), ('wall-display', 'wide', 'match', 'n1', 'event-3')],
   's2': [('bench-edge', 'medium', 'cut', 'n2', 'event-1'), ('pencil-drop', 'detail', 'match', 'n2', 'event-3')],
-  's3': [('desk-overhead', 'overhead', 'cut', 'n3a', 'event-1'), ('headline-close', 'close', 'continuous', 'n3b', 'event-3'), ('outline-wide', 'wide', 'match', 'n3c', 'event-4')],
-  's4': [('line-wide', 'wide', 'cut', 'n4a', 'event-1'), ('vial-rack', 'medium', 'match', 'n4b', 'event-2'), ('crucible-close', 'close', 'match', 'n4b', 'event-3'), ('clamp-detail', 'detail', 'continuous', 'n4b', 'event-4')],
-  's5': [('gauge-bench', 'medium', 'cut', 'n5a', 'event-1'), ('quote-over', 'close', 'match', 'n5a', 'event-2'), ('empty-gauge', 'detail', 'continuous', 'n5b', 'event-3')],
-  's6': [('sample-glow', 'close', 'cut', 'n6', 'event-1'), ('rig-wide', 'wide', 'match', 'n6', 'event-2'), ('gauge-needle', 'detail', 'continuous', 'n6', 'event-3')],
-  's7': [('week-overhead', 'overhead', 'cut', 'n7', 'event-1'), ('strip-close', 'close', 'match', 'n7', 'event-2'), ('goal-tag-close', 'detail', 'continuous', 'n7', 'event-3')],
+  's3': [('desk-overhead', 'overhead', 'cut', 'n3a', 'event-1'), ('release-desk', 'close', 'continuous', 'n3b', 'event-3'), ('outline-wide', 'wide', 'match', 'n3c', 'event-4')],
+  's4': [('line-wide', 'wide', 'cut', 'n4a', 'event-1'), ('arm-vials', 'medium', 'match', 'n4b', 'event-2'), ('furnace-glow', 'close', 'match', 'n4b', 'event-3'), ('clamp-detail', 'detail', 'continuous', 'n4b', 'event-4')],
+  's5': [('gauge-bench', 'medium', 'cut', 'n5a', 'event-1'), ('quote-over', 'close', 'match', 'n5a', 'event-2'), ('unknown-sample', 'detail', 'continuous', 'n5b', 'event-3')],
+  's6': [('sample-glow', 'close', 'cut', 'n6', 'event-1'), ('rig-load', 'wide', 'match', 'n6', 'event-2'), ('gauge-needle', 'detail', 'continuous', 'n6', 'event-3')],
+  's7': [('week-overhead', 'overhead', 'cut', 'n7', 'event-1'), ('strip-close', 'close', 'match', 'n7', 'event-2'), ('goal-tag', 'detail', 'continuous', 'n7', 'event-3')],
   's8': [('stamp-close', 'close', 'cut', 'n8a', 'event-1'), ('tag-bench', 'medium', 'match', 'n8a', 'event-2'), ('form-wide', 'wide', 'match', 'n8b', 'event-3')],
-  's9': [('melt-close', 'close', 'cut', 'n9a', 'event-1'), ('mold-wide', 'wide', 'match', 'n9b', 'event-2'), ('card-dim', 'medium', 'continuous', 'n9b', 'event-3')],
+  's9': [('melt-close', 'close', 'cut', 'n9a', 'event-1'), ('melt-pour', 'wide', 'match', 'n9b', 'event-2'), ('card-dim', 'medium', 'continuous', 'n9b', 'event-3')],
  },
 }
 CAMERA = {

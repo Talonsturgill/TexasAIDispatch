@@ -180,18 +180,14 @@ def build(variant):
         opening_promise=angle[1], performed_turn=angle[2], closing_answer=angle[3], shots=shots, rewards=rewards,
         renderer_inputs=[])
     # story art plan
-    hero_uses = [dict(scene_id='s4', event_id='s4-event-2', view=SHOTS[variant]['s4'][1][0], action_id='ai-proposes-arms-mix-melt-test', subject_ids=['s4-arm', 's4-vials']),
-                 dict(scene_id='s4', event_id='s4-event-3', view=SHOTS[variant]['s4'][-1][0] if variant == 'a' else SHOTS[variant]['s4'][1][0], action_id='ai-proposes-arms-mix-melt-test', subject_ids=['s4-arm', 's4-furnace']),
-                 dict(scene_id='s6', event_id='s6-event-2', view=SHOTS[variant]['s6'][-1][0], action_id='metal-is-tested', subject_ids=['s6-sample', 's6-rig']),
-                 dict(scene_id='s9', event_id='s9-event-2', view=SHOTS[variant]['s9'][1][0], action_id='melt-answers', subject_ids=['s9-arm', 's9-melt'])]
-    support_uses = [dict(scene_id='s1', event_id='s1-event-2', view=SHOTS[variant]['s1'][0][0], action_id='elements-mix-trillion', subject_ids=['s1-table', 's1-mesh']),
-                    dict(scene_id='s3', event_id='s3-event-2', view=SHOTS[variant]['s3'][0][0], action_id='grant-announced', subject_ids=['s3-date', 's3-release']),
-                    dict(scene_id='s5', event_id='s5-event-3', view=SHOTS[variant]['s5'][-1][0], action_id='computer-cannot-predict-alloy', subject_ids=['s5-gauge', 's5-sample']),
-                    dict(scene_id='s7', event_id='s7-event-3', view=SHOTS[variant]['s7'][-1][0], action_id='goal-week-not-months', subject_ids=['s7-week', 's7-goal'])]
-    # drop any use whose view is not in the scene's shots
-    def ok(u):
-        return any(sh['scene_id'] == u['scene_id'] and sh['view'] == u['view'] for sh in shots)
-    hero_uses = [u for u in hero_uses if ok(u)]; support_uses = [u for u in support_uses if ok(u)]
+    hero_uses = [dict(scene_id='s4', event_id='s4-event-2', view='arm-vials', action_id='ai-proposes-arms-mix-melt-test', subject_ids=['s4-arm', 's4-vials']),
+                 dict(scene_id='s4', event_id='s4-event-3', view='furnace-glow', action_id='ai-proposes-arms-mix-melt-test', subject_ids=['s4-arm', 's4-furnace']),
+                 dict(scene_id='s6', event_id='s6-event-2', view='rig-load', action_id='metal-is-tested', subject_ids=['s6-sample', 's6-rig']),
+                 dict(scene_id='s9', event_id='s9-event-2', view='melt-pour', action_id='melt-answers', subject_ids=['s9-arm', 's9-melt'])]
+    support_uses = [dict(scene_id='s1', event_id='s1-event-2', view='wall-display', action_id='elements-mix-trillion', subject_ids=['s1-table', 's1-mesh']),
+                    dict(scene_id='s3', event_id='s3-event-2', view='release-desk', action_id='grant-announced', subject_ids=['s3-date', 's3-release']),
+                    dict(scene_id='s5', event_id='s5-event-3', view='unknown-sample', action_id='computer-cannot-predict-alloy', subject_ids=['s5-gauge', 's5-sample']),
+                    dict(scene_id='s7', event_id='s7-event-3', view='goal-tag', action_id='goal-week-not-months', subject_ids=['s7-week', 's7-goal'])]
     all_scenes = list(SCENES)
     b['story_art'] = dict(version='authored-story-art-v1', runtime='claude-sonnet-v1', edition_id=EDITION, requests=[
         dict(id='foundry-arm-hero', role='hero', file=HERO_FILE, export='FoundryArmHero', scene_ids=['s4', 's6', 's9'],
