@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-25",
-  "saved_at": "2026-10-25T07:13:45.242590+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-25T07:13:50.074404+00:00",
+  "note": "before paid reservation",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -74,6 +74,24 @@
       "size": 0
     },
     {
+      "path": "out/dispatch/provider-availability/startup/receipt.json",
+      "class": "scratch",
+      "sha256": "f0d7241e9156196485aea9cd46293251b49985355869387099dc8646b8dd31a2",
+      "size": 1215
+    },
+    {
+      "path": "out/dispatch/provider-availability/startup/response-body.txt",
+      "class": "scratch",
+      "sha256": "39807601c6cc8c11fbaba0595bf370b46aeb634c805263f4164d2c06b941c0fc",
+      "size": 1005
+    },
+    {
+      "path": "out/dispatch/provider-availability/startup/response.json",
+      "class": "scratch",
+      "sha256": "d9f4cd3ed606712a181ec52d1d5eb35d930f783cac762da7032bf1d73111c67a",
+      "size": 1005
+    },
+    {
       "path": "out/dispatch/run_state.json.independent.lock",
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -81,9 +99,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 8906,
-    "unique_blob_bytes": 8906,
-    "unique_blobs": 6
+    "logical_bytes": 12131,
+    "unique_blob_bytes": 12131,
+    "unique_blobs": 9
   },
   "excluded": [],
   "regenerable": {
