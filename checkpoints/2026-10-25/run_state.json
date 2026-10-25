@@ -1,4 +1,49 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round1/opening-a.json",
+        "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round1/opening-b.json",
+        "before_sha256": "315eba70cda71bedddf605a3acb6de8e769cc57cd8d78ef8c2bd3e17ac457a5b",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round1/storyboard.json",
+        "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round1/modern_episode_registry.json",
+        "before_sha256": "6b532fd1757191fde086b349a908329b5881df460724a2c04240f8ca9e3ac547",
+        "path": "{REPO}/config/modern_episode_registry.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round1/AlloyFoundryFilm.tsx",
+        "before_sha256": "dfe03d06f951bc41aff2b3cfa17dc100c92dd5da82c1ca388a3fa6ffc0e78b44",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round1/FoundryArmHero.tsx",
+        "before_sha256": "91247ff3e6c35ed33ced2dcb95357c5116ceb69d2f1e91eff7895cdd58056aa9",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round1/FoundrySupport.tsx",
+        "before_sha256": "a75a05eb03c166c844a2176435097cd9bcd63a87e88a54785609aa35f15adb52",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx"
+      }
+    ],
+    "failure_sha256": "97ecd7a5975ef0ca94b7148e1baa34a3c50e616c8adb05a6ed1790b32b805fca",
+    "plan": "{REPO}/out/dispatch/repair-plan.json",
+    "plan_sha256": "24a06b272596bd889a8617a7900403190d540bd2f44fdddc2f0d0cd6d6d9ada3",
+    "progress_replacement_required": false,
+    "reboards_before": 1,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-25T07:13:09.659545Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -293,6 +338,67 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-25T09:11:20.285512Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/opening-a.json",
+          "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/opening-b.json",
+          "before_sha256": "315eba70cda71bedddf605a3acb6de8e769cc57cd8d78ef8c2bd3e17ac457a5b",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/storyboard.json",
+          "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/modern_episode_registry.json",
+          "before_sha256": "6b532fd1757191fde086b349a908329b5881df460724a2c04240f8ca9e3ac547",
+          "path": "{REPO}/config/modern_episode_registry.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/AlloyFoundryFilm.tsx",
+          "before_sha256": "dfe03d06f951bc41aff2b3cfa17dc100c92dd5da82c1ca388a3fa6ffc0e78b44",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/FoundryArmHero.tsx",
+          "before_sha256": "91247ff3e6c35ed33ced2dcb95357c5116ceb69d2f1e91eff7895cdd58056aa9",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/FoundrySupport.tsx",
+          "before_sha256": "a75a05eb03c166c844a2176435097cd9bcd63a87e88a54785609aa35f15adb52",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "continuity",
+      "failure_sha256": "97ecd7a5975ef0ca94b7148e1baa34a3c50e616c8adb05a6ed1790b32b805fca",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "foundry-sample-line-v1",
+      "plan_identity": null,
+      "plan_sha256": "24a06b272596bd889a8617a7900403190d540bd2f44fdddc2f0d0cd6d6d9ada3",
+      "progress_replacement_required": false,
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -313,10 +419,10 @@
     "voice_directors": 1
   },
   "mode": "production",
-  "phase": "picture",
+  "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "31d51d72f02628c303f40443f875dbe6a262a5dacf41a642e003a26d22f3b2a1",
+    "original_private_state_sha256": "efdaf8ed515b19709b15024a6ad8ddf393ef24e5e0b514f96f79588bc051c788",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -344,7 +450,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-25T08:53:14.019333Z",
+  "updated_at": "2026-10-25T09:11:20.285538Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
