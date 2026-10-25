@@ -1,0 +1,2770 @@
+{
+  "schema": "dispatch-modern-episode-registry/1",
+  "episodes": {
+    "cooling-check-v2": {
+      "module": "video-engine/src/modern/CoolingFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/CoolingAssets.tsx"
+      ],
+      "views": [
+        "thermal-detail",
+        "paired-room",
+        "inspection-lens",
+        "tool-check",
+        "repair-detail",
+        "cool-result",
+        "intermittent-detail",
+        "pending-work",
+        "source-update",
+        "limit-bookend"
+      ],
+      "subject": "generic cooling inspection",
+      "note": "Original demonstration of the source-backed comparison, independent check, reported repair and unresolved second flag. A future story registers its own authored episode and view vocabulary."
+    },
+    "fly-gene-test-v2": {
+      "module": "video-engine/src/modern/FlyGeneFilm.tsx",
+      "assets": [
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "foot-contact",
+        "fly-question",
+        "candidate-clue",
+        "living-test",
+        "gene-removal",
+        "movement-difficulty",
+        "normal-condition",
+        "rescue-movement",
+        "variant-condition",
+        "partial-rescue",
+        "paired-result",
+        "diagnostic-clue",
+        "honest-answer",
+        "standard-analysis",
+        "gene-detail"
+      ],
+      "wall_views": [
+        "candidate-clue",
+        "gene-detail",
+        "diagnostic-clue"
+      ],
+      "wash_views": [
+        "gene-removal",
+        "rescue-movement",
+        "paired-result",
+        "living-test",
+        "honest-answer"
+      ],
+      "subject": "Drosophila qualitative gene rescue experiment",
+      "note": "Original disclosed fly gene comparison. No measured assay or clinical treatment.",
+      "narration_views": {
+        "foot-contact": {
+          "subject_ids": [
+            "test-fly"
+          ],
+          "action_ids": [
+            "living-test"
+          ]
+        },
+        "fly-question": {
+          "subject_ids": [
+            "test-fly",
+            "culture-vial"
+          ],
+          "action_ids": [
+            "living-test"
+          ]
+        },
+        "candidate-clue": {
+          "subject_ids": [
+            "gene-candidate"
+          ],
+          "action_ids": [
+            "discover-candidate",
+            "select-candidate"
+          ]
+        },
+        "gene-detail": {
+          "subject_ids": [
+            "gene-candidate"
+          ],
+          "action_ids": [
+            "discover-candidate"
+          ]
+        },
+        "standard-analysis": {
+          "subject_ids": [
+            "parent-record",
+            "child-record"
+          ],
+          "action_ids": [
+            "standard-analysis"
+          ]
+        },
+        "living-test": {
+          "subject_ids": [
+            "test-fly",
+            "culture-vial"
+          ],
+          "action_ids": [
+            "living-test"
+          ]
+        },
+        "gene-removal": {
+          "subject_ids": [
+            "disabled-fly"
+          ],
+          "action_ids": [
+            "restrict-movement"
+          ]
+        },
+        "movement-difficulty": {
+          "subject_ids": [
+            "disabled-fly"
+          ],
+          "action_ids": [
+            "restrict-movement"
+          ]
+        },
+        "normal-condition": {
+          "subject_ids": [
+            "normal-fly"
+          ],
+          "action_ids": [
+            "restore-normal"
+          ]
+        },
+        "rescue-movement": {
+          "subject_ids": [
+            "normal-fly"
+          ],
+          "action_ids": [
+            "restore-normal"
+          ]
+        },
+        "variant-condition": {
+          "subject_ids": [
+            "normal-fly",
+            "variant-fly"
+          ],
+          "action_ids": [
+            "restore-partial"
+          ]
+        },
+        "partial-rescue": {
+          "subject_ids": [
+            "normal-fly",
+            "variant-fly"
+          ],
+          "action_ids": [
+            "restore-partial"
+          ]
+        },
+        "paired-result": {
+          "subject_ids": [
+            "normal-fly",
+            "variant-fly",
+            "qualified-gene"
+          ],
+          "action_ids": [
+            "restore-partial",
+            "support-diagnosis"
+          ]
+        },
+        "diagnostic-clue": {
+          "subject_ids": [
+            "normal-fly",
+            "variant-fly",
+            "qualified-gene"
+          ],
+          "action_ids": [
+            "support-diagnosis"
+          ]
+        },
+        "honest-answer": {
+          "subject_ids": [
+            "normal-fly",
+            "variant-fly",
+            "qualified-gene"
+          ],
+          "action_ids": [
+            "clinical-limit"
+          ]
+        }
+      }
+    },
+    "freight-customer-v2": {
+      "module": "video-engine/src/modern/FreightFilm.tsx",
+      "assets": [
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "travel-wide",
+        "travel-detail",
+        "cab-travel",
+        "departure",
+        "departure-detail",
+        "grounded-corridor",
+        "grounded-approach",
+        "grounded-contact",
+        "orders-horizontal",
+        "orders-overhead",
+        "orders-assigned",
+        "occupied-cab",
+        "cab-and-trailer",
+        "future-routes",
+        "future-detail",
+        "retained-yard-wide",
+        "retained-yard-cab"
+      ],
+      "subject": "Generic sealed truck customer freight task with observer aboard",
+      "note": "Source-bound integrated front-elevation facility from measured original raster slice, continuous no-slip truck travel, useful tractor/contact framing and deliberately framed linked occupied-cab detail. Original two current ImageGen PNGs remain unchanged.",
+      "narration_views": {
+        "travel-wide": {
+          "subject_ids": [
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "carry-freight"
+          ]
+        },
+        "travel-detail": {
+          "subject_ids": [
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "carry-freight"
+          ]
+        },
+        "cab-travel": {
+          "subject_ids": [
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "retain-observer"
+          ]
+        },
+        "departure": {
+          "subject_ids": [
+            "freight-truck",
+            "origin-terminal",
+            "observer"
+          ],
+          "action_ids": [
+            "start-service"
+          ]
+        },
+        "departure-detail": {
+          "subject_ids": [
+            "freight-truck",
+            "origin-terminal",
+            "observer"
+          ],
+          "action_ids": [
+            "start-service"
+          ]
+        },
+        "grounded-corridor": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "reach-facility"
+          ]
+        },
+        "grounded-approach": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "reach-facility"
+          ]
+        },
+        "grounded-contact": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "reach-facility"
+          ]
+        },
+        "orders-horizontal": {
+          "subject_ids": [
+            "shipment-orders",
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "coordinate-shipments"
+          ]
+        },
+        "orders-overhead": {
+          "subject_ids": [
+            "shipment-orders",
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "coordinate-shipments"
+          ]
+        },
+        "orders-assigned": {
+          "subject_ids": [
+            "shipment-orders",
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "coordinate-shipments"
+          ]
+        },
+        "occupied-cab": {
+          "subject_ids": [
+            "freight-truck",
+            "observer"
+          ],
+          "action_ids": [
+            "retain-observer"
+          ]
+        },
+        "cab-and-trailer": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "retain-observer"
+          ]
+        },
+        "future-routes": {
+          "subject_ids": [
+            "future-routes",
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "plan-routes"
+          ]
+        },
+        "future-detail": {
+          "subject_ids": [
+            "future-routes",
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "plan-routes"
+          ]
+        },
+        "retained-yard-wide": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "complete-service"
+          ]
+        },
+        "retained-yard-cab": {
+          "subject_ids": [
+            "freight-truck",
+            "customer-facility",
+            "observer"
+          ],
+          "action_ids": [
+            "complete-service"
+          ]
+        }
+      },
+      "mechanism_id": "freight-grounded-arrival-v2"
+    },
+    "clinic-answer-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicAnswerFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "flow-wide",
+        "desk-close",
+        "chart-boundary",
+        "credential-gate",
+        "citation-stack",
+        "source-types",
+        "share-grid",
+        "unmeasured-card",
+        "answer-close"
+      ],
+      "subject": "A UTMB clinician's question going into the OpenEvidence tool at the edge of one patient chart and the one cited answer that returns, with the measures the release does not publish",
+      "note": "Fresh authored Claude-lane episode for 2026-10-09-claude-pilot, repairs 1 and 2 (second revision rebuilt the citation fan order, full arms that leave the frame, tool-mouth clipping and per-shot cameras). Hero ChartHero (chart, one question, one answer with Sources and Accuracy slots, one citation set, pinned tags) and support ClinicSupport (room, desk, anonymous scrub-sleeved hands, keyboard, masked credential, boundary lock, OpenEvidence tool, usage share) are original React and SVG groups shared by both treatments. A stages a wall chart with a left-to-right flow from a higher camera; B stages the same actions at desk height. Disclosed illustration, no real interface, logo, face, identity or patient detail.",
+      "narration_views": {
+        "flow-wide": {
+          "subject_ids": [
+            "question-card",
+            "hands",
+            "keyboard",
+            "openevidence-tool",
+            "answer-card",
+            "citation-cards",
+            "chart",
+            "record-boundary"
+          ],
+          "action_ids": [
+            "send-question",
+            "return-answer"
+          ]
+        },
+        "desk-close": {
+          "subject_ids": [
+            "question-card",
+            "hands",
+            "keyboard",
+            "openevidence-tool",
+            "answer-card",
+            "citation-cards",
+            "chart"
+          ],
+          "action_ids": [
+            "send-question",
+            "return-answer",
+            "type-question"
+          ]
+        },
+        "chart-boundary": {
+          "subject_ids": [
+            "record-boundary",
+            "openevidence-tool",
+            "chart",
+            "date-tags"
+          ],
+          "action_ids": [
+            "enter-record",
+            "mark-live"
+          ]
+        },
+        "credential-gate": {
+          "subject_ids": [
+            "credential-field",
+            "record-lock",
+            "hands",
+            "keyboard",
+            "record-boundary",
+            "chart"
+          ],
+          "action_ids": [
+            "sign-in"
+          ]
+        },
+        "citation-stack": {
+          "subject_ids": [
+            "citation-cards",
+            "answer-card",
+            "source-types"
+          ],
+          "action_ids": [
+            "return-citations"
+          ]
+        },
+        "source-types": {
+          "subject_ids": [
+            "citation-cards",
+            "source-types",
+            "answer-card",
+            "accuracy-slot"
+          ],
+          "action_ids": [
+            "name-source-types",
+            "trace-citation"
+          ]
+        },
+        "share-grid": {
+          "subject_ids": [
+            "clinician-tokens",
+            "decision-tag",
+            "report-tag",
+            "evaluation-tag",
+            "chart",
+            "openevidence-tool"
+          ],
+          "action_ids": [
+            "show-usage",
+            "keep-evaluating"
+          ]
+        },
+        "unmeasured-card": {
+          "subject_ids": [
+            "report-tag",
+            "clinician-tokens",
+            "unmeasured-tags",
+            "answer-card",
+            "accuracy-slot"
+          ],
+          "action_ids": [
+            "attribute-report",
+            "show-limit"
+          ]
+        },
+        "answer-close": {
+          "subject_ids": [
+            "answer-card",
+            "accuracy-slot",
+            "citation-cards",
+            "source-types",
+            "unmeasured-tags",
+            "evaluation-tag",
+            "chart",
+            "openevidence-tool"
+          ],
+          "action_ids": [
+            "trace-citation",
+            "withhold-verdict",
+            "keep-evaluating"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ChartHero.tsx",
+          "export": "ChartHero",
+          "views": [
+            "flow-wide",
+            "desk-close",
+            "chart-boundary",
+            "credential-gate",
+            "citation-stack",
+            "source-types",
+            "share-grid",
+            "unmeasured-card",
+            "answer-close"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-09-claude-pilot/ClinicSupport.tsx",
+          "export": "ClinicSupport",
+          "views": [
+            "flow-wide",
+            "desk-close",
+            "chart-boundary",
+            "credential-gate",
+            "citation-stack",
+            "source-types",
+            "share-grid",
+            "unmeasured-card",
+            "answer-close"
+          ]
+        }
+      ],
+      "mechanism_id": "clinic-cited-answer-v1"
+    },
+    "tower-alert-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-11/TowerAlertFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "tower-sweep",
+        "head-close",
+        "lens-ring",
+        "camera-count",
+        "lens-row",
+        "plan-card",
+        "plume-flag",
+        "scope-flag",
+        "flag-message",
+        "crew-phone",
+        "clock-arc",
+        "estimate-pin",
+        "plume-hold",
+        "scope-hold",
+        "open-line",
+        "launch-calendar",
+        "attribution-pin",
+        "record-card",
+        "empty-field",
+        "approval-stamp",
+        "tower-return",
+        "lens-return"
+      ],
+      "wall_views": [
+        "camera-count",
+        "lens-row",
+        "plan-card",
+        "record-card",
+        "empty-field",
+        "approval-stamp"
+      ],
+      "subject": "A camera on a tall west Texas lattice tower that watches all the way around, flags smoke and sends one alert to the AEP Texas crew, with the open line toward first responders, the blank response record and the plan that still waits on state approval",
+      "note": "Fresh authored Claude-lane episode for 2026-10-11 (AEP Texas wildfire cameras). Hero TowerCameraHero (lattice tower, turning camera head, sweep wedge and watch ring, flag box, one alert card, pinned tags, treatment b's round lens display) and support WestTexasSupport (mesquite, bunch grass, windmill, plume, shelter, fence, fire station, utility truck and cab, crew phone in a work glove, watch and dash clock, slot card, calendar strip, response record, plan folder and commission desk) are original React and SVG groups shared by both treatments. A follows the tower from the ground and the alert down it to a gloved crew phone; B opens inside the lens, pulls back to the tower and takes the alert inside the truck cab. The rolling plains plate stands behind every exterior shot; documents are wall views. Disclosed illustration, no AEP Texas site, Pano AI product, real feed, crew, county or response time.",
+      "narration_views": {
+        "tower-sweep": {
+          "subject_ids": [
+            "tower-camera",
+            "dry-horizon"
+          ],
+          "action_ids": [
+            "sweep-horizon"
+          ]
+        },
+        "head-close": {
+          "subject_ids": [
+            "tower-camera",
+            "dry-horizon"
+          ],
+          "action_ids": [
+            "sweep-horizon"
+          ]
+        },
+        "lens-ring": {
+          "subject_ids": [
+            "tower-camera",
+            "dry-horizon"
+          ],
+          "action_ids": [
+            "sweep-horizon"
+          ]
+        },
+        "camera-count": {
+          "subject_ids": [
+            "camera-markers",
+            "tower-camera",
+            "plan-tag"
+          ],
+          "action_ids": [
+            "count-cameras",
+            "show-plan"
+          ]
+        },
+        "lens-row": {
+          "subject_ids": [
+            "camera-markers",
+            "tower-camera"
+          ],
+          "action_ids": [
+            "count-cameras"
+          ]
+        },
+        "plan-card": {
+          "subject_ids": [
+            "camera-markers",
+            "plan-tag"
+          ],
+          "action_ids": [
+            "show-plan"
+          ]
+        },
+        "plume-flag": {
+          "subject_ids": [
+            "tower-camera",
+            "plume",
+            "flag-box"
+          ],
+          "action_ids": [
+            "flag-plume"
+          ]
+        },
+        "scope-flag": {
+          "subject_ids": [
+            "tower-camera",
+            "plume",
+            "flag-box"
+          ],
+          "action_ids": [
+            "flag-plume"
+          ]
+        },
+        "flag-message": {
+          "subject_ids": [
+            "alert-card",
+            "tower-camera",
+            "crew-phone"
+          ],
+          "action_ids": [
+            "send-alert"
+          ]
+        },
+        "crew-phone": {
+          "subject_ids": [
+            "alert-card",
+            "crew-phone"
+          ],
+          "action_ids": [
+            "send-alert",
+            "receive-alert"
+          ]
+        },
+        "clock-arc": {
+          "subject_ids": [
+            "alert-card",
+            "ten-minute-arc",
+            "estimate-tag"
+          ],
+          "action_ids": [
+            "show-estimate"
+          ]
+        },
+        "estimate-pin": {
+          "subject_ids": [
+            "alert-card",
+            "ten-minute-arc",
+            "estimate-tag"
+          ],
+          "action_ids": [
+            "show-estimate"
+          ]
+        },
+        "plume-hold": {
+          "subject_ids": [
+            "plume",
+            "tower-camera",
+            "prevent-tag"
+          ],
+          "action_ids": [
+            "show-no-prevention"
+          ]
+        },
+        "scope-hold": {
+          "subject_ids": [
+            "plume",
+            "tower-camera",
+            "prevent-tag",
+            "flag-box"
+          ],
+          "action_ids": [
+            "show-no-prevention"
+          ]
+        },
+        "open-line": {
+          "subject_ids": [
+            "alert-card",
+            "responder-badge",
+            "open-line",
+            "crew-phone"
+          ],
+          "action_ids": [
+            "show-open-line"
+          ]
+        },
+        "launch-calendar": {
+          "subject_ids": [
+            "launch-calendar",
+            "attribution-tag"
+          ],
+          "action_ids": [
+            "show-quiet-months"
+          ]
+        },
+        "attribution-pin": {
+          "subject_ids": [
+            "launch-calendar",
+            "attribution-tag"
+          ],
+          "action_ids": [
+            "show-quiet-months"
+          ]
+        },
+        "record-card": {
+          "subject_ids": [
+            "response-record",
+            "empty-time-field"
+          ],
+          "action_ids": [
+            "show-missing-record"
+          ]
+        },
+        "empty-field": {
+          "subject_ids": [
+            "response-record",
+            "empty-time-field"
+          ],
+          "action_ids": [
+            "show-missing-record"
+          ]
+        },
+        "approval-stamp": {
+          "subject_ids": [
+            "plan-folder",
+            "approval-stamp-slot",
+            "expected-tag"
+          ],
+          "action_ids": [
+            "await-approval"
+          ]
+        },
+        "tower-return": {
+          "subject_ids": [
+            "plan-folder",
+            "approval-stamp-slot",
+            "expected-tag",
+            "tower-camera"
+          ],
+          "action_ids": [
+            "await-approval"
+          ]
+        },
+        "lens-return": {
+          "subject_ids": [
+            "plan-folder",
+            "approval-stamp-slot",
+            "expected-tag",
+            "tower-camera"
+          ],
+          "action_ids": [
+            "await-approval"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-11/TowerCameraHero.tsx",
+          "export": "TowerCameraHero",
+          "views": [
+            "tower-sweep",
+            "head-close",
+            "lens-ring",
+            "plume-flag",
+            "scope-flag",
+            "flag-message",
+            "crew-phone",
+            "clock-arc",
+            "estimate-pin",
+            "plume-hold",
+            "scope-hold",
+            "open-line",
+            "launch-calendar",
+            "attribution-pin",
+            "approval-stamp",
+            "tower-return",
+            "lens-return"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-11/WestTexasSupport.tsx",
+          "export": "WestTexasSupport",
+          "views": [
+            "tower-sweep",
+            "camera-count",
+            "lens-row",
+            "plan-card",
+            "plume-flag",
+            "scope-flag",
+            "flag-message",
+            "crew-phone",
+            "clock-arc",
+            "estimate-pin",
+            "plume-hold",
+            "scope-hold",
+            "open-line",
+            "launch-calendar",
+            "attribution-pin",
+            "record-card",
+            "empty-field",
+            "approval-stamp",
+            "tower-return",
+            "lens-return"
+          ]
+        }
+      ],
+      "mechanism_id": "tower-camera-crew-alert-v1"
+    },
+    "flood-station-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-15/FloodStationFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "street-yard",
+        "phone-late",
+        "station-wide",
+        "panel-charge",
+        "no-tower",
+        "sensor-stack",
+        "water-marks",
+        "weather-row",
+        "chip-glow",
+        "no-server",
+        "radio-rings",
+        "radio-open",
+        "radio-map",
+        "hub-wide",
+        "hub-desk",
+        "flood-paths",
+        "validation-card",
+        "no-field-card",
+        "empty-map",
+        "station-return",
+        "curb-table"
+      ],
+      "wall_views": [
+        "radio-map",
+        "flood-paths"
+      ],
+      "subject": "UT San Antonio's solar flood station at a San Antonio curb: reflective flood water tops the curb and reaches a fence post's orange ankle mark, the water rises past the station's four optical lenses at four heights and each lights as it is crossed, the sun fills its battery bar, its own small chip lights a large amber risk lamp and risk bar while a dark server building across the road is never reached, radio rings run down a long street to the hub and across open country to its mast, a seated responder reads a flood path map of creek and streets, the validation card fills on a curb notice board beside a blank field result card, a finger reads the blank paper map, and a technician folds the deployment plan into the prototype's closed case on a curb table",
+      "note": "Fresh authored Claude-lane episode for 2026-10-15 (UT San Antonio self-powered flood warning station, university story of September 8th, 2026). Hero FloodStationHero (galvanized post in a concrete footing, four optical pods on a strut rail at four heights, conduit, tilted fibreglass housing with dented cap, battery bar, weather lamps, amber risk lamp, rain funnel, light dome, radiation shield, small solar panel with a worn corner, bent whip antenna, the housing cutaway still clamped to its post with its door open, traces into one TinyML chip, a large risk lamp and five-step risk bar, the bench prototype on a steel base plate, and pinned tags) and support StreetHubSupport (wet street, limestone curb, St. Augustine lawn, chain link fence with an orange ankle band and swinging tag, live oak with ball moss, bungalow porch and rail, worn phone with a late warning banner, finished reflective flood water with mirrored reflections and ripple bands, far cell tower, dark windowless server building, bungalows, radio rings, limestone hub whose mast lamp and window light, hub desk with a complete articulated seated responder, flood path map of creek, streets, blocks and low points, radio map, curb notice board, validation card with tape strip, field result card, rubber stamp and reaching hand, paper map with blank pin holes, folding table, hard carry case with pocket and latch, printed deployment plan folded in three, and a complete articulated technician) are original React and SVG groups shared by both treatments. A opens in the flooding yard on the fence post ankle mark and the late phone; B opens in the water at the station post as its lowest lens goes under and lights. The county's region stands behind every exterior shot and the hub window; scene s5 takes the Blackland region's own plate, so open country carries no city skyline; only the overhead radio and flood path maps are wall views. Disclosed illustration, no installed station, real street, hub, dashboard, responder, server, lab, deployment or field result.",
+      "narration_views": {
+        "street-yard": {
+          "subject_ids": [
+            "s1-water",
+            "s1-post",
+            "s1-phone"
+          ],
+          "action_ids": [
+            "yard-floods-before-warning",
+            "water-rises"
+          ]
+        },
+        "phone-late": {
+          "subject_ids": [
+            "s1-water",
+            "s1-phone",
+            "s1-banner"
+          ],
+          "action_ids": [
+            "yard-floods-before-warning"
+          ]
+        },
+        "station-wide": {
+          "subject_ids": [
+            "s2-station",
+            "s2-panel",
+            "s2-post",
+            "s2-tower"
+          ],
+          "action_ids": [
+            "self-power-no-tower"
+          ]
+        },
+        "panel-charge": {
+          "subject_ids": [
+            "s2-station",
+            "s2-panel",
+            "s2-battery"
+          ],
+          "action_ids": [
+            "self-power-no-tower",
+            "charge-battery"
+          ]
+        },
+        "no-tower": {
+          "subject_ids": [
+            "s2-station",
+            "s2-panel",
+            "s2-tower"
+          ],
+          "action_ids": [
+            "self-power-no-tower"
+          ]
+        },
+        "sensor-stack": {
+          "subject_ids": [
+            "s3-stack",
+            "s3-marks",
+            "s3-water"
+          ],
+          "action_ids": [
+            "sense-water-and-weather"
+          ]
+        },
+        "water-marks": {
+          "subject_ids": [
+            "s1-water",
+            "s1-post",
+            "s1-marks",
+            "s3-stack",
+            "s3-marks",
+            "s3-water"
+          ],
+          "action_ids": [
+            "yard-floods-before-warning",
+            "sense-water-and-weather",
+            "cross-marks"
+          ]
+        },
+        "weather-row": {
+          "subject_ids": [
+            "s3-stack",
+            "s3-weather"
+          ],
+          "action_ids": [
+            "sense-water-and-weather"
+          ]
+        },
+        "chip-glow": {
+          "subject_ids": [
+            "s4-chip",
+            "s4-traces",
+            "s4-risk"
+          ],
+          "action_ids": [
+            "judge-risk-on-chip",
+            "judge-locally"
+          ]
+        },
+        "no-server": {
+          "subject_ids": [
+            "s4-chip",
+            "s4-traces",
+            "s4-station",
+            "s4-server"
+          ],
+          "action_ids": [
+            "judge-risk-on-chip"
+          ]
+        },
+        "radio-rings": {
+          "subject_ids": [
+            "s5-ring",
+            "s5-tags",
+            "s5-halfmile",
+            "s5-antenna"
+          ],
+          "action_ids": [
+            "carry-radio-to-hub",
+            "carry-signal"
+          ]
+        },
+        "radio-open": {
+          "subject_ids": [
+            "s5-ring",
+            "s5-tags",
+            "s5-fivemile",
+            "s5-hub"
+          ],
+          "action_ids": [
+            "carry-radio-to-hub"
+          ]
+        },
+        "radio-map": {
+          "subject_ids": [
+            "s5-ring",
+            "s5-tags",
+            "s5-station-dot"
+          ],
+          "action_ids": [
+            "carry-radio-to-hub"
+          ]
+        },
+        "hub-wide": {
+          "subject_ids": [
+            "s5-ring",
+            "s5-tags",
+            "s5-fivemile",
+            "s5-hub"
+          ],
+          "action_ids": [
+            "carry-radio-to-hub"
+          ]
+        },
+        "hub-desk": {
+          "subject_ids": [
+            "s6-dashboard",
+            "s6-paths",
+            "s6-dots",
+            "s6-zones",
+            "s6-hand"
+          ],
+          "action_ids": [
+            "draw-flood-map"
+          ]
+        },
+        "flood-paths": {
+          "subject_ids": [
+            "s6-dashboard",
+            "s6-paths",
+            "s6-dots",
+            "s6-zones"
+          ],
+          "action_ids": [
+            "draw-flood-map",
+            "spread-map"
+          ]
+        },
+        "validation-card": {
+          "subject_ids": [
+            "s7-card",
+            "s7-bar",
+            "s7-tag",
+            "s7-blank",
+            "s7-card2"
+          ],
+          "action_ids": [
+            "report-validation-only"
+          ]
+        },
+        "no-field-card": {
+          "subject_ids": [
+            "s7-card",
+            "s7-bar",
+            "s7-blank",
+            "s7-card2",
+            "s8-valcard",
+            "s8-valbar",
+            "s8-assess",
+            "s8-blank",
+            "s8-card2"
+          ],
+          "action_ids": [
+            "report-validation-only"
+          ]
+        },
+        "empty-map": {
+          "subject_ids": [
+            "s8-map",
+            "s8-nopin",
+            "s8-hand",
+            "s8-tag",
+            "s8-fence"
+          ],
+          "action_ids": [
+            "no-town-named"
+          ]
+        },
+        "station-return": {
+          "subject_ids": [
+            "s8-map",
+            "s8-nopin",
+            "s8-hand",
+            "s8-tag",
+            "s8-fence"
+          ],
+          "action_ids": [
+            "no-town-named"
+          ]
+        },
+        "curb-table": {
+          "subject_ids": [
+            "s9-tech",
+            "s9-plan",
+            "s9-case",
+            "s9-table",
+            "s9-station",
+            "s9-tag",
+            "s9-curb"
+          ],
+          "action_ids": [
+            "deployment-goal"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-15/FloodStationHero.tsx",
+          "export": "FloodStationHero",
+          "views": [
+            "street-yard",
+            "station-wide",
+            "panel-charge",
+            "no-tower",
+            "sensor-stack",
+            "water-marks",
+            "weather-row",
+            "chip-glow",
+            "no-server",
+            "radio-rings",
+            "radio-open",
+            "hub-wide",
+            "hub-desk",
+            "flood-paths",
+            "validation-card",
+            "empty-map",
+            "station-return",
+            "no-field-card",
+            "curb-table"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-15/StreetHubSupport.tsx",
+          "export": "StreetHubSupport",
+          "views": [
+            "street-yard",
+            "phone-late",
+            "station-wide",
+            "panel-charge",
+            "no-tower",
+            "sensor-stack",
+            "water-marks",
+            "weather-row",
+            "no-server",
+            "radio-rings",
+            "radio-open",
+            "radio-map",
+            "hub-wide",
+            "hub-desk",
+            "flood-paths",
+            "validation-card",
+            "no-field-card",
+            "empty-map",
+            "station-return",
+            "curb-table"
+          ]
+        }
+      ],
+      "mechanism_id": "solar-flood-station-local-judgment-v1"
+    },
+    "robotaxi-recall-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-19/RobotaxiFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "cab-wheel",
+        "calendar-fleet",
+        "car-swept",
+        "count-grid",
+        "creek-plan",
+        "creek-wide",
+        "curb-plan",
+        "curb-record-split",
+        "curb-return",
+        "curb-wide",
+        "fleet-plan",
+        "hazard-close",
+        "lane-plan",
+        "lane-wide",
+        "limits-detail",
+        "limits-tag",
+        "map-plan",
+        "map-table",
+        "map-zone",
+        "phone-hail",
+        "record-close",
+        "record-desk",
+        "record-slide",
+        "record-wall",
+        "stamp-detail",
+        "street-flood",
+        "street-plan",
+        "wheel-water",
+        "wheels-water"
+      ],
+      "wall_views": [
+        "map-plan",
+        "record-wall",
+        "record-close",
+        "record-desk",
+        "count-grid",
+        "stamp-detail"
+      ],
+      "subject": "A generic white driverless car design shown in five disclosed examples: a ride arriving at a San Antonio airport pickup curb with the phone request, a limited area drawn on a street map, an empty car already in the brown current of a creek and swept downstream, another empty car stopped in floodwater with amber hazard lamps, a federal recall record card beside a grid of car icons, a car that slows and rolls on into standing water on a higher speed lane beside the recall sentence, the remedy row stamped under development, a row of cars taking an interim update under an April 20th page and a weather limits tag, and an airport ride with its door open beside the remedy row",
+      "note": "Fresh authored Claude-lane episode for 2026-10-19 (Waymo San Antonio opening of October 14th, 2026 and NHTSA recall 26E026). Hero RobotaxiHero and support SanAntonioSupport are original React and SVG groups shared by both treatments. A follows the car at ground level, B reads the same events from above and from inside the cab. Disclosed illustration, no brand marks, no real vehicle, road, rider, airport, creek, record page or app screen.",
+      "narration_views": {
+        "curb-wide": {
+          "subject_ids": [
+            "s1-car",
+            "s1-curb",
+            "s1-phone"
+          ],
+          "action_ids": [
+            "car-arrives-at-curb"
+          ]
+        },
+        "cab-wheel": {
+          "subject_ids": [
+            "s1-car",
+            "s1-curb",
+            "s1-phone",
+            "s1-wheel"
+          ],
+          "action_ids": [
+            "car-arrives-at-curb",
+            "wheel-turns-itself"
+          ]
+        },
+        "phone-hail": {
+          "subject_ids": [
+            "s1-car",
+            "s1-curb",
+            "s1-phone"
+          ],
+          "action_ids": [
+            "car-arrives-at-curb"
+          ]
+        },
+        "curb-plan": {
+          "subject_ids": [
+            "s1-car",
+            "s1-curb",
+            "s1-phone"
+          ],
+          "action_ids": [
+            "car-arrives-at-curb"
+          ]
+        },
+        "map-table": {
+          "subject_ids": [
+            "s2-calendar",
+            "s2-map",
+            "s2-pin"
+          ],
+          "action_ids": [
+            "service-area-opens"
+          ]
+        },
+        "map-plan": {
+          "subject_ids": [
+            "s2-calendar",
+            "s2-map",
+            "s2-pin"
+          ],
+          "action_ids": [
+            "service-area-opens"
+          ]
+        },
+        "map-zone": {
+          "subject_ids": [
+            "s2-calendar",
+            "s2-map",
+            "s2-pin",
+            "s2-zone"
+          ],
+          "action_ids": [
+            "service-area-opens"
+          ]
+        },
+        "creek-wide": {
+          "subject_ids": [
+            "s3-car",
+            "s3-creek",
+            "s3-crossing",
+            "s3-rain"
+          ],
+          "action_ids": [
+            "car-swept-into-creek"
+          ]
+        },
+        "car-swept": {
+          "subject_ids": [
+            "s3-car",
+            "s3-creek",
+            "s3-crossing",
+            "s3-rain"
+          ],
+          "action_ids": [
+            "car-swept-into-creek"
+          ]
+        },
+        "creek-plan": {
+          "subject_ids": [
+            "s3-car",
+            "s3-creek",
+            "s3-crossing",
+            "s3-rain"
+          ],
+          "action_ids": [
+            "car-swept-into-creek"
+          ]
+        },
+        "street-flood": {
+          "subject_ids": [
+            "s4-car",
+            "s4-hazard",
+            "s4-street",
+            "s4-water"
+          ],
+          "action_ids": [
+            "second-car-stranded"
+          ]
+        },
+        "hazard-close": {
+          "subject_ids": [
+            "s4-car",
+            "s4-hazard",
+            "s4-street",
+            "s4-water"
+          ],
+          "action_ids": [
+            "second-car-stranded"
+          ]
+        },
+        "wheel-water": {
+          "subject_ids": [
+            "s4-car",
+            "s4-hazard",
+            "s4-street",
+            "s4-water"
+          ],
+          "action_ids": [
+            "second-car-stranded"
+          ]
+        },
+        "street-plan": {
+          "subject_ids": [
+            "s4-car",
+            "s4-hazard",
+            "s4-street",
+            "s4-water"
+          ],
+          "action_ids": [
+            "second-car-stranded"
+          ]
+        },
+        "record-desk": {
+          "subject_ids": [
+            "s5-record"
+          ],
+          "action_ids": [
+            "recall-filed-count"
+          ]
+        },
+        "record-wall": {
+          "subject_ids": [
+            "s5-record",
+            "s7-cursor",
+            "s7-record",
+            "s7-remedy",
+            "s7-stamp"
+          ],
+          "action_ids": [
+            "recall-filed-count",
+            "remedy-under-development"
+          ]
+        },
+        "count-grid": {
+          "subject_ids": [
+            "s5-count",
+            "s5-record",
+            "s5-stamp",
+            "s5-total"
+          ],
+          "action_ids": [
+            "recall-filed-count"
+          ]
+        },
+        "lane-wide": {
+          "subject_ids": [
+            "s6-car",
+            "s6-lane",
+            "s6-quote",
+            "s6-water"
+          ],
+          "action_ids": [
+            "car-slows-into-water"
+          ]
+        },
+        "wheels-water": {
+          "subject_ids": [
+            "s6-car",
+            "s6-lane",
+            "s6-quote",
+            "s6-water"
+          ],
+          "action_ids": [
+            "car-slows-into-water"
+          ]
+        },
+        "lane-plan": {
+          "subject_ids": [
+            "s6-car",
+            "s6-lane",
+            "s6-quote",
+            "s6-water"
+          ],
+          "action_ids": [
+            "car-slows-into-water"
+          ]
+        },
+        "record-close": {
+          "subject_ids": [
+            "s7-cursor",
+            "s7-record",
+            "s7-remedy",
+            "s7-stamp"
+          ],
+          "action_ids": [
+            "remedy-under-development"
+          ]
+        },
+        "stamp-detail": {
+          "subject_ids": [
+            "s7-cursor",
+            "s7-record",
+            "s7-remedy",
+            "s7-stamp"
+          ],
+          "action_ids": [
+            "remedy-under-development"
+          ]
+        },
+        "calendar-fleet": {
+          "subject_ids": [
+            "s8-calendar",
+            "s8-fleet",
+            "s8-limits",
+            "s8-map"
+          ],
+          "action_ids": [
+            "interim-weather-limits"
+          ]
+        },
+        "limits-tag": {
+          "subject_ids": [
+            "s8-calendar",
+            "s8-fleet",
+            "s8-limits",
+            "s8-map"
+          ],
+          "action_ids": [
+            "interim-weather-limits"
+          ]
+        },
+        "limits-detail": {
+          "subject_ids": [
+            "s8-calendar",
+            "s8-fleet",
+            "s8-limits",
+            "s8-map"
+          ],
+          "action_ids": [
+            "interim-weather-limits"
+          ]
+        },
+        "fleet-plan": {
+          "subject_ids": [
+            "s8-calendar",
+            "s8-fleet",
+            "s8-limits"
+          ],
+          "action_ids": [
+            "interim-weather-limits"
+          ]
+        },
+        "curb-return": {
+          "subject_ids": [
+            "s9-car",
+            "s9-curb",
+            "s9-phone"
+          ],
+          "action_ids": [
+            "ride-open-remedy-open"
+          ]
+        },
+        "record-slide": {
+          "subject_ids": [
+            "s9-car",
+            "s9-curb",
+            "s9-phone",
+            "s9-record"
+          ],
+          "action_ids": [
+            "ride-open-remedy-open"
+          ]
+        },
+        "curb-record-split": {
+          "subject_ids": [
+            "s9-car",
+            "s9-curb",
+            "s9-phone",
+            "s9-record"
+          ],
+          "action_ids": [
+            "ride-open-remedy-open"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-19/RobotaxiHero.tsx",
+          "export": "RobotaxiHero",
+          "views": [
+            "curb-wide",
+            "cab-wheel",
+            "phone-hail",
+            "curb-plan",
+            "creek-wide",
+            "car-swept",
+            "creek-plan",
+            "street-flood",
+            "hazard-close",
+            "wheel-water",
+            "street-plan",
+            "lane-wide",
+            "wheels-water",
+            "lane-plan",
+            "calendar-fleet",
+            "limits-tag",
+            "fleet-plan",
+            "curb-return",
+            "record-slide",
+            "curb-record-split"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-19/SanAntonioSupport.tsx",
+          "export": "SanAntonioSupport",
+          "views": [
+            "cab-wheel",
+            "calendar-fleet",
+            "car-swept",
+            "count-grid",
+            "creek-plan",
+            "creek-wide",
+            "curb-plan",
+            "curb-record-split",
+            "curb-return",
+            "curb-wide",
+            "fleet-plan",
+            "hazard-close",
+            "lane-plan",
+            "lane-wide",
+            "limits-detail",
+            "limits-tag",
+            "map-plan",
+            "map-table",
+            "map-zone",
+            "phone-hail",
+            "record-close",
+            "record-desk",
+            "record-slide",
+            "record-wall",
+            "stamp-detail",
+            "street-flood",
+            "street-plan",
+            "wheel-water",
+            "wheels-water"
+          ]
+        }
+      ]
+    },
+    "leak-review-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "alert-panel",
+        "approval-close",
+        "blank-box",
+        "confirm-close",
+        "confirm-hold",
+        "equipment-low",
+        "feed-lens",
+        "followup-tag",
+        "infrared-view",
+        "letter-desk",
+        "letter-scroll",
+        "letter-wide",
+        "mark-hands",
+        "panel-wide",
+        "poi-close",
+        "program-calendar",
+        "program-wide",
+        "proposal-close",
+        "proposal-wide",
+        "review-panel",
+        "review-wide",
+        "room-calendar",
+        "room-desk",
+        "room-feed",
+        "room-hold",
+        "room-letter",
+        "room-monitor",
+        "room-proposal",
+        "room-review",
+        "room-window",
+        "route-wide",
+        "stamp-reaction",
+        "station-wide",
+        "title-detail",
+        "window-wide"
+      ],
+      "wall_views": [
+        "title-detail"
+      ],
+      "subject": "A generic inspection drone design that leaves a weatherproof station on a Permian well pad, flies a flight plan with an infrared camera, and the records around it: a software panel with an alert flag, an approval letter with a date stamp, a review panel with a certified inspector mark and a follow-up tag, a letter title with a highlighted AI, a leak reporting program tag with calendar pages and a proposal tag, and a blank AI box",
+      "note": "Fresh authored Claude-lane episode for 2026-10-21 (EPA approval letter of September 30th, 2025 for an Austin company's drone, the Super Emitter Program delay and the October 7th, 2026 release). Hero InspectionDroneHero and support LeakReviewSupport are original React and SVG groups shared by both treatments. A follows the drone at ground level, B reads the same events from the desk and from above. Disclosed illustration, no brand marks, no real drone, station, site, leak, plume, agency seal, letter page or person.",
+      "narration_views": {
+        "alert-panel": {
+          "subject_ids": [
+            "s2-alert",
+            "s2-claim",
+            "s2-software"
+          ],
+          "action_ids": [
+            "software-alert-claim"
+          ]
+        },
+        "approval-close": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-letter",
+            "s3-system",
+            "s3-scope"
+          ],
+          "action_ids": [
+            "epa-approves-method"
+          ]
+        },
+        "blank-box": {
+          "subject_ids": [
+            "s9-ai-box",
+            "s9-footage",
+            "s9-inspector",
+            "s9-station"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak-ai-unknown"
+          ]
+        },
+        "confirm-close": {
+          "subject_ids": [
+            "s9-ai-box",
+            "s9-footage",
+            "s9-inspector",
+            "s9-station"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak-ai-unknown"
+          ]
+        },
+        "confirm-hold": {
+          "subject_ids": [
+            "s9-ai-box",
+            "s9-footage",
+            "s9-inspector",
+            "s9-station"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak-ai-unknown"
+          ]
+        },
+        "equipment-low": {
+          "subject_ids": [
+            "s1-drone",
+            "s1-equipment",
+            "s1-locator",
+            "s1-station"
+          ],
+          "action_ids": [
+            "drone-leaves-station"
+          ]
+        },
+        "feed-lens": {
+          "subject_ids": [
+            "s4-drone",
+            "s4-infrared",
+            "s4-inspector",
+            "s4-poi",
+            "s4-route"
+          ],
+          "action_ids": [
+            "drone-flies-route"
+          ]
+        },
+        "followup-tag": {
+          "subject_ids": [
+            "s5-emission",
+            "s5-followup",
+            "s5-footage",
+            "s5-inspector"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak"
+          ]
+        },
+        "infrared-view": {
+          "subject_ids": [
+            "s4-drone",
+            "s4-infrared",
+            "s4-poi",
+            "s4-route"
+          ],
+          "action_ids": [
+            "drone-flies-route"
+          ]
+        },
+        "letter-desk": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-letter",
+            "s3-system",
+            "s3-scope"
+          ],
+          "action_ids": [
+            "epa-approves-method"
+          ]
+        },
+        "letter-scroll": {
+          "subject_ids": [
+            "s6-count",
+            "s6-letter",
+            "s6-title"
+          ],
+          "action_ids": [
+            "ai-appears-in-title"
+          ]
+        },
+        "letter-wide": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-letter",
+            "s3-system",
+            "s3-scope"
+          ],
+          "action_ids": [
+            "epa-approves-method"
+          ]
+        },
+        "mark-hands": {
+          "subject_ids": [
+            "s5-emission",
+            "s5-followup",
+            "s5-footage",
+            "s5-inspector"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak"
+          ]
+        },
+        "panel-wide": {
+          "subject_ids": [
+            "s2-alert",
+            "s2-claim",
+            "s2-software"
+          ],
+          "action_ids": [
+            "software-alert-claim"
+          ]
+        },
+        "poi-close": {
+          "subject_ids": [
+            "s4-drone",
+            "s4-infrared",
+            "s4-poi",
+            "s4-route"
+          ],
+          "action_ids": [
+            "drone-flies-route"
+          ]
+        },
+        "program-calendar": {
+          "subject_ids": [
+            "s7-calendar",
+            "s7-delay",
+            "s7-program"
+          ],
+          "action_ids": [
+            "program-delayed"
+          ]
+        },
+        "program-wide": {
+          "subject_ids": [
+            "s7-calendar",
+            "s7-delay",
+            "s7-program"
+          ],
+          "action_ids": [
+            "program-delayed"
+          ]
+        },
+        "proposal-close": {
+          "subject_ids": [
+            "s8-date",
+            "s8-program",
+            "s8-proposal"
+          ],
+          "action_ids": [
+            "program-proposed-ended"
+          ]
+        },
+        "proposal-wide": {
+          "subject_ids": [
+            "s8-date",
+            "s8-program",
+            "s8-proposal"
+          ],
+          "action_ids": [
+            "program-proposed-ended"
+          ]
+        },
+        "review-panel": {
+          "subject_ids": [
+            "s5-emission",
+            "s5-followup",
+            "s5-footage",
+            "s5-inspector"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak"
+          ]
+        },
+        "review-wide": {
+          "subject_ids": [
+            "s5-emission",
+            "s5-followup",
+            "s5-footage",
+            "s5-inspector"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak"
+          ]
+        },
+        "room-calendar": {
+          "subject_ids": [
+            "s7-calendar",
+            "s7-delay",
+            "s7-inspector",
+            "s7-program"
+          ],
+          "action_ids": [
+            "program-delayed"
+          ]
+        },
+        "room-desk": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-inspector",
+            "s3-letter",
+            "s3-system",
+            "s3-scope"
+          ],
+          "action_ids": [
+            "epa-approves-method"
+          ]
+        },
+        "room-feed": {
+          "subject_ids": [
+            "s4-drone",
+            "s4-infrared",
+            "s4-inspector",
+            "s4-poi",
+            "s4-route"
+          ],
+          "action_ids": [
+            "drone-flies-route"
+          ]
+        },
+        "room-hold": {
+          "subject_ids": [
+            "s9-ai-box",
+            "s9-footage",
+            "s9-inspector",
+            "s9-station"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak-ai-unknown"
+          ]
+        },
+        "room-letter": {
+          "subject_ids": [
+            "s6-count",
+            "s6-inspector",
+            "s6-letter",
+            "s6-title"
+          ],
+          "action_ids": [
+            "ai-appears-in-title"
+          ]
+        },
+        "room-monitor": {
+          "subject_ids": [
+            "s2-alert",
+            "s2-claim",
+            "s2-inspector",
+            "s2-software"
+          ],
+          "action_ids": [
+            "software-alert-claim"
+          ]
+        },
+        "room-proposal": {
+          "subject_ids": [
+            "s8-date",
+            "s8-inspector",
+            "s8-program",
+            "s8-proposal"
+          ],
+          "action_ids": [
+            "program-proposed-ended"
+          ]
+        },
+        "room-review": {
+          "subject_ids": [
+            "s5-emission",
+            "s5-followup",
+            "s5-footage",
+            "s5-inspector"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak"
+          ]
+        },
+        "room-window": {
+          "subject_ids": [
+            "s1-drone",
+            "s1-equipment",
+            "s1-inspector",
+            "s1-locator",
+            "s1-station"
+          ],
+          "action_ids": [
+            "drone-leaves-station"
+          ]
+        },
+        "route-wide": {
+          "subject_ids": [
+            "s4-drone",
+            "s4-infrared",
+            "s4-poi",
+            "s4-route"
+          ],
+          "action_ids": [
+            "drone-flies-route"
+          ]
+        },
+        "stamp-reaction": {
+          "subject_ids": [
+            "s3-approval",
+            "s3-date",
+            "s3-inspector",
+            "s3-letter",
+            "s3-system",
+            "s3-scope"
+          ],
+          "action_ids": [
+            "epa-approves-method"
+          ]
+        },
+        "station-wide": {
+          "subject_ids": [
+            "s1-drone",
+            "s1-equipment",
+            "s1-locator",
+            "s1-station"
+          ],
+          "action_ids": [
+            "drone-leaves-station"
+          ]
+        },
+        "title-detail": {
+          "subject_ids": [
+            "s6-count",
+            "s6-letter",
+            "s6-title"
+          ],
+          "action_ids": [
+            "ai-appears-in-title"
+          ]
+        },
+        "window-wide": {
+          "subject_ids": [
+            "s9-ai-box",
+            "s9-footage",
+            "s9-inspector",
+            "s9-station"
+          ],
+          "action_ids": [
+            "inspector-confirms-leak-ai-unknown"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx",
+          "export": "InspectionDroneHero",
+          "views": [
+            "approval-close",
+            "blank-box",
+            "confirm-close",
+            "confirm-hold",
+            "equipment-low",
+            "feed-lens",
+            "infrared-view",
+            "letter-desk",
+            "letter-wide",
+            "poi-close",
+            "room-desk",
+            "room-feed",
+            "room-hold",
+            "room-window",
+            "route-wide",
+            "stamp-reaction",
+            "station-wide",
+            "window-wide"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx",
+          "export": "LeakReviewSupport",
+          "views": [
+            "alert-panel",
+            "approval-close",
+            "blank-box",
+            "confirm-close",
+            "confirm-hold",
+            "equipment-low",
+            "feed-lens",
+            "followup-tag",
+            "infrared-view",
+            "letter-desk",
+            "letter-scroll",
+            "letter-wide",
+            "mark-hands",
+            "panel-wide",
+            "poi-close",
+            "program-calendar",
+            "program-wide",
+            "proposal-close",
+            "proposal-wide",
+            "review-panel",
+            "review-wide",
+            "room-calendar",
+            "room-desk",
+            "room-feed",
+            "room-hold",
+            "room-letter",
+            "room-monitor",
+            "room-proposal",
+            "room-review",
+            "room-window",
+            "route-wide",
+            "stamp-reaction",
+            "station-wide",
+            "title-detail",
+            "window-wide"
+          ]
+        }
+      ]
+    },
+    "alloy-foundry-v1": {
+      "module": "video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx",
+      "assets": [
+        "video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx",
+        "video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx",
+        "video-engine/src/lib/direction.ts"
+      ],
+      "views": [
+        "ai-card",
+        "ai-panel",
+        "arm-lift",
+        "arm-vials",
+        "bay-blueprint",
+        "calendar-months",
+        "clamp-plan",
+        "date-field",
+        "date-row",
+        "desk-pile",
+        "furnace-glow",
+        "gauge-fill",
+        "gauge-plan",
+        "goal-row",
+        "goal-stamp",
+        "goal-tag",
+        "grant-row",
+        "ledger-head",
+        "ledger-sort",
+        "ledger-stream",
+        "melt-hold",
+        "melt-pour",
+        "mesh-wide",
+        "month-rows",
+        "needle-detail",
+        "plan-card",
+        "plan-hold",
+        "plan-line",
+        "plan-outline",
+        "quote-card",
+        "quote-row",
+        "recipe-stream",
+        "release-desk",
+        "result-row",
+        "rig-clamp",
+        "rig-load",
+        "sample-glow",
+        "section-detail",
+        "stamp-close",
+        "unknown-sample",
+        "unmeasured-tag",
+        "wall-display",
+        "week-row",
+        "week-strip"
+      ],
+      "wall_views": [
+        "calendar-months",
+        "date-field",
+        "quote-card",
+        "wall-display",
+        "week-strip"
+      ],
+      "subject": "A planned automated alloy line where an AI panel proposes a recipe and a generic robotic arm mixes, melts and tests one sample, and the records around it: a periodic table of lit tiles and a mesh of mixes, recipe cards piling past a hand that stops sorting, a news release card with a dateline and grant tag, a quote card with the prediction gauge, calendar pages and a week strip, a GOAL stamp and a blank opening date field",
+      "note": "Fresh authored Claude-lane episode for 2026-10-25 (Texas A&M Engineering News of October 22nd, 2026 on the Aggie AI Foundry), round 2. Hero FoundryArmHero and support FoundrySupport are original React and SVG groups shared by both treatments, and one sample is conserved from the crucible to the clamps, the empty gauge and the ram, then set aside in s9 as a new card and a mold start the next candidate. A watches the line side on at bench level with the records face on (cabinet, bench, desk, easel). B is a different argument. Its records are rows entered down one ruled ledger that the camera scrolls, and its line is an overhead floor plan on a drafting sheet titled Aggie AI Foundry and stamped PLANNED, with the arm drawn as articulated segments, the sample traced as a route through the stations and an elevation inset for the ram, the bend and the pour. Each scene camera_strategy runs as one slow eased move over the scene. A PLANNED sign is on every line view. Disclosed illustration of a planned lab, no brand marks, no real building, equipment, person or measured result.",
+      "narration_views": {
+        "ai-card": {
+          "subject_ids": [
+            "s9-ai",
+            "s9-arm",
+            "s9-melt",
+            "s9-test"
+          ],
+          "action_ids": [
+            "melt-answers"
+          ]
+        },
+        "ai-panel": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "arm-lift": {
+          "subject_ids": [
+            "s6-arm",
+            "s6-rig",
+            "s6-sample"
+          ],
+          "action_ids": [
+            "metal-is-tested"
+          ]
+        },
+        "arm-vials": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "bay-blueprint": {
+          "subject_ids": [
+            "s3-bay",
+            "s3-date",
+            "s3-grant",
+            "s3-release"
+          ],
+          "action_ids": [
+            "grant-announced"
+          ]
+        },
+        "calendar-months": {
+          "subject_ids": [
+            "s7-goal",
+            "s7-months",
+            "s7-week"
+          ],
+          "action_ids": [
+            "goal-week-not-months"
+          ]
+        },
+        "clamp-plan": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "date-field": {
+          "subject_ids": [
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date"
+          ]
+        },
+        "date-row": {
+          "subject_ids": [
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date"
+          ]
+        },
+        "desk-pile": {
+          "subject_ids": [
+            "s2-pile",
+            "s2-stream",
+            "s2-tag"
+          ],
+          "action_ids": [
+            "recipes-overwhelm"
+          ]
+        },
+        "furnace-glow": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "gauge-fill": {
+          "subject_ids": [
+            "s5-gauge",
+            "s5-quote",
+            "s5-sample"
+          ],
+          "action_ids": [
+            "computer-cannot-predict-alloy"
+          ]
+        },
+        "gauge-plan": {
+          "subject_ids": [
+            "s5-gauge",
+            "s5-quote",
+            "s5-sample"
+          ],
+          "action_ids": [
+            "computer-cannot-predict-alloy"
+          ]
+        },
+        "goal-row": {
+          "subject_ids": [
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date"
+          ]
+        },
+        "goal-stamp": {
+          "subject_ids": [
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date"
+          ]
+        },
+        "goal-tag": {
+          "subject_ids": [
+            "s7-goal",
+            "s7-months",
+            "s7-week"
+          ],
+          "action_ids": [
+            "goal-week-not-months"
+          ]
+        },
+        "grant-row": {
+          "subject_ids": [
+            "s3-bay",
+            "s3-date",
+            "s3-grant",
+            "s3-release"
+          ],
+          "action_ids": [
+            "grant-announced"
+          ]
+        },
+        "ledger-head": {
+          "subject_ids": [
+            "s1-count",
+            "s1-mesh",
+            "s1-table"
+          ],
+          "action_ids": [
+            "elements-mix-trillion"
+          ]
+        },
+        "ledger-sort": {
+          "subject_ids": [
+            "s2-pile",
+            "s2-stream",
+            "s2-tag"
+          ],
+          "action_ids": [
+            "recipes-overwhelm"
+          ]
+        },
+        "ledger-stream": {
+          "subject_ids": [
+            "s2-pile",
+            "s2-stream",
+            "s2-tag"
+          ],
+          "action_ids": [
+            "recipes-overwhelm"
+          ]
+        },
+        "melt-hold": {
+          "subject_ids": [
+            "s9-ai",
+            "s9-arm",
+            "s9-melt",
+            "s9-test"
+          ],
+          "action_ids": [
+            "melt-answers"
+          ]
+        },
+        "melt-pour": {
+          "subject_ids": [
+            "s9-ai",
+            "s9-arm",
+            "s9-melt",
+            "s9-test"
+          ],
+          "action_ids": [
+            "melt-answers"
+          ]
+        },
+        "mesh-wide": {
+          "subject_ids": [
+            "s1-count",
+            "s1-mesh",
+            "s1-table"
+          ],
+          "action_ids": [
+            "elements-mix-trillion"
+          ]
+        },
+        "month-rows": {
+          "subject_ids": [
+            "s7-goal",
+            "s7-months",
+            "s7-week"
+          ],
+          "action_ids": [
+            "goal-week-not-months"
+          ]
+        },
+        "needle-detail": {
+          "subject_ids": [
+            "s6-arm",
+            "s6-rig",
+            "s6-sample"
+          ],
+          "action_ids": [
+            "metal-is-tested"
+          ]
+        },
+        "plan-card": {
+          "subject_ids": [
+            "s9-ai",
+            "s9-arm",
+            "s9-melt",
+            "s9-test"
+          ],
+          "action_ids": [
+            "melt-answers"
+          ]
+        },
+        "plan-hold": {
+          "subject_ids": [
+            "s9-ai",
+            "s9-arm",
+            "s9-melt",
+            "s9-test"
+          ],
+          "action_ids": [
+            "melt-answers"
+          ]
+        },
+        "plan-line": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "plan-outline": {
+          "subject_ids": [
+            "s3-bay",
+            "s3-date",
+            "s3-grant",
+            "s3-release"
+          ],
+          "action_ids": [
+            "grant-announced"
+          ]
+        },
+        "quote-card": {
+          "subject_ids": [
+            "s5-gauge",
+            "s5-quote",
+            "s5-sample"
+          ],
+          "action_ids": [
+            "computer-cannot-predict-alloy"
+          ]
+        },
+        "quote-row": {
+          "subject_ids": [
+            "s5-gauge",
+            "s5-quote",
+            "s5-sample"
+          ],
+          "action_ids": [
+            "computer-cannot-predict-alloy"
+          ]
+        },
+        "recipe-stream": {
+          "subject_ids": [
+            "s2-pile",
+            "s2-stream",
+            "s2-tag"
+          ],
+          "action_ids": [
+            "recipes-overwhelm"
+          ]
+        },
+        "release-desk": {
+          "subject_ids": [
+            "s3-bay",
+            "s3-date",
+            "s3-grant",
+            "s3-release"
+          ],
+          "action_ids": [
+            "grant-announced"
+          ]
+        },
+        "result-row": {
+          "subject_ids": [
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date"
+          ]
+        },
+        "rig-clamp": {
+          "subject_ids": [
+            "s4-ai",
+            "s4-arm",
+            "s4-furnace",
+            "s4-test",
+            "s4-vials"
+          ],
+          "action_ids": [
+            "ai-proposes-arms-mix-melt-test"
+          ]
+        },
+        "rig-load": {
+          "subject_ids": [
+            "s6-arm",
+            "s6-rig",
+            "s6-sample"
+          ],
+          "action_ids": [
+            "metal-is-tested"
+          ]
+        },
+        "sample-glow": {
+          "subject_ids": [
+            "s6-arm",
+            "s6-rig",
+            "s6-sample"
+          ],
+          "action_ids": [
+            "metal-is-tested"
+          ]
+        },
+        "section-detail": {
+          "subject_ids": [
+            "s6-arm",
+            "s6-rig",
+            "s6-sample"
+          ],
+          "action_ids": [
+            "metal-is-tested"
+          ]
+        },
+        "stamp-close": {
+          "subject_ids": [
+            "s3-bay",
+            "s3-date",
+            "s3-grant",
+            "s3-release"
+          ],
+          "action_ids": [
+            "grant-announced"
+          ]
+        },
+        "unknown-sample": {
+          "subject_ids": [
+            "s5-gauge",
+            "s5-quote",
+            "s5-sample"
+          ],
+          "action_ids": [
+            "computer-cannot-predict-alloy"
+          ]
+        },
+        "unmeasured-tag": {
+          "subject_ids": [
+            "s8-date",
+            "s8-goal",
+            "s8-unmeasured"
+          ],
+          "action_ids": [
+            "goal-not-result-no-date"
+          ]
+        },
+        "wall-display": {
+          "subject_ids": [
+            "s1-count",
+            "s1-mesh",
+            "s1-table"
+          ],
+          "action_ids": [
+            "elements-mix-trillion"
+          ]
+        },
+        "week-row": {
+          "subject_ids": [
+            "s7-goal",
+            "s7-months",
+            "s7-week"
+          ],
+          "action_ids": [
+            "goal-week-not-months"
+          ]
+        },
+        "week-strip": {
+          "subject_ids": [
+            "s7-goal",
+            "s7-months",
+            "s7-week"
+          ],
+          "action_ids": [
+            "goal-week-not-months"
+          ]
+        }
+      },
+      "authored_art": [
+        {
+          "role": "hero",
+          "module": "video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx",
+          "export": "FoundryArmHero",
+          "views": [
+            "ai-card",
+            "ai-panel",
+            "arm-lift",
+            "arm-vials",
+            "clamp-plan",
+            "furnace-glow",
+            "gauge-fill",
+            "gauge-plan",
+            "melt-hold",
+            "melt-pour",
+            "needle-detail",
+            "plan-card",
+            "plan-hold",
+            "plan-line",
+            "rig-clamp",
+            "rig-load",
+            "sample-glow",
+            "section-detail",
+            "unknown-sample"
+          ]
+        },
+        {
+          "role": "support",
+          "module": "video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx",
+          "export": "FoundrySupport",
+          "views": [
+            "ai-card",
+            "ai-panel",
+            "arm-lift",
+            "arm-vials",
+            "bay-blueprint",
+            "calendar-months",
+            "clamp-plan",
+            "date-field",
+            "date-row",
+            "desk-pile",
+            "furnace-glow",
+            "gauge-fill",
+            "gauge-plan",
+            "goal-row",
+            "goal-stamp",
+            "goal-tag",
+            "grant-row",
+            "ledger-head",
+            "ledger-sort",
+            "ledger-stream",
+            "melt-hold",
+            "melt-pour",
+            "mesh-wide",
+            "month-rows",
+            "needle-detail",
+            "plan-card",
+            "plan-hold",
+            "plan-line",
+            "plan-outline",
+            "quote-card",
+            "quote-row",
+            "recipe-stream",
+            "release-desk",
+            "result-row",
+            "rig-clamp",
+            "rig-load",
+            "sample-glow",
+            "section-detail",
+            "stamp-close",
+            "unknown-sample",
+            "unmeasured-tag",
+            "wall-display",
+            "week-row",
+            "week-strip"
+          ]
+        }
+      ]
+    }
+  }
+}
