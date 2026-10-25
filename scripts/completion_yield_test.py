@@ -300,6 +300,58 @@ class ExhaustedRequiredReviewTests(unittest.TestCase):
             self.state = original
         self.save()
 
+    def make_unfundable(self):
+        """Three code reviews spent, no opening evidence: the remaining two cannot fund a film."""
+        events = self.state['events']
+        self.state['events'] = events[:4] + [events[7]]
+        self.state['usage']['storyboard_critics'] = 3
+        self.claim.write_text(json.dumps({'schema': 'dispatch_worker_dispatch_claim/1',
+            'run_id': self.state['run_id'], 'role': 'storyboard-critic', 'reservation_event_index': 3,
+            'reservation_sha256': closure.digest(self.state['events'][3]), 'owner_sha256': 'original-owner',
+            'epoch': 'original-epoch', 'packet_sha256': 'original-spent-packet'}))
+        self.plan = {'reason': closure.UNFUNDABLE_REQUIRED_REVIEW, 'failure_evidence': str(self.failure)}
+        self.save()
+
+    def test_unfundable_path_closes_at_the_third_review_without_opening_evidence(self):
+        self.make_unfundable()
+        before = self.path.read_bytes(); evidence = self.validate()
+        self.assertEqual(self.path.read_bytes(), before)
+        self.assertEqual(evidence['plan']['reason'], closure.UNFUNDABLE_REQUIRED_REVIEW)
+        self.assertFalse(evidence['production_finished']); self.assertFalse(evidence['shipment_authorized'])
+        self.assertIn('out/dispatch/worker-dispatch-claims/original.json', evidence['files'])
+
+    def test_unfundable_reason_cannot_close_a_fundable_or_unfinished_path(self):
+        self.make_unfundable()
+        for change, message in [('early', 'exhausted'), ('selection', 'exhausted'), ('code-a', 'exhausted'),
+                                ('code-b', 'exhausted'), ('final', 'reserved final'), ('film', 'native film'),
+                                ('exhausted-name', 'exhausted')]:
+            original = copy.deepcopy(self.state); plan = dict(self.plan); extra = None
+            if change == 'early':
+                self.state['events'].pop(3); self.state['usage']['storyboard_critics'] = 2
+            if change == 'selection': extra = self.out / 'openings/selection.json'
+            if change == 'code-a': extra = self.out / 'opening-a-critic.json'
+            if change == 'code-b': extra = self.out / 'opening-b-critic.json'
+            if change == 'final': self.state['events'][3]['final_timed_phone'] = {'packet': 'unclaimed'}
+            if change == 'film': self.state['deliverable'] = {'film': 'original.mp4'}
+            if change == 'exhausted-name': self.plan['reason'] = closure.EXHAUSTED_REQUIRED_REVIEW
+            if extra is not None:
+                extra.parent.mkdir(parents=True, exist_ok=True); extra.write_text('{}')
+            self.save()
+            with self.subTest(change=change), self.assertRaisesRegex(ValueError, message):
+                self.validate()
+            if extra is not None: extra.unlink()
+            self.state = original; self.plan = plan; self.save()
+
+    def test_exhausted_hint_and_unfundable_hint_name_their_own_supported_commands(self):
+        self.make_unfundable()
+        hint = routine_continuation.capacity_recovery_hint(self.state, self.out)
+        self.assertIn('--unfundable-required-review', hint); self.assertIn('NOT SHIPPED', hint)
+        self.assertNotIn('completion-capacity', hint); self.assertNotIn('ask the owner', hint)
+        (self.out / 'opening-a-critic.json').write_text('{}')
+        hint = routine_continuation.capacity_recovery_hint(self.state, self.out)
+        self.assertNotIn('--unfundable-required-review', hint)
+        self.assertIn('FIVE cumulative editorial reviews', hint)
+
     def test_exact_five_closes_only_when_no_final_packet_was_reserved(self):
         self.state['events'].pop(6)
         self.state['usage']['storyboard_critics'] = 5
