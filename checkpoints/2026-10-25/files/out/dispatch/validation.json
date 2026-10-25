@@ -5,7 +5,6 @@
  "screened_story_subject": "Aggie AI Foundry",
  "reviewer_identity": "claude-opus-5-5 validator agent",
  "script_sha256": "74e72e7d159b24683b5c70de0a54f2502a84164297ac43f15380f18993894986",
- "claims_sha256_at_review": "5552388b37c271a26ac730477fb6e2c07993a89db754c650ebb405ae19858fb0",
  "bindings_sha256": "c555ccf5abb7c8322f98491214dabe4f6b6c28b266f7c4dd2910ee2483a251eb",
  "story_selection_sha256": "8099984e94f6d94958f15aa0a506ee214c0f58f6144a41b77a97912a32b77e18",
  "verified_claim_ids": [
@@ -31,7 +30,20 @@
  "rounds": [
   "REVISE",
   "REVISE",
+  "PASS",
   "PASS"
  ],
- "worker": "ad266e74edcec81ca"
+ "worker": "ad266e74edcec81ca",
+ "script_sha256_at_review": "92349a84cf662c17090baf1502ba0da8579412806dad2e0cce9cbeb5d650e4a5",
+ "bindings_sha256_at_review": "024259ce6f8694239c950808cf99134c4e85883231383a11fc861cc5e2be999a",
+ "advisories": [
+  "s3 comma before to build is a prose style matter, not a fact defect",
+  "s7 depends on s8 for its attribution, keep them adjacent in any on-screen use"
+ ],
+ "note": "Round 4 PASS covers the clause-length rewording of s3, s5, s7 and s8. Local current sha256 values are recorded by the director.",
+ "local_sha256": {
+  "vo_script.txt": "92349a84cf662c17090baf1502ba0da8579412806dad2e0cce9cbeb5d650e4a5",
+  "vo_bindings.json": "024259ce6f8694239c950808cf99134c4e85883231383a11fc861cc5e2be999a",
+  "story_selection.json": "8099984e94f6d94958f15aa0a506ee214c0f58f6144a41b77a97912a32b77e18"
+ }
 }
