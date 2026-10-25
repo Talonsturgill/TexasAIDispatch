@@ -1,0 +1,156 @@
+{
+  "schema": "dispatch_storyboard_critic_code_handoff",
+  "role": "storyboard-critic",
+  "review_scope": "code-plan",
+  "review_round": "code re-review after the first REVISE (caller labels this review 2 of the hard five)",
+  "edition_id": "2026-10-25",
+  "packet": {"path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/critic-packet-2.json", "sha256": "f34a8ccc6ef0a7e7ad9d8685e810447c5bb8ea820cee40ff948f86b61bea8437"},
+  "reviewer_identity": "claude-opus-5-5 storyboard-critic (independent isolated code-plan reviewer, high effort; same worker as review 1)",
+  "reviewed_at": "2026-10-25",
+  "combined_verdict": "revise",
+  "charging_note": "This is a changed-proposal content follow-up, not a format correction. The packet records storyboard_critics usage 1, and repair-plan.json requests only a reboard. I cannot verify that this call was separately precharged. Reserving and charging it is the caller's responsibility, and I do not waive it.",
+  "input_verification": "Read-only reviewer: I cannot compute SHA256, so I used the packet's supplied digests and invented none. Checks I could make: the board hash equals opening-a 7bb91f36..., matching repair-plan after_sha256. asset_inputs FoundryArmHero 273560ff... and FoundrySupport a654b1c2... match the plan's after hashes. Both treatments share renderer_sha256 4657c6e5.... The claims binding is unchanged (074f2433...). The plan names the retained first review (out/dispatch/retained-failures/code-review-1.json, failure_evidence_sha256 97ecd7a5...). I did not re-read those bytes; my original findings are restated from this session.",
+  "coverage": "Re-read in full: AlloyFoundryFilm.tsx (807 lines), FoundryArmHero.tsx (525) and FoundrySupport.tsx (578). Also read: critic-packet-2.json, repair-plan.json, the changed registry's alloy-foundry-v1 entry (views, wall_views, note; not every narration_views row), and the place_check.py header and wall-share logic. Treatment A, read: header, s1 to s2, s4 to s6 events and disclosures, s8 to s9, film_direction shots, narration clauses n4b to n9b, story_contract transitions and fingerprint. Treatment B, read: s2 header, the full film_direction shot list, story_contract, fingerprint and divergence note. Not read line by line: the remaining board sections (other scenes' planes and visual_proof, rewards, creative_direction edits, attention_beats, captions, native_media, art_direction blocks) and the rest of the registry. Guides whose hashes are unchanged from review 1 were read in full earlier in this session and not re-read. Disclosure: this coverage is partial. It supports a REVISE and could not support a capture pass.",
+  "retained_replacement": "Not applicable. This is the first creative correction (reboards 2, storyboard_critics 1), not a post-boundary structural replacement.",
+  "retained_review_disposition": [
+    {"original_defect": "1. Rig-station geometry: forearm, wrist and gripper inside the ram column; ram pad passing through the gripper in s6-event-3; elbow over the dial in the s4 clamp detail", "status": "resolved in code", "evidence": "RIG.ramRest is raised to -232 and clampUp to -164. The arm reaches the rig with LINE.rigReach 270 (carriage -128), so the elbow sits about (20,-259), left of the crosshead (x 56 to 228), and the wrist disk (y -174 to -136) clears the resting ram pad (y -242 to -232) by 58 units. s5Line releases and parks the arm at STATION.park in s5. s6Line keeps it parked, at elbow about (-193,-340), far from the rig, so no ram stroke happens with the arm present. The A rig-clamp detail is reframed to f[90,-150] s1.7: the dial lands at about (608,630) and the elbow at about (401,765), r 42 px, which is clear."},
+    {"original_defect": "2. Sample identity reset across s4, s5, s6 and s9; s6 re-performs s4-event-4; declared bridges not executed", "status": "resolved in code, with one new causality note for s9 (below)", "evidence": "s5Line keeps the same clamped sample (temp .92 to .45) and puts the gauge on the panel beside it. s6Line continues on that clamped sample (cools, ram loads it, it bends, the needle swings); nothing is lifted from the furnace again. s9Line sets the bent bar aside into a bin, slides a mold in and writes a NEXT_RECIPE card. A's story_contract transitions are rewritten to describe the executed cuts."},
+    {"original_defect": "3. s2 sort-and-stop cut at about 68%; only two cards on the tray", "status": "resolved", "evidence": "s2-event-3 now runs 6.28 to 7.44. The stop eases over sub(.68,.95), finishing at about 7.38, inside n2, and holds to the 7.74 cut. CARD_CLASS sends 11 cards (odd i from 27 to 47) onto the tray (B: into the pocket), landing 6.50 to 7.29 with span 1.89."},
+    {"original_defect": "4. PLANNED marker and planned disclosure missing in s6 and s9", "status": "resolved", "evidence": "lineWorld draws the PLANNED sign and two PLANNED bed plates for every line tag (s4, s5, s6, s9). B's planSheet carries a PLANNED title stamp and plates. The s5, s6 and s9 production_disclosures now say 'planned line' or 'planned lab'."},
+    {"original_defect": "5. Signature pour 0.925 s wide; settled answer held about 0.3 s", "status": "resolved for timing (but see the new s9 geometry blocker)", "evidence": "s9 is 5.26 s. The A melt-pour wide runs 47.16 to 48.50 and the fill completes at about 48.23, inside it. Dim, tilt-back and pourBack settle by about 48.95 and hold to 50.11, about 1.16 s, inside n9b (ends 49.11) and beyond."},
+    {"original_defect": "6. B was A re-photographed; camera_strategy and fingerprint not executed", "status": "resolved", "evidence": "B renders a different construction: ledgerWorld (records as rows down one scrolled ledger with a filing pocket, and a date-row scroll back to the release) and planWorld (overhead floor plan on a PlanSheet, PlanArm segments, a traced sample route, and an elevation sectionInset for the clamp, ram, bend and pour). strategyMove now executes every scene's camera_strategy as one small eased drift (truck ±24 px, push 4.5%, rise or crane ±16 to 18 px, orbit ±1.2 degrees). B's fingerprint (top-down-map, blueprint-technical) matches."}
+  ],
+  "consolidated_correction": [
+    "1. s9 rig geometry (shared hero code, both treatments). Do not re-close the bar-height clamps onto the 30-unit mold. Either leave the clamps open for the mold, or give the clamp stop the mold's height so the pads rest on its rim. Move the pour station and carriage so the upright and tipped crucible stay inside the rig's free space between the left clamp rod and the right column, instead of overlapping the left column (x 69 to 87) and left clamp rod (x 88 to 104) at the mold's depth. Re-check the outgoing bent bar and the bin shelf against the right column (x 197 to 215). Then re-verify the A melt-pour wide, the melt-hold detail (closing frame) and B's section inset at the composed camera and strategyMove transforms.",
+    "Optional, not blocking: start s9 with the crucible leaving the furnace after the new card writes, so the next candidate's melt follows its suggestion (see notes). Update B's scene text and story_contract.scenes advances, which still describe A's bench, tray, desk and lab wall, to describe the ledger and plan B actually draws."
+  ],
+  "reports": {
+    "a": {
+      "treatment": "a",
+      "board": {"path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/opening-a.json", "sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e"},
+      "review_scope": "code-plan",
+      "verdict": "revise",
+      "concept_sha256": "21f02fd971e15d20575475acccc58d15c63d1c6aad80a23ab9b11954d9926793",
+      "renderer_sha256": "4657c6e546f2715d0878b360413041c8a9ca6e6e3c9ea8aa1d77fe41d9eabf7b",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "report_bindings": {
+        "review_scope": "code-plan",
+        "concept_sha256": "21f02fd971e15d20575475acccc58d15c63d1c6aad80a23ab9b11954d9926793",
+        "renderer_sha256": "4657c6e546f2715d0878b360413041c8a9ca6e6e3c9ea8aa1d77fe41d9eabf7b",
+        "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+        "story_review": {"story_sha256": "7c368643e480d4bb6b31720cda22395590b7d07f53cc18bfb3a6f9a3eeb0cde2", "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0", "claims_sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491"},
+        "action_reviews": []
+      },
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic (independent isolated code-plan reviewer, high effort)",
+      "reviewed_at": "2026-10-25",
+      "strongest_frame": "s6-shot-2 to s6-shot-3 (31.18 to 34.08 s authored), rig-load close then needle-detail. The same bar clamped at the end of s4 sits in the rig with the arm parked away. The ram descends from rest (-232) to contact and presses on, the bar sags, and the dial needle swings. Dial, ram and bar all stay in the 2.8x detail frame (about y 470 to 1133). This is a plan reading, not observed.",
+      "weakest_frame": "s6-shot-1 'arm-lift' wide (29.67 to 31.18 s authored). After s5 has held its finished question mark since about 27.5 s, the only change is a roughly 106 px bar fading from dull amber to gray while the parked arm idles. This is about 3.7 s of low new information across a cut before the ram starts at 31.23. It is within the 4 s reward rule; judge the pace on pixels.",
+      "blocking_defects": [
+        {"category": "motion", "scene_id": "s9", "time_s": 46.66, "criterion": "contact_and_consequence (visible support, separate identity, contact produces the depicted change); closing_payoff; brief rule on full occupied volumes", "defect": "The new s9 rig choreography puts objects inside each other in the signature pour and the held closing frame. (a) s9Line re-closes the clamps after s9-event-1 (clampP = max(..., ease5((t-at(e1,1))/.25)), closed by about 46.66). It drives the pads to RIG.clampDown -110, a stop sized for the 10-unit bar. The pads (y -122 to -110, x 82 to 110 and 174 to 202) therefore sit inside the 30-unit mold (body y -126 to -96, x 90 to 194) and over its melt fill (x 106 to 178), through the 48.95 to 50.11 settled answer. This is unambiguous, because clamps and mold share the workpiece depth by construction. (b) At STATION.pour [94,-190] with POUR_CARRIAGE -180, the held crucible spans about x 56 to 132, y -208 to -144 upright. At full tilt (about 47.70 to 48.33) its base end reaches about x 49. It covers the left column (x 69 to 87) and the left clamp rod (x 88 to 104, from y -264 down to the closed pads), while its lip (about x 112) must sit over the mold at that same rig plane. After tipping back to pourBack [60,-188] it rests over the left column in the closing frame. (c) The outgoing bent bar and the new bin shelf (anvil+8 to binX+40) cross the right column (x 197 to 215) at anvil height. In A this is drawn large: melt-pour wide at s1.12 (47.16 to 48.50), melt-hold detail at s2.2 (pads about 62x26 px embedded in the glowing mold), and ai-card close at s1.7 for the bar exit (45.43 to 45.95). Effect: the performed answer, a pour into a mold that then holds its glow, is staged with the clamps sunk into the mold and the crucible occupying the rig's own column and clamp. Review 1 carried the crucible-over-column overlap only as an unverified depth risk. The clamp re-close introduced in this correction makes the intersection certain."}
+      ],
+      "story_review": {
+        "story_sha256": "7c368643e480d4bb6b31720cda22395590b7d07f53cc18bfb3a6f9a3eeb0cde2",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491",
+        "verdict": "revise",
+        "blocking_defects": [
+          {"category": "motion", "scene_id": "s9", "time_s": 46.66, "criterion": "closing_payoff / contact_and_consequence", "defect": "The closing answer's construction intersects. Bar-height clamp pads re-close into the mold and its melt. The pouring and resting crucible occupies the rig's left column and left clamp rod. The binned bar and shelf cross the right column. Full text is in the top-level defect."}
+        ],
+        "one_viewing_summary": "Code-plan reconstruction, not an observed film. Periodic tiles light and mesh into 'roughly a trillion ways'. Cards spill onto a bench and over its edge while a gloved hand files one card, reaches again and stops as eleven cards bury the tray. A release card is stamped Oct. 22, 2026 and tagged $2 million beside a PLANNED foundry outline. Under a PLANNED sign, the AI panel prints a card. The arm drops the matching tubes into a crucible, sets it in the furnace, carries the hot sample to the rig and holds it while the clamps close. After the quote card names Raymundo Arroyave, the same panel shows a gauge that fills partway, then aims at the clamped sample, stays empty and raises a question mark. The parked arm waits while the sample cools, the ram loads it, it bends and the needle swings. Months flip to a checked week tagged goal, stamped GOAL, tagged not a result, and a blank Opening date field. A new card writes in, the bent bar goes to a bin, a mold slides in, the arm pours melt into it, and the card dims while the full mold glows for about a second.",
+        "opening_to_ending": "The film opens on the question as scale and closes on the earned take, a dimmed AI card beside a glowing mold, now with a real comprehension hold and a planned disclosure. The middle conserves one sample through making, an unpredictable gauge and a physical test. The closing image still needs its rig geometry corrected.",
+        "weakest_transition": "s5 to s6. The finished question mark over the clamped sample holds about 2 s, then cuts to a wide in which only the bar's colour changes for about 1.5 s before the ram moves. Continuity is now correct, but little new information arrives at this cut."
+      },
+      "action_reviews": [],
+      "code_clause_observations": [
+        {"id": "n1", "assessment": "implemented", "observed_in_code": "Unchanged: tiles light, the mesh weaves, the tag drops and settles while the candidate glows. The mesh-wide tag is about 26 px; legibility is unresolved."},
+        {"id": "n2", "assessment": "implemented", "observed_in_code": "Stream, pile over the edge and pencil fall, then the hand pinches, files, reaches and stops by about 7.38, with 11 cards landing on the tray from 6.50 to 7.29, all inside the clause, held to the cut."},
+        {"id": "n3a", "assessment": "implemented", "observed_in_code": "The release card slides and writes; the Oct. 22, 2026 impression inks inside the clause."},
+        {"id": "n3b", "assessment": "implemented", "observed_in_code": "The '$2 million grant' tag swings in and hooks on. The funder is still not pictured (note)."},
+        {"id": "n3c", "assessment": "implemented", "observed_in_code": "The bay outline draws, titled Aggie AI Foundry, and inks PLANNED."},
+        {"id": "n4a", "assessment": "implemented", "observed_in_code": "The AI panel writes a card with tube-colour swatches, the copy rides the wire, and the camera follows (AI_PANEL_FOLLOW), under the PLANNED sign."},
+        {"id": "n4b", "assessment": "implemented", "observed_in_code": "Mix, melt and carry, then the clamps close on the held sample. The reframed rig-clamp detail keeps the dial and ram clear of the elbow and forearm. 'Test' is the clamping here; the test itself follows in s6 on the same sample."},
+        {"id": "n5a", "assessment": "implemented", "observed_in_code": "The quote card (wall view) writes the name. On the line the panel switches to the computer's gauge (gauge.show), fills to 40% and hangs a 16-unit 'some behavior' tag. The panel keeps its 'AI' label."},
+        {"id": "n5b", "assessment": "implemented", "observed_in_code": "An aim line runs from the panel to the clamped sample, the gauge drains, flickers in search and stays empty, and a question mark rises over the rig."},
+        {"id": "n6", "assessment": "implemented", "observed_in_code": "The same clamped sample cools, the ram loads it (0.38 contact-curve stroke), it presses, the bar bends and the needle swings, with the arm parked clear. The cooling-only first 1.56 s is weak pacing (weakest frame)."},
+        {"id": "n7", "assessment": "implemented", "observed_in_code": "Unchanged: months flip, the week strip fills with checks, the 'goal' tag lands."},
+        {"id": "n8a", "assessment": "implemented", "observed_in_code": "Unchanged: the GOAL stamp and 'not a result' tag repeat the goal label (note)."},
+        {"id": "n8b", "assessment": "implemented", "observed_in_code": "Unchanged: the 'Opening date' field stays blank and takes a dash."},
+        {"id": "n9a", "assessment": "implemented", "observed_in_code": "The old card slides off and a NEXT_RECIPE card writes in and glows once (45.21 to 46.05). The full glowing crucible is already in the arm from 44.85 (note)."},
+        {"id": "n9b", "assessment": "partial", "observed_in_code": "The pour fills the mold within the 1.34 s wide; dim and upright settle by 48.95 and hold to 50.11. The clamp pads sit inside the mold and the crucible overlaps the left column and clamp rod (blocking defect)."}
+      ],
+      "notes": [
+        "Code approval would authorize only the funded capture and contains no pixel observations. Finish, apparent speed and recognition remain for the exact phone and native reviews.",
+        "Visible PLANNED coverage: in close and detail line shots the hanging sign falls off frame and only a bed plate may remain, sometimes low in the frame (needle-detail plate at about y 1511). The every-frame disclosure chip now says planned, so the source limit is carried either way. Check caption-band overlap at phone.",
+        "s9 causality: s9Line starts with the arm already holding a full glowing crucible (fill 1, glow 1, furnace .75), visible at the left of the ai-card close, before the new card writes. The only crucible established is the one set in the furnace in s4. The 'next candidate' melt therefore exists before its suggestion, or is the first candidate's leftover. Not blocking, because the take 'AI suggests, the melt answers' still reads, but it weakens the cause-to-answer order.",
+        "Binning the tested bar and starting a new card implies the first candidate's test was negative. The s6 and s9 disclosures say no measured result. This is acceptable as an illustrated iteration loop under c9; keep it unlabelled.",
+        "strategyMove now drifts every scene. If art_direction.flat_shots still gives the reason 'the episode camera moves only with the performing arm, card or stamp', the board prose no longer matches the executed drift. Re-run the October 17 composed-bounds check with strategyMove included, because subjects near edges move up to 24 px or 4.5%.",
+        "Depth staging to check at phone: the arm is drawn in front of the rig although its rail is behind the bed. At the rig station the forearm crosses the left column and left clamp rod in elevation (y about -217 to -187). The s5 retraction slides the open gripper left at bar height through the left clamp and column, but this happens under the s5 quote-card wall view, off screen.",
+        "Region and place: A has 5 of 27 shots as wall views (19%), under place_check's 40% WALL_SHARE_MAX. Windows remain in the wide and medium line and bench shots.",
+        "Sources and numerals are unchanged from review 1: only 'Oct. 22, 2026' and '$2 million' appear as numerals, both in claim quotes. The script is unchanged."
+      ]
+    },
+    "b": {
+      "treatment": "b",
+      "board": {"path": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch/out/dispatch/opening-b.json", "sha256": "3712ba2506ff032b8f349f64ee6c1add43c57194955f77971e1d5065fadaff1a"},
+      "review_scope": "code-plan",
+      "verdict": "revise",
+      "concept_sha256": "194f3d892b188dfbf17419e9a4090db50676c16ad6fc182bbf08f949f462d2b0",
+      "renderer_sha256": "4657c6e546f2715d0878b360413041c8a9ca6e6e3c9ea8aa1d77fe41d9eabf7b",
+      "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+      "report_bindings": {
+        "review_scope": "code-plan",
+        "concept_sha256": "194f3d892b188dfbf17419e9a4090db50676c16ad6fc182bbf08f949f462d2b0",
+        "renderer_sha256": "4657c6e546f2715d0878b360413041c8a9ca6e6e3c9ea8aa1d77fe41d9eabf7b",
+        "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+        "story_review": {"story_sha256": "2b427512ec7a3305c35fcde5d8c708aeda0736fab97475c45210ecf4186a7997", "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0", "claims_sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491"},
+        "action_reviews": []
+      },
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic (independent isolated code-plan reviewer, high effort)",
+      "reviewed_at": "2026-10-25",
+      "strongest_frame": "s6-shot-3 'section-detail' (32.33 to 34.08 s authored). The elevation inset fills the frame alone at about 2.5x: the clamped bar from the plan, the ram stroke past contact, the sag, and the needle swing, with no arm in the section. This is the one place B shows the physical test large. Plan reading, not observed.",
+      "weakest_frame": "s4-shot-1 'plan-line' overhead (15.45 to 18.55 s authored), camera s0.85. The narrated subject of n4a, 'AI proposes alloys', is the panel face glyph, about 118 px wide, plus a card about 71 px wide on the plan's wire, while the whole line plan fills the frame.",
+      "blocking_defects": [
+        {"category": "motion", "scene_id": "s9", "time_s": 46.66, "criterion": "contact_and_consequence; closing_payoff; brief rule on full occupied volumes", "defect": "Same shared rig construction as A, drawn in B's elevation sectionInset, which B uses for 'what a plan can't show (the ram's stroke, the bend, the pour)'. The bar-height clamp pads re-close (by about 46.66) to -110, inside the 30-unit mold and its melt. The pouring and resting crucible (STATION.pour [94,-190] and pourBack [60,-188], carriage -180) occupies the left column (x 69 to 87) and left clamp rod (x 88 to 104) at the mold's plane. The outgoing bent bar and bin shelf cross the right column. B shows it in plan-card (inset scale about 0.73, bar exit and clamp re-close, 44.85 to 47.01), melt-pour (about 0.53, the pour, 47.01 to 48.60) and the plan-hold closing frame (about 0.43, 48.60 to 50.11). At B's inset scale the visible size is small; its effect on phone comprehension is unresolved. The construction fault is the same code-proven fault as A's and needs the same shared fix. Any fix changes the shared renderer digest, so both treatments need fresh code bindings anyway."}
+      ],
+      "story_review": {
+        "story_sha256": "2b427512ec7a3305c35fcde5d8c708aeda0736fab97475c45210ecf4186a7997",
+        "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+        "claims_sha256": "074f2433e0c3864c599c6fa7a14de2c616df932953bda039705a6020cacf1491",
+        "verdict": "revise",
+        "blocking_defects": [
+          {"category": "motion", "scene_id": "s9", "time_s": 46.66, "criterion": "closing_payoff / contact_and_consequence", "defect": "The section-inset pour and closing hold carry the shared s9 intersections: clamp pads inside the mold, crucible over the left column and clamp rod, and the bar and shelf through the right column."}
+        ],
+        "one_viewing_summary": "Code-plan reconstruction, not an observed film. A periodic chart at the head of a ruled ledger lights and meshes into 'roughly a trillion ways'. Cards fly from the chart into ledger rows; the rows fill, overflow spills off the page edge, and a gloved hand files one card in the margin pocket and stops as eleven cards bury it. Further down the ledger the release row takes its Oct. 22, 2026 stamp and $2 million tag. A dark drafting sheet slides over it, its line outline draws, titled Aggie AI Foundry and stamped PLANNED. On that floor plan the AI panel face writes a card that rides the wire to the rack. The plan arm moves tubes to the crucible and the crucible to the furnace, then carries the bar to the rig, while a dashed route traces the sample and a section inset shows the clamps closing. A quote row follows on the ledger. Back on the plan, the panel face becomes a gauge that fills partway, aims at the clamped bar, stays empty and raises a question mark. The bar cools on the plan, and the section inset shows the ram loading and bending it as the needle swings. The ledger's calendar and week rows take goal, GOAL and not a result. The ledger scrolls back to the release row, where a blank Opening date field clips on. On the plan a new card writes, the bar is binned, a mold slides in, the arm pours (plan stream and inset), and the card dims while the mold glows.",
+        "opening_to_ending": "B now argues a genuinely different way: the question and limits as ledger entries, the mechanism as a traced route on a planned floor plan. It ends on the same take, a dimming card beside a glowing mold, with a 1.16 s settled hold. The closing elevation inset shares A's rig intersections.",
+        "weakest_transition": "s4 to s5. The plan's clamp close in the section inset cuts to a close on the quote row on the ledger, then returns to the plan for the gauge. The two-world handoff is honest and the bridge text describes it, but the subject (the clamped bar) leaves the screen for the 1.75 s quote row."
+      },
+      "action_reviews": [],
+      "code_clause_observations": [
+        {"id": "n1", "assessment": "implemented", "observed_in_code": "The chart at the ledger head lights, meshes and drops its tag (ledger-head overhead on the desk, then the wall-display close at s1.12)."},
+        {"id": "n2", "assessment": "implemented", "observed_in_code": "ledgerCard enters 21 cards into rows, spills the rest off the page edge, and files 11 into the pocket from 6.50 to 7.29. The hand files, reaches and stops by about 7.38, inside the clause. The pencil rolls off the page."},
+        {"id": "n3a", "assessment": "implemented", "observed_in_code": "The release row slides in, writes, and takes the Oct. 22, 2026 stamp (release-desk close on the ledger)."},
+        {"id": "n3b", "assessment": "implemented", "observed_in_code": "The grant-row detail: the '$2 million grant' tag hooks onto the release row. No funder shown (note)."},
+        {"id": "n3c", "assessment": "implemented", "observed_in_code": "plan-outline: the drafting sheet slides over the ledger, the outline draws on, the title reads Aggie AI Foundry, and the PLANNED stamp inks."},
+        {"id": "n4a", "assessment": "implemented, recognition at risk", "observed_in_code": "The panel face writes the card and it rides the plan wire. The subject is about 118 px in the 0.85 plan (weakest frame)."},
+        {"id": "n4b", "assessment": "implemented", "observed_in_code": "Plan arm: tubes shrink into the crucible, the crucible goes into the glowing port, the bar is carried to the rig, and the route traces stage 0 to 3. The clamp-plan inset shows the clamps closing in elevation, with the arm clear of the raised ram."},
+        {"id": "n5a", "assessment": "implemented, legibility at risk", "observed_in_code": "The quote row slides in on the ledger (card scale about 0.88: quote type about 24 px, name about 26 px). gauge-plan: the panel face's gauge fills partway and the 'some behavior' tag hangs."},
+        {"id": "n5b", "assessment": "implemented", "observed_in_code": "An aim line and dashed ring reach the rig, the gauge drains and stays empty, and a question mark appears over the rig."},
+        {"id": "n6", "assessment": "implemented", "observed_in_code": "The bar cools on the plan with the arm parked over the furnace; the inset and then the section-detail show the ram loading, the bend and the needle."},
+        {"id": "n7", "assessment": "implemented", "observed_in_code": "Ledger month-rows calendar flip, week row fill, goal tag."},
+        {"id": "n8a", "assessment": "implemented", "observed_in_code": "GOAL stamp and 'not a result' tag on the week row; the goal label repeats (note)."},
+        {"id": "n8b", "assessment": "implemented", "observed_in_code": "date-row scrolls the ledger from y 2100 to 1460 over 0.9 s (about 608 px, a fast motivated scroll), and the blank 'Opening date' field clips onto the release row and takes a dash."},
+        {"id": "n9a", "assessment": "implemented", "observed_in_code": "plan-card: the panel face's new card writes in and glows, the bar moves to the bin and the mold slides in. The full crucible is already held (note)."},
+        {"id": "n9b", "assessment": "partial", "observed_in_code": "Plan pour stream plus inset pour, card dim, settled hold 48.95 to 50.11. The inset carries the shared clamp, mold and column intersections (blocking defect)."}
+      ],
+      "notes": [
+        "Code approval would authorize only the funded capture and contains no pixel observations.",
+        "Treatment divergence (review 1, defect 6) is resolved by executed construction, not relabelling.",
+        "Board text integrity: B's scene on_screen and what_moves fields and story_contract.scenes advances still describe A's picture (lab bench, tray, bench edge, desk, lab wall). Only the transitions were rewritten to B's executed cuts. Update them so the advances say what B's picture adds. Not blocking, because narration bindings, subjects and actions are wired correctly.",
+        "Place: 16 of 26 B shots are overhead, which place_check exempts, and the one wall view (wall-display) is 1 of 10 held shots, so WALL_SHARE_MAX passes. But B has no wide or medium framing, so the Post Oak region never appears through a window. It appears only as wash beside close and detail ledger views. This is a place-axis risk for scoring, not a gate failure. The desk:true ledger views paint a full desk rect, but only in overhead shots, which place_check does not hold to a region share.",
+        "Plan depth: planWorld draws the arm over the rig's crosshead and dial. Seen from above, the crosshead should hide the forearm and gripper working under it. This is acceptable as schematic convention; judge at phone.",
+        "The s9 causality note from A applies: the full crucible is held from 44.85, before the new card writes.",
+        "Sources, numerals and script are unchanged from review 1."
+      ]
+    }
+  }
+}
