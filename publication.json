@@ -2,9 +2,949 @@
   "acquired_at": "2026-10-25T05:10:28.886894+00:00",
   "epoch": "6489f9d790214473bb88bcbb19a58756",
   "expires_at": "2026-10-25T07:10:28.886894+00:00",
+  "failed_editions": {
+    "2026-10-24": {
+      "checkpoint": "371d5ead013f0665ef8280fcefa5a95cd7398a42",
+      "evidence": {
+        "envelope_sha256": "984ba66d20973a693089cfa65645f6d419845748462dd51d814142660492fb38",
+        "failure_event_index": 57,
+        "failure_event_sha256": "d8c7c73f732d4d475d83448b3a8df14d6298f3fa2cd5a7902d9c7925b509b380",
+        "files": {
+          "out/dispatch/evidence/narration-2/failure.txt": "2d83e743a274f6481058b18df12e41b129e47ddc3acf4c5683ff3760f8258638",
+          "out/dispatch/storyboard_critic.json": "1243ae3d8843f6a6f0bd78a9f896fe18d486768ea1dd2ec2de32872bb536d393",
+          "out/dispatch/worker-dispatch-claims/002a40ed267fd0cb5190724756638d8eebfe53409c088a480f92a423b6855ba4-researcher.json": "0f62336e4aec7954d72bd88bed6886724e2e2292a8f54d506e8c99b16e7add5d",
+          "out/dispatch/worker-dispatch-claims/1b1b45d6a679a2eead7c5cb225aa6ac1540c4d219bc049b0c05a23fd01253c13-storyboard-critic.json": "84d01a59cc83633e6b2f4f737515356b535948b39ba2b692a669bc9e1ec66d40",
+          "out/dispatch/worker-dispatch-claims/1d0f579a98caf67cd5453070bd998c8d7b94c9f627bb47b522c531583262e6de-storyboard-critic.json": "cb1192eb0d2dffa941a261ca56b49f36806af3a95876e0df348eff47824f55ff",
+          "out/dispatch/worker-dispatch-claims/30fcb5f5b0fddfe7b363242ea3abd2350f5d912a81a5e3b289271e1b54ae6f6e-researcher.json": "10cee924dfc1170fafba60bd931dd9f82e4ea71cc0c6df662718d20a2fcd2105",
+          "out/dispatch/worker-dispatch-claims/4129aacbb6889b190cb947347116df6b7853a46387fad64a198eee2cff899b4f-storyboard-critic.json": "bafea81f0c204a1fcbc8d77695c582e904c4c5a832e843b58131da3304f7bc3f",
+          "out/dispatch/worker-dispatch-claims/5a308a3c8932bd238e615f09a67474eef0226ed06de5cf05f2f9ee57848d1c55-storyboard-critic.json": "ea74f3c004f67d9a17f3337a61b2e854ce0101c5a8421fc54c7179613d79a839",
+          "out/dispatch/worker-dispatch-claims/6a3dfac2230d18684219a45ea6c1de3959115a900e46d64c0a93fa0564a3f329-validator.json": "06e762c5b2ed58fb1d34908d9d797918676741f793dc4318418c30de23a9e50a",
+          "out/dispatch/worker-dispatch-claims/79748325c8ba9cf1f3b16a3b68738bff691e8eae312b3b3e7dc87cf3da0985f4-researcher.json": "a541a058e805efb9a7195d1da72d2473bf3fac5fc804b25c026db2b72b77cc3b",
+          "out/dispatch/worker-dispatch-claims/84025f47b4f9870fb9292c4dc32dd4f063701f9a68a823a44fa378f85b796306-validator.json": "0c68c349d7d56c359debb6ee9e38c188bc6b3476c001c7097cc113f01d7abd03",
+          "out/dispatch/worker-dispatch-claims/a591b9c12989ce51f5701d3e1365d75b36db6a742fd3d57a3cc63cbc800bb864-vo-director.json": "5f060be95e32ede34effc68d8f1f00b41512bdcf54c193afd8efe43f522c7580",
+          "out/dispatch/worker-dispatch-claims/cc1a96380444695c04127ca4b65b57fc72d1f27c2828a03447bb643c87d881b8-scene-builder.json": "9a5cb33092000cf07a952f3f0818f135faf73f3cc068f12d18495b0ce47eea05"
+        },
+        "ledger_prefix_sha256": "35be0f82c3b380f308a142d3648d24c05034894e8f8b93aa8803e4db2d729df8",
+        "paid_usage_sha256": "8af670c411ef7457b9c2e8ffecadfd9960ce8b5205d19c4a34e01475ea27633b",
+        "plan": {
+          "failure_evidence": "out/dispatch/evidence/narration-2/failure.txt",
+          "reason": "exhausted-required-review-before-film"
+        },
+        "production_finished": false,
+        "shipment_authorized": false
+      },
+      "ledger_sha256": "ba6281080af5ba43a9a805c8e1d4588fdbebc65063305c3c7829963c11bb1c42",
+      "manifest_sha256": "d41496639cfbb7e9a6ad00b40ae470d5bd8c583584d6ca76595216bff25d0ff1",
+      "original_state": {
+        "events": [
+          {
+            "at": "2026-10-24T05:15:13.341005Z",
+            "envelope": {
+              "audiovisual_reviews": 43,
+              "cleanup_renders": 3,
+              "full_renders": 14,
+              "image_generations": 6,
+              "panel_rounds": 9,
+              "preflight_renders": 16,
+              "reboards": 10,
+              "reported_tokens": 900000,
+              "rescue_renders": 2,
+              "research_agents": 4,
+              "scorer_calls": 27,
+              "storyboard_critics": 7,
+              "tts_calls": 12,
+              "validator_agents": 4,
+              "voice_directors": 2
+            },
+            "kind": "resource_envelope_frozen",
+            "telemetry_scope": "External provider tokens only; Codex/account consumption is separate"
+          },
+          {
+            "at": "2026-10-24T05:15:13.341210Z",
+            "authorization_source_label": "Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images",
+            "explicit_existing_run": false,
+            "grants_no_resources": true,
+            "kind": "autonomous_completion_adopted",
+            "owner_source_text_sha256": "00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68",
+            "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+            "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
+          },
+          {
+            "at": "2026-10-24T05:15:13.341222Z",
+            "ceiling_snapshot": {
+              "audiovisual_reviews": 43,
+              "cleanup_renders": 3,
+              "full_renders": 14,
+              "image_generations": 6,
+              "panel_rounds": 9,
+              "preflight_renders": 16,
+              "reboards": 10,
+              "reported_tokens": 900000,
+              "rescue_renders": 2,
+              "research_agents": 4,
+              "scorer_calls": 27,
+              "storyboard_critics": 7,
+              "tts_calls": 12,
+              "validator_agents": 4,
+              "voice_directors": 2
+            },
+            "kind": "initialised",
+            "mode": "production"
+          },
+          {
+            "at": "2026-10-24T05:15:29.505159Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "unscored provider generation availability",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "audiovisual_reviews": 1
+            }
+          },
+          {
+            "after_attempt": null,
+            "after_probe": null,
+            "at": "2026-10-24T05:15:29.506718Z",
+            "generation_protocol": "bounded-json-generation-v2",
+            "kind": "provider_availability_probe",
+            "model": "gemini-3.8-flash",
+            "request_id": "9c3e7c46-e0cc-46bb-8060-d60be5ec1b68",
+            "reservation": {
+              "at": "2026-10-24T05:15:29.505159Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "unscored provider generation availability",
+              "preflight_identity": null,
+              "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+              "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+              "resources": {
+                "audiovisual_reviews": 1
+              }
+            },
+            "reservation_event_index": 3,
+            "started_at": "2026-10-24T05:15:29.506467Z"
+          },
+          {
+            "at": "2026-10-24T05:15:32.661701Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "telemetry for audiovisual_reviews: 9c3e7c46-e0cc-46bb-8060-d60be5ec1b68 unscored provider generation availability",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "reported_tokens": 64
+            }
+          },
+          {
+            "at": "2026-10-24T05:15:32.663252Z",
+            "elapsed_ms": 3153,
+            "kind": "telemetry",
+            "note": "9c3e7c46-e0cc-46bb-8060-d60be5ec1b68 unscored provider generation availability",
+            "reported_tokens": 64,
+            "resource": "audiovisual_reviews"
+          },
+          {
+            "at": "2026-10-24T05:15:32.665067Z",
+            "available": true,
+            "http_status": 200,
+            "kind": "provider_availability_result",
+            "receipt_sha256": "02170ec55c4130bfc3fd949258fddcb05b23352dbb8872bf6ba642f3519690b8",
+            "request_id": "9c3e7c46-e0cc-46bb-8060-d60be5ec1b68"
+          },
+          {
+            "at": "2026-10-24T05:15:50.454708Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "water digital twin beat",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "research_agents": 1
+            }
+          },
+          {
+            "at": "2026-10-24T05:23:37.746729Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "robot alloy lab beat; first beat unsupported",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "research_agents": 1
+            }
+          },
+          {
+            "at": "2026-10-24T05:28:22.681936Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "surgical suite cameras beat; first two beats lacked action",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "research_agents": 1
+            }
+          },
+          {
+            "at": "2026-10-24T05:38:42.296315Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "current claims and script evidence",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "validator_agents": 1
+            }
+          },
+          {
+            "at": "2026-10-24T05:44:54.739220Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "corrected claims and script, same validator follow-up",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "validator_agents": 1
+            }
+          },
+          {
+            "at": "2026-10-24T05:58:57.860044Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "initial authored build of hero and support for both treatments",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "reboards": 1
+            }
+          },
+          {
+            "at": "2026-10-24T07:00:16.375334Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "code review of both complete current treatments",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "storyboard_critics": 1
+            }
+          },
+          {
+            "at": "2026-10-24T07:17:56.459583Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "one consolidated correction of the independent code review 1 defects",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "reboards": 1
+            }
+          },
+          {
+            "at": "2026-10-24T07:57:15.472562Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "fresh code review 2 after the single consolidated correction, same critic",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "storyboard_critics": 1
+            }
+          },
+          {
+            "at": "2026-10-24T08:10:12.245112Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "second consolidated correction of the code review 2 blockers (attendant hand scale, drape pop-in, s10 layout)",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "reboards": 1
+            }
+          },
+          {
+            "at": "2026-10-24T08:34:04.709727Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "fresh code review 3 after the second consolidated correction, same critic",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "storyboard_critics": 1
+            }
+          },
+          {
+            "at": "2026-10-24T08:53:44.855429Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "two opening comparison batch",
+            "preflight_identity": "043fadc794658a469074cee757e6a35a0c53c42fc05c632bdd45650c75ac4682",
+            "preflight_identity_version": 2,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "preflight_renders": 1
+            }
+          },
+          {
+            "at": "2026-10-24T08:55:30.455192Z",
+            "evidence": "{REPO}/out/dispatch/evidence/opening-compare-1.failure.log",
+            "evidence_sha256": "86c4c87078682b53b6c4ce6fd79c3a878cc8094fcaef55baecf54c7b1d95be6e",
+            "input_identity": "043fadc794658a469074cee757e6a35a0c53c42fc05c632bdd45650c75ac4682",
+            "kind": "preflight_retry_authorized",
+            "reason": "Verified infrastructure fix: the production source view lacked runs/*/dispatch.mp4 working copies after a temporary reversible space recovery, so the opening checks refused before any reservation or render. The sparse view now keeps those files."
+          },
+          {
+            "at": "2026-10-24T08:55:34.008121Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "two opening comparison batch",
+            "preflight_identity": "043fadc794658a469074cee757e6a35a0c53c42fc05c632bdd45650c75ac4682",
+            "preflight_identity_version": 2,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "preflight_renders": 1
+            }
+          },
+          {
+            "at": "2026-10-24T08:55:42.409990Z",
+            "event_sha256": "a58152ab0568f5503ff3280e799681cf46c65d9ea2c40983a0237581627dcf71",
+            "input_identity": "043fadc794658a469074cee757e6a35a0c53c42fc05c632bdd45650c75ac4682",
+            "kind": "prepared_capture_claimed",
+            "operation": "two opening comparison batch"
+          },
+          {
+            "at": "2026-10-24T09:04:33.456179Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "exact-phone-a motion-image review extraction",
+            "preflight_identity": "084e38d26bb38c9e2fc42193acb5aa67e55476ed02744cceb34f918f4915c69e",
+            "preflight_identity_version": 2,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "preflight_renders": 1
+            }
+          },
+          {
+            "at": "2026-10-24T09:04:36.629152Z",
+            "event_sha256": "542ec4a1b94b49b75b64d3f71b701cdd2b60ef8e7673239a32af0ffe70cf9013",
+            "input_identity": "084e38d26bb38c9e2fc42193acb5aa67e55476ed02744cceb34f918f4915c69e",
+            "kind": "prepared_capture_claimed",
+            "operation": "exact-phone-a motion-image review extraction"
+          },
+          {
+            "at": "2026-10-24T09:04:51.764673Z",
+            "ceiling": 16,
+            "kind": "budget_escalated",
+            "note": "exact-phone-b motion-image review extraction",
+            "now": 4,
+            "resource": "preflight_renders",
+            "was": 3
+          },
+          {
+            "at": "2026-10-24T09:04:51.765551Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "exact-phone-b motion-image review extraction",
+            "preflight_identity": "a6dfc0da0b22711ebdb3a6e464def6b12bfc3110ae8781e84bbfbb8a59fd462c",
+            "preflight_identity_version": 2,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "preflight_renders": 1
+            }
+          },
+          {
+            "at": "2026-10-24T09:04:54.825899Z",
+            "event_sha256": "59c8161e10a99e92a931248221196d05984da695b1a4909490138cd5830d8977",
+            "input_identity": "a6dfc0da0b22711ebdb3a6e464def6b12bfc3110ae8781e84bbfbb8a59fd462c",
+            "kind": "prepared_capture_claimed",
+            "operation": "exact-phone-b motion-image review extraction"
+          },
+          {
+            "at": "2026-10-24T09:05:55.534185Z",
+            "ceiling": 7,
+            "kind": "budget_escalated",
+            "note": "silent two-treatment phone comparison and exact phone review",
+            "now": 4,
+            "resource": "storyboard_critics",
+            "was": 3
+          },
+          {
+            "at": "2026-10-24T09:05:55.535119Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "silent two-treatment phone comparison and exact phone review",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "storyboard_critics": 1
+            }
+          },
+          {
+            "at": "2026-10-24T09:43:48.066293Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "consolidated correction of the exact phone review 1 defects on the selected treatment b",
+            "preflight_identity": null,
+            "publication_epoch": "45c53eae31c34ace92b08b688bf59f32",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "reboards": 1
+            }
+          },
+          {
+            "at": "2026-10-24T12:43:29.413745Z",
+            "ceiling": 16,
+            "kind": "budget_escalated",
+            "note": "quarter-scale animatic",
+            "now": 5,
+            "resource": "preflight_renders",
+            "was": 4
+          },
+          {
+            "at": "2026-10-24T12:43:32.375558Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "quarter-scale animatic",
+            "preflight_identity": "dd62f755dacd867571895d9f659a41873930b6b99d46fa593939ad56b0d52806",
+            "preflight_identity_version": 2,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "preflight_renders": 1
+            }
+          },
+          {
+            "at": "2026-10-24T12:44:41.909735Z",
+            "ceiling": 7,
+            "kind": "budget_escalated",
+            "note": "owner-granted extra review: code-plan review of the corrected selected treatment b, same critic",
+            "now": 5,
+            "resource": "storyboard_critics",
+            "was": 4
+          },
+          {
+            "at": "2026-10-24T12:44:41.910786Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "owner-granted extra review: code-plan review of the corrected selected treatment b, same critic",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "storyboard_critics": 1
+            }
+          },
+          {
+            "at": "2026-10-24T12:52:24.219845Z",
+            "evidence": "{REPO}/out/dispatch/evidence/preflight-1.failure.log",
+            "evidence_sha256": "a736ffc51ba2c8dc7a8f0be5d3b078b9708b3495f34518e004824b267d5501de",
+            "input_identity": "dd62f755dacd867571895d9f659a41873930b6b99d46fa593939ad56b0d52806",
+            "kind": "preflight_retry_authorized",
+            "reason": "The preview refused before any render because the story and creative plan had no independent approval of the corrected treatment. The owner-granted code review passed it and the post-selection correction sidecar binds it."
+          },
+          {
+            "at": "2026-10-24T12:52:29.988864Z",
+            "ceiling": 16,
+            "kind": "budget_escalated",
+            "note": "quarter-scale animatic",
+            "now": 6,
+            "resource": "preflight_renders",
+            "was": 5
+          },
+          {
+            "at": "2026-10-24T12:52:29.989574Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "quarter-scale animatic",
+            "preflight_identity": "dd62f755dacd867571895d9f659a41873930b6b99d46fa593939ad56b0d52806",
+            "preflight_identity_version": 2,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "preflight_renders": 1
+            }
+          },
+          {
+            "at": "2026-10-24T12:52:44.938861Z",
+            "event_sha256": "29b2c613fb8224a555c9def9d8d23060c6a27dde7813034cf4d84b260fd85191",
+            "input_identity": "dd62f755dacd867571895d9f659a41873930b6b99d46fa593939ad56b0d52806",
+            "kind": "prepared_capture_claimed",
+            "operation": "quarter-scale animatic"
+          },
+          {
+            "at": "2026-10-24T12:59:48.655250Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "final continuous read",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "voice_directors": 1
+            }
+          },
+          {
+            "at": "2026-10-24T13:05:17.953059Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "tts_calls": 1
+            }
+          },
+          {
+            "at": "2026-10-24T13:05:38.862908Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "reported_tokens": 2202
+            }
+          },
+          {
+            "at": "2026-10-24T13:05:38.865669Z",
+            "elapsed_ms": 20904,
+            "kind": "telemetry",
+            "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+            "reported_tokens": 2202,
+            "resource": "tts_calls"
+          },
+          {
+            "at": "2026-10-24T13:05:39.318609Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "verbatim soundcheck with gemini-3-flash-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "tts_calls": 1
+            }
+          },
+          {
+            "at": "2026-10-24T13:05:44.346929Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "reported_tokens": 2177
+            }
+          },
+          {
+            "at": "2026-10-24T13:05:44.350937Z",
+            "elapsed_ms": 5023,
+            "kind": "telemetry",
+            "note": "verbatim soundcheck with gemini-3-flash-preview",
+            "reported_tokens": 2177,
+            "resource": "tts_calls"
+          },
+          {
+            "at": "2026-10-24T13:10:58.117437Z",
+            "authorization": "diagnosed repair within recorded run envelope",
+            "baselines": [
+              {
+                "before_path": "{REPO}/out/dispatch/evidence/narration-1/vo_direction-before.json",
+                "before_sha256": "991eafc95ec3b118518887467c4e878e6484974e197cf6b272d63c96c2523cb8",
+                "path": "{REPO}/out/dispatch/vo_direction.json"
+              }
+            ],
+            "director_identity": "claude-sonnet-5-5 director, this session",
+            "failure_family": "unclassified",
+            "failure_sha256": "1b0e0675dfb132b9fa76872eb5fd7447e123eed67a08f8e5204b82a0c7fc1ad7",
+            "frozen_inputs": {
+              "files": {
+                "{REPO}/out/dispatch/claims.json": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
+                "{REPO}/out/dispatch/sources/hm.html": "f23e3df39f2d2a85c4c294ec0a7bc8d7f2f97ecc1b869f36228bbf2db01aa86e",
+                "{REPO}/out/dispatch/sources/hm.txt": "bf50fb0c7674096a565dff893b16617d1777bb2afbff4c4c2c2546561492b36c",
+                "{REPO}/out/dispatch/sources/hm2025.html": "dd7807bf1d4636657e1ecf2ef4abe0930ede64ddf3bd3106e1e2586f8491cdb4",
+                "{REPO}/out/dispatch/sources/hm2025.txt": "823e857864203f169f466f22afdc709a8bd98e11f7b3dbe828c709a71632a1bf",
+                "{REPO}/out/dispatch/sources/mdpi.html": "8c6bdbb8f03f6d92aee0189fb0ea93afda04e4a8107ce762e9138e1826f58c83",
+                "{REPO}/out/dispatch/sources/pmc.html": "04dad09e518e9d2ed8b96d6186fecd10cbbdd89f81d372862999667fa55852e2",
+                "{REPO}/out/dispatch/sources/pmc.txt": "8432aaeeaf45d66617b80c217c6d1efd088dd5ee6ecf9e763098ac71562373d2",
+                "{REPO}/out/dispatch/sources/pmc.xml": "699c17c821494bf8794810574b9a01512f1dc0d88fd74d78e72222cb39e6aad6",
+                "{REPO}/out/dispatch/storyboard.json": "4d1779741819324f65a77a0fe1c1f024c4c88999ab8d7116e5d2de77333f3e74",
+                "{REPO}/out/dispatch/vo_script.txt": "2282b70ddb3c5316dd9265223cc8e1cdf739d61107eeeba4b7ea851d013e69c4"
+              },
+              "renderer_sha256": "52108039fb3e4fe30c8e698ed417b3dc232ab22ed8232daa8880dab1b066ed75"
+            },
+            "grants": {},
+            "kind": "repair_started",
+            "mechanism_id": "narration-word-clarity-authors",
+            "plan_identity": "e3714023cbbce3210934d86d4de17a088304159a33fbfd2afe129be7a99d0628",
+            "plan_sha256": "d386e0d97ef4c6828f8eca7331630861042551e2628acba9d7fbbb8baee227e2",
+            "progress_replacement_required": true,
+            "repair_scope": "narration-performance"
+          },
+          {
+            "at": "2026-10-24T13:11:07.469013Z",
+            "grants": {
+              "tts_calls": {
+                "from": 12,
+                "to": 12
+              }
+            },
+            "kind": "repair_authorized",
+            "repair_plan": {
+              "changed_inputs": [
+                {
+                  "after_sha256": "c73fae435c8629f4d873d45ec9acab7a2e9d0dbb1569f892172fd2477447c1af",
+                  "before_path": "{REPO}/out/dispatch/evidence/narration-1/vo_direction-before.json",
+                  "before_sha256": "991eafc95ec3b118518887467c4e878e6484974e197cf6b272d63c96c2523cb8",
+                  "path": "{REPO}/out/dispatch/vo_direction.json"
+                }
+              ],
+              "director_identity": "claude-sonnet-5-5 director, this session",
+              "expected_visible_result": "The new take aligns exactly to the locked script, so measured captions and clause timing derive without any alias, edit or hand shift.",
+              "failure_evidence": "{REPO}/out/dispatch/evidence/narration-1/failure.txt",
+              "failure_evidence_sha256": "1b0e0675dfb132b9fa76872eb5fd7447e123eed67a08f8e5204b82a0c7fc1ad7",
+              "failure_family": "unclassified",
+              "mechanism_change": "Only the performance direction for one line changes. The script, claims, board and renderer stay frozen and bound.",
+              "mechanism_id": "narration-word-clarity-authors",
+              "repair": "Direct the seventh line to articulate authors with its full first syllable and a clear final consonant cluster, then synthesize one new take of the unchanged script.",
+              "repair_scope": "narration-performance",
+              "resources": {
+                "tts_calls": 2
+              },
+              "root_cause": "The audible take says authors, confirmed by the independent soundcheck transcript, but the pinned acoustic ASR hears offers, so forced alignment refuses to reconcile one non-name word with the locked script."
+            },
+            "repair_plan_sha256": "197df02e4b9675040fa339da0d0b04b876de3e400fb09eab26baa2f5435dc7c6",
+            "repair_revision": "d8a65296f1de6d61b8b19830a806749cda1b0056607fe30c28cdf9ab6b943242",
+            "repair_scope": "narration-performance",
+            "resource": "repair_batch"
+          },
+          {
+            "at": "2026-10-24T13:11:22.754112Z",
+            "ceiling": 12,
+            "kind": "budget_escalated",
+            "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+            "now": 3,
+            "resource": "tts_calls",
+            "was": 2
+          },
+          {
+            "at": "2026-10-24T13:11:22.754865Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "tts_calls": 1
+            }
+          },
+          {
+            "at": "2026-10-24T13:11:41.146018Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "reported_tokens": 2115
+            }
+          },
+          {
+            "at": "2026-10-24T13:11:41.149502Z",
+            "elapsed_ms": 18386,
+            "kind": "telemetry",
+            "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+            "reported_tokens": 2115,
+            "resource": "tts_calls"
+          },
+          {
+            "at": "2026-10-24T13:11:41.565448Z",
+            "ceiling": 12,
+            "kind": "budget_escalated",
+            "note": "verbatim soundcheck with gemini-3-flash-preview",
+            "now": 4,
+            "resource": "tts_calls",
+            "was": 3
+          },
+          {
+            "at": "2026-10-24T13:11:41.566043Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "verbatim soundcheck with gemini-3-flash-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "tts_calls": 1
+            }
+          },
+          {
+            "at": "2026-10-24T13:11:47.002001Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "reported_tokens": 2219
+            }
+          },
+          {
+            "at": "2026-10-24T13:11:47.005025Z",
+            "elapsed_ms": 5431,
+            "kind": "telemetry",
+            "note": "verbatim soundcheck with gemini-3-flash-preview",
+            "reported_tokens": 2219,
+            "resource": "tts_calls"
+          },
+          {
+            "at": "2026-10-24T13:14:26.712294Z",
+            "authorization": "diagnosed repair within recorded run envelope",
+            "baselines": [
+              {
+                "before_path": "{REPO}/out/dispatch/evidence/narration-2/vo_direction-before.json",
+                "before_sha256": "c73fae435c8629f4d873d45ec9acab7a2e9d0dbb1569f892172fd2477447c1af",
+                "path": "{REPO}/out/dispatch/vo_direction.json"
+              }
+            ],
+            "director_identity": "claude-sonnet-5-5 director, this session",
+            "failure_family": "unclassified",
+            "failure_sha256": "2d83e743a274f6481058b18df12e41b129e47ddc3acf4c5683ff3760f8258638",
+            "frozen_inputs": {
+              "files": {
+                "{REPO}/out/dispatch/claims.json": "7f126fe79d52511e2cff258236aae5867672f51e6ac2294348f713cc4ab79a03",
+                "{REPO}/out/dispatch/sources/hm.html": "f23e3df39f2d2a85c4c294ec0a7bc8d7f2f97ecc1b869f36228bbf2db01aa86e",
+                "{REPO}/out/dispatch/sources/hm.txt": "bf50fb0c7674096a565dff893b16617d1777bb2afbff4c4c2c2546561492b36c",
+                "{REPO}/out/dispatch/sources/hm2025.html": "dd7807bf1d4636657e1ecf2ef4abe0930ede64ddf3bd3106e1e2586f8491cdb4",
+                "{REPO}/out/dispatch/sources/hm2025.txt": "823e857864203f169f466f22afdc709a8bd98e11f7b3dbe828c709a71632a1bf",
+                "{REPO}/out/dispatch/sources/mdpi.html": "8c6bdbb8f03f6d92aee0189fb0ea93afda04e4a8107ce762e9138e1826f58c83",
+                "{REPO}/out/dispatch/sources/pmc.html": "04dad09e518e9d2ed8b96d6186fecd10cbbdd89f81d372862999667fa55852e2",
+                "{REPO}/out/dispatch/sources/pmc.txt": "8432aaeeaf45d66617b80c217c6d1efd088dd5ee6ecf9e763098ac71562373d2",
+                "{REPO}/out/dispatch/sources/pmc.xml": "699c17c821494bf8794810574b9a01512f1dc0d88fd74d78e72222cb39e6aad6",
+                "{REPO}/out/dispatch/storyboard.json": "4d1779741819324f65a77a0fe1c1f024c4c88999ab8d7116e5d2de77333f3e74",
+                "{REPO}/out/dispatch/vo_script.txt": "2282b70ddb3c5316dd9265223cc8e1cdf739d61107eeeba4b7ea851d013e69c4"
+              },
+              "renderer_sha256": "52108039fb3e4fe30c8e698ed417b3dc232ab22ed8232daa8880dab1b066ed75"
+            },
+            "grants": {},
+            "kind": "repair_started",
+            "mechanism_id": "narration-clause-breath-breaks",
+            "plan_identity": "0118e4b75ab5a00e1cad3954543dd25b747c78cda0982131e4774aeaa08f11ef",
+            "plan_sha256": "3100852af2d18caf3bd9088c4de3eb9138e71c90d34a5b82d2a5b30e7be23133",
+            "progress_replacement_required": true,
+            "repair_scope": "narration-performance"
+          },
+          {
+            "at": "2026-10-24T13:14:33.231947Z",
+            "grants": {
+              "tts_calls": {
+                "from": 12,
+                "to": 12
+              }
+            },
+            "kind": "repair_authorized",
+            "repair_plan": {
+              "changed_inputs": [
+                {
+                  "after_sha256": "6b4e2eddcede7a39c812bdd4c3002fb804fa3ccf78931310d3f9d2e72192bbf9",
+                  "before_path": "{REPO}/out/dispatch/evidence/narration-2/vo_direction-before.json",
+                  "before_sha256": "c73fae435c8629f4d873d45ec9acab7a2e9d0dbb1569f892172fd2477447c1af",
+                  "path": "{REPO}/out/dispatch/vo_direction.json"
+                }
+              ],
+              "director_identity": "claude-sonnet-5-5 director, this session",
+              "expected_visible_result": "Every declared clause boundary has measured silence, so captions and clause windows derive from the audio without any edit, stretch or hand shift.",
+              "failure_evidence": "{REPO}/out/dispatch/evidence/narration-2/failure.txt",
+              "failure_evidence_sha256": "2d83e743a274f6481058b18df12e41b129e47ddc3acf4c5683ff3760f8258638",
+              "failure_family": "unclassified",
+              "mechanism_change": "Only the performance direction changes, adding named breath points. The script, claims, board and renderer stay frozen and bound.",
+              "mechanism_id": "narration-clause-breath-breaks",
+              "repair": "Direct an audible breath at each named unpunctuated clause break and synthesize one new take of the unchanged script.",
+              "repair_scope": "narration-performance",
+              "resources": {
+                "tts_calls": 2
+              },
+              "root_cause": "Take 2 reconciles with the script but its unpunctuated clause breaks carry no measured silence, so the narration-picture clause boundaries lack the quarter second of measured silence that alignment requires."
+            },
+            "repair_plan_sha256": "c4445150f49cd19536c5a316aa0578e32b8044854b8889166040db2a828ddb6a",
+            "repair_revision": "23b53b78eb6f6ab7f3933ad33ca9f67dd7a373929f4118d4f24010fe7a023708",
+            "repair_scope": "narration-performance",
+            "resource": "repair_batch"
+          },
+          {
+            "at": "2026-10-24T13:14:47.219374Z",
+            "ceiling": 12,
+            "kind": "budget_escalated",
+            "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+            "now": 5,
+            "resource": "tts_calls",
+            "was": 4
+          },
+          {
+            "at": "2026-10-24T13:14:47.220173Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "tts_calls": 1
+            }
+          },
+          {
+            "at": "2026-10-24T13:15:08.534294Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "telemetry for tts_calls: voice synthesis with gemini-3.1-flash-tts-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "reported_tokens": 2484
+            }
+          },
+          {
+            "at": "2026-10-24T13:15:08.541710Z",
+            "elapsed_ms": 21306,
+            "kind": "telemetry",
+            "note": "voice synthesis with gemini-3.1-flash-tts-preview",
+            "reported_tokens": 2484,
+            "resource": "tts_calls"
+          },
+          {
+            "at": "2026-10-24T13:15:09.218523Z",
+            "ceiling": 12,
+            "kind": "budget_escalated",
+            "note": "verbatim soundcheck with gemini-3-flash-preview",
+            "now": 6,
+            "resource": "tts_calls",
+            "was": 5
+          },
+          {
+            "at": "2026-10-24T13:15:09.219039Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "verbatim soundcheck with gemini-3-flash-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "tts_calls": 1
+            }
+          },
+          {
+            "at": "2026-10-24T13:15:18.217841Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "telemetry for tts_calls: verbatim soundcheck with gemini-3-flash-preview",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "reported_tokens": 2635
+            }
+          },
+          {
+            "at": "2026-10-24T13:15:18.221935Z",
+            "elapsed_ms": 5932,
+            "kind": "telemetry",
+            "note": "verbatim soundcheck with gemini-3-flash-preview",
+            "reported_tokens": 2635,
+            "resource": "tts_calls"
+          },
+          {
+            "at": "2026-10-24T13:33:41.267978Z",
+            "ceiling": 7,
+            "kind": "budget_escalated",
+            "note": "independent Opus High narration recurrence-pivot review before third narration-performance repair",
+            "now": 6,
+            "resource": "storyboard_critics",
+            "was": 5
+          },
+          {
+            "at": "2026-10-24T13:33:41.268872Z",
+            "completion_progress_policy": "2026-10-20",
+            "kind": "reserved",
+            "note": "independent Opus High narration recurrence-pivot review before third narration-performance repair",
+            "preflight_identity": null,
+            "publication_epoch": "9e1ba2e4dbd545ecb78f9858e9d61172",
+            "publication_owner_sha256": "a86c80da28042a7e222d272cfd48b507d8a6c57284002172b4becb9b1681900a",
+            "resources": {
+              "storyboard_critics": 1
+            }
+          }
+        ],
+        "resource_envelope": {
+          "audiovisual_reviews": 43,
+          "cleanup_renders": 3,
+          "full_renders": 14,
+          "image_generations": 6,
+          "panel_rounds": 9,
+          "preflight_renders": 16,
+          "reboards": 10,
+          "reported_tokens": 900000,
+          "rescue_renders": 2,
+          "research_agents": 4,
+          "scorer_calls": 27,
+          "storyboard_critics": 7,
+          "tts_calls": 12,
+          "validator_agents": 4,
+          "voice_directors": 2
+        },
+        "usage": {
+          "audiovisual_reviews": 1,
+          "cleanup_renders": 0,
+          "full_renders": 0,
+          "image_generations": 0,
+          "panel_rounds": 0,
+          "preflight_renders": 6,
+          "reboards": 4,
+          "reported_tokens": 13896,
+          "rescue_renders": 0,
+          "research_agents": 3,
+          "scorer_calls": 0,
+          "storyboard_critics": 6,
+          "tts_calls": 6,
+          "validator_agents": 2,
+          "voice_directors": 1
+        }
+      },
+      "production_finished": false,
+      "repo_root": "/home/user/dispatch-editions/2026-10-24/TexasAIDispatch",
+      "run_id": "2026-10-24",
+      "schema": "dispatch_failed_edition/1",
+      "shipment_authorized": false,
+      "source_pin": "a655bf470451918cb440234aa1ed6603f02c2a21"
+    }
+  },
   "heartbeat_at": "2026-10-25T05:10:28.886894+00:00",
   "owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-  "previous_commit": "acd10df1dc54682e79ac6efccf56be79998008c3",
+  "previous_commit": "719f3574ca948bb2428519685702b955da045d3d",
   "provider_unavailable": false,
   "review_approval": false,
   "run_id": "2026-10-24",
