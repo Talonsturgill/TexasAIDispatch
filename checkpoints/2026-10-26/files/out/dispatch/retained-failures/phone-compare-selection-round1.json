@@ -1,0 +1,31 @@
+{
+ "comparison_sha256": "2ec92252117950bc5274063f40d3b2e16c502c7846680a38caea7c3509e13381",
+ "selected": "b",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "reviewer_identity": "storyboard-critic, claude-opus-5-5 high effort, isolated phone comparison task, 2026-10-26",
+ "reason": "B is the stronger picture of the opening question and the mechanism. At 0.2 to 1.8s its first frame is an overhead floor plan where a footprint trail leaves the host stand and goes out the swinging door, so 'walked out' is performed from the first sample. At 16.6 to 17.8s the guest's phone is held directly over the table code from above, so the scan contact is readable. At 21.4 to 23.4s the Pay press turns into a large red 'Paid' check that is legible at 270 pixels. At 24.6 to 25.6s an overhead track carries the paid check from the table phone along the counter into the printer slot, which keeps the room's geography through the turn. At 56.8 to 60.4s the close puts the printed 'Chow mein' ticket and the tagged tip jar in one frame.",
+ "rejected_reason": "A uses the same story and art at eye level, but its picture of the core actions is weaker. At 0.0 to 2.4s the first frame is an almost static empty room with no performed exit. At 16.6 to 17.8s the phone is held up facing the camera beside the table tent, not aimed at it, so the scan contact is not depicted. At 22.4 to 23.4s the 'Paid' result is a tiny mark at medium framing. A also shares B's unfinished grey blur artifacts.",
+ "blocking_defects": [
+  {
+   "category": "continuity",
+   "scene_id": "s3",
+   "time_s": 19.2,
+   "criterion": "continuity",
+   "defect": "In the selected B film the guest's hand changes skin tone across cuts within one ordering clause. Overhead at 15.6 to 19.0s it is brown. Eye level at 19.2 to 21.2s both the holding and tapping hands are light-skinned. At 21.8 to 22.4s a brown fingertip presses Pay. One guest's order appears to pass between two different people, which breaks the single-order throughline that 'A guest scans... taps... and pays' describes."
+  },
+  {
+   "category": "contact_and_consequence",
+   "scene_id": "s9",
+   "time_s": 51.2,
+   "criterion": "contact_and_consequence",
+   "defect": "In B the same overhead table framing jumps. At 51.0s a hand holds the phone at the lower left edge. At 51.2s the hand is gone, the phone lies face up on the table at the right, and the QR stand has moved. This is an unmotivated disappearance and teleport of the subject, and it reads as a glitch rather than the lowered phone the clause needs."
+  },
+  {
+   "category": "surface_finish",
+   "scene_id": "s5",
+   "time_s": 30.4,
+   "criterion": "surface_finish",
+   "defect": "In both films a large grey translucent rectangle appears on the ledger card rows as the $9,650 tag swings in (30.4 to 31.0s) and under the quote card as it slides in (51.4 to 51.8s), then disappears. At phone size it reads as an unfinished smudge or placeholder shadow on the evidence objects."
+  }
+ ]
+}

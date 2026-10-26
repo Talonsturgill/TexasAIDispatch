@@ -1,4 +1,49 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round2/opening-a.json",
+        "before_sha256": "732842dd76e376ad4a03e290e9ea503e7baa156dfb6858d4e45f2aa585f17b67",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round2/opening-b.json",
+        "before_sha256": "29f914cb0571ddd4ba63d99e08d82931b9654dfc697dd002136448191be74a96",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round2/storyboard.json",
+        "before_sha256": "732842dd76e376ad4a03e290e9ea503e7baa156dfb6858d4e45f2aa585f17b67",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round2/modern_episode_registry.json",
+        "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+        "path": "{REPO}/config/modern_episode_registry.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round2/OrderPassFilm.tsx",
+        "before_sha256": "5fb27356a1c7d27b23bf69c4e1700ce19b42640704b8b722ae9deda709f38cc5",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round2/OrderRigHero.tsx",
+        "before_sha256": "a34732907db7d03441a5997fd9992c49c2b709a915425ff7c7b88bd4731d5ca6",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round2/RestaurantSupport.tsx",
+        "before_sha256": "271392e9939a81e1033c89f516e83da4270f6730f6f64adb9c77b5e1bc96ae26",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx"
+      }
+    ],
+    "failure_sha256": "5ba7117cc04eccead1bbcded6c6ec4762caee02983145951c9d77831c7da5728",
+    "plan": "{REPO}/out/dispatch/repair-plan-2.json",
+    "plan_sha256": "e88109ea9946a0fbbb66f963f2f1ae48cf6eeb55fab1c62c57071a43f89bde47",
+    "progress_replacement_required": false,
+    "reboards_before": 2,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -17,6 +62,16 @@
     "validator_agents": 4,
     "voice_directors": 2
   },
+  "escalations": [
+    {
+      "at": "2026-10-26T09:49:04.497655Z",
+      "ceiling": 16,
+      "from": 3,
+      "note": "exact-phone-b motion-image review extraction",
+      "resource": "preflight_renders",
+      "to": 4
+    }
+  ],
   "events": [
     {
       "at": "2026-10-26T07:17:34.472489Z",
@@ -392,6 +447,140 @@
       "input_identity": "b8eb2a77d3f58c2fe8672955691a694440e539e50631111d017535edd8871f98",
       "kind": "prepared_capture_claimed",
       "operation": "two opening comparison batch"
+    },
+    {
+      "at": "2026-10-26T09:48:38.032332Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "exact-phone-a motion-image review extraction",
+      "preflight_identity": "16cc1bb8d47f559108a4c4e29765d213203af239c8c6fc9ed69c9eb4170526f4",
+      "preflight_identity_version": 2,
+      "publication_epoch": "2023308948674e87b1d8c59df616a5dd",
+      "publication_owner_sha256": "fb629625757c1c0faeba13550a523cfd71b4d6e8ef384a3ad5eb1ebf7ccb1f1d",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-26T09:48:43.382713Z",
+      "event_sha256": "0c569c1c7e05a2904c137e96d437aa76cca1808980d13f34c90246b4e0469fda",
+      "input_identity": "16cc1bb8d47f559108a4c4e29765d213203af239c8c6fc9ed69c9eb4170526f4",
+      "kind": "prepared_capture_claimed",
+      "operation": "exact-phone-a motion-image review extraction"
+    },
+    {
+      "at": "2026-10-26T09:49:04.497686Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "exact-phone-b motion-image review extraction",
+      "now": 4,
+      "resource": "preflight_renders",
+      "was": 3
+    },
+    {
+      "at": "2026-10-26T09:49:05.205894Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "exact-phone-b motion-image review extraction",
+      "preflight_identity": "88e94901ac1bb5aff9432b93de59779b4f35b86dc1d776af575802f4c52aa4b7",
+      "preflight_identity_version": 2,
+      "publication_epoch": "2023308948674e87b1d8c59df616a5dd",
+      "publication_owner_sha256": "fb629625757c1c0faeba13550a523cfd71b4d6e8ef384a3ad5eb1ebf7ccb1f1d",
+      "resources": {
+        "preflight_renders": 1
+      }
+    },
+    {
+      "at": "2026-10-26T09:49:10.307651Z",
+      "event_sha256": "183b44f6a531ff4f714f609526d4656626848506102678a2d111012b7d7631f8",
+      "input_identity": "88e94901ac1bb5aff9432b93de59779b4f35b86dc1d776af575802f4c52aa4b7",
+      "kind": "prepared_capture_claimed",
+      "operation": "exact-phone-b motion-image review extraction"
+    },
+    {
+      "at": "2026-10-26T09:50:00.171554Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "silent two-treatment phone comparison, review 3 of 5",
+      "preflight_identity": null,
+      "publication_epoch": "2023308948674e87b1d8c59df616a5dd",
+      "publication_owner_sha256": "fb629625757c1c0faeba13550a523cfd71b4d6e8ef384a3ad5eb1ebf7ccb1f1d",
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-26T10:27:13.918305Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round2/opening-a.json",
+          "before_sha256": "732842dd76e376ad4a03e290e9ea503e7baa156dfb6858d4e45f2aa585f17b67",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round2/opening-b.json",
+          "before_sha256": "29f914cb0571ddd4ba63d99e08d82931b9654dfc697dd002136448191be74a96",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round2/storyboard.json",
+          "before_sha256": "732842dd76e376ad4a03e290e9ea503e7baa156dfb6858d4e45f2aa585f17b67",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round2/modern_episode_registry.json",
+          "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+          "path": "{REPO}/config/modern_episode_registry.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round2/OrderPassFilm.tsx",
+          "before_sha256": "5fb27356a1c7d27b23bf69c4e1700ce19b42640704b8b722ae9deda709f38cc5",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round2/OrderRigHero.tsx",
+          "before_sha256": "a34732907db7d03441a5997fd9992c49c2b709a915425ff7c7b88bd4731d5ca6",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round2/RestaurantSupport.tsx",
+          "before_sha256": "271392e9939a81e1033c89f516e83da4270f6730f6f64adb9c77b5e1bc96ae26",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "continuity",
+      "failure_sha256": "5ba7117cc04eccead1bbcded6c6ec4762caee02983145951c9d77831c7da5728",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "order-pass-finish-v2",
+      "plan_identity": null,
+      "plan_sha256": "e88109ea9946a0fbbb66f963f2f1ae48cf6eeb55fab1c62c57071a43f89bde47",
+      "progress_replacement_required": false,
+      "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-26T10:27:21.956116Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "corrective reboard after accepted begin-repair",
+      "preflight_identity": null,
+      "publication_epoch": "2023308948674e87b1d8c59df616a5dd",
+      "publication_owner_sha256": "fb629625757c1c0faeba13550a523cfd71b4d6e8ef384a3ad5eb1ebf7ccb1f1d",
+      "resources": {
+        "reboards": 1
+      }
     }
   ],
   "limits": {
@@ -400,7 +589,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 3,
+    "preflight_renders": 4,
     "reboards": 4,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -415,7 +604,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "53c0f4a3ee7fe47a31e89134bf96b0e47587482e891ae976ac354748cb2e6438",
+    "original_private_state_sha256": "39e87162ec106d5ab30708f88b283ad5d4b2e4b7530ca7ce459465dfa23b0db1",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -443,20 +632,20 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-26T09:42:08.029870Z",
+  "updated_at": "2026-10-26T10:27:21.956144Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 2,
-    "reboards": 2,
+    "preflight_renders": 4,
+    "reboards": 3,
     "reported_tokens": 63,
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 2,
+    "storyboard_critics": 3,
     "tts_calls": 0,
     "validator_agents": 2,
     "voice_directors": 0

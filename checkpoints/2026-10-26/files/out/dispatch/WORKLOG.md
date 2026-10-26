@@ -18,3 +18,10 @@ Stop earlier at diminishing returns, freeze the best cut, then native, AV, three
 
 ## Next
 Hand-back from builder -> picture_precheck -> authored_story_art record/verify -> critic packet.
+
+## State at the silent phone comparison REVISE (review 3 of 5)
+Reviews spent: 1 code (REVISE, 4 blockers), 2 code re-review (PASS both), 3 silent phone comparison (selected B, REVISE: s3 hand skin continuity, s9 phone teleport, grey translucent rectangle). Originals: retained-failures/code-review-1.json, code-review-2-pass.json, phone-compare-handback.json (+ coverage verified).
+Opening gate refuses a selection with unresolved blocking defects, and continuity and contact are not deferrable by the bounded route (only surface_finish is).
+Builder correction 2 fixed all three in the shared renderer (repair-plan-2.json begun, reboard 3/4 reserved, authorize-repair NOT run). That source change makes both code approvals stale, so the corrected path needs code re-review + renewed comparison + timed phone = 3 reviews with 2 remaining. production-budget reports feasible:false. Not spending a review on an unfunded path and not buying a sixth.
+Corrected source committed on the edition branch. Next executable step for a maintainer or a later run: failed_editions.py retain after lease expiry on a later Eastern date, or a controller change that admits the corrected-source code+comparison review as one funded assignment.
+Disk: native headroom required 21 GiB; met only by sparse-checking out runs/ and docs/ in both Docket checkouts, clearing package caches, and removing the restored 2026-10-25 worktree (backup of its out/ at retained-failures/2026-10-25-restored-out-backup.tar.gz).

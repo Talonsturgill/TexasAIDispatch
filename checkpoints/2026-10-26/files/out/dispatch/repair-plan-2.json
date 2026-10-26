@@ -1,0 +1,52 @@
+{
+ "root_cause": "The independent silent two-treatment phone comparison (original response retained at out/dispatch/phone-compare-handback.json, review 3 of the hard five) selected treatment B but returned REVISE with three blocking defects found in the actual pixels: in s3 the single guest's hands change skin tone across cuts (brown overhead, light at eye level, brown pressing finger) so one order appears to pass between two people; in s9 the overhead hand holding the phone vanishes and the phone and code stand teleport between samples at 51.0 and 51.2 seconds; and a grey translucent rectangle appears on the ledger rows as the $9,650 tag swings in (30.4 to 31.0 seconds) and under the quote card as it slides in (51.4 to 51.8 seconds), reading as an unfinished placeholder in both treatments. Non-blocking notes: the OWNER stamp mark is mostly hidden under the tag at 33.4 seconds and the Talk control is shown but never used. Treatment A additionally showed a static empty first frame, a phone that is not aimed at the code and a tiny Paid result, which are carried only where the shared fix also helps.",
+ "repair": "Resume the existing scene builder for one consolidated correction of the shared renderer on the unchanged claims, script, clauses, boards and story_art request identities, with no story, narration or event change: give every guest hand in s3 and s9 one consistent skin fill across all framings and cuts; replace the s9 jump with a visible continuous lowering of the phone onto the table (or a clearly new framing) so the hand and phone and the code stand never teleport; find the source of the grey translucent rectangles under the $9,650 tag swing and under the quote card slide (an unfilled shadow, drop-shadow or filter box) and remove it or attach it to the object it shades; and, where it is cheap, let the OWNER COUNT stamp mark read fully beside the tag and use the Talk control once. Where the same code serves treatment A, also keep the phone visibly aimed at the code during the scan and enlarge the Paid result at medium framing. The director then re-records the art and regenerates renderer inputs, and the full two-treatment comparison is renewed on the current source.",
+ "mechanism_change": "The guest changes from two or three independently coloured hand assemblies to one shared hand fill used in every framing, the s9 phone changes from an abrupt appearance on the table to a performed lowering, and the grey rectangles change from unfilled shadow boxes to shadows attached to their cards.",
+ "expected_visible_result": "In s3 one guest, one skin tone, from the code scan through the tap to the paid press. In s9 the hand lowers the phone onto the table in view and the code stand does not move. No grey translucent rectangle appears at the ledger tag, the quote card or anywhere else in the film. The OWNER COUNT stamp mark is legible and the Talk control is used once.",
+ "failure_evidence": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/phone-compare-handback.json",
+ "failure_evidence_sha256": "5ba7117cc04eccead1bbcded6c6ec4762caee02983145951c9d77831c7da5728",
+ "repair_scope": "standard",
+ "mechanism_id": "order-pass-finish-v2",
+ "failure_family": "continuity",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "changed_inputs": [
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-a.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round2/opening-a.json",
+   "before_sha256": "732842dd76e376ad4a03e290e9ea503e7baa156dfb6858d4e45f2aa585f17b67"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round2/opening-b.json",
+   "before_sha256": "29f914cb0571ddd4ba63d99e08d82931b9654dfc697dd002136448191be74a96"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/storyboard.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round2/storyboard.json",
+   "before_sha256": "732842dd76e376ad4a03e290e9ea503e7baa156dfb6858d4e45f2aa585f17b67"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/modern_episode_registry.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round2/modern_episode_registry.json",
+   "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round2/OrderPassFilm.tsx",
+   "before_sha256": "5fb27356a1c7d27b23bf69c4e1700ce19b42640704b8b722ae9deda709f38cc5"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round2/OrderRigHero.tsx",
+   "before_sha256": "a34732907db7d03441a5997fd9992c49c2b709a915425ff7c7b88bd4731d5ca6"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round2/RestaurantSupport.tsx",
+   "before_sha256": "271392e9939a81e1033c89f516e83da4270f6730f6f64adb9c77b5e1bc96ae26"
+  }
+ ],
+ "resources": {
+  "reboards": 1
+ }
+}
