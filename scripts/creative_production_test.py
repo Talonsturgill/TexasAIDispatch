@@ -6,6 +6,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+import five_round_fixture  # noqa: F401
 from unittest.mock import patch
 import numpy as np
 from PIL import Image, ImageDraw
