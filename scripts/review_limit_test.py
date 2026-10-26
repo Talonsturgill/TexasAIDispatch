@@ -6,6 +6,7 @@ import tempfile
 import subprocess
 import sys
 import unittest
+import five_round_fixture  # noqa: F401
 from unittest.mock import patch
 
 import creative_release
@@ -794,6 +795,14 @@ class FinalPhoneReservation(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'hard five-review'):
                 controller.reserve(self.state, {'storyboard_critics': 1}, 'extra review')
         self.assertEqual(before, self.state.read_bytes())
+
+
+class LivePolicy(unittest.TestCase):
+    def test_live_policy_records_the_owner_lift(self):
+        live = json.loads((Path(__file__).resolve().parents[1] / 'config/review_limit.json').read_text())
+        self.assertEqual(10, live['max_review_rounds'])
+        self.assertIn('October 26th', live['authorization'])
+        self.assertIs(False, live['extensions_allowed'])
 
 
 if __name__ == '__main__':

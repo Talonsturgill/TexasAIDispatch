@@ -6,6 +6,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+import five_round_fixture  # noqa: F401
 from unittest.mock import patch
 
 import claude_runtime as runtime

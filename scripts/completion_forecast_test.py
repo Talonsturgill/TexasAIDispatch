@@ -4,6 +4,7 @@ import json
 import subprocess
 import sys
 import unittest
+import five_round_fixture  # noqa: F401
 from unittest.mock import patch
 
 import autonomous_completion as completion

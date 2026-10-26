@@ -29,6 +29,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import five_round_fixture  # noqa: F401
 import base64
 from contextlib import redirect_stderr
 from pathlib import Path
