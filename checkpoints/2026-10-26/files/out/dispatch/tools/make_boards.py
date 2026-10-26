@@ -334,6 +334,11 @@ def build(variant):
              medium_evidence='Registered order-pass-v1 with the fresh authored OrderRigHero and RestaurantSupport groups performing board events on the film clock.')
         for sid in ordered])
     b['caption_method'] = 'silence_anchored'
+    # Make every shot end exactly where the next begins, so the renderer's per-frame rounding tiles the film.
+    sh = b['film_direction']['shots']
+    for i in range(len(sh) - 1):
+        sh[i]['duration_s'] = sh[i + 1]['start_s'] - sh[i]['start_s']
+        assert sh[i]['start_s'] + sh[i]['duration_s'] == sh[i + 1]['start_s'], (sh[i]['id'])
     return b
 
 

@@ -1,0 +1,100 @@
+caption_board_fit: 17 exact board cues fit the lower band in two lines
+caption_board_fit: 17 exact board cues fit the lower band in two lines
+Detected differing memory amounts:
+Memory reported by CGroup: 8796093015922.59 MB
+Memory reported by /proc/meminfo: 14031.50 MB
+Memory reported by Node: 14031.50 MB
+You might have inadvertenly set the --memory flag of `docker run` to a value that is higher than the global Docker memory limit.
+Using the lower amount of memory for calculation.
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+SymbolicateableError: Modern shot timeline has an uncovered frame
+    at filmShotAt (http://localhost:3000/bundle.js:96770:35)
+    at DirectedFilm (http://localhost:3000/bundle.js:96779:16)
+    at renderWithHooks (http://localhost:3000/bundle.js:145789:21)
+    at updateFunctionComponent (http://localhost:3000/bundle.js:147935:15)
+    at beginWork (http://localhost:3000/bundle.js:148911:14)
+    at performUnitOfWork (http://localhost:3000/bundle.js:152743:14)
+    at workLoopSync (http://localhost:3000/bundle.js:152620:37)
+    at renderRootSync (http://localhost:3000/bundle.js:152601:7)
+    at performWorkOnRoot (http://localhost:3000/bundle.js:152166:40)
+    at performWorkOnRootViaSchedulerTask (http://localhost:3000/bundle.js:153516:3) {
+  stackFrame: [
+    {
+      columnNumber: 34,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'filmShotAt',
+      lineNumber: 96769
+    },
+    {
+      columnNumber: 15,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'DirectedFilm',
+      lineNumber: 96778
+    },
+    {
+      columnNumber: 20,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'renderWithHooks',
+      lineNumber: 145788
+    },
+    {
+      columnNumber: 14,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'updateFunctionComponent',
+      lineNumber: 147934
+    },
+    {
+      columnNumber: 13,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'beginWork',
+      lineNumber: 148910
+    },
+    {
+      columnNumber: 13,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'performUnitOfWork',
+      lineNumber: 152742
+    },
+    {
+      columnNumber: 36,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'workLoopSync',
+      lineNumber: 152619
+    },
+    {
+      columnNumber: 6,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'renderRootSync',
+      lineNumber: 152600
+    },
+    {
+      columnNumber: 39,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'performWorkOnRoot',
+      lineNumber: 152165
+    },
+    {
+      columnNumber: 2,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'performWorkOnRootViaSchedulerTask',
+      lineNumber: 153515
+    },
+    {
+      columnNumber: 43,
+      fileName: 'http://localhost:3000/bundle.js',
+      functionName: 'performWorkUntilDeadline',
+      lineNumber: 169886
+    }
+  ],
+  delayRenderCall: null,
+  frame: 571,
+  chunk: null
+}
+
+Node.js v22.22.0
+opening comparison refused: Command '['node', '/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/scripts/render-batch.mjs', '/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/openings/batch.json']' returned non-zero exit status 1.
+
+[exited with code 1]
