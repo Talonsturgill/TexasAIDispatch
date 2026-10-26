@@ -1,0 +1,56 @@
+{
+ "date": "2026-10-26",
+ "source": "Independent validator (claude-opus-5-5, agent 'validator', high effort). Live WebFetch re-fetches on 2026-10-26 of FOX 26 Houston (article and video page), Muslim Mirror, KPRC Click2Houston, Hoodline, Cornell LII 29 CFR 531.54, Texas Workforce Commission tip_pooling.html, wokandkarahitexas.com and the US Census geocoder, plus full reads of the local snapshots. Every claim quote was checked by live exact-match queries, split into contiguous segments where longer than the fetch tool's 125-character limit.",
+ "result": "REVISE",
+ "verified_claim_ids": [
+  "c1",
+  "c2",
+  "c3",
+  "c4",
+  "c5",
+  "c6",
+  "c7",
+  "c8",
+  "c9",
+  "c10",
+  "c11"
+ ],
+ "rejected": [
+  "No claim was rejected. c1 to c11 are VERIFIED with exact live quotes. All 10 narration sentences are supported by their bound claims, and the only spoken numeral, $9,650, is in c6's fetched quote.",
+  "Rejected selection assertion: story_selection.json selected.movement event_type 'launched' with date 2026-10-20. FOX 26 places the walkout 'Two months ago' with the system running 'Within 24 hours', and Hoodline says the server left 'in August'. October 20th, 2026 is the FOX 26 publication date, not a launch date, and no source gives an exact launch date.",
+  "Rejected selection wording: story_selection.json selected.agency.next_step 'Texas follows the federal tip pool rule through the Workforce Commission guidance page' is not supported by any claim. c9 supports only that the TWC page describes the DOL regulation."
+ ],
+ "required_edits_applied": [
+  "No edit was applied by this validator, whose tools are Read and WebFetch. vo_script.txt, vo_bindings.json and claims.json need no required change.",
+  "Pending required edit 1: in story_selection.json selected.movement, replace event_type 'launched' and date '2026-10-20' with a sourced dated movement. Recommended: actor 'FOX 26 Houston', action 'reported that Wok & Karahi in Spring replaced its only server with an AI host that takes orders by table code and phone and requires payment before cooking', event_type 'published', date '2026-10-20', object unchanged ('AI host named Haniya with table QR ordering and pre-payment'). Or use Muslim Mirror with 2026-10-19 and update why_today to match.",
+  "Pending required edit 2: in story_selection.json selected.agency.next_step, reword to 'No agency action is reported. The Texas Workforce Commission guidance page describes the federal tip pool rule.'",
+  "Follow-up scope: one charged validator follow-up that re-fetches and checks only the corrected selection fields, provided claims.json, vo_script.txt and vo_bindings.json keep their current bytes. This uses validator_agents, not the storyboard_critics resource that the five-round limit counts."
+ ],
+ "reviewer_identity": "claude-opus-5-5 / validator",
+ "script_sha256": "050061cb7d165b74e2d170c4b4191bacc42d2eec630039dbad94356623b82c10 (copied from the validator packet; not recomputed by this worker)",
+ "claims_sha256": "036035721d808ca053c4ee0fca59462e4f97328ec4cbacb93f28159164b6702c (copied from the validator packet; not recomputed by this worker)",
+ "inputs_inspected": {
+  "validator_packet": "6d388db405fdf08f1f07caac0cd7ff4be69781a161b4e3452fad20ae1ea87184 (from the director's message; not recomputed)",
+  "research.json": "dd64ceacb698185af3131fe6fdd179582dd8128af756b558f3393dd43c57787b",
+  "story_selection.json": "86a5a4132ce47f4d1c8832a66a7b12583a22735e3eb00331079ef278c1bb61dc",
+  "claims.json": "036035721d808ca053c4ee0fca59462e4f97328ec4cbacb93f28159164b6702c",
+  "vo_script.txt": "050061cb7d165b74e2d170c4b4191bacc42d2eec630039dbad94356623b82c10",
+  "vo_bindings.json": "40dca1522fdeb2cf2f43ef7bb9a1f5651453fb87a6860048b56d6b2b7bf6223f",
+  "hash_note": "All values come from the mechanical packet. This worker has no shell and recomputed none of them."
+ },
+ "guides_read_in_full": [
+  "CLAUDE.md (in context)",
+  "AGENTS.md",
+  "prompts/claude_routine.md",
+  "config/claude_runtime.json",
+  "config/quality_contract.json",
+  "config/dispatch_rubric.yaml",
+  ".claude/agents/validator.md",
+  "config/review_limit.json",
+  "prompts/phases/01-research.md",
+  "out/dispatch/provider-availability/startup/receipt.json",
+  "scripts/validation_check.py",
+  "scripts/story_selection_check.py"
+ ],
+ "checker_note": "With result REVISE, validation_check.py will refuse this object, as intended. A pending factual correction can't receive PASS. The director still runs the mechanical narration check before synthesis."
+}

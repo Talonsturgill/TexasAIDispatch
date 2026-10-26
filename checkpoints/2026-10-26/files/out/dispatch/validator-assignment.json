@@ -1,0 +1,40 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "validator",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "validator",
+    "resource": "validator_agents",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/validator-packet.json",
+    "sha256": "6d388db405fdf08f1f07caac0cd7ff4be69781a161b4e3452fad20ae1ea87184"
+  },
+  "brief": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/.claude/agents/validator.md",
+    "sha256": "ad7c828aec6e3efe573df96506f93c3d690f1a8776975fab42069c438dba63f7"
+  },
+  "agent_args": {
+    "subagent_type": "validator",
+    "description": "validator_b84315e0",
+    "prompt": "Work in /home/user/dispatch-editions/2026-10-26/TexasAIDispatch. Read the current compact packet /home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/validator-packet.json (SHA256 6d388db405fdf08f1f07caac0cd7ff4be69781a161b4e3452fad20ae1ea87184) and every bound current guide in full. Verify the inputs before use. Scope: Independently re-fetch each source and verify every assertion, number, quote and limitation Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film. Screened story subject: AI host named Haniya with table QR ordering and pre-payment. Keep this subject in the handoff.",
+    "run_in_background": true
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel. After an actual failed or interrupted worker, reserve a NEW attempt before restarting or resuming it through SendMessage, even on the same unchanged packet. Retain the failed charge and protect the complete remaining path before another attempt. Only a mechanical format correction to an already completed handback needs no new content reservation; include every actual turn in API usage. An already unreserved restart requires an honest late controller charge and disclosure before shipment, never backdating or replay.",
+  "story_subject_screen": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/validator-packet-subject-f1c331a442f4e499.json",
+    "sha256": "f1c331a442f4e49906dcf1cf40f85929af033629c0c6133bd80fe87dd873c231"
+  },
+  "dispatch_ready": true,
+  "reservation_claim": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/worker-dispatch-claims/9b70206f99f4e4609b33adc387e90077bc7036906731e5833d6158a2af042363-validator.json",
+    "sha256": "b84315e00f3e082dfe87549fb718ea6f5691eed00ecb22b11e69f6ef98586e82"
+  }
+}

@@ -1,0 +1,44 @@
+{
+ "date": "2026-10-26",
+ "source": "Independent validator (claude-opus-5-5, agent 'validator', high effort). Charged follow-up to the round 1 REVISE. Live WebFetch re-fetches on 2026-10-26 of FOX 26 Houston (article and video page), Muslim Mirror, KPRC Click2Houston, Hoodline, Cornell LII 29 CFR 531.54 and Texas Workforce Commission tip_pooling.html. All 13 claim quotes were checked by live exact-match queries, plus the corrected story_selection fields and all 9 narration sentences against their bound claims.",
+ "result": "PASS",
+ "verified_claim_ids": [
+  "c1",
+  "c2",
+  "c3",
+  "c4",
+  "c5",
+  "c6",
+  "c7",
+  "c8",
+  "c9",
+  "c10",
+  "c11",
+  "c12",
+  "c13"
+ ],
+ "rejected": [
+  "Verified scope: no claim is rejected in this follow-up. All 13 claims were re-fetched live and their quotes match exactly. All 9 narration sentences are supported by their bound claims, and the only spoken numeral, $9,650, is in c6's fetched quote. The negative limit 'No report says whether this restaurant takes one' was re-checked live across FOX 26 (article and video page), Muslim Mirror, Click2Houston and Hoodline, and none mentions a tip credit or wage structure.",
+  "Round 1 history kept: the REVISE rejected story_selection movement event_type 'launched' dated 2026-10-20, and the agency.next_step wording 'Texas follows the federal tip pool rule through the Workforce Commission guidance page'. Both are now corrected and verified."
+ ],
+ "required_edits_applied": [
+  "Applied by the director and verified live by this validator: story_selection.json selected.movement is now actor 'FOX 26 Houston', event_type 'published', date '2026-10-20', confirmed by the FOX 26 publication date.",
+  "Applied by the director and verified: why_today names Muslim Mirror October 19th, FOX 26 October 20th and Click2Houston October 21st, all confirmed live.",
+  "Applied by the director and verified: agency.next_step now reads 'The Texas Workforce Commission guidance page describes the federal tip pool rule', supported by the live TWC lead-in 'DOL regulation 29 C.F.R. \u00a7 531.54 sets out the requirements for a valid tip-pooling arrangement'.",
+  "Applied by the director and verified: c10 claim text restores 'very'. New attribution claims c12 and c13 are live exact. Narration: the phone sentence was removed, 'now' was dropped from the $9,650 sentence, and the federal-rule sentence was reordered. All remain supported."
+ ],
+ "reviewer_identity": "claude-opus-5-5 / validator",
+ "script_sha256": "316d98de25010a6df3afac737fc8a69500fcfe3a648ae3b28e28c1e739fddc35 (copied from validator-packet-2.json; not recomputed by this worker)",
+ "claims_sha256": "d1180482bee02fe161be0847750062c3f3eb6d8d97b844fd68fff8e264975415 (copied from validator-packet-2.json; not recomputed by this worker)",
+ "inputs_inspected": {
+  "validator_packet_2": "57db40496f2615a7ba643f168c58298a651fa00278454f292edd08730421d3e0 (from the coordinator's message; not recomputed)",
+  "research.json": "dd64ceacb698185af3131fe6fdd179582dd8128af756b558f3393dd43c57787b (unchanged; not re-read in this pass)",
+  "story_selection.json": "a26e3c5a7d67776932db020b71d0a16f5d8dc6506041545bb7bca5362ef336cd",
+  "claims.json": "d1180482bee02fe161be0847750062c3f3eb6d8d97b844fd68fff8e264975415",
+  "vo_script.txt": "316d98de25010a6df3afac737fc8a69500fcfe3a648ae3b28e28c1e739fddc35",
+  "vo_bindings.json": "16e5fa3c8f59a24160a76d29ffe435f3d1386e183c740eb49ccd4d994f31062b",
+  "hash_note": "All values come from the packet. This worker has no shell and recomputed none of them. The bound guide hashes are unchanged from packet 1. I read those guides in full in round 1 and did not re-read them in this follow-up."
+ },
+ "prior_round": "Round 1 result REVISE (claims c1 to c11 VERIFIED; two story_selection assertions rejected), kept unchanged in the original handoff.",
+ "checker_note": "The verified ids equal every claim in claims.json, all VERIFIED in this handoff. The director must write these verdicts into claims.json before validation_check.py --date 2026-10-26, since the file currently holds PENDING_VALIDATION. The mechanical narration check still runs before synthesis."
+}

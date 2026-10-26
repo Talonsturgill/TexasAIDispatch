@@ -1,0 +1,176 @@
+    angle = {
+        'a': ('Follow one order from the table code to the kitchen ticket and the tip jar at counter level, so the viewer watches the order move before the people and the paper.',
+              'Watch a server leave and see who takes the next order, then see what the owner can and cannot show.',
+              'The ticket stays blank until the paid mark arrives and then the wok flares, so payment comes before cooking.',
+              'The host panel takes the order while the tip jar hangs under an owner says tag and a no record shown tag, so software takes the order and the tip rests on a word.'),
+        'b': ('Start from above the dining room and the back office. The floor plan, the table top, the pass and the desk show the same order and the same limits as a room, so the paper limits land beside the machine.',
+              'See the empty station as a floor plan, then watch one order cross the room and the money cross the pass.',
+              'The same no tip credit box stays blank in the restaurant folder, so the limit is on screen before the tags settle on the jar.',
+              'The no record shown tag settles beside the owner says tag on the jar, so software takes the order and the tip rests on a word.')}[variant]
+    b['film_direction'] = dict(version='directed-film-v2', episode=EPISODE, variant=variant, angle=angle[0],
+        opening_promise=angle[1], performed_turn=angle[2], closing_answer=angle[3], shots=shots, rewards=rewards,
+        renderer_inputs=[])
+    # story art plan
+    def pick(sid, esuf):
+        for sh in shots:
+            if sh['scene_id'] == sid and sh['event_id'] == f'{sid}-{esuf}':
+                return sh['view']
+        raise KeyError((sid, esuf))
+    def use(sid, esuf, subj):
+        return dict(scene_id=sid, event_id=f'{sid}-{esuf}', view=pick(sid, esuf), action_id=SCENES[sid]['action'], subject_ids=subj)
+    hero_uses = [use('s3', 'event-1', ['s3-phone', 's3-code']), use('s3', 'event-3', ['s3-menu', 's3-dish']),
+                 use('s4', 'event-2', ['s4-paid', 's4-printer']), use('s4', 'event-3', ['s4-printer', 's4-ticket']),
+                 use('s7', 'event-2', ['s7-coins', 's7-jar']), use('s10', 'event-2', ['s10-jar', 's10-tag'])]
+    support_uses = [use('s1', 'event-2', ['s1-phone']), use('s2', 'event-2', ['s2-panel']),
+                    use('s5', 'event-2', ['s5-phone', 's5-panel']), use('s6', 'event-2', ['s6-stamp', 's6-ledger']),
+                    use('s8', 'event-2', ['s8-rule', 's8-box']), use('s9', 'event-1', ['s9-phone', 's9-code'])]
+    all_scenes = list(SCENES)
+    b['story_art'] = dict(version='authored-story-art-v1', runtime='claude-sonnet-v1', edition_id=EDITION, requests=[
+        dict(id='order-rig-hero', role='hero', file=HERO_FILE, export='OrderRigHero', scene_ids=['s3', 's4', 's7', 's10'],
+             purpose='Give the film one recognizable order rig that changes state through the film: a phone scans a table code and opens a menu, a fingertip taps a dish, the pay button turns to a paid mark, a kitchen ticket printer stays blank until the paid mark arrives and then prints while the wok flares, coins drop into a tip jar at the pass, and at the close the jar hangs under an owner says tag and a no record shown tag.',
+             prompt='Author an original finished React and SVG object group in the current Remotion engine. A generic smartphone with a rounded off-white body held in a hand-sized frame, a hand-drawn square code card on a small table stand that is not a real code, a menu screen with dish rows and one row that lights, a thermal kitchen ticket printer with a paper slot and a rail of clipped tickets, a wok on a gas flame at a steel pass, and a glass tip jar. Warm tungsten pendant light from the upper left, cool screen glow from the phone, contact shadows on a worn steel pass and a scuffed wooden table, a slightly leaning ticket rail and a crooked tag so nothing is symmetric. A disclosed illustration of a reported ordering flow, never a real phone brand, payment app, restaurant or code.',
+             source_limit='Disclosed illustration of a reported ordering flow. Not the restaurant, not its software, not a working code or payment screen, and the tip jar shows a reported claim with no record behind it.',
+             action_uses=hero_uses),
+        dict(id='restaurant-support', role='support', file=SUPPORT_FILE, export='RestaurantSupport', scene_ids=all_scenes,
+             purpose='Give the rig its world and its records: a small restaurant room with tables, an apron swinging on a hook, a door with a bell, a ringing host stand phone, an empty window sign frame, a flat host panel named Haniya with an AI host tag, a CLOSED door sign and wall clock at night, a ledger card with a $9,650 a month tag, an owner count stamp and a bare receipt clip, a federal rule card with a no tip credit checkbox, a restaurant folder with the same box left blank, and a customer quote card.',
+             prompt='Author an original finished React and SVG support group in the current Remotion engine. A small Houston-area family restaurant interior with a window onto a street, laminate tables with plates and menus, paper order pad, a server apron on a hook, a door with a bell and a CLOSED sign, a host stand with a desk phone, a flat host panel with a lit name, a plain back-office desk with a ledger card, a crooked rubber stamp, a receipt clip, a federal rule card, a folder with a checkbox, and a quote card. Maintained but worn, warm paper and terracotta against steel, nothing symmetric, no logos, no brand marks and no real restaurant name on any surface.',
+             source_limit='Disclosed illustration of the reports. It shows no real restaurant, person, software, brand mark, pay record or payment screen, and the ledger, stamp, tags and checkbox are illustrations of statements, not data.',
+             action_uses=support_uses)], entries=[])
+    b['story_art'].pop('entries')
+    # story contract
+    role_map = {'hook': 'action', 'mechanism': 'mechanism', 'limit': 'limit', 'consequence': 'consequence', 'agency': 'evidence', 'close': 'answer'}
+    b['story_contract'] = dict(
+        opening_question='When a restaurant loses its only server, who takes the order?',
+        actor='Wok & Karahi, a family-run restaurant in Spring, as reported by FOX 26 Houston, Muslim Mirror and KPRC Click2Houston',
+        action='Replaced its sole server with an AI host named Haniya that takes orders by table code and phone, with payment before cooking.',
+        change='A server who greeted, took the order and ran the check is replaced by a host a guest reaches by table code or phone, and the restaurant reports that kitchen staff now get all of the tips.',
+        affected_people='The family that runs the restaurant, its kitchen staff and guests who order by phone or code. No person is named.',
+        consequence='Software takes the order and payment comes first, while the savings and the tip claim rest on the owner\'s account.',
+        source_limit='Every dollar figure is the owner\'s count. No outlet says whether the restaurant takes a tip credit, which decides whether a tip pool with cooks is allowed under federal rules, and one customer said QR codes don\'t suit people like her mother.',
+        closing_answer='Software now takes the order, and who gets the tip rests on the owner\'s word.',
+        director_identity='claude-sonnet-5-5 director, this session',
+        scenes=[dict(scene_id=sid, role=role_map[SCENES[sid]['role']], claim_ids=claims_by_scene[sid], advances=sc[sid]['on_screen']) for sid in SCENES],
+        transitions=[])
+    bridges = {
+        ('s1', 's2'): ('same-subject', 'The unattended front of the room is where the panel is installed.', 'The ringing phone stand dims and the host panel lights on the same stand.'),
+        ('s2', 's3'): ('causal-consequence', 'Once the host is installed a guest can order through it.', 'The lit panel hands over to a phone lifting over a table code.'),
+        ('s3', 's4'): ('same-subject', 'The paid mark on the phone is what the kitchen waits for.', 'The paid mark leaves the phone and travels toward the kitchen printer.'),
+        ('s4', 's5'): ('same-subject', 'The same host that takes the table order also takes calls when the room is dark.', 'The kitchen flame dims and the CLOSED sign flips at the front.'),
+        ('s5', 's6'): ('causal-consequence', 'After the system, the film turns to what the owner says it is worth.', 'The answered mark on the panel gives way to a ledger card on the back desk.'),
+        ('s6', 's7'): ('same-subject', 'The tip claim sits beside the savings claim as another owner statement.', 'The ledger card slides aside as coins drop toward the kitchen pass.'),
+        ('s7', 's8'): ('causal-consequence', 'The tip claim meets the federal rule that governs a pool with cooks.', 'The jar tag lifts and a federal rule card slides onto the desk.'),
+        ('s8', 's9'): ('source-example', 'After the limit on the money, a customer\'s remark shows a limit on the ordering.', 'The blank box stays and a phone aims at a table code.'),
+        ('s9', 's10'): ('causal-consequence', 'The last scene returns to the order and the jar for its answer.', 'The quote card falls away and the host panel and tip jar fill the frame.')}
+    for (f, t), (k, because, bridge) in bridges.items():
+        b['story_contract']['transitions'].append(dict(**{'from': f}, to=t, kind=k, because=because, visible_bridge=bridge))
+    # creative direction
+    edits = []
+    ordered = list(SCENES)
+    for i, sid in enumerate(ordered):
+        s = sc[sid]; evs = s['visual_events']
+        nxt = SCENES[ordered[i + 1]]['subject'] if i + 1 < len(ordered) else 'the end card and credits'
+        cl = ' '.join(c[2] for c in CLAUSES if c[1] == sid)
+        edits.append(dict(scene_id=sid, enter_on=evs[0]['what'], leave_on=evs[-1]['what'], cut_after_event_id=evs[-1]['id'],
+                          next_connection=f"From {SCENES[sid]['subject'][:70]} to {nxt[:70]}.",
+                          sentence_to_shot=dict(clause=cl, subject=SCENES[sid]['subject'], relationship=s['on_screen'], source_limit=SRC_LIMIT)))
+    cues = []
+    for sid in ordered:
+        e = SCENES[sid]['events'][1] if len(SCENES[sid]['events']) > 1 else SCENES[sid]['events'][0]
+        cues.append(dict(id=f'cue-{sid}', role='contact' if e[4] == 'contact' else 'environment', duration_s=1.2,
+                         intent=(e[8] if len(e[8]) >= 25 else e[8].rstrip('.') + ' over low room tone.'), provenance='Original designed foley and ambience, not recorded at any restaurant.',
+                         event_id=f'{sid}-{e[0]}'))
+    cues.append(dict(id='mark-quiet', role='quiet', duration_s=1.2,
+                     intent='Pull the music back while the two tags settle on the tip jar beside the host panel.',
+                     provenance='Authored event-clock background contrast.', event_id='s10-event-3', gain=0.3))
+    b['creative_direction'] = dict(
+        viewer_question='When a restaurant loses its only server, who takes the order?',
+        visible_answer='A host on a phone and a table code takes it and payment comes first, while the tip jar hangs under an owner says tag.',
+        emotional_turn='Tension at the empty station, an easy rhythm through the order, a careful hush at the money and the rule, and a level answer at the jar.',
+        medium_choice='Explanatory animation with a report spine, mechanism-led ordering. No licensed photograph or footage of the restaurant is admitted, so original authored illustration performs the reported flow and labels it as such. A static page excerpt would hide the scan, the pay-first printer and the jar that the sentences describe.',
+        edits=edits,
+        sound=dict(perspective='Designed illustration sound for a small restaurant, a phone, a printer and a kitchen. Never recorded in a real restaurant.',
+                   music_arc='A low steady pulse under the empty station, lightening through the order, thinning at the ledger and the blank box, and settling softly for the close.',
+                   voice_arc='Plain and curious at the question, brisk through the order, a touch drier at the money and the rule, and slower and level on the last line.',
+                   cues=cues),
+        policy_sha256=sha('config/creative_production.json'))
+    # documentary, cinema, contracts
+    b['documentary'] = dict(schema='dispatch_documentary/1', viewer_question='When a restaurant loses its only server, who takes the order?',
+        payoff='The host panel takes the order while two tags settle on the tip jar, so software takes the order and the tip rests on the owner\'s word.',
+        source_limit='Disclosed illustration of reports. Every dollar figure and the tip claim are the owner\'s account, and no outlet says whether a tip credit is taken.',
+        hero_image='A phone scanning a table code, a ticket printer that stays blank until the paid mark arrives, and a wok that flares.',
+        closing_answer='Software now takes the order, and who gets the tip rests on the owner\'s word.', hook_payoff_event='s1-event-1')
+    b['cinema'] = dict(version='creative-production-v1', hero_scene_id='s4', hero_passage_end_scene_id='s4', dimensional_scene_ids=[],
+        visible_action='A paid mark travels from a phone to a kitchen ticket printer, a ticket prints and hangs on the rail, and the wok flame flares and the pan starts to cook.',
+        human_consequence='A family that could not keep the server job filled, its kitchen staff and guests who order by code. No person is shown and no outcome beyond the reports is claimed.',
+        source_limit='Disclosed illustration of a reported flow. It shows no real restaurant, software or pay record, and the savings and tip claims are the owner\'s account.')
+    b['cinematic_contract'] = dict(throughline=dict(subject='One order and the money that follows it, from the table code to the kitchen ticket and the tip jar.',
+        opening_state='An apron swings on an empty hook while a phone rings and two tables wait.', closing_state='The host panel takes the order while the tip jar hangs under two tags.', scene_ids=ordered),
+        turn_scene='s8', button='The no record shown tag settles beside the owner says tag, so the tip rests on a word.')
+    b['fingerprint'] = dict(pov=('eye-level-immersive' if variant == 'a' else 'orbital-aerial'),
+        motion_vector=('horizontal-traverse' if variant == 'a' else 'scroll-data'),
+        hero_treatment=('machine-as-subject' if variant == 'a' else 'record-as-subject'),
+        layout=('centered-hero-lowerthird' if variant == 'a' else 'grid-modular'), register='naturalistic-scene',
+        camera_strategy=CAMERA[variant]['s1'], light_story='tungsten-pendant-and-screen-glow',
+        palette='Warm cream paper, terracotta and brass, steel gray, a cool screen glow and one chili red',
+        metaphor='A server leaves, software takes the order and a jar hangs on a word')
+    b['divergence_note'] = {'a': 'A follows one order at counter level from the table code to the printer and the jar, with the paper limits as short inserts, and closes on the jar tags.',
+        'b': 'B reads the same events from above the dining room and the back desk, so the floor plan, the ledger and the blank box come before the machine, and it closes wide on the stand and the jar.'}[variant]
+    b['hook_strategy'] = 'visual_anomaly'; b['hook_payoff_s'] = 0.75
+    b['cinematic_template'] = 'directed-film-v2'; b['derived_from'] = 'scratch'
+    b['daily_production'] = True
+    # art direction
+    ad = copy.deepcopy(BASE['art_direction'])
+    ad['palette'] = dict(background='#E8D9BE', midground='#A0674A', foreground='#40322B', ink='#1E1612', paper='#F5EEDC', hero='#EAE5DA', accent='#D2402A')
+    ad['palette_reason'] = 'Warm cream paper carries the records, terracotta and brass hold the room, steel gray holds the pass, the off-white phone is the one clean value and a single chili red is kept for the paid mark, the wok flare and the stamps.'
+    ad['shape_language'] = 'Rounded phone and panel against boxy steel pass, printer and tables, and flat paper cards with worn corners. Nothing is symmetric: the ticket rail leans, the stamp lands crooked, the tag swings.'
+    ad['lighting'] = dict(motivation='Warm tungsten pendant light from the upper left over the tables and paper, cool screen glow from the phone and panel, and the wok flame throws its own warm light on the pass.',
+                          ambient=0.8, exposure=1.0, key=dict(position=[-6, 5, 4], color='#FFD9A8', intensity=1.8),
+                          fill=dict(position=[5, 2, 3], color='#BFD3E0', intensity=0.8), rim=dict(position=[2, 5, -4], color='#FFF1D8', intensity=0.6))
+    ad['hero'] = dict(asset=HERO_FILE, silhouette='A rounded off-white phone over a table code, a boxy ticket printer with a paper slot and a rail of tickets, a wok on a flame at a steel pass and a glass tip jar.',
+                      finish='Lit upper-left tungsten on the pass and table, cool glow on the phone screen, scuffed steel, a flame with a heat shimmer, glass highlights on the jar and soft contact shadows.',
+                      subject_ids=['s3-phone', 's4-printer', 's7-jar'])
+    ad['focal_hierarchy'] = 'The phone, the paid mark or the jar first, the ticket or the tag second, the stamps and cards third, the room and window last.'
+    ad['motion_language'] = 'Marks travel on lines with continuous acceleration and braking, cards slide and settle without bounce, stamps land once, tags swing and settle, the flame flares and eases, and the camera holds while objects perform.'
+    ad['shots'] = {}
+    ad['signature_shot'] = dict(scene_id='s4', event_id='s4-event-3', reason='The paid mark arrives, the ticket prints and the wok flares, the whole pay-first order in one movement.')
+    ad['flat_shots'] = {sid: dict(scale=1, x=0, y=0, reason='Hold the authored composition; the episode camera moves only with the performing mark, card or tag.') for sid in ordered}
+    b['art_direction'] = ad
+    # visual research
+    b['visual_research'] = dict(searches=[
+        dict(query='Library of Congress Lyda Hill Texas Collection Spring Texas Harris County restaurant photograph and Wok & Karahi images, rights and reuse',
+             finding='No photograph of the restaurant or of Spring is in the collection for this use, and the restaurant\'s own photographs and the stations\' pictures carry no reuse licence, so no photograph is admitted.'),
+        dict(query='Wok & Karahi Spring Texas AI host Haniya footage, screenshots or product images with reuse terms',
+             finding='FOX 26 owns its video, the restaurant home page does not mention the host and the Hoodline header is an unrelated stock image, so none is admitted.')],
+        candidates=[dict(url='https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat', decision='reject',
+                         reason='FOX 26 video and photographs are copyrighted and have no reuse licence, so only the reported words are used.'),
+                    dict(url='authored://2026-10-26/order-rig-hero', decision='use', reason='Fresh original authored hero group performs the phone, printer, wok and tip jar.'),
+                    dict(url='authored://2026-10-26/restaurant-support', decision='use', reason='Fresh original authored support group stages the room, panel, ledger, rule card and quote card.')],
+        decision='No external photograph or footage helps tell this story honestly, so fresh authored illustration performs the reported flow with an Illustration disclosure.')
+    # attention beats and quality plan
+    beats = []
+    for s in scenes:
+        for e in s['visual_events']:
+            ctype = next(x[5] for x in SCENES[s['id']]['events'] if f"{s['id']}-{x[0]}" == e['id'])
+            snd = next(x[8] for x in SCENES[s['id']]['events'] if f"{s['id']}-{x[0]}" == e['id'])
+            beats.append(dict(id=f"{e['id']}-attention", event_id=e['id'], item_ids=e['item_ids'], change_type=ctype,
+                              visible_change=e['what'], viewer_reward=e['what'],
+                              continuity_from='The one order and the money that follows it, which every later scene returns to.',
+                              sound_action=snd))
+    b['attention_beats'] = beats
+    b['quality_plan'] = dict(contract_sha256=sha('config/quality_contract.json'), scenes=[
+        dict(scene_id=sid, medium='diagram', subject=SCENES[sid]['subject'], action=sc[sid]['visual_events'][0]['what'],
+             consequence=sc[sid]['visual_events'][-1]['what'],
+             source_basis=f"{SCENES[sid]['claim_note']} {SRC_LIMIT}",
+             medium_evidence='Registered order-pass-v1 with the fresh authored OrderRigHero and RestaurantSupport groups performing board events on the film clock.')
+        for sid in ordered])
+    b['caption_method'] = 'silence_anchored'
+    return b
+
+
+clock_cache = clause_clock()
+if __name__ == '__main__':
+    for v in ('a', 'b'):
+        board = build(v)
+        (OUT / f'opening-{v}.json').write_text(json.dumps(board, indent=1, ensure_ascii=False))
+        print(v, len(json.dumps(board)), board['runtime_s'], len(board['film_direction']['shots']), len(board['film_direction']['rewards']))
+    (OUT / 'storyboard.json').write_text((OUT / 'opening-a.json').read_text())
