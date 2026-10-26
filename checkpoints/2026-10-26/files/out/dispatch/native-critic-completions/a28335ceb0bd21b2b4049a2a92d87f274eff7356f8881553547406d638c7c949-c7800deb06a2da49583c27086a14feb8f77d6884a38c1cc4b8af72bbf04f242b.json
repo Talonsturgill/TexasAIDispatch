@@ -1,0 +1,417 @@
+{
+  "actor_sha256": null,
+  "agent_id": "a60bca263182e1f5c",
+  "claim_sha256": "4ccabd891660358d6416bd68d39fb232c9551c0f0659c634a59110981db7b0de",
+  "original_final_response": "{\n  \"packet_sha256\": \"a28335ceb0bd21b2b4049a2a92d87f274eff7356f8881553547406d638c7c949\",\n  \"schema\": \"dispatch_claude_code_report_bindings/1\",\n  \"role\": \"storyboard-critic\",\n  \"review_scope\": \"code-plan\",\n  \"review_round\": \"second paid review (code re-review after the consolidated correction). My first response is retained unchanged at out/dispatch/retained-failures/code-review-1.json, and its REVISE verdict stays on record.\",\n  \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director\",\n  \"reviewed_at\": \"2026-10-26 (this Read-only reviewer has no host clock, so only the date is given)\",\n  \"verdict\": \"pass\",\n  \"binding_verification\": \"Read-only worker, so no SHA256 could be computed here. Every digest below is copied unchanged from code_report_bindings in critic-packet-2.json. What I could check is that the packet's own values agree with each other: the packet board sha 8d35c966... equals the opening-a treatment sha, and both treatments share renderer digest 19a3bdee... The claims sha c08c157a... is the same as in round 1, so claims.json did not change. Every bound guide and contract hash in packet 2 is identical to packet 1, so the guides I read in full in round 1 are byte-identical. The changed inputs, which I reread in full this round, are OrderPassFilm.tsx, OrderRigHero.tsx (a34732...), RestaurantSupport.tsx (271392...) and both boards.\",\n  \"coverage\": {\n    \"reread_this_round\": [\"video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx (full)\", \"video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx (lines 250 to 563, the printer, rail, ticket, wok, cook bowl, jar and plan pieces; the phone, hand and code sections are carried from round 1)\", \"video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx (full)\", \"out/dispatch/opening-a.json (header, scene s4, scene s9, film_direction shots and s4 rewards, narration n4 to n5b, story_contract, cinematic_contract, cinema)\", \"out/dispatch/opening-b.json (header, scene s4, film_direction shots s1 to s5, story_contract transitions)\"],\n    \"guides\": \"All bound guides and contracts have hashes unchanged from packet 1 and were read in full in round 1. Their requirements are applied again here.\",\n    \"not_reread\": \"I did not reread the unchanged-looking board sections (attention_beats, captions, native_media, renderer_inputs) or the B scenes other than s4 line by line. The one B difference I confirmed is that s4-shot-2 is now framed close. Packet 2 binds the current bytes.\",\n    \"pixels\": \"None. This is code scope and capture.allowed is false.\"\n  },\n  \"prior_defect_verification\": [\n    {\"original_defect\": \"s4: food already cooking before payment (noodles in a lit wok, plated rice on the pass)\", \"treatments\": [\"a\", \"b\"], \"status\": \"resolved in source\", \"evidence\": \"The Wok in OrderRigHero now has flame and food props: flame 0 draws no tongues ('fl<=.001?[]') and food 0 draws no noodles. printer-idle and pass-wide pass wokCold {flame:0, food:0} and no longer place a plate on the pass. B's ticket-print also uses wokCold. Food enters only during s4-event-4 (26.56 to 27.06 s), when CookBowl pours (pour from 26.635 s, food from 26.685 to 26.935 s) while the flame rises with P(s4-event-4). The toss is now driven by the pan's own shake (panTilt = 7 x shake, toss from the same phase) after 27.14 s, with the cook's hand drawn on the handle.\"},\n    {\"original_defect\": \"s4: paid-mark arrival and lamp answer cut away, and the ticket's result finishing after its shot\", \"treatments\": [\"a\", \"b\"], \"status\": \"resolved in source\", \"evidence\": \"s4 now runs 4.31 s. s4-event-2 spans 24.603 to 25.548 s, so arrive = 25.520 s and the lamp ramps from 25.520 to 25.640 s, all inside paid-line (24.553 to 25.813 s), with about 0.17 s of red-lamp hold before the cut. Printing runs 25.863 to 26.251 s and the cut completes at 26.362 s (cutEnd = pStart + 0.72 x d3), inside ticket-print (25.813 to 26.510 s), and the ticket then hangs. B's paid-line now pushes in with ease5 to PAID_ZOOM 4.4 on the top-view printer between 10% and 90% of the event, so it is at rest before the arrival, with the slot about 300 px wide, a lamp of about 16 px radius with up to about 54 px of glow, and a mark of about 66 px radius. Whether this reads at phone size and normal speed is for the phone review.\"},\n    {\"original_defect\": \"s1: the waiting tables already served\", \"treatments\": [\"a\", \"b\"], \"status\": \"resolved in source\", \"evidence\": \"Plate now defaults to food 'none' (an empty plate with napkin and chopsticks), tableGroup defaults to ['none','none'], TableTop defaults to ['none','none'], and tableTopBig draws an empty plate. The raised-hand guest in blank-pad-tables and table-wait now holds an open menu (menu:true). The code-scan, menu-tap and viewfinder-hunt plates are empty. Food appears only after cooking (the s6 pass plate with noodles, and wokOn).\"},\n    {\"original_defect\": \"s1 (A): walkout performed by a sliding figure with static legs\", \"treatments\": [\"a\"], \"status\": \"resolved in source\", \"evidence\": \"door-apron no longer draws the departing figure. The door shutting with its bell and the left-behind apron swinging carry the walkout. Clause n1a stays bound to s1-door, s1-apron and s1-phone.\"},\n    {\"original_defect\": \"Housekeeping: story_contract visible_bridges that were not implemented\", \"treatments\": [\"a\", \"b\"], \"status\": \"resolved\", \"evidence\": \"The bridges now describe the actual hard cuts truthfully, for example 'Cut from the flaring wok at the pass to a ledger card sliding onto the back desk'. The one continuous bridge, s7 to s8 (the lit and circled rule card stays while the folder slides in), is implemented in blank-folder and folder-wide.\"},\n    {\"original_defect\": \"Note: the s9 hunting viewfinder could read as a scanning malfunction\", \"treatments\": [\"a\", \"b\"], \"status\": \"addressed\", \"evidence\": \"s9-event-1 now raises the phone toward the code, wavers and lowers it without scanning (up rises then falls, with a 1.6 Hz waver during the pause, brackets wide and never closing). The phone then lies on the table while the quote card lands, and its screen dims (dim from P(s9-event-3)). The board's visual_events and story_contract were updated to match.\"},\n    {\"original_defect\": \"Note: A's final tag legibility\", \"treatments\": [\"a\"], \"status\": \"improved\", \"evidence\": \"The jar-no-record tags are now 44 px (about 16 px at 390-px phone width), and the tags-close tags in B are 52 px. Final legibility is still judged on pixels.\"},\n    {\"original_defect\": \"Note: bind the Click2Houston tablet quote as a claim behind the standing host panel\", \"treatments\": [\"a\", \"b\"], \"status\": \"still open (non-blocking)\", \"evidence\": \"The claims.json bytes are unchanged. The panel is supported by fetched source text but has no bound claim.\"}\n  ],\n  \"code_reports\": {\n    \"a\": {\n      \"treatment\": \"a\",\n      \"board\": {\"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-a.json\", \"sha256\": \"8d35c966e8c2e6253d9464149eec67ea5755d6ba44c05847afbc666784cee275\"},\n      \"review_scope\": \"code-plan\",\n      \"concept_sha256\": \"673bed7dbca942f48a242947fb95097bc4355783114d52b77cd70b1e84f473d8\",\n      \"renderer_sha256\": \"19a3bdeeb0442afb12812b0489311616681e6a9210564210364a5192e41a9cfa\",\n      \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n      \"verdict\": \"pass\",\n      \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director\",\n      \"reviewed_at\": \"2026-10-26 (this Read-only reviewer has no host clock, so only the date is given)\",\n      \"strongest_frame\": \"s4-shot-2 paid-line, 24.553 to 25.813 s. The paid mark leaves the held phone's Paid button, travels the dashed arc and shrinks into the printer slot at 25.52 s. The standby lamp turns red in the same frame and holds before the cut. This is the film's pay-first proof as one readable cause and effect. s3-shot-2 menu-tap (19.05 to 21.30 s) remains the strongest human action.\",\n      \"weakest_frame\": \"s4-shot-3 ticket-print, 25.813 to 26.510 s. The ticket rises, is gripped and is cut inside this 0.70 s detail, but its completed state holds only about 0.15 s before the continuous cut to wok-flare. The ticket stays on the rail in that wider shot at printer scale 0.78. Readability at normal speed is unresolved until the phone review.\",\n      \"blocking_defects\": [],\n      \"action_reviews\": [],\n      \"narration_picture_observations\": {\n        \"scope\": \"code-plan, provisional authored clause windows, no film bytes\",\n        \"clauses\": [\n          {\"id\": \"n1a\", \"pass\": true, \"start_s\": 0.48, \"end_s\": 4.53, \"observed\": \"Code plan: the door swings shut with the bell (0.48 to 1.33 s) and the left-behind apron swings on the stand hook, then the desk phone rattles from 2.505 s. No sliding figure remains.\"},\n          {\"id\": \"n1b\", \"pass\": true, \"start_s\": 4.83, \"end_s\": 7.38, \"observed\": \"Code plan: the plates are empty and one guest raises a hand holding an open menu while the pad curls and falls back blank.\"},\n          {\"id\": \"n2a\", \"pass\": true, \"start_s\": 8.04, \"end_s\": 10.59, \"observed\": \"Code plan: an empty sign frame swings and settles on the glass with an unused pin.\"},\n          {\"id\": \"n2b\", \"pass\": true, \"start_s\": 10.89, \"end_s\": 15.24, \"observed\": \"Code plan: the panel lights, writes Haniya, and the AI host tag hooks onto the eyelet.\"},\n          {\"id\": \"n3a\", \"pass\": true, \"start_s\": 15.9, \"end_s\": 18.75, \"observed\": \"Code plan: a hand lifts the phone over the code, the brackets lock and the menu slides up. The table plate is empty.\"},\n          {\"id\": \"n3b\", \"pass\": true, \"start_s\": 19.05, \"end_s\": 21.0, \"observed\": \"Code plan: a fingertip presses Chow mein and the row lights. 'Talks' is a static Talk button (note).\"},\n          {\"id\": \"n3c\", \"pass\": true, \"start_s\": 21.3, \"end_s\": 23.25, \"observed\": \"Code plan: Pay morphs into the red paid mark and Paid appears.\"},\n          {\"id\": \"n4\", \"pass\": true, \"start_s\": 23.91, \"end_s\": 27.06, \"observed\": \"Code plan: an empty, unlit wok beside the idle printer. The paid mark arrives and the lamp turns red inside paid-line. The ticket prints, is gripped and cut inside ticket-print. Then a cook's bowl pours the noodles as the flame flares (26.56 to 27.06 s), and the pan-driven toss follows from 27.14 s, after the clause ends.\"},\n          {\"id\": \"n5a\", \"pass\": true, \"start_s\": 28.22, \"end_s\": 32.27, \"observed\": \"Code plan: the ledger card slides on and the $9,650 a month tag lands. Unchanged.\"},\n          {\"id\": \"n5b\", \"pass\": true, \"start_s\": 32.57, \"end_s\": 34.52, \"observed\": \"Code plan: the OWNER COUNT stamp presses and lifts, and the clip snaps on nothing. Unchanged.\"},\n          {\"id\": \"n6\", \"pass\": true, \"start_s\": 35.18, \"end_s\": 39.23, \"observed\": \"Code plan: coins arc from the paid phone into the jar and the FOX 26 tag hooks on. This is a disclosed metaphor (note). Window shifted +0.5 s with the longer s4; exact boundaries come from the board.\"},\n          {\"id\": \"n7a\", \"pass\": true, \"start_s\": 39.89, \"end_s\": 42.44, \"observed\": \"Code plan: the rule card slides on and its box draws, empty.\"},\n          {\"id\": \"n7b\", \"pass\": true, \"start_s\": 42.74, \"end_s\": 45.59, \"observed\": \"Code plan: the cooks band lights and the pen circles the line and the box.\"},\n          {\"id\": \"n8\", \"pass\": true, \"start_s\": 46.25, \"end_s\": 49.1, \"observed\": \"Code plan: the folder slides beside the circled rule card and opens, the box stays blank and a question mark draws.\"},\n          {\"id\": \"n9\", \"pass\": true, \"start_s\": 49.76, \"end_s\": 53.51, \"observed\": \"Code plan: a hand raises the phone toward the code, wavers and lowers it unscanned. The quote card lands beside the phone lying on the table, and its screen dims.\"},\n          {\"id\": \"n10a\", \"pass\": true, \"start_s\": 54.17, \"end_s\": 56.42, \"observed\": \"Code plan: an order card slides up the panel and a slip arcs to the printer.\"},\n          {\"id\": \"n10b\", \"pass\": true, \"start_s\": 56.72, \"end_s\": 60.17, \"observed\": \"Code plan: the owner says tag hooks on, then 'no record shown' settles in a held wide shot at 44 px.\"}\n        ]\n      },\n      \"story_review\": {\n        \"story_sha256\": \"75399c3b6f895a98cfdc196e462bcecea3d65f61389608ec5fe3288be80f81d2\",\n        \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n        \"claims_sha256\": \"c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f\",\n        \"verdict\": \"pass\",\n        \"blocking_defects\": [],\n        \"one_viewing_summary\": \"Intended chain, reconstructed from the corrected code. The front door of a small Spring restaurant swings shut and the server's apron is left swinging on the stand. The phone rings unanswered and a guest with an open menu raises a hand over empty plates while the order pad stays blank. With no job ad in the window, a lit host panel named Haniya takes the front. A guest scans the table code, taps chow mein and pays. The paid mark reaches the kitchen printer and only then does its lamp turn red and a ticket print. Only after the ticket does a cook pour the noodles into the empty wok as the flame flares. The owner's $9,650 a month is stamped as his own count beside a bare clip. Coins fill a tip jar at the pass under a FOX 26 tag. A federal rule card ties a tip pool with cooks to taking no tip credit, and the restaurant's folder leaves that box blank. A customer hesitates and does not scan, beside her quoted remark. The panel takes another order and the jar ends under owner says and no record shown tags.\",\n        \"opening_to_ending\": \"The film opens on an unattended station whose unserved guests pose 'who takes the order'. It ends on the panel taking an order and the jar hanging under two attributions, answering that software takes the order and the tip rests on the owner's word, with no invented outcome. The pay-first turn is now causally ordered in the source: cold wok, then mark arrival, then lamp, then ticket, then the cook pours and the flame rises.\",\n        \"weakest_transition\": \"s8 to s9, from the blank tip-credit box on the back desk to a hand hesitating over a phone at a table. This is now an honest hard cut, but the thread moves from the money limit to ordering friction before the close returns to the jar. The handoff is understandable but adds no carried object.\"\n      },\n      \"notes\": \"Every code-proven blocker from round 1 is resolved in the callable source and boards (see prior_defect_verification). The correction introduces no new code-proven mandatory defect. Carried to the mandatory phone, native and audiovisual reviews, without blocking: (1) the 0.70 s ticket-print detail and its roughly 0.15 s completed hold must read at normal speed. (2) In wok-flare the cook's handle hand sits near the right frame edge (about x 998 to 1094 at y 930) and the bowl arm enters from off-frame, so confirm the pour and the pan-driven toss read as one cook's action. (3) In the final jar-no-record wide shot the printer sits at x 1050 and is partly cropped by the frame edge. That is acceptable because the tags carry the answer, but check the composition. (4) s6's cash flying out of the phone into a glass jar remains a disclosed metaphor. (5) In s6 coins-drop and jar-fills the background wok is loaded and lit with no cook, which is acceptable after payment but static. Non-blocking housekeeping: s9's visual_sentence.subject, hero, visual_proof.mute_takeaway and must_show concept ('phone hunting on a table code'), plus the film_direction carry text, still describe a hunting or non-locking viewfinder. The implemented action is now a hesitation and lowering, so make that prose match the corrected events. Binding the Click2Houston tablet quote as a verified claim behind the standing panel is still recommended. Source, numeral, region and disclosure checks pass as in round 1. Runtime is now 60.47 s, s4 is 4.31 s, the longest shot is 3.51 s, and the s4 to s5 reward gap is about 1.8 s. action_reviews is empty because the board has no action_proposals. This code pass authorizes only the funded capture. It approves no pixels or film.\"\n    },\n    \"b\": {\n      \"treatment\": \"b\",\n      \"board\": {\"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b.json\", \"sha256\": \"cbf1eb35970d3f9a8ed7c10d9f68f348653555a879e82a184a56d6b9f12d9a3f\"},\n      \"review_scope\": \"code-plan\",\n      \"concept_sha256\": \"6279ca5ee518b6fcbb32c1feb2c21c8a18ed11b44c97f8b866b67730ef4cfdb5\",\n      \"renderer_sha256\": \"19a3bdeeb0442afb12812b0489311616681e6a9210564210364a5192e41a9cfa\",\n      \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n      \"verdict\": \"pass\",\n      \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director\",\n      \"reviewed_at\": \"2026-10-26 (this Read-only reviewer has no host clock, so only the date is given)\",\n      \"strongest_frame\": \"s10-shot-3 tags-close, 58.22 to 60.47 s. The jar is at scale 2.3 under the printed ticket, the owner says tag hangs, and 'no record shown' (52 px) settles beneath it. This is a large held answer that also states the limit.\",\n      \"weakest_frame\": \"s1-shot-1 floor-plan, 0 to 2.455 s. The hook is a top-down room plan in which the apron, phone and pad are plain rectangles of about 28 x 60, 52 x 32 and 40 x 52 px, and the walkout reads only through the door leaf's swing and fading footprints. First-frame recognition is unresolved until the phone review. Inside s4, the hand-off from paid-line's top-view push-in to ticket-print's side view (25.813 s) also reorients the printer at the key moment.\",\n      \"blocking_defects\": [],\n      \"action_reviews\": [],\n      \"narration_picture_observations\": {\n        \"scope\": \"code-plan, provisional authored clause windows, no film bytes\",\n        \"clauses\": [\n          {\"id\": \"n1a\", \"pass\": true, \"start_s\": 0.48, \"end_s\": 4.53, \"observed\": \"Code plan: in the plan the door leaf swings shut, the bell rings and footprints lead out. The tables have empty plates. Then a medium shot of the drawn apron and the ringing phone. Plan-object recognition is unresolved until the phone review.\"},\n          {\"id\": \"n1b\", \"pass\": true, \"start_s\": 4.83, \"end_s\": 7.38, \"observed\": \"Code plan: the pad curls blank in the foreground while a guest with an open menu raises a hand over empty plates.\"},\n          {\"id\": \"n2a\", \"pass\": true, \"start_s\": 8.04, \"end_s\": 10.59, \"observed\": \"Code plan: a wide storefront with the empty sign frame swinging.\"},\n          {\"id\": \"n2b\", \"pass\": true, \"start_s\": 10.89, \"end_s\": 15.24, \"observed\": \"Code plan: the panel lights with Haniya beside the stand, and the AI host tag hooks on.\"},\n          {\"id\": \"n3a\", \"pass\": true, \"start_s\": 15.9, \"end_s\": 18.75, \"observed\": \"Code plan: overhead, the phone is lifted over the top-view code, locks and the menu slides up. The table plate is empty.\"},\n          {\"id\": \"n3b\", \"pass\": true, \"start_s\": 19.05, \"end_s\": 21.0, \"observed\": \"Code plan: a guest taps Chow mein, which lights. Talk is a static button.\"},\n          {\"id\": \"n3c\", \"pass\": true, \"start_s\": 21.3, \"end_s\": 23.25, \"observed\": \"Code plan: a detail of Pay turning into the paid mark.\"},\n          {\"id\": \"n4\", \"pass\": true, \"start_s\": 23.91, \"end_s\": 27.06, \"observed\": \"Code plan: a wide pass with an empty, unlit wok. The mark crosses the plan as the camera eases down onto the top-view printer, and the mark enters the slot and the lamp answers while at rest, inside the shot. In a side close the ticket prints, is gripped and cut. A flame-close detail shows the cook's bowl pouring as the flame flares, with the pan rocking after.\"},\n          {\"id\": \"n5a\", \"pass\": true, \"start_s\": 28.22, \"end_s\": 32.27, \"observed\": \"Code plan: top views of the ledger card and the $9,650 tag.\"},\n          {\"id\": \"n5b\", \"pass\": true, \"start_s\": 32.57, \"end_s\": 34.52, \"observed\": \"Code plan: a top-view stamp presses, and the bench clip snaps on nothing.\"},\n          {\"id\": \"n6\", \"pass\": true, \"start_s\": 35.18, \"end_s\": 39.23, \"observed\": \"Code plan: overhead, coins slide from the phone to the jar, the pile rises and the FOX 26 tag hooks on. This is a disclosed metaphor. Window shifted +0.5 s with the longer s4.\"},\n          {\"id\": \"n7a\", \"pass\": true, \"start_s\": 39.89, \"end_s\": 42.44, \"observed\": \"Code plan: a top view of the rule card sliding on with its box drawing.\"},\n          {\"id\": \"n7b\", \"pass\": true, \"start_s\": 42.74, \"end_s\": 45.59, \"observed\": \"Code plan: the cooks line lights and the pen circles it.\"},\n          {\"id\": \"n8\", \"pass\": true, \"start_s\": 46.25, \"end_s\": 49.1, \"observed\": \"Code plan: the folder slides in, opens, the box stays blank and a question mark draws.\"},\n          {\"id\": \"n9\", \"pass\": true, \"start_s\": 49.76, \"end_s\": 53.51, \"observed\": \"Code plan: overhead, a hand raises the phone, wavers and lowers it unscanned. The phone then lies on the table, the quote card drops beside it and the screen dims.\"},\n          {\"id\": \"n10a\", \"pass\": true, \"start_s\": 54.17, \"end_s\": 56.42, \"observed\": \"Code plan: a wide shot of the panel taking an order with the slip arcing to the printer. The elements are small, so recognition is unresolved until the phone review.\"},\n          {\"id\": \"n10b\", \"pass\": true, \"start_s\": 56.72, \"end_s\": 60.17, \"observed\": \"Code plan: the owner says tag hooks on, then a held detail as 'no record shown' settles at 52 px.\"}\n        ]\n      },\n      \"story_review\": {\n        \"story_sha256\": \"1cd96e2d2efcc227c913e505e5601031f163cc288f48a74496a87627b0f88919\",\n        \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n        \"claims_sha256\": \"c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f\",\n        \"verdict\": \"pass\",\n        \"blocking_defects\": [],\n        \"one_viewing_summary\": \"Intended chain, reconstructed from the corrected code. The same causal story as A, read largely from above. A floor plan shows the door closing and footprints leaving the stand, the phone rings, and a guest with a menu waits over empty plates. The panel lights with Haniya. A top view of the table shows the scan, a guest taps chow mein and Pay becomes the paid mark. The mark crosses the room plan and the camera settles on the printer, whose lamp answers the mark. A side close shows the ticket printing. A cook's bowl pours noodles into the wok as the flame flares and the pan rocks. The owner count and bare clip are seen from above. Coins slide into the jar under a FOX 26 tag. The rule card and the blank folder box follow. A customer lowers her phone unscanned beside her quote. The film closes on the jar's two tags.\",\n        \"opening_to_ending\": \"The film opens on a diagram of the abandoned station and closes on a large legible detail of the two attribution tags, answering the question and stating the limit. The pay-first order is now causal and readable in the source. Whether the plan opening hooks a viewer at phone size is unresolved until the phone review.\",\n        \"weakest_transition\": \"s8 to s9, as in A: an honest hard cut from the money limit to ordering friction with no carried object. Inside a scene, the s4-shot-2 to s4-shot-3 hand-off (top-view printer to side-view printer) changes the hero's orientation at its key moment.\"\n      },\n      \"notes\": \"Every code-proven blocker from round 1 is resolved for B too. B's paid-line now uses a travel-eased push-in that rests on the printer before the arrival, which replaces round 1's icon-scale relationship. The correction introduces no new code-proven mandatory defect. Carried to the phone review: plan-view recognition in the s1 hook, whether the top-to-side printer reorientation at 25.813 s reads at normal speed, and the cook's handle hand, which falls outside the right edge in flame-close (handle at about x 1161), so the toss there is carried by the visible pan rocking and the pour by an arm entering from off-frame. The same s9 board prose housekeeping and the same unbound tablet claim apply as in A. The treatment-divergence note from round 1 stands: B mainly re-views A's events from above. On code evidence A's construction remains preferable, but the selection belongs to the phone comparison. action_reviews is empty because the board has no action_proposals. This code pass authorizes only the funded capture. It approves no pixels or film.\"\n    }\n  },\n  \"consolidated_correction\": \"No code-proven mandatory defect remains in either treatment, so both code verdicts are pass. Optional housekeeping only: make s9's stale 'hunting viewfinder' prose (visual_sentence.subject, hero, mute_takeaway, must_show concept, carry) match the implemented hesitate-and-lower action, and consider binding the Click2Houston tablet quote as a verified claim behind the standing panel. Everything listed as carried to the phone review stays with the mandatory current-film, native, audiovisual and scoring gates. This code verdict approves no film.\"\n}",
+  "packet_sha256": "a28335ceb0bd21b2b4049a2a92d87f274eff7356f8881553547406d638c7c949",
+  "production_finished": false,
+  "report": {
+    "binding_verification": "Read-only worker, so no SHA256 could be computed here. Every digest below is copied unchanged from code_report_bindings in critic-packet-2.json. What I could check is that the packet's own values agree with each other: the packet board sha 8d35c966... equals the opening-a treatment sha, and both treatments share renderer digest 19a3bdee... The claims sha c08c157a... is the same as in round 1, so claims.json did not change. Every bound guide and contract hash in packet 2 is identical to packet 1, so the guides I read in full in round 1 are byte-identical. The changed inputs, which I reread in full this round, are OrderPassFilm.tsx, OrderRigHero.tsx (a34732...), RestaurantSupport.tsx (271392...) and both boards.",
+    "code_reports": {
+      "a": {
+        "action_reviews": [],
+        "blocking_defects": [],
+        "board": {
+          "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-a.json",
+          "sha256": "8d35c966e8c2e6253d9464149eec67ea5755d6ba44c05847afbc666784cee275"
+        },
+        "concept_sha256": "673bed7dbca942f48a242947fb95097bc4355783114d52b77cd70b1e84f473d8",
+        "narration_picture_observations": {
+          "clauses": [
+            {
+              "end_s": 4.53,
+              "id": "n1a",
+              "observed": "Code plan: the door swings shut with the bell (0.48 to 1.33 s) and the left-behind apron swings on the stand hook, then the desk phone rattles from 2.505 s. No sliding figure remains.",
+              "pass": true,
+              "start_s": 0.48
+            },
+            {
+              "end_s": 7.38,
+              "id": "n1b",
+              "observed": "Code plan: the plates are empty and one guest raises a hand holding an open menu while the pad curls and falls back blank.",
+              "pass": true,
+              "start_s": 4.83
+            },
+            {
+              "end_s": 10.59,
+              "id": "n2a",
+              "observed": "Code plan: an empty sign frame swings and settles on the glass with an unused pin.",
+              "pass": true,
+              "start_s": 8.04
+            },
+            {
+              "end_s": 15.24,
+              "id": "n2b",
+              "observed": "Code plan: the panel lights, writes Haniya, and the AI host tag hooks onto the eyelet.",
+              "pass": true,
+              "start_s": 10.89
+            },
+            {
+              "end_s": 18.75,
+              "id": "n3a",
+              "observed": "Code plan: a hand lifts the phone over the code, the brackets lock and the menu slides up. The table plate is empty.",
+              "pass": true,
+              "start_s": 15.9
+            },
+            {
+              "end_s": 21.0,
+              "id": "n3b",
+              "observed": "Code plan: a fingertip presses Chow mein and the row lights. 'Talks' is a static Talk button (note).",
+              "pass": true,
+              "start_s": 19.05
+            },
+            {
+              "end_s": 23.25,
+              "id": "n3c",
+              "observed": "Code plan: Pay morphs into the red paid mark and Paid appears.",
+              "pass": true,
+              "start_s": 21.3
+            },
+            {
+              "end_s": 27.06,
+              "id": "n4",
+              "observed": "Code plan: an empty, unlit wok beside the idle printer. The paid mark arrives and the lamp turns red inside paid-line. The ticket prints, is gripped and cut inside ticket-print. Then a cook's bowl pours the noodles as the flame flares (26.56 to 27.06 s), and the pan-driven toss follows from 27.14 s, after the clause ends.",
+              "pass": true,
+              "start_s": 23.91
+            },
+            {
+              "end_s": 32.27,
+              "id": "n5a",
+              "observed": "Code plan: the ledger card slides on and the $9,650 a month tag lands. Unchanged.",
+              "pass": true,
+              "start_s": 28.22
+            },
+            {
+              "end_s": 34.52,
+              "id": "n5b",
+              "observed": "Code plan: the OWNER COUNT stamp presses and lifts, and the clip snaps on nothing. Unchanged.",
+              "pass": true,
+              "start_s": 32.57
+            },
+            {
+              "end_s": 39.23,
+              "id": "n6",
+              "observed": "Code plan: coins arc from the paid phone into the jar and the FOX 26 tag hooks on. This is a disclosed metaphor (note). Window shifted +0.5 s with the longer s4; exact boundaries come from the board.",
+              "pass": true,
+              "start_s": 35.18
+            },
+            {
+              "end_s": 42.44,
+              "id": "n7a",
+              "observed": "Code plan: the rule card slides on and its box draws, empty.",
+              "pass": true,
+              "start_s": 39.89
+            },
+            {
+              "end_s": 45.59,
+              "id": "n7b",
+              "observed": "Code plan: the cooks band lights and the pen circles the line and the box.",
+              "pass": true,
+              "start_s": 42.74
+            },
+            {
+              "end_s": 49.1,
+              "id": "n8",
+              "observed": "Code plan: the folder slides beside the circled rule card and opens, the box stays blank and a question mark draws.",
+              "pass": true,
+              "start_s": 46.25
+            },
+            {
+              "end_s": 53.51,
+              "id": "n9",
+              "observed": "Code plan: a hand raises the phone toward the code, wavers and lowers it unscanned. The quote card lands beside the phone lying on the table, and its screen dims.",
+              "pass": true,
+              "start_s": 49.76
+            },
+            {
+              "end_s": 56.42,
+              "id": "n10a",
+              "observed": "Code plan: an order card slides up the panel and a slip arcs to the printer.",
+              "pass": true,
+              "start_s": 54.17
+            },
+            {
+              "end_s": 60.17,
+              "id": "n10b",
+              "observed": "Code plan: the owner says tag hooks on, then 'no record shown' settles in a held wide shot at 44 px.",
+              "pass": true,
+              "start_s": 56.72
+            }
+          ],
+          "scope": "code-plan, provisional authored clause windows, no film bytes"
+        },
+        "notes": "Every code-proven blocker from round 1 is resolved in the callable source and boards (see prior_defect_verification). The correction introduces no new code-proven mandatory defect. Carried to the mandatory phone, native and audiovisual reviews, without blocking: (1) the 0.70 s ticket-print detail and its roughly 0.15 s completed hold must read at normal speed. (2) In wok-flare the cook's handle hand sits near the right frame edge (about x 998 to 1094 at y 930) and the bowl arm enters from off-frame, so confirm the pour and the pan-driven toss read as one cook's action. (3) In the final jar-no-record wide shot the printer sits at x 1050 and is partly cropped by the frame edge. That is acceptable because the tags carry the answer, but check the composition. (4) s6's cash flying out of the phone into a glass jar remains a disclosed metaphor. (5) In s6 coins-drop and jar-fills the background wok is loaded and lit with no cook, which is acceptable after payment but static. Non-blocking housekeeping: s9's visual_sentence.subject, hero, visual_proof.mute_takeaway and must_show concept ('phone hunting on a table code'), plus the film_direction carry text, still describe a hunting or non-locking viewfinder. The implemented action is now a hesitation and lowering, so make that prose match the corrected events. Binding the Click2Houston tablet quote as a verified claim behind the standing panel is still recommended. Source, numeral, region and disclosure checks pass as in round 1. Runtime is now 60.47 s, s4 is 4.31 s, the longest shot is 3.51 s, and the s4 to s5 reward gap is about 1.8 s. action_reviews is empty because the board has no action_proposals. This code pass authorizes only the funded capture. It approves no pixels or film.",
+        "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+        "renderer_sha256": "19a3bdeeb0442afb12812b0489311616681e6a9210564210364a5192e41a9cfa",
+        "review_scope": "code-plan",
+        "reviewed_at": "2026-10-26 (this Read-only reviewer has no host clock, so only the date is given)",
+        "reviewer_identity": "claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director",
+        "story_review": {
+          "blocking_defects": [],
+          "claims_sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
+          "one_viewing_summary": "Intended chain, reconstructed from the corrected code. The front door of a small Spring restaurant swings shut and the server's apron is left swinging on the stand. The phone rings unanswered and a guest with an open menu raises a hand over empty plates while the order pad stays blank. With no job ad in the window, a lit host panel named Haniya takes the front. A guest scans the table code, taps chow mein and pays. The paid mark reaches the kitchen printer and only then does its lamp turn red and a ticket print. Only after the ticket does a cook pour the noodles into the empty wok as the flame flares. The owner's $9,650 a month is stamped as his own count beside a bare clip. Coins fill a tip jar at the pass under a FOX 26 tag. A federal rule card ties a tip pool with cooks to taking no tip credit, and the restaurant's folder leaves that box blank. A customer hesitates and does not scan, beside her quoted remark. The panel takes another order and the jar ends under owner says and no record shown tags.",
+          "opening_to_ending": "The film opens on an unattended station whose unserved guests pose 'who takes the order'. It ends on the panel taking an order and the jar hanging under two attributions, answering that software takes the order and the tip rests on the owner's word, with no invented outcome. The pay-first turn is now causally ordered in the source: cold wok, then mark arrival, then lamp, then ticket, then the cook pours and the flame rises.",
+          "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+          "story_sha256": "75399c3b6f895a98cfdc196e462bcecea3d65f61389608ec5fe3288be80f81d2",
+          "verdict": "pass",
+          "weakest_transition": "s8 to s9, from the blank tip-credit box on the back desk to a hand hesitating over a phone at a table. This is now an honest hard cut, but the thread moves from the money limit to ordering friction before the close returns to the jar. The handoff is understandable but adds no carried object."
+        },
+        "strongest_frame": "s4-shot-2 paid-line, 24.553 to 25.813 s. The paid mark leaves the held phone's Paid button, travels the dashed arc and shrinks into the printer slot at 25.52 s. The standby lamp turns red in the same frame and holds before the cut. This is the film's pay-first proof as one readable cause and effect. s3-shot-2 menu-tap (19.05 to 21.30 s) remains the strongest human action.",
+        "treatment": "a",
+        "verdict": "pass",
+        "weakest_frame": "s4-shot-3 ticket-print, 25.813 to 26.510 s. The ticket rises, is gripped and is cut inside this 0.70 s detail, but its completed state holds only about 0.15 s before the continuous cut to wok-flare. The ticket stays on the rail in that wider shot at printer scale 0.78. Readability at normal speed is unresolved until the phone review."
+      },
+      "b": {
+        "action_reviews": [],
+        "blocking_defects": [],
+        "board": {
+          "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b.json",
+          "sha256": "cbf1eb35970d3f9a8ed7c10d9f68f348653555a879e82a184a56d6b9f12d9a3f"
+        },
+        "concept_sha256": "6279ca5ee518b6fcbb32c1feb2c21c8a18ed11b44c97f8b866b67730ef4cfdb5",
+        "narration_picture_observations": {
+          "clauses": [
+            {
+              "end_s": 4.53,
+              "id": "n1a",
+              "observed": "Code plan: in the plan the door leaf swings shut, the bell rings and footprints lead out. The tables have empty plates. Then a medium shot of the drawn apron and the ringing phone. Plan-object recognition is unresolved until the phone review.",
+              "pass": true,
+              "start_s": 0.48
+            },
+            {
+              "end_s": 7.38,
+              "id": "n1b",
+              "observed": "Code plan: the pad curls blank in the foreground while a guest with an open menu raises a hand over empty plates.",
+              "pass": true,
+              "start_s": 4.83
+            },
+            {
+              "end_s": 10.59,
+              "id": "n2a",
+              "observed": "Code plan: a wide storefront with the empty sign frame swinging.",
+              "pass": true,
+              "start_s": 8.04
+            },
+            {
+              "end_s": 15.24,
+              "id": "n2b",
+              "observed": "Code plan: the panel lights with Haniya beside the stand, and the AI host tag hooks on.",
+              "pass": true,
+              "start_s": 10.89
+            },
+            {
+              "end_s": 18.75,
+              "id": "n3a",
+              "observed": "Code plan: overhead, the phone is lifted over the top-view code, locks and the menu slides up. The table plate is empty.",
+              "pass": true,
+              "start_s": 15.9
+            },
+            {
+              "end_s": 21.0,
+              "id": "n3b",
+              "observed": "Code plan: a guest taps Chow mein, which lights. Talk is a static button.",
+              "pass": true,
+              "start_s": 19.05
+            },
+            {
+              "end_s": 23.25,
+              "id": "n3c",
+              "observed": "Code plan: a detail of Pay turning into the paid mark.",
+              "pass": true,
+              "start_s": 21.3
+            },
+            {
+              "end_s": 27.06,
+              "id": "n4",
+              "observed": "Code plan: a wide pass with an empty, unlit wok. The mark crosses the plan as the camera eases down onto the top-view printer, and the mark enters the slot and the lamp answers while at rest, inside the shot. In a side close the ticket prints, is gripped and cut. A flame-close detail shows the cook's bowl pouring as the flame flares, with the pan rocking after.",
+              "pass": true,
+              "start_s": 23.91
+            },
+            {
+              "end_s": 32.27,
+              "id": "n5a",
+              "observed": "Code plan: top views of the ledger card and the $9,650 tag.",
+              "pass": true,
+              "start_s": 28.22
+            },
+            {
+              "end_s": 34.52,
+              "id": "n5b",
+              "observed": "Code plan: a top-view stamp presses, and the bench clip snaps on nothing.",
+              "pass": true,
+              "start_s": 32.57
+            },
+            {
+              "end_s": 39.23,
+              "id": "n6",
+              "observed": "Code plan: overhead, coins slide from the phone to the jar, the pile rises and the FOX 26 tag hooks on. This is a disclosed metaphor. Window shifted +0.5 s with the longer s4.",
+              "pass": true,
+              "start_s": 35.18
+            },
+            {
+              "end_s": 42.44,
+              "id": "n7a",
+              "observed": "Code plan: a top view of the rule card sliding on with its box drawing.",
+              "pass": true,
+              "start_s": 39.89
+            },
+            {
+              "end_s": 45.59,
+              "id": "n7b",
+              "observed": "Code plan: the cooks line lights and the pen circles it.",
+              "pass": true,
+              "start_s": 42.74
+            },
+            {
+              "end_s": 49.1,
+              "id": "n8",
+              "observed": "Code plan: the folder slides in, opens, the box stays blank and a question mark draws.",
+              "pass": true,
+              "start_s": 46.25
+            },
+            {
+              "end_s": 53.51,
+              "id": "n9",
+              "observed": "Code plan: overhead, a hand raises the phone, wavers and lowers it unscanned. The phone then lies on the table, the quote card drops beside it and the screen dims.",
+              "pass": true,
+              "start_s": 49.76
+            },
+            {
+              "end_s": 56.42,
+              "id": "n10a",
+              "observed": "Code plan: a wide shot of the panel taking an order with the slip arcing to the printer. The elements are small, so recognition is unresolved until the phone review.",
+              "pass": true,
+              "start_s": 54.17
+            },
+            {
+              "end_s": 60.17,
+              "id": "n10b",
+              "observed": "Code plan: the owner says tag hooks on, then a held detail as 'no record shown' settles at 52 px.",
+              "pass": true,
+              "start_s": 56.72
+            }
+          ],
+          "scope": "code-plan, provisional authored clause windows, no film bytes"
+        },
+        "notes": "Every code-proven blocker from round 1 is resolved for B too. B's paid-line now uses a travel-eased push-in that rests on the printer before the arrival, which replaces round 1's icon-scale relationship. The correction introduces no new code-proven mandatory defect. Carried to the phone review: plan-view recognition in the s1 hook, whether the top-to-side printer reorientation at 25.813 s reads at normal speed, and the cook's handle hand, which falls outside the right edge in flame-close (handle at about x 1161), so the toss there is carried by the visible pan rocking and the pour by an arm entering from off-frame. The same s9 board prose housekeeping and the same unbound tablet claim apply as in A. The treatment-divergence note from round 1 stands: B mainly re-views A's events from above. On code evidence A's construction remains preferable, but the selection belongs to the phone comparison. action_reviews is empty because the board has no action_proposals. This code pass authorizes only the funded capture. It approves no pixels or film.",
+        "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+        "renderer_sha256": "19a3bdeeb0442afb12812b0489311616681e6a9210564210364a5192e41a9cfa",
+        "review_scope": "code-plan",
+        "reviewed_at": "2026-10-26 (this Read-only reviewer has no host clock, so only the date is given)",
+        "reviewer_identity": "claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director",
+        "story_review": {
+          "blocking_defects": [],
+          "claims_sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
+          "one_viewing_summary": "Intended chain, reconstructed from the corrected code. The same causal story as A, read largely from above. A floor plan shows the door closing and footprints leaving the stand, the phone rings, and a guest with a menu waits over empty plates. The panel lights with Haniya. A top view of the table shows the scan, a guest taps chow mein and Pay becomes the paid mark. The mark crosses the room plan and the camera settles on the printer, whose lamp answers the mark. A side close shows the ticket printing. A cook's bowl pours noodles into the wok as the flame flares and the pan rocks. The owner count and bare clip are seen from above. Coins slide into the jar under a FOX 26 tag. The rule card and the blank folder box follow. A customer lowers her phone unscanned beside her quote. The film closes on the jar's two tags.",
+          "opening_to_ending": "The film opens on a diagram of the abandoned station and closes on a large legible detail of the two attribution tags, answering the question and stating the limit. The pay-first order is now causal and readable in the source. Whether the plan opening hooks a viewer at phone size is unresolved until the phone review.",
+          "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+          "story_sha256": "1cd96e2d2efcc227c913e505e5601031f163cc288f48a74496a87627b0f88919",
+          "verdict": "pass",
+          "weakest_transition": "s8 to s9, as in A: an honest hard cut from the money limit to ordering friction with no carried object. Inside a scene, the s4-shot-2 to s4-shot-3 hand-off (top-view printer to side-view printer) changes the hero's orientation at its key moment."
+        },
+        "strongest_frame": "s10-shot-3 tags-close, 58.22 to 60.47 s. The jar is at scale 2.3 under the printed ticket, the owner says tag hangs, and 'no record shown' (52 px) settles beneath it. This is a large held answer that also states the limit.",
+        "treatment": "b",
+        "verdict": "pass",
+        "weakest_frame": "s1-shot-1 floor-plan, 0 to 2.455 s. The hook is a top-down room plan in which the apron, phone and pad are plain rectangles of about 28 x 60, 52 x 32 and 40 x 52 px, and the walkout reads only through the door leaf's swing and fading footprints. First-frame recognition is unresolved until the phone review. Inside s4, the hand-off from paid-line's top-view push-in to ticket-print's side view (25.813 s) also reorients the printer at the key moment."
+      }
+    },
+    "consolidated_correction": "No code-proven mandatory defect remains in either treatment, so both code verdicts are pass. Optional housekeeping only: make s9's stale 'hunting viewfinder' prose (visual_sentence.subject, hero, mute_takeaway, must_show concept, carry) match the implemented hesitate-and-lower action, and consider binding the Click2Houston tablet quote as a verified claim behind the standing panel. Everything listed as carried to the phone review stays with the mandatory current-film, native, audiovisual and scoring gates. This code verdict approves no film.",
+    "coverage": {
+      "guides": "All bound guides and contracts have hashes unchanged from packet 1 and were read in full in round 1. Their requirements are applied again here.",
+      "not_reread": "I did not reread the unchanged-looking board sections (attention_beats, captions, native_media, renderer_inputs) or the B scenes other than s4 line by line. The one B difference I confirmed is that s4-shot-2 is now framed close. Packet 2 binds the current bytes.",
+      "pixels": "None. This is code scope and capture.allowed is false.",
+      "reread_this_round": [
+        "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx (full)",
+        "video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx (lines 250 to 563, the printer, rail, ticket, wok, cook bowl, jar and plan pieces; the phone, hand and code sections are carried from round 1)",
+        "video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx (full)",
+        "out/dispatch/opening-a.json (header, scene s4, scene s9, film_direction shots and s4 rewards, narration n4 to n5b, story_contract, cinematic_contract, cinema)",
+        "out/dispatch/opening-b.json (header, scene s4, film_direction shots s1 to s5, story_contract transitions)"
+      ]
+    },
+    "packet_sha256": "a28335ceb0bd21b2b4049a2a92d87f274eff7356f8881553547406d638c7c949",
+    "prior_defect_verification": [
+      {
+        "evidence": "The Wok in OrderRigHero now has flame and food props: flame 0 draws no tongues ('fl<=.001?[]') and food 0 draws no noodles. printer-idle and pass-wide pass wokCold {flame:0, food:0} and no longer place a plate on the pass. B's ticket-print also uses wokCold. Food enters only during s4-event-4 (26.56 to 27.06 s), when CookBowl pours (pour from 26.635 s, food from 26.685 to 26.935 s) while the flame rises with P(s4-event-4). The toss is now driven by the pan's own shake (panTilt = 7 x shake, toss from the same phase) after 27.14 s, with the cook's hand drawn on the handle.",
+        "original_defect": "s4: food already cooking before payment (noodles in a lit wok, plated rice on the pass)",
+        "status": "resolved in source",
+        "treatments": [
+          "a",
+          "b"
+        ]
+      },
+      {
+        "evidence": "s4 now runs 4.31 s. s4-event-2 spans 24.603 to 25.548 s, so arrive = 25.520 s and the lamp ramps from 25.520 to 25.640 s, all inside paid-line (24.553 to 25.813 s), with about 0.17 s of red-lamp hold before the cut. Printing runs 25.863 to 26.251 s and the cut completes at 26.362 s (cutEnd = pStart + 0.72 x d3), inside ticket-print (25.813 to 26.510 s), and the ticket then hangs. B's paid-line now pushes in with ease5 to PAID_ZOOM 4.4 on the top-view printer between 10% and 90% of the event, so it is at rest before the arrival, with the slot about 300 px wide, a lamp of about 16 px radius with up to about 54 px of glow, and a mark of about 66 px radius. Whether this reads at phone size and normal speed is for the phone review.",
+        "original_defect": "s4: paid-mark arrival and lamp answer cut away, and the ticket's result finishing after its shot",
+        "status": "resolved in source",
+        "treatments": [
+          "a",
+          "b"
+        ]
+      },
+      {
+        "evidence": "Plate now defaults to food 'none' (an empty plate with napkin and chopsticks), tableGroup defaults to ['none','none'], TableTop defaults to ['none','none'], and tableTopBig draws an empty plate. The raised-hand guest in blank-pad-tables and table-wait now holds an open menu (menu:true). The code-scan, menu-tap and viewfinder-hunt plates are empty. Food appears only after cooking (the s6 pass plate with noodles, and wokOn).",
+        "original_defect": "s1: the waiting tables already served",
+        "status": "resolved in source",
+        "treatments": [
+          "a",
+          "b"
+        ]
+      },
+      {
+        "evidence": "door-apron no longer draws the departing figure. The door shutting with its bell and the left-behind apron swinging carry the walkout. Clause n1a stays bound to s1-door, s1-apron and s1-phone.",
+        "original_defect": "s1 (A): walkout performed by a sliding figure with static legs",
+        "status": "resolved in source",
+        "treatments": [
+          "a"
+        ]
+      },
+      {
+        "evidence": "The bridges now describe the actual hard cuts truthfully, for example 'Cut from the flaring wok at the pass to a ledger card sliding onto the back desk'. The one continuous bridge, s7 to s8 (the lit and circled rule card stays while the folder slides in), is implemented in blank-folder and folder-wide.",
+        "original_defect": "Housekeeping: story_contract visible_bridges that were not implemented",
+        "status": "resolved",
+        "treatments": [
+          "a",
+          "b"
+        ]
+      },
+      {
+        "evidence": "s9-event-1 now raises the phone toward the code, wavers and lowers it without scanning (up rises then falls, with a 1.6 Hz waver during the pause, brackets wide and never closing). The phone then lies on the table while the quote card lands, and its screen dims (dim from P(s9-event-3)). The board's visual_events and story_contract were updated to match.",
+        "original_defect": "Note: the s9 hunting viewfinder could read as a scanning malfunction",
+        "status": "addressed",
+        "treatments": [
+          "a",
+          "b"
+        ]
+      },
+      {
+        "evidence": "The jar-no-record tags are now 44 px (about 16 px at 390-px phone width), and the tags-close tags in B are 52 px. Final legibility is still judged on pixels.",
+        "original_defect": "Note: A's final tag legibility",
+        "status": "improved",
+        "treatments": [
+          "a"
+        ]
+      },
+      {
+        "evidence": "The claims.json bytes are unchanged. The panel is supported by fetched source text but has no bound claim.",
+        "original_defect": "Note: bind the Click2Houston tablet quote as a claim behind the standing host panel",
+        "status": "still open (non-blocking)",
+        "treatments": [
+          "a",
+          "b"
+        ]
+      }
+    ],
+    "review_round": "second paid review (code re-review after the consolidated correction). My first response is retained unchanged at out/dispatch/retained-failures/code-review-1.json, and its REVISE verdict stays on record.",
+    "review_scope": "code-plan",
+    "reviewed_at": "2026-10-26 (this Read-only reviewer has no host clock, so only the date is given)",
+    "reviewer_identity": "claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director",
+    "role": "storyboard-critic",
+    "schema": "dispatch_claude_code_report_bindings/1",
+    "verdict": "pass"
+  },
+  "reservation_sha256": "59d8130bdc1b95cfcc86fcfdcc69e282357a8908859e053d7a302298527cfd61",
+  "role": "storyboard-critic",
+  "run_id": "2026-10-26",
+  "schema": "dispatch_native_critic_completion/1",
+  "session_sha256": "fb629625757c1c0faeba13550a523cfd71b4d6e8ef384a3ad5eb1ebf7ccb1f1d"
+}
