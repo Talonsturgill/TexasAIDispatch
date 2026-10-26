@@ -82,11 +82,18 @@ def motion_output_precheck(tokens, here, package):
         raise ValueError('motion output must stay inside the owned board review package; no capture charged')
 
 
-def opening_output_precheck(package):
+# The combined fourth review must verify the original third review's image coverage, and that
+# coverage is bound to these exact sequence directories. They are the only entries a combined
+# capture may find already in place; every comparison, film, board and receipt must be retained.
+ORIGINAL_SEQUENCES = ('motion-a', 'motion-b')
+
+
+def opening_output_precheck(package, retained=()):
     """Never buy a replacement batch over retained or partial comparison evidence."""
     output = Path(package) / 'openings'
     if output.is_symlink() or (output.exists() and
-            (not output.is_dir() or any(output.iterdir()))):
+            (not output.is_dir() or any(item.name not in retained or item.is_symlink() or not item.is_dir()
+                                        for item in output.iterdir()))):
         raise ValueError('opening comparison output already exists; verify and reuse a current pair, '
                          'or retain the entire old package in edition evidence before preparing '
                          'a changed batch; no capture charged')
@@ -131,7 +138,7 @@ def prepare(root, state_path, commands, resource=None):
                     raise ValueError('prepared ' + flag + ' must use the canonical current input')
             if not {'--root', '--state'}.issubset(supplied):
                 raise ValueError('prepared comparison needs explicit canonical --root and --state')
-            opening_output_precheck(root / 'out/dispatch')
+            opening_output_precheck(root / 'out/dispatch', ORIGINAL_SEQUENCES if '--combined-code-review' in supplied else ())
             from opening_compare import owned_boards
             owned_boards(root / 'out/dispatch', state_path)
             if '--combined-code-review' in supplied and '--builder-proof' in supplied:
