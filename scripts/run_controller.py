@@ -2445,7 +2445,7 @@ def main() -> int:
             result = production_budget_precheck(budget_state, a.review_route, phone_complete,
                                                hero_rejected, context_ready, structural_ready, minimum_action_failed,
                                                mandatory_repair, review_coverage, modern_code_repair,
-                                               state_path=state_path)
+                                               state_path=state_path, repair_plan=budget_plan)
             if a.repair_plan:
                 from capture_completion_budget import apply_budget
                 result = apply_budget(budget_state, budget_plan, result)

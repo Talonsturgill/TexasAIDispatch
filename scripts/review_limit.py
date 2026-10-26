@@ -7,6 +7,7 @@ POLICY = Path(__file__).resolve().parents[1] / 'config/review_limit.json'
 MAX_ROUNDS = 5
 FINAL_PACKET_FROM = '2026-10-24'
 PATH_BUDGET_FROM = '2026-10-25'
+REPAIR_FORECAST_FROM = '2026-10-26'
 POLICY_FIELDS = {'schema', 'effective_date', 'max_review_rounds', 'counted_resource',
                  'counting_rule', 'completion_rule', 'extensions_allowed', 'authorization'}
 
@@ -118,13 +119,42 @@ def review_evidence(state, state_path=None):
     return complete, errors
 
 
-def remaining_review_path(state, state_path=None, packet=None, charged=False):
+def repair_forecast_enabled(state):
+    return path_budget_enabled(state) and str(state.get('run_id', ''))[:10] >= REPAIR_FORECAST_FROM
+
+
+def planned_invalidations(state, plan):
+    """A planned correction cannot spend approval of the bytes it is about to replace."""
+    if not repair_forecast_enabled(state) or not plan or not plan.get('changed_inputs'):
+        return []
+    scope = plan.get('repair_scope', 'standard')
+    if scope == 'review-context':
+        return []  # Its existing frozen-input gate permits only the hero excerpt window.
+    if scope == 'narration-performance':
+        return ['timed_phone']  # Direction preserves picture; new measured timing still needs inspection.
+    if scope == 'technical-integrity':
+        # Container/delivery repairs keep their existing independent classification. A
+        # renderer, drawing, board or claim edit still replaces reviewed picture inputs.
+        names = {'storyboard.json', 'opening-a.json', 'opening-b.json', 'claims.json', 'vo_script.txt'}
+        picture = any(Path(str(row.get('path', ''))).name in names
+            or '/video-engine/' in str(row.get('path', '')).replace('\\', '/')
+            or Path(str(row.get('path', ''))).suffix.lower() in
+                {'.tsx', '.ts', '.jsx', '.js', '.svg', '.png', '.jpg', '.jpeg', '.webp', '.gif'}
+            for row in plan['changed_inputs'])
+        if not picture:
+            return []
+    return ['code', 'comparison', 'timed_phone']
+
+
+def remaining_review_path(state, state_path=None, packet=None, charged=False, *, repair_plan=None):
     """Price the actual remaining gates, optionally including one proposed/charged call.
 
     This does not approve a report or change the frozen envelope. A charged replan pays
     for its call only once; its still-unreturned result cannot complete any other gate.
     """
     complete, errors = review_evidence(state, state_path)
+    invalidated = planned_invalidations(state, repair_plan)
+    complete.update({name: False for name in invalidated})
     pending = [name for name, passed in complete.items() if not passed]
     spent = used(state)
     remaining = max(0, MAX_ROUNDS - spent)
@@ -174,7 +204,8 @@ def remaining_review_path(state, state_path=None, packet=None, charged=False):
     return {'used': spent, 'ceiling': MAX_ROUNDS, 'remaining': remaining,
             'completed': complete, 'pending': pending, 'ordinary_required': ordinary,
             'required': required, 'route': route, 'combined_eligible': combined,
-            'feasible': required <= remaining and not errors, 'errors': errors}
+            'feasible': required <= remaining and not errors, 'errors': errors,
+            **({'invalidated': invalidated} if repair_plan is not None else {})}
 
 
 def path_problems(path):
@@ -305,7 +336,15 @@ def reservation_problems(state, amounts, *, state_path=None, packet_path=None):
                     packet = {'role': 'storyboard-critic', 'review_scope': 'code-plan'}
             except (OSError, ValueError, TypeError) as exc:
                 return ['review packet is unavailable before reservation: ' + str(exc)]
-        return path_problems(remaining_review_path(state, state_path, packet))
+        repair = None
+        if amounts.get('reboards') and repair_forecast_enabled(state):
+            active = state.get('active_repair') or {}
+            # Baselines are already bound by begin-repair. Do not trust a mutable
+            # plan file to omit a reviewed input while reserving the correction.
+            repair = {'repair_scope': active.get('repair_scope', 'standard'),
+                      'changed_inputs': active.get('baselines') or
+                                        ([{'path': 'unbound-corrective-input'}] if used(state) else [])}
+        return path_problems(remaining_review_path(state, state_path, packet, repair_plan=repair))
     return []
 
 

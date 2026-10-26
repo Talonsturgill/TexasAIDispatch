@@ -189,10 +189,14 @@ Before voice, resolve every structural or source defect through prompts/phases/r
 
 ### Combined fourth review under the hard five
 
-For October 25th onward, if three code attempts have left a genuine independent rejection,
-do not spend a fourth code-only call and strand the silent comparison. Run the current
-production-budget check. The supported combined route requires the original latest critic
-handback and native completion receipt, and an evidence-bound consolidated correction.
+After three paid attempts, the latest genuine rejection may be a code review or a silent
+comparison following both code approvals. A renderer correction invalidates those earlier
+code approvals as well as the rejected comparison. Before editing or reserving the builder,
+budget both corrected-code and corrected-film review plus the separate measured phone check.
+Do not spend a fourth code-only call and strand the film. The existing combined fourth route
+requires the original latest handback, native completion receipt and a bound correction.
+For a comparison rejection, retain the original prior code PASS responses, both phone reports,
+the rejected selection, verified image coverage and every original guarded observation.
 Missing original evidence is not a pass or permission for a new call.
 
 When two corrections have already failed the same mechanism, the ordinary third code packet
@@ -215,6 +219,13 @@ and state. This explicitly captures diagnostic A/B previews before code approval
 source, rights, structural, caption, headroom, capture authorization and reservation checks.
 The diagnostic receipt authorizes no narration, selection, native film or shipment. Retain
 all previous outputs before preparing changed inputs; never overwrite rejected evidence.
+Keep the original prior-code and third-phone packets, claims, coverage, sequence indexes,
+image pages, guarded observations and repair-bound handback at their original paths. The
+whole `phone-compare-handback.json` remains the repair's exact failure evidence. Archive only
+the comparison, films and extracted report slots before replacing them. Use fresh fourth
+outputs: `critic-fourth-packet.json`, `phone-fourth-critic-packet.json`,
+`phone-fourth-coverage.json` and `openings/motion-fourth-a` / `openings/motion-fourth-b`.
+Never move or overwrite a packet or sequence still bound by an original review.
 
 Extract both complete chronological phone sequences through the ordinary authorized path.
 Build the current critic packet and use `claude_runtime.py phone-packet --combined-code-review`
@@ -238,7 +249,8 @@ The importer retains the original reports and supplies no approval. Both ordinar
 code gates, full image coverage, comparison selection and exact-phone gates must pass before
 the chosen film advances. After selection, use the chosen board/film and the imported original
 `openings/combined-phone-review.json` for the ordinary phone check. The fifth attempt remains
-the separate measured final timed-phone review. A combined fourth rejection never authorizes
+the separate measured final timed-phone review, with fresh fifth packet, coverage and sequence
+paths that preserve the fourth review's bindings. A combined fourth rejection never authorizes
 a sixth review; retain its exact response and follow the strict infeasible-path procedure.
 
 Before voice or preview, include visual_research and complete native_media provenance under DAILY_PRODUCTION.md. Run the existing daily-production check and have the existing independent critic compare inserted media with the previous shipped edition. Use actual sites and source documents when they improve the shot. Preserve a tangible action

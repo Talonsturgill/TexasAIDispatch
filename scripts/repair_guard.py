@@ -237,7 +237,7 @@ def budget_deficits(rows):
 def production_budget_precheck(state, review_route="host", phone_complete=False,
                                hero_rejected=False, context_ready=False, structural_ready=False,
                                minimum_action_failed=False, mandatory_repair=False, review_coverage=False,
-                               modern_code_repair=False, state_path=None):
+                               modern_code_repair=False, state_path=None, repair_plan=None):
     """Read-only complete remaining review path, including the final timed phone."""
     from manual_codex_repair import budget
     manual = budget(state, review_route)
@@ -293,8 +293,22 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
     from review_limit import path_budget_enabled, remaining_review_path, MAX_ROUNDS
     review_path = None
     if path_budget_enabled(snapshot):
-        review_path = remaining_review_path(snapshot, state_path)
+        review_path = remaining_review_path(snapshot, state_path, repair_plan=repair_plan)
         required['storyboard_critics'] = review_path['required']
+        if str(snapshot.get('run_id', ''))[:10] >= '2026-10-26':
+            # Prepared operators charge once: paired render + two image sequences;
+            # timed preview + its sequence; native hero/stages + final-film sequence.
+            # Keep any larger existing integrity/retry reserve and historical charges.
+            captures = (3 * int('comparison' in review_path['pending'])
+                        + 2 * int('timed_phone' in review_path['pending']) + 2)
+            required['preflight_renders'] = max(required['preflight_renders'], captures)
+            if (repair_plan and repair_plan.get('changed_inputs')
+                    and repair_plan.get('repair_scope') != 'narration-performance'):
+                active = snapshot.get('active_repair') or {}
+                before = active.get('reboards_before')
+                paid = (type(before) is int and snapshot['usage'].get('reboards') == before + 1
+                        and active.get('failure_sha256') == repair_plan.get('failure_evidence_sha256'))
+                required['reboards'] = 0 if paid else max(required['reboards'], 1)
         # This spendable ceiling never rewrites the original frozen seven-call envelope.
         effective = {**effective, 'storyboard_critics': min(effective.get('storyboard_critics', 0), MAX_ROUNDS)}
     rows = {name: {"required": count, "ceiling": effective.get(name, 0),
