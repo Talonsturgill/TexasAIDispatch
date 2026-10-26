@@ -2175,10 +2175,10 @@
         "box-close",
         "circle-detail",
         "clip-bench",
+        "code-scan",
         "coins-drop",
         "cooks-line",
         "desk-ledger",
-        "desk-overhead",
         "door-apron",
         "empty-clip",
         "flame-close",
@@ -2188,15 +2188,12 @@
         "host-panel",
         "host-phone",
         "jar-fills",
-        "jar-medium",
         "jar-no-record",
         "jar-owner-tag",
-        "jar-side",
         "jar-tag",
         "ledger-corner",
         "ledger-slide",
         "ledger-tag",
-        "line-overhead",
         "menu-tap",
         "owner-stamp",
         "paid-close",
@@ -2206,20 +2203,12 @@
         "pass-wide",
         "pay-mark",
         "pen-circle",
-        "phone-over-code",
         "printer-idle",
         "quote-card",
         "quote-side",
-        "rail-ticket",
         "rule-card",
-        "screen-menu",
         "sign-window",
-        "stamp-close",
-        "stand-panel",
-        "stand-phone",
         "stand-wide",
-        "table-overhead",
-        "table-top",
         "table-wait",
         "tag-close",
         "tag-detail",
@@ -2236,7 +2225,6 @@
         "circle-detail",
         "cooks-line",
         "desk-ledger",
-        "desk-overhead",
         "folder-close",
         "folder-wide",
         "ledger-corner",
@@ -2322,6 +2310,18 @@
             "owner-count-no-receipts"
           ]
         },
+        "code-scan": {
+          "subject_ids": [
+            "s3-code",
+            "s3-dish",
+            "s3-menu",
+            "s3-pay",
+            "s3-phone"
+          ],
+          "action_ids": [
+            "scan-tap-pay"
+          ]
+        },
         "coins-drop": {
           "subject_ids": [
             "s6-coins",
@@ -2351,16 +2351,6 @@
           ],
           "action_ids": [
             "owner-count-no-receipts"
-          ]
-        },
-        "desk-overhead": {
-          "subject_ids": [
-            "s7-box",
-            "s7-cooks",
-            "s7-rule"
-          ],
-          "action_ids": [
-            "rule-box-cooks"
           ]
         },
         "door-apron": {
@@ -2461,17 +2451,6 @@
             "tips-to-kitchen-reported"
           ]
         },
-        "jar-medium": {
-          "subject_ids": [
-            "s10-jar",
-            "s10-panel",
-            "s10-record",
-            "s10-tag"
-          ],
-          "action_ids": [
-            "software-takes-order-tip-on-word"
-          ]
-        },
         "jar-no-record": {
           "subject_ids": [
             "s10-jar",
@@ -2492,17 +2471,6 @@
           ],
           "action_ids": [
             "software-takes-order-tip-on-word"
-          ]
-        },
-        "jar-side": {
-          "subject_ids": [
-            "s6-coins",
-            "s6-jar",
-            "s6-pass",
-            "s6-tag"
-          ],
-          "action_ids": [
-            "tips-to-kitchen-reported"
           ]
         },
         "jar-tag": {
@@ -2544,17 +2512,6 @@
           ],
           "action_ids": [
             "owner-count-no-receipts"
-          ]
-        },
-        "line-overhead": {
-          "subject_ids": [
-            "s4-paid",
-            "s4-pan",
-            "s4-printer",
-            "s4-ticket"
-          ],
-          "action_ids": [
-            "pay-first-then-cook"
           ]
         },
         "menu-tap": {
@@ -2657,18 +2614,6 @@
             "rule-box-cooks"
           ]
         },
-        "phone-over-code": {
-          "subject_ids": [
-            "s3-code",
-            "s3-dish",
-            "s3-menu",
-            "s3-pay",
-            "s3-phone"
-          ],
-          "action_ids": [
-            "scan-tap-pay"
-          ]
-        },
         "printer-idle": {
           "subject_ids": [
             "s4-paid",
@@ -2700,17 +2645,6 @@
             "qr-does-not-suit-everyone"
           ]
         },
-        "rail-ticket": {
-          "subject_ids": [
-            "s4-paid",
-            "s4-pan",
-            "s4-printer",
-            "s4-ticket"
-          ],
-          "action_ids": [
-            "pay-first-then-cook"
-          ]
-        },
         "rule-card": {
           "subject_ids": [
             "s7-box",
@@ -2719,18 +2653,6 @@
           ],
           "action_ids": [
             "rule-box-cooks"
-          ]
-        },
-        "screen-menu": {
-          "subject_ids": [
-            "s3-code",
-            "s3-dish",
-            "s3-menu",
-            "s3-pay",
-            "s3-phone"
-          ],
-          "action_ids": [
-            "scan-tap-pay"
           ]
         },
         "sign-window": {
@@ -2743,38 +2665,6 @@
             "no-ad-ai-host-installed"
           ]
         },
-        "stamp-close": {
-          "subject_ids": [
-            "s5-clip",
-            "s5-ledger",
-            "s5-stamp"
-          ],
-          "action_ids": [
-            "owner-count-no-receipts"
-          ]
-        },
-        "stand-panel": {
-          "subject_ids": [
-            "s2-frame",
-            "s2-panel",
-            "s2-tag"
-          ],
-          "action_ids": [
-            "no-ad-ai-host-installed"
-          ]
-        },
-        "stand-phone": {
-          "subject_ids": [
-            "s1-apron",
-            "s1-door",
-            "s1-pad",
-            "s1-phone",
-            "s1-tables"
-          ],
-          "action_ids": [
-            "server-walks-out"
-          ]
-        },
         "stand-wide": {
           "subject_ids": [
             "s10-jar",
@@ -2784,28 +2674,6 @@
           ],
           "action_ids": [
             "software-takes-order-tip-on-word"
-          ]
-        },
-        "table-overhead": {
-          "subject_ids": [
-            "s9-code",
-            "s9-phone",
-            "s9-quote"
-          ],
-          "action_ids": [
-            "qr-does-not-suit-everyone"
-          ]
-        },
-        "table-top": {
-          "subject_ids": [
-            "s3-code",
-            "s3-dish",
-            "s3-menu",
-            "s3-pay",
-            "s3-phone"
-          ],
-          "action_ids": [
-            "scan-tap-pay"
           ]
         },
         "table-wait": {
@@ -2901,15 +2769,13 @@
           "module": "video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx",
           "export": "OrderRigHero",
           "views": [
+            "code-scan",
             "coins-drop",
             "flame-close",
             "jar-fills",
-            "jar-medium",
             "jar-no-record",
             "jar-owner-tag",
-            "jar-side",
             "jar-tag",
-            "line-overhead",
             "menu-tap",
             "paid-close",
             "paid-line",
@@ -2917,12 +2783,8 @@
             "pass-overhead",
             "pass-wide",
             "pay-mark",
-            "phone-over-code",
             "printer-idle",
-            "rail-ticket",
-            "screen-menu",
             "stand-wide",
-            "table-top",
             "tag-close",
             "tags-close",
             "ticket-print",
@@ -2941,10 +2803,10 @@
             "box-close",
             "circle-detail",
             "clip-bench",
+            "code-scan",
             "coins-drop",
             "cooks-line",
             "desk-ledger",
-            "desk-overhead",
             "door-apron",
             "empty-clip",
             "flame-close",
@@ -2954,15 +2816,12 @@
             "host-panel",
             "host-phone",
             "jar-fills",
-            "jar-medium",
             "jar-no-record",
             "jar-owner-tag",
-            "jar-side",
             "jar-tag",
             "ledger-corner",
             "ledger-slide",
             "ledger-tag",
-            "line-overhead",
             "menu-tap",
             "owner-stamp",
             "paid-close",
@@ -2972,20 +2831,12 @@
             "pass-wide",
             "pay-mark",
             "pen-circle",
-            "phone-over-code",
             "printer-idle",
             "quote-card",
             "quote-side",
-            "rail-ticket",
             "rule-card",
-            "screen-menu",
             "sign-window",
-            "stamp-close",
-            "stand-panel",
-            "stand-phone",
             "stand-wide",
-            "table-overhead",
-            "table-top",
             "table-wait",
             "tag-close",
             "tag-detail",
