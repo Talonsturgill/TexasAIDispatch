@@ -1680,3 +1680,20 @@ while the same request from elsewhere got 200 throughout. A licence that was fin
 **What to check instead.** A 503 or a 429 says the server can't answer now and nothing about the page.
 The check asks twice more and then sets the page aside as unreachable, and a 404 is still a dead
 licence. Its self-test replays all three answers.
+
+## The paid critics were the pixel debugger
+
+October 26th, 2026. The 2026-10-25 edition spent its three code reviews on rig geometry and the
+2026-10-26 edition spent two reviews and then a silent comparison on a wok full before the ticket
+printed, served plates under a hook asking who takes the order, a hand that changed skin tone
+between cuts, a phone that teleported and a grey placeholder box. All of it shows in a rendered
+frame. The builder is forbidden to capture and the opening capture refused to run until both code
+reviews had passed, so the first pixel anyone saw was a paid review. A source fix after that then
+invalidated the earlier approvals and priced the corrected path at three reviews against two left.
+The cap of five was never too small for judgement. It was spent debugging.
+
+**What to check instead.** Look before paying. `opening_compare.py --builder-proof` is a guarded,
+charged preview capture that needs no critic report and writes the chronological phone pages in the
+same operation, so the builder reads them and fixes what any frame shows before a review is bought.
+Its receipt is marked, the real comparison refuses it, and `builder_proof_test.py` replays each
+refusal. It is bounded to two batches per edition and never counts as a review.

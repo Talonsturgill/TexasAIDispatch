@@ -72,6 +72,8 @@ def phone_inputs(state_path, option, board, film):
     if state.get('terminal_state') or data.get('date') != str(state.get('run_id', ''))[:10]:
         raise ValueError('phone motion review requires this active edition')
     comparison = output / 'comparison.json'; receipt = json.loads(comparison.read_text())
+    if receipt.get('builder_proof'):
+        raise ValueError('a builder proof already carries its own pages; it is never a paid review sequence')
     errors = opening_compare.inspection_problems(receipt, output)
     if errors:
         raise ValueError('; '.join(errors))

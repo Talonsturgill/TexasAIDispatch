@@ -9,6 +9,11 @@ charged assignment, never a renamed extra review. If the strict remaining-path p
 infeasible, retain the actual independent failure and use the failed-edition lifecycle without
 spending unused slots or requesting an extension. No quality gate or shipment condition changes.
 
+After a correction and before the corrected code or film is reviewed, run the builder proof
+(prompts/phases/02-picture.md) and let the builder read its pages: a correction is the most
+expensive place to find a defect a frame shows, because it re-opens the code, comparison and
+timed gates.
+
 Budget the state after the planned correction, before opening the repair or charging its
 builder. Source or board edits can invalidate an earlier code PASS and silent comparison;
 current approvals cannot fund reviews of changed inputs. A genuine third silent-comparison

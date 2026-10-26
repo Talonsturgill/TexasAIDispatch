@@ -85,7 +85,45 @@ code or phone review/preview reservations; it invokes the existing cheap gates, 
 actual output and returns failure if any gate fails. No render, model call or approval occurs.
 For editions from October 17th, the builder also checks composed camera/ground screen bounds
 and solves feasible framing intervals before hand-back as its role brief directs. Stop at
-the first framing that passes; use the reserved comparison to judge its actual pixels.
+the first framing that passes, then prove the pixels for free (next section). The paid critics
+judge taste and truth; they are not the place to discover that a wok is full before the order
+is paid.
+
+## Prove the pixels before any paid review
+
+The hard five reviews are for judgement, not debugging. Three editions in a row spent their
+slots on defects that any rendered frame shows (rig geometry never seen drawn, food cooking
+before the payment it waits for, served plates under a question about who will take the order,
+a guest whose hands changed skin tone across cuts, a phone that teleported between samples, a
+grey placeholder box). The builder can't capture, so nobody saw a pixel until a review was
+bought, and a source fix after a review also invalidates its approvals.
+
+Once both treatments pass picture_precheck.py, and before the first code review, the director
+runs one builder proof. It is a guarded, charged preview capture that needs no critic report,
+and it writes the phone pages itself, so there is no second extraction charge:
+
+```sh
+python scripts/builder_proof.py --state out/dispatch/run_state.json
+python scripts/capture_guard.py authorize --prepare --state out/dispatch/run_state.json --board out/dispatch/opening-a.json --board out/dispatch/opening-b.json --command "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --builder-proof"
+bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --builder-proof
+```
+
+It leaves `openings/a.mp4`, `openings/b.mp4` and `openings/proof-pages-a/` and `proof-pages-b/`
+(`sequence-NNN.png`, five samples per second, chronological). Its structural inspection
+is feedback, not a gate, and it exits 0. The receipt is marked `builder_proof`: the real
+comparison refuses it, it approves no treatment and it never counts as a review. Each edition
+may run it twice (`builder_proof.py`), and the controller's path funding still applies to its
+preview charge.
+
+Send the pages to the existing builder as a charged content correction on the same leaf. The
+builder reads every page of both treatments, one image per step, writes what each shows, and
+fixes in one consolidated pass. Check at least: a recurring figure, hand or object keeps one
+fill and one position across every cut; nothing appears, vanishes or jumps between adjacent
+samples without a performed move; no translucent or unfilled box floats over an object; the
+effect never precedes its cause (nothing cooked, served or stamped before the step it waits for);
+every contact closes in the frame; type is legible at 390 pixels and nothing covers the action.
+Retain the proof package under an unused evidence path before preparing the real comparison,
+because the comparison refuses occupied `openings/`. Then spend the first code review.
 
 ## Board fields and local checks
 

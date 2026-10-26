@@ -412,6 +412,8 @@ def opening_problems(board_path):
     try:
         root = board_path.parent / "openings"
         receipt = read(root / "comparison.json")
+        if receipt.get("builder_proof"):
+            return ["opening comparison is a builder proof; it approves no treatment and is never the paid comparison"]
         review = read(root / "selection.json")
         from critic_gate import renderer_digest
         errors = []
