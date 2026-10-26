@@ -365,11 +365,14 @@ export function tagSize(lines:string[],size:number){
  const w=Math.max(...lines.map(l=>widthOf(l,size,true)))+size*1.4,h=lines.length*size*1.22+size*.9+34;
  return {w,h};
 }
+/** The tag's outline about its hole, shared by the tag and by any shadow it casts, so the two always match. */
+export function tagPath(lines:string[],size:number){const {w,h}=tagSize(lines,size),ch=Math.min(26,w*.12),top=-18;
+ return `M${f2(-w/2+ch)} ${top}H${f2(w/2-ch)}L${f2(w/2)} ${top+ch}V${f2(top+h)}H${f2(-w/2)}V${top+ch}Z`;}
 const Tag:React.FC<{lines:string[];size:number;swing?:number;tone?:'kraft'|'cream'|'slate'}>=({lines,size,swing=0,tone='kraft'})=>{
- const {w,h}=tagSize(lines,size),ch=Math.min(26,w*.12),top=-18;
+ const {w,h}=tagSize(lines,size),top=-18;
  const fill=tone==='kraft'?RS.kraft:tone==='slate'?'#DCE6E8':RS.paperLit,edge=tone==='kraft'?RS.kraftDeep:tone==='slate'?'#7E9AA2':RS.line;
  return <g data-part="tag" transform={`rotate(${f2(swing)})`}>
-  <path d={`M${f2(-w/2+ch)} ${top}H${f2(w/2-ch)}L${f2(w/2)} ${top+ch}V${f2(top+h)}H${f2(-w/2)}V${top+ch}Z`} fill={fill} stroke={RS.ink} strokeWidth={2.6}/>
+  <path d={tagPath(lines,size)} fill={fill} stroke={RS.ink} strokeWidth={2.6}/>
   <path d={`M${f2(-w/2+6)} ${f2(top+h-6)}H${f2(w/2-6)}`} stroke={edge} strokeWidth={3} opacity={.6}/>
   <circle r={11} fill={edge} opacity={.7}/><circle r={6} fill="#1A1410" opacity={.75}/>
   <path d="M-4 -4C-10 -18 6 -20 4 -6" stroke="#EDE3CF" strokeWidth={3} fill="none"/>
@@ -429,7 +432,7 @@ const DeskTop:React.FC<{x:number;y:number;w:number;h:number}>=({x,y,w,h})=>{
 };
 /** The ledger card, flat in card units 420 by 300 from its top left. Its header is the source's own words;
  * its rows are ruled and empty. `mark` inks the crooked owner count stamp at LEDGER.mark. */
-export const LEDGER={w:420,h:300,tag:[300,92] as Pt,mark:{x:214,y:214,rot:-8}};
+export const LEDGER={w:420,h:300,tag:[300,92] as Pt,mark:{x:150,y:256,rot:-8}};
 export const STAMP_TEXT='OWNER COUNT',STAMP_SIZE=22;
 export const stampSize=()=>({w:widthOf(STAMP_TEXT,STAMP_SIZE,true)*1.08+34,h:STAMP_SIZE+28});
 const StampMark:React.FC<{p?:number}>=({p=1})=>{

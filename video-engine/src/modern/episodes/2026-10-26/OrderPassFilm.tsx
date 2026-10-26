@@ -6,7 +6,7 @@ import {actionProgress,actionWindows,requireNarration,type ActionWindow,type Dir
 import type {FilmRenderProps} from '../../types';
 import {OrderRigHero,HP,PHONE,PHONE_UI,screenPt,PRINTER,PRINTER_TOP,railGrip,TICKET,JAR,pileTop,type PhoneState} from './OrderRigHero';
 import {RestaurantSupport,RS,STAND,PANEL,LEDGER,RULE,FOLDER,DOOR_PLAN,TABLES_PLAN,STAND_PLAN,PASS_PLAN,
- GUESTS,TABLE,tagSize,stampSize,rulePenPoint,type Food} from './RestaurantSupport';
+ GUESTS,TABLE,tagSize,tagPath,stampSize,rulePenPoint,type Food} from './RestaurantSupport';
 
 /**
  * order-pass-v1: who takes the order (2026-10-26, Harris County, Spring, the upper Gulf Coast).
@@ -136,8 +136,8 @@ export function orderState(W:Record<string,ActionWindow>,t:number){
  // s9: the phone aims; its brackets hunt and never close; the quote card lands
  // s9: a hand raises the phone toward the code, pauses short of it, and lowers it without scanning; the
  // quote card lands; the lowered phone's screen times out while the code stays unscanned.
- const r91=R('s9-event-1'),up=ease5(r91/.36)*(1-ease5((r91-.64)/.36)),pause=r91>.36&&r91<.64?Math.sin(Math.PI*(r91-.36)/.28):0;
- const s9={up,waver:2.5*pause*Math.sin(2*Math.PI*1.6*t),quote:P('s9-event-2'),dim:.85*P('s9-event-3')};
+ const r91=R('s9-event-1'),raise=ease5(r91/.32),lower=ease5((r91-.56)/.3),pause=r91>.32&&r91<.56?Math.sin(Math.PI*(r91-.32)/.24):0;
+ const s9={raise,lower,up:raise*(1-lower),release:ease5((r91-.8)/.2),waver:2.5*pause*Math.sin(2*Math.PI*1.6*t),quote:P('s9-event-2'),dim:.85*P('s9-event-3')};
  // s10: the panel takes the order and a slip leaves for the kitchen; the two tags settle on the jar
  const r101=R('s10-event-1');
  const s10={order:smooth(r101/.45),slip:ease5((r101-.35)/.6),tag1:P('s10-event-2'),settle1:damped(t-en('s10-event-2'),9,1.1,2.2),carry1:Math.sin(Math.PI*P('s10-event-2')),
@@ -173,14 +173,19 @@ export const paperPt=(L:PaperAt,p:Pt):Pt=>{const a=(L.r??0)*DEG,x=L.s*p[0],y=L.s
 export const FLOOR_Y={wide:1080,medium:1160};
 /** B's paid-line push-in: the zoom the camera reaches on the printer from above, and where the slot then sits. */
 export const PAID_ZOOM=4.4,PAID_ANCHOR:Pt=[540,700];
-export const SKIN={a3:HP.skin[4],a9:HP.skin[2],writer:HP.skin[1]};
+/** One guest's skin for every guest hand in s3 and s9, in every framing (hand, finger and face alike). */
+export const SKIN={a3:HP.skin[4],a9:HP.skin[4],writer:HP.skin[1]};
+/** The holding hand's sleeve colour (OrderRigHero's hand and finger), which the seated guest's shirt matches. */
+export const GUEST_SLEEVE='#3D5566';
 /** Phone placements per view: centre, scale, rotation, and whether a hand holds it. */
 export const PHONE_AT:Record<string,Place&{hand:boolean;from?:Pt}>={
- 'code-scan:a':{x:430,y:680,s:.82,r:-5,hand:true,from:[480,1720]},'menu-tap:a':{x:520,y:760,s:1.5,r:0,hand:true},'pay-mark:a':{x:500,y:720,s:1.05,r:0,hand:true},
+ 'code-scan:a':{x:690,y:830,s:.72,r:-3,hand:true,from:[620,1720]},'menu-tap:a':{x:520,y:760,s:1.5,r:0,hand:true},'pay-mark:a':{x:500,y:720,s:1.05,r:0,hand:true},
  'code-scan:b':{x:600,y:720,s:.78,r:-8,hand:true,from:[300,1560]},'menu-tap:b':{x:600,y:760,s:.78,r:4,hand:true},'paid-close:b':{x:540,y:260,s:2.4,r:0,hand:false},
  'paid-line:a':{x:250,y:760,s:.62,r:8,hand:true},'coins-drop:a':{x:250,y:620,s:.62,r:12,hand:true},
  'viewfinder-hunt:a':{x:470,y:780,s:.82,r:-8,hand:true,from:[600,1330]},'quote-card:a':{x:150,y:1020,s:.55,r:-4,hand:false},
- 'viewfinder-hunt:b':{x:400,y:1010,s:.78,r:10,hand:true,from:[260,1440]},'quote-side:b':{x:800,y:900,s:.6,r:14,hand:false}};
+ 'viewfinder-hunt:b':{x:560,y:1000,s:.78,r:10,hand:true,from:[700,1520]},'quote-side:b':{x:650,y:1030,s:.6,r:14,hand:false}};
+/** s9 from above: the one place the code stand stands in both B shots. */
+export const CODE9_TOP:Pt=[700,700];
 /** Printer placements (base centre): the rail, the ticket and the lamp ride the same transform. */
 export const PRINTER_AT:Record<string,Place>={
  'printer-idle':{x:330,y:1000,s:1.1},'paid-line:a':{x:760,y:1150,s:1.3},'ticket-print:a':{x:520,y:1440,s:2.2},'wok-flare':{x:250,y:900,s:.78},
@@ -204,14 +209,14 @@ export type TagRig={lines:string[];size:number;len:number;from:Pt;tone:'kraft'|'
 export const TAGS={ai:['AI host'],fox:['FOX 26 reports','all to the kitchen'],owner:['owner says'],none:['no record shown'],money:['$9,650','a month']};
 /** Paper placements (card units to screen) per view. */
 export const LEDGER_AT:Record<string,PaperAt>={'ledger-slide':{x:250,y:940,s:1.25,fy:.55,r:-3},'ledger-tag':{x:90,y:760,s:1.9,fy:.6,r:-2},
- 'owner-stamp:a':{x:89.2,y:568,s:2.2,fy:.62},'empty-clip':{x:120,y:1090,s:.95,fy:.5,r:-4},
- 'desk-ledger':{x:210,y:560,s:1.5,fy:1,r:-2},'ledger-corner':{x:-20,y:398,s:2.2,fy:1},'owner-stamp:b':{x:26,y:346,s:2.4,fy:1},'clip-bench':{x:560,y:1100,s:.9,fy:.5,r:3}};
+ 'owner-stamp:a':{x:150,y:510.8,s:2.2,fy:.62},'empty-clip':{x:120,y:1090,s:.95,fy:.5,r:-4},
+ 'desk-ledger':{x:210,y:560,s:1.5,fy:1,r:-2},'ledger-corner':{x:-20,y:398,s:2.2,fy:1},'owner-stamp:b':{x:170,y:316.8,s:2.2,fy:1},'clip-bench':{x:560,y:1100,s:.9,fy:.5,r:3}};
 export const RULE_AT:Record<string,PaperAt>={'rule-card:a':{x:150,y:520,s:1.5,fy:.88,r:-1.5},'cooks-line':{x:20,y:375,s:2,fy:.9},'circle-detail':{x:-19,y:327,s:2.15,fy:.92},
  'rule-card:b':{x:165,y:520,s:1.45,fy:1},'box-close':{x:-30,y:332,s:1.9,fy:1},'pen-circle':{x:-19,y:320,s:2.15,fy:1},
  'blank-folder':{x:-260,y:560,s:1,fy:.88},'folder-wide':{x:80,y:420,s:.95,fy:1}};
 export const FOLDER_AT:Record<string,PaperAt>={'blank-folder':{x:330,y:600,s:1.15,fy:.88},'blank-box':{x:180,y:484,s:2,fy:.92},
  'folder-wide':{x:520,y:640,s:.95,fy:1},'folder-close':{x:150,y:470,s:1.8,fy:1}};
-export const QUOTE_AT:Record<string,PaperAt>={'quote-card':{x:430,y:880,s:1,fy:.78,r:-2},'quote-side':{x:60,y:560,s:.95,fy:1,r:-3}};
+export const QUOTE_AT:Record<string,PaperAt>={'quote-card':{x:430,y:880,s:1,fy:.78,r:-2},'quote-side':{x:40,y:560,s:.9,fy:1,r:-3}};
 export const PANEL_AT:Record<string,Place>={'window-frame':{x:650,y:1290,s:.82},'host-panel:a':{x:520,y:1913.5,s:1.55},'ai-tag':{x:378.4,y:2828.8,s:2.4},
  'sign-window':{x:790,y:1200,s:.62},'host-panel:b':{x:430,y:1330,s:.98},'tag-detail':{x:592,y:2544,s:2},
  'panel-order':{x:290,y:1330,s:.9},'jar-no-record':{x:230,y:1230,s:.7},'stand-wide':{x:200,y:1260,s:.78}};
@@ -265,13 +270,13 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
 
  // ---- shared rigs ----
  /** The phone at its placement, held by a hand, with the finger that touches it. */
- const phoneRig=(L:Place&{hand:boolean},st:PhoneState,o:{skin?:string;finger?:{tip:Pt;press:number;s:number}|null}={})=>{
-  const skin=o.skin??SKIN.a3;
+ const phoneRig=(L:Place&{hand:boolean},st:PhoneState,o:{skin?:string;finger?:{tip:Pt;press:number;s:number}|null;handOff?:Pt}={})=>{
+  const skin=o.skin??SKIN.a3,ho=o.handOff??[0,0],H={...L,x:L.x+ho[0],y:L.y+ho[1]};
   return <g data-part="phone-rig">
    <At p={[L.x+14*L.s,L.y+20*L.s]} s={L.s} r={L.r??0} o={.22}><rect x={-150} y={-300} width={300} height={600} rx={46} fill="#1A1410"/></At>
-   {L.hand&&<At p={[L.x,L.y]} s={L.s} r={L.r??0}><OrderRigHero part="handBack" skin={skin}/></At>}
+   {L.hand&&<At p={[H.x,H.y]} s={L.s} r={L.r??0}><OrderRigHero part="handBack" skin={skin}/></At>}
    <At p={[L.x,L.y]} s={L.s} r={L.r??0}><OrderRigHero part="phone" {...st}/></At>
-   {L.hand&&<At p={[L.x,L.y]} s={L.s} r={L.r??0}><OrderRigHero part="handFront" skin={skin}/></At>}
+   {L.hand&&<At p={[H.x,H.y]} s={L.s} r={L.r??0}><OrderRigHero part="handFront" skin={skin}/></At>}
    {o.finger&&<At p={o.finger.tip} s={o.finger.s}><OrderRigHero part="finger" skin={skin} press={o.finger.press}/></At>}
   </g>;
  };
@@ -417,16 +422,19 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  /** A paper's drop onto a surface: raised by h screen pixels (or nearer the lens, from above) and offset
   * by `from`, landing on the contact curve; its shadow waits on the surface and darkens as it closes. */
  const paperDrop=(L:PaperAt,q:number,h:number,from:Pt,node:React.ReactNode,top:boolean,shadow:React.ReactNode)=>{
-  const k=1-q,off:Pt=[from[0]*k,from[1]*k-(top?0:h*k)],grow=top?1+.5*k:1+.12*k,sh:Pt=top?[22+40*k,30+50*k]:[6,8];
+  const k=1-q,off:Pt=[from[0]*k,from[1]*k-(top?0:h*k)],grow=top?1+.5*k:1+.12*k;
+  // The shadow travels under the object (its horizontal offset, never its lift) and only appears in the last
+  // stretch of the fall, so no detached shadow shape ever waits on the surface while the object is far away.
+  const near=smooth((q-.72)/.28),sh:Pt=top?[off[0]+12+24*k,off[1]+16+30*k]:[off[0]+6,from[1]*k+8];
   return <g data-part="paper-drop">
-   <g transform={paperTransform({...L,x:L.x+sh[0],y:L.y+sh[1]})} opacity={f2(.08+.18*q)}>{shadow}</g>
+   {near>0&&<g transform={paperTransform({...L,x:L.x+sh[0],y:L.y+sh[1]})} opacity={f2(.24*near)}>{shadow}</g>}
    <g transform={`translate(${f2(off[0])} ${f2(off[1])})`}><g transform={`translate(${f2(L.x)} ${f2(L.y)}) scale(${f2(grow)}) translate(${f2(-L.x)} ${f2(-L.y)})`}>
     <g transform={paperTransform(L)}>{node}</g></g></g>
   </g>;
  };
  /** The shadow of a flat tag lying at p on paper (card units). */
- const tagShadow=(lines:string[],size:number,p:Pt,r:number)=>{const z=tagSize(lines,size);
-  return <g transform={`translate(${p[0]} ${p[1]}) rotate(${r})`}><rect x={-z.w/2} y={-18} width={z.w} height={z.h} rx={4} fill="#1A1410"/></g>;};
+ const tagShadow=(lines:string[],size:number,p:Pt,r:number)=>
+  <g transform={`translate(${p[0]} ${p[1]}) rotate(${r})`}><path d={tagPath(lines,size)} fill="#1A1410"/></g>;
  /** A flat tag lying on paper, in card units, its hole at p. */
  const flatTag=(lines:string[],size:number,p:Pt,r:number)=><g transform={`translate(${p[0]} ${p[1]}) rotate(${r})`}>
   <path d="M0 0C-30 -10 -60 6 -80 -6" stroke={RS.ink} strokeWidth={3} fill="none"/>
@@ -574,10 +582,10 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
    <Item id="s3-phone"><Item id="s3-menu"><Item id="s3-dish">{phoneRig(L,st,{finger:S.s3.tapGo>0&&S.s3.tapBack<1?{tip,press:S.s3.tapPress,s:fs}:null})}</Item></Item></Item>
   </g>:<g>
    {floor(FLOOR_Y.medium)}
-   <Item id="s3-setting"><At p={[150,1260]} s={1.25}><RestaurantSupport part="guest" layer="body" {...GUESTS[2]} look={.5}/></At></Item>
+   <Item id="s3-setting"><At p={[150,1260]} s={1.25}><RestaurantSupport part="guest" layer="body" {...GUESTS[2]} skin={SKIN.a3} shirt={GUEST_SLEEVE} look={.5}/></At></Item>
    <Item id="s3-setting">{tableBand(1120)}<At p={[300,1150]} s={1.1}><RestaurantSupport part="plate"/></At></Item>
    <Item id="s3-code"><At p={[880,1170]} s={.9}><OrderRigHero part="codeStand"/></At></Item>
-   <Item id="s3-phone"><Item id="s3-menu"><Item id="s3-dish">{phoneRig(L,st,{skin:GUESTS[2].skin,finger:S.s3.tapGo>0&&S.s3.tapBack<1?{tip,press:S.s3.tapPress,s:fs}:null})}</Item></Item></Item>
+   <Item id="s3-phone"><Item id="s3-menu"><Item id="s3-dish">{phoneRig(L,st,{skin:SKIN.a3,finger:S.s3.tapGo>0&&S.s3.tapBack<1?{tip,press:S.s3.tapPress,s:fs}:null})}</Item></Item></Item>
   </g>;
   break;}
  case 'pay-mark':
@@ -610,7 +618,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   // guest's phone at the table to the printer on the pass.
   need('s4');
   if(v==='a'){
-   const L=pick(PHONE_AT),pr=PRINTER_AT[key],from=toScreen(L,screenPt(PHONE_UI.paid)),to=toScreen(pr,[PRINTER.slot.x,PRINTER.slot.y]);
+   const L=pick(PHONE_AT),pr=PRINTER_AT[key],from=toScreen(L,screenPt(PHONE_UI.paidBig)),to=toScreen(pr,[PRINTER.slot.x,PRINTER.slot.y]);
    const ctrl:Pt=[(from[0]+to[0])/2-40,Math.min(from[1],to[1])-380],p=bez(from,ctrl,to,S.s4.token);
    pic=<g>
     <Item id="s4-setting">{shelf('paid-line')}</Item>
@@ -731,7 +739,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  case 'coins-drop':{
   // A medium. Plain coins and notes leave the paid phone's screen and fall in arcs toward the glass jar at
   // the kitchen pass, the wok behind it.
-  need('s6');const L=pick(PHONE_AT),src=toScreen(L,screenPt(PHONE_UI.paid));const Sh=SHELF['coins-drop'];
+  need('s6');const L=pick(PHONE_AT),src=toScreen(L,screenPt(PHONE_UI.paidBig));const Sh=SHELF['coins-drop'];
   pic=<g>
    {floor(FLOOR_Y.medium+90)}
    <Item id="s6-pass">{cabinet(Sh.x,Sh.y,Sh.w)}{shelf('coins-drop')}<At p={[440,Sh.y]} s={.85}><RestaurantSupport part="plate" food="noodle"/></At></Item>
@@ -845,17 +853,21 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  case 'viewfinder-hunt':{
   // A close / B overhead. A hand raises the phone toward the table code, pauses short of it with the
   // camera open and its frame wide, never closing, then lowers it again without scanning.
-  need('s9');const L0=pick(PHONE_AT),rest=L0.from!,u=S.s9.up;
-  const L={...L0,x:lerp(rest[0],L0.x,u),y:lerp(rest[1],L0.y,u),r:lerp((L0.r??0)+22,L0.r??0,u)+S.s9.waver};
-  const st:PhoneState={scan:1,lock:0,menu:0,dim:.5*(1-u)};
+  // B: from below the frame the hand raises the phone, pauses short of the code, brings it down onto the table
+  // beside its later place for the quote (scale falls as it nears the table) and slides away, leaving it.
+  need('s9');const L0=pick(PHONE_AT),rest=L0.from!,u=S.s9.up,TB=PHONE_AT['quote-side:b'];
+  const raised={...L0,x:lerp(rest[0],L0.x,S.s9.raise),y:lerp(rest[1],L0.y,S.s9.raise),r:lerp((L0.r??0)+22,L0.r??0,S.s9.raise)+S.s9.waver};
+  const L=v==='a'?{...L0,x:lerp(rest[0],L0.x,u),y:lerp(rest[1],L0.y,u),r:lerp((L0.r??0)+22,L0.r??0,u)+S.s9.waver}:
+   {...raised,x:lerp(raised.x,TB.x,S.s9.lower),y:lerp(raised.y,TB.y,S.s9.lower),s:lerp(L0.s,TB.s,S.s9.lower),r:lerp(raised.r??0,TB.r??0,S.s9.lower)};
+  const st:PhoneState={scan:1,lock:0,menu:0,dim:v==='a'?.5*(1-u):.5*S.s9.lower};
   pic=v==='a'?<g>
    <Item id="s9-table">{tableBand(930)}<At p={[170,1010]} s={1.2}><RestaurantSupport part="plate"/></At><At p={[960,1000]} s={1.1}><RestaurantSupport part="menuTent"/></At></Item>
    <Item id="s9-code"><ellipse cx={734} cy={1112} rx={130} ry={14} fill="#1A1410" opacity={.25}/><At p={[720,1110]} s={1.25}><OrderRigHero part="codeStand"/></At></Item>
    <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9})}</Item>
   </g>:<g>
    <Item id="s9-table">{tableTopBig()}</Item>
-   <Item id="s9-code"><At p={[620,760]} s={1.1}><OrderRigHero part="codeStandTop"/></At></Item>
-   <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9})}</Item>
+   <Item id="s9-code"><At p={CODE9_TOP} s={1.1}><OrderRigHero part="codeStandTop"/></At></Item>
+   <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9,handOff:[140*S.s9.release,1300*S.s9.release]})}</Item>
   </g>;
   break;}
  case 'quote-card':
@@ -864,14 +876,14 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   // from one customer lands beside it; then the phone's screen times out.
   need('s9');const Q=pick(QUOTE_AT),top=view==='quote-side',L=pick(PHONE_AT);
   const st:PhoneState={scan:1,lock:0,menu:0,dim:.5+.5*S.s9.dim};
-  const flatPhone=top?<g><At p={[L.x+10,L.y+14]} s={L.s} r={L.r??0} o={.22}><rect x={-150} y={-300} width={300} height={600} rx={46} fill="#1A1410"/></At>
+  const flatPhone=top?<g><At p={[L.x+14*L.s,L.y+20*L.s]} s={L.s} r={L.r??0} o={.22}><rect x={-150} y={-300} width={300} height={600} rx={46} fill="#1A1410"/></At>
    <At p={[L.x,L.y]} s={L.s} r={L.r??0}><OrderRigHero part="phone" {...st}/></At></g>:
    <g><ellipse cx={L.x+6} cy={L.y+60*L.s} rx={170*L.s} ry={30*L.s} fill="#1A1410" opacity={.22}/>
     <g transform={`translate(${L.x} ${L.y}) rotate(${L.r??0}) scale(${L.s} ${(L.s*.36).toFixed(4)})`}><OrderRigHero part="phone" {...st}/></g></g>;
   pic=<g>
    <Item id="s9-table">{top?tableTopBig():tableBand(860)}</Item>
    {!top&&<Item id="s9-code"><At p={[330,1050]} s={.9}><OrderRigHero part="codeStand"/></At></Item>}
-   {top&&<Item id="s9-code"><At p={[790,640]} s={.9}><OrderRigHero part="codeStandTop"/></At></Item>}
+   {top&&<Item id="s9-code"><At p={CODE9_TOP} s={1.1}><OrderRigHero part="codeStandTop"/></At></Item>}
    <Item id="s9-phone">{flatPhone}</Item>
    <Item id="s9-quote">{S.s9.quote>0&&paperDrop(Q,S.s9.quote,top?0:420,top?[-160,-220]:[140,0],<RestaurantSupport part="quoteCard"/>,top,<rect width={600} height={290} rx={12} fill="#1A1410"/>)}</Item>
   </g>;

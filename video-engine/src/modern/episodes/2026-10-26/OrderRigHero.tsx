@@ -121,7 +121,7 @@ const CodeStandTop:React.FC<{}>=()=>{
 /** Phone units: the body is 300 by 600 about its centre; the screen is 264 by 540 from SCREEN's corner. */
 export const PHONE={w:300,h:600,screen:{x:-132,y:-270,w:264,h:540}};
 /** Screen points the performance touches (screen units from the screen's top left). */
-export const PHONE_UI={rowY:70,rowH:76,chowRow:1,chow:[150,184] as Pt,pay:[190,503] as Pt,paid:[214,503] as Pt,mic:[44,503] as Pt,code:{x:57,y:175,s:150}};
+export const PHONE_UI={rowY:70,rowH:76,chowRow:1,chow:[150,184] as Pt,pay:[190,503] as Pt,paid:[214,503] as Pt,paidBig:[132,360] as Pt,mic:[44,503] as Pt,code:{x:57,y:175,s:150}};
 /** A screen point in phone units. */
 export const screenPt=(p:Pt):Pt=>[PHONE.screen.x+p[0],PHONE.screen.y+p[1]];
 export type PhoneState={scan?:number;lock?:number;menu?:number;lit?:number;tap?:number;tapAt?:Pt;pay?:number;hunt?:Pt;huntScale?:number;dim?:number};
@@ -198,6 +198,12 @@ const PhoneScreen:React.FC<PhoneState>=({scan=1,lock=0,menu=0,lit=0,tap=0,tapAt,
      {pp>.6&&<text x={U.paid[0]-36} y={U.paid[1]+8} textAnchor="end" fontFamily={FONT.body} fontSize={22} fontWeight={700} fill={HP.red} opacity={f2(smooth((pp-.6)/.3))}>Paid</text>}
     </g>
    </g>}
+   {pp>.6&&(()=>{const g=smooth((pp-.6)/.4),c=[lerp(U.paid[0],U.paidBig[0],g),lerp(U.paid[1],U.paidBig[1],g)];
+    return <g data-part="paid-confirmation" transform={`translate(${f2(c[0])} ${f2(c[1])}) scale(${f2(lerp(.3,1,g))})`}>
+     <rect x={-108} y={-104} width={216} height={214} rx={24} fill={HP.white} stroke={HP.ink} strokeWidth={2.4} opacity={f2(g)}/>
+     <g transform="translate(0 -20)"><PaidMark r={62} check={g}/></g>
+     <text x={0} y={86} textAnchor="middle" fontFamily={FONT.body} fontSize={44} fontWeight={700} fill={HP.red} opacity={f2(g)}>Paid</text>
+    </g>;})()}
    {tap>0&&tapAt&&<circle cx={tapAt[0]} cy={tapAt[1]} r={f2(10+34*tap)} fill={HP.white} opacity={f2(.45*(1-tap))}/>}
    <rect x={0} y={0} width={S.w} height={S.h} fill={`url(#${id}g)`}/>
   </g>
