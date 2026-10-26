@@ -1,0 +1,369 @@
+{
+ "beat": "Application layer, Spring, Texas: Wok & Karahi replaced its only server with an AI host named Haniya, plus table QR ordering and pre-payment (screened subject, kept as given). Tip-pool claim: kitchen staff receiving 100 percent of tips.",
+ "run_status": {
+  "status": "partial, not publishable as a film-ready packet until the items under not_run are cleared",
+  "hash_check": "NOT COMPUTED. This worker has no shell, so I could not run sha256sum. I read the packet and the bound guides directly. The hashes below are copied from the packet, not verified: packet 58787bc2f2f842e93e1d6786ba7d026d0e0e03919fc8e067d1f5203a9eaa16e6 (as stated in the brief, unverified), docket.json 04ad996948c4b556b892e368539d511f1785394e47fb78c348472a9cee13e6fc, APPLICATIONS.md ba6477684329e78ad36d15ee0f99e0056a1c0fae519e29d0bd8614a46cc0cd8d, AGENTS.md efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094, CLAUDE.md f47fdc5b13b763718ecd080d5600f2ed1bf96befbfa70e469a5bcae5e9599abe, prompts/claude_routine.md 06c71a2ffa722e55db9212c9b3eba3b4ff16d02fdd885141612ee89df97a977a, config/claude_runtime.json e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10, config/quality_contract.json f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa, config/dispatch_rubric.yaml 51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1, .claude/agents/researcher.md c618bf0ccc1b37412f4cb9f188a972543c555863db36990c9ecc10518510a49e, config/review_limit.json 2d62fc421118fda5a3235b23b6c267f86ce0c1337af207f46a7c2a4c096eb08, prompts/phases/01-research.md 5f0feff2ba8ddfb51a69425d5c5ed500a2edd648b1f47676df6adfb381bf69c6. The director must run sha256sum on each before accepting this handoff.",
+  "guides_read_in_full": [
+   "prompts/phases/01-research.md",
+   "knowledge/texas/APPLICATIONS.md",
+   "config/production_actions.json",
+   "knowledge/craft/CREATIVE_DIRECTION.md",
+   "knowledge/craft/visual-storytelling/README.md",
+   "visual-storytelling/viewer-plan.md",
+   "visual-storytelling/news-reporting.md",
+   "visual-storytelling/cinematic-scene.md",
+   "visual-storytelling/evidence-led-imagery.md",
+   "visual-storytelling/observed-documentary.md",
+   "visual-storytelling/sentence-to-shot.md",
+   "config/review_limit.json",
+   "config/claude_runtime.json",
+   "config/quality_contract.json",
+   "config/dispatch_rubric.yaml (read for scope only; no bar restated)",
+   "AGENTS.md",
+   "prompts/claude_routine.md",
+   "CLAUDE.md (both repos, as supplied in context)",
+   ".claude/agents/researcher.md"
+  ],
+  "not_read": "knowledge/craft/DAILY_PRODUCTION.md is referenced by the phase but is not in the packet and was not read. The docket was read from its first line to about line 4500 of an unknown total, and no restaurant, tip, labor or AI-ordering item appeared in that range. The remainder was not read.",
+  "not_run": [
+   "scripts/dedupe.py check and list (no shell). Entities to screen: Wok & Karahi; Abbas Zoeb; Abbas Manakibwala; Haniya; AZ Restaurant Partners; Spring, Texas. Beat: application layer, restaurants.",
+   "claude_runtime.py plan subject screen (no shell). The screen must run before any researcher reservation.",
+   "scripts/place_photos.py for Spring, Texas (no shell). Lyda Hill photographs are not searched.",
+   "No independent confirmation of the vendor, the Clover integration, or any restaurant wage or tip policy."
+  ],
+  "fetch_caveat": "Quotes come from a fetch tool that returns extracted text. Some strings were trimmed to about 125 characters and some came from summaries. Re-check every sentence against the live page before it is used in published copy. Quotes marked single-fetch were seen in one extraction only."
+ },
+ "docket_movements": [
+  {
+   "record_status": "existing_item_limit",
+   "record_id": "tx-2026-0006",
+   "event_type": "statute_in_force",
+   "date": "2026-01-01",
+   "actor": "Texas Legislature, HB 149 codified as Business and Commerce Code Chapter 552 (TRAIGA)",
+   "action": "Section 552.051(b) requires a governmental agency that makes an AI system available to interact with consumers to disclose that the consumer is interacting with AI.",
+   "object": "Private restaurant AI phone host, Spring, Texas",
+   "county": "statewide statute",
+   "next_step": "None found for a private restaurant. The disclosure duty as quoted names a governmental agency, not a business. A legal read is recommended before any claim that no disclosure duty applies.",
+   "who_can_act": "Texas Attorney General is the only enforcer under Chapter 552. Not applicable on the text read."
+  },
+  {
+   "record_status": "new_to_record",
+   "record_id": null,
+   "event_type": "business_deployment_reported",
+   "date": "2026-10-20",
+   "actor": "Owner of Wok & Karahi. Named Abbas Zoeb by FOX 26, Hoodline and Muslim Mirror. Named Abbas Manakibwala by Click2Houston.",
+   "action": "Reported: replaced its sole server with an AI host named Haniya, plus table QR ordering and pre-payment. Owner-reported savings and a 100 percent kitchen tip share.",
+   "object": "Wok & Karahi, 3422 FM 2920 Rd, Unit 120, Spring, TX 77388, per the restaurant's own site. Zabihah lists 3436 FM 2920 in a search summary, so do not use that address.",
+   "county": "Spring, Texas. No county is stated in the fetched sources. Verify before any county is named.",
+   "next_step": "None reported by any outlet. No agency or filing is in the record for this restaurant.",
+   "who_can_act": "Owner, for the tip policy, wage structure and any vendor contract. Kitchen staff, for any pay or tip complaint, through the federal Wage and Hour Division or the Texas Workforce Commission. The complaint route was not verified in detail."
+  },
+  {
+   "record_status": "existing_rule_not_in_record",
+   "record_id": null,
+   "event_type": "rule_in_force",
+   "date": "2021-09-24",
+   "actor": "U.S. Department of Labor, 29 CFR 531.54 as amended at 86 FR 52986",
+   "action": "Governs who may share in a tip pool. Cooks may be included only when the employer pays full minimum wage and takes no tip credit. Managers and supervisors may not share. The employer may not keep tips.",
+   "object": "100 percent of tips paid to kitchen staff",
+   "county": "federal, applies in Texas",
+   "next_step": "None found. The fetched text shows no rescission of the back-of-house provision. The 2020 rule and its 2021 amendment should be checked against eCFR before publication.",
+   "who_can_act": "Owner, to show which pay path applies. DOL Wage and Hour Division for complaints."
+  }
+ ],
+ "findings": [
+  {
+   "claim": "wk-c1. Wok & Karahi replaced its sole server with an AI host named Haniya after the server walked out.",
+   "quote": "After its sole server walked out, Wok & Karahi, a family-run Asian restaurant in Spring, replaced front-of-house staff with an AI platform named Haniya.",
+   "url": "https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism (FOX 26 Houston, Olivia Dance, published October 20th, 2026 at 9:05 AM CDT per the fetch)",
+   "confidence": "medium-high that the outlet reports it. The operation is not independently observed.",
+   "why_it_matters": "This is the dated, named Texas application and the cause, a staffing loss. It is the anchor for every other claim.",
+   "supports_movement": "business_deployment_reported, 2026-10-20"
+  },
+  {
+   "claim": "wk-c2. The timeline in the reporting is inconsistent.",
+   "quote": "Two months ago, the sole server at Wok & Karahi, a family-run Chinese, Indian, and Pakistani restaurant, walked off the job. / Within 24 hours, a virtual host, QR codes and a new pre-pay ordering system took over operations.",
+   "url": "https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism",
+   "confidence": "high that the inconsistency exists in the text. The true sequence is unknown.",
+   "why_it_matters": "The FOX video description says the change took place in 'just 24 hours after a server walked out'. The article places the 24 hours after the decision. Hoodline and Click2Houston give the walkout as August. The film must not say how fast the change came until this is resolved.",
+   "supports_movement": "business_deployment_reported"
+  },
+  {
+   "claim": "wk-c3. The owner reports that kitchen staff and the chef receive 100 percent of customer tips.",
+   "quote": "100% of customer tips now go directly to the chef and kitchen staff, while ordering is handled via phone, QR codes, and pre-payment. / Kitchen staff and the chef now get 100-percent of customer tips.",
+   "url": "https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism. The first quote is from the article's summary box, and the second is from the body.",
+   "confidence": "single-source, unattributed in the text. Hoodline repeats it as coming from the same report. Muslim Mirror says only that the cooks now share in tips, with no percentage. Click2Houston gives no percentage.",
+   "why_it_matters": "This is the tip-pool claim the director asked about. It is lawful only under specific federal wage conditions that no outlet reports (see wk-c12 and wk-c13). It also cannot be shown in a picture.",
+   "supports_movement": "business_deployment_reported"
+  },
+  {
+   "claim": "wk-c4. The savings are the owner's own count, and the breakdown differs by outlet.",
+   "quote": "Today, Zoeb claims the restaurant is saving or winning back $9,650 a month. / With about $3,500 of those savings coming from the server salary. / He says the remaining $6,150 comes from operational efficiencies and reclaimed revenue. (FOX 26). Muslim Mirror: By the family's own count, the system is worth about $9,650 a month. ... That includes the server's $3,500 monthly salary ... about $2,000 for each day they used to close when nobody could cover a shift. Click2Houston: They project the AI system will save them more than $115,000.",
+   "url": "https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat ; https://muslimmirror.com/no-servers-no-host-and-no-phone-calls-ai-takes-over-at-a-halal-restaurant-in-houston-texas/ ; https://www.click2houston.com/news/local/2026/10/21/spring-restaurant-turns-to-ai-for-ordering-putting-tips-directly/",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism",
+   "confidence": "high that these are the owner's or family's claims. Low as measured fact. Nothing independent checks them.",
+   "why_it_matters": "Three outlets repeat the same headline total with different components. FOX assigns $6,150 to efficiency and recaptured revenue. Muslim Mirror assigns about $2,000 per closed day. Click2Houston gives an annual projection with no stated period. The film must attribute each figure and cannot show a breakdown it has not verified.",
+   "supports_movement": "business_deployment_reported (self-reported)"
+  },
+  {
+   "claim": "wk-c5. The AI software cost differs between outlets.",
+   "quote": "The cost to run the AI software is about $300 a month or roughly $10 a day. (FOX 26) / The AI phone line costs about $5 a day to run. (Muslim Mirror, not attributed to a speaker)",
+   "url": "https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat ; https://muslimmirror.com/no-servers-no-host-and-no-phone-calls-ai-takes-over-at-a-halal-restaurant-in-houston-texas/",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism",
+   "confidence": "low for either figure as fact. They may describe different things, the whole software against the phone line.",
+   "why_it_matters": "A cost figure needs an attributed scope. Printing one number would mislead about what the restaurant pays.",
+   "supports_movement": "business_deployment_reported (self-reported)"
+  },
+  {
+   "claim": "wk-c6. The owner's name conflicts across outlets.",
+   "quote": "FOX 26 and Hoodline: owner Abbas Zoeb, a former Google software engineer (the Google background is FOX only and unsourced). Muslim Mirror: Abbas Zoeb. Click2Houston: Owner Abbas Manakibwala developed the software himself.",
+   "url": "https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat ; https://www.click2houston.com/news/local/2026/10/21/spring-restaurant-turns-to-ai-for-ordering-putting-tips-directly/ ; https://hoodline.com/2026/10/spring-restaurant-ditches-its-last-server-for-an-ai-host-named-haniya/",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism",
+   "confidence": "high that the conflict exists",
+   "why_it_matters": "A published name is a factual claim. Use the name the owner gave and the attribution, or leave the name out until the conflict is resolved. Click2Houston also says the owner built the software himself, which bears on who built it.",
+   "supports_movement": "business_deployment_reported"
+  },
+  {
+   "claim": "wk-c7. The AI vendor is not identified, and the company link is not confirmed.",
+   "quote": "FOX 26: an AI platform named Haniya, with no vendor named. Muslim Mirror: Zoeb now builds the same kind of system for other independent restaurants through his company, AZ Restaurant Partners. Hoodline: The company's own site states that Haniya logs orders directly into the restaurant's Clover point-of-sale system, texts guest[s] ... Search: no AZ Restaurant Partners site or listing was found in two searches, and no Haniya vendor page was found.",
+   "url": "https://muslimmirror.com/no-servers-no-host-and-no-phone-calls-ai-takes-over-at-a-halal-restaurant-in-houston-texas/ ; https://hoodline.com/2026/10/spring-restaurant-ditches-its-last-server-for-an-ai-host-named-haniya/",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism. The vendor and Clover claims rest on a company site that was not reached.",
+   "confidence": "low. The AI vendor is not identified, and the Clover integration is single-source.",
+   "why_it_matters": "The brief asked for the vendor and its public product claims. The honest answer is that none is verified. The Clover and text-message claims must not be published.",
+   "supports_movement": "business_deployment_reported"
+  },
+  {
+   "claim": "wk-c8. The ordering sequence has one clear mechanism source, and the restaurant's own site does not show it.",
+   "quote": "Muslim Mirror: every table had a QR code ... scans the code on the table ... every order was being paid for before it reached the kitchen ... nothing is cooked until it is paid for ... The same host answers the phone, the website and the table. FOX 26: ordering is handled via phone, QR codes, and pre-payment. Click2Houston: customers are guided to a tablet-based ordering system, and For some first-time customers, the switch to QR code menus has come with a learning curve.",
+   "url": "https://muslimmirror.com/no-servers-no-host-and-no-phone-calls-ai-takes-over-at-a-halal-restaurant-in-houston-texas/ ; https://www.click2houston.com/news/local/2026/10/21/spring-restaurant-turns-to-ai-for-ordering-putting-tips-directly/",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism",
+   "confidence": "medium for the sequence, which is described by the owner's account. Low for the tablet and the QR as the same thing. Click2Houston says tablet and Muslim Mirror says QR code.",
+   "why_it_matters": "The mechanism the film needs is pay first, then cook. Only Muslim Mirror states that order plainly. The tablet or QR difference is a picture question the film must settle without guessing.",
+   "supports_movement": "business_deployment_reported"
+  },
+  {
+   "claim": "wk-c9. The restaurant's own website does not mention the AI host, Haniya, QR or pre-pay ordering.",
+   "quote": "Order Now! links to a menu page and Order Direct & Save links to individual menu items. Third-party apps: DoorDash, Uber Eats and Grubhub. Book a Table link. Address 3422 FM 2920 Rd, Unit #120, Spring, TX 77388. Phone (281) 362-5354. No words AI, AI host, Haniya, virtual host, QR or pre-pay were found in the text returned.",
+   "url": "https://wokandkarahitexas.com",
+   "retrieved": "2026-10-26",
+   "source_type": "primary (the owner's own site, self-published)",
+   "confidence": "medium. The page was read through a summarizing fetch. Re-read the homepage and /menu/ directly before relying on this.",
+   "why_it_matters": "This is the one primary artifact the record holds for the business, and it does not show the AI ordering the outlets describe. It is the strongest source limit and a real counter-image. It may also be stale, which the director must say.",
+   "supports_movement": "business_deployment_reported"
+  },
+  {
+   "claim": "wk-c10. The language and phone claims match across two outlets and are self-described.",
+   "quote": "FOX 26: The digital server speaks seven languages and answers the phone even when the restaurant is closed. Muslim Mirror: English, Spanish, Urdu, Hindi, Gujarati, Punjabi or Arabic. / The phone answers 24 hours a day, including when the restaurant is closed.",
+   "url": "https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat ; https://muslimmirror.com/no-servers-no-host-and-no-phone-calls-ai-takes-over-at-a-halal-restaurant-in-houston-texas/",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism",
+   "confidence": "medium that the outlets report it. Not tested. A call would test it.",
+   "why_it_matters": "This is a visible, checkable detail. A phone call to the number could show it. That is a real picture route, not an invented one, but it needs the owner's or a caller's consent and is not in this research.",
+   "supports_movement": "business_deployment_reported"
+  },
+  {
+   "claim": "wk-c11. The owner's own words are sourced, and one line is single-fetch.",
+   "quote": "It started out of desperation, said Zoeb. (FOX 26 and Muslim Mirror, which says Abbas Zoeb, who runs the restaurant with his family). Single-fetch only: We could not keep begging one person to show up. Now nobody has to, and our guests and our team are better off for it.",
+   "url": "https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism",
+   "confidence": "high for the first quote, which two outlets share. Medium for the second, which appeared in one extraction only.",
+   "why_it_matters": "The human line is sourced. The film can quote it with attribution and must not add feelings no source reports.",
+   "supports_movement": "business_deployment_reported"
+  },
+  {
+   "claim": "wk-c12. The counter-view is a university supply-chain manager, not a labor or tip authority.",
+   "quote": "Professor Dietrich von Biedenfeld, Supply Chain Manager at the University of Houston Downtown: This seems like a very effective tool for a fast-food restaurant or a quick lunch spot, but for fine dining, the AI is only as good as the prompts.",
+   "url": "https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism (expert quoted by FOX 26)",
+   "confidence": "high that the quote is in the article. The outlet does not describe this restaurant as fine dining, so the line is a general view, not an assessment of this business.",
+   "why_it_matters": "It is the only outside voice in the coverage, and it is an honest limit. Use it as a stated view, not as a verdict on the restaurant.",
+   "supports_movement": "business_deployment_reported"
+  },
+  {
+   "claim": "wk-c13. Federal tip-pool rule: kitchen staff may share a pool only if the employer takes no tip credit.",
+   "quote": "(c)(1) An employer may require an employee for whom the employer takes a tip credit to contribute tips to a tip pool only if it is limited to employees who customarily and regularly receive tips. (d) An employer that pays the full minimum wage and takes no tip credit may impose a tip pooling arrangement that includes dishwashers, cooks, or other employees. An employer may not receive tips from such a tip pool, and may not allow supervisors and managers to receive tips from the tip pool.",
+   "url": "https://www.law.cornell.edu/cfr/text/29/531.54",
+   "retrieved": "2026-10-26",
+   "source_type": "primary federal regulation text, reproduced by the Cornell Legal Information Institute. The page prints: 85 FR 86789, Dec. 30, 2020, as amended at 86 FR 52986, Sept. 24, 2021.",
+   "confidence": "high on the text as fetched. Medium on currency until checked against eCFR.",
+   "why_it_matters": "This decides whether the 100 percent kitchen pool is lawful. It is lawful only if the restaurant pays full minimum wage and takes no tip credit. No outlet says whether it takes a tip credit. The film must not present the pool as lawful or unlawful.",
+   "supports_movement": "existing_rule_not_in_record"
+  },
+  {
+   "claim": "wk-c14. The Texas Workforce Commission tip page follows the federal rule and states that owners and managers may not keep tips.",
+   "quote": "Owners and managers cannot keep employee tips, under any circumstances. / Tips left by customers in tip jars, which the DOL and the courts would consider employee tips. / Cooks and dishwashers may be included in a pool if the employer pays tipped employees at least the full minimum wage (TWC wording differs from the CFR wording, which requires no tip credit).",
+   "url": "https://efte.twc.texas.gov/tip_pooling.html",
+   "retrieved": "2026-10-26",
+   "source_type": "state agency guidance page (no date printed)",
+   "confidence": "medium. It is guidance, not statute, and its wording on the cook condition differs from 29 CFR 531.54.",
+   "why_it_matters": "It is the Texas-facing source the brief asked for, and it makes plain that a tip jar belongs to the staff. It also shows the pool condition is worded two ways. The director should cite the federal text for the rule and the TWC page for the explanation.",
+   "supports_movement": "existing_rule_not_in_record"
+  },
+  {
+   "claim": "wk-c15. Texas law adopts the federal minimum wage and the federal tipped-employee rule by reference. It adds no separate tip-pool rule in the sections read.",
+   "quote": "Tex. Labor Code 62.051: an employer shall pay to each employee the federal minimum wage. 62.052(a): the wage of a tipped employee is determined under Section 3(m) of the Fair Labor Standards Act. 62.052(b): tipped employee means an employee engaged in an occupation in which the employee customarily and regularly receives more than $20 a month in tips.",
+   "url": "https://texas.public.law/statutes/tex._labor_code_section_62.051 ; https://texas.public.law/statutes/tex._labor_code_section_62.052",
+   "retrieved": "2026-10-26",
+   "source_type": "statute text via a public-law mirror. The official text is at statutes.capitol.texas.gov, which returned only its index.",
+   "confidence": "medium-high. The mirror was read. The official text was not reached.",
+   "why_it_matters": "Texas adds no separate pool rule in these sections, so the federal test controls. A cook does not customarily receive tips under 62.052(b), so the cook's pay path is the question, not the cook's tip status.",
+   "supports_movement": "existing_rule_not_in_record"
+  },
+  {
+   "claim": "wk-c16. The Texas AI disclosure duty in the record names a governmental agency.",
+   "quote": "Sec. 552.051(b): A governmental agency that makes available an artificial intelligence system intended to interact with consumers shall disclose to each consumer, before or at the time of interaction, that the consumer is interacting with an artificial intelligence system. Sec. 552.051(c): A person is required to make the disclosure under Subsection (b) regardless of whether it would be obvious to a reasonable consumer that the consumer is interacting with an artificial intelligence system.",
+   "url": "https://tcss.legis.texas.gov/resources/BC/htm/BC.552.htm",
+   "retrieved": "2026-10-26",
+   "source_type": "primary official statute",
+   "confidence": "high on the text. Medium on application, because subsection (c) says person and the record's own item reads the duty as government agencies only.",
+   "why_it_matters": "The one Texas AI disclosure statute in the record does not clearly reach a private restaurant's phone host. A film that implies Texas requires disclosure here would be wrong. A film that says the disclosure duty as written names a government agency is accurate.",
+   "supports_movement": "tx-2026-0006"
+  },
+  {
+   "claim": "wk-c17. Texas law preempts city and county rules on AI use.",
+   "quote": "Sec. 552.003. LOCAL PREEMPTION. This chapter supersedes and preempts any ordinance, resolution, rule, or other regulation adopted by a political subdivision regarding the use of artificial intelligence systems.",
+   "url": "https://tcss.legis.texas.gov/resources/BC/htm/BC.552.htm",
+   "retrieved": "2026-10-26",
+   "source_type": "primary official statute (quoted in record item tx-2026-0012)",
+   "confidence": "high on the text as recorded in the docket.",
+   "why_it_matters": "Spring cannot adopt its own AI-use rule for this business. It is a limit on the local answer, and the film should not suggest a city action is pending.",
+   "supports_movement": "tx-2026-0012"
+  },
+  {
+   "claim": "wk-c18. Coverage dates and the earliest outlet.",
+   "quote": "Muslim Mirror, published October 19, 2026 (earliest in the fetch). FOX 26 article, October 20, 2026, 9:05 AM CDT. FOX 26 video page, October 20, 2026, 8:57 AM CDT. Hoodline, October 20, 2026. Click2Houston, October 21, 2026, 5:55 PM (byline Ajay Patel).",
+   "url": "https://muslimmirror.com/no-servers-no-host-and-no-phone-calls-ai-takes-over-at-a-halal-restaurant-in-houston-texas/ ; https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat ; https://www.fox26houston.com/video/fmc-m8lxrrnzaa081nvr",
+   "retrieved": "2026-10-26",
+   "source_type": "journalism",
+   "confidence": "medium. Dates come from the fetch extraction.",
+   "why_it_matters": "The lead the director chose is not the earliest report. The dates matter for the dedupe and for accuracy in the email.",
+   "supports_movement": "business_deployment_reported"
+  },
+  {
+   "claim": "wk-c19. The record holds no item on this restaurant, its labor, or its tips.",
+   "quote": "No record item was found for a restaurant, tip pool, server, or AI ordering in docket lines 1 to about 4500. The remainder was not read.",
+   "url": "https://github.com/ (local file: /home/user/dispatch-editions/2026-10-26/TexasAIDocket/ledger/docket.json)",
+   "retrieved": "2026-10-26",
+   "source_type": "primary record (local ledger, partial read)",
+   "confidence": "medium. The scan is partial.",
+   "why_it_matters": "The story is new to the record. It can be framed with the existing TRAIGA items, but it adds no docket update. The feed step may not edit the ledger.",
+   "supports_movement": "new_to_record"
+  }
+ ],
+ "filmability": {
+  "viewer_question": "When a restaurant loses its only server, how does a guest order and pay, and who gets the tip?",
+  "opening_action": "A guest scans a table QR code, orders and pays before the kitchen starts. No catalog action covers this (street-capture-v1, curb-selection-v1 and document-accumulation-v1 do not match). No authenticated footage has been obtained. The opening needs the bounded source-backed proposal, as a labeled illustration of the reported process.",
+  "mechanism": "Orders arrive from a table QR code, a phone and the website. One host holds the order until payment clears, and only then does the kitchen cook. The source for this is Muslim Mirror, with FOX 26 confirming phone, QR and pre-payment. The tablet wording in Click2Houston is unresolved and must not be drawn as the same device.",
+  "human_consequence": "The family lost its only server, and the owner says the change began out of desperation (two outlets). Cooks now share tips, by the owner's account. First-time customers face a learning curve on QR ordering (Click2Houston). The job that went away was one the family could not keep filled (Muslim Mirror).",
+  "source_limit": "Every savings and cost figure is the owner's or family's own count, and the outlets give different breakdowns. The vendor is not identified, and the Clover link rests on one outlet's reference to a site not reached. The owner's name conflicts. The restaurant's own site does not show the AI host, QR or pre-pay. No source states whether a tip credit is taken, which decides whether the 100 percent pool is lawful. No outlet shows a tip split, and no picture can truthfully show one.",
+  "three_key_images": [
+   "A table QR code and a pay-first screen, drawn as an explicit illustration of the sourced sequence, with the disclosure stated on screen.",
+   "The empty server station replaced by a phone or tablet, drawn as an illustration because no photograph of the restaurant floor is in the record.",
+   "The restaurant's own order page with delivery apps beside Order Direct and Save and no AI mention, shown only with the owner's permission, as the counter-image and the closing limit card."
+  ],
+  "strongest_hook": "The restaurant's own website does not mention the AI host. The director can open on the question a guest would ask of the site, and answer it from the page. Verify the page first, because the site may be out of date.",
+  "strongest_limitation": "The savings and tip figures are the owner's own count. The vendor is unidentified. The restaurant's public page does not confirm the system.",
+  "recommended_ordering": "Mechanism-led (news-reporting.md): input (a QR tap or a phone order), question (who takes this order now), transformation (the order is routed through a host and paid first), result (the kitchen starts after payment), human decision (the owner's choice after losing the server, with the sourced quote), limits (self-reported savings, unidentified vendor, unknown tip-credit status, the restaurant's own page silent on AI). Source-backed reason: the central claim is a process, the human material is a single quoted sentence, and the money and tip claims cannot be pictured truthfully. Plausible alternative: human-led around the owner's quote. Rejected because it would rest on one self-description and on feelings no source reports on camera.",
+  "format_and_approach": "News report. Primary approach: explanatory animation for the ordering flow, with evidence-led inserts from the restaurant's own page and the owner quote. Observed documentary is not available. Cinematic scene is not supported, because no source-backed physical task has been observed.",
+  "rejected_alternative": "Not compared. No other candidate was researched in this pass, so no real rejected alternative is claimed. The director must not record one unless it was actually compared.",
+  "visual_stakes": {
+   "affected_person": "The owner and family who run Wok & Karahi, the cooks who now receive tips by the owner's account, and guests who must order by phone or code.",
+   "physical_subject": "A table QR code, a phone or tablet screen at the ordering step, and the kitchen queue held until payment clears.",
+   "visible_change": "The order is taken by a host on a phone or code instead of a server, and payment comes before cooking.",
+   "consequence": "A service role moves from a person to software, and tip distribution changes to kitchen staff, as the owner describes it.",
+   "question": "Who takes the order, and who gets the tip?",
+   "answer": "The order: a host reached by phone, QR code and website, per Muslim Mirror and FOX 26. The tip: an owner-reported 100 percent kitchen share that no source documents and that no picture can show.",
+   "asset_fit": "No inspected footage. Illustrations of the ordering flow are the honest route, with disclosure. The tip split cannot be pictured truthfully.",
+   "source_urls": [
+    "https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat",
+    "https://muslimmirror.com/no-servers-no-host-and-no-phone-calls-ai-takes-over-at-a-halal-restaurant-in-houston-texas/",
+    "https://www.click2houston.com/news/local/2026/10/21/spring-restaurant-turns-to-ai-for-ordering-putting-tips-directly/",
+    "https://hoodline.com/2026/10/spring-restaurant-ditches-its-last-server-for-an-ai-host-named-haniya/",
+    "https://wokandkarahitexas.com"
+   ]
+  },
+  "action_support": [
+   {
+    "order": "image opening",
+    "medium": "source-backed-action proposal",
+    "pictured_action": "A guest taps or scans a table QR code, places an order and pays on a phone before the kitchen releases the order.",
+    "scope_fit": "No catalog action covers ordering or payment. Needs the bounded source-backed proposal, labeled as an illustration of a reported process. No real customers or staff performing an actual transaction at the named business.",
+    "source_url": "https://muslimmirror.com/no-servers-no-host-and-no-phone-calls-ai-takes-over-at-a-halal-restaurant-in-houston-texas/"
+   },
+   {
+    "order": "mechanism",
+    "medium": "source-backed-action proposal (explanatory diagram)",
+    "pictured_action": "Orders from the table code, phone, website and delivery apps converge on one host, which holds each order until payment clears and then passes it to the kitchen.",
+    "scope_fit": "Diagram with Illustration disclosure. Each node carries the claim id of its source sentence. The tip split is not drawn. Delivery apps are sourced only from the restaurant's own site.",
+    "source_url": "https://muslimmirror.com/no-servers-no-host-and-no-phone-calls-ai-takes-over-at-a-halal-restaurant-in-houston-texas/"
+   },
+   {
+    "order": "consequence",
+    "medium": "source-backed-action proposal (disclosed illustration of the server role moving to a host), with the restaurant's own page as a source-still only after permission",
+    "pictured_action": "The server role is replaced by a host on a phone or tablet. The restaurant's public page offers delivery apps and no AI mention.",
+    "scope_fit": "Illustration of a sourced change. The restaurant page is a source-still only with rights evidence from the owner. No rights are established by this research.",
+    "source_url": "https://wokandkarahitexas.com"
+   }
+  ],
+  "asset_leads": [
+   {
+    "url": "https://www.fox26houston.com/video/fmc-m8lxrrnzaa081nvr",
+    "relevant_image": "FOX 26 video of the restaurant. Description: reporter visited to see the change in just 24 hours after a server walked out.",
+    "what_it_proves": "That FOX 26 filmed at the restaurant. The page has no transcript, so it proves no mechanism or tip claim.",
+    "rights_basis": "FOX 26 copyright. No reuse licence found. Not inspected: this tool cannot play the video. Reference only.",
+    "native_illustration_more_honest": "Yes for the ordering flow. Any use of FOX frames needs a licence the director does not have."
+   },
+   {
+    "url": "https://www.fox26houston.com/news/spring-restaurant-wok-karahi-ai-host-afloat",
+    "relevant_image": "Article photographs not inspected.",
+    "what_it_proves": "The article text (the source for wk-c1 to wk-c4, wk-c10 to wk-c12).",
+    "rights_basis": "FOX 26 copyright. Quote only, with attribution.",
+    "native_illustration_more_honest": "Yes for the mechanism."
+   },
+   {
+    "url": "https://wokandkarahitexas.com",
+    "relevant_image": "Homepage and order links. Photographs not inspected.",
+    "what_it_proves": "The restaurant's address, phone and ordering channels, and the absence of AI, QR or pre-pay wording in the text read (wk-c9).",
+    "rights_basis": "Owned by the restaurant. No permission on file. Needs the owner's written permission for any still.",
+    "native_illustration_more_honest": "Use the text as a source, and draw the order flow as an illustration if the owner declines."
+   },
+   {
+    "url": "https://hoodline.com/2026/10/spring-restaurant-ditches-its-last-server-for-an-ai-host-named-haniya/",
+    "relevant_image": "Article header photograph, credited in the article to Claudio Schwarz via Unsplash. Subject not confirmed to be the restaurant.",
+    "what_it_proves": "Nothing about the restaurant. Do not use it as a picture of the business.",
+    "rights_basis": "Unsplash credit stated in the article text. The licence terms were not checked.",
+    "native_illustration_more_honest": "Yes. Do not use the header as a restaurant image."
+   },
+   {
+    "url": "https://www.loc.gov/ (Lyda Hill Texas Collection, via scripts/place_photos.py with place Spring, Texas)",
+    "relevant_image": "Not searched in this pass, because this worker has no shell.",
+    "what_it_proves": "Unknown. It can only give place context, never the actual site.",
+    "rights_basis": "Library of Congress advisory per the brief. Confirm per item on fetch.",
+    "native_illustration_more_honest": "Context only, if it is used at all."
+   }
+  ],
+  "blocking_items": [
+   "Hash verification not computed. Run sha256sum on the packet and each input.",
+   "Dedupe check and subject-screen not run. Required before a researcher reservation or any story admission.",
+   "Owner name conflict unresolved. Do not publish a name until resolved.",
+   "Vendor and Clover claims unverified. Do not publish them.",
+   "Tip-credit status of the restaurant unknown. The tip-pool claim cannot be called lawful or unlawful.",
+   "Restaurant's own site shows no AI, QR or pre-pay. Re-read the live pages before the film relies on any ordering claim.",
+   "Quotes are from a summarizing fetch tool. Re-check exact strings against each page before publication."
+  ],
+  "no_contact_or_send": "No email was sent and nothing was posted. No subagents were launched."
+ }
+}
