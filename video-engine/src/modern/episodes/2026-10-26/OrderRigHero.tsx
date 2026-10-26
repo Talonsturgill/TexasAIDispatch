@@ -16,11 +16,13 @@ import {FONT,widthOf} from '../../../lib/type';
  *  - the hand that holds it and the index finger that taps it, skin as a fill only;
  *  - a hand-drawn square code card in a clear acrylic table stand. Its pattern is seeded and irregular and
  *    is not a working code;
- *  - a boxy thermal kitchen ticket printer with a slot on its top face, a standby lamp, a feed button and
- *    a worn sticker, standing under a leaning steel ticket rail on two posts. A printed ticket rises out of
- *    the slot top first until its top edge reaches the rail, where a ball bearing grips it;
- *  - a carbon steel wok on a gas burner over a steel range front, its flame low and blue until it flares
- *    orange around the bowl, with noodles that toss once the pan cooks;
+ *  - a boxy thermal kitchen ticket printer with a slot on its top face, a standby lamp that turns red, a
+ *    feed button and a worn sticker, standing under a leaning steel ticket rail on two posts. A printed
+ *    ticket rises out of the slot top first until its top edge reaches the rail, where a ball bearing grips it;
+ *  - a carbon steel wok resting in its ring on a gas burner over a steel range front: empty and unlit (no
+ *    flame drawn at all) until it is loaded, then flaring orange; the cook's hand on its handle rocks the pan
+ *    about the ring, and that movement is what lifts the noodles; the cook's forearm and hand with a steel
+ *    bowl of raw noodles that pours;
  *  - a glass tip jar with a threaded neck that fills with plain coins and folded plain notes;
  *  - top views of the jar, the printer and the wok for the plan shots, and the loose coin and note.
  *
@@ -254,9 +256,10 @@ const Finger:React.FC<{skin:string;press?:number}>=({skin,press=0})=>{
 // ---- the printer and its rail -------------------------------------------------------------------------------
 /** Printer units: base centre at the origin. The slot is on the top face; a ticket rises out of it top first.
  * The rail's grip line sits exactly one ticket length above the slot, so a finished ticket reaches it. */
-export const PRINTER={w:260,h:150,top:-190,slot:{x:7,y:-162,w:180},paper:150,ticket:200,led:[92,-104] as Pt,
- rail:{y:-362,x0:-206,x1:290,lean:-1.2,posts:[-196,276]}};
-export const PRINTER_BOX:[number,number,number,number]=[-212,-392,296,4];
+export const TICKET={w:170,len:160};
+export const PRINTER={w:260,h:150,top:-190,slot:{x:7,y:-162,w:180},led:[92,-104] as Pt,
+ rail:{y:-162-TICKET.len,x0:-206,x1:290,lean:-1.2,posts:[-196,276]}};
+export const PRINTER_BOX:[number,number,number,number]=[-212,-352,296,4];
 /** The rail's grip point is at the slot's x, so the leaning rail passes exactly through the ticket's top. */
 export const railGrip=():Pt=>[PRINTER.slot.x,PRINTER.rail.y];
 const Printer:React.FC<{led?:number;standby?:number}>=({led=0,standby=.5})=>{
@@ -279,9 +282,10 @@ const Printer:React.FC<{led?:number;standby?:number}>=({led=0,standby=.5})=>{
   <rect x={-98} y={-104} width={60} height={8} rx={4} fill="#B4A88F"/><rect x={-98} y={-88} width={40} height={7} rx={3.5} fill="#C8BDA5"/>
   <path d="M-30 -70l18 6" stroke="#B9AD95" strokeWidth={3} opacity={.7}/>
   {Array.from({length:6},(_,i)=><rect key={i} x={-104+i*16} y={-40} width={8} height={24} rx={4} fill="#1E2226"/>)}
-  <circle cx={P.led[0]} cy={P.led[1]} r={11} fill="#14171A" stroke={HP.ink} strokeWidth={2}/>
-  <circle cx={P.led[0]} cy={P.led[1]} r={7} fill={led>.02?HP.red:'#C9A447'} opacity={f2(led>.02?.35+.65*led:.25+.5*standby)}/>
-  {led>.02&&<circle cx={P.led[0]} cy={P.led[1]} r={f2(14+10*led)} fill={HP.red} opacity={f2(.22*led)}/>}
+  <circle cx={P.led[0]} cy={P.led[1]} r={16} fill="#14171A" stroke={HP.ink} strokeWidth={2.4}/>
+  <circle cx={P.led[0]} cy={P.led[1]} r={11} fill={led>.02?HP.red:'#C9A447'} opacity={f2(led>.02?.35+.65*led:.25+.5*standby)}/>
+  {led>.02&&<circle cx={P.led[0]} cy={P.led[1]} r={f2(18+16*led)} fill={HP.red} opacity={f2(.25*led)}/>}
+  {led>.02&&<circle cx={P.led[0]-3} cy={P.led[1]-3} r={3.5} fill="#FFD9CC" opacity={f2(led)}/>}
   <rect x={70} y={-70} width={44} height={22} rx={8} fill="#3C434A" stroke={HP.ink} strokeWidth={2}/>
   <path d="M-126 -10q20 4 40 0" stroke="#5B636A" strokeWidth={3} opacity={.6} fill="none"/>
   <path d="M148 -60q30 20 30 70" stroke="#1E2226" strokeWidth={8} fill="none" strokeLinecap="round"/>
@@ -312,7 +316,6 @@ const Rail:React.FC<{roll?:number}>=({roll=0})=>{
 };
 /** A kitchen ticket, its top edge at y 0, `len` of it out of the slot. The thermal print is anchored to the
  * paper's top edge, so the first printed lines lead out of the slot. `cut` draws the torn lower edge. */
-export const TICKET={w:170,len:200};
 /** Type sizes fitted to their space by the engine's measured width estimate, which errs long. */
 const fit=(text:string,max:number,room:number)=>Math.min(max,room/widthOf(text,1,true));
 const Ticket:React.FC<{len:number;cut?:number}>=({len,cut=0})=>{
@@ -332,7 +335,6 @@ const Ticket:React.FC<{len:number;cut?:number}>=({len,cut=0})=>{
    <path d={`M10 102H${W-10}`} stroke="#8F8A80" strokeWidth={2} strokeDasharray="6 5"/>
    <rect x={14} y={118} width={110} height={8} rx={4} fill="#A9A397"/>
    <rect x={14} y={136} width={80} height={8} rx={4} fill="#B8B2A6"/>
-   <path d={`M10 160H${W-10}`} stroke="#8F8A80" strokeWidth={2} strokeDasharray="6 5"/>
   </g>
  </g>;
 };
@@ -343,16 +345,21 @@ export const WOK={rim:[0,-122] as Pt,rx:170,ry:28,bottom:-34,handle:[-330,-160] 
 export const WOK_BOX:[number,number,number,number]=[-340,-420,216,152];
 const flameTongue=(x:number,base:number,h:number,w:number,bend:number)=>
  `M${f2(x-w)} ${f2(base)}C${f2(x-w*.9)} ${f2(base-h*.45)} ${f2(x+bend-w*.2)} ${f2(base-h*.7)} ${f2(x+bend)} ${f2(base-h)}C${f2(x+bend+w*.3)} ${f2(base-h*.62)} ${f2(x+w)} ${f2(base-h*.4)} ${f2(x+w)} ${f2(base)}Z`;
-const Wok:React.FC<{flame:number;cook:number;t:number;range?:boolean}>=({flame,cook,t,range=true})=>{
+/** The wok ring the pan rests in: its centre is the pan's rocking pivot, so a tilted pan never leaves it. */
+export const WOK_RING={c:[0,-50] as Pt,rx:84,ry:9};
+/** The wok on its burner. `flame` 0 draws no flame at all (the burner is off); `food` 0 is an empty pan and 1
+ * a loaded one; the pan group (bowl, handle, food and the cook's hand) rocks by `tilt` degrees about the ring;
+ * `toss` lifts the noodles off the pan, which the episode drives from the pan's own shake. */
+const Wok:React.FC<{flame:number;food:number;toss:number;tilt:number;hand:number;t:number;range?:boolean;skin?:string}>=
+ ({flame,food,toss,tilt,hand,t,range=true,skin=HP.skin[0]})=>{
  const id=useUid('orwk');
- const W=WOK,[rx0,ry0]=W.rim,fl=clamp(flame),ck=clamp(cook);
- const tongues=Array.from({length:9},(_,i)=>{
+ const W=WOK,[rx0,ry0]=W.rim,fl=clamp(flame),fd=clamp(food),R=WOK_RING;
+ const tongues=fl<=.001?[]:Array.from({length:9},(_,i)=>{
   const x=-120+i*30,fk=Math.sin(t*13+i*1.9)*.5+Math.sin(t*7.3+i*.7)*.5;
-  const low=18+6*fk,high=150+70*hash(i+4)+40*fk*fl;
-  const outer=Math.abs(x)>70;
-  return {x:x+(outer?Math.sign(x)*30*fl:0),h:lerp(low,outer?high*1.15:high*.55,fl),w:lerp(9,24,fl),bend:(outer?Math.sign(x)*(18+20*fl):0)+8*fk};
+  const high=150+70*hash(i+4)+40*fk*fl,outer=Math.abs(x)>70;
+  return {x:x+(outer?Math.sign(x)*30*fl:0),h:(outer?high*1.15:high*.55)*fl,w:lerp(6,24,fl),bend:(outer?Math.sign(x)*(18+20*fl):0)+8*fk};
  });
- const toss=ck*Math.max(0,Math.sin(t*5.2))**2;
+ const strands=Math.round(12*fd),bits=Math.round(8*fd);
  return <g data-part="wok">
   <defs>
    <radialGradient id={id+'g'} cx="0.5" cy="0.8" r="0.6"><stop offset="0" stopColor={HP.flameYellow} stopOpacity={.75}/><stop offset="1" stopColor={HP.flameOrange} stopOpacity={0}/></radialGradient>
@@ -363,32 +370,63 @@ const Wok:React.FC<{flame:number;cook:number;t:number;range?:boolean}>=({flame,c
    <rect x={-W.range.w/2} y={0} width={W.range.w} height={W.range.h} rx={6} fill={`url(#${id}r)`} stroke={HP.ink} strokeWidth={3}/>
    <path d={`M${-W.range.w/2} 14H${W.range.w/2}`} stroke={HP.steelDark} strokeWidth={3}/>
    {[-120,0,120].map((x,k)=><g key={k} transform={`translate(${x} 82)`}><circle r={22} fill={HP.charcoal} stroke={HP.ink} strokeWidth={2.4}/>
-    <rect x={-4} y={-20} width={8} height={18} rx={3} fill="#9AA2A6" transform={`rotate(${k===1?f2(-40+70*fl):k*25-10})`}/></g>)}
+    <rect x={-4} y={-20} width={8} height={18} rx={3} fill="#9AA2A6" transform={`rotate(${k===1?f2(-90+130*fl):k*25-10})`}/></g>)}
    <path d={`M${W.range.w/2-60} 40q10 30 4 70`} stroke="#8E6A4A" strokeWidth={3} opacity={.5} fill="none"/>
   </g>}
   <path d="M-150 0H150M-120 -8L-100 0M120 -8L100 0M-40 -8V0M40 -8V0" stroke={HP.charcoalDeep} strokeWidth={8} strokeLinecap="round"/>
   <ellipse cx={0} cy={-4} rx={80} ry={10} fill="#1B1E21"/>
+  {[-56,0,56].map((x,k)=><circle key={k} cx={x} cy={-8} r={3} fill="#3A4045"/>)}
   {fl>0&&<ellipse cx={0} cy={-120} rx={f2(240*fl+40)} ry={f2(180*fl+20)} fill={`url(#${id}g)`} opacity={f2(.85*fl)}/>}
   {tongues.map((q,i)=><path key={'b'+i} d={flameTongue(q.x,-6,q.h,q.w,q.bend)} fill={fl>.15?HP.flameOrange:HP.flameBlue} opacity={f2(.55+.35*fl)}/>)}
-  {tongues.map((q,i)=>fl>.1?<path key={'c'+i} d={flameTongue(q.x,-6,q.h*.62,q.w*.55,q.bend*.6)} fill={i%3?HP.flameYellow:HP.flameRed} opacity={f2(.8*fl)}/>:
-   <path key={'c'+i} d={flameTongue(q.x,-6,q.h*.6,q.w*.5,q.bend*.5)} fill={HP.flameCore} opacity={.8}/>)}
-  <path d={`M${rx0-W.rx} ${ry0}C${rx0-W.rx+10} ${ry0+60} ${-60} ${W.bottom} ${0} ${W.bottom}C${60} ${W.bottom} ${rx0+W.rx-10} ${ry0+60} ${rx0+W.rx} ${ry0}Z`} fill={`url(#${id}w)`} stroke={HP.ink} strokeWidth={3.4}/>
-  <path d={`M${rx0-W.rx+26} ${ry0+22}C${-110} ${ry0+64} ${-60} ${W.bottom+12} ${-10} ${W.bottom+10}`} stroke="#8A7566" strokeWidth={4} fill="none" opacity={.5}/>
-  {fl>0&&<path d={`M${rx0+W.rx-12} ${ry0+14}C${120} ${ry0+60} ${60} ${W.bottom+6} ${0} ${W.bottom+2}`} stroke={HP.flameOrange} strokeWidth={6} fill="none" opacity={f2(.6*fl)}/>}
-  <path d={`M${rx0-W.rx+4} ${ry0-6}L${W.handle[0]+40} ${W.handle[1]+8}`} stroke={HP.steelDark} strokeWidth={12} strokeLinecap="round"/>
-  <path d={`M${W.handle[0]+60} ${W.handle[1]+6}L${W.handle[0]} ${W.handle[1]-4}`} stroke={HP.wood} strokeWidth={24} strokeLinecap="round"/>
-  <path d={`M${W.handle[0]+56} ${W.handle[1]-2}L${W.handle[0]+8} ${W.handle[1]-10}`} stroke={HP.woodLit} strokeWidth={5} strokeLinecap="round" opacity={.8}/>
-  <path d={`M${rx0+W.rx-6} ${ry0+4}q36 -4 40 18q-4 18 -36 12`} stroke={HP.steelDark} strokeWidth={8} fill="none"/>
-  <ellipse cx={rx0} cy={ry0} rx={W.rx} ry={W.ry} fill="#3B322C" stroke={HP.ink} strokeWidth={3.4}/>
-  <ellipse cx={rx0} cy={ry0+2} rx={W.rx-12} ry={W.ry-6} fill="#241E1A"/>
-  <g data-part="noodles">
-   {Array.from({length:12},(_,i)=>{const x=-120+i*21,y=ry0+4+6*Math.sin(i*1.7),lift=toss*(40+30*hash(i+2))*(i%2?1:.7);
-    return <path key={i} d={`M${f2(x)} ${f2(y-lift*.4)}q14 ${f2(-12-lift)} 28 ${f2(-2-lift*.2)}t26 6`} stroke={i%3?HP.noodle:HP.noodleDeep} strokeWidth={6} fill="none" strokeLinecap="round"/>;})}
-   {Array.from({length:8},(_,i)=><rect key={i} x={f2(-100+i*27)} y={f2(ry0-4-toss*24*hash(i+11))} width={9} height={5} rx={2} fill={i%2?HP.onion:HP.carrot} transform={`rotate(${f2(40*hash(i))} ${f2(-96+i*27)} ${ry0})`}/>)}
+  {tongues.map((q,i)=><path key={'c'+i} d={flameTongue(q.x,-6,q.h*.62,q.w*.55,q.bend*.6)} fill={fl>.15?(i%3?HP.flameYellow:HP.flameRed):HP.flameCore} opacity={f2(.8*Math.min(1,fl*4))}/>)}
+  <path d={`M${-R.rx} ${R.c[1]}L-110 -8M${R.rx} ${R.c[1]}L110 -8M-20 ${R.c[1]+R.ry}L-40 -8`} stroke={HP.steelDark} strokeWidth={7} strokeLinecap="round"/>
+  <path d={`M${-R.rx} ${R.c[1]}A${R.rx} ${R.ry} 0 0 1 ${R.rx} ${R.c[1]}`} stroke={HP.steelDark} strokeWidth={7} fill="none"/>
+  <g data-part="pan" transform={`rotate(${f2(tilt)} ${R.c[0]} ${R.c[1]})`}>
+   <path d={`M${rx0-W.rx} ${ry0}C${rx0-W.rx+10} ${ry0+60} ${-60} ${W.bottom} ${0} ${W.bottom}C${60} ${W.bottom} ${rx0+W.rx-10} ${ry0+60} ${rx0+W.rx} ${ry0}Z`} fill={`url(#${id}w)`} stroke={HP.ink} strokeWidth={3.4}/>
+   <path d={`M${rx0-W.rx+26} ${ry0+22}C${-110} ${ry0+64} ${-60} ${W.bottom+12} ${-10} ${W.bottom+10}`} stroke="#8A7566" strokeWidth={4} fill="none" opacity={.5}/>
+   {fl>0&&<path d={`M${rx0+W.rx-12} ${ry0+14}C${120} ${ry0+60} ${60} ${W.bottom+6} ${0} ${W.bottom+2}`} stroke={HP.flameOrange} strokeWidth={6} fill="none" opacity={f2(.6*fl)}/>}
+   <path d={`M${rx0-W.rx+4} ${ry0-6}L${W.handle[0]+40} ${W.handle[1]+8}`} stroke={HP.steelDark} strokeWidth={12} strokeLinecap="round"/>
+   <path d={`M${W.handle[0]+60} ${W.handle[1]+6}L${W.handle[0]} ${W.handle[1]-4}`} stroke={HP.wood} strokeWidth={24} strokeLinecap="round"/>
+   <path d={`M${W.handle[0]+56} ${W.handle[1]-2}L${W.handle[0]+8} ${W.handle[1]-10}`} stroke={HP.woodLit} strokeWidth={5} strokeLinecap="round" opacity={.8}/>
+   <path d={`M${rx0+W.rx-6} ${ry0+4}q36 -4 40 18q-4 18 -36 12`} stroke={HP.steelDark} strokeWidth={8} fill="none"/>
+   <ellipse cx={rx0} cy={ry0} rx={W.rx} ry={W.ry} fill="#3B322C" stroke={HP.ink} strokeWidth={3.4}/>
+   <ellipse cx={rx0} cy={ry0+2} rx={W.rx-12} ry={W.ry-6} fill="#241E1A"/>
+   {fd>0&&<g data-part="noodles">
+    <ellipse cx={0} cy={ry0+4} rx={f2(110*fd)} ry={f2(14*fd)} fill={HP.noodleDeep} opacity={.55}/>
+    {Array.from({length:strands},(_,i)=>{const x=-120+i*21,y=ry0+4+6*Math.sin(i*1.7),lift=toss*(40+30*hash(i+2))*(i%2?1:.7);
+     return <path key={i} d={`M${f2(x)} ${f2(y-lift*.4)}q14 ${f2(-12-lift)} 28 ${f2(-2-lift*.2)}t26 6`} stroke={i%3?HP.noodle:HP.noodleDeep} strokeWidth={6} fill="none" strokeLinecap="round"/>;})}
+    {Array.from({length:bits},(_,i)=><rect key={i} x={f2(-100+i*27)} y={f2(ry0-4-toss*24*hash(i+11))} width={9} height={5} rx={2} fill={i%2?HP.onion:HP.carrot} transform={`rotate(${f2(40*hash(i))} ${f2(-96+i*27)} ${ry0})`}/>)}
+   </g>}
+   <path d={`M${rx0-W.rx+20} ${ry0-10}A${W.rx} ${W.ry} 0 0 1 ${rx0-20} ${ry0-W.ry+2}`} stroke="#9C8778" strokeWidth={4} fill="none" opacity={.7}/>
+   {hand>0&&<g data-part="cook-hand" opacity={f2(clamp(hand))}>
+    <path d={`M${W.handle[0]+26} ${W.handle[1]+6}L${W.handle[0]-220} ${W.handle[1]+520}L${W.handle[0]-60} ${W.handle[1]+560}L${W.handle[0]+70} ${W.handle[1]+40}Z`} fill="#F1EEE6" stroke={HP.ink} strokeWidth={3.4}/>
+    <path d={`M${W.handle[0]+10} ${W.handle[1]+80}L${W.handle[0]-120} ${W.handle[1]+360}`} stroke="#CFC8BA" strokeWidth={4} opacity={.8}/>
+    <path d={`M${W.handle[0]-4} ${W.handle[1]-26}C${W.handle[0]+30} ${W.handle[1]-34} ${W.handle[0]+66} ${W.handle[1]-18} ${W.handle[0]+70} ${W.handle[1]+6}C${W.handle[0]+72} ${W.handle[1]+34} ${W.handle[0]+30} ${W.handle[1]+46} ${W.handle[0]} ${W.handle[1]+36}C${W.handle[0]-20} ${W.handle[1]+20} ${W.handle[0]-24} ${W.handle[1]-14} ${W.handle[0]-4} ${W.handle[1]-26}Z`} fill={skin} stroke={HP.ink} strokeWidth={3.4}/>
+    {[0,1,2].map(k=><path key={k} d={`M${W.handle[0]+14+k*16} ${W.handle[1]-24}q4 14 -2 30`} stroke={HP.ink} strokeWidth={2} opacity={.45} fill="none"/>)}
+   </g>}
   </g>
-  <path d={`M${rx0-W.rx+20} ${ry0-10}A${W.rx} ${W.ry} 0 0 1 ${rx0-20} ${ry0-W.ry+2}`} stroke="#9C8778" strokeWidth={4} fill="none" opacity={.7}/>
-  {ck>0&&[0,1,2].map(i=>{const ph=(t*.9+i*.33)%1;return <path key={'s'+i} d={`M${-50+i*50} ${f2(ry0-30-ph*150)}q-14 -26 0 -52t0 -52`} stroke="#FFFFFF" strokeWidth={6} fill="none"
-   opacity={f2(.35*ck*Math.sin(Math.PI*ph))} strokeLinecap="round"/>;})}
+  <path d={`M${-R.rx} ${R.c[1]}A${R.rx} ${R.ry} 0 0 0 ${R.rx} ${R.c[1]}`} stroke={HP.steelDark} strokeWidth={7} fill="none"/>
+  {fl>0&&fd>0&&[0,1,2].map(i=>{const ph=(t*.9+i*.33)%1;return <path key={'s'+i} d={`M${-50+i*50} ${f2(ry0-30-ph*150)}q-14 -26 0 -52t0 -52`} stroke="#FFFFFF" strokeWidth={6} fill="none"
+   opacity={f2(.35*fl*fd*Math.sin(Math.PI*ph))} strokeLinecap="round"/>;})}
+ </g>;
+};
+/** The cook's forearm and hand holding a steel bowl of raw noodles and cut vegetables, the bowl's pouring lip
+ * at the origin. `tilt` (degrees) lifts the bowl's far side about the lip; `left` 0 to 1 is what is left in it. */
+const CookBowl:React.FC<{tilt:number;left:number;skin:string}>=({tilt,left,skin})=>{
+ const id=useUid('orcb');
+ const lf=clamp(left);
+ return <g data-part="cook-bowl" transform={`rotate(${f2(tilt)})`}>
+  <defs><linearGradient id={id} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={HP.steelLit}/><stop offset="1" stopColor={HP.steelDeep}/></linearGradient></defs>
+  <path d="M-150 -6L-420 -330L-300 -400L-110 -40Z" fill="#F1EEE6" stroke={HP.ink} strokeWidth={3.4}/>
+  <path d="M-170 -60L-330 -270" stroke="#CFC8BA" strokeWidth={4} opacity={.8}/>
+  <path d="M-140 0C-140 60 -100 86 -70 86C-40 86 0 60 0 0Z" fill={`url(#${id})`} stroke={HP.ink} strokeWidth={3.4}/>
+  {lf>0&&<g><path d={`M-128 0C${f2(-110)} ${f2(-26*lf)} ${f2(-30)} ${f2(-30*lf)} -12 0Z`} fill="#EBDDB4" stroke={HP.ink} strokeWidth={2}/>
+   {Array.from({length:5},(_,i)=><path key={i} d={`M${-118+i*20} ${f2(-6-10*lf)}q8 -8 16 0`} stroke="#D4BE86" strokeWidth={4} fill="none" strokeLinecap="round"/>)}
+   <rect x={-90} y={f2(-16*lf)} width={10} height={6} rx={2} fill={HP.onion}/><rect x={-56} y={f2(-20*lf)} width={10} height={6} rx={2} fill={HP.carrot}/></g>}
+  <ellipse cx={-70} cy={0} rx={70} ry={14} fill="none" stroke={HP.ink} strokeWidth={3.4}/>
+  <path d="M-136 -4A70 14 0 0 1 -40 -12" stroke="#FFFFFF" strokeWidth={3} opacity={.6} fill="none"/>
+  <path d="M-150 -20C-176 -30 -186 10 -170 30C-160 46 -136 40 -130 20C-126 6 -134 -14 -150 -20Z" fill={skin} stroke={HP.ink} strokeWidth={3.2}/>
+  <path d="M-146 -10q10 6 8 22" stroke={HP.ink} strokeWidth={2} opacity={.4} fill="none"/>
  </g>;
 };
 const WokTop:React.FC<{flame:number;t:number}>=({flame,t})=>{
@@ -482,18 +520,22 @@ const JarTop:React.FC<{fill:number}>=({fill})=>{
   <path d="M-52 -40A66 66 0 0 1 20 -66" stroke="#FFFFFF" strokeWidth={5} fill="none" opacity={.6}/>
  </g>;
 };
+/** The printer from above: its slot's centre and its lamp, in printer-top units. */
+export const PRINTER_TOP={slot:[6,26] as Pt,led:[98,56] as Pt};
 const PrinterTop:React.FC<{led?:number}>=({led=0})=><g data-part="printer-top">
  <rect x={-130} y={-80} width={260} height={160} rx={18} fill={HP.charcoal} stroke={HP.ink} strokeWidth={3.4}/>
  <rect x={-100} y={-62} width={200} height={70} rx={30} fill="#596168"/>
- <rect x={-84} y={22} width={180} height={10} rx={2} fill="#0D0F11"/>
- <circle cx={100} cy={52} r={9} fill={led>.02?HP.red:'#C9A447'} opacity={f2(led>.02?.4+.6*led:.6)}/>
- {led>.02&&<circle cx={100} cy={52} r={f2(14+10*led)} fill={HP.red} opacity={f2(.25*led)}/>}
+ <rect x={-90} y={18} width={192} height={16} rx={3} fill="#0D0F11" stroke={HP.steelDeep} strokeWidth={2}/>
+ {Array.from({length:12},(_,i)=><path key={i} d={`M${-84+i*16} 34l5 4l5 -4`} stroke="#8D969B" strokeWidth={1.4} fill="none"/>)}
+ <circle cx={98} cy={56} r={15} fill="#14171A" stroke={HP.ink} strokeWidth={2.4}/>
+ <circle cx={98} cy={56} r={10} fill={led>.02?HP.red:'#C9A447'} opacity={f2(led>.02?.4+.6*led:.6)}/>
+ {led>.02&&<circle cx={98} cy={56} r={f2(18+16*led)} fill={HP.red} opacity={f2(.25*led)}/>}
 </g>;
 
 type Part=
  ({part:'phone'}&PhoneState)|{part:'handBack';skin:string}|{part:'handFront';skin:string}|{part:'finger';skin:string;press?:number}|
  {part:'codeStand'}|{part:'codeStandTop'}|{part:'printer';led?:number;standby?:number}|{part:'rail';roll?:number}|{part:'ticket';len:number;cut?:number}|
- {part:'wok';flame:number;cook:number;t:number;range?:boolean}|{part:'wokTop';flame:number;t:number}|
+ {part:'wok';flame:number;food:number;toss:number;tilt:number;hand:number;t:number;range?:boolean;skin?:string}|{part:'cookBowl';tilt:number;left:number;skin:string}|{part:'wokTop';flame:number;t:number}|
  {part:'jar';fill:number;layer?:'back'|'front'|'all';children?:React.ReactNode}|{part:'jarTop';fill:number}|{part:'printerTop';led?:number}|
  {part:'paidMark';r:number;check?:number;ring?:number}|{part:'coin';r:number;tone?:'gold'|'silver';tilt?:number}|{part:'bill';w:number;fold?:number};
 export const OrderRigHero:React.FC<Part>=(p)=>{
@@ -507,7 +549,8 @@ export const OrderRigHero:React.FC<Part>=(p)=>{
  case 'printer':return <Printer led={p.led} standby={p.standby}/>;
  case 'rail':return <Rail roll={p.roll}/>;
  case 'ticket':return <Ticket len={p.len} cut={p.cut}/>;
- case 'wok':return <Wok flame={p.flame} cook={p.cook} t={p.t} range={p.range}/>;
+ case 'wok':return <Wok flame={p.flame} food={p.food} toss={p.toss} tilt={p.tilt} hand={p.hand} t={p.t} range={p.range} skin={p.skin}/>;
+ case 'cookBowl':return <CookBowl tilt={p.tilt} left={p.left} skin={p.skin}/>;
  case 'wokTop':return <WokTop flame={p.flame} t={p.t}/>;
  case 'jar':return <Jar fill={p.fill} layer={p.layer}>{p.children}</Jar>;
  case 'jarTop':return <JarTop fill={p.fill}/>;

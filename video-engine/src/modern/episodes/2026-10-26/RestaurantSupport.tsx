@@ -214,14 +214,20 @@ export const GUESTS:GuestLook[]=[{skin:RS.skin[1],hair:'#2B1D16',shirt:RS.shirt[
  {skin:RS.skin[2],hair:'#6A4A2E',shirt:RS.shirt[2],style:'bun'},{skin:RS.skin[4],hair:'#24180F',shirt:RS.shirt[4],style:'wave'}];
 /** A seated guest, the seat at the origin; the table top is 130 above the seat. `layer` body draws the figure
  * behind a table, arms the forearms resting on the table in front of it. `raise` lifts the right hand. */
-const Guest:React.FC<GuestLook&{layer:'body'|'arms';raise?:number;look?:number}>=({skin,hair,shirt,style,layer,raise=0,look=0})=>{
+const Guest:React.FC<GuestLook&{layer:'body'|'arms';raise?:number;look?:number;menu?:boolean}>=({skin,hair,shirt,style,layer,raise=0,look=0,menu=false})=>{
  const rz=clamp(raise),hx=6*look;
  if(layer==='arms'){
   const elbowR:Pt=[lerp(70,92,rz),lerp(-118,-170,rz)],handR:Pt=[lerp(40,108,rz),lerp(-142,-318,rz)];
   return <g data-part="guest-arms">
+   {menu?<g>
+    <path d={`M-74 -176L-92 -126L-50 -176`} stroke={shirt} strokeWidth={36} strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    <g transform="translate(-46 -186)"><path d="M-62 -96L0 -84L0 20L-62 8Z" fill={RS.paperLit} stroke={RS.ink} strokeWidth={2.4}/><path d="M0 -84L56 -100L56 4L0 20Z" fill={RS.paper} stroke={RS.ink} strokeWidth={2.4}/>
+     {[0,1,2,3].map(k=><path key={k} d={`M-52 ${-66+k*18}L-10 ${-58+k*18}M10 ${-62+k*18}L46 ${-72+k*18}`} stroke={RS.line} strokeWidth={3}/>)}
+     <path d="M-62 -96L0 -84L56 -100" stroke={RS.tile} strokeWidth={5} fill="none"/></g>
+    <ellipse cx={-48} cy={-178} rx={16} ry={20} fill={skin} stroke={RS.ink} strokeWidth={2.4}/></g>:<g>
    <path d={`M-74 -176L-78 -122L-30 -140`} stroke={shirt} strokeWidth={36} strokeLinecap="round" strokeLinejoin="round" fill="none"/>
    <path d={`M-74 -176L-78 -122L-30 -140`} stroke={RS.ink} strokeWidth={2} fill="none" opacity={.4}/>
-   <ellipse cx={-22} cy={-142} rx={20} ry={13} fill={skin} stroke={RS.ink} strokeWidth={2.4}/>
+   <ellipse cx={-22} cy={-142} rx={20} ry={13} fill={skin} stroke={RS.ink} strokeWidth={2.4}/></g>}
    <path d={`M74 -176L${f2(elbowR[0])} ${f2(elbowR[1])}L${f2(handR[0])} ${f2(handR[1])}`} stroke={shirt} strokeWidth={36} strokeLinecap="round" strokeLinejoin="round" fill="none"/>
    {rz>.05?<g transform={`translate(${f2(handR[0])} ${f2(handR[1])})`}><path d="M-14 6C-18 -10 -14 -34 -8 -38C-2 -40 0 -30 0 -24C2 -36 8 -40 12 -34C16 -24 16 -4 12 8Z" fill={skin} stroke={RS.ink} strokeWidth={2.4}/></g>:
     <ellipse cx={f2(handR[0])} cy={f2(handR[1])} rx={20} ry={13} fill={skin} stroke={RS.ink} strokeWidth={2.4}/>}
@@ -245,10 +251,12 @@ const Guest:React.FC<GuestLook&{layer:'body'|'arms';raise?:number;look?:number}>
  </g>;
 };
 /** A plate on a surface at y 0, side on: a rim ellipse and a mound of food. */
-const Plate:React.FC<{food?:'noodle'|'rice'|'dumpling';s?:number}>=({food='rice'})=><g data-part="plate">
+export type Food='none'|'noodle'|'rice'|'dumpling';
+const Plate:React.FC<{food?:Food;s?:number}>=({food='none'})=><g data-part="plate">
  <ellipse cx={4} cy={4} rx={56} ry={10} fill="#1A1410" opacity={.2}/>
  <ellipse cx={0} cy={0} rx={56} ry={13} fill="#F8F4EA" stroke={RS.ink} strokeWidth={2.4}/>
  <ellipse cx={0} cy={-1} rx={38} ry={8} fill="#EDE6D6"/>
+ {food==='none'&&<g><path d="M-22 -6L4 -12L22 -5L-4 1Z" fill="#FFFFFF" stroke={RS.ink} strokeWidth={1.4}/><path d="M-30 4L34 -4M-28 7L36 -1" stroke={RS.woodDeep} strokeWidth={2.4} strokeLinecap="round"/></g>}
  {food==='rice'&&<path d="M-30 -2C-28 -22 26 -24 30 -2Z" fill="#F4EFE2" stroke={RS.ink} strokeWidth={1.6}/>}
  {food==='rice'&&<g><circle cx={-8} cy={-12} r={4} fill="#5E9A4A"/><circle cx={10} cy={-8} r={4} fill="#E07B39"/></g>}
  {food==='noodle'&&<path d="M-30 -2C-24 -24 24 -26 30 -2Z" fill="#D9A653" stroke={RS.ink} strokeWidth={1.6}/>}
@@ -592,13 +600,15 @@ const RoomPlan:React.FC<{door:number}>=({door})=>{
   <circle cx={D.hinge[0]} cy={D.hinge[1]} r={7} fill={RS.ink}/>
  </g>;
 };
-const TableTop:React.FC<{r?:number;foods?:('noodle'|'rice'|'dumpling')[]}>=({r=110,foods=['rice','noodle']})=><g data-part="table-top">
+const TableTop:React.FC<{r?:number;foods?:Food[]}>=({r=110,foods=['none','none']})=><g data-part="table-top">
  <circle cx={8} cy={10} r={r} fill="#1A1410" opacity={.18}/>
  <circle r={r} fill={RS.laminate} stroke={RS.ink} strokeWidth={4}/>
  <circle r={r-10} fill="none" stroke={RS.laminateEdge} strokeWidth={3}/>
  {foods.map((f,i)=>{const a=-.6+i*2.6,x=r*.5*Math.cos(a),y=r*.5*Math.sin(a);
-  return <g key={i} transform={`translate(${f2(x)} ${f2(y)})`}><circle r={34} fill="#F8F4EA" stroke={RS.ink} strokeWidth={2.4}/><circle r={20} fill={f==='noodle'?'#D9A653':f==='rice'?'#F4EFE2':'#F1E3C4'} stroke={RS.ink} strokeWidth={1.4}/>
-   <circle cx={-6} cy={-4} r={4} fill="#5E9A4A"/></g>;})}
+  return <g key={i} transform={`translate(${f2(x)} ${f2(y)})`}><circle r={34} fill="#F8F4EA" stroke={RS.ink} strokeWidth={2.4}/>
+   {f==='none'?<circle r={22} fill="none" stroke="#E2D9C6" strokeWidth={3}/>:<g><circle r={20} fill={f==='noodle'?'#D9A653':f==='rice'?'#F4EFE2':'#F1E3C4'} stroke={RS.ink} strokeWidth={1.4}/>
+   <circle cx={-6} cy={-4} r={4} fill="#5E9A4A"/></g>}</g>;})}
+ <g transform={`translate(${f2(-r*.55)} ${f2(-r*.2)}) rotate(-20)`}><rect x={-22} y={-30} width={44} height={60} rx={4} fill={RS.tile} stroke={RS.ink} strokeWidth={2}/><rect x={-14} y={-20} width={28} height={6} rx={3} fill={RS.paper} opacity={.8}/></g>
  <circle cx={-r*.15} cy={r*.55} r={14} fill={RS.glassTint} stroke={RS.ink} strokeWidth={2}/>
  <path d={`M${r*.2} ${-r*.2}L${r*.62} ${-r*.5}M${r*.24} ${-r*.14}L${r*.66} ${-r*.44}`} stroke={RS.woodDeep} strokeWidth={4} strokeLinecap="round"/>
 </g>;
@@ -628,14 +638,14 @@ const Footprint:React.FC<{flip?:boolean}>=({flip=false})=><g data-part="footprin
 type Part=
  {part:'floor';y:number;vp?:number}|{part:'door';open:number;bell?:number;children?:React.ReactNode}|{part:'apronHook'}|{part:'apron'}|
  {part:'hostStand';children?:React.ReactNode}|{part:'deskPhone';ring:number;t:number}|{part:'orderPad';curl?:number;fy?:number}|
- {part:'table';w?:number;children?:React.ReactNode}|{part:'chair';flip?:boolean}|({part:'guest';layer:'body'|'arms';raise?:number;look?:number}&GuestLook)|
- {part:'plate';food?:'noodle'|'rice'|'dumpling'}|{part:'waterGlass'}|{part:'menuTent'}|{part:'clock';r:number;minute:number;hour:number}|
+ {part:'table';w?:number;children?:React.ReactNode}|{part:'chair';flip?:boolean}|({part:'guest';layer:'body'|'arms';raise?:number;look?:number;menu?:boolean}&GuestLook)|
+ {part:'plate';food?:Food}|{part:'waterGlass'}|{part:'menuTent'}|{part:'clock';r:number;minute:number;hour:number}|
  {part:'pendant';len:number;glow?:number}|{part:'signFrame';shine?:number}|{part:'hostPanel';lit:number;name:number;order?:number;t:number}|
  {part:'tag';lines:string[];size:number;swing?:number;tone?:'kraft'|'cream'|'slate'}|{part:'passShelf';w:number}|{part:'heatLamp';w:number;rod:number}|{part:'hood';w:number}|
  {part:'desk';y:number;depth?:number}|{part:'deskTop';x:number;y:number;w:number;h:number}|{part:'ledgerCard';mark?:number}|{part:'stampMark';p?:number}|
  {part:'stamp';top?:boolean}|{part:'receiptClip';open?:number;top?:boolean}|{part:'corkBoard';w:number;h:number}|
  {part:'ruleCard';box:number;lit:number;circle:number}|{part:'penHand';skin:string}|{part:'folder';open:number;q:number}|{part:'quoteCard'}|{part:'mug';top?:boolean}|
- {part:'roomPlan';door:number}|{part:'tableTop';r?:number;foods?:('noodle'|'rice'|'dumpling')[]}|{part:'chairTop'}|({part:'guestTop';raise?:number}&GuestLook)|
+ {part:'roomPlan';door:number}|{part:'tableTop';r?:number;foods?:Food[]}|{part:'chairTop'}|({part:'guestTop';raise?:number}&GuestLook)|
  {part:'standTop'}|{part:'counterTop';w:number;h:number}|{part:'footprint';flip?:boolean};
 export const RestaurantSupport:React.FC<Part>=(p)=>{
  switch(p.part){

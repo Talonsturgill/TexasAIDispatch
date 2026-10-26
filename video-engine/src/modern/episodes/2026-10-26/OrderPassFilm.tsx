@@ -4,9 +4,9 @@ import {FONT,widthOf} from '../../../lib/type';
 import {useArtDirection} from '../../../lib/artDirection';
 import {actionProgress,actionWindows,requireNarration,type ActionWindow,type DirectedScene} from '../../../lib/direction';
 import type {FilmRenderProps} from '../../types';
-import {OrderRigHero,HP,PHONE,PHONE_UI,screenPt,PRINTER,railGrip,TICKET,JAR,pileTop,type PhoneState} from './OrderRigHero';
+import {OrderRigHero,HP,PHONE,PHONE_UI,screenPt,PRINTER,PRINTER_TOP,railGrip,TICKET,JAR,pileTop,type PhoneState} from './OrderRigHero';
 import {RestaurantSupport,RS,STAND,PANEL,LEDGER,RULE,FOLDER,DOOR_PLAN,TABLES_PLAN,STAND_PLAN,PASS_PLAN,
- GUESTS,TABLE,tagSize,stampSize,rulePenPoint} from './RestaurantSupport';
+ GUESTS,TABLE,tagSize,stampSize,rulePenPoint,type Food} from './RestaurantSupport';
 
 /**
  * order-pass-v1: who takes the order (2026-10-26, Harris County, Spring, the upper Gulf Coast).
@@ -15,19 +15,23 @@ import {RestaurantSupport,RS,STAND,PANEL,LEDGER,RULE,FOLDER,DOOR_PLAN,TABLES_PLA
  * (RestaurantSupport) surround it. Every performed state below is a closed function of the film clock and
  * the board's event windows (orderState), so any frame renders alone and the same twice.
  *
- *  s1  the storefront door swings shut, its bell rings and the server's apron swings on the host stand's
- *      hook while a figure walks away beyond the glass; the desk phone rattles in its cradle with no one at
- *      the stand; two tables wait while the guest check pad's top sheet curls and falls back blank.
+ *  s1  the storefront door swings shut, its bell rings and the server's left-behind apron swings on the host
+ *      stand's hook; the desk phone rattles in its cradle with no one at the stand; two tables wait with
+ *      empty plates, a guest raising a hand with a menu open, while the guest check pad's top sheet curls
+ *      and falls back blank. No food is on any table before the kitchen cooks.
  *  s2  an empty sign frame swings on the glass and settles with nothing in it; the dark host panel beside
  *      the stand lights from the left and writes Haniya; a tag reading AI host is carried in on its string
  *      and hooks onto the panel's eyelet, where it swings and settles.
  *  s3  a hand lifts the phone over the table code and the viewfinder's brackets close on it; the menu sheet
  *      slides up; a fingertip presses the Chow mein row, which lights with its plain price chip; the finger
  *      presses Pay, which turns into the round red paid mark.
- *  s4  THE TURN. The ticket printer stands idle, its slot blank and its lamp in standby, while the wok's
- *      flame is turned down low. The paid mark leaves the phone and travels a line into the printer's slot;
- *      only at its arrival does the lamp turn red and the ticket rise out of the slot, top first, until a
- *      rail bearing grips it and the cutter frees it; only then does the wok flare and the noodles toss.
+ *  s4  THE TURN. The ticket printer stands idle, its slot blank and its lamp in standby, beside an empty wok
+ *      on an unlit burner. The paid mark leaves the phone and travels a line into the printer's slot (B's
+ *      camera follows it down from the plan onto the printer seen from above); only at its arrival does the
+ *      lamp turn red, inside the same shot. Then the ticket rises out of the slot, top first, until a rail
+ *      bearing grips it and the cutter frees it, and it hangs, held, inside the ticket shot. Only after it a
+ *      cook pours the noodles in from a bowl as the flame flares, and the cook's hand on the handle shakes the
+ *      pan, which is what tosses the noodles.
  *  s5  a ledger card headed with the source's words slides onto the desk; a $9,650 a month tag lands on it;
  *      a rubber stamp presses OWNER COUNT crooked beside it; the receipt clip opens and snaps shut on
  *      nothing.
@@ -37,8 +41,8 @@ import {RestaurantSupport,RS,STAND,PANEL,LEDGER,RULE,FOLDER,DOOR_PLAN,TABLES_PLA
  *      lights; a writing hand circles the two lines together. The box is never ticked.
  *  s8  the restaurant folder slides in beside the rule card and opens; its one box stays blank and a
  *      question mark draws beside it.
- *  s9  the phone aims at the table code and the viewfinder's dashed brackets hunt and never close; a quote
- *      card from one customer lands beside it.
+ *  s9  a hand raises the phone toward the table code, pauses short of it and lowers it without scanning; a
+ *      quote card from one customer lands beside the lowered phone, whose screen then times out.
  *  s10 the host panel takes an order and a ticket slip slides off toward the kitchen; at the pass the tip
  *      jar takes a tag reading owner says, and a second reading no record shown settles beside it. Held.
  *
@@ -96,16 +100,24 @@ export function orderState(W:Record<string,ActionWindow>,t:number){
   lit:smooth((r3-.48)/.12),ripple:r3>.48&&r3<.86?clamp((r3-.48)/.38):0,
   payGo:ease5(r4/.38),payPress:contactQ((r4-.34)/.14)*(1-ease5((r4-.72)/.2)),payBack:ease5((r4-.72)/.28),
   pay:smooth((r4-.48)/.36),payRipple:r4>.48&&r4<.86?clamp((r4-.48)/.38):0};
- // s4: idle, the paid mark's journey, and only on its arrival the ticket, then the flare
- const w2=W['s4-event-2'],w3=W['s4-event-3'];
+ // s4: the printer idle beside an empty wok on an unlit burner; the paid mark's journey into the slot; only
+ // on its arrival the lamp, then the ticket (printed, risen, gripped and cut, then held); only after the
+ // ticket a cook pours the noodles in from a bowl as the flame flares, and the cook's hand on the handle
+ // shakes the pan, which is what tosses the noodles.
+ const w2=W['s4-event-2'],w3=W['s4-event-3'],w4=W['s4-event-4'];
  const arrive=w2?w2.start+.97*(w2.end-w2.start):Infinity;
- const pStart=w3?Math.max(w3.start,arrive):Infinity,pEnd=w3?pStart+.78*(w3.end-pStart):Infinity;
- const print=w3&&t>pStart?ease5((t-pStart)/(pEnd-pStart)):0;
- const cut=w3&&t>pEnd?smooth((t-pEnd)/(.7*(w3.end-pEnd))):0;
- const low=.16*(1-P('s4-event-1'));
- const s4={low,standby:.5+.5*Math.sin(2*Math.PI*t/1.3),token:P('s4-event-2'),tokenR:1-smooth((R('s4-event-2')-.84)/.13),line:smooth(R('s4-event-2')/.2),
-  led:w2?smooth((t-arrive)/.12):0,print,cut,hang:w3?damped(t-pEnd-.06,2.6,1.5,2.4):0,
-  flame:lerp(low,1,P('s4-event-4')),cook:smooth((t-st('s4-event-4'))/.5),arrive,pStart};
+ const pStart=w3?Math.max(w3.start,arrive):Infinity,d3=w3?w3.end-pStart:1;
+ const pEnd=pStart+.56*d3,cutEnd=pStart+.72*d3;
+ const print=t>pStart?smooth((t-pStart)/(pEnd-pStart)):0;
+ const cut=t>pEnd?smooth((t-pEnd)/(cutEnd-pEnd)):0;
+ const r44=R('s4-event-4'),e4end=w4?w4.end:Infinity,tau=t-e4end-.08;
+ const shake=tau>0?Math.sin(2*Math.PI*2.4*tau)*smooth(tau/.15):0;
+ const food=smooth((r44-.25)/.5);
+ const s4={standby:.5+.5*Math.sin(2*Math.PI*t/1.3),r2:R('s4-event-2'),token:P('s4-event-2'),tokenR:1-smooth((R('s4-event-2')-.84)/.13),line:smooth(R('s4-event-2')/.2),
+  led:w2?smooth((t-arrive)/.12):0,print,cut,hang:w3?damped(t-cutEnd,2.6,1.5,2.4):0,
+  flame:P('s4-event-4'),food,pour:clamp((r44-.15)/.6),bowlTilt:72*ease5(r44/.4)*(1-ease5((t-e4end)/.3)),bowlLeft:1-smooth((r44-.15)/.55),
+  bowlAway:w4?ease5((t-e4end)/.4):0,panTilt:7*shake,toss:food*Math.max(0,Math.sin(2*Math.PI*2.4*tau-1.1))*(tau>0?smooth(tau/.15):0),
+  arrive,pStart,pEnd,cutEnd};
  // s5: the card slides on, the tag lands, the stamp presses, the clip opens and shuts on nothing
  const w54=W['s5-event-4'],d54=w54?w54.end-w54.start:1;
  const s5={slide:P('s5-event-1'),tag:P('s5-event-2'),stamp:stampState(W['s5-event-3'],t),
@@ -122,8 +134,10 @@ export function orderState(W:Record<string,ActionWindow>,t:number){
  // until then it draws in the second half of s8-event-2.
  const s8={slide:P('s8-event-1'),open:W['s8-event-3']?P('s8-event-2'):smooth(r82/.6),q:W['s8-event-3']?P('s8-event-3'):smooth((r82-.55)/.35)};
  // s9: the phone aims; its brackets hunt and never close; the quote card lands
- const s9={aim:P('s9-event-1'),hunt:[24*Math.sin(2*Math.PI*1.3*t)+11*Math.sin(2*Math.PI*2.7*t+1.3),20*Math.sin(2*Math.PI*1.6*t+2.1)+9*Math.sin(2*Math.PI*3.1*t+.4)] as Pt,
-  huntScale:1+.12*Math.sin(2*Math.PI*.9*t),quote:P('s9-event-2')};
+ // s9: a hand raises the phone toward the code, pauses short of it, and lowers it without scanning; the
+ // quote card lands; the lowered phone's screen times out while the code stays unscanned.
+ const r91=R('s9-event-1'),up=ease5(r91/.36)*(1-ease5((r91-.64)/.36)),pause=r91>.36&&r91<.64?Math.sin(Math.PI*(r91-.36)/.28):0;
+ const s9={up,waver:2.5*pause*Math.sin(2*Math.PI*1.6*t),quote:P('s9-event-2'),dim:.85*P('s9-event-3')};
  // s10: the panel takes the order and a slip leaves for the kitchen; the two tags settle on the jar
  const r101=R('s10-event-1');
  const s10={order:smooth(r101/.45),slip:ease5((r101-.35)/.6),tag1:P('s10-event-2'),settle1:damped(t-en('s10-event-2'),9,1.1,2.2),carry1:Math.sin(Math.PI*P('s10-event-2')),
@@ -157,19 +171,21 @@ export const paperPt=(L:PaperAt,p:Pt):Pt=>{const a=(L.r??0)*DEG,x=L.s*p[0],y=L.s
 
 // ---- layouts (screen pixels). Every number a bound depends on is exported here. ---------------------------
 export const FLOOR_Y={wide:1080,medium:1160};
+/** B's paid-line push-in: the zoom the camera reaches on the printer from above, and where the slot then sits. */
+export const PAID_ZOOM=4.4,PAID_ANCHOR:Pt=[540,700];
 export const SKIN={a3:HP.skin[4],a9:HP.skin[2],writer:HP.skin[1]};
 /** Phone placements per view: centre, scale, rotation, and whether a hand holds it. */
 export const PHONE_AT:Record<string,Place&{hand:boolean;from?:Pt}>={
  'code-scan:a':{x:430,y:680,s:.82,r:-5,hand:true,from:[480,1720]},'menu-tap:a':{x:520,y:760,s:1.5,r:0,hand:true},'pay-mark:a':{x:500,y:720,s:1.05,r:0,hand:true},
  'code-scan:b':{x:600,y:720,s:.78,r:-8,hand:true,from:[300,1560]},'menu-tap:b':{x:600,y:760,s:.78,r:4,hand:true},'paid-close:b':{x:540,y:260,s:2.4,r:0,hand:false},
  'paid-line:a':{x:250,y:760,s:.62,r:8,hand:true},'coins-drop:a':{x:250,y:620,s:.62,r:12,hand:true},
- 'viewfinder-hunt:a':{x:450,y:690,s:.82,r:-10,hand:true,from:[560,960]},'quote-card:a':{x:250,y:700,s:.7,r:-6,hand:true},
- 'viewfinder-hunt:b':{x:580,y:760,s:.78,r:10,hand:true,from:[260,1420]},'quote-side:b':{x:780,y:800,s:.7,r:8,hand:true}};
+ 'viewfinder-hunt:a':{x:470,y:780,s:.82,r:-8,hand:true,from:[600,1330]},'quote-card:a':{x:150,y:1020,s:.55,r:-4,hand:false},
+ 'viewfinder-hunt:b':{x:400,y:1010,s:.78,r:10,hand:true,from:[260,1440]},'quote-side:b':{x:800,y:900,s:.6,r:14,hand:false}};
 /** Printer placements (base centre): the rail, the ticket and the lamp ride the same transform. */
 export const PRINTER_AT:Record<string,Place>={
  'printer-idle':{x:330,y:1000,s:1.1},'paid-line:a':{x:760,y:1150,s:1.3},'ticket-print:a':{x:520,y:1440,s:2.2},'wok-flare':{x:250,y:900,s:.78},
  'pass-wide':{x:230,y:940,s:.72},'ticket-print:b':{x:470,y:1290,s:1.6},'flame-close':{x:240,y:837,s:1.4},
- 'jar-fills:b':{x:230,y:1040,s:.8},'panel-order':{x:1000,y:1000,s:.55},'stand-wide':{x:760,y:900,s:.5},'jar-no-record':{x:1020,y:960,s:.6},
+ 'jar-fills:b':{x:230,y:1040,s:.8},'panel-order':{x:1000,y:1000,s:.55},'stand-wide':{x:760,y:900,s:.5},'jar-no-record':{x:1050,y:960,s:.6},
  'jar-owner-tag:b':{x:220,y:1040,s:.8},'tags-close':{x:191,y:800,s:1.3}};
 export const SHELF:Record<string,{x:number;y:number;w:number}>={
  'printer-idle':{x:60,y:1000,w:600},'paid-line:a':{x:380,y:1150,w:760},'wok-flare':{x:50,y:900,w:480},'pass-wide':{x:40,y:940,w:440},
@@ -286,8 +302,24 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  };
  const ticketDone={len:TICKET.len,cut:1,hang:0,led:1,standby:.5,roll:1};
  const ticketNow=()=>({len:TICKET.len*S.s4.print,cut:S.s4.cut,hang:S.s4.hang,led:S.s4.led,standby:S.s4.standby,roll:S.s4.print});
- const wokRig=(L:Place,flame:number,cook:number)=><Item id={sid==='s4'?'s4-pan':sid+'-pass'}><At p={[L.x,L.y]} s={L.s} sx={L.flip?-1:1}>
-  <OrderRigHero part="wok" flame={flame} cook={cook} t={t}/></At></Item>;
+ type WokState={flame:number;food:number;toss:number;tilt:number;hand:number;bowl?:{tilt:number;left:number;away:number;pour:number}};
+ /** The bowl's pouring lip and where the noodles land, in wok units (the cook stands on the handle side). */
+ const BOWL_LIP:Pt=[-40,-262],POUR_TO:Pt=[6,-124];
+ const wokRig=(L:Place,w:WokState)=>{
+  const b=w.bowl,head=b?clamp(b.pour*2.4):0,tail=b?clamp((b.pour-.62)/.38):0;
+  const stream=b&&b.pour>0&&tail<1?[0,1,2,3].map(k=>{const p0=lerpPt(BOWL_LIP,POUR_TO,tail),p1=lerpPt(BOWL_LIP,POUR_TO,head),dx=(k-1.5)*12;
+   return <path key={k} d={`M${f2(p0[0]+dx)} ${f2(p0[1])}Q${f2((p0[0]+p1[0])/2+dx+10*Math.sin(t*20+k))} ${f2((p0[1]+p1[1])/2)} ${f2(p1[0]+dx*.6)} ${f2(p1[1])}`}
+    stroke={k%2?HP.noodle:'#E3CF9A'} strokeWidth={6} fill="none" strokeLinecap="round"/>;}):null;
+  return <Item id={sid==='s4'?'s4-pan':sid+'-pass'}><At p={[L.x,L.y]} s={L.s} sx={L.flip?-1:1}>
+   <OrderRigHero part="wok" flame={w.flame} food={w.food} toss={w.toss} tilt={w.tilt} hand={w.hand} t={t} skin={HP.skin[3]}/>
+   {stream}
+   {b&&b.away<1&&<g transform={`translate(${f2(BOWL_LIP[0]-520*b.away)} ${f2(BOWL_LIP[1]-420*b.away)})`}><OrderRigHero part="cookBowl" tilt={b.tilt} left={b.left} skin={HP.skin[3]}/></g>}
+  </At></Item>;
+ };
+ const wokCold:WokState={flame:0,food:0,toss:0,tilt:0,hand:0};
+ const wokOn:WokState={flame:.55,food:1,toss:0,tilt:0,hand:0};
+ const wokNow=():WokState=>({flame:S.s4.flame,food:S.s4.food,toss:S.s4.toss,tilt:S.s4.panTilt,hand:1,
+  bowl:{tilt:-S.s4.bowlTilt,left:S.s4.bowlLeft,away:S.s4.bowlAway,pour:S.s4.pour}});
  const shelf=(name:string)=>{const Sh=pick(SHELF,name);return <At p={[Sh.x,Sh.y]}><RestaurantSupport part="passShelf" w={Sh.w}/></At>;};
  /** A cabinet front under a pass shelf, down to the floor. */
  const cabinet=(x:number,y:number,w:number)=><g data-part="cabinet">
@@ -348,17 +380,17 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  const deskPhoneOn=(x:number,s:number,ring:number)=><Item id={sid==='s1'?'s1-phone':sid+'-setting'}><g transform={`translate(${x} ${STAND.top}) scale(${s})`}><RestaurantSupport part="deskPhone" ring={ring} t={t}/></g></Item>;
  const padOn=(x:number,s:number,curl:number)=><Item id={sid==='s1'?'s1-pad':sid+'-setting'}><g transform={`translate(${x} ${STAND.top+6}) scale(${s})`}><RestaurantSupport part="orderPad" curl={curl}/></g></Item>;
  /** A dining table with its guest behind it, the guest's forearms on its top, plates and glasses. */
- const tableGroup=(p:Pt,s:number,g:number,o:{raise?:number;look?:number;foods?:('noodle'|'rice'|'dumpling')[];flipChair?:boolean}={})=>{
+ const tableGroup=(p:Pt,s:number,g:number,o:{raise?:number;look?:number;foods?:Food[];flipChair?:boolean;menu?:boolean}={})=>{
   const G=GUESTS[g%GUESTS.length],seat:Pt=[0,TABLE.top+130];
   return <At p={p} s={s}>
    <g transform={`translate(-30 ${-10})`}><RestaurantSupport part="chair" flip={o.flipChair}/></g>
    <g transform={`translate(${seat[0]} ${seat[1]})`}><RestaurantSupport part="guest" layer="body" {...G} look={o.look??0}/></g>
    <RestaurantSupport part="table">
-    {(o.foods??['rice','noodle']).map((f,i)=><g key={i} transform={`translate(${-90+i*150} ${TABLE.top})`}><RestaurantSupport part="plate" food={f}/></g>)}
+    {(o.foods??['none','none']).map((f,i)=><g key={i} transform={`translate(${-90+i*150} ${TABLE.top})`}><RestaurantSupport part="plate" food={f}/></g>)}
     <g transform={`translate(110 ${TABLE.top-2})`}><RestaurantSupport part="waterGlass"/></g>
     <g transform={`translate(-150 ${TABLE.top})`}><RestaurantSupport part="menuTent"/></g>
    </RestaurantSupport>
-   <g transform={`translate(${seat[0]} ${seat[1]})`}><RestaurantSupport part="guest" layer="arms" {...G} raise={o.raise??0}/></g>
+   <g transform={`translate(${seat[0]} ${seat[1]})`}><RestaurantSupport part="guest" layer="arms" {...G} raise={o.raise??0} menu={o.menu}/></g>
   </At>;
  };
  const pendant=(x:number,len:number)=><At p={[x,0]}><RestaurantSupport part="pendant" len={len}/></At>;
@@ -374,8 +406,8 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  const tableTopBig=()=><g data-part="table-overhead">
   <rect x={50} y={290} width={980} height={980} rx={40} fill={RS.laminate} stroke={RS.ink} strokeWidth={5}/>
   <rect x={64} y={304} width={952} height={952} rx={32} fill="none" stroke={RS.laminateEdge} strokeWidth={4}/>
-  <g transform="translate(250 420)"><circle r={86} fill="#F8F4EA" stroke={RS.ink} strokeWidth={3}/><circle r={52} fill="#D9A653" stroke={RS.ink} strokeWidth={2}/>
-   {[0,1,2,3].map(i=><path key={i} d={`M${-36+i*6} ${-10+i*8}q18 -14 36 0t30 0`} stroke="#A3712F" strokeWidth={4} fill="none"/>)}</g>
+  <g transform="translate(250 420)"><circle r={86} fill="#F8F4EA" stroke={RS.ink} strokeWidth={3}/><circle r={56} fill="none" stroke="#E2D9C6" strokeWidth={4}/>
+   <path d="M-30 -20L14 -34L40 -12L-6 2Z" fill="#FFFFFF" stroke={RS.ink} strokeWidth={2}/></g>
   <g transform="translate(880 1080)"><circle r={36} fill={RS.glassTint} opacity={.6} stroke={RS.ink} strokeWidth={3}/><circle r={26} fill="none" stroke="#9CC4CF" strokeWidth={2}/></g>
   <path d="M170 1120L420 1000M180 1140L430 1020" stroke={RS.woodDeep} strokeWidth={8} strokeLinecap="round"/>
   <g transform="translate(860 420) rotate(12)"><rect x={-70} y={-100} width={140} height={200} rx={8} fill={RS.tile} stroke={RS.ink} strokeWidth={3}/><rect x={-50} y={-70} width={100} height={12} rx={6} fill={RS.paper} opacity={.8}/></g>
@@ -406,16 +438,11 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  case 'door-apron':{
   // A, medium. The storefront door swings shut on its hinge with the bell ringing, while beyond the glass a
   // figure walks away; at the host stand the server's apron swings on its hook. The phone sits silent.
-  need('s1');const fy=FLOOR_Y.medium,q=S.s1.walk;
-  const outside=<g opacity={f2(1-smooth((q-.6)/.4))} transform={`translate(${f2(170-110*q)} ${f2(-330+20*q)}) scale(${f2(1-.3*q)})`}>
-   <ellipse cx={0} cy={-150} rx={30} ry={34} fill="#3A2C25"/>
-   <path d="M-46 -112C-60 -60 -58 20 -50 90H50C58 20 60 -60 46 -112C30 -124 -30 -124 -46 -112Z" fill="#5E7486"/>
-   <path d={`M-48 -96L${f2(-70-14*Math.sin(t*7))} 10M48 -96L${f2(70+14*Math.sin(t*7))} 10`} stroke="#5E7486" strokeWidth={22} strokeLinecap="round"/>
-   <path d="M-36 90L-40 220M36 90L40 220" stroke="#2C3540" strokeWidth={26} strokeLinecap="round"/>
-  </g>;
+  // The departing figure is gone: the door shutting, the bell and the left-behind apron carry the walkout.
+  need('s1');const fy=FLOOR_Y.medium;
   pic=<g>
    {floor(fy)}{pendant(600,300)}
-   <Item id="s1-door"><At p={[90,fy]}><RestaurantSupport part="door" open={S.s1.door} bell={S.s1.bell}>{outside}</RestaurantSupport></At></Item>
+   <Item id="s1-door"><At p={[90,fy]}><RestaurantSupport part="door" open={S.s1.door} bell={S.s1.bell}/></At></Item>
    {stand('door-apron',<g>{padOn(-85,.8,0)}{deskPhoneOn(70,.9,0)}</g>,{apron:true})}
   </g>;
   break;}
@@ -438,7 +465,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
    {floor(fy)}
    <Item id="s1-setting"><At p={[540,360]}><RestaurantSupport part="clock" r={46} minute={S.s1.minute} hour={124}/></At></Item>
    {pendant(330,330)}{pendant(690,300)}
-   <Item id="s1-tables">{tableGroup([330,1180],.62,0,{look:-.4*S.s1.wait})}{tableGroup([680,1220],.7,1,{raise:S.s1.wait,look:.8*S.s1.wait,foods:['dumpling','rice'],flipChair:true})}</Item>
+   <Item id="s1-tables">{tableGroup([330,1180],.62,0,{look:-.4*S.s1.wait})}{tableGroup([680,1220],.7,1,{raise:S.s1.wait,look:.8*S.s1.wait,flipChair:true,menu:true})}</Item>
    {stand('blank-pad-tables',<g>{padOn(-60,1.15,S.s1.curl)}{deskPhoneOn(110,.9,S.s1.ring)}</g>)}
   </g>;
   break;}
@@ -460,7 +487,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
    <Item id="s1-tables">
     {TABLES_PLAN.map((p,i)=><g key={i}>
      <At p={[p[0]-120,p[1]+10]} r={-90}><RestaurantSupport part="chairTop"/></At><At p={[p[0]+120,p[1]-10]} r={90}><RestaurantSupport part="chairTop"/></At>
-     <At p={p} s={.9}><RestaurantSupport part="tableTop" foods={i?['dumpling','rice']:['rice','noodle']}/></At>
+     <At p={p} s={.9}><RestaurantSupport part="tableTop"/></At>
      <At p={[p[0]-120,p[1]+10]} r={90}><RestaurantSupport part="guestTop" {...GUESTS[i*2]} raise={0}/></At>
      {i===0&&<At p={[p[0]+120,p[1]-10]} r={-90}><RestaurantSupport part="guestTop" {...GUESTS[1]}/></At>}
     </g>)}
@@ -476,7 +503,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   // behind it the two tables wait and a guest raises a hand toward the empty stand.
   need('s1');
   pic=<g>
-   <Item id="s1-tables">{tableGroup([1010,1250],.6,2,{look:-.6})}{tableGroup([760,1350],.95,1,{raise:S.s1.wait,look:-.9*S.s1.wait,foods:['dumpling','rice'],flipChair:true})}</Item>
+   <Item id="s1-tables">{tableGroup([1010,1250],.6,2,{look:-.6})}{tableGroup([760,1350],.95,1,{raise:S.s1.wait,look:-.9*S.s1.wait,flipChair:true,menu:true})}</Item>
    {stand('table-wait',<g>{padOn(0,1,S.s1.curl)}{deskPhoneOn(-170,.8,S.s1.ring)}</g>)}
   </g>;
   break;}
@@ -526,7 +553,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   const L={...L0,x:lerp(from[0],L0.x,S.s3.lift),y:lerp(from[1],L0.y,S.s3.lift),r:lerp((L0.r??0)+14,L0.r??0,S.s3.lift)};
   const st:PhoneState={scan:1,lock:S.s3.lock,menu:S.s3.menu};
   pic=v==='a'?<g>
-   <Item id="s3-setting">{tableBand(930)}<At p={[150,1000]} s={1.3}><RestaurantSupport part="plate" food="noodle"/></At><At p={[960,1010]} s={1.2}><RestaurantSupport part="waterGlass"/></At></Item>
+   <Item id="s3-setting">{tableBand(930)}<At p={[150,1000]} s={1.3}><RestaurantSupport part="plate"/></At><At p={[960,1010]} s={1.2}><RestaurantSupport part="waterGlass"/></At></Item>
    <Item id="s3-code"><ellipse cx={734} cy={1112} rx={130} ry={14} fill="#1A1410" opacity={.25}/><At p={[720,1110]} s={1.25}><OrderRigHero part="codeStand"/></At></Item>
    <Item id="s3-phone"><Item id="s3-menu">{phoneRig(L,st)}</Item></Item>
   </g>:<g>
@@ -548,7 +575,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   </g>:<g>
    {floor(FLOOR_Y.medium)}
    <Item id="s3-setting"><At p={[150,1260]} s={1.25}><RestaurantSupport part="guest" layer="body" {...GUESTS[2]} look={.5}/></At></Item>
-   <Item id="s3-setting">{tableBand(1120)}<At p={[300,1150]} s={1.1}><RestaurantSupport part="plate" food="rice"/></At></Item>
+   <Item id="s3-setting">{tableBand(1120)}<At p={[300,1150]} s={1.1}><RestaurantSupport part="plate"/></At></Item>
    <Item id="s3-code"><At p={[880,1170]} s={.9}><OrderRigHero part="codeStand"/></At></Item>
    <Item id="s3-phone"><Item id="s3-menu"><Item id="s3-dish">{phoneRig(L,st,{skin:GUESTS[2].skin,finger:S.s3.tapGo>0&&S.s3.tapBack<1?{tip,press:S.s3.tapPress,s:fs}:null})}</Item></Item></Item>
   </g>;
@@ -572,10 +599,9 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   pic=<g>
    {floor(1200)}
    {wide&&<Item id="s4-setting"><At p={[560,440]}><RestaurantSupport part="hood" w={440}/></At></Item>}
-   <Item id="s4-setting"><At p={[Sh.x+30,toScreen(PRINTER_AT[view],[0,PRINTER.rail.y])[1]-130]}><RestaurantSupport part="heatLamp" w={Sh.w-60} rod={200}/></At>{cabinet(Sh.x,Sh.y,Sh.w)}{shelf(view)}
-    <At p={[Sh.x+Sh.w-90,Sh.y]} s={.8}><RestaurantSupport part="plate" food="rice"/></At></Item>
+   <Item id="s4-setting"><At p={[Sh.x+30,toScreen(PRINTER_AT[view],[0,PRINTER.rail.y])[1]-130]}><RestaurantSupport part="heatLamp" w={Sh.w-60} rod={200}/></At>{cabinet(Sh.x,Sh.y,Sh.w)}{shelf(view)}</Item>
    {printerRig(PRINTER_AT[view],{len:0,cut:0,hang:0,led:0,standby:S.s4.standby,roll:0})}
-   {wokRig(WOK_AT[view],S.s4.flame,0)}
+   {wokRig(WOK_AT[view],wokCold)}
   </g>;
   break;}
  case 'paid-line':{
@@ -594,19 +620,23 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
      {S.s4.tokenR>0&&S.s4.token>0&&<At p={p}><OrderRigHero part="paidMark" r={34*S.s4.tokenR}/></At>}</Item>
    </g>;
   }else{
-   const T2=TABLES_PLAN[1],from:Pt=[T2[0]+40,T2[1]-30],to=PASS_PLAN.printer,ctrl:Pt=[880,860],p=bez(from,ctrl,to,S.s4.token);
-   pic=<g>
+   // The plan carries the journey; as the mark nears the pass the camera follows it down (rest to rest) onto
+   // the printer seen from above, so the mark entering the slot and the lamp answering it are held large.
+   const T2=TABLES_PLAN[1],from:Pt=[T2[0]+40,T2[1]-30],PS=.36,pr=PASS_PLAN.printer;
+   const to:Pt=[pr[0]+PS*PRINTER_TOP.slot[0],pr[1]+PS*PRINTER_TOP.slot[1]],ctrl:Pt=[880,860],p=bez(from,ctrl,to,S.s4.token);
+   const u=ease5((S.s4.r2-.1)/.8),k=lerp(1,PAID_ZOOM,u),f=lerpPt([540,780],to,u),an=lerpPt([540,780],PAID_ANCHOR,u);
+   pic=<g transform={`translate(${f2(an[0])} ${f2(an[1])}) scale(${k.toFixed(4)}) translate(${f2(-f[0])} ${f2(-f[1])})`}>
     <Item id="s4-setting"><RestaurantSupport part="roomPlan" door={0}/>
      <At p={[PASS_PLAN.x,PASS_PLAN.y]}><RestaurantSupport part="counterTop" w={PASS_PLAN.w} h={PASS_PLAN.h}/></At>
      <At p={PASS_PLAN.jar} s={.42}><OrderRigHero part="jarTop" fill={.1}/></At>
      {TABLES_PLAN.map((q,i)=><g key={i}><At p={[q[0]-120,q[1]+10]} r={-90}><RestaurantSupport part="chairTop"/></At>
-      <At p={q} s={.9}><RestaurantSupport part="tableTop" foods={i?['dumpling','rice']:['rice','noodle']}/></At>
+      <At p={q} s={.9}><RestaurantSupport part="tableTop"/></At>
       <At p={[q[0]-120,q[1]+10]} r={90}><RestaurantSupport part="guestTop" {...GUESTS[i*2]}/></At></g>)}
      <At p={STAND_PLAN}><RestaurantSupport part="standTop"/></At></Item>
-    <Item id="s4-printer"><At p={to} s={.36}><OrderRigHero part="printerTop" led={S.s4.led}/></At></Item>
-    <At p={from} s={.14} r={-20}><OrderRigHero part="phone" {...paidPhone}/></At>
-    <Item id="s4-paid"><path d={`M${f2(from[0])} ${f2(from[1])}Q${f2(ctrl[0])} ${f2(ctrl[1])} ${f2(to[0])} ${f2(to[1])}`} stroke={HP.red} strokeWidth={5} strokeDasharray="14 12" fill="none" opacity={f2(.75*S.s4.line)}/>
-     {S.s4.tokenR>0&&S.s4.token>0&&<At p={p}><OrderRigHero part="paidMark" r={26*S.s4.tokenR}/></At>}</Item>
+    <Item id="s4-printer"><At p={pr} s={PS}><OrderRigHero part="printerTop" led={S.s4.led}/></At></Item>
+    <At p={from} s={.2} r={-20}><OrderRigHero part="phone" {...paidPhone}/></At>
+    <Item id="s4-paid"><path d={`M${f2(from[0])} ${f2(from[1])}Q${f2(ctrl[0])} ${f2(ctrl[1])} ${f2(to[0])} ${f2(to[1])}`} stroke={HP.red} strokeWidth={f2(5/(.4+.6*k))} strokeDasharray={`${f2(14/k)} ${f2(12/k)}`} fill="none" opacity={f2(.75*S.s4.line)}/>
+     {S.s4.tokenR>0&&S.s4.token>0&&<At p={p}><OrderRigHero part="paidMark" r={lerp(26,15,u)*S.s4.tokenR}/></At>}</Item>
    </g>;
   }
   break;}
@@ -616,7 +646,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   need('s4');const pr=PRINTER_AT[key];
   pic=<g>
    {v==='b'&&<Item id="s4-setting">{shelf('ticket-print')}</Item>}
-   {v==='b'&&wokRig(WOK_AT[key],S.s4.flame,S.s4.cook)}
+   {v==='b'&&wokRig(WOK_AT[key],wokCold)}
    {printerRig(pr,ticketNow())}
   </g>;
   break;}
@@ -629,7 +659,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
    {wide&&floor(FLOOR_Y.wide+160)}
    <Item id="s4-setting">{wide&&<At p={[Sh.x+20,toScreen(PRINTER_AT[view],[0,PRINTER.rail.y])[1]-130]}><RestaurantSupport part="heatLamp" w={Sh.w-40} rod={160}/></At>}{wide&&cabinet(Sh.x,Sh.y,Sh.w)}{shelf(view)}</Item>
    {printerRig(PRINTER_AT[view],ticketNow())}
-   {wokRig(WOK_AT[view],S.s4.flame,S.s4.cook)}
+   {wokRig(WOK_AT[view],wokNow())}
   </g>;
   break;}
  // ===================== s5: the owner's count =====================
@@ -705,7 +735,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   pic=<g>
    {floor(FLOOR_Y.medium+90)}
    <Item id="s6-pass">{cabinet(Sh.x,Sh.y,Sh.w)}{shelf('coins-drop')}<At p={[440,Sh.y]} s={.85}><RestaurantSupport part="plate" food="noodle"/></At></Item>
-   {wokRig(WOK_AT['coins-drop'],.7,.6)}
+   {wokRig(WOK_AT['coins-drop'],wokOn)}
    {phoneRig(L,paidPhone)}
    {jarDraw('coins-drop',S.s6.fill,true,'s6-jar',src)}
   </g>;
@@ -721,7 +751,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
    {floor(FLOOR_Y.medium+90)}
    <Item id="s6-pass">{cabinet(40,1040,1000)}{shelf('jar-fills')}</Item>
    {printerRig(PRINTER_AT[key],ticketDone)}
-   {wokRig(WOK_AT[key],.7,.6)}
+   {wokRig(WOK_AT[key],wokOn)}
    {jarDraw('jar-fills',S.s6.fill,true,'s6-jar')}
   </g>;
   break;}
@@ -730,7 +760,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   // A detail / B detail. A tag reading FOX 26 reports, all to the kitchen, is carried in and hooks onto
   // the jar's neck, then swings and settles over the coins.
   need('s6');const right=view==='jar-tag',anchor=jarAnchor(view,right?0:1);
-  const rig:TagRig={lines:TAGS.fox,size:42,len:70,from:right?[1160,480]:[-160,450],tone:'kraft'};
+  const rig:TagRig={lines:TAGS.fox,size:46,len:70,from:right?[1160,480]:[-160,450],tone:'kraft'};
   pic=<g>
    {jarDraw(view,S.s6.fill,false,'s6-jar')}
    {hangTag('s6-tag',anchor,rig,S.s6.tag,(right?-18:18)*S.s6.carry+S.s6.settle,S.s6.carry)}
@@ -813,13 +843,13 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   break;}
  // ===================== s9: one customer's remark =====================
  case 'viewfinder-hunt':{
-  // A close / B overhead. A hand aims the phone at the table code; the viewfinder's dashed brackets drift and
-  // hunt and never close on it, the code staying soft.
-  need('s9');const L0=pick(PHONE_AT),from=L0.from!;
-  const L={...L0,x:lerp(from[0],L0.x,S.s9.aim),y:lerp(from[1],L0.y,S.s9.aim)};
-  const st:PhoneState={scan:1,lock:0,menu:0,hunt:[S.s9.hunt[0]*S.s9.aim,S.s9.hunt[1]*S.s9.aim],huntScale:S.s9.huntScale};
+  // A close / B overhead. A hand raises the phone toward the table code, pauses short of it with the
+  // camera open and its frame wide, never closing, then lowers it again without scanning.
+  need('s9');const L0=pick(PHONE_AT),rest=L0.from!,u=S.s9.up;
+  const L={...L0,x:lerp(rest[0],L0.x,u),y:lerp(rest[1],L0.y,u),r:lerp((L0.r??0)+22,L0.r??0,u)+S.s9.waver};
+  const st:PhoneState={scan:1,lock:0,menu:0,dim:.5*(1-u)};
   pic=v==='a'?<g>
-   <Item id="s9-table">{tableBand(930)}<At p={[170,1010]} s={1.2}><RestaurantSupport part="plate" food="dumpling"/></At><At p={[960,1000]} s={1.1}><RestaurantSupport part="menuTent"/></At></Item>
+   <Item id="s9-table">{tableBand(930)}<At p={[170,1010]} s={1.2}><RestaurantSupport part="plate"/></At><At p={[960,1000]} s={1.1}><RestaurantSupport part="menuTent"/></At></Item>
    <Item id="s9-code"><ellipse cx={734} cy={1112} rx={130} ry={14} fill="#1A1410" opacity={.25}/><At p={[720,1110]} s={1.25}><OrderRigHero part="codeStand"/></At></Item>
    <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9})}</Item>
   </g>:<g>
@@ -830,15 +860,19 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   break;}
  case 'quote-card':
  case 'quote-side':{
-  // A medium / B medium from above. A quote card from one customer lands on the table beside the phone,
-  // whose brackets still hunt.
-  need('s9');const L=pick(PHONE_AT),Q=pick(QUOTE_AT),top=view==='quote-side';
-  const st:PhoneState={scan:1,lock:0,menu:0,hunt:S.s9.hunt,huntScale:S.s9.huntScale};
+  // A medium / B medium from above. The phone lies lowered on the table, its code unscanned; a quote card
+  // from one customer lands beside it; then the phone's screen times out.
+  need('s9');const Q=pick(QUOTE_AT),top=view==='quote-side',L=pick(PHONE_AT);
+  const st:PhoneState={scan:1,lock:0,menu:0,dim:.5+.5*S.s9.dim};
+  const flatPhone=top?<g><At p={[L.x+10,L.y+14]} s={L.s} r={L.r??0} o={.22}><rect x={-150} y={-300} width={300} height={600} rx={46} fill="#1A1410"/></At>
+   <At p={[L.x,L.y]} s={L.s} r={L.r??0}><OrderRigHero part="phone" {...st}/></At></g>:
+   <g><ellipse cx={L.x+6} cy={L.y+60*L.s} rx={170*L.s} ry={30*L.s} fill="#1A1410" opacity={.22}/>
+    <g transform={`translate(${L.x} ${L.y}) rotate(${L.r??0}) scale(${L.s} ${(L.s*.36).toFixed(4)})`}><OrderRigHero part="phone" {...st}/></g></g>;
   pic=<g>
    <Item id="s9-table">{top?tableTopBig():tableBand(860)}</Item>
-   {!top&&<Item id="s9-code"><At p={[330,1060]} s={.9}><OrderRigHero part="codeStand"/></At></Item>}
-   {top&&<Item id="s9-code"><At p={[790,900]} s={.9}><OrderRigHero part="codeStandTop"/></At></Item>}
-   <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9})}</Item>
+   {!top&&<Item id="s9-code"><At p={[330,1050]} s={.9}><OrderRigHero part="codeStand"/></At></Item>}
+   {top&&<Item id="s9-code"><At p={[790,640]} s={.9}><OrderRigHero part="codeStandTop"/></At></Item>}
+   <Item id="s9-phone">{flatPhone}</Item>
    <Item id="s9-quote">{S.s9.quote>0&&paperDrop(Q,S.s9.quote,top?0:420,top?[-160,-220]:[140,0],<RestaurantSupport part="quoteCard"/>,top,<rect width={600} height={290} rx={12} fill="#1A1410"/>)}</Item>
   </g>;
   break;}
@@ -866,7 +900,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   // A close / B medium. At the pass a tag reading owner says is carried in and hooks onto the full jar's
   // neck, swinging and settling.
   need('s10');const anchor=jarAnchor(view,0);
-  const rig:TagRig={lines:TAGS.owner,size:v==='a'?46:40,len:v==='a'?80:70,from:[1160,520],tone:'cream'};
+  const rig:TagRig={lines:TAGS.owner,size:v==='a'?50:46,len:v==='a'?80:70,from:[1160,520],tone:'cream'};
   pic=<g>
    {v==='b'&&floor(FLOOR_Y.medium+90)}
    <Item id="s10-setting">{v==='b'&&cabinet(0,1040,1080)}{shelf('jar-owner-tag')}</Item>
@@ -881,8 +915,8 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   // no record shown settles beside it, under it. A's wide keeps the lit host panel that now takes the order
   // at the front; B's detail keeps the printed ticket on its rail above the jar.
   need('s10');const wide=view==='jar-no-record';
-  const owner:TagRig={lines:TAGS.owner,size:wide?34:46,len:wide?60:60,from:[1160,520],tone:'cream'};
-  const none:TagRig={lines:TAGS.none,size:wide?34:46,len:wide?175:210,from:[-160,560],tone:'cream'};
+  const owner:TagRig={lines:TAGS.owner,size:wide?44:52,len:60,from:[1160,520],tone:'cream'};
+  const none:TagRig={lines:TAGS.none,size:wide?44:52,len:wide?194:216,from:[-160,560],tone:'cream'};
   pic=<g>
    {wide&&floor(FLOOR_Y.wide)}{wide&&pendant(560,300)}
    <Item id="s10-setting">{wide&&cabinet(440,960,640)}{shelf(view)}</Item>
