@@ -838,6 +838,11 @@ the exact authorization, and that operator claims its matching prepaid event onc
 preview cannot claim a native hero charge; motion extraction has its own exact-film identity.
 An unchanged operation cannot be prepared again without the existing infrastructure-retry record.
 Preserve all earlier charges and denied commands.
+Before the first paid review, run one free builder proof of both treatments
+(`opening_compare.py --builder-proof`, prepared the same way, see prompts/phases/02-picture.md):
+it renders both phone previews and their chronological pages in one charged capture with no critic
+report, marks its receipt diagnostic, and lets the builder fix what any frame shows before a
+paid slot is spent on it. Retain its package before the real comparison.
 Prepare and execute each exact command before preparing the next one. In particular, prepare and
 extract option a, collect its result, then prepare and extract option b; two separate preparations
 must never compete for the single authorization file. The issuer refuses to replace a still usable

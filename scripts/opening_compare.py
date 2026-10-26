@@ -325,8 +325,10 @@ def owned_boards(root, state):
     return boards
 
 
-def build(root, state, *, combined_code_review=False):
+def build(root, state, *, combined_code_review=False, builder_proof=False):
     root, state = Path(root).resolve(), Path(state).resolve()
+    if combined_code_review and builder_proof:
+        raise ValueError('a builder proof is a different diagnostic from the combined review capture')
     if state.parent != root:
         raise ValueError("opening batch must use its edition's existing controller")
     from run_controller import reserve, read_state, preflight_identity
@@ -344,6 +346,10 @@ def build(root, state, *, combined_code_review=False):
     if combined_code_review:
         from combined_review import eligibility
         diagnostic = eligibility(state)
+    proof = None
+    if builder_proof:
+        import builder_proof as proof_policy
+        proof = proof_policy.eligibility(state)
     claims = creative.read(root / "claims.json")
     errors = check_files(LIB)
     errors += selection_problems(creative.read(root / "story_selection.json"), edition=boards[0]["date"])
@@ -351,7 +357,7 @@ def build(root, state, *, combined_code_review=False):
         errors += check(board) + structure_problems(board, claims) + documentary(board)
         errors += supers(board, claims)[0]
         errors += narration(board, claims)
-        if not diagnostic:
+        if not diagnostic and not proof:
             review = creative.read(root / f"opening-{key}-critic.json")
             errors += problems(board, review)
             if (review.get("story_review") or {}).get("claims_sha256") != creative.digest(root / "claims.json"):
@@ -375,7 +381,7 @@ def build(root, state, *, combined_code_review=False):
     if existing.exists():
         old = creative.read(existing)
         if old.get("reservation", {}).get("identity") == identity:
-            if old.get('combined_code_review') != diagnostic:
+            if old.get('combined_code_review') != diagnostic or bool(old.get('builder_proof')) != bool(proof):
                 raise ValueError('retained comparison has different diagnostic authority; preserve its original evidence')
             if (old.get("policy_sha256") != creative.digest(creative.POLICY) or old.get("renderer_sha256") != expected_renderer
                     or old.get("producer_sha256") != expected_producer):
@@ -423,6 +429,15 @@ def build(root, state, *, combined_code_review=False):
         raise ValueError("opening capture tools changed during rendering; retain the charged attempt")
     for option in options:
         option["film"]["sha256"] = creative.digest(output / option["film"]["file"])
+    if proof:
+        # Same operation, same charge: decode both films into the pages the builder reads.
+        from claude_motion_review import build as motion_pages
+        for option in options:
+            pages = output / ("proof-pages-" + option["id"])
+            index = motion_pages(output / option["board"]["file"], output / option["film"]["file"], pages,
+                                 phone=True, comparison={"builder_proof": True})
+            option["proof_pages"] = {"file": index.relative_to(output).as_posix(),
+                                     "sha256": creative.digest(index)}
     if len({o["film"]["sha256"] for o in options}) != 2:
         raise ValueError("opening alternatives rendered identical pictures; preserve the charged attempt")
     receipt = {"schema": "dispatch-opening-comparison/1", "policy_sha256": creative.digest(creative.POLICY),
@@ -430,8 +445,14 @@ def build(root, state, *, combined_code_review=False):
     if diagnostic:
         receipt['combined_code_review'] = diagnostic
         receipt['approval'] = 'diagnostic only; original combined code and exact-phone approval remain required'
+    if proof:
+        receipt['builder_proof'] = proof
+        receipt['approval'] = proof['note']
     existing.write_text(json.dumps(receipt, indent=2)+"\n")
-    return inspect_options(output, receipt)
+    result = inspect_options(output, receipt)
+    if proof:
+        proof_policy.record(root, creative.digest(existing), proof)
+    return result
 
 
 def main():
@@ -444,18 +465,22 @@ def main():
                         help="inspect the reviewed legacy capture without reserving or rendering")
     parser.add_argument('--combined-code-review', action='store_true',
                         help='guarded fourth-attempt diagnostic comparison; grants no code or film approval')
+    parser.add_argument('--builder-proof', action='store_true',
+                        help='diagnostic previews and phone pages for the builder before any paid review; approves nothing')
     args = parser.parse_args()
     try:
-        if args.inspect_retained and args.combined_code_review:
+        if args.inspect_retained and (args.combined_code_review or args.builder_proof):
             raise ValueError('retain the original capture route when inspecting existing evidence')
         result = (inspect_retained(args.root, args.state) if args.inspect_retained else
                   build(args.root, args.state, combined_code_review=True) if args.combined_code_review else
+                  build(args.root, args.state, builder_proof=True) if args.builder_proof else
                   build(args.root, args.state))
         print(json.dumps(result, indent=2))
         failures = inspection_problems(result, args.root / "openings")
         if failures:
             print("opening structural inspection failed: " + "; ".join(failures), file=sys.stderr)
-            return 0 if args.retain_failed_inspection else 1
+            # For a builder proof these measurements are the feedback, not a gate.
+            return 0 if args.retain_failed_inspection or args.builder_proof else 1
         return 0
     except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as exc:
         print("opening comparison refused: " + str(exc), file=sys.stderr)

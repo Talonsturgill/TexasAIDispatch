@@ -119,7 +119,7 @@ def prepare(root, state_path, commands, resource=None):
             # paths so no unsupported flag can redirect or change this operation.
             args, supplied = iter(tokens[2:]), set()
             for token in args:
-                if token in ('--retain-failed-inspection', '--combined-code-review') and token not in supplied:
+                if token in ('--retain-failed-inspection', '--combined-code-review', '--builder-proof') and token not in supplied:
                     supplied.add(token)
                     continue
                 flag, equal, value = token.partition('=')
@@ -134,9 +134,14 @@ def prepare(root, state_path, commands, resource=None):
             opening_output_precheck(root / 'out/dispatch')
             from opening_compare import owned_boards
             owned_boards(root / 'out/dispatch', state_path)
+            if '--combined-code-review' in supplied and '--builder-proof' in supplied:
+                raise ValueError('prepare either the combined review capture or a builder proof, not both')
             if '--combined-code-review' in supplied:
                 from combined_review import eligibility
                 eligibility(state_path)
+            if '--builder-proof' in supplied:
+                from builder_proof import eligibility as proof_eligibility
+                proof_eligibility(state_path)
         if note == FULL_OPERATION:
             expected.update({flag: root / 'out/dispatch' / name for flag, name in {
                 'captions': 'captions.json', 'preflight': 'preflight.json',
