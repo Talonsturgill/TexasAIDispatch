@@ -1,0 +1,59 @@
+{
+ "root_cause": "The independent code review (original response retained at out/dispatch/retained-failures/code-review-1.json) rejected both treatments on four linked defects: in s4 the wok already holds noodles over a lit flame and a plated dish waits on the pass before the paid mark arrives, which contradicts the spoken claim that nothing is cooked until the order is paid for; the paid mark arrives and the lamp answers just after the 25.75 second cut so the pay-first turn is never readable in one held framing and the completed ticket gets no hold; the two tables in s1 and the table in the scan and menu shots show served food, which undercuts the hook question of who will take the order; and the departing server in treatment A is a gliding cutout with fixed legs. Non-blocking: five story_contract visible_bridges that the renderer does not execute, and a never-locking viewfinder in s9 that implies a scan malfunction no source reports.",
+ "repair": "Resume the existing scene builder for one consolidated correction on the unchanged claims, script, clauses and story_art request identities: before the ticket prints show an empty wok, a burner at pilot or off and no plated food on the pass, with ingredients and full flame entering only after the ticket prints and the toss motivated by a cook's hand or pan movement; hold one readable framing from the paid mark entering the printer slot through the lamp answering and the ticket rising and hanging, and give the completed ticket a visible hold before the flare, in both treatments and with a readable printer view in B for the arrival instead of the plan icons; remove food from every table, plate and shelf before s4 so the waiting tables have empty plates, menus and water only; give the departing server an articulated stride with planted feet or remove the figure and let the door, bell and swinging apron carry the walkout; replace the never-locking viewfinder in s9 with a hand that raises the phone, hesitates and lowers it; and rewrite the story_contract visible_bridges so each describes the executed cut. The director edits the s4 events and shot timeline in both boards to three shots with the pay-first passage as one held shot.",
+ "mechanism_change": "The pay-first passage changes from four quick cuts around a printer icon to one held shot that carries the mark's arrival, the lamp's answer and the ticket's hang, and the wok changes from always loaded and lit to empty and unlit until the ticket prints. The pre-order dining room changes from served plates to empty ones, and the s9 remark changes from a malfunctioning scan to a hesitating hand.",
+ "expected_visible_result": "Before the ticket prints the wok is empty, the burner is at pilot or off and the pass shelf has no plated food. The paid mark enters the printer slot, the lamp turns red and the ticket rises and hangs on the rail inside one held shot, and the finished ticket holds before the wok loads and flares. The tables in s1, s3 and s9 show empty plates and menus. In A the server's stride has planted feet or the figure is gone. In s9 the hand raises the phone, pauses and lowers it with no hunting brackets.",
+ "failure_evidence": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/retained-failures/code-review-1.json",
+ "failure_evidence_sha256": "8084cc38da4568392fe3fd8a5e19546992321f8e834d97a3aee784c023c6f48f",
+ "repair_scope": "standard",
+ "mechanism_id": "order-pay-first-v1",
+ "failure_family": "continuity",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "changed_inputs": [
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-a.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round1/opening-a.json",
+   "before_sha256": "f5ba44e8781c9be6c7f20e389e77c2854442d1403cd6420438d3785c989e9d5b",
+   "after_sha256": "8d35c966e8c2e6253d9464149eec67ea5755d6ba44c05847afbc666784cee275"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round1/opening-b.json",
+   "before_sha256": "71db0d1fd74fbac3785770063835805682609e97b2c901d2022369d1d44ec3f8",
+   "after_sha256": "cbf1eb35970d3f9a8ed7c10d9f68f348653555a879e82a184a56d6b9f12d9a3f"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/storyboard.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round1/storyboard.json",
+   "before_sha256": "f5ba44e8781c9be6c7f20e389e77c2854442d1403cd6420438d3785c989e9d5b",
+   "after_sha256": "8d35c966e8c2e6253d9464149eec67ea5755d6ba44c05847afbc666784cee275"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/modern_episode_registry.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round1/modern_episode_registry.json",
+   "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+   "after_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round1/OrderPassFilm.tsx",
+   "before_sha256": "1f0a04c97e35560f8afaf8ae01a2ce8c3ee677b329f146eedc28d283fe1c96e8",
+   "after_sha256": "5fb27356a1c7d27b23bf69c4e1700ce19b42640704b8b722ae9deda709f38cc5"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round1/OrderRigHero.tsx",
+   "before_sha256": "f8442c73dd5dc220a9368a11af04b65f484841c6bd3df172064b23006d95da5d",
+   "after_sha256": "a34732907db7d03441a5997fd9992c49c2b709a915425ff7c7b88bd4731d5ca6"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round1/RestaurantSupport.tsx",
+   "before_sha256": "e00e82b487072d686357f7d54f74ae7c7936732227a035626a68028e491f92f1",
+   "after_sha256": "271392e9939a81e1033c89f516e83da4270f6730f6f64adb9c77b5e1bc96ae26"
+  }
+ ],
+ "resources": {
+  "reboards": 1
+ }
+}

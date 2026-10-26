@@ -31,7 +31,7 @@ def clause_clock():
             dur = r4(0.30 * words + 0.45)
             clock[cid] = (r4(at), r4(at + dur))
             at += dur + GAP_IN
-        end = r4(at - GAP_IN + 0.3)
+        end = r4(at - GAP_IN + 0.3 + HOLD.get(sid, 0))
         scenes[sid] = (r4(s0), r4(end - s0))
         cursor = end
     return clock, scenes, cursor
@@ -211,26 +211,26 @@ def build(variant):
     role_map = {'hook': 'action', 'mechanism': 'mechanism', 'limit': 'limit', 'consequence': 'consequence', 'agency': 'evidence', 'movement': 'evidence', 'close': 'answer'}
     b['story_contract'] = dict(
         opening_question='When a restaurant loses its only server, who takes the order?',
-        actor='Wok & Karahi, a family-run restaurant in Spring, as reported by FOX 26 Houston, Muslim Mirror and KPRC Click2Houston',
-        action='Replaced its sole server with an AI host named Haniya that takes orders by table code and phone, with payment before cooking.',
-        change='A server who greeted, took the order and ran the check is replaced by a host a guest reaches by table code or phone, and the restaurant reports that kitchen staff now get all of the tips.',
-        affected_people='The family that runs the restaurant, its kitchen staff and guests who order by phone or code. No person is named.',
-        consequence='Software takes the order and payment comes first, while the savings and the tip claim rest on the owner\'s account.',
-        source_limit='Every dollar figure is the owner\'s count. No outlet says whether the restaurant takes a tip credit, which decides whether a tip pool with cooks is allowed under federal rules, and one customer said QR codes don\'t suit people like her mother.',
+        actor='Wok & Karahi, a family restaurant in Spring, as reported by FOX 26, Muslim Mirror and Click2Houston',
+        action='Replaced its sole server with an AI host that takes orders by table code and phone, with payment first.',
+        change='A server who took the order and ran the check is replaced by a host, and kitchen staff reportedly get all tips.',
+        affected_people='The family, its kitchen staff and guests who order by phone or code. No person is named.',
+        consequence='Software takes the order and payment comes first, while savings and tips rest on the owner\'s account.',
+        source_limit='Every dollar figure is the owner\'s count and no report says whether a tip credit is taken.',
         closing_answer='Software now takes the order, and who gets the tip rests on the owner\'s word.',
         director_identity='claude-sonnet-5-5 director, this session',
         scenes=[dict(scene_id=sid, role=role_map[SCENES[sid]['role']], claim_ids=claims_by_scene[sid], advances=sc[sid]['on_screen']) for sid in SCENES],
         transitions=[])
     bridges = {
-        ('s1', 's2'): ('same-subject', 'The unattended front of the room is where the panel is installed.', 'The ringing phone stand dims and the host panel lights on the same stand.'),
-        ('s2', 's3'): ('causal-consequence', 'Once the host is installed a guest can order through it.', 'The lit panel hands over to a phone lifting over a table code.'),
-        ('s3', 's4'): ('same-subject', 'The paid mark on the phone is what the kitchen waits for.', 'The paid mark leaves the phone and travels toward the kitchen printer.'),
-        ('s4', 's5'): ('causal-consequence', 'After the system, the film turns to what the owner says it is worth.', 'The flare dims and a ledger card slides onto the back desk.'),
-        ('s5', 's6'): ('same-subject', 'The tip claim sits beside the savings claim as another owner statement.', 'The ledger card slides aside as coins drop toward the kitchen pass.'),
-        ('s6', 's7'): ('causal-consequence', 'The tip claim meets the federal rule that governs a pool with cooks.', 'The jar tag lifts and a federal rule card slides onto the desk.'),
+        ('s1', 's2'): ('same-subject', 'The unattended front of the room is where the panel is installed.', 'Cut from the swinging apron on the host stand to the empty sign frame and the panel at the front of the same room.'),
+        ('s2', 's3'): ('causal-consequence', 'Once the host is installed a guest can order through it.', 'Cut from the lit panel to a hand lifting a phone over a table code.'),
+        ('s3', 's4'): ('same-subject', 'The paid mark on the phone is what the kitchen waits for.', 'Cut from the paid mark on the phone to the same mark travelling toward the kitchen printer.'),
+        ('s4', 's5'): ('causal-consequence', 'After the system, the film turns to what the owner says it is worth.', 'Cut from the flaring wok at the pass to a ledger card sliding onto the back desk.'),
+        ('s5', 's6'): ('same-subject', 'The tip claim sits beside the savings claim as another owner statement.', 'Cut from the ledger desk to coins dropping toward the jar at the kitchen pass.'),
+        ('s6', 's7'): ('causal-consequence', 'The tip claim meets the federal rule that governs a pool with cooks.', 'Cut from the tip jar and its tag to a federal rule card sliding onto the desk.'),
         ('s7', 's8'): ('same-subject', 'The rule names a box, and the restaurant file is checked for the same box.', 'The lit cooks line stays and a restaurant folder slides beside the rule card.'),
-        ('s8', 's9'): ('causal-consequence', 'After the limit on the money, a customer remark shows a limit on the ordering.', 'The blank box stays and a phone aims at a table code.'),
-        ('s9', 's10'): ('causal-consequence', 'The last scene returns to the order and the jar for its answer.', 'The quote card falls away and the host panel and tip jar fill the frame.')}
+        ('s8', 's9'): ('causal-consequence', 'After the limit on the money, a customer remark shows a limit on the ordering.', 'Cut from the blank box on the desk to a hand hesitating over a phone at a table code.'),
+        ('s9', 's10'): ('causal-consequence', 'The last scene returns to the order and the jar for its answer.', 'Cut from the lowered phone and quote card to the host panel taking an order beside the tip jar.')}
     for (f, t), (k, because, bridge) in bridges.items():
         b['story_contract']['transitions'].append(dict(**{'from': f}, to=t, kind=k, because=because, visible_bridge=bridge))
     # creative direction

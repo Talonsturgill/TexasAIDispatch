@@ -182,6 +182,164 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-26T08:45:11.780322Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "code review of both treatments, review 1 of 5",
+      "preflight_identity": null,
+      "publication_epoch": "2023308948674e87b1d8c59df616a5dd",
+      "publication_owner_sha256": "fb629625757c1c0faeba13550a523cfd71b4d6e8ef384a3ad5eb1ebf7ccb1f1d",
+      "resources": {
+        "storyboard_critics": 1
+      }
+    },
+    {
+      "at": "2026-10-26T09:00:29.551697Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/opening-a.json",
+          "before_sha256": "f5ba44e8781c9be6c7f20e389e77c2854442d1403cd6420438d3785c989e9d5b",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/opening-b.json",
+          "before_sha256": "71db0d1fd74fbac3785770063835805682609e97b2c901d2022369d1d44ec3f8",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/storyboard.json",
+          "before_sha256": "f5ba44e8781c9be6c7f20e389e77c2854442d1403cd6420438d3785c989e9d5b",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/modern_episode_registry.json",
+          "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+          "path": "{REPO}/config/modern_episode_registry.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/OrderPassFilm.tsx",
+          "before_sha256": "1f0a04c97e35560f8afaf8ae01a2ce8c3ee677b329f146eedc28d283fe1c96e8",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/OrderRigHero.tsx",
+          "before_sha256": "f8442c73dd5dc220a9368a11af04b65f484841c6bd3df172064b23006d95da5d",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round1/RestaurantSupport.tsx",
+          "before_sha256": "e00e82b487072d686357f7d54f74ae7c7936732227a035626a68028e491f92f1",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "continuity",
+      "failure_sha256": "8084cc38da4568392fe3fd8a5e19546992321f8e834d97a3aee784c023c6f48f",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "order-pay-first-v1",
+      "plan_identity": null,
+      "plan_sha256": "7649748cb8ac78ceebf094360833b427cdf9d6883bec521431bbcf5826da5129",
+      "progress_replacement_required": false,
+      "repair_scope": "standard"
+    },
+    {
+      "at": "2026-10-26T09:00:52.273408Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "corrective reboard after accepted begin-repair",
+      "preflight_identity": null,
+      "publication_epoch": "2023308948674e87b1d8c59df616a5dd",
+      "publication_owner_sha256": "fb629625757c1c0faeba13550a523cfd71b4d6e8ef384a3ad5eb1ebf7ccb1f1d",
+      "resources": {
+        "reboards": 1
+      }
+    },
+    {
+      "at": "2026-10-26T09:20:05.574655Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 14,
+        "reservation_sha256": "aea3674ac186982822d0c8c31e47f6720d6f9c907784ae9b25a72c35ce796bb8",
+        "start_event_index": 13
+      },
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "8d35c966e8c2e6253d9464149eec67ea5755d6ba44c05847afbc666784cee275",
+            "before_path": "{REPO}/out/dispatch/baselines/round1/opening-a.json",
+            "before_sha256": "f5ba44e8781c9be6c7f20e389e77c2854442d1403cd6420438d3785c989e9d5b",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "cbf1eb35970d3f9a8ed7c10d9f68f348653555a879e82a184a56d6b9f12d9a3f",
+            "before_path": "{REPO}/out/dispatch/baselines/round1/opening-b.json",
+            "before_sha256": "71db0d1fd74fbac3785770063835805682609e97b2c901d2022369d1d44ec3f8",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "8d35c966e8c2e6253d9464149eec67ea5755d6ba44c05847afbc666784cee275",
+            "before_path": "{REPO}/out/dispatch/baselines/round1/storyboard.json",
+            "before_sha256": "f5ba44e8781c9be6c7f20e389e77c2854442d1403cd6420438d3785c989e9d5b",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+            "before_path": "{REPO}/out/dispatch/baselines/round1/modern_episode_registry.json",
+            "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+            "path": "{REPO}/config/modern_episode_registry.json"
+          },
+          {
+            "after_sha256": "5fb27356a1c7d27b23bf69c4e1700ce19b42640704b8b722ae9deda709f38cc5",
+            "before_path": "{REPO}/out/dispatch/baselines/round1/OrderPassFilm.tsx",
+            "before_sha256": "1f0a04c97e35560f8afaf8ae01a2ce8c3ee677b329f146eedc28d283fe1c96e8",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+          },
+          {
+            "after_sha256": "a34732907db7d03441a5997fd9992c49c2b709a915425ff7c7b88bd4731d5ca6",
+            "before_path": "{REPO}/out/dispatch/baselines/round1/OrderRigHero.tsx",
+            "before_sha256": "f8442c73dd5dc220a9368a11af04b65f484841c6bd3df172064b23006d95da5d",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx"
+          },
+          {
+            "after_sha256": "271392e9939a81e1033c89f516e83da4270f6730f6f64adb9c77b5e1bc96ae26",
+            "before_path": "{REPO}/out/dispatch/baselines/round1/RestaurantSupport.tsx",
+            "before_sha256": "e00e82b487072d686357f7d54f74ae7c7936732227a035626a68028e491f92f1",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "Before the ticket prints the wok is empty, the burner is at pilot or off and the pass shelf has no plated food. The paid mark enters the printer slot, the lamp turns red and the ticket rises and hangs on the rail inside one held shot, and the finished ticket holds before the wok loads and flares. The tables in s1, s3 and s9 show empty plates and menus. In A the server's stride has planted feet or the figure is gone. In s9 the hand raises the phone, pauses and lowers it with no hunting brackets.",
+        "failure_evidence": "{REPO}/out/dispatch/retained-failures/code-review-1.json",
+        "failure_evidence_sha256": "8084cc38da4568392fe3fd8a5e19546992321f8e834d97a3aee784c023c6f48f",
+        "failure_family": "continuity",
+        "mechanism_change": "The pay-first passage changes from four quick cuts around a printer icon to one held shot that carries the mark's arrival, the lamp's answer and the ticket's hang, and the wok changes from always loaded and lit to empty and unlit until the ticket prints. The pre-order dining room changes from served plates to empty ones, and the s9 remark changes from a malfunctioning scan to a hesitating hand.",
+        "mechanism_id": "order-pay-first-v1",
+        "repair": "Resume the existing scene builder for one consolidated correction on the unchanged claims, script, clauses and story_art request identities: before the ticket prints show an empty wok, a burner at pilot or off and no plated food on the pass, with ingredients and full flame entering only after the ticket prints and the toss motivated by a cook's hand or pan movement; hold one readable framing from the paid mark entering the printer slot through the lamp answering and the ticket rising and hanging, and give the completed ticket a visible hold before the flare, in both treatments and with a readable printer view in B for the arrival instead of the plan icons; remove food from every table, plate and shelf before s4 so the waiting tables have empty plates, menus and water only; give the departing server an articulated stride with planted feet or remove the figure and let the door, bell and swinging apron carry the walkout; replace the never-locking viewfinder in s9 with a hand that raises the phone, hesitates and lowers it; and rewrite the story_contract visible_bridges so each describes the executed cut. The director edits the s4 events and shot timeline in both boards to three shots with the pay-first passage as one held shot.",
+        "repair_scope": "standard",
+        "resources": {
+          "reboards": 1
+        },
+        "root_cause": "The independent code review (original response retained at out/dispatch/retained-failures/code-review-1.json) rejected both treatments on four linked defects: in s4 the wok already holds noodles over a lit flame and a plated dish waits on the pass before the paid mark arrives, which contradicts the spoken claim that nothing is cooked until the order is paid for; the paid mark arrives and the lamp answers just after the 25.75 second cut so the pay-first turn is never readable in one held framing and the completed ticket gets no hold; the two tables in s1 and the table in the scan and menu shots show served food, which undercuts the hook question of who will take the order; and the departing server in treatment A is a gliding cutout with fixed legs. Non-blocking: five story_contract visible_bridges that the renderer does not execute, and a never-locking viewfinder in s9 that implies a scan malfunction no source reports."
+      },
+      "repair_plan_sha256": "a420d058ebcdb39773573a11af3dec5ab770eb6ad6d670e5e535d83c22d21a9b",
+      "repair_revision": "7834de4a20a9dbde60d732357077b947567d5481ef547bea764fe25a10a254e3",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -202,10 +360,10 @@
     "voice_directors": 1
   },
   "mode": "production",
-  "phase": "wake",
+  "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "7b95858457fe7361c79ec988b67a68f3a62b4772ef02b7f7b6dc98834356b7a3",
+    "original_private_state_sha256": "870f2994c9250e707903aedc81fadad554672629080bbe48a91f3bccbab9599c",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -233,7 +391,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-26T07:47:33.600533Z",
+  "updated_at": "2026-10-26T09:20:05.574705Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -241,12 +399,12 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 0,
-    "reboards": 1,
+    "reboards": 2,
     "reported_tokens": 63,
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 0,
+    "storyboard_critics": 1,
     "tts_calls": 0,
     "validator_agents": 2,
     "voice_directors": 0
