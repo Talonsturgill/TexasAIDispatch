@@ -161,6 +161,8 @@ jobs:
 
       - name: Image-only Claude review covers the exact native film
         run: python3 scripts/claude_motion_review_test.py
+      - name: Builder proof tests
+        run: python3 scripts/builder_proof_test.py
 
       - name: Claude director and leaf model and effort bindings
         run: |

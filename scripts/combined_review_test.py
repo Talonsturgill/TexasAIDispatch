@@ -1,7 +1,9 @@
 """Tiny native-hook fixtures; no provider, rendering or production evidence mutation."""
 import copy
+import base64
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -58,6 +60,132 @@ class CombinedReviewTests(unittest.TestCase):
             'agent_type': kind, 'agent_id': agent,
             'last_assistant_message': json.dumps(report)}, self.workspace)
         return claim
+
+    def phone_rejection_fixture(self):
+        """Actual October26 response shape, with real fixture Read/Write hook provenance."""
+        import image_read_receipt as image
+        from image_read_receipt_test import PNG
+        import visual_observations as visual
+        subprocess.run(['git', 'init', '-q', str(self.repo)], check=True, capture_output=True)
+        subprocess.run(['git', '-C', str(self.repo), 'remote', 'add', 'origin', image.REMOTE],
+                       check=True, capture_output=True)
+        for path in (self.root / closure.CRITIC_RECEIPTS).glob('*.json'):
+            path.unlink()
+        claims = self.write(self.root / 'claims.json', {'claims': []})
+        board = self.write(self.root / 'storyboard.json', {'date': self.state['run_id'], 'scenes': []})
+        comparison = self.write(self.root / 'retained-comparison.json', {'fixture': 'original silent A/B'})
+        codes, phones, options, bindings = {}, {}, [], []
+        label = 'storyboard-critic, isolated phone comparison task'
+        actor_payload = {'session_id': 'parent', 'agent_id': 'native-phone',
+                         'agent_type': 'dispatch-visual-critic', 'cwd': str(self.workspace)}
+        for key in ('a', 'b'):
+            picture = self.write(self.root / 'openings' / (key + '.json'), {'date': self.state['run_id']})
+            film = self.root / 'openings' / (key + '.mp4'); film.write_bytes(('original film ' + key).encode())
+            page = self.root / 'openings' / ('motion-third-' + key) / 'sequence-000.png'
+            page.parent.mkdir(); page.write_bytes(PNG)
+            payload = {**actor_payload, 'hook_event_name': 'PostToolUse', 'tool_name': 'Read',
+                'tool_use_id': 'third-read-' + key, 'tool_input': {'file_path': str(page)},
+                'tool_response': {'type': 'image', 'file': {'base64': base64.b64encode(PNG).decode(),
+                                                           'type': 'image/png'}}}
+            image.record(payload, self.workspace)
+            event = next(visual.load(path) for path in (self.root / 'image-tool-delivery').glob('*.json')
+                         if visual.load(path)['source_file'] == str(page.relative_to(self.repo)))
+            note = {'schema': visual.SCHEMA, 'image_event_key': event['event_key'],
+                    'page': event['source_file'], 'image_sha256': event['source_sha256'], 'received': True,
+                    'objects': ['phone', 'guest hand'], 'actions': ['hand lowers the phone'], 'text': None,
+                    'observed': 'The guest hand lowers the phone toward the table in the retained fixture.',
+                    'literal_error': None}
+            target = self.repo / event['observation_path']
+            write = {**actor_payload, 'hook_event_name': 'PreToolUse', 'tool_name': 'Write',
+                     'tool_use_id': 'third-write-' + key,
+                     'tool_input': {'file_path': str(target), 'content': json.dumps(note)}}
+            visual.guard(write, self.workspace)
+            target.parent.mkdir(parents=True, exist_ok=True); target.write_text(json.dumps(note))
+            visual.record_write({**write, 'hook_event_name': 'PostToolUse'}, self.workspace)
+            sequence = self.write(page.parent / 'index.json', {'pages': [{'file': page.name,
+                'sha256': visual.digest(page), 'samples': [{'frame': 0}, {'frame': 24}]}]})
+            identity = {'concept_sha256': 'concept-' + key, 'renderer_sha256': 'original-renderer',
+                        'quality_contract_sha256': 'original-quality',
+                        'story_review': {'story_sha256': 'story-' + key, 'policy_sha256': 'story-policy',
+                                         'claims_sha256': combined.bound(claims)['sha256']}}
+            code_binding = {'review_scope': 'code-plan', **identity}
+            bindings.append({'id': key, 'report_bindings': code_binding})
+            codes[key] = {**copy.deepcopy(code_binding), 'verdict': 'pass', 'blocking_defects': [],
+                          'reviewer_identity': 'original code critic'}
+            phone_binding = {'review_scope': 'exact-muted-phone-preflight', **identity,
+                             'reviewed_preflight_sha256': combined.bound(film)['sha256']}
+            phones[key] = {**copy.deepcopy(phone_binding), 'verdict': 'revise', 'reviewer_identity': label,
+                          'blocking_defects': [{'category': 'continuity', 'scene_id': 's3',
+                              'defect': 'The same guest hand changes skin tone across the ordering cuts.'}]}
+            options.append({'id': key, 'board': combined.bound(picture), 'film': combined.bound(film),
+                'motion_sequence': combined.bound(sequence), 'report_bindings': phone_binding,
+                'comparison': {'comparison_sha256': combined.bound(comparison)['sha256']}})
+        code_packet = self.write(self.root / 'second-code-packet.json', {'role': 'storyboard-critic',
+            'date': self.state['run_id'], 'claims': combined.bound(claims),
+            'code_report_bindings': {'treatments': bindings}})
+        self.native_return(code_packet, {'packet_sha256': combined.bound(code_packet)['sha256'],
+                           'review_scope': 'code-plan', 'verdict': 'pass', 'code_reports': codes}, 1,
+                           agent='native-code')
+        self.packet = self.write(self.root / 'third-packet.json', {'role': 'storyboard-critic',
+            'date': self.state['run_id'], 'phone_mode': 'comparison',
+            'review_scope': 'exact-muted-phone-preflight', 'board': combined.bound(board),
+            'claims': combined.bound(claims), 'phone_options': options,
+            'public_visual_evidence': visual.CONTRACT, 'image_read_policy': runtime.image_read_policy(self.state['run_id'])})
+        self.report = {'packet_sha256': combined.bound(self.packet)['sha256'],
+            'schema_note': 'One original comparison handback; no top-level verdict or reviewer label.',
+            'status': 'complete', 'role': 'storyboard-critic', 'review_scope': 'exact-muted-phone-preflight',
+            'observation_directory': str(target.parent), 'phone_reports': phones,
+            'selection': {'selected': 'b', 'comparison_sha256': combined.bound(comparison)['sha256'],
+                          'reviewer_identity': label, 'blocking_defects': phones['b']['blocking_defects']},
+            'consolidated_correction_for_selected_b': 'Preserve the same hand through the ordering cuts.'}
+        self.native_return(self.packet, self.report, 2, agent='native-phone', kind='dispatch-visual-critic')
+        self.write(self.failure, self.report)
+        self.state['events'][-1]['repair_plan']['failure_evidence_sha256'] = combined.bound(self.failure)['sha256']
+        self.write(self.state_path, self.state)
+        self.write(self.root / 'openings/selection.json', self.report['selection'])
+        self.coverage = self.write(self.root / 'third-phone-coverage.json', visual.coverage(self.packet, target.parent))
+        return code_packet
+
+    def test_original_third_phone_rejection_funds_combined_correction_with_retained_images(self):
+        self.phone_rejection_fixture()
+        before = self.state_path.read_bytes()
+        proof = combined.eligibility(self.state_path)
+        self.assertEqual(4, proof['critic_attempt'])
+        self.assertEqual(combined.bound(self.coverage), proof['prior_phone_review']['image_coverage'])
+        import review_limit
+        remaining = review_limit.remaining_review_path(self.state, self.state_path)
+        self.assertEqual((3, 2, True), (remaining['ordinary_required'], remaining['required'], remaining['feasible']))
+        self.assertEqual(before, self.state_path.read_bytes())
+        # New capture slots can change only after the old evidence is retained. The
+        # original third-review image sequences and public observations stay intact.
+        (self.root / 'openings/selection.json').unlink()
+        (self.root / 'openings/a.mp4').write_bytes(b'new diagnostic capture fixture')
+        self.assertEqual(proof, combined.eligibility(self.state_path))
+
+    def test_phone_route_refuses_missing_original_code_pass_or_changed_public_observation(self):
+        code_packet = self.phone_rejection_fixture()
+        receipt = next((self.root / closure.CRITIC_RECEIPTS).glob(combined.bound(code_packet)['sha256'] + '-*.json'))
+        original = receipt.read_bytes(); receipt.unlink()
+        with self.assertRaises(ValueError): combined.budget_eligibility(self.state_path)
+        receipt.write_bytes(original)
+        fact = Path(combined.read(self.coverage)['sequences'][0]['pages'][0]['observation']['path'])
+        fact.write_text(fact.read_text() + ' ')
+        with self.assertRaisesRegex(ValueError, 'changed'):
+            combined.budget_eligibility(self.state_path)
+
+    def test_phone_route_refuses_parent_selection_and_transplanted_code_identity(self):
+        code_packet = self.phone_rejection_fixture()
+        self.write(self.root / 'openings/selection.json', {**self.report['selection'], 'selected': 'a'})
+        with self.assertRaisesRegex(ValueError, 'existing comparison'):
+            combined.budget_eligibility(self.state_path)
+        self.write(self.root / 'openings/selection.json', self.report['selection'])
+        # Even an original native pass cannot approve different rendered inputs.
+        receipt = next((self.root / closure.CRITIC_RECEIPTS).glob(combined.bound(code_packet)['sha256'] + '-*.json'))
+        original = combined.read(receipt)['report']; receipt.unlink()
+        original['code_reports']['b']['renderer_sha256'] = 'different original renderer'
+        self.native_return(code_packet, original, 1, agent='native-code')
+        with self.assertRaisesRegex(ValueError, 'exact code-approved'):
+            combined.budget_eligibility(self.state_path)
 
     def test_original_third_rejection_funds_one_combined_and_one_final_without_changing_ledger(self):
         before = self.state_path.read_bytes()
@@ -139,6 +267,18 @@ class CombinedReviewTests(unittest.TestCase):
                 runtime.phone_packet(base, self.state_path, ['current'], current=True, combined_code_review=True)
 
     def test_import_retains_original_verdicts_and_parent_edits_cannot_pass_selection(self):
+        self.exercise_import_original_verdicts()
+
+    def test_phone_rejection_uses_same_fourth_import_and_preserves_original_third_images(self):
+        self.phone_rejection_fixture()
+        prior = combined.budget_eligibility(self.state_path)['prior_phone_review']
+        # Retain the original rejected selection before importing the new original.
+        (self.root / 'openings/selection.json').rename(self.root / 'third-selection.json')
+        self.exercise_import_original_verdicts()
+        self.assertEqual(prior['image_coverage'], combined.bound(self.coverage))
+        self.assertEqual(self.report['selection'], combined.read(self.root / 'third-selection.json'))
+
+    def exercise_import_original_verdicts(self):
         source, options, base = self.packet_fixture()
         with patch('critic_gate.REPO', self.repo), patch('critic_gate.renderer_files', return_value=[source]), \
              patch.object(runtime, 'phone_options', side_effect=lambda *a, **k: copy.deepcopy(options)), \

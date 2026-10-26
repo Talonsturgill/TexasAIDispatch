@@ -302,6 +302,18 @@ def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None
                           "before_sha256": digest(before)})
     if not baselines:
         return False, "name the production inputs to change and preserve their baselines"
+    from review_limit import planned_invalidations
+    # Frozen narration, excerpt-context and nonpicture technical scopes retain
+    # their own resource/unchanged-input contracts; generic production would
+    # incorrectly demand fresh picture or synthesis for those reused inputs.
+    if 'code' in planned_invalidations(state, plan):
+        from repair_guard import production_budget_precheck
+        budget = production_budget_precheck(state, state_path=path, repair_plan=plan)
+        if not budget['feasible']:
+            return False, ('planned correction cannot fund its complete remaining path: '
+                           + '; '.join(budget.get('errors', []))
+                           + ('; deficits ' + json.dumps(budget['deficits'], sort_keys=True)
+                              if budget.get('deficits') else ''))
     # One board correction and two independent critic calls (plan, then actual phone cut).
     # They are allowances, not calls: the existing consume command charges before each use.
     grants = {}

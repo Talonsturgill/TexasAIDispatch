@@ -71,6 +71,17 @@ On 2026-10-10 a builder ran a private native still and then a half-scale contact
 before any reservation or headroom check, against placeholder entries. Those files are retained as failures,
 charged late and never used as evidence. A private batch is a procedural defect, not a faster way to look.
 
+## Visual proof pages (from October 26th, 2026)
+
+You can't capture, but you can read images. When the director hands you a builder proof (the
+`openings/proof-pages-a` and `proof-pages-b` contact sheets, one image per Read), read every
+page of both treatments before anything else and write down what each shows. Defects a paid
+review would otherwise find are yours to find first: a figure, hand or object whose colour,
+position or scale changes across a cut, anything that appears or jumps without a performed move,
+a translucent box with nothing under it, an effect before its cause, a contact that doesn't
+close, type too small at 390 pixels. Fix them in one consolidated pass and say which pages
+showed each one. The proof approves nothing; the paid reviews remain.
+
 ## Narration and picture use one clock
 
 For new editions from October 25th, first author short coherent narration clauses using the

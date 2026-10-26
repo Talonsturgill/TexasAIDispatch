@@ -29,6 +29,63 @@ CODE_REASON = "mandatory-code-integrity"
 MAX_REQUIRED = {"reboards": 1, "storyboard_critics": 3, "preflight_renders": 3,
                 "full_renders": 1, "audiovisual_reviews": 11, "panel_rounds": 1,
                 "scorer_calls": 3, "tts_calls": 2, "voice_directors": 1}
+REVIEW_ALLOCATION = 'review_path_allocation'
+REVIEW_ALLOCATION_FROM = '2026-10-26'
+
+
+def review_allocation(state, plan_text, budget):
+    """Freeze allocation arithmetic, never a review verdict or permission to run a worker."""
+    if str(state.get('run_id', ''))[:10] < REVIEW_ALLOCATION_FROM or 'review_path' not in budget:
+        return None
+    return {'schema': 'dispatch_review_path_allocation/1', 'review_path': copy.deepcopy(budget['review_path']),
+            'plan_sha256': sha(plan_text), 'usage_sha256': sha(canonical(state['usage'])),
+            'events_sha256': sha(canonical(state['events']))}
+
+
+def replay_review_allocation(state, plan, plan_text, budget, allocation, required):
+    """Replay the original planning snapshot without reading later corrected media files.
+
+    The live precheck proves current gates before the grant. This retained arithmetic can
+    allocate only noncritic deficits; every later dispatch still proves the live review path.
+    """
+    expected = review_allocation(state, plan_text, budget)
+    if expected is None or allocation != expected:
+        raise ValueError('original review-path allocation changed')
+    from review_limit import MAX_ROUNDS, planned_invalidations
+    path = allocation['review_path']; names = ('code', 'comparison', 'timed_phone')
+    completed = path['completed']; used = state['usage']['storyboard_critics']
+    pending = [name for name in names if not completed.get(name)]
+    combined = path['combined_eligible']
+    if (set(completed) != set(names) or any(type(v) is not bool for v in completed.values())
+            or type(combined) is not bool or type(used) is not int
+            or path['used'] != used or path['ceiling'] != MAX_ROUNDS
+            or path['remaining'] != max(0, MAX_ROUNDS - used) or path['pending'] != pending
+            or path['ordinary_required'] != len(pending)
+            or path.get('invalidated', []) != planned_invalidations(state, plan)
+            or any(completed[name] for name in path.get('invalidated', []))
+            or combined and (used != 3 or not {'code', 'comparison'} <= set(pending))
+            or path['route'] != ('combined-code-comparison' if combined else 'ordinary')
+            or path['required'] != len(pending) - int(combined)
+            or path['errors'] or path['feasible'] is not True
+            or path['required'] > path['remaining']):
+        raise ValueError('review-path allocation cannot fund the hard-five completion path')
+    required['storyboard_critics'] = path['required']
+    captures = 3 * int('comparison' in pending) + 2 * int('timed_phone' in pending) + 2
+    required['preflight_renders'] = max(required['preflight_renders'], captures)
+    if plan.get('changed_inputs') and plan.get('repair_scope') != 'narration-performance':
+        active = None
+        for index, event in enumerate(state['events']):
+            if event.get('kind') == 'repair_started':
+                active = (index, event)
+            elif event.get('kind') == 'repair_authorized':
+                active = None
+        paid = False
+        if active and active[1].get('failure_sha256') == plan.get('failure_evidence_sha256'):
+            charged = sum(event.get('resources', {}).get('reboards', 0)
+                          for event in state['events'][active[0] + 1:] if event.get('kind') == 'reserved')
+            paid = charged == 1 or (charged == 0 and bool(active[1].get('prepaid_reboard')))
+        required['reboards'] = 0 if paid else max(required['reboards'], 1)
+    return required
 
 
 def resource_requirements(state, plan=None):
@@ -326,6 +383,32 @@ def reviewed_film_sha256(report):
     return film
 
 
+def selected_phone_failure(state, plan, report):
+    """Read a native paired rejection without rewriting either original judgment."""
+    if str(state.get('run_id', ''))[:10] < REVIEW_ALLOCATION_FROM or 'phone_reports' not in report:
+        return None
+    pair, selection = report.get('phone_reports'), report.get('selection')
+    if (report.get('review_scope') != 'exact-muted-phone-preflight'
+            or not isinstance(pair, dict) or set(pair) != {'a', 'b'}
+            or not all(isinstance(row, dict) for row in pair.values())
+            or not isinstance(selection, dict) or selection.get('selected') not in pair):
+        raise ValueError('retain the complete original paired phone rejection')
+    reviewer = selection.get('reviewer_identity'); selected = pair[selection['selected']]
+    film = reviewed_film_sha256(selected)
+    if (not isinstance(reviewer, str) or not reviewer.strip() or reviewer == plan.get('director_identity')
+            or any(row.get('reviewer_identity') != reviewer for row in pair.values())
+            or selected.get('verdict') != 'revise' or not isinstance(film, str)
+            or not re.fullmatch(r'[a-f0-9]{64}', film)
+            or selected.get('film', {}).get('sha256') != film
+            or plan.get('failed_film_sha256', film) != film
+            or any(row.get('option') != key or row.get('review_scope') != report['review_scope']
+                   or row.get('comparison', {}).get('comparison_sha256') != selection.get('comparison_sha256')
+                   for key, row in pair.items())
+            or not re.fullmatch(r'[a-f0-9]{64}', str(selection.get('comparison_sha256', '')))):
+        raise ValueError('paired phone rejection changed its selected film or independent reviewer')
+    return selected
+
+
 def mandatory_reason(state, plan, evidence_text):
     """Recheck retained evidence without relying on the director's category label."""
     from creative_release import findings, MOTION_ERRORS, finishing_required, payload_digest
@@ -386,6 +469,9 @@ def mandatory_reason(state, plan, evidence_text):
                     or set(plan.get('resources', {})) - set(resource_requirements(state))):
                 return None
             return COVERAGE_REASON if eligible(state, plan, report) else None
+        selected = selected_phone_failure(state, plan, report)
+        if selected is not None:
+            report = selected
         director = plan["director_identity"]
         reviewer = report["reviewer_identity"]
         if not director or not reviewer or reviewer == director:
@@ -418,7 +504,8 @@ def mandatory_reason(state, plan, evidence_text):
                 return "retained-integrity"
             return None
         film = reviewed_film_sha256(report)
-        if not isinstance(film, str) or len(film) != 64 or film != plan.get("failed_film_sha256"):
+        if (not isinstance(film, str) or len(film) != 64
+                or film != plan.get("failed_film_sha256", film if selected is not None else None)):
             return None
         modern = report.get('modern_observations') or {}
         if (str(state.get('run_id', ''))[:10] >= '2026-10-08'
@@ -611,7 +698,7 @@ def replay(state):
                     admission['deliverable'] = admission_deliverable(admission, plan)
                 if (plan.get('completion_reason') in {COVERAGE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, FORECAST_REASON}
                         or 'capture_retry_evidence' in plan or 'capture_completion_budget' in plan
-                        or VALIDATION_FIELD in plan):
+                        or VALIDATION_FIELD in plan or REVIEW_ALLOCATION in row):
                     # A later shipped state cannot invalidate an earlier active admission.
                     admission['terminal_state'] = None
                 reason = mandatory_reason(admission, plan, row["failure_evidence_json"])
@@ -674,6 +761,9 @@ def replay(state):
                 if reason == PROMPT_REPAIR_REASON:
                     from review_prompt_repair import required_counts as prompt_required
                     required = prompt_required(plan, required)
+                if REVIEW_ALLOCATION in row:
+                    required = replay_review_allocation(admission, plan, row['plan_json'], budget,
+                                                        row[REVIEW_ALLOCATION], required)
                 from capture_completion_budget import required_counts
                 required = required_counts(admission, plan, required)
                 if reason == FORECAST_REASON:
@@ -688,13 +778,15 @@ def replay(state):
                         required[name] = max(required[name], count)
                 for name, maximum in expected_required.items():
                     item = rows[name]
+                    ceiling = min(effective[name], 5) if REVIEW_ALLOCATION in row and name == 'storyboard_critics' else effective[name]
                     if (type(item["required"]) is not int or item["required"] != required[name]
-                            or item["used"] != usage[name] or item["ceiling"] != effective[name]
-                            or item["remaining"] != effective[name] - usage[name]):
+                            or item["used"] != usage[name] or item["ceiling"] != ceiling
+                            or item["remaining"] != ceiling - usage[name]):
                         raise ValueError("completion precheck allocation or required count is invalid")
                     if item["required"] > item["remaining"]:
                         deficits[name] = item["required"] - item["remaining"]
                 if (deficits != budget["deficits"] or deficits != row["resource_increments"]
+                        or REVIEW_ALLOCATION in row and 'storyboard_critics' in deficits
                         or (not deficits and kind not in {NARRATION_READY, VALIDATION_READY})
                         or (kind == NARRATION_READY and (deficits or reason != NARRATION_REASON))
                         or (kind == VALIDATION_READY and (deficits or VALIDATION_FIELD not in plan))):
@@ -828,6 +920,15 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         reason = mandatory_reason(state, plan, evidence)
         if reason is None:
             return False, "completion capacity requires exact independent mandatory evidence; optional polish and research are excluded"
+        if selected_phone_failure(state, plan, json.loads(evidence)) is not None:
+            # Only the genuine original third comparison can price its fourth-attempt
+            # correction. Its live packet, claim, complete images and prior code PASS
+            # are checked before any allocation, and still confer no film approval.
+            from combined_review import budget_eligibility
+            proof = budget_eligibility(state_path, state=state)
+            original = json.loads(Path(proof['original_review']['path']).read_text())
+            if original.get('report') != json.loads(evidence):
+                return False, 'capacity requires the unchanged original third phone response'
         from completion_forecast import admission_problems
         errors = admission_problems(state, plan)
         if errors:
@@ -931,7 +1032,8 @@ def grant_capacity(state_path, plan_path, policy_path=None):
                     minimum_action_failed=reason == "minimum-action",
                     mandatory_repair=reason in {"minimum-action", "retained-integrity", "modern-film-floor", CODE_REASON, MODERN_CODE_REASON, PIVOT_REASON, NARRATION_REASON, FILM_PIVOT_REASON, FORECAST_REASON, PROMPT_REPAIR_REASON, 'mandatory-source-pivot'},
                     review_coverage=reason == COVERAGE_REASON,
-                    modern_code_repair=reason in {MODERN_CODE_REASON, PIVOT_REASON}, state_path=state_path)
+                    modern_code_repair=reason in {MODERN_CODE_REASON, PIVOT_REASON},
+                    state_path=state_path, repair_plan=plan)
         if not budget.get("resources"):
             return False, "completion precheck failed: " + "; ".join(budget.get("errors", []))
         from capture_completion_budget import apply_budget
@@ -952,6 +1054,11 @@ def grant_capacity(state_path, plan_path, policy_path=None):
             from narration_recovery import apply_budget as narration_budget
             budget = narration_budget(state, plan, budget)
         increments = budget["deficits"]
+        allocation = review_allocation(state, plan_text, budget)
+        if allocation is not None:
+            path = allocation['review_path']
+            if path.get('errors') or path.get('feasible') is not True or 'storyboard_critics' in increments:
+                return False, 'mandatory completion cannot extend the hard-five review limit'
         if reason == FORECAST_REASON:
             from completion_forecast import valid_increment
             if not valid_increment(plan, increments):
@@ -981,6 +1088,7 @@ def grant_capacity(state_path, plan_path, policy_path=None):
               failure_evidence_json=evidence, failure_evidence_sha256=sha(evidence),
               precheck_json=canonical(budget), precheck_sha256=sha(canonical(budget)),
               grants_no_review_approval=True,
+              **({REVIEW_ALLOCATION: allocation} if allocation is not None else {}),
               **({RIGHTS_FIELD: budget_state[RIGHTS_STATE]} if RIGHTS_STATE in budget_state else {}))
         state["escalation_ceiling"] = raised
         errors = replay(state)[1] + allowance_problems(state)
