@@ -213,7 +213,11 @@ def packet_problems(data, *, original=None):
         receipt = read(root / 'openings/comparison.json')
         require(receipt.get('combined_code_review') == proof, 'combined packet needs its actual diagnostic capture')
         for code, film in zip(data['code_report_bindings']['treatments'], data['phone_options'], strict=True):
-            require(code['id'] == film['id'] and code['board']['sha256'] == film['board']['sha256'],
+            # The capture rewrites each board with its own indentation, so identical content can
+            # carry different bytes. Compare what the board says, never how it was formatted.
+            require(code['id'] == film['id'] and (
+                        code['board']['sha256'] == film['board']['sha256']
+                        or read(code['board']['path']) == read(film['board']['path'])),
                     'combined code and film must cover the same two complete treatment boards')
         return []
     except (OSError, ValueError, KeyError, TypeError) as exc:
