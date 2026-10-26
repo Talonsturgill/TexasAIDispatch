@@ -7,6 +7,7 @@ import json
 import shutil
 import tempfile
 import unittest
+import five_round_fixture  # noqa: F401
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path

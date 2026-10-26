@@ -3,6 +3,7 @@ import copy
 import json
 import tempfile
 import unittest
+import five_round_fixture  # noqa: F401
 from pathlib import Path
 from unittest.mock import patch
 import manual_codex_repair as manual

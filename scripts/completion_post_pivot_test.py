@@ -3,6 +3,7 @@ import copy
 import json
 from pathlib import Path
 import unittest
+import five_round_fixture  # noqa: F401
 from unittest.mock import patch
 
 import autonomous_completion as completion

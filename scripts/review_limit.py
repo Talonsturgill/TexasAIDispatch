@@ -4,7 +4,7 @@ import hashlib
 from pathlib import Path
 
 POLICY = Path(__file__).resolve().parents[1] / 'config/review_limit.json'
-MAX_ROUNDS = 5
+MAX_ROUNDS = 10
 FINAL_PACKET_FROM = '2026-10-24'
 PATH_BUDGET_FROM = '2026-10-25'
 REPAIR_FORECAST_FROM = '2026-10-26'

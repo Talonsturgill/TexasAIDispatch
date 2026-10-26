@@ -5,6 +5,7 @@ import json
 from types import SimpleNamespace
 from threading import Barrier, Lock
 import unittest
+import five_round_fixture  # noqa: F401
 from unittest.mock import patch
 
 import claude_checkpoint as checkpoint

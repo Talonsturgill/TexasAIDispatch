@@ -248,16 +248,48 @@ def retain(repo, run_id, next_date, workspace=None, *, moment=None, prove_only=F
                 'ownership_commit': result['commit'], 'shipped': False}
 
 
+REOPENED = 'reopened_editions'
+REOPEN_AUTHORITY = ('Owner instruction of October 26th, 2026 lifted the paid review cap to ten and '
+                    'directed that the unshipped October 24th and 25th editions be finished and shipped.')
+
+
+def reopen(repo, run_id, workspace=None):
+    """Return a verified failed edition to selection under the lifted cap, keeping its proof.
+
+    Charges, events and evidence are untouched: the proof moves from the failed map to a
+    reopened map so a later reader sees both the failure and the owner's reopening.
+    """
+    import publication_owner as owner
+    repo = Path(repo).resolve(); workspace = Path(workspace or owner.PRIMARY).resolve()
+    with owner.locked(workspace):
+        value = owner.read_remote(repo)
+        proof = verified(repo, run_id, value)
+        closure.require(proof is not None, 'reopen only an edition with a verified failed disposition')
+        proposed = {k: v for k, v in value.items() if k != 'commit'}
+        failed = dict(proposed.get(FIELD, {})); failed.pop(run_id)
+        proposed[FIELD] = failed
+        proposed[REOPENED] = {**value.get(REOPENED, {}), run_id: {
+            'proof': proof, 'authority': REOPEN_AUTHORITY, 'at': owner.stamp(owner.now())}}
+        result = owner.append(repo, proposed, value['commit'])
+        return {'status': 'reopened', 'run_id': run_id, 'ownership_commit': result['commit'],
+                'shipped': False}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['retain'])
+    parser.add_argument('action', choices=['retain', 'reopen'])
     parser.add_argument('--repo', type=Path, default=checkpoint.REPO)
     parser.add_argument('--workspace', type=Path)
     parser.add_argument('--run-id', required=True)
-    parser.add_argument('--next-date', required=True)
+    parser.add_argument('--next-date')
     parser.add_argument('--prove-only', action='store_true')
     parser.add_argument('--output', type=Path)
     args = parser.parse_args()
+    if args.action == 'reopen':
+        print(json.dumps(reopen(args.repo, args.run_id, args.workspace), indent=2))
+        return
+    if not args.next_date:
+        parser.error('retain needs --next-date')
     result = retain(args.repo, args.run_id, args.next_date, args.workspace, prove_only=args.prove_only)
     if args.output:
         closure.immutable(args.output, result)
