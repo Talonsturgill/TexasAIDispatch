@@ -6,7 +6,7 @@ REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO / 'scripts'))
 sys.path.insert(0, str(Path(__file__).parent))
 from spec import *  # noqa
-from modern_film import narration_tokens  # noqa
+from modern_film import narration_tokens, renderer_inputs  # noqa
 
 OUT = REPO / 'out/dispatch'
 BASE = json.loads((REPO / 'runs/2026-10-21/openings/a.json').read_text())
@@ -97,7 +97,7 @@ def build(variant):
             vo_claims=claims_by_scene[sid], super='', caption='', on_screen=on, what_moves=on,
             production_disclosure=S['disclosure'], visual_events=events, camera_strategy=cam,
             visual_family=f'order-{sid}-{variant}', payload_mode='picture', treatment=variant, hero=S['hero'][:62],
-            place_plate='gulf-houston',
+            place_plate=PLATE,
             visual_sentence=dict(subject=S['subject'], action=on, emotion=S['emotion'], annotation=S['disclosure']),
             planes=planes,
             visual_proof=dict(mute_takeaway=mute,
@@ -179,7 +179,7 @@ def build(variant):
               'The no record shown tag settles beside the owner says tag on the jar, so software takes the order and the tip rests on a word.')}[variant]
     b['film_direction'] = dict(version='directed-film-v2', episode=EPISODE, variant=variant, angle=angle[0],
         opening_promise=angle[1], performed_turn=angle[2], closing_answer=angle[3], shots=shots, rewards=rewards,
-        renderer_inputs=[])
+        renderer_inputs=renderer_inputs(EPISODE, repo=REPO))
     # story art plan
     def pick(sid, esuf):
         for sh in shots:
@@ -202,7 +202,7 @@ def build(variant):
              source_limit='Disclosed illustration of a reported ordering flow. Not the restaurant, not its software, not a working code or payment screen, and the tip jar shows a reported claim with no record behind it.',
              action_uses=hero_uses),
         dict(id='restaurant-support', role='support', file=SUPPORT_FILE, export='RestaurantSupport', scene_ids=all_scenes,
-             purpose='Give the rig its world and its records: a small restaurant room with tables, an apron swinging on a hook, a door with a bell, a ringing host stand phone, an empty window sign frame, a flat host panel named Haniya with an AI host tag, a CLOSED door sign and wall clock at night, a ledger card with a $9,650 a month tag, an owner count stamp and a bare receipt clip, a federal rule card with a no tip credit checkbox, a restaurant folder with the same box left blank, and a customer quote card.',
+             purpose='Give the rig its world and its records: a small restaurant room with tables, an apron swinging on a hook, a door with a bell, a ringing host stand phone, an empty window sign frame, a flat host panel named Haniya with an AI host tag, a ledger card with a $9,650 a month tag, an owner count stamp and a bare receipt clip, a federal rule card with a no tip credit checkbox, a restaurant folder with the same box left blank, and a customer quote card.',
              prompt='Author an original finished React and SVG support group in the current Remotion engine. A small Houston-area family restaurant interior with a window onto a street, laminate tables with plates and menus, paper order pad, a server apron on a hook, a door with a bell and a CLOSED sign, a host stand with a desk phone, a flat host panel with a lit name, a plain back-office desk with a ledger card, a crooked rubber stamp, a receipt clip, a federal rule card, a folder with a checkbox, and a quote card. Maintained but worn, warm paper and terracotta against steel, nothing symmetric, no logos, no brand marks and no real restaurant name on any surface.',
              source_limit='Disclosed illustration of the reports. It shows no real restaurant, person, software, brand mark, pay record or payment screen, and the ledger, stamp, tags and checkbox are illustrations of statements, not data.',
              action_uses=support_uses)], entries=[])
@@ -337,6 +337,7 @@ def build(variant):
     return b
 
 
+PLATE = 'gulf-wide'
 clock_cache = clause_clock()
 if __name__ == '__main__':
     for v in ('a', 'b'):
