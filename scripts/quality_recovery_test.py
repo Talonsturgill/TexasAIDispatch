@@ -3,6 +3,7 @@ import copy
 import json
 import tempfile
 import unittest
+import five_round_fixture  # noqa: F401
 from unittest.mock import patch
 from pathlib import Path
 import quality_contract as q

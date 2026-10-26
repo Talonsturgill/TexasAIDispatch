@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import five_round_fixture  # noqa: F401
 from unittest.mock import Mock, patch
 
 import native_task_wait as wait

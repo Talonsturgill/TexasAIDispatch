@@ -4,6 +4,7 @@ import hashlib
 import json
 import tempfile
 import unittest
+import five_round_fixture  # noqa: F401
 import subprocess
 import sys
 import time
