@@ -263,8 +263,18 @@ def reopen(repo, run_id, workspace=None):
     repo = Path(repo).resolve(); workspace = Path(workspace or owner.PRIMARY).resolve()
     with owner.locked(workspace):
         value = owner.read_remote(repo)
-        proof = verified(repo, run_id, value)
+        proof = (value or {}).get(FIELD, {}).get(run_id)
         closure.require(proof is not None, 'reopen only an edition with a verified failed disposition')
+        # Exhaustion is judged against the ceiling in force when the failure was retained.
+        # Once the owner lifts that ceiling the same ledger no longer reads as exhausted, so
+        # re-running that check would refuse the very reopening the lift authorizes. The
+        # recorded proof must still name this edition and its unchanged retained checkpoint.
+        closure.require(isinstance(proof, dict) and proof.get('schema') == SCHEMA
+                        and proof.get('run_id') == run_id, 'failed-edition disposition is malformed')
+        from checkpoint_discovery import fetched_snapshot
+        with fetched_snapshot(repo, 'origin', 'refs/heads/' + checkpoint.BRANCH + run_id) as commit:
+            closure.require(commit == proof.get('checkpoint'),
+                            'retained failed checkpoint changed; preserve both records and repair its source')
         proposed = {k: v for k, v in value.items() if k != 'commit'}
         failed = dict(proposed.get(FIELD, {})); failed.pop(run_id)
         proposed[FIELD] = failed

@@ -116,6 +116,21 @@ class FailedEditionTests(unittest.TestCase):
             with self.assertRaisesRegex(checkpoint.CheckpointError, 'non-fast-forward'):
                 self.retain()
 
+    def test_reopen_survives_a_lifted_ceiling_that_no_longer_reads_as_exhausted(self):
+        proof = self.proof(); self.record[failed.FIELD] = {self.run: proof}
+        with patch.object(failed, '_proof', side_effect=ValueError('only an exhausted ordinary daily production can close this path')), \
+                patch.object(owner, 'append', return_value={'commit': 'e' * 40}) as append:
+            with self.assertRaisesRegex(ValueError, 'exhausted'):
+                failed.verified(self.repo, self.run)
+            result = failed.reopen(self.repo, self.run, self.repo / 'workspace')
+            self.assertEqual(result['status'], 'reopened'); self.assertFalse(result['shipped'])
+            proposed = append.call_args.args[1]
+            self.assertNotIn(self.run, proposed[failed.FIELD])
+            self.assertEqual(proposed[failed.REOPENED][self.run]['proof'], proof)
+            self.record[failed.FIELD][self.run]['checkpoint'] = 'f' * 40
+            with self.assertRaisesRegex(ValueError, 'checkpoint changed'):
+                failed.reopen(self.repo, self.run, self.repo / 'workspace')
+
     def test_prove_only_can_check_tomorrow_without_writing_a_disposition(self):
         self.moment -= timedelta(days=1)
         self.record['expires_at'] = owner.stamp(self.moment - timedelta(hours=1))
