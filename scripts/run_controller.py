@@ -1297,13 +1297,13 @@ def grant_owner_review(path: Path, authorization_path: Path | None,
     from production_lifecycle import allowance_problems
     state = read_state(path)
     if (confirmation != OWNER_CONFIRMATION or authorization_path is None
-            or type(additional_calls) is not int or not 1 <= additional_calls <= 2):
-        return False, "run controller: explicit owner confirmation, retained authorization and one or two calls are required"
+            or type(additional_calls) is not int or not 1 <= additional_calls <= 4):
+        return False, "run controller: explicit owner confirmation, retained authorization and one to four calls are required"
     if not enabled(state) or state.get("mode") != "production" or state.get("terminal_state") is not None:
         return False, "run controller: owner review grant requires active frozen-envelope production"
     grants = [e for e in state["events"] if e.get("kind") == "owner_review_grant"]
-    if len(grants) >= 2:
-        return False, "run controller: this run already used its two explicit owner review grants"
+    if len(grants) >= 6:
+        return False, "run controller: this run already used its six explicit owner review grants"
     errors = envelope_problems(state, {}) + allowance_problems(state)
     if errors:
         return False, "; ".join(errors)

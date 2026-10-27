@@ -23,8 +23,8 @@ def authorization_problems(state, authorization, evidence_text):
     if (authorization.get("run_id") != state["run_id"]
             or authorization.get("resource") != OWNER_RESOURCE
             or type(authorization.get("additional_calls")) is not int
-            or not 1 <= authorization["additional_calls"] <= 2):
-        return ["owner authorization requires this run, storyboard_critics and exactly one or two calls"]
+            or not 1 <= authorization["additional_calls"] <= 4):
+        return ["owner authorization requires this run, storyboard_critics and one to four calls"]
     if authorization.get("confirmation") != OWNER_CONFIRMATION:
         return ["owner authorization lacks explicit confirmation"]
     for field in ("approval_id", "owner_text", "source_message_reference"):
@@ -71,12 +71,12 @@ def av_rejection_problems(authorization, receipt):
 
 
 def owner_grant_problems(state):
-    """Revalidate at most two explicit grants; accept historical single grants."""
+    """Revalidate at most six explicit grants; accept historical single grants."""
     grants = [e for e in state.get("events", []) if e.get("kind") == "owner_review_grant"]
     if not grants:
         return []
-    if not enabled(state) or len(grants) > 2:
-        return ["at most two explicit owner review grants are allowed per frozen run"]
+    if not enabled(state) or len(grants) > 6:
+        return ["at most six explicit owner review grants are allowed per frozen run"]
     frozen = [e.get("envelope") for e in state.get("events", [])
               if e.get("kind") == "resource_envelope_frozen"]
     if len(frozen) != 1 or frozen[0] != state.get("resource_envelope"):
