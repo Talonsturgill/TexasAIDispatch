@@ -10,6 +10,11 @@ OWNER_CONFIRMATION = "OWNER AUTHORIZED EXTRA STORYBOARD CRITIC CALLS"
 OWNER_RESOURCE = "storyboard_critics"
 VALIDATOR_CONFIRMATION = "OWNER AUTHORIZED EXTRA VALIDATOR CALL"
 VALIDATOR_RESOURCE = "validator_agents"
+PREFLIGHT_CONFIRMATION = "OWNER AUTHORIZED EXTRA PREFLIGHT RENDERS"
+PREFLIGHT_RESOURCE = "preflight_renders"
+PREFLIGHT_KIND = "owner_preflight_grant"
+PREFLIGHT_MAX_GRANTS = 4
+PREFLIGHT_MAX_UNITS = 4
 MEASURED_RUNTIME_FAMILY = "measured-runtime-crowding"
 RIGHTS_FAMILY = "rights"
 
@@ -193,6 +198,99 @@ def validator_grant_problems(state):
             return ["validator grant exceeds its exact authorized increment"]
     except (KeyError, OSError, ValueError, TypeError):
         return ["retained validator authorization is missing or invalid"]
+    return []
+
+
+def preflight_authorization_problems(state, authorization, evidence_text, previous=None):
+    """Validate one operator-attested owner grant of extra preflight renders.
+
+    A frozen envelope cannot grow preflight_renders, so an edition whose complete remaining
+    path needs more renders than its cap allows stops short. The owner may attest one to four
+    extra units per grant, at most four grants per run, each bound to retained failure evidence,
+    the original envelope and the owner's distinct text. A grant raises the ceiling only. It
+    never resets usage and never changes an earlier verdict. `previous` is the prior grant event."""
+    if not isinstance(authorization, dict):
+        return ["preflight grant authorization must be an object"]
+    fields = {'approval_id', 'run_id', 'resource', 'additional_calls', 'confirmation',
+              'owner_text', 'source_message_reference', 'resource_envelope_sha256',
+              'failure_evidence', 'failure_evidence_sha256'}
+    if previous is not None:
+        fields = fields | {'previous_grant_sha256'}
+    if set(authorization) != fields:
+        return ['preflight grant authorization requires exactly its documented fields']
+    if (authorization.get("run_id") != state["run_id"]
+            or authorization.get("resource") != PREFLIGHT_RESOURCE
+            or type(authorization.get("additional_calls")) is not int
+            or not 1 <= authorization["additional_calls"] <= PREFLIGHT_MAX_UNITS):
+        return ["preflight grant requires this run, preflight_renders and one to four units"]
+    if authorization.get("confirmation") != PREFLIGHT_CONFIRMATION:
+        return ["preflight grant lacks explicit confirmation"]
+    for field in ("approval_id", "owner_text", "source_message_reference"):
+        if not isinstance(authorization.get(field), str) or not authorization[field].strip():
+            return ["preflight grant requires " + field]
+    if previous is not None and authorization.get("previous_grant_sha256") != envelope_digest(previous):
+        return ["later preflight grant requires the exact prior grant digest"]
+    if authorization.get("resource_envelope_sha256") != envelope_digest(state["resource_envelope"]):
+        return ["preflight grant original resource envelope changed"]
+    try:
+        if hashlib.sha256(evidence_text.encode("utf-8")).hexdigest() != authorization.get("failure_evidence_sha256"):
+            return ["preflight grant failure evidence changed"]
+        report = json.loads(evidence_text)
+        deficits = report.get("deficits") if isinstance(report, dict) else None
+        if (not isinstance(report, dict)
+                or report.get("date") != str(state["run_id"])[:10]
+                or not isinstance(report.get("source"), str) or not report["source"].strip()
+                or not isinstance(deficits, dict)
+                or type(deficits.get(PREFLIGHT_RESOURCE)) is not int
+                or deficits[PREFLIGHT_RESOURCE] < 1):
+            return ["preflight grant requires this edition's retained budget deficit evidence for preflight_renders"]
+    except (ValueError, TypeError):
+        return ["preflight grant failure evidence is missing or unreadable"]
+    return []
+
+
+def preflight_grant_problems(state):
+    """Revalidate up to four chained explicit owner preflight grants a frozen run may hold."""
+    grants = [e for e in state.get("events", []) if e.get("kind") == PREFLIGHT_KIND]
+    if not grants:
+        return []
+    if not enabled(state) or len(grants) > PREFLIGHT_MAX_GRANTS:
+        return ["at most four explicit owner preflight grants are allowed per frozen run"]
+    frozen = [e.get("envelope") for e in state.get("events", [])
+              if e.get("kind") == "resource_envelope_frozen"]
+    if len(frozen) != 1 or frozen[0] != state.get("resource_envelope"):
+        return ["preflight grant original envelope differs from its freeze event"]
+    ceiling = state["resource_envelope"][PREFLIGHT_RESOURCE]
+    seen = {key: set() for key in ("approval_id", "source_message_reference", "owner_text")}
+    try:
+        for index, grant in enumerate(grants):
+            artifact = grant["authorization_json"]
+            if not isinstance(artifact, str) or hashlib.sha256(artifact.encode("utf-8")).hexdigest() != grant["authorization_sha256"]:
+                return ["retained preflight authorization changed"]
+            authorization = json.loads(artifact)
+            evidence_text = grant["failure_evidence_json"]
+            if not isinstance(evidence_text, str):
+                return ["retained preflight evidence must contain exact JSON text"]
+            errors = preflight_authorization_problems(
+                state, authorization, evidence_text, grants[index - 1] if index else None)
+            if errors:
+                return errors
+            for key in seen:
+                value = authorization[key].strip()
+                if value in seen[key]:
+                    return ["preflight grant replays an earlier owner instruction"]
+                seen[key].add(value)
+            for key in ("approval_id", "run_id", "resource", "additional_calls", "failure_evidence_sha256"):
+                if grant.get(key) != authorization.get(key):
+                    return ["preflight grant differs from its retained authorization"]
+            if (type(grant.get("previous_ceiling")) is not int
+                    or type(grant.get("new_ceiling")) is not int
+                    or grant["previous_ceiling"] != ceiling
+                    or grant["new_ceiling"] != ceiling + grant["additional_calls"]):
+                return ["preflight grant exceeds its exact authorized increment"]
+            ceiling = grant["new_ceiling"]
+    except (KeyError, OSError, ValueError, TypeError):
+        return ["retained preflight authorization is missing or invalid"]
     return []
 
 
