@@ -228,13 +228,18 @@ const Phone:React.FC<PhoneState>=(st)=>{
 };
 /** A hand holding the phone from below, in phone units: `layer` back draws the palm and wrist behind the
  * phone, front the curled fingertips over its left edge and the thumb over its right edge. */
-const PhoneHand:React.FC<{layer:'back'|'front';skin:string}>=({layer,skin})=>{
+/** The holding hand's default sleeve and its cuff highlight. A different sleeve takes a cuff derived from
+ * itself, so no stripe of the default colour shows on another person's sleeve. */
+export const SLEEVE_DEFAULT='#3D5566',CUFF_DEFAULT='#5E7A8C';
+const mixHex=(a:string,b:string,k:number)=>'#'+[1,3,5].map(i=>Math.round(lerp(parseInt(a.slice(i,i+2),16),parseInt(b.slice(i,i+2),16),k)).toString(16).padStart(2,'0')).join('');
+export const cuffFor=(sleeve:string)=>sleeve===SLEEVE_DEFAULT?CUFF_DEFAULT:mixHex(sleeve,'#FFFFFF',.22);
+const PhoneHand:React.FC<{layer:'back'|'front';skin:string;sleeve?:string}>=({layer,skin,sleeve=SLEEVE_DEFAULT})=>{
  const shade='#000000';
  if(layer==='back')return <g data-part="hand-back">
   <path d="M-150 120C-176 210 -150 300 -96 360C-70 420 -60 520 -50 700L-40 1900H190L170 700C176 560 196 430 186 320C180 250 168 190 150 150Z" fill={skin} stroke={HP.ink} strokeWidth={4}/>
   <path d="M-60 520C-40 470 40 450 120 470" stroke={shade} strokeWidth={3} opacity={.12} fill="none"/>
-  <path d="M-58 640L-46 1960H196L178 640Z" fill="#3D5566" stroke={HP.ink} strokeWidth={4}/>
-  <path d="M-52 656H176" stroke="#5E7A8C" strokeWidth={6}/>
+  <path d="M-58 640L-46 1960H196L178 640Z" fill={sleeve} stroke={HP.ink} strokeWidth={4}/>
+  <path d="M-52 656H176" stroke={cuffFor(sleeve)} strokeWidth={6}/>
  </g>;
  return <g data-part="hand-front">
   {[-40,30,100,170].map((y,i)=><g key={i}>
@@ -247,10 +252,10 @@ const PhoneHand:React.FC<{layer:'back'|'front';skin:string}>=({layer,skin})=>{
 };
 /** An index finger pointing up and left, its tip pad at the origin, the back of the hand trailing down and
  * right. `press` flattens the pad a little on contact. */
-const Finger:React.FC<{skin:string;press?:number}>=({skin,press=0})=>{
+const Finger:React.FC<{skin:string;press?:number;sleeve?:string}>=({skin,press=0,sleeve=SLEEVE_DEFAULT})=>{
  const k=1-.08*clamp(press);
  return <g data-part="finger" transform={`scale(1 ${f2(k)})`}>
-  <path d="M330 400L760 1500H470L130 420Z" fill="#3D5566" stroke={HP.ink} strokeWidth={4}/>
+  <path d="M330 400L760 1500H470L130 420Z" fill={sleeve} stroke={HP.ink} strokeWidth={4}/>
   <path d="M120 150C150 130 230 150 290 210C340 260 360 330 340 420C320 450 160 450 130 420C110 340 96 260 120 150Z" fill={skin} stroke={HP.ink} strokeWidth={4}/>
   <path d="M150 260C190 236 236 246 262 280" stroke="#000" strokeWidth={3} opacity={.12} fill="none"/>
   <path d="M-16 6C-24 -10 -10 -24 6 -20C40 -10 120 70 156 130C170 156 150 178 126 170C90 150 10 60 -16 6Z" fill={skin} stroke={HP.ink} strokeWidth={4}/>
@@ -539,7 +544,7 @@ const PrinterTop:React.FC<{led?:number}>=({led=0})=><g data-part="printer-top">
 </g>;
 
 type Part=
- ({part:'phone'}&PhoneState)|{part:'handBack';skin:string}|{part:'handFront';skin:string}|{part:'finger';skin:string;press?:number}|
+ ({part:'phone'}&PhoneState)|{part:'handBack';skin:string;sleeve?:string}|{part:'handFront';skin:string;sleeve?:string}|{part:'finger';skin:string;press?:number;sleeve?:string}|
  {part:'codeStand'}|{part:'codeStandTop'}|{part:'printer';led?:number;standby?:number}|{part:'rail';roll?:number}|{part:'ticket';len:number;cut?:number}|
  {part:'wok';flame:number;food:number;toss:number;tilt:number;hand:number;t:number;range?:boolean;skin?:string}|{part:'cookBowl';tilt:number;left:number;skin:string}|{part:'wokTop';flame:number;t:number}|
  {part:'jar';fill:number;layer?:'back'|'front'|'all';children?:React.ReactNode}|{part:'jarTop';fill:number}|{part:'printerTop';led?:number}|
@@ -547,9 +552,9 @@ type Part=
 export const OrderRigHero:React.FC<Part>=(p)=>{
  switch(p.part){
  case 'phone':{const {part:_part,...st}=p;return <Phone {...st}/>;}
- case 'handBack':return <PhoneHand layer="back" skin={p.skin}/>;
- case 'handFront':return <PhoneHand layer="front" skin={p.skin}/>;
- case 'finger':return <Finger skin={p.skin} press={p.press}/>;
+ case 'handBack':return <PhoneHand layer="back" skin={p.skin} sleeve={p.sleeve}/>;
+ case 'handFront':return <PhoneHand layer="front" skin={p.skin} sleeve={p.sleeve}/>;
+ case 'finger':return <Finger skin={p.skin} press={p.press} sleeve={p.sleeve}/>;
  case 'codeStand':return <CodeStand/>;
  case 'codeStandTop':return <CodeStandTop/>;
  case 'printer':return <Printer led={p.led} standby={p.standby}/>;

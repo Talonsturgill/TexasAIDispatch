@@ -41,7 +41,8 @@ import {RestaurantSupport,RS,STAND,PANEL,LEDGER,RULE,FOLDER,DOOR_PLAN,TABLES_PLA
  *      lights; a writing hand circles the two lines together. The box is never ticked.
  *  s8  the restaurant folder slides in beside the rule card and opens; its one box stays blank and a
  *      question mark draws beside it.
- *  s9  a hand raises the phone toward the table code, pauses short of it and lowers it without scanning; a
+ *  s9  a different person's hand (pale skin, wine sleeve) raises the phone toward the table code, pauses short
+ *      of it and lowers it without scanning; a
  *      quote card from one customer lands beside the lowered phone, whose screen then times out.
  *  s10 the host panel takes an order and a ticket slip slides off toward the kitchen; at the pass the tip
  *      jar takes a tag reading owner says, and a second reading no record shown settles beside it. Held.
@@ -82,7 +83,7 @@ export function stampState(win:ActionWindow|undefined,t:number){
  return {come:ease5(r/.3),lift:1-press,inked:r>=.5?1:0,away:ease5((r-.74)/.26)};
 }
 export const COINS=7;
-export function orderState(W:Record<string,ActionWindow>,t:number){
+export function orderState(W:Record<string,ActionWindow>,t:number,variant:'a'|'b'='a'){
  const P=(id:string)=>W[id]?actionProgress(W[id],t):0;
  const R=(id:string)=>W[id]?clamp((t-W[id].start)/(W[id].end-W[id].start)):0;
  const st=(id:string)=>W[id]?.start??0,en=(id:string)=>W[id]?.end??0;
@@ -133,11 +134,14 @@ export function orderState(W:Record<string,ActionWindow>,t:number){
  // When the board splits the question mark into its own event (s8-event-3) the mark follows that window;
  // until then it draws in the second half of s8-event-2.
  const s8={slide:P('s8-event-1'),open:W['s8-event-3']?P('s8-event-2'):smooth(r82/.6),q:W['s8-event-3']?P('s8-event-3'):smooth((r82-.55)/.35)};
- // s9: the phone aims; its brackets hunt and never close; the quote card lands
  // s9: a hand raises the phone toward the code, pauses short of it, and lowers it without scanning; the
- // quote card lands; the lowered phone's screen times out while the code stays unscanned.
- const r91=R('s9-event-1'),raise=ease5(r91/.32),lower=ease5((r91-.56)/.3),pause=r91>.32&&r91<.56?Math.sin(Math.PI*(r91-.32)/.24):0;
- const s9={raise,lower,up:raise*(1-lower),release:ease5((r91-.8)/.2),waver:2.5*pause*Math.sin(2*Math.PI*1.6*t),quote:P('s9-event-2'),dim:.85*P('s9-event-3')};
+ // quote card lands; the lowered phone's screen times out while the code stays unscanned. The breakpoints
+ // are per treatment inside the same s9-event-1 window: A raises over 0 to .32, pauses to .56 and lowers to
+ // .86 (its hand never withdraws); B raises over 0 to .20, pauses to .38, sets the phone on the table by
+ // .50 and withdraws the hand over .50 to 1.00, so the hand leaves only after the phone has landed.
+ const r91=R('s9-event-1'),K9=variant==='b'?{up:.20,hold:.38,down:.50,go:.50,goDur:.50}:{up:.32,hold:.56,down:.86,go:.80,goDur:.20};
+ const raise=ease5(r91/K9.up),lower=ease5((r91-K9.hold)/(K9.down-K9.hold)),pause=r91>K9.up&&r91<K9.hold?Math.sin(Math.PI*(r91-K9.up)/(K9.hold-K9.up)):0;
+ const s9={raise,lower,up:raise*(1-lower),release:ease5((r91-K9.go)/K9.goDur),waver:2.5*pause*Math.sin(2*Math.PI*1.6*t),quote:P('s9-event-2'),dim:.85*P('s9-event-3')};
  // s10: the panel takes the order and a slip leaves for the kitchen; the two tags settle on the jar
  const r101=R('s10-event-1');
  const s10={order:smooth(r101/.45),slip:ease5((r101-.35)/.6),tag1:P('s10-event-2'),settle1:damped(t-en('s10-event-2'),9,1.1,2.2),carry1:Math.sin(Math.PI*P('s10-event-2')),
@@ -173,10 +177,20 @@ export const paperPt=(L:PaperAt,p:Pt):Pt=>{const a=(L.r??0)*DEG,x=L.s*p[0],y=L.s
 export const FLOOR_Y={wide:1080,medium:1160};
 /** B's paid-line push-in: the zoom the camera reaches on the printer from above, and where the slot then sits. */
 export const PAID_ZOOM=4.4,PAID_ANCHOR:Pt=[540,700];
-/** One guest's skin for every guest hand in s3 and s9, in every framing (hand, finger and face alike). */
-export const SKIN={a3:HP.skin[4],a9:HP.skin[4],writer:HP.skin[1]};
-/** The holding hand's sleeve colour (OrderRigHero's hand and finger), which the seated guest's shirt matches. */
+/** One distinct person per sourced role. a3 is the s3 guest's skin on every s3 hand (code-scan, menu-tap,
+ * pay-mark or paid-close) and on the paid phone's hand after it; a9 is a different, anonymous person who
+ * hesitates over the code in s9, with a fill no other person or hand uses in either treatment; writer is the
+ * s7 pen hand. */
+export const SKIN={a3:HP.skin[4],a9:'#F5D7B8',writer:HP.skin[1]};
+/** The s3 guest's sleeve (OrderRigHero's default for the holding hand and the finger, cuff #5E7A8C). */
 export const GUEST_SLEEVE='#3D5566';
+/** The s9 person's sleeve: wine, used by no other sleeve or shirt; its cuff is derived from it. */
+export const SLEEVE9='#8E3B4A';
+/** A's s1 walkout: six foreshortened footprints on the tile from the foreground to the threshold, one every
+ * 0.15 s from 0.0 s, along a path from (520,1262) in steps of (-44,-14.4), flattened so every print clears the c1 caption box (top y 1292.8) and the apron's swept area (x 558 and up),, the prints alternating 12 px either side of it
+ * (odd prints, the threshold print among them, toward the camera). Drawn after the floor and before the door. */
+export const TRAIL={start:[520,1262] as Pt,step:[-44,-14.4] as Pt,n:6,rx:24,ry:9,alt:12,every:.15};
+export const trailCentres=():Pt[]=>Array.from({length:TRAIL.n},(_,i)=>[TRAIL.start[0]+i*TRAIL.step[0],TRAIL.start[1]+i*TRAIL.step[1]] as Pt);
 /** Phone placements per view: centre, scale, rotation, and whether a hand holds it. */
 export const PHONE_AT:Record<string,Place&{hand:boolean;from?:Pt}>={
  'code-scan:a':{x:690,y:830,s:.72,r:-3,hand:true,from:[620,1720]},'menu-tap:a':{x:520,y:760,s:1.5,r:0,hand:true},'pay-mark:a':{x:500,y:720,s:1.05,r:0,hand:true},
@@ -228,6 +242,7 @@ export const STAND_AT:Record<string,Place>={'door-apron':{x:800,y:1330,s:1},'hos
  * layouts the drawing uses: the scratch bound check holds each above the caption band and inside the frame. */
 export function contactPoints(view:string,v:V,S:OrderState):Record<string,Pt>{
  const k=view+':'+v,out:Record<string,Pt>={};
+ if(view==='door-apron')trailCentres().forEach((c,i)=>{out['print'+i]=c;});
  const ph=PHONE_AT[k];
  if(ph){out.phoneTop=toScreen(ph,[0,-PHONE.h/2]);out.chow=toScreen(ph,screenPt(PHONE_UI.chow));out.pay=toScreen(ph,screenPt(PHONE_UI.pay));}
  const pr=PRINTER_AT[k]??PRINTER_AT[view];
@@ -260,7 +275,7 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  if(Math.abs(t-time_s)>1e-6)throw new Error('Order pass film must read the single film frame clock');
  const pal=ad.palette,v:V=variant;
  const W=actionWindows(board.scenes as unknown as DirectedScene[]);
- const S=orderState(W,t);
+ const S=orderState(W,t,v);
  const clause=board.narration_picture!.clauses.find(r=>t>=r.start_s&&t<r.end_s);
  const act=clause?.action_id??(shot as typeof shot&{narration_ids?:string[]}).narration_ids?.map(id=>requireNarration(board,id).actionId)[0]??'hold';
  const sid=scene.id,view=shot.view,fr=shot.framing,key=view+':'+v;
@@ -270,14 +285,14 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
 
  // ---- shared rigs ----
  /** The phone at its placement, held by a hand, with the finger that touches it. */
- const phoneRig=(L:Place&{hand:boolean},st:PhoneState,o:{skin?:string;finger?:{tip:Pt;press:number;s:number}|null;handOff?:Pt}={})=>{
+ const phoneRig=(L:Place&{hand:boolean},st:PhoneState,o:{skin?:string;sleeve?:string;finger?:{tip:Pt;press:number;s:number}|null;handOff?:Pt}={})=>{
   const skin=o.skin??SKIN.a3,ho=o.handOff??[0,0],H={...L,x:L.x+ho[0],y:L.y+ho[1]};
   return <g data-part="phone-rig">
    <At p={[L.x+14*L.s,L.y+20*L.s]} s={L.s} r={L.r??0} o={.22}><rect x={-150} y={-300} width={300} height={600} rx={46} fill="#1A1410"/></At>
-   {L.hand&&<At p={[H.x,H.y]} s={L.s} r={L.r??0}><OrderRigHero part="handBack" skin={skin}/></At>}
+   {L.hand&&<At p={[H.x,H.y]} s={L.s} r={L.r??0}><OrderRigHero part="handBack" skin={skin} sleeve={o.sleeve}/></At>}
    <At p={[L.x,L.y]} s={L.s} r={L.r??0}><OrderRigHero part="phone" {...st}/></At>
-   {L.hand&&<At p={[H.x,H.y]} s={L.s} r={L.r??0}><OrderRigHero part="handFront" skin={skin}/></At>}
-   {o.finger&&<At p={o.finger.tip} s={o.finger.s}><OrderRigHero part="finger" skin={skin} press={o.finger.press}/></At>}
+   {L.hand&&<At p={[H.x,H.y]} s={L.s} r={L.r??0}><OrderRigHero part="handFront" skin={skin} sleeve={o.sleeve}/></At>}
+   {o.finger&&<At p={o.finger.tip} s={o.finger.s}><OrderRigHero part="finger" skin={skin} press={o.finger.press} sleeve={o.sleeve}/></At>}
   </g>;
  };
  /** The phone's screen state for scenes after the order: menu open, Chow mein lit, paid. */
@@ -444,12 +459,18 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  switch(view){
  // ===================== s1: the only server walks out =====================
  case 'door-apron':{
-  // A, medium. The storefront door swings shut on its hinge with the bell ringing, while beyond the glass a
-  // figure walks away; at the host stand the server's apron swings on its hook. The phone sits silent.
-  // The departing figure is gone: the door shutting, the bell and the left-behind apron carry the walkout.
+  // A, medium. Footprints appear one by one across the tile from the foreground to the threshold, and the
+  // storefront door swings shut behind the walker with its bell ringing; at the host stand the server's
+  // left-behind apron swings on its hook. The phone sits silent. No figure is drawn.
   need('s1');const fy=FLOOR_Y.medium;
+  const d=Math.hypot(TRAIL.step[0],TRAIL.step[1]),n:Pt=[-TRAIL.step[1]/d,TRAIL.step[0]/d],toCam=n[1]>0?n:[-n[0],-n[1]] as Pt;
+  const rot=Math.atan2(TRAIL.step[1],TRAIL.step[0])*180/Math.PI;
+  const trail=<Item id="s1-door"><g data-part="footprint-trail">{trailCentres().map((c,i)=>{
+   const side=i%2===1?1:-1,o=smooth((t-i*TRAIL.every)/.08);
+   return o>0?<ellipse key={i} cx={f2(c[0]+side*TRAIL.alt*toCam[0])} cy={f2(c[1]+side*TRAIL.alt*toCam[1])} rx={TRAIL.rx} ry={TRAIL.ry}
+    transform={`rotate(${f2(rot)} ${f2(c[0]+side*TRAIL.alt*toCam[0])} ${f2(c[1]+side*TRAIL.alt*toCam[1])})`} fill={RS.inkSoft} opacity={f2(.62*o)}/>:null;})}</g></Item>;
   pic=<g>
-   {floor(fy)}{pendant(600,300)}
+   {floor(fy)}{trail}{pendant(600,300)}
    <Item id="s1-door"><At p={[90,fy]}><RestaurantSupport part="door" open={S.s1.door} bell={S.s1.bell}/></At></Item>
    {stand('door-apron',<g>{padOn(-85,.8,0)}{deskPhoneOn(70,.9,0)}</g>,{apron:true})}
   </g>;
@@ -572,8 +593,9 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   break;}
  case 'menu-tap':{
   // A detail: the menu fills the frame; a fingertip comes in, presses the Chow mein row, which lights with
-  // its plain price chip, and lifts away; Talk sits beside Pay. B medium: a guest at the table holds the
-  // phone over the code and taps the same row.
+  // its plain price chip, and lifts away; Talk sits beside Pay. B medium: one point-of-view hand, the same
+  // guest's as code-scan:b and paid-close:b (SKIN.a3, GUEST_SLEEVE), holds the phone over the table from the
+  // bottom edge and the same guest's finger taps the row. No seated body is drawn.
   need('s3');const L=pick(PHONE_AT),contact=toScreen(L,screenPt(PHONE_UI.chow));
   const fs=v==='a'?1.3:.8,rest:Pt=[contact[0]+520*fs,contact[1]+600*fs],away:Pt=[contact[0]+300*fs,contact[1]+420*fs];
   const tip=fingerTip(contact,S.s3.tapGo,S.s3.tapPress,S.s3.tapBack,rest,away);
@@ -582,7 +604,6 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
    <Item id="s3-phone"><Item id="s3-menu"><Item id="s3-dish">{phoneRig(L,st,{finger:S.s3.tapGo>0&&S.s3.tapBack<1?{tip,press:S.s3.tapPress,s:fs}:null})}</Item></Item></Item>
   </g>:<g>
    {floor(FLOOR_Y.medium)}
-   <Item id="s3-setting"><At p={[150,1260]} s={1.25}><RestaurantSupport part="guest" layer="body" {...GUESTS[2]} skin={SKIN.a3} shirt={GUEST_SLEEVE} look={.5}/></At></Item>
    <Item id="s3-setting">{tableBand(1120)}<At p={[300,1150]} s={1.1}><RestaurantSupport part="plate"/></At></Item>
    <Item id="s3-code"><At p={[880,1170]} s={.9}><OrderRigHero part="codeStand"/></At></Item>
    <Item id="s3-phone"><Item id="s3-menu"><Item id="s3-dish">{phoneRig(L,st,{skin:SKIN.a3,finger:S.s3.tapGo>0&&S.s3.tapBack<1?{tip,press:S.s3.tapPress,s:fs}:null})}</Item></Item></Item>
@@ -851,8 +872,9 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   break;}
  // ===================== s9: one customer's remark =====================
  case 'viewfinder-hunt':{
-  // A close / B overhead. A hand raises the phone toward the table code, pauses short of it with the
-  // camera open and its frame wide, never closing, then lowers it again without scanning.
+  // A close / B overhead. A different person's hand (SKIN.a9, SLEEVE9) raises the phone toward the table
+  // code, pauses short of it and lowers it again without scanning; the camera's wide frame never closes on
+  // the code.
   // B: from below the frame the hand raises the phone, pauses short of the code, brings it down onto the table
   // beside its later place for the quote (scale falls as it nears the table) and slides away, leaving it.
   need('s9');const L0=pick(PHONE_AT),rest=L0.from!,u=S.s9.up,TB=PHONE_AT['quote-side:b'];
@@ -863,11 +885,11 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   pic=v==='a'?<g>
    <Item id="s9-table">{tableBand(930)}<At p={[170,1010]} s={1.2}><RestaurantSupport part="plate"/></At><At p={[960,1000]} s={1.1}><RestaurantSupport part="menuTent"/></At></Item>
    <Item id="s9-code"><ellipse cx={734} cy={1112} rx={130} ry={14} fill="#1A1410" opacity={.25}/><At p={[720,1110]} s={1.25}><OrderRigHero part="codeStand"/></At></Item>
-   <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9})}</Item>
+   <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9,sleeve:SLEEVE9})}</Item>
   </g>:<g>
    <Item id="s9-table">{tableTopBig()}</Item>
    <Item id="s9-code"><At p={CODE9_TOP} s={1.1}><OrderRigHero part="codeStandTop"/></At></Item>
-   <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9,handOff:[140*S.s9.release,1300*S.s9.release]})}</Item>
+   <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9,sleeve:SLEEVE9,handOff:[140*S.s9.release,1300*S.s9.release]})}</Item>
   </g>;
   break;}
  case 'quote-card':
