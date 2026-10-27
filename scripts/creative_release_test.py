@@ -798,5 +798,11 @@ class SoleProviderFindingsTests(unittest.TestCase):
         self.assertNotIn('top-level defects list', self.r.prompt('code', {}))
 
 
+class LiveCreativePolicy(unittest.TestCase):
+    def test_live_policy_records_the_owner_lift(self):
+        live = json.loads((Path(__file__).resolve().parents[1] / 'config/creative_release.json').read_text())
+        self.assertEqual(6, live['max_creative_repair_rounds'])
+
+
 if __name__ == "__main__":
     unittest.main()
