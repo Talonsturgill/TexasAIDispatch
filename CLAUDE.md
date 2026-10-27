@@ -1,6 +1,6 @@
 # Texas AI Dispatch
 
-Owner instruction from October 26th, 2026. The review cap is lifted to ten rounds in
+Owner instruction from October 26th, 2026. The review cap is lifted (ten rounds that day, twenty from October 27th) in
 config/review_limit.json and scripts/review_limit.py. Tooling and bookkeeping defects, not editorial
 judgement, were exhausting editions, so a failed edition may be reopened under the new ceiling. The
 cumulative count, final timed phone review, quality gates and shipment checks are unchanged. Where
