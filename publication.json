@@ -2,696 +2,10 @@
   "acquired_at": "2026-10-26T21:27:56.389082+00:00",
   "epoch": "239db292fe5c43c99f06477c8b534726",
   "expires_at": "2026-10-27T06:46:28.948583+00:00",
-  "failed_editions": {
-    "2026-10-25": {
-      "checkpoint": "04442e840f51ca4c5ceb6d94178db8188d82e47e",
-      "evidence": {
-        "envelope_sha256": "984ba66d20973a693089cfa65645f6d419845748462dd51d814142660492fb38",
-        "failure_event_index": 28,
-        "failure_event_sha256": "8999495e923b0dab8f11e3e684a3813447356e0d9d6af2df1fecf638ad51b995",
-        "files": {
-          "out/dispatch/retained-failures/code-review-2.json": "c4d9f740d20503b07a49785903827ff6a6890c1df4a696ed6208cbf137dd8365",
-          "out/dispatch/storyboard_critic.json": "1bd22f951802569c2dec3314362a70847f4fe32633187b81ef6d2898d219353b",
-          "out/dispatch/worker-dispatch-claims/0c6ecd91cedcb87b95798725a65f36535735d0700d2b481a3ff4d934ef4f22f5-validator.json": "574cf7fbca3e75f16b5815a7c0e1f249757abbc926b73c9d59548231c3dad5e9",
-          "out/dispatch/worker-dispatch-claims/1291d627f7e5ec91e1a13e0718aad581adcc936bcc7af68cc3baf31eaeff8a9b-validator.json": "bf38b030f17ca724adcf433fb3490d109aa952894b65fde6ba121d21415c6610",
-          "out/dispatch/worker-dispatch-claims/365c9c6bff3e5eea3572698e56d42b8bf0d2d5532c717523769e77853dd4b3a8-validator.json": "9a672aac433d3e75a2bbd246ddf4232eb9e280d67f512b7f2096a6d5bb1eb076",
-          "out/dispatch/worker-dispatch-claims/3d644ffc1c8a90f1ff762d198d0b2f87f83d3639dd86396968633eec8c3b3ec9-scene-builder.json": "cccf508556fba8e68a3ae69c3d9dc3e41e0fac4cf0c4935799c25440757f49c3",
-          "out/dispatch/worker-dispatch-claims/44fb8bca71f56e8c117d8c2734739d874210446b06ef17a7d411faf368f9c429-storyboard-critic.json": "78f62478ef54af6bb2d0e6d1e8e51f9d785fddce75eba2820e94dbc5aabe76e5",
-          "out/dispatch/worker-dispatch-claims/5f7de0ab8751a644a41ea150c5754b50cf62f1964647be1d05a486e79044340c-scene-builder.json": "0c17f6bc507172c9253affc080abb370460a0fc91023cd54cebd0a20d24ab2d9",
-          "out/dispatch/worker-dispatch-claims/82cf6feeaa3551e68ec1f86aa3f3d9f51506e5e29479c8f9206951ef3a252a36-scene-builder.json": "8e6de69acc4d6b9e505366ed9ca48598b710b043cca907727e2a12414b08eaa7",
-          "out/dispatch/worker-dispatch-claims/8808195166439df20decabd88d4b888d56af864b75fa6abdce60b28e112d019f-researcher.json": "10e0bd0c2084d586e5a1e46c375b9d83a633990466f09f8f5c618ed43038a0b0",
-          "out/dispatch/worker-dispatch-claims/8d0b301b34756c0559bf5b0542ac08113d56964ae7c705bc8d9d52a1018e4d1a-validator.json": "276403c928cef47a03242b89551f6debbe0f985102e22499982f86131c532686",
-          "out/dispatch/worker-dispatch-claims/b563be62059be3a49a5f52d13fa86d971a7a1f192a3a95a82efa95793eb81f38-researcher.json": "acd7205203a8869a0e6505cb068ffba6101258d2c44ea22bcf92214cfd584314",
-          "out/dispatch/worker-dispatch-claims/b614d114482c4fa946c7d9004e1b4b0de0a4e8222104114aca00db362852dfb4-storyboard-critic.json": "2af9448b6575f6024a872a4a82ea064e375309b6086a76646a2dfba3ec1fdb42",
-          "out/dispatch/worker-dispatch-claims/d8c0598cb6ee484a594b853193380a86c49393624b96cfd00d1a302c693f7f6a-storyboard-critic.json": "2c1af00d438a59587f766e0cd380a098d81c15879783bf6784a290644624206c"
-        },
-        "ledger_prefix_sha256": "95023a1600673f60e81c47c7326961451b5ecf166d86c4565da9ef336a766dee",
-        "paid_usage_sha256": "0e1d12307a95768a1f6afee83f2cc61fc83d766b5f4c025ee30c9c268009cd32",
-        "plan": {
-          "failure_evidence": "out/dispatch/retained-failures/code-review-2.json",
-          "reason": "unfundable-required-review-before-film"
-        },
-        "production_finished": false,
-        "shipment_authorized": false
-      },
-      "ledger_sha256": "4665ff701dbc824bf8e65e706234f6b5fbede515933f336d7f34d121ce26370a",
-      "manifest_sha256": "6ae85a3e51367bde266d59769306f915cf628810cc4a46f729d79ff3328af812",
-      "original_state": {
-        "events": [
-          {
-            "at": "2026-10-25T07:13:09.690531Z",
-            "envelope": {
-              "audiovisual_reviews": 43,
-              "cleanup_renders": 3,
-              "full_renders": 14,
-              "image_generations": 6,
-              "panel_rounds": 9,
-              "preflight_renders": 16,
-              "reboards": 10,
-              "reported_tokens": 900000,
-              "rescue_renders": 2,
-              "research_agents": 4,
-              "scorer_calls": 27,
-              "storyboard_critics": 7,
-              "tts_calls": 12,
-              "validator_agents": 4,
-              "voice_directors": 2
-            },
-            "kind": "resource_envelope_frozen",
-            "telemetry_scope": "External provider tokens only; Codex/account consumption is separate"
-          },
-          {
-            "at": "2026-10-25T07:13:09.690652Z",
-            "authorization_source_label": "Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images",
-            "explicit_existing_run": false,
-            "grants_no_resources": true,
-            "kind": "autonomous_completion_adopted",
-            "owner_source_text_sha256": "00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68",
-            "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
-            "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
-          },
-          {
-            "at": "2026-10-25T07:13:09.690659Z",
-            "ceiling_snapshot": {
-              "audiovisual_reviews": 43,
-              "cleanup_renders": 3,
-              "full_renders": 14,
-              "image_generations": 6,
-              "panel_rounds": 9,
-              "preflight_renders": 16,
-              "reboards": 10,
-              "reported_tokens": 900000,
-              "rescue_renders": 2,
-              "research_agents": 4,
-              "scorer_calls": 27,
-              "storyboard_critics": 7,
-              "tts_calls": 12,
-              "validator_agents": 4,
-              "voice_directors": 2
-            },
-            "kind": "initialised",
-            "mode": "production"
-          },
-          {
-            "at": "2026-10-25T07:13:33.464098Z",
-            "kind": "phase",
-            "name": "research"
-          },
-          {
-            "at": "2026-10-25T07:13:41.073012Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "unscored provider generation availability",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "audiovisual_reviews": 1
-            }
-          },
-          {
-            "after_attempt": null,
-            "after_probe": null,
-            "at": "2026-10-25T07:13:44.571975Z",
-            "generation_protocol": "bounded-json-generation-v2",
-            "kind": "provider_availability_probe",
-            "model": "gemini-3.8-flash",
-            "request_id": "d748feea-5c31-4a05-b65e-efe9c09a02c5",
-            "reservation": {
-              "at": "2026-10-25T07:13:41.073012Z",
-              "completion_progress_policy": "2026-10-20",
-              "kind": "reserved",
-              "note": "unscored provider generation availability",
-              "preflight_identity": null,
-              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-              "resources": {
-                "audiovisual_reviews": 1
-              }
-            },
-            "reservation_event_index": 4,
-            "started_at": "2026-10-25T07:13:44.571737Z"
-          },
-          {
-            "at": "2026-10-25T07:13:54.085849Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "telemetry for audiovisual_reviews: d748feea-5c31-4a05-b65e-efe9c09a02c5 unscored provider generation availability",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "reported_tokens": 50
-            }
-          },
-          {
-            "at": "2026-10-25T07:13:57.756109Z",
-            "elapsed_ms": 1957,
-            "kind": "telemetry",
-            "note": "d748feea-5c31-4a05-b65e-efe9c09a02c5 unscored provider generation availability",
-            "reported_tokens": 50,
-            "resource": "audiovisual_reviews"
-          },
-          {
-            "at": "2026-10-25T07:14:01.329994Z",
-            "available": true,
-            "http_status": 200,
-            "kind": "provider_availability_result",
-            "receipt_sha256": "f0d7241e9156196485aea9cd46293251b49985355869387099dc8646b8dd31a2",
-            "request_id": "d748feea-5c31-4a05-b65e-efe9c09a02c5"
-          },
-          {
-            "at": "2026-10-25T07:15:06.639975Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "water digital twin candidate",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "research_agents": 1
-            }
-          },
-          {
-            "at": "2026-10-25T07:15:14.473393Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "alloy foundry candidate",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "research_agents": 1
-            }
-          },
-          {
-            "at": "2026-10-25T07:20:52.722820Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "Aggie AI Foundry candidate",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "research_agents": 1
-            }
-          },
-          {
-            "at": "2026-10-25T07:29:52.000304Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "current claims and script evidence",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "validator_agents": 1
-            }
-          },
-          {
-            "at": "2026-10-25T07:35:36.615022Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "validator follow-up after REVISE edits",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "validator_agents": 1
-            }
-          },
-          {
-            "at": "2026-10-25T07:38:18.081254Z",
-            "ceiling": 4,
-            "kind": "budget_escalated",
-            "note": "narrow validator follow-up on one selection phrase",
-            "now": 3,
-            "resource": "validator_agents",
-            "was": 2
-          },
-          {
-            "at": "2026-10-25T07:38:18.731390Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "narrow validator follow-up on one selection phrase",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "validator_agents": 1
-            }
-          },
-          {
-            "at": "2026-10-25T07:40:21.285011Z",
-            "kind": "phase",
-            "name": "picture"
-          },
-          {
-            "at": "2026-10-25T07:42:11.433228Z",
-            "ceiling": 4,
-            "kind": "budget_escalated",
-            "note": "validator review of clause-length script punctuation and paraphrase edits",
-            "now": 4,
-            "resource": "validator_agents",
-            "was": 3
-          },
-          {
-            "at": "2026-10-25T07:42:12.090716Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "validator review of clause-length script punctuation and paraphrase edits",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "validator_agents": 1
-            }
-          },
-          {
-            "at": "2026-10-25T07:52:21.040930Z",
-            "kind": "phase",
-            "name": "picture"
-          },
-          {
-            "at": "2026-10-25T07:52:54.466452Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "initial authored build of both treatments",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "reboards": 1
-            }
-          },
-          {
-            "at": "2026-10-25T08:53:14.019320Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "current board and causal sequence, code review of both treatments (review 1 of 5)",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "storyboard_critics": 1
-            }
-          },
-          {
-            "at": "2026-10-25T09:11:20.285512Z",
-            "authorization": "diagnosed repair within recorded run envelope",
-            "baselines": [
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round1/opening-a.json",
-                "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
-                "path": "{REPO}/out/dispatch/opening-a.json"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round1/opening-b.json",
-                "before_sha256": "315eba70cda71bedddf605a3acb6de8e769cc57cd8d78ef8c2bd3e17ac457a5b",
-                "path": "{REPO}/out/dispatch/opening-b.json"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round1/storyboard.json",
-                "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
-                "path": "{REPO}/out/dispatch/storyboard.json"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round1/modern_episode_registry.json",
-                "before_sha256": "6b532fd1757191fde086b349a908329b5881df460724a2c04240f8ca9e3ac547",
-                "path": "{REPO}/config/modern_episode_registry.json"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round1/AlloyFoundryFilm.tsx",
-                "before_sha256": "dfe03d06f951bc41aff2b3cfa17dc100c92dd5da82c1ca388a3fa6ffc0e78b44",
-                "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round1/FoundryArmHero.tsx",
-                "before_sha256": "91247ff3e6c35ed33ced2dcb95357c5116ceb69d2f1e91eff7895cdd58056aa9",
-                "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round1/FoundrySupport.tsx",
-                "before_sha256": "a75a05eb03c166c844a2176435097cd9bcd63a87e88a54785609aa35f15adb52",
-                "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx"
-              }
-            ],
-            "director_identity": "claude-sonnet-5-5 director, this session",
-            "failure_family": "continuity",
-            "failure_sha256": "97ecd7a5975ef0ca94b7148e1baa34a3c50e616c8adb05a6ed1790b32b805fca",
-            "frozen_inputs": null,
-            "grants": {
-              "reboards": {
-                "from": 10,
-                "to": 10
-              },
-              "storyboard_critics": {
-                "from": 7,
-                "to": 7
-              }
-            },
-            "kind": "repair_started",
-            "mechanism_id": "foundry-sample-line-v1",
-            "plan_identity": null,
-            "plan_sha256": "24a06b272596bd889a8617a7900403190d540bd2f44fdddc2f0d0cd6d6d9ada3",
-            "progress_replacement_required": false,
-            "repair_scope": "standard"
-          },
-          {
-            "at": "2026-10-25T09:11:25.436495Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "corrective reboard after accepted begin-repair",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "reboards": 1
-            }
-          },
-          {
-            "at": "2026-10-25T10:02:23.371665Z",
-            "grants": {},
-            "kind": "repair_authorized",
-            "opening_reboard": {
-              "reservation_event_index": 23,
-              "reservation_sha256": "cc8f2da83e61a0332b1b5fbb84bf9cb197a8936b09e3984a919172558d4cc7eb",
-              "start_event_index": 22
-            },
-            "repair_plan": {
-              "changed_inputs": [
-                {
-                  "after_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
-                  "before_path": "{REPO}/out/dispatch/baselines/round1/opening-a.json",
-                  "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
-                  "path": "{REPO}/out/dispatch/opening-a.json"
-                },
-                {
-                  "after_sha256": "3712ba2506ff032b8f349f64ee6c1add43c57194955f77971e1d5065fadaff1a",
-                  "before_path": "{REPO}/out/dispatch/baselines/round1/opening-b.json",
-                  "before_sha256": "315eba70cda71bedddf605a3acb6de8e769cc57cd8d78ef8c2bd3e17ac457a5b",
-                  "path": "{REPO}/out/dispatch/opening-b.json"
-                },
-                {
-                  "after_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
-                  "before_path": "{REPO}/out/dispatch/baselines/round1/storyboard.json",
-                  "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
-                  "path": "{REPO}/out/dispatch/storyboard.json"
-                },
-                {
-                  "after_sha256": "f6260613a2fdc26084c03c62956384ad0462a6605fca2ab2a0bf1a736bcd06da",
-                  "before_path": "{REPO}/out/dispatch/baselines/round1/modern_episode_registry.json",
-                  "before_sha256": "6b532fd1757191fde086b349a908329b5881df460724a2c04240f8ca9e3ac547",
-                  "path": "{REPO}/config/modern_episode_registry.json"
-                },
-                {
-                  "after_sha256": "873a5dc33cba97c36d7c673a61132c29b77be2c02b05dc1b3a71daf2aa506d6c",
-                  "before_path": "{REPO}/out/dispatch/baselines/round1/AlloyFoundryFilm.tsx",
-                  "before_sha256": "dfe03d06f951bc41aff2b3cfa17dc100c92dd5da82c1ca388a3fa6ffc0e78b44",
-                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx"
-                },
-                {
-                  "after_sha256": "273560ff2975d1fd40d5fe50f3825634238f4a6c655090498b5f7bb3ca7c9432",
-                  "before_path": "{REPO}/out/dispatch/baselines/round1/FoundryArmHero.tsx",
-                  "before_sha256": "91247ff3e6c35ed33ced2dcb95357c5116ceb69d2f1e91eff7895cdd58056aa9",
-                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx"
-                },
-                {
-                  "after_sha256": "a654b1c24964bb19e23e2312965de74e1f94d965dc7d351c4d1f869d87f94e78",
-                  "before_path": "{REPO}/out/dispatch/baselines/round1/FoundrySupport.tsx",
-                  "before_sha256": "a75a05eb03c166c844a2176435097cd9bcd63a87e88a54785609aa35f15adb52",
-                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx"
-                }
-              ],
-              "director_identity": "claude-sonnet-5-5 director, this session",
-              "expected_visible_result": "The arm withdraws from the test rig before the ram descends and the dial and ram stay visible during the test clause. The same glowing sample is seen clamped at the end of s4, cooling gray under the monitor gauge in s5, then loaded and bent in s6, and s9 opens a new candidate on a visible new recipe card. The tray in s2 is visibly buried and the hand has stopped before the cut. A PLANNED sign is visible on the line in s4, s6 and s9. The pour wide runs through the full mold fill and the dimmed card beside the full glowing mold holds for about one second before the credits. Treatment B reads as a plan-view schematic with a ledger spine.",
-              "failure_evidence": "{REPO}/out/dispatch/retained-failures/code-review-1.json",
-              "failure_evidence_sha256": "97ecd7a5975ef0ca94b7148e1baa34a3c50e616c8adb05a6ed1790b32b805fca",
-              "failure_family": "continuity",
-              "mechanism_change": "Treatment A keeps the side-elevation bench line but with a conserved sample, a clear test rig and a PLANNED marker throughout. Treatment B changes mechanism: its line scenes are drawn as an overhead plan-view schematic where the sample is a traveling dot through the stations, and its records scenes are a ledger spine, so the two treatments make different visual arguments instead of two crops of one tableau.",
-              "mechanism_id": "foundry-sample-line-v1",
-              "repair": "Resume the existing scene builder for one consolidated correction on the unchanged claims, script, clauses and story_art request identities: clear the arm from the ram, crosshead and dial and finish its retraction before the ram stroke and reframe the s4 clamp details; conserve one sample from s4 through s5 and s6 (s6 continues from the clamped sample, cooling, loaded and bending, with no second lift) and let s9 visibly introduce the next candidate after the bent bar leaves; complete the s2 sort-and-stop and tray burial inside clause n2 and hold it to the cut; keep a PLANNED marker and planned disclosure on every line view including s6 and s9; give the signature pour a wide shot through its completed fill, finish the dim and tilt-back early and lengthen the final scene tail so the settled answer holds for about a second before credits; rewrite or execute the story_contract visible bridges so each describes the executed cut; and rebuild treatment B as a different staging with a plan-view overhead schematic of the line and a ledger style records spine in place of side-elevation camera crops, removing every camera_strategy and fingerprint claim that is not executed.",
-              "repair_scope": "standard",
-              "resources": {
-                "reboards": 1
-              },
-              "root_cause": "The independent code review (original response retained at out/dispatch/retained-failures/code-review-1.json) rejected both treatments on six linked defects: the arm's forearm, elbow and wrist lie through the test rig's ram, crosshead and dial so the test reads as the ram striking the gripper; the one alloy sample is not conserved because s4 ends clamped in the rig, s5 shows a different cold bar, s6 re-lifts a new glowing bar and repeats s4-event-4, and s9 resets again; the s2 sort-and-stop gesture is cut at about 68 percent with only two cards on the tray; the PLANNED marker and planned disclosure are absent in s6 and s9 so the closing image presents the planned line as operating; the signature pour gets a 0.925 second wide and the settled answer holds only about 0.3 seconds; and treatment B is A re-photographed with inert camera strategies rather than a different visual argument."
-            },
-            "repair_plan_sha256": "2fc7fb6d9fdb94e1697b9a3fe30fe78ecb9b7fe84bab51c4d4503e67be13a454",
-            "repair_revision": "fb8e967b8e9cd2e9456609a9179a9c103430c258e9140e092a3dd9910405ccdf",
-            "repair_scope": "standard",
-            "resource": "repair_batch"
-          },
-          {
-            "at": "2026-10-25T10:03:01.989143Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "corrected treatments, code re-review (review 2 of 5)",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "storyboard_critics": 1
-            }
-          },
-          {
-            "at": "2026-10-25T10:15:32.786889Z",
-            "authorization": "diagnosed repair within recorded run envelope",
-            "baselines": [
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round2/opening-a.json",
-                "before_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
-                "path": "{REPO}/out/dispatch/opening-a.json"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round2/opening-b.json",
-                "before_sha256": "3712ba2506ff032b8f349f64ee6c1add43c57194955f77971e1d5065fadaff1a",
-                "path": "{REPO}/out/dispatch/opening-b.json"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round2/storyboard.json",
-                "before_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
-                "path": "{REPO}/out/dispatch/storyboard.json"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round2/modern_episode_registry.json",
-                "before_sha256": "f6260613a2fdc26084c03c62956384ad0462a6605fca2ab2a0bf1a736bcd06da",
-                "path": "{REPO}/config/modern_episode_registry.json"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round2/AlloyFoundryFilm.tsx",
-                "before_sha256": "873a5dc33cba97c36d7c673a61132c29b77be2c02b05dc1b3a71daf2aa506d6c",
-                "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round2/FoundryArmHero.tsx",
-                "before_sha256": "273560ff2975d1fd40d5fe50f3825634238f4a6c655090498b5f7bb3ca7c9432",
-                "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx"
-              },
-              {
-                "before_path": "{REPO}/out/dispatch/baselines/round2/FoundrySupport.tsx",
-                "before_sha256": "a654b1c24964bb19e23e2312965de74e1f94d965dc7d351c4d1f869d87f94e78",
-                "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx"
-              }
-            ],
-            "director_identity": "claude-sonnet-5-5 director, this session",
-            "failure_family": "continuity",
-            "failure_sha256": "c4d9f740d20503b07a49785903827ff6a6890c1df4a696ed6208cbf137dd8365",
-            "frozen_inputs": null,
-            "grants": {
-              "reboards": {
-                "from": 10,
-                "to": 10
-              },
-              "storyboard_critics": {
-                "from": 7,
-                "to": 7
-              }
-            },
-            "kind": "repair_started",
-            "mechanism_id": "foundry-sample-line-v1",
-            "plan_identity": null,
-            "plan_sha256": "ca470fdfc006bcfe0265715b55b5da82c2b4201d99cc39aab102a2659fa3c3a2",
-            "progress_replacement_required": false,
-            "repair_scope": "standard"
-          },
-          {
-            "at": "2026-10-25T10:15:38.310753Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "corrective reboard after accepted begin-repair",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "reboards": 1
-            }
-          },
-          {
-            "at": "2026-10-25T10:54:12.819080Z",
-            "grants": {},
-            "kind": "repair_authorized",
-            "opening_reboard": {
-              "reservation_event_index": 27,
-              "reservation_sha256": "b232f2a69983b38526c495dbc35d4a17da8ca58cfc9b97e80bf9593e682b3311",
-              "start_event_index": 26
-            },
-            "repair_plan": {
-              "changed_inputs": [
-                {
-                  "after_sha256": "954e660bba70854835a8d2c0e2656dfb18535dd017d2ee282e1bd1849c74288c",
-                  "before_path": "{REPO}/out/dispatch/baselines/round2/opening-a.json",
-                  "before_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
-                  "path": "{REPO}/out/dispatch/opening-a.json"
-                },
-                {
-                  "after_sha256": "b663c1fcbb898241f25bc1cd2b66825dd38f4b2d922cf57c889f3d49ad0aa9dd",
-                  "before_path": "{REPO}/out/dispatch/baselines/round2/opening-b.json",
-                  "before_sha256": "3712ba2506ff032b8f349f64ee6c1add43c57194955f77971e1d5065fadaff1a",
-                  "path": "{REPO}/out/dispatch/opening-b.json"
-                },
-                {
-                  "after_sha256": "954e660bba70854835a8d2c0e2656dfb18535dd017d2ee282e1bd1849c74288c",
-                  "before_path": "{REPO}/out/dispatch/baselines/round2/storyboard.json",
-                  "before_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
-                  "path": "{REPO}/out/dispatch/storyboard.json"
-                },
-                {
-                  "after_sha256": "947c33fc2bcad7a8905a3d50819f1edffbd1c28a34e5adb9f3c9eb13b5831cce",
-                  "before_path": "{REPO}/out/dispatch/baselines/round2/modern_episode_registry.json",
-                  "before_sha256": "f6260613a2fdc26084c03c62956384ad0462a6605fca2ab2a0bf1a736bcd06da",
-                  "path": "{REPO}/config/modern_episode_registry.json"
-                },
-                {
-                  "after_sha256": "19e79b160bfc38376b913be49382c492a3b726b20b911ffbe9d070c4d6d70ec5",
-                  "before_path": "{REPO}/out/dispatch/baselines/round2/AlloyFoundryFilm.tsx",
-                  "before_sha256": "873a5dc33cba97c36d7c673a61132c29b77be2c02b05dc1b3a71daf2aa506d6c",
-                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx"
-                },
-                {
-                  "after_sha256": "8a46715fdff9371d645f78dded6f105280289c85ced4915c8a097ef9ed8355a6",
-                  "before_path": "{REPO}/out/dispatch/baselines/round2/FoundryArmHero.tsx",
-                  "before_sha256": "273560ff2975d1fd40d5fe50f3825634238f4a6c655090498b5f7bb3ca7c9432",
-                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx"
-                },
-                {
-                  "after_sha256": "a654b1c24964bb19e23e2312965de74e1f94d965dc7d351c4d1f869d87f94e78",
-                  "before_path": "{REPO}/out/dispatch/baselines/round2/FoundrySupport.tsx",
-                  "before_sha256": "a654b1c24964bb19e23e2312965de74e1f94d965dc7d351c4d1f869d87f94e78",
-                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx"
-                }
-              ],
-              "director_identity": "claude-sonnet-5-5 director, this session",
-              "expected_visible_result": "In s9 the clamp pads stay above the mold, the crucible and its tilt stay in the open space between the left clamp rod and the right column, the bent bar leaves without crossing a column, and the settled answer (dimmed card beside the full glowing mold) holds for about a second with no overlapping parts. The next candidate's crucible arrives from the furnace after its recipe card writes. In s6 the clamps visibly tighten on the cooling sample in the first second. B's text, advances and flat_shots reasons match what is drawn.",
-              "failure_evidence": "{REPO}/out/dispatch/retained-failures/code-review-2.json",
-              "failure_evidence_sha256": "c4d9f740d20503b07a49785903827ff6a6890c1df4a696ed6208cbf137dd8365",
-              "failure_family": "continuity",
-              "mechanism_change": "The s9 pour is restaged on a fixed rig layout: clamps stay open for the mold, the crucible and its tilt path live in clear space, and the next candidate's crucible is carried in after its card. The s6 opening gets a physical clamp-tighten action and B's prose is rewritten to its executed ledger and plan worlds. The sample line, the plan-view treatment B and the PLANNED marking stay as corrected in the first batch.",
-              "mechanism_id": "foundry-sample-line-v1",
-              "repair": "Resume the existing scene builder for one consolidated correction on the unchanged claims, script, clauses and story_art request identities: in s9 leave the clamps open (or stop them at the mold's rim height) so the pads never enter the mold, move the pour station and carriage so the upright and tipped crucible stay inside the rig's free space between the left clamp rod and the right column, route the outgoing bent bar and bin shelf clear of the right column, and re-verify the A melt-pour wide, the melt-hold detail and B's section inset at the composed camera and drift transforms; make s9 start with the crucible leaving the furnace after the new card writes so the next candidate's melt follows its suggestion; give s6's opening a visible action (the clamps tighten on the cooling sample as the question mark dissolves) so the first 1.5 seconds carry new information; rewrite B's on_screen, what_moves and story_contract advances to describe the ledger and plan B draws; and make the flat_shots reasons describe the executed slow drift.",
-              "repair_scope": "standard",
-              "resources": {
-                "reboards": 1
-              },
-              "root_cause": "The independent code re-review (original response retained at out/dispatch/retained-failures/code-review-2.json) accepted every first-review correction in code and rejected both treatments on one remaining construction fault in the shared s9 rig choreography: the bar-height clamp pads re-close into the 30 unit mold and its melt, the upright and tipped crucible occupy the left column and left clamp rod, and the bent bar and bin shelf cross the right column, so the signature pour and the held closing frame are staged with objects inside each other. It also recorded non-blocking items: B's scene prose and story_contract advances still describe A's bench, the board's flat_shots reasons do not match the executed camera drift, s9 starts with the next candidate's melt already held before its suggestion, and s6 opens with about 1.5 seconds where only the bar's colour changes."
-            },
-            "repair_plan_sha256": "bed20b1733daaad37d4f6139ec79bc691819650b2a239d819a263161dbcb16ea",
-            "repair_revision": "f5bceda6f8d253f7f4635e8e1cefc7538ff7a6c1fc896946c395406265bfb422",
-            "repair_scope": "standard",
-            "resource": "repair_batch"
-          },
-          {
-            "at": "2026-10-25T10:54:46.971335Z",
-            "completion_progress_policy": "2026-10-20",
-            "kind": "reserved",
-            "note": "second correction, code re-review (review 3 of 5)",
-            "preflight_identity": null,
-            "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
-            "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
-            "resources": {
-              "storyboard_critics": 1
-            }
-          },
-          {
-            "at": "2026-10-25T11:33:21.702962Z",
-            "evidence": {
-              "envelope_sha256": "984ba66d20973a693089cfa65645f6d419845748462dd51d814142660492fb38",
-              "failure_event_index": 28,
-              "failure_event_sha256": "bc51d81d89cd781e5db5f8ce21ede16ddb3b5a19f64a33d5a0e4daa5bd57f72d",
-              "files": {
-                "out/dispatch/retained-failures/code-review-2.json": "c4d9f740d20503b07a49785903827ff6a6890c1df4a696ed6208cbf137dd8365",
-                "out/dispatch/storyboard_critic.json": "1bd22f951802569c2dec3314362a70847f4fe32633187b81ef6d2898d219353b",
-                "out/dispatch/worker-dispatch-claims/0c6ecd91cedcb87b95798725a65f36535735d0700d2b481a3ff4d934ef4f22f5-validator.json": "574cf7fbca3e75f16b5815a7c0e1f249757abbc926b73c9d59548231c3dad5e9",
-                "out/dispatch/worker-dispatch-claims/1291d627f7e5ec91e1a13e0718aad581adcc936bcc7af68cc3baf31eaeff8a9b-validator.json": "bf38b030f17ca724adcf433fb3490d109aa952894b65fde6ba121d21415c6610",
-                "out/dispatch/worker-dispatch-claims/365c9c6bff3e5eea3572698e56d42b8bf0d2d5532c717523769e77853dd4b3a8-validator.json": "9a672aac433d3e75a2bbd246ddf4232eb9e280d67f512b7f2096a6d5bb1eb076",
-                "out/dispatch/worker-dispatch-claims/3d644ffc1c8a90f1ff762d198d0b2f87f83d3639dd86396968633eec8c3b3ec9-scene-builder.json": "cccf508556fba8e68a3ae69c3d9dc3e41e0fac4cf0c4935799c25440757f49c3",
-                "out/dispatch/worker-dispatch-claims/44fb8bca71f56e8c117d8c2734739d874210446b06ef17a7d411faf368f9c429-storyboard-critic.json": "78f62478ef54af6bb2d0e6d1e8e51f9d785fddce75eba2820e94dbc5aabe76e5",
-                "out/dispatch/worker-dispatch-claims/5f7de0ab8751a644a41ea150c5754b50cf62f1964647be1d05a486e79044340c-scene-builder.json": "0c17f6bc507172c9253affc080abb370460a0fc91023cd54cebd0a20d24ab2d9",
-                "out/dispatch/worker-dispatch-claims/82cf6feeaa3551e68ec1f86aa3f3d9f51506e5e29479c8f9206951ef3a252a36-scene-builder.json": "8e6de69acc4d6b9e505366ed9ca48598b710b043cca907727e2a12414b08eaa7",
-                "out/dispatch/worker-dispatch-claims/8808195166439df20decabd88d4b888d56af864b75fa6abdce60b28e112d019f-researcher.json": "10e0bd0c2084d586e5a1e46c375b9d83a633990466f09f8f5c618ed43038a0b0",
-                "out/dispatch/worker-dispatch-claims/8d0b301b34756c0559bf5b0542ac08113d56964ae7c705bc8d9d52a1018e4d1a-validator.json": "276403c928cef47a03242b89551f6debbe0f985102e22499982f86131c532686",
-                "out/dispatch/worker-dispatch-claims/b563be62059be3a49a5f52d13fa86d971a7a1f192a3a95a82efa95793eb81f38-researcher.json": "acd7205203a8869a0e6505cb068ffba6101258d2c44ea22bcf92214cfd584314",
-                "out/dispatch/worker-dispatch-claims/b614d114482c4fa946c7d9004e1b4b0de0a4e8222104114aca00db362852dfb4-storyboard-critic.json": "2af9448b6575f6024a872a4a82ea064e375309b6086a76646a2dfba3ec1fdb42",
-                "out/dispatch/worker-dispatch-claims/d8c0598cb6ee484a594b853193380a86c49393624b96cfd00d1a302c693f7f6a-storyboard-critic.json": "2c1af00d438a59587f766e0cd380a098d81c15879783bf6784a290644624206c"
-              },
-              "ledger_prefix_sha256": "be5a9c2aeb99c19bb554f81fc4c8f2bef2df974df88f91b565b478068326fb82",
-              "paid_usage_sha256": "0e1d12307a95768a1f6afee83f2cc61fc83d766b5f4c025ee30c9c268009cd32",
-              "plan": {
-                "failure_evidence": "{REPO}/out/dispatch/retained-failures/code-review-2.json",
-                "reason": "unfundable-required-review-before-film"
-              },
-              "production_finished": false,
-              "shipment_authorized": false
-            },
-            "kind": "hard_limit_expenditure_closed"
-          }
-        ],
-        "resource_envelope": {
-          "audiovisual_reviews": 43,
-          "cleanup_renders": 3,
-          "full_renders": 14,
-          "image_generations": 6,
-          "panel_rounds": 9,
-          "preflight_renders": 16,
-          "reboards": 10,
-          "reported_tokens": 900000,
-          "rescue_renders": 2,
-          "research_agents": 4,
-          "scorer_calls": 27,
-          "storyboard_critics": 7,
-          "tts_calls": 12,
-          "validator_agents": 4,
-          "voice_directors": 2
-        },
-        "usage": {
-          "audiovisual_reviews": 1,
-          "cleanup_renders": 0,
-          "full_renders": 0,
-          "image_generations": 0,
-          "panel_rounds": 0,
-          "preflight_renders": 0,
-          "reboards": 3,
-          "reported_tokens": 50,
-          "rescue_renders": 0,
-          "research_agents": 3,
-          "scorer_calls": 0,
-          "storyboard_critics": 3,
-          "tts_calls": 0,
-          "validator_agents": 4,
-          "voice_directors": 0
-        }
-      },
-      "production_finished": false,
-      "repo_root": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch",
-      "run_id": "2026-10-25",
-      "schema": "dispatch_failed_edition/1",
-      "shipment_authorized": false,
-      "source_pin": "b2b40256c146ba278fa8cc4da9b0fb0c281eacc4"
-    }
-  },
+  "failed_editions": {},
   "heartbeat_at": "2026-10-27T04:46:28.948583+00:00",
   "owner_sha256": "fb629625757c1c0faeba13550a523cfd71b4d6e8ef384a3ad5eb1ebf7ccb1f1d",
-  "previous_commit": "d02c830697095ab54c1e2f8ab42a43f87e4ba3ad",
+  "previous_commit": "19c97a75af6780cd083f4bb325f7200a3a97d391",
   "provider_unavailable": false,
   "reopened_editions": {
     "2026-10-24": {
@@ -1634,6 +948,695 @@
         "schema": "dispatch_failed_edition/1",
         "shipment_authorized": false,
         "source_pin": "a655bf470451918cb440234aa1ed6603f02c2a21"
+      }
+    },
+    "2026-10-25": {
+      "at": "2026-10-27T05:31:38.239889+00:00",
+      "authority": "Owner instruction of October 26th, 2026 lifted the paid review cap to ten and directed that the unshipped October 24th and 25th editions be finished and shipped.",
+      "proof": {
+        "checkpoint": "04442e840f51ca4c5ceb6d94178db8188d82e47e",
+        "evidence": {
+          "envelope_sha256": "984ba66d20973a693089cfa65645f6d419845748462dd51d814142660492fb38",
+          "failure_event_index": 28,
+          "failure_event_sha256": "8999495e923b0dab8f11e3e684a3813447356e0d9d6af2df1fecf638ad51b995",
+          "files": {
+            "out/dispatch/retained-failures/code-review-2.json": "c4d9f740d20503b07a49785903827ff6a6890c1df4a696ed6208cbf137dd8365",
+            "out/dispatch/storyboard_critic.json": "1bd22f951802569c2dec3314362a70847f4fe32633187b81ef6d2898d219353b",
+            "out/dispatch/worker-dispatch-claims/0c6ecd91cedcb87b95798725a65f36535735d0700d2b481a3ff4d934ef4f22f5-validator.json": "574cf7fbca3e75f16b5815a7c0e1f249757abbc926b73c9d59548231c3dad5e9",
+            "out/dispatch/worker-dispatch-claims/1291d627f7e5ec91e1a13e0718aad581adcc936bcc7af68cc3baf31eaeff8a9b-validator.json": "bf38b030f17ca724adcf433fb3490d109aa952894b65fde6ba121d21415c6610",
+            "out/dispatch/worker-dispatch-claims/365c9c6bff3e5eea3572698e56d42b8bf0d2d5532c717523769e77853dd4b3a8-validator.json": "9a672aac433d3e75a2bbd246ddf4232eb9e280d67f512b7f2096a6d5bb1eb076",
+            "out/dispatch/worker-dispatch-claims/3d644ffc1c8a90f1ff762d198d0b2f87f83d3639dd86396968633eec8c3b3ec9-scene-builder.json": "cccf508556fba8e68a3ae69c3d9dc3e41e0fac4cf0c4935799c25440757f49c3",
+            "out/dispatch/worker-dispatch-claims/44fb8bca71f56e8c117d8c2734739d874210446b06ef17a7d411faf368f9c429-storyboard-critic.json": "78f62478ef54af6bb2d0e6d1e8e51f9d785fddce75eba2820e94dbc5aabe76e5",
+            "out/dispatch/worker-dispatch-claims/5f7de0ab8751a644a41ea150c5754b50cf62f1964647be1d05a486e79044340c-scene-builder.json": "0c17f6bc507172c9253affc080abb370460a0fc91023cd54cebd0a20d24ab2d9",
+            "out/dispatch/worker-dispatch-claims/82cf6feeaa3551e68ec1f86aa3f3d9f51506e5e29479c8f9206951ef3a252a36-scene-builder.json": "8e6de69acc4d6b9e505366ed9ca48598b710b043cca907727e2a12414b08eaa7",
+            "out/dispatch/worker-dispatch-claims/8808195166439df20decabd88d4b888d56af864b75fa6abdce60b28e112d019f-researcher.json": "10e0bd0c2084d586e5a1e46c375b9d83a633990466f09f8f5c618ed43038a0b0",
+            "out/dispatch/worker-dispatch-claims/8d0b301b34756c0559bf5b0542ac08113d56964ae7c705bc8d9d52a1018e4d1a-validator.json": "276403c928cef47a03242b89551f6debbe0f985102e22499982f86131c532686",
+            "out/dispatch/worker-dispatch-claims/b563be62059be3a49a5f52d13fa86d971a7a1f192a3a95a82efa95793eb81f38-researcher.json": "acd7205203a8869a0e6505cb068ffba6101258d2c44ea22bcf92214cfd584314",
+            "out/dispatch/worker-dispatch-claims/b614d114482c4fa946c7d9004e1b4b0de0a4e8222104114aca00db362852dfb4-storyboard-critic.json": "2af9448b6575f6024a872a4a82ea064e375309b6086a76646a2dfba3ec1fdb42",
+            "out/dispatch/worker-dispatch-claims/d8c0598cb6ee484a594b853193380a86c49393624b96cfd00d1a302c693f7f6a-storyboard-critic.json": "2c1af00d438a59587f766e0cd380a098d81c15879783bf6784a290644624206c"
+          },
+          "ledger_prefix_sha256": "95023a1600673f60e81c47c7326961451b5ecf166d86c4565da9ef336a766dee",
+          "paid_usage_sha256": "0e1d12307a95768a1f6afee83f2cc61fc83d766b5f4c025ee30c9c268009cd32",
+          "plan": {
+            "failure_evidence": "out/dispatch/retained-failures/code-review-2.json",
+            "reason": "unfundable-required-review-before-film"
+          },
+          "production_finished": false,
+          "shipment_authorized": false
+        },
+        "ledger_sha256": "4665ff701dbc824bf8e65e706234f6b5fbede515933f336d7f34d121ce26370a",
+        "manifest_sha256": "6ae85a3e51367bde266d59769306f915cf628810cc4a46f729d79ff3328af812",
+        "original_state": {
+          "events": [
+            {
+              "at": "2026-10-25T07:13:09.690531Z",
+              "envelope": {
+                "audiovisual_reviews": 43,
+                "cleanup_renders": 3,
+                "full_renders": 14,
+                "image_generations": 6,
+                "panel_rounds": 9,
+                "preflight_renders": 16,
+                "reboards": 10,
+                "reported_tokens": 900000,
+                "rescue_renders": 2,
+                "research_agents": 4,
+                "scorer_calls": 27,
+                "storyboard_critics": 7,
+                "tts_calls": 12,
+                "validator_agents": 4,
+                "voice_directors": 2
+              },
+              "kind": "resource_envelope_frozen",
+              "telemetry_scope": "External provider tokens only; Codex/account consumption is separate"
+            },
+            {
+              "at": "2026-10-25T07:13:09.690652Z",
+              "authorization_source_label": "Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images",
+              "explicit_existing_run": false,
+              "grants_no_resources": true,
+              "kind": "autonomous_completion_adopted",
+              "owner_source_text_sha256": "00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68",
+              "policy_json": "{\n  \"schema\": \"dispatch_autonomous_completion/2\",\n  \"version\": \"2026-10-08\",\n  \"effective_date\": \"2026-10-08\",\n  \"eligible_resources\": [\"reboards\", \"storyboard_critics\", \"preflight_renders\", \"full_renders\", \"audiovisual_reviews\", \"panel_rounds\", \"scorer_calls\", \"tts_calls\", \"voice_directors\", \"image_generations\"],\n  \"mandatory_scopes\": [\"finish-current\", \"retained-integrity\", \"minimum-action\", \"modern-film-floor\"],\n  \"excluded_work\": [\"optional creative polish\", \"new research\", \"extra treatment\", \"director review of own film\"],\n  \"invariants\": [\n    \"Preserve the original frozen envelope, cumulative charges and exact failed evidence.\",\n    \"Fund the complete remaining code, fresh story art, silent phone, final timed phone, native, audiovisual, scoring and delivery path before mandatory correction.\",\n    \"Record exact conservative capacity deficits separately; capacity never approves a film.\",\n    \"Reserve every actual image-generation, provider and render attempt before execution.\",\n    \"Current films cannot return to a legacy renderer or defer the modern engagement and artwork floor.\",\n    \"Retain all source, rights, minimum action, native PNG/CRF16, audio, caption, independent review and shipment gates.\",\n    \"Old policy bytes and already frozen ledgers remain reproducible.\"\n  ],\n  \"authorization_statement\": \"The owner requires a substantial modern film upgrade and fresh relevant ImageGen artwork during each run's storyboard stage. The standing autonomous shipment instruction funds mandatory current-route repair, including fresh story-art failures. Optional polish stops at its boundary; original ledgers and failed evidence remain intact.\",\n  \"authorization_source_label\": \"Direct owner instructions on October 7th, 2026, including mandatory fresh storyboard images\",\n  \"owner_source_text_sha256\": \"00329fb90ccefe54e8314977b63b790756ef18d45ecd36bd4526762e28a30d68\"\n}\n",
+              "policy_sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
+            },
+            {
+              "at": "2026-10-25T07:13:09.690659Z",
+              "ceiling_snapshot": {
+                "audiovisual_reviews": 43,
+                "cleanup_renders": 3,
+                "full_renders": 14,
+                "image_generations": 6,
+                "panel_rounds": 9,
+                "preflight_renders": 16,
+                "reboards": 10,
+                "reported_tokens": 900000,
+                "rescue_renders": 2,
+                "research_agents": 4,
+                "scorer_calls": 27,
+                "storyboard_critics": 7,
+                "tts_calls": 12,
+                "validator_agents": 4,
+                "voice_directors": 2
+              },
+              "kind": "initialised",
+              "mode": "production"
+            },
+            {
+              "at": "2026-10-25T07:13:33.464098Z",
+              "kind": "phase",
+              "name": "research"
+            },
+            {
+              "at": "2026-10-25T07:13:41.073012Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "unscored provider generation availability",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "audiovisual_reviews": 1
+              }
+            },
+            {
+              "after_attempt": null,
+              "after_probe": null,
+              "at": "2026-10-25T07:13:44.571975Z",
+              "generation_protocol": "bounded-json-generation-v2",
+              "kind": "provider_availability_probe",
+              "model": "gemini-3.8-flash",
+              "request_id": "d748feea-5c31-4a05-b65e-efe9c09a02c5",
+              "reservation": {
+                "at": "2026-10-25T07:13:41.073012Z",
+                "completion_progress_policy": "2026-10-20",
+                "kind": "reserved",
+                "note": "unscored provider generation availability",
+                "preflight_identity": null,
+                "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+                "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+                "resources": {
+                  "audiovisual_reviews": 1
+                }
+              },
+              "reservation_event_index": 4,
+              "started_at": "2026-10-25T07:13:44.571737Z"
+            },
+            {
+              "at": "2026-10-25T07:13:54.085849Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "telemetry for audiovisual_reviews: d748feea-5c31-4a05-b65e-efe9c09a02c5 unscored provider generation availability",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "reported_tokens": 50
+              }
+            },
+            {
+              "at": "2026-10-25T07:13:57.756109Z",
+              "elapsed_ms": 1957,
+              "kind": "telemetry",
+              "note": "d748feea-5c31-4a05-b65e-efe9c09a02c5 unscored provider generation availability",
+              "reported_tokens": 50,
+              "resource": "audiovisual_reviews"
+            },
+            {
+              "at": "2026-10-25T07:14:01.329994Z",
+              "available": true,
+              "http_status": 200,
+              "kind": "provider_availability_result",
+              "receipt_sha256": "f0d7241e9156196485aea9cd46293251b49985355869387099dc8646b8dd31a2",
+              "request_id": "d748feea-5c31-4a05-b65e-efe9c09a02c5"
+            },
+            {
+              "at": "2026-10-25T07:15:06.639975Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "water digital twin candidate",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "research_agents": 1
+              }
+            },
+            {
+              "at": "2026-10-25T07:15:14.473393Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "alloy foundry candidate",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "research_agents": 1
+              }
+            },
+            {
+              "at": "2026-10-25T07:20:52.722820Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "Aggie AI Foundry candidate",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "research_agents": 1
+              }
+            },
+            {
+              "at": "2026-10-25T07:29:52.000304Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "current claims and script evidence",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "validator_agents": 1
+              }
+            },
+            {
+              "at": "2026-10-25T07:35:36.615022Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "validator follow-up after REVISE edits",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "validator_agents": 1
+              }
+            },
+            {
+              "at": "2026-10-25T07:38:18.081254Z",
+              "ceiling": 4,
+              "kind": "budget_escalated",
+              "note": "narrow validator follow-up on one selection phrase",
+              "now": 3,
+              "resource": "validator_agents",
+              "was": 2
+            },
+            {
+              "at": "2026-10-25T07:38:18.731390Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "narrow validator follow-up on one selection phrase",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "validator_agents": 1
+              }
+            },
+            {
+              "at": "2026-10-25T07:40:21.285011Z",
+              "kind": "phase",
+              "name": "picture"
+            },
+            {
+              "at": "2026-10-25T07:42:11.433228Z",
+              "ceiling": 4,
+              "kind": "budget_escalated",
+              "note": "validator review of clause-length script punctuation and paraphrase edits",
+              "now": 4,
+              "resource": "validator_agents",
+              "was": 3
+            },
+            {
+              "at": "2026-10-25T07:42:12.090716Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "validator review of clause-length script punctuation and paraphrase edits",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "validator_agents": 1
+              }
+            },
+            {
+              "at": "2026-10-25T07:52:21.040930Z",
+              "kind": "phase",
+              "name": "picture"
+            },
+            {
+              "at": "2026-10-25T07:52:54.466452Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "initial authored build of both treatments",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "reboards": 1
+              }
+            },
+            {
+              "at": "2026-10-25T08:53:14.019320Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "current board and causal sequence, code review of both treatments (review 1 of 5)",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "storyboard_critics": 1
+              }
+            },
+            {
+              "at": "2026-10-25T09:11:20.285512Z",
+              "authorization": "diagnosed repair within recorded run envelope",
+              "baselines": [
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round1/opening-a.json",
+                  "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
+                  "path": "{REPO}/out/dispatch/opening-a.json"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round1/opening-b.json",
+                  "before_sha256": "315eba70cda71bedddf605a3acb6de8e769cc57cd8d78ef8c2bd3e17ac457a5b",
+                  "path": "{REPO}/out/dispatch/opening-b.json"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round1/storyboard.json",
+                  "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
+                  "path": "{REPO}/out/dispatch/storyboard.json"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round1/modern_episode_registry.json",
+                  "before_sha256": "6b532fd1757191fde086b349a908329b5881df460724a2c04240f8ca9e3ac547",
+                  "path": "{REPO}/config/modern_episode_registry.json"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round1/AlloyFoundryFilm.tsx",
+                  "before_sha256": "dfe03d06f951bc41aff2b3cfa17dc100c92dd5da82c1ca388a3fa6ffc0e78b44",
+                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round1/FoundryArmHero.tsx",
+                  "before_sha256": "91247ff3e6c35ed33ced2dcb95357c5116ceb69d2f1e91eff7895cdd58056aa9",
+                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round1/FoundrySupport.tsx",
+                  "before_sha256": "a75a05eb03c166c844a2176435097cd9bcd63a87e88a54785609aa35f15adb52",
+                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx"
+                }
+              ],
+              "director_identity": "claude-sonnet-5-5 director, this session",
+              "failure_family": "continuity",
+              "failure_sha256": "97ecd7a5975ef0ca94b7148e1baa34a3c50e616c8adb05a6ed1790b32b805fca",
+              "frozen_inputs": null,
+              "grants": {
+                "reboards": {
+                  "from": 10,
+                  "to": 10
+                },
+                "storyboard_critics": {
+                  "from": 7,
+                  "to": 7
+                }
+              },
+              "kind": "repair_started",
+              "mechanism_id": "foundry-sample-line-v1",
+              "plan_identity": null,
+              "plan_sha256": "24a06b272596bd889a8617a7900403190d540bd2f44fdddc2f0d0cd6d6d9ada3",
+              "progress_replacement_required": false,
+              "repair_scope": "standard"
+            },
+            {
+              "at": "2026-10-25T09:11:25.436495Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "corrective reboard after accepted begin-repair",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "reboards": 1
+              }
+            },
+            {
+              "at": "2026-10-25T10:02:23.371665Z",
+              "grants": {},
+              "kind": "repair_authorized",
+              "opening_reboard": {
+                "reservation_event_index": 23,
+                "reservation_sha256": "cc8f2da83e61a0332b1b5fbb84bf9cb197a8936b09e3984a919172558d4cc7eb",
+                "start_event_index": 22
+              },
+              "repair_plan": {
+                "changed_inputs": [
+                  {
+                    "after_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
+                    "before_path": "{REPO}/out/dispatch/baselines/round1/opening-a.json",
+                    "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
+                    "path": "{REPO}/out/dispatch/opening-a.json"
+                  },
+                  {
+                    "after_sha256": "3712ba2506ff032b8f349f64ee6c1add43c57194955f77971e1d5065fadaff1a",
+                    "before_path": "{REPO}/out/dispatch/baselines/round1/opening-b.json",
+                    "before_sha256": "315eba70cda71bedddf605a3acb6de8e769cc57cd8d78ef8c2bd3e17ac457a5b",
+                    "path": "{REPO}/out/dispatch/opening-b.json"
+                  },
+                  {
+                    "after_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
+                    "before_path": "{REPO}/out/dispatch/baselines/round1/storyboard.json",
+                    "before_sha256": "50390fd64bb11be829a0dde76c12a5f1748c4491c498c05cfffae738088017c6",
+                    "path": "{REPO}/out/dispatch/storyboard.json"
+                  },
+                  {
+                    "after_sha256": "f6260613a2fdc26084c03c62956384ad0462a6605fca2ab2a0bf1a736bcd06da",
+                    "before_path": "{REPO}/out/dispatch/baselines/round1/modern_episode_registry.json",
+                    "before_sha256": "6b532fd1757191fde086b349a908329b5881df460724a2c04240f8ca9e3ac547",
+                    "path": "{REPO}/config/modern_episode_registry.json"
+                  },
+                  {
+                    "after_sha256": "873a5dc33cba97c36d7c673a61132c29b77be2c02b05dc1b3a71daf2aa506d6c",
+                    "before_path": "{REPO}/out/dispatch/baselines/round1/AlloyFoundryFilm.tsx",
+                    "before_sha256": "dfe03d06f951bc41aff2b3cfa17dc100c92dd5da82c1ca388a3fa6ffc0e78b44",
+                    "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx"
+                  },
+                  {
+                    "after_sha256": "273560ff2975d1fd40d5fe50f3825634238f4a6c655090498b5f7bb3ca7c9432",
+                    "before_path": "{REPO}/out/dispatch/baselines/round1/FoundryArmHero.tsx",
+                    "before_sha256": "91247ff3e6c35ed33ced2dcb95357c5116ceb69d2f1e91eff7895cdd58056aa9",
+                    "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx"
+                  },
+                  {
+                    "after_sha256": "a654b1c24964bb19e23e2312965de74e1f94d965dc7d351c4d1f869d87f94e78",
+                    "before_path": "{REPO}/out/dispatch/baselines/round1/FoundrySupport.tsx",
+                    "before_sha256": "a75a05eb03c166c844a2176435097cd9bcd63a87e88a54785609aa35f15adb52",
+                    "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx"
+                  }
+                ],
+                "director_identity": "claude-sonnet-5-5 director, this session",
+                "expected_visible_result": "The arm withdraws from the test rig before the ram descends and the dial and ram stay visible during the test clause. The same glowing sample is seen clamped at the end of s4, cooling gray under the monitor gauge in s5, then loaded and bent in s6, and s9 opens a new candidate on a visible new recipe card. The tray in s2 is visibly buried and the hand has stopped before the cut. A PLANNED sign is visible on the line in s4, s6 and s9. The pour wide runs through the full mold fill and the dimmed card beside the full glowing mold holds for about one second before the credits. Treatment B reads as a plan-view schematic with a ledger spine.",
+                "failure_evidence": "{REPO}/out/dispatch/retained-failures/code-review-1.json",
+                "failure_evidence_sha256": "97ecd7a5975ef0ca94b7148e1baa34a3c50e616c8adb05a6ed1790b32b805fca",
+                "failure_family": "continuity",
+                "mechanism_change": "Treatment A keeps the side-elevation bench line but with a conserved sample, a clear test rig and a PLANNED marker throughout. Treatment B changes mechanism: its line scenes are drawn as an overhead plan-view schematic where the sample is a traveling dot through the stations, and its records scenes are a ledger spine, so the two treatments make different visual arguments instead of two crops of one tableau.",
+                "mechanism_id": "foundry-sample-line-v1",
+                "repair": "Resume the existing scene builder for one consolidated correction on the unchanged claims, script, clauses and story_art request identities: clear the arm from the ram, crosshead and dial and finish its retraction before the ram stroke and reframe the s4 clamp details; conserve one sample from s4 through s5 and s6 (s6 continues from the clamped sample, cooling, loaded and bending, with no second lift) and let s9 visibly introduce the next candidate after the bent bar leaves; complete the s2 sort-and-stop and tray burial inside clause n2 and hold it to the cut; keep a PLANNED marker and planned disclosure on every line view including s6 and s9; give the signature pour a wide shot through its completed fill, finish the dim and tilt-back early and lengthen the final scene tail so the settled answer holds for about a second before credits; rewrite or execute the story_contract visible bridges so each describes the executed cut; and rebuild treatment B as a different staging with a plan-view overhead schematic of the line and a ledger style records spine in place of side-elevation camera crops, removing every camera_strategy and fingerprint claim that is not executed.",
+                "repair_scope": "standard",
+                "resources": {
+                  "reboards": 1
+                },
+                "root_cause": "The independent code review (original response retained at out/dispatch/retained-failures/code-review-1.json) rejected both treatments on six linked defects: the arm's forearm, elbow and wrist lie through the test rig's ram, crosshead and dial so the test reads as the ram striking the gripper; the one alloy sample is not conserved because s4 ends clamped in the rig, s5 shows a different cold bar, s6 re-lifts a new glowing bar and repeats s4-event-4, and s9 resets again; the s2 sort-and-stop gesture is cut at about 68 percent with only two cards on the tray; the PLANNED marker and planned disclosure are absent in s6 and s9 so the closing image presents the planned line as operating; the signature pour gets a 0.925 second wide and the settled answer holds only about 0.3 seconds; and treatment B is A re-photographed with inert camera strategies rather than a different visual argument."
+              },
+              "repair_plan_sha256": "2fc7fb6d9fdb94e1697b9a3fe30fe78ecb9b7fe84bab51c4d4503e67be13a454",
+              "repair_revision": "fb8e967b8e9cd2e9456609a9179a9c103430c258e9140e092a3dd9910405ccdf",
+              "repair_scope": "standard",
+              "resource": "repair_batch"
+            },
+            {
+              "at": "2026-10-25T10:03:01.989143Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "corrected treatments, code re-review (review 2 of 5)",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "storyboard_critics": 1
+              }
+            },
+            {
+              "at": "2026-10-25T10:15:32.786889Z",
+              "authorization": "diagnosed repair within recorded run envelope",
+              "baselines": [
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round2/opening-a.json",
+                  "before_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
+                  "path": "{REPO}/out/dispatch/opening-a.json"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round2/opening-b.json",
+                  "before_sha256": "3712ba2506ff032b8f349f64ee6c1add43c57194955f77971e1d5065fadaff1a",
+                  "path": "{REPO}/out/dispatch/opening-b.json"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round2/storyboard.json",
+                  "before_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
+                  "path": "{REPO}/out/dispatch/storyboard.json"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round2/modern_episode_registry.json",
+                  "before_sha256": "f6260613a2fdc26084c03c62956384ad0462a6605fca2ab2a0bf1a736bcd06da",
+                  "path": "{REPO}/config/modern_episode_registry.json"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round2/AlloyFoundryFilm.tsx",
+                  "before_sha256": "873a5dc33cba97c36d7c673a61132c29b77be2c02b05dc1b3a71daf2aa506d6c",
+                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round2/FoundryArmHero.tsx",
+                  "before_sha256": "273560ff2975d1fd40d5fe50f3825634238f4a6c655090498b5f7bb3ca7c9432",
+                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx"
+                },
+                {
+                  "before_path": "{REPO}/out/dispatch/baselines/round2/FoundrySupport.tsx",
+                  "before_sha256": "a654b1c24964bb19e23e2312965de74e1f94d965dc7d351c4d1f869d87f94e78",
+                  "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx"
+                }
+              ],
+              "director_identity": "claude-sonnet-5-5 director, this session",
+              "failure_family": "continuity",
+              "failure_sha256": "c4d9f740d20503b07a49785903827ff6a6890c1df4a696ed6208cbf137dd8365",
+              "frozen_inputs": null,
+              "grants": {
+                "reboards": {
+                  "from": 10,
+                  "to": 10
+                },
+                "storyboard_critics": {
+                  "from": 7,
+                  "to": 7
+                }
+              },
+              "kind": "repair_started",
+              "mechanism_id": "foundry-sample-line-v1",
+              "plan_identity": null,
+              "plan_sha256": "ca470fdfc006bcfe0265715b55b5da82c2b4201d99cc39aab102a2659fa3c3a2",
+              "progress_replacement_required": false,
+              "repair_scope": "standard"
+            },
+            {
+              "at": "2026-10-25T10:15:38.310753Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "corrective reboard after accepted begin-repair",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "reboards": 1
+              }
+            },
+            {
+              "at": "2026-10-25T10:54:12.819080Z",
+              "grants": {},
+              "kind": "repair_authorized",
+              "opening_reboard": {
+                "reservation_event_index": 27,
+                "reservation_sha256": "b232f2a69983b38526c495dbc35d4a17da8ca58cfc9b97e80bf9593e682b3311",
+                "start_event_index": 26
+              },
+              "repair_plan": {
+                "changed_inputs": [
+                  {
+                    "after_sha256": "954e660bba70854835a8d2c0e2656dfb18535dd017d2ee282e1bd1849c74288c",
+                    "before_path": "{REPO}/out/dispatch/baselines/round2/opening-a.json",
+                    "before_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
+                    "path": "{REPO}/out/dispatch/opening-a.json"
+                  },
+                  {
+                    "after_sha256": "b663c1fcbb898241f25bc1cd2b66825dd38f4b2d922cf57c889f3d49ad0aa9dd",
+                    "before_path": "{REPO}/out/dispatch/baselines/round2/opening-b.json",
+                    "before_sha256": "3712ba2506ff032b8f349f64ee6c1add43c57194955f77971e1d5065fadaff1a",
+                    "path": "{REPO}/out/dispatch/opening-b.json"
+                  },
+                  {
+                    "after_sha256": "954e660bba70854835a8d2c0e2656dfb18535dd017d2ee282e1bd1849c74288c",
+                    "before_path": "{REPO}/out/dispatch/baselines/round2/storyboard.json",
+                    "before_sha256": "7bb91f36637f9ff7200b7af8d0896b5a580edde6a7239d028c0480812ca5604e",
+                    "path": "{REPO}/out/dispatch/storyboard.json"
+                  },
+                  {
+                    "after_sha256": "947c33fc2bcad7a8905a3d50819f1edffbd1c28a34e5adb9f3c9eb13b5831cce",
+                    "before_path": "{REPO}/out/dispatch/baselines/round2/modern_episode_registry.json",
+                    "before_sha256": "f6260613a2fdc26084c03c62956384ad0462a6605fca2ab2a0bf1a736bcd06da",
+                    "path": "{REPO}/config/modern_episode_registry.json"
+                  },
+                  {
+                    "after_sha256": "19e79b160bfc38376b913be49382c492a3b726b20b911ffbe9d070c4d6d70ec5",
+                    "before_path": "{REPO}/out/dispatch/baselines/round2/AlloyFoundryFilm.tsx",
+                    "before_sha256": "873a5dc33cba97c36d7c673a61132c29b77be2c02b05dc1b3a71daf2aa506d6c",
+                    "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/AlloyFoundryFilm.tsx"
+                  },
+                  {
+                    "after_sha256": "8a46715fdff9371d645f78dded6f105280289c85ced4915c8a097ef9ed8355a6",
+                    "before_path": "{REPO}/out/dispatch/baselines/round2/FoundryArmHero.tsx",
+                    "before_sha256": "273560ff2975d1fd40d5fe50f3825634238f4a6c655090498b5f7bb3ca7c9432",
+                    "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundryArmHero.tsx"
+                  },
+                  {
+                    "after_sha256": "a654b1c24964bb19e23e2312965de74e1f94d965dc7d351c4d1f869d87f94e78",
+                    "before_path": "{REPO}/out/dispatch/baselines/round2/FoundrySupport.tsx",
+                    "before_sha256": "a654b1c24964bb19e23e2312965de74e1f94d965dc7d351c4d1f869d87f94e78",
+                    "path": "{REPO}/video-engine/src/modern/episodes/2026-10-25/FoundrySupport.tsx"
+                  }
+                ],
+                "director_identity": "claude-sonnet-5-5 director, this session",
+                "expected_visible_result": "In s9 the clamp pads stay above the mold, the crucible and its tilt stay in the open space between the left clamp rod and the right column, the bent bar leaves without crossing a column, and the settled answer (dimmed card beside the full glowing mold) holds for about a second with no overlapping parts. The next candidate's crucible arrives from the furnace after its recipe card writes. In s6 the clamps visibly tighten on the cooling sample in the first second. B's text, advances and flat_shots reasons match what is drawn.",
+                "failure_evidence": "{REPO}/out/dispatch/retained-failures/code-review-2.json",
+                "failure_evidence_sha256": "c4d9f740d20503b07a49785903827ff6a6890c1df4a696ed6208cbf137dd8365",
+                "failure_family": "continuity",
+                "mechanism_change": "The s9 pour is restaged on a fixed rig layout: clamps stay open for the mold, the crucible and its tilt path live in clear space, and the next candidate's crucible is carried in after its card. The s6 opening gets a physical clamp-tighten action and B's prose is rewritten to its executed ledger and plan worlds. The sample line, the plan-view treatment B and the PLANNED marking stay as corrected in the first batch.",
+                "mechanism_id": "foundry-sample-line-v1",
+                "repair": "Resume the existing scene builder for one consolidated correction on the unchanged claims, script, clauses and story_art request identities: in s9 leave the clamps open (or stop them at the mold's rim height) so the pads never enter the mold, move the pour station and carriage so the upright and tipped crucible stay inside the rig's free space between the left clamp rod and the right column, route the outgoing bent bar and bin shelf clear of the right column, and re-verify the A melt-pour wide, the melt-hold detail and B's section inset at the composed camera and drift transforms; make s9 start with the crucible leaving the furnace after the new card writes so the next candidate's melt follows its suggestion; give s6's opening a visible action (the clamps tighten on the cooling sample as the question mark dissolves) so the first 1.5 seconds carry new information; rewrite B's on_screen, what_moves and story_contract advances to describe the ledger and plan B draws; and make the flat_shots reasons describe the executed slow drift.",
+                "repair_scope": "standard",
+                "resources": {
+                  "reboards": 1
+                },
+                "root_cause": "The independent code re-review (original response retained at out/dispatch/retained-failures/code-review-2.json) accepted every first-review correction in code and rejected both treatments on one remaining construction fault in the shared s9 rig choreography: the bar-height clamp pads re-close into the 30 unit mold and its melt, the upright and tipped crucible occupy the left column and left clamp rod, and the bent bar and bin shelf cross the right column, so the signature pour and the held closing frame are staged with objects inside each other. It also recorded non-blocking items: B's scene prose and story_contract advances still describe A's bench, the board's flat_shots reasons do not match the executed camera drift, s9 starts with the next candidate's melt already held before its suggestion, and s6 opens with about 1.5 seconds where only the bar's colour changes."
+              },
+              "repair_plan_sha256": "bed20b1733daaad37d4f6139ec79bc691819650b2a239d819a263161dbcb16ea",
+              "repair_revision": "f5bceda6f8d253f7f4635e8e1cefc7538ff7a6c1fc896946c395406265bfb422",
+              "repair_scope": "standard",
+              "resource": "repair_batch"
+            },
+            {
+              "at": "2026-10-25T10:54:46.971335Z",
+              "completion_progress_policy": "2026-10-20",
+              "kind": "reserved",
+              "note": "second correction, code re-review (review 3 of 5)",
+              "preflight_identity": null,
+              "publication_epoch": "eb0a5e50b09b4214bb51bb1fe41ed51c",
+              "publication_owner_sha256": "3ea1a36f6b71911a74a92924d005b6cb751f2586ec578700194a03f1169f981c",
+              "resources": {
+                "storyboard_critics": 1
+              }
+            },
+            {
+              "at": "2026-10-25T11:33:21.702962Z",
+              "evidence": {
+                "envelope_sha256": "984ba66d20973a693089cfa65645f6d419845748462dd51d814142660492fb38",
+                "failure_event_index": 28,
+                "failure_event_sha256": "bc51d81d89cd781e5db5f8ce21ede16ddb3b5a19f64a33d5a0e4daa5bd57f72d",
+                "files": {
+                  "out/dispatch/retained-failures/code-review-2.json": "c4d9f740d20503b07a49785903827ff6a6890c1df4a696ed6208cbf137dd8365",
+                  "out/dispatch/storyboard_critic.json": "1bd22f951802569c2dec3314362a70847f4fe32633187b81ef6d2898d219353b",
+                  "out/dispatch/worker-dispatch-claims/0c6ecd91cedcb87b95798725a65f36535735d0700d2b481a3ff4d934ef4f22f5-validator.json": "574cf7fbca3e75f16b5815a7c0e1f249757abbc926b73c9d59548231c3dad5e9",
+                  "out/dispatch/worker-dispatch-claims/1291d627f7e5ec91e1a13e0718aad581adcc936bcc7af68cc3baf31eaeff8a9b-validator.json": "bf38b030f17ca724adcf433fb3490d109aa952894b65fde6ba121d21415c6610",
+                  "out/dispatch/worker-dispatch-claims/365c9c6bff3e5eea3572698e56d42b8bf0d2d5532c717523769e77853dd4b3a8-validator.json": "9a672aac433d3e75a2bbd246ddf4232eb9e280d67f512b7f2096a6d5bb1eb076",
+                  "out/dispatch/worker-dispatch-claims/3d644ffc1c8a90f1ff762d198d0b2f87f83d3639dd86396968633eec8c3b3ec9-scene-builder.json": "cccf508556fba8e68a3ae69c3d9dc3e41e0fac4cf0c4935799c25440757f49c3",
+                  "out/dispatch/worker-dispatch-claims/44fb8bca71f56e8c117d8c2734739d874210446b06ef17a7d411faf368f9c429-storyboard-critic.json": "78f62478ef54af6bb2d0e6d1e8e51f9d785fddce75eba2820e94dbc5aabe76e5",
+                  "out/dispatch/worker-dispatch-claims/5f7de0ab8751a644a41ea150c5754b50cf62f1964647be1d05a486e79044340c-scene-builder.json": "0c17f6bc507172c9253affc080abb370460a0fc91023cd54cebd0a20d24ab2d9",
+                  "out/dispatch/worker-dispatch-claims/82cf6feeaa3551e68ec1f86aa3f3d9f51506e5e29479c8f9206951ef3a252a36-scene-builder.json": "8e6de69acc4d6b9e505366ed9ca48598b710b043cca907727e2a12414b08eaa7",
+                  "out/dispatch/worker-dispatch-claims/8808195166439df20decabd88d4b888d56af864b75fa6abdce60b28e112d019f-researcher.json": "10e0bd0c2084d586e5a1e46c375b9d83a633990466f09f8f5c618ed43038a0b0",
+                  "out/dispatch/worker-dispatch-claims/8d0b301b34756c0559bf5b0542ac08113d56964ae7c705bc8d9d52a1018e4d1a-validator.json": "276403c928cef47a03242b89551f6debbe0f985102e22499982f86131c532686",
+                  "out/dispatch/worker-dispatch-claims/b563be62059be3a49a5f52d13fa86d971a7a1f192a3a95a82efa95793eb81f38-researcher.json": "acd7205203a8869a0e6505cb068ffba6101258d2c44ea22bcf92214cfd584314",
+                  "out/dispatch/worker-dispatch-claims/b614d114482c4fa946c7d9004e1b4b0de0a4e8222104114aca00db362852dfb4-storyboard-critic.json": "2af9448b6575f6024a872a4a82ea064e375309b6086a76646a2dfba3ec1fdb42",
+                  "out/dispatch/worker-dispatch-claims/d8c0598cb6ee484a594b853193380a86c49393624b96cfd00d1a302c693f7f6a-storyboard-critic.json": "2c1af00d438a59587f766e0cd380a098d81c15879783bf6784a290644624206c"
+                },
+                "ledger_prefix_sha256": "be5a9c2aeb99c19bb554f81fc4c8f2bef2df974df88f91b565b478068326fb82",
+                "paid_usage_sha256": "0e1d12307a95768a1f6afee83f2cc61fc83d766b5f4c025ee30c9c268009cd32",
+                "plan": {
+                  "failure_evidence": "{REPO}/out/dispatch/retained-failures/code-review-2.json",
+                  "reason": "unfundable-required-review-before-film"
+                },
+                "production_finished": false,
+                "shipment_authorized": false
+              },
+              "kind": "hard_limit_expenditure_closed"
+            }
+          ],
+          "resource_envelope": {
+            "audiovisual_reviews": 43,
+            "cleanup_renders": 3,
+            "full_renders": 14,
+            "image_generations": 6,
+            "panel_rounds": 9,
+            "preflight_renders": 16,
+            "reboards": 10,
+            "reported_tokens": 900000,
+            "rescue_renders": 2,
+            "research_agents": 4,
+            "scorer_calls": 27,
+            "storyboard_critics": 7,
+            "tts_calls": 12,
+            "validator_agents": 4,
+            "voice_directors": 2
+          },
+          "usage": {
+            "audiovisual_reviews": 1,
+            "cleanup_renders": 0,
+            "full_renders": 0,
+            "image_generations": 0,
+            "panel_rounds": 0,
+            "preflight_renders": 0,
+            "reboards": 3,
+            "reported_tokens": 50,
+            "rescue_renders": 0,
+            "research_agents": 3,
+            "scorer_calls": 0,
+            "storyboard_critics": 3,
+            "tts_calls": 0,
+            "validator_agents": 4,
+            "voice_directors": 0
+          }
+        },
+        "production_finished": false,
+        "repo_root": "/home/user/dispatch-editions/2026-10-25/TexasAIDispatch",
+        "run_id": "2026-10-25",
+        "schema": "dispatch_failed_edition/1",
+        "shipment_authorized": false,
+        "source_pin": "b2b40256c146ba278fa8cc4da9b0fb0c281eacc4"
       }
     }
   },
