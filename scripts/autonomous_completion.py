@@ -661,11 +661,15 @@ def replay(state):
                 if errors:
                     return effective, errors
                 effective = dict(row['new_envelope'])
-            elif kind in ("owner_review_grant", "owner_validator_grant"):
+            elif kind in ("owner_review_grant", "owner_validator_grant", "owner_preflight_grant"):
                 if kind == 'owner_validator_grant':
                     from repair_guard import validator_grant_problems
                     if validator_grant_problems(state):
                         return effective, ['validator capacity grant is invalid']
+                if kind == 'owner_preflight_grant':
+                    from repair_guard import preflight_grant_problems
+                    if preflight_grant_problems(state):
+                        return effective, ['preflight capacity grant is invalid']
                 effective[row["resource"]] += row["additional_calls"]
             elif kind in {EVENT, NARRATION_READY, VALIDATION_READY}:
                 if not adopted or row.get("run_id") != state.get("run_id"):
