@@ -158,7 +158,7 @@ def validate_event(state, row, index, effective=None):
             raise ValueError('finite complete-path allowance chain')
         later = state['events'][index + 1:]
         if any(e.get('kind') in {EVENT, 'mandatory_completion_grant', 'owner_review_grant',
-                                'owner_validator_grant'} for e in later):
+                                'owner_validator_grant', 'owner_preflight_grant'} for e in later):
             raise ValueError('the manual path cannot renew capacity')
         retries = [(i, e) for i, e in enumerate(state['events']) if e.get('kind') == RETRY_EVENT]
         if len(retries) > 1 or any(validate_retry_event(state, e, i) for i, e in retries):

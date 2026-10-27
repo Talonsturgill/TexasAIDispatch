@@ -14,8 +14,8 @@ def sha(text):
 
 
 def export(state):
-    from repair_guard import envelope_digest, owner_grant_problems, validator_grant_problems
-    if owner_grant_problems(state) or validator_grant_problems(state):
+    from repair_guard import envelope_digest, owner_grant_problems, validator_grant_problems, preflight_grant_problems
+    if owner_grant_problems(state) or validator_grant_problems(state) or preflight_grant_problems(state):
         raise ValueError('private owner grant audit failed before public export')
     result = copy.deepcopy(state)
     retained = {}
@@ -28,15 +28,16 @@ def export(state):
                                    'owner_text_sha256', 'source_reference_sha256'))):
             raise ValueError('public owner-message provenance is invalid')
         retained[index] = row
-    previous = None
+    previous = {}
+    chained = {'owner_review_grant', 'owner_preflight_grant'}
     redactions = []
     attestations = set()
     for index, grant in enumerate(result['events']):
-        if grant.get('kind') not in {'owner_review_grant', 'owner_validator_grant'}:
+        if grant.get('kind') not in {'owner_review_grant', 'owner_validator_grant', 'owner_preflight_grant'}:
             continue
         original = grant['authorization_json']
         authorization = json.loads(original)
-        role = 'validator' if grant['kind'] == 'owner_validator_grant' else 'storyboard critic'
+        role = {'owner_validator_grant': 'validator', 'owner_preflight_grant': 'preflight render'}.get(grant['kind'], 'storyboard critic')
         attestation = ('Owner approved exactly ' + str(grant['additional_calls'])
                        + ' additional ' + role + ' calls for this edition. '
                        'Private instruction retained locally with its original digest.')
@@ -51,8 +52,8 @@ def export(state):
                     or not re.fullmatch(r'private-approval-sha256:[0-9a-f]{64}', authorization['approval_id'])):
                 raise ValueError('retained public owner attestation changed')
             redactions.append(retained[index])
-            if grant['kind'] == 'owner_review_grant':
-                previous = grant
+            if grant['kind'] in chained:
+                previous[grant['kind']] = grant
             continue
         redactions.append({'event_index': index, 'original_event_sha256': envelope_digest(grant),
                            'original_authorization_sha256': sha(original),
@@ -61,18 +62,18 @@ def export(state):
         authorization['owner_text'] = attestation
         authorization['source_message_reference'] = 'private-source-sha256:' + sha(authorization['source_message_reference'])
         authorization['approval_id'] = 'private-approval-sha256:' + sha(authorization['approval_id'])
-        if grant['kind'] == 'owner_review_grant' and previous is not None:
-            authorization['previous_grant_sha256'] = envelope_digest(previous)
+        if grant['kind'] in chained and previous.get(grant['kind']) is not None:
+            authorization['previous_grant_sha256'] = envelope_digest(previous[grant['kind']])
         grant['authorization_json'] = json.dumps(authorization, sort_keys=True)
         grant['authorization_sha256'] = sha(grant['authorization_json'])
         grant['approval_id'] = authorization['approval_id']
-        if grant['kind'] == 'owner_review_grant':
-            previous = grant
+        if grant['kind'] in chained:
+            previous[grant['kind']] = grant
     result['public_export'] = {'schema': 'dispatch_public_ledger/1',
         'original_private_state_sha256': envelope_digest(state),
         'description': 'Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.',
         'owner_message_redactions': redactions}
-    if owner_grant_problems(result) or validator_grant_problems(result):
+    if owner_grant_problems(result) or validator_grant_problems(result) or preflight_grant_problems(result):
         raise ValueError('public grant amounts or audit chain changed')
     return result
 
@@ -145,7 +146,7 @@ def historical_path_projection(state, public, origins, root, codec):
         grant = state['events'][origin['event_index']]
         # Owner-message exports have their own irreversible, audited redactions.
         # They cannot establish a new filesystem projection authority here.
-        if grant.get('kind') in {'owner_review_grant', 'owner_validator_grant'}:
+        if grant.get('kind') in {'owner_review_grant', 'owner_validator_grant', 'owner_preflight_grant'}:
             continue
         fields = codec.grant_text_fields(grant)
         if (codec.grant_anchor(grant) != origin['authorization_sha256']
@@ -240,7 +241,7 @@ def board_pointer_projection(state, public, root, codec):
     workspaces = set()
     for origin in codec.grant_roots(state,root):
         source = state['events'][origin['event_index']]
-        if source.get('kind') in {'owner_review_grant','owner_validator_grant'}:
+        if source.get('kind') in {'owner_review_grant','owner_validator_grant','owner_preflight_grant'}:
             continue
         fields = codec.grant_text_fields(source)
         if any(origin['root']+suffix in source[key] for key in fields
