@@ -800,7 +800,7 @@ class FinalPhoneReservation(unittest.TestCase):
 class LivePolicy(unittest.TestCase):
     def test_live_policy_records_the_owner_lift(self):
         live = json.loads((Path(__file__).resolve().parents[1] / 'config/review_limit.json').read_text())
-        self.assertEqual(10, live['max_review_rounds'])
+        self.assertEqual(20, live['max_review_rounds'])
         self.assertIn('October 26th', live['authorization'])
         self.assertIs(False, live['extensions_allowed'])
 
