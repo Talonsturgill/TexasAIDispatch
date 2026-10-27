@@ -426,10 +426,16 @@ class RecoveryTest(unittest.TestCase):
         self.assertFalse(life.allowance_problems(after))
         self.assertTrue(c.reserve(self.path, {"storyboard_critics": 5})[0])
         self.assertFalse(c.reserve(self.path, {"storyboard_critics": 1})[0])
-        for changes in ({}, {"approval_id": "third", "source_message_reference": "third",
-                              "owner_text": "Another explicit grant", "previous_grant_sha256": g.envelope_digest(after["events"][-1])}):
-            approval.write_text(json.dumps({**data, **changes}))
-            self.assertFalse(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        # A replay of an earlier owner instruction is still refused. The owner raised the bound on
+        # October 27th to six distinct, chained grants, so a genuinely new instruction is accepted.
+        approval.write_text(json.dumps(data))
+        self.assertFalse(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        approval.write_text(json.dumps({**data, "approval_id": "third", "source_message_reference": "third",
+                                        "owner_text": "Another explicit grant",
+                                        "previous_grant_sha256": g.envelope_digest(after["events"][-1])}))
+        self.assertTrue(c.grant_owner_review(self.path, approval, failure, 2, g.OWNER_CONFIRMATION)[0])
+        grants = [e for e in c.read_state(self.path)["events"] if e.get("kind") == "owner_review_grant"]
+        self.assertEqual(3, len(grants))
 
     def test_second_grant_rejects_replays_missing_chain_and_tampering(self):
         before, failure, approval, data = self.second_owner_fixture()

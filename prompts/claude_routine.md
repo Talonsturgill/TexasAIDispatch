@@ -872,3 +872,7 @@ denies unreadable, unresolved or unrelated --props and --board inputs and placeh
 authorized command once, so the next capture needs a new reservation. Builders never capture. Before the first
 real capture of a run, prove the hook is active with a harmless capture-form command that must be denied,
 and keep that denial as evidence.
+
+## Before pushing a tooling change
+
+Run `python scripts/ci_preview.py` from the changed checkout. It runs every suite the change can reach in CI's environment and names only the failures that are new against origin/main, so a tooling pull request does not spend 13 minute CI cycles finding what a local run shows. Exit 0 means no new failure. It charges nothing.
