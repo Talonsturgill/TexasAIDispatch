@@ -1,4 +1,49 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round3/opening-a.json",
+        "before_sha256": "9c71f0c5a0720e77b0e4f222db279b3610419774e3ec823654248c527066592a",
+        "path": "{REPO}/out/dispatch/opening-a.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round3/opening-b.json",
+        "before_sha256": "96f9025f3d464636ef1cc31aa329bc5bf7598f6ecd21a115b4561eee7431ca0c",
+        "path": "{REPO}/out/dispatch/opening-b.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round3/storyboard.json",
+        "before_sha256": "9c71f0c5a0720e77b0e4f222db279b3610419774e3ec823654248c527066592a",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round3/modern_episode_registry.json",
+        "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+        "path": "{REPO}/config/modern_episode_registry.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round3/OrderPassFilm.tsx",
+        "before_sha256": "1afc722bad4eb47d7e7108a1d72adf79c36fb2168eab7aeb27e5e8d3f823c86f",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round3/OrderRigHero.tsx",
+        "before_sha256": "4b49cb0cb109e5537c9fca3ca7b7667b669b338764391d9d0ac951b74193bede",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round3/RestaurantSupport.tsx",
+        "before_sha256": "9774a9870023e877c6655fc7ca18a156f4dd7a86c54402fbcdff124798195176",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx"
+      }
+    ],
+    "failure_sha256": "3a15920f2e3915f8cff30b5e4cdacaa7771847ac2f676c816605f602fb622e05",
+    "plan": "{REPO}/out/dispatch/repair-plan-3.json",
+    "plan_sha256": "5950c0bb86da3c3680fea8ff7483f4d676c8afcc0f4a7a7e40a5ed2cad04fffc",
+    "progress_replacement_required": false,
+    "reboards_before": 3,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -749,6 +794,67 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-10-28T06:29:43.116302Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round3/opening-a.json",
+          "before_sha256": "9c71f0c5a0720e77b0e4f222db279b3610419774e3ec823654248c527066592a",
+          "path": "{REPO}/out/dispatch/opening-a.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round3/opening-b.json",
+          "before_sha256": "96f9025f3d464636ef1cc31aa329bc5bf7598f6ecd21a115b4561eee7431ca0c",
+          "path": "{REPO}/out/dispatch/opening-b.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round3/storyboard.json",
+          "before_sha256": "9c71f0c5a0720e77b0e4f222db279b3610419774e3ec823654248c527066592a",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round3/modern_episode_registry.json",
+          "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+          "path": "{REPO}/config/modern_episode_registry.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round3/OrderPassFilm.tsx",
+          "before_sha256": "1afc722bad4eb47d7e7108a1d72adf79c36fb2168eab7aeb27e5e8d3f823c86f",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round3/OrderRigHero.tsx",
+          "before_sha256": "4b49cb0cb109e5537c9fca3ca7b7667b669b338764391d9d0ac951b74193bede",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round3/RestaurantSupport.tsx",
+          "before_sha256": "9774a9870023e877c6655fc7ca18a156f4dd7a86c54402fbcdff124798195176",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "human-performance",
+      "failure_sha256": "3a15920f2e3915f8cff30b5e4cdacaa7771847ac2f676c816605f602fb622e05",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "order-pass-finish-v3",
+      "plan_identity": null,
+      "plan_sha256": "5950c0bb86da3c3680fea8ff7483f4d676c8afcc0f4a7a7e40a5ed2cad04fffc",
+      "progress_replacement_required": false,
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -772,7 +878,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "c00591e701426467205883bee1852a5bb6bf80526b72d04acc2d5e051f976051",
+    "original_private_state_sha256": "748f2c909e28d83e8fbbeb03075f2d0afbf3b9231e13763fae9af4f2adf21710",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -800,7 +906,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-28T05:25:48.272152Z",
+  "updated_at": "2026-10-28T06:29:43.116422Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
