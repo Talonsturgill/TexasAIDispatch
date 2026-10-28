@@ -1,0 +1,22 @@
+{
+ "root_cause": "The fifth review (independent code review of both corrected treatments, original response retained at out/dispatch/code-review-5-handback.json) passed treatment B and returned REVISE for treatment A with one blocking defect that earlier actual-film reviews 3 and 4 also found and no batch repaired. In A's s1 door-apron shot (0.0 to 2.455 s) only the door leaf closes and the bell and apron swing in an empty room, so no departure is performed and the opening narration 'when the only server walked out' has no visible walkout and the first frame reads static. Both treatments share one renderer, so any fix invalidates both code reviews. Non-blocking notes carried into the same pass: in A's closing jar-no-record hold the two tags cover most of the jar and its coins, and in s7 circle-detail the pen hand's forearm stays on the card until about 45.9 s.",
+ "repair": "Resume the scene builder for one consolidated correction in the shared renderer on unchanged claims, script, clauses, boards and story_art identities, with no story, narration or event change and without changing any treatment B construction that already passed: in A's s1 door-apron perform a visible walkout within the first 1.5 s at the eye level of that shot, for example the server's own hand lifting off the apron hook and withdrawing toward the door, or an eye-level footprint trail out through the door, so that a viewer sees someone leave before the door shuts and the apron is not already swinging at frame 0; keep the jar and coins readable in A's final hold by shortening or offsetting the two tags; and let the s7 pen hand clear the card sooner. Run the builder proof and read its pages before any paid review.",
+ "mechanism_change": "A's s1 changes from a door and apron that only swing in an empty room to a performed departure at the host stand, the A closing tags change from stacked tags covering the jar to offset tags that leave the jar and coins readable, and the s7 pen forearm changes from lingering on the card to clearing it.",
+ "expected_visible_result": "In A's first 2.4 seconds a viewer sees the server's apron lifted off and carried out through the door, or a trail leaving through it, before the door shuts and the phone rings. A's final hold shows the jar, coins and both tags legibly.",
+ "failure_evidence": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-a-critic.json",
+ "failure_evidence_sha256": "29b6767d1fde221009130480010f2b039cd98111ac0725bf5b846dbb524f409a",
+ "repair_scope": "standard",
+ "mechanism_id": "order-pass-a-walkout-v4",
+ "failure_family": "human-performance",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "changed_inputs": [
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round4/OrderPassFilm.tsx",
+   "before_sha256": "3962d4963544e5996b2bd3a3a43e5d6a5164a352db64e1e14503ba246fbeb6ac"
+  }
+ ],
+ "resources": {
+  "reboards": 1
+ }
+}

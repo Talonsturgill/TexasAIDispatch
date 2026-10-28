@@ -1,19 +1,19 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-10-28T07:06:29.565600+00:00",
-  "note": "fifth code review dispatched (critics 5)",
+  "saved_at": "2026-10-28T07:34:55.151704+00:00",
+  "note": "blocked: critic envelope, repair-plan-4 prepared, awaiting owner grant",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-26T07:17:34.391615Z",
   "repo_root": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch",
-  "source_pin": "3d4ef0675c13d0eacd71ad412dc8953bdffb58b3",
+  "source_pin": "04b9d2023522bab462efd8443ca60c0e95f4e003",
   "source_branch": "claude/dispatch-2026-10-26",
   "source_closure": {
     "root": "video-engine",
     "files": 364,
-    "sha256": "d100adb387ce8ccb686b28290371f3231e15c93577bdfdbd975f2794efbfe3a6"
+    "sha256": "8e1b900d5875ceed0f58d4736735278867d9ce10d8021bc4f080f6737adf9137"
   },
   "deleted_source": [],
   "ledger_sha256": "3b6c078e44f74e2372fb69adf22c8f5aa8d64a1530d6a1edb777a93439005a82",
@@ -40,8 +40,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "3ad5f033ae8f05a0ebbac25eba3443e6498e47deb2711569ec56aab31d3260ad",
-      "size": 4128
+      "sha256": "1917ec6daec0ee48e34d6f54145a139dd5b0b8b81836ebc46b0d22b66bdebfc5",
+      "size": 6348
     },
     {
       "path": "out/dispatch/artwork-originals/authored-067bf3fc-de09-47cc-9e9b-28394a4191bc.tsx",
@@ -260,6 +260,48 @@
       "size": 179109
     },
     {
+      "path": "out/dispatch/baselines/round4/OrderPassFilm.tsx",
+      "class": "scratch",
+      "sha256": "3962d4963544e5996b2bd3a3a43e5d6a5164a352db64e1e14503ba246fbeb6ac",
+      "size": 76902
+    },
+    {
+      "path": "out/dispatch/baselines/round4/OrderRigHero.tsx",
+      "class": "scratch",
+      "sha256": "2483fb962188398dfeb820bcd3dd72d8e25911e67a6a368e8210ff28fd2ee49e",
+      "size": 47938
+    },
+    {
+      "path": "out/dispatch/baselines/round4/RestaurantSupport.tsx",
+      "class": "scratch",
+      "sha256": "61ef74982f5e6e6f9558f9975aa536e99400174f976d1b075898f8117e2593eb",
+      "size": 63094
+    },
+    {
+      "path": "out/dispatch/baselines/round4/modern_episode_registry.json",
+      "class": "scratch",
+      "sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+      "size": 75291
+    },
+    {
+      "path": "out/dispatch/baselines/round4/opening-a.json",
+      "class": "scratch",
+      "sha256": "e88d7911c7a4b93944d82bbd5af6ae1d897c77c6e963262dbc9997708e45857d",
+      "size": 179109
+    },
+    {
+      "path": "out/dispatch/baselines/round4/opening-b.json",
+      "class": "scratch",
+      "sha256": "eb378563c1abe9c71b6365fe5c9dc0559bafdad97409597f254bdb6144cfae97",
+      "size": 179145
+    },
+    {
+      "path": "out/dispatch/baselines/round4/storyboard.json",
+      "class": "scratch",
+      "sha256": "e88d7911c7a4b93944d82bbd5af6ae1d897c77c6e963262dbc9997708e45857d",
+      "size": 179109
+    },
+    {
       "path": "out/dispatch/builder-assignment.json",
       "class": "scratch",
       "sha256": "3dd07fa7a8220db13299e0631ec4343213870b2dafefd26e74a24c1d0122d957",
@@ -462,6 +504,18 @@
       "class": "scratch",
       "sha256": "6c3814eca225e62e9380a6a23fa102073551b149f5e8bdd1fdf5db8b02e23618",
       "size": 26193
+    },
+    {
+      "path": "out/dispatch/code-review-5-completion.json",
+      "class": "scratch",
+      "sha256": "f05d9ef196200d3d3207ad3d9d3437e737f4ace9376739f44b474319db3e43ef",
+      "size": 60268
+    },
+    {
+      "path": "out/dispatch/code-review-5-handback.json",
+      "class": "scratch",
+      "sha256": "1671e173e46b8cbde46fddc3ba56792d9e0a3a15f60dd259e939642983e181be",
+      "size": 28489
     },
     {
       "path": "out/dispatch/critic-assignment-2.json",
@@ -4808,6 +4862,12 @@
       "size": 438
     },
     {
+      "path": "out/dispatch/native-completion-waits/6d7a26ee7ee1c8999a71d7cd70395bef37099ad89da098b42940db2b14cdac10.json",
+      "class": "scratch",
+      "sha256": "6d7a26ee7ee1c8999a71d7cd70395bef37099ad89da098b42940db2b14cdac10",
+      "size": 433
+    },
+    {
       "path": "out/dispatch/native-completion-waits/88321f9c1ded0044da3766448cb8bc1591a9ba1d4925418db1318db1688463b4.json",
       "class": "scratch",
       "sha256": "88321f9c1ded0044da3766448cb8bc1591a9ba1d4925418db1318db1688463b4",
@@ -4850,10 +4910,22 @@
       "size": 78126
     },
     {
+      "path": "out/dispatch/native-critic-completions/d9b08753edc30ba990db4e86e62d222899de5b433af016342ab888f2cadf86e3-d37034170269e558260522a6b6fb5cf523ffd5f088b5cb7b2b5f3d71ed24809a.json",
+      "class": "scratch",
+      "sha256": "bd3f6c36da406dacdb7f36dcb0eae692546b9383951eddd259d00866405af6b3",
+      "size": 62460
+    },
+    {
       "path": "out/dispatch/native-critic-completions/handback-43a2b4af56379e8f65426982b9403e43eddba2379422c76a15663efd9dd135cf-69328625016962525105d8e43088df74af615905d7d66523af246c06973f1719.json",
       "class": "scratch",
       "sha256": "47e95220d1ccf2ef93abd5d8c45ad2567e83e15f6f96461a036b0b9ce9686f66",
       "size": 36753
+    },
+    {
+      "path": "out/dispatch/native-critic-completions/handback-5ac30dbe3e11d1b1566429d109938839b7af81115a9c6a0abfa6a1c15d651982-065580ffee498b82db6cb035d4dc1b5460bfcb151bb96ea50ea61cc69787414b.json",
+      "class": "scratch",
+      "sha256": "b6328a7b908bfa97445e69ce5a887d57921b6598d2e4c07fdada27befa30f53f",
+      "size": 29504
     },
     {
       "path": "out/dispatch/native-critic-completions/handback-ae004070e59e58cf4e8b29f00029efcbc2b9377a3f07d827d4187474b0174208-2b0beca42a18929f981d9a3563b9b80aeba164c9a5f446492010568cdf0d30c2.json",
@@ -4882,8 +4954,8 @@
     {
       "path": "out/dispatch/opening-a-critic.json",
       "class": "scratch",
-      "sha256": "866792511d1f0c1b9d3997d4b49ecd11cd8ebe1602107f92b7efe9a5576c98bf",
-      "size": 3554
+      "sha256": "29b6767d1fde221009130480010f2b039cd98111ac0725bf5b846dbb524f409a",
+      "size": 13441
     },
     {
       "path": "out/dispatch/opening-a.json",
@@ -4894,8 +4966,8 @@
     {
       "path": "out/dispatch/opening-b-critic.json",
       "class": "scratch",
-      "sha256": "9e56e0afa686a79ed5ad65d0495e412ccf58f3f19ea3d35e48d671fc1e99ebfa",
-      "size": 3524
+      "sha256": "4589760f54dcde651bdf6b4b25b8f5a3dd8239e0357a0baebbac02153534a1b6",
+      "size": 10555
     },
     {
       "path": "out/dispatch/opening-b.json",
@@ -6084,6 +6156,18 @@
       "class": "scratch",
       "sha256": "b27c7f9a0f83e8cb8bc5e206616fba3b6153f724dc86dfb24b58791eee32ac0e",
       "size": 5794
+    },
+    {
+      "path": "out/dispatch/repair-plan-4-modern.json",
+      "class": "scratch",
+      "sha256": "87cf603966b01444ab22d3dae938983cccf280f04a0ec7a8d94ba4fa07d77ddc",
+      "size": 669274
+    },
+    {
+      "path": "out/dispatch/repair-plan-4.json",
+      "class": "scratch",
+      "sha256": "2a9e2ddf7c20352b313f5ce71a201a1b2418ee4a0f5e52bfd429a4d128bda685",
+      "size": 3110
     },
     {
       "path": "out/dispatch/repair-plan.json",
@@ -9690,30 +9774,12 @@
       "class": "scratch",
       "sha256": "c74a25c2611ef0e3a9eaadffbd2ba17191c81897281635a9fc42c859e3105772",
       "size": 555
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
-      "class": "source",
-      "sha256": "3962d4963544e5996b2bd3a3a43e5d6a5164a352db64e1e14503ba246fbeb6ac",
-      "size": 76902
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx",
-      "class": "source",
-      "sha256": "2483fb962188398dfeb820bcd3dd72d8e25911e67a6a368e8210ff28fd2ee49e",
-      "size": 47938
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx",
-      "class": "source",
-      "sha256": "61ef74982f5e6e6f9558f9975aa536e99400174f976d1b075898f8117e2593eb",
-      "size": 63094
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 185767262,
-    "unique_blob_bytes": 119556340,
-    "unique_blobs": 1353
+    "logical_bytes": 187252592,
+    "unique_blob_bytes": 120429016,
+    "unique_blobs": 1360
   },
   "excluded": [
     {
