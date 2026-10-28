@@ -4,9 +4,9 @@ import {FONT,widthOf} from '../../../lib/type';
 import {useArtDirection} from '../../../lib/artDirection';
 import {actionProgress,actionWindows,requireNarration,type ActionWindow,type DirectedScene} from '../../../lib/direction';
 import type {FilmRenderProps} from '../../types';
-import {OrderRigHero,HP,PHONE,PHONE_UI,screenPt,PRINTER,PRINTER_TOP,railGrip,TICKET,JAR,pileTop,type PhoneState} from './OrderRigHero';
-import {RestaurantSupport,RS,STAND,PANEL,LEDGER,RULE,FOLDER,DOOR_PLAN,TABLES_PLAN,STAND_PLAN,PASS_PLAN,
- GUESTS,TABLE,tagSize,tagPath,stampSize,rulePenPoint,type Food} from './RestaurantSupport';
+import {OrderRigHero,HP,PHONE,PHONE_UI,screenPt,PRINTER,PRINTER_TOP,railGrip,TICKET,JAR,pileTop,FINGER_ARM,type PhoneState} from './OrderRigHero';
+import {RestaurantSupport,RS,STAND,PANEL,ORDER_CARD,LEDGER,RULE,FOLDER,DOOR_PLAN,TABLES_PLAN,STAND_PLAN,PASS_PLAN,
+ GUESTS,GUEST_BACK,TABLE,tagSize,tagPath,stampSize,rulePenPoint,type Food} from './RestaurantSupport';
 
 /**
  * order-pass-v1: who takes the order (2026-10-26, Harris County, Spring, the upper Gulf Coast).
@@ -24,7 +24,10 @@ import {RestaurantSupport,RS,STAND,PANEL,LEDGER,RULE,FOLDER,DOOR_PLAN,TABLES_PLA
  *      and hooks onto the panel's eyelet, where it swings and settles.
  *  s3  a hand lifts the phone over the table code and the viewfinder's brackets close on it; the menu sheet
  *      slides up; a fingertip presses the Chow mein row, which lights with its plain price chip; the finger
- *      presses Pay, which turns into the round red paid mark.
+ *      presses Pay, which turns into the round red paid mark. B's medium sees the one seated guest from behind
+ *      her right shoulder: her left hand holds the phone up out of her own shoulder line, and her right arm,
+ *      shoulder, upper arm, elbow and forearm drawn as one jointed limb at the same scale, rises from her side
+ *      and taps the row. B's Pay detail keeps the same holding hand.
  *  s4  THE TURN. The ticket printer stands idle, its slot blank and its lamp in standby, beside an empty wok
  *      on an unlit burner. The paid mark leaves the phone and travels a line into the printer's slot (B's
  *      camera follows it down from the plan onto the printer seen from above); only at its arrival does the
@@ -42,9 +45,12 @@ import {RestaurantSupport,RS,STAND,PANEL,LEDGER,RULE,FOLDER,DOOR_PLAN,TABLES_PLA
  *  s8  the restaurant folder slides in beside the rule card and opens; its one box stays blank and a
  *      question mark draws beside it.
  *  s9  a hand raises the phone toward the table code, pauses short of it and lowers it without scanning; a
- *      quote card from one customer lands beside the lowered phone, whose screen then times out.
- *  s10 the host panel takes an order and a ticket slip slides off toward the kitchen; at the pass the tip
- *      jar takes a tag reading owner says, and a second reading no record shown settles beside it. Held.
+ *      quote card from one customer lands beside the lowered phone, whose screen then times out. In B the hand
+ *      sets the phone down and stays resting on it through the quote, so it never leaves at a smear.
+ *  s10 a large order card lands on the host panel's screen within the shot's first second and a ticket slip
+ *      leaves it and drops into the kitchen printer's slot, whose lamp answers red as the ticket for it rises,
+ *      is gripped and cut; the camera keeps easing in through the shot. At the pass the tip jar takes a tag
+ *      reading owner says, and a second reading no record shown settles beside it. Held.
  *
  * A follows the order at counter and table level. B reads the same events from above (the room's plan, the
  * table top, the desk) and through the front window and the back desk. Colour carries meaning once: the
@@ -137,10 +143,16 @@ export function orderState(W:Record<string,ActionWindow>,t:number){
  // s9: a hand raises the phone toward the code, pauses short of it, and lowers it without scanning; the
  // quote card lands; the lowered phone's screen times out while the code stays unscanned.
  const r91=R('s9-event-1'),raise=ease5(r91/.32),lower=ease5((r91-.56)/.3),pause=r91>.32&&r91<.56?Math.sin(Math.PI*(r91-.32)/.24):0;
+ // B's hand never lets go: it lowers the phone onto the table and rests on it (see viewfinder-hunt, quote-side).
  const s9={raise,lower,up:raise*(1-lower),release:ease5((r91-.8)/.2),waver:2.5*pause*Math.sin(2*Math.PI*1.6*t),quote:P('s9-event-2'),dim:.85*P('s9-event-3')};
  // s10: the panel takes the order and a slip leaves for the kitchen; the two tags settle on the jar
- const r101=R('s10-event-1');
- const s10={order:smooth(r101/.45),slip:ease5((r101-.35)/.6),tag1:P('s10-event-2'),settle1:damped(t-en('s10-event-2'),9,1.1,2.2),carry1:Math.sin(Math.PI*P('s10-event-2')),
+ // The card lands on the panel in the window's first 40 percent; the slip leaves at 38 percent and drops into the
+ // printer's slot at 90 percent, and only then the lamp answers and the order's ticket rises, is gripped and cut.
+ const r101=R('s10-event-1'),w101=W['s10-event-1'];
+ const arrive10=w101?w101.start+.9*(w101.end-w101.start):Infinity,print10=t>arrive10?smooth((t-arrive10)/.6):0;
+ const s10={order:smooth(r101/.4),ping:bell(clamp((r101-.3)/.4)),slip:ease5((r101-.38)/.52),
+  led:w101?smooth((t-arrive10)/.12):0,print:print10,cut:t>arrive10+.6?smooth((t-arrive10-.6)/.18):0,hang:w101?damped(t-(arrive10+.78),2.6,1.5,2.4):0,
+  tag1:P('s10-event-2'),settle1:damped(t-en('s10-event-2'),9,1.1,2.2),carry1:Math.sin(Math.PI*P('s10-event-2')),
   tag2:P('s10-event-3'),settle2:damped(t-en('s10-event-3'),6,1,2.4),carry2:Math.sin(Math.PI*P('s10-event-3'))};
  return {s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,P,R};
 }
@@ -154,6 +166,47 @@ export function coinFlight(W:Record<string,ActionWindow>,t:number,i:number){
  const u=clamp((t-launch)/(land-launch)),drop=clamp((t-land)/.22);
  const restFill=.1+.62*actionProgress(b,land+.22);
  return {u,drop,restFill,launched:t>=launch};
+}
+
+// ---- B's over-the-shoulder tap: one jointed arm ---------------------------------------------------------------
+/** s3 menu-tap B sees the one seated guest from behind her right shoulder: where the base of her neck stands, the
+ * tapping hand's scale and, in degrees, how far its ready pose sits from the hover pose (shoulder, elbow). */
+export const OTS={guest:[270,1060] as Pt,finger:.75,ready:[20,10] as Pt};
+const rotPt=(p:Pt,th:number):Pt=>[p[0]*Math.cos(th)-p[1]*Math.sin(th),p[0]*Math.sin(th)+p[1]*Math.cos(th)];
+const wrapAngle=(x:number)=>Math.atan2(Math.sin(x),Math.cos(x));
+const ARM_AXIS=Math.atan2(FINGER_ARM.dir[1],FINGER_ARM.dir[0]);
+export type ArmPose={u:number;f:number};
+/** The arm from its shoulder S: upper arm at angle u (length a) to the elbow, forearm at angle f (length b) to
+ * the wrist, and the hand rigid on the forearm, its sleeve axis aimed back at the elbow. Pure. */
+export function armFK(S:Pt,a:number,b:number,fs:number,P:ArmPose){
+ const E:Pt=[S[0]+a*Math.cos(P.u),S[1]+a*Math.sin(P.u)],Wr:Pt=[E[0]+b*Math.cos(P.f),E[1]+b*Math.sin(P.f)];
+ const th=P.f+Math.PI-ARM_AXIS,w=rotPt(FINGER_ARM.wrist,th);
+ return {E,W:Wr,th,tip:[Wr[0]-w[0]*fs,Wr[1]-w[1]*fs] as Pt};
+}
+/** The arm pose whose fingertip lands exactly on `tip`, elbow bent outward: the hand angle is found by a fixed
+ * scan and bisection, so the same tip gives the same pose on every frame. */
+export function armIK(S:Pt,a:number,b:number,fs:number,tip:Pt):ArmPose{
+ const g=(th:number)=>{const w=rotPt(FINGER_ARM.wrist,th),Wr:Pt=[tip[0]+w[0]*fs,tip[1]+w[1]*fs];
+  const dx=Wr[0]-S[0],dy=Wr[1]-S[1],d=Math.min(a+b-1e-3,Math.max(Math.abs(a-b)+1e-3,Math.hypot(dx,dy)));
+  const u=Math.atan2(dy,dx)+Math.acos((a*a+d*d-b*b)/(2*a*d)),E:Pt=[S[0]+a*Math.cos(u),S[1]+a*Math.sin(u)];
+  return {v:wrapAngle(Math.atan2(E[1]-Wr[1],E[0]-Wr[0])-ARM_AXIS-th),u,f:Math.atan2(Wr[1]-E[1],Wr[0]-E[0])};};
+ let lo=-Math.PI,vlo=g(lo).v;
+ for(let k=1;k<=180;k++){
+  const hi=-Math.PI+k*Math.PI/90,vhi=g(hi).v;
+  if(vlo*vhi<0&&Math.abs(vlo-vhi)<1){let x0=lo,x1=hi;for(let i=0;i<48;i++){const m=(x0+x1)/2;if(g(x0).v*g(m).v<=0)x1=m;else x0=m;}const r=g((x0+x1)/2);return {u:r.u,f:r.f};}
+  lo=hi;vlo=vhi;
+ }
+ throw new Error('The tapping arm cannot reach its contact');
+}
+const lerpPose=(A:ArmPose,B:ArmPose,p:number):ArmPose=>({u:lerp(A.u,B.u,p),f:lerp(A.f,B.f,p)});
+/** The guest's tapping arm in B's menu-tap at the board's state: the jointed pose, its elbow, wrist and tip. */
+export function otsArm(S3:OrderState['s3']){
+ const L=PHONE_AT['menu-tap:b'],contact=toScreen(L,screenPt(PHONE_UI.chow)),hover:Pt=[contact[0]+60,contact[1]-50];
+ const G=OTS.guest,Sh:Pt=[G[0]+GUEST_BACK.shoulder[0],G[1]+GUEST_BACK.shoulder[1]],a=GUEST_BACK.upper,b=GUEST_BACK.fore,fs=OTS.finger;
+ const Pc=armIK(Sh,a,b,fs,contact),Ph=armIK(Sh,a,b,fs,hover),Pr={u:Ph.u+OTS.ready[0]*DEG,f:Ph.f+OTS.ready[1]*DEG};
+ let P=lerpPose(lerpPose(Pr,Ph,S3.tapGo),Pc,S3.tapPress);
+ if(S3.tapBack>0)P=lerpPose(P,Pr,S3.tapBack);
+ return {...armFK(Sh,a,b,fs,P),S:Sh,contact,b,fs};
 }
 
 // ---- small drawing helpers ----------------------------------------------------------------------------------
@@ -180,7 +233,7 @@ export const GUEST_SLEEVE='#3D5566';
 /** Phone placements per view: centre, scale, rotation, and whether a hand holds it. */
 export const PHONE_AT:Record<string,Place&{hand:boolean;from?:Pt}>={
  'code-scan:a':{x:690,y:830,s:.72,r:-3,hand:true,from:[620,1720]},'menu-tap:a':{x:520,y:760,s:1.5,r:0,hand:true},'pay-mark:a':{x:500,y:720,s:1.05,r:0,hand:true},
- 'code-scan:b':{x:600,y:720,s:.78,r:-8,hand:true,from:[300,1560]},'menu-tap:b':{x:600,y:760,s:.78,r:4,hand:true},'paid-close:b':{x:540,y:260,s:2.4,r:0,hand:false},
+ 'code-scan:b':{x:600,y:720,s:.78,r:-8,hand:true,from:[300,1560]},'menu-tap:b':{x:650,y:800,s:.72,r:12,hand:true},'paid-close:b':{x:540,y:260,s:2.4,r:0,hand:true},
  'paid-line:a':{x:250,y:760,s:.62,r:8,hand:true},'coins-drop:a':{x:250,y:620,s:.62,r:12,hand:true},
  'viewfinder-hunt:a':{x:470,y:780,s:.82,r:-8,hand:true,from:[600,1330]},'quote-card:a':{x:150,y:1020,s:.55,r:-4,hand:false},
  'viewfinder-hunt:b':{x:560,y:1000,s:.78,r:10,hand:true,from:[700,1520]},'quote-side:b':{x:650,y:1030,s:.6,r:14,hand:false}};
@@ -190,18 +243,18 @@ export const CODE9_TOP:Pt=[700,700];
 export const PRINTER_AT:Record<string,Place>={
  'printer-idle':{x:330,y:1000,s:1.1},'paid-line:a':{x:760,y:1150,s:1.3},'ticket-print:a':{x:520,y:1440,s:2.2},'wok-flare':{x:250,y:900,s:.78},
  'pass-wide':{x:230,y:940,s:.72},'ticket-print:b':{x:470,y:1290,s:1.6},'flame-close':{x:240,y:837,s:1.4},
- 'jar-fills:b':{x:230,y:1040,s:.8},'panel-order':{x:1000,y:1000,s:.55},'stand-wide':{x:760,y:900,s:.5},'jar-no-record':{x:1050,y:960,s:.6},
+ 'jar-fills:b':{x:230,y:1040,s:.8},'panel-order':{x:840,y:1060,s:.75},'stand-wide':{x:755,y:960,s:.62},'jar-no-record':{x:1050,y:960,s:.6},
  'jar-owner-tag:b':{x:220,y:1040,s:.8},'tags-close':{x:191,y:800,s:1.3}};
 export const SHELF:Record<string,{x:number;y:number;w:number}>={
  'printer-idle':{x:60,y:1000,w:600},'paid-line:a':{x:380,y:1150,w:760},'wok-flare':{x:50,y:900,w:480},'pass-wide':{x:40,y:940,w:440},
  'flame-close':{x:-20,y:837,w:720},'coins-drop':{x:300,y:1060,w:700},'jar-fills:a':{x:-20,y:1205,w:1120},'jar-fills:b':{x:40,y:1040,w:1000},
- 'panel-order':{x:700,y:1000,w:400},'stand-wide':{x:640,y:900,w:440},'jar-no-record':{x:440,y:960,w:640},'jar-owner-tag:b':{x:0,y:1040,w:1080},
+ 'panel-order':{x:470,y:1060,w:620},'stand-wide':{x:600,y:960,w:480},'jar-no-record':{x:440,y:960,w:640},'jar-owner-tag:b':{x:0,y:1040,w:1080},
  'jar-owner-tag:a':{x:-20,y:1235,w:1120},'tags-close':{x:-20,y:800,w:560},'ticket-print:b':{x:120,y:1290,w:980}};
 export const WOK_AT:Record<string,Place>={'printer-idle':{x:820,y:1110,s:.85,flip:true},'wok-flare':{x:740,y:1090,s:1,flip:true},'pass-wide':{x:780,y:1100,s:.85,flip:true},
  'ticket-print:b':{x:1100,y:1250,s:1,flip:true},'flame-close':{x:600,y:1180,s:1.7,flip:true},'coins-drop':{x:990,y:1150,s:.7,flip:true},'jar-fills:b':{x:960,y:1180,s:.7,flip:true}};
 export const JAR_AT:Record<string,Place>={'coins-drop':{x:720,y:1060,s:1},'jar-fills:a':{x:560,y:1200,s:1.8},'jar-tag':{x:500,y:1520,s:2.5},
- 'jar-fills:b':{x:620,y:1040,s:1.25},'tag-close':{x:600,y:1500,s:2.4},'panel-order':{x:780,y:1000,s:.7},'jar-owner-tag:a':{x:520,y:1230,s:1.75},
- 'jar-no-record':{x:700,y:960,s:1},'stand-wide':{x:960,y:900,s:.62},'jar-owner-tag:b':{x:640,y:1040,s:1.25},'tags-close':{x:560,y:1380,s:2.3}};
+ 'jar-fills:b':{x:620,y:1040,s:1.25},'tag-close':{x:600,y:1500,s:2.4},'panel-order':{x:590,y:1060,s:.75},'jar-owner-tag:a':{x:520,y:1230,s:1.75},
+ 'jar-no-record':{x:700,y:960,s:1},'stand-wide':{x:990,y:960,s:.62},'jar-owner-tag:b':{x:640,y:1040,s:1.25},'tags-close':{x:560,y:1380,s:2.3}};
 /** Where each view's coins come from and the arc they take to the mouth (screen pixels). */
 export const COIN_PATH:Record<string,{src?:Pt;ctrl:Pt}>={'coins-drop':{ctrl:[540,500]},'jar-fills:a':{src:[-90,250],ctrl:[300,240]},'jar-fills:b':{src:[90,360],ctrl:[420,360]}};
 /** Hanging tags: anchor jar neck index or the panel eyelet, string length, where the carry starts, text size. */
@@ -219,7 +272,7 @@ export const FOLDER_AT:Record<string,PaperAt>={'blank-folder':{x:330,y:600,s:1.1
 export const QUOTE_AT:Record<string,PaperAt>={'quote-card':{x:430,y:880,s:1,fy:.78,r:-2},'quote-side':{x:40,y:560,s:.9,fy:1,r:-3}};
 export const PANEL_AT:Record<string,Place>={'window-frame':{x:650,y:1290,s:.82},'host-panel:a':{x:520,y:1913.5,s:1.55},'ai-tag':{x:378.4,y:2828.8,s:2.4},
  'sign-window':{x:790,y:1200,s:.62},'host-panel:b':{x:430,y:1330,s:.98},'tag-detail':{x:592,y:2544,s:2},
- 'panel-order':{x:290,y:1330,s:.9},'jar-no-record':{x:230,y:1230,s:.7},'stand-wide':{x:200,y:1260,s:.78}};
+ 'panel-order':{x:290,y:1640,s:1.22},'jar-no-record':{x:230,y:1230,s:.7},'stand-wide':{x:250,y:1720,s:1.42}};
 export const STAND_AT:Record<string,Place>={'door-apron':{x:800,y:1330,s:1},'host-phone:a':{x:560,y:1900,s:2},'blank-pad-tables':{x:960,y:1500,s:1.15},
  'host-phone:b':{x:560,y:1340,s:1.05},'table-wait':{x:300,y:1880,s:1.9},'window-frame':{x:900,y:1330,s:1},'sign-window':{x:930,y:1240,s:.72},'host-panel:b':{x:790,y:1340,s:1}};
 
@@ -374,8 +427,8 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   return <g><Item id={id}>{J.shadow}{J.back}</Item>{coins&&<Item id={sid+'-coins'}>{J.outside}</Item>}<Item id={id}>{J.front}</Item></g>;};
  const jarAnchor=(name:string,i:0|1):Pt=>toScreen(pick(JAR_AT,name),JAR.tagAt[i]);
  /** The panel at its placement: its name, light and order state for the scene. */
- const panel=(name:string,lit:number,nm:number,order:number,id:string)=>{const L=pick(PANEL_AT,name);
-  return <Item id={id}><At p={[L.x,L.y]} s={L.s} r={L.r??0}><RestaurantSupport part="hostPanel" lit={lit} name={nm} order={order} t={t}/></At></Item>;};
+ const panel=(name:string,lit:number,nm:number,order:number,id:string,ping=0)=>{const L=pick(PANEL_AT,name);
+  return <Item id={id}><At p={[L.x,L.y]} s={L.s} r={L.r??0}><RestaurantSupport part="hostPanel" lit={lit} name={nm} order={order} ping={ping} t={t}/></At></Item>;};
  const stand=(name:string,top:React.ReactNode,o:{apron?:boolean;id?:string}={})=>{const L=pick(STAND_AT,name);
   return <Item id={o.id??sid+'-setting'}><At p={[L.x,L.y]} s={L.s}><RestaurantSupport part="hostStand">
    {top}
@@ -572,21 +625,26 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   break;}
  case 'menu-tap':{
   // A detail: the menu fills the frame; a fingertip comes in, presses the Chow mein row, which lights with
-  // its plain price chip, and lifts away; Talk sits beside Pay. B medium: a guest at the table holds the
-  // phone over the code and taps the same row.
+  // its plain price chip, and lifts away; Talk sits beside Pay. B medium, over her shoulder: the one seated
+  // guest, seen from behind her right shoulder, holds the phone up with her left hand, which rises out of her
+  // own shoulder line, and taps the row with her right hand on one jointed arm at the same scale: shoulder,
+  // upper arm, elbow, forearm and hand. The arm is drawn behind her back, so it leaves her own shoulder.
   need('s3');const L=pick(PHONE_AT),contact=toScreen(L,screenPt(PHONE_UI.chow));
   const fs=v==='a'?1.3:.8,rest:Pt=[contact[0]+520*fs,contact[1]+600*fs],away:Pt=[contact[0]+300*fs,contact[1]+420*fs];
   const tip=fingerTip(contact,S.s3.tapGo,S.s3.tapPress,S.s3.tapBack,rest,away);
   const st:PhoneState={scan:0,lock:1,menu:1,lit:S.s3.lit,tap:S.s3.ripple,tapAt:PHONE_UI.chow};
   pic=v==='a'?<g>
    <Item id="s3-phone"><Item id="s3-menu"><Item id="s3-dish">{phoneRig(L,st,{finger:S.s3.tapGo>0&&S.s3.tapBack<1?{tip,press:S.s3.tapPress,s:fs}:null})}</Item></Item></Item>
-  </g>:<g>
-   {floor(FLOOR_Y.medium)}
-   <Item id="s3-setting"><At p={[150,1260]} s={1.25}><RestaurantSupport part="guest" layer="body" {...GUESTS[2]} skin={SKIN.a3} shirt={GUEST_SLEEVE} look={.5}/></At></Item>
-   <Item id="s3-setting">{tableBand(1120)}<At p={[300,1150]} s={1.1}><RestaurantSupport part="plate"/></At></Item>
-   <Item id="s3-code"><At p={[880,1170]} s={.9}><OrderRigHero part="codeStand"/></At></Item>
-   <Item id="s3-phone"><Item id="s3-menu"><Item id="s3-dish">{phoneRig(L,st,{skin:SKIN.a3,finger:S.s3.tapGo>0&&S.s3.tapBack<1?{tip,press:S.s3.tapPress,s:fs}:null})}</Item></Item></Item>
-  </g>;
+  </g>:(()=>{
+   const arm=otsArm(S.s3),G=OTS.guest,look={...GUESTS[2],skin:SKIN.a3,shirt:GUEST_SLEEVE};
+   const elbow:Pt=[arm.E[0]-G[0],arm.E[1]-G[1]];
+   return <g>
+    <Item id="s3-setting">{tableBand(1010)}<At p={[1010,1060]} s={1.1}><RestaurantSupport part="waterGlass"/></At></Item>
+    <Item id="s3-phone"><Item id="s3-menu"><Item id="s3-dish">{phoneRig(L,st,{skin:SKIN.a3})}
+     <At p={arm.tip} s={arm.fs} r={arm.th/DEG}><OrderRigHero part="finger" skin={SKIN.a3} press={S.s3.tapPress} sleeve={arm.b/arm.fs}/></At></Item></Item></Item>
+    <Item id="s3-setting"><At p={G}><RestaurantSupport part="guestBack" layer="upperArm" {...look} elbow={elbow}/></At>
+     <At p={G}><RestaurantSupport part="guestBack" layer="body" {...look}/></At></Item>
+   </g>;})();
   break;}
  case 'pay-mark':
  case 'paid-close':{
@@ -853,8 +911,9 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  case 'viewfinder-hunt':{
   // A close / B overhead. A hand raises the phone toward the table code, pauses short of it with the
   // camera open and its frame wide, never closing, then lowers it again without scanning.
-  // B: from below the frame the hand raises the phone, pauses short of the code, brings it down onto the table
-  // beside its later place for the quote (scale falls as it nears the table) and slides away, leaving it.
+  // B: from below the frame the hand raises the phone, pauses short of the code and brings it down onto the
+  // table at its later place for the quote (scale falls as it nears the table), where the hand stays resting on
+  // it; the next shot keeps the same hand on the same phone, so nothing leaves the frame at speed.
   need('s9');const L0=pick(PHONE_AT),rest=L0.from!,u=S.s9.up,TB=PHONE_AT['quote-side:b'];
   const raised={...L0,x:lerp(rest[0],L0.x,S.s9.raise),y:lerp(rest[1],L0.y,S.s9.raise),r:lerp((L0.r??0)+22,L0.r??0,S.s9.raise)+S.s9.waver};
   const L=v==='a'?{...L0,x:lerp(rest[0],L0.x,u),y:lerp(rest[1],L0.y,u),r:lerp((L0.r??0)+22,L0.r??0,u)+S.s9.waver}:
@@ -867,17 +926,16 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   </g>:<g>
    <Item id="s9-table">{tableTopBig()}</Item>
    <Item id="s9-code"><At p={CODE9_TOP} s={1.1}><OrderRigHero part="codeStandTop"/></At></Item>
-   <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9,handOff:[140*S.s9.release,1300*S.s9.release]})}</Item>
+   <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9})}</Item>
   </g>;
   break;}
  case 'quote-card':
  case 'quote-side':{
   // A medium / B medium from above. The phone lies lowered on the table, its code unscanned; a quote card
-  // from one customer lands beside it; then the phone's screen times out.
+  // from one customer lands beside it; then the phone's screen times out. B's hand still rests on the phone.
   need('s9');const Q=pick(QUOTE_AT),top=view==='quote-side',L=pick(PHONE_AT);
   const st:PhoneState={scan:1,lock:0,menu:0,dim:.5+.5*S.s9.dim};
-  const flatPhone=top?<g><At p={[L.x+14*L.s,L.y+20*L.s]} s={L.s} r={L.r??0} o={.22}><rect x={-150} y={-300} width={300} height={600} rx={46} fill="#1A1410"/></At>
-   <At p={[L.x,L.y]} s={L.s} r={L.r??0}><OrderRigHero part="phone" {...st}/></At></g>:
+  const flatPhone=top?phoneRig({...L,hand:true},st,{skin:SKIN.a9}):
    <g><ellipse cx={L.x+6} cy={L.y+60*L.s} rx={170*L.s} ry={30*L.s} fill="#1A1410" opacity={.22}/>
     <g transform={`translate(${L.x} ${L.y}) rotate(${L.r??0}) scale(${L.s} ${(L.s*.36).toFixed(4)})`}><OrderRigHero part="phone" {...st}/></g></g>;
   pic=<g>
@@ -891,20 +949,27 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  // ===================== s10: software takes the order; the tip rests on a word =====================
  case 'panel-order':
  case 'stand-wide':{
-  // A medium / B wide. The lit host panel takes an order: an order card slides up its screen and a ticket
-  // slip leaves its edge and slides across to the kitchen printer, where the jar waits on the pass.
-  need('s10');const wide=view==='stand-wide',Pn=PANEL_AT[view],Sh=SHELF[view];
-  const from=toScreen(Pn,[PANEL.screen.x+PANEL.screen.w,-700]),to=toScreen(PRINTER_AT[view],[PRINTER.slot.x,PRINTER.slot.y]);
-  const ctrl:Pt=[(from[0]+to[0])/2,Math.min(from[1],to[1])-260],sp=bez(from,ctrl,to,S.s10.slip);
-  pic=<g>
-   {floor(wide?FLOOR_Y.wide:FLOOR_Y.medium)}{pendant(wide?520:560,300)}
-   {wide&&<Item id="s10-setting">{tableGroup([520,1160],.55,0,{look:.4})}</Item>}
+  // A medium / B wide, staged in depth. The lit host panel stands large at the front: within the shot's first
+  // second a large order card for Chow mein, already marked paid, slides up its screen and lands with a glow;
+  // a ticket slip leaves the card's edge, arcs back to the kitchen pass and drops into the printer's slot,
+  // and only on its arrival the printer's lamp answers red and the ticket for it rises out of the slot, is
+  // gripped by the rail and cut, and swings. The printer stood empty before the slip (the s4 ticket went to
+  // the line long ago), so the hanging ticket in the shots after it is this one. The camera eases in toward the
+  // printer from the shot's first frame to its last, rest to rest, so the frame never holds still.
+  need('s10');const wide=view==='stand-wide',Pn=PANEL_AT[view],Pr=PRINTER_AT[view],Sh=SHELF[view];
+  const cardY=PANEL.screen.y+PANEL.screen.h+24-ORDER_CARD.rise+ORDER_CARD.h*.5;
+  const from=toScreen(Pn,[ORDER_CARD.w/2,cardY]),to=toScreen(Pr,[PRINTER.slot.x,PRINTER.slot.y]);
+  const ctrl:Pt=[(from[0]+to[0])/2+40,Math.min(from[1],to[1])-300],u=S.s10.slip,sp=bez(from,ctrl,to,u);
+  const slipS=lerp(Pn.s*1.15,Pr.s*1.3,smooth(u))*(1-smooth((u-.84)/.16));
+  const cu=ease5((t-shot.start_s)/shot.duration_s),zoom=1+(wide?.08:.06)*cu,pivot:Pt=[to[0],to[1]-60];
+  pic=<g transform={`translate(${f2(pivot[0])} ${f2(pivot[1])}) scale(${zoom.toFixed(4)}) translate(${f2(-pivot[0])} ${f2(-pivot[1])})`}>
+   {floor(wide?FLOOR_Y.wide:FLOOR_Y.medium)}{pendant(wide?620:640,300)}
    <Item id="s10-setting">{cabinet(Sh.x,Sh.y,Sh.w)}{shelf(view)}</Item>
-   {printerRig(PRINTER_AT[view],ticketDone)}
+   {printerRig(Pr,{len:TICKET.len*S.s10.print,cut:S.s10.cut,hang:S.s10.hang,led:S.s10.led,standby:S.s4.standby,roll:S.s10.print})}
    {jarDraw(view,.72,false,'s10-jar')}
-   {panel(view,1,1,S.s10.order,'s10-panel')}
-   {S.s10.slip>0&&S.s10.slip<1&&<Item id="s10-panel"><path d={`M${f2(from[0])} ${f2(from[1])}Q${f2(ctrl[0])} ${f2(ctrl[1])} ${f2(to[0])} ${f2(to[1])}`} stroke={RS.screenLit} strokeWidth={4} strokeDasharray="12 10" fill="none" opacity={.6}/>
-    <At p={sp} s={wide?.8:1} r={-8+16*S.s10.slip}><rect x={-30} y={-40} width={60} height={80} rx={4} fill={HP.paper} stroke={RS.ink} strokeWidth={2.4}/>
+   {panel(view,1,1,S.s10.order,'s10-panel',S.s10.ping)}
+   {u>0&&slipS>.02&&<Item id="s10-panel"><path d={`M${f2(from[0])} ${f2(from[1])}Q${f2(ctrl[0])} ${f2(ctrl[1])} ${f2(to[0])} ${f2(to[1])}`} stroke={RS.screenLit} strokeWidth={5} strokeDasharray="14 12" fill="none" opacity={f2(.65*(1-smooth((u-.9)/.1)))}/>
+    <At p={sp} s={slipS} r={-10+18*u}><rect x={-30} y={-40} width={60} height={80} rx={4} fill={HP.paper} stroke={RS.ink} strokeWidth={2.4}/>
      <circle cx={-12} cy={-22} r={8} fill={HP.red}/><rect x={2} y={-26} width={20} height={6} rx={3} fill="#8F8A80"/><rect x={-20} y={-6} width={40} height={6} rx={3} fill="#A9A397"/><rect x={-20} y={8} width={30} height={6} rx={3} fill="#A9A397"/></At></Item>}
   </g>;
   break;}

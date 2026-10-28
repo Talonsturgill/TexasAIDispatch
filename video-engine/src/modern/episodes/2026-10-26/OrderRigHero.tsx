@@ -245,12 +245,24 @@ const PhoneHand:React.FC<{layer:'back'|'front';skin:string}>=({layer,skin})=>{
   <path d="M140 84q-2 -12 10 -10" stroke="#FFFFFF" strokeWidth={2.4} opacity={.4} fill="none"/>
  </g>;
 };
+/** The tapping hand's forearm, in finger units: the cuff's centre where the sleeve leaves the wrist, the
+ * sleeve's axis direction, its default length and its half widths at the cuff and at that length. A caller
+ * that draws the rest of the arm aims this axis at the elbow and gives the sleeve the length that reaches it. */
+export const FINGER_ARM={wrist:[230,410] as Pt,dir:[385,1090] as Pt,len:1156,half0:100,half1:145};
+/** The forearm sleeve of the tapping hand, `len` finger units long from the cuff along FINGER_ARM.dir,
+ * widening toward the elbow. With no length it is the original long sleeve that runs out of the frame. */
+export function fingerSleevePath(len?:number){
+ if(len===undefined)return 'M330 400L760 1500H470L130 420Z';
+ const A=FINGER_ARM,m=Math.hypot(A.dir[0],A.dir[1]),dx=A.dir[0]/m,dy=A.dir[1]/m,nx=-dy,ny=dx;
+ const h=A.half0+(A.half1-A.half0)*Math.min(1,len/A.len),c:Pt=[A.wrist[0]+dx*len,A.wrist[1]+dy*len];
+ return `M330 400L${f2(c[0]-nx*h)} ${f2(c[1]-ny*h)}Q${f2(c[0]+dx*h*1.1)} ${f2(c[1]+dy*h*1.1)} ${f2(c[0]+nx*h)} ${f2(c[1]+ny*h)}L130 420Z`;
+}
 /** An index finger pointing up and left, its tip pad at the origin, the back of the hand trailing down and
- * right. `press` flattens the pad a little on contact. */
-const Finger:React.FC<{skin:string;press?:number}>=({skin,press=0})=>{
+ * right. `press` flattens the pad a little on contact; `sleeve` shortens the forearm for a drawn elbow. */
+const Finger:React.FC<{skin:string;press?:number;sleeve?:number}>=({skin,press=0,sleeve})=>{
  const k=1-.08*clamp(press);
  return <g data-part="finger" transform={`scale(1 ${f2(k)})`}>
-  <path d="M330 400L760 1500H470L130 420Z" fill="#3D5566" stroke={HP.ink} strokeWidth={4}/>
+  <path d={fingerSleevePath(sleeve)} fill="#3D5566" stroke={HP.ink} strokeWidth={4}/>
   <path d="M120 150C150 130 230 150 290 210C340 260 360 330 340 420C320 450 160 450 130 420C110 340 96 260 120 150Z" fill={skin} stroke={HP.ink} strokeWidth={4}/>
   <path d="M150 260C190 236 236 246 262 280" stroke="#000" strokeWidth={3} opacity={.12} fill="none"/>
   <path d="M-16 6C-24 -10 -10 -24 6 -20C40 -10 120 70 156 130C170 156 150 178 126 170C90 150 10 60 -16 6Z" fill={skin} stroke={HP.ink} strokeWidth={4}/>
@@ -539,7 +551,7 @@ const PrinterTop:React.FC<{led?:number}>=({led=0})=><g data-part="printer-top">
 </g>;
 
 type Part=
- ({part:'phone'}&PhoneState)|{part:'handBack';skin:string}|{part:'handFront';skin:string}|{part:'finger';skin:string;press?:number}|
+ ({part:'phone'}&PhoneState)|{part:'handBack';skin:string}|{part:'handFront';skin:string}|{part:'finger';skin:string;press?:number;sleeve?:number}|
  {part:'codeStand'}|{part:'codeStandTop'}|{part:'printer';led?:number;standby?:number}|{part:'rail';roll?:number}|{part:'ticket';len:number;cut?:number}|
  {part:'wok';flame:number;food:number;toss:number;tilt:number;hand:number;t:number;range?:boolean;skin?:string}|{part:'cookBowl';tilt:number;left:number;skin:string}|{part:'wokTop';flame:number;t:number}|
  {part:'jar';fill:number;layer?:'back'|'front'|'all';children?:React.ReactNode}|{part:'jarTop';fill:number}|{part:'printerTop';led?:number}|
@@ -549,7 +561,7 @@ export const OrderRigHero:React.FC<Part>=(p)=>{
  case 'phone':{const {part:_part,...st}=p;return <Phone {...st}/>;}
  case 'handBack':return <PhoneHand layer="back" skin={p.skin}/>;
  case 'handFront':return <PhoneHand layer="front" skin={p.skin}/>;
- case 'finger':return <Finger skin={p.skin} press={p.press}/>;
+ case 'finger':return <Finger skin={p.skin} press={p.press} sleeve={p.sleeve}/>;
  case 'codeStand':return <CodeStand/>;
  case 'codeStandTop':return <CodeStandTop/>;
  case 'printer':return <Printer led={p.led} standby={p.standby}/>;

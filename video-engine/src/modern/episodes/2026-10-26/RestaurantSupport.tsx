@@ -250,6 +250,56 @@ const Guest:React.FC<GuestLook&{layer:'body'|'arms';raise?:number;look?:number;m
   <path d={`M${-6+hx} ${-234}q6 3 12 0`} stroke={RS.ink} strokeWidth={2.4} fill="none" strokeLinecap="round" opacity={.7}/>
  </g>;
 };
+/** A seated guest seen from behind and a little to her right, over her shoulder, in screen pixels at scale 1,
+ * the base of the neck at the origin: the back of the head with its hair, the ears, the nape, the shirt's
+ * back and shoulders and the bentwood chair's top rail across them. `layer` body draws all of that;
+ * upperArm draws only the near (right) upper arm's sleeve from GUEST_BACK.shoulder to `elbow`, which the
+ * episode draws behind the body so the arm leaves the shoulder's own contour. The forearm and hands are the
+ * hero group's. Skin, hair and shirt are fills; the line work is the same for every guest. */
+export const GUEST_BACK={shoulder:[460,180] as Pt,head:{cx:0,cy:-230,rx:172,ry:192},upper:260,fore:290,armHalf:84};
+const GuestBack:React.FC<GuestLook&{layer:'body'|'upperArm';elbow?:Pt}>=({skin,hair,shirt,style,layer,elbow})=>{
+ const H=GUEST_BACK.head,shade='#000000';
+ if(layer==='upperArm'){
+  const S=GUEST_BACK.shoulder,E=elbow??[S[0]+60,S[1]+280],w=GUEST_BACK.armHalf*2;
+  const ang=Math.atan2(E[1]-S[1],E[0]-S[0]),nx=-Math.sin(ang),ny=Math.cos(ang);
+  const fold:Pt=[lerp(S[0],E[0],.78),lerp(S[1],E[1],.78)];
+  return <g data-part="guest-back-arm">
+   <path d={`M${f2(S[0])} ${f2(S[1])}L${f2(E[0])} ${f2(E[1])}`} stroke={RS.ink} strokeWidth={w+7} strokeLinecap="round"/>
+   <path d={`M${f2(S[0])} ${f2(S[1])}L${f2(E[0])} ${f2(E[1])}`} stroke={shirt} strokeWidth={w} strokeLinecap="round"/>
+   <path d={`M${f2(S[0]-nx*w*.36)} ${f2(S[1]-ny*w*.36)}L${f2(E[0]-nx*w*.36)} ${f2(E[1]-ny*w*.36)}`} stroke={shade} strokeWidth={w*.26} opacity={.12} strokeLinecap="round"/>
+   <path d={`M${f2(fold[0]+nx*w*.4)} ${f2(fold[1]+ny*w*.4)}q${f2(-nx*w*.2+Math.cos(ang)*16)} ${f2(-ny*w*.2+Math.sin(ang)*16)} ${f2(-nx*w*.5)} ${f2(-ny*w*.5)}`} stroke={RS.ink} strokeWidth={2.4} opacity={.45} fill="none" strokeLinecap="round"/>
+  </g>;
+ }
+ const torso='M-80 -8C-170 2 -330 26 -430 72C-500 112 -560 200 -580 320L-600 980H560L548 330C546 236 520 154 452 104C382 60 204 12 80 -8Z';
+ return <g data-part="guest-back">
+  <path d="M-62 -84C-64 -48 -70 -22 -82 -6C-40 18 40 18 82 -6C70 -22 64 -48 62 -84Z" fill={skin} stroke={RS.ink} strokeWidth={2.6}/>
+  <path d="M-30 -40C-10 -30 12 -30 30 -40" stroke={shade} strokeWidth={3} opacity={.14} fill="none"/>
+  <path d={torso} fill={shirt} stroke={RS.ink} strokeWidth={3.4}/>
+  <path d="M548 330C546 236 520 154 452 104C470 170 486 250 488 330L500 980H560Z" fill={shade} opacity={.12}/>
+  <path d="M4 26C14 200 -6 420 6 980" stroke={shade} strokeWidth={4} opacity={.12} fill="none"/>
+  <path d="M-250 140C-210 200 -190 260 -196 330M250 130C214 190 196 250 202 320" stroke={shade} strokeWidth={4} opacity={.1} fill="none" strokeLinecap="round"/>
+  <path d="M-86 -8C-40 24 40 24 86 -8" stroke={shade} strokeWidth={12} opacity={.18} fill="none" strokeLinecap="round"/>
+  <path d="M-86 -8C-40 24 40 24 86 -8" stroke={RS.ink} strokeWidth={2.6} fill="none"/>
+  <ellipse cx={H.cx+H.rx-2} cy={H.cy+8} rx={22} ry={38} fill={skin} stroke={RS.ink} strokeWidth={2.4}/>
+  <path d={`M${H.cx+H.rx+4} ${H.cy-12}q10 18 0 36`} stroke={shade} strokeWidth={2.4} opacity={.25} fill="none"/>
+  <ellipse cx={H.cx-H.rx+4} cy={H.cy+12} rx={14} ry={30} fill={skin} stroke={RS.ink} strokeWidth={2.2}/>
+  {style==='curly'&&<circle cx={H.cx} cy={H.cy-20} r={H.rx+26} fill={hair} stroke={RS.ink} strokeWidth={3}/>}
+  <ellipse cx={H.cx} cy={H.cy} rx={H.rx} ry={H.ry} fill={hair} stroke={RS.ink} strokeWidth={3.4}/>
+  <path d={`M${H.cx-H.rx+30} ${H.cy+H.ry-60}C${H.cx-60} ${H.cy+H.ry-24} ${H.cx+60} ${H.cy+H.ry-20} ${H.cx+H.rx-26} ${H.cy+H.ry-64}`} stroke={shade} strokeWidth={3} opacity={.2} fill="none"/>
+  {[-120,-60,0,60,120].map((x,i)=><path key={i} d={`M${H.cx+x*1.2} ${H.cy+H.ry*(.62+.1*hash(i+40))}C${H.cx+x*.9} ${H.cy-40} ${H.cx+x*.5+10} ${H.cy-H.ry*.7} ${H.cx+20} ${H.cy-H.ry+30}`}
+   stroke={shade} strokeWidth={3} opacity={.18} fill="none" strokeLinecap="round"/>)}
+  <path d={`M${H.cx-96} ${H.cy-H.ry*.62}C${H.cx-50} ${H.cy-H.ry*.86} ${H.cx} ${H.cy-H.ry*.9} ${H.cx+36} ${H.cy-H.ry*.8}`} stroke="#FFFFFF" strokeWidth={6} opacity={.14} fill="none" strokeLinecap="round"/>
+  {style==='bun'&&<g>
+   <circle cx={H.cx+26} cy={H.cy-H.ry-6} r={64} fill={hair} stroke={RS.ink} strokeWidth={3}/>
+   <path d={`M${H.cx-14} ${H.cy-H.ry-30}C${H.cx+10} ${H.cy-H.ry-60} ${H.cx+50} ${H.cy-H.ry-58} ${H.cx+70} ${H.cy-H.ry-24}`} stroke={shade} strokeWidth={3} opacity={.2} fill="none"/>
+   <ellipse cx={H.cx+22} cy={H.cy-H.ry+44} rx={46} ry={13} fill={RS.tile} stroke={RS.ink} strokeWidth={2.4} transform={`rotate(-6 ${H.cx+22} ${H.cy-H.ry+44})`}/>
+  </g>}
+  <path d="M-600 438Q-20 384 560 452" stroke={RS.ink} strokeWidth={34} fill="none" strokeLinecap="round"/>
+  <path d="M-600 438Q-20 384 560 452" stroke={RS.woodDeep} strokeWidth={28} fill="none" strokeLinecap="round"/>
+  <path d="M-560 428Q-20 378 520 440" stroke={RS.woodLit} strokeWidth={5} fill="none" opacity={.7} strokeLinecap="round"/>
+  {[-300,290].map((x,i)=><g key={i}><path d={`M${x} ${436+(i?14:6)}L${x+(i?8:-6)} 980`} stroke={RS.ink} strokeWidth={22}/><path d={`M${x} ${436+(i?14:6)}L${x+(i?8:-6)} 980`} stroke={RS.woodDeep} strokeWidth={16}/></g>)}
+ </g>;
+};
 /** A plate on a surface at y 0, side on: a rim ellipse and a mound of food. */
 export type Food='none'|'noodle'|'rice'|'dumpling';
 const Plate:React.FC<{food?:Food;s?:number}>=({food='none'})=><g data-part="plate">
@@ -316,7 +366,10 @@ const SignFrame:React.FC<{shine?:number}>=({shine=0})=>{
  * at the bezel's top right corner, where a tag's string hangs. `lit` wipes light across the screen from the
  * left, `name` writes Haniya, `order` slides an order card up into its lower half. */
 export const PANEL={cx:0,cy:-770,w:300,h:420,screen:{x:-132,y:-962,w:264,h:384},eyelet:[134,-962] as Pt};
-const HostPanel:React.FC<{lit:number;name:number;order?:number;t:number}>=({lit,name,order=0,t})=>{
+/** The order card the lit panel takes: its size in panel units and how far it slides up from under the screen's
+ * bottom edge, so its landed top sits ORDER_CARD.rise-24 above that edge. */
+export const ORDER_CARD={w:244,h:112,rise:150};
+const HostPanel:React.FC<{lit:number;name:number;order?:number;ping?:number;t:number}>=({lit,name,order=0,ping=0,t})=>{
  const id=useUid('rshp');
  const P=PANEL,S=P.screen,L=clamp(lit),N=clamp(name),O=clamp(order);
  const nameW=widthOf('Haniya',56,true);
@@ -346,11 +399,14 @@ const HostPanel:React.FC<{lit:number;name:number;order?:number;t:number}>=({lit,
     <g clipPath={`url(#${id}n)`}><Txt x={0} y={S.y+232} size={56} bold anchor="middle" fill="#F4FBFC">Haniya</Txt></g>
     <rect x={-70} y={S.y+258} width={140} height={8} rx={4} fill={RS.screenGlow} opacity={f2(.5*N)}/>
     <rect x={-50} y={S.y+276} width={100} height={8} rx={4} fill={RS.screenGlow} opacity={f2(.35*N)}/>
-    {O>0&&<g transform={`translate(0 ${f2(S.y+S.h+20-104*O)})`} opacity={f2(Math.min(1,O*2))}>
-     <rect x={-114} y={0} width={228} height={76} rx={14} fill={RS.paperLit} stroke={RS.ink} strokeWidth={2}/>
-     <g transform="translate(-82 38)"><path d="M-16 -2a16 12 0 0 0 32 0z" fill="#D9A653" stroke={RS.ink} strokeWidth={1.6}/><path d="M-10 -6q4 -10 0 -14M2 -6q4 -10 0 -14" stroke={RS.inkSoft} strokeWidth={2} fill="none"/></g>
-     <Txt x={-56} y={46} size={Math.min(22,118/widthOf('Chow mein',1,true))} bold>Chow mein</Txt>
-     <g transform="translate(86 38)"><circle r={14} fill={RS.red} stroke="#9A2918" strokeWidth={1.6}/><path d="M-6 0l4 4l8 -8" stroke="#FFFDF6" strokeWidth={3.4} fill="none" strokeLinecap="round" strokeLinejoin="round"/></g>
+    {O>0&&<g transform={`translate(0 ${f2(S.y+S.h+24-ORDER_CARD.rise*O)})`} opacity={f2(Math.min(1,O*2))}>
+     {ping>0&&<rect x={-ORDER_CARD.w/2-8} y={-8} width={ORDER_CARD.w+16} height={ORDER_CARD.h+16} rx={20} fill="none" stroke={RS.screenGlow} strokeWidth={6} opacity={f2(clamp(ping))}/>}
+     <rect x={-ORDER_CARD.w/2} y={0} width={ORDER_CARD.w} height={ORDER_CARD.h} rx={16} fill={RS.paperLit} stroke={RS.ink} strokeWidth={2.6}/>
+     <rect x={-ORDER_CARD.w/2} y={0} width={ORDER_CARD.w} height={18} rx={9} fill={RS.tile} opacity={.85}/>
+     <g transform="translate(-86 66) scale(1.5)"><path d="M-16 -2a16 12 0 0 0 32 0z" fill="#D9A653" stroke={RS.ink} strokeWidth={1.4}/><path d="M-10 -6q4 -10 0 -14M2 -6q4 -10 0 -14" stroke={RS.inkSoft} strokeWidth={1.6} fill="none"/></g>
+     <Txt x={-54} y={66} size={Math.min(30,118/widthOf('Chow mein',1,true))} bold>Chow mein</Txt>
+     <rect x={-54} y={80} width={96} height={8} rx={4} fill={RS.line}/>
+     <g transform="translate(94 62)"><circle r={18} fill={RS.red} stroke="#9A2918" strokeWidth={1.8}/><path d="M-8 0l5 5l10 -10" stroke="#FFFDF6" strokeWidth={4} fill="none" strokeLinecap="round" strokeLinejoin="round"/></g>
     </g>}
    </g>
    <path d={`M${S.x} ${S.y+40}L${S.x+80} ${S.y}H${S.x+120}L${S.x} ${S.y+90}Z`} fill="#FFFFFF" opacity={.06}/>
@@ -641,9 +697,9 @@ const Footprint:React.FC<{flip?:boolean}>=({flip=false})=><g data-part="footprin
 type Part=
  {part:'floor';y:number;vp?:number}|{part:'door';open:number;bell?:number;children?:React.ReactNode}|{part:'apronHook'}|{part:'apron'}|
  {part:'hostStand';children?:React.ReactNode}|{part:'deskPhone';ring:number;t:number}|{part:'orderPad';curl?:number;fy?:number}|
- {part:'table';w?:number;children?:React.ReactNode}|{part:'chair';flip?:boolean}|({part:'guest';layer:'body'|'arms';raise?:number;look?:number;menu?:boolean}&GuestLook)|
+ {part:'table';w?:number;children?:React.ReactNode}|{part:'chair';flip?:boolean}|({part:'guest';layer:'body'|'arms';raise?:number;look?:number;menu?:boolean}&GuestLook)|({part:'guestBack';layer:'body'|'upperArm';elbow?:Pt}&GuestLook)|
  {part:'plate';food?:Food}|{part:'waterGlass'}|{part:'menuTent'}|{part:'clock';r:number;minute:number;hour:number}|
- {part:'pendant';len:number;glow?:number}|{part:'signFrame';shine?:number}|{part:'hostPanel';lit:number;name:number;order?:number;t:number}|
+ {part:'pendant';len:number;glow?:number}|{part:'signFrame';shine?:number}|{part:'hostPanel';lit:number;name:number;order?:number;ping?:number;t:number}|
  {part:'tag';lines:string[];size:number;swing?:number;tone?:'kraft'|'cream'|'slate'}|{part:'passShelf';w:number}|{part:'heatLamp';w:number;rod:number}|{part:'hood';w:number}|
  {part:'desk';y:number;depth?:number}|{part:'deskTop';x:number;y:number;w:number;h:number}|{part:'ledgerCard';mark?:number}|{part:'stampMark';p?:number}|
  {part:'stamp';top?:boolean}|{part:'receiptClip';open?:number;top?:boolean}|{part:'corkBoard';w:number;h:number}|
@@ -662,13 +718,14 @@ export const RestaurantSupport:React.FC<Part>=(p)=>{
  case 'table':return <Table w={p.w}>{p.children}</Table>;
  case 'chair':return <Chair flip={p.flip}/>;
  case 'guest':{const {part:_p,...g}=p;return <Guest {...g}/>;}
+ case 'guestBack':{const {part:_p,...g}=p;return <GuestBack {...g}/>;}
  case 'plate':return <Plate food={p.food}/>;
  case 'waterGlass':return <WaterGlass/>;
  case 'menuTent':return <MenuTent/>;
  case 'clock':return <Clock r={p.r} minute={p.minute} hour={p.hour}/>;
  case 'pendant':return <Pendant len={p.len} glow={p.glow}/>;
  case 'signFrame':return <SignFrame shine={p.shine}/>;
- case 'hostPanel':return <HostPanel lit={p.lit} name={p.name} order={p.order} t={p.t}/>;
+ case 'hostPanel':return <HostPanel lit={p.lit} name={p.name} order={p.order} ping={p.ping} t={p.t}/>;
  case 'tag':return <Tag lines={p.lines} size={p.size} swing={p.swing} tone={p.tone}/>;
  case 'passShelf':return <PassShelf w={p.w}/>;
  case 'heatLamp':return <HeatLamp w={p.w} rod={p.rod}/>;
