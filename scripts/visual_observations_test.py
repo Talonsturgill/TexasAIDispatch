@@ -145,6 +145,31 @@ class VisualEvidence(unittest.TestCase):
         self.assertIn('changed', visual.note_problems(self.repo, row, self.page.relative_to(self.repo),
                                                     visual.digest(self.page))[0])
 
+    def test_a_recheck_of_one_page_keeps_the_earliest_original_annotation(self):
+        _, _, _, write = self.delivered(); first = self.save(write)
+        self.read['tool_use_id'] = 'real-read-2'
+        image.record(self.read, self.workspace)
+        receipts = sorted((self.package / 'image-tool-delivery').glob('*.json'))
+        self.assertEqual(len(receipts), 2)
+        newer = [visual.load(p) for p in receipts if visual.load(p)['observation_path'] != str(first.relative_to(self.repo))][0]
+        note = {'schema': visual.SCHEMA, 'image_event_key': newer['event_key'], 'page': newer['source_file'],
+                'image_sha256': newer['source_sha256'], 'received': True, 'objects': ['red robot'],
+                'actions': ['robot stays at the door'], 'text': None,
+                'observed': 'Recheck: the red robot has not left the open door.', 'literal_error': None}
+        again = {**self.read, 'hook_event_name': 'PreToolUse', 'tool_name': 'Write', 'tool_use_id': 'real-write-2',
+                 'tool_input': {'file_path': str(self.repo / newer['observation_path']), 'content': json.dumps(note)}}
+        self.save(again)
+        index = self.page.parent / 'index.json'
+        index.write_text(json.dumps({'pages': [{'file': self.page.name, 'sha256': visual.digest(self.page),
+                                             'samples': [{'frame': 0}, {'frame': 24}]}]}))
+        packet = self.package / 'phone-packet.json'
+        packet.write_text(json.dumps({'role': 'storyboard-critic', 'board': {'path': str(self.package / 'storyboard.json')},
+            'public_visual_evidence': visual.CONTRACT,
+            'phone_options': [{'motion_sequence': {'path': str(index), 'sha256': visual.digest(index)}}]}))
+        row = visual.coverage(packet, first.parent)['sequences'][0]['pages']
+        self.assertEqual(len(row), 1)
+        self.assertEqual(row[0]['observation']['path'], str(first))
+
     def test_installed_hooks_preserve_models_and_settings_and_cannot_overwrite_foreign_leaves(self):
         settings = self.workspace / '.claude/settings.json'; settings.parent.mkdir()
         settings.write_text('{"model":"sonnet","permissions":{"deny":["send"]}}')
