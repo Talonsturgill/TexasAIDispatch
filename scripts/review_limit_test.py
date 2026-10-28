@@ -6,6 +6,7 @@ import tempfile
 import subprocess
 import sys
 import unittest
+import five_round_fixture  # noqa: F401
 from unittest.mock import patch
 
 import creative_release
@@ -317,11 +318,13 @@ class ConditionalCodeRecovery(unittest.TestCase):
 class RemainingReviewPath(unittest.TestCase):
     """Real controller charges with tiny evidence fixtures; no render or provider calls."""
 
+    edition = '2026-10-25'
+
     def setUp(self):
         from types import SimpleNamespace
         self.temp = tempfile.TemporaryDirectory(); self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name); self.state = self.root / 'run_state.json'
-        self.assertTrue(controller.initialise(self.state, '2026-10-25', 'production')[0])
+        self.assertTrue(controller.initialise(self.state, self.edition, 'production')[0])
         # Route eligibility has its own original-handback tests. Missing proof cannot
         # discount this fixture's three pending independent gates.
         self.combined = SimpleNamespace(
@@ -353,12 +356,12 @@ class RemainingReviewPath(unittest.TestCase):
         import critic_gate
         claims = self.write('claims.json', {'claims': []})
         for option in ('a', 'b'):
-            board = {'date': '2026-10-25', 'scenes': [], 'option': option}
+            board = {'date': self.edition, 'scenes': [], 'option': option}
             self.write('opening-' + option + '.json', board)
             self.write('opening-' + option + '-critic.json', {
                 'verdict': 'pass', 'review_scope': 'code-plan',
                 'concept_sha256': critic_gate.concept_digest(board),
-                'reviewer_identity': 'independent fixture critic', 'reviewed_at': '2026-10-25T10:00:00Z',
+                'reviewer_identity': 'independent fixture critic', 'reviewed_at': self.edition + 'T10:00:00Z',
                 'weakest_frame': 'The closing scene has the least activity.',
                 'story_review': {'claims_sha256': controller.digest(claims)}})
         self.write('storyboard.json', json.loads((self.root / 'opening-a.json').read_text()))
@@ -449,6 +452,183 @@ class RemainingReviewPath(unittest.TestCase):
             changed = {**packet, 'combined_code_review': {'original_handback_sha256': 'b' * 64}}
             self.assertTrue(limit.worker_plan_problems(controller.read_state(self.state), changed,
                                                        charged=True, state_path=self.state))
+
+
+class PlannedCorrectionBudget(unittest.TestCase):
+    """Fund the post-correction gates before the builder can invalidate current approval."""
+
+    edition = '2026-10-26'
+    setUp = RemainingReviewPath.setUp
+    write = RemainingReviewPath.write
+    code_passes = RemainingReviewPath.code_passes
+
+    def plan(self):
+        self.code_passes()
+        source = self.root / 'Scene.tsx'; source.write_text('export const Scene = () => <div/>;\n')
+        before = self.root / 'Scene.before.tsx'; before.write_bytes(source.read_bytes())
+        failure = self.write('original-phone-rejection.json', {'verdict': 'revise',
+            'review_scope': 'exact-muted-phone-preflight', 'reviewer_identity': 'original fixture critic',
+            'reviewed_preflight_sha256': 'f' * 64,
+            'blocking_defects': [{'category': 'comprehension', 'defect': 'The object visibly loses contact.'}]})
+        plan = {'repair_scope': 'standard', 'director_identity': 'fixture director',
+            'mechanism_id': 'continuous-object-contact', 'failure_family': 'continuity',
+            'failure_evidence': str(failure), 'failure_evidence_sha256': controller.digest(failure),
+            'changed_inputs': [{'path': str(source), 'before_path': str(before),
+                                'before_sha256': controller.digest(before)}], 'resources': {'reboards': 1}}
+        for field in ('root_cause', 'repair', 'mechanism_change', 'expected_visible_result'):
+            plan[field] = 'Keep the independently rejected object in physical contact throughout the complete performed scene.'
+        return self.write('planned-correction.json', plan)
+
+    def allow_combined(self):
+        # The peer combined-review suite proves native original phone/code/coverage
+        # provenance. This fixture isolates the real controller's admission timing.
+        self.combined.budget_eligibility = lambda *a, **k: {'original_phone_failure': 'fixture'}
+
+    def test_current_code_approval_cannot_fund_planned_source_changes(self):
+        import production_lifecycle
+        plan = self.plan(); state = controller.read_state(self.state)
+        current = limit.remaining_review_path(state, self.state)
+        self.assertTrue(current['completed']['code']); self.assertEqual(2, current['required'])
+        forecast = limit.remaining_review_path(state, self.state, repair_plan=controller.load_json(plan))
+        self.assertEqual(['code', 'comparison', 'timed_phone'], forecast['invalidated'])
+        self.assertEqual((3, False), (forecast['required'], forecast['feasible']))
+        before = self.state.read_bytes()
+        ok, message = production_lifecycle.begin_repair(self.state, plan, reserve_reboard=True)
+        self.assertFalse(ok); self.assertIn('complete remaining path', message)
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_genuine_combined_route_admits_and_authorizes_one_already_charged_correction(self):
+        import production_lifecycle
+        import repair_guard
+        plan_path = self.plan(); self.allow_combined(); before = controller.read_state(self.state)
+        ok, message = production_lifecycle.begin_repair(self.state, plan_path, reserve_reboard=True)
+        self.assertTrue(ok, message)
+        opened = controller.read_state(self.state)
+        self.assertEqual((3, 1), (opened['usage']['storyboard_critics'], opened['usage']['reboards']))
+        self.assertEqual(before['events'], opened['events'][:len(before['events'])])
+        plan = controller.load_json(plan_path); row = plan['changed_inputs'][0]
+        paid = repair_guard.production_budget_precheck(opened, state_path=self.state, repair_plan=plan)
+        self.assertTrue(paid['feasible'], paid)
+        self.assertEqual(0, paid['resources']['reboards']['required'])
+        unrelated = {**plan, 'failure_evidence_sha256': 'e' * 64}
+        other = repair_guard.production_budget_precheck(opened, state_path=self.state, repair_plan=unrelated)
+        self.assertEqual(1, other['resources']['reboards']['required'])
+        Path(row['path']).write_text('export const Scene = () => <section><div/></section>;\n')
+        row['after_sha256'] = controller.digest(Path(row['path'])); plan_path.write_text(json.dumps(plan))
+        usage = copy.deepcopy(opened['usage']); envelope = copy.deepcopy(opened['resource_envelope'])
+        ok, message = production_lifecycle.authorize_repair(self.state, plan_path)
+        self.assertTrue(ok, message)
+        closed = controller.read_state(self.state)
+        self.assertEqual(usage, closed['usage']); self.assertEqual(envelope, closed['resource_envelope'])
+        self.assertNotIn('active_repair', closed)
+
+    def test_corrective_charge_uses_bound_baselines_not_mutable_plan_omissions(self):
+        import production_lifecycle
+        plan = self.plan(); self.allow_combined()
+        self.assertTrue(production_lifecycle.begin_repair(self.state, plan)[0])
+        original_plan = controller.load_json(plan); original_plan['changed_inputs'] = []
+        plan.write_text(json.dumps(original_plan))
+        self.combined.budget_eligibility = lambda *a, **k: (_ for _ in ()).throw(ValueError('original proof unavailable'))
+        before = self.state.read_bytes()
+        ok, message = controller.reserve(self.state, {'reboards': 1}, 'attempt an unfunded source correction')
+        self.assertFalse(ok); self.assertIn('needs 3', message)
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_capture_reserve_includes_both_comparison_films_and_final_timed_preview(self):
+        import repair_guard
+        plan_path = self.plan(); plan = controller.load_json(plan_path); self.allow_combined()
+        # Today's observed twelve remaining units fund all seven prepared operators.
+        # Retain actual fixture charges and its original envelope throughout.
+        available = controller.read_state(self.state)['resource_envelope']['preflight_renders']
+        ok, message = controller.reserve(self.state, {'preflight_renders': available - 12}, 'retained original captures')
+        self.assertTrue(ok, message)
+        ready = repair_guard.production_budget_precheck(controller.read_state(self.state),
+                                                        state_path=self.state, repair_plan=plan)
+        self.assertEqual((7, 12), (ready['resources']['preflight_renders']['required'],
+                                  ready['resources']['preflight_renders']['remaining']))
+        self.assertTrue(ready['feasible'], ready)
+        ok, message = controller.reserve(self.state, {'preflight_renders': 10}, 'hero')
+        self.assertTrue(ok, message)
+        state = controller.read_state(self.state); before = self.state.read_bytes()
+        budget = repair_guard.production_budget_precheck(state, state_path=self.state, repair_plan=plan)
+        self.assertEqual(7, budget['resources']['preflight_renders']['required'])
+        self.assertEqual(5, budget['deficits']['preflight_renders'])
+        self.assertEqual(2, budget['resources']['storyboard_critics']['required'])
+        self.assertFalse(budget['feasible']); self.assertEqual(before, self.state.read_bytes())
+        import production_lifecycle
+        ok, message = production_lifecycle.begin_repair(self.state, plan_path, reserve_reboard=True)
+        self.assertFalse(ok); self.assertIn('preflight_renders', message)
+        self.assertEqual(before, self.state.read_bytes())
+        historical = copy.deepcopy(state); historical['run_id'] = '2026-10-25'
+        with patch.object(limit, 'review_evidence', return_value=(
+                {'code': False, 'comparison': False, 'timed_phone': False}, [])):
+            old = repair_guard.production_budget_precheck(historical, state_path=self.state, repair_plan=plan)
+        self.assertEqual(2, old['resources']['preflight_renders']['required'])
+        for comparison, timed, expected in ((True, False, 4), (True, True, 2)):
+            with self.subTest(comparison_passed=comparison, timed_passed=timed), \
+                    patch.object(limit, 'review_evidence', return_value=(
+                        {'code': True, 'comparison': comparison, 'timed_phone': timed}, [])):
+                pending = repair_guard.production_budget_precheck(state, state_path=self.state)
+            self.assertEqual(expected, pending['resources']['preflight_renders']['required'])
+
+    def test_current_frozen_context_repair_reuses_exhausted_synthesis_and_art(self):
+        from review_context_test import ContextTest
+        import production_lifecycle
+        import repair_guard
+        fixture = ContextTest('test_charged_repair_preserves_envelope_and_all_prior_events')
+        fixture.setUp(); self.addCleanup(fixture.doCleanups)
+        state = controller.read_state(fixture.state)
+        state['run_id'] = self.edition
+        controller.save(fixture.state, state)
+        fixture.board['date'] = self.edition
+        fixture.write('storyboard.json', fixture.board); fixture.write('before.json', fixture.board)
+        board_hash = controller.digest(fixture.before)
+        for artifact in ('preflight.json', 'proof.json'):
+            value = controller.load_json(fixture.root / artifact); value['board_sha256'] = board_hash
+            fixture.write(artifact, value)
+        diagnosis = controller.load_json(fixture.diagnosis)
+        diagnosis['bindings']['board_sha256'] = board_hash
+        fixture.write('diagnosis.json', diagnosis)
+        fixture.plan['diagnosis'] = fixture.ref(fixture.diagnosis)
+        fixture.plan['failed_proof'] = fixture.ref(fixture.proof)
+        fixture.plan['changed_inputs'][0]['before_sha256'] = board_hash
+        fixture.write('plan.json', fixture.plan)
+        exhausted = {name: state['resource_envelope'][name]
+                     for name in ('tts_calls', 'image_generations')}
+        ok, message = controller.reserve(fixture.state, exhausted, 'retained original synthesis and artwork')
+        self.assertTrue(ok, message)
+        state = controller.read_state(fixture.state)
+        generic = repair_guard.production_budget_precheck(state, state_path=fixture.state,
+                                                          repair_plan=fixture.plan)
+        self.assertFalse(generic['feasible'])
+        self.assertGreater(generic['deficits']['tts_calls'], 0)
+        self.assertGreater(generic['deficits']['image_generations'], 0)
+        before = copy.deepcopy(state)
+        ok, message = production_lifecycle.begin_repair(fixture.state, fixture.plan_path)
+        self.assertTrue(ok, message)
+        ok, message = controller.reserve(fixture.state, {'reboards': 1}, 'frozen excerpt expansion')
+        self.assertTrue(ok, message)
+        fixture.expand()
+        ok, message = production_lifecycle.authorize_repair(fixture.state, fixture.plan_path)
+        self.assertTrue(ok, message)
+        after = controller.read_state(fixture.state)
+        self.assertEqual(before['resource_envelope'], after['resource_envelope'])
+        self.assertEqual(before['events'], after['events'][:len(before['events'])])
+        for name in exhausted:
+            self.assertEqual(before['usage'][name], after['usage'][name])
+        self.assertEqual([], production_lifecycle.allowance_problems(after))
+
+    def test_existing_narrow_frozen_scopes_do_not_reopen_unmodified_code(self):
+        state = controller.read_state(self.state)
+        plan = {'changed_inputs': [{'path': '/episode/out/dispatch/vo_direction.json'}]}
+        self.assertEqual(['timed_phone'], limit.planned_invalidations(state,
+            {**plan, 'repair_scope': 'narration-performance'}))
+        self.assertEqual([], limit.planned_invalidations(state,
+            {**plan, 'repair_scope': 'review-context'}))
+        self.assertEqual([], limit.planned_invalidations(state,
+            {**plan, 'repair_scope': 'technical-integrity'}))
+        self.assertEqual(['code', 'comparison', 'timed_phone'], limit.planned_invalidations(state,
+            {'repair_scope': 'technical-integrity', 'changed_inputs': [{'path': '/episode/video-engine/src/Scene.tsx'}]}))
 
 
 class FinalPhoneReservation(unittest.TestCase):
@@ -615,6 +795,14 @@ class FinalPhoneReservation(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'hard five-review'):
                 controller.reserve(self.state, {'storyboard_critics': 1}, 'extra review')
         self.assertEqual(before, self.state.read_bytes())
+
+
+class LivePolicy(unittest.TestCase):
+    def test_live_policy_records_the_owner_lift(self):
+        live = json.loads((Path(__file__).resolve().parents[1] / 'config/review_limit.json').read_text())
+        self.assertEqual(20, live['max_review_rounds'])
+        self.assertIn('October 26th', live['authorization'])
+        self.assertIs(False, live['extensions_allowed'])
 
 
 if __name__ == '__main__':

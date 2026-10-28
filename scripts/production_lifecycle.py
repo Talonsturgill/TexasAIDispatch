@@ -302,6 +302,18 @@ def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None
                           "before_sha256": digest(before)})
     if not baselines:
         return False, "name the production inputs to change and preserve their baselines"
+    from review_limit import planned_invalidations
+    # Frozen narration, excerpt-context and nonpicture technical scopes retain
+    # their own resource/unchanged-input contracts; generic production would
+    # incorrectly demand fresh picture or synthesis for those reused inputs.
+    if 'code' in planned_invalidations(state, plan):
+        from repair_guard import production_budget_precheck
+        budget = production_budget_precheck(state, state_path=path, repair_plan=plan)
+        if not budget['feasible']:
+            return False, ('planned correction cannot fund its complete remaining path: '
+                           + '; '.join(budget.get('errors', []))
+                           + ('; deficits ' + json.dumps(budget['deficits'], sort_keys=True)
+                              if budget.get('deficits') else ''))
     # One board correction and two independent critic calls (plan, then actual phone cut).
     # They are allowances, not calls: the existing consume command charges before each use.
     grants = {}
@@ -520,9 +532,9 @@ def pending(repo):
 def allowance_problems(state):
     """Reconstruct allowances from recorded actions; a hand-raised cap fails."""
     from run_controller import ceilings,resource_keys
-    from repair_guard import owner_grant_problems, validator_grant_problems
+    from repair_guard import owner_grant_problems, validator_grant_problems, preflight_grant_problems
     from autonomous_completion import replay
-    errors = owner_grant_problems(state) + validator_grant_problems(state) + replay(state)[1]
+    errors = owner_grant_problems(state) + validator_grant_problems(state) + preflight_grant_problems(state) + replay(state)[1]
     if errors:
         return errors
     events = state.get("events", [])
@@ -614,7 +626,7 @@ def allowance_problems(state):
             if e.get("previous_ceiling") != caps:
                 return ["mandatory completion grant lacks a matching allowance chain"]
             caps = dict(e["new_ceiling"])
-        elif e.get("kind") in {"owner_review_grant", "owner_validator_grant"}:
+        elif e.get("kind") in {"owner_review_grant", "owner_validator_grant", "owner_preflight_grant"}:
             name = e["resource"]
             if e["previous_ceiling"] != caps[name]:
                 return ["owner review grant lacks a matching allowance chain"]

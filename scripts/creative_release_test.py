@@ -4,6 +4,7 @@ import json
 import os
 import tempfile
 import unittest
+import five_round_fixture  # noqa: F401
 from pathlib import Path
 from unittest.mock import patch
 import creative_release as c
@@ -795,6 +796,12 @@ class SoleProviderFindingsTests(unittest.TestCase):
         self.assertIn('top-level defects list covering every bounded_release.defects.finding verbatim',
                       self.r.prompt('picture', {}))
         self.assertNotIn('top-level defects list', self.r.prompt('code', {}))
+
+
+class LiveCreativePolicy(unittest.TestCase):
+    def test_live_policy_records_the_owner_lift(self):
+        live = json.loads((Path(__file__).resolve().parents[1] / 'config/creative_release.json').read_text())
+        self.assertEqual(6, live['max_creative_repair_rounds'])
 
 
 if __name__ == "__main__":

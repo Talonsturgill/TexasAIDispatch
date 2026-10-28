@@ -1297,13 +1297,13 @@ def grant_owner_review(path: Path, authorization_path: Path | None,
     from production_lifecycle import allowance_problems
     state = read_state(path)
     if (confirmation != OWNER_CONFIRMATION or authorization_path is None
-            or type(additional_calls) is not int or not 1 <= additional_calls <= 2):
-        return False, "run controller: explicit owner confirmation, retained authorization and one or two calls are required"
+            or type(additional_calls) is not int or not 1 <= additional_calls <= 4):
+        return False, "run controller: explicit owner confirmation, retained authorization and one to four calls are required"
     if not enabled(state) or state.get("mode") != "production" or state.get("terminal_state") is not None:
         return False, "run controller: owner review grant requires active frozen-envelope production"
     grants = [e for e in state["events"] if e.get("kind") == "owner_review_grant"]
-    if len(grants) >= 2:
-        return False, "run controller: this run already used its two explicit owner review grants"
+    if len(grants) >= 6:
+        return False, "run controller: this run already used its six explicit owner review grants"
     errors = envelope_problems(state, {}) + allowance_problems(state)
     if errors:
         return False, "; ".join(errors)
@@ -1398,6 +1398,63 @@ def grant_validator_review(path: Path, authorization_path: Path | None,
         return False, "; ".join(errors)
     save(path, state)
     return True, "run controller: explicit owner grant adds exactly 1 validator call; original envelope, usage and quality gates remain intact"
+
+
+def grant_owner_preflight(path: Path, authorization_path: Path | None,
+                          failure_evidence: Path, additional_calls: int,
+                          confirmation: str) -> tuple[bool, str]:
+    """Explicit operator attestation of extra preflight renders. Production never invokes this itself."""
+    from repair_guard import (enabled, envelope_problems, preflight_authorization_problems,
+                              preflight_grant_problems, PREFLIGHT_CONFIRMATION, PREFLIGHT_KIND,
+                              PREFLIGHT_MAX_GRANTS, PREFLIGHT_MAX_UNITS, PREFLIGHT_RESOURCE)
+    from production_lifecycle import allowance_problems
+    state = read_state(path)
+    if (confirmation != PREFLIGHT_CONFIRMATION or authorization_path is None
+            or type(additional_calls) is not int or not 1 <= additional_calls <= PREFLIGHT_MAX_UNITS):
+        return False, "run controller: explicit owner confirmation, retained authorization and one to four preflight renders are required"
+    if not enabled(state) or state.get("mode") != "production" or state.get("terminal_state") is not None:
+        return False, "run controller: preflight grant requires active frozen-envelope production"
+    grants = [e for e in state["events"] if e.get("kind") == PREFLIGHT_KIND]
+    if len(grants) >= PREFLIGHT_MAX_GRANTS:
+        return False, "run controller: this run already used its four explicit preflight grants"
+    errors = envelope_problems(state, {}) + allowance_problems(state)
+    if errors:
+        return False, "; ".join(errors)
+    try:
+        artifact_bytes = authorization_path.read_bytes()
+        authorization = json.loads(artifact_bytes)
+        artifact_text = artifact_bytes.decode("utf-8")
+        failure_text = failure_evidence.read_bytes().decode("utf-8")
+        errors = preflight_authorization_problems(state, authorization, failure_text,
+                                                  grants[-1] if grants else None)
+        if errors:
+            return False, "; ".join(errors)
+        if (authorization["additional_calls"] != additional_calls
+                or Path(authorization.get("failure_evidence", "")).resolve() != failure_evidence.resolve()):
+            return False, "run controller: requested units or failure file differ from the explicit owner authorization"
+        seen = {key: {json.loads(g["authorization_json"])[key].strip() for g in grants}
+                for key in ("approval_id", "source_message_reference", "owner_text")}
+        if any(authorization[key].strip() in seen[key] for key in seen):
+            return False, "run controller: preflight grant replays an earlier owner instruction"
+    except (OSError, ValueError, TypeError, KeyError):
+        return False, "run controller: retained owner authorization is missing or unreadable"
+    old = state["resource_envelope"][PREFLIGHT_RESOURCE] + sum(g["additional_calls"] for g in grants)
+    if state["escalation_ceiling"][PREFLIGHT_RESOURCE] != old:
+        return False, "run controller: current preflight ceiling differs from the original envelope plus earlier grants"
+    state["escalation_ceiling"][PREFLIGHT_RESOURCE] = old + additional_calls
+    event(state, PREFLIGHT_KIND, run_id=state["run_id"], resource=PREFLIGHT_RESOURCE,
+          approval_id=authorization["approval_id"], additional_calls=additional_calls,
+          previous_ceiling=old, new_ceiling=old + additional_calls,
+          usage_unchanged=state["usage"][PREFLIGHT_RESOURCE],
+          authorization_json=artifact_text, authorization_sha256=hashlib.sha256(artifact_bytes).hexdigest(),
+          failure_evidence_json=failure_text,
+          failure_evidence_sha256=authorization["failure_evidence_sha256"],
+          attestation="Operator retained explicit owner instruction; no automatic renewal")
+    errors = preflight_grant_problems(state)
+    if errors:
+        return False, "; ".join(errors)
+    save(path, state)
+    return True, f"run controller: explicit owner grant adds exactly {additional_calls} preflight renders; original envelope, usage and quality gates remain intact"
 
 
 def owner_override(path: Path, report: Path, reason: str, confirmation: str
@@ -2280,6 +2337,12 @@ def main() -> int:
     p.add_argument("--failure-evidence", type=Path, required=True)
     p.add_argument("--confirm", required=True)
 
+    p = sub.add_parser("grant-owner-preflight")
+    p.add_argument("--authorization", type=Path, required=True)
+    p.add_argument("--failure-evidence", type=Path, required=True)
+    p.add_argument("--additional-calls", type=int, required=True)
+    p.add_argument("--confirm", required=True)
+
     p = sub.add_parser("checkpoint")
     p.add_argument("--reason", required=True)
     p.add_argument("--review-package", type=Path, required=True)
@@ -2445,7 +2508,7 @@ def main() -> int:
             result = production_budget_precheck(budget_state, a.review_route, phone_complete,
                                                hero_rejected, context_ready, structural_ready, minimum_action_failed,
                                                mandatory_repair, review_coverage, modern_code_repair,
-                                               state_path=state_path)
+                                               state_path=state_path, repair_plan=budget_plan)
             if a.repair_plan:
                 from capture_completion_budget import apply_budget
                 result = apply_budget(budget_state, budget_plan, result)
@@ -2492,6 +2555,9 @@ def main() -> int:
         elif a.command == "grant-validator-review":
             accepted, message = grant_validator_review(
                 state_path, a.authorization, a.failure_evidence, a.confirm)
+        elif a.command == "grant-owner-preflight":
+            accepted, message = grant_owner_preflight(
+                state_path, a.authorization, a.failure_evidence, a.additional_calls, a.confirm)
         else:
             print(json.dumps(read_state(state_path), indent=2, sort_keys=True))
             return 0

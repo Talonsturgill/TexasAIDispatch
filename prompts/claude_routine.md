@@ -165,8 +165,12 @@ from the verified current-main commit: five attempts, no extensions and no added
 Keep the original ledger, frozen envelope, six-or-more spent attempts if present, and failed
 authorization evidence unchanged. Removing an unsupported policy addition refunds no attempt
 and permits no new review; an exhausted run must use its truthful expenditure-closure path.
-Verify that publication_owner.py, completion_progress.py, native_task_wait.py and claude_runtime.py
-are the current main implementations before reserving again. The first newly owned reservation
+Verify that publication_owner.py, completion_progress.py, native_task_wait.py, claude_runtime.py,
+review_limit.py, combined_review.py, production_lifecycle.py, repair_guard.py and
+autonomous_completion.py are the current main implementations before reserving again. This
+also applies before authorizing an already charged correction after restored source adoption:
+retain its original baselines and charge, and fund the actual remaining path without replaying
+the builder. The first newly owned reservation
 then appends the operational progress adoption even for an older unfinished edition. Its old
 date cannot preserve the review spiral. An already admitted batch retains its original admission;
 the next repair uses the finite structural route. No reservation is replayed and no film is approved
@@ -704,15 +708,17 @@ For each option use its canonical `--board out/dispatch/openings/a.json` and mat
 `--film out/dispatch/openings/a.mp4` (or b), `--state out/dispatch/run_state.json`, and a fresh
 `--out out/dispatch/openings/motion-a` (or b). Use the ordinary wrapped capture authorization
 only after checking that output. Reuse an existing complete sequence when --verify accepts the
-exact current board and film; otherwise retain the entire previous directory under an unused
-edition-evidence path before preparing a fresh extraction. Occupied output is refused before
+exact current board and film; otherwise preserve the previous directory at its original path
+and choose a new unused extraction path. Occupied output is refused before
 charging. Preserve partial/failed pages and original indices; never overwrite them. Then authorize
 with `--prepare` and that exact board/command. Each extraction reserves one preflight before
 decoding, and claims its consumed authorization once without another charge. Headroom,
 housekeeping, authored art and all hook protections still apply. Never use the native final
 profile on a phone movie or present a phone index as final native evidence.
 
-Build the normal current `daily_production.py --packet storyboard-critic` packet, then:
+Build the normal current `daily_production.py --packet storyboard-critic` packet, then use
+fresh packet and coverage filenames for each paid attempt. This example is for the first
+comparison only; it must never overwrite a retained prior packet:
 
 ```sh
 python scripts/claude_runtime.py phone-packet --packet out/dispatch/critic-packet.json --state out/dispatch/run_state.json --sequence-a out/dispatch/openings/motion-a/index.json --sequence-b out/dispatch/openings/motion-b/index.json --out out/dispatch/phone-critic-packet.json
@@ -732,8 +738,10 @@ with `--phone-option current --board out/dispatch/storyboard.json --film out/dis
 and a fresh output directory. It requires the current exact `preflight.json` inspection, edition,
 board, renderer and movie bytes. It honors only the existing structural release policy; extraction
 still supplies no verdict. Its separate operation reserves and claims once. Build a fresh ordinary
-critic packet, then use `claude_runtime.py phone-packet --sequence-current <new index.json>` instead
-of the two comparison sequence flags. Keep the same packet, state and output arguments. This
+critic packet at `out/dispatch/critic-fifth-packet.json`, then use
+`claude_runtime.py phone-packet --packet out/dispatch/critic-fifth-packet.json --state out/dispatch/run_state.json --sequence-current <new index.json> --out out/dispatch/phone-fifth-critic-packet.json`
+and save its coverage as `out/dispatch/phone-fifth-coverage.json`. Preserve all prior packet,
+coverage and sequence paths. This
 single-film packet binds the measured current board and film, returns a fresh exact-phone report,
 and does not choose the silent treatment again. The silent comparison index cannot prove the
 timed movie; neither phone profile can satisfy the native final profile. Inspect all chronological
@@ -830,6 +838,11 @@ the exact authorization, and that operator claims its matching prepaid event onc
 preview cannot claim a native hero charge; motion extraction has its own exact-film identity.
 An unchanged operation cannot be prepared again without the existing infrastructure-retry record.
 Preserve all earlier charges and denied commands.
+Before the first paid review, run one free builder proof of both treatments
+(`opening_compare.py --builder-proof`, prepared the same way, see prompts/phases/02-picture.md):
+it renders both phone previews and their chronological pages in one charged capture with no critic
+report, marks its receipt diagnostic, and lets the builder fix what any frame shows before a
+paid slot is spent on it. Retain its package before the real comparison.
 Prepare and execute each exact command before preparing the next one. In particular, prepare and
 extract option a, collect its result, then prepare and extract option b; two separate preparations
 must never compete for the single authorization file. The issuer refuses to replace a still usable
@@ -859,3 +872,7 @@ denies unreadable, unresolved or unrelated --props and --board inputs and placeh
 authorized command once, so the next capture needs a new reservation. Builders never capture. Before the first
 real capture of a run, prove the hook is active with a harmless capture-form command that must be denied,
 and keep that denial as evidence.
+
+## Before pushing a tooling change
+
+Run `python scripts/ci_preview.py` from the changed checkout. It runs every suite the change can reach in CI's environment and names only the failures that are new against origin/main, so a tooling pull request does not spend 13 minute CI cycles finding what a local run shows. Exit 0 means no new failure. It charges nothing.

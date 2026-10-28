@@ -10,6 +10,11 @@ OWNER_CONFIRMATION = "OWNER AUTHORIZED EXTRA STORYBOARD CRITIC CALLS"
 OWNER_RESOURCE = "storyboard_critics"
 VALIDATOR_CONFIRMATION = "OWNER AUTHORIZED EXTRA VALIDATOR CALL"
 VALIDATOR_RESOURCE = "validator_agents"
+PREFLIGHT_CONFIRMATION = "OWNER AUTHORIZED EXTRA PREFLIGHT RENDERS"
+PREFLIGHT_RESOURCE = "preflight_renders"
+PREFLIGHT_KIND = "owner_preflight_grant"
+PREFLIGHT_MAX_GRANTS = 4
+PREFLIGHT_MAX_UNITS = 4
 MEASURED_RUNTIME_FAMILY = "measured-runtime-crowding"
 RIGHTS_FAMILY = "rights"
 
@@ -23,8 +28,8 @@ def authorization_problems(state, authorization, evidence_text):
     if (authorization.get("run_id") != state["run_id"]
             or authorization.get("resource") != OWNER_RESOURCE
             or type(authorization.get("additional_calls")) is not int
-            or not 1 <= authorization["additional_calls"] <= 2):
-        return ["owner authorization requires this run, storyboard_critics and exactly one or two calls"]
+            or not 1 <= authorization["additional_calls"] <= 4):
+        return ["owner authorization requires this run, storyboard_critics and one to four calls"]
     if authorization.get("confirmation") != OWNER_CONFIRMATION:
         return ["owner authorization lacks explicit confirmation"]
     for field in ("approval_id", "owner_text", "source_message_reference"):
@@ -71,12 +76,12 @@ def av_rejection_problems(authorization, receipt):
 
 
 def owner_grant_problems(state):
-    """Revalidate at most two explicit grants; accept historical single grants."""
+    """Revalidate at most six explicit grants; accept historical single grants."""
     grants = [e for e in state.get("events", []) if e.get("kind") == "owner_review_grant"]
     if not grants:
         return []
-    if not enabled(state) or len(grants) > 2:
-        return ["at most two explicit owner review grants are allowed per frozen run"]
+    if not enabled(state) or len(grants) > 6:
+        return ["at most six explicit owner review grants are allowed per frozen run"]
     frozen = [e.get("envelope") for e in state.get("events", [])
               if e.get("kind") == "resource_envelope_frozen"]
     if len(frozen) != 1 or frozen[0] != state.get("resource_envelope"):
@@ -196,6 +201,99 @@ def validator_grant_problems(state):
     return []
 
 
+def preflight_authorization_problems(state, authorization, evidence_text, previous=None):
+    """Validate one operator-attested owner grant of extra preflight renders.
+
+    A frozen envelope cannot grow preflight_renders, so an edition whose complete remaining
+    path needs more renders than its cap allows stops short. The owner may attest one to four
+    extra units per grant, at most four grants per run, each bound to retained failure evidence,
+    the original envelope and the owner's distinct text. A grant raises the ceiling only. It
+    never resets usage and never changes an earlier verdict. `previous` is the prior grant event."""
+    if not isinstance(authorization, dict):
+        return ["preflight grant authorization must be an object"]
+    fields = {'approval_id', 'run_id', 'resource', 'additional_calls', 'confirmation',
+              'owner_text', 'source_message_reference', 'resource_envelope_sha256',
+              'failure_evidence', 'failure_evidence_sha256'}
+    if previous is not None:
+        fields = fields | {'previous_grant_sha256'}
+    if set(authorization) != fields:
+        return ['preflight grant authorization requires exactly its documented fields']
+    if (authorization.get("run_id") != state["run_id"]
+            or authorization.get("resource") != PREFLIGHT_RESOURCE
+            or type(authorization.get("additional_calls")) is not int
+            or not 1 <= authorization["additional_calls"] <= PREFLIGHT_MAX_UNITS):
+        return ["preflight grant requires this run, preflight_renders and one to four units"]
+    if authorization.get("confirmation") != PREFLIGHT_CONFIRMATION:
+        return ["preflight grant lacks explicit confirmation"]
+    for field in ("approval_id", "owner_text", "source_message_reference"):
+        if not isinstance(authorization.get(field), str) or not authorization[field].strip():
+            return ["preflight grant requires " + field]
+    if previous is not None and authorization.get("previous_grant_sha256") != envelope_digest(previous):
+        return ["later preflight grant requires the exact prior grant digest"]
+    if authorization.get("resource_envelope_sha256") != envelope_digest(state["resource_envelope"]):
+        return ["preflight grant original resource envelope changed"]
+    try:
+        if hashlib.sha256(evidence_text.encode("utf-8")).hexdigest() != authorization.get("failure_evidence_sha256"):
+            return ["preflight grant failure evidence changed"]
+        report = json.loads(evidence_text)
+        deficits = report.get("deficits") if isinstance(report, dict) else None
+        if (not isinstance(report, dict)
+                or report.get("date") != str(state["run_id"])[:10]
+                or not isinstance(report.get("source"), str) or not report["source"].strip()
+                or not isinstance(deficits, dict)
+                or type(deficits.get(PREFLIGHT_RESOURCE)) is not int
+                or deficits[PREFLIGHT_RESOURCE] < 1):
+            return ["preflight grant requires this edition's retained budget deficit evidence for preflight_renders"]
+    except (ValueError, TypeError):
+        return ["preflight grant failure evidence is missing or unreadable"]
+    return []
+
+
+def preflight_grant_problems(state):
+    """Revalidate up to four chained explicit owner preflight grants a frozen run may hold."""
+    grants = [e for e in state.get("events", []) if e.get("kind") == PREFLIGHT_KIND]
+    if not grants:
+        return []
+    if not enabled(state) or len(grants) > PREFLIGHT_MAX_GRANTS:
+        return ["at most four explicit owner preflight grants are allowed per frozen run"]
+    frozen = [e.get("envelope") for e in state.get("events", [])
+              if e.get("kind") == "resource_envelope_frozen"]
+    if len(frozen) != 1 or frozen[0] != state.get("resource_envelope"):
+        return ["preflight grant original envelope differs from its freeze event"]
+    ceiling = state["resource_envelope"][PREFLIGHT_RESOURCE]
+    seen = {key: set() for key in ("approval_id", "source_message_reference", "owner_text")}
+    try:
+        for index, grant in enumerate(grants):
+            artifact = grant["authorization_json"]
+            if not isinstance(artifact, str) or hashlib.sha256(artifact.encode("utf-8")).hexdigest() != grant["authorization_sha256"]:
+                return ["retained preflight authorization changed"]
+            authorization = json.loads(artifact)
+            evidence_text = grant["failure_evidence_json"]
+            if not isinstance(evidence_text, str):
+                return ["retained preflight evidence must contain exact JSON text"]
+            errors = preflight_authorization_problems(
+                state, authorization, evidence_text, grants[index - 1] if index else None)
+            if errors:
+                return errors
+            for key in seen:
+                value = authorization[key].strip()
+                if value in seen[key]:
+                    return ["preflight grant replays an earlier owner instruction"]
+                seen[key].add(value)
+            for key in ("approval_id", "run_id", "resource", "additional_calls", "failure_evidence_sha256"):
+                if grant.get(key) != authorization.get(key):
+                    return ["preflight grant differs from its retained authorization"]
+            if (type(grant.get("previous_ceiling")) is not int
+                    or type(grant.get("new_ceiling")) is not int
+                    or grant["previous_ceiling"] != ceiling
+                    or grant["new_ceiling"] != ceiling + grant["additional_calls"]):
+                return ["preflight grant exceeds its exact authorized increment"]
+            ceiling = grant["new_ceiling"]
+    except (KeyError, OSError, ValueError, TypeError):
+        return ["retained preflight authorization is missing or invalid"]
+    return []
+
+
 def minimum_action_plan_failure(state, plan):
     """Read exact independent failed-action evidence; this never admits a repair."""
     from creative_production import treatment_required
@@ -237,7 +335,7 @@ def budget_deficits(rows):
 def production_budget_precheck(state, review_route="host", phone_complete=False,
                                hero_rejected=False, context_ready=False, structural_ready=False,
                                minimum_action_failed=False, mandatory_repair=False, review_coverage=False,
-                               modern_code_repair=False, state_path=None):
+                               modern_code_repair=False, state_path=None, repair_plan=None):
     """Read-only complete remaining review path, including the final timed phone."""
     from manual_codex_repair import budget
     manual = budget(state, review_route)
@@ -293,8 +391,22 @@ def production_budget_precheck(state, review_route="host", phone_complete=False,
     from review_limit import path_budget_enabled, remaining_review_path, MAX_ROUNDS
     review_path = None
     if path_budget_enabled(snapshot):
-        review_path = remaining_review_path(snapshot, state_path)
+        review_path = remaining_review_path(snapshot, state_path, repair_plan=repair_plan)
         required['storyboard_critics'] = review_path['required']
+        if str(snapshot.get('run_id', ''))[:10] >= '2026-10-26':
+            # Prepared operators charge once: paired render + two image sequences;
+            # timed preview + its sequence; native hero/stages + final-film sequence.
+            # Keep any larger existing integrity/retry reserve and historical charges.
+            captures = (3 * int('comparison' in review_path['pending'])
+                        + 2 * int('timed_phone' in review_path['pending']) + 2)
+            required['preflight_renders'] = max(required['preflight_renders'], captures)
+            if (repair_plan and repair_plan.get('changed_inputs')
+                    and repair_plan.get('repair_scope') != 'narration-performance'):
+                active = snapshot.get('active_repair') or {}
+                before = active.get('reboards_before')
+                paid = (type(before) is int and snapshot['usage'].get('reboards') == before + 1
+                        and active.get('failure_sha256') == repair_plan.get('failure_evidence_sha256'))
+                required['reboards'] = 0 if paid else max(required['reboards'], 1)
         # This spendable ceiling never rewrites the original frozen seven-call envelope.
         effective = {**effective, 'storyboard_critics': min(effective.get('storyboard_critics', 0), MAX_ROUNDS)}
     rows = {name: {"required": count, "ceiling": effective.get(name, 0),

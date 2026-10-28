@@ -5,6 +5,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import five_round_fixture  # noqa: F401
 from pathlib import Path
 from unittest.mock import patch
 

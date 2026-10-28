@@ -177,7 +177,7 @@ def has_private_structure(obj):
 
 
 GRANT_ROOTS_FILE = 'out/dispatch/grant-projection-roots.private.json'
-GRANT_KINDS = {'owner_review_grant', 'owner_validator_grant', 'mandatory_completion_grant',
+GRANT_KINDS = {'owner_review_grant', 'owner_validator_grant', 'owner_preflight_grant', 'mandatory_completion_grant',
                'narration_recovery_review_verified', 'narration_recovery_capacity_verified',
                'source_validation_capacity_verified', 'owner_codex_repair_granted'}
 GRANT_TEXTS = {'authorization_json': 'authorization_sha256',

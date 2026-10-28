@@ -9,6 +9,21 @@ charged assignment, never a renamed extra review. If the strict remaining-path p
 infeasible, retain the actual independent failure and use the failed-edition lifecycle without
 spending unused slots or requesting an extension. No quality gate or shipment condition changes.
 
+After a correction and before the corrected code or film is reviewed, run the builder proof
+(prompts/phases/02-picture.md) and let the builder read its pages: a correction is the most
+expensive place to find a defect a frame shows, because it re-opens the code, comparison and
+timed gates.
+
+Budget the state after the planned correction, before opening the repair or charging its
+builder. Source or board edits can invalidate an earlier code PASS and silent comparison;
+current approvals cannot fund reviews of changed inputs. A genuine third silent-comparison
+rejection can use the same fourth combined code/film review when its original native evidence
+is complete. Fund the comparison batch, both image sequences, measured phone preview and
+sequence, native hero and full-film sequence as well as the remaining reviews. Prepared
+authorization and its operator claim share one charge; retained larger capacity profiles
+remain unchanged. Keep any already charged correction and its exact baselines;
+complete normal authorization without buying or replaying the builder again.
+
 For the supported combined fourth review, retain its original public response and native
 critic-completion receipt immediately. A mandatory rejection can leave both a corrected
 independent assessment and the final timed phone outstanding with only one attempt left.

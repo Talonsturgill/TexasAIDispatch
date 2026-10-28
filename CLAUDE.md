@@ -1,5 +1,12 @@
 # Texas AI Dispatch
 
+Owner instruction from October 26th, 2026. The review cap is lifted (ten rounds that day, twenty from October 27th) in
+config/review_limit.json and scripts/review_limit.py. Tooling and bookkeeping defects, not editorial
+judgement, were exhausting editions, so a failed edition may be reopened under the new ceiling. The
+cumulative count, final timed phone review, quality gates and shipment checks are unchanged. Where
+the paragraph below says five, read the ceiling from the config. The owner's later instruction the same
+day raised the creative repair rounds in config/creative_release.json from three to six.
+
 Owner instruction from October 20th, 2026. config/review_limit.json imposes a hard maximum of
 five paid editorial review rounds per video, including code, phone, pivot, retry and correction
 attempts. Reserve the final timed phone review inside those five. No recovery allowance,

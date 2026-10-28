@@ -3,6 +3,7 @@ import copy
 import json
 import tempfile
 import unittest
+import five_round_fixture  # noqa: F401
 import subprocess
 import sys
 from pathlib import Path
@@ -696,6 +697,129 @@ class HandbackCapacityTest(unittest.TestCase):
             receipt["observations"][-1]["observed_at"] = "2000-01-01T00:00:00+00:00"
             plan["handback_evidence"]["receipt_json"] = json.dumps(receipt)
             self.assertTrue(handback.file_problems(plan))
+
+
+class RemainingPathCapacityTest(unittest.TestCase):
+    """Offline native-pair shape plus real planner, exact-deficit grant and replay."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name); self.state = self.root / 'run_state.json'
+        self.assertTrue(controller.initialise(self.state, '2026-10-26', 'production')[0])
+        self.report = self.root / 'original-paired-response.json'
+        pair = {}
+        for option, film in [('a', 'a' * 64), ('b', 'b' * 64)]:
+            pair[option] = {'option': option, 'verdict': 'revise',
+                'review_scope': 'exact-muted-phone-preflight', 'reviewer_identity': 'offline-independent-phone',
+                'reviewed_preflight_sha256': film, 'film': {'sha256': film},
+                'comparison': {'comparison_sha256': 'c' * 64},
+                'blocking_defects': [{'category': 'continuity', 'criterion': 'continuity',
+                    'defect': 'The held phone jumps onto the table without a performed lowering.'}],
+                'modern_observations': {'film_sha256': film,
+                    'finished_art': {'pass': False, 'observed': 'The phone disappears between adjacent samples.'}}}
+        self.report.write_text(json.dumps({'packet_sha256': 'd' * 64, 'status': 'complete',
+            'role': 'storyboard-critic', 'review_scope': 'exact-muted-phone-preflight',
+            'selection': {'selected': 'b', 'reviewer_identity': 'offline-independent-phone',
+                'comparison_sha256': 'c' * 64}, 'phone_reports': pair}))
+        self.receipt = self.root / 'native-completion-fixture.json'
+        self.receipt.write_text(json.dumps({'report': json.loads(self.report.read_text())}))
+        self.plan = self.root / 'plan.json'
+        self.plan.write_text(json.dumps({'director_identity': 'offline-director', 'repair_scope': 'standard',
+            'failure_family': 'continuity', 'failure_evidence': str(self.report),
+            'failure_evidence_sha256': capacity.sha(self.report.read_text()),
+            'changed_inputs': [{'path': 'video-engine/src/episode.tsx'}], 'resources': {'reboards': 1}}))
+        state = controller.read_state(self.state)
+        state['usage']['storyboard_critics'] = 3
+        for _ in range(3):
+            controller.event(state, 'reserved', resources={'storyboard_critics': 1}, note='offline charged critic fixture')
+        state['usage']['preflight_renders'] = state['resource_envelope']['preflight_renders'] - 2
+        controller.event(state, 'reserved', resources={'preflight_renders': state['usage']['preflight_renders'],
+                         'reboards': 1}, note='offline previously spent captures and builder')
+        controller.event(state, 'repair_started', failure_sha256=capacity.sha(self.report.read_text()),
+                         repair_scope='standard', plan_sha256=capacity.sha(self.plan.read_text()),
+                         baselines=[{'path': 'video-engine/src/episode.tsx', 'before_sha256': 'e' * 64}])
+        controller.event(state, 'reserved', resources={'reboards': 1}, note='offline paid active correction')
+        state['usage']['reboards'] = 2
+        state['active_repair'] = {'failure_sha256': capacity.sha(self.report.read_text()), 'reboards_before': 1}
+        controller.save(self.state, state); self.before = copy.deepcopy(state)
+        # Original native packet/claim/image provenance is tested by combined_review_test;
+        # here its successful admission is isolated while all grant arithmetic is real.
+        self.proof = {'original_review': {'path': str(self.receipt)}}
+        self.addCleanup(patch.stopall)
+        patch('combined_review.budget_eligibility', return_value=self.proof).start()
+        patch('review_limit.review_evidence', return_value=({'code': True, 'comparison': False,
+                                                           'timed_phone': False}, [])).start()
+
+    def grant(self):
+        accepted, message = capacity.grant_capacity(self.state, self.plan)
+        self.assertTrue(accepted, message)
+        return controller.read_state(self.state)
+
+    def test_exact_capture_deficit_preserves_paid_builder_original_seven_and_hard_five(self):
+        state = self.grant(); grant = state['events'][-1]
+        self.assertEqual(grant['resource_increments'], {'preflight_renders': 5})
+        self.assertEqual(grant['reason'], 'modern-film-floor')
+        self.assertEqual(grant['failure_evidence_json'], self.report.read_text())
+        self.assertEqual(grant['usage_unchanged'], self.before['usage'])
+        self.assertEqual(state['resource_envelope'], self.before['resource_envelope'])
+        self.assertEqual(state['resource_envelope']['storyboard_critics'], 7)
+        self.assertEqual(state['events'][:len(self.before['events'])], self.before['events'])
+        budget = json.loads(grant['precheck_json'])
+        self.assertEqual(budget['resources']['storyboard_critics']['ceiling'], 5)
+        self.assertEqual(budget['resources']['storyboard_critics']['required'], 2)
+        self.assertEqual(budget['resources']['preflight_renders']['required'], 7)
+        self.assertEqual(budget['resources']['reboards']['required'], 0)
+        self.assertEqual(capacity.replay(state)[1], [])
+        self.assertEqual(lifecycle.allowance_problems(state), [])
+        state['usage']['preflight_renders'] += 1
+        controller.event(state, 'reserved', resources={'preflight_renders': 1}, note='offline later capture')
+        state.pop('active_repair'); state['terminal_state'] = 'shipped'
+        self.assertEqual(capacity.replay(state)[1], [])  # Later state cannot reinterpret old allocation.
+
+    def test_no_deficit_adds_no_grant_or_review_approval(self):
+        state = copy.deepcopy(self.before)
+        delta = state['usage']['preflight_renders'] - 4
+        state['usage']['preflight_renders'] = 4
+        next(e for e in state['events'] if e.get('resources', {}).get('preflight_renders'))['resources']['preflight_renders'] -= delta
+        controller.save(self.state, state); before = self.state.read_bytes()
+        self.grant()
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_replay_rejects_reduced_invented_or_changed_allocation(self):
+        state = self.grant()
+        for change in ('captures', 'critics', 'builder', 'pending', 'events', 'increment', 'missing'):
+            with self.subTest(change=change):
+                altered = copy.deepcopy(state); grant = altered['events'][-1]
+                budget = json.loads(grant['precheck_json']); allocation = grant[capacity.REVIEW_ALLOCATION]
+                if change == 'captures': budget['resources']['preflight_renders']['required'] = 2
+                if change == 'critics': budget['resources']['storyboard_critics']['required'] = 3
+                if change == 'builder': budget['resources']['reboards']['required'] = 1
+                if change == 'pending':
+                    budget['review_path']['pending'] = ['comparison', 'timed_phone']
+                    allocation['review_path'] = copy.deepcopy(budget['review_path'])
+                if change == 'events': allocation['events_sha256'] = 'e' * 64
+                if change == 'increment': grant['resource_increments']['storyboard_critics'] = 1
+                if change == 'missing': grant.pop(capacity.REVIEW_ALLOCATION)
+                grant['precheck_json'] = capacity.canonical(budget)
+                grant['precheck_sha256'] = capacity.sha(grant['precheck_json'])
+                self.assertTrue(capacity.replay(altered)[1])
+
+    def test_changed_original_pair_or_missing_native_provenance_refuses_before_write(self):
+        before = self.state.read_bytes()
+        original = json.loads(self.receipt.read_text()); original['report']['status'] = 'changed'
+        self.receipt.write_text(json.dumps(original))
+        accepted, message = capacity.grant_capacity(self.state, self.plan)
+        self.assertFalse(accepted); self.assertIn('unchanged original', message)
+        self.assertEqual(self.state.read_bytes(), before)
+        with patch('combined_review.budget_eligibility', side_effect=ValueError('original coverage is incomplete')):
+            self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_unfundable_reviews_cannot_receive_noncritic_capacity(self):
+        before = self.state.read_bytes()
+        with patch('combined_review.budget_eligibility', side_effect=ValueError('no original combined route')):
+            self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
+        self.assertEqual(self.state.read_bytes(), before)
 
 
 if __name__ == "__main__":
