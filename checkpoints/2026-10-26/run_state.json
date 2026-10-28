@@ -1,49 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round3/opening-a.json",
-        "before_sha256": "9c71f0c5a0720e77b0e4f222db279b3610419774e3ec823654248c527066592a",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round3/opening-b.json",
-        "before_sha256": "96f9025f3d464636ef1cc31aa329bc5bf7598f6ecd21a115b4561eee7431ca0c",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round3/storyboard.json",
-        "before_sha256": "9c71f0c5a0720e77b0e4f222db279b3610419774e3ec823654248c527066592a",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round3/modern_episode_registry.json",
-        "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
-        "path": "{REPO}/config/modern_episode_registry.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round3/OrderPassFilm.tsx",
-        "before_sha256": "1afc722bad4eb47d7e7108a1d72adf79c36fb2168eab7aeb27e5e8d3f823c86f",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round3/OrderRigHero.tsx",
-        "before_sha256": "4b49cb0cb109e5537c9fca3ca7b7667b669b338764391d9d0ac951b74193bede",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round3/RestaurantSupport.tsx",
-        "before_sha256": "9774a9870023e877c6655fc7ca18a156f4dd7a86c54402fbcdff124798195176",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx"
-      }
-    ],
-    "failure_sha256": "3a15920f2e3915f8cff30b5e4cdacaa7771847ac2f676c816605f602fb622e05",
-    "plan": "{REPO}/out/dispatch/repair-plan-3.json",
-    "plan_sha256": "5950c0bb86da3c3680fea8ff7483f4d676c8afcc0f4a7a7e40a5ed2cad04fffc",
-    "progress_replacement_required": false,
-    "reboards_before": 3,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -867,6 +822,79 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-28T06:55:47.278564Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 42,
+        "reservation_sha256": "fe11f07d13bdf15b9b1fc7a65ffb6bf4a8382972ad02ce14ca3c55b7f550de1d",
+        "start_event_index": 41
+      },
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "061acfc408a921cbafdcb37e85f0686d953b3436f9eb33095f05f1bd50648de9",
+            "before_path": "{REPO}/out/dispatch/baselines/round3/opening-a.json",
+            "before_sha256": "9c71f0c5a0720e77b0e4f222db279b3610419774e3ec823654248c527066592a",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "0f332ea951d156daa656d613772d201917e0869d3de49567b6cb75cb42e78326",
+            "before_path": "{REPO}/out/dispatch/baselines/round3/opening-b.json",
+            "before_sha256": "96f9025f3d464636ef1cc31aa329bc5bf7598f6ecd21a115b4561eee7431ca0c",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "061acfc408a921cbafdcb37e85f0686d953b3436f9eb33095f05f1bd50648de9",
+            "before_path": "{REPO}/out/dispatch/baselines/round3/storyboard.json",
+            "before_sha256": "9c71f0c5a0720e77b0e4f222db279b3610419774e3ec823654248c527066592a",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+            "before_path": "{REPO}/out/dispatch/baselines/round3/modern_episode_registry.json",
+            "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+            "path": "{REPO}/config/modern_episode_registry.json"
+          },
+          {
+            "after_sha256": "3962d4963544e5996b2bd3a3a43e5d6a5164a352db64e1e14503ba246fbeb6ac",
+            "before_path": "{REPO}/out/dispatch/baselines/round3/OrderPassFilm.tsx",
+            "before_sha256": "1afc722bad4eb47d7e7108a1d72adf79c36fb2168eab7aeb27e5e8d3f823c86f",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+          },
+          {
+            "after_sha256": "2483fb962188398dfeb820bcd3dd72d8e25911e67a6a368e8210ff28fd2ee49e",
+            "before_path": "{REPO}/out/dispatch/baselines/round3/OrderRigHero.tsx",
+            "before_sha256": "4b49cb0cb109e5537c9fca3ca7b7667b669b338764391d9d0ac951b74193bede",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx"
+          },
+          {
+            "after_sha256": "61ef74982f5e6e6f9558f9975aa536e99400174f976d1b075898f8117e2593eb",
+            "before_path": "{REPO}/out/dispatch/baselines/round3/RestaurantSupport.tsx",
+            "before_sha256": "9774a9870023e877c6655fc7ca18a156f4dd7a86c54402fbcdff124798195176",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "In s3 one guest visibly holds the phone and taps the row with connected arms of matching scale, and Paid is shown with the holding hand. In s10 a large order card visibly lands on the AI host panel and the frame keeps moving to the end of the scene. No jagged hand fragment appears in s9.",
+        "failure_evidence": "{REPO}/out/dispatch/phone-fourth-handback.json",
+        "failure_evidence_sha256": "3a15920f2e3915f8cff30b5e4cdacaa7771847ac2f676c816605f602fb622e05",
+        "failure_family": "human-performance",
+        "mechanism_change": "The s3 limbs change from two detached edge arms to arms jointed at the seated guest's shoulders at one scale, the s10 answer changes from a tiny card in a wide room to a large performed card hand-off with continuous motion, and the s9 withdrawing hand changes from a smeared fragment to a clean exit.",
+        "mechanism_id": "order-pass-finish-v3",
+        "repair": "Resume the scene builder for one consolidated correction in the shared renderer on unchanged claims, script, clauses, boards and story_art identities, with no story, narration or event change: in s3 attach both guest arms to the seated guest's shoulders at one consistent scale so that the same guest holds the phone and taps the row with a visibly connected arm, and give the Pay and Paid detail the same holding hand; in s10 enlarge the order card and slip into a clearly readable performed action on the AI host panel that lands within the first second, with continuous motion through the scene so there is no static hold; find and remove the jagged hand fragment in s9 at about 50.8 s. Run the builder proof and read its pages before any paid review.",
+        "repair_scope": "standard",
+        "resources": {
+          "reboards": 1
+        },
+        "root_cause": "The combined fourth review (code A and B PASS, silent comparison selected B, then REVISE; original response retained at out/dispatch/phone-fourth-handback.json, review 4 of the ceiling) found two blocking defects in the actual pixels. In s3 (19.2 to 20.4 s) the seated guest in the menu-tap medium shot has an oversized foreground hand holding the phone while a separate long arm from the frame edge taps the Chow mein row, and neither limb joins the guest's body or matches its scale, so the n3b order action is performed by detached limbs. In s10 (53.8 to 56.7 s) the only action for 'So software now takes the order' is a tiny order card and slip arc on the host panel in a wide room view, then a static hold from about 55.4 to 56.6 s, so the takeaway is not legible at phone size. Unresolved notes: a smeared jagged hand fragment at 50.8 s in s9 below the table edge, and the s3 Pay and Paid detail at 21.4 to 22.8 s showing no holding hand."
+      },
+      "repair_plan_sha256": "b27c7f9a0f83e8cb8bc5e206616fba3b6153f724dc86dfb24b58791eee32ac0e",
+      "repair_revision": "d353fa6fe68021a28b6044f2f168cef4cc8689d5a0a4803c0c37f5bde2f67ca4",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -890,7 +918,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6f7fdb99cab5327700f9ca8cea1fbf071ae7184bb5318db1cb07163229038f6d",
+    "original_private_state_sha256": "52ca0566e98a92bc2aad02bee1df1bffd3d3dc6e25c499daf1261ea9ee19a3ed",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -918,7 +946,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-28T06:29:59.446362Z",
+  "updated_at": "2026-10-28T06:55:47.278653Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
