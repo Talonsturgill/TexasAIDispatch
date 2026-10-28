@@ -33,6 +33,14 @@
       "note": "two opening comparison batch",
       "resource": "preflight_renders",
       "to": 5
+    },
+    {
+      "at": "2026-10-28T05:23:09.903315Z",
+      "ceiling": 16,
+      "from": 5,
+      "note": "exact-phone-a motion-image review extraction",
+      "resource": "preflight_renders",
+      "to": 6
     }
   ],
   "events": [
@@ -646,6 +654,28 @@
       "input_identity": "5590d180f919e816e93c0f2204f093140cfbc492f0e5bbbdbb955f6d705f051d",
       "kind": "prepared_capture_claimed",
       "operation": "two opening comparison batch"
+    },
+    {
+      "at": "2026-10-28T05:23:09.903359Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "exact-phone-a motion-image review extraction",
+      "now": 6,
+      "resource": "preflight_renders",
+      "was": 5
+    },
+    {
+      "at": "2026-10-28T05:23:10.621259Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "exact-phone-a motion-image review extraction",
+      "preflight_identity": "c3a13fb625b587246fd8d6b0961139e73ee21f64f48839735233948fb3287b9e",
+      "preflight_identity_version": 2,
+      "publication_epoch": "2d2eda35b592467483497480c1ff8b5f",
+      "publication_owner_sha256": "ff9858b9bcc762d0b40846da77add9f76f40cce5449ddce025e202012e1039a1",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -654,7 +684,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 5,
+    "preflight_renders": 6,
     "reboards": 4,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -669,7 +699,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "171c73a44fd7084351d6208e053ec8d7eb0c9f9323111636c2911c21a0206594",
+    "original_private_state_sha256": "64c7cb6593e9becacb79e1fabbfe4f73a80ca97eb08d48d0744730354818a519",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -697,14 +727,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-28T05:17:39.332187Z",
+  "updated_at": "2026-10-28T05:23:10.621286Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 5,
+    "preflight_renders": 6,
     "reboards": 3,
     "reported_tokens": 63,
     "rescue_renders": 0,
