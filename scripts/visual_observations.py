@@ -281,6 +281,13 @@ def coverage(packet_path, directory, *, partial=False):
             relative = (index_path.parent / page['file']).resolve().relative_to(repo)
             found = [p for p in notes if load(p).get('page') == str(relative)
                      and load(p).get('image_sha256') == page['sha256']]
+            if len(found) > 1:
+                # A reviewer's own recheck of one page writes a second independent annotation.
+                # The earliest actual Write is the original; later rechecks stay on disk as evidence.
+                def written(p, repo=repo, relative=relative):
+                    receipt = repo.joinpath(*relative.parts[:2], 'visual-observation-receipts', directory.name, p.name)
+                    return load(receipt)['written_at'] if receipt.is_file() else '9999'
+                found = sorted(found, key=written)[:1]
             if len(found) != 1:
                 if partial and not found:
                     stopped = True
