@@ -2,15 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "183b44f6a531ff4f714f609526d4656626848506102678a2d111012b7d7631f8",
+    "event_sha256": "fddd93d8b310a9a0925c0d833f9dc82bb4c6cc7ec043734a99617a93207be833",
     "resource": "preflight_renders",
-    "at": "2026-10-26T09:49:05.205894Z",
-    "note": "exact-phone-b motion-image review extraction"
+    "at": "2026-10-28T05:16:59.716811Z",
+    "note": "two opening comparison batch"
   },
   "boards": [
     {
-      "path": "out/dispatch/openings/b.json",
-      "sha256": "cc03be4906e393981485490f283b96e38677c1050a71098f772866b747c5e943"
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "9c71f0c5a0720e77b0e4f222db279b3610419774e3ec823654248c527066592a"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "96f9025f3d464636ef1cc31aa329bc5bf7598f6ecd21a115b4561eee7431ca0c"
     }
   ],
   "bound": {
@@ -153,9 +157,9 @@
       "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx": "9d397904a7a5173f55205e78a8dbe431d548d1ed0d3c4f6e90c5cb0689faf3fa",
       "video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx": "5fa2155da6c876b721db0ff28c7c05f404485e2cd7010b9b789af77a430df32b",
       "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx": "13dd5f473f9f510ba001ee21cf8f054e26aff3b531449bdf3150de3adb38bdc9",
-      "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx": "5fb27356a1c7d27b23bf69c4e1700ce19b42640704b8b722ae9deda709f38cc5",
-      "video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx": "a34732907db7d03441a5997fd9992c49c2b709a915425ff7c7b88bd4731d5ca6",
-      "video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx": "271392e9939a81e1033c89f516e83da4270f6730f6f64adb9c77b5e1bc96ae26",
+      "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx": "1afc722bad4eb47d7e7108a1d72adf79c36fb2168eab7aeb27e5e8d3f823c86f",
+      "video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx": "4b49cb0cb109e5537c9fca3ca7b7667b669b338764391d9d0ac951b74193bede",
+      "video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx": "9774a9870023e877c6655fc7ca18a156f4dd7a86c54402fbcdff124798195176",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
       "video-engine/src/modern/registry.tsx": "1c862f8f58fcf1f41fbfae60df36bfecac9a66c29a84f88f67688a2036f56847",
       "video-engine/src/modern/texasCounties.json": "e39f5cabababc5bf91e7ae0b5c70d3060875fc309f36ce9d34da6ae4c506bad8",
@@ -163,37 +167,37 @@
       "video-engine/package-lock.json": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71"
     },
     "authored_art": {
-      "video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx": "a34732907db7d03441a5997fd9992c49c2b709a915425ff7c7b88bd4731d5ca6",
-      "video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx": "271392e9939a81e1033c89f516e83da4270f6730f6f64adb9c77b5e1bc96ae26"
+      "video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx": "4b49cb0cb109e5537c9fca3ca7b7667b669b338764391d9d0ac951b74193bede",
+      "video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx": "9774a9870023e877c6655fc7ca18a156f4dd7a86c54402fbcdff124798195176"
     }
   },
   "commands": [
     {
-      "id": "650b5f859f6694f86c08e8542965d850baf99165b16be2a2040534d997b85c4c",
-      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option b --board out/dispatch/openings/b.json --film out/dispatch/openings/b.mp4 --state out/dispatch/run_state.json --out out/dispatch/openings/motion-b",
-      "consumed": "2026-10-26T09:49:09.644228+00:00"
+      "id": "1c31e8190f7a98337859ac4bc632f05d3be1e55dcbff9f5b09dea716b3d3fd03",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --combined-code-review",
+      "consumed": false
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 21,
-    "free_gib": 21.028
+    "free_gib": 21.218
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/capture-housekeeping-20261026T094902.json",
-    "receipt_sha256": "90af9752fe1922be67eec5e6871b7b824336bfa644c57640ce27fc8c40df33be",
+    "receipt": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/capture-housekeeping-20261028T051654.json",
+    "receipt_sha256": "b6cfbb2507fe7f42a7f39d3b90d3e47caa19f01b52b4192d4ce8c1b9aa2e564c",
     "exit_code": 0,
     "min_free_gib": 21
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-26T09:49:05.942319+00:00",
-  "expires_at": "2026-10-26T10:34:05.942319+00:00",
+  "issued_at": "2026-10-28T05:17:03.640809+00:00",
+  "expires_at": "2026-10-28T06:02:03.640809+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "exact-phone-b motion-image review extraction",
+    "operation": "two opening comparison batch",
     "resource": "preflight_renders",
     "run_id": "2026-10-26",
-    "event_sha256": "183b44f6a531ff4f714f609526d4656626848506102678a2d111012b7d7631f8",
-    "input_identity": "88e94901ac1bb5aff9432b93de59779b4f35b86dc1d776af575802f4c52aa4b7"
+    "event_sha256": "fddd93d8b310a9a0925c0d833f9dc82bb4c6cc7ec043734a99617a93207be833",
+    "input_identity": "5590d180f919e816e93c0f2204f093140cfbc492f0e5bbbdbb955f6d705f051d"
   }
 }
