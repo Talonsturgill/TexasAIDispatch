@@ -462,7 +462,10 @@ def mandatory_reason(state, plan, evidence_text):
             if (sha(evidence_text) != plan.get('failure_evidence_sha256')
                     or set(plan.get('resources', {})) - set(resource_requirements(state))):
                 return None
-            return MODERN_CODE_REASON if eligible(state, plan, report) else None
+            # The grant itself adopts the standing code amendment, so a ledger that never used the
+            # earlier code route is admitted on its evidence and replay then requires the adoption.
+            adopted = any(e.get('kind') == CODE_ADOPTION for e in state['events'])
+            return MODERN_CODE_REASON if eligible(state, plan, report, preparing=not adopted) else None
         if plan.get('completion_reason') == COVERAGE_REASON:
             from review_coverage import eligible
             if (sha(evidence_text) != plan.get('failure_evidence_sha256')
