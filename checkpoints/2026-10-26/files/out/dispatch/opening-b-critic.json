@@ -1,153 +1,35 @@
 {
- "treatment": "b",
- "board": {
-  "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b.json",
-  "sha256": "cbf1eb35970d3f9a8ed7c10d9f68f348653555a879e82a184a56d6b9f12d9a3f"
- },
- "review_scope": "code-plan",
- "concept_sha256": "6279ca5ee518b6fcbb32c1feb2c21c8a18ed11b44c97f8b866b67730ef4cfdb5",
- "renderer_sha256": "19a3bdeeb0442afb12812b0489311616681e6a9210564210364a5192e41a9cfa",
- "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
- "verdict": "pass",
- "reviewer_identity": "claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director",
- "reviewed_at": "2026-10-26 (this Read-only reviewer has no host clock, so only the date is given)",
- "strongest_frame": "s10-shot-3 tags-close, 58.22 to 60.47 s. The jar is at scale 2.3 under the printed ticket, the owner says tag hangs, and 'no record shown' (52 px) settles beneath it. This is a large held answer that also states the limit.",
- "weakest_frame": "s1-shot-1 floor-plan, 0 to 2.455 s. The hook is a top-down room plan in which the apron, phone and pad are plain rectangles of about 28 x 60, 52 x 32 and 40 x 52 px, and the walkout reads only through the door leaf's swing and fading footprints. First-frame recognition is unresolved until the phone review. Inside s4, the hand-off from paid-line's top-view push-in to ticket-print's side view (25.813 s) also reorients the printer at the key moment.",
- "blocking_defects": [],
- "action_reviews": [],
- "narration_picture_observations": {
-  "scope": "code-plan, provisional authored clause windows, no film bytes",
-  "clauses": [
-   {
-    "id": "n1a",
-    "pass": true,
-    "start_s": 0.48,
-    "end_s": 4.53,
-    "observed": "Code plan: in the plan the door leaf swings shut, the bell rings and footprints lead out. The tables have empty plates. Then a medium shot of the drawn apron and the ringing phone. Plan-object recognition is unresolved until the phone review."
-   },
-   {
-    "id": "n1b",
-    "pass": true,
-    "start_s": 4.83,
-    "end_s": 7.38,
-    "observed": "Code plan: the pad curls blank in the foreground while a guest with an open menu raises a hand over empty plates."
-   },
-   {
-    "id": "n2a",
-    "pass": true,
-    "start_s": 8.04,
-    "end_s": 10.59,
-    "observed": "Code plan: a wide storefront with the empty sign frame swinging."
-   },
-   {
-    "id": "n2b",
-    "pass": true,
-    "start_s": 10.89,
-    "end_s": 15.24,
-    "observed": "Code plan: the panel lights with Haniya beside the stand, and the AI host tag hooks on."
-   },
-   {
-    "id": "n3a",
-    "pass": true,
-    "start_s": 15.9,
-    "end_s": 18.75,
-    "observed": "Code plan: overhead, the phone is lifted over the top-view code, locks and the menu slides up. The table plate is empty."
-   },
-   {
-    "id": "n3b",
-    "pass": true,
-    "start_s": 19.05,
-    "end_s": 21.0,
-    "observed": "Code plan: a guest taps Chow mein, which lights. Talk is a static button."
-   },
-   {
-    "id": "n3c",
-    "pass": true,
-    "start_s": 21.3,
-    "end_s": 23.25,
-    "observed": "Code plan: a detail of Pay turning into the paid mark."
-   },
-   {
-    "id": "n4",
-    "pass": true,
-    "start_s": 23.91,
-    "end_s": 27.06,
-    "observed": "Code plan: a wide pass with an empty, unlit wok. The mark crosses the plan as the camera eases down onto the top-view printer, and the mark enters the slot and the lamp answers while at rest, inside the shot. In a side close the ticket prints, is gripped and cut. A flame-close detail shows the cook's bowl pouring as the flame flares, with the pan rocking after."
-   },
-   {
-    "id": "n5a",
-    "pass": true,
-    "start_s": 28.22,
-    "end_s": 32.27,
-    "observed": "Code plan: top views of the ledger card and the $9,650 tag."
-   },
-   {
-    "id": "n5b",
-    "pass": true,
-    "start_s": 32.57,
-    "end_s": 34.52,
-    "observed": "Code plan: a top-view stamp presses, and the bench clip snaps on nothing."
-   },
-   {
-    "id": "n6",
-    "pass": true,
-    "start_s": 35.18,
-    "end_s": 39.23,
-    "observed": "Code plan: overhead, coins slide from the phone to the jar, the pile rises and the FOX 26 tag hooks on. This is a disclosed metaphor. Window shifted +0.5 s with the longer s4."
-   },
-   {
-    "id": "n7a",
-    "pass": true,
-    "start_s": 39.89,
-    "end_s": 42.44,
-    "observed": "Code plan: a top view of the rule card sliding on with its box drawing."
-   },
-   {
-    "id": "n7b",
-    "pass": true,
-    "start_s": 42.74,
-    "end_s": 45.59,
-    "observed": "Code plan: the cooks line lights and the pen circles it."
-   },
-   {
-    "id": "n8",
-    "pass": true,
-    "start_s": 46.25,
-    "end_s": 49.1,
-    "observed": "Code plan: the folder slides in, opens, the box stays blank and a question mark draws."
-   },
-   {
-    "id": "n9",
-    "pass": true,
-    "start_s": 49.76,
-    "end_s": 53.51,
-    "observed": "Code plan: overhead, a hand raises the phone, wavers and lowers it unscanned. The phone then lies on the table, the quote card drops beside it and the screen dims."
-   },
-   {
-    "id": "n10a",
-    "pass": true,
-    "start_s": 54.17,
-    "end_s": 56.42,
-    "observed": "Code plan: a wide shot of the panel taking an order with the slip arcing to the printer. The elements are small, so recognition is unresolved until the phone review."
-   },
-   {
-    "id": "n10b",
-    "pass": true,
-    "start_s": 56.72,
-    "end_s": 60.17,
-    "observed": "Code plan: the owner says tag hooks on, then a held detail as 'no record shown' settles at 52 px."
-   }
-  ]
- },
- "story_review": {
-  "story_sha256": "1cd96e2d2efcc227c913e505e5601031f163cc288f48a74496a87627b0f88919",
-  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
-  "claims_sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
-  "verdict": "pass",
+  "action_reviews": [],
   "blocking_defects": [],
-  "one_viewing_summary": "Intended chain, reconstructed from the corrected code. The same causal story as A, read largely from above. A floor plan shows the door closing and footprints leaving the stand, the phone rings, and a guest with a menu waits over empty plates. The panel lights with Haniya. A top view of the table shows the scan, a guest taps chow mein and Pay becomes the paid mark. The mark crosses the room plan and the camera settles on the printer, whose lamp answers the mark. A side close shows the ticket printing. A cook's bowl pours noodles into the wok as the flame flares and the pan rocks. The owner count and bare clip are seen from above. Coins slide into the jar under a FOX 26 tag. The rule card and the blank folder box follow. A customer lowers her phone unscanned beside her quote. The film closes on the jar's two tags.",
-  "opening_to_ending": "The film opens on a diagram of the abandoned station and closes on a large legible detail of the two attribution tags, answering the question and stating the limit. The pay-first order is now causal and readable in the source. Whether the plan opening hooks a viewer at phone size is unresolved until the phone review.",
-  "weakest_transition": "s8 to s9, as in A: an honest hard cut from the money limit to ordering friction with no carried object. Inside a scene, the s4-shot-2 to s4-shot-3 hand-off (top-view printer to side-view printer) changes the hero's orientation at its key moment."
- },
- "notes": "Every code-proven blocker from round 1 is resolved for B too. B's paid-line now uses a travel-eased push-in that rests on the printer before the arrival, which replaces round 1's icon-scale relationship. The correction introduces no new code-proven mandatory defect. Carried to the phone review: plan-view recognition in the s1 hook, whether the top-to-side printer reorientation at 25.813 s reads at normal speed, and the cook's handle hand, which falls outside the right edge in flame-close (handle at about x 1161), so the toss there is carried by the visible pan rocking and the pour by an arm entering from off-frame. The same s9 board prose housekeeping and the same unbound tablet claim apply as in A. The treatment-divergence note from round 1 stands: B mainly re-views A's events from above. On code evidence A's construction remains preferable, but the selection belongs to the phone comparison. action_reviews is empty because the board has no action_proposals. This code pass authorizes only the funded capture. It approves no pixels or film."
+  "board": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b.json",
+    "sha256": "96f9025f3d464636ef1cc31aa329bc5bf7598f6ecd21a115b4561eee7431ca0c"
+  },
+  "concept_sha256": "0d04996aabacdb109b6aebec4bc8a1d60b55947a54befbd0a35e10093a26e343",
+  "notes": [
+    "The s1 floor-plan view adds a footprint trail from the stand to the closing door. That builds a visible walkout without depicting a person, which fits the no-person source limit.",
+    "s3 menu-tap is framed as a medium shot with a seated guest while the phone and tapping hands are built as separate arms. Whether limbs and body read as one person, and at matching scale, is a phone-scope risk. It is flagged here, not decided from code.",
+    "In s9 viewfinder-hunt the hand-off release is built as handOff [140*release, 1300*release]. The withdrawal path of the hand is a phone and native question.",
+    "The performed turn (s8 folder slides in, opens and keeps the box blank) and the closing tags are implemented on the same jar and printer rig as earlier scenes. The source limits are implemented as tags and disclosures, with no person named.",
+    "Code approval covers only the funded capture. It grants no pixel, motion or film approval."
+  ],
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "renderer_sha256": "d1f8b40b2ca067037cb070fc73b1d946605e63d3efa52969d6d2216a51189faf",
+  "review_scope": "code-plan",
+  "reviewed_at": "2026-10-28",
+  "reviewer_identity": "a49e5f789d019cbd9",
+  "story_review": {
+    "blocking_defects": [],
+    "claims_sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
+    "one_viewing_summary": "Planned chain from above: footprints leave the empty station and the phone rings. The panel Haniya lights in place of a job ad. A guest scans, taps and pays, and the paid mark is followed into the printer, which prints as the wok flares. The ledger takes the owner's figure and an owner count stamp. Coins cross the pass into the jar under FOX 26. The rule card lights the cook line, the folder's box stays blank, a customer hesitates at the code, and the close tags the jar beside the printed ticket.",
+    "opening_to_ending": "The opening question is answered on the same printer and jar rig the film built. The closing image is planned to hold ticket, jar and both tags together.",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "story_sha256": "2985c37357076af2177807405bd51beb9626ecca3c8cf9c717e6866bb3b3cec9",
+    "verdict": "pass",
+    "weakest_transition": "s3 code-scan overhead to menu-tap medium (19.05 s). The cut changes scale and introduces a seated guest whose relationship to the tapping hand is unproven in code."
+  },
+  "strongest_frame": "s4 pass-wide into the paid-line plan push-in and ticket-print (23.9 to 27.1 s). The camera follows the paid token to the printer, and the lamp, ticket and flare are clock-driven state on the same rig. In s6 (35.2 to 39.2 s) the pass-overhead view links the coins back to the printer and ticket, so the money and the order share one place.",
+  "treatment": "b",
+  "verdict": "pass",
+  "weakest_frame": "s10 stand-wide (53.81 to 56.72 s). The order card and slip arc on the panel are planned in a wide framing for 2.91 s with no guest interaction, so 'software now takes the order' is carried at small scale. Its legibility is a phone-scope question."
 }
