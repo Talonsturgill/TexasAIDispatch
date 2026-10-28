@@ -80,7 +80,13 @@ python scripts/daily_production.py --board out/dispatch/storyboard.json --claims
 python scripts/agent_runtime.py --plan --role scene-builder --packet out/dispatch/builder-packet.json --task-name builder --scope "Implement both complete current treatments; verify every narrated subject, action, result and limit, event joins, regional stage and caption clearance" --out out/dispatch/builder-assignment.json
 ```
 
-The handoff names all linked defects in one list. Run picture_precheck.py before consuming
+Regenerate the builder packet before each correction. Its `defects` binding carries unresolved
+original code and phone findings for both treatments, including the unselected opening.
+Do not replace it with a selected-treatment summary or edit its reviewer evidence. Planning
+checks the generated binding before dispatch; earlier packets and reviews stay unchanged.
+The builder addresses the full handoff in the existing funded correction. This adds no review.
+
+Run picture_precheck.py before consuming
 code or phone review/preview reservations; it invokes the existing cheap gates, retains each
 actual output and returns failure if any gate fails. No render, model call or approval occurs.
 For editions from October 17th, the builder also checks composed camera/ground screen bounds

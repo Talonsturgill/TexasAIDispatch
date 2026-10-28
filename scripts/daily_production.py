@@ -440,7 +440,8 @@ def packet_text(data):
                  # comparison, so a current edition crossed the cap by indentation alone.
                  or data.get('role') == 'storyboard-critic'
                  or (data.get('role') == 'scene-builder'
-                     and (data.get('local_recovery') or {}).get('runtime') == 'codex'))):
+                     and ((data.get('local_recovery') or {}).get('runtime') == 'codex'
+                          or data.get('repair_state'))))):
         encoded = json.dumps(data, separators=(',', ':')) + '\n'
     return encoded
 
@@ -591,6 +592,8 @@ def packet(board_path, claims_path, role, state_path=None, runtime=None, feed_pa
         ledger = Path(state_path).with_name("current-defects.json")
         if ledger.exists():
             data["defects"] = {"path": str(ledger.resolve()), "sha256": digest(ledger)}
+    if role == 'scene-builder' and claude_route:
+        agent_runtime.bind_correction_defects(data, write=True, state_path=state_path)
     if board.get('narration_picture'):
         data['narration_picture']={'reference':'board','field':'narration_picture'}
         data['instructions'] += (' Match measured board.narration_picture clauses to visible '
