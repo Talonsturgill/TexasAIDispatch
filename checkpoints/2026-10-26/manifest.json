@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-10-26T10:36:34.306895+00:00",
-  "note": "phone comparison REVISE, corrected source unauthorized, path unfunded",
+  "saved_at": "2026-10-28T05:13:53.778828+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-26T07:17:34.391615Z",
   "repo_root": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch",
-  "source_pin": "85c281f75d346863ea84864fe9066883879a3dfe",
+  "source_pin": "d7c249454b65c07d49b098402e5509b635106d3d",
   "source_branch": "claude/dispatch-2026-10-26",
   "source_closure": {
     "root": "video-engine",
@@ -16,8 +16,8 @@
     "sha256": "d100adb387ce8ccb686b28290371f3231e15c93577bdfdbd975f2794efbfe3a6"
   },
   "deleted_source": [],
-  "ledger_sha256": "198345063194d5064efe0e46216a425016f5fd6b3d39e93d92d85795828c5ac3",
-  "original_private_ledger_sha256": "39e87162ec106d5ab30708f88b283ad5d4b2e4b7530ca7ce459465dfa23b0db1",
+  "ledger_sha256": "e4a6946d1b3e71236a50a75d08b6fc79f7d930be3ba46109baaa16fb5405f62d",
+  "original_private_ledger_sha256": "8a033ed40fd6a2b6804f708fdccfa277fa5b7b6bc2ba1f747abe04d102f08677",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 1,
@@ -306,6 +306,12 @@
       "class": "scratch",
       "sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
       "size": 15275
+    },
+    {
+      "path": "out/dispatch/claude-host.json",
+      "class": "scratch",
+      "sha256": "b2061795621290063f45a60ad0d900c2dbbd0b518ca40b0b787a8d8a0bd08a7c",
+      "size": 128
     },
     {
       "path": "out/dispatch/claude-phases.jsonl",
@@ -2344,8 +2350,8 @@
     {
       "path": "out/dispatch/repair-plan-2.json",
       "class": "scratch",
-      "sha256": "e88109ea9946a0fbbb66f963f2f1ae48cf6eeb55fab1c62c57071a43f89bde47",
-      "size": 5718
+      "sha256": "59124729a4de6910efab0dfc7aa4e642ef918307a494fbd54bc9b96fd5d97da7",
+      "size": 6327
     },
     {
       "path": "out/dispatch/repair-plan.json",
@@ -4329,14 +4335,19 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 51636607,
-    "unique_blob_bytes": 49828435,
-    "unique_blobs": 695
+    "logical_bytes": 51637344,
+    "unique_blob_bytes": 49829172,
+    "unique_blobs": 696
   },
-  "excluded": [],
+  "excluded": [
+    {
+      "path": "out/dispatch/grant-projection-roots.private.json",
+      "reason": "private path component"
+    }
+  ],
   "regenerable": {
-    "files": 1,
-    "bytes": 24781
+    "files": 0,
+    "bytes": 0
   },
   "public_safe": "Gmail, routing, delivery receipts and credentials are excluded or redacted. Ledger is the sanitized public export."
 }

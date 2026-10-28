@@ -1,49 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round2/opening-a.json",
-        "before_sha256": "732842dd76e376ad4a03e290e9ea503e7baa156dfb6858d4e45f2aa585f17b67",
-        "path": "{REPO}/out/dispatch/opening-a.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round2/opening-b.json",
-        "before_sha256": "29f914cb0571ddd4ba63d99e08d82931b9654dfc697dd002136448191be74a96",
-        "path": "{REPO}/out/dispatch/opening-b.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round2/storyboard.json",
-        "before_sha256": "732842dd76e376ad4a03e290e9ea503e7baa156dfb6858d4e45f2aa585f17b67",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round2/modern_episode_registry.json",
-        "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
-        "path": "{REPO}/config/modern_episode_registry.json"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round2/OrderPassFilm.tsx",
-        "before_sha256": "5fb27356a1c7d27b23bf69c4e1700ce19b42640704b8b722ae9deda709f38cc5",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round2/OrderRigHero.tsx",
-        "before_sha256": "a34732907db7d03441a5997fd9992c49c2b709a915425ff7c7b88bd4731d5ca6",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round2/RestaurantSupport.tsx",
-        "before_sha256": "271392e9939a81e1033c89f516e83da4270f6730f6f64adb9c77b5e1bc96ae26",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx"
-      }
-    ],
-    "failure_sha256": "5ba7117cc04eccead1bbcded6c6ec4762caee02983145951c9d77831c7da5728",
-    "plan": "{REPO}/out/dispatch/repair-plan-2.json",
-    "plan_sha256": "e88109ea9946a0fbbb66f963f2f1ae48cf6eeb55fab1c62c57071a43f89bde47",
-    "progress_replacement_required": false,
-    "reboards_before": 2,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -581,6 +536,79 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-28T05:13:52.596830Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 28,
+        "reservation_sha256": "606895098cbb861150b33541591d81d1d96cdf9fd45d0762eb7d70d727758737",
+        "start_event_index": 27
+      },
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "9c71f0c5a0720e77b0e4f222db279b3610419774e3ec823654248c527066592a",
+            "before_path": "{REPO}/out/dispatch/baselines/round2/opening-a.json",
+            "before_sha256": "732842dd76e376ad4a03e290e9ea503e7baa156dfb6858d4e45f2aa585f17b67",
+            "path": "{REPO}/out/dispatch/opening-a.json"
+          },
+          {
+            "after_sha256": "96f9025f3d464636ef1cc31aa329bc5bf7598f6ecd21a115b4561eee7431ca0c",
+            "before_path": "{REPO}/out/dispatch/baselines/round2/opening-b.json",
+            "before_sha256": "29f914cb0571ddd4ba63d99e08d82931b9654dfc697dd002136448191be74a96",
+            "path": "{REPO}/out/dispatch/opening-b.json"
+          },
+          {
+            "after_sha256": "9c71f0c5a0720e77b0e4f222db279b3610419774e3ec823654248c527066592a",
+            "before_path": "{REPO}/out/dispatch/baselines/round2/storyboard.json",
+            "before_sha256": "732842dd76e376ad4a03e290e9ea503e7baa156dfb6858d4e45f2aa585f17b67",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          },
+          {
+            "after_sha256": "1afc722bad4eb47d7e7108a1d72adf79c36fb2168eab7aeb27e5e8d3f823c86f",
+            "before_path": "{REPO}/out/dispatch/baselines/round2/OrderPassFilm.tsx",
+            "before_sha256": "5fb27356a1c7d27b23bf69c4e1700ce19b42640704b8b722ae9deda709f38cc5",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+          },
+          {
+            "after_sha256": "4b49cb0cb109e5537c9fca3ca7b7667b669b338764391d9d0ac951b74193bede",
+            "before_path": "{REPO}/out/dispatch/baselines/round2/OrderRigHero.tsx",
+            "before_sha256": "a34732907db7d03441a5997fd9992c49c2b709a915425ff7c7b88bd4731d5ca6",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx"
+          },
+          {
+            "after_sha256": "9774a9870023e877c6655fc7ca18a156f4dd7a86c54402fbcdff124798195176",
+            "before_path": "{REPO}/out/dispatch/baselines/round2/RestaurantSupport.tsx",
+            "before_sha256": "271392e9939a81e1033c89f516e83da4270f6730f6f64adb9c77b5e1bc96ae26",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx"
+          },
+          {
+            "after_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+            "before_path": "{REPO}/out/dispatch/baselines/round2/modern_episode_registry.json",
+            "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+            "path": "{REPO}/config/modern_episode_registry.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "In s3 one guest, one skin tone, from the code scan through the tap to the paid press. In s9 the hand lowers the phone onto the table in view and the code stand does not move. No grey translucent rectangle appears at the ledger tag, the quote card or anywhere else in the film. The OWNER COUNT stamp mark is legible and the Talk control is used once.",
+        "failure_evidence": "{REPO}/out/dispatch/phone-compare-handback.json",
+        "failure_evidence_sha256": "5ba7117cc04eccead1bbcded6c6ec4762caee02983145951c9d77831c7da5728",
+        "failure_family": "continuity",
+        "mechanism_change": "The guest changes from two or three independently coloured hand assemblies to one shared hand fill used in every framing, the s9 phone changes from an abrupt appearance on the table to a performed lowering, and the grey rectangles change from unfilled shadow boxes to shadows attached to their cards.",
+        "mechanism_id": "order-pass-finish-v2",
+        "repair": "Resume the existing scene builder for one consolidated correction of the shared renderer on the unchanged claims, script, clauses, boards and story_art request identities, with no story, narration or event change: give every guest hand in s3 and s9 one consistent skin fill across all framings and cuts; replace the s9 jump with a visible continuous lowering of the phone onto the table (or a clearly new framing) so the hand and phone and the code stand never teleport; find the source of the grey translucent rectangles under the $9,650 tag swing and under the quote card slide (an unfilled shadow, drop-shadow or filter box) and remove it or attach it to the object it shades; and, where it is cheap, let the OWNER COUNT stamp mark read fully beside the tag and use the Talk control once. Where the same code serves treatment A, also keep the phone visibly aimed at the code during the scan and enlarge the Paid result at medium framing. The director then re-records the art and regenerates renderer inputs, and the full two-treatment comparison is renewed on the current source.",
+        "repair_scope": "standard",
+        "resources": {
+          "reboards": 1
+        },
+        "root_cause": "The independent silent two-treatment phone comparison (original response retained at out/dispatch/phone-compare-handback.json, review 3 of the hard five) selected treatment B but returned REVISE with three blocking defects found in the actual pixels: in s3 the single guest's hands change skin tone across cuts (brown overhead, light at eye level, brown pressing finger) so one order appears to pass between two people; in s9 the overhead hand holding the phone vanishes and the phone and code stand teleport between samples at 51.0 and 51.2 seconds; and a grey translucent rectangle appears on the ledger rows as the $9,650 tag swings in (30.4 to 31.0 seconds) and under the quote card as it slides in (51.4 to 51.8 seconds), reading as an unfinished placeholder in both treatments. Non-blocking notes: the OWNER stamp mark is mostly hidden under the tag at 33.4 seconds and the Talk control is shown but never used. Treatment A additionally showed a static empty first frame, a phone that is not aimed at the code and a tiny Paid result, which are carried only where the shared fix also helps."
+      },
+      "repair_plan_sha256": "59124729a4de6910efab0dfc7aa4e642ef918307a494fbd54bc9b96fd5d97da7",
+      "repair_revision": "9402d5cd226b7fa2f3057936c282aea032324e4d0380e4bdc46a0bd5919dafdd",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -604,7 +632,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "39e87162ec106d5ab30708f88b283ad5d4b2e4b7530ca7ce459465dfa23b0db1",
+    "original_private_state_sha256": "8a033ed40fd6a2b6804f708fdccfa277fa5b7b6bc2ba1f747abe04d102f08677",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -632,7 +660,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-26T10:27:21.956144Z",
+  "updated_at": "2026-10-28T05:13:52.596858Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
