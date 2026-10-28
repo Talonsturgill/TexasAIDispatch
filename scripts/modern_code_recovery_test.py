@@ -235,6 +235,15 @@ class ModernCodeRecoveryTest(unittest.TestCase):
         self.assertTrue(modern.eligible(state, plan, report, preparing=True))
         self.assertFalse(modern.eligible(state, plan, report))
 
+    def test_grant_admits_a_ledger_that_never_used_the_earlier_code_route(self):
+        state = controller.read_state(self.state)
+        state['events'] = [e for e in state['events'] if e.get('kind') != capacity.CODE_ADOPTION]
+        controller.save(self.state, state)
+        ok, msg = capacity.grant_capacity(self.state, self.plan); self.assertTrue(ok, msg)
+        state = controller.read_state(self.state)
+        self.assertTrue(any(e.get('kind') == capacity.CODE_ADOPTION for e in state['events']))
+        self.assertEqual(capacity.replay(state)[1], [])
+
     def test_duplicate_and_mutated_policy_evidence_or_budget_refused(self):
         self.assertTrue(capacity.grant_capacity(self.state, self.plan)[0])
         before = self.state.read_bytes()
