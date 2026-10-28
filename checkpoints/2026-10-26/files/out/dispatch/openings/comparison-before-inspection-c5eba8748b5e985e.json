@@ -1,0 +1,84 @@
+{
+  "schema": "dispatch-opening-comparison/1",
+  "policy_sha256": "77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765",
+  "renderer_sha256": "d1f8b40b2ca067037cb070fc73b1d946605e63d3efa52969d6d2216a51189faf",
+  "producer_sha256": "f4352be6e426ee7fee07900f238d5c0ddd842fb3a259a0890965ae11e1a89cd2",
+  "reservation": {
+    "identity": "5590d180f919e816e93c0f2204f093140cfbc492f0e5bbbdbb955f6d705f051d",
+    "run_id": "2026-10-26",
+    "event_index": 31
+  },
+  "options": [
+    {
+      "id": "a",
+      "concept_sha256": "27d7849331dc180a3677dc32c5b3af3eb8c10bbcf94caf8f8bf4e0163087e959",
+      "renderer_sha256": "d1f8b40b2ca067037cb070fc73b1d946605e63d3efa52969d6d2216a51189faf",
+      "board": {
+        "file": "a.json",
+        "sha256": "d25e7454a0af48044134f816224f4e1b77a6be09179a6ae66b266c679f23d583"
+      },
+      "film": {
+        "file": "a.mp4",
+        "sha256": "56a015c299a9b62893d27d51daca1c208195a990d3c50987aaddcb89391fb56d"
+      }
+    },
+    {
+      "id": "b",
+      "concept_sha256": "93d83d0e1b6adcdf44db1bd5186e351efdb119e62dadb4a7c67660c32d5831d8",
+      "renderer_sha256": "d1f8b40b2ca067037cb070fc73b1d946605e63d3efa52969d6d2216a51189faf",
+      "board": {
+        "file": "b.json",
+        "sha256": "f6da38b524c9f9687d12fef028a1f9435461fe4080337b296358c35d30962100"
+      },
+      "film": {
+        "file": "b.mp4",
+        "sha256": "b11335b8990048f3e1c36709ca7104674c39eff36d37f83c19a0ca2b03a4d0da"
+      }
+    }
+  ],
+  "combined_code_review": {
+    "schema": "dispatch_combined_code_phone_review/1",
+    "run_id": "2026-10-26",
+    "critic_attempt": 4,
+    "policy_sha256": "e29d757440f2b34a1e339595095e7a12e68625d1992636d54b3275c5289919aa",
+    "third_reservation_event_index": 26,
+    "original_review": {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/native-critic-completions/9e9f95aff75a6c4f452153fbdce5da2875b08434b7cb003a32e46442b7560d8f-ab264f8c431d5c4e076b65b5a576bf7d62554f3e80b6b8d0d1df7ef24c7ed151.json",
+      "sha256": "a8cf5335431e7f781068edcac4448761e0b1091af9fff1ce0318e6b037017c0a"
+    },
+    "original_packet": {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/phone-critic-packet.json",
+      "sha256": "9e9f95aff75a6c4f452153fbdce5da2875b08434b7cb003a32e46442b7560d8f"
+    },
+    "original_claim": {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/worker-dispatch-claims/d1e6890b8687b532d626ba763efd55fd020f400fe62d1c496369bf36c6b8f36c-storyboard-critic.json",
+      "sha256": "b8bc244d9c33479ff684db0bcda535ee1b2315e1761fb703f1b2a77f83641696"
+    },
+    "reviewer_identity": "a49e5f789d019cbd9",
+    "prior_phone_review": {
+      "code_approval": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/native-critic-completions/a28335ceb0bd21b2b4049a2a92d87f274eff7356f8881553547406d638c7c949-c7800deb06a2da49583c27086a14feb8f77d6884a38c1cc4b8af72bbf04f242b.json",
+        "sha256": "1c1496b791267e4a39a922e494147c6a0331d627d2be8169a2a510c3837b4af0"
+      },
+      "code_packet": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/critic-packet-2.json",
+        "sha256": "a28335ceb0bd21b2b4049a2a92d87f274eff7356f8881553547406d638c7c949"
+      },
+      "code_claim": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/worker-dispatch-claims/59d8130bdc1b95cfcc86fcfdcc69e282357a8908859e053d7a302298527cfd61-storyboard-critic.json",
+        "sha256": "4ccabd891660358d6416bd68d39fb232c9551c0f0659c634a59110981db7b0de"
+      },
+      "image_coverage": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/phone-compare-coverage.json",
+        "sha256": "ac1a9fa391503d2514a303d4eb8319e3babc87493799a81600922e8b5306083d"
+      }
+    },
+    "repair_event_index": 29,
+    "repair_plan_sha256": "59124729a4de6910efab0dfc7aa4e642ef918307a494fbd54bc9b96fd5d97da7",
+    "failure": {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/phone-compare-handback.json",
+      "sha256": "5ba7117cc04eccead1bbcded6c6ec4762caee02983145951c9d77831c7da5728"
+    }
+  },
+  "approval": "diagnostic only; original combined code and exact-phone approval remain required"
+}
