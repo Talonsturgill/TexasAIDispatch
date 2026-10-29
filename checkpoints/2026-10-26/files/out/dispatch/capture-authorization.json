@@ -2,9 +2,9 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "642f608c60b065007b5fbab972c5c06cf25c5457713765bdd70df3c0e4232581",
+    "event_sha256": "96d5099252c7f48cd32d03679b63af0afd78bb46eb7d5f6429b7e491082a2635",
     "resource": "preflight_renders",
-    "at": "2026-10-28T06:58:29.165069Z",
+    "at": "2026-10-29T05:20:43.941543Z",
     "note": "two opening comparison batch"
   },
   "boards": [
@@ -173,31 +173,31 @@
   },
   "commands": [
     {
-      "id": "d689d20ff4ebf8613d195a1e56abb739dd92b40a8029dc3cf8d376aa6e3cb888",
-      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --builder-proof",
-      "consumed": "2026-10-28T06:58:43.217217+00:00"
+      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
+      "consumed": "2026-10-29T05:21:00.160548+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 21,
-    "free_gib": 21.073
+    "free_gib": 21.061
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/capture-housekeeping-20261028T065819.json",
-    "receipt_sha256": "a777dd67091aea7f2cd7165b7f814a0c6e788a2025e5e15d1b1abd4a79e7a9a5",
+    "receipt": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/capture-housekeeping-20261029T052034.json",
+    "receipt_sha256": "4bd5ae63cdd3bf22b7498524e4ebe0ab97e62a7681493ab929e18897fdfa094d",
     "exit_code": 0,
     "min_free_gib": 21
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-28T06:58:33.940445+00:00",
-  "expires_at": "2026-10-28T07:43:33.940445+00:00",
+  "issued_at": "2026-10-29T05:20:49.432121+00:00",
+  "expires_at": "2026-10-29T06:05:49.432121+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
     "operation": "two opening comparison batch",
     "resource": "preflight_renders",
     "run_id": "2026-10-26",
-    "event_sha256": "642f608c60b065007b5fbab972c5c06cf25c5457713765bdd70df3c0e4232581",
-    "input_identity": "d143a916fc5dc261b588156a937967d9d6774724ce8f632ccce02917343e99da"
+    "event_sha256": "96d5099252c7f48cd32d03679b63af0afd78bb46eb7d5f6429b7e491082a2635",
+    "input_identity": "2e76347d492e2f3fc40204e2102a5f8fedd09659242544d3bb1eb65f954f808a"
   }
 }
