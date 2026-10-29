@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-10-29T06:26:36.175144+00:00",
-  "note": "voice take chosen",
+  "saved_at": "2026-10-29T06:29:38.229033+00:00",
+  "note": "before voice retake after ASR mismatch",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -42,6 +42,30 @@
       "class": "scratch",
       "sha256": "45fdd6c323c1cf8bc26401b4b72d6ef916b13a89bf684dbb3c723f81ae1bf13e",
       "size": 7476
+    },
+    {
+      "path": "out/dispatch/acoustic-asr-meta.json",
+      "class": "scratch",
+      "sha256": "23af5f0a12bc22edbec4b8bfe2b9310c7207e3ac4a977bbe20e9accdfadbda4d",
+      "size": 720
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "5f9a9d698413cb76e59212cbe847a5697c9d8928d2a48b559ff06d937c2b0433",
+      "size": 72507
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.log",
+      "class": "scratch",
+      "sha256": "4da2cbf995a0eab5d1049c515268e6980afc5143185c542c297f7d277f1e1a39",
+      "size": 83398
+    },
+    {
+      "path": "out/dispatch/alignment-16k.wav",
+      "class": "scratch",
+      "sha256": "8d0bdcaf40ebd6c2fc89e64d7084b857553d3fbab03d60c8a786bb7835f6a9f2",
+      "size": 1929924
     },
     {
       "path": "out/dispatch/artwork-originals/authored-067bf3fc-de09-47cc-9e9b-28394a4191bc.tsx",
@@ -608,6 +632,12 @@
       "size": 28489
     },
     {
+      "path": "out/dispatch/credits.txt",
+      "class": "scratch",
+      "sha256": "350cffc41d2dea7219f2780de3e102f2a5bdc7b00e591380fb55a3101dca03d9",
+      "size": 313
+    },
+    {
       "path": "out/dispatch/critic-assignment-2.json",
       "class": "scratch",
       "sha256": "f2a8d297d27fb4c9840a3112b1a6fdd3f5d1e89da6956450b26871676628781b",
@@ -672,6 +702,12 @@
       "class": "scratch",
       "sha256": "5432d824a4e5942d658ee0b27fd900c059149eef208605848a0a16fab6717774",
       "size": 1742
+    },
+    {
+      "path": "out/dispatch/evidence/align-1.log",
+      "class": "scratch",
+      "sha256": "e2e14a186ad78e0b28bbd97779ff0599482d3a013f0614b7a199334648c5b041",
+      "size": 1075
     },
     {
       "path": "out/dispatch/evidence/capture-hook-probe-denial.txt",
@@ -4964,6 +5000,24 @@
       "size": 8423
     },
     {
+      "path": "out/dispatch/evidence/takes-1-rejected-asr/prompt.txt",
+      "class": "scratch",
+      "sha256": "e86ef43e705dc1b43789712a406518039b2b3a53acbac3c9fc1d1345a2c248ec",
+      "size": 4156
+    },
+    {
+      "path": "out/dispatch/evidence/takes-1-rejected-asr/take1.wav",
+      "class": "scratch",
+      "sha256": "f3a5af00e6fc96faf875b4901a4de5bbac33bcc3adb4443afa4052d84f3f72cc",
+      "size": 5667884
+    },
+    {
+      "path": "out/dispatch/evidence/takes-1-rejected-asr/takes.json",
+      "class": "scratch",
+      "sha256": "95a02f424ed8043c000c29111a29a61b2bcc992c433d5b942e2af4a6d462c3ce",
+      "size": 1029
+    },
+    {
       "path": "out/dispatch/evidence/vo-soundcheck-1.log",
       "class": "scratch",
       "sha256": "aaf933ee7a9e30f9f07a84ed1a565f1dc40acda5108edf710354d250af17e72c",
@@ -4986,6 +5040,12 @@
       "class": "scratch",
       "sha256": "37f3b21ca55aeb8373daeecf07d785316d2f20c40f6f8567c126ecf172ee942e",
       "size": 229
+    },
+    {
+      "path": "out/dispatch/evidence/vo-synth-4.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/image-tool-delivery/000b54207629cfb83fe26af610181f27ccf9b6a95942ca5be7587b62096d2ef2.json",
@@ -7430,10 +7490,46 @@
       "size": 1026
     },
     {
+      "path": "out/dispatch/mix.json",
+      "class": "scratch",
+      "sha256": "d3d2f1c761653619e389e795a722047368e4b2f1688a27e7aaa709a02086caa8",
+      "size": 7997
+    },
+    {
+      "path": "out/dispatch/mix.wav",
+      "class": "scratch",
+      "sha256": "19c8c0a27d331f7ad4c6e9bea77f2117e5a3821c01d8b879053db9c0895fea34",
+      "size": 6285198
+    },
+    {
+      "path": "out/dispatch/mix_vo.wav",
+      "class": "scratch",
+      "sha256": "502ac2c369caa7bb47ee48c76ecf6458d3aaff1eb2e772f630ee9e992f6ab6c0",
+      "size": 6285164
+    },
+    {
+      "path": "out/dispatch/music_bed.json",
+      "class": "scratch",
+      "sha256": "25906b8324d98b30abbf7a1cc6df924ac34199fc23bcff42f494e749598eddda",
+      "size": 726
+    },
+    {
+      "path": "out/dispatch/music_bed.wav",
+      "class": "scratch",
+      "sha256": "18a2af1e753896f07e16ba206e15d395b520a89540edcee1d9286250c0eb2346",
+      "size": 18805734
+    },
+    {
       "path": "out/dispatch/music_brief.json",
       "class": "scratch",
       "sha256": "a3203d2ba1d4e4aac42f58fa6dfe6a4be8eb84c7d497d204e6de3488f2525d74",
       "size": 415
+    },
+    {
+      "path": "out/dispatch/music_credit.txt",
+      "class": "scratch",
+      "sha256": "2b2bd8cc9d6535c079f8825d4d418d3884fabeabb1c4f5e4cd3d27f39b292eb3",
+      "size": 164
     },
     {
       "path": "out/dispatch/native-completion-waits/03d2e3f19120b072b84e145f6111900a3fff7a152fee3635528e60845b518067.json",
@@ -12212,6 +12308,12 @@
       "size": 574
     },
     {
+      "path": "out/dispatch/sfx_events.json",
+      "class": "scratch",
+      "sha256": "d83ef982e0ffba63870f034f7cfb2cc9c0c78b8b815d9ffaa6ffab1bb70ea9d3",
+      "size": 3525
+    },
+    {
       "path": "out/dispatch/sources/c2h.html",
       "class": "scratch",
       "sha256": "0a26b300b3c806276adb21c6c9d9682cf0641adb7e53f872cc98cf9a44b84f2d",
@@ -12304,8 +12406,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "ac8a12d1d0bdd4e1a5cf7e4003b1de7dcd8b7b32daef8093ab1df49b6ab4db13",
-      "size": 202378
+      "sha256": "36aa1c206bf419c7323cf9459aa379a732f81ca1254840011f8d00a8c9b817a7",
+      "size": 179313
     },
     {
       "path": "out/dispatch/storyboard_critic.json",
@@ -17361,9 +17463,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 329927666,
-    "unique_blob_bytes": 163289874,
-    "unique_blobs": 1900
+    "logical_bytes": 369054115,
+    "unique_blob_bytes": 196945632,
+    "unique_blobs": 1914
   },
   "excluded": [
     {

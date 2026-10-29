@@ -1,0 +1,20 @@
+vo_align: ASR does not reconcile with the locked script: - wok - and + walk + in + gonna - going - to - haniya ?     -
+ + hania - pool + pull - word ?  ^
+ + ward ?  ^
+
+Traceback (most recent call last):
+  File "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/scripts/board_captions.py", line 221, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/scripts/board_captions.py", line 207, in main
+    caps = json.load(open(a.captions))
+                     ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'out/dispatch/captions.json'
+Traceback (most recent call last):
+  File "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/scripts/board_retime.py", line 596, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/scripts/board_retime.py", line 543, in main
+    wf = json.load(open(a.words))
+                   ^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'out/dispatch/words.json'

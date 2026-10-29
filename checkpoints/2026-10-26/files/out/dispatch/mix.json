@@ -1,0 +1,242 @@
+{
+  "duration_s": 65.47,
+  "cut_s": 65.47,
+  "peak_dbfs_premaster": -2.18,
+  "lufs_premaster": -21.48,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.16,
+  "lufs_shortfall_db": 0.16000000000000014,
+  "crest_factor_db": 19.3,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 2.18,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 10
+    },
+    {
+      "id": "thinking_music",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 20.0,
+      "source_lufs": -24.1,
+      "gain_db": -17.33
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "thinking_music",
+  "bed_gap_below_voice_db": 20.0,
+  "bed_source_lufs": -24.1,
+  "bed_gain_db": -17.33,
+  "sfx_events": 10,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -19.35,
+      "true_peak_dbtp": 0.02
+    },
+    "after": {
+      "integrated_lufs": -16.16,
+      "true_peak_dbtp": -1.98
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.5:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.20:measured_TP=-5.39:measured_LRA=7.20:measured_thresh=-35.98:offset=1.09",
+    "measurement": {
+      "input_i": "-24.20",
+      "input_tp": "-5.39",
+      "input_lra": "7.20",
+      "input_thresh": "-35.98",
+      "output_i": "-16.00",
+      "output_tp": "-2.00",
+      "output_lra": "6.00",
+      "output_thresh": "-27.34",
+      "normalization_type": "dynamic",
+      "target_offset": "0.50"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.5,
+          "true_peak_dbtp": -1.99
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.20:measured_TP=-5.39:measured_LRA=7.20:measured_thresh=-35.98:offset=0.95"
+      },
+      {
+        "requested_lufs": -15.5,
+        "measured": {
+          "integrated_lufs": -16.16,
+          "true_peak_dbtp": -1.98
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.5:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-24.20:measured_TP=-5.39:measured_LRA=7.20:measured_thresh=-35.98:offset=1.09"
+      }
+    ],
+    "correction": null,
+    "samples": 3142560,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "out/dispatch/mix.wav",
+  "master_sha256": "19c8c0a27d331f7ad4c6e9bea77f2117e5a3821c01d8b879053db9c0895fea34",
+  "sound_direction_sha256": "6244de662c606c42c67e24910d023f934930c38604264fb51b5a41a15d3b3961",
+  "sound_cues": [
+    {
+      "id": "cue-s1",
+      "role": "environment",
+      "duration_s": 1.2000000000000002,
+      "intent": "A phone ring over low room tone.",
+      "provenance": "Original designed foley and ambience, not recorded at any restaurant.",
+      "event_id": "s1-event-2",
+      "at_s": 2.505
+    },
+    {
+      "id": "cue-s2",
+      "role": "environment",
+      "duration_s": 1.1999999999999993,
+      "intent": "A soft power-on tone and a warm chime.",
+      "provenance": "Original designed foley and ambience, not recorded at any restaurant.",
+      "event_id": "s2-event-2",
+      "at_s": 10.89
+    },
+    {
+      "id": "cue-s3",
+      "role": "environment",
+      "duration_s": 1.1999999999999993,
+      "intent": "A light interface swish over low room tone.",
+      "provenance": "Original designed foley and ambience, not recorded at any restaurant.",
+      "event_id": "s3-event-2",
+      "at_s": 17.467499999999998
+    },
+    {
+      "id": "cue-s4",
+      "role": "environment",
+      "duration_s": 1.1999999999999993,
+      "intent": "A rising electronic zip and a lamp click.",
+      "provenance": "Original designed foley and ambience, not recorded at any restaurant.",
+      "event_id": "s4-event-2",
+      "at_s": 24.603
+    },
+    {
+      "id": "cue-s5",
+      "role": "contact",
+      "duration_s": 1.1999999999999993,
+      "intent": "A paper tag landing on a desk.",
+      "provenance": "Original designed foley and ambience, not recorded at any restaurant.",
+      "event_id": "s5-event-2",
+      "at_s": 30.244999999999997
+    },
+    {
+      "id": "cue-s6",
+      "role": "contact",
+      "duration_s": 1.2000000000000028,
+      "intent": "Coins clinking into glass.",
+      "provenance": "Original designed foley and ambience, not recorded at any restaurant.",
+      "event_id": "s6-event-2",
+      "at_s": 36.597500000000004
+    },
+    {
+      "id": "cue-s7",
+      "role": "environment",
+      "duration_s": 1.2000000000000028,
+      "intent": "A soft highlight tone over low room tone.",
+      "provenance": "Original designed foley and ambience, not recorded at any restaurant.",
+      "event_id": "s7-event-2",
+      "at_s": 42.74
+    },
+    {
+      "id": "cue-s8",
+      "role": "environment",
+      "duration_s": 1.2000000000000028,
+      "intent": "A folder opening and a hollow hush.",
+      "provenance": "Original designed foley and ambience, not recorded at any restaurant.",
+      "event_id": "s8-event-2",
+      "at_s": 47.39
+    },
+    {
+      "id": "cue-s9",
+      "role": "contact",
+      "duration_s": 1.2000000000000028,
+      "intent": "A paper tag landing over low room tone.",
+      "provenance": "Original designed foley and ambience, not recorded at any restaurant.",
+      "event_id": "s9-event-2",
+      "at_s": 51.26
+    },
+    {
+      "id": "cue-s10",
+      "role": "contact",
+      "duration_s": 1.2000000000000028,
+      "intent": "A string tag swing over low room tone.",
+      "provenance": "Original designed foley and ambience, not recorded at any restaurant.",
+      "event_id": "s10-event-2",
+      "at_s": 56.72
+    },
+    {
+      "id": "mark-quiet",
+      "role": "quiet",
+      "duration_s": 1.2000000000000028,
+      "intent": "Pull the music back while the two tags settle on the tip jar beside the host panel.",
+      "provenance": "Authored event-clock background contrast.",
+      "event_id": "s10-event-3",
+      "gain": 0.3,
+      "at_s": 58.2725
+    }
+  ],
+  "sound_assets": [
+    {
+      "id": "cue-s1",
+      "sha256": "f62ec901f3d6a265411b4ef94f2e16a144f5c6767565c9dfdd990f3dccd07a3b"
+    },
+    {
+      "id": "cue-s2",
+      "sha256": "9b683a4efcbf9fb199eeeb1e32c0d1b6577810c445ef2d900a003278296e09fc"
+    },
+    {
+      "id": "cue-s3",
+      "sha256": "d7c3b00b4d71c028e3e3410831571d65147f639ce3ebe6015844f1added06c94"
+    },
+    {
+      "id": "cue-s4",
+      "sha256": "19e2bb05a9bffad7348d345a38dc7216bb7f48fa0c8089d0060c77096fdf4215"
+    },
+    {
+      "id": "cue-s5",
+      "sha256": "442053613de7f964788bfcbec81e697b7fddeecc1943901d48f562f0fc921b7a"
+    },
+    {
+      "id": "cue-s6",
+      "sha256": "1cf325aa7e57473cea53c3d51f357107191c3565afa67d5fb5f84018f512f617"
+    },
+    {
+      "id": "cue-s7",
+      "sha256": "ea8a55a5ca63fc2b29d158d320fe4482b45aed36fa78831390f9fcdbef8c3981"
+    },
+    {
+      "id": "cue-s8",
+      "sha256": "c5b1252c39ca4aa231bd1a3edc5c4c33a27fdaba0ed81733483f3b7b639c2ca4"
+    },
+    {
+      "id": "cue-s9",
+      "sha256": "442053613de7f964788bfcbec81e697b7fddeecc1943901d48f562f0fc921b7a"
+    },
+    {
+      "id": "cue-s10",
+      "sha256": "3364191761ae7cfbf4b80e6e8fb66426edeb52a21ac7fa521aff1196b4f1922f"
+    }
+  ],
+  "bed_file": "out/dispatch/music_bed.wav",
+  "bed_file_sha256": "18a2af1e753896f07e16ba206e15d395b520a89540edcee1d9286250c0eb2346",
+  "bed_source_sha256": "891d3ea47e443e590a6562a1e2bff37c8830817b3cdf604091f92bfe87e5cc4f",
+  "bed_preparation_manifest": "out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "25906b8324d98b30abbf7a1cc6df924ac34199fc23bcff42f494e749598eddda",
+  "voice_stem": "out/dispatch/mix_vo.wav",
+  "voice_stem_samples": 3142560
+}
