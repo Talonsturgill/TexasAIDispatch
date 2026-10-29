@@ -1,42 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/narration/vo_direction.json",
-        "before_sha256": "7f42e6c3e30350a2b0ea486ff480b84630e2c7e7dc59e41c62945f983ae9e0aa",
-        "path": "{REPO}/out/dispatch/vo_direction.json"
-      }
-    ],
-    "failure_sha256": "384915063c9e0daf137012fc5d097f9d8b7f13be74d1132fe69eee035f99511b",
-    "frozen_inputs": {
-      "files": {
-        "{REPO}/out/dispatch/claims.json": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
-        "{REPO}/out/dispatch/sources/c2h.html": "0a26b300b3c806276adb21c6c9d9682cf0641adb7e53f872cc98cf9a44b84f2d",
-        "{REPO}/out/dispatch/sources/c2h.txt": "3133d621d5f99336a9c02f799c9b34fd57e2c6495548d453eaa74d78301b54e5",
-        "{REPO}/out/dispatch/sources/cfr.html": "e15bc1eedd369cd873d0c1359009a890e8c382c32a657c17f6335d8794584875",
-        "{REPO}/out/dispatch/sources/cfr.txt": "6f3778867ef374be44b62470b651bba9378d113aece0ca054c5fd2de73356810",
-        "{REPO}/out/dispatch/sources/fox.html": "01ccab949fa3b0c90d17fc381030fa24b4f99d7617f64f63ed8ad034fea0861d",
-        "{REPO}/out/dispatch/sources/fox.txt": "6c4e474b3413eea12b677168a063b514f157c94848c00648a67181af7c5b9a3d",
-        "{REPO}/out/dispatch/sources/hood.html": "355c307338084a3bda16730a8b7c2a4f3e17133a91d5e0aa0a832ed418ce17b6",
-        "{REPO}/out/dispatch/sources/hood.txt": "f355e2c759a9584d261fea4910953f1d6c8e4dcc1dfc1c827bfbabf7ab7812e9",
-        "{REPO}/out/dispatch/sources/mm.html": "832c143141e45a11f26722a2bc87d8b756890211fefa5f0358012f76ea6b5791",
-        "{REPO}/out/dispatch/sources/mm.txt": "301ee57570c96558709a6d828ba151f94862406d0d9f3d7cd3f269504dd11f0c",
-        "{REPO}/out/dispatch/sources/site.html": "62f0259ccb8e0d4640e97d5cd42edb7de36560a384ab165870ba43460a6de6e7",
-        "{REPO}/out/dispatch/sources/site.txt": "ab6f9d4052c22b5f2a4fb3869f951ef63b3ae7784f8bb7c9d7d1e3182385464b",
-        "{REPO}/out/dispatch/sources/twc.html": "497a2c0ff55c0ffd59f2f5d601d92655e5594b8ffedc285b27c587aec4cdc059",
-        "{REPO}/out/dispatch/sources/twc.txt": "4f9422a2f779305d3cc0b2ee71d99673a4975fb0f9fef2a6bb2ac33025afeb7f",
-        "{REPO}/out/dispatch/storyboard.json": "36aa1c206bf419c7323cf9459aa379a732f81ca1254840011f8d00a8c9b817a7",
-        "{REPO}/out/dispatch/vo_script.txt": "7edfa737244230ed25a96ed1be7e207422eb8005938af86b8f4d02b7a4d03d98"
-      },
-      "renderer_sha256": "f621e5a74d58b7a25627cfc62f39ee6b2d0213a7f8d454bdb539eb0531537b4a"
-    },
-    "plan": "{REPO}/out/dispatch/repair-plan-5.json",
-    "plan_identity": "3df409f87f55512ab3f7fed7fa89d02e182e73d5c016e014b557a6c19ab689c7",
-    "plan_sha256": "b72787421467557ad7860aa54f9b6407393b6342fe597dd4d6227f20cf711d1d",
-    "progress_replacement_required": false,
-    "reboards_before": 4,
-    "repair_scope": "narration-performance"
-  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -1451,6 +1413,43 @@
       "plan_sha256": "b72787421467557ad7860aa54f9b6407393b6342fe597dd4d6227f20cf711d1d",
       "progress_replacement_required": false,
       "repair_scope": "narration-performance"
+    },
+    {
+      "at": "2026-10-29T06:33:55.302696Z",
+      "grants": {
+        "tts_calls": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "kind": "repair_authorized",
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "cbfb466656832f5640d4ee3906116b2f451508b72a3fa5d13ac38e42b581d2cc",
+            "before_path": "{REPO}/out/dispatch/baselines/narration/vo_direction.json",
+            "before_sha256": "7f42e6c3e30350a2b0ea486ff480b84630e2c7e7dc59e41c62945f983ae9e0aa",
+            "path": "{REPO}/out/dispatch/vo_direction.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "Unchanged picture. The fresh take reconciles with the locked script when the sourced name spellings are applied.",
+        "failure_evidence": "{REPO}/out/dispatch/evidence/align-take2-failure.log",
+        "failure_evidence_sha256": "384915063c9e0daf137012fc5d097f9d8b7f13be74d1132fe69eee035f99511b",
+        "failure_family": "unclassified",
+        "mechanism_change": "The last line's emphasis moves from the closing phrase 'the owner's word' to 'rests on', and its energy note asks for a crisp, fully pronounced final word at the same level.",
+        "mechanism_id": "vo-closing-word-delivery-v1",
+        "repair": "Direction-only correction of the final line's emphasis and energy notes so the closing word is delivered with a clean consonant ending instead of being the lowered emphasised phrase. Script, board, claims and renderer stay unchanged.",
+        "repair_scope": "narration-performance",
+        "resources": {
+          "tts_calls": 2
+        },
+        "root_cause": "Two audible takes of the locked script failed strict ASR reconciliation on the final word. The pinned recognizer hears the closing word 'word' of the owner's word as 'ward' in both takes, while the chosen takes passed the verbatim soundcheck. Names Wok and Haniya also reconcile only through sourced spelling exceptions."
+      },
+      "repair_plan_sha256": "f0f42570595b23b2bad8df747dfa96cbfa1672df7d398ae2aa3cc1acaaea09c2",
+      "repair_revision": "f2909479ebefb5b4f576fa9aaae71b1b1fb02d4238166c47c0daf1c03f981e1c",
+      "repair_scope": "narration-performance",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -1474,7 +1473,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cbb23ece368901d586bf896e313e55aafc0574d625462aa2aa2b5b6b9fd2b2d5",
+    "original_private_state_sha256": "7bb169c8bd7636bafe5f77c860e8c5213d66ab08401c34bf723534a5b43c7533",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1502,7 +1501,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-29T06:33:41.581217Z",
+  "updated_at": "2026-10-29T06:33:55.302744Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
