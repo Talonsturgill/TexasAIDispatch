@@ -89,6 +89,14 @@
       "note": "two opening comparison batch",
       "resource": "preflight_renders",
       "to": 10
+    },
+    {
+      "at": "2026-10-29T05:30:47.429640Z",
+      "ceiling": 16,
+      "from": 10,
+      "note": "exact-phone-a motion-image review extraction",
+      "resource": "preflight_renders",
+      "to": 11
     }
   ],
   "events": [
@@ -1084,6 +1092,28 @@
       "input_identity": "2e76347d492e2f3fc40204e2102a5f8fedd09659242544d3bb1eb65f954f808a",
       "kind": "prepared_capture_claimed",
       "operation": "two opening comparison batch"
+    },
+    {
+      "at": "2026-10-29T05:30:47.429673Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "exact-phone-a motion-image review extraction",
+      "now": 11,
+      "resource": "preflight_renders",
+      "was": 10
+    },
+    {
+      "at": "2026-10-29T05:30:48.187657Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "exact-phone-a motion-image review extraction",
+      "preflight_identity": "5f3d2e10ca12d7172a783bb8bd36b79a2fd7304d77a10da0cce72fd4222ad559",
+      "preflight_identity_version": 2,
+      "publication_epoch": "23365d53b0cf4928849c8c1f5f0260b3",
+      "publication_owner_sha256": "f251f4721196aa65f10f633667466b175b644e8099b699dfe5366c4d2b858630",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -1092,7 +1122,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 10,
+    "preflight_renders": 11,
     "reboards": 4,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -1107,7 +1137,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "56eeb6c991593e8b09e82be7979b201ee3cab5f9045c16cf1174357498103278",
+    "original_private_state_sha256": "f2a912862b1580fa0401ada0fb924d85b47073b057d3bf25318165a1b1b1dc79",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1135,14 +1165,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-29T05:22:51.189354Z",
+  "updated_at": "2026-10-29T05:30:48.187678Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 10,
+    "preflight_renders": 11,
     "reboards": 4,
     "reported_tokens": 63,
     "rescue_renders": 0,
