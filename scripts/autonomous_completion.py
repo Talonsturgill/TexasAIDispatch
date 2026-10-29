@@ -70,8 +70,9 @@ def review_allocation(state, plan_text, budget):
     if str(state.get('run_id', ''))[:10] < REVIEW_ALLOCATION_FROM or 'review_path' not in budget:
         return None
     standing = capacity_policy_active(state)
-    selections = [e['proof'] for e in state.get('events', [])
-                  if e.get('kind') == 'selected_treatment_completion_adopted']
+    from selected_treatment import active_adoption
+    adoption = active_adoption(state)
+    selections = [adoption['proof']] if adoption is not None else []
     return {'schema': 'dispatch_review_path_allocation/2' if standing else 'dispatch_review_path_allocation/1',
             **({'capacity_policy_sha256': CAPACITY_POLICY_SHA256} if standing else {}),
             **({'selection_sha256': sha(canonical(selections[-1]))} if standing and selections else {}),
@@ -108,6 +109,7 @@ def replay_review_allocation(state, plan, plan_text, budget, allocation, require
             or any(completed[name] for name in path.get('invalidated', []))
             or combined and (used not in ({0, 3} if standing else {3})
                              or not {'code', 'comparison'} <= set(pending))
+            or combined and plan.get('retire_selection') is True
             or path['route'] != ('combined-code-comparison' if combined else 'ordinary')
             or path['required'] != len(pending) - int(combined)
             or path['errors'] or path['feasible'] is not True
@@ -431,8 +433,9 @@ def reviewed_film_sha256(report):
 
 def selected_phone_failure(state, plan, report):
     """Read a native paired rejection without rewriting either original judgment."""
-    adopted = [e['proof']['selected'] for e in state.get('events', [])
-               if e.get('kind') == 'selected_treatment_completion_adopted']
+    from selected_treatment import active_adoption
+    adoption = active_adoption(state)
+    adopted = [adoption['proof']['selected']] if adoption is not None else []
     if (capacity_policy_active(state) and adopted
             and report.get('schema') == 'dispatch_combined_code_phone_handback/1'):
         phone = report.get('phone_review') or {}; selection = report.get('selection') or {}
@@ -488,8 +491,9 @@ def native_code_failure(state, plan, report):
                and not row.get('film_sha256') and not row.get('reviewed_preflight_sha256')
                for row in pair.values()):
         return False
-    selections = [e['proof']['selected'] for e in state.get('events', [])
-                  if e.get('kind') == 'selected_treatment_completion_adopted']
+    from selected_treatment import active_adoption
+    adoption = active_adoption(state)
+    selections = [adoption['proof']['selected']] if adoption is not None else []
     rows = [pair[selections[-1]]] if selections else list(pair.values())
     mandatory = {'source', 'rights', 'legibility', 'layout', 'comprehension', 'continuity',
                  'minimum-action', 'dominant_action', 'motion', 'pacing', 'ending_artistry',
@@ -1008,8 +1012,9 @@ def original_failure_problems(state_path, state, report, *, phone=False):
     from completion_yield import original_critic_review
     reservations = [i for i, e in enumerate(state['events'])
                     if e.get('kind') == 'reserved' and e.get('resources', {}).get('storyboard_critics')]
-    selected = [e['proof']['selected'] for e in state.get('events', [])
-                if e.get('kind') == 'selected_treatment_completion_adopted']
+    from selected_treatment import active_adoption
+    adoption = active_adoption(state)
+    selected = [adoption['proof']['selected']] if adoption is not None else []
     for index in reversed(reservations):
         original = original_critic_review(state_path, index)['report']
         if original == report:
@@ -1068,7 +1073,8 @@ def grant_capacity(state_path, plan_path, policy_path=None):
         if reason is None:
             return False, "completion capacity requires exact independent mandatory evidence; optional polish and research are excluded"
         native_code = native_code_failure(state, plan, json.loads(evidence))
-        if any(e.get('kind') == 'selected_treatment_completion_adopted' for e in state['events']):
+        from selected_treatment import active_adoption
+        if active_adoption(state) is not None:
             from selected_treatment import selection_proof
             if selection_proof(state_path) is None:
                 return False, 'mandatory capacity lost its original selected-treatment proof'

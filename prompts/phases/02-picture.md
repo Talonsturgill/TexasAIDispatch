@@ -315,8 +315,10 @@ PASS: an incomplete or rejected original film report remains rejected. Without v
 adoption, both ordinary code gates remain required. After adoption, repair only the selected
 film and require its current independent code and exact silent-phone approval. Do not polish
 the unused alternative or claim its unresolved code or film passed. Changed source claims or
-spoken story require a fresh complete comparison; visual correction retains the evidenced
-choice but needs fresh selected-film approval.
+spoken story require a fresh complete comparison. Before those edits, use repair.md's funded
+plan marker and selected_treatment.py retire command; the old choice must remain preserved
+without blocking the fresh paired route. Visual correction retains the evidenced choice but
+needs fresh selected-film approval.
 
 Use the chosen board/film and imported original phone report for the ordinary phone check.
 The measured final timed-phone review remains a separate later assignment after actual voice

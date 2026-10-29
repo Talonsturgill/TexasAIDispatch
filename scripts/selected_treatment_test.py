@@ -76,6 +76,126 @@ class SelectedTreatmentTests(unittest.TestCase):
         with patch('run_controller.save', side_effect=lambda path, state: f.write(path, state)):
             return selected.adopt(f.state_path)
 
+    def admitted_story_repair(self):
+        f = self.fixture
+        state = combined.read(f.state_path)
+        baselines = []
+        for name in ('claims.json', 'opening-a.json', 'opening-b.json'):
+            path = f.root / name; before = f.root / 'pivot-before' / name
+            before.parent.mkdir(parents=True, exist_ok=True); before.write_bytes(path.read_bytes())
+            baselines.append({'path': str(path), 'before_path': str(before),
+                              'before_sha256': combined.bound(path)['sha256']})
+        plan = f.write(f.root / 'source-pivot-plan.json', {
+            'retire_selection': True, 'changed_inputs': baselines,
+            'failure_evidence_sha256': combined.bound(f.failure)['sha256']})
+        state['active_repair'] = {'plan': str(plan), 'plan_sha256': combined.bound(plan)['sha256'],
+                                 'failure_sha256': combined.bound(f.failure)['sha256'], 'baselines': baselines}
+        state['events'].append({'kind': 'repair_started', 'plan_sha256': combined.bound(plan)['sha256'],
+                               'failure_sha256': combined.bound(f.failure)['sha256'], 'baselines': baselines})
+        f.write(f.state_path, state)
+        return plan
+
+    def retire(self, plan):
+        f = self.fixture
+        with patch('run_controller.save', side_effect=lambda path, state: f.write(path, state)):
+            return selected.retire(f.state_path, plan)
+
+    def test_admitted_pivot_retires_choice_before_edit_restores_pair_without_spending(self):
+        import agent_runtime
+        import review_limit
+        f = self.fixture; proof = self.adopt(); plan = self.admitted_story_repair()
+        before = combined.read(f.state_path)
+        retirement = self.retire(plan)
+        after = combined.read(f.state_path)
+        self.assertEqual(after['events'][:-1], before['events'])
+        self.assertEqual(after['usage'], before['usage'])
+        self.assertEqual(after['active_repair'], before['active_repair'])
+        self.assertFalse(retirement['approval']); self.assertFalse(retirement['grants_resources'])
+        f.write(f.root / 'claims.json', {'claims': ['independently sourced new story']})
+        for key in ('a', 'b'):
+            board = combined.read(f.root / ('opening-' + key + '.json'))
+            board['scenes'][0]['vo'] = 'The new source identifies a different public action.'
+            f.write(f.root / ('opening-' + key + '.json'), board)
+            f.write(f.root / ('opening-' + key + '-critic.json'), {
+                'review_scope': 'code-plan', 'verdict': 'pass',
+                'story_review': {'claims_sha256': combined.bound(f.root / 'claims.json')['sha256']}})
+        self.assertIsNone(selected.selection_proof(f.state_path))
+        self.assertIsNone(agent_runtime.selected_treatment_scope({
+            'role': 'scene-builder', 'board': {'path': str(f.root / 'opening-b.json')}}))
+        with patch('critic_gate.problems', side_effect=lambda board, report:
+                   ['A needs genuine correction'] if board['treatment'] == 'a' else []) as gate:
+            complete, errors = review_limit.review_evidence(after, f.state_path)
+        self.assertFalse(complete['code']); self.assertFalse(errors)
+        self.assertEqual(gate.call_count, 2)
+        self.assertEqual(self.retire(plan), retirement)
+        self.assertEqual(combined.read(f.state_path), after)
+        # The retained independent graph still proves the old choice and old rejected film.
+        archived = f.root / retirement['archive']
+        self.assertEqual(selected.packaged_selection(archived / 'run_state.json', proof), proof)
+        with self.assertRaisesRegex(ValueError, 'source claims changed'):
+            self.adopt()
+
+    def test_retirement_requires_admitted_unchanged_plan_and_inputs(self):
+        f = self.fixture; self.adopt()
+        plan = f.write(f.root / 'unadmitted.json', {'retire_selection': True})
+        before = combined.read(f.state_path)
+        with self.assertRaisesRegex(ValueError, 'active repair'):
+            self.retire(plan)
+        self.assertEqual(combined.read(f.state_path), before)
+        plan = self.admitted_story_repair()
+        path = f.root / 'opening-a.json'; board = combined.read(path)
+        board['scenes'][0]['vo'] += ' Already changed.'; f.write(path, board)
+        with self.assertRaisesRegex(ValueError, 'before editing'):
+            self.retire(plan)
+
+    def test_retired_evidence_tampering_never_silently_returns_pair(self):
+        f = self.fixture; self.adopt(); plan = self.admitted_story_repair(); event = self.retire(plan)
+        before = combined.read(f.state_path)
+        bad = copy.deepcopy(before); bad['events'][-1]['adoption_event_index'] = 0
+        f.write(f.state_path, bad)
+        with self.assertRaisesRegex(ValueError, 'original adoption'):
+            selected.selection_proof(f.state_path)
+        f.write(f.state_path, before)
+        archive = f.root / event['archive']
+        claims = archive / selected.PACKAGE / 'out/dispatch/claims.json'
+        claims.write_text('{"tampered":true}')
+        with self.assertRaisesRegex(ValueError, 'bytes changed'):
+            selected.selection_proof(f.state_path)
+
+    def test_retirement_cannot_readopt_old_review_and_newer_choice_is_explicit(self):
+        f = self.fixture; proof = self.adopt(); plan = self.admitted_story_repair(); self.retire(plan)
+        with self.assertRaisesRegex(ValueError, 'later genuine'):
+            self.adopt()
+        # This seam test supplies only a future verifier result, never authorizes a real review.
+        fresh = {**proof, 'original_review_event_index': proof['original_review_event_index'] + 20}
+        with patch('selected_treatment.latest_selection', return_value=fresh['original_review_event_index']), \
+             patch('selected_treatment.original_selection', return_value=fresh):
+            self.assertEqual(self.adopt(), fresh)
+        self.assertEqual(selected.active_adoption(combined.read(f.state_path))['proof'], fresh)
+
+    def test_retired_proof_packages_after_changed_story_and_without_original_scratch(self):
+        import shutil
+        from claude_checkpoint import portable
+        f = self.fixture; self.adopt(); plan = self.admitted_story_repair(); self.retire(plan)
+        f.write(f.root / 'claims.json', {'claims': ['new original source']})
+        destination = f.repo / 'runs' / f.state['run_id']
+        f.write(destination / 'run_state.json', portable(combined.read(f.state_path), f.repo))
+        shutil.copy2(f.root / 'claims.json', destination / 'claims.json')
+        self.assertEqual(selected.package(f.root, destination), [])
+        f.root.rename(f.repo / 'unavailable-original-scratch')
+        self.assertIsNone(selected.selection_proof(destination / 'run_state.json'))
+
+    def test_pending_retirement_funds_full_pair_without_old_combined_discount(self):
+        import review_limit
+        f = self.fixture; self.adopt(); plan = self.admitted_story_repair()
+        state = combined.read(f.state_path); state['run_id'] = '2026-10-29'
+        with patch('review_limit.review_evidence', return_value=(dict(code=True, comparison=True, timed_phone=False), [])), \
+             patch('combined_review.budget_eligibility', return_value={'fixture': 'old combined eligibility'}):
+            path = review_limit.remaining_review_path(state, f.state_path, repair_plan=combined.read(plan))
+        self.assertEqual(path['pending'], ['code', 'comparison', 'timed_phone'])
+        self.assertEqual(path['required'], 3)
+        self.assertFalse(path['combined_eligible'])
+
     def test_original_native_choice_freezes_b_without_clearing_rejections_or_spending(self):
         f = self.fixture
         before = copy.deepcopy(combined.read(f.state_path))

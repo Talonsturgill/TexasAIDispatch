@@ -17,6 +17,21 @@ mandatory. Stop optional polish at its finite boundary; repeated mandatory failu
 the existing independent whole-scene replacement or source-backed pivot, not more of the
 same ineffective adjustment.
 
+A funded source or spoken-story pivot must retire the old treatment choice before editing.
+Set "retire_selection": true in its original repair plan before begin-repair so the forecast
+funds ordinary paired code, a fresh full comparison and the separate measured phone review.
+After begin-repair admits that exact plan, but while every registered baseline is unchanged:
+```sh
+python scripts/selected_treatment.py retire --state out/dispatch/run_state.json --plan <admitted-source-pivot-plan.json>
+```
+This archives and verifies the original independent proof, appends a no-cost retirement event
+and restores both-treatment requirements. It grants no resources or approval and never resets
+usage. Preserve the old choices and all rejected films. The next adoption needs a genuinely
+newer complete independent comparison. Ordinary visual corrections and measured retiming keep
+the existing choice; they do not need retirement. If source or words were already changed,
+retain the changed candidate separately and restore only its registered baseline before
+retiring; do not discard evidence, reset the checkout or fabricate a retroactive event.
+
 After a correction and before the corrected code or film is reviewed, run the builder proof
 (prompts/phases/02-picture.md) and let the builder read its pages: a correction is the most
 expensive place to find a defect a frame shows, because it re-opens the code, comparison and

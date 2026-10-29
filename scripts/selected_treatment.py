@@ -6,6 +6,7 @@ import json
 from combined_review import bound, contains_bindings, read, require, same_observer
 
 KIND = 'selected_treatment_completion_adopted'
+RETIRED = 'selected_treatment_completion_retired'
 SCHEMA = 'dispatch_selected_treatment_completion/1'
 POLICY = Path(__file__).resolve().parents[1] / 'config/selected_treatment_completion_v1.json'
 PACKAGE = 'selected-treatment-evidence'
@@ -241,13 +242,115 @@ def current_story(proof, state_path):
             'selected story or narration changed; obtain a new complete independent comparison')
 
 
+def active_adoption(state):
+    """Replay explicit scope changes; retirement restores the full paired obligations."""
+    active = None
+    for index, event in enumerate(state.get('events', [])):
+        if not isinstance(event, dict):
+            continue
+        if event.get('kind') == KIND:
+            active = (index, event)
+        elif event.get('kind') == RETIRED:
+            require(active is not None and event.get('adoption_event_index') == active[0]
+                    and event.get('proof') == active[1].get('proof')
+                    and event.get('approval') is False and event.get('grants_resources') is False,
+                    'selection retirement changed its original adoption or authority')
+            start = event.get('repair_started_event_index')
+            require(type(start) is int and active[0] < start < index,
+                    'selection retirement needs its admitted repair before source edits')
+            repair = state['events'][start]
+            require(repair.get('kind') == 'repair_started'
+                    and repair.get('plan_sha256') == event.get('plan_sha256')
+                    and repair.get('failure_sha256') == event.get('failure_sha256')
+                    and repair.get('baselines') == event.get('baselines')
+                    and event.get('archive') == 'retired-selections/adoption-' + str(active[0]),
+                    'selection retirement lost its exact admitted repair')
+            active = None
+    return active[1] if active is not None else None
+
+
+def retirement_problems(state_path, state):
+    """Recheck the original independent graph and admitted plan after source changes."""
+    active_adoption(state)
+    for event in state.get('events', []):
+        if not isinstance(event, dict) or event.get('kind') != RETIRED:
+            continue
+        archive = Path(state_path).parent / event['archive']
+        require(bound(archive / 'repair-plan.json')['sha256'] == event['plan_sha256'],
+                'retired selection lost its original admitted plan')
+        expected = packaged_selection(archive / 'run_state.json', event['proof'])
+        from claude_checkpoint import portable
+        packet_relative = Path(read(archive / PACKAGE / 'index.json')['original_packet'])
+        packet = read(archive / PACKAGE / packet_relative)
+        origin = str(Path(packet['board']['path']).parents[2])
+        require(portable(expected, origin) == portable(event['proof'], origin),
+                'retired selection lost its original independent proof')
+
+
+def retire(state_path, plan_path):
+    """Retain a choice before an admitted source/story pivot; confer no approval or spend."""
+    from datetime import datetime, timezone
+    from completion_yield import immutable
+    from run_controller import save
+    import shutil
+    state_path = Path(state_path).resolve(); plan_path = Path(plan_path).resolve()
+    state = read(state_path)
+    require(state.get('mode') == 'production' and not state.get('terminal_state')
+            and not state.get('shipment'), 'retire selection only in an unfinished production')
+    adoption = active_adoption(state)
+    if adoption is None:
+        previous = [e for e in state.get('events', []) if isinstance(e, dict) and e.get('kind') == RETIRED]
+        require(previous and previous[-1]['plan_sha256'] == bound(plan_path)['sha256'],
+                'there is no active independently selected treatment to retire')
+        retirement_problems(state_path, state)
+        return previous[-1]
+    proof = selection_proof(state_path)
+    current = state.get('active_repair') or {}; plan = read(plan_path)
+    require(plan.get('retire_selection') is True
+            and current.get('plan') == str(plan_path) and current.get('plan_sha256') == bound(plan_path)['sha256']
+            and current.get('failure_sha256') == plan.get('failure_evidence_sha256'),
+            'selection retirement requires the exact admitted active repair plan')
+    require(any(Path(row['path']).name in {'claims.json', 'opening-a.json', 'opening-b.json',
+                                         'storyboard.json', 'vo_script.txt'}
+                for row in current.get('baselines', [])),
+            'selection retirement requires an admitted source or story input correction')
+    for row in current['baselines']:
+        require(bound(row['path'])['sha256'] == row['before_sha256']
+                == bound(row['before_path'])['sha256'],
+                'retire selection before editing the admitted baseline inputs')
+    adoption_index = max(i for i, e in enumerate(state['events']) if e is adoption)
+    start = max((i for i, e in enumerate(state['events'])
+                 if isinstance(e, dict) and e.get('kind') == 'repair_started'
+                 and e.get('plan_sha256') == current['plan_sha256']), default=-1)
+    archive_name = 'retired-selections/adoption-' + str(adoption_index)
+    event = {'kind': RETIRED, 'at': datetime.now(timezone.utc).isoformat(),
+             'adoption_event_index': adoption_index, 'proof': proof,
+             'repair_started_event_index': start, 'plan_sha256': current['plan_sha256'],
+             'failure_sha256': current['failure_sha256'],
+             'baselines': current['baselines'], 'archive': archive_name,
+             'approval': False, 'grants_resources': False}
+    active_adoption({**state, 'events': [*state['events'], event]})
+    archive = state_path.parent / archive_name
+    immutable(archive / 'run_state.json', {'run_id': state['run_id']})
+    package(state_path.parent, archive, include_retired=False)
+    target = archive / 'repair-plan.json'
+    require(not target.exists() or target.read_bytes() == plan_path.read_bytes(),
+            'retirement archive already holds a different repair plan')
+    shutil.copy2(plan_path, target)
+    state['events'].append(event)
+    retirement_problems(state_path, state)
+    save(state_path, state)
+    return event
+
+
 def selection_proof(state_path):
     """Return only a verified adopted choice. Invalid adoption never silently widens approval."""
     state_path = Path(state_path).resolve(); state = read(state_path)
-    events = [event for event in state.get('events', []) if isinstance(event, dict) and event.get('kind') == KIND]
-    if not events:
+    adoption = active_adoption(state)
+    retirement_problems(state_path, state)
+    if adoption is None:
         return None
-    proof = events[-1].get('proof') or {}
+    proof = adoption.get('proof') or {}
     capsule = state_path.parent / PACKAGE
     if capsule.exists():
         expected = packaged_selection(state_path, proof)
@@ -299,13 +402,28 @@ def packaged_paths(root):
     return EvidencePaths(capsule, Path(packet['board']['path']).parents[2])
 
 
-def package(source, destination):
+def package(source, destination, *, include_retired=True):
     """Copy the exact finite public graph; do not export the private production ledger."""
     import shutil
     from completion_yield import original_critic_review
     from creative_production import fingerprint
     source, destination = Path(source).resolve(), Path(destination).resolve()
+    def copy_file(path, target):
+        require(not target.exists() or target.read_bytes() == path.read_bytes(),
+                'refusing to overwrite different retained selection evidence')
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, target)
+        require(bound(target)['sha256'] == bound(path)['sha256'], 'selection evidence changed during packaging')
     state_path = source / 'run_state.json'; proof = selection_proof(state_path)
+    for event in read(state_path).get('events', []):
+        if include_retired and isinstance(event, dict) and event.get('kind') == RETIRED:
+            old, new = source / event['archive'], destination / event['archive']
+            index = read(old / PACKAGE / 'index.json')
+            paths = [Path('run_state.json'), Path('repair-plan.json'), Path(PACKAGE) / 'index.json',
+                     Path(PACKAGE) / 'out/dispatch/run_state.json']
+            paths.extend(Path(PACKAGE) / row['path'] for row in index['files'])
+            for relative in paths:
+                copy_file(old / relative, new / relative)
     if proof is None:
         return []
     state = read(state_path); original = original_critic_review(state_path, proof['original_review_event_index'])
@@ -315,12 +433,6 @@ def package(source, destination):
                               Path(proof['comparison']['path']), Path(proof['image_coverage']['path']))
     require(sha == proof['evidence_graph_sha256'], 'selection graph changed before packaging')
     capsule = destination / PACKAGE; repo = state_path.parents[2]
-    def copy_file(path, target):
-        require(not target.exists() or target.read_bytes() == path.read_bytes(),
-                'refusing to overwrite different retained selection evidence')
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(path, target)
-        require(bound(target)['sha256'] == bound(path)['sha256'], 'selection evidence changed during packaging')
     for row in rows:
         copy_file(repo / row['path'], capsule / row['path'])
     comparison = read(proof['comparison']['path'])
@@ -363,7 +475,7 @@ def adopt(state_path):
     proof = original_selection(state_path, latest_selection(state_path))
     current_story(proof, state_path)
     events = [event for event in state.get('events', []) if isinstance(event, dict) and event.get('kind') == KIND]
-    if events and events[-1].get('proof') == proof:
+    if events and events[-1].get('proof') == proof and active_adoption(state) is not None:
         return selection_proof(state_path)
     require(not events or proof['original_review_event_index'] >
             events[-1]['proof']['original_review_event_index'],
@@ -402,11 +514,16 @@ def inspection_problems(receipt, output, state_path):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('adopt', 'verify'))
+    parser.add_argument('command', choices=('adopt', 'verify', 'retire'))
     parser.add_argument('--state', type=Path, default=Path('out/dispatch/run_state.json'))
+    parser.add_argument('--plan', type=Path)
     args = parser.parse_args(argv)
     try:
-        result = adopt(args.state) if args.command == 'adopt' else selection_proof(args.state)
+        if args.command == 'retire':
+            require(args.plan is not None, 'selection retirement requires --plan for the admitted repair')
+            result = retire(args.state, args.plan)
+        else:
+            result = adopt(args.state) if args.command == 'adopt' else selection_proof(args.state)
         print(json.dumps({'selection': result, 'shipment_authorized': False}, indent=2))
         return 0
     except (OSError, ValueError, KeyError, TypeError, IndexError) as exc:

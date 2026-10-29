@@ -149,6 +149,8 @@ def planned_invalidations(state, plan):
     """A planned correction cannot spend approval of the bytes it is about to replace."""
     if not repair_forecast_enabled(state) or not plan or not plan.get('changed_inputs'):
         return []
+    if plan.get('retire_selection') is True:
+        return ['code', 'comparison', 'timed_phone']
     scope = plan.get('repair_scope', 'standard')
     if scope == 'review-context':
         return []  # Its existing frozen-input gate permits only the hero excerpt window.
@@ -183,7 +185,8 @@ def remaining_review_path(state, state_path=None, packet=None, charged=False, *,
     ceiling = round_limit(state)
     ordinary = len(pending)
     combined = False
-    if state_path is not None and not complete['code'] and not complete['comparison']:
+    if (state_path is not None and not complete['code'] and not complete['comparison']
+            and not (repair_plan or {}).get('retire_selection')):
         try:
             from combined_review import budget_eligibility
             budget_eligibility(state_path, state=state)
