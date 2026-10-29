@@ -283,6 +283,11 @@ def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None
     if prepaid is not None:
         opening.pop('reboards', None)
     errors = reuse_errors + plan_problems(state, plan) + request_errors
+    # Historical editions retain their original refusal order. Only an adopted
+    # standing policy may defer the ceiling check until valid full-path funding.
+    from autonomous_completion import capacity_policy_active
+    if not capacity_policy_active(state):
+        errors += envelope_problems(state, opening)
     if scope == CONTEXT_SCOPE:
         import review_context
         errors += review_context.plan_problems(path, plan)
