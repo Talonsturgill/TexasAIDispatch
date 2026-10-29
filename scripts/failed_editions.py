@@ -3,6 +3,7 @@ from datetime import date
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path, PurePosixPath
 import tempfile
 from zoneinfo import ZoneInfo
@@ -21,7 +22,7 @@ def day(value):
     return date.fromisoformat(value[:10])
 
 
-def _infeasible_evidence(repo, commit, run_id, manifest, ledger):
+def _infeasible_evidence(repo, commit, run_id, manifest, ledger, **history):
     """Reprove a fourth original combined rejection without rendering or resuming it."""
     state = json.loads(ledger); rows = {r['path']: r for r in manifest['files']}
     closure.require(len(rows) == len(manifest['files'])
@@ -62,14 +63,14 @@ def _infeasible_evidence(repo, commit, run_id, manifest, ledger):
         closure.require(bool(packets), 'retain the exact original paid critic packet')
         materialize(sorted(packets)[0])
         evidence = closure.validate_infeasible_review(state_path, {
-            'reason': closure.INFEASIBLE_REQUIRED_REVIEW, 'critic_completion': receipt_path})
+            'reason': closure.INFEASIBLE_REQUIRED_REVIEW, 'critic_completion': receipt_path}, **history)
         closure.require(all(rows[p]['sha256'] == sha for p, sha in evidence['files'].items())
                         and {p for p in evidence['files'] if p.startswith('out/dispatch/worker-dispatch-claims/')} == claims,
                         'retain every original failure and worker claim')
     return evidence
 
 
-def _proof(repo, commit, run_id, *, full=True):
+def _proof(repo, commit, run_id, *, full=True, retained=None):
     """Use the existing strict failure validator and only small working-copy files."""
     base = checkpoint.ROOT + '/' + run_id
     if full:
@@ -83,13 +84,22 @@ def _proof(repo, commit, run_id, *, full=True):
     state = json.loads(ledger)
     closure.require(state.get('run_id') == run_id and not manifest.get('terminal_state')
                     and not manifest.get('shipment_recorded'), 'retain failure without claiming shipment')
-    closed_reasons = [e.get('evidence', {}).get('plan', {}).get('reason') for e in state['events']
-                      if e.get('kind') == closure.KIND]
+    closed = [e.get('evidence', {}) for e in state['events'] if e.get('kind') == closure.KIND]
+    closed_reasons = [e.get('plan', {}).get('reason') for e in closed]
+    history = {}
+    if retained is not None or closed:
+        closure.require(len(closed) <= 1, 'preserve the single original expenditure closure')
+        prior = retained['evidence'] if retained is not None else closed[0]
+        policy = json.loads(checkpoint.show(repo, manifest['source_pin'], 'config/review_limit.json'))
+        closure.require(policy.get('schema') == 'dispatch_hard_review_limit/1'
+                        and policy.get('max_review_rounds') == 5 and policy.get('extensions_allowed') is False,
+                        'historical retention requires its original source-pinned five-window policy')
+        history = {'historical_ceiling': 5, 'retained_evidence': prior}
     native = any(r['path'].startswith('out/dispatch/' + closure.CRITIC_RECEIPTS + '/')
                  for r in manifest['files'])
     if (run_id[:10] >= '2026-10-25' and state.get('usage', {}).get('storyboard_critics') == 4
             and (closed_reasons == [closure.INFEASIBLE_REQUIRED_REVIEW] or not closed_reasons and native)):
-        evidence = _infeasible_evidence(repo, commit, run_id, manifest, ledger)
+        evidence = _infeasible_evidence(repo, commit, run_id, manifest, ledger, **history)
         return {'schema': SCHEMA, 'run_id': run_id, 'checkpoint': commit,
                 'ledger_sha256': manifest['ledger_sha256'], 'manifest_sha256': closure.digest(manifest),
                 'source_pin': manifest['source_pin'], 'repo_root': manifest['repo_root'],
@@ -136,7 +146,7 @@ def _proof(repo, commit, run_id, *, full=True):
         for reason in closure.PRE_FILM_REASONS:
             try:
                 evidence = closure.validate_exhausted_review(state_path, {
-                    'reason': reason, 'failure_evidence': failure})
+                    'reason': reason, 'failure_evidence': failure}, **history)
                 break
             except ValueError as error:
                 refusal = refusal or error
@@ -151,23 +161,57 @@ def _proof(repo, commit, run_id, *, full=True):
             'evidence': evidence, 'production_finished': False, 'shipment_authorized': False}
 
 
-def verified(repo, run_id, record=None):
+def historical_proof(repo, run_id, record):
+    """Recover original dispositions from immutable ownership ancestry, without writing it."""
+    import publication_owner as owner
+    proof = record.get(FIELD, {}).get(run_id) or record.get(REOPENED, {}).get(run_id, {}).get('proof')
+    if proof is not None:
+        return proof
+    commit = record.get('commit')
+    # Current/future editions without a disposition retain their ordinary live path.
+    if not commit or day(run_id) >= day(record.get('run_id', run_id)):
+        return None
+    closure.require(re.fullmatch(r'[0-9a-f]{40}', commit), 'ownership history needs its actual commit')
+    changed = checkpoint.git(repo, 'log', '--first-parent', '--format=%H',
+                             '-G', '"' + re.escape(run_id) + '"[[:space:]]*:', commit,
+                             '--', owner.FILE).stdout.decode().splitlines()
+    seen = set()
+    for change in changed:
+        ancestors = checkpoint.git(repo, 'rev-list', '--parents', '-n', '1', change).stdout.decode().split()
+        for candidate in ancestors:
+            if candidate in seen:
+                continue
+            seen.add(candidate)
+            row = json.loads(checkpoint.show(repo, candidate, owner.FILE))
+            proof = row.get(FIELD, {}).get(run_id) or row.get(REOPENED, {}).get(run_id, {}).get('proof')
+            if proof is not None:
+                return proof
+    return None
+
+
+def verified(repo, run_id, record=None, *, checkpoint_commit=None):
     """A flag alone never removes an unfinished production from selection."""
     import publication_owner as owner
     record = owner.read_remote(repo) if record is None else record
-    proof = (record or {}).get(FIELD, {}).get(run_id)
+    proof = historical_proof(repo, run_id, record or {})
     if proof is None:
         return None
     closure.require(isinstance(proof, dict) and proof.get('schema') == SCHEMA
                     and proof.get('run_id') == run_id, 'failed-edition disposition is malformed')
-    ref = 'refs/heads/' + checkpoint.BRANCH + run_id
-    from checkpoint_discovery import fetched_snapshot
-    with fetched_snapshot(repo, 'origin', ref) as commit:
+    def check(commit):
+        # Old catalog history cannot discard a genuinely newer paid checkpoint.
+        if commit != proof.get('checkpoint') and run_id not in (record or {}).get(FIELD, {}):
+            return None
         closure.require(commit == proof.get('checkpoint'),
                         'retained failed checkpoint changed; preserve both records and repair its source')
-        actual = _proof(repo, commit, run_id, full=False)
-    closure.require(actual == proof, 'failed-edition disposition does not match original evidence')
-    return proof
+        actual = _proof(repo, commit, run_id, full=False, retained=proof)
+        closure.require(actual == proof, 'failed-edition disposition does not match original evidence')
+        return proof
+    if checkpoint_commit is not None:
+        return check(checkpoint_commit)
+    from checkpoint_discovery import fetched_snapshot
+    with fetched_snapshot(repo, 'origin', 'refs/heads/' + checkpoint.BRANCH + run_id) as commit:
+        return check(commit)
 
 
 def matches_state(proof, state):
@@ -211,7 +255,10 @@ def assert_not_retained(repo, run_id, record=None):
     if day(run_id) < date.fromisoformat(EFFECTIVE):
         return  # Historical shipped/manual editions retain their original lifecycle.
     record = owner.read_remote(repo) if record is None else record
-    for previous in (record or {}).get(FIELD, {}):
+    candidates = set((record or {}).get(FIELD, {})) | set((record or {}).get(REOPENED, {}))
+    if record and day(run_id) < day(record['run_id']):
+        candidates.add(run_id[:10])
+    for previous in candidates:
         if day(previous) == day(run_id) and verified(repo, previous, record):
             raise ValueError('failed edition date is retained without shipment; no same-date restart or budget reset')
 

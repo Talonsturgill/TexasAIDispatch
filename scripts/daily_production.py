@@ -427,7 +427,8 @@ def handoff_limit(date, compact_scorer):
 def packet_text(data):
     """Remove JSON layout bytes before rejecting a complete current review or Codex builder handoff."""
     encoded = json.dumps(data, indent=2) + '\n'
-    if len(encoded) > policy()['handoff_max_chars'] and (data.get('local_recovery') or {}).get('runtime') == 'codex':
+    from agent_runtime import compact_bindings_allowed
+    if len(encoded) > policy()['handoff_max_chars'] and compact_bindings_allowed(data):
         from agent_runtime import compact_packet_bindings
         data = compact_packet_bindings(data)
         encoded = json.dumps(data, indent=2) + '\n'
@@ -512,6 +513,9 @@ def packet(board_path, claims_path, role, state_path=None, runtime=None, feed_pa
     from autonomous_completion import selected_policy
     completion_state = read(state_path) if state_path and Path(state_path).is_file() else {'run_id':board.get('date','')}
     completion = [REPO / "knowledge/craft/AUTONOMOUS_COMPLETION.md", selected_policy(completion_state)]
+    if any(isinstance(e, dict) and e.get('kind') == 'standing_completion_capacity_adopted'
+           for e in completion_state.get('events', [])):
+        completion.append(REPO / 'config/autonomous_completion_capacity_v1.json')
     if any(isinstance(e, dict) and e.get('kind') == 'autonomous_completion_narration_adopted'
            for e in completion_state.get('events', [])):
         completion.append(REPO / 'config/autonomous_completion_narration_v1.json')
@@ -592,6 +596,13 @@ def packet(board_path, claims_path, role, state_path=None, runtime=None, feed_pa
         ledger = Path(state_path).with_name("current-defects.json")
         if ledger.exists():
             data["defects"] = {"path": str(ledger.resolve()), "sha256": digest(ledger)}
+    if role in ('scene-builder', 'storyboard-critic') and state_path:
+        scope = agent_runtime.selected_treatment_scope(data, state_path)
+        if scope:
+            data['selected_treatment'] = scope
+            data['instructions'] += (' Verified selection fixes correction scope to the chosen film. '
+                'Retain the other complete treatment and honest findings; do not repair it or imply '
+                'it passed. The chosen current film still needs every quality and delivery gate.')
     if role == 'scene-builder' and claude_route:
         agent_runtime.bind_correction_defects(data, write=True, state_path=state_path)
     if board.get('narration_picture'):

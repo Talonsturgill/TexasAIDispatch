@@ -27,8 +27,11 @@ Retire its actual renderer dependency instead of another numeric, colour or easi
 Preserve the failed code and media; consolidate all current defects before the next exact review.
 For corrections, read the packet's generated `defects` handoff before editing. Use its exact
 source references to resolve an unclear finding; do not reload the entire review history.
-Carry the unresolved findings for both treatments through one
-consolidated correction, even when the director's plan discusses only the selected treatment.
+Before verified independent selection, carry both treatments' unresolved findings through
+one consolidated correction. After the packet binds a verified selected_treatment scope,
+repair that film's current blockers; preserve the unused alternative in retained_alternative_reviews.
+Do not polish the rejected alternative or label its unresolved grade PASS. A director summary
+alone cannot narrow scope.
 A code PASS does not clear an earlier phone-film failure. For each retained finding, identify
 the changed implementation or the existing implementation that addresses it; this explanation
 does not replace independent review. Never remove a finding because a later REVISE omitted it.

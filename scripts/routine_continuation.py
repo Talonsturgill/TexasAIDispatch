@@ -172,6 +172,20 @@ def closure_problems(state, state_path):
 def capacity_recovery_hint(state, root=None):
     """Name the existing recovery route without granting or reserving anything."""
     from review_limit import finishing, reached, unfundable
+    from autonomous_completion import capacity_policy_active
+    if (state.get('mode') == 'production' and not state.get('terminal_state')
+            and str(state.get('run_id', ''))[:10] >= '2026-10-24'
+            and not capacity_policy_active(state)
+            and not any(e.get('kind') == 'hard_limit_expenditure_closed' for e in state.get('events', []))):
+        return (' The owner has authorized dated standing completion capacity for this unfinished edition.'
+                ' Load config/autonomous_completion_capacity_v1.json and prompts/phases/repair.md.'
+                ' Use the current-main controller begin-repair --plan <actual-original-bound-plan>'
+                ' --reserve-reboard, or authorize-repair --plan <existing-plan> for an already paid correction,'
+                ' through run_with_env.sh. These commands adopt the dated policy and fund exact deficits for'
+                ' the complete remaining review, native, audio, scoring and delivery path before correction.'
+                ' They retain the original envelope and cumulative charges. Preserve independently selected'
+                ' treatment scope and all quality gates; optional polish is not eligible. Do not replay paid'
+                ' work, reopen a retained failed edition or request another owner budget approval.')
     if root is not None and unfundable(state, root) and not state.get('deliverable') \
             and not state.get('usage', {}).get('full_renders'):
         return (' The remaining reviews cannot fund the mandatory code gate, silent comparison and protected'

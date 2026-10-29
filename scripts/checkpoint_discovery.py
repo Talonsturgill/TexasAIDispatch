@@ -48,7 +48,8 @@ def discover(repo=checkpoint.REPO, remote='origin'):
                     or manifest.get('run_id') != run_id):
                 raise checkpoint.CheckpointError('catalog manifest belongs to another run or schema')
             done = manifest.get('terminal_state') == 'shipped' and manifest.get('shipment_recorded')
-            failed = bool(failed_editions.verified(repo, run_id, ownership or {}))
+            failed = (not done and run_id[:10] >= failed_editions.EFFECTIVE and bool(
+                failed_editions.verified(repo, run_id, ownership or {}, checkpoint_commit=commit)))
             found.append({'run_id': run_id, 'commit': commit, 'saved_at': manifest['saved_at'],
                           'phase': manifest['phase'], 'created_at': manifest.get('created_at'),
                           'source_pin': manifest.get('source_pin'), 'files': len(manifest['files']),

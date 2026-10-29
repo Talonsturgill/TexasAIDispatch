@@ -39,6 +39,9 @@ class FailedEditionTests(unittest.TestCase):
         def snapshot(*args):
             yield self.commit
         def show(repo, commit, path):
+            if path == 'config/review_limit.json':
+                return json.dumps({'schema': 'dispatch_hard_review_limit/1', 'max_review_rounds': 5,
+                                   'extensions_allowed': False}).encode()
             return json.dumps(self.manifest).encode() if path.endswith('/manifest.json') else self.ledger
         def materialize(repo, commit, run_id, row, target):
             raw = self.blobs[row['path']]
@@ -131,6 +134,86 @@ class FailedEditionTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'checkpoint changed'):
                 failed.reopen(self.repo, self.run, self.repo / 'workspace')
 
+    def test_original_retention_replays_under_twenty_without_reinterpreting_the_failure(self):
+        import review_limit
+        proof = self.proof(); self.record[failed.FIELD] = {self.run: proof}
+        before = self.fixture.path.read_bytes()
+        with patch.object(review_limit, 'MAX_ROUNDS', 20), patch.object(review_limit, 'POLICY',
+                Path(__file__).resolve().parents[1] / 'config/review_limit.json'):
+            self.assertEqual(failed.verified(self.repo, self.run), proof)
+            with self.assertRaisesRegex(ValueError, 'exhausted'):
+                self.proof()  # No historical proof or closure cannot create a new old-policy failure.
+        self.assertEqual(self.fixture.path.read_bytes(), before)
+
+    def test_original_unfundable_closure_replays_without_a_catalog_disposition(self):
+        import review_limit
+        self.fixture.make_unfundable(); self.state = self.fixture.state
+        self.ledger = checkpoint.ledger_text(self.state, self.repo).encode()
+        self.manifest['ledger_sha256'] = hashlib.sha256(self.ledger).hexdigest()
+        rel = self.fixture.claim.relative_to(self.repo).as_posix(); self.blobs[rel] = self.fixture.claim.read_bytes()
+        for row in self.manifest['files']:
+            if row['path'] == rel:
+                row.update(sha256=hashlib.sha256(self.blobs[rel]).hexdigest(), size=len(self.blobs[rel]))
+        evidence = self.proof()['evidence']
+        self.state['events'].append({'kind': completion_yield.KIND, 'evidence': evidence})
+        self.ledger = checkpoint.ledger_text(self.state, self.repo).encode()
+        self.manifest['ledger_sha256'] = hashlib.sha256(self.ledger).hexdigest()
+        with patch.object(review_limit, 'MAX_ROUNDS', 20):
+            proof = self.proof()
+        self.assertEqual(proof['evidence'], evidence)
+        self.assertEqual(proof['original_state']['events'], json.loads(self.ledger)['events'])
+
+    def test_reopened_original_is_retained_but_newer_paid_checkpoint_stays_eligible(self):
+        proof = self.proof()
+        self.record[failed.REOPENED] = {self.run: {'proof': proof, 'authority': 'historical'}}
+        self.assertEqual(failed.verified(self.repo, self.run), proof)
+        self.assertIsNone(failed.verified(self.repo, self.run, checkpoint_commit='f' * 40))
+        for run in (self.run, self.run + '-fresh-budget'):
+            with self.assertRaisesRegex(ValueError, 'same-date restart'):
+                failed.assert_not_retained(self.repo, run)
+
+    def test_lost_reopened_map_is_recovered_from_actual_immutable_git_ancestry(self):
+        import review_limit
+        proof = self.proof(); checkpoint.git(self.repo, 'init', '--quiet')
+        parent = None
+        for row in ({failed.FIELD: {self.run: proof}},
+                    {failed.REOPENED: {self.run: {'proof': proof, 'authority': 'original historical record'}}},
+                    {'run_id': '2026-10-26'}):
+            raw = json.dumps(row, indent=2, sort_keys=True).encode()
+            blob = checkpoint.git(self.repo, 'hash-object', '-w', '--stdin', data=raw).stdout.decode().strip()
+            tree = checkpoint.git(self.repo, 'mktree', data=f'100644 blob {blob}\tpublication.json\n'.encode()).stdout.decode().strip()
+            args = ['commit-tree', tree, '-m', 'Fixture original publication history']
+            if parent: args.extend(['-p', parent])
+            parent = checkpoint.git(self.repo, *args, env={
+                'GIT_AUTHOR_NAME': 'Fixture', 'GIT_AUTHOR_EMAIL': 'fixture@example.invalid',
+                'GIT_COMMITTER_NAME': 'Fixture', 'GIT_COMMITTER_EMAIL': 'fixture@example.invalid'}).stdout.decode().strip()
+        record = {'commit': parent, 'run_id': '2026-10-26'}
+        original_show = checkpoint.show
+        def history_show(repo, commit, path):
+            if path == owner.FILE:
+                return checkpoint.git(repo, 'show', commit + ':' + path).stdout
+            return original_show(repo, commit, path)
+        before = (self.fixture.path.read_bytes(), checkpoint.git(self.repo, 'show', parent + ':publication.json').stdout)
+        with patch.object(checkpoint, 'show', side_effect=history_show), patch.object(review_limit, 'MAX_ROUNDS', 20), \
+                patch.object(owner, 'append') as append:
+            self.assertEqual(failed.verified(self.repo, self.run, record), proof)
+            self.assertIsNone(failed.verified(self.repo, '2026-10-26', record))
+            with self.assertRaisesRegex(ValueError, 'same-date restart'):
+                failed.assert_not_retained(self.repo, self.run + '-reset', record)
+            append.assert_not_called()
+        self.assertEqual(before, (self.fixture.path.read_bytes(), checkpoint.git(self.repo, 'show', parent + ':publication.json').stdout))
+
+    def test_new_source_policy_cannot_be_substituted_for_the_original_historical_policy(self):
+        proof = self.proof(); self.record[failed.FIELD] = {self.run: proof}
+        original_show = checkpoint.show
+        def changed_policy(repo, commit, path):
+            if path == 'config/review_limit.json':
+                return b'{"schema":"dispatch_hard_review_limit/1","max_review_rounds":20,"extensions_allowed":true}'
+            return original_show(repo, commit, path)
+        with patch.object(checkpoint, 'show', side_effect=changed_policy), \
+                self.assertRaisesRegex(ValueError, 'source-pinned'):
+            failed.verified(self.repo, self.run)
+
     def test_prove_only_can_check_tomorrow_without_writing_a_disposition(self):
         self.moment -= timedelta(days=1)
         self.record['expires_at'] = owner.stamp(self.moment - timedelta(hours=1))
@@ -146,7 +229,7 @@ class FailedEditionTests(unittest.TestCase):
                 failed.assert_not_retained(self.repo, run)
         failed.assert_not_retained(self.repo, '2026-10-25')
         self.record[failed.FIELD][self.run]['evidence']['production_finished'] = True
-        with self.assertRaisesRegex(ValueError, 'does not match original evidence'):
+        with self.assertRaisesRegex(ValueError, 'original accepted evidence'):
             failed.verified(self.repo, self.run)
         self.record[failed.FIELD][self.run] = self.proof()
         self.record[failed.FIELD][self.run]['checkpoint'] = 'f' * 40
@@ -162,6 +245,7 @@ class FailedEditionTests(unittest.TestCase):
 
     def test_later_acquisition_preserves_failure_and_live_owner_still_wins(self):
         proof = self.proof(); self.record[failed.FIELD] = {self.run: proof}
+        self.record[failed.REOPENED] = {'2026-10-23': {'proof': {'retained': 'original'}}}
         with patch.object(owner, 'completed_proof', return_value=None), \
                 patch.object(owner, 'append', side_effect=lambda repo, value, parent: {**value, 'commit': 'e' * 40}) as append:
             result = owner.acquire(self.repo, '2026-10-25', self.repo / 'new-workspace',
@@ -169,6 +253,7 @@ class FailedEditionTests(unittest.TestCase):
             self.assertEqual(result['status'], 'owned')
             proposed = append.call_args.args[1]
             self.assertEqual(proposed[failed.FIELD][self.run], proof)
+            self.assertEqual(proposed[failed.REOPENED], self.record[failed.REOPENED])
             self.assertFalse(proposed['previous_failed_edition']['shipped'])
             self.record['expires_at'] = owner.stamp(self.moment + timedelta(seconds=1))
             append.reset_mock()

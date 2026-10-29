@@ -1,24 +1,24 @@
 # Texas AI Dispatch
 
-Owner instruction from October 26th, 2026. The review cap is lifted (ten rounds that day, twenty from October 27th) in
-config/review_limit.json and scripts/review_limit.py. Tooling and bookkeeping defects, not editorial
-judgement, were exhausting editions, so a failed edition may be reopened under the new ceiling. The
-cumulative count, final timed phone review, quality gates and shipment checks are unchanged. Where
-the paragraph below says five, read the ceiling from the config. The owner's later instruction the same
-day raised the creative repair rounds in config/creative_release.json from three to six.
+Owner instruction from October 28th, 2026. Reliable autonomous daily shipment takes priority
+over the previous five-review maximum. Read config/autonomous_completion_capacity_v1.json and
+prompts/phases/repair.md. The initial review window is a planning allowance, not permission to
+stop for an owner grant. Fund the complete remaining correction, review, capture, native,
+audio, scoring and delivery path through the existing controller before spending. Added
+capacity is recorded separately; never change the original envelope, refund an attempt or
+invent a pass. This replaces older numeric-cap and per-run budget-permission instructions.
 
-Owner instruction from October 20th, 2026. config/review_limit.json imposes a hard maximum of
-five paid editorial review rounds per video, including code, phone, pivot, retry and correction
-attempts. Reserve the final timed phone review inside those five. No recovery allowance,
-script pivot or renamed mechanism can extend the limit. After diminishing returns or the cap,
-freeze the strongest credible cut and finish the existing native, audiovisual, three-scorer
-and delivery path once. Do not reopen creative editing from those final checks. At that finishing boundary,
-the existing bounded route can retain an original independently classified surface-finish
-rejection; source, rights, minimum action, comprehension, pacing, closing action, audio,
-captions, native PNG/CRF16 and actual shipment verification remain required. Never invent a pass.
-This newer hard limit overrides older instructions to keep extending artistic recovery.
+Keep creative work finite: stop optional polish at config/creative_release.json's boundary.
+Mandatory failures require the original independent evidence, consolidated defects and a
+credible source-backed implementation; recurring failures require a different implementation.
+Keep both complete diagnostic treatments and their honest comparison. After verified independent
+selection under the dated selected-treatment policy, finish the selected film through every
+existing quality and delivery gate. An unused alternative's rejection stays in the archive;
+it is not a reason to keep repairing that alternative or a pass for the selected film.
 
-Owner instruction from October 3rd, 2026. Read knowledge/craft/AUTONOMOUS_COMPLETION.md before applying older resource-boundary language below. Internal review ceilings and host capacity errors trigger autonomous mandatory completion recovery, never an approval stop or an unfinished-capacity final response. Preserve exact failures, the original frozen envelope and cumulative charges. Only accepted finish --result shipped completes production.
+Only accepted finish --result shipped, permanent reviewed media, actual canonical phone
+playback, a verified correctly addressed unsent draft and durable archive complete production.
+Never send email or post socially.
 
 Source repo for the Texas AI Dispatch: a daily narrated 2.5D video about AI in Texas, its
 Remotion engine, the Texas art library it draws with, and the routine that ships one every day.
@@ -85,7 +85,8 @@ instruction separately allows a verified exhausted edition to remain failed and 
 later daily edition can start. Use only the versioned failed-edition retention and ownership
 handoff. Preserve its original checkpoint, frozen envelope, every charge and failed artifact.
 This disposition is not shipment, a quality waiver, another review, or a fresh budget for the
-same date. The normal five-review maximum never increases. An active publisher remains protected.
+same date. A numeric resource deficit now uses standing completion capacity; it is not evidence
+that an unfinished edition must be abandoned. An active publisher remains protected.
 
 A passing exact-film panel or the independently
 evidenced bounded creative route authorizes publication through `finish --result publishable`, which leaves production open in
@@ -101,7 +102,7 @@ then open one evidence-bound repair batch. Keep usage charged. Every paid call a
 render is still reserved before it starts. A batch never changes a score or original verdict.
 
 For editions from September 29, 2026, use `config/creative_release.json` and
-`knowledge/craft/BOUNDED_CREATIVE_RELEASE.md`: at most three creative repair rounds. From September 30, independently classified
+`knowledge/craft/BOUNDED_CREATIVE_RELEASE.md`: use the current configured creative repair boundary. From September 30, independently classified
 technical-integrity corrections remain charged but do not count as creative rounds.
 The dated minimum picture-action checks cannot be deferred; choose a credible treatment early.
 Stop earlier when another full correction would consume reserved mandatory completion review

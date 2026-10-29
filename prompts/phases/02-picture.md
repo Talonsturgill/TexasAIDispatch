@@ -97,7 +97,7 @@ is paid.
 
 ## Prove the pixels before any paid review
 
-The hard five reviews are for judgement, not debugging. Three editions in a row spent their
+Paid reviews are for independent judgment, not mechanical debugging. Three editions in a row spent their
 slots on defects that any rendered frame shows (rig geometry never seen drawn, food cooking
 before the payment it waits for, served plates under a question about who will take the order,
 a guest whose hands changed skin tone across cuts, a phone that teleported between samples, a
@@ -166,17 +166,22 @@ node video-engine/tests/caption_board_fit.mjs --board out/dispatch/storyboard.js
 python scripts/daily_production.py --board out/dispatch/storyboard.json --digest
 python scripts/daily_production.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --state out/dispatch/run_state.json --packet storyboard-critic --out out/dispatch/critic-packet.json
 python scripts/picture_precheck.py --board out/dispatch/storyboard.json --claims out/dispatch/claims.json --out out/dispatch/picture-precheck
-python scripts/agent_runtime.py --plan --role storyboard-critic --packet out/dispatch/critic-packet.json --task-name critic --scope "Independently identify every source, recognition, action, motion, framing, finish and ending defect in both complete treatments; return one consolidated verdict" --out out/dispatch/critic-assignment.json
-python scripts/run_controller.py consume --resource storyboard_critics --note "current board and causal sequence"
 ```
 
-For current agent-runtime editions, use critic-assignment.json spawn_args. Pre-effective ledgers keep their prior assignment path.
+For new editions dated October 29th onward, before any paid critic attempt, use the initial
+combined diagnostic route below. Do not buy a separate code-only review first. Build both
+complete performed treatments with the authored assets and planning narration clock, perform
+the builder's own image proof, then capture both full diagnostic films. Spawn the existing `storyboard-critic` through its bound runtime. Its one
+Opus High assignment reviews source/code and complete chronological images, makes an honest
+independent choice and judges the selected film. This brings a complete candidate into review
+early. No diagnostic capture or selection is a film approval.
 
-Spawn `storyboard-critic` with its brief, compact packet and the actual source-backed board.
-It reviews composition, silent comprehension, continuity, source limits and retention.
-Save its real verdict, reviewer identity, current concept and renderer digests, story_review
-and weakest frame to storyboard_critic.json. Get digests from critic_gate, not a guessed file.
-The critic must be independent of the director. A revise verdict is active repair.
+Earlier ledgers without initial-route eligibility retain their existing separate code route:
+plan the current critic packet with the supported runtime, charge exactly that packet, then
+save its original paired code reports. A genuine combined-recovery route remains available
+only when its retained original rejection, claim, repair and coverage bindings satisfy the
+controller. Do not rename a code-only assignment as a combined review.
+
 
 For editions from the effective date in config/critic_concept_v2.json, the code-plan digest
 preserves the authored words, source, subject, action, view and event fractions while excluding
@@ -189,7 +194,7 @@ Earlier editions retain their original algorithm and reports.
 python scripts/critic_gate.py --board out/dispatch/storyboard.json --report out/dispatch/storyboard_critic.json
 ```
 
-For editions under config/creative_production.json, prepare opening-a.json and opening-b.json
+For the older separate-code route under config/creative_production.json, prepare opening-a.json and opening-b.json
 with the same narrative and assets under CREATIVE_DIRECTION.md. From September 30 their
 complete visual treatments may differ; do not freeze a weak body before comparison. The one existing code assignment
 returns opening-a-critic.json and opening-b-critic.json. Keep storyboard.json as the current
@@ -231,7 +236,17 @@ Record review_scope exact-muted-phone-preflight, reviewed_preflight_sha256 and c
 in storyboard_critic.json. A code-plan pass does not approve the phone film or native hero.
 Before voice, resolve every structural or source defect through prompts/phases/repair.md.
 
-### Combined fourth review under the hard five
+### Initial combined selection and retained combined recovery
+
+For an eligible new edition with zero critics spent, use:
+```sh
+python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --combined-code-review
+```
+Run the ordinary prepared capture authorization and fresh headroom calculation first.
+The route checks its date and untouched initial state; it is not a budget reset or a way to
+replay an old capture. Keep both diagnostic films, structural findings and original code.
+Use the same sequence extraction and combined packet/import steps below. The retained
+recovery conditions in the next paragraphs apply to a correction, not to this initial route.
 
 After three paid attempts, the latest genuine rejection may be a code review or a silent
 comparison following both code approvals. A renderer correction invalidates those earlier
@@ -258,7 +273,7 @@ whole-scene replacement proof when required. Use ordinary `begin-repair` and `au
 with retained source baselines and actual before/after hashes. Missing independent replacement
 evidence leaves the combined route unavailable; never manufacture it from a summary.
 
-After that correction, use `opening_compare.py --combined-code-review` with the usual root
+For an eligible initial capture or that authorized correction, use `opening_compare.py --combined-code-review` with the usual root
 and state. This explicitly captures diagnostic A/B previews before code approval. It keeps
 source, rights, structural, caption, headroom, capture authorization and reservation checks.
 The diagnostic receipt authorizes no narration, selection, native film or shipment. Retain
@@ -289,13 +304,24 @@ from the worker's actual guarded observations, then import with:
 python scripts/combined_review.py --packet <combined packet> --handback <original response JSON> --claim <original dispatch claim> --coverage <actual image coverage>
 ```
 
-The importer retains the original reports and supplies no approval. Both ordinary independent
-code gates, full image coverage, comparison selection and exact-phone gates must pass before
-the chosen film advances. After selection, use the chosen board/film and the imported original
-`openings/combined-phone-review.json` for the ordinary phone check. The fifth attempt remains
-the separate measured final timed-phone review, with fresh fifth packet, coverage and sequence
-paths that preserve the fourth review's bindings. A combined fourth rejection never authorizes
-a sixth review; retain its exact response and follow the strict infeasible-path procedure.
+The importer retains the original reports and supplies no approval. Establish correction
+scope from the original independent choice and complete guarded A/B observation:
+```sh
+python scripts/selected_treatment.py adopt --state out/dispatch/run_state.json
+python scripts/selected_treatment.py verify --state out/dispatch/run_state.json
+```
+Adoption retains both complete alternatives and every original finding. It is not a phone
+PASS: an incomplete or rejected original film report remains rejected. Without verified
+adoption, both ordinary code gates remain required. After adoption, repair only the selected
+film and require its current independent code and exact silent-phone approval. Do not polish
+the unused alternative or claim its unresolved code or film passed. Changed source claims or
+spoken story require a fresh complete comparison; visual correction retains the evidenced
+choice but needs fresh selected-film approval.
+
+Use the chosen board/film and imported original phone report for the ordinary phone check.
+The measured final timed-phone review remains a separate later assignment after actual voice
+and captions, with fresh packet, coverage and sequence paths. Retain every rejection exactly;
+standing completion capacity funds mandatory remaining stages, never approval or optional polish.
 
 Before voice or preview, include visual_research and complete native_media provenance under DAILY_PRODUCTION.md. Run the existing daily-production check and have the existing independent critic compare inserted media with the previous shipped edition. Use actual sites and source documents when they improve the shot. Preserve a tangible action
 and consequence through the film; choose source-grounded original illustration when it tells

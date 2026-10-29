@@ -343,13 +343,14 @@ class ExhaustedRequiredReviewTests(unittest.TestCase):
             if extra is not None: extra.unlink()
             self.state = original; self.plan = plan; self.save()
 
-    def test_exhausted_hint_and_unfundable_hint_name_their_own_supported_commands(self):
+    def test_historical_exhausted_and_unfundable_hints_keep_supported_commands(self):
         self.make_unfundable()
-        hint = routine_continuation.capacity_recovery_hint(self.state, self.out)
+        historical = {**self.state, 'run_id': '2026-10-23'}
+        hint = routine_continuation.capacity_recovery_hint(historical, self.out)
         self.assertIn('--unfundable-required-review', hint); self.assertIn('NOT SHIPPED', hint)
         self.assertNotIn('completion-capacity', hint); self.assertNotIn('ask the owner', hint)
         (self.out / 'opening-a-critic.json').write_text('{}')
-        hint = routine_continuation.capacity_recovery_hint(self.state, self.out)
+        hint = routine_continuation.capacity_recovery_hint(historical, self.out)
         self.assertNotIn('--unfundable-required-review', hint)
         self.assertIn('FIVE cumulative editorial reviews', hint)
 
@@ -415,8 +416,8 @@ class ExhaustedRequiredReviewTests(unittest.TestCase):
             self.assertTrue(closure.admission_problems(actual, {'storyboard_critics': 1}))
             self.assertFalse(closure.admission_problems(actual, {'reported_tokens': 17}))
 
-    def test_stop_names_supported_command_without_permission_or_capacity(self):
-        hint = routine_continuation.capacity_recovery_hint(self.state)
+    def test_historical_stop_names_supported_command_without_permission_or_capacity(self):
+        hint = routine_continuation.capacity_recovery_hint({**self.state, 'run_id': '2026-10-23'})
         self.assertIn('--exhausted-required-review', hint)
         self.assertIn('NOT SHIPPED', hint)
         self.assertNotIn('completion-capacity', hint)

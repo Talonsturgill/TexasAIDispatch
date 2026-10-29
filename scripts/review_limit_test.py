@@ -31,7 +31,7 @@ class ReviewLimit(unittest.TestCase):
             self.assertTrue(accepted, message)
         before = self.state.read_bytes()
         accepted, message = self.charge()
-        self.assertFalse(accepted); self.assertIn('hard five-review', message)
+        self.assertFalse(accepted); self.assertIn('review window exhausted', message)
         self.assertEqual(before, self.state.read_bytes())
         self.assertEqual(5, json.loads(before)['usage']['storyboard_critics'])
 
@@ -78,7 +78,7 @@ class ReviewLimit(unittest.TestCase):
         value['events'].append({'kind': 'test_retained_source_pivot', 'new_script': 'new angle'})
         self.state.write_text(json.dumps(value)); before = self.state.read_bytes()
         for name in ('mandatory code', 'source pivot', 'process retry', 'owner capacity', 'review-context'):
-            self.assertIn('hard five-review', self.charge(note=name)[1])
+            self.assertIn('review window exhausted', self.charge(note=name)[1])
             self.assertEqual(before, self.state.read_bytes())
 
     def test_cap_closes_rebuild_and_all_creative_pivot_admission(self):
@@ -98,7 +98,7 @@ class ReviewLimit(unittest.TestCase):
         plan = self.root / 'completion.json'
         plan.write_text(json.dumps({'changed_inputs': [], 'resources': {'storyboard_critics': 1}}))
         accepted, message = autonomous_completion.grant_capacity(self.state, plan)
-        self.assertFalse(accepted); self.assertIn('hard five-review', message)
+        self.assertFalse(accepted); self.assertIn('review window exhausted', message)
         self.assertEqual(before, self.state.read_bytes())
 
     def test_history_keeps_counts_and_cloud_adoption_closes_an_old_overrun(self):
@@ -458,7 +458,11 @@ class PlannedCorrectionBudget(unittest.TestCase):
     """Fund the post-correction gates before the builder can invalidate current approval."""
 
     edition = '2026-10-26'
-    setUp = RemainingReviewPath.setUp
+    def setUp(self):
+        RemainingReviewPath.setUp(self)
+        # These regressions preserve the original pre-amendment five-round replay.
+        amendment = patch('autonomous_completion.adopt_capacity')
+        amendment.start(); self.addCleanup(amendment.stop)
     write = RemainingReviewPath.write
     code_passes = RemainingReviewPath.code_passes
 
@@ -766,7 +770,7 @@ class FinalPhoneReservation(unittest.TestCase):
             self.assertTrue(ready['dispatch_ready'])
             self.assertTrue(Path(ready['reservation_claim']['path']).is_file())
             self.assertEqual(packet_before, packet.read_bytes())
-            with self.assertRaisesRegex(ValueError, 'hard five-review'):
+            with self.assertRaisesRegex(ValueError, 'review window exhausted'):
                 runtime.plan('storyboard-critic', packet, 'phone_again', 'Repeat the exact timed phone.')
 
     def test_wrong_scope_foreign_state_and_stale_media_refuse_without_charge(self):
@@ -792,7 +796,7 @@ class FinalPhoneReservation(unittest.TestCase):
         path = self.root / 'policy.json'; path.write_text(json.dumps(data))
         before = self.state.read_bytes()
         with patch.object(limit, 'POLICY', path):
-            with self.assertRaisesRegex(ValueError, 'hard five-review'):
+            with self.assertRaisesRegex(ValueError, 'standing completion capacity'):
                 controller.reserve(self.state, {'storyboard_critics': 1}, 'extra review')
         self.assertEqual(before, self.state.read_bytes())
 
@@ -801,8 +805,8 @@ class LivePolicy(unittest.TestCase):
     def test_live_policy_records_the_owner_lift(self):
         live = json.loads((Path(__file__).resolve().parents[1] / 'config/review_limit.json').read_text())
         self.assertEqual(20, live['max_review_rounds'])
-        self.assertIn('October 26th', live['authorization'])
-        self.assertIs(False, live['extensions_allowed'])
+        self.assertIn('October 28th', live['authorization'])
+        self.assertIs(True, live['extensions_allowed'])
 
 
 if __name__ == '__main__':

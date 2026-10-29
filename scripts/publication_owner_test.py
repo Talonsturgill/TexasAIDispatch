@@ -247,7 +247,7 @@ class PublicationOwnership(Base):
             fourth = runtime.plan(role, packet, 'phone_four', 'Inspect the current phone comparison.')
             self.assertTrue(fourth['dispatch_ready'])
             self.assertEqual(owner.load(state_path)['usage']['storyboard_critics'], 4)
-            with self.assertRaisesRegex(ValueError, 'fifth review'):
+            with self.assertRaisesRegex(ValueError, 'final funded review'):
                 runtime.plan(role, packet, 'another_comparison', 'Inspect another phone comparison.')
             data['phone_mode'] = 'current'; packet.write_text(json.dumps(data))
             self.assertFalse(runtime.plan(role, packet, 'phone_final', 'Inspect the final timed phone film.')['dispatch_ready'])

@@ -251,7 +251,11 @@ class CombinedReviewTests(unittest.TestCase):
             'board': runtime.bound(board), 'claims': runtime.bound(claims),
             'treatments': [runtime.bound(self.root / ('opening-' + key + '.json')) for key in ('a', 'b')]}
         base = self.write(self.root / 'base-packet.json', data)
-        self.write(self.root / 'openings/comparison.json', {'combined_code_review': combined.eligibility(self.state_path)})
+        self.write(self.root / 'openings/comparison.json', {
+            'combined_code_review': combined.eligibility(self.state_path),
+            'options': [{'id': key, 'inspection': {'file': key + '-inspection.json',
+                        'sha256': combined.bound(self.root / 'openings' / (key + '-inspection.json'))['sha256']}}
+                        for key in ('a', 'b')]})
         return source, options, base
 
     def test_combined_packet_keeps_both_code_and_actual_film_bindings_and_refuses_timed_mode(self):
@@ -266,6 +270,45 @@ class CombinedReviewTests(unittest.TestCase):
             self.assertTrue(combined.packet_problems(changed))
             with self.assertRaisesRegex(ValueError, 'separate final'):
                 runtime.phone_packet(base, self.state_path, ['current'], current=True, combined_code_review=True)
+
+    def test_initial_combined_packet_import_preserves_unselected_rejection_and_is_idempotent(self):
+        self.state.update(run_id='2026-10-29', usage={'storyboard_critics': 0}, events=[])
+        self.write(self.state_path, self.state)
+        self.write(self.workspace / routine_continuation.MARKER, {'schema': routine_continuation.SCHEMA,
+            'run_id': self.state['run_id'], 'state': str(self.state_path)})
+        for path in (self.root / closure.CRITIC_RECEIPTS).glob('*.json'):
+            path.unlink()
+        source, options, base = self.packet_fixture()
+        with patch('critic_gate.REPO', self.repo), patch('critic_gate.renderer_files', return_value=[source]), \
+             patch.object(runtime, 'phone_options', side_effect=lambda *a, **k: copy.deepcopy(options)), \
+             patch.object(runtime, 'image_coverage_problems', return_value=[]):
+            packet = self.write(self.root / 'initial-combined-packet.json', runtime.phone_packet(
+                base, self.state_path, ['a', 'b'], combined_code_review=True))
+            self.assertEqual(combined.read(packet)['combined_code_review']['route'], 'initial-selection')
+            self.state['usage']['storyboard_critics'] = 1
+            self.state['events'].append({'kind': 'reserved', 'resources': {'storyboard_critics': 1},
+                'note': 'first complete A/B choice', 'publication_owner_sha256': self.owner,
+                'publication_epoch': 'original-epoch'})
+            self.write(self.state_path, self.state)
+            from visual_observations import actor
+            directory = self.root / 'visual-observations' / actor({'session_id': 'parent',
+                'agent_id': 'initial-critic', 'agent_type': 'dispatch-visual-critic'})
+            response = {'schema': combined.HANDBACK, 'packet_sha256': combined.bound(packet)['sha256'],
+                'reviewer_identity': 'original-critic',
+                'code_reports': {key: {'review_scope': 'code-plan', 'verdict': 'revise' if key == 'a' else 'pass',
+                    'reviewer_identity': 'original-critic', 'blocking_defects': ['Original unselected motion failure.'] if key == 'a' else []}
+                    for key in ('a', 'b')},
+                'selection': {'selected': 'b', 'reviewer_identity': 'original-critic'},
+                'phone_review': {'verdict': 'revise', 'reviewer_identity': 'original-critic'},
+                'observation_directory': str(directory)}
+            claim = self.native_return(packet, response, 0, agent='initial-critic', kind='dispatch-visual-critic')
+            handback = self.write(self.root / 'initial-original.json', response)
+            coverage = self.write(self.root / 'initial-coverage.json', {'sequences': [{'pages': [
+                {'observation': {'path': str(directory / 'fixture-page.json')}}]}]})
+            combined.import_handback(packet, handback, claim, coverage)
+            combined.import_handback(packet, handback, claim, coverage)
+            self.assertEqual('revise', combined.read(self.root / 'opening-a-critic.json')['verdict'])
+            self.assertEqual(1, combined.read(self.state_path)['usage']['storyboard_critics'])
 
     def test_import_retains_original_verdicts_and_parent_edits_cannot_pass_selection(self):
         self.exercise_import_original_verdicts()

@@ -1,13 +1,21 @@
 # Repair an active edition
 
-The owner's hard five-review maximum overrides every older critic-capacity example below.
-Preserve the original envelope, but do not treat its larger historical ceiling as spendable
-review capacity. Budget each unfinished code, silent comparison and measured final-phone gate
-from its actual evidence. Every rejection leaves the affected gate pending. Use phase 2's
-supported combined review only with its complete original code and film handback; it is one
-charged assignment, never a renamed extra review. If the strict remaining-path proof is
-infeasible, retain the actual independent failure and use the failed-edition lifecycle without
-spending unused slots or requesting an extension. No quality gate or shipment condition changes.
+The October 28 owner instruction authorizes automatic evidence-bound mandatory completion
+capacity under config/autonomous_completion_capacity_v1.json. Numeric review or repair
+shortfalls do not require another owner request or close an otherwise repairable edition.
+Preserve its frozen envelope, all original charges and failed responses. The controller's
+begin-repair and authorize-repair paths calculate the entire remaining corrected code,
+silent phone, measured phone, prepared capture, native, audio, scoring and delivery path,
+then append only the missing capacity before charging work. A grant approves no film.
+Already charged corrections retain their exact baselines and are never charged again.
+
+After a verified selected_treatment.py adoption, repair the independently selected film.
+Retain both complete original alternatives and every rejected finding. A director-selected
+favorite, missing original image coverage or edited report cannot establish that scope.
+Selected-film source, action, comprehension, pacing, ending and every delivery gate stay
+mandatory. Stop optional polish at its finite boundary; repeated mandatory failure requires
+the existing independent whole-scene replacement or source-backed pivot, not more of the
+same ineffective adjustment.
 
 After a correction and before the corrected code or film is reviewed, run the builder proof
 (prompts/phases/02-picture.md) and let the builder read its pages: a correction is the most
@@ -24,15 +32,11 @@ authorization and its operator claim share one charge; retained larger capacity 
 remain unchanged. Keep any already charged correction and its exact baselines;
 complete normal authorization without buying or replaying the builder again.
 
-For the supported combined fourth review, retain its original public response and native
-critic-completion receipt immediately. A mandatory rejection can leave both a corrected
-independent assessment and the final timed phone outstanding with only one attempt left.
-Use `completion_yield.py --state out/dispatch/run_state.json --infeasible-required-review
-<original native critic-completion receipt>` only when its strict proof accepts the exact
-original response, claim, frozen charges and remaining-path failure. This closes paid work,
-not production as shipped. Preserve the original checkpoint. The normal failed-edition helper
-may retain it on a later actual Eastern day after the existing owner's lease expires.
-A missing original response, a director summary, or an active worker never supplies this proof.
+Retain each combined review's original public response, native completion receipt, claim
+and complete image coverage immediately. An incomplete original is a mechanical handoff
+failure, not approval. Historical expenditure closures remain preserved under their original
+source policy; do not create a new closure because a mandatory path exceeds a numeric ceiling.
+Use the standing capacity path and current genuine failure instead.
 
 Owner instruction from October 3rd, 2026. Read knowledge/craft/AUTONOMOUS_COMPLETION.md before applying older resource-boundary language below. Internal review ceilings and host capacity errors trigger autonomous mandatory completion recovery, never an approval stop or an unfinished-capacity final response. Preserve exact failures, the original frozen envelope and cumulative charges. Only accepted finish --result shipped completes production.
 
