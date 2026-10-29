@@ -1,0 +1,320 @@
+{
+  "role": "storyboard-critic",
+  "date": "2026-10-26",
+  "story_sha256": "da1b33a4afd397b1a311843ffa2a4b761f3c2acc2845d9d21be21a95a2e2ea31",
+  "board": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/storyboard.json",
+    "sha256": "d4b457e5071f32b961744aefb973680dce64216bdcb442618c4e317e3bcaf5af"
+  },
+  "claims": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/claims.json",
+    "sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f"
+  },
+  "story": {
+    "reference": "board",
+    "field": "story_contract"
+  },
+  "quality_contract": "config/quality_contract.json",
+  "rubric": "config/dispatch_rubric.yaml",
+  "brief": ".claude/agents/storyboard-critic.md",
+  "instructions": "First test actual image access: Read ONLY the first chronological page of the first bound sequence before reading guides or renderer source. If that page is stripped or unseen, retain the literal error and its exact page identity, return partial coverage and no verdict, and stop image/guide traversal. This tests transport only; it supplies no observation of unseen pages. If visible, record its actual note, then read every required full guide and the complete ordered sequence. Read the bound current inputs and your brief. Load cited source evidence as needed. Do not copy production history. Return one consolidated verdict. Never infer audio access from text. Read the complete story_contract in the bound board, including all scenes, transitions and source limits. Mandatory completion capacity preserves the rubric and actual verdicts; no resource event approves a film. Read the bound craft guides in full. Use them to explain editorial decisions and inspect actual comprehension; they supply no approval or extra scoring criteria. Verified selection fixes correction scope to the chosen film. Retain the other complete treatment and honest findings; do not repair it or imply it passed. The chosen current film still needs every quality and delivery gate. Inspect each measured spoken clause against its executable subject and performed action in the actual film. Read board.narration_picture; reject wrong or absent pictures even when captions or provider prose repeat the words. Compare each literal spoken subject and verb with the implemented subject, change and completed result; declared IDs establish wiring only. A loading screen does not depict \"AI alerts\"; an arriving blank letter does not supply a spoken date; a date stamp does not depict \"approved\"; an unidentified document does not identify Air Max. At code scope trace the actual state and timing in callable source. At phone scope compare chronological pixels within that clause. Record mismatches in existing consolidated findings and clause observations. These examples explain the current comprehension rule; they add no review, report field or approval. Follow phone_decision_scope: the fixed rubric judges the actual picture; director repair promises cannot add hard requirements.  Review every chronological image page for the exact current timed film before the director rationale. These images establish only their sampled pixels, with no direct playback or listening. Return one consolidated exact-phone review as JSON in your handback; the director saves it unchanged. Copy the supplied mechanical bindings exactly, then supply your own verdict and all required timed observations. Unproven motion stays unresolved. After the complete chronological viewing, consolidate the handback. Recheck only named uncertain intervals; return unresolved findings instead of repeated viewing to pursue a pass. Do not run Bash, write files, invent hashes, or infer approval from structural measurements.Use the installed visual leaf and its guarded Write tool for public image annotations. After each image Read, the hook supplies an exact annotation filename and JSON bindings. Write brief visible objects, actions and literal text to that file before another image Read. These are public evidence files, never private thinking or inter-tool narration. Use null for unknowns. If an image is unseen now, write its literal error and return partial; a later history placeholder is not an initial transport failure. Keep quality conclusions and concise public explanations for the final review. Read your own saved facts when earlier images leave context. Return the observation directory with the complete final review; the caller mechanically builds coverage from the original annotations and actual Write receipts. After the first Write, require the actual hook acknowledgment Public image annotation retained with actual Write evidence. If it is missing, stop with the original tool result and a partial handoff before another image Read; do not reconstruct a receipt.  For an actually unseen new Read, immediately save its literal error with Write and return a partial JSON handback containing the exact coverage object. In that failed page entry set observation_timing:immediate_after_read and observation_channel:write_tool_artifact only if saved before another image Read. If timing is unknown or the image disappeared later, retain that uncertainty; it cannot establish a host outage.  Read ONE chronological image per step; never infer pixels. Preserve all full guides, native details, timed observations and honest verdicts. Return the complete final review JSON and your original observation_directory. For an actual failure return status:partial, no verdict or score, the literal error and that same observation_directory. The caller serializes dispatch_claude_image_coverage/1 with visual_observations.py coverage (add --partial only for partial handbacks). That mechanical step supplies no creative findings or grade.",
+  "agent_assignment": {
+    "host": "claude",
+    "role": "storyboard-critic",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "storyboard-critic",
+    "resource": "storyboard_critics",
+    "context": "isolated"
+  },
+  "agent_contracts": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/AGENTS.md",
+      "sha256": "efdece8035d5b640fc036bd3ce263e93a0651f2eb880de2dbe2a19053edf6094"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/CLAUDE.md",
+      "sha256": "d6763030264784182638ce134efd20f4711938079323b5bdd62f0a86c3941165"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/prompts/claude_routine.md",
+      "sha256": "ecc9c218b4d9fdd04d08298e41bd38f2100de479653f21f333cf38fffed1321f"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/quality_contract.json",
+      "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/dispatch_rubric.yaml",
+      "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/.claude/agents/storyboard-critic.md",
+      "sha256": "d2b72df1a992c963f26d4828b111add2d4ad4f128fd4af1b4b69ae713a0b4261"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/COMPLETION_PROGRESS.md",
+      "sha256": "e32da285d3c4ab78bb4b03df11c91cee877276cfe5e0c0478c2836c4096b0401"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/review_limit.json",
+      "sha256": "d8056484d5a3bb7c8a1afc94d91ed2c7ba317fa6a8e8598a40ca124a59d4666b"
+    }
+  ],
+  "treatments": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-a.json",
+      "sha256": "e88d7911c7a4b93944d82bbd5af6ae1d897c77c6e963262dbc9997708e45857d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b.json",
+      "sha256": "eb378563c1abe9c71b6365fe5c9dc0559bafdad97409597f254bdb6144cfae97"
+    }
+  ],
+  "asset_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx",
+      "sha256": "2483fb962188398dfeb820bcd3dd72d8e25911e67a6a368e8210ff28fd2ee49e"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx",
+      "sha256": "61ef74982f5e6e6f9558f9975aa536e99400174f976d1b075898f8117e2593eb"
+    }
+  ],
+  "completion_readings": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/AUTONOMOUS_COMPLETION.md",
+      "sha256": "041b4fb88479ff8d7758f292c3d5cfec1bd0701c8a752e1037b183a54ea7c8e8"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/autonomous_completion_v2.json",
+      "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/autonomous_completion_capacity_v1.json",
+      "sha256": "e5eb877f4c78cedd920ba112a88e9d80d79695ca4d09b1e5fffe7258983277f8"
+    }
+  ],
+  "selection": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/story_selection.json",
+    "sha256": "a26e3c5a7d67776932db020b71d0a16f5d8dc6506041545bb7bca5362ef336cd"
+  },
+  "creative_contract": "knowledge/craft/CREATIVE_DIRECTION.md",
+  "craft_readings": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/visual-storytelling/viewer-plan.md",
+      "sha256": "bfa3dc1c81ba1ec62170d3b23c9b52747c366096c3637f665780f433620b0a06"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/visual-storytelling/README.md",
+      "sha256": "9aa84715c0a4947ab99d6286cc903386d3f84948e932e6f8830c66c897f2b9da"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/visual-storytelling/news-reporting.md",
+      "sha256": "5839865e0e74a12991df4258b91e4b62c6263427e9272ec62dc4834598512b0d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/visual-storytelling/explanatory-animation.md",
+      "sha256": "1d868788a0486664e6920f6458a93e6216e2fbcaffdb1a23b55a3ba04a30973d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/MODERN_FILM.md",
+      "sha256": "58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/modern_film.json",
+      "sha256": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/modern_episode_registry.json",
+      "sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/STORY_ART.md",
+      "sha256": "9926ea6717a969517bba1a041629d9c93d20af377018d623b188221502b9f97d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/story_art.json",
+      "sha256": "209469d6f440e3556926ba796ffd6320f70ed3c084c3ccc0986d43cc7ad830c4"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/autonomous_completion_v2.json",
+      "sha256": "8e43da161760b01520f6bce796bab3071ee3345a1cc63dd7ec04e42bdbfde81b"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/VO_DIRECTION.md",
+      "sha256": "0815b0bbdfdc1d9aabd0c94670b5aa139e8d6697552a7956da7808f1296f8f33"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/critic_concept_v2.json",
+      "sha256": "7316f8f48224c3e5f13397f3f65df6550ec80971db918d91af6b64fb330db25d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/AUTHORED_STORY_ART.md",
+      "sha256": "7e6d8f3130e0bf702ce322d16c293fbc4b7214b28369a47af465d8ae1c5e970c"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/authored_story_art.json",
+      "sha256": "351805e0af4713d59152a720bdd07d0c47ac3d788e02f0e8ccd1b87bbbf69ca0"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/prompts/claude_routine.md",
+      "sha256": "ecc9c218b4d9fdd04d08298e41bd38f2100de479653f21f333cf38fffed1321f"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/ART_DIRECTION.md",
+      "sha256": "c86d5e7782817acefb2f0f3091b17959ea67bea7fe4c2ce11f3e5cb80104f1c5"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/art_direction.json",
+      "sha256": "c0d8f792de9b48c8e1130dd9623ca7a897504266eb86f2664a0f287dd6d17673"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/knowledge/craft/cinematic_reference_bank.json",
+      "sha256": "f1e873dcefbf8010f8bf7bdc3dd58ba7992a471f381805a2ed0bc0b1c95a013d"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/prompts/roles/scene-builder.md",
+      "sha256": "aa0acdc3838357c184d03c3974c3762bb0447576fe3b09472f3c29fa3baaf6f6"
+    }
+  ],
+  "art_direction": {
+    "reference": "board",
+    "field": "art_direction",
+    "version": "directed-world-v1",
+    "hero_asset": "video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx"
+  },
+  "opening_comparison": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/openings/comparison.json",
+    "sha256": "085c5a16e47ff7223ddc2948b7d3b23030c34a8d0d3cbb26b6149ab4ae9aecc8"
+  },
+  "opening_selection": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/openings/selection.json",
+    "sha256": "ad882b2d30bbfe81461b4be47c5c53ddcd9d6304e1925a6fcd4c9e47d4967d26"
+  },
+  "usage": {
+    "audiovisual_reviews": 1,
+    "cleanup_renders": 0,
+    "full_renders": 0,
+    "image_generations": 0,
+    "panel_rounds": 0,
+    "preflight_renders": 14,
+    "reboards": 4,
+    "reported_tokens": 32169,
+    "rescue_renders": 0,
+    "research_agents": 1,
+    "scorer_calls": 0,
+    "storyboard_critics": 6,
+    "tts_calls": 12,
+    "validator_agents": 2,
+    "voice_directors": 1
+  },
+  "phase": "active_repair",
+  "selected_treatment": {
+    "state": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/run_state.json",
+    "selected": "b",
+    "proof_sha256": "9454d4bc28de69eeb471ba7f53966e57f288df47bffc9e290db5c8f288224729",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/selected_treatment_completion_v1.json",
+      "sha256": "bb3e56ef31fa9c39280a16cf10c356b6a5d5e7c661dd64bb29e598aaf6450820"
+    },
+    "approval": false
+  },
+  "narration_picture": {
+    "reference": "board",
+    "field": "narration_picture"
+  },
+  "review_board_views": {
+    "d4b457e5071f32b961744aefb973680dce64216bdcb442618c4e317e3bcaf5af": {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/review-board-d4b457e5071f32b961744aefb973680dce64216bdcb442618c4e317e3bcaf5af.json",
+      "sha256": "c09e0f5b51b641048ee4b79050f2fcd9bdc9d344527e85f85a7537854319a1a4"
+    }
+  },
+  "review_scope": "exact-muted-phone-preflight",
+  "phone_state": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/run_state.json",
+  "phone_mode": "current",
+  "phone_options": [
+    {
+      "id": "current",
+      "board": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/storyboard.json",
+        "sha256": "d4b457e5071f32b961744aefb973680dce64216bdcb442618c4e317e3bcaf5af"
+      },
+      "film": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/preflight.mp4",
+        "sha256": "78840bf03f944f48284419734920c8ea8b7f516eb78214c70971cf8cf742028b"
+      },
+      "motion_sequence": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/motion-timed/index.json",
+        "sha256": "b5a305bba82077d7f78947d865c42803785c18f9537f8273a31ed5ecbc6a2f99"
+      },
+      "comparison": {
+        "option": "current",
+        "inspection_sha256": "e121621d6c0a2396f9863b4131cb213bb3a95e4d85ea64a762f4e27fecebafeb",
+        "structural_pass": true
+      },
+      "report_bindings": {
+        "review_scope": "exact-muted-phone-preflight",
+        "reviewed_preflight_sha256": "78840bf03f944f48284419734920c8ea8b7f516eb78214c70971cf8cf742028b",
+        "concept_sha256": "de4e76d6da60d277a8f84a7c3642220fa351209aac768ad9b29fba90adfed8b9",
+        "renderer_sha256": "f621e5a74d58b7a25627cfc62f39ee6b2d0213a7f8d454bdb539eb0531537b4a",
+        "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+        "modern_observations": {
+          "film_sha256": "78840bf03f944f48284419734920c8ea8b7f516eb78214c70971cf8cf742028b"
+        },
+        "narration_picture_observations": {
+          "film_sha256": "78840bf03f944f48284419734920c8ea8b7f516eb78214c70971cf8cf742028b"
+        },
+        "action_reviews": [],
+        "story_review": {
+          "story_sha256": "da1b33a4afd397b1a311843ffa2a4b761f3c2acc2845d9d21be21a95a2e2ea31",
+          "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+          "claims_sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f"
+        }
+      }
+    }
+  ],
+  "phone_decision_scope": {
+    "schema": "dispatch_phone_decision_scope/1",
+    "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+    "standard": "Judge the complete current film against the fixed quality rubric and actual source/narration limits.",
+    "blocking_basis": "Each blocker needs a timed observed defect and its own concrete effect on comprehension or finish for the chosen style. Preserve genuine source, rights, action, recognition, finish, pacing and ending failures.",
+    "director_targets": "A named repair target or promised technique is not an additional hard requirement. A missed target blocks only when the actual picture independently fails a fixed criterion. Do not turn zero marks, a particular shadow or an unreported physical technique into a new gate. Optional preferences remain notes.",
+    "independence": "Return your own original findings. Never infer approval from coverage, old grades or the director rationale, and never change an old report to fit this scope."
+  },
+  "image_read_policy": {
+    "schema": "dispatch_claude_image_read_policy/1",
+    "images_per_model_step": 1,
+    "parallel_image_reads": false,
+    "note_before_next_read": true,
+    "missing_image": "return partial immediately; no repeated bulk reads",
+    "coverage_schema": "dispatch_claude_image_coverage/1",
+    "access_probe": {
+      "before_guides": true,
+      "first_chronological_page": true,
+      "on_missing": "return partial; no further image reads"
+    },
+    "note_channel": "write_tool_artifact",
+    "note_scope": "brief_public_image_description",
+    "unavailable_observation_timing": "immediate_after_read"
+  },
+  "public_visual_evidence": {
+    "schema": "dispatch_public_visual_observation/1",
+    "channel": "Write",
+    "retention": "one immutable file per image Read",
+    "production_inputs": "read only",
+    "evaluation": "final report only"
+  }
+}
