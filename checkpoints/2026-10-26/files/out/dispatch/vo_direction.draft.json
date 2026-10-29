@@ -1,0 +1,247 @@
+{
+  "schema": "dispatch_vo_direction_draft/1",
+  "status": "draft_blocked_before_spend",
+  "approved": false,
+  "canonical_path_not_written": "out/dispatch/vo_direction.json is withheld until the consolidated story and picture correction is applied and the sound binding is computed",
+  "date": "2026-10-26",
+  "packet": {
+    "path": "out/dispatch/vo-director-packet.json",
+    "sha256_as_supplied": "8c5cabe8f0f55d2de2c75646357bc1ee09af1cbac5147276c38a40d405cc341d",
+    "sha256_verified_in_session": false
+  },
+  "recorded_hashes_not_recomputed": {
+    "board_storyboard_json": "ac8a12d1d0bdd4e1a5cf7e4003b1de7dcd8b7b32daef8093ab1df49b6ab4db13",
+    "claims_json": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
+    "story_selection_json": "a26e3c5a7d67776932db020b71d0a16f5d8dc6506041545bb7bca5362ef336cd",
+    "story_sha256": "da1b33a4afd397b1a311843ffa2a4b761f3c2acc2845d9d21be21a95a2e2ea31",
+    "VO_DIRECTION_md": "0815b0bbdfdc1d9aabd0c94670b5aa139e8d6697552a7956da7808f1296f8f33",
+    "MODERN_FILM_md": "58d96117cc3d3e6254d7547a8878a21f31bdbdb804e649f78b54a8f59fb368bb",
+    "config_modern_film_json": "9cbc00a5b23b4200ef183a18dede6f9381a98322cc755fbf5e55460dfbf7698e",
+    "vo_director_brief": "04312302b8dbb773186a1735d68c56f1c8681708dd82b18e8044b81db4bf5b5f",
+    "config_claude_runtime_json": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+  },
+  "sound_direction_sha256": null,
+  "sound_direction_sha256_status": "not computed because no hashing tool was available in this session; the sound object is storyboard.json creative_direction.sound and must be hashed by the controller tooling before approval",
+  "locked_passage": "Ten scene passages, fourteen narration-picture clauses, all punctuation as in the locked board wording. Clause character counts: n1a 60, n1b 32, n2a 32, n2b 59, n3a 34, n3b 23, n3c 22, n4 46, n5a 64, n5b 25, n6 58, n7a 38, n7b 42, n8 49, n9 61, n10a 32, n10b 47. Limit in scripts/vo_align.py PHONE_FIT_CUE_CHARS is 64 for editions from 2026-10-19; n5a is exactly at the limit with no margin.",
+  "overall": "A plain, curious and dry narrator who has followed this restaurant story and is telling the viewer the one thing to keep: software took the order, and the tip rests on the owner's word. Curious at the question, brisk and easy through the order, dry at the money and the rule, and level and certain at the close. Never triumphant, because every dollar figure and the tip claim are the owner's account.",
+  "performance_arc": "Curiosity at the question, discovery at the host, consequence at the money and the rule, and a level answer at the close.",
+  "pacing": "One continuous take at conversational speed. Natural separation at commas and full stops only.",
+  "pronunciation_status": "Haniya and Karahi have no entry in TexasAIDocket knowledge/shared/TEXAS_PRONUNCIATION.md. Spring is a plain English town name with no entry. No respelling is supplied here because the bound guide does not carry one. The director must decide before spend, see defect P1.",
+  "lines": [
+    {
+      "scene_id": "s1",
+      "text": "When the only server at Wok and Karahi in Spring walked out, who was going to take the order?",
+      "clause_ids": ["n1a", "n1b"],
+      "intent": "Open the viewer question plainly.",
+      "emphasis": "who was going to take the order",
+      "energy": "Medium and curious. Baseline for the film with no lift on the first word.",
+      "audit": {
+        "picture_job": "orient and question",
+        "event_ids": ["s1-event-1", "s1-event-2", "s1-event-3"],
+        "source_limit": "Outlet-reported restaurant, no person named.",
+        "picture_check": "n1a subject is carried by the door and the apron swinging on its hook. No server figure is drawn, so the walk-out is inferred from objects (minor, see D7)."
+      }
+    },
+    {
+      "scene_id": "s2",
+      "text": "The family didn't post a job ad. They put an AI host named Haniya at the front of the house.",
+      "clause_ids": ["n2a", "n2b"],
+      "intent": "Dry fact, then the reveal of the host.",
+      "emphasis": "AI host named Haniya",
+      "energy": "Low and plain on the first sentence, then a clear lift into the reveal.",
+      "audit": {
+        "picture_job": "reveal",
+        "event_ids": ["s2-event-1", "s2-event-2", "s2-event-3"],
+        "source_limit": "c2 is Muslim Mirror's report and the locked wording states it unattributed (D4). c1 calls the system an AI platform, and the script says AI host (D9).",
+        "pronunciation": "Haniya has no bound entry (P1)."
+      }
+    },
+    {
+      "scene_id": "s3",
+      "text": "A guest scans a code at the table, taps or talks to order, and pays from a phone.",
+      "clause_ids": ["n3a", "n3b", "n3c"],
+      "intent": "Walk through the ordering steps in sequence.",
+      "emphasis": "pays from a phone",
+      "energy": "Brisk and easy through the list, a step above s2, with the last phrase carrying the emphasis.",
+      "audit": {
+        "picture_job": "explain",
+        "event_ids": ["s3-event-1", "s3-event-2", "s3-event-3", "s3-event-4"],
+        "source_limit": "c3 covers both tapping through the menu and talking to the host.",
+        "picture_check": "The picture shows the tap path only. The talk path is not pictured (D5)."
+      }
+    },
+    {
+      "scene_id": "s4",
+      "text": "Nothing is cooked until the order is paid for.",
+      "clause_ids": ["n4"],
+      "intent": "State the rule flatly.",
+      "emphasis": "until the order is paid for",
+      "energy": "Drop to a firm, level line, the lowest point before the money section.",
+      "audit": {
+        "picture_job": "explain the mechanism",
+        "event_ids": ["s4-event-1", "s4-event-2", "s4-event-3", "s4-event-4"],
+        "source_limit": "c4 is the owner's account relayed by Muslim Mirror, and the locked wording states it unattributed (D3)."
+      }
+    },
+    {
+      "scene_id": "s5",
+      "text": "The owner says the restaurant saves or wins back $9,650 a month, and that's his own count.",
+      "clause_ids": ["n5a", "n5b"],
+      "intent": "Attribute the figure to the owner, dry.",
+      "emphasis": "own count",
+      "energy": "Dry and level. No lift on the figure, and the emphasis moves to the qualifier.",
+      "audit": {
+        "picture_job": "qualify",
+        "event_ids": ["s5-event-1", "s5-event-2", "s5-event-3", "s5-event-4"],
+        "source_limit": "c6 is the owner's self-reported figure. The pronoun his is not in the claims file (D4).",
+        "picture_check": "The owner-count stamp lands at the start of n5b, so the qualifier arrives on the visible stamp. The saves or wins back qualifier is not pictured (D6)."
+      }
+    },
+    {
+      "scene_id": "s6",
+      "text": "FOX 26 reports that kitchen staff now get all of the tips.",
+      "clause_ids": ["n6"],
+      "intent": "Attribute the tip claim plainly.",
+      "emphasis": "FOX 26 reports",
+      "energy": "Level and neutral, below s5. No warmth on the word all.",
+      "audit": {
+        "picture_job": "qualify a reported claim",
+        "event_ids": ["s6-event-1", "s6-event-2", "s6-event-3"],
+        "source_limit": "c7 scope note says the sentence is unattributed in the article and is to be treated as the restaurant's account. The line attributes it to FOX 26 (D2).",
+        "picture_check": "Coins landing in the jar read as a completed outcome. The FOX 26 tag carries the attribution, so the voice must not add certainty."
+      }
+    },
+    {
+      "scene_id": "s7",
+      "text": "When the employer takes no tip credit, federal rules allow a tip pool with cooks.",
+      "clause_ids": ["n7a", "n7b"],
+      "intent": "Read the rule carefully.",
+      "emphasis": "federal rules allow",
+      "energy": "Measured and careful at a middle level, with no lift.",
+      "audit": {
+        "picture_job": "explain and qualify",
+        "event_ids": ["s7-event-1", "s7-event-2", "s7-event-3"],
+        "source_limit": "c8 and c9 both make the cooks pool conditional on paying tipped employees the full minimum wage. The locked wording omits that condition (D1, blocking). The emphasis phrase stays valid if the condition is inserted before federal rules.",
+        "picture_check": "The rule card has no drawn minimum-wage condition, so a correction must also picture it."
+      }
+    },
+    {
+      "scene_id": "s8",
+      "text": "No report says whether this restaurant takes one.",
+      "clause_ids": ["n8"],
+      "intent": "Name the absence without weight.",
+      "emphasis": "No report says",
+      "energy": "Lowest point of the middle section, quiet and flat, with no lift at the end.",
+      "audit": {
+        "picture_job": "qualify an absence",
+        "event_ids": ["s8-event-1", "s8-event-2", "s8-event-3"],
+        "source_limit": "Absence scope across the fetched reports (c7 scope note). The blank box is labelled as an illustration of absence."
+      }
+    },
+    {
+      "scene_id": "s9",
+      "text": "One customer said QR codes don't suit people like her mother.",
+      "clause_ids": ["n9"],
+      "intent": "Let the customer's words stand plainly.",
+      "emphasis": "like her mother",
+      "energy": "A step above s8, conversational and plain, with no mock tone.",
+      "audit": {
+        "picture_job": "evidence of a customer remark",
+        "event_ids": ["s9-event-1", "s9-event-2", "s9-event-3"],
+        "source_limit": "c10 quote is not very convenient for every kind of people, like my mom. The spoken don't suit is a paraphrase, and the on-screen card carries the exact quote (D8). Keep the customer unnamed."
+      }
+    },
+    {
+      "scene_id": "s10",
+      "text": "So software now takes the order, and who gets the tip rests on the owner's word.",
+      "clause_ids": ["n10a", "n10b"],
+      "intent": "Answer both questions in one level, certain close.",
+      "emphasis": "the owner's word",
+      "energy": "Level and certain, lower than the opening question, with no lift. The final phrase is the most certain line in the film.",
+      "audit": {
+        "picture_job": "resolve",
+        "event_ids": ["s10-event-1", "s10-event-2", "s10-event-3"],
+        "source_limit": "The answer states the limit: software takes the order and the tip rests on the owner's account. No outcome beyond the reports is claimed.",
+        "picture_check": "The closing tag reads no record shown. That label is not spoken and does not replace a spoken claim."
+      }
+    }
+  ],
+  "defects": [
+    {
+      "id": "D1",
+      "class": "source qualifier, blocking",
+      "scene": "s7",
+      "finding": "The locked rule omits the employer pays tipped employees the full minimum wage condition stated in c8 and c9.",
+      "proposed_wording_not_applied": ["When the employer pays tipped employees the full minimum wage,", "and takes no tip credit,", "federal rules allow a tip pool with cooks."],
+      "proposed_clause_chars": [62, 24, 42],
+      "picture_requirement": "The rule card needs a drawn or labelled minimum-wage condition, with its event bound in narration_picture."
+    },
+    {
+      "id": "D2",
+      "class": "source attribution, blocking pending claim owner ruling",
+      "scene": "s6",
+      "finding": "c7 text says FOX 26 reports the kitchen tip share, but its own scope note says the sentence is unattributed in the article and is to be treated as the restaurant's account.",
+      "proposed_wording_not_applied": "The restaurant says kitchen staff now get all of the tips.",
+      "proposed_clause_chars": 58
+    },
+    {
+      "id": "D3",
+      "class": "source attribution",
+      "scene": "s4",
+      "finding": "c4 scope note says owner account relayed by the outlet. The locked line states it flatly.",
+      "proposed_wording_not_applied": "The owner says nothing is cooked until the order is paid for.",
+      "proposed_clause_chars": 61
+    },
+    {
+      "id": "D4",
+      "class": "source attribution and unsupported pronoun",
+      "scene": "s2 and s5",
+      "finding": "c2 is Muslim Mirror's report and the line has no attribution. The pronoun his in n5b is not in the claims file, which names the owner only as Zoeb or Abbas Zoeb.",
+      "proposed_wording_not_applied": {"n5b": "and that's the owner's own count.", "n2a_attribution": "Muslim Mirror reports that the family didn't post a job ad."},
+      "proposed_clause_chars": {"n5b": 33}
+    },
+    {
+      "id": "D5",
+      "class": "picture word mismatch",
+      "scene": "s3",
+      "finding": "The spoken clause includes talks to order, which is in c3, but the narration_picture binding for n3b shows only a fingertip tap. The independent phone critic also recorded the Talk control as shown but never used. A picture correction or a locked-wording correction is needed.",
+      "proposed_wording_not_applied": "none. Either picture the host talk path or correct the wording as a story change."
+    },
+    {
+      "id": "D6",
+      "class": "picture word qualifier",
+      "scene": "s5",
+      "finding": "The saves or wins back qualifier is not pictured. The owner-count stamp was recorded as mostly hidden under the tag in the prior silent comparison, and the latest repair asks for it to be legible. Check the stamp on the exact film."
+    },
+    {
+      "id": "D7",
+      "class": "picture minor",
+      "scene": "s1",
+      "finding": "The walk-out is shown by a swinging door and apron. No server figure is drawn. This is a weak inference that a viewer can accept, but the critic should judge it."
+    },
+    {
+      "id": "D8",
+      "class": "wording minor",
+      "scene": "s9",
+      "finding": "The spoken don't suit paraphrases the customer quote, while the quote card carries the exact words. Either keep the paraphrase and accept the mismatch or align the spoken wording."
+    },
+    {
+      "id": "D9",
+      "class": "wording minor",
+      "scene": "s2",
+      "finding": "c1 calls the system an AI platform. The locked script and the story selection say AI host."
+    },
+    {
+      "id": "P1",
+      "class": "pronunciation, blocking spend until decided",
+      "scene": "s1 and s2",
+      "finding": "Wok and Karahi and Haniya have no bound pronunciation entry. Spring has no entry but is plain English. The guide says unverified proper nouns should be rewritten or checked locally rather than guessed. The director must choose a verified reading or a rewrite."
+    },
+    {
+      "id": "B1",
+      "class": "bookkeeping",
+      "finding": "out/dispatch/vo-director-packet.json reports voice_directors 0 and tts_calls 0. out/dispatch/run_state.json reports voice_directors 1 with a reservation for final continuous read at 2026-10-29T06:16:46Z. The controller ledger should decide which reservation this handoff uses. No new reservation was made by this session."
+    }
+  ],
+  "consolidated_correction_request": "One complete story and picture correction covering D1, D2, D3, D5 and P1, with D4 and D6 advised. Apply it to the locked wording, the narration_picture clauses and the affected events before any voice spend. The directions above then bind to the corrected text, and the sound hash must be computed by the controller tooling."
+}

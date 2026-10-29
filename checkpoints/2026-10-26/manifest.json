@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-10-29T06:16:55.566213+00:00",
-  "note": "claim worker dispatch vo-director",
+  "saved_at": "2026-10-29T06:23:07.243528+00:00",
+  "note": "before voice synthesis and soundcheck",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-26T07:17:34.391615Z",
   "repo_root": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch",
-  "source_pin": "e909339e17892d6dffb0bd1bc66bbe137e9a3d1f",
+  "source_pin": "e0ec9a6e3a4dea7fe70ff2a73bcce95b85d8f6e8",
   "source_branch": "claude/dispatch-2026-10-26",
   "source_closure": {
     "root": "video-engine",
@@ -4958,6 +4958,12 @@
       "size": 8423
     },
     {
+      "path": "out/dispatch/evidence/vo-synth-1.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "path": "out/dispatch/image-tool-delivery/000b54207629cfb83fe26af610181f27ccf9b6a95942ca5be7587b62096d2ef2.json",
       "class": "scratch",
       "sha256": "feca4ebe00dafd2bde6c7c187d09e55babd1edfdf2afc9c1545e3265197919d6",
@@ -7400,6 +7406,12 @@
       "size": 1026
     },
     {
+      "path": "out/dispatch/music_brief.json",
+      "class": "scratch",
+      "sha256": "a3203d2ba1d4e4aac42f58fa6dfe6a4be8eb84c7d497d204e6de3488f2525d74",
+      "size": 415
+    },
+    {
       "path": "out/dispatch/native-completion-waits/03d2e3f19120b072b84e145f6111900a3fff7a152fee3635528e60845b518067.json",
       "class": "scratch",
       "sha256": "03d2e3f19120b072b84e145f6111900a3fff7a152fee3635528e60845b518067",
@@ -7446,6 +7458,12 @@
       "class": "scratch",
       "sha256": "b8f7b1e98524914638ad03cb18bd052bd5a4d193682b18aaa0e34c61bf977036",
       "size": 433
+    },
+    {
+      "path": "out/dispatch/native-completion-waits/c96c3af9c6b78774b8b86d9744824b65c676b09085d180e0419988840b1f8015.json",
+      "class": "scratch",
+      "sha256": "c96c3af9c6b78774b8b86d9744824b65c676b09085d180e0419988840b1f8015",
+      "size": 427
     },
     {
       "path": "out/dispatch/native-completion-waits/d87607b47547f4474bb7eb31445b626671eb066baee57bc8522d6f9980119d93.json",
@@ -17192,6 +17210,18 @@
       "size": 1550
     },
     {
+      "path": "out/dispatch/vo_direction.draft.json",
+      "class": "scratch",
+      "sha256": "64ebf29636265c07c82341449beedf27410d87eed6b48908434cccff417ea818",
+      "size": 15109
+    },
+    {
+      "path": "out/dispatch/vo_direction.json",
+      "class": "scratch",
+      "sha256": "814b3480cce4c3682349474d15be2df1e0f0cdbc382b4ff912e5ab593b1e42f9",
+      "size": 11638
+    },
+    {
       "path": "out/dispatch/vo_script.txt",
       "class": "scratch",
       "sha256": "316d98de25010a6df3afac737fc8a69500fcfe3a648ae3b28e28c1e739fddc35",
@@ -17200,8 +17230,8 @@
     {
       "path": "out/dispatch/voice-director-assignment.json",
       "class": "scratch",
-      "sha256": "048579d3aa76bb07047a7ea121deb2595feb635eb14e4df9ed226a9113e9f53d",
-      "size": 1849
+      "sha256": "4afcc2fef7d15b0e2a5783be30dd5f0fd025ade5614a6c2f9330ff3bf6163805",
+      "size": 2868
     },
     {
       "path": "out/dispatch/worker-dispatch-claims/0ab8e2b0187ef362a836fb477367dab7e7e8df648c67a07210d6690822d4f66e-vo-director.json",
@@ -17289,9 +17319,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 324224270,
-    "unique_blob_bytes": 157586478,
-    "unique_blobs": 1888
+    "logical_bytes": 324252878,
+    "unique_blob_bytes": 157615086,
+    "unique_blobs": 1892
   },
   "excluded": [
     {
