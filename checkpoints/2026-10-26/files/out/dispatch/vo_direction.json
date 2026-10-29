@@ -19,7 +19,7 @@
  },
  "script": {
   "path": "out/dispatch/vo_script.txt",
-  "line_count": 9
+  "line_count": 10
  },
  "voice": {
   "takes": 1,
@@ -166,43 +166,45 @@
   },
   {
    "scene_id": "s7",
-   "text": "When the employer takes no tip credit, federal rules allow a tip pool with cooks. No report says whether this restaurant takes one.",
+   "text": "When the employer takes no tip credit, federal rules allow a tip pool with cooks.",
    "clause_ids": [
     "n7a",
-    "n7b",
+    "n7b"
+   ],
+   "intent": "Read the rule carefully.",
+   "emphasis": "federal rules allow",
+   "energy": "Measured and careful at a middle level, with no lift.",
+   "audit": {
+    "picture_job": "explain and qualify",
+    "event_ids": [
+     "s7-event-1",
+     "s7-event-2",
+     "s7-event-3"
+    ],
+    "source_limit": "c8 and c9 both make the cooks pool conditional on paying tipped employees the full minimum wage. The locked wording omits that condition (D1, blocking). The emphasis phrase stays valid if the condition is inserted before federal rules.",
+    "picture_check": "The rule card has no drawn minimum-wage condition, so a correction must also picture it."
+   },
+   "index": 7
+  },
+  {
+   "scene_id": "s8",
+   "text": "No report says whether this restaurant takes one.",
+   "clause_ids": [
     "n8"
    ],
-   "intent": "Read the rule carefully. Then Name the absence without weight.",
-   "emphasis": "federal rules allow Then No report says",
-   "energy": "Measured and careful at a middle level, with no lift. Then Lowest point of the middle section, quiet and flat, with no lift at the end.",
+   "intent": "Name the absence without weight.",
+   "emphasis": "No report says",
+   "energy": "Lowest point of the middle section, quiet and flat, with no lift at the end.",
    "audit": {
-    "merged": [
-     {
-      "picture_job": "explain and qualify",
-      "event_ids": [
-       "s7-event-1",
-       "s7-event-2",
-       "s7-event-3"
-      ],
-      "source_limit": "c8 and c9 both make the cooks pool conditional on paying tipped employees the full minimum wage. The locked wording omits that condition (D1, blocking). The emphasis phrase stays valid if the condition is inserted before federal rules.",
-      "picture_check": "The rule card has no drawn minimum-wage condition, so a correction must also picture it."
-     },
-     {
-      "picture_job": "qualify an absence",
-      "event_ids": [
-       "s8-event-1",
-       "s8-event-2",
-       "s8-event-3"
-      ],
-      "source_limit": "Absence scope across the fetched reports (c7 scope note). The blank box is labelled as an illustration of absence."
-     }
-    ]
+    "picture_job": "qualify an absence",
+    "event_ids": [
+     "s8-event-1",
+     "s8-event-2",
+     "s8-event-3"
+    ],
+    "source_limit": "Absence scope across the fetched reports (c7 scope note). The blank box is labelled as an illustration of absence."
    },
-   "index": 7,
-   "scene_ids": [
-    "s7",
-    "s8"
-   ]
+   "index": 8
   },
   {
    "scene_id": "s9",
@@ -222,7 +224,7 @@
     ],
     "source_limit": "c10 quote is not very convenient for every kind of people, like my mom. The spoken don't suit is a paraphrase, and the on-screen card carries the exact quote (D8). Keep the customer unnamed."
    },
-   "index": 8
+   "index": 9
   },
   {
    "scene_id": "s10",
@@ -244,10 +246,10 @@
     "source_limit": "The answer states the limit: software takes the order and the tip rests on the owner's account. No outcome beyond the reports is claimed.",
     "picture_check": "The closing tag reads no record shown. That label is not spoken and does not replace a spoken claim."
    },
-   "index": 9
+   "index": 10
   }
  ],
- "text": "When the only server at Wok and Karahi in Spring walked out, who was going to take the order?\nThe family didn't post a job ad. They put an AI host named Haniya at the front of the house.\nA guest scans a code at the table, taps or talks to order, and pays from a phone.\nNothing is cooked until the order is paid for.\nThe owner says the restaurant saves or wins back $9,650 a month, and that's his own count.\nFOX 26 reports that kitchen staff now get all of the tips.\nWhen the employer takes no tip credit, federal rules allow a tip pool with cooks. No report says whether this restaurant takes one.\nOne customer said QR codes don't suit people like her mother.\nSo software now takes the order, and who gets the tip rests on the owner's word.\n",
+ "text": "When the only server at Wok and Karahi in Spring walked out, who was going to take the order?\nThe family didn't post a job ad. They put an AI host named Haniya at the front of the house.\nA guest scans a code at the table, taps or talks to order, and pays from a phone.\nNothing is cooked until the order is paid for.\nThe owner says the restaurant saves or wins back $9,650 a month, and that's his own count.\nFOX 26 reports that kitchen staff now get all of the tips.\nWhen the employer takes no tip credit, federal rules allow a tip pool with cooks.\nNo report says whether this restaurant takes one.\nOne customer said QR codes don't suit people like her mother.\nSo software now takes the order, and who gets the tip rests on the owner's word.\n",
  "defects": [],
  "pronunciation": {
   "respellings_applied": [],
