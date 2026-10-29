@@ -1,0 +1,22 @@
+{
+ "root_cause": "Two audible takes of the locked script failed strict ASR reconciliation on the final word. The pinned recognizer hears the closing word 'word' of the owner's word as 'ward' in both takes, while the chosen takes passed the verbatim soundcheck. Names Wok and Haniya also reconcile only through sourced spelling exceptions.",
+ "repair": "Direction-only correction of the final line's emphasis and energy notes so the closing word is delivered with a clean consonant ending instead of being the lowered emphasised phrase. Script, board, claims and renderer stay unchanged.",
+ "mechanism_change": "The last line's emphasis moves from the closing phrase 'the owner's word' to 'rests on', and its energy note asks for a crisp, fully pronounced final word at the same level.",
+ "expected_visible_result": "Unchanged picture. The fresh take reconciles with the locked script when the sourced name spellings are applied.",
+ "failure_evidence": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/evidence/align-take2-failure.log",
+ "failure_evidence_sha256": "384915063c9e0daf137012fc5d097f9d8b7f13be74d1132fe69eee035f99511b",
+ "repair_scope": "narration-performance",
+ "mechanism_id": "vo-closing-word-delivery-v1",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "changed_inputs": [
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/vo_direction.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/narration/vo_direction.json",
+   "before_sha256": "7f42e6c3e30350a2b0ea486ff480b84630e2c7e7dc59e41c62945f983ae9e0aa"
+  }
+ ],
+ "resources": {
+  "tts_calls": 2
+ }
+}
