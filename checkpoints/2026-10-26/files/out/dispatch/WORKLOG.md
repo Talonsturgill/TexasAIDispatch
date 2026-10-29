@@ -40,3 +40,7 @@ Only supported lever: owner_review_grant (repair_guard, tooling.md "Explicit own
 Prepared and ready: out/dispatch/repair-plan-4.json (A walkout, only OrderPassFilm.tsx, baselines/round4) and repair-plan-4-modern.json (bound by modern_code_recovery after PR 296 fixed grant admission). Next executable step on grant: grant-owner-review for 1+ critic calls, completion-capacity, begin-repair, builder (OrderPassFilm only, A s1), builder proof 2, code review of both, comparison, timed phone, voice, native, scorers, delivery.
 Tooling merged this run: PR 295 (recheck annotation coverage), PR 296 (modern code grant adoption order).
 Edition branch claude/dispatch-2026-10-26 has a local unpushed commit 8640f0e1 (remote has divergent earlier work); recovery is claude/checkpoint/2026-10-26.
+
+## 2026-10-29 resume (fresh scheduled owner)
+Publisher acquired, restored, current main merged (265e2d7), continuation armed, selected_treatment adopted (B) and packaged into out/dispatch/selected-treatment-evidence (openings/ archived at evidence/failed-openings-4). Fifth normal opening_compare rendered (one infra retry recorded for the first refusal), inspection pass. production-budget feasible: finish-current needs 2 critics (selected-film silent phone comparison + timed phone), envelope 7 has 2 left.
+Next: phone extract b (claude_motion_review --phone-option b), phone packet, critic, then voice, timed phone, native, AV, scorers, delivery.
