@@ -915,6 +915,77 @@ class StandingCapacityTest(unittest.TestCase):
         self.assertTrue(controller.reserve(self.state, {'storyboard_critics': 1}, 'offline funded code')[0])
         self.assertEqual(controller.read_state(self.state)['usage']['storyboard_critics'], 6)
 
+    def timed_contact_rejection(self, film='a' * 64):
+        return {'status': 'complete', 'phone_mode': 'current', 'verdict': 'revise',
+                'reviewer_identity': 'independent-timed-phone-critic',
+                'review_scope': 'exact-muted-phone-preflight', 'reviewed_preflight_sha256': film,
+                'modern_observations': {'film_sha256': film, 'pace': {'pass': True},
+                                        'closing_answer': {'pass': True}},
+                'phone_observations': {'contact_and_consequence': {
+                    'pass': False, 'start_s': 30.4, 'end_s': 32.2,
+                    'observed': 'The stamp result is illegible in the medium phone frame.'}},
+                'blocking_defects': [{'category': 'contact_and_consequence', 'scene_id': 's5',
+                    'defect': 'The own-count source limit has no readable completed picture.'}]}
+
+    def test_single_timed_contact_failure_is_mandatory_without_rewriting_observations(self):
+        state = copy.deepcopy(self.before); capacity.adopt_capacity(state, existing=True)
+        report = self.timed_contact_rejection(); original = copy.deepcopy(report)
+        plan = json.loads(self.plan.read_text())
+        def reason(value, changes=None):
+            text = json.dumps(value)
+            current = {**plan, 'failure_evidence_sha256': capacity.sha(text), **(changes or {})}
+            return capacity.mandatory_reason(state, current, text)
+        self.assertEqual(reason(report), 'modern-film-floor')
+        self.assertEqual(report, original)
+        for changes in ({'blocking_defects': []}, {'blocking_defects': ['Make the stamp prettier.']},
+                        {'blocking_defects': [{'category': 'surface_finish', 'defect': 'Add patina.'}]},
+                        {'phone_observations': {'contact_and_consequence': {'pass': True}}},
+                        {'phone_observations': {'contact_and_consequence': {'pass': False}}},
+                        {'phone_mode': 'comparison'}, {'status': 'incomplete'}, {'verdict': 'pass'},
+                        {'review_scope': 'code-plan'}, {'reviewed_preflight_sha256': 'b' * 64},
+                        {'modern_observations': {'film_sha256': 'b' * 64}}):
+            self.assertIsNone(reason({**report, **changes}), changes)
+        self.assertIsNone(reason(report, {'director_identity': report['reviewer_identity']}))
+        self.assertIsNone(reason(report, {'failure_evidence_sha256': 'b' * 64}))
+        self.assertIsNone(reason(report, {'failed_film_sha256': 'b' * 64}))
+        state['events'] = [e for e in state['events'] if e['kind'] != capacity.CAPACITY_ADOPTION]
+        self.assertIsNone(reason(report))
+
+    def test_spent_timed_phone_funds_complete_path_only_after_live_bindings(self):
+        state = controller.read_state(self.state)
+        for resource, count in [('storyboard_critics', 7), ('preflight_renders', 14), ('tts_calls', 12)]:
+            delta = count - state['usage'][resource]
+            controller.event(state, 'reserved', resources={resource: delta}, note='retained failed attempts')
+            state['usage'][resource] = count
+        controller.save(self.state, state); before = copy.deepcopy(state)
+        board = self.root / 'storyboard.json'; board.write_text('{"date":"2026-10-26"}')
+        claims = self.root / 'claims.json'; claims.write_text('{"claims":[]}')
+        film = self.root / 'preflight.mp4'; film.write_bytes(b'exact rejected timed phone fixture')
+        film_hash = controller.digest(film)
+        report = self.timed_contact_rejection(film_hash)
+        report.update(concept_sha256='current-concept', renderer_sha256='current-renderer',
+                      story_review={'claims_sha256': controller.digest(claims)})
+        self.report.write_text(json.dumps(report))
+        self.write_plan(failed_film_sha256=film_hash, changed_inputs=[{'path': 'episode.tsx'}])
+        with patch('critic_gate.concept_digest', return_value='current-concept'), \
+             patch('critic_gate.renderer_digest', return_value='current-renderer'):
+            original = self.state.read_bytes(); film.write_bytes(b'changed phone bytes')
+            accepted, message = capacity.grant_capacity(self.state, self.plan)
+            self.assertFalse(accepted); self.assertIn('exact-phone rejection', message)
+            self.assertEqual(self.state.read_bytes(), original)
+            film.write_bytes(b'exact rejected timed phone fixture')
+            granted = self.grant()
+        grant = granted['events'][-1]
+        self.assertEqual(grant['reason'], 'modern-film-floor')
+        self.assertEqual(grant['resource_increments'],
+                         {'storyboard_critics': 3, 'preflight_renders': 5, 'tts_calls': 2})
+        self.assertEqual(granted['resource_envelope'], before['resource_envelope'])
+        self.assertEqual(granted['usage'], before['usage'])
+        self.assertEqual(granted['events'][:len(before['events'])], before['events'])
+        self.assertEqual(grant['failure_evidence_json'], self.report.read_text())
+        self.assertTrue(grant['grants_no_review_approval'])
+        self.assertEqual(capacity.replay(granted)[1], [])
+
     def test_beyond_twenty_requires_recorded_capacity_before_reservation(self):
         state = controller.read_state(self.state)
         for field in ('resource_envelope', 'escalation_ceiling'):
