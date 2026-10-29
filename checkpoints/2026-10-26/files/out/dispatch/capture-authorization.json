@@ -2,19 +2,15 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "24c3071707aafe260bca8d536297f4860917ed002cd66d144131e0f8a9de59f0",
+    "event_sha256": "45a3ff5e4422b9773ef49c2e296030154cde47fa6e8bde30745f844b8ea94a4f",
     "resource": "preflight_renders",
-    "at": "2026-10-29T05:22:27.422097Z",
-    "note": "two opening comparison batch"
+    "at": "2026-10-29T05:30:48.187657Z",
+    "note": "exact-phone-a motion-image review extraction"
   },
   "boards": [
     {
-      "path": "out/dispatch/opening-a.json",
-      "sha256": "e88d7911c7a4b93944d82bbd5af6ae1d897c77c6e963262dbc9997708e45857d"
-    },
-    {
-      "path": "out/dispatch/opening-b.json",
-      "sha256": "eb378563c1abe9c71b6365fe5c9dc0559bafdad97409597f254bdb6144cfae97"
+      "path": "out/dispatch/openings/a.json",
+      "sha256": "0de4f69b97cb6174a081eeeee4b30d8db7b9f043067ff8960385f8e9d81c70c3"
     }
   ],
   "bound": {
@@ -173,31 +169,31 @@
   },
   "commands": [
     {
-      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
-      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
-      "consumed": "2026-10-29T05:22:36.146431+00:00"
+      "id": "22560f654ea3124cfe94f97ec7a83c029e71d41626dc6ba622d59df28e38e7cd",
+      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option a --board out/dispatch/openings/a.json --film out/dispatch/openings/a.mp4 --state out/dispatch/run_state.json --out out/dispatch/openings/motion-fifth-a",
+      "consumed": "2026-10-29T05:31:02.783647+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 21,
-    "free_gib": 21.017
+    "free_gib": 21.013
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/capture-housekeeping-20261029T052220.json",
-    "receipt_sha256": "0fb9d244687fc672618f0c3ef16b4acb3a39e054b84a5451a83a2f61affadbc8",
+    "receipt": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/capture-housekeeping-20261029T053039.json",
+    "receipt_sha256": "e8fb07c3caca80ac8feb700f8cde1fed486d70e7ac03e13b3611537103ecdaa6",
     "exit_code": 0,
     "min_free_gib": 21
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-29T05:22:33.262872+00:00",
-  "expires_at": "2026-10-29T06:07:33.262872+00:00",
+  "issued_at": "2026-10-29T05:30:53.869464+00:00",
+  "expires_at": "2026-10-29T06:15:53.869464+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "two opening comparison batch",
+    "operation": "exact-phone-a motion-image review extraction",
     "resource": "preflight_renders",
     "run_id": "2026-10-26",
-    "event_sha256": "24c3071707aafe260bca8d536297f4860917ed002cd66d144131e0f8a9de59f0",
-    "input_identity": "2e76347d492e2f3fc40204e2102a5f8fedd09659242544d3bb1eb65f954f808a"
+    "event_sha256": "45a3ff5e4422b9773ef49c2e296030154cde47fa6e8bde30745f844b8ea94a4f",
+    "input_identity": "5f3d2e10ca12d7172a783bb8bd36b79a2fd7304d77a10da0cce72fd4222ad559"
   }
 }
