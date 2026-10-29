@@ -73,6 +73,14 @@
       "note": "fifth code review of both corrected treatments",
       "resource": "storyboard_critics",
       "to": 5
+    },
+    {
+      "at": "2026-10-29T05:20:42.970036Z",
+      "ceiling": 16,
+      "from": 8,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 9
     }
   ],
   "events": [
@@ -1009,6 +1017,28 @@
         "schema": "dispatch_selected_treatment_completion/1",
         "selected": "b"
       }
+    },
+    {
+      "at": "2026-10-29T05:20:42.970079Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 9,
+      "resource": "preflight_renders",
+      "was": 8
+    },
+    {
+      "at": "2026-10-29T05:20:43.941543Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "2e76347d492e2f3fc40204e2102a5f8fedd09659242544d3bb1eb65f954f808a",
+      "preflight_identity_version": 2,
+      "publication_epoch": "23365d53b0cf4928849c8c1f5f0260b3",
+      "publication_owner_sha256": "f251f4721196aa65f10f633667466b175b644e8099b699dfe5366c4d2b858630",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -1017,7 +1047,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 8,
+    "preflight_renders": 9,
     "reboards": 4,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -1032,7 +1062,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "f73d0ca132dca5384a99e06ebb1c5cc6f7db10008aab2597a2f9f9a2d0512cd7",
+    "original_private_state_sha256": "b8be881b1d455cd6fb7e1225945efa927e458c1890b64cebc5c3c3699071a878",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1060,14 +1090,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-28T07:06:04.938979Z",
+  "updated_at": "2026-10-29T05:20:43.941562Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 8,
+    "preflight_renders": 9,
     "reboards": 4,
     "reported_tokens": 63,
     "rescue_renders": 0,
