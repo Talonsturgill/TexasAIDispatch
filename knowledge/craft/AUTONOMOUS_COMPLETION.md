@@ -1,11 +1,19 @@
 # Autonomous completion capacity
 
-The owner's October 20th, 2026 instruction imposes config/review_limit.json as a hard five
-editorial review attempts per video. Completion capacity, a new worker, source pivot, retry
-or mechanism cannot extend that cap. Preserve all cumulative charges and finish the strongest
-existing cut through the final acceptance and delivery path once. The controller enforces this
-before charging and before granting another review-dependent creative correction. This newer
-instruction takes precedence over older unlimited artistic recovery language in this guide.
+The owner's October 28th, 2026 instruction replaces the old hard-five review ceiling with
+standing mandatory completion capacity in config/autonomous_completion_capacity_v1.json.
+Twenty is the initial review planning window, not a permission stop. Preserve each original
+frozen envelope, cumulative charge, failed attempt and grade; append exact additional
+allocations for the entire remaining path before spending. A new worker, script or source
+pivot never resets the counter. Stop optional polish at its configured creative boundary.
+Additional capacity is for independently evidenced mandatory repairs with the existing
+progress and source-backed replacement checks, never repeated preference shopping.
+
+This dated instruction governs current unfinished production after supported source adoption.
+Historical shipped editions and accepted failed-edition dispositions retain their original
+source-bound proof. A budget allocation does not approve a picture, review or shipment.
+Only accepted finish --result shipped, permanent reviewed media, canonical playback,
+verified unsent draft and durable archive complete the run.
 
 ## Actual occupied native review output
 

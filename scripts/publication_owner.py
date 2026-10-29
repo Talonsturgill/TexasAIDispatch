@@ -192,7 +192,7 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runti
         marker = workspace / MARKER
         local = load(marker) if marker.is_file() else None
         value = read_remote(repo)
-        from failed_editions import FIELD, assert_not_retained, verified, day
+        from failed_editions import FIELD, REOPENED, assert_not_retained, verified, day
         assert_not_retained(repo, run_id, value or {})
         if value and value['status'] == 'complete' and value['run_id'] == run_id:
             record_wait(workspace, owner, repo, {'status': 'resolved', 'run_id': run_id})
@@ -275,6 +275,8 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runti
         proposed.update(heartbeat_at=stamp(moment), expires_at=stamp(moment + timedelta(seconds=LEASE_SECONDS)))
         if value and value.get(FIELD):
             proposed[FIELD] = value[FIELD]
+        if value and value.get(REOPENED):
+            proposed[REOPENED] = value[REOPENED]
         if previous_failure:
             proposed['previous_failed_edition'] = {'run_id': previous_failure['run_id'],
                 'checkpoint': previous_failure['checkpoint'], 'shipped': False}

@@ -227,6 +227,8 @@ def package_openings(source, destination):
         shutil.copy2(output / name, target_root / name)
         if creative.digest(target_root / name) != sha:
             raise ValueError("packaged opening evidence differs: " + name)
+    from selected_treatment import package as package_selected_treatment
+    package_selected_treatment(source, destination)
     errors = creative.opening_problems(destination / "storyboard.json")
     if errors:
         raise ValueError("packaged opening evidence failed validation: " + "; ".join(errors))
@@ -342,6 +344,8 @@ def build(root, state, *, combined_code_review=False, builder_proof=False):
     from engine_lint import check_files, LIB
     from documentary_check import check as documentary
     boards = owned_boards(root, state)
+    from selected_treatment import selection_proof
+    selected_completion = selection_proof(state)
     diagnostic = None
     if combined_code_review:
         from combined_review import eligibility
@@ -357,7 +361,8 @@ def build(root, state, *, combined_code_review=False, builder_proof=False):
         errors += check(board) + structure_problems(board, claims) + documentary(board)
         errors += supers(board, claims)[0]
         errors += narration(board, claims)
-        if not diagnostic and not proof:
+        if (not diagnostic and not proof
+                and (selected_completion is None or key == selected_completion['selected'])):
             review = creative.read(root / f"opening-{key}-critic.json")
             errors += problems(board, review)
             if (review.get("story_review") or {}).get("claims_sha256") != creative.digest(root / "claims.json"):
@@ -383,6 +388,8 @@ def build(root, state, *, combined_code_review=False, builder_proof=False):
         if old.get("reservation", {}).get("identity") == identity:
             if old.get('combined_code_review') != diagnostic or bool(old.get('builder_proof')) != bool(proof):
                 raise ValueError('retained comparison has different diagnostic authority; preserve its original evidence')
+            if old.get('selected_treatment_completion') != selected_completion:
+                raise ValueError('retained comparison has different selection authority; preserve its original evidence')
             if (old.get("policy_sha256") != creative.digest(creative.POLICY) or old.get("renderer_sha256") != expected_renderer
                     or old.get("producer_sha256") != expected_producer):
                 raise ValueError("retained opening approval dependencies changed; preserve it before repair")
@@ -448,6 +455,8 @@ def build(root, state, *, combined_code_review=False, builder_proof=False):
     if proof:
         receipt['builder_proof'] = proof
         receipt['approval'] = proof['note']
+    if selected_completion is not None:
+        receipt['selected_treatment_completion'] = selected_completion
     existing.write_text(json.dumps(receipt, indent=2)+"\n")
     result = inspect_options(output, receipt)
     if proof:
@@ -476,7 +485,10 @@ def main():
                   build(args.root, args.state, builder_proof=True) if args.builder_proof else
                   build(args.root, args.state))
         print(json.dumps(result, indent=2))
-        failures = inspection_problems(result, args.root / "openings")
+        from selected_treatment import inspection_problems as completion_inspection
+        failures = (inspection_problems(result, args.root / 'openings')
+                    if args.retain_failed_inspection or args.builder_proof else
+                    completion_inspection(result, args.root / 'openings', args.state))
         if failures:
             print("opening structural inspection failed: " + "; ".join(failures), file=sys.stderr)
             # For a builder proof these measurements are the feedback, not a gate.

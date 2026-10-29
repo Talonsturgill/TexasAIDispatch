@@ -428,6 +428,12 @@ def opening_problems(board_path):
         options = receipt["options"]
         from opening_compare import inspection_problems
         ledger = read(board_path.with_name("run_state.json"))
+        from selected_treatment import selection_proof
+        selected_completion = selection_proof(board_path.with_name('run_state.json'))
+        if receipt.get('selected_treatment_completion') is not None and receipt['selected_treatment_completion'] != selected_completion:
+            errors.append('opening comparison selection authority changed')
+        if selected_completion is not None and review.get('selected') != selected_completion['selected']:
+            errors.append('opening choice differs from the adopted independent treatment')
         if receipt.get('combined_code_review'):
             from combined_review import completed_problems
             errors += completed_problems(board_path.parent)
@@ -435,6 +441,9 @@ def opening_problems(board_path):
         if (root / "technical-continuation.json").exists() and not continuation:
             errors.append("historical treatment technical continuation is invalid")
         inspected_errors = finishing_inspection_problems(board, receipt, review, root, ledger)
+        if selected_completion is not None:
+            from selected_treatment import inspection_problems as selected_inspection
+            inspected_errors = selected_inspection(receipt, root, board_path.with_name('run_state.json'))
         if continuation:
             inspected_errors = [e for e in inspected_errors if e not in {
                 "opening a: structural inspection has stale inspector_sha256",

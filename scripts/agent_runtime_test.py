@@ -118,6 +118,46 @@ class CorrectionDefectHandoffTest(unittest.TestCase):
         self.native({'code_reports': {'a': self.report([], phone=False)}})
         self.assertEqual(['a'], [r['treatment'] for r in a.correction_defects(self.data)['reviews']])
 
+    def test_verified_scope_retains_unused_originals_without_repairing_them(self):
+        self.retained_phone()
+        a.bind_correction_defects(self.data, write=True)
+        old = Path(self.data['defects']['path']); old_bytes = old.read_bytes()
+        proof = {'run_id': '2026-10-26', 'selected': 'b', 'approval': False,
+                 'original_review': {'path': 'fixture-original', 'sha256': 'a' * 64}}
+        with patch('selected_treatment.selection_proof', return_value=proof):
+            a.bind_correction_defects(self.data, write=True)
+            handoff = a.read(self.data['defects']['path'])
+            self.assertEqual(['b'], [r['treatment'] for r in handoff['reviews']])
+            self.assertEqual([self.hand_defect], handoff['reviews'][0]['blocking_defects'])
+            self.assertEqual([self.exit_defect],
+                             handoff['retained_alternative_reviews'][0]['blocking_defects'])
+            self.assertFalse(handoff['selected_treatment']['approval'])
+            self.assertTrue(a.bind_correction_defects(self.data))
+            with patch.object(a, 'treatment_assets', return_value=[a.bound(self.board), a.bound(self.claims)]):
+                packet = d.packet(self.board, self.claims, 'scene-builder', self.state_path)
+                import claude_runtime
+                a.required_inputs(packet, 'scene-builder', claude_runtime.contracts('scene-builder'))
+                tampered = copy.deepcopy(packet); tampered['selected_treatment']['selected'] = 'a'
+                with self.assertRaisesRegex(ValueError, 'selected-treatment scope'):
+                    a.required_inputs(tampered, 'scene-builder', claude_runtime.contracts('scene-builder'))
+                self.assertLessEqual(len(d.packet_text(packet)), d.policy()['handoff_max_chars'])
+                encoded = json.loads(d.packet_text(packet))
+                self.assertEqual(a.expand_packet_bindings(encoded), packet)
+                self.assertIn('repo_root', encoded)
+                encoded['repo_root'] = '/wrong-root'
+                with self.assertRaisesRegex(ValueError, 'owned repository root'):
+                    a.expand_packet_bindings(encoded)
+        self.assertEqual(old_bytes, old.read_bytes())
+        with self.assertRaisesRegex(ValueError, 'omits or replaces|complete unchanged'):
+            a.bind_correction_defects(self.data)
+
+    def test_invalid_selection_proof_never_drops_unselected_findings(self):
+        self.retained_phone()
+        with patch('selected_treatment.selection_proof', side_effect=ValueError('original coverage missing')):
+            with self.assertRaisesRegex(ValueError, 'original coverage missing'):
+                a.correction_defects(self.data)
+        self.assertEqual(['a', 'b'], [r['treatment'] for r in a.correction_defects(self.data)['reviews']])
+
     def test_missing_or_tampered_binding_refuses_before_dispatch(self):
         self.retained_phone(); a.bind_correction_defects(self.data, write=True)
         path = Path(self.data['defects']['path']); original = path.read_bytes()
@@ -531,13 +571,13 @@ class LocalRecoveryRouting(unittest.TestCase):
                 patch('publication_owner.require_owner', return_value=self.owner), \
                 patch('publication_owner.has_unclaimed_worker_reservation', return_value=False), \
                 patch('publication_owner.claim_worker') as claim:
-            with self.assertRaisesRegex(ValueError, 'fifth review is protected'):
+            with self.assertRaisesRegex(ValueError, 'final funded review is protected'):
                 a.plan(role, self.packet, 'critic', 'Current code')
             data.update(phone_mode='current', review_scope='exact-muted-phone-preflight')
             self.packet.write_text(json.dumps(data))
             state = json.loads(self.state.read_text()); state['usage']['storyboard_critics'] = 5
             self.state.write_text(json.dumps(state))
-            with self.assertRaisesRegex(ValueError, 'hard five-review limit reached'):
+            with self.assertRaisesRegex(ValueError, 'review window exhausted'):
                 a.plan(role, self.packet, 'critic', 'Current timed phone')
             claim.assert_not_called()
         brief = self.root / data['brief']; brief.parent.mkdir(parents=True, exist_ok=True)

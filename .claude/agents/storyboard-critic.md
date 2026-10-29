@@ -280,7 +280,7 @@ performed_turn, pace, closing_answer and finished_art. Each needs pass, start_s,
 concrete observed finding from the current film. Repeated tableau, dull flat box props, tiny
 performed actions or decorative fresh art fail even when claims and mechanical gates pass.
 Record every failed modern observation in the existing blocking_defects too. Use story-time
-windows within board.runtime_s, excluding credits. At the bound October 20 hard-five finishing
+windows within board.runtime_s, excluding credits. At the configured creative finishing
 boundary only an independently classified surface_finish defect can use the existing bounded
 route, retaining the actual rejection. All other modern observations, source, rights, action,
 native, audio and caption gates remain required. Code scope inspects implementation without

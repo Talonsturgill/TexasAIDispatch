@@ -322,10 +322,11 @@ def image_policy_inputs(data):
             raise ValueError('local image review needs its explicit Codex delivery evidence contract')
 
 
-def image_coverage_problems(packet_path, coverage_path):
+def image_coverage_problems(packet_path, coverage_path, *, paths=None):
     """Check complete declared access to exact pages; never supply or change a verdict."""
     try:
-        data, coverage = read(packet_path), read(coverage_path)
+        locate = paths.path if paths is not None else Path
+        data, coverage = read(locate(packet_path)), read(locate(coverage_path))
         if not isinstance(data, dict) or not isinstance(coverage, dict):
             return ['image coverage and packet must be objects']
         image_policy_inputs(data)
@@ -337,7 +338,7 @@ def image_coverage_problems(packet_path, coverage_path):
         if not refs:
             return ['image coverage has no exact-film sequence']
         if (coverage.get('schema') != 'dispatch_claude_image_coverage/1'
-                or coverage.get('packet_sha256') != digest(packet_path)):
+                or coverage.get('packet_sha256') != digest(locate(packet_path))):
             return ['image coverage does not bind the exact current packet']
         rows = coverage.get('sequences')
         if not isinstance(rows, list) or len(rows) != len(refs):
@@ -347,15 +348,16 @@ def image_coverage_problems(packet_path, coverage_path):
         for ref, row in zip(refs, rows, strict=True):
             if not isinstance(row, dict):
                 errors.append('image coverage has a malformed sequence'); continue
-            if digest(ref['path']) != ref['sha256'] or row.get('index_sha256') != ref['sha256']:
+            if digest(locate(ref['path'])) != ref['sha256'] or row.get('index_sha256') != ref['sha256']:
                 errors.append('image coverage index bytes or identity changed'); continue
-            pages = read(ref['path'])['pages']; notes = row.get('pages')
+            pages = read(locate(ref['path']))['pages']; notes = row.get('pages')
             if not isinstance(pages, list) or not pages or not isinstance(notes, list) or len(notes) != len(pages):
                 errors.append('image coverage omits chronological pages'); continue
             for page, note in zip(pages, notes, strict=True):
                 if not isinstance(note, dict):
                     errors.append('image coverage has a malformed page observation'); continue
-                image = Path(ref['path']).parent / page['file']
+                logical_image = Path(ref['path']).parent / page['file']
+                image = locate(logical_image)
                 if (Path(page['file']).name != page['file'] or image.is_symlink()
                         or not image.is_file() or digest(image) != page['sha256']):
                     errors.append('image coverage page bytes are missing or changed')
@@ -370,7 +372,7 @@ def image_coverage_problems(packet_path, coverage_path):
                 from visual_observations import CONTRACT, note_problems
                 if data.get('public_visual_evidence') == CONTRACT:
                     root = Path(data['board']['path']).resolve().parents[2]
-                    errors.extend(note_problems(root, note, image.resolve().relative_to(root), page['sha256']))
+                    errors.extend(note_problems(root, note, logical_image.relative_to(root), page['sha256'], paths=paths))
                     if isinstance(note.get('observation'), dict):
                         independent_actors.add(Path(note['observation']['path']).parent.name)
         if len(independent_actors) > 1:
@@ -462,7 +464,7 @@ def phone_packet(packet_path, state_path, sequences, current=False, *, combined_
         from combined_review import eligibility
         data['combined_code_review'] = eligibility(state_path)
         data['code_report_bindings'] = code_report_bindings(data)
-        data['instructions'] += (' This is one combined fourth assignment. Read both complete current code '
+        data['instructions'] += (' This is one combined assignment, including initial diagnostic selection when explicitly eligible. Read both complete current code '
             'treatments and every actual chronological image page. Return ONE original JSON object with '
             'schema dispatch_combined_code_phone_handback/1, packet_sha256, reviewer_identity, '
             'code_reports:{a:complete original code-plan report,b:complete original code-plan report}, '

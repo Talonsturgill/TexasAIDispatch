@@ -39,6 +39,32 @@ def policy_available(state, *, charged=False):
             and record(state) is None and not state.get('terminal_state'))
 
 
+def initial_selection(state_path, state, *, charged=False, retained_selection=None):
+    """The first original critic may inspect code and full A/B pixels in one assignment."""
+    import review_limit
+    from manual_codex_repair import record
+    from selected_treatment import KIND, POLICY
+    if review_limit.used(state) != (1 if charged else 0):
+        return None
+    require(review_limit.enabled(state) and state.get('mode') == 'production'
+            and str(state['run_id'])[:10] >= '2026-10-29' and record(state) is None
+            and not state.get('terminal_state') and not state.get('deliverable')
+            and not any(event.get('kind') == KIND for event in state.get('events', []))
+            and not any(state.get('usage', {}).get(key, 0) for key in
+                        ('tts_calls', 'full_renders', 'panel_rounds', 'scorer_calls')),
+            'initial combined selection needs an unreviewed current production before narration or native capture')
+    reservations = [event for event in state['events']
+                    if event.get('kind') == 'reserved' and event.get('resources', {}).get('storyboard_critics')]
+    require(len(reservations) == (1 if charged else 0)
+            and all(event['resources']['storyboard_critics'] == 1 for event in reservations),
+            'initial selection cannot reset or replace a prior paid editorial attempt')
+    selection = Path(state_path).parent / 'openings/selection.json'
+    require(not selection.exists() or (retained_selection is not None and read(selection) == retained_selection),
+            'preserve the existing independent selection instead of restarting initial review')
+    return {'schema': SCHEMA, 'run_id': state['run_id'], 'critic_attempt': 1,
+            'route': 'initial-selection', 'policy_sha256': bound(POLICY)['sha256']}
+
+
 def contains_bindings(report, bindings):
     """An original report may add judgments, but cannot omit or change supplied identities."""
     if isinstance(bindings, dict):
@@ -124,6 +150,9 @@ def budget_eligibility(state_path, state=None, *, charged=False, retained_select
     """Price an original third code or silent-film rejection; approve no correction."""
     from completion_yield import original_critic_review
     state_path = Path(state_path).resolve(); state = state or read(state_path)
+    initial = initial_selection(state_path, state, charged=charged, retained_selection=retained_selection)
+    if initial is not None:
+        return initial
     require(policy_available(state, charged=charged),
             'combined review is only the fourth attempt of an ordinary hard-five edition')
     require(not any(state.get('usage', {}).get(key, 0) for key in
@@ -164,6 +193,8 @@ def eligibility(state_path, *, charged=False, retained_selection=None):
     """Require the original failure and its actual later authorized correction before capture."""
     state_path = Path(state_path).resolve(); state = read(state_path)
     proof = budget_eligibility(state_path, state, charged=charged, retained_selection=retained_selection)
+    if proof.get('route') == 'initial-selection':
+        return proof
     from completion_yield import original_critic_review
     original = original_critic_review(state_path, proof['third_reservation_event_index'])
     original_report = original['report']
@@ -203,7 +234,7 @@ def packet_problems(data, *, original=None):
     try:
         import claude_runtime
         state = read(data['phone_state'])
-        proof = eligibility(data['phone_state'], charged=state['usage']['storyboard_critics'] == 4,
+        proof = eligibility(data['phone_state'], charged=state['usage']['storyboard_critics'] in (1, 4),
                             retained_selection=original.get('selection') if original else None)
         require(data.get('phone_mode') == 'comparison' and data.get('review_scope') == 'exact-muted-phone-preflight'
                 and data.get('combined_code_review') == proof, 'combined packet route or original failure changed')
@@ -295,24 +326,35 @@ def completed_problems(root):
         import claude_runtime
         from completion_yield import verify_original_handback
         root = Path(root).resolve(); receipt = read(root / 'openings/combined-review.json')
+        from selected_treatment import packaged_paths
+        paths = packaged_paths(root)
+        locate = paths.path if paths is not None else Path
         require(receipt.get('schema') == SCHEMA, 'combined original handback receipt is missing')
         for ref in [receipt[k] for k in ('packet', 'handback', 'claim', 'coverage')] + list(receipt['reports'].values()):
-            require(bound(ref['path']) == ref, 'retain exact combined original evidence bytes')
-        packet = read(receipt['packet']['path'])
-        original = verify_original_handback(root.parents[1], receipt['packet']['path'],
-                                           receipt['handback']['path'], receipt['claim']['path'])
+            require(bound(locate(ref['path']))['sha256'] == ref['sha256'], 'retain exact combined original evidence bytes')
+        packet = read(locate(receipt['packet']['path']))
+        original = verify_original_handback(paths.root if paths is not None else root.parents[1],
+                                           locate(receipt['packet']['path']), locate(receipt['handback']['path']),
+                                           locate(receipt['claim']['path']))
         require(original.get('schema') == HANDBACK, 'retain the original combined reviewer response')
         from completion_yield import original_critic_review
-        native = original_critic_review(Path(packet['phone_state']),
-                                        read(receipt['claim']['path'])['reservation_event_index'])
+        native = original_critic_review(locate(packet['phone_state']),
+                                        read(locate(receipt['claim']['path']))['reservation_event_index'])
         require(native['reviewer_identity'] == receipt['native_reviewer_identity'],
                 'combined native reviewer identity changed')
-        same_observer(root, native, original, read(receipt['coverage']['path']))
-        errors = claude_runtime.image_coverage_problems(receipt['packet']['path'], receipt['coverage']['path'])
+        same_observer(Path(packet['phone_state']).parent if paths is not None else root,
+                      native, original, read(locate(receipt['coverage']['path'])))
+        errors = claude_runtime.image_coverage_problems(locate(receipt['packet']['path']),
+                                                       locate(receipt['coverage']['path']),
+                                                       **({'paths': paths} if paths is not None else {}))
+        from selected_treatment import selection_proof
+        selected_completion = selection_proof(root / 'run_state.json')
         for key in ('a', 'b'):
-            board = read(root / ('opening-' + key + '.json'))
             report = read(root / ('opening-' + key + '-critic.json'))
             require(report == original['code_reports'][key], 'code verdict differs from original combined handback')
+            if selected_completion is not None and key != selected_completion['selected']:
+                continue  # The exact unselected rejection remains in the original paired handback.
+            board = read(root / ('opening-' + key + '.json'))
             require(report.get('verdict') == 'pass' and report.get('review_scope') == 'code-plan',
                     'both original combined code reports must independently PASS')
             errors += critic_gate.problems(board, report)
@@ -323,8 +365,11 @@ def completed_problems(root):
         option = next(row for row in packet['phone_options'] if row['id'] == selection['selected'])
         phone = read(root / 'openings/combined-phone-review.json')
         require(phone == original['phone_review'], 'phone verdict differs from original combined handback')
-        inspection = read(root / 'openings' / (selection['selected'] + '-inspection.json'))
-        errors += critic_gate.film_review_problems(read(option['board']['path']), phone, inspection,
+        from opening_compare import evidence_path
+        comparison = read(root / 'openings/comparison.json')
+        selected_option = next(row for row in comparison['options'] if row['id'] == selection['selected'])
+        inspection = read(evidence_path(root / 'openings', selected_option['inspection']))
+        errors += critic_gate.film_review_problems(read(locate(option['board']['path'])), phone, inspection,
                                                    option['board']['sha256'], option['film']['sha256'])
         return errors
     except (OSError, ValueError, KeyError, TypeError, StopIteration) as exc:

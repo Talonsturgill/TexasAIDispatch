@@ -747,6 +747,8 @@ class RemainingPathCapacityTest(unittest.TestCase):
         self.proof = {'original_review': {'path': str(self.receipt)}}
         self.addCleanup(patch.stopall)
         patch('combined_review.budget_eligibility', return_value=self.proof).start()
+        patch('completion_yield.original_critic_review', side_effect=lambda *args, **kwargs:
+              {'report': json.loads(self.receipt.read_text())['report']}).start()
         patch('review_limit.review_evidence', return_value=({'code': True, 'comparison': False,
                                                            'timed_phone': False}, [])).start()
 
@@ -755,7 +757,7 @@ class RemainingPathCapacityTest(unittest.TestCase):
         self.assertTrue(accepted, message)
         return controller.read_state(self.state)
 
-    def test_exact_capture_deficit_preserves_paid_builder_original_seven_and_hard_five(self):
+    def test_exact_capture_deficit_preserves_paid_builder_and_original_seven(self):
         state = self.grant(); grant = state['events'][-1]
         self.assertEqual(grant['resource_increments'], {'preflight_renders': 5})
         self.assertEqual(grant['reason'], 'modern-film-floor')
@@ -765,7 +767,8 @@ class RemainingPathCapacityTest(unittest.TestCase):
         self.assertEqual(state['resource_envelope']['storyboard_critics'], 7)
         self.assertEqual(state['events'][:len(self.before['events'])], self.before['events'])
         budget = json.loads(grant['precheck_json'])
-        self.assertEqual(budget['resources']['storyboard_critics']['ceiling'], 5)
+        self.assertEqual(budget['resources']['storyboard_critics']['ceiling'], 7)
+        self.assertEqual(grant[capacity.REVIEW_ALLOCATION]['schema'], 'dispatch_review_path_allocation/2')
         self.assertEqual(budget['resources']['storyboard_critics']['required'], 2)
         self.assertEqual(budget['resources']['preflight_renders']['required'], 7)
         self.assertEqual(budget['resources']['reboards']['required'], 0)
@@ -781,6 +784,7 @@ class RemainingPathCapacityTest(unittest.TestCase):
         delta = state['usage']['preflight_renders'] - 4
         state['usage']['preflight_renders'] = 4
         next(e for e in state['events'] if e.get('resources', {}).get('preflight_renders'))['resources']['preflight_renders'] -= delta
+        capacity.adopt_capacity(state, existing=True)
         controller.save(self.state, state); before = self.state.read_bytes()
         self.grant()
         self.assertEqual(self.state.read_bytes(), before)
@@ -809,17 +813,210 @@ class RemainingPathCapacityTest(unittest.TestCase):
         original = json.loads(self.receipt.read_text()); original['report']['status'] = 'changed'
         self.receipt.write_text(json.dumps(original))
         accepted, message = capacity.grant_capacity(self.state, self.plan)
-        self.assertFalse(accepted); self.assertIn('unchanged original', message)
+        self.assertFalse(accepted); self.assertIn('unchanged latest original', message)
         self.assertEqual(self.state.read_bytes(), before)
-        with patch('combined_review.budget_eligibility', side_effect=ValueError('original coverage is incomplete')):
+        with patch('completion_yield.original_critic_review', side_effect=ValueError('original coverage is incomplete')):
             self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
         self.assertEqual(self.state.read_bytes(), before)
 
     def test_unfundable_reviews_cannot_receive_noncritic_capacity(self):
         before = self.state.read_bytes()
-        with patch('combined_review.budget_eligibility', side_effect=ValueError('no original combined route')):
+        with patch('completion_yield.original_critic_review', side_effect=ValueError('no original charged response')):
             self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
         self.assertEqual(self.state.read_bytes(), before)
+
+    def test_original_phone_survives_later_code_pass_but_never_a_later_phone_or_tamper(self):
+        state = controller.read_state(self.state)
+        controller.event(state, 'selected_treatment_completion_adopted', proof={'selected': 'b'})
+        controller.event(state, 'reserved', resources={'storyboard_critics': 1}, note='offline later code review')
+        state['usage']['storyboard_critics'] += 1
+        controller.save(self.state, state); before = self.state.read_bytes()
+        latest = len(state['events']) - 1
+        phone = json.loads(self.report.read_text())
+        code = {'code_reports': {option: {'review_scope': 'code-plan', 'verdict': 'pass',
+                 'reviewer_identity': 'later-code-reviewer'} for option in ('a', 'b')}}
+        def original(later):
+            return lambda path, index: {'report': later if index == latest else phone}
+        with patch('selected_treatment.selection_proof', return_value={'selected': 'b'}), \
+                patch('combined_review.budget_eligibility', side_effect=ValueError('ordinary correction')):
+            for later in ({**phone, 'later': 'rejection'}, {**phone, 'verdict': 'pass'},
+                          {'code_reports': {**code['code_reports'], 'b': {'review_scope': 'code-plan', 'verdict': 'revise'}}}):
+                with patch('completion_yield.original_critic_review', side_effect=original(later)):
+                    self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
+                self.assertEqual(self.state.read_bytes(), before)
+            with patch('completion_yield.original_critic_review', side_effect=original(code)):
+                granted = self.grant()
+        self.assertEqual(granted['events'][-1]['resource_increments'], {'preflight_renders': 5})
+        self.assertEqual(granted['usage'], state['usage'])
+        self.assertEqual(capacity.replay(granted)[1], [])
+
+    def test_original_combined_selected_phone_classifies_without_fabricated_nested_metadata(self):
+        state = controller.read_state(self.state); capacity.adopt_capacity(state, existing=True)
+        controller.event(state, 'selected_treatment_completion_adopted', proof={'selected': 'b'})
+        pair = json.loads(self.report.read_text()); phone = copy.deepcopy(pair['phone_reports']['b'])
+        phone.pop('film'); phone.pop('comparison'); phone['modern_observations'].pop('film_sha256')
+        report = {'schema': 'dispatch_combined_code_phone_handback/1', 'selection': pair['selection'],
+                  'reviewer_identity': phone['reviewer_identity'], 'phone_review': phone}
+        text = json.dumps(report); plan = json.loads(self.plan.read_text())
+        plan['failure_evidence_sha256'] = capacity.sha(text)
+        self.assertEqual(capacity.mandatory_reason(state, plan, text), 'modern-film-floor')
+        self.assertEqual(capacity.selected_phone_failure(state, plan, report), phone)
+        report['selection']['selected'] = 'a'; text = json.dumps(report)
+        plan['failure_evidence_sha256'] = capacity.sha(text)
+        self.assertIsNone(capacity.mandatory_reason(state, plan, text))
+
+    def test_original_five_window_replays_without_current_policy_reinterpretation(self):
+        import review_limit
+        with patch.object(capacity, 'adopt_capacity'):
+            state = self.grant()
+        self.assertEqual(state['events'][-1][capacity.REVIEW_ALLOCATION]['schema'], 'dispatch_review_path_allocation/1')
+        with patch.object(review_limit, 'MAX_ROUNDS', 20), \
+                patch.object(review_limit, 'POLICY', Path(__file__).resolve().parents[1] / 'config/review_limit.json'):
+            self.assertEqual(capacity.replay(state)[1], [])
+
+
+class StandingCapacityTest(unittest.TestCase):
+    """Exercise the real grant and reservation path with an ordinary unfinished ledger."""
+    write_plan = CompletionCapacityTest.write_plan
+    grant = CompletionCapacityTest.grant
+
+    def setUp(self):
+        import review_limit
+        self.addCleanup(patch.stopall)
+        patch.object(review_limit, 'MAX_ROUNDS', 20).start()
+        patch.object(review_limit, 'POLICY', Path(__file__).resolve().parents[1] / 'config/review_limit.json').start()
+        CompletionCapacityTest.setUp(self)
+        self.state.unlink()
+        self.assertTrue(controller.initialise(self.state, '2026-10-26', 'production')[0])
+        state = controller.read_state(self.state)
+        state['usage']['storyboard_critics'] = 5
+        for _ in range(5):
+            controller.event(state, 'reserved', resources={'storyboard_critics': 1}, note='offline critic charge')
+        controller.save(self.state, state)
+        self.before = copy.deepcopy(state)
+        self.write_plan(changed_inputs=[{'path': 'video-engine/src/episode.tsx'}])
+        self.addCleanup(patch.stopall)
+        patch('combined_review.budget_eligibility', side_effect=ValueError('ordinary route')).start()
+        patch('review_limit.review_evidence', return_value=({'code': False, 'comparison': False,
+                                                           'timed_phone': False}, [])).start()
+
+    def test_standing_restored_five_of_seven_grants_one_and_reserves(self):
+        before = controller.read_state(self.state)
+        budget = guard.production_budget_precheck(before, state_path=self.state,
+                    repair_plan=json.loads(self.plan.read_text()), mandatory_repair=True)
+        self.assertEqual(budget['resources']['storyboard_critics']['required'], 3)
+        self.assertEqual(budget['deficits'], {'storyboard_critics': 1})
+        state = self.grant()
+        self.assertEqual(state['events'][-1]['resource_increments'], {'storyboard_critics': 1})
+        self.assertEqual(state['usage'], before['usage'])
+        self.assertEqual(state['resource_envelope'], before['resource_envelope'])
+        self.assertEqual(state['events'][:len(before['events'])], before['events'])
+        self.assertEqual(capacity.replay(state)[1], [])
+        self.assertTrue(controller.reserve(self.state, {'storyboard_critics': 1}, 'offline funded code')[0])
+        self.assertEqual(controller.read_state(self.state)['usage']['storyboard_critics'], 6)
+
+    def test_beyond_twenty_requires_recorded_capacity_before_reservation(self):
+        state = controller.read_state(self.state)
+        for field in ('resource_envelope', 'escalation_ceiling'):
+            state[field]['storyboard_critics'] = 20
+        next(e for e in state['events'] if e['kind'] == 'resource_envelope_frozen')['envelope']['storyboard_critics'] = 20
+        next(e for e in state['events'] if e['kind'] == 'initialised')['ceiling_snapshot']['storyboard_critics'] = 20
+        state['usage']['storyboard_critics'] = 20
+        for _ in range(15):
+            controller.event(state, 'reserved', resources={'storyboard_critics': 1}, note='offline critic charge')
+        controller.save(self.state, state); before = copy.deepcopy(state)
+        self.assertFalse(controller.reserve(self.state, {'storyboard_critics': 1}, 'unfunded code')[0])
+        state = self.grant()
+        self.assertEqual(state['events'][-1]['resource_increments'], {'storyboard_critics': 3})
+        self.assertEqual(state['usage'], before['usage'])
+        self.assertEqual(state['resource_envelope'], before['resource_envelope'])
+        self.assertEqual(capacity.replay(state)[1], [])
+        self.assertTrue(controller.reserve(self.state, {'storyboard_critics': 1}, 'funded code')[0])
+        self.assertEqual(controller.read_state(self.state)['usage']['storyboard_critics'], 21)
+
+    def test_duplicate_optional_polish_and_mutated_authority_refuse(self):
+        state = self.grant(); before = self.state.read_bytes()
+        self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
+        self.assertEqual(self.state.read_bytes(), before)
+        next(e for e in state['events'] if e['kind'] == capacity.CAPACITY_ADOPTION)['policy_json'] += ' '
+        self.assertTrue(capacity.replay(state)[1])
+        report = json.loads(self.report.read_text()); report['blocking_defects'] = ['Make the camera easing smoother.']
+        self.report.write_text(json.dumps(report)); self.write_plan(changed_inputs=[{'path': 'episode.tsx'}])
+        self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_historical_expenditure_closure_cannot_gain_standing_capacity_or_reopen(self):
+        state = controller.read_state(self.state)
+        controller.event(state, 'hard_limit_expenditure_closed', evidence={'original': 'retained'})
+        controller.save(self.state, state); before = self.state.read_bytes()
+        original = copy.deepcopy(state)
+        capacity.adopt_capacity(state, existing=True)
+        self.assertEqual(state, original)
+        accepted, reason = capacity.grant_capacity(self.state, self.plan)
+        self.assertFalse(accepted); self.assertIn('closed failed edition', reason)
+        self.assertFalse(lifecycle.active(state))
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_new_edition_adopts_without_blanket_calls_or_rewriting_frozen_seven(self):
+        fresh = self.root / 'new-state.json'
+        self.assertTrue(controller.initialise(fresh, '2026-10-29', 'production')[0])
+        state = controller.read_state(fresh)
+        self.assertTrue(capacity.capacity_policy_active(state))
+        self.assertEqual(state['resource_envelope']['storyboard_critics'], 7)
+        self.assertEqual(state['usage']['storyboard_critics'], 0)
+        self.assertFalse(any(e['kind'] == capacity.EVENT for e in state['events']))
+        self.assertEqual(capacity.replay(state)[1], [])
+
+    def test_begin_repair_funds_after_baselines_then_charges_builder_once(self):
+        source = self.root / 'episode.tsx'; baseline = self.root / 'before.tsx'
+        source.write_text('original action source'); baseline.write_bytes(source.read_bytes())
+        (self.root / 'storyboard.json').write_text(json.dumps({'date': '2026-10-26'}))
+        changed = [{'path': str(source), 'before_path': str(baseline), 'before_sha256': controller.digest(source)}]
+        self.write_plan(changed_inputs=changed, mechanism_id='withdraw-carton', failure_family='continuity',
+            root_cause='The exact independent review found the carton never leaves the visible stack.',
+            mechanism_change='Replace the static carton position with a visibly performed withdrawal and hand contact.',
+            expected_visible_result='The carton leaves its slot and remains supported by the hand through the move.',
+            resources={'reboards': 1})
+        before = self.state.read_bytes(); source.write_text('unretained edit')
+        accepted, message = lifecycle.begin_repair(self.state, self.plan, reserve_reboard=True)
+        self.assertFalse(accepted); self.assertIn('baseline', message)
+        self.assertEqual(self.state.read_bytes(), before)
+        source.write_bytes(baseline.read_bytes())
+        accepted, message = lifecycle.begin_repair(self.state, self.plan, reserve_reboard=True)
+        self.assertTrue(accepted, message)
+        opened = controller.read_state(self.state)
+        self.assertEqual(opened['usage']['reboards'], 1)
+        self.assertEqual(opened['usage']['storyboard_critics'], 5)
+        grants = [e for e in opened['events'] if e['kind'] == capacity.EVENT]
+        self.assertEqual([e['resource_increments'] for e in grants], [{'storyboard_critics': 1}])
+        source.write_text('corrected action source with visible withdrawal')
+        plan = json.loads(self.plan.read_text()); plan['changed_inputs'][0]['after_sha256'] = controller.digest(source)
+        self.plan.write_text(json.dumps(plan))
+        accepted, message = lifecycle.authorize_repair(self.state, self.plan)
+        self.assertTrue(accepted, message)
+        finished = controller.read_state(self.state)
+        self.assertEqual(finished['usage']['reboards'], 1)
+        self.assertEqual(len([e for e in finished['events'] if e['kind'] == capacity.EVENT]), 1)
+        self.assertEqual(capacity.replay(finished)[1], [])
+
+    def test_native_code_pair_requires_latest_original_and_ignores_unselected_rejection(self):
+        report = {'review_scope': 'code-plan', 'packet_sha256': 'c' * 64, 'code_reports': {
+            option: {'review_scope': 'code-plan', 'reviewer_identity': 'offline-independent-critic',
+                     'verdict': 'revise' if option == 'a' else 'pass',
+                     'blocking_defects': [{'category': 'motion', 'defect': 'The opening shows no performed exit.'}]
+                                         if option == 'a' else []} for option in ('a', 'b')}}
+        self.report.write_text(json.dumps(report)); self.write_plan(changed_inputs=[{'path': 'episode.tsx'}])
+        before = self.state.read_bytes()
+        with patch('completion_yield.original_critic_review', return_value={'report': {**report, 'changed': True}}):
+            self.assertFalse(capacity.grant_capacity(self.state, self.plan)[0])
+        self.assertEqual(self.state.read_bytes(), before)
+        with patch('completion_yield.original_critic_review', return_value={'report': report}):
+            state = self.grant()
+        self.assertEqual(state['events'][-1]['failure_evidence_json'], self.report.read_text())
+        self.assertEqual(state['events'][-1]['resource_increments'], {'storyboard_critics': 1})
+        self.assertEqual(capacity.replay(state)[1], [])
+        controller.event(state, 'selected_treatment_completion_adopted', proof={'selected': 'b'})
+        self.assertFalse(capacity.native_code_failure(state, json.loads(self.plan.read_text()), report))
 
 
 if __name__ == "__main__":
