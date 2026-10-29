@@ -345,7 +345,7 @@ def checkpoint_proof(state_path, evidence):
     return tip
 
 
-def validate_exhausted_review(state_path, plan):
+def validate_exhausted_review(state_path, plan, *, historical_ceiling=None, retained_evidence=None):
     """Retain an impossible pre-film path without authorizing another attempt or shipment."""
     from run_controller import digest as file_sha
     from review_limit import reached, unfundable, used, FINAL_PACKET_FROM
@@ -355,8 +355,17 @@ def validate_exhausted_review(state_path, plan):
             'exhausted-review closure needs its original failure evidence')
     # Preserve the producer's original unfundable closure and all original evidence.
     # The current path budget also recognizes a genuinely available combined route.
-    closed_path = (reached(state) if plan['reason'] == EXHAUSTED_REQUIRED_REVIEW
-                   else unfundable(state, state_path.parent))
+    if historical_ceiling is not None:
+        require(type(historical_ceiling) is int and historical_ceiling > 0
+                and isinstance(retained_evidence, dict), 'historical failure needs its retained original proof')
+        remaining = historical_ceiling - used(state)
+        closed_path = (used(state) >= historical_ceiling if plan['reason'] == EXHAUSTED_REQUIRED_REVIEW else
+                       0 < remaining < 3 and used(state) >= 3 and not any(
+                           (state_path.parent / name).exists() for name in
+                           ('openings/selection.json', 'opening-a-critic.json', 'opening-b-critic.json')))
+    else:
+        closed_path = (reached(state) if plan['reason'] == EXHAUSTED_REQUIRED_REVIEW
+                       else unfundable(state, state_path.parent))
     require(str(state.get('run_id', ''))[:10] >= FINAL_PACKET_FROM and closed_path
             and not state.get('terminal_state') and not state.get('shipment')
             and not any(e.get('kind') == manual_event for e in events),
@@ -411,14 +420,20 @@ def validate_exhausted_review(state_path, plan):
     require(len(closure_indexes) <= 1, 'preserve the single expenditure closure')
     prefix = events[:closure_indexes[0]] if closure_indexes else events
     index, original = originals[-1]
-    return {'plan': plan, 'files': bindings, 'failure_event_index': index,
+    evidence = {'plan': plan, 'files': bindings, 'failure_event_index': index,
             'failure_event_sha256': digest(original), 'ledger_prefix_sha256': digest(prefix),
             'paid_usage_sha256': digest({k: v for k, v in state['usage'].items() if k != 'reported_tokens'}),
             'envelope_sha256': digest(state['resource_envelope']),
             'production_finished': False, 'shipment_authorized': False}
+    if historical_ceiling is not None:
+        prior = {**retained_evidence, 'plan': dict(retained_evidence.get('plan', {}))}
+        if isinstance(prior['plan'].get('failure_evidence'), str):
+            prior['plan']['failure_evidence'] = prior['plan']['failure_evidence'].removeprefix('{REPO}/')
+        require(evidence == prior, 'historical failure differs from its original accepted evidence')
+    return evidence
 
 
-def validate_infeasible_review(state_path, plan):
+def validate_infeasible_review(state_path, plan, *, historical_ceiling=None, retained_evidence=None):
     """Retain a genuine fourth combined rejection; never buy a dummy fifth attempt."""
     from run_controller import digest as file_sha
     from review_limit import remaining_review_path
@@ -428,7 +443,13 @@ def validate_infeasible_review(state_path, plan):
     require(set(plan) == {'reason', 'critic_completion'}
             and plan['reason'] == INFEASIBLE_REQUIRED_REVIEW,
             'infeasible-review closure requires its original native critic completion')
-    budget = remaining_review_path(state)
+    if historical_ceiling is not None:
+        require(historical_ceiling == 5 and isinstance(retained_evidence, dict),
+                'historical combined failure needs its original five-window proof')
+        count = state.get('usage', {}).get('storyboard_critics', 0)
+        budget = {'used': count, 'ceiling': historical_ceiling, 'remaining': historical_ceiling - count}
+    else:
+        budget = remaining_review_path(state)
     require(state.get('mode') == 'production' and str(state.get('run_id', ''))[:10] >= '2026-10-25'
             and budget['used'] == 4 and budget['ceiling'] == 5 and budget['remaining'] == 1
             and not state.get('terminal_state') and not state.get('shipment')
@@ -504,12 +525,15 @@ def validate_infeasible_review(state_path, plan):
     closure_indexes = [i for i, e in enumerate(events) if e.get('kind') == KIND]
     require(len(closure_indexes) <= 1, 'preserve the single expenditure closure')
     prefix = events[:closure_indexes[0]] if closure_indexes else events
-    return {'plan': plan, 'files': bindings, 'review_path': minimum,
+    evidence = {'plan': plan, 'files': bindings, 'review_path': minimum,
             'failure_event_index': reservations[-1][0], 'failure_event_sha256': digest(reservations[-1][1]),
             'ledger_prefix_sha256': digest(prefix),
             'paid_usage_sha256': digest({k: v for k, v in state['usage'].items() if k != 'reported_tokens'}),
             'envelope_sha256': digest(state['resource_envelope']),
             'production_finished': False, 'shipment_authorized': False}
+    if historical_ceiling is not None:
+        require(evidence == retained_evidence, 'historical combined failure differs from its original accepted evidence')
+    return evidence
 
 
 def validate_plan(state_path, plan):

@@ -12,6 +12,184 @@ import picture_precheck as p
 import daily_production as d
 
 
+class CorrectionDefectHandoffTest(unittest.TestCase):
+    """Public native handback fixtures, without providers, pictures or production mutation."""
+    def write(self, path, value):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(value) + '\n')
+        return path
+
+    def setUp(self):
+        import publication_owner
+        import routine_continuation
+        self.temp = tempfile.TemporaryDirectory(); self.addCleanup(self.temp.cleanup)
+        self.workspace = Path(self.temp.name).resolve(); self.repo = self.workspace / 'Dispatch'
+        self.root = self.repo / 'out/dispatch'; self.state_path = self.root / 'run_state.json'
+        self.owner = publication_owner.identity('fixture-director')
+        self.state = {'mode': 'production', 'run_id': '2026-10-26', 'terminal_state': None,
+                      'phase': 'active_repair', 'usage': {}, 'events': [{'kind': 'repair_started'}]}
+        self.write(self.state_path, self.state)
+        self.write(self.workspace / routine_continuation.MARKER, {'schema': routine_continuation.SCHEMA,
+            'run_id': self.state['run_id'], 'state': str(self.state_path)})
+        self.board = self.write(self.root / 'storyboard.json', {'date': '2026-10-26', 'scenes': [],
+            'creative_direction': {'medium_choice': 'explanatory animation'},
+            'story_art': {'version': 'authored-story-art-v1'}, 'film_direction': {'variant': 'a'}})
+        self.claims = self.write(self.root / 'claims.json', {'claims': []})
+        for key in ('a', 'b'):
+            self.write(self.root / ('opening-' + key + '.json'),
+                {**a.read(self.board), 'film_direction': {'variant': key}})
+        self.data = {'role': 'scene-builder', 'date': '2026-10-26', 'board': a.bound(self.board),
+                     'agent_assignment': {'model': 'claude-opus-5-5'}, 'instructions': 'Repair selected B only.'}
+        self.exit_defect = {'category': 'motion', 'scene_id': 's1', 'time_s': 0,
+                            'defect': 'No exit is performed in A; the opening shows only a door and an apron.'}
+        self.hand_defect = {'category': 'continuity', 'scene_id': 's3', 'time_s': 19.2,
+                            'defect': 'The guest hands change skin tone across cuts in B.'}
+
+    def native(self, report, *, options=None):
+        import completion_yield as native
+        index = len(self.state['events'])
+        event = {'kind': 'reserved', 'resources': {'storyboard_critics': 1},
+                 'publication_owner_sha256': self.owner, 'publication_epoch': 'fixture-epoch'}
+        self.state['events'].append(event); self.write(self.state_path, self.state)
+        packet = self.write(self.root / ('packet-' + str(index) + '.json'),
+            {'role': 'storyboard-critic', 'date': '2026-10-26', 'fixture_attempt': index,
+             'phone_options': options or []})
+        report = {**report, 'packet_sha256': a.digest(packet)}
+        self.write(self.root / 'worker-dispatch-claims' / (str(index) + '.json'),
+            {'schema': 'dispatch_worker_dispatch_claim/1', 'role': 'storyboard-critic',
+             'run_id': self.state['run_id'], 'packet_sha256': a.digest(packet),
+             'reservation_event_index': index, 'reservation_sha256': native.digest(event),
+             'owner_sha256': self.owner, 'epoch': 'fixture-epoch'})
+        native.record({'hook_event_name': 'SubagentStop', 'session_id': 'fixture-director',
+            'agent_id': 'fixture-critic-' + str(index), 'agent_type': 'dispatch-visual-critic',
+            'last_assistant_message': json.dumps(report)}, self.workspace)
+        return packet
+
+    def report(self, defects, *, phone=True):
+        return {'review_scope': 'exact-muted-phone-preflight' if phone else 'code-plan',
+                'verdict': 'revise' if defects else 'pass', 'blocking_defects': defects,
+                'reviewer_identity': 'fixture-independent-critic'}
+
+    def retained_phone(self):
+        # The actual third wrapper has no top-level verdict or reviewer label.
+        self.native({'review_scope': 'exact-muted-phone-preflight',
+            'phone_reports': {'a': self.report([self.exit_defect]), 'b': self.report([self.hand_defect])},
+            'selection': {'selected': 'b'}})
+
+    def test_selected_b_summary_cannot_drop_original_a_walkout(self):
+        self.retained_phone()
+        self.write(self.root / 'current-defects.json', {'summary': 'Only B needs repair.'})
+        assets = [a.bound(self.board), a.bound(self.claims)]
+        with patch.object(a, 'treatment_assets', return_value=assets):
+            packet = d.packet(self.board, self.claims, 'scene-builder', self.state_path)
+            import claude_runtime
+            a.required_inputs(packet, 'scene-builder', claude_runtime.contracts('scene-builder'))
+            missing = copy.deepcopy(packet); missing.pop('defects')
+            with self.assertRaisesRegex(ValueError, 'omits or replaces'):
+                a.required_inputs(missing, 'scene-builder', claude_runtime.contracts('scene-builder'))
+        actual = a.read(packet['defects']['path'])
+        self.assertEqual(['a', 'b'], [r['treatment'] for r in actual['reviews']])
+        self.assertEqual([self.exit_defect], actual['reviews'][0]['blocking_defects'])
+        self.assertEqual({'summary': 'Only B needs repair.'}, a.read(self.root / 'current-defects.json'))
+        self.assertTrue(a.bind_correction_defects(packet))
+        self.assertLessEqual(len(d.packet_text(packet)), d.policy()['handoff_max_chars'])
+
+    def test_actual_fourth_fifth_shapes_keep_original_unselected_phone_failure(self):
+        self.retained_phone()
+        self.native({'schema': 'dispatch_combined_code_phone_handback/1',
+            'code_reports': {'a': self.report([], phone=False), 'b': self.report([], phone=False)},
+            'selection': {'selected': 'b', 'rejected_reason': 'A still performs no walkout.'},
+            'phone_review': self.report([{'category': 'contact_and_consequence', 'scene_id': 's3',
+                'defect': 'The selected B guest has detached arms.'}])})
+        self.native({'review_scope': 'code-plan', 'treatment_verdicts': {'a': 'revise', 'b': 'pass'},
+            'code_reports': {'a': self.report([self.exit_defect], phone=False),
+                             'b': self.report([], phone=False)}})
+        rows = a.correction_defects(self.data)['reviews']
+        self.assertEqual(4, len(rows))
+        self.assertTrue(any(r['treatment'] == 'a' and r['review_scope'] == 'exact-muted-phone-preflight'
+                            and r['blocking_defects'] == [self.exit_defect] for r in rows))
+
+    def test_only_same_treatment_bound_phone_pass_clears_phone_failure(self):
+        self.retained_phone()
+        binding = {'review_scope': 'exact-muted-phone-preflight', 'reviewed_preflight_sha256': 'a' * 64}
+        self.native({'phone_reports': {'b': {**self.report([]), **binding}}},
+                    options=[{'id': 'b', 'report_bindings': binding}])
+        self.assertEqual(['a'], [r['treatment'] for r in a.correction_defects(self.data)['reviews']])
+        self.native({'code_reports': {'a': self.report([], phone=False)}})
+        self.assertEqual(['a'], [r['treatment'] for r in a.correction_defects(self.data)['reviews']])
+
+    def test_verified_scope_retains_unused_originals_without_repairing_them(self):
+        self.retained_phone()
+        a.bind_correction_defects(self.data, write=True)
+        old = Path(self.data['defects']['path']); old_bytes = old.read_bytes()
+        proof = {'run_id': '2026-10-26', 'selected': 'b', 'approval': False,
+                 'original_review': {'path': 'fixture-original', 'sha256': 'a' * 64}}
+        with patch('selected_treatment.selection_proof', return_value=proof):
+            a.bind_correction_defects(self.data, write=True)
+            handoff = a.read(self.data['defects']['path'])
+            self.assertEqual(['b'], [r['treatment'] for r in handoff['reviews']])
+            self.assertEqual([self.hand_defect], handoff['reviews'][0]['blocking_defects'])
+            self.assertEqual([self.exit_defect],
+                             handoff['retained_alternative_reviews'][0]['blocking_defects'])
+            self.assertFalse(handoff['selected_treatment']['approval'])
+            self.assertTrue(a.bind_correction_defects(self.data))
+            with patch.object(a, 'treatment_assets', return_value=[a.bound(self.board), a.bound(self.claims)]):
+                packet = d.packet(self.board, self.claims, 'scene-builder', self.state_path)
+                import claude_runtime
+                a.required_inputs(packet, 'scene-builder', claude_runtime.contracts('scene-builder'))
+                tampered = copy.deepcopy(packet); tampered['selected_treatment']['selected'] = 'a'
+                with self.assertRaisesRegex(ValueError, 'selected-treatment scope'):
+                    a.required_inputs(tampered, 'scene-builder', claude_runtime.contracts('scene-builder'))
+                self.assertLessEqual(len(d.packet_text(packet)), d.policy()['handoff_max_chars'])
+                encoded = json.loads(d.packet_text(packet))
+                self.assertEqual(a.expand_packet_bindings(encoded), packet)
+                self.assertIn('repo_root', encoded)
+                encoded['repo_root'] = '/wrong-root'
+                with self.assertRaisesRegex(ValueError, 'owned repository root'):
+                    a.expand_packet_bindings(encoded)
+        self.assertEqual(old_bytes, old.read_bytes())
+        with self.assertRaisesRegex(ValueError, 'omits or replaces|complete unchanged'):
+            a.bind_correction_defects(self.data)
+
+    def test_invalid_selection_proof_never_drops_unselected_findings(self):
+        self.retained_phone()
+        with patch('selected_treatment.selection_proof', side_effect=ValueError('original coverage missing')):
+            with self.assertRaisesRegex(ValueError, 'original coverage missing'):
+                a.correction_defects(self.data)
+        self.assertEqual(['a', 'b'], [r['treatment'] for r in a.correction_defects(self.data)['reviews']])
+
+    def test_missing_or_tampered_binding_refuses_before_dispatch(self):
+        self.retained_phone(); a.bind_correction_defects(self.data, write=True)
+        path = Path(self.data['defects']['path']); original = path.read_bytes()
+        missing = copy.deepcopy(self.data); missing.pop('defects')
+        with self.assertRaisesRegex(ValueError, 'omits or replaces'):
+            a.bind_correction_defects(missing)
+        path.unlink()
+        with self.assertRaisesRegex(ValueError, 'complete unchanged'):
+            a.bind_correction_defects(self.data)
+        path.write_bytes(original); path.write_text(path.read_text() + ' ')
+        with self.assertRaisesRegex(ValueError, 'complete unchanged'):
+            a.bind_correction_defects(self.data)
+
+    def test_custom_state_path_and_prior_handoff_bytes_remain_valid(self):
+        self.retained_phone(); a.bind_correction_defects(self.data, write=True)
+        old = Path(self.data['defects']['path']); original = old.read_bytes()
+        self.native({'code_reports': {'a': self.report([self.exit_defect], phone=False)}})
+        custom = self.root / 'owned-state.json'; self.state_path.rename(custom)
+        a.bind_correction_defects(self.data, write=True, state_path=custom)
+        self.assertEqual(original, old.read_bytes())
+        self.assertTrue(a.bind_correction_defects(self.data))
+
+    def test_initial_builder_and_finished_historical_evidence_are_unchanged(self):
+        self.state['events'] = []; self.write(self.state_path, self.state)
+        self.assertIsNone(a.correction_defects(self.data))
+        self.state['events'] = [{'kind': 'repair_started'}]; self.state['terminal_state'] = 'shipped'
+        self.write(self.state_path, self.state)
+        self.assertIsNone(a.correction_defects(self.data))
+        self.state['terminal_state'] = None; self.write(self.state_path, self.state)
+        self.assertIsNone(a.correction_defects({**self.data, 'agent_assignment': {'model': 'gpt-6.1-sol'}}))
+
+
 class RuntimeTest(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
@@ -393,13 +571,13 @@ class LocalRecoveryRouting(unittest.TestCase):
                 patch('publication_owner.require_owner', return_value=self.owner), \
                 patch('publication_owner.has_unclaimed_worker_reservation', return_value=False), \
                 patch('publication_owner.claim_worker') as claim:
-            with self.assertRaisesRegex(ValueError, 'fifth review is protected'):
+            with self.assertRaisesRegex(ValueError, 'final funded review is protected'):
                 a.plan(role, self.packet, 'critic', 'Current code')
             data.update(phone_mode='current', review_scope='exact-muted-phone-preflight')
             self.packet.write_text(json.dumps(data))
             state = json.loads(self.state.read_text()); state['usage']['storyboard_critics'] = 5
             self.state.write_text(json.dumps(state))
-            with self.assertRaisesRegex(ValueError, 'hard five-review limit reached'):
+            with self.assertRaisesRegex(ValueError, 'review window exhausted'):
                 a.plan(role, self.packet, 'critic', 'Current timed phone')
             claim.assert_not_called()
         brief = self.root / data['brief']; brief.parent.mkdir(parents=True, exist_ok=True)

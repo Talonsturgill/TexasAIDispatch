@@ -136,24 +136,15 @@ python scripts/daily_production.py --scoreboard --state out/dispatch/run_state.j
 
 If rejected before the finite boundary, follow prompts/phases/repair.md. At the boundary,
 finish and ship through the separately recorded bounded route when its original classifications
-permit release. The five-review ceiling never makes a mandatory failure publishable.
-If the once-only final panel has a genuine mandatory failure after all five editorial attempts,
-complete its remaining already-admitted work and preserve all original evidence. Do not buy
-another correction, render, panel or reviewer. Build `out/dispatch/completion-yield-plan.json`
-with `panel` pointing to the exact report card, and `packets` and `coverage` objects each mapping
-picture, story and sound to their original packet and complete coverage paths. Then run:
+permit release. A numeric ceiling never makes a mandatory failure publishable.
+If the original final panel identifies a genuine mandatory failure, preserve all three
+responses and its exact rejected film. Use the existing repair controller with standing
+completion capacity to fund the entire remaining corrected-film, audiovisual, independent
+scoring and delivery path before editing. Completed independent work is retained; no new
+panel is bought for unchanged rejected bytes. Repair all current blockers together and
+apply the existing recurrence and source-backed replacement requirements. Do not end an
+otherwise repairable edition by asking the owner for another numeric budget grant.
 
-```sh
-python scripts/completion_yield.py --state out/dispatch/run_state.json --plan out/dispatch/completion-yield-plan.json
-```
-
-This requires the native hook's three original completed responses, complete timed findings,
-current native/preship/audiovisual evidence and a byte-verified remote checkpoint. It closes
-expenditure, preserves the incomplete controller and publication ownership, and permits one
-nonterminal yield only after the host confirms no tasks or crons are active. Report the actual
-failure and checkpoint without asking routine permission or claiming delivery. Missing evidence
-still needs its existing mechanical completion; never manufacture a receipt or pass. Only
-accepted `finish --result shipped` completes production.
 Use axis deficits to choose a single consolidated
 correction; do not spend one render per note or polish an already passing axis. Preserve the
 rejected bytes and review identities. Changed film bytes require fresh current-film verdicts.

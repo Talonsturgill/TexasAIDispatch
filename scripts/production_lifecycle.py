@@ -106,7 +106,8 @@ def narration_plan_problems(path, plan):
 
 
 def active(state):
-    return state.get("mode") == "production" and state.get("terminal_state") is None
+    return (state.get("mode") == "production" and state.get("terminal_state") is None
+            and not any(e.get('kind') == 'hard_limit_expenditure_closed' for e in state.get('events', [])))
 
 
 def existing_critic_problems(state, plan, *, allow_active=False):
@@ -208,6 +209,25 @@ def checkpoint(path, package, reason, blocker=None):
     return True, "checkpoint saved; production remains active and must continue to shipment"
 
 
+def fund_remaining_repair(path, plan_path, state, plan):
+    """Fund a validated correction through the existing exact-deficit standing route."""
+    from autonomous_completion import adopt_capacity, capacity_policy_active, grant_capacity
+    from repair_guard import production_budget_precheck
+    adopt_capacity(state, existing=True)
+    budget = production_budget_precheck(state, state_path=path, repair_plan=plan, mandatory_repair=True)
+    if budget.get('deficits') and capacity_policy_active(state):
+        accepted, message = grant_capacity(path, plan_path)
+        if not accepted:
+            return state, ['mandatory repair capacity needs its original classified plan: ' + message]
+        state = read_state(path)
+        budget = production_budget_precheck(state, state_path=path, repair_plan=plan, mandatory_repair=True)
+    if not budget['feasible']:
+        return state, ['planned correction cannot fund its complete remaining path: '
+                       + '; '.join(budget.get('errors', []))
+                       + ('; deficits ' + json.dumps(budget['deficits'], sort_keys=True) if budget.get('deficits') else '')]
+    return state, []
+
+
 def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None):
     """Reserve the board edit BEFORE modifying it, eliminating the old circular gate."""
     state = read_state(path)
@@ -216,6 +236,10 @@ def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None
     if state.get("active_repair"):
         return False, "finish the existing repair batch before starting another"
     plan = load_json(plan_path)
+    # Adoption authorizes funding, not the edit. Invalid plans still return before
+    # any saved event; original evidence and baselines are verified below first.
+    from autonomous_completion import adopt_capacity
+    adopt_capacity(state, existing=True)
     from completion_forecast import admission_problems
     forecast_errors = admission_problems(state, plan)
     if forecast_errors:
@@ -258,7 +282,12 @@ def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None
         opening = {"reboards": 1}
     if prepaid is not None:
         opening.pop('reboards', None)
-    errors = reuse_errors + plan_problems(state, plan) + envelope_problems(state, opening) + request_errors
+    errors = reuse_errors + plan_problems(state, plan) + request_errors
+    # Historical editions retain their original refusal order. Only an adopted
+    # standing policy may defer the ceiling check until valid full-path funding.
+    from autonomous_completion import capacity_policy_active
+    if not capacity_policy_active(state):
+        errors += envelope_problems(state, opening)
     if scope == CONTEXT_SCOPE:
         import review_context
         errors += review_context.plan_problems(path, plan)
@@ -307,13 +336,12 @@ def begin_repair(path, plan_path, *, reserve_reboard=False, prepaid_reboard=None
     # their own resource/unchanged-input contracts; generic production would
     # incorrectly demand fresh picture or synthesis for those reused inputs.
     if 'code' in planned_invalidations(state, plan):
-        from repair_guard import production_budget_precheck
-        budget = production_budget_precheck(state, state_path=path, repair_plan=plan)
-        if not budget['feasible']:
-            return False, ('planned correction cannot fund its complete remaining path: '
-                           + '; '.join(budget.get('errors', []))
-                           + ('; deficits ' + json.dumps(budget['deficits'], sort_keys=True)
-                              if budget.get('deficits') else ''))
+        state, errors = fund_remaining_repair(path, plan_path, state, plan)
+        if errors:
+            return False, '; '.join(errors)
+    errors = envelope_problems(state, opening)
+    if errors:
+        return False, '; '.join(errors)
     # One board correction and two independent critic calls (plan, then actual phone cut).
     # They are allowances, not calls: the existing consume command charges before each use.
     grants = {}
@@ -470,6 +498,11 @@ def authorize_repair(path, plan_path):
             return False, str(exc)
         requested = {name: count for name, count in requested.items() if name != "reboards"}
     from repair_guard import envelope_problems
+    from review_limit import planned_invalidations
+    if 'code' in planned_invalidations(state, plan):
+        state, errors = fund_remaining_repair(path, plan_path, state, plan)
+        if errors:
+            return False, '; '.join(errors)
     errors = envelope_problems(state, requested)
     if errors:
         return False, "; ".join(errors)

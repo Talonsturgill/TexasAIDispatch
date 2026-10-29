@@ -404,7 +404,8 @@ class DailyTest(unittest.TestCase):
     def test_adopted_narration_capacity_is_bound_in_actual_worker_readings(self):
         state = self.bp.parent / 'run_state.json'
         state.write_text(json.dumps({'events': [{'kind': 'autonomous_completion_narration_adopted'},
-                                               {'kind': 'autonomous_completion_validation_adopted'}],
+                                               {'kind': 'autonomous_completion_validation_adopted'},
+                                               {'kind': 'standing_completion_capacity_adopted'}],
                                      'run_id': '2026-10-15', 'usage': {}, 'phase': 'active_repair'}))
         self.board['date'] = '2026-10-15'; self.save()
         packet = d.packet(self.bp, self.cp, 'vo-director', state)
@@ -412,6 +413,10 @@ class DailyTest(unittest.TestCase):
         self.assertIn({'path': str(amendment.resolve()), 'sha256': d.digest(amendment)},
                       packet['completion_readings'])
         amendment = d.REPO / 'config/source_validation_completion_v1.json'
+        self.assertIn({'path': str(amendment.resolve()), 'sha256': d.digest(amendment)},
+                      packet['completion_readings'])
+
+        amendment = d.REPO / 'config/autonomous_completion_capacity_v1.json'
         self.assertIn({'path': str(amendment.resolve()), 'sha256': d.digest(amendment)},
                       packet['completion_readings'])
 

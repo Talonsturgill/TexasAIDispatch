@@ -19,13 +19,21 @@ def read(path):
     return expand_packet_bindings(json.loads(Path(path).read_text()))
 
 
+def compact_bindings_allowed(data):
+    if (data.get('local_recovery') or {}).get('runtime') == 'codex':
+        return True
+    return (data.get('role') in ('scene-builder', 'storyboard-critic')
+            and str((data.get('agent_assignment') or {}).get('model', '')).startswith('claude-')
+            and re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(data.get('date', ''))) is not None
+            and data['date'] >= '2026-10-15')
+
+
 def expand_packet_bindings(data):
     """Resolve compact recovery guides independently of the worker's current directory."""
     if not isinstance(data, dict) or 'repo_root' not in data:
         return data
     root = REPO.resolve()
-    if (data.get('repo_root') != str(root)
-            or (data.get('local_recovery') or {}).get('runtime') != 'codex'):
+    if data.get('repo_root') != str(root) or not compact_bindings_allowed(data):
         raise ValueError('compact guide bindings need the current owned repository root')
     data = copy.deepcopy(data)
     data.pop('repo_root')
@@ -47,7 +55,7 @@ def expand_packet_bindings(data):
 
 def compact_packet_bindings(data):
     """Shorten only repeated guide prefixes; keep exact source/media bindings and hashes."""
-    if (data.get('local_recovery') or {}).get('runtime') != 'codex':
+    if not compact_bindings_allowed(data):
         return data
     data = copy.deepcopy(expand_packet_bindings(data))
     root = REPO.resolve()
@@ -147,6 +155,145 @@ def treatment_assets(rows):
     return list(result.values())
 
 
+def selected_treatment_scope(data, state_path=None):
+    """Bind only a verified independent selection; a director summary has no scope authority."""
+    if data.get('role') not in ('scene-builder', 'storyboard-critic'):
+        return None
+    root = Path(data['board']['path']).resolve().parent
+    state_path = Path(state_path or data.get('repair_state', root / 'run_state.json')).resolve()
+    if state_path.parent != root:
+        raise ValueError('selected-treatment ledger must stay beside its bound board')
+    if not state_path.is_file():
+        return None
+    from selected_treatment import selection_proof, POLICY
+    proof = selection_proof(state_path)
+    if proof is None:
+        return None
+    if str(proof.get('run_id', ''))[:10] != data.get('date'):
+        raise ValueError('selected-treatment scope belongs to another edition')
+    return {'state': str(state_path), 'selected': proof['selected'],
+            'proof_sha256': hashlib.sha256(json.dumps(proof, sort_keys=True).encode()).hexdigest(),
+            'policy': bound(POLICY), 'approval': False}
+
+
+def correction_defects(data):
+    """Carry original A/B blockers into a new Claude correction, never director summaries."""
+    if (data.get('role') != 'scene-builder'
+            or not str((data.get('agent_assignment') or {}).get('model', '')).startswith('claude-')):
+        return None
+    board_root = Path(data['board']['path']).resolve().parent
+    canonical = board_root / 'run_state.json'
+    state_path = Path(data.get('repair_state', canonical)).resolve()
+    if state_path.parent != board_root or (canonical.is_file() and state_path != canonical):
+        raise ValueError('corrective builder ledger must stay beside its bound board')
+    if not state_path.is_file():
+        if data.get('repair_state') or data.get('phase') == 'active_repair':
+            raise ValueError('corrective builder ledger is missing')
+        return None
+    state = read(state_path)
+    if (state.get('mode') != 'production' or state.get('terminal_state')
+            or not any(e.get('kind') == 'repair_started' for e in state.get('events', []))):
+        return None
+    if str(state.get('run_id', ''))[:10] != data.get('date'):
+        raise ValueError('corrective builder ledger belongs to another edition')
+    from completion_yield import CRITIC_RECEIPTS, critic_completion, original_critic_review
+    from combined_review import contains_bindings
+    originals = []
+    for path in sorted((state_path.parent / CRITIC_RECEIPTS).glob('*.json')):
+        if path.name.startswith('handback-'):
+            continue
+        receipt, claim, claim_path = critic_completion(state_path.parents[2], path, state_path=state_path)
+        originals.append((claim['reservation_event_index'], path, receipt, claim_path))
+    indices = [row[0] for row in originals]
+    if len(indices) != len(set(indices)):
+        raise ValueError('corrective builder needs one original completion per charged critic')
+    if not originals:
+        if any(e.get('kind') == 'reserved' and e.get('resources', {}).get('storyboard_critics')
+               for e in state.get('events', [])):
+            raise ValueError('corrective builder lacks the retained original critic completions')
+        return None
+    pending = {}
+    for index, path, receipt, claim_path in sorted(originals):
+        report = receipt['report']; rows = []
+        for key in ('code_reports', 'reports', 'phone_reports'):
+            pair = report.get(key)
+            if isinstance(pair, dict):
+                rows.extend((treatment, [key, treatment], value) for treatment, value in pair.items()
+                            if treatment in ('a', 'b') and isinstance(value, dict))
+        selected = (report.get('selection') or {}).get('selected')
+        if selected in ('a', 'b') and isinstance(report.get('phone_review'), dict):
+            rows.append((selected, ['phone_review'], report['phone_review']))
+        if not rows and report.get('treatment') in ('a', 'b'):
+            rows.append((report['treatment'], [], report))
+        for treatment, pointer, row in rows:
+            scope = row.get('review_scope')
+            if scope not in ('code-plan', 'exact-muted-phone-preflight'):
+                continue
+            key = (treatment, scope); defects = row.get('blocking_defects')
+            if row.get('verdict') == 'pass' and defects == []:
+                if scope == 'exact-muted-phone-preflight':
+                    # Only the actual film verdict on its paid packet can retire an
+                    # earlier film failure. A code PASS or a selection cannot do it.
+                    original = original_critic_review(state_path, index)
+                    packet = read(original['packet']['path'])
+                    option = next((r for r in packet.get('phone_options', [])
+                                   if r.get('id') == treatment), None)
+                    if (not option or not isinstance(option.get('report_bindings'), dict)
+                            or option['report_bindings'].get('review_scope') != scope
+                            or not option['report_bindings'].get('reviewed_preflight_sha256')
+                            or not contains_bindings(row, option['report_bindings'])):
+                        continue
+                pending.pop(key, None)
+            elif row.get('verdict') == 'revise' and isinstance(defects, list) and defects:
+                pending.setdefault(key, []).append({
+                    'treatment': treatment, 'review_scope': scope,
+                    'reservation_event_index': index, 'original_completion': bound(path),
+                    'original_claim': bound(claim_path), 'report_pointer': pointer,
+                    'blocking_defects': copy.deepcopy(defects)})
+    scope = selected_treatment_scope(data, state_path)
+    rows = [row for key in sorted(pending) for row in pending[key]]
+    result = {'run_id': state['run_id'], 'reviews': rows,
+              'basis': 'Unchanged original independent blockers. A later code PASS does not clear '
+                       'a film failure. Only verified independent selection narrows correction scope; '
+                       'the rejected alternative remains retained with its original verdict. '
+                       'This handoff supplies no verdict or permission for extra work.'}
+    if scope:
+        result['selected_treatment'] = scope
+        result['reviews'] = [row for row in rows if row['treatment'] == scope['selected']]
+        result['retained_alternative_reviews'] = [row for row in rows if row['treatment'] != scope['selected']]
+    return result
+
+
+def bind_correction_defects(data, *, write=False, state_path=None):
+    if write and state_path is not None:
+        data['repair_state'] = str(Path(state_path).resolve())
+    expected = correction_defects(data)
+    if expected is None:
+        if write:
+            data.pop('repair_state', None)
+        return False
+    encoded = json.dumps(expected, indent=2) + '\n'
+    sha = hashlib.sha256(encoded.encode()).hexdigest()
+    target = Path(data['board']['path']).resolve().with_name('current-defects-' + sha + '.json')
+    if write:
+        try:
+            with target.open('x') as stream:
+                stream.write(encoded)
+        except FileExistsError:
+            pass
+    if not target.is_file() or target.read_text() != encoded:
+        raise ValueError('corrective builder needs its complete unchanged original A/B defect handoff')
+    ref = {'path': str(target), 'sha256': sha}
+    if write:
+        data.setdefault('repair_state', str(Path(data['board']['path']).resolve().with_name('run_state.json')))
+        data['defects'] = ref
+        data['instructions'] += (' Read defects before the repair summary. Address all active reviews; '
+                                 'preserve retained_alternative_reviews without changing their grades.')
+    elif data.get('defects') != ref:
+        raise ValueError('corrective builder packet omits or replaces original A/B defects')
+    return True
+
+
 def required_inputs(data, role, expected_contracts=None):
     if data.get("agent_contracts") != (contracts(role) if expected_contracts is None else expected_contracts):
         raise ValueError("assignment lacks its current complete role and contract bindings")
@@ -162,6 +309,12 @@ def required_inputs(data, role, expected_contracts=None):
     board = read(data["board"]["path"])
     if board.get("date") != data.get("date"):
         raise ValueError("packet edition differs from its actual board")
+    if role in ('scene-builder', 'storyboard-critic'):
+        expected_scope = selected_treatment_scope(data)
+        if data.get('selected_treatment') != expected_scope:
+            raise ValueError('assignment omits or changes its verified selected-treatment scope')
+    if role == 'scene-builder':
+        bind_correction_defects(data)
     if role != "validator":
         from daily_production import craft_reading_paths
         expected = [bound(path) for path in craft_reading_paths(board)]
@@ -294,7 +447,7 @@ def plan(role, packet_path, task_name, scope):
         else:
             result.pop('spawn_args')
             result['reservation'] = ('No dispatch arguments. A restored or spent reservation cannot fund '
-                                     'a new attempt; preserve every charge and the hard five-review limit.')
+                                     'a new attempt; preserve every charge and obtain a new funded reservation when required.')
     return result
 
 

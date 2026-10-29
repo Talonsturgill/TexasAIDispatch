@@ -8,17 +8,18 @@ and remaining allowances come from the controller. Every take includes its audib
 
 Before the first take and each narration recovery, run the complete-path production budget,
 including the final timed phone, native hero, audiovisual reviews, three scorers and delivery.
-The daily five-attempt limit includes code, phone and recurrence-pivot reviews. Reserve the
-last attempt for the exact final timed phone film before any other critic charge. Capacity-only
-recovery cannot extend that limit, and an authority string in a local policy is not a grant.
+Every code, phone and recurrence-pivot attempt stays charged. Protect the exact final timed
+phone stage in the complete remaining-path budget; prior call count never waives it. Use
+standing completion capacity for a genuine mandatory deficit before spending.
+
 Two failed narration repairs still require an independent recurrence-pivot review before a
 third correction, but that review must fit an earlier available slot. Never spend the protected
 final slot on a pivot or buy another code review for a verified measured retime. Resolve the
 free narration-plan checks before the first paid story review so an unpronounceable clause
 split cannot first appear at this stage. Consolidate every actual defect into the remaining
 authorized correction; retain an existing valid take when its words and measurements still fit.
-If no compliant correction fits, retain the exact failure and remaining-path diagnosis without
-requesting an extra review, changing the cap or claiming shipment. Preserve every take, measured
+If the path lacks capacity, retain the exact failure and use the current standing capacity
+command before correcting. Do not request an owner budget grant or claim shipment early. Preserve every take, measured
 silence, ASR result, rejection and cumulative charge. No capacity grant approves wording or timing.
 
 At the finite creative boundary, have the same independent critic complete the separately
@@ -136,7 +137,8 @@ speech and existing action constraints. Adopt the resulting measured board only 
 provenance, picture and caption gates pass. It retains code approval, never approval of the new
 film. Use the reserved final timed phone review for that exact film; do not buy another code
 round for a verified timing transformation. A changed creative field or impossible timing
-constraint remains a failure. Never rewrite the original report or extend the five-review cap.
+constraint remains a failure. Preserve the original report and fund its mandatory correction
+through the current standing policy before spending.
 
 Consolidate every failing cue and event before requesting a paid repair review. Check all cues,
 preserve the measured breaks that already work, and run proposed event timing through the free

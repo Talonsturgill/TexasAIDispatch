@@ -74,7 +74,8 @@ def phone_inputs(state_path, option, board, film):
     comparison = output / 'comparison.json'; receipt = json.loads(comparison.read_text())
     if receipt.get('builder_proof'):
         raise ValueError('a builder proof already carries its own pages; it is never a paid review sequence')
-    errors = opening_compare.inspection_problems(receipt, output)
+    from selected_treatment import inspection_problems as completion_inspection
+    errors = completion_inspection(receipt, output, state_path)
     if errors:
         raise ValueError('; '.join(errors))
     row = next(r for r in receipt['options'] if r['id'] == option)

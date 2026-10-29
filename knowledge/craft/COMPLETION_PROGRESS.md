@@ -1,29 +1,27 @@
 # Completion progress and native waits
 
-The owner's October 20th instruction sets a hard five-round limit in config/review_limit.json.
-Every paid code, phone, pivot or interrupted reviewer attempt shares the cumulative
-storyboard_critics counter. The final timed phone check must fit inside it. Target one initial
-code/phone pair, at most one consolidated correction pair, then the final timed phone check.
-Stop earlier when improvements have become cosmetic. Do not commission a separate pivot review
-that would consume the final required check. The controller refuses a sixth attempt before
-charging, even with larger ceilings, a fresh script or a new worker. After the cap, no more
-creative rebuilds or recovery grants for review. Complete the final acceptance and delivery
-path once on the strongest existing cut. Preserve all original scores, failures and charges.
-An independently classified surface finish rejection can use the existing bounded release
-route when another complete correction would consume the protected final path, or at the cap.
-The continuation hook directs shipment at that boundary instead of requesting another pivot.
-The last review slot accepts only the exact current timed phone packet. Actual source,
-rights, minimum action, comprehension, performed
-turn, pacing, closing action, native, audio, captions and shipment checks stay required.
-Historical counts are never reset or clamped to five; an already overrun legacy edition stops
-creative work immediately and completes its remaining final verification once.
+The owner's October 28 instruction authorizes additional mandatory completion capacity under
+config/autonomous_completion_capacity_v1.json. Every paid code, phone, pivot or interrupted
+review remains cumulatively charged. Preserve the original frozen envelope; record exact
+additional allocations separately before spending. Numeric exhaustion alone neither approves
+a film nor ends a repairable run. Fund the complete remaining path before a correction,
+including its invalidated reviews and the separate measured final phone check.
+
+Produce both complete diagnostic treatments early, make one independently evidenced selection,
+then repair the selected film. Keep the rejected alternative's original findings and bytes;
+do not keep polishing it after verified selection. Stop optional creative polish at the
+configured boundary. Additional capacity is only for actual mandatory failures and still
+requires the progress and whole-scene replacement rules below. Never repeat an ineffective
+construction under a new name or obtain a replacement grade for unchanged rejected work.
+Every source, rights, action, comprehension, motion, pacing, ending, native, audio, caption
+and shipment condition stays required. Only accepted finish --result shipped is completion.
 
 Effective for new editions from October 20th, 2026, after the owning source rollout. An older
 unfinished edition adopts the same operational boundary at its first newly owned reservation
 from this source. That appended event records `completion_progress_policy`; it never rewrites
 the old events, frozen envelope, original quality policy or verdicts. An already admitted batch
 can finish, but its next repair cannot use the edition's old date to renew a failed construction.
-Finished editions retain their original evidence. Preserve the three-round creative boundary,
+Finished editions retain their original evidence. Preserve the configured creative boundary,
 every charge and actual failure.
 
 The October 19 recovery repeatedly funded a new failed report while keeping the same creek

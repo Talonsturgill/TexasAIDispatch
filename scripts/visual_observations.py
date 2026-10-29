@@ -216,17 +216,19 @@ def record_write(payload, workspace):
             'Public image annotation retained with actual Write evidence. Continue the complete ordered review.'}}
 
 
-def note_problems(repo, note, expected_page, expected_sha, *, require_visible=True):
+def note_problems(repo, note, expected_page, expected_sha, *, require_visible=True, paths=None):
     try:
+        locate = paths.path if paths is not None else Path
         fact, witness = note['observation'], note['writer_receipt']
-        paths = [Path(ref['path']) for ref in (fact, witness)]
-        if any(any(q.is_symlink() for q in (p, *p.parents))
-               or not p.resolve().is_relative_to(repo.resolve()) for p in paths):
+        logical_paths = [Path(ref['path']) for ref in (fact, witness)]
+        actual_paths = [locate(p) for p in logical_paths]
+        if any(any(q.is_symlink() for q in (p, *p.parents)) for p in actual_paths) or any(
+                not p.is_relative_to(repo) for p in logical_paths):
             return ['visual coverage evidence must stay in its owned package']
-        if any(digest(p) != ref['sha256'] for p, ref in zip(paths, (fact, witness))):
+        if any(digest(p) != ref['sha256'] for p, ref in zip(actual_paths, (fact, witness))):
             return ['visual coverage annotation or actual Write evidence changed']
-        data, write = map(load, paths)
-        event = load(repo.joinpath(*expected_page.parts[:2], 'image-tool-delivery', paths[0].name))
+        data, write = map(load, actual_paths)
+        event = load(locate(repo.joinpath(*expected_page.parts[:2], 'image-tool-delivery', logical_paths[0].name)))
         if (data['schema'] != SCHEMA or data['page'] != str(expected_page)
                 or data['image_sha256'] != expected_sha or data['received'] != note['received']
                 or (require_visible and data['received'] is not True)
@@ -236,14 +238,14 @@ def note_problems(repo, note, expected_page, expected_sha, *, require_visible=Tr
                 or write['image_event_key'] != data['image_event_key']
                 or write['actor_sha256'] != event['actor_sha256']
                 or event['source_sha256'] != expected_sha
-                or event['observation_path'] != str(paths[0].relative_to(repo))
-                or paths[0].parent.name != write['actor_sha256']):
+                or event['observation_path'] != str(logical_paths[0].relative_to(repo))
+                or logical_paths[0].parent.name != write['actor_sha256']):
             return ['visual coverage lacks the unchanged independent annotation and its actual Write']
         written = datetime.fromisoformat(write['written_at'].replace('Z', '+00:00'))
         read_at = datetime.fromisoformat(event['observed_at'].replace('Z', '+00:00'))
         if written.tzinfo is None or read_at.tzinfo is None or written < read_at:
             return ['visual annotation timing must follow its actual image Read']
-        for p in (repo.joinpath(*expected_page.parts[:2], 'image-tool-delivery')).glob('*.json'):
+        for p in locate(repo.joinpath(*expected_page.parts[:2], 'image-tool-delivery')).glob('*.json'):
             later = load(p)
             if later.get('actor_sha256') != write['actor_sha256'] or later['event_key'] == event['event_key']:
                 continue

@@ -15,7 +15,8 @@ Never send email or post socially. A cloud session marked successful is not ship
 Never fabricate a review, replace a rejected verdict, discard charges, or loosen an integrity gate.
 The owner's October 24th instruction also allows a verified exhausted failure to remain unshipped
 and retained while a later daily edition starts. Use the startup handoff below; it is a failure
-disposition, never a successful delivery or permission to extend the five-review cap.
+disposition, never successful delivery. The October 28th standing completion policy supersedes
+the old five-review maximum and per-run owner budget grants; preserve every actual charge.
 
 The owner's October 16th instruction forbids routine permission stops. When an internal tool,
 packet, review, storage or controller defect blocks the next command, retain the actual error,
@@ -121,9 +122,10 @@ edition. A cloud container is reclaimed, so `pending` alone sees only worktrees 
 Also run `python scripts/checkpoint_discovery.py`. This read-only catalog holds each fetched
 commit in its own temporary ref, so another Git fetch cannot change the selected snapshot.
 Before restoring the selected older edition, apply the owner's October 24th failed-edition policy
-from the verified current-main tools. If the older checkpoint has exhausted the hard five, or
-contains a verified infeasible fourth combined-review rejection, and has no native film or
-remaining reserved final timed-phone attempt, use
+from the verified current-main tools. Preserve an already verified historical exhausted
+failure, but do not classify a current numeric resource deficit as irreversible failure.
+First use the current standing completion-capacity route. Only if the failed-edition helper
+proves a qualifying original closure after that check, use
 `python scripts/failed_editions.py retain --repo <current-clean-checkout> --run-id <old-id> --next-date <actual-Eastern-date>`.
 The helper verifies the original immutable checkpoint, frozen envelope, all charges, original
 failure and worker claims. It refuses an active lease, any same-date or suffix restart, and any
@@ -159,12 +161,12 @@ pre-adoption checkpoint and inspect both staged and working changes first. Prese
 scene, board and artwork changes; resolve any actual tooling conflict against their retained
 baselines rather than resetting the checkout or changing an original policy. Commit only the
 resolved tooling integration, retain its real source pin and save the same ledger checkpoint.
-If a restored operational review policy contains unsupported `owner_grants`, first retain its
-exact bytes and SHA256 under `out/dispatch/retained-failures/`. Restore only that policy file
-from the verified current-main commit: five attempts, no extensions and no added grant fields.
-Keep the original ledger, frozen envelope, six-or-more spent attempts if present, and failed
-authorization evidence unchanged. Removing an unsupported policy addition refunds no attempt
-and permits no new review; an exhausted run must use its truthful expenditure-closure path.
+Adopt the verified current-main operational review and standing-capacity policies without
+editing their contents inside production. Preserve pre-adoption policy bytes, the original
+ledger, frozen envelope and every spent attempt. Use ordinary completion-capacity for a fully
+evidenced mandatory deficit; do not reconstruct an owner grant, restore a stale five-review
+policy or ask the owner to repeat the standing authorization.
+
 Verify that publication_owner.py, completion_progress.py, native_task_wait.py, claude_runtime.py,
 review_limit.py, combined_review.py, production_lifecycle.py, repair_guard.py and
 autonomous_completion.py are the current main implementations before reserving again. This
@@ -243,34 +245,43 @@ another. After that one pilot is archived, every scheduled invocation uses norma
 Normal scheduled production uses today's date. If today's scheduled film is
 already shipped, verify that shipment and do not manufacture another ordinary edition.
 
+Before planning a new correction after restore, use current-main selected_treatment.py
+adopt/verify when complete original independent A/B choice and guarded coverage are retained.
+A failed adoption leaves the two-treatment scope intact; do not manufacture missing evidence.
+An accepted choice may already have current selected code PASS even when the unused alternative
+is REVISE. Price the real remaining gates before executing an old repair plan: retain that plan,
+but do not spend on an unused alternative merely because an earlier summary requested it.
+A genuine selected-film failure still needs its ordinary correction and current independent proof.
+
 ## Durable checkpoints and effective effort
 
-The owner sets a hard five editorial review rounds for the whole video in config/review_limit.json.
-Budget code, silent phone, any consolidated correction and final timed phone inside those five
-paid attempts. Every pivot and retry counts too. Never extend or reset this limit. After the cap
-or diminishing returns, freeze the strongest existing cut and complete the final native/AV,
-three-scorer and delivery path once. Stop creative editing; use the genuine bounded surface
-finish classification when applicable. Do not run a sixth review to pursue a nicer grade.
+Read config/review_limit.json and config/autonomous_completion_capacity_v1.json. The October
+28th owner instruction replaces the five-review cap with standing evidence-bound completion
+capacity. Every code, phone, pivot, correction and interrupted attempt remains charged. Before
+each correction, price all unfinished independent review, prepared capture, native, audio,
+three-scorer and delivery stages. Preserve the frozen allowance as history and append the exact
+mandatory deficit through the controller. Never reset usage or treat capacity as film approval.
 
-Before the first critic, record the planned review sequence in the worklog. Aim to finish both
-code treatments within two attempts, then compare both complete silent films and protect the
-measured final-phone check. The unused slot is reserve, not a target to spend. Consolidate every
-mandatory defect from the current original report into one correction, and verify the named
-mechanical fixes before another paid review. Simplify the implementation within the existing
-story and quality requirements; keep both complete treatments until the independent comparison
-selects one. Optional polish cannot displace a required check or restart creative editing.
+Build both complete candidate timelines before polishing individual shots. Use their actual
+guarded builder proof to fix visible mechanical defects in one consolidated pass. Read the
+whole candidate at phone scale. Prefer fewer moving parts, stable framing and a clearly
+performed source-backed action over another decorative layer. Preserve all minimum action,
+motion, pacing, artwork and closing-answer criteria.
 
-From October 25th, budget the actual unfinished review stages under the hard five, even when
-the retained frozen envelope records a larger historical allowance. A code PASS, the silent
-two-treatment comparison and the measured final-phone check are separate gates. A rejected
-code attempt leaves its gate unfinished. Recompute the complete path after every original
-handback and before another paid correction. Use the supported combined code-and-silent-film
-route in phase 2 when it fits; a different label cannot combine assignments or supply a pass.
-Preserve the original independent response on disk and checkpoint it immediately, before
-another repair, reservation or stop. A summary saying REVISE cannot replace that response.
-When the verified remaining path cannot fit, use the strict failed-edition procedure with the
-actual original evidence and actual count. Never purchase dummy reviews to reach five or ask
-the owner for a sixth attempt. Failure remains unshipped.
+Use the independent complete A/B comparison to select the film early. The dated selected-
+treatment policy retains that original choice and all rejected alternative evidence. Once
+its source/narration identity is verified, concentrate corrections on the selected film;
+never repair an unused alternative merely to obtain another PASS. A changed story or choice
+needs a new genuine comparison. Selected current code, exact silent film, measured timed phone,
+native hero/full film, audiovisual reviews, all three scorers and delivery gates remain required.
+Selection alone approves none of them.
+
+Consolidate every selected-film blocker, reuse the existing independent workers and stop
+optional polish at the configured creative boundary. If repeated patches fail, replace the
+failed implementation with the independently supported simpler action; do not rename the
+same mechanism or restart its budget. Preserve each original response before further work.
+Use the repair phase's ordinary budget/capacity path when mandatory stages lack funding.
+A stale hard-cap error is an internal source/adoption defect, not an owner task.
 
 `out/` is gitignored and dies with the container. For an edition marked by
 `out/dispatch/claude-host.json`, every controller ledger write is mirrored to
@@ -716,6 +727,15 @@ decoding, and claims its consumed authorization once without another charge. Hea
 housekeeping, authored art and all hook protections still apply. Never use the native final
 profile on a phone movie or present a phone index as final native evidence.
 
+For new October 29th and later editions, phase 2's initial combined selection route uses
+opening_compare.py --combined-code-review before the first paid critic, and adds
+--combined-code-review to the phone-packet command below. The same original Opus response
+supplies separate honest code findings, the independent choice and selected-film judgment.
+Import the unchanged original response through combined_review.py, then adopt and verify
+selected_treatment.py. A choice is not acceptance: fix its current blockers before voice.
+Retain the unused alternative and its findings, without continuing to polish it.
+The separate-code example below remains for retained editions whose current route requires it.
+
 Build the normal current `daily_production.py --packet storyboard-critic` packet, then use
 fresh packet and coverage filenames for each paid attempt. This example is for the first
 comparison only; it must never overwrite a retained prior packet:
@@ -738,9 +758,9 @@ with `--phone-option current --board out/dispatch/storyboard.json --film out/dis
 and a fresh output directory. It requires the current exact `preflight.json` inspection, edition,
 board, renderer and movie bytes. It honors only the existing structural release policy; extraction
 still supplies no verdict. Its separate operation reserves and claims once. Build a fresh ordinary
-critic packet at `out/dispatch/critic-fifth-packet.json`, then use
-`claude_runtime.py phone-packet --packet out/dispatch/critic-fifth-packet.json --state out/dispatch/run_state.json --sequence-current <new index.json> --out out/dispatch/phone-fifth-critic-packet.json`
-and save its coverage as `out/dispatch/phone-fifth-coverage.json`. Preserve all prior packet,
+critic packet at `out/dispatch/critic-timed-packet.json`, then use
+`claude_runtime.py phone-packet --packet out/dispatch/critic-timed-packet.json --state out/dispatch/run_state.json --sequence-current <new index.json> --out out/dispatch/phone-timed-critic-packet.json`
+and save its coverage as `out/dispatch/phone-timed-coverage.json`. Preserve all prior packet,
 coverage and sequence paths. This
 single-film packet binds the measured current board and film, returns a fresh exact-phone report,
 and does not choose the silent treatment again. The silent comparison index cannot prove the
@@ -748,13 +768,14 @@ timed movie; neither phone profile can satisfy the native final profile. Inspect
 pages, consolidate one handback and recheck only specific uncertain intervals. Report unresolved
 observations directly instead of repeatedly viewing the film to pursue approval.
 
-For editions from October 24, the fifth critic reservation must bind this final current-phone
-packet before any spend. Plan the current-phone task, then consume with
+The final timed-phone reservation must bind this exact current-phone packet before any spend.
+Its position follows the actual completed stages, not an arbitrary fifth numbered call. Plan the current-phone task, then consume with
 `run_controller.py consume --resource storyboard_critics --review-packet <exact current-phone packet> --note "final timed phone"`
 and dispatch the same packet unchanged. The controller validates its current movie, board,
 chronological sequence and critic assignment before charging; a generic code, pivot or phone
 label cannot spend the protected slot. Replanning after the charge must retain that exact packet.
-Do not add owner grants to the daily policy or modify the five-attempt limit during production.
+Use standing completion capacity for evidenced mandatory deficits. Do not fabricate owner
+grants or hand-edit the operational policy during production.
 
 A cloud session has no desktop for Computer Use. Use `scripts/phone_playback.py`, real Chromium UI
 automation at 390x844 with touch input, against the published canonical URL:

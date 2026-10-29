@@ -97,6 +97,20 @@ class ContinuationTests(unittest.TestCase):
         self.assertIn('no owner permission', hint)
         self.assertEqual(before, state)
 
+    def test_unadopted_restored_edition_gets_current_funding_route_without_stop_mutation(self):
+        state = {'run_id': '2026-10-26', 'mode': 'production', 'terminal_state': None,
+                 'usage': {'storyboard_critics': 5}, 'events': []}
+        before = copy.deepcopy(state)
+        hint = continuation.capacity_recovery_hint(state, self.root)
+        self.assertIn('begin-repair --plan', hint)
+        self.assertIn('authorize-repair --plan', hint)
+        self.assertIn('exact deficits', hint)
+        self.assertNotIn('--exhausted-required-review', hint)
+        self.assertNotIn('--unfundable-required-review', hint)
+        self.assertEqual(state, before)
+        state['events'].append({'kind': 'hard_limit_expenditure_closed'})
+        self.assertNotIn('owner has authorized dated standing', continuation.capacity_recovery_hint(state))
+
     def test_early_final_and_repeated_waiting_continue_without_ledger_mutation(self):
         self.arm(); before = self.state.read_bytes()
         for _ in range(2):

@@ -51,6 +51,27 @@ and read those entries when diagnosing or changing it. Historical explanations l
 knowledge/history/dispatch_routine_before_runtime_efficiency.md; they are evidence, not
 another active routine. Do not load the full historical archive into every daily task or worker.
 
+## Check the publishing dependency before paid production
+
+Before new research, builder or review reservations, inspect the current Docket origin/main
+and its matching guards/Pages metadata. A green older commit is not readiness for the current
+feed release. An active exact-main check should finish through its existing execution; do not
+launch duplicate guards. A finished failure needs its actual failed step and bounded log.
+
+If the source-maintenance gates are red, start the existing daily actor repair described in
+phase 5 before spending on the film. Read Docket's own instructions and source ownership.
+Use its supported deterministic reverify worklist at the actual Texas date, inspect unresolved
+primary sources, and make only genuinely verified corrections on a separate daily branch.
+Inspect sound same-day work first; preserve peer branches and original claims/evidence.
+No date-only freshness edits, access-boundary bypass, unrelated carousel import or gate waiver.
+Verify the full candidate, exact-head CI and matching main before returning to production.
+This maintenance is authorized routine work, not an owner approval question. Retain an
+already active film and its ledger; do not create a replacement producer during maintenance.
+
+A pre-production green check does not replace phase 5's exact feed-candidate full verdict,
+matching main CI/Pages, canonical phone playback or draft verification. Recheck the current
+dependency at release because another source change can arrive during production.
+
 ## Nonnegotiable production contract
 
 - Execute the current art profile in the actual scene. Director chooses the look and two
@@ -177,7 +198,9 @@ bash scripts/run_with_env.sh python scripts/daily_production.py --scoreboard --s
 Use run_controller.py phase --name <phase> at each transition. Read numeric targets and limits
 from config/run_limits.json and the live ledger. Reserve every agent, paid call and render
 before it starts. Targets diagnose extra work; they are neither approval nor a closure rule.
-Cumulative allowances cannot be repeatedly renewed. Keep all failed attempts charged.
+Use config/autonomous_completion_capacity_v1.json for the October 28th standing allowance.
+Append only evidenced full-path deficits; retain every original envelope and charge. Numeric
+capacity exhaustion cannot trigger a routine owner permission request or a false failure closure.
 Follow DAILY_PRODUCTION.md's reserved path to shipment. Before structural repair run the
 production-budget precheck. From September 29th, config/creative_release.json governs finite
 creative editing. After its round cap or protected-completion boundary, finish the best reviewed
@@ -187,8 +210,8 @@ A budget boundary leaves an unfinished edition, never a substitute completion st
 owner's October 24th, 2026 direction, the current failed-edition retention helper may preserve a
 verified exhausted failure as unshipped and admit a genuinely later daily edition. Follow the
 host's current startup handoff before selection. Retain every original event, charge, frozen
-envelope and failed artifact; no same-date restart, active-owner preemption or extra review is
-authorized. A failed disposition never satisfies shipment or any film-quality gate.
+envelope and failed artifact; no same-date restart or active-owner preemption is authorized.
+A recoverable resource deficit uses standing completion capacity before failure retention. A failed disposition never satisfies shipment or any film-quality gate.
 
 ## Timing and evidence reuse
 
