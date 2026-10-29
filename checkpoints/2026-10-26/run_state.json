@@ -209,6 +209,14 @@
       "note": "exact-phone-current motion-image review extraction",
       "resource": "preflight_renders",
       "to": 14
+    },
+    {
+      "at": "2026-10-29T07:03:01.630063Z",
+      "ceiling": 7,
+      "from": 6,
+      "note": "final timed phone",
+      "resource": "storyboard_critics",
+      "to": 7
     }
   ],
   "events": [
@@ -1916,6 +1924,27 @@
       "input_identity": "0494ebea119b7cf8dfca36a03431ec0d53deddc4dd6bfd3bccf212bace4719a7",
       "kind": "prepared_capture_claimed",
       "operation": "exact-phone-current motion-image review extraction"
+    },
+    {
+      "at": "2026-10-29T07:03:01.630088Z",
+      "ceiling": 7,
+      "kind": "budget_escalated",
+      "note": "final timed phone",
+      "now": 7,
+      "resource": "storyboard_critics",
+      "was": 6
+    },
+    {
+      "at": "2026-10-29T07:03:05.536684Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "final timed phone",
+      "preflight_identity": null,
+      "publication_epoch": "23365d53b0cf4928849c8c1f5f0260b3",
+      "publication_owner_sha256": "f251f4721196aa65f10f633667466b175b644e8099b699dfe5366c4d2b858630",
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -1930,7 +1959,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 6,
+    "storyboard_critics": 7,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 1
@@ -1939,7 +1968,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cffa819f76270618ec8451e4158f4d7f1d39dad2ca791eed3b5ebb007ceab6cc",
+    "original_private_state_sha256": "37dad2fbd8fc61b931608c7871b487e22b7331a60f60317509f0d5d13dc2947e",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -1967,7 +1996,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-29T07:01:54.160835Z",
+  "updated_at": "2026-10-29T07:03:05.536701Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -1980,7 +2009,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 6,
+    "storyboard_critics": 7,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 1
