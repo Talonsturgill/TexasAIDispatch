@@ -617,6 +617,23 @@ def mandatory_reason(state, plan, evidence_text):
                 for item in report.get('blocking_defects', [])):
             return 'modern-film-floor'
         modern = report.get('modern_observations') or {}
+        contact = (report.get('phone_observations') or {}).get('contact_and_consequence') or {}
+        if (capacity_policy_active(state)
+                and report.get('review_scope') == 'exact-muted-phone-preflight'
+                and report.get('phone_mode') == 'current'
+                and report.get('status') == 'complete'
+                and modern.get('film_sha256') == film
+                and contact.get('pass') is False
+                and isinstance(contact.get('observed'), str) and contact['observed'].strip()
+                and all(type(contact.get(k)) in (int, float) for k in ('start_s', 'end_s'))
+                and 0 <= contact['start_s'] < contact['end_s']
+                and any(isinstance(item, dict) and item.get('category') == 'contact_and_consequence'
+                        and isinstance(item.get('defect'), str) and item['defect'].strip()
+                        for item in report.get('blocking_defects', []))):
+            # The timed phone rubric can reject an unreadable action result while
+            # all seven broad film observations pass. Keep that original judgment;
+            # live film, source and reviewer bindings are still required at admission.
+            return 'modern-film-floor'
         if (str(state.get('run_id', ''))[:10] >= '2026-10-08'
                 and modern.get('film_sha256') == film
                 and any(isinstance(item, dict) and item.get('pass') is False for item in modern.values())):
