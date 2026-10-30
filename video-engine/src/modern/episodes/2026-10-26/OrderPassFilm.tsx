@@ -1,6 +1,7 @@
 import React from 'react';
 import {useCurrentFrame,useVideoConfig} from 'remotion';
 import {FONT,widthOf} from '../../../lib/type';
+import {useUid} from '../../../lib/uid';
 import {useArtDirection} from '../../../lib/artDirection';
 import {actionProgress,actionWindows,requireNarration,type ActionWindow,type DirectedScene} from '../../../lib/direction';
 import type {FilmRenderProps} from '../../types';
@@ -21,13 +22,17 @@ import {RestaurantSupport,RS,STAND,PANEL,ORDER_CARD,LEDGER,RULE,FOLDER,DOOR_PLAN
  *      and falls back blank. No food is on any table before the kitchen cooks.
  *  s2  an empty sign frame swings on the glass and settles with nothing in it; the dark host panel beside
  *      the stand lights from the left and writes Haniya; a tag reading AI host is carried in on its string
- *      and hooks onto the panel's eyelet, where it swings and settles.
+ *      and hooks onto the panel's eyelet, where it swings and settles. B's wide hangs a help-wanted sign on
+ *      the glass instead: a HELP WANTED header over a cork board whose card slot is outlined and empty, its
+ *      pin holes unused, and its clip opens and snaps shut on nothing while the clause is heard.
  *  s3  a hand lifts the phone over the table code and the viewfinder's brackets close on it; the menu sheet
  *      slides up; a fingertip presses the Chow mein row, which lights with its plain price chip; the finger
  *      presses Pay, which turns into the round red paid mark. B's medium sees the one seated guest from behind
  *      her right shoulder: her left hand holds the phone up out of her own shoulder line, and her right arm,
  *      shoulder, upper arm, elbow and forearm drawn as one jointed limb at the same scale, rises from her side
- *      and taps the row. B's Pay detail keeps the same holding hand.
+ *      and taps the row. Then she talks: voice arcs leave her head toward the phone, and a listening sheet
+ *      rises under the lit row with a lit Talk microphone, the host's rings breathing out of it and a moving
+ *      voice level, and closes again before the cut. B's Pay detail keeps the same holding hand.
  *  s4  THE TURN. The ticket printer stands idle, its slot blank and its lamp in standby, beside an empty wok
  *      on an unlit burner. The paid mark leaves the phone and travels a line into the printer's slot (B's
  *      camera follows it down from the plan onto the printer seen from above); only at its arrival does the
@@ -49,8 +54,11 @@ import {RestaurantSupport,RS,STAND,PANEL,ORDER_CARD,LEDGER,RULE,FOLDER,DOOR_PLAN
  *  s8  the restaurant folder slides in beside the rule card and opens; its one box stays blank and a
  *      question mark draws beside it.
  *  s9  a hand raises the phone toward the table code, pauses short of it and lowers it without scanning; a
- *      quote card from one customer lands beside the lowered phone, whose screen then times out. In B the hand
- *      sets the phone down and stays resting on it through the quote, so it never leaves at a smear.
+ *      quote card from one customer lands beside the lowered phone, whose screen then times out. B shows a
+ *      different, older customer (a knit cardigan cuff, a wristwatch, a ring, reading glasses on the table)
+ *      who holds the phone right over the code while its brackets hunt and never close, lowers it onto the
+ *      table, and after the quote lands pushes the phone away and takes her hand back. Its screen stays lit
+ *      and unscanned: the failure is the hunting viewfinder, never a fade to black.
  *  s10 a large order card lands on the host panel's screen within the shot's first second and a ticket slip
  *      leaves it and drops into the kitchen printer's slot, whose lamp answers red as the ticket for it rises,
  *      is gripped and cut; the camera keeps easing in through the shot. At the pass the tip jar takes a tag
@@ -302,7 +310,8 @@ export const PHONE_AT:Record<string,Place&{hand:boolean;from?:Pt}>={
  'code-scan:b':{x:600,y:720,s:.78,r:-8,hand:true,from:[300,1560]},'menu-tap:b':{x:650,y:800,s:.72,r:12,hand:true},'paid-close:b':{x:540,y:260,s:2.4,r:0,hand:true},
  'paid-line:a':{x:250,y:760,s:.62,r:8,hand:true},'coins-drop:a':{x:250,y:620,s:.62,r:12,hand:true},
  'viewfinder-hunt:a':{x:470,y:780,s:.82,r:-8,hand:true,from:[600,1330]},'quote-card:a':{x:150,y:1020,s:.55,r:-4,hand:false},
- 'viewfinder-hunt:b':{x:560,y:1000,s:.78,r:10,hand:true,from:[700,1520]},'quote-side:b':{x:650,y:1030,s:.6,r:14,hand:false}};
+ // B's s9 rows are the older customer's aim over the code (raised from ELDER9.from) and the phone's rest after the push.
+ 'viewfinder-hunt:b':{x:585,y:840,s:.82,r:6,hand:true,from:[605,1120]},'quote-side:b':{x:690,y:990,s:.6,r:22,hand:false}};
 /** s9 from above: the one place the code stand stands in both B shots. */
 export const CODE9_TOP:Pt=[700,700];
 /** Printer placements (base centre): the rail, the ticket and the lamp ride the same transform. */
@@ -346,6 +355,182 @@ export const PANEL_AT:Record<string,Place>={'window-frame':{x:650,y:1290,s:.82},
 export const STAND_AT:Record<string,Place>={'door-apron':{x:800,y:1330,s:1},'host-phone:a':{x:560,y:1900,s:2},'blank-pad-tables':{x:960,y:1500,s:1.15},
  'host-phone:b':{x:560,y:1340,s:1.05},'table-wait':{x:300,y:1880,s:1.9},'window-frame':{x:900,y:1330,s:1},'sign-window':{x:930,y:1240,s:.72},'host-panel:b':{x:790,y:1340,s:1}};
 
+// ---- B's comprehension correction (round 8): s2's empty help-wanted slot, s3's voice order, s9's older customer ----
+// Every part below is drawn here, in this module, so the two authored art groups keep their recorded bytes.
+// Each performance is a closed function of the film clock and the board's own event and clause windows.
+
+/** B's help-wanted sign on the window glass, in its own units about the suction cup at `cup` (screen pixels):
+ * a worn wooden frame, a printed HELP WANTED header, and a cork board whose card slot is outlined, empty, its
+ * four pin holes unused and its clip holding nothing. Clear of the door, the host panel and the caption band. */
+export const HELP_B={cup:[530,452] as Pt,w:280,h:322,top:40,head:70,slot:{x:-82,y:172,w:164,h:164},clip:[0,160] as Pt,swing:.7};
+export const helpHeadSize=()=>Math.min(36,(HELP_B.w-44)/widthOf('HELP WANTED',1,true));
+/** The clip on B's empty slot within s2-event-1: it opens (squeezed) from 8 to 70 percent of the window and
+ * snaps shut on nothing, then rings down. Pure in t. */
+export function helpClip(W:Record<string,ActionWindow>,t:number){
+ const w=W['s2-event-1'];if(!w)return {open:0,snap:0};
+ const d=w.end-w.start,r=clamp((t-w.start)/d);
+ return {open:bell((r-.08)/.62),snap:damped(t-(w.start+.7*d),6,3.2,6)};
+}
+/** B's voice order on the phone screen, in screen units: the listening sheet's top when raised, the microphone's
+ * centre below that top and its radius. The lit Chow mein row (rows 70 to 222) stays above the sheet. */
+export const TALK_B={top:300,mic:84,r:38};
+/** Where B's guest's voice leaves her head toward the phone (screen pixels): just past her right ear. */
+export const VOICE_B:Pt=[452,812];
+/** B's talk within the menu-tap shot: it rises as the tap lets go (60 to 85 percent of s3-event-3), holds through
+ * the spoken clause and closes in the 0.4 s after the clause ends, so the menu and its Pay are whole at the cut. */
+export function talkB(W:Record<string,ActionWindow>,t:number,clauseEnd:number){
+ const w=W['s3-event-3'];if(!w)return 0;
+ const r=clamp((t-w.start)/(w.end-w.start));
+ return smooth((r-.6)/.25)*(1-smooth((t-clauseEnd-.04)/.36));
+}
+type Pose={x:number;y:number;s:number;r:number};
+const lerpPose9=(a:Pose,b:Pose,p:number):Pose=>({x:lerp(a.x,b.x,p),y:lerp(a.y,b.y,p),s:lerp(a.s,b.s,p),r:lerp(a.r,b.r,p)});
+/** B's s9 older customer, screen pixels. She holds the phone low at the shot's start (from), raises it right over
+ * the code (aim, the code stand's left half under the phone), lowers it onto the table (set) by the end of
+ * s9-event-1, and in s9-event-3 pushes it aside (rest) with her fingertips at `touch` (phone units, on its bottom
+ * edge) and draws her hand back by `back`. Her skin is a fill only and differs from the s3 guest's. */
+export const ELDER9={from:{x:605,y:1120,s:.72,r:18} as Pose,aim:{x:585,y:840,s:.82,r:6} as Pose,set:{x:610,y:1040,s:.6,r:12} as Pose,
+ rest:{x:690,y:990,s:.6,r:22} as Pose,touch:[-30,288] as Pt,back:[-110,110] as Pt,skin:HP.skin[0],glasses:[300,935] as Pt};
+export const CARDIGAN={base:'#7B5C78',deep:'#5E445B',rib:'#93738F',blouse:'#EFE6D6'};
+/** B's s9 performance at t: the phone's pose, the hunting brackets (they never close), and the flat hand's
+ * fingertip and angle. One pose function spans both B shots, so the match cut keeps the phone where it lies. */
+export function elder9(W:Record<string,ActionWindow>,t:number){
+ const R=(id:string)=>W[id]?clamp((t-W[id].start)/(W[id].end-W[id].start)):0;
+ const E=ELDER9,r1=R('s9-event-1'),r3=R('s9-event-3');
+ const raise=ease5(r1/.45),tryq=bell((r1-.34)/.34),lower=ease5((r1-.62)/.38),push=contactQ(r3/.5),back=ease5((r3-.5)/.5);
+ const shake=2.2*bell((r1-.3)/.42)*Math.sin(2*Math.PI*1.6*t);
+ let p=lerpPose9(E.from,E.aim,raise);
+ p={...p,x:p.x-8*tryq,y:p.y-18*tryq,r:p.r+shake};
+ p=lerpPose9(p,E.set,lower);
+ p=lerpPose9(p,E.rest,push);
+ const hunt:Pt=[20*Math.sin(2*Math.PI*1.3*t+.7),13*Math.sin(2*Math.PI*.9*t+1.9)];
+ const tip0=toScreen(p,E.touch),tip:Pt=[tip0[0]+E.back[0]*back,tip0[1]+E.back[1]*back];
+ return {phone:p,hunt,huntScale:1+.1*Math.sin(2*Math.PI*.8*t),tip,handR:p.r-12-8*back,lift:clamp((p.s-.6)/.22),push,back};
+}
+
+/** A binder clip seen from the front, about its body's centre: `open` squeezes the wire handles together and
+ * drops the lower jaw, showing the empty gap; it holds nothing. */
+const ClipB:React.FC<{open:number}>=({open})=>{const o=clamp(open);
+ return <g data-part="empty-clip-b">
+  {[-1,1].map(s=><path key={s} d={`M${s*24} -10L${f2(s*(16-9*o))} -40L${f2(s*(7-4*o))} -40L${s*10} -10`} stroke={RS.steelDark} strokeWidth={3.6} fill="none" strokeLinejoin="round"/>)}
+  <path d={`M-28 ${f2(10+12*o)}H28`} stroke={RS.ink} strokeWidth={5} strokeLinecap="round"/>
+  <path d="M-34 -12H34L29 11H-29Z" fill={RS.charcoal} stroke={RS.ink} strokeWidth={2.6}/>
+  <path d="M-27 -6H22" stroke="#5A6268" strokeWidth={3} opacity={.8}/>
+ </g>;};
+/** B's help-wanted sign (see HELP_B), with the clip's state and the light that crosses its glass. */
+const HelpWantedSignB:React.FC<{open:number;snap:number;shine:number}>=({open,snap,shine})=>{
+ const id=useUid('opfhw');
+ const H=HELP_B,x0=-H.w/2,y0=H.top,sl=H.slot,hs=helpHeadSize(),bx=x0+12,by=y0+H.head+20,bw=H.w-24,bh=H.h-H.head-32;
+ const sweep=x0-60+(H.w+120)*clamp(shine);
+ return <g data-part="help-wanted-b">
+  <defs><clipPath id={id}><rect x={x0} y={y0} width={H.w} height={H.h} rx={10}/></clipPath></defs>
+  <circle r={16} fill={RS.glassTint} opacity={.6} stroke={RS.ink} strokeWidth={2.4}/><circle r={6} fill={RS.steelDark}/>
+  <path d={`M0 6L${x0+22} ${y0+4}M0 6L${-x0-18} ${y0+4}`} stroke={RS.steelDark} strokeWidth={3}/>
+  <rect x={x0+9} y={y0+12} width={H.w} height={H.h} rx={10} fill="#1A1410" opacity={.16}/>
+  <rect x={x0} y={y0} width={H.w} height={H.h} rx={10} fill={RS.woodLit} stroke={RS.ink} strokeWidth={3.4}/>
+  <path d={`M${x0+8} ${y0+8}H${-x0-46}`} stroke="#FFFFFF" strokeWidth={2.4} opacity={.3} strokeLinecap="round"/>
+  <path d={`M${x0} ${y0+H.h-34}l10 -6l2 16l-12 6Z`} fill={RS.wood} stroke={RS.ink} strokeWidth={1.8}/>
+  <rect x={bx} y={y0+12} width={bw} height={H.head} rx={5} fill={RS.charcoal} stroke={RS.ink} strokeWidth={2}/>
+  <text x={0} y={f2(y0+12+H.head/2+hs*.36)} textAnchor="middle" fontFamily={FONT.body} fontSize={f2(hs)} fontWeight={700} fill={RS.paperLit} letterSpacing={1.5}>HELP WANTED</text>
+  <path d={`M${x0+64} ${y0+H.head-4}l38 -5`} stroke={RS.charcoal} strokeWidth={3} opacity={.7}/>
+  <rect x={bx} y={by} width={bw} height={bh} rx={4} fill={RS.kraft} stroke={RS.ink} strokeWidth={2.2}/>
+  {Array.from({length:30},(_,i)=><circle key={i} cx={f2(bx+10+(bw-20)*hash(i+61))} cy={f2(by+8+(bh-16)*hash(i+97))} r={f2(1.6+1.6*hash(i+13))} fill={RS.kraftDeep} opacity={.55}/>)}
+  <rect x={sl.x} y={sl.y} width={sl.w} height={sl.h} rx={4} fill={RS.kraftDeep} opacity={.16}/>
+  <rect x={sl.x} y={sl.y} width={sl.w} height={sl.h} rx={4} fill="none" stroke={RS.inkSoft} strokeWidth={2.6} strokeDasharray="12 8"/>
+  {([[sl.x+10,sl.y+12],[sl.x+sl.w-12,sl.y+10],[sl.x+11,sl.y+sl.h-11],[sl.x+sl.w-10,sl.y+sl.h-12]] as Pt[]).map((p,i)=>
+   <g key={i}><circle cx={p[0]} cy={p[1]} r={4.2} fill={RS.ink} opacity={.7}/><circle cx={p[0]+1} cy={p[1]+1} r={1.6} fill={RS.kraft}/></g>)}
+  {([[bx+bw-26,by+16],[bx+bw-44,by+26]] as Pt[]).map((p,i)=><g key={i}><circle cx={p[0]} cy={p[1]} r={7} fill={RS.brass} stroke={RS.ink} strokeWidth={1.8}/>
+   <circle cx={p[0]-2} cy={p[1]-2} r={2.2} fill={RS.brassLit}/></g>)}
+  <g transform={`translate(${H.clip[0]} ${H.clip[1]}) rotate(${f2(snap)} 0 -40)`}><ClipB open={open}/></g>
+  {shine>0&&shine<1&&<g clipPath={`url(#${id})`}><path d={`M${f2(sweep)} ${y0}l60 0l-90 ${H.h}l-60 0Z`} fill="#FFFFFF" opacity={.3}/></g>}
+ </g>;
+};
+/** B's listening sheet on the phone screen (screen units, see TALK_B): a lit Talk microphone with the host's rings
+ * breathing out of it and a voice level that moves while the guest speaks. Pure in `on` and t. */
+const TalkSheetB:React.FC<{on:number;t:number}>=({on,t})=>{
+ const q=clamp(on);if(q<=0)return null;
+ const W=PHONE.screen.w,H=PHONE.screen.h,y0=lerp(H,TALK_B.top,q),cx=W/2,cy=y0+TALK_B.mic,R=TALK_B.r,ph=(t*1.3)%1;
+ return <g data-part="talk-sheet-b">
+  <path d={`M0 ${f2(y0+22)}Q0 ${f2(y0)} 22 ${f2(y0)}H${W-22}Q${W} ${f2(y0)} ${W} ${f2(y0+22)}V${H-30}Q${W} ${H} ${W-30} ${H}H30Q0 ${H} 0 ${H-30}Z`}
+   fill={RS.screenLit} stroke={RS.ink} strokeWidth={2}/>
+  <rect x={cx-26} y={f2(y0+10)} width={52} height={6} rx={3} fill={RS.screenGlow} opacity={.6}/>
+  {[0,1,2].map(k=>{const f=(ph+k/3)%1;return <circle key={k} cx={cx} cy={f2(cy)} r={f2(R+6+44*f)} fill="none" stroke={RS.screenGlow} strokeWidth={3.5}
+   opacity={f2(.85*q*(1-f)*smooth(f/.15))}/>;})}
+  <circle cx={cx} cy={f2(cy)} r={R} fill={RS.screenGlow} stroke={RS.ink} strokeWidth={2.4}/>
+  <rect x={cx-10} y={f2(cy-24)} width={20} height={32} rx={10} fill={RS.screenLit}/>
+  <path d={`M${cx-17} ${f2(cy-2)}a17 17 0 0 0 34 0M${cx} ${f2(cy+15)}v9M${cx-10} ${f2(cy+24)}h20`} stroke={RS.screenLit} strokeWidth={4} fill="none" strokeLinecap="round"/>
+  <text x={cx} y={f2(y0+156)} textAnchor="middle" fontFamily={FONT.body} fontSize={26} fontWeight={700} fill="#F4FBFC">Talk</text>
+  {Array.from({length:13},(_,i)=>{const h=6+26*q*Math.abs(Math.sin(2*Math.PI*(1.9*t+.37*i+.2*hash(i+5))));
+   return <rect key={i} x={f2(cx+(i-6)*15-4)} y={f2(y0+196-h/2)} width={8} height={f2(h)} rx={4} fill={RS.screenGlow} opacity={.9}/>;})}
+ </g>;
+};
+/** The older customer's hand holding the phone from below, in phone units (the phone is 300 by 600 about its
+ * centre): `back` is the palm and the wrist behind the phone with a wristwatch, a blouse cuff and a ribbed knit
+ * cardigan sleeve running out of frame; `front` is three curled fingertips over the left edge, a ring on one,
+ * and the thumb over the right edge. Same line weights as every other hand; the skin is a fill. */
+const ElderHold:React.FC<{layer:'back'|'front';skin:string}>=({layer,skin})=>{
+ const C=CARDIGAN;
+ if(layer==='back')return <g data-part="elder-hand-back">
+  <path d="M-158 70C-182 180 -154 290 -104 350C-82 408 -72 480 -68 560L-64 1900H204L190 560C194 452 202 360 196 284C190 206 176 146 154 112Z" fill={skin} stroke={RS.ink} strokeWidth={4}/>
+  <path d="M-40 470C-12 446 62 438 128 456M-20 420q30 -10 64 -6" stroke="#000000" strokeWidth={3} opacity={.12} fill="none"/>
+  <path d="M-70 526Q62 546 192 526V560Q62 580 -70 560Z" fill={RS.brass} stroke={RS.ink} strokeWidth={2.6}/>
+  <circle cx={66} cy={552} r={30} fill={RS.paperLit} stroke={RS.ink} strokeWidth={3}/><circle cx={66} cy={552} r={23} fill="none" stroke={RS.brassDeep} strokeWidth={2}/>
+  <path d="M66 552V534M66 552l12 6" stroke={RS.ink} strokeWidth={3} strokeLinecap="round"/>
+  <path d="M-72 590H194L196 620H-72Z" fill={C.blouse} stroke={RS.ink} strokeWidth={3}/>
+  <path d="M-74 616L-68 1960H216L198 616Z" fill={C.base} stroke={RS.ink} strokeWidth={4}/>
+  <path d="M-73 616H198L200 700H-72Z" fill={C.rib} stroke={RS.ink} strokeWidth={3}/>
+  {Array.from({length:15},(_,i)=><path key={i} d={`M${-58+i*18} 622V694`} stroke={C.deep} strokeWidth={3} opacity={.55}/>)}
+  {Array.from({length:12},(_,i)=>{const x=-40+(i%4)*60+14*hash(i+71),y=760+Math.floor(i/4)*120+10*hash(i+29);
+   return <path key={i} d={`M${f2(x)} ${f2(y)}l10 12l10 -12`} stroke={C.deep} strokeWidth={3} opacity={.35} fill="none"/>;})}
+ </g>;
+ return <g data-part="elder-hand-front">
+  {([[-34,0],[48,1],[124,2]] as Pt[]).map(([y,i])=><g key={i}>
+   <path d={`M-200 ${y+30}C-202 ${y} -178 ${y-10} -146 ${y-6}C-124 ${y-2} -118 ${y+24} -128 ${y+42}C-142 ${y+58} -186 ${y+60} -200 ${y+30}Z`} fill={skin} stroke={RS.ink} strokeWidth={3.4}/>
+   <path d={`M-140 ${y+4}q8 10 2 24`} stroke="#FFFFFF" strokeWidth={2.4} opacity={.3} fill="none"/>
+   <path d={`M-190 ${y+10}q7 7 5 18M-182 ${y+8}q6 6 5 16`} stroke={RS.ink} strokeWidth={2} opacity={.4} fill="none"/>
+   {i===1&&<path d={`M-170 ${y-6}C-163 ${y+14} -163 ${y+36} -170 ${y+56}`} stroke={RS.ink} strokeWidth={10} fill="none"/>}
+   {i===1&&<path d={`M-170 ${y-6}C-163 ${y+14} -163 ${y+36} -170 ${y+56}`} stroke={RS.brass} strokeWidth={6} fill="none"/>}
+  </g>)}
+  <path d="M200 240C212 178 192 112 164 70C150 48 128 56 128 80C128 116 140 158 150 200Z" fill={skin} stroke={RS.ink} strokeWidth={3.4}/>
+  <path d="M138 86q-2 -12 10 -10M150 150q12 4 20 -2" stroke={RS.ink} strokeWidth={2} opacity={.35} fill="none"/>
+ </g>;
+};
+/** The same older customer's right hand laid flat on the table from above, in screen units: fingertips at the
+ * origin pointing up, the back of the hand, a ring on the ring finger, the wristwatch, the blouse cuff and the
+ * ribbed cardigan sleeve running down out of frame. */
+const ElderFlat:React.FC<{skin:string}>=({skin})=>{const C=CARDIGAN;
+ const fingers:[number,number,number,number,number][]=[[-52,14,112,30,-7],[-17,0,110,31,-2],[19,9,110,30,3],[53,40,108,26,9]];
+ return <g data-part="elder-hand-flat">
+  <path d="M-98 318L-130 900H172L134 318Z" fill={C.base} stroke={RS.ink} strokeWidth={4}/>
+  {Array.from({length:6},(_,i)=>{const x=-70+(i%3)*70+12*hash(i+83),y=420+Math.floor(i/3)*130;
+   return <path key={i} d={`M${f2(x)} ${y}l10 12l10 -12`} stroke={C.deep} strokeWidth={3} opacity={.35} fill="none"/>;})}
+  <path d="M-94 278H130L136 330H-100Z" fill={C.rib} stroke={RS.ink} strokeWidth={3}/>
+  {Array.from({length:12},(_,i)=><path key={i} d={`M${-84+i*19} 284V325`} stroke={C.deep} strokeWidth={3} opacity={.55}/>)}
+  <path d="M-80 264H118L122 282H-84Z" fill={C.blouse} stroke={RS.ink} strokeWidth={2.4}/>
+  <path d="M-70 196C-104 180 -126 146 -130 112C-132 92 -112 86 -102 100C-92 118 -80 148 -58 166Z" fill={skin} stroke={RS.ink} strokeWidth={3.4}/>
+  {fingers.map(([x,tip,base,w,lean],i)=><g key={i} transform={`rotate(${lean} ${x} ${base})`}>
+   <rect x={x-w/2} y={tip} width={w} height={base-tip} rx={w/2} fill={skin} stroke={RS.ink} strokeWidth={3.4}/>
+   <rect x={x-w/2+6} y={tip+5} width={w-12} height={18} rx={7} fill="#F4E3D6" opacity={.5}/>
+   <path d={`M${x-w/2+6} ${f2(tip+(base-tip)*.42)}q${w/2-6} 6 ${w-12} 0M${x-w/2+7} ${f2(tip+(base-tip)*.5)}q${w/2-7} 5 ${w-14} 0`} stroke={RS.ink} strokeWidth={1.8} opacity={.4} fill="none"/>
+   {i===2&&<rect x={x-w/2-2} y={70} width={w+4} height={10} rx={3} fill={RS.brass} stroke={RS.ink} strokeWidth={1.8}/>}
+  </g>)}
+  <path d="M-74 104C-86 150 -82 206 -72 268H114C122 208 118 150 104 98C78 84 -42 84 -74 104Z" fill={skin} stroke={RS.ink} strokeWidth={4}/>
+  {[-52,-17,19,53].map((x,i)=><path key={i} d={`M${x-10} ${104+(i===3?4:0)}q10 -8 20 0`} stroke={RS.ink} strokeWidth={2} opacity={.35} fill="none"/>)}
+  <path d="M-30 252C-20 206 -24 166 -12 126M30 254C26 212 36 172 30 128" stroke="#000000" strokeWidth={3} opacity={.1} fill="none"/>
+  <path d="M-72 232Q22 246 116 232V262Q22 276 -72 262Z" fill={RS.brass} stroke={RS.ink} strokeWidth={2.4}/>
+  <circle cx={24} cy={248} r={22} fill={RS.paperLit} stroke={RS.ink} strokeWidth={2.6}/>
+  <path d="M24 248V234M24 248l9 5" stroke={RS.ink} strokeWidth={2.6} strokeLinecap="round"/>
+ </g>;};
+/** Folded reading glasses lying on the table, from above: two lenses, the bridge and the temples folded across. */
+const GlassesTop:React.FC=()=><g data-part="reading-glasses">
+ <ellipse cx={8} cy={30} rx={84} ry={14} fill="#1A1410" opacity={.16}/>
+ <path d="M-72 -16L58 -8M74 -12L-52 -2" stroke={RS.walnut} strokeWidth={5} strokeLinecap="round"/>
+ {[-1,1].map(s=><g key={s}><rect x={s<0?-80:8} y={-24} width={72} height={48} rx={18} fill={RS.glassTint} opacity={.6}/>
+  <rect x={s<0?-80:8} y={-24} width={72} height={48} rx={18} fill="none" stroke={RS.walnut} strokeWidth={6}/>
+  <path d={`M${s<0?-66:22} -12l18 -4`} stroke="#FFFFFF" strokeWidth={3} opacity={.55} strokeLinecap="round"/></g>)}
+ <path d="M-8 -4q8 -9 16 0" stroke={RS.walnut} strokeWidth={5} fill="none"/>
+</g>;
+
 // ---- the frame-edge check's inputs ----------------------------------------------------------------------------
 /** Every contact point a viewer must read, per view, at the state given. A pure function of the same
  * layouts the drawing uses: the scratch bound check holds each above the caption band and inside the frame. */
@@ -368,6 +553,15 @@ export function contactPoints(view:string,v:V,S:OrderState):Record<string,Pt>{
  if(Rc){out.box=paperPt(Rc,[RULE.box.x,RULE.box.y]);for(const u of [0,.25,.5,.75,1])out['lasso'+u]=paperPt(Rc,rulePenPoint(u));}
  const F=FOLDER_AT[view];
  if(F){out.folderBox=paperPt(F,[FOLDER.box.x+FOLDER.box.s,FOLDER.box.y+FOLDER.box.s]);out.q=paperPt(F,FOLDER.q);}
+ // B's round 8 correction: the help-wanted sign's corners and clip, the Talk microphone, and the older customer's
+ // phone and fingertip at their extremes (aim over the code, set on the table, rest after the push, hand back).
+ if(k==='sign-window:b'){const H=HELP_B,c=H.cup,sw=7*H.swing;
+  for(const [n,p] of [['helpTL',[-H.w/2,H.top]],['helpBR',[H.w/2,H.top+H.h]],['helpBL',[-H.w/2,H.top+H.h]],['helpClip',H.clip]] as [string,Pt][])
+   for(const a of [-sw,sw])out[n+(a<0?'-':'+')]=toScreen({x:c[0],y:c[1],s:1,r:a},p);}
+ if(k==='menu-tap:b'){out.talkMic=toScreen(PHONE_AT[k],screenPt([PHONE.screen.w/2,TALK_B.top+TALK_B.mic]));out.voice=VOICE_B;}
+ if(k==='viewfinder-hunt:b'||k==='quote-side:b'){const E=ELDER9;
+  out.elderAimTop=toScreen(E.aim,[0,-PHONE.h/2]);out.elderSetBottom=toScreen(E.set,[0,PHONE.h/2]);out.elderRestTop=toScreen(E.rest,[0,-PHONE.h/2]);
+  out.elderTouchSet=toScreen(E.set,E.touch);const tr=toScreen(E.rest,E.touch);out.elderTouchRest=tr;out.elderHandBack=[tr[0]+E.back[0],tr[1]+E.back[1]];}
  void S;
  return out;
 }
@@ -406,6 +600,14 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
    {o.finger&&<At p={o.finger.tip} s={o.finger.s}><OrderRigHero part="finger" skin={skin} press={o.finger.press}/></At>}
   </g>;
  };
+ /** B's s9 phone at its pose (ELDER9): its shadow drops further and fainter the higher it is lifted (`lift`), and
+  * with `hold` the older customer's hand grips it from below. */
+ const elderRig=(p:Pose,st:PhoneState,hold:boolean,lift:number)=><g data-part="elder-phone-rig">
+  <At p={[p.x+(14+40*lift)*p.s,p.y+(20+56*lift)*p.s]} s={p.s} r={p.r} o={.22-.07*lift}><rect x={-150} y={-300} width={300} height={600} rx={46} fill="#1A1410"/></At>
+  {hold&&<At p={[p.x,p.y]} s={p.s} r={p.r}><ElderHold layer="back" skin={ELDER9.skin}/></At>}
+  <At p={[p.x,p.y]} s={p.s} r={p.r}><OrderRigHero part="phone" {...st}/></At>
+  {hold&&<At p={[p.x,p.y]} s={p.s} r={p.r}><ElderHold layer="front" skin={ELDER9.skin}/></At>}
+ </g>;
  /** The phone's screen state for scenes after the order: menu open, Chow mein lit, paid. */
  const paidPhone:PhoneState={scan:0,lock:1,menu:1,lit:1,pay:1};
  /** The finger's tip for a tap: from rest to a hover point, pressed onto the contact, then away. */
@@ -646,13 +848,18 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  case 'sign-window':{
   // A medium / B wide. The empty sign frame on the glass swings and settles with nothing in it, its lone
   // push pin unused, as light crosses its blank acrylic. The host panel stands dark beside the stand.
+  // B (round 8): a help-wanted sign hangs on the glass, its HELP WANTED header over a cork board whose card
+  // slot is outlined and empty; while the clause is heard its clip opens and snaps shut on nothing, the sign
+  // swings on its cup and light crosses it. Nothing is ever posted in the slot.
   need('s2');const wide=view==='sign-window',fy=wide?FLOOR_Y.wide:FLOOR_Y.medium;
   const cup:Pt=wide?[560,470]:[380,450],cs=wide?.95:1.3;
+  const clipB=wide?helpClip(W,t):null;
   pic=<g>
    {floor(fy)}
    <Item id="s2-setting">{wide?<At p={[100,fy]} s={.85}><RestaurantSupport part="door" open={0}/></At>:<At p={[-170,fy]}><RestaurantSupport part="door" open={0}/></At>}</Item>
    {wide&&<Item id="s2-setting">{tableGroup([420,1180],.55,3,{look:-.3})}</Item>}
-   <Item id="s2-frame"><At p={cup} s={cs} r={S.s2.swing}><RestaurantSupport part="signFrame" shine={S.s2.shine}/></At></Item>
+   {clipB?<Item id="s2-frame"><At p={HELP_B.cup} r={S.s2.swing*HELP_B.swing}><HelpWantedSignB open={clipB.open} snap={clipB.snap} shine={S.s2.shine}/></At></Item>:
+    <Item id="s2-frame"><At p={cup} s={cs} r={S.s2.swing}><RestaurantSupport part="signFrame" shine={S.s2.shine}/></At></Item>}
    {panel(view,0,0,0,'s2-panel')}
    {stand(view,<g>{padOn(-85,.8,0)}{deskPhoneOn(70,.9,0)}</g>,{apron:true})}
   </g>;
@@ -709,14 +916,23 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   pic=v==='a'?<g>
    <Item id="s3-phone"><Item id="s3-menu"><Item id="s3-dish">{phoneRig(L,st,{finger:S.s3.tapGo>0&&S.s3.tapBack<1?{tip,press:S.s3.tapPress,s:fs}:null})}</Item></Item></Item>
   </g>:(()=>{
+   // Round 8: after the tap she talks. The listening sheet sits on the screen between the phone and her tapping
+   // hand, which waits at its ready pose right of the screen; her voice arcs are drawn over the room, past her ear.
    const arm=otsArm(S.s3),G=OTS.guest,look={...GUESTS[2],skin:SKIN.a3,shirt:GUEST_SLEEVE};
    const elbow:Pt=[arm.E[0]-G[0],arm.E[1]-G[1]];
+   const n3b=board.narration_picture!.clauses.find(c=>c.id==='n3b'),talk=talkB(W,t,n3b?.end_s??shot.start_s+shot.duration_s-.5);
+   const ph=(t*1.3)%1;
    return <g>
     <Item id="s3-setting">{tableBand(1010)}<At p={[1010,1060]} s={1.1}><RestaurantSupport part="waterGlass"/></At></Item>
     <Item id="s3-phone"><Item id="s3-menu"><Item id="s3-dish">{phoneRig(L,st,{skin:SKIN.a3})}
+     {talk>0&&<At p={[L.x,L.y]} s={L.s} r={L.r??0}><g transform={`translate(${PHONE.screen.x} ${PHONE.screen.y})`}><TalkSheetB on={talk} t={t}/></g></At>}
      <At p={arm.tip} s={arm.fs} r={arm.th/DEG}><OrderRigHero part="finger" skin={SKIN.a3} press={S.s3.tapPress} sleeve={arm.b/arm.fs}/></At></Item></Item></Item>
     <Item id="s3-setting"><At p={G}><RestaurantSupport part="guestBack" layer="upperArm" {...look} elbow={elbow}/></At>
      <At p={G}><RestaurantSupport part="guestBack" layer="body" {...look}/></At></Item>
+    {talk>0&&<Item id="s3-menu"><g data-part="voice-arcs-b">{[0,1,2].map(k=>{const f=(ph+k/3)%1,r=24+60*f,a=32*DEG,c=VOICE_B;
+     const d=`M${f2(c[0]+r*Math.cos(a))} ${f2(c[1]-r*Math.sin(a))}A${f2(r)} ${f2(r)} 0 0 1 ${f2(c[0]+r*Math.cos(a))} ${f2(c[1]+r*Math.sin(a))}`;
+     return <g key={k} opacity={f2(talk*Math.sin(Math.PI*f))}><path d={d} stroke={RS.ink} strokeWidth={10} fill="none" strokeLinecap="round"/>
+      <path d={d} stroke={RS.screenGlow} strokeWidth={6} fill="none" strokeLinecap="round"/></g>;})}</g></Item>}
    </g>;})();
   break;}
  case 'pay-mark':
@@ -1027,18 +1243,23 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
   // B: from below the frame the hand raises the phone, pauses short of the code and brings it down onto the
   // table at its later place for the quote (scale falls as it nears the table), where the hand stays resting on
   // it; the next shot keeps the same hand on the same phone, so nothing leaves the frame at speed.
-  need('s9');const L0=pick(PHONE_AT),rest=L0.from!,u=S.s9.up,TB=PHONE_AT['quote-side:b'];
-  const raised={...L0,x:lerp(rest[0],L0.x,S.s9.raise),y:lerp(rest[1],L0.y,S.s9.raise),r:lerp((L0.r??0)+22,L0.r??0,S.s9.raise)+S.s9.waver};
-  const L=v==='a'?{...L0,x:lerp(rest[0],L0.x,u),y:lerp(rest[1],L0.y,u),r:lerp((L0.r??0)+22,L0.r??0,u)+S.s9.waver}:
-   {...raised,x:lerp(raised.x,TB.x,S.s9.lower),y:lerp(raised.y,TB.y,S.s9.lower),s:lerp(L0.s,TB.s,S.s9.lower),r:lerp(raised.r??0,TB.r??0,S.s9.lower)};
-  const st:PhoneState={scan:1,lock:0,menu:0,dim:v==='a'?.5*(1-u):.5*S.s9.lower};
-  pic=v==='a'?<g>
+  // B (round 8): a different, older customer. Her hand (knit cardigan cuff, wristwatch, ring) raises the phone
+  // right over the code, where its brackets hunt, dashed, and never close while the hand trembles and tries a
+  // little nearer; then she lowers it onto the table. Her reading glasses lie on the table from the first frame.
+  need('s9');
+  if(v==='b'){const E=elder9(W,t),st:PhoneState={scan:1,lock:0,menu:0,hunt:E.hunt,huntScale:E.huntScale};
+   pic=<g>
+    <Item id="s9-table">{tableTopBig()}<At p={ELDER9.glasses} r={-9}><GlassesTop/></At></Item>
+    <Item id="s9-code"><At p={CODE9_TOP} s={1.1}><OrderRigHero part="codeStandTop"/></At></Item>
+    <Item id="s9-phone">{elderRig(E.phone,st,true,E.lift)}</Item>
+   </g>;
+   break;}
+  const L0=pick(PHONE_AT),rest=L0.from!,u=S.s9.up;
+  const L={...L0,x:lerp(rest[0],L0.x,u),y:lerp(rest[1],L0.y,u),r:lerp((L0.r??0)+22,L0.r??0,u)+S.s9.waver};
+  const st:PhoneState={scan:1,lock:0,menu:0,dim:.5*(1-u)};
+  pic=<g>
    <Item id="s9-table">{tableBand(930)}<At p={[170,1010]} s={1.2}><RestaurantSupport part="plate"/></At><At p={[960,1000]} s={1.1}><RestaurantSupport part="menuTent"/></At></Item>
    <Item id="s9-code"><ellipse cx={734} cy={1112} rx={130} ry={14} fill="#1A1410" opacity={.25}/><At p={[720,1110]} s={1.25}><OrderRigHero part="codeStand"/></At></Item>
-   <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9})}</Item>
-  </g>:<g>
-   <Item id="s9-table">{tableTopBig()}</Item>
-   <Item id="s9-code"><At p={CODE9_TOP} s={1.1}><OrderRigHero part="codeStandTop"/></At></Item>
    <Item id="s9-phone">{phoneRig(L,st,{skin:SKIN.a9})}</Item>
   </g>;
   break;}
@@ -1046,17 +1267,30 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  case 'quote-side':{
   // A medium / B medium from above. The phone lies lowered on the table, its code unscanned; a quote card
   // from one customer lands beside it; then the phone's screen times out. B's hand still rests on the phone.
-  need('s9');const Q=pick(QUOTE_AT),top=view==='quote-side',L=pick(PHONE_AT);
+  // B (round 8): the same overhead table. Her phone lies where she set it, still hunting and unscanned, her
+  // fingertips on its bottom edge while the quote card lands; in s9-event-3 she pushes it away and takes her
+  // hand back, open, leaving a gap. The screen never fades.
+  need('s9');const Q=pick(QUOTE_AT),top=view==='quote-side';
+  if(top){const E=elder9(W,t),st:PhoneState={scan:1,lock:0,menu:0,hunt:E.hunt,huntScale:E.huntScale};
+   pic=<g>
+    <Item id="s9-table">{tableTopBig()}<At p={ELDER9.glasses} r={-9}><GlassesTop/></At></Item>
+    <Item id="s9-code"><At p={CODE9_TOP} s={1.1}><OrderRigHero part="codeStandTop"/></At></Item>
+    <Item id="s9-phone">{elderRig(E.phone,st,false,0)}</Item>
+    <Item id="s9-quote">{S.s9.quote>0&&paperDrop(Q,S.s9.quote,0,[-160,-220],<RestaurantSupport part="quoteCard"/>,true,<rect width={600} height={290} rx={12} fill="#1A1410"/>)}</Item>
+    <Item id="s9-phone"><At p={E.tip} r={E.handR}><ElderFlat skin={ELDER9.skin}/></At></Item>
+   </g>;
+   break;}
+  const L=pick(PHONE_AT);
   const st:PhoneState={scan:1,lock:0,menu:0,dim:.5+.5*S.s9.dim};
-  const flatPhone=top?phoneRig({...L,hand:true},st,{skin:SKIN.a9}):
-   <g><ellipse cx={L.x+6} cy={L.y+60*L.s} rx={170*L.s} ry={30*L.s} fill="#1A1410" opacity={.22}/>
+  // A's tree keeps its original sibling positions (the false slot included), so its generated ids are unchanged.
+  const flatPhone=<g><ellipse cx={L.x+6} cy={L.y+60*L.s} rx={170*L.s} ry={30*L.s} fill="#1A1410" opacity={.22}/>
     <g transform={`translate(${L.x} ${L.y}) rotate(${L.r??0}) scale(${L.s} ${(L.s*.36).toFixed(4)})`}><OrderRigHero part="phone" {...st}/></g></g>;
   pic=<g>
-   <Item id="s9-table">{top?tableTopBig():tableBand(860)}</Item>
-   {!top&&<Item id="s9-code"><At p={[330,1050]} s={.9}><OrderRigHero part="codeStand"/></At></Item>}
-   {top&&<Item id="s9-code"><At p={CODE9_TOP} s={1.1}><OrderRigHero part="codeStandTop"/></At></Item>}
+   <Item id="s9-table">{tableBand(860)}</Item>
+   <Item id="s9-code"><At p={[330,1050]} s={.9}><OrderRigHero part="codeStand"/></At></Item>
+   {false}
    <Item id="s9-phone">{flatPhone}</Item>
-   <Item id="s9-quote">{S.s9.quote>0&&paperDrop(Q,S.s9.quote,top?0:420,top?[-160,-220]:[140,0],<RestaurantSupport part="quoteCard"/>,top,<rect width={600} height={290} rx={12} fill="#1A1410"/>)}</Item>
+   <Item id="s9-quote">{S.s9.quote>0&&paperDrop(Q,S.s9.quote,420,[140,0],<RestaurantSupport part="quoteCard"/>,false,<rect width={600} height={290} rx={12} fill="#1A1410"/>)}</Item>
   </g>;
   break;}
  // ===================== s10: software takes the order; the tip rests on a word =====================
