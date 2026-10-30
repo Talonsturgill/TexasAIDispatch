@@ -233,6 +233,14 @@
       "note": "two opening comparison batch",
       "resource": "preflight_renders",
       "to": 15
+    },
+    {
+      "at": "2026-10-30T05:53:03.207218Z",
+      "ceiling": 22,
+      "from": 15,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 16
     }
   ],
   "events": [
@@ -2260,6 +2268,28 @@
       "input_identity": "e7463c1e09013079d4a4f93e12cc5fd00311bbdbc6278fe441fc00d539292c7f",
       "kind": "preflight_retry_authorized",
       "reason": "The capture command was wrapped inside claude_checkpoint.py guard, so the capture hook never matched the exact authorized command and refused before any render. No frame rendered. Rerun the exact authorized command directly."
+    },
+    {
+      "at": "2026-10-30T05:53:03.207263Z",
+      "ceiling": 22,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 16,
+      "resource": "preflight_renders",
+      "was": 15
+    },
+    {
+      "at": "2026-10-30T05:53:04.015153Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "e7463c1e09013079d4a4f93e12cc5fd00311bbdbc6278fe441fc00d539292c7f",
+      "preflight_identity_version": 2,
+      "publication_epoch": "8c48fd646d3e462c99e93163915d392b",
+      "publication_owner_sha256": "633312c1a1502e115f6d15d42a6cf06a08dbc2d7bdafcca3e624d30064b955dc",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -2268,7 +2298,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 15,
+    "preflight_renders": 16,
     "reboards": 5,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -2281,10 +2311,9 @@
   },
   "mode": "production",
   "phase": "active_repair",
-  "preflight_retry": "e7463c1e09013079d4a4f93e12cc5fd00311bbdbc6278fe441fc00d539292c7f",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "cabbbe19a2d271fe896bd63bccde3716f04f462b67a4316f976a341ab939fdbf",
+    "original_private_state_sha256": "05d23096385276be7bd4984ba8ba7385b39ab417f4027a287d8cac89f9728103",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2312,14 +2341,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-30T05:52:45.948271Z",
+  "updated_at": "2026-10-30T05:53:04.015174Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 15,
+    "preflight_renders": 16,
     "reboards": 5,
     "reported_tokens": 32169,
     "rescue_renders": 0,
