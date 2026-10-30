@@ -1,4 +1,19 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round8/OrderPassFilm.tsx",
+        "before_sha256": "705a11b39279b8ffb6103f4afa560a2af68311456588e1534f9fe15c1f167a52",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+      }
+    ],
+    "failure_sha256": "5d01d3fb1026ca9a203d9342325c28f624fc802bd7686c46c027cf064b34a16d",
+    "plan": "{REPO}/out/dispatch/repair-plan-8-complete.json",
+    "plan_sha256": "bc89379c956041d230b83de75f6e4039c93fde9c50549424b76d2dfe3350bcfe",
+    "progress_replacement_required": false,
+    "reboards_before": 5,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -2870,6 +2885,37 @@
         "validator_agents": 2,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-10-30T07:56:48.467996Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round8/OrderPassFilm.tsx",
+          "before_sha256": "705a11b39279b8ffb6103f4afa560a2af68311456588e1534f9fe15c1f167a52",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "source-framing",
+      "failure_sha256": "5d01d3fb1026ca9a203d9342325c28f624fc802bd7686c46c027cf064b34a16d",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 15,
+          "to": 15
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "order-pass-b-comprehension-v8",
+      "plan_identity": null,
+      "plan_sha256": "bc89379c956041d230b83de75f6e4039c93fde9c50549424b76d2dfe3350bcfe",
+      "progress_replacement_required": false,
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -2893,7 +2939,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "fddac8ff280ad250c0207ef7ef24da5589efc7415c57785c1a1a997629845a7c",
+    "original_private_state_sha256": "5a2691764b9176b786cb9a1352f9f67f8313efb1904c46d57fb43c9d0d232ad9",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2921,7 +2967,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-30T07:55:39.592960Z",
+  "updated_at": "2026-10-30T07:56:48.468027Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
