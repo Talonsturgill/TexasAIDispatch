@@ -6,7 +6,7 @@ import {actionProgress,actionWindows,requireNarration,type ActionWindow,type Dir
 import type {FilmRenderProps} from '../../types';
 import {OrderRigHero,HP,PHONE,PHONE_UI,screenPt,PRINTER,PRINTER_TOP,railGrip,TICKET,JAR,pileTop,FINGER_ARM,type PhoneState} from './OrderRigHero';
 import {RestaurantSupport,RS,STAND,PANEL,ORDER_CARD,LEDGER,RULE,FOLDER,DOOR_PLAN,TABLES_PLAN,STAND_PLAN,PASS_PLAN,
- GUESTS,GUEST_BACK,TABLE,tagSize,tagPath,stampSize,rulePenPoint,type Food} from './RestaurantSupport';
+ GUESTS,GUEST_BACK,TABLE,tagSize,tagPath,stampSize,rulePenPoint,hash,STAMP_TEXT,type Food} from './RestaurantSupport';
 
 /**
  * order-pass-v1: who takes the order (2026-10-26, Harris County, Spring, the upper Gulf Coast).
@@ -37,7 +37,11 @@ import {RestaurantSupport,RS,STAND,PANEL,ORDER_CARD,LEDGER,RULE,FOLDER,DOOR_PLAN
  *      pan, which is what tosses the noodles.
  *  s5  a ledger card headed with the source's words slides onto the desk; a $9,650 a month tag lands on it;
  *      a rubber stamp presses OWNER COUNT crooked beside it; the receipt clip opens and snaps shut on
- *      nothing.
+ *      nothing. B's stamp detail keeps the tag shot's card exactly: the stamp, whose index label reads what it
+ *      prints, comes in from the desk's near edge, presses, holds and goes back the way it came, uncovering a
+ *      large OWNER COUNT across the card's empty rows. B's clip shot then lays that same card large on the
+ *      desk, the mark and the tag above the caption band, beside a board labelled RECEIPTS standing at the
+ *      back of the desk whose clip snaps shut on nothing; the desk's drawers fill the frame below.
  *  s6  plain coins and notes leave the paid phone and fall in arcs into the glass tip jar at the kitchen
  *      pass, which fills; a tag reading FOX 26 reports, all to the kitchen, hooks onto its neck.
  *  s7  a federal rule card slides onto the desk and its no tip credit box draws, empty; the cooks line
@@ -87,6 +91,21 @@ export function stampState(win:ActionWindow|undefined,t:number){
  const press=r<.3?0:r<.5?contactQ((r-.3)/.2):r<.62?1:1-ease5((r-.62)/.2);
  return {come:ease5(r/.3),lift:1-press,inked:r>=.5?1:0,away:ease5((r-.74)/.26)};
 }
+/** B's owner count mark, in card units: the stamp's own words at a size a phone can read, crooked across the
+ * card's empty rows, clear of the tag and the header. A keeps the support module's small mark at LEDGER.mark. */
+export const MARK_B={x:195,y:232,rot:6,size:28};
+export const markBSize=()=>({w:widthOf(STAMP_TEXT,MARK_B.size,true)*1.08+34,h:MARK_B.size+28});
+/** Where B's stamp waits before it comes down and where it goes when it lifts, as screen offsets from the mark:
+ * both toward the desk's near edge, the side of the hand that holds it, so it never crosses the tag. */
+export const STAMP_FROM_B:Pt=[-30,190],STAMP_EXIT_B:Pt=[80,520];
+/** B's overhead press within s5-event-3: it comes down on the contact curve in the first 22 percent, presses,
+ * inks at 24 percent, holds, and from 38 percent lifts back toward the near edge, braking to rest as the shot
+ * ends, so the mark is uncovered by about two thirds of the window. Pure in t. */
+export function stampPressB(win:ActionWindow|undefined,t:number){
+ if(!win)return {come:0,press:0,inked:0,lift:0};
+ const r=(t-win.start)/(win.end-win.start);
+ return {come:contactQ(r/.22),press:bell((r-.2)/.16),inked:r>=.24?1:0,lift:ease5((r-.38)/.57)};
+}
 export const COINS=7;
 export function orderState(W:Record<string,ActionWindow>,t:number){
  const P=(id:string)=>W[id]?actionProgress(W[id],t):0;
@@ -126,7 +145,7 @@ export function orderState(W:Record<string,ActionWindow>,t:number){
   arrive,pStart,pEnd,cutEnd};
  // s5: the card slides on, the tag lands, the stamp presses, the clip opens and shuts on nothing
  const w54=W['s5-event-4'],d54=w54?w54.end-w54.start:1;
- const s5={slide:P('s5-event-1'),tag:P('s5-event-2'),stamp:stampState(W['s5-event-3'],t),
+ const s5={slide:P('s5-event-1'),tag:P('s5-event-2'),stamp:stampState(W['s5-event-3'],t),stampB:stampPressB(W['s5-event-3'],t),
   clip:bell(R('s5-event-4')),wob:w54?damped(t-(w54.start+.5*d54),3,1.8,3):0};
  // s6: the coins fly (see coinFlight), the jar fills, the tag hooks on
  const s6={fill:.1+.62*P('s6-event-2'),tag:P('s6-event-3'),settle:damped(t-en('s6-event-3'),9,1.1,2.2),carry:Math.sin(Math.PI*P('s6-event-3'))};
@@ -214,6 +233,53 @@ export function otsArm(S3:OrderState['s3']){
 const Item:React.FC<{id:string;children:React.ReactNode}>=({id,children})=><g data-item={id}>{children}</g>;
 const At:React.FC<{p:Pt;s?:number;r?:number;o?:number;sx?:number;children:React.ReactNode}>=({p,s=1,r=0,o=1,sx=1,children})=>
  <g transform={`translate(${f2(p[0])} ${f2(p[1])}) rotate(${r.toFixed(3)}) scale(${(s*sx).toFixed(4)} ${s.toFixed(4)})`} opacity={o}>{children}</g>;
+/** B's inked OWNER COUNT on the card, in card units: the stamp's words in its red, the frame worn in a few places
+ * where the rubber missed, the words themselves left whole so they read. */
+const MarkB:React.FC=()=>{const {w,h}=markBSize();
+ return <g data-part="owner-mark-b" transform={`translate(${MARK_B.x} ${MARK_B.y}) rotate(${MARK_B.rot})`}>
+  <rect x={-w/2} y={-h/2} width={w} height={h} rx={9} fill="none" stroke={RS.redInk} strokeWidth={4.5}/>
+  <text x={0} y={f2(MARK_B.size*.36)} textAnchor="middle" fontFamily={FONT.body} fontSize={MARK_B.size} fontWeight={700} fill={RS.redInk} letterSpacing={2}>{STAMP_TEXT}</text>
+  {Array.from({length:7},(_,i)=>{const x=-w/2+18+i*(w-36)/6+10*hash(i+11),y=(i%2?1:-1)*h/2;
+   return <path key={i} d={`M${f2(x)} ${f2(y)}h${f2(8+9*hash(i+17))}`} stroke={RS.paperLit} strokeWidth={3.2} opacity={.75}/>;})}
+ </g>;};
+/** B's rubber stamp from straight above, in card units about its face's centre: the wooden mount a little larger
+ * than the rubber, the rubber's red edge at the near side, the handle's knob, and the index label on top of the
+ * mount that shows what the stamp prints, as a real stamp's does, so the stamp is known before it lifts. */
+const StampTopB:React.FC=()=>{const {w,h}=markBSize(),mw=w+20,mh=h+46,ly=mh*.06,lh=mh*.36;
+ return <g data-part="stamp-top-b">
+  <rect x={-mw/2} y={-mh/2} width={mw} height={mh} rx={10} fill={RS.woodLit} stroke={RS.ink} strokeWidth={2.6}/>
+  <path d={`M${f2(-mw/2+8)} ${f2(-mh/2+6)}H${f2(mw/2-30)}`} stroke="#FFFFFF" strokeWidth={2} opacity={.3}/>
+  <path d={`M${f2(-mw/2+6)} ${f2(mh/2-5)}H${f2(mw/2-6)}`} stroke={RS.redInk} strokeWidth={3.5}/>
+  <rect x={f2(-w/2+6)} y={f2(ly)} width={f2(w-12)} height={f2(lh)} rx={4} fill={RS.paperLit} stroke={RS.ink} strokeWidth={1.6}/>
+  <text x={0} y={f2(ly+lh/2+8)} textAnchor="middle" fontFamily={FONT.body} fontSize={22} fontWeight={700} fill={RS.redInk} letterSpacing={1.5}>{STAMP_TEXT}</text>
+  <circle cx={0} cy={f2(-mh*.2)} r={f2(mh*.24)} fill={RS.wood} stroke={RS.ink} strokeWidth={2.4}/>
+  <circle cx={f2(-mh*.07)} cy={f2(-mh*.27)} r={f2(mh*.08)} fill={RS.woodLit} opacity={.8}/>
+ </g>;};
+/** B's receipts board standing at the back of the desk: hardboard, its printed label, worn at one corner. */
+const ReceiptsBoardB:React.FC=()=>{const B=RECEIPTS_B,Lb=B.label;
+ return <g data-part="receipts-board-b">
+  <rect x={B.x} y={B.y} width={B.w} height={B.h} rx={12} fill={RS.kraftDeep} stroke={RS.ink} strokeWidth={4}/>
+  <rect x={B.x+10} y={B.y+10} width={B.w-20} height={B.h-20} rx={8} fill="none" stroke={RS.kraft} strokeWidth={3} opacity={.55}/>
+  {[0,1,2].map(k=><path key={k} d={`M${B.x+22} ${B.y+150+k*34+6*hash(k+31)}q${B.w*.45} ${f2(-6+5*hash(k+37))} ${B.w-44} 0`} stroke={RS.kraft} strokeWidth={2} opacity={.35} fill="none"/>)}
+  <path d={`M${B.x+B.w-34} ${B.y+B.h-4}l30 -26`} stroke={RS.kraft} strokeWidth={3} opacity={.6}/>
+  <rect x={Lb.x} y={Lb.y} width={Lb.w} height={Lb.h} rx={6} fill={RS.paperLit} stroke={RS.ink} strokeWidth={2.4} transform={`rotate(-1.2 ${Lb.x+Lb.w/2} ${Lb.y+Lb.h/2})`}/>
+  <text x={Lb.x+Lb.w/2} y={f2(Lb.y+Lb.h/2+Lb.size*.36)} textAnchor="middle" fontFamily={FONT.body} fontSize={Lb.size} fontWeight={700} fill={RS.ink}
+   transform={`rotate(-1.2 ${Lb.x+Lb.w/2} ${Lb.y+Lb.h/2})`}>RECEIPTS</text>
+ </g>;};
+/** B's desk front below its top edge: two drawer columns of unequal width, brass pulls, one set crooked. */
+const DeskDrawersB:React.FC<{y:number}>=({y})=><g data-part="desk-drawers-b">
+ {([[60,470],[505,1020]] as Pt[]).map(([x0,x1],i)=><g key={i}>
+  {[0,1].map(j=>{const top=y+30+j*290,cx=(x0+x1)/2,tilt=i===1&&j===0?3.5:0;
+   return <g key={j}>
+    <rect x={x0} y={top} width={x1-x0} height={260} rx={8} fill={RS.wood} stroke={RS.ink} strokeWidth={3}/>
+    <path d={`M${x0+12} ${top+12}H${x1-12}`} stroke={RS.woodLit} strokeWidth={2.4} opacity={.6}/>
+    <path d={`M${x0+16} ${top+250}H${x1-16}`} stroke={RS.woodDeep} strokeWidth={3} opacity={.5}/>
+    <g transform={`rotate(${tilt} ${cx} ${top+92})`}><rect x={cx-62} y={top+80} width={124} height={24} rx={12} fill={RS.brass} stroke={RS.ink} strokeWidth={2.4}/>
+     <path d={`M${cx-48} ${top+86}H${cx+30}`} stroke={RS.brassLit} strokeWidth={2.4} opacity={.8}/></g>
+   </g>;})}
+ </g>)}
+ <path d={`M140 ${y+150}q24 6 40 -2`} stroke={RS.woodDeep} strokeWidth={3} opacity={.45} fill="none"/>
+</g>;
 /** A placement: position, scale, rotation (deg), and a horizontal flip. Shared by drawing and bound checks. */
 export type Place={x:number;y:number;s:number;r?:number;flip?:boolean};
 export const toScreen=(L:Place,p:Pt):Pt=>{const a=(L.r??0)*DEG,x=L.s*(L.flip?-p[0]:p[0]),y=L.s*p[1];return [L.x+x*Math.cos(a)-y*Math.sin(a),L.y+x*Math.sin(a)+y*Math.cos(a)];};
@@ -263,7 +329,11 @@ export const TAGS={ai:['AI host'],fox:['FOX 26 reports','all to the kitchen'],ow
 /** Paper placements (card units to screen) per view. */
 export const LEDGER_AT:Record<string,PaperAt>={'ledger-slide':{x:250,y:940,s:1.25,fy:.55,r:-3},'ledger-tag':{x:90,y:760,s:1.9,fy:.6,r:-2},
  'owner-stamp:a':{x:150,y:510.8,s:2.2,fy:.62},'empty-clip':{x:120,y:1090,s:.95,fy:.5,r:-4},
- 'desk-ledger':{x:210,y:560,s:1.5,fy:1,r:-2},'ledger-corner':{x:-20,y:398,s:2.2,fy:1},'owner-stamp:b':{x:170,y:316.8,s:2.2,fy:1},'clip-bench':{x:560,y:1100,s:.9,fy:.5,r:3}};
+ 'desk-ledger':{x:210,y:560,s:1.5,fy:1,r:-2},'ledger-corner':{x:-20,y:398,s:2.2,fy:1},'owner-stamp:b':{x:-20,y:398,s:2.2,fy:1},'clip-bench':{x:60,y:860,s:1.75,fy:.84,r:-2}};
+/** B's clip shot, screen pixels: the desk's back edge and depth, and the receipts board standing at the back of
+ * the desk to the right, its label and the clip's pivot on its top edge (the clip's body straddles that edge). */
+export const DESK_B={back:840,depth:490};
+export const RECEIPTS_B={x:575,y:520,w:330,h:380,clip:[740,387] as Pt,clipS:1.7,label:{x:584,y:735,w:312,h:66,size:44}};
 export const RULE_AT:Record<string,PaperAt>={'rule-card:a':{x:150,y:520,s:1.5,fy:.88,r:-1.5},'cooks-line':{x:20,y:375,s:2,fy:.9},'circle-detail':{x:-19,y:327,s:2.15,fy:.92},
  'rule-card:b':{x:165,y:520,s:1.45,fy:1},'box-close':{x:-30,y:332,s:1.9,fy:1},'pen-circle':{x:-19,y:320,s:2.15,fy:1},
  'blank-folder':{x:-260,y:560,s:1,fy:.88},'folder-wide':{x:80,y:420,s:.95,fy:1}};
@@ -290,7 +360,10 @@ export function contactPoints(view:string,v:V,S:OrderState):Record<string,Pt>{
  const pa=PANEL_AT[k]??PANEL_AT[view];
  if(pa)out.eyelet=toScreen(pa,PANEL.eyelet);
  const L=LEDGER_AT[k]??LEDGER_AT[view];
- if(L){out.tag=paperPt(L,LEDGER.tag);out.mark=paperPt(L,[LEDGER.mark.x,LEDGER.mark.y]);}
+ if(L){const mk=v==='b'&&(view==='owner-stamp'||view==='clip-bench')?MARK_B:LEDGER.mark;
+  out.tag=paperPt(L,LEDGER.tag);out.mark=paperPt(L,[mk.x,mk.y]);}
+ if(k==='clip-bench:b'){const B=RECEIPTS_B;out.receipts=[B.label.x+B.label.w/2,B.label.y+B.label.h];
+  out.clipJaw=toScreen({x:B.clip[0],y:B.clip[1],s:B.clipS},[0,120]);}
  const Rc=RULE_AT[k]??RULE_AT[view];
  if(Rc){out.box=paperPt(Rc,[RULE.box.x,RULE.box.y]);for(const u of [0,.25,.5,.75,1])out['lasso'+u]=paperPt(Rc,rulePenPoint(u));}
  const F=FOLDER_AT[view];
@@ -764,32 +837,72 @@ export const OrderPassFilm:React.FC<FilmRenderProps>=({board,scene,shot,time_s,v
  case 'owner-stamp':{
   // A detail, side on / B detail, from above. A rubber stamp comes down onto the card, presses, holds and
   // lifts away, leaving OWNER COUNT crooked beside the tag.
-  need('s5');const L=pick(LEDGER_AT),top=v==='b',st=S.s5.stamp,m=paperPt(L,[LEDGER.mark.x,LEDGER.mark.y]);
+  need('s5');
+  if(v==='b'){
+   // B, from above, on the tag shot's card exactly (a true match cut). The stamp is known by its index label as
+   // it comes in from the desk's near edge; it presses and holds (the 30.6 s reading), then goes back toward
+   // the near edge, braking, so OWNER COUNT lies uncovered and large beside the tag before the cut.
+   const L=pick(LEDGER_AT),sb=S.s5.stampB,m=paperPt(L,[MARK_B.x,MARK_B.y]),{w:fw,h:fh}=markBSize();
+   const up=1-sb.come,h=Math.max(up,sb.lift);
+   const off:Pt=[STAMP_FROM_B[0]*up+STAMP_EXIT_B[0]*sb.lift,STAMP_FROM_B[1]*up+STAMP_EXIT_B[1]*sb.lift];
+   const sc=L.s*(1+.3*up+.35*sb.lift-.025*sb.press);
+   const shade:Pt=[m[0]+.55*off[0]+6+46*h,m[1]+.55*off[1]+8+64*h];
+   pic=<g>
+    {deskTopFull()}
+    <Item id="s5-ledger">
+     <g transform={paperTransform(L)}><RestaurantSupport part="ledgerCard"/></g>
+     <g transform={paperTransform({...L,x:L.x+12,y:L.y+16})} opacity={.24}>{tagShadow(TAGS.money,30,LEDGER.tag,-8)}</g>
+     <g transform={paperTransform(L)}>{sb.inked>0&&<MarkB/>}{flatTag(TAGS.money,30,LEDGER.tag,-8)}</g>
+    </Item>
+    <Item id="s5-stamp">
+     <At p={shade} s={L.s} r={MARK_B.rot} o={.3*(1-.55*h)}><rect x={-(fw+20)/2} y={-(fh+46)/2} width={fw+20} height={fh+46} rx={10} fill="#1A1410"/></At>
+     <At p={[m[0]+off[0],m[1]+off[1]]} s={sc} r={MARK_B.rot}><StampTopB/></At>
+    </Item>
+   </g>;
+   break;
+  }
+  // A, side on (B's face-down overhead slide is retired above).
+  const L=pick(LEDGER_AT),st=S.s5.stamp,m=paperPt(L,[LEDGER.mark.x,LEDGER.mark.y]);
   const mw=stampSize().w*L.s,k=mw/132;
   const tag=flatTag(TAGS.money,30,LEDGER.tag,-8);
-  const stampNode=top?(()=>{const far=1-st.come+st.away,h=st.lift;
-   const sc=mw/132*(1+.55*h+.6*far),off:Pt=[520*far,-640*far],sh:Pt=[18+70*h,26+80*h];
-   return <g><At p={[m[0]+sh[0]+off[0]*.6,m[1]+sh[1]+off[1]*.6]} s={mw/132} r={LEDGER.mark.rot} o={.25*(1-far)}><rect x={-66} y={-23} width={132} height={46} rx={8} fill="#1A1410"/></At>
-    <At p={[m[0]+off[0],m[1]+off[1]]} s={sc} r={LEDGER.mark.rot}><RestaurantSupport part="stamp" top/></At></g>;})():
-   (()=>{const y=m[1]-st.lift*140-(1-st.come)*900-st.away*900;
+  const stampNode=(()=>{const y=m[1]-st.lift*140-(1-st.come)*900-st.away*900;
     return <g><ellipse cx={m[0]+10} cy={m[1]+6} rx={f2(70*k*(1-.4*st.lift))} ry={f2(14*k*.62)} fill="#1A1410" opacity={f2(.3*(1-st.lift)*st.come*(1-st.away))}/>
      <At p={[m[0],y]} s={k}><RestaurantSupport part="stamp"/></At></g>;})();
   pic=<g>
-   {top?deskTopFull():deskFront(500,760)}
+   {deskFront(500,760)}
    <Item id="s5-ledger"><g transform={paperTransform(L)}><RestaurantSupport part="ledgerCard" mark={st.inked}/>{tag}</g></Item>
    <Item id="s5-stamp">{stampNode}</Item>
   </g>;
   break;}
  case 'empty-clip':
  case 'clip-bench':{
-  // A medium / B medium. In the back office the receipt clip on its nail opens its jaws and snaps shut on
-  // nothing, wobbling, while the card lies on the desk with its tag and its owner count mark.
-  need('s5');const L=pick(LEDGER_AT),a=view==='empty-clip';
-  const board:Pt=a?[660,700]:[80,640],bw=a?300:260,bh=a?380:440,nail:Pt=a?[810,760]:[210,700],cs=a?1.15:1.3;
+  // A medium / B medium. In the back office the receipt clip opens its jaws and snaps shut on nothing while
+  // the card lies on the desk with its tag and its owner count mark.
+  need('s5');
+  if(view==='clip-bench'){
+   // B, medium, the desk seen from the front and above with the region in the window behind. The stamped card
+   // lies large at the front, OWNER COUNT and the $9,650 tag read above the caption band; beside it at the
+   // back of the desk the board labelled RECEIPTS stands, and its clip opens and snaps shut on nothing, the
+   // board giving a little as it snaps. The drawers below fill the frame. The camera holds: the result reads.
+   const L=pick(LEDGER_AT),B=RECEIPTS_B,base:Pt=[B.x+B.w/2,B.y+B.h],tip=.4*S.s5.wob;
+   pic=<g>
+    {deskFront(DESK_B.back,DESK_B.depth)}
+    <Item id="s5-setting"><DeskDrawersB y={DESK_B.back+DESK_B.depth}/><At p={[165,850]} s={.8}><RestaurantSupport part="mug"/></At></Item>
+    <Item id="s5-clip"><ellipse cx={base[0]+14} cy={base[1]+2} rx={B.w*.56} ry={13} fill="#1A1410" opacity={.3}/>
+     <g transform={`rotate(${f2(tip)} ${base[0]} ${base[1]})`}><ReceiptsBoardB/>
+      <At p={B.clip} s={B.clipS}><RestaurantSupport part="receiptClip" open={S.s5.clip}/></At></g></Item>
+    <Item id="s5-ledger"><g transform={paperTransform({...L,x:L.x+10,y:L.y+12})} opacity={.22}><rect width={LEDGER.w} height={LEDGER.h} fill="#1A1410"/></g>
+     <g transform={paperTransform(L)}><RestaurantSupport part="ledgerCard"/><MarkB/>{flatTag(TAGS.money,30,LEDGER.tag,-8)}</g></Item>
+   </g>;
+   break;
+  }
+  // A, medium (B's distant cork board medium is retired above).
+  const L=pick(LEDGER_AT);
+  const board:Pt=[660,700],bw=300,bh=380,nail:Pt=[810,760],cs=1.15;
   pic=<g>
    {deskFront(1060,200)}
    <Item id="s5-clip"><At p={board}><RestaurantSupport part="corkBoard" w={bw} h={bh}/></At><At p={nail} s={cs} r={S.s5.wob}><RestaurantSupport part="receiptClip" open={S.s5.clip}/></At></Item>
-   <Item id="s5-setting"><At p={a?[600,1150]:[420,1150]} s={.7}><RestaurantSupport part="mug"/></At></Item>
+   <Item id="s5-setting"><At p={[600,1150]} s={.7}><RestaurantSupport part="mug"/></At></Item>
    <Item id="s5-ledger"><g transform={paperTransform(L)}><RestaurantSupport part="ledgerCard" mark={1}/>{flatTag(TAGS.money,30,LEDGER.tag,-8)}</g></Item>
   </g>;
   break;}
