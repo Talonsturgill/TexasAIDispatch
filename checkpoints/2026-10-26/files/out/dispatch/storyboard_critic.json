@@ -1,237 +1,41 @@
 {
- "option": "b",
- "verdict": "pass",
- "review_scope": "exact-muted-phone-preflight",
- "reviewed_preflight_sha256": "761486b2ed9f0e4decf9a692b70a9c9ad7b6c615dab0a8fe4fae565cc182e0d8",
- "concept_sha256": "de4e76d6da60d277a8f84a7c3642220fa351209aac768ad9b29fba90adfed8b9",
- "renderer_sha256": "f621e5a74d58b7a25627cfc62f39ee6b2d0213a7f8d454bdb539eb0531537b4a",
+ "treatment": "b",
+ "review_scope": "code-plan",
+ "board": {
+  "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b.json",
+  "sha256": "c3e037a73dac5c7e4d857910bd84262dade1cf86e14d2d60b1315101ecf89b9c"
+ },
+ "concept_sha256": "3889110d9cea4e1558ee6971d76b3d92ae0b3ee082a100a66a070adc36252940",
+ "renderer_sha256": "a5bcc689783195eb138c6e187a1960d595d22a450010b52d6eba39d5ffa8eaec",
  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
- "comparison": {
-  "comparison_sha256": "085c5a16e47ff7223ddc2948b7d3b23030c34a8d0d3cbb26b6149ab4ae9aecc8",
-  "option": "b",
-  "inspection_sha256": "9e539435aee131379c3f816129af2d7e2c014656aac98e2a42437214f1f178a9"
- },
- "reviewer_identity": "storyboard-critic (claude-opus-5-5, high effort), isolated phone-fifth comparison worker",
- "reviewed_at": "2026-10-29",
- "basis": "Chronological 5 fps samples at 390 px width decoded from the exact encoded phone film. No direct playback and no listening. Motion between samples remains unverified. This pass covers the silent exact-phone preflight only. It approves no timed narration, native hero, sound, captions, scoring or delivery.",
- "strongest_frame": "24.6 to 25.6 s (s4-shot-2, paid-line): the overhead floor plan shows the paid phone lying on the guest's table and a red check token travelling a dashed path across the room into the printer slot on the counter, where the lamp turns red. The pay-first rule becomes a spatial picture.",
- "weakest_frame": "8.6 to 10.8 s (s2-shot-1, sign-window): the wide front of house holds still with an empty sign frame and a dark panel for about 2.2 s. The frame shows nothing posted, but 'job ad' comes only from the caption.",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated Read-only code-plan reviewer for critic packet 7 (same worker, coverage completion), distinct from the claude-sonnet-5-5 director",
+ "reviewed_at": "2026-10-30",
+ "verdict": "pass",
  "blocking_defects": [],
+ "strongest_frame": "s4 paid-line push-in, 24.553 to 25.813 s. The camera follows the paid mark down the room plan onto the printer top at PAID_ZOOM 4.4, so the 0.36-scale printerTop reads at about 1.58x. The mark shrinks into the slot as it arrives at 25.52 s, and PrinterTop's lamp turns from amber to red at 25.52 to 25.64 s inside the same held framing, about 0.29 s before the cut. In the following ticket-print and flame-close shots, the ticket (printed with the paid mark and Chow mein) rises, is gripped and cut, and only then the cook's bowl pours and the flame flares, in causal order on the same printer.",
+ "weakest_frame": "s4 ticket-print close, 25.813 to 26.51 s. The signature event (s4-event-3) gets a 0.697 s shot. pStart is 25.863 s, printing ends at 26.251 s and the cut completes at 26.362 s, so the finished ticket holds alone for only about 0.15 s. Its comprehension then depends on flame-close, where the printer at scale 1.4 keeps the hanging ticket in frame while the bowl begins to tilt at 26.56 s. No fixed criterion sets a minimum shot length (config/modern_film.json bounds only the maximum), so this isn't a code blocker. The exact-film review must confirm that the print reads.",
  "notes": [
-  "8.6 to 10.8 s: the static hold of the empty sign frame is the weakest information interval. It is within the limits and understandable as nothing posted, so it is a note, not a blocker.",
-  "24.6 s: in the floor plan, the diners differ from the opening plan (one per table versus three at 0.0 s). This is a minor continuity drift.",
-  "21.4 to 23.4 s: the disclosure label overlaps the phone's upper menu rows in the detail framing. The Chow mein row and the Paid result stay legible.",
-  "28.0 to 29.8 s, 35.0 to 36.4 s and 39.6 to 42.6 s: the overhead desk and pass shots leave the lower 35 to 40 percent of the frame as blank cream, and at 35.0 to 35.8 s the jar is only about 40 px across. Composition is sparse but readable.",
-  "33.6 to 34.8 s: the bare receipt clip promised in the board can't be identified. The corkboard object reads as a handbag. The OWNER COUNT stamp at 33.4 s independently carries 'his own count', so this missed technique is not a blocker.",
-  "49.4 to 53.6 s: the hesitant hand uses the same blue sleeve, phone and table as the s3 guest. The quote card's One customer attribution and the disclosure label introduce the remark, but a viewer may read it as the same guest. Keep this in mind at the timed phone review.",
-  "The cook appears only as a white-sleeved arm from the frame edge (26.6 to 27.8 s). This is acceptable for an illustrated mechanism. The board's 'a cook loads the wok' is performed.",
-  "Unresolved: smoothness between samples for the footprint walk (0.2 to 1.0 s), the token path (24.8 to 25.4 s), the coin chain (35.2 to 36.4 s) and the tag swings. This needs uninterrupted playback at the native or timed gate.",
-  "Unresolved: native-scale surface finish, and all sound, voice, caption alignment and measured timing."
+  "Retained phone-fourth B defect 1 (s3 menu-tap detached, scale-mismatched limbs), checked against the code. It is replaced by an over-the-shoulder seated guest (GuestBack, neck base at 270,1060) whose right arm is one jointed limb from her own shoulder (GUEST_BACK.shoulder 460,180, so about 730,1240 on screen). The limb has a rigid upper arm of 260, a forearm of 290 and the hand at fs 0.75. armIK finds the pose deterministically, and armFK draws the Finger sleeve exactly to the elbow (sleeve = b/fs). Segment lengths never change, so nothing stretches. The roughly 501 px shoulder-to-contact distance is reachable without clamping. The upper arm and body are drawn after the phone rig, so the holding palm and sleeve emerge from behind her shoulder line, and her shirt matches the sleeve colour GUEST_SLEEVE. I judge the implementation repaired at code scope.",
+  "Carried to the mandatory exact-film review, not a code blocker: s3 menu-tap proportions. The head is about 344 x 384 px. The holding palm is about 245 px wide and the phone about 216 x 432 px at scale 0.72, both somewhat large for objects farther from the lens than the head (roughly 1.3 to 1.4 times on anatomical ratios). The upper arm (260) is shorter than the head height and the hand (about 352 px from wrist to tip) is longer than the forearm (290), which only foreshortening of a forward reach would justify. The left hand holds the phone to the right of her head, crossing her body. Phone pixels must decide whether this reads as one believable person or repeats the retained 'oversized hand' defect.",
+  "Retained phone-fourth B defect 2 (s10 tiny order action, then a static hold), checked against the code. stand-wide draws the panel at scale 1.42 (screen about x 37 to 463, y 354 to 899), so the order card, which shows Chow mein and the paid mark, is about 346 x 159 px. The card lands within 54.17 to 54.65 s, and the slip drops into the printer at 55.25 s. The lamp, print, grip and cut then run to about 56.03 s, followed by a damped ticket swing and a continuous ease-in (zoom to 1.08) to the 56.72 s cut. The action is no longer a sliver and there is no static hold in code. The legibility of the card's contents is a pixel question.",
+  "Retained unresolved s9 hand smear at 50.8 s: structurally removed. B's viewfinder-hunt lowers the phone onto the quote-side placement (650,1030, scale 0.6) with the hand still on it, and quote-side keeps hand:true at the same placement, so the hand never leaves at speed. The quote card (x 40 to 580, y 560 to 821) no longer covers the plate or the code stand at 700,700.",
+  "Retained note on the s3 Pay detail with no holding hand: paid-close:b now has hand:true, and the finger's away point is off frame, so nothing pops.",
+  "Round-1 retained defects, rechecked in B. pass-wide and ticket-print:b use wokCold, so the wok is empty, Wok draws no flame at all, and the burner knob is at rest. Food and flame enter only in s4-event-4, with the cook's hand on the handle rocking the pan. No served food appears on any table before s4. The arrival and lamp share one held framing on a readable printer view. All are implemented.",
+  "Apparent speed is carried to the film review. s4-event-4 is 0.5 s (26.56 to 27.06 s): the bowl reaches its 72 degree tilt in about 0.2 s and the pour runs about 0.3 s, with the shake and the bowl's exit continuing to the 27.86 s cut.",
+  "Source checks pass against claims.json. The ledger header 'Saving or winning back' and the '$9,650 / a month' tag match c6's quote. 'OWNER COUNT' and 'owner says' follow c6 and c7's scope notes, including Hoodline's 'owner's own accounting'. 'FOX 26' is in c12's quote. The rule card reads 'If the employer takes no tip credit ... a tip pool may include cooks', consistent with c8 (whose full-minimum-wage condition the narration doesn't restate) and c9. The folder's 'Takes no tip credit?' box stays blank, matching c7's absence scope. The quote card text '\"not very convenient for every kind of people\"' / 'One customer' is verbatim within c10, with no person named. Every on-screen numeral ($9,650, 26) appears in a fetched quote. The region gulf and plate gulf-wide match Harris County (c11). Every frame renders the production_disclosure chip from the scene record. No retired motif, brand mark or restaurant name is drawn.",
+  "Modern and mechanical limits I read from the board: maximum shot 3.51 s, under 5 s. First reward at 0.69 s, under 1.5 s. Five framings are used. 8 of 31 shots are registered wall views (desk-ledger, ledger-corner, rule-card, box-close, pen-circle, folder-wide, folder-close, quote-side), under 40 percent. owner-stamp:b is a non-wall detail view, but deskTopFull covers about 1020 x 970 px of the frame, so place_check's region share for that shot needs its mechanical check.",
+  "Required non-blocking housekeeping, shared by both boards. (1) Stale board prose that the renderer contradicts: s1-tables is labelled 'two occupied tables with plates', but the code draws empty plates. s4-pan is labelled 'wok on a low flame', but the code draws an unlit, empty wok before payment. s9's hero, visual_sentence.subject, visual_proof must_show 'phone hunting on a table code', mute_takeaway 'A phone cannot lock' and every shot carry say the viewfinder 'hunts and cannot lock', but the events and code perform a hesitation with no hunting brackets (scan 1, lock 0, no hunt). Correct the prose so later reviewers judge the performed action, not the retired one. (2) Two story_contract visible_bridges don't describe the executed cut. s1 to s2 says 'from the swinging apron', but the last s1 shot (table-wait) draws no apron. s3 to s4 says the paid mark travels toward the printer at the cut, but s4 opens on the idle pass-wide. (3) The standing host panel still has no bound claim behind s2 and s10, though the disclosure 'Generic panel' limits the false inference. (4) The menu row, ticket and order card name 'Chow mein', a dish no claim supports. Keep it within the disclosure or use a generic label. (5) The registry's authored_art hero views omit floor-plan, viewfinder-hunt, quote-card and quote-side, all of which draw OrderRigHero parts (printerTop, jarTop, phone, codeStand). (6) JarTop draws four coins at fill 0 in the s1 plan's 'empty' jar. That is negligible at 0.42 scale. (7) The s6 coins leaving the phone are a disclosed metaphor for tips paid by phone. (8) 'Talks' is shown only as a static Talk button, which is acceptable for an either/or clause.",
+  "Code approval authorizes only the funded capture. The complete current Opus phone review, native PNG/CRF16 inspection, all three audiovisual lenses, caption and audio measurement, three independent scorers and every delivery gate remain required. This report makes no pixel, motion or finish observation."
  ],
- "phone_observations": {
-  "subject_recognition": {
-   "pass": true,
-   "start_s": 15.6,
-   "end_s": 23.4,
-   "observed": "From overhead, a table with a code card in a stand and a phone that moves over it (16.0 to 17.8 s). The menu slides up over the code image (18.0 to 18.4 s). An over-the-shoulder seated guest in a blue top holds the phone and taps a Chow mein row (19.2 to 19.8 s). A large legible Paid card follows at 22.4 s. The opening diners at 5.0 to 7.6 s are 70 to 100 px tall behind a blank order pad."
-  },
-  "contact_and_consequence": {
-   "pass": true,
-   "start_s": 19.4,
-   "end_s": 27.8,
-   "observed": "The guest's fingertip touches the row and it lights yellow (19.6 to 19.8 s). The finger presses Pay and the Paid card appears (22.0 to 22.4 s). The token travels from the phone on the table into the printer slot and the lamp goes red (24.8 to 25.6 s). A Chow mein ticket prints up to the rail (26.0 to 26.4 s). The bowl tips noodles into the wok as flames appear (26.6 to 26.8 s), and the noodles toss (27.4 to 27.8 s). Every result holds readable before the cut."
-  },
-  "surface_finish": {
-   "pass": true,
-   "start_s": 0.0,
-   "end_s": 60.4,
-   "observed": "Outlined flat illustration with a consistent cream, terracotta and steel palette. The glass jar has highlights and a contact shadow (37.8 to 39.4 s), the printer has its lamp and slot, the wok sits on a three-knob burner, and the desk has wood grain. The finish reads as finished for the flat style at phone size. Overhead desk shots are plain and leave blank cream below. Native-scale detail was not available and remains unverified for the native hero gate."
-  },
-  "closing_payoff": {
-   "pass": true,
-   "start_s": 56.8,
-   "end_s": 60.4,
-   "observed": "In a medium shot, the pass holds the printer, still carrying the Chow mein ticket the panel produced, beside the filled jar. An owner says tag lands (57.0 to 57.8 s) and a no record shown tag settles beneath it (59.0 to 59.8 s). The final detail holds ticket, jar and both tags without a caption at 60.2 to 60.4 s. Software took the order, and the tip claim is visibly unsupported."
-  }
- },
- "modern_observations": {
-  "film_sha256": "761486b2ed9f0e4decf9a692b70a9c9ad7b6c615dab0a8fe4fae565cc182e0d8",
-  "first_frame": {
-   "pass": true,
-   "start_s": 0.0,
-   "end_s": 1.8,
-   "observed": "The first frame is an overhead floor plan of a small restaurant with seated diners, a host stand and a counter. Footprints start leaving the host stand at 0.2 s and exit through the door, which swings shut by 1.8 s. The first change comes well inside 1.5 s and pictures the walk-out."
-  },
-  "visual_progression": {
-   "pass": true,
-   "start_s": 0.0,
-   "end_s": 60.4,
-   "observed": "One order is followed across the room: the empty station and blank pad, the panel lighting with its AI host tag, the scan, tap and pay, the paid path across the plan to the printer, the ticket and the flare. Then come the ledger, tag and stamp, coins from the paid phone into the jar beside the printed ticket, the rule card circled, the restaurant folder's blank box, the remark, and finally the panel's order to the printer and the jar's two tags."
-  },
-  "shot_variety": {
-   "pass": true,
-   "start_s": 0.0,
-   "end_s": 60.4,
-   "observed": "Overhead (0.0, 15.6, 24.6, 28.0, 35.0, 39.6, 49.4 s), medium (2.6, 11.0, 19.2, 56.8 s), close (5.0, 25.8, 36.6 s), detail (13.4, 21.4, 26.6, 32.6, 58.4 s) and wide (7.8, 23.6, 53.8 s). Each cut brings new information."
-  },
-  "performed_turn": {
-   "pass": true,
-   "start_s": 39.6,
-   "end_s": 49.4,
-   "observed": "The rule card's empty box is drawn (40.8 to 41.0 s), the cooks row is highlighted (43.0 to 43.8 s) and a pen circles both rows (44.4 to 45.0 s). The hand then parks at the corner and the text stays readable. The Restaurant folder slides beside the circled card and opens on the same empty box, and a question mark draws in (47.0 to 48.8 s)."
-  },
-  "pace": {
-   "pass": true,
-   "start_s": 0.0,
-   "end_s": 60.4,
-   "observed": "No shot exceeds the limit. The longest unchanged interval is about 2.2 s at 8.6 to 10.8 s. Other holds are shorter: 33.6 to 34.8 s, 41.0 to 42.6 s and 52.2 to 53.6 s."
-  },
-  "closing_answer": {
-   "pass": true,
-   "start_s": 53.8,
-   "end_s": 60.4,
-   "observed": "The large Haniya panel shows the Chow mein order and sends a ticket that prints (54.4 to 55.8 s). The close joins that ticket to the jar under owner says and no record shown. This answers the opening question without inventing a pay record or outcome."
-  },
-  "finished_art": {
-   "pass": true,
-   "start_s": 0.0,
-   "end_s": 60.4,
-   "observed": "Recognizable finished authored props carry the story: floor plan, host stand, panel, phone, printer, wok, jar, ledger, stamp, rule card and folder. Phone-scale finish is acceptable for the flat style. Native-scale finish is unverified."
-  }
- },
- "narration_picture_observations": {
-  "film_sha256": "761486b2ed9f0e4decf9a692b70a9c9ad7b6c615dab0a8fe4fae565cc182e0d8",
-  "clauses": [
-   {
-    "id": "n1a",
-    "pass": true,
-    "start_s": 0.48,
-    "end_s": 4.53,
-    "observed": "Footprints lead from the host stand out of the door and the door swings shut with bell marks (0.2 to 1.8 s). The host stand phone then rings with nobody there and the apron hangs empty (2.6 to 4.8 s)."
-   },
-   {
-    "id": "n1b",
-    "pass": true,
-    "start_s": 4.83,
-    "end_s": 7.38,
-    "observed": "A blank lined order pad and pencil sit in the foreground with the phone ringing. Behind, a diner raises a hand over a menu (5.4 to 7.6 s)."
-   },
-   {
-    "id": "n2a",
-    "pass": true,
-    "start_s": 8.04,
-    "end_s": 10.59,
-    "observed": "An empty white sign frame in the front window swings and settles with nothing in it (8.2 to 8.6 s), then holds to 10.8 s. The absence is pictured, but 'job ad' depends on the caption."
-   },
-   {
-    "id": "n2b",
-    "pass": true,
-    "start_s": 10.89,
-    "end_s": 15.24,
-    "observed": "Beside the same host stand and apron, the panel lights and writes Haniya (11.4 to 11.8 s). An AI host tag swings in and pins on its face (13.6 to 14.4 s)."
-   },
-   {
-    "id": "n3a",
-    "pass": true,
-    "start_s": 15.9,
-    "end_s": 18.75,
-    "observed": "From overhead, the arm brings the phone over the code card (16.0 to 17.8 s) and the menu replaces the code image (18.0 to 18.4 s). The screen shows the code before alignment."
-   },
-   {
-    "id": "n3b",
-    "pass": true,
-    "start_s": 19.05,
-    "end_s": 21.0,
-    "observed": "The over-the-shoulder seated guest taps Chow mein and the row lights yellow (19.6 to 19.8 s). The Talk button is visible."
-   },
-   {
-    "id": "n3c",
-    "pass": true,
-    "start_s": 21.3,
-    "end_s": 23.25,
-    "observed": "In detail, a finger presses Pay and a large red-check Paid card appears at 22.4 s and holds to 23.4 s."
-   },
-   {
-    "id": "n4",
-    "pass": true,
-    "start_s": 23.91,
-    "end_s": 27.06,
-    "observed": "Idle printer and cold wok (23.6 to 24.4 s). The paid phone on the table sends a token across the floor plan into the printer and the lamp turns red (24.6 to 25.6 s). A Chow mein ticket prints (26.0 to 26.4 s) and the wok is loaded and flares (26.6 to 27.8 s)."
-   },
-   {
-    "id": "n5a",
-    "pass": true,
-    "start_s": 28.22,
-    "end_s": 32.27,
-    "observed": "A Saving or winning back card slides onto the desk (28.4 to 29.8 s) and a $9,650 a month tag pins onto it at 30.8 s."
-   },
-   {
-    "id": "n5b",
-    "pass": true,
-    "start_s": 32.57,
-    "end_s": 34.52,
-    "observed": "A stamp comes down and lifts to leave a crooked red OWNER COUNT (32.6 to 33.4 s). The bare receipt clip is not identifiable at 33.6 to 34.8 s, but the clause is carried by the stamp."
-   },
-   {
-    "id": "n6",
-    "pass": true,
-    "start_s": 35.18,
-    "end_s": 39.23,
-    "observed": "Coins and bills chain from the paid phone into the jar at the pass (35.2 to 36.4 s). The jar fills beside the printer holding the Chow mein ticket (36.6 to 37.6 s), and a FOX 26 reports all to the kitchen tag settles on it (38.0 to 38.8 s)."
-   },
-   {
-    "id": "n7a",
-    "pass": true,
-    "start_s": 39.89,
-    "end_s": 42.44,
-    "observed": "The Federal tip pool rule card slides in and its empty box beside 'If the employer takes no tip credit' draws in (40.0 to 41.0 s)."
-   },
-   {
-    "id": "n7b",
-    "pass": true,
-    "start_s": 42.74,
-    "end_s": 45.59,
-    "observed": "The cooks row highlight sweeps to the chef hat (43.0 to 43.8 s) and a pen circles both rows (44.4 to 45.0 s). The text stays readable with the hand parked at the corner."
-   },
-   {
-    "id": "n8",
-    "pass": true,
-    "start_s": 46.25,
-    "end_s": 49.1,
-    "observed": "The Restaurant folder slides beside the circled rule card and opens on 'Takes no tip credit?' with an empty box (46.8 to 47.8 s). A question mark draws in by 48.8 s."
-   },
-   {
-    "id": "n9",
-    "pass": true,
-    "start_s": 49.76,
-    "end_s": 53.51,
-    "observed": "The hand lifts the phone toward the code, stops short and pulls back while the screen greys (50.2 to 50.8 s). A quote card reading 'not very convenient for every kind of people' / One customer lands beside the code (51.4 to 52.0 s). The phone stays lowered and its screen goes dark (53.0 to 53.4 s)."
-   },
-   {
-    "id": "n10a",
-    "pass": true,
-    "start_s": 54.17,
-    "end_s": 56.42,
-    "observed": "The large Haniya panel shows a Chow mein order with a check and sends a ticket that prints at the printer (54.4 to 55.8 s)."
-   },
-   {
-    "id": "n10b",
-    "pass": true,
-    "start_s": 56.72,
-    "end_s": 60.17,
-    "observed": "An owner says tag (57.0 to 57.8 s), then a no record shown tag (58.6 to 59.8 s), settle on the jar beside the printed Chow mein ticket."
-   }
-  ]
- },
- "action_reviews": [],
  "story_review": {
   "story_sha256": "da1b33a4afd397b1a311843ffa2a4b761f3c2acc2845d9d21be21a95a2e2ea31",
   "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
   "claims_sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
   "verdict": "pass",
   "blocking_defects": [],
-  "one_viewing_summary": "Footprints show the only server leaving a small restaurant, and diners wait over a blank pad. A Haniya host panel lights at the front. A seated guest scans a table code, taps Chow mein and pays. The paid mark crosses the room to the kitchen printer before the ticket prints and the wok flares. The owner's $9,650 figure is stamped as his own count, and coins flow into a kitchen jar under a FOX 26 tag. A federal rule ties cooks in a pool to taking no tip credit, and the restaurant's own box for that stays blank. One customer's QR remark lands. The order ends at the printer while the jar hangs under owner says and no record shown.",
-  "opening_to_ending": "The opening asks who will take the order after the server walks out. The ending shows the panel's order printed at the pass beside a tip jar whose only support is an owner says tag and a no record shown tag. The source limit is visible without an invented outcome.",
-  "weakest_transition": "s1 to s2 at 7.8 to 10.8 s: from the waiting diners to a wide front of house where an empty sign frame holds still for about 2.2 s. The visible change is small and 'job ad' relies on the caption until the panel lights at 11.4 s."
- }
+  "one_viewing_summary": "Intended chain from the code, read largely from above. On the room plan the door leaf swings shut with its bell, footprints lead from the host stand out the door, and the apron swings beside the stand. The desk phone then rings at the empty stand, and the pad's top sheet curls and falls back blank while a guest raises a hand over an empty plate. An empty sign frame hangs on the glass, and the host panel beside the stand lights and writes Haniya before an AI host tag hooks onto its eyelet. Overhead, a hand lifts the phone over the table code, the brackets lock and the menu opens. Over her shoulder, the seated guest taps Chow mein with her own jointed arm, and Pay becomes the paid mark in a held detail. The camera follows the mark across the plan into the printer, the lamp turns red, the ticket rises and hangs, and the cook pours noodles as the flame flares. The ledger card takes the $9,650 a month tag and an OWNER COUNT stamp beside a RECEIPTS clip that snaps shut on nothing. Coins slide off the paid phone across the pass into the jar under a FOX 26 tag. The rule card's cooks line lights and is circled, and the restaurant folder opens on a blank box and a question mark. A hand raises the phone toward the code, hesitates, sets it down and rests on it as a customer quote card lands. The panel takes an order whose slip drops into the printer, and the jar ends under owner says and no record shown tags beneath the printed ticket.",
+  "opening_to_ending": "It opens on the walkout and the unattended station, asking who will take the order. It ends with the panel taking the order, the order printing, and the tip jar under owner says and no record shown. That answers the question within the source limits, and no resolved tip outcome is invented.",
+  "weakest_transition": "s3 code-scan overhead to menu-tap over-the-shoulder (19.05 s). The cut changes scale and introduces the seated guest who owns the holding and tapping hands. Her proportions against the phone and hands are the remaining exact-film risk (see notes)."
+ },
+ "action_reviews": []
 }
