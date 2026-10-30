@@ -1,19 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round6/OrderPassFilm.tsx",
-        "before_sha256": "3962d4963544e5996b2bd3a3a43e5d6a5164a352db64e1e14503ba246fbeb6ac",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
-      }
-    ],
-    "failure_sha256": "8ae6238c8a800c10f5aced03865d6f03c16056e4d7eafd5ab385dbaadc83e54a",
-    "plan": "{REPO}/out/dispatch/repair-plan-6-complete.json",
-    "plan_sha256": "acd08d999a4e4cb760b7764e56eaebcda035a043d95aaf14b6517f3fd3fea9d4",
-    "progress_replacement_required": false,
-    "reboards_before": 4,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -2160,6 +2145,83 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-10-30T05:35:33.901634Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 125,
+        "reservation_sha256": "759e1dbfd9f37ccc011010c92b0bce6fc84db799f058eba22f77e06624460842",
+        "start_event_index": 123
+      },
+      "repair_plan": {
+        "capture_completion_budget": {
+          "comparison_json": "{\n  \"schema\": \"dispatch-opening-comparison/1\",\n  \"policy_sha256\": \"77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765\",\n  \"renderer_sha256\": \"f621e5a74d58b7a25627cfc62f39ee6b2d0213a7f8d454bdb539eb0531537b4a\",\n  \"producer_sha256\": \"c011ca483e79ccdf3f1e67e6c1da810b6e6d08cdf8cb643d0f6085b46484a606\",\n  \"reservation\": {\n    \"identity\": \"2e76347d492e2f3fc40204e2102a5f8fedd09659242544d3bb1eb65f954f808a\",\n    \"run_id\": \"2026-10-26\",\n    \"event_index\": 54\n  },\n  \"options\": [\n    {\n      \"id\": \"a\",\n      \"concept_sha256\": \"8024f77604f726100c411655d5f62d87894eff86084d58352c202e9638276a5b\",\n      \"renderer_sha256\": \"f621e5a74d58b7a25627cfc62f39ee6b2d0213a7f8d454bdb539eb0531537b4a\",\n      \"board\": {\n        \"file\": \"a.json\",\n        \"sha256\": \"0de4f69b97cb6174a081eeeee4b30d8db7b9f043067ff8960385f8e9d81c70c3\"\n      },\n      \"film\": {\n        \"file\": \"a.mp4\",\n        \"sha256\": \"d2e1a81079b0ae77e780be4f8799b9f75e660599ae88b9cc2714b657a2c9f0b2\"\n      },\n      \"inspection\": {\n        \"file\": \"a-inspection-98bc11343d3fd40f.json\",\n        \"sha256\": \"5ac730d73fd13f50594f96ca7ccd3fb626540c77eca9423a6224e22d324716a8\"\n      }\n    },\n    {\n      \"id\": \"b\",\n      \"concept_sha256\": \"dbc2dc7489bd30cdcc421a9ad37a4866113599fba8923ba57cf994bf52f54e3f\",\n      \"renderer_sha256\": \"f621e5a74d58b7a25627cfc62f39ee6b2d0213a7f8d454bdb539eb0531537b4a\",\n      \"board\": {\n        \"file\": \"b.json\",\n        \"sha256\": \"ac8a12d1d0bdd4e1a5cf7e4003b1de7dcd8b7b32daef8093ab1df49b6ab4db13\"\n      },\n      \"film\": {\n        \"file\": \"b.mp4\",\n        \"sha256\": \"761486b2ed9f0e4decf9a692b70a9c9ad7b6c615dab0a8fe4fae565cc182e0d8\"\n      },\n      \"inspection\": {\n        \"file\": \"b-inspection-294b66617925b717.json\",\n        \"sha256\": \"9e539435aee131379c3f816129af2d7e2c014656aac98e2a42437214f1f178a9\"\n      }\n    }\n  ],\n  \"selected_treatment_completion\": {\n    \"approval\": false,\n    \"claims_sha256\": \"c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f\",\n    \"comparison\": {\n      \"path\": \"{REPO}/out/dispatch/evidence/failed-openings-3/openings/comparison.json\",\n      \"sha256\": \"5fdd74ce98b417740338a4ab06b1d621e287ed9d2bd96430827c318750a76924\"\n    },\n    \"evidence_graph_sha256\": \"68aa2b5238c9e79dd12ff86e6125b437dd6e79e5824a19c6aab2b63ca823365a\",\n    \"image_coverage\": {\n      \"path\": \"{REPO}/out/dispatch/phone-fourth-coverage.json\",\n      \"sha256\": \"e5f1337990c1f439294733fb48a410d3d9830c3f9bb93de3511d7c07807e4f61\"\n    },\n    \"narration_sha256\": \"adfb67083178a9dff0d0b8298ff3f7257614855d2bdc9b891604e9fdd83804f6\",\n    \"original_claim\": {\n      \"path\": \"{REPO}/out/dispatch/worker-dispatch-claims/e5c2ca146040ef1d0615ba30b008be3facdd121c274af74b1d7bef3dd23bee91-storyboard-critic.json\",\n      \"sha256\": \"4a199e17a8332956a9102a7a7a1613eb410de16ac7ecec80fda155d5e6631903\"\n    },\n    \"original_code_claim\": {\n      \"path\": \"{REPO}/out/dispatch/worker-dispatch-claims/e5c2ca146040ef1d0615ba30b008be3facdd121c274af74b1d7bef3dd23bee91-storyboard-critic.json\",\n      \"sha256\": \"4a199e17a8332956a9102a7a7a1613eb410de16ac7ecec80fda155d5e6631903\"\n    },\n    \"original_code_packet\": {\n      \"path\": \"{REPO}/out/dispatch/phone-fourth-critic-packet.json\",\n      \"sha256\": \"14821024d77c8eeb29bff5235e2ad2578cf62f83327d58251242317f80d9dd82\"\n    },\n    \"original_code_review\": {\n      \"path\": \"{REPO}/out/dispatch/native-critic-completions/14821024d77c8eeb29bff5235e2ad2578cf62f83327d58251242317f80d9dd82-57377b375aef63fa3fdccbde50b0d7a80c568a7b700b5eafa7ca91c65aaffe7a.json\",\n      \"sha256\": \"f27fa336d1bf422fc9532f264f3b039b72895fc333b90f6017e854e5db50f5a6\"\n    },\n    \"original_packet\": {\n      \"path\": \"{REPO}/out/dispatch/phone-fourth-critic-packet.json\",\n      \"sha256\": \"14821024d77c8eeb29bff5235e2ad2578cf62f83327d58251242317f80d9dd82\"\n    },\n    \"original_review\": {\n      \"path\": \"{REPO}/out/dispatch/native-critic-completions/14821024d77c8eeb29bff5235e2ad2578cf62f83327d58251242317f80d9dd82-57377b375aef63fa3fdccbde50b0d7a80c568a7b700b5eafa7ca91c65aaffe7a.json\",\n      \"sha256\": \"f27fa336d1bf422fc9532f264f3b039b72895fc333b90f6017e854e5db50f5a6\"\n    },\n    \"original_review_event_index\": 40,\n    \"policy_sha256\": \"bb3e56ef31fa9c39280a16cf10c356b6a5d5e7c661dd64bb29e598aaf6450820\",\n    \"reservation_events_sha256\": \"ec8d3e08ee41a9dfba7ee284c5f7790413e53a1f3e21124f1a1e746f902f9576\",\n    \"run_id\": \"2026-10-26\",\n    \"schema\": \"dispatch_selected_treatment_completion/1\",\n    \"selected\": \"b\"\n  },\n  \"inspection_problems\": [],\n  \"inspection_pass\": true\n}\n",
+          "comparison_path": "{REPO}/out/dispatch/openings/comparison.json",
+          "comparison_sha256": "085c5a16e47ff7223ddc2948b7d3b23030c34a8d0d3cbb26b6149ab4ae9aecc8",
+          "entry_event_index": 54,
+          "entry_event_sha256": "24c3071707aafe260bca8d536297f4860917ed002cd66d144131e0f8a9de59f0",
+          "hook_event_index": 54,
+          "hook_event_sha256": "24c3071707aafe260bca8d536297f4860917ed002cd66d144131e0f8a9de59f0",
+          "policy_json": "{\n  \"schema\": \"dispatch_capture_completion_budget/3\",\n  \"effective_date\": \"2026-10-17\",\n  \"applies_to\": \"new evidence-bound capacity plans for active unfinished production\",\n  \"path\": \"renewed-two-treatment-comparison-with-phone-sequences\",\n  \"minimum_remaining\": {\"preflight_renders\": 8, \"storyboard_critics\": 4, \"full_renders\": 2, \"audiovisual_reviews\": 11, \"panel_rounds\": 1, \"scorer_calls\": 3},\n  \"preflight_operators\": {\"opening_compare_hook_and_entry\": 2, \"comparison_phone_sequences\": 2, \"final_timed_phone\": 1, \"timed_phone_sequence\": 1, \"native_hero\": 1, \"exact_film_motion\": 1},\n  \"native_render_hook_and_entry\": 2,\n  \"authorization_source_label\": \"Standing owner autonomous completion and complete remaining-path instruction, October 3rd and October 7th, 2026\",\n  \"invariants\": [\n    \"Bind the retained successful comparison and its actual two charged reservations.\",\n    \"Retain both original option boards and films byte-identically.\",\n    \"Use prepared single-claim authorization for the supported phone, hero and motion operators; opening comparison and native rendering retain their actual hook and entry charges.\",\n    \"Fund all eight preflight reservations and both native-render reservations before a new mandatory correction.\",\n    \"Keep prior v1 and v2 policy bytes, grants, failures, frozen envelopes and cumulative charges unchanged.\",\n    \"Use existing independent mandatory admission and obtain fresh code, comparison, timed phone, native, audiovisual, three-scorer and shipment evidence.\",\n    \"Capacity grants no creative approval, optional polish, lower-quality render or delivery waiver.\"\n  ]\n}\n",
+          "policy_sha256": "a24e8f717afde205194f77dcc47756285e7e257fe2f8e2dea0b957c1ce61d0e8",
+          "retained_files": [
+            {
+              "kind": "board",
+              "option": "a",
+              "path": "{REPO}/out/dispatch/openings/a.json",
+              "sha256": "0de4f69b97cb6174a081eeeee4b30d8db7b9f043067ff8960385f8e9d81c70c3"
+            },
+            {
+              "kind": "film",
+              "option": "a",
+              "path": "{REPO}/out/dispatch/openings/a.mp4",
+              "sha256": "d2e1a81079b0ae77e780be4f8799b9f75e660599ae88b9cc2714b657a2c9f0b2"
+            },
+            {
+              "kind": "board",
+              "option": "b",
+              "path": "{REPO}/out/dispatch/openings/b.json",
+              "sha256": "ac8a12d1d0bdd4e1a5cf7e4003b1de7dcd8b7b32daef8093ab1df49b6ab4db13"
+            },
+            {
+              "kind": "film",
+              "option": "b",
+              "path": "{REPO}/out/dispatch/openings/b.mp4",
+              "sha256": "761486b2ed9f0e4decf9a692b70a9c9ad7b6c615dab0a8fe4fae565cc182e0d8"
+            }
+          ],
+          "run_id": "2026-10-26",
+          "schema": "dispatch_capture_completion_budget_evidence/3"
+        },
+        "changed_inputs": [
+          {
+            "after_sha256": "705a11b39279b8ffb6103f4afa560a2af68311456588e1534f9fe15c1f167a52",
+            "before_path": "{REPO}/out/dispatch/baselines/round6/OrderPassFilm.tsx",
+            "before_sha256": "3962d4963544e5996b2bd3a3a43e5d6a5164a352db64e1e14503ba246fbeb6ac",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "From 30.42 to 31.36 s a viewer sees the stamp come down on the card, lift, and leave a large legible OWNER COUNT mark beside the $9,650 a month tag. From 31.36 to 32.26 s a clip labeled as receipts is plainly empty.",
+        "failed_film_sha256": "78840bf03f944f48284419734920c8ea8b7f516eb78214c70971cf8cf742028b",
+        "failure_evidence": "{REPO}/out/dispatch/phone-timed-report.json",
+        "failure_evidence_sha256": "8ae6238c8a800c10f5aced03865d6f03c16056e4d7eafd5ab385dbaadc83e54a",
+        "failure_family": "unclassified",
+        "mechanism_change": "B's s5 changes from a face-down stamp slide followed by a distant medium desk view with a tiny mark, to a stamp press that is seen landing and lifting in a large overhead hold on the inked OWNER COUNT words, followed by a clip shot where the bare clip is labeled as the receipts clip.",
+        "mechanism_id": "order-pass-b-owner-count-readable-v6",
+        "repair": "Resume the scene builder for one consolidated correction of treatment B's s5 in the shared OrderPassFilm renderer, with claims, script, narration take, measured clause windows, board timing and every other scene unchanged. Make the owner count stamp's completed result readable: after the stamp presses and lifts, hold a large overhead view of the card with the inked OWNER COUNT mark and the $9,650 tag legible above the caption band through the end of n5b. Make the bare receipt clip identifiable as a receipts clip (a labeled receipts clip or a visible empty stack of receipt slips beside it) in the clip shot, and fill the lower half of that medium view with desk content. Prove the hardest frames in the builder proof before any paid review.",
+        "repair_scope": "standard",
+        "resources": {
+          "reboards": 1
+        },
+        "root_cause": "The independent Opus High final timed phone review (original handback out/dispatch/phone-timed-handback.txt, extracted report phone-timed-report.json) rejected selected treatment B with one blocking contact_and_consequence defect in s5 clause n5b (30.42 to 32.26 s). The spoken limit 'and that's his own count' has no readable picture. The top-down wooden stamp slides over the ledger card face down and lands between samples, the cut at about 31.0 s goes to a medium desk view where the owner count mark is a few illegible pixels, the stamped words are never shown large, never held above the caption band and never seen completed, and the 'receipt clip stays bare' comparison reads as an empty black clip on a cork board with nothing identifying it as receipts. 31.0 to 32.2 s is static with a plain dark brown lower half. Non-blocking notes: QR before cause, blank sign card, 41.4 to 41.8 pen hand jump."
+      },
+      "repair_plan_sha256": "13bf117450829e061b8bd6b7dddca7e75a58abff358475e14b01ca5e67df15e3",
+      "repair_revision": "d3d5a27c5ad9f32cb51fc65264fe86a1ebddeee7f4613428a9d4e6fe163ac9ff",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -2183,7 +2245,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6e84bef088f8d692107108b53278ddca5f6546ff276bd5286cfa73f21f9c4a07",
+    "original_private_state_sha256": "f8756cf6a59321ed516e7584169e09f9386a056e7d55ac48fabaa2e305c3a444",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -2211,7 +2273,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-10-30T05:15:01.110361Z",
+  "updated_at": "2026-10-30T05:35:33.901717Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
