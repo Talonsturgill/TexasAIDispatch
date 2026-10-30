@@ -1,0 +1,130 @@
+{
+  "run_id": "2026-10-26",
+  "reviews": [],
+  "basis": "Unchanged original independent blockers. A later code PASS does not clear a film failure. Only verified independent selection narrows correction scope; the rejected alternative remains retained with its original verdict. This handoff supplies no verdict or permission for extra work.",
+  "selected_treatment": {
+    "state": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/run_state.json",
+    "selected": "b",
+    "proof_sha256": "9454d4bc28de69eeb471ba7f53966e57f288df47bffc9e290db5c8f288224729",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/selected_treatment_completion_v1.json",
+      "sha256": "bb3e56ef31fa9c39280a16cf10c356b6a5d5e7c661dd64bb29e598aaf6450820"
+    },
+    "approval": false
+  },
+  "retained_alternative_reviews": [
+    {
+      "treatment": "a",
+      "review_scope": "code-plan",
+      "reservation_event_index": 48,
+      "original_completion": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/native-critic-completions/d9b08753edc30ba990db4e86e62d222899de5b433af016342ab888f2cadf86e3-d37034170269e558260522a6b6fb5cf523ffd5f088b5cb7b2b5f3d71ed24809a.json",
+        "sha256": "bd3f6c36da406dacdb7f36dcb0eae692546b9383951eddd259d00866405af6b3"
+      },
+      "original_claim": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/worker-dispatch-claims/1c9ce4c46d3f27ec40f679984746e4bbd8832ec7bf0cbeafc07adb79637fe05c-storyboard-critic.json",
+        "sha256": "e8935a55a645149d8c470236c1cdccc82f96a4119b2219ce561a39a55f2b22c6"
+      },
+      "report_pointer": [
+        "code_reports",
+        "a"
+      ],
+      "blocking_defects": [
+        {
+          "category": "motion",
+          "defect": "This retained actual-film failure is still unrepaired in A. In OrderPassFilm.tsx case 'door-apron' (0.0 to 2.455 s), A draws only the door leaf closing from fully open (S.s1.door = 1 - P('s1-event-1'), 0.48 to 1.33 s), the bell's damped swing and the apron's damped swing. The apron is already swinging at frame 0 through damped(t+.9,...). The source comment says 'The departing figure is gone'. The computed walk state (clamp(t/1.25)) is consumed only by B's floor-plan footprints, so A performs no exit at all. Review 3's phone report for A (out/dispatch/phone-compare-handback.json) blocked exactly this interval: 'From 0.0 to 2.4s the first frame is an almost static empty restaurant ... No exit is performed', with first_frame and n1a failing. Review 4 (phone-fourth-handback.json) again rejected A for 'no visible walkout, only a door and a hanging apron'. Neither later repair batch changed A's s1. The effect on the viewer: the hook asks who will take the order after the server walked out, but no departure is visible, so the opening reads as an unchanged empty room until the phone rings at 2.5 s. Required fix: perform the walkout in A's first 1.5 s on the eye-level stage, so the first frame shows that someone left. For example, a departing figure with an articulated stride and planted feet passing out through the door before it shuts. Or the server's own hand hanging the apron on the hook and withdrawing toward the door. Or an eye-level equivalent of B's footprint trail out of the door. Any figure must meet the brief's limb, scale and ground rules. A door and an apron that only swing do not meet the dominant_action standard on the actual film.",
+          "failed_criterion": "quality_contract dominant_action and modern first_frame (retained actual-film failure), plus narration_picture clause n1a ('When the only server ... walked out').",
+          "scene_id": "s1",
+          "time_s": 0.0
+        }
+      ]
+    },
+    {
+      "treatment": "a",
+      "review_scope": "exact-muted-phone-preflight",
+      "reservation_event_index": 26,
+      "original_completion": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/native-critic-completions/9e9f95aff75a6c4f452153fbdce5da2875b08434b7cb003a32e46442b7560d8f-ab264f8c431d5c4e076b65b5a576bf7d62554f3e80b6b8d0d1df7ef24c7ed151.json",
+        "sha256": "a8cf5335431e7f781068edcac4448761e0b1091af9fff1ce0318e6b037017c0a"
+      },
+      "original_claim": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/worker-dispatch-claims/d1e6890b8687b532d626ba763efd55fd020f400fe62d1c496369bf36c6b8f36c-storyboard-critic.json",
+        "sha256": "b8bc244d9c33479ff684db0bcda535ee1b2315e1761fb703f1b2a77f83641696"
+      },
+      "report_pointer": [
+        "phone_reports",
+        "a"
+      ],
+      "blocking_defects": [
+        {
+          "category": "motion",
+          "criterion": "dominant_action",
+          "defect": "From 0.0 to 2.4s the first frame is an almost static empty restaurant. Only the door panel shifts at 0.8s and then stays closed from 1.0 to 2.4s. No exit is performed, so the hook does not show who left.",
+          "scene_id": "s1",
+          "time_s": 0.0
+        },
+        {
+          "category": "contact_and_consequence",
+          "criterion": "contact_and_consequence",
+          "defect": "From 16.6 to 17.8s the phone is raised beside and above the QR table tent with its screen facing the camera, never aimed at the code. The scan contact for 'A guest scans a code at the table' is not depicted.",
+          "scene_id": "s3",
+          "time_s": 16.8
+        },
+        {
+          "category": "contact_and_consequence",
+          "criterion": "contact_and_consequence",
+          "defect": "From 22.4 to 23.4s the completed payment result is a tiny red check with tiny 'Paid' text in a medium framing. The result of 'pays from a phone' is barely readable at 270 pixels.",
+          "scene_id": "s3",
+          "time_s": 22.6
+        },
+        {
+          "category": "surface_finish",
+          "criterion": "surface_finish",
+          "defect": "The same grey translucent placeholder rectangles as B appear on the ledger rows (30.4 to 31.0s) and under the quote card (51.4 to 51.8s), then disappear.",
+          "scene_id": "s5",
+          "time_s": 30.4
+        }
+      ]
+    },
+    {
+      "treatment": "a",
+      "review_scope": "exact-muted-phone-preflight",
+      "reservation_event_index": 63,
+      "original_completion": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/native-critic-completions/819e6779db910d2dd4b12395fa4ae9a723358e8abfcbabe127b62abb4b2173a5-079349753eda693215c0acde6b2f614671ca59bd17dcc431f06a80a80d66aab1.json",
+        "sha256": "cc89841043967203276855ef513eb4131d586f239565be6e79050419f453e9dd"
+      },
+      "original_claim": {
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/worker-dispatch-claims/4ad5e4d2650471e0e775f8933f922e9d12293fa7120091678d44518d2f55f8f1-storyboard-critic.json",
+        "sha256": "115ca07bcf58d9834d83cb23c2d0539b1e52dc35c72592f5154a0db1b0fefcf0"
+      },
+      "report_pointer": [
+        "phone_reports",
+        "a"
+      ],
+      "blocking_defects": [
+        {
+          "category": "continuity",
+          "defect": "From 24.6 to 25.6 s the guest's phone, held by a long rigid arm rising from the frame bottom, sits inside the kitchen next to the ticket printer. Nothing places it at a table, so the paid token appears to travel inside the kitchen from a phone held at the pass. The same staging repeats at 35.0 to 36.4 s (s6), where the arm-held phone hangs over the kitchen counter and coins fly from it into the jar. Effect: a false spatial inference that the guest stands in the kitchen, which weakens the table-to-kitchen causal path the narration describes.",
+          "failed_criterion": "continuity",
+          "scene_id": "s4",
+          "time_s": 24.6
+        },
+        {
+          "category": "contact_and_consequence",
+          "defect": "From 44.4 to 44.6 s the purple-sleeved pen hand and forearm cover most of the rule card text while the circle is drawn. From 45.2 to 45.8 s the hand parks at the top left with the forearm across the middle of both rows, hiding half of 'If the employer takes no tip credit' and 'a tip pool may include cooks' through the end of the clause and the cut. Effect: the completed result, two circled rows with an empty box, is not held readable for the viewer.",
+          "failed_criterion": "contact_and_consequence",
+          "scene_id": "s7",
+          "time_s": 44.4
+        },
+        {
+          "category": "continuity",
+          "defect": "At 51.0 s the hesitating hand still holds the lowered phone in front of the code card. At 51.2 s, after the cut, the hand has vanished and the phone lies flat on the table beside the code card. Effect: an unmotivated disappearance and a jump in prop state, so the hesitate-and-lower action has no performed completion.",
+          "failed_criterion": "contact_and_consequence",
+          "scene_id": "s9",
+          "time_s": 51.2
+        }
+      ]
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-10-30T05:15:02.872446+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-10-30T05:15:45.449846+00:00",
+  "note": "claim worker dispatch scene-builder",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -428,6 +428,12 @@
       "size": 10154
     },
     {
+      "path": "out/dispatch/builder-correction-packet-6.json",
+      "class": "scratch",
+      "sha256": "4f27758387718e202331275769503166fd07d0fa2fba020e6a633a0598d05b96",
+      "size": 9713
+    },
+    {
       "path": "out/dispatch/builder-correction-packet.json",
       "class": "scratch",
       "sha256": "027fbea8ad51e352bf2f074772de407e1273e497685849d8877bc8f243d741cb",
@@ -768,6 +774,12 @@
       "class": "scratch",
       "sha256": "9f3491931da13042d5f9032b4e96f2a0c8b8c08cd9361fd7821fd2aba7e1caed",
       "size": 9464
+    },
+    {
+      "path": "out/dispatch/current-defects-b9b4d9cbd608837b2a94e5d3cbd2f9c4ebc3533f1924a390027949ebb7c37720.json",
+      "class": "scratch",
+      "sha256": "b9b4d9cbd608837b2a94e5d3cbd2f9c4ebc3533f1924a390027949ebb7c37720",
+      "size": 8997
     },
     {
       "path": "out/dispatch/daily-production-scoreboard.json",
@@ -19160,6 +19172,12 @@
       "size": 39390
     },
     {
+      "path": "out/dispatch/worker-dispatch-claims/05bfafe8f0a5dc1704b65c710f35c62b160b1b6ab6ba09845478a23b07c5332d-scene-builder.json",
+      "class": "scratch",
+      "sha256": "614e911b421e5554f34b8573d2a0be56a4452a5bcea6db6a9eb2ecc852151690",
+      "size": 570
+    },
+    {
       "path": "out/dispatch/worker-dispatch-claims/0ab8e2b0187ef362a836fb477367dab7e7e8df648c67a07210d6690822d4f66e-vo-director.json",
       "class": "scratch",
       "sha256": "6ddbd294e0f40688bddf310b73ff103809d12f6da9e69e4da288382fb1d641b3",
@@ -19251,9 +19269,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 420768874,
-    "unique_blob_bytes": 248996540,
-    "unique_blobs": 2208
+    "logical_bytes": 420788154,
+    "unique_blob_bytes": 249015820,
+    "unique_blobs": 2211
   },
   "excluded": [
     {
