@@ -1,0 +1,62 @@
+{
+  "root_cause": "The independent Opus High final timed phone review of the corrected selected treatment B (original handback phone-timed-2-handback.txt, report phone-timed-2-report.json, film 3a825691...) returned REVISE with three comprehension blockers. s5 n5b was repaired and passes. (1) s9 clause 'One customer said QR codes don't suit people like her mother' (46.86 to 49.96 s): the reused blue-sleeved guest arm and the phone screen fading to black picture the earlier guest's phone switching off, with no older person or other cue for 'people like her mother' and no legible hesitation. (2) s3 clause 'taps or talks to order' (16.54 to 18.14 s): only the tap is performed, the Talk control appears at 18.8 s after the clause ends. (3) s2 clause 'The family didn't post a job ad' (7.3 to 8.98 s): a plain blank white card hangs beside an unlit panel with nothing marking it as a job-ad slot.",
+  "repair": "Resume the scene builder for one consolidated renderer correction of treatment B only, with claims, script, take, measured clause windows and board timing unchanged. s2: draw the hanging card as a recognizable help-wanted slot (a sign frame with a visible empty pin outline and header HELP WANTED left blank of any posting, an empty clip or empty pin) that stays empty while the clause is spoken. s3: during the clause perform both ways to order, a fingertip tap on a menu row and a visible voice order (a Talk microphone control lit with sound-wave rings from the guest speaking) before the clause ends. s9: replace the reused guest arm with a different older customer figure or an older hand with a different sleeve and a visible head-shake or pushed-away phone beside the quote card, so the picture shows a different customer for whom the scan does not work, and let the phone visibly fail at the code instead of fading to black.",
+  "mechanism_change": "s2's blank hanging card becomes a labeled empty help-wanted slot, s3's tap-only performance becomes a tap plus a lit Talk microphone with sound rings inside the clause window, and s9's reused arm and black-screen fade becomes a different older customer who pushes the phone away from the code.",
+  "expected_visible_result": "With captions covered a viewer sees an empty help-wanted slot, a guest who both taps and speaks an order, and a different older customer who can't scan the code.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/phone-timed-2-report-formatted.json",
+  "failure_evidence_sha256": "5d01d3fb1026ca9a203d9342325c28f624fc802bd7686c46c027cf064b34a16d",
+  "failed_film_sha256": "3a825691783669c61e604bbb0064d042e8ca5e1ca1cf16234d0f388d44c1bbc8",
+  "repair_scope": "standard",
+  "mechanism_id": "order-pass-b-comprehension-v8",
+  "failure_family": "unclassified",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "changed_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round8/OrderPassFilm.tsx",
+      "before_sha256": "705a11b39279b8ffb6103f4afa560a2af68311456588e1534f9fe15c1f167a52"
+    }
+  ],
+  "resources": {
+    "reboards": 1
+  },
+  "capture_completion_budget": {
+    "schema": "dispatch_capture_completion_budget_evidence/3",
+    "run_id": "2026-10-26",
+    "policy_json": "{\n  \"schema\": \"dispatch_capture_completion_budget/3\",\n  \"effective_date\": \"2026-10-17\",\n  \"applies_to\": \"new evidence-bound capacity plans for active unfinished production\",\n  \"path\": \"renewed-two-treatment-comparison-with-phone-sequences\",\n  \"minimum_remaining\": {\"preflight_renders\": 8, \"storyboard_critics\": 4, \"full_renders\": 2, \"audiovisual_reviews\": 11, \"panel_rounds\": 1, \"scorer_calls\": 3},\n  \"preflight_operators\": {\"opening_compare_hook_and_entry\": 2, \"comparison_phone_sequences\": 2, \"final_timed_phone\": 1, \"timed_phone_sequence\": 1, \"native_hero\": 1, \"exact_film_motion\": 1},\n  \"native_render_hook_and_entry\": 2,\n  \"authorization_source_label\": \"Standing owner autonomous completion and complete remaining-path instruction, October 3rd and October 7th, 2026\",\n  \"invariants\": [\n    \"Bind the retained successful comparison and its actual two charged reservations.\",\n    \"Retain both original option boards and films byte-identically.\",\n    \"Use prepared single-claim authorization for the supported phone, hero and motion operators; opening comparison and native rendering retain their actual hook and entry charges.\",\n    \"Fund all eight preflight reservations and both native-render reservations before a new mandatory correction.\",\n    \"Keep prior v1 and v2 policy bytes, grants, failures, frozen envelopes and cumulative charges unchanged.\",\n    \"Use existing independent mandatory admission and obtain fresh code, comparison, timed phone, native, audiovisual, three-scorer and shipment evidence.\",\n    \"Capacity grants no creative approval, optional polish, lower-quality render or delivery waiver.\"\n  ]\n}\n",
+    "policy_sha256": "a24e8f717afde205194f77dcc47756285e7e257fe2f8e2dea0b957c1ce61d0e8",
+    "comparison_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/openings/comparison.json",
+    "comparison_json": "{\n  \"schema\": \"dispatch-opening-comparison/1\",\n  \"policy_sha256\": \"77b820836f3a874a831522a0e628ba6b5049b628d03a358d55f1270b16db3765\",\n  \"renderer_sha256\": \"a5bcc689783195eb138c6e187a1960d595d22a450010b52d6eba39d5ffa8eaec\",\n  \"producer_sha256\": \"c011ca483e79ccdf3f1e67e6c1da810b6e6d08cdf8cb643d0f6085b46484a606\",\n  \"reservation\": {\n    \"identity\": \"7b5196cd5b2572a5b765d001aa0031b5fdf8e05b2d2df30053dd364b9a67d08c\",\n    \"run_id\": \"2026-10-26\",\n    \"event_index\": 139\n  },\n  \"options\": [\n    {\n      \"id\": \"a\",\n      \"concept_sha256\": \"8024f77604f726100c411655d5f62d87894eff86084d58352c202e9638276a5b\",\n      \"renderer_sha256\": \"a5bcc689783195eb138c6e187a1960d595d22a450010b52d6eba39d5ffa8eaec\",\n      \"board\": {\n        \"file\": \"a.json\",\n        \"sha256\": \"1048dc458e58d95236f9b4a0e0e8e632921a8eba5000ba0d82ef026c0395056f\"\n      },\n      \"film\": {\n        \"file\": \"a.mp4\",\n        \"sha256\": \"1e240a8589b939fc1a353dde0ada78d7e89004f2ab52210dbe5da90c1af7d29b\"\n      },\n      \"inspection\": {\n        \"file\": \"a-inspection-b0a4875855c0e656.json\",\n        \"sha256\": \"e40c475c57549108b0a9218403644bdffd19db1835aae687d697c3b9f6ebe534\"\n      }\n    },\n    {\n      \"id\": \"b\",\n      \"concept_sha256\": \"dbc2dc7489bd30cdcc421a9ad37a4866113599fba8923ba57cf994bf52f54e3f\",\n      \"renderer_sha256\": \"a5bcc689783195eb138c6e187a1960d595d22a450010b52d6eba39d5ffa8eaec\",\n      \"board\": {\n        \"file\": \"b.json\",\n        \"sha256\": \"e535132969300fac62c3694ff8d8c48a23a8307972381136e05f7f3dec796e4b\"\n      },\n      \"film\": {\n        \"file\": \"b.mp4\",\n        \"sha256\": \"54fc3bc2cd22209394339c5d3487ad2e53059caa9c25675be234cd0a58a00035\"\n      },\n      \"inspection\": {\n        \"file\": \"b-inspection-b307cc1cee2332d0.json\",\n        \"sha256\": \"c17fb2d79208a71e3132d23dd50a2f31066007e226c8d15f8604860a833b218c\"\n      }\n    }\n  ],\n  \"selected_treatment_completion\": {\n    \"approval\": false,\n    \"claims_sha256\": \"c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f\",\n    \"comparison\": {\n      \"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/evidence/failed-openings-3/openings/comparison.json\",\n      \"sha256\": \"5fdd74ce98b417740338a4ab06b1d621e287ed9d2bd96430827c318750a76924\"\n    },\n    \"evidence_graph_sha256\": \"68aa2b5238c9e79dd12ff86e6125b437dd6e79e5824a19c6aab2b63ca823365a\",\n    \"image_coverage\": {\n      \"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/phone-fourth-coverage.json\",\n      \"sha256\": \"e5f1337990c1f439294733fb48a410d3d9830c3f9bb93de3511d7c07807e4f61\"\n    },\n    \"narration_sha256\": \"adfb67083178a9dff0d0b8298ff3f7257614855d2bdc9b891604e9fdd83804f6\",\n    \"original_claim\": {\n      \"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/worker-dispatch-claims/e5c2ca146040ef1d0615ba30b008be3facdd121c274af74b1d7bef3dd23bee91-storyboard-critic.json\",\n      \"sha256\": \"4a199e17a8332956a9102a7a7a1613eb410de16ac7ecec80fda155d5e6631903\"\n    },\n    \"original_code_claim\": {\n      \"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/worker-dispatch-claims/e5c2ca146040ef1d0615ba30b008be3facdd121c274af74b1d7bef3dd23bee91-storyboard-critic.json\",\n      \"sha256\": \"4a199e17a8332956a9102a7a7a1613eb410de16ac7ecec80fda155d5e6631903\"\n    },\n    \"original_code_packet\": {\n      \"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/phone-fourth-critic-packet.json\",\n      \"sha256\": \"14821024d77c8eeb29bff5235e2ad2578cf62f83327d58251242317f80d9dd82\"\n    },\n    \"original_code_review\": {\n      \"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/native-critic-completions/14821024d77c8eeb29bff5235e2ad2578cf62f83327d58251242317f80d9dd82-57377b375aef63fa3fdccbde50b0d7a80c568a7b700b5eafa7ca91c65aaffe7a.json\",\n      \"sha256\": \"f27fa336d1bf422fc9532f264f3b039b72895fc333b90f6017e854e5db50f5a6\"\n    },\n    \"original_packet\": {\n      \"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/phone-fourth-critic-packet.json\",\n      \"sha256\": \"14821024d77c8eeb29bff5235e2ad2578cf62f83327d58251242317f80d9dd82\"\n    },\n    \"original_review\": {\n      \"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/native-critic-completions/14821024d77c8eeb29bff5235e2ad2578cf62f83327d58251242317f80d9dd82-57377b375aef63fa3fdccbde50b0d7a80c568a7b700b5eafa7ca91c65aaffe7a.json\",\n      \"sha256\": \"f27fa336d1bf422fc9532f264f3b039b72895fc333b90f6017e854e5db50f5a6\"\n    },\n    \"original_review_event_index\": 40,\n    \"policy_sha256\": \"bb3e56ef31fa9c39280a16cf10c356b6a5d5e7c661dd64bb29e598aaf6450820\",\n    \"reservation_events_sha256\": \"ec8d3e08ee41a9dfba7ee284c5f7790413e53a1f3e21124f1a1e746f902f9576\",\n    \"run_id\": \"2026-10-26\",\n    \"schema\": \"dispatch_selected_treatment_completion/1\",\n    \"selected\": \"b\"\n  },\n  \"inspection_problems\": [],\n  \"inspection_pass\": true\n}\n",
+    "comparison_sha256": "d7e7067d6d1b1be91e3eb805fb1e5d49a408aea5cadd73abd6520066b63e5e02",
+    "retained_files": [
+      {
+        "option": "a",
+        "kind": "board",
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/openings/a.json",
+        "sha256": "1048dc458e58d95236f9b4a0e0e8e632921a8eba5000ba0d82ef026c0395056f"
+      },
+      {
+        "option": "a",
+        "kind": "film",
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/openings/a.mp4",
+        "sha256": "1e240a8589b939fc1a353dde0ada78d7e89004f2ab52210dbe5da90c1af7d29b"
+      },
+      {
+        "option": "b",
+        "kind": "board",
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/openings/b.json",
+        "sha256": "e535132969300fac62c3694ff8d8c48a23a8307972381136e05f7f3dec796e4b"
+      },
+      {
+        "option": "b",
+        "kind": "film",
+        "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/openings/b.mp4",
+        "sha256": "54fc3bc2cd22209394339c5d3487ad2e53059caa9c25675be234cd0a58a00035"
+      }
+    ],
+    "hook_event_index": 139,
+    "hook_event_sha256": "0d7d24419fa538630e405a6f78af724a345d4ad2941f5c609fcc1ff15f8cedeb",
+    "entry_event_index": 139,
+    "entry_event_sha256": "0d7d24419fa538630e405a6f78af724a345d4ad2941f5c609fcc1ff15f8cedeb"
+  }
+}

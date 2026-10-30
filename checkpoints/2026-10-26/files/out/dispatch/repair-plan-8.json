@@ -1,0 +1,23 @@
+{
+ "root_cause": "The independent Opus High final timed phone review of the corrected selected treatment B (original handback phone-timed-2-handback.txt, report phone-timed-2-report.json, film 3a825691...) returned REVISE with three comprehension blockers. s5 n5b was repaired and passes. (1) s9 clause 'One customer said QR codes don't suit people like her mother' (46.86 to 49.96 s): the reused blue-sleeved guest arm and the phone screen fading to black picture the earlier guest's phone switching off, with no older person or other cue for 'people like her mother' and no legible hesitation. (2) s3 clause 'taps or talks to order' (16.54 to 18.14 s): only the tap is performed, the Talk control appears at 18.8 s after the clause ends. (3) s2 clause 'The family didn't post a job ad' (7.3 to 8.98 s): a plain blank white card hangs beside an unlit panel with nothing marking it as a job-ad slot.",
+ "repair": "Resume the scene builder for one consolidated renderer correction of treatment B only, with claims, script, take, measured clause windows and board timing unchanged. s2: draw the hanging card as a recognizable help-wanted slot (a sign frame with a visible empty pin outline and header HELP WANTED left blank of any posting, an empty clip or empty pin) that stays empty while the clause is spoken. s3: during the clause perform both ways to order, a fingertip tap on a menu row and a visible voice order (a Talk microphone control lit with sound-wave rings from the guest speaking) before the clause ends. s9: replace the reused guest arm with a different older customer figure or an older hand with a different sleeve and a visible head-shake or pushed-away phone beside the quote card, so the picture shows a different customer for whom the scan does not work, and let the phone visibly fail at the code instead of fading to black.",
+ "mechanism_change": "s2's blank hanging card becomes a labeled empty help-wanted slot, s3's tap-only performance becomes a tap plus a lit Talk microphone with sound rings inside the clause window, and s9's reused arm and black-screen fade becomes a different older customer who pushes the phone away from the code.",
+ "expected_visible_result": "With captions covered a viewer sees an empty help-wanted slot, a guest who both taps and speaks an order, and a different older customer who can't scan the code.",
+ "failure_evidence": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/phone-timed-2-report-formatted.json",
+ "failure_evidence_sha256": "5d01d3fb1026ca9a203d9342325c28f624fc802bd7686c46c027cf064b34a16d",
+ "failed_film_sha256": "3a825691783669c61e604bbb0064d042e8ca5e1ca1cf16234d0f388d44c1bbc8",
+ "repair_scope": "standard",
+ "mechanism_id": "order-pass-b-comprehension-v8",
+ "failure_family": "unclassified",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "changed_inputs": [
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round8/OrderPassFilm.tsx",
+   "before_sha256": "705a11b39279b8ffb6103f4afa560a2af68311456588e1534f9fe15c1f167a52"
+  }
+ ],
+ "resources": {
+  "reboards": 1
+ }
+}
