@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-10-30T07:57:51.972560+00:00",
-  "note": "repair 8 builder dispatched",
+  "saved_at": "2026-10-30T08:33:04.330357+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "8a0eb5447278b19dbac06b2032440f27e6c66e8c23eab8bcc5aea2dba85ff095"
   },
   "deleted_source": [],
-  "ledger_sha256": "1abbac98d40c4e90f81d9fba53424fb722c2e8b409e491b8b726e35bfca0e67c",
-  "original_private_ledger_sha256": "b4a66e9eefddac82862995cd32d7f01cc06329eb77c2f8a622575a7f4da786d6",
+  "ledger_sha256": "21992e1ff223f225322cb344466b318fca45ca86d770672587e48d3490cac0ba",
+  "original_private_ledger_sha256": "b2b0e8b17ec33791a91c77eb9771aa7ced7b47131a5c685b045b01212acaa4ff",
   "grant_origin_roots": [
     {
       "event_index": 122,
@@ -436,6 +436,12 @@
       "class": "scratch",
       "sha256": "cb912ba6bd17ca2dafc02d133133a90a23ca7844cb09bfcf6f4965070fa2cdb5",
       "size": 496836
+    },
+    {
+      "path": "out/dispatch/baselines/round8/openings-b-pre.json",
+      "class": "scratch",
+      "sha256": "e535132969300fac62c3694ff8d8c48a23a8307972381136e05f7f3dec796e4b",
+      "size": 202546
     },
     {
       "path": "out/dispatch/baselines/round8/preflight-timed2.json",
@@ -13622,8 +13628,8 @@
     {
       "path": "out/dispatch/repair-plan-8-complete.json",
       "class": "scratch",
-      "sha256": "bc89379c956041d230b83de75f6e4039c93fde9c50549424b76d2dfe3350bcfe",
-      "size": 11800
+      "sha256": "af11d03f99b36c503bf856e761bcafcee04b86eefc550ba727f9f65d9c7c789b",
+      "size": 11887
     },
     {
       "path": "out/dispatch/repair-plan-8.json",
@@ -17114,8 +17120,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "cb912ba6bd17ca2dafc02d133133a90a23ca7844cb09bfcf6f4965070fa2cdb5",
-      "size": 496836
+      "sha256": "e535132969300fac62c3694ff8d8c48a23a8307972381136e05f7f3dec796e4b",
+      "size": 202546
     },
     {
       "path": "out/dispatch/storyboard_critic.json",
@@ -25402,12 +25408,18 @@
       "class": "scratch",
       "sha256": "c74a25c2611ef0e3a9eaadffbd2ba17191c81897281635a9fc42c859e3105772",
       "size": 555
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+      "class": "source",
+      "sha256": "18d9d181023ba00f08832fc2964062531640a33ff7fbb50c21b691282b5f4876",
+      "size": 106981
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 538999696,
-    "unique_blob_bytes": 338568897,
-    "unique_blobs": 3120
+    "logical_bytes": 539015020,
+    "unique_blob_bytes": 338675965,
+    "unique_blobs": 3121
   },
   "excluded": [
     {
