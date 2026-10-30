@@ -627,11 +627,14 @@ def mandatory_reason(state, plan, evidence_text):
                 and isinstance(contact.get('observed'), str) and contact['observed'].strip()
                 and all(type(contact.get(k)) in (int, float) for k in ('start_s', 'end_s'))
                 and 0 <= contact['start_s'] < contact['end_s']
-                and any(isinstance(item, dict) and item.get('category') == 'contact_and_consequence'
+                and any(isinstance(item, dict)
+                        and item.get('category') in {'contact_and_consequence', 'comprehension'}
                         and isinstance(item.get('defect'), str) and item['defect'].strip()
                         for item in report.get('blocking_defects', []))):
-            # The timed phone rubric can reject an unreadable action result while
-            # all seven broad film observations pass. Keep that original judgment;
+            # The timed phone rubric can reject an unreadable action result, or a narrated
+            # clause with no matching picture, while all seven broad film observations pass.
+            # The reviewer's own category is kept as written; the failed contact observation
+            # must still be present. Keep that original judgment;
             # live film, source and reviewer bindings are still required at admission.
             return 'modern-film-floor'
         if (str(state.get('run_id', ''))[:10] >= '2026-10-08'
