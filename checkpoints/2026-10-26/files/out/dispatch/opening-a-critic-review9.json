@@ -1,0 +1,200 @@
+{
+ "treatment": "a",
+ "board": {
+  "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-a.json",
+  "sha256": "b5103e4fb42351eba96ec79acf32024a5093b96a0a71b298a6ad101158c5bf57"
+ },
+ "review_scope": "code-plan",
+ "concept_sha256": "af6706ad207e30f07bc870216e8601fed2e1c589b47a071419504c87d95e5395",
+ "renderer_sha256": "60cefa99c87863875d9762ffdc43a02db47baf288405fbd09b48a71fcd436601",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "verdict": "revise",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated Read-only code-plan reviewer for critic packet 9, distinct from the claude-sonnet-5-5 director",
+ "reviewed_at": "2026-10-30",
+ "strongest_frame": "s3-shot-2 menu-tap detail, 19.05 to 21.30 s (authored). The phone is held at scale 1.5 and a fingertip comes in, presses the Chow mein row on the contact curve (r 0.36 to 0.50 of s3-event-3) and lifts away. The row lights. A human contact produces an immediate result on the same object.",
+ "weakest_frame": "s9 viewfinder-hunt then quote-card, 49.40 to 53.81 s (authored). The s3 guest's own hand and skin raise the phone, pause and lower it. In quote-card the dominant change is the screen dimming to 0.925 (dim = 0.5 + 0.5 x 0.85 x P(s9-event-3)). The actual B film rejected exactly this construction at c15.",
+ "blocking_defects": [
+  {
+   "category": "comprehension",
+   "scene_id": "s2",
+   "time_s": 7.68,
+   "failed_criterion": "Rubric hard fail 'a narrated idea that is not bound to an actual rendered item and visible change', plus quality_contract subject_recognition, for clause n2a ('The family didn't post a job ad').",
+   "defect": "A's window-frame (7.68 to 10.89 s) still draws RestaurantSupport signFrame. That is a plain empty acrylic frame on the glass with one unused pin, swinging and catching a light sweep. It is the same unlabelled empty-sign mechanism the final timed phone review (phone-timed-2, c3, 7.3 to 8.98 s measured) rejected in B's film: 'Nothing marks the card as a job-ad slot... reads as a decorative blank sign.' Nothing in A's code identifies the frame as a place for a job ad, so the absence lives only in the caption. This is retained as an honest finding on the archived alternative and is not to be repaired."
+  },
+  {
+   "category": "comprehension",
+   "scene_id": "s3",
+   "time_s": 19.05,
+   "failed_criterion": "quality_contract dominant_action, plus narration-picture coverage of the spoken clause n3b ('taps or talks to order').",
+   "defect": "A's menu-tap performs only the fingertip tap. Talk exists only as a static button in the phone UI, with no voice, microphone state or speech performed during n3b (19.05 to 21.0 s). The final timed phone review rejected the identical tap-only construction in B's film (c6: 'Voice ordering... has no picture'). Retained on the archived alternative and not to be repaired."
+  },
+  {
+   "category": "comprehension",
+   "scene_id": "s9",
+   "time_s": 49.4,
+   "failed_criterion": "quality_contract dominant_action and continuity ('do not imply...'), plus the rubric hard fail on a narrated idea with no bound visible change, for clause n9 ('One customer said QR codes don't suit people like her mother').",
+   "defect": "A's viewfinder-hunt and quote-card call phoneRig with skin SKIN.a9, which is defined as HP.skin[4] and is identical to SKIN.a3, plus the same OrderRigHero handBack and handFront sleeve as the s3 guest. A therefore shows the earlier guest's arm again, which implies the same guest failed. Nothing cues 'people like her mother'. The last event's dominant change is the screen timing out (dim to 0.925 in quote-card). The final timed phone review rejected this mechanism in B's film (c15: 'reads as a phone switching off... the reused arm invites the false inference that the same guest failed'). Retained on the archived alternative and not to be repaired."
+  }
+ ],
+ "resolved_retained_defects_checked": "Round-1 A defects, checked in code. printer-idle uses wokCold, so the wok is empty with no flame. Food and flame enter only in s4-event-4, with the cook's bowl pour and the hand on the handle. tableGroup defaults to empty plates before s4. The departing figure in door-apron is removed, so the door, bell and apron carry the walkout. The paid mark arrives at 25.52 s inside paid-line A (24.553 to 25.813 s) and the lamp answers in the same framing. All four are implemented.",
+ "action_reviews": [],
+ "narration_picture_observations": {
+  "scope": "code-plan, provisional authored clause windows, no film bytes",
+  "clauses": [
+   {
+    "id": "n1a",
+    "pass": true,
+    "start_s": 0.48,
+    "end_s": 4.53,
+    "observed": "The door swings shut with its bell and the apron hangs on the stand hook (door-apron). The desk phone rattles in host-phone close from 2.505 s. No figure is drawn."
+   },
+   {
+    "id": "n1b",
+    "pass": true,
+    "start_s": 4.83,
+    "end_s": 7.38,
+    "observed": "The pad's top sheet curls and falls back blank while a guest raises a hand over empty plates."
+   },
+   {
+    "id": "n2a",
+    "pass": false,
+    "start_s": 8.04,
+    "end_s": 10.59,
+    "observed": "An unlabelled empty acrylic frame swings on the glass. This is the mechanism rejected in the film (blocker)."
+   },
+   {
+    "id": "n2b",
+    "pass": true,
+    "start_s": 10.89,
+    "end_s": 15.24,
+    "observed": "The panel lights and writes Haniya, then the AI host tag is carried in and hooks onto the eyelet."
+   },
+   {
+    "id": "n3a",
+    "pass": true,
+    "start_s": 15.9,
+    "end_s": 18.75,
+    "observed": "A hand lifts the phone over the code stand, the brackets lock and the menu slides up."
+   },
+   {
+    "id": "n3b",
+    "pass": false,
+    "start_s": 19.05,
+    "end_s": 21.0,
+    "observed": "Only the tap is performed, and Talk is a static button (blocker)."
+   },
+   {
+    "id": "n3c",
+    "pass": true,
+    "start_s": 21.3,
+    "end_s": 23.25,
+    "observed": "The finger presses Pay, which becomes the paid mark."
+   },
+   {
+    "id": "n4",
+    "pass": true,
+    "start_s": 23.91,
+    "end_s": 27.06,
+    "observed": "The printer is idle and the wok empty and unlit. The mark arrives at 25.52 s and the lamp answers in paid-line. The ticket prints in a 0.697 s detail. The bowl pours and the flame flares from 26.56 s."
+   },
+   {
+    "id": "n5a",
+    "pass": true,
+    "start_s": 28.22,
+    "end_s": 32.27,
+    "observed": "The ledger card slides on and the $9,650 a month tag lands."
+   },
+   {
+    "id": "n5b",
+    "pass": true,
+    "start_s": 32.57,
+    "end_s": 34.52,
+    "observed": "The side-on stamp presses OWNER COUNT, then the receipt clip snaps shut on nothing."
+   },
+   {
+    "id": "n6",
+    "pass": true,
+    "start_s": 35.18,
+    "end_s": 39.23,
+    "observed": "Coins and notes arc from the paid phone into the jar at the pass, the jar fills, and the FOX 26 tag hooks on. This is a disclosed metaphor."
+   },
+   {
+    "id": "n7a",
+    "pass": true,
+    "start_s": 39.89,
+    "end_s": 42.44,
+    "observed": "The rule card slides on and its no tip credit box draws, empty."
+   },
+   {
+    "id": "n7b",
+    "pass": true,
+    "start_s": 42.74,
+    "end_s": 45.59,
+    "observed": "The cooks line lights and a pen circles both."
+   },
+   {
+    "id": "n8",
+    "pass": true,
+    "start_s": 46.25,
+    "end_s": 49.1,
+    "observed": "The folder slides in and opens, the box stays blank, and a question mark draws."
+   },
+   {
+    "id": "n9",
+    "pass": false,
+    "start_s": 49.76,
+    "end_s": 53.51,
+    "observed": "The s3 guest's own arm and skin, then the screen times out (blocker)."
+   },
+   {
+    "id": "n10a",
+    "pass": true,
+    "start_s": 54.17,
+    "end_s": 56.42,
+    "observed": "The order card lands on the panel and the slip drops into the printer, which prints."
+   },
+   {
+    "id": "n10b",
+    "pass": true,
+    "start_s": 56.72,
+    "end_s": 60.17,
+    "observed": "The owner says tag hooks on, then no record shown settles in the wide. Tag type at 44 px in a wide frame needs a phone legibility check."
+   }
+  ]
+ },
+ "story_review": {
+  "story_sha256": "bcafbe35bd96c84a42d44fe0e2c02340b06edd5e0758b5c3a8bbf317fb5cf770",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
+  "verdict": "revise",
+  "blocking_defects": [
+   {
+    "category": "comprehension",
+    "scene_id": "s2",
+    "time_s": 7.68,
+    "defect": "The unlabelled empty sign frame doesn't depict an unposted job ad. This is the same mechanism rejected in the actual film at c3."
+   },
+   {
+    "category": "comprehension",
+    "scene_id": "s3",
+    "time_s": 19.05,
+    "defect": "'talks to order' has no performance, only a static Talk button (rejected at c6)."
+   },
+   {
+    "category": "comprehension",
+    "scene_id": "s9",
+    "time_s": 49.4,
+    "defect": "The reused s3 guest arm and a screen time-out picture the earlier guest's phone switching off, with no cue for 'people like her mother' (rejected at c15)."
+   }
+  ],
+  "one_viewing_summary": "Intended chain from the code, at counter and table level. The door shuts on an empty station, the phone rings and two tables wait over empty plates. An empty frame hangs on the glass and the host panel lights with Haniya and an AI host tag. A hand scans the table code, taps Chow mein and pays. The paid mark reaches the printer, the ticket prints and the cook pours noodles as the flame flares. The owner's $9,650 a month is stamped OWNER COUNT beside a clip with no receipts. Coins fill a jar at the pass under a FOX 26 tag. The rule card allows cooks in a pool without a tip credit, and the restaurant folder leaves that box blank. The same guest's phone rises, pauses and times out beside a quote card. The panel takes an order and the jar ends under owner says and no record shown.",
+  "opening_to_ending": "The film opens on the unattended station and the question of who takes the order. It ends with the panel taking the order and the tip jar resting on the owner's word, within the source limits and with no invented outcome. The s2, s3 and s9 clauses still depend on captions.",
+  "weakest_transition": "s8 to s9 at 49.40 s. The cut goes from the back-office folder's blank box to the s3 guest's hand over a table code, with no carried object. Reusing that arm implies the same guest, and the close then returns to the jar."
+ },
+ "notes": [
+  "A is the archived, unselected alternative. These findings are retained honestly and are not a work order. Selection fixes the correction scope to B, and nothing here implies A passed.",
+  "Non-blocking, shared with B: the s4 ticket-print detail is 0.697 s. Printing runs 25.863 to 26.251 s and the cut to 26.362 s, so the finished ticket holds alone for about 0.15 s, and wok-flare keeps the printer at scale 0.78. No fixed criterion sets a minimum shot length, and the actual B film read this passage, so this is not a code blocker.",
+  "Non-blocking: the s6 cash leaving a phone is a disclosed metaphor for tips paid by phone (Apple Pay and Google Pay per c3's scope). Check at phone scope that it isn't read as a real cash jar.",
+  "Source checks pass for A as for B: $9,650 and FOX 26 appear in fetched quotes, the price chip draws no numeral, the region gulf matches Harris County (c11), and the production_disclosure chip is drawn in every frame."
+ ]
+}

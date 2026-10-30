@@ -1,0 +1,22 @@
+{
+ "root_cause": "The independent Opus High code review nine (original handback code-review-9-handback.json, B report opening-b-critic-review9.json) returned REVISE for selected treatment B with one blocking source defect. The round 8 s2 correction hangs a printed HELP WANTED sign on the window glass for the whole clause 'The family didn't post a job ad'. A HELP WANTED notice in the window is itself a posted job ad, so the picture contradicts the sourced claim c2 and reverses the causal chain (no hire, an AI host instead). The empty-slot sign mechanism has now failed twice, once as a blank card in the timed film and once as a labeled slot in code.",
+ "repair": "Replace the s2 sign mechanism in treatment B's sign-window view with a construction where the job ad visibly is not posted and no hiring notice is displayed in the window: the window glass stays clear and empty, and on the host stand an unposted job-ad card lies blank with a capped marker and an unused pushpin while the host panel waits, staying unwritten for the whole clause. Keep round 8's s3 talking performance and s9 older-customer construction unchanged. Edit only OrderPassFilm.tsx.",
+ "mechanism_change": "B's s2 changes from a sign hanging in the window (a blank card, then a HELP WANTED slot) to an unposted job-ad card lying blank on the host stand beside a capped marker and an unused pin, with a clear empty window.",
+ "expected_visible_result": "With captions covered a viewer sees a clear window and a blank job-ad card that no one has written or posted, set beside a capped marker, before the panel lights.",
+ "failure_evidence": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b-critic-review9.json",
+ "failure_evidence_sha256": "f2e998b744f0fb05de1cd93d01e4b4995befe1fe2bf67205b51f8e22f87d3860",
+ "repair_scope": "standard",
+ "mechanism_id": "order-pass-b-unposted-ad-card-v9",
+ "failure_family": "source-framing",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "changed_inputs": [
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round9/OrderPassFilm.tsx",
+   "before_sha256": "18d9d181023ba00f08832fc2964062531640a33ff7fbb50c21b691282b5f4876"
+  }
+ ],
+ "resources": {
+  "reboards": 1
+ }
+}
