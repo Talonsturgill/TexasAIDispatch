@@ -937,6 +937,10 @@ class StandingCapacityTest(unittest.TestCase):
             return capacity.mandatory_reason(state, current, text)
         self.assertEqual(reason(report), 'modern-film-floor')
         self.assertEqual(report, original)
+        comprehension = {**report, 'blocking_defects': [{'category': 'comprehension', 'scene_id': 's9',
+            'defect': 'The spoken customer limit has no matching picture.'}]}
+        self.assertEqual(reason(comprehension), 'modern-film-floor')
+        self.assertIsNone(reason({**comprehension, 'phone_observations': {'contact_and_consequence': {'pass': True}}}))
         for changes in ({'blocking_defects': []}, {'blocking_defects': ['Make the stamp prettier.']},
                         {'blocking_defects': [{'category': 'surface_finish', 'defect': 'Add patina.'}]},
                         {'phone_observations': {'contact_and_consequence': {'pass': True}}},
