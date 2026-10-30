@@ -2,15 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "d8190bc481ead59ac42c4a9231c7f0712951d2098c1dcb7e06e3730addfa0c7c",
+    "event_sha256": "0dda0e1865e592ec6a84da810f237a8b11dcc5a306491f53b6fd76346f9d50f5",
     "resource": "preflight_renders",
-    "at": "2026-10-29T07:01:31.340622Z",
-    "note": "exact-phone-current motion-image review extraction"
+    "at": "2026-10-30T05:42:01.686688Z",
+    "note": "two opening comparison batch"
   },
   "boards": [
     {
-      "path": "out/dispatch/storyboard.json",
-      "sha256": "d4b457e5071f32b961744aefb973680dce64216bdcb442618c4e317e3bcaf5af"
+      "path": "out/dispatch/opening-a.json",
+      "sha256": "d640da4f9bf73ba9264f6f7ffb2fe2ebca561cc870475b4a7ad38e5fa27ecce6"
+    },
+    {
+      "path": "out/dispatch/opening-b.json",
+      "sha256": "c3e037a73dac5c7e4d857910bd84262dade1cf86e14d2d60b1315101ecf89b9c"
     }
   ],
   "bound": {
@@ -153,7 +157,7 @@
       "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx": "9d397904a7a5173f55205e78a8dbe431d548d1ed0d3c4f6e90c5cb0689faf3fa",
       "video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx": "5fa2155da6c876b721db0ff28c7c05f404485e2cd7010b9b789af77a430df32b",
       "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx": "13dd5f473f9f510ba001ee21cf8f054e26aff3b531449bdf3150de3adb38bdc9",
-      "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx": "3962d4963544e5996b2bd3a3a43e5d6a5164a352db64e1e14503ba246fbeb6ac",
+      "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx": "705a11b39279b8ffb6103f4afa560a2af68311456588e1534f9fe15c1f167a52",
       "video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx": "2483fb962188398dfeb820bcd3dd72d8e25911e67a6a368e8210ff28fd2ee49e",
       "video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx": "61ef74982f5e6e6f9558f9975aa536e99400174f976d1b075898f8117e2593eb",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
@@ -169,31 +173,31 @@
   },
   "commands": [
     {
-      "id": "22450ac2db16e92ad57038968c94504626e983cc554053788c882e26a7aac81f",
-      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option current --board out/dispatch/storyboard.json --film out/dispatch/preflight.mp4 --state out/dispatch/run_state.json --out out/dispatch/motion-timed",
-      "consumed": "2026-10-29T07:01:43.417743+00:00"
+      "id": "d689d20ff4ebf8613d195a1e56abb739dd92b40a8029dc3cf8d376aa6e3cb888",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --builder-proof",
+      "consumed": false
     }
   ],
   "headroom": {
     "passed": true,
-    "required_free_gib": 20,
-    "free_gib": 20.643
+    "required_free_gib": 21,
+    "free_gib": 21.069
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/capture-housekeeping-20261029T070122.json",
-    "receipt_sha256": "8fbbd5261a66d407a0da5448d92c4690b674dd64df5717190c371fc4c4f31f04",
+    "receipt": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/capture-housekeeping-20261030T054151.json",
+    "receipt_sha256": "d9af593b0c9f6205d262fbe37e4ee1d085a746ab3ad7265e7f2141d2ca0524c3",
     "exit_code": 0,
-    "min_free_gib": 20
+    "min_free_gib": 21
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-10-29T07:01:37.850899+00:00",
-  "expires_at": "2026-10-29T07:46:37.850899+00:00",
+  "issued_at": "2026-10-30T05:42:07.220391+00:00",
+  "expires_at": "2026-10-30T06:27:07.220391+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "exact-phone-current motion-image review extraction",
+    "operation": "two opening comparison batch",
     "resource": "preflight_renders",
     "run_id": "2026-10-26",
-    "event_sha256": "d8190bc481ead59ac42c4a9231c7f0712951d2098c1dcb7e06e3730addfa0c7c",
-    "input_identity": "0494ebea119b7cf8dfca36a03431ec0d53deddc4dd6bfd3bccf212bace4719a7"
+    "event_sha256": "0dda0e1865e592ec6a84da810f237a8b11dcc5a306491f53b6fd76346f9d50f5",
+    "input_identity": "e7463c1e09013079d4a4f93e12cc5fd00311bbdbc6278fe441fc00d539292c7f"
   }
 }
