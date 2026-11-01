@@ -290,6 +290,17 @@ class ConditionalCodeRecovery(unittest.TestCase):
         self.assertEqual([], self.recovery.recovery_problems(self.state, original))
         self.assertTrue(limit.remaining_review_path(after, self.state)['feasible'])
 
+    def test_late_standing_capacity_critic_can_request_replacement_only_at_the_creative_boundary(self):
+        import completion_progress
+        with patch('critic_gate.renderer_files', return_value=[self.old]), \
+                patch.object(limit, 'used', return_value=12):
+            with patch.object(completion_progress, 'replacement_required', return_value=False):
+                self.assertIsNone(self.recovery.recovery_requirements(self.state, self.packet))
+            with patch.object(completion_progress, 'replacement_required', return_value=True):
+                late = self.recovery.recovery_requirements(self.state, self.packet, charged=True)
+        self.assertEqual(self.packet['conditional_recovery']['prior_failures'], late['prior_failures'])
+        self.assertTrue(late['whole_scene_required'])
+
     def test_missing_original_pivot_preserves_failure_and_refuses_repair_without_charging(self):
         import production_lifecycle
         self.report.pop('recovery_review')

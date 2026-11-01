@@ -267,12 +267,29 @@ def same_observer(root, original, report, coverage):
     require(directories == {expected}, 'combined code and image judgments must belong to the same actual worker')
 
 
-def extract_recovery(state_path, destination):
-    """Retain only a hook-proven original conditional replacement, without another review."""
+def proof_late(reservation_index, state_path):
+    """True when the named critic is not one of the ordinary hard-five original attempts."""
+    state = read(Path(state_path))
+    rows = [i for i, e in enumerate(state['events'])
+            if e.get('kind') == 'reserved' and e.get('resources', {}).get('storyboard_critics')]
+    return reservation_index in rows and rows.index(reservation_index) >= 3
+
+
+def extract_recovery(state_path, destination, reservation_index=None):
+    """Retain only a hook-proven original conditional replacement, without another review.
+
+    An explicit reservation index names a later standing-capacity critic whose packet carried
+    the conditional recovery request. It is verified by the same unchanged recovery gates."""
     from completion_yield import original_critic_review, immutable
     state_path = Path(state_path).resolve(); destination = Path(destination).resolve()
-    proof = budget_eligibility(state_path)
-    original = original_critic_review(state_path, proof['third_reservation_event_index'])
+    if reservation_index is None:
+        proof = budget_eligibility(state_path)
+        reservation_index = proof['third_reservation_event_index']
+    original = original_critic_review(state_path, reservation_index)
+    if proof_late(reservation_index, state_path):
+        from review_recovery_packet import recovery_problems
+        errors = recovery_problems(state_path, original)
+        require(not errors, '; '.join(errors))
     value = original['report'].get('recovery_review')
     require(isinstance(value, dict) and destination.is_relative_to(state_path.parent),
             'retain the original conditional replacement inside this edition package')
@@ -384,11 +401,12 @@ def main():
     parser.add_argument('--coverage', type=Path)
     parser.add_argument('--state', type=Path)
     parser.add_argument('--extract-recovery', type=Path, metavar='ORIGINAL_PIVOT_OUTPUT')
+    parser.add_argument('--reservation-index', type=int, help='later standing-capacity critic reservation')
     args = parser.parse_args()
     if args.extract_recovery:
         require(args.state and not any((args.packet, args.handback, args.claim, args.coverage)),
                 'extract the original conditional replacement with --state and --extract-recovery only')
-        print(json.dumps({'original_recovery': extract_recovery(args.state, args.extract_recovery),
+        print(json.dumps({'original_recovery': extract_recovery(args.state, args.extract_recovery, args.reservation_index),
                           'shipment_authorized': False}))
         return
     require(all((args.packet, args.handback, args.claim, args.coverage)) and not args.state,
