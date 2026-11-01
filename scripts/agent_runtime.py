@@ -204,9 +204,18 @@ def correction_defects(data):
             continue
         receipt, claim, claim_path = critic_completion(state_path.parents[2], path, state_path=state_path)
         originals.append((claim['reservation_event_index'], path, receipt, claim_path))
+    # A mechanical format resubmission to the same worker on the same packet is a second completion
+    # of one charged attempt. Its blockers are the same attempt's; keep the first retained response.
+    unique = {}
+    for row in sorted(originals, key=lambda item: (item[0], item[1].stat().st_mtime_ns, item[1].name)):
+        previous = unique.get(row[0])
+        if previous is None:
+            unique[row[0]] = row
+        elif (previous[2].get('agent_id') != row[2].get('agent_id')
+                or previous[2].get('packet_sha256') != row[2].get('packet_sha256')):
+            raise ValueError('corrective builder needs one original completion per charged critic')
+    originals = list(unique.values())
     indices = [row[0] for row in originals]
-    if len(indices) != len(set(indices)):
-        raise ValueError('corrective builder needs one original completion per charged critic')
     if not originals:
         if any(e.get('kind') == 'reserved' and e.get('resources', {}).get('storyboard_critics')
                for e in state.get('events', [])):
