@@ -1,0 +1,50 @@
+{
+ "root_cause": "Selected B's s2 window sign cannot picture an unposted job ad: the blank frame was unreadable at phone scale and the round 8 HELP WANTED board contradicts claim c2 and the FOX 26 source.",
+ "repair": "Retire the s2 window-sign absence construction entirely and replace the whole s2 scene with a performed station handover: a family hand lifts the server apron from its hook into the drawer, sets the Haniya panel on the stand, and the ringing desk phone is answered.",
+ "mechanism_change": "Replace the whole failed OrderPassFilm.tsx implementation with new OrderHandoverFilm.tsx and StationHandoverScene.tsx modules: s2 changes from a static window sign to a performed apron-to-drawer and panel handover at the s1 stand that answers the s1 ringing phone.",
+ "expected_visible_result": "With captions covered a viewer sees the server apron lifted off its hook into a drawer by a family member, a Haniya panel set on the stand and lit, and the ringing desk phone answered, with no sign in the window.",
+ "failure_evidence": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/code-review-10-report.json",
+ "failure_evidence_sha256": "704d5f1490e60e7563c57a2a8306a2fc2964a3b613b2efe3aa5b89aef85fe583",
+ "repair_scope": "standard",
+ "mechanism_id": "order-pass-s2-station-handover-v1",
+ "failure_family": "source-framing",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "changed_inputs": [
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/registry.tsx",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round10/registry.tsx",
+   "before_sha256": "1c862f8f58fcf1f41fbfae60df36bfecac9a66c29a84f88f67688a2036f56847"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/modern_episode_registry.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round10/modern_episode_registry.json",
+   "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b"
+  }
+ ],
+ "resources": {
+  "reboards": 1
+ },
+ "retained_replacement": {
+  "kind": "whole-scene-replacement",
+  "replacement_paths": [
+   "video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx",
+   "video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx"
+  ],
+  "retired_inputs": [
+   {
+    "before_path": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+    "before_sha256": "18d9d181023ba00f08832fc2964062531640a33ff7fbb50c21b691282b5f4876",
+    "path": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+   }
+  ],
+  "schema": "dispatch_retained_scene_replacement/1",
+  "source_evidence": {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/claims.json",
+   "sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f"
+  }
+ },
+ "pivot_review": {
+  "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/original-pivot-10.json",
+  "sha256": "cffe595299400756d8941b66d2deb6cd4394eba3f43ebd2d10829794f4a48828"
+ }
+}
