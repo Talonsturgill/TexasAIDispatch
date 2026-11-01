@@ -2161,14 +2161,16 @@
       ]
     },
     "order-pass-v1": {
-      "module": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+      "module": "video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx",
       "assets": [
         "video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx",
         "video-engine/src/modern/episodes/2026-10-26/RestaurantSupport.tsx",
+        "video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx",
         "video-engine/src/lib/direction.ts"
       ],
       "views": [
         "ai-tag",
+        "apron-drawer",
         "blank-box",
         "blank-folder",
         "blank-pad-tables",
@@ -2185,6 +2187,7 @@
         "floor-plan",
         "folder-close",
         "folder-wide",
+        "front-stand",
         "host-panel",
         "host-phone",
         "jar-fills",
@@ -2207,7 +2210,6 @@
         "quote-card",
         "quote-side",
         "rule-card",
-        "sign-window",
         "stand-wide",
         "table-wait",
         "tag-close",
@@ -2215,7 +2217,6 @@
         "tags-close",
         "ticket-print",
         "viewfinder-hunt",
-        "window-frame",
         "wok-flare"
       ],
       "wall_views": [
@@ -2236,12 +2237,26 @@
         "rule-card"
       ],
       "subject": "A small restaurant where an AI host takes orders by table code and phone and payment comes before cooking, and the records around it: a ledger card with a monthly tag and an owner count stamp, a federal rule card with a no tip credit box, a restaurant folder with the same box blank, a customer quote card and a tip jar with owner says and no record shown tags",
-      "note": "Fresh authored Claude-lane episode for 2026-10-26 (FOX 26 Houston of October 20th, 2026, Muslim Mirror of October 19th and KPRC Click2Houston of October 21st on Wok and Karahi in Spring). Hero OrderRigHero and support RestaurantSupport are original React and SVG groups shared by both treatments. A follows one order at counter level, B reads the same events from above the dining room and the back desk. Disclosed illustration of reports, no brand marks, no real restaurant, software, person or pay record.",
+      "note": "Fresh authored Claude-lane episode for 2026-10-26 (FOX 26 Houston of October 20th, 2026, Muslim Mirror of October 19th and KPRC Click2Houston of October 21st on Wok and Karahi in Spring). Hero OrderRigHero and support RestaurantSupport are original React and SVG groups shared by both treatments. Builder correction 10 routes this episode to OrderHandoverFilm, the whole-scene replacement of the retired OrderPassFilm (kept on disk as evidence, outside the renderer closure); its s2 is StationHandoverScene, where a family member shuts the server apron in the stand's drawer and sets the Haniya panel on the stand, which answers the phone left ringing in s1. A follows one order at counter level, B reads the same events from above the dining room and the back desk. Disclosed illustration of reports, no brand marks, no real restaurant, software, person or pay record.",
       "narration_views": {
         "ai-tag": {
           "subject_ids": [
-            "s2-frame",
+            "s2-apron-drawer",
+            "s2-hand",
             "s2-panel",
+            "s2-phone",
+            "s2-tag"
+          ],
+          "action_ids": [
+            "no-ad-ai-host-installed"
+          ]
+        },
+        "apron-drawer": {
+          "subject_ids": [
+            "s2-apron-drawer",
+            "s2-hand",
+            "s2-panel",
+            "s2-phone",
             "s2-tag"
           ],
           "action_ids": [
@@ -2418,10 +2433,24 @@
             "rule-box-blank"
           ]
         },
+        "front-stand": {
+          "subject_ids": [
+            "s2-apron-drawer",
+            "s2-hand",
+            "s2-panel",
+            "s2-phone",
+            "s2-tag"
+          ],
+          "action_ids": [
+            "no-ad-ai-host-installed"
+          ]
+        },
         "host-panel": {
           "subject_ids": [
-            "s2-frame",
+            "s2-apron-drawer",
+            "s2-hand",
             "s2-panel",
+            "s2-phone",
             "s2-tag"
           ],
           "action_ids": [
@@ -2655,16 +2684,6 @@
             "rule-box-cooks"
           ]
         },
-        "sign-window": {
-          "subject_ids": [
-            "s2-frame",
-            "s2-panel",
-            "s2-tag"
-          ],
-          "action_ids": [
-            "no-ad-ai-host-installed"
-          ]
-        },
         "stand-wide": {
           "subject_ids": [
             "s10-jar",
@@ -2701,8 +2720,10 @@
         },
         "tag-detail": {
           "subject_ids": [
-            "s2-frame",
+            "s2-apron-drawer",
+            "s2-hand",
             "s2-panel",
+            "s2-phone",
             "s2-tag"
           ],
           "action_ids": [
@@ -2739,16 +2760,6 @@
           ],
           "action_ids": [
             "qr-does-not-suit-everyone"
-          ]
-        },
-        "window-frame": {
-          "subject_ids": [
-            "s2-frame",
-            "s2-panel",
-            "s2-tag"
-          ],
-          "action_ids": [
-            "no-ad-ai-host-installed"
           ]
         },
         "wok-flare": {
@@ -2797,6 +2808,7 @@
           "export": "RestaurantSupport",
           "views": [
             "ai-tag",
+            "apron-drawer",
             "blank-box",
             "blank-folder",
             "blank-pad-tables",
@@ -2813,6 +2825,7 @@
             "floor-plan",
             "folder-close",
             "folder-wide",
+            "front-stand",
             "host-panel",
             "host-phone",
             "jar-fills",
@@ -2835,7 +2848,6 @@
             "quote-card",
             "quote-side",
             "rule-card",
-            "sign-window",
             "stand-wide",
             "table-wait",
             "tag-close",
@@ -2843,7 +2855,6 @@
             "tags-close",
             "ticket-print",
             "viewfinder-hunt",
-            "window-frame",
             "wok-flare"
           ]
         }
