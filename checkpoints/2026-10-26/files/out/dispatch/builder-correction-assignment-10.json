@@ -1,0 +1,36 @@
+{
+  "assignment": {
+    "host": "claude",
+    "role": "scene-builder",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "agent": "scene-builder",
+    "resource": "reboards",
+    "context": "isolated"
+  },
+  "packet": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/builder-correction-packet-10.json",
+    "sha256": "f696416ddd04f0c9f52da7be86bacf8cfd27f03e5f914c40e8e937f8bd8df636"
+  },
+  "brief": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/.claude/agents/scene-builder.md",
+    "sha256": "fea80684c7ca5e614848e61902243b2414cef7cc68e1a3067d39b61a9e416ee2"
+  },
+  "agent_args": {
+    "subagent_type": "scene-builder",
+    "description": "builder_correction10_71da3059",
+    "prompt": "Work in /home/user/dispatch-editions/2026-10-26/TexasAIDispatch. Read the current compact packet /home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/builder-correction-packet-10.json (SHA256 f696416ddd04f0c9f52da7be86bacf8cfd27f03e5f914c40e8e937f8bd8df636) and every bound current guide in full. Verify the inputs before use. Scope: One structural whole-scene replacement per out/dispatch/repair-plan-10.json and the independent decision out/dispatch/original-pivot-10.json (replacement_plan is the spec). Retire OrderPassFilm.tsx from the renderer closure (leave its bytes untouched) and author new complete modules video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx and OrderHandoverFilm.tsx. Change only video-engine/src/modern/registry.tsx and config/modern_episode_registry.json for the route, and edit boards s2 events and items, narration_picture subject ids, attention beats and story_contract s2 per board_edits. All ten scenes must render in the new film, carrying scenes s1 and s3 to s10 behavior from OrderPassFilm.tsx as independently reimplemented code, not a renamed copy. No window sign, frame, slot, header or clip in s2. Narration and voice unchanged. Run the actual typecheck cd video-engine && npx tsc -p tsconfig.json --noEmit before handback. Return one complete handoff with exact hashes. Return one complete handoff or consolidated defect list with exact hashes. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film.",
+    "run_in_background": true
+  },
+  "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel. After an actual failed or interrupted worker, reserve a NEW attempt before restarting or resuming it through SendMessage, even on the same unchanged packet. Retain the failed charge and protect the complete remaining path before another attempt. Only a mechanical format correction to an already completed handback needs no new content reservation; include every actual turn in API usage. An already unreserved restart requires an honest late controller charge and disclosure before shipment, never backdating or replay.",
+  "dispatch_ready": true,
+  "reservation_claim": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/worker-dispatch-claims/fbe428439ed9d06cec0d17f5c5fafbf853ab8bb8f1218d9b54ad5ba63c945cf4-scene-builder.json",
+    "sha256": "71da305916caf795c245ff258d1a54e505c48aad31f710129350f1ac0741c47a"
+  }
+}
