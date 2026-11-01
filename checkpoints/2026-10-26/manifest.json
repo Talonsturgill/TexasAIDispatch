@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-11-01T06:33:47.919936+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-11-01T06:55:53.164587+00:00",
+  "note": "claim worker dispatch scene-builder",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-26T07:17:34.391615Z",
   "repo_root": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch",
-  "source_pin": "dc412e98b9994d6f30035a81e159e63d098b8b87",
+  "source_pin": "d4bf348643eaee643aca5c2522c9fa0031d5458b",
   "source_branch": "claude/dispatch-2026-10-26",
   "source_closure": {
     "root": "video-engine",
@@ -543,6 +543,12 @@
       "class": "scratch",
       "sha256": "2e3793f851541c8d927730e3ef56a58022b18e67fb7ca9c5dc64f4779a190a12",
       "size": 2809
+    },
+    {
+      "path": "out/dispatch/builder-correction-packet-10.json",
+      "class": "scratch",
+      "sha256": "f696416ddd04f0c9f52da7be86bacf8cfd27f03e5f914c40e8e937f8bd8df636",
+      "size": 9312
     },
     {
       "path": "out/dispatch/builder-correction-packet-2.json",
@@ -1119,6 +1125,12 @@
       "class": "scratch",
       "sha256": "06a6640d93ce45f083bf77b5647f7c7ab1bbca28be78259f530eb3112dd8b23f",
       "size": 16965
+    },
+    {
+      "path": "out/dispatch/current-defects-483f06bef9cd3e050a09eb724aaa72d987aee222783bb25160ee28ab441787fe.json",
+      "class": "scratch",
+      "sha256": "483f06bef9cd3e050a09eb724aaa72d987aee222783bb25160ee28ab441787fe",
+      "size": 30893
     },
     {
       "path": "out/dispatch/current-defects-b9b4d9cbd608837b2a94e5d3cbd2f9c4ebc3533f1924a390027949ebb7c37720.json",
@@ -25581,12 +25593,18 @@
       "class": "scratch",
       "sha256": "c74a25c2611ef0e3a9eaadffbd2ba17191c81897281635a9fc42c859e3105772",
       "size": 555
+    },
+    {
+      "path": "out/dispatch/worker-dispatch-claims/fbe428439ed9d06cec0d17f5c5fafbf853ab8bb8f1218d9b54ad5ba63c945cf4-scene-builder.json",
+      "class": "scratch",
+      "sha256": "71da305916caf795c245ff258d1a54e505c48aad31f710129350f1ac0741c47a",
+      "size": 571
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 539842663,
-    "unique_blob_bytes": 339179318,
-    "unique_blobs": 3142
+    "logical_bytes": 539883439,
+    "unique_blob_bytes": 339220094,
+    "unique_blobs": 3145
   },
   "excluded": [
     {
