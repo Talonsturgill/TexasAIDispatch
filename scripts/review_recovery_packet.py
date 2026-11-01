@@ -17,11 +17,14 @@ def bound(path):
     return {'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
 
 
-def previous_repairs(state):
+def previous_repairs(state, late=False):
     rows = [row for row in state.get('events', []) if row.get('kind') == 'repair_started'
             and row.get('repair_scope') not in {'technical-integrity', 'review-context', 'narration-performance'}]
     if len(rows) < 2:
         return []
+    if late:
+        # At the creative boundary every earlier creative correction was part of the failed route.
+        return rows
     last = rows[-1]
     return [row for row in rows if row.get('mechanism_id') == last.get('mechanism_id')
             or row.get('failure_family') == last.get('failure_family')]
@@ -42,7 +45,7 @@ def recovery_requirements(state_path, packet, *, charged=False):
             or packet.get('role') != 'storyboard-critic'
             or packet.get('review_scope') == 'exact-muted-phone-preflight'):
         return None
-    previous = previous_repairs(state)
+    previous = previous_repairs(state, late)
     if len(previous) < 2:
         return None
     failures = []
@@ -112,7 +115,9 @@ def recovery_problems(state_path, original):
         prefix.pop('active_repair', None)
         prefix['usage'] = {name: sum(e.get('resources', {}).get(name, 0) for e in prefix['events']
                                     if e.get('kind') == 'reserved') for name in state['usage']}
-        previous = previous_repairs(prefix)
+        import review_limit, completion_progress
+        late = review_limit.used(prefix) > 2 and completion_progress.replacement_required(prefix)
+        previous = previous_repairs(prefix, late)
         if len(previous) < 2:
             return []
         if (not isinstance(request, dict) or request.get('schema') != SCHEMA
