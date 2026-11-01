@@ -1,4 +1,24 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round10/registry.tsx",
+        "before_sha256": "1c862f8f58fcf1f41fbfae60df36bfecac9a66c29a84f88f67688a2036f56847",
+        "path": "{REPO}/video-engine/src/modern/registry.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round10/modern_episode_registry.json",
+        "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+        "path": "{REPO}/config/modern_episode_registry.json"
+      }
+    ],
+    "failure_sha256": "704d5f1490e60e7563c57a2a8306a2fc2964a3b613b2efe3aa5b89aef85fe583",
+    "plan": "{REPO}/out/dispatch/repair-plan-10.json",
+    "plan_sha256": "bfa33976b2e6c66db97d4f068136a08905fa9ad1e4d8e110ed77796e4943d8ce",
+    "progress_replacement_required": true,
+    "reboards_before": 6,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -3213,6 +3233,61 @@
         "validator_agents": 2,
         "voice_directors": 1
       }
+    },
+    {
+      "at": "2026-11-01T06:33:28.698499Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round10/registry.tsx",
+          "before_sha256": "1c862f8f58fcf1f41fbfae60df36bfecac9a66c29a84f88f67688a2036f56847",
+          "path": "{REPO}/video-engine/src/modern/registry.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round10/modern_episode_registry.json",
+          "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+          "path": "{REPO}/config/modern_episode_registry.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "source-framing",
+      "failure_sha256": "704d5f1490e60e7563c57a2a8306a2fc2964a3b613b2efe3aa5b89aef85fe583",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "order-pass-s2-station-handover-v1",
+      "plan_identity": null,
+      "plan_sha256": "bfa33976b2e6c66db97d4f068136a08905fa9ad1e4d8e110ed77796e4943d8ce",
+      "progress_replacement_required": true,
+      "repair_scope": "standard",
+      "retained_replacement": {
+        "kind": "whole-scene-replacement",
+        "replacement_paths": [
+          "video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx",
+          "video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx"
+        ],
+        "retired_inputs": [
+          {
+            "before_path": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+            "before_sha256": "18d9d181023ba00f08832fc2964062531640a33ff7fbb50c21b691282b5f4876",
+            "path": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+          }
+        ],
+        "schema": "dispatch_retained_scene_replacement/1",
+        "source_evidence": {
+          "path": "{REPO}/out/dispatch/claims.json",
+          "sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f"
+        }
+      }
     }
   ],
   "limits": {
@@ -3236,7 +3311,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "bebc53bdd71a17394cf44353e9d5b2e3504ac2c16d10f86e5255ad099ec04e19",
+    "original_private_state_sha256": "979fd0964c9ece7fe0c54d98122c5198cb530b7ee3a4ddec3b40221cea0be0ce",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3264,7 +3339,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-01T06:33:15.329349Z",
+  "updated_at": "2026-11-01T06:33:28.698541Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
