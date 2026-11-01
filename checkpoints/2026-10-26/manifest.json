@@ -1,19 +1,19 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-11-01T07:34:24.987256+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-11-01T07:34:46.765809+00:00",
+  "note": "repair 10 authorized",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-26T07:17:34.391615Z",
   "repo_root": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch",
-  "source_pin": "d4bf348643eaee643aca5c2522c9fa0031d5458b",
+  "source_pin": "2af07656d2932c0aeef5eca58ec4234995f766a4",
   "source_branch": "claude/dispatch-2026-10-26",
   "source_closure": {
     "root": "video-engine",
-    "files": 364,
-    "sha256": "98b68d8672ef3b74d618b835fb29b2bd0fe90d0848287c0840af10522c85fc7e"
+    "files": 366,
+    "sha256": "c6c144abe7343349b7cc8b7b764791631aef8b72c9776ef9f3ded43aa98a71d7"
   },
   "deleted_source": [],
   "ledger_sha256": "20864b0a9ed4ad8dda6885cd4424f537dc83d753e4a4c8d355fe66b4596c9dee",
@@ -58,12 +58,6 @@
     "voice_directors": 1
   },
   "files": [
-    {
-      "path": "config/modern_episode_registry.json",
-      "class": "source",
-      "sha256": "95bfbb41d7741db94a75f79d61816db6b669a401986910d0395ad264c4c78c30",
-      "size": 76007
-    },
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
@@ -25635,30 +25629,12 @@
       "class": "scratch",
       "sha256": "71da305916caf795c245ff258d1a54e505c48aad31f710129350f1ac0741c47a",
       "size": 571
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx",
-      "class": "source",
-      "sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee",
-      "size": 89623
-    },
-    {
-      "path": "video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx",
-      "class": "source",
-      "sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074",
-      "size": 29613
-    },
-    {
-      "path": "video-engine/src/modern/registry.tsx",
-      "class": "source",
-      "sha256": "de1013ebb85904b1a1b1df206daf8ae0eafff65cce15be001f7248ba3b08a07d",
-      "size": 1336
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 540641057,
-    "unique_blob_bytes": 339792295,
-    "unique_blobs": 3153
+    "logical_bytes": 540444478,
+    "unique_blob_bytes": 339595716,
+    "unique_blobs": 3149
   },
   "excluded": [
     {
