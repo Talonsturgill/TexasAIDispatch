@@ -140,9 +140,11 @@ def recovery_problems(state_path, original):
             return ['conditional recovery omits the actual whole-scene replacement requirement']
         if request.get('whole_scene_required'):
             proof = pivot.get(completion_progress.FIELD) or {}
-            current = {ref['path']: ref['sha256'] for ref in request['current_inputs']}
+            root = state_path.parents[2]
+            absolute = lambda value: str((root / str(value)).resolve())  # a reviewer may name repository-relative paths
+            current = {absolute(ref['path']): ref['sha256'] for ref in request['current_inputs']}
             if proof.get('source_evidence') != request['source_evidence'] or any(
-                    current.get(row.get('path')) != row.get('before_sha256') for row in proof.get('retired_inputs', [])):
+                    current.get(absolute(row.get('path'))) != row.get('before_sha256') for row in proof.get('retired_inputs', [])):
                 return ['conditional recovery must retire its original inspected source and retain the same claims']
             plan[completion_progress.FIELD] = proof
         # This temporary extraction is the original nested JSON, not a new assessment.
