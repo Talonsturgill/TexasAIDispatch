@@ -1,0 +1,544 @@
+{
+  "actor_sha256": null,
+  "agent_id": "ad82b0a2061371867",
+  "claim_sha256": "57bf7c73657d6ab465510af0150b7eff4683d267bc6abab5d0fc1859fddc90ca",
+  "original_final_response": "{\n \"packet_sha256\": \"720a09e949f3761f7b2c5fbe2aedea350a4553961d503dd2926b05e14a6e7259\",\n \"schema\": \"dispatch_claude_code_report_bindings/1\",\n \"role\": \"storyboard-critic\",\n \"review_scope\": \"code-plan\",\n \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director\",\n \"reviewed_at\": \"2026-11-01\",\n \"verdict\": \"revise\",\n \"binding_verification\": \"This is a Read-only worker with no Bash, so I could not recompute any SHA256, including the packet's own. Every digest below is copied unchanged from the packet's code_report_bindings and conditional_recovery. I checked that the packet agrees with itself. The board sha c07d471f... equals the opening-b sha, so the selected treatment b is the bound board. The OrderRigHero (2483fb96...) and RestaurantSupport (61ef7498...) digests match opening-b story_art.entries, native_media and asset_inputs. The claims sha c08c157a... matches every entry's source_claims_sha256. The OrderPassFilm.tsx digest 18d9d181... in conditional_recovery.current_inputs matches opening-b film_direction.renderer_inputs. A and B share renderer_sha256 60cefa99... because one episode module renders both.\",\n \"coverage\": {\n  \"read_in_full\": [\n   \".claude/agents/storyboard-critic.md\",\n   \"knowledge/craft/COMPLETION_PROGRESS.md\",\n   \"config/quality_contract.json\",\n   \"out/dispatch/critic-packet-10.json\",\n   \"out/dispatch/opening-b.json (all 5487 lines)\",\n   \"out/dispatch/claims.json\",\n   \"out/dispatch/sources/fox.txt\",\n   \"out/dispatch/sources/mm.txt\",\n   \"out/dispatch/sources/c2h.txt\",\n   \"video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx (all 1370 lines)\",\n   \"out/dispatch/retained-failures/code-review-1.json\",\n   \"out/dispatch/phone-compare-handback.json\",\n   \"out/dispatch/phone-fourth-handback.json\",\n   \"out/dispatch/phone-timed-report.json\",\n   \"out/dispatch/phone-timed-2-report-formatted.json\"\n  ],\n  \"read_partially\": [\n   \"config/dispatch_rubric.yaml (header, axes and hard_fails through line 90; ship threshold not restated here)\",\n   \"out/dispatch/opening-a.json (film_direction head only. A's shot clock matches B's at s1-shot-1 and s1-shot-2, and code-review-1 recorded that the A and B shot timelines match, so A times below use the shared clock)\",\n   \"scripts/critic_gate.py (first 60 lines only)\"\n  ],\n  \"not_read_disclosure\": \"Because of context limits I did not read the remaining bound craft guides in full: viewer-plan, README, news-reporting, explanatory-animation, MODERN_FILM, modern_film.json, the episode registry, STORY_ART, AUTHORED_STORY_ART, ART_DIRECTION, the reference bank, VO_DIRECTION, critic_concept_v2, claude_routine, claude_runtime, AGENTS.md, review_limit, the AUTONOMOUS_COMPLETION readings, story_selection.json, scene-builder.md. I also did not read OrderRigHero.tsx or RestaurantSupport.tsx. Their exported constants are used here only as OrderPassFilm.tsx consumes them. None of the blocking findings below depends on those unread files. The blocking s2 finding rests on OrderPassFilm.tsx source, the claims and the fetched source text, all read in full.\",\n  \"pixels\": \"None. This is code scope and capture.allowed is false. Nothing here observes or approves pixels, motion, legibility, finish, sound or film bytes.\"\n },\n \"completion_progress\": \"Post-boundary structural correction under COMPLETION_PROGRESS.md (October 20th contract). This third code review rejects the current s2 construction on a code-proven source contradiction. So recovery_review below returns the one whole-scene retained_replacement for this validated script, with every current defect consolidated. All earlier rejections stay as they were: code-review-1, phone-compare, phone-fourth, phone-timed and phone-timed-2. If this replacement draws another actual rejection, it can't buy another structural attempt under a new module or mechanism name. That case needs the existing precharged source-pivot and fresh-validation route. This decision approves only the named correction plan. The current code and both actual silent films still need the combined fourth review, and the measured timed phone review is still the fifth.\",\n \"code_reports\": {\n  \"a\": {\n   \"treatment\": \"a\",\n   \"board\": {\"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-a.json\", \"sha256\": \"b5103e4fb42351eba96ec79acf32024a5093b96a0a71b298a6ad101158c5bf57\"},\n   \"review_scope\": \"code-plan\",\n   \"concept_sha256\": \"af6706ad207e30f07bc870216e8601fed2e1c589b47a071419504c87d95e5395\",\n   \"renderer_sha256\": \"60cefa99c87863875d9762ffdc43a02db47baf288405fbd09b48a71fcd436601\",\n   \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n   \"verdict\": \"revise\",\n   \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director\",\n   \"reviewed_at\": \"2026-11-01\",\n   \"selection_status\": \"Unselected alternative under verified selection of b (proof 9454d4bc...). These are honest standalone findings. A is not being repaired and this report does not imply it passed.\",\n   \"strongest_frame\": \"s4 ticket-print detail into wok-flare, 25.813 to 27.86 s. orderState starts the print at max(s4-event-3 start, arrival), so the ticket rises, is gripped and cut inside the ticket shot (pEnd about 26.25 s, cutEnd about 26.36 s, shot end 26.51 s). After that a cook's bowl pours and the hand on the handle shakes the pan (tau after s4-event-4). Payment visibly comes before cooking on the same rig.\",\n   \"weakest_frame\": \"s9 quote-card medium, 51.21 to 53.81 s. The flat phone's screen dims toward black (dim .5+.5*S.s9.dim) beside a quote card. The hand that raised it in viewfinder-hunt is drawn with SKIN.a9, which equals SKIN.a3 (HP.skin[4]), the s3 guest's skin, so the dominant change is a phone timing out for the same guest. That is the construction phone-timed-2 rejected.\",\n   \"blocking_defects\": [\n    {\"category\": \"motion\", \"scene_id\": \"s1\", \"time_s\": 0.0, \"end_s\": 2.455, \"failed_criterion\": \"dominant_action; modern first_frame; brief: a person must perform the claimed action (retained phone-compare A blocker)\", \"defect\": \"door-apron (A) still draws no performed walkout. The source comment says 'The departing figure is gone', and only the door swing (S.s1.door) and the apron's damped swing carry n1a 'walked out'. The phone-compare review found 0.0 to 2.4 s an almost static empty room with no exit, and A's implementation is unchanged.\"},\n    {\"category\": \"comprehension\", \"scene_id\": \"s2\", \"time_s\": 7.68, \"end_s\": 10.89, \"clause_id\": \"n2a\", \"failed_criterion\": \"subject_recognition; narration_picture literal subject (retained phone-timed-2 c3 failure)\", \"defect\": \"window-frame (A) still draws RestaurantSupport signFrame: an empty acrylic frame that swings and settles, with no job-ad identity. This is the blank-sign absence construction phone-timed-2 blocked, because with captions covered it reads as a decorative blank sign. Nothing in A's branch changes it.\"},\n    {\"category\": \"contact_and_consequence\", \"scene_id\": \"s3\", \"time_s\": 15.54, \"end_s\": 19.05, \"clause_id\": \"n3a\", \"failed_criterion\": \"contact_and_consequence (retained phone-compare A blocker)\", \"defect\": \"code-scan (A) still places the phone at PHONE_AT['code-scan:a'] (690, 830, scale .72, rotation -3). It stands upright above codeStand at (720, 1110), screen to camera, so the scan contact is never depicted. The phone-compare review observed exactly this at 16.6 to 17.8 s, and the layout is unchanged.\"},\n    {\"category\": \"comprehension\", \"scene_id\": \"s3\", \"time_s\": 19.05, \"end_s\": 21.3, \"clause_id\": \"n3b\", \"failed_criterion\": \"dominant_action; narration-picture coverage of 'talks' (retained phone-timed-2 c6 failure)\", \"defect\": \"menu-tap (A) still performs only the tap. The source says 'Talk sits beside Pay' as a static control. talkB, TalkSheetB and the voice arcs run only in B's branch, so 'talks to order' has no picture in A.\"},\n    {\"category\": \"contact_and_consequence\", \"scene_id\": \"s3\", \"time_s\": 21.3, \"end_s\": 23.55, \"clause_id\": \"n3c\", \"failed_criterion\": \"contact_and_consequence: completed readable result (retained phone-compare A blocker)\", \"defect\": \"pay-mark (A) still shows the Paid result at PHONE_AT['pay-mark:a'] scale 1.05 in a medium framing. The phone-compare review found it barely readable at 270 px (22.4 to 23.4 s). The layout is unchanged.\"},\n    {\"category\": \"comprehension\", \"scene_id\": \"s9\", \"time_s\": 49.4, \"end_s\": 53.81, \"clause_id\": \"n9\", \"failed_criterion\": \"dominant_action; continuity (implied identity); rubric hard fail on a narrated idea without a bound visible change (retained phone-timed-2 c15 failure)\", \"defect\": \"viewfinder-hunt and quote-card (A) keep the rejected mechanism. The guest hand uses SKIN.a9, identical to SKIN.a3, so the s3 guest is reused, and the dominant late change is the screen dimming (dim .5*(1-u), then .5+.5*S.s9.dim). There is no cue for 'people like her mother'. The viewer is invited to see the earlier guest's phone timing out.\"}\n   ],\n   \"action_reviews\": [],\n   \"narration_picture_observations\": {\n    \"scope\": \"code-plan, provisional authored clause windows, no film bytes\",\n    \"clauses\": [\n     {\"id\": \"n1a\", \"pass\": false, \"start_s\": 0.48, \"end_s\": 4.53, \"observed\": \"Code plan: door swing, bell and apron swing, then a ringing desk phone. No walkout is performed (A blocker).\"},\n     {\"id\": \"n1b\", \"pass\": true, \"start_s\": 4.83, \"end_s\": 7.38, \"observed\": \"Code plan: tables with empty plates (foods default 'none'), a guest raises a hand, and the pad curls back blank.\"},\n     {\"id\": \"n2a\", \"pass\": false, \"start_s\": 8.04, \"end_s\": 10.59, \"observed\": \"Code plan: an unlabelled empty sign frame, the construction rejected at phone.\"},\n     {\"id\": \"n2b\", \"pass\": true, \"start_s\": 10.89, \"end_s\": 15.24, \"observed\": \"Code plan: the panel lights, writes Haniya and an AI host tag hooks on.\"},\n     {\"id\": \"n3a\", \"pass\": false, \"start_s\": 15.9, \"end_s\": 18.75, \"observed\": \"Code plan: the phone is not aimed at the code (retained blocker).\"},\n     {\"id\": \"n3b\", \"pass\": false, \"start_s\": 19.05, \"end_s\": 21.0, \"observed\": \"Code plan: tap only. Talk is static.\"},\n     {\"id\": \"n3c\", \"pass\": false, \"start_s\": 21.3, \"end_s\": 23.25, \"observed\": \"Code plan: Pay turns to Paid at medium scale (retained legibility blocker).\"},\n     {\"id\": \"n4\", \"pass\": true, \"start_s\": 23.91, \"end_s\": 27.06, \"observed\": \"Code plan: idle printer and cold empty wok, the mark arrives and the lamp answers in the paid-line shot, the ticket prints and is cut in its shot, then a pour and a shake-driven toss.\"},\n     {\"id\": \"n5a\", \"pass\": true, \"start_s\": 28.22, \"end_s\": 32.27, \"observed\": \"Code plan: the ledger card slides on and the $9,650 a month tag drops, with its shadow only in the last stretch.\"},\n     {\"id\": \"n5b\", \"pass\": true, \"start_s\": 32.57, \"end_s\": 34.52, \"observed\": \"Code plan: a side-on stamp presses and lifts, then a clip on the cork board snaps on nothing. Legibility is a pixel question.\"},\n     {\"id\": \"n6\", \"pass\": true, \"start_s\": 35.18, \"end_s\": 39.23, \"observed\": \"Code plan: coins arc from the paid phone into the jar and the FOX 26 tag hooks on.\"},\n     {\"id\": \"n7a\", \"pass\": true, \"start_s\": 39.89, \"end_s\": 42.44, \"observed\": \"Code plan: the rule card slides and its box draws, empty.\"},\n     {\"id\": \"n7b\", \"pass\": true, \"start_s\": 42.74, \"end_s\": 45.59, \"observed\": \"Code plan: the cooks line lights and the pen hand circles both lines.\"},\n     {\"id\": \"n8\", \"pass\": true, \"start_s\": 46.25, \"end_s\": 49.1, \"observed\": \"Code plan: the folder slides, opens, the box stays blank and a question mark draws.\"},\n     {\"id\": \"n9\", \"pass\": false, \"start_s\": 49.76, \"end_s\": 53.51, \"observed\": \"Code plan: the same guest's hand and a screen timeout (retained blocker).\"},\n     {\"id\": \"n10a\", \"pass\": true, \"start_s\": 54.17, \"end_s\": 56.42, \"observed\": \"Code plan: an order card lands on the panel, and a slip arcs into the printer slot before the lamp answers and a ticket rises. Scale is a pixel question.\"},\n     {\"id\": \"n10b\", \"pass\": true, \"start_s\": 56.72, \"end_s\": 60.17, \"observed\": \"Code plan: owner says, then no record shown, settle on the jar in a wide frame with the panel.\"}\n    ]\n   },\n   \"story_review\": {\n    \"story_sha256\": \"bcafbe35bd96c84a42d44fe0e2c02340b06edd5e0758b5c3a8bbf317fb5cf770\",\n    \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n    \"claims_sha256\": \"c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f\",\n    \"verdict\": \"revise\",\n    \"blocking_defects\": [\n     {\"category\": \"motion\", \"scene_id\": \"s1\", \"time_s\": 0.0, \"defect\": \"There is still no performed walkout in the hook.\"},\n     {\"category\": \"comprehension\", \"scene_id\": \"s2\", \"time_s\": 7.68, \"defect\": \"The empty sign frame does not picture an unposted job ad (retained construction).\"},\n     {\"category\": \"contact_and_consequence\", \"scene_id\": \"s3\", \"time_s\": 15.54, \"defect\": \"The scan contact is not depicted, and Paid is barely readable at 21.3 s.\"},\n     {\"category\": \"comprehension\", \"scene_id\": \"s3\", \"time_s\": 19.05, \"defect\": \"'talks to order' is not performed.\"},\n     {\"category\": \"comprehension\", \"scene_id\": \"s9\", \"time_s\": 49.4, \"defect\": \"The same guest's phone timing out stands in for the customer's limit.\"}\n    ],\n    \"one_viewing_summary\": \"Intended chain from code, at counter level. A door shuts on an empty station and the phone rings. A blank frame hangs in the window, then a panel named Haniya lights. A guest's phone, held beside the code, opens a menu, a dish is tapped and Pay turns to Paid. The mark reaches the printer, a ticket prints and the cook starts the wok. The owner's $9,650 is stamped as his own count. Coins fill a jar under a FOX 26 tag. The rule card and the blank folder box follow. The same guest's phone times out beside a quote, and the panel takes an order while the jar takes its two tags.\",\n    \"opening_to_ending\": \"The causal chain and the close (panel plus tagged jar in one wide frame) answer the opening question within source limits. A's retained picture failures are at the hook, s2, s3 and s9, not in the story order.\",\n    \"weakest_transition\": \"s8 to s9 (49.4 s). It cuts from the blank folder box to the s3 guest's own hand and phone, which implies the same guest rather than a separate customer example.\"\n   },\n   \"notes\": [\n    \"The shared s4 fixes hold in A's code: an empty cold wok before payment, arrival and lamp inside paid-line, print and cut inside ticket-print, and a cook-motivated toss. So does the grey-rectangle fix (paperDrop draws the shadow only in the last 28 percent of the fall).\",\n    \"These findings are archived for the unselected treatment. No correction of A is requested.\"\n   ]\n  },\n  \"b\": {\n   \"treatment\": \"b\",\n   \"board\": {\"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b.json\", \"sha256\": \"c07d471f68c2c1dbc8c349a0b0dd84d9f44947243c10e7293800820c7a5afd68\"},\n   \"review_scope\": \"code-plan\",\n   \"concept_sha256\": \"6cc3ce8fd5e39acd6b8dc507b332dc3ab08cb5bb7b790cf1bf78bfbfdcfe2b23\",\n   \"renderer_sha256\": \"60cefa99c87863875d9762ffdc43a02db47baf288405fbd09b48a71fcd436601\",\n   \"quality_contract_sha256\": \"f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa\",\n   \"verdict\": \"revise\",\n   \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director\",\n   \"reviewed_at\": \"2026-11-01\",\n   \"selection_status\": \"Selected treatment (proof 9454d4bc..., approval false).\",\n   \"strongest_frame\": \"s4 paid-line push-in into ticket-print, 24.553 to 26.51 s. arrive = s4-event-2 start + .97 x duration, about 25.52 s, which falls inside paid-line (to 25.813 s), where the camera has eased to PAID_ZOOM 4.4 on the printer top. The lamp answers there, in the same shot. ticket-print (B, scale 1.6) then holds the ticket rising, gripped and cut by about 26.36 s, with the cold wok beside it. The retained code-review-1 pacing and recognition defects are implemented away. This is code only, and readability stays a pixel question.\",\n   \"weakest_frame\": \"s2 sign-window wide, 7.68 to 10.89 s, under 'The family didn't post a job ad.' HelpWantedSignB hangs a printed HELP WANTED notice in the restaurant's front window on a suction cup, above the caption band (HELP_B.cup 530,452). The picture shows the restaurant advertising for staff, which is the reverse of the spoken and sourced fact.\",\n   \"blocking_defects\": [\n    {\"category\": \"source\", \"scene_id\": \"s2\", \"time_s\": 7.68, \"end_s\": 10.89, \"clause_id\": \"n2a\", \"failed_criterion\": \"Source fidelity to claim c2 ('The family did not post a job ad', Muslim Mirror, live exact) and to FOX 26 ('Rather than shutting down or rushing to post job listings'). Also narration_picture literal subject for n2a, quality_contract continuity ('do not imply stock illustration is the actual case') and dominant_action. The bound s2-frame item performs the opposite of its clause, so the narrated idea is not bound to a truthful rendered change. The retained phone-timed-2 c3 comprehension failure is also not repaired.\", \"defect\": \"The round 8 correction converts an unreadable absence into a contradiction. In OrderPassFilm.tsx case 'sign-window' (B), helpClip(W,t) selects HelpWantedSignB. It draws a framed sign hung on the front-window glass, headed by a charcoal band with the printed words 'HELP WANTED' (font size helpHeadSize(), up to 36 px), over a cork board whose dashed card slot is empty and whose clip opens and snaps shut on nothing during s2-event-1 (8.04 to 9.24 s). A HELP WANTED notice displayed in a storefront window is a posted job ad. An empty slot under that header does not negate it, it only looks like an ad with its details missing. With captions covered, the viewer learns that the restaurant advertised for help, while the narration and both sources say the family did not post one and chose to replace the position instead. The board's own s2 text ('A window sign frame stays empty, with no job ad pinned in it') does not describe this object either. Required correction: retire the window-sign absence construction entirely (frame, slot, header, clip) in both treatments and replace the whole s2 scene with the source-backed handover in recovery_review. Don't relabel the sign or edit coordinates.\"}\n   ],\n   \"action_reviews\": [],\n   \"narration_picture_observations\": {\n    \"scope\": \"code-plan, provisional authored clause windows, no film bytes\",\n    \"clauses\": [\n     {\"id\": \"n1a\", \"pass\": true, \"start_s\": 0.48, \"end_s\": 4.53, \"observed\": \"Code plan: on the floor plan the door leaf shuts, the bell ring marks pulse and footprints appear from the stand to the door (S.s1.walk), then the medium host stand where the desk phone rings. The plan's apron, phone and pad are small rectangles, so recognition there is a pixel question.\"},\n     {\"id\": \"n1b\", \"pass\": true, \"start_s\": 4.83, \"end_s\": 7.38, \"observed\": \"Code plan: the pad curls and falls back blank in the foreground. tableGroup draws empty plates (foods default 'none') and a guest raises a hand with a menu.\"},\n     {\"id\": \"n2a\", \"pass\": false, \"start_s\": 8.04, \"end_s\": 10.59, \"observed\": \"Code plan: a HELP WANTED sign in the window, with its empty slot clip snapping on nothing. It contradicts c2 (blocking).\"},\n     {\"id\": \"n2b\", \"pass\": true, \"start_s\": 10.89, \"end_s\": 15.24, \"observed\": \"Code plan: the panel beside the stand lights and writes Haniya, then an AI host tag is carried in and hooks onto the eyelet. 'They put' is not performed by anyone. The panel is already standing there (addressed by the replacement).\"},\n     {\"id\": \"n3a\", \"pass\": true, \"start_s\": 15.9, \"end_s\": 18.75, \"observed\": \"Code plan: overhead, the phone lifts from (300,1560) to over codeStandTop, the brackets lock at 78 to 98 percent of s3-event-1 and the menu slides up. The hand uses SKIN.a3.\"},\n     {\"id\": \"n3b\", \"pass\": true, \"start_s\": 19.05, \"end_s\": 21.0, \"observed\": \"Code plan: the guest is seen over her shoulder. One jointed arm (armIK and armFK from her shoulder) taps Chow mein, which lights. talkB then raises a listening sheet with a lit Talk mic, rings and a moving level, and voice arcs leave VOICE_B near her ear, from about 60 to 85 percent of s3-event-3 through the clause end. The retained 'talks' failure is implemented.\"},\n     {\"id\": \"n3c\", \"pass\": true, \"start_s\": 21.3, \"end_s\": 23.25, \"observed\": \"Code plan: a detail at phone scale 2.4 with the same holding hand (SKIN.a3). The finger presses Pay, which becomes the red paid mark.\"},\n     {\"id\": \"n4\", \"pass\": true, \"start_s\": 23.91, \"end_s\": 27.06, \"observed\": \"Code plan: a cold empty wok and an idle printer, the push-in follows the mark into the slot and the lamp answers in-shot, the ticket prints and is cut in-shot, then the pour and a shake-driven toss.\"},\n     {\"id\": \"n5a\", \"pass\": true, \"start_s\": 28.22, \"end_s\": 32.27, \"observed\": \"Code plan: the overhead ledger card slides, then the $9,650 a month tag drops onto the card with a late-only shadow.\"},\n     {\"id\": \"n5b\", \"pass\": true, \"start_s\": 32.57, \"end_s\": 34.52, \"observed\": \"Code plan: the stamp with its OWNER COUNT index label comes from the near edge, presses, inks at 24 percent and lifts away from 38 percent, uncovering MarkB at 28 px x 2.2. clip-bench then lays the stamped card large beside a RECEIPTS board whose clip snaps on nothing. The retained s5 failure is implemented.\"},\n     {\"id\": \"n6\", \"pass\": true, \"start_s\": 35.18, \"end_s\": 39.23, \"observed\": \"Code plan: overhead coins leave the paid phone and arc to the jar, then the medium jar fills beside the printer and ticket, then the FOX 26 tag hooks on.\"},\n     {\"id\": \"n7a\", \"pass\": true, \"start_s\": 39.89, \"end_s\": 42.44, \"observed\": \"Code plan: the rule card slides onto the desk top and its box draws, empty.\"},\n     {\"id\": \"n7b\", \"pass\": true, \"start_s\": 42.74, \"end_s\": 45.59, \"observed\": \"Code plan: the cooks line lights, then the pen hand (SKIN.writer) circles both lines and lifts.\"},\n     {\"id\": \"n8\", \"pass\": true, \"start_s\": 46.25, \"end_s\": 49.1, \"observed\": \"Code plan: the folder slides beside the circled rule card, opens, the box stays blank and the question mark follows s8-event-3.\"},\n     {\"id\": \"n9\", \"pass\": true, \"start_s\": 49.76, \"end_s\": 53.51, \"observed\": \"Code plan: a different, older customer (cardigan cuff, watch, ring, reading glasses on the table, ELDER9.skin = HP.skin[0], distinct from SKIN.a3) holds the phone over the code. The brackets hunt and never close. elder9 is one pose function across both shots, so nothing teleports. She lowers the phone, the quote card lands and she pushes the phone away. The screen stays lit. The retained s9 failures are implemented.\"},\n     {\"id\": \"n10a\", \"pass\": true, \"start_s\": 54.17, \"end_s\": 56.42, \"observed\": \"Code plan: the order card lands on the panel in the first 40 percent of s10-event-1. The slip leaves at 38 percent and drops into the slot at 90 percent, and only then the lamp answers and the ticket rises and is cut. The camera eases in over the whole shot. The retained s10 tiny-action failure is implemented, and scale stays a pixel question.\"},\n     {\"id\": \"n10b\", \"pass\": true, \"start_s\": 56.72, \"end_s\": 60.17, \"observed\": \"Code plan: owner says hooks onto the jar in the medium shot, then the held detail settles no record shown beneath it under the printed ticket.\"}\n    ]\n   },\n   \"story_review\": {\n    \"story_sha256\": \"da1b33a4afd397b1a311843ffa2a4b761f3c2acc2845d9d21be21a95a2e2ea31\",\n    \"policy_sha256\": \"01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0\",\n    \"claims_sha256\": \"c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f\",\n    \"verdict\": \"revise\",\n    \"blocking_defects\": [\n     {\"category\": \"source\", \"scene_id\": \"s2\", \"time_s\": 7.68, \"defect\": \"The mechanism beat opens on a HELP WANTED notice in the restaurant window. In the story chain that says the family advertised the job, which contradicts c2 and FOX 26 and breaks the cause the film rests on: the server job was replaced, not advertised. The correction is the s2 whole-scene replacement in recovery_review.\"}\n    ],\n    \"one_viewing_summary\": \"Intended chain from code, read from above. Footprints leave the stand as the door shuts, the phone rings and a guest waits with empty plates. The film then shows a hiring sign in the window (the defect) and a panel named Haniya lighting. A guest scans, taps chow mein, talks to the phone and pays. The mark crosses the plan into the printer, the lamp answers, the ticket prints and the cook starts the wok. The owner's $9,650 is stamped OWNER COUNT beside an empty RECEIPTS clip. Coins fill the jar under FOX 26. The rule card shows cooks in a pool only without a tip credit, and the folder's box stays blank. An older customer's phone can't lock on the code beside one customer's quote. The panel takes the next order, its ticket prints, and the jar ends under owner says and no record shown.\",\n    \"opening_to_ending\": \"The opening question (who takes the order now that the server is gone) is answered when the panel takes the order and its own ticket prints (54.17 s on). The close holds the jar under owner says and no record shown, which keeps the tip claim on the owner's word without inventing an outcome. That chain is earned once s2 tells the truth about how the job was handled.\",\n    \"weakest_transition\": \"s1 to s2 at 7.68 s. The hook leaves an unanswered ringing phone at an empty stand, and s2 cuts to a window sign. Nothing resolves the ringing phone, and the declared same-subject bridge is not performed. The replacement resolves it on the same stand.\"\n   },\n   \"notes\": [\n    \"Retained defects whose implementation is now present in code: phone-compare s3 skin continuity (SKIN.a3 for every s3 hand), s9 teleport (elder9 single pose function), grey rectangles (paperDrop late-only shadow); phone-fourth s3 detached limbs (armIK/armFK jointed arm) and s10 tiny action; phone-timed s5 owner count; phone-timed-2 s3 'talks' and s9 customer. All of them still need current pixels. This code review supplies no observation.\",\n    \"Pixel-scope risks carried forward, not blocking: (1) n3b: talkB closes 0.04 to 0.40 s after the n3b clause end, but under authored timing the clause ends at 21.0 s and menu-tap cuts at 21.30 s. The sheet would still be about 20 percent raised at the cut, while paid-close draws no sheet, which is a small continuity jump. Recheck after board_retime with measured boundaries. (2) n9: the hunting brackets on an older customer's phone dramatize 'people like her mother'. Confirm at phone scope that the older hand reads as an example of that group, attributed by the 'One customer' quote card and the disclosure, and not as the quoted customer herself or as a reported scan malfunction. (3) s1 floor-plan objects are small rectangles. (4) phone-timed-2 left the s1 lateral offsets at 5.6 to 6.6 s unresolved. Nothing in table-wait's code drives a sideways move, so the cause is outside this module or not real, and it needs a full-frame-rate check.\",\n    \"Source, numeral and region checks: $9,650 is in the c6 quote. 'not very convenient for every kind of people' is in the c10 quote. FOX 26 attribution is c7/c12. The gulf plate matches Harris County (c11). The disclosure chip renders production_disclosure every frame. action_reviews is empty because the board has no action_proposals.\"\n   ]\n  }\n },\n \"blocking_defects\": [\n  {\"category\": \"source\", \"scene_id\": \"s2\", \"time_s\": 7.68, \"end_s\": 10.89, \"clause_id\": \"n2a\", \"treatment\": \"b\", \"failed_criterion\": \"Source fidelity to c2 and FOX 26, narration_picture literal subject, continuity and dominant_action, plus the retained phone-timed-2 c3 failure\", \"defect\": \"Selected B's s2 shows a printed HELP WANTED notice in the restaurant window (HelpWantedSignB in OrderPassFilm.tsx 'sign-window'). That pictures a posted job ad under the line 'The family didn't post a job ad', the reverse of the verified claim. The previous blank frame was unreadable and this label makes it false, so the window-sign absence construction can't carry the clause. Replace the whole s2 scene (recovery_review).\"}\n ],\n \"consolidated_correction\": \"One structural correction on selected B: retire the s2 window-sign absence construction (signFrame, HelpWantedSignB, ClipB, helpClip and the HELP_B layout) and replace the whole s2 scene, all three shots, with the source-backed station handover in recovery_review, in both treatments' s2 views. Narration and voice stay unchanged. Bind c5 to the phone-answering beat. Keep the other nine scenes' current implementations, including B's round 8 s3 talk, s9 older customer, s5 stamp and s10 order handoff, which pass at code scope. Don't relabel, recolour or move the sign. No other code-proven mandatory defect exists in B. A's archived findings stay unchanged and A is not repaired. Perceived finish, legibility, speed and recognition stay with the combined fourth review and the measured timed phone review. This code verdict approves no film.\",\n \"recovery_review\": {\n  \"schema\": \"dispatch_conditional_code_recovery/1\",\n  \"run_id\": \"2026-10-26\",\n  \"critic_attempt\": 3,\n  \"verdict\": \"pass\",\n  \"verdict_scope\": \"This approves only the named s2 correction plan as a credible, different, source-backed construction. It is not a passing grade for any code, film or pixels. The replacement code and both actual silent films still need the combined fourth review, and the measured timed phone review is the fifth.\",\n  \"reviewer_identity\": \"claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director\",\n  \"director_identity\": \"claude-sonnet-5-5 director, this session\",\n  \"failure_family\": \"source-framing\",\n  \"reviewed_failure_sha256\": [\n   \"8084cc38da4568392fe3fd8a5e19546992321f8e834d97a3aee784c023c6f48f\",\n   \"5ba7117cc04eccead1bbcded6c6ec4762caee02983145951c9d77831c7da5728\",\n   \"3a15920f2e3915f8cff30b5e4cdacaa7771847ac2f676c816605f602fb622e05\",\n   \"8ae6238c8a800c10f5aced03865d6f03c16056e4d7eafd5ab385dbaadc83e54a\",\n   \"5d01d3fb1026ca9a203d9342325c28f624fc802bd7686c46c027cf064b34a16d\"\n  ],\n  \"reviewed_failure_paths\": [\n   \"out/dispatch/retained-failures/code-review-1.json\",\n   \"out/dispatch/phone-compare-handback.json (s2 'weak but honest' blank sign note)\",\n   \"out/dispatch/phone-fourth-handback.json\",\n   \"out/dispatch/phone-timed-report.json (s2 empty window card with no hiring identity, note)\",\n   \"out/dispatch/phone-timed-2-report-formatted.json (s2 c3 blocker: blank card reads as a decorative sign)\"\n  ],\n  \"retired_mechanism_id\": \"order-pass-b-comprehension-v8\",\n  \"retired_construction\": \"The window-sign absence picture for n2a, in both forms: an unlabelled empty sign frame or blank card (RestaurantSupport signFrame), which failed comprehension at phone, and the round 8 HELP WANTED board with an empty slot (HelpWantedSignB), which contradicts c2 at code. Both ask a static window object to prove a negative, and the panel appears already standing with nobody putting it there.\",\n  \"replacement_mechanism_id\": \"order-pass-s2-station-handover-v1\",\n  \"source_basis\": \"c2 (Muslim Mirror, live exact): 'The family did not post a job ad.' FOX 26 text in fox.txt, behind c1: 'Rather than shutting down or rushing to post job listings, owner ... decided to replace the position with an AI software named Haniya.' c1 (FOX 26 Brief): the restaurant 'replaced front-of-house staff with an AI platform named Haniya.' c5 (FOX 26, VERIFIED, currently unbound): 'The digital server ... answers the phone even when the restaurant is closed.' The same claim is in mm.txt: 'an AI host named Haniya was answering the phone.' So the reported action is a replacement of the position on the spot, not an advertisement, and the host's first reported job is answering the phone. That is exactly the object the s1 hook left ringing. No 24-hour clock or timeline is drawn, because c12's scope note says the reported timelines conflict and none may be pictured.\",\n  \"replacement_plan\": {\n   \"script\": \"Unchanged. n2a 'The family didn't post a job ad.' and n2b 'They put an AI host named Haniya at the front of the house.' Existing voice and takes are retained, and board_retime later supplies measured boundaries.\",\n   \"claims\": \"s2 binds c2 and c1 as now, and adds c5 to the answering beat (event and clause claim_ids). Every numeral and text on screen stays limited to 'Haniya' and 'AI host'.\",\n   \"disclosure\": \"production_disclosure 'Illustration of the reported change. Generic stand and panel, no real person, software or brand mark'.\",\n   \"shot_1_n2a\": \"The host stand from s1, in the same place and with the same props: apron on its hook, blank pad, and the desk phone still rattling with its ring marks, which carries the s1 ringing phone across the cut. The door behind stays shut and its bell silent, so no new hire arrives. A family member's arm enters at stand height. It is drawn as one jointed limb from a frame-edge shoulder (upper arm, elbow, forearm, hand) at the stand's scale, with a sleeve and skin fill distinct from the s3 guest, the s9 customer and the cook. The hand lifts the server's apron off its hook (contact at the strap, the hook left bare), folds it once and lays it in the stand's drawer, which slides shut. The front window shows only the region plate and carries no sign of any kind. Visible meaning with captions covered: the server's job is closed at the station, not offered to anyone. The apron finishing in the shut drawer is the completed result, held before the cut.\",\n   \"shot_2_n2b\": \"Same stand, medium. The same arm sets the dark host panel down on the stand top where the apron hung. The panel foot lands with a contact shadow, then the hand withdraws. The panel lights from the left and writes Haniya. On the still-ringing desk phone the ring marks stop and its line lamp shows answered as the panel's voice rings pulse, so Haniya answers the phone the server left ringing (c5). The verb 'put' is performed by a person, and the s1 question gets its first visible answer on the same object.\",\n   \"shot_3\": \"Detail. The AI host tag is carried in on its string and hooks onto the panel's eyelet, swings and settles beside the lit name. The answered phone stays in the frame edge.\",\n   \"treatments\": \"Implement both treatments' s2 views in the new scene module. A at counter level (medium, close, detail). B through the front window from the street side for shot 1, then medium and detail, keeping B's angle. No shot may reuse signFrame, HelpWantedSignB, ClipB, helpClip, HELP_B or their coordinates, strings or easing values.\",\n   \"board_edits\": \"s2 items: s2-frame is replaced by s2-apron-drawer and s2-hand. s2-panel and s2-tag are kept, and s2-phone is added. Rewrite visual_events, visual_proof (must_show: apron lifted off the hook into the drawer; panel set on the stand and lit with Haniya; desk phone answered; AI host tag), film_direction s2 views, narration_picture subject_ids, attention_beats and story_contract s2 'advances'. The s1 to s2 visible_bridge becomes true: the same ringing phone on the same stand.\",\n   \"import_closure\": \"OrderPassFilm.tsx (v8 bytes 18d9d181...) stays unchanged at its path as the retained evidence and leaves the renderer's import closure. The new episode module enters the route in place of OrderPassFilm and renders s2 only through StationHandoverScene. The other nine scenes are carried as their current, source-faithful, code-passing implementations (s1, s3 to s10, including B's round 8 s3 talk and s9 customer). They are not the retired construction and must not be renamed or retuned to evade the copy check. Admission limitation, stated honestly: whether the controller's copy check admits that carried remainder inside a new film module is its mechanical decision, which I can't verify from a Read-only seat. If it is refused, return that refusal rather than renaming identifiers. Retain every original film and report.\"\n  },\n  \"visible_difference\": \"The dominant s2 picture changes from a static sign in the window, which asked the viewer to read an absence and was then labelled into an advert, to a performed handover at the station the server left. A family member's hand takes the server's apron off its hook and shuts it in the drawer. The same hand sets the Haniya panel where the apron hung. The panel lights and answers the phone that has been ringing since the hook. There is no window sign, frame, slot, header or clip anywhere in s2. The ringing-phone thread from s1 resolves on screen, and the verb 'put' is performed by a person.\",\n  \"retained_replacement\": {\n   \"schema\": \"dispatch_retained_scene_replacement/1\",\n   \"kind\": \"whole-scene-replacement\",\n   \"source_evidence\": {\"path\": \"/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/claims.json\", \"sha256\": \"c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f\"},\n   \"retired_inputs\": [\n    {\"path\": \"video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx\", \"before_path\": \"video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx\", \"before_sha256\": \"18d9d181023ba00f08832fc2964062531640a33ff7fbb50c21b691282b5f4876\"}\n   ],\n   \"replacement_paths\": [\n    \"video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx\",\n    \"video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx\"\n   ]\n  },\n  \"unchanged_pinned_inputs_note\": \"OrderRigHero.tsx (2483fb96...) and RestaurantSupport.tsx (61ef7498...) keep their recorded authored bytes. Any new s2 art (arm, drawer, answered phone state) is drawn in StationHandoverScene.tsx so those receipts stay valid. registry.tsx and the Dispatch route are changed inputs under the standard repair plan, with retained baselines.\",\n  \"remaining_gates\": \"Fund the remaining path before edits. Then a fresh code review of the replacement, both silent films in the combined fourth review, the measured timed phone fifth, native, audiovisual, captions, scoring and delivery. If this replacement is rejected again, only the precharged source-pivot route with fresh validation remains.\"\n },\n \"constraints_honored\": \"I launched no subagents, sent no email, made no social post and modified no file. No hash was computed or invented. Every digest is copied from the packet. Every earlier rejection is preserved unchanged.\"\n}",
+  "packet_sha256": "720a09e949f3761f7b2c5fbe2aedea350a4553961d503dd2926b05e14a6e7259",
+  "production_finished": false,
+  "report": {
+    "binding_verification": "This is a Read-only worker with no Bash, so I could not recompute any SHA256, including the packet's own. Every digest below is copied unchanged from the packet's code_report_bindings and conditional_recovery. I checked that the packet agrees with itself. The board sha c07d471f... equals the opening-b sha, so the selected treatment b is the bound board. The OrderRigHero (2483fb96...) and RestaurantSupport (61ef7498...) digests match opening-b story_art.entries, native_media and asset_inputs. The claims sha c08c157a... matches every entry's source_claims_sha256. The OrderPassFilm.tsx digest 18d9d181... in conditional_recovery.current_inputs matches opening-b film_direction.renderer_inputs. A and B share renderer_sha256 60cefa99... because one episode module renders both.",
+    "blocking_defects": [
+      {
+        "category": "source",
+        "clause_id": "n2a",
+        "defect": "Selected B's s2 shows a printed HELP WANTED notice in the restaurant window (HelpWantedSignB in OrderPassFilm.tsx 'sign-window'). That pictures a posted job ad under the line 'The family didn't post a job ad', the reverse of the verified claim. The previous blank frame was unreadable and this label makes it false, so the window-sign absence construction can't carry the clause. Replace the whole s2 scene (recovery_review).",
+        "end_s": 10.89,
+        "failed_criterion": "Source fidelity to c2 and FOX 26, narration_picture literal subject, continuity and dominant_action, plus the retained phone-timed-2 c3 failure",
+        "scene_id": "s2",
+        "time_s": 7.68,
+        "treatment": "b"
+      }
+    ],
+    "code_reports": {
+      "a": {
+        "action_reviews": [],
+        "blocking_defects": [
+          {
+            "category": "motion",
+            "defect": "door-apron (A) still draws no performed walkout. The source comment says 'The departing figure is gone', and only the door swing (S.s1.door) and the apron's damped swing carry n1a 'walked out'. The phone-compare review found 0.0 to 2.4 s an almost static empty room with no exit, and A's implementation is unchanged.",
+            "end_s": 2.455,
+            "failed_criterion": "dominant_action; modern first_frame; brief: a person must perform the claimed action (retained phone-compare A blocker)",
+            "scene_id": "s1",
+            "time_s": 0.0
+          },
+          {
+            "category": "comprehension",
+            "clause_id": "n2a",
+            "defect": "window-frame (A) still draws RestaurantSupport signFrame: an empty acrylic frame that swings and settles, with no job-ad identity. This is the blank-sign absence construction phone-timed-2 blocked, because with captions covered it reads as a decorative blank sign. Nothing in A's branch changes it.",
+            "end_s": 10.89,
+            "failed_criterion": "subject_recognition; narration_picture literal subject (retained phone-timed-2 c3 failure)",
+            "scene_id": "s2",
+            "time_s": 7.68
+          },
+          {
+            "category": "contact_and_consequence",
+            "clause_id": "n3a",
+            "defect": "code-scan (A) still places the phone at PHONE_AT['code-scan:a'] (690, 830, scale .72, rotation -3). It stands upright above codeStand at (720, 1110), screen to camera, so the scan contact is never depicted. The phone-compare review observed exactly this at 16.6 to 17.8 s, and the layout is unchanged.",
+            "end_s": 19.05,
+            "failed_criterion": "contact_and_consequence (retained phone-compare A blocker)",
+            "scene_id": "s3",
+            "time_s": 15.54
+          },
+          {
+            "category": "comprehension",
+            "clause_id": "n3b",
+            "defect": "menu-tap (A) still performs only the tap. The source says 'Talk sits beside Pay' as a static control. talkB, TalkSheetB and the voice arcs run only in B's branch, so 'talks to order' has no picture in A.",
+            "end_s": 21.3,
+            "failed_criterion": "dominant_action; narration-picture coverage of 'talks' (retained phone-timed-2 c6 failure)",
+            "scene_id": "s3",
+            "time_s": 19.05
+          },
+          {
+            "category": "contact_and_consequence",
+            "clause_id": "n3c",
+            "defect": "pay-mark (A) still shows the Paid result at PHONE_AT['pay-mark:a'] scale 1.05 in a medium framing. The phone-compare review found it barely readable at 270 px (22.4 to 23.4 s). The layout is unchanged.",
+            "end_s": 23.55,
+            "failed_criterion": "contact_and_consequence: completed readable result (retained phone-compare A blocker)",
+            "scene_id": "s3",
+            "time_s": 21.3
+          },
+          {
+            "category": "comprehension",
+            "clause_id": "n9",
+            "defect": "viewfinder-hunt and quote-card (A) keep the rejected mechanism. The guest hand uses SKIN.a9, identical to SKIN.a3, so the s3 guest is reused, and the dominant late change is the screen dimming (dim .5*(1-u), then .5+.5*S.s9.dim). There is no cue for 'people like her mother'. The viewer is invited to see the earlier guest's phone timing out.",
+            "end_s": 53.81,
+            "failed_criterion": "dominant_action; continuity (implied identity); rubric hard fail on a narrated idea without a bound visible change (retained phone-timed-2 c15 failure)",
+            "scene_id": "s9",
+            "time_s": 49.4
+          }
+        ],
+        "board": {
+          "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-a.json",
+          "sha256": "b5103e4fb42351eba96ec79acf32024a5093b96a0a71b298a6ad101158c5bf57"
+        },
+        "concept_sha256": "af6706ad207e30f07bc870216e8601fed2e1c589b47a071419504c87d95e5395",
+        "narration_picture_observations": {
+          "clauses": [
+            {
+              "end_s": 4.53,
+              "id": "n1a",
+              "observed": "Code plan: door swing, bell and apron swing, then a ringing desk phone. No walkout is performed (A blocker).",
+              "pass": false,
+              "start_s": 0.48
+            },
+            {
+              "end_s": 7.38,
+              "id": "n1b",
+              "observed": "Code plan: tables with empty plates (foods default 'none'), a guest raises a hand, and the pad curls back blank.",
+              "pass": true,
+              "start_s": 4.83
+            },
+            {
+              "end_s": 10.59,
+              "id": "n2a",
+              "observed": "Code plan: an unlabelled empty sign frame, the construction rejected at phone.",
+              "pass": false,
+              "start_s": 8.04
+            },
+            {
+              "end_s": 15.24,
+              "id": "n2b",
+              "observed": "Code plan: the panel lights, writes Haniya and an AI host tag hooks on.",
+              "pass": true,
+              "start_s": 10.89
+            },
+            {
+              "end_s": 18.75,
+              "id": "n3a",
+              "observed": "Code plan: the phone is not aimed at the code (retained blocker).",
+              "pass": false,
+              "start_s": 15.9
+            },
+            {
+              "end_s": 21.0,
+              "id": "n3b",
+              "observed": "Code plan: tap only. Talk is static.",
+              "pass": false,
+              "start_s": 19.05
+            },
+            {
+              "end_s": 23.25,
+              "id": "n3c",
+              "observed": "Code plan: Pay turns to Paid at medium scale (retained legibility blocker).",
+              "pass": false,
+              "start_s": 21.3
+            },
+            {
+              "end_s": 27.06,
+              "id": "n4",
+              "observed": "Code plan: idle printer and cold empty wok, the mark arrives and the lamp answers in the paid-line shot, the ticket prints and is cut in its shot, then a pour and a shake-driven toss.",
+              "pass": true,
+              "start_s": 23.91
+            },
+            {
+              "end_s": 32.27,
+              "id": "n5a",
+              "observed": "Code plan: the ledger card slides on and the $9,650 a month tag drops, with its shadow only in the last stretch.",
+              "pass": true,
+              "start_s": 28.22
+            },
+            {
+              "end_s": 34.52,
+              "id": "n5b",
+              "observed": "Code plan: a side-on stamp presses and lifts, then a clip on the cork board snaps on nothing. Legibility is a pixel question.",
+              "pass": true,
+              "start_s": 32.57
+            },
+            {
+              "end_s": 39.23,
+              "id": "n6",
+              "observed": "Code plan: coins arc from the paid phone into the jar and the FOX 26 tag hooks on.",
+              "pass": true,
+              "start_s": 35.18
+            },
+            {
+              "end_s": 42.44,
+              "id": "n7a",
+              "observed": "Code plan: the rule card slides and its box draws, empty.",
+              "pass": true,
+              "start_s": 39.89
+            },
+            {
+              "end_s": 45.59,
+              "id": "n7b",
+              "observed": "Code plan: the cooks line lights and the pen hand circles both lines.",
+              "pass": true,
+              "start_s": 42.74
+            },
+            {
+              "end_s": 49.1,
+              "id": "n8",
+              "observed": "Code plan: the folder slides, opens, the box stays blank and a question mark draws.",
+              "pass": true,
+              "start_s": 46.25
+            },
+            {
+              "end_s": 53.51,
+              "id": "n9",
+              "observed": "Code plan: the same guest's hand and a screen timeout (retained blocker).",
+              "pass": false,
+              "start_s": 49.76
+            },
+            {
+              "end_s": 56.42,
+              "id": "n10a",
+              "observed": "Code plan: an order card lands on the panel, and a slip arcs into the printer slot before the lamp answers and a ticket rises. Scale is a pixel question.",
+              "pass": true,
+              "start_s": 54.17
+            },
+            {
+              "end_s": 60.17,
+              "id": "n10b",
+              "observed": "Code plan: owner says, then no record shown, settle on the jar in a wide frame with the panel.",
+              "pass": true,
+              "start_s": 56.72
+            }
+          ],
+          "scope": "code-plan, provisional authored clause windows, no film bytes"
+        },
+        "notes": [
+          "The shared s4 fixes hold in A's code: an empty cold wok before payment, arrival and lamp inside paid-line, print and cut inside ticket-print, and a cook-motivated toss. So does the grey-rectangle fix (paperDrop draws the shadow only in the last 28 percent of the fall).",
+          "These findings are archived for the unselected treatment. No correction of A is requested."
+        ],
+        "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+        "renderer_sha256": "60cefa99c87863875d9762ffdc43a02db47baf288405fbd09b48a71fcd436601",
+        "review_scope": "code-plan",
+        "reviewed_at": "2026-11-01",
+        "reviewer_identity": "claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director",
+        "selection_status": "Unselected alternative under verified selection of b (proof 9454d4bc...). These are honest standalone findings. A is not being repaired and this report does not imply it passed.",
+        "story_review": {
+          "blocking_defects": [
+            {
+              "category": "motion",
+              "defect": "There is still no performed walkout in the hook.",
+              "scene_id": "s1",
+              "time_s": 0.0
+            },
+            {
+              "category": "comprehension",
+              "defect": "The empty sign frame does not picture an unposted job ad (retained construction).",
+              "scene_id": "s2",
+              "time_s": 7.68
+            },
+            {
+              "category": "contact_and_consequence",
+              "defect": "The scan contact is not depicted, and Paid is barely readable at 21.3 s.",
+              "scene_id": "s3",
+              "time_s": 15.54
+            },
+            {
+              "category": "comprehension",
+              "defect": "'talks to order' is not performed.",
+              "scene_id": "s3",
+              "time_s": 19.05
+            },
+            {
+              "category": "comprehension",
+              "defect": "The same guest's phone timing out stands in for the customer's limit.",
+              "scene_id": "s9",
+              "time_s": 49.4
+            }
+          ],
+          "claims_sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
+          "one_viewing_summary": "Intended chain from code, at counter level. A door shuts on an empty station and the phone rings. A blank frame hangs in the window, then a panel named Haniya lights. A guest's phone, held beside the code, opens a menu, a dish is tapped and Pay turns to Paid. The mark reaches the printer, a ticket prints and the cook starts the wok. The owner's $9,650 is stamped as his own count. Coins fill a jar under a FOX 26 tag. The rule card and the blank folder box follow. The same guest's phone times out beside a quote, and the panel takes an order while the jar takes its two tags.",
+          "opening_to_ending": "The causal chain and the close (panel plus tagged jar in one wide frame) answer the opening question within source limits. A's retained picture failures are at the hook, s2, s3 and s9, not in the story order.",
+          "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+          "story_sha256": "bcafbe35bd96c84a42d44fe0e2c02340b06edd5e0758b5c3a8bbf317fb5cf770",
+          "verdict": "revise",
+          "weakest_transition": "s8 to s9 (49.4 s). It cuts from the blank folder box to the s3 guest's own hand and phone, which implies the same guest rather than a separate customer example."
+        },
+        "strongest_frame": "s4 ticket-print detail into wok-flare, 25.813 to 27.86 s. orderState starts the print at max(s4-event-3 start, arrival), so the ticket rises, is gripped and cut inside the ticket shot (pEnd about 26.25 s, cutEnd about 26.36 s, shot end 26.51 s). After that a cook's bowl pours and the hand on the handle shakes the pan (tau after s4-event-4). Payment visibly comes before cooking on the same rig.",
+        "treatment": "a",
+        "verdict": "revise",
+        "weakest_frame": "s9 quote-card medium, 51.21 to 53.81 s. The flat phone's screen dims toward black (dim .5+.5*S.s9.dim) beside a quote card. The hand that raised it in viewfinder-hunt is drawn with SKIN.a9, which equals SKIN.a3 (HP.skin[4]), the s3 guest's skin, so the dominant change is a phone timing out for the same guest. That is the construction phone-timed-2 rejected."
+      },
+      "b": {
+        "action_reviews": [],
+        "blocking_defects": [
+          {
+            "category": "source",
+            "clause_id": "n2a",
+            "defect": "The round 8 correction converts an unreadable absence into a contradiction. In OrderPassFilm.tsx case 'sign-window' (B), helpClip(W,t) selects HelpWantedSignB. It draws a framed sign hung on the front-window glass, headed by a charcoal band with the printed words 'HELP WANTED' (font size helpHeadSize(), up to 36 px), over a cork board whose dashed card slot is empty and whose clip opens and snaps shut on nothing during s2-event-1 (8.04 to 9.24 s). A HELP WANTED notice displayed in a storefront window is a posted job ad. An empty slot under that header does not negate it, it only looks like an ad with its details missing. With captions covered, the viewer learns that the restaurant advertised for help, while the narration and both sources say the family did not post one and chose to replace the position instead. The board's own s2 text ('A window sign frame stays empty, with no job ad pinned in it') does not describe this object either. Required correction: retire the window-sign absence construction entirely (frame, slot, header, clip) in both treatments and replace the whole s2 scene with the source-backed handover in recovery_review. Don't relabel the sign or edit coordinates.",
+            "end_s": 10.89,
+            "failed_criterion": "Source fidelity to claim c2 ('The family did not post a job ad', Muslim Mirror, live exact) and to FOX 26 ('Rather than shutting down or rushing to post job listings'). Also narration_picture literal subject for n2a, quality_contract continuity ('do not imply stock illustration is the actual case') and dominant_action. The bound s2-frame item performs the opposite of its clause, so the narrated idea is not bound to a truthful rendered change. The retained phone-timed-2 c3 comprehension failure is also not repaired.",
+            "scene_id": "s2",
+            "time_s": 7.68
+          }
+        ],
+        "board": {
+          "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b.json",
+          "sha256": "c07d471f68c2c1dbc8c349a0b0dd84d9f44947243c10e7293800820c7a5afd68"
+        },
+        "concept_sha256": "6cc3ce8fd5e39acd6b8dc507b332dc3ab08cb5bb7b790cf1bf78bfbfdcfe2b23",
+        "narration_picture_observations": {
+          "clauses": [
+            {
+              "end_s": 4.53,
+              "id": "n1a",
+              "observed": "Code plan: on the floor plan the door leaf shuts, the bell ring marks pulse and footprints appear from the stand to the door (S.s1.walk), then the medium host stand where the desk phone rings. The plan's apron, phone and pad are small rectangles, so recognition there is a pixel question.",
+              "pass": true,
+              "start_s": 0.48
+            },
+            {
+              "end_s": 7.38,
+              "id": "n1b",
+              "observed": "Code plan: the pad curls and falls back blank in the foreground. tableGroup draws empty plates (foods default 'none') and a guest raises a hand with a menu.",
+              "pass": true,
+              "start_s": 4.83
+            },
+            {
+              "end_s": 10.59,
+              "id": "n2a",
+              "observed": "Code plan: a HELP WANTED sign in the window, with its empty slot clip snapping on nothing. It contradicts c2 (blocking).",
+              "pass": false,
+              "start_s": 8.04
+            },
+            {
+              "end_s": 15.24,
+              "id": "n2b",
+              "observed": "Code plan: the panel beside the stand lights and writes Haniya, then an AI host tag is carried in and hooks onto the eyelet. 'They put' is not performed by anyone. The panel is already standing there (addressed by the replacement).",
+              "pass": true,
+              "start_s": 10.89
+            },
+            {
+              "end_s": 18.75,
+              "id": "n3a",
+              "observed": "Code plan: overhead, the phone lifts from (300,1560) to over codeStandTop, the brackets lock at 78 to 98 percent of s3-event-1 and the menu slides up. The hand uses SKIN.a3.",
+              "pass": true,
+              "start_s": 15.9
+            },
+            {
+              "end_s": 21.0,
+              "id": "n3b",
+              "observed": "Code plan: the guest is seen over her shoulder. One jointed arm (armIK and armFK from her shoulder) taps Chow mein, which lights. talkB then raises a listening sheet with a lit Talk mic, rings and a moving level, and voice arcs leave VOICE_B near her ear, from about 60 to 85 percent of s3-event-3 through the clause end. The retained 'talks' failure is implemented.",
+              "pass": true,
+              "start_s": 19.05
+            },
+            {
+              "end_s": 23.25,
+              "id": "n3c",
+              "observed": "Code plan: a detail at phone scale 2.4 with the same holding hand (SKIN.a3). The finger presses Pay, which becomes the red paid mark.",
+              "pass": true,
+              "start_s": 21.3
+            },
+            {
+              "end_s": 27.06,
+              "id": "n4",
+              "observed": "Code plan: a cold empty wok and an idle printer, the push-in follows the mark into the slot and the lamp answers in-shot, the ticket prints and is cut in-shot, then the pour and a shake-driven toss.",
+              "pass": true,
+              "start_s": 23.91
+            },
+            {
+              "end_s": 32.27,
+              "id": "n5a",
+              "observed": "Code plan: the overhead ledger card slides, then the $9,650 a month tag drops onto the card with a late-only shadow.",
+              "pass": true,
+              "start_s": 28.22
+            },
+            {
+              "end_s": 34.52,
+              "id": "n5b",
+              "observed": "Code plan: the stamp with its OWNER COUNT index label comes from the near edge, presses, inks at 24 percent and lifts away from 38 percent, uncovering MarkB at 28 px x 2.2. clip-bench then lays the stamped card large beside a RECEIPTS board whose clip snaps on nothing. The retained s5 failure is implemented.",
+              "pass": true,
+              "start_s": 32.57
+            },
+            {
+              "end_s": 39.23,
+              "id": "n6",
+              "observed": "Code plan: overhead coins leave the paid phone and arc to the jar, then the medium jar fills beside the printer and ticket, then the FOX 26 tag hooks on.",
+              "pass": true,
+              "start_s": 35.18
+            },
+            {
+              "end_s": 42.44,
+              "id": "n7a",
+              "observed": "Code plan: the rule card slides onto the desk top and its box draws, empty.",
+              "pass": true,
+              "start_s": 39.89
+            },
+            {
+              "end_s": 45.59,
+              "id": "n7b",
+              "observed": "Code plan: the cooks line lights, then the pen hand (SKIN.writer) circles both lines and lifts.",
+              "pass": true,
+              "start_s": 42.74
+            },
+            {
+              "end_s": 49.1,
+              "id": "n8",
+              "observed": "Code plan: the folder slides beside the circled rule card, opens, the box stays blank and the question mark follows s8-event-3.",
+              "pass": true,
+              "start_s": 46.25
+            },
+            {
+              "end_s": 53.51,
+              "id": "n9",
+              "observed": "Code plan: a different, older customer (cardigan cuff, watch, ring, reading glasses on the table, ELDER9.skin = HP.skin[0], distinct from SKIN.a3) holds the phone over the code. The brackets hunt and never close. elder9 is one pose function across both shots, so nothing teleports. She lowers the phone, the quote card lands and she pushes the phone away. The screen stays lit. The retained s9 failures are implemented.",
+              "pass": true,
+              "start_s": 49.76
+            },
+            {
+              "end_s": 56.42,
+              "id": "n10a",
+              "observed": "Code plan: the order card lands on the panel in the first 40 percent of s10-event-1. The slip leaves at 38 percent and drops into the slot at 90 percent, and only then the lamp answers and the ticket rises and is cut. The camera eases in over the whole shot. The retained s10 tiny-action failure is implemented, and scale stays a pixel question.",
+              "pass": true,
+              "start_s": 54.17
+            },
+            {
+              "end_s": 60.17,
+              "id": "n10b",
+              "observed": "Code plan: owner says hooks onto the jar in the medium shot, then the held detail settles no record shown beneath it under the printed ticket.",
+              "pass": true,
+              "start_s": 56.72
+            }
+          ],
+          "scope": "code-plan, provisional authored clause windows, no film bytes"
+        },
+        "notes": [
+          "Retained defects whose implementation is now present in code: phone-compare s3 skin continuity (SKIN.a3 for every s3 hand), s9 teleport (elder9 single pose function), grey rectangles (paperDrop late-only shadow); phone-fourth s3 detached limbs (armIK/armFK jointed arm) and s10 tiny action; phone-timed s5 owner count; phone-timed-2 s3 'talks' and s9 customer. All of them still need current pixels. This code review supplies no observation.",
+          "Pixel-scope risks carried forward, not blocking: (1) n3b: talkB closes 0.04 to 0.40 s after the n3b clause end, but under authored timing the clause ends at 21.0 s and menu-tap cuts at 21.30 s. The sheet would still be about 20 percent raised at the cut, while paid-close draws no sheet, which is a small continuity jump. Recheck after board_retime with measured boundaries. (2) n9: the hunting brackets on an older customer's phone dramatize 'people like her mother'. Confirm at phone scope that the older hand reads as an example of that group, attributed by the 'One customer' quote card and the disclosure, and not as the quoted customer herself or as a reported scan malfunction. (3) s1 floor-plan objects are small rectangles. (4) phone-timed-2 left the s1 lateral offsets at 5.6 to 6.6 s unresolved. Nothing in table-wait's code drives a sideways move, so the cause is outside this module or not real, and it needs a full-frame-rate check.",
+          "Source, numeral and region checks: $9,650 is in the c6 quote. 'not very convenient for every kind of people' is in the c10 quote. FOX 26 attribution is c7/c12. The gulf plate matches Harris County (c11). The disclosure chip renders production_disclosure every frame. action_reviews is empty because the board has no action_proposals."
+        ],
+        "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+        "renderer_sha256": "60cefa99c87863875d9762ffdc43a02db47baf288405fbd09b48a71fcd436601",
+        "review_scope": "code-plan",
+        "reviewed_at": "2026-11-01",
+        "reviewer_identity": "claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director",
+        "selection_status": "Selected treatment (proof 9454d4bc..., approval false).",
+        "story_review": {
+          "blocking_defects": [
+            {
+              "category": "source",
+              "defect": "The mechanism beat opens on a HELP WANTED notice in the restaurant window. In the story chain that says the family advertised the job, which contradicts c2 and FOX 26 and breaks the cause the film rests on: the server job was replaced, not advertised. The correction is the s2 whole-scene replacement in recovery_review.",
+              "scene_id": "s2",
+              "time_s": 7.68
+            }
+          ],
+          "claims_sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
+          "one_viewing_summary": "Intended chain from code, read from above. Footprints leave the stand as the door shuts, the phone rings and a guest waits with empty plates. The film then shows a hiring sign in the window (the defect) and a panel named Haniya lighting. A guest scans, taps chow mein, talks to the phone and pays. The mark crosses the plan into the printer, the lamp answers, the ticket prints and the cook starts the wok. The owner's $9,650 is stamped OWNER COUNT beside an empty RECEIPTS clip. Coins fill the jar under FOX 26. The rule card shows cooks in a pool only without a tip credit, and the folder's box stays blank. An older customer's phone can't lock on the code beside one customer's quote. The panel takes the next order, its ticket prints, and the jar ends under owner says and no record shown.",
+          "opening_to_ending": "The opening question (who takes the order now that the server is gone) is answered when the panel takes the order and its own ticket prints (54.17 s on). The close holds the jar under owner says and no record shown, which keeps the tip claim on the owner's word without inventing an outcome. That chain is earned once s2 tells the truth about how the job was handled.",
+          "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+          "story_sha256": "da1b33a4afd397b1a311843ffa2a4b761f3c2acc2845d9d21be21a95a2e2ea31",
+          "verdict": "revise",
+          "weakest_transition": "s1 to s2 at 7.68 s. The hook leaves an unanswered ringing phone at an empty stand, and s2 cuts to a window sign. Nothing resolves the ringing phone, and the declared same-subject bridge is not performed. The replacement resolves it on the same stand."
+        },
+        "strongest_frame": "s4 paid-line push-in into ticket-print, 24.553 to 26.51 s. arrive = s4-event-2 start + .97 x duration, about 25.52 s, which falls inside paid-line (to 25.813 s), where the camera has eased to PAID_ZOOM 4.4 on the printer top. The lamp answers there, in the same shot. ticket-print (B, scale 1.6) then holds the ticket rising, gripped and cut by about 26.36 s, with the cold wok beside it. The retained code-review-1 pacing and recognition defects are implemented away. This is code only, and readability stays a pixel question.",
+        "treatment": "b",
+        "verdict": "revise",
+        "weakest_frame": "s2 sign-window wide, 7.68 to 10.89 s, under 'The family didn't post a job ad.' HelpWantedSignB hangs a printed HELP WANTED notice in the restaurant's front window on a suction cup, above the caption band (HELP_B.cup 530,452). The picture shows the restaurant advertising for staff, which is the reverse of the spoken and sourced fact."
+      }
+    },
+    "completion_progress": "Post-boundary structural correction under COMPLETION_PROGRESS.md (October 20th contract). This third code review rejects the current s2 construction on a code-proven source contradiction. So recovery_review below returns the one whole-scene retained_replacement for this validated script, with every current defect consolidated. All earlier rejections stay as they were: code-review-1, phone-compare, phone-fourth, phone-timed and phone-timed-2. If this replacement draws another actual rejection, it can't buy another structural attempt under a new module or mechanism name. That case needs the existing precharged source-pivot and fresh-validation route. This decision approves only the named correction plan. The current code and both actual silent films still need the combined fourth review, and the measured timed phone review is still the fifth.",
+    "consolidated_correction": "One structural correction on selected B: retire the s2 window-sign absence construction (signFrame, HelpWantedSignB, ClipB, helpClip and the HELP_B layout) and replace the whole s2 scene, all three shots, with the source-backed station handover in recovery_review, in both treatments' s2 views. Narration and voice stay unchanged. Bind c5 to the phone-answering beat. Keep the other nine scenes' current implementations, including B's round 8 s3 talk, s9 older customer, s5 stamp and s10 order handoff, which pass at code scope. Don't relabel, recolour or move the sign. No other code-proven mandatory defect exists in B. A's archived findings stay unchanged and A is not repaired. Perceived finish, legibility, speed and recognition stay with the combined fourth review and the measured timed phone review. This code verdict approves no film.",
+    "constraints_honored": "I launched no subagents, sent no email, made no social post and modified no file. No hash was computed or invented. Every digest is copied from the packet. Every earlier rejection is preserved unchanged.",
+    "coverage": {
+      "not_read_disclosure": "Because of context limits I did not read the remaining bound craft guides in full: viewer-plan, README, news-reporting, explanatory-animation, MODERN_FILM, modern_film.json, the episode registry, STORY_ART, AUTHORED_STORY_ART, ART_DIRECTION, the reference bank, VO_DIRECTION, critic_concept_v2, claude_routine, claude_runtime, AGENTS.md, review_limit, the AUTONOMOUS_COMPLETION readings, story_selection.json, scene-builder.md. I also did not read OrderRigHero.tsx or RestaurantSupport.tsx. Their exported constants are used here only as OrderPassFilm.tsx consumes them. None of the blocking findings below depends on those unread files. The blocking s2 finding rests on OrderPassFilm.tsx source, the claims and the fetched source text, all read in full.",
+      "pixels": "None. This is code scope and capture.allowed is false. Nothing here observes or approves pixels, motion, legibility, finish, sound or film bytes.",
+      "read_in_full": [
+        ".claude/agents/storyboard-critic.md",
+        "knowledge/craft/COMPLETION_PROGRESS.md",
+        "config/quality_contract.json",
+        "out/dispatch/critic-packet-10.json",
+        "out/dispatch/opening-b.json (all 5487 lines)",
+        "out/dispatch/claims.json",
+        "out/dispatch/sources/fox.txt",
+        "out/dispatch/sources/mm.txt",
+        "out/dispatch/sources/c2h.txt",
+        "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx (all 1370 lines)",
+        "out/dispatch/retained-failures/code-review-1.json",
+        "out/dispatch/phone-compare-handback.json",
+        "out/dispatch/phone-fourth-handback.json",
+        "out/dispatch/phone-timed-report.json",
+        "out/dispatch/phone-timed-2-report-formatted.json"
+      ],
+      "read_partially": [
+        "config/dispatch_rubric.yaml (header, axes and hard_fails through line 90; ship threshold not restated here)",
+        "out/dispatch/opening-a.json (film_direction head only. A's shot clock matches B's at s1-shot-1 and s1-shot-2, and code-review-1 recorded that the A and B shot timelines match, so A times below use the shared clock)",
+        "scripts/critic_gate.py (first 60 lines only)"
+      ]
+    },
+    "packet_sha256": "720a09e949f3761f7b2c5fbe2aedea350a4553961d503dd2926b05e14a6e7259",
+    "recovery_review": {
+      "critic_attempt": 3,
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "source-framing",
+      "remaining_gates": "Fund the remaining path before edits. Then a fresh code review of the replacement, both silent films in the combined fourth review, the measured timed phone fifth, native, audiovisual, captions, scoring and delivery. If this replacement is rejected again, only the precharged source-pivot route with fresh validation remains.",
+      "replacement_mechanism_id": "order-pass-s2-station-handover-v1",
+      "replacement_plan": {
+        "board_edits": "s2 items: s2-frame is replaced by s2-apron-drawer and s2-hand. s2-panel and s2-tag are kept, and s2-phone is added. Rewrite visual_events, visual_proof (must_show: apron lifted off the hook into the drawer; panel set on the stand and lit with Haniya; desk phone answered; AI host tag), film_direction s2 views, narration_picture subject_ids, attention_beats and story_contract s2 'advances'. The s1 to s2 visible_bridge becomes true: the same ringing phone on the same stand.",
+        "claims": "s2 binds c2 and c1 as now, and adds c5 to the answering beat (event and clause claim_ids). Every numeral and text on screen stays limited to 'Haniya' and 'AI host'.",
+        "disclosure": "production_disclosure 'Illustration of the reported change. Generic stand and panel, no real person, software or brand mark'.",
+        "import_closure": "OrderPassFilm.tsx (v8 bytes 18d9d181...) stays unchanged at its path as the retained evidence and leaves the renderer's import closure. The new episode module enters the route in place of OrderPassFilm and renders s2 only through StationHandoverScene. The other nine scenes are carried as their current, source-faithful, code-passing implementations (s1, s3 to s10, including B's round 8 s3 talk and s9 customer). They are not the retired construction and must not be renamed or retuned to evade the copy check. Admission limitation, stated honestly: whether the controller's copy check admits that carried remainder inside a new film module is its mechanical decision, which I can't verify from a Read-only seat. If it is refused, return that refusal rather than renaming identifiers. Retain every original film and report.",
+        "script": "Unchanged. n2a 'The family didn't post a job ad.' and n2b 'They put an AI host named Haniya at the front of the house.' Existing voice and takes are retained, and board_retime later supplies measured boundaries.",
+        "shot_1_n2a": "The host stand from s1, in the same place and with the same props: apron on its hook, blank pad, and the desk phone still rattling with its ring marks, which carries the s1 ringing phone across the cut. The door behind stays shut and its bell silent, so no new hire arrives. A family member's arm enters at stand height. It is drawn as one jointed limb from a frame-edge shoulder (upper arm, elbow, forearm, hand) at the stand's scale, with a sleeve and skin fill distinct from the s3 guest, the s9 customer and the cook. The hand lifts the server's apron off its hook (contact at the strap, the hook left bare), folds it once and lays it in the stand's drawer, which slides shut. The front window shows only the region plate and carries no sign of any kind. Visible meaning with captions covered: the server's job is closed at the station, not offered to anyone. The apron finishing in the shut drawer is the completed result, held before the cut.",
+        "shot_2_n2b": "Same stand, medium. The same arm sets the dark host panel down on the stand top where the apron hung. The panel foot lands with a contact shadow, then the hand withdraws. The panel lights from the left and writes Haniya. On the still-ringing desk phone the ring marks stop and its line lamp shows answered as the panel's voice rings pulse, so Haniya answers the phone the server left ringing (c5). The verb 'put' is performed by a person, and the s1 question gets its first visible answer on the same object.",
+        "shot_3": "Detail. The AI host tag is carried in on its string and hooks onto the panel's eyelet, swings and settles beside the lit name. The answered phone stays in the frame edge.",
+        "treatments": "Implement both treatments' s2 views in the new scene module. A at counter level (medium, close, detail). B through the front window from the street side for shot 1, then medium and detail, keeping B's angle. No shot may reuse signFrame, HelpWantedSignB, ClipB, helpClip, HELP_B or their coordinates, strings or easing values."
+      },
+      "retained_replacement": {
+        "kind": "whole-scene-replacement",
+        "replacement_paths": [
+          "video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx",
+          "video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx"
+        ],
+        "retired_inputs": [
+          {
+            "before_path": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+            "before_sha256": "18d9d181023ba00f08832fc2964062531640a33ff7fbb50c21b691282b5f4876",
+            "path": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+          }
+        ],
+        "schema": "dispatch_retained_scene_replacement/1",
+        "source_evidence": {
+          "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/claims.json",
+          "sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f"
+        }
+      },
+      "retired_construction": "The window-sign absence picture for n2a, in both forms: an unlabelled empty sign frame or blank card (RestaurantSupport signFrame), which failed comprehension at phone, and the round 8 HELP WANTED board with an empty slot (HelpWantedSignB), which contradicts c2 at code. Both ask a static window object to prove a negative, and the panel appears already standing with nobody putting it there.",
+      "retired_mechanism_id": "order-pass-b-comprehension-v8",
+      "reviewed_failure_paths": [
+        "out/dispatch/retained-failures/code-review-1.json",
+        "out/dispatch/phone-compare-handback.json (s2 'weak but honest' blank sign note)",
+        "out/dispatch/phone-fourth-handback.json",
+        "out/dispatch/phone-timed-report.json (s2 empty window card with no hiring identity, note)",
+        "out/dispatch/phone-timed-2-report-formatted.json (s2 c3 blocker: blank card reads as a decorative sign)"
+      ],
+      "reviewed_failure_sha256": [
+        "8084cc38da4568392fe3fd8a5e19546992321f8e834d97a3aee784c023c6f48f",
+        "5ba7117cc04eccead1bbcded6c6ec4762caee02983145951c9d77831c7da5728",
+        "3a15920f2e3915f8cff30b5e4cdacaa7771847ac2f676c816605f602fb622e05",
+        "8ae6238c8a800c10f5aced03865d6f03c16056e4d7eafd5ab385dbaadc83e54a",
+        "5d01d3fb1026ca9a203d9342325c28f624fc802bd7686c46c027cf064b34a16d"
+      ],
+      "reviewer_identity": "claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director",
+      "run_id": "2026-10-26",
+      "schema": "dispatch_conditional_code_recovery/1",
+      "source_basis": "c2 (Muslim Mirror, live exact): 'The family did not post a job ad.' FOX 26 text in fox.txt, behind c1: 'Rather than shutting down or rushing to post job listings, owner ... decided to replace the position with an AI software named Haniya.' c1 (FOX 26 Brief): the restaurant 'replaced front-of-house staff with an AI platform named Haniya.' c5 (FOX 26, VERIFIED, currently unbound): 'The digital server ... answers the phone even when the restaurant is closed.' The same claim is in mm.txt: 'an AI host named Haniya was answering the phone.' So the reported action is a replacement of the position on the spot, not an advertisement, and the host's first reported job is answering the phone. That is exactly the object the s1 hook left ringing. No 24-hour clock or timeline is drawn, because c12's scope note says the reported timelines conflict and none may be pictured.",
+      "unchanged_pinned_inputs_note": "OrderRigHero.tsx (2483fb96...) and RestaurantSupport.tsx (61ef7498...) keep their recorded authored bytes. Any new s2 art (arm, drawer, answered phone state) is drawn in StationHandoverScene.tsx so those receipts stay valid. registry.tsx and the Dispatch route are changed inputs under the standard repair plan, with retained baselines.",
+      "verdict": "pass",
+      "verdict_scope": "This approves only the named s2 correction plan as a credible, different, source-backed construction. It is not a passing grade for any code, film or pixels. The replacement code and both actual silent films still need the combined fourth review, and the measured timed phone review is the fifth.",
+      "visible_difference": "The dominant s2 picture changes from a static sign in the window, which asked the viewer to read an absence and was then labelled into an advert, to a performed handover at the station the server left. A family member's hand takes the server's apron off its hook and shuts it in the drawer. The same hand sets the Haniya panel where the apron hung. The panel lights and answers the phone that has been ringing since the hook. There is no window sign, frame, slot, header or clip anywhere in s2. The ringing-phone thread from s1 resolves on screen, and the verb 'put' is performed by a person."
+    },
+    "review_scope": "code-plan",
+    "reviewed_at": "2026-11-01",
+    "reviewer_identity": "claude-opus-5-5 storyboard-critic, independent isolated code-plan reviewer (high effort), not the claude-sonnet-5-5 director",
+    "role": "storyboard-critic",
+    "schema": "dispatch_claude_code_report_bindings/1",
+    "verdict": "revise"
+  },
+  "reservation_sha256": "a11bed03d7db9fe3179d4bf24e5aa55c45ccf94448ec6e27246376110d360425",
+  "role": "storyboard-critic",
+  "run_id": "2026-10-26",
+  "schema": "dispatch_native_critic_completion/1",
+  "session_sha256": "b5e7bab8f13fc9d9d2fae1119484b14086dfb4694069bb2e78deb4d512390bb8"
+}
