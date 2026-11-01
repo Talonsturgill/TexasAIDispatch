@@ -1,24 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round10/registry.tsx",
-        "before_sha256": "1c862f8f58fcf1f41fbfae60df36bfecac9a66c29a84f88f67688a2036f56847",
-        "path": "{REPO}/video-engine/src/modern/registry.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round10/modern_episode_registry.json",
-        "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
-        "path": "{REPO}/config/modern_episode_registry.json"
-      }
-    ],
-    "failure_sha256": "704d5f1490e60e7563c57a2a8306a2fc2964a3b613b2efe3aa5b89aef85fe583",
-    "plan": "{REPO}/out/dispatch/repair-plan-10.json",
-    "plan_sha256": "bfa33976b2e6c66db97d4f068136a08905fa9ad1e4d8e110ed77796e4943d8ce",
-    "progress_replacement_required": true,
-    "reboards_before": 6,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -3317,6 +3297,72 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-11-01T07:34:20.333118Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 170,
+        "reservation_sha256": "e46340292f78699382d535f349f504b10b2979372ae30cd2c155e4f04f21df3b",
+        "start_event_index": 168
+      },
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "de1013ebb85904b1a1b1df206daf8ae0eafff65cce15be001f7248ba3b08a07d",
+            "before_path": "{REPO}/out/dispatch/baselines/round10/registry.tsx",
+            "before_sha256": "1c862f8f58fcf1f41fbfae60df36bfecac9a66c29a84f88f67688a2036f56847",
+            "path": "{REPO}/video-engine/src/modern/registry.tsx"
+          },
+          {
+            "after_sha256": "95bfbb41d7741db94a75f79d61816db6b669a401986910d0395ad264c4c78c30",
+            "before_path": "{REPO}/out/dispatch/baselines/round10/modern_episode_registry.json",
+            "before_sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b",
+            "path": "{REPO}/config/modern_episode_registry.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "With captions covered a viewer sees the server apron lifted off its hook into a drawer by a family member, a Haniya panel set on the stand and lit, and the ringing desk phone answered, with no sign in the window.",
+        "failure_evidence": "{REPO}/out/dispatch/code-review-10-report.json",
+        "failure_evidence_sha256": "704d5f1490e60e7563c57a2a8306a2fc2964a3b613b2efe3aa5b89aef85fe583",
+        "failure_family": "source-framing",
+        "mechanism_change": "Replace the whole failed OrderPassFilm.tsx implementation with new OrderHandoverFilm.tsx and StationHandoverScene.tsx modules: s2 changes from a static window sign to a performed apron-to-drawer and panel handover at the s1 stand that answers the s1 ringing phone.",
+        "mechanism_id": "order-pass-s2-station-handover-v1",
+        "pivot_review": {
+          "path": "{REPO}/out/dispatch/original-pivot-10.json",
+          "sha256": "cffe595299400756d8941b66d2deb6cd4394eba3f43ebd2d10829794f4a48828"
+        },
+        "repair": "Retire the s2 window-sign absence construction entirely and replace the whole s2 scene with a performed station handover: a family hand lifts the server apron from its hook into the drawer, sets the Haniya panel on the stand, and the ringing desk phone is answered.",
+        "repair_scope": "standard",
+        "resources": {
+          "reboards": 1
+        },
+        "retained_replacement": {
+          "kind": "whole-scene-replacement",
+          "replacement_paths": [
+            "video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx",
+            "video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx"
+          ],
+          "retired_inputs": [
+            {
+              "before_path": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
+              "before_sha256": "18d9d181023ba00f08832fc2964062531640a33ff7fbb50c21b691282b5f4876",
+              "path": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx"
+            }
+          ],
+          "schema": "dispatch_retained_scene_replacement/1",
+          "source_evidence": {
+            "path": "{REPO}/out/dispatch/claims.json",
+            "sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f"
+          }
+        },
+        "root_cause": "Selected B's s2 window sign cannot picture an unposted job ad: the blank frame was unreadable at phone scale and the round 8 HELP WANTED board contradicts claim c2 and the FOX 26 source."
+      },
+      "repair_plan_sha256": "277af185dbd4b5d9a08053aa5b1a65c30864be1df6ac00c06ef269107a57bb7e",
+      "repair_revision": "1533b7dad8bb188140a79ff8288e17f0724071314415a691817c7d672a45f1bb",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -3340,7 +3386,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "6810b7d4a69340d6b96eaf3a598a951a69c937d444b645b918738efaf349a6ff",
+    "original_private_state_sha256": "76f2502934d4a9130ee7c342d3625fcd1294c0f510db6a61ee0f89d329ac3f34",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3368,7 +3414,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-01T06:33:43.949297Z",
+  "updated_at": "2026-11-01T07:34:20.333175Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,

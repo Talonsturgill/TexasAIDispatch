@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-11-01T06:56:19.412000+00:00",
-  "note": "builder 10 dispatched",
+  "saved_at": "2026-11-01T07:34:24.987256+00:00",
+  "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "98b68d8672ef3b74d618b835fb29b2bd0fe90d0848287c0840af10522c85fc7e"
   },
   "deleted_source": [],
-  "ledger_sha256": "b6a212f81f94f1b4672bd0a678265514dc8a7a54c7c5cb497a7426c4b89add31",
-  "original_private_ledger_sha256": "6810b7d4a69340d6b96eaf3a598a951a69c937d444b645b918738efaf349a6ff",
+  "ledger_sha256": "20864b0a9ed4ad8dda6885cd4424f537dc83d753e4a4c8d355fe66b4596c9dee",
+  "original_private_ledger_sha256": "76f2502934d4a9130ee7c342d3625fcd1294c0f510db6a61ee0f89d329ac3f34",
   "grant_origin_roots": [
     {
       "event_index": 122,
@@ -58,6 +58,12 @@
     "voice_directors": 1
   },
   "files": [
+    {
+      "path": "config/modern_episode_registry.json",
+      "class": "source",
+      "sha256": "95bfbb41d7741db94a75f79d61816db6b669a401986910d0395ad264c4c78c30",
+      "size": 76007
+    },
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
@@ -311,10 +317,28 @@
       "size": 75291
     },
     {
+      "path": "out/dispatch/baselines/round10/opening-a.before-builder10.json",
+      "class": "scratch",
+      "sha256": "b5103e4fb42351eba96ec79acf32024a5093b96a0a71b298a6ad101158c5bf57",
+      "size": 179277
+    },
+    {
+      "path": "out/dispatch/baselines/round10/opening-b.before-builder10.json",
+      "class": "scratch",
+      "sha256": "c07d471f68c2c1dbc8c349a0b0dd84d9f44947243c10e7293800820c7a5afd68",
+      "size": 179313
+    },
+    {
       "path": "out/dispatch/baselines/round10/registry.tsx",
       "class": "scratch",
       "sha256": "1c862f8f58fcf1f41fbfae60df36bfecac9a66c29a84f88f67688a2036f56847",
       "size": 1324
+    },
+    {
+      "path": "out/dispatch/baselines/round10/storyboard.before-builder10.json",
+      "class": "scratch",
+      "sha256": "c07d471f68c2c1dbc8c349a0b0dd84d9f44947243c10e7293800820c7a5afd68",
+      "size": 179313
     },
     {
       "path": "out/dispatch/baselines/round2/OrderPassFilm.tsx",
@@ -13079,6 +13103,12 @@
       "size": 426
     },
     {
+      "path": "out/dispatch/native-completion-waits/f18105d93d2ea949c17c6dc384cdfc720d791927e32e6bb9ca23cf3021027acd.json",
+      "class": "scratch",
+      "sha256": "f18105d93d2ea949c17c6dc384cdfc720d791927e32e6bb9ca23cf3021027acd",
+      "size": 429
+    },
+    {
       "path": "out/dispatch/native-critic-completions/14821024d77c8eeb29bff5235e2ad2578cf62f83327d58251242317f80d9dd82-57377b375aef63fa3fdccbde50b0d7a80c568a7b700b5eafa7ca91c65aaffe7a.json",
       "class": "scratch",
       "sha256": "f27fa336d1bf422fc9532f264f3b039b72895fc333b90f6017e854e5db50f5a6",
@@ -13261,8 +13291,8 @@
     {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
-      "sha256": "b5103e4fb42351eba96ec79acf32024a5093b96a0a71b298a6ad101158c5bf57",
-      "size": 179277
+      "sha256": "4f58c0695270c2fa83a84c51810f86eb50fcfac607284533241a62d543845cba",
+      "size": 185381
     },
     {
       "path": "out/dispatch/opening-b-critic-review9.json",
@@ -13279,8 +13309,8 @@
     {
       "path": "out/dispatch/opening-b.json",
       "class": "scratch",
-      "sha256": "c07d471f68c2c1dbc8c349a0b0dd84d9f44947243c10e7293800820c7a5afd68",
-      "size": 179313
+      "sha256": "773b154aa2609b2fe29df20100b9c01a2ae580775e269e9439697be8f4c3eb62",
+      "size": 185417
     },
     {
       "path": "out/dispatch/original-pivot-10.json",
@@ -13741,8 +13771,8 @@
     {
       "path": "out/dispatch/repair-plan-10.json",
       "class": "scratch",
-      "sha256": "bfa33976b2e6c66db97d4f068136a08905fa9ad1e4d8e110ed77796e4943d8ce",
-      "size": 3137
+      "sha256": "277af185dbd4b5d9a08053aa5b1a65c30864be1df6ac00c06ef269107a57bb7e",
+      "size": 3311
     },
     {
       "path": "out/dispatch/repair-plan-2.json",
@@ -17299,8 +17329,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "c07d471f68c2c1dbc8c349a0b0dd84d9f44947243c10e7293800820c7a5afd68",
-      "size": 179313
+      "sha256": "773b154aa2609b2fe29df20100b9c01a2ae580775e269e9439697be8f4c3eb62",
+      "size": 185417
     },
     {
       "path": "out/dispatch/storyboard_critic.json",
@@ -25605,12 +25635,30 @@
       "class": "scratch",
       "sha256": "71da305916caf795c245ff258d1a54e505c48aad31f710129350f1ac0741c47a",
       "size": 571
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx",
+      "class": "source",
+      "sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee",
+      "size": 89623
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx",
+      "class": "source",
+      "sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074",
+      "size": 29613
+    },
+    {
+      "path": "video-engine/src/modern/registry.tsx",
+      "class": "source",
+      "sha256": "de1013ebb85904b1a1b1df206daf8ae0eafff65cce15be001f7248ba3b08a07d",
+      "size": 1336
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 539887660,
-    "unique_blob_bytes": 339224315,
-    "unique_blobs": 3146
+    "logical_bytes": 540641057,
+    "unique_blob_bytes": 339792295,
+    "unique_blobs": 3153
   },
   "excluded": [
     {

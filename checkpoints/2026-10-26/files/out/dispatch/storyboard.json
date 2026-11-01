@@ -253,47 +253,89 @@
    ],
    "super": "",
    "caption": "",
-   "on_screen": "A window sign frame stays empty, with no job ad pinned in it. A flat host panel lights up on a stand at the front and the name Haniya writes across it. A tag reading AI host attaches to the panel.",
-   "what_moves": "A window sign frame stays empty, with no job ad pinned in it. A flat host panel lights up on a stand at the front and the name Haniya writes across it. A tag reading AI host attaches to the panel.",
-   "production_disclosure": "Illustration. Generic panel, no real software or brand mark",
+   "on_screen": "A family member's hand pulls the host stand's drawer open, lifts the server's apron off its hook, folds it into the drawer and pushes the drawer shut. The same hand sets a dark host panel on the stand top and lets go. The panel lights and writes Haniya, and the ringing desk phone goes quiet as its line lamp shows answered. A tag reading AI host is carried in on its string and hooks onto the panel beside the answered phone.",
+   "what_moves": "A family member's hand pulls the host stand's drawer open, lifts the server's apron off its hook, folds it into the drawer and pushes the drawer shut. The same hand sets a dark host panel on the stand top and lets go. The panel lights and writes Haniya, and the ringing desk phone goes quiet as its line lamp shows answered. A tag reading AI host is carried in on its string and hooks onto the panel beside the answered phone.",
+   "production_disclosure": "Illustration of the reported change. Generic stand and panel, no real person, software or brand mark",
    "visual_events": [
     {
      "id": "s2-event-1",
      "at_s_authored": 0.36,
-     "duration_s_authored": 1.2,
+     "duration_s_authored": 1.1985,
      "item_ids": [
-      "s2-frame"
+      "s2-hand",
+      "s2-apron-drawer"
      ],
-     "what": "A window sign frame stays empty, with no job ad pinned in it.",
+     "what": "A family member's hand pulls the host stand's drawer open and lifts the server's apron off its hook.",
      "motion": {
-      "curve": "smoothstep",
+      "curve": "travel",
+      "anticipation": 0.0,
+      "settle": 0.0
+     },
+     "narration_id": "n2a",
+     "clause_fraction_start": 0.0,
+     "clause_fraction_end": 0.47,
+     "at_s": 0.36,
+     "duration_s": 1.1985
+    },
+    {
+     "id": "s2-event-4",
+     "item_ids": [
+      "s2-hand",
+      "s2-apron-drawer"
+     ],
+     "what": "The hand folds the apron into the drawer and pushes the drawer shut, leaving a strap end in the seam.",
+     "motion": {
+      "curve": "travel",
       "anticipation": 0.0,
       "settle": 0.03
      },
      "narration_id": "n2a",
-     "clause_fraction_start": 0.0,
-     "clause_fraction_end": 0.47058823529411725,
-     "at_s": 0.36,
-     "duration_s": 1.2
+     "clause_fraction_start": 0.47,
+     "clause_fraction_end": 0.925,
+     "at_s_authored": 1.5585,
+     "duration_s_authored": 1.1602,
+     "at_s": 1.5585,
+     "duration_s": 1.1602
     },
     {
      "id": "s2-event-2",
      "at_s_authored": 3.21,
-     "duration_s_authored": 1.2,
+     "duration_s_authored": 1.0875,
      "item_ids": [
+      "s2-hand",
       "s2-panel"
      ],
-     "what": "A flat host panel lights up on a stand at the front and the name Haniya writes across it.",
+     "what": "The same hand sets a dark host panel on the stand top and lets go.",
+     "motion": {
+      "curve": "travel",
+      "anticipation": 0.0,
+      "settle": 0.0
+     },
+     "narration_id": "n2b",
+     "clause_fraction_start": 0.0,
+     "clause_fraction_end": 0.25,
+     "at_s": 3.21,
+     "duration_s": 1.0875
+    },
+    {
+     "id": "s2-event-5",
+     "item_ids": [
+      "s2-panel",
+      "s2-phone"
+     ],
+     "what": "The panel lights and writes Haniya, and the ringing desk phone goes quiet as its line lamp shows answered.",
      "motion": {
       "curve": "travel",
       "anticipation": 0.0,
       "settle": 0.03
      },
      "narration_id": "n2b",
-     "clause_fraction_start": 0.0,
-     "clause_fraction_end": 0.2758620689655171,
-     "at_s": 3.21,
-     "duration_s": 1.2
+     "clause_fraction_start": 0.25,
+     "clause_fraction_end": 0.5,
+     "at_s_authored": 4.2975,
+     "duration_s_authored": 1.0875,
+     "at_s": 4.2975,
+     "duration_s": 1.0875
     },
     {
      "id": "s2-event-3",
@@ -303,7 +345,7 @@
       "s2-panel",
       "s2-tag"
      ],
-     "what": "A tag reading AI host attaches to the panel.",
+     "what": "A tag reading AI host is carried in on its string and hooks onto the panel beside the answered phone.",
      "motion": {
       "curve": "contact",
       "anticipation": 0.0,
@@ -320,34 +362,50 @@
    "visual_family": "order-s2-b",
    "payload_mode": "picture",
    "treatment": "b",
-   "hero": "empty job ad frame and a host panel lighting with the name Han",
+   "hero": "apron shut in the stand drawer and the Haniya panel set on it",
    "place_plate": "gulf-wide",
    "visual_sentence": {
-    "subject": "An empty window sign frame with no job ad, and a flat host panel at the front that lights with the name Haniya",
-    "action": "A window sign frame stays empty, with no job ad pinned in it. A flat host panel lights up on a stand at the front and the name Haniya writes across it. A tag reading AI host attaches to the panel.",
-    "emotion": "A decisive beat as the panel lights.",
-    "annotation": "Illustration. Generic panel, no real software or brand mark"
+    "subject": "The host stand the server left, its apron shut in the drawer by a family member's hand, and a dark host panel set on the stand that lights with the name Haniya and answers the ringing phone",
+    "action": "A family member's hand pulls the host stand's drawer open, lifts the server's apron off its hook, folds it into the drawer and pushes the drawer shut. The same hand sets a dark host panel on the stand top and lets go. The panel lights and writes Haniya, and the ringing desk phone goes quiet as its line lamp shows answered. A tag reading AI host is carried in on its string and hooks onto the panel beside the answered phone.",
+    "emotion": "A quiet decision at the station: the job is put away and the panel takes the call.",
+    "annotation": "Illustration of the reported change. Generic stand and panel, no real person, software or brand mark"
    },
    "planes": [
     {
      "z": 900,
-     "label": "empty sign frame",
+     "label": "server apron and the stand drawer",
      "items": [
       {
-       "id": "s2-frame",
+       "id": "s2-apron-drawer",
        "kind": "applicationRecord",
        "x": 540,
        "y": 900,
        "scale": 1,
        "props": {
-        "label": "empty window sign frame with no job ad pinned in it"
+        "label": "the server's apron lifted off its hook and shut in the host stand drawer"
+       }
+      }
+     ]
+    },
+    {
+     "z": 800,
+     "label": "a family member's arm",
+     "items": [
+      {
+       "id": "s2-hand",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "one jointed family member's arm and hand that puts the apron away and sets the panel"
        }
       }
      ]
     },
     {
      "z": 700,
-     "label": "host panel on a stand",
+     "label": "host panel set on the stand",
      "items": [
       {
        "id": "s2-panel",
@@ -356,7 +414,23 @@
        "y": 900,
        "scale": 1,
        "props": {
-        "label": "flat host panel on a stand lighting with the name Haniya"
+        "label": "dark host panel set on the stand top, lighting with the name Haniya"
+       }
+      }
+     ]
+    },
+    {
+     "z": 600,
+     "label": "desk phone on the stand",
+     "items": [
+      {
+       "id": "s2-phone",
+       "kind": "applicationRecord",
+       "x": 540,
+       "y": 900,
+       "scale": 1,
+       "props": {
+        "label": "desk phone on the stand, still ringing, then answered with its line lamp steady"
        }
       }
      ]
@@ -372,14 +446,14 @@
        "y": 900,
        "scale": 1,
        "props": {
-        "label": "tag reading AI host attached to the panel"
+        "label": "tag reading AI host hooked onto the panel"
        }
       }
      ]
     },
     {
      "z": 100,
-     "label": "front of house with a window",
+     "label": "front of house at the host stand",
      "items": [
       {
        "id": "s2-setting",
@@ -388,39 +462,47 @@
        "y": 900,
        "scale": 1,
        "props": {
-        "label": "restaurant front of house with a window onto a Houston street and a plain frame"
+        "label": "restaurant front of house at the host stand, the door shut and a plain window onto a Houston street"
        }
       }
      ]
     }
    ],
    "visual_proof": {
-    "mute_takeaway": "An empty sign frame, then a lit host panel named Haniya with an AI host tag.",
+    "mute_takeaway": "A family hand shuts the server apron in the stand drawer, then sets a Haniya panel that lights and answers the ringing phone.",
     "must_show": [
      {
-      "concept": "empty window sign frame",
+      "concept": "apron lifted off the hook into the drawer",
       "item_ids": [
-       "s2-frame"
+       "s2-apron-drawer",
+       "s2-hand"
       ]
      },
      {
-      "concept": "lit host panel named Haniya",
+      "concept": "panel set on the stand and lit with Haniya",
       "item_ids": [
-       "s2-panel"
+       "s2-panel",
+       "s2-hand"
       ]
      },
      {
-      "concept": "tag reading AI host",
+      "concept": "desk phone answered",
+      "item_ids": [
+       "s2-phone"
+      ]
+     },
+     {
+      "concept": "AI host tag",
       "item_ids": [
        "s2-tag"
       ]
      }
     ],
     "change": {
-     "description": "A tag reading AI host attaches to the panel.",
+     "description": "The ringing desk phone goes quiet as the lit Haniya panel answers it.",
      "item_ids": [
       "s2-panel",
-      "s2-tag"
+      "s2-phone"
      ]
     }
    },
@@ -2377,10 +2459,10 @@
     "duration_s": 3.210000000000001,
     "framing": "wide",
     "transition": "cut",
-    "view": "sign-window",
+    "view": "front-stand",
     "event_id": "s2-event-1",
-    "purpose": "A window sign frame stays empty, with no job ad pinned in it.",
-    "carry": "An empty window sign frame with no job ad, and a flat host panel at the front that lights ",
+    "purpose": "A family member's hand pulls the host stand's drawer open, lifts the server's apron off its hook, folds it into the drawer and pushes the drawer shut.",
+    "carry": "The same host stand, apron, pad and ringing desk phone from s1, handed over by one family hand",
     "narration_ids": [
      "n2a"
     ],
@@ -2396,8 +2478,8 @@
     "transition": "match",
     "view": "host-panel",
     "event_id": "s2-event-2",
-    "purpose": "A flat host panel lights up on a stand at the front and the name Haniya writes across it.",
-    "carry": "An empty window sign frame with no job ad, and a flat host panel at the front that lights ",
+    "purpose": "The same hand sets a dark host panel on the stand top and lets go. The panel lights and writes Haniya, and the ringing desk phone goes quiet as its line lamp shows answered.",
+    "carry": "The same host stand, apron, pad and ringing desk phone from s1, handed over by one family hand",
     "narration_ids": [
      "n2b"
     ],
@@ -2413,8 +2495,8 @@
     "transition": "continuous",
     "view": "tag-detail",
     "event_id": "s2-event-3",
-    "purpose": "A tag reading AI host attaches to the panel.",
-    "carry": "An empty window sign frame with no job ad, and a flat host panel at the front that lights ",
+    "purpose": "A tag reading AI host is carried in on its string and hooks onto the panel beside the answered phone.",
+    "carry": "The same host stand, apron, pad and ringing desk phone from s1, handed over by one family hand",
     "narration_ids": [
      "n2b"
     ],
@@ -2858,17 +2940,17 @@
    {
     "shot_id": "s2-shot-1",
     "event_id": "s2-event-1",
-    "at_s": 8.34,
-    "kind": "evidence",
-    "visible_change": "A window sign frame stays empty, with no job ad pinned in it.",
+    "at_s": 8.3396,
+    "kind": "action",
+    "visible_change": "A family member's hand lifts the server's apron off its hook and shuts it in the stand's drawer.",
     "event_fraction": 0.25
    },
    {
     "shot_id": "s2-shot-2",
     "event_id": "s2-event-2",
-    "at_s": 11.19,
+    "at_s": 11.1619,
     "kind": "action",
-    "visible_change": "A flat host panel lights up on a stand at the front and the name Haniya writes across it.",
+    "visible_change": "The same hand sets the dark host panel on the stand, it lights with Haniya and the ringing phone is answered.",
     "event_fraction": 0.25
    },
    {
@@ -2876,7 +2958,7 @@
     "event_id": "s2-event-3",
     "at_s": 13.5825,
     "kind": "consequence",
-    "visible_change": "A tag reading AI host attaches to the panel.",
+    "visible_change": "A tag reading AI host hooks onto the lit panel.",
     "event_fraction": 0.25
    },
    {
@@ -3075,7 +3157,7 @@
   "renderer_inputs": [
    {
     "path": "config/modern_episode_registry.json",
-    "sha256": "5a71bf3b3e746bbaff08c3d4cddea9cfbd5481743dbbf08cd46ecd7e582e105b"
+    "sha256": "95bfbb41d7741db94a75f79d61816db6b669a401986910d0395ad264c4c78c30"
    },
    {
     "path": "config/modern_film.json",
@@ -3626,8 +3708,8 @@
     "sha256": "13dd5f473f9f510ba001ee21cf8f054e26aff3b531449bdf3150de3adb38bdc9"
    },
    {
-    "path": "video-engine/src/modern/episodes/2026-10-26/OrderPassFilm.tsx",
-    "sha256": "18d9d181023ba00f08832fc2964062531640a33ff7fbb50c21b691282b5f4876"
+    "path": "video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx",
+    "sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee"
    },
    {
     "path": "video-engine/src/modern/episodes/2026-10-26/OrderRigHero.tsx",
@@ -3638,12 +3720,16 @@
     "sha256": "61ef74982f5e6e6f9558f9975aa536e99400174f976d1b075898f8117e2593eb"
    },
    {
+    "path": "video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx",
+    "sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074"
+   },
+   {
     "path": "video-engine/src/modern/placePlates.json",
     "sha256": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833"
    },
    {
     "path": "video-engine/src/modern/registry.tsx",
-    "sha256": "1c862f8f58fcf1f41fbfae60df36bfecac9a66c29a84f88f67688a2036f56847"
+    "sha256": "de1013ebb85904b1a1b1df206daf8ae0eafff65cce15be001f7248ba3b08a07d"
    },
    {
     "path": "video-engine/src/modern/texasCounties.json",
@@ -3725,14 +3811,16 @@
     ],
     "scene_id": "s2",
     "subject_ids": [
-     "s2-frame"
+     "s2-hand",
+     "s2-apron-drawer"
     ],
     "action_id": "no-ad-ai-host-installed",
     "claim_ids": [
      "c2"
     ],
     "event_ids": [
-     "s2-event-1"
+     "s2-event-1",
+     "s2-event-4"
     ],
     "start_s": 8.04,
     "end_s": 10.59,
@@ -3749,15 +3837,19 @@
     ],
     "scene_id": "s2",
     "subject_ids": [
+     "s2-hand",
      "s2-panel",
+     "s2-phone",
      "s2-tag"
     ],
     "action_id": "no-ad-ai-host-installed",
     "claim_ids": [
-     "c1"
+     "c1",
+     "c5"
     ],
     "event_ids": [
      "s2-event-2",
+     "s2-event-5",
      "s2-event-3"
     ],
     "start_s": 10.89,
@@ -4146,9 +4238,10 @@
     "role": "mechanism",
     "claim_ids": [
      "c2",
-     "c1"
+     "c1",
+     "c5"
     ],
-    "advances": "A window sign frame stays empty, with no job ad pinned in it. A flat host panel lights up on a stand at the front and the name Haniya writes across it. A tag reading AI host attaches to the panel."
+    "advances": "A family member's hand pulls the host stand's drawer open, lifts the server's apron off its hook, folds it into the drawer and pushes the drawer shut. The same hand sets a dark host panel on the stand top and lets go. The panel lights and writes Haniya, and the ringing desk phone goes quiet as its line lamp shows answered. A tag reading AI host is carried in on its string and hooks onto the panel beside the answered phone."
    },
    {
     "scene_id": "s3",
@@ -4225,15 +4318,15 @@
     "from": "s1",
     "to": "s2",
     "kind": "same-subject",
-    "because": "The unattended front of the room is where the panel is installed.",
-    "visible_bridge": "Cut from the swinging apron on the host stand to the empty sign frame and the panel at the front of the same room."
+    "because": "The station the server left is where the family hands the job to the panel.",
+    "visible_bridge": "Cut from the ringing desk phone and the apron on the host stand to the same stand and the same ringing phone, where a family member's hand takes the apron down."
    },
    {
     "from": "s2",
     "to": "s3",
     "kind": "causal-consequence",
     "because": "Once the host is installed a guest can order through it.",
-    "visible_bridge": "Cut from the lit panel to a hand lifting a phone over a table code."
+    "visible_bridge": "Cut from the lit Haniya panel with its AI host tag to a hand lifting a phone over a table code."
    },
    {
     "from": "s3",
@@ -4341,7 +4434,7 @@
     "enter_on": "The front door swings shut with its bell ringing and the server apron swings on its hook.",
     "leave_on": "Order tickets stay blank on the pad while two tables wait with plates.",
     "cut_after_event_id": "s1-event-3",
-    "next_connection": "From An empty server station where an apron swings on its hook, the host ph to An empty window sign frame with no job ad, and a flat host panel at th.",
+    "next_connection": "From the empty host stand with its apron on the hook and the phone ringing to the same stand, where a family hand shuts the apron in the drawer.",
     "sentence_to_shot": {
      "clause": "When the only server at Wok and Karahi in Spring walked out, who was going to take the order?",
      "subject": "An empty server station where an apron swings on its hook, the host phone rings and two tables wait",
@@ -4351,14 +4444,14 @@
    },
    {
     "scene_id": "s2",
-    "enter_on": "A window sign frame stays empty, with no job ad pinned in it.",
-    "leave_on": "A tag reading AI host attaches to the panel.",
+    "enter_on": "A family member's hand pulls the host stand's drawer open, lifts the server's apron off its hook, folds it into the drawer and pushes the drawer shut.",
+    "leave_on": "A tag reading AI host is carried in on its string and hooks onto the panel beside the answered phone.",
     "cut_after_event_id": "s2-event-3",
-    "next_connection": "From An empty window sign frame with no job ad, and a flat host panel at th to A phone held over a table code whose menu opens, a fingertip tap on a .",
+    "next_connection": "From the lit Haniya panel that answered the stand phone to a phone held over a table code whose menu opens, a fingertip tap on a dish and a pay button.",
     "sentence_to_shot": {
      "clause": "The family didn't post a job ad. They put an AI host named Haniya at the front of the house.",
-     "subject": "An empty window sign frame with no job ad, and a flat host panel at the front that lights with the name Haniya",
-     "relationship": "A window sign frame stays empty, with no job ad pinned in it. A flat host panel lights up on a stand at the front and the name Haniya writes across it. A tag reading AI host attaches to the panel.",
+     "subject": "The host stand the server left, its apron shut in the drawer by a family member's hand, and a dark host panel set on the stand that lights with the name Haniya and answers the ringing phone",
+     "relationship": "A family member's hand pulls the host stand's drawer open, lifts the server's apron off its hook, folds it into the drawer and pushes the drawer shut. The same hand sets a dark host panel on the stand top and lets go. The panel lights and writes Haniya, and the ringing desk phone goes quiet as its line lamp shows answered. A tag reading AI host is carried in on its string and hooks onto the panel beside the answered phone.",
      "source_limit": "Disclosed illustration of reported statements. It shows no real restaurant, person, brand mark, payment screen or pay record, and every dollar figure and the tip claim are the owner's account."
     }
    },
@@ -4745,11 +4838,11 @@
    {
     "scene_id": "s2",
     "medium": "diagram",
-    "subject": "An empty window sign frame with no job ad, and a flat host panel at the front that lights with the name Haniya",
-    "action": "A window sign frame stays empty, with no job ad pinned in it.",
-    "consequence": "A tag reading AI host attaches to the panel.",
-    "source_basis": "Claims c1, c2. Disclosed illustration of reported statements. It shows no real restaurant, person, brand mark, payment screen or pay record, and every dollar figure and the tip claim are the owner's account.",
-    "medium_evidence": "Registered order-pass-v1 with the fresh authored OrderRigHero and RestaurantSupport groups performing board events on the film clock."
+    "subject": "The host stand the server left, its apron shut in the drawer by a family member's hand, and a dark host panel set on the stand that lights with the name Haniya and answers the ringing phone",
+    "action": "A family member's hand pulls the host stand's drawer open, lifts the server's apron off its hook, folds it into the drawer and pushes the drawer shut.",
+    "consequence": "The same hand sets a dark host panel on the stand top and lets go. The panel lights and writes Haniya, and the ringing desk phone goes quiet as its line lamp shows answered.",
+    "source_basis": "Claims c1, c2 and c5. Disclosed illustration of reported statements. It shows no real restaurant, person, brand mark, payment screen or pay record, and every dollar figure and the tip claim are the owner's account.",
+    "medium_evidence": "Registered order-pass-v1, now routed to OrderHandoverFilm, whose s2 is the authored StationHandoverScene with the fresh OrderRigHero and RestaurantSupport groups performing board events on the film clock."
    },
    {
     "scene_id": "s3",
@@ -4868,25 +4961,53 @@
    "id": "s2-event-1-attention",
    "event_id": "s2-event-1",
    "item_ids": [
-    "s2-frame"
+    "s2-hand",
+    "s2-apron-drawer"
    ],
-   "change_type": "evidence",
-   "visible_change": "A window sign frame stays empty, with no job ad pinned in it.",
-   "viewer_reward": "A window sign frame stays empty, with no job ad pinned in it.",
+   "change_type": "mechanism",
+   "visible_change": "A family member's hand pulls the host stand's drawer open and lifts the server's apron off its hook.",
+   "viewer_reward": "The server's apron comes off its hook in a family member's hand, and the hook is left bare.",
    "continuity_from": "The one order and the money that follows it, which every later scene returns to.",
-   "sound_action": "A hush and a faint street sound through the glass."
+   "sound_action": "A drawer runner slides open and the apron strap slips off the brass hook."
+  },
+  {
+   "id": "s2-event-4-attention",
+   "event_id": "s2-event-4",
+   "item_ids": [
+    "s2-hand",
+    "s2-apron-drawer"
+   ],
+   "change_type": "resolution",
+   "visible_change": "The hand folds the apron into the drawer and pushes the drawer shut, leaving a strap end in the seam.",
+   "viewer_reward": "The server's job is put away at the station instead of being advertised.",
+   "continuity_from": "The one order and the money that follows it, which every later scene returns to.",
+   "sound_action": "A cloth fold and the drawer knocking shut under the ringing phone."
   },
   {
    "id": "s2-event-2-attention",
    "event_id": "s2-event-2",
    "item_ids": [
+    "s2-hand",
     "s2-panel"
    ],
    "change_type": "mechanism",
-   "visible_change": "A flat host panel lights up on a stand at the front and the name Haniya writes across it.",
-   "viewer_reward": "A flat host panel lights up on a stand at the front and the name Haniya writes across it.",
+   "visible_change": "The same hand sets a dark host panel on the stand top and lets go.",
+   "viewer_reward": "A person puts the panel where the apron hung, at the front of the house.",
    "continuity_from": "The one order and the money that follows it, which every later scene returns to.",
-   "sound_action": "A soft power-on tone and a warm chime."
+   "sound_action": "A soft set-down on wood and a power-on tone."
+  },
+  {
+   "id": "s2-event-5-attention",
+   "event_id": "s2-event-5",
+   "item_ids": [
+    "s2-panel",
+    "s2-phone"
+   ],
+   "change_type": "mechanism",
+   "visible_change": "The panel lights and writes Haniya, and the ringing desk phone goes quiet as its line lamp shows answered.",
+   "viewer_reward": "The phone left ringing in the opening is answered by the Haniya panel.",
+   "continuity_from": "The one order and the money that follows it, which every later scene returns to.",
+   "sound_action": "The ring cut off and a warm chime."
   },
   {
    "id": "s2-event-3-attention",
@@ -4896,8 +5017,8 @@
     "s2-tag"
    ],
    "change_type": "resolution",
-   "visible_change": "A tag reading AI host attaches to the panel.",
-   "viewer_reward": "A tag reading AI host attaches to the panel.",
+   "visible_change": "A tag reading AI host hooks onto the lit panel beside the answered phone.",
+   "viewer_reward": "The new host at the front of the house is labelled AI host.",
    "continuity_from": "The one order and the money that follows it, which every later scene returns to.",
    "sound_action": "A small tag click."
   },
@@ -5451,7 +5572,7 @@
    "tool": "original authored source",
    "source_url": "authored://2026-10-26/restaurant-support",
    "original_url": "authored://2026-10-26/restaurant-support",
-   "subject": "A small restaurant room, an empty sign frame, a host panel named Haniya, a ledger card with a monthly tag and an owner count stamp, a federal rule card, a folder with a blank box, a customer quote card and the tags",
+   "subject": "A small restaurant room, a host stand with its apron hook and drawer, a host panel named Haniya, a ledger card with a monthly tag and an owner count stamp, a federal rule card, a folder with a blank box, a customer quote card and the tags",
    "relevance": "Stages the room and the records the sentences cite so each limit has a drawn object.",
    "inspection": "Authored in this edition, type-checked and gate-checked; rendered pixels still need the independent code, phone and final reviews.",
    "rights_basis": "Fresh original authored React and SVG illustration created for this edition; no third-party image.",
