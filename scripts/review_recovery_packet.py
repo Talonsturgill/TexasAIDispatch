@@ -32,7 +32,13 @@ def recovery_requirements(state_path, packet, *, charged=False):
     import review_limit
     import completion_progress
     state_path = Path(state_path).resolve(); state = read(state_path); repo = state_path.parents[2]
-    if (not review_limit.path_budget_enabled(state) or review_limit.used(state) != (3 if charged else 2)
+    first = 3 if charged else 2
+    used = review_limit.used(state) if review_limit.path_budget_enabled(state) else -1
+    # The original third-review window is exact. After the standing completion policy has grown
+    # the review path past it, a creative-boundary replacement may be requested from any later
+    # charged critic, because the old numeric position no longer identifies the decision point.
+    late = used > first and completion_progress.replacement_required(state)
+    if (used < 0 or not (used == first or late)
             or packet.get('role') != 'storyboard-critic'
             or packet.get('review_scope') == 'exact-muted-phone-preflight'):
         return None
