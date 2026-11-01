@@ -345,6 +345,14 @@
       "note": "corrective reboard after accepted begin-repair",
       "resource": "reboards",
       "to": 7
+    },
+    {
+      "at": "2026-11-01T07:35:03.497189Z",
+      "ceiling": 16,
+      "from": 13,
+      "note": "eleventh code review of replacement film",
+      "resource": "storyboard_critics",
+      "to": 14
     }
   ],
   "events": [
@@ -3363,6 +3371,27 @@
       "repair_revision": "1533b7dad8bb188140a79ff8288e17f0724071314415a691817c7d672a45f1bb",
       "repair_scope": "standard",
       "resource": "repair_batch"
+    },
+    {
+      "at": "2026-11-01T07:35:03.497216Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "eleventh code review of replacement film",
+      "now": 14,
+      "resource": "storyboard_critics",
+      "was": 13
+    },
+    {
+      "at": "2026-11-01T07:35:04.249315Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "eleventh code review of replacement film",
+      "preflight_identity": null,
+      "publication_epoch": "b3a9cbfd0d9846749a1e67521ff256dc",
+      "publication_owner_sha256": "b5e7bab8f13fc9d9d2fae1119484b14086dfb4694069bb2e78deb4d512390bb8",
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -3377,7 +3406,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 13,
+    "storyboard_critics": 14,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 1
@@ -3386,7 +3415,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "76f2502934d4a9130ee7c342d3625fcd1294c0f510db6a61ee0f89d329ac3f34",
+    "original_private_state_sha256": "6b160b23fd1d67c13b5409d3e627eb9f153e25e1b251024fc19dfa01f229c700",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3414,7 +3443,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-01T07:34:20.333175Z",
+  "updated_at": "2026-11-01T07:35:04.249341Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -3427,7 +3456,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 13,
+    "storyboard_critics": 14,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 1
