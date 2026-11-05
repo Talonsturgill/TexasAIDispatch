@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-11-05T05:11:41.373129+00:00",
-  "note": "critic 15 retry dispatched",
+  "saved_at": "2026-11-05T05:22:40.001994+00:00",
+  "note": "critic 15 valid handback registered",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -61,8 +61,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "931e8e1f8d3c3c331689497dca7f96220f6d256b1ca420b225b48c1f121b7c5c",
-      "size": 25235
+      "sha256": "b1bf0916d1588fa828dd347173ed895faf0f22a8415176f618b5291f1d488751",
+      "size": 26531
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -13067,6 +13067,12 @@
       "size": 429
     },
     {
+      "path": "out/dispatch/native-completion-waits/4ec7d4108aedf8532f3ea4fb2e31df44b0b596cd6cf435fc65c8559cf19de833.json",
+      "class": "scratch",
+      "sha256": "4ec7d4108aedf8532f3ea4fb2e31df44b0b596cd6cf435fc65c8559cf19de833",
+      "size": 433
+    },
+    {
       "path": "out/dispatch/native-completion-waits/4fa24aef1f7556686a054ecad5a91aceef807e2f7bd3e42de9d044e99feb7e3a.json",
       "class": "scratch",
       "sha256": "4fa24aef1f7556686a054ecad5a91aceef807e2f7bd3e42de9d044e99feb7e3a",
@@ -13187,6 +13193,12 @@
       "size": 62460
     },
     {
+      "path": "out/dispatch/native-critic-completions/e4091f05e126a278ebfb67c7a5c5239b793030cc57f31209096d4d2e683daed4-dcbade3785824fa1e2d15a3da6f92fff5747b0555d22a3f233df0347a9676c9f.json",
+      "class": "scratch",
+      "sha256": "5c5c520da1f06f7853c09ee9fa654b73b504fafb44a469daf40d55566e71124e",
+      "size": 82738
+    },
+    {
       "path": "out/dispatch/native-critic-completions/fef0d4bcab745a9e3f4cab2e91e8d738ab13cf9ecdbe02db9ccd176fca166020-3331748118fef1e863a542de765666da1e1e8f7134b22c15600edf8ace2a4943.json",
       "class": "scratch",
       "sha256": "68040a56e90460887f786348563726a97ee924cb99164999a3ded196c49bff48",
@@ -13227,6 +13239,12 @@
       "class": "scratch",
       "sha256": "b6328a7b908bfa97445e69ce5a887d57921b6598d2e4c07fdada27befa30f53f",
       "size": 29504
+    },
+    {
+      "path": "out/dispatch/native-critic-completions/handback-796c482b3b994839450f843ec8098f25ca2f63d5a5998528307c0f94cdd4f8c0-5ed5f506280bab6f5acab9bcba7cd28ce58f23ee0eb062726facb28bea62e429.json",
+      "class": "scratch",
+      "sha256": "b0f9ab2a91acd1c94a1537778ed54b3da36f2aaf7b0ca03a4d9357fea7236ba7",
+      "size": 38220
     },
     {
       "path": "out/dispatch/native-critic-completions/handback-8a2a16dfededb612468829842a87bbf3bb65ef2381030353d5fbe302887ada40-30d0042f1cff64f7c79e89ebf3e9d184528f36c7a5962078075b49837190ca85.json",
@@ -25674,9 +25692,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 540527420,
-    "unique_blob_bytes": 339678658,
-    "unique_blobs": 3156
+    "logical_bytes": 540650107,
+    "unique_blob_bytes": 339801345,
+    "unique_blobs": 3159
   },
   "excluded": [
     {
