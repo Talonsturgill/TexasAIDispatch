@@ -20,7 +20,17 @@
     "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/.claude/agents/storyboard-critic.md",
     "sha256": "d2b72df1a992c963f26d4828b111add2d4ad4f128fd4af1b4b69ae713a0b4261"
   },
+  "agent_args": {
+    "subagent_type": "storyboard-critic",
+    "description": "code_review_eleven_retry_e84b43ac",
+    "prompt": "Work in /home/user/dispatch-editions/2026-10-26/TexasAIDispatch. Read the current compact packet /home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/critic-packet-11.json (SHA256 e4091f05e126a278ebfb67c7a5c5239b793030cc57f31209096d4d2e683daed4) and every bound current guide in full. Verify the inputs before use. Scope: Paired code review of both current treatments after the s2 whole-scene station handover replacement (repair 10). Fresh attempt after the first attempt returned malformed JSON. Return only complete gate-ready JSON, with every required field, supplied binding and defect. Include the exact packet_sha256 at top level so the native completion hook can retain your original public response. For two code reports return code_reports:{a:report,b:report}. Do NOT launch or spawn any subagents; do the work yourself and return your result. Never send email or post socially. Preserve actual rejected evidence. A code plan does not approve a rendered film.",
+    "run_in_background": true
+  },
   "model_binding": "The versioned leaf definition pins the exact model and effort. Do not substitute Codex model or fork arguments.",
-  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel. After an actual failed or interrupted worker, reserve a NEW attempt before restarting or resuming it through SendMessage, even on the same unchanged packet. Retain the failed charge and protect the complete remaining path before another attempt. Only a mechanical format correction to an already completed handback needs no new content reservation; include every actual turn in API usage. An already unreserved restart requires an honest late controller charge and disclosure before shipment, never backdating or replay. No dispatch arguments are available. Reserve a fresh storyboard_critics call owned by this context, then rerun this exact plan. A restored or spent reservation cannot fund another execution.",
-  "dispatch_ready": false
+  "reservation": "Reserve the existing controller resource before executing this plan. The three final scorers remain one atomic charged panel. After an actual failed or interrupted worker, reserve a NEW attempt before restarting or resuming it through SendMessage, even on the same unchanged packet. Retain the failed charge and protect the complete remaining path before another attempt. Only a mechanical format correction to an already completed handback needs no new content reservation; include every actual turn in API usage. An already unreserved restart requires an honest late controller charge and disclosure before shipment, never backdating or replay.",
+  "dispatch_ready": true,
+  "reservation_claim": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/worker-dispatch-claims/47b9e822cc5b26ff23e66ab81c918eaeb39adb2b40d14eeefbb450945aac1269-storyboard-critic.json",
+    "sha256": "e84b43ac1ac3409dd410867982309e76870710c7e1a931bdc65a0c2cfdefd813"
+  }
 }
