@@ -353,6 +353,14 @@
       "note": "eleventh code review of replacement film",
       "resource": "storyboard_critics",
       "to": 14
+    },
+    {
+      "at": "2026-11-05T05:11:06.770300Z",
+      "ceiling": 16,
+      "from": 14,
+      "note": "fresh code review 11 retry: first attempt (event 173) returned unparseable JSON, no completion receipt",
+      "resource": "storyboard_critics",
+      "to": 15
     }
   ],
   "events": [
@@ -3392,6 +3400,27 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-11-05T05:11:06.770320Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "fresh code review 11 retry: first attempt (event 173) returned unparseable JSON, no completion receipt",
+      "now": 15,
+      "resource": "storyboard_critics",
+      "was": 14
+    },
+    {
+      "at": "2026-11-05T05:11:07.455617Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "fresh code review 11 retry: first attempt (event 173) returned unparseable JSON, no completion receipt",
+      "preflight_identity": null,
+      "publication_epoch": "ca4c00ef101545e498354157d208db03",
+      "publication_owner_sha256": "8bcd4e0ad7095cdd46e1e0d46ea4d5c9d050edc18503a5b00d5fcfb75ed672f1",
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -3406,7 +3435,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 14,
+    "storyboard_critics": 15,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 1
@@ -3415,7 +3444,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "bacc0d998b56eec5f10ffe16a1641273974b8744ec6f1b4f93cf7d50136c664b",
+    "original_private_state_sha256": "42223cbb38fd0cef93e06067d9a07cd7be2d536ff79e7dde44d71010ec9bb8c7",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3443,7 +3472,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-01T07:35:04.249341Z",
+  "updated_at": "2026-11-05T05:11:07.455636Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -3456,7 +3485,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 14,
+    "storyboard_critics": 15,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 1
