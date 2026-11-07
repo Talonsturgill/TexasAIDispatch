@@ -429,13 +429,24 @@ def package(source, destination, *, include_retired=True):
     state = read(state_path); original = original_critic_review(state_path, proof['original_review_event_index'])
     code_index = read(proof['original_code_claim']['path'])['reservation_event_index']
     code_original = original_critic_review(state_path, code_index)
-    rows, sha = evidence_graph(state_path, original, code_original,
-                              Path(proof['comparison']['path']), Path(proof['image_coverage']['path']))
-    require(sha == proof['evidence_graph_sha256'], 'selection graph changed before packaging')
     capsule = destination / PACKAGE; repo = state_path.parents[2]
-    for row in rows:
-        copy_file(repo / row['path'], capsule / row['path'])
-    comparison = read(proof['comparison']['path'])
+    retained = packaged_paths(source)
+    if retained is not None:
+        # The live review scratch was archived after packaging. Re-export the verified retained
+        # capsule instead of rebuilding the graph from files that no longer exist in place.
+        held = source / PACKAGE
+        rows = read(held / 'index.json')['files']
+        derived = {Path('index.json'), Path('out/dispatch/run_state.json')}  # rewritten below from the ledger
+        for path in sorted(p for p in held.rglob('*') if p.is_file()):
+            if path.relative_to(held) not in derived:
+                copy_file(path, capsule / path.relative_to(held))
+    else:
+        rows, sha = evidence_graph(state_path, original, code_original,
+                                  Path(proof['comparison']['path']), Path(proof['image_coverage']['path']))
+        require(sha == proof['evidence_graph_sha256'], 'selection graph changed before packaging')
+        for row in rows:
+            copy_file(repo / row['path'], capsule / row['path'])
+    comparison = read(retained.path(proof['comparison']['path']) if retained is not None else proof['comparison']['path'])
     relevant = {proof['original_review_event_index'], code_index, comparison['reservation']['event_index']}
     retained_events = [{'event_index': i, 'event': state['events'][i]} for i in sorted(relevant)]
     require(fingerprint(retained_events) == proof['reservation_events_sha256'],
@@ -451,7 +462,8 @@ def package(source, destination, *, include_retired=True):
     selected_board = 'opening-' + proof['selected'] + '.json'
     copy_file(source / selected_board, destination / selected_board)
     current_combined = source / 'openings/combined-review.json'
-    if read(source / 'openings/comparison.json').get('combined_code_review'):
+    live_comparison = source / 'openings/comparison.json'
+    if live_comparison.is_file() and read(live_comparison).get('combined_code_review'):
         value = read(current_combined)
         for ref in [value[key] for key in ('packet', 'handback', 'claim', 'coverage')] + list(value['reports'].values()):
             path = Path(ref['path']).resolve()
