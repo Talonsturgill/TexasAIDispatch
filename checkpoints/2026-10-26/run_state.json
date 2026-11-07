@@ -361,6 +361,14 @@
       "note": "fresh code review 11 retry: first attempt (event 173) returned unparseable JSON, no completion receipt",
       "resource": "storyboard_critics",
       "to": 15
+    },
+    {
+      "at": "2026-11-07T05:13:14.304330Z",
+      "ceiling": 16,
+      "from": 15,
+      "note": "source-pivot review (script n2a/n2b pivot after code review 11 replacement exhausted)",
+      "resource": "storyboard_critics",
+      "to": 16
     }
   ],
   "events": [
@@ -3421,6 +3429,27 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-11-07T05:13:14.304359Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "source-pivot review (script n2a/n2b pivot after code review 11 replacement exhausted)",
+      "now": 16,
+      "resource": "storyboard_critics",
+      "was": 15
+    },
+    {
+      "at": "2026-11-07T05:13:15.044468Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "source-pivot review (script n2a/n2b pivot after code review 11 replacement exhausted)",
+      "preflight_identity": null,
+      "publication_epoch": "82775364ca8842f1a8a815a9a3ef7f25",
+      "publication_owner_sha256": "8cb65c5eb5b90ee04a511b540a0cce40420cc3789ef7c1d09cbc8351e1b80fc0",
+      "resources": {
+        "storyboard_critics": 1
+      }
     }
   ],
   "limits": {
@@ -3435,7 +3464,7 @@
     "rescue_renders": 1,
     "research_agents": 3,
     "scorer_calls": 3,
-    "storyboard_critics": 15,
+    "storyboard_critics": 16,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 1
@@ -3444,7 +3473,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "425f91a0440a9c813d982bfb64db41cfdceb6c92f9bbd3180003050d15c9e2de",
+    "original_private_state_sha256": "31b549e3eef57697c25dbd63ae2b7556d1fbcbe925b3dfcdd95485d45f8ea5a6",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3472,7 +3501,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-05T05:11:07.455636Z",
+  "updated_at": "2026-11-07T05:13:15.044486Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -3485,7 +3514,7 @@
     "rescue_renders": 0,
     "research_agents": 1,
     "scorer_calls": 0,
-    "storyboard_critics": 15,
+    "storyboard_critics": 16,
     "tts_calls": 12,
     "validator_agents": 2,
     "voice_directors": 1
