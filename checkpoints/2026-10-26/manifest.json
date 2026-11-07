@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-11-07T06:36:02.524875+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-11-07T06:36:52.780430+00:00",
+  "note": "claim worker dispatch scene-builder",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -66,8 +66,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "884a1fa2d8fa0111d033f548cab6a73d2b849b3db89d1c4fefacf47dc205c4bb",
-      "size": 30837
+      "sha256": "2476880439bf565f813514761098ddc6ba727878a835e01cca1a36ca18c898c1",
+      "size": 31534
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -632,6 +632,12 @@
       "class": "scratch",
       "sha256": "f696416ddd04f0c9f52da7be86bacf8cfd27f03e5f914c40e8e937f8bd8df636",
       "size": 9312
+    },
+    {
+      "path": "out/dispatch/builder-correction-packet-13.json",
+      "class": "scratch",
+      "sha256": "89c29157eba889992a74729c7b9853a33d58f84fede9743203fef2df191faca5",
+      "size": 8790
     },
     {
       "path": "out/dispatch/builder-correction-packet-2.json",
@@ -1238,6 +1244,12 @@
       "class": "scratch",
       "sha256": "483f06bef9cd3e050a09eb724aaa72d987aee222783bb25160ee28ab441787fe",
       "size": 30893
+    },
+    {
+      "path": "out/dispatch/current-defects-83ee963a857ab20a014619f33a5b44f6bfe381efc3f3c9f7e5157c06ec9f9f76.json",
+      "class": "scratch",
+      "sha256": "83ee963a857ab20a014619f33a5b44f6bfe381efc3f3c9f7e5157c06ec9f9f76",
+      "size": 38387
     },
     {
       "path": "out/dispatch/current-defects-b9b4d9cbd608837b2a94e5d3cbd2f9c4ebc3533f1924a390027949ebb7c37720.json",
@@ -29098,6 +29110,12 @@
       "size": 566
     },
     {
+      "path": "out/dispatch/worker-dispatch-claims/81e71ff300cb0a4451dbc55107ead31f78d951f4d8c2c4c24b0b238d3c3ebc67-scene-builder.json",
+      "class": "scratch",
+      "sha256": "d1397e6021bdd65b445fd015b1b67a89383b78ea716a5affdd70e6e3f2cc6833",
+      "size": 571
+    },
+    {
       "path": "out/dispatch/worker-dispatch-claims/9afaabb24df1d0f556a3bbff6cb400eefd329ecdaadb01a8f224574575f4f0ec-storyboard-critic.json",
       "class": "scratch",
       "sha256": "8391adae95804c34c8e6137a4d1cb7a49f73d5b7215157b102adccc519b4ff6d",
@@ -29165,9 +29183,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 586166915,
-    "unique_blob_bytes": 340319267,
-    "unique_blobs": 3188
+    "logical_bytes": 586215360,
+    "unique_blob_bytes": 340367712,
+    "unique_blobs": 3191
   },
   "excluded": [
     {
