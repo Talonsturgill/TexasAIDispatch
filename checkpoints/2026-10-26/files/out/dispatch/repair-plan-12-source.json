@@ -1,0 +1,35 @@
+{
+  "root_cause": "Selected B's s2 asks one picture to prove a negative and then perform a human 'put'. Every s2 construction (window sign, blank card, HELP WANTED contradicting c2, body-less handover arm) has failed source fidelity or performance, and the replacement route is exhausted for this validated script.",
+  "repair": "Pivot the spoken clause to the independently reviewed source-backed line 'Instead of a new hire, the job went to an AI host named Haniya. It answers the phone, even after closing.' (c1, c2 for n2a, c5 for n2b), and retime and re-voice only that line. s2 becomes a closed-room state change with no human limb: the standing host panel wakes and writes Haniya beside the apron that stays on its hook, then the ringing desk phone's line lamp goes steady as answered. Restore the apron on the hook in s1's last shot.",
+  "mechanism_change": "Replace the performed human handover (drawer, carried apron, FamilyArm) with a limb-free state change, driven by a revised source-backed spoken clause rather than a restaged action.",
+  "expected_visible_result": "With captions covered a viewer sees the same host stand in a closed room, the apron still on its hook, the dark panel light and write Haniya, and the ringing desk phone go quiet with its line lamp answered, with no hand, drawer, sign, clock or job listing.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/source-pivot-review-12-report.json",
+  "failure_evidence_sha256": "a87cfb2975c2676a6f80d2f2f63d38dfabefe9a683bc065f25754e70f844a6a9",
+  "repair_scope": "standard",
+  "mechanism_id": "order-pass-s2-closed-room-answered-phone-v1",
+  "failure_family": "source-framing",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "retire_selection": true,
+  "changed_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/vo_script.txt",
+      "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round12/vo_script.txt",
+      "before_sha256": "7edfa737244230ed25a96ed1be7e207422eb8005938af86b8f4d02b7a4d03d98"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/storyboard.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round12/storyboard.json",
+      "before_sha256": "773b154aa2609b2fe29df20100b9c01a2ae580775e269e9439697be8f4c3eb62"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/vo_direction.json",
+      "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round12/vo_direction.json",
+      "before_sha256": "cbfb466656832f5640d4ee3906116b2f451508b72a3fa5d13ac38e42b581d2cc"
+    }
+  ],
+  "resources": {
+    "validator_agents": 1,
+    "tts_calls": 2,
+    "reboards": 1
+  }
+}
