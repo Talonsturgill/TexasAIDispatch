@@ -90,7 +90,7 @@ NOT_NAMES = {
     "And", "But", "For", "Nobody", "Somebody", "Anybody", "Behind", "Past", "Two",
     "What", "When", "Where", "Why", "Which", "Earlier", "With", "Without", "About", "After", "Before", "Every",
     "Most", "Some", "One", "Its", "His", "Her", "Our", "Your", "Not", "Now", "Here",
-    "Only", "Just", "Still", "Behind", "Under", "Over", "Out", "Off", "Into", "From",
+    "Only", "Just", "Still", "Behind", "Under", "Over", "Out", "Off", "Into", "From", "Instead",
 }
 
 
