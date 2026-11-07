@@ -305,6 +305,42 @@ class SourceCompletionTest(unittest.TestCase):
             prepared['failure_evidence_sha256'] = '0' * 64
             self.assertIn('original independent', progress.admission_problems(state, prepared)[0])
 
+    def test_one_bound_recurrence_approval_may_follow_the_source_pivot(self):
+        self.fixture()
+        plan = json.loads(self.plan.read_text()); plan['repair_scope'] = 'standard'
+        self.plan.write_text(json.dumps(plan))
+        prepared = source.prepare(self.state, self.plan, self.receipt, self.proposed, self.root / 'recurrence-plan.json')
+        report = json.loads(self.report.read_text())
+        def charge(note):
+            row = controller.read_state(self.state)
+            controller.event(row, 'reserved', resources={'storyboard_critics': 1}, note=note)
+            controller.save(self.state, row)
+        charge('recurrence approval fixture')
+        state = controller.read_state(self.state); index = len(state['events']) - 1
+        self.assertFalse(source.eligible(state, prepared, report))  # unbound later charge still invalidates
+        review = self.root / 'recurrence-review.json'
+        review.write_text(json.dumps({'verdict': 'pass', 'reviewer_identity': 'offline independent critic'}))
+        call = json.loads(self.receipt.read_text())
+        bound = {'schema': 'dispatch_recurrence_pivot_call/1', 'run_id': state['run_id'],
+                 'action': 'SendMessage_same_id', 'agent_id': call['agent_id'], 'model': call['model'],
+                 'effort': call['effort'], 'reservation_event_index': index,
+                 'reservation_sha256': hashlib.sha256(source.canonical(state['events'][index]).encode()).hexdigest(),
+                 'report_sha256': source.digest(review)}
+        def bind(value, pass_review=review):
+            plan = copy.deepcopy(prepared); text = json.dumps(value)
+            plan['pivot_review'] = {'path': str(pass_review), 'sha256': source.digest(pass_review)}
+            plan[source.FIELD]['recurrence_receipt_json'] = text
+            plan[source.FIELD]['recurrence_receipt_sha256'] = hashlib.sha256(text.encode()).hexdigest()
+            return plan
+        self.assertTrue(source.eligible(state, bind(bound), report))
+        self.assertFalse(source.eligible(state, bind({**bound, 'agent_id': 'someone-else'}), report))
+        self.assertFalse(source.eligible(state, bind({**bound, 'reservation_event_index': index - 1}), report))
+        rejected = self.root / 'recurrence-revise.json'
+        rejected.write_text(json.dumps({'verdict': 'revise', 'reviewer_identity': 'offline independent critic'}))
+        self.assertFalse(source.eligible(state, bind({**bound, 'report_sha256': source.digest(rejected)}, rejected), report))
+        charge('another paid critic')
+        self.assertFalse(source.eligible(controller.read_state(self.state), bind(bound), report))
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -49,6 +49,42 @@ def located(value, proof):
     return result
 
 
+def unbound_later_critics(state, plan, index, receipt):
+    """True when a critic was charged after the source pivot and is not its one bound recurrence approval.
+
+    The recurrence approval (the independent PASS that begin-repair needs as pivot_review) is a
+    separately charged same-worker call that necessarily follows the source-pivot diagnosis. It may
+    be the only later critic reservation, and only when its retained receipt binds the exact
+    reservation, the same worker and the plan's pivot_review bytes. Any other later critic
+    charge still invalidates the pivot receipt.
+    """
+    later = [(i, row) for i, row in enumerate(state['events'][index + 1:], index + 1)
+             if row.get('kind') == 'reserved' and row.get('resources', {}).get('storyboard_critics')]
+    if not later:
+        return False
+    try:
+        bound = json.loads(plan[FIELD]['recurrence_receipt_json'])
+        if (len(later) != 1 or hashlib.sha256(plan[FIELD]['recurrence_receipt_json'].encode()).hexdigest()
+                != plan[FIELD]['recurrence_receipt_sha256']):
+            return True
+        i, row = later[0]
+        ref = plan['pivot_review']
+        review = json.loads(Path(ref['path']).read_text())
+        return not (bound.get('schema') == 'dispatch_recurrence_pivot_call/1'
+                    and bound.get('run_id') == state['run_id']
+                    and bound.get('action') == 'SendMessage_same_id'
+                    and bound.get('agent_id') == receipt['agent_id']
+                    and bound.get('model') == receipt['model'] and bound.get('effort') == receipt['effort']
+                    and bound.get('reservation_event_index') == i
+                    and bound.get('reservation_sha256') == hashlib.sha256(canonical(row).encode()).hexdigest()
+                    and bound.get('report_sha256') == ref['sha256'] == digest(ref['path'])
+                    and review.get('verdict') == 'pass'
+                    and not any(e.get('kind') in ('repair_started', 'repair_authorized')
+                                for e in state['events'][index + 1:]))
+    except (KeyError, TypeError, ValueError, OSError):
+        return True
+
+
 def eligible(state, plan, report):
     """Portable admission only; actual file checks run before the grant."""
     from autonomous_completion import resource_requirements
@@ -82,8 +118,7 @@ def eligible(state, plan, report):
                 or event.get('kind') != 'reserved' or event.get('resources') != {'storyboard_critics': 1}
                 or hashlib.sha256(canonical(event).encode()).hexdigest() != receipt['reservation_sha256']
                 or receipt['report_sha256'] != plan['failure_evidence_sha256']
-                or any(row.get('kind') == 'reserved' and row.get('resources', {}).get('storyboard_critics')
-                       for row in state['events'][index + 1:])
+                or unbound_later_critics(state, plan, index, receipt)
                 or not at(event['at']) <= at(receipt['started_at']) <= at(receipt['completed_at']) <= datetime.now(timezone.utc)
                 or pivot.get('requires_validation') is not True
                 or pivot['script_before_sha256'] != changed['vo_script.txt']['before_sha256']
