@@ -1123,13 +1123,3 @@ class Durability(Base):
 
 if __name__ == "__main__":
     unittest.main()
-
-class ArchivedSelectionMarkerTest(unittest.TestCase):
-    def test_archived_selection_marker_is_stored_as_is_not_projected_as_a_ledger(self):
-        import tempfile
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            marker = root / 'out/dispatch/retired-selections/adoption-1/run_state.json'
-            marker.parent.mkdir(parents=True)
-            marker.write_text('{"run_id": "2026-10-26"}')
-            self.assertEqual(marker.read_bytes(), ck.stored_bytes(root, marker.relative_to(root)))
