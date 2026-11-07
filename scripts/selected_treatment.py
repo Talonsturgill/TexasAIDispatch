@@ -331,7 +331,7 @@ def retire(state_path, plan_path):
              'approval': False, 'grants_resources': False}
     active_adoption({**state, 'events': [*state['events'], event]})
     archive = state_path.parent / archive_name
-    immutable(archive / 'run_state.json', {'run_id': state['run_id']})
+    immutable(archive / 'run_state.json', {'run_id': state['run_id'], 'events': []})
     package(state_path.parent, archive, include_retired=False)
     target = archive / 'repair-plan.json'
     require(not target.exists() or target.read_bytes() == plan_path.read_bytes(),
