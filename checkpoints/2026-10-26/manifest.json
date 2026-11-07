@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-11-07T07:11:23.788036+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-11-07T07:13:59.592897+00:00",
+  "note": "repair 12 source pivot and repair 13 closed-room replacement authorized; next code review packet",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-10-26T07:17:34.391615Z",
   "repo_root": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch",
-  "source_pin": "bef385108bb48b2a7889ade320f23e74e02a0891",
+  "source_pin": "bd77acfba29a5276f72bcb32074cae8082c72450",
   "source_branch": "claude/dispatch-2026-10-26",
   "source_closure": {
     "root": "video-engine",
@@ -72,8 +72,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "2476880439bf565f813514761098ddc6ba727878a835e01cca1a36ca18c898c1",
-      "size": 31534
+      "sha256": "e3e87e755d7e47bed7aebd9a8e41e1b0404bbd2b9940e7960717b3cc3a34fa93",
+      "size": 34273
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -1208,6 +1208,12 @@
       "class": "scratch",
       "sha256": "e4091f05e126a278ebfb67c7a5c5239b793030cc57f31209096d4d2e683daed4",
       "size": 25408
+    },
+    {
+      "path": "out/dispatch/critic-packet-12.json",
+      "class": "scratch",
+      "sha256": "703b11d39049d5bdd792f7c9f6b47c38bbc568e0544341618eb67dfadfe6f1a0",
+      "size": 9549
     },
     {
       "path": "out/dispatch/critic-packet-2.json",
@@ -13452,7 +13458,7 @@
     {
       "path": "out/dispatch/opening-a.json",
       "class": "scratch",
-      "sha256": "1dd174c8c9b69bd2abecb30ce75aca5b8c2e7940df41d16adf5dd401ef89a919",
+      "sha256": "da1a155b759c9229a91b1f181de57433f5b9f08ea8d9922c6f3bd3840a82213b",
       "size": 211276
     },
     {
@@ -13470,7 +13476,7 @@
     {
       "path": "out/dispatch/opening-b.json",
       "class": "scratch",
-      "sha256": "f4b5c23bd39735971f4ceaa69adf0455d4182d24da18185008b98d33db7d3f2d",
+      "sha256": "24b8b2cc98dd34767b4d9560fad52005f561cf941279611179ae9ba1a23b930e",
       "size": 211309
     },
     {
@@ -20898,7 +20904,7 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "f4b5c23bd39735971f4ceaa69adf0455d4182d24da18185008b98d33db7d3f2d",
+      "sha256": "24b8b2cc98dd34767b4d9560fad52005f561cf941279611179ae9ba1a23b930e",
       "size": 211309
     },
     {
@@ -29243,9 +29249,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 586920340,
-    "unique_blob_bytes": 341256112,
-    "unique_blobs": 3202
+    "logical_bytes": 586932628,
+    "unique_blob_bytes": 341268400,
+    "unique_blobs": 3203
   },
   "excluded": [
     {
