@@ -80,6 +80,8 @@ def unbound_later_critics(state, plan, index, receipt):
                     and bound.get('report_sha256') == ref['sha256'] == digest(ref['path'])
                     and review.get('verdict') == 'pass'
                     and not any(e.get('kind') in ('repair_started', 'repair_authorized')
+                                and e.get('failure_sha256', plan.get('failure_evidence_sha256'))
+                                != plan.get('failure_evidence_sha256')
                                 for e in state['events'][index + 1:]))
     except (KeyError, TypeError, ValueError, OSError):
         return True

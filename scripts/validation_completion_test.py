@@ -333,6 +333,12 @@ class SourceCompletionTest(unittest.TestCase):
             plan[source.FIELD]['recurrence_receipt_sha256'] = hashlib.sha256(text.encode()).hexdigest()
             return plan
         self.assertTrue(source.eligible(state, bind(bound), report))
+        own = controller.read_state(self.state)
+        controller.event(own, 'repair_started', failure_sha256=prepared['failure_evidence_sha256'])
+        self.assertTrue(source.eligible(own, bind(bound), report))  # this pivot's own opened repair is fine
+        other = controller.read_state(self.state)
+        controller.event(other, 'repair_started', failure_sha256='f' * 64)
+        self.assertFalse(source.eligible(other, bind(bound), report))  # a different repair is not
         self.assertFalse(source.eligible(state, bind({**bound, 'agent_id': 'someone-else'}), report))
         self.assertFalse(source.eligible(state, bind({**bound, 'reservation_event_index': index - 1}), report))
         rejected = self.root / 'recurrence-revise.json'
