@@ -418,6 +418,14 @@
       "note": "fresh source validation of pivoted script line 2 (source-pivot repair 12)",
       "resource": "validator_agents",
       "to": 3
+    },
+    {
+      "at": "2026-11-07T06:35:57.094712Z",
+      "ceiling": 10,
+      "from": 8,
+      "note": "corrective reboard after accepted begin-repair",
+      "resource": "reboards",
+      "to": 9
     }
   ],
   "events": [
@@ -4027,6 +4035,27 @@
           "sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f"
         }
       }
+    },
+    {
+      "at": "2026-11-07T06:35:57.094743Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "corrective reboard after accepted begin-repair",
+      "now": 9,
+      "resource": "reboards",
+      "was": 8
+    },
+    {
+      "at": "2026-11-07T06:36:00.364939Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "corrective reboard after accepted begin-repair",
+      "preflight_identity": null,
+      "publication_epoch": "82775364ca8842f1a8a815a9a3ef7f25",
+      "publication_owner_sha256": "8cb65c5eb5b90ee04a511b540a0cce40420cc3789ef7c1d09cbc8351e1b80fc0",
+      "resources": {
+        "reboards": 1
+      }
     }
   ],
   "limits": {
@@ -4036,7 +4065,7 @@
     "image_generations": 2,
     "panel_rounds": 1,
     "preflight_renders": 21,
-    "reboards": 8,
+    "reboards": 9,
     "reported_tokens": 250000,
     "rescue_renders": 1,
     "research_agents": 3,
@@ -4050,7 +4079,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "d90e04093972a65a4cb602bf270a7872394e2c03dcda79a804ed7c586bbb2733",
+    "original_private_state_sha256": "bdff98b43946fa5dab07428fa217ff486c15912660e74b25fb9d6debf32f99f9",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -4078,7 +4107,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-07T06:35:45.492198Z",
+  "updated_at": "2026-11-07T06:36:00.364956Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
@@ -4086,7 +4115,7 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 21,
-    "reboards": 8,
+    "reboards": 9,
     "reported_tokens": 32169,
     "rescue_renders": 0,
     "research_agents": 1,
