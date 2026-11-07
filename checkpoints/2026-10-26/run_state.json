@@ -1,29 +1,4 @@
 {
-  "active_repair": {
-    "baselines": [
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round13/StationHandoverScene.tsx",
-        "before_sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round13/OrderHandoverFilm.tsx",
-        "before_sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee",
-        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx"
-      },
-      {
-        "before_path": "{REPO}/out/dispatch/baselines/round13/storyboard.json",
-        "before_sha256": "7bbef487b88d2cb944cb75db532741549fcd8f8b6d77324c6f1d757b0ad4f165",
-        "path": "{REPO}/out/dispatch/storyboard.json"
-      }
-    ],
-    "failure_sha256": "0e6752a4c65de5c9ca3c14f04a0c6614c51a860a723815c594cb4d1fac550ad3",
-    "plan": "{REPO}/out/dispatch/repair-plan-13.json",
-    "plan_sha256": "81b2acbe529c61bdee1b588b8c0f021cde1e12d4a739129dc93023a0038b6b73",
-    "progress_replacement_required": true,
-    "reboards_before": 8,
-    "repair_scope": "standard"
-  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -4056,6 +4031,83 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-11-07T07:11:15.507884Z",
+      "grants": {},
+      "kind": "repair_authorized",
+      "opening_reboard": {
+        "reservation_event_index": 191,
+        "reservation_sha256": "6ed785252b24eef2c1bf247ad4705cc3c689e4728da67bb0958a3de3d7126089",
+        "start_event_index": 189
+      },
+      "repair_plan": {
+        "changed_inputs": [
+          {
+            "after_sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074",
+            "before_path": "{REPO}/out/dispatch/baselines/round13/StationHandoverScene.tsx",
+            "before_sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx"
+          },
+          {
+            "after_sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee",
+            "before_path": "{REPO}/out/dispatch/baselines/round13/OrderHandoverFilm.tsx",
+            "before_sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx"
+          },
+          {
+            "after_sha256": "f4b5c23bd39735971f4ceaa69adf0455d4182d24da18185008b98d33db7d3f2d",
+            "before_path": "{REPO}/out/dispatch/baselines/round13/storyboard.json",
+            "before_sha256": "7bbef487b88d2cb944cb75db532741549fcd8f8b6d77324c6f1d757b0ad4f165",
+            "path": "{REPO}/out/dispatch/storyboard.json"
+          }
+        ],
+        "director_identity": "claude-sonnet-5-5 director, this session",
+        "expected_visible_result": "With captions covered a viewer sees the same host stand in a closed room, the apron on its hook from s1 into s2, the dark panel light and write Haniya inside the first sentence, then the ringing desk phone stop and its line lamp go steady as answered inside the second sentence, with no hand, drawer, sign, clock or job listing.",
+        "failure_evidence": "{REPO}/out/dispatch/code-review-11-report.json",
+        "failure_evidence_sha256": "0e6752a4c65de5c9ca3c14f04a0c6614c51a860a723815c594cb4d1fac550ad3",
+        "failure_family": "source-framing",
+        "mechanism_change": "The performed human handover (FamilyArm, drawer, carried apron and panel) is removed and replaced by a limb-free state change on the objects already standing in the room, following the independently approved source-pivot line.",
+        "mechanism_id": "order-pass-s2-closed-room-answered-phone-v1",
+        "pivot_review": {
+          "path": "{REPO}/out/dispatch/recurrence-pivot-review-12-final.json",
+          "sha256": "e3211839a7be6ba962cad93c1dc1cad2ea9a1bcb52ec92007f4a0aea9671a36f"
+        },
+        "repair": "Replace the s2 handover with a limb-free closed-room state change. The standing host panel wakes and writes Haniya beside the apron that stays on its hook, then the ringing desk phone goes quiet and its line lamp holds steady as answered. No hand, arm, drawer, carried apron or panel, sign, clock or listing. The last s1 shot passes the apron to the host stand so it stays on its hook. Rebuild the s2 events, proof, beats and bridge to match.",
+        "repair_scope": "standard",
+        "resources": {
+          "reboards": 1
+        },
+        "retained_replacement": {
+          "kind": "whole-scene-replacement",
+          "replacement_paths": [
+            "{REPO}/video-engine/src/modern/episodes/2026-10-26/ClosedRoomAnsweredPhoneScene.tsx",
+            "{REPO}/video-engine/src/modern/episodes/2026-10-26/ClosedRoomFilm.tsx"
+          ],
+          "retired_inputs": [
+            {
+              "before_path": "{REPO}/out/dispatch/baselines/round13/StationHandoverScene.tsx",
+              "before_sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074",
+              "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx"
+            },
+            {
+              "before_path": "{REPO}/out/dispatch/baselines/round13/OrderHandoverFilm.tsx",
+              "before_sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee",
+              "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx"
+            }
+          ],
+          "schema": "dispatch_retained_scene_replacement/1",
+          "source_evidence": {
+            "path": "{REPO}/out/dispatch/claims.json",
+            "sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f"
+          }
+        },
+        "root_cause": "Selected B's s2 asks a body-less restaged arm to perform a human handover, and the apron vanishes from its hook across the s1 to s2 cut. The source pivot changed the spoken clause so that no human act is claimed."
+      },
+      "repair_plan_sha256": "5cd0f0546640c0a2bac350082e40aadacd1f519409ee4c4add2b82d72dd8e833",
+      "repair_revision": "143703e9a27d874192c783a714ebfd9266944cef18ecee774245d760d52664e6",
+      "repair_scope": "standard",
+      "resource": "repair_batch"
     }
   ],
   "limits": {
@@ -4079,7 +4131,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "bdff98b43946fa5dab07428fa217ff486c15912660e74b25fb9d6debf32f99f9",
+    "original_private_state_sha256": "a117d5f1531bc41261a29f836642cc897f760dc2ad46521c193188a2c47d50b9",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -4107,7 +4159,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-07T06:36:00.364956Z",
+  "updated_at": "2026-11-07T07:11:15.507905Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
