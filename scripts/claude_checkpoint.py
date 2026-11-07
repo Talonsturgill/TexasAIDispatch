@@ -292,10 +292,7 @@ def stored_bytes(repo, rel):
     """What is written to the checkpoint for a file. A ledger copy is sanitized like the ledger."""
     path = Path(repo) / rel
     if path.name == "run_state.json":
-        value = json.loads(path.read_text())
-        if isinstance(value, dict) and isinstance(value.get("events"), list):
-            return ledger_text(value, repo).encode()
-        # An archived selection marker is not a production ledger and has nothing to project.
+        return ledger_text(json.loads(path.read_text()), repo).encode()
     return path.read_bytes()
 
 
