@@ -1,4 +1,29 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round12/vo_script.txt",
+        "before_sha256": "7edfa737244230ed25a96ed1be7e207422eb8005938af86b8f4d02b7a4d03d98",
+        "path": "{REPO}/out/dispatch/vo_script.txt"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round12/storyboard.json",
+        "before_sha256": "773b154aa2609b2fe29df20100b9c01a2ae580775e269e9439697be8f4c3eb62",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round12/vo_direction.json",
+        "before_sha256": "cbfb466656832f5640d4ee3906116b2f451508b72a3fa5d13ac38e42b581d2cc",
+        "path": "{REPO}/out/dispatch/vo_direction.json"
+      }
+    ],
+    "failure_sha256": "a87cfb2975c2676a6f80d2f2f63d38dfabefe9a683bc065f25754e70f844a6a9",
+    "plan": "{REPO}/out/dispatch/repair-plan-12-source-begin.json",
+    "plan_sha256": "b28ec45d2a4f218bf4507c9565fd1d7d1b53ca975e0ebbc55712ffc8775faffb",
+    "progress_replacement_required": true,
+    "reboards_before": 7,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -3625,6 +3650,47 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-11-07T05:37:33.160337Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round12/vo_script.txt",
+          "before_sha256": "7edfa737244230ed25a96ed1be7e207422eb8005938af86b8f4d02b7a4d03d98",
+          "path": "{REPO}/out/dispatch/vo_script.txt"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round12/storyboard.json",
+          "before_sha256": "773b154aa2609b2fe29df20100b9c01a2ae580775e269e9439697be8f4c3eb62",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round12/vo_direction.json",
+          "before_sha256": "cbfb466656832f5640d4ee3906116b2f451508b72a3fa5d13ac38e42b581d2cc",
+          "path": "{REPO}/out/dispatch/vo_direction.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "source-framing",
+      "failure_sha256": "a87cfb2975c2676a6f80d2f2f63d38dfabefe9a683bc065f25754e70f844a6a9",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 20,
+          "to": 20
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "order-pass-s2-closed-room-answered-phone-v1",
+      "plan_identity": null,
+      "plan_sha256": "b28ec45d2a4f218bf4507c9565fd1d7d1b53ca975e0ebbc55712ffc8775faffb",
+      "progress_replacement_required": true,
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -3648,7 +3714,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "ffa59d05f992a3ec60d7df98178e693c6456bcb6bb01ce3ca728916875337d7d",
+    "original_private_state_sha256": "72e0f82f9cdca919015c1f46b14416a7bd58b7f6a74f028e318b88e7ef2d99ee",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3676,7 +3742,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-07T05:19:49.968888Z",
+  "updated_at": "2026-11-07T05:37:33.160360Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,
