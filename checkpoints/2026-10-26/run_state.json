@@ -1,4 +1,29 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round13/StationHandoverScene.tsx",
+        "before_sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round13/OrderHandoverFilm.tsx",
+        "before_sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx"
+      },
+      {
+        "before_path": "{REPO}/out/dispatch/baselines/round13/storyboard.json",
+        "before_sha256": "7bbef487b88d2cb944cb75db532741549fcd8f8b6d77324c6f1d757b0ad4f165",
+        "path": "{REPO}/out/dispatch/storyboard.json"
+      }
+    ],
+    "failure_sha256": "0e6752a4c65de5c9ca3c14f04a0c6614c51a860a723815c594cb4d1fac550ad3",
+    "plan": "{REPO}/out/dispatch/repair-plan-13.json",
+    "plan_sha256": "81b2acbe529c61bdee1b588b8c0f021cde1e12d4a739129dc93023a0038b6b73",
+    "progress_replacement_required": true,
+    "reboards_before": 8,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-10-26T07:17:34.391615Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -3937,6 +3962,71 @@
       "resources": {
         "validator_agents": 1
       }
+    },
+    {
+      "at": "2026-11-07T06:35:45.492176Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round13/StationHandoverScene.tsx",
+          "before_sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round13/OrderHandoverFilm.tsx",
+          "before_sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx"
+        },
+        {
+          "before_path": "{REPO}/out/dispatch/baselines/round13/storyboard.json",
+          "before_sha256": "7bbef487b88d2cb944cb75db532741549fcd8f8b6d77324c6f1d757b0ad4f165",
+          "path": "{REPO}/out/dispatch/storyboard.json"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director, this session",
+      "failure_family": "source-framing",
+      "failure_sha256": "0e6752a4c65de5c9ca3c14f04a0c6614c51a860a723815c594cb4d1fac550ad3",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 20,
+          "to": 20
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "order-pass-s2-closed-room-answered-phone-v1",
+      "plan_identity": null,
+      "plan_sha256": "81b2acbe529c61bdee1b588b8c0f021cde1e12d4a739129dc93023a0038b6b73",
+      "progress_replacement_required": true,
+      "repair_scope": "standard",
+      "retained_replacement": {
+        "kind": "whole-scene-replacement",
+        "replacement_paths": [
+          "{REPO}/video-engine/src/modern/episodes/2026-10-26/ClosedRoomAnsweredPhoneScene.tsx",
+          "{REPO}/video-engine/src/modern/episodes/2026-10-26/ClosedRoomFilm.tsx"
+        ],
+        "retired_inputs": [
+          {
+            "before_path": "{REPO}/out/dispatch/baselines/round13/StationHandoverScene.tsx",
+            "before_sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx"
+          },
+          {
+            "before_path": "{REPO}/out/dispatch/baselines/round13/OrderHandoverFilm.tsx",
+            "before_sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee",
+            "path": "{REPO}/video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx"
+          }
+        ],
+        "schema": "dispatch_retained_scene_replacement/1",
+        "source_evidence": {
+          "path": "{REPO}/out/dispatch/claims.json",
+          "sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f"
+        }
+      }
     }
   ],
   "limits": {
@@ -3960,7 +4050,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "4eb11c7d2b240583373b772da1525a882cde53448203666bdd2e2ad9e2666341",
+    "original_private_state_sha256": "d90e04093972a65a4cb602bf270a7872394e2c03dcda79a804ed7c586bbb2733",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -3988,7 +4078,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-07T06:28:32.195205Z",
+  "updated_at": "2026-11-07T06:35:45.492198Z",
   "usage": {
     "audiovisual_reviews": 1,
     "cleanup_renders": 0,

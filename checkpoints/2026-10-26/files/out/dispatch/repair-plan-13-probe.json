@@ -1,0 +1,31 @@
+{
+  "root_cause": "Selected B's restaged s2 draws the family member as a body-less sleeve with an in-frame shoulder and contacts beyond reach (reachArm silently clamps), and the apron is missing from its hook in the last s1 shots (table-wait B, blank-pad-tables A), so the admitted source-backed handover construction is not continuous or physically believable.",
+  "repair": "Draw the family member as a complete figure at the stand (or move the shoulder fully off frame and reposition the stand so every contact is reachable), make reachArm throw on an unreachable target, end shot 1 with the hand on a real surface or leaving frame, pass the apron angle to hostStand in the last s1 shots so the apron stays on its hook, and draw the lowering apron in front of the pad and phone.",
+  "mechanism_change": "Execution correction inside the admitted order-pass-s2-station-handover-v1 construction: a built body with a driven jointed arm replaces the sleeve, an unreachable contact becomes a build error, and apron state is conserved across s1 to s2.",
+  "expected_visible_result": "With captions covered a viewer sees a whole person at the stand lift the apron from its hook into the drawer and set the Haniya panel, the apron present on its hook in the last s1 shot, and the desk phone answered.",
+  "failure_evidence": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/code-review-11-report.json",
+  "failure_evidence_sha256": "0e6752a4c65de5c9ca3c14f04a0c6614c51a860a723815c594cb4d1fac550ad3",
+  "repair_scope": "standard",
+  "mechanism_id": "order-pass-s2-closed-room-answered-phone-v1",
+  "failure_family": "source-framing",
+  "director_identity": "claude-sonnet-5-5 director, this session",
+  "changed_inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/StationHandoverScene.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round11/StationHandoverScene.tsx",
+      "before_sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/video-engine/src/modern/episodes/2026-10-26/OrderHandoverFilm.tsx",
+      "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round11/OrderHandoverFilm.tsx",
+      "before_sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee"
+    }
+  ],
+  "resources": {
+    "reboards": 1
+  },
+  "pivot_review": {
+    "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/recurrence-pivot-review-12.json",
+    "sha256": "36d59eec95fae7af03a66f36c8f71717c22e7cc2161717941f66cd1cc94a51d0"
+  }
+}

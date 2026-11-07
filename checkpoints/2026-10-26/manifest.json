@@ -1,7 +1,7 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-10-26",
-  "saved_at": "2026-11-07T06:28:34.343902+00:00",
+  "saved_at": "2026-11-07T06:35:49.577657+00:00",
   "note": "ledger write",
   "phase": "active_repair",
   "terminal_state": null,
@@ -16,8 +16,8 @@
     "sha256": "c6c144abe7343349b7cc8b7b764791631aef8b72c9776ef9f3ded43aa98a71d7"
   },
   "deleted_source": [],
-  "ledger_sha256": "344916833e255ab1044917c627ecd62751d6c8c3b117bc022f0200449557cb64",
-  "original_private_ledger_sha256": "4eb11c7d2b240583373b772da1525a882cde53448203666bdd2e2ad9e2666341",
+  "ledger_sha256": "3989853f4ed9ebc59b7dda719f5a8ed70112360c6f04fa1195455e19399e6864",
+  "original_private_ledger_sha256": "d90e04093972a65a4cb602bf270a7872394e2c03dcda79a804ed7c586bbb2733",
   "grant_origin_roots": [
     {
       "event_index": 122,
@@ -66,8 +66,8 @@
     {
       "path": "out/dispatch/WORKLOG.md",
       "class": "scratch",
-      "sha256": "d8b48a7abd66a1d09c5e70ac0616bfe4f8f5b2872271994d2535a68026a779e5",
-      "size": 30571
+      "sha256": "884a1fa2d8fa0111d033f548cab6a73d2b849b3db89d1c4fefacf47dc205c4bb",
+      "size": 30837
     },
     {
       "path": "out/dispatch/acoustic-asr-meta.json",
@@ -358,6 +358,12 @@
       "size": 185417
     },
     {
+      "path": "out/dispatch/baselines/round12/vo_bindings.json",
+      "class": "scratch",
+      "sha256": "1b06159b7bd8c10dac13efe009b11446aa29bdec93c5d1dd14d20a3179320768",
+      "size": 1550
+    },
+    {
       "path": "out/dispatch/baselines/round12/vo_direction.json",
       "class": "scratch",
       "sha256": "cbfb466656832f5640d4ee3906116b2f451508b72a3fa5d13ac38e42b581d2cc",
@@ -368,6 +374,24 @@
       "class": "scratch",
       "sha256": "7edfa737244230ed25a96ed1be7e207422eb8005938af86b8f4d02b7a4d03d98",
       "size": 741
+    },
+    {
+      "path": "out/dispatch/baselines/round13/OrderHandoverFilm.tsx",
+      "class": "scratch",
+      "sha256": "2a6fa1258fba752b2d77f5342be052cb2094e9d66b85f6b300c6d878743374ee",
+      "size": 89623
+    },
+    {
+      "path": "out/dispatch/baselines/round13/StationHandoverScene.tsx",
+      "class": "scratch",
+      "sha256": "330676fbcbda638022acc5d204ce404da454c20d503db4ef5d09f324144a3074",
+      "size": 29613
+    },
+    {
+      "path": "out/dispatch/baselines/round13/storyboard.json",
+      "class": "scratch",
+      "sha256": "7bbef487b88d2cb944cb75db532741549fcd8f8b6d77324c6f1d757b0ad4f165",
+      "size": 209312
     },
     {
       "path": "out/dispatch/baselines/round2/OrderPassFilm.tsx",
@@ -8554,6 +8578,12 @@
       "size": 1029
     },
     {
+      "path": "out/dispatch/evidence/validation-before-pivot-12.json",
+      "class": "scratch",
+      "sha256": "e824492a3647d3be2ab8f743a447a800d7745a792f36f61b15d48d10738eb82a",
+      "size": 4140
+    },
+    {
       "path": "out/dispatch/evidence/vo-soundcheck-1.log",
       "class": "scratch",
       "sha256": "aaf933ee7a9e30f9f07a84ed1a565f1dc40acda5108edf710354d250af17e72c",
@@ -13822,6 +13852,12 @@
       "size": 410718
     },
     {
+      "path": "out/dispatch/proposals/retained-replacement-13.json",
+      "class": "scratch",
+      "sha256": "5779e117ba26f2de1a2226f33bef0ed8dcad530639426c19cc028b281158180a",
+      "size": 1374
+    },
+    {
       "path": "out/dispatch/proposals/source-pivot-12/vo_script.proposed.txt",
       "class": "scratch",
       "sha256": "714677ec47903fd3359d2c70420d6d98cfcf748ad476150c2e6d26be379990c6",
@@ -13876,6 +13912,18 @@
       "size": 410
     },
     {
+      "path": "out/dispatch/recurrence-pivot-review-12-final.json",
+      "class": "scratch",
+      "sha256": "e3211839a7be6ba962cad93c1dc1cad2ea9a1bcb52ec92007f4a0aea9671a36f",
+      "size": 8842
+    },
+    {
+      "path": "out/dispatch/recurrence-pivot-review-12-replacement.json",
+      "class": "scratch",
+      "sha256": "40ec60b59595ebc82fcdb83fe939c2e54570e0f93230e6fcb1e54f51807bbe72",
+      "size": 8775
+    },
+    {
       "path": "out/dispatch/recurrence-pivot-review-12.json",
       "class": "scratch",
       "sha256": "36d59eec95fae7af03a66f36c8f71717c22e7cc2161717941f66cd1cc94a51d0",
@@ -13922,6 +13970,18 @@
       "class": "scratch",
       "sha256": "c848e0de0b3cdd37853468a01e108497c2b5065e86b79c285a8eb7ade2a0c4ca",
       "size": 2904
+    },
+    {
+      "path": "out/dispatch/repair-plan-13-probe.json",
+      "class": "scratch",
+      "sha256": "4b4d714cfafbea0333d7f20b9a38747757246fa6b0fb39f47ca6134e58b5921d",
+      "size": 2759
+    },
+    {
+      "path": "out/dispatch/repair-plan-13.json",
+      "class": "scratch",
+      "sha256": "81b2acbe529c61bdee1b588b8c0f021cde1e12d4a739129dc93023a0038b6b73",
+      "size": 4553
     },
     {
       "path": "out/dispatch/repair-plan-2.json",
@@ -20680,6 +20740,18 @@
       "size": 10049
     },
     {
+      "path": "out/dispatch/source-validation-call.json",
+      "class": "scratch",
+      "sha256": "47cf6fcf6dedb0a3765e9ffc785f525f3c288b3dcdc7d827dc7d0ff94b7a23b8",
+      "size": 781
+    },
+    {
+      "path": "out/dispatch/source-validation-certificate.json",
+      "class": "scratch",
+      "sha256": "09c259da73cbf84b84e7c4b42bc60209d4e439965ff623f5b9abdf276797b37c",
+      "size": 946
+    },
+    {
       "path": "out/dispatch/sources/c2h.html",
       "class": "scratch",
       "sha256": "0a26b300b3c806276adb21c6c9d9682cf0641adb7e53f872cc98cf9a44b84f2d",
@@ -20988,8 +21060,8 @@
     {
       "path": "out/dispatch/validation.json",
       "class": "scratch",
-      "sha256": "e824492a3647d3be2ab8f743a447a800d7745a792f36f61b15d48d10738eb82a",
-      "size": 4140
+      "sha256": "986f2e53b26211c6165654dde8cc4b4e51000417f890e0cf8377c9f35ec51de3",
+      "size": 6791
     },
     {
       "path": "out/dispatch/validator-assignment-2.json",
@@ -28902,8 +28974,8 @@
     {
       "path": "out/dispatch/vo_bindings.json",
       "class": "scratch",
-      "sha256": "1b06159b7bd8c10dac13efe009b11446aa29bdec93c5d1dd14d20a3179320768",
-      "size": 1550
+      "sha256": "b70d279594395b038f2be13116a3af619d3aaec3300f5afb733935ac0dafe36d",
+      "size": 1794
     },
     {
       "path": "out/dispatch/vo_direction.draft.json",
@@ -29093,9 +29165,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 585801486,
-    "unique_blob_bytes": 340282386,
-    "unique_blobs": 3179
+    "logical_bytes": 586166915,
+    "unique_blob_bytes": 340319267,
+    "unique_blobs": 3188
   },
   "excluded": [
     {
