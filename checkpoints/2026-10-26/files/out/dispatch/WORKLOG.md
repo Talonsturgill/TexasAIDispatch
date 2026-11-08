@@ -126,3 +126,4 @@ NEXT (in order): 1) critic packet WITH code_report_bindings: critic-packet-12.js
 ## 2026-11-08 resume (Sonnet, standing capacity)
 Acquired publisher (epoch d19f3209), restored 10-26 (checkpoint 8fffedce), main c229c2ea. bind-only/env_check ok.
 2026-11-08: docket main red (staleness ~230 items, robots/PDF) - notified owner, film work continues. Built critic-packet-13 (adapt_packet+compact), reserved critic 18/18 (ev next), dispatched code review 12 agent a6ac915620303735b, assignment critic-assignment-13.json. Next: collect handback -> critic_gate; then comparison (critic 19), timed phone (20).
+2026-11-08: code review 12 (critic 18) returned: B PASS, A REVISE (archived). saved code-review-12-report.json; opening-a/b-critic.json updated (old kept as -review11); critic_gate b exit0, a exit1. Next: opening_compare capture authorize.

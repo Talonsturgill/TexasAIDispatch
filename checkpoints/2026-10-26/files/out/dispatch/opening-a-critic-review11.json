@@ -1,0 +1,52 @@
+{
+ "treatment": "a",
+ "review_scope": "code-plan",
+ "board": {
+  "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-a.json",
+  "sha256": "d640da4f9bf73ba9264f6f7ffb2fe2ebca561cc870475b4a7ad38e5fa27ecce6"
+ },
+ "concept_sha256": "8425d2cced7d7d707993dc57705b679dfa2cdad6661445adee99d5f387378afd",
+ "renderer_sha256": "a5bcc689783195eb138c6e187a1960d595d22a450010b52d6eba39d5ffa8eaec",
+ "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+ "reviewer_identity": "claude-opus-5-5 storyboard-critic, isolated Read-only code-plan reviewer for critic packet 7 (same worker, coverage completion), distinct from the claude-sonnet-5-5 director",
+ "reviewed_at": "2026-10-30",
+ "verdict": "revise",
+ "blocking_defects": [
+  {
+   "category": "motion",
+   "scene_id": "s3",
+   "time_s": 20.25,
+   "failed_criterion": "quality_contract contact_and_consequence ('objects have visible support and continuous identity') and continuity, plus the brief's rejection of unmotivated disappearance.",
+   "defect": "In A's menu-tap and pay-mark views (opening-a s3-shot-2, 19.05 to 21.30 s, and s3-shot-3, 21.30 to 23.55 s), OrderPassFilm.tsx draws the tapping hand only while `S.s3.tapGo>0&&S.s3.tapBack<1` (and `payGo>0&&payBack<1`). tapBack is ease5((r3-.74)/.26), so it reaches exactly 1 at the end of s3-event-3, at 15.54+3.51+1.2 = 20.25 s. At that frame the hand rests at its eased `away` point, contact + (300,420)*fs. For menu-tap:a (phone at 520,760, scale 1.5, Chow mein contact at about 547,631, fs 1.3) that point is about (937,1177), on screen. The fingertip, the finger shaft (about 200 px) and the left part of the 1.3x hand then vanish in a single frame, about 1.05 s before the cut. pay-mark:a repeats the construction. Its away point is about (841,1345) at fs 1, and most of the on-screen hand vanishes at the s3-event-4 end, 22.695 s, about 0.85 s before the cut. The guest's order and pay actions, the only human ordering actions in the film, therefore end in a pop instead of the hand leaving frame. B is not affected: B's menu-tap keeps the jointed arm drawn throughout, and B's paid-close away point is about (1239,1579), off frame. Correction, if A were ever repaired: carry the away point fully off frame, or keep the hand drawn through the cut."
+  }
+ ],
+ "strongest_frame": "s4 printer-idle into paid-line, 23.55 to 25.813 s. The printer stands idle beside an empty, unlit wok (wokCold: flame 0, so Wok draws no tongues, and food 0, so no noodles). The paid mark travels its dashed line into a printer at scale 1.3. orderState puts the arrival at 24.603+0.97*0.945 = 25.52 s and the lamp's answer at 25.52 to 25.64 s, both inside this shot and about 0.29 s before the cut. This repairs the round-1 pacing and source defects in A's construction.",
+ "weakest_frame": "s3 menu-tap and pay-mark, 19.05 to 23.55 s. The tapping hand pops out of existence on screen at 20.25 s and 22.695 s (blocking defect above). Secondarily, the s4 ticket-print detail lasts 0.697 s (25.813 to 26.51 s), and the ticket completes at about 26.36 s, leaving about a 0.15 s solo hold before the wok-flare wide. The ticket stays visible there, but at printer scale 0.78.",
+ "notes": [
+  "Round-1 retained defects, rechecked against the current A code. Pay-first: the wok is empty and unlit before payment. Ingredients enter from the cook's bowl, and the flame rises only within s4-event-4 (wokNow). The toss comes from the cook's hand shaking the pan after the event. Repaired. Arrival and lamp sit inside paid-line. Repaired. Served food: tableGroup, Plate and TableTop default to 'none', which draws a napkin and chopsticks, not food. Repaired. Gliding figure: removed, with the door, bell and apron carrying the walkout, as round 1 allowed. Repaired.",
+  "A's archived phone-selection weaknesses were comparative selection reasons, not blocking defects: no visible walkout, a small ledger in a dark desk frame, the pen over the rule text, a thin s9 quote frame, and the final tag near the panel pole. Current geometry puts the jar-no-record 'no record shown' tag at about x 479 to 829, clear of the panel pole at about x 218 to 242. Phone pixels would have to confirm that. All of these stay in the archive unchanged.",
+  "Continuity note (not blocking): viewfinder-hunt:a ends with the phone upright in the hand at about (600,1330). The quote-card:a medium then shows the phone lying flat at (150,1020) with no hand. The cut and framing change cover the move. B's version keeps the same hand on the same phone.",
+  "A's film_direction opening_promise reads 'Watch a server leave', but the renderer deliberately draws no departing figure. That is a prose promise, not a fixed criterion.",
+  "Shared, non-blocking board and registry housekeeping is listed in B's notes and applies to A too.",
+  "Treatment A is the unselected diagnostic alternative. This finding is recorded honestly and is not a work order to keep repairing A.",
+  "Code scope only. This report makes no pixel, motion, legibility or finish observation and approves no film."
+ ],
+ "story_review": {
+  "story_sha256": "bcafbe35bd96c84a42d44fe0e2c02340b06edd5e0758b5c3a8bbf317fb5cf770",
+  "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+  "claims_sha256": "c08c157a1df2e99df7c71e7f4ff1ec4cbcf3769e3e52e033c8e73300d6ab3d6f",
+  "verdict": "revise",
+  "blocking_defects": [
+   {
+    "category": "motion",
+    "scene_id": "s3",
+    "time_s": 20.25,
+    "defect": "The guest's tapping hand vanishes on screen at the end of s3-event-3 (20.25 s) and again at the end of s3-event-4 (22.695 s), while each shot continues. The tap and pay actions end in an unmotivated disappearance (contact_and_consequence, continuity)."
+   }
+  ],
+  "one_viewing_summary": "Intended chain from the code at counter level. The storefront door swings shut with its bell, the apron swings on the stand hook, and the desk phone rings unanswered while two tables wait with empty plates and a guest raises a hand. An empty sign frame hangs on the glass. The host panel lights and writes Haniya, and an AI host tag hooks on. A hand lifts the phone over the table code, the brackets lock and the menu opens. A fingertip taps Chow mein and then Pay, which becomes the paid mark. The mark travels into the idle printer, the lamp turns red, and the ticket rises and hangs. Only then a cook pours noodles into the wok as the flame flares. A ledger card headed 'Saving or winning back' takes the $9,650 a month tag and an OWNER COUNT stamp beside a clip that snaps shut on nothing. Coins arc into the jar at the pass under a FOX 26 tag. The rule card's 'include cooks' line lights and is circled, and the restaurant folder's 'Takes no tip credit?' box stays blank under a question mark. A hand raises the phone, hesitates and lowers it beside a customer quote card. The panel takes an order and a slip drops into the printer. The jar ends under owner says and no record shown tags.",
+  "opening_to_ending": "It opens on an unattended station that asks who takes the order. It ends with the panel taking the order and the jar under two tags, answering that software takes the order and the tip rests on the owner's word, without inventing an outcome.",
+  "weakest_transition": "s8 to s9 (49.4 s). The cut goes from the blank tip-credit box in the folder to a hand hesitating at a table code, so the thread moves from the money limit to ordering friction with no carried object. The close then returns to the jar."
+ },
+ "action_reviews": []
+}
