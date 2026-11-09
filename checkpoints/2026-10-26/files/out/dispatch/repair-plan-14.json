@@ -1,0 +1,32 @@
+{
+ "root_cause": "The s2-apron-hook board text label carries the digit s1 ('unchanged from s1 through the whole scene'), which the supers check reads as an unsourced figure and which refuses the opening capture for both treatments before any reservation.",
+ "repair": "Reword the s2-apron-hook label in storyboard.json, opening-a.json and opening-b.json to plain words with no numeral. Nothing else changes: no renderer, script, timing, claim or other board field.",
+ "mechanism_change": "Board text label wording only. The drawn apron, hook and every action are unchanged.",
+ "expected_visible_result": "The picture is unchanged. The label only describes the apron on its hook in plain words so the evidence check accepts the board.",
+ "failure_evidence": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/code-review-12-report.json",
+ "failure_evidence_sha256": "0455d17cbdd351681a1133f80db7810028f11d9bef56e46d08ba4bfab44afeef",
+ "repair_scope": "standard",
+ "mechanism_id": "board-label-no-numeral-v1",
+ "failure_family": "board-text-evidence",
+ "director_identity": "claude-sonnet-5-5 director, this session",
+ "changed_inputs": [
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/storyboard.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round14/storyboard.json",
+   "before_sha256": "24b8b2cc98dd34767b4d9560fad52005f561cf941279611179ae9ba1a23b930e"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-a.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round14/opening-a.json",
+   "before_sha256": "da1a155b759c9229a91b1f181de57433f5b9f08ea8d9922c6f3bd3840a82213b"
+  },
+  {
+   "path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/opening-b.json",
+   "before_path": "/home/user/dispatch-editions/2026-10-26/TexasAIDispatch/out/dispatch/baselines/round14/opening-b.json",
+   "before_sha256": "24b8b2cc98dd34767b4d9560fad52005f561cf941279611179ae9ba1a23b930e"
+  }
+ ],
+ "resources": {
+  "reboards": 1
+ }
+}
