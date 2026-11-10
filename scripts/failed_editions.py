@@ -196,9 +196,12 @@ def verified(repo, run_id, record=None, *, checkpoint_commit=None):
     proof = historical_proof(repo, run_id, record or {})
     if proof is None:
         return None
-    closure.require(isinstance(proof, dict) and proof.get('schema') == SCHEMA
+    from cancelled_editions import SCHEMA as CANCELLED_SCHEMA, verify as verify_cancelled
+    closure.require(isinstance(proof, dict) and proof.get('schema') in (SCHEMA, CANCELLED_SCHEMA)
                     and proof.get('run_id') == run_id, 'failed-edition disposition is malformed')
     def check(commit):
+        if proof.get('schema') == CANCELLED_SCHEMA:
+            return verify_cancelled(repo, commit, run_id, proof)
         # Old catalog history cannot discard a genuinely newer paid checkpoint.
         if commit != proof.get('checkpoint') and run_id not in (record or {}).get(FIELD, {}):
             return None
@@ -216,7 +219,8 @@ def verified(repo, run_id, record=None, *, checkpoint_commit=None):
 
 def matches_state(proof, state):
     """Match the retained ledger; only truthful closure and retrospective accounting may follow."""
-    if (not isinstance(proof, dict) or proof.get('schema') != SCHEMA
+    from cancelled_editions import SCHEMA as CANCELLED_SCHEMA
+    if (not isinstance(proof, dict) or proof.get('schema') not in (SCHEMA, CANCELLED_SCHEMA)
             or proof.get('run_id') != state.get('run_id') or state.get('mode') != 'production'
             or state.get('terminal_state') or state.get('shipment')):
         return False
