@@ -1,0 +1,5 @@
+Edition 2026-11-10 builder-proof capture, source 57dd1b8c, authorized command (second authorization, after recorded retry-preflight):
+bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --builder-proof
+Result (verbatim): SymbolicateableError: Picture cut leaves its active spoken clause at DirectedFilm, frame 257.
+opening comparison refused: render-batch.mjs openings/batch.json returned non-zero exit status 1.
+Diagnosis: shot s2-shot-2 (narration n2b) ends at 8.58s and s2-shot-3 begins there in both treatments. DirectedFilm rounds shot starts to frames (round(8.58*30)=257, time 8.5667s) while clause n2b stays active until the exact 8.58s, so frame 257 shows shot-3 under active clause n2b. Planning cut times (and 2-decimal clause boundaries) are not frame aligned. No frame was produced; openings/ holds only a.json, b.json, batch.json and a bounded temp directory.
