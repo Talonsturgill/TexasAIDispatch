@@ -35,6 +35,8 @@ export const hashS=(i:number)=>{const x=Math.sin(i*57.3+211.9)*43758.5453;return
 const ACCENT_LIGHT='#F8DCC4',PAPER_SHADE='#E2D7C0',DESK={top:'#7F9A97',lit:'#9CB4B0',edge:'#3A5256',face:'#2C4246'};
 
 export const DESK_Y={back:884,front:1236,lip:1262};
+/** The accent laid over warm paper at a given strength, as one opaque colour: a lit tag is never see-through. */
+export function mixAccent(a:number){const k=clamp(a),P=[244,238,224],A=[224,123,46];return P.map((v,i)=>Math.round(v+(A[i]-v)*k)).join(',');}
 
 const Txt:React.FC<{x:number;y:number;size:number;bold?:boolean;fill:string;anchor?:'start'|'middle'|'end';children:React.ReactNode;opacity?:number|string;italic?:boolean;display?:boolean}>=
  ({x,y,size,bold=false,fill,anchor='start',children,opacity=1,italic=false,display=false})=>
@@ -57,15 +59,17 @@ const Clip:React.FC<{pal:Pal;w?:number}>=({pal,w=26})=><g>
 </g>;
 
 /** A flat paper card with a dog-eared top right corner, its top left at the origin. */
+/** Every printed header on a card: large enough to read at 390 pixels in the widest shot that shows it. */
+export const HEADER_SIZE=26;
 const Card:React.FC<{pal:Pal;w:number;h:number;header?:string;title?:string[];titleSize?:number;marks?:number;seed?:number;children?:React.ReactNode;tint?:string}>=
  ({pal,w,h,header,title=[],titleSize=36,marks=2,seed=1,children,tint})=>{
- const dog=22,ty0=header?64:20;
+ const dog=22,ty0=header?70:20;
  return <g>
   <Shadow pal={pal} x={0} y={0} w={w} h={h}/>
   <path d={`M0 0H${w-dog}L${w} ${dog}V${h}H0Z`} fill={tint??pal.paper} stroke={pal.ink} strokeWidth={3} strokeLinejoin="round"/>
   <path d={`M${w-dog} 0V${dog}H${w}`} fill={PAPER_SHADE} stroke={pal.ink} strokeWidth={2.4} strokeLinejoin="round"/>
   <path d={`M3 4V${h-6}`} stroke="#ffffff" strokeOpacity={.55} strokeWidth={3}/>
-  {header&&<><Txt x={18} y={34} size={20} bold fill={pal.foreground}>{header}</Txt><path d={`M18 46H${w-40}`} stroke="#CDBFA4" strokeWidth={2}/></>}
+  {header&&<><Txt x={18} y={38} size={HEADER_SIZE} bold fill={pal.foreground}>{header}</Txt><path d={`M18 52H${w-40}`} stroke="#CDBFA4" strokeWidth={2}/></>}
   {title.map((l,i)=><Txt key={i} x={18} y={ty0+titleSize*(i+.85)} size={titleSize} bold fill={pal.ink}>{l}</Txt>)}
   {Array.from({length:marks}).map((_,i)=><Marks key={i} x0={18} x1={w-30-i*40} y={ty0+titleSize*title.length+22+i*24} h={10} seed={seed*7+i} fill={pal.ink} opacity={.42}/>)}
   {children}
@@ -85,19 +89,32 @@ const Tag:React.FC<{pal:Pal;lines:string[];size:number;tone?:'paper'|'accent'|'t
  </g>;
 };
 
-/** A rubber stamp impression, centred at the origin, landing as p goes 0 to 1. */
-const Stamp:React.FC<{pal:Pal;lines:string[];size:number;p:number;rot?:number}>=({pal,lines,size,p,rot=-6})=>{
+/** The size of a marked box, shared with the episode's bounds checks. */
+export function markSize(lines:string[],size:number){return {w:Math.max(...lines.map(l=>widthOf(l,size,true)))+34,h:lines.length*size*1.15+20};}
+/**
+ * A marked box, centred at the origin, drawn on as p goes 0 to 1: the burnt orange border is drawn
+ * round first, as a pen stroke, and the words are then written into it from the left. Nothing fades
+ * in, scales in or arrives before the stroke that makes it: every visible mark is the stroke so far.
+ */
+const Stamp:React.FC<{pal:Pal;lines:string[];size:number;p:number;rot?:number;id?:string}>=({pal,lines,size,p,rot=-6,id='m'})=>{
  if(p<=0)return null;
- const w=Math.max(...lines.map(l=>widthOf(l,size,true)))+34,h=lines.length*size*1.15+20,k=smooth(p);
- return <g transform={`rotate(${rot}) scale(${f2(1.3-.3*k)})`} opacity={f2(clamp(p*2.2)*.92)}>
-  <rect x={-w/2} y={-h/2} width={w} height={h} rx={6} fill="#ffffff" fillOpacity={.25} stroke={pal.accent} strokeWidth={4}/>
-  <rect x={-w/2+6} y={-h/2+6} width={w-12} height={h-12} rx={4} fill="none" stroke={pal.accent} strokeWidth={1.6}/>
-  {lines.map((l,i)=><Txt key={i} x={0} y={-h/2+10+size*(i+.9)*1.1} size={size} bold anchor="middle" fill={pal.accent}>{l}</Txt>)}
+ const {w,h}=markSize(lines,size),border=clamp(p/.55),write=smooth((p-.4)/.6);
+ const clip=`nc1110-mark-${id}`;
+ return <g transform={`rotate(${rot})`}>
+  <rect x={-w/2} y={-h/2} width={w} height={h} rx={6} fill="none" stroke={pal.accent} strokeWidth={4.5}
+   pathLength={1000} strokeDasharray={`${f2(1000*border)} 1000`} strokeLinecap="round"/>
+  {write>0&&<><defs><clipPath id={clip}><rect x={-w/2} y={-h/2} width={f2(w*write)} height={h}/></clipPath></defs>
+   <g clipPath={`url(#${clip})`}>
+    {lines.map((l,i)=><Txt key={i} x={0} y={-h/2+10+size*(i+.9)*1.1} size={size} bold anchor="middle" fill={pal.accent}>{l}</Txt>)}
+   </g></>}
  </g>;
 };
 
 /** A head-and-shoulders outline with no face, its base centre at the origin, about 84 by 190. */
 const FIG='M0 -186C-24 -186 -32 -166 -30 -148C-28 -128 -16 -116 0 -116C17 -116 29 -130 30 -150C31 -170 22 -186 0 -186Z M-40 0C-44 -54 -36 -92 -6 -100H6C38 -94 46 -56 42 0Z';
+
+/** The visit note card's size, shared with the episode's bounds checks. */
+export const VNOTE={w:186,h:138};
 
 export type SupportPart=
  |{part:'room'}
@@ -105,7 +122,7 @@ export type SupportPart=
  |{part:'deskProps'}
  |{part:'card';w:number;h:number;header?:string;title?:string[];titleSize?:number;marks?:number;seed?:number;tint?:string}
  |{part:'tag';lines:string[];size:number;tone?:'paper'|'accent'|'teal';swing?:number}
- |{part:'stamp';lines:string[];size:number;p:number;rot?:number}
+ |{part:'stamp';lines:string[];size:number;p:number;rot?:number;id?:string}
  |{part:'clip';w?:number}
  |{part:'thread';a:Pt;c:Pt;b:Pt;p:number;color?:string;w?:number}
  |{part:'pilotLane';w:number}
@@ -115,14 +132,14 @@ export type SupportPart=
  |{part:'arrow';w:number;p:number;label:string}
  |{part:'framework';w:number;h:number;draw:number}
  |{part:'institution';w:number;h:number;sw:number}
- |{part:'bill';w:number;h:number;diag:number;ai:number;aiFrame:number;stamp:number;hl:number;std:number;dframe:number}
+ |{part:'bill';w:number;h:number;diag:number;ai:number;aiFrame:number;stamp:number;hl:number;std:number;dframe:number;aiFrom:number;stdFrom:number}
  |{part:'records';n:number}
- |{part:'bracket';x:number;y0:number;y1:number;from:Pt;p:number}
+ |{part:'bracket';x:number;y0:number;y1:number;from:Pt;p:number;holdRight?:boolean}
  |{part:'visitNote'}
  |{part:'question';p:number};
 
-export const BILL={w:560,h:310,lines:[1012,1042,1072].map(y=>y-904),diag:{x:26,y:196,w:168,h:44},ai:{x:204,y:196,w:72,h:44},
- stamp:{x:428,y:254},std:{x:330,y:152}};
+export const BILL={w:540,h:350,lines:[170,208,246],diag:{x:26,y:284,w:180,h:48},ai:{x:218,y:284,w:80,h:48},
+ stamp:{x:382,y:124},std:{x:36,y:246},type:{title:30,small:24,line:26,tag:24,stamp:22}};
 
 export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
  const {pal}=props;
@@ -150,7 +167,7 @@ export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
    <path d="M180 846H420" stroke="#93B6B6" strokeWidth={4} strokeLinecap="round"/>
    <path d="M232 838V880M330 836V878" stroke="#3C5A5E" strokeWidth={2}/>
    {/* the paper sheet, crinkled and a little skewed */}
-   <path d="M186 832L404 828L412 852L398 850L392 870L190 874Z" fill="#F4F0E4" stroke="#A8A08C" strokeWidth={2} strokeLinejoin="round" opacity={.95}/>
+   <path d="M186 832L404 828L412 852L398 850L392 870L190 874Z" fill="#F4F0E4" stroke="#A8A08C" strokeWidth={2} strokeLinejoin="round"/>
    <path d="M246 836L250 868M300 834L296 870" stroke="#D9D1BC" strokeWidth={2}/>
    <rect x={96} y={872} width={350} height={14} rx={4} fill="#9AA6A7" stroke={pal.ink} strokeWidth={2.5}/>
   </g>
@@ -185,7 +202,7 @@ export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
  </g>;
  case 'card':return <Card pal={pal} w={props.w} h={props.h} header={props.header} title={props.title} titleSize={props.titleSize} marks={props.marks} seed={props.seed} tint={props.tint}/>;
  case 'tag':return <Tag pal={pal} lines={props.lines} size={props.size} tone={props.tone} swing={props.swing}/>;
- case 'stamp':return <Stamp pal={pal} lines={props.lines} size={props.size} p={props.p} rot={props.rot}/>;
+ case 'stamp':return <Stamp pal={pal} lines={props.lines} size={props.size} p={props.p} rot={props.rot} id={props.id}/>;
  case 'clip':return <Clip pal={pal} w={props.w}/>;
  case 'thread':{
   const {a,c,b,p}=props,color=props.color??pal.foreground,w=props.w??4;if(p<=0)return null;
@@ -199,33 +216,39 @@ export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
  case 'pilotLane':return <g data-part="pilot-lane">
   <Shadow pal={pal} x={0} y={0} w={props.w} h={56} o={.16}/>
   <rect x={0} y={0} width={props.w} height={56} rx={8} fill="#E6EBE5" stroke={pal.ink} strokeWidth={2.5} strokeDasharray="12 6"/>
-  <Txt x={14} y={36} size={22} bold fill={pal.foreground}>pilots</Txt>
-  <path d={`M92 28H${props.w-14}`} stroke="#B8C3BE" strokeWidth={2}/>
+  <Txt x={14} y={38} size={26} bold fill={pal.foreground}>pilots</Txt>
+  <path d={`M104 28H${props.w-14}`} stroke="#B8C3BE" strokeWidth={2}/>
  </g>;
  case 'platform':{
-  const {w,h,draw,fill,stopAt,working}=props,track={x:24,y:h-46,w:w-62};
+  // everything in the outline draws on with one sweep from the left; the working toward marker is
+  // pinned to the bar's head, so the fill carries it to where the bar stops. Its inside stays empty.
+  const {w,h,draw,fill,stopAt}=props,track={x:24,y:h-46,w:w-62};
   const head=track.x+track.w*stopAt*clamp(fill);
   return <g data-part="platform">
-   {/* the dashed outline draws on from the left as a sweep; its inside stays empty */}
-   <defs><clipPath id="nc1110-plat"><rect x={-10} y={-10} width={f2((w+20)*clamp(draw*1.3))} height={h+20}/></clipPath></defs>
+   <defs><clipPath id="nc1110-plat"><rect x={-10} y={-90} width={f2((w+20)*clamp(draw*1.25))} height={h+100}/></clipPath></defs>
    <g clipPath="url(#nc1110-plat)">
-    <rect x={0} y={0} width={w} height={h} rx={22} fill="#ffffff" fillOpacity={.18} stroke={pal.ink} strokeWidth={4} strokeDasharray="18 12"/>
+    <rect x={0} y={0} width={w} height={h} rx={22} fill="#8FA9A5" stroke={pal.ink} strokeWidth={4} strokeDasharray="18 12"/>
+    <Txt x={24} y={64} size={28} bold fill={pal.ink}>one unified system</Txt>
+    <rect x={track.x} y={track.y-10} width={track.w} height={20} rx={10} fill="#E3E7E1" stroke={pal.ink} strokeWidth={2.4}/>
+    {fill>0&&<rect x={track.x} y={track.y-10} width={f2(head-track.x)} height={20} rx={10} fill={pal.foreground}/>}
+    <path d={`M${track.x+track.w+14} ${track.y-26}V${track.y+26}`} stroke={pal.ink} strokeWidth={4} strokeDasharray="7 6"/>
+    <g transform={`translate(${f2(head)} ${track.y-16})`}>
+     <path d="M0 0V-30" stroke={pal.ink} strokeWidth={2.5}/>
+     <g transform="translate(-10 -56)"><Tag pal={pal} lines={['working toward']} size={26} tone="teal" swing={-2}/></g>
+    </g>
    </g>
-   <Txt x={24} y={96} size={26} bold fill={pal.ink} opacity={f2(smooth((draw-.3)/.5))}>one unified system</Txt>
-   <rect x={track.x} y={track.y-9} width={track.w} height={18} rx={9} fill="#E3E7E1" stroke={pal.ink} strokeWidth={2.4} opacity={f2(smooth(draw*2))}/>
-   {fill>0&&<rect x={track.x} y={track.y-9} width={f2(head-track.x)} height={18} rx={9} fill={pal.foreground}/>}
-   <path d={`M${track.x+track.w+14} ${track.y-26}V${track.y+26}`} stroke={pal.ink} strokeWidth={4} strokeDasharray="7 6" opacity={f2(smooth(draw*2))}/>
-   {working>0&&<g transform={`translate(${f2(head)} ${track.y-16})`} opacity={f2(smooth(working))}>
-    <path d="M0 0V-26" stroke={pal.ink} strokeWidth={2.5}/>
-    <g transform="translate(-8 -48)"><Tag pal={pal} lines={['working toward']} size={20} tone="teal" swing={-2+6*(1-smooth(working))}/></g>
-   </g>}
   </g>;}
  case 'figure':{
-  const f=smooth(props.filled);
+  // the dashed outline fills from the feet up: a rising edge, never a translucent figure
+  const f=smooth(props.filled),clip=`nc1110-fig-${Math.round(props.filled*1000)}`;
   return <g data-part="figure">
-   <path d={FIG} fill={pal.ink} opacity={.14*f} transform="translate(6 6)" filter="url(#nc1110-soft)"/>
-   <path d={FIG} fill={pal.paper} fillOpacity={f2(f)} stroke={pal.ink} strokeWidth={f>.5?3.2:2.6} strokeDasharray={f>.5?undefined:'9 7'} fillRule="nonzero"/>
-   {f>0&&<path d="M-22 -8C-22 -50 -12 -82 0 -86" stroke="#ffffff" strokeOpacity={.55*f} strokeWidth={4} fill="none" strokeLinecap="round"/>}
+   {f>0&&<><defs><clipPath id={clip}><rect x={-60} y={f2(-196*f)} width={120} height={f2(200*f)}/></clipPath></defs>
+    <g clipPath={`url(#${clip})`}>
+     <path d={FIG} fill={pal.ink} opacity={.14} transform="translate(6 6)" filter="url(#nc1110-soft)"/>
+     <path d={FIG} fill={pal.paper} stroke={pal.ink} strokeWidth={3.2} fillRule="nonzero"/>
+     <path d="M-22 -8C-22 -50 -12 -82 0 -86" stroke="#ffffff" strokeOpacity={.55} strokeWidth={4} fill="none" strokeLinecap="round"/>
+    </g></>}
+   {f<1&&<path d={FIG} fill="none" stroke={pal.ink} strokeWidth={2.6} strokeDasharray="9 7" fillRule="nonzero"/>}
   </g>;}
  case 'calendar':return <g data-part="calendar">
   <path d="M30 150L58 10M170 150L142 10" stroke="#4B5B60" strokeWidth={6} strokeLinecap="round"/>
@@ -237,20 +260,29 @@ export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
   <path d="M8 144l14 -3" stroke="#B7AB91" strokeWidth={2}/>
  </g>;
  case 'arrow':{
+  // one pen stroke from the left: the dashes, the head and the word are revealed only where it has passed
   const {w,p,label}=props;if(p<=0)return null;
-  return <g data-part="eventually" opacity={f2(smooth(p*1.5))}>
-   <path d={`M0 0H${f2(w*smooth(p))}`} stroke={pal.ink} strokeWidth={3.5} strokeDasharray="12 9" strokeLinecap="round"/>
-   {p>.6&&<path d={`M${w-14} -10L${w} 0L${w-14} 10`} stroke={pal.ink} strokeWidth={3.5} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={f2(smooth((p-.6)/.4))}/>}
-   <Txt x={w/2} y={-14} size={24} bold anchor="middle" fill={pal.ink} opacity={f2(smooth((p-.3)/.5))}>eventually</Txt>
+  return <g data-part="eventually">
+   <defs><clipPath id="nc1110-arrow"><rect x={-90} y={-60} width={f2(90+(w+30)*smooth(p))} height={90}/></clipPath></defs>
+   <g clipPath="url(#nc1110-arrow)">
+    <path d={`M0 0H${w}`} stroke={pal.ink} strokeWidth={4} strokeDasharray="12 9" strokeLinecap="round"/>
+    <path d={`M${w-16} -11L${w} 0L${w-16} 11`} stroke={pal.ink} strokeWidth={4} fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+    <Txt x={w/2} y={-16} size={28} bold anchor="middle" fill={pal.ink}>{label}</Txt>
+   </g>
   </g>;}
  case 'framework':{
-  const {w,h,draw}=props,d=smooth(draw);
+  // the border is drawn round as a stroke and its pale face, words and tag are revealed only behind it
+  const {w,h,draw}=props,face=clamp(draw*1.25);
   return <g data-part="framework">
-   <rect x={0} y={0} width={w} height={h} rx={14} fill="#E3ECE9" fillOpacity={f2(.85*d)} stroke={pal.ink} strokeWidth={4}
+   <defs><clipPath id="nc1110-frame"><rect x={-10} y={-40} width={f2((w+20)*face)} height={h+80}/></clipPath></defs>
+   <g clipPath="url(#nc1110-frame)">
+    <rect x={0} y={0} width={w} height={h} rx={14} fill="#E3ECE9"/>
+    <Txt x={22} y={42} size={32} bold fill={pal.ink}>framework</Txt>
+    <Txt x={22} y={74} size={26} fill={pal.foreground}>Abridge</Txt>
+    <g transform={`translate(${w-240} ${h/2})`}><Tag pal={pal} lines={['Abridge says']} size={26}/></g>
+   </g>
+   <rect x={0} y={0} width={w} height={h} rx={14} fill="none" stroke={pal.ink} strokeWidth={4}
     pathLength={1000} strokeDasharray={`${f2(1000*clamp(draw*1.25))} 1000`}/>
-   <Txt x={22} y={38} size={30} bold fill={pal.ink} opacity={f2(smooth((draw-.35)/.4))}>framework</Txt>
-   <Txt x={22} y={68} size={22} fill={pal.foreground} opacity={f2(smooth((draw-.5)/.4))}>Abridge</Txt>
-   <g transform={`translate(${w-208} ${h/2})`} opacity={f2(smooth((draw-.6)/.4))}><Tag pal={pal} lines={['Abridge says']} size={20}/></g>
   </g>;}
  case 'institution':{
   const {w,h,sw}=props,s=smooth(sw);
@@ -258,11 +290,11 @@ export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
    <Shadow pal={pal} x={0} y={0} w={w} h={h}/>
    <path d={`M0 0H${w-18}L${w} 18V${h}H0Z`} fill={pal.paper} stroke={pal.ink} strokeWidth={3} strokeLinejoin="round"/>
    <path d={`M${w-18} 0V18H${w}`} fill={PAPER_SHADE} stroke={pal.ink} strokeWidth={2}/>
-   <Txt x={14} y={34} size={22} bold fill={pal.ink}>UT health</Txt>
-   <Txt x={14} y={60} size={22} bold fill={pal.ink}>institution</Txt>
+   <Txt x={14} y={40} size={26} bold fill={pal.ink}>UT health</Txt>
+   <Txt x={14} y={70} size={26} bold fill={pal.ink}>institution</Txt>
    {/* its own small switch, resting in the middle: lit when it is that card's to set */}
    <g transform={`translate(${w/2} ${h-30})`}>
-    <rect x={-34} y={-14} width={68} height={28} rx={14} fill={s>0?`rgba(224,123,46,${f2(.25+.45*s)})`:'#DCDFD8'} stroke={pal.ink} strokeWidth={2.6}/>
+    <rect x={-34} y={-14} width={68} height={28} rx={14} fill={s>0?`rgb(${mixAccent(.25+.45*s)})`:'#DCDFD8'} stroke={pal.ink} strokeWidth={2.6}/>
     <path d="M0 -10V10" stroke={pal.ink} strokeWidth={1.6} strokeDasharray="3 3" opacity={.6}/>
     <circle cx={0} cy={0} r={11} fill={s>0?'#ffffff':'#F3F1EA'} stroke={pal.ink} strokeWidth={2.6}/>
     {s>0&&<circle cx={0} cy={0} r={18} fill="none" stroke={pal.accent} strokeWidth={2} opacity={f2(.8*s*(1-.6*s))}/>}
@@ -276,35 +308,39 @@ export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
    <path d={`M0 0H${w-24}L${w} 24V${h}H0Z`} fill={pal.paper} stroke={pal.ink} strokeWidth={3} strokeLinejoin="round"/>
    <path d={`M${w-24} 0V24H${w}`} fill={PAPER_SHADE} stroke={pal.ink} strokeWidth={2.4}/>
    <path d={`M3 4V${h-6}`} stroke="#ffffff" strokeOpacity={.55} strokeWidth={3}/>
-   <Txt x={22} y={42} size={28} bold fill={pal.ink}>Texas Senate Bill 1188</Txt>
-   <Txt x={22} y={68} size={18} fill={pal.foreground}>enrolled bill text</Txt>
-   <Txt x={22} y={98} size={18} bold fill={pal.foreground}>conditions</Txt>
+   <Txt x={22} y={44} size={B.type.title} bold fill={pal.ink}>Texas Senate Bill 1188</Txt>
+   <Txt x={22} y={80} size={B.type.small} fill={pal.foreground}>enrolled bill text</Txt>
+   <Txt x={22} y={130} size={B.type.small} bold fill={pal.foreground}>conditions</Txt>
    {B.lines.map((y,i)=>i===1?<g key={i}>
-     {hl>0&&<rect x={18} y={y-17} width={f2(8+(w-60)*smooth(hl))} height={32} rx={6} fill={ACCENT_LIGHT}/>}
-     {hl<1&&<Marks x0={26} x1={w-60} y={y} h={10} seed={40+i} fill={pal.ink} opacity={.4*(1-smooth(hl))}/>}
-     {hl>0&&<Txt x={26} y={y+8} size={22} bold fill={pal.ink} opacity={f2(smooth((hl-.25)/.5))}>review all AI-created records</Txt>}
+     {/* the highlight wipes across the line from the left and the condition's words are written behind it */}
+     <Marks x0={26} x1={w-60} y={y} h={10} seed={40+i} fill={pal.ink} opacity={.4}/>
+     {hl>0&&<><defs><clipPath id="nc1110-hl"><rect x={14} y={y-24} width={f2(10+(w-48)*smooth(hl))} height={46}/></clipPath></defs>
+      <g clipPath="url(#nc1110-hl)">
+       <rect x={16} y={y-20} width={w-44} height={38} rx={7} fill={ACCENT_LIGHT}/>
+       <Txt x={26} y={y+9} size={B.type.line} bold fill={pal.ink}>review all AI-created records</Txt>
+      </g></>}
     </g>:<Marks key={i} x0={26} x1={w-60-i*30} y={y} h={10} seed={40+i} fill={pal.ink} opacity={.4}/>)}
-   {/* the diagnosis tag lights; the AI tag slides in beside it; a thin frame draws round both */}
+   {/* the diagnosis tag lights; the AI tag slides along the card from its right edge; a thin frame draws round both */}
    <g transform={`translate(${B.diag.x} ${B.diag.y})`}>
-    <rect x={0} y={0} width={B.diag.w} height={B.diag.h} rx={22} fill={dg>0?`rgba(224,123,46,${f2(.18+.3*dg+.25*smooth(dframe))})`:'#E5E1D5'} stroke={pal.ink} strokeWidth={2.6}/>
-    <Txt x={B.diag.w/2} y={30} size={23} bold anchor="middle" fill={pal.ink} opacity={f2(.45+.55*dg)}>diagnosis</Txt>
+    <rect x={0} y={0} width={B.diag.w} height={B.diag.h} rx={24} fill={dg>0?`rgb(${mixAccent(.18+.3*dg+.25*smooth(dframe))})`:'#E5E1D5'} stroke={pal.ink} strokeWidth={2.6}/>
+    <Txt x={B.diag.w/2} y={33} size={26} bold anchor="middle" fill={pal.ink}>diagnosis</Txt>
    </g>
-   {ai>0&&<g transform={`translate(${f2(B.ai.x+(1-aiP)*(w-B.ai.x+40))} ${B.ai.y})`} opacity={f2(clamp(ai*3))}>
+   {ai>0&&<g transform={`translate(${f2(B.ai.x+(1-aiP)*props.aiFrom)} ${B.ai.y})`}>
     <rect x={0} y={0} width={B.ai.w} height={B.ai.h} rx={10} fill="#D7E6E3" stroke={pal.ink} strokeWidth={2.6}/>
-    <Txt x={B.ai.w/2} y={30} size={23} bold anchor="middle" fill={pal.ink}>AI</Txt>
+    <Txt x={B.ai.w/2} y={33} size={26} bold anchor="middle" fill={pal.ink}>AI</Txt>
    </g>}
-   {aiFrame>0&&<rect x={B.diag.x-10} y={B.diag.y-10} width={B.ai.x+B.ai.w-B.diag.x+20} height={B.diag.h+20} rx={14} fill="none" stroke={pal.foreground} strokeWidth={3}
+   {aiFrame>0&&<rect x={B.diag.x-10} y={B.diag.y-10} width={B.ai.x+B.ai.w-B.diag.x+20} height={B.diag.h+20} rx={14} fill="none" stroke={pal.foreground} strokeWidth={3.5}
     pathLength={1000} strokeDasharray={`${f2(1000*clamp(aiFrame))} 1000`}/>}
    {/* s9: the law's own word, framed in the accent */}
-   {dframe>0&&<rect x={B.diag.x-6} y={B.diag.y-6} width={B.diag.w+12} height={B.diag.h+12} rx={26} fill="none" stroke={pal.accent} strokeWidth={5}
+   {dframe>0&&<rect x={B.diag.x-6} y={B.diag.y-6} width={B.diag.w+12} height={B.diag.h+12} rx={28} fill="none" stroke={pal.accent} strokeWidth={6}
     pathLength={1000} strokeDasharray={`${f2(1000*clamp(dframe))} 1000`}/>}
-   <g transform={`translate(${B.stamp.x} ${B.stamp.y})`}><Stamp pal={pal} lines={['Effective','September 1st, 2025']} size={19} p={stamp} rot={-7}/></g>
-   {/* s8: the standards tag, clipped on a short string under the highlighted condition line */}
+   <g transform={`translate(${B.stamp.x} ${B.stamp.y})`}><Stamp pal={pal} lines={['Effective','September 1st, 2025']} size={B.type.stamp} p={stamp} rot={-7} id="bill"/></g>
+   {/* s8: the standards tag arrives along the card from its right edge and its string is then drawn from the highlighted line */}
    {std>0&&<g>
-    <path d={`M${f2(26+widthOf('review all AI-created records',22,true)*.92)} ${B.lines[1]+10}Q${B.std.x+24} ${B.lines[1]+14} ${B.std.x+4} ${f2(B.std.y-30*(1-smooth(std)))}`}
-     stroke={pal.ink} strokeWidth={2} fill="none" opacity={f2(smooth(std))}/>
-    <g transform={`translate(${B.std.x} ${f2(B.std.y-30*(1-smooth(std)))})`} opacity={f2(clamp(std*3))}>
-     <Tag pal={pal} lines={['Texas Medical','Board standards']} size={19} tone="teal" swing={-3+8*(1-smooth(std))}/></g>
+    {std>.75&&<path d={`M${B.std.x+150} ${B.lines[1]+20}Q${B.std.x+40} ${B.lines[1]+26} ${B.std.x+14} ${B.std.y}`} stroke={pal.ink} strokeWidth={2.6} fill="none"
+     pathLength={1000} strokeDasharray={`${f2(1000*smooth((std-.75)/.25))} 1000`}/>}
+    <g transform={`translate(${f2(B.std.x+(1-smooth(clamp(std/.75)))*props.stdFrom)} ${B.std.y})`}>
+     <Tag pal={pal} lines={['Texas Medical Board standards']} size={B.type.tag} tone="teal" swing={-2+6*(1-smooth(clamp(std/.75)))}/></g>
    </g>}
   </g>;}
  case 'records':return <g data-part="record-stack">
@@ -312,30 +348,36 @@ export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
    return <g key={i} transform={`translate(${f2(x)} ${f2(y)}) rotate(${f2(r)} 110 70)`}>
     <Shadow pal={pal} x={0} y={0} w={220} h={140} o={.16} dy={8}/>
     <path d="M0 0H200L220 20V140H0Z" fill={i%2?'#F6F0E2':pal.paper} stroke={pal.ink} strokeWidth={2.6}/>
-    <Marks x0={16} x1={150} y={30} h={9} seed={90+i} fill={pal.ink} opacity={.4}/>
-    <Marks x0={16} x1={120} y={52} h={9} seed={95+i} fill={pal.ink} opacity={.4}/>
-    <rect x={150} y={14} width={50} height={30} rx={8} fill="#D7E6E3" stroke={pal.ink} strokeWidth={2.2}/>
-    <Txt x={175} y={36} size={19} bold anchor="middle" fill={pal.ink}>AI</Txt>
+    {/* each card's AI mark sits at its left end, clear of the bill that rests over the stack's right edge */}
+    <rect x={14} y={12} width={52} height={32} rx={8} fill="#D7E6E3" stroke={pal.ink} strokeWidth={2.2}/>
+    <Txt x={40} y={38} size={26} bold anchor="middle" fill={pal.ink}>AI</Txt>
+    <Marks x0={80} x1={170} y={28} h={9} seed={90+i} fill={pal.ink} opacity={.4}/>
+    <Marks x0={16} x1={150} y={64} h={9} seed={95+i} fill={pal.ink} opacity={.4}/>
    </g>;})}
-  <Txt x={16} y={124} size={20} bold fill={pal.foreground}>records</Txt>
+  <Txt x={16} y={128} size={26} bold fill={pal.foreground}>records</Txt>
  </g>;
  case 'bracket':{
-  const {x,y0,y1,from,p}=props;if(p<=0)return null;
-  // the serifs turn toward what the bracket holds: away from the line it comes from
-  const k=from[0]>x?-18:18;
-  const d=`M${f2(from[0])} ${f2(from[1])}C${f2(from[0]-30)} ${f2(from[1])} ${f2(x+30)} ${f2(y0+20)} ${f2(x)} ${f2(y0+20)}M${f2(x+k)} ${f2(y0)}H${f2(x)}V${f2(y1)}H${f2(x+k)}`;
-  return <path data-part="bracket" d={d} stroke={pal.accent} strokeWidth={4.5} fill="none" strokeLinecap="round" strokeLinejoin="round"
+  const {x,y0,y1,from,p,holdRight}=props;if(p<=0)return null;
+  // the serifs turn toward what the bracket holds. Holding a stack to its right, the stroke leaves the line,
+  // arcs up over the stack's top edge and comes down its left side, so it never crosses the cards.
+  const k=holdRight?20:from[0]>x?-18:18;
+  const d=holdRight
+   ?`M${f2(from[0])} ${f2(from[1])}C${f2(from[0]+6)} ${f2(y0-120)} ${f2(x+60)} ${f2(y0-70)} ${f2(x)} ${f2(y0)}V${f2(y1)}H${f2(x+k)}M${f2(x)} ${f2(y0)}H${f2(x+k)}`
+   :`M${f2(from[0])} ${f2(from[1])}C${f2(from[0]-30)} ${f2(from[1])} ${f2(x+30)} ${f2(y0+20)} ${f2(x)} ${f2(y0+20)}M${f2(x+k)} ${f2(y0)}H${f2(x)}V${f2(y1)}H${f2(x+k)}`;
+  return <path data-part="bracket" d={d} stroke={pal.accent} strokeWidth={7} fill="none" strokeLinecap="round" strokeLinejoin="round"
    pathLength={1000} strokeDasharray={`${f2(1000*clamp(p))} 1000`}/>;}
  case 'visitNote':return <g data-part="visit-note">
-  <Card pal={pal} w={226} h={118} header="visit note" marks={0}/>
-  <Marks x0={18} x1={190} y={76} h={12} seed={7} fill={pal.ink} opacity={.78}/>
-  <rect x={150} y={8} width={52} height={26} rx={13} fill="#DCE8E5" stroke={pal.foreground} strokeWidth={2}/>
-  <Txt x={176} y={27} size={16} bold anchor="middle" fill={pal.ink}>AI</Txt>
-  <path d="M18 100H120" stroke="#CFC8B6" strokeWidth={3} strokeDasharray="9 8"/>
+  {/* its AI mark sits under the header, so the card stays narrow enough to frame beside the bill */}
+  <Card pal={pal} w={VNOTE.w} h={VNOTE.h} header="visit note" marks={0}/>
+  <rect x={18} y={60} width={62} height={34} rx={17} fill="#DCE8E5" stroke={pal.foreground} strokeWidth={2}/>
+  <Txt x={49} y={86} size={26} bold anchor="middle" fill={pal.ink}>AI</Txt>
+  <Marks x0={92} x1={168} y={77} h={12} seed={7} fill={pal.ink} opacity={.78}/>
+  <path d="M18 118H140" stroke="#CFC8B6" strokeWidth={3} strokeDasharray="9 8"/>
  </g>;
  case 'question':{
-  const k=smooth(props.p);if(k<=0)return null;
-  return <g data-part="question" opacity={f2(clamp(props.p*3))}>
+  // drawn at full strength: the episode raises it from behind the visit note, so it is never seen arriving from nothing
+  if(props.p<=0)return null;
+  return <g data-part="question">
    <rect x={-30} y={-34} width={60} height={64} rx={14} fill={pal.ink} opacity={.18} filter="url(#nc1110-soft)" transform="translate(6 8)"/>
    <rect x={-30} y={-34} width={60} height={64} rx={14} fill={ACCENT_LIGHT} stroke={pal.accent} strokeWidth={3.5}/>
    <Txt x={0} y={18} size={48} bold anchor="middle" fill={pal.accent} display>?</Txt>
