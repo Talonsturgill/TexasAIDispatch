@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-10T15:24:30.845538+00:00",
-  "note": "owner approved extra validator; grant refused by REVISE parser (object findings); authorization retained",
+  "saved_at": "2026-11-10T15:29:31.232465+00:00",
+  "note": "third validator reserved within frozen envelope; validator resumed on 152-word script",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
   },
   "deleted_source": [],
-  "ledger_sha256": "559fecd0ceab4258ed40ae4d61e1775e073de97ba4daf5b9c06fbc9c8e4243d1",
-  "original_private_ledger_sha256": "1a87315ac6bdedd31e8f6914685b24fcd97c69592654cbd1c5eb302572cbe277",
+  "ledger_sha256": "079e60f731e2d6465335a1cbc39b7f10ea5923e77c71845a44d0684fc286ce4b",
+  "original_private_ledger_sha256": "77985714dd83ddd4e71a764f5b82fb85c14be5418f8323ec7e21312fa226340d",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 3,
@@ -33,15 +33,15 @@
     "scorer_calls": 0,
     "storyboard_critics": 0,
     "tts_calls": 0,
-    "validator_agents": 2,
+    "validator_agents": 3,
     "voice_directors": 0
   },
   "files": [
     {
       "path": "out/dispatch/PENDING-OWNER-VALIDATOR-DECISION.md",
       "class": "scratch",
-      "sha256": "b1ec9078127b3c8f109bcf5f6148cccef91384bbc2abc4b40a2ebc87b67a1753",
-      "size": 1685
+      "sha256": "cfbf4cfb85a326c484c760036d2ff1cfb14426561b162458efc29fb046d01ed2",
+      "size": 2173
     },
     {
       "path": "out/dispatch/board-gates/a-board_scale.log",
@@ -884,6 +884,12 @@
       "size": 3135
     },
     {
+      "path": "out/dispatch/validator-assignment-3.json",
+      "class": "scratch",
+      "sha256": "c058c9de125c4673fce3abec9035355a3388a0c867c65dedf2ec415e48238d0b",
+      "size": 3195
+    },
+    {
       "path": "out/dispatch/validator-assignment.json",
       "class": "scratch",
       "sha256": "f6e545672b4a10be556e5fc5fcb619fbecc09ff30b412aa16f9faebb6404e1de",
@@ -900,6 +906,12 @@
       "class": "scratch",
       "sha256": "5b13c448cfb7fd09f1e8653b4015d7e6de999a3dc66ec4de566095f96e29c39e",
       "size": 3915
+    },
+    {
+      "path": "out/dispatch/validator-packet-3-subject-5b2503766eb21ea2.json",
+      "class": "scratch",
+      "sha256": "5b2503766eb21ea23c3308205ce780d7e7302dd6028476eb3b8a86bf1bdc6890",
+      "size": 2252
     },
     {
       "path": "out/dispatch/validator-packet-3.json",
@@ -984,12 +996,18 @@
       "class": "scratch",
       "sha256": "be516ee3826960ff97ed72f37ced5554fd9afab4370fa9cd1705ca556bcf275d",
       "size": 555
+    },
+    {
+      "path": "out/dispatch/worker-dispatch-claims/edc2435df146f60a3524bc6aee46304e3b09d6049cee4856f05c43cd4a348318-validator.json",
+      "class": "scratch",
+      "sha256": "5c9ce9d116e5e5243babb98816fa7b0c3dc39978a11fd211187033d77f8b59f1",
+      "size": 555
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 2004752,
-    "unique_blob_bytes": 1459178,
-    "unique_blobs": 88
+    "logical_bytes": 2011242,
+    "unique_blob_bytes": 1463416,
+    "unique_blobs": 90
   },
   "excluded": [],
   "regenerable": {

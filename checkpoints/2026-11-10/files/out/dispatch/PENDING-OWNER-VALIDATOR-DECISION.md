@@ -19,3 +19,9 @@ separate supported route is wanted.
 
 Prepared, free: out/dispatch/validator-packet-3.json (sha256 4fe0ee31d7cddce0e1764c8306f803d785c8653903aca11c7110974163dff9f3)
 binding the 152-word script and bindings. Same validator worker can be resumed after a reservation exists.
+
+## Resolution
+The owner approved the third validator call. The owner-grant route was refused by its REVISE parser and changed nothing.
+The frozen envelope already authorizes validator_agents 4 (escalation_ceiling 4; target limit 2), so the call was
+reserved through the ordinary consume path: "reserved validator_agents=3/3", then the same validator was resumed on
+validator-packet-3.json. owner-validator-authorization.json is retained as evidence of the approval; it was not consumed.
