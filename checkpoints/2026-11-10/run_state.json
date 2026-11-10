@@ -33,6 +33,14 @@
       "note": "round three narration fixes revalidation",
       "resource": "validator_agents",
       "to": 4
+    },
+    {
+      "at": "2026-11-10T23:25:14.071804Z",
+      "ceiling": 16,
+      "from": 3,
+      "note": "two opening comparison batch",
+      "resource": "preflight_renders",
+      "to": 4
     }
   ],
   "events": [
@@ -490,6 +498,28 @@
       "resources": {
         "reboards": 1
       }
+    },
+    {
+      "at": "2026-11-10T23:25:14.071832Z",
+      "ceiling": 16,
+      "kind": "budget_escalated",
+      "note": "two opening comparison batch",
+      "now": 4,
+      "resource": "preflight_renders",
+      "was": 3
+    },
+    {
+      "at": "2026-11-10T23:25:14.767892Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "two opening comparison batch",
+      "preflight_identity": "26b13754a5c725991aab647924e9748a8d3518cd168f110f4ec783d08d659731",
+      "preflight_identity_version": 3,
+      "publication_epoch": "2dc60a2cf1ff46239e495052f98e84db",
+      "publication_owner_sha256": "eb8f9e74761353476617240f38af3049743255e31c72769490918fdd7097843e",
+      "resources": {
+        "preflight_renders": 1
+      }
     }
   ],
   "limits": {
@@ -498,7 +528,7 @@
     "full_renders": 1,
     "image_generations": 2,
     "panel_rounds": 1,
-    "preflight_renders": 3,
+    "preflight_renders": 4,
     "reboards": 4,
     "reported_tokens": 250000,
     "rescue_renders": 1,
@@ -513,7 +543,7 @@
   "phase": "picture",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "03ebaae0dbc4e9863a14157663f03dbc4b7dafd1099b22cc9af12f34a9a5ab92",
+    "original_private_state_sha256": "116ff0ebd4d2544ade675f8df5b072d3fbde90827f90c837e70912553dc35811",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -541,14 +571,14 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-10T22:00:03.569702Z",
+  "updated_at": "2026-11-10T23:25:14.767911Z",
   "usage": {
     "audiovisual_reviews": 3,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
-    "preflight_renders": 3,
+    "preflight_renders": 4,
     "reboards": 4,
     "reported_tokens": 64,
     "rescue_renders": 0,
