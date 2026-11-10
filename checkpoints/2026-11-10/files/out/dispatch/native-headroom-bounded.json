@@ -1,0 +1,40 @@
+{
+  "native_width": 1080,
+  "native_height": 1920,
+  "fps": 30,
+  "frames": 1778,
+  "uncompressed_frame_gib": 13.735,
+  "reserve_gib": 5,
+  "required_free_gib": 6,
+  "storage_profile": {
+    "mode": "bounded-png-v1",
+    "operator": "opening_compare.py",
+    "max_frames": 60,
+    "required_free_gib": 6,
+    "reserve_gib": 5,
+    "bindings": {
+      "video-engine/scripts/bounded-png-render.mjs": "fb4abd86b1cb50a1ce69eb08d253431ffd1740af8d61c02c10d84439c0ef3df7",
+      "video-engine/scripts/render-batch.mjs": "4fbdca384b52d20ef96761ab917cf74deed60d5afd7605ab86f6e3b375e67613",
+      "video-engine/scripts/credit-tail-render.mjs": "2adb762c632cd8f48c31c16d70e9264840f49873e7283fda3bfbfcb97671bedf",
+      "video-engine/package-lock.json": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71",
+      "video-engine/package.json": "9f7832a02b619f443f231652719bba9e39270a5a47c19a91bbf28bea6f7d69a4",
+      "scripts/cinema_proof.py": "0b04719cf63c42f27c0bc4a46bb29e95f4f332ce5257cef6289bf1668a5e072d",
+      "scripts/opening_compare.py": "1d11caf6b6cfd266b894a449bccc86c80ab8b5cc2f74e74a6730a25c9cfea833",
+      "scripts/render_dispatch.sh": "8b6c23b3e004f755d383796a48122c72ba8f0ff19b0f15db4a45c99f39205dc2",
+      "scripts/bounded_capture.py": "5ce4b7dfee25761c6752dd989b0044e3f183be4f50c1d815716aac5c6fa3610c",
+      "scripts/native_headroom.py": "59735d7b6474cc605f742bf560ba24e2830a3dd3c7eff49b6c40e41d833b51c3",
+      "scripts/capture_guard.py": "b62a60d595f8d00f7763ee756901a5467e68c0c6399e2b93907d6faf9d47b578",
+      "scripts/run_with_env.sh": "a070cd2aa89aa00edf1fd755a054bb30ec275c8554124e8012de6ae39e689a59",
+      "video-engine/scripts/verify-bounded-png.mjs": "ed2e7bb7dabb84e921dc95d098571a12f9f3c3f25bdba55063897d190fa58630",
+      "video-engine/scripts/bounded-png-render.test.mjs": "d79db4317eb671bb27a86cd69edaf3cc5cc14c81dd9d5e0eeb80a9adff2f2000",
+      "scripts/bounded_capture_test.py": "87b2404f28d88054e63f6fe2b5e1849122c4184884087bf0a35edf0a573e4872",
+      "config/bounded_png_capture_v1.json": "ab43715f795ed358d27dff1761ee1d489fc893ba7ab055d85f5373141d188124",
+      "config/bounded_png_capture_proof_v1.json": "0395d75b8543e792cbff09f8d77a3e50f46515f001ae687990ec8cd2662b04fb"
+    }
+  },
+  "advisory_only": true,
+  "schema": "dispatch_native_headroom/1",
+  "free_gib": 18.962,
+  "quality": "Native PNG capture and CRF16 remain required.",
+  "pass": true
+}
