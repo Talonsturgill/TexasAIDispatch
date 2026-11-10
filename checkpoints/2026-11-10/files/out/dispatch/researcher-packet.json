@@ -1,0 +1,71 @@
+{
+  "role": "researcher",
+  "date": "2026-11-10",
+  "agent_assignment": {
+    "host": "claude",
+    "role": "researcher",
+    "policy": {
+      "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    "model": "claude-haiku-5-5",
+    "effort": "high",
+    "agent": "researcher",
+    "resource": "research_agents",
+    "context": "isolated"
+  },
+  "brief": ".claude/agents/researcher.md",
+  "inputs": [
+    {
+      "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDocket/ledger/docket.json",
+      "sha256": "bdd802daa4fcf119a3851659964b963d751c88bd5834eaf909034143d9045a8a"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/knowledge/texas/APPLICATIONS.md",
+      "sha256": "ba6477684329e78ad36d15ee0f99e0056a1c0fae519e29d0bd8614a46cc0cd8d"
+    }
+  ],
+  "agent_contracts": [
+    {
+      "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/AGENTS.md",
+      "sha256": "a33a308c68819afdccf4d7a48f41006745c33080433a824fd24ed2c351a3d017"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/CLAUDE.md",
+      "sha256": "3bfc8864978762b163474fb79354cf4b2e319cf13a0fe2dfc45d5422b62c90ca"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/prompts/claude_routine.md",
+      "sha256": "944870834e2749275776d3ac2acc7e51c60d96fc9276caf1b8b3ad82cca04057"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/config/claude_runtime.json",
+      "sha256": "e66d527d0aab5c8d23e21b676a3efa3997134a6a720308fd70ad037861dbdf10"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/config/quality_contract.json",
+      "sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/config/dispatch_rubric.yaml",
+      "sha256": "51f9708042386bd74b35e455e06140dd9b126affea9164b159c88302f1788ca1"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/.claude/agents/researcher.md",
+      "sha256": "c618bf0ccc1b37412f4cb9f188a972543c555863db36990c9ecc10518510a49e"
+    },
+    {
+      "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/config/review_limit.json",
+      "sha256": "d8056484d5a3bb7c8a1afc94d91ed2c7ba317fa6a8e8598a40ca124a59d4666b"
+    }
+  ],
+  "phase": {
+    "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/prompts/phases/01-research.md",
+    "sha256": "5f0feff2ba8ddfb51a69425d5c5ed500a2edd648b1f47676df6adfb381bf69c6"
+  },
+  "instructions": "Read the full current sources and relevant phase contracts. Return one source-backed handoff. Never spawn additional agents.",
+  "provider_availability": {
+    "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/provider-availability/after-62440ed9027d9b9640d1ca63ff710c51a6f64f8b548d6bd3fc3df81e82ec98e0/receipt.json",
+    "sha256": "6082df7887aa7a186879ba17357c1473c39a6c769ca90a89616ba16ad2f0d929"
+  }
+}
