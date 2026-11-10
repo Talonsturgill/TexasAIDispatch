@@ -13,6 +13,31 @@ import capture_reservation as prepared
 import run_controller as controller
 
 
+class LightweightAdmission(unittest.TestCase):
+    def test_import_and_bounded_operation_do_not_load_image_runtime(self):
+        import subprocess
+        import sys
+        code = """
+import importlib.abc
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path('scripts').resolve()))
+class NoImageRuntime(importlib.abc.MetaPathFinder):
+    def find_spec(self, fullname, path=None, target=None):
+        if fullname.split('.')[0] in {'PIL', 'numpy', 'claude_motion_review', 'preflight_animatic'}:
+            raise ImportError('image runtime unavailable in guard: ' + fullname)
+sys.meta_path.insert(0, NoImageRuntime())
+import capture_reservation
+import bounded_capture
+assert capture_reservation.PHONE_OPERATIONS == {key: 'exact-phone-' + key + ' motion-image review extraction' for key in ('a', 'b', 'current')}
+command = 'bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json'
+assert bounded_capture.operation(command, Path.cwd()) == 'cinema_proof.py'
+assert not any(name in sys.modules for name in ('PIL', 'numpy', 'claude_motion_review', 'preflight_animatic'))
+"""
+        subprocess.run([sys.executable, '-I', '-c', code], check=True,
+                       cwd=Path(__file__).resolve().parents[1])
+
+
 class Reservation(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
@@ -34,6 +59,19 @@ class Reservation(unittest.TestCase):
         self.patch.start()
         self.addCleanup(self.patch.stop)
         controller.initialise(self.state, 'reservation-regression', 'production')
+
+    def test_phone_identity_binds_shared_routing_without_changing_legacy(self):
+        routing = self.root / 'scripts/motion_review_operations.py'
+        routing.write_text('routing version one')
+        note = prepared.PHONE_OPERATIONS['current']
+        for name in ('preflight.json', 'preflight.mp4'):
+            self.state.with_name(name).write_text('fixture')
+        before = {v: controller.preflight_identity(self.state, note, version=v) for v in (1, 2, 3)}
+        routing.write_text('routing version two')
+        after = {v: controller.preflight_identity(self.state, note, version=v) for v in (1, 2, 3)}
+        self.assertEqual(before[1], after[1])
+        self.assertEqual(before[2], after[2])
+        self.assertNotEqual(before[3], after[3])
 
     def command(self, name):
         command = 'bash scripts/run_with_env.sh python scripts/' + name + ' --board out/dispatch/storyboard.json'

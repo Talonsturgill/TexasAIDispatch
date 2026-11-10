@@ -246,6 +246,10 @@ def preflight_identity(path: Path, note: str, *, version: int = 3) -> str | None
     if operator:
         files += [p for p in (REPO / "scripts" / operator, REPO / "scripts/capture_reservation.py") if p.is_file()]
     if version >= 3:
+        if operation.startswith('phone-motion-review-'):
+            routing = REPO / 'scripts/motion_review_operations.py'
+            if routing.is_file():
+                files.append(routing)
         from bounded_capture import FILES, POLICY
         files += [REPO / name for name in (*FILES, POLICY) if (REPO / name).is_file()]
     def identity_path(file):

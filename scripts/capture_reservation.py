@@ -11,7 +11,7 @@ OPERATIONS = {
     'preship_compute.py': 'exact-film mechanical preship probes',
 }
 FULL_OPERATION = 'full-resolution Dispatch render'
-from claude_motion_review import PHONE_OPERATIONS
+from motion_review_operations import PHONE_OPERATIONS
 
 
 def resource_for(note):
