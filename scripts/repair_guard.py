@@ -3,6 +3,7 @@ import argparse
 import copy
 import hashlib
 import json
+from validation_findings import valid_findings
 from pathlib import Path
 
 VERSION = "quality-recovery/1"
@@ -156,8 +157,7 @@ def validator_authorization_problems(state, authorization, evidence_text):
         if (not isinstance(report, dict) or report.get("result") != "REVISE"
                 or report.get("date") != str(state["run_id"])[:10]
                 or not isinstance(report.get("source"), str) or not report["source"].strip()
-                or not isinstance(rejected, list) or not rejected
-                or not all(isinstance(item, str) and item.strip() for item in rejected)):
+                or not valid_findings(rejected)):
             return ["validator grant requires this edition's retained validator REVISE report with findings"]
     except (ValueError, TypeError):
         return ["validator grant failure evidence is missing or unreadable"]

@@ -37,6 +37,9 @@ Return one JSON handoff containing `claims`, `rejected`, and `validation`. Keep 
 stable id, text, exact quote, URL, retrieval time, source type and independently established
 verdict. The `validation` object is your complete dated report for `validation_check.py`:
 `date`, `source`, `result`, `verified_claim_ids`, `rejected`, and `required_edits_applied`.
+Use plain nonempty strings for the two finding lists inside `validation`. Retained structured
+claim findings with exactly `id` and `reason` are also supported; both values must be nonempty
+strings. Never rewrite the original report just to change its finding representation.
 Its ids must equal the current VERIFIED claims. Describe the source checks and actual findings
 yourself; the director must save this object unchanged, with your original response retained.
 If nothing was rejected or edited, state that verified scope explicitly in the report's finding

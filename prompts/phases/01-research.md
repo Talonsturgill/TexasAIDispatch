@@ -119,6 +119,18 @@ Reuse that review only while the script and source inputs are unchanged. Charge 
 correction follow-up before resuming the same validator. If an excerpt seems too narrow, re-fetch surrounding context before
 rewriting. Preserve contradictions and source limits; never fabricate verification.
 
+Before treating a validator follow-up as a budget blocker, run
+`python scripts/run_controller.py validator-capacity`. The normal target is not the frozen
+ceiling. `reserve_existing_capacity` means precharge the needed call with `consume` and
+continue with the same validator; no new owner permission or grant is needed. The capacity
+query itself reserves nothing. Use the audited current ledger, never a numeric cap copied
+from a prompt or a remembered run. Retain the exact output of a refused reservation.
+`plan_mandatory_completion` means preserve the rejected evidence and use the existing
+classified, evidence-bound completion route in repair.md. Never invent a rejection from an
+earlier PASS, rewrite findings to fit a grant, reset usage, or increase a cap by hand.
+A provider permission, access or payment denial remains a real blocker; do not retry it by
+changing routes. Do not ask for an owner grant merely because the normal target was reached.
+
 Select the three key images and the earned take from those sources. An illustrative rendering
 must not impersonate observed footage, actual private software, a named person's property or
 an unreported outcome. Licensed or justified source excerpts retain their provenance and

@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+from validation_findings import valid_findings
 import re
 from datetime import datetime, timezone
 from pathlib import Path
@@ -236,8 +237,7 @@ def source_validation_problems(state, root):
                 or report.get('script_sha256') != script_hash or report.get('claims_sha256') != claims_hash
                 or report.get('result') not in ('PASS', 'PASS_WITH_DROPS')
                 or not report.get('source')
-                or any(not isinstance(report.get(key), list) or not report[key]
-                       or any(not isinstance(value, str) or not value.strip() for value in report[key])
+                or any(not valid_findings(report.get(key))
                        for key in ('rejected', 'required_edits_applied'))
                 or report.get('date') != str(state['run_id'])[:10]
                 or set(report.get('verified_claim_ids', [])) != {row['id'] for row in json.loads((Path(root) / 'claims.json').read_text())['claims'] if row.get('verdict') == 'VERIFIED'}

@@ -21,6 +21,13 @@ audio, scoring and delivery path through the existing controller before spending
 capacity is recorded separately; never change the original envelope, refund an attempt or
 invent a pass. This replaces older numeric-cap and per-run budget-permission instructions.
 
+For validator follow-ups, first run `run_controller.py validator-capacity`. A normal target
+is not the frozen ceiling. When the audited ledger reports `reserve_existing_capacity`,
+precharge the call and continue autonomously with the same validator. Do not ask the owner
+for capacity already granted, or rewrite a retained structured finding into prose to fit an
+old schema. Actual exhausted capacity uses the existing mandatory completion plan, and actual
+access, payment or permission denials remain blockers. No inspection command reserves a call.
+
 Keep creative work finite: stop optional polish at config/creative_release.json's boundary.
 Mandatory failures require the original independent evidence, consolidated defects and a
 credible source-backed implementation; recurring failures require a different implementation.

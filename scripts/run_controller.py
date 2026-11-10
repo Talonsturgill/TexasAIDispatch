@@ -1353,6 +1353,29 @@ def grant_owner_review(path: Path, authorization_path: Path | None,
     return True, f"run controller: explicit owner grant adds exactly {additional_calls} storyboard critic calls; original envelope, usage and quality gates remain intact"
 
 
+def validator_capacity(path: Path) -> dict:
+    """Read-only audited capacity, not a reservation or authority to bypass a refusal."""
+    from autonomous_completion import effective_envelope
+    from repair_guard import envelope_problems
+    from production_lifecycle import allowance_problems
+    state = read_state(path)
+    errors = envelope_problems(state, {}) + allowance_problems(state)
+    if state.get("mode") != "production" or state.get("terminal_state") is not None:
+        errors.append("validator follow-up requires active production")
+    ceiling = effective_envelope(state).get("validator_agents", 0) if not errors else None
+    used = state["usage"]["validator_agents"]
+    remaining = max(0, ceiling - used) if ceiling is not None else None
+    return {"schema": "dispatch_validator_capacity/1", "run_id": state["run_id"],
+            "current_target": state["limits"]["validator_agents"],
+            "frozen_ceiling": state.get("resource_envelope", {}).get("validator_agents"),
+            "effective_ceiling": ceiling, "used": used, "remaining": remaining,
+            "next_action": ("resolve_integrity_blocker" if errors else
+                            "reserve_existing_capacity" if remaining else
+                            "plan_mandatory_completion"),
+            "reservation_required": True, "grants_resources": False,
+            "errors": errors}
+
+
 def grant_validator_review(path: Path, authorization_path: Path | None,
                            failure_evidence: Path, confirmation: str) -> tuple[bool, str]:
     """Explicit operator attestation of one extra validator pass. Production never invokes this itself."""
@@ -2358,6 +2381,7 @@ def main() -> int:
                                  help='bind the exact unused rights reboard from its original mandatory grant')
     sub.add_parser("pending")
     sub.add_parser("status")
+    sub.add_parser("validator-capacity")
     p = sub.add_parser("production-budget")
     p.add_argument("--review-route", choices=("host", "provider"), default="host")
     p.add_argument("--repair-plan", type=Path)
@@ -2552,6 +2576,10 @@ def main() -> int:
         elif a.command == "grant-owner-review":
             accepted, message = grant_owner_review(
                 state_path, a.authorization, a.failure_evidence, a.additional_calls, a.confirm)
+        elif a.command == "validator-capacity":
+            result = validator_capacity(state_path)
+            print(json.dumps(result, indent=2, sort_keys=True))
+            return 1 if result["errors"] else 0
         elif a.command == "grant-validator-review":
             accepted, message = grant_validator_review(
                 state_path, a.authorization, a.failure_evidence, a.confirm)
