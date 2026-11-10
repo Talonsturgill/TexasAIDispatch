@@ -49,6 +49,13 @@ def failed_attempt(path, state, evidence=None):
     value = json.loads(path.read_text()); ledger = read_state(state)
     relative = path.relative_to(state.parent.resolve()).parts
     startup = relative == ('provider-availability', 'startup', 'attempt.json')
+    if (len(relative) == 3 and relative[0] == 'provider-availability' and relative[1].startswith('after-')
+            and relative[2] == 'attempt.json'):
+        # One further linked recovery is admitted after the owner restores service and the first
+        # startup recovery itself retained an actual HTTP402. It never chains past that.
+        prior = path.parent/'receipt.json'
+        first = json.loads(prior.read_text()).get('after_attempt') if prior.is_file() else None
+        startup = bool(first and Path(first['path']).parent.name == 'startup')
     matches = [i for i, row in enumerate(ledger['events'])
                if row.get('kind') == ('provider_availability_probe' if startup else 'independent_review_transport')
                and all(row.get(key) == item for key, item in value.items() if key != 'schema')]
@@ -216,7 +223,8 @@ def research_receipt(state, edition):
         try:
             proof = verified_proof(path, state); receipt = json.loads(proof['receipt'])
             target = receipt.get('after_attempt')
-            if target and Path(target['path']).parent.name != 'startup':
+            if target and Path(target['path']).parent.name != 'startup' and not (
+                    Path(target['path']).parent.name.startswith('after-')):
                 continue
             if target:
                 recovery_proof(path, Path(target['path']), state)
