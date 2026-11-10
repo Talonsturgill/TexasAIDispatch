@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-10T15:36:02.373098+00:00",
-  "note": "scene builder dispatched",
+  "saved_at": "2026-11-10T15:55:22.466451+00:00",
+  "note": "scene builder in progress; episode source durable via checkpoint",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -614,6 +614,60 @@
       "size": 3464
     },
     {
+      "path": "out/dispatch/builder-baseline/SHA256SUMS",
+      "class": "scratch",
+      "sha256": "a193c1d105ae1fd04812e11d88dbfc2c542c9dbd581c630d50f52fb5fd47b557",
+      "size": 914
+    },
+    {
+      "path": "out/dispatch/builder-baseline/gen_board_v2.py",
+      "class": "scratch",
+      "sha256": "190834eb98de6ef051f073b5c3c074fa182c184a0ce5ee8dd1ae8a644321690b",
+      "size": 62625
+    },
+    {
+      "path": "out/dispatch/builder-baseline/modern_episode_registry.json",
+      "class": "scratch",
+      "sha256": "fe75b3d74d6a12f98698ccd13f0b04990e827f1fce679133b3a7502b1ddd9442",
+      "size": 58747
+    },
+    {
+      "path": "out/dispatch/builder-baseline/opening-a.json",
+      "class": "scratch",
+      "sha256": "430a4b54e34e0bf86dbfdfa938f360d33f268e7505ae239c429b45de224c0797",
+      "size": 196586
+    },
+    {
+      "path": "out/dispatch/builder-baseline/opening-b.json",
+      "class": "scratch",
+      "sha256": "e9f63fb018f095cd29a070686f8ba5800ae5fcea84e665af832f222ad3815cf2",
+      "size": 196488
+    },
+    {
+      "path": "out/dispatch/builder-baseline/registry-entry-draft.json",
+      "class": "scratch",
+      "sha256": "aea663d3c0eebacdb33fa050fad74102d903faf3489da4fd46eaa20accea371a",
+      "size": 23295
+    },
+    {
+      "path": "out/dispatch/builder-baseline/registry.tsx",
+      "class": "scratch",
+      "sha256": "761a35eb1f64e9b9288e6a892b2fc1c806f69cfc9521df1c3e5d7fcb226c72ad",
+      "size": 1224
+    },
+    {
+      "path": "out/dispatch/builder-baseline/run_v2_gates.sh",
+      "class": "scratch",
+      "sha256": "47248e57165b3ac98bec54f7a4fd16eb7f549327ecdd89c0587a02a8ec2265e0",
+      "size": 2103
+    },
+    {
+      "path": "out/dispatch/builder-baseline/storyboard.json",
+      "class": "scratch",
+      "sha256": "430a4b54e34e0bf86dbfdfa938f360d33f268e7505ae239c429b45de224c0797",
+      "size": 196586
+    },
+    {
       "path": "out/dispatch/builder-packet.json",
       "class": "scratch",
       "sha256": "52b395333c6259bc1461fe52d052dba73ed355934243ba767d59db934378c817",
@@ -684,6 +738,12 @@
       "class": "scratch",
       "sha256": "2c01445fdfeb86be078f921bcade969d39fa0b773b00efef88f02713b79502ae",
       "size": 426
+    },
+    {
+      "path": "out/dispatch/native-completion-waits/dad5eb8a5c24fbe904337fd77b5cf204d642c630d26ca8f9812a4dd1cc654d8f.json",
+      "class": "scratch",
+      "sha256": "dad5eb8a5c24fbe904337fd77b5cf204d642c630d26ca8f9812a4dd1cc654d8f",
+      "size": 429
     },
     {
       "path": "out/dispatch/native-completion-waits/e3d3bdf26b06a64b40d4ba3db4bd3063d19809ddd8d76053e60e19e2bd5ea21d.json",
@@ -1074,12 +1134,18 @@
       "class": "scratch",
       "sha256": "5c9ce9d116e5e5243babb98816fa7b0c3dc39978a11fd211187033d77f8b59f1",
       "size": 555
+    },
+    {
+      "path": "video-engine/src/modern/episodes/2026-11-10/NoteHero.tsx",
+      "class": "source",
+      "sha256": "cc5418e4faa9a509bca7b3b4dc4dd46320b885a826c5a5e362d07059f406aac1",
+      "size": 21474
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 2083675,
-    "unique_blob_bytes": 1540559,
-    "unique_blobs": 101
+    "logical_bytes": 2844146,
+    "unique_blob_bytes": 1623347,
+    "unique_blobs": 106
   },
   "excluded": [],
   "regenerable": {
