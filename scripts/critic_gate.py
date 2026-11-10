@@ -33,7 +33,8 @@ def renderer_files(board: dict) -> list[Path]:
         return []
     if template == "daily-actions-v1":
         from cinema_cache import closure
-        return closure() + [REPO / "video-engine/scripts/render-batch.mjs",
+        return closure() + [p for p in (REPO / "video-engine/scripts/bounded-png-render.mjs",
+                                      REPO / "config/bounded_png_capture_v1.json") if p.is_file()] + [REPO / "video-engine/scripts/render-batch.mjs",
                             REPO / "video-engine/package-lock.json"]
     router = REPO / "video-engine" / "src" / "Dispatch.tsx"
     source = router.read_text()
@@ -71,6 +72,8 @@ def renderer_files(board: dict) -> list[Path]:
                 visited.add(dependency)
                 files.append(dependency)
                 queue.append(dependency)
+    files += [p for p in (REPO / "video-engine/scripts/bounded-png-render.mjs",
+                           REPO / "config/bounded_png_capture_v1.json") if p.is_file()]
     return sorted(files)
 
 

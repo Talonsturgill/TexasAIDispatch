@@ -195,11 +195,11 @@ def initialise(path: Path, run_id: str, mode: str) -> tuple[bool, str]:
     return True, f"run controller: initialised {run_id} in {mode} mode at {path}"
 
 
-def preflight_identity(path: Path, note: str, *, version: int = 2) -> str | None:
+def preflight_identity(path: Path, note: str, *, version: int = 3) -> str | None:
     """Hash production inputs, scoped by operation (animatic versus hero)."""
-    if version not in (1, 2):
+    if version not in (1, 2, 3):
         raise ValueError('unknown preflight input identity version')
-    if version == 2:
+    if version >= 2:
         path = Path(path).resolve()
     board = path.parent / "storyboard.json"
     if not board.is_file():
@@ -245,6 +245,9 @@ def preflight_identity(path: Path, note: str, *, version: int = 2) -> str | None
         operator = 'claude_motion_review.py'
     if operator:
         files += [p for p in (REPO / "scripts" / operator, REPO / "scripts/capture_reservation.py") if p.is_file()]
+    if version >= 3:
+        from bounded_capture import FILES, POLICY
+        files += [REPO / name for name in (*FILES, POLICY) if (REPO / name).is_file()]
     def identity_path(file):
         if version == 1:
             return str(file)
@@ -267,6 +270,7 @@ def preflight_identities(path: Path, note: str) -> list[str | None]:
     """Match retained legacy receipts without changing their recorded hashes."""
     supplied = Path(path)
     return [preflight_identity(supplied, note),
+            preflight_identity(supplied, note, version=2),
             preflight_identity(supplied.resolve(), note, version=1),
             preflight_identity(supplied, note, version=1)]
 
@@ -534,7 +538,7 @@ def reserve(path: Path, amounts: dict[str, int], note: str = "", *, _panel: bool
     binding = {'full_render_identity': full_identity} if full_identity is not None else {}
     binding.update(review_binding)
     if preview_identity:
-        binding['preflight_identity_version'] = 2
+        binding['preflight_identity_version'] = 3
     from publication_owner import reservation_fields
     binding.update(reservation_fields(path, state))
     event(state, "reserved", resources=amounts, note=note, preflight_identity=preview_identity, **binding)

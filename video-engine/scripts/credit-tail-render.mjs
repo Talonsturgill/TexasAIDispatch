@@ -4,6 +4,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {bundle} from '@remotion/bundler';
 import {openBrowser,renderMedia,renderStill,selectComposition} from '@remotion/renderer';
+import {boundedPngRender} from './bounded-png-render.mjs';
 import {renderBatch} from './render-batch.mjs';
 
 export function withCompleteCredits(composition,board){
@@ -19,7 +20,7 @@ export function withCompleteCredits(composition,board){
 
 export async function renderCompleteCredits(boardPath,output,api){
   const board=JSON.parse(fs.readFileSync(boardPath,'utf8'));
-  const base=api??{bundle,openBrowser,renderMedia,renderStill,selectComposition};
+  const base=api??{bundle,openBrowser,renderMedia:boundedPngRender,renderStill,selectComposition};
   return renderBatch({jobs:[{kind:'video',props:boardPath,output,preview:false}]},{...base,
     selectComposition:async options=>withCompleteCredits(await base.selectComposition(options),board),
     renderMedia:async options=>{
