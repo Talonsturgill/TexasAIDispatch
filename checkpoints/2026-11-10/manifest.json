@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-10T15:18:47.630716+00:00",
-  "note": "145-word script final candidate; boards regenerated; script_evidence passes",
+  "saved_at": "2026-11-10T15:21:23.661552+00:00",
+  "note": "awaiting owner validator decision; packet 3 prepared",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -37,6 +37,12 @@
     "voice_directors": 0
   },
   "files": [
+    {
+      "path": "out/dispatch/PENDING-OWNER-VALIDATOR-DECISION.md",
+      "class": "scratch",
+      "sha256": "b1ec9078127b3c8f109bcf5f6148cccef91384bbc2abc4b40a2ebc87b67a1753",
+      "size": 1685
+    },
     {
       "path": "out/dispatch/board-gates/a-board_scale.log",
       "class": "scratch",
@@ -626,6 +632,30 @@
       "size": 6300
     },
     {
+      "path": "out/dispatch/evidence/structural-revalidation/modern_film-210.exit",
+      "class": "scratch",
+      "sha256": "0c6868c2c44f053619cef1cc383e1d530743b574ca192ace9168a9ccf46a86e3",
+      "size": 7
+    },
+    {
+      "path": "out/dispatch/evidence/structural-revalidation/modern_film-210.log",
+      "class": "scratch",
+      "sha256": "ed5082d7abf119997abfa846dc31604c3258cb5a8932e09618633be84cf14a5f",
+      "size": 3183
+    },
+    {
+      "path": "out/dispatch/evidence/structural-revalidation/storyboard_check-210.exit",
+      "class": "scratch",
+      "sha256": "0c6868c2c44f053619cef1cc383e1d530743b574ca192ace9168a9ccf46a86e3",
+      "size": 7
+    },
+    {
+      "path": "out/dispatch/evidence/structural-revalidation/storyboard_check-210.log",
+      "class": "scratch",
+      "sha256": "176f6475747ea98231e72f3c114b7b4efb3f322457963dc579f653cb43352a4c",
+      "size": 3235
+    },
+    {
       "path": "out/dispatch/native-completion-waits/0609088b96d381e1ec71f4e11efe9092cdefbf2a9b78260aed46858f362b974c.json",
       "class": "scratch",
       "sha256": "0609088b96d381e1ec71f4e11efe9092cdefbf2a9b78260aed46858f362b974c",
@@ -866,6 +896,12 @@
       "size": 3915
     },
     {
+      "path": "out/dispatch/validator-packet-3.json",
+      "class": "scratch",
+      "sha256": "4fe0ee31d7cddce0e1764c8306f803d785c8653903aca11c7110974163dff9f3",
+      "size": 3915
+    },
+    {
       "path": "out/dispatch/validator-packet-subject-5b2503766eb21ea2.json",
       "class": "scratch",
       "sha256": "5b2503766eb21ea23c3308205ce780d7e7302dd6028476eb3b8a86bf1bdc6890",
@@ -945,9 +981,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 1991619,
-    "unique_blob_bytes": 1452470,
-    "unique_blobs": 84
+    "logical_bytes": 2003651,
+    "unique_blob_bytes": 1458077,
+    "unique_blobs": 87
   },
   "excluded": [],
   "regenerable": {
