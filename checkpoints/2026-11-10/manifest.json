@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-10T20:48:47.050176+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-11-10T21:14:05.545665+00:00",
+  "note": "capture authorization consumed d689d20ff4eb",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-11-10T13:38:49.855002Z",
   "repo_root": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch",
-  "source_pin": "7c0f36e07d90e62dbe6877f4226d4c65a54c3e68",
+  "source_pin": "57dd1b8c0d2f8e03de9bd74b4bc2b18954c693c9",
   "source_branch": "claude/dispatch-2026-11-10",
   "source_closure": {
     "root": "video-engine",
@@ -986,10 +986,22 @@
       "size": 7879
     },
     {
+      "path": "out/dispatch/capture-authorization.json",
+      "class": "scratch",
+      "sha256": "7c30669d2ef86d5394f0df6eb8264bb1e561ac11d2fa983bc3d8d11346897ae5",
+      "size": 23451
+    },
+    {
       "path": "out/dispatch/capture-authorization.json.lock",
       "class": "scratch",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0
+    },
+    {
+      "path": "out/dispatch/capture-authorizations-used.json",
+      "class": "scratch",
+      "sha256": "603c46d7f1bcc5311b16bfd0a8869c70fa5a8617c669e7f6491c1d4efda2fb5f",
+      "size": 152
     },
     {
       "path": "out/dispatch/capture-housekeeping-20261110T204713.json",
@@ -1971,9 +1983,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 3867615,
-    "unique_blob_bytes": 2807680,
-    "unique_blobs": 148
+    "logical_bytes": 3891218,
+    "unique_blob_bytes": 2831283,
+    "unique_blobs": 150
   },
   "excluded": [
     {
