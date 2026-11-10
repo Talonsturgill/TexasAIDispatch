@@ -406,6 +406,14 @@
       "resources": {
         "preflight_renders": 1
       }
+    },
+    {
+      "at": "2026-11-10T21:17:02.760274Z",
+      "evidence": "{REPO}/out/dispatch/capture-hook-failure-2026-11-10.log",
+      "evidence_sha256": "df895c2176fff9c44e3516e05bbf2fbc9a634f0c80c02cfa4ca3ee788a00e0af",
+      "input_identity": "8cc0ad84278c759862f1089231a78c495a1ddec56b4410eb9c1e3c054001b7dc",
+      "kind": "preflight_retry_authorized",
+      "reason": "Installed capture hook failed to import PIL under bare python3 before any capture ran (fixed by PR315, tools at 57dd1b8c); authorization consumed by a diagnostic hook verification with no render"
     }
   ],
   "limits": {
@@ -427,9 +435,10 @@
   },
   "mode": "production",
   "phase": "picture",
+  "preflight_retry": "8cc0ad84278c759862f1089231a78c495a1ddec56b4410eb9c1e3c054001b7dc",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "95bd46390b11e332febf574409e543f1ce02be649d5a2d9595e543bdb39c7ec9",
+    "original_private_state_sha256": "c25c80dcbf100c1901e088baeec2a3dddb4f99298e540f4d65ba3cbb38a7b3ed",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -457,7 +466,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-10T20:48:46.235937Z",
+  "updated_at": "2026-11-10T21:17:02.760314Z",
   "usage": {
     "audiovisual_reviews": 3,
     "cleanup_renders": 0,

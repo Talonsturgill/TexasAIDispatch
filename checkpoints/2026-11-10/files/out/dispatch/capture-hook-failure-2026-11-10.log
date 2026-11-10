@@ -1,0 +1,9 @@
+Edition 2026-11-10, operation: two opening comparison batch (builder proof)
+Command: bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --builder-proof
+
+1. 2026-11-10T20:49Z PreToolUse hook denial, verbatim tool error:
+   Capture refused. Prelaunch workspace guard could not verify the checkout: cannot import name '_imaging' from 'PIL' (/usr/lib/python3/dist-packages/PIL/__init__.py)
+   Cause: cloud_capture_hook.py runs under bare python3 3.11. capture_guard.decide -> bounded_capture.operation -> capture_reservation -> claude_motion_review imports PIL, and that interpreter's only PIL is a cpython-312 build without _imaging. No capture ran.
+2. Fix: PR315 (57dd1b8c) isolates the shared phone operation constant so guard imports no longer load PIL. Installed /opt tools refreshed to 57dd1b8c through the official SessionStart hook.
+3. 2026-11-10T21:14:05Z To verify the fix, the director piped a synthetic PreToolUse payload for the same command into the installed hook. The hook allowed it and consumed the single-use authorization (commands[0].consumed, mirrored to the remote checkpoint). No capture, render or output followed; out/dispatch/openings does not exist.
+4. The original reservation (event 3149954cb5b1e26d34a46d03015b018fa2b2da686f93bce8d36fe1c777785b41) stays charged. A fresh authorize --prepare is refused as identical inputs already reserved.
