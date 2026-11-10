@@ -2,9 +2,9 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "3149954cb5b1e26d34a46d03015b018fa2b2da686f93bce8d36fe1c777785b41",
+    "event_sha256": "53d925764b9c807f1db1ec3d5367bc0088d5f3bd5149647a2ca1022ceb18e987",
     "resource": "preflight_renders",
-    "at": "2026-11-10T20:48:46.235918Z",
+    "at": "2026-11-10T21:17:19.103712Z",
     "note": "two opening comparison batch"
   },
   "boards": [
@@ -194,13 +194,13 @@
     {
       "id": "d689d20ff4ebf8613d195a1e56abb739dd92b40a8029dc3cf8d376aa6e3cb888",
       "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --builder-proof",
-      "consumed": "2026-11-10T21:14:05.177491+00:00"
+      "consumed": "2026-11-10T21:17:39.909692+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 6,
-    "free_gib": 17.157,
+    "free_gib": 17.154,
     "storage_profile": {
       "mode": "bounded-png-v1",
       "operator": "opening_compare.py",
@@ -229,20 +229,20 @@
     }
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/capture-housekeeping-20261110T204838.json",
-    "receipt_sha256": "511bfa1ab0d57c64449d9d2c63054bfee39aba2ace1b8e67b62834c58ba51d82",
+    "receipt": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/capture-housekeeping-20261110T211714.json",
+    "receipt_sha256": "f4d4a33b88aeab883a0cec346a2b2fe93dea25cf5dd25c3bbde8a9b640c3dd12",
     "exit_code": 0,
     "min_free_gib": 6
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-11-10T20:48:50.340025+00:00",
-  "expires_at": "2026-11-10T21:33:50.340025+00:00",
+  "issued_at": "2026-11-10T21:17:23.040191+00:00",
+  "expires_at": "2026-11-10T22:02:23.040191+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
     "operation": "two opening comparison batch",
     "resource": "preflight_renders",
     "run_id": "2026-11-10",
-    "event_sha256": "3149954cb5b1e26d34a46d03015b018fa2b2da686f93bce8d36fe1c777785b41",
+    "event_sha256": "53d925764b9c807f1db1ec3d5367bc0088d5f3bd5149647a2ca1022ceb18e987",
     "input_identity": "8cc0ad84278c759862f1089231a78c495a1ddec56b4410eb9c1e3c054001b7dc"
   }
 }
