@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-10T14:39:15.890839+00:00",
-  "note": "story selection, claims, narration drafted",
+  "saved_at": "2026-11-10T14:45:26.938466+00:00",
+  "note": "validator round 1 REVISE retained; corrected claims script selection",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,8 +16,8 @@
     "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
   },
   "deleted_source": [],
-  "ledger_sha256": "8205176c9b38fcc67d6ada7528d5ff3597cead04ad51216ce9dcfdbc9c11d984",
-  "original_private_ledger_sha256": "6764dda44dd8bcc2df434619683bf261f48b346a2fb50546503236080e495bb9",
+  "ledger_sha256": "9738ec7c839b617668981f8ce098074fd4d3b85484cef0743dae92d0ccca3b37",
+  "original_private_ledger_sha256": "388d7f4e328aee2bdf7fd89be200c66fbc1360bcbe6b9e8ac98918a84e887561",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 3,
@@ -33,15 +33,21 @@
     "scorer_calls": 0,
     "storyboard_critics": 0,
     "tts_calls": 0,
-    "validator_agents": 0,
+    "validator_agents": 1,
     "voice_directors": 0
   },
   "files": [
     {
-      "path": "out/dispatch/claims.json",
+      "path": "out/dispatch/claims-round1.json",
       "class": "scratch",
       "sha256": "693c16a2b56157f22c550270e5c8a51cdb01094891ac9cfe7c8c92ae343d5aab",
       "size": 6315
+    },
+    {
+      "path": "out/dispatch/claims.json",
+      "class": "scratch",
+      "sha256": "17f36bbd6399c1733d6f4bce8dc88b8ae32afeb312e00eafe377195c7b53b212",
+      "size": 7758
     },
     {
       "path": "out/dispatch/claude-phases.jsonl",
@@ -54,6 +60,12 @@
       "class": "scratch",
       "sha256": "49a99bc1b90b3936c19ed3c6d64149cab3259e84ad673e039691acb7de76eab5",
       "size": 6300
+    },
+    {
+      "path": "out/dispatch/native-completion-waits/0609088b96d381e1ec71f4e11efe9092cdefbf2a9b78260aed46858f362b974c.json",
+      "class": "scratch",
+      "sha256": "0609088b96d381e1ec71f4e11efe9092cdefbf2a9b78260aed46858f362b974c",
+      "size": 425
     },
     {
       "path": "out/dispatch/native-completion-waits/2c01445fdfeb86be078f921bcade969d39fa0b773b00efef88f02713b79502ae.json",
@@ -218,22 +230,64 @@
       "size": 8998
     },
     {
-      "path": "out/dispatch/story_selection.json",
+      "path": "out/dispatch/story_selection-round1.json",
       "class": "scratch",
       "sha256": "03477bf1f4ce5b8d2f70f5e7e8e3367295807a2e0085a5573bae8892acbaaacb",
       "size": 9201
     },
     {
+      "path": "out/dispatch/story_selection.json",
+      "class": "scratch",
+      "sha256": "9f8eec6d503c894178232c22167befe4b0dfdf0cd123789c57498d3f59274df9",
+      "size": 9135
+    },
+    {
+      "path": "out/dispatch/validation-round1-revise.json",
+      "class": "scratch",
+      "sha256": "ace0d1bab9bac637e63a647c0bce69e6393062ad8d5b1f93c5c600e44ce7aebb",
+      "size": 3085
+    },
+    {
+      "path": "out/dispatch/validation.json",
+      "class": "scratch",
+      "sha256": "ace0d1bab9bac637e63a647c0bce69e6393062ad8d5b1f93c5c600e44ce7aebb",
+      "size": 3085
+    },
+    {
+      "path": "out/dispatch/validator-assignment.json",
+      "class": "scratch",
+      "sha256": "f6e545672b4a10be556e5fc5fcb619fbecc09ff30b412aa16f9faebb6404e1de",
+      "size": 3147
+    },
+    {
+      "path": "out/dispatch/validator-packet-subject-5b2503766eb21ea2.json",
+      "class": "scratch",
+      "sha256": "5b2503766eb21ea23c3308205ce780d7e7302dd6028476eb3b8a86bf1bdc6890",
+      "size": 2252
+    },
+    {
+      "path": "out/dispatch/validator-packet.json",
+      "class": "scratch",
+      "sha256": "12967957b116914f2d67e193a6fa521ceae80a6337cafd0c5a36aa9b3e8ee471",
+      "size": 3915
+    },
+    {
       "path": "out/dispatch/vo_bindings.json",
       "class": "scratch",
-      "sha256": "6c4edd18f818c7c057700b2694a00bc331e348d15868beae852a2fc79e6b8474",
-      "size": 1947
+      "sha256": "4a9a8ec335e74d889a2b42e9b7af09febee39e5332183e8dfb99513da8d4fa2a",
+      "size": 2094
+    },
+    {
+      "path": "out/dispatch/vo_script-round1.txt",
+      "class": "scratch",
+      "sha256": "cd00386f2e8c243468cc56d39cc4c7593cc695685bf5579ccd73fb36b12b1db5",
+      "size": 1120
     },
     {
       "path": "out/dispatch/vo_script.txt",
       "class": "scratch",
-      "sha256": "cd00386f2e8c243468cc56d39cc4c7593cc695685bf5579ccd73fb36b12b1db5",
-      "size": 1120
+      "sha256": "776ebba27d578f433c619316c97e93da26e26254fc0f11b1a4a143c5c7bcfc8c",
+      "size": 1237
     },
     {
       "path": "out/dispatch/worker-dispatch-claims/55b1568bf1849057de1ecc769a224c01ad9c1c140d012a74bad7bdfa0df08954-researcher.json",
@@ -246,12 +300,18 @@
       "class": "scratch",
       "sha256": "343ccc47ac0836c25b9f683fc7a9f73934d776f1550635868d531d610d531703",
       "size": 557
+    },
+    {
+      "path": "out/dispatch/worker-dispatch-claims/c1beb7d79d1af4b13f6a636091d6e7fc09afcf6fb521103146c45ca6f92b6d34-validator.json",
+      "class": "scratch",
+      "sha256": "be516ee3826960ff97ed72f37ced5554fd9afab4370fa9cd1705ca556bcf275d",
+      "size": 555
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 398139,
-    "unique_blob_bytes": 398139,
-    "unique_blobs": 32
+    "logical_bytes": 432880,
+    "unique_blob_bytes": 429795,
+    "unique_blobs": 41
   },
   "excluded": [],
   "regenerable": {

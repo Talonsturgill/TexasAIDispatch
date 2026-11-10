@@ -1,0 +1,35 @@
+{
+ "date": "2026-11-10",
+ "source": "Independent full re-fetch by validator of med.uth.edu Dean's Dialogue post (Sept 9 2026), abridge.com UT enterprise-wide press release (Oct 8 2026) and capitol.texas.gov SB01188F enrolled text; verbatim confirmation by exact-substring and blind first/last-word extraction; additional fetches utphysicians.com/about-us/ (403), utphysicians.com (403), med.uth.edu/about-us/ (no UT Physicians description), texasaidocket.com/item/tx-2026-0160/ (record exists). Read story_selection, claims, vo_script, vo_bindings in full. Hashes are packet-supplied and were not recomputed (no hashing tool).",
+ "result": "REVISE",
+ "verified_claim_ids": [
+  "c1",
+  "c2",
+  "c4",
+  "c5",
+  "c7"
+ ],
+ "rejected": [
+  {
+   "id": "c3",
+   "reason": "Source reachable and claim factually supported, but spoken/claimed numeral 'October 8th, 2026' absent from submitted quote; replace with fetched dateline excerpt 'SAN FRANCISCO, California \u2014 October 8, 2026 \u2014 Abridge today announced an enterprise-wide agreement with University of Texas REAL Health AI to expand access to Abridge\u2019s clinician intelligence platform across the UT System.' and retain fetched excerpt 'In 2025, the University of Texas System received legislative approval and dedicated funding to launch UT REAL Health AI, a systemwide initiative to responsibly accelerate artificial intelligence in health' for s4."
+  },
+  {
+   "id": "c6",
+   "reason": "Quote verbatim; claim text states condition (3) of Sec. 183.005(a) as sufficient while the statute requires three conjunctive conditions plus (b) patient disclosure. Required text: 'lets a practitioner use artificial intelligence for diagnostic purposes under conditions that include reviewing all records created with artificial intelligence consistent with Texas Medical Board standards.'"
+  }
+ ],
+ "required_edits_applied": [],
+ "required_edits_pending": [
+  "s2: drop unsupported appositive 'the practice of the medical school at UTHealth Houston'; replace model-derived numeral 'two' with 'DAX and Abridge'",
+  "s4: retain c3 dateline and REAL Health AI excerpts (sentence unchanged)",
+  "s7: replace sufficient-condition 'if' with 'under conditions that include'",
+  "s10: remove unsupported 'signs'/'belongs to' and the 'So' inference; scope absence to 'none of these sources'",
+  "story_selection: fix texas_link practice description and UT System misattribution, why_today conflation, unsourced 'typing afterward' baseline, earned_take per s10",
+  "c3 quote extension and c6 text correction"
+ ],
+ "findings_verified_scope": "c1,c2,c4,c5,c7 verbatim with numerals; s1,s3,s5,s6,s8,s9 supported by bound claims; absence findings (no accuracy, review rate, signing, consent, switch date) confirmed on all three sources",
+ "reviewer_identity": "claude-opus-5-5 validator leaf (Claude host)",
+ "script_sha256": "cd00386f2e8c243468cc56d39cc4c7593cc695685bf5579ccd73fb36b12b1db5 (packet-supplied, not recomputed)",
+ "claims_sha256": "693c16a2b56157f22c550270e5c8a51cdb01094891ac9cfe7c8c92ae343d5aab (packet-supplied, not recomputed)"
+}
