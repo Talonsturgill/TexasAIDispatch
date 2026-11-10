@@ -78,6 +78,17 @@ Three things still stop and ask, in any session:
 - anything that SENDS rather than drafts (these routines never send)
 - deleting or overwriting shipped run artifacts under `runs/`
 
+## Explicit owner cancellation
+
+An edition the owner explicitly cancels is retained recoverably, not shipped or marked
+quality-approved. Use scripts/cancelled_editions.py with the exact edition, the retained
+private owner instruction and explicit confirmation. It verifies the original checkpoint,
+creates a separate recovery archive, and records a distinct owner-cancelled disposition
+through the expired-lease ownership compare-and-swap. Never cancel an edition just because
+it is old, rejected or over budget. A live owner remains protected. Cancelled dates cannot
+restart with a fresh budget. The normal pending scan and next daily acquisition exclude
+only a verified cancellation, while all new-edition quality and delivery gates stay intact.
+
 ## PRODUCTION COMPLETION AND AUTONOMOUS REPAIR
 
 Successful production has one terminal state: `shipped`. The owner's October 24th, 2026
