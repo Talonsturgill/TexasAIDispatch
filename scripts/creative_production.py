@@ -247,6 +247,8 @@ def opening_producer(legacy_orchestrator_sha256=None):
     repo = POLICY.parents[1]
     files = [repo / "scripts/opening_compare.py", repo / "video-engine/scripts/render-batch.mjs",
              repo / "video-engine/package-lock.json"]
+    files += [p for p in (repo / "video-engine/scripts/bounded-png-render.mjs",
+                           repo / "config/bounded_png_capture_v1.json") if p.is_file()]
     files += sorted(p for p in (repo / "video-engine/public/fonts").glob("*") if p.is_file())
     hashes = {str(p.relative_to(repo)): digest(p) for p in files}
     if legacy_orchestrator_sha256 is not None:

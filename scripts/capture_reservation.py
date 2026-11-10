@@ -22,7 +22,7 @@ def resource_for(note):
     raise ValueError('unsupported prepared capture operation')
 
 
-def input_identity(state_path, note, *, version=2):
+def input_identity(state_path, note, *, version=3):
     import run_controller as controller
     return (controller.full_render_identity(state_path) if note == FULL_OPERATION
             else controller.preflight_identity(state_path, note, version=version))
@@ -234,7 +234,7 @@ def claim(state_path, note):
             errors.append('prepared operator differs')
         if state.get('terminal_state') or state.get('run_id') != prepared.get('run_id'):
             errors.append('prepared ledger differs or is terminal')
-        if (version not in (1, 2)
+        if (version not in (1, 2, 3)
                 or prepared.get('input_identity') != input_identity(state_path, note, version=version)
                 or auth.get('render_reservation', {}).get('event_sha256') != receipt):
             errors.append('prepared inputs or reservation changed')

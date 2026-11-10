@@ -160,7 +160,22 @@ and obtain its current independent exact-film critique. If the assigned host wor
 start, follow prompts/phases/review-availability.md immediately. Inspect the longest caption in the
 phone picture. If it hides the action, shorten groups at measured boundaries and rerender.
 
-Before native capture, run scripts/native_headroom.py on the current board. It computes a complete native frame working set plus output reserve. Use that required_free_gib with the workspace housekeeping --require-headroom --min-free-gib option. Preserve active and unrelated work; native PNG capture, resolution and CRF16 stay fixed.
+Before native capture, run scripts/native_headroom.py with the exact current --board and
+--capture-command containing the same wrapped operator you will prepare and execute. For example:
+
+```sh
+bash scripts/run_with_env.sh python scripts/native_headroom.py --board out/dispatch/storyboard.json --capture-command "bash scripts/run_with_env.sh python scripts/cinema_proof.py --board out/dispatch/storyboard.json --mix out/dispatch/mix.wav --state out/dispatch/run_state.json"
+```
+
+For the final film, use --capture-command "bash scripts/run_with_env.sh bash scripts/render_dispatch.sh".
+For opening comparison, repeat --board for both canonical opening treatment boards and name the exact
+opening_compare.py command. The planner uses a bounded PNG working set only for a supported native
+route with a current source-bound verification proof. Missing or stale proof, unsupported commands,
+and omission of --capture-command retain the complete-frame estimate. Use its computed
+required_free_gib with workspace housekeeping --require-headroom --min-free-gib; never invent a
+lower target. Planning neither charges nor authorizes execution. The unchanged prepared capture
+process must still bind the exact command, current inputs and reservation, and recheck current
+headroom at execution. Preserve active and unrelated work; native PNG, resolution and CRF16 stay fixed.
 
 Before native proof, choose a hero passage that includes the causal antecedent of its narration
 and captions. An ending that refers to a prior target check must include that check in the

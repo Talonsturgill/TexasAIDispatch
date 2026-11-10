@@ -319,8 +319,16 @@ housekeeping helper at startup and after the verified shipped archive:
 bash scripts/run_with_env.sh python scripts/dispatch_housekeeping.py --workspace <shared-parent> --dispatch-repo <actual-dispatch-checkout> --docket-repo <actual-docket-checkout> --apply --fetch --summary
 ```
 
-Before every native render, calculate scripts/native_headroom.py on the current board, then repeat
-that housekeeping command with --require-headroom --min-free-gib set to its required_free_gib.
+Before every native render, run scripts/native_headroom.py with the current --board and
+--capture-command containing the exact upcoming wrapped operator command. For opening comparison,
+repeat --board for both out/dispatch/opening-a.json and out/dispatch/opening-b.json. Then repeat
+that housekeeping command with --require-headroom --min-free-gib set to the computed required_free_gib.
+The planner uses bounded PNG storage only when the exact native route has a current source-bound
+verification proof. Without that proof, for unsupported commands, or without --capture-command,
+it retains the complete-frame requirement. Never supply an invented lower free-space target.
+This is advisory planning, not permission or a reservation: prepare the same exact command through
+capture_guard.py authorize --prepare, which verifies the reservation, identities, storage profile
+and current headroom again before the hook permits execution.
 Retain at least two completed packages. Missing process inspection or unverifiable archives never
 authorize cleanup; recover the actual capacity condition through the controller.
 If eligible cleanup leaves insufficient room, compact the selected edition's Git object
@@ -682,7 +690,10 @@ Retain the active `directed-film-v2` route and complete source/event/clause-boun
 
 Prove both complete silent phone treatments before voice, then measured timed phone, native hero
 with sound, final cut, all audiovisual lenses, panel and delivery. Before native renders calculate
-the complete uncompressed PNG frame set plus retained-output reserve with `native_headroom.py`.
+storage with `native_headroom.py --board <exact-board> --capture-command "<exact wrapped operator>"`.
+Repeat --board for both opening treatments. Only a verified bounded native route receives its
+bounded PNG working set plus the unchanged output reserve; every other route retains the complete
+uncompressed frame-set estimate. The planner never replaces prepared capture authorization.
 Recover only eligible storage if the actual plan lacks room. Never lower native 1080x1920 capture,
 PNG, CRF16 or mandatory reviews. Reserve every actual attempt before execution. Fund the complete
 remaining review and delivery path before correcting a failed cut. Keep the frozen envelope,

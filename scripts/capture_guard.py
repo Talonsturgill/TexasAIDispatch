@@ -285,6 +285,20 @@ def capture_problems(command, auth, cwd, root, free_gib=None):
         errors.append('no computed and passed native headroom check')
     elif (free_gib if free_gib is not None else round(shutil.disk_usage(root).free / (1024 ** 3), 3)) < headroom['required_free_gib']:
         errors.append('current native headroom is below the %s GiB required' % headroom['required_free_gib'])
+    if headroom.get('storage_profile') is None and (auth.get('bound') or {}).get('capture_storage'):
+        errors.append('bounded capture storage profile is missing')
+    if headroom.get('storage_profile') is not None:
+        try:
+            from bounded_capture import plan as bounded_plan
+            current_boards = [(resolve(b['path'], root), json.loads(resolve(b['path'], root).read_text()))
+                              for b in auth.get('boards', [])]
+            current_profile = bounded_plan(root, [c['text'] for c in auth.get('commands', [])], current_boards)
+            if (Path(cwd).resolve() != Path(root).resolve()
+                    or current_profile is None or current_profile != headroom['storage_profile']
+                    or headroom.get('required_free_gib') != current_profile['required_free_gib']):
+                errors.append('bounded capture storage profile changed or is not verified for this command')
+        except (OSError, ValueError, KeyError, TypeError):
+            errors.append('bounded capture storage profile is unreadable')
     if not (auth.get('housekeeping') or {}).get('receipt_sha256'):
         errors.append('no kept portable housekeeping receipt')
     if auth.get('art_receipts_recorded') is not True:
@@ -519,7 +533,17 @@ def _authorize(root, state_path, board_paths, commands, resource, housekeeping, 
         for kind, files in bound_hashes(board, root).items():
             bound[kind].update(files)
         plans.append(estimate(board))
-    required = max(p['required_free_gib'] for p in plans)
+    from bounded_capture import plan as bounded_plan
+    storage = bounded_plan(root, commands, boards)
+    if storage is not None and not prepare:
+        from capture_reservation import FULL_OPERATION, input_identity, operation_for
+        operation = operation_for(commands, root)
+        field = 'full_render_identity' if operation == FULL_OPERATION else 'preflight_identity'
+        if (reservation is None or reservation.get('note') != operation
+                or (operation != FULL_OPERATION and reservation.get('preflight_identity_version') != 3)
+                or reservation.get(field) != input_identity(state_path, operation)):
+            storage = None
+    required = storage['required_free_gib'] if storage else max(p['required_free_gib'] for p in plans)
     free = round(shutil.disk_usage(root).free / (1024 ** 3), 3)
     if free < required:
         raise ValueError('native headroom failed: %s GiB free, %s required' % (free, required))
@@ -547,6 +571,9 @@ def _authorize(root, state_path, board_paths, commands, resource, housekeeping, 
               'commands': [{'id': hashlib.sha256(normalize(c).encode()).hexdigest(), 'text': normalize(c), 'consumed': False} for c in commands],
               'headroom': {'passed': True, 'required_free_gib': required, 'free_gib': free}, 'housekeeping': kept,
               'art_receipts_recorded': True, 'issued_at': issued.isoformat(), 'expires_at': (issued + LIFETIME).isoformat()}
+    if storage is not None:
+        record['headroom']['storage_profile'] = storage
+        record['bound']['capture_storage'] = storage['bindings']
     if prepared is not None:
         record['prepared_capture'] = prepared
     used.append({'event_sha256': record['render_reservation']['event_sha256'], 'issued_at': record['issued_at']})

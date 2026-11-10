@@ -90,7 +90,7 @@ class Reservation(unittest.TestCase):
     def test_relocated_prepaid_capture_preserves_inputs_and_claims_once(self):
         receipt, _ = self.authorise()
         old = copy.deepcopy(controller.read_state(self.state))
-        self.assertEqual(2, old['events'][-1]['preflight_identity_version'])
+        self.assertEqual(3, old['events'][-1]['preflight_identity_version'])
         with tempfile.TemporaryDirectory() as directory:
             destination = Path(directory).resolve() / 'restored'
             shutil.copytree(self.root, destination)
@@ -106,6 +106,22 @@ class Reservation(unittest.TestCase):
                 self.assertFalse(prepared.claim(relocated, note)[0])
                 (destination / 'scripts/cinema_proof.py').write_text('# changed operator\n')
                 self.assertNotEqual(receipt['input_identity'], prepared.input_identity(relocated, note))
+
+    def test_v2_prepaid_capture_keeps_its_exact_identity(self):
+        note = prepared.OPERATIONS['cinema_proof.py']
+        _, auth = self.authorise()
+        state = controller.read_state(self.state)
+        event = state['events'][-1]
+        event['preflight_identity_version'] = 2
+        event['preflight_identity'] = controller.preflight_identity(self.state, note, version=2)
+        receipt = guard.event_digest(event)
+        auth['prepared_capture'].update(event_sha256=receipt, input_identity=event['preflight_identity'])
+        auth['render_reservation']['event_sha256'] = receipt
+        controller.save(self.state, state)
+        (self.root / guard.AUTHORIZATION).write_text(json.dumps(auth))
+        accepted, message = prepared.claim(self.state, note)
+        self.assertTrue(accepted, message)
+        self.assertEqual(event, controller.read_state(self.state)['events'][-2])
 
     def test_legacy_prepaid_capture_keeps_its_exact_identity(self):
         note = prepared.OPERATIONS['cinema_proof.py']
@@ -144,7 +160,7 @@ class Reservation(unittest.TestCase):
         current = controller.read_state(self.state)
         self.assertEqual(state['events'], current['events'][:len(state['events'])])
         self.assertEqual(2, current['usage']['preflight_renders'])
-        self.assertEqual(2, current['events'][-1]['preflight_identity_version'])
+        self.assertEqual(3, current['events'][-1]['preflight_identity_version'])
 
     def test_real_phone_hero_and_motion_operations_have_distinct_identities(self):
         notes = [note for script,note in prepared.OPERATIONS.items() if script != 'preship_compute.py']

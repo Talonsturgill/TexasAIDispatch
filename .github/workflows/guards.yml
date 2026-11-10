@@ -36,6 +36,44 @@ concurrency:
   cancel-in-progress: ${{ inputs.capture_request == '' }}
 
 jobs:
+  bounded-native-proof:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.capture_request == '' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install the pinned native renderer
+        working-directory: video-engine
+        run: |
+          npm ci --no-audit --no-fund
+          npx --no-install remotion browser ensure
+      - name: Verify decoder availability
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install --yes --no-install-recommends ffmpeg
+          fi
+      - name: Bounded native PNG equivalence
+        timeout-minutes: 20
+        run: |
+          bash scripts/run_with_env.sh node --test video-engine/scripts/bounded-png-render.test.mjs
+          bash scripts/run_with_env.sh node video-engine/scripts/verify-bounded-png.mjs "$RUNNER_TEMP/dispatch-bounded-proof"
+
+      - name: Retain bounded renderer equivalence evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bounded-native-png-proof-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 7
+          path: |
+            ${{ runner.temp }}/dispatch-bounded-proof/equivalence.json
+            ${{ runner.temp }}/dispatch-bounded-proof/*.bounded-png.json
+
+
   capture:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.capture_request != '' }}
     runs-on: ubuntu-24.04
@@ -580,6 +618,13 @@ jobs:
           node tests/cinema.mjs
           node tests/proven_actions.mjs
           node tests/direction.mjs
+
+      - name: Bounded native storage authorization and proof freshness
+        run: |
+          bash scripts/run_with_env.sh python3 scripts/bounded_capture_test.py
+          bash scripts/run_with_env.sh python3 scripts/capture_guard_test.py
+          bash scripts/run_with_env.sh python3 scripts/capture_reservation_test.py
+          bash scripts/run_with_env.sh python3 scripts/bounded_capture.py --verify-proof
 
       - name: The dimensional and illustrated subjects really render
         timeout-minutes: 5

@@ -93,6 +93,8 @@ def picture_recipe(board_path, frames):
     props, scope = project(board, frames)
     files = [REPO / "video-engine/package-lock.json", REPO / "video-engine/package.json",
              REPO / "video-engine/scripts/render-batch.mjs", Path(__file__).resolve()]
+    files += [p for p in (REPO / "video-engine/scripts/bounded-png-render.mjs",
+                           REPO / "config/bounded_png_capture_v1.json") if p.is_file()]
     assets = set()
     if scope == "isolated-daily-scenes":
         files += closure()

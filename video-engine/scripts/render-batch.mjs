@@ -4,10 +4,12 @@ import {openBrowser, renderMedia, renderStill, selectComposition} from '@remotio
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {boundedPngRender} from './bounded-png-render.mjs';
+const defaultRenderMedia=boundedPngRender;
 const engine=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 export const entryFor=(props)=>path.join(engine,'src',props.cinematic_template==='daily-actions-v1'?'daily.tsx':'index.ts');
 
-export async function renderBatch(spec, api={bundle,openBrowser,renderMedia,renderStill,selectComposition}){
+export async function renderBatch(spec, api={bundle,openBrowser,renderMedia:defaultRenderMedia,renderStill,selectComposition}){
   if(!Array.isArray(spec.jobs)||!spec.jobs.length)throw new Error('A reserved render batch needs at least one job');
   const props=new Map();
   for(const job of spec.jobs){
