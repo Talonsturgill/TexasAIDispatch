@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 from datetime import date as calendar_date
 import json
+from validation_findings import valid_findings
 import sys
 import tempfile
 from pathlib import Path
@@ -94,8 +95,7 @@ def check(validation_path: Path, claims_path: Path, board_path: Path | None = No
     )
     for field in ("rejected", "required_edits_applied"):
         value = validation.get(field)
-        if not isinstance(value, list) or (not value and not complete_pass) or not all(
-                isinstance(item, str) and item.strip() for item in value):
+        if not valid_findings(value, allow_empty=complete_pass):
             problems.append(f"validation {field} must be a list of findings; only a complete "
                             "PASS over independently verified claims may use an empty list")
     state_path = validation_path.parent / 'run_state.json'

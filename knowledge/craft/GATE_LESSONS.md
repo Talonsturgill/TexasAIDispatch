@@ -1697,3 +1697,17 @@ charged preview capture that needs no critic report and writes the chronological
 same operation, so the builder reads them and fixes what any frame shows before a review is bought.
 Its receipt is marked, the real comparison refuses it, and `builder_proof_test.py` replays each
 refusal. It is bounded to two batches per edition and never counts as a review.
+
+
+## Validator targets and retained finding shapes
+
+A follow-up can reach its normal target while still having frozen authorized capacity.
+Read `run_controller.py validator-capacity` before reporting a budget blocker. The command
+replays the allowance chain and is read-only. Reserve the actual call before dispatch; a
+capacity report is not a reservation. Exhaustion and malformed allowance history stay closed.
+
+A validator can retain claim findings as objects with `id` and `reason`. Rejecting that
+representation while accepting the same words as strings made a legitimate owner grant
+unusable. `validation_findings.py` accepts both explicit shapes without rewriting reviewer
+bytes. Empty, malformed or source-free evidence still fails. Test the real third reservation,
+true exhaustion, tampered ceilings and retained structured evidence, not just the happy path.
