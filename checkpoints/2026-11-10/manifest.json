@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-10T21:14:05.545665+00:00",
-  "note": "capture authorization consumed d689d20ff4eb",
+  "saved_at": "2026-11-10T21:14:58.507138+00:00",
+  "note": "before paid reservation",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -986,6 +986,12 @@
       "size": 7879
     },
     {
+      "path": "out/dispatch/capture-authorization-history/7c30669d2ef86d5394f0df6eb8264bb1e561ac11d2fa983bc3d8d11346897ae5.json",
+      "class": "scratch",
+      "sha256": "7c30669d2ef86d5394f0df6eb8264bb1e561ac11d2fa983bc3d8d11346897ae5",
+      "size": 23451
+    },
+    {
       "path": "out/dispatch/capture-authorization.json",
       "class": "scratch",
       "sha256": "7c30669d2ef86d5394f0df6eb8264bb1e561ac11d2fa983bc3d8d11346897ae5",
@@ -1014,6 +1020,18 @@
       "class": "scratch",
       "sha256": "511bfa1ab0d57c64449d9d2c63054bfee39aba2ace1b8e67b62834c58ba51d82",
       "size": 1041
+    },
+    {
+      "path": "out/dispatch/capture-housekeeping-20261110T211458.json",
+      "class": "scratch",
+      "sha256": "1f2ba681bf3be7172baf22e7051bbd9a9f18852a6c73ea0848eb951d635af402",
+      "size": 1042
+    },
+    {
+      "path": "out/dispatch/capture-prepare-2.log",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     },
     {
       "path": "out/dispatch/claims-round1.json",
@@ -1983,9 +2001,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 3891218,
-    "unique_blob_bytes": 2831283,
-    "unique_blobs": 150
+    "logical_bytes": 3915711,
+    "unique_blob_bytes": 2832325,
+    "unique_blobs": 151
   },
   "excluded": [
     {
