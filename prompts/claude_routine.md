@@ -20,7 +20,11 @@ Do not add a GitHub Actions publisher or change the routine's schedule.
 - Authorized brand destinations: Facebook, LinkedIn, YouTube, Instagram and TikTok, limited
   to the accounts already connected to this profile. Do not connect new accounts during a run.
 
-At wake, before production, run `bash scripts/run_with_env.sh python scripts/upload_post_rest.py read users` in the actual
+At wake, before production, run the offline transport and durable-state regression suites:
+`bash scripts/run_with_env.sh python scripts/upload_post_rest_test.py` and
+`bash scripts/run_with_env.sh python scripts/upload_post_state_test.py`. A failure blocks social
+writes without blocking original production/email delivery. Then run
+`bash scripts/run_with_env.sh python scripts/upload_post_rest.py read users` in the actual
 routine runtime. Use `read facebook-pages --query profile=<bound-user>` and
 `read linkedin-pages --query profile=<bound-user>` to verify the exact connected accounts.
 The IDs above are bindings, not hints. Never use the first profile/page returned, the personal
