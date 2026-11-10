@@ -15,7 +15,7 @@ from preflight_animatic import FFMPEG, FFPROBE
 
 SCHEMA = 'dispatch_claude_motion_review/1'
 PHONE_SCHEMA = 'dispatch_claude_phone_motion_review/1'
-PHONE_OPERATIONS = {key: 'exact-phone-' + key + ' motion-image review extraction' for key in ('a', 'b', 'current')}
+from motion_review_operations import PHONE_OPERATIONS
 FPS = 5
 WIDTH = 390
 REPO = Path(__file__).resolve().parents[1]
