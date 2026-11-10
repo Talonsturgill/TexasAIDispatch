@@ -2,19 +2,19 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "562e0a646ea6ac7bd62054d9d21c26c406b25ac083b9cf1a511dff99d8a4f146",
+    "event_sha256": "607fbb8ecfe7866d4138149e174a8553c65b11b657288f894b8b00bbd207fe0a",
     "resource": "preflight_renders",
-    "at": "2026-11-10T21:33:54.449476Z",
+    "at": "2026-11-10T23:25:14.767892Z",
     "note": "two opening comparison batch"
   },
   "boards": [
     {
       "path": "out/dispatch/opening-a.json",
-      "sha256": "3f1ec59a9a1c58a987d5a96d0097f1d6834f1c3f3b60a5d1781cf83f605ab7ae"
+      "sha256": "2d82031aa8fccd4420141126862eb65187522292ea2ddeaf749d40fc130c613b"
     },
     {
       "path": "out/dispatch/opening-b.json",
-      "sha256": "0b415ca4069e20e9ee4824cc4839dae2ead6d011eb50324ea019f52d57f63365"
+      "sha256": "3f0c8ca71f008c766d790a51f211bbae35ef816da68a5a7c6269ce3e794dce45"
     }
   ],
   "bound": {
@@ -157,9 +157,9 @@
       "video-engine/src/modern/episodes/2026-10-21/InspectionDroneHero.tsx": "9d397904a7a5173f55205e78a8dbe431d548d1ed0d3c4f6e90c5cb0689faf3fa",
       "video-engine/src/modern/episodes/2026-10-21/LeakReviewFilm.tsx": "5fa2155da6c876b721db0ff28c7c05f404485e2cd7010b9b789af77a430df32b",
       "video-engine/src/modern/episodes/2026-10-21/LeakReviewSupport.tsx": "13dd5f473f9f510ba001ee21cf8f054e26aff3b531449bdf3150de3adb38bdc9",
-      "video-engine/src/modern/episodes/2026-11-10/ClinicRecordSupport.tsx": "1569a0afcdd2f945f37b34bfe6796a3aa8e926dbe5a6d025a70f3f2b608286ff",
-      "video-engine/src/modern/episodes/2026-11-10/NoteCheckFilm.tsx": "1497e5baba2d7a9c6e6e1950512d8868868f11555cca1953590ca4215bce7b6d",
-      "video-engine/src/modern/episodes/2026-11-10/NoteHero.tsx": "de533cb9d033fd299377ceab48c19d43f6d554fb7df5ef71c167541f7aa3119e",
+      "video-engine/src/modern/episodes/2026-11-10/ClinicRecordSupport.tsx": "7c42f7fc070d8bfd02e8256ba14e9e2f1439811eefee9877c01fd9351cc01c42",
+      "video-engine/src/modern/episodes/2026-11-10/NoteCheckFilm.tsx": "b625a9f39ede94f3fb05f8c18af56d4bc53fc1e92b2ad4a68a3dafb202b2cabd",
+      "video-engine/src/modern/episodes/2026-11-10/NoteHero.tsx": "4f9ccde339c22b3d7d72d9a5507d770e9431dbfbc42927913e3fa64eedc12462",
       "video-engine/src/modern/placePlates.json": "92b8b3d70b98b77d65b8394c785f88ef411db2f3ecf5272175b6d096599ca833",
       "video-engine/src/modern/registry.tsx": "3432b92df242f49c0e39f2e437e3856c071c94bf213370bc632454e82cc746e7",
       "video-engine/src/modern/texasCounties.json": "e39f5cabababc5bf91e7ae0b5c70d3060875fc309f36ce9d34da6ae4c506bad8",
@@ -167,8 +167,8 @@
       "video-engine/package-lock.json": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71"
     },
     "authored_art": {
-      "video-engine/src/modern/episodes/2026-11-10/NoteHero.tsx": "de533cb9d033fd299377ceab48c19d43f6d554fb7df5ef71c167541f7aa3119e",
-      "video-engine/src/modern/episodes/2026-11-10/ClinicRecordSupport.tsx": "1569a0afcdd2f945f37b34bfe6796a3aa8e926dbe5a6d025a70f3f2b608286ff"
+      "video-engine/src/modern/episodes/2026-11-10/NoteHero.tsx": "4f9ccde339c22b3d7d72d9a5507d770e9431dbfbc42927913e3fa64eedc12462",
+      "video-engine/src/modern/episodes/2026-11-10/ClinicRecordSupport.tsx": "7c42f7fc070d8bfd02e8256ba14e9e2f1439811eefee9877c01fd9351cc01c42"
     },
     "capture_storage": {
       "video-engine/scripts/bounded-png-render.mjs": "fb4abd86b1cb50a1ce69eb08d253431ffd1740af8d61c02c10d84439c0ef3df7",
@@ -192,15 +192,15 @@
   },
   "commands": [
     {
-      "id": "d689d20ff4ebf8613d195a1e56abb739dd92b40a8029dc3cf8d376aa6e3cb888",
-      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --builder-proof",
-      "consumed": "2026-11-10T21:34:03.484236+00:00"
+      "id": "1c31e8190f7a98337859ac4bc632f05d3be1e55dcbff9f5b09dea716b3d3fd03",
+      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --combined-code-review",
+      "consumed": "2026-11-10T23:25:29.981838+00:00"
     }
   ],
   "headroom": {
     "passed": true,
     "required_free_gib": 6,
-    "free_gib": 16.827,
+    "free_gib": 16.472,
     "storage_profile": {
       "mode": "bounded-png-v1",
       "operator": "opening_compare.py",
@@ -229,20 +229,20 @@
     }
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/capture-housekeeping-20261110T213349.json",
-    "receipt_sha256": "12ba4c029a586fed16bf5fe7dafad6012934340936039ecb9529cc2152ac9074",
+    "receipt": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/capture-housekeeping-20261110T232506.json",
+    "receipt_sha256": "4679ed373e1bcf5ae66908e838509c32edb390fc5738387f2aa35bfef83f03b9",
     "exit_code": 0,
     "min_free_gib": 6
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-11-10T21:33:58.649210+00:00",
-  "expires_at": "2026-11-10T22:18:58.649210+00:00",
+  "issued_at": "2026-11-10T23:25:19.169665+00:00",
+  "expires_at": "2026-11-11T00:10:19.169665+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
     "operation": "two opening comparison batch",
     "resource": "preflight_renders",
     "run_id": "2026-11-10",
-    "event_sha256": "562e0a646ea6ac7bd62054d9d21c26c406b25ac083b9cf1a511dff99d8a4f146",
-    "input_identity": "208a597fc4231eb3a1132fe7718339c019ca2d73e1323e3effb3e00d550e5f01"
+    "event_sha256": "607fbb8ecfe7866d4138149e174a8553c65b11b657288f894b8b00bbd207fe0a",
+    "input_identity": "26b13754a5c725991aab647924e9748a8d3518cd168f110f4ec783d08d659731"
   }
 }
