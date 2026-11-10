@@ -1,6 +1,8 @@
 /** Native PNG batches feed one continuous pinned encoder; no lossy chunk joins. */
 import fs from "node:fs";
 import path from "node:path";
+import {execFile} from "node:child_process";
+import {promisify} from "node:util";
 import {createRequire} from "node:module";
 import {crc32} from "node:zlib";
 import {finished} from "node:stream/promises";
@@ -44,18 +46,22 @@ export function inspectJpeg(file){
   if(!stat.isFile()||stat.isSymbolicLink()||stat.size>policy.max_png_bytes_per_frame||stat.size<4)throw new Error("Invalid or oversized preview JPEG");
   const bytes=fs.readFileSync(file);
   if(bytes.readUInt16BE(0)!==0xffd8||bytes.readUInt16BE(bytes.length-2)!==0xffd9)throw new Error("Incomplete preview JPEG");
-  let offset=2;
+  let offset=2,sawFrame=false;
   while(offset+4<bytes.length){
     if(bytes[offset]!==255)throw new Error("Invalid JPEG marker");
     const type=bytes[offset+1],length=bytes.readUInt16BE(offset+2);
     if(length<2||offset+2+length>bytes.length)throw new Error("Invalid JPEG segment");
     if([0xc0,0xc1,0xc2].includes(type)){
       if(length<8||bytes[offset+4]!==8||bytes.readUInt16BE(offset+5)!==480||bytes.readUInt16BE(offset+7)!==270)throw new Error("JPEG differs from existing quarter-scale preview contract");
+      sawFrame=true;
+    }
+    if(type===0xda){
+      if(!sawFrame||length<6||offset+2+length>=bytes.length-2)throw new Error("Missing preview JPEG scan data");
       return stat.size;
     }
     offset+=length+2;
   }
-  throw new Error("Missing preview JPEG dimensions");
+  throw new Error("Missing preview JPEG dimensions or scan");
 }
 export async function writeFrame(stream,buffer){
   if(stream.destroyed||stream.writableEnded)throw new Error("Encoder input closed before final frame");
@@ -69,9 +75,18 @@ export async function writeFrame(stream,buffer){
 function freeBytes(directory){const st=fs.statfsSync(directory);return st.bavail*st.bsize;}
 function makeEncoder(options){return prespawnFfmpeg({width:options.width,height:options.height,fps:30,outputLocation:options.output,
   pixelFormat:"yuv420p",codec:"h264",crf:options.crf,x264Preset:null,onProgress:()=>{},proResProfile:undefined,
-  logLevel:"error",imageFormat:options.imageFormat,ffmpegOverride:({args})=>args,signal:options.signal,
+  logLevel:"error",imageFormat:options.imageFormat,ffmpegOverride:({args})=>["-xerror","-err_detect","explode",...args],signal:options.signal,
   videoBitrate:null,encodingMaxRate:null,encodingBufferSize:null,indent:false,colorSpace:"default",
   binariesDirectory:null,hardwareAcceleration:"disable"});}
+
+export async function verifyEncodedVideo(file,{width,height,frames,imageFormat="png",signal}){
+  const {stdout,stderr}=await promisify(execFile)("ffprobe",["-v","error","-count_frames","-select_streams","v:0","-show_entries","stream=codec_name,width,height,r_frame_rate,nb_read_frames,pix_fmt,color_range","-of","json",file],{timeout:120000,maxBuffer:1024*1024,signal});
+  const streams=JSON.parse(stdout).streams;
+  if(stderr.trim()||!Array.isArray(streams)||streams.length!==1)throw new Error("Native video decode verification failed");
+  const stream=streams[0];
+  if(stream.codec_name!=="h264"||stream.width!==width||stream.height!==height||stream.r_frame_rate!=="30/1"||(imageFormat==="jpeg"?(stream.pix_fmt!=="yuvj420p"||stream.color_range!=="pc"):stream.pix_fmt!=="yuv420p")||Number(stream.nb_read_frames)!==frames)throw new Error("Encoded video differs from the exact admitted frame count or recipe");
+  return stream;
+}
 
 export async function boundedPngRender(options,dependencies={}){
   validatePolicy();
@@ -97,10 +112,10 @@ export async function boundedPngRender(options,dependencies={}){
   const scratch=fs.mkdtempSync(path.join(directory,".bounded-png-"));
   const framesDirectory=path.join(scratch,"frames");fs.mkdirSync(framesDirectory);
   const temporary=path.join(scratch,"encoded.mp4"),receipt=path.join(scratch,"receipt.json");
-  const cancel=makeCancelSignal();let aborted=false,encoder,encoderFailure,peak=0,count=0,succeeded=false;
+  const cancel=makeCancelSignal(),verificationAbort=new AbortController();let aborted=false,encoder,encoderFailure,peak=0,count=0,succeeded=false;
   let oldOutput=false,oldReceipt=false,newOutput=false,newReceipt=false;
   const previousOutput=path.join(scratch,"previous-output.mp4"),previousReceipt=path.join(scratch,"previous-receipt.json");
-  const interrupt=()=>{aborted=true;cancel.cancel();};
+  const interrupt=()=>{aborted=true;verificationAbort.abort();cancel.cancel();};
   process.once("SIGINT",interrupt);process.once("SIGTERM",interrupt);options.cancelSignal?.(interrupt);
   const record=(status,error)=>fs.writeFileSync(receipt,JSON.stringify({schema:"dispatch-bounded-png-render/1",status,first,last,frames:count,peak_png_bytes:peak,max_batch_frames:policy.max_frames,image_format:imageFormat,width,height,crf:options.crf,partial_output:temporary,error:error?.message??null},null,2)+"\n");
   try{
@@ -128,6 +143,8 @@ export async function boundedPngRender(options,dependencies={}){
     stream.end();await finished(stream);await encoding;
     if(aborted||encoderFailure)throw encoderFailure??new Error("Bounded capture cancelled");
     if(!fs.existsSync(temporary)||fs.statSync(temporary).size===0)throw new Error("Encoder produced no native video");
+    await (dependencies.verifyEncodedVideo??verifyEncodedVideo)(temporary,{width,height,frames:last-first+1,imageFormat,signal:verificationAbort.signal});
+    if(aborted||encoderFailure)throw encoderFailure??new Error("Bounded capture cancelled before publication");
     record("complete");
     // Complete fallible scratch cleanup before touching a previously reviewed output.
     fs.rmdirSync(framesDirectory);

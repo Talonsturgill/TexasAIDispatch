@@ -11,3 +11,5 @@ Plan:
 4. Hand the exact tested merge to the sole parked Claude producer; no separate production run.
 
 Status: implementation and independent review in progress. Native and existing quarter-scale preview settings are preserved through one continuous encoder. 304 Python tests and the original 21 JS tests passed; preview and transactional-publication regressions are being added. Real-scene verification runs as a dedicated PR CI job because this local browser receives SIGTERM during composition selection. The source-bound proof intentionally remains absent until real scene equivalence passes. No production edits, captures or reservations.
+
+Review follow-up: the first real-scene CI passed four exact decoded-frame and metadata comparisons. Independent review then found malformed JPEG input could silently drop a frame. Added strict decoder errors and independent decoded-frame-count verification before publication; all 34 JS regressions now pass, including malformed JPEG/PNG and exact native/preview parity. New exact-source CI is required before proof and merge.

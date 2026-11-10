@@ -7,7 +7,7 @@ import {deflateSync,crc32} from 'node:zlib';
 import {createRequire} from 'node:module';
 import {execFileSync} from 'node:child_process';
 import {stitchFramesToVideo} from '@remotion/renderer';
-import {boundedPngRender,frameRanges,inspectPng,inspectJpeg,policy,validatePolicy,writeFrame} from './bounded-png-render.mjs';
+import {boundedPngRender,frameRanges,inspectPng,inspectJpeg,verifyEncodedVideo,policy,validatePolicy,writeFrame} from './bounded-png-render.mjs';
 
 const require=createRequire(import.meta.url);
 const renderer=path.dirname(require.resolve('@remotion/renderer'));
@@ -23,7 +23,7 @@ function sandbox(t){const base=path.resolve(import.meta.dirname,'../../out');fs.
 function options(dir,extra={}){return {composition:native,outputLocation:path.join(dir,'film.mp4'),imageFormat:'png',codec:'h264',crf:16,pixelFormat:'yuv420p',muted:true,scale:1,frameRange:[0,0],...extra};}
 function populate({frameRange,outputDir},image=sample){for(let f=frameRange[0];f<=frameRange[1];f++)fs.writeFileSync(path.join(outputDir,'frame-'+f+'.png'),image);}
 function fakeEncoder({output,signal},behavior={}){let resolve,reject;const task=new Promise((a,b)=>{resolve=a;reject=b;});task.stdin=new Writable({highWaterMark:1,write(bytes,encoding,callback){if(behavior.epipe)return callback(Object.assign(new Error('synthetic EPIPE'),{code:'EPIPE'}));behavior.frames?.push(Buffer.from(bytes));setTimeout(callback,behavior.delay??0);},final(callback){fs.writeFileSync(output,'synthetic encoded video');callback();resolve();}});signal(()=>{task.stdin.destroy();reject(new Error('encoder cancelled'));});if(behavior.early)queueMicrotask(resolve);return {task};}
-function deps(overrides={}){return {freeBytes:()=>headroom,renderFrames:async o=>populate(o),makeEncoder:o=>fakeEncoder(o),...overrides};}
+function deps(overrides={}){return {verifyEncodedVideo:async()=>({}),freeBytes:()=>headroom,renderFrames:async o=>populate(o),makeEncoder:o=>fakeEncoder(o),...overrides};}
 function failureEvidence(dir){const scratch=fs.readdirSync(dir).filter(n=>n.startsWith('.bounded-png-'));assert.equal(scratch.length,1);const base=path.join(dir,scratch[0]);return {base,receipt:JSON.parse(fs.readFileSync(path.join(base,'receipt.json'),'utf8')),frames:fs.existsSync(path.join(base,'frames'))?fs.readdirSync(path.join(base,'frames')):[]};}
 
 test('inclusive ranges cover nonzero starts and partial tail batches exactly once',()=>{for(const [first,last,batch] of [[0,0,60],[0,60,60],[7,131,60],[59,119,17],[100,102,1]]){const ranges=frameRanges(first,last,batch);assert.deepEqual(ranges.flatMap(([a,b])=>Array.from({length:b-a+1},(_,i)=>a+i)),Array.from({length:last-first+1},(_,i)=>first+i));assert.ok(ranges.every(([a,b])=>b-a+1<=batch));}for(const args of [[-1,5],[2,1],[0,2,0],[0,2,61],[0.5,2],[0,2.5],[0,2,1.5],[0,Infinity]])assert.throws(()=>frameRanges(...args));});
@@ -197,4 +197,89 @@ test('final empty scratch cleanup failure does not misreport completed publicati
   finally {fs.rmdirSync=rmdir;}
   assert.ok(injected);assert.equal(fs.readFileSync(output,'utf8'),'synthetic encoded video');
   assert.equal(JSON.parse(fs.readFileSync(output+'.bounded-png.json')).status,'complete');
+});
+
+for(const kind of ['SOF-only','truncated scan'])test('real encoder refuses '+kind+' JPEG among 61 and preserves publication',{timeout:120000},async t=>{
+  const dir=sandbox(t),output=options(dir).outputLocation,receipt=output+'.bounded-png.json',valid=jpeg();
+  fs.writeFileSync(output,'reviewed original');fs.writeFileSync(receipt,'original receipt');
+  const marker=valid.indexOf(Buffer.from([255,kind==='SOF-only'?192:218]));
+  assert.ok(marker>=0);
+  const end=marker+2+valid.readUInt16BE(marker+2)+(kind==='SOF-only'?0:1);
+  const corrupt=Buffer.concat([valid.subarray(0,end),Buffer.from([255,217])]);
+  const fixture=path.join(dir,'corrupt.jpeg');fs.writeFileSync(fixture,corrupt);
+  if(kind==='SOF-only')assert.throws(()=>inspectJpeg(fixture),/scan|dimensions/);
+  else assert.equal(inspectJpeg(fixture),corrupt.length,'Scan corruption must reach actual decoder');
+  const ranges=[];
+  await assert.rejects(boundedPngRender(options(dir,{imageFormat:'jpeg',crf:32,scale:.25,frameRange:[0,60]}),{
+    freeBytes:()=>headroom,
+    renderFrames:async o=>{
+      ranges.push(o.frameRange);
+      for(let i=o.frameRange[0];i<=o.frameRange[1];i++)fs.writeFileSync(path.join(o.outputDir,'frame-'+i+'.jpeg'),i===60?corrupt:valid);
+    },
+  }));
+  assert.deepEqual(ranges,[[0,59],[60,60]]);
+  assert.equal(fs.readFileSync(output,'utf8'),'reviewed original');
+  assert.equal(fs.readFileSync(receipt,'utf8'),'original receipt');
+  assert.equal(failureEvidence(dir).receipt.status,'failed');
+});
+test('real encoder refuses valid-CRC PNG with invalid zlib and preserves publication',{timeout:120000},async t=>{
+  const dir=sandbox(t),output=options(dir).outputLocation,receipt=output+'.bounded-png.json';
+  fs.writeFileSync(output,'reviewed original');fs.writeFileSync(receipt,'original receipt');
+  const invalid=Buffer.concat([sample.subarray(0,33),chunk('IDAT',Buffer.from('not a valid zlib stream')),chunk('IEND',Buffer.alloc(0))]);
+  const fixture=path.join(dir,'corrupt.png');fs.writeFileSync(fixture,invalid);
+  assert.equal(inspectPng(fixture),invalid.length,'Valid chunk CRC must reach actual decoder');
+  await assert.rejects(boundedPngRender(options(dir,{frameRange:[0,2]}),{
+    freeBytes:()=>headroom,renderFrames:async o=>{
+      for(let i=0;i<3;i++)fs.writeFileSync(path.join(o.outputDir,'frame-'+i+'.png'),i===1?invalid:sample);
+    },
+  }));
+  assert.equal(fs.readFileSync(output,'utf8'),'reviewed original');
+  assert.equal(fs.readFileSync(receipt,'utf8'),'original receipt');
+  assert.equal(failureEvidence(dir).receipt.status,'failed');
+});
+test('real ffprobe rejects frame-count and dimensions mismatch',{timeout:120000},async t=>{
+  const dir=sandbox(t),valid=jpeg(),output=options(dir).outputLocation;
+  await boundedPngRender(options(dir,{imageFormat:'jpeg',crf:32,scale:.25}),{
+    freeBytes:()=>headroom,renderFrames:async o=>fs.writeFileSync(path.join(o.outputDir,'frame-0.jpeg'),valid),
+  });
+  await verifyEncodedVideo(output,{width:270,height:480,frames:1,imageFormat:'jpeg'});
+  await assert.rejects(verifyEncodedVideo(output,{width:270,height:480,frames:1,imageFormat:'png'}),/exact admitted/);
+  await assert.rejects(verifyEncodedVideo(output,{width:270,height:480,frames:2,imageFormat:'jpeg'}),/exact admitted/);
+  await assert.rejects(verifyEncodedVideo(output,{width:1080,height:1920,frames:1,imageFormat:'jpeg'}),/exact admitted/);
+});
+test('verification failure happens before publication and preserves originals',async t=>{
+  const dir=sandbox(t),output=options(dir).outputLocation,receipt=output+'.bounded-png.json';let verified=false;
+  fs.writeFileSync(output,'reviewed original');fs.writeFileSync(receipt,'original receipt');
+  await assert.rejects(boundedPngRender(options(dir,{frameRange:[4,6]}),deps({
+    verifyEncodedVideo:async(file,expected)=>{
+      verified=true;assert.equal(fs.readFileSync(file,'utf8'),'synthetic encoded video');
+      const {signal,...recipe}=expected;
+      assert.ok(signal instanceof AbortSignal);
+      assert.equal(signal.aborted,false);
+      assert.deepEqual(recipe,{width:1080,height:1920,frames:3,imageFormat:'png'});
+      throw new Error('decoded frame-count mismatch');
+    },
+  })),/decoded frame-count mismatch/);
+  assert.ok(verified);assert.equal(fs.readFileSync(output,'utf8'),'reviewed original');
+  assert.equal(fs.readFileSync(receipt,'utf8'),'original receipt');
+  assert.equal(failureEvidence(dir).receipt.status,'failed');
+});
+test('cancellation during awaited verification preserves original publication',async t=>{
+  const dir=sandbox(t),output=options(dir).outputLocation,receipt=output+'.bounded-png.json';
+  let cancel,verified=false;
+  fs.writeFileSync(output,'reviewed original');fs.writeFileSync(receipt,'original receipt');
+  await assert.rejects(boundedPngRender(options(dir,{cancelSignal:callback=>{cancel=callback;}}),deps({
+    verifyEncodedVideo:async(file,{signal})=>{
+      verified=true;
+      await new Promise(resolve=>setImmediate(resolve));
+      cancel();
+      assert.equal(signal.aborted,true);
+      await new Promise(resolve=>setImmediate(resolve));
+      return {};
+    },
+  })),/cancel/i);
+  assert.ok(verified);
+  assert.equal(fs.readFileSync(output,'utf8'),'reviewed original');
+  assert.equal(fs.readFileSync(receipt,'utf8'),'original receipt');
+  assert.equal(failureEvidence(dir).receipt.status,'failed');
 });
