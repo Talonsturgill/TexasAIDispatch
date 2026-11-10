@@ -1,0 +1,28 @@
+{
+  "after_attempt": null,
+  "after_probe": null,
+  "available": false,
+  "body_sha256": "9c6227044b7d0fe23be23d8ccea83b6a829f402e052b7b6077801ccb4d0db420",
+  "error": "configured provider generation returned HTTP 402",
+  "finished_at": "2026-11-10T13:39:18.521047Z",
+  "generation_protocol": "bounded-json-generation-v2",
+  "http_status": 402,
+  "model": "gemini-3.8-flash",
+  "request_id": "89d8fb9d-1adc-4435-804d-fec0951eb1da",
+  "reservation": {
+    "at": "2026-11-10T13:39:15.047972Z",
+    "completion_progress_policy": "2026-10-20",
+    "kind": "reserved",
+    "note": "unscored provider generation availability",
+    "preflight_identity": null,
+    "publication_epoch": "3023191e4b1d4ac08e8a58cdef6f1dc8",
+    "publication_owner_sha256": "209ea7f54b287c914038461e594e94c38950377c778cdafd8d3b20e723af6ff0",
+    "resources": {
+      "audiovisual_reviews": 1
+    }
+  },
+  "reservation_event_index": 5,
+  "sanitized_body": "{\n  \"error\": {\n    \"code\": 402,\n    \"message\": \"Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. \",\n    \"status\": \"RESOURCE_EXHAUSTED\"\n  }\n}\n",
+  "schema": "dispatch_provider_availability/1",
+  "started_at": "2026-11-10T13:39:16.546315Z"
+}

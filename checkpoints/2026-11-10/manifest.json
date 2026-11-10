@@ -1,9 +1,9 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-10T13:38:59.919762+00:00",
-  "note": "phase research",
-  "phase": "wake",
+  "saved_at": "2026-11-10T13:39:30.276411+00:00",
+  "note": "provider availability HTTP 402 retained",
+  "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-11-10T13:38:49.855002Z",
@@ -16,11 +16,11 @@
     "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
   },
   "deleted_source": [],
-  "ledger_sha256": "c5fbef74bb60be7b0c29c8183a89f87394bb7a732ff33d3c11052e0aa9ea49c3",
-  "original_private_ledger_sha256": "e78bf09c23ac20f1e7410421efbd46adca163e04a870a56db34e376a47f42870",
+  "ledger_sha256": "eee0b4b144fbb98e0914f6ce54862719253f4c8b256e23b093d751c3e39b83f6",
+  "original_private_ledger_sha256": "3513913f63072cea4a9ea416a530406b815168af902a58b9a44d3b7f0e120f0e",
   "grant_origin_roots": [],
   "usage": {
-    "audiovisual_reviews": 0,
+    "audiovisual_reviews": 1,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
@@ -48,12 +48,36 @@
       "class": "scratch",
       "sha256": "49a99bc1b90b3936c19ed3c6d64149cab3259e84ad673e039691acb7de76eab5",
       "size": 6300
+    },
+    {
+      "path": "out/dispatch/provider-availability/startup/attempt.json",
+      "class": "scratch",
+      "sha256": "cb5bad7bd5c5d501b9f84907069f12142ab074b2dbf7540dee83ea8e0b30e0d2",
+      "size": 763
+    },
+    {
+      "path": "out/dispatch/provider-availability/startup/probe.lock",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/provider-availability/startup/receipt.json",
+      "class": "scratch",
+      "sha256": "d4c061a590a7b16c5e4f63803ec45f440c5fd7e5ae2117349f065ae8a0f883c1",
+      "size": 1333
+    },
+    {
+      "path": "out/dispatch/run_state.json.independent.lock",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 6364,
-    "unique_blob_bytes": 6364,
-    "unique_blobs": 2
+    "logical_bytes": 8460,
+    "unique_blob_bytes": 8460,
+    "unique_blobs": 5
   },
   "excluded": [],
   "regenerable": {
