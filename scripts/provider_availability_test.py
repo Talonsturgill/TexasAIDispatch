@@ -168,6 +168,16 @@ class ProviderAvailability(unittest.TestCase):
         self.assertEqual(availability.research_receipt(self.state, '2026-09-30')['sha256'], review.digest(path))
         self.assertEqual(controller.read_state(self.state)['usage']['audiovisual_reviews'], 2)
 
+    def test_failed_startup_recovery_admits_one_more_linked_recovery_and_no_third(self):
+        with self.assertRaisesRegex(ValueError, 'HTTP 402'): self.probe(status=402)
+        first = self.root/'provider-availability/startup/attempt.json'
+        with self.assertRaisesRegex(ValueError, 'HTTP 402'): self.probe(first, status=402)
+        with self.assertRaisesRegex(ValueError, 'already failed'): self.probe(first)
+        second_dir = next((self.root/'provider-availability').glob('after-*'))
+        path = self.probe(second_dir/'attempt.json')
+        self.assertEqual(availability.research_receipt(self.state, '2026-09-30')['sha256'], review.digest(path))
+        self.assertEqual(controller.read_state(self.state)['usage']['audiovisual_reviews'], 3)
+
     def test_metadata_only_or_missing_success_event_never_enables_workers(self):
         path = self.probe(); response = path.parent/'response.json'
         proof = availability.verified_proof(path, self.state)
