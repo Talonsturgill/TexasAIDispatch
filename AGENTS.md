@@ -18,7 +18,8 @@ A plan is not a reservation, an executed worker, a verdict or permission to send
 Run every Dispatch shell command through scripts/run_with_env.sh. In a worktree explicitly
 cd inside the wrapped shell. Never print, copy or commit credentials. Read CLAUDE.md and the
 assigned brief; load the current phase and its required contracts, not the historical archive.
-Preserve unrelated work and shipped run bytes. Never send email or post socially.
+Preserve unrelated work and shipped run bytes. Never send email. Authorized daily social publishing follows the November 10th update in
+CLAUDE.md and prompts/claude_routine.md.
 
 The workspace personal writing rule applies to every newly authored audience-facing word.
 Use concrete actions, outcomes and consequences. Run the existing prose check before voice
