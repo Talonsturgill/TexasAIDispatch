@@ -64,7 +64,7 @@ def mechanical_route_problems(cfg):
 
 
 # Owner-authorized daily social delivery replaces the former blanket social ban.
-# These are policy-contract assertions, not proof of runtime connector availability.
+# These are policy-contract assertions, not proof of runtime REST access.
 SOCIAL_REQUIRED = (
     '## DAILY SOCIAL DELIVERY',
     'Never send the email.',
@@ -79,6 +79,16 @@ SOCIAL_REQUIRED = (
     'action-time confirmation',
     'No social outage may remove or prevent the',
     'original Gmail draft.',
+    'official Upload-Post REST API',
+    'scripts/upload_post_rest.py',
+    'sends no Authorization header',
+    'Do not bypass an MCP confirmation.',
+    'Any existing receipt blocks another upload.',
+    'Local receipts alone are not durable dedupe.',
+    '`facebook_media_type=VIDEO` and `video_state=PUBLISHED`',
+    '`target_linkedin_page_id` for every LinkedIn upload',
+    'without duplicating source links or music credits already present',
+    'https://texasaidocket.com/',
 )
 
 
