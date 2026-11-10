@@ -1,0 +1,199 @@
+{
+  "schema": "dispatch-bounded-png-proof/1",
+  "verified": true,
+  "policy_sha256": "ab43715f795ed358d27dff1761ee1d489fc893ba7ab055d85f5373141d188124",
+  "files": {
+    "video-engine/scripts/bounded-png-render.mjs": "fb4abd86b1cb50a1ce69eb08d253431ffd1740af8d61c02c10d84439c0ef3df7",
+    "video-engine/scripts/render-batch.mjs": "4fbdca384b52d20ef96761ab917cf74deed60d5afd7605ab86f6e3b375e67613",
+    "video-engine/scripts/credit-tail-render.mjs": "2adb762c632cd8f48c31c16d70e9264840f49873e7283fda3bfbfcb97671bedf",
+    "video-engine/package-lock.json": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71",
+    "video-engine/package.json": "9f7832a02b619f443f231652719bba9e39270a5a47c19a91bbf28bea6f7d69a4",
+    "scripts/cinema_proof.py": "0b04719cf63c42f27c0bc4a46bb29e95f4f332ce5257cef6289bf1668a5e072d",
+    "scripts/opening_compare.py": "1d11caf6b6cfd266b894a449bccc86c80ab8b5cc2f74e74a6730a25c9cfea833",
+    "scripts/render_dispatch.sh": "8b6c23b3e004f755d383796a48122c72ba8f0ff19b0f15db4a45c99f39205dc2",
+    "scripts/bounded_capture.py": "5ce4b7dfee25761c6752dd989b0044e3f183be4f50c1d815716aac5c6fa3610c",
+    "scripts/native_headroom.py": "59735d7b6474cc605f742bf560ba24e2830a3dd3c7eff49b6c40e41d833b51c3",
+    "scripts/capture_guard.py": "b62a60d595f8d00f7763ee756901a5467e68c0c6399e2b93907d6faf9d47b578",
+    "scripts/run_with_env.sh": "a070cd2aa89aa00edf1fd755a054bb30ec275c8554124e8012de6ae39e689a59",
+    "video-engine/scripts/verify-bounded-png.mjs": "ed2e7bb7dabb84e921dc95d098571a12f9f3c3f25bdba55063897d190fa58630",
+    "video-engine/scripts/bounded-png-render.test.mjs": "d79db4317eb671bb27a86cd69edaf3cc5cc14c81dd9d5e0eeb80a9adff2f2000",
+    "scripts/bounded_capture_test.py": "87b2404f28d88054e63f6fe2b5e1849122c4184884087bf0a35edf0a573e4872"
+  },
+  "evidence": {
+    "source_commit": "708c7df2e1da48f92e365889ea3349475de7c382",
+    "source_tree": "005d6bda55cce93f907692c2d3e96c54aa4f4674",
+    "workflow_run_id": 42894301669,
+    "job_id": 130103390721,
+    "url": "https://github.com/Talonsturgill/TexasAIDispatch/actions/runs/42894301669/job/130103390721",
+    "artifact_id": 13799867370,
+    "artifact_sha256": "c42d9cc8d82734c0fa3e35b2686075618fd2b70fdce365613a666e4023599fd5",
+    "equivalence_sha256": "e1bae4271b9d4e067b353df4c987f9d12f9131f14c1bf0a513ef4c7e4fef2588",
+    "renderer_tests_passed": 35,
+    "equivalence": {
+      "schema": "dispatch-bounded-png-equivalence/1",
+      "scope": "real retained modern scene engineering regression, not a production capture or editorial approval",
+      "rows": [
+        {
+          "name": "shot-transition",
+          "frameRange": [
+            30,
+            120
+          ],
+          "credit_gap": 1,
+          "preview": false,
+          "exact_decoded_parity": true,
+          "metadata": [
+            {
+              "width": 1080,
+              "height": 1920,
+              "pix_fmt": "yuv420p",
+              "color_range": "tv",
+              "color_transfer": "iec61966-2-1",
+              "color_primaries": "bt709",
+              "r_frame_rate": "30/1",
+              "duration": "3.033333",
+              "nb_read_frames": "91"
+            }
+          ],
+          "decoded_sha256": "56c9eea0de039431235c9f68b48d6874ae70419922bea4084f2ebf397d08826d",
+          "bounded_receipt": {
+            "schema": "dispatch-bounded-png-render/1",
+            "status": "complete",
+            "first": 30,
+            "last": 120,
+            "frames": 91,
+            "peak_png_bytes": 109319428,
+            "max_batch_frames": 60,
+            "image_format": "png",
+            "width": 1080,
+            "height": 1920,
+            "crf": 16,
+            "error": null
+          }
+        },
+        {
+          "name": "nonzero-boundary",
+          "frameRange": [
+            59,
+            121
+          ],
+          "credit_gap": 1,
+          "preview": false,
+          "exact_decoded_parity": true,
+          "metadata": [
+            {
+              "width": 1080,
+              "height": 1920,
+              "pix_fmt": "yuv420p",
+              "color_range": "tv",
+              "color_transfer": "iec61966-2-1",
+              "color_primaries": "bt709",
+              "r_frame_rate": "30/1",
+              "duration": "2.100000",
+              "nb_read_frames": "63"
+            }
+          ],
+          "decoded_sha256": "34835794cbbb05c25bea7d63411b8b600d343137183c6556065a8c38b21f4f96",
+          "bounded_receipt": {
+            "schema": "dispatch-bounded-png-render/1",
+            "status": "complete",
+            "first": 59,
+            "last": 121,
+            "frames": 63,
+            "peak_png_bytes": 90207063,
+            "max_batch_frames": 60,
+            "image_format": "png",
+            "width": 1080,
+            "height": 1920,
+            "crf": 16,
+            "error": null
+          }
+        },
+        {
+          "name": "fractional-credit-tail",
+          "frameRange": [
+            1126,
+            1285
+          ],
+          "credit_gap": 1,
+          "preview": false,
+          "exact_decoded_parity": true,
+          "metadata": [
+            {
+              "width": 1080,
+              "height": 1920,
+              "pix_fmt": "yuv420p",
+              "color_range": "tv",
+              "color_transfer": "iec61966-2-1",
+              "color_primaries": "bt709",
+              "r_frame_rate": "30/1",
+              "duration": "5.333333",
+              "nb_read_frames": "160"
+            }
+          ],
+          "decoded_sha256": "b16d25d5c2cf93343940d7db9ea4103d9e553c78a63a5a0caecf5821a0cb260c",
+          "bounded_receipt": {
+            "schema": "dispatch-bounded-png-render/1",
+            "status": "complete",
+            "first": 1126,
+            "last": 1285,
+            "frames": 160,
+            "peak_png_bytes": 21210664,
+            "max_batch_frames": 60,
+            "image_format": "png",
+            "width": 1080,
+            "height": 1920,
+            "crf": 16,
+            "error": null
+          }
+        },
+        {
+          "name": "preview-opening",
+          "frameRange": [
+            30,
+            120
+          ],
+          "credit_gap": 1,
+          "preview": true,
+          "exact_decoded_parity": true,
+          "metadata": [
+            {
+              "width": 270,
+              "height": 480,
+              "pix_fmt": "yuvj420p",
+              "color_range": "pc",
+              "color_space": "bt470bg",
+              "r_frame_rate": "30/1",
+              "duration": "3.033333",
+              "nb_read_frames": "91",
+              "side_data_list": [
+                {}
+              ]
+            }
+          ],
+          "decoded_sha256": "2d43593f7d4b1da53693a712e300122968376a84203e155fc6a572788db4481a",
+          "bounded_receipt": {
+            "schema": "dispatch-bounded-png-render/1",
+            "status": "complete",
+            "first": 30,
+            "last": 120,
+            "frames": 91,
+            "peak_png_bytes": 1057040,
+            "max_batch_frames": 60,
+            "image_format": "jpeg",
+            "width": 270,
+            "height": 480,
+            "crf": 32,
+            "error": null
+          }
+        }
+      ]
+    },
+    "storage_bound": {
+      "worst_case_batch_bytes": 566231040,
+      "reserve_gib": 5,
+      "required_free_gib": 6,
+      "incompressible_native_test_png_bytes": 8298918
+    }
+  }
+}
