@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-10T13:39:30.276411+00:00",
-  "note": "provider availability HTTP 402 retained",
+  "saved_at": "2026-11-10T13:42:51.716264+00:00",
+  "note": "recovery probe after 402 still HTTP 402; retained",
   "phase": "research",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -16,11 +16,11 @@
     "sha256": "227eadd8968677fd78e1e8da760f7a0d061cde94185ebfebd14be2ceda55a2d5"
   },
   "deleted_source": [],
-  "ledger_sha256": "eee0b4b144fbb98e0914f6ce54862719253f4c8b256e23b093d751c3e39b83f6",
-  "original_private_ledger_sha256": "3513913f63072cea4a9ea416a530406b815168af902a58b9a44d3b7f0e120f0e",
+  "ledger_sha256": "a5a96e3572e771a5d765a3bda2c26e3ceefb2316d993e3470c95de8630534c0d",
+  "original_private_ledger_sha256": "5bf6802eb8113c7b400bd8dc0dd3bc71780b11871d7239d7165f0e3e037dc2eb",
   "grant_origin_roots": [],
   "usage": {
-    "audiovisual_reviews": 1,
+    "audiovisual_reviews": 2,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
@@ -50,6 +50,24 @@
       "size": 6300
     },
     {
+      "path": "out/dispatch/provider-availability/after-cb5bad7bd5c5d501b9f84907069f12142ab074b2dbf7540dee83ea8e0b30e0d2/attempt.json",
+      "class": "scratch",
+      "sha256": "62440ed9027d9b9640d1ca63ff710c51a6f64f8b548d6bd3fc3df81e82ec98e0",
+      "size": 1296
+    },
+    {
+      "path": "out/dispatch/provider-availability/after-cb5bad7bd5c5d501b9f84907069f12142ab074b2dbf7540dee83ea8e0b30e0d2/probe.lock",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/provider-availability/after-cb5bad7bd5c5d501b9f84907069f12142ab074b2dbf7540dee83ea8e0b30e0d2/receipt.json",
+      "class": "scratch",
+      "sha256": "c636ba4dbac8a829a34f740b39955e5b73268dd18098185dd5b741babaccad38",
+      "size": 1866
+    },
+    {
       "path": "out/dispatch/provider-availability/startup/attempt.json",
       "class": "scratch",
       "sha256": "cb5bad7bd5c5d501b9f84907069f12142ab074b2dbf7540dee83ea8e0b30e0d2",
@@ -75,9 +93,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 8460,
-    "unique_blob_bytes": 8460,
-    "unique_blobs": 5
+    "logical_bytes": 11622,
+    "unique_blob_bytes": 11622,
+    "unique_blobs": 7
   },
   "excluded": [],
   "regenerable": {
