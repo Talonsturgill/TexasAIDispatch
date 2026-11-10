@@ -196,6 +196,78 @@
       "kind": "provider_availability_result",
       "receipt_sha256": "c636ba4dbac8a829a34f740b39955e5b73268dd18098185dd5b741babaccad38",
       "request_id": "51bab622-9868-4953-9509-781fce8aaba4"
+    },
+    {
+      "at": "2026-11-10T14:20:25.335279Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "unscored provider generation availability",
+      "preflight_identity": null,
+      "publication_epoch": "3023191e4b1d4ac08e8a58cdef6f1dc8",
+      "publication_owner_sha256": "209ea7f54b287c914038461e594e94c38950377c778cdafd8d3b20e723af6ff0",
+      "resources": {
+        "audiovisual_reviews": 1
+      }
+    },
+    {
+      "after_attempt": {
+        "evidence": {
+          "path": "{REPO}/out/dispatch/provider-availability/after-cb5bad7bd5c5d501b9f84907069f12142ab074b2dbf7540dee83ea8e0b30e0d2/receipt.json",
+          "sha256": "c636ba4dbac8a829a34f740b39955e5b73268dd18098185dd5b741babaccad38"
+        },
+        "ledger_event_index": 10,
+        "path": "{REPO}/out/dispatch/provider-availability/after-cb5bad7bd5c5d501b9f84907069f12142ab074b2dbf7540dee83ea8e0b30e0d2/attempt.json",
+        "request_id": "51bab622-9868-4953-9509-781fce8aaba4",
+        "sha256": "62440ed9027d9b9640d1ca63ff710c51a6f64f8b548d6bd3fc3df81e82ec98e0"
+      },
+      "after_probe": null,
+      "at": "2026-11-10T14:20:26.895995Z",
+      "generation_protocol": "bounded-json-generation-v2",
+      "kind": "provider_availability_probe",
+      "model": "gemini-3.8-flash",
+      "request_id": "18fef779-945d-40fb-85cb-2e4eb8e71359",
+      "reservation": {
+        "at": "2026-11-10T14:20:25.335279Z",
+        "completion_progress_policy": "2026-10-20",
+        "kind": "reserved",
+        "note": "unscored provider generation availability",
+        "preflight_identity": null,
+        "publication_epoch": "3023191e4b1d4ac08e8a58cdef6f1dc8",
+        "publication_owner_sha256": "209ea7f54b287c914038461e594e94c38950377c778cdafd8d3b20e723af6ff0",
+        "resources": {
+          "audiovisual_reviews": 1
+        }
+      },
+      "reservation_event_index": 13,
+      "started_at": "2026-11-10T14:20:26.895654Z"
+    },
+    {
+      "at": "2026-11-10T14:20:33.660234Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "telemetry for audiovisual_reviews: 18fef779-945d-40fb-85cb-2e4eb8e71359 unscored provider generation availability",
+      "preflight_identity": null,
+      "publication_epoch": "3023191e4b1d4ac08e8a58cdef6f1dc8",
+      "publication_owner_sha256": "209ea7f54b287c914038461e594e94c38950377c778cdafd8d3b20e723af6ff0",
+      "resources": {
+        "reported_tokens": 64
+      }
+    },
+    {
+      "at": "2026-11-10T14:20:35.614006Z",
+      "elapsed_ms": 2286,
+      "kind": "telemetry",
+      "note": "18fef779-945d-40fb-85cb-2e4eb8e71359 unscored provider generation availability",
+      "reported_tokens": 64,
+      "resource": "audiovisual_reviews"
+    },
+    {
+      "at": "2026-11-10T14:20:39.170270Z",
+      "available": true,
+      "http_status": 200,
+      "kind": "provider_availability_result",
+      "receipt_sha256": "6082df7887aa7a186879ba17357c1473c39a6c769ca90a89616ba16ad2f0d929",
+      "request_id": "18fef779-945d-40fb-85cb-2e4eb8e71359"
     }
   ],
   "limits": {
@@ -219,7 +291,7 @@
   "phase": "research",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "5bf6802eb8113c7b400bd8dc0dd3bc71780b11871d7239d7165f0e3e037dc2eb",
+    "original_private_state_sha256": "b05001997250ce08f6d795ec19d2066207ec342234c781bce0dca9f8f431b54a",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -247,16 +319,16 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-10T13:42:46.828065Z",
+  "updated_at": "2026-11-10T14:20:39.170294Z",
   "usage": {
-    "audiovisual_reviews": 2,
+    "audiovisual_reviews": 3,
     "cleanup_renders": 0,
     "full_renders": 0,
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 0,
     "reboards": 0,
-    "reported_tokens": 0,
+    "reported_tokens": 64,
     "rescue_renders": 0,
     "research_agents": 0,
     "scorer_calls": 0,
