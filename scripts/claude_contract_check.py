@@ -62,6 +62,47 @@ def mechanical_route_problems(cfg):
     return errors
 
 
+
+# Owner-authorized daily social delivery replaces the former blanket social ban.
+# These are policy-contract assertions, not proof of runtime REST access.
+SOCIAL_REQUIRED = (
+    '## DAILY SOCIAL DELIVERY',
+    'Never send the email.',
+    'all existing release gates and merge',
+    'Upload-Post profile `user`: `default`',
+    'LinkedIn organization: `78748279`; Instagram handle: `texasaidocket`',
+    'Do not connect new accounts during a run.',
+    'never blindly retry the whole platform batch',
+    'If exclusive social ownership cannot be established, skip social writes',
+    'Never create, print, copy into git, or scrape API keys',
+    'does not override a host/tool requirement for',
+    'action-time confirmation',
+    'No social outage may remove or prevent the',
+    'original Gmail draft.',
+    'official Upload-Post REST API',
+    'scripts/upload_post_rest.py',
+    'sends no Authorization header',
+    'Do not bypass an MCP confirmation.',
+    'Any existing remote claim, including UNKNOWN, permits reconciliation only, never another POST.',
+    'No expiration, takeover or forced retry is authorized.',
+    'Do not reacquire or reopen a shipped production edition merely to post.',
+    'refs/heads/claude/social-delivery-state-v1',
+    'Retrying a metadata update never resubmits the POST.',
+    'Local receipts alone are not durable dedupe.',
+    '`facebook_media_type=VIDEO` and `video_state=PUBLISHED`',
+    '`target_linkedin_page_id` for every LinkedIn upload',
+    'without duplicating source links or music credits already present',
+    'https://texasaidocket.com/',
+)
+
+
+def social_delivery_problems(authority):
+    """Fail closed when a scoped daily publishing safeguard or binding disappears."""
+    flat = ' '.join(authority.split())
+    return ['Claude social delivery lacks safeguard ' + phrase
+            for phrase in SOCIAL_REQUIRED if phrase not in flat]
+
+
 def problems(repo=REPO, environ=None):
     repo = Path(repo)
     errors = []
@@ -96,8 +137,9 @@ def problems(repo=REPO, environ=None):
         if 'mechanical_route' in cfg:
             errors += mechanical_route_problems(cfg)
         authority = (repo / 'prompts/claude_routine.md').read_text()
+        errors += social_delivery_problems(authority)
         for required in ('prompts/dispatch_routine.md', 'finish --result shipped',
-                         'Never send email or post socially', 'native_headroom.py',
+                         'Never send email.', 'native_headroom.py',
                          'canonical phone playback', 'unsent Gmail draft',
                          "Derive today's calendar date in the schedule timezone",
                          "the cloud host's UTC date does not select an Eastern edition",
@@ -179,6 +221,31 @@ class ContractTests(unittest.TestCase):
             target = self.repo / name
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes((REPO / name).read_bytes())
+
+
+    def test_social_delivery_safeguards_cannot_disappear(self):
+        p = self.repo / 'prompts/claude_routine.md'
+        original = p.read_text()
+        self.assertEqual([], problems(self.repo, {}))
+        # Flatten wrapping so each deliberate mutation removes the actual contract phrase.
+        for phrase in SOCIAL_REQUIRED:
+            with self.subTest(phrase=phrase):
+                p.write_text(' '.join(original.split()).replace(phrase, 'REMOVED'))
+                self.assertTrue(any('social delivery lacks safeguard' in e
+                                    for e in problems(self.repo, {})))
+        p.write_text(original)
+
+    def test_social_delivery_rejects_other_brand_bindings(self):
+        p = self.repo / 'prompts/claude_routine.md'
+        original = p.read_text()
+        for before, after in (('`user`: `default`', '`user`: `alaska_ai`'),
+                              ('`78748279`', '`117084989`'),
+                              ('`texasaidocket`', '`alaskaai_`')):
+            with self.subTest(binding=before):
+                p.write_text(original.replace(before, after))
+                self.assertTrue(any('social delivery lacks safeguard' in e
+                                    for e in problems(self.repo, {})))
+        p.write_text(original)
 
     def test_current_route(self):
         self.assertEqual([], problems(self.repo, {}))

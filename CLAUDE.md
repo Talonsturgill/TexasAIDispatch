@@ -1,5 +1,18 @@
 # Texas AI Dispatch
 
+## Daily social delivery update (owner, November 10th, 2026)
+
+For the daily routine, read the DAILY SOCIAL DELIVERY section in `prompts/claude_routine.md`.
+It authorizes direct Upload-Post publishing of the finished edition to the bound brand accounts,
+without an editorial approval link. It supersedes older social-posting bans and statements that
+the email gates posting, including older phase documents. Preserve all existing release, rights,
+quality, merge, archive and Gmail draft checks. Never send email. No credentials or permissions
+are created by this update; missing authorized secure REST access is a reported social blocker.
+Only the three daily media-upload endpoints are writable. Do not use comment, DM, account
+management, feedback, edit or deletion endpoints. Other routines and unrelated external
+communications retain their existing restrictions.
+
+
 Owner instruction from October 28th, 2026. Reliable autonomous daily shipment takes priority
 over the previous five-review maximum. Read config/autonomous_completion_capacity_v1.json and
 prompts/phases/repair.md. The initial review window is a planning allowance, not permission to
@@ -18,7 +31,7 @@ it is not a reason to keep repairing that alternative or a pass for the selected
 
 Only accepted finish --result shipped, permanent reviewed media, actual canonical phone
 playback, a verified correctly addressed unsent draft and durable archive complete production.
-Never send email or post socially.
+Never send email. Follow the daily social delivery update for authorized Upload-Post publishing.
 
 Source repo for the Texas AI Dispatch: a daily narrated 2.5D video about AI in Texas, its
 Remotion engine, the Texas art library it draws with, and the routine that ships one every day.
@@ -65,7 +78,7 @@ Git identity is `Talon Sturgill <Talon.sturgill@gmail.com>`. The container defau
 Runs SHIP AUTONOMOUSLY only from controller state `publishable`. When a run's gates pass, the run branch is merged to `main` **without a
 human-review gate**: commit the artifacts, push, open a PR that is **ready (NOT a draft)**, and
 **MERGE it in the same run**. The email's media links point at published URLs, so the merge lands
-before the email. The email is the only human touchpoint and it gates the POST, not the merge.
+before the email. The email remains a delivery copy; the daily social delivery update governs social posting.
 Rejected films follow the finite creative-repair policy below. Only integrity-verified release
 artifacts enter the public feed; original artistic rejection is never rewritten as approval.
 
@@ -75,7 +88,7 @@ improved when it did not.
 
 Three things still stop and ask, in any session:
 - work that would rewrite already-published history on `main`
-- anything that SENDS rather than drafts (these routines never send)
+- anything that sends email or external communications outside the daily social delivery update
 - deleting or overwriting shipped run artifacts under `runs/`
 
 ## Explicit owner cancellation
