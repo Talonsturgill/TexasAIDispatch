@@ -16,7 +16,7 @@ import {FONT,widthOf} from '../../../lib/type';
  *  - an OUTLINED check mark comes down over the slot and HOVERS there. It never lands: its soft shadow
  *    stays apart from it on the page, so the check is ready but not placed (s6 to s10);
  *  - in the close, a vendor thread and a statute thread meet at the empty slot, a small tag reading
- *    required for diagnostic use hangs beside it, a card asking how well the check works hangs from
+ *    Texas law requires review for diagnostic use hangs beside it, a card asking how well the check works hangs from
  *    the chin with an empty field and a not stated stamp, and three small source cards settle at the
  *    screen edge (s10).
  *
@@ -44,11 +44,11 @@ export const TRAY={x:496,y:798,w:220,h:50};
 export const STRIP={x:318,y:470,w:126,h:322};
 export const STRIP_ROWS=[524,560,596,634,672,710,748];
 export const MATCH_ROW=3;
-export const LINK_FROM:Pt=[612,606];
+export const LINK_FROM:Pt=[620,590];
 export const LINK_TO:Pt=[STRIP.x+STRIP.w-2,STRIP_ROWS[MATCH_ROW]];
 export const SLOT_IN:Pt=[SLOT.x-4,SLOT.y+SLOT.s/2+2];
 export const HOWWELL={x:724,y:800,w:178,h:136};
-export const LABEL={x:640,y:620,w:150,h:58};
+export const LABEL={x:516,y:620,w:widthOf('for diagnostic use',17,true)+22,h:3*17*1.16+22,lines:['Texas law','requires review','for diagnostic use']};
 /** The speech ribbon's path: off the foot of the exam table, up over the room and into the page. */
 export const RIBBON={p0:[410,842] as Pt,c1:[352,700] as Pt,c2:[436,600] as Pt,p1:[DRAFT.x0,DRAFT.y] as Pt};
 export function ribbonPoint(u:number):Pt{
@@ -128,9 +128,10 @@ export const HeroThread:React.FC<{a:Pt;c1:Pt;c2:Pt;b:Pt;p:number;color:string;w?
 
 /** The vendor and statute threads' paths to the slot, shared with the episode's bounds checks. */
 export function closeThread(from:Pt,kind:'design'|'statute'):{a:Pt;c1:Pt;c2:Pt;b:Pt}{
- const b:Pt=kind==='design'?[SLOT_IN[0]-14,SLOT_IN[1]]:[SLOT_IN[0]+6,SLOT_IN[1]+2];
- return kind==='design'?{a:from,c1:[from[0]+20,from[1]-170],c2:[b[0]-120,b[1]+90],b}
-  :{a:from,c1:[from[0]+10,from[1]-250],c2:[b[0]-260,b[1]+150],b};
+ // both threads come in to the slot's left edge from below, between the law's tag and the slot
+ const b:Pt=kind==='design'?[SLOT.x-SLOT.s/2,SLOT.y-6]:[SLOT.x-SLOT.s/2+1,SLOT.y+12];
+ return kind==='design'?{a:from,c1:[from[0]+20,from[1]-170],c2:[b[0]-70,b[1]+80],b}
+  :{a:from,c1:[from[0]+10,from[1]-250],c2:[b[0]-60,b[1]+110],b};
 }
 
 export const NoteHero:React.FC<{pal:Pal;st:HeroState;layer:'back'|'front';ids?:HeroIds}>=({pal,st,layer,ids={}})=>{
@@ -159,8 +160,8 @@ export const NoteHero:React.FC<{pal:Pal;st:HeroState;layer:'back'|'front';ids?:H
     <path d={`M${STRIP.x} ${STRIP.y}H${STRIP.x+STRIP.w}V${STRIP.y+STRIP.h-14}L${STRIP.x+STRIP.w-12} ${STRIP.y+STRIP.h}H${STRIP.x}Z`} fill={pal.paper} stroke={pal.ink} strokeWidth={2.5}/>
     <path d={`M${STRIP.x+STRIP.w-12} ${STRIP.y+STRIP.h}V${STRIP.y+STRIP.h-12}H${STRIP.x+STRIP.w}`} fill="#E2D7C0" stroke={pal.ink} strokeWidth={2}/>
     <rect x={STRIP.x+3} y={STRIP.y+3} width={4} height={STRIP.h-20} fill="#ffffff" opacity={.5}/>
-    <Txt x={STRIP.x+10} y={STRIP.y+30} size={17} bold fill={pal.ink}>source</Txt>
-    <Txt x={STRIP.x+10} y={STRIP.y+50} size={17} bold fill={pal.ink}>words</Txt>
+    <Txt x={STRIP.x+10} y={STRIP.y+30} size={18} bold fill={pal.ink}>source</Txt>
+    <Txt x={STRIP.x+10} y={STRIP.y+51} size={18} bold fill={pal.ink}>data</Txt>
     {STRIP_ROWS.map((y,i)=>{const lit=i===MATCH_ROW?smooth((st.link-.82)/.18):0;
      return <g key={i}>
       {lit>0&&<rect x={STRIP.x+6} y={y-14} width={STRIP.w-12} height={28} rx={6} fill="#F6C9A2" opacity={f2(lit)}/>}
@@ -266,15 +267,15 @@ const HeroFront:React.FC<{pal:Pal;st:HeroState;ids:HeroIds}>=({pal,st,ids})=>{
  const dTh=st.designFrom?closeThread(st.designFrom,'design'):null,sTh=st.statuteFrom?closeThread(st.statuteFrom,'statute'):null;
  return <g data-part="note-hero-front">
   {r&&marks.length>0&&<I id={ids.speech}><g data-part="speech-ribbon">{marks}</g></I>}
-  {st.link>0&&<I id={ids.links}><HeroThread a={LINK_FROM} c1={[LINK_FROM[0]-10,LINK_FROM[1]+118]} c2={[LINK_TO[0]+60,LINK_TO[1]+96]} b={LINK_TO} p={st.link} color={pal.foreground} w={4}/></I>}
+  {st.link>0&&<I id={ids.links}><HeroThread a={LINK_FROM} c1={[LINK_FROM[0]-20,LINK_FROM[1]-70]} c2={[LINK_TO[0]+34,LINK_TO[1]-94]} b={LINK_TO} p={st.link} color={pal.foreground} w={4}/></I>}
   {dTh&&st.design>0&&<I id={ids.design}><HeroThread {...dTh} p={st.design} color="#2F7C80" w={5}/></I>}
   {sTh&&st.statute>0&&<I id={ids.statute}><HeroThread {...sTh} p={st.statute} color={pal.ink} w={5}/></I>}
   {label>0&&<I id={ids.check}><g data-part="slot-label" opacity={f2(label)} transform={`translate(0 ${f2(-10*(1-label))})`}>
-   <path d={`M${LABEL.x+LABEL.w-6} ${LABEL.y+8}L${SLOT.x-20} ${SLOT.y+18}`} stroke={pal.ink} strokeWidth={2} strokeDasharray="5 4"/>
-   <rect x={LABEL.x+4} y={LABEL.y+5} width={LABEL.w} height={LABEL.h} rx={8} fill={pal.ink} opacity={.16}/>
-   <rect x={LABEL.x} y={LABEL.y} width={LABEL.w} height={LABEL.h} rx={8} fill="#F8DCC4" stroke={pal.accent} strokeWidth={2.5}/>
-   <Txt x={LABEL.x+10} y={LABEL.y+24} size={19} bold fill={pal.ink}>required for</Txt>
-   <Txt x={LABEL.x+10} y={LABEL.y+47} size={19} bold fill={pal.ink}>diagnostic use</Txt>
+   {/* the law's own condition, tied to the slot by a short leader: it names where the second thread comes from */}
+   <path d={`M${f2(LABEL.x+LABEL.w)} ${f2(LABEL.y+LABEL.h/2)}L${SLOT.x-SLOT.s/2-4} ${SLOT.y+16}`} stroke={pal.ink} strokeWidth={2} strokeDasharray="5 4"/>
+   <rect x={LABEL.x+4} y={LABEL.y+5} width={f2(LABEL.w)} height={f2(LABEL.h)} rx={8} fill={pal.ink} opacity={.16}/>
+   <rect x={LABEL.x} y={LABEL.y} width={f2(LABEL.w)} height={f2(LABEL.h)} rx={8} fill="#F8DCC4" stroke={pal.accent} strokeWidth={2.5}/>
+   {LABEL.lines.map((l,i)=><Txt key={i} x={LABEL.x+11} y={LABEL.y+11+17*1.16*(i+.86)} size={17} bold fill={pal.ink}>{l}</Txt>)}
   </g></I>}
   {hover>0&&<I id={ids.verify??ids.check}><g data-part="hover-check">
    {/* the shadow stays on the page beside the slot, apart from the mark: hovering, not placed */}

@@ -251,24 +251,24 @@ S['s10'] = dict(
  disclosure='Illustration. No real person or product',
  subs=[('design', 'vendor design card with a thread bending toward the check slot'),
        ('statute', 'statute card with a thread bending toward the check slot'),
-       ('check', 'clinician check mark and its slot on the draft line'),
-       ('howwell', 'empty field labelled how well the check works, stamped not published'),
+       ('check', 'empty check slot on the draft line with the outlined check mark still hovering above it, unplaced'),
+       ('howwell', 'empty field labelled how well the check works, stamped not stated'),
        ('sources', 'the source cards stacked at the screen edge')],
  actions=('vendor-says-clinicians-verify', 'law-requires-review-diagnostic', 'how-well-unstated'),
  csubs=(['design', 'check'], ['statute', 'check'], ['howwell', 'check', 'sources']),
  events=[
   ('a', ['design', 'check'], 'A thread from the vendor design card bends toward the check slot on the draft line.', 'travel', 'comparison'),
-  ('b', ['statute', 'check'], 'A thread from the statute card joins it at the empty check slot, which takes a small label reading required for diagnostic use.', 'contact', 'resolution'),
-  ('c', ['howwell'], 'A field labelled how well the check works appears beside the check mark and takes a not published stamp.', 'contact', 'evidence'),
-  ('c', ['howwell', 'check', 'sources'], 'The source cards settle at the screen edge while the check mark and the stamped empty field hold together.', 'smoothstep', 'resolution')],
+  ('b', ['statute', 'check'], 'A thread from the statute card joins it at the empty check slot, which takes a small tag reading Texas law requires review for diagnostic use.', 'contact', 'resolution'),
+  ('c', ['howwell'], 'A field labelled how well the check works hangs beside the empty check slot and takes a not stated stamp.', 'contact', 'evidence'),
+  ('c', ['howwell', 'check', 'sources'], 'The source cards settle at the screen edge while the empty slot, the hovering outlined check and the stamped empty field hold together.', 'smoothstep', 'resolution')],
  claims=['c5', 'c6'], claim_split=(['c5'], ['c6'], ['c5', 'c6']),
  title='Both the design and the rule point the check at the clinician and its quality is blank',
- mute='A vendor thread and a statute thread bend to an empty check slot labelled required for diagnostic use, while a how well field stays stamped not published.',
+ mute='A vendor thread and a statute thread bend to an empty check slot tagged Texas law requires review for diagnostic use, while a how well field stays stamped not stated.',
  must=[('vendor and statute threads to the check slot', ['design', 'statute']), ('empty check slot with its label', ['check']), ('empty how well field', ['howwell'])],
- change=('The check slot takes its label and the how well field takes a not published stamp.', ['check', 'howwell']),
+ change=('The check slot takes its label and the how well field takes a not stated stamp.', ['check', 'howwell']),
  emotion='Level, unhurried closure with the open question left in plain sight.',
  sound=('contact', 'A soft click as the label settles, then a single low stamp thump.', 'Original designed foley, not recorded anywhere.'),
- sentence_subject='A check mark landing in the slot on the draft note beside an empty how well field',
+ sentence_subject='Two threads meeting at the empty check slot on the draft note beside an empty how well field',
 )
 SIDS = [f's{i}' for i in range(1, 11)]
 
@@ -387,6 +387,15 @@ def shots_for(treatment):
             f = names[idx]
             plan.append(dict(id=f'{sid}-shot-{shotn[sid]}', scene_id=sid, start_s=round(a, 4), duration_s=round(b - a, 4),
                              framing=FRAMING[f], transition=trans[idx], view=view(sid, f), event_id=best['id'], narration_ids=[cid], frame=f))
+    # Scene-builder, 2026-11-10: a shot end that lands exactly on a half frame can round below the next
+    # shot's first frame (48.44 + 2.41 = 50.8499...), leaving frame 1525 uncovered and DirectedFilm throwing.
+    # Nudge the earlier duration by 0.1 ms steps until both sides round to the same native frame.
+    for x, y in zip(plan, plan[1:]):
+        for _ in range(20):
+            e = round((x['start_s'] + x['duration_s']) * 30); s0 = round(y['start_s'] * 30)
+            if e == s0: break
+            x['duration_s'] = round(x['duration_s'] + (1e-4 if e < s0 else -1e-4), 4)
+        assert round((x['start_s'] + x['duration_s']) * 30) == round(y['start_s'] * 30), x['id']
     for eid, f in FORCED.items():
         sid = eid.split('-')[0]
         ev = next(e for e in EVENTS[sid] if e['id'] == eid)
@@ -512,14 +521,20 @@ def film_direction(treatment):
         angle = ('Follow one draft visit note through a single exam room. The camera starts wide on the room, comes in on the note screen and stays with the same screen as each source card and rule arrives beside it, so the viewer sees the draft before the record that surrounds it.')
         promise = 'Watch spoken words become a draft line on a note screen, then see who the record says should check it.'
         turn = 'A thread links the draft line back to its source words and an outlined check mark hovers over it, so a person is the one who verifies.'
-        closing = 'The design and the rule both point the check at the clinician, shown as a check mark landing on the draft note beside a blank how well field.'
+        closing = 'The design and the rule both point the check at the clinician, shown as two threads meeting at the empty check slot while the outlined check still hovers and the how well field stays stamped not stated.'
     else:
         angle = ('Stay on the empty check slot. Every scene opens close on that slot on the note screen, then widens to the evidence card that surrounds it, so the viewer keeps one open question in view while the school post, the agreement and the law arrive. Comparisons use split framing.')
         promise = 'Watch an empty check slot appear beside a new draft line and keep asking who fills it.'
-        turn = 'Two threads from the vendor design and the statute bend to the same check slot, and a clinician check mark lands in it.'
-        closing = 'The check slot is filled by the clinician and the field for how well it works stays stamped not published.'
+        turn = 'Two threads from the vendor design and the statute bend to the same empty check slot, which takes a Texas law requires review for diagnostic use tag while the outlined check still hovers unplaced.'
+        closing = 'The check slot stays empty and pointed at the clinician, and the field for how well the check works stays stamped not stated.'
     return dict(version='directed-film-v2', episode=EP, variant=treatment, angle=angle, opening_promise=promise,
-                performed_turn=turn, closing_answer=closing, shots=ordered, rewards=rewards(plan, treatment), renderer_inputs=[]), plan
+                performed_turn=turn, closing_answer=closing, shots=ordered, rewards=rewards(plan, treatment), renderer_inputs=bound_renderer()), plan
+
+def bound_renderer():
+    # Scene-builder, 2026-11-10: bind the actual registered renderer closure once the episode is registered.
+    import modern_film
+    reg = json.loads((REPO / 'config/modern_episode_registry.json').read_text())['episodes']
+    return modern_film.renderer_inputs(EP, REPO) if EP in reg else []
 
 def edits(treatment):
     out = []
@@ -530,11 +545,11 @@ def edits(treatment):
         if treatment == 'a':
             enter = evs[0]['what']
             leave = evs[-1]['what']
-            nc = (f'The same note screen stays in frame as {nxt["sentence_subject"]} arrives.' if nxt else 'The closing note screen holds with the check mark placed and the how well field stamped.')
+            nc = (f'The same note screen stays in frame as {nxt["sentence_subject"]} arrives.' if nxt else 'The closing note screen holds with the slot still empty, the outlined check still hovering and the how well field stamped.')
         else:
             enter = 'Close on the empty check slot on the note screen, then widen to ' + c['sentence_subject'].lower() + '.'
             leave = evs[-1]['what']
-            nc = (f'The check slot stays at the edge of frame as {nxt["sentence_subject"]} arrives.' if nxt else 'The check slot holds filled beside the stamped empty field.')
+            nc = (f'The check slot stays at the edge of frame as {nxt["sentence_subject"]} arrives.' if nxt else 'The check slot holds empty beside the stamped empty field.')
         row = dict(scene_id=sid, enter_on=enter, leave_on=leave, cut_after_event_id=evs[-1]['id'], next_connection=nc,
                    sentence_to_shot=dict(clause=' '.join(CLAUSES[sid]), subject=c['sentence_subject'],
                                          relationship=' '.join(e['what'] for e in evs),
@@ -556,7 +571,7 @@ def story_contract():
              ('s4', 's5'): ('same-subject', 'The agreement tied to the initiative leads to what it lets institutions do.', 'The agreement tag becomes the top of a framework frame.'),
              ('s5', 's6'): ('causal-consequence', 'Access to the vendor tool leads to how the tool presents its draft.', 'The framework frame retreats and the note screen returns with a draft line.'),
              ('s6', 's7'): ('causal-consequence', 'The unplaced check mark leads to a law that covers AI used for diagnosis.', 'The outlined check mark stays while the bill card lands beside the note screen.'),
-             ('s7', 's8'): ('same-subject', 'The bill card that covers AI diagnosis leads to its review condition.', 'The same bill card lifts one condition line toward a practitioner outline.'),
+             ('s7', 's8'): ('same-subject', 'The bill card that covers AI diagnosis leads to its review condition.', 'The same bill card highlights one condition line and a bracket reaches a stack of AI-marked records.'),
              ('s8', 's9'): ('causal-consequence', 'The review condition leads to what the law is written around and what it leaves open.', 'The standards tag stays while the bill card frames the word diagnosis.'),
              ('s9', 's10'): ('causal-consequence', 'The question about the visit note leads to the closing picture of who is pointed at.', 'The question mark slides down while threads bend toward the check slot on the note screen.')}
     trans = []
@@ -613,7 +628,7 @@ def creative_direction(treatment):
     import creative_production
     return dict(
         viewer_question="In Texas, when documentation is AI-generated, who verifies the output?",
-        visible_answer="The vendor says clinicians can verify and the law requires review for diagnostic use, shown as two threads meeting at an empty check slot beside a field for how well it works that stays stamped not published.",
+        visible_answer="The vendor says clinicians can verify and the law requires review for diagnostic use, shown as two threads meeting at an empty check slot beside a field for how well it works that stays stamped not stated.",
         emotional_turn='Plain curiosity at the exam room, steady attention through the sources, a quiet doubt at the question mark on the visit note and an even answer at the check slot.',
         medium_choice='News report / Evidence-led imagery, mechanism-led ordering. No inspected photograph or footage of a Texas exam room or the products exists in the sources, so original authored illustration performs the input, transformation, check and limit. A static page excerpt would show the sentences but hide the draft line, the thread back to source words and the check slot they describe.',
         sound=sound(treatment), edits=edits(treatment),
@@ -641,7 +656,7 @@ def art_direction(treatment, plan):
         focal_hierarchy='The draft line and its check slot first, the card or rule that is arriving second, the source threads and stamps third, the desk and exam room fourth and the Houston window last.',
         motion_language='Cards slide and settle without bounce, threads draw at an even speed, stamps and marks land once and stay, switches click once, the ribbon of words travels with continuous acceleration and the camera holds while objects perform.',
         shots=shots,
-        signature_shot=dict(scene_id='s10', event_id=EVENTS['s10'][1]['id'], reason='The vendor thread and the statute thread meet at the empty check slot, which takes its required for diagnostic use label, the whole answer in one movement.'),
+        signature_shot=dict(scene_id='s10', event_id=EVENTS['s10'][1]['id'], reason='The vendor thread and the statute thread meet at the empty check slot, which takes its Texas law requires review for diagnostic use tag, the whole answer in one movement.'),
         flat_shots=flat)
 
 def story_art():
@@ -655,16 +670,27 @@ def story_art():
         version='authored-story-art-v1', runtime='claude-sonnet-v1', edition_id=EDITION,
         requests=[
             dict(id='note-hero', role='hero', file=HERO, export='NoteHero', scene_ids=sceneids,
-                 purpose='Give the film one wall note screen with a draft visit note that receives a ribbon of spoken word marks, grows a draft line, threads that line back to source words, receives a clinician check mark in its slot and passes into an open record tray, so the object the question is about changes state across the film.',
-                 prompt='Author an original finished React and SVG object in the current Remotion engine. A wall note screen with a rounded bezel and a pale paper note page, a ribbon of small word marks that flows in from the left, a single draft line with a hand-set cursor, a thin thread that draws from the line to a strip of source words, a crooked burnt orange check slot beside the line that receives an outlined and then solid check mark, and an open worn record tray beneath the screen. Soft shadowless humid daylight from the upper left, a cool glow on the page and a soft contact shadow on the wall. No logos, no brand marks, no real product interface and no readable patient detail. Maintained but worn, nothing symmetric. A disclosed illustration, never a real screen.',
+                 purpose='Give the film one wall note screen with a draft visit note that receives a ribbon of spoken word marks, grows a draft line, threads that line back to source words, keeps an empty check slot under an outlined check mark that hovers and is never placed, and keeps its record tray open and empty, so the object the question is about changes state across the film.',
+                 prompt='Author an original finished React and SVG object in the current Remotion engine. A wall note screen with a rounded bezel and a pale paper note page, a ribbon of small word marks that flows in from the left, a single draft line with a hand-set cursor, a thin thread that draws from the line to a strip of source words, a crooked burnt orange check slot beside the line with an outlined check mark that hovers over it and never lands, and an open worn record tray beneath the screen. Soft shadowless humid daylight from the upper left, a cool glow on the page and a soft contact shadow on the wall. No logos, no brand marks, no real product interface and no readable patient detail. Maintained but worn, nothing symmetric. A disclosed illustration, never a real screen.',
                  source_limit='Disclosed illustration of a generic wall note screen and draft note. Not an Abridge, Epic or DAX screen, not a UT Physicians interface and not a real clinic, clinician or patient.',
                  action_uses=[au('s1', 1, 'room-medium'), au('s6', 1, 'link-close'), au('s10', 1, 'answer-close')]),
             dict(id='clinic-record-support', role='support', file=SUPPORT, export='ClinicRecordSupport', scene_ids=sceneids,
-                 purpose='Give the note its world and its records, an exam room with a padded table and stool and a window onto Houston, a desk, a school post card, a dashed platform outline with a stalled progress bar and two pilot tags, a physician outline row with a blank calendar slot and a refresher tag, a press release card with an agreement tag, a system initiative card and a tying thread, a framework frame with institution cards and switches, a bill card with an effective stamp, diagnosis and AI tags, a highlighted review condition, a practitioner outline over a stack of AI-marked record cards, a standards tag, a diagnosis frame, a visit note card with a question mark, source cards and an empty how well field with a not published stamp.',
-                 prompt='Author an original finished React and SVG support group in the current Remotion engine. A generic exam room with a padded exam table, a rolling stool and a window opening onto Houston, no people, a worn laminate desk edge with a cable organizer, flat paper cards with dog-eared corners for the school post, press release, initiative, bill, record stack and visit note, dashed outlines, thin curved threads, small rounded tags, a row of anonymous physician outlines, a faceless practitioner outline, institution cards with small switches, a crooked date and effective stamp, a not published stamp, and an empty labelled field. Warm paper cards, teal desk, one burnt orange accent. No logos, no seals, no brand marks, no readable patient detail and no real interface.',
+                 purpose='Give the note its world and its records, an exam room with a padded table and stool and a window onto Houston, a desk, a school post card, a dashed platform outline with a stalled progress bar and two pilot tags, a physician outline row with a blank calendar slot and a refresher tag, a press release card with an agreement tag, a system initiative card and a tying thread, a framework frame with institution cards and switches, a bill card with an effective stamp, diagnosis and AI tags, a highlighted review condition with a bracket reaching a stack of AI-marked record cards, a standards tag, a diagnosis frame, a visit note card with a question mark, source cards and an empty how well field with a not stated stamp.',
+                 prompt='Author an original finished React and SVG support group in the current Remotion engine. A generic exam room with a padded exam table, a rolling stool and a window opening onto Houston, no people, a worn laminate desk edge with a cable organizer, flat paper cards with dog-eared corners for the school post, press release, initiative, bill, record stack and visit note, dashed outlines, thin curved threads, small rounded tags, a row of anonymous faceless physician outlines, a bracket, institution cards with small switches, a crooked date and effective stamp, a not stated stamp, and an empty labelled field. Warm paper cards, teal desk, one burnt orange accent. No logos, no seals, no brand marks, no readable patient detail and no real interface.',
                  source_limit='Disclosed illustration of the sources. No real clinic, room, institution card, seal, interface, logo, clinician or patient. The empty field shows an absence in the sources, not a measurement.',
                  action_uses=[au('s2', 1, 'post-medium'), au('s5', 1, 'framework-wide'), au('s9', 0, 'scope-medium')])],
         entries=[])
+
+def carried_entries(plan):
+    # Scene-builder, 2026-11-10: keep recorded authored receipts whose exact request is unchanged.
+    import authored_story_art
+    path = OUT / 'storyboard.json'
+    if not path.exists():
+        return []
+    prior = json.loads(path.read_text()).get('story_art', {}).get('entries', [])
+    want = {r['id']: authored_story_art.fingerprint(r) for r in plan['requests']}
+    rows = [e for e in prior if want.get(e.get('request_id')) == e.get('request_sha256')]
+    return rows if len(rows) == 2 else []
 
 def registry_entry():
     views = {}
@@ -677,7 +703,7 @@ def registry_entry():
     return {
         'module': FILM, 'assets': [HERO, SUPPORT, 'video-engine/src/lib/direction.ts'],
         'views': sorted(views), 'wall_views': WALL, 'wash_views': sorted(WASH),
-        'subject': 'One wall note screen with a draft visit note in an illustrated Houston exam room, the spoken word ribbon that becomes its draft line, the thread back to source words, the check slot and record tray, and the records around it: a school post card with a dashed platform outline and two pilot tags, a physician outline row with a refresher tag, a press release card with an agreement tag tied to an initiative card, a framework with institution cards, a bill card with an effective stamp and diagnosis and AI tags, a review condition with a practitioner outline over AI-marked records and a standards tag, a diagnosis frame with a visit note card and a question mark, and an empty how well field stamped not published',
+        'subject': 'One wall note screen with a draft visit note in an illustrated Houston exam room, the spoken word ribbon that becomes its draft line, the thread back to source words, the check slot and record tray, and the records around it: a school post card with a dashed platform outline and two pilot tags, a physician outline row with a refresher tag, a press release card with an agreement tag tied to an initiative card, a framework with institution cards, a bill card with an effective stamp and diagnosis and AI tags, a review condition with a bracket reaching AI-marked records and a standards tag, a diagnosis frame with a visit note card and a question mark, and an empty how well field stamped not stated',
         'note': 'Fresh authored Claude-lane episode for 2026-11-10 (UT Physicians and Epic ambient listening, the Abridge enterprise-wide agreement with University of Texas REAL Health AI and the Texas Act on AI used for diagnosis). Hero NoteHero and support ClinicRecordSupport are original React and SVG groups shared by both treatments. A follows one note screen through a single exam room, B keeps the empty check slot in frame at the start of every scene. Disclosed illustration, no brand marks, no real clinic, clinician, patient, interface or seal.',
         'narration_views': views,
         'authored_art': [dict(role='hero', module=HERO, export='NoteHero', views=sorted(hero_views)),
@@ -701,8 +727,8 @@ def build(treatment):
         cinematic_contract=dict(
             throughline=dict(subject='One draft visit note on a wall note screen and the check slot beside its draft line, from the spoken words that make it to the record tray it waits to enter',
                              opening_state='A ribbon of spoken word marks turns into a first draft line beside an empty check box.',
-                             closing_state="A clinician check mark sits in the slot on the draft note beside a how well field stamped not published.", scene_ids=SIDS),
-            turn_scene='s6', button='The check mark lands on the draft and the how well field stays blank, so the check is placed with the clinician and its quality is unstated.'),
+                             closing_state="Two threads meet at the still empty check slot on the draft note, the outlined check still hovers and the how well field is stamped not stated.", scene_ids=SIDS),
+            turn_scene='s6', button='The vendor thread and the statute thread meet at the empty slot and the how well field stays blank, so the check is pointed at the clinician and its quality is unstated.'),
         cinema=dict(version='creative-production-v1', hero_scene_id='s6', hero_passage_end_scene_id='s7', dimensional_scene_ids=[],
                     visible_action='A draft line threads back to its source words, an outlined check mark hovers over it and a bill card then conditions AI diagnostic use on review of all AI records.',
                     human_consequence='Physicians who review the drafts and the patients whose visits are the source. No person is named or drawn.',
@@ -718,7 +744,7 @@ def build(treatment):
         hook_strategy='visual_anomaly', hook_payoff_s=0.9,
         creative_direction=creative_direction(treatment),
         documentary=dict(schema='dispatch_documentary/1', viewer_question="In Texas, when documentation is AI-generated, who verifies the output?",
-                         payoff='The check mark lands in the slot on the draft line, so the check sits with the clinician while the how well field stays blank.',
+                         payoff='The vendor thread and the statute thread meet at the empty check slot on the draft line, so the check is pointed at the clinician while the how well field stays blank.',
                          source_limit='Disclosed illustration of the sources. No source says how often drafts are checked or how accurate they are, and the bill text doesn\'t say whether a visit note counts.',
                          hero_image='A wall note screen where spoken word marks become a draft line, the line threads back to source words and threads meet at its empty check slot.',
                          closing_answer="The vendor's design and the statute's review condition both point the check at the clinician, and none of these sources says how well it works.",
@@ -740,6 +766,9 @@ def build(treatment):
 
 if __name__ == '__main__':
     boards = {t: build(t) for t in 'ab'}
+    carried = carried_entries(boards['a']['story_art'])
+    for b in boards.values():
+        b['story_art']['entries'] = copy.deepcopy(carried)
     for t, b in boards.items():
         plan = b['film_direction']['shots']
         print(t, 'shots', len(plan), 'wall share', round(sum(1 for s in plan if s['view'] in WALL) / len(plan), 3),
