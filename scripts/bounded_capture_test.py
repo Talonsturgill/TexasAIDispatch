@@ -22,7 +22,7 @@ class Bounded(Fixture):
             target = self.root / name
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text('tested ' + name)
-        (self.root / 'config').mkdir()
+        (self.root / 'config').mkdir(exist_ok=True)
         (self.root / bounded.POLICY).write_text(json.dumps(bounded.EXPECTED))
         (self.root / 'video-engine/package-lock.json').write_text(json.dumps({'packages': {
             'node_modules/@remotion/renderer': {'version': '4.0.399'}}}))

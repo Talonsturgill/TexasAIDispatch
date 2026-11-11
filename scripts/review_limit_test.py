@@ -694,7 +694,10 @@ class FinalPhoneReservation(unittest.TestCase):
             'renderer_sha256': critic_gate.renderer_digest(data),
             'board_sha256': motion.digest(board), 'film_sha256': motion.digest(film)}))
         binding = motion.phone_inputs(self.state, 'current', board, film)
-        index = motion.build(board, film, self.output / 'timed-motion', True, binding)
+        # The tiny review fixture must not depend on the test filesystem's capacity.
+        with patch('phone_review_storage.shutil.disk_usage') as space:
+            space.return_value.free = 20 * 1024**3
+            index = motion.build(board, film, self.output / 'timed-motion', True, binding)
         claims = self.output / 'claims.json'; claims.write_text('{}')
         data = {'role': 'storyboard-critic', 'date': '2026-10-24',
                 'agent_assignment': runtime.assignment('storyboard-critic', '2026-10-24'),

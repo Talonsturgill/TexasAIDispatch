@@ -52,15 +52,24 @@ jobs:
           npx --no-install remotion browser ensure
       - name: Verify decoder availability
         run: |
-          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            sudo apt-get update
-            sudo apt-get install --yes --no-install-recommends ffmpeg
-          fi
+          bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg_test.py
+          bash scripts/run_with_env.sh python3 scripts/ci_conda_ffmpeg_test.py
+          bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg.py --ensure --conda-lock config/ci_ffmpeg_linux64.explicit.txt
       - name: Bounded native PNG equivalence
         timeout-minutes: 20
         run: |
           bash scripts/run_with_env.sh node --test video-engine/scripts/bounded-png-render.test.mjs
           bash scripts/run_with_env.sh node video-engine/scripts/verify-bounded-png.mjs "$RUNNER_TEMP/dispatch-bounded-proof"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact phone extraction dependencies
+        run: bash scripts/run_with_env.sh python3 -m pip install --quiet -r requirements.txt
+      - name: Measure exact phone contact-sheet extraction
+        run: |
+          bash scripts/run_with_env.sh python3 scripts/phone_review_storage_test.py
+          bash scripts/run_with_env.sh python3 scripts/verify_phone_review_storage.py --out "$RUNNER_TEMP/dispatch-phone-storage-proof"
 
       - name: Retain bounded renderer equivalence evidence
         if: always()
@@ -72,6 +81,8 @@ jobs:
           path: |
             ${{ runner.temp }}/dispatch-bounded-proof/equivalence.json
             ${{ runner.temp }}/dispatch-bounded-proof/*.bounded-png.json
+            ${{ runner.temp }}/dispatch-phone-storage-proof/exercise.json
+            ${{ runner.temp }}/dispatch-conda-media-*/media-tooling.json
 
 
   capture:
@@ -100,17 +111,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Provision finite capture dependencies
+      - name: Provision capture media tooling
+        run: bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg.py --ensure --conda-lock config/ci_ffmpeg_linux64.explicit.txt
+      - name: Provision finite capture Python dependencies
         timeout-minutes: 18
-        run: |
-          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            sudo find /etc/apt -maxdepth 2 -type f \( -name '*.list' -o -name '*.sources' -o -name 'apt-mirrors*.txt' \) -exec sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g;s|https://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' {} +
-            sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update
-            sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install --yes --no-install-recommends ffmpeg
-          fi
-          ffmpeg -version | head -n 1
-          ffprobe -version | head -n 1
-          pip install --quiet -r requirements.txt
+        run: pip install --quiet -r requirements.txt
       - name: Verify immutable request and claim its original charge once
         run: |
           bash scripts/run_with_env.sh python scripts/github_capture.py stage --request "$CAPTURE_REQUEST" --request-sha256 "$CAPTURE_REQUEST_SHA256" --destination "$CAPTURE_ROOT"
@@ -162,23 +167,10 @@ jobs:
           node-version: "22"
 
       - name: Install media tooling
-        # A cold runner's 87-package install completed in 12m04s in run36747846211.
-        # Leave measured setup headroom while still bounding an unavailable installer.
-        timeout-minutes: 18
+        # Use only SHA256-locked conda-forge media tools. Host Python, Remotion,
+        # browser libraries and global package sources remain unchanged.
         run: |
-          # Hosted-runner images do not promise ffmpeg. The preflight, feed, voice,
-          # music and freshness gates must fail closed when it is absent, so CI owns
-          # the dependency explicitly instead of weakening those gates.
-          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            # Run36887168463 retained repeated 60-second Azure-mirror stalls and
-            # exhausted the same 18-minute bound. Use Ubuntu's signed official
-            # archive over HTTPS; keep apt signature checks and every media gate.
-            sudo find /etc/apt -maxdepth 2 -type f \( -name '*.list' -o -name '*.sources' -o -name 'apt-mirrors*.txt' \) -exec sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g;s|https://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' {} +
-            sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update
-            sudo apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install --yes --no-install-recommends ffmpeg
-          fi
-          ffmpeg -version | head -n 1
-          ffprobe -version | head -n 1
+          bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg.py --ensure --conda-lock config/ci_ffmpeg_linux64.explicit.txt
 
       - name: Install dependencies
         run: |
@@ -625,6 +617,7 @@ jobs:
           bash scripts/run_with_env.sh python3 scripts/capture_guard_test.py
           bash scripts/run_with_env.sh python3 scripts/capture_reservation_test.py
           bash scripts/run_with_env.sh python3 scripts/bounded_capture.py --verify-proof
+          bash scripts/run_with_env.sh python3 scripts/phone_review_storage.py --verify-proof
 
       - name: The dimensional and illustrated subjects really render
         timeout-minutes: 5

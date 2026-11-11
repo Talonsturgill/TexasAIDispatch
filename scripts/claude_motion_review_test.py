@@ -191,6 +191,9 @@ class PhoneMotionReview(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         import opening_compare
+        cls.space = patch('phone_review_storage.shutil.disk_usage')
+        cls.space.start().return_value.free = 20 * 1024**3
+        cls.addClassCleanup(cls.space.stop)
         cls.temp = tempfile.TemporaryDirectory(); cls.root = Path(cls.temp.name)
         cls.output = cls.root / 'openings'; cls.output.mkdir()
         cls.state = cls.root / 'run_state.json'
