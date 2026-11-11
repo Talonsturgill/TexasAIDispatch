@@ -23,6 +23,8 @@ FILES = ('video-engine/scripts/bounded-png-render.mjs',
          'config/phone_review_storage_v1.json',
          'video-engine/scripts/verify-bounded-png.mjs',
          'video-engine/scripts/bounded-png-render.test.mjs', 'scripts/bounded_capture_test.py')
+from operation_storage import FILES as OPERATION_FILES
+FILES += OPERATION_FILES
 OPERATORS = {'cinema_proof.py': 'python', 'opening_compare.py': 'python', 'render_dispatch.sh': 'bash'}
 
 
@@ -102,6 +104,20 @@ def operation(command, root):
 
 
 def plan(root, commands, boards):
+    from operation_storage import plan as operation_plan, with_checkpoint_cost
+    specific = operation_plan(root, commands, boards)
+    if specific is not None:
+        return specific
+    profile = base_plan(root, commands, boards)
+    if profile is None:
+        return None
+    try:
+        return with_checkpoint_cost(root, profile, boards)
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
+def base_plan(root, commands, boards):
     from phone_review_storage import plan as phone_plan
     phone = phone_plan(root, commands, boards)
     if phone is not None:

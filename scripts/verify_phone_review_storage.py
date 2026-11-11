@@ -49,6 +49,30 @@ def exercise(directory):
                 if pixels != raw[number * frame_bytes:(number + 1) * frame_bytes]:
                     raise ValueError('contact sheet pixels differ from independent exact-film decode')
                 decoded.update(pixels)
+    # Same real extraction, now from a native film. Independently compare every
+    # tile with a complete decode, so lowering admission cannot omit coverage.
+    native = directory / 'native.mp4'
+    subprocess.run([motion.FFMPEG, '-v', 'error', '-f', 'lavfi', '-i',
+                    'testsrc2=size=1080x1920:rate=30:duration=1.4', '-c:v', 'libx264',
+                    '-preset', 'ultrafast', '-crf', '16', '-pix_fmt', 'yuv420p', str(native)], check=True)
+    native_index_path = motion.build(board, native, directory / 'native-sequence')
+    if motion.problems(native_index_path, board, native):
+        raise ValueError('native sequence did not pass exact-film verification')
+    native_index = json.loads(native_index_path.read_text())
+    native_raw = subprocess.check_output([motion.FFMPEG, '-v', 'error', '-i', str(native), '-an',
+        '-vf', 'scale=390:693', '-fps_mode', 'passthrough', '-f', 'rawvideo', '-pix_fmt', 'rgb24', 'pipe:1'])
+    if len(native_raw) != 42 * frame_bytes:
+        raise ValueError('native fixture count changed')
+    native_samples = []
+    for page in native_index['pages']:
+        with Image.open(native_index_path.parent / page['file']) as sheet:
+            for i, sample in enumerate(page['samples']):
+                x, y = 10 + (i % 3) * 400, 60 + (i // 3) * 731
+                number = sample['frame']; native_samples.append(number)
+                if sheet.crop((x, y, x + 390, y + 693)).tobytes() != native_raw[number*frame_bytes:(number+1)*frame_bytes]:
+                    raise ValueError('native sheet pixels differ from independent exact-film decode')
+    if native_samples != expected:
+        raise ValueError('native extraction lost coverage or last frame')
     # Entire maximum sheet is incompressible, including padding, header and unused
     # tile. This is deliberately more demanding than the actual five-tile layout.
     pixels = random.Random(773).randbytes(1210 * 1494 * 3)
@@ -68,6 +92,10 @@ def exercise(directory):
               'scope': 'engineering extraction and storage verification; no production capture or review verdict',
               'files': before, 'policy_sha256': policy,
               'exact_decoded_pixels': True, 'full_sample_coverage': True,
+              'native_exact_decoded_pixels': True,
+              'native_fixture': {'film_sha256': motion.digest(native),
+                                 'index_sha256': motion.digest(native_index_path),
+                                 'sample_indices': native_samples},
               'fixture': {'film_sha256': motion.digest(film), 'index_sha256': motion.digest(index_path),
                           'decoded_samples_sha256': decoded.hexdigest(), 'frames': 42,
                           'sample_indices': actual, 'sheet_count': len(index['pages']),

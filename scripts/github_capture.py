@@ -446,13 +446,13 @@ def perform_capture(repo, state_path, request, phase):
     phase('input-admission')
     state = read(state_path); event = prepaid(state, request['operation'], request['reservation_event_sha256'])
     operation_precheck(repo, request['operation'], state)
-    # These existing gates compute complete native-frame storage and perform the real
+    # Compute the same source-proven operation profile as final authorization,
     # portable housekeeping check on this runner before authorization or capture.
     command = 'bash scripts/run_with_env.sh '+shlex.join(argv)
     phase('native-headroom')
     subprocess.run(['bash', 'scripts/run_with_env.sh', 'python', 'scripts/native_headroom.py',
-                    '--board', str(boards[0].relative_to(repo)), '--out',
-                    'out/dispatch/github-native-headroom.json'], cwd=repo, check=True)
+                    *[value for board in boards for value in ('--board', str(board.relative_to(repo)))],
+                    '--capture-command', command, '--out', 'out/dispatch/github-native-headroom.json'], cwd=repo, check=True)
     phase('housekeeping-and-authorization')
     auth = capture_guard.authorize(repo, state_path, boards,
                                    [command], resource=resource, housekeeping=True)

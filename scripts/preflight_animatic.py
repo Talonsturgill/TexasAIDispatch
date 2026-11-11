@@ -478,6 +478,8 @@ def main() -> int:
             if stale:
                 raise ValueError("inspect-only cannot rebind an older cinematic film: " + "; ".join(stale))
         if not args.inspect_only:
+            from operation_storage import runtime_check
+            runtime_check(REPO)
             render(board_path.resolve(), film.resolve(), Path(args.state), args.claims)
         report, problems = inspect_animatic(board, film)
         contact_sheet(board, film, Path(args.sheet))

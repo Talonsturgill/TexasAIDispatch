@@ -45,6 +45,11 @@ def main(argv=None):
     if (result.get('storage_profile') or {}).get('mode') == 'phone-review-sheets-v1':
         result['quality'] = ('Exact phone contact sheets decoded from the existing encoded preflight. '
                              'This is not a native render or a quality-gate approval.')
+    if (result.get('storage_profile') or {}).get('mode') == 'operation-storage-v1':
+        operator = result['storage_profile']['operator']
+        result['quality'] = ('Operation-specific storage estimate for ' + operator + '. '
+                             'Preflight JPEG/CRF32 and native PNG/CRF16 recipes are unchanged; '
+                             'this is not a render or quality-gate approval.')
     result["pass"] = result["free_gib"] >= result["required_free_gib"]
     Path(a.out).write_text(json.dumps(result, indent=2)+"\n")
     print(json.dumps(result, indent=2))
