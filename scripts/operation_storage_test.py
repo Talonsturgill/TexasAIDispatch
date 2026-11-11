@@ -1,6 +1,7 @@
 """Canonical admission and actual-cost accounting, including negative fixtures."""
 import json
 import shutil
+import shlex
 from pathlib import Path
 import subprocess
 import tempfile
@@ -173,7 +174,6 @@ class OperationCosts(Fixture):
             profile = auth['headroom']['storage_profile']
             self.assertEqual([], guard.capture_problems(command, auth, self.root, self.root, free_gib=16))
             self.assertTrue(guard.consume(self.root, command))
-            storage.runtime_check(self.root)
             self.assertTrue(reservation.claim(self.state, 'quarter-scale animatic')[0])
             self.assertEqual(controller.read_state(self.state)['usage']['preflight_renders'], 1)
             self.assertEqual(profile, self.plan(command))
@@ -188,23 +188,32 @@ class OperationCosts(Fixture):
             storage.workload(self.root, 'opening_compare.py', self.boards + invalid)
 
     def test_current_free_space_and_source_are_rechecked_after_consumption(self):
-        command = self.commands[0]; profile = self.plan(command)
-        auth = {'headroom': {'storage_profile': profile},
-                'commands': [{'text': command, 'consumed': True}],
-                'boards': [{'path': 'out/dispatch/storyboard.json'}],
-                'bound': {'capture_storage': profile['bindings']}}
-        (self.root/guard.AUTHORIZATION).write_text(json.dumps(auth))
-        with mock.patch.object(storage.Path, 'cwd', return_value=self.root), \
-             mock.patch.object(storage.sys, 'argv', ['scripts/preflight_animatic.py', '--board',
-                                                     'out/dispatch/storyboard.json']), \
-             mock.patch.object(storage.shutil, 'disk_usage', return_value=mock.Mock(free=16*storage.GIB)):
-            storage.runtime_check(self.root)
-            with mock.patch.object(storage.shutil, 'disk_usage', return_value=mock.Mock(free=5*storage.GIB)):
-                with self.assertRaises(ValueError): storage.runtime_check(self.root)
-            with mock.patch.object(storage.sys, 'argv', ['scripts/preflight_animatic.py', '--board', 'elsewhere']):
-                with self.assertRaises(ValueError): storage.runtime_check(self.root)
-            (self.root/'scripts/preship_compute.py').write_text('changed')
-            with self.assertRaises(ValueError): storage.runtime_check(self.root)
+        # Native extraction and preship have entry checks. Preflight deliberately
+        # retains its frozen inspector bytes and uses the command-boundary guard.
+        for command in self.commands[1:]:
+            with self.subTest(command=command):
+                profile = self.plan(command)
+                auth = {'headroom': {'storage_profile': profile},
+                        'commands': [{'text': command, 'consumed': True}],
+                        'boards': [{'path': 'out/dispatch/storyboard.json'}],
+                        'bound': {'capture_storage': profile['bindings']}}
+                (self.root/guard.AUTHORIZATION).write_text(json.dumps(auth))
+                argv = shlex.split(command)[3:]
+                with mock.patch.object(storage.Path, 'cwd', return_value=self.root), \
+                     mock.patch.object(storage.sys, 'argv', argv), \
+                     mock.patch.object(storage.shutil, 'disk_usage', return_value=mock.Mock(free=16*storage.GIB)):
+                    storage.runtime_check(self.root)
+                    with mock.patch.object(storage.shutil, 'disk_usage', return_value=mock.Mock(free=5*storage.GIB)):
+                        with self.assertRaises(ValueError): storage.runtime_check(self.root)
+                    with mock.patch.object(storage.sys, 'argv', argv + ['--out', 'elsewhere']):
+                        with self.assertRaises(ValueError): storage.runtime_check(self.root)
+                    path = self.root/'scripts/preship_compute.py'; before = path.read_bytes()
+                    try:
+                        path.write_text('changed')
+                        with self.assertRaises(ValueError): storage.runtime_check(self.root)
+                    finally:
+                        path.write_bytes(before)
+
 
 
 if __name__ == '__main__':
