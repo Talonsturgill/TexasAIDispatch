@@ -32,6 +32,8 @@ def current_inputs(repo, state):
 def run(repo):
     import capture_reservation
     repo = Path(repo).resolve(); state_path = repo/'out/dispatch/run_state.json'
+    from operation_storage import runtime_check
+    runtime_check(repo)
     bound = current_inputs(repo,read(state_path))
     identity = capture_reservation.input_identity(state_path,NOTE)
     output = repo/PACKAGE

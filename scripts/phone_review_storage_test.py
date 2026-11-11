@@ -42,7 +42,7 @@ class Admission(Fixture):
         # Synthetic unit-test evidence only, never written to the actual checkout.
         files = storage.closure(self.root); policy = storage.sha(self.root / storage.POLICY)
         evidence = {'schema': 'dispatch-phone-review-storage-exercise/1', 'files': files,
-                    'policy_sha256': policy, 'exact_decoded_pixels': True, 'full_sample_coverage': True,
+                    'policy_sha256': policy, 'exact_decoded_pixels': True, 'full_sample_coverage': True, 'native_exact_decoded_pixels': True,
                     'high_entropy_sheet': {'dimensions': [1210, 1494], 'bytes': 5 * 1024**2 + 1},
                     'bounds': storage.bounds()}
         (self.root / storage.PROOF).write_text(json.dumps({

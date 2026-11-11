@@ -26,7 +26,12 @@ FILES = ('scripts/phone_review_storage.py', 'scripts/claude_motion_review.py',
          'scripts/capture_reservation.py', 'scripts/capture_guard.py', 'scripts/run_controller.py',
          'scripts/native_headroom.py', 'scripts/bounded_capture.py',
          'scripts/run_with_env.sh', 'scripts/preflight_animatic.py',
-         'requirements.txt', 'video-engine/public/fonts/Manrope-Var.ttf')
+         'requirements.txt', 'video-engine/public/fonts/Manrope-Var.ttf',
+         'scripts/operation_storage.py', 'scripts/operation_storage_test.py')
+
+
+from operation_storage import FILES as OPERATION_FILES
+FILES += OPERATION_FILES
 
 
 def sha(path):
@@ -52,6 +57,7 @@ def verified(root):
                 or evidence.get('policy_sha256') != proof['policy_sha256']
                 or evidence.get('exact_decoded_pixels') is not True
                 or evidence.get('full_sample_coverage') is not True
+                or evidence.get('native_exact_decoded_pixels') is not True
                 or evidence.get('high_entropy_sheet', {}).get('dimensions') != [1210, 1494]
                 or not 5 * 1024**2 < evidence['high_entropy_sheet']['bytes'] <= EXPECTED['max_png_bytes']
                 or evidence.get('bounds') != bounds()):
@@ -155,8 +161,8 @@ def plan(root, commands, boards):
             'phone_option': values['--phone-option'], **bounds(), 'bindings': bindings}
 
 
-def check_meta(meta):
-    if ((meta['width'], meta['height'], meta['fps']) != (270, 480, 30)
+def check_meta(meta, phone=True):
+    if ((meta['width'], meta['height'], meta['fps']) != ((270, 480, 30) if phone else (1080, 1920, 30))
             or not isinstance(meta['frames'], int) or not 1 <= meta['frames'] <= EXPECTED['max_frames']
             or not math.isfinite(meta['duration_s']) or not 0 < meta['duration_s'] <= 300
             or abs(meta['frames'] / 30 - meta['duration_s']) > .15):
@@ -184,13 +190,16 @@ def runtime_check(root, args):
         return
     auth = json.loads(path.read_text())
     profile = (auth.get('headroom') or {}).get('storage_profile')
+    if args.phone_option is None and profile and profile.get('mode') == 'operation-storage-v1':
+        return  # The native route is checked by operation_storage.runtime_check.
     phone_binding = PROOF in auth.get('bound', {}).get('capture_storage', {})
     if (not profile or profile.get('mode') != MODE) and not phone_binding:
         return
     commands = auth.get('commands') or []
     boards = [(Path(root) / row['path'], json.loads((Path(root) / row['path']).read_text()))
               for row in auth.get('boards', [])]
-    current = plan(root, [row['text'] for row in commands], boards)
+    from bounded_capture import plan as capture_plan
+    current = capture_plan(root, [row['text'] for row in commands], boards)
     values = operation(commands[0]['text'], root) if len(commands) == 1 else None
     if (current != profile or current is None or not values
             or Path.cwd().resolve() != Path(root).resolve()

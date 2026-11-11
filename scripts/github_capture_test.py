@@ -250,7 +250,10 @@ class CaptureTest(unittest.TestCase):
                 consumed=[]
                 def execute(command,**kwargs):
                     if command[3]=='scripts/native_headroom.py':
-                        self.assertEqual(command[command.index('--board')+1],str(expected[0].relative_to(repo)))
+                        self.assertEqual([command[i+1] for i,t in enumerate(command) if t=='--board'],
+                                         [str(board.relative_to(repo)) for board in expected])
+                        self.assertEqual(command[command.index('--capture-command')+1],
+                                         'bash scripts/run_with_env.sh '+capture.shlex.join(argv))
                     else:
                         self.assertEqual(command,['bash','scripts/run_with_env.sh',*argv])
                         self.assertEqual(consumed,[True])

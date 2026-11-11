@@ -69,6 +69,8 @@ jobs:
       - name: Measure exact phone contact-sheet extraction
         run: |
           bash scripts/run_with_env.sh python3 scripts/phone_review_storage_test.py
+          bash scripts/run_with_env.sh python3 scripts/operation_storage_test.py
+          bash scripts/run_with_env.sh python3 scripts/verify_operation_storage.py --out "$RUNNER_TEMP/dispatch-operation-storage-proof"
           bash scripts/run_with_env.sh python3 scripts/verify_phone_review_storage.py --out "$RUNNER_TEMP/dispatch-phone-storage-proof"
 
       - name: Retain bounded renderer equivalence evidence
@@ -82,6 +84,7 @@ jobs:
             ${{ runner.temp }}/dispatch-bounded-proof/equivalence.json
             ${{ runner.temp }}/dispatch-bounded-proof/*.bounded-png.json
             ${{ runner.temp }}/dispatch-phone-storage-proof/exercise.json
+            ${{ runner.temp }}/dispatch-operation-storage-proof/exercise.json
             ${{ runner.temp }}/dispatch-conda-media-*/media-tooling.json
 
 
