@@ -1,14 +1,14 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-11T22:52:13.569295+00:00",
-  "note": "corrected B code critic passed; preview blocked by retained-openings evidence; preflight 9",
+  "saved_at": "2026-11-11T23:48:03.231339+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-11-10T13:38:49.855002Z",
   "repo_root": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch",
-  "source_pin": "da5751178cad6786416bc45d59f0f56fc374b585",
+  "source_pin": "24e018c7569bae309725dd6ba35f3eec75ff181c",
   "source_branch": "claude/dispatch-2026-11-10",
   "source_closure": {
     "root": "video-engine",
@@ -1262,6 +1262,12 @@
       "size": 23883
     },
     {
+      "path": "out/dispatch/capture-authorization-history/e7a8ce1876a8afa8cbfe8466d634c1edb527040f0fb319b308461a122d6bf54d.json",
+      "class": "scratch",
+      "sha256": "e7a8ce1876a8afa8cbfe8466d634c1edb527040f0fb319b308461a122d6bf54d",
+      "size": 28320
+    },
+    {
       "path": "out/dispatch/capture-authorization-history/ef1caff09ee6587006ef273c0ad6a97ff9b9d49088fc987d5f7ec3b4b93cf525.json",
       "class": "scratch",
       "sha256": "ef1caff09ee6587006ef273c0ad6a97ff9b9d49088fc987d5f7ec3b4b93cf525",
@@ -1410,6 +1416,12 @@
       "class": "scratch",
       "sha256": "889e27b7a1e59ae2a28e46a144a0d50f89d879a2bb5231b143a8370109e50fa5",
       "size": 1043
+    },
+    {
+      "path": "out/dispatch/capture-housekeeping-20261111T234750.json",
+      "class": "scratch",
+      "sha256": "f3a9a7f3fbe90a0bd505b65afea9f13b13e335964b3bb90b31cded1ddf4b671a",
+      "size": 1044
     },
     {
       "path": "out/dispatch/capture-prepare-2.log",
@@ -5474,6 +5486,12 @@
       "size": 5110
     },
     {
+      "path": "out/dispatch/native-headroom-audit4.json",
+      "class": "scratch",
+      "sha256": "6cd4da38368ef4a5fc4bf3c8c3890bbd161a4c9e1cc35b5fddb59867773dcc2e",
+      "size": 5115
+    },
+    {
       "path": "out/dispatch/native-headroom-bounded.json",
       "class": "scratch",
       "sha256": "e6e50ec7de226b8f11e3c40fb6f3c7e4302e4abeb4930761ddb2c18379993d64",
@@ -7370,6 +7388,516 @@
       "size": 41
     },
     {
+      "path": "out/dispatch/operation-storage-proof3.json/exercise.json",
+      "class": "scratch",
+      "sha256": "9fa36d7c4385dec21d5dab490203c351825462a462713ad8891792331adeb1a4",
+      "size": 5125
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/COMMIT_EDITMSG",
+      "class": "scratch",
+      "sha256": "d902ab60316338a3894bbe1e9b4ec43ff1bef7606cc3ac3381ce0b35c19fd2b6",
+      "size": 36
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/FETCH_HEAD",
+      "class": "scratch",
+      "sha256": "bf609c0fa2073b084788d78497cd20747e9dfc7622a13dc42ed2002a24d98ea4",
+      "size": 210
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/HEAD",
+      "class": "scratch",
+      "sha256": "f6f2b945f6c411b02ba3da9c7ace88dcf71b6af65ba2e0d89aa82900042b5a10",
+      "size": 23
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/config",
+      "class": "scratch",
+      "sha256": "ec60f561b40ba17a43211e3855bc9445f50e778c6394e52829e55bba5b90eef1",
+      "size": 336
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/description",
+      "class": "scratch",
+      "sha256": "85ab6c163d43a17ea9cf7788308bca1466f1b0a8d1cc92e26e9bf63da4062aee",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/applypatch-msg.sample",
+      "class": "scratch",
+      "sha256": "0223497a0b8b033aa58a3a521b8629869386cf7ab0e2f101963d328aa62193f7",
+      "size": 478
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/commit-msg.sample",
+      "class": "scratch",
+      "sha256": "1f74d5e9292979b573ebd59741d46cb93ff391acdd083d340b94370753d92437",
+      "size": 896
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/fsmonitor-watchman.sample",
+      "class": "scratch",
+      "sha256": "e0549964e93897b519bd8e333c037e51fff0f88ba13e086a331592bf801fa1d0",
+      "size": 4726
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/post-update.sample",
+      "class": "scratch",
+      "sha256": "81765af2daef323061dcbc5e61fc16481cb74b3bac9ad8a174b186523586f6c5",
+      "size": 189
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/pre-applypatch.sample",
+      "class": "scratch",
+      "sha256": "e15c5b469ea3e0a695bea6f2c82bcf8e62821074939ddd85b77e0007ff165475",
+      "size": 424
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/pre-commit.sample",
+      "class": "scratch",
+      "sha256": "f9af7d95eb1231ecf2eba9770fedfa8d4797a12b02d7240e98d568201251244a",
+      "size": 1643
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/pre-merge-commit.sample",
+      "class": "scratch",
+      "sha256": "d3825a70337940ebbd0a5c072984e13245920cdf8898bd225c8d27a6dfc9cb53",
+      "size": 416
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/pre-push.sample",
+      "class": "scratch",
+      "sha256": "ecce9c7e04d3f5dd9d8ada81753dd1d549a9634b26770042b58dda00217d086a",
+      "size": 1374
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/pre-rebase.sample",
+      "class": "scratch",
+      "sha256": "4febce867790052338076f4e66cc47efb14879d18097d1d61c8261859eaaa7b3",
+      "size": 4898
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/pre-receive.sample",
+      "class": "scratch",
+      "sha256": "a4c3d2b9c7bb3fd8d1441c31bd4ee71a595d66b44fcf49ddb310252320169989",
+      "size": 544
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/prepare-commit-msg.sample",
+      "class": "scratch",
+      "sha256": "e9ddcaa4189fddd25ed97fc8c789eca7b6ca16390b2392ae3276f0c8e1aa4619",
+      "size": 1492
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/push-to-checkout.sample",
+      "class": "scratch",
+      "sha256": "a53d0741798b287c6dd7afa64aee473f305e65d3f49463bb9d7408ec3b12bf5f",
+      "size": 2783
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/sendemail-validate.sample",
+      "class": "scratch",
+      "sha256": "44ebfc923dc5466bc009602f0ecf067b9c65459abfe8868ddc49b78e6ced7a92",
+      "size": 2308
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/hooks/update.sample",
+      "class": "scratch",
+      "sha256": "8d5f2fa83e103cf08b57eaa67521df9194f45cbdbcb37da52ad586097a14d106",
+      "size": 3650
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/index",
+      "class": "scratch",
+      "sha256": "378708c704a3bc6933b0c6e5ddb70b2a6d54ca14bc1edd8e2f9b68525a29f2b3",
+      "size": 306
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/info/exclude",
+      "class": "scratch",
+      "sha256": "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1",
+      "size": 240
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/info/refs",
+      "class": "scratch",
+      "sha256": "1e41e449e828eef66add1bb8517661c1c52b4427290b2233fd48ace2584b99f9",
+      "size": 272
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/logs/HEAD",
+      "class": "scratch",
+      "sha256": "e40141493812fab2e39ef51c07e75b0bc20d0f855bcc0e8389b898ebe53c1a07",
+      "size": 195
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/logs/refs/heads/claude/checkpoint/2026-08-01-storage-cost-fixture",
+      "class": "scratch",
+      "sha256": "d9734fbec1d570a4cf3f68706addfe8b94af0a17555036617f6436da16e57d8a",
+      "size": 282
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/logs/refs/heads/master",
+      "class": "scratch",
+      "sha256": "e40141493812fab2e39ef51c07e75b0bc20d0f855bcc0e8389b898ebe53c1a07",
+      "size": 195
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/logs/refs/remotes/origin/claude/checkpoint/2026-08-01-storage-cost-fixture",
+      "class": "scratch",
+      "sha256": "7bd6e7f794da2c3d778838d31e7e2640310a1e199ed0a3650bf83d47a6a5befc",
+      "size": 312
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/objects/info/packs",
+      "class": "scratch",
+      "sha256": "eff2ca25573852002c217c570a739483b8ff12ccadb0c95d3c60a134391337c0",
+      "size": 54
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/objects/pack/pack-342a2dce269e802791a9bc4fb3bcc9b05a2c62aa.idx",
+      "class": "scratch",
+      "sha256": "6b7d31cc75b84ac25bc4e1c68b248e43bfd7ea1a3a06254f51bf51d1be87e37b",
+      "size": 1800
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/objects/pack/pack-342a2dce269e802791a9bc4fb3bcc9b05a2c62aa.pack",
+      "class": "scratch",
+      "sha256": "0ac9180e5853ff6db0fb1d18e1c3799576d3106be590cafbb35875031c9252f5",
+      "size": 16786325
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/objects/pack/pack-342a2dce269e802791a9bc4fb3bcc9b05a2c62aa.rev",
+      "class": "scratch",
+      "sha256": "e11fc0cf278569995e28e026734f9b35f90c6ca717ab5d86077893d5fb9d9255",
+      "size": 156
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/refs/heads/claude/checkpoint/2026-08-01-storage-cost-fixture",
+      "class": "scratch",
+      "sha256": "31ca388e343a97d04dcd651f834a52e3eb4c60d01647b64db8585e01829c32bf",
+      "size": 41
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/refs/heads/master",
+      "class": "scratch",
+      "sha256": "ccebb17e6b3e4aecb3e68cc78f8cf31a8353977ad8170b043a235e352a93045f",
+      "size": 41
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.git/refs/remotes/origin/claude/checkpoint/2026-08-01-storage-cost-fixture",
+      "class": "scratch",
+      "sha256": "31ca388e343a97d04dcd651f834a52e3eb4c60d01647b64db8585e01829c32bf",
+      "size": 41
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/.gitignore",
+      "class": "scratch",
+      "sha256": "a888b9df89402a815bdb15d30c5280b090be11655ab4cc2299ce748d44cd6ed4",
+      "size": 5
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/out/dispatch/evidence.bin",
+      "class": "scratch",
+      "sha256": "37e16e263cb9dbaa890b22ce6d627c4e3a1c78202a389649e7c66f79dc69bed7",
+      "size": 8388608
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/out/dispatch/new-evidence.bin",
+      "class": "scratch",
+      "sha256": "b1ab4629ea1c46e7f7deb0683958ac319991fff19217cb4d3464d01fca61cb5a",
+      "size": 8388608
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/out/dispatch/run_state.json",
+      "class": "scratch",
+      "sha256": "a74cdf15aea531eb7019f2f351264cfcdd58e1d46a58ac405d477ef6774a1c2a",
+      "size": 2780
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/out/dispatch/same-evidence.bin",
+      "class": "scratch",
+      "sha256": "37e16e263cb9dbaa890b22ce6d627c4e3a1c78202a389649e7c66f79dc69bed7",
+      "size": 8388608
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/fixture/video-engine/src/fixture.ts",
+      "class": "scratch",
+      "sha256": "ddf066ee341c060cca67ed6faa462602690b490d98c6fecdf607c447754e14bb",
+      "size": 29
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/HEAD",
+      "class": "scratch",
+      "sha256": "f6f2b945f6c411b02ba3da9c7ace88dcf71b6af65ba2e0d89aa82900042b5a10",
+      "size": 23
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/config",
+      "class": "scratch",
+      "sha256": "dd548269913b6adbdfa7049170ea86850050cb762ea3b9c510a0b2986d2113e3",
+      "size": 66
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/description",
+      "class": "scratch",
+      "sha256": "85ab6c163d43a17ea9cf7788308bca1466f1b0a8d1cc92e26e9bf63da4062aee",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/applypatch-msg.sample",
+      "class": "scratch",
+      "sha256": "0223497a0b8b033aa58a3a521b8629869386cf7ab0e2f101963d328aa62193f7",
+      "size": 478
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/commit-msg.sample",
+      "class": "scratch",
+      "sha256": "1f74d5e9292979b573ebd59741d46cb93ff391acdd083d340b94370753d92437",
+      "size": 896
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/fsmonitor-watchman.sample",
+      "class": "scratch",
+      "sha256": "e0549964e93897b519bd8e333c037e51fff0f88ba13e086a331592bf801fa1d0",
+      "size": 4726
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/post-update.sample",
+      "class": "scratch",
+      "sha256": "81765af2daef323061dcbc5e61fc16481cb74b3bac9ad8a174b186523586f6c5",
+      "size": 189
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/pre-applypatch.sample",
+      "class": "scratch",
+      "sha256": "e15c5b469ea3e0a695bea6f2c82bcf8e62821074939ddd85b77e0007ff165475",
+      "size": 424
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/pre-commit.sample",
+      "class": "scratch",
+      "sha256": "f9af7d95eb1231ecf2eba9770fedfa8d4797a12b02d7240e98d568201251244a",
+      "size": 1643
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/pre-merge-commit.sample",
+      "class": "scratch",
+      "sha256": "d3825a70337940ebbd0a5c072984e13245920cdf8898bd225c8d27a6dfc9cb53",
+      "size": 416
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/pre-push.sample",
+      "class": "scratch",
+      "sha256": "ecce9c7e04d3f5dd9d8ada81753dd1d549a9634b26770042b58dda00217d086a",
+      "size": 1374
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/pre-rebase.sample",
+      "class": "scratch",
+      "sha256": "4febce867790052338076f4e66cc47efb14879d18097d1d61c8261859eaaa7b3",
+      "size": 4898
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/pre-receive.sample",
+      "class": "scratch",
+      "sha256": "a4c3d2b9c7bb3fd8d1441c31bd4ee71a595d66b44fcf49ddb310252320169989",
+      "size": 544
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/prepare-commit-msg.sample",
+      "class": "scratch",
+      "sha256": "e9ddcaa4189fddd25ed97fc8c789eca7b6ca16390b2392ae3276f0c8e1aa4619",
+      "size": 1492
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/push-to-checkout.sample",
+      "class": "scratch",
+      "sha256": "a53d0741798b287c6dd7afa64aee473f305e65d3f49463bb9d7408ec3b12bf5f",
+      "size": 2783
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/sendemail-validate.sample",
+      "class": "scratch",
+      "sha256": "44ebfc923dc5466bc009602f0ecf067b9c65459abfe8868ddc49b78e6ced7a92",
+      "size": 2308
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/hooks/update.sample",
+      "class": "scratch",
+      "sha256": "8d5f2fa83e103cf08b57eaa67521df9194f45cbdbcb37da52ad586097a14d106",
+      "size": 3650
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/info/exclude",
+      "class": "scratch",
+      "sha256": "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1",
+      "size": 240
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/02/4c806cdcfdca28cd06ca14a4998bc04ced4759",
+      "class": "scratch",
+      "sha256": "713f9b6aed70757ccda5514c74642fd40b65bad339fb98950daa190de052ad40",
+      "size": 984
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/04/4054a95917998ad1f3695142ff1057323d2d8e",
+      "class": "scratch",
+      "sha256": "9cdc8aaa36acf177dbb2b7365534badc11e508494e47e43a47d91bd958a98a94",
+      "size": 55
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/23/4c8277dc0b6784e4e85bab21b9439400b40296",
+      "class": "scratch",
+      "sha256": "31b89a7657a500b53b28efeef1c2596923f08bba152d4612f4776681ccb2d75f",
+      "size": 8391182
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/34/270e6eb3f9fd67d4fc90a4f7fd7601e1f2dc3b",
+      "class": "scratch",
+      "sha256": "e66a21cecb4d02f394fb311895ced6963e86c95503494045189b6b804bfc75ec",
+      "size": 45
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/4c/e03ab48acc33334e45585be07dc57339288942",
+      "class": "scratch",
+      "sha256": "f3ea55aeb3df4be7dd6514cdf678c0a75deb2c3fcd9de902806c96abd7756fc1",
+      "size": 897
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/55/afee90b7dc3dd782a600ebfb4bb34b0be2e596",
+      "class": "scratch",
+      "sha256": "2d37068a24c37aec4dab07ab46d653ca1235f831a837392f8e015ce21aa49260",
+      "size": 73
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/57/0c9bac54b6a5795dc2d2b38ff63fb7bfdaae58",
+      "class": "scratch",
+      "sha256": "41fd72f006ada6756b89fd39539c7fa7e1101c493320ee5d33f0ac0f0f726e11",
+      "size": 239
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/57/39643c453f31220005ffd374864bc2132d096b",
+      "class": "scratch",
+      "sha256": "6ef53f4a45beb5b37b5546ae1c08a8d55a6fe5fbfdc8b0892c0bab92dfd9849c",
+      "size": 980
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/5b/0f74180c768775ae29030d3a90d4a21875b792",
+      "class": "scratch",
+      "sha256": "fb845d3e163feea6d778a9ecd634b30f0f6418f1f42956c2211b602a49787eb1",
+      "size": 74
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/68/e4f946beeb5cd33b20841cc9935e520a5a2faa",
+      "class": "scratch",
+      "sha256": "bc459addc6116080e41e22239048e5741b4b043601064188dce213ae6b9681b9",
+      "size": 93
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/6d/28d33bcc78a2b1eef00823dc57ac6d14c7ed8a",
+      "class": "scratch",
+      "sha256": "cf98c7b1cb92aaf3af2da525194abbbca6cee1a5d0d8aba842f782cbd35a2ae4",
+      "size": 50
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/72/53902d714bdac6389263f9b2eb1cf997f16529",
+      "class": "scratch",
+      "sha256": "305debf97dfb6c7d526cd19d216df41ccfeb2bf2f89ad103155c45d51aab4e57",
+      "size": 53
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/88/88545487e1ee717e6b73d6722c7638af832254",
+      "class": "scratch",
+      "sha256": "b5626b52e8198b1a002b1af923fa95b68d2bcfc668d1234f331b3a414a0f8747",
+      "size": 212
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/89/f9ac04aac6c8ee66e158853e7d0439b3ec782d",
+      "class": "scratch",
+      "sha256": "4f02730f0bf23759a8680f8c6866f4cf98d271a028aa8cc1ad459e3186d00911",
+      "size": 20
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/8d/9e4aa8db2ac33bd021dc1a2e93f4cb4172a25a",
+      "class": "scratch",
+      "sha256": "c26a20bfb59e1d0cc8490c72098e4c3e8c45412f1c60b861b529c3450d3f7189",
+      "size": 50
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/98/67e9adaa4328e5afdcffc626d049bd8367790a",
+      "class": "scratch",
+      "sha256": "ba55070fe2e33b28c687ff49db51abb55a957e0de7098da2668b01b0dda6b426",
+      "size": 124
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/a2/b894a0477f5e6f0bf5bbb538a129f2eb4ba0dd",
+      "class": "scratch",
+      "sha256": "c8f72e42ccd1dc38e855433d9f7258a6433132ae716520970847f7abd962464e",
+      "size": 1048
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/a6/1af7b988064a185984dd50c2169c9c1552b04d",
+      "class": "scratch",
+      "sha256": "a216afa986b69738ed04c740ea55985ca9e012295bb0fc278a0f4430796b7b7d",
+      "size": 376
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/ac/fe364397471c0f75a8d5f15c99c06651f8397d",
+      "class": "scratch",
+      "sha256": "0f04b3964943809e30af9363c13c7c24fc628cd138b372b2f2f6f19449f195dd",
+      "size": 54
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/ae/bd03bc31babc60a64e5e8abc2aac3f2a47cd82",
+      "class": "scratch",
+      "sha256": "78c368137c72e1d90f253bc105dd7fe282a22c530f2880e08ec4a0039e87d034",
+      "size": 66
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/b8/dea954369d3ec1e4bbc0532b3f1ea81d22bdb6",
+      "class": "scratch",
+      "sha256": "c3fe5cafeab9b71086087a368b37bf03933a419bd9c2148e2158c2776620d9a9",
+      "size": 45
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/c2/784171823105514cdac8b825f48276af2a0b06",
+      "class": "scratch",
+      "sha256": "a6ef56624ae770b0526783acfc7eaa5cab85d930cf3021beacd7e976d438e523",
+      "size": 98
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/cb/c1544c94a8c71d81a232fc2d652c8b2c7cb474",
+      "class": "scratch",
+      "sha256": "bc7443020a7e955f9d871d87757a58c0e6dc659719939f4ca579059f16809271",
+      "size": 45
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/cb/ea076bddb577a4634daeaa7f1f6f31ca2c10c6",
+      "class": "scratch",
+      "sha256": "254165e0d8791272344b1534673a17e2914cc41b83fd6c0de71d432b56b256ab",
+      "size": 125
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/cc/ae19056ce2b6961495888933c1466845707fec",
+      "class": "scratch",
+      "sha256": "fbd77a9332af706b32a2636c29dcb2f15315fcc0dea8d1556aad7c8f519880a8",
+      "size": 45
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/objects/e6/0e9c0f54256daf95f19df652cd2fd18dbcf1bf",
+      "class": "scratch",
+      "sha256": "a76de494affa9ef2989c2214484c8585cb15f6531d71a4a75dd3de02ffe51991",
+      "size": 8391182
+    },
+    {
+      "path": "out/dispatch/operation-storage-proof3.json/origin.git/refs/heads/claude/checkpoint/2026-08-01-storage-cost-fixture",
+      "class": "scratch",
+      "sha256": "31ca388e343a97d04dcd651f834a52e3eb4c60d01647b64db8585e01829c32bf",
+      "size": 41
+    },
+    {
       "path": "out/dispatch/owner-validator-authorization.json",
       "class": "scratch",
       "sha256": "7f58b6227b2c73ab9e96ad893937ffa8c0a5e14fbbb181ab511e16babaf0a618",
@@ -9150,6 +9678,12 @@
       "class": "scratch",
       "sha256": "f107b244d1dd0ae548ac9fc7f9b4bec1533981891008a5891a4fc3b243974ae1",
       "size": 967
+    },
+    {
+      "path": "out/dispatch/pre-adoption-overlay5.sha256",
+      "class": "scratch",
+      "sha256": "caf15a07079ba8926121309ab41b2fefdb5cf2084a5c60906aa73fafb3c1bc80",
+      "size": 1069
     },
     {
       "path": "out/dispatch/provider-availability/after-62440ed9027d9b9640d1ca63ff710c51a6f64f8b548d6bd3fc3df81e82ec98e0/attempt.json",
@@ -11049,9 +11583,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 212642398,
-    "unique_blob_bytes": 155867355,
-    "unique_blobs": 1338
+    "logical_bytes": 271482947,
+    "unique_blob_bytes": 172678057,
+    "unique_blobs": 1369
   },
   "excluded": [
     {
