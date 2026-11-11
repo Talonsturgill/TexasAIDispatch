@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-11T17:14:06.411485+00:00",
-  "note": "phone sequences a and b extracted under PR316 bounded storage",
+  "saved_at": "2026-11-11T17:15:09.169434+00:00",
+  "note": "before paid reservation",
   "phase": "picture",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -1362,6 +1362,18 @@
       "class": "scratch",
       "sha256": "7b9428bb489791bf6190f4b2ef29cd58e5cbc842aad557e821561b3188b6637f",
       "size": 326
+    },
+    {
+      "path": "out/dispatch/critic-assignment.json",
+      "class": "scratch",
+      "sha256": "52ce3b3f9265e1e9a56e29b8a461e67e3c248fc1dd2c3609d34fa643d85cfd78",
+      "size": 2008
+    },
+    {
+      "path": "out/dispatch/critic-packet.json",
+      "class": "scratch",
+      "sha256": "0890129fabb3c18dfbfc649530ae7339a33bd5f5e5d52850ce8c134f77615517",
+      "size": 9594
     },
     {
       "path": "out/dispatch/daily-production-scoreboard.json",
@@ -5270,6 +5282,12 @@
       "size": 1101
     },
     {
+      "path": "out/dispatch/phone-critic-packet.json",
+      "class": "scratch",
+      "sha256": "eac181a9165544348cf4741204c2dba0204c92d91408c89db1b5a5f4f0303854",
+      "size": 25017
+    },
+    {
       "path": "out/dispatch/picture-precheck-bounded/b6f64199-f7b2-4e0f-81c4-c3f9581b3f0b/authored_retime_feasibility.log",
       "class": "scratch",
       "sha256": "c26a8ec2e7303066b72c315c878ea7ac1d4a307dd4fc9437eeb9530a4638a8a9",
@@ -7431,9 +7449,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 92720196,
-    "unique_blob_bytes": 86913577,
-    "unique_blobs": 819
+    "logical_bytes": 92756815,
+    "unique_blob_bytes": 86950196,
+    "unique_blobs": 822
   },
   "excluded": [
     {
