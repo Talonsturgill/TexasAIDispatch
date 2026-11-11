@@ -1,0 +1,4 @@
+Repair 1 (selected treatment B shared finish): ClinicRecordSupport.tsx corrected (before 7c42f7fc..., after ad4cdf4c...), repair authorized, authored-art receipts re-recorded, boards rebound (baselines in board-baseline-repair1/).
+Refused capture disclosure: one opening_compare.py attempt after repair 1 was refused ("No such file: openings/motion-a/index.json") because the adopted selection reads the retained openings paths after I had moved them aside for the "output already exists" check. The prepare step charged one preflight_renders (now 7). No frames were produced. openings/ was restored byte-for-byte; selected_treatment verify still passes.
+storyboard.json promoted to selected board B (copy of opening-b.json).
+Open blocker: preflight_animatic.py is not in bounded_capture OPERATORS; native_headroom prices it at 19 GiB, 16.1 GiB free.
