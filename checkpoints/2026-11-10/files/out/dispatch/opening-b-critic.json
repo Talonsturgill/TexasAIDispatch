@@ -1,0 +1,65 @@
+{
+  "action_reviews": [],
+  "blocking_defects": [
+    {
+      "category": "source_integrity",
+      "criterion": "rubric hard fail: a numeral on screen that does not appear in the fetched QUOTE of a verified claim",
+      "defect": "Same shared ClinicRecordSupport.tsx line 311 title 'Texas Senate Bill 1188'. No fetched quote in claims.json contains 1188, and the board asks for a generic bill title.",
+      "scene_id": "s7",
+      "time_s": 31.8
+    },
+    {
+      "category": "contact_and_consequence",
+      "criterion": "quality_contract.contact_and_consequence: completed readable result",
+      "defect": "Same shared geometry. The standards tag at BILL.std y=246, rotated -2 degrees, overlaps the highlighted 'review all AI-created records' text at baseline y=217 and stays over it through s9, including B's scope-split lower pane.",
+      "scene_id": "s8",
+      "time_s": 40.2
+    },
+    {
+      "category": "surface_finish",
+      "criterion": "quality_contract.surface_finish",
+      "defect": "Same answer-medium camera (z=1.38, tx=-587). The desk ends at screen x of about 986, leaving a pale strip down the right edge from 48.43 to 54.27.",
+      "scene_id": "s10",
+      "time_s": 48.43
+    }
+  ],
+  "board": {
+    "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/opening-b.json",
+    "sha256": "3f0c8ca71f008c766d790a51f211bbae35ef816da68a5a7c6269ce3e794dce45"
+  },
+  "code_observations": [
+    "B sets reticle:true, so four accent ticks are drawn round the slot in world space in every shot that shows the screen. That carries the empty slot as the fixed point across cuts.",
+    "B's check views (BOXES.*.check) keep the note screen, thread and hovering check in the upper band while the s4, s7, s8 and s10 evidence lands below, which keeps the throughline in frame.",
+    "post-split isolates s2-pilots from s2-platform/s2-progress, and scope-split isolates s9-visitnote/s9-question from s9-bill/s9-diagnosis. In the scope split, the pane border stands in for the 'stops at its edge' contact, and the dashed meet line (L.meet) belongs to the upper pane's world only. Whether the pane border reads as the edge needs pixels and was judged in the phone review.",
+    "Split views render panes over a blurred plate (nc1110-soft) and no full-frame background is painted, consistent with the place rule.",
+    "The same shared notes as A apply: the s1 exam table is outside the room-medium box, the thread hides the first letter of the how-well card, and the agreement clip sits over the 'w'."
+  ],
+  "concept_sha256": "5eed8be4d754258561666b3e686bfcd85ef14e63456549412bf50737b3cc3a54",
+  "id": "b",
+  "notes": "The plan is executable and source-bounded apart from the shared bill title numeral. Code approval would authorize capture only.",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "renderer_sha256": "7d93cb4ef3338435d1db5c7ae60c7ca65fff0735ae4bc4637263e78d5939982e",
+  "review_scope": "code-plan",
+  "review_time": "2026-11-11",
+  "reviewer_identity": "storyboard-critic claude-opus-5-5 (isolated combined code and phone reviewer, distinct from the claude-sonnet-5-5 director)",
+  "story_review": {
+    "blocking_defects": [
+      {
+        "category": "source_integrity",
+        "defect": "Untraceable numeral 1188 on the bill card title (see the code blocking defect).",
+        "scene_id": "s7",
+        "time_s": 31.8
+      }
+    ],
+    "claims_sha256": "a784d11719b25fc9d29a6b435bd21955e81efe287d60514669df0d6b3b78cb37",
+    "one_viewing_summary": "The causal chain is the same as A, with the empty slot kept as the visual fixed point. Splits isolate the pilots from the plan and the visit note from the diagnosis frame.",
+    "opening_to_ending": "It opens on an empty slot beside a new AI draft line and closes with vendor and statute threads meeting at that same still empty slot, with the how-well field marked not stated.",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "story_sha256": "bbc936e009ed2b6199c5ee2ff68929853559b53be3dbc22799d5eea96f764c4c",
+    "verdict": "revise",
+    "weakest_transition": "s3 to s4 (15.87 s). There is no causal bridge from the rollout row to the separate company release, though B's check view at least keeps the slot on screen across the cut."
+  },
+  "strongest_frame": "s6 close (28.67 to 30.97 s): a large draft line threaded to the source, with the outlined check hovering over the reticle-framed empty slot.",
+  "verdict": "revise",
+  "weakest_frame": "s9 scope split (43.43 to 46.73 s): the visit note and the diagnosis frame sit in separated panes."
+}

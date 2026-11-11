@@ -1,0 +1,74 @@
+{
+  "alternative_retained_findings": {
+    "a": [
+      {
+        "category": "subject_recognition",
+        "defect": "Whole-room framing for the entire scene. The framework threads are about 1 px and the switch changes about 10 px tall at 390 wide, so n5a and n5b are not readable without captions.",
+        "scene_id": "s5",
+        "time_s": 21.6
+      },
+      {
+        "category": "subject_recognition",
+        "defect": "The wide view shrinks the visit note, diagnosis frame and question tag to a few pixels, and the question mark sits beside 'conditions' and not at the diagnosis frame.",
+        "scene_id": "s9",
+        "time_s": 43.43
+      },
+      {
+        "category": "contact_and_consequence",
+        "defect": "In the close, the caption covers the stopped progress bar, which is the 'working toward' consequence, until 11.4 s.",
+        "scene_id": "s2",
+        "time_s": 8.6
+      },
+      {
+        "category": "subject_recognition",
+        "defect": "In the room-wide view, the 'October 8th, 2026' stamp is a few pixels tall at 16.6 to 17.2, so the spoken date is not readable in the picture until the 17.27 cut.",
+        "scene_id": "s4",
+        "time_s": 16.4
+      },
+      {
+        "category": "source_integrity",
+        "defect": "The shared 1188 title numeral.",
+        "scene_id": "s7",
+        "time_s": 31.8
+      },
+      {
+        "category": "contact_and_consequence",
+        "defect": "The shared standards-tag occlusion.",
+        "scene_id": "s8",
+        "time_s": 40.2
+      },
+      {
+        "category": "surface_finish",
+        "defect": "The shared right-edge gap.",
+        "scene_id": "s10",
+        "time_s": 48.43
+      }
+    ]
+  },
+  "comparison": {
+    "comparison_sha256": "90fa4fce57be7f241003b19bafe7ea4702a5102ccbd46d72fdd6d6dccd216433",
+    "options": [
+      {
+        "film_sha256": "b1d1c58af10d36f777d8484cdb3e132d32d11b3f8c9016012c884e370d56ab06",
+        "id": "a",
+        "inspection_sha256": "662b1b9b1b1d5f3a850beeda5984cfe456bf013d4b4916cc84259a893918f463",
+        "motion_sequence_sha256": "6cb6724aed7ba4da3836a110f1a35da4de42be6cd556865b42651f5a81bf5075"
+      },
+      {
+        "film_sha256": "e0da552334459b8b0e300f4ac70dc1f756cefbb2225cbb143fafe3167989a113",
+        "id": "b",
+        "inspection_sha256": "e4394d71d4980dccbcc7bf6c7ec341b84689179e913ba48dda00b4dff354fadb",
+        "motion_sequence_sha256": "8f3c2a0a61356ec0678b4529be20e5001f4e922c1101c9ec78e7d2718e5ea539"
+      }
+    ]
+  },
+  "pages_viewed": {
+    "a": 60,
+    "b": 60
+  },
+  "rationale": "B carries the same sourced chain and artwork as A but keeps the subject readable at phone size and keeps the open slot in view. In s3 (11.53 to 15.87 s) B's figures are about twice A's size, and B's close keeps the dashed right end and the 'eventually' arrow, which A's close crops out. In s5 (21.6 to 25.57 s) A stays on the whole-room view, where the access threads and switch changes are a few pixels. B cuts at 24.37 s to two large institution cards whose switches visibly light orange in the middle. In s4, s7, s8 and s10, B's check views keep the screen, the thread to the lit source row and the hovering check in frame while the evidence lands. A shows a cropped monitor over an empty desk (for example 31.0 to 33.6 s). In s9 (43.43 to 46.73 s) A's question tag is about 15 px and sits beside 'conditions'. B's split makes the visit note, AI pill and question mark legible, though the split weakens the edge contact. B's own costs are the floating split panes over a blurred plate at 8.57 to 11.33 and 43.43 to 46.73, and a caption box over the bill's condition lines at 32.0 to 33.6.",
+  "reviewer_identity": "storyboard-critic claude-opus-5-5 (isolated combined code and phone reviewer, distinct from the claude-sonnet-5-5 director)",
+  "schema_note": "Original comparison and selection after complete chronological viewing of both exact films, before reading the director's comparison rationale.",
+  "selected": "b",
+  "selection_grants_approval": false
+}

@@ -1,0 +1,65 @@
+{
+  "action_reviews": [],
+  "blocking_defects": [
+    {
+      "category": "source_integrity",
+      "criterion": "rubric hard fail: a numeral on screen that does not appear in the fetched QUOTE of a verified claim",
+      "defect": "ClinicRecordSupport.tsx line 311 prints 'Texas Senate Bill 1188' as the bill card title. It is drawn in s7, s8 and s9 in every framing. No fetched quote in claims.json contains 1188. The c6 quote is the review clause and the c7 quote is 'This Act takes effect September 1, 2025.' The number appears only in c6's statement and scope_note and in the URL, and the rubric says those do not count. The board also asks for 'a generic bill title and no seal' (s7-bill label), so the implementation departs from the plan. Replace the title with source-quoted or generic text.",
+      "scene_id": "s7",
+      "time_s": 31.8
+    },
+    {
+      "category": "contact_and_consequence",
+      "criterion": "quality_contract.contact_and_consequence: completed readable result",
+      "defect": "The standards tag (ClinicRecordSupport.tsx lines 339 to 343) is anchored at BILL.std y=246 and rotated -2 degrees. Its rotated top edge reaches about y 207 to 221. That overlaps the highlighted condition text 'review all AI-created records', drawn at baseline y=217 with a 26px font inside a highlight at y 188 to 226 (lines 317 to 320). The board says the tag clips BESIDE the line. The code places it ON the line, hiding the result that n8a just established, through the end of s9.",
+      "scene_id": "s8",
+      "time_s": 40.2
+    },
+    {
+      "category": "surface_finish",
+      "criterion": "quality_contract.surface_finish",
+      "defect": "In the answer-medium view, BOXES.s10.medium [454.4,507.4,1077.6,1072.6] fitted into BAND gives z=1.38 and tx=-587. The desk is drawn from world x -60 to 1140, so it ends at screen x of about 986 of 1080. That leaves an unfinished pale vertical strip down the right edge for the whole close (s10-shot-2 and s10-shot-3, 48.43 to 54.27).",
+      "scene_id": "s10",
+      "time_s": 48.43
+    }
+  ],
+  "board": {
+    "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/opening-a.json",
+    "sha256": "2d82031aa8fccd4420141126862eb65187522292ea2ddeaf749d40fc130c613b"
+  },
+  "code_observations": [
+    "noteState derives every performed state from actionProgress on the board's event windows and the film frame clock. No wall clock or random input is used, and completed results (draft line, slot, thread, hovering check, threads, stamp) persist through s10.",
+    "The s6 turn is implemented as a thread from LINK_FROM to the matching strip row. The row lights only when link reaches 0.999, so the effect follows its cause. The outlined check descends from HOVER.from and holds over the slot without landing, which honestly pictures 'can verify' as a capability and not a performed check.",
+    "Treatment A has no wide box for s5 (BOXES.s5 has no 'wide' entry), so framework-wide uses the identity camera. The access threads (w=5) and switches (68 by 28) render at roughly 2 px and 25 by 10 px at 390 wide. That legibility risk was confirmed in pixels during the phone comparison.",
+    "The s1 room-medium box [335,415,833,866] excludes most of the exam table (x 98 to 440). The speech ribbon visibly starts from an unidentifiable object at the desk's left edge, and only the 'Visit note' header establishes the clinic context.",
+    "The thread HeroFront draws in front of the how-well card hides its first letter. The agreement-tag clip (L.clip) sits over the 'w' of 'enterprise-wide'. These are optional finish notes."
+  ],
+  "concept_sha256": "a1526520baed1bad7656854bc44be39280ef91ebec3ba12b889b3a8cad56b27e",
+  "id": "a",
+  "notes": "The code is executable and source-bounded except for the bill title numeral. The diagnosis-scope limit (s9) and the absence field (s10) are honest. Code approval would authorize capture only.",
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "renderer_sha256": "7d93cb4ef3338435d1db5c7ae60c7ca65fff0735ae4bc4637263e78d5939982e",
+  "review_scope": "code-plan",
+  "review_time": "2026-11-11",
+  "reviewer_identity": "storyboard-critic claude-opus-5-5 (isolated combined code and phone reviewer, distinct from the claude-sonnet-5-5 director)",
+  "story_review": {
+    "blocking_defects": [
+      {
+        "category": "source_integrity",
+        "defect": "Untraceable numeral 1188 on the bill card title (see the code blocking defect).",
+        "scene_id": "s7",
+        "time_s": 31.8
+      }
+    ],
+    "claims_sha256": "a784d11719b25fc9d29a6b435bd21955e81efe287d60514669df0d6b3b78cb37",
+    "one_viewing_summary": "The intended chain is spoken words, then an AI draft line with an empty check slot. A UT Physicians plan and pilots follow, then the Abridge agreement and its access framework. The vendor's Linked Evidence thread and a hovering check come next, then the Texas Act's diagnostic review condition and its limit at the visit note. Vendor and statute threads meet at the empty slot, and the how-well field is stamped not stated.",
+    "opening_to_ending": "It opens by asking who verifies AI documentation over an empty slot. It answers with the vendor's design and the law's review condition both pointing at the still empty slot, and the field for how well the check works is marked not stated. The ending answers the question without inventing an outcome.",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "story_sha256": "d077aedc47ff2e61519257a926ba677f156de19af3c1d937c302b53f61656373",
+    "verdict": "revise",
+    "weakest_transition": "s3 to s4 (15.87 s). The physician rollout row disappears and a separate company release lands on an empty desk with no carried subject or causal bridge, so the movement is from a list of facts, not a cause."
+  },
+  "strongest_frame": "s6 link and hover (26.97 to 30.97 s): the draft line threads back to a lit source row and an outlined check hovers over the empty slot.",
+  "verdict": "revise",
+  "weakest_frame": "s5 framework-wide (21.6 to 25.57 s): the identity camera shrinks the access threads and switches to a few pixels."
+}

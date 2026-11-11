@@ -1,0 +1,324 @@
+{
+  "action_reviews": [],
+  "basis": "298 decoded samples of the exact encoded film at 5 per second plus the final frame, read as 60 chronological pages at 390 px phone width. No direct playback and no listening. Motion between samples is unresolved. The clause times are the director's provisional authored cue plan and approve nothing.",
+  "blocking_defects": [
+    {
+      "category": "source_integrity",
+      "criterion": "rubric hard fail: numeral not in a fetched quote",
+      "defect": "From 31.8 to 46.73 s the bill card is headed 'Texas Senate Bill 1188' (plainly legible at 32.0, 33.8 and 39.6 s). No fetched claim quote contains 1188. The viewer is given a bill number the film's evidence never establishes.",
+      "scene_id": "s7",
+      "time_s": 31.8
+    },
+    {
+      "category": "contact_and_consequence",
+      "criterion": "quality_contract.contact_and_consequence (completed readable result)",
+      "defect": "From 40.2 s the 'Texas Medical Board standards' tag slides onto the just-highlighted 'review all AI-created records' line and covers the lower half of its letters. The line stays half-hidden through 43.43 s and in the s9 split's lower pane until 46.73 s. The decisive statutory condition, readable only from 37.6 to 40.2 s, becomes unreadable as the narration moves to its standards and scope.",
+      "scene_id": "s8",
+      "time_s": 40.2
+    },
+    {
+      "category": "surface_finish",
+      "criterion": "quality_contract.surface_finish",
+      "defect": "From 48.43 to 54.27 s, the medium close shows the desk and its dark face stopping short of the right frame edge. A pale vertical band (about 9 percent of the width) runs from desk level to the frame bottom, so the closing picture looks unfinished at its edge.",
+      "scene_id": "s10",
+      "time_s": 48.43
+    }
+  ],
+  "board": {
+    "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/openings/b.json",
+    "sha256": "3f0c8ca71f008c766d790a51f211bbae35ef816da68a5a7c6269ce3e794dce45"
+  },
+  "comparison": {
+    "comparison_sha256": "90fa4fce57be7f241003b19bafe7ea4702a5102ccbd46d72fdd6d6dccd216433",
+    "inspection_sha256": "e4394d71d4980dccbcc7bf6c7ec341b84689179e913ba48dda00b4dff354fadb",
+    "option": "b"
+  },
+  "concept_sha256": "5eed8be4d754258561666b3e686bfcd85ef14e63456549412bf50737b3cc3a54",
+  "film": {
+    "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/openings/b.mp4",
+    "sha256": "e0da552334459b8b0e300f4ac70dc1f756cefbb2225cbb143fafe3167989a113"
+  },
+  "mandatory_correction": "One consolidated correction for the selected film, shared by both treatments because the artwork and renderer are shared. (1) Replace the bill title with source-quoted or generic text containing no untraceable numeral. (2) Move the standards tag beside or below the highlighted review line so the condition stays readable from 37.6 s through s9. (3) Extend the desk and its face, or refit the answer-medium box, so the world covers the full frame width from 48.43 to 54.27 s. Optional notes: make the exam-table source of the speech marks identifiable in s1, keep the source cards' labels unoccluded, keep the how-well card's first letter clear of the thread, and lengthen the closing hold.",
+  "modern_observations": {
+    "closing_answer": {
+      "end_s": 54.27,
+      "observed": "Two source threads meet at the still-empty slot, the law label sits on the draft, and the how-well field is marked not stated. This answers the opening question.",
+      "pass": true,
+      "start_s": 46.73
+    },
+    "finished_art": {
+      "end_s": 54.27,
+      "observed": "Finish fails on the unfinished right-edge band during the entire close (48.43 to 54.27). Label occlusions recur (agreement clip, standards tag over the review line, thread over the how-well card, overlapping source cards). The lower 40 percent of most frames is plain dark desk front or blurred plate below the picture band.",
+      "pass": false,
+      "start_s": 18.4
+    },
+    "first_frame": {
+      "end_s": 1.5,
+      "observed": "The note screen swings in from the right by 0.6 s and dark word marks rise toward it from 0.8 s, so the first visible change is under 1.5 s. The first frame itself is a blank note page over a skyline window, which is a weak stop.",
+      "pass": true,
+      "start_s": 0.0
+    },
+    "pace": {
+      "end_s": 54.27,
+      "observed": "No static interval near 5 s. The longest holds are 10.0 to 11.4 (split, completed result) and 31.0 to 31.8 (empty desk before the bill arrives). Each clause gets its arrival inside its window.",
+      "pass": true,
+      "start_s": 0.0
+    },
+    "performed_turn": {
+      "end_s": 30.97,
+      "observed": "A source-data strip unrolls, a thread draws from the draft line to the matching source row, which lights at 28.4 s, and an outlined check descends and hovers over the empty slot without landing. It is object-performed, with no clinician drawn, which is consistent with the source's 'can verify'.",
+      "pass": true,
+      "start_s": 25.57
+    },
+    "shot_variety": {
+      "end_s": 54.27,
+      "observed": "Medium screen (0 to 4.1), desk medium (4.1 to 8.57), two-pane split (8.57 to 11.33 and 43.43 to 46.73), check views with the screen held above the evidence (11.53, 15.87, 30.97, 36.67, 46.73), tight closes (14.3, 17.27, 24.37, 28.67, 33.7, 39.43) and a medium close (48.43).",
+      "pass": true,
+      "start_s": 0.0
+    },
+    "visual_progression": {
+      "end_s": 54.27,
+      "observed": "One screen accumulates state: draft line, slot, link thread, lit source row, hovering check, law label, two knotted threads, not-stated field. Desk evidence cards change scene by scene, not as a repeated tableau.",
+      "pass": true,
+      "start_s": 0.0
+    }
+  },
+  "motion_sequence": {
+    "path": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/openings/motion-b/index.json",
+    "sha256": "8f3c2a0a61356ec0678b4529be20e5001f4e922c1101c9ec78e7d2718e5ea539"
+  },
+  "narration_picture_observations": {
+    "clauses": [
+      {
+        "end_s": 2.533,
+        "id": "n1a",
+        "observed": "Word marks rise from the desk-left object into the page and write a draft line, and an 'AI draft' chip wipes on (1.0 to 2.4 s). AI-generated documentation is shown. The exam-table source is not recognizable.",
+        "pass": true,
+        "start_s": 0.467
+      },
+      {
+        "end_s": 3.9,
+        "id": "n1b",
+        "observed": "An orange slot draws empty inside four accent ticks beside the draft line (2.8 to 3.2 s).",
+        "pass": true,
+        "start_s": 2.533
+      },
+      {
+        "end_s": 7.2,
+        "id": "n2a",
+        "observed": "A 'UTHealth Houston post / UT Physicians' card lands (4.8 to 5.2), a dashed 'one unified system' outline draws, and its bar stops at 'working toward' (6.0 to 6.8). The card shows no dateline.",
+        "pass": true,
+        "start_s": 4.1
+      },
+      {
+        "end_s": 8.567,
+        "id": "n2b",
+        "observed": "An 'Epic ambient listening' tag slides onto the outline (7.8 to 8.2), and the outline's inside stays empty.",
+        "pass": true,
+        "start_s": 7.2
+      },
+      {
+        "end_s": 11.333,
+        "id": "n2c",
+        "observed": "Split view. 'DAX' and 'Abridge' tags settle on the 'pilots' lane (9.4 to 9.8), with the Epic-tagged system in the lower pane.",
+        "pass": true,
+        "start_s": 8.567
+      },
+      {
+        "end_s": 14.3,
+        "id": "n3a",
+        "observed": "Six faceless outlines. Four fill in turn and two stay dashed under an 'eventually' arrow (12.0 to 12.6), and a 'no date stated' tag hangs on the blank calendar (13.6 to 13.8).",
+        "pass": true,
+        "start_s": 11.533
+      },
+      {
+        "end_s": 15.667,
+        "id": "n3b",
+        "observed": "An 'Epic refresher' tag lands at the row front and its string reaches the first figure (14.8 to 15.2). The dashed end stays in frame.",
+        "pass": true,
+        "start_s": 14.3
+      },
+      {
+        "end_s": 17.267,
+        "id": "n4a",
+        "observed": "The 'Abridge release / Press release' card lands and an 'October 8th, 2026' stamp writes on (16.4 to 16.8), legible though crossed by grey marks.",
+        "pass": true,
+        "start_s": 15.867
+      },
+      {
+        "end_s": 18.967,
+        "id": "n4b",
+        "observed": "An 'enterprise-wide agreement' tag arrives at 18.2 to 18.4, covering the card's 'Abridge' header. Its clip sits over the 'w'.",
+        "pass": true,
+        "start_s": 17.267
+      },
+      {
+        "end_s": 21.4,
+        "id": "n4c",
+        "observed": "The 'initiative / University of Texas REAL Health AI' card slides in (19.6 to 19.8), and the loose thread ties to it (20.8 to 21.2).",
+        "pass": true,
+        "start_s": 18.967
+      },
+      {
+        "end_s": 24.367,
+        "id": "n5a",
+        "observed": "A 'framework / Abridge' bar with an 'Abridge says' tag draws (22.0 to 22.6), and thin access threads fan to three 'UT health institution' cards (23.4 to 23.8).",
+        "pass": true,
+        "start_s": 21.6
+      },
+      {
+        "end_s": 25.367,
+        "id": "n5b",
+        "observed": "Close on two cards. Each switch lights orange while resting in the middle (24.8 to 25.0).",
+        "pass": true,
+        "start_s": 24.367
+      },
+      {
+        "end_s": 26.967,
+        "id": "n6a",
+        "observed": "A 'source data' strip unrolls and 'Linked Evidence' and 'Abridge says' tabs clip onto the screen (26.0 to 26.6).",
+        "pass": true,
+        "start_s": 25.567
+      },
+      {
+        "end_s": 28.667,
+        "id": "n6b",
+        "observed": "A thread draws from the draft line to the strip and the matching row lights (27.4 to 28.4).",
+        "pass": true,
+        "start_s": 26.967
+      },
+      {
+        "end_s": 30.767,
+        "id": "n6c",
+        "observed": "In the close, an outlined check descends and hovers over the empty slot (29.0 to 29.8). The strip with its lit row is cropped out of this shot.",
+        "pass": true,
+        "start_s": 28.667
+      },
+      {
+        "end_s": 33.7,
+        "id": "n7a",
+        "observed": "The desk is empty for about 0.8 s, then the bill card lands and the 'Effective September 1st, 2025' stamp writes on (31.8 to 32.2). The card's '1188' title is the separate source-integrity blocker. The caption covers its condition lines from 32.0 to 33.6.",
+        "pass": true,
+        "start_s": 30.967
+      },
+      {
+        "end_s": 36.467,
+        "id": "n7b",
+        "observed": "The 'diagnosis' pill lights (34.2 to 34.8), an 'AI' tag slides in beside it (35.6 to 36.0), and a frame closes round both (36.2).",
+        "pass": true,
+        "start_s": 33.7
+      },
+      {
+        "end_s": 39.433,
+        "id": "n8a",
+        "observed": "The condition line is written as 'review all AI-created records' (37.2 to 37.6), and an orange bracket arcs over a small stack of AI-marked record cards (38.6 to 39.4).",
+        "pass": true,
+        "start_s": 36.667
+      },
+      {
+        "end_s": 41.167,
+        "id": "n8b",
+        "observed": "A 'Texas Medical Board standards' tag arrives (40.0 to 40.4) but lands on top of the review line it qualifies, hiding the lower half of its words. The standards are shown, but the condition they attach to is erased.",
+        "pass": false,
+        "start_s": 39.433
+      },
+      {
+        "end_s": 43.433,
+        "id": "n9a",
+        "observed": "An orange frame draws round the 'diagnosis' pill and the pill darkens (42.0 to 42.4).",
+        "pass": true,
+        "start_s": 41.367
+      },
+      {
+        "end_s": 46.533,
+        "id": "n9b",
+        "observed": "Split view. The upper pane is empty until a 'visit note' card with an 'AI' pill slides in (44.2 to 44.4) and stops above the lower pane's diagnosis frame, and a '?' tag rises over it (45.6 to 45.8). The pane border stands in for the edge, and no dashed meet line is visible.",
+        "pass": true,
+        "start_s": 43.433
+      },
+      {
+        "end_s": 48.433,
+        "id": "n10a",
+        "observed": "A teal thread from 'Abridge says / clinicians can verify' reaches the empty slot (47.2 to 48.0).",
+        "pass": true,
+        "start_s": 46.733
+      },
+      {
+        "end_s": 50.867,
+        "id": "n10b",
+        "observed": "A 'Texas law requires review for diagnostic use' label rides up to the note, and a statute thread from the 'Texas law' card knots at the slot (49.0 to 49.8).",
+        "pass": true,
+        "start_s": 48.433
+      },
+      {
+        "end_s": 53.967,
+        "id": "n10c",
+        "observed": "A 'how well the check works' card lowers and is marked 'not stated' (51.4 to 52.0), and three source cards settle (53.0 to 53.6).",
+        "pass": true,
+        "start_s": 50.867
+      }
+    ],
+    "film_sha256": "e0da552334459b8b0e300f4ac70dc1f756cefbb2225cbb143fafe3167989a113",
+    "timing_basis": "provisional authored cue plan"
+  },
+  "notes": "B is selected for its legibility and its fixed slot throughline. The capture, the structural checks and this selection grant no approval. The separate measured timed-phone, native, audiovisual and scoring gates remain required.",
+  "option": "b",
+  "phone_observations": {
+    "closing_payoff": {
+      "end_s": 54.27,
+      "observed": "A teal thread from the 'Abridge says / clinicians can verify' card (47.2 to 48.0 s) and a dark thread from the 'Texas law / review for diagnostic use' card (49.0 to 49.8 s) knot at the same empty, tick-framed slot. A 'Texas law requires review for diagnostic use' label settles on the note. A 'how well the check works' card lowers and is marked 'not stated' (51.4 to 52.0 s), and the outlined check still hovers. This answers who is pointed at and shows the limit without inventing an outcome. The final hold after the last motion is short (53.6 to 54.27 s).",
+      "pass": true,
+      "start_s": 46.73
+    },
+    "contact_and_consequence": {
+      "end_s": 46.73,
+      "observed": "Most contacts complete visibly: the thread reaches the source strip and the row lights at 28.4 s, the agreement thread ties to the initiative card at 21.2 s, and the vendor and statute threads knot at the slot by 48.0 and 49.8 s. The s8 standards tag lands on top of the review-condition line at 40.2 s and leaves that result unreadable through 46.73 s.",
+      "pass": false,
+      "start_s": 36.67
+    },
+    "subject_recognition": {
+      "end_s": 54.27,
+      "observed": "The principal subject, a wall note screen headed 'Visit note' with an 'AI draft' chip, a word-mark draft line and an orange slot framed by four accent ticks, is recognizable at phone size in every scene where it appears. The exam table the words supposedly rise from is never identifiable (0.8 to 1.6 s, a small teal shape at the desk edge). The AI-marked record stack in s8 is small and half under the bill (36.8 to 39.4 s). Both are noted, not blocking.",
+      "pass": true,
+      "start_s": 0.0
+    },
+    "surface_finish": {
+      "end_s": 54.27,
+      "observed": "A clean flat-vector style with soft shadows. Defects: a pale unfinished right-edge band from 48.43 to 54.27. The statute thread hides the first letter of the how-well card from 51.6 s. The three source cards overlap so only 'Texas bill text' reads (53.6 s). The agreement clip sits over the 'w' of 'enterprise-wide' (18.4 to 21.4 s). The link thread crosses the 'AI draft' lettering from 27.8 s.",
+      "pass": false,
+      "start_s": 48.43
+    }
+  },
+  "quality_contract_sha256": "f54137adf7cf5181ff077cb8b9fd85a44131cee44b1fb8139def2f12a088fdfa",
+  "renderer_sha256": "7d93cb4ef3338435d1db5c7ae60c7ca65fff0735ae4bc4637263e78d5939982e",
+  "review_scope": "exact-muted-phone-preflight",
+  "review_time": "2026-11-11",
+  "reviewed_preflight_sha256": "e0da552334459b8b0e300f4ac70dc1f756cefbb2225cbb143fafe3167989a113",
+  "reviewer_identity": "storyboard-critic claude-opus-5-5 (isolated combined code and phone reviewer, distinct from the claude-sonnet-5-5 director)",
+  "story_review": {
+    "blocking_defects": [
+      {
+        "category": "source_integrity",
+        "defect": "The on-screen '1188' bill number is not in any fetched quote.",
+        "scene_id": "s7",
+        "time_s": 31.8
+      },
+      {
+        "category": "contact_and_consequence",
+        "defect": "The standards tag hides the review condition result.",
+        "scene_id": "s8",
+        "time_s": 40.2
+      }
+    ],
+    "claims_sha256": "a784d11719b25fc9d29a6b435bd21955e81efe287d60514669df0d6b3b78cb37",
+    "one_viewing_summary": "Muted, a viewer sees spoken marks turn into an AI-drafted visit note with an empty check slot. A university plan, pilots and a vendor agreement arrive as cards, and the vendor's design threads the draft back to its source while a check hovers unplaced. A Texas bill lights 'diagnosis' and an AI review condition, a visit note meets the diagnosis frame with a question mark, and vendor and law threads converge on the still-empty slot beside a 'not stated' how-well field.",
+    "opening_to_ending": "It opens on an empty slot asking who verifies AI documentation and ends on the same empty slot with both the vendor's and the statute's threads pointing at it and the quality of the check marked not stated. That is a source-honest answer.",
+    "policy_sha256": "01bff5185647039cf6cbefefda605e424cf6cbb35557b198dc3a31e336efd7c0",
+    "story_sha256": "bbc936e009ed2b6199c5ee2ff68929853559b53be3dbc22799d5eea96f764c4c",
+    "verdict": "revise",
+    "weakest_transition": "s3 to s4 (15.87 s). The rollout row vanishes and a separate company release lands with no carried object or cause, so it reads as a list of facts. The reticle slot on screen keeps orientation but not causality."
+  },
+  "strongest_frame": "29.8 to 30.8 s: a large close of the draft line threaded back to its lit source, with the outlined check hovering over the tick-framed empty slot.",
+  "verdict": "revise",
+  "weakest_frame": "40.2 to 41.4 s: the standards tag sits across the just-revealed 'review all AI-created records' line under a bill header carrying the untraceable 1188."
+}
