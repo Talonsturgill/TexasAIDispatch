@@ -136,6 +136,13 @@ def initial_authoring_inputs(data):
         raise ValueError('Initial authored build needs its actual current claims')
 
 
+CONDITIONAL_RECOVERY_NOTE = (
+    ' If this third code review rejects the construction, also return your original '
+    'recovery_review satisfying conditional_recovery. It is an independent source-backed '
+    'replacement plan for this same paid return, never a passing grade for unseen pixels. '
+    'If you cannot substantiate it, return that limitation honestly. ')
+
+
 def adapt_packet(data):
     data = dict(data); role = data['role']; route = assignment(role, data['date'])
     data.update(agent_assignment=route, agent_contracts=contracts(role),
@@ -152,11 +159,7 @@ def adapt_packet(data):
             recovery = recovery_requirements(state, data)
             if recovery:
                 data['conditional_recovery'] = recovery
-                data['instructions'] = data.get('instructions', '') + (
-                    ' If this third code review rejects the construction, also return your original '
-                    'recovery_review satisfying conditional_recovery. It is an independent source-backed '
-                    'replacement plan for this same paid return, never a passing grade for unseen pixels. '
-                    'If you cannot substantiate it, return that limitation honestly. ')
+                data['instructions'] = data.get('instructions', '') + CONDITIONAL_RECOVERY_NOTE
             else:
                 data.pop('conditional_recovery', None)
     import review_board_projection
@@ -451,6 +454,10 @@ def phone_packet(packet_path, state_path, sequences, current=False, *, combined_
         raise ValueError('combined review cannot replace the separate final timed-phone review')
     if not combined_code_review:
         data.pop('code_report_bindings', None)
+    # A code-stage conditional pivot is not a verdict request for unseen phone pixels.
+    # Combined reviews have their own handback contract; neither phone lane inherits it.
+    data.pop('conditional_recovery', None)
+    data['instructions'] = data.get('instructions', '').replace(CONDITIONAL_RECOVERY_NOTE, '')
     if data.get('role') != 'storyboard-critic':
         raise ValueError('phone packet requires the existing independent storyboard critic')
     if Path(data['board']['path']).resolve().parent != Path(state_path).resolve().parent:

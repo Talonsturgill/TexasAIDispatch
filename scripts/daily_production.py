@@ -407,20 +407,29 @@ def pre_voice_problems(board_path, claims_path, script=None):
 # that file's digest and an edit to it would void every review already on a frozen edition.
 CLAUDE_SCORER_HANDOFF_FROM = "2026-10-19"
 CLAUDE_SCORER_HANDOFF_MAX_CHARS = 12000
+# The November 10 retained native critic packet was 9,123 chars without its required
+# two-treatment code identities. The complete packet needs the same bounded room as
+# a final scorer; keep all inputs, the ordinary 10k cap and every paid-work ceiling.
+CLAUDE_CODE_CRITIC_HANDOFF_FROM = "2026-10-20"
+CLAUDE_CODE_CRITIC_HANDOFF_MAX_CHARS = 12000
 
 
-def handoff_limit(date, compact_scorer):
+def handoff_limit(date, compact_scorer, native_code_critic=False):
     """Characters a handoff may carry.
 
     The three final Claude scorers bind the motion sequence, the film, their provider receipt,
     the attention player, the feed composite and the image reading policy on top of the guides
     every role reads. On a restored edition with a long absolute workspace path that crossed
-    the shared 10000 character cap by 840 characters on 2026-10-20 with nothing removable, so
-    the dated scorer cap below applies to those packets alone. Every other role keeps the cap.
+    the shared 10000 character cap by 840 characters on 2026-10-20 with nothing removable.
+    The complete current native code critic has the same measured need: its retained packet
+    plus both exact code identities is 11,805 chars without removing or rewriting content.
+    Only those two dated cases use 12000. All other packets keep the shared cap.
     """
     cap = policy()["handoff_max_chars"]
     if compact_scorer and str(date or "") >= CLAUDE_SCORER_HANDOFF_FROM:
         cap = max(cap, CLAUDE_SCORER_HANDOFF_MAX_CHARS)
+    if native_code_critic and str(date or "") >= CLAUDE_CODE_CRITIC_HANDOFF_FROM:
+        cap = max(cap, CLAUDE_CODE_CRITIC_HANDOFF_MAX_CHARS)
     return cap
 
 
@@ -613,10 +622,18 @@ def packet(board_path, claims_path, role, state_path=None, runtime=None, feed_pa
     if role in ('scene-builder', 'storyboard-critic'):
         import modern_film
         data['instructions'] += modern_film.literal_clause_instruction(board)
-    import review_board_projection
-    review_board_projection.bind_native(data)
+    if claude_route and role == 'storyboard-critic' and claude_runtime.operational_recovery(data):
+        # Finalize only after verified selection/correction scope is present. The native
+        # planner requires these exact current code identities, not a second hand recipe.
+        # Explicit Codex recovery and final scorers retain their separate contracts.
+        data = claude_runtime.adapt_packet(data)
+    else:
+        import review_board_projection
+        review_board_projection.bind_native(data)
     encoded = packet_text(data)
-    limit = handoff_limit(board.get("date"), compact_scorer)
+    limit = handoff_limit(board.get("date"), compact_scorer,
+                          native_code_critic=(claude_route and role == 'storyboard-critic'
+                                              and 'code_report_bindings' in data))
     if len(encoded) > limit and isinstance(data["story"], dict):
         # Detailed scene/transition prose remains in the exact hash-bound board.
         # The handoff summarizes the contract rather than duplicating its full body.

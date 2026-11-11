@@ -60,6 +60,120 @@ class Reservation(unittest.TestCase):
         self.addCleanup(self.patch.stop)
         controller.initialise(self.state, 'reservation-regression', 'production')
 
+    def test_prepared_animatic_free_gates_leave_ledger_byte_identical_on_failure(self):
+        from types import SimpleNamespace
+        self.state.with_name('claims.json').write_text('{"claims":[]}')
+        for failure in ('documentary', 'review', 'board', 'claims', 'engine', 'supers', 'critic', 'media', 'caption'):
+            before = self.state.read_bytes()
+            responses = [SimpleNamespace(returncode=int(failure == name)) for name in ('board', 'media', 'caption')]
+            with self.subTest(failure=failure), \
+                    mock.patch('subprocess.run', side_effect=responses) as run, \
+                    mock.patch('documentary_check.check', return_value=['bad direction'] if failure == 'documentary' else []), \
+                    mock.patch('critic_gate.check', return_value=['missing independent critique'] if failure == 'review' else []), \
+                    mock.patch('engine_lint.check_files', return_value=['bad engine'] if failure == 'engine' else []), \
+                    mock.patch('super_evidence_check.check', return_value=(['bad supers'] if failure == 'supers' else [], [])), \
+                    mock.patch('daily_production.pre_voice_problems', return_value=['independent storyboard critique is missing'] if failure == 'critic' else []):
+                claims = self.state.with_name('claims.json')
+                if failure == 'claims':
+                    claims.unlink()
+                with self.assertRaisesRegex(ValueError, 'no capture charged'):
+                    prepared.prepare(self.root, self.state, [self.command('preflight_animatic.py')])
+                self.assertEqual(before, self.state.read_bytes())
+                self.assertFalse((self.root / guard.AUTHORIZATION).exists())
+                claims.write_text('{"claims":[]}')
+                if failure == 'critic':
+                    self.assertEqual(1, run.call_count)
+
+    def test_prepared_animatic_matches_exact_caption_mode_and_full_engine_scope(self):
+        from types import SimpleNamespace
+        self.state.with_name('claims.json').write_text('{"claims":[]}')
+        for key in (None, 'captions', 'caption_method', 'retimed_to', 'retime_evidence'):
+            data = {'runtime_s':4, 'scenes':[]}
+            if key:
+                data[key] = [{'text':'caption'}] if key == 'captions' else 'current'
+            self.board.write_text(json.dumps(data))
+            with self.subTest(key=key), \
+                    mock.patch('subprocess.run', return_value=SimpleNamespace(returncode=0)) as run, \
+                    mock.patch('documentary_check.check', return_value=[]), \
+                    mock.patch('critic_gate.check', return_value=[]), \
+                    mock.patch('engine_lint.check_files', return_value=[]) as engine, \
+                    mock.patch('super_evidence_check.check', return_value=([], [])), \
+                    mock.patch('daily_production.pre_voice_problems', return_value=[]):
+                prepared.animatic_precheck(self.root, self.board, self.state.with_name('claims.json'))
+                engine.assert_called_once_with(self.root / 'video-engine/src')
+                self.assertEqual(key is None, '--early-muted-animatic' in run.call_args.args[0])
+
+    def test_missing_independent_critique_is_refused_by_real_gate_before_prepare_spend(self):
+        self.board.write_text('{"date":"2026-10-26", "runtime_s":4, "scenes":[]}')
+        before = self.state.read_bytes()
+        with mock.patch('documentary_check.check', return_value=[]), mock.patch('subprocess.run') as run:
+            with self.assertRaisesRegex(ValueError, 'independent storyboard critique is missing before preflight'):
+                prepared.prepare(self.root, self.state, [self.command('preflight_animatic.py')])
+            run.assert_not_called()
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_prepared_animatic_explicit_canonical_inputs_gate_before_exactly_one_charge(self):
+        from types import SimpleNamespace
+        self.state.with_name('claims.json').write_text('{"claims":[]}')
+        command = (self.command('preflight_animatic.py') +
+                   ' --claims out/dispatch/claims.json --film out/dispatch/preflight.mp4'
+                   ' --state out/dispatch/run_state.json')
+        observed = []
+        def free_command(args, **kwargs):
+            observed.append((args, controller.read_state(self.state)['usage']['preflight_renders']))
+            return SimpleNamespace(returncode=0)
+        with mock.patch('subprocess.run', side_effect=free_command), \
+                mock.patch('documentary_check.check', return_value=[]), \
+                mock.patch('critic_gate.check', return_value=[]), \
+                mock.patch('engine_lint.check_files', return_value=[]), \
+                mock.patch('super_evidence_check.check', return_value=([], [])), \
+                mock.patch('daily_production.pre_voice_problems', return_value=[]):
+            receipt = prepared.prepare(self.root, self.state, [command])
+        self.assertEqual([0, 0, 0], [usage for _, usage in observed])
+        self.assertEqual(1, controller.read_state(self.state)['usage']['preflight_renders'])
+        self.assertEqual(prepared.OPERATIONS['preflight_animatic.py'], receipt['operation'])
+        self.assertIn('--early-muted-animatic', observed[-1][0])
+        before = self.state.read_bytes()
+        for flag in ('--claims', '--film'):
+            bad = command.replace(flag + ' out/dispatch/', flag + ' other/')
+            with self.assertRaisesRegex(ValueError, 'canonical current input'):
+                prepared.prepare(self.root, self.state, [bad])
+            self.assertEqual(before, self.state.read_bytes())
+
+    def test_cinema_prerequisites_are_free_before_the_prepared_charge(self):
+        self.board.write_text(json.dumps({'date':'2026-10-26', 'cinema':{'hero_scene_id':'s1'}, 'scenes':[]}))
+        command = self.command('cinema_proof.py') + ' --mix out/dispatch/mix.wav --state out/dispatch/run_state.json'
+        for failure in ('bindings', 'plan', 'phone'):
+            before = self.state.read_bytes()
+            with self.subTest(failure=failure), \
+                    mock.patch('cinema_proof.current_bindings', side_effect=ValueError('stale native inputs') if failure == 'bindings' else None), \
+                    mock.patch('cinema_proof.plan_problems', return_value=['bad plan'] if failure == 'plan' else []), \
+                    mock.patch('review_context.phone_problems', return_value=['missing exact-phone review'] if failure == 'phone' else []):
+                with self.assertRaises(ValueError):
+                    prepared.prepare(self.root, self.state, [command])
+                self.assertEqual(before, self.state.read_bytes())
+                self.assertFalse((self.board.parent / 'cinema').exists())
+        with mock.patch('cinema_proof.current_bindings') as bindings, \
+                mock.patch('cinema_proof.plan_problems', return_value=[]), \
+                mock.patch('review_context.phone_problems', side_effect=lambda board: (
+                    [] if controller.read_state(self.state)['usage']['preflight_renders'] == 0
+                    else self.fail('phone prerequisite ran after spend'))):
+            prepared.prepare(self.root, self.state, [command])
+        bindings.assert_called_once_with(self.board, self.board.with_name('mix.wav'))
+        self.assertEqual(1, controller.read_state(self.state)['usage']['preflight_renders'])
+
+    def test_cinema_precheck_preserves_original_plan_requirement_and_historical_phone_boundary(self):
+        with mock.patch('cinema_proof.current_bindings'), \
+                mock.patch('cinema_proof.plan_problems', return_value=[]), \
+                mock.patch('review_context.phone_problems', return_value=[]) as phone:
+            with self.assertRaisesRegex(ValueError, 'current cinema plan is required'):
+                prepared.cinema_precheck(self.board, self.board.with_name('mix.wav'))
+            for date in ('2026-09-24', '2026-09-25'):
+                phone.reset_mock()
+                self.board.write_text(json.dumps({'date':date, 'cinema':{'hero_scene_id':'s1'}}))
+                prepared.cinema_precheck(self.board, self.board.with_name('mix.wav'))
+                self.assertEqual(date >= '2026-09-25', bool(phone.call_count))
+
     def test_phone_identity_binds_shared_routing_without_changing_legacy(self):
         routing = self.root / 'scripts/motion_review_operations.py'
         routing.write_text('routing version one')
@@ -87,7 +201,10 @@ class Reservation(unittest.TestCase):
 
     def authorise(self, name='cinema_proof.py'):
         command = self.command(name)
-        receipt = prepared.prepare(self.root, self.state, [command])
+        # This helper exercises receipt/claim mutation, not product gates. Dedicated
+        # animatic cases below exercise every real precharge gate's failure ordering.
+        with mock.patch.object(prepared, 'animatic_precheck'), mock.patch.object(prepared, 'cinema_precheck'):
+            receipt = prepared.prepare(self.root, self.state, [command])
         state = controller.read_state(self.state)
         event = next(e for e in state['events'] if guard.event_digest(e) == receipt['event_sha256'])
         auth = {'prepared_capture': receipt,
@@ -362,7 +479,7 @@ class Reservation(unittest.TestCase):
     def test_unchanged_operation_cannot_be_prepared_again(self):
         self.authorise()
         before = controller.read_state(self.state)['usage']
-        with self.assertRaisesRegex(ValueError, 'identical preflight inputs'):
+        with mock.patch.object(prepared, 'cinema_precheck'), self.assertRaisesRegex(ValueError, 'identical preflight inputs'):
             prepared.prepare(self.root, self.state, [self.command('cinema_proof.py')])
         self.assertEqual(before, controller.read_state(self.state)['usage'])
 
@@ -519,10 +636,12 @@ class Reservation(unittest.TestCase):
         self.board.write_text(json.dumps(board))
         command = self.command('cinema_proof.py')
         with mock.patch('authored_story_art.problems', return_value=[]), \
+                mock.patch.object(prepared, 'cinema_precheck') as precheck, \
                 mock.patch('native_headroom.estimate', return_value={'required_free_gib': 1}), \
                 mock.patch.object(guard.shutil, 'disk_usage', return_value=mock.Mock(free=500 * 1024 ** 3)):
             auth = guard.authorize(self.root, self.state, [self.board], [command],
                                    housekeeping=False, prepare=True)
+            precheck.assert_called_once_with(self.board, self.board.with_name('mix.wav'))
             self.assertEqual(1, controller.read_state(self.state)['usage']['preflight_renders'])
             payload = {'tool_name': 'Bash', 'tool_input': {'command': command}, 'cwd': str(self.root)}
             self.assertIsNone(guard.decide(payload, self.root))
