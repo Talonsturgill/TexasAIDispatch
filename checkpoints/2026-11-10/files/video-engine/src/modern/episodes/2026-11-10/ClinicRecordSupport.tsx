@@ -35,6 +35,12 @@ export const hashS=(i:number)=>{const x=Math.sin(i*57.3+211.9)*43758.5453;return
 const ACCENT_LIGHT='#F8DCC4',PAPER_SHADE='#E2D7C0',DESK={top:'#7F9A97',lit:'#9CB4B0',edge:'#3A5256',face:'#2C4246'};
 
 export const DESK_Y={back:884,front:1236,lip:1262};
+/**
+ * The desk plane's world x extent. It used to stop at 1140, and the s10 answer-medium camera (z 1.38, tx -587)
+ * reaches world x 1208 at the frame's right edge, so a pale strip showed from the desk to the frame bottom.
+ * Every registered camera, split panes included, sees between world x -102 and 1614; the plane covers that with room.
+ */
+export const DESK_X={l:-400,r:1700};
 /** The accent laid over warm paper at a given strength, as one opaque colour: a lit tag is never see-through. */
 export function mixAccent(a:number){const k=clamp(a),P=[244,238,224],A=[224,123,46];return P.map((v,i)=>Math.round(v+(A[i]-v)*k)).join(',');}
 
@@ -77,15 +83,16 @@ const Card:React.FC<{pal:Pal;w:number;h:number;header?:string;title?:string[];ti
 };
 
 /** A rounded luggage tag on a short string, its hole at the origin and its body hanging to the right. */
-export function tagSize(lines:string[],size:number){return {w:Math.max(...lines.map(l=>widthOf(l,size,true)))+44,h:lines.length*size*1.16+22};}
-const Tag:React.FC<{pal:Pal;lines:string[];size:number;tone?:'paper'|'accent'|'teal';swing?:number}>=({pal,lines,size,tone='paper',swing=0})=>{
- const {w,h}=tagSize(lines,size);
+/** A compact tag keeps the same shape and type size with less paper above and below the words. */
+export function tagSize(lines:string[],size:number,compact=false){return {w:Math.max(...lines.map(l=>widthOf(l,size,true)))+44,h:lines.length*size*1.16+(compact?10:22)};}
+const Tag:React.FC<{pal:Pal;lines:string[];size:number;tone?:'paper'|'accent'|'teal';swing?:number;compact?:boolean}>=({pal,lines,size,tone='paper',swing=0,compact=false})=>{
+ const {w,h}=tagSize(lines,size,compact),pad=compact?4:11;
  const fill=tone==='accent'?ACCENT_LIGHT:tone==='teal'?'#D7E6E3':pal.paper,stroke=tone==='accent'?pal.accent:pal.ink;
  return <g transform={`rotate(${f2(swing)})`}>
   <rect x={6} y={-h/2+8} width={w} height={h} rx={10} fill={pal.ink} opacity={.18} filter="url(#nc1110-soft)"/>
   <path d={`M0 0L18 ${-h/2}H${w-8}Q${w} ${-h/2} ${w} ${-h/2+8}V${h/2-8}Q${w} ${h/2} ${w-8} ${h/2}H18Z`} fill={fill} stroke={stroke} strokeWidth={2.6} strokeLinejoin="round"/>
   <circle cx={14} cy={0} r={4.5} fill="none" stroke={pal.ink} strokeWidth={2}/>
-  {lines.map((l,i)=><Txt key={i} x={30} y={-h/2+11+size*(i+.92)*1.08} size={size} bold fill={pal.ink}>{l}</Txt>)}
+  {lines.map((l,i)=><Txt key={i} x={30} y={-h/2+pad+size*(i+.92)*1.08} size={size} bold fill={pal.ink}>{l}</Txt>)}
  </g>;
 };
 
@@ -138,8 +145,16 @@ export type SupportPart=
  |{part:'visitNote'}
  |{part:'question';p:number};
 
-export const BILL={w:540,h:350,lines:[170,208,246],diag:{x:26,y:284,w:180,h:48},ai:{x:218,y:284,w:80,h:48},
- stamp:{x:382,y:124},std:{x:36,y:246},type:{title:30,small:24,line:26,tag:24,stamp:22}};
+/**
+ * The enrolled bill card. Its condition lines keep their places, so the highlighted review line (lines[1]) sits
+ * where every framing that shows it was solved. Repair 1 opens a clear row under that line: the diagnosis row
+ * moves down 8 and the card grows 8 (the most B's review-check framing allows before the card's lower edge
+ * reaches the caption band), and the standards tag is a compact tag, so it hangs BELOW the highlighted line, on
+ * the third condition line, with clear paper above it (the highlight ends at 226, the tag starts near 234) and
+ * below it (the tag ends near 274, the AI frame starts at 282). Nothing it carries covers the line it is tied to.
+ */
+export const BILL={w:540,h:358,lines:[170,208,253],diag:{x:26,y:292,w:180,h:48},ai:{x:218,y:292,w:80,h:48},
+ stamp:{x:382,y:124},std:{x:36,y:253,swing:.4},type:{title:30,small:24,line:26,tag:24,stamp:22}};
 
 export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
  const {pal}=props;
@@ -173,18 +188,21 @@ export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
   </g>
  </g>;
  case 'desk':return <g data-part="desk">
-  <defs><linearGradient id="nc1110-desk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor={DESK.lit}/><stop offset=".55" stopColor={DESK.top}/><stop offset="1" stopColor="#6C8885"/></linearGradient></defs>
-  <path d={`M-60 ${DESK_Y.back}H1140V${DESK_Y.front}H-60Z`} fill="url(#nc1110-desk)"/>
-  <path d={`M-60 ${DESK_Y.back}H1140`} stroke={DESK.edge} strokeWidth={5}/>
-  <path d={`M-60 ${DESK_Y.back+8}H1140`} stroke="#B5C9C5" strokeWidth={2} opacity={.6}/>
+  {/* The top's light keeps its original span (x -60 to 1140, the back edge to the front edge) in user space and
+      pads beyond it, so the plane can run past every camera's frame edge without changing a lit pixel inside. */}
+  <defs><linearGradient id="nc1110-desk" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1" y2="1"
+   gradientTransform={`matrix(1200 0 0 ${DESK_Y.front-DESK_Y.back} -60 ${DESK_Y.back})`}><stop offset="0" stopColor={DESK.lit}/><stop offset=".55" stopColor={DESK.top}/><stop offset="1" stopColor="#6C8885"/></linearGradient></defs>
+  <path d={`M${DESK_X.l} ${DESK_Y.back}H${DESK_X.r}V${DESK_Y.front}H${DESK_X.l}Z`} fill="url(#nc1110-desk)"/>
+  <path d={`M${DESK_X.l} ${DESK_Y.back}H${DESK_X.r}`} stroke={DESK.edge} strokeWidth={5}/>
+  <path d={`M${DESK_X.l} ${DESK_Y.back+8}H${DESK_X.r}`} stroke="#B5C9C5" strokeWidth={2} opacity={.6}/>
   {/* wear: a scuffed front corner, a few scratches and a coffee ring */}
   <ellipse cx={40} cy={1218} rx={70} ry={20} fill="#B9CAC6" opacity={.35}/>
   <path d="M640 1186l90 -8M662 1200l60 -4M180 980l70 -6" stroke="#5F7A77" strokeWidth={2} opacity={.5} strokeLinecap="round"/>
   <ellipse cx={968} cy={1192} rx={34} ry={14} fill="none" stroke="#5D7471" strokeWidth={3} opacity={.45}/>
-  <rect x={-60} y={DESK_Y.front} width={1200} height={DESK_Y.lip-DESK_Y.front} fill={DESK.edge}/>
-  <path d={`M-60 ${DESK_Y.front+3}H1140`} stroke="#6E8C8C" strokeWidth={3}/>
-  <rect x={-60} y={DESK_Y.lip} width={1200} height={1400} fill={DESK.face}/>
-  <rect x={-60} y={DESK_Y.lip} width={1200} height={14} fill={pal.ink} opacity={.35}/>
+  <rect x={DESK_X.l} y={DESK_Y.front} width={DESK_X.r-DESK_X.l} height={DESK_Y.lip-DESK_Y.front} fill={DESK.edge}/>
+  <path d={`M${DESK_X.l} ${DESK_Y.front+3}H${DESK_X.r}`} stroke="#6E8C8C" strokeWidth={3}/>
+  <rect x={DESK_X.l} y={DESK_Y.lip} width={DESK_X.r-DESK_X.l} height={1400} fill={DESK.face}/>
+  <rect x={DESK_X.l} y={DESK_Y.lip} width={DESK_X.r-DESK_X.l} height={14} fill={pal.ink} opacity={.35}/>
  </g>;
  case 'deskProps':return <g data-part="desk-props">
   {/* a leaning wire cable organizer at the back right, and a pen left at the front */}
@@ -308,7 +326,8 @@ export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
    <path d={`M0 0H${w-24}L${w} 24V${h}H0Z`} fill={pal.paper} stroke={pal.ink} strokeWidth={3} strokeLinejoin="round"/>
    <path d={`M${w-24} 0V24H${w}`} fill={PAPER_SHADE} stroke={pal.ink} strokeWidth={2.4}/>
    <path d={`M3 4V${h-6}`} stroke="#ffffff" strokeOpacity={.55} strokeWidth={3}/>
-   <Txt x={22} y={44} size={B.type.title} bold fill={pal.ink}>Texas Senate Bill 1188</Txt>
+   {/* a generic title with no numeral: the narration's own words (n7a, a Texas Act) and c7's quote (This Act) */}
+   <Txt x={22} y={44} size={B.type.title} bold fill={pal.ink}>Texas Act</Txt>
    <Txt x={22} y={80} size={B.type.small} fill={pal.foreground}>enrolled bill text</Txt>
    <Txt x={22} y={130} size={B.type.small} bold fill={pal.foreground}>conditions</Txt>
    {B.lines.map((y,i)=>i===1?<g key={i}>
@@ -319,7 +338,7 @@ export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
        <rect x={16} y={y-20} width={w-44} height={38} rx={7} fill={ACCENT_LIGHT}/>
        <Txt x={26} y={y+9} size={B.type.line} bold fill={pal.ink}>review all AI-created records</Txt>
       </g></>}
-    </g>:<Marks key={i} x0={26} x1={w-60-i*30} y={y} h={10} seed={40+i} fill={pal.ink} opacity={.4}/>)}
+    </g>:<Marks key={i} x0={i===2?60:26} x1={w-60-i*30} y={y} h={10} seed={40+i} fill={pal.ink} opacity={.4}/>)}
    {/* the diagnosis tag lights; the AI tag slides along the card from its right edge; a thin frame draws round both */}
    <g transform={`translate(${B.diag.x} ${B.diag.y})`}>
     <rect x={0} y={0} width={B.diag.w} height={B.diag.h} rx={24} fill={dg>0?`rgb(${mixAccent(.18+.3*dg+.25*smooth(dframe))})`:'#E5E1D5'} stroke={pal.ink} strokeWidth={2.6}/>
@@ -335,12 +354,14 @@ export const ClinicRecordSupport:React.FC<{pal:Pal}&SupportPart>=(props)=>{
    {dframe>0&&<rect x={B.diag.x-6} y={B.diag.y-6} width={B.diag.w+12} height={B.diag.h+12} rx={28} fill="none" stroke={pal.accent} strokeWidth={6}
     pathLength={1000} strokeDasharray={`${f2(1000*clamp(dframe))} 1000`}/>}
    <g transform={`translate(${B.stamp.x} ${B.stamp.y})`}><Stamp pal={pal} lines={['Effective','September 1st, 2025']} size={B.type.stamp} p={stamp} rot={-7} id="bill"/></g>
-   {/* s8: the standards tag arrives along the card from its right edge and its string is then drawn from the highlighted line */}
+   {/* s8: the standards tag arrives along the card from its right edge into the clear row UNDER the highlighted
+       line, and its string is then drawn from the line's left end down to the tag's hole. It hangs level with a
+       slight droop to the right, so its body never rises into the highlighted words it is tied to. */}
    {std>0&&<g>
-    {std>.75&&<path d={`M${B.std.x+150} ${B.lines[1]+20}Q${B.std.x+40} ${B.lines[1]+26} ${B.std.x+14} ${B.std.y}`} stroke={pal.ink} strokeWidth={2.6} fill="none"
-     pathLength={1000} strokeDasharray={`${f2(1000*smooth((std-.75)/.25))} 1000`}/>}
     <g transform={`translate(${f2(B.std.x+(1-smooth(clamp(std/.75)))*props.stdFrom)} ${B.std.y})`}>
-     <Tag pal={pal} lines={['Texas Medical Board standards']} size={B.type.tag} tone="teal" swing={-2+6*(1-smooth(clamp(std/.75)))}/></g>
+     <Tag pal={pal} lines={['Texas Medical Board standards']} size={B.type.tag} tone="teal" compact swing={B.std.swing+2*(1-smooth(clamp(std/.75)))}/></g>
+    {std>.75&&<path d={`M${B.std.x+2} ${B.lines[1]+18}Q${B.std.x-8} ${f2((B.lines[1]+18+B.std.y)/2)} ${B.std.x+14} ${B.std.y}`} stroke={pal.ink} strokeWidth={2.6} fill="none"
+     strokeLinecap="round" pathLength={1000} strokeDasharray={`${f2(1000*smooth((std-.75)/.25))} 1000`}/>}
    </g>}
   </g>;}
  case 'records':return <g data-part="record-stack">
