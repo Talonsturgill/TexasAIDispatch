@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-11T21:35:50.918488+00:00",
-  "note": "capture authorization consumed 492b8b700cac",
+  "saved_at": "2026-11-11T21:38:19.953460+00:00",
+  "note": "adopted PR317 tools; storage admission verified; blocked planning corrected-B code critic",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -1490,6 +1490,12 @@
       "size": 30798
     },
     {
+      "path": "out/dispatch/critic-packet-b-code.json",
+      "class": "scratch",
+      "sha256": "21421caef6f0c1c7f834b7ecd6073adebcf65c004eb51503fc9da9e78c2df32e",
+      "size": 9123
+    },
+    {
       "path": "out/dispatch/critic-packet.json",
       "class": "scratch",
       "sha256": "0890129fabb3c18dfbfc649530ae7339a33bd5f5e5d52850ce8c134f77615517",
@@ -2524,8 +2530,8 @@
     {
       "path": "out/dispatch/evidence/repair-1-notes.md",
       "class": "scratch",
-      "sha256": "fbf33f7d1e53785818dac20bf7974c8472a21636bc8da3cabbfe1d22e3bd58b7",
-      "size": 851
+      "sha256": "199a53feebe418f7bc729b8aaab2f50726018cf0ca99660bf4dbc988eb0b755b",
+      "size": 1893
     },
     {
       "path": "out/dispatch/evidence/structural-revalidation/modern_film-210.exit",
@@ -10431,9 +10437,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 153656321,
-    "unique_blob_bytes": 138882805,
-    "unique_blobs": 1292
+    "logical_bytes": 153666486,
+    "unique_blob_bytes": 138892970,
+    "unique_blobs": 1293
   },
   "excluded": [
     {
