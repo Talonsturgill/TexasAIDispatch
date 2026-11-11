@@ -160,6 +160,7 @@ class OperationCosts(Fixture):
         with mock.patch.object(controller, 'REPO', self.root), \
              mock.patch.object(checkpoint, 'PRELAUNCH_TOOLS', self.root/'absent-tools'), \
              mock.patch('authored_story_art.problems', return_value=[]), \
+             mock.patch.object(reservation, 'animatic_precheck') as precheck, \
              mock.patch.object(storage.Path, 'cwd', return_value=self.root), \
              mock.patch.object(storage.sys, 'argv', ['scripts/preflight_animatic.py', '--board',
                                                      'out/dispatch/storyboard.json']), \
@@ -171,6 +172,7 @@ class OperationCosts(Fixture):
                     guard.authorize(self.root, self.state, [self.board], [command], housekeeping=False, prepare=True)
             self.assertEqual(before, self.state.read_bytes())
             auth = guard.authorize(self.root, self.state, [self.board], [command], housekeeping=False, prepare=True)
+            precheck.assert_called_once_with(self.root, self.board, self.board.with_name('claims.json'))
             profile = auth['headroom']['storage_profile']
             self.assertEqual([], guard.capture_problems(command, auth, self.root, self.root, free_gib=16))
             self.assertTrue(guard.consume(self.root, command))

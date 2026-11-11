@@ -229,7 +229,9 @@ class RuntimeTests(unittest.TestCase):
         data, _ = self.code_data()
         del data['date']  # Legacy packet shape; the real controller still decides the edition.
         state = self.root / 'run_state.json'; state.write_text('{"run_id":"2026-10-20"}')
-        data['instructions'] = 'Review both complete current films independently.'
+        data['instructions'] = 'Review both complete current films independently.' + runtime.CONDITIONAL_RECOVERY_NOTE
+        data['conditional_recovery'] = {'schema':'fixture-code-only-pivot'}
+        data['code_report_bindings'] = {'schema':'fixture-code-only-bindings'}
         packet = self.root / 'phone-source.json'; packet.write_text(json.dumps(data))
         rows = []
         for option in ('a', 'b'):
@@ -241,6 +243,9 @@ class RuntimeTests(unittest.TestCase):
                 patch.object(runtime, 'image_reading'):
             result = runtime.phone_packet(packet, state, ['a', 'b'])
             self.assertEqual('2026-10-20', result['date'])
+            self.assertNotIn('code_report_bindings', result)
+            self.assertNotIn('conditional_recovery', result)
+            self.assertNotIn('conditional_recovery', result['instructions'])
             self.assertEqual(runtime.phone_decision_scope(), result['phone_decision_scope'])
             self.assertIn('director repair promises cannot add hard requirements', result['instructions'])
             self.assertNotRegex(json.dumps(result['phone_decision_scope']), r'"(?:verdict|score|pass)"')

@@ -99,6 +99,67 @@ def opening_output_precheck(package, retained=()):
                          'a changed batch; no capture charged')
 
 
+def animatic_precheck(root, board, claims):
+    """Run the frozen animatic operator's free gates before a prepared charge.
+
+    Keep the historical inspector bytes intact: it repeats these gates at execution,
+    while prepared admission must not spend before discovering the same red gate.
+    This checks existing evidence only and cannot create an independent verdict.
+    """
+    import subprocess
+    import sys
+    from engine_lint import check_files
+    from super_evidence_check import check as check_supers
+    from daily_production import pre_voice_problems
+    import documentary_check
+    import critic_gate
+    root, board, claims = Path(root), Path(board), Path(claims)
+    data = json.loads(board.read_text())
+    errors = documentary_check.check(data)
+    if errors:
+        raise ValueError('documentary checks failed; no capture charged: ' + '; '.join(errors))
+    errors = critic_gate.check(board, board.with_name('storyboard_critic.json'))
+    if errors:
+        raise ValueError('independent critique failed; no capture charged: ' + '; '.join(errors))
+    check = subprocess.run([sys.executable, str(root / 'scripts/storyboard_check.py'),
+                            '--board', str(board)], cwd=root)
+    if check.returncode:
+        raise ValueError('storyboard gate is red; no capture charged')
+    if not claims.is_file():
+        raise ValueError('source claims are required before preview reservation; no capture charged')
+    errors = check_files(root / 'video-engine/src')
+    errors += check_supers(data, json.loads(claims.read_text()))[0]
+    errors += pre_voice_problems(board, claims)
+    if errors:
+        raise ValueError('pre-render product checks failed; no capture charged: ' + '; '.join(errors))
+    media = subprocess.run([sys.executable, str(root / 'scripts/generated_media.py'),
+                            '--board', str(board), '--verify'], cwd=root)
+    if media.returncode:
+        raise ValueError('a requested generated plate is missing or stale; no capture charged')
+    command = ['node', str(root / 'video-engine/tests/caption_board_fit.mjs'), '--board', str(board)]
+    if not data.get('captions') and not any(data.get(key) for key in ('caption_method', 'retimed_to', 'retime_evidence')):
+        command.append('--early-muted-animatic')
+    if subprocess.run(command, cwd=root / 'video-engine').returncode:
+        raise ValueError('exact board captions or credits overflow the readable phone area; no capture charged')
+
+
+def cinema_precheck(board, mix):
+    """Reuse the hero builder's read-only prerequisites, preserving its pinned bytes."""
+    from cinema_proof import current_bindings, plan_problems, read
+    board, mix = Path(board).resolve(), Path(mix).resolve()
+    data = read(board)
+    current_bindings(board, mix)
+    errors = plan_problems(data)
+    if errors or not data.get('cinema'):
+        raise ValueError('cinema plan failed; no capture charged: ' +
+                         ('; '.join(errors) or 'a current cinema plan is required'))
+    if str(data.get('date') or '') >= '2026-09-25':
+        from review_context import phone_problems
+        errors = phone_problems(board)
+        if errors:
+            raise ValueError('phone visual review is not current; no capture charged: ' + '; '.join(errors))
+
+
 def prepare(root, state_path, commands, resource=None):
     import run_controller as controller
     from capture_guard import event_digest
@@ -120,6 +181,8 @@ def prepare(root, state_path, commands, resource=None):
             continue
         expected = {'state': state_path, 'board': root / 'out/dispatch/storyboard.json',
                     'mix': root / 'out/dispatch/mix.wav', 'film': root / 'out/dispatch/film.mp4'}
+        if note == OPERATIONS['preflight_animatic.py']:
+            expected.update(film=root / 'out/dispatch/preflight.mp4', claims=root / 'out/dispatch/claims.json')
         if note == OPERATIONS['opening_compare.py']:
             expected = {'state': state_path, 'root': root / 'out/dispatch'}
             # The inspection-only lane never buys a new render. Require the two literal
@@ -190,6 +253,10 @@ def prepare(root, state_path, commands, resource=None):
         if problems:
             raise ValueError('full-render music package: ' + '; '.join(problems))
         input_identity(state_path, note)
+    if note == OPERATIONS['preflight_animatic.py']:
+        animatic_precheck(root, root / 'out/dispatch/storyboard.json', root / 'out/dispatch/claims.json')
+    elif note == OPERATIONS['cinema_proof.py']:
+        cinema_precheck(root / 'out/dispatch/storyboard.json', root / 'out/dispatch/mix.wav')
     prepare_options = {'_prepare_full': True} if note == FULL_OPERATION else {}
     accepted, message = controller.reserve(state_path, {owned_resource: 1}, note,
                                            _use_prepared_capture=False, **prepare_options)

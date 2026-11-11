@@ -56,6 +56,200 @@ def fixture_review(board, claims):
         "weakest_transition": "Fixture-only inspection of the weakest cut between two scenes."}}
 
 
+class RetainedNativeCriticPacketTest(unittest.TestCase):
+    def test_exact_retained_packet_keeps_every_field_and_bound_code_identity_below_12k(self):
+        import hashlib
+        import agent_runtime
+        import claude_runtime
+        fixture = json.loads((Path(__file__).parent / 'fixtures/native_critic_packet_2026_11_10.json').read_text())
+        raw = fixture['original_packet_text']
+        self.assertEqual(9123, len(raw))
+        self.assertEqual(fixture['original_packet_sha256'], hashlib.sha256(raw.encode()).hexdigest())
+        original = json.loads(raw)
+        with patch.object(agent_runtime, 'REPO', Path(original['repo_root'])):
+            data = agent_runtime.expand_packet_bindings(original)
+            prior = copy.deepcopy(data)
+            data['code_report_bindings'] = fixture['code_report_bindings']
+            data['capture'] = claude_runtime.CAPTURE_DENIED
+            encoded = d.packet_text(data)
+            self.assertGreater(len(encoded), 10000)
+            self.assertLessEqual(len(encoded), d.handoff_limit(data['date'], False, True))
+            expanded = agent_runtime.expand_packet_bindings(json.loads(encoded))
+        self.assertEqual(data, expanded)
+        self.assertEqual(prior, {key:expanded[key] for key in prior})
+        self.assertEqual(['a', 'b'], [row['id'] for row in expanded['code_report_bindings']['treatments']])
+        self.assertEqual(prior['treatments'], [row['board'] for row in expanded['code_report_bindings']['treatments']])
+        self.assertFalse(expanded['selected_treatment']['approval'])
+        self.assertEqual('b', expanded['selected_treatment']['selected'])
+
+    def test_only_current_native_code_critic_gets_the_existing_12k_scorer_allowance(self):
+        self.assertEqual(10000, d.policy()['handoff_max_chars'])
+        self.assertEqual(10000, d.handoff_limit('2026-10-19', False, True))
+        self.assertEqual(10000, d.handoff_limit('2026-11-10', False))
+        self.assertEqual(12000, d.handoff_limit('2026-11-10', False, True))
+        self.assertEqual(12000, d.handoff_limit('2026-11-10', True))
+
+
+class NativeCriticPacketTest(unittest.TestCase):
+    """The documented generator must produce a plan-ready packet without paid work."""
+    def setUp(self):
+        import agent_runtime
+        import claude_runtime
+        self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name) / ('retained-selected-b-' * 3)
+        self.root.mkdir()
+        self.board = self.root / 'storyboard.json'
+        self.claims = self.root / 'claims.json'; self.claims.write_text('{"claims":[]}')
+        self.state = self.root / 'run_state.json'
+        self.state.write_text(json.dumps({'run_id':'2026-10-26', 'mode':'production', 'phase':'active_repair',
+                                         'usage':{'storyboard_critics':1}, 'events':[]}))
+        self.source = self.root / 'Film.tsx'; self.source.write_text('export const Film = 1;')
+        self.inputs = [{'path': self.source.name, 'sha256':d.digest(self.source)}]
+        for option in ('a', 'b'):
+            from narration_planning_test import board_for
+            value = board_for(['The cameras record patient entry.'], '2026-10-26')
+            value.update(story_art={'version':'authored-story-art-v1'},
+                         creative_direction={'medium_choice':'explanatory animation'})
+            value['film_direction'].update(variant=option, episode='fixture', renderer_inputs=self.inputs)
+            (self.root / ('opening-' + option + '.json')).write_text(json.dumps(value))
+        self.board.write_bytes((self.root / 'opening-b.json').read_bytes())
+        self.assets = [agent_runtime.bound(self.source), agent_runtime.bound(self.claims)]
+        self.proof = {'run_id':'2026-10-26', 'selected':'b', 'approval':False}
+        # A real isolated guide tree keeps compact relative bindings meaningful.
+        import shutil
+        for ref in claude_runtime.contracts('storyboard-critic'):
+            original = Path(ref['path']); target = self.root / original.relative_to(d.REPO)
+            target.parent.mkdir(parents=True, exist_ok=True); shutil.copyfile(original, target)
+        for original in d.craft_reading_paths(value):
+            target = self.root / original.relative_to(d.REPO)
+            target.parent.mkdir(parents=True, exist_ok=True); shutil.copyfile(original, target)
+        for mocked in (patch.object(agent_runtime, 'REPO', self.root),
+                       patch.object(claude_runtime, 'REPO', self.root),
+                       patch.object(d, 'REPO', self.root),
+                       patch.object(critic_gate, 'REPO', self.root),
+                       patch.object(critic_gate, 'renderer_files', return_value=[self.source]),
+                       patch('modern_film.renderer_inputs', return_value=self.inputs),
+                       patch('render_manifest.native_media_paths', return_value=[]),
+                       patch('retime_feasibility.problems', return_value=[]),
+                       patch.object(agent_runtime, 'treatment_assets', return_value=self.assets),
+                       patch('selected_treatment.selection_proof', return_value=self.proof)):
+            mocked.start(); self.addCleanup(mocked.stop)
+        self.runtime = claude_runtime
+
+    def generate(self):
+        packet = self.root / 'critic-packet.json'
+        args = ['daily_production.py', '--board', str(self.board), '--claims', str(self.claims),
+                '--state', str(self.state), '--packet', 'storyboard-critic', '--out', str(packet)]
+        with patch('sys.argv', args):
+            self.assertEqual(0, d.main())
+        return packet
+
+    def plan(self, path):
+        return self.runtime.plan('storyboard-critic', path, 'repaired_code',
+                                 'Independently review both current code treatments; selected B correction scope.')
+
+    def test_supported_cli_to_plan_preserves_selected_scope_sources_and_ledger(self):
+        before = {path:path.read_bytes() for path in self.root.rglob('*') if path.is_file()}
+        path = self.generate(); data = self.runtime.read(path)
+        self.assertEqual(self.runtime.code_report_bindings(data), data['code_report_bindings'])
+        self.assertEqual('b', data['selected_treatment']['selected'])
+        self.assertFalse(data['selected_treatment']['approval'])
+        self.assertEqual(['a', 'b'], [r['id'] for r in data['code_report_bindings']['treatments']])
+        self.assertEqual(self.runtime.contracts('storyboard-critic'), data['agent_contracts'])
+        self.assertLessEqual(len(path.read_text()), d.handoff_limit(data['date'], False, True))
+        plan = self.plan(path)
+        self.assertEqual('claude-opus-5-5', plan['assignment']['model'])
+        self.assertIn('packet_sha256', plan['agent_args']['prompt'])
+        self.assertNotRegex(json.dumps(data['code_report_bindings']), r'"(?:verdict|score|pass)"')
+        self.assertEqual(before, {p:p.read_bytes() for p in before})
+
+    def test_full_third_code_recovery_contract_is_kept_or_fails_closed_at_the_same_cap(self):
+        import review_recovery_packet
+        third = self.root / 'third-code-review'
+        package = third / 'out/dispatch'; package.mkdir(parents=True)
+        source = third / 'video-engine/src/Film.tsx'; source.parent.mkdir(parents=True)
+        source.write_bytes(self.source.read_bytes())
+        for name in ('storyboard.json', 'opening-a.json', 'opening-b.json'):
+            board = json.loads((self.root / name).read_text())
+            board['story_contract'] = {'director_identity':'fixture-director'}
+            (package / name).write_text(json.dumps(board))
+        (package / 'claims.json').write_bytes(self.claims.read_bytes())
+        state = {'run_id':'2026-10-26', 'mode':'production', 'phase':'active_repair',
+                 'usage':{'storyboard_critics':2}, 'events':[]}
+        for n in range(2):
+            failure = package / ('original-failure-' + str(n) + '.json')
+            failure.write_text(json.dumps({'verdict':'revise', 'fixture_attempt':n}))
+            state['events'] += [
+                {'kind':'repair_authorized', 'repair_plan':{'failure_evidence':str(failure),
+                    'failure_evidence_sha256':d.digest(failure)}},
+                {'kind':'repair_started', 'failure_sha256':d.digest(failure),
+                 'mechanism_id':'fixture-original-mechanism', 'failure_family':'fixture-family'}]
+        state_path = package / 'run_state.json'; state_path.write_text(json.dumps(state))
+        before = state_path.read_bytes()
+        with patch.object(critic_gate, 'renderer_files', return_value=[source]):
+            # Measure a real generated conditional contract, not a shortened mock, without
+            # changing the actual admission rule used by the call below.
+            with patch.object(d, 'handoff_limit', return_value=100000):
+                complete = d.packet(package/'storyboard.json', package/'claims.json',
+                                    'storyboard-critic', state_path)
+            self.assertEqual(review_recovery_packet.recovery_requirements(state_path, complete),
+                             complete['conditional_recovery'])
+            self.assertEqual(2, len(complete['conditional_recovery']['prior_failures']))
+            if len(d.packet_text(complete)) > 12000:
+                with self.assertRaisesRegex(ValueError, 'compact packet limit'):
+                    d.packet(package/'storyboard.json', package/'claims.json', 'storyboard-critic', state_path)
+            else:
+                self.assertEqual(complete, d.packet(package/'storyboard.json', package/'claims.json',
+                                                   'storyboard-critic', state_path))
+        self.assertEqual(before, state_path.read_bytes())
+
+    def test_oversized_conditional_recovery_fails_closed_without_dropping_inputs_or_charging(self):
+        before = self.state.read_bytes()
+        request = {'schema':'fixture-conditional-recovery', 'prior_failures':['original evidence '*1000]}
+        with patch('review_recovery_packet.recovery_requirements', return_value=request):
+            with self.assertRaisesRegex(ValueError, 'compact packet limit'):
+                d.packet(self.board, self.claims, 'storyboard-critic', self.state)
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_explicit_codex_recovery_never_adopts_the_claude_finalizer(self):
+        owner = {'runtime':'codex', 'run_id':'2026-10-26', 'owner_sha256':'a'*64, 'epoch':'fixture'}
+        with patch('publication_owner.require_owner', return_value=owner), \
+                patch('agent_runtime.contracts', return_value=self.runtime.contracts('storyboard-critic')), \
+                patch.object(self.runtime, 'adapt_packet', side_effect=AssertionError('wrong runtime')):
+            data = d.packet(self.board, self.claims, 'storyboard-critic', self.state, 'codex')
+        self.assertEqual('codex', data['local_recovery']['runtime'])
+        self.assertFalse(data['agent_assignment']['model'].startswith('claude-'))
+        self.assertNotIn('code_report_bindings', data)
+
+    def test_changed_source_claim_board_or_scope_still_refuses_before_any_charge(self):
+        path = self.generate(); before = self.state.read_bytes()
+        for target in (self.source, self.claims, self.root/'opening-a.json', self.board):
+            original = target.read_bytes()
+            with self.subTest(target=target.name):
+                target.write_bytes(original + b'\n')
+                with self.assertRaises(ValueError):
+                    self.plan(path)
+                target.write_bytes(original)
+                self.assertEqual(before, self.state.read_bytes())
+        data = self.runtime.read(path); data['selected_treatment']['selected'] = 'a'
+        path.write_text(d.packet_text(data))
+        with self.assertRaisesRegex(ValueError, 'selected-treatment scope'):
+            self.plan(path)
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_conditional_recovery_is_finalized_after_verified_selection(self):
+        seen = []
+        def recovery(state, data, **kwargs):
+            seen.append(data['selected_treatment']['selected'])
+            return {'schema':'fixture-conditional-recovery', 'approval':False}
+        with patch('review_recovery_packet.recovery_requirements', side_effect=recovery):
+            path = self.generate(); data = self.runtime.read(path)
+            self.assertIn('conditional_recovery', data)
+            self.assertLessEqual(len(path.read_text()), 12000)
+            self.plan(path)
+        self.assertEqual(['b', 'b'], seen)
+
+
 class DailyTest(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
