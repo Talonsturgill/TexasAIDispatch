@@ -72,6 +72,14 @@
       "note": "exact-phone-b motion-image review extraction",
       "resource": "preflight_renders",
       "to": 6
+    },
+    {
+      "at": "2026-11-11T17:51:16.121441Z",
+      "ceiling": 10,
+      "from": 4,
+      "note": "corrective reboard for selected treatment B shared finish repair",
+      "resource": "reboards",
+      "to": 5
     }
   ],
   "events": [
@@ -707,6 +715,27 @@
       "plan_sha256": "cd9737b74682ed9f6b021c0ecccac461595901febe0c74bb0ec9a2b157d8fa47",
       "progress_replacement_required": false,
       "repair_scope": "standard"
+    },
+    {
+      "at": "2026-11-11T17:51:16.121462Z",
+      "ceiling": 10,
+      "kind": "budget_escalated",
+      "note": "corrective reboard for selected treatment B shared finish repair",
+      "now": 5,
+      "resource": "reboards",
+      "was": 4
+    },
+    {
+      "at": "2026-11-11T17:51:16.814581Z",
+      "completion_progress_policy": "2026-10-20",
+      "kind": "reserved",
+      "note": "corrective reboard for selected treatment B shared finish repair",
+      "preflight_identity": null,
+      "publication_epoch": "7509af5e7b454ac592b0f4c44e65b060",
+      "publication_owner_sha256": "eb8f9e74761353476617240f38af3049743255e31c72769490918fdd7097843e",
+      "resources": {
+        "reboards": 1
+      }
     }
   ],
   "limits": {
@@ -716,7 +745,7 @@
     "image_generations": 2,
     "panel_rounds": 1,
     "preflight_renders": 6,
-    "reboards": 4,
+    "reboards": 5,
     "reported_tokens": 250000,
     "rescue_renders": 1,
     "research_agents": 3,
@@ -730,7 +759,7 @@
   "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "0086436405ff16b7cff09b8e2b6bcf0fddeddee44347c1c3ab1e299d5d2de596",
+    "original_private_state_sha256": "3910d8f3239a92fe95c3c3ae8ae0ac91b59947ca984fddad65bcd9df26d1cb03",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -758,7 +787,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-11T17:50:53.792272Z",
+  "updated_at": "2026-11-11T17:51:16.814598Z",
   "usage": {
     "audiovisual_reviews": 3,
     "cleanup_renders": 0,
@@ -766,7 +795,7 @@
     "image_generations": 0,
     "panel_rounds": 0,
     "preflight_renders": 6,
-    "reboards": 4,
+    "reboards": 5,
     "reported_tokens": 64,
     "rescue_renders": 0,
     "research_agents": 2,
