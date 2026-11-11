@@ -1,4 +1,4 @@
-"""Provision CI FFmpeg from signed official Ubuntu repositories, with bounded downloads."""
+"""Provision verified CI FFmpeg from a complete conda lock or signed Ubuntu archives."""
 import argparse
 import json
 import os
@@ -26,9 +26,9 @@ def run(command, **kwargs):
     return result
 
 
-def smoke(directory):
+def smoke(directory, binaries=None):
     """Check the real encoder and decoder, not just two executable filenames."""
-    encoder, probe = shutil.which('ffmpeg'), shutil.which('ffprobe')
+    encoder, probe = binaries or (shutil.which('ffmpeg'), shutil.which('ffprobe'))
     if not encoder or not probe:
         return False
     film = Path(directory) / 'ffmpeg-smoke.mp4'
@@ -120,7 +120,10 @@ def install(directory):
     raise ValueError('both official Ubuntu mirrors failed their bounded metadata/download phases')
 
 
-def ensure():
+def ensure(conda_lock=None):
+    if conda_lock is not None:
+        from ci_conda_ffmpeg import install_locked
+        return install_locked(conda_lock)
     # No global apt sources, keys, TLS policy or cache are rewritten. This owned
     # temporary tree may contain root-owned apt files after an attempted install.
     directory = Path(tempfile.mkdtemp(prefix='dispatch-ffmpeg-', dir=os.environ.get('RUNNER_TEMP')))
@@ -149,9 +152,10 @@ def ensure():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--ensure', action='store_true', required=True)
-    parser.parse_args()
+    parser.add_argument('--conda-lock', type=Path, help='use this complete SHA256-locked isolated CI toolchain')
+    args = parser.parse_args()
     try:
-        ensure()
+        ensure(args.conda_lock)
         return 0
     except (OSError, ValueError, subprocess.SubprocessError) as exc:
         print('FAIL FFmpeg provisioning: ' + str(exc), flush=True)

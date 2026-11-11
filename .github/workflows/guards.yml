@@ -53,7 +53,8 @@ jobs:
       - name: Verify decoder availability
         run: |
           bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg_test.py
-          bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg.py --ensure
+          bash scripts/run_with_env.sh python3 scripts/ci_conda_ffmpeg_test.py
+          bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg.py --ensure --conda-lock config/ci_ffmpeg_linux64.explicit.txt
       - name: Bounded native PNG equivalence
         timeout-minutes: 20
         run: |
@@ -81,6 +82,7 @@ jobs:
             ${{ runner.temp }}/dispatch-bounded-proof/equivalence.json
             ${{ runner.temp }}/dispatch-bounded-proof/*.bounded-png.json
             ${{ runner.temp }}/dispatch-phone-storage-proof/exercise.json
+            ${{ runner.temp }}/dispatch-conda-media-*/media-tooling.json
 
 
   capture:
@@ -110,7 +112,7 @@ jobs:
         with:
           node-version: '22'
       - name: Provision capture media tooling
-        run: bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg.py --ensure
+        run: bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg.py --ensure --conda-lock config/ci_ffmpeg_linux64.explicit.txt
       - name: Provision finite capture Python dependencies
         timeout-minutes: 18
         run: pip install --quiet -r requirements.txt
@@ -165,10 +167,10 @@ jobs:
           node-version: "22"
 
       - name: Install media tooling
-        # Metadata and package downloads have separate finite bounds. The shared
-        # installer never puts a timer around the offline dpkg installation phase.
+        # Use only SHA256-locked conda-forge media tools. Host Python, Remotion,
+        # browser libraries and global package sources remain unchanged.
         run: |
-          bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg.py --ensure
+          bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg.py --ensure --conda-lock config/ci_ffmpeg_linux64.explicit.txt
 
       - name: Install dependencies
         run: |

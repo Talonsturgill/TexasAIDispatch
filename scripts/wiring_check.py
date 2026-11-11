@@ -46,6 +46,7 @@ REPO = Path(__file__).resolve().parents[1]
 # Scripts that are legitimately run by a person and not by a routine. Each needs a reason,
 # because "it is standalone" is what an orphan says about itself.
 STANDALONE = {
+    "ci_conda_ffmpeg.py": "Library called by ci_ffmpeg --conda-lock in all three CI media provisioning steps. ci_conda_ffmpeg_test verifies complete SHA256 locks, installed closure, capability refusal and isolated tool exposure; no independent production or daily caller.",
     "motion_review_operations.py": "Dependency-free operation names imported by capture_reservation admission and claude_motion_review extraction. Reservation regressions enforce guard import isolation and v3 phone source binding.",
     "validation_findings.py": "Shared schema library imported by repair_guard, validation_check and validation_completion on real retained reviewer evidence. It has no standalone CLI. validator_capacity_test exercises structured and legacy findings, malformed rejection and exact-byte preservation.",
     "upload_post_state.py": "Library imported by upload_post_rest for real cross-container social intent claims, receipt persistence and state initialization. It has no standalone CLI. The daily Claude prompt runs upload_post_state_test against real temporary bare Git remotes to verify CAS races, ambiguous outcomes, remote binding and production isolation before social delivery.",
