@@ -613,6 +613,54 @@
       "resources": {
         "storyboard_critics": 1
       }
+    },
+    {
+      "at": "2026-11-11T17:49:21.825894+00:00",
+      "kind": "selected_treatment_completion_adopted",
+      "proof": {
+        "approval": false,
+        "claims_sha256": "a784d11719b25fc9d29a6b435bd21955e81efe287d60514669df0d6b3b78cb37",
+        "comparison": {
+          "path": "{REPO}/out/dispatch/openings/comparison.json",
+          "sha256": "90fa4fce57be7f241003b19bafe7ea4702a5102ccbd46d72fdd6d6dccd216433"
+        },
+        "evidence_graph_sha256": "878a45a506d65178073dc092e7dd342c2061794e05ccce78bf6c94e09c0eb283",
+        "image_coverage": {
+          "path": "{REPO}/out/dispatch/phone-coverage.json",
+          "sha256": "f0c61d1d79aee067a35899cbc1fec324e56dbaaf0688fa3e345d1cc2941afc2b"
+        },
+        "narration_sha256": "5ba0eb42e592498abf5b59db3961b65c1cdf20ab25712b203e3051ed162d3d1a",
+        "original_claim": {
+          "path": "{REPO}/out/dispatch/worker-dispatch-claims/3085066536d8c66df8b2fe527f718c2a74e0177feb9b25abb39b6270a06b4b0f-storyboard-critic.json",
+          "sha256": "cbb04240ce2d5dccc637bdbbf3bb447a754d0ed7a5e2468773f0729d2cf37deb"
+        },
+        "original_code_claim": {
+          "path": "{REPO}/out/dispatch/worker-dispatch-claims/3085066536d8c66df8b2fe527f718c2a74e0177feb9b25abb39b6270a06b4b0f-storyboard-critic.json",
+          "sha256": "cbb04240ce2d5dccc637bdbbf3bb447a754d0ed7a5e2468773f0729d2cf37deb"
+        },
+        "original_code_packet": {
+          "path": "{REPO}/out/dispatch/phone-critic-packet.json",
+          "sha256": "eac181a9165544348cf4741204c2dba0204c92d91408c89db1b5a5f4f0303854"
+        },
+        "original_code_review": {
+          "path": "{REPO}/out/dispatch/native-critic-completions/eac181a9165544348cf4741204c2dba0204c92d91408c89db1b5a5f4f0303854-a49e3f2366a03f9c9963665acd3e1b8110e24445306044a018ebcbfe8daa1b9f.json",
+          "sha256": "f6630e3df95c607d6873d0f1bd771a010fadfb2d3e110f791102cc14fdc6995a"
+        },
+        "original_packet": {
+          "path": "{REPO}/out/dispatch/phone-critic-packet.json",
+          "sha256": "eac181a9165544348cf4741204c2dba0204c92d91408c89db1b5a5f4f0303854"
+        },
+        "original_review": {
+          "path": "{REPO}/out/dispatch/native-critic-completions/eac181a9165544348cf4741204c2dba0204c92d91408c89db1b5a5f4f0303854-a49e3f2366a03f9c9963665acd3e1b8110e24445306044a018ebcbfe8daa1b9f.json",
+          "sha256": "f6630e3df95c607d6873d0f1bd771a010fadfb2d3e110f791102cc14fdc6995a"
+        },
+        "original_review_event_index": 46,
+        "policy_sha256": "bb3e56ef31fa9c39280a16cf10c356b6a5d5e7c661dd64bb29e598aaf6450820",
+        "reservation_events_sha256": "3582fbea76cdbe303eb9f3abe064e35953d4050751b64ebaa6b64d8af21bcd9e",
+        "run_id": "2026-11-10",
+        "schema": "dispatch_selected_treatment_completion/1",
+        "selected": "b"
+      }
     }
   ],
   "limits": {
@@ -636,7 +684,7 @@
   "phase": "picture",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "4aa976e8495203b086f96038e576699426e4f10e26d0a6ee2b39ef5024215f7a",
+    "original_private_state_sha256": "a5cb0a50bf95a5a01567f7f68bc2f9f9a6367af37163deff8f148b14aef49792",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
