@@ -1,4 +1,19 @@
 {
+  "active_repair": {
+    "baselines": [
+      {
+        "before_path": "{REPO}/out/dispatch/repair-1/baseline/ClinicRecordSupport.tsx",
+        "before_sha256": "7c42f7fc070d8bfd02e8256ba14e9e2f1439811eefee9877c01fd9351cc01c42",
+        "path": "{REPO}/video-engine/src/modern/episodes/2026-11-10/ClinicRecordSupport.tsx"
+      }
+    ],
+    "failure_sha256": "2b41a66be86204a1789661324692126f8208e061f01bfed335e83a4178367ead",
+    "plan": "{REPO}/out/dispatch/repair-plan.json",
+    "plan_sha256": "cd9737b74682ed9f6b021c0ecccac461595901febe0c74bb0ec9a2b157d8fa47",
+    "progress_replacement_required": false,
+    "reboards_before": 4,
+    "repair_scope": "standard"
+  },
   "created_at": "2026-11-10T13:38:49.855002Z",
   "escalation_ceiling": {
     "audiovisual_reviews": 43,
@@ -661,6 +676,37 @@
         "schema": "dispatch_selected_treatment_completion/1",
         "selected": "b"
       }
+    },
+    {
+      "at": "2026-11-11T17:50:53.792238Z",
+      "authorization": "diagnosed repair within recorded run envelope",
+      "baselines": [
+        {
+          "before_path": "{REPO}/out/dispatch/repair-1/baseline/ClinicRecordSupport.tsx",
+          "before_sha256": "7c42f7fc070d8bfd02e8256ba14e9e2f1439811eefee9877c01fd9351cc01c42",
+          "path": "{REPO}/video-engine/src/modern/episodes/2026-11-10/ClinicRecordSupport.tsx"
+        }
+      ],
+      "director_identity": "claude-sonnet-5-5 director",
+      "failure_family": "source-framing",
+      "failure_sha256": "2b41a66be86204a1789661324692126f8208e061f01bfed335e83a4178367ead",
+      "frozen_inputs": null,
+      "grants": {
+        "reboards": {
+          "from": 10,
+          "to": 10
+        },
+        "storyboard_critics": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "kind": "repair_started",
+      "mechanism_id": "clinic-record-support-shared-finish",
+      "plan_identity": null,
+      "plan_sha256": "cd9737b74682ed9f6b021c0ecccac461595901febe0c74bb0ec9a2b157d8fa47",
+      "progress_replacement_required": false,
+      "repair_scope": "standard"
     }
   ],
   "limits": {
@@ -681,10 +727,10 @@
     "voice_directors": 1
   },
   "mode": "production",
-  "phase": "picture",
+  "phase": "active_repair",
   "public_export": {
     "description": "Derived public account. Usage, frozen envelope, increments and verdicts are unchanged. Private owner message fields are represented by digests and an operator attestation.",
-    "original_private_state_sha256": "a5cb0a50bf95a5a01567f7f68bc2f9f9a6367af37163deff8f148b14aef49792",
+    "original_private_state_sha256": "0086436405ff16b7cff09b8e2b6bcf0fddeddee44347c1c3ab1e299d5d2de596",
     "owner_message_redactions": [],
     "schema": "dispatch_public_ledger/1"
   },
@@ -712,7 +758,7 @@
   "schema": "dispatch_run_state/1",
   "terminal_reason": null,
   "terminal_state": null,
-  "updated_at": "2026-11-11T17:15:24.482160Z",
+  "updated_at": "2026-11-11T17:50:53.792272Z",
   "usage": {
     "audiovisual_reviews": 3,
     "cleanup_renders": 0,

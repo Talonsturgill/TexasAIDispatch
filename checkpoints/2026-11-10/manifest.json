@@ -1,9 +1,9 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-11T17:49:22.938436+00:00",
+  "saved_at": "2026-11-11T17:50:55.458255+00:00",
   "note": "ledger write",
-  "phase": "picture",
+  "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
   "created_at": "2026-11-10T13:38:49.855002Z",
@@ -16,8 +16,8 @@
     "sha256": "b0c77866d08dd64e89a33a3ca41be572989ce3d1d8a98477196eccff6aa67fba"
   },
   "deleted_source": [],
-  "ledger_sha256": "ad807bcbb6d338875ba3abb3d97d540d02e4bc3cd68fa9b89b9da3d5669d9d2d",
-  "original_private_ledger_sha256": "a5cb0a50bf95a5a01567f7f68bc2f9f9a6367af37163deff8f148b14aef49792",
+  "ledger_sha256": "9c06ba0a9a87c816e15671d5de77ac443886e93035ae56042dd88b92635953c1",
+  "original_private_ledger_sha256": "0086436405ff16b7cff09b8e2b6bcf0fddeddee44347c1c3ab1e299d5d2de596",
   "grant_origin_roots": [],
   "usage": {
     "audiovisual_reviews": 3,
@@ -7940,6 +7940,24 @@
       "size": 248
     },
     {
+      "path": "out/dispatch/repair-1/baseline/ClinicRecordSupport.tsx",
+      "class": "scratch",
+      "sha256": "7c42f7fc070d8bfd02e8256ba14e9e2f1439811eefee9877c01fd9351cc01c42",
+      "size": 27950
+    },
+    {
+      "path": "out/dispatch/repair-1/evidence/critic-attempt-1-original-response.json",
+      "class": "scratch",
+      "sha256": "2b41a66be86204a1789661324692126f8208e061f01bfed335e83a4178367ead",
+      "size": 31917
+    },
+    {
+      "path": "out/dispatch/repair-plan.json",
+      "class": "scratch",
+      "sha256": "cd9737b74682ed9f6b021c0ecccac461595901febe0c74bb0ec9a2b157d8fa47",
+      "size": 2406
+    },
+    {
       "path": "out/dispatch/research.json",
       "class": "scratch",
       "sha256": "8d9f1c0cba22ab898546ef72ecc2cf8e064b279eebc10c3b845692bb0e98d523",
@@ -9729,9 +9747,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 93673392,
-    "unique_blob_bytes": 87866773,
-    "unique_blobs": 1202
+    "logical_bytes": 93735665,
+    "unique_blob_bytes": 87901096,
+    "unique_blobs": 1204
   },
   "excluded": [
     {
