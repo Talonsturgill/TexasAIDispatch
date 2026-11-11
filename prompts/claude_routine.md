@@ -665,6 +665,11 @@ does not require echoing all original observations back into the primary context
 
 ## Fresh authored picture lane
 
+Before new picture planning, follow the optional weekly presentation feedback step in
+`prompts/phases/02-picture.md`. Pass its sanitized action to the director and relevant existing
+worker only; archive the actual adoption decision there as specified. It never changes frozen
+production, worker routing, resource reservations, quality gates or distribution.
+
 Follow Alaska's strongest production methods in `Talonsturgill/alaska-ai-weekly`: recognizable
 story-specific cast and equipment, motivated depth, physical actions and consequences, sound
 connected to the picture, varied useful framing, early earned changes and a performed ending.
