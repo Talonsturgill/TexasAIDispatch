@@ -2,18 +2,14 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "f6a22107e1afd693e9bde950c4c25944f7975394b750fa74355738372b14e5b0",
+    "event_sha256": "c9f1353254b2e3b2bdffd17a4c6dd58589baa35da88b93ccfe509263cdf87f31",
     "resource": "preflight_renders",
-    "at": "2026-11-11T22:51:44.464212Z",
-    "note": "two opening comparison batch"
+    "at": "2026-11-11T23:48:15.742249Z",
+    "note": "quarter-scale animatic"
   },
   "boards": [
     {
-      "path": "out/dispatch/opening-a.json",
-      "sha256": "78aeda89df5bb5506ebc5c5158ebd7c4d4ee6503d030c15782063810e1c47eb6"
-    },
-    {
-      "path": "out/dispatch/opening-b.json",
+      "path": "out/dispatch/storyboard.json",
       "sha256": "6c64f4a61f714bc3d5e13025060256c6f0be0f714bd88c467220e57831851cd1"
     }
   ],
@@ -208,26 +204,37 @@
       "scripts/documentary_check.py": "e1dd97bdb6aebd83bfb33183d54d502fdf1e15d36725751cf305c3a9ad9f23e4",
       "config/feed_layout.json": "4d411e26e09b3eb022af214fac975c4efe55b5297b5121dc65dca1f1b716625d",
       "config/bounded_png_capture_v1.json": "ab43715f795ed358d27dff1761ee1d489fc893ba7ab055d85f5373141d188124",
-      "config/bounded_png_capture_proof_v1.json": "e440045f66bd3742111eacd3dbba20274e6300e3acd683e4de87f4e460d7c851"
+      "config/bounded_png_capture_proof_v1.json": "9a15e97c0d43332128e07e61ab392563dbfed825a12e50499424d5f75d466e50"
     }
   },
   "commands": [
     {
-      "id": "e8dbad39d8cba18706c0403b0f0085e5023036cf4527f755511e4de954c6a5dd",
-      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json",
-      "consumed": "2026-11-11T22:51:55.144550+00:00"
+      "id": "492b8b700cac821910ea921ffcdb96a53e371b8ec40eed993430a0b11c93bf66",
+      "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json",
+      "consumed": false
     }
   ],
   "headroom": {
     "passed": true,
-    "required_free_gib": 14,
-    "free_gib": 15.894,
+    "required_free_gib": 13,
+    "free_gib": 15.836,
     "storage_profile": {
-      "mode": "bounded-png-v1",
-      "operator": "opening_compare.py",
-      "max_frames": 60,
-      "required_free_gib": 14,
+      "mode": "operation-storage-v1",
+      "operator": "preflight_animatic.py",
+      "dimensions": [
+        270,
+        480
+      ],
+      "frames": 1778,
+      "working_bytes": 566231040,
+      "new_retained_bytes": 153172176,
+      "bundle_copy_bytes": 189505536,
+      "git_object_allowance_bytes": 4294967296,
+      "checkpoint_package_allowance_bytes": 335544320,
+      "checkpoint_work_bytes": 7650410496,
       "reserve_gib": 5,
+      "required_free_gib": 13,
+      "estimate_kind": "measured-operation-cost-not-universal-hard-cap",
       "bindings": {
         "video-engine/scripts/bounded-png-render.mjs": "fb4abd86b1cb50a1ce69eb08d253431ffd1740af8d61c02c10d84439c0ef3df7",
         "video-engine/scripts/render-batch.mjs": "4fbdca384b52d20ef96761ab917cf74deed60d5afd7605ab86f6e3b375e67613",
@@ -266,37 +273,25 @@
         "scripts/documentary_check.py": "e1dd97bdb6aebd83bfb33183d54d502fdf1e15d36725751cf305c3a9ad9f23e4",
         "config/feed_layout.json": "4d411e26e09b3eb022af214fac975c4efe55b5297b5121dc65dca1f1b716625d",
         "config/bounded_png_capture_v1.json": "ab43715f795ed358d27dff1761ee1d489fc893ba7ab055d85f5373141d188124",
-        "config/bounded_png_capture_proof_v1.json": "e440045f66bd3742111eacd3dbba20274e6300e3acd683e4de87f4e460d7c851"
-      },
-      "dimensions": [
-        270,
-        480
-      ],
-      "frames": 1778,
-      "working_bytes": 566231040,
-      "new_retained_bytes": 306343076,
-      "bundle_copy_bytes": 189505536,
-      "git_object_allowance_bytes": 4294967296,
-      "checkpoint_package_allowance_bytes": 469762048,
-      "checkpoint_work_bytes": 7918845952,
-      "estimate_kind": "measured-operation-cost-not-universal-hard-cap"
+        "config/bounded_png_capture_proof_v1.json": "9a15e97c0d43332128e07e61ab392563dbfed825a12e50499424d5f75d466e50"
+      }
     }
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/capture-housekeeping-20261111T225136.json",
-    "receipt_sha256": "889e27b7a1e59ae2a28e46a144a0d50f89d879a2bb5231b143a8370109e50fa5",
+    "receipt": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/capture-housekeeping-20261111T234750.json",
+    "receipt_sha256": "f3a9a7f3fbe90a0bd505b65afea9f13b13e335964b3bb90b31cded1ddf4b671a",
     "exit_code": 0,
-    "min_free_gib": 14
+    "min_free_gib": 13
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-11-11T22:51:49.003640+00:00",
-  "expires_at": "2026-11-11T23:36:49.003640+00:00",
+  "issued_at": "2026-11-11T23:48:25.648519+00:00",
+  "expires_at": "2026-11-12T00:33:25.648519+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "two opening comparison batch",
+    "operation": "quarter-scale animatic",
     "resource": "preflight_renders",
     "run_id": "2026-11-10",
-    "event_sha256": "f6a22107e1afd693e9bde950c4c25944f7975394b750fa74355738372b14e5b0",
-    "input_identity": "5459ee6417819d36aad13aea97efb5ac93297f7b0430696eed1bd85ee240ce38"
+    "event_sha256": "c9f1353254b2e3b2bdffd17a4c6dd58589baa35da88b93ccfe509263cdf87f31",
+    "input_identity": "51c8408ca9a92c6082e817eced2774740cd032706d92547e7f51afdf638e24db"
   }
 }

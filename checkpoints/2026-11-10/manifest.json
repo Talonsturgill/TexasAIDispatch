@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-11T23:48:18.723393+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-11-11T23:49:26.827747+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -1238,6 +1238,12 @@
       "size": 28136
     },
     {
+      "path": "out/dispatch/capture-authorization-history/68e9708370e244c0498cb161c285905a23bc357562a34b14c4db7148176a5be9.json",
+      "class": "scratch",
+      "sha256": "68e9708370e244c0498cb161c285905a23bc357562a34b14c4db7148176a5be9",
+      "size": 28108
+    },
+    {
       "path": "out/dispatch/capture-authorization-history/7c30669d2ef86d5394f0df6eb8264bb1e561ac11d2fa983bc3d8d11346897ae5.json",
       "class": "scratch",
       "sha256": "7c30669d2ef86d5394f0df6eb8264bb1e561ac11d2fa983bc3d8d11346897ae5",
@@ -1288,8 +1294,8 @@
     {
       "path": "out/dispatch/capture-authorization.json",
       "class": "scratch",
-      "sha256": "e7a8ce1876a8afa8cbfe8466d634c1edb527040f0fb319b308461a122d6bf54d",
-      "size": 28320
+      "sha256": "68e9708370e244c0498cb161c285905a23bc357562a34b14c4db7148176a5be9",
+      "size": 28108
     },
     {
       "path": "out/dispatch/capture-authorization.json.lock",
@@ -1300,8 +1306,8 @@
     {
       "path": "out/dispatch/capture-authorizations-used.json",
       "class": "scratch",
-      "sha256": "2ac83c6b430c29b62195d72d889f3687b1cc1c4220edd0fbba0721434ef06952",
-      "size": 1344
+      "sha256": "712b3dad10be217f66ab28aba89a2cd729e3eaf14cbf818156842f7a14eabf53",
+      "size": 1493
     },
     {
       "path": "out/dispatch/capture-hook-failure-2026-11-10.log",
@@ -1422,6 +1428,12 @@
       "class": "scratch",
       "sha256": "f3a9a7f3fbe90a0bd505b65afea9f13b13e335964b3bb90b31cded1ddf4b671a",
       "size": 1044
+    },
+    {
+      "path": "out/dispatch/capture-housekeeping-20261111T234921.json",
+      "class": "scratch",
+      "sha256": "6d3d504d020ddce258d38862f1f7b511211e44db066ae5d4bc6d120807c3469b",
+      "size": 1043
     },
     {
       "path": "out/dispatch/capture-prepare-2.log",
@@ -11583,9 +11595,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 271482947,
-    "unique_blob_bytes": 172678057,
-    "unique_blobs": 1369
+    "logical_bytes": 271512035,
+    "unique_blob_bytes": 172707357,
+    "unique_blobs": 1371
   },
   "excluded": [
     {
