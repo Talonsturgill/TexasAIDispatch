@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-11T23:49:26.827747+00:00",
-  "note": "before paid reservation",
+  "saved_at": "2026-11-11T23:49:59.941197+00:00",
+  "note": "PR321 adopted; preview authorization stale from object-store bucket drift; preflight 10",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -2592,6 +2592,12 @@
       "class": "scratch",
       "sha256": "90ef66fc0578d1a62451c9dc02bee55e67b83a927a28afe37a9f3f8d5f8d39d8",
       "size": 897
+    },
+    {
+      "path": "out/dispatch/evidence/preflight-authorization-drift-2026-11-11.md",
+      "class": "scratch",
+      "sha256": "13c02a73805671628fa6ef245b3642f080cda4d513c93afaf2c22c30534b808d",
+      "size": 1398
     },
     {
       "path": "out/dispatch/evidence/repair-1-notes.md",
@@ -11595,9 +11601,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 271512035,
-    "unique_blob_bytes": 172707357,
-    "unique_blobs": 1371
+    "logical_bytes": 271513433,
+    "unique_blob_bytes": 172708755,
+    "unique_blobs": 1372
   },
   "excluded": [
     {
