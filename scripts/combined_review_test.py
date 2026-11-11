@@ -65,8 +65,16 @@ class CombinedReviewTests(unittest.TestCase):
     def phone_rejection_fixture(self):
         """Actual October26 response shape, with real fixture Read/Write hook provenance."""
         import image_read_receipt as image
-        from image_read_receipt_test import PNG
+        import io
+        from PIL import Image
+        from phone_review_storage import EXPECTED
         import visual_observations as visual
+        # The selected-treatment regressions verify this through the real phone
+        # sequence gate. Record an RGB contact sheet, not the generic tiny hook PNG,
+        # before generating any image delivery receipts or observation hashes.
+        encoded = io.BytesIO()
+        Image.new('RGB', (EXPECTED['sheet_width'], EXPECTED['max_sheet_height']), '#091b20').save(encoded, 'PNG')
+        page_png = encoded.getvalue()
         subprocess.run(['git', 'init', '-q', str(self.repo)], check=True, capture_output=True)
         subprocess.run(['git', '-C', str(self.repo), 'remote', 'add', 'origin', image.REMOTE],
                        check=True, capture_output=True)
@@ -83,10 +91,10 @@ class CombinedReviewTests(unittest.TestCase):
             picture = self.write(self.root / 'openings' / (key + '.json'), {'date': self.state['run_id']})
             film = self.root / 'openings' / (key + '.mp4'); film.write_bytes(('original film ' + key).encode())
             page = self.root / 'openings' / ('motion-third-' + key) / 'sequence-000.png'
-            page.parent.mkdir(); page.write_bytes(PNG)
+            page.parent.mkdir(); page.write_bytes(page_png)
             payload = {**actor_payload, 'hook_event_name': 'PostToolUse', 'tool_name': 'Read',
                 'tool_use_id': 'third-read-' + key, 'tool_input': {'file_path': str(page)},
-                'tool_response': {'type': 'image', 'file': {'base64': base64.b64encode(PNG).decode(),
+                'tool_response': {'type': 'image', 'file': {'base64': base64.b64encode(page_png).decode(),
                                                            'type': 'image/png'}}}
             image.record(payload, self.workspace)
             event = next(visual.load(path) for path in (self.root / 'image-tool-delivery').glob('*.json')
