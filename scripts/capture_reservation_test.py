@@ -670,6 +670,125 @@ class Reservation(unittest.TestCase):
                    ' --root out/dispatch --state out/dispatch/run_state.json')
         return boards, command
 
+    @contextlib.contextmanager
+    def opening_gates(self):
+        """Isolate each real precharge callable, not the admission helper itself."""
+        claims = self.state.with_name('claims.json')
+        claims.write_text('{"claims":[]}')
+        self.state.with_name('story_selection.json').write_text('{}')
+        for key in ('a', 'b'):
+            self.state.with_name(f'opening-{key}-critic.json').write_text(json.dumps({
+                'story_review': {'claims_sha256': guard.sha(claims)}}))
+        defaults = {
+            'selected_treatment.selection_proof': None,
+            'engine_lint.check_files': [],
+            'story_selection_check.problems': [],
+            'storyboard_check.check': [],
+            'daily_production.structure_problems': [],
+            'documentary_check.check': [],
+            'super_evidence_check.check': ([], []),
+            'script_evidence_check.check': [],
+            'critic_gate.problems': [],
+            'render_manifest.native_media_paths': [],
+            'critic_gate.renderer_digest': 'renderer',
+            'creative_production.opening_producer': 'producer',
+            'subprocess.run': None,
+        }
+        with contextlib.ExitStack() as stack:
+            yield {name: stack.enter_context(mock.patch(name, return_value=value))
+                   for name, value in defaults.items()}
+
+    def test_opening_precharge_free_failures_preserve_exact_ledger(self):
+        import subprocess
+        _, command = self.comparison_inputs()
+        for failure in ('motion', 'claims', 'selection-source', 'board', 'structure',
+                        'documentary', 'supers', 'narration', 'critic', 'critic-source',
+                        'native-media', 'caption', 'engine', 'renderer', 'producer'):
+            before = self.state.read_bytes()
+            with self.subTest(failure=failure), self.opening_gates() as gates:
+                target = {
+                    'motion': 'selected_treatment.selection_proof',
+                    'selection-source': 'story_selection_check.problems',
+                    'board': 'storyboard_check.check',
+                    'structure': 'daily_production.structure_problems',
+                    'documentary': 'documentary_check.check',
+                    'supers': 'super_evidence_check.check',
+                    'narration': 'script_evidence_check.check',
+                    'critic': 'critic_gate.problems',
+                    'native-media': 'render_manifest.native_media_paths',
+                    'caption': 'subprocess.run',
+                    'engine': 'engine_lint.check_files',
+                    'renderer': 'critic_gate.renderer_digest',
+                    'producer': 'creative_production.opening_producer',
+                }.get(failure)
+                if failure == 'claims':
+                    self.state.with_name('claims.json').unlink()
+                elif failure == 'critic-source':
+                    self.state.with_name('opening-a-critic.json').write_text('{}')
+                elif failure == 'supers':
+                    gates[target].return_value = (['bad supers'], [])
+                elif failure == 'caption':
+                    gates[target].side_effect = subprocess.CalledProcessError(1, 'caption')
+                elif failure in ('motion', 'native-media', 'producer'):
+                    gates[target].side_effect = FileNotFoundError('original openings/motion-a/index.json' if failure == 'motion' else failure)
+                elif failure == 'renderer':
+                    gates[target].side_effect = FileNotFoundError('renderer source missing')
+                else:
+                    gates[target].return_value = ['bad ' + failure]
+                with self.assertRaises((ValueError, OSError, subprocess.SubprocessError)):
+                    prepared.prepare(self.root, self.state, [command])
+                self.assertEqual(before, self.state.read_bytes())
+                self.assertFalse((self.root / guard.AUTHORIZATION).exists())
+                self.assertFalse((self.state.parent / 'openings').exists())
+                if failure == 'motion':
+                    gates['storyboard_check.check'].assert_not_called()
+                    gates['subprocess.run'].assert_not_called()
+
+    def test_real_selection_proof_requires_original_motion_path_before_prepared_spend(self):
+        import selected_treatment
+        real_proof = selected_treatment.selection_proof
+        _, command = self.comparison_inputs()
+        original_index = self.state.parent / 'openings/motion-a/index.json'
+        before = self.state.read_bytes()
+        with self.opening_gates() as gates, \
+                mock.patch('selected_treatment.active_adoption', return_value={'proof': {'original_review_event_index': 3}}), \
+                mock.patch('selected_treatment.retirement_problems'), \
+                mock.patch('selected_treatment.original_selection', side_effect=lambda *args: json.loads(original_index.read_text())):
+            gates['selected_treatment.selection_proof'].side_effect = real_proof
+            with self.assertRaisesRegex(FileNotFoundError, 'motion-a/index.json'):
+                prepared.prepare(self.root, self.state, [command])
+            gates['subprocess.run'].assert_not_called()
+        self.assertEqual(before, self.state.read_bytes())
+
+    def test_opening_precharge_valid_pair_runs_gates_before_one_charge(self):
+        _, command = self.comparison_inputs()
+        with self.opening_gates() as gates:
+            def caption(args, **kwargs):
+                self.assertEqual(0, controller.read_state(self.state)['usage']['preflight_renders'])
+                self.assertIn('--early-muted-animatic', args)
+                self.assertTrue(kwargs['check'])
+            gates['subprocess.run'].side_effect = caption
+            receipt = prepared.prepare(self.root, self.state, [command])
+            gates['selected_treatment.selection_proof'].assert_called_once_with(self.state)
+            self.assertEqual(2, gates['subprocess.run'].call_count)
+            self.assertEqual(2, gates['critic_gate.problems'].call_count)
+        self.assertEqual(prepared.OPERATIONS['opening_compare.py'], receipt['operation'])
+        self.assertEqual(1, controller.read_state(self.state)['usage']['preflight_renders'])
+
+    def test_opening_precharge_preserves_selected_and_diagnostic_critic_routing(self):
+        _, command = self.comparison_inputs()
+        boards = [json.loads(self.state.with_name(f'opening-{k}.json').read_text()) for k in ('a', 'b')]
+        for diagnostic, proof, selected, expected in ((False, False, None, 2),
+                (False, False, {'selected': 'b'}, 1), (True, False, None, 0),
+                (False, True, None, 0)):
+            with self.subTest(diagnostic=diagnostic, proof=proof, selected=selected), self.opening_gates() as gates:
+                gates['selected_treatment.selection_proof'].return_value = selected
+                prepared.opening_precheck(self.state.parent, self.state, boards,
+                                          diagnostic=diagnostic, proof=proof)
+                self.assertEqual(expected, gates['critic_gate.problems'].call_count)
+                if selected:
+                    self.assertEqual(boards[1], gates['critic_gate.problems'].call_args.args[0])
+
     def test_wrong_comparison_edition_or_measured_board_is_refused_before_reservation(self):
         for failure in ('measured-board', 'foreign-run', 'foreign-date'):
             with self.subTest(failure=failure):
@@ -696,7 +815,8 @@ class Reservation(unittest.TestCase):
     def test_comparison_prepares_claims_and_consumes_exactly_once_with_both_boards(self):
         boards, command = self.comparison_inputs()
         (self.state.parent / 'openings').mkdir()  # An empty destination is safe.
-        with mock.patch('authored_story_art.problems', return_value=[]), \
+        with mock.patch.object(prepared, 'opening_precheck'), \
+                mock.patch('authored_story_art.problems', return_value=[]), \
                 mock.patch('native_headroom.estimate', return_value={'required_free_gib': 1}), \
                 mock.patch.object(guard.shutil, 'disk_usage', return_value=mock.Mock(free=500 * 1024 ** 3)):
             auth = guard.authorize(self.root, self.state, boards, [command],
@@ -721,7 +841,8 @@ class Reservation(unittest.TestCase):
                 self.assertRaisesRegex(ValueError, 'original third review missing'):
             prepared.prepare(self.root, self.state, [command])
         self.assertEqual(before, self.state.read_bytes())
-        with mock.patch('combined_review.eligibility', return_value={'fixture': 'eligible'}) as verify:
+        with mock.patch('combined_review.eligibility', return_value={'fixture': 'eligible'}) as verify, \
+                mock.patch.object(prepared, 'opening_precheck'):
             prepared.prepare(self.root, self.state, [command])
         verify.assert_called_once_with(self.state)
         self.assertEqual(1, controller.read_state(self.state)['usage']['preflight_renders'])

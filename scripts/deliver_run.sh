@@ -246,7 +246,7 @@ PY_METADATA
   python3 - "$OUT" "$DEST" <<'PY_OPENINGS'
 import sys
 sys.path.insert(0, 'scripts')
-from opening_compare import package_openings
+from selected_repair import package_openings
 from pathlib import Path
 import json, shutil, hashlib
 source, destination = (Path(p) / 'openings' for p in sys.argv[1:])
