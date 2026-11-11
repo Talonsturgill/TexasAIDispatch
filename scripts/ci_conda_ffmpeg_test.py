@@ -72,6 +72,22 @@ class LockedMedia(unittest.TestCase):
             self.lock.write_text('\n'.join(lines)+'\n')
             with self.assertRaises(ValueError): media.read_lock(self.lock)
 
+    def test_committed_download_basenames_match_archive_components(self):
+        # Conda uses the URL basename to locate info-<name-version-build> inside
+        # .conda archives. An escaped epoch (%21) downloads but cannot extract.
+        root = Path(media.__file__).resolve().parents[1]
+        packages = media.read_lock(root/'config/ci_ffmpeg_linux64.explicit.txt')
+        for row in packages.values():
+            with self.subTest(package=row['name']):
+                self.assertEqual(row['url'], media.canonical_artifact_url(row['url']))
+                filename = row['url'].rsplit('/', 1)[1]
+                extension = '.conda' if filename.endswith('.conda') else '.tar.bz2'
+                self.assertEqual(filename, '-'.join(row[key] for key in ('name','version','build')) + extension)
+        self.assertEqual(packages['x264']['url'].rsplit('/', 1)[1],
+                         'x264-1!164.3095-pl5321h63c0a64_3.conda')
+        self.assertEqual(packages['x264']['sha256'],
+                         '4a9f0f54bc10d3bf2e0bde433672942be0bc7f561457b7902a44fbb8d51d3efb')
+
     def test_installed_full_closure_must_match_each_field(self):
         prefix = self.root/'env'; self.metadata(prefix)
         media.validate_installed(prefix,self.packages)
