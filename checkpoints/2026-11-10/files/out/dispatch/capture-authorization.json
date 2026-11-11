@@ -2,19 +2,15 @@
   "schema": "dispatch_capture_authorization/2",
   "allowed": true,
   "render_reservation": {
-    "event_sha256": "607fbb8ecfe7866d4138149e174a8553c65b11b657288f894b8b00bbd207fe0a",
+    "event_sha256": "a6b27d4fa167e584e606005ecdb3a95c1a7cd5aa34e114a979b7ee8da3d69ad5",
     "resource": "preflight_renders",
-    "at": "2026-11-10T23:25:14.767892Z",
-    "note": "two opening comparison batch"
+    "at": "2026-11-11T17:12:53.458659Z",
+    "note": "exact-phone-a motion-image review extraction"
   },
   "boards": [
     {
-      "path": "out/dispatch/opening-a.json",
+      "path": "out/dispatch/openings/a.json",
       "sha256": "2d82031aa8fccd4420141126862eb65187522292ea2ddeaf749d40fc130c613b"
-    },
-    {
-      "path": "out/dispatch/opening-b.json",
-      "sha256": "3f0c8ca71f008c766d790a51f211bbae35ef816da68a5a7c6269ce3e794dce45"
     }
   ],
   "bound": {
@@ -171,78 +167,82 @@
       "video-engine/src/modern/episodes/2026-11-10/ClinicRecordSupport.tsx": "7c42f7fc070d8bfd02e8256ba14e9e2f1439811eefee9877c01fd9351cc01c42"
     },
     "capture_storage": {
-      "video-engine/scripts/bounded-png-render.mjs": "fb4abd86b1cb50a1ce69eb08d253431ffd1740af8d61c02c10d84439c0ef3df7",
-      "video-engine/scripts/render-batch.mjs": "4fbdca384b52d20ef96761ab917cf74deed60d5afd7605ab86f6e3b375e67613",
-      "video-engine/scripts/credit-tail-render.mjs": "2adb762c632cd8f48c31c16d70e9264840f49873e7283fda3bfbfcb97671bedf",
-      "video-engine/package-lock.json": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71",
-      "video-engine/package.json": "9f7832a02b619f443f231652719bba9e39270a5a47c19a91bbf28bea6f7d69a4",
-      "scripts/cinema_proof.py": "0b04719cf63c42f27c0bc4a46bb29e95f4f332ce5257cef6289bf1668a5e072d",
-      "scripts/opening_compare.py": "1d11caf6b6cfd266b894a449bccc86c80ab8b5cc2f74e74a6730a25c9cfea833",
-      "scripts/render_dispatch.sh": "8b6c23b3e004f755d383796a48122c72ba8f0ff19b0f15db4a45c99f39205dc2",
-      "scripts/bounded_capture.py": "5ce4b7dfee25761c6752dd989b0044e3f183be4f50c1d815716aac5c6fa3610c",
-      "scripts/native_headroom.py": "59735d7b6474cc605f742bf560ba24e2830a3dd3c7eff49b6c40e41d833b51c3",
+      "scripts/phone_review_storage.py": "22b4f5a92265663cbc3012ebcf769bbdcb8db36be02147c6f88850fa4e0cbb05",
+      "scripts/claude_motion_review.py": "db6d66ee9d0793aedd0e726803e02ab7a86fcac2e91872db51268771dee7cc4f",
+      "scripts/verify_phone_review_storage.py": "d4088996dce8c41fb0dfcc9b21e6393555174ae9f024a2071c12cc11c443ee2a",
+      "scripts/phone_review_storage_test.py": "58ffd0575914585c96a76e59fd996beb60954790aeda87bb44e3f07dcd48c9fc",
+      "scripts/claude_motion_review_test.py": "6c2cf62620840f470dd20efd9e9d838cb01dffd6bb0dde113e208cce63338ccb",
+      "scripts/motion_review_operations.py": "d9b7443ff1b37148494b87064818d93a4b75dbd1189730d794edaf556194c7e1",
+      "scripts/capture_reservation.py": "7d3548b23f9ff61fb3b67bbd81aaab6b0b23f95f99d4e3e22c7391c768ebc6d2",
       "scripts/capture_guard.py": "b62a60d595f8d00f7763ee756901a5467e68c0c6399e2b93907d6faf9d47b578",
+      "scripts/run_controller.py": "ea05b7753626f31dfc4b94ce9c529a3f162461438579dd4cc4cb6ef4970e13ff",
+      "scripts/native_headroom.py": "1e2703f51048f3bc67e043129d24c9c6701de571cce15e1a02f10e510b6c88ef",
+      "scripts/bounded_capture.py": "59f99e3dbf5819a7a541bcd036d580ca5f2ab14aa2392f7c2792273b182c16e5",
       "scripts/run_with_env.sh": "a070cd2aa89aa00edf1fd755a054bb30ec275c8554124e8012de6ae39e689a59",
-      "video-engine/scripts/verify-bounded-png.mjs": "ed2e7bb7dabb84e921dc95d098571a12f9f3c3f25bdba55063897d190fa58630",
-      "video-engine/scripts/bounded-png-render.test.mjs": "d79db4317eb671bb27a86cd69edaf3cc5cc14c81dd9d5e0eeb80a9adff2f2000",
-      "scripts/bounded_capture_test.py": "87b2404f28d88054e63f6fe2b5e1849122c4184884087bf0a35edf0a573e4872",
-      "config/bounded_png_capture_v1.json": "ab43715f795ed358d27dff1761ee1d489fc893ba7ab055d85f5373141d188124",
-      "config/bounded_png_capture_proof_v1.json": "0395d75b8543e792cbff09f8d77a3e50f46515f001ae687990ec8cd2662b04fb"
+      "scripts/preflight_animatic.py": "9af51468c89b757af8a40693805ebe2a11c75c825902e6d02fa3b6692f33f386",
+      "requirements.txt": "b7fd1e0c28d8c55130a89936877045452a4b53fdb4c6a125750af9374b253cbf",
+      "video-engine/public/fonts/Manrope-Var.ttf": "d0639be45d0af36e798172419d7bd173c4bd4f29e2b76cbb69db1d11bf8b0a40",
+      "config/phone_review_storage_v1.json": "3b77d9615e0e6fa9f2ae4e386130c0920ffd7cf2ba6bac0dac070d23a324964e",
+      "config/phone_review_storage_proof_v1.json": "3cb638bddbce045769a6f921188e001b3621df94d162d9daf207006be41835e5"
     }
   },
   "commands": [
     {
-      "id": "1c31e8190f7a98337859ac4bc632f05d3be1e55dcbff9f5b09dea716b3d3fd03",
-      "text": "bash scripts/run_with_env.sh python scripts/opening_compare.py --root out/dispatch --state out/dispatch/run_state.json --combined-code-review",
-      "consumed": "2026-11-10T23:25:29.981838+00:00"
+      "id": "e1a0b0360753a89911528f6df038ff7718e43677a0ff6655055b0beda896a7d8",
+      "text": "bash scripts/run_with_env.sh python scripts/claude_motion_review.py --phone-option a --board out/dispatch/openings/a.json --film out/dispatch/openings/a.mp4 --state out/dispatch/run_state.json --out out/dispatch/openings/motion-a",
+      "consumed": "2026-11-11T17:13:02.263580+00:00"
     }
   ],
   "headroom": {
     "passed": true,
-    "required_free_gib": 6,
-    "free_gib": 16.472,
+    "required_free_gib": 7,
+    "free_gib": 16.257,
     "storage_profile": {
-      "mode": "bounded-png-v1",
-      "operator": "opening_compare.py",
-      "max_frames": 60,
-      "required_free_gib": 6,
+      "mode": "phone-review-sheets-v1",
+      "operator": "claude_motion_review.py",
+      "phone_option": "a",
+      "max_frames": 9004,
+      "max_samples": 1502,
+      "max_sheets": 301,
+      "max_output_bytes": 1894780928,
       "reserve_gib": 5,
+      "required_free_gib": 7,
       "bindings": {
-        "video-engine/scripts/bounded-png-render.mjs": "fb4abd86b1cb50a1ce69eb08d253431ffd1740af8d61c02c10d84439c0ef3df7",
-        "video-engine/scripts/render-batch.mjs": "4fbdca384b52d20ef96761ab917cf74deed60d5afd7605ab86f6e3b375e67613",
-        "video-engine/scripts/credit-tail-render.mjs": "2adb762c632cd8f48c31c16d70e9264840f49873e7283fda3bfbfcb97671bedf",
-        "video-engine/package-lock.json": "57f37413fbf5ee4a92a925209a6ccab3dbf067460430bb202a3f0da92dffdf71",
-        "video-engine/package.json": "9f7832a02b619f443f231652719bba9e39270a5a47c19a91bbf28bea6f7d69a4",
-        "scripts/cinema_proof.py": "0b04719cf63c42f27c0bc4a46bb29e95f4f332ce5257cef6289bf1668a5e072d",
-        "scripts/opening_compare.py": "1d11caf6b6cfd266b894a449bccc86c80ab8b5cc2f74e74a6730a25c9cfea833",
-        "scripts/render_dispatch.sh": "8b6c23b3e004f755d383796a48122c72ba8f0ff19b0f15db4a45c99f39205dc2",
-        "scripts/bounded_capture.py": "5ce4b7dfee25761c6752dd989b0044e3f183be4f50c1d815716aac5c6fa3610c",
-        "scripts/native_headroom.py": "59735d7b6474cc605f742bf560ba24e2830a3dd3c7eff49b6c40e41d833b51c3",
+        "scripts/phone_review_storage.py": "22b4f5a92265663cbc3012ebcf769bbdcb8db36be02147c6f88850fa4e0cbb05",
+        "scripts/claude_motion_review.py": "db6d66ee9d0793aedd0e726803e02ab7a86fcac2e91872db51268771dee7cc4f",
+        "scripts/verify_phone_review_storage.py": "d4088996dce8c41fb0dfcc9b21e6393555174ae9f024a2071c12cc11c443ee2a",
+        "scripts/phone_review_storage_test.py": "58ffd0575914585c96a76e59fd996beb60954790aeda87bb44e3f07dcd48c9fc",
+        "scripts/claude_motion_review_test.py": "6c2cf62620840f470dd20efd9e9d838cb01dffd6bb0dde113e208cce63338ccb",
+        "scripts/motion_review_operations.py": "d9b7443ff1b37148494b87064818d93a4b75dbd1189730d794edaf556194c7e1",
+        "scripts/capture_reservation.py": "7d3548b23f9ff61fb3b67bbd81aaab6b0b23f95f99d4e3e22c7391c768ebc6d2",
         "scripts/capture_guard.py": "b62a60d595f8d00f7763ee756901a5467e68c0c6399e2b93907d6faf9d47b578",
+        "scripts/run_controller.py": "ea05b7753626f31dfc4b94ce9c529a3f162461438579dd4cc4cb6ef4970e13ff",
+        "scripts/native_headroom.py": "1e2703f51048f3bc67e043129d24c9c6701de571cce15e1a02f10e510b6c88ef",
+        "scripts/bounded_capture.py": "59f99e3dbf5819a7a541bcd036d580ca5f2ab14aa2392f7c2792273b182c16e5",
         "scripts/run_with_env.sh": "a070cd2aa89aa00edf1fd755a054bb30ec275c8554124e8012de6ae39e689a59",
-        "video-engine/scripts/verify-bounded-png.mjs": "ed2e7bb7dabb84e921dc95d098571a12f9f3c3f25bdba55063897d190fa58630",
-        "video-engine/scripts/bounded-png-render.test.mjs": "d79db4317eb671bb27a86cd69edaf3cc5cc14c81dd9d5e0eeb80a9adff2f2000",
-        "scripts/bounded_capture_test.py": "87b2404f28d88054e63f6fe2b5e1849122c4184884087bf0a35edf0a573e4872",
-        "config/bounded_png_capture_v1.json": "ab43715f795ed358d27dff1761ee1d489fc893ba7ab055d85f5373141d188124",
-        "config/bounded_png_capture_proof_v1.json": "0395d75b8543e792cbff09f8d77a3e50f46515f001ae687990ec8cd2662b04fb"
+        "scripts/preflight_animatic.py": "9af51468c89b757af8a40693805ebe2a11c75c825902e6d02fa3b6692f33f386",
+        "requirements.txt": "b7fd1e0c28d8c55130a89936877045452a4b53fdb4c6a125750af9374b253cbf",
+        "video-engine/public/fonts/Manrope-Var.ttf": "d0639be45d0af36e798172419d7bd173c4bd4f29e2b76cbb69db1d11bf8b0a40",
+        "config/phone_review_storage_v1.json": "3b77d9615e0e6fa9f2ae4e386130c0920ffd7cf2ba6bac0dac070d23a324964e",
+        "config/phone_review_storage_proof_v1.json": "3cb638bddbce045769a6f921188e001b3621df94d162d9daf207006be41835e5"
       }
     }
   },
   "housekeeping": {
-    "receipt": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/capture-housekeeping-20261110T232506.json",
-    "receipt_sha256": "4679ed373e1bcf5ae66908e838509c32edb390fc5738387f2aa35bfef83f03b9",
+    "receipt": "/home/user/dispatch-editions/2026-11-10/TexasAIDispatch/out/dispatch/capture-housekeeping-20261111T171234.json",
+    "receipt_sha256": "075b6afdc12ff26e0a134cf7ad0baaeb9ea29cb56e4559da5d31d70660701022",
     "exit_code": 0,
-    "min_free_gib": 6
+    "min_free_gib": 7
   },
   "art_receipts_recorded": true,
-  "issued_at": "2026-11-10T23:25:19.169665+00:00",
-  "expires_at": "2026-11-11T00:10:19.169665+00:00",
+  "issued_at": "2026-11-11T17:12:57.928400+00:00",
+  "expires_at": "2026-11-11T17:57:57.928400+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
-    "operation": "two opening comparison batch",
+    "operation": "exact-phone-a motion-image review extraction",
     "resource": "preflight_renders",
     "run_id": "2026-11-10",
-    "event_sha256": "607fbb8ecfe7866d4138149e174a8553c65b11b657288f894b8b00bbd207fe0a",
-    "input_identity": "26b13754a5c725991aab647924e9748a8d3518cd168f110f4ec783d08d659731"
+    "event_sha256": "a6b27d4fa167e584e606005ecdb3a95c1a7cd5aa34e114a979b7ee8da3d69ad5",
+    "input_identity": "4e4070b34464b3a1fbbe7b8c7ce962fa8c496d5f34a47230b407b121e2ac3bcc"
   }
 }
