@@ -299,7 +299,8 @@ def publication_problems(board_path, film, judges=None):
         return []
     errors = fresh_errors + preview_problems(board_path, film.parent / "cinema", film=film)
     import creative_production as creative
-    errors += creative.opening_problems(board_path)
+    from selected_repair import opening_problems
+    errors += opening_problems(board_path)
     if creative.required(board):
         try:
             errors += creative.mix_problems(board, read(Path(board_path).with_name("mix.json")))

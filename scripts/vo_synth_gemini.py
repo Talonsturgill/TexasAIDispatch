@@ -251,7 +251,8 @@ def build_prompt(script: str, plan: dict,
         board = json.loads(board_for_evidence.read_text())
         import creative_production as creative
         refusals += creative.voice_problems(board, plan)
-        refusals += creative.opening_problems(board_for_evidence)
+        from selected_repair import opening_problems
+        refusals += opening_problems(board_for_evidence)
         if creative.required(board):
             plan = {**plan, "performance_arc": board["creative_direction"]["sound"]["voice_arc"]}
         if required(board):

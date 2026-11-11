@@ -379,7 +379,8 @@ def pre_voice_problems(board_path, claims_path, script=None):
     errors += check_source_credit_figures(board, read(claims_path))
     import creative_production as creative
     errors += creative.plan_problems(board)
-    errors += creative.opening_problems(board_path)
+    from selected_repair import opening_problems
+    errors += opening_problems(board_path)
     selection_path = Path(board_path).with_name("story_selection.json")
     if not selection_path.is_file():
         errors.append("current candidate selection and early picture fit are missing")

@@ -123,7 +123,14 @@ def review_evidence(state, state_path=None):
                 return complete, ['current review board belongs to another edition']
             if all((root / 'openings' / name).is_file() for name in ('comparison.json', 'selection.json')):
                 from creative_production import opening_problems
-                complete['comparison'] = not opening_problems(board_path)
+                correction = None
+                if selection is not None:
+                    from selected_repair import opening_problems, provenance
+                    correction = provenance(board_path)
+                complete['comparison'] = correction is not None or not opening_problems(board_path)
+                if correction is not None:
+                    # A later genuine current code PASS does not rewrite the retained opening rejection.
+                    complete['code'] = True
             timed = ['storyboard_critic.json', 'preflight.json', 'preflight.mp4',
                      'captions.json', 'words.json', 'vo_script.txt']
             if (board.get('narration_picture', {}).get('timing_mode') == 'measured_caption_boundaries'

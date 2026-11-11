@@ -99,6 +99,55 @@ def opening_output_precheck(package, retained=()):
                          'a changed batch; no capture charged')
 
 
+def opening_precheck(root, state, boards, *, diagnostic=False, proof=False):
+    """Repeat the frozen opening operator's read-only gates before prepaid spend.
+
+    In particular, an adopted choice still needs its original motion paths. Moving
+    the old output aside does not remove that dependency or authorize a new charge.
+    The operator repeats these checks; this admission grants no creative approval.
+    """
+    import subprocess
+    import creative_production as creative
+    from selected_treatment import selection_proof
+    from critic_gate import problems, renderer_digest
+    from daily_production import structure_problems
+    from storyboard_check import check
+    from render_manifest import native_media_paths
+    from super_evidence_check import check as supers
+    from script_evidence_check import check as narration
+    from story_selection_check import problems as selection_problems
+    from engine_lint import check_files, LIB
+    from documentary_check import check as documentary
+    root = Path(root)
+    selected_completion = selection_proof(state)
+    claims = creative.read(root / 'claims.json')
+    errors = check_files(LIB)
+    errors += selection_problems(creative.read(root / 'story_selection.json'), edition=boards[0]['date'])
+    for key, board in zip(('a', 'b'), boards):
+        errors += check(board) + structure_problems(board, claims) + documentary(board)
+        errors += supers(board, claims)[0]
+        errors += narration(board, claims)
+        if (not diagnostic and not proof
+                and (selected_completion is None or key == selected_completion['selected'])):
+            review = creative.read(root / f'opening-{key}-critic.json')
+            errors += problems(board, review)
+            if (review.get('story_review') or {}).get('claims_sha256') != creative.digest(root / 'claims.json'):
+                errors.append('opening critic reviewed different source claims')
+        native_media_paths(board)
+    if errors:
+        raise ValueError('opening checks failed; no capture charged: ' + '; '.join(sorted(set(errors))))
+    repo = Path(__file__).resolve().parents[1]
+    for key, board in zip(('a', 'b'), boards):
+        command = ['node', str(repo / 'video-engine/tests/caption_board_fit.mjs'),
+                   '--board', str(root / f'opening-{key}.json')]
+        if not board.get('captions') and not any(board.get(k) for k in ('caption_method', 'retimed_to', 'retime_evidence')):
+            command.append('--early-muted-animatic')
+        subprocess.run(command, cwd=repo / 'video-engine', check=True)
+    renderers = [renderer_digest(board) for board in boards]
+    creative.opening_producer()
+    if not creative.treatment_required(boards[0]) and len(set(renderers)) != 1:
+        raise ValueError('opening options must use the same inspected renderer and asset set; no capture charged')
+
 def animatic_precheck(root, board, claims):
     """Run the frozen animatic operator's free gates before a prepared charge.
 
@@ -203,15 +252,18 @@ def prepare(root, state_path, commands, resource=None):
                 raise ValueError('prepared comparison needs explicit canonical --root and --state')
             opening_output_precheck(root / 'out/dispatch', ORIGINAL_SEQUENCES if '--combined-code-review' in supplied else ())
             from opening_compare import owned_boards
-            owned_boards(root / 'out/dispatch', state_path)
+            boards = owned_boards(root / 'out/dispatch', state_path)
             if '--combined-code-review' in supplied and '--builder-proof' in supplied:
                 raise ValueError('prepare either the combined review capture or a builder proof, not both')
+            diagnostic = proof = None
             if '--combined-code-review' in supplied:
                 from combined_review import eligibility
-                eligibility(state_path)
+                diagnostic = eligibility(state_path)
             if '--builder-proof' in supplied:
                 from builder_proof import eligibility as proof_eligibility
-                proof_eligibility(state_path)
+                proof = proof_eligibility(state_path)
+            opening_precheck(root / 'out/dispatch', state_path, boards,
+                             diagnostic=diagnostic, proof=proof)
         if note == FULL_OPERATION:
             expected.update({flag: root / 'out/dispatch' / name for flag, name in {
                 'captions': 'captions.json', 'preflight': 'preflight.json',
