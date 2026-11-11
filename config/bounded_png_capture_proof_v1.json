@@ -1,7 +1,6 @@
 {
   "schema": "dispatch-bounded-png-proof/1",
   "verified": true,
-  "policy_sha256": "ab43715f795ed358d27dff1761ee1d489fc893ba7ab055d85f5373141d188124",
   "files": {
     "video-engine/scripts/bounded-png-render.mjs": "fb4abd86b1cb50a1ce69eb08d253431ffd1740af8d61c02c10d84439c0ef3df7",
     "video-engine/scripts/render-batch.mjs": "4fbdca384b52d20ef96761ab917cf74deed60d5afd7605ab86f6e3b375e67613",
@@ -11,24 +10,43 @@
     "scripts/cinema_proof.py": "0b04719cf63c42f27c0bc4a46bb29e95f4f332ce5257cef6289bf1668a5e072d",
     "scripts/opening_compare.py": "1d11caf6b6cfd266b894a449bccc86c80ab8b5cc2f74e74a6730a25c9cfea833",
     "scripts/render_dispatch.sh": "8b6c23b3e004f755d383796a48122c72ba8f0ff19b0f15db4a45c99f39205dc2",
-    "scripts/bounded_capture.py": "5ce4b7dfee25761c6752dd989b0044e3f183be4f50c1d815716aac5c6fa3610c",
-    "scripts/native_headroom.py": "59735d7b6474cc605f742bf560ba24e2830a3dd3c7eff49b6c40e41d833b51c3",
+    "scripts/bounded_capture.py": "59f99e3dbf5819a7a541bcd036d580ca5f2ab14aa2392f7c2792273b182c16e5",
+    "scripts/native_headroom.py": "1e2703f51048f3bc67e043129d24c9c6701de571cce15e1a02f10e510b6c88ef",
     "scripts/capture_guard.py": "b62a60d595f8d00f7763ee756901a5467e68c0c6399e2b93907d6faf9d47b578",
     "scripts/run_with_env.sh": "a070cd2aa89aa00edf1fd755a054bb30ec275c8554124e8012de6ae39e689a59",
+    "scripts/phone_review_storage.py": "22b4f5a92265663cbc3012ebcf769bbdcb8db36be02147c6f88850fa4e0cbb05",
+    "config/phone_review_storage_v1.json": "3b77d9615e0e6fa9f2ae4e386130c0920ffd7cf2ba6bac0dac070d23a324964e",
     "video-engine/scripts/verify-bounded-png.mjs": "ed2e7bb7dabb84e921dc95d098571a12f9f3c3f25bdba55063897d190fa58630",
     "video-engine/scripts/bounded-png-render.test.mjs": "d79db4317eb671bb27a86cd69edaf3cc5cc14c81dd9d5e0eeb80a9adff2f2000",
-    "scripts/bounded_capture_test.py": "87b2404f28d88054e63f6fe2b5e1849122c4184884087bf0a35edf0a573e4872"
+    "scripts/bounded_capture_test.py": "c883f2fda12fe0e43c8827cce667dbd7b32456f4af9bc09ca5505ed82193abcf"
   },
+  "policy_sha256": "ab43715f795ed358d27dff1761ee1d489fc893ba7ab055d85f5373141d188124",
   "evidence": {
-    "source_commit": "708c7df2e1da48f92e365889ea3349475de7c382",
-    "source_tree": "005d6bda55cce93f907692c2d3e96c54aa4f4674",
-    "workflow_run_id": 42894301669,
-    "job_id": 130103390721,
-    "url": "https://github.com/Talonsturgill/TexasAIDispatch/actions/runs/42894301669/job/130103390721",
-    "artifact_id": 13799867370,
-    "artifact_sha256": "c42d9cc8d82734c0fa3e35b2686075618fd2b70fdce365613a666e4023599fd5",
-    "equivalence_sha256": "e1bae4271b9d4e067b353df4c987f9d12f9131f14c1bf0a513ef4c7e4fef2588",
-    "renderer_tests_passed": 35,
+    "source_commit": "35c1e5287536fc270e9c78d8796e5d32a00b53e9",
+    "source_tree": "d8a15dbe5368f96658a9fa1a6981bf540cb2ebf6",
+    "workflow_run_id": 43060194581,
+    "job_id": 130660394650,
+    "url": "https://github.com/Talonsturgill/TexasAIDispatch/actions/runs/43060194581/job/130660394650",
+    "artifact_id": 13874170462,
+    "artifact_sha256": "c4c6795521087f2df8d773f0fb764174f79c6b4597b5d32c725e88eeca06b81e",
+    "media_tooling": {
+      "schema": "dispatch-ci-media-tooling/1",
+      "source": "https://conda.anaconda.org/conda-forge",
+      "lock_sha256": "3349df581fa7522aedf1c6ec8fbe8f21eae6d6780eee6ea675b90cffd0d457fb",
+      "packages": 138,
+      "ffmpeg": {
+        "name": "ffmpeg",
+        "version": "9.0.2",
+        "build": "gpl_h653a188_107",
+        "url": "https://conda.anaconda.org/conda-forge/linux-64/ffmpeg-9.0.2-gpl_h653a188_107.conda",
+        "sha256": "e7303cacf72e099c413bc9696edf47742bb25cc64c14d0290871586c97be1c2e"
+      },
+      "conda_version": "conda 26.9.4",
+      "h264_probe": true,
+      "audio_probe": true,
+      "required_capabilities": true
+    },
+    "equivalence_sha256": "508d090b36bc6463e1491c8bb86c5d298e4cb86db843f19cb65b38bf7f9826b1",
     "equivalence": {
       "schema": "dispatch-bounded-png-equivalence/1",
       "scope": "real retained modern scene engineering regression, not a production capture or editorial approval",
@@ -189,11 +207,6 @@
         }
       ]
     },
-    "storage_bound": {
-      "worst_case_batch_bytes": 566231040,
-      "reserve_gib": 5,
-      "required_free_gib": 6,
-      "incompressible_native_test_png_bytes": 8298918
-    }
+    "renderer_tests_passed": 35
   }
 }

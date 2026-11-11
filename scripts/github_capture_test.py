@@ -52,39 +52,38 @@ class CaptureTest(unittest.TestCase):
                 env = self.environment(); env[key] = value
                 self.assertTrue(capture.context_problems(self.request(), env))
 
-    def test_both_installers_rewrite_actual_mirror_file_and_keep_signed_sources(self):
+    def test_all_media_jobs_use_shared_locked_installer_without_global_apt_changes(self):
         import shlex
-        import sys
         import yaml
         workflow=yaml.safe_load((Path(__file__).resolve().parents[1]/'.github/workflows/guards.yml').read_text())
-        sources=('Types: deb\nURIs: mirror+file:/etc/apt/apt-mirrors.txt\n'
-                 'Suites: noble noble-updates noble-backports noble-security\n'
-                 'Components: main restricted universe multiverse\n'
-                 'Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg\n')
-        mirrors=('http://azure.archive.ubuntu.com/ubuntu/\tpriority:1\n'
-                 'https://archive.ubuntu.com/ubuntu/\tpriority:2\n'
-                 'https://security.ubuntu.com/ubuntu/\tpriority:3\n')
-        expected=mirrors.replace('http://azure.archive.ubuntu.com/ubuntu/',
-                                 'https://archive.ubuntu.com/ubuntu/')
-        for job in ('capture','guards'):
-            commands=[line.strip() for step in workflow['jobs'][job]['steps']
-                      for line in step.get('run','').splitlines() if 'sudo find /etc/apt ' in line]
-            self.assertEqual(len(commands),1)
-            with self.subTest(job=job), tempfile.TemporaryDirectory() as temporary:
-                root=Path(temporary);(root/'sources.list.d').mkdir()
-                source=root/'sources.list.d/ubuntu.sources';source.write_text(sources)
-                mirror=root/'apt-mirrors.txt';mirror.write_text(mirrors)
-                secondary=root/'apt-mirrors-security.txt';secondary.write_text(mirrors)
-                unrelated=root/'notes.txt';unrelated.write_text(mirrors)
-                command=commands[0].removeprefix('sudo ').replace('/etc/apt',shlex.quote(str(root)))
-                if sys.platform=='darwin':
-                    # BSD sed spells the same no-backup in-place operation with an empty argument.
-                    command=command.replace('sed -i ',"sed -i '' ")
-                subprocess.run(['bash','-c',command],check=True)
-                self.assertEqual(source.read_text(),sources)
-                self.assertEqual(mirror.read_text(),expected)
-                self.assertEqual(secondary.read_text(),expected)
-                self.assertEqual(unrelated.read_text(),mirrors)
+        expected=['bash','scripts/run_with_env.sh','python3','scripts/ci_ffmpeg.py',
+                  '--ensure','--conda-lock','config/ci_ffmpeg_linux64.explicit.txt']
+        for job in ('bounded-native-proof','capture','guards'):
+            with self.subTest(job=job):
+                steps=workflow['jobs'][job]['steps']
+                installers=[step for step in steps if 'scripts/ci_ffmpeg.py' in step.get('run','')]
+                self.assertEqual(len(installers),1)
+                commands=[shlex.split(line) for line in installers[0]['run'].splitlines()
+                          if 'scripts/ci_ffmpeg.py' in line]
+                self.assertEqual(commands,[expected])
+                self.assertNotIn('if',installers[0])
+                self.assertFalse(installers[0].get('continue-on-error',False))
+                script='\n'.join(step.get('run','') for step in steps)
+                self.assertNotIn('/etc/apt',script)
+                self.assertNotRegex(script,r'\bapt(?:-get)?\s')
+        # Provisioning must not replace the immutable request/charge owner or the
+        # actual native and phone proof exercises with a dependency-only pass.
+        capture_script='\n'.join(step.get('run','') for step in workflow['jobs']['capture']['steps'])
+        claim=('scripts/github_capture.py stage --request "$CAPTURE_REQUEST" '
+               '--request-sha256 "$CAPTURE_REQUEST_SHA256" --destination "$CAPTURE_ROOT"')
+        execute='scripts/github_capture.py run --repo "$CAPTURE_ROOT"'
+        self.assertIn(claim,capture_script)
+        self.assertIn(execute,capture_script)
+        self.assertLess(capture_script.index(claim),capture_script.index(execute))
+        proof_script='\n'.join(step.get('run','') for step in workflow['jobs']['bounded-native-proof']['steps'])
+        for exercise in ('scripts/ci_conda_ffmpeg_test.py','video-engine/scripts/verify-bounded-png.mjs',
+                         'scripts/phone_review_storage_test.py','scripts/verify_phone_review_storage.py'):
+            self.assertIn(exercise,proof_script)
 
     def test_only_fixed_compute_operations(self):
         for operation in ['publish', 'shell', 'send', 'cinema; anything']:
