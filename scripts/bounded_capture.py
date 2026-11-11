@@ -19,7 +19,8 @@ FILES = ('video-engine/scripts/bounded-png-render.mjs',
          'video-engine/package-lock.json', 'video-engine/package.json',
          'scripts/cinema_proof.py', 'scripts/opening_compare.py', 'scripts/render_dispatch.sh',
          'scripts/bounded_capture.py', 'scripts/native_headroom.py', 'scripts/capture_guard.py',
-         'scripts/run_with_env.sh',
+         'scripts/run_with_env.sh', 'scripts/phone_review_storage.py',
+         'config/phone_review_storage_v1.json',
          'video-engine/scripts/verify-bounded-png.mjs',
          'video-engine/scripts/bounded-png-render.test.mjs', 'scripts/bounded_capture_test.py')
 OPERATORS = {'cinema_proof.py': 'python', 'opening_compare.py': 'python', 'render_dispatch.sh': 'bash'}
@@ -101,6 +102,10 @@ def operation(command, root):
 
 
 def plan(root, commands, boards):
+    from phone_review_storage import plan as phone_plan
+    phone = phone_plan(root, commands, boards)
+    if phone is not None:
+        return phone
     if len(commands) != 1:
         return None
     name = operation(commands[0], root)

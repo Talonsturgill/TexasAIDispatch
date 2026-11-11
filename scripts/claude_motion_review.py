@@ -4,11 +4,13 @@ from __future__ import annotations
 import argparse
 from fractions import Fraction
 import hashlib
+import io
 import json
 import math
 from pathlib import Path
 import subprocess
 import sys
+import threading
 
 from PIL import Image, ImageDraw, ImageFont
 from preflight_animatic import FFMPEG, FFPROBE
@@ -94,21 +96,39 @@ def sample_indices(total):
     return rows
 
 
+def encode_phone_sheet(sheet):
+    """Encode in memory so even a broken encoder cannot exceed the disk bound."""
+    from phone_review_storage import EXPECTED
+    if (sheet.mode != 'RGB' or sheet.width != EXPECTED['sheet_width']
+            or not 1 <= sheet.height <= EXPECTED['max_sheet_height']):
+        raise ValueError('phone extraction exceeds its proved sheet dimensions')
+    output = io.BytesIO()
+    sheet.save(output, format='PNG')
+    encoded = output.getvalue()
+    if len(encoded) > EXPECTED['max_png_bytes']:
+        raise ValueError('phone extraction exceeds its proved PNG byte cap')
+    return encoded
+
+
 def build(board, film, directory, phone=False, comparison=None):
     board, film, directory = map(Path, (board, film, directory))
     if not directory.resolve().is_relative_to(board.parent.resolve()):
         raise ValueError('motion images must stay in the owned current review package')
     before = {'board_sha256': digest(board), 'film_sha256': digest(film)}
     meta = inspect(film, phone); data = json.loads(board.read_text())
+    from phone_review_storage import EXPECTED, check_meta, check_space
+    if phone:
+        check_meta(meta)
     expected = float(data['runtime_s']) + float(data.get('credits_s') or 0)
-    if abs(expected - meta['duration_s']) > .15:
+    if not math.isfinite(expected) or abs(expected - meta['duration_s']) > .15:
         raise ValueError('motion review film duration differs from the current board')
-    directory.mkdir(parents=True, exist_ok=False)
     indices = sample_indices(meta['frames']); height = round(WIDTH * 1920 / 1080)
+    sheet_count = math.ceil(len(indices) / FPS)
+    if phone and (len(indices) > EXPECTED['max_samples'] or sheet_count > EXPECTED['max_sheets']):
+        raise ValueError('phone extraction exceeds its proved sample or sheet count')
     command = [FFMPEG, '-v', 'error', '-i', str(film), '-an', '-vf',
         'select=not(mod(n\\,6))+eq(n\\,%d),scale=%d:%d' % (meta['frames']-1, WIDTH, height),
         '-fps_mode', 'passthrough', '-f', 'rawvideo', '-pix_fmt', 'rgb24', 'pipe:1']
-    proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     font = ImageFont.truetype(str(REPO / 'video-engine/public/fonts/Manrope-Var.ttf'), 18)
     page_rows, pages = [], []
 
@@ -125,18 +145,46 @@ def build(board, film, directory, phone=False, comparison=None):
             sheet.paste(image, (x, y+label))
             entries.append({'frame': number, 'at_s': number/30})
         name = 'sequence-%03d.png' % len(pages); path = directory/name
-        sheet.save(path)
+        if phone:
+            if len(pages) >= sheet_count or len(rows) > EXPECTED['samples_per_sheet']:
+                raise ValueError('phone extraction exceeds its proved sheet count')
+            encoded = encode_phone_sheet(sheet)
+            check_space(directory, sheet_count - len(pages))
+            with path.open('xb') as handle:
+                handle.write(encoded)
+        else:
+            sheet.save(path)
         pages.append({'file': name, 'sha256': digest(path), 'bytes': path.stat().st_size,
                       'width': sheet.width, 'height': sheet.height, 'samples': entries})
 
+    # Nothing is launched until all non-decoder setup has succeeded. Existing
+    # packages are never replaced; charged partial evidence is retained on failure.
+    directory.mkdir(parents=True, exist_ok=False)
+    proc = None; timer = None; drain = None; error_tail = bytearray()
+    def drain_error():
+        while True:
+            part = proc.stderr.read(4096)
+            if not part:
+                return
+            error_tail.extend(part)
+            del error_tail[:-2048]
+
     try:
+        if phone:
+            check_space(directory, sheet_count)
+        proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # Drain stderr concurrently to prevent pipe deadlocks. A stalled decoder
+        # has a finite wall-clock allowance and is reaped before cleanup.
+        drain = threading.Thread(target=drain_error, daemon=True); drain.start()
+        timer = threading.Timer(max(60, meta['duration_s'] * 5), proc.kill)
+        timer.daemon = True; timer.start()
         size = WIDTH*height*3
         for number in indices:
             pixels = bytearray()
             while len(pixels) < size:
                 part = proc.stdout.read(size-len(pixels))
                 if not part:
-                    error = proc.stderr.read().decode(errors='replace')
+                    error = bytes(error_tail).decode(errors='replace')
                     raise ValueError('decoded film sequence ended before its declared sample coverage: '+error[-700:])
                 pixels.extend(part)
             page_rows.append((number, Image.frombytes('RGB', (WIDTH, height), bytes(pixels))))
@@ -144,33 +192,75 @@ def build(board, film, directory, phone=False, comparison=None):
                 save_page(page_rows); page_rows = []
         if proc.stdout.read(1):
             raise ValueError('decoded film sequence contains unindexed frames')
-        error = proc.stderr.read().decode(errors='replace')
-        if proc.wait() != 0:
+        result = proc.wait(); drain.join()
+        error = bytes(error_tail).decode(errors='replace')
+        if result != 0:
             raise ValueError('exact-film decode failed: ' + error[-500:])
         if page_rows:
             save_page(page_rows)
-    finally:
-        if proc.poll() is None:
-            proc.kill(); proc.wait()
-        proc.stdout.close(); proc.stderr.close()
-    if before != {'board_sha256': digest(board), 'film_sha256': digest(film)}:
-        raise ValueError('film or board changed during motion extraction')
-    index = {'schema': PHONE_SCHEMA if phone else SCHEMA, **before,
+        if before != {'board_sha256': digest(board), 'film_sha256': digest(film)}:
+            raise ValueError('film or board changed during motion extraction')
+        index = {'schema': PHONE_SCHEMA if phone else SCHEMA, **before,
              'phone' if phone else 'native': meta, 'sample_fps': FPS,
              'phone_width': WIDTH, 'sample_count': len(indices), 'pages': pages,
              'basis': 'Chronological images decoded from the entire exact encoded film, including credits. '
                       'Five samples per second plus the final native frame. No authored rerender, '
                       'direct MP4 playback, direct listening or automated creative verdict.'}
-    if phone:
-        index['comparison'] = comparison
-        index['basis'] = index['basis'].replace('final native frame', 'final phone frame')
-    target = directory/'index.json'; target.write_text(json.dumps(index, indent=2)+'\n')
-    return target
+        if phone:
+            index['comparison'] = comparison
+            index['basis'] = index['basis'].replace('final native frame', 'final phone frame')
+        encoded_index = (json.dumps(index, indent=2)+'\n').encode()
+        if phone:
+            if len(encoded_index) > EXPECTED['max_index_bytes']:
+                raise ValueError('phone extraction exceeds its proved index byte cap')
+            check_space(directory, 0)
+        target = directory/'index.json'
+        with target.open('xb') as handle:
+            handle.write(encoded_index)
+        if phone:
+            check_space(directory, 0, index_pending=False)
+        return target
+    except BaseException as exc:
+        # Reap the writer but retain the exact partial evidence and its charge.
+        # A failed package cannot be reused or passed off as a completed sequence.
+        if proc is not None and proc.poll() is None:
+            proc.kill(); proc.wait()
+        if phone:
+            failure = {'schema': 'dispatch-phone-extraction-failure/1', **before,
+                       'complete': False, 'pages_written': len(pages),
+                       'error_type': type(exc).__name__[:100], 'error': str(exc)[:1000]}
+            encoded_failure = (json.dumps(failure, ensure_ascii=False) + '\n').encode()
+            # Four-byte Unicode errors can exceed the cap despite character truncation.
+            if len(encoded_failure) > EXPECTED['max_failure_bytes']:
+                failure['error'] = str(exc)[:200]
+                encoded_failure = (json.dumps(failure, ensure_ascii=False) + '\n').encode()
+            try:
+                with (directory/'failure.json').open('xb') as handle:
+                    handle.write(encoded_failure)
+            except OSError:
+                pass  # Preserve the original exception if the disk cannot hold the receipt.
+        raise
+    finally:
+        if timer is not None:
+            timer.cancel()
+        if proc is not None:
+            if proc.poll() is None:
+                proc.kill(); proc.wait()
+            if drain is not None:
+                drain.join()
+            proc.stdout.close(); proc.stderr.close()
 
 
 def problems(index, board, film, phone=False, comparison=None):
     index = Path(index); data = json.loads(index.read_text()); errors = []
     meta = inspect(Path(film), phone); expected = sample_indices(meta['frames'])
+    if phone:
+        from phone_review_storage import EXPECTED, check_meta
+        check_meta(meta)
+        if (index.parent/'failure.json').exists():
+            errors.append('phone extraction retained a failure receipt; this is not a complete sequence')
+        if index.stat().st_size > EXPECTED['max_index_bytes']:
+            errors.append('phone extraction index exceeds its proved byte bound')
     if data.get('schema') != (PHONE_SCHEMA if phone else SCHEMA) or data.get('film_sha256') != digest(film) or data.get('board_sha256') != digest(board):
         errors.append('motion sequence does not bind the exact current film and board')
     if data.get('phone' if phone else 'native') != meta or data.get('sample_fps') != FPS or data.get('phone_width') != WIDTH:
@@ -178,6 +268,8 @@ def problems(index, board, film, phone=False, comparison=None):
     if phone and (not comparison or data.get('comparison') != comparison):
         errors.append('phone sequence does not bind the current inspected comparison option')
     rows = data.get('pages') or []; actual = []; seen = set()
+    if phone and len(rows) > EXPECTED['max_sheets']:
+        errors.append('phone extraction exceeds its proved sheet count')
     for i, page in enumerate(rows):
         name = page.get('file'); path = index.parent / str(name)
         if name != 'sequence-%03d.png' % i or name in seen:
@@ -188,6 +280,10 @@ def problems(index, board, film, phone=False, comparison=None):
         with Image.open(path) as image:
             if (image.width, image.height) != (page.get('width'), page.get('height')):
                 errors.append('motion sequence page dimensions changed')
+            if phone and (image.mode != 'RGB' or image.width != EXPECTED['sheet_width']
+                          or image.height > EXPECTED['max_sheet_height']
+                          or path.stat().st_size > EXPECTED['max_png_bytes']):
+                errors.append('phone extraction page exceeds its proved dimensions or byte bound')
         samples = page.get('samples') or []
         if not 1 <= len(samples) <= FPS:
             errors.append('motion sequence page sample coverage is invalid')
@@ -203,7 +299,7 @@ def problems(index, board, film, phone=False, comparison=None):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__, allow_abbrev=False)
     parser.add_argument('--board', type=Path, required=True)
     parser.add_argument('--film', type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
@@ -219,6 +315,8 @@ def main(argv=None):
             if errors: raise ValueError('; '.join(errors))
             print('claude motion review: complete exact-film image sequence verified; no creative approval')
         else:
+            from phone_review_storage import runtime_check
+            runtime_check(REPO, args)
             from run_controller import read_state, reserve
             state = read_state(args.state)
             deliverable = state.get('deliverable') or {}

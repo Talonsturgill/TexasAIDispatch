@@ -42,6 +42,9 @@ def main(argv=None):
     result.update(schema="dispatch_native_headroom/1",
                   free_gib=round(shutil.disk_usage(board_path.parent).free/(1024**3), 3),
                   quality="Native PNG capture and CRF16 remain required.")
+    if (result.get('storage_profile') or {}).get('mode') == 'phone-review-sheets-v1':
+        result['quality'] = ('Exact phone contact sheets decoded from the existing encoded preflight. '
+                             'This is not a native render or a quality-gate approval.')
     result["pass"] = result["free_gib"] >= result["required_free_gib"]
     Path(a.out).write_text(json.dumps(result, indent=2)+"\n")
     print(json.dumps(result, indent=2))
