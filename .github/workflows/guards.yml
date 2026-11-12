@@ -290,6 +290,11 @@ jobs:
           # "excited" has ended the film. Duration failures say TRIM THE SCRIPT, never stretch.
           python3 scripts/vo_soundcheck.py --self-test
 
+      - name: Daily lane and released-feed reconciliation
+        run: |
+          bash scripts/run_with_env.sh python3 scripts/lean.py selftest
+          bash scripts/run_with_env.sh python3 scripts/lean_feed_test.py
+
       - name: The id the routine renders is an id the engine registers
         run: |
           # Phase 5 has always run `npx remotion render Dispatch` and Root.tsx registered no such

@@ -23,7 +23,8 @@ Run it through the environment wrapper, from the repository root:
     check                      the film's mechanical faults. Exit 1 is a work order, never a stop
     panel --scores a,b,c       record one panel round. Says REVISE or SHIP
     deliver                    copy the edition into runs/<date>/ and add it to the ledger
-    feed --docket PATH --county C   add the film to the Docket's video feed
+    feed --docket PATH --county C [--date YYYY-MM-DD]   add a released film to the feed
+    feed-pending --docket PATH  compare released Daily films with Docket main, read-only
     email                      write runs/<date>/email.md and email.html for the Gmail draft
     commit                     stage and commit the edition, video files included
     receipt --draft-id ID      record the read-back draft. This is what ends the run
@@ -877,26 +878,135 @@ def cmd_deliver(a) -> int:
     return 0
 
 
-def cmd_feed(a) -> int:
-    date = marker()["date"]
-    dest = run_dir(date)
-    if not (dest / "lean.json").is_file():
-        raise Problem("deliver first: lean.py deliver")
-    sys.path.insert(0, str(REPO / "scripts"))
+def git_read(repo: Path, *args: str) -> bytes:
+    proc = subprocess.run(["git", *args], cwd=repo, capture_output=True)
+    if proc.returncode:
+        raise Problem("feed reconciliation could not read Git: " + proc.stderr.decode(errors="replace")[-400:])
+    return proc.stdout
+
+
+def main_snapshot(repo: Path) -> tuple[str, set[str]]:
+    """No fetch or checkout here. The caller fetches; all reads then use one immutable main."""
+    revision = git_read(repo, "rev-parse", "--verify", "origin/main^{commit}").decode().strip()
+    paths = git_read(repo, "ls-tree", "-r", "--name-only", "-z", revision).decode().split("\0")
+    return revision, set(paths)
+
+
+def released_feed_info(repo: Path, revision: str, paths: set[str], date: str) -> tuple[dict, dict]:
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date):
+        raise Problem("feed --date must be YYYY-MM-DD")
+    prefix = f"runs/{date}"
+    needed = {f"{prefix}/{name}" for name in ("lean.json", "storyboard.json", "dispatch.mp4", "poster.png")}
+    if not needed <= paths:
+        raise Problem(f"{date} is not a complete released Daily edition on origin/main")
+    try:
+        info = json.loads(git_read(repo, "show", f"{revision}:{prefix}/lean.json"))
+        board = json.loads(git_read(repo, "show", f"{revision}:{prefix}/storyboard.json"))
+    except (ValueError, TypeError) as exc:
+        raise Problem(f"invalid released edition metadata for {date}") from exc
+    if (info.get("schema") != "lean_edition/1" or info.get("date") != date
+            or not re.fullmatch(r"[0-9a-f]{64}", str(info.get("film_sha256", "")))
+            or not board.get("title") or board.get("title") != info.get("title")):
+        raise Problem(f"released edition identity is inconsistent for {date}")
+    return info, board
+
+
+def feed_rows(feed: dict | list) -> list[dict]:
+    rows = feed.get("videos") if isinstance(feed, dict) else feed
+    if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
+        raise Problem("Docket feed is not a list of video entries")
+    return rows
+
+
+def feed_identity_status(feed: dict | list, expected: dict) -> str:
+    """Keep editorial copy intact. A same-path/id collision is work, never a second card."""
+    base = feed.get("media_base", RAW).rstrip("/") if isinstance(feed, dict) else RAW
+
+    def media(value):
+        value = str(value or "")
+        return base + value if value.startswith("/") else value
+
+    matches = [row for row in feed_rows(feed) if row.get("id") == expected["id"]
+               or row.get("video") == expected["video"]
+               or media(row.get("video")) == RAW + expected["video"]]
+    if not matches:
+        return "missing"
+    if len(matches) != 1:
+        return "conflict"
+    row = matches[0]
+    return "listed" if (row.get("id") == expected["id"] and row.get("title") == expected["title"]
+                        and row.get("date") == expected["date"] and media(row.get("video")) == RAW + expected["video"]
+                        and media(row.get("poster")) == RAW + expected["poster"]) else "conflict"
+
+
+def pending_feeds(repo: Path, docket: Path) -> dict:
+    """Main's released artifacts and main's feed are the durable queue, not today's scratch."""
     import publish_feed
-    caption = (a.caption or "").strip() or read(dest / "storyboard.json").get("feed_caption", "")
+    dispatch_rev, paths = main_snapshot(repo)
+    docket_rev, _ = main_snapshot(docket)
+    feed = json.loads(git_read(docket, "show", f"{docket_rev}:docs/videos/videos.json"))
+    feed_rows(feed)
+    rows = []
+    for path in sorted(paths):
+        match = re.fullmatch(r"runs/(\d{4}-\d{2}-\d{2})/lean.json", path)
+        if not match:
+            continue
+        date = match[1]
+        info, board = released_feed_info(repo, dispatch_rev, paths, date)
+        expected = publish_feed.entry(date, board, "", "", False, False)
+        rows.append({"date": date, "id": expected["id"], "video": expected["video"],
+                     "film_sha256": info["film_sha256"], "status": feed_identity_status(feed, expected)})
+    return {"dispatch_main": dispatch_rev, "docket_main": docket_rev,
+            "pending": [row for row in rows if row["status"] != "listed"],
+            "listed": [row for row in rows if row["status"] == "listed"]}
+
+
+def cmd_feed_pending(a) -> int:
+    print(json.dumps(pending_feeds(REPO, Path(a.docket)), indent=2))
+    return 0
+
+
+def cmd_feed(a) -> int:
+    # Explicit date is feed-only recovery, never init/voice/render of an older edition.
+    date = a.date or marker()["date"]
+    revision, paths = main_snapshot(REPO)
+    info, board = released_feed_info(REPO, revision, paths, date)
+    import publish_feed
+    caption = (a.caption or "").strip() or board.get("feed_caption", "")
     fails = publish_feed.check_caption(caption)
     if fails:
         raise Problem("the feed caption (one or two plain sentences under the title): " + "; ".join(fails))
-    target = Path(a.docket) / "docs" / "videos" / "videos.json"
+    docket = Path(a.docket)
+    target = docket / "docs" / "videos" / "videos.json"
     if not target.is_file():
         raise Problem(f"{target} does not exist. --docket is the TexasAIDocket checkout.")
-    feed = read(target)
+    before = target.read_bytes()
+    feed = json.loads(before)
+    entry = publish_feed.entry(date, board, caption, a.county,
+                               f"runs/{date}/dispatch-720.mp4" in paths, f"runs/{date}/poster-540.jpg" in paths)
+    status = feed_identity_status(feed, entry)
+    if status == "listed":
+        print(f"lean: {entry['id']} is already present. No feed or released artifact changed.")
+        return 0
+    if status == "conflict":
+        raise Problem("the feed already has a conflicting card for this released film; inspect its existing PR, do not overwrite it")
+    if isinstance(feed, dict) and feed.get("media_base", RAW).rstrip("/") != RAW:
+        raise Problem("Docket media_base is not the released Dispatch main URL; do not add relative media under another host")
+    if git_read(docket, "status", "--porcelain").strip():
+        raise Problem("Docket worktree is not clean; reuse its existing feed PR or a separate clean worktree, never overwrite another worker")
+    # Confirm the immutable main film, not a same-named local/scratch replacement.
+    if hashlib.sha256(git_read(REPO, "show", f"{revision}:runs/{date}/dispatch.mp4")).hexdigest() != info["film_sha256"]:
+        raise Problem("released film bytes do not match lean.json on origin/main")
+    if target.read_bytes() != before:
+        raise Problem("Docket feed changed during preparation; reread it before editing")
     if not isinstance(feed, dict):
         feed = {"videos": feed}
-    entry = publish_feed.entry(date, read(dest / "storyboard.json"), caption, a.county,
-                               (dest / "dispatch-720.mp4").is_file(), (dest / "poster-540.jpg").is_file())
-    feed = publish_feed.publish(feed, entry)
+    # Recovering an old film must not put it ahead of newer films. Leave all existing
+    # rows and their relative order/copy untouched; insert only this missing entry.
+    rows = feed_rows(feed)
+    index = next((i for i, row in enumerate(rows) if str(row.get("date", "")) < date), len(rows))
+    feed["videos"] = rows[:index] + [entry] + rows[index:]
+    feed.setdefault("media_base", RAW)
     target.write_text(json.dumps(feed, indent=2) + "\n", encoding="utf-8")
     print(f"lean: {entry['id']} is in {target}. The feed holds {len(feed['videos'])} films.")
     return 0
@@ -1091,7 +1201,8 @@ def main() -> int:
     p.add_argument("--hard-fail", action="append"); p.add_argument("--defects"); p.set_defaults(fn=cmd_panel)
     sub.add_parser("deliver").set_defaults(fn=cmd_deliver)
     p = sub.add_parser("feed"); p.add_argument("--docket", required=True); p.add_argument("--county", required=True)
-    p.add_argument("--caption"); p.set_defaults(fn=cmd_feed)
+    p.add_argument("--caption"); p.add_argument("--date"); p.set_defaults(fn=cmd_feed)
+    p = sub.add_parser("feed-pending"); p.add_argument("--docket", required=True); p.set_defaults(fn=cmd_feed_pending)
     sub.add_parser("email").set_defaults(fn=cmd_email)
     p = sub.add_parser("commit"); p.add_argument("--message"); p.set_defaults(fn=cmd_commit)
     p = sub.add_parser("receipt"); p.add_argument("--draft-id", required=True); p.add_argument("--pr")

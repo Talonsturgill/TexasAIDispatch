@@ -140,7 +140,8 @@ Below, `L <command>` is short for `bash scripts/run_with_env.sh python3 scripts/
    `date -u +%F`, the day the scheduler fired, so the edition carries the date it is published on.
    Set the git identity from CLAUDE.md.
 2. If `runs/<date>/lean.json` is already on main, today shipped. Do not remake it. Only finish
-   whatever of Phase 7 is missing (the draft, the social posts), then end.
+   whatever of Phase 7 is missing (the draft, the social posts), then run FEED RECONCILIATION below
+   before ending. This includes older released Daily films, never unfinished older productions.
 3. `bash scripts/run_with_env.sh python3 scripts/cloud_bootstrap.py --bind-only`, then
    `bash scripts/run_with_env.sh python3 scripts/env_check.py`. If either fails, run
    `bash scripts/run_with_env.sh python3 scripts/cloud_bootstrap.py --install` once and check again.
@@ -328,8 +329,11 @@ Then, in this order. Each step is one command or one tool call.
    - Red or still absent after that on code this edition did not touch: MERGE and say so in the
      email, naming the failing step. A film is never held by a check on machinery it does not use.
 4. Confirm the film is public: `curl -sI <raw GitHub URL of runs/<date>/dispatch.mp4>` returns 200.
-5. The Docket feed, part one. It never blocks the film. In the `TexasAIDocket` checkout: run its
-   three "first commands" from its CLAUDE.md, `git fetch origin main`, `git checkout -B claude/dispatch-<date> origin/main`,
+5. The Docket feed, part one. It never blocks the film. Use FEED RECONCILIATION below ONLY
+   to find/submit today's exact film PR. Do not work on older films or wait for CI until step 9. Reuse it, even when its branch has an unexpected
+   name. Never reset that branch or start a duplicate. If no matching PR exists, in a clean,
+   unshared `TexasAIDocket` worktree run its three "first commands" from CLAUDE.md,
+   `git fetch origin main`, then create `claude/dispatch-<date>` from `origin/main`,
    then from the Dispatch checkout `L feed --docket ../TexasAIDocket --county <County> --caption "<one or two plain sentences>"`.
    Back in the Docket, with `P=/opt/texas-dispatch-runtime/venv/bin/python3` (the system Python's
    imaging library is broken there): `$P scripts/site/site_build.py`, then
@@ -356,16 +360,72 @@ Then, in this order. Each step is one command or one tool call.
    address and never use `me`. Read the draft back with get_draft and confirm its labels carry
    DRAFT and not SENT.
 8. `L receipt --draft-id <id> --pr <number> --merged`. The film is now delivered.
-9. The Docket feed, part two. Read the feed pull request's check runs. Wait inside a command, up to
+9. The Docket feed, part two. Run FEED RECONCILIATION for today and older released Daily films.
+   Read the existing feed pull request's check runs. Wait inside a command, up to
    90 minutes in total, and merge when every check on the head commit is green. The Docket's own
    rule is never to merge on anything but green, and that rule holds there. If the merge is
-   refused for conflicts, the Docket's scheduled jobs rewrote the site meanwhile: `git fetch origin main`,
-   `git merge origin/main`, take main's side of any conflicted file under `docs/` other than
-   `docs/videos/videos.json`, rebuild and check freshness as in step 5, commit, push, and wait
-   once more. If it still is not merged after that, leave it open and say so in the last message.
+   refused for conflicts, use the reconciliation procedure below. Never rebuild simply because
+   CI is pending. The 90-minute cap covers ALL feed work this wake, not each old film or retry.
+   Leave unresolved PRs open, report their URLs and exact outstanding checks, and end normally.
+   They are rediscovered from released main artifacts on the next wake, not today's scratch.
+
 
 The run ends after step 9. If a step after 3 fails, the film is still shipped and public. Report the failed step in the last
 message and carry on with the others.
+
+## FEED RECONCILIATION. RELEASED FILMS ONLY
+
+This is delivery of an already released film, not permission to resume an older production.
+Do not init an older run, render it again, change its artifacts, regrade it, or touch its voice.
+Never make today's film wait for an older feed PR. Reconcile after today's social and draft;
+on an already-shipped wake, finish those outstanding deliveries first and then reconcile.
+
+1. Fetch `origin main` in Dispatch and the Docket without switching anyone else's worktree.
+   Run `L feed-pending --docket ../TexasAIDocket`. This read-only command compares immutable
+   main snapshots, all released `runs/<date>/lean.json` artifacts and the Docket feed. It does
+   not consult today's marker. Missing and conflicting cards remain discoverable across days,
+   fresh containers and interrupted runs. If either fetch/read fails, report the uncertainty;
+   do not interpret it as an empty queue or stop today's film. The `listed` rows mean only
+   main-listed, not live-verified. Check those ids on the public videos page too; a pending
+   deployment remains a delivery follow-up, not grounds for a duplicate feed PR.
+2. For each pending artifact path/id, inspect ALL open Docket PRs and their changed
+   `docs/videos/videos.json` at each exact head. Find candidates by the exact entry id OR
+   released video path, then verify BOTH match. A partial match is a conflict to inspect, not
+   permission for another PR. Never match by title, date alone, PR author or expected branch
+   name. Inspect closed/merged PRs
+   for the same artifact too. Reuse the one existing open PR and its actual branch; multiple
+   matching PRs or conflicting cards need inspection, not another publication. A merged PR
+   counts only once the entry is on current main. Do not reopen an intentionally closed PR
+   blindly. If PR listing is incomplete or unavailable, leave the item pending, never create
+   a speculative duplicate. The PR is the durable record of submission, not a local receipt.
+3. One worker owns edits to a feed PR at a time. If another session owns it, observe only and
+   report that handoff. Never reset, force-push or edit its shared checkout. For your own PR,
+   record its current head and re-read it before any push or merge; if it changed, stop that
+   edit and re-inspect. Use the existing PR, a clean dedicated worktree and a normal push.
+4. A correct entry already in the PR needs no `L feed` call. For a genuinely missing entry
+   with no existing PR, use a new branch from current Docket main and
+   `L feed --date <released-date> --docket <clean-worktree> --county <County> --caption "<caption>"`.
+   This reads the released Dispatch main board and verifies its film hash. It does not read
+   current scratch or regenerate media. Recover county/caption from the released evidence,
+   retaining any approved PR copy. Preserve every unrelated feed entry. A conflicting card is
+   not permission to replace it or create a second one.
+5. Reuse passing CI on an unchanged mergeable head. Only a real merge conflict, a failing
+   freshness guard, or another Docket requirement calls for updating from current main and
+   rebuilding. Read the Docket's current CLAUDE.md and first commands. Merge current main into
+   the existing branch, preserve the intended feed entry and all newer main entries, take
+   main's generated `docs/` files except `docs/videos/videos.json`, then run its site build and
+   freshness check with the pinned Python as in Phase 7. Never fix unrelated ledger problems
+   under the Dispatch actor. Commit with `TXDOCKET_ACTOR=dispatch`, use its supported push
+   script, and inspect the NEW exact-head guards. Do not start concurrent builds or retry
+   while another worker owns the branch. At most one conflict/freshness rebuild per wake.
+6. Merge only when ALL required Docket checks have succeeded on the exact current head.
+   Pending, absent, cancelled, skipped or zero checks are not green. Use the expected head SHA
+   on the merge operation; re-read after an uncertain result before retrying. The Dispatch
+   film's relaxed CI fallback NEVER applies to the Docket. After merge, fetch main, rerun
+   `feed-pending`, and verify the card at the public videos page and its playable media.
+   Report main-listed and live-verified separately if deployment is still pending. The pending
+   inventory plus open PRs will be inspected again next wake; no extra controller is needed.
+
 
 ## THE LAST MESSAGE
 
