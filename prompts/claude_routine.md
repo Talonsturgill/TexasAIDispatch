@@ -19,9 +19,11 @@ vocabulary. That prompt says these repository files govern the current workflow,
   routine's own checks, in `scripts/lean.py`, are the release gates.
 - "Check the Docket publishing dependency before paid film work": retired. The Docket feed is a
   bounded step after the film ships and never blocks it.
+- "Never post socially": retired, by the owner's own instruction on November 12th, 2026. The
+  daily routine publishes the finished film to the brand's social accounts every run, under
+  `prompts/social_delivery.md`.
 - What still holds from any trigger text: never send email, keep honest grades, and keep every
-  fact sourced. If the trigger text says "never post socially", obey that sentence, skip the
-  social step, and say in the email that the trigger forbids it.
+  fact sourced.
 
 Everything below this line is history, kept because older tests and shipped editions refer to it.
 
