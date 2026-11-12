@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-12T00:25:23.636652+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-11-12T00:29:07.573757+00:00",
+  "note": "corrected selected B preview rendered under renewed charge 10; structural pass",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -120,6 +120,24 @@
       "class": "scratch",
       "sha256": "64915a68e3a508d4778dfe9eb63fdfeec575541bec7c200cf007d3226a22c43f",
       "size": 2822
+    },
+    {
+      "path": "out/dispatch/attention-review.html",
+      "class": "scratch",
+      "sha256": "f4905acfb82df8efd3866d92d41a24b7456dc26894a3f53258b8698c2956f474",
+      "size": 6962
+    },
+    {
+      "path": "out/dispatch/attention-review.json",
+      "class": "scratch",
+      "sha256": "a9c943ba27e88dc450409f477ac5f32a39c6abe29a53e241f0867b320b6d98f7",
+      "size": 28028
+    },
+    {
+      "path": "out/dispatch/attention-review.png",
+      "class": "scratch",
+      "sha256": "d7bacae7ada2fac33c199dd59690a96b9bbe1f2853f478b021f0ae875b3afc3f",
+      "size": 1831845
     },
     {
       "path": "out/dispatch/board-baseline-pre-media/opening-a.json",
@@ -4242,6 +4260,12 @@
       "class": "scratch",
       "sha256": "b4f6b8cd7213cd11e5781195940ee0262c6fdedf4f822e71573b7d6dc72fb40c",
       "size": 1020
+    },
+    {
+      "path": "out/dispatch/image-tool-delivery/92bf3ffe4ed456b5d0ed529959002cecb0d26ee5daf4d30fa394c859aa00ac13.json",
+      "class": "scratch",
+      "sha256": "8a33d7796a4145fa9393ee27c38a81d52b61fedfb27d19401c8631d5aaebd1f3",
+      "size": 737
     },
     {
       "path": "out/dispatch/image-tool-delivery/930fb187ea5322e8110835e0f2d44e26833e36316bf151641d9a2497c1ab40fb.json",
@@ -9710,6 +9734,30 @@
       "size": 1175
     },
     {
+      "path": "out/dispatch/preflight-contact-sheet.png",
+      "class": "scratch",
+      "sha256": "18e78fcb6db4f07a6291435b01dd4033208411be678972f71ad605aac9c24c09",
+      "size": 1266023
+    },
+    {
+      "path": "out/dispatch/preflight.json",
+      "class": "scratch",
+      "sha256": "85daabebe6a9c6377f317ef49703770672e7e707643b3f8aff409b13cd6bf355",
+      "size": 2342
+    },
+    {
+      "path": "out/dispatch/preflight.mp4",
+      "class": "scratch",
+      "sha256": "b5b1e2e927c4c4f4cd1a28cb99caf874739ba686375314dfa622be69ec754adc",
+      "size": 283785
+    },
+    {
+      "path": "out/dispatch/preflight.mp4.bounded-png.json",
+      "class": "scratch",
+      "sha256": "74bb379069909020728836558f6692c4ee2444f91ba36ee97ff9c81932c18934",
+      "size": 388
+    },
+    {
       "path": "out/dispatch/provider-availability/after-62440ed9027d9b9640d1ca63ff710c51a6f64f8b548d6bd3fc3df81e82ec98e0/attempt.json",
       "class": "scratch",
       "sha256": "515c3a9948ba692c7d73c2138128b249ee8c3a7e57ff40bfff0d220bcc2bcd33",
@@ -11607,9 +11655,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 271515018,
-    "unique_blob_bytes": 172738448,
-    "unique_blobs": 1374
+    "logical_bytes": 274935128,
+    "unique_blob_bytes": 176158558,
+    "unique_blobs": 1382
   },
   "excluded": [
     {
