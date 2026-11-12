@@ -241,6 +241,10 @@ one component of type `FilmRenderProps`, and add its import and one line to
   `actionProgress` in `lib/direction.ts`). No wall clock, no random input.
 - Draw the story's own subject. The Texas library is `video-engine/src/lib/` (people in
   `Character.tsx`, vehicles, flora, fauna, machines). Reuse it and draw one fresh hero for the story.
+- **Write only inside your episode directory and the one registry line.** Never edit a file under
+  `src/lib/`, `src/modern/` or any other shared engine source. Older films are reproduced from those
+  exact bytes and CI fails when they change. A drawing you need that the library lacks goes in
+  your episode directory.
 - **Outdoors, never paint a full-frame background.** The stage stands each shot in its county's
   region. `PlaceSubject` seats a drawing on that ground. Indoors the region shows through a window.
   A diagram or document shot is listed in `board.wall_views`.
