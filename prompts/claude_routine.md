@@ -1099,6 +1099,24 @@ the exact authorization, and that operator claims its matching prepaid event onc
 preview cannot claim a native hero charge; motion extraction has its own exact-film identity.
 An unchanged operation cannot be prepared again without the existing infrastructure-retry record.
 Preserve all earlier charges and denied commands.
+For a single-command prepared capture whose authorization includes a verified `storage_profile`,
+immediately after `authorize --prepare` and before execution, run this supported durable handoff and zero-charge revalidation inside `bash scripts/run_with_env.sh`:
+
+```sh
+python scripts/claude_checkpoint.py save --state out/dispatch/run_state.json --note "retain original unused prepared capture"
+python scripts/refresh_capture_authorization.py --state out/dispatch/run_state.json
+```
+
+Use the revalidation command if the checkpoint already retains the same unused authorization and the hook refuses an UNUSED prepared authorization because its storage
+profile changed after the preparation checkpoint. It checks current ownership, the exact original
+charge, command, inputs and source/proof bytes, fences remotely consumed attempts, retains the old
+authorization and recomputes current headroom after checkpoint activity. Successful revalidation
+renews the same unused authorization for 45 minutes, without a reservation, refund or ledger edit.
+Legacy/unrecognized profiles and multi-command authorizations keep their existing handoff; this
+helper cannot issue or migrate them. Then execute the exact stored command once. Do not call `authorize --prepare` again or request an
+infrastructure retry for this unused-profile drift. Consumed/claimed attempts, source changes,
+ownership changes, insufficient capacity and uncertain checkpoint outcomes fail closed. The normal
+hook still makes consumption durable before execution; revalidation grants no quality approval.
 Before the first paid review, run one free builder proof of both treatments
 (`opening_compare.py --builder-proof`, prepared the same way, see prompts/phases/02-picture.md):
 it renders both phone previews and their chronological pages in one charged capture with no critic
