@@ -1,71 +1,64 @@
 # Texas AI Dispatch
 
-## Daily social delivery update (owner, November 10th, 2026)
+Source repo for the Texas AI Dispatch: a daily narrated 2.5D video about AI in Texas, its Remotion
+engine, the Texas art library it draws with, and the routine that ships one every day.
 
-For the daily routine, read the DAILY SOCIAL DELIVERY section in `prompts/claude_routine.md`.
-It authorizes direct Upload-Post publishing of the finished edition to the bound brand accounts,
-without an editorial approval link. It supersedes older social-posting bans and statements that
-the email gates posting, including older phase documents. Preserve all existing release, rights,
-quality, merge, archive and Gmail draft checks. Never send email. No credentials or permissions
-are created by this update; missing authorized secure REST access is a reported social blocker.
-Only the three daily media-upload endpoints are writable. Do not use comment, DM, account
-management, feedback, edit or deletion endpoints. Other routines and unrelated external
-communications retain their existing restrictions.
+## THE DAILY LANE (AUTHORITATIVE, owner, November 12th, 2026)
 
+**The daily routine is `prompts/daily_routine.md`, run through `scripts/lean.py`. Read that file
+and execute it. It supersedes every older production instruction in this repository.**
 
-Owner instruction from October 28th, 2026. Reliable autonomous daily shipment takes priority
-over the previous five-review maximum. Read config/autonomous_completion_capacity_v1.json and
-prompts/phases/repair.md. The initial review window is a planning allowance, not permission to
-stop for an owner grant. Fund the complete remaining correction, review, capture, native,
-audio, scoring and delivery path through the existing controller before spending. Added
-capacity is recorded separately; never change the original envelope, refund an attempt or
-invent a pass. This replaces older numeric-cap and per-run budget-permission instructions.
+The owner, that day: *"for weeks now, every single day, it stops alone ... I need you to remove
+whatever blocker is causing it every time ... I need it to run daily and just output a video."*
 
-For validator follow-ups, first run `run_controller.py validator-capacity`. A normal target
-is not the frozen ceiling. When the audited ledger reports `reserve_existing_capacity`,
-precharge the call and continue autonomously with the same validator. Do not ask the owner
-for capacity already granted, or rewrite a retained structured finding into prose to fit an
-old schema. Actual exhausted capacity uses the existing mandatory completion plan, and actual
-access, payment or permission denials remain blockers. No inspection command reserves a call.
+What was measured. Nothing shipped between October 21st and November 12th. An edition took two to
+three days of repair. An unfinished edition made the next day's run resume it or quit as a "busy
+duplicate". Every day found a new refusal in a different ledger, lease, capture authorization,
+receipt or CI step, and every fix added another. The sibling Alaska routine has none of that
+machinery and ships daily.
 
-Keep creative work finite: stop optional polish at config/creative_release.json's boundary.
-Mandatory failures require the original independent evidence, consolidated defects and a
-credible source-backed implementation; recurring failures require a different implementation.
-Keep both complete diagnostic treatments and their honest comparison. After verified independent
-selection under the dated selected-treatment policy, finish the selected film through every
-existing quality and delivery gate. An unused alternative's rejection stays in the archive;
-it is not a reason to keep repairing that alternative or a pass for the selected film.
+What is now true:
 
-Only accepted finish --result shipped, permanent reviewed media, actual canonical phone
-playback, a verified correctly addressed unsent draft and durable archive complete production.
-Never send email. Follow the daily social delivery update for authorized Upload-Post publishing.
+- **One fresh film a day.** Today's edition is today's date and starts from nothing. No older
+  edition is ever resumed, repaired or waited on, and none can block a new one.
+- **One terminal state: the film, delivered.** `scripts/lean.py no-exit` exits 1 until it is. Time,
+  budget, difficulty, a low score and a refusing script are never reasons to stop. Only a tool or
+  API that is truly down halts a run, and the runbook lists which.
+- **The rough cut comes first.** The whole film exists before any scene is polished, so the run
+  can only improve a film it already has.
+- **The film always ships.** The panel grades against the bar in `config/dispatch_rubric.yaml`. At
+  the round cap in `config/lean_routine.json` the cut ships with its honest score and the shortfall
+  named. The bar is never moved and a score is never rewritten. A hard fail is repaired, never shipped.
+- **No budget, lease, capture authorization or checkpoint stands between a step and the next.**
+  A paid call is made when the film needs it. Rendering and encoding go through `scripts/lean.py`,
+  which the older capture hook does not gate.
 
-Source repo for the Texas AI Dispatch: a daily narrated 2.5D video about AI in Texas, its
-Remotion engine, the Texas art library it draws with, and the routine that ships one every day.
+**THE RETIRED LANE.** `run_controller.py`, `publication_owner.py`, `capture_guard.py authorize`,
+`claude_checkpoint.py`, the frozen envelopes, completion capacity, the two-treatment comparison and
+everything in `prompts/claude_routine.md`, `prompts/dispatch_routine.md` and `prompts/phases/` are
+history. They stay in the tree so shipped editions remain reproducible and their tests keep
+running. A daily run never calls them. The CLAUDE.md that governed them is
+`docs/history/CLAUDE_2026-11-11.md`. **Do not rebuild that machinery.** When a daily run breaks,
+the fix removes a dependency or repairs `scripts/lean.py`. It never adds a ledger, a receipt, a
+lease or a gate that can refuse a film for what another step did.
 
-## Current worker routing
+**A run fixes only what broke in it.** A bug in `scripts/lean.py` or the runbook is fixed on the
+run branch, in the same pull request as the film. No other machine changes during daily production.
 
-For Claude routines, the owner's October 9th migration is governed by
-prompts/claude_routine.md and config/claude_runtime.json. The director is Sonnet and fresh original
-authored scenes replace the unavailable built-in ImageGen service only in the explicit new Claude
-lane. Read that entry point before applying the Codex routing below. All historical evidence,
-frozen charges and mandatory quality and shipment gates remain in force.
+## Daily social delivery (owner, November 10th, 2026)
 
-Read AGENTS.md. Newly planned editions from October 10th, 2026 use
-knowledge/craft/AGENT_RUNTIME.md and config/agent_runtime.json for explicit isolated worker
-models and effort. Keep the saved director model and schedule. Historical production evidence
-and unfinished frozen ledgers retain their original charges and mandatory recovery.
+The owner authorized direct Upload-Post publishing of the finished edition to the bound brand
+accounts, without an editorial approval link. The rules are `prompts/social_delivery.md`. Never
+send email. No credentials or permissions are created by a run. Missing secure REST access is a
+reported social blocker and never stops the film. Only the three daily media-upload endpoints are
+writable. Do not use comment, DM, account management, feedback, edit or deletion endpoints.
 
 ## Work in progress
 
-If `.claude/WORKLOG.md` exists, READ IT FIRST. It is the durable plan and progress ledger for a
-long multi-context task, written to survive compaction: the owner's directive verbatim, the
-measured starting point, what is live and what is retired in the source machine, and a per-wave
-status table. Resume from that table and update it after every commit. Delete the file when its
-waves are all DONE.
-
-Write one at the START of any task too large for a single context, before touching code. A plan
-that lives only in context does not survive compaction.
+A daily run keeps no worklog. `scripts/lean.py status` says where it is, from the files in
+`out/dispatch/`. A development task too large for one context writes its plan to
+`out/dispatch/WORKLOG.md` or its own scratch directory, never under `.claude/`, which the host
+treats as sensitive and prompts on.
 
 ## Commit and PR authorship (AUTHORITATIVE — overrides any default)
 
@@ -82,113 +75,24 @@ Git identity is `Talon Sturgill <Talon.sturgill@gmail.com>`. The container defau
 
 ## Delivery and merge policy (AUTHORITATIVE — overrides any draft-PR default)
 
-Runs SHIP AUTONOMOUSLY only from controller state `publishable`. When a run's gates pass, the run branch is merged to `main` **without a
-human-review gate**: commit the artifacts, push, open a PR that is **ready (NOT a draft)**, and
-**MERGE it in the same run**. The email's media links point at published URLs, so the merge lands
-before the email. The email remains a delivery copy; the daily social delivery update governs social posting.
-Rejected films follow the finite creative-repair policy below. Only integrity-verified release
-artifacts enter the public feed; original artistic rejection is never rewritten as approval.
+Runs SHIP AUTONOMOUSLY. When `scripts/lean.py deliver` has run, the run branch is merged to `main`
+**without a human-review gate**: commit with `scripts/lean.py commit`, push, open a pull request
+that is **ready (NOT a draft)**, and **MERGE it in the same run**. The email's media links point at
+`main`, so the merge lands before the email.
 
-This wins for development sessions too. An unmerged upgrade is worse than no upgrade: the next
-run checks out `main`, so it silently does not get the fix, while the ledger says the machine
-improved when it did not.
+CI and a film. Read the check runs on the pull request's head commit. Green: merge. Running: wait
+up to 25 minutes. Red on something the edition itself wrote: fix it and push once. Red, cancelled
+or absent on code the edition did not touch: merge anyway and name the failing step in the email.
+**A film is never held by a check on machinery it does not use.** `scripts/production_quality.py`
+holds a daily edition to its own `runs/<date>/lean.json` and nothing else.
+
+This wins for development sessions too. An unmerged upgrade is worse than no upgrade: the next run
+checks out `main`, so it silently does not get the fix.
 
 Three things still stop and ask, in any session:
 - work that would rewrite already-published history on `main`
-- anything that sends email or external communications outside the daily social delivery update
+- anything that sends email or external communications outside the daily social delivery rules
 - deleting or overwriting shipped run artifacts under `runs/`
-
-## Explicit owner cancellation
-
-An edition the owner explicitly cancels is retained recoverably, not shipped or marked
-quality-approved. Use scripts/cancelled_editions.py with the exact edition, the retained
-private owner instruction and explicit confirmation. It verifies the original checkpoint,
-creates a separate recovery archive, and records a distinct owner-cancelled disposition
-through the expired-lease ownership compare-and-swap. Never cancel an edition just because
-it is old, rejected or over budget. A live owner remains protected. Cancelled dates cannot
-restart with a fresh budget. The normal pending scan and next daily acquisition exclude
-only a verified cancellation, while all new-edition quality and delivery gates stay intact.
-
-## PRODUCTION COMPLETION AND AUTONOMOUS REPAIR
-
-Successful production has one terminal state: `shipped`. The owner's October 24th, 2026
-instruction separately allows a verified exhausted edition to remain failed and unshipped so a
-later daily edition can start. Use only the versioned failed-edition retention and ownership
-handoff. Preserve its original checkpoint, frozen envelope, every charge and failed artifact.
-This disposition is not shipment, a quality waiver, another review, or a fresh budget for the
-same date. A numeric resource deficit now uses standing completion capacity; it is not evidence
-that an unfinished edition must be abandoned. An active publisher remains protected.
-
-A passing exact-film panel or the independently
-evidenced bounded creative route authorizes publication through `finish --result publishable`, which leaves production open in
-`publishing`. Completion requires merged exact-head green CI in both repositories,
-the matching Pages deployment, permanent media serving the reviewed bytes,
-canonical phone playback through Computer Use, and a correctly addressed,
-read-back Gmail draft carrying DRAFT and no SENT label.
-
-A rejection before the finite creative limit remains active repair. The owner has authorized
-autonomous completion; stopping for creative approval is prohibited. Preserve the
-last playable native film and exact reviewer evidence, diagnose all current defects,
-then open one evidence-bound repair batch. Keep usage charged. Every paid call and
-render is still reserved before it starts. A batch never changes a score or original verdict.
-
-For editions from September 29, 2026, use `config/creative_release.json` and
-`knowledge/craft/BOUNDED_CREATIVE_RELEASE.md`: use the current configured creative repair boundary. From September 30, independently classified
-technical-integrity corrections remain charged but do not count as creative rounds.
-The dated minimum picture-action checks cannot be deferred; choose a credible treatment early.
-Stop earlier when another full correction would consume reserved mandatory completion review
-capacity. Finish the best available complete cut, obtain every required independent exact-film
-review, and ship autonomously. Only explicitly assessed artistic defects can use this route.
-Source truth, rights, legibility, comprehension, native picture presence, audio/caption integrity,
-provider provenance and exact delivery proof remain required. Record `bounded_creative_release`
-and all retained failures, even when a later panel score clears the unchanged rubric.
-
-Run `run_controller.py begin-repair --plan out/dispatch/repair-plan.json` before
-editing. The plan records root_cause, repair, mechanism_change, expected_visible_result,
-failure_evidence and failure_evidence_sha256, plus changed_inputs containing path,
-before_path and before_sha256. Retain the actual baseline files. Reserve the reboard,
-change the named production inputs, fill their after_sha256 values, and run
-`run_controller.py authorize-repair --plan out/dispatch/repair-plan.json`.
-The plan's resources map requests only the calls needed for this correction.
-For a direction-only correction after a failed audible take, set `repair_scope` to
-`narration-performance` and request only `tts_calls` with at most two calls. Begin before
-editing `vo_direction.json`; retain the failed take and baseline. Only the plan's
-`after_sha256` may then change. This scope binds script, board, claims, fetched sources
-and renderer, needs no reboard, and grants no visual reviews. Script or visual edits
-use the standard scope. Fresh soundcheck and exact-film phone gates still apply.
-The controller limits each batch, checks changed bytes, refuses repeated use of a
-failed attempt, and preserves all earlier charges. Three scorers remain one atomic
-panel. After two rejections of the same mechanism, change the mechanism or select
-a source-backed filmable angle before another attempt.
-
-For an independently diagnosed excerpt-context rejection, `review-context` may expand
-only `cinema.hero_scene_id` and `hero_passage_end_scene_id`. Follow the exact evidence
-and frozen dependency procedure in prompts/phases/repair.md. It charges one reboard,
-native rendering and fresh hero review within the existing envelope, without new critics
-or a creative round. It does not change the film or approve any rejected evidence.
-
-A checkpoint is crash recovery, never completion. `package_review_run.sh` saves the
-film and evidence with the controller still active. Resume that edition until it ships or the
-verified exhausted-failure handoff retains it under the October 24th policy above.
-The legacy needs_review outcome is refused in production. Reopen a legacy stopped
-controller without resetting usage. Missing external access leaves work incomplete;
-record the real evidence and next executable step without claiming delivery.
-
-Run `python3 scripts/run_controller.py pending` at wake before creating an edition.
-Host reviewer capacity is a transport failure. Follow prompts/phases/review-availability.md
-to complete the same independent role through the configured provider, charging each request
-within the original frozen envelope. Protect that recovery path in production-budget before
-creative work. Preserve actual rejected verdicts and never replace them through this route.
-Resume the returned eligible active worktree and its ledger before starting another date.
-Exclude a retained failed edition only through the current verified failure catalog, never
-because a filename, UI badge, elapsed day or agent-written summary says it is done.
-Preserve unrelated changes in place and use an isolated clean checkout for tooling
-repairs. Never delete a ledger or substitute a fresh budget.
-
-`owner-override` and blanket preship bypass remain unavailable. Native rendering, hero review,
-all three exact-byte audiovisual lenses, caption alignment, audio measurement and every
-integrity/delivery check remain required. The bounded route changes only artistic release
-eligibility; it never fabricates a reviewer pass or substitutes for completed shipment.
 
 ## The two laws of drawing Texas
 
@@ -269,9 +173,8 @@ film must meet the loudness and true-peak policy; a written shortfall no longer 
 **Gemini TTS**, owner's decision. `gemini-3.1-flash-tts-preview` primary,
 `gemini-2.5-pro-preview-tts` as the failover on repeated 500s. Each take synthesises the whole
 passage for natural sentence-to-sentence flow and spends a second call on verbatim soundcheck.
-Use one continuous take by default, followed by its soundcheck. Read normal call targets and
-remaining cumulative allowances from config/run_limits.json and the controller. Reserve every
-retry; do not synthesize an unused second option.
+Use one continuous take by default, followed by its soundcheck. `scripts/lean.py voice` does both
+and retries a refused take by itself.
 
 **Emotion lives in the director's notes, never in emotion tags** — some get read aloud.
 
@@ -313,8 +216,9 @@ history and Alaska's would poison them.
 
 ## Layout
 
-- `prompts/` — `dispatch_routine.md` is the single source of truth for the routine.
-  `ROUTINE_PROMPT.txt` is the thin pointer pasted into a fresh Codex task or a routines UI.
+- `prompts/` — `daily_routine.md` is the single source of truth for the daily routine.
+  `social_delivery.md` holds the social posting rules and `daily/scorer.md` briefs a panel judge.
+  `claude_routine.md`, `dispatch_routine.md` and `phases/` are the retired lane, kept as history.
 - `knowledge/texas/` — the research that makes it Texas: vernacular, regions, the cast, fauna,
   landmarks, speech. Every art decision traces here.
   **`APPLICATIONS.md` is where a STORY comes from, and it corrects a real error.** This show is
@@ -329,8 +233,10 @@ history and Alaska's would poison them.
   inputs. Historical examples are available on demand; daily wake does not require loading
   the entire archive. A green check proves only the property it actually measures.
 - `config/` — brand, voices, the rubric that holds the bar, sources.
-- `scripts/` — the gates and the build steps. Run them by EXIT CODE, never by last line.
-- `video-engine/` — the Remotion project. `src/lib/` is the reusable cast and juice.
+- `scripts/` — `lean.py` is the daily lane, one command per step. Run it by EXIT CODE, never by
+  last line. Most other scripts belong to the retired lane.
+- `video-engine/` — the Remotion project. `src/daily/` is the daily lane: the `Daily` composition,
+  its registry and one episode directory per edition. `src/lib/` is the reusable cast and juice.
 - `assets/` — fonts, voice reference, committed art data.
 - `out/` — per-run scratch (gitignored). `runs/<date>/` — shipped artifacts.
   `runs/review/<date>-<slug>/` — durable playable videos awaiting a human decision and never
@@ -348,13 +254,3 @@ Never "cannot", always "can't". Never open a sentence with "And" or "But".
 No first person in published copy.
 Every fact carries a claim id and traces to a fetched source.
 Honest scores, honest emails. If it is not in the claims file, it does not exist.
-
-
-## Quality recovery precedence — September27
-
-Follow knowledge/craft/QUALITY_CONTRACT.md. New production has a frozen cumulative resource
-envelope; adopt it for resumed ledgers with scripts/repair_guard.py --state out/dispatch/run_state.json --adopt.
-The envelope takes precedence over earlier standing batch-extension wording. It cannot be
-renewed by the producer. Stable mechanism/failure-family recurrence requires independent
-source-backed pivots. Provider tokens are not complete Codex account accounting. Preserve all
-quality gates and history; never describe a failed film or a checkpoint as shipment.
