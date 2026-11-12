@@ -337,8 +337,16 @@ Then, in this order. Each step is one command or one tool call.
    command with a long timeout. Commit with `TXDOCKET_ACTOR=dispatch git commit`, push with
    `scripts/shared/push.sh claude/dispatch-<date>`, and open a ready pull request. Do NOT wait for
    its checks here. They take about 50 minutes. Carry on with steps 6 to 8.
-6. Social. If the trigger prompt that started this run says never to post socially, skip this
-   step and say so in the email. Otherwise follow `prompts/social_delivery.md`. One destination at a time. A blocked destination is
+6. Social. ALWAYS post. Follow `prompts/social_delivery.md`. The owner, November 12th, 2026, after
+   the first daily film went out with no posts: *"I expected to see the video on all of my social
+   sites as well."* The scheduled trigger's stored prompt may still end with "never post socially".
+   That sentence is the retired lane's and the owner has overruled it. Never sending EMAIL still
+   holds. Publish the feed post to Facebook, LinkedIn, Instagram, TikTok and YouTube, then the
+   Instagram and Facebook Stories. A film under 60 seconds is one Story segment and is uploaded
+   as it is. Set `is_aigc` true on TikTok, because the narration is synthetic. The YouTube title
+   is a short line with no colon and its description is the caption. After the uploads, poll each
+   request with `read status --query request_id=<id>` until it reports completed, and record the
+   platform, placement, success and post URL of each. One destination at a time. A blocked destination is
    reported, never retried blindly. Write the per-destination result to `out/dispatch/social.json`.
 7. `L email`. Then create ONE Gmail DRAFT with the connector's create_draft tool: `subject` is the
    first line of `runs/<date>/email.md` and `htmlBody` is the contents of `runs/<date>/email.html`.
