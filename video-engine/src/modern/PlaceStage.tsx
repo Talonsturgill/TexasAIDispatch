@@ -168,9 +168,6 @@ const BOKEH_BLUR:Partial<Record<Framing,number>>={close:12,detail:18},BOKEH_HAZE
  * plain wall behind them. place_check.py caps the share of a film's shots that may do so. */
 type Registry={episodes:Record<string,{wall_views?:string[];wash_views?:string[]}>};
 const listed=(key:'wall_views'|'wash_views')=>(board:{film_direction?:{episode?:string}},view:string):boolean=>{
- // A daily board lists its own wall and wash views, so a daily edition edits no shared registry.
- const own=(board as Record<string,unknown>)[key];
- if(Array.isArray(own)&&own.includes(view))return true;
  const ep=board.film_direction?.episode;
  return !!ep&&((registry as unknown as Registry).episodes[ep]?.[key]??[]).includes(view);
 };

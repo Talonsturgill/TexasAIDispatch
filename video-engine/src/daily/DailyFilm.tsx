@@ -19,7 +19,11 @@ import {dailyEpisodes} from './registry';
  * lacks, or a region with no plate, throws with the fix in the message, because a film that renders
  * the wrong thing silently is worse than one that stops and says why.
  */
-type DailyBoard = DispatchProps & {episode?: string; shots?: FilmShot[]};
+type DailyBoard = DispatchProps & {episode?: string; shots?: FilmShot[]; wall_views?: string[]};
+
+/** A diagram or a document is not in a room. A view the board lists in `wall_views` gets plain
+ * paper behind it instead of the region, so no skyline runs through thin lines and small labels. */
+const WALL = 'linear-gradient(160deg, #efe8d8 0%, #ddd3bd 100%)';
 
 const storyEnd = (scenes: Scene[]) => scenes.reduce((m, s) => Math.max(m, s.start_s + s.duration_s), 0);
 
@@ -58,10 +62,17 @@ export const DailyFilm: React.FC<DispatchProps> = (props) => {
   return (
     <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#0b0d14'}}>
       <ArtDirectionProvider profile={board.art_direction as never} scenes={scenes as never}>
-        <PlaceStage board={board} scene={scene} shot={shot} time_s={time}>
-          <Episode board={board} scene={scene} shot={shot} time_s={time}
-            shot_s={time - shot.start_s} variant="a" />
-        </PlaceStage>
+        {(board.wall_views ?? []).includes(shot.view) ? (
+          <div style={{position: 'absolute', inset: 0, background: WALL}}>
+            <Episode board={board} scene={scene} shot={shot} time_s={time}
+              shot_s={time - shot.start_s} variant="a" />
+          </div>
+        ) : (
+          <PlaceStage board={board} scene={scene} shot={shot} time_s={time}>
+            <Episode board={board} scene={scene} shot={shot} time_s={time}
+              shot_s={time - shot.start_s} variant="a" />
+          </PlaceStage>
+        )}
       </ArtDirectionProvider>
       <SubtitleTrack cues={board.captions ?? []} fps={fps} />
     </div>
