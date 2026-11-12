@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-12T00:29:47.395748+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-11-12T00:30:20.318972+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -7976,10 +7976,382 @@
       "size": 147688
     },
     {
+      "path": "out/dispatch/phone-critic-current-packet.json",
+      "class": "scratch",
+      "sha256": "44e9a004110666c7f674019dd160862395af5d42d1b26c8c936923f0d24f4030",
+      "size": 19960
+    },
+    {
       "path": "out/dispatch/phone-critic-packet.json",
       "class": "scratch",
       "sha256": "eac181a9165544348cf4741204c2dba0204c92d91408c89db1b5a5f4f0303854",
       "size": 25017
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/index.json",
+      "class": "scratch",
+      "sha256": "7609f7806bdc3e3870a398c85cdbf1c5f7ad1da2d8900dba33e1ac8fb70c005b",
+      "size": 34554
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-000.png",
+      "class": "scratch",
+      "sha256": "5553170f6401e22aee78f285ac6a38eb3f4525f6cdb5719ca3d59c8c7c319341",
+      "size": 301557
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-001.png",
+      "class": "scratch",
+      "sha256": "c003bbff58d22ebeee5af124bcc279eeb037c38adbf48c0604bf40c4c573b42a",
+      "size": 278036
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-002.png",
+      "class": "scratch",
+      "sha256": "4d459492c7b3370486d44a13c7d77461a41b9c9ad036d0ef03a11125c88e2677",
+      "size": 300916
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-003.png",
+      "class": "scratch",
+      "sha256": "d56a00c5eceb033e6f70bea190db46f2c36ef3632eaf31f7be6849f6a4fe54cd",
+      "size": 299056
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-004.png",
+      "class": "scratch",
+      "sha256": "f077f378bbb1572a00ee3df01c4dbc8782a6df03535adf314a5706df78fca5c7",
+      "size": 372930
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-005.png",
+      "class": "scratch",
+      "sha256": "0026203f5a8c13b2547995d5bd9653c40540e22be5991759c0ccb2f5fc449773",
+      "size": 342972
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-006.png",
+      "class": "scratch",
+      "sha256": "bf4f79b7f6f31bb165139588bfc0b874ddd45d3af0e2c4ca65af2556daf256a9",
+      "size": 350899
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-007.png",
+      "class": "scratch",
+      "sha256": "87210cba49e2b51d54fb85eb1cd54cc81a30e1bf0916d5a07d757cefdcd16d47",
+      "size": 369402
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-008.png",
+      "class": "scratch",
+      "sha256": "a982eb2589ee63f21d66378c199e1212208d459cf692c2c3eca4118b3ef1fa61",
+      "size": 336985
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-009.png",
+      "class": "scratch",
+      "sha256": "3d19d77899b906f7baf850e77db07e36715206aa448a2bcd1b806724f97a8a2c",
+      "size": 310354
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-010.png",
+      "class": "scratch",
+      "sha256": "5f047108eb15b32cc809db0b5219159ba9cc150d456b88ea426ca2cd813a1f06",
+      "size": 291856
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-011.png",
+      "class": "scratch",
+      "sha256": "7d028224be717e73a51bda4bc4a14bf429932ed6122c90eb317bfb94389a6b0c",
+      "size": 313031
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-012.png",
+      "class": "scratch",
+      "sha256": "b5eb12069b573cace5095e28157fcb5cabd282b7aecd217360628620d70c5789",
+      "size": 315282
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-013.png",
+      "class": "scratch",
+      "sha256": "3e1f183c378f9cbdf52ed9692ab4c3322d88be4fa255c57878fb32b76cdcbbaa",
+      "size": 309202
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-014.png",
+      "class": "scratch",
+      "sha256": "6c9a4eef0ad11769cb9025d09912c9687fe1387cf462cae1508975fcabef170f",
+      "size": 396606
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-015.png",
+      "class": "scratch",
+      "sha256": "d7edef881a2421d226aeac30cdb449119582015d295f1a397d4b37c2d3605281",
+      "size": 305514
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-016.png",
+      "class": "scratch",
+      "sha256": "c50c710215f0335b7cba47dce21083f4bb0fc6a30ea97cb3aca0eecc89e7c3de",
+      "size": 347035
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-017.png",
+      "class": "scratch",
+      "sha256": "5f6f00014a074a68b613e7520bdb31584dfc591e23b80d3716bcf96325cb6785",
+      "size": 393171
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-018.png",
+      "class": "scratch",
+      "sha256": "a0e7fa8f2c478c26e70aed03ecade527c6d96ed88c731870000bca5838aff63a",
+      "size": 316715
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-019.png",
+      "class": "scratch",
+      "sha256": "2efc991ff3636e7b9eb9fa27974e6d5d6038d29acdddb56f6caaf98a51e476c3",
+      "size": 341269
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-020.png",
+      "class": "scratch",
+      "sha256": "066fa72a73afd83fad13895d2f3b5f638084590aff333c6b6f1ee40f35e4dac4",
+      "size": 331875
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-021.png",
+      "class": "scratch",
+      "sha256": "7878ffa54f75fc751299f8633e159df389b6d387efba919a65b2c81d9954625b",
+      "size": 329385
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-022.png",
+      "class": "scratch",
+      "sha256": "3036ef80703c515bed422a60220df7e365e193f996bb3e70376acf55c0ba687d",
+      "size": 309801
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-023.png",
+      "class": "scratch",
+      "sha256": "22757a6c9c4fd0e9f780dbd169bebdbd6cd6cd2ea1e373be0b9929f86e9e8f4f",
+      "size": 311147
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-024.png",
+      "class": "scratch",
+      "sha256": "a19035e3d12eb83a79dd85dc15cb2e83b4e5b0044ed1871b39ed7366d3b63023",
+      "size": 387928
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-025.png",
+      "class": "scratch",
+      "sha256": "4d7c13531558a5e0fb22803bf83915bc0955ad580bbf1adeac460ceaf3513434",
+      "size": 259086
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-026.png",
+      "class": "scratch",
+      "sha256": "c2cb81d4bf69a9da3c21674850f2b99b7cc5044d0cc09d6b7f7e52fc011f94ce",
+      "size": 290938
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-027.png",
+      "class": "scratch",
+      "sha256": "b31d952c84064e87ac1f820bd7627b77afdf4c4daa6bfb750acfce721346f107",
+      "size": 299521
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-028.png",
+      "class": "scratch",
+      "sha256": "527e0724639979099d3293230ba30f1335da8749d7862e7399cf0373cefb4ad7",
+      "size": 378819
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-029.png",
+      "class": "scratch",
+      "sha256": "cab338da1e4eb2bbc46e9c4f90ad2b3fc43d7eecfdc5c852267d53c311b8e0a1",
+      "size": 305730
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-030.png",
+      "class": "scratch",
+      "sha256": "e9f5e60f004d5a590e4ca3faf58d05056e871e3c9fe3a788d6ced5e970b010d2",
+      "size": 300083
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-031.png",
+      "class": "scratch",
+      "sha256": "370d35631c3a93efbc6f0b950d2d2c8316297674a02208ff26a217987e83e389",
+      "size": 346110
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-032.png",
+      "class": "scratch",
+      "sha256": "2d2f9147ac5d1b85c443e8ab6806a8282316e7a44a9289c82a7647bfa3020a6b",
+      "size": 532008
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-033.png",
+      "class": "scratch",
+      "sha256": "3c587176df161bb7da498b70df90e8bd1307d5bab4b33c27398e25f174192936",
+      "size": 540644
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-034.png",
+      "class": "scratch",
+      "sha256": "f9467daa92d196d0c11fc1a0d6cc15ff99a12365288f554445c6e27dd3c1f43e",
+      "size": 368146
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-035.png",
+      "class": "scratch",
+      "sha256": "712a27fb720f82636a19a057cb150ec4a56c2ccd1d2de4c52eaefdd592f6a5e8",
+      "size": 350350
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-036.png",
+      "class": "scratch",
+      "sha256": "a968ced36345071faa1aef82301d7a8f0ead2cb05609701064942fcab0110608",
+      "size": 505862
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-037.png",
+      "class": "scratch",
+      "sha256": "beeaeb6325dff14437678edbd6a7a4b4791db8712e8f49aee09c4f188c22084d",
+      "size": 390847
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-038.png",
+      "class": "scratch",
+      "sha256": "ba3366f4aad6c355293ac41e173a38a2d60ba14612987c7ab6efd7c5cb1c2267",
+      "size": 391136
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-039.png",
+      "class": "scratch",
+      "sha256": "375e9c8d2dcceb05053448d49cf5667b5f3ec51870e0bc5be659934af57d1319",
+      "size": 394072
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-040.png",
+      "class": "scratch",
+      "sha256": "8db1451fb895b8c1b94c951cdc48783c5215af16fa338a83748095c079e2df94",
+      "size": 443129
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-041.png",
+      "class": "scratch",
+      "sha256": "bf316324bf418ff81675a27b2e20375066ab9a1b0e6395e856773521111e684c",
+      "size": 557922
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-042.png",
+      "class": "scratch",
+      "sha256": "25b437fede377e90a3a38d0c83779e28f675b36275fbd9170407f21fa836f434",
+      "size": 426651
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-043.png",
+      "class": "scratch",
+      "sha256": "e144b2cd2f8363e0f93306cdb6077ab3deb76a9d6259fbcd31ad653421294a6c",
+      "size": 358014
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-044.png",
+      "class": "scratch",
+      "sha256": "173c4ddd8b49b26546924d8f6e75957c072100c2bf0c7fd1675c75c85612cf21",
+      "size": 347427
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-045.png",
+      "class": "scratch",
+      "sha256": "82f8b6b3de519fea9baebe062fac0345ad69e9fb05df4bfa0896c51936304ae3",
+      "size": 311581
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-046.png",
+      "class": "scratch",
+      "sha256": "3bdaa4a5a7f6087bdc999da12ea13f001bfdef53e0fbeafe76398680e7e6f35d",
+      "size": 419620
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-047.png",
+      "class": "scratch",
+      "sha256": "cefacba6104e052c1380c38868d51498e369c755dcf39d266c7c717975a710fe",
+      "size": 331111
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-048.png",
+      "class": "scratch",
+      "sha256": "0783e192a0eedc89fde8501194aa28893fb10b56c2c006760eea28ba6121e82c",
+      "size": 355038
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-049.png",
+      "class": "scratch",
+      "sha256": "4fffd3f825d9a4ac3240cecf530213e01d668631daf86bbdb1156d24553e867d",
+      "size": 442193
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-050.png",
+      "class": "scratch",
+      "sha256": "ddd2fa188f023bcbf4b62de40630850c892213f39d4804e44961ba71b06986ca",
+      "size": 359175
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-051.png",
+      "class": "scratch",
+      "sha256": "20661d814b31916cf3155083aad13252f956f41a61a8d0c294808e3a15ea7c45",
+      "size": 415024
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-052.png",
+      "class": "scratch",
+      "sha256": "9cc843f19af39f024fefb55d93df9327342e3a525a3804fdefe54ce844955ad4",
+      "size": 384063
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-053.png",
+      "class": "scratch",
+      "sha256": "c602d2d451a956fa88f51e2825d9a69f1f470e62096180d506084ca06109d359",
+      "size": 441250
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-054.png",
+      "class": "scratch",
+      "sha256": "8a2a695ee9862d8bd24bf5b4a8060d8ec9e4a4eed909afcba349f4a45513d27d",
+      "size": 350347
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-055.png",
+      "class": "scratch",
+      "sha256": "3c0affb4a96ddbcd445df44cccad697412cb3cebc8ad2d8e3a2fe621e2b1495b",
+      "size": 175873
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-056.png",
+      "class": "scratch",
+      "sha256": "a885a3732b22cceee6ddb93568cc993cfcf6514bc94b7ac0512b45b4d9a51cbc",
+      "size": 176909
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-057.png",
+      "class": "scratch",
+      "sha256": "28574321783f1f41b925436fcdec95ec20b79b1cf4747808a1facce68047687f",
+      "size": 176598
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-058.png",
+      "class": "scratch",
+      "sha256": "48c7717d24cde5828f651612e86413bda5e4be41906e3194bdb5f1cb12dc3209",
+      "size": 176334
+    },
+    {
+      "path": "out/dispatch/phone-motion-current/sequence-059.png",
+      "class": "scratch",
+      "sha256": "7413a3a17b37b22c8b255385eb8c8c45e81f00709fea83a808ac251908107917",
+      "size": 91889
     },
     {
       "path": "out/dispatch/picture-precheck-bounded/b6f64199-f7b2-4e0f-81c4-c3f9581b3f0b/authored_retime_feasibility.log",
@@ -11673,9 +12045,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 274968910,
-    "unique_blob_bytes": 176192340,
-    "unique_blobs": 1385
+    "logical_bytes": 295679848,
+    "unique_blob_bytes": 195481191,
+    "unique_blobs": 1440
   },
   "excluded": [
     {
