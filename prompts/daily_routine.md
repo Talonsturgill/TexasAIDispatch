@@ -120,6 +120,9 @@ A run should take three to five hours. Checkpoints, measured from wake:
 Behind a checkpoint means spend the scope ladder, not skip the checkpoint. Cap the fan-out: at most
 three researchers, one validator, one voice director, three scorers per round, six agents in
 flight. Brief a subagent once, in one message, and use what it returns. Authoring the film is yours.
+Every agent this routine spawns is the built-in `general-purpose` type with a brief from
+`prompts/daily/`. The agent types defined under `.claude/agents/` belong to the retired lane and
+expect its ledgers. Do not spawn them.
 
 ---
 
@@ -146,8 +149,9 @@ a tool, at work, in a real place in Texas.** It is not the Docket's video editio
 center siting are the Docket's.
 
 1. `bash scripts/run_with_env.sh python3 scripts/dedupe.py list`. Nothing in that list repeats.
-2. Spawn up to three `researcher` agents in ONE message, each on a different beat from
-   APPLICATIONS.md, each asked for stories from the last ten days with primary sources.
+2. Spawn up to three `general-purpose` agents in ONE message with `model: sonnet`, each told to
+   read `prompts/daily/researcher.md` and follow it, each on a different beat from APPLICATIONS.md,
+   each asked for stories from the last ten days.
 3. Pick the story with the most FILMABLE action: a machine or a person doing a specific thing in a
    specific county. A press release with no action is the wrong pick however new it is.
 4. The story ladder, so there is always a story. (a) The last 10 days. (b) The last 30 days.
@@ -156,8 +160,9 @@ center siting are the Docket's.
 
 ## PHASE 2: THE FACT-CHECK
 
-Spawn ONE `validator` agent with the picked story and every claim the script might make. It
-re-fetches each URL and returns verified claims. Write `out/dispatch/claims.json`:
+Spawn ONE `general-purpose` agent, told to read `prompts/daily/validator.md` and follow it, with
+the picked story and every claim the script might make. It re-fetches each URL and returns the
+verified claims. Write `out/dispatch/claims.json` from what it returns:
 
     {"date": "<date>", "claims": [
       {"id": "c1", "text": "what is true, in one sentence",
@@ -215,8 +220,9 @@ Then `L check --board`. Exit 1 is a list of things to fix. Fix them and run it a
 
 ## PHASE 4: THE VOICE
 
-1. Optional and cheap: one `vo-director` agent writes `out/dispatch/vo_direction.json` from
-   `out/dispatch/vo_script.txt`. Emotion lives in its notes, never in tags inside the script.
+1. Run `L script`, then spawn one `general-purpose` agent with `model: sonnet`, told to read
+   `prompts/daily/vo_director.md` and follow it. It writes `out/dispatch/vo_direction.json`. Skip
+   this when the run is behind. The voice works without it.
 2. `L voice`. It makes the Gemini take, soundchecks it word for word, force-aligns the captions and
    times the board. It retries by itself. If it says a take stumbles on a line, rewrite that line in
    the board and run it again.
@@ -312,12 +318,16 @@ Then, in this order. Each step is one command or one tool call.
    open a ready pull request, and merge it when ITS checks are green on the head commit. The
    Docket's own rule is never to merge on anything but green, and that rule holds there. If it is
    not green in 40 minutes, leave the pull request open, say so in the email, and move on.
-6. Social. Follow `prompts/social_delivery.md`. One destination at a time. A blocked destination is
+6. Social. If the trigger prompt that started this run says never to post socially, skip this
+   step and say so in the email. Otherwise follow `prompts/social_delivery.md`. One destination at a time. A blocked destination is
    reported, never retried blindly. Write the per-destination result to `out/dispatch/social.json`.
-7. `L email`. Then create ONE Gmail DRAFT: `to` is the connected profile's own address (read it
-   from the connector profile), `subject` is the first line of `runs/<date>/email.md`, and
-   `htmlBody` is the contents of `runs/<date>/email.html`. Never `body`, never `me`, never send.
-   Read the draft back and confirm it carries DRAFT and not SENT.
+7. `L email`. Then create ONE Gmail DRAFT with the connector's create_draft tool: `subject` is the
+   first line of `runs/<date>/email.md` and `htmlBody` is the contents of `runs/<date>/email.html`.
+   Never `body`, never send. If the connector offers a profile tool, set `to` to the connected
+   account's own address. If it does not, leave `to` out entirely. A draft with no recipient still
+   lands in the connected mailbox's Drafts, which is where the owner reads it. Never guess an
+   address and never use `me`. Read the draft back with get_draft and confirm its labels carry
+   DRAFT and not SENT.
 8. `L receipt --draft-id <id> --pr <number> --merged`. This is what ends the run.
 
 If a step after 3 fails, the film is still shipped and public. Report the failed step in the last
