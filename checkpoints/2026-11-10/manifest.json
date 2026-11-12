@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-12T00:31:03.096620+00:00",
-  "note": "ledger write",
+  "saved_at": "2026-11-12T00:32:30.023284+00:00",
+  "note": "corrected B preview + current phone extraction done; critic 3/3 reserved, post-reservation plan refused",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -2622,6 +2622,12 @@
       "class": "scratch",
       "sha256": "0a14ffc06837076ed97111f0180eb0e11a4124457ef9dd5236a7167def52b777",
       "size": 183
+    },
+    {
+      "path": "out/dispatch/evidence/current-phone-plan-block-2026-11-12.md",
+      "class": "scratch",
+      "sha256": "2bf4bd8c3b95326d1d46998012bfc3a128697318aab1f1c125824d0b88b899e8",
+      "size": 1664
     },
     {
       "path": "out/dispatch/evidence/owned-git-compaction-1.json",
@@ -12063,9 +12069,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 295713633,
-    "unique_blob_bytes": 195514976,
-    "unique_blobs": 1443
+    "logical_bytes": 295715297,
+    "unique_blob_bytes": 195516640,
+    "unique_blobs": 1444
   },
   "excluded": [
     {
