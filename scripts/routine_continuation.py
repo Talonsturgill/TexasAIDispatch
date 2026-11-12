@@ -393,7 +393,13 @@ def main():
             json.dump({'schema': SCHEMA, 'observed': False}, stream)
         print('Nonproduction one-shot Stop probe armed; no production ledger created.')
     else:
-        result = response(json.load(sys.stdin), args.workspace)
+        payload = json.load(sys.stdin)
+        import lean_hooks
+        if lean_hooks.active(args.workspace):
+            # The daily lane owns this session. Its only stop rule is: no film, no stop.
+            result = lean_hooks.stop_decision(payload, args.workspace)
+        else:
+            result = response(payload, args.workspace)
         if result is not None:
             print(json.dumps(result))
 

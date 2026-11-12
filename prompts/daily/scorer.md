@@ -17,10 +17,19 @@ Read `config/dispatch_rubric.yaml`. Score each axis it lists from 0 to 10 using 
 then compute the weighted total with its weights. Most competent work is 6 to 8. A 9 is rare. Do
 not round up and do not grade the effort. Grade what a stranger scrolling a feed would see.
 
-You are judging stills and the script, so judge what they can show: whether the first frame stops
-a thumb, whether each shot shows what its narration says, whether the place is drawn as the county's
-real region, whether type is readable at phone size and clear of the caption band, whether the
-picture changes often enough, whether the film ends on something.
+You are judging stills and the script, so judge what they can show.
+
+- Would a stranger stop on the first frame? Is somebody doing something in it?
+- Does EVERY picture show what its sentence says, figures included? A card still showing one number
+  while the caption says another is a defect, and a serious one.
+- Is somebody on screen in most frames, and does their face change with the story?
+- Does a new picture land every few seconds, or do you see the same frame again along the sheet?
+  A new subject at the same angle and size is still the same frame.
+- Is the subject big in the frame, or a small thing on an empty plain?
+- Is the biggest number made into something you can see, or only printed?
+- Is there one object that changes from the first scene to the last, and one image you would remember?
+- Is the place drawn as the county's real region? Is type readable at phone size and clear of the
+  caption band and the label chip?
 
 ## Hard fails
 
