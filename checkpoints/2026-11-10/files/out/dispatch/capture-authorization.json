@@ -211,13 +211,13 @@
     {
       "id": "492b8b700cac821910ea921ffcdb96a53e371b8ec40eed993430a0b11c93bf66",
       "text": "bash scripts/run_with_env.sh python scripts/preflight_animatic.py --board out/dispatch/storyboard.json",
-      "consumed": false
+      "consumed": "2026-11-12T00:25:03.483259+00:00"
     }
   ],
   "headroom": {
     "passed": true,
-    "required_free_gib": 13,
-    "free_gib": 15.836,
+    "required_free_gib": 14,
+    "free_gib": 15.818,
     "storage_profile": {
       "mode": "operation-storage-v1",
       "operator": "preflight_animatic.py",
@@ -229,11 +229,11 @@
       "working_bytes": 566231040,
       "new_retained_bytes": 153172176,
       "bundle_copy_bytes": 189505536,
-      "git_object_allowance_bytes": 4294967296,
+      "git_object_allowance_bytes": 5368709120,
       "checkpoint_package_allowance_bytes": 335544320,
-      "checkpoint_work_bytes": 7650410496,
+      "checkpoint_work_bytes": 8724152320,
       "reserve_gib": 5,
-      "required_free_gib": 13,
+      "required_free_gib": 14,
       "estimate_kind": "measured-operation-cost-not-universal-hard-cap",
       "bindings": {
         "video-engine/scripts/bounded-png-render.mjs": "fb4abd86b1cb50a1ce69eb08d253431ffd1740af8d61c02c10d84439c0ef3df7",
@@ -285,7 +285,7 @@
   },
   "art_receipts_recorded": true,
   "issued_at": "2026-11-11T23:48:25.648519+00:00",
-  "expires_at": "2026-11-12T00:33:25.648519+00:00",
+  "expires_at": "2026-11-12T01:09:47.157671+00:00",
   "prepared_capture": {
     "schema": "dispatch_prepared_capture/1",
     "operation": "quarter-scale animatic",
@@ -293,5 +293,12 @@
     "run_id": "2026-11-10",
     "event_sha256": "c9f1353254b2e3b2bdffd17a4c6dd58589baa35da88b93ccfe509263cdf87f31",
     "input_identity": "51c8408ca9a92c6082e817eced2774740cd032706d92547e7f51afdf638e24db"
+  },
+  "revalidation": {
+    "schema": "dispatch_unused_capture_revalidation/1",
+    "at": "2026-11-12T00:24:47.157671+00:00",
+    "previous_authorization_sha256": "68e9708370e244c0498cb161c285905a23bc357562a34b14c4db7148176a5be9",
+    "previous_expires_at": "2026-11-12T00:33:25.648519+00:00",
+    "same_charge": "c9f1353254b2e3b2bdffd17a4c6dd58589baa35da88b93ccfe509263cdf87f31"
   }
 }
