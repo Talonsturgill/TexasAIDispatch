@@ -1,8 +1,10 @@
 """lean_hooks.py: what the workspace hooks do while a daily-lane run is armed.
 
 `scripts/lean.py init` writes out/dispatch/lean_run.json in the Dispatch checkout. While that marker
-exists the older lane's hooks stand down: no capture authorization is demanded, no reviewer receipt
-is recorded, no publication lease is consulted. One hook gets a job instead. The Stop hook refuses
+exists the workspace capture hook stands down: it consults no publication lease and demands no
+authorization. (The repository's own capture_guard.py is left byte for byte as it was, because the
+retired lane's capture proof is bound to its hash. Renders go through scripts/lean.py, which that
+guard does not gate.) One hook gets a job instead. The Stop hook refuses
 to let the session end while today's film is undelivered, a bounded number of times, because the
 failure this lane was built against is a run that stops on its own.
 
