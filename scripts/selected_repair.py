@@ -49,11 +49,76 @@ def closure(board):
     return result
 
 
+def completed_reviews(state_path):
+    """Index real handbacks, not reservations that may still be awaiting dispatch.
+
+    A reservation or worker claim is expenditure, never a returned verdict. Validate
+    every present completion before selecting code evidence; corrupt or ambiguous
+    receipts remain errors rather than being treated as pending work.
+    """
+    from completion_yield import CRITIC_RECEIPTS, critic_completion, original_critic_review
+    state_path = Path(state_path).resolve()
+    indices = set()
+    for path in sorted((state_path.parent / CRITIC_RECEIPTS).glob('*.json')):
+        if path.name.startswith('handback-'):
+            continue
+        _, claim, _ = critic_completion(state_path.parents[2], path, state_path=state_path)
+        indices.add(claim['reservation_event_index'])
+    return {index: original_critic_review(state_path, index) for index in sorted(indices)}
+
+
+def pending_claims(state_path, adopted, last_authorized, reviews):
+    """A claimed code attempt with no retained result cannot fall back to an old PASS.
+
+    Only a hash-bound phone-only assignment can remain in flight alongside accepted
+    code. An unclaimed reservation has no packet identity and grants no evidence.
+    """
+    from completion_yield import digest, local
+    state_path = Path(state_path).resolve(); state = read(state_path); root = state_path.parents[2]
+    result = {}; seen = set()
+    for path in sorted((state_path.parent / 'worker-dispatch-claims').glob('*.json')):
+        claim = read(local(root, path))
+        i = claim.get('reservation_event_index')
+        require(type(i) is int and 0 <= i < len(state['events']), 'worker claim reservation is missing')
+        event = state['events'][i]
+        prefix = path.name.split('-', 1)[0]
+        if len(prefix) == 64 and all(c in '0123456789abcdef' for c in prefix):
+            require(path.name == digest(event) + '-' + str(claim.get('role')) + '.json',
+                    'canonical worker claim changed its reservation or role')
+        if i <= adopted:
+            continue
+        is_critic = bool(event.get('resources', {}).get('storyboard_critics'))
+        require(not (is_critic or path.name.endswith('-storyboard-critic.json'))
+                or claim.get('role') == 'storyboard-critic', 'retained critic claim changed its role')
+        if claim.get('role') != 'storyboard-critic':
+            continue
+        require(claim.get('schema') == 'dispatch_worker_dispatch_claim/1'
+                and claim.get('run_id') == state['run_id'] and event.get('kind') == 'reserved'
+                and event.get('resources', {}).get('storyboard_critics') == 1
+                and claim.get('reservation_sha256') == digest(event)
+                and claim.get('owner_sha256') == event.get('publication_owner_sha256')
+                and claim.get('epoch') == event.get('publication_epoch') and i not in seen,
+                'pending critic claim changed owner, reservation or identity')
+        seen.add(i)
+        if i in reviews:
+            require(bound(path) == reviews[i]['claim'], 'completed critic claim differs from its retained original')
+            continue
+        packet_path = local(root, selected.matching_json(state_path.parent, claim.get('packet_sha256'), '*.json'))
+        packet = read(packet_path)
+        require(packet.get('role') == 'storyboard-critic' and packet.get('date') == state['run_id'][:10],
+                'pending critic packet belongs to another role or edition')
+        require(i <= last_authorized or (packet.get('review_scope') == 'exact-muted-phone-preflight'
+                and packet.get('phone_mode') in ('current', 'comparison')
+                and packet.get('phone_options') and not packet.get('combined_code_review')),
+                'claimed code review needs its complete original native response before reusing earlier code approval')
+        result[i] = (path, packet_path)
+    return result
+
+
 def provenance(board_path):
     """Return verified evidence or None for the unchanged ordinary comparison route."""
     import critic_gate
     import modern_film
-    from completion_yield import original_critic_review
     from production_lifecycle import opening_reboard_reference
     from creative_production import fingerprint
     board_path = Path(board_path).resolve(); root = board_path.parent
@@ -103,6 +168,7 @@ def provenance(board_path):
     require(closure(board) == current, 'selected storyboard and treatment renderer closures differ')
     require(current == {r['path']: r['sha256'] for r in modern_film.renderer_inputs(
         chosen['film_direction']['episode'], REPO)}, 'selected repair renderer inputs are stale')
+    reviews = completed_reviews(evidence_state)
     inventory = set(); relevant = set(); chain = dict(before); last_authorized = adopted
     # Compare retained original paid events with the live/public ledger, not only a capsule index.
     original_events = {proof['original_review_event_index'], comparison['reservation']['event_index']}
@@ -147,10 +213,9 @@ def provenance(board_path):
         inventory.add(failure)
         original_receipt = retained.path(proof['original_review']['path']) if retained else Path(proof['original_review']['path'])
         diagnosis = read(original_receipt)['report'] == read(failure)
-        for attempt in range(adopted + 1, start):
-            if events[attempt].get('kind') != 'reserved' or events[attempt].get('resources', {}).get('storyboard_critics') != 1:
+        for attempt, prior in reviews.items():
+            if not adopted < attempt < start:
                 continue
-            prior = original_critic_review(evidence_state, attempt)
             if prior['report'] == read(failure):
                 diagnosis = True; relevant.add(attempt)
                 inventory.update(Path(prior[key]['path']) for key in ('receipt', 'packet', 'claim'))
@@ -171,11 +236,12 @@ def provenance(board_path):
         last_authorized = index
     require(last_authorized > adopted and chain == current,
             'current selected source has no complete charged authorized repair chain')
+    for i, pending in pending_claims(evidence_state, adopted, last_authorized, reviews).items():
+        relevant.add(i); inventory.update(pending)
     candidates = []
-    for i, event in enumerate(events):
-        if i <= last_authorized or event.get('kind') != 'reserved' or event.get('resources', {}).get('storyboard_critics') != 1:
+    for i, original in reviews.items():
+        if i <= last_authorized:
             continue
-        original = original_critic_review(evidence_state, i)
         packet = read(original['packet']['path'])
         for key in ('receipt', 'packet', 'claim'):
             inventory.add(Path(original[key]['path']))
