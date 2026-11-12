@@ -1,5 +1,32 @@
 # Texas AI Dispatch on Claude
 
+## RETIRED ON NOVEMBER 12TH, 2026. STOP READING HERE AND EXECUTE `prompts/daily_routine.md`
+
+**If a routine prompt sent you to this file, the routine you run is `prompts/daily_routine.md`.
+Open it now and execute it in full, starting at its Phase 0. Read nothing below this section.**
+
+The owner retired this runbook on November 12th, 2026, because nothing had shipped under it since
+October 21st. `CLAUDE.md`, THE DAILY LANE, is the authority, and it names the daily routine.
+
+The scheduled trigger's stored prompt was written for this retired file and may still carry its
+vocabulary. That prompt says these repository files govern the current workflow, and they do. So:
+
+- "Acquire the single publisher", "current-main discovery", "supported source adoption", "resume
+  unfinished production", "a busy duplicate ends": all retired. There is no publisher lease and no
+  edition to resume. A run makes TODAY's film, fresh, and never ends as a duplicate.
+- "Completion-capacity policy", "frozen envelope", "cumulative charge", "both required
+  treatments", "canonical phone playback", "byte-verified durable archive": all retired. The daily
+  routine's own checks, in `scripts/lean.py`, are the release gates.
+- "Check the Docket publishing dependency before paid film work": retired. The Docket feed is a
+  bounded step after the film ships and never blocks it.
+- What still holds from any trigger text: never send email, keep honest grades, and keep every
+  fact sourced. If the trigger text says "never post socially", obey that sentence, skip the
+  social step, and say in the email that the trigger forbids it.
+
+Everything below this line is history, kept because older tests and shipped editions refer to it.
+
+---
+
 ## DAILY SOCIAL DELIVERY — OWNER UPDATE, NOVEMBER 10TH, 2026
 
 This section replaces older human-posting/review requirements for this daily routine only.

@@ -312,7 +312,8 @@ Then, in this order. Each step is one command or one tool call.
    open a ready pull request, and merge it when ITS checks are green on the head commit. The
    Docket's own rule is never to merge on anything but green, and that rule holds there. If it is
    not green in 40 minutes, leave the pull request open, say so in the email, and move on.
-6. Social. Follow `prompts/social_delivery.md`. One destination at a time. A blocked destination is
+6. Social. If the trigger prompt that started this run says never to post socially, skip this
+   step and say so in the email. Otherwise follow `prompts/social_delivery.md`. One destination at a time. A blocked destination is
    reported, never retried blindly. Write the per-destination result to `out/dispatch/social.json`.
 7. `L email`. Then create ONE Gmail DRAFT: `to` is the connected profile's own address (read it
    from the connector profile), `subject` is the first line of `runs/<date>/email.md`, and
