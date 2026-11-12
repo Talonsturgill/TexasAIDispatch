@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-12T01:29:03.670719+00:00",
-  "note": "voice take1_compact chosen 59.85s acc 1.000",
+  "saved_at": "2026-11-12T01:33:04.910990+00:00",
+  "note": "voice take1_compact, music, mix built; vo_align refuses Abridge as 'a bridge'",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -44,10 +44,40 @@
       "size": 83947
     },
     {
+      "path": "config/music/tracks.json",
+      "class": "source",
+      "sha256": "3cf92dc4b9d25a0a3ae02b4d56737c02ee7b0b4dae9bf253e568a6c861752ee6",
+      "size": 20414
+    },
+    {
       "path": "out/dispatch/PENDING-OWNER-VALIDATOR-DECISION.md",
       "class": "scratch",
       "sha256": "cfbf4cfb85a326c484c760036d2ff1cfb14426561b162458efc29fb046d01ed2",
       "size": 2173
+    },
+    {
+      "path": "out/dispatch/acoustic-asr-meta.json",
+      "class": "scratch",
+      "sha256": "41a28a10bc677171c81acbde834001060d79b86d903ddcafb2923026aba27683",
+      "size": 717
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.json",
+      "class": "scratch",
+      "sha256": "fac97d3c48dd07c70af6bdda70f31b0837cdb2ab7331d6d807c73a92d658f15b",
+      "size": 81889
+    },
+    {
+      "path": "out/dispatch/acoustic-asr.log",
+      "class": "scratch",
+      "sha256": "4d27742be7f839b189728b814082f017396b905c2826ecb0c76a0a0f6570551e",
+      "size": 113707
+    },
+    {
+      "path": "out/dispatch/alignment-16k.wav",
+      "class": "scratch",
+      "sha256": "d88e762d2805f60fb3de719b5c2a27ddb22558aafe4ace75307b7edae8ab3228",
+      "size": 1955822
     },
     {
       "path": "out/dispatch/artwork-originals/authored-2ef3c1a7-d84c-4d21-b97a-2ac12dda5dad.tsx",
@@ -228,6 +258,12 @@
       "class": "scratch",
       "sha256": "78aeda89df5bb5506ebc5c5158ebd7c4d4ee6503d030c15782063810e1c47eb6",
       "size": 230765
+    },
+    {
+      "path": "out/dispatch/board-baseline-repair1/storyboard-before-credits.json",
+      "class": "scratch",
+      "sha256": "6c64f4a61f714bc3d5e13025060256c6f0be0f714bd88c467220e57831851cd1",
+      "size": 230664
     },
     {
       "path": "out/dispatch/board-baseline-repair1/storyboard.json",
@@ -1550,6 +1586,12 @@
       "size": 326
     },
     {
+      "path": "out/dispatch/credits.txt",
+      "class": "scratch",
+      "sha256": "f462e9ac1cd6404c548a2fa97228010191720f3bcc91dc31bf95d57f140c5ecd",
+      "size": 314
+    },
+    {
       "path": "out/dispatch/critic-assignment-reserved.json",
       "class": "scratch",
       "sha256": "b5c2f1bf62b62329e39d50468b594c1f08603aa4c3e5d5e65008a046ea8189bc",
@@ -2644,8 +2686,8 @@
     {
       "path": "out/dispatch/evidence/repair-1-notes.md",
       "class": "scratch",
-      "sha256": "572504dfbaef3b4cf207c880a397d5a28d735a553d2d4cb45d66493b25ed39f4",
-      "size": 3732
+      "sha256": "50069f25c47828a110a52133e768e2b504ecd4d355ed4b4ee0ac1c89eb4640f8",
+      "size": 4789
     },
     {
       "path": "out/dispatch/evidence/structural-revalidation/modern_film-210.exit",
@@ -5790,6 +5832,54 @@
       "class": "scratch",
       "sha256": "5a56adc42a799ebe82b1f23a947abe3305827dd86a48612e474d23046384969d",
       "size": 771
+    },
+    {
+      "path": "out/dispatch/mix.json",
+      "class": "scratch",
+      "sha256": "1db5fbe9b770f31723ea8607a4445c0350c5c6064a1db4a661fbbd53e6d12911",
+      "size": 7556
+    },
+    {
+      "path": "out/dispatch/mix.wav",
+      "class": "scratch",
+      "sha256": "277f24d04836fb65d988184dadee523a1c50d5ff5299be2183fceb96cce4dc3a",
+      "size": 6270798
+    },
+    {
+      "path": "out/dispatch/mix_vo.wav",
+      "class": "scratch",
+      "sha256": "9b3ce5075c8f926083662259fa550e792ce207891e8bc31932d924addd4da109",
+      "size": 6270764
+    },
+    {
+      "path": "out/dispatch/music_bed.json",
+      "class": "scratch",
+      "sha256": "8d13a795f3a55bf67e5985630fcf910e8b2f62de1b99261967c2c25fed61dafc",
+      "size": 726
+    },
+    {
+      "path": "out/dispatch/music_bed.wav",
+      "class": "scratch",
+      "sha256": "18a2af1e753896f07e16ba206e15d395b520a89540edcee1d9286250c0eb2346",
+      "size": 18805734
+    },
+    {
+      "path": "out/dispatch/music_brief.json",
+      "class": "scratch",
+      "sha256": "d41aeb015126714f7dd990257863fc6b74bc9a61a14f5ca343fde353bd4a9d41",
+      "size": 497
+    },
+    {
+      "path": "out/dispatch/music_credit.err",
+      "class": "scratch",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "out/dispatch/music_credit.txt",
+      "class": "scratch",
+      "sha256": "2b2bd8cc9d6535c079f8825d4d418d3884fabeabb1c4f5e4cd3d27f39b292eb3",
+      "size": 164
     },
     {
       "path": "out/dispatch/native-completion-waits/0609088b96d381e1ec71f4e11efe9092cdefbf2a9b78260aed46858f362b974c.json",
@@ -10724,6 +10814,12 @@
       "size": 0
     },
     {
+      "path": "out/dispatch/sfx_events.json",
+      "class": "scratch",
+      "sha256": "dbb3256ee99b7f54fcc851d5ee2441cb4ab420e74d3e2e445630e65464163485",
+      "size": 3348
+    },
+    {
       "path": "out/dispatch/sources/abridge.html",
       "class": "scratch",
       "sha256": "48eb277149f1909a912bb492afd482127aa049ae3cc19599e837faea6327e186",
@@ -10774,8 +10870,8 @@
     {
       "path": "out/dispatch/storyboard.json",
       "class": "scratch",
-      "sha256": "6c64f4a61f714bc3d5e13025060256c6f0be0f714bd88c467220e57831851cd1",
-      "size": 230664
+      "sha256": "693240ff03ec053c2b9f3552acd2d4a6a39b0e6671bac347da66bc386d892dbe",
+      "size": 230832
     },
     {
       "path": "out/dispatch/storyboard_critic.json",
@@ -13275,9 +13371,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 309104638,
-    "unique_blob_bytes": 208905981,
-    "unique_blobs": 1645
+    "logical_bytes": 342868977,
+    "unique_blob_bytes": 242670320,
+    "unique_blobs": 1660
   },
   "excluded": [
     {
