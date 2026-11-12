@@ -87,9 +87,11 @@ November 10th, not yesterday's if it did not finish. There is no lease to acquir
 restore. If another session is working on an old edition, that is its business and it does not
 touch today. Today's edition is today's date and it starts from nothing.
 
-**Render, probe and encode only through `lean.py`** (`still`, `cut`, `frames`). An older workspace
-hook refuses a hand-typed `ffmpeg -i` or `remotion` command with "Capture refused". That refusal is
-not a blocker and needs no authorization. It means use the `lean.py` command for the same job.
+**Render, probe and encode through `lean.py`** (`still`, `cut`, `frames`). Once `lean.py init` has
+armed the run, the older workspace hooks stand down, and a hand-typed `ffmpeg` probe is allowed. A
+"Capture refused" message means the command ran before `init`. It is never a blocker. The Stop
+hook also changes sides while a run is armed: it refuses to let the session end before the film is
+delivered, and names the next step.
 
 ## NO PERMISSION PROMPTS
 

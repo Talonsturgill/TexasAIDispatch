@@ -30,6 +30,9 @@ def checkout(directory, workspace):
 def decision(payload, workspace):
     if payload.get('tool_name') != 'Bash':
         return None
+    import lean_hooks
+    if lean_hooks.active(workspace) or lean_hooks.active(payload.get('cwd') or workspace):
+        return None                      # an armed daily-lane run needs no lease and no authorization
     ownership_error = None
     try:
         from publication_owner import heartbeat_hook

@@ -394,6 +394,11 @@ def decide(payload, project):
         return None
     command = (payload.get('tool_input') or {}).get('command', '')
     cwd = payload.get('cwd') or project
+    # The daily lane (scripts/lean.py) asks for no capture authorization. While its run is armed
+    # in this checkout, renders and probes pass. Every other checkout is guarded as before.
+    import lean_hooks
+    if lean_hooks.active(project) or lean_hooks.active(cwd):
+        return None
     if not is_capture(command, cwd, project):
         return None
     try:
