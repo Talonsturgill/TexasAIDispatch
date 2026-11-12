@@ -692,7 +692,44 @@ def film_problems(date: str) -> tuple[list[str], list[str], dict]:
     registry = (ENGINE / "src" / "daily" / "registry.tsx").read_text(encoding="utf-8")
     if f"'{board.get('episode')}'" not in registry:
         hard.append(f"episode {board.get('episode')!r} is not registered")
+    hard += source_problems()
+    soft += pacing_notes(board)
     return hard, soft, facts
+
+
+def source_problems() -> list[str]:
+    """What CI will refuse about the episode source, found here before the film is final.
+
+    On November 12th an episode shipped two colour literals the engine lint refuses. CI caught them
+    after delivery, the fix landed after the render, and the committed source no longer matched the
+    film. Checked here, the fix lands before the last cut."""
+    out = []
+    lint = subprocess.run([PY, "scripts/engine_lint.py"], cwd=REPO, capture_output=True, text=True)
+    if lint.returncode != 0:
+        out.append("scripts/engine_lint.py fails on the episode source. Fix it, then `lean.py cut` again:\n"
+                   + (lint.stdout + lint.stderr).strip()[-700:])
+    tsc = subprocess.run(["npx", "--no-install", "tsc", "--noEmit"], cwd=ENGINE, capture_output=True, text=True)
+    if tsc.returncode != 0:
+        out.append("the engine does not typecheck:\n" + (tsc.stdout + tsc.stderr).strip()[-700:])
+    return out
+
+
+def pacing_notes(board: dict) -> list[str]:
+    """The two faults the first daily panel named, counted so a run sees them before a judge does."""
+    notes = []
+    shots = board.get("shots") or []
+    uses: dict[str, int] = {}
+    for shot in shots:
+        uses[shot.get("view", "")] = uses.get(shot.get("view", ""), 0) + 1
+    repeated = sorted(v for v, n in uses.items() if n > 2)
+    if repeated:
+        notes.append("these views are used more than twice, which reads as the same frame again: "
+                     + ", ".join(f"{v} x{uses[v]}" for v in repeated))
+    held = [f"{x['id']} ({x['duration_s']:.1f}s)" for x in shots if float(x.get("duration_s", 0)) > 6.0]
+    if held:
+        notes.append("these shots hold longer than six seconds. Cut inside them or give them a second action: "
+                     + ", ".join(held))
+    return notes
 
 
 def cmd_check(a) -> int:
@@ -795,6 +832,12 @@ def cmd_deliver(a) -> int:
     bad = copy_problems("the caption", post.read_text(encoding="utf-8"))
     if bad:
         raise Problem("fix the caption:\n  " + "\n  ".join(bad))
+    hashes = [str(r.get("film_sha256", "")) for r in card["rounds"]]
+    stamps = [r.get("graded_at") for r in card["rounds"]]
+    if (any(not re.fullmatch(r"[0-9a-f]{64}", h) for h in hashes) or len(set(hashes)) != len(hashes)
+            or len(set(stamps)) != len(stamps)):
+        soft.append("the panel record was not written round by round by `lean.py panel`, so its earlier "
+                    "rounds can't be tied to the cuts they graded")
     dest = run_dir(date)
     if (dest / "dispatch.mp4").is_file() and sha(dest / "dispatch.mp4") != sha(film) and not (dest / "lean.json").is_file():
         raise Problem(f"runs/{date}/ already holds a different shipped film. Shipped artifacts are never overwritten.")

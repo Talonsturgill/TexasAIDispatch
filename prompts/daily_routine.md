@@ -68,7 +68,7 @@ A message with no tool call in it ends your turn, and in a scheduled run nobody 
 work stops where the turn stopped. Never end a turn on a progress summary, an offer to continue, a
 list of decisions for the owner, or because a phase finished. Put status notes in the same message
 as your next tool call. Wait on a background job inside a command, never by ending the turn. The
-run ends in one place: after `lean.py receipt`, with the short report in THE LAST MESSAGE below.
+run ends in one place: after Phase 7's last step, with the short report in THE LAST MESSAGE below.
 
 ## THE RETIRED LANE. NEVER RUN IT
 
@@ -117,6 +117,11 @@ A run should take three to five hours. Checkpoints, measured from wake:
 | 4:00 | the final cut is graded |
 | 4:30 | merged, drafted, posted |
 
+**Use the time.** The first daily run, on November 12th, delivered in 76 minutes with a panel
+median two points under the bar, and the judges named the same two faults in every round. Being
+early with a weak film is the same mistake as being late. A cut that is under the bar before the
+4:00 mark gets another real pass, not a delivery.
+
 Behind a checkpoint means spend the scope ladder, not skip the checkpoint. Cap the fan-out: at most
 three researchers, one validator, one voice director, three scorers per round, six agents in
 flight. Brief a subagent once, in one message, and use what it returns. Authoring the film is yours.
@@ -132,7 +137,8 @@ All Dispatch commands run from the `TexasAIDispatch` checkout through the enviro
 Below, `L <command>` is short for `bash scripts/run_with_env.sh python3 scripts/lean.py <command>`.
 
 1. `git fetch origin main`, then `git checkout -B claude/dispatch-<date> origin/main`. The date is
-   `TZ=America/Chicago date +%F`. Set the git identity from CLAUDE.md.
+   `date -u +%F`, the day the scheduler fired, so the edition carries the date it is published on.
+   Set the git identity from CLAUDE.md.
 2. If `runs/<date>/lean.json` is already on main, today shipped. Do not remake it. Only finish
    whatever of Phase 7 is missing (the draft, the social posts), then end.
 3. `bash scripts/run_with_env.sh python3 scripts/cloud_bootstrap.py --bind-only`, then
@@ -276,15 +282,27 @@ view first, looking at stills after each pass. Never polish one view while anoth
 2. `L check`. Exit 1 is a work order: a film that does not play, narration the captions miss,
    loudness off target, a black picture. Each takes minutes to fix. Fix, `L cut`, `L check`.
 3. `L frames` writes contact sheets and stills to `out/dispatch/review/`. LOOK at them yourself
-   first. Anything you can see is wrong, fix before paying for a panel.
+   first. Anything you can see is wrong, fix before paying for a panel. Before the FIRST panel the
+   film has had at least two full improvement passes after the rough cut, and `L check` prints no
+   note about a repeated view or a shot held too long. Those two notes are the faults the first
+   daily panel marked down in all three rounds: the same side-on frame again, and a card held
+   while the narration moved on. A view may appear twice. A third time it needs a new angle or a
+   new action. What is on screen always matches the sentence being spoken, figures included.
 4. The panel. Spawn THREE `general-purpose` agents in ONE message with `model: sonnet`, each told to
    read `prompts/daily/scorer.md` and follow it, each given the review image paths,
    `out/dispatch/storyboard.json` and `out/dispatch/claims.json`. They do not see each other.
 5. `L panel --scores a,b,c --defects "<the two defects ranked highest>"`. Add
    `--hard-fail "<what>"` for each hard fail a judge proved (a factual error, a typo on screen, a
    place drawn as the wrong region, unreadable text).
+   **Record each round the moment its three scores return, before touching the film again.** The
+   command binds the scores to the exact cut they graded. Never write or edit
+   `out/dispatch/report_card.json` yourself. If a round was not recorded when it was graded, it is
+   gone. Do not reconstruct it.
 6. It answers REVISE or SHIP.
    - **REVISE**: fix the two highest-ranked defects, `L cut`, `L check`, `L frames`, grade again.
+     A revision changes the pictures the judges named. Look at new stills of those shots and
+     confirm the defect is gone before grading again. If the same defect is named twice, the fix
+     did not work, so change the approach: redraw the shot, do not adjust it.
    - **SHIP**: stop editing. The bar lives in `config/dispatch_rubric.yaml` and is read from there.
    - A hard fail is repaired and regraded. It never ships and it does not use up a round.
    - At the round cap in `config/lean_routine.json` the cut ships with its honest score, and the
@@ -310,14 +328,15 @@ Then, in this order. Each step is one command or one tool call.
    - Red or still absent after that on code this edition did not touch: MERGE and say so in the
      email, naming the failing step. A film is never held by a check on machinery it does not use.
 4. Confirm the film is public: `curl -sI <raw GitHub URL of runs/<date>/dispatch.mp4>` returns 200.
-5. The Docket feed, bounded to 40 minutes, never blocking. In the `TexasAIDocket` checkout: run its
-   three "first commands" from its CLAUDE.md, `git checkout -B claude/dispatch-<date> origin/main`,
+5. The Docket feed, part one. It never blocks the film. In the `TexasAIDocket` checkout: run its
+   three "first commands" from its CLAUDE.md, `git fetch origin main`, `git checkout -B claude/dispatch-<date> origin/main`,
    then from the Dispatch checkout `L feed --docket ../TexasAIDocket --county <County> --caption "<one or two plain sentences>"`.
-   Back in the Docket: `python3 scripts/site/site_build.py`, `python3 scripts/site/site_fresh_check.py`,
-   commit with `TXDOCKET_ACTOR=dispatch git commit`, `scripts/shared/push.sh claude/dispatch-<date>`,
-   open a ready pull request, and merge it when ITS checks are green on the head commit. The
-   Docket's own rule is never to merge on anything but green, and that rule holds there. If it is
-   not green in 40 minutes, leave the pull request open, say so in the email, and move on.
+   Back in the Docket, with `P=/opt/texas-dispatch-runtime/venv/bin/python3` (the system Python's
+   imaging library is broken there): `$P scripts/site/site_build.py`, then
+   `$P scripts/site/site_fresh_check.py`. The build takes about 13 minutes, so run it as one
+   command with a long timeout. Commit with `TXDOCKET_ACTOR=dispatch git commit`, push with
+   `scripts/shared/push.sh claude/dispatch-<date>`, and open a ready pull request. Do NOT wait for
+   its checks here. They take about 50 minutes. Carry on with steps 6 to 8.
 6. Social. If the trigger prompt that started this run says never to post socially, skip this
    step and say so in the email. Otherwise follow `prompts/social_delivery.md`. One destination at a time. A blocked destination is
    reported, never retried blindly. Write the per-destination result to `out/dispatch/social.json`.
@@ -328,14 +347,21 @@ Then, in this order. Each step is one command or one tool call.
    lands in the connected mailbox's Drafts, which is where the owner reads it. Never guess an
    address and never use `me`. Read the draft back with get_draft and confirm its labels carry
    DRAFT and not SENT.
-8. `L receipt --draft-id <id> --pr <number> --merged`. This is what ends the run.
+8. `L receipt --draft-id <id> --pr <number> --merged`. The film is now delivered.
+9. The Docket feed, part two. Read the feed pull request's check runs. Wait inside a command, up to
+   90 minutes in total, and merge when every check on the head commit is green. The Docket's own
+   rule is never to merge on anything but green, and that rule holds there. If the merge is
+   refused for conflicts, the Docket's scheduled jobs rewrote the site meanwhile: `git fetch origin main`,
+   `git merge origin/main`, take main's side of any conflicted file under `docs/` other than
+   `docs/videos/videos.json`, rebuild and check freshness as in step 5, commit, push, and wait
+   once more. If it still is not merged after that, leave it open and say so in the last message.
 
-If a step after 3 fails, the film is still shipped and public. Report the failed step in the last
+The run ends after step 9. If a step after 3 fails, the film is still shipped and public. Report the failed step in the last
 message and carry on with the others.
 
 ## THE LAST MESSAGE
 
-After `L receipt`, and only then, end with at most eight lines: the title, the film's public URL,
+After Phase 7's last step, and only then, end with at most eight lines: the title, the film's public URL,
 the panel median and rounds, whether it shipped on a pass or at the round cap, each social
 destination's result, the Docket feed pull request's state, the draft id, and anything that broke
 with the one-line fix you made. If `scripts/lean.py` itself had a bug, you fixed it on the run
