@@ -232,8 +232,24 @@ def lexical_analysis_samples(x: np.ndarray, rate: int, pad_s: float = 0.8) -> in
     return min(len(x), int(nz[-1]) + 1 + int(round(pad_s * rate)))
 
 
+def sourced_join_source(row: dict, alias_root: Path) -> Path:
+    """Validate the retained source of an explicit proper-name spacing exception."""
+    relative = Path(row.get("source_file", ""))
+    root = Path(alias_root).resolve(); source = root / relative
+    quote = row.get("source_quote", "")
+    if (not relative.parts or relative.is_absolute() or ".." in relative.parts
+            or not source.resolve().is_relative_to(root)
+            or any(p.is_symlink() for p in (source, *source.parents))
+            or not source.is_file() or digest(source) != row.get("source_sha256")
+            or not isinstance(quote, str) or not quote
+            or hashlib.sha256(quote.encode()).hexdigest() != row.get("source_quote_sha256")
+            or quote not in source.read_text()):
+        raise ValueError("sourced proper-name join needs its unchanged owned source file and literal quote")
+    return source
+
+
 def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
-                    heard: list[dict], aliases: list[dict]) -> tuple[list[list[str]], list[dict]]:
+                    heard: list[dict], aliases: list[dict], *, alias_root: Path | None = None) -> tuple[list[list[str]], list[dict]]:
     """Exact lexical reconciliation, then acoustic assignment to measured runs.
 
     An explicit, sourced homophone exception may reconcile a proper-name spelling.
@@ -244,17 +260,18 @@ def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
     for row in aliases:
         a, b = canonical(row.get("heard", "")), canonical(row.get("script", ""))
         occurrence = row.get("occurrence")
-        if row.get("kind") == "proper-name-join":
+        if row.get("kind") in ("proper-name-join", "sourced-proper-name-join"):
+            sourced = row["kind"] == "sourced-proper-name-join"
             name = row.get("script", "")
             raw_parts = row.get("heard", "").split()
             if (len(raw_parts) != 2 or len(a) != 2 or len(b) != 1
                     or not all(re.fullmatch(r"[A-Za-z]+", p) for p in raw_parts)
                     or any(p.isdigit() for p in a + b) or set(a) == {"an", "and"}
-                    or not re.fullmatch(r"[A-Z][a-z]+(?:[A-Z][a-z]+)+", name)
+                    or not re.fullmatch(r"[A-Z][a-z]{2,}" if sourced else r"[A-Z][a-z]+(?:[A-Z][a-z]+)+", name)
                     or "".join(a) != b[0] or name not in tokens
                     or type(occurrence) is not int or occurrence < 1
                     or not row.get("reason") or not row.get("source")):
-                raise ValueError("proper-name joins require two exact nonnumeric parts and an occurrence-bound CamelCase script name")
+                raise ValueError("proper-name joins require two exact nonnumeric parts and an occurrence-bound official script name")
             quote = row.get("source_quote", "")
             bound = (isinstance(quote, str) and bool(quote)
                      and hashlib.sha256(quote.encode()).hexdigest() == row.get("source_quote_sha256")
@@ -262,6 +279,10 @@ def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
             if (not bound
                     or not re.search(r"\b" + re.escape(name) + r"\b", quote)):
                 raise ValueError("proper-name join requires a byte-bound source quote with the exact official name")
+            if sourced:
+                # Ordinary capitalization is not itself evidence of a proper name.
+                # Require the retained source bytes, not merely an asserted quote/hash.
+                sourced_join_source(row, alias_root or REPO)
             rules = joins.setdefault(tuple(a), [])
             if any(r["occurrence"] == occurrence for r in rules):
                 raise ValueError("proper-name joins cannot repeat an occurrence")
@@ -307,12 +328,14 @@ def acoustic_groups(tokens: list[str], runs: list[tuple[float, float]],
                 if len(containing) != 1 or centers[0] > centers[1]:
                     raise ValueError("proper-name join must occupy one measured speech run without crossing silence")
                 center = float(np.median(centers))
-                join_evidence[len(actual)] = {"kind": "proper-name-join", "raw_asr_indices": [index, index + 1],
+                join_evidence[len(actual)] = {"kind": rule["kind"], "raw_asr_indices": [index, index + 1],
                     "recognized_words": originals, "dtw_centers_s": centers,
                     "representative_center_s": center, "speech_run_bounds_s": list(runs[containing[0]]),
                     "occurrence": rule["occurrence"], "source": rule["source"],
                     "source_sha256": rule["source_sha256"], "source_quote_sha256": rule["source_quote_sha256"],
                     "source_quote": rule["source_quote"], "reason": rule["reason"]}
+                if rule["kind"] == "sourced-proper-name-join":
+                    join_evidence[len(actual)]["source_file"] = rule["source_file"]
                 actual.append((canonical(rule["script"])[0], center))
                 used_joins.add((key, rule["occurrence"]))
                 for part in pair:
@@ -581,7 +604,7 @@ def distribute(tokens: list[str], t0: float, t1: float) -> list[dict]:
 
 
 def align(x: np.ndarray, rate: int, script: str, heard: list[dict] | None = None,
-          aliases: list[dict] | None = None) -> dict:
+          aliases: list[dict] | None = None, *, alias_root: Path | None = None) -> dict:
     tokens = script.split()
     if not tokens:
         raise ValueError("the script is empty")
@@ -641,7 +664,7 @@ def align(x: np.ndarray, rate: int, script: str, heard: list[dict] | None = None
 
     matching = []
     if heard is not None:
-        groups, matching = acoustic_groups(tokens, runs, heard, aliases or [])
+        groups, matching = acoustic_groups(tokens, runs, heard, aliases or [], alias_root=alias_root)
 
     words: list[dict] = []
     for (t0, t1), toks in zip(runs, groups):
@@ -1031,6 +1054,58 @@ def self_test() -> int:
         except ValueError:
             refused = True
         ok("proper-name join refuses mutated quoted source bytes", refused)
+    # Proper-name spacing is exact orthography, not a general ASR edit distance.
+    from unittest.mock import patch
+    with tempfile.TemporaryDirectory() as temporary:
+        root = Path(temporary); source_file = root / "source.txt"
+        quote = "The program pilots DAX and Abridge."
+        source_file.write_text(quote)
+        rule = {"kind": "sourced-proper-name-join", "heard": "a bridge", "script": "Abridge",
+                "occurrence": 1, "reason": "retained official proper-name spelling",
+                "source": "https://source.example/record", "source_file": "source.txt",
+                "source_sha256": digest(source_file), "source_quote": quote,
+                "source_quote_sha256": hashlib.sha256(quote.encode()).hexdigest()}
+        raw = [{"text": "a", "center": .6}, {"text": "bridge", "center": 1.2}]
+        with patch(__name__ + ".REPO", root):
+            groups, evidence = acoustic_groups(["Abridge"], [(.2, 2.)], raw, [rule])
+            proof = evidence[0]["proper_name_joins"][0]
+            ok("sourced title-case join preserves both acoustic words and all original centers",
+               groups == [["Abridge"]] and proof["recognized_words"] == raw
+               and proof["dtw_centers_s"] == [.6, 1.2] and proof["source_file"] == "source.txt")
+            repeated = raw + [{"text": "a", "center": 2.6}, {"text": "bridge", "center": 3.2}]
+            groups, _ = acoustic_groups(["a", "bridge", "Abridge"], [(.2, 4.)], repeated,
+                                        [dict(rule, occurrence=2)])
+            ok("literal a bridge remains two words beside an occurrence-bound proper name",
+               groups == [["a", "bridge", "Abridge"]])
+            for label, changes, measured, recognized in [
+                    ("source missing", {"source_file": "missing.txt"}, [(.2, 2.)], raw),
+                    ("source hash", {"source_sha256": "0"*64}, [(.2, 2.)], raw),
+                    ("source escape", {"source_file": "../source.txt"}, [(.2, 2.)], raw),
+                    ("absolute source", {"source_file": str(source_file)}, [(.2, 2.)], raw),
+                    ("asserted quote absent from source", {"source_quote": "Abridge is elsewhere.",
+                        "source_quote_sha256": hashlib.sha256(b"Abridge is elsewhere.").hexdigest()}, [(.2, 2.)], raw),
+                    ("ordinary lowercase word", {"script": "abridge"}, [(.2, 2.)], raw),
+                    ("semantic name substitution", {"script": "Another"}, [(.2, 2.)], raw),
+                    ("missing acoustic word", {}, [(.2, 2.)], raw[:1]),
+                    ("extra acoustic word", {}, [(.2, 2.)], raw + [{"text":"extra","center":1.5}]),
+                    ("cross-run pair", {}, [(.2, .8), (1., 2.)], raw),
+                    ("reversed centers", {}, [(.2, 2.)], [dict(raw[0],center=1.2),dict(raw[1],center=.6)]),
+                    ("nonfinite center", {}, [(.2, 2.)], [dict(raw[0],center=float("nan")),raw[1]]),
+                    ("unobserved occurrence", {"occurrence": 2}, [(.2, 2.)], raw),
+                    ("boolean occurrence", {"occurrence": True}, [(.2, 2.)], raw)]:
+                try:
+                    acoustic_groups([changes.get("script", "Abridge")], measured, recognized, [dict(rule, **changes)])
+                    refused = False
+                except ValueError:
+                    refused = True
+                ok("sourced title-case join refuses " + label, refused)
+            source_file.write_text(quote + " Changed snapshot.")
+            try:
+                acoustic_groups(["Abridge"], [(.2, 2.)], raw, [rule]); refused = False
+            except ValueError:
+                refused = True
+            ok("sourced title-case join refuses changed retained source bytes", refused)
+
     for label, bad in [("wrong words", [{"text": "Wrong", "center": 1.0}] + heard[1:]),
                        ("a single early acoustic outlier", [dict(heard[0], center=-0.2)] + heard[1:]),
                        ("unexplained late timing", [dict(w, center=w["center"] + 10) for w in heard]),
@@ -1560,7 +1635,7 @@ def main() -> int:
             heard, reconciliation = reconcile(reconciliation_path, voice_path,
                                                 Path(a.script), out / "acoustic-asr.json",
                                                 heard, aliases)
-        res = align(x, rate, script, heard, aliases)
+        res = align(x, rate, script, heard, aliases, alias_root=alias_path.parent)
         res["provenance"] = dict(meta, mix_sha256=digest(Path(a.wav)),
                                  script_sha256=digest(Path(a.script)), aliases=aliases)
         if reconciliation is not None:
