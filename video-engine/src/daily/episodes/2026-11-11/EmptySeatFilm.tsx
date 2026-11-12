@@ -47,7 +47,7 @@ const Building: React.FC<{x: number; w: number; h: number; baseY: number; fill: 
       <rect key={i} x={x + 40 + i * ((w - 80) / Math.max(1, doors))} y={baseY - 120}
         width={(w - 80) / Math.max(1, doors) - 24} height={120} fill="#4a4540" stroke={INK} strokeWidth={4} />
     ))}
-    <path d={`M${x + 6},${baseY - h + 46} l${w - 14},3`} stroke="#00000033" strokeWidth={4} />
+    <path d={`M${x + 6},${baseY - h + 46} l${w - 14},3`} stroke="#000000" strokeOpacity={0.2} strokeWidth={4} />
   </g>
 );
 
@@ -59,7 +59,7 @@ export const EmptySeatFilm: React.FC<FilmRenderProps> = ({board, scene, shot, ti
   const within = clamp(shot_s / Math.max(0.1, shot.duration_s));
   const baseY = 1180;
 
-  const ground = <rect x={0} y={baseY - 4} width={1080} height={10} fill="#0000" />;
+  const ground = <rect x={0} y={baseY - 4} width={1080} height={10} fill="none" />;
   void ground;
 
   switch (shot.view) {
