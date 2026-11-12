@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-12T00:29:07.573757+00:00",
-  "note": "corrected selected B preview rendered under renewed charge 10; structural pass",
+  "saved_at": "2026-11-12T00:29:17.545617+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -1286,6 +1286,12 @@
       "size": 23883
     },
     {
+      "path": "out/dispatch/capture-authorization-history/d9ffb1b1d69a6ad384bcf90b9ca79b5bb6e74b6d5bf5026879adf2228302cb0e.json",
+      "class": "scratch",
+      "sha256": "d9ffb1b1d69a6ad384bcf90b9ca79b5bb6e74b6d5bf5026879adf2228302cb0e",
+      "size": 28518
+    },
+    {
       "path": "out/dispatch/capture-authorization-history/e7a8ce1876a8afa8cbfe8466d634c1edb527040f0fb319b308461a122d6bf54d.json",
       "class": "scratch",
       "sha256": "e7a8ce1876a8afa8cbfe8466d634c1edb527040f0fb319b308461a122d6bf54d",
@@ -1452,6 +1458,12 @@
       "class": "scratch",
       "sha256": "6d3d504d020ddce258d38862f1f7b511211e44db066ae5d4bc6d120807c3469b",
       "size": 1043
+    },
+    {
+      "path": "out/dispatch/capture-housekeeping-20261112T002916.json",
+      "class": "scratch",
+      "sha256": "efbf1693e1099d56ba9d392c49db7776294fc5a28933a717e29dd48d9beac282",
+      "size": 1041
     },
     {
       "path": "out/dispatch/capture-prepare-2.log",
@@ -5532,6 +5544,12 @@
       "class": "scratch",
       "sha256": "6cd4da38368ef4a5fc4bf3c8c3890bbd161a4c9e1cc35b5fddb59867773dcc2e",
       "size": 5115
+    },
+    {
+      "path": "out/dispatch/native-headroom-audit5.json",
+      "class": "scratch",
+      "sha256": "1dbfb17355f99b27ba316a249e97d72eba21b236163dd66fd834155bec123b91",
+      "size": 4841
     },
     {
       "path": "out/dispatch/native-headroom-bounded.json",
@@ -11655,9 +11673,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 274935128,
-    "unique_blob_bytes": 176158558,
-    "unique_blobs": 1382
+    "logical_bytes": 274969528,
+    "unique_blob_bytes": 176164440,
+    "unique_blobs": 1384
   },
   "excluded": [
     {
