@@ -1,0 +1,30 @@
+{
+  "_why": "The daily lane's few numbers (owner, November 12th, 2026). The ship bar is NOT here. It lives in config/dispatch_rubric.yaml and scripts/lean.py reads it from there.",
+  "effective_date": "2026-11-12",
+  "film": {
+    "words_min": 110,
+    "words_max": 190,
+    "seconds_min": 45,
+    "seconds_max": 95,
+    "shots_min": 10,
+    "voice_lead_s": 0.5,
+    "story_tail_s": 0.9,
+    "credits_s": 5
+  },
+  "voice": {
+    "max_attempts": 3
+  },
+  "audio": {
+    "lufs_target": -16.0,
+    "lufs_tolerance": 1.5,
+    "peak_max_dbfs": -0.9
+  },
+  "render": {
+    "draft": {"crf": 28, "image_format": "jpeg", "scale": 0.5, "concurrency": "75%"},
+    "final": {"crf": 16, "image_format": "png", "scale": 1, "concurrency": "50%"}
+  },
+  "panel": {
+    "judges": 3,
+    "round_cap": 3
+  }
+}

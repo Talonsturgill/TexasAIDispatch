@@ -200,7 +200,9 @@ def check() -> list[str]:
                      f"exact fault that left `scorer` unwired while every gate stayed green.")
     for named in sorted(set(re.findall(r"`([a-z][a-z0-9-]{3,})`", prompts))):
         # only treat it as an agent reference if a prompt says it is spawned
-        if re.search(rf"[Ss]pawn[^.\n]*`{re.escape(named)}`", prompts) and named not in on_disk:
+        # `general-purpose` is the host's built-in agent type, so it needs no file here.
+        if (re.search(rf"[Ss]pawn[^.\n]*`{re.escape(named)}`", prompts) and named not in on_disk
+                and named != "general-purpose"):
             p.append(f"GHOST AGENT: a prompt spawns `{named}` and .claude/agents/{named}.md does "
                      f"not exist. That fails mid-run, with the work already done.")
 

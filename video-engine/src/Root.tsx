@@ -13,6 +13,8 @@ import {FarmSheet, RoadSheet, MachineRoomSheet, ClinicSheet, WaterSheet,
 import {FloraSheet, FloraFieldSheet, SkySheet, RoadsideSheet, HometownSheet,
         HomeplaceSheet, TejanoSheet, BlackTexasSheet, FootballSheet, SHEET_H} from './NostalgiaSheets';
 import {Dispatch, DEFAULT_DISPATCH, dispatchMetadata} from './Dispatch';
+import {DailyFilm, dailyMetadata} from './daily/DailyFilm';
+import {DEFAULT_DAILY} from './daily/defaultBoard';
 import {RegionName} from './lib/lighting';
 import {withFonts} from './lib/fonts';
 
@@ -33,6 +35,11 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Dispatch" component={withFonts(ProvenDispatch)} fps={30} width={1080} height={1920}
       defaultProps={DEFAULT_DISPATCH} calculateMetadata={dispatchMetadata}
       durationInFrames={Math.round(DEFAULT_DISPATCH.runtime_s * 30)} />
+    {/* THE DAILY FILM (November 12th, 2026). What the daily routine renders, from the timed board
+        scripts/lean.py writes. Its default board is a real two-scene film, so the composition
+        renders with no props at all. */}
+    <Composition id="Daily" component={withFonts(DailyFilm)} fps={30} width={1080} height={1920}
+      defaultProps={DEFAULT_DAILY} calculateMetadata={dailyMetadata} durationInFrames={450} />
     <Composition id="Proof" component={withFonts(ProofScene)} durationInFrames={150}
       fps={30} width={1080} height={1920} />
     <Composition id="CastSheet" component={withFonts(CastSheet)} durationInFrames={30}
