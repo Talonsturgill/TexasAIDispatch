@@ -233,10 +233,3 @@ alter the archive or create another merge. Provider history plus the updated, re
 Gmail draft and the separate remote social state are the post-merge delivery record. No social outage may remove or prevent the
 original Gmail draft.
 
-
-Owner directive, October 9th, 2026. This is the Claude host entry point. Read the current
-`prompts/dispatch_routine.md` and execute its five phases in full, loading each phase and its
-required contracts when entering it. This entry point replaces only the host routing, unavailable
-ImageGen service and local workspace bootstrap. Every source, rights, action, modern film, audio,
-caption, independent scoring, native rendering and shipment requirement remains in force.
-
