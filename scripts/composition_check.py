@@ -46,6 +46,7 @@ ROOT_TSX = REPO / "video-engine" / "src" / "Root.tsx"
 # Compositions rendered by a person, not by the routine. Each needs a reason, because
 # "it is a review surface" is what an orphan says about itself.
 BY_HAND = {
+    "Daily": "the daily lane's film. scripts/lean.py renders it on every run (cut, still, selftest --render), from Python rather than from a prompt line",
     "Proof": "the engine proof scene, rendered when the stack changes",
     "CastSheet": "review surface for the cast rig",
     "FaunaSheet": "review surface for the bestiary",

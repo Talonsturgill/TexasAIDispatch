@@ -341,6 +341,30 @@ def publication_problems(board_path, film, judges=None):
                 errors.append(role + " judge did not bind its audiovisual receipt")
     return errors
 
+def lean_edition_problems(directory, day):
+    """What CI asks of a daily-lane edition: the film it names is the film that is there."""
+    import hashlib
+    errors = []
+    try:
+        record = read(directory / "lean.json")
+        board = read(directory / "storyboard.json")
+    except (OSError, ValueError) as exc:
+        return ["daily edition record unreadable: " + str(exc)]
+    if record.get("schema") != "lean_edition/1" or record.get("date") != day[:10]:
+        errors.append("lean.json does not describe this edition's date")
+    if board.get("date") != day[:10]:
+        errors.append("storyboard date differs from its delivery directory")
+    film = directory / "dispatch.mp4"
+    if not film.is_file() or film.stat().st_size < 100_000:
+        errors.append("dispatch.mp4 is missing or empty")
+    elif hashlib.sha256(film.read_bytes()).hexdigest() != record.get("film_sha256"):
+        errors.append("dispatch.mp4 is not the film lean.json recorded")
+    for name in ("poster.png", "claims.json", "report_card.json", "post.txt"):
+        if not (directory / name).is_file():
+            errors.append(name + " is missing")
+    return errors
+
+
 def changed_runs(base, repo=REPO):
     result = subprocess.run(["git", "diff", "--name-only", base, "HEAD", "--", "runs/"],
                             cwd=repo, capture_output=True, text=True, check=True)
@@ -352,6 +376,11 @@ def changed_runs(base, repo=REPO):
     errors = []
     for day in sorted(affected):
         directory = repo / "runs" / day
+        if (directory / "lean.json").is_file():
+            # A daily-lane edition (scripts/lean.py) carries its own small record. It is held to
+            # that record, never to the older lane's ledgers, receipts and proof hashes.
+            errors += [day + ": " + e for e in lean_edition_problems(directory, day)]
+            continue
         try:
             board = directory / "storyboard.json"
             data = read(board)
