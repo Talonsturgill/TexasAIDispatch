@@ -2,14 +2,20 @@
   "_why": "The daily lane's few numbers (owner, November 12th, 2026). The ship bar is NOT here. It lives in config/dispatch_rubric.yaml and scripts/lean.py reads it from there.",
   "effective_date": "2026-11-12",
   "film": {
-    "words_min": 110,
-    "words_max": 190,
-    "seconds_min": 45,
-    "seconds_max": 95,
-    "shots_min": 10,
+    "words_min": 250,
+    "words_max": 330,
+    "seconds_min": 80,
+    "seconds_max": 125,
+    "shots_min": 18,
     "voice_lead_s": 0.5,
     "story_tail_s": 0.9,
-    "credits_s": 5
+    "credits_s": 5,
+    "views_min": 8,
+    "beat_gap_s": 5.0,
+    "cast_share_min": 0.5,
+    "throughline_states_min": 3,
+    "label_chars_max": 30,
+    "words_per_second": 3.0
   },
   "voice": {
     "max_attempts": 3
@@ -36,5 +42,6 @@
   "panel": {
     "judges": 3,
     "round_cap": 5
-  }
+  },
+  "_film_why": "The film band and the density floors are the sibling Alaska routine's, measured on its November 12th film: 128 seconds, a new picture on nearly every sentence, a label on most beats, a character in almost every frame. The first Texas daily film ran 54 seconds on ten pictures. The word band is set from this voice's measured pace: 237 words read in 78 seconds on November 12th, about three words a second."
 }

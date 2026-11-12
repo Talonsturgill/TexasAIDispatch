@@ -251,9 +251,8 @@ def board_problems(board: dict, date: str) -> tuple[list[str], list[str]]:
     words = len(script_of(board).split())
     lo, hi = limits["words_min"], limits["words_max"]
     if words and not lo <= words <= hi:
-        soft.append(f"the narration is {words} words; the band is {lo} to {hi}")
-    if len(board.get("shots") or []) < limits["shots_min"]:
-        soft.append(f"{len(board.get('shots') or [])} shots; a film that holds the eye has at least {limits['shots_min']}")
+        hard.append(f"the narration is {words} words; the band is {lo} to {hi}. Add story or cut it, never pad")
+    hard += plan_problems(board, limits, words)
     if not str(board.get("credits") or "").strip():
         soft.append("board.credits is empty. Sources and illustration credit belong on the end card.")
     try:
@@ -266,6 +265,75 @@ def board_problems(board: dict, date: str) -> tuple[list[str], list[str]]:
     except OSError:
         pass
     return hard, soft
+
+
+def plan_problems(board: dict, limits: dict, words: int) -> list[str]:
+    """The film on paper, held to the density the sibling Alaska films actually have.
+
+    Every fault here is found before a voice is paid for or a frame is drawn, which is the cheapest
+    place a thin film can be caught. The first Texas daily film was thin in exactly these ways."""
+    out = []
+    treatment = board.get("treatment") or {}
+    for key in ("logline", "cold_open", "turn", "button"):
+        if not str(treatment.get(key) or "").strip():
+            out.append(f"treatment.{key} is missing. The film is pitched and chosen before it is boarded")
+    hero = board.get("hero") or {}
+    if not str(hero.get("name") or "").strip() or not str(hero.get("why") or "").strip():
+        out.append("board.hero needs a name and a why: the ONE fresh drawing this film will be remembered for")
+    through = board.get("throughline") or {}
+    states = through.get("states") or []
+    scene_ids = {s.get("id") for s in board.get("scenes") or []}
+    if not str(through.get("object") or "").strip() or len(states) < limits["throughline_states_min"]:
+        out.append(f"board.throughline needs one object and at least {limits['throughline_states_min']} states, "
+                   "each in a named scene. It is on screen by the second scene and its last state is the button")
+    elif any(st.get("scene_id") not in scene_ids or not str(st.get("state") or "").strip() for st in states):
+        out.append("every throughline state names a real scene_id and says what the object looks like there")
+    events = [(s.get("id"), e) for s in board.get("scenes") or [] for e in (s.get("visual_events") or [])]
+    seconds = int(words / float(limits.get("words_per_second", 3.0)))
+    need = max(1, -(-seconds // int(limits["beat_gap_s"])))
+    if len(events) < need:
+        out.append(f"{len(events)} beats for about {seconds} seconds. A new picture lands at least every "
+                   f"{limits['beat_gap_s']:.0f} seconds, so this film needs {need} or more")
+    labels = 0
+    for sid, e in events:
+        draw = e.get("draw") or {}
+        if not str(draw.get("subject") or "").strip() or not str(draw.get("action") or "").strip():
+            out.append(f"{sid} beat {e.get('id')}: draw needs a subject and an action, as 'X does Y'. "
+                       "'A map is shown' is not a beat")
+        sound = str(e.get("sound") or "").strip()
+        if not sound:
+            out.append(f"{sid} beat {e.get('id')}: no sound. Every beat lands with one")
+        elif not (REPO / (sound if "/" in sound else f"assets/sfx/{sound.removesuffix('.wav')}.wav")).is_file():
+            out.append(f"{sid} beat {e.get('id')}: sound {sound!r} is not in assets/sfx/. `ls assets/sfx` lists them")
+        label = str(e.get("label") or "").strip()
+        if label:
+            labels += 1
+            if len(label) > limits["label_chars_max"]:
+                out.append(f"label {label!r} is over {limits['label_chars_max']} characters")
+            out += copy_problems("a label", label)
+    if events and labels < len(events) / 2:
+        out.append(f"{labels} of {len(events)} beats carry a label. At least half do: the number, name or date "
+                   "the narration just said, so a muted viewer can follow")
+    for s in board.get("scenes") or []:
+        if not s.get("visual_events"):
+            out.append(f"{s.get('id')}: a scene with no beat is a held slide")
+    shots = board.get("shots") or []
+    if len(shots) < limits["shots_min"]:
+        out.append(f"{len(shots)} shots; this film needs at least {limits['shots_min']}")
+    views = {x.get("view") for x in shots}
+    if len(views) < limits["views_min"]:
+        out.append(f"{len(views)} distinct views; this film needs at least {limits['views_min']}")
+    uses: dict[str, int] = {}
+    for x in shots:
+        uses[x.get("view", "")] = uses.get(x.get("view", ""), 0) + 1
+    again = sorted(f"{v} x{n}" for v, n in uses.items() if n > 2)
+    if again:
+        out.append("a view may appear twice. These appear more: " + ", ".join(again))
+    cast = sum(1 for x in shots if x.get("cast"))
+    if shots and cast / len(shots) < limits["cast_share_min"]:
+        out.append(f"{cast} of {len(shots)} shots name a person or character in `cast`. At least half do. This show "
+                   "is somebody using a tool at work, and a film with no one in it has no one to care about")
+    return out
 
 
 def cmd_script(a) -> int:
@@ -309,7 +377,7 @@ def cmd_voice(a) -> int:
         code = synth.run(script, plan, takes, a.takes, voice, key, OUT / "lean_voice_state.json", evidence_dir=None)
         if code != 0:
             continue
-        est = len(script.split()) / 2.3 + 8
+        est = len(script.split()) / 2.3 + 8      # generous: the soundcheck refuses a take that overruns it
         proc = run([PY, "scripts/vo_soundcheck.py", "--takes", takes / "takes.json", "--script",
                     OUT / "vo_script.txt", "--cut", f"{est:.1f}"], check=False)
         found = re.search(r"chose (take\d+)", proc.stdout)
@@ -342,10 +410,103 @@ def align() -> None:
     run([PY, "scripts/mix.py", "--vo", OUT / "vo.wav", "--sfx", work / "sfx_events.json", "--vo-at",
          str(lead_s()), "--out", work / "mix.wav", "--cut", f"{total:.3f}"])
     print("lean: forced alignment (about half a minute)")
-    run([PY, "scripts/vo_align.py", "--wav", work / "mix.wav", "--script", OUT / "vo_script.txt",
-         "--voice", work / "mix_vo.wav", "--out", work])
+    try:
+        run([PY, "scripts/vo_align.py", "--wav", work / "mix.wav", "--script", OUT / "vo_script.txt",
+             "--voice", work / "mix_vo.wav", "--out", work])
+    except Problem as exc:
+        # The strict aligner wants the recognizer to spell every word the way the script does. It
+        # heard "line worker" for "lineworker" on November 12th and "a bridge" for "Abridge" two
+        # days before, and each time it refused the whole film. The soundcheck has already proved
+        # the take says the script, so the words are not in doubt, only their spelling. Align on
+        # the recognizer's own measured word times instead.
+        if not (work / "acoustic-asr.json").is_file():
+            raise
+        print("lean: the strict aligner disagreed with the recognizer's spelling, so the captions are\n"
+              "      timed from the recognizer's measured word times instead. " + str(exc).splitlines()[-1][:160])
+        tolerant_align(work)
     for name in ("words.json", "captions.json"):
         shutil.copyfile(work / name, OUT / name)
+
+
+def match_times(tokens: list[str], heard: list[dict]) -> list[float]:
+    """A measured centre time for every script word, in order.
+
+    Words the recognizer spelled the same way take its time. A stretch it spelled differently
+    ("line worker" for "lineworker") shares that stretch's own measured span. Nothing is scaled."""
+    import difflib
+    a = [norm(t) for t in tokens]
+    b = [norm(h.get("text", "")) for h in heard]
+    centers: list[float | None] = [None] * len(tokens)
+    for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes():
+        if tag == "equal":
+            for k in range(i2 - i1):
+                centers[i1 + k] = float(heard[j1 + k]["center"])
+        elif tag == "replace":
+            lo, hi = float(heard[j1]["center"]), float(heard[j2 - 1]["center"])
+            n = i2 - i1
+            for k in range(n):
+                centers[i1 + k] = lo + (hi - lo) * (k / (n - 1) if n > 1 else 0.5)
+    known = [(i, c) for i, c in enumerate(centers) if c is not None]
+    if len(known) < max(2, len(tokens) // 2):
+        raise Problem("the recognizer matched under half the script, so the take does not say it. "
+                      "Run `lean.py voice` again.")
+    for i in range(len(tokens)):                      # a word it missed sits between its neighbours
+        if centers[i] is None:
+            before = max(((j, c) for j, c in known if j < i), default=None)
+            after = min(((j, c) for j, c in known if j > i), default=None)
+            if before and after:
+                centers[i] = before[1] + (after[1] - before[1]) * (i - before[0]) / (after[0] - before[0])
+            else:
+                centers[i] = (before or after)[1] + (0.3 * (i - (before or after)[0]))
+    for i in range(1, len(centers)):                  # never out of order
+        centers[i] = max(centers[i], centers[i - 1] + 0.04)
+    return [float(c) for c in centers]
+
+
+def cue_spans(tokens: list[str], limit: int = 46) -> list[tuple[int, int]]:
+    """Break the script into caption cues at sentence ends, then commas, then the middle."""
+    spans, start = [], 0
+    for i, tok in enumerate(tokens):
+        if re.search(r"[.!?][\"')]*$", tok) or i == len(tokens) - 1:
+            spans.append((start, i + 1))
+            start = i + 1
+    out = []
+    for lo, hi in spans:
+        stack = [(lo, hi)]
+        while stack:
+            a, b = stack.pop(0)
+            text = " ".join(tokens[a:b])
+            if len(text) <= limit or b - a < 4:
+                out.append((a, b))
+                continue
+            commas = [k + 1 for k in range(a + 1, b - 2) if tokens[k].endswith(",")]
+            mid = (a + b) // 2
+            cut = min(commas, key=lambda k: abs(k - mid)) if commas else mid
+            stack = [(a, cut), (cut, b)] + stack
+    return sorted(out)
+
+
+def tolerant_align(work: Path) -> None:
+    sys.path.insert(0, str(REPO / "scripts"))
+    import vo_align
+    heard = vo_align.acoustic_words(read(work / "acoustic-asr.json"))
+    tokens = (OUT / "vo_script.txt").read_text(encoding="utf-8").split()
+    centers = match_times(tokens, heard)
+    words = []
+    for i, tok in enumerate(tokens):
+        back = (centers[i] - centers[i - 1]) / 2 if i else 0.18
+        ahead = (centers[i + 1] - centers[i]) / 2 if i + 1 < len(tokens) else 0.22
+        words.append({"word": tok, "start": round(max(0.0, centers[i] - min(back, 0.32)), 3),
+                      "end": round(centers[i] + min(ahead, 0.32), 3), "anchored": False})
+    cues = []
+    for n, (a, b) in enumerate(cue_spans(tokens), 1):
+        cues.append({"id": f"c{n}", "start": words[a]["start"], "end": words[b - 1]["end"],
+                     "text": " ".join(tokens[a:b]), "source": "recognizer_word_times"})
+    for prev, cur in zip(cues, cues[1:]):             # a cue holds to the next, never past it
+        prev["end"] = round(min(max(prev["end"], prev["start"] + 0.6), cur["start"] - 0.04), 3)
+    write(work / "words.json", {"method": "recognizer_word_times", "words": words})
+    write(work / "captions.json", {"method": "recognizer_word_times", "cues": cues})
+    print(f"lean: {len(cues)} cues from {len(heard)} recognized words")
 
 
 # ------------------------------------------------------------------ time
@@ -416,7 +577,15 @@ def timed_board(board: dict, words: list[dict], cues: list[dict]) -> tuple[dict,
             events.append({**e, "at_s": round(at, 3), "duration_s": round(length, 3)})
         scene["visual_events"] = events
         by_id = {e.get("id"): e for e in events}
-        for j, snd in enumerate(s.get("sound") or []):
+        declared = list(s.get("sound") or [])
+        for e in events:                       # a beat names its sound in one word
+            name = str(e.get("sound") or "").strip()
+            if name and not any(x.get("event_id") == e.get("id") for x in declared):
+                wav = name if "/" in name else f"assets/sfx/{name.removesuffix('.wav')}.wav"
+                if (REPO / wav).is_file():
+                    declared.append({"wav": wav, "event_id": e.get("id"), "gain": float(e.get("gain", 0.14)),
+                                     "what": (e.get("draw") or {}).get("action", "")})
+        for j, snd in enumerate(declared):
             anchor = by_id.get(snd.get("event_id"))
             at = start + (anchor["at_s"] if anchor else offset(snd, 0.0))
             sfx.append({"id": snd.get("id") or f"{s['id']}-snd{j + 1}", "event_id": snd.get("event_id") or "",
@@ -619,10 +788,10 @@ def cmd_frames(a) -> int:
         shutil.rmtree(review)
     review.mkdir()
     duration = float(ffprobe(film)["format"]["duration"])
-    step = max(1.0, duration / 24)
+    step = max(1.0, duration / 36)      # three sheets of twelve: a 100 second film, a frame every 3 seconds
     run(["ffmpeg", "-v", "error", "-y", "-i", film, "-vf", f"fps=1/{step:.3f},scale=360:-2,tile=6x2",
          review / "sheet-%02d.png"], quiet=True)
-    run(["ffmpeg", "-v", "error", "-y", "-i", film, "-vf", f"fps=1/{max(2.0, duration / 10):.3f},scale=540:-2",
+    run(["ffmpeg", "-v", "error", "-y", "-i", film, "-vf", f"fps=1/{max(2.0, duration / 14):.3f},scale=540:-2",
          review / "frame-%02d.png"], quiet=True)
     names = sorted(p.name for p in review.iterdir())
     print(f"lean: {len(names)} review images in out/dispatch/review/ from {film.name}: " + ", ".join(names))
@@ -694,6 +863,7 @@ def film_problems(date: str) -> tuple[list[str], list[str], dict]:
     if f"'{board.get('episode')}'" not in registry:
         hard.append(f"episode {board.get('episode')!r} is not registered")
     hard += source_problems()
+    hard += beat_problems(board)
     soft += pacing_notes(board)
     return hard, soft, facts
 
@@ -712,6 +882,23 @@ def source_problems() -> list[str]:
     tsc = subprocess.run(["npx", "--no-install", "tsc", "--noEmit"], cwd=ENGINE, capture_output=True, text=True)
     if tsc.returncode != 0:
         out.append("the engine does not typecheck:\n" + (tsc.stdout + tsc.stderr).strip()[-700:])
+    return out
+
+
+def beat_problems(board: dict) -> list[str]:
+    """On the measured clock: the hook moves at once and no stretch goes without a new picture."""
+    gap = float(cfg()["film"]["beat_gap_s"]) + 1.0
+    starts = sorted(s["start_s"] + e["at_s"] for s in board["scenes"] for e in s.get("visual_events") or [])
+    out = []
+    if not starts:
+        return ["the film has no beats"]
+    if starts[0] > 1.3:
+        out.append(f"the first beat lands at {starts[0]:.1f}s. The hook is moving by 1.3 seconds")
+    marks = starts + [float(board["runtime_s"])]
+    for a, b in zip(marks, marks[1:]):
+        if b - a > gap:
+            out.append(f"nothing new happens from {a:.1f}s to {b:.1f}s. Add a beat there (edit board.json, "
+                       f"then `lean.py cut`, no new voice needed)")
     return out
 
 
@@ -1165,6 +1352,34 @@ def cmd_selftest(a) -> int:
         ok("a narration edit after the voice is refused", True)
     ok("house style catches a dash and a colon and leaves a clock time",
        len(copy_problems("x", "A \u2014 b: c at 9:30")) == 2, copy_problems("x", "A \u2014 b: c at 9:30"))
+    limits = cfg()["film"]
+    thin = plan_problems(board, limits, 120)
+    ok("a thin board is caught on paper: no treatment, no throughline, no one on screen, too few beats",
+       sum(any(k in p for p in thin) for k in ("treatment.logline", "throughline", "beats for about",
+                                               "shots name a person", "draw needs a subject")) == 5, thin)
+    n = 12
+    rich = {"treatment": {k: "x" for k in ("logline", "cold_open", "turn", "button")},
+            "hero": {"name": "the pole camera", "why": "it is the machine the story is about"},
+            "throughline": {"object": "the clipboard", "states": [{"scene_id": f"s{i}", "state": "changed"} for i in (1, 5, 12)]},
+            "scenes": [{"id": f"s{i}", "visual_events": [
+                {"id": f"s{i}-{j}", "draw": {"subject": "the lineworker", "action": "points at the pole"},
+                 "sound": __file__, "label": "Crack found" if j == 0 else ""} for j in range(2)]} for i in range(1, n + 1)],
+            "shots": [{"id": f"h{i}", "scene_id": f"s{i // 2 + 1}", "framing": "wide", "view": f"v{i // 2}",
+                       "cast": ["lineworker"] if i % 3 else []} for i in range(2 * n)]}
+    ok("a board with the full plan passes", plan_problems(rich, limits, 300) == [], plan_problems(rich, limits, 300))
+    held = {"runtime_s": 30.0, "scenes": [{"start_s": 0.0, "visual_events": [{"at_s": 0.0}, {"at_s": 4.0}]},
+                                          {"start_s": 12.0, "visual_events": [{"at_s": 9.5}]}]}
+    ok("a stretch with no new picture is named on the measured clock",
+       len(beat_problems(held)) == 2 and "4.0s to 21.5s" in beat_problems(held)[0], beat_problems(held))
+    said = "The lineworker ticks the first box, and then she waits for the crew.".split()
+    heard = [{"text": w, "center": 1.0 + 0.4 * i} for i, w in enumerate(
+        "The line worker ticks the first box and then she waits for the crew".split())]
+    got = match_times(said, heard)
+    ok("a word the recognizer split still gets a measured time, in order",
+       len(got) == len(said) and got == sorted(got) and abs(got[2] - heard[3]["center"]) < 1e-6, got)
+    spans = cue_spans(said)
+    ok("captions break at the comma and carry every word once",
+       [w for a, b in spans for w in said[a:b]] == said and len(spans) == 2, spans)
     ok("the bar is read from the rubric", bar() > 0)
     ok("the config parses", cfg()["panel"]["judges"] >= 1 and cfg()["panel"]["round_cap"] >= 1)
     if a.render:

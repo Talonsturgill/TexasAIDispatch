@@ -109,7 +109,7 @@ def problems(repo=REPO, environ=None):
     try:
         cfg = json.loads((repo / 'config/claude_runtime.json').read_text())
         settings = json.loads((repo / '.claude/settings.json').read_text())
-        if cfg['primary'] != {'model': 'claude-sonnet-5-5', 'effort': 'medium'}:
+        if cfg['primary'] != {'model': 'claude-sonnet-5-5', 'effort': 'xhigh'}:   # the sibling Alaska director's level, owner 2026-11-12
             errors.append('Claude director must use the owner-selected Sonnet route')
         if (settings.get('model'), settings.get('effortLevel')) != (
                 cfg['primary']['model'], cfg['primary']['effort']):
@@ -254,11 +254,11 @@ class ContractTests(unittest.TestCase):
         self.assertTrue(problems(self.repo, {'CLAUDE_CODE_EFFORT_LEVEL': 'max'}))
 
     def test_root_effort_must_match_the_director(self):
-        self.assertEqual([], problems(self.repo, {'CLAUDE_EFFORT': 'medium'}))
+        self.assertEqual([], problems(self.repo, {'CLAUDE_EFFORT': 'xhigh'}))
         self.assertTrue(problems(self.repo, {'CLAUDE_EFFORT': 'high'}))
 
     def test_effective_report_names_every_role_and_flags_a_wrong_leaf(self):
-        report = effective_report(self.repo, {'CLAUDE_EFFORT': 'medium'})
+        report = effective_report(self.repo, {'CLAUDE_EFFORT': 'xhigh'})
         self.assertEqual(
             {'researcher': ('claude-haiku-5-5', 'high'), 'vo-director': ('claude-haiku-5-5', 'high'),
              'validator': ('claude-opus-5-5', 'high'), 'scene-builder': ('claude-opus-5-5', 'high'),

@@ -29,6 +29,13 @@ What is now true:
 - **The film always ships.** The panel grades against the bar in `config/dispatch_rubric.yaml`. At
   the round cap in `config/lean_routine.json` the cut ships with its honest score and the shortfall
   named. The bar is never moved and a score is never rewritten. A hard fail is repaired, never shipped.
+- **The film is planned on paper to the sibling's density before anything is drawn** (owner,
+  November 12th, 2026: *"bring the Texas video automation up to speed"*). A writers room pitches
+  it, every sentence gets a picture that is "X does Y", a person from the cast is in most shots,
+  one object changes state from the first scene to the last, and a new beat lands every five
+  seconds. `scripts/lean.py check --board` holds the board to that, and
+  `knowledge/craft/ASSET_INDEX.md` lists what the library can already draw. The runbook's
+  SHOWSTOPPER STANDARD has the measurement behind each rule.
 - **No budget, lease, capture authorization or checkpoint stands between a step and the next.**
   A paid call is made when the film needs it. Rendering and encoding go through `scripts/lean.py`,
   which the older capture hook does not gate.
