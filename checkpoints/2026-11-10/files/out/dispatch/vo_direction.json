@@ -1,0 +1,323 @@
+{
+  "schema": "vo_direction/1",
+  "edition_date": "2026-11-10",
+  "status": "drafted_not_approved_for_spend",
+  "approval_blockers": [
+    "F1 one source-grounded story correction for the comma-created fragment in scene s2, requested from the director and not applied here",
+    "F2 pronunciation verification for the unlisted proper nouns in the bound guide, or owner direction before the take"
+  ],
+  "script": {
+    "path": "out/dispatch/vo_script.txt",
+    "scene_lines": 10,
+    "sha256": null,
+    "sha256_status": "not computed, no shell tool was available to this director session"
+  },
+  "packet": {
+    "path": "out/dispatch/vo-director-packet.json",
+    "declared_sha256": "e93fb1f7da2dbe37d9991ddcc4ba51256f4f16e7ab1e425cc9b52c3f7693d1b7",
+    "verified": false
+  },
+  "storyboard": {
+    "path": "out/dispatch/storyboard.json",
+    "declared_sha256": "6c64f4a61f714bc3d5e13025060256c6f0be0f714bd88c467220e57831851cd1",
+    "verified": false
+  },
+  "sound_direction_sha256": "a002b8d6364ff08d8a2a2dd91fe512f32f4006b08a9d96c58c94d3cb56b5b8cb",
+  "sound_direction_status": "bound by the director to the board creative_direction.sound fingerprint a002b8d6364ff08d (agent had no shell to compute it)",
+  "overall": "One continuous read of a plain explainer, delivered by a person who knows the subject and wants the listener to know what the sources do and do not show. It is conversational and dry, not a news anchor and not a documentary hush. Each vendor claim is attributed to the vendor and each statute point to the statute. The closing answer is the quietest and most certain line in the piece.",
+  "performance_arc": "Curiosity in the opening question, then discovery through the dated facts and the vendor's design claim, then consequence through the statute's scope and its gap, and the closing answer delivered plainly as the lowest energy of the piece. No line lifts toward the end of the passage.",
+  "pacing": "One continuous take at conversational speed. The approved clause layout carries the natural separation between thoughts, and no word is stretched or rushed to fit a cut.",
+  "energy_scale": "Energy is stated relative to the line before it, as a level, a lift or a drop.",
+  "lines": [
+    {
+      "scene_id": "s1",
+      "text": "In Texas, when documentation is AI-generated, who verifies the output?",
+      "intent": "Open with a real question asked straight to the viewer.",
+      "emphasis": "who verifies",
+      "energy": "Opening level, a little forward. The question falls at its end rather than lifting.",
+      "audit": {
+        "job": "orient",
+        "clauses": [
+          "n1a",
+          "n1b"
+        ],
+        "events": [
+          "s1-event-1",
+          "s1-event-2",
+          "s1-event-3"
+        ],
+        "claims": [
+          "c5",
+          "c6"
+        ],
+        "source_limit": "Framing question only. The sources do not say who verifies a given draft in practice.",
+        "picture_check": "Exam room, draft line and empty check box all appear as the question is spoken. No mismatch recorded."
+      }
+    },
+    {
+      "scene_id": "s2",
+      "text": "UT Physicians is working toward adopting a unified system, Epic's ambient listening platform. It follows pilot programs involving DAX and Abridge.",
+      "intent": "Name the actor and its plan as unfinished work, then place the pilots before it.",
+      "emphasis": "working toward adopting",
+      "energy": "Level with the opening and plainer. No lift on the names.",
+      "audit": {
+        "job": "reveal",
+        "clauses": [
+          "n2a",
+          "n2b",
+          "n2c"
+        ],
+        "events": [
+          "s2-event-1",
+          "s2-event-2",
+          "s2-event-3",
+          "s2-event-4"
+        ],
+        "claims": [
+          "c1"
+        ],
+        "source_limit": "UTHealth Houston post dated September 9th, 2026. No switch date is stated.",
+        "fragment_flag": "F1. The clause Epic's ambient listening platform. is an appositive split off by the comma. It is not a whole clause. Proposed correction for the director, not applied: UT Physicians is working toward adopting Epic's ambient listening platform as a unified system. It follows pilot programs involving DAX and Abridge. Basis is the claim c1 quote.",
+        "picture_check": "F3. The post card is headed UTHealth Houston, while the narration names UT Physicians, and no frame shows that the post names UT Physicians. Director consolidated correction required.",
+        "pronunciation_check": "Epic, DAX and Abridge are not in the bound guide. F2 applies. No respelling supplied."
+      }
+    },
+    {
+      "scene_id": "s3",
+      "text": "The technology would eventually be available to physicians, with an Epic refresher.",
+      "intent": "State the plan's timing as an open projection, dry and plain.",
+      "emphasis": "would eventually",
+      "energy": "A drop from the line before, flat and deliberate.",
+      "audit": {
+        "job": "qualify",
+        "clauses": [
+          "n3a",
+          "n3b"
+        ],
+        "events": [
+          "s3-event-1",
+          "s3-event-2",
+          "s3-event-3"
+        ],
+        "claims": [
+          "c2"
+        ],
+        "source_limit": "The page gives no completion date, accuracy measure or time-saved figure.",
+        "qualifier_check": "F4. Claim c2 reads plans call for the technology to eventually be available. The line drops the word plans and states the projection with would. Director to confirm this keeps the qualifier, or it becomes a story correction.",
+        "picture_check": "The no date stated tag appears only on screen and is not spoken. It is consistent with the source limit and is not recorded as a mismatch (F7)."
+      }
+    },
+    {
+      "scene_id": "s4",
+      "text": "On October 8th, 2026, Abridge announced an enterprise-wide agreement, with University of Texas REAL Health AI.",
+      "intent": "Introduce a second, separate dated event and attribute the announcement to the vendor.",
+      "emphasis": "Abridge announced",
+      "energy": "A small lift for the new dated event, kept measured.",
+      "audit": {
+        "job": "reveal",
+        "clauses": [
+          "n4a",
+          "n4b",
+          "n4c"
+        ],
+        "events": [
+          "s4-event-1",
+          "s4-event-2",
+          "s4-event-3",
+          "s4-event-4"
+        ],
+        "claims": [
+          "c3",
+          "c8"
+        ],
+        "source_limit": "Vendor press release datelined October 8th, 2026. It does not say the agreement is deployed.",
+        "fragment_flag": "F5, minor. The clause with University of Texas REAL Health AI. begins with a preposition after the comma. The meaning holds, so no change is proposed.",
+        "picture_check": "The date impression lands with the first clause and the initiative card arrives with the third. No mismatch recorded."
+      }
+    },
+    {
+      "scene_id": "s5",
+      "text": "Abridge says UT health institutions can access Abridge, preserving local decision-making.",
+      "intent": "State the vendor's access framework as its own claim, with the local-control point.",
+      "emphasis": "Abridge says",
+      "energy": "Level with the line before. Even and unhurried.",
+      "audit": {
+        "job": "explain",
+        "clauses": [
+          "n5a",
+          "n5b"
+        ],
+        "events": [
+          "s5-event-1",
+          "s5-event-2",
+          "s5-event-3"
+        ],
+        "claims": [
+          "c4"
+        ],
+        "source_limit": "Vendor description of the framework. No deployment dates are stated.",
+        "picture_check": "Framework frame and institution cards carry the access claim, and the neutral switches carry the local-decision point. No mismatch recorded."
+      }
+    },
+    {
+      "scene_id": "s6",
+      "text": "Linked Evidence, Abridge says, maps documentation to source data. Clinicians can then verify the output.",
+      "intent": "Explain the vendor's design claim, then hand the check to the clinician.",
+      "emphasis": "Clinicians can then verify",
+      "energy": "A slight lift as the mechanism becomes the human step, then level.",
+      "audit": {
+        "job": "explain",
+        "clauses": [
+          "n6a",
+          "n6b",
+          "n6c"
+        ],
+        "events": [
+          "s6-event-1",
+          "s6-event-2",
+          "s6-event-3"
+        ],
+        "claims": [
+          "c5"
+        ],
+        "source_limit": "Vendor design claim, not an independent measurement.",
+        "pronunciation_check": "Linked Evidence is not in the bound guide. F2 applies."
+      }
+    },
+    {
+      "scene_id": "s7",
+      "text": "A Texas Act took effect September 1st, 2025. It covers artificial intelligence used for diagnostic purposes.",
+      "intent": "Turn to the public record with a dated legal fact and its scope.",
+      "emphasis": "used for diagnostic purposes",
+      "energy": "A drop from the vendor lines into a steady, official tone, not a courtroom voice.",
+      "audit": {
+        "job": "reveal",
+        "clauses": [
+          "n7a",
+          "n7b"
+        ],
+        "events": [
+          "s7-event-1",
+          "s7-event-2",
+          "s7-event-3"
+        ],
+        "claims": [
+          "c6",
+          "c7"
+        ],
+        "source_limit": "Enrolled text of S.B. 1188, effective September 1st, 2025.",
+        "render_check": "F6. The effective-date stamp must show readable date text in the frame, because the storyboard does not specify the stamp's text."
+      }
+    },
+    {
+      "scene_id": "s8",
+      "text": "Its conditions include review of all AI-created records, under Texas Medical Board standards.",
+      "intent": "Give the statute's condition in full, including the standard it names.",
+      "emphasis": "review of all AI-created records",
+      "energy": "Level with the line before. Precise, with a slight lift on the condition.",
+      "audit": {
+        "job": "explain",
+        "clauses": [
+          "n8a",
+          "n8b"
+        ],
+        "events": [
+          "s8-event-1",
+          "s8-event-2",
+          "s8-event-3"
+        ],
+        "claims": [
+          "c6"
+        ],
+        "source_limit": "The condition applies to diagnostic use as written in the enrolled bill, consistent with Texas Medical Board standards.",
+        "picture_check": "Review line, bracket to AI-marked records and standards tag all appear in the scene. No mismatch recorded."
+      }
+    },
+    {
+      "scene_id": "s9",
+      "text": "That law is written around diagnosis. The bill doesn't say whether a visit note counts.",
+      "intent": "Name the limit of the law, then the gap it leaves open.",
+      "emphasis": "doesn't say whether",
+      "energy": "A clear drop from the statute line, dry and quiet.",
+      "audit": {
+        "job": "qualify",
+        "clauses": [
+          "n9a",
+          "n9b"
+        ],
+        "events": [
+          "s9-event-1",
+          "s9-event-2",
+          "s9-event-3"
+        ],
+        "claims": [
+          "c6"
+        ],
+        "source_limit": "The bill is written around diagnosis, and its text does not say whether a visit note counts.",
+        "sound_alignment": "The single quiet cue sits on s9 event 2, where the visit note card meets the diagnosis frame. The voice drop and the music drop share that visible event.",
+        "picture_check": "Visit note card stops at the diagnosis frame with a question mark on its edge. No mismatch recorded."
+      }
+    },
+    {
+      "scene_id": "s10",
+      "text": "Abridge says clinicians can verify. The law requires review for diagnostic use. No source here says how well that check works.",
+      "intent": "Give the two sourced pointers, then the closing answer with its limit.",
+      "emphasis": "No source here says",
+      "energy": "Starts level, drops across the first two clauses, and the closing clause is the lowest energy of the piece. It is flat and certain and does not lift on its last word.",
+      "audit": {
+        "job": "resolve",
+        "clauses": [
+          "n10a",
+          "n10b",
+          "n10c"
+        ],
+        "events": [
+          "s10-event-1",
+          "s10-event-2",
+          "s10-event-3",
+          "s10-event-4"
+        ],
+        "claims": [
+          "c5",
+          "c6"
+        ],
+        "source_limit": "Vendor design claim and statute review condition. No source measures how well the check works.",
+        "closing_answer_clause": "The closing answer is its own clause, n10c, so the subtitle does not reveal it early.",
+        "picture_check": "The how well field stamped not stated is the visible answer. The empty check slot stays unplaced. No mismatch recorded."
+      }
+    }
+  ],
+  "audit": {
+    "clause_map": {
+      "source": "storyboard narration_picture and shot narration_ids",
+      "total_clauses": 24,
+      "note": "Caption timings are authored estimates until measured alignment. No measured boundary is claimed here."
+    },
+    "pronunciation": {
+      "guide": "/home/user/TexasAIDocket/knowledge/shared/TEXAS_PRONUNCIATION.md",
+      "listed_traps_in_passage": "none of the listed names appears in this passage",
+      "unlisted_proper_nouns": [
+        "Abridge",
+        "Epic",
+        "DAX",
+        "UT",
+        "REAL",
+        "AI",
+        "Linked Evidence"
+      ],
+      "status": "F2 open. The guide says an unlisted name is unverified. No respelling or invented rule is supplied here.",
+      "houston_rule": "Houston does not appear in the spoken passage. The guide's rule for any spoken Houston is HYOO stun."
+    },
+    "flags": [
+      "F1 pre-spend story correction for a comma-created fragment in s2",
+      "F2 pronunciation verification for unlisted proper nouns before the take",
+      "F3 director consolidated correction, picture names UTHealth Houston while narration names UT Physicians",
+      "F4 qualifier check, plans call for dropped in s3",
+      "F5 minor fragment in s4, no change proposed",
+      "F6 render check, readable effective date in the s7 stamp",
+      "F7 on-screen no date stated tag is not spoken, not a mismatch",
+      "F8 phone ceiling number not located in the bound files read. Longest measured clause is 59 characters, in s3 clause 1 The technology would eventually be available to physicians"
+    ],
+    "verification_limits": "No SHA256 was computed. No audio, TTS, render or review was run, and this file approves no film."
+  }
+}

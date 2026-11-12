@@ -1,8 +1,8 @@
 {
   "schema": "dispatch_claude_checkpoint/2",
   "run_id": "2026-11-10",
-  "saved_at": "2026-11-12T01:20:16.671298+00:00",
-  "note": "claim worker dispatch vo-director",
+  "saved_at": "2026-11-12T01:26:11.378284+00:00",
+  "note": "before paid reservation",
   "phase": "active_repair",
   "terminal_state": null,
   "shipment_recorded": false,
@@ -5822,6 +5822,12 @@
       "size": 429
     },
     {
+      "path": "out/dispatch/native-completion-waits/627e48ef2e7fc8cb0720a6e4dba25959777502a2b391c6bf180503f8a4bc80ca.json",
+      "class": "scratch",
+      "sha256": "627e48ef2e7fc8cb0720a6e4dba25959777502a2b391c6bf180503f8a4bc80ca",
+      "size": 427
+    },
+    {
       "path": "out/dispatch/native-completion-waits/ba8211751143463a05e03119c85c601d2faec0b7b60c7911c7efe6f5e2664dfd.json",
       "class": "scratch",
       "sha256": "ba8211751143463a05e03119c85c601d2faec0b7b60c7911c7efe6f5e2664dfd",
@@ -10778,6 +10784,12 @@
       "size": 14383
     },
     {
+      "path": "out/dispatch/takes/prompt.txt",
+      "class": "scratch",
+      "sha256": "b7207be465b2b77cf26f69c25ca699f020b5afe9b06bde4f4df97bce769f96fa",
+      "size": 4782
+    },
+    {
       "path": "out/dispatch/validation-round1-revise.json",
       "class": "scratch",
       "sha256": "ace0d1bab9bac637e63a647c0bce69e6393062ad8d5b1f93c5c600e44ce7aebb",
@@ -13070,6 +13082,18 @@
       "size": 1863
     },
     {
+      "path": "out/dispatch/vo_direction.agent-original.json",
+      "class": "scratch",
+      "sha256": "be7aa9cacd204a36a2d6debe57656eb596b5c984765399644cfe6d75a490893f",
+      "size": 13267
+    },
+    {
+      "path": "out/dispatch/vo_direction.json",
+      "class": "scratch",
+      "sha256": "f5ff7c627cf3b1638a12f56b6026641c13d3ef89c1f8d186fbd58f6747fff29b",
+      "size": 14398
+    },
+    {
       "path": "out/dispatch/vo_script-145-v1.txt",
       "class": "scratch",
       "sha256": "2493b25d25e7e45e7ef24f8f18c596c858b31c07ff3d36e8e566a25911501234",
@@ -13098,6 +13122,12 @@
       "class": "scratch",
       "sha256": "0ebaf5473eb4bb2ce68f8efa8fc809b5922db7cb0d4cd273f76ca276c87a7598",
       "size": 1026
+    },
+    {
+      "path": "out/dispatch/voice-director-assignment-2.json",
+      "class": "scratch",
+      "sha256": "1216dd4b9abb0751247cb7a50b57244adf43110c2859b62e3d7f455a712f0add",
+      "size": 2868
     },
     {
       "path": "out/dispatch/voice-director-assignment.json",
@@ -13221,9 +13251,9 @@
     }
   ],
   "storage_accounting": {
-    "logical_bytes": 296074106,
-    "unique_blob_bytes": 195875449,
-    "unique_blobs": 1636
+    "logical_bytes": 296109848,
+    "unique_blob_bytes": 195911191,
+    "unique_blobs": 1641
   },
   "excluded": [
     {
