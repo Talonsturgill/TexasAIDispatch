@@ -134,6 +134,22 @@ image from. Every five seconds of it pays in at least one of three currencies.
 The test at every stage: would a stranger stop on this frame? If unsure, the answer is no and the
 frame is redone.
 
+## LOOK V2 AND THE TONE ROTATION
+
+The owner, November 13th, 2026: *"it's very 2D. every corner is very sharp. Everything is faded
+colors. I want more pungent ... Sometimes I'll see a floating arm ... I don't want them all to be
+negative. I want them to be educational."* The same day the TikTok curves showed the Texas film
+keeping 48% of viewers at three seconds and the Alaska film 74%.
+
+Every board dated on or after `look.v2_from` in `config/lean_routine.json` renders in look v2
+(`L time` stamps it): a
+saturated grade picked by the film's tone, a punch-in on every cut, big centred captions with the
+spoken word lit, a hook line on the first frame and rounded glass label chips. All of that is drawn
+for you. What you draw is the episode, and it is drawn in the v2 idiom (Phase 5).
+
+**Read `knowledge/craft/LOOK_V2.md` once, before Phase 3.** It is the blueprint: the ten rules of
+the look, the first three seconds, the five tones and the evidence behind each.
+
 ## THE CLOCK
 
 A run takes four to five and a half hours. Checkpoints, measured from wake:
@@ -199,7 +215,12 @@ center siting are the Docket's.
 3. Pick the story with the most FILMABLE action AND a person in it: somebody at work doing a
    specific thing with a specific machine in a specific county. A press release with no action and
    nobody in it is the wrong pick however new it is.
-4. The story ladder, so there is always a story. (a) The last 10 days. (b) The last 30 days.
+4. **Rotate the tone.** `ls runs/` and read the `tone` in the last three editions' `lean.json`. Today's
+   film may not repeat yesterday's tone, and at most two `watch` films run in any seven days
+   (`L check --board` enforces both). The five are `wonder`, `explainer`, `win`, `watch` and
+   `people` (LOOK_V2.md). Prefer the story that something is being built, solved or learned in. A
+   risk story can usually be told as an explainer or a win.
+5. The story ladder, so there is always a story. (a) The last 10 days. (b) The last 30 days.
    (c) A Texas application first reported earlier that has a new fact this month. (d) An evergreen
    explainer of one named, sourced Texas application the ledger has not covered. Rung (d) always exists.
 
@@ -227,7 +248,7 @@ Read `knowledge/craft/CREATIVE_DIRECTION.md`, `knowledge/craft/VO_DIRECTION.md` 
 
 Spawn FOUR `general-purpose` agents in ONE message, each told to read `prompts/daily/pitcher.md`
 and follow it, each given the story, the claims and ONE lens: the Comedian, the Dramatist, the
-Explainer, the Enthusiast. Pick the pitch with the strongest cold open and the clearest person,
+Explainer, the Enthusiast. Give every pitcher the film's tone (Phase 1). Pick the pitch with the strongest cold open and the clearest person,
 then GRAFT the best beats of the other three into it: the Explainer's number made physical, the
 Dramatist's test, the Comedian's gag, the Enthusiast's fair upside. Write the result into the
 board as `treatment`.
@@ -279,6 +300,7 @@ Write `out/dispatch/board.json`. It is the whole film on paper, and the narratio
 ONLY copy of the script (`L script` writes `vo_script.txt` from it).
 
     {"date": "<date>", "title": "Who calls the leak", "topic": "one sentence on what the film is about",
+     "tone": "explainer", "hook": "Who decides a pipeline is leaking?",
      "beat": "oilfield", "episode": "leak-review-1113", "entities": ["Chevron", "Percepto"],
      "treatment": {"logline": "...", "cold_open": "...", "turn": "...", "button": "..."},
      "hero": {"name": "the inspection drone", "why": "it is the machine the story is about and no film has drawn it"},
@@ -322,7 +344,13 @@ The rules of the board. `L check --board` enforces every one of them.
 - **The throughline object** is on screen by the second scene, changes state at least three times,
   and its last state is the button.
 - **The hero** is the one fresh drawing this film is remembered for. Everything else comes off the shelf.
-- **The hook is a picture, not a title card.** The first two seconds show somebody doing something.
+- **The hook is a picture AND a line.** The first frame shows somebody or something already doing
+  something. `hook` is the line on that frame: the film's question or stakes in at most eight words,
+  never the title, under the same copy rules as the narration. The first sentence pays it off by
+  six seconds, and something visibly changes before second three.
+- **Tone.** `tone` is one of `wonder`, `explainer`, `win`, `watch`, `people`. It picks the film's
+  colour grade and is rotated (Phase 1). It is how the story should leave a viewer, never a
+  judgment of the people in it.
 - **Music** is optional. `bash scripts/run_with_env.sh python3 scripts/music.py --list` shows the
   tracks marked `ready`. Its credit is added to the end card for you.
 
@@ -366,20 +394,32 @@ three files in that directory: the hero drawing, the props, the film.
 - **Every beat is drawn.** For each `visual_events` id there is code that changes the picture when
   its window opens. Read windows with `actionWindows` and `actionProgress` from `lib/direction.ts`.
   No wall clock, no random input.
-- **Cast from the shelf.** `knowledge/craft/ASSET_INDEX.md` lists it. People come from
-  `lib/Character.tsx`: give each a pose and an emotion and CHANGE them on the beat. Machines,
+- **Cast from the shelf.** `knowledge/craft/ASSET_INDEX.md` lists it. On a v2 board people come
+  from `look/Figure.tsx` (`castV2` has a ready cast): give each a pose and an emotion and CHANGE
+  them on the beat, moving the arms with `fromPose` and `poseBlend` so nothing pops. Older boards
+  use `lib/Character.tsx`. Machines,
   vehicles, animals, plants and workplaces come from their modules. Draw the hero fresh.
 - **Fill the frame.** The subject of a shot is a third to two thirds of the frame's height. A
   subject a tenth of the frame high on an empty plain is a location still, not a shot.
 - **Nothing moves linearly and nothing pops.** Entrances anticipate, overshoot and settle
   (`lib/motion.tsx`: `entrance`, `POP`, `SNAP`, `SETTLE`, `squashStretch`, `anticipate`). People
   idle (`humanIdle`). Numbers count up and land with a hit. An impact lands in the object.
-- **Thick ink outlines and real shading** on everything you draw, matching the library, so a fresh
-  drawing and a shelf drawing look like one film.
+- **The v2 idiom** on everything you draw (LOOK_V2.md, the ten rules). Round every corner. Light
+  every form from the upper left with a lit side, a violet-leaning shade side and a rim. Give
+  everything that stands a contact shadow and everything that flies a shadow on the ground. Outline
+  in the fill's own deep hue (`look/color.ts` `line`), never black. Make far things paler and
+  bluer. Give the hero machine, the animal and the threat a face that acts. Build from
+  `look/Kit.tsx` (`Landscape`, `Bush`, `HeroDrone`, `GlassPanel`, `ScanBox`, `Burst` and more).
+  `daily/episodes/sample-v2/BrushHidesV2.tsx` is the worked example, five shots of a real film.
+- **No floating limbs.** An arm or leg starts inside the body and its hand or foot sits at its end.
+  `look/Figure.tsx` does this for people. A machine's arm, a tool or a prop in a hand is drawn the
+  same way, joined, never laid over.
 - The slow camera push and the label chips are drawn for you. Keep faces, type and the point of
   the action out of the chip's band (the top left, y 250 to 400) and out of the caption band at
   the bottom (`lib/safearea.ts`). In a near shot stand the person lower, feet behind the captions.
-- **Outdoors, never paint a full-frame background.** The stage stands each shot in its county's
+- **Outdoors, never paint a full-frame background**, with one exception: `Landscape` from
+  `look/Kit.tsx` with a `Land` preset made for that region (`SOUTH_TEXAS` today). Add a preset for
+  another region only from its place plate's own colours. Otherwise the stage stands each shot in its county's
   region. `PlaceSubject` seats a drawing on that ground. Indoors the region shows through a window.
   A diagram or document view is listed in `board.wall_views` and gets plain paper.
 - **Write only inside your episode directory and the one registry line.** Never edit a file under

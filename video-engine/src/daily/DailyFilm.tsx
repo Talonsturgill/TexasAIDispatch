@@ -7,6 +7,11 @@ import {FONT, wrapToWidth} from '../lib/type';
 import {PlaceStage} from '../modern/PlaceStage';
 import type {FilmShot} from '../modern/types';
 import {dailyEpisodes} from './registry';
+import {ChipV2} from '../look/Chip';
+import {WordCaptions, type Word} from '../look/Captions';
+import {GradeStage} from '../look/Grade';
+import {HookTitle} from '../look/Hook';
+import {gradeFor, lookActive} from '../look/tokens';
 
 /**
  * THE DAILY FILM (November 12th, 2026). The composition the daily routine renders.
@@ -20,7 +25,8 @@ import {dailyEpisodes} from './registry';
  * lacks, or a region with no plate, throws with the fix in the message, because a film that renders
  * the wrong thing silently is worse than one that stops and says why.
  */
-type DailyBoard = DispatchProps & {episode?: string; shots?: FilmShot[]; wall_views?: string[]};
+type DailyBoard = DispatchProps & {episode?: string; shots?: FilmShot[]; wall_views?: string[];
+  look?: string; tone?: string; hook?: string; words?: Word[]};
 
 /** A diagram or a document is not in a room. A view the board lists in `wall_views` gets plain
  * paper behind it instead of the region, so no skyline runs through thin lines and small labels. */
@@ -74,7 +80,34 @@ const pushScale = (shot: FilmShot, time: number) => {
   return 1 + PUSH * (u * u * (3 - 2 * u));
 };
 
+/**
+ * LOOK V2 CAMERA (November 13th, 2026). A stronger push, a slow drift so no frame is ever locked
+ * off, and a cut that lands: the new shot punches in from 6% over and settles in a quarter second,
+ * with a brief lift of light. Every value comes from the board clock.
+ */
+const v2Camera = (shot: FilmShot, shots: FilmShot[], time: number) => {
+  const u = Math.min(1, Math.max(0, (time - shot.start_s) / Math.max(0.5, shot.duration_s)));
+  const index = shots.indexOf(shot);
+  const since = time - shot.start_s;
+  const punch = index > 0 ? Math.max(0, 1 - since / 0.28) : 0;
+  const ease = punch * punch;
+  const dir = index % 2 ? 1 : -1;
+  return {
+    scale: 1 + 0.085 * (u * u * (3 - 2 * u)) + 0.06 * ease,
+    x: dir * (14 * Math.sin(time * 0.55 + index) + 22 * (u - 0.5)),
+    y: 9 * Math.sin(time * 0.41 + index * 1.7),
+    rot: 0.35 * Math.sin(time * 0.33 + index),
+    flash: index > 0 ? Math.max(0, 1 - since / 0.14) * 0.22 : 0,
+    blur: ease * 5,
+  };
+};
+
 export const DailyFilm: React.FC<DispatchProps> = (props) => {
+  if (lookActive(props as DailyBoard)) return <DailyFilmV2 {...props} />;
+  return <DailyFilmV1 {...props} />;
+};
+
+const DailyFilmV1: React.FC<DispatchProps> = (props) => {
   const board = props as DailyBoard;
   const {fps} = useVideoConfig(), frame = useCurrentFrame(), time = frame / fps;
   const scenes = board.scenes ?? [];
@@ -123,6 +156,74 @@ export const DailyFilm: React.FC<DispatchProps> = (props) => {
     </div>
   );
 };
+
+/**
+ * THE DAILY FILM, LOOK V2. The same contract as V1 (same board, same episodes, same region stage),
+ * with the grade, the v2 chip, word captions, the on-screen hook and the v2 camera around it.
+ * knowledge/craft/LOOK_V2.md is the account.
+ */
+const DailyFilmV2: React.FC<DispatchProps> = (props) => {
+  const board = props as DailyBoard;
+  const {fps} = useVideoConfig(), frame = useCurrentFrame(), time = frame / fps;
+  const grade = gradeFor(board.tone);
+  const scenes = board.scenes ?? [];
+  const endFrame = Math.ceil(storyEnd(scenes) * fps - 1e-6);
+  const creditFrames = (board.credits ?? '').trim() ? Math.ceil((board.credits_s ?? 5) * fps) : 0;
+  if (frame >= endFrame) {
+    return (
+      <Sequence from={endFrame} durationInFrames={Math.max(1, creditFrames)}>
+        <CreditsCard text={board.credits ?? ''} />
+      </Sequence>
+    );
+  }
+  const id = dailyEpisodeId(board);
+  const Episode = dailyEpisodes[id];
+  if (!Episode) {
+    throw new Error(`Daily episode "${id}" is not registered. Add its import and one line to ` +
+      'video-engine/src/daily/registry.tsx.');
+  }
+  const shots = dailyShots(board);
+  if (!shots.length) throw new Error('The daily board has no shots. Run scripts/lean.py time.');
+  const started = shots.filter((s) => Math.round(s.start_s * fps) <= frame);
+  const shot = started.length ? started[started.length - 1] : shots[0];
+  const scene = scenes.find((s) => s.id === shot.scene_id) ??
+    scenes.find((s) => time >= s.start_s && time < s.start_s + s.duration_s) ?? scenes[0];
+  const cam = v2Camera(shot, shots, time);
+  const wall = (board.wall_views ?? []).includes(shot.view);
+  return (
+    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#0b0d14'}}>
+      <GradeStage grade={grade} frame={frame}>
+        <div style={{position: 'absolute', inset: -40, transformOrigin: '50% 44%',
+          transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.scale}) rotate(${cam.rot}deg)`,
+          filter: cam.blur > 0.2 ? `blur(${cam.blur.toFixed(2)}px)` : undefined}}>
+          <div style={{position: 'absolute', left: 40, top: 40, width: 1080, height: 1920}}>
+            <ArtDirectionProvider profile={board.art_direction as never} scenes={scenes as never}>
+              {wall ? (
+                <div style={{position: 'absolute', inset: 0, background: WALL_V2}}>
+                  <Episode board={board} scene={scene} shot={shot} time_s={time}
+                    shot_s={time - shot.start_s} variant="a" />
+                </div>
+              ) : (
+                <PlaceStage board={board} scene={scene} shot={shot} time_s={time}>
+                  <Episode board={board} scene={scene} shot={shot} time_s={time}
+                    shot_s={time - shot.start_s} variant="a" />
+                </PlaceStage>
+              )}
+            </ArtDirectionProvider>
+          </div>
+        </div>
+      </GradeStage>
+      {cam.flash > 0 && <div style={{position: 'absolute', inset: 0, background: '#fff', opacity: cam.flash,
+        mixBlendMode: 'screen'}} />}
+      <ChipV2 scene={scene} time={time} fps={fps} grade={grade} />
+      <HookTitle text={String(board.hook ?? '')} time={time} fps={fps} grade={grade} />
+      <WordCaptions cues={board.captions ?? []} words={board.words ?? []} grade={grade} />
+    </div>
+  );
+};
+
+/** v2 paper: a soft lit gradient with a warm corner, never a flat beige. */
+const WALL_V2 = 'radial-gradient(120% 80% at 20% 10%, #ffffff 0%, #f3efe6 45%, #dcd6f0 100%)';
 
 /** The film's length comes from the timed board: the story to its last frame, then the credits. */
 export const dailyMetadata = ({props}: {props: Record<string, unknown>}) => {
