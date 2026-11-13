@@ -1,4 +1,5 @@
 import React from 'react';
+import {FONT} from '../lib/type';
 import {M} from '../lib/scale';
 import {light, line, shade} from './color';
 import {ContactShadow, useUid} from './Kit';
@@ -224,10 +225,14 @@ const Quad: React.FC<Place & {kind: keyof typeof SPECIES; mood?: AnimalMood; wal
   );
 };
 
+/** CATTLE: a black cow by default, or a spotted longhorn with the long horns (`longhorn`), and `graze` lowers the head */
 export const CowV2: React.FC<Place & {mood?: AnimalMood; walk?: number; graze?: number; longhorn?: boolean; color?: string}> = ({longhorn, ...p}) =>
   <Quad {...p} kind={longhorn ? 'longhorn' : 'cow'} />;
+/** A FERAL HOG: razorback bristles, a snout disk and small tusks, alert rather than monstrous */
 export const HogV2: React.FC<Place & {mood?: AnimalMood; walk?: number; graze?: number}> = (p) => <Quad {...p} kind="hog" />;
+/** A WHITE-TAILED DEER: an eight-point buck with a white throat patch and the white flag of a tail */
 export const DeerV2: React.FC<Place & {mood?: AnimalMood; walk?: number; graze?: number}> = (p) => <Quad {...p} kind="deer" />;
+/** A RANCH DOG: prick ears, a wagging tail and a happy tongue */
 export const DogV2: React.FC<Place & {mood?: AnimalMood; walk?: number; color?: string}> = (p) => <Quad {...p} kind="dog" />;
 
 // ---------------------------------------------------------------------------------- props
@@ -339,7 +344,7 @@ export const MapPinV2: React.FC<{x: number; y: number; s?: number; p?: number; c
       {label && q > 0.9 && <g transform="translate(0 -190)">
         <rect x={-label.length * 9 - 20} y={-30} width={label.length * 18 + 40} height={52} rx={26} fill="#ffffff" stroke={line('#ffffff')}
           strokeWidth={4} />
-        <text x={0} y={6} textAnchor="middle" fontFamily="Inter, Helvetica, Arial, sans-serif" fontWeight={800} fontSize={26}
+        <text x={0} y={6} textAnchor="middle" fontFamily={FONT.body} fontWeight={800} fontSize={26}
           fill="#2b2440">{label}</text>
       </g>}
     </g>
@@ -355,12 +360,12 @@ export const DocumentV2: React.FC<{x: number; y: number; s?: number; tilt?: numb
       stroke={line('#fffdf8')} strokeWidth={6} strokeLinejoin="round" />
     <path d="M120 -230 L120 -196 Q120 -180 136 -180 L170 -180 Z" fill="#e9e4d8" />
     <rect x={-130} y={-196} width={150} height={26} rx={13} fill={accent} />
-    {title && <text x={-130} y={-136} fontFamily="Inter, Helvetica, Arial, sans-serif" fontWeight={800} fontSize={30} fill="#2b2440">{title}</text>}
+    {title && <text x={-130} y={-136} fontFamily={FONT.body} fontWeight={800} fontSize={30} fill="#2b2440">{title}</text>}
     {Array.from({length: lines}).map((_, i) => <rect key={i} x={-130} y={-100 + i * 44} width={i % 3 === 2 ? 170 : 260} height={14} rx={7}
       fill="#d9d4e6" />)}
     {stamp && <g transform="translate(70 170) rotate(-14)">
       <rect x={-90} y={-34} width={180} height={68} rx={18} fill="none" stroke="#e5484d" strokeWidth={8} />
-      <text x={0} y={12} textAnchor="middle" fontFamily="Inter, Helvetica, Arial, sans-serif" fontWeight={900} fontSize={30}
+      <text x={0} y={12} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={30}
         fill="#e5484d">{stamp}</text>
     </g>}
   </g>

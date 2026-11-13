@@ -394,11 +394,15 @@ three files in that directory: the hero drawing, the props, the film.
 - **Every beat is drawn.** For each `visual_events` id there is code that changes the picture when
   its window opens. Read windows with `actionWindows` and `actionProgress` from `lib/direction.ts`.
   No wall clock, no random input.
-- **Cast from the shelf.** `knowledge/craft/ASSET_INDEX.md` lists it. On a v2 board people come
-  from `look/Figure.tsx` (`castV2` has a ready cast): give each a pose and an emotion and CHANGE
-  them on the beat, moving the arms with `fromPose` and `poseBlend` so nothing pops. Older boards
-  use `lib/Character.tsx`. Machines,
-  vehicles, animals, plants and workplaces come from their modules. Draw the hero fresh.
+- **Cast from the shelf.** `knowledge/craft/ASSET_INDEX.md` lists it, the v2 shelf first. On a v2
+  board people come from `look/Figure.tsx` (`castV2` takes every roster id): give each a pose and
+  an emotion and CHANGE them on the beat, moving the arms with `fromPose` and `poseBlend` so nothing
+  pops. Hero machines come from `look/machines.tsx` (driverless truck, robotaxi, drilling rig,
+  centre pivot, robot arm, data hall row, sensor mast, tablet, clinic screen), animals and common
+  props from `look/props.tsx` (cattle, hog, deer, dog, pickup, windmill, barn, map pin, document)
+  and plants from `look/regions.tsx`. Use a `lib/` drawing on a v2 board only for what that shelf
+  lacks. Older boards use `lib/Character.tsx` and the library. Draw the hero fresh when the shelf
+  has nothing like it, to the same idiom.
 - **Fill the frame.** The subject of a shot is a third to two thirds of the frame's height. A
   subject a tenth of the frame high on an empty plain is a location still, not a shot.
 - **Nothing moves linearly and nothing pops.** Entrances anticipate, overshoot and settle
@@ -417,9 +421,10 @@ three files in that directory: the hero drawing, the props, the film.
 - The slow camera push and the label chips are drawn for you. Keep faces, type and the point of
   the action out of the chip's band (the top left, y 250 to 400) and out of the caption band at
   the bottom (`lib/safearea.ts`). In a near shot stand the person lower, feet behind the captions.
-- **Outdoors, never paint a full-frame background**, with one exception: `Landscape` from
-  `look/Kit.tsx` with a `Land` preset made for that region (`SOUTH_TEXAS` today). Add a preset for
-  another region only from its place plate's own colours. Otherwise the stage stands each shot in its county's
+- **Outdoors, never paint a full-frame background.** On a v2 board the stage stands every exterior
+  shot in its county's region, redrawn (`look/regions.tsx` `RegionStageV2`, ten regions, with
+  parallax and a blurred foreground), so draw only what stands in it. Older boards may use
+  `Landscape` from `look/Kit.tsx` with a `Land` preset, and otherwise the stage stands each shot in its county's
   region. `PlaceSubject` seats a drawing on that ground. Indoors the region shows through a window.
   A diagram or document view is listed in `board.wall_views` and gets plain paper.
 - **Write only inside your episode directory and the one registry line.** Never edit a file under

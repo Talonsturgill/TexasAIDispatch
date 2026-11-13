@@ -1,4 +1,5 @@
 import React from 'react';
+import {FONT} from '../../../lib/type';
 import {useCurrentFrame} from 'remotion';
 import type {FilmRenderProps} from '../../../modern/types';
 import {FeralHog, Longhorn, Whitetail} from '../../../lib/fauna';
@@ -47,7 +48,7 @@ export const PropsGallery: React.FC<FilmRenderProps> = ({board}) => {
         return <g key={c.name}>
           <rect x={col * 540 + 20} y={y} width={500} height={6} rx={3} fill="#2b2440" opacity={0.15} />
           {v2 ? c.v2(frame, x, y, c.s) : c.old?.(frame, x, y, c.s)}
-          <text x={col * 540 + 270} y={y + 52} textAnchor="middle" fontFamily="Inter, Helvetica, Arial, sans-serif" fontWeight={700}
+          <text x={col * 540 + 270} y={y + 52} textAnchor="middle" fontFamily={FONT.body} fontWeight={700}
             fontSize={28} fill="#2b2440">{c.name}</text>
         </g>;
       })}

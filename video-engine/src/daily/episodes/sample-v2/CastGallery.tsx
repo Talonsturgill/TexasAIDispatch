@@ -1,4 +1,5 @@
 import React from 'react';
+import {FONT} from '../../../lib/type';
 import {useCurrentFrame} from 'remotion';
 import type {FilmRenderProps} from '../../../modern/types';
 import {CAST, Character, castProps, type Emotion, type Pose} from '../../../lib/Character';
@@ -21,7 +22,7 @@ export const CastGallery: React.FC<FilmRenderProps> = ({board, time_s}) => {
     ? <CharacterV2 key={`${id}${x}${y}`} frame={frame} {...castProps(id)} cast={id} x={x} y={y} scale={s} {...extra} />
     : <Character key={`${id}${x}${y}`} frame={frame} {...castProps(id)} x={x} y={y} scale={s} {...extra} />;
   const label = (t: string, x: number, y: number) => <text key={`t${t}${x}${y}`} x={x} y={y} textAnchor="middle"
-    fontFamily="Inter, Helvetica, Arial, sans-serif" fontWeight={700} fontSize={26} fill="#2b2440">{t}</text>;
+    fontFamily={FONT.body} fontWeight={700} fontSize={26} fill="#2b2440">{t}</text>;
   if (time_s < 5) {
     const ids = ROSTER_IDS.length ? ROSTER_IDS : CAST.map((c) => c.id);
     return (

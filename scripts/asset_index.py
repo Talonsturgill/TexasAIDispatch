@@ -18,13 +18,15 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 LIB = REPO / "video-engine" / "src" / "lib"
+LOOK = REPO / "video-engine" / "src" / "look"
+LOOK_FILES = ["Figure.tsx", "CharacterV2.tsx", "machines.tsx", "props.tsx", "regions.tsx", "Kit.tsx"]
 OUT = REPO / "knowledge" / "craft" / "ASSET_INDEX.md"
 COMPONENT = re.compile(r"^export const ([A-Z][A-Za-z0-9]+)\s*:\s*React\.FC(?:<(.*?)>)?\s*=", re.M | re.S)
 SKIP = {"fonts.tsx", "uid.ts", "type.ts", "scale.ts", "safearea.ts", "registry.tsx"}
 
 
 PEOPLE = [
-    "## People first: `Character.tsx`", "",
+    "## Older boards: people from `Character.tsx`", "",
     "One rig, a cast of ten authored together (`CAST`, roster and reasoning in `knowledge/texas/CAST.md`).",
     "Put a person from it in most shots. A film about somebody using a tool at work has somebody in it.", "",
     "```tsx",
@@ -44,6 +46,55 @@ PEOPLE = [
 ]
 
 
+V2_FIRST = [
+    "## On a look v2 board, cast from `src/look/` first", "",
+    "Every board dated on or after `look.v2_from` renders in look v2. Its people, machines, animals and",
+    "props come from these files, drawn to `knowledge/craft/LOOK_V2.md`. The registry galleries",
+    "`look-v2-regions`, `look-v2-cast`, `look-v2-machines` and `look-v2-props` show each one beside the",
+    "library drawing it replaces. Reach for `src/lib/` only for what this shelf lacks, and then light it",
+    "the v2 way.", "",
+    "```tsx",
+    "import {Figure, castV2} from '../../../look/Figure';",
+    "import {AutoTruckV2} from '../../../look/machines';",
+    "<Figure frame={frame} {...castV2('lineworker')} x={420} y={1180} scale={1.4} pose=\"point\" emotion=\"worried\" />",
+    "<AutoTruckV2 frame={frame} x={700} y={1300} scale={0.06} mood=\"happy\" speed={0.6} />",
+    "```", "",
+    "- `Figure` poses: stand, wave, point, cheer, think, hold, shrug, reach, hips, crossed, panic, raise.",
+    "  Emotions: neutral, happy, excited, worried, surprised, thinking, proud, determined, angry, smug. `castV2(id)`",
+    "  takes the roster ids (engineer, rancher, executive, dctech, owner, operator, hand, clinician,",
+    "  lineworker, resident, farmer, technician, hydrologist) and nurse, coder, teacher, scientist, trucker.",
+    "- Exteriors need nothing. `RegionStageV2` stands every exterior shot in its county's region,",
+    "  redrawn, with parallax and a blurred foreground.",
+    "- An old-rig call (`<Character {...castProps(id)} />`) becomes `<CharacterV2 cast={id} ... />` with the",
+    "  same pose and emotion names.",
+    "- Library drawings take `scale` 1 as true size. So do the v2 machines, animals and props.", "",
+]
+
+
+def section(path: Path) -> list[str]:
+    text = path.read_text(encoding="utf-8")
+    rows = [(m.group(1), props_of(m.group(2)), comment_before(text, m.start())) for m in COMPONENT.finditer(text)]
+    if not rows:
+        return []
+    head = re.search(r"/\*\*(.*?)\*/", text, re.S)
+    about = ""
+    if head:
+        first = " ".join(re.sub(r"^\s*\*\s?", "", ln).strip() for ln in head.group(1).splitlines()).strip()
+        about = re.split(r"(?<=[.!?])\s", first, maxsplit=1)[0][:200]
+    out = [f"## `{path.parent.name}/{path.name}` ({len(rows)})" if path.parent == LOOK else f"## `{path.name}` ({len(rows)})", ""]
+    if about:
+        out += [about, ""]
+    for name, props, why in rows:
+        line = f"- **{name}**"
+        if props:
+            line += f" ({props})"
+        if why:
+            line += f": {why}"
+        out.append(line)
+    out.append("")
+    return out
+
+
 def comment_before(text: str, index: int) -> str:
     head = text[:index].rstrip()
     if head.endswith("*/"):
@@ -55,7 +106,7 @@ def comment_before(text: str, index: int) -> str:
             if not ln.strip().startswith("//"):
                 break
             lines.insert(0, ln.strip().lstrip("/").strip())
-    words = " ".join(x for x in lines if x)
+    words = " ".join(x for x in lines if x).removesuffix("*/").strip()
     first = re.split(r"(?<=[.!?])\s", words, maxsplit=1)[0] if words else ""
     return first[:170]
 
@@ -74,32 +125,19 @@ def build() -> str:
            "Cast and stage from here FIRST. Import from `video-engine/src/lib/<module>`. Read the",
            "component's own comment and props in its file before using it. To see a module drawn, the",
            "review sheets in `video-engine/src/Root.tsx` render most of them.", ""]
-    out += PEOPLE
+    out += V2_FIRST
     total = 0
+    for name in LOOK_FILES:
+        part = section(LOOK / name)
+        total += sum(1 for ln in part if ln.startswith("- **"))
+        out += part
+    out += PEOPLE
     for path in sorted(LIB.glob("*.ts*")):
         if path.name in SKIP:
             continue
-        text = path.read_text(encoding="utf-8")
-        rows = [(m.group(1), props_of(m.group(2)), comment_before(text, m.start())) for m in COMPONENT.finditer(text)]
-        if not rows:
-            continue
-        head = re.search(r"/\*\*(.*?)\*/", text, re.S)
-        about = ""
-        if head:
-            first = " ".join(re.sub(r"^\s*\*\s?", "", ln).strip() for ln in head.group(1).splitlines()).strip()
-            about = re.split(r"(?<=[.!?])\s", first, maxsplit=1)[0][:200]
-        out += [f"## `{path.name}` ({len(rows)})", ""]
-        if about:
-            out += [about, ""]
-        for name, props, why in rows:
-            line = f"- **{name}**"
-            if props:
-                line += f" ({props})"
-            if why:
-                line += f": {why}"
-            out.append(line)
-        out.append("")
-        total += len(rows)
+        part = section(path)
+        total += sum(1 for ln in part if ln.startswith("- **"))
+        out += part
     out.insert(3, f"{total} drawings in {sum(1 for l in out if l.startswith('## '))} modules.")
     return "\n".join(out).rstrip() + "\n"
 
