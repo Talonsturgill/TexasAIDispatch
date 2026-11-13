@@ -6,6 +6,7 @@ import {ArtDirectionProvider} from '../lib/artDirection';
 import {FONT, wrapToWidth} from '../lib/type';
 import {PlaceStage} from '../modern/PlaceStage';
 import {RegionStageV2} from '../look/regions';
+import {SHELF_CLASS, ShelfLight, ShelfStyle} from '../look/ShelfLift';
 import type {FilmShot} from '../modern/types';
 import {dailyEpisodes} from './registry';
 import {ChipV2} from '../look/Chip';
@@ -192,7 +193,8 @@ const DailyFilmV2: React.FC<DispatchProps> = (props) => {
   const cam = v2Camera(shot, shots, time);
   const wall = (board.wall_views ?? []).includes(shot.view);
   return (
-    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#0b0d14'}}>
+    <div className={SHELF_CLASS} style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#0b0d14'}}>
+      <ShelfStyle />
       <GradeStage grade={grade} frame={frame}>
         <div style={{position: 'absolute', inset: -40, transformOrigin: '50% 44%',
           transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.scale}) rotate(${cam.rot}deg)`,
@@ -201,14 +203,18 @@ const DailyFilmV2: React.FC<DispatchProps> = (props) => {
             <ArtDirectionProvider profile={board.art_direction as never} scenes={scenes as never}>
               {wall ? (
                 <div style={{position: 'absolute', inset: 0, background: WALL_V2}}>
-                  <Episode board={board} scene={scene} shot={shot} time_s={time}
-                    shot_s={time - shot.start_s} variant="a" />
+                  <ShelfLight region={(scene as {region?: string}).region}>
+                    <Episode board={board} scene={scene} shot={shot} time_s={time}
+                      shot_s={time - shot.start_s} variant="a" />
+                  </ShelfLight>
                 </div>
               ) : (
                 <PlaceStage board={board} scene={scene} shot={shot} time_s={time}>
                   <RegionStageV2 frame={frame} shot_s={time - shot.start_s} scene_s={time - scene.start_s} />
-                  <Episode board={board} scene={scene} shot={shot} time_s={time}
-                    shot_s={time - shot.start_s} variant="a" />
+                  <ShelfLight region={(scene as {region?: string}).region}>
+                    <Episode board={board} scene={scene} shot={shot} time_s={time}
+                      shot_s={time - shot.start_s} variant="a" />
+                  </ShelfLight>
                 </PlaceStage>
               )}
             </ArtDirectionProvider>
