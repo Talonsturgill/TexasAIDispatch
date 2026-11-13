@@ -71,7 +71,8 @@ const ridge = (y: number, amp: number, seed: number, phase = 0) => {
  * camera move has parallax.
  */
 export const Landscape: React.FC<{land?: Land; horizon?: number; pan?: number; frame: number; sunX?: number;
-  sunY?: number}> = ({land = SOUTH_TEXAS, horizon = 980, pan = 0, frame, sunX = 780, sunY = 560}) => {
+  sunY?: number; relief?: number; clouds?: boolean}> = ({land = SOUTH_TEXAS, horizon = 980, pan = 0, frame, sunX = 780,
+  sunY = 560, relief = 1, clouds = true}) => {
   const id = useUid();
   const cloud = (cx: number, cy: number, s: number, k: number) => {
     const dx = ((frame * 0.25 * (0.6 + k * 0.2) + cx) % 1400) - 160;
@@ -107,11 +108,11 @@ export const Landscape: React.FC<{land?: Land; horizon?: number; pan?: number; f
       <rect x={-200} y={-200} width={1480} height={2400} fill={`url(#${id}-sky)`} />
       <Glow x={sunX} y={sunY} r={520} color={land.sun} opacity={0.85} />
       <circle cx={sunX} cy={sunY} r={74} fill={land.sun} />
-      {cloud(120, 380, 1.1, 0)}{cloud(760, 250, 0.8, 1)}{cloud(1180, 470, 0.65, 2)}
-      <path d={ridge(horizon, 34, 1.2, pan * 0.25)} fill={`url(#${id}-far)`} />
+      {clouds && <>{cloud(120, 380, 1.1, 0)}{cloud(760, 250, 0.8, 1)}{cloud(1180, 470, 0.65, 2)}</>}
+      <path d={ridge(horizon, 34 * relief, 1.2, pan * 0.25)} fill={`url(#${id}-far)`} />
       <rect x={-200} y={horizon - 60} width={1480} height={160} fill={`url(#${id}-haze)`} />
-      <path d={ridge(horizon + 130, 46, 2.7, pan * 0.55)} fill={`url(#${id}-mid)`} />
-      <path d={ridge(horizon + 330, 30, 4.1, pan)} fill={`url(#${id}-near)`} />
+      <path d={ridge(horizon + 130, 46 * relief, 2.7, pan * 0.55)} fill={`url(#${id}-mid)`} />
+      <path d={ridge(horizon + 330, 30 * relief, 4.1, pan)} fill={`url(#${id}-near)`} />
     </g>
   );
 };
