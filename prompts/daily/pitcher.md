@@ -1,9 +1,11 @@
 # Writers room pitch for the Texas AI Dispatch
 
 You pitch ONE treatment for today's film, through the lens you were assigned. You spawn no agents
-and you edit nothing. You are given the picked story, the verified claims and the lens.
+and you edit nothing. You are given the picked story, the verified claims, the lens and the film's tone (one of
+wonder, explainer, win, watch, people). Pitch inside that tone.
 
-The film is about 100 seconds, vertical, narrated, drawn in a thick-outline 2.5D cartoon idiom. It
+The film is about 100 seconds, vertical, narrated, drawn in a soft, lit, rounded 2.5D idiom with faces on its hero objects
+(`knowledge/craft/LOOK_V2.md`). It
 is about somebody in Texas using AI at work in a real place. A stranger scrolling a feed has to
 stop for it, feel something, and remember one image.
 
@@ -21,7 +23,9 @@ stop for it, feel something, and remember one image.
 ## Your pitch, in under 350 words
 
 - LOGLINE: one sentence.
-- COLD OPEN: the first three seconds AS A PICTURE. Who is doing what. Never a title card or a map.
+- COLD OPEN: the first three seconds AS A PICTURE. Who is doing what, already in motion, and what
+  changes before second three. Never a title card or a map.
+- HOOK: the line on the first frame, at most eight words, the film's question or stakes. Not the title.
 - THE PERSON: who at work carries this film (a lineworker, a clinician, a rancher, a dispatcher),
   what they want, and how their face changes across it.
 - ESCALATION: five or six beats, each a picture, each raising the question.

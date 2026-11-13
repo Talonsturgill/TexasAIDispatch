@@ -19,7 +19,8 @@ not round up and do not grade the effort. Grade what a stranger scrolling a feed
 
 You are judging stills and the script, so judge what they can show.
 
-- Would a stranger stop on the first frame? Is somebody doing something in it?
+- Would a stranger stop on the first frame? Is somebody doing something in it, and does a hook line
+  state the stakes?
 - Does EVERY picture show what its sentence says, figures included? A card still showing one number
   while the caption says another is a defect, and a serious one.
 - Is somebody on screen in most frames, and does their face change with the story?
@@ -28,6 +29,8 @@ You are judging stills and the script, so judge what they can show.
 - Is the subject big in the frame, or a small thing on an empty plain?
 - Is the biggest number made into something you can see, or only printed?
 - Is there one object that changes from the first scene to the last, and one image you would remember?
+- Does it look lit and rounded (LOOK_V2.md)? Sharp corners, black outlines, flat fills, an arm or
+  hand that floats off a body, or anything standing with no shadow under it is a defect.
 - Is the place drawn as the county's real region? Is type readable at phone size and clear of the
   caption band and the label chip?
 

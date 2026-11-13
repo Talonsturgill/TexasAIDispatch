@@ -189,6 +189,71 @@ def copy_problems(label: str, text: str) -> list[str]:
     return [f"{label} carries {why}: {text.strip()[:70]!r}" for rx, why in BANNED_COPY if rx.search(text or "")]
 
 
+def look_v2(board: dict) -> bool:
+    """Mirrors video-engine/src/look/tokens.ts lookActive: an explicit look wins, else the date decides."""
+    if board.get("look") in ("v1", "v2"):
+        return board["look"] == "v2"
+    return str(board.get("date") or "") >= cfg().get("look", {}).get("v2_from", "9999")
+
+
+def recent_tones(date: str, days: int = 7) -> list[tuple[str, str]]:
+    """(date, tone) for the shipped editions in the `days` before `date`, newest first."""
+    out = []
+    try:
+        today = datetime.strptime(date, "%Y-%m-%d")
+    except ValueError:
+        return out
+    for d in sorted((REPO / "runs").glob("????-??-??"), reverse=True):
+        try:
+            gap = (today - datetime.strptime(d.name, "%Y-%m-%d")).days
+        except ValueError:
+            continue
+        if not 0 < gap < days:
+            continue
+        tone = ""
+        for name in ("lean.json", "storyboard.json"):
+            if (d / name).is_file():
+                tone = str(read(d / name).get("tone") or "")
+                if tone:
+                    break
+        if tone:
+            out.append((d.name, tone))
+    return out
+
+
+def tone_problems(board: dict, date: str) -> list[str]:
+    """The tone rotation and the first-frame hook (owner, November 13th, 2026). Look v2 boards only."""
+    if not look_v2(board):
+        return []
+    look = cfg().get("look", {})
+    tones = look.get("tones") or ["wonder", "explainer", "win", "watch", "people"]
+    out = []
+    tone = str(board.get("tone") or "")
+    if tone not in tones:
+        out.append(f"board.tone is {tone!r}; pick one of {tones}. The tone is how the story should leave a viewer")
+    else:
+        recent = recent_tones(date)
+        if recent and recent[0][1] == tone:
+            out.append(f"board.tone {tone!r} repeats the last edition ({recent[0][0]}). Rotate: find the {tone} story's "
+                       "wonder, explainer, win or people angle, or pick another story")
+        watch = sum(1 for _, t in recent if t == "watch") + (tone == "watch")
+        if watch > int(look.get("watch_max_in_7", 2)):
+            out.append(f"'watch' would be {watch} films in seven days; the cap is {look.get('watch_max_in_7', 2)}. "
+                       "Lead with what is being built, solved or learned")
+    hook = " ".join(str(board.get("hook") or "").split())
+    if not hook:
+        out.append("board.hook is missing. The first frame carries the film's question in at most "
+                   f"{look.get('hook_words_max', 8)} words")
+    else:
+        n = len(hook.split())
+        if n > int(look.get("hook_words_max", 8)):
+            out.append(f"board.hook is {n} words; the cap is {look.get('hook_words_max', 8)}: {hook!r}")
+        out += copy_problems("the hook", hook)
+        if hook.lower().rstrip(".?!") == str(board.get("title") or "").lower().rstrip(".?!"):
+            out.append("board.hook repeats the title. The hook is the question, the title is the answer")
+    return out
+
+
 def board_problems(board: dict, date: str) -> tuple[list[str], list[str]]:
     hard, soft = [], []
     limits = cfg()["film"]
@@ -253,6 +318,7 @@ def board_problems(board: dict, date: str) -> tuple[list[str], list[str]]:
     if words and not lo <= words <= hi:
         hard.append(f"the narration is {words} words; the band is {lo} to {hi}. Add story or cut it, never pad")
     hard += plan_problems(board, limits, words)
+    hard += tone_problems(board, date)
     if not str(board.get("credits") or "").strip():
         soft.append("board.credits is empty. Sources and illustration credit belong on the end card.")
     try:
@@ -626,6 +692,11 @@ def timed_board(board: dict, words: list[dict], cues: list[dict]) -> tuple[dict,
                         "end": min(float(c["end"]), story_end), "text": c["text"]}
                        for i, c in enumerate(cues) if float(c["start"]) < story_end]
     out["credits_s"] = float(board.get("credits_s") or film["credits_s"])
+    # the renderer turns look v2 on only from this stamp, so a storyboard timed before it stays v1
+    out["look"] = "v2" if look_v2(board) else "v1"
+    # look v2 lights each word as it is said (src/look/Captions.tsx), from the forced alignment's own times
+    out["words"] = [{"word": str(w.get("word", "")), "start": round(float(w["start"]), 3), "end": round(float(w["end"]), 3)}
+                    for w in words if float(w["start"]) < story_end]
     out["timed_at"] = now()
     return out, sfx
 
@@ -1046,6 +1117,7 @@ def cmd_deliver(a) -> int:
     publish_feed.renditions(dest)
     write(dest / "lean.json", {
         "schema": "lean_edition/1", "date": date, "title": board.get("title"), "episode": board.get("episode"),
+        "tone": board.get("tone") or "", "look": "v2" if look_v2(board) else "v1",
         "film_sha256": sha(dest / "dispatch.mp4"), "duration_s": facts.get("duration_s"),
         "lufs": facts.get("lufs"), "peak_dbfs": facts.get("peak_dbfs"),
         "panel": {"median": card["median"], "rounds": len(card["rounds"]), "release": card["release"],
