@@ -114,6 +114,49 @@ class EvidenceTest(unittest.TestCase):
             with self.subTest(key=key),self.assertRaises(ValueError):
                 acoustic_groups(["Womb","Watch"],[(0,2)],self.heard[:1],alias)
 
+    def test_sourced_join_archive_replays_without_originals_or_article_receipt(self):
+        import os
+        import hashlib
+        import shutil
+        from alignment_reconciliation import package
+        original_cwd = Path.cwd()
+        try:
+            os.chdir(self.root)
+            out = Path("out/dispatch"); (out / "sources").mkdir(parents=True)
+            source = out / "sources/official.txt"; source.write_text("The pilot names Abridge.")
+            row = dict(kind="sourced-proper-name-join", heard="a bridge", script="Abridge", occurrence=1,
+                reason="retained official spelling", source="https://source.example/record",
+                source_file="sources/official.txt", source_sha256=digest(source), source_quote=source.read_text(),
+                source_quote_sha256=hashlib.sha256(source.read_bytes()).hexdigest())
+            (out / "alignment_aliases.json").write_text(json.dumps([row]))
+            for name in ("mix_vo.wav", "vo_script.txt", "acoustic-asr.json", "acoustic-asr-meta.json"):
+                (out / name).write_bytes(b"retained fixture bytes")
+            heard = [{"text": "a", "center": .4}, {"text": "bridge", "center": .8}]
+            expected = acoustic_groups(["Abridge"], [(0., 1.)], heard, [row], alias_root=out)
+            package(out.resolve(), Path("delivery").resolve())
+            capsule = Path("delivery/alignment-evidence")
+            for item in json.loads((capsule / "manifest.json").read_text()):
+                self.assertEqual(digest(capsule / item["file"]), item["sha256"])
+            shutil.rmtree(out)
+            saved = capsule / out
+            aliases = json.loads((saved / "alignment_aliases.json").read_text())
+            self.assertEqual(acoustic_groups(["Abridge"], [(0., 1.)], heard, aliases, alias_root=saved), expected)
+            (saved / row["source_file"]).write_text("Abridge substituted source.")
+            with self.assertRaisesRegex(ValueError, "unchanged owned source"):
+                acoustic_groups(["Abridge"], [(0., 1.)], heard, aliases, alias_root=saved)
+        finally:
+            os.chdir(original_cwd)
+
+    def test_sourced_join_refuses_symlink_snapshot(self):
+        from vo_align import sourced_join_source
+        import hashlib
+        source = self.root / "source.txt"; source.write_text("Abridge is named.")
+        link = self.root / "alias.txt"; link.symlink_to(source)
+        row = {"source_file": "alias.txt", "source_sha256": digest(source),
+               "source_quote": source.read_text(), "source_quote_sha256": hashlib.sha256(source.read_bytes()).hexdigest()}
+        with self.assertRaisesRegex(ValueError, "unchanged owned source"):
+            sourced_join_source(row, self.root)
+
     def test_archive_preserves_receipt_and_all_references(self):
         import os
         import shutil
@@ -124,6 +167,7 @@ class EvidenceTest(unittest.TestCase):
             out = Path("out"); out.mkdir()
             for name in ("alignment_aliases.json", "mix_vo.wav", "vo_script.txt", "acoustic-asr.json"):
                 (out / name).write_bytes(b"fixture")
+            (out / "alignment_aliases.json").write_text("[]")
             data=copy.deepcopy(self.data)
             data["state_file"]="state.json"
             for key in ("takes", "source", "compact", "silence_edit"):
