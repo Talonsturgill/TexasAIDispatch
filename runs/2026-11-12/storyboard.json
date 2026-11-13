@@ -1,0 +1,1587 @@
+{
+  "date": "2026-11-12",
+  "title": "The brush hides it",
+  "topic": "Federal agencies tested drones, cameras and AI on a Jim Wells County ranch to find screwworm in livestock, while officials say the sterile fly program is still the best weapon.",
+  "beat": "farm-and-ranch",
+  "episode": "brush-hides-1112",
+  "entities": [
+    "USDA APHIS",
+    "Screwworm",
+    "Jim Wells County",
+    "Customs and Border Protection"
+  ],
+  "treatment": {
+    "logline": "A ranch hand watches a drone learn to look for screwworm in brush that hides most of what it needs to find.",
+    "cold_open": "Dawn in the Jim Wells County brush. A ranch hand in a palm straw hat shoves into a wall of mesquite, gets stopped, and a drone lifts off the tailgate behind him.",
+    "turn": "The detection box sweeps past a bedded deer and finds nothing, then shrinks to a speck under a sky of sterile flies.",
+    "button": "The hand walks out to the calf the drone flagged and kneels to look. The drone can point. Somebody still has to look."
+  },
+  "hero": {
+    "name": "the quadcopter with its detection box",
+    "why": "it is the machine the story is about and the film follows its box from empty to locked to blind to a speck"
+  },
+  "throughline": {
+    "object": "the AI detection box",
+    "states": [
+      {
+        "scene_id": "s2",
+        "state": "empty and sweeping the brush"
+      },
+      {
+        "scene_id": "s3",
+        "state": "locked on a feral hog"
+      },
+      {
+        "scene_id": "s4",
+        "state": "tight on a wound on a calf's hide"
+      },
+      {
+        "scene_id": "s7",
+        "state": "empty where the deer was"
+      },
+      {
+        "scene_id": "s9",
+        "state": "a tiny square inside the swarm"
+      },
+      {
+        "scene_id": "s12",
+        "state": "an arrow pointing the hand to the calf"
+      }
+    ]
+  },
+  "fingerprint": {
+    "pov": "a South Texas ranch hand beside the drone",
+    "layout": "vertical, one subject per beat",
+    "hero_treatment": "drone and its box over mesquite",
+    "palette": "dawn gold on brush green, red box"
+  },
+  "music": {
+    "track": "wholesome"
+  },
+  "wall_views": [
+    "quote-card",
+    "map-cases"
+  ],
+  "credits": "TEXAS AI DOCKET\nSOURCES\nKZTV, June 19th, 2026\nSpectrum News, June 22nd, 2026\nKRGV, August 10th, 2026\nILLUSTRATION\nOriginal authored drawings\nMUSIC\n\"Wholesome\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "county": "Jim Wells",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "In June, federal, state and local agencies flew drones at a demonstration in Jim Wells County, South Texas. They were hunting a flesh-eating fly that is moving north over the border.",
+      "vo_claims": [
+        "c1",
+        "c12",
+        "c13"
+      ],
+      "visual_events": [
+        {
+          "id": "s1-lift",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "aircraft_rotor",
+          "label": "JIM WELLS COUNTY",
+          "draw": {
+            "subject": "the hand",
+            "action": "shoves into the mesquite, a thorn snags his sleeve and stops him, and the drone rises over his shoulder",
+            "emotion": "the hand squints up at it"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s1-pin",
+          "duration_s": 2.0,
+          "sound": "field_marker",
+          "draw": {
+            "subject": "a map pin",
+            "action": "drops out of the sky onto the ranch beside the truck"
+          },
+          "label": "SOUTH TEXAS",
+          "at": 0.34,
+          "at_s": 4.121
+        },
+        {
+          "id": "s1-fly",
+          "at_phrase": "flesh-eating fly",
+          "duration_s": 1.6,
+          "sound": "screwworm_wings",
+          "label": "SCREWWORM",
+          "draw": {
+            "subject": "a screwworm fly",
+            "action": "buzzes across the brush and the hand swats at it"
+          },
+          "at_s": 8.96
+        }
+      ],
+      "start_s": 0.0,
+      "duration_s": 12.12,
+      "planes": []
+    },
+    {
+      "id": "s2",
+      "county": "Jim Wells",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "The idea is simple. Drones, cameras and artificial intelligence could spot an injured or infested animal in country too rough to ride into. That is what the demonstration set out to show.",
+      "vo_claims": [
+        "c2"
+      ],
+      "visual_events": [
+        {
+          "id": "s2-sweep",
+          "at": 0.0,
+          "duration_s": 2.2,
+          "sound": "sensor_heartbeat",
+          "label": "DRONES + AI",
+          "draw": {
+            "subject": "the detection box",
+            "action": "sweeps empty across the brush under the drone"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s2-camera",
+          "duration_s": 2.0,
+          "sound": "brush_camera_shutter",
+          "draw": {
+            "subject": "the drone camera",
+            "action": "flashes its shutter ring as the box sweeps under it"
+          },
+          "label": "CAMERAS",
+          "at": 0.25,
+          "at_s": 2.99
+        },
+        {
+          "id": "s2-calf",
+          "at_phrase": "infested animal",
+          "duration_s": 2.0,
+          "sound": "camera_reacquire",
+          "label": "COULD SPOT",
+          "draw": {
+            "subject": "a calf in the brush",
+            "action": "gets a question mark box dropped onto it on the hand's tablet"
+          },
+          "at_s": 5.805
+        },
+        {
+          "id": "s2-show",
+          "duration_s": 1.73,
+          "sound": "observation_trace",
+          "draw": {
+            "subject": "the tablet",
+            "action": "pulses a ripple around the calf as the hand taps the screen",
+            "emotion": "the hand taps the screen"
+          },
+          "label": "DEMONSTRATION",
+          "at_phrase": "set out to show",
+          "at_s": 10.23
+        }
+      ],
+      "start_s": 12.12,
+      "duration_s": 11.96,
+      "planes": []
+    },
+    {
+      "id": "s3",
+      "county": "Jim Wells",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Michael Schmoyer of the USDA's animal health agency said the tools already work well on feral hogs. So the question was whether they could work on screwworm too.",
+      "vo_claims": [
+        "c3",
+        "c4"
+      ],
+      "visual_events": [
+        {
+          "id": "s3-quote",
+          "duration_s": 2.2,
+          "sound": "document_parse",
+          "label": "MICHAEL SCHMOYER, USDA",
+          "draw": {
+            "subject": "the quote card",
+            "action": "slaps down with the words taking something that works and applying it to screwworms while the hand listens",
+            "emotion": "the hand tilts his head, doubtful"
+          },
+          "at": 0.0,
+          "at_s": 0.0
+        },
+        {
+          "id": "s3-card2",
+          "duration_s": 2.0,
+          "sound": "pencil_scratch",
+          "draw": {
+            "subject": "a red underline",
+            "action": "draws itself under THAT WORKS on the quote card"
+          },
+          "at": 0.28,
+          "at_s": 2.876
+        },
+        {
+          "id": "s3-hog",
+          "duration_s": 2.4,
+          "sound": "brush_camera_shutter",
+          "label": "FERAL HOGS",
+          "draw": {
+            "subject": "a feral hog",
+            "action": "roots in the brush while the box locks onto it"
+          },
+          "at_phrase": "feral hogs",
+          "at_s": 5.3
+        },
+        {
+          "id": "s3-ask",
+          "duration_s": 2.0,
+          "sound": "camera_reacquire",
+          "draw": {
+            "subject": "an amber question box",
+            "action": "jumps onto a calf next to the locked hog",
+            "emotion": "the hand tilts his head"
+          },
+          "label": "SCREWWORM TOO?",
+          "at_phrase": "whether they could",
+          "at_s": 7.44
+        }
+      ],
+      "start_s": 24.08,
+      "duration_s": 10.27,
+      "planes": []
+    },
+    {
+      "id": "s4",
+      "county": "Jim Wells",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Spotters in the air and on the ground will rely on cameras, infrared, night vision, heat sensors, dogs and AI. When a hide shows an open wound, the technology takes a closer look to see if the fly is attacking.",
+      "vo_claims": [
+        "c13",
+        "c14"
+      ],
+      "visual_events": [
+        {
+          "id": "s4-tools",
+          "at": 0.0,
+          "duration_s": 3.0,
+          "sound": "offer_card",
+          "label": "CAMERAS, INFRARED, DOGS, AI",
+          "draw": {
+            "subject": "the hand",
+            "action": "pulls the gear off the truck bed piece by piece and the cattle dog jumps down"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s4-night",
+          "duration_s": 2.0,
+          "sound": "pads_pop",
+          "draw": {
+            "subject": "a night vision card",
+            "action": "slides onto the ground beside the camera and infrared cards"
+          },
+          "label": "NIGHT VISION",
+          "at_phrase": "night vision",
+          "at_s": 4.0
+        },
+        {
+          "id": "s4-heat",
+          "duration_s": 2.0,
+          "sound": "sensor_heartbeat",
+          "draw": {
+            "subject": "a heat sensor card",
+            "action": "pops up with its thermometer rising"
+          },
+          "label": "HEAT SENSORS",
+          "at_phrase": "heat sensors",
+          "at_s": 4.86
+        },
+        {
+          "id": "s4-dog",
+          "duration_s": 2.0,
+          "sound": "cattle_auction",
+          "draw": {
+            "subject": "the cattle dog",
+            "action": "jumps down from the truck and trots over"
+          },
+          "label": "DOGS",
+          "at_phrase": "dogs",
+          "at_s": 5.82
+        },
+        {
+          "id": "s4-ai",
+          "duration_s": 2.0,
+          "sound": "offer_card",
+          "draw": {
+            "subject": "the AI card",
+            "action": "lands last with a glowing chip"
+          },
+          "label": "AI",
+          "at_phrase": "and AI",
+          "at_s": 6.24
+        },
+        {
+          "id": "s4-wound",
+          "at_phrase": "open wound",
+          "duration_s": 2.4,
+          "sound": "warning_bloom",
+          "label": "OPEN WOUND",
+          "draw": {
+            "subject": "the detection box",
+            "action": "tightens on a wound on a calf's hide in infrared",
+            "emotion": "the rancher leans in, worried"
+          },
+          "at_s": 8.31
+        },
+        {
+          "id": "s4-look",
+          "at_phrase": "closer look",
+          "duration_s": 2.0,
+          "sound": "camera_reacquire",
+          "label": "CLOSER LOOK",
+          "draw": {
+            "subject": "the detection box",
+            "action": "zooms its scope ring onto the wound and the calf flinches",
+            "emotion": "the hand leans in"
+          },
+          "at_s": 10.31
+        }
+      ],
+      "start_s": 34.35,
+      "duration_s": 13.45,
+      "planes": []
+    },
+    {
+      "id": "s5",
+      "county": "Jim Wells",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "John Bellinger, a lead advisor to the Agriculture Secretary, has seen it before. He treated screwworm on calves at his grandfather's place in Wilson County. At the demonstration, he said it's back, and the country has to solve it.",
+      "vo_claims": [
+        "c6"
+      ],
+      "visual_events": [
+        {
+          "id": "s5-bell",
+          "at": 0.0,
+          "duration_s": 2.4,
+          "sound": "research_announcement",
+          "label": "JOHN BELLINGER, USDA",
+          "draw": {
+            "subject": "a gray-haired man in a feed cap",
+            "action": "talks at the tailgate and taps the screen",
+            "emotion": "he looks grim"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s5-title",
+          "duration_s": 2.0,
+          "sound": "document_parse",
+          "draw": {
+            "subject": "the gray-haired man",
+            "action": "points to the tablet and a plaque slides under him"
+          },
+          "label": "LEAD ADVISOR, USDA",
+          "at_phrase": "lead advisor",
+          "at_s": 1.4
+        },
+        {
+          "id": "s5-memory",
+          "at_phrase": "He treated screwworm",
+          "duration_s": 2.6,
+          "sound": "pencil_scratch",
+          "draw": {
+            "subject": "a sepia inset of a calf in a post oak pen",
+            "action": "fades in over the tailgate as a boy doctors the calf",
+            "emotion": "the old man watches, grim"
+          },
+          "at_s": 4.7
+        },
+        {
+          "id": "s5-wilson",
+          "duration_s": 2.0,
+          "sound": "route_marker",
+          "draw": {
+            "subject": "a map pin",
+            "action": "drops onto the sepia memory"
+          },
+          "label": "WILSON COUNTY",
+          "at_phrase": "Wilson County",
+          "at_s": 7.86
+        },
+        {
+          "id": "s5-back",
+          "at_phrase": "At the demonstration",
+          "duration_s": 2.0,
+          "sound": "decision_stop",
+          "label": "IT'S BACK",
+          "draw": {
+            "subject": "the words IT'S BACK",
+            "action": "stamp across the sepia memory as it goes red",
+            "emotion": "the hand goes grim"
+          },
+          "at_s": 8.82
+        }
+      ],
+      "start_s": 47.8,
+      "duration_s": 13.88,
+      "planes": []
+    },
+    {
+      "id": "s6",
+      "county": "Zavala",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Spectrum News reported infected cases in Zavala, La Salle and Gillespie counties. The animals were cattle, a goat and a dog.",
+      "vo_claims": [
+        "c9",
+        "c15"
+      ],
+      "visual_events": [
+        {
+          "id": "s6-date",
+          "duration_s": 2.4,
+          "sound": "review_stamp",
+          "draw": {
+            "subject": "a news stamp",
+            "action": "slams down above the Texas map"
+          },
+          "label": "SPECTRUM NEWS",
+          "at": 0.0,
+          "at_s": 0.0
+        },
+        {
+          "id": "s6-zavala",
+          "at_phrase": "Zavala",
+          "duration_s": 1.2,
+          "sound": "route_marker",
+          "label": "ZAVALA",
+          "draw": {
+            "subject": "a red pin",
+            "action": "drops onto Zavala County on the Texas map"
+          },
+          "at_s": 2.5
+        },
+        {
+          "id": "s6-lasalle",
+          "at_phrase": "La Salle",
+          "duration_s": 1.2,
+          "sound": "route_marker",
+          "label": "LA SALLE",
+          "draw": {
+            "subject": "a red pin",
+            "action": "drops onto La Salle County on the Texas map"
+          },
+          "at_s": 3.14
+        },
+        {
+          "id": "s6-gillespie",
+          "at_phrase": "Gillespie",
+          "duration_s": 1.2,
+          "sound": "route_marker",
+          "label": "GILLESPIE",
+          "draw": {
+            "subject": "a red pin",
+            "action": "drops onto Gillespie County on the Texas map"
+          },
+          "at_s": 3.95
+        },
+        {
+          "id": "s6-animals",
+          "at_phrase": "The animals",
+          "duration_s": 2.4,
+          "sound": "longhorn_low",
+          "label": "CATTLE, A GOAT, A DOG",
+          "draw": {
+            "subject": "a calf, a goat and a dog",
+            "action": "step into the row with a red tag on each",
+            "emotion": "the rancher shakes his head"
+          },
+          "at_s": 4.96
+        }
+      ],
+      "start_s": 61.68,
+      "duration_s": 8.68,
+      "planes": []
+    },
+    {
+      "id": "s7",
+      "county": "Jim Wells",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Bellinger called wildlife one of the biggest challenges. White-tailed deer and feral hogs can become hosts without anyone knowing they were hurt.",
+      "vo_claims": [
+        "c7"
+      ],
+      "visual_events": [
+        {
+          "id": "s7-deer",
+          "duration_s": 4.0,
+          "sound": "mockingbird",
+          "label": "WHITE-TAILED DEER",
+          "draw": {
+            "subject": "a white-tailed deer",
+            "action": "flags its tail and slips under the mesquite canopy",
+            "emotion": "the hand frowns at the screen"
+          },
+          "at": 0.0,
+          "at_s": 0.0
+        },
+        {
+          "id": "s7-hog",
+          "duration_s": 2.0,
+          "sound": "longhorn_low",
+          "draw": {
+            "subject": "a feral hog",
+            "action": "walks out of the brush past the sweeping box unmarked"
+          },
+          "label": "FERAL HOGS",
+          "at_phrase": "feral hogs",
+          "at_s": 4.35
+        },
+        {
+          "id": "s7-empty",
+          "at_phrase": "without anyone knowing",
+          "duration_s": 2.39,
+          "sound": "causal_break",
+          "label": "WITHOUT ANYONE KNOWING",
+          "draw": {
+            "subject": "the detection box",
+            "action": "sweeps open grass while the deer sits hidden under the canopy",
+            "emotion": "the hand lowers the tablet"
+          },
+          "at_s": 5.75
+        }
+      ],
+      "start_s": 70.36,
+      "duration_s": 8.14,
+      "planes": []
+    },
+    {
+      "id": "s8",
+      "county": "Jim Wells",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "So officials call technology one part of the plan. The most effective weapon, they say, is still the sterile fly program.",
+      "vo_claims": [
+        "c5"
+      ],
+      "visual_events": [
+        {
+          "id": "s8-box",
+          "at": 0.0,
+          "duration_s": 2.4,
+          "sound": "brush_truck_roll",
+          "label": "ONE PART OF THE PLAN",
+          "draw": {
+            "subject": "the drone",
+            "action": "settles on the tailgate beside the tool cards and its box shrinks to one small square",
+            "emotion": "the hand nods"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s8-weapon",
+          "duration_s": 2.0,
+          "sound": "carton_roller_place",
+          "draw": {
+            "subject": "a sterile fly box",
+            "action": "slides onto the tailgate and rocks as the drone lands beside it"
+          },
+          "label": "MOST EFFECTIVE WEAPON",
+          "at_phrase": "most effective weapon",
+          "at_s": 3.45
+        },
+        {
+          "id": "s8-flies",
+          "at_phrase": "sterile fly program",
+          "duration_s": 2.25,
+          "sound": "screwworm_wings",
+          "label": "STERILE FLY PROGRAM",
+          "draw": {
+            "subject": "sterile flies",
+            "action": "pour out of the box lid past the technician's boots"
+          },
+          "at_s": 5.61
+        }
+      ],
+      "start_s": 78.5,
+      "duration_s": 7.86,
+      "planes": []
+    },
+    {
+      "id": "s9",
+      "county": "Hidalgo",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Bellinger said the country needs 400 million sterile flies in 2027. As of June, a sterile fly plant in Edinburg was expected to open early that year.",
+      "vo_claims": [
+        "c16",
+        "c17"
+      ],
+      "visual_events": [
+        {
+          "id": "s9-swarm",
+          "at_phrase": "400 million",
+          "duration_s": 3.0,
+          "sound": "screwworm_wings",
+          "label": "400 MILLION IN 2027",
+          "draw": {
+            "subject": "a cloud of sterile flies",
+            "action": "floods the sky until the drone and its box are a speck",
+            "emotion": "the hand looks up, awed"
+          },
+          "at_s": 1.6
+        },
+        {
+          "id": "s9-2027",
+          "duration_s": 2.0,
+          "sound": "review_stamp",
+          "draw": {
+            "subject": "the year 2027",
+            "action": "stamps itself beside the counter"
+          },
+          "at_phrase": "in 2027",
+          "at_s": 3.25
+        },
+        {
+          "id": "s9-plant",
+          "at_phrase": "plant in Edinburg",
+          "duration_s": 2.4,
+          "sound": "research_announcement",
+          "label": "EDINBURG PLANT",
+          "draw": {
+            "subject": "the Edinburg plant",
+            "action": "its banner unrolls reading expected early 2027"
+          },
+          "at_s": 6.38
+        }
+      ],
+      "start_s": 86.36,
+      "duration_s": 9.92,
+      "planes": []
+    },
+    {
+      "id": "s10",
+      "county": "Hidalgo",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "USDA has help from Customs and Border Protection. KRGV reported that the drones use AI to flag animals that may be infected.",
+      "vo_claims": [
+        "c9",
+        "c18"
+      ],
+      "visual_events": [
+        {
+          "id": "s10-deal",
+          "at": 0.0,
+          "duration_s": 2.4,
+          "sound": "review_stamp",
+          "label": "USDA + CBP",
+          "draw": {
+            "subject": "an agreement paper",
+            "action": "gets stamped as a second drone flies in beside the first",
+            "emotion": "the official nods"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s10-kr",
+          "duration_s": 2.0,
+          "sound": "paper_photo_slide",
+          "draw": {
+            "subject": "a news ticker",
+            "action": "slides across the bottom of the desk shot"
+          },
+          "label": "KRGV NEWS",
+          "at_phrase": "KRGV reported",
+          "at_s": 3.17
+        },
+        {
+          "id": "s10-ai",
+          "duration_s": 2.0,
+          "sound": "camera_reacquire",
+          "draw": {
+            "subject": "the second drone",
+            "action": "flashes its amber eye with an AI chip over it"
+          },
+          "label": "AI USE",
+          "at_phrase": "use AI",
+          "at_s": 4.81
+        },
+        {
+          "id": "s10-herd",
+          "at_phrase": "flag animals",
+          "duration_s": 2.22,
+          "sound": "observation_trace",
+          "label": "AI FLAGS ANIMALS",
+          "draw": {
+            "subject": "a herd seen from the drone",
+            "action": "gets boxes on three animals while one box turns amber",
+            "emotion": "the hand taps the screen"
+          },
+          "at_s": 5.66
+        }
+      ],
+      "start_s": 96.28,
+      "duration_s": 7.88,
+      "planes": []
+    },
+    {
+      "id": "s11",
+      "county": "Jim Wells",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "For now, producers are urged to inspect their animals more often and report any suspected case.",
+      "vo_claims": [
+        "c8"
+      ],
+      "visual_events": [
+        {
+          "id": "s11-pen",
+          "at": 0.0,
+          "duration_s": 2.4,
+          "sound": "ranch_gate",
+          "label": "INSPECT MORE OFTEN",
+          "draw": {
+            "subject": "the hand",
+            "action": "swings the pen gate and walks the cattle past one by one",
+            "emotion": "the hand stays steady"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s11-check",
+          "at_phrase": "report any suspected case",
+          "duration_s": 1.9,
+          "sound": "field_marker",
+          "label": "REPORT SUSPECTED CASES",
+          "draw": {
+            "subject": "the hand's palm",
+            "action": "parts a calf's hide and checks the skin",
+            "emotion": "the hand squints, careful"
+          },
+          "at_s": 3.74
+        }
+      ],
+      "start_s": 104.16,
+      "duration_s": 5.64,
+      "planes": []
+    },
+    {
+      "id": "s12",
+      "county": "Jim Wells",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "The drone can point. Somebody still has to walk out and look.",
+      "vo_claims": [
+        "c8"
+      ],
+      "visual_events": [
+        {
+          "id": "s12-arrow",
+          "at_phrase": "The drone can point",
+          "duration_s": 2.2,
+          "sound": "camera_reacquire",
+          "label": "THE DRONE CAN POINT",
+          "draw": {
+            "subject": "the detection box",
+            "action": "turns into an arrow pointing the hand to the calf",
+            "emotion": "the hand nods"
+          },
+          "at_s": 0.18
+        },
+        {
+          "id": "s12-kneel",
+          "at_phrase": "walk out and look",
+          "duration_s": 1.73,
+          "sound": "pads_pop",
+          "label": "SOMEBODY HAS TO LOOK",
+          "draw": {
+            "subject": "the hand",
+            "action": "walks out and kneels beside the calf",
+            "emotion": "the hand is steady"
+          },
+          "at_s": 2.87
+        }
+      ],
+      "start_s": 109.8,
+      "duration_s": 4.6,
+      "planes": []
+    }
+  ],
+  "shots": [
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-lift",
+      "id": "s1-a",
+      "scene_id": "s1",
+      "framing": "close",
+      "view": "thorn-snag",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 0.0,
+      "duration_s": 5.78
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-lift",
+      "id": "s1-b",
+      "scene_id": "s1",
+      "framing": "wide",
+      "view": "drone-lift",
+      "at_phrase": "Jim Wells County",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 5.78,
+      "duration_s": 3.18
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-lift",
+      "id": "s1-c",
+      "scene_id": "s1",
+      "framing": "close",
+      "view": "fly-swat",
+      "at_phrase": "flesh-eating fly",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 8.96,
+      "duration_s": 3.16
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-sweep",
+      "id": "s2-a",
+      "scene_id": "s2",
+      "framing": "overhead",
+      "view": "sky-sweep",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 12.12,
+      "duration_s": 5.805
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-sweep",
+      "id": "s2-b",
+      "scene_id": "s2",
+      "framing": "close",
+      "view": "hud-calf",
+      "at_phrase": "infested animal",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 17.925,
+      "duration_s": 6.155
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-quote",
+      "id": "s3-a",
+      "scene_id": "s3",
+      "framing": "medium",
+      "view": "quote-card",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 24.08,
+      "duration_s": 5.3
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-quote",
+      "id": "s3-b",
+      "scene_id": "s3",
+      "framing": "close",
+      "view": "hud-hog",
+      "at_phrase": "feral hogs",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 29.38,
+      "duration_s": 4.97
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-tools",
+      "id": "s4-a",
+      "scene_id": "s4",
+      "framing": "wide",
+      "view": "tool-posse",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 34.35,
+      "duration_s": 8.31
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-tools",
+      "id": "s4-b",
+      "scene_id": "s4",
+      "framing": "detail",
+      "view": "wound-ir",
+      "at_phrase": "open wound",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 42.66,
+      "duration_s": 5.14
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-bell",
+      "id": "s5-a",
+      "scene_id": "s5",
+      "framing": "wide",
+      "view": "tailgate-talk",
+      "cast": [
+        "rancher"
+      ],
+      "start_s": 47.8,
+      "duration_s": 4.7
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-bell",
+      "id": "s5-c",
+      "scene_id": "s5",
+      "framing": "medium",
+      "view": "memory-full",
+      "at_phrase": "He treated screwworm",
+      "cast": [
+        "rancher"
+      ],
+      "start_s": 52.5,
+      "duration_s": 4.12
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-bell",
+      "id": "s5-b",
+      "scene_id": "s5",
+      "framing": "close",
+      "view": "hand-react",
+      "at_phrase": "At the demonstration",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 56.62,
+      "duration_s": 5.06
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-date",
+      "id": "s6-a",
+      "scene_id": "s6",
+      "framing": "overhead",
+      "view": "map-cases",
+      "start_s": 61.68,
+      "duration_s": 4.96
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-date",
+      "id": "s6-b",
+      "scene_id": "s6",
+      "framing": "medium",
+      "view": "tagged-row",
+      "at_phrase": "The animals",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 66.64,
+      "duration_s": 3.72
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-deer",
+      "id": "s7-a",
+      "scene_id": "s7",
+      "framing": "wide",
+      "view": "deer-canopy",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 70.36,
+      "duration_s": 5.75
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-deer",
+      "id": "s7-b",
+      "scene_id": "s7",
+      "framing": "close",
+      "view": "empty-box",
+      "at_phrase": "without anyone knowing",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 76.11,
+      "duration_s": 2.39
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-box",
+      "id": "s8-a",
+      "scene_id": "s8",
+      "framing": "medium",
+      "view": "drone-settle",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 78.5,
+      "duration_s": 5.61
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-box",
+      "id": "s8-b",
+      "scene_id": "s8",
+      "framing": "close",
+      "view": "fly-box",
+      "at_phrase": "sterile fly program",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 84.11,
+      "duration_s": 2.25
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-swarm",
+      "id": "s9-a",
+      "scene_id": "s9",
+      "framing": "wide",
+      "view": "swarm-sky",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 86.36,
+      "duration_s": 6.38
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-swarm",
+      "id": "s9-b",
+      "scene_id": "s9",
+      "framing": "wide",
+      "view": "plant-edinburg",
+      "at_phrase": "plant in Edinburg",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 92.74,
+      "duration_s": 3.54
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-deal",
+      "id": "s10-a",
+      "scene_id": "s10",
+      "framing": "medium",
+      "view": "cbp-deal",
+      "cast": [
+        "executive"
+      ],
+      "start_s": 96.28,
+      "duration_s": 5.66
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-deal",
+      "id": "s10-b",
+      "scene_id": "s10",
+      "framing": "close",
+      "view": "hud-herd",
+      "at_phrase": "flag animals",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 101.94,
+      "duration_s": 2.22
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-pen",
+      "id": "s11-a",
+      "scene_id": "s11",
+      "framing": "wide",
+      "view": "pen-walk",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 104.16,
+      "duration_s": 3.74
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-pen",
+      "id": "s11-b",
+      "scene_id": "s11",
+      "framing": "detail",
+      "view": "hide-check",
+      "at_phrase": "report any suspected case",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 107.9,
+      "duration_s": 1.9
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-arrow",
+      "id": "s12-a",
+      "scene_id": "s12",
+      "framing": "wide",
+      "view": "arrow-point",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 109.8,
+      "duration_s": 2.87
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-arrow",
+      "id": "s12-b",
+      "scene_id": "s12",
+      "framing": "medium",
+      "view": "kneel-calf",
+      "at_phrase": "walk out and look",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 112.67,
+      "duration_s": 1.73
+    }
+  ],
+  "runtime_s": 114.4,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.78,
+      "end": 2.24,
+      "text": "In June, federal,"
+    },
+    {
+      "id": "c2",
+      "start": 2.28,
+      "end": 4.51,
+      "text": "state and local agencies flew drones"
+    },
+    {
+      "id": "c3",
+      "start": 4.55,
+      "end": 6.71,
+      "text": "at a demonstration in Jim Wells County,"
+    },
+    {
+      "id": "c4",
+      "start": 6.75,
+      "end": 7.66,
+      "text": "South Texas."
+    },
+    {
+      "id": "c5",
+      "start": 7.78,
+      "end": 9.79,
+      "text": "They were hunting a flesh-eating fly"
+    },
+    {
+      "id": "c6",
+      "start": 9.83,
+      "end": 11.7,
+      "text": "that is moving north over the border."
+    },
+    {
+      "id": "c7",
+      "start": 12.3,
+      "end": 13.78,
+      "text": "The idea is simple."
+    },
+    {
+      "id": "c8",
+      "start": 14.06,
+      "end": 16.03,
+      "text": "Drones, cameras and artificial"
+    },
+    {
+      "id": "c9",
+      "start": 16.07,
+      "end": 17.6,
+      "text": "intelligence could spot an injured"
+    },
+    {
+      "id": "c10",
+      "start": 17.64,
+      "end": 19.33,
+      "text": "or infested animal in country"
+    },
+    {
+      "id": "c11",
+      "start": 19.37,
+      "end": 20.84,
+      "text": "too rough to ride into."
+    },
+    {
+      "id": "c12",
+      "start": 21.02,
+      "end": 21.9,
+      "text": "That is what the"
+    },
+    {
+      "id": "c13",
+      "start": 21.94,
+      "end": 23.42,
+      "text": "demonstration set out to show."
+    },
+    {
+      "id": "c14",
+      "start": 24.26,
+      "end": 25.68,
+      "text": "Michael Schmoyer of the"
+    },
+    {
+      "id": "c15",
+      "start": 25.72,
+      "end": 27.35,
+      "text": "USDA's animal health agency"
+    },
+    {
+      "id": "c16",
+      "start": 27.39,
+      "end": 28.56,
+      "text": "said the tools already"
+    },
+    {
+      "id": "c17",
+      "start": 28.6,
+      "end": 30.22,
+      "text": "work well on feral hogs."
+    },
+    {
+      "id": "c18",
+      "start": 30.28,
+      "end": 31.71,
+      "text": "So the question was whether"
+    },
+    {
+      "id": "c19",
+      "start": 31.75,
+      "end": 33.6,
+      "text": "they could work on screwworm too."
+    },
+    {
+      "id": "c20",
+      "start": 34.53,
+      "end": 35.72,
+      "text": "Spotters in the air and on"
+    },
+    {
+      "id": "c21",
+      "start": 35.76,
+      "end": 37.64,
+      "text": "the ground will rely on cameras,"
+    },
+    {
+      "id": "c22",
+      "start": 37.72,
+      "end": 39.17,
+      "text": "infrared, night vision,"
+    },
+    {
+      "id": "c23",
+      "start": 39.21,
+      "end": 41.3,
+      "text": "heat sensors, dogs and AI."
+    },
+    {
+      "id": "c24",
+      "start": 41.48,
+      "end": 43.36,
+      "text": "When a hide shows an open wound,"
+    },
+    {
+      "id": "c25",
+      "start": 43.4,
+      "end": 45.14,
+      "text": "the technology takes a closer look"
+    },
+    {
+      "id": "c26",
+      "start": 45.18,
+      "end": 46.7,
+      "text": "to see if the fly is attacking."
+    },
+    {
+      "id": "c27",
+      "start": 47.98,
+      "end": 48.845,
+      "text": "John Bellinger,"
+    },
+    {
+      "id": "c28",
+      "start": 48.885,
+      "end": 51.16,
+      "text": "a lead advisor to the Agriculture Secretary,"
+    },
+    {
+      "id": "c29",
+      "start": 51.2,
+      "end": 52.42,
+      "text": "has seen it before."
+    },
+    {
+      "id": "c30",
+      "start": 52.5,
+      "end": 54.46,
+      "text": "He treated screwworm on calves at"
+    },
+    {
+      "id": "c31",
+      "start": 54.5,
+      "end": 56.54,
+      "text": "his grandfather's place in Wilson County."
+    },
+    {
+      "id": "c32",
+      "start": 56.62,
+      "end": 58.95,
+      "text": "At the demonstration, he said it's back,"
+    },
+    {
+      "id": "c33",
+      "start": 58.99,
+      "end": 60.86,
+      "text": "and the country has to solve it."
+    },
+    {
+      "id": "c34",
+      "start": 61.86,
+      "end": 63.12,
+      "text": "Spectrum News reported"
+    },
+    {
+      "id": "c35",
+      "start": 63.16,
+      "end": 64.6,
+      "text": "infected cases in Zavala,"
+    },
+    {
+      "id": "c36",
+      "start": 64.82,
+      "end": 66.5,
+      "text": "La Salle and Gillespie counties."
+    },
+    {
+      "id": "c37",
+      "start": 66.64,
+      "end": 69.34,
+      "text": "The animals were cattle, a goat and a dog."
+    },
+    {
+      "id": "c38",
+      "start": 70.54,
+      "end": 72.1,
+      "text": "Bellinger called wildlife one"
+    },
+    {
+      "id": "c39",
+      "start": 72.14,
+      "end": 73.32,
+      "text": "of the biggest challenges."
+    },
+    {
+      "id": "c40",
+      "start": 73.58,
+      "end": 75.77,
+      "text": "White-tailed deer and feral hogs can become"
+    },
+    {
+      "id": "c41",
+      "start": 75.81,
+      "end": 77.72,
+      "text": "hosts without anyone knowing they were hurt."
+    },
+    {
+      "id": "c42",
+      "start": 78.68,
+      "end": 80.29,
+      "text": "So officials call technology"
+    },
+    {
+      "id": "c43",
+      "start": 80.33,
+      "end": 81.52,
+      "text": "one part of the plan."
+    },
+    {
+      "id": "c44",
+      "start": 81.56,
+      "end": 83.4,
+      "text": "The most effective weapon, they say,"
+    },
+    {
+      "id": "c45",
+      "start": 83.44,
+      "end": 85.32,
+      "text": "is still the sterile fly program."
+    },
+    {
+      "id": "c46",
+      "start": 86.54,
+      "end": 87.92,
+      "text": "Bellinger said the country needs"
+    },
+    {
+      "id": "c47",
+      "start": 87.96,
+      "end": 90.57,
+      "text": "400 million sterile flies in 2027."
+    },
+    {
+      "id": "c48",
+      "start": 90.96,
+      "end": 91.84,
+      "text": "As of June,"
+    },
+    {
+      "id": "c49",
+      "start": 91.88,
+      "end": 93.5,
+      "text": "a sterile fly plant in Edinburg"
+    },
+    {
+      "id": "c50",
+      "start": 93.54,
+      "end": 95.48,
+      "text": "was expected to open early that year."
+    },
+    {
+      "id": "c51",
+      "start": 96.46,
+      "end": 97.66,
+      "text": "USDA has help from"
+    },
+    {
+      "id": "c52",
+      "start": 97.7,
+      "end": 99.06,
+      "text": "Customs and Border Protection."
+    },
+    {
+      "id": "c53",
+      "start": 99.45,
+      "end": 101.65,
+      "text": "KRGV reported that the drones use AI"
+    },
+    {
+      "id": "c54",
+      "start": 101.69,
+      "end": 103.6,
+      "text": "to flag animals that may be infected."
+    },
+    {
+      "id": "c55",
+      "start": 104.34,
+      "end": 105.2,
+      "text": "For now,"
+    },
+    {
+      "id": "c56",
+      "start": 105.24,
+      "end": 107.01,
+      "text": "producers are urged to inspect their animals"
+    },
+    {
+      "id": "c57",
+      "start": 107.05,
+      "end": 109.34,
+      "text": "more often and report any suspected case."
+    },
+    {
+      "id": "c58",
+      "start": 109.98,
+      "end": 111.32,
+      "text": "The drone can point."
+    },
+    {
+      "id": "c59",
+      "start": 111.66,
+      "end": 113.5,
+      "text": "Somebody still has to walk out and look."
+    }
+  ],
+  "credits_s": 5.0,
+  "timed_at": "2026-11-13T09:41:37+00:00",
+  "run_id": "2026-11-12"
+}

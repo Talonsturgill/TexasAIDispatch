@@ -2,6 +2,7 @@ import type React from 'react';
 import type {FilmRenderProps} from '../modern/types';
 import {SampleFilm} from './episodes/sample/SampleFilm';
 import {EmptySeatFilm} from './episodes/2026-11-11/EmptySeatFilm';
+import {BrushHidesFilm} from './episodes/2026-11-12/BrushHidesFilm';
 import {LeakReviewFilm} from '../modern/episodes/2026-10-21/LeakReviewFilm';
 
 /**
@@ -18,5 +19,6 @@ import {LeakReviewFilm} from '../modern/episodes/2026-10-21/LeakReviewFilm';
 export const dailyEpisodes: Record<string, React.FC<FilmRenderProps>> = {
   'daily-sample': SampleFilm,
   'empty-seat-1111': EmptySeatFilm,
+  'brush-hides-1112': BrushHidesFilm,
   'reference-2026-10-21': LeakReviewFilm,
 };

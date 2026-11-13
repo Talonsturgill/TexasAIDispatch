@@ -1,0 +1,115 @@
+{
+  "duration_s": 119.4,
+  "cut_s": 119.4,
+  "peak_dbfs_premaster": -1.36,
+  "lufs_premaster": -22.36,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.48,
+  "lufs_shortfall_db": 0.4800000000000004,
+  "crest_factor_db": 21.0,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 1.36,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 45
+    },
+    {
+      "id": "wholesome",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 19.0,
+      "source_lufs": -20.56,
+      "gain_db": -20.74
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "wholesome",
+  "bed_gap_below_voice_db": 19.0,
+  "bed_source_lufs": -20.56,
+  "bed_gain_db": -20.74,
+  "sfx_events": 45,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -21.03,
+      "true_peak_dbtp": -0.0
+    },
+    "after": {
+      "integrated_lufs": -16.48,
+      "true_peak_dbtp": -1.97
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-13.129999999999999:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-25.65:measured_TP=-5.27:measured_LRA=4.50:measured_thresh=-36.73:offset=4.15",
+    "measurement": {
+      "input_i": "-25.65",
+      "input_tp": "-5.27",
+      "input_lra": "4.50",
+      "input_thresh": "-36.73",
+      "output_i": "-17.25",
+      "output_tp": "-2.00",
+      "output_lra": "3.40",
+      "output_thresh": "-27.48",
+      "normalization_type": "dynamic",
+      "target_offset": "4.12"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -17.44,
+          "true_peak_dbtp": -1.96
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-25.65:measured_TP=-5.27:measured_LRA=4.50:measured_thresh=-36.73:offset=1.80"
+      },
+      {
+        "requested_lufs": -14.559999999999999,
+        "measured": {
+          "integrated_lufs": -17.43,
+          "true_peak_dbtp": -1.93
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-14.559999999999999:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-25.65:measured_TP=-5.27:measured_LRA=4.50:measured_thresh=-36.73:offset=2.81"
+      },
+      {
+        "requested_lufs": -13.129999999999999,
+        "measured": {
+          "integrated_lufs": -17.27,
+          "true_peak_dbtp": -1.93
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-13.129999999999999:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-25.65:measured_TP=-5.27:measured_LRA=4.50:measured_thresh=-36.73:offset=4.15"
+      }
+    ],
+    "correction": {
+      "filter": "aresample=192000,volume=1.2699999999999996dB,alimiter=limit=0.7943282347242815:level=false:latency=true,aresample=48000",
+      "before": {
+        "integrated_lufs": -17.27,
+        "true_peak_dbtp": -1.93
+      },
+      "after": {
+        "integrated_lufs": -16.48,
+        "true_peak_dbtp": -1.97
+      }
+    },
+    "samples": 5731200,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "/home/user/TexasAIDispatch/out/dispatch/audio/mix.wav",
+  "master_sha256": "fdf465f55a7c2ae6780b471e4733262c18b68a0075541775cb519895855ddd93",
+  "bed_file": "/home/user/TexasAIDispatch/out/dispatch/music_bed.wav",
+  "bed_file_sha256": "30cb51de873d3f310a2bc1865484c5e9c3be84a21d1e6c33e6558f26a0d810b4",
+  "bed_source_sha256": "9eadc79a1a2cb68cd63be1432ebf8f8ae3387cb9d2e85f9b8dbc74ba5a96b231",
+  "bed_preparation_manifest": "/home/user/TexasAIDispatch/out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "4336ee1f9494f64dcc70a5f348b2e48b95934f2174c1a9ebfa042d3201c8d2b3",
+  "voice_stem": "/home/user/TexasAIDispatch/out/dispatch/audio/mix_vo.wav",
+  "voice_stem_samples": 5731200
+}
