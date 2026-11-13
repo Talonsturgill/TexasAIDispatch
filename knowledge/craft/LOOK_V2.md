@@ -140,9 +140,15 @@ solved or learned.
 | `look/Figure.tsx` | the v2 person. Attached limbs, lit volume, acting face, nine poses, eight emotions, hats, hair, outfits, a ready cast (`castV2`) |
 | `look/Kit.tsx` | `Landscape`, `Bush`, `HeroDrone`, `FlyV2`, `CalfV2`, `GlassPanel`, `ScanBox`, `Glow`, `Burst`, `ContactShadow`, easing helpers |
 | `look/color.ts` | `shade`, `light`, `line`, `mix` |
+| `look/regions.tsx` | the ten Texas regions redrawn (`RegionStageV2` stands behind every exterior shot), plus `Pine`, `Oak`, `Juniper`, `PricklyPear`, `Yucca`, `Turbine`, `Pumpjack`, `Elevator`, `Fence` |
+| `look/CharacterV2.tsx` | an old-rig `Character` call redrawn on the v2 rig, same pose and emotion names |
+| `look/machines.tsx` | the hero machines, each with a face: `AutoTruckV2`, `RobotaxiV2`, `DrillRigV2`, `CentrePivotV2`, `RobotArmV2`, `ServerRackV2`, `SensorMastV2`, `TabletV2`, `ClinicScreenV2` |
+| `look/props.tsx` | animals on one lit rig (`CowV2`, `HogV2`, `DeerV2`, `DogV2`) and `PickupV2`, `WindmillV2`, `BarnV2`, `MapPinV2`, `DocumentV2` |
 
 `daily/episodes/sample-v2/BrushHidesV2.tsx` (registry id `look-v2-sample-1112`) is the worked
-example. It redraws the first 24 seconds of the November 12th film shot for shot.
+example. It redraws the first 24 seconds of the November 12th film shot for shot. The galleries
+`look-v2-regions`, `look-v2-cast`, `look-v2-machines` and `look-v2-props` show every v2 drawing
+beside the library drawing it replaces. Render one with `look` removed from the board for the before.
 
 Old editions never change. Look v2 is a layer outside `src/lib/` and `src/modern/`. `lean.py time`
 stamps `look: "v2"` on a board dated on or after `look.v2_from`, and the renderer turns v2 on only

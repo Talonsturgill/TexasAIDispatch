@@ -27,7 +27,7 @@ const beat = (shot_s: number, at: number, before: FigurePose, after: FigurePose)
 
 export const BrushHidesV2: React.FC<FilmRenderProps> = ({shot, shot_s}) => {
   const frame = useCurrentFrame();
-  const hand = castV2('rancher');
+  const hand = castV2('hand');
 
   switch (shot.view) {
     case 'thorn-snag': {

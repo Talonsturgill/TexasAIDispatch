@@ -5,6 +5,7 @@ import {CreditsCard, SubtitleTrack} from '../lib/DispatchOverlays';
 import {ArtDirectionProvider} from '../lib/artDirection';
 import {FONT, wrapToWidth} from '../lib/type';
 import {PlaceStage} from '../modern/PlaceStage';
+import {RegionStageV2} from '../look/regions';
 import type {FilmShot} from '../modern/types';
 import {dailyEpisodes} from './registry';
 import {ChipV2} from '../look/Chip';
@@ -205,6 +206,7 @@ const DailyFilmV2: React.FC<DispatchProps> = (props) => {
                 </div>
               ) : (
                 <PlaceStage board={board} scene={scene} shot={shot} time_s={time}>
+                  <RegionStageV2 frame={frame} shot_s={time - shot.start_s} scene_s={time - scene.start_s} />
                   <Episode board={board} scene={scene} shot={shot} time_s={time}
                     shot_s={time - shot.start_s} variant="a" />
                 </PlaceStage>

@@ -23,12 +23,16 @@ import {line, light, mix, shade} from './color';
  * Draw space: feet at (0, 0), about 560 units tall at scale 1. One skin fill never changes line
  * work, and every face uses the same shapes, per the two laws of drawing Texas in CLAUDE.md.
  */
-export type FigurePose = 'stand' | 'wave' | 'point' | 'cheer' | 'think' | 'hold' | 'shrug' | 'reach' | 'hips';
+export type FigurePose = 'stand' | 'wave' | 'point' | 'cheer' | 'think' | 'hold' | 'shrug' | 'reach' | 'hips' |
+  'crossed' | 'panic' | 'raise';
 export type FigureEmotion = 'neutral' | 'happy' | 'excited' | 'worried' | 'surprised' | 'thinking' | 'proud' |
-  'determined';
-export type FigureHat = 'none' | 'cap' | 'hardhat' | 'straw' | 'beanie';
+  'determined' | 'angry' | 'smug';
+/** felt and straw are the working cowboy hats (felt Labor Day to Easter), palm is the norteno palm straw with
+ * its taller narrower crown and flatter brim, mesh is the gimme cap, hood is a hard hat over an FR balaclava */
+export type FigureHat = 'none' | 'cap' | 'hardhat' | 'straw' | 'beanie' | 'felt' | 'palm' | 'mesh' | 'hood' | 'scrubcap';
 export type FigureHair = 'short' | 'curly' | 'bun' | 'long' | 'bald' | 'afro' | 'buzz';
-export type FigureTop = 'tee' | 'vest' | 'labcoat' | 'snap' | 'scrubs' | 'jacket';
+export type FigureTop = 'tee' | 'vest' | 'labcoat' | 'snap' | 'scrubs' | 'jacket' | 'coveralls' | 'linefr' | 'polo' |
+  'blazer' | 'suit' | 'hivis' | 'apron';
 
 export interface FigureProps {
   frame: number;
@@ -55,6 +59,11 @@ export interface FigureProps {
   seed?: number;
   /** a drawing held in the hands, placed at the hands' midpoint (pose 'hold' or 'reach') */
   holding?: React.ReactNode;
+  glasses?: boolean;
+  /** 0 slight to 1 heavy: widens the torso and moves the shoulders with it */
+  build?: number;
+  /** the outfit's second colour: reflective tape, harness, apron, lapel shirt, badge lanyard */
+  trim?: string;
 }
 
 export const SKIN_TONES = ['#f6d3b3', '#e8b48a', '#c98a5a', '#9a6440', '#6e4428', '#4a2d1c'];
@@ -69,7 +78,10 @@ const ARMS: Record<FigurePose, {l: [number, number]; r: [number, number]}> = {
   hold: {l: [16, -86], r: [16, -86]},
   shrug: {l: [48, -112], r: [48, -112]},
   reach: {l: [52, -40], r: [52, -40]},
-  hips: {l: [44, -118], r: [44, -118]},
+  hips: {l: [50, -74], r: [50, -74]},
+  crossed: {l: [6, -112], r: [10, -104]},
+  panic: {l: [128, 52], r: [128, 52]},
+  raise: {l: [10, 8], r: [172, 6]},
 };
 
 const UP = 92, FORE = 86, SHOULDER_X = 64, SHOULDER_Y = -318;
@@ -98,8 +110,10 @@ const blinkAt = (frame: number, seed: number) => {
 export const Figure: React.FC<FigureProps> = ({
   frame, x, y, scale = 1, pose = 'stand', emotion = 'neutral', skin = SKIN_TONES[2], hair = 'short',
   hairColor = '#2b1a12', hat = 'none', hatColor = '#e8c36a', top = 'tee', shirt = '#3b82f6',
-  pants = '#334155', turn = 0, poseBlend = 1, fromPose, walk, seed = 1, holding,
+  pants = '#334155', turn = 0, poseBlend = 1, fromPose, walk, seed = 1, holding, glasses = false, build = 0.5,
+  trim = '#e8ecf2',
 }) => {
+  const bw = 0.88 + Math.max(0, Math.min(1, build)) * 0.28, SX = SHOULDER_X * bw;
   const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
   const t = frame / 30;
   const breath = Math.sin(t * 2 * Math.PI / 3.6 + seed) * 0.012;
@@ -124,8 +138,8 @@ export const Figure: React.FC<FigureProps> = ({
   };
   const [lu, lf] = lerpArm('l');
   const [ru, rf] = lerpArm('r');
-  const L = solve(-1, lu, lf, -SHOULDER_X, SHOULDER_Y + bob * 0.6);
-  const R = solve(1, ru, rf, SHOULDER_X, SHOULDER_Y + bob * 0.6);
+  const L = solve(-1, lu, lf, -SX, SHOULDER_Y + bob * 0.6);
+  const R = solve(1, ru, rf, SX, SHOULDER_Y + bob * 0.6);
 
   const shirtTone = top === 'labcoat' ? '#f4f6fb' : top === 'vest' ? shirt : shirt;
   const skinS = shade(skin, 0.3), skinL = light(skin, 0.22);
@@ -171,7 +185,7 @@ export const Figure: React.FC<FigureProps> = ({
   const brows: Record<FigureEmotion, [number, number, number]> = {
     // [inner lift, outer lift, height]
     neutral: [0, 0, 0], happy: [2, 4, 4], excited: [6, 6, 10], worried: [10, -6, 4], surprised: [10, 10, 14],
-    thinking: [-4, 6, 2], proud: [-2, 2, 2], determined: [-10, 4, -2],
+    thinking: [-4, 6, 2], proud: [-2, 2, 2], determined: [-10, 4, -2], angry: [-16, 8, -4], smug: [-4, 4, 0],
   };
   const [bi, bo, bh] = brows[emotion];
   const mouth = (() => {
@@ -191,6 +205,12 @@ export const Figure: React.FC<FigureProps> = ({
       case 'thinking':
         return <path d={`M${mx - 18} ${my + 4} L${mx + 18} ${my - 2}`} stroke={ink(skin)} strokeWidth={7}
           strokeLinecap="round" />;
+      case 'angry':
+        return <path d={`M${mx - 22} ${my + 10} Q${mx} ${my - 6} ${mx + 22} ${my + 10}`} stroke={ink(skin)}
+          strokeWidth={7} fill="none" strokeLinecap="round" />;
+      case 'smug':
+        return <path d={`M${mx - 18} ${my + 4} Q${mx + 4} ${my + 8} ${mx + 24} ${my - 6}`} stroke={ink(skin)}
+          strokeWidth={7} fill="none" strokeLinecap="round" />;
       case 'determined':
         return <path d={`M${mx - 20} ${my + 2} Q${mx} ${my + 8} ${mx + 20} ${my + 2}`} stroke={ink(skin)}
           strokeWidth={7} fill="none" strokeLinecap="round" />;
@@ -199,7 +219,8 @@ export const Figure: React.FC<FigureProps> = ({
           strokeWidth={7} fill="none" strokeLinecap="round" />;
     }
   })();
-  const eyeOpen = emotion === 'surprised' ? 1.18 : emotion === 'happy' || emotion === 'proud' ? 0.82 : 1;
+  const eyeOpen = emotion === 'surprised' ? 1.18 : emotion === 'happy' || emotion === 'proud' ? 0.82 :
+    emotion === 'smug' ? 0.62 : emotion === 'angry' ? 0.85 : 1;
   const eye = (side: 1 | -1) => {
     const ex = fx + side * 30, ey = headY + 2;
     return (
@@ -291,6 +312,56 @@ export const Figure: React.FC<FigureProps> = ({
             strokeWidth={12} fill="none" />
           <ellipse cx={turn * 6 - 30} cy={headY - 36} rx={60} ry={8} fill={hl} opacity={0.5} />
         </g>;
+      case 'felt': case 'palm': {
+        // a working cowboy hat: the brim curls up at both sides, the crown is pinched at the front
+        const palm = hat === 'palm', bw2 = palm ? headR + 52 : headR + 74, ch = palm ? 92 : 74, cw = palm ? headR - 22 : headR - 10;
+        const by = headY - 32;
+        return <g>
+          <path d={`M${-bw2 + turn * 6} ${by - (palm ? 4 : 18)} Q${-bw2 * 0.55} ${by + 22} ${turn * 6} ${by + 20} Q${bw2 * 0.55}
+            ${by + 22} ${bw2 + turn * 6} ${by - (palm ? 4 : 18)} Q${bw2 * 0.6} ${by + 2} ${turn * 6} ${by + 2} Q${-bw2 * 0.6} ${by + 2}
+            ${-bw2 + turn * 6} ${by - (palm ? 4 : 18)} Z`} fill={hs} stroke={ink(hatColor)} strokeWidth={7} strokeLinejoin="round" />
+          <path d={`M${-cw} ${by + 2} Q${-cw - 4} ${by - ch} ${-14} ${by - ch - 4} Q0 ${by - ch + 14} ${14} ${by - ch - 4}
+            Q${cw + 4} ${by - ch} ${cw} ${by + 2} Q0 ${by + 10} ${-cw} ${by + 2} Z`} fill={hatColor} stroke={ink(hatColor)}
+            strokeWidth={7} strokeLinejoin="round" />
+          <path d={`M${-cw + 2} ${by - 12} Q0 ${by - 4} ${cw - 2} ${by - 12}`} stroke={palm ? shade(hatColor, 0.45) : '#2a1d16'}
+            strokeWidth={palm ? 8 : 12} fill="none" />
+          <path d={`M${-cw + 14} ${by - ch * 0.55} Q${-cw + 10} ${by - ch + 6} ${-18} ${by - ch + 2}`} stroke={hl} strokeWidth={8}
+            fill="none" strokeLinecap="round" opacity={0.55} />
+          {palm && [0.25, 0.5, 0.75].map((f) => <path key={f} d={`M${-cw + 6} ${by - ch * f} Q0 ${by - ch * f + 8} ${cw - 6} ${by - ch * f}`}
+            stroke={hs} strokeWidth={3} fill="none" opacity={0.6} />)}
+        </g>;
+      }
+      case 'mesh':
+        return <g>
+          <path d={`M${-headR + 2} ${headY - 16} A${headR - 2} ${headR - 2} 0 0 1 ${headR - 2} ${headY - 16} Z`} fill={light(hatColor, 0.75)}
+            stroke={ink(hatColor)} strokeWidth={7} />
+          {[0, 1, 2, 3, 4, 5].map((i) => <circle key={i} cx={30 + (i % 3) * 16} cy={headY - 36 - Math.floor(i / 3) * 16} r={3}
+            fill={shade(hatColor, 0.2)} opacity={0.5} />)}
+          <path d={`M${-headR + 6} ${headY - 18} Q${-headR + 4} ${top - 2} ${-6} ${top - 4} Q${24} ${top} ${30} ${headY - 18} Z`}
+            fill={hatColor} stroke={ink(hatColor)} strokeWidth={7} strokeLinejoin="round" />
+          <rect x={-46} y={headY - 52} width={50} height={22} rx={8} fill={light(hatColor, 0.8)} opacity={0.9} />
+          <path d={`M${-headR - 4 + fx} ${headY - 16} Q${-30 + fx} ${headY - 6} ${30 + fx} ${headY - 14} L${30 + fx} ${headY - 6}
+            Q${-30 + fx} ${headY + 8} ${-headR - 34 + fx} ${headY - 2} Z`} fill={hs} stroke={ink(hatColor)} strokeWidth={7}
+            strokeLinejoin="round" />
+        </g>;
+      case 'scrubcap':
+        return <g>
+          <path d={`M${-headR - 2} ${headY - 8} Q${-headR - 4} ${top - 18} 0 ${top - 16} Q${headR + 4} ${top - 18} ${headR + 2}
+            ${headY - 8} Q0 ${headY - 26} ${-headR - 2} ${headY - 8} Z`} fill={hatColor} stroke={ink(hatColor)} strokeWidth={7} />
+          {[[-40, -44], [-6, -60], [30, -48], [-24, -24], [14, -30], [48, -24]].map(([dx, dy], i) =>
+            <circle key={i} cx={dx} cy={headY + dy} r={6} fill={light(hatColor, 0.55)} opacity={0.8} />)}
+          <path d={`M${headR - 6} ${headY - 18} q22 4 30 22 M${headR - 6} ${headY - 18} q26 -6 36 6`} stroke={hatColor}
+            strokeWidth={9} strokeLinecap="round" fill="none" />
+        </g>;
+      case 'hood':
+        return <g>
+          <path d={`M${-headR - 24} ${headY - 18} Q0 ${headY - 34} ${headR + 24} ${headY - 18} L${headR + 24} ${headY - 6}
+            Q0 ${headY - 20} ${-headR - 24} ${headY - 6} Z`} fill={hs} stroke={ink(hatColor)} strokeWidth={7} strokeLinejoin="round" />
+          <path d={`M${-headR + 4} ${headY - 22} Q${-headR + 6} ${top - 24} 0 ${top - 24} Q${headR - 6} ${top - 24}
+            ${headR - 4} ${headY - 22} Z`} fill={hatColor} stroke={ink(hatColor)} strokeWidth={7} />
+          <path d={`M${-50} ${top + 2} Q${-30} ${top - 18} ${-6} ${top - 20}`} stroke={hl} strokeWidth={9} fill="none"
+            strokeLinecap="round" opacity={0.8} />
+        </g>;
       case 'beanie':
         return <g>
           <path d={`M${-headR + 2} ${headY - 14} Q${-headR} ${top - 20} 0 ${top - 22} Q${headR} ${top - 20} ${headR - 2}
@@ -327,6 +398,7 @@ export const Figure: React.FC<FigureProps> = ({
       {leg(-1)}{leg(1)}
       {arm(L, false)}
       {/* torso with volume, rim and outfit */}
+      <g transform={`scale(${bw} 1)`}>
       <path d={torso} fill={`url(#${uid}-shirt)`} stroke={ink(shirtTone)} strokeWidth={7} strokeLinejoin="round"
         transform={`scale(1 ${1 + breath})`} />
       <g clipPath={`url(#${uid}-torso)`}>
@@ -341,21 +413,64 @@ export const Figure: React.FC<FigureProps> = ({
         {top === 'snap' && [0, 1, 2, 3].map((i) => <circle key={i} cx={0} cy={torsoTop + 40 + i * 44} r={6}
           fill={light(shirtTone, 0.7)} stroke={ink(shirtTone)} strokeWidth={3} />)}
         {top === 'jacket' && <path d={`M0 ${torsoTop + 8} L0 ${torsoBot + 20}`} stroke={shirtS} strokeWidth={10} />}
+        {(top === 'coveralls' || top === 'hivis') && <>
+          <rect x={-90} y={torsoTop + 96} width={180} height={16} fill={trim} opacity={0.95} />
+          <rect x={-90} y={torsoBot - 6} width={180} height={16} fill={trim} opacity={0.95} />
+        </>}
+        {top === 'coveralls' && <path d={`M0 ${torsoTop + 10} L0 ${torsoBot + 20}`} stroke={shirtS} strokeWidth={6} />}
+        {top === 'hivis' && <path d={`M-86 ${torsoTop} L-34 ${torsoTop} L-20 ${torsoBot + 20} L-86 ${torsoBot + 20} Z
+            M86 ${torsoTop} L34 ${torsoTop} L20 ${torsoBot + 20} L86 ${torsoBot + 20} Z`} fill="#c6f53a" opacity={0.9} />}
+        {top === 'linefr' && <>
+          <path d={`M-58 ${torsoTop} L44 ${torsoBot} M58 ${torsoTop} L-44 ${torsoBot}`} stroke={trim} strokeWidth={16} strokeLinecap="round" />
+          <rect x={-92} y={torsoBot - 16} width={184} height={26} rx={8} fill={trim} />
+          <circle cx={0} cy={torsoBot - 3} r={12} fill="none" stroke="#cfd6e4" strokeWidth={6} />
+        </>}
+        {top === 'polo' && <>
+          <path d={`M-4 ${torsoTop} L-4 ${torsoTop + 60}`} stroke={shirtS} strokeWidth={6} />
+          <path d={`M-22 ${torsoTop} L-30 ${torsoTop + 120} M22 ${torsoTop} L-10 ${torsoTop + 120}`} stroke={trim} strokeWidth={5} />
+          <rect x={-56} y={torsoTop + 112} width={50} height={64} rx={9} fill="#ffffff" stroke={line('#ffffff')} strokeWidth={4} />
+          <rect x={-48} y={torsoTop + 124} width={34} height={16} rx={4} fill={trim} />
+        </>}
+        {(top === 'blazer' || top === 'suit') && <>
+          <path d={`M-40 ${torsoTop - 2} L0 ${torsoTop + 110} L40 ${torsoTop - 2} Z`} fill={trim} />
+          <path d={`M-40 ${torsoTop - 2} L-4 ${torsoTop + 120} L-30 ${torsoTop + 60} L-52 ${torsoTop + 40} Z
+            M40 ${torsoTop - 2} L4 ${torsoTop + 120} L30 ${torsoTop + 60} L52 ${torsoTop + 40} Z`} fill={shirtS} />
+          {top === 'suit' && <path d={`M0 ${torsoTop + 8} L-12 ${torsoTop + 30} L0 ${torsoTop + 104} L12 ${torsoTop + 30} Z`} fill="#c0392b" />}
+          {[0, 1].map((i) => <circle key={i} cx={8} cy={torsoTop + 140 + i * 40} r={6} fill={shirtS} />)}
+        </>}
+        {top === 'apron' && <>
+          <rect x={-58} y={torsoTop + 40} width={116} height={260} rx={22} fill={trim} stroke={line(trim)} strokeWidth={5} />
+          <path d={`M-50 ${torsoTop + 44} L-40 ${torsoTop - 4} M50 ${torsoTop + 44} L40 ${torsoTop - 4}`} stroke={trim} strokeWidth={9} />
+          <rect x={-34} y={torsoTop + 120} width={68} height={40} rx={10} fill={shade(trim, 0.12)} />
+        </>}
         {/* occlusion under the head */}
         <ellipse cx={0} cy={torsoTop + 6} rx={70} ry={26} fill={shirtS} opacity={0.55} filter={`url(#${uid}-soft)`} />
       </g>
+      </g>
       {/* collar and neck */}
       <path d={`M-30 ${torsoTop - 2} Q0 ${torsoTop + 30} 30 ${torsoTop - 2}`} fill={skinS} stroke={ink(skin)} strokeWidth={6} />
-      {/* head */}
-      <circle cx={0} cy={headY} r={headR} fill={`url(#${uid}-skin)`} stroke={ink(skin)} strokeWidth={7} />
+      {(top === 'polo' || top === 'snap' || top === 'linefr') && <path d={`M-34 ${torsoTop - 8} L-4 ${torsoTop + 26} L-22 ${torsoTop + 34} Z
+        M34 ${torsoTop - 8} L4 ${torsoTop + 26} L22 ${torsoTop + 34} Z`} fill={shirtL} stroke={ink(shirtTone)} strokeWidth={5}
+        strokeLinejoin="round" />}
+      {/* head (an FR hood, when worn, wraps it and covers hair and ears) */}
+      {hat === 'hood' && <circle cx={0} cy={headY + 4} r={headR + 20} fill={shade(shirt, 0.18)} stroke={ink(shirt)} strokeWidth={7} />}
+      <circle cx={0} cy={headY} r={hat === 'hood' ? headR - 8 : headR} fill={`url(#${uid}-skin)`} stroke={ink(skin)} strokeWidth={7} />
       <g clipPath={`url(#${uid}-head)`}>
         <circle cx={14} cy={headY + 8} r={headR} fill="none" stroke={skinS} strokeWidth={18} opacity={0.35} />
         <circle cx={-12} cy={headY - 4} r={headR} fill="none" stroke={light(skin, 0.7)} strokeWidth={10} opacity={0.4} />
       </g>
-      <ellipse cx={-headR + 4} cy={headY + 8} rx={14} ry={20} fill={skin} stroke={ink(skin)} strokeWidth={6} />
-      <ellipse cx={headR - 4} cy={headY + 8} rx={14} ry={20} fill={skinS} stroke={ink(skin)} strokeWidth={6} />
-      {hairShape()}
+      {hat !== 'hood' && <>
+        <ellipse cx={-headR + 4} cy={headY + 8} rx={14} ry={20} fill={skin} stroke={ink(skin)} strokeWidth={6} />
+        <ellipse cx={headR - 4} cy={headY + 8} rx={14} ry={20} fill={skinS} stroke={ink(skin)} strokeWidth={6} />
+        {hairShape()}
+      </>}
       {eye(-1)}{eye(1)}
+      {glasses && <g>
+        {[-1, 1].map((sd) => <rect key={sd} x={fx + sd * 30 - 26} y={headY - 20} width={52} height={42} rx={16}
+          fill="#dff3ff" fillOpacity={0.18} stroke="#2b2440" strokeWidth={6} />)}
+        <path d={`M${fx - 4} ${headY - 4} Q${fx} ${headY - 10} ${fx + 4} ${headY - 4}`} stroke="#2b2440" strokeWidth={5} fill="none" />
+        <path d={`M${fx - 46} ${headY - 12} l12 -4`} stroke="#ffffff" strokeWidth={4} strokeLinecap="round" opacity={0.7} />
+      </g>}
       <ellipse cx={fx + 2} cy={headY + 22} rx={9} ry={7} fill={skinS} opacity={0.8} />
       <circle cx={fx - 46} cy={headY + 30} r={13} fill="#ff6b8a" opacity={0.28} />
       <circle cx={fx + 46} cy={headY + 30} r={13} fill="#ff6b8a" opacity={0.28} />
@@ -363,28 +478,59 @@ export const Figure: React.FC<FigureProps> = ({
       {hatShape()}
       {holding && (pose === 'hold' || pose === 'reach') && <g transform={`translate(${holdAt.x} ${holdAt.y})`}>{holding}</g>}
       {arm(R, true)}
-      {(pose === 'hold' || pose === 'reach' || pose === 'hips' || pose === 'shrug') && arm(L, true)}
+      {(pose === 'hold' || pose === 'reach' || pose === 'hips' || pose === 'shrug' || pose === 'crossed' || pose === 'panic') &&
+        arm(L, true)}
     </g>
   );
 };
 
-/** a quick cast, so a v2 film is never one person repeated: same shapes, different people */
+/**
+ * THE CAST, look v2. The Texas roster (lib/Character.tsx CAST, knowledge/texas/CAST.md) on the v2 rig: the
+ * same people with the same ids, skin and hair values, headgear and work clothes, with the clothes
+ * pushed to v2 chroma. The rules stand: a cowboy hat never goes on a rig floor, a farmer wears a gimme
+ * cap, the straw hat is seasonal. Five extra generic people follow the roster.
+ */
+const S8 = ['#f6d9c0', '#eec39f', '#e0a97e', '#c98c5e', '#a96f45', '#8c5733', '#6f4326', '#54321c'];
+const H7 = ['#1c1512', '#2b1f18', '#3d2c1e', '#5a4028', '#7c5a34', '#9a7a4a', '#b9b2a6'];
 export const CAST_V2: Record<string, Partial<FigureProps>> = {
-  rancher: {skin: SKIN_TONES[3], hair: 'short', hairColor: '#24160f', hat: 'straw', hatColor: '#e9c46a',
-    top: 'snap', shirt: '#3d8bd9', pants: '#2c3e66'},
-  engineer: {skin: SKIN_TONES[1], hair: 'bun', hairColor: '#5a2e1a', hat: 'hardhat', hatColor: '#ffc93c',
-    top: 'vest', shirt: '#2563eb', pants: '#1f2a44'},
-  nurse: {skin: SKIN_TONES[4], hair: 'curly', hairColor: '#1a0f0a', top: 'scrubs', shirt: '#14b8a6',
-    pants: '#0f766e'},
+  engineer: {skin: S8[3], hair: 'bun', hairColor: H7[0], hat: 'hardhat', hatColor: '#ffc93c', top: 'coveralls',
+    shirt: '#2f6fb8', pants: '#2f6fb8', trim: '#eef3fa', build: 0.45},
+  rancher: {skin: S8[1], hair: 'short', hairColor: H7[6], hat: 'straw', hatColor: '#ecc66e', top: 'snap', shirt: '#cf5a3e',
+    pants: '#33476b', build: 0.62},
+  executive: {skin: S8[6], hair: 'curly', hairColor: H7[0], top: 'blazer', shirt: '#4b3f86', trim: '#f4e8d0',
+    pants: '#2e2754', build: 0.48},
+  dctech: {skin: S8[4], hair: 'short', hairColor: H7[0], top: 'polo', shirt: '#198077', trim: '#2350c8', pants: '#3a3f52',
+    glasses: true, build: 0.5},
+  owner: {skin: S8[2], hair: 'short', hairColor: H7[0], top: 'apron', shirt: '#3b6fd1', trim: '#f5efe2', pants: '#38425a',
+    build: 0.55},
+  operator: {skin: S8[7], hair: 'short', hairColor: H7[0], hat: 'hood', hatColor: '#f4f4ef', top: 'coveralls',
+    shirt: '#2c64a8', pants: '#2c64a8', trim: '#e9eef6', glasses: true, build: 0.68},
+  hand: {skin: S8[4], hair: 'short', hairColor: H7[0], hat: 'palm', hatColor: '#f0dba0', top: 'snap', shirt: '#6f9a46',
+    pants: '#5a4632', build: 0.5},
+  clinician: {skin: S8[0], hair: 'long', hairColor: H7[4], hat: 'scrubcap', hatColor: '#2fa3ad', top: 'scrubs',
+    shirt: '#2b9aa3', pants: '#2b9aa3', build: 0.44},
+  lineworker: {skin: S8[5], hair: 'bun', hairColor: H7[0], hat: 'hardhat', hatColor: '#f7f7f2', top: 'linefr',
+    shirt: '#2d5f93', trim: '#f0b429', pants: '#3a4250', build: 0.58},
+  resident: {skin: S8[3], hair: 'bun', hairColor: H7[6], top: 'jacket', shirt: '#8b5fbf', pants: '#3f3f52', glasses: true,
+    build: 0.6},
+  farmer: {skin: S8[2], hair: 'short', hairColor: H7[2], hat: 'mesh', hatColor: '#2e8b3a', top: 'snap', shirt: '#3f84c4',
+    pants: '#3b4a6b', build: 0.56},
+  technician: {skin: S8[5], hair: 'curly', hairColor: H7[4], top: 'polo', shirt: '#3d5a8a', trim: '#e11d48', pants: '#3a3f48',
+    build: 0.47},
+  hydrologist: {skin: S8[1], hair: 'short', hairColor: H7[0], hat: 'cap', hatColor: '#1d4ed8', top: 'hivis', shirt: '#22406b',
+    trim: '#eef3fa', pants: '#41474f', build: 0.5},
+  // generic people, for films that need someone who is not on the roster
+  nurse: {skin: SKIN_TONES[4], hair: 'curly', hairColor: '#1a0f0a', top: 'scrubs', shirt: '#14b8a6', pants: '#0f766e'},
   coder: {skin: SKIN_TONES[0], hair: 'long', hairColor: '#c2662d', top: 'tee', shirt: '#8b5cf6', pants: '#334155'},
-  teacher: {skin: SKIN_TONES[2], hair: 'afro', hairColor: '#20140e', top: 'jacket', shirt: '#ef4444',
-    pants: '#3f3f46'},
-  scientist: {skin: SKIN_TONES[5], hair: 'buzz', hairColor: '#0f0a08', top: 'labcoat', shirt: '#f4f6fb',
-    pants: '#475569'},
-  trucker: {skin: SKIN_TONES[1], hair: 'short', hairColor: '#7a7a7a', hat: 'cap', hatColor: '#dc2626',
-    top: 'tee', shirt: '#0ea5e9', pants: '#1e3a8a'},
-  farmer: {skin: SKIN_TONES[2], hair: 'short', hairColor: '#2b1a12', hat: 'cap', hatColor: '#16a34a',
-    top: 'snap', shirt: '#f59e0b', pants: '#3b4a6b'},
+  teacher: {skin: SKIN_TONES[2], hair: 'afro', hairColor: '#20140e', top: 'jacket', shirt: '#ef4444', pants: '#3f3f46'},
+  scientist: {skin: SKIN_TONES[5], hair: 'buzz', hairColor: '#0f0a08', top: 'labcoat', shirt: '#f4f6fb', pants: '#475569'},
+  trucker: {skin: SKIN_TONES[1], hair: 'short', hairColor: '#7a7a7a', hat: 'cap', hatColor: '#dc2626', top: 'tee',
+    shirt: '#0ea5e9', pants: '#1e3a8a'},
 };
-export const castV2 = (id: string): Partial<FigureProps> => CAST_V2[id] ?? CAST_V2.rancher;
+/** a cast member by roster id; an unknown id throws, because a silent default is a casting decision nobody made */
+export const castV2 = (id: string): Partial<FigureProps> => {
+  const m = CAST_V2[id];
+  if (!m) throw new Error(`castV2: nobody in the v2 cast is called "${id}". Cast: ${Object.keys(CAST_V2).join(', ')}.`);
+  return m;
+};
 export {mix};
