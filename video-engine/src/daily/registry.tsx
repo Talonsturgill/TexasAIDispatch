@@ -13,6 +13,7 @@ import {SensingShelfGallery} from './episodes/sample-v2/shelf/SensingGallery';
 import {FootballShelfGallery} from './episodes/sample-v2/shelf/FootballGallery';
 import {RoadsideShelfGallery} from './episodes/sample-v2/shelf/RoadsideGallery';
 import {HometownShelfGallery} from './episodes/sample-v2/shelf/HometownGallery';
+import {SetsItDownFilm} from './episodes/2026-11-14/SetsItDownFilm';
 import {LeakReviewFilm} from '../modern/episodes/2026-10-21/LeakReviewFilm';
 
 /**
@@ -53,4 +54,5 @@ export const dailyEpisodes: Record<string, React.FC<FilmRenderProps>> = {
   'look-v2-shelf-football': FootballShelfGallery,
   'look-v2-shelf-roadside': RoadsideShelfGallery,
   'look-v2-shelf-hometown': HometownShelfGallery,
+  'sets-it-down-1114': SetsItDownFilm,
 };
