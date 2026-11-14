@@ -400,8 +400,9 @@ three files in that directory: the hero drawing, the props, the film.
   pops. Hero machines come from `look/machines.tsx` (driverless truck, robotaxi, drilling rig,
   centre pivot, robot arm, data hall row, sensor mast, tablet, clinic screen), animals and common
   props from `look/props.tsx` (cattle, hog, deer, dog, pickup, windmill, barn, map pin, document)
-  and plants from `look/regions.tsx`. Use a `lib/` drawing on a v2 board only for what that shelf
-  lacks. Older boards use `lib/Character.tsx` and the library. Draw the hero fresh when the shelf
+  and plants from `look/regions.tsx`. Library sets redrawn for v2 live in `look/shelf/` under the
+  library name plus `V2` with the same props (`MesquiteV2`, `HelmetV2`, `IcehouseV2`), listed in
+  ASSET_INDEX.md. Use a `lib/` drawing on a v2 board only for what that shelf lacks. Older boards use `lib/Character.tsx` and the library. Draw the hero fresh when the shelf
   has nothing like it, to the same idiom.
 - **Fill the frame.** The subject of a shot is a third to two thirds of the frame's height. A
   subject a tenth of the frame high on an empty plain is a location still, not a shot.
