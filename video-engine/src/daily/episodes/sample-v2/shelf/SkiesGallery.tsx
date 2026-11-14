@@ -35,7 +35,7 @@ const CELLS: Cell[] = [
     v2: (f, x, y) => <RainCellV2 frame={f} x={x - 240} y={y - 236} w={480} h={232} lightning />},
   sky('thunderhead', (f) => <Thunderhead frame={f} intensity={0.66} />, (f) => <ThunderheadV2 frame={f} intensity={0.66} />, 560),
   sky('supercell', (f) => <Supercell frame={f} />, (f) => <SupercellV2 frame={f} />),
-  sky('shelf cloud', (f) => <ShelfCloud frame={f} />, (f) => <ShelfCloudV2 frame={f} />),
+  sky('shelf cloud', (f) => <ShelfCloud frame={f} />, (f) => <ShelfCloudV2 frame={f} />, 440),
   sky('blue norther', (f) => <BlueNorther frame={f} />, (f) => <BlueNortherV2 frame={f} />),
   sky('sunset bands', (f) => <SunsetBands frame={f} />, (f) => <SunsetBandsV2 frame={f} />),
   sky('dust haze and haboob', (f) => <DustHaze frame={f} wall={0.45} />, (f) => <DustHazeV2 frame={f} wall={0.45} />),
