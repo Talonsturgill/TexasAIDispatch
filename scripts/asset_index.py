@@ -67,7 +67,10 @@ V2_FIRST = [
     "  redrawn, with parallax and a blurred foreground.",
     "- An old-rig call (`<Character {...castProps(id)} />`) becomes `<CharacterV2 cast={id} ... />` with the",
     "  same pose and emotion names.",
-    "- Library drawings take `scale` 1 as true size. So do the v2 machines, animals and props.", "",
+    "- Library drawings take `scale` 1 as true size. So do the v2 machines, animals and props.",
+    "- `src/look/shelf/` holds v2 redraws of library sets, each named for the library drawing plus `V2`",
+    "  with the same props (Mesquite becomes MesquiteV2). On a v2 board use the V2 name. Its",
+    "  `look-v2-shelf-<set>` gallery shows each beside the library drawing.", "",
 ]
 
 
@@ -81,7 +84,13 @@ def section(path: Path) -> list[str]:
     if head:
         first = " ".join(re.sub(r"^\s*\*\s?", "", ln).strip() for ln in head.group(1).splitlines()).strip()
         about = re.split(r"(?<=[.!?])\s", first, maxsplit=1)[0][:200]
-    out = [f"## `{path.parent.name}/{path.name}` ({len(rows)})" if path.parent == LOOK else f"## `{path.name}` ({len(rows)})", ""]
+    if path.parent == LOOK:
+        title = f"look/{path.name}"
+    elif path.parent == LOOK / "shelf":
+        title = f"look/shelf/{path.name}"
+    else:
+        title = path.name
+    out = [f"## `{title}` ({len(rows)})", ""]
     if about:
         out += [about, ""]
     for name, props, why in rows:
@@ -129,6 +138,10 @@ def build() -> str:
     total = 0
     for name in LOOK_FILES:
         part = section(LOOK / name)
+        total += sum(1 for ln in part if ln.startswith("- **"))
+        out += part
+    for path in sorted((LOOK / "shelf").glob("*.tsx")):
+        part = section(path)
         total += sum(1 for ln in part if ln.startswith("- **"))
         out += part
     out += PEOPLE
