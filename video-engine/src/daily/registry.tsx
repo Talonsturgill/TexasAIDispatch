@@ -8,6 +8,7 @@ import {RegionsGallery} from './episodes/sample-v2/RegionsGallery';
 import {CastGallery} from './episodes/sample-v2/CastGallery';
 import {MachineGallery} from './episodes/sample-v2/MachineGallery';
 import {PropsGallery} from './episodes/sample-v2/PropsGallery';
+import {SetsItDownFilm} from './episodes/2026-11-14/SetsItDownFilm';
 import {LeakReviewFilm} from '../modern/episodes/2026-10-21/LeakReviewFilm';
 
 /**
@@ -38,4 +39,5 @@ export const dailyEpisodes: Record<string, React.FC<FilmRenderProps>> = {
   'look-v2-cast': CastGallery,
   'look-v2-machines': MachineGallery,
   'look-v2-props': PropsGallery,
+  'sets-it-down-1114': SetsItDownFilm,
 };
