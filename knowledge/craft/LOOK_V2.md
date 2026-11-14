@@ -144,7 +144,7 @@ solved or learned.
 | `look/CharacterV2.tsx` | an old-rig `Character` call redrawn on the v2 rig, same pose and emotion names |
 | `look/machines.tsx` | the hero machines, each with a face: `AutoTruckV2`, `RobotaxiV2`, `DrillRigV2`, `CentrePivotV2`, `RobotArmV2`, `ServerRackV2`, `SensorMastV2`, `TabletV2`, `ClinicScreenV2` |
 | `look/props.tsx` | animals on one lit rig (`CowV2`, `HogV2`, `DeerV2`, `DogV2`) and `PickupV2`, `WindmillV2`, `BarnV2`, `MapPinV2`, `DocumentV2` |
-| `look/shelf/*.tsx` | whole library sets redrawn, each drawing named for its library drawing plus `V2` with the same props. Kit (`MesquiteV2`, `PumpjackV2`, the detailed `WindmillV2`), football, roadside, hometown, sensing, freight and stage3d so far |
+| `look/shelf/*.tsx` | whole library sets redrawn, each drawing named for its library drawing plus `V2` with the same props. One file per library module, from kit (`MesquiteV2`, `PumpjackV2`, the detailed `WindmillV2`) to flora, fauna, skies, tejano and the rest. Where a V2 name was taken it carries a suffix (`CentrePivotDepthV2`, `WorkPickupV2`, `CellArmV2`, `SensorPodV2`) |
 
 `daily/episodes/sample-v2/BrushHidesV2.tsx` (registry id `look-v2-sample-1112`) is the worked
 example. It redraws the first 24 seconds of the November 12th film shot for shot. The galleries
