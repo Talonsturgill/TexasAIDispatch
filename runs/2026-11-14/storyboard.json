@@ -1,0 +1,2956 @@
+{
+  "date": "2026-11-14",
+  "title": "Who sets it down",
+  "topic": "Robots and AI checks assemble solar tables on a factory line in the field at the 457 megawatt Tormes Solar project in Navarro County, and workers still set each table on its supports.",
+  "tone": "wonder",
+  "hook": "Robots build it. Who sets it down?",
+  "beat": "plant-floor",
+  "episode": "sets-it-down-1114",
+  "entities": [
+    "Terabase Energy",
+    "Matrix Renewables",
+    "SOLV Energy",
+    "Tormes Solar",
+    "Navarro County"
+  ],
+  "treatment": {
+    "logline": "Near Barry, a factory parked in a field builds solar tables with robots and an AI check, and a crew member still sets each one down.",
+    "cold_open": "A rover with a face brakes at a row of bare steel posts carrying a finished solar table. Its eyes look up at a crew member in a hardhat, and before second three she steps in with her gloves up.",
+    "turn": "The rover stops at the posts and can't set the table down. Gloved hands do it, while a dashed blueprint of a future robot arm mirrors her moves beside her, still unbuilt.",
+    "button": "The table she set down tilts toward the sun. The robots build the table, and a person sets it down."
+  },
+  "hero": {
+    "name": "the panel gantry robot",
+    "why": "the machine the story is about, a gantry with a face that lowers glass onto steel, and no film has drawn it"
+  },
+  "throughline": {
+    "object": "one solar table",
+    "states": [
+      {
+        "scene_id": "s1",
+        "state": "finished, riding a rover to bare posts, waiting for a person"
+      },
+      {
+        "scene_id": "s5",
+        "state": "every panel fastened on"
+      },
+      {
+        "scene_id": "s6",
+        "state": "lit green by the AI check"
+      },
+      {
+        "scene_id": "s8",
+        "state": "riding a rover into the field"
+      },
+      {
+        "scene_id": "s11",
+        "state": "set on its steel supports by two workers"
+      },
+      {
+        "scene_id": "s13",
+        "state": "tilted toward the sun on its posts"
+      }
+    ]
+  },
+  "fingerprint": {
+    "pov": "the crew member beside the line",
+    "layout": "the line runs left to right across the frame, the field recedes behind",
+    "hero_treatment": "a yellow gantry with a visor face",
+    "palette": "black prairie soil, gold grass, deep blue glass, safety yellow"
+  },
+  "music": {
+    "track": "amazing_plan"
+  },
+  "wall_views": [
+    "flip-diagram",
+    "fine-print"
+  ],
+  "credits": "TEXAS AI DOCKET\nSOURCES\npv magazine USA, November 12th, 2026\nEnergy Global, November 13th, 2026\nTerabase Energy, PR Newswire\nILLUSTRATION\nOriginal drawings, people illustrative\nMUSIC\n\"Amazing Plan\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "Near Barry, in Navarro County, robots now do the heavy lifting on part of a solar farm. A person still has to set each piece down.",
+      "vo_claims": [
+        "c13",
+        "c1",
+        "c18",
+        "c6"
+      ],
+      "visual_events": [
+        {
+          "id": "s1-grab",
+          "at": 0.0,
+          "duration_s": 2.2,
+          "sound": "freight_roll",
+          "label": "NAVARRO COUNTY",
+          "draw": {
+            "subject": "a rover carrying a finished solar table",
+            "action": "brakes beside bare steel posts and its eyes look up at the crew member",
+            "emotion": "she steps in with her gloves up, determined"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s1-clunk",
+          "at": 0.22,
+          "duration_s": 1.2,
+          "sound": "decision_stop",
+          "draw": {
+            "subject": "the table on the rover",
+            "action": "rocks as the rover stops and a spark burst pops"
+          },
+          "at_s": 2.147
+        },
+        {
+          "id": "s1-pin",
+          "at_phrase": "A person still",
+          "duration_s": 1.6,
+          "sound": "field_marker",
+          "label": "NEAR BARRY",
+          "draw": {
+            "subject": "a map pin",
+            "action": "drops on the field beside rows of empty steel posts",
+            "emotion": "she looks out at the posts, determined"
+          },
+          "at_s": 6.56
+        }
+      ],
+      "start_s": 0.0,
+      "duration_s": 9.76,
+      "planes": []
+    },
+    {
+      "id": "s2",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "The project is Tormes Solar, 457 megawatts, built by the contractor SOLV Energy for Matrix Renewables. Building it is expected to support about 450 jobs.",
+      "vo_claims": [
+        "c2",
+        "c9",
+        "c1",
+        "c10"
+      ],
+      "visual_events": [
+        {
+          "id": "s2-sign",
+          "at": 0.0,
+          "duration_s": 1.8,
+          "sound": "ranch_gate",
+          "label": "TORMES SOLAR",
+          "draw": {
+            "subject": "a site sign",
+            "action": "swings up on its posts as the crew walk past it"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s2-mw",
+          "at_phrase": "457 megawatts",
+          "duration_s": 1.6,
+          "sound": "freight_count",
+          "label": "457 MW",
+          "draw": {
+            "subject": "the 457 counter",
+            "action": "counts up over rows of posts stretching to the horizon"
+          },
+          "at_s": 3.24
+        },
+        {
+          "id": "s2-crew",
+          "at_phrase": "SOLV Energy",
+          "duration_s": 1.5,
+          "sound": "concrete_footsteps",
+          "label": "SOLV ENERGY",
+          "draw": {
+            "subject": "two crew members",
+            "action": "stride down a row of posts with a tablet",
+            "emotion": "she grins at her partner"
+          },
+          "at_s": 6.245
+        },
+        {
+          "id": "s2-jobs",
+          "at_phrase": "450 jobs",
+          "duration_s": 1.45,
+          "sound": "friday_night_crowd",
+          "label": "ABOUT 450 JOBS",
+          "draw": {
+            "subject": "a crowd of crew members",
+            "action": "fills the row behind her, hardhats bobbing",
+            "emotion": "she turns and grins at them"
+          },
+          "at_s": 11.78
+        }
+      ],
+      "start_s": 9.76,
+      "duration_s": 13.23,
+      "planes": []
+    },
+    {
+      "id": "s3",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "On most solar farms, crews set steel tubes in the field first. Then workers lift heavy glass panels onto them, one by one, hundreds of thousands of them.",
+      "vo_claims": [
+        "c17"
+      ],
+      "visual_events": [
+        {
+          "id": "s3-lift",
+          "at": 0.0,
+          "duration_s": 2.4,
+          "sound": "concrete_footsteps",
+          "label": "THE OLD WAY",
+          "draw": {
+            "subject": "two workers",
+            "action": "heave a glass panel up onto a tube already standing in the field",
+            "emotion": "both strain and sweat"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s3-heave",
+          "at_phrase": "Then workers lift",
+          "duration_s": 1.4,
+          "sound": "concrete_footsteps",
+          "label": "HEAVY GLASS",
+          "draw": {
+            "subject": "the two workers",
+            "action": "heave the panel up the last few inches onto the tube",
+            "emotion": "both grimace"
+          },
+          "at_s": 4.57
+        },
+        {
+          "id": "s3-one",
+          "at_phrase": "one by one",
+          "duration_s": 1.4,
+          "sound": "carton_roller_place",
+          "label": "ONE BY ONE",
+          "draw": {
+            "subject": "a second panel",
+            "action": "slides down off the tube and they catch it"
+          },
+          "at_s": 7.7
+        },
+        {
+          "id": "s3-pile",
+          "at_phrase": "hundreds of thousands",
+          "duration_s": 1.86,
+          "sound": "freight_roll",
+          "label": "HUNDREDS OF THOUSANDS",
+          "draw": {
+            "subject": "a mountain of panel crates",
+            "action": "towers up out of the field until it dwarfs the crew member",
+            "emotion": "she tips her hardhat back, stunned"
+          },
+          "at_s": 8.74
+        }
+      ],
+      "start_s": 22.99,
+      "duration_s": 10.6,
+      "planes": []
+    },
+    {
+      "id": "s4",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "So Terabase Energy, a company from Berkeley, California, flipped the order. It parks a factory line right in the field.",
+      "vo_claims": [
+        "c17",
+        "c24",
+        "c16"
+      ],
+      "visual_events": [
+        {
+          "id": "s4-flip",
+          "at": 0.0,
+          "duration_s": 2.0,
+          "sound": "derivation_unfold",
+          "label": "TERABASE ENERGY",
+          "draw": {
+            "subject": "the two step diagram",
+            "action": "flips over so the table is built first and carried out second"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s4-park",
+          "at_phrase": "It parks",
+          "duration_s": 2.2,
+          "sound": "diesel_idle",
+          "label": "A FACTORY IN THE FIELD",
+          "draw": {
+            "subject": "the factory line",
+            "action": "rolls in on wheels and unfolds its canopy in the field",
+            "emotion": "she points at it, amazed"
+          },
+          "at_s": 5.06
+        }
+      ],
+      "start_s": 33.59,
+      "duration_s": 7.99,
+      "planes": []
+    },
+    {
+      "id": "s5",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "On that line, robots fasten the panels onto a long steel tube, called a torque tube. The finished piece is a solar table. For now, the line is optimized for one panel and one tracker, made by First Solar and Nextpower.",
+      "vo_claims": [
+        "c3",
+        "c6",
+        "c12"
+      ],
+      "visual_events": [
+        {
+          "id": "s5-fasten",
+          "at": 0.0,
+          "duration_s": 2.4,
+          "sound": "robot_servo",
+          "label": "ROBOTS FASTEN",
+          "draw": {
+            "subject": "the gantry robot",
+            "action": "lowers panel after panel onto the tube, each one clicking down",
+            "emotion": "its visor eyes narrow in focus"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s5-tube",
+          "at_phrase": "torque tube",
+          "duration_s": 1.4,
+          "sound": "reuse_tile_lock",
+          "label": "TORQUE TUBE",
+          "draw": {
+            "subject": "the steel tube",
+            "action": "rolls a quarter turn under the panels as a ring of light runs along it"
+          },
+          "at_s": 5.48
+        },
+        {
+          "id": "s5-table",
+          "at_phrase": "a solar table",
+          "duration_s": 1.6,
+          "sound": "result_shelf_stop",
+          "label": "A SOLAR TABLE",
+          "draw": {
+            "subject": "the finished table",
+            "action": "slides along the line past the crew member",
+            "emotion": "she nods, impressed"
+          },
+          "at_s": 7.65
+        },
+        {
+          "id": "s5-odd",
+          "at_phrase": "For now",
+          "duration_s": 1.4,
+          "sound": "decision_stop",
+          "draw": {
+            "subject": "the gantry robot",
+            "action": "lowers toward an odd panel, stops short and shakes its head",
+            "emotion": "its visor frowns"
+          },
+          "at_s": 8.78
+        },
+        {
+          "id": "s5-match",
+          "at_phrase": "First Solar",
+          "duration_s": 1.6,
+          "sound": "reuse_tile_lock",
+          "label": "FIRST SOLAR + NEXTPOWER",
+          "draw": {
+            "subject": "the gantry robot",
+            "action": "turns away an odd panel, then grabs the right one with happy eyes"
+          },
+          "at_s": 13.66
+        }
+      ],
+      "start_s": 41.58,
+      "duration_s": 15.76,
+      "planes": []
+    },
+    {
+      "id": "s6",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "Then AI-assisted tools check every unit, so a panel in the wrong spot gets caught right away.",
+      "vo_claims": [
+        "c4",
+        "c17"
+      ],
+      "visual_events": [
+        {
+          "id": "s6-scan",
+          "at": 0.0,
+          "duration_s": 2.0,
+          "sound": "camera_reacquire",
+          "label": "AI CHECKS EVERY UNIT",
+          "draw": {
+            "subject": "a scan box",
+            "action": "sweeps panel by panel along the table, turning each one green"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s6-flag",
+          "at_phrase": "the wrong spot",
+          "duration_s": 1.6,
+          "sound": "warning_bloom",
+          "label": "CAUGHT RIGHT AWAY",
+          "draw": {
+            "subject": "one crooked panel",
+            "action": "flashes amber, the robot nudges it square and it turns green",
+            "emotion": "she checks it on her tablet and smiles"
+          },
+          "at_s": 4.42
+        }
+      ],
+      "start_s": 57.34,
+      "duration_s": 7.05,
+      "planes": []
+    },
+    {
+      "id": "s7",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Terabase says one line runs on a two minute cycle. Running around the clock, that is more than 20 megawatts a week.",
+      "vo_claims": [
+        "c7",
+        "c8"
+      ],
+      "visual_events": [
+        {
+          "id": "s7-glass",
+          "at": 0.0,
+          "duration_s": 2.2,
+          "sound": "sensor_heartbeat",
+          "label": "A 2 MINUTE CYCLE",
+          "draw": {
+            "subject": "an hourglass on the line",
+            "action": "flips, and a finished table slides out toward the camera on every flip",
+            "emotion": "she watches, eyebrows up"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s7-clock",
+          "at_phrase": "around the clock",
+          "duration_s": 1.6,
+          "sound": "freight_count",
+          "label": "TERABASE SAYS, 24/7",
+          "draw": {
+            "subject": "the sky",
+            "action": "spins from day to night and back while tables keep stacking"
+          },
+          "at_s": 4.15
+        },
+        {
+          "id": "s7-mw",
+          "at_phrase": "20 megawatts",
+          "duration_s": 1.93,
+          "sound": "result_shelf_stop",
+          "label": "20+ MW A WEEK",
+          "draw": {
+            "subject": "a stack of tables",
+            "action": "piles up beside the 20 counter as it lands with a hit"
+          },
+          "at_s": 5.76
+        }
+      ],
+      "start_s": 64.39,
+      "duration_s": 7.69,
+      "planes": []
+    },
+    {
+      "id": "s8",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Next, a robot loads the table onto a rover, and the rover drives it out into the field. Tormes is the first site where this version runs with autonomous rovers.",
+      "vo_claims": [
+        "c5",
+        "c15"
+      ],
+      "visual_events": [
+        {
+          "id": "s8-load",
+          "at": 0.0,
+          "duration_s": 2.0,
+          "sound": "assistive_servo",
+          "label": "ONTO A ROVER",
+          "draw": {
+            "subject": "the gantry",
+            "action": "sets the green table onto the rover's deck and the rover bounces under the weight",
+            "emotion": "the rover's eyes go happy"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s8-drive",
+          "at_phrase": "drives it out",
+          "duration_s": 2.0,
+          "sound": "freight_roll",
+          "label": "AUTONOMOUS ROVER",
+          "draw": {
+            "subject": "the rover",
+            "action": "rolls off down the row like an airport shuttle",
+            "emotion": "she waves it off"
+          },
+          "at_s": 4.41
+        },
+        {
+          "id": "s8-first",
+          "at_phrase": "the first site",
+          "duration_s": 1.6,
+          "sound": "lane_choice",
+          "label": "A FIRST FOR TERAFAB V2",
+          "draw": {
+            "subject": "a line of rovers",
+            "action": "follows the first one down the row like ducklings"
+          },
+          "at_s": 7.23
+        }
+      ],
+      "start_s": 72.08,
+      "duration_s": 11.18,
+      "planes": []
+    },
+    {
+      "id": "s10",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "Here is the fair doubt. This is a proof of concept on a portion of the project. Those speed figures are the company's own, and it says real output depends on the site.",
+      "vo_claims": [
+        "c14",
+        "c7",
+        "c20"
+      ],
+      "visual_events": [
+        {
+          "id": "s10-portion",
+          "at": 0.0,
+          "duration_s": 2.2,
+          "sound": "suitability_gate",
+          "label": "A PORTION OF THE SITE",
+          "draw": {
+            "subject": "the yellow factory line",
+            "action": "shrinks to a small patch at the edge of a huge field of bare posts",
+            "emotion": "she squints out at it from the foreground"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s10-proof",
+          "at_phrase": "proof of concept",
+          "duration_s": 1.6,
+          "sound": "review_stamp",
+          "label": "PROOF OF CONCEPT",
+          "draw": {
+            "subject": "a stamp",
+            "action": "slams PROOF OF CONCEPT onto the small patch"
+          },
+          "at_s": 2.44
+        },
+        {
+          "id": "s10-fine",
+          "at_phrase": "company's own",
+          "duration_s": 2.0,
+          "sound": "document_parse",
+          "label": "DEPENDS ON THE SITE",
+          "draw": {
+            "subject": "a magnifier",
+            "action": "slides over the fine print under the big two minute number",
+            "emotion": "she squints at it and shrugs"
+          },
+          "at_s": 6.9
+        }
+      ],
+      "start_s": 83.26,
+      "duration_s": 10.45,
+      "planes": []
+    },
+    {
+      "id": "s11",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "The robots also stop short. Workers unload each table and set it on the steel supports waiting in the field.",
+      "vo_claims": [
+        "c6"
+      ],
+      "visual_events": [
+        {
+          "id": "s11-stop",
+          "at": 0.0,
+          "duration_s": 1.8,
+          "sound": "decision_stop",
+          "label": "THE ROBOTS STOP SHORT",
+          "draw": {
+            "subject": "the rover",
+            "action": "brakes beside the empty posts and waits",
+            "emotion": "its eyes look up at her, hopeful"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s11-set",
+          "at_phrase": "set it on",
+          "duration_s": 2.2,
+          "sound": "proof_press_clamp",
+          "label": "PEOPLE SET IT DOWN",
+          "draw": {
+            "subject": "two workers",
+            "action": "guide the table down onto its posts and it locks in",
+            "emotion": "she grits her teeth then grins"
+          },
+          "at_s": 4.74
+        },
+        {
+          "id": "s11-hands",
+          "at_phrase": "waiting in the field",
+          "duration_s": 1.4,
+          "sound": "reuse_tile_lock",
+          "draw": {
+            "subject": "her gloved hands",
+            "action": "press the table flat on the bearing until it clicks"
+          },
+          "at_s": 6.28
+        }
+      ],
+      "start_s": 93.71,
+      "duration_s": 7.76,
+      "planes": []
+    },
+    {
+      "id": "s12",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Terabase says it is building robots for that last step too.",
+      "vo_claims": [
+        "c23"
+      ],
+      "visual_events": [
+        {
+          "id": "s12-ghost",
+          "at": 0.0,
+          "duration_s": 2.4,
+          "sound": "prompt_diverge",
+          "label": "NEXT, THE LAST STEP",
+          "draw": {
+            "subject": "a dashed blueprint robot arm",
+            "action": "draws itself beside her and copies her every move",
+            "emotion": "she glances at it, wary"
+          },
+          "at_s": 0.0
+        }
+      ],
+      "start_s": 101.47,
+      "duration_s": 3.9,
+      "planes": []
+    },
+    {
+      "id": "s13",
+      "county": "Navarro",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "The farm is expected to start running in the first half of 2027. Until then, the robots build the table, and a person sets it down.",
+      "vo_claims": [
+        "c11",
+        "c6"
+      ],
+      "visual_events": [
+        {
+          "id": "s13-tilt",
+          "at": 0.0,
+          "duration_s": 2.4,
+          "sound": "assistive_servo",
+          "label": "EXPECTED IN 2027",
+          "draw": {
+            "subject": "the table she set down",
+            "action": "tilts on its posts to face the sun as the sun smiles back",
+            "emotion": "she wipes her brow, proud"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s13-sun",
+          "at_phrase": "Until then",
+          "duration_s": 1.4,
+          "sound": "result_shelf_stop",
+          "draw": {
+            "subject": "the sun",
+            "action": "beams wider as a glint runs across the tilted panels",
+            "emotion": "she grins up at it"
+          },
+          "at_s": 4.73
+        },
+        {
+          "id": "s13-row",
+          "at_phrase": "a person sets it down",
+          "duration_s": 2.2,
+          "sound": "mockingbird",
+          "draw": {
+            "subject": "a whole row of tables",
+            "action": "tilts together toward the sun behind her",
+            "emotion": "she rests a hand on the table, smiling"
+          },
+          "at_s": 7.67
+        }
+      ],
+      "start_s": 105.37,
+      "duration_s": 10.13,
+      "planes": []
+    }
+  ],
+  "shots": [
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-grab",
+      "id": "s1-a",
+      "scene_id": "s1",
+      "framing": "close",
+      "view": "cold-open",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 0.0,
+      "duration_s": 6.56
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-grab",
+      "id": "s1-b",
+      "scene_id": "s1",
+      "framing": "wide",
+      "view": "prairie-wide",
+      "at_phrase": "A person still",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 6.56,
+      "duration_s": 3.2
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-sign",
+      "id": "s2-a",
+      "scene_id": "s2",
+      "framing": "medium",
+      "view": "site-sign",
+      "cast": [
+        "engineer",
+        "technician"
+      ],
+      "start_s": 9.76,
+      "duration_s": 3.24
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-sign",
+      "id": "s2-b",
+      "scene_id": "s2",
+      "framing": "overhead",
+      "view": "rows-overhead",
+      "at_phrase": "457 megawatts",
+      "start_s": 13.0,
+      "duration_s": 3.005
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-sign",
+      "id": "s2-d",
+      "scene_id": "s2",
+      "framing": "close",
+      "view": "crew-walk",
+      "at_phrase": "SOLV Energy",
+      "cast": [
+        "engineer",
+        "technician"
+      ],
+      "start_s": 16.005,
+      "duration_s": 2.915
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-sign",
+      "id": "s2-c",
+      "scene_id": "s2",
+      "framing": "wide",
+      "view": "crew-wide",
+      "at_phrase": "Building it is",
+      "cast": [
+        "engineer",
+        "technician",
+        "trucker"
+      ],
+      "start_s": 18.92,
+      "duration_s": 4.07
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-lift",
+      "id": "s3-a",
+      "scene_id": "s3",
+      "framing": "medium",
+      "view": "old-way",
+      "cast": [
+        "technician",
+        "trucker"
+      ],
+      "start_s": 22.99,
+      "duration_s": 4.57
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-lift",
+      "id": "s3-c",
+      "scene_id": "s3",
+      "framing": "close",
+      "view": "strain-close",
+      "at_phrase": "Then workers lift",
+      "cast": [
+        "technician",
+        "trucker"
+      ],
+      "start_s": 27.56,
+      "duration_s": 4.17
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-lift",
+      "id": "s3-b",
+      "scene_id": "s3",
+      "framing": "wide",
+      "view": "panel-mountain",
+      "at_phrase": "hundreds of thousands",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 31.73,
+      "duration_s": 1.86
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-flip",
+      "id": "s4-a",
+      "scene_id": "s4",
+      "framing": "split",
+      "view": "flip-diagram",
+      "start_s": 33.59,
+      "duration_s": 5.06
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-flip",
+      "id": "s4-b",
+      "scene_id": "s4",
+      "framing": "wide",
+      "view": "factory-arrive",
+      "at_phrase": "It parks",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 38.65,
+      "duration_s": 2.93
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-fasten",
+      "id": "s5-a",
+      "scene_id": "s5",
+      "framing": "close",
+      "view": "bot-close",
+      "start_s": 41.58,
+      "duration_s": 6.33
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-fasten",
+      "id": "s5-b",
+      "scene_id": "s5",
+      "framing": "medium",
+      "view": "line-medium",
+      "at_phrase": "The finished piece",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 47.91,
+      "duration_s": 2.45
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-fasten",
+      "id": "s5-c",
+      "scene_id": "s5",
+      "framing": "close",
+      "view": "picky",
+      "at_phrase": "For now",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 50.36,
+      "duration_s": 6.98
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-scan",
+      "id": "s6-a",
+      "scene_id": "s6",
+      "framing": "detail",
+      "view": "scan",
+      "start_s": 57.34,
+      "duration_s": 4.42
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-scan",
+      "id": "s6-b",
+      "scene_id": "s6",
+      "framing": "close",
+      "view": "tablet-check",
+      "at_phrase": "the wrong spot",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 61.76,
+      "duration_s": 2.63
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-glass",
+      "id": "s7-a",
+      "scene_id": "s7",
+      "framing": "medium",
+      "view": "hourglass",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 64.39,
+      "duration_s": 4.15
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-glass",
+      "id": "s7-b",
+      "scene_id": "s7",
+      "framing": "wide",
+      "view": "stack-count",
+      "at_phrase": "around the clock",
+      "start_s": 68.54,
+      "duration_s": 3.54
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-load",
+      "id": "s8-a",
+      "scene_id": "s8",
+      "framing": "medium",
+      "view": "rover-load",
+      "start_s": 72.08,
+      "duration_s": 4.41
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-load",
+      "id": "s8-b",
+      "scene_id": "s8",
+      "framing": "wide",
+      "view": "rover-ride",
+      "at_phrase": "drives it out",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 76.49,
+      "duration_s": 6.77
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-portion",
+      "id": "s10-a",
+      "scene_id": "s10",
+      "framing": "wide",
+      "view": "patch-field",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 83.26,
+      "duration_s": 6.9
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-portion",
+      "id": "s10-b",
+      "scene_id": "s10",
+      "framing": "medium",
+      "view": "fine-print",
+      "at_phrase": "company's own",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 90.16,
+      "duration_s": 3.55
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-stop",
+      "id": "s11-a",
+      "scene_id": "s11",
+      "framing": "medium",
+      "view": "crew-set",
+      "cast": [
+        "engineer",
+        "technician"
+      ],
+      "start_s": 93.71,
+      "duration_s": 6.28
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-stop",
+      "id": "s11-b",
+      "scene_id": "s11",
+      "framing": "detail",
+      "view": "hands-close",
+      "at_phrase": "waiting in the field",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 99.99,
+      "duration_s": 1.48
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-ghost",
+      "id": "s12-a",
+      "scene_id": "s12",
+      "framing": "medium",
+      "view": "ghost-arm",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 101.47,
+      "duration_s": 3.9
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-tilt",
+      "id": "s13-a",
+      "scene_id": "s13",
+      "framing": "wide",
+      "view": "sun-tilt",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 105.37,
+      "duration_s": 7.67
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-tilt",
+      "id": "s13-b",
+      "scene_id": "s13",
+      "framing": "overhead",
+      "view": "row-crane",
+      "at_phrase": "a person sets it down",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 113.04,
+      "duration_s": 2.46
+    }
+  ],
+  "runtime_s": 115.5,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.82,
+      "end": 2.96,
+      "text": "Near Barry, in Navarro County,"
+    },
+    {
+      "id": "c2",
+      "start": 3.08,
+      "end": 4.92,
+      "text": "robots now do the heavy lifting"
+    },
+    {
+      "id": "c3",
+      "start": 4.96,
+      "end": 6.52,
+      "text": "on part of a solar farm."
+    },
+    {
+      "id": "c4",
+      "start": 6.56,
+      "end": 9.48,
+      "text": "A person still has to set each piece down."
+    },
+    {
+      "id": "c5",
+      "start": 9.94,
+      "end": 14.37,
+      "text": "The project is Tormes Solar, 457 megawatts,"
+    },
+    {
+      "id": "c6",
+      "start": 14.46,
+      "end": 15.965,
+      "text": "built by the contractor"
+    },
+    {
+      "id": "c7",
+      "start": 16.005,
+      "end": 18.52,
+      "text": "SOLV Energy for Matrix Renewables."
+    },
+    {
+      "id": "c8",
+      "start": 18.92,
+      "end": 20.17,
+      "text": "Building it is expected"
+    },
+    {
+      "id": "c9",
+      "start": 20.21,
+      "end": 22.82,
+      "text": "to support about 450 jobs."
+    },
+    {
+      "id": "c10",
+      "start": 23.16,
+      "end": 24.72,
+      "text": "On most solar farms,"
+    },
+    {
+      "id": "c11",
+      "start": 24.76,
+      "end": 27.3,
+      "text": "crews set steel tubes in the field first."
+    },
+    {
+      "id": "c12",
+      "start": 27.56,
+      "end": 29.25,
+      "text": "Then workers lift heavy"
+    },
+    {
+      "id": "c13",
+      "start": 29.29,
+      "end": 30.65,
+      "text": "glass panels onto them,"
+    },
+    {
+      "id": "c14",
+      "start": 30.69,
+      "end": 33.48,
+      "text": "one by one, hundreds of thousands of them."
+    },
+    {
+      "id": "c15",
+      "start": 33.7,
+      "end": 35.4,
+      "text": "So Terabase Energy,"
+    },
+    {
+      "id": "c16",
+      "start": 35.44,
+      "end": 36.88,
+      "text": "a company from Berkeley,"
+    },
+    {
+      "id": "c17",
+      "start": 36.92,
+      "end": 38.61,
+      "text": "California, flipped the order."
+    },
+    {
+      "id": "c18",
+      "start": 38.65,
+      "end": 41.46,
+      "text": "It parks a factory line right in the field."
+    },
+    {
+      "id": "c19",
+      "start": 41.7,
+      "end": 42.93,
+      "text": "On that line,"
+    },
+    {
+      "id": "c20",
+      "start": 42.97,
+      "end": 44.62,
+      "text": "robots fasten the panels"
+    },
+    {
+      "id": "c21",
+      "start": 44.66,
+      "end": 46.48,
+      "text": "onto a long steel tube,"
+    },
+    {
+      "id": "c22",
+      "start": 46.52,
+      "end": 47.87,
+      "text": "called a torque tube."
+    },
+    {
+      "id": "c23",
+      "start": 47.91,
+      "end": 50.3,
+      "text": "The finished piece is a solar table."
+    },
+    {
+      "id": "c24",
+      "start": 50.36,
+      "end": 51.08,
+      "text": "For now,"
+    },
+    {
+      "id": "c25",
+      "start": 51.12,
+      "end": 52.65,
+      "text": "the line is optimized for"
+    },
+    {
+      "id": "c26",
+      "start": 52.69,
+      "end": 54.49,
+      "text": "one panel and one tracker,"
+    },
+    {
+      "id": "c27",
+      "start": 54.53,
+      "end": 56.92,
+      "text": "made by First Solar and Nextpower."
+    },
+    {
+      "id": "c28",
+      "start": 57.52,
+      "end": 60.82,
+      "text": "Then AI-assisted tools check every unit,"
+    },
+    {
+      "id": "c29",
+      "start": 60.86,
+      "end": 61.88,
+      "text": "so a panel in the"
+    },
+    {
+      "id": "c30",
+      "start": 61.92,
+      "end": 64.02,
+      "text": "wrong spot gets caught right away."
+    },
+    {
+      "id": "c31",
+      "start": 64.57,
+      "end": 66.45,
+      "text": "Terabase says one line runs"
+    },
+    {
+      "id": "c32",
+      "start": 66.49,
+      "end": 68.0,
+      "text": "on a two minute cycle."
+    },
+    {
+      "id": "c33",
+      "start": 68.08,
+      "end": 69.27,
+      "text": "Running around the clock,"
+    },
+    {
+      "id": "c34",
+      "start": 69.31,
+      "end": 71.6,
+      "text": "that is more than 20 megawatts a week."
+    },
+    {
+      "id": "c35",
+      "start": 72.26,
+      "end": 75.44,
+      "text": "Next, a robot loads the table onto a rover,"
+    },
+    {
+      "id": "c36",
+      "start": 75.48,
+      "end": 78.22,
+      "text": "and the rover drives it out into the field."
+    },
+    {
+      "id": "c37",
+      "start": 78.48,
+      "end": 80.38,
+      "text": "Tormes is the first site where"
+    },
+    {
+      "id": "c38",
+      "start": 80.42,
+      "end": 82.93,
+      "text": "this version runs with autonomous rovers."
+    },
+    {
+      "id": "c39",
+      "start": 83.44,
+      "end": 84.96,
+      "text": "Here is the fair doubt."
+    },
+    {
+      "id": "c40",
+      "start": 85.0,
+      "end": 86.67,
+      "text": "This is a proof of concept"
+    },
+    {
+      "id": "c41",
+      "start": 86.71,
+      "end": 88.46,
+      "text": "on a portion of the project."
+    },
+    {
+      "id": "c42",
+      "start": 88.5,
+      "end": 90.86,
+      "text": "Those speed figures are the company's own,"
+    },
+    {
+      "id": "c43",
+      "start": 90.9,
+      "end": 93.62,
+      "text": "and it says real output depends on the site."
+    },
+    {
+      "id": "c44",
+      "start": 93.8,
+      "end": 96.2,
+      "text": "The robots also stop short."
+    },
+    {
+      "id": "c45",
+      "start": 96.38,
+      "end": 98.77,
+      "text": "Workers unload each table and set it"
+    },
+    {
+      "id": "c46",
+      "start": 98.81,
+      "end": 101.18,
+      "text": "on the steel supports waiting in the field."
+    },
+    {
+      "id": "c47",
+      "start": 101.65,
+      "end": 103.165,
+      "text": "Terabase says it is building"
+    },
+    {
+      "id": "c48",
+      "start": 103.205,
+      "end": 105.26,
+      "text": "robots for that last step too."
+    },
+    {
+      "id": "c49",
+      "start": 105.48,
+      "end": 107.24,
+      "text": "The farm is expected to start"
+    },
+    {
+      "id": "c50",
+      "start": 107.28,
+      "end": 109.58,
+      "text": "running in the first half of 2027."
+    },
+    {
+      "id": "c51",
+      "start": 110.1,
+      "end": 112.7,
+      "text": "Until then, the robots build the table,"
+    },
+    {
+      "id": "c52",
+      "start": 112.74,
+      "end": 114.6,
+      "text": "and a person sets it down."
+    }
+  ],
+  "credits_s": 5.0,
+  "look": "v2",
+  "words": [
+    {
+      "word": "Near",
+      "start": 0.82,
+      "end": 1.21
+    },
+    {
+      "word": "Barry,",
+      "start": 1.21,
+      "end": 1.6
+    },
+    {
+      "word": "in",
+      "start": 1.6,
+      "end": 1.92
+    },
+    {
+      "word": "Navarro",
+      "start": 1.92,
+      "end": 2.35
+    },
+    {
+      "word": "County,",
+      "start": 2.35,
+      "end": 2.96
+    },
+    {
+      "word": "robots",
+      "start": 3.08,
+      "end": 3.61
+    },
+    {
+      "word": "now",
+      "start": 3.61,
+      "end": 3.92
+    },
+    {
+      "word": "do",
+      "start": 3.92,
+      "end": 4.11
+    },
+    {
+      "word": "the",
+      "start": 4.11,
+      "end": 4.32
+    },
+    {
+      "word": "heavy",
+      "start": 4.32,
+      "end": 4.64
+    },
+    {
+      "word": "lifting",
+      "start": 4.64,
+      "end": 4.96
+    },
+    {
+      "word": "on",
+      "start": 4.96,
+      "end": 5.21
+    },
+    {
+      "word": "part",
+      "start": 5.21,
+      "end": 5.4
+    },
+    {
+      "word": "of",
+      "start": 5.4,
+      "end": 5.52
+    },
+    {
+      "word": "a",
+      "start": 5.52,
+      "end": 5.69
+    },
+    {
+      "word": "solar",
+      "start": 5.69,
+      "end": 6.05
+    },
+    {
+      "word": "farm.",
+      "start": 6.05,
+      "end": 6.56
+    },
+    {
+      "word": "A",
+      "start": 6.56,
+      "end": 6.98
+    },
+    {
+      "word": "person",
+      "start": 6.98,
+      "end": 7.32
+    },
+    {
+      "word": "still",
+      "start": 7.32,
+      "end": 7.62
+    },
+    {
+      "word": "has",
+      "start": 7.62,
+      "end": 7.84
+    },
+    {
+      "word": "to",
+      "start": 7.84,
+      "end": 8.06
+    },
+    {
+      "word": "set",
+      "start": 8.06,
+      "end": 8.31
+    },
+    {
+      "word": "each",
+      "start": 8.31,
+      "end": 8.58
+    },
+    {
+      "word": "piece",
+      "start": 8.58,
+      "end": 8.94
+    },
+    {
+      "word": "down.",
+      "start": 8.94,
+      "end": 9.48
+    },
+    {
+      "word": "The",
+      "start": 9.94,
+      "end": 10.49
+    },
+    {
+      "word": "project",
+      "start": 10.49,
+      "end": 10.87
+    },
+    {
+      "word": "is",
+      "start": 10.87,
+      "end": 11.17
+    },
+    {
+      "word": "Tormes",
+      "start": 11.17,
+      "end": 11.62
+    },
+    {
+      "word": "Solar,",
+      "start": 11.62,
+      "end": 12.24
+    },
+    {
+      "word": "457",
+      "start": 13.0,
+      "end": 13.64
+    },
+    {
+      "word": "megawatts,",
+      "start": 13.73,
+      "end": 14.37
+    },
+    {
+      "word": "built",
+      "start": 14.46,
+      "end": 14.92
+    },
+    {
+      "word": "by",
+      "start": 14.92,
+      "end": 15.15
+    },
+    {
+      "word": "the",
+      "start": 15.15,
+      "end": 15.49
+    },
+    {
+      "word": "contractor",
+      "start": 15.49,
+      "end": 16.005
+    },
+    {
+      "word": "SOLV",
+      "start": 16.005,
+      "end": 16.455
+    },
+    {
+      "word": "Energy",
+      "start": 16.455,
+      "end": 16.93
+    },
+    {
+      "word": "for",
+      "start": 16.93,
+      "end": 17.44
+    },
+    {
+      "word": "Matrix",
+      "start": 17.44,
+      "end": 17.93
+    },
+    {
+      "word": "Renewables.",
+      "start": 17.93,
+      "end": 18.52
+    },
+    {
+      "word": "Building",
+      "start": 18.92,
+      "end": 19.39
+    },
+    {
+      "word": "it",
+      "start": 19.39,
+      "end": 19.62
+    },
+    {
+      "word": "is",
+      "start": 19.62,
+      "end": 19.88
+    },
+    {
+      "word": "expected",
+      "start": 19.88,
+      "end": 20.21
+    },
+    {
+      "word": "to",
+      "start": 20.21,
+      "end": 20.56
+    },
+    {
+      "word": "support",
+      "start": 20.56,
+      "end": 20.89
+    },
+    {
+      "word": "about",
+      "start": 20.89,
+      "end": 21.34
+    },
+    {
+      "word": "450",
+      "start": 21.54,
+      "end": 22.18
+    },
+    {
+      "word": "jobs.",
+      "start": 22.18,
+      "end": 22.82
+    },
+    {
+      "word": "On",
+      "start": 23.16,
+      "end": 23.61
+    },
+    {
+      "word": "most",
+      "start": 23.61,
+      "end": 23.89
+    },
+    {
+      "word": "solar",
+      "start": 23.89,
+      "end": 24.26
+    },
+    {
+      "word": "farms,",
+      "start": 24.26,
+      "end": 24.76
+    },
+    {
+      "word": "crews",
+      "start": 24.76,
+      "end": 25.21
+    },
+    {
+      "word": "set",
+      "start": 25.21,
+      "end": 25.58
+    },
+    {
+      "word": "steel",
+      "start": 25.58,
+      "end": 25.99
+    },
+    {
+      "word": "tubes",
+      "start": 25.99,
+      "end": 26.3
+    },
+    {
+      "word": "in",
+      "start": 26.3,
+      "end": 26.46
+    },
+    {
+      "word": "the",
+      "start": 26.46,
+      "end": 26.65
+    },
+    {
+      "word": "field",
+      "start": 26.65,
+      "end": 26.88
+    },
+    {
+      "word": "first.",
+      "start": 26.88,
+      "end": 27.3
+    },
+    {
+      "word": "Then",
+      "start": 27.56,
+      "end": 28.11
+    },
+    {
+      "word": "workers",
+      "start": 28.11,
+      "end": 28.52
+    },
+    {
+      "word": "lift",
+      "start": 28.52,
+      "end": 28.91
+    },
+    {
+      "word": "heavy",
+      "start": 28.91,
+      "end": 29.29
+    },
+    {
+      "word": "glass",
+      "start": 29.29,
+      "end": 29.71
+    },
+    {
+      "word": "panels",
+      "start": 29.71,
+      "end": 30.14
+    },
+    {
+      "word": "onto",
+      "start": 30.14,
+      "end": 30.44
+    },
+    {
+      "word": "them,",
+      "start": 30.44,
+      "end": 30.69
+    },
+    {
+      "word": "one",
+      "start": 30.69,
+      "end": 30.9
+    },
+    {
+      "word": "by",
+      "start": 30.9,
+      "end": 31.2
+    },
+    {
+      "word": "one,",
+      "start": 31.2,
+      "end": 31.73
+    },
+    {
+      "word": "hundreds",
+      "start": 31.73,
+      "end": 32.15
+    },
+    {
+      "word": "of",
+      "start": 32.15,
+      "end": 32.45
+    },
+    {
+      "word": "thousands",
+      "start": 32.45,
+      "end": 32.75
+    },
+    {
+      "word": "of",
+      "start": 32.75,
+      "end": 33.01
+    },
+    {
+      "word": "them.",
+      "start": 33.01,
+      "end": 33.48
+    },
+    {
+      "word": "So",
+      "start": 33.7,
+      "end": 34.29
+    },
+    {
+      "word": "Terabase",
+      "start": 34.29,
+      "end": 34.88
+    },
+    {
+      "word": "Energy,",
+      "start": 34.9,
+      "end": 35.44
+    },
+    {
+      "word": "a",
+      "start": 35.44,
+      "end": 35.76
+    },
+    {
+      "word": "company",
+      "start": 35.76,
+      "end": 36.03
+    },
+    {
+      "word": "from",
+      "start": 36.03,
+      "end": 36.4
+    },
+    {
+      "word": "Berkeley,",
+      "start": 36.4,
+      "end": 36.92
+    },
+    {
+      "word": "California,",
+      "start": 36.92,
+      "end": 37.55
+    },
+    {
+      "word": "flipped",
+      "start": 37.55,
+      "end": 37.99
+    },
+    {
+      "word": "the",
+      "start": 37.99,
+      "end": 38.24
+    },
+    {
+      "word": "order.",
+      "start": 38.24,
+      "end": 38.65
+    },
+    {
+      "word": "It",
+      "start": 38.65,
+      "end": 39.06
+    },
+    {
+      "word": "parks",
+      "start": 39.06,
+      "end": 39.29
+    },
+    {
+      "word": "a",
+      "start": 39.29,
+      "end": 39.59
+    },
+    {
+      "word": "factory",
+      "start": 39.59,
+      "end": 39.99
+    },
+    {
+      "word": "line",
+      "start": 39.99,
+      "end": 40.36
+    },
+    {
+      "word": "right",
+      "start": 40.36,
+      "end": 40.59
+    },
+    {
+      "word": "in",
+      "start": 40.59,
+      "end": 40.72
+    },
+    {
+      "word": "the",
+      "start": 40.72,
+      "end": 40.96
+    },
+    {
+      "word": "field.",
+      "start": 40.96,
+      "end": 41.46
+    },
+    {
+      "word": "On",
+      "start": 41.7,
+      "end": 42.14
+    },
+    {
+      "word": "that",
+      "start": 42.14,
+      "end": 42.47
+    },
+    {
+      "word": "line,",
+      "start": 42.47,
+      "end": 42.97
+    },
+    {
+      "word": "robots",
+      "start": 42.97,
+      "end": 43.55
+    },
+    {
+      "word": "fasten",
+      "start": 43.55,
+      "end": 43.96
+    },
+    {
+      "word": "the",
+      "start": 43.96,
+      "end": 44.27
+    },
+    {
+      "word": "panels",
+      "start": 44.27,
+      "end": 44.66
+    },
+    {
+      "word": "onto",
+      "start": 44.66,
+      "end": 44.98
+    },
+    {
+      "word": "a",
+      "start": 44.98,
+      "end": 45.23
+    },
+    {
+      "word": "long",
+      "start": 45.23,
+      "end": 45.55
+    },
+    {
+      "word": "steel",
+      "start": 45.55,
+      "end": 46.02
+    },
+    {
+      "word": "tube,",
+      "start": 46.02,
+      "end": 46.52
+    },
+    {
+      "word": "called",
+      "start": 46.52,
+      "end": 46.84
+    },
+    {
+      "word": "a",
+      "start": 46.84,
+      "end": 47.06
+    },
+    {
+      "word": "torque",
+      "start": 47.06,
+      "end": 47.39
+    },
+    {
+      "word": "tube.",
+      "start": 47.39,
+      "end": 47.91
+    },
+    {
+      "word": "The",
+      "start": 47.91,
+      "end": 48.35
+    },
+    {
+      "word": "finished",
+      "start": 48.35,
+      "end": 48.68
+    },
+    {
+      "word": "piece",
+      "start": 48.68,
+      "end": 49.01
+    },
+    {
+      "word": "is",
+      "start": 49.01,
+      "end": 49.23
+    },
+    {
+      "word": "a",
+      "start": 49.23,
+      "end": 49.46
+    },
+    {
+      "word": "solar",
+      "start": 49.46,
+      "end": 49.79
+    },
+    {
+      "word": "table.",
+      "start": 49.79,
+      "end": 50.3
+    },
+    {
+      "word": "For",
+      "start": 50.36,
+      "end": 50.82
+    },
+    {
+      "word": "now,",
+      "start": 50.82,
+      "end": 51.12
+    },
+    {
+      "word": "the",
+      "start": 51.12,
+      "end": 51.4
+    },
+    {
+      "word": "line",
+      "start": 51.4,
+      "end": 51.61
+    },
+    {
+      "word": "is",
+      "start": 51.61,
+      "end": 51.96
+    },
+    {
+      "word": "optimized",
+      "start": 51.96,
+      "end": 52.37
+    },
+    {
+      "word": "for",
+      "start": 52.37,
+      "end": 52.69
+    },
+    {
+      "word": "one",
+      "start": 52.69,
+      "end": 53.05
+    },
+    {
+      "word": "panel",
+      "start": 53.05,
+      "end": 53.38
+    },
+    {
+      "word": "and",
+      "start": 53.38,
+      "end": 53.66
+    },
+    {
+      "word": "one",
+      "start": 53.66,
+      "end": 54.02
+    },
+    {
+      "word": "tracker,",
+      "start": 54.02,
+      "end": 54.53
+    },
+    {
+      "word": "made",
+      "start": 54.53,
+      "end": 54.95
+    },
+    {
+      "word": "by",
+      "start": 54.95,
+      "end": 55.24
+    },
+    {
+      "word": "First",
+      "start": 55.24,
+      "end": 55.61
+    },
+    {
+      "word": "Solar",
+      "start": 55.61,
+      "end": 55.98
+    },
+    {
+      "word": "and",
+      "start": 55.98,
+      "end": 56.37
+    },
+    {
+      "word": "Nextpower.",
+      "start": 56.37,
+      "end": 56.92
+    },
+    {
+      "word": "Then",
+      "start": 57.52,
+      "end": 58.16
+    },
+    {
+      "word": "AI-assisted",
+      "start": 58.32,
+      "end": 58.96
+    },
+    {
+      "word": "tools",
+      "start": 59.14,
+      "end": 59.66
+    },
+    {
+      "word": "check",
+      "start": 59.66,
+      "end": 60.05
+    },
+    {
+      "word": "every",
+      "start": 60.05,
+      "end": 60.43
+    },
+    {
+      "word": "unit,",
+      "start": 60.43,
+      "end": 60.86
+    },
+    {
+      "word": "so",
+      "start": 60.86,
+      "end": 61.2
+    },
+    {
+      "word": "a",
+      "start": 61.2,
+      "end": 61.4
+    },
+    {
+      "word": "panel",
+      "start": 61.4,
+      "end": 61.6
+    },
+    {
+      "word": "in",
+      "start": 61.6,
+      "end": 61.76
+    },
+    {
+      "word": "the",
+      "start": 61.76,
+      "end": 61.92
+    },
+    {
+      "word": "wrong",
+      "start": 61.92,
+      "end": 62.24
+    },
+    {
+      "word": "spot",
+      "start": 62.24,
+      "end": 62.6
+    },
+    {
+      "word": "gets",
+      "start": 62.6,
+      "end": 62.9
+    },
+    {
+      "word": "caught",
+      "start": 62.9,
+      "end": 63.19
+    },
+    {
+      "word": "right",
+      "start": 63.19,
+      "end": 63.51
+    },
+    {
+      "word": "away.",
+      "start": 63.51,
+      "end": 64.02
+    },
+    {
+      "word": "Terabase",
+      "start": 64.57,
+      "end": 65.145
+    },
+    {
+      "word": "says",
+      "start": 65.145,
+      "end": 65.55
+    },
+    {
+      "word": "one",
+      "start": 65.55,
+      "end": 65.89
+    },
+    {
+      "word": "line",
+      "start": 65.89,
+      "end": 66.23
+    },
+    {
+      "word": "runs",
+      "start": 66.23,
+      "end": 66.49
+    },
+    {
+      "word": "on",
+      "start": 66.49,
+      "end": 66.67
+    },
+    {
+      "word": "a",
+      "start": 66.67,
+      "end": 66.9
+    },
+    {
+      "word": "two",
+      "start": 66.9,
+      "end": 67.08
+    },
+    {
+      "word": "minute",
+      "start": 67.08,
+      "end": 67.39
+    },
+    {
+      "word": "cycle.",
+      "start": 67.39,
+      "end": 68.0
+    },
+    {
+      "word": "Running",
+      "start": 68.08,
+      "end": 68.54
+    },
+    {
+      "word": "around",
+      "start": 68.54,
+      "end": 68.77
+    },
+    {
+      "word": "the",
+      "start": 68.77,
+      "end": 69.01
+    },
+    {
+      "word": "clock,",
+      "start": 69.01,
+      "end": 69.31
+    },
+    {
+      "word": "that",
+      "start": 69.31,
+      "end": 69.53
+    },
+    {
+      "word": "is",
+      "start": 69.53,
+      "end": 69.68
+    },
+    {
+      "word": "more",
+      "start": 69.68,
+      "end": 69.87
+    },
+    {
+      "word": "than",
+      "start": 69.87,
+      "end": 70.15
+    },
+    {
+      "word": "20",
+      "start": 70.15,
+      "end": 70.49
+    },
+    {
+      "word": "megawatts",
+      "start": 70.49,
+      "end": 70.86
+    },
+    {
+      "word": "a",
+      "start": 70.86,
+      "end": 71.17
+    },
+    {
+      "word": "week.",
+      "start": 71.17,
+      "end": 71.6
+    },
+    {
+      "word": "Next,",
+      "start": 72.26,
+      "end": 72.72
+    },
+    {
+      "word": "a",
+      "start": 72.72,
+      "end": 73.05
+    },
+    {
+      "word": "robot",
+      "start": 73.05,
+      "end": 73.49
+    },
+    {
+      "word": "loads",
+      "start": 73.49,
+      "end": 73.86
+    },
+    {
+      "word": "the",
+      "start": 73.86,
+      "end": 74.15
+    },
+    {
+      "word": "table",
+      "start": 74.15,
+      "end": 74.48
+    },
+    {
+      "word": "onto",
+      "start": 74.48,
+      "end": 74.8
+    },
+    {
+      "word": "a",
+      "start": 74.8,
+      "end": 75.05
+    },
+    {
+      "word": "rover,",
+      "start": 75.05,
+      "end": 75.46
+    },
+    {
+      "word": "and",
+      "start": 75.48,
+      "end": 75.86
+    },
+    {
+      "word": "the",
+      "start": 75.86,
+      "end": 76.09
+    },
+    {
+      "word": "rover",
+      "start": 76.09,
+      "end": 76.49
+    },
+    {
+      "word": "drives",
+      "start": 76.49,
+      "end": 76.83
+    },
+    {
+      "word": "it",
+      "start": 76.83,
+      "end": 77.03
+    },
+    {
+      "word": "out",
+      "start": 77.03,
+      "end": 77.22
+    },
+    {
+      "word": "into",
+      "start": 77.22,
+      "end": 77.41
+    },
+    {
+      "word": "the",
+      "start": 77.41,
+      "end": 77.7
+    },
+    {
+      "word": "field.",
+      "start": 77.7,
+      "end": 78.22
+    },
+    {
+      "word": "Tormes",
+      "start": 78.48,
+      "end": 79.01
+    },
+    {
+      "word": "is",
+      "start": 79.01,
+      "end": 79.31
+    },
+    {
+      "word": "the",
+      "start": 79.31,
+      "end": 79.54
+    },
+    {
+      "word": "first",
+      "start": 79.54,
+      "end": 79.86
+    },
+    {
+      "word": "site",
+      "start": 79.86,
+      "end": 80.18
+    },
+    {
+      "word": "where",
+      "start": 80.18,
+      "end": 80.42
+    },
+    {
+      "word": "this",
+      "start": 80.42,
+      "end": 80.74
+    },
+    {
+      "word": "version",
+      "start": 80.74,
+      "end": 81.13
+    },
+    {
+      "word": "runs",
+      "start": 81.13,
+      "end": 81.43
+    },
+    {
+      "word": "with",
+      "start": 81.43,
+      "end": 81.87
+    },
+    {
+      "word": "autonomous",
+      "start": 81.87,
+      "end": 82.395
+    },
+    {
+      "word": "rovers.",
+      "start": 82.395,
+      "end": 82.93
+    },
+    {
+      "word": "Here",
+      "start": 83.44,
+      "end": 83.83
+    },
+    {
+      "word": "is",
+      "start": 83.83,
+      "end": 83.98
+    },
+    {
+      "word": "the",
+      "start": 83.98,
+      "end": 84.19
+    },
+    {
+      "word": "fair",
+      "start": 84.19,
+      "end": 84.5
+    },
+    {
+      "word": "doubt.",
+      "start": 84.5,
+      "end": 85.0
+    },
+    {
+      "word": "This",
+      "start": 85.0,
+      "end": 85.38
+    },
+    {
+      "word": "is",
+      "start": 85.38,
+      "end": 85.51
+    },
+    {
+      "word": "a",
+      "start": 85.51,
+      "end": 85.7
+    },
+    {
+      "word": "proof",
+      "start": 85.7,
+      "end": 85.92
+    },
+    {
+      "word": "of",
+      "start": 85.92,
+      "end": 86.29
+    },
+    {
+      "word": "concept",
+      "start": 86.29,
+      "end": 86.71
+    },
+    {
+      "word": "on",
+      "start": 86.71,
+      "end": 86.93
+    },
+    {
+      "word": "a",
+      "start": 86.93,
+      "end": 87.14
+    },
+    {
+      "word": "portion",
+      "start": 87.14,
+      "end": 87.42
+    },
+    {
+      "word": "of",
+      "start": 87.42,
+      "end": 87.61
+    },
+    {
+      "word": "the",
+      "start": 87.61,
+      "end": 87.9
+    },
+    {
+      "word": "project.",
+      "start": 87.9,
+      "end": 88.46
+    },
+    {
+      "word": "Those",
+      "start": 88.5,
+      "end": 89.0
+    },
+    {
+      "word": "speed",
+      "start": 89.0,
+      "end": 89.38
+    },
+    {
+      "word": "figures",
+      "start": 89.38,
+      "end": 89.71
+    },
+    {
+      "word": "are",
+      "start": 89.71,
+      "end": 89.9
+    },
+    {
+      "word": "the",
+      "start": 89.9,
+      "end": 90.16
+    },
+    {
+      "word": "company's",
+      "start": 90.16,
+      "end": 90.52
+    },
+    {
+      "word": "own,",
+      "start": 90.52,
+      "end": 90.9
+    },
+    {
+      "word": "and",
+      "start": 90.9,
+      "end": 91.18
+    },
+    {
+      "word": "it",
+      "start": 91.18,
+      "end": 91.35
+    },
+    {
+      "word": "says",
+      "start": 91.35,
+      "end": 91.6
+    },
+    {
+      "word": "real",
+      "start": 91.6,
+      "end": 91.97
+    },
+    {
+      "word": "output",
+      "start": 91.97,
+      "end": 92.4
+    },
+    {
+      "word": "depends",
+      "start": 92.4,
+      "end": 92.73
+    },
+    {
+      "word": "on",
+      "start": 92.73,
+      "end": 92.92
+    },
+    {
+      "word": "the",
+      "start": 92.92,
+      "end": 93.14
+    },
+    {
+      "word": "site.",
+      "start": 93.14,
+      "end": 93.62
+    },
+    {
+      "word": "The",
+      "start": 93.8,
+      "end": 94.32
+    },
+    {
+      "word": "robots",
+      "start": 94.32,
+      "end": 94.78
+    },
+    {
+      "word": "also",
+      "start": 94.78,
+      "end": 95.22
+    },
+    {
+      "word": "stop",
+      "start": 95.22,
+      "end": 95.64
+    },
+    {
+      "word": "short.",
+      "start": 95.64,
+      "end": 96.2
+    },
+    {
+      "word": "Workers",
+      "start": 96.38,
+      "end": 96.925
+    },
+    {
+      "word": "unload",
+      "start": 96.925,
+      "end": 97.385
+    },
+    {
+      "word": "each",
+      "start": 97.385,
+      "end": 97.82
+    },
+    {
+      "word": "table",
+      "start": 97.82,
+      "end": 98.17
+    },
+    {
+      "word": "and",
+      "start": 98.17,
+      "end": 98.45
+    },
+    {
+      "word": "set",
+      "start": 98.45,
+      "end": 98.65
+    },
+    {
+      "word": "it",
+      "start": 98.65,
+      "end": 98.81
+    },
+    {
+      "word": "on",
+      "start": 98.81,
+      "end": 98.97
+    },
+    {
+      "word": "the",
+      "start": 98.97,
+      "end": 99.18
+    },
+    {
+      "word": "steel",
+      "start": 99.18,
+      "end": 99.57
+    },
+    {
+      "word": "supports",
+      "start": 99.57,
+      "end": 99.99
+    },
+    {
+      "word": "waiting",
+      "start": 99.99,
+      "end": 100.27
+    },
+    {
+      "word": "in",
+      "start": 100.27,
+      "end": 100.43
+    },
+    {
+      "word": "the",
+      "start": 100.43,
+      "end": 100.67
+    },
+    {
+      "word": "field.",
+      "start": 100.67,
+      "end": 101.18
+    },
+    {
+      "word": "Terabase",
+      "start": 101.65,
+      "end": 102.215
+    },
+    {
+      "word": "says",
+      "start": 102.215,
+      "end": 102.585
+    },
+    {
+      "word": "it",
+      "start": 102.585,
+      "end": 102.77
+    },
+    {
+      "word": "is",
+      "start": 102.77,
+      "end": 102.89
+    },
+    {
+      "word": "building",
+      "start": 102.89,
+      "end": 103.205
+    },
+    {
+      "word": "robots",
+      "start": 103.205,
+      "end": 103.59
+    },
+    {
+      "word": "for",
+      "start": 103.59,
+      "end": 103.82
+    },
+    {
+      "word": "that",
+      "start": 103.82,
+      "end": 104.09
+    },
+    {
+      "word": "last",
+      "start": 104.09,
+      "end": 104.41
+    },
+    {
+      "word": "step",
+      "start": 104.41,
+      "end": 104.75
+    },
+    {
+      "word": "too.",
+      "start": 104.75,
+      "end": 105.26
+    },
+    {
+      "word": "The",
+      "start": 105.48,
+      "end": 105.93
+    },
+    {
+      "word": "farm",
+      "start": 105.93,
+      "end": 106.15
+    },
+    {
+      "word": "is",
+      "start": 106.15,
+      "end": 106.41
+    },
+    {
+      "word": "expected",
+      "start": 106.41,
+      "end": 106.72
+    },
+    {
+      "word": "to",
+      "start": 106.72,
+      "end": 107.0
+    },
+    {
+      "word": "start",
+      "start": 107.0,
+      "end": 107.28
+    },
+    {
+      "word": "running",
+      "start": 107.28,
+      "end": 107.58
+    },
+    {
+      "word": "in",
+      "start": 107.58,
+      "end": 107.8
+    },
+    {
+      "word": "the",
+      "start": 107.8,
+      "end": 107.97
+    },
+    {
+      "word": "first",
+      "start": 107.97,
+      "end": 108.26
+    },
+    {
+      "word": "half",
+      "start": 108.26,
+      "end": 108.55
+    },
+    {
+      "word": "of",
+      "start": 108.55,
+      "end": 108.96
+    },
+    {
+      "word": "2027.",
+      "start": 108.96,
+      "end": 109.58
+    },
+    {
+      "word": "Until",
+      "start": 110.1,
+      "end": 110.6
+    },
+    {
+      "word": "then,",
+      "start": 110.6,
+      "end": 111.0
+    },
+    {
+      "word": "the",
+      "start": 111.0,
+      "end": 111.42
+    },
+    {
+      "word": "robots",
+      "start": 111.42,
+      "end": 111.79
+    },
+    {
+      "word": "build",
+      "start": 111.79,
+      "end": 112.08
+    },
+    {
+      "word": "the",
+      "start": 112.08,
+      "end": 112.35
+    },
+    {
+      "word": "table,",
+      "start": 112.35,
+      "end": 112.74
+    },
+    {
+      "word": "and",
+      "start": 112.74,
+      "end": 113.04
+    },
+    {
+      "word": "a",
+      "start": 113.04,
+      "end": 113.26
+    },
+    {
+      "word": "person",
+      "start": 113.26,
+      "end": 113.63
+    },
+    {
+      "word": "sets",
+      "start": 113.63,
+      "end": 113.95
+    },
+    {
+      "word": "it",
+      "start": 113.95,
+      "end": 114.22
+    },
+    {
+      "word": "down.",
+      "start": 114.22,
+      "end": 114.6
+    }
+  ],
+  "timed_at": "2026-11-14T10:40:32+00:00",
+  "run_id": "2026-11-14"
+}
