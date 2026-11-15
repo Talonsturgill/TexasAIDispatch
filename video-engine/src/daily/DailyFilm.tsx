@@ -1,5 +1,5 @@
 import React from 'react';
-import {Sequence, spring, useCurrentFrame, useVideoConfig} from 'remotion';
+import {Freeze, Sequence, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import type {DispatchProps, Scene} from '../Dispatch';
 import {CreditsCard, SubtitleTrack} from '../lib/DispatchOverlays';
 import {ArtDirectionProvider} from '../lib/artDirection';
@@ -14,6 +14,7 @@ import {WordCaptions, type Word} from '../look/Captions';
 import {GradeStage} from '../look/Grade';
 import {HookTitle} from '../look/Hook';
 import {gradeFor, lookActive} from '../look/tokens';
+import {Atmosphere, MotionBlurDefs, beatGrid, hitCamera, hitsFor, sinceBeat, studioOn, whip} from '../look/studio';
 
 /**
  * THE DAILY FILM (November 12th, 2026). The composition the daily routine renders.
@@ -28,7 +29,7 @@ import {gradeFor, lookActive} from '../look/tokens';
  * the wrong thing silently is worse than one that stops and says why.
  */
 type DailyBoard = DispatchProps & {episode?: string; shots?: FilmShot[]; wall_views?: string[];
-  look?: string; tone?: string; hook?: string; words?: Word[]};
+  look?: string; tone?: string; hook?: string; words?: Word[]; motion?: string; beats?: number[]};
 
 /** A diagram or a document is not in a room. A view the board lists in `wall_views` gets plain
  * paper behind it instead of the region, so no skyline runs through thin lines and small labels. */
@@ -164,6 +165,13 @@ const DailyFilmV1: React.FC<DispatchProps> = (props) => {
  * with the grade, the v2 chip, word captions, the on-screen hook and the v2 camera around it.
  * knowledge/craft/LOOK_V2.md is the account.
  */
+/**
+ * THE LOOP. Short-form players loop, and a film whose last frame is its first gets watched twice
+ * without a seam. Over the credits' last LOOP_S the first frame of the film fades up over the card,
+ * so the final frame IS frame zero. The credits keep everything before that.
+ */
+const LOOP_S = 0.6;
+
 const DailyFilmV2: React.FC<DispatchProps> = (props) => {
   const board = props as DailyBoard;
   const {fps} = useVideoConfig(), frame = useCurrentFrame(), time = frame / fps;
@@ -172,10 +180,21 @@ const DailyFilmV2: React.FC<DispatchProps> = (props) => {
   const endFrame = Math.ceil(storyEnd(scenes) * fps - 1e-6);
   const creditFrames = (board.credits ?? '').trim() ? Math.ceil((board.credits_s ?? 5) * fps) : 0;
   if (frame >= endFrame) {
+    const last = endFrame + Math.max(1, creditFrames) - 1;
+    const loopFrames = Math.round(LOOP_S * fps);
+    const u = studioOn(board) && creditFrames > loopFrames * 2
+      ? Math.min(1, Math.max(0, (frame - (last - loopFrames)) / loopFrames)) : 0;
     return (
-      <Sequence from={endFrame} durationInFrames={Math.max(1, creditFrames)}>
-        <CreditsCard text={board.credits ?? ''} />
-      </Sequence>
+      <>
+        <Sequence from={endFrame} durationInFrames={Math.max(1, creditFrames)}>
+          <CreditsCard text={board.credits ?? ''} />
+        </Sequence>
+        {u > 0 && (
+          <div style={{position: 'absolute', inset: 0, opacity: u * u * (3 - 2 * u)}}>
+            <Freeze frame={0}><DailyFilmV2 {...props} /></Freeze>
+          </div>
+        )}
+      </>
     );
   }
   const id = dailyEpisodeId(board);
@@ -192,13 +211,26 @@ const DailyFilmV2: React.FC<DispatchProps> = (props) => {
     scenes.find((s) => time >= s.start_s && time < s.start_s + s.duration_s) ?? scenes[0];
   const cam = v2Camera(shot, shots, time);
   const wall = (board.wall_views ?? []).includes(shot.view);
+  // THE MOTION STUDIO (look/studio.tsx): hits, whip cuts, beat pulse and depth. `motion: 'off'` skips it.
+  const studio = studioOn(board);
+  const beats = studio ? beatGrid(board) : [];
+  const hit = studio ? hitCamera(time, fps, hitsFor(board)) : {scale: 0, x: 0, y: 0, rot: 0, glow: 0};
+  const sw = studio ? whip(time, shots.map((s) => Math.round(s.start_s * fps) / fps)) : {x: 0, blur: 0, scale: 0};
+  const pulse = studio ? Math.exp(-sinceBeat(time, beats) / 0.18) : 0;
+  const camX = cam.x + hit.x + sw.x, camY = cam.y + hit.y;
+  const camScale = (studio ? 1 + (cam.scale - 1) * 0.8 : cam.scale) + hit.scale + sw.scale;
+  const blurId = `studio-mb-${frame}`;
+  const camFilter = studio
+    ? (sw.blur > 0.5 ? `url(#${blurId})` : undefined)
+    : (cam.blur > 0.2 ? `blur(${cam.blur.toFixed(2)}px)` : undefined);
   return (
     <div className={SHELF_CLASS} style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#0b0d14'}}>
       <ShelfStyle />
       <GradeStage grade={grade} frame={frame}>
+        {studio && sw.blur > 0.5 && <MotionBlurDefs id={blurId} blur={sw.blur} />}
         <div style={{position: 'absolute', inset: -40, transformOrigin: '50% 44%',
-          transform: `translate(${cam.x}px, ${cam.y}px) scale(${cam.scale}) rotate(${cam.rot}deg)`,
-          filter: cam.blur > 0.2 ? `blur(${cam.blur.toFixed(2)}px)` : undefined}}>
+          transform: `translate(${camX}px, ${camY}px) scale(${camScale}) rotate(${cam.rot + hit.rot}deg)`,
+          filter: camFilter}}>
           <div style={{position: 'absolute', left: 40, top: 40, width: 1080, height: 1920}}>
             <ArtDirectionProvider profile={board.art_direction as never} scenes={scenes as never}>
               {wall ? (
@@ -220,11 +252,14 @@ const DailyFilmV2: React.FC<DispatchProps> = (props) => {
             </ArtDirectionProvider>
           </div>
         </div>
+        {studio && <Atmosphere frame={frame} fps={fps} camX={camX} camY={camY} tint={grade.key}
+          beatPulse={pulse} hitGlow={hit.glow} wall={wall} />}
       </GradeStage>
-      {cam.flash > 0 && <div style={{position: 'absolute', inset: 0, background: '#fff', opacity: cam.flash,
+      {!studio && cam.flash > 0 && <div style={{position: 'absolute', inset: 0, background: '#fff', opacity: cam.flash,
         mixBlendMode: 'screen'}} />}
-      <ChipV2 scene={scene} time={time} fps={fps} grade={grade} />
-      <HookTitle text={String(board.hook ?? '')} time={time} fps={fps} grade={grade} />
+      <ChipV2 scene={scene} time={time} fps={fps} grade={grade} beats={studio ? beats : undefined} />
+      <HookTitle text={String(board.hook ?? '')} time={time} fps={fps} grade={grade}
+        beats={studio ? beats : undefined} />
       <WordCaptions cues={board.captions ?? []} words={board.words ?? []} grade={grade} />
     </div>
   );

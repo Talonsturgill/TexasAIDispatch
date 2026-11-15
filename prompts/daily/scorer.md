@@ -26,6 +26,8 @@ You are judging stills and the script, so judge what they can show.
 - Is somebody on screen in most frames, and does their face change with the story?
 - Does a new picture land every few seconds, or do you see the same frame again along the sheet?
   A new subject at the same angle and size is still the same frame.
+- Is the subject caught acting, mid wind-up, mid leap, landing, reacting, or standing in a neutral
+  pose waiting for the next line? A sheet of people standing still is a slideshow however well drawn.
 - Is the subject big in the frame, or a small thing on an empty plain?
 - Is the biggest number made into something you can see, or only printed?
 - Is there one object that changes from the first scene to the last, and one image you would remember?
