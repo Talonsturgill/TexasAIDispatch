@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {staticFile, delayRender, continueRender} from 'remotion';
+import {staticFile, delayRender, continueRender, cancelRender} from 'remotion';
 
 // =============================================================================
 // FONTS — the three faces this film is set in, shipped with it.
@@ -62,23 +62,44 @@ const faceCss = (f: Face) =>
  * Renders a `<style>`, which is valid inside an `<svg>` and inside the document, so
  * the same component serves the review sheets and the film.
  */
-export const FontFaces: React.FC = () => {
+export const FontFaces: React.FC<React.PropsWithChildren> = ({children}) => {
   const [handle] = useState(() => delayRender('loading the three faces'));
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     let live = true;
-    Promise.all(FACES.map((f) => document.fonts.load(`${f.probe} "${f.family}"`)))
-      .then(() => document.fonts.ready)
-      .catch(() => undefined)          // a missing face must not hang the render forever
-      .then(() => {
-        if (live) continueRender(handle);
-      });
+    // Let the committed stylesheet register first. An immediate fonts.load()
+    // query can resolve with no matching faces before its CSS is active.
+    const frame = requestAnimationFrame(() => {
+      Promise.all(FACES.map((f) => document.fonts.load(`${f.probe} "${f.family}"`)))
+        .then((faces) => {
+          if (faces.some((loaded) => loaded.length === 0)) {
+            throw new Error('a shipped font face was not registered');
+          }
+          return document.fonts.ready;
+        })
+        .then(() => {
+          if (live) setReady(true);
+        })
+        .catch((error: unknown) => {
+          if (live) cancelRender(new Error(`Could not load the shipped fonts: ${String(error)}`));
+        });
+    });
     return () => {
       live = false;
+      cancelAnimationFrame(frame);
     };
   }, [handle]);
 
-  return <style>{FACES.map(faceCss).join('')}</style>;
+  // delayRender postpones capture, but React still lays out mounted text. On a
+  // fresh host that can enter a broken substitute font before our faces arrive.
+  // Mount the composition only once they are loaded, then release capture after
+  // that commit. No frame uses a host fallback, including the first layout.
+  useEffect(() => {
+    if (ready) continueRender(handle);
+  }, [ready, handle]);
+
+  return <><style>{FACES.map(faceCss).join('')}</style>{ready ? children : null}</>;
 };
 
 /**
@@ -91,10 +112,9 @@ export const FontFaces: React.FC = () => {
  */
 export function withFonts<P extends object>(Inner: React.ComponentType<P>): React.FC<P> {
   const Wrapped: React.FC<P> = (props) => (
-    <>
-      <FontFaces />
+    <FontFaces>
       <Inner {...props} />
-    </>
+    </FontFaces>
   );
   Wrapped.displayName = `withFonts(${Inner.displayName || Inner.name || 'Component'})`;
   return Wrapped;

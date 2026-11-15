@@ -25,6 +25,18 @@ reproducible. A current daily run never calls it and never resumes an unfinished
   `scripts/set-dispatch-gemini-key.sh`; hosted runs receive it from their environment.
 - `out/dispatch/` is scratch. Shipped artifacts under `runs/<date>/` are immutable.
 
+Locked media setup uses `/usr/share/miniconda/bin/conda` by default. On another host, provision
+official Conda 24.9 or newer separately, verify its vendor checksum, and select its absolute
+executable path with `DISPATCH_CONDA_EXE`. The installer neither downloads Conda nor searches
+`PATH`. It retains the complete official conda-forge artifact lock, SHA256 verification, isolated
+home and caches, and TLS verification. Only the verified FFmpeg and ffprobe wrappers are exposed.
+
+```sh
+DISPATCH_CONDA_EXE=/absolute/provisioned/miniconda/bin/conda \
+  bash scripts/run_with_env.sh python3 scripts/ci_ffmpeg.py --ensure \
+  --conda-lock config/ci_ffmpeg_linux64.explicit.txt
+```
+
 The sibling [TexasAIDocket](https://github.com/Talonsturgill/TexasAIDocket) owns the public record
 and site. Dispatch may change only its videos feed during the feed step. TexasAIScanner has no
 write overlap.

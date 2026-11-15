@@ -625,6 +625,11 @@ jobs:
           node tests/proven_actions.mjs
           node tests/direction.mjs
 
+      - name: Shipped fonts load before Daily text lays out
+        run: |
+          bash scripts/run_with_env.sh node video-engine/tests/fonts.mjs
+          bash scripts/run_with_env.sh python3 scripts/lean.py selftest --render
+
       - name: Bounded native storage authorization and proof freshness
         run: |
           bash scripts/run_with_env.sh python3 scripts/bounded_capture_test.py
