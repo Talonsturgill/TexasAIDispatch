@@ -23,6 +23,7 @@ import {ClinicShelfGallery} from './episodes/sample-v2/shelf/ClinicGallery';
 import {ComputeShelfGallery} from './episodes/sample-v2/shelf/ComputeGallery';
 import {FieldsShelfGallery} from './episodes/sample-v2/shelf/FieldsGallery';
 import {ScienceShelfGallery} from './episodes/sample-v2/shelf/ScienceGallery';
+import {BoxOnBottomFilm} from './episodes/2026-11-15/BoxOnBottomFilm';
 import {SetsItDownFilm} from './episodes/2026-11-14/SetsItDownFilm';
 import {LeakReviewFilm} from '../modern/episodes/2026-10-21/LeakReviewFilm';
 
@@ -85,4 +86,5 @@ export const dailyEpisodes: Record<string, React.FC<FilmRenderProps>> = {
   'look-v2-shelf-fields': FieldsShelfGallery,
   'look-v2-shelf-science': ScienceShelfGallery,
   'sets-it-down-1114': SetsItDownFilm,
+  'box-on-bottom-1115': BoxOnBottomFilm,
 };
