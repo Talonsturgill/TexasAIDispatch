@@ -430,22 +430,44 @@ class LifecycleTest(unittest.TestCase):
             report.write_text('{"score": 0, "ship": false}')
             self.assertFalse(c.check_delivery(self.state, report)[0])
 
-    def test_current_operator_surfaces_do_not_advertise_legacy_completion(self):
+    def test_current_operator_surfaces_point_to_the_daily_lane(self):
         surfaces = {
             name: " ".join((c.REPO / name).read_text().lower().split())
-            for name in ("README.md", "HANDOFF.md", "config/voices.yaml")
+            for name in (
+                "AGENTS.md",
+                "README.md",
+                "HANDOFF.md",
+                "prompts/ROUTINE_PROMPT.txt",
+                "prompts/CLAUDE_ROUTINE_PROMPT.txt",
+                "config/voices.yaml",
+            )
         }
-        forbidden = {
-            "README.md": ("a run ends as either",),
-            "HANDOFF.md": ("until the run reaches `publishable` or `needs_review`",),
-            "config/voices.yaml": ("blocked package as needs_review",),
-        }
-        for name, phrases in forbidden.items():
-            for phrase in phrases:
-                self.assertNotIn(phrase, surfaces[name])
+        for name in (
+            "AGENTS.md",
+            "README.md",
+            "HANDOFF.md",
+            "prompts/ROUTINE_PROMPT.txt",
+            "prompts/CLAUDE_ROUTINE_PROMPT.txt",
+        ):
+            self.assertIn("prompts/daily_routine.md", surfaces[name], name)
+        self.assertEqual(
+            surfaces["prompts/ROUTINE_PROMPT.txt"],
+            surfaces["prompts/CLAUDE_ROUTINE_PROMPT.txt"],
+            "the two launch pointers must remain identical so one cannot retain a retired lane",
+        )
+        forbidden = (
+            "prompts/dispatch_routine.md",
+            "config/run_limits.json",
+            "resume any eligible unfinished edition",
+            "five three-judge panels",
+            "active ledger",
+        )
+        for name, text in surfaces.items():
+            for phrase in forbidden:
+                self.assertNotIn(phrase, text, name)
         self.assertIn("production run completes only as `shipped`", surfaces["README.md"])
         self.assertIn("production run reaches `shipped`", surfaces["HANDOFF.md"])
-        self.assertIn("active ledger", surfaces["config/voices.yaml"])
+        self.assertIn("scripts/lean.py", surfaces["config/voices.yaml"])
 
     def test_publication_evidence_uses_exact_report_package_board(self):
         import production_quality as quality
