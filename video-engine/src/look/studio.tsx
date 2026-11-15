@@ -140,6 +140,63 @@ export const hitCamera = (time: number, fps: number, hits: Hit[]) => {
 };
 
 /**
+ * ACTING. The studio camera moves the frame. This moves the people in it. The film puts the clock,
+ * the beat grid and the hits in context, and every look v2 Figure reads them, so each person on
+ * screen acts in every shot without an episode asking:
+ *  - a slow weight shift and lean, so a held figure stands like a person, not a cut-out
+ *  - a head nod on the beat, so the cast moves with the music
+ *  - a take on every hit: a small crouch before it (anticipation), a stretch up with the head
+ *    popping and the brows lifting after it (overshoot), settling on a spring
+ *  - a pose change that winds back first and overshoots its mark, instead of sliding
+ * Outside a studio film there is no context and a Figure moves exactly as before.
+ */
+export type Acting = {time: number; beats: number[]; hits: Hit[]};
+export const ActingContext = React.createContext<Acting | null>(null);
+
+export type Take = {sx: number; sy: number; shiftX: number; lean: number; bob: number; brow: number};
+const STILL: Take = {sx: 1, sy: 1, shiftX: 0, lean: 0, bob: 0, brow: 0};
+
+/** What a figure's body does at this moment, from the acting context and its own seed. */
+export const takeFor = (act: Acting | null, seed: number, carrying: boolean): Take => {
+  if (!act) return STILL;
+  const t = act.time;
+  const phase = seed * 0.7;
+  let sx = 1, sy = 1, bob = 0, brow = 0;
+  // weight shift: a 5.2 s side to side with the lean trailing it (follow through)
+  let shiftX = Math.sin(t * 2 * Math.PI / 5.2 + phase) * 7;
+  let lean = Math.sin(t * 2 * Math.PI / 5.2 + phase - 0.6) * 1.5;
+  // the beat nod, offset a frame per seed so a crowd does not move as one
+  const sb = sinceBeat(t - (seed % 3) / 30, act.beats);
+  bob += 5 * Math.exp(-sb / 0.13);
+  for (const h of act.hits) {
+    const s = t - h.t;
+    if (s < -0.14 || s > 0.8) continue;
+    if (s < 0) {   // the crouch before the hit
+      const a = Math.sin(Math.PI / 2 * clamp((s + 0.14) / 0.14));
+      sy -= 0.045 * a * h.strength; sx += 0.03 * a * h.strength; bob += 9 * a * h.strength;
+      continue;
+    }
+    const q = squash(s, -0.06 * h.strength);   // negative amount: stretch up first, then settle
+    sx *= q.sx; sy *= q.sy;
+    bob -= 16 * ring(s, 2.6, 6) * h.strength;
+    brow = Math.max(brow, 8 * Math.exp(-3 * s) * h.strength);
+    lean += 2.4 * ring(s, 2.2, 5) * h.strength * (seed % 2 ? 1 : -1);
+  }
+  if (carrying) { sx = 1; sy = 1; shiftX *= 0.3; lean *= 0.3; }
+  return {sx, sy, shiftX, lean, bob, brow};
+};
+
+/** A pose blend that winds back a little, travels, overshoots and settles (0..1 in, about 1.1 peak). */
+export const actedBlend = (b: number): number => {
+  if (b <= 0) return 0;
+  if (b >= 1) return 1;
+  if (b < 0.18) return -0.08 * Math.sin(Math.PI * b / 0.18);
+  const u = (b - 0.18) / 0.82;
+  const c = 1.9;
+  return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2);
+};
+
+/**
  * THE WHIP CUT. In the first 0.22 s of a shot it slides in from the side with a horizontal smear
  * and settles past its mark; in the last 0.12 s of the shot before, it smears out the other way.
  * Odd cuts go left, even go right. Returns the slide, the blur and a little extra scale so the

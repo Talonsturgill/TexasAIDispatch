@@ -1758,6 +1758,24 @@ def carton_roller_place(seed=109):
     return normalize(fade(.60 * cardboard * contact + .12 * roller + .25 * texture * settle, 12), .30)
 
 
+def whip_whoosh(seed=110):
+    """The whip cut's air. Pink noise through a band that sweeps up from 300 Hz to 2.4 kHz as the
+    frame smears out, peaks on the cut (0.12 s in) and falls back fast as the next shot settles.
+    lean.py lays one on every whip cut of a studio film so the cut is heard as well as seen."""
+    dur = .36
+    t = t_axis(dur)
+    src = pink(dur, seed)
+    peak = .12
+    pos = np.where(t < peak, t / peak, 1 - (t - peak) / (dur - peak))
+    bands = (300, 520, 900, 1500, 2400)
+    out = np.zeros_like(t)
+    for i, f in enumerate(bands):
+        centre = i / (len(bands) - 1)
+        out += biquad_bp(src, f, 1.6) * np.exp(-((pos - centre) ** 2) / (2 * .2 ** 2))
+    env = np.where(t < peak, (t / peak) ** 2.2, np.exp(-(t - peak) / .06))
+    return normalize(fade(out * env, 6), .55)
+
+
 SOUNDS = {
     "subsurface_water": (subsurface_water, "oneshot", "soft synthetic water input in the visible buried irrigation illustration", ["water", "irrigation", "illustration"]),
     "carton_dual_seal": (carton_dual_seal, "oneshot", "designed suction seal synchronized to simultaneous illustrated front and side plate contact, not recorded Contoro equipment", ["carton", "grip", "suction", "illustration"]),
@@ -1861,6 +1879,7 @@ SOUNDS = {
     "thunder_far": (thunder_far, "oneshot", "a storm an hour away on the horizon", ["storm", "high_plains", "distance"]),
     "thunder_near": (thunder_near, "oneshot", "a storm overhead, a green sky", ["storm", "impact"]),
     "gas_pump": (gas_pump, "oneshot", "an old mechanical fuel pump at a roadside stop", ["road", "vintage", "machine"]),
+    "whip_whoosh": (whip_whoosh, "oneshot", "the air of a whip pan between two shots", ["transition", "motion", "cut"]),
 }
 
 

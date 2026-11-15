@@ -14,7 +14,7 @@ import {WordCaptions, type Word} from '../look/Captions';
 import {GradeStage} from '../look/Grade';
 import {HookTitle} from '../look/Hook';
 import {gradeFor, lookActive} from '../look/tokens';
-import {Atmosphere, MotionBlurDefs, beatGrid, hitCamera, hitsFor, sinceBeat, studioOn, whip} from '../look/studio';
+import {ActingContext, Atmosphere, MotionBlurDefs, beatGrid, hitCamera, hitsFor, sinceBeat, studioOn, whip} from '../look/studio';
 
 /**
  * THE DAILY FILM (November 12th, 2026). The composition the daily routine renders.
@@ -214,7 +214,9 @@ const DailyFilmV2: React.FC<DispatchProps> = (props) => {
   // THE MOTION STUDIO (look/studio.tsx): hits, whip cuts, beat pulse and depth. `motion: 'off'` skips it.
   const studio = studioOn(board);
   const beats = studio ? beatGrid(board) : [];
-  const hit = studio ? hitCamera(time, fps, hitsFor(board)) : {scale: 0, x: 0, y: 0, rot: 0, glow: 0};
+  const hits = studio ? hitsFor(board) : [];
+  const hit = studio ? hitCamera(time, fps, hits) : {scale: 0, x: 0, y: 0, rot: 0, glow: 0};
+  const acting = studio ? {time, beats, hits} : null;
   const sw = studio ? whip(time, shots.map((s) => Math.round(s.start_s * fps) / fps)) : {x: 0, blur: 0, scale: 0};
   const pulse = studio ? Math.exp(-sinceBeat(time, beats) / 0.18) : 0;
   const camX = cam.x + hit.x + sw.x, camY = cam.y + hit.y;
@@ -232,6 +234,7 @@ const DailyFilmV2: React.FC<DispatchProps> = (props) => {
           transform: `translate(${camX}px, ${camY}px) scale(${camScale}) rotate(${cam.rot + hit.rot}deg)`,
           filter: camFilter}}>
           <div style={{position: 'absolute', left: 40, top: 40, width: 1080, height: 1920}}>
+            <ActingContext.Provider value={acting}>
             <ArtDirectionProvider profile={board.art_direction as never} scenes={scenes as never}>
               {wall ? (
                 <div style={{position: 'absolute', inset: 0, background: WALL_V2}}>
@@ -250,6 +253,7 @@ const DailyFilmV2: React.FC<DispatchProps> = (props) => {
                 </PlaceStage>
               )}
             </ArtDirectionProvider>
+            </ActingContext.Provider>
           </div>
         </div>
         {studio && <Atmosphere frame={frame} fps={fps} camX={camX} camY={camY} tint={grade.key}

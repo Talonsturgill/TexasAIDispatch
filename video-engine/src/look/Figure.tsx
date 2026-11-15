@@ -1,5 +1,6 @@
 import React, {useId} from 'react';
 import {line, light, mix, shade} from './color';
+import {ActingContext, actedBlend, takeFor} from './studio';
 
 /**
  * FIGURE, the look v2 person (November 13th, 2026).
@@ -116,8 +117,11 @@ export const Figure: React.FC<FigureProps> = ({
   const bw = 0.88 + Math.max(0, Math.min(1, build)) * 0.28, SX = SHOULDER_X * bw;
   const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
   const t = frame / 30;
+  // in a studio film every figure acts: weight shift, beat nod, a take on each hit (look/studio.tsx)
+  const act = React.useContext(ActingContext);
+  const take = takeFor(act, seed, pose === 'hold' || pose === 'reach' || !!holding);
   const breath = Math.sin(t * 2 * Math.PI / 3.6 + seed) * 0.012;
-  const bob = Math.sin(t * 2 * Math.PI / 3.6 + seed) * 3;
+  const bob = Math.sin(t * 2 * Math.PI / 3.6 + seed) * 3 + take.bob;
   const sway = Math.sin(t * 2 * Math.PI / 4.4 + seed * 1.3) * 4;
   const blink = blinkAt(frame, seed);
   const walking = walk !== undefined;
@@ -127,7 +131,7 @@ export const Figure: React.FC<FigureProps> = ({
     const to = ARMS[pose][side];
     const from = ARMS[fromPose ?? pose][side];
     const b = Math.max(0, Math.min(1, poseBlend));
-    const e = b < 1 ? 1 - Math.pow(1 - b, 3) : 1;
+    const e = b < 1 ? (act ? actedBlend(b) : 1 - Math.pow(1 - b, 3)) : 1;
     let up = from[0] + (to[0] - from[0]) * e;
     let fore = from[1] + (to[1] - from[1]) * e;
     if (pose === 'wave' && side === 'r') fore += Math.sin(t * 2 * Math.PI * 1.8) * 22;
@@ -187,7 +191,8 @@ export const Figure: React.FC<FigureProps> = ({
     neutral: [0, 0, 0], happy: [2, 4, 4], excited: [6, 6, 10], worried: [10, -6, 4], surprised: [10, 10, 14],
     thinking: [-4, 6, 2], proud: [-2, 2, 2], determined: [-10, 4, -2], angry: [-16, 8, -4], smug: [-4, 4, 0],
   };
-  const [bi, bo, bh] = brows[emotion];
+  const [bi, bo, bh0] = brows[emotion];
+  const bh = bh0 + take.brow;
   const mouth = (() => {
     const mx = fx, my = headY + 40;
     switch (emotion) {
@@ -395,6 +400,7 @@ export const Figure: React.FC<FigureProps> = ({
       </defs>
       {/* contact shadow */}
       <ellipse cx={0} cy={4} rx={118} ry={22} fill="#1a1236" opacity={0.32} filter={`url(#${uid}-soft)`} />
+      <g transform={act ? `translate(${take.shiftX.toFixed(2)} 0) rotate(${take.lean.toFixed(3)}) scale(${take.sx.toFixed(4)} ${take.sy.toFixed(4)})` : undefined}>
       {leg(-1)}{leg(1)}
       {arm(L, false)}
       {/* torso with volume, rim and outfit */}
@@ -480,6 +486,7 @@ export const Figure: React.FC<FigureProps> = ({
       {arm(R, true)}
       {(pose === 'hold' || pose === 'reach' || pose === 'hips' || pose === 'shrug' || pose === 'crossed' || pose === 'panic') &&
         arm(L, true)}
+      </g>
     </g>
   );
 };
