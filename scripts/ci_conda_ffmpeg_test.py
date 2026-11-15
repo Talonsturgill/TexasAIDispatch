@@ -28,6 +28,7 @@ class LockedMedia(unittest.TestCase):
         self.env = mock.patch.dict(os.environ, {'RUNNER_TEMP':str(self.root), 'GITHUB_PATH':str(self.github_path),
             'GITHUB_ENV':str(self.github_env), 'PYTHONPATH':'/must-not-enter-conda', 'PYTHONHOME':'/must-not-enter-conda'})
         self.env.start(); self.addCleanup(self.env.stop)
+        os.environ.pop(media.CONDA_OVERRIDE, None)
 
     def metadata(self, prefix, packages=None):
         target = Path(prefix)/'conda-meta'; target.mkdir(parents=True, exist_ok=True)
@@ -132,6 +133,40 @@ class LockedMedia(unittest.TestCase):
                 mock.patch.object(media,'checked',return_value='conda 24.8.1\n') as run:
             with self.assertRaisesRegex(ValueError,'24.9'): media.install_locked(self.lock)
             self.assertEqual(run.call_count,1)
+
+    def test_explicit_provisioned_executable_takes_precedence_without_path_discovery(self):
+        selected = self.root/'official conda'; selected.write_text('# unit fixture\n'); selected.chmod(0o755)
+        with mock.patch.dict(os.environ,{media.CONDA_OVERRIDE:str(selected)}), \
+                mock.patch.object(media,'CONDA',self.root/'missing-default'), \
+                mock.patch.object(media,'checked',side_effect=self.checked) as run, \
+                mock.patch.object(media,'validate_tools',side_effect=self.tools):
+            wrappers = media.install_locked(self.lock)
+        self.assertEqual(run.call_args_list[0].args[0],[str(selected),'--version'])
+        self.assertEqual(run.call_args_list[1].args[0][0],str(selected))
+        receipt = json.loads((wrappers.parent/'media-tooling.json').read_text())
+        self.assertEqual(receipt['conda_executable'],str(selected))
+        self.assertEqual(receipt['lock_sha256'],hashlib.sha256(self.lock.read_bytes()).hexdigest())
+
+    def test_invalid_override_never_falls_back_executes_or_publishes(self):
+        nonexecutable=self.root/'not-executable'; nonexecutable.write_text('fixture')
+        for selected in ('', 'conda', './conda', ' '+str(self.conda), str(self.conda)+'\n',
+                         str(self.root/'missing'), str(self.root), str(nonexecutable)):
+            with self.subTest(selected=selected), \
+                    mock.patch.dict(os.environ,{media.CONDA_OVERRIDE:selected}), \
+                    mock.patch.object(media,'CONDA',self.conda), mock.patch.object(media,'checked') as run:
+                with self.assertRaisesRegex(ValueError,media.CONDA_OVERRIDE): media.install_locked(self.lock)
+                run.assert_not_called()
+            self.assertEqual(self.github_path.read_text(),'unchanged-path\n')
+            self.assertEqual(self.github_env.read_text(),'UNCHANGED=value\n')
+
+    def test_explicit_solver_still_requires_sha256_lock_capable_version(self):
+        for version in ('conda 24.8.1\n','not conda\n'):
+            with mock.patch.dict(os.environ,{media.CONDA_OVERRIDE:str(self.conda)}), \
+                    mock.patch.object(media,'checked',return_value=version) as run:
+                with self.assertRaisesRegex(ValueError,'24.9'): media.install_locked(self.lock)
+                self.assertEqual(run.call_count,1)
+            self.assertEqual(self.github_path.read_text(),'unchanged-path\n')
+            self.assertEqual(self.github_env.read_text(),'UNCHANGED=value\n')
 
     def test_installer_isolated_exact_channel_ssl_and_no_base_python_exposure(self):
         with mock.patch.object(media,'CONDA',self.conda), \

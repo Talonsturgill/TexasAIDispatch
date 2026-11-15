@@ -11,6 +11,27 @@ from urllib.parse import urlsplit
 
 CHANNEL = 'https://conda.anaconda.org/conda-forge'
 CONDA = Path('/usr/share/miniconda/bin/conda')
+CONDA_OVERRIDE = 'DISPATCH_CONDA_EXE'
+
+
+def conda_executable():
+    """Select an explicitly provisioned Conda, never search PATH or bootstrap it."""
+    override = os.environ.get(CONDA_OVERRIDE)
+    if override is not None:
+        if (not override or override != override.strip() or not Path(override).is_absolute()
+                or any(char in override for char in '\r\n\x00')):
+            raise ValueError(CONDA_OVERRIDE + ' must be an absolute path to a provisioned Conda executable')
+        executable = Path(override)
+        label = CONDA_OVERRIDE
+    else:
+        executable = CONDA
+        label = 'the documented runner Miniconda executable'
+    if not executable.is_file():
+        raise ValueError(label + ' is missing or not a file: ' + str(executable)
+                         + '; provision official Conda explicitly; no bootstrap is performed')
+    if not os.access(executable, os.X_OK):
+        raise ValueError(label + ' is not executable: ' + str(executable))
+    return executable
 
 
 def canonical_artifact_url(value):
@@ -131,9 +152,8 @@ def publish_tools(directory, encoder, probe):
 def install_locked(lock):
     lock = Path(lock).resolve()
     packages = read_lock(lock)
-    if not CONDA.is_file() or not os.access(CONDA, os.X_OK):
-        raise ValueError('the documented runner Miniconda executable is missing; no unverified bootstrap is allowed')
-    version = checked([str(CONDA), '--version'])
+    conda = conda_executable()
+    version = checked([str(conda), '--version'])
     match = re.match(r'conda (\d+)\.(\d+)', version)
     if not match or tuple(map(int, match.groups())) < (24, 9):
         raise ValueError('runner conda must support SHA256 explicit locks (24.9 or newer)')
@@ -150,13 +170,14 @@ def install_locked(lock):
                CONDA_REMOTE_MAX_RETRIES='1', CONDA_REPORT_ERRORS='false', CONDA_NOTIFY_OUTDATED_CONDA='false')
     # The only installation target and cache are this new owned scratch tree.
     # Timing out this isolated environment cannot interrupt dpkg or a live env.
-    checked([str(CONDA), 'create', '--yes', '--copy', '--no-default-packages', '--override-channels',
+    checked([str(conda), 'create', '--yes', '--copy', '--no-default-packages', '--override-channels',
              '--channel', CHANNEL, '--prefix', str(prefix), '--file', str(lock)], env=env, timeout=600)
     validate_installed(prefix, packages)
     encoder, probe = validate_tools(prefix, directory, packages)
     receipt = {'schema': 'dispatch-ci-media-tooling/1', 'source': CHANNEL,
                'lock_sha256': hashlib.sha256(lock.read_bytes()).hexdigest(),
                'packages': len(packages), 'ffmpeg': packages['ffmpeg'], 'conda_version': version.strip(),
+               'conda_executable': str(conda),
                'h264_probe': True, 'audio_probe': True, 'required_capabilities': True}
     (directory/'media-tooling.json').write_text(json.dumps(receipt, indent=2)+'\n')
     wrappers = publish_tools(directory, encoder, probe)
