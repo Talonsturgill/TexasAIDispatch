@@ -1,26 +1,24 @@
 # Dispatch worker routing
 
-On a Claude routine use prompts/claude_routine.md and config/claude_runtime.json instead of
-Codex collaboration arguments. The owner's October 9th migration authorizes this explicit
-Sonnet host route and fresh authored artwork. Retain all historical evidence and quality gates.
+The current production lane is `prompts/daily_routine.md`, executed through
+`scripts/lean.py`. Read `CLAUDE.md` and that runbook before production work. They replace the
+controller, checkpoint, capture-authorization and phase-prompt lane retained for historical
+editions.
 
-For an active Dispatch production routine, read knowledge/craft/AGENT_RUNTIME.md and
-config/agent_runtime.json. These govern the existing isolated assignments from the effective
-date. Preserve the saved director model, schedule, frozen envelope and actual charged failures.
+Daily creative assignments use the built-in `general-purpose` worker with the model and effort
+named in `prompts/daily_routine.md`. Do not substitute the agent definitions under `.claude/` or
+the retired runtime plans under `config/`. Those files remain only so older editions and their
+tests stay reproducible.
 
-Use scripts/agent_runtime.py --plan with the current compact packet before reserving a worker.
-Pass its explicit model, reasoning_effort and fork_turns to the collaboration spawn tool.
-Use fork_turns none; a full-history fork cannot honor the role-specific model assignment.
-Reuse the existing builder and critic for bounded follow-ups with current hash-bound inputs.
-Never recursively delegate or add a reviewer to compensate for a poor assignment.
-A plan is not a reservation, an executed worker, a verdict or permission to send anything.
+Brief each worker once with the current compact inputs. Reuse it only for a bounded follow-up on
+those inputs. Never recursively delegate or add a reviewer to compensate for a weak assignment.
+A worker's response is research, a pitch or a review. It is never a production reservation,
+shipment verdict or permission to send anything.
 
-Run every Dispatch shell command through scripts/run_with_env.sh. In a worktree explicitly
-cd inside the wrapped shell. Never print, copy or commit credentials. Read CLAUDE.md and the
-assigned brief; load the current phase and its required contracts, not the historical archive.
-Preserve unrelated work and shipped run bytes. Never send email. Authorized daily social publishing follows the November 10th update in
-CLAUDE.md and prompts/claude_routine.md.
+Run every Dispatch shell command through `scripts/run_with_env.sh`. Preserve unrelated work and
+shipped run bytes. Never print, copy or commit credentials. Never send email. Authorized daily
+social publishing follows `prompts/social_delivery.md`.
 
-The workspace personal writing rule applies to every newly authored audience-facing word.
-Use concrete actions, outcomes and consequences. Run the existing prose check before voice
-synthesis and delivery. Preserve quoted source evidence and code identifiers.
+The workspace personal writing rule applies to every newly authored audience-facing word. Use
+concrete actions, outcomes and consequences. Run the existing prose check before voice synthesis
+and delivery. Preserve quoted source evidence and code identifiers.

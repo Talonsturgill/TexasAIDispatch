@@ -1,111 +1,66 @@
-# Handoff — credentials, routine setup, and current truth
+# Handoff: daily lane setup and current truth
 
-One Dispatch shipped on 2026-08-18. It exposed the failure modes the current machine is designed
-around: 27 panel rounds, 81 scorer calls, repeated visual constructions, text-heavy scenes, an
-ill-fitting 1923 fiddle bed, and subtitles colliding with the live feed overlay. The shipped run
-under `runs/2026-08-18/` is regression evidence and must not be rewritten.
-
----
+The current production path is the daily lane added on November 12th, 2026. Older controller
+machinery remains as historical evidence and regression coverage, not as a launch path. Shipped
+edition directories under `runs/` are immutable.
 
 ## 1. Start the routine
 
-The primary workflow is now a deliberate local morning start. Open the Texas AI project in
-Codex and paste the contents of `prompts/ROUTINE_PROMPT.txt`. That short text points the task at
-this repository's versioned `prompts/dispatch_routine.md`, which remains the only master.
+Use `prompts/CLAUDE_ROUTINE_PROMPT.txt` for the scheduled trigger. The compatibility trigger at
+`prompts/ROUTINE_PROMPT.txt` gives the same current instruction. Both send the run to
+`prompts/daily_routine.md`, which is the only production runbook.
 
-| start | prompt file | cadence |
-|---|---|---|
-| Fresh local Codex task | `prompts/ROUTINE_PROMPT.txt` | once each morning |
+At wake, fetch current `main`, read `CLAUDE.md` and read `prompts/daily_routine.md` in full. The
+runbook creates one fresh film for the current date. It never resumes, repairs or waits on an
+unfinished older edition. A production run reaches `shipped` only after the film is delivered,
+committed, merged and recorded by the daily lane.
 
-The indirection is deliberate: the real instructions stay versioned and reviewable in GitHub
-rather than living in a chat or settings box nobody diffs. The local checkout is used when it is
-attached. The trigger falls back to `main` on GitHub only when no checkout is available.
+## 2. Runtime and credentials
 
-The task runs autonomously after the morning message, but the Mac, network connection, and Codex
-app must remain available until the production run reaches `shipped`. `publishable` authorizes
-release and keeps the controller open in `publishing`; a review package is only a durable
-checkpoint. A hosted scheduled task can use the same pointer later, but it needs its own
-environment and credentials; it cannot read the local workspace secret.
+Every Dispatch command goes through `bash scripts/run_with_env.sh ...`. The wrapper activates the
+available pinned runtime and loads the voice credential without copying or printing it.
 
-**Connectors:** Gmail, for the draft. Nothing else is required.
+- Local setup stores the Gemini key with `scripts/set-dispatch-gemini-key.sh` outside the
+  repository.
+- A hosted runner provides `GEMINI_API_KEY` in its environment.
+- `generativelanguage.googleapis.com` must be reachable for voice synthesis.
+- A compatible Remotion browser and the pinned media tools must be available. The runbook's wake
+  step checks and repairs that runtime before production.
 
----
+Never commit a key, pass it on a command line or print it. A missing key or an unavailable voice
+API is reported exactly as the runbook requires.
 
-## 2. The Gemini key
+## 3. Repository and delivery access
 
-The voice is Gemini TTS, which is the one part of this machine that cannot run without a
-credential.
+The routine needs push access to this repository. The Docket feed step also needs access to
+`Talonsturgill/TexasAIDocket`, where Dispatch may change only `docs/videos/videos.json` and
+regenerate the site from committed inputs.
 
-For the local Texas AI project, store the key with the workspace's interactive
-`scripts/set-dispatch-gemini-key.sh` helper. It writes outside every Git repository with mode
-`600`. Every routine command runs through the Dispatch `scripts/run_with_env.sh` entry point,
-which loads that key without evaluating or printing its file. A hosted runner instead sets
-`GEMINI_API_KEY` in its own environment. `generativelanguage.googleapis.com` has to be reachable
-under the environment's network policy.
+The Gmail connector is used only to create and verify the unsent delivery draft. Never send email.
+Current social delivery follows `prompts/social_delivery.md`. Missing access is reported per
+destination and does not unship the film.
 
-The model is `gemini-3.1-flash-tts-preview` with `gemini-2.5-pro-preview-tts` as the failover on
-repeated 500s. Every synthesis and verbatim-soundcheck request debits the same run ledger. Four
-external audio-model calls is the hard run-wide ceiling, including retries and later batches.
+## 4. Current production state
 
-**Audition the voice before the first real run.** `config/voices.yaml` carries a DEFAULT so the
-machine runs rather than blocking on a preference, and it says so in the file. It also carries the
-method: synthesise the same real Dispatch passage in every candidate, grade them all with
-`vo_soundcheck.py`, and only listen once the measured takes are ranked. A voice that reads a
-pleasant paragraph well and lands a figure badly is the wrong voice for a show whose whole subject
-is figures. Record the winner in the same file.
+The live command surface is `scripts/lean.py`. It owns initialization, board checks, voice,
+measured caption alignment, timing, stills, cuts, final checks, panel records, delivery, commit,
+feed reconciliation, draft preparation and the final receipt. Run commands by exit code.
 
-`knowledge/craft/VO_DIRECTION.md` describes the read: a person who knows the subject, telling you
-something they think you should know, slightly dry and willing to leave a silence.
+The whole film exists as a rough cut before scene polish. Current limits and measurements live in
+their committed configuration files. The ship threshold remains only in
+`config/dispatch_rubric.yaml`; do not restate it in an operator document.
 
-**Without the key, everything else still runs.** `vo_synth_gemini.py` exits 3, which means BLOCKED
-and is deliberately not the same exit code as failed. The run reports the voice step as blocked
-rather than shipping a silent film.
+Daily scratch lives under `out/dispatch/`. A daily run keeps no `.claude/WORKLOG.md`.
+`scripts/lean.py status` reports the current step from the scratch artifacts. A larger development
+task may keep a temporary worklog under its own scratch directory.
 
----
+## 5. Retired lane
 
-## 3. Push access to the docket repo
+The old controller, ledgers, leases, completion capacity, capture authorization, review packages,
+historical routine and phase prompts are retained so shipped editions and their tests can be
+reproduced. Do not rebuild them, use them to start a daily film or make a current film wait for
+their state.
 
-The publish step writes exactly one file into `TexasAIDocket`: `docs/videos/videos.json`, the feed
-manifest. The routine environment needs push access to that repo for the step to land.
-
-**That is the only file this repo writes there, ever.**
-
----
-
-## What is done and what remains operational
-
-The engine, Texas knowledge, agents, rubric, licence checks, caption/alignment path, and product
-gates are present. The remediation adds:
-
-- one atomic controller for calls, tokens, elapsed time, preflights, renders, panels, and terminal
-  state;
-- an early structural board gate plus quarter-scale animatic and measured pixel-motion check;
-- up to four batched corrections and five three-judge panels, with a machine-computed report card
-  that preserves any judge's hard fail;
-- a locked post-panel-five cleanup mode, one cleanup render, and one last-resort full-render
-  attempt;
-- a no-empty-run invariant: every retained checkpoint owns an exact MP4, while below-bar cuts
-  persist under `runs/review/` without touching the shipped feed or ending production; each
-  successful cut is snapshotted, and
-  a failed renderer falls back to an inspected-animatic upscale or timed storyboard-card reel that
-  is mechanically review-only;
-- a run-wide four-call voice quota instead of a per-batch suggestion;
-- an opt-in music registry that requires a playable file and mood/use/energy/era/avoid fit, with
-  measured bed level relative to voice;
-- final-film mobile and desktop feed compositing; and
-- `deliver_run.sh --verify-only`, which runs the package checks without writing a ledger, run
-  artifact, commit, PR, merge, or feed entry.
-
-On a fresh renderer, either set `REMOTION_BROWSER_EXECUTABLE` to an existing compatible headless
-shell or allow Remotion to manage one. The repository no longer pins a runner-specific `/opt`
-browser revision.
-
-Run a `dry-run` when moving to a new machine or changing the renderer. The normal morning trigger
-uses production mode and checks the Gemini credential, pinned Python environment, ffmpeg,
-ffprobe, Node, browser, clean worktree, and repository wiring at wake before it spends research,
-voice, or render budget.
-
-`.claude/WORKLOG.md` was the build's wave table and was deleted on 2026-08-19 when its last
-wave went DONE, which is what `CLAUDE.md` says to do with it. The reasoning did not go with
-it: the craft lessons live in `knowledge/craft/GATE_LESSONS.md`, and every gate carries the
-defect it exists for in its own docstring plus a `--self-test` that replays it.
+For a quick code-path check on a maintenance branch, run the daily self-test and feed regression
+through the wrapper. The pull request must still pass every required repository check on its exact
+head before merge.
