@@ -485,6 +485,10 @@ jobs:
           # wavs. It used to return a literal 0 after writing 31 files, checking nothing,
           # while write_wav silently hard-clipped anything out of range on the way to disk.
           python3 scripts/foley.py --build "$(mktemp -d)"
+          # The beat grid and the stillness check each prove they can go red: click tracks at
+          # three tempos must measure within 2 BPM and 30 ms, and a held frame must be found.
+          python3 scripts/beat_grid.py --selftest
+          python3 scripts/motion_check.py --selftest
           # Registry sources may be MP3 while the mixer accepts only measured PCM WAV. The
           # explicit preparation step converts the real enabled asset and binds both hashes;
           # swapping either side must make later package verification red.

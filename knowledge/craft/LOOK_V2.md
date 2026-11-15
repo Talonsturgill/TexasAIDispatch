@@ -121,12 +121,58 @@ solved or learned.
 
 ## Motion and the camera
 
-- **Every cut punches in.** The v2 camera adds a 6% scale punch with a short flash and a touch of
-  motion blur on each cut after the first, then a slow push and drift (`DailyFilm.tsx`
-  `v2Camera`). It reads as edited, not slideshowed.
+- **Every cut punches in.** The v2 camera adds a 6% scale punch on each cut after the first,
+  then a slow push and drift (`DailyFilm.tsx` `v2Camera`). With the motion studio on (the default)
+  the cut is a whip pan instead of the old flash. It reads as edited, not slideshowed.
 - **Pose changes travel.** A Figure's arms move from the old pose to the new over 0.35 seconds
   (`fromPose`, `poseBlend`). Nothing pops.
 - **A beat that lands gets a burst** (`Kit.tsx` `Burst`), so the eye knows where to look.
+
+## The motion studio (November 15th, 2026)
+
+The owner pointed at a motion-design stack (Disney's twelve principles as an agent skill, GSAP
+timelines, react-postprocessing, three.quarks particles, librosa beat sync, WhisperX word timing)
+and a long article on running an animation studio with agents, and asked for the Texas films to
+move ten times better: "the best video engine on earth". Yesterday's film had strong drawings and
+a picture that barely moved between cuts. Characters stood, events landed with no hit, every cut was
+a white flash, and the stillness check found three held stretches of about two seconds each.
+
+Everything below is drawn for every look v2 board by `look/studio.tsx`. A board with
+`motion: 'off'` renders the way look v2 did before, for comparison. No new dependency.
+
+- **Every visual event is a hit.** The camera winds up the other way for 0.14 seconds
+  (anticipation), punches past its mark and settles on a damped spring (overshoot), and shakes for
+  three frames on the impact. A ring of light blooms out from the centre.
+- **Cuts are whip pans.** The outgoing shot smears out sideways with horizontal motion blur, the
+  new one smears in from the other side and settles. Odd cuts go one way, even cuts the other. The
+  white flash is gone.
+- **The film knows the music's beat.** `scripts/beat_grid.py` measures every enabled bed once
+  (numpy and ffmpeg only, no librosa) into `config/music/beats.json`, and `lean.py time` stamps
+  the film's slice on the board as `beats`. A bed with no clear beat (confidence under 0.2) gets a
+  120 BPM grid. Label chips land on the nearest beat, the hook's words slam in on half beats, and
+  the light breathes on every beat.
+- **Chips and hook words slam.** They drop from over size with a blur, squash on contact,
+  rebound and settle. The hook line kicks with a three-frame shake as each word hits.
+- **Depth.** Far dust drifts at 0.4 of the camera, near bokeh at 1.7 times it, and two light
+  shafts sweep from the key side. A flat plate reads as a place with air in it.
+- **The last frame is the first.** Over the credits' last 0.6 seconds the film's first frame fades
+  up, so a looping player shows no seam and a second watch starts by itself.
+- **Diagrams animate.** `CountUp` counts a number to its value and lands it with a squash.
+  `DrawOn` draws a path on with an ease out. A wall view shows a figure arriving, never a card.
+- **The stillness check.** `scripts/motion_check.py` measures the finished cut: the mean change
+  between frames over the picture's rows (captions and chip band left out), and every run of 1.6
+  seconds or more under 0.8 grey levels. `lean.py check` lists each as a note with its times.
+
+What the drawing still owes (Phase 5): the studio moves the camera and the type. The subject has
+to act inside the shot. Give every event's subject its own anticipation, overshoot and squash
+(`lib/motion.tsx` `entrance`, `anticipate`, `squashStretch`, `followThrough`), one clear action
+per shot, and arcs instead of straight lines.
+
+From the article, kept: one action per shot, a hook a muted viewer reads in three seconds, a
+fresh read-only judge per review (the panel already is), a contact sheet of the cut checked before
+shipping (`L frames`), a beat grid, anticipation and overshoot, and the loop. Left out: the paid
+generation service it sells (the owner said no), and generated video in general. A drawn film has
+no character drift, because every character is code.
 
 ## The kit
 

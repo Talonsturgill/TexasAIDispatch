@@ -408,7 +408,15 @@ three files in that directory: the hero drawing, the props, the film.
   subject a tenth of the frame high on an empty plain is a location still, not a shot.
 - **Nothing moves linearly and nothing pops.** Entrances anticipate, overshoot and settle
   (`lib/motion.tsx`: `entrance`, `POP`, `SNAP`, `SETTLE`, `squashStretch`, `anticipate`). People
-  idle (`humanIdle`). Numbers count up and land with a hit. An impact lands in the object.
+  idle (`humanIdle`). Numbers count up and land with a hit (`look/studio.tsx` `CountUp`), and
+  arrows and chart lines draw on (`DrawOn`). An impact lands in the object.
+- **One action per shot, and the subject does it.** On a v2 board the motion studio
+  (`look/studio.tsx`, LOOK_V2.md "The motion studio") already hits the camera on every visual
+  event, whips every cut, lands chips and hook words on the music's beat and loops the last frame
+  into the first. It moves the camera and the type, never your drawing. So each event's subject
+  acts at its own `at_s`: a wind-up before, an overshoot after, a squash where it lands, loose parts
+  following through, and a path that arcs. A shot where only the camera moves is a held frame, and
+  `L check` names every one it measures.
 - **The v2 idiom** on everything you draw (LOOK_V2.md, the ten rules). Round every corner. Light
   every form from the upper left with a lit side, a violet-leaning shade side and a rim. Give
   everything that stands a contact shadow and everything that flies a shadow on the ground. Outline
@@ -456,7 +464,9 @@ a run renders a frame. Never call the renderer by hand.
    while improving.
 2. `L check`. Exit 1 is a work order: a film that does not play, narration the captions miss,
    loudness off target, a black picture, a stretch with no new beat, source the lint refuses. Each
-   takes minutes to fix. Fix, `L cut`, `L check`.
+   takes minutes to fix. Fix, `L cut`, `L check`. Its notes include every stretch where the picture
+   barely moves (`scripts/motion_check.py`). Treat each as the weakest shot in the film: give its
+   subject an action, then cut again.
 3. `L frames` writes contact sheets and stills to `out/dispatch/review/`. LOOK at them yourself
    first, with the showstopper test. Anything you can see is wrong, fix before paying for a panel.
    What is on screen always matches the sentence being spoken, figures included.

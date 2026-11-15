@@ -697,8 +697,26 @@ def timed_board(board: dict, words: list[dict], cues: list[dict]) -> tuple[dict,
     # look v2 lights each word as it is said (src/look/Captions.tsx), from the forced alignment's own times
     out["words"] = [{"word": str(w.get("word", "")), "start": round(float(w["start"]), 3), "end": round(float(w["end"]), 3)}
                     for w in words if float(w["start"]) < story_end]
+    # the studio motion lands chips, hook words and the light pulse on the bed's beats
+    # (src/look/studio.tsx). A track with no clear beat leaves this empty and the film uses 120 BPM.
+    out["beats"] = film_beats(board, story_end)
     out["timed_at"] = now()
     return out, sfx
+
+
+BEAT_CONFIDENCE_MIN = 0.2
+
+
+def film_beats(board: dict, runtime_s: float) -> list[float]:
+    track = (board.get("music") or {}).get("track")
+    table_path = REPO / "config" / "music" / "beats.json"
+    if not track or not table_path.exists():
+        return []
+    entry = json.loads(table_path.read_text()).get(track) or {}
+    if float(entry.get("confidence") or 0) < BEAT_CONFIDENCE_MIN:
+        return []
+    from beat_grid import slice_for
+    return slice_for(entry, runtime_s)
 
 
 def music_credit(board: dict) -> str:
@@ -936,6 +954,12 @@ def film_problems(date: str) -> tuple[list[str], list[str], dict]:
     hard += source_problems()
     hard += beat_problems(board)
     soft += pacing_notes(board)
+    # the stillness check (scripts/motion_check.py): where the picture itself stops moving
+    try:
+        from motion_check import notes as stillness_notes
+        soft += stillness_notes(film, float(board.get("runtime_s") or 0) or None)
+    except Exception as exc:   # a note, never a blocker: a decode hiccup must not stop delivery
+        soft.append(f"the stillness check could not run ({exc})")
     return hard, soft, facts
 
 
@@ -1426,6 +1450,11 @@ def cmd_selftest(a) -> int:
        len(copy_problems("x", "A \u2014 b: c at 9:30")) == 2, copy_problems("x", "A \u2014 b: c at 9:30"))
     limits = cfg()["film"]
     thin = plan_problems(board, limits, 120)
+    fb = film_beats({"music": {"track": "amazing_plan"}}, 30.0)
+    ok("a film with a beat-led bed carries its beats, in order and inside the film",
+       len(fb) > 30 and fb == sorted(fb) and fb[-1] <= 30.0, fb[:4])
+    ok("a bed with no clear beat, or no bed, carries none (the film falls back to 120 BPM)",
+       film_beats({"music": {"track": "echoes_of_time_v2"}}, 30.0) == [] and film_beats({}, 30.0) == [])
     ok("a thin board is caught on paper: no treatment, no throughline, no one on screen, too few beats",
        sum(any(k in p for p in thin) for k in ("treatment.logline", "throughline", "beats for about",
                                                "shots name a person", "draw needs a subject")) == 5, thin)
