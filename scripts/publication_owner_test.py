@@ -109,6 +109,37 @@ class PublicationOwnership(Base):
             self.take()
         self.assertFalse((self.root / 'primary' / owner.MARKER).exists())
 
+    def test_existing_reference_rejection_reads_the_winner_without_claiming_ownership(self):
+        self.init_ledger(); before = self.state.read_bytes()
+        self.take(workspace=self.root / 'winner', session='winner')
+        winner = owner.read_remote(self.repo)
+        rejected = checkpoint.CheckpointError('git push --quiet failed: -> claude/publication-owner (reference already exists)')
+        with patch.object(owner, 'read_remote', side_effect=[None, winner]) as read, \
+                patch.object(owner, 'append', side_effect=rejected) as append:
+            result = self.take(workspace=self.root / 'loser', session='loser')
+        self.assertEqual('busy', result['status'])
+        self.assertEqual(winner['owner_sha256'], result['owner_sha256'])
+        self.assertFalse(result['review_approval'])
+        self.assertEqual(2, read.call_count)
+        append.assert_called_once()
+        self.assertFalse((self.root / 'loser' / owner.MARKER).exists())
+        self.assertEqual(before, self.state.read_bytes())
+        self.assertEqual(winner, owner.read_remote(self.repo))
+        self.assertEqual('1', sh('git', 'rev-list', '--count', owner.REF, cwd=self.origin).strip())
+
+    def test_reference_rejection_without_a_winner_and_unknown_push_errors_still_fail(self):
+        self.init_ledger(); before = self.state.read_bytes()
+        for message, reads in (('(reference already exists)', 2), ('HTTP 403', 1),
+                               ('server disconnected', 1)):
+            with self.subTest(message=message), \
+                    patch.object(owner, 'read_remote', return_value=None) as read, \
+                    patch.object(owner, 'append', side_effect=checkpoint.CheckpointError(message)), \
+                    self.assertRaises(checkpoint.CheckpointError):
+                self.take()
+            self.assertEqual(reads, read.call_count)
+            self.assertFalse((self.root / 'primary' / owner.MARKER).exists())
+            self.assertEqual(before, self.state.read_bytes())
+
     def test_expired_lease_requires_old_unfinished_identity_and_fresh_epoch(self):
         original = self.take()
         expired = MOMENT + timedelta(seconds=owner.LEASE_SECONDS + 1)

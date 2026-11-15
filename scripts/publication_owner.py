@@ -287,7 +287,9 @@ def acquire(repo, run_id, workspace=PRIMARY, *, session=None, moment=None, runti
         try:
             held = append(repo, proposed, previous)
         except checkpoint.CheckpointError as exc:
-            if not any(text in str(exc) for text in ('(fetch first)', '(non-fast-forward)', 'cannot lock ref')):
+            # Competing first pushes can lose before a fast-forward relation exists.
+            if not any(text in str(exc) for text in ('(fetch first)', '(non-fast-forward)',
+                                                     'cannot lock ref', '(reference already exists)')):
                 raise  # Authentication, malformed results and unknown errors never become "busy".
             winner = read_remote(repo)
             if winner is None:
