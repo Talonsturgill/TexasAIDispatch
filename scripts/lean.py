@@ -153,7 +153,12 @@ def cmd_init(a) -> int:
     write(MARKER, {"schema": "lean_run/1", "date": a.date, "started_at": now(),
                    "head": subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO, capture_output=True,
                                           text=True).stdout.strip()})
-    if not (REPO / "assets" / "sfx").is_dir() or not any((REPO / "assets" / "sfx").glob("*.wav")):
+    sfx_dir = REPO / "assets" / "sfx"
+    # build when the library is missing OR when a sound the committed catalog names has no wav yet,
+    # so a checkout that built the library before a new sound landed (whip_whoosh) gets it too
+    listed = [c.get("wav", "") for c in (json.loads((sfx_dir / "catalog.json").read_text())
+                                        if (sfx_dir / "catalog.json").is_file() else [])]
+    if not any(sfx_dir.glob("*.wav")) or any(w and not (REPO / w).is_file() for w in listed):
         print("lean: building the foley library")
         run([PY, "scripts/foley.py", "--build", "assets/sfx"], check=False)
     if run_dir(a.date).joinpath("dispatch.mp4").is_file():
@@ -685,6 +690,7 @@ def timed_board(board: dict, words: list[dict], cues: list[dict]) -> tuple[dict,
                                "event_id": (events[0]["id"] if events and events[0].get("id") else ""),
                                **x, "start_s": round(start + s0, 3), "duration_s": round(s1 - s0, 3)})
         scenes.append(scene)
+    sfx += cut_whooshes(board, flat_shots, sfx)
     out["scenes"] = scenes
     out["shots"] = flat_shots
     out["runtime_s"] = story_end
@@ -705,6 +711,34 @@ def timed_board(board: dict, words: list[dict], cues: list[dict]) -> tuple[dict,
 
 
 BEAT_CONFIDENCE_MIN = 0.2
+
+
+WHOOSH_WAV = "assets/sfx/whip_whoosh.wav"
+WHOOSH_LEAD_S = 0.12      # the sound peaks 0.12 s in, so it starts that much before the cut
+WHOOSH_GAIN = 0.09
+WHOOSH_CLEAR_S = 0.35     # a designed sound starting in the lead-in already fills the air before the cut
+
+
+def cut_whooshes(board: dict, shots: list[dict], sfx: list[dict]) -> list[dict]:
+    """The air of every whip cut. A studio film (look v2, motion not 'off') whips sideways on each
+    cut (src/look/studio.tsx), and a picture that moves that fast with no sound reads as a glitch.
+    One quiet whoosh peaks on each cut after the first shot. A designed sound landing ON the cut keeps
+    it, since a swish into a hit is the classic pairing. A designed sound that starts in the lead-in
+    already fills that air, so that cut gets none."""
+    if not look_v2(board) or str(board.get("motion") or "").lower() == "off":
+        return []
+    if not (REPO / WHOOSH_WAV).is_file():
+        return []
+    out = []
+    for k, shot in enumerate(shots[1:], start=1):
+        cut = float(shot["start_s"])
+        if any(cut - WHOOSH_CLEAR_S <= float(x["at_s"]) < cut - 0.03 for x in sfx):
+            continue
+        out.append({"id": f"cut{k}-whoosh", "event_id": "", "wav": WHOOSH_WAV, "gain": WHOOSH_GAIN,
+                    "what": f"the whip cut into shot {shot.get('id', k)}",
+                    "provenance": "Original designed foley.", "at_s": round(max(0.0, cut - WHOOSH_LEAD_S), 3),
+                    "dur_s": 0.36})
+    return out
 
 
 def film_beats(board: dict, runtime_s: float) -> list[float]:
@@ -1455,6 +1489,15 @@ def cmd_selftest(a) -> int:
        len(fb) > 30 and fb == sorted(fb) and fb[-1] <= 30.0, fb[:4])
     ok("a bed with no clear beat, or no bed, carries none (the film falls back to 120 BPM)",
        film_beats({"music": {"track": "echoes_of_time_v2"}}, 30.0) == [] and film_beats({}, 30.0) == [])
+    cut_shots = [{"id": "a", "start_s": 0.0}, {"id": "b", "start_s": 3.0}, {"id": "c", "start_s": 6.0}]
+    hits = cut_whooshes({"look": "v2"}, cut_shots, [{"at_s": 5.8}, {"at_s": 3.0}])
+    have = (REPO / WHOOSH_WAV).is_file()
+    ok("a studio film whooshes on each cut after the first, peaking on the cut and leading into a hit on "
+       "it, and skips a cut whose lead-in already has a sound", (not have and hits == []) or
+       ([h["at_s"] for h in hits] == [round(3.0 - WHOOSH_LEAD_S, 3)]), hits)
+    ok("a film with the studio off, or on look v1, gets no whoosh",
+       cut_whooshes({"look": "v2", "motion": "off"}, cut_shots, []) == []
+       and cut_whooshes({"look": "v1"}, cut_shots, []) == [])
     ok("a thin board is caught on paper: no treatment, no throughline, no one on screen, too few beats",
        sum(any(k in p for p in thin) for k in ("treatment.logline", "throughline", "beats for about",
                                                "shots name a person", "draw needs a subject")) == 5, thin)

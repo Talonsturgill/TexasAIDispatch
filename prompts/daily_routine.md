@@ -413,8 +413,8 @@ three files in that directory: the hero drawing, the props, the film.
 - **One action per shot, and the subject does it.** On a v2 board the motion studio
   (`look/studio.tsx`, LOOK_V2.md "The motion studio") already hits the camera on every visual
   event, whips every cut, lands chips and hook words on the music's beat and loops the last frame
-  into the first. It moves the camera and the type, never your drawing. So each event's subject
-  acts at its own `at_s`: a wind-up before, an overshoot after, a squash where it lands, loose parts
+  into the first. Every v2 `Figure` already shifts its weight, nods on the beat and takes each hit
+  on its own. None of that is the story's action. So each event's subject acts at its own `at_s`: a wind-up before, an overshoot after, a squash where it lands, loose parts
   following through, and a path that arcs. A shot where only the camera moves is a held frame, and
   `L check` names every one it measures.
 - **The v2 idiom** on everything you draw (LOOK_V2.md, the ten rules). Round every corner. Light

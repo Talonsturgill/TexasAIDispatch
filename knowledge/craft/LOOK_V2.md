@@ -163,8 +163,18 @@ Everything below is drawn for every look v2 board by `look/studio.tsx`. A board 
   between frames over the picture's rows (captions and chip band left out), and every run of 1.6
   seconds or more under 0.8 grey levels. `lean.py check` lists each as a note with its times.
 
-What the drawing still owes (Phase 5): the studio moves the camera and the type. The subject has
-to act inside the shot. Give every event's subject its own anticipation, overshoot and squash
+- **Every person acts.** The film puts the clock, the beats and the hits in `ActingContext`, and
+  every v2 `Figure` reads it. Each one shifts its weight and leans on a slow cycle, nods its head on
+  the beat (a frame apart per seed, so a crowd never moves as one), crouches in the 0.14 s before a
+  hit and stretches up after it with the head popping and the brows lifting, and changes pose with a
+  wind-back and an overshoot instead of a slide. A figure holding or reaching keeps its body still,
+  so a prop drawn at its hands stays at its hands. Outside a studio film nothing changes.
+- **Cuts are heard.** `lean.py time` lays the `whip_whoosh` foley on every cut of a studio film,
+  peaking on the cut. A designed sound landing on the cut keeps it (a swish into a hit), and a cut
+  whose lead-in already carries a designed sound gets none.
+
+What the drawing still owes (Phase 5): the studio moves the camera, the type and every person's
+body. The day's story action still has to be drawn inside the shot. Give every event's subject its own anticipation, overshoot and squash
 (`lib/motion.tsx` `entrance`, `anticipate`, `squashStretch`, `followThrough`), one clear action
 per shot, and arcs instead of straight lines.
 
