@@ -25,6 +25,7 @@ import {FieldsShelfGallery} from './episodes/sample-v2/shelf/FieldsGallery';
 import {ScienceShelfGallery} from './episodes/sample-v2/shelf/ScienceGallery';
 import {BoxOnBottomFilm} from './episodes/2026-11-15/BoxOnBottomFilm';
 import {SetsItDownFilm} from './episodes/2026-11-14/SetsItDownFilm';
+import {CreekWatchFilm} from './episodes/2026-11-16/CreekWatchFilm';
 import {LeakReviewFilm} from '../modern/episodes/2026-10-21/LeakReviewFilm';
 
 /**
@@ -66,6 +67,7 @@ export const dailyEpisodes: Record<string, React.FC<FilmRenderProps>> = {
   'brush-hides-1112': BrushHidesFilm,
   'reference-2026-10-21': LeakReviewFilm,
   'look-v2-sample-1112': BrushHidesV2,
+  'creek-watch-1116': CreekWatchFilm,
   'look-v2-regions': RegionsGallery,
   'look-v2-cast': CastGallery,
   'look-v2-machines': MachineGallery,
