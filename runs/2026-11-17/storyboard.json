@@ -1,0 +1,3300 @@
+{
+  "date": "2026-11-17",
+  "title": "Out of the red zone",
+  "topic": "On ExxonMobil's automated drilling rigs in Midland, three robot arms from Helmerich and Payne now move and connect heavy drill pipe on the rig floor, while the crew runs them from a small office on the rig.",
+  "tone": "explainer",
+  "hook": "Who tightens this pipe now?",
+  "beat": "oilfield",
+  "episode": "red-zone-1117",
+  "entities": [
+    "ExxonMobil",
+    "Helmerich & Payne",
+    "FlexRobotics",
+    "Midland",
+    "Permian Basin"
+  ],
+  "treatment": {
+    "logline": "Open up a Midland rig floor and watch the heaviest, closest work move from a floorhand's gloved hands to a robot arm with a face, while the same crew climbs into the doghouse to run it.",
+    "cold_open": "A tall joint of pipe swings in over the hole and the floorhand reaches with greasy gloves, then pulls both hands back as the orange pipe arm swings in, blinks and takes it.",
+    "turn": "The test at full strength. Exxon expects similar staffing and believes the robots could prevent a third of serious incidents, and the film draws both as company expectations, a dashed tag and a raised brow, not counts.",
+    "button": "Who tightens the pipe now? The arm spins the next joint tight below the window, the gloves hang still on the peg, and a bare hand taps go."
+  },
+  "hero": {
+    "name": "the pipe arm",
+    "why": "an orange pipe-handling robot with a face on its shoulder housing, the machine the story is about, drawn fresh for this film"
+  },
+  "throughline": {
+    "object": "the floorhand's work gloves",
+    "states": [
+      {
+        "scene_id": "s1",
+        "state": "greasy, on the floorhand's hands, reaching for the pipe and pulling back"
+      },
+      {
+        "scene_id": "s6",
+        "state": "pulled off and hung on a peg by the doghouse door"
+      },
+      {
+        "scene_id": "s10",
+        "state": "still on the peg behind the floorhand as the tablet is read"
+      },
+      {
+        "scene_id": "s11",
+        "state": "hanging still on the peg while a bare hand taps go on the console"
+      }
+    ]
+  },
+  "fingerprint": {
+    "pov": "the floorhand's, from the floor up to the doghouse",
+    "layout": "machine close-ups cut against a cutaway of the earth and a field of derricks",
+    "hero_treatment": "an orange robot arm with a visor face that acts",
+    "palette": "warm high plains dawn, safety orange and steel blue, red for the red zone"
+  },
+  "music": {
+    "track": "amazing_plan"
+  },
+  "wall_views": [
+    "cutaway"
+  ],
+  "credits": "TEXAS AI DOCKET\nSOURCES\nExxonMobil, October 26th, 2026\nReuters via AJOT, August 2026\nHelmerich & Payne FlexRobotics\nDrilling Contractor\nILLUSTRATION\nOriginal drawings, people illustrative\nMUSIC\n\"Amazing Plan\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "county": "Midland",
+      "region": "high_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "In Midland, a column of drill pipe over two stories tall swings toward the hole. The floorhand pulls back both gloves, because a robot arm already has it.",
+      "vo_claims": [
+        "c14",
+        "c15"
+      ],
+      "visual_events": [
+        {
+          "id": "s1-swing",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "robot_servo",
+          "draw": {
+            "subject": "the pipe arm",
+            "action": "swings a tall joint of pipe in over the hole",
+            "emotion": "its visor eyes narrow, focused"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s1-tower",
+          "at_phrase": "swings toward the hole",
+          "duration_s": 1.4,
+          "sound": "field_marker",
+          "label": "Over two stories tall",
+          "draw": {
+            "subject": "a height marker",
+            "action": "climbs the joint to show it towers two floorhands high",
+            "emotion": "the floorhand looks up, wary"
+          },
+          "at_s": 4.74
+        },
+        {
+          "id": "s1-gloves",
+          "at_phrase": "pulls back both gloves",
+          "duration_s": 1.2,
+          "sound": "concrete_shoe_contact",
+          "label": "Midland",
+          "draw": {
+            "subject": "the floorhand",
+            "action": "pulls both greasy gloves back from a joint that towers two floorhands high",
+            "emotion": "eyebrows up, surprised"
+          },
+          "at_s": 7.08
+        },
+        {
+          "id": "s1-blink",
+          "at_phrase": "a robot arm already",
+          "duration_s": 1.0,
+          "sound": "assistive_servo",
+          "draw": {
+            "subject": "the pipe arm",
+            "action": "closes its jaws on the pipe and blinks at the floorhand",
+            "emotion": "a happy squint"
+          },
+          "at_s": 9.13
+        }
+      ],
+      "start_s": 0.0,
+      "duration_s": 11.72,
+      "planes": []
+    },
+    {
+      "id": "s2",
+      "county": "Midland",
+      "region": "high_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "On this ExxonMobil rig, robotic arms set the pipe in place and connect it to the drill string. Crews on the floor used to help do that by hand.",
+      "vo_claims": [
+        "c15",
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s2-stab",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "iron_roughneck",
+          "label": "ExxonMobil rig",
+          "draw": {
+            "subject": "the pipe arm",
+            "action": "stabs the joint down onto the pipe in the slips"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s2-spin",
+          "at_phrase": "connect it to the drill string",
+          "duration_s": 1.6,
+          "sound": "robot_servo",
+          "label": "Drill string",
+          "draw": {
+            "subject": "the pipe arm",
+            "action": "turns the joint in its jaws and makes up the connection"
+          },
+          "at_s": 4.63
+        },
+        {
+          "id": "s2-ghost",
+          "at_phrase": "Crews on the floor",
+          "duration_s": 1.6,
+          "sound": "paper_photo_slide",
+          "label": "By hand, before",
+          "draw": {
+            "subject": "two ghost floorhands",
+            "action": "fade in where they once stood, wrestling the tongs",
+            "emotion": "the floorhand watches them, thoughtful"
+          },
+          "at_s": 6.45
+        }
+      ],
+      "start_s": 11.72,
+      "duration_s": 9.64,
+      "planes": []
+    },
+    {
+      "id": "s3",
+      "county": "Midland",
+      "region": "high_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "So the floor gets a fence. The gate carries a sign that reads Red Zone, with a drawing of the Grim Reaper.",
+      "vo_claims": [
+        "c14"
+      ],
+      "visual_events": [
+        {
+          "id": "s3-gate",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "ranch_gate",
+          "label": "Fenced off",
+          "draw": {
+            "subject": "the gate",
+            "action": "slides shut around the rig floor in front of the floorhand"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s3-sign",
+          "at_phrase": "reads Red Zone",
+          "duration_s": 1.6,
+          "sound": "warning_bloom",
+          "label": "Red Zone",
+          "draw": {
+            "subject": "the Red Zone sign",
+            "action": "swings on its wires as the floorhand leans in to read it",
+            "emotion": "the floorhand winces"
+          },
+          "at_s": 3.8
+        }
+      ],
+      "start_s": 21.36,
+      "duration_s": 7.48,
+      "planes": []
+    },
+    {
+      "id": "s4",
+      "county": "Midland",
+      "region": "high_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Exxon's Bart Cahir says about a third of significant drilling injuries have happened right here, on the rig floor.",
+      "vo_claims": [
+        "c17",
+        "c31"
+      ],
+      "visual_events": [
+        {
+          "id": "s4-tags",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "field_marker",
+          "label": "Bart Cahir, Exxon",
+          "draw": {
+            "subject": "three red injury tags",
+            "action": "drop onto a glass map of the rig while the Exxon executive points",
+            "emotion": "the executive is serious"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s4-third",
+          "at_phrase": "about a third",
+          "duration_s": 1.6,
+          "sound": "warning_bloom",
+          "label": "About a third",
+          "draw": {
+            "subject": "one of the three tags",
+            "action": "slides onto the rig floor on the map and glows red"
+          },
+          "at_s": 1.76
+        }
+      ],
+      "start_s": 28.84,
+      "duration_s": 7.11,
+      "planes": []
+    },
+    {
+      "id": "s5",
+      "county": "Midland",
+      "region": "high_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Drilling contractor Helmerich and Payne supplies the system. Three arms move pipe weighing roughly 2,000 pounds. One walks each stand to the hole, one lines up the threads, and one racks pipe high in the derrick.",
+      "vo_claims": [
+        "c11",
+        "c23",
+        "c24",
+        "c12"
+      ],
+      "visual_events": [
+        {
+          "id": "s5-arms",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "robot_servo",
+          "label": "Helmerich & Payne",
+          "draw": {
+            "subject": "three robot arms",
+            "action": "unfold one after another across the rig floor"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s5-wake",
+          "at_phrase": "supplies the system",
+          "duration_s": 1.2,
+          "sound": "assistive_servo",
+          "draw": {
+            "subject": "the three arms",
+            "action": "light their visors one after another and nod"
+          },
+          "at_s": 2.51
+        },
+        {
+          "id": "s5-weight",
+          "at_phrase": "roughly 2,000 pounds",
+          "duration_s": 1.6,
+          "sound": "freight_count",
+          "label": "About 2,000 lb",
+          "draw": {
+            "subject": "a hook scale",
+            "action": "swings its needle up to 2,000 lb as the pipe arm lifts",
+            "emotion": "the arm strains, cheeks puffed"
+          },
+          "at_s": 6.11
+        },
+        {
+          "id": "s5-walk",
+          "at_phrase": "One walks each stand",
+          "duration_s": 1.3,
+          "sound": "assistive_servo",
+          "label": "First arm, to the hole",
+          "draw": {
+            "subject": "the first arm",
+            "action": "walks a stand of pipe across to the hole"
+          },
+          "at_s": 8.15
+        },
+        {
+          "id": "s5-thread",
+          "at_phrase": "lines up the threads",
+          "duration_s": 1.2,
+          "sound": "robot_servo",
+          "label": "Second arm, the threads",
+          "draw": {
+            "subject": "the second arm",
+            "action": "wipes the pin and lines it up over the box"
+          },
+          "at_s": 11.19
+        },
+        {
+          "id": "s5-rack",
+          "at_phrase": "racks pipe high",
+          "duration_s": 1.4,
+          "sound": "result_shelf_stop",
+          "label": "Third arm, the rack",
+          "draw": {
+            "subject": "the third arm",
+            "action": "racks a stand into the fingerboard high in the derrick",
+            "emotion": "the floorhand looks up, impressed"
+          },
+          "at_s": 13.25
+        }
+      ],
+      "start_s": 35.95,
+      "duration_s": 15.39,
+      "planes": []
+    },
+    {
+      "id": "s6",
+      "county": "Midland",
+      "region": "high_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "So where did the crew go? Up into a small office on the rig, where a contractor runs the robots with controls on a screen.",
+      "vo_claims": [
+        "c12"
+      ],
+      "visual_events": [
+        {
+          "id": "s6-climb",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "concrete_footsteps",
+          "label": "Where did the crew go?",
+          "draw": {
+            "subject": "the floorhand",
+            "action": "climbs the stairs up to the doghouse",
+            "emotion": "curious"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s6-peg",
+          "at_phrase": "a small office",
+          "duration_s": 1.4,
+          "sound": "screen_door",
+          "label": "Small office on the rig",
+          "draw": {
+            "subject": "the gloves",
+            "action": "get pulled off and hung on a peg by the doghouse door"
+          },
+          "at_s": 2.42
+        },
+        {
+          "id": "s6-screen",
+          "at_phrase": "controls on a screen",
+          "duration_s": 1.4,
+          "sound": "sensor_heartbeat",
+          "label": "Screen controls",
+          "draw": {
+            "subject": "the screens",
+            "action": "light up blue across the floorhand's face",
+            "emotion": "absorbed"
+          },
+          "at_s": 6.83
+        }
+      ],
+      "start_s": 51.34,
+      "duration_s": 8.36,
+      "planes": []
+    },
+    {
+      "id": "s7",
+      "county": "Midland",
+      "region": "high_plains",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "That contractor is the driller, who starts each move and watches it, and the arms follow paths planned in advance. The crew works out the exact moves with an Exxon operations team in Houston.",
+      "vo_claims": [
+        "c27",
+        "c16"
+      ],
+      "visual_events": [
+        {
+          "id": "s7-start",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "protocol_focus",
+          "label": "The driller starts it",
+          "draw": {
+            "subject": "the driller",
+            "action": "presses start and the arm on screen follows a dotted path",
+            "emotion": "focused"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s7-path",
+          "at_phrase": "paths planned in advance",
+          "duration_s": 1.4,
+          "sound": "route_marker",
+          "label": "Planned paths",
+          "draw": {
+            "subject": "the dotted path",
+            "action": "draws itself ahead of the arm and the arm rides it"
+          },
+          "at_s": 5.71
+        },
+        {
+          "id": "s7-houston",
+          "at_phrase": "operations team in Houston",
+          "duration_s": 1.6,
+          "sound": "lora_packet",
+          "label": "Houston operations",
+          "draw": {
+            "subject": "a line",
+            "action": "runs from Midland to Houston and an engineer waves back on screen",
+            "emotion": "the driller nods"
+          },
+          "at_s": 10.86
+        }
+      ],
+      "start_s": 59.7,
+      "duration_s": 13.08,
+      "planes": []
+    },
+    {
+      "id": "s8",
+      "county": "Midland",
+      "region": "high_plains",
+      "interior": false,
+      "camera_strategy": "craneUp",
+      "vo": "Exxon runs more than 30 rigs in the Permian, and in August, Reuters counted two that were automated. Exxon plans to automate more than half its unconventional fleet by the end of 2028.",
+      "vo_claims": [
+        "c9",
+        "c13",
+        "c32",
+        "c5"
+      ],
+      "visual_events": [
+        {
+          "id": "s8-fleet",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "field_marker",
+          "label": "More than 30 rigs",
+          "draw": {
+            "subject": "more than 30 derricks",
+            "action": "pop up across the plain in rows"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s8-two",
+          "at_phrase": "two that were automated",
+          "duration_s": 1.4,
+          "sound": "warning_bloom",
+          "label": "Two automated",
+          "draw": {
+            "subject": "two derricks",
+            "action": "light up orange with a tick badge"
+          },
+          "at_s": 4.69
+        },
+        {
+          "id": "s8-half",
+          "at_phrase": "more than half",
+          "duration_s": 1.8,
+          "sound": "matrix_bus_rise",
+          "label": "Half the fleet by 2028",
+          "draw": {
+            "subject": "the unconventional fleet on the tablet",
+            "action": "lights orange row by row past the halfway line",
+            "emotion": "the floorhand whistles"
+          },
+          "at_s": 7.9
+        }
+      ],
+      "start_s": 72.78,
+      "duration_s": 11.88,
+      "planes": []
+    },
+    {
+      "id": "s9",
+      "county": "Midland",
+      "region": "high_plains",
+      "interior": false,
+      "camera_strategy": "tiltDown",
+      "vo": "The first one already set a pace. It drilled two miles sideways underground in a little over six days, the third fastest time in Exxon's history.",
+      "vo_claims": [
+        "c10"
+      ],
+      "visual_events": [
+        {
+          "id": "s9-dive",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "subsurface_water",
+          "label": "Two miles sideways",
+          "draw": {
+            "subject": "the bit",
+            "action": "turns down under the rig and then runs sideways through the rock"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s9-suns",
+          "at_phrase": "a little over six days",
+          "duration_s": 1.6,
+          "sound": "freight_count",
+          "label": "A little over six days",
+          "draw": {
+            "subject": "six suns",
+            "action": "tick on one by one in the sky above the rig"
+          },
+          "at_s": 5.82
+        },
+        {
+          "id": "s9-third",
+          "at_phrase": "third fastest",
+          "duration_s": 1.6,
+          "sound": "review_stamp",
+          "label": "Third fastest for Exxon",
+          "draw": {
+            "subject": "a podium",
+            "action": "rises with the little rig landing on the third step",
+            "emotion": "the floorhand grins and claps"
+          },
+          "at_s": 7.75
+        }
+      ],
+      "start_s": 84.66,
+      "duration_s": 10.51,
+      "planes": []
+    },
+    {
+      "id": "s10",
+      "county": "Midland",
+      "region": "high_plains",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Does a robot take a job? Exxon expects similar staffing, and calls it a force multiplier, not a replacement. It also believes it could prevent roughly a third of high-consequence incidents. Both are company expectations, not counts.",
+      "vo_claims": [
+        "c4",
+        "c2"
+      ],
+      "visual_events": [
+        {
+          "id": "s10-brow",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "document_parse",
+          "label": "Does a robot take a job?",
+          "draw": {
+            "subject": "the floorhand",
+            "action": "reads Exxon's line on a tablet and raises one brow",
+            "emotion": "doubtful"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s10-crew",
+          "at_phrase": "similar staffing",
+          "duration_s": 1.6,
+          "sound": "dominoes_click",
+          "label": "Similar staffing",
+          "draw": {
+            "subject": "the crew's hard hats",
+            "action": "line up on the doghouse bench, the same row as before"
+          },
+          "at_s": 3.36
+        },
+        {
+          "id": "s10-quote",
+          "at_phrase": "force multiplier",
+          "duration_s": 1.4,
+          "sound": "document_parse",
+          "label": "Force multiplier",
+          "draw": {
+            "subject": "Exxon's line on the tablet",
+            "action": "lights up as the floorhand taps it"
+          },
+          "at_s": 5.48
+        },
+        {
+          "id": "s10-report",
+          "at_phrase": "roughly a third",
+          "duration_s": 1.6,
+          "sound": "decision_stop",
+          "label": "Could prevent about a third",
+          "draw": {
+            "subject": "a future incident report",
+            "action": "fades to a pale dashed outline on the safety board"
+          },
+          "at_s": 9.49
+        },
+        {
+          "id": "s10-stamp",
+          "at_phrase": "company expectations",
+          "duration_s": 1.4,
+          "sound": "review_stamp",
+          "label": "Expected, not counted",
+          "draw": {
+            "subject": "a stamp",
+            "action": "lands on the tablet reading EXPECTED",
+            "emotion": "the floorhand shrugs, fair enough"
+          },
+          "at_s": 13.23
+        }
+      ],
+      "start_s": 95.17,
+      "duration_s": 16.01,
+      "planes": []
+    },
+    {
+      "id": "s11",
+      "county": "Midland",
+      "region": "high_plains",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Cahir says people off the floor can plan the next operation instead. So who tightens the pipe now? A robot arm does. A person still decides when.",
+      "vo_claims": [
+        "c19",
+        "c27"
+      ],
+      "visual_events": [
+        {
+          "id": "s11-plan",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "pencil_scratch",
+          "label": "Plan the next operation",
+          "draw": {
+            "subject": "the floorhand",
+            "action": "sketches the next operation on the screen with a bare hand",
+            "emotion": "focused"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s11-ask",
+          "at_phrase": "who tightens the pipe now",
+          "duration_s": 1.4,
+          "sound": "prompt_diverge",
+          "label": "Who tightens it now?",
+          "draw": {
+            "subject": "a question mark",
+            "action": "pops up over the pipe on the screen"
+          },
+          "at_s": 5.11
+        },
+        {
+          "id": "s11-answer",
+          "at_phrase": "A robot arm does",
+          "duration_s": 1.4,
+          "sound": "iron_roughneck",
+          "label": "A robot arm",
+          "draw": {
+            "subject": "the pipe arm",
+            "action": "spins the next joint tight below the window and winks"
+          },
+          "at_s": 6.61
+        },
+        {
+          "id": "s11-nod",
+          "at_phrase": "A person still decides",
+          "duration_s": 1.6,
+          "sound": "decision_stop",
+          "label": "A person decides",
+          "draw": {
+            "subject": "the driller",
+            "action": "nods and taps go with a bare hand while the gloves hang still on the peg",
+            "emotion": "a small proud smile"
+          },
+          "at_s": 8.15
+        }
+      ],
+      "start_s": 111.18,
+      "duration_s": 10.92,
+      "planes": []
+    }
+  ],
+  "shots": [
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-swing",
+      "id": "s1-a",
+      "scene_id": "s1",
+      "framing": "wide",
+      "view": "floor-hands",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 0.0,
+      "duration_s": 7.08
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-swing",
+      "id": "s1-a2",
+      "scene_id": "s1",
+      "framing": "detail",
+      "view": "glove-recoil",
+      "at_phrase": "pulls back both gloves",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 7.08,
+      "duration_s": 2.05
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-swing",
+      "id": "s1-b",
+      "scene_id": "s1",
+      "framing": "close",
+      "view": "arm-face",
+      "at_phrase": "a robot arm already",
+      "start_s": 9.13,
+      "duration_s": 2.59
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-stab",
+      "id": "s2-a",
+      "scene_id": "s2",
+      "framing": "medium",
+      "view": "stab-connect",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 11.72,
+      "duration_s": 6.45
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-stab",
+      "id": "s2-b",
+      "scene_id": "s2",
+      "framing": "wide",
+      "view": "ghost-crew",
+      "at_phrase": "Crews on the floor",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 18.17,
+      "duration_s": 3.19
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-gate",
+      "id": "s3-a",
+      "scene_id": "s3",
+      "framing": "medium",
+      "view": "gate-redzone",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 21.36,
+      "duration_s": 3.8
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-gate",
+      "id": "s3-a2",
+      "scene_id": "s3",
+      "framing": "close",
+      "view": "sign-close",
+      "at_phrase": "reads Red Zone",
+      "start_s": 25.16,
+      "duration_s": 3.68
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-tags",
+      "id": "s4-a",
+      "scene_id": "s4",
+      "framing": "medium",
+      "view": "cahir-tags",
+      "cast": [
+        "executive"
+      ],
+      "start_s": 28.84,
+      "duration_s": 1.76
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-tags",
+      "id": "s4-a2",
+      "scene_id": "s4",
+      "framing": "close",
+      "view": "tag-close",
+      "at_phrase": "about a third",
+      "start_s": 30.6,
+      "duration_s": 5.35
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-arms",
+      "id": "s5-a",
+      "scene_id": "s5",
+      "framing": "wide",
+      "view": "three-arms",
+      "start_s": 35.95,
+      "duration_s": 6.11
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-arms",
+      "id": "s5-b",
+      "scene_id": "s5",
+      "framing": "close",
+      "view": "weight-scale",
+      "at_phrase": "roughly 2,000 pounds",
+      "start_s": 42.06,
+      "duration_s": 2.04
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-arms",
+      "id": "s5-c",
+      "scene_id": "s5",
+      "framing": "medium",
+      "view": "hole-low",
+      "at_phrase": "One walks each stand",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 44.1,
+      "duration_s": 5.1
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-arms",
+      "id": "s5-d",
+      "scene_id": "s5",
+      "framing": "medium",
+      "view": "derrick-rack",
+      "at_phrase": "racks pipe high",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 49.2,
+      "duration_s": 2.14
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-climb",
+      "id": "s6-a",
+      "scene_id": "s6",
+      "framing": "medium",
+      "view": "doghouse-climb",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 51.34,
+      "duration_s": 2.42
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-climb",
+      "id": "s6-b",
+      "scene_id": "s6",
+      "framing": "close",
+      "view": "peg-gloves",
+      "at_phrase": "a small office",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 53.76,
+      "duration_s": 5.94
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-start",
+      "id": "s7-a",
+      "scene_id": "s7",
+      "framing": "close",
+      "view": "console",
+      "cast": [
+        "operator",
+        "hand"
+      ],
+      "start_s": 59.7,
+      "duration_s": 5.71
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-start",
+      "id": "s7-a2",
+      "scene_id": "s7",
+      "framing": "detail",
+      "view": "path-screen",
+      "at_phrase": "paths planned in advance",
+      "start_s": 65.41,
+      "duration_s": 5.15
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-start",
+      "id": "s7-b",
+      "scene_id": "s7",
+      "framing": "split",
+      "view": "houston-split",
+      "at_phrase": "operations team in Houston",
+      "cast": [
+        "hand",
+        "engineer"
+      ],
+      "start_s": 70.56,
+      "duration_s": 2.22
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-fleet",
+      "id": "s8-a",
+      "scene_id": "s8",
+      "framing": "wide",
+      "view": "fleet",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 72.78,
+      "duration_s": 6.44
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-fleet",
+      "id": "s8-b",
+      "scene_id": "s8",
+      "framing": "close",
+      "view": "fleet-map",
+      "at_phrase": "Exxon plans to automate",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 79.22,
+      "duration_s": 5.44
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-dive",
+      "id": "s9-a",
+      "scene_id": "s9",
+      "framing": "wide",
+      "view": "cutaway",
+      "start_s": 84.66,
+      "duration_s": 5.82
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-dive",
+      "id": "s9-a2",
+      "scene_id": "s9",
+      "framing": "wide",
+      "view": "sun-sky",
+      "at_phrase": "a little over six days",
+      "start_s": 90.48,
+      "duration_s": 1.5
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-dive",
+      "id": "s9-b",
+      "scene_id": "s9",
+      "framing": "medium",
+      "view": "podium",
+      "at_phrase": "the third fastest",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 91.98,
+      "duration_s": 3.19
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-brow",
+      "id": "s10-a",
+      "scene_id": "s10",
+      "framing": "close",
+      "view": "tablet-brow",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 95.17,
+      "duration_s": 3.36
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-brow",
+      "id": "s10-b",
+      "scene_id": "s10",
+      "framing": "medium",
+      "view": "bench-hats",
+      "at_phrase": "similar staffing",
+      "cast": [
+        "hand",
+        "operator"
+      ],
+      "start_s": 98.53,
+      "duration_s": 4.23
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-brow",
+      "id": "s10-c",
+      "scene_id": "s10",
+      "framing": "medium",
+      "view": "report-ghost",
+      "at_phrase": "It also believes",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 102.76,
+      "duration_s": 8.42
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-plan",
+      "id": "s11-a",
+      "scene_id": "s11",
+      "framing": "medium",
+      "view": "over-shoulder",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 111.18,
+      "duration_s": 6.61
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-plan",
+      "id": "s11-b",
+      "scene_id": "s11",
+      "framing": "close",
+      "view": "arm-face",
+      "at_phrase": "A robot arm does",
+      "start_s": 117.79,
+      "duration_s": 1.54
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-plan",
+      "id": "s11-c",
+      "scene_id": "s11",
+      "framing": "medium",
+      "view": "button-glass",
+      "at_phrase": "A person still decides",
+      "cast": [
+        "hand"
+      ],
+      "start_s": 119.33,
+      "duration_s": 2.77
+    }
+  ],
+  "runtime_s": 122.1,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.68,
+      "end": 1.38,
+      "text": "In Midland,"
+    },
+    {
+      "id": "c2",
+      "start": 1.42,
+      "end": 3.36,
+      "text": "a column of drill pipe over"
+    },
+    {
+      "id": "c3",
+      "start": 3.4,
+      "end": 6.09,
+      "text": "two stories tall swings toward the hole."
+    },
+    {
+      "id": "c4",
+      "start": 6.13,
+      "end": 8.73,
+      "text": "The floorhand pulls back both gloves,"
+    },
+    {
+      "id": "c5",
+      "start": 8.77,
+      "end": 11.62,
+      "text": "because a robot arm already has it."
+    },
+    {
+      "id": "c6",
+      "start": 11.82,
+      "end": 13.78,
+      "text": "On this ExxonMobil rig,"
+    },
+    {
+      "id": "c7",
+      "start": 13.84,
+      "end": 15.99,
+      "text": "robotic arms set the pipe in place"
+    },
+    {
+      "id": "c8",
+      "start": 16.03,
+      "end": 17.96,
+      "text": "and connect it to the drill string."
+    },
+    {
+      "id": "c9",
+      "start": 18.17,
+      "end": 19.54,
+      "text": "Crews on the floor used"
+    },
+    {
+      "id": "c10",
+      "start": 19.58,
+      "end": 21.34,
+      "text": "to help do that by hand."
+    },
+    {
+      "id": "c11",
+      "start": 21.38,
+      "end": 23.21,
+      "text": "So the floor gets a fence."
+    },
+    {
+      "id": "c12",
+      "start": 23.25,
+      "end": 26.25,
+      "text": "The gate carries a sign that reads Red Zone,"
+    },
+    {
+      "id": "c13",
+      "start": 26.29,
+      "end": 28.2,
+      "text": "with a drawing of the Grim Reaper."
+    },
+    {
+      "id": "c14",
+      "start": 29.02,
+      "end": 31.28,
+      "text": "Exxon's Bart Cahir says about a third"
+    },
+    {
+      "id": "c15",
+      "start": 31.32,
+      "end": 33.04,
+      "text": "of significant drilling injuries"
+    },
+    {
+      "id": "c16",
+      "start": 33.08,
+      "end": 34.46,
+      "text": "have happened right here,"
+    },
+    {
+      "id": "c17",
+      "start": 34.5,
+      "end": 35.68,
+      "text": "on the rig floor."
+    },
+    {
+      "id": "c18",
+      "start": 36.13,
+      "end": 37.89,
+      "text": "Drilling contractor Helmerich and"
+    },
+    {
+      "id": "c19",
+      "start": 37.93,
+      "end": 39.76,
+      "text": "Payne supplies the system."
+    },
+    {
+      "id": "c20",
+      "start": 39.92,
+      "end": 41.64,
+      "text": "Three arms move pipe"
+    },
+    {
+      "id": "c21",
+      "start": 41.68,
+      "end": 43.78,
+      "text": "weighing roughly 2,000 pounds."
+    },
+    {
+      "id": "c22",
+      "start": 44.1,
+      "end": 46.56,
+      "text": "One walks each stand to the hole,"
+    },
+    {
+      "id": "c23",
+      "start": 46.6,
+      "end": 48.36,
+      "text": "one lines up the threads,"
+    },
+    {
+      "id": "c24",
+      "start": 48.4,
+      "end": 51.11,
+      "text": "and one racks pipe high in the derrick."
+    },
+    {
+      "id": "c25",
+      "start": 51.52,
+      "end": 53.1,
+      "text": "So where did the crew go?"
+    },
+    {
+      "id": "c26",
+      "start": 53.14,
+      "end": 55.55,
+      "text": "Up into a small office on the rig,"
+    },
+    {
+      "id": "c27",
+      "start": 55.59,
+      "end": 57.37,
+      "text": "where a contractor runs the"
+    },
+    {
+      "id": "c28",
+      "start": 57.41,
+      "end": 59.56,
+      "text": "robots with controls on a screen."
+    },
+    {
+      "id": "c29",
+      "start": 59.84,
+      "end": 61.665,
+      "text": "That contractor is the driller,"
+    },
+    {
+      "id": "c30",
+      "start": 61.705,
+      "end": 64.05,
+      "text": "who starts each move and watches it,"
+    },
+    {
+      "id": "c31",
+      "start": 64.09,
+      "end": 67.06,
+      "text": "and the arms follow paths planned in advance."
+    },
+    {
+      "id": "c32",
+      "start": 67.26,
+      "end": 69.56,
+      "text": "The crew works out the exact moves"
+    },
+    {
+      "id": "c33",
+      "start": 69.6,
+      "end": 72.16,
+      "text": "with an Exxon operations team in Houston."
+    },
+    {
+      "id": "c34",
+      "start": 72.96,
+      "end": 75.58,
+      "text": "Exxon runs more than 30 rigs in the Permian,"
+    },
+    {
+      "id": "c35",
+      "start": 75.62,
+      "end": 76.57,
+      "text": "and in August,"
+    },
+    {
+      "id": "c36",
+      "start": 76.61,
+      "end": 78.92,
+      "text": "Reuters counted two that were automated."
+    },
+    {
+      "id": "c37",
+      "start": 79.22,
+      "end": 81.4,
+      "text": "Exxon plans to automate more than half"
+    },
+    {
+      "id": "c38",
+      "start": 81.44,
+      "end": 84.39,
+      "text": "its unconventional fleet by the end of 2028."
+    },
+    {
+      "id": "c39",
+      "start": 84.84,
+      "end": 87.05,
+      "text": "The first one already set a pace."
+    },
+    {
+      "id": "c40",
+      "start": 87.09,
+      "end": 90.1,
+      "text": "It drilled two miles sideways underground"
+    },
+    {
+      "id": "c41",
+      "start": 90.14,
+      "end": 91.94,
+      "text": "in a little over six days,"
+    },
+    {
+      "id": "c42",
+      "start": 91.98,
+      "end": 95.0,
+      "text": "the third fastest time in Exxon's history."
+    },
+    {
+      "id": "c43",
+      "start": 95.34,
+      "end": 97.3,
+      "text": "Does a robot take a job?"
+    },
+    {
+      "id": "c44",
+      "start": 97.54,
+      "end": 99.53,
+      "text": "Exxon expects similar staffing,"
+    },
+    {
+      "id": "c45",
+      "start": 99.57,
+      "end": 101.57,
+      "text": "and calls it a force multiplier,"
+    },
+    {
+      "id": "c46",
+      "start": 101.61,
+      "end": 102.68,
+      "text": "not a replacement."
+    },
+    {
+      "id": "c47",
+      "start": 102.76,
+      "end": 104.62,
+      "text": "It also believes it could prevent"
+    },
+    {
+      "id": "c48",
+      "start": 104.66,
+      "end": 107.3,
+      "text": "roughly a third of high-consequence incidents."
+    },
+    {
+      "id": "c49",
+      "start": 107.48,
+      "end": 110.84,
+      "text": "Both are company expectations, not counts."
+    },
+    {
+      "id": "c50",
+      "start": 111.36,
+      "end": 113.26,
+      "text": "Cahir says people off the floor"
+    },
+    {
+      "id": "c51",
+      "start": 113.3,
+      "end": 115.62,
+      "text": "can plan the next operation instead."
+    },
+    {
+      "id": "c52",
+      "start": 115.86,
+      "end": 117.75,
+      "text": "So who tightens the pipe now?"
+    },
+    {
+      "id": "c53",
+      "start": 117.79,
+      "end": 119.29,
+      "text": "A robot arm does."
+    },
+    {
+      "id": "c54",
+      "start": 119.33,
+      "end": 121.2,
+      "text": "A person still decides when."
+    }
+  ],
+  "credits_s": 5.0,
+  "look": "v2",
+  "words": [
+    {
+      "word": "In",
+      "start": 0.68,
+      "end": 1.02
+    },
+    {
+      "word": "Midland,",
+      "start": 1.02,
+      "end": 1.42
+    },
+    {
+      "word": "a",
+      "start": 1.42,
+      "end": 1.85
+    },
+    {
+      "word": "column",
+      "start": 1.85,
+      "end": 2.16
+    },
+    {
+      "word": "of",
+      "start": 2.16,
+      "end": 2.42
+    },
+    {
+      "word": "drill",
+      "start": 2.42,
+      "end": 2.76
+    },
+    {
+      "word": "pipe",
+      "start": 2.76,
+      "end": 3.09
+    },
+    {
+      "word": "over",
+      "start": 3.09,
+      "end": 3.4
+    },
+    {
+      "word": "two",
+      "start": 3.4,
+      "end": 3.81
+    },
+    {
+      "word": "stories",
+      "start": 3.81,
+      "end": 4.28
+    },
+    {
+      "word": "tall",
+      "start": 4.28,
+      "end": 4.74
+    },
+    {
+      "word": "swings",
+      "start": 4.74,
+      "end": 5.15
+    },
+    {
+      "word": "toward",
+      "start": 5.15,
+      "end": 5.43
+    },
+    {
+      "word": "the",
+      "start": 5.43,
+      "end": 5.67
+    },
+    {
+      "word": "hole.",
+      "start": 5.67,
+      "end": 6.13
+    },
+    {
+      "word": "The",
+      "start": 6.13,
+      "end": 6.64
+    },
+    {
+      "word": "floorhand",
+      "start": 6.64,
+      "end": 7.08
+    },
+    {
+      "word": "pulls",
+      "start": 7.08,
+      "end": 7.5
+    },
+    {
+      "word": "back",
+      "start": 7.5,
+      "end": 7.84
+    },
+    {
+      "word": "both",
+      "start": 7.84,
+      "end": 8.25
+    },
+    {
+      "word": "gloves,",
+      "start": 8.25,
+      "end": 8.77
+    },
+    {
+      "word": "because",
+      "start": 8.77,
+      "end": 9.13
+    },
+    {
+      "word": "a",
+      "start": 9.13,
+      "end": 9.4
+    },
+    {
+      "word": "robot",
+      "start": 9.4,
+      "end": 9.8
+    },
+    {
+      "word": "arm",
+      "start": 9.8,
+      "end": 10.27
+    },
+    {
+      "word": "already",
+      "start": 10.27,
+      "end": 10.7
+    },
+    {
+      "word": "has",
+      "start": 10.7,
+      "end": 11.09
+    },
+    {
+      "word": "it.",
+      "start": 11.09,
+      "end": 11.62
+    },
+    {
+      "word": "On",
+      "start": 11.82,
+      "end": 12.23
+    },
+    {
+      "word": "this",
+      "start": 12.23,
+      "end": 12.595
+    },
+    {
+      "word": "ExxonMobil",
+      "start": 12.595,
+      "end": 13.165
+    },
+    {
+      "word": "rig,",
+      "start": 13.165,
+      "end": 13.78
+    },
+    {
+      "word": "robotic",
+      "start": 13.84,
+      "end": 14.38
+    },
+    {
+      "word": "arms",
+      "start": 14.38,
+      "end": 14.75
+    },
+    {
+      "word": "set",
+      "start": 14.75,
+      "end": 14.99
+    },
+    {
+      "word": "the",
+      "start": 14.99,
+      "end": 15.19
+    },
+    {
+      "word": "pipe",
+      "start": 15.19,
+      "end": 15.4
+    },
+    {
+      "word": "in",
+      "start": 15.4,
+      "end": 15.69
+    },
+    {
+      "word": "place",
+      "start": 15.69,
+      "end": 16.03
+    },
+    {
+      "word": "and",
+      "start": 16.03,
+      "end": 16.35
+    },
+    {
+      "word": "connect",
+      "start": 16.35,
+      "end": 16.62
+    },
+    {
+      "word": "it",
+      "start": 16.62,
+      "end": 16.8
+    },
+    {
+      "word": "to",
+      "start": 16.8,
+      "end": 16.95
+    },
+    {
+      "word": "the",
+      "start": 16.95,
+      "end": 17.14
+    },
+    {
+      "word": "drill",
+      "start": 17.14,
+      "end": 17.45
+    },
+    {
+      "word": "string.",
+      "start": 17.45,
+      "end": 17.96
+    },
+    {
+      "word": "Crews",
+      "start": 18.17,
+      "end": 18.595
+    },
+    {
+      "word": "on",
+      "start": 18.595,
+      "end": 18.78
+    },
+    {
+      "word": "the",
+      "start": 18.78,
+      "end": 19.0
+    },
+    {
+      "word": "floor",
+      "start": 19.0,
+      "end": 19.31
+    },
+    {
+      "word": "used",
+      "start": 19.31,
+      "end": 19.58
+    },
+    {
+      "word": "to",
+      "start": 19.58,
+      "end": 19.78
+    },
+    {
+      "word": "help",
+      "start": 19.78,
+      "end": 20.0
+    },
+    {
+      "word": "do",
+      "start": 20.0,
+      "end": 20.23
+    },
+    {
+      "word": "that",
+      "start": 20.23,
+      "end": 20.45
+    },
+    {
+      "word": "by",
+      "start": 20.45,
+      "end": 20.79
+    },
+    {
+      "word": "hand.",
+      "start": 20.79,
+      "end": 21.34
+    },
+    {
+      "word": "So",
+      "start": 21.38,
+      "end": 21.78
+    },
+    {
+      "word": "the",
+      "start": 21.78,
+      "end": 21.99
+    },
+    {
+      "word": "floor",
+      "start": 21.99,
+      "end": 22.25
+    },
+    {
+      "word": "gets",
+      "start": 22.25,
+      "end": 22.49
+    },
+    {
+      "word": "a",
+      "start": 22.49,
+      "end": 22.77
+    },
+    {
+      "word": "fence.",
+      "start": 22.77,
+      "end": 23.25
+    },
+    {
+      "word": "The",
+      "start": 23.25,
+      "end": 23.69
+    },
+    {
+      "word": "gate",
+      "start": 23.69,
+      "end": 24.04
+    },
+    {
+      "word": "carries",
+      "start": 24.04,
+      "end": 24.37
+    },
+    {
+      "word": "a",
+      "start": 24.37,
+      "end": 24.64
+    },
+    {
+      "word": "sign",
+      "start": 24.64,
+      "end": 24.9
+    },
+    {
+      "word": "that",
+      "start": 24.9,
+      "end": 25.16
+    },
+    {
+      "word": "reads",
+      "start": 25.16,
+      "end": 25.52
+    },
+    {
+      "word": "Red",
+      "start": 25.52,
+      "end": 25.91
+    },
+    {
+      "word": "Zone,",
+      "start": 25.91,
+      "end": 26.29
+    },
+    {
+      "word": "with",
+      "start": 26.29,
+      "end": 26.55
+    },
+    {
+      "word": "a",
+      "start": 26.55,
+      "end": 26.79
+    },
+    {
+      "word": "drawing",
+      "start": 26.79,
+      "end": 27.06
+    },
+    {
+      "word": "of",
+      "start": 27.06,
+      "end": 27.25
+    },
+    {
+      "word": "the",
+      "start": 27.25,
+      "end": 27.44
+    },
+    {
+      "word": "Grim",
+      "start": 27.44,
+      "end": 27.71
+    },
+    {
+      "word": "Reaper.",
+      "start": 27.71,
+      "end": 28.2
+    },
+    {
+      "word": "Exxon's",
+      "start": 29.02,
+      "end": 29.52
+    },
+    {
+      "word": "Bart",
+      "start": 29.52,
+      "end": 29.885
+    },
+    {
+      "word": "Cahir",
+      "start": 29.885,
+      "end": 30.275
+    },
+    {
+      "word": "says",
+      "start": 30.275,
+      "end": 30.6
+    },
+    {
+      "word": "about",
+      "start": 30.6,
+      "end": 30.82
+    },
+    {
+      "word": "a",
+      "start": 30.82,
+      "end": 31.06
+    },
+    {
+      "word": "third",
+      "start": 31.06,
+      "end": 31.32
+    },
+    {
+      "word": "of",
+      "start": 31.32,
+      "end": 31.73
+    },
+    {
+      "word": "significant",
+      "start": 31.73,
+      "end": 32.22
+    },
+    {
+      "word": "drilling",
+      "start": 32.22,
+      "end": 32.65
+    },
+    {
+      "word": "injuries",
+      "start": 32.65,
+      "end": 33.08
+    },
+    {
+      "word": "have",
+      "start": 33.08,
+      "end": 33.48
+    },
+    {
+      "word": "happened",
+      "start": 33.48,
+      "end": 33.81
+    },
+    {
+      "word": "right",
+      "start": 33.81,
+      "end": 34.15
+    },
+    {
+      "word": "here,",
+      "start": 34.15,
+      "end": 34.5
+    },
+    {
+      "word": "on",
+      "start": 34.5,
+      "end": 34.7
+    },
+    {
+      "word": "the",
+      "start": 34.7,
+      "end": 34.84
+    },
+    {
+      "word": "rig",
+      "start": 34.84,
+      "end": 35.14
+    },
+    {
+      "word": "floor.",
+      "start": 35.14,
+      "end": 35.68
+    },
+    {
+      "word": "Drilling",
+      "start": 36.13,
+      "end": 36.77
+    },
+    {
+      "word": "contractor",
+      "start": 36.88,
+      "end": 37.41
+    },
+    {
+      "word": "Helmerich",
+      "start": 37.41,
+      "end": 37.64
+    },
+    {
+      "word": "and",
+      "start": 37.64,
+      "end": 37.93
+    },
+    {
+      "word": "Payne",
+      "start": 37.93,
+      "end": 38.46
+    },
+    {
+      "word": "supplies",
+      "start": 38.46,
+      "end": 38.9
+    },
+    {
+      "word": "the",
+      "start": 38.9,
+      "end": 39.26
+    },
+    {
+      "word": "system.",
+      "start": 39.26,
+      "end": 39.76
+    },
+    {
+      "word": "Three",
+      "start": 39.92,
+      "end": 40.53
+    },
+    {
+      "word": "arms",
+      "start": 40.53,
+      "end": 40.98
+    },
+    {
+      "word": "move",
+      "start": 40.98,
+      "end": 41.33
+    },
+    {
+      "word": "pipe",
+      "start": 41.33,
+      "end": 41.68
+    },
+    {
+      "word": "weighing",
+      "start": 41.68,
+      "end": 42.06
+    },
+    {
+      "word": "roughly",
+      "start": 42.06,
+      "end": 42.585
+    },
+    {
+      "word": "2,000",
+      "start": 42.585,
+      "end": 43.175
+    },
+    {
+      "word": "pounds.",
+      "start": 43.175,
+      "end": 43.78
+    },
+    {
+      "word": "One",
+      "start": 44.1,
+      "end": 44.64
+    },
+    {
+      "word": "walks",
+      "start": 44.64,
+      "end": 45.02
+    },
+    {
+      "word": "each",
+      "start": 45.02,
+      "end": 45.39
+    },
+    {
+      "word": "stand",
+      "start": 45.39,
+      "end": 45.7
+    },
+    {
+      "word": "to",
+      "start": 45.7,
+      "end": 45.86
+    },
+    {
+      "word": "the",
+      "start": 45.86,
+      "end": 46.08
+    },
+    {
+      "word": "hole,",
+      "start": 46.08,
+      "end": 46.56
+    },
+    {
+      "word": "one",
+      "start": 46.6,
+      "end": 47.14
+    },
+    {
+      "word": "lines",
+      "start": 47.14,
+      "end": 47.45
+    },
+    {
+      "word": "up",
+      "start": 47.45,
+      "end": 47.63
+    },
+    {
+      "word": "the",
+      "start": 47.63,
+      "end": 47.92
+    },
+    {
+      "word": "threads,",
+      "start": 47.92,
+      "end": 48.4
+    },
+    {
+      "word": "and",
+      "start": 48.4,
+      "end": 48.84
+    },
+    {
+      "word": "one",
+      "start": 48.84,
+      "end": 49.2
+    },
+    {
+      "word": "racks",
+      "start": 49.2,
+      "end": 49.63
+    },
+    {
+      "word": "pipe",
+      "start": 49.63,
+      "end": 50.03
+    },
+    {
+      "word": "high",
+      "start": 50.03,
+      "end": 50.29
+    },
+    {
+      "word": "in",
+      "start": 50.29,
+      "end": 50.44
+    },
+    {
+      "word": "the",
+      "start": 50.44,
+      "end": 50.645
+    },
+    {
+      "word": "derrick.",
+      "start": 50.645,
+      "end": 51.11
+    },
+    {
+      "word": "So",
+      "start": 51.52,
+      "end": 51.94
+    },
+    {
+      "word": "where",
+      "start": 51.94,
+      "end": 52.1
+    },
+    {
+      "word": "did",
+      "start": 52.1,
+      "end": 52.23
+    },
+    {
+      "word": "the",
+      "start": 52.23,
+      "end": 52.4
+    },
+    {
+      "word": "crew",
+      "start": 52.4,
+      "end": 52.64
+    },
+    {
+      "word": "go?",
+      "start": 52.64,
+      "end": 53.1
+    },
+    {
+      "word": "Up",
+      "start": 53.14,
+      "end": 53.56
+    },
+    {
+      "word": "into",
+      "start": 53.56,
+      "end": 53.76
+    },
+    {
+      "word": "a",
+      "start": 53.76,
+      "end": 54.03
+    },
+    {
+      "word": "small",
+      "start": 54.03,
+      "end": 54.45
+    },
+    {
+      "word": "office",
+      "start": 54.45,
+      "end": 54.83
+    },
+    {
+      "word": "on",
+      "start": 54.83,
+      "end": 55.03
+    },
+    {
+      "word": "the",
+      "start": 55.03,
+      "end": 55.23
+    },
+    {
+      "word": "rig,",
+      "start": 55.23,
+      "end": 55.59
+    },
+    {
+      "word": "where",
+      "start": 55.59,
+      "end": 55.95
+    },
+    {
+      "word": "a",
+      "start": 55.95,
+      "end": 56.3
+    },
+    {
+      "word": "contractor",
+      "start": 56.3,
+      "end": 56.75
+    },
+    {
+      "word": "runs",
+      "start": 56.75,
+      "end": 57.09
+    },
+    {
+      "word": "the",
+      "start": 57.09,
+      "end": 57.41
+    },
+    {
+      "word": "robots",
+      "start": 57.41,
+      "end": 57.78
+    },
+    {
+      "word": "with",
+      "start": 57.78,
+      "end": 58.17
+    },
+    {
+      "word": "controls",
+      "start": 58.17,
+      "end": 58.56
+    },
+    {
+      "word": "on",
+      "start": 58.56,
+      "end": 58.77
+    },
+    {
+      "word": "a",
+      "start": 58.77,
+      "end": 59.03
+    },
+    {
+      "word": "screen.",
+      "start": 59.03,
+      "end": 59.56
+    },
+    {
+      "word": "That",
+      "start": 59.84,
+      "end": 60.43
+    },
+    {
+      "word": "contractor",
+      "start": 60.43,
+      "end": 60.85
+    },
+    {
+      "word": "is",
+      "start": 60.85,
+      "end": 61.08
+    },
+    {
+      "word": "the",
+      "start": 61.08,
+      "end": 61.295
+    },
+    {
+      "word": "driller,",
+      "start": 61.295,
+      "end": 61.705
+    },
+    {
+      "word": "who",
+      "start": 61.705,
+      "end": 62.15
+    },
+    {
+      "word": "starts",
+      "start": 62.15,
+      "end": 62.5
+    },
+    {
+      "word": "each",
+      "start": 62.5,
+      "end": 62.84
+    },
+    {
+      "word": "move",
+      "start": 62.84,
+      "end": 63.12
+    },
+    {
+      "word": "and",
+      "start": 63.12,
+      "end": 63.42
+    },
+    {
+      "word": "watches",
+      "start": 63.42,
+      "end": 63.74
+    },
+    {
+      "word": "it,",
+      "start": 63.74,
+      "end": 64.09
+    },
+    {
+      "word": "and",
+      "start": 64.09,
+      "end": 64.36
+    },
+    {
+      "word": "the",
+      "start": 64.36,
+      "end": 64.58
+    },
+    {
+      "word": "arms",
+      "start": 64.58,
+      "end": 64.95
+    },
+    {
+      "word": "follow",
+      "start": 64.95,
+      "end": 65.41
+    },
+    {
+      "word": "paths",
+      "start": 65.41,
+      "end": 65.88
+    },
+    {
+      "word": "planned",
+      "start": 65.88,
+      "end": 66.22
+    },
+    {
+      "word": "in",
+      "start": 66.22,
+      "end": 66.54
+    },
+    {
+      "word": "advance.",
+      "start": 66.54,
+      "end": 67.06
+    },
+    {
+      "word": "The",
+      "start": 67.26,
+      "end": 67.7
+    },
+    {
+      "word": "crew",
+      "start": 67.7,
+      "end": 67.99
+    },
+    {
+      "word": "works",
+      "start": 67.99,
+      "end": 68.29
+    },
+    {
+      "word": "out",
+      "start": 68.29,
+      "end": 68.51
+    },
+    {
+      "word": "the",
+      "start": 68.51,
+      "end": 68.78
+    },
+    {
+      "word": "exact",
+      "start": 68.78,
+      "end": 69.19
+    },
+    {
+      "word": "moves",
+      "start": 69.19,
+      "end": 69.6
+    },
+    {
+      "word": "with",
+      "start": 69.6,
+      "end": 69.88
+    },
+    {
+      "word": "an",
+      "start": 69.88,
+      "end": 70.13
+    },
+    {
+      "word": "Exxon",
+      "start": 70.13,
+      "end": 70.56
+    },
+    {
+      "word": "operations",
+      "start": 70.56,
+      "end": 71.05
+    },
+    {
+      "word": "team",
+      "start": 71.05,
+      "end": 71.35
+    },
+    {
+      "word": "in",
+      "start": 71.35,
+      "end": 71.64
+    },
+    {
+      "word": "Houston.",
+      "start": 71.64,
+      "end": 72.16
+    },
+    {
+      "word": "Exxon",
+      "start": 72.96,
+      "end": 73.42
+    },
+    {
+      "word": "runs",
+      "start": 73.42,
+      "end": 73.69
+    },
+    {
+      "word": "more",
+      "start": 73.69,
+      "end": 73.93
+    },
+    {
+      "word": "than",
+      "start": 73.93,
+      "end": 74.22
+    },
+    {
+      "word": "30",
+      "start": 74.22,
+      "end": 74.58
+    },
+    {
+      "word": "rigs",
+      "start": 74.58,
+      "end": 74.86
+    },
+    {
+      "word": "in",
+      "start": 74.86,
+      "end": 75.02
+    },
+    {
+      "word": "the",
+      "start": 75.02,
+      "end": 75.21
+    },
+    {
+      "word": "Permian,",
+      "start": 75.21,
+      "end": 75.62
+    },
+    {
+      "word": "and",
+      "start": 75.62,
+      "end": 75.98
+    },
+    {
+      "word": "in",
+      "start": 75.98,
+      "end": 76.22
+    },
+    {
+      "word": "August,",
+      "start": 76.22,
+      "end": 76.61
+    },
+    {
+      "word": "Reuters",
+      "start": 76.61,
+      "end": 77.04
+    },
+    {
+      "word": "counted",
+      "start": 77.04,
+      "end": 77.47
+    },
+    {
+      "word": "two",
+      "start": 77.47,
+      "end": 77.84
+    },
+    {
+      "word": "that",
+      "start": 77.84,
+      "end": 78.07
+    },
+    {
+      "word": "were",
+      "start": 78.07,
+      "end": 78.38
+    },
+    {
+      "word": "automated.",
+      "start": 78.38,
+      "end": 78.92
+    },
+    {
+      "word": "Exxon",
+      "start": 79.22,
+      "end": 79.71
+    },
+    {
+      "word": "plans",
+      "start": 79.71,
+      "end": 80.01
+    },
+    {
+      "word": "to",
+      "start": 80.01,
+      "end": 80.33
+    },
+    {
+      "word": "automate",
+      "start": 80.33,
+      "end": 80.68
+    },
+    {
+      "word": "more",
+      "start": 80.68,
+      "end": 80.95
+    },
+    {
+      "word": "than",
+      "start": 80.95,
+      "end": 81.19
+    },
+    {
+      "word": "half",
+      "start": 81.19,
+      "end": 81.44
+    },
+    {
+      "word": "its",
+      "start": 81.44,
+      "end": 81.88
+    },
+    {
+      "word": "unconventional",
+      "start": 81.9,
+      "end": 82.43
+    },
+    {
+      "word": "fleet",
+      "start": 82.43,
+      "end": 82.85
+    },
+    {
+      "word": "by",
+      "start": 82.85,
+      "end": 83.12
+    },
+    {
+      "word": "the",
+      "start": 83.12,
+      "end": 83.26
+    },
+    {
+      "word": "end",
+      "start": 83.26,
+      "end": 83.42
+    },
+    {
+      "word": "of",
+      "start": 83.42,
+      "end": 83.785
+    },
+    {
+      "word": "2028.",
+      "start": 83.785,
+      "end": 84.39
+    },
+    {
+      "word": "The",
+      "start": 84.84,
+      "end": 85.28
+    },
+    {
+      "word": "first",
+      "start": 85.28,
+      "end": 85.54
+    },
+    {
+      "word": "one",
+      "start": 85.54,
+      "end": 85.87
+    },
+    {
+      "word": "already",
+      "start": 85.87,
+      "end": 86.22
+    },
+    {
+      "word": "set",
+      "start": 86.22,
+      "end": 86.44
+    },
+    {
+      "word": "a",
+      "start": 86.44,
+      "end": 86.66
+    },
+    {
+      "word": "pace.",
+      "start": 86.66,
+      "end": 87.09
+    },
+    {
+      "word": "It",
+      "start": 87.09,
+      "end": 87.51
+    },
+    {
+      "word": "drilled",
+      "start": 87.51,
+      "end": 87.84
+    },
+    {
+      "word": "two",
+      "start": 87.84,
+      "end": 88.23
+    },
+    {
+      "word": "miles",
+      "start": 88.23,
+      "end": 88.76
+    },
+    {
+      "word": "sideways",
+      "start": 88.76,
+      "end": 89.4
+    },
+    {
+      "word": "underground",
+      "start": 89.54,
+      "end": 90.14
+    },
+    {
+      "word": "in",
+      "start": 90.14,
+      "end": 90.48
+    },
+    {
+      "word": "a",
+      "start": 90.48,
+      "end": 90.61
+    },
+    {
+      "word": "little",
+      "start": 90.61,
+      "end": 90.83
+    },
+    {
+      "word": "over",
+      "start": 90.83,
+      "end": 91.13
+    },
+    {
+      "word": "six",
+      "start": 91.13,
+      "end": 91.51
+    },
+    {
+      "word": "days,",
+      "start": 91.51,
+      "end": 91.98
+    },
+    {
+      "word": "the",
+      "start": 91.98,
+      "end": 92.41
+    },
+    {
+      "word": "third",
+      "start": 92.41,
+      "end": 92.86
+    },
+    {
+      "word": "fastest",
+      "start": 92.86,
+      "end": 93.34
+    },
+    {
+      "word": "time",
+      "start": 93.34,
+      "end": 93.66
+    },
+    {
+      "word": "in",
+      "start": 93.66,
+      "end": 93.985
+    },
+    {
+      "word": "Exxon's",
+      "start": 93.985,
+      "end": 94.445
+    },
+    {
+      "word": "history.",
+      "start": 94.445,
+      "end": 95.0
+    },
+    {
+      "word": "Does",
+      "start": 95.34,
+      "end": 95.74
+    },
+    {
+      "word": "a",
+      "start": 95.74,
+      "end": 95.99
+    },
+    {
+      "word": "robot",
+      "start": 95.99,
+      "end": 96.31
+    },
+    {
+      "word": "take",
+      "start": 96.31,
+      "end": 96.55
+    },
+    {
+      "word": "a",
+      "start": 96.55,
+      "end": 96.81
+    },
+    {
+      "word": "job?",
+      "start": 96.81,
+      "end": 97.3
+    },
+    {
+      "word": "Exxon",
+      "start": 97.54,
+      "end": 98.06
+    },
+    {
+      "word": "expects",
+      "start": 98.06,
+      "end": 98.53
+    },
+    {
+      "word": "similar",
+      "start": 98.53,
+      "end": 99.06
+    },
+    {
+      "word": "staffing,",
+      "start": 99.06,
+      "end": 99.57
+    },
+    {
+      "word": "and",
+      "start": 99.57,
+      "end": 99.95
+    },
+    {
+      "word": "calls",
+      "start": 99.95,
+      "end": 100.19
+    },
+    {
+      "word": "it",
+      "start": 100.19,
+      "end": 100.39
+    },
+    {
+      "word": "a",
+      "start": 100.39,
+      "end": 100.65
+    },
+    {
+      "word": "force",
+      "start": 100.65,
+      "end": 101.1
+    },
+    {
+      "word": "multiplier,",
+      "start": 101.1,
+      "end": 101.61
+    },
+    {
+      "word": "not",
+      "start": 101.61,
+      "end": 101.9
+    },
+    {
+      "word": "a",
+      "start": 101.9,
+      "end": 102.16
+    },
+    {
+      "word": "replacement.",
+      "start": 102.16,
+      "end": 102.68
+    },
+    {
+      "word": "It",
+      "start": 102.76,
+      "end": 103.23
+    },
+    {
+      "word": "also",
+      "start": 103.23,
+      "end": 103.54
+    },
+    {
+      "word": "believes",
+      "start": 103.54,
+      "end": 103.82
+    },
+    {
+      "word": "it",
+      "start": 103.82,
+      "end": 104.01
+    },
+    {
+      "word": "could",
+      "start": 104.01,
+      "end": 104.27
+    },
+    {
+      "word": "prevent",
+      "start": 104.27,
+      "end": 104.66
+    },
+    {
+      "word": "roughly",
+      "start": 104.66,
+      "end": 104.98
+    },
+    {
+      "word": "a",
+      "start": 104.98,
+      "end": 105.21
+    },
+    {
+      "word": "third",
+      "start": 105.21,
+      "end": 105.43
+    },
+    {
+      "word": "of",
+      "start": 105.43,
+      "end": 105.83
+    },
+    {
+      "word": "high-consequence",
+      "start": 105.83,
+      "end": 106.44
+    },
+    {
+      "word": "incidents.",
+      "start": 106.66,
+      "end": 107.3
+    },
+    {
+      "word": "Both",
+      "start": 107.48,
+      "end": 107.99
+    },
+    {
+      "word": "are",
+      "start": 107.99,
+      "end": 108.4
+    },
+    {
+      "word": "company",
+      "start": 108.4,
+      "end": 108.94
+    },
+    {
+      "word": "expectations,",
+      "start": 109.12,
+      "end": 109.71
+    },
+    {
+      "word": "not",
+      "start": 109.71,
+      "end": 110.25
+    },
+    {
+      "word": "counts.",
+      "start": 110.25,
+      "end": 110.84
+    },
+    {
+      "word": "Cahir",
+      "start": 111.36,
+      "end": 111.85
+    },
+    {
+      "word": "says",
+      "start": 111.85,
+      "end": 112.22
+    },
+    {
+      "word": "people",
+      "start": 112.22,
+      "end": 112.58
+    },
+    {
+      "word": "off",
+      "start": 112.58,
+      "end": 112.84
+    },
+    {
+      "word": "the",
+      "start": 112.84,
+      "end": 113.06
+    },
+    {
+      "word": "floor",
+      "start": 113.06,
+      "end": 113.3
+    },
+    {
+      "word": "can",
+      "start": 113.3,
+      "end": 113.61
+    },
+    {
+      "word": "plan",
+      "start": 113.61,
+      "end": 113.89
+    },
+    {
+      "word": "the",
+      "start": 113.89,
+      "end": 114.1
+    },
+    {
+      "word": "next",
+      "start": 114.1,
+      "end": 114.51
+    },
+    {
+      "word": "operation",
+      "start": 114.51,
+      "end": 115.05
+    },
+    {
+      "word": "instead.",
+      "start": 115.05,
+      "end": 115.62
+    },
+    {
+      "word": "So",
+      "start": 115.86,
+      "end": 116.29
+    },
+    {
+      "word": "who",
+      "start": 116.29,
+      "end": 116.565
+    },
+    {
+      "word": "tightens",
+      "start": 116.565,
+      "end": 116.855
+    },
+    {
+      "word": "the",
+      "start": 116.855,
+      "end": 117.06
+    },
+    {
+      "word": "pipe",
+      "start": 117.06,
+      "end": 117.32
+    },
+    {
+      "word": "now?",
+      "start": 117.32,
+      "end": 117.79
+    },
+    {
+      "word": "A",
+      "start": 117.79,
+      "end": 118.27
+    },
+    {
+      "word": "robot",
+      "start": 118.27,
+      "end": 118.58
+    },
+    {
+      "word": "arm",
+      "start": 118.58,
+      "end": 118.87
+    },
+    {
+      "word": "does.",
+      "start": 118.87,
+      "end": 119.33
+    },
+    {
+      "word": "A",
+      "start": 119.33,
+      "end": 119.8
+    },
+    {
+      "word": "person",
+      "start": 119.8,
+      "end": 120.19
+    },
+    {
+      "word": "still",
+      "start": 120.19,
+      "end": 120.66
+    },
+    {
+      "word": "decides",
+      "start": 120.66,
+      "end": 120.95
+    },
+    {
+      "word": "when.",
+      "start": 120.95,
+      "end": 121.2
+    }
+  ],
+  "beats": [
+    0.557,
+    1.068,
+    1.602,
+    2.136,
+    2.647,
+    3.181,
+    3.715,
+    4.226,
+    4.76,
+    5.248,
+    5.782,
+    6.316,
+    6.827,
+    7.384,
+    7.918,
+    8.429,
+    8.94,
+    9.451,
+    9.985,
+    10.519,
+    11.029,
+    11.564,
+    12.098,
+    12.632,
+    13.142,
+    13.677,
+    14.187,
+    14.698,
+    15.209,
+    15.766,
+    16.277,
+    16.811,
+    17.322,
+    17.856,
+    18.367,
+    18.878,
+    19.412,
+    19.923,
+    20.503,
+    21.014,
+    21.525,
+    22.036,
+    22.547,
+    23.057,
+    23.615,
+    24.126,
+    24.66,
+    25.194,
+    25.704,
+    26.215,
+    26.773,
+    27.283,
+    27.818,
+    28.328,
+    28.862,
+    29.396,
+    29.884,
+    30.418,
+    30.929,
+    31.44,
+    31.974,
+    32.531,
+    33.065,
+    33.53,
+    34.087,
+    34.621,
+    35.155,
+    35.689,
+    36.2,
+    36.711,
+    37.222,
+    37.779,
+    38.29,
+    38.801,
+    39.335,
+    39.869,
+    40.38,
+    40.914,
+    41.424,
+    41.958,
+    42.469,
+    42.98,
+    43.514,
+    44.095,
+    44.582,
+    45.093,
+    45.604,
+    46.161,
+    46.672,
+    47.206,
+    47.74,
+    48.274,
+    48.762,
+    49.273,
+    49.83,
+    50.341,
+    50.852,
+    51.339,
+    51.897,
+    52.407,
+    52.965,
+    53.452,
+    54.01,
+    54.567,
+    55.055,
+    55.589,
+    56.099,
+    56.657,
+    57.144,
+    57.632,
+    58.166,
+    58.746,
+    59.234,
+    59.745,
+    60.279,
+    60.836,
+    61.347,
+    61.858,
+    62.415,
+    62.926,
+    63.437,
+    63.948,
+    64.482,
+    64.993,
+    65.527,
+    66.061,
+    66.595,
+    67.106,
+    67.617,
+    68.127,
+    68.685,
+    69.219,
+    69.73,
+    70.264,
+    70.798,
+    71.332,
+    71.819,
+    72.33,
+    72.887,
+    73.375,
+    73.909,
+    74.443,
+    74.954,
+    75.488,
+    75.999,
+    76.51,
+    77.067,
+    77.601,
+    78.112,
+    78.623,
+    79.18,
+    79.714,
+    80.202,
+    80.713,
+    81.247,
+    81.781,
+    82.292,
+    82.826,
+    83.336,
+    83.847,
+    84.381,
+    84.915,
+    85.426,
+    85.96,
+    86.471,
+    87.005,
+    87.597,
+    88.108,
+    88.642,
+    89.176,
+    89.687,
+    90.221,
+    90.755,
+    91.266,
+    91.8,
+    92.288,
+    92.822,
+    93.356,
+    93.867,
+    94.424,
+    94.958,
+    95.469,
+    95.98,
+    96.491,
+    97.025,
+    97.559,
+    98.069,
+    98.604,
+    99.138,
+    99.672,
+    100.182,
+    100.717,
+    101.227,
+    101.738,
+    102.249,
+    102.806,
+    103.317,
+    103.851,
+    104.362,
+    104.896,
+    105.407,
+    105.918,
+    106.452,
+    106.963,
+    107.543,
+    108.054,
+    108.565,
+    109.076,
+    109.587,
+    110.097,
+    110.655,
+    111.166,
+    111.7,
+    112.234,
+    112.744,
+    113.255,
+    113.813,
+    114.323,
+    114.858,
+    115.368,
+    115.902,
+    116.436,
+    116.924,
+    117.458,
+    117.969,
+    118.48,
+    119.014,
+    119.571,
+    120.105,
+    120.57,
+    121.127,
+    121.661
+  ],
+  "timed_at": "2026-11-18T11:32:00+00:00",
+  "run_id": "2026-11-17"
+}
