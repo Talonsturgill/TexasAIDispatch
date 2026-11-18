@@ -26,6 +26,7 @@ import {ScienceShelfGallery} from './episodes/sample-v2/shelf/ScienceGallery';
 import {BoxOnBottomFilm} from './episodes/2026-11-15/BoxOnBottomFilm';
 import {SetsItDownFilm} from './episodes/2026-11-14/SetsItDownFilm';
 import {CreekWatchFilm} from './episodes/2026-11-16/CreekWatchFilm';
+import {RedZoneFilm} from './episodes/2026-11-17/RedZoneFilm';
 import {LeakReviewFilm} from '../modern/episodes/2026-10-21/LeakReviewFilm';
 
 /**
@@ -89,4 +90,5 @@ export const dailyEpisodes: Record<string, React.FC<FilmRenderProps>> = {
   'look-v2-shelf-science': ScienceShelfGallery,
   'sets-it-down-1114': SetsItDownFilm,
   'box-on-bottom-1115': BoxOnBottomFilm,
+  'red-zone-1117': RedZoneFilm,
 };
