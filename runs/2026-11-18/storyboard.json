@@ -1,0 +1,2992 @@
+{
+  "date": "2026-11-18",
+  "title": "The bag is already here",
+  "topic": "At NASA's Johnson Space Center in Houston, Google Public Sector and NASA teams built a proof-of-concept AI robot that found and moved a medical bag 85 percent of the time in early lab tests, because on Mars a reply from Earth can take up to 44 minutes.",
+  "tone": "wonder",
+  "hook": "Who fetches the medical bag on Mars?",
+  "beat": "science-machines",
+  "episode": "fetch-bag-1118",
+  "entities": [
+    "NASA Johnson Space Center",
+    "Google Public Sector",
+    "Jet Propulsion Laboratory",
+    "Physical Intelligence",
+    "iMETRO",
+    "Houston"
+  ],
+  "treatment": {
+    "logline": "In a pretend Mars habitat in Houston, a one-armed robot with a curious face learns to fetch the medical bag, because the real answer from Earth is up to 44 minutes away.",
+    "cold_open": "A crew member in a habitat reaches for a red medical bag on a high locker, winces and grabs her back. A reply bubble lifts off the radio and starts crawling toward a tiny Earth as a clock ring sweeps.",
+    "turn": "The bag slips and flops to the floor. Some tries miss, it is one task in one lab, and no space-ready robot exists. Even when it works, the arm sets the bag down and the crew medical officer opens it and decides.",
+    "button": "Back in the habitat the reply bubble is still crawling, halfway to Mars. The bag is already open in the crew member's lap and the arm blinks back at her."
+  },
+  "hero": {
+    "name": "the fetch arm and its eye",
+    "why": "a white one-armed lab robot with a curious visor face, and its separate camera on a stand across the room that watches the hand. No earlier film has drawn either, and the eye-to-hand idea is the mechanism of the story."
+  },
+  "throughline": {
+    "object": "the red medical bag",
+    "states": [
+      {
+        "scene_id": "s1",
+        "state": "zipped on a high locker, out of reach"
+      },
+      {
+        "scene_id": "s5",
+        "state": "a blinking ghost bag dropped again and again in the simulator"
+      },
+      {
+        "scene_id": "s10",
+        "state": "gripped and swinging through the air"
+      },
+      {
+        "scene_id": "s11",
+        "state": "flopped on the floor after a miss"
+      },
+      {
+        "scene_id": "s13",
+        "state": "unzipped in the crew medical officer's hands"
+      },
+      {
+        "scene_id": "s14",
+        "state": "open in the crew member's lap while Earth's reply still crawls"
+      }
+    ]
+  },
+  "fingerprint": {
+    "pov": "inside a habitat mockup at robot height",
+    "layout": "a lab floor with a white hull, a locker and a separate camera stand",
+    "hero_treatment": "a curious robot visor face and a camera eye that blinks",
+    "palette": "habitat white and teal with Mars orange and one red bag"
+  },
+  "music": {
+    "track": "immersed"
+  },
+  "wall_views": [
+    "signal-trip",
+    "sim-ghost",
+    "rocket-ghost"
+  ],
+  "credits": "TEXAS AI DOCKET\nSOURCES\nGoogle Cloud blog, October 27th, 2026\nNASA Johnson Space Center\nNextgov, The Register, Digital Health News\nILLUSTRATION\nOriginal drawings, people illustrative\nMUSIC\n\"Immersed\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Picture a crew on Mars, and one of them has severe back pain. A call home for help can take up to 44 minutes to make the round trip.",
+      "vo_claims": [
+        "c16",
+        "c10"
+      ],
+      "visual_events": [
+        {
+          "id": "s1-wince",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "cleanup_bag_rustle",
+          "label": "Mission to Mars",
+          "draw": {
+            "subject": "the crew member",
+            "action": "sits doubled over with a hand on her back while a white gripper tip stretches in from the frame edge toward the red bag on the high locker",
+            "emotion": "worried, wincing"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s1-call",
+          "at_phrase": "A call home for help",
+          "duration_s": 1.2,
+          "sound": "protocol_upload",
+          "label": "Call home",
+          "draw": {
+            "subject": "a reply bubble",
+            "action": "lifts off the radio dish and starts crawling across space toward a tiny Earth"
+          },
+          "at_s": 5.28
+        },
+        {
+          "id": "s1-44",
+          "at_phrase": "up to 44 minutes",
+          "duration_s": 1.4,
+          "sound": "sensor_heartbeat",
+          "label": "Up to 44 minutes",
+          "draw": {
+            "subject": "a clock ring",
+            "action": "starts sweeping around Earth while the bubble barely moves"
+          },
+          "at_s": 7.06
+        }
+      ],
+      "start_s": 0.0,
+      "duration_s": 9.76,
+      "planes": []
+    },
+    {
+      "id": "s2",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "So who fetches the medical bag? Look again. This is a lab at NASA's Johnson Space Center in Houston, built with habitat mockups, and the one reaching for the bag is a robot.",
+      "vo_claims": [
+        "c14",
+        "c15",
+        "c7"
+      ],
+      "visual_events": [
+        {
+          "id": "s2-who",
+          "at": 0.0,
+          "duration_s": 1.0,
+          "sound": "assistive_servo",
+          "label": "Who fetches it?",
+          "draw": {
+            "subject": "the white gripper",
+            "action": "waves in and out of the porthole frame as the crew member peers at it",
+            "emotion": "puzzled"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s2-pull",
+          "at_phrase": "Look again",
+          "duration_s": 1.6,
+          "sound": "freight_door",
+          "label": "A mockup",
+          "draw": {
+            "subject": "the habitat wall",
+            "action": "slides away to show a hull mockup on a lab floor, the Mars porthole a painted panel",
+            "emotion": "the crew member sits up, sheepish"
+          },
+          "at_s": 3.22
+        },
+        {
+          "id": "s2-jsc",
+          "at_phrase": "NASA's Johnson Space Center",
+          "duration_s": 1.2,
+          "sound": "field_marker",
+          "label": "Johnson Space Center",
+          "draw": {
+            "subject": "a NASA lab sign",
+            "action": "swings down on its chains over the lab floor"
+          },
+          "at_s": 5.665
+        },
+        {
+          "id": "s2-robot",
+          "at_phrase": "the one reaching",
+          "duration_s": 1.2,
+          "sound": "robot_servo",
+          "label": "A robot",
+          "draw": {
+            "subject": "the robot arm",
+            "action": "uncurls from its base and blinks its visor eyes open at the bag",
+            "emotion": "curious"
+          },
+          "at_s": 10.06
+        }
+      ],
+      "start_s": 9.76,
+      "duration_s": 13.5,
+      "planes": []
+    },
+    {
+      "id": "s3",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Google Public Sector built it with the robotics team at Johnson, NASA's Human Research Program and the Jet Propulsion Laboratory.",
+      "vo_claims": [
+        "c2",
+        "c1"
+      ],
+      "visual_events": [
+        {
+          "id": "s3-google",
+          "at": 0.0,
+          "duration_s": 1.0,
+          "sound": "roof_fastener_turn",
+          "label": "Google Public Sector",
+          "draw": {
+            "subject": "the engineer",
+            "action": "bolts the visor onto the robot's head, a Google Public Sector tag on her sleeve",
+            "emotion": "determined"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s3-nasa",
+          "at_phrase": "the robotics team",
+          "duration_s": 1.0,
+          "sound": "reuse_tile_lock",
+          "label": "Johnson robotics team",
+          "draw": {
+            "subject": "the technician",
+            "action": "snaps a cable into the robot's shoulder and it twitches",
+            "emotion": "focused"
+          },
+          "at_s": 1.8
+        },
+        {
+          "id": "s3-jpl",
+          "at_phrase": "the Jet Propulsion Laboratory",
+          "duration_s": 1.0,
+          "sound": "proof_gate_clamp",
+          "label": "Jet Propulsion Laboratory",
+          "draw": {
+            "subject": "a third pair of gloved hands",
+            "action": "seats the wheeled base and the robot rises to full height",
+            "emotion": "the engineer grins up at it"
+          },
+          "at_s": 5.37
+        }
+      ],
+      "start_s": 23.26,
+      "duration_s": 7.08,
+      "planes": []
+    },
+    {
+      "id": "s4",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Its first job sounds simple. Find the medical bag and move it.",
+      "vo_claims": [
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s4-card",
+          "at": 0.0,
+          "duration_s": 1.0,
+          "sound": "document_parse",
+          "label": "Job one",
+          "draw": {
+            "subject": "the engineer's tablet",
+            "action": "flips up a task card with a drawing of the red bag",
+            "emotion": "the engineer raises an eyebrow"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s4-find",
+          "at_phrase": "Find the medical bag",
+          "duration_s": 1.2,
+          "sound": "assistive_servo",
+          "label": "Find it, move it",
+          "draw": {
+            "subject": "the robot arm",
+            "action": "swivels its visor to the bag and opens its gripper wide",
+            "emotion": "eager"
+          },
+          "at_s": 2.82
+        }
+      ],
+      "start_s": 30.34,
+      "duration_s": 6.24,
+      "planes": []
+    },
+    {
+      "id": "s5",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Before it touched real hardware, it practised the moves in a physics simulator, where a dropped bag costs nothing.",
+      "vo_claims": [
+        "c6"
+      ],
+      "visual_events": [
+        {
+          "id": "s5-grid",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "matrix_bus_rise",
+          "label": "Physics simulator",
+          "draw": {
+            "subject": "a wireframe twin of the habitat",
+            "action": "draws itself on in glowing blue lines"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s5-drop",
+          "at_phrase": "where a dropped bag",
+          "duration_s": 1.6,
+          "sound": "pads_pop",
+          "label": "Practice first",
+          "draw": {
+            "subject": "a ghost arm",
+            "action": "drops ghost bags that blink away, then tries again",
+            "emotion": "the engineer watches the screen, chin in hand"
+          },
+          "at_s": 4.19
+        }
+      ],
+      "start_s": 36.58,
+      "duration_s": 7.0,
+      "planes": []
+    },
+    {
+      "id": "s6",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Its brain is an open model called Pi zero, from a company called Physical Intelligence. Google fine tuned it in just 2.5 hours.",
+      "vo_claims": [
+        "c4",
+        "c5"
+      ],
+      "visual_events": [
+        {
+          "id": "s6-chip",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "proof_press_clamp",
+          "label": "Pi0, an open model",
+          "draw": {
+            "subject": "a glowing chip",
+            "action": "slides into the arm's shoulder and the visor eyes light up",
+            "emotion": "the engineer leans in"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s6-pi",
+          "at_phrase": "Physical Intelligence",
+          "duration_s": 1.0,
+          "sound": "offer_card",
+          "label": "Physical Intelligence",
+          "draw": {
+            "subject": "a maker's tag",
+            "action": "flips over on the chip"
+          },
+          "at_s": 4.29
+        },
+        {
+          "id": "s6-hour",
+          "at_phrase": "fine tuned it",
+          "duration_s": 1.4,
+          "sound": "sample_lower",
+          "label": "2.5 hours",
+          "draw": {
+            "subject": "an hourglass",
+            "action": "flips and drains in a blink",
+            "emotion": "the engineer's eyebrows go up"
+          },
+          "at_s": 6.35
+        }
+      ],
+      "start_s": 43.58,
+      "duration_s": 9.66,
+      "planes": []
+    },
+    {
+      "id": "s7",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Mars missions need light, low power hardware. So over two years, the team tested about 15 compact devices to run it on.",
+      "vo_claims": [
+        "c20"
+      ],
+      "visual_events": [
+        {
+          "id": "s7-boxes",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "carton_roller_place",
+          "label": "About 15 devices",
+          "draw": {
+            "subject": "a row of small computers",
+            "action": "slides onto a shelf one by one like contestants",
+            "emotion": "the technician squints along the row"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s7-test",
+          "at_phrase": "the team tested",
+          "duration_s": 1.2,
+          "sound": "freight_count",
+          "label": "Over two years",
+          "draw": {
+            "subject": "the technician",
+            "action": "runs a test probe along the shelf and each box flickers on as it is touched",
+            "emotion": "concentrating"
+          },
+          "at_s": 4.78
+        },
+        {
+          "id": "s7-pick",
+          "at_phrase": "to run it on",
+          "duration_s": 1.2,
+          "sound": "sensor_heartbeat",
+          "label": "Low power",
+          "draw": {
+            "subject": "the smallest box",
+            "action": "lights up while its battery gauge barely dips"
+          },
+          "at_s": 7.34
+        }
+      ],
+      "start_s": 53.24,
+      "duration_s": 8.68,
+      "planes": []
+    },
+    {
+      "id": "s8",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "To know where its own hand is, the robot uses a camera that stands across the room and watches it.",
+      "vo_claims": [
+        "c8"
+      ],
+      "visual_events": [
+        {
+          "id": "s8-eye",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "camera_reacquire",
+          "label": "Eye-to-hand camera",
+          "draw": {
+            "subject": "a camera on a tall stand",
+            "action": "opens its lens like an eye and blinks"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s8-watch",
+          "at_phrase": "watches it",
+          "duration_s": 1.18,
+          "sound": "protocol_focus",
+          "label": "Watching the hand",
+          "draw": {
+            "subject": "a dotted sightline",
+            "action": "runs from the camera across the room and locks onto the gripper",
+            "emotion": "the engineer follows it with a finger"
+          },
+          "at_s": 5.08
+        }
+      ],
+      "start_s": 61.92,
+      "duration_s": 6.26,
+      "planes": []
+    },
+    {
+      "id": "s9",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "The Jet Propulsion Laboratory is adapting tools built to track satellites in orbit, so the robot can understand the room around it.",
+      "vo_claims": [
+        "c21"
+      ],
+      "visual_events": [
+        {
+          "id": "s9-orbit",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "observation_trace",
+          "label": "Built to track satellites",
+          "draw": {
+            "subject": "satellite orbit rings",
+            "action": "spin around a small Earth with dots riding them"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s9-room",
+          "at_phrase": "understand the room",
+          "duration_s": 1.4,
+          "sound": "field_marker",
+          "label": "Mapping the room",
+          "draw": {
+            "subject": "the orbit rings",
+            "action": "shrink into the lab and wrap the locker until they lock on the bag",
+            "emotion": "the technician ducks under a ring, grinning"
+          },
+          "at_s": 5.44
+        }
+      ],
+      "start_s": 68.18,
+      "duration_s": 7.2,
+      "planes": []
+    },
+    {
+      "id": "s10",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "In early lab tests at the iMETRO facility, it found and moved the bag 85 percent of the time.",
+      "vo_claims": [
+        "c7",
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s10-grip",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "assistive_servo",
+          "label": "iMETRO, Houston",
+          "draw": {
+            "subject": "the robot arm",
+            "action": "grips the bag, lifts it and swings it across to the crew seat",
+            "emotion": "the engineer holds her breath"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s10-85",
+          "at_phrase": "85 percent",
+          "duration_s": 1.4,
+          "sound": "freight_count",
+          "label": "85% in early lab tests",
+          "draw": {
+            "subject": "a fan of ghost runs",
+            "action": "sweeps across the floor behind the arm, most bags landing red on the crew seat and a few flopping grey, then the counter lands on 85",
+            "emotion": "the engineer grins"
+          },
+          "at_s": 4.8
+        }
+      ],
+      "start_s": 75.38,
+      "duration_s": 6.7,
+      "planes": []
+    },
+    {
+      "id": "s11",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "That means some tries missed. It is one task, in one lab, on Earth. Google has not confirmed a space ready robot exists.",
+      "vo_claims": [
+        "c3",
+        "c13"
+      ],
+      "visual_events": [
+        {
+          "id": "s11-miss",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "cleanup_bag_rustle",
+          "label": "Some tries missed",
+          "draw": {
+            "subject": "the bag",
+            "action": "slips out of the gripper and flops onto the floor",
+            "emotion": "the engineer winces and the arm's visor droops"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s11-note",
+          "at_phrase": "one task",
+          "duration_s": 1.0,
+          "sound": "review_stamp",
+          "label": "One task, one lab",
+          "draw": {
+            "subject": "a sticky note",
+            "action": "slaps onto the arm reading proof of concept"
+          },
+          "at_s": 2.83
+        },
+        {
+          "id": "s11-ghost",
+          "at_phrase": "a space ready robot",
+          "duration_s": 1.4,
+          "sound": "decision_stop",
+          "label": "Proof of concept",
+          "draw": {
+            "subject": "a dashed robot outline in a rocket window",
+            "action": "flickers and stays empty"
+          },
+          "at_s": 7.72
+        }
+      ],
+      "start_s": 82.08,
+      "duration_s": 9.92,
+      "planes": []
+    },
+    {
+      "id": "s12",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "The goal is bigger. The robot could fetch and prepare an ultrasound, and take simple voice orders, with astronauts in command.",
+      "vo_claims": [
+        "c16",
+        "c9"
+      ],
+      "visual_events": [
+        {
+          "id": "s12-goal",
+          "at": 0.0,
+          "duration_s": 1.0,
+          "sound": "research_announcement",
+          "label": "The goal",
+          "draw": {
+            "subject": "the technician",
+            "action": "sweeps a hand toward an empty marked spot on the floor",
+            "emotion": "hopeful"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s12-us",
+          "at_phrase": "prepare an ultrasound",
+          "duration_s": 1.4,
+          "sound": "carton_roller_place",
+          "label": "Could fetch an ultrasound",
+          "draw": {
+            "subject": "a dashed ghost ultrasound cart",
+            "action": "rolls in beside the arm, drawn as an outline only"
+          },
+          "at_s": 3.45
+        },
+        {
+          "id": "s12-voice",
+          "at_phrase": "simple voice orders",
+          "duration_s": 1.2,
+          "sound": "prompt_diverge",
+          "label": "Voice orders, a goal",
+          "draw": {
+            "subject": "a sound wave",
+            "action": "ripples from the technician to the arm, which nods",
+            "emotion": "the technician talks with her hands"
+          },
+          "at_s": 5.02
+        }
+      ],
+      "start_s": 92.0,
+      "duration_s": 8.28,
+      "planes": []
+    },
+    {
+      "id": "s13",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Even then, it never makes the call. The crew medical officer opens the bag and decides.",
+      "vo_claims": [
+        "c23",
+        "c24"
+      ],
+      "visual_events": [
+        {
+          "id": "s13-fold",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "robot_servo",
+          "label": "It never makes the call",
+          "draw": {
+            "subject": "the robot arm",
+            "action": "sets the bag down and folds back, visor dimming",
+            "emotion": "content"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s13-open",
+          "at_phrase": "opens the bag",
+          "duration_s": 1.2,
+          "sound": "carton_dual_seal",
+          "label": "Crew medical officer",
+          "draw": {
+            "subject": "the crew medical officer",
+            "action": "unzips the bag and lifts out a scanner",
+            "emotion": "calm and focused"
+          },
+          "at_s": 4.42
+        }
+      ],
+      "start_s": 100.28,
+      "duration_s": 7.4,
+      "planes": []
+    },
+    {
+      "id": "s14",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Back on Mars, the answer from Earth is still on its way. The bag is already here.",
+      "vo_claims": [
+        "c10",
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s14-dot",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "protocol_upload",
+          "label": "Still on its way",
+          "draw": {
+            "subject": "the reply bubble",
+            "action": "is still crawling, only partway back to Mars, as the clock ring keeps sweeping"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s14-here",
+          "at_phrase": "The bag is already here",
+          "duration_s": 1.4,
+          "sound": "pads_pop",
+          "label": "Already here",
+          "draw": {
+            "subject": "the crew member",
+            "action": "holds the open bag in her lap and gives the arm a thumbs up as it blinks back",
+            "emotion": "relieved, smiling"
+          },
+          "at_s": 4.4
+        }
+      ],
+      "start_s": 107.68,
+      "duration_s": 7.14,
+      "planes": []
+    }
+  ],
+  "shots": [
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-wince",
+      "id": "s1-a",
+      "scene_id": "s1",
+      "framing": "medium",
+      "view": "mars-reach",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 0.0,
+      "duration_s": 5.28
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-wince",
+      "id": "s1-b",
+      "scene_id": "s1",
+      "framing": "wide",
+      "view": "signal-trip",
+      "at_phrase": "A call home for help",
+      "start_s": 5.28,
+      "duration_s": 4.48
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-who",
+      "id": "s2-a",
+      "scene_id": "s2",
+      "framing": "wide",
+      "view": "pullback-lab",
+      "cast": [
+        "technician",
+        "engineer"
+      ],
+      "start_s": 9.76,
+      "duration_s": 10.06
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-who",
+      "id": "s2-b",
+      "scene_id": "s2",
+      "framing": "close",
+      "view": "arm-wake",
+      "at_phrase": "the one reaching",
+      "start_s": 19.82,
+      "duration_s": 3.44
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-google",
+      "id": "s3-a",
+      "scene_id": "s3",
+      "framing": "close",
+      "view": "team-build",
+      "cast": [
+        "engineer",
+        "technician"
+      ],
+      "start_s": 23.26,
+      "duration_s": 7.08
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-card",
+      "id": "s4-a",
+      "scene_id": "s4",
+      "framing": "detail",
+      "view": "task-card",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 30.34,
+      "duration_s": 2.82
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-card",
+      "id": "s4-b",
+      "scene_id": "s4",
+      "framing": "detail",
+      "view": "arm-wake",
+      "at_phrase": "Find the medical bag",
+      "start_s": 33.16,
+      "duration_s": 3.42
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-grid",
+      "id": "s5-a",
+      "scene_id": "s5",
+      "framing": "wide",
+      "view": "sim-ghost",
+      "start_s": 36.58,
+      "duration_s": 4.19
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-grid",
+      "id": "s5-b",
+      "scene_id": "s5",
+      "framing": "medium",
+      "view": "sim-ghost",
+      "at_phrase": "where a dropped bag",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 40.77,
+      "duration_s": 2.81
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-chip",
+      "id": "s6-a",
+      "scene_id": "s6",
+      "framing": "close",
+      "view": "brain-chip",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 43.58,
+      "duration_s": 4.29
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-chip",
+      "id": "s6-c",
+      "scene_id": "s6",
+      "framing": "detail",
+      "view": "chip-tag",
+      "at_phrase": "Physical Intelligence",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 47.87,
+      "duration_s": 2.06
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-chip",
+      "id": "s6-b",
+      "scene_id": "s6",
+      "framing": "detail",
+      "view": "brain-chip",
+      "at_phrase": "fine tuned it",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 49.93,
+      "duration_s": 3.31
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-boxes",
+      "id": "s7-a",
+      "scene_id": "s7",
+      "framing": "medium",
+      "view": "edge-shelf",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 53.24,
+      "duration_s": 4.78
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-boxes",
+      "id": "s7-b",
+      "scene_id": "s7",
+      "framing": "detail",
+      "view": "edge-shelf",
+      "at_phrase": "the team tested",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 58.02,
+      "duration_s": 3.9
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-eye",
+      "id": "s8-a",
+      "scene_id": "s8",
+      "framing": "wide",
+      "view": "eye-to-hand",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 61.92,
+      "duration_s": 3.88
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-eye",
+      "id": "s8-b",
+      "scene_id": "s8",
+      "framing": "close",
+      "view": "eye-to-hand",
+      "at_phrase": "stands across the room",
+      "start_s": 65.8,
+      "duration_s": 2.38
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-orbit",
+      "id": "s9-a",
+      "scene_id": "s9",
+      "framing": "wide",
+      "view": "orbit-rings",
+      "start_s": 68.18,
+      "duration_s": 2.27
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-orbit",
+      "id": "s9-b",
+      "scene_id": "s9",
+      "framing": "medium",
+      "view": "orbit-rings",
+      "at_phrase": "tools built to track",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 70.45,
+      "duration_s": 4.93
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-grip",
+      "id": "s10-a",
+      "scene_id": "s10",
+      "framing": "medium",
+      "view": "grip-lift",
+      "cast": [
+        "engineer",
+        "technician"
+      ],
+      "start_s": 75.38,
+      "duration_s": 4.8
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-grip",
+      "id": "s10-b",
+      "scene_id": "s10",
+      "framing": "close",
+      "view": "grip-lift",
+      "at_phrase": "85 percent",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 80.18,
+      "duration_s": 1.9
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-miss",
+      "id": "s11-a",
+      "scene_id": "s11",
+      "framing": "medium",
+      "view": "drop",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 82.08,
+      "duration_s": 2.83
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-miss",
+      "id": "s11-b",
+      "scene_id": "s11",
+      "framing": "close",
+      "view": "drop",
+      "at_phrase": "one task",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 84.91,
+      "duration_s": 4.89
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-miss",
+      "id": "s11-c",
+      "scene_id": "s11",
+      "framing": "wide",
+      "view": "rocket-ghost",
+      "at_phrase": "a space ready robot",
+      "start_s": 89.8,
+      "duration_s": 2.2
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-goal",
+      "id": "s12-a",
+      "scene_id": "s12",
+      "framing": "wide",
+      "view": "ultrasound",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 92.0,
+      "duration_s": 5.02
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-goal",
+      "id": "s12-b",
+      "scene_id": "s12",
+      "framing": "close",
+      "view": "ultrasound",
+      "at_phrase": "simple voice orders",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 97.02,
+      "duration_s": 3.26
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-fold",
+      "id": "s13-a",
+      "scene_id": "s13",
+      "framing": "medium",
+      "view": "crew-opens",
+      "cast": [
+        "clinician",
+        "technician"
+      ],
+      "start_s": 100.28,
+      "duration_s": 4.42
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-fold",
+      "id": "s13-b",
+      "scene_id": "s13",
+      "framing": "detail",
+      "view": "crew-opens",
+      "at_phrase": "opens the bag",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 104.7,
+      "duration_s": 2.98
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-dot",
+      "id": "s14-a",
+      "scene_id": "s14",
+      "framing": "wide",
+      "view": "signal-trip",
+      "start_s": 107.68,
+      "duration_s": 2.55
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-dot",
+      "id": "s14-b",
+      "scene_id": "s14",
+      "framing": "close",
+      "view": "mars-reach",
+      "at_phrase": "is still on its way",
+      "cast": [
+        "technician",
+        "clinician"
+      ],
+      "start_s": 110.23,
+      "duration_s": 4.59
+    }
+  ],
+  "runtime_s": 114.82,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.8,
+      "end": 2.52,
+      "text": "Picture a crew on Mars,"
+    },
+    {
+      "id": "c2",
+      "start": 2.64,
+      "end": 5.18,
+      "text": "and one of them has severe back pain."
+    },
+    {
+      "id": "c3",
+      "start": 5.28,
+      "end": 7.19,
+      "text": "A call home for help can take up"
+    },
+    {
+      "id": "c4",
+      "start": 7.23,
+      "end": 9.54,
+      "text": "to 44 minutes to make the round trip."
+    },
+    {
+      "id": "c5",
+      "start": 9.94,
+      "end": 12.34,
+      "text": "So who fetches the medical bag?"
+    },
+    {
+      "id": "c6",
+      "start": 12.98,
+      "end": 13.94,
+      "text": "Look again."
+    },
+    {
+      "id": "c7",
+      "start": 14.26,
+      "end": 15.385,
+      "text": "This is a lab at"
+    },
+    {
+      "id": "c8",
+      "start": 15.425,
+      "end": 17.65,
+      "text": "NASA's Johnson Space Center in Houston,"
+    },
+    {
+      "id": "c9",
+      "start": 17.69,
+      "end": 19.31,
+      "text": "built with habitat mockups,"
+    },
+    {
+      "id": "c10",
+      "start": 19.46,
+      "end": 22.54,
+      "text": "and the one reaching for the bag is a robot."
+    },
+    {
+      "id": "c11",
+      "start": 23.44,
+      "end": 24.88,
+      "text": "Google Public Sector built it"
+    },
+    {
+      "id": "c12",
+      "start": 24.92,
+      "end": 26.58,
+      "text": "with the robotics team at Johnson,"
+    },
+    {
+      "id": "c13",
+      "start": 26.7,
+      "end": 28.32,
+      "text": "NASA's Human Research Program"
+    },
+    {
+      "id": "c14",
+      "start": 28.36,
+      "end": 29.92,
+      "text": "and the Jet Propulsion Laboratory."
+    },
+    {
+      "id": "c15",
+      "start": 30.52,
+      "end": 32.68,
+      "text": "Its first job sounds simple."
+    },
+    {
+      "id": "c16",
+      "start": 33.16,
+      "end": 36.06,
+      "text": "Find the medical bag and move it."
+    },
+    {
+      "id": "c17",
+      "start": 36.76,
+      "end": 38.51,
+      "text": "Before it touched real hardware,"
+    },
+    {
+      "id": "c18",
+      "start": 38.55,
+      "end": 40.73,
+      "text": "it practised the moves in a physics simulator,"
+    },
+    {
+      "id": "c19",
+      "start": 40.77,
+      "end": 43.08,
+      "text": "where a dropped bag costs nothing."
+    },
+    {
+      "id": "c20",
+      "start": 43.76,
+      "end": 46.71,
+      "text": "Its brain is an open model called Pi zero,"
+    },
+    {
+      "id": "c21",
+      "start": 46.82,
+      "end": 48.98,
+      "text": "from a company called Physical Intelligence."
+    },
+    {
+      "id": "c22",
+      "start": 49.32,
+      "end": 52.46,
+      "text": "Google fine tuned it in just 2.5 hours."
+    },
+    {
+      "id": "c23",
+      "start": 53.42,
+      "end": 56.44,
+      "text": "Mars missions need light, low power hardware."
+    },
+    {
+      "id": "c24",
+      "start": 56.54,
+      "end": 57.98,
+      "text": "So over two years,"
+    },
+    {
+      "id": "c25",
+      "start": 58.02,
+      "end": 59.72,
+      "text": "the team tested about 15"
+    },
+    {
+      "id": "c26",
+      "start": 59.76,
+      "end": 61.42,
+      "text": "compact devices to run it on."
+    },
+    {
+      "id": "c27",
+      "start": 62.1,
+      "end": 63.94,
+      "text": "To know where its own hand is,"
+    },
+    {
+      "id": "c28",
+      "start": 63.98,
+      "end": 65.76,
+      "text": "the robot uses a camera that"
+    },
+    {
+      "id": "c29",
+      "start": 65.8,
+      "end": 67.8,
+      "text": "stands across the room and watches it."
+    },
+    {
+      "id": "c30",
+      "start": 68.36,
+      "end": 70.41,
+      "text": "The Jet Propulsion Laboratory is adapting"
+    },
+    {
+      "id": "c31",
+      "start": 70.45,
+      "end": 72.59,
+      "text": "tools built to track satellites in orbit,"
+    },
+    {
+      "id": "c32",
+      "start": 72.63,
+      "end": 73.58,
+      "text": "so the robot can"
+    },
+    {
+      "id": "c33",
+      "start": 73.62,
+      "end": 75.0,
+      "text": "understand the room around it."
+    },
+    {
+      "id": "c34",
+      "start": 75.56,
+      "end": 78.31,
+      "text": "In early lab tests at the iMETRO facility,"
+    },
+    {
+      "id": "c35",
+      "start": 78.35,
+      "end": 79.7,
+      "text": "it found and moved the"
+    },
+    {
+      "id": "c36",
+      "start": 79.74,
+      "end": 81.7,
+      "text": "bag 85 percent of the time."
+    },
+    {
+      "id": "c37",
+      "start": 82.26,
+      "end": 83.86,
+      "text": "That means some tries missed."
+    },
+    {
+      "id": "c38",
+      "start": 84.36,
+      "end": 87.7,
+      "text": "It is one task, in one lab, on Earth."
+    },
+    {
+      "id": "c39",
+      "start": 88.58,
+      "end": 89.76,
+      "text": "Google has not confirmed"
+    },
+    {
+      "id": "c40",
+      "start": 89.8,
+      "end": 91.44,
+      "text": "a space ready robot exists."
+    },
+    {
+      "id": "c41",
+      "start": 92.18,
+      "end": 93.88,
+      "text": "The goal is bigger."
+    },
+    {
+      "id": "c42",
+      "start": 94.22,
+      "end": 95.2,
+      "text": "The robot could fetch"
+    },
+    {
+      "id": "c43",
+      "start": 95.24,
+      "end": 96.4,
+      "text": "and prepare an ultrasound,"
+    },
+    {
+      "id": "c44",
+      "start": 96.44,
+      "end": 97.96,
+      "text": "and take simple voice orders,"
+    },
+    {
+      "id": "c45",
+      "start": 98.0,
+      "end": 99.56,
+      "text": "with astronauts in command."
+    },
+    {
+      "id": "c46",
+      "start": 100.46,
+      "end": 102.86,
+      "text": "Even then, it never makes the call."
+    },
+    {
+      "id": "c47",
+      "start": 103.38,
+      "end": 104.66,
+      "text": "The crew medical officer"
+    },
+    {
+      "id": "c48",
+      "start": 104.7,
+      "end": 106.62,
+      "text": "opens the bag and decides."
+    },
+    {
+      "id": "c49",
+      "start": 107.86,
+      "end": 108.92,
+      "text": "Back on Mars,"
+    },
+    {
+      "id": "c50",
+      "start": 108.98,
+      "end": 111.56,
+      "text": "the answer from Earth is still on its way."
+    },
+    {
+      "id": "c51",
+      "start": 112.08,
+      "end": 113.92,
+      "text": "The bag is already here."
+    }
+  ],
+  "credits_s": 5.0,
+  "look": "v2",
+  "words": [
+    {
+      "word": "Picture",
+      "start": 0.8,
+      "end": 1.17
+    },
+    {
+      "word": "a",
+      "start": 1.17,
+      "end": 1.45
+    },
+    {
+      "word": "crew",
+      "start": 1.45,
+      "end": 1.69
+    },
+    {
+      "word": "on",
+      "start": 1.69,
+      "end": 2.02
+    },
+    {
+      "word": "Mars,",
+      "start": 2.02,
+      "end": 2.52
+    },
+    {
+      "word": "and",
+      "start": 2.64,
+      "end": 3.08
+    },
+    {
+      "word": "one",
+      "start": 3.08,
+      "end": 3.26
+    },
+    {
+      "word": "of",
+      "start": 3.26,
+      "end": 3.38
+    },
+    {
+      "word": "them",
+      "start": 3.38,
+      "end": 3.55
+    },
+    {
+      "word": "has",
+      "start": 3.55,
+      "end": 3.9
+    },
+    {
+      "word": "severe",
+      "start": 3.9,
+      "end": 4.31
+    },
+    {
+      "word": "back",
+      "start": 4.31,
+      "end": 4.67
+    },
+    {
+      "word": "pain.",
+      "start": 4.67,
+      "end": 5.18
+    },
+    {
+      "word": "A",
+      "start": 5.28,
+      "end": 5.69
+    },
+    {
+      "word": "call",
+      "start": 5.69,
+      "end": 5.89
+    },
+    {
+      "word": "home",
+      "start": 5.89,
+      "end": 6.1
+    },
+    {
+      "word": "for",
+      "start": 6.1,
+      "end": 6.35
+    },
+    {
+      "word": "help",
+      "start": 6.35,
+      "end": 6.65
+    },
+    {
+      "word": "can",
+      "start": 6.65,
+      "end": 6.9
+    },
+    {
+      "word": "take",
+      "start": 6.9,
+      "end": 7.06
+    },
+    {
+      "word": "up",
+      "start": 7.06,
+      "end": 7.23
+    },
+    {
+      "word": "to",
+      "start": 7.23,
+      "end": 7.52
+    },
+    {
+      "word": "44",
+      "start": 7.52,
+      "end": 7.96
+    },
+    {
+      "word": "minutes",
+      "start": 7.96,
+      "end": 8.35
+    },
+    {
+      "word": "to",
+      "start": 8.35,
+      "end": 8.53
+    },
+    {
+      "word": "make",
+      "start": 8.53,
+      "end": 8.65
+    },
+    {
+      "word": "the",
+      "start": 8.65,
+      "end": 8.82
+    },
+    {
+      "word": "round",
+      "start": 8.82,
+      "end": 9.07
+    },
+    {
+      "word": "trip.",
+      "start": 9.07,
+      "end": 9.54
+    },
+    {
+      "word": "So",
+      "start": 9.94,
+      "end": 10.57
+    },
+    {
+      "word": "who",
+      "start": 10.57,
+      "end": 11.055
+    },
+    {
+      "word": "fetches",
+      "start": 11.055,
+      "end": 11.345
+    },
+    {
+      "word": "the",
+      "start": 11.345,
+      "end": 11.59
+    },
+    {
+      "word": "medical",
+      "start": 11.59,
+      "end": 11.87
+    },
+    {
+      "word": "bag?",
+      "start": 11.87,
+      "end": 12.34
+    },
+    {
+      "word": "Look",
+      "start": 12.98,
+      "end": 13.46
+    },
+    {
+      "word": "again.",
+      "start": 13.46,
+      "end": 13.94
+    },
+    {
+      "word": "This",
+      "start": 14.26,
+      "end": 14.65
+    },
+    {
+      "word": "is",
+      "start": 14.65,
+      "end": 14.79
+    },
+    {
+      "word": "a",
+      "start": 14.79,
+      "end": 14.96
+    },
+    {
+      "word": "lab",
+      "start": 14.96,
+      "end": 15.16
+    },
+    {
+      "word": "at",
+      "start": 15.16,
+      "end": 15.425
+    },
+    {
+      "word": "NASA's",
+      "start": 15.425,
+      "end": 15.865
+    },
+    {
+      "word": "Johnson",
+      "start": 15.865,
+      "end": 16.32
+    },
+    {
+      "word": "Space",
+      "start": 16.32,
+      "end": 16.65
+    },
+    {
+      "word": "Center",
+      "start": 16.65,
+      "end": 16.89
+    },
+    {
+      "word": "in",
+      "start": 16.89,
+      "end": 17.19
+    },
+    {
+      "word": "Houston,",
+      "start": 17.19,
+      "end": 17.69
+    },
+    {
+      "word": "built",
+      "start": 17.69,
+      "end": 18.1
+    },
+    {
+      "word": "with",
+      "start": 18.1,
+      "end": 18.42
+    },
+    {
+      "word": "habitat",
+      "start": 18.42,
+      "end": 18.805
+    },
+    {
+      "word": "mockups,",
+      "start": 18.805,
+      "end": 19.31
+    },
+    {
+      "word": "and",
+      "start": 19.46,
+      "end": 19.82
+    },
+    {
+      "word": "the",
+      "start": 19.82,
+      "end": 19.93
+    },
+    {
+      "word": "one",
+      "start": 19.93,
+      "end": 20.14
+    },
+    {
+      "word": "reaching",
+      "start": 20.14,
+      "end": 20.41
+    },
+    {
+      "word": "for",
+      "start": 20.41,
+      "end": 20.59
+    },
+    {
+      "word": "the",
+      "start": 20.59,
+      "end": 20.82
+    },
+    {
+      "word": "bag",
+      "start": 20.82,
+      "end": 21.32
+    },
+    {
+      "word": "is",
+      "start": 21.42,
+      "end": 21.8
+    },
+    {
+      "word": "a",
+      "start": 21.8,
+      "end": 22.04
+    },
+    {
+      "word": "robot.",
+      "start": 22.04,
+      "end": 22.54
+    },
+    {
+      "word": "Google",
+      "start": 23.44,
+      "end": 23.93
+    },
+    {
+      "word": "Public",
+      "start": 23.93,
+      "end": 24.24
+    },
+    {
+      "word": "Sector",
+      "start": 24.24,
+      "end": 24.54
+    },
+    {
+      "word": "built",
+      "start": 24.54,
+      "end": 24.78
+    },
+    {
+      "word": "it",
+      "start": 24.78,
+      "end": 24.92
+    },
+    {
+      "word": "with",
+      "start": 24.92,
+      "end": 25.06
+    },
+    {
+      "word": "the",
+      "start": 25.06,
+      "end": 25.28
+    },
+    {
+      "word": "robotics",
+      "start": 25.28,
+      "end": 25.57
+    },
+    {
+      "word": "team",
+      "start": 25.57,
+      "end": 25.78
+    },
+    {
+      "word": "at",
+      "start": 25.78,
+      "end": 26.05
+    },
+    {
+      "word": "Johnson,",
+      "start": 26.05,
+      "end": 26.58
+    },
+    {
+      "word": "NASA's",
+      "start": 26.7,
+      "end": 27.15
+    },
+    {
+      "word": "Human",
+      "start": 27.15,
+      "end": 27.49
+    },
+    {
+      "word": "Research",
+      "start": 27.49,
+      "end": 27.92
+    },
+    {
+      "word": "Program",
+      "start": 27.92,
+      "end": 28.36
+    },
+    {
+      "word": "and",
+      "start": 28.36,
+      "end": 28.63
+    },
+    {
+      "word": "the",
+      "start": 28.63,
+      "end": 28.74
+    },
+    {
+      "word": "Jet",
+      "start": 28.74,
+      "end": 28.955
+    },
+    {
+      "word": "Propulsion",
+      "start": 28.955,
+      "end": 29.355
+    },
+    {
+      "word": "Laboratory.",
+      "start": 29.355,
+      "end": 29.92
+    },
+    {
+      "word": "Its",
+      "start": 30.52,
+      "end": 30.99
+    },
+    {
+      "word": "first",
+      "start": 30.99,
+      "end": 31.32
+    },
+    {
+      "word": "job",
+      "start": 31.32,
+      "end": 31.7
+    },
+    {
+      "word": "sounds",
+      "start": 31.7,
+      "end": 32.13
+    },
+    {
+      "word": "simple.",
+      "start": 32.13,
+      "end": 32.68
+    },
+    {
+      "word": "Find",
+      "start": 33.16,
+      "end": 33.55
+    },
+    {
+      "word": "the",
+      "start": 33.55,
+      "end": 33.74
+    },
+    {
+      "word": "medical",
+      "start": 33.74,
+      "end": 34.02
+    },
+    {
+      "word": "bag",
+      "start": 34.02,
+      "end": 34.5
+    },
+    {
+      "word": "and",
+      "start": 34.76,
+      "end": 35.18
+    },
+    {
+      "word": "move",
+      "start": 35.18,
+      "end": 35.51
+    },
+    {
+      "word": "it.",
+      "start": 35.51,
+      "end": 36.06
+    },
+    {
+      "word": "Before",
+      "start": 36.76,
+      "end": 37.15
+    },
+    {
+      "word": "it",
+      "start": 37.15,
+      "end": 37.34
+    },
+    {
+      "word": "touched",
+      "start": 37.34,
+      "end": 37.63
+    },
+    {
+      "word": "real",
+      "start": 37.63,
+      "end": 38.06
+    },
+    {
+      "word": "hardware,",
+      "start": 38.06,
+      "end": 38.55
+    },
+    {
+      "word": "it",
+      "start": 38.55,
+      "end": 38.95
+    },
+    {
+      "word": "practised",
+      "start": 38.95,
+      "end": 39.21
+    },
+    {
+      "word": "the",
+      "start": 39.21,
+      "end": 39.39
+    },
+    {
+      "word": "moves",
+      "start": 39.39,
+      "end": 39.54
+    },
+    {
+      "word": "in",
+      "start": 39.54,
+      "end": 39.69
+    },
+    {
+      "word": "a",
+      "start": 39.69,
+      "end": 39.88
+    },
+    {
+      "word": "physics",
+      "start": 39.88,
+      "end": 40.23
+    },
+    {
+      "word": "simulator,",
+      "start": 40.23,
+      "end": 40.77
+    },
+    {
+      "word": "where",
+      "start": 40.77,
+      "end": 41.13
+    },
+    {
+      "word": "a",
+      "start": 41.13,
+      "end": 41.31
+    },
+    {
+      "word": "dropped",
+      "start": 41.31,
+      "end": 41.63
+    },
+    {
+      "word": "bag",
+      "start": 41.63,
+      "end": 42.06
+    },
+    {
+      "word": "costs",
+      "start": 42.06,
+      "end": 42.52
+    },
+    {
+      "word": "nothing.",
+      "start": 42.52,
+      "end": 43.08
+    },
+    {
+      "word": "Its",
+      "start": 43.76,
+      "end": 44.25
+    },
+    {
+      "word": "brain",
+      "start": 44.25,
+      "end": 44.53
+    },
+    {
+      "word": "is",
+      "start": 44.53,
+      "end": 44.69
+    },
+    {
+      "word": "an",
+      "start": 44.69,
+      "end": 44.91
+    },
+    {
+      "word": "open",
+      "start": 44.91,
+      "end": 45.26
+    },
+    {
+      "word": "model",
+      "start": 45.26,
+      "end": 45.63
+    },
+    {
+      "word": "called",
+      "start": 45.63,
+      "end": 46.085
+    },
+    {
+      "word": "Pi",
+      "start": 46.085,
+      "end": 46.37
+    },
+    {
+      "word": "zero,",
+      "start": 46.37,
+      "end": 46.71
+    },
+    {
+      "word": "from",
+      "start": 46.82,
+      "end": 47.18
+    },
+    {
+      "word": "a",
+      "start": 47.18,
+      "end": 47.32
+    },
+    {
+      "word": "company",
+      "start": 47.32,
+      "end": 47.55
+    },
+    {
+      "word": "called",
+      "start": 47.55,
+      "end": 47.87
+    },
+    {
+      "word": "Physical",
+      "start": 47.87,
+      "end": 48.36
+    },
+    {
+      "word": "Intelligence.",
+      "start": 48.36,
+      "end": 48.98
+    },
+    {
+      "word": "Google",
+      "start": 49.32,
+      "end": 49.93
+    },
+    {
+      "word": "fine",
+      "start": 49.93,
+      "end": 50.24
+    },
+    {
+      "word": "tuned",
+      "start": 50.24,
+      "end": 50.34
+    },
+    {
+      "word": "it",
+      "start": 50.34,
+      "end": 50.54
+    },
+    {
+      "word": "in",
+      "start": 50.54,
+      "end": 50.73
+    },
+    {
+      "word": "just",
+      "start": 50.73,
+      "end": 51.11
+    },
+    {
+      "word": "2.5",
+      "start": 51.11,
+      "end": 51.74
+    },
+    {
+      "word": "hours.",
+      "start": 51.82,
+      "end": 52.46
+    },
+    {
+      "word": "Mars",
+      "start": 53.42,
+      "end": 53.9
+    },
+    {
+      "word": "missions",
+      "start": 53.9,
+      "end": 54.19
+    },
+    {
+      "word": "need",
+      "start": 54.19,
+      "end": 54.53
+    },
+    {
+      "word": "light,",
+      "start": 54.53,
+      "end": 55.06
+    },
+    {
+      "word": "low",
+      "start": 55.13,
+      "end": 55.47
+    },
+    {
+      "word": "power",
+      "start": 55.47,
+      "end": 55.805
+    },
+    {
+      "word": "hardware.",
+      "start": 55.805,
+      "end": 56.44
+    },
+    {
+      "word": "So",
+      "start": 56.54,
+      "end": 56.98
+    },
+    {
+      "word": "over",
+      "start": 56.98,
+      "end": 57.23
+    },
+    {
+      "word": "two",
+      "start": 57.23,
+      "end": 57.58
+    },
+    {
+      "word": "years,",
+      "start": 57.58,
+      "end": 58.02
+    },
+    {
+      "word": "the",
+      "start": 58.02,
+      "end": 58.32
+    },
+    {
+      "word": "team",
+      "start": 58.32,
+      "end": 58.54
+    },
+    {
+      "word": "tested",
+      "start": 58.54,
+      "end": 58.79
+    },
+    {
+      "word": "about",
+      "start": 58.79,
+      "end": 59.18
+    },
+    {
+      "word": "15",
+      "start": 59.18,
+      "end": 59.76
+    },
+    {
+      "word": "compact",
+      "start": 59.76,
+      "end": 60.26
+    },
+    {
+      "word": "devices",
+      "start": 60.26,
+      "end": 60.58
+    },
+    {
+      "word": "to",
+      "start": 60.58,
+      "end": 60.76
+    },
+    {
+      "word": "run",
+      "start": 60.76,
+      "end": 60.87
+    },
+    {
+      "word": "it",
+      "start": 60.87,
+      "end": 61.01
+    },
+    {
+      "word": "on.",
+      "start": 61.01,
+      "end": 61.42
+    },
+    {
+      "word": "To",
+      "start": 62.1,
+      "end": 62.5
+    },
+    {
+      "word": "know",
+      "start": 62.5,
+      "end": 62.66
+    },
+    {
+      "word": "where",
+      "start": 62.66,
+      "end": 62.79
+    },
+    {
+      "word": "its",
+      "start": 62.79,
+      "end": 62.96
+    },
+    {
+      "word": "own",
+      "start": 62.96,
+      "end": 63.24
+    },
+    {
+      "word": "hand",
+      "start": 63.24,
+      "end": 63.56
+    },
+    {
+      "word": "is,",
+      "start": 63.56,
+      "end": 63.98
+    },
+    {
+      "word": "the",
+      "start": 63.98,
+      "end": 64.33
+    },
+    {
+      "word": "robot",
+      "start": 64.33,
+      "end": 64.57
+    },
+    {
+      "word": "uses",
+      "start": 64.57,
+      "end": 64.85
+    },
+    {
+      "word": "a",
+      "start": 64.85,
+      "end": 65.14
+    },
+    {
+      "word": "camera",
+      "start": 65.14,
+      "end": 65.48
+    },
+    {
+      "word": "that",
+      "start": 65.48,
+      "end": 65.8
+    },
+    {
+      "word": "stands",
+      "start": 65.8,
+      "end": 66.09
+    },
+    {
+      "word": "across",
+      "start": 66.09,
+      "end": 66.33
+    },
+    {
+      "word": "the",
+      "start": 66.33,
+      "end": 66.5
+    },
+    {
+      "word": "room",
+      "start": 66.5,
+      "end": 66.71
+    },
+    {
+      "word": "and",
+      "start": 66.71,
+      "end": 67.0
+    },
+    {
+      "word": "watches",
+      "start": 67.0,
+      "end": 67.32
+    },
+    {
+      "word": "it.",
+      "start": 67.32,
+      "end": 67.8
+    },
+    {
+      "word": "The",
+      "start": 68.36,
+      "end": 68.74
+    },
+    {
+      "word": "Jet",
+      "start": 68.74,
+      "end": 68.935
+    },
+    {
+      "word": "Propulsion",
+      "start": 68.935,
+      "end": 69.295
+    },
+    {
+      "word": "Laboratory",
+      "start": 69.295,
+      "end": 69.73
+    },
+    {
+      "word": "is",
+      "start": 69.73,
+      "end": 70.11
+    },
+    {
+      "word": "adapting",
+      "start": 70.11,
+      "end": 70.45
+    },
+    {
+      "word": "tools",
+      "start": 70.45,
+      "end": 70.72
+    },
+    {
+      "word": "built",
+      "start": 70.72,
+      "end": 70.92
+    },
+    {
+      "word": "to",
+      "start": 70.92,
+      "end": 71.15
+    },
+    {
+      "word": "track",
+      "start": 71.15,
+      "end": 71.5
+    },
+    {
+      "word": "satellites",
+      "start": 71.5,
+      "end": 71.84
+    },
+    {
+      "word": "in",
+      "start": 71.84,
+      "end": 72.14
+    },
+    {
+      "word": "orbit,",
+      "start": 72.14,
+      "end": 72.63
+    },
+    {
+      "word": "so",
+      "start": 72.63,
+      "end": 73.0
+    },
+    {
+      "word": "the",
+      "start": 73.0,
+      "end": 73.16
+    },
+    {
+      "word": "robot",
+      "start": 73.16,
+      "end": 73.34
+    },
+    {
+      "word": "can",
+      "start": 73.34,
+      "end": 73.62
+    },
+    {
+      "word": "understand",
+      "start": 73.62,
+      "end": 73.91
+    },
+    {
+      "word": "the",
+      "start": 73.91,
+      "end": 74.07
+    },
+    {
+      "word": "room",
+      "start": 74.07,
+      "end": 74.26
+    },
+    {
+      "word": "around",
+      "start": 74.26,
+      "end": 74.53
+    },
+    {
+      "word": "it.",
+      "start": 74.53,
+      "end": 75.0
+    },
+    {
+      "word": "In",
+      "start": 75.56,
+      "end": 76.04
+    },
+    {
+      "word": "early",
+      "start": 76.04,
+      "end": 76.35
+    },
+    {
+      "word": "lab",
+      "start": 76.35,
+      "end": 76.67
+    },
+    {
+      "word": "tests",
+      "start": 76.67,
+      "end": 76.92
+    },
+    {
+      "word": "at",
+      "start": 76.92,
+      "end": 77.07
+    },
+    {
+      "word": "the",
+      "start": 77.07,
+      "end": 77.295
+    },
+    {
+      "word": "iMETRO",
+      "start": 77.295,
+      "end": 77.745
+    },
+    {
+      "word": "facility,",
+      "start": 77.745,
+      "end": 78.35
+    },
+    {
+      "word": "it",
+      "start": 78.35,
+      "end": 78.83
+    },
+    {
+      "word": "found",
+      "start": 78.83,
+      "end": 79.11
+    },
+    {
+      "word": "and",
+      "start": 79.11,
+      "end": 79.34
+    },
+    {
+      "word": "moved",
+      "start": 79.34,
+      "end": 79.54
+    },
+    {
+      "word": "the",
+      "start": 79.54,
+      "end": 79.74
+    },
+    {
+      "word": "bag",
+      "start": 79.74,
+      "end": 80.18
+    },
+    {
+      "word": "85",
+      "start": 80.18,
+      "end": 80.61
+    },
+    {
+      "word": "percent",
+      "start": 80.61,
+      "end": 80.83
+    },
+    {
+      "word": "of",
+      "start": 80.83,
+      "end": 80.98
+    },
+    {
+      "word": "the",
+      "start": 80.98,
+      "end": 81.2
+    },
+    {
+      "word": "time.",
+      "start": 81.2,
+      "end": 81.7
+    },
+    {
+      "word": "That",
+      "start": 82.26,
+      "end": 82.65
+    },
+    {
+      "word": "means",
+      "start": 82.65,
+      "end": 82.86
+    },
+    {
+      "word": "some",
+      "start": 82.86,
+      "end": 83.12
+    },
+    {
+      "word": "tries",
+      "start": 83.12,
+      "end": 83.39
+    },
+    {
+      "word": "missed.",
+      "start": 83.39,
+      "end": 83.86
+    },
+    {
+      "word": "It",
+      "start": 84.36,
+      "end": 84.73
+    },
+    {
+      "word": "is",
+      "start": 84.73,
+      "end": 84.91
+    },
+    {
+      "word": "one",
+      "start": 84.91,
+      "end": 85.22
+    },
+    {
+      "word": "task,",
+      "start": 85.22,
+      "end": 85.64
+    },
+    {
+      "word": "in",
+      "start": 85.64,
+      "end": 86.01
+    },
+    {
+      "word": "one",
+      "start": 86.01,
+      "end": 86.3
+    },
+    {
+      "word": "lab,",
+      "start": 86.3,
+      "end": 86.78
+    },
+    {
+      "word": "on",
+      "start": 86.8,
+      "end": 87.25
+    },
+    {
+      "word": "Earth.",
+      "start": 87.25,
+      "end": 87.7
+    },
+    {
+      "word": "Google",
+      "start": 88.58,
+      "end": 89.01
+    },
+    {
+      "word": "has",
+      "start": 89.01,
+      "end": 89.19
+    },
+    {
+      "word": "not",
+      "start": 89.19,
+      "end": 89.48
+    },
+    {
+      "word": "confirmed",
+      "start": 89.48,
+      "end": 89.8
+    },
+    {
+      "word": "a",
+      "start": 89.8,
+      "end": 90.07
+    },
+    {
+      "word": "space",
+      "start": 90.07,
+      "end": 90.26
+    },
+    {
+      "word": "ready",
+      "start": 90.26,
+      "end": 90.47
+    },
+    {
+      "word": "robot",
+      "start": 90.47,
+      "end": 90.89
+    },
+    {
+      "word": "exists.",
+      "start": 90.89,
+      "end": 91.44
+    },
+    {
+      "word": "The",
+      "start": 92.18,
+      "end": 92.66
+    },
+    {
+      "word": "goal",
+      "start": 92.66,
+      "end": 92.97
+    },
+    {
+      "word": "is",
+      "start": 92.97,
+      "end": 93.34
+    },
+    {
+      "word": "bigger.",
+      "start": 93.34,
+      "end": 93.88
+    },
+    {
+      "word": "The",
+      "start": 94.22,
+      "end": 94.64
+    },
+    {
+      "word": "robot",
+      "start": 94.64,
+      "end": 94.83
+    },
+    {
+      "word": "could",
+      "start": 94.83,
+      "end": 95.04
+    },
+    {
+      "word": "fetch",
+      "start": 95.04,
+      "end": 95.24
+    },
+    {
+      "word": "and",
+      "start": 95.24,
+      "end": 95.45
+    },
+    {
+      "word": "prepare",
+      "start": 95.45,
+      "end": 95.68
+    },
+    {
+      "word": "an",
+      "start": 95.68,
+      "end": 95.97
+    },
+    {
+      "word": "ultrasound,",
+      "start": 95.97,
+      "end": 96.44
+    },
+    {
+      "word": "and",
+      "start": 96.44,
+      "end": 96.79
+    },
+    {
+      "word": "take",
+      "start": 96.79,
+      "end": 97.02
+    },
+    {
+      "word": "simple",
+      "start": 97.02,
+      "end": 97.32
+    },
+    {
+      "word": "voice",
+      "start": 97.32,
+      "end": 97.58
+    },
+    {
+      "word": "orders,",
+      "start": 97.58,
+      "end": 98.0
+    },
+    {
+      "word": "with",
+      "start": 98.0,
+      "end": 98.53
+    },
+    {
+      "word": "astronauts",
+      "start": 98.53,
+      "end": 98.86
+    },
+    {
+      "word": "in",
+      "start": 98.86,
+      "end": 99.1
+    },
+    {
+      "word": "command.",
+      "start": 99.1,
+      "end": 99.56
+    },
+    {
+      "word": "Even",
+      "start": 100.46,
+      "end": 100.9
+    },
+    {
+      "word": "then,",
+      "start": 100.9,
+      "end": 101.33
+    },
+    {
+      "word": "it",
+      "start": 101.33,
+      "end": 101.79
+    },
+    {
+      "word": "never",
+      "start": 101.79,
+      "end": 102.05
+    },
+    {
+      "word": "makes",
+      "start": 102.05,
+      "end": 102.24
+    },
+    {
+      "word": "the",
+      "start": 102.24,
+      "end": 102.43
+    },
+    {
+      "word": "call.",
+      "start": 102.43,
+      "end": 102.86
+    },
+    {
+      "word": "The",
+      "start": 103.38,
+      "end": 103.79
+    },
+    {
+      "word": "crew",
+      "start": 103.79,
+      "end": 104.02
+    },
+    {
+      "word": "medical",
+      "start": 104.02,
+      "end": 104.34
+    },
+    {
+      "word": "officer",
+      "start": 104.34,
+      "end": 104.7
+    },
+    {
+      "word": "opens",
+      "start": 104.7,
+      "end": 104.97
+    },
+    {
+      "word": "the",
+      "start": 104.97,
+      "end": 105.21
+    },
+    {
+      "word": "bag",
+      "start": 105.21,
+      "end": 105.68
+    },
+    {
+      "word": "and",
+      "start": 105.68,
+      "end": 106.15
+    },
+    {
+      "word": "decides.",
+      "start": 106.15,
+      "end": 106.62
+    },
+    {
+      "word": "Back",
+      "start": 107.86,
+      "end": 108.27
+    },
+    {
+      "word": "on",
+      "start": 108.27,
+      "end": 108.48
+    },
+    {
+      "word": "Mars,",
+      "start": 108.48,
+      "end": 108.92
+    },
+    {
+      "word": "the",
+      "start": 108.98,
+      "end": 109.39
+    },
+    {
+      "word": "answer",
+      "start": 109.39,
+      "end": 109.6
+    },
+    {
+      "word": "from",
+      "start": 109.6,
+      "end": 109.82
+    },
+    {
+      "word": "Earth",
+      "start": 109.82,
+      "end": 110.23
+    },
+    {
+      "word": "is",
+      "start": 110.23,
+      "end": 110.64
+    },
+    {
+      "word": "still",
+      "start": 110.64,
+      "end": 110.81
+    },
+    {
+      "word": "on",
+      "start": 110.81,
+      "end": 110.93
+    },
+    {
+      "word": "its",
+      "start": 110.93,
+      "end": 111.11
+    },
+    {
+      "word": "way.",
+      "start": 111.11,
+      "end": 111.56
+    },
+    {
+      "word": "The",
+      "start": 112.08,
+      "end": 112.54
+    },
+    {
+      "word": "bag",
+      "start": 112.54,
+      "end": 112.99
+    },
+    {
+      "word": "is",
+      "start": 112.99,
+      "end": 113.41
+    },
+    {
+      "word": "already",
+      "start": 113.41,
+      "end": 113.61
+    },
+    {
+      "word": "here.",
+      "start": 113.61,
+      "end": 113.92
+    }
+  ],
+  "beats": [],
+  "timed_at": "2026-11-19T11:47:47+00:00",
+  "run_id": "2026-11-18"
+}
