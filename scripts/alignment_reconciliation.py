@@ -19,16 +19,26 @@ def package(out, destination):
     except ValueError as exc:
         raise ValueError("alignment archive output must be inside the repository") from exc
     receipt = out / "alignment_reconciliation.json"
-    if not receipt.exists():
+    alias_path = out / "alignment_aliases.json"
+    aliases = json.loads(alias_path.read_text()) if alias_path.exists() else []
+    sourced = [row for row in aliases if row.get("kind") == "sourced-proper-name-join"]
+    if not receipt.exists() and not sourced:
         return
-    data = json.loads(receipt.read_text())
-    refs = [receipt, out / "alignment_aliases.json", out / "mix_vo.wav",
-            out / "vo_script.txt", out / "acoustic-asr.json", Path(data["state_file"])]
-    refs.extend(Path(data[key]["file"]) for key in ("takes", "source", "compact", "silence_edit"))
+    refs = [alias_path, out / "mix_vo.wav", out / "vo_script.txt", out / "acoustic-asr.json"]
+    if receipt.exists():
+        data = json.loads(receipt.read_text())
+        refs.extend([receipt, Path(data["state_file"])])
+        refs.extend(Path(data[key]["file"]) for key in ("takes", "source", "compact", "silence_edit"))
+    if sourced:
+        from vo_align import sourced_join_source
+        for row in sourced:
+            sourced_join_source(row, out)
+            refs.append(out / row["source_file"])
+        refs.append(out / "acoustic-asr-meta.json")
     root = destination / "alignment-evidence"
     # Validate all references before copying any evidence.
     manifest = []
-    for source in refs:
+    for source in dict.fromkeys(refs):
         if source.is_absolute() or ".." in source.parts or not source.is_file():
             raise ValueError("alignment archive requires existing repository-relative evidence")
         target = root / source
