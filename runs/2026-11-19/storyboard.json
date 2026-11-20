@@ -1,0 +1,2978 @@
+{
+  "date": "2026-11-19",
+  "title": "The call comes first",
+  "topic": "In rural Texas emergency rooms with no trauma surgeon on call, the decision to transfer a badly hurt patient takes 15 to 30 minutes, and a UT Health San Antonio led team is building an AI tool that flags severe injury and prompts that call sooner, a tool still headed for a pilot.",
+  "tone": "explainer",
+  "hook": "Nearest ER. No trauma surgeon on call.",
+  "beat": "clinic",
+  "episode": "transfer-call-1119",
+  "entities": [
+    "UT Health San Antonio",
+    "iRemedyACT",
+    "BEACON",
+    "UTSA",
+    "San Antonio"
+  ],
+  "treatment": {
+    "logline": "In a small Texas ER with no trauma surgeon, the first slow minutes come from one decision, and an AI tool under development aims to shrink that decision without making it for the doctor.",
+    "cold_open": "Night. An ambulance swings into a small brush country ER and the doors bang open. Red light sweeps across the wall clock, its eyes snap open and a red wedge starts dragging behind the minute hand.",
+    "turn": "A faster decision leaves the calls and the road untouched, and the survival benefit is only suspected. The tool drops into a drawer beside an ultrasound wand, just a tool.",
+    "button": "The ambulance leaves down the same two-lane road while the wall phone hangs with its cord coiled short and rings again. The call could come sooner. The road is still the road."
+  },
+  "hero": {
+    "name": "the ER wall clock with a face",
+    "why": "a round hospital clock whose eyes and brows act and whose face fills with a red wedge for every minute the transfer decision takes. It makes 15 to 30 minutes against 5 to 10 something a muted viewer can see, and no earlier film has drawn it."
+  },
+  "throughline": {
+    "object": "the ER wall phone and its coiled cord",
+    "states": [
+      {
+        "scene_id": "s3",
+        "state": "on its hook under her hovering hand, cord coiled and quiet"
+      },
+      {
+        "scene_id": "s5",
+        "state": "off the hook, cord stretched across the ER and out the door toward far hospitals"
+      },
+      {
+        "scene_id": "s10",
+        "state": "picked up early, cord barely uncoiled"
+      },
+      {
+        "scene_id": "s14",
+        "state": "back on its hook with the cord coiled short, ringing again"
+      }
+    ]
+  },
+  "fingerprint": {
+    "pov": "night shift inside a small rural ER at doctor height",
+    "layout": "a single trauma bay with a big wall clock, a wall phone and a door to the brush country outside",
+    "hero_treatment": "a hospital clock with eyes whose face fills with red time wedges",
+    "palette": "night teal and scrub green with ambulance red and warm clock cream"
+  },
+  "music": {
+    "track": "thinking_music"
+  },
+  "wall_views": [
+    "age-line",
+    "clock-pencil",
+    "clock-wrap",
+    "cord-out",
+    "field-tent",
+    "flag-close",
+    "shelf-aisle",
+    "top-shelf"
+  ],
+  "credits": "TEXAS AI DOCKET\nSOURCES\nTexas Public Radio, September 13th, 2026\nUTSA and UT System on BEACON, 2026\nTexas DSHS trauma facility list, October 28th, 2026\nILLUSTRATION\nOriginal drawings. The doctor, the hospital and the people are illustrative\nMUSIC\n\"Thinking Music\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "A crash patient rolls into the nearest ER, and often there's no trauma surgeon on call. Often it's a Level Four center, a well equipped rural emergency room.",
+      "vo_claims": [
+        "c9"
+      ],
+      "visual_events": [
+        {
+          "id": "s1-doors",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "screen_door",
+          "label": "No trauma surgeon",
+          "draw": {
+            "subject": "the ambulance",
+            "action": "swings in under the ER canopy and its back doors bang open as the gurney rolls out",
+            "emotion": "the doctor runs out, alarmed"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s1-board",
+          "at_phrase": "no trauma surgeon",
+          "duration_s": 1.2,
+          "sound": "review_stamp",
+          "draw": {
+            "subject": "the on call board by the door",
+            "action": "flips its TRAUMA SURGEON slot to an empty blank",
+            "emotion": "the doctor glances at it, uneasy"
+          },
+          "at_s": 4.475
+        },
+        {
+          "id": "s1-level",
+          "at_phrase": "Level Four center",
+          "duration_s": 1.2,
+          "sound": "review_stamp",
+          "label": "Level IV center",
+          "draw": {
+            "subject": "a sign",
+            "action": "swings down over the bay door reading LEVEL IV"
+          },
+          "at_s": 7.22
+        }
+      ],
+      "start_s": 0.0,
+      "duration_s": 10.77,
+      "planes": []
+    },
+    {
+      "id": "s2",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "The doctor there treats everything from strokes to pediatric flu. Trauma is rarely her strength, because these towns don't see a lot of injury.",
+      "vo_claims": [
+        "c11"
+      ],
+      "visual_events": [
+        {
+          "id": "s2-flu",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "pencil_scratch",
+          "label": "Strokes to pediatric flu",
+          "draw": {
+            "subject": "the doctor",
+            "action": "listens to a coughing kid's chest while the whiteboard behind fills with STROKE, FLU, FLU",
+            "emotion": "calm, kind"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s2-trauma",
+          "at_phrase": "Trauma is rarely",
+          "duration_s": 1.2,
+          "sound": "pencil_scratch",
+          "label": "Trauma is rare here",
+          "draw": {
+            "subject": "the word TRAUMA",
+            "action": "squeezes onto the bottom of the whiteboard in small red letters",
+            "emotion": "the doctor looks over, uneasy"
+          },
+          "at_s": 4.44
+        }
+      ],
+      "start_s": 10.77,
+      "duration_s": 9.05,
+      "planes": []
+    },
+    {
+      "id": "s3",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "First she has to decide to transfer. That decision alone takes 15 to 30 minutes today.",
+      "vo_claims": [
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s3-clock",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "sensor_heartbeat",
+          "label": "Transfer or not?",
+          "draw": {
+            "subject": "the wall clock",
+            "action": "snaps its eyes open and its minute hand starts dragging a red wedge"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s3-wedge",
+          "at_phrase": "15 to 30 minutes",
+          "duration_s": 1.6,
+          "sound": "warning_bloom",
+          "label": "15 to 30 minutes",
+          "draw": {
+            "subject": "the red wedge",
+            "action": "paints a quarter, then half of the clock face as the clock sweats"
+          },
+          "at_s": 4.61
+        },
+        {
+          "id": "s3-hover",
+          "at_phrase": "today",
+          "duration_s": 0.98,
+          "sound": "decision_stop",
+          "draw": {
+            "subject": "the doctor",
+            "action": "hovers her hand over the wall phone still on its hook",
+            "emotion": "worried"
+          },
+          "at_s": 6.12
+        }
+      ],
+      "start_s": 19.82,
+      "duration_s": 7.1,
+      "planes": []
+    },
+    {
+      "id": "s4",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Texas has 173 basic Level Four centers, and only 22 at Level One.",
+      "vo_claims": [
+        "c29"
+      ],
+      "visual_events": [
+        {
+          "id": "s4-173",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "freight_count",
+          "label": "173 Level IV",
+          "draw": {
+            "subject": "the doctor",
+            "action": "pushes the gurney like a shopping cart down an aisle as low shelves fill with 173 small hospital boxes",
+            "emotion": "determined"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s4-22",
+          "at_phrase": "only 22",
+          "duration_s": 1.2,
+          "sound": "result_shelf_stop",
+          "label": "22 Level I",
+          "draw": {
+            "subject": "22 big hospital boxes",
+            "action": "light up on the top shelf, far out of her reach",
+            "emotion": "she looks up, worried"
+          },
+          "at_s": 4.33
+        }
+      ],
+      "start_s": 26.92,
+      "duration_s": 6.58,
+      "planes": []
+    },
+    {
+      "id": "s5",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Then she has to hospital shop by phone for a trauma center that will take the patient, and call an ambulance.",
+      "vo_claims": [
+        "c10"
+      ],
+      "visual_events": [
+        {
+          "id": "s5-phone",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "protocol_focus",
+          "label": "Hospital shopping",
+          "draw": {
+            "subject": "the doctor",
+            "action": "yanks the wall phone off its hook and the coiled cord springs straight",
+            "emotion": "focused, tense"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s5-cord",
+          "at_phrase": "that will take the patient",
+          "duration_s": 1.6,
+          "sound": "route_marker",
+          "draw": {
+            "subject": "the phone cord",
+            "action": "snakes out the ER door across the brush toward far hospital towers that shake their heads one by one"
+          },
+          "at_s": 3.63
+        },
+        {
+          "id": "s5-yes",
+          "at_phrase": "and call an ambulance",
+          "duration_s": 1.0,
+          "sound": "decision_stop",
+          "label": "Then an ambulance",
+          "draw": {
+            "subject": "the last tower",
+            "action": "nods yes as the ambulance's light bar flicks on in the bay below"
+          },
+          "at_s": 4.99
+        }
+      ],
+      "start_s": 33.5,
+      "duration_s": 6.7,
+      "planes": []
+    },
+    {
+      "id": "s6",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "After the yes comes the wait. State registry data show up to 80 percent of the most severely injured wait more than two hours to be transferred.",
+      "vo_claims": [
+        "c2"
+      ],
+      "visual_events": [
+        {
+          "id": "s6-row",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "concrete_footsteps",
+          "draw": {
+            "subject": "ten gurneys",
+            "action": "line up in a long hallway under a big clock"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s6-80",
+          "at_phrase": "up to 80 percent",
+          "duration_s": 1.6,
+          "sound": "warning_bloom",
+          "label": "Up to 80 percent",
+          "draw": {
+            "subject": "eight of the ten gurneys",
+            "action": "stay parked under the clock while two roll out the door",
+            "emotion": "the paramedic checks his watch, tired"
+          },
+          "at_s": 4.4
+        },
+        {
+          "id": "s6-wrap",
+          "at_phrase": "more than two hours",
+          "duration_s": 1.6,
+          "sound": "sensor_heartbeat",
+          "label": "More than 2 hours",
+          "draw": {
+            "subject": "the clock's hand",
+            "action": "spins around the face twice, leaving a red ring each lap"
+          },
+          "at_s": 7.61
+        }
+      ],
+      "start_s": 40.2,
+      "duration_s": 9.98,
+      "planes": []
+    },
+    {
+      "id": "s7",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "The stakes are high. Trauma is the leading cause of death for people up to age 45.",
+      "vo_claims": [
+        "c12"
+      ],
+      "visual_events": [
+        {
+          "id": "s7-line",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "field_marker",
+          "draw": {
+            "subject": "a ruler of ages",
+            "action": "unrolls along the ground with a kid, a teen, a young ranch hand and a mother stepping onto it"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s7-45",
+          "at_phrase": "up to age 45",
+          "duration_s": 1.4,
+          "sound": "review_stamp",
+          "label": "Up to age 45",
+          "draw": {
+            "subject": "a flag marked 45",
+            "action": "stakes into the ruler's end as everyone on it turns to look",
+            "emotion": "serious"
+          },
+          "at_s": 4.63
+        }
+      ],
+      "start_s": 50.18,
+      "duration_s": 6.48,
+      "planes": []
+    },
+    {
+      "id": "s8",
+      "county": "Bexar",
+      "region": "blackland",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "In San Antonio, trauma surgeon Brian Eastridge spent much of his career as an Army trauma surgeon in war zones. Now he co-leads iRemedyACT, a statewide team using AI on this delay.",
+      "vo_claims": [
+        "c1",
+        "c15",
+        "c5"
+      ],
+      "visual_events": [
+        {
+          "id": "s8-sa",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "courthouse_bell",
+          "label": "San Antonio",
+          "draw": {
+            "subject": "a trauma surgeon",
+            "action": "walks into frame past a window with the San Antonio skyline",
+            "emotion": "steady"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s8-army",
+          "at_phrase": "an Army trauma surgeon",
+          "duration_s": 1.4,
+          "sound": "aircraft_rotor",
+          "label": "Army trauma surgeon",
+          "draw": {
+            "subject": "a field tent",
+            "action": "slides in behind him as a helicopter's shadow passes over",
+            "emotion": "focused"
+          },
+          "at_s": 5.06
+        },
+        {
+          "id": "s8-team",
+          "at_phrase": "Now he co-leads",
+          "duration_s": 1.4,
+          "sound": "research_announcement",
+          "label": "iRemedyACT",
+          "draw": {
+            "subject": "three researchers",
+            "action": "gather at a table as a banner drops and a statewide web of lines lights up behind them",
+            "emotion": "engaged"
+          },
+          "at_s": 7.7
+        }
+      ],
+      "start_s": 56.66,
+      "duration_s": 13.69,
+      "planes": []
+    },
+    {
+      "id": "s9",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Their tool flags signs of severe injury and prompts an earlier transfer call. It pushes the doctor to make that decision sooner.",
+      "vo_claims": [
+        "c8",
+        "c4"
+      ],
+      "visual_events": [
+        {
+          "id": "s9-flag",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "observation_trace",
+          "label": "Flags severe injury",
+          "draw": {
+            "subject": "a small amber flag",
+            "action": "springs up on the tablet at the bedside and pulses"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s9-push",
+          "at_phrase": "It pushes the doctor",
+          "duration_s": 1.2,
+          "sound": "decision_stop",
+          "label": "Call earlier",
+          "draw": {
+            "subject": "the doctor",
+            "action": "glances at the flag and reaches for the phone right away",
+            "emotion": "determined"
+          },
+          "at_s": 5.4
+        }
+      ],
+      "start_s": 70.35,
+      "duration_s": 8.77,
+      "planes": []
+    },
+    {
+      "id": "s10",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "With the tool, that decision could take five to 10 minutes.",
+      "vo_claims": [
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s10-small",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "pencil_scratch",
+          "label": "5 to 10 minutes",
+          "draw": {
+            "subject": "a pencil",
+            "action": "sketches a thin dashed wedge on the clock beside the shrinking red one",
+            "emotion": "the clock grins"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s10-cord",
+          "at_phrase": "10 minutes",
+          "duration_s": 0.9,
+          "sound": "protocol_focus",
+          "draw": {
+            "subject": "the phone cord",
+            "action": "barely uncoils as the doctor makes the call early"
+          },
+          "at_s": 2.97
+        }
+      ],
+      "start_s": 79.12,
+      "duration_s": 3.87,
+      "planes": []
+    },
+    {
+      "id": "s11",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "A faster decision still leaves the calls and the ride. A survival benefit is something he suspects.",
+      "vo_claims": [
+        "c10",
+        "c13"
+      ],
+      "visual_events": [
+        {
+          "id": "s11-road",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "highway_pass",
+          "label": "Still the ride",
+          "draw": {
+            "subject": "the ambulance",
+            "action": "drives a long empty two-lane road under the night sky, its lights sweeping the brush"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s11-dash",
+          "at_phrase": "A survival benefit",
+          "duration_s": 1.4,
+          "sound": "causal_break",
+          "label": "Suspected, not shown",
+          "draw": {
+            "subject": "a road sign",
+            "action": "swings up ahead stamped with a question mark as the paramedic at the wheel squints at it",
+            "emotion": "the paramedic, unsure"
+          },
+          "at_s": 3.68
+        }
+      ],
+      "start_s": 82.99,
+      "duration_s": 6.05,
+      "planes": []
+    },
+    {
+      "id": "s12",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "He calls it just a tool, like an ultrasound. It sharpens the doctor's judgment instead of replacing it.",
+      "vo_claims": [
+        "c14",
+        "c8"
+      ],
+      "visual_events": [
+        {
+          "id": "s12-drawer",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "ceramic_handoff",
+          "label": "Just a tool",
+          "draw": {
+            "subject": "the AI tablet",
+            "action": "slots into a supply tray beside an ultrasound wand that side-eyes it and a stethoscope"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s12-judge",
+          "at_phrase": "It sharpens",
+          "duration_s": 1.4,
+          "sound": "decision_stop",
+          "label": "Her call",
+          "draw": {
+            "subject": "the doctor",
+            "action": "runs the ultrasound wand with one hand and taps the tablet with the other, then decides",
+            "emotion": "proud, steady"
+          },
+          "at_s": 3.02
+        }
+      ],
+      "start_s": 89.04,
+      "duration_s": 6.7,
+      "planes": []
+    },
+    {
+      "id": "s13",
+      "county": "Bexar",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "A UT System AI moonshot called BEACON plans to test an AI assistant at seven UT hospital sites. As of September, a statewide pilot of the transfer tool was planned for the fall.",
+      "vo_claims": [
+        "c23",
+        "c25",
+        "c26",
+        "c7"
+      ],
+      "visual_events": [
+        {
+          "id": "s13-seven",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "candidate_branch",
+          "label": "7 UT hospital sites",
+          "draw": {
+            "subject": "seven hospital towers",
+            "action": "pop up in a row and light their windows one after another"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s13-ai",
+          "at_phrase": "an AI assistant",
+          "duration_s": 1.4,
+          "sound": "observation_trace",
+          "label": "An AI assistant",
+          "draw": {
+            "subject": "a glowing assistant badge",
+            "action": "rises over the seven towers and beams a thin line down to each one",
+            "emotion": "the surgeon looks up, pleased"
+          },
+          "at_s": 4.42
+        },
+        {
+          "id": "s13-pilot",
+          "at_phrase": "a statewide pilot",
+          "duration_s": 1.4,
+          "sound": "pencil_scratch",
+          "label": "Pilot planned",
+          "draw": {
+            "subject": "a paper tag",
+            "action": "swings onto the tablet in the surgeon's hand reading PILOT PLANNED in pencil",
+            "emotion": "the surgeon, hopeful"
+          },
+          "at_s": 9.16
+        }
+      ],
+      "start_s": 95.74,
+      "duration_s": 13.1,
+      "planes": []
+    },
+    {
+      "id": "s14",
+      "county": "Frio",
+      "region": "south_texas",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "The call could come sooner. The road is still the road.",
+      "vo_claims": [
+        "c3",
+        "c10"
+      ],
+      "visual_events": [
+        {
+          "id": "s14-leave",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "diesel_idle",
+          "draw": {
+            "subject": "the ambulance",
+            "action": "pulls away from the ER down the same two-lane road",
+            "emotion": "the doctor watches from the door, steady"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s14-ring",
+          "at_phrase": "still the road",
+          "duration_s": 1.2,
+          "sound": "sensor_heartbeat",
+          "draw": {
+            "subject": "the wall phone",
+            "action": "rattles on its hook in the foreground, cord coiled short, as the ambulance's tail lights shrink down the road through the door"
+          },
+          "at_s": 2.82
+        }
+      ],
+      "start_s": 108.84,
+      "duration_s": 4.7,
+      "planes": []
+    }
+  ],
+  "shots": [
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-doors",
+      "id": "s1-a",
+      "scene_id": "s1",
+      "framing": "wide",
+      "view": "er-doors",
+      "cast": [
+        "clinician",
+        "technician"
+      ],
+      "start_s": 0.0,
+      "duration_s": 4.475
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-doors",
+      "id": "s1-b",
+      "scene_id": "s1",
+      "framing": "close",
+      "view": "oncall-board",
+      "at_phrase": "no trauma surgeon",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 4.475,
+      "duration_s": 2.745
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-doors",
+      "id": "s1-c",
+      "scene_id": "s1",
+      "framing": "close",
+      "view": "level-sign",
+      "at_phrase": "Level Four center",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 7.22,
+      "duration_s": 3.55
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-flu",
+      "id": "s2-a",
+      "scene_id": "s2",
+      "framing": "medium",
+      "view": "doc-shift",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 10.77,
+      "duration_s": 3.22
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-flu",
+      "id": "s2-c",
+      "scene_id": "s2",
+      "framing": "close",
+      "view": "kid-close",
+      "at_phrase": "pediatric flu",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 13.99,
+      "duration_s": 1.22
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-flu",
+      "id": "s2-b",
+      "scene_id": "s2",
+      "framing": "detail",
+      "view": "whiteboard-close",
+      "at_phrase": "Trauma is rarely",
+      "start_s": 15.21,
+      "duration_s": 4.61
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-clock",
+      "id": "s3-a",
+      "scene_id": "s3",
+      "framing": "close",
+      "view": "bay-clock",
+      "start_s": 19.82,
+      "duration_s": 6.12
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-clock",
+      "id": "s3-b",
+      "scene_id": "s3",
+      "framing": "close",
+      "view": "doc-close",
+      "at_phrase": "today",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 25.94,
+      "duration_s": 0.98
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-173",
+      "id": "s4-a",
+      "scene_id": "s4",
+      "framing": "wide",
+      "view": "shelf-aisle",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 26.92,
+      "duration_s": 6.58
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-phone",
+      "id": "s5-a",
+      "scene_id": "s5",
+      "framing": "medium",
+      "view": "phone-wall",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 33.5,
+      "duration_s": 3.63
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-phone",
+      "id": "s5-b",
+      "scene_id": "s5",
+      "framing": "wide",
+      "view": "cord-out",
+      "at_phrase": "that will take the patient",
+      "start_s": 37.13,
+      "duration_s": 3.07
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-row",
+      "id": "s6-a",
+      "scene_id": "s6",
+      "framing": "wide",
+      "view": "ten-gurneys",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 40.2,
+      "duration_s": 4.4
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-row",
+      "id": "s6-c",
+      "scene_id": "s6",
+      "framing": "close",
+      "view": "watch-close",
+      "at_phrase": "up to 80 percent",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 44.6,
+      "duration_s": 3.21
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-row",
+      "id": "s6-b",
+      "scene_id": "s6",
+      "framing": "detail",
+      "view": "clock-wrap",
+      "at_phrase": "more than two hours",
+      "start_s": 47.81,
+      "duration_s": 2.37
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-line",
+      "id": "s7-a",
+      "scene_id": "s7",
+      "framing": "wide",
+      "view": "age-line",
+      "cast": [
+        "hand",
+        "resident"
+      ],
+      "start_s": 50.18,
+      "duration_s": 4.63
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-line",
+      "id": "s7-b",
+      "scene_id": "s7",
+      "framing": "close",
+      "view": "flag-close",
+      "at_phrase": "up to age 45",
+      "cast": [
+        "resident"
+      ],
+      "start_s": 54.81,
+      "duration_s": 1.85
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-sa",
+      "id": "s8-a",
+      "scene_id": "s8",
+      "framing": "medium",
+      "view": "sa-window",
+      "cast": [
+        "scientist"
+      ],
+      "start_s": 56.66,
+      "duration_s": 5.06
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-sa",
+      "id": "s8-b",
+      "scene_id": "s8",
+      "framing": "medium",
+      "view": "field-tent",
+      "at_phrase": "an Army trauma surgeon",
+      "cast": [
+        "scientist"
+      ],
+      "start_s": 61.72,
+      "duration_s": 2.64
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-sa",
+      "id": "s8-c",
+      "scene_id": "s8",
+      "framing": "wide",
+      "view": "sa-team",
+      "at_phrase": "Now he co-leads",
+      "cast": [
+        "scientist",
+        "coder",
+        "dctech"
+      ],
+      "start_s": 64.36,
+      "duration_s": 5.99
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-flag",
+      "id": "s9-a",
+      "scene_id": "s9",
+      "framing": "close",
+      "view": "tablet-flag",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 70.35,
+      "duration_s": 3.06
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-flag",
+      "id": "s9-c",
+      "scene_id": "s9",
+      "framing": "detail",
+      "view": "flag-pulse",
+      "at_phrase": "and prompts",
+      "start_s": 73.41,
+      "duration_s": 2.34
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-flag",
+      "id": "s9-b",
+      "scene_id": "s9",
+      "framing": "detail",
+      "view": "phone-grab",
+      "at_phrase": "It pushes the doctor",
+      "start_s": 75.75,
+      "duration_s": 3.37
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-small",
+      "id": "s10-a",
+      "scene_id": "s10",
+      "framing": "close",
+      "view": "clock-pencil",
+      "start_s": 79.12,
+      "duration_s": 2.97
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-small",
+      "id": "s10-b",
+      "scene_id": "s10",
+      "framing": "medium",
+      "view": "phone-wall",
+      "at_phrase": "10 minutes",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 82.09,
+      "duration_s": 0.9
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-road",
+      "id": "s11-a",
+      "scene_id": "s11",
+      "framing": "wide",
+      "view": "night-road",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 82.99,
+      "duration_s": 3.68
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-road",
+      "id": "s11-b",
+      "scene_id": "s11",
+      "framing": "medium",
+      "view": "cab-dash",
+      "at_phrase": "A survival benefit",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 86.67,
+      "duration_s": 2.37
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-drawer",
+      "id": "s12-a",
+      "scene_id": "s12",
+      "framing": "detail",
+      "view": "toolbox",
+      "start_s": 89.04,
+      "duration_s": 3.02
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-drawer",
+      "id": "s12-b",
+      "scene_id": "s12",
+      "framing": "medium",
+      "view": "doc-shift",
+      "at_phrase": "It sharpens",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 92.06,
+      "duration_s": 3.68
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-seven",
+      "id": "s13-a",
+      "scene_id": "s13",
+      "framing": "wide",
+      "view": "seven-sites",
+      "cast": [
+        "scientist"
+      ],
+      "start_s": 95.74,
+      "duration_s": 4.42
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-seven",
+      "id": "s13-c",
+      "scene_id": "s13",
+      "framing": "close",
+      "view": "badge-close",
+      "at_phrase": "an AI assistant",
+      "start_s": 100.16,
+      "duration_s": 4.74
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-seven",
+      "id": "s13-b",
+      "scene_id": "s13",
+      "framing": "medium",
+      "view": "pilot-tablet",
+      "at_phrase": "a statewide pilot",
+      "cast": [
+        "scientist"
+      ],
+      "start_s": 104.9,
+      "duration_s": 3.94
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-leave",
+      "id": "s14-a",
+      "scene_id": "s14",
+      "framing": "wide",
+      "view": "er-doors",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 108.84,
+      "duration_s": 2.82
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-leave",
+      "id": "s14-b",
+      "scene_id": "s14",
+      "framing": "detail",
+      "view": "phone-hook",
+      "at_phrase": "still the road",
+      "start_s": 111.66,
+      "duration_s": 1.88
+    }
+  ],
+  "runtime_s": 113.54,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.66,
+      "end": 3.39,
+      "text": "A crash patient rolls into the nearest ER,"
+    },
+    {
+      "id": "c2",
+      "start": 3.43,
+      "end": 6.26,
+      "text": "and often there's no trauma surgeon on call."
+    },
+    {
+      "id": "c3",
+      "start": 6.4,
+      "end": 8.15,
+      "text": "Often it's a Level Four center,"
+    },
+    {
+      "id": "c4",
+      "start": 8.19,
+      "end": 10.7,
+      "text": "a well equipped rural emergency room."
+    },
+    {
+      "id": "c5",
+      "start": 10.84,
+      "end": 12.84,
+      "text": "The doctor there treats everything"
+    },
+    {
+      "id": "c6",
+      "start": 12.88,
+      "end": 15.02,
+      "text": "from strokes to pediatric flu."
+    },
+    {
+      "id": "c7",
+      "start": 15.21,
+      "end": 17.06,
+      "text": "Trauma is rarely her strength,"
+    },
+    {
+      "id": "c8",
+      "start": 17.1,
+      "end": 19.56,
+      "text": "because these towns don't see a lot of injury."
+    },
+    {
+      "id": "c9",
+      "start": 20.0,
+      "end": 22.44,
+      "text": "First she has to decide to transfer."
+    },
+    {
+      "id": "c10",
+      "start": 22.48,
+      "end": 24.39,
+      "text": "That decision alone takes"
+    },
+    {
+      "id": "c11",
+      "start": 24.43,
+      "end": 26.48,
+      "text": "15 to 30 minutes today."
+    },
+    {
+      "id": "c12",
+      "start": 27.1,
+      "end": 30.81,
+      "text": "Texas has 173 basic Level Four centers,"
+    },
+    {
+      "id": "c13",
+      "start": 30.85,
+      "end": 33.26,
+      "text": "and only 22 at Level One."
+    },
+    {
+      "id": "c14",
+      "start": 33.68,
+      "end": 36.06,
+      "text": "Then she has to hospital shop by phone"
+    },
+    {
+      "id": "c15",
+      "start": 36.1,
+      "end": 37.09,
+      "text": "for a trauma center"
+    },
+    {
+      "id": "c16",
+      "start": 37.13,
+      "end": 38.45,
+      "text": "that will take the patient,"
+    },
+    {
+      "id": "c17",
+      "start": 38.49,
+      "end": 39.9,
+      "text": "and call an ambulance."
+    },
+    {
+      "id": "c18",
+      "start": 40.38,
+      "end": 42.72,
+      "text": "After the yes comes the wait."
+    },
+    {
+      "id": "c19",
+      "start": 43.02,
+      "end": 44.78,
+      "text": "State registry data show up"
+    },
+    {
+      "id": "c20",
+      "start": 44.82,
+      "end": 46.15,
+      "text": "to 80 percent of the"
+    },
+    {
+      "id": "c21",
+      "start": 46.19,
+      "end": 48.01,
+      "text": "most severely injured wait more"
+    },
+    {
+      "id": "c22",
+      "start": 48.05,
+      "end": 50.02,
+      "text": "than two hours to be transferred."
+    },
+    {
+      "id": "c23",
+      "start": 50.34,
+      "end": 52.08,
+      "text": "The stakes are high."
+    },
+    {
+      "id": "c24",
+      "start": 52.32,
+      "end": 54.03,
+      "text": "Trauma is the leading cause of"
+    },
+    {
+      "id": "c25",
+      "start": 54.07,
+      "end": 56.36,
+      "text": "death for people up to age 45."
+    },
+    {
+      "id": "c26",
+      "start": 56.84,
+      "end": 58.11,
+      "text": "In San Antonio,"
+    },
+    {
+      "id": "c27",
+      "start": 58.15,
+      "end": 60.06,
+      "text": "trauma surgeon Brian Eastridge"
+    },
+    {
+      "id": "c28",
+      "start": 60.1,
+      "end": 61.11,
+      "text": "spent much of his"
+    },
+    {
+      "id": "c29",
+      "start": 61.15,
+      "end": 64.02,
+      "text": "career as an Army trauma surgeon in war zones."
+    },
+    {
+      "id": "c30",
+      "start": 64.36,
+      "end": 66.7,
+      "text": "Now he co-leads iRemedyACT,"
+    },
+    {
+      "id": "c31",
+      "start": 66.94,
+      "end": 70.26,
+      "text": "a statewide team using AI on this delay."
+    },
+    {
+      "id": "c32",
+      "start": 70.44,
+      "end": 72.93,
+      "text": "Their tool flags signs of severe"
+    },
+    {
+      "id": "c33",
+      "start": 72.97,
+      "end": 75.71,
+      "text": "injury and prompts an earlier transfer call."
+    },
+    {
+      "id": "c34",
+      "start": 75.75,
+      "end": 76.99,
+      "text": "It pushes the doctor"
+    },
+    {
+      "id": "c35",
+      "start": 77.03,
+      "end": 78.92,
+      "text": "to make that decision sooner."
+    },
+    {
+      "id": "c36",
+      "start": 79.3,
+      "end": 80.25,
+      "text": "With the tool,"
+    },
+    {
+      "id": "c37",
+      "start": 80.29,
+      "end": 82.92,
+      "text": "that decision could take five to 10 minutes."
+    },
+    {
+      "id": "c38",
+      "start": 83.06,
+      "end": 85.12,
+      "text": "A faster decision still leaves"
+    },
+    {
+      "id": "c39",
+      "start": 85.16,
+      "end": 86.63,
+      "text": "the calls and the ride."
+    },
+    {
+      "id": "c40",
+      "start": 86.67,
+      "end": 88.86,
+      "text": "A survival benefit is something he suspects."
+    },
+    {
+      "id": "c41",
+      "start": 89.22,
+      "end": 92.02,
+      "text": "He calls it just a tool, like an ultrasound."
+    },
+    {
+      "id": "c42",
+      "start": 92.06,
+      "end": 93.655,
+      "text": "It sharpens the doctor's"
+    },
+    {
+      "id": "c43",
+      "start": 93.695,
+      "end": 95.7,
+      "text": "judgment instead of replacing it."
+    },
+    {
+      "id": "c44",
+      "start": 95.74,
+      "end": 99.87,
+      "text": "A UT System AI moonshot called BEACON plans to"
+    },
+    {
+      "id": "c45",
+      "start": 99.91,
+      "end": 101.23,
+      "text": "test an AI assistant"
+    },
+    {
+      "id": "c46",
+      "start": 101.27,
+      "end": 103.6,
+      "text": "at seven UT hospital sites."
+    },
+    {
+      "id": "c47",
+      "start": 103.76,
+      "end": 104.86,
+      "text": "As of September,"
+    },
+    {
+      "id": "c48",
+      "start": 104.9,
+      "end": 107.0,
+      "text": "a statewide pilot of the transfer"
+    },
+    {
+      "id": "c49",
+      "start": 107.04,
+      "end": 108.76,
+      "text": "tool was planned for the fall."
+    },
+    {
+      "id": "c50",
+      "start": 108.92,
+      "end": 110.67,
+      "text": "The call could come sooner."
+    },
+    {
+      "id": "c51",
+      "start": 110.71,
+      "end": 112.64,
+      "text": "The road is still the road."
+    }
+  ],
+  "credits_s": 5.0,
+  "look": "v2",
+  "words": [
+    {
+      "word": "A",
+      "start": 0.66,
+      "end": 1.0
+    },
+    {
+      "word": "crash",
+      "start": 1.0,
+      "end": 1.39
+    },
+    {
+      "word": "patient",
+      "start": 1.39,
+      "end": 1.78
+    },
+    {
+      "word": "rolls",
+      "start": 1.78,
+      "end": 2.09
+    },
+    {
+      "word": "into",
+      "start": 2.09,
+      "end": 2.33
+    },
+    {
+      "word": "the",
+      "start": 2.33,
+      "end": 2.57
+    },
+    {
+      "word": "nearest",
+      "start": 2.57,
+      "end": 2.96
+    },
+    {
+      "word": "ER,",
+      "start": 2.96,
+      "end": 3.43
+    },
+    {
+      "word": "and",
+      "start": 3.43,
+      "end": 3.82
+    },
+    {
+      "word": "often",
+      "start": 3.82,
+      "end": 4.155
+    },
+    {
+      "word": "there's",
+      "start": 4.155,
+      "end": 4.475
+    },
+    {
+      "word": "no",
+      "start": 4.475,
+      "end": 4.81
+    },
+    {
+      "word": "trauma",
+      "start": 4.81,
+      "end": 5.18
+    },
+    {
+      "word": "surgeon",
+      "start": 5.18,
+      "end": 5.48
+    },
+    {
+      "word": "on",
+      "start": 5.48,
+      "end": 5.77
+    },
+    {
+      "word": "call.",
+      "start": 5.77,
+      "end": 6.26
+    },
+    {
+      "word": "Often",
+      "start": 6.4,
+      "end": 6.86
+    },
+    {
+      "word": "it's",
+      "start": 6.86,
+      "end": 7.06
+    },
+    {
+      "word": "a",
+      "start": 7.06,
+      "end": 7.22
+    },
+    {
+      "word": "Level",
+      "start": 7.22,
+      "end": 7.48
+    },
+    {
+      "word": "Four",
+      "start": 7.48,
+      "end": 7.82
+    },
+    {
+      "word": "center,",
+      "start": 7.82,
+      "end": 8.19
+    },
+    {
+      "word": "a",
+      "start": 8.19,
+      "end": 8.585
+    },
+    {
+      "word": "well",
+      "start": 8.585,
+      "end": 8.81
+    },
+    {
+      "word": "equipped",
+      "start": 8.81,
+      "end": 9.145
+    },
+    {
+      "word": "rural",
+      "start": 9.145,
+      "end": 9.71
+    },
+    {
+      "word": "emergency",
+      "start": 9.71,
+      "end": 10.17
+    },
+    {
+      "word": "room.",
+      "start": 10.17,
+      "end": 10.7
+    },
+    {
+      "word": "The",
+      "start": 10.84,
+      "end": 11.34
+    },
+    {
+      "word": "doctor",
+      "start": 11.34,
+      "end": 11.69
+    },
+    {
+      "word": "there",
+      "start": 11.69,
+      "end": 12.02
+    },
+    {
+      "word": "treats",
+      "start": 12.02,
+      "end": 12.45
+    },
+    {
+      "word": "everything",
+      "start": 12.45,
+      "end": 12.88
+    },
+    {
+      "word": "from",
+      "start": 12.88,
+      "end": 13.25
+    },
+    {
+      "word": "strokes",
+      "start": 13.25,
+      "end": 13.61
+    },
+    {
+      "word": "to",
+      "start": 13.61,
+      "end": 13.99
+    },
+    {
+      "word": "pediatric",
+      "start": 13.99,
+      "end": 14.46
+    },
+    {
+      "word": "flu.",
+      "start": 14.46,
+      "end": 15.02
+    },
+    {
+      "word": "Trauma",
+      "start": 15.21,
+      "end": 15.685
+    },
+    {
+      "word": "is",
+      "start": 15.685,
+      "end": 16.03
+    },
+    {
+      "word": "rarely",
+      "start": 16.03,
+      "end": 16.34
+    },
+    {
+      "word": "her",
+      "start": 16.34,
+      "end": 16.67
+    },
+    {
+      "word": "strength,",
+      "start": 16.67,
+      "end": 17.1
+    },
+    {
+      "word": "because",
+      "start": 17.1,
+      "end": 17.45
+    },
+    {
+      "word": "these",
+      "start": 17.45,
+      "end": 17.75
+    },
+    {
+      "word": "towns",
+      "start": 17.75,
+      "end": 18.07
+    },
+    {
+      "word": "don't",
+      "start": 18.07,
+      "end": 18.36
+    },
+    {
+      "word": "see",
+      "start": 18.36,
+      "end": 18.56
+    },
+    {
+      "word": "a",
+      "start": 18.56,
+      "end": 18.7
+    },
+    {
+      "word": "lot",
+      "start": 18.7,
+      "end": 18.83
+    },
+    {
+      "word": "of",
+      "start": 18.83,
+      "end": 19.06
+    },
+    {
+      "word": "injury.",
+      "start": 19.06,
+      "end": 19.56
+    },
+    {
+      "word": "First",
+      "start": 20.0,
+      "end": 20.48
+    },
+    {
+      "word": "she",
+      "start": 20.48,
+      "end": 20.75
+    },
+    {
+      "word": "has",
+      "start": 20.75,
+      "end": 20.95
+    },
+    {
+      "word": "to",
+      "start": 20.95,
+      "end": 21.23
+    },
+    {
+      "word": "decide",
+      "start": 21.23,
+      "end": 21.52
+    },
+    {
+      "word": "to",
+      "start": 21.52,
+      "end": 21.87
+    },
+    {
+      "word": "transfer.",
+      "start": 21.87,
+      "end": 22.44
+    },
+    {
+      "word": "That",
+      "start": 22.48,
+      "end": 23.01
+    },
+    {
+      "word": "decision",
+      "start": 23.01,
+      "end": 23.48
+    },
+    {
+      "word": "alone",
+      "start": 23.48,
+      "end": 23.94
+    },
+    {
+      "word": "takes",
+      "start": 23.94,
+      "end": 24.43
+    },
+    {
+      "word": "15",
+      "start": 24.43,
+      "end": 24.83
+    },
+    {
+      "word": "to",
+      "start": 24.83,
+      "end": 25.15
+    },
+    {
+      "word": "30",
+      "start": 25.15,
+      "end": 25.54
+    },
+    {
+      "word": "minutes",
+      "start": 25.54,
+      "end": 25.94
+    },
+    {
+      "word": "today.",
+      "start": 25.94,
+      "end": 26.48
+    },
+    {
+      "word": "Texas",
+      "start": 27.1,
+      "end": 27.59
+    },
+    {
+      "word": "has",
+      "start": 27.59,
+      "end": 28.08
+    },
+    {
+      "word": "173",
+      "start": 28.42,
+      "end": 29.06
+    },
+    {
+      "word": "basic",
+      "start": 29.32,
+      "end": 29.79
+    },
+    {
+      "word": "Level",
+      "start": 29.79,
+      "end": 30.13
+    },
+    {
+      "word": "Four",
+      "start": 30.13,
+      "end": 30.45
+    },
+    {
+      "word": "centers,",
+      "start": 30.45,
+      "end": 30.85
+    },
+    {
+      "word": "and",
+      "start": 30.85,
+      "end": 31.25
+    },
+    {
+      "word": "only",
+      "start": 31.25,
+      "end": 31.69
+    },
+    {
+      "word": "22",
+      "start": 31.69,
+      "end": 32.16
+    },
+    {
+      "word": "at",
+      "start": 32.16,
+      "end": 32.45
+    },
+    {
+      "word": "Level",
+      "start": 32.45,
+      "end": 32.76
+    },
+    {
+      "word": "One.",
+      "start": 32.76,
+      "end": 33.26
+    },
+    {
+      "word": "Then",
+      "start": 33.68,
+      "end": 34.1
+    },
+    {
+      "word": "she",
+      "start": 34.1,
+      "end": 34.29
+    },
+    {
+      "word": "has",
+      "start": 34.29,
+      "end": 34.48
+    },
+    {
+      "word": "to",
+      "start": 34.48,
+      "end": 34.79
+    },
+    {
+      "word": "hospital",
+      "start": 34.79,
+      "end": 35.17
+    },
+    {
+      "word": "shop",
+      "start": 35.17,
+      "end": 35.46
+    },
+    {
+      "word": "by",
+      "start": 35.46,
+      "end": 35.76
+    },
+    {
+      "word": "phone",
+      "start": 35.76,
+      "end": 36.1
+    },
+    {
+      "word": "for",
+      "start": 36.1,
+      "end": 36.35
+    },
+    {
+      "word": "a",
+      "start": 36.35,
+      "end": 36.55
+    },
+    {
+      "word": "trauma",
+      "start": 36.55,
+      "end": 36.84
+    },
+    {
+      "word": "center",
+      "start": 36.84,
+      "end": 37.13
+    },
+    {
+      "word": "that",
+      "start": 37.13,
+      "end": 37.32
+    },
+    {
+      "word": "will",
+      "start": 37.32,
+      "end": 37.51
+    },
+    {
+      "word": "take",
+      "start": 37.51,
+      "end": 37.72
+    },
+    {
+      "word": "the",
+      "start": 37.72,
+      "end": 38.02
+    },
+    {
+      "word": "patient,",
+      "start": 38.02,
+      "end": 38.49
+    },
+    {
+      "word": "and",
+      "start": 38.49,
+      "end": 38.88
+    },
+    {
+      "word": "call",
+      "start": 38.88,
+      "end": 39.07
+    },
+    {
+      "word": "an",
+      "start": 39.07,
+      "end": 39.36
+    },
+    {
+      "word": "ambulance.",
+      "start": 39.36,
+      "end": 39.9
+    },
+    {
+      "word": "After",
+      "start": 40.38,
+      "end": 40.82
+    },
+    {
+      "word": "the",
+      "start": 40.82,
+      "end": 41.07
+    },
+    {
+      "word": "yes",
+      "start": 41.07,
+      "end": 41.47
+    },
+    {
+      "word": "comes",
+      "start": 41.47,
+      "end": 41.95
+    },
+    {
+      "word": "the",
+      "start": 41.95,
+      "end": 42.28
+    },
+    {
+      "word": "wait.",
+      "start": 42.28,
+      "end": 42.72
+    },
+    {
+      "word": "State",
+      "start": 43.02,
+      "end": 43.53
+    },
+    {
+      "word": "registry",
+      "start": 43.53,
+      "end": 43.96
+    },
+    {
+      "word": "data",
+      "start": 43.96,
+      "end": 44.34
+    },
+    {
+      "word": "show",
+      "start": 44.34,
+      "end": 44.6
+    },
+    {
+      "word": "up",
+      "start": 44.6,
+      "end": 44.82
+    },
+    {
+      "word": "to",
+      "start": 44.82,
+      "end": 45.1
+    },
+    {
+      "word": "80",
+      "start": 45.1,
+      "end": 45.45
+    },
+    {
+      "word": "percent",
+      "start": 45.45,
+      "end": 45.79
+    },
+    {
+      "word": "of",
+      "start": 45.79,
+      "end": 46.02
+    },
+    {
+      "word": "the",
+      "start": 46.02,
+      "end": 46.19
+    },
+    {
+      "word": "most",
+      "start": 46.19,
+      "end": 46.59
+    },
+    {
+      "word": "severely",
+      "start": 46.59,
+      "end": 47.13
+    },
+    {
+      "word": "injured",
+      "start": 47.13,
+      "end": 47.52
+    },
+    {
+      "word": "wait",
+      "start": 47.52,
+      "end": 47.81
+    },
+    {
+      "word": "more",
+      "start": 47.81,
+      "end": 48.05
+    },
+    {
+      "word": "than",
+      "start": 48.05,
+      "end": 48.3
+    },
+    {
+      "word": "two",
+      "start": 48.3,
+      "end": 48.67
+    },
+    {
+      "word": "hours",
+      "start": 48.67,
+      "end": 49.0
+    },
+    {
+      "word": "to",
+      "start": 49.0,
+      "end": 49.19
+    },
+    {
+      "word": "be",
+      "start": 49.19,
+      "end": 49.48
+    },
+    {
+      "word": "transferred.",
+      "start": 49.48,
+      "end": 50.02
+    },
+    {
+      "word": "The",
+      "start": 50.34,
+      "end": 50.85
+    },
+    {
+      "word": "stakes",
+      "start": 50.85,
+      "end": 51.21
+    },
+    {
+      "word": "are",
+      "start": 51.21,
+      "end": 51.57
+    },
+    {
+      "word": "high.",
+      "start": 51.57,
+      "end": 52.08
+    },
+    {
+      "word": "Trauma",
+      "start": 52.32,
+      "end": 52.77
+    },
+    {
+      "word": "is",
+      "start": 52.77,
+      "end": 53.0
+    },
+    {
+      "word": "the",
+      "start": 53.0,
+      "end": 53.23
+    },
+    {
+      "word": "leading",
+      "start": 53.23,
+      "end": 53.54
+    },
+    {
+      "word": "cause",
+      "start": 53.54,
+      "end": 53.84
+    },
+    {
+      "word": "of",
+      "start": 53.84,
+      "end": 54.07
+    },
+    {
+      "word": "death",
+      "start": 54.07,
+      "end": 54.31
+    },
+    {
+      "word": "for",
+      "start": 54.31,
+      "end": 54.56
+    },
+    {
+      "word": "people",
+      "start": 54.56,
+      "end": 54.81
+    },
+    {
+      "word": "up",
+      "start": 54.81,
+      "end": 54.98
+    },
+    {
+      "word": "to",
+      "start": 54.98,
+      "end": 55.17
+    },
+    {
+      "word": "age",
+      "start": 55.17,
+      "end": 55.64
+    },
+    {
+      "word": "45.",
+      "start": 55.72,
+      "end": 56.36
+    },
+    {
+      "word": "In",
+      "start": 56.84,
+      "end": 57.29
+    },
+    {
+      "word": "San",
+      "start": 57.29,
+      "end": 57.65
+    },
+    {
+      "word": "Antonio,",
+      "start": 57.65,
+      "end": 58.15
+    },
+    {
+      "word": "trauma",
+      "start": 58.15,
+      "end": 58.67
+    },
+    {
+      "word": "surgeon",
+      "start": 58.67,
+      "end": 59.12
+    },
+    {
+      "word": "Brian",
+      "start": 59.12,
+      "end": 59.58
+    },
+    {
+      "word": "Eastridge",
+      "start": 59.58,
+      "end": 60.1
+    },
+    {
+      "word": "spent",
+      "start": 60.1,
+      "end": 60.51
+    },
+    {
+      "word": "much",
+      "start": 60.51,
+      "end": 60.75
+    },
+    {
+      "word": "of",
+      "start": 60.75,
+      "end": 60.91
+    },
+    {
+      "word": "his",
+      "start": 60.91,
+      "end": 61.15
+    },
+    {
+      "word": "career",
+      "start": 61.15,
+      "end": 61.48
+    },
+    {
+      "word": "as",
+      "start": 61.48,
+      "end": 61.72
+    },
+    {
+      "word": "an",
+      "start": 61.72,
+      "end": 61.98
+    },
+    {
+      "word": "Army",
+      "start": 61.98,
+      "end": 62.32
+    },
+    {
+      "word": "trauma",
+      "start": 62.32,
+      "end": 62.66
+    },
+    {
+      "word": "surgeon",
+      "start": 62.66,
+      "end": 62.98
+    },
+    {
+      "word": "in",
+      "start": 62.98,
+      "end": 63.25
+    },
+    {
+      "word": "war",
+      "start": 63.25,
+      "end": 63.54
+    },
+    {
+      "word": "zones.",
+      "start": 63.54,
+      "end": 64.02
+    },
+    {
+      "word": "Now",
+      "start": 64.36,
+      "end": 64.81
+    },
+    {
+      "word": "he",
+      "start": 64.81,
+      "end": 65.18
+    },
+    {
+      "word": "co-leads",
+      "start": 65.18,
+      "end": 65.74
+    },
+    {
+      "word": "iRemedyACT,",
+      "start": 66.06,
+      "end": 66.7
+    },
+    {
+      "word": "a",
+      "start": 66.94,
+      "end": 67.5
+    },
+    {
+      "word": "statewide",
+      "start": 67.5,
+      "end": 68.0
+    },
+    {
+      "word": "team",
+      "start": 68.0,
+      "end": 68.45
+    },
+    {
+      "word": "using",
+      "start": 68.45,
+      "end": 68.84
+    },
+    {
+      "word": "AI",
+      "start": 68.84,
+      "end": 69.19
+    },
+    {
+      "word": "on",
+      "start": 69.19,
+      "end": 69.44
+    },
+    {
+      "word": "this",
+      "start": 69.44,
+      "end": 69.74
+    },
+    {
+      "word": "delay.",
+      "start": 69.74,
+      "end": 70.26
+    },
+    {
+      "word": "Their",
+      "start": 70.44,
+      "end": 70.97
+    },
+    {
+      "word": "tool",
+      "start": 70.97,
+      "end": 71.42
+    },
+    {
+      "word": "flags",
+      "start": 71.42,
+      "end": 71.89
+    },
+    {
+      "word": "signs",
+      "start": 71.89,
+      "end": 72.22
+    },
+    {
+      "word": "of",
+      "start": 72.22,
+      "end": 72.51
+    },
+    {
+      "word": "severe",
+      "start": 72.51,
+      "end": 72.97
+    },
+    {
+      "word": "injury",
+      "start": 72.97,
+      "end": 73.41
+    },
+    {
+      "word": "and",
+      "start": 73.41,
+      "end": 73.79
+    },
+    {
+      "word": "prompts",
+      "start": 73.79,
+      "end": 74.1
+    },
+    {
+      "word": "an",
+      "start": 74.1,
+      "end": 74.42
+    },
+    {
+      "word": "earlier",
+      "start": 74.42,
+      "end": 74.86
+    },
+    {
+      "word": "transfer",
+      "start": 74.86,
+      "end": 75.29
+    },
+    {
+      "word": "call.",
+      "start": 75.29,
+      "end": 75.75
+    },
+    {
+      "word": "It",
+      "start": 75.75,
+      "end": 76.17
+    },
+    {
+      "word": "pushes",
+      "start": 76.17,
+      "end": 76.46
+    },
+    {
+      "word": "the",
+      "start": 76.46,
+      "end": 76.74
+    },
+    {
+      "word": "doctor",
+      "start": 76.74,
+      "end": 77.03
+    },
+    {
+      "word": "to",
+      "start": 77.03,
+      "end": 77.27
+    },
+    {
+      "word": "make",
+      "start": 77.27,
+      "end": 77.51
+    },
+    {
+      "word": "that",
+      "start": 77.51,
+      "end": 77.86
+    },
+    {
+      "word": "decision",
+      "start": 77.86,
+      "end": 78.34
+    },
+    {
+      "word": "sooner.",
+      "start": 78.34,
+      "end": 78.92
+    },
+    {
+      "word": "With",
+      "start": 79.3,
+      "end": 79.72
+    },
+    {
+      "word": "the",
+      "start": 79.72,
+      "end": 79.96
+    },
+    {
+      "word": "tool,",
+      "start": 79.96,
+      "end": 80.29
+    },
+    {
+      "word": "that",
+      "start": 80.29,
+      "end": 80.69
+    },
+    {
+      "word": "decision",
+      "start": 80.69,
+      "end": 81.04
+    },
+    {
+      "word": "could",
+      "start": 81.04,
+      "end": 81.28
+    },
+    {
+      "word": "take",
+      "start": 81.28,
+      "end": 81.57
+    },
+    {
+      "word": "five",
+      "start": 81.57,
+      "end": 81.87
+    },
+    {
+      "word": "to",
+      "start": 81.87,
+      "end": 82.09
+    },
+    {
+      "word": "10",
+      "start": 82.09,
+      "end": 82.4
+    },
+    {
+      "word": "minutes.",
+      "start": 82.4,
+      "end": 82.92
+    },
+    {
+      "word": "A",
+      "start": 83.06,
+      "end": 83.58
+    },
+    {
+      "word": "faster",
+      "start": 83.58,
+      "end": 84.01
+    },
+    {
+      "word": "decision",
+      "start": 84.01,
+      "end": 84.46
+    },
+    {
+      "word": "still",
+      "start": 84.46,
+      "end": 84.86
+    },
+    {
+      "word": "leaves",
+      "start": 84.86,
+      "end": 85.16
+    },
+    {
+      "word": "the",
+      "start": 85.16,
+      "end": 85.44
+    },
+    {
+      "word": "calls",
+      "start": 85.44,
+      "end": 85.77
+    },
+    {
+      "word": "and",
+      "start": 85.77,
+      "end": 85.99
+    },
+    {
+      "word": "the",
+      "start": 85.99,
+      "end": 86.2
+    },
+    {
+      "word": "ride.",
+      "start": 86.2,
+      "end": 86.67
+    },
+    {
+      "word": "A",
+      "start": 86.67,
+      "end": 87.2
+    },
+    {
+      "word": "survival",
+      "start": 87.2,
+      "end": 87.64
+    },
+    {
+      "word": "benefit",
+      "start": 87.64,
+      "end": 87.91
+    },
+    {
+      "word": "is",
+      "start": 87.91,
+      "end": 88.01
+    },
+    {
+      "word": "something",
+      "start": 88.01,
+      "end": 88.11
+    },
+    {
+      "word": "he",
+      "start": 88.11,
+      "end": 88.35
+    },
+    {
+      "word": "suspects.",
+      "start": 88.35,
+      "end": 88.86
+    },
+    {
+      "word": "He",
+      "start": 89.22,
+      "end": 89.66
+    },
+    {
+      "word": "calls",
+      "start": 89.66,
+      "end": 89.88
+    },
+    {
+      "word": "it",
+      "start": 89.88,
+      "end": 90.14
+    },
+    {
+      "word": "just",
+      "start": 90.14,
+      "end": 90.41
+    },
+    {
+      "word": "a",
+      "start": 90.41,
+      "end": 90.64
+    },
+    {
+      "word": "tool,",
+      "start": 90.64,
+      "end": 90.97
+    },
+    {
+      "word": "like",
+      "start": 90.97,
+      "end": 91.25
+    },
+    {
+      "word": "an",
+      "start": 91.25,
+      "end": 91.54
+    },
+    {
+      "word": "ultrasound.",
+      "start": 91.54,
+      "end": 92.06
+    },
+    {
+      "word": "It",
+      "start": 92.06,
+      "end": 92.575
+    },
+    {
+      "word": "sharpens",
+      "start": 92.575,
+      "end": 92.955
+    },
+    {
+      "word": "the",
+      "start": 92.955,
+      "end": 93.295
+    },
+    {
+      "word": "doctor's",
+      "start": 93.295,
+      "end": 93.695
+    },
+    {
+      "word": "judgment",
+      "start": 93.695,
+      "end": 94.17
+    },
+    {
+      "word": "instead",
+      "start": 94.17,
+      "end": 94.49
+    },
+    {
+      "word": "of",
+      "start": 94.49,
+      "end": 94.73
+    },
+    {
+      "word": "replacing",
+      "start": 94.73,
+      "end": 95.16
+    },
+    {
+      "word": "it.",
+      "start": 95.16,
+      "end": 95.74
+    },
+    {
+      "word": "A",
+      "start": 95.74,
+      "end": 96.26
+    },
+    {
+      "word": "UT",
+      "start": 96.26,
+      "end": 96.7
+    },
+    {
+      "word": "System",
+      "start": 96.7,
+      "end": 97.21
+    },
+    {
+      "word": "AI",
+      "start": 97.21,
+      "end": 97.765
+    },
+    {
+      "word": "moonshot",
+      "start": 97.765,
+      "end": 98.325
+    },
+    {
+      "word": "called",
+      "start": 98.325,
+      "end": 98.79
+    },
+    {
+      "word": "BEACON",
+      "start": 98.79,
+      "end": 99.23
+    },
+    {
+      "word": "plans",
+      "start": 99.23,
+      "end": 99.62
+    },
+    {
+      "word": "to",
+      "start": 99.62,
+      "end": 99.91
+    },
+    {
+      "word": "test",
+      "start": 99.91,
+      "end": 100.16
+    },
+    {
+      "word": "an",
+      "start": 100.16,
+      "end": 100.45
+    },
+    {
+      "word": "AI",
+      "start": 100.45,
+      "end": 100.87
+    },
+    {
+      "word": "assistant",
+      "start": 100.87,
+      "end": 101.27
+    },
+    {
+      "word": "at",
+      "start": 101.27,
+      "end": 101.64
+    },
+    {
+      "word": "seven",
+      "start": 101.64,
+      "end": 102.06
+    },
+    {
+      "word": "UT",
+      "start": 102.06,
+      "end": 102.49
+    },
+    {
+      "word": "hospital",
+      "start": 102.49,
+      "end": 102.99
+    },
+    {
+      "word": "sites.",
+      "start": 102.99,
+      "end": 103.6
+    },
+    {
+      "word": "As",
+      "start": 103.76,
+      "end": 104.16
+    },
+    {
+      "word": "of",
+      "start": 104.16,
+      "end": 104.45
+    },
+    {
+      "word": "September,",
+      "start": 104.45,
+      "end": 104.9
+    },
+    {
+      "word": "a",
+      "start": 104.9,
+      "end": 105.37
+    },
+    {
+      "word": "statewide",
+      "start": 105.37,
+      "end": 105.86
+    },
+    {
+      "word": "pilot",
+      "start": 105.86,
+      "end": 106.24
+    },
+    {
+      "word": "of",
+      "start": 106.24,
+      "end": 106.43
+    },
+    {
+      "word": "the",
+      "start": 106.43,
+      "end": 106.69
+    },
+    {
+      "word": "transfer",
+      "start": 106.69,
+      "end": 107.04
+    },
+    {
+      "word": "tool",
+      "start": 107.04,
+      "end": 107.32
+    },
+    {
+      "word": "was",
+      "start": 107.32,
+      "end": 107.61
+    },
+    {
+      "word": "planned",
+      "start": 107.61,
+      "end": 107.89
+    },
+    {
+      "word": "for",
+      "start": 107.89,
+      "end": 108.06
+    },
+    {
+      "word": "the",
+      "start": 108.06,
+      "end": 108.28
+    },
+    {
+      "word": "fall.",
+      "start": 108.28,
+      "end": 108.76
+    },
+    {
+      "word": "The",
+      "start": 108.92,
+      "end": 109.4
+    },
+    {
+      "word": "call",
+      "start": 109.4,
+      "end": 109.69
+    },
+    {
+      "word": "could",
+      "start": 109.69,
+      "end": 109.93
+    },
+    {
+      "word": "come",
+      "start": 109.93,
+      "end": 110.25
+    },
+    {
+      "word": "sooner.",
+      "start": 110.25,
+      "end": 110.71
+    },
+    {
+      "word": "The",
+      "start": 110.71,
+      "end": 111.13
+    },
+    {
+      "word": "road",
+      "start": 111.13,
+      "end": 111.36
+    },
+    {
+      "word": "is",
+      "start": 111.36,
+      "end": 111.66
+    },
+    {
+      "word": "still",
+      "start": 111.66,
+      "end": 111.99
+    },
+    {
+      "word": "the",
+      "start": 111.99,
+      "end": 112.25
+    },
+    {
+      "word": "road.",
+      "start": 112.25,
+      "end": 112.64
+    }
+  ],
+  "beats": [],
+  "timed_at": "2026-11-20T13:33:46+00:00",
+  "run_id": "2026-11-19"
+}
