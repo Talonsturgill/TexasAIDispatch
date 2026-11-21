@@ -1,0 +1,105 @@
+{
+  "duration_s": 105.267,
+  "cut_s": 105.2667,
+  "peak_dbfs_premaster": -1.58,
+  "lufs_premaster": -22.34,
+  "lufs_target": -16.0,
+  "lufs_achieved": -16.13,
+  "lufs_shortfall_db": 0.129999999999999,
+  "crest_factor_db": 20.76,
+  "limiter": true,
+  "mix_notes": [
+    "Explicit dynamic mastering applied after the unclipped mix. Sample count unchanged."
+  ],
+  "master_gain_db": 1.58,
+  "time_stretch": 1.0,
+  "tracks": [
+    {
+      "id": "vo",
+      "time_stretch": 1.0
+    },
+    {
+      "id": "sfx",
+      "time_stretch": 1.0,
+      "events": 59
+    },
+    {
+      "id": "amazing_plan",
+      "role": "bed",
+      "time_stretch": 1.0,
+      "gap_below_voice_db": 20.0,
+      "source_lufs": -27.28,
+      "gain_db": -15.03
+    }
+  ],
+  "bed": true,
+  "bed_track_id": "amazing_plan",
+  "bed_gap_below_voice_db": 20.0,
+  "bed_source_lufs": -27.28,
+  "bed_gain_db": -15.03,
+  "sfx_events": 59,
+  "mastering": {
+    "method": "FFmpeg loudnorm dynamic gain control",
+    "before": {
+      "integrated_lufs": -20.82,
+      "true_peak_dbtp": -0.0
+    },
+    "after": {
+      "integrated_lufs": -16.13,
+      "true_peak_dbtp": -1.98
+    },
+    "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.25:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-25.21:measured_TP=-5.12:measured_LRA=4.30:measured_thresh=-36.21:offset=1.25",
+    "measurement": {
+      "input_i": "-25.21",
+      "input_tp": "-5.12",
+      "input_lra": "4.30",
+      "input_thresh": "-36.21",
+      "output_i": "-16.07",
+      "output_tp": "-2.00",
+      "output_lra": "3.80",
+      "output_thresh": "-26.72",
+      "normalization_type": "dynamic",
+      "target_offset": "0.82"
+    },
+    "attempts": [
+      {
+        "requested_lufs": -16.0,
+        "measured": {
+          "integrated_lufs": -16.46,
+          "true_peak_dbtp": -1.98
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-16.0:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-25.21:measured_TP=-5.12:measured_LRA=4.30:measured_thresh=-36.21:offset=0.95"
+      },
+      {
+        "requested_lufs": -15.54,
+        "measured": {
+          "integrated_lufs": -16.29,
+          "true_peak_dbtp": -1.98
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.54:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-25.21:measured_TP=-5.12:measured_LRA=4.30:measured_thresh=-36.21:offset=1.12"
+      },
+      {
+        "requested_lufs": -15.25,
+        "measured": {
+          "integrated_lufs": -16.13,
+          "true_peak_dbtp": -1.98
+        },
+        "filter": "acompressor=threshold=0.1259:ratio=3:attack=10:release=160:knee=2.828:makeup=1,loudnorm=I=-15.25:TP=-2.0:LRA=11:linear=false:print_format=json:measured_I=-25.21:measured_TP=-5.12:measured_LRA=4.30:measured_thresh=-36.21:offset=1.25"
+      }
+    ],
+    "correction": null,
+    "samples": 5052802,
+    "sample_rate": 48000,
+    "time_stretch": 1.0,
+    "limiter": true
+  },
+  "master_file": "/home/user/TexasAIDispatch/out/dispatch/audio/mix.wav",
+  "master_sha256": "6df7f225e28aa270d5c57be6b96800a9c89a4eaad8435bd8a07d43a7f5a5488f",
+  "bed_file": "/home/user/TexasAIDispatch/out/dispatch/music_bed.wav",
+  "bed_file_sha256": "28d067e37236db0b84c1a5d60c90359cd53f53c29a01b5cd22d624366ac62b88",
+  "bed_source_sha256": "76c8b73bd16b7c0437fcaf38b3503149426b3638b8b0fb6e731b330478ffe77d",
+  "bed_preparation_manifest": "/home/user/TexasAIDispatch/out/dispatch/music_bed.json",
+  "bed_preparation_sha256": "527bc0716a53cb22390c9c5fc3731efa1b3154859b0a3f77ee7ad8c2f02260c8",
+  "voice_stem": "/home/user/TexasAIDispatch/out/dispatch/audio/mix_vo.wav",
+  "voice_stem_samples": 5052802
+}
