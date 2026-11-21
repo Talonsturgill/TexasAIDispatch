@@ -29,6 +29,7 @@ import {CreekWatchFilm} from './episodes/2026-11-16/CreekWatchFilm';
 import {RedZoneFilm} from './episodes/2026-11-17/RedZoneFilm';
 import {FetchBagFilm} from './episodes/2026-11-18/FetchBagFilm';
 import {TransferCallFilm} from './episodes/2026-11-19/TransferCallFilm';
+import {BlankBoxesFilm} from './episodes/2026-11-20/BlankBoxesFilm';
 import {LeakReviewFilm} from '../modern/episodes/2026-10-21/LeakReviewFilm';
 
 /**
@@ -95,4 +96,5 @@ export const dailyEpisodes: Record<string, React.FC<FilmRenderProps>> = {
   'red-zone-1117': RedZoneFilm,
   'fetch-bag-1118': FetchBagFilm,
   'transfer-call-1119': TransferCallFilm,
+  'blank-boxes-1120': BlankBoxesFilm,
 };
