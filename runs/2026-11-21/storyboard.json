@@ -1,0 +1,3329 @@
+{
+  "date": "2026-11-21",
+  "title": "The camera sees the curb",
+  "topic": "Dallas puts AI cameras on 50 bulky trash trucks to photograph curbs for possible code problems, and the film follows one photo through blurring, scoring, an analyst's desk and a door to show where a person still decides.",
+  "tone": "explainer",
+  "hook": "Why is this trash truck taking pictures?",
+  "beat": "city-services",
+  "episode": "curb-camera-1121",
+  "entities": [
+    "City of Dallas",
+    "Dallas Code Compliance",
+    "City Detect",
+    "Dallas County"
+  ],
+  "treatment": {
+    "logline": "An eager camera on a Dallas bulky trash truck wants to photograph every curb, and the film follows one of its snapshots until it becomes a polite note or a knock on the door, with a person at every step that slows it down.",
+    "cold_open": "A blue bulky trash truck rolls past a brick ranch on a Dallas street. The camera on its side, which has a face, blinks awake and snaps the tall grass. Before second three the still pops out like an instant photo.",
+    "turn": "The heat map pours south, 13,800 of 20,000 photos. The director lays his route map and the residents' own complaint map over it and they match, yet the notice rates still differ, so the question stays open on screen.",
+    "button": "Weeks later the same truck passes the same yard with the grass cut. The camera snaps a tidy curb and winks, and back at her desk the analyst stamps the new photo NOTHING. A person decides what happens next."
+  },
+  "hero": {
+    "name": "the curb camera with a face",
+    "why": "a round white camera bolted to the truck's side whose lens is one big eye with brows. It wakes, snaps, squints when it blurs a face and droops when it cannot read a plate, so every step of the mechanism has a face to read. No earlier film has drawn it."
+  },
+  "throughline": {
+    "object": "one instant photo of a brick ranch with tall grass",
+    "states": [
+      {
+        "scene_id": "s1",
+        "state": "pops fresh out of the camera, tall grass, a waving neighbour, a car at the curb"
+      },
+      {
+        "scene_id": "s4",
+        "state": "the neighbour's face and the car plate fog over to soft blur"
+      },
+      {
+        "scene_id": "s7",
+        "state": "a yellow blight score tag reading 2 clips onto its corner"
+      },
+      {
+        "scene_id": "s9",
+        "state": "stamped COURTESY NOTICE and slipped into the mailbox, no case opened"
+      },
+      {
+        "scene_id": "s14",
+        "state": "a new photo of the same yard, grass cut, stamped NOTHING by the analyst"
+      }
+    ]
+  },
+  "fingerprint": {
+    "pov": "curb height beside a Dallas street, then the analyst's desk across town",
+    "layout": "the truck's side camera in the foreground, brick ranch houses on blackland behind",
+    "hero_treatment": "a white side camera with one big lens eye and acting brows",
+    "palette": "sky blue and grass green over warm brick, with sanitation blue and safety yellow as the accents"
+  },
+  "music": {
+    "track": "thinking_music"
+  },
+  "wall_views": [
+    "cloud-scan",
+    "flag-board",
+    "photo-blur",
+    "plate-miss",
+    "score-tag",
+    "city-map",
+    "percent-jars"
+  ],
+  "credits": "TEXAS AI DOCKET\nSOURCES\nCity of Dallas\nDallas Morning News via GovTech\nNBC 5, FOX 4, Spectrum News\nILLUSTRATION\nOriginal drawings, people illustrative\nMUSIC\n\"Thinking Music\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Since mid-April, fifty bulky trash trucks in Dallas have carried a camera. On their routes, it snaps still photos of the curb.",
+      "vo_claims": [
+        "c1",
+        "c29"
+      ],
+      "visual_events": [
+        {
+          "id": "s1-snap",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "brush_camera_shutter",
+          "draw": {
+            "subject": "the side camera on the trash truck",
+            "action": "blinks awake and snaps the tall grass of a brick ranch as the truck rolls",
+            "emotion": "the camera's brows lift, eager"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s1-print",
+          "at_phrase": "fifty bulky trash trucks",
+          "duration_s": 1.2,
+          "sound": "paper_photo_slide",
+          "label": "50 trucks",
+          "draw": {
+            "subject": "an instant photo",
+            "action": "pops out of the camera and flips into view, tall grass in it"
+          },
+          "at_s": 2.12
+        },
+        {
+          "id": "s1-route",
+          "at_phrase": "On their routes",
+          "duration_s": 1.4,
+          "sound": "brush_truck_roll",
+          "label": "Normal routes",
+          "draw": {
+            "subject": "the truck",
+            "action": "rolls on down the street, the camera flashing at each house it passes",
+            "emotion": "a neighbour on the lawn waves at it"
+          },
+          "at_s": 5.88
+        },
+        {
+          "id": "s1-curb",
+          "at_phrase": "snaps still photos",
+          "duration_s": 1.0,
+          "sound": "brush_camera_shutter",
+          "draw": {
+            "subject": "the camera",
+            "action": "fires a flash that rings outward at the curb"
+          },
+          "at_s": 7.23
+        }
+      ],
+      "start_s": 0.0,
+      "duration_s": 9.43,
+      "planes": []
+    },
+    {
+      "id": "s2",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "Not video. Stills. Each goes to software from a company called City Detect, which looks for trouble.",
+      "vo_claims": [
+        "c3",
+        "c2"
+      ],
+      "visual_events": [
+        {
+          "id": "s2-not",
+          "at": 0.0,
+          "duration_s": 1.0,
+          "sound": "decision_stop",
+          "label": "Stills, not video",
+          "draw": {
+            "subject": "a film strip",
+            "action": "tears away and leaves single photos fluttering"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s2-up",
+          "at_phrase": "goes to software",
+          "duration_s": 1.6,
+          "sound": "protocol_upload",
+          "label": "City Detect",
+          "draw": {
+            "subject": "the photo",
+            "action": "rises into a cloud where a scanning box sweeps across it"
+          },
+          "at_s": 2.55
+        }
+      ],
+      "start_s": 9.43,
+      "duration_s": 7.4,
+      "planes": []
+    },
+    {
+      "id": "s3",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "Tall grass. Weeds. Litter. A car on the lawn. Peeling paint. One house got flagged for its chimney paint.",
+      "vo_claims": [
+        "c19",
+        "c25"
+      ],
+      "visual_events": [
+        {
+          "id": "s3-grass",
+          "at": 0.0,
+          "duration_s": 0.8,
+          "sound": "camera_reacquire",
+          "label": "Tall grass",
+          "draw": {
+            "subject": "a yellow box",
+            "action": "snaps around the tall grass in a photo"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s3-car",
+          "at_phrase": "A car on the lawn",
+          "duration_s": 0.8,
+          "sound": "camera_reacquire",
+          "label": "Car on the lawn",
+          "draw": {
+            "subject": "a yellow box",
+            "action": "snaps around a car parked on a lawn in the next photo"
+          },
+          "at_s": 2.5
+        },
+        {
+          "id": "s3-paint",
+          "at_phrase": "Peeling paint",
+          "duration_s": 0.8,
+          "sound": "camera_reacquire",
+          "label": "Peeling paint",
+          "draw": {
+            "subject": "a yellow box",
+            "action": "snaps around flaking paint on a wall"
+          },
+          "at_s": 4.14
+        },
+        {
+          "id": "s3-chimney",
+          "at_phrase": "One house got flagged",
+          "duration_s": 1.6,
+          "sound": "review_stamp",
+          "label": "Chimney paint, a 2",
+          "draw": {
+            "subject": "a chimney on a roof",
+            "action": "gets a box and a score tag slapped on it while a puff of smoke coughs out",
+            "emotion": "the chimney's owner on the lawn looks up, baffled"
+          },
+          "at_s": 5.37
+        }
+      ],
+      "start_s": 16.83,
+      "duration_s": 8.29,
+      "planes": []
+    },
+    {
+      "id": "s4",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "The software blurs faces and license plates. One photo the city released had a black box reading motor vehicle.",
+      "vo_claims": [
+        "c9",
+        "c22"
+      ],
+      "visual_events": [
+        {
+          "id": "s4-face",
+          "at": 0.05,
+          "duration_s": 1.4,
+          "sound": "spectral_response",
+          "label": "Faces blurred",
+          "draw": {
+            "subject": "the instant photo, filling the frame",
+            "action": "fogs the waving neighbour into a soft blur",
+            "emotion": "the camera in the corner squints, a little embarrassed"
+          },
+          "at_s": 0.387
+        },
+        {
+          "id": "s4-plate",
+          "at_phrase": "license plates",
+          "duration_s": 1.0,
+          "sound": "spectral_response",
+          "label": "Plates blurred",
+          "draw": {
+            "subject": "the car's plate",
+            "action": "smears into a pale bar"
+          },
+          "at_s": 2.55
+        },
+        {
+          "id": "s4-box",
+          "at_phrase": "a black box reading",
+          "duration_s": 1.6,
+          "sound": "proof_gate_clamp",
+          "label": "MOTOR VEHICLE",
+          "draw": {
+            "subject": "a second photo",
+            "action": "slides in and a black box reading motor vehicle slams over its plate",
+            "emotion": "the camera's eye droops, it cannot read it either"
+          },
+          "at_s": 5.22
+        }
+      ],
+      "start_s": 25.12,
+      "duration_s": 7.74,
+      "planes": []
+    },
+    {
+      "id": "s5",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "The blur slips, though. The company says it works about ninety nine percent of the time. When reporters found a plate it missed, the city asked for every photo to go through the blur again.",
+      "vo_claims": [
+        "c23",
+        "c12"
+      ],
+      "visual_events": [
+        {
+          "id": "s5-slip",
+          "at": 0.05,
+          "duration_s": 1.4,
+          "sound": "warning_bloom",
+          "label": "About 99% effective",
+          "draw": {
+            "subject": "the camera on the truck",
+            "action": "winces as a parked car's plate stays sharp in its viewfinder",
+            "emotion": "worried brows"
+          },
+          "at_s": 0.592
+        },
+        {
+          "id": "s5-miss",
+          "at_phrase": "When reporters found",
+          "duration_s": 1.2,
+          "sound": "camera_reacquire",
+          "label": "One plate missed",
+          "draw": {
+            "subject": "one sharp plate in a wall of photos",
+            "action": "pulses inside a red ring"
+          },
+          "at_s": 5.54
+        },
+        {
+          "id": "s5-again",
+          "at_phrase": "asked for every photo",
+          "duration_s": 2.0,
+          "sound": "spectral_response",
+          "label": "Every photo re-blurred",
+          "draw": {
+            "subject": "the wall of photos",
+            "action": "re-blurs in a wave from left to right",
+            "emotion": "the analyst exhales, relieved"
+          },
+          "at_s": 8.53
+        }
+      ],
+      "start_s": 32.86,
+      "duration_s": 11.84,
+      "planes": []
+    },
+    {
+      "id": "s6",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": true,
+      "camera_strategy": "pushIn",
+      "vo": "In four months, the cameras photographed more than twenty thousand concerns.",
+      "vo_claims": [
+        "c5"
+      ],
+      "visual_events": [
+        {
+          "id": "s6-storm",
+          "at": 0.05,
+          "duration_s": 2.4,
+          "sound": "paper_photo_slide",
+          "label": "20,000+ in 4 months",
+          "draw": {
+            "subject": "a storm of photos",
+            "action": "pours over the analyst's desk and piles into a leaning tower",
+            "emotion": "the analyst throws her hands up, wide-eyed"
+          },
+          "at_s": 0.245
+        }
+      ],
+      "start_s": 44.7,
+      "duration_s": 4.9,
+      "planes": []
+    },
+    {
+      "id": "s7",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": true,
+      "camera_strategy": "pushIn",
+      "vo": "Too many to read. So each flagged property gets a blight score from one to four, and the photos are ranked so staff know which to look at first.",
+      "vo_claims": [
+        "c17",
+        "c18"
+      ],
+      "visual_events": [
+        {
+          "id": "s7-tag",
+          "at": 0.05,
+          "duration_s": 1.2,
+          "sound": "reuse_tile_lock",
+          "label": "Blight score 1 to 4",
+          "draw": {
+            "subject": "a yellow score tag reading 2",
+            "action": "clips onto the corner of the photo with a bounce"
+          },
+          "at_s": 0.493
+        },
+        {
+          "id": "s7-sort",
+          "at_phrase": "the photos are ranked",
+          "duration_s": 1.6,
+          "sound": "freight_count",
+          "label": "Look first",
+          "draw": {
+            "subject": "a stack of photos",
+            "action": "shuffles itself so the highest scores rise to the top of the analyst's queue",
+            "emotion": "the analyst leans in, curious"
+          },
+          "at_s": 6.0
+        }
+      ],
+      "start_s": 49.6,
+      "duration_s": 9.86,
+      "planes": []
+    },
+    {
+      "id": "s8",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": true,
+      "camera_strategy": "pushIn",
+      "vo": "A flag is not a ticket. A person reviews it. Staff can do nothing, keep watching, send a courtesy notice, ask for an inspection or call a city crew.",
+      "vo_claims": [
+        "c20",
+        "c10"
+      ],
+      "visual_events": [
+        {
+          "id": "s8-review",
+          "at": 0.05,
+          "duration_s": 1.4,
+          "sound": "pencil_scratch",
+          "label": "A person reviews",
+          "draw": {
+            "subject": "the analyst",
+            "action": "pulls the grass photo off the top of the stack and studies it",
+            "emotion": "her brow furrows, thinking"
+          },
+          "at_s": 0.573
+        },
+        {
+          "id": "s8-five",
+          "at_phrase": "Staff can do nothing",
+          "duration_s": 3.6,
+          "sound": "offer_card",
+          "label": "Five choices",
+          "draw": {
+            "subject": "five round stamps",
+            "action": "light up one by one under her hand, nothing, watch, notice, inspect, crew"
+          },
+          "at_s": 4.1
+        },
+        {
+          "id": "s8-watch",
+          "at_phrase": "keep watching",
+          "duration_s": 0.9,
+          "sound": "offer_card",
+          "draw": {
+            "subject": "the WATCH stamp",
+            "action": "rises and glows under her hand"
+          },
+          "at_s": 5.5
+        },
+        {
+          "id": "s8-pick",
+          "at_phrase": "call a city crew",
+          "duration_s": 1.0,
+          "sound": "review_stamp",
+          "label": "Courtesy notice",
+          "draw": {
+            "subject": "the notice stamp",
+            "action": "thumps down on the photo",
+            "emotion": "the analyst nods, decided"
+          },
+          "at_s": 10.08
+        }
+      ],
+      "start_s": 59.46,
+      "duration_s": 11.45,
+      "planes": []
+    },
+    {
+      "id": "s9",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "A courtesy notice opens no case and sets no deadline. A citation comes only after an officer inspects in person, gives notice, and the problem is still there.",
+      "vo_claims": [
+        "c21",
+        "c10"
+      ],
+      "visual_events": [
+        {
+          "id": "s9-mail",
+          "at": 0.05,
+          "duration_s": 1.4,
+          "sound": "screen_door",
+          "label": "No case, no deadline",
+          "draw": {
+            "subject": "the stamped photo",
+            "action": "slides into the mailbox while a case folder beside it stays shut and a calendar stays blank"
+          },
+          "at_s": 0.57
+        },
+        {
+          "id": "s9-nodate",
+          "at_phrase": "sets no deadline",
+          "duration_s": 1.0,
+          "sound": "field_marker",
+          "label": "No deadline",
+          "draw": {
+            "subject": "the resident",
+            "action": "opens the mailbox door and peers in",
+            "emotion": "surprised"
+          },
+          "at_s": 2.82
+        },
+        {
+          "id": "s9-knock",
+          "at_phrase": "an officer inspects in person",
+          "duration_s": 1.6,
+          "sound": "concrete_footsteps",
+          "label": "Officer in person",
+          "draw": {
+            "subject": "a code officer",
+            "action": "walks up to a different house down the street and knocks",
+            "emotion": "that neighbour opens the door, wary"
+          },
+          "at_s": 6.35
+        },
+        {
+          "id": "s9-still",
+          "at_phrase": "the problem is still there",
+          "duration_s": 1.2,
+          "sound": "field_marker",
+          "label": "Only if still unfixed",
+          "draw": {
+            "subject": "the officer",
+            "action": "points at the tall grass and checks a box on a tablet",
+            "emotion": "the resident winces"
+          },
+          "at_s": 9.56
+        }
+      ],
+      "start_s": 70.91,
+      "duration_s": 11.4,
+      "planes": []
+    },
+    {
+      "id": "s10",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "The city's own maps raise a question. Of the 20,000, about 13,800 came from southern Dallas. Could older blocks with less money for repairs get more scrutiny?",
+      "vo_claims": [
+        "c27",
+        "c15"
+      ],
+      "visual_events": [
+        {
+          "id": "s10-map",
+          "at": 0.05,
+          "duration_s": 1.4,
+          "sound": "warning_bloom",
+          "label": "Dallas, city map",
+          "draw": {
+            "subject": "a map of Dallas",
+            "action": "fills with tiny camera flashes"
+          },
+          "at_s": 0.626
+        },
+        {
+          "id": "s10-line",
+          "at_phrase": "Of the 20,000",
+          "duration_s": 1.0,
+          "sound": "field_marker",
+          "label": "20,000 photos",
+          "draw": {
+            "subject": "a dashed line",
+            "action": "draws across the city map splitting north from south"
+          },
+          "at_s": 2.79
+        },
+        {
+          "id": "s10-south",
+          "at_phrase": "about 13,800 came",
+          "duration_s": 2.6,
+          "sound": "freight_count",
+          "label": "13,800 of 20,000",
+          "draw": {
+            "subject": "the photos on the map",
+            "action": "slide into two stacks, a tall one of 13,800 in the south and a short one of 7,300 for the rest of the city"
+          },
+          "at_s": 4.19
+        },
+        {
+          "id": "s10-porch",
+          "at_phrase": "Could older blocks",
+          "duration_s": 1.6,
+          "sound": "screen_door",
+          "label": "More scrutiny?",
+          "draw": {
+            "subject": "an older resident on a porch in southern Dallas",
+            "action": "lowers a notice and frowns at the passing truck",
+            "emotion": "doubt"
+          },
+          "at_s": 8.17
+        }
+      ],
+      "start_s": 82.31,
+      "duration_s": 12.51,
+      "planes": []
+    },
+    {
+      "id": "s11",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": true,
+      "camera_strategy": "pushIn",
+      "vo": "Code compliance director Chris Christian says the trucks cover the whole city, and the camera map matches what residents report almost exactly.",
+      "vo_claims": [
+        "c14",
+        "c31"
+      ],
+      "visual_events": [
+        {
+          "id": "s11-dir",
+          "at": 0.05,
+          "duration_s": 1.8,
+          "sound": "route_marker",
+          "label": "Chris Christian, director",
+          "draw": {
+            "subject": "the director",
+            "action": "traces blue route lines across every part of the city map on his board",
+            "emotion": "steady"
+          },
+          "at_s": 0.456
+        },
+        {
+          "id": "s11-routes",
+          "at_phrase": "cover the whole city",
+          "duration_s": 1.2,
+          "sound": "route_marker",
+          "label": "Routes cover the city",
+          "draw": {
+            "subject": "blue route lines",
+            "action": "draw themselves across the whole map"
+          },
+          "at_s": 3.39
+        },
+        {
+          "id": "s11-match",
+          "at_phrase": "matches what residents report",
+          "duration_s": 2.0,
+          "sound": "record_join",
+          "label": "Matches resident reports",
+          "draw": {
+            "subject": "a map of residents' own complaints",
+            "action": "lays over the camera map and the two line up",
+            "emotion": "the director taps it, confident"
+          },
+          "at_s": 5.97
+        }
+      ],
+      "start_s": 94.82,
+      "duration_s": 9.12,
+      "planes": []
+    },
+    {
+      "id": "s12",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": true,
+      "camera_strategy": "pushIn",
+      "vo": "Still, under two percent of southern flags became notices, against more than four percent in the rest of the city. The question stays open.",
+      "vo_claims": [
+        "c28"
+      ],
+      "visual_events": [
+        {
+          "id": "s12-jars",
+          "at": 0.05,
+          "duration_s": 2.4,
+          "sound": "material_candidate",
+          "label": "Under 2% vs over 4%",
+          "draw": {
+            "subject": "two glass jars of photos",
+            "action": "fill, and only a sliver of each turns into notices, the rest of the city's sliver twice as thick"
+          },
+          "at_s": 0.468
+        },
+        {
+          "id": "s12-rest",
+          "at_phrase": "against more than four percent",
+          "duration_s": 1.4,
+          "sound": "reuse_tile_lock",
+          "label": "Rest of city, over 4%",
+          "draw": {
+            "subject": "the rest of the city's jar",
+            "action": "lights its green sliver and the sliver doubles the south one",
+            "emotion": "the analyst's eyebrows lift"
+          },
+          "at_s": 4.0
+        },
+        {
+          "id": "s12-open",
+          "at_phrase": "The question stays open",
+          "duration_s": 1.4,
+          "sound": "causal_break",
+          "label": "Still an open question",
+          "draw": {
+            "subject": "a question mark",
+            "action": "drops between the jars and wobbles",
+            "emotion": "the analyst tilts her head, unsure"
+          },
+          "at_s": 6.96
+        }
+      ],
+      "start_s": 103.94,
+      "duration_s": 9.36,
+      "planes": []
+    },
+    {
+      "id": "s13",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "Now the notices are changing. They will carry a QR code to a city help page, and council members asked for Spanish versions.",
+      "vo_claims": [
+        "c11"
+      ],
+      "visual_events": [
+        {
+          "id": "s13-qr",
+          "at": 0.05,
+          "duration_s": 1.6,
+          "sound": "document_parse",
+          "label": "QR code to help",
+          "draw": {
+            "subject": "the notice the resident pulls from the mailbox",
+            "action": "draws a QR code in square by square",
+            "emotion": "the resident raises a phone to scan it"
+          },
+          "at_s": 0.421
+        },
+        {
+          "id": "s13-help",
+          "at_phrase": "to a city help page",
+          "duration_s": 1.2,
+          "sound": "protocol_upload",
+          "draw": {
+            "subject": "the phone screen",
+            "action": "opens a help page with a house and a wrench icon",
+            "emotion": "the resident smiles"
+          },
+          "at_s": 4.05
+        },
+        {
+          "id": "s13-es",
+          "at_phrase": "Spanish versions",
+          "duration_s": 1.07,
+          "sound": "paper_photo_slide",
+          "label": "Spanish requested",
+          "draw": {
+            "subject": "a second notice in Spanish",
+            "action": "slides out from behind the first"
+          },
+          "at_s": 7.34
+        }
+      ],
+      "start_s": 113.3,
+      "duration_s": 8.41,
+      "planes": []
+    },
+    {
+      "id": "s14",
+      "county": "Dallas",
+      "region": "blackland",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "The city says about eight in ten owners fix it after a notice. The camera sees the curb. A person decides what happens next.",
+      "vo_claims": [
+        "c33",
+        "c10"
+      ],
+      "visual_events": [
+        {
+          "id": "s14-mow",
+          "at": 0.05,
+          "duration_s": 2.0,
+          "sound": "blower_fan",
+          "label": "About 80% fix it",
+          "draw": {
+            "subject": "the resident",
+            "action": "pushes a mower through the tall grass, leaving a cut stripe",
+            "emotion": "proud"
+          },
+          "at_s": 0.487
+        },
+        {
+          "id": "s14-pass",
+          "at_phrase": "The camera sees the curb",
+          "duration_s": 1.4,
+          "sound": "brush_camera_shutter",
+          "draw": {
+            "subject": "the truck",
+            "action": "rolls past again and the camera snaps the tidy yard, no box appears",
+            "emotion": "the camera winks"
+          },
+          "at_s": 4.43
+        },
+        {
+          "id": "s14-person",
+          "at_phrase": "A person decides",
+          "duration_s": 1.4,
+          "sound": "review_stamp",
+          "label": "A person decides",
+          "draw": {
+            "subject": "the analyst's hand",
+            "action": "presses the NOTHING stamp onto the new photo of the tidy yard",
+            "emotion": "the analyst smiles"
+          },
+          "at_s": 6.2
+        }
+      ],
+      "start_s": 121.71,
+      "duration_s": 9.73,
+      "planes": []
+    }
+  ],
+  "shots": [
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-snap",
+      "id": "s1-a",
+      "scene_id": "s1",
+      "framing": "wide",
+      "view": "street-roll",
+      "cast": [
+        "resident",
+        "camera"
+      ],
+      "start_s": 0.0,
+      "duration_s": 5.88
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-snap",
+      "id": "s1-b",
+      "scene_id": "s1",
+      "framing": "close",
+      "view": "cam-close",
+      "at_phrase": "On their routes",
+      "cast": [
+        "camera"
+      ],
+      "start_s": 5.88,
+      "duration_s": 3.55
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-not",
+      "id": "s2-a",
+      "scene_id": "s2",
+      "framing": "detail",
+      "view": "cloud-scan",
+      "cast": [
+        "camera"
+      ],
+      "start_s": 9.43,
+      "duration_s": 5.74
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-not",
+      "id": "s2-b",
+      "scene_id": "s2",
+      "framing": "detail",
+      "view": "scan-lock",
+      "at_phrase": "which looks for trouble",
+      "cast": [
+        "camera"
+      ],
+      "start_s": 15.17,
+      "duration_s": 1.66
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-grass",
+      "id": "s3-a",
+      "scene_id": "s3",
+      "framing": "detail",
+      "view": "flag-board",
+      "start_s": 16.83,
+      "duration_s": 5.37
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-grass",
+      "id": "s3-b",
+      "scene_id": "s3",
+      "framing": "medium",
+      "view": "chimney-yard",
+      "at_phrase": "One house got flagged",
+      "cast": [
+        "owner"
+      ],
+      "start_s": 22.2,
+      "duration_s": 2.92
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-face",
+      "id": "s4-a",
+      "scene_id": "s4",
+      "framing": "detail",
+      "view": "photo-blur",
+      "cast": [
+        "camera"
+      ],
+      "start_s": 25.12,
+      "duration_s": 3.5
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-face",
+      "id": "s4-b",
+      "scene_id": "s4",
+      "framing": "close",
+      "view": "cam-close",
+      "at_phrase": "One photo the city released",
+      "cast": [
+        "camera"
+      ],
+      "start_s": 28.62,
+      "duration_s": 4.24
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-slip",
+      "id": "s5-a",
+      "scene_id": "s5",
+      "framing": "medium",
+      "view": "plate-wince",
+      "cast": [
+        "camera"
+      ],
+      "start_s": 32.86,
+      "duration_s": 3.84
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-slip",
+      "id": "s5-c",
+      "scene_id": "s5",
+      "framing": "detail",
+      "view": "viewfinder",
+      "at_phrase": "ninety nine percent",
+      "cast": [
+        "camera"
+      ],
+      "start_s": 36.7,
+      "duration_s": 1.7
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-slip",
+      "id": "s5-b",
+      "scene_id": "s5",
+      "framing": "detail",
+      "view": "plate-miss",
+      "at_phrase": "When reporters found",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 38.4,
+      "duration_s": 6.3
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-storm",
+      "id": "s6-a",
+      "scene_id": "s6",
+      "framing": "overhead",
+      "view": "photo-storm",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 44.7,
+      "duration_s": 4.9
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-tag",
+      "id": "s7-a",
+      "scene_id": "s7",
+      "framing": "detail",
+      "view": "score-tag",
+      "start_s": 49.6,
+      "duration_s": 6.0
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-tag",
+      "id": "s7-b",
+      "scene_id": "s7",
+      "framing": "medium",
+      "view": "analyst-desk",
+      "at_phrase": "the photos are ranked",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 55.6,
+      "duration_s": 3.86
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-review",
+      "id": "s8-a",
+      "scene_id": "s8",
+      "framing": "medium",
+      "view": "analyst-desk",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 59.46,
+      "duration_s": 4.1
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-review",
+      "id": "s8-b",
+      "scene_id": "s8",
+      "framing": "close",
+      "view": "stamp-row",
+      "at_phrase": "Staff can do nothing",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 63.56,
+      "duration_s": 7.35
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-mail",
+      "id": "s9-a",
+      "scene_id": "s9",
+      "framing": "medium",
+      "view": "mailbox",
+      "cast": [
+        "resident"
+      ],
+      "start_s": 70.91,
+      "duration_s": 4.25
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-mail",
+      "id": "s9-b",
+      "scene_id": "s9",
+      "framing": "wide",
+      "view": "officer-door",
+      "at_phrase": "A citation comes",
+      "cast": [
+        "hydrologist",
+        "farmer"
+      ],
+      "start_s": 75.16,
+      "duration_s": 7.15
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-map",
+      "id": "s10-a",
+      "scene_id": "s10",
+      "framing": "split",
+      "view": "city-map",
+      "start_s": 82.31,
+      "duration_s": 8.17
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-map",
+      "id": "s10-b",
+      "scene_id": "s10",
+      "framing": "medium",
+      "view": "south-porch",
+      "at_phrase": "Could older blocks",
+      "cast": [
+        "owner"
+      ],
+      "start_s": 90.48,
+      "duration_s": 4.34
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-dir",
+      "id": "s11-a",
+      "scene_id": "s11",
+      "framing": "medium",
+      "view": "director-map",
+      "cast": [
+        "executive"
+      ],
+      "start_s": 94.82,
+      "duration_s": 4.65
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-dir",
+      "id": "s11-b",
+      "scene_id": "s11",
+      "framing": "split",
+      "view": "city-map",
+      "at_phrase": "and the camera map",
+      "start_s": 99.47,
+      "duration_s": 4.47
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-jars",
+      "id": "s12-a",
+      "scene_id": "s12",
+      "framing": "split",
+      "view": "percent-jars",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 103.94,
+      "duration_s": 6.96
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-jars",
+      "id": "s12-b",
+      "scene_id": "s12",
+      "framing": "detail",
+      "view": "sliver-close",
+      "at_phrase": "The question stays open",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 110.9,
+      "duration_s": 2.4
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-qr",
+      "id": "s13-a",
+      "scene_id": "s13",
+      "framing": "close",
+      "view": "notice-hand",
+      "cast": [
+        "resident"
+      ],
+      "start_s": 113.3,
+      "duration_s": 5.5
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-qr",
+      "id": "s13-b",
+      "scene_id": "s13",
+      "framing": "detail",
+      "view": "spanish-insert",
+      "at_phrase": "and council members",
+      "cast": [
+        "resident"
+      ],
+      "start_s": 118.8,
+      "duration_s": 2.91
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-mow",
+      "id": "s14-a",
+      "scene_id": "s14",
+      "framing": "medium",
+      "view": "mow-yard",
+      "cast": [
+        "resident"
+      ],
+      "start_s": 121.71,
+      "duration_s": 4.43
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-mow",
+      "id": "s14-b",
+      "scene_id": "s14",
+      "framing": "wide",
+      "view": "street-roll",
+      "at_phrase": "The camera sees the curb",
+      "cast": [
+        "resident",
+        "camera"
+      ],
+      "start_s": 126.14,
+      "duration_s": 1.77
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-mow",
+      "id": "s14-c",
+      "scene_id": "s14",
+      "framing": "close",
+      "view": "stamp-row",
+      "at_phrase": "A person decides",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 127.91,
+      "duration_s": 3.53
+    }
+  ],
+  "runtime_s": 131.44,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.82,
+      "end": 1.88,
+      "text": "Since mid-April,"
+    },
+    {
+      "id": "c2",
+      "start": 2.12,
+      "end": 4.09,
+      "text": "fifty bulky trash trucks in"
+    },
+    {
+      "id": "c3",
+      "start": 4.13,
+      "end": 5.76,
+      "text": "Dallas have carried a camera."
+    },
+    {
+      "id": "c4",
+      "start": 5.88,
+      "end": 6.84,
+      "text": "On their routes,"
+    },
+    {
+      "id": "c5",
+      "start": 6.88,
+      "end": 9.34,
+      "text": "it snaps still photos of the curb."
+    },
+    {
+      "id": "c6",
+      "start": 9.52,
+      "end": 10.5,
+      "text": "Not video."
+    },
+    {
+      "id": "c7",
+      "start": 10.65,
+      "end": 11.29,
+      "text": "Stills."
+    },
+    {
+      "id": "c8",
+      "start": 11.52,
+      "end": 13.32,
+      "text": "Each goes to software from"
+    },
+    {
+      "id": "c9",
+      "start": 13.36,
+      "end": 15.13,
+      "text": "a company called City Detect,"
+    },
+    {
+      "id": "c10",
+      "start": 15.17,
+      "end": 16.74,
+      "text": "which looks for trouble."
+    },
+    {
+      "id": "c11",
+      "start": 16.92,
+      "end": 17.98,
+      "text": "Tall grass."
+    },
+    {
+      "id": "c12",
+      "start": 18.12,
+      "end": 18.7,
+      "text": "Weeds."
+    },
+    {
+      "id": "c13",
+      "start": 18.74,
+      "end": 19.29,
+      "text": "Litter."
+    },
+    {
+      "id": "c14",
+      "start": 19.33,
+      "end": 20.92,
+      "text": "A car on the lawn."
+    },
+    {
+      "id": "c15",
+      "start": 20.97,
+      "end": 22.1,
+      "text": "Peeling paint."
+    },
+    {
+      "id": "c16",
+      "start": 22.2,
+      "end": 24.92,
+      "text": "One house got flagged for its chimney paint."
+    },
+    {
+      "id": "c17",
+      "start": 25.3,
+      "end": 28.3,
+      "text": "The software blurs faces and license plates."
+    },
+    {
+      "id": "c18",
+      "start": 28.62,
+      "end": 30.3,
+      "text": "One photo the city released had"
+    },
+    {
+      "id": "c19",
+      "start": 30.34,
+      "end": 32.66,
+      "text": "a black box reading motor vehicle."
+    },
+    {
+      "id": "c20",
+      "start": 33.04,
+      "end": 34.68,
+      "text": "The blur slips, though."
+    },
+    {
+      "id": "c21",
+      "start": 34.72,
+      "end": 36.66,
+      "text": "The company says it works about"
+    },
+    {
+      "id": "c22",
+      "start": 36.7,
+      "end": 38.36,
+      "text": "ninety nine percent of the time."
+    },
+    {
+      "id": "c23",
+      "start": 38.4,
+      "end": 40.73,
+      "text": "When reporters found a plate it missed,"
+    },
+    {
+      "id": "c24",
+      "start": 40.77,
+      "end": 42.59,
+      "text": "the city asked for every photo"
+    },
+    {
+      "id": "c25",
+      "start": 42.63,
+      "end": 44.44,
+      "text": "to go through the blur again."
+    },
+    {
+      "id": "c26",
+      "start": 44.88,
+      "end": 45.93,
+      "text": "In four months,"
+    },
+    {
+      "id": "c27",
+      "start": 45.97,
+      "end": 47.42,
+      "text": "the cameras photographed more"
+    },
+    {
+      "id": "c28",
+      "start": 47.46,
+      "end": 49.4,
+      "text": "than twenty thousand concerns."
+    },
+    {
+      "id": "c29",
+      "start": 49.78,
+      "end": 51.13,
+      "text": "Too many to read."
+    },
+    {
+      "id": "c30",
+      "start": 51.17,
+      "end": 53.29,
+      "text": "So each flagged property gets a"
+    },
+    {
+      "id": "c31",
+      "start": 53.33,
+      "end": 55.22,
+      "text": "blight score from one to four,"
+    },
+    {
+      "id": "c32",
+      "start": 55.26,
+      "end": 57.25,
+      "text": "and the photos are ranked so"
+    },
+    {
+      "id": "c33",
+      "start": 57.29,
+      "end": 59.32,
+      "text": "staff know which to look at first."
+    },
+    {
+      "id": "c34",
+      "start": 59.6,
+      "end": 61.53,
+      "text": "A flag is not a ticket."
+    },
+    {
+      "id": "c35",
+      "start": 61.57,
+      "end": 63.48,
+      "text": "A person reviews it."
+    },
+    {
+      "id": "c36",
+      "start": 63.56,
+      "end": 64.92,
+      "text": "Staff can do nothing,"
+    },
+    {
+      "id": "c37",
+      "start": 64.96,
+      "end": 67.64,
+      "text": "keep watching, send a courtesy notice,"
+    },
+    {
+      "id": "c38",
+      "start": 67.68,
+      "end": 70.74,
+      "text": "ask for an inspection or call a city crew."
+    },
+    {
+      "id": "c39",
+      "start": 71.08,
+      "end": 73.05,
+      "text": "A courtesy notice opens no"
+    },
+    {
+      "id": "c40",
+      "start": 73.09,
+      "end": 75.02,
+      "text": "case and sets no deadline."
+    },
+    {
+      "id": "c41",
+      "start": 75.16,
+      "end": 77.22,
+      "text": "A citation comes only after"
+    },
+    {
+      "id": "c42",
+      "start": 77.26,
+      "end": 79.21,
+      "text": "an officer inspects in person,"
+    },
+    {
+      "id": "c43",
+      "start": 79.25,
+      "end": 82.16,
+      "text": "gives notice, and the problem is still there."
+    },
+    {
+      "id": "c44",
+      "start": 82.46,
+      "end": 85.06,
+      "text": "The city's own maps raise a question."
+    },
+    {
+      "id": "c45",
+      "start": 85.1,
+      "end": 86.46,
+      "text": "Of the 20,000,"
+    },
+    {
+      "id": "c46",
+      "start": 86.5,
+      "end": 90.3,
+      "text": "about 13,800 came from southern Dallas."
+    },
+    {
+      "id": "c47",
+      "start": 90.48,
+      "end": 92.22,
+      "text": "Could older blocks with less"
+    },
+    {
+      "id": "c48",
+      "start": 92.26,
+      "end": 94.42,
+      "text": "money for repairs get more scrutiny?"
+    },
+    {
+      "id": "c49",
+      "start": 95.0,
+      "end": 97.61,
+      "text": "Code compliance director Chris Christian says"
+    },
+    {
+      "id": "c50",
+      "start": 97.65,
+      "end": 99.43,
+      "text": "the trucks cover the whole city,"
+    },
+    {
+      "id": "c51",
+      "start": 99.47,
+      "end": 101.13,
+      "text": "and the camera map matches"
+    },
+    {
+      "id": "c52",
+      "start": 101.17,
+      "end": 103.68,
+      "text": "what residents report almost exactly."
+    },
+    {
+      "id": "c53",
+      "start": 104.12,
+      "end": 105.44,
+      "text": "Still, under two percent"
+    },
+    {
+      "id": "c54",
+      "start": 105.48,
+      "end": 107.9,
+      "text": "of southern flags became notices,"
+    },
+    {
+      "id": "c55",
+      "start": 107.94,
+      "end": 109.34,
+      "text": "against more than four percent"
+    },
+    {
+      "id": "c56",
+      "start": 109.38,
+      "end": 110.86,
+      "text": "in the rest of the city."
+    },
+    {
+      "id": "c57",
+      "start": 110.9,
+      "end": 112.76,
+      "text": "The question stays open."
+    },
+    {
+      "id": "c58",
+      "start": 113.48,
+      "end": 115.49,
+      "text": "Now the notices are changing."
+    },
+    {
+      "id": "c59",
+      "start": 115.53,
+      "end": 118.76,
+      "text": "They will carry a QR code to a city help page,"
+    },
+    {
+      "id": "c60",
+      "start": 118.8,
+      "end": 119.95,
+      "text": "and council members"
+    },
+    {
+      "id": "c61",
+      "start": 119.99,
+      "end": 121.56,
+      "text": "asked for Spanish versions."
+    },
+    {
+      "id": "c62",
+      "start": 121.86,
+      "end": 123.64,
+      "text": "The city says about eight in"
+    },
+    {
+      "id": "c63",
+      "start": 123.68,
+      "end": 126.02,
+      "text": "ten owners fix it after a notice."
+    },
+    {
+      "id": "c64",
+      "start": 126.14,
+      "end": 127.87,
+      "text": "The camera sees the curb."
+    },
+    {
+      "id": "c65",
+      "start": 127.91,
+      "end": 130.54,
+      "text": "A person decides what happens next."
+    }
+  ],
+  "credits_s": 5.0,
+  "look": "v2",
+  "words": [
+    {
+      "word": "Since",
+      "start": 0.82,
+      "end": 1.28
+    },
+    {
+      "word": "mid-April,",
+      "start": 1.28,
+      "end": 1.88
+    },
+    {
+      "word": "fifty",
+      "start": 2.12,
+      "end": 2.64
+    },
+    {
+      "word": "bulky",
+      "start": 2.64,
+      "end": 3.08
+    },
+    {
+      "word": "trash",
+      "start": 3.08,
+      "end": 3.49
+    },
+    {
+      "word": "trucks",
+      "start": 3.49,
+      "end": 3.79
+    },
+    {
+      "word": "in",
+      "start": 3.79,
+      "end": 4.13
+    },
+    {
+      "word": "Dallas",
+      "start": 4.13,
+      "end": 4.47
+    },
+    {
+      "word": "have",
+      "start": 4.47,
+      "end": 4.76
+    },
+    {
+      "word": "carried",
+      "start": 4.76,
+      "end": 5.01
+    },
+    {
+      "word": "a",
+      "start": 5.01,
+      "end": 5.27
+    },
+    {
+      "word": "camera.",
+      "start": 5.27,
+      "end": 5.76
+    },
+    {
+      "word": "On",
+      "start": 5.88,
+      "end": 6.28
+    },
+    {
+      "word": "their",
+      "start": 6.28,
+      "end": 6.54
+    },
+    {
+      "word": "routes,",
+      "start": 6.54,
+      "end": 6.88
+    },
+    {
+      "word": "it",
+      "start": 6.88,
+      "end": 7.23
+    },
+    {
+      "word": "snaps",
+      "start": 7.23,
+      "end": 7.6
+    },
+    {
+      "word": "still",
+      "start": 7.6,
+      "end": 8.02
+    },
+    {
+      "word": "photos",
+      "start": 8.02,
+      "end": 8.41
+    },
+    {
+      "word": "of",
+      "start": 8.41,
+      "end": 8.62
+    },
+    {
+      "word": "the",
+      "start": 8.62,
+      "end": 8.85
+    },
+    {
+      "word": "curb.",
+      "start": 8.85,
+      "end": 9.34
+    },
+    {
+      "word": "Not",
+      "start": 9.52,
+      "end": 10.01
+    },
+    {
+      "word": "video.",
+      "start": 10.01,
+      "end": 10.5
+    },
+    {
+      "word": "Stills.",
+      "start": 10.65,
+      "end": 11.29
+    },
+    {
+      "word": "Each",
+      "start": 11.52,
+      "end": 11.98
+    },
+    {
+      "word": "goes",
+      "start": 11.98,
+      "end": 12.25
+    },
+    {
+      "word": "to",
+      "start": 12.25,
+      "end": 12.68
+    },
+    {
+      "word": "software",
+      "start": 12.68,
+      "end": 13.14
+    },
+    {
+      "word": "from",
+      "start": 13.14,
+      "end": 13.36
+    },
+    {
+      "word": "a",
+      "start": 13.36,
+      "end": 13.56
+    },
+    {
+      "word": "company",
+      "start": 13.56,
+      "end": 13.88
+    },
+    {
+      "word": "called",
+      "start": 13.88,
+      "end": 14.26
+    },
+    {
+      "word": "City",
+      "start": 14.26,
+      "end": 14.66
+    },
+    {
+      "word": "Detect,",
+      "start": 14.66,
+      "end": 15.17
+    },
+    {
+      "word": "which",
+      "start": 15.17,
+      "end": 15.62
+    },
+    {
+      "word": "looks",
+      "start": 15.62,
+      "end": 15.9
+    },
+    {
+      "word": "for",
+      "start": 15.9,
+      "end": 16.23
+    },
+    {
+      "word": "trouble.",
+      "start": 16.23,
+      "end": 16.74
+    },
+    {
+      "word": "Tall",
+      "start": 16.92,
+      "end": 17.45
+    },
+    {
+      "word": "grass.",
+      "start": 17.45,
+      "end": 17.98
+    },
+    {
+      "word": "Weeds.",
+      "start": 18.12,
+      "end": 18.74
+    },
+    {
+      "word": "Litter.",
+      "start": 18.74,
+      "end": 19.33
+    },
+    {
+      "word": "A",
+      "start": 19.33,
+      "end": 19.77
+    },
+    {
+      "word": "car",
+      "start": 19.77,
+      "end": 20.03
+    },
+    {
+      "word": "on",
+      "start": 20.03,
+      "end": 20.21
+    },
+    {
+      "word": "the",
+      "start": 20.21,
+      "end": 20.44
+    },
+    {
+      "word": "lawn.",
+      "start": 20.44,
+      "end": 20.92
+    },
+    {
+      "word": "Peeling",
+      "start": 20.97,
+      "end": 21.535
+    },
+    {
+      "word": "paint.",
+      "start": 21.535,
+      "end": 22.1
+    },
+    {
+      "word": "One",
+      "start": 22.2,
+      "end": 22.67
+    },
+    {
+      "word": "house",
+      "start": 22.67,
+      "end": 22.94
+    },
+    {
+      "word": "got",
+      "start": 22.94,
+      "end": 23.25
+    },
+    {
+      "word": "flagged",
+      "start": 23.25,
+      "end": 23.57
+    },
+    {
+      "word": "for",
+      "start": 23.57,
+      "end": 23.79
+    },
+    {
+      "word": "its",
+      "start": 23.79,
+      "end": 24.035
+    },
+    {
+      "word": "chimney",
+      "start": 24.035,
+      "end": 24.395
+    },
+    {
+      "word": "paint.",
+      "start": 24.395,
+      "end": 24.92
+    },
+    {
+      "word": "The",
+      "start": 25.3,
+      "end": 25.87
+    },
+    {
+      "word": "software",
+      "start": 25.87,
+      "end": 26.315
+    },
+    {
+      "word": "blurs",
+      "start": 26.315,
+      "end": 26.815
+    },
+    {
+      "word": "faces",
+      "start": 26.815,
+      "end": 27.31
+    },
+    {
+      "word": "and",
+      "start": 27.31,
+      "end": 27.67
+    },
+    {
+      "word": "license",
+      "start": 27.67,
+      "end": 27.91
+    },
+    {
+      "word": "plates.",
+      "start": 27.91,
+      "end": 28.3
+    },
+    {
+      "word": "One",
+      "start": 28.62,
+      "end": 29.12
+    },
+    {
+      "word": "photo",
+      "start": 29.12,
+      "end": 29.39
+    },
+    {
+      "word": "the",
+      "start": 29.39,
+      "end": 29.56
+    },
+    {
+      "word": "city",
+      "start": 29.56,
+      "end": 29.87
+    },
+    {
+      "word": "released",
+      "start": 29.87,
+      "end": 30.19
+    },
+    {
+      "word": "had",
+      "start": 30.19,
+      "end": 30.34
+    },
+    {
+      "word": "a",
+      "start": 30.34,
+      "end": 30.54
+    },
+    {
+      "word": "black",
+      "start": 30.54,
+      "end": 30.89
+    },
+    {
+      "word": "box",
+      "start": 30.89,
+      "end": 31.29
+    },
+    {
+      "word": "reading",
+      "start": 31.29,
+      "end": 31.695
+    },
+    {
+      "word": "motor",
+      "start": 31.695,
+      "end": 32.125
+    },
+    {
+      "word": "vehicle.",
+      "start": 32.125,
+      "end": 32.66
+    },
+    {
+      "word": "The",
+      "start": 33.04,
+      "end": 33.47
+    },
+    {
+      "word": "blur",
+      "start": 33.47,
+      "end": 33.8
+    },
+    {
+      "word": "slips,",
+      "start": 33.8,
+      "end": 34.19
+    },
+    {
+      "word": "though.",
+      "start": 34.19,
+      "end": 34.68
+    },
+    {
+      "word": "The",
+      "start": 34.72,
+      "end": 35.16
+    },
+    {
+      "word": "company",
+      "start": 35.16,
+      "end": 35.44
+    },
+    {
+      "word": "says",
+      "start": 35.44,
+      "end": 35.69
+    },
+    {
+      "word": "it",
+      "start": 35.69,
+      "end": 35.91
+    },
+    {
+      "word": "works",
+      "start": 35.91,
+      "end": 36.19
+    },
+    {
+      "word": "about",
+      "start": 36.19,
+      "end": 36.66
+    },
+    {
+      "word": "ninety",
+      "start": 36.7,
+      "end": 37.04
+    },
+    {
+      "word": "nine",
+      "start": 37.04,
+      "end": 37.08
+    },
+    {
+      "word": "percent",
+      "start": 37.08,
+      "end": 37.36
+    },
+    {
+      "word": "of",
+      "start": 37.36,
+      "end": 37.67
+    },
+    {
+      "word": "the",
+      "start": 37.67,
+      "end": 37.89
+    },
+    {
+      "word": "time.",
+      "start": 37.89,
+      "end": 38.38
+    },
+    {
+      "word": "When",
+      "start": 38.4,
+      "end": 38.96
+    },
+    {
+      "word": "reporters",
+      "start": 38.96,
+      "end": 39.37
+    },
+    {
+      "word": "found",
+      "start": 39.37,
+      "end": 39.62
+    },
+    {
+      "word": "a",
+      "start": 39.62,
+      "end": 39.85
+    },
+    {
+      "word": "plate",
+      "start": 39.85,
+      "end": 40.08
+    },
+    {
+      "word": "it",
+      "start": 40.08,
+      "end": 40.33
+    },
+    {
+      "word": "missed,",
+      "start": 40.33,
+      "end": 40.77
+    },
+    {
+      "word": "the",
+      "start": 40.77,
+      "end": 41.13
+    },
+    {
+      "word": "city",
+      "start": 41.13,
+      "end": 41.39
+    },
+    {
+      "word": "asked",
+      "start": 41.39,
+      "end": 41.67
+    },
+    {
+      "word": "for",
+      "start": 41.67,
+      "end": 41.96
+    },
+    {
+      "word": "every",
+      "start": 41.96,
+      "end": 42.32
+    },
+    {
+      "word": "photo",
+      "start": 42.32,
+      "end": 42.63
+    },
+    {
+      "word": "to",
+      "start": 42.63,
+      "end": 42.86
+    },
+    {
+      "word": "go",
+      "start": 42.86,
+      "end": 43.06
+    },
+    {
+      "word": "through",
+      "start": 43.06,
+      "end": 43.23
+    },
+    {
+      "word": "the",
+      "start": 43.23,
+      "end": 43.45
+    },
+    {
+      "word": "blur",
+      "start": 43.45,
+      "end": 43.86
+    },
+    {
+      "word": "again.",
+      "start": 43.86,
+      "end": 44.44
+    },
+    {
+      "word": "In",
+      "start": 44.88,
+      "end": 45.35
+    },
+    {
+      "word": "four",
+      "start": 45.35,
+      "end": 45.67
+    },
+    {
+      "word": "months,",
+      "start": 45.67,
+      "end": 45.97
+    },
+    {
+      "word": "the",
+      "start": 45.97,
+      "end": 46.28
+    },
+    {
+      "word": "cameras",
+      "start": 46.28,
+      "end": 46.75
+    },
+    {
+      "word": "photographed",
+      "start": 46.75,
+      "end": 47.2
+    },
+    {
+      "word": "more",
+      "start": 47.2,
+      "end": 47.46
+    },
+    {
+      "word": "than",
+      "start": 47.46,
+      "end": 47.87
+    },
+    {
+      "word": "twenty",
+      "start": 47.87,
+      "end": 48.2
+    },
+    {
+      "word": "thousand",
+      "start": 48.2,
+      "end": 48.54
+    },
+    {
+      "word": "concerns.",
+      "start": 48.76,
+      "end": 49.4
+    },
+    {
+      "word": "Too",
+      "start": 49.78,
+      "end": 50.2
+    },
+    {
+      "word": "many",
+      "start": 50.2,
+      "end": 50.43
+    },
+    {
+      "word": "to",
+      "start": 50.43,
+      "end": 50.73
+    },
+    {
+      "word": "read.",
+      "start": 50.73,
+      "end": 51.17
+    },
+    {
+      "word": "So",
+      "start": 51.17,
+      "end": 51.59
+    },
+    {
+      "word": "each",
+      "start": 51.59,
+      "end": 51.94
+    },
+    {
+      "word": "flagged",
+      "start": 51.94,
+      "end": 52.42
+    },
+    {
+      "word": "property",
+      "start": 52.42,
+      "end": 52.84
+    },
+    {
+      "word": "gets",
+      "start": 52.84,
+      "end": 53.09
+    },
+    {
+      "word": "a",
+      "start": 53.09,
+      "end": 53.33
+    },
+    {
+      "word": "blight",
+      "start": 53.33,
+      "end": 53.69
+    },
+    {
+      "word": "score",
+      "start": 53.69,
+      "end": 54.09
+    },
+    {
+      "word": "from",
+      "start": 54.09,
+      "end": 54.39
+    },
+    {
+      "word": "one",
+      "start": 54.39,
+      "end": 54.62
+    },
+    {
+      "word": "to",
+      "start": 54.62,
+      "end": 54.85
+    },
+    {
+      "word": "four,",
+      "start": 54.85,
+      "end": 55.26
+    },
+    {
+      "word": "and",
+      "start": 55.26,
+      "end": 55.6
+    },
+    {
+      "word": "the",
+      "start": 55.6,
+      "end": 55.86
+    },
+    {
+      "word": "photos",
+      "start": 55.86,
+      "end": 56.23
+    },
+    {
+      "word": "are",
+      "start": 56.23,
+      "end": 56.58
+    },
+    {
+      "word": "ranked",
+      "start": 56.58,
+      "end": 56.93
+    },
+    {
+      "word": "so",
+      "start": 56.93,
+      "end": 57.29
+    },
+    {
+      "word": "staff",
+      "start": 57.29,
+      "end": 57.64
+    },
+    {
+      "word": "know",
+      "start": 57.64,
+      "end": 57.9
+    },
+    {
+      "word": "which",
+      "start": 57.9,
+      "end": 58.14
+    },
+    {
+      "word": "to",
+      "start": 58.14,
+      "end": 58.35
+    },
+    {
+      "word": "look",
+      "start": 58.35,
+      "end": 58.51
+    },
+    {
+      "word": "at",
+      "start": 58.51,
+      "end": 58.8
+    },
+    {
+      "word": "first.",
+      "start": 58.8,
+      "end": 59.32
+    },
+    {
+      "word": "A",
+      "start": 59.6,
+      "end": 60.1
+    },
+    {
+      "word": "flag",
+      "start": 60.1,
+      "end": 60.42
+    },
+    {
+      "word": "is",
+      "start": 60.42,
+      "end": 60.68
+    },
+    {
+      "word": "not",
+      "start": 60.68,
+      "end": 60.89
+    },
+    {
+      "word": "a",
+      "start": 60.89,
+      "end": 61.13
+    },
+    {
+      "word": "ticket.",
+      "start": 61.13,
+      "end": 61.57
+    },
+    {
+      "word": "A",
+      "start": 61.57,
+      "end": 62.06
+    },
+    {
+      "word": "person",
+      "start": 62.06,
+      "end": 62.49
+    },
+    {
+      "word": "reviews",
+      "start": 62.49,
+      "end": 62.94
+    },
+    {
+      "word": "it.",
+      "start": 62.94,
+      "end": 63.48
+    },
+    {
+      "word": "Staff",
+      "start": 63.56,
+      "end": 64.0
+    },
+    {
+      "word": "can",
+      "start": 64.0,
+      "end": 64.21
+    },
+    {
+      "word": "do",
+      "start": 64.21,
+      "end": 64.48
+    },
+    {
+      "word": "nothing,",
+      "start": 64.48,
+      "end": 64.96
+    },
+    {
+      "word": "keep",
+      "start": 64.96,
+      "end": 65.51
+    },
+    {
+      "word": "watching,",
+      "start": 65.51,
+      "end": 66.06
+    },
+    {
+      "word": "send",
+      "start": 66.06,
+      "end": 66.43
+    },
+    {
+      "word": "a",
+      "start": 66.43,
+      "end": 66.69
+    },
+    {
+      "word": "courtesy",
+      "start": 66.69,
+      "end": 67.12
+    },
+    {
+      "word": "notice,",
+      "start": 67.12,
+      "end": 67.68
+    },
+    {
+      "word": "ask",
+      "start": 67.68,
+      "end": 68.11
+    },
+    {
+      "word": "for",
+      "start": 68.11,
+      "end": 68.26
+    },
+    {
+      "word": "an",
+      "start": 68.26,
+      "end": 68.58
+    },
+    {
+      "word": "inspection",
+      "start": 68.58,
+      "end": 69.13
+    },
+    {
+      "word": "or",
+      "start": 69.13,
+      "end": 69.54
+    },
+    {
+      "word": "call",
+      "start": 69.54,
+      "end": 69.76
+    },
+    {
+      "word": "a",
+      "start": 69.76,
+      "end": 69.95
+    },
+    {
+      "word": "city",
+      "start": 69.95,
+      "end": 70.24
+    },
+    {
+      "word": "crew.",
+      "start": 70.24,
+      "end": 70.74
+    },
+    {
+      "word": "A",
+      "start": 71.08,
+      "end": 71.58
+    },
+    {
+      "word": "courtesy",
+      "start": 71.58,
+      "end": 71.96
+    },
+    {
+      "word": "notice",
+      "start": 71.96,
+      "end": 72.37
+    },
+    {
+      "word": "opens",
+      "start": 72.37,
+      "end": 72.75
+    },
+    {
+      "word": "no",
+      "start": 72.75,
+      "end": 73.09
+    },
+    {
+      "word": "case",
+      "start": 73.09,
+      "end": 73.43
+    },
+    {
+      "word": "and",
+      "start": 73.43,
+      "end": 73.73
+    },
+    {
+      "word": "sets",
+      "start": 73.73,
+      "end": 74.04
+    },
+    {
+      "word": "no",
+      "start": 74.04,
+      "end": 74.46
+    },
+    {
+      "word": "deadline.",
+      "start": 74.46,
+      "end": 75.02
+    },
+    {
+      "word": "A",
+      "start": 75.16,
+      "end": 75.71
+    },
+    {
+      "word": "citation",
+      "start": 75.71,
+      "end": 76.19
+    },
+    {
+      "word": "comes",
+      "start": 76.19,
+      "end": 76.65
+    },
+    {
+      "word": "only",
+      "start": 76.65,
+      "end": 77.01
+    },
+    {
+      "word": "after",
+      "start": 77.01,
+      "end": 77.26
+    },
+    {
+      "word": "an",
+      "start": 77.26,
+      "end": 77.55
+    },
+    {
+      "word": "officer",
+      "start": 77.55,
+      "end": 78.05
+    },
+    {
+      "word": "inspects",
+      "start": 78.05,
+      "end": 78.46
+    },
+    {
+      "word": "in",
+      "start": 78.46,
+      "end": 78.77
+    },
+    {
+      "word": "person,",
+      "start": 78.77,
+      "end": 79.25
+    },
+    {
+      "word": "gives",
+      "start": 79.25,
+      "end": 79.73
+    },
+    {
+      "word": "notice,",
+      "start": 79.73,
+      "end": 80.18
+    },
+    {
+      "word": "and",
+      "start": 80.18,
+      "end": 80.47
+    },
+    {
+      "word": "the",
+      "start": 80.47,
+      "end": 80.71
+    },
+    {
+      "word": "problem",
+      "start": 80.71,
+      "end": 81.03
+    },
+    {
+      "word": "is",
+      "start": 81.03,
+      "end": 81.29
+    },
+    {
+      "word": "still",
+      "start": 81.29,
+      "end": 81.63
+    },
+    {
+      "word": "there.",
+      "start": 81.63,
+      "end": 82.16
+    },
+    {
+      "word": "The",
+      "start": 82.46,
+      "end": 82.94
+    },
+    {
+      "word": "city's",
+      "start": 82.94,
+      "end": 83.24
+    },
+    {
+      "word": "own",
+      "start": 83.24,
+      "end": 83.58
+    },
+    {
+      "word": "maps",
+      "start": 83.58,
+      "end": 83.96
+    },
+    {
+      "word": "raise",
+      "start": 83.96,
+      "end": 84.24
+    },
+    {
+      "word": "a",
+      "start": 84.24,
+      "end": 84.55
+    },
+    {
+      "word": "question.",
+      "start": 84.55,
+      "end": 85.08
+    },
+    {
+      "word": "Of",
+      "start": 85.1,
+      "end": 85.49
+    },
+    {
+      "word": "the",
+      "start": 85.49,
+      "end": 85.88
+    },
+    {
+      "word": "20,000,",
+      "start": 85.88,
+      "end": 86.5
+    },
+    {
+      "word": "about",
+      "start": 86.5,
+      "end": 87.12
+    },
+    {
+      "word": "13,800",
+      "start": 87.48,
+      "end": 88.12
+    },
+    {
+      "word": "came",
+      "start": 88.52,
+      "end": 88.99
+    },
+    {
+      "word": "from",
+      "start": 88.99,
+      "end": 89.31
+    },
+    {
+      "word": "southern",
+      "start": 89.31,
+      "end": 89.73
+    },
+    {
+      "word": "Dallas.",
+      "start": 89.73,
+      "end": 90.3
+    },
+    {
+      "word": "Could",
+      "start": 90.48,
+      "end": 91.02
+    },
+    {
+      "word": "older",
+      "start": 91.02,
+      "end": 91.41
+    },
+    {
+      "word": "blocks",
+      "start": 91.41,
+      "end": 91.72
+    },
+    {
+      "word": "with",
+      "start": 91.72,
+      "end": 91.98
+    },
+    {
+      "word": "less",
+      "start": 91.98,
+      "end": 92.26
+    },
+    {
+      "word": "money",
+      "start": 92.26,
+      "end": 92.53
+    },
+    {
+      "word": "for",
+      "start": 92.53,
+      "end": 92.89
+    },
+    {
+      "word": "repairs",
+      "start": 92.89,
+      "end": 93.28
+    },
+    {
+      "word": "get",
+      "start": 93.28,
+      "end": 93.53
+    },
+    {
+      "word": "more",
+      "start": 93.53,
+      "end": 93.87
+    },
+    {
+      "word": "scrutiny?",
+      "start": 93.87,
+      "end": 94.42
+    },
+    {
+      "word": "Code",
+      "start": 95.0,
+      "end": 95.6
+    },
+    {
+      "word": "compliance",
+      "start": 95.6,
+      "end": 96.14
+    },
+    {
+      "word": "director",
+      "start": 96.14,
+      "end": 96.57
+    },
+    {
+      "word": "Chris",
+      "start": 96.57,
+      "end": 96.94
+    },
+    {
+      "word": "Christian",
+      "start": 96.94,
+      "end": 97.34
+    },
+    {
+      "word": "says",
+      "start": 97.34,
+      "end": 97.65
+    },
+    {
+      "word": "the",
+      "start": 97.65,
+      "end": 97.9
+    },
+    {
+      "word": "trucks",
+      "start": 97.9,
+      "end": 98.21
+    },
+    {
+      "word": "cover",
+      "start": 98.21,
+      "end": 98.46
+    },
+    {
+      "word": "the",
+      "start": 98.46,
+      "end": 98.67
+    },
+    {
+      "word": "whole",
+      "start": 98.67,
+      "end": 98.98
+    },
+    {
+      "word": "city,",
+      "start": 98.98,
+      "end": 99.47
+    },
+    {
+      "word": "and",
+      "start": 99.47,
+      "end": 99.84
+    },
+    {
+      "word": "the",
+      "start": 99.84,
+      "end": 100.05
+    },
+    {
+      "word": "camera",
+      "start": 100.05,
+      "end": 100.37
+    },
+    {
+      "word": "map",
+      "start": 100.37,
+      "end": 100.79
+    },
+    {
+      "word": "matches",
+      "start": 100.79,
+      "end": 101.17
+    },
+    {
+      "word": "what",
+      "start": 101.17,
+      "end": 101.51
+    },
+    {
+      "word": "residents",
+      "start": 101.51,
+      "end": 102.0
+    },
+    {
+      "word": "report",
+      "start": 102.0,
+      "end": 102.51
+    },
+    {
+      "word": "almost",
+      "start": 102.51,
+      "end": 103.05
+    },
+    {
+      "word": "exactly.",
+      "start": 103.05,
+      "end": 103.68
+    },
+    {
+      "word": "Still,",
+      "start": 104.12,
+      "end": 104.61
+    },
+    {
+      "word": "under",
+      "start": 104.61,
+      "end": 104.94
+    },
+    {
+      "word": "two",
+      "start": 104.94,
+      "end": 105.12
+    },
+    {
+      "word": "percent",
+      "start": 105.12,
+      "end": 105.46
+    },
+    {
+      "word": "of",
+      "start": 105.48,
+      "end": 105.95
+    },
+    {
+      "word": "southern",
+      "start": 105.95,
+      "end": 106.35
+    },
+    {
+      "word": "flags",
+      "start": 106.35,
+      "end": 106.81
+    },
+    {
+      "word": "became",
+      "start": 106.81,
+      "end": 107.31
+    },
+    {
+      "word": "notices,",
+      "start": 107.31,
+      "end": 107.92
+    },
+    {
+      "word": "against",
+      "start": 107.94,
+      "end": 108.41
+    },
+    {
+      "word": "more",
+      "start": 108.41,
+      "end": 108.64
+    },
+    {
+      "word": "than",
+      "start": 108.64,
+      "end": 108.87
+    },
+    {
+      "word": "four",
+      "start": 108.87,
+      "end": 109.04
+    },
+    {
+      "word": "percent",
+      "start": 109.04,
+      "end": 109.38
+    },
+    {
+      "word": "in",
+      "start": 109.38,
+      "end": 109.75
+    },
+    {
+      "word": "the",
+      "start": 109.75,
+      "end": 109.91
+    },
+    {
+      "word": "rest",
+      "start": 109.91,
+      "end": 110.12
+    },
+    {
+      "word": "of",
+      "start": 110.12,
+      "end": 110.28
+    },
+    {
+      "word": "the",
+      "start": 110.28,
+      "end": 110.46
+    },
+    {
+      "word": "city.",
+      "start": 110.46,
+      "end": 110.9
+    },
+    {
+      "word": "The",
+      "start": 110.9,
+      "end": 111.43
+    },
+    {
+      "word": "question",
+      "start": 111.43,
+      "end": 111.84
+    },
+    {
+      "word": "stays",
+      "start": 111.84,
+      "end": 112.24
+    },
+    {
+      "word": "open.",
+      "start": 112.24,
+      "end": 112.76
+    },
+    {
+      "word": "Now",
+      "start": 113.48,
+      "end": 113.94
+    },
+    {
+      "word": "the",
+      "start": 113.94,
+      "end": 114.26
+    },
+    {
+      "word": "notices",
+      "start": 114.26,
+      "end": 114.6
+    },
+    {
+      "word": "are",
+      "start": 114.6,
+      "end": 114.99
+    },
+    {
+      "word": "changing.",
+      "start": 114.99,
+      "end": 115.53
+    },
+    {
+      "word": "They",
+      "start": 115.53,
+      "end": 115.9
+    },
+    {
+      "word": "will",
+      "start": 115.9,
+      "end": 116.1
+    },
+    {
+      "word": "carry",
+      "start": 116.1,
+      "end": 116.35
+    },
+    {
+      "word": "a",
+      "start": 116.35,
+      "end": 116.64
+    },
+    {
+      "word": "QR",
+      "start": 116.64,
+      "end": 117.01
+    },
+    {
+      "word": "code",
+      "start": 117.01,
+      "end": 117.35
+    },
+    {
+      "word": "to",
+      "start": 117.35,
+      "end": 117.59
+    },
+    {
+      "word": "a",
+      "start": 117.59,
+      "end": 117.76
+    },
+    {
+      "word": "city",
+      "start": 117.76,
+      "end": 117.98
+    },
+    {
+      "word": "help",
+      "start": 117.98,
+      "end": 118.32
+    },
+    {
+      "word": "page,",
+      "start": 118.32,
+      "end": 118.8
+    },
+    {
+      "word": "and",
+      "start": 118.8,
+      "end": 119.25
+    },
+    {
+      "word": "council",
+      "start": 119.25,
+      "end": 119.61
+    },
+    {
+      "word": "members",
+      "start": 119.61,
+      "end": 119.99
+    },
+    {
+      "word": "asked",
+      "start": 119.99,
+      "end": 120.31
+    },
+    {
+      "word": "for",
+      "start": 120.31,
+      "end": 120.64
+    },
+    {
+      "word": "Spanish",
+      "start": 120.64,
+      "end": 121.04
+    },
+    {
+      "word": "versions.",
+      "start": 121.04,
+      "end": 121.56
+    },
+    {
+      "word": "The",
+      "start": 121.86,
+      "end": 122.28
+    },
+    {
+      "word": "city",
+      "start": 122.28,
+      "end": 122.52
+    },
+    {
+      "word": "says",
+      "start": 122.52,
+      "end": 122.81
+    },
+    {
+      "word": "about",
+      "start": 122.81,
+      "end": 123.13
+    },
+    {
+      "word": "eight",
+      "start": 123.13,
+      "end": 123.41
+    },
+    {
+      "word": "in",
+      "start": 123.41,
+      "end": 123.68
+    },
+    {
+      "word": "ten",
+      "start": 123.68,
+      "end": 124.07
+    },
+    {
+      "word": "owners",
+      "start": 124.07,
+      "end": 124.46
+    },
+    {
+      "word": "fix",
+      "start": 124.46,
+      "end": 124.75
+    },
+    {
+      "word": "it",
+      "start": 124.75,
+      "end": 125.05
+    },
+    {
+      "word": "after",
+      "start": 125.05,
+      "end": 125.32
+    },
+    {
+      "word": "a",
+      "start": 125.32,
+      "end": 125.56
+    },
+    {
+      "word": "notice.",
+      "start": 125.56,
+      "end": 126.02
+    },
+    {
+      "word": "The",
+      "start": 126.14,
+      "end": 126.61
+    },
+    {
+      "word": "camera",
+      "start": 126.61,
+      "end": 126.92
+    },
+    {
+      "word": "sees",
+      "start": 126.92,
+      "end": 127.19
+    },
+    {
+      "word": "the",
+      "start": 127.19,
+      "end": 127.47
+    },
+    {
+      "word": "curb.",
+      "start": 127.47,
+      "end": 127.91
+    },
+    {
+      "word": "A",
+      "start": 127.91,
+      "end": 128.39
+    },
+    {
+      "word": "person",
+      "start": 128.39,
+      "end": 128.89
+    },
+    {
+      "word": "decides",
+      "start": 128.89,
+      "end": 129.35
+    },
+    {
+      "word": "what",
+      "start": 129.35,
+      "end": 129.68
+    },
+    {
+      "word": "happens",
+      "start": 129.68,
+      "end": 130.08
+    },
+    {
+      "word": "next.",
+      "start": 130.08,
+      "end": 130.54
+    }
+  ],
+  "beats": [],
+  "timed_at": "2026-11-22T12:07:33+00:00",
+  "run_id": "2026-11-21"
+}
