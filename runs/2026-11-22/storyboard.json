@@ -1,0 +1,3588 @@
+{
+  "date": "2026-11-22",
+  "title": "The satellite points",
+  "topic": "Arlington Water Utilities in Tarrant County piloted satellite leak detection, where an algorithm turns a scan of the whole city into pins on a map, and a three-person crew with listening gear still has to find and fix each leak.",
+  "tone": "win",
+  "hook": "This leak could hide for months.",
+  "beat": "city-water",
+  "episode": "leak-satellite-1122",
+  "entities": [
+    "Arlington Water Utilities",
+    "ASTERRA",
+    "Paradigm Satellite Leak Detection",
+    "Arlington",
+    "Tarrant County"
+  ],
+  "treatment": {
+    "logline": "Three people, 1,470 miles of buried main and a leak nobody can see, until a satellite with a face tells them where to listen.",
+    "cold_open": "A street cutaway in Arlington. A water main spits a jet into dark soil. On the curb above, a leak technician presses a listening rod to the asphalt, headphones on, and shakes her head because she hears nothing.",
+    "turn": "A pin is not a leak. A crew still has to confirm and repair it, the second pilot puts people on the data, 7 of 10 of its test points had leaks, and both were still pilots under evaluation.",
+    "button": "Back to the opening street. The satellite overhead drops one pin, the main below is clamped and dry, and the tablet's pin turns to a green check. The satellite points. The crew still digs."
+  },
+  "hero": {
+    "name": "the leak satellite with a face",
+    "why": "a round gold satellite with blue solar wings, one big eye and acting brows, whose radar cone sweeps the city. It squints at Arlington, glances at Mars and beams pins down to a crew. No earlier film has drawn it."
+  },
+  "throughline": {
+    "object": "the leak technician's tablet map of Arlington",
+    "states": [
+      {
+        "scene_id": "s3",
+        "state": "blank, only the blue lines of 1,470 miles of main"
+      },
+      {
+        "scene_id": "s7",
+        "state": "one gold pin drops onto it"
+      },
+      {
+        "scene_id": "s8",
+        "state": "about 340 gold pins in the technician's hands, 34 of them turned to green checks"
+      },
+      {
+        "scene_id": "s13",
+        "state": "the pin under the technician turns to a green check over a dry street"
+      }
+    ]
+  },
+  "fingerprint": {
+    "pov": "a cutaway under one Arlington street, then orbit, then the crew's tablet",
+    "layout": "the street surface across the middle third with the leaking main below it, the satellite above",
+    "hero_treatment": "a gold satellite with one big eye and blue wings, a cyan radar cone",
+    "palette": "warm soil orange and asphalt slate under a deep orbit blue, with water cyan and pin gold as the accents"
+  },
+  "music": {
+    "track": "wholesome"
+  },
+  "wall_views": [
+    "map-lines",
+    "algo-funnel",
+    "split-algo",
+    "ten-pins",
+    "jug-fill"
+  ],
+  "credits": "TEXAS AI DOCKET\nSOURCES\nCity of Arlington, November 21st, 2025\nArlington Water Utilities year-end report, March 12th, 2026\nASTERRA via Water Online\nILLUSTRATION\nOriginal drawings, people illustrative\nMUSIC\n\"Wholesome\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Under a street in Arlington, a water main is leaking. A leak technician listens, and hears nothing.",
+      "vo_claims": [
+        "c26",
+        "c11"
+      ],
+      "visual_events": [
+        {
+          "id": "s1-spray",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "subsurface_water",
+          "label": "Arlington",
+          "draw": {
+            "subject": "the buried water main",
+            "action": "cracks and sprays a jet into the soil under the street"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s1-listen",
+          "at_phrase": "a leak technician listens",
+          "duration_s": 1.6,
+          "sound": "sensor_heartbeat",
+          "label": "Leak technician",
+          "draw": {
+            "subject": "the leak technician",
+            "action": "presses a listening rod to the asphalt with headphones on, then shakes her head",
+            "emotion": "doubtful squint"
+          },
+          "at_s": 4.1
+        }
+      ],
+      "start_s": 0.0,
+      "duration_s": 7.4,
+      "planes": []
+    },
+    {
+      "id": "s2",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "A leak that stays underground can go unnoticed for weeks or even months.",
+      "vo_claims": [
+        "c12"
+      ],
+      "visual_events": [
+        {
+          "id": "s2-soak",
+          "at": 0.0,
+          "duration_s": 3.0,
+          "sound": "storm_runoff",
+          "label": "Weeks or months",
+          "draw": {
+            "subject": "the dark wet plume around the main",
+            "action": "spreads wider through the soil while calendar pages flip above the street",
+            "emotion": "a neighbour walks past on the sidewalk, unaware"
+          },
+          "at_s": 0.0
+        }
+      ],
+      "start_s": 7.4,
+      "duration_s": 5.0,
+      "planes": []
+    },
+    {
+      "id": "s3",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": false,
+      "camera_strategy": "craneUp",
+      "vo": "Arlington's water utility looks after 1,470 miles of water mains. Before satellites, it mostly relied on residents to report water flowing where it shouldn't be.",
+      "vo_claims": [
+        "c1",
+        "c10"
+      ],
+      "visual_events": [
+        {
+          "id": "s3-miles",
+          "at": 0.0,
+          "duration_s": 2.2,
+          "sound": "observation_trace",
+          "label": "1,470 miles of main",
+          "draw": {
+            "subject": "the tablet map",
+            "action": "draws itself on, blue main lines running out across the whole city"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s3-walk",
+          "at_phrase": "water mains",
+          "duration_s": 1.4,
+          "sound": "concrete_footsteps",
+          "draw": {
+            "subject": "the leak technician",
+            "action": "walks in beside the finished map and points at its streets",
+            "emotion": "puzzled"
+          },
+          "at_s": 4.36
+        },
+        {
+          "id": "s3-call",
+          "at_phrase": "relied on residents",
+          "duration_s": 1.6,
+          "sound": "paper_photo_slide",
+          "label": "Residents report",
+          "draw": {
+            "subject": "a resident",
+            "action": "points at water running down the curb and raises a phone to call it in",
+            "emotion": "surprised"
+          },
+          "at_s": 7.08
+        }
+      ],
+      "start_s": 12.4,
+      "duration_s": 10.63,
+      "planes": []
+    },
+    {
+      "id": "s4",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": false,
+      "camera_strategy": "truck",
+      "vo": "Then a team of three went out to listen. They place acoustic gear on valves and over the lines, and triangulate a suspected leak. That is three people for 1,470 miles of main.",
+      "vo_claims": [
+        "c11",
+        "c1"
+      ],
+      "visual_events": [
+        {
+          "id": "s4-crew",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "brush_truck_roll",
+          "label": "Team of three",
+          "draw": {
+            "subject": "the crew truck",
+            "action": "rolls in with its amber bar flashing as three technicians step out",
+            "emotion": "they look up and down the street, determined"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s4-out",
+          "at_phrase": "went out to listen",
+          "duration_s": 1.2,
+          "sound": "concrete_footsteps",
+          "draw": {
+            "subject": "the three technicians",
+            "action": "stride out to three valve lids in the street, rods in hand",
+            "emotion": "determined"
+          },
+          "at_s": 1.49
+        },
+        {
+          "id": "s4-rings",
+          "at_phrase": "and triangulate",
+          "duration_s": 1.8,
+          "sound": "sensor_heartbeat",
+          "label": "Triangulate",
+          "draw": {
+            "subject": "three sound rings",
+            "action": "spread from three valves and cross right over the hidden leak"
+          },
+          "at_s": 5.96
+        },
+        {
+          "id": "s4-check",
+          "at_phrase": "That is three people",
+          "duration_s": 1.4,
+          "sound": "review_stamp",
+          "label": "Three people, 1,470 miles",
+          "draw": {
+            "subject": "a green check",
+            "action": "lands where the three rings cross, and the three technicians cheer"
+          },
+          "at_s": 8.31
+        }
+      ],
+      "start_s": 23.03,
+      "duration_s": 12.61,
+      "planes": []
+    },
+    {
+      "id": "s5",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": false,
+      "camera_strategy": "craneUp",
+      "vo": "So the city tried looking down from orbit. In a pilot, a company called ASTERRA scans the entire city with satellites, for moisture and temperature underground.",
+      "vo_claims": [
+        "c2",
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s5-orbit",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "research_announcement",
+          "label": "From orbit",
+          "draw": {
+            "subject": "the satellite",
+            "action": "swings into frame over the curve of the earth and its big eye opens",
+            "emotion": "curious brows"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s5-lock",
+          "at_phrase": "In a pilot",
+          "duration_s": 1.2,
+          "sound": "camera_reacquire",
+          "draw": {
+            "subject": "the satellite",
+            "action": "narrows its eye and locks onto Arlington with a click",
+            "emotion": "focused"
+          },
+          "at_s": 2.74
+        },
+        {
+          "id": "s5-scan",
+          "at_phrase": "scans the entire city",
+          "duration_s": 2.0,
+          "sound": "spectral_contact",
+          "label": "ASTERRA pilot",
+          "draw": {
+            "subject": "the radar cone",
+            "action": "sweeps down the technician's own street, block by block, as she looks up from the curb",
+            "emotion": "her brows lift, curious"
+          },
+          "at_s": 5.31
+        }
+      ],
+      "start_s": 35.64,
+      "duration_s": 10.32,
+      "planes": []
+    },
+    {
+      "id": "s6",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "The company says its radar looks for the unique signature of drinking water. The city says the technology once looked for water on Mars.",
+      "vo_claims": [
+        "c23",
+        "c24",
+        "c5"
+      ],
+      "visual_events": [
+        {
+          "id": "s6-radar",
+          "at": 0.0,
+          "duration_s": 1.8,
+          "sound": "spectral_response",
+          "label": "Water signature, per ASTERRA",
+          "draw": {
+            "subject": "the radar waves",
+            "action": "pass down through the asphalt and soil and light up the wet plume around the pipe in cyan"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s6-glow",
+          "at_phrase": "unique signature",
+          "duration_s": 1.4,
+          "sound": "warning_bloom",
+          "draw": {
+            "subject": "the wet soil around the pipe",
+            "action": "lights up in a cyan ring under the radar"
+          },
+          "at_s": 2.54
+        },
+        {
+          "id": "s6-mars",
+          "at_phrase": "water on Mars",
+          "duration_s": 1.34,
+          "sound": "camera_reacquire",
+          "label": "Once looked at Mars",
+          "draw": {
+            "subject": "the satellite",
+            "action": "glances at a small red Mars, then flicks its eye back down to Arlington",
+            "emotion": "smug"
+          },
+          "at_s": 7.2
+        }
+      ],
+      "start_s": 45.96,
+      "duration_s": 8.54,
+      "planes": []
+    },
+    {
+      "id": "s7",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "Then an algorithm turns that scan into points of interest. Each one is a pin on the crew's map, a place to go check.",
+      "vo_claims": [
+        "c4",
+        "c20",
+        "c25"
+      ],
+      "visual_events": [
+        {
+          "id": "s7-algo",
+          "at": 0.0,
+          "duration_s": 1.8,
+          "sound": "matrix_bus_rise",
+          "label": "Algorithm",
+          "draw": {
+            "subject": "the algorithm machine",
+            "action": "swallows the scan strip, its gears turn, and a gold pin pops out of its chute"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s7-pin",
+          "at_phrase": "a pin on the crew's map",
+          "duration_s": 1.4,
+          "sound": "field_marker",
+          "label": "Point of interest",
+          "draw": {
+            "subject": "the gold pin",
+            "action": "drops onto the technician's tablet map and bounces",
+            "emotion": "the technician's brows go up"
+          },
+          "at_s": 4.79
+        }
+      ],
+      "start_s": 54.5,
+      "duration_s": 7.82,
+      "planes": []
+    },
+    {
+      "id": "s8",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": false,
+      "camera_strategy": "pushIn",
+      "vo": "By last November, ASTERRA had handed the city about 340 of those pins. They led to 34 leaks detected and repaired. A pin is not a leak. A crew still drives out to confirm it and repair it.",
+      "vo_claims": [
+        "c6",
+        "c7",
+        "c25"
+      ],
+      "visual_events": [
+        {
+          "id": "s8-swarm",
+          "at": 0.0,
+          "duration_s": 2.4,
+          "sound": "freight_count",
+          "label": "About 340 pins",
+          "draw": {
+            "subject": "gold pins",
+            "action": "rain onto the tablet in the technician's hands while a counter climbs to 340",
+            "emotion": "her eyes go wide"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s8-land",
+          "at_phrase": "about 340",
+          "duration_s": 1.0,
+          "sound": "field_marker",
+          "draw": {
+            "subject": "the pin counter",
+            "action": "slams down on 340 as the last pins land",
+            "emotion": "the technician's jaw drops"
+          },
+          "at_s": 3.13
+        },
+        {
+          "id": "s8-fixed",
+          "at_phrase": "They led to 34",
+          "duration_s": 1.8,
+          "sound": "review_stamp",
+          "label": "34 repaired",
+          "draw": {
+            "subject": "34 of the pins",
+            "action": "flip to green checks one after another, the rest staying gold",
+            "emotion": "the technician nods"
+          },
+          "at_s": 5.46
+        },
+        {
+          "id": "s8-kneel",
+          "at_phrase": "A pin is not a leak",
+          "duration_s": 1.6,
+          "sound": "brush_truck_roll",
+          "label": "A pin is not a leak",
+          "draw": {
+            "subject": "the crew truck",
+            "action": "pulls up beside one gold pin standing in the street, amber bar flashing"
+          },
+          "at_s": 9.04
+        },
+        {
+          "id": "s8-hear",
+          "at_phrase": "confirm it and repair it",
+          "duration_s": 1.4,
+          "sound": "roof_fastener_turn",
+          "draw": {
+            "subject": "a crew member",
+            "action": "swings a shovel into the asphalt right at the pin",
+            "emotion": "determined"
+          },
+          "label": "Confirm and repair",
+          "at_s": 12.68
+        }
+      ],
+      "start_s": 62.32,
+      "duration_s": 14.24,
+      "planes": []
+    },
+    {
+      "id": "s9",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": true,
+      "camera_strategy": "truck",
+      "vo": "In July, the utility also tested a second program, Paradigm. Its people check the satellite data against a map of valves and hydrants. One pilot runs on an algorithm. The other runs on people.",
+      "vo_claims": [
+        "c13",
+        "c14",
+        "c15"
+      ],
+      "visual_events": [
+        {
+          "id": "s9-overlay",
+          "at": 0.0,
+          "duration_s": 1.8,
+          "sound": "document_parse",
+          "label": "Paradigm, July",
+          "draw": {
+            "subject": "two analysts",
+            "action": "pin a map of valves and hydrants on the wall and step back to look",
+            "emotion": "focused"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s9-slide",
+          "at_phrase": "Its people check",
+          "duration_s": 1.6,
+          "sound": "paper_photo_slide",
+          "label": "Satellite data",
+          "draw": {
+            "subject": "the satellite sheet",
+            "action": "slides over the valve and hydrant map and its dots settle on the symbols"
+          },
+          "at_s": 5.0
+        },
+        {
+          "id": "s9-check",
+          "at_phrase": "valves and hydrants",
+          "duration_s": 1.4,
+          "sound": "pencil_scratch",
+          "label": "Valves and hydrants",
+          "draw": {
+            "subject": "one analyst",
+            "action": "circles a hydrant symbol with a red pencil where a satellite dot sits on it"
+          },
+          "at_s": 8.19
+        },
+        {
+          "id": "s9-split",
+          "at_phrase": "One pilot runs on an algorithm",
+          "duration_s": 1.8,
+          "sound": "decision_stop",
+          "label": "Algorithm or people",
+          "draw": {
+            "subject": "a hard split",
+            "action": "slams down, the algorithm machine whirring on one side and the two analysts pointing on the other"
+          },
+          "at_s": 9.52
+        }
+      ],
+      "start_s": 76.56,
+      "duration_s": 13.56,
+      "planes": []
+    },
+    {
+      "id": "s10",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": true,
+      "camera_strategy": "pushIn",
+      "vo": "When the city tested Paradigm, 7 out of 10 points had leaks. It has helped locate 33 city leaks.",
+      "vo_claims": [
+        "c16",
+        "c17"
+      ],
+      "visual_events": [
+        {
+          "id": "s10-ten",
+          "at": 0.0,
+          "duration_s": 2.0,
+          "sound": "test_press",
+          "label": "7 of 10",
+          "draw": {
+            "subject": "ten pins in a row",
+            "action": "fill one by one, seven with blue water and three staying empty",
+            "emotion": "the analyst counts along"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s10-33",
+          "at_phrase": "It has helped",
+          "duration_s": 1.4,
+          "sound": "review_stamp",
+          "label": "33 leaks located",
+          "draw": {
+            "subject": "the tally board",
+            "action": "stamps 33 and the analyst gives a thumbs up",
+            "emotion": "proud"
+          },
+          "at_s": 4.44
+        }
+      ],
+      "start_s": 90.12,
+      "duration_s": 7.46,
+      "planes": []
+    },
+    {
+      "id": "s11",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "The city estimates ASTERRA saved 1,130,567 gallons of water, and $440,800 in lost water costs. Its conservation supervisor says satellite programs prevent the team from spending entire days searching for leaks.",
+      "vo_claims": [
+        "c8",
+        "c19"
+      ],
+      "visual_events": [
+        {
+          "id": "s11-clamp",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "roof_fastener_turn",
+          "label": "Repaired",
+          "draw": {
+            "subject": "a repair clamp",
+            "action": "bolts over the crack in the open trench and the spray stops",
+            "emotion": "the crew member in the trench grins"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s11-jug",
+          "at_phrase": "The city estimates",
+          "duration_s": 2.2,
+          "sound": "freshwater_trace",
+          "label": "Water saved, estimated",
+          "draw": {
+            "subject": "a water jug",
+            "action": "swells until it towers over the Arlington rooftops as the gallon counter climbs",
+            "emotion": "the technician gapes up at it"
+          },
+          "at_s": 0.18
+        },
+        {
+          "id": "s11-gal",
+          "at_phrase": "1,130,567 gallons",
+          "duration_s": 1.2,
+          "sound": "freshwater_trace",
+          "draw": {
+            "subject": "the full jug",
+            "action": "sloshes to the brim as the counter lands, bubbles racing up",
+            "emotion": "the technician jumps and cheers"
+          },
+          "at_s": 4.37
+        },
+        {
+          "id": "s11-cash",
+          "at_phrase": "$440,800",
+          "duration_s": 1.4,
+          "sound": "result_shelf_stop",
+          "label": "$440,800 estimated",
+          "draw": {
+            "subject": "a price tag",
+            "action": "swings onto the jug's neck and settles"
+          },
+          "at_s": 8.91
+        },
+        {
+          "id": "s11-quote",
+          "at_phrase": "Its conservation supervisor",
+          "duration_s": 1.4,
+          "sound": "document_parse",
+          "label": "Conservation supervisor",
+          "draw": {
+            "subject": "the conservation supervisor",
+            "action": "turns to a wall calendar full of crossed-out search days and frowns at it",
+            "emotion": "tired"
+          },
+          "at_s": 12.2
+        },
+        {
+          "id": "s11-days",
+          "at_phrase": "entire days searching",
+          "duration_s": 1.8,
+          "sound": "pencil_scratch",
+          "label": "Not entire days",
+          "draw": {
+            "subject": "the conservation supervisor",
+            "action": "wipes a week of crossed-out search days off a wall calendar",
+            "emotion": "relieved"
+          },
+          "at_s": 17.23
+        }
+      ],
+      "start_s": 97.58,
+      "duration_s": 19.32,
+      "planes": []
+    },
+    {
+      "id": "s12",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": false,
+      "camera_strategy": "truck",
+      "vo": "The utility's year-end report adds a finder that doesn't orbit. Splash, a leak detection dog, sniffs for small amounts of chlorine.",
+      "vo_claims": [
+        "c22",
+        "c21"
+      ],
+      "visual_events": [
+        {
+          "id": "s12-trot",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "concrete_footsteps",
+          "label": "Splash",
+          "draw": {
+            "subject": "Splash the dog",
+            "action": "trots along the curb nose down, tail wagging",
+            "emotion": "the technician laughs"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s12-nose",
+          "at_phrase": "Splash, a leak detection dog",
+          "duration_s": 1.4,
+          "sound": "field_marker",
+          "draw": {
+            "subject": "Splash",
+            "action": "drops his nose to the asphalt beside a valve lid, tail wagging hard"
+          },
+          "at_s": 4.56
+        },
+        {
+          "id": "s12-sniff",
+          "at_phrase": "small amounts of chlorine",
+          "duration_s": 1.6,
+          "sound": "warning_bloom",
+          "label": "Sniffs for chlorine",
+          "draw": {
+            "subject": "Splash",
+            "action": "stops on the spot and sits beside the technician, nose to the asphalt",
+            "emotion": "the technician kneels and pats him, proud"
+          },
+          "at_s": 7.53
+        }
+      ],
+      "start_s": 116.9,
+      "duration_s": 9.22,
+      "planes": []
+    },
+    {
+      "id": "s13",
+      "county": "Tarrant",
+      "region": "cross_timbers",
+      "interior": false,
+      "camera_strategy": "craneUp",
+      "vo": "As of last November, both pilots were under evaluation for permanent use. The satellite points. The crew still digs.",
+      "vo_claims": [
+        "c18"
+      ],
+      "visual_events": [
+        {
+          "id": "s13-pilot",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "review_stamp",
+          "label": "Still under evaluation",
+          "draw": {
+            "subject": "the tablet map",
+            "action": "turns the pin under the technician into a green check as a PILOT tag swings beside it"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s13-nod",
+          "at_phrase": "The satellite points",
+          "duration_s": 2.0,
+          "sound": "sensor_heartbeat",
+          "draw": {
+            "subject": "the satellite overhead",
+            "action": "beams one pin down to the street while the crew member pats the patched asphalt over a dry, clamped main",
+            "emotion": "the technician grins up at it"
+          },
+          "at_s": 5.0
+        }
+      ],
+      "start_s": 126.12,
+      "duration_s": 9.14,
+      "planes": []
+    }
+  ],
+  "shots": [
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-spray",
+      "id": "s1-a",
+      "scene_id": "s1",
+      "framing": "wide",
+      "view": "street-cut",
+      "cast": [
+        "hydrologist"
+      ],
+      "start_s": 0.0,
+      "duration_s": 4.1
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-spray",
+      "id": "s1-b",
+      "scene_id": "s1",
+      "framing": "close",
+      "view": "tech-close",
+      "at_phrase": "a leak technician listens",
+      "cast": [
+        "hydrologist"
+      ],
+      "start_s": 4.1,
+      "duration_s": 3.3
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-soak",
+      "id": "s2-a",
+      "scene_id": "s2",
+      "framing": "detail",
+      "view": "soak-plume",
+      "cast": [
+        "resident"
+      ],
+      "start_s": 7.4,
+      "duration_s": 5.0
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-miles",
+      "id": "s3-a",
+      "scene_id": "s3",
+      "framing": "overhead",
+      "view": "map-lines",
+      "cast": [
+        "hydrologist"
+      ],
+      "start_s": 12.4,
+      "duration_s": 5.36
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-miles",
+      "id": "s3-a2",
+      "scene_id": "s3",
+      "framing": "close",
+      "view": "tech-close",
+      "at_phrase": "Before satellites",
+      "cast": [
+        "hydrologist"
+      ],
+      "start_s": 17.76,
+      "duration_s": 1.72
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-miles",
+      "id": "s3-b",
+      "scene_id": "s3",
+      "framing": "medium",
+      "view": "curb-report",
+      "at_phrase": "relied on residents",
+      "cast": [
+        "resident"
+      ],
+      "start_s": 19.48,
+      "duration_s": 3.55
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-crew",
+      "id": "s4-a",
+      "scene_id": "s4",
+      "framing": "wide",
+      "view": "truck-crew",
+      "cast": [
+        "hydrologist",
+        "engineer",
+        "technician"
+      ],
+      "start_s": 23.03,
+      "duration_s": 2.57
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-crew",
+      "id": "s4-b",
+      "scene_id": "s4",
+      "framing": "detail",
+      "view": "rod-valve",
+      "at_phrase": "They place acoustic gear",
+      "cast": [
+        "hydrologist"
+      ],
+      "start_s": 25.6,
+      "duration_s": 3.39
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-crew",
+      "id": "s4-c",
+      "scene_id": "s4",
+      "framing": "overhead",
+      "view": "ring-cross",
+      "at_phrase": "and triangulate",
+      "cast": [
+        "hydrologist",
+        "engineer",
+        "technician"
+      ],
+      "start_s": 28.99,
+      "duration_s": 2.35
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-crew",
+      "id": "s4-d",
+      "scene_id": "s4",
+      "framing": "medium",
+      "view": "tiny-crew",
+      "at_phrase": "That is three people",
+      "cast": [
+        "hydrologist",
+        "engineer",
+        "technician"
+      ],
+      "start_s": 31.34,
+      "duration_s": 4.3
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-orbit",
+      "id": "s5-a",
+      "scene_id": "s5",
+      "framing": "wide",
+      "view": "sat-orbit",
+      "cast": [
+        "satellite"
+      ],
+      "start_s": 35.64,
+      "duration_s": 5.31
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-orbit",
+      "id": "s5-b",
+      "scene_id": "s5",
+      "framing": "medium",
+      "view": "curb-scan",
+      "at_phrase": "scans the entire city",
+      "cast": [
+        "hydrologist",
+        "satellite"
+      ],
+      "start_s": 40.95,
+      "duration_s": 5.01
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-radar",
+      "id": "s6-a",
+      "scene_id": "s6",
+      "framing": "detail",
+      "view": "radar-cut",
+      "cast": [
+        "satellite"
+      ],
+      "start_s": 45.96,
+      "duration_s": 4.48
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-radar",
+      "id": "s6-b",
+      "scene_id": "s6",
+      "framing": "medium",
+      "view": "sat-mars",
+      "at_phrase": "The city says",
+      "cast": [
+        "satellite"
+      ],
+      "start_s": 50.44,
+      "duration_s": 4.06
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-algo",
+      "id": "s7-a",
+      "scene_id": "s7",
+      "framing": "detail",
+      "view": "algo-funnel",
+      "cast": [
+        "satellite"
+      ],
+      "start_s": 54.5,
+      "duration_s": 3.99
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-algo",
+      "id": "s7-b",
+      "scene_id": "s7",
+      "framing": "close",
+      "view": "tablet-pin",
+      "at_phrase": "Each one is a pin",
+      "cast": [
+        "hydrologist"
+      ],
+      "start_s": 58.49,
+      "duration_s": 3.83
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-swarm",
+      "id": "s8-a",
+      "scene_id": "s8",
+      "framing": "close",
+      "view": "tablet-swarm",
+      "cast": [
+        "hydrologist"
+      ],
+      "start_s": 62.32,
+      "duration_s": 5.46
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-swarm",
+      "id": "s8-a2",
+      "scene_id": "s8",
+      "framing": "detail",
+      "view": "checks-close",
+      "at_phrase": "They led to 34",
+      "cast": [
+        "hydrologist"
+      ],
+      "start_s": 67.78,
+      "duration_s": 3.58
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-swarm",
+      "id": "s8-b",
+      "scene_id": "s8",
+      "framing": "wide",
+      "view": "crew-pin",
+      "at_phrase": "A pin is not a leak",
+      "cast": [
+        "engineer",
+        "hydrologist"
+      ],
+      "start_s": 71.36,
+      "duration_s": 5.2
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-overlay",
+      "id": "s9-a",
+      "scene_id": "s9",
+      "framing": "medium",
+      "view": "valve-map",
+      "cast": [
+        "technician",
+        "engineer"
+      ],
+      "start_s": 76.56,
+      "duration_s": 5.0
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-overlay",
+      "id": "s9-a2",
+      "scene_id": "s9",
+      "framing": "detail",
+      "view": "sheet-slide",
+      "at_phrase": "Its people check",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 81.56,
+      "duration_s": 4.52
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-overlay",
+      "id": "s9-b",
+      "scene_id": "s9",
+      "framing": "split",
+      "view": "split-algo",
+      "at_phrase": "One pilot runs on an algorithm",
+      "cast": [
+        "technician",
+        "engineer"
+      ],
+      "start_s": 86.08,
+      "duration_s": 4.04
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-ten",
+      "id": "s10-a",
+      "scene_id": "s10",
+      "framing": "detail",
+      "view": "ten-pins",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 90.12,
+      "duration_s": 4.44
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-ten",
+      "id": "s10-b",
+      "scene_id": "s10",
+      "framing": "medium",
+      "view": "tally-board",
+      "at_phrase": "It has helped",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 94.56,
+      "duration_s": 3.02
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-clamp",
+      "id": "s11-a",
+      "scene_id": "s11",
+      "framing": "wide",
+      "view": "dig-fix",
+      "cast": [
+        "engineer",
+        "hydrologist"
+      ],
+      "start_s": 97.58,
+      "duration_s": 4.37
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-clamp",
+      "id": "s11-b",
+      "scene_id": "s11",
+      "framing": "medium",
+      "view": "jug-fill",
+      "at_phrase": "1,130,567 gallons",
+      "cast": [
+        "hydrologist"
+      ],
+      "start_s": 101.95,
+      "duration_s": 4.54
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-clamp",
+      "id": "s11-b2",
+      "scene_id": "s11",
+      "framing": "close",
+      "view": "price-tag",
+      "at_phrase": "$440,800",
+      "cast": [
+        "hydrologist"
+      ],
+      "start_s": 106.49,
+      "duration_s": 3.29
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-clamp",
+      "id": "s11-c",
+      "scene_id": "s11",
+      "framing": "medium",
+      "view": "supervisor-desk",
+      "at_phrase": "Its conservation supervisor",
+      "cast": [
+        "dctech"
+      ],
+      "start_s": 109.78,
+      "duration_s": 7.12
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-trot",
+      "id": "s12-a",
+      "scene_id": "s12",
+      "framing": "medium",
+      "view": "dog-street",
+      "cast": [
+        "hydrologist",
+        "dog"
+      ],
+      "start_s": 116.9,
+      "duration_s": 4.56
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-trot",
+      "id": "s12-b",
+      "scene_id": "s12",
+      "framing": "close",
+      "view": "dog-nose",
+      "at_phrase": "Splash, a leak detection dog",
+      "cast": [
+        "dog",
+        "hydrologist"
+      ],
+      "start_s": 121.46,
+      "duration_s": 4.66
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-pilot",
+      "id": "s13-a",
+      "scene_id": "s13",
+      "framing": "close",
+      "view": "tablet-face",
+      "cast": [
+        "hydrologist"
+      ],
+      "start_s": 126.12,
+      "duration_s": 5.0
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-pilot",
+      "id": "s13-b",
+      "scene_id": "s13",
+      "framing": "wide",
+      "view": "street-cut",
+      "at_phrase": "The satellite points",
+      "cast": [
+        "hydrologist",
+        "satellite"
+      ],
+      "start_s": 131.12,
+      "duration_s": 4.14
+    }
+  ],
+  "runtime_s": 135.26,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.72,
+      "end": 2.29,
+      "text": "Under a street in Arlington,"
+    },
+    {
+      "id": "c2",
+      "start": 2.33,
+      "end": 4.04,
+      "text": "a water main is leaking."
+    },
+    {
+      "id": "c3",
+      "start": 4.1,
+      "end": 7.24,
+      "text": "A leak technician listens, and hears nothing."
+    },
+    {
+      "id": "c4",
+      "start": 7.56,
+      "end": 9.5,
+      "text": "A leak that stays underground can"
+    },
+    {
+      "id": "c5",
+      "start": 9.54,
+      "end": 12.06,
+      "text": "go unnoticed for weeks or even months."
+    },
+    {
+      "id": "c6",
+      "start": 12.58,
+      "end": 14.755,
+      "text": "Arlington's water utility looks after"
+    },
+    {
+      "id": "c7",
+      "start": 14.795,
+      "end": 17.52,
+      "text": "1,470 miles of water mains."
+    },
+    {
+      "id": "c8",
+      "start": 17.76,
+      "end": 18.76,
+      "text": "Before satellites,"
+    },
+    {
+      "id": "c9",
+      "start": 18.8,
+      "end": 20.67,
+      "text": "it mostly relied on residents to"
+    },
+    {
+      "id": "c10",
+      "start": 20.71,
+      "end": 22.88,
+      "text": "report water flowing where it shouldn't be."
+    },
+    {
+      "id": "c11",
+      "start": 23.18,
+      "end": 25.56,
+      "text": "Then a team of three went out to listen."
+    },
+    {
+      "id": "c12",
+      "start": 25.6,
+      "end": 27.47,
+      "text": "They place acoustic gear on"
+    },
+    {
+      "id": "c13",
+      "start": 27.51,
+      "end": 28.95,
+      "text": "valves and over the lines,"
+    },
+    {
+      "id": "c14",
+      "start": 28.99,
+      "end": 31.16,
+      "text": "and triangulate a suspected leak."
+    },
+    {
+      "id": "c15",
+      "start": 31.34,
+      "end": 35.38,
+      "text": "That is three people for 1,470 miles of main."
+    },
+    {
+      "id": "c16",
+      "start": 35.82,
+      "end": 38.34,
+      "text": "So the city tried looking down from orbit."
+    },
+    {
+      "id": "c17",
+      "start": 38.38,
+      "end": 39.22,
+      "text": "In a pilot,"
+    },
+    {
+      "id": "c18",
+      "start": 39.26,
+      "end": 41.34,
+      "text": "a company called ASTERRA scans"
+    },
+    {
+      "id": "c19",
+      "start": 41.38,
+      "end": 43.26,
+      "text": "the entire city with satellites,"
+    },
+    {
+      "id": "c20",
+      "start": 43.3,
+      "end": 45.76,
+      "text": "for moisture and temperature underground."
+    },
+    {
+      "id": "c21",
+      "start": 46.14,
+      "end": 48.07,
+      "text": "The company says its radar looks"
+    },
+    {
+      "id": "c22",
+      "start": 48.11,
+      "end": 50.3,
+      "text": "for the unique signature of drinking water."
+    },
+    {
+      "id": "c23",
+      "start": 50.44,
+      "end": 52.3,
+      "text": "The city says the technology"
+    },
+    {
+      "id": "c24",
+      "start": 52.34,
+      "end": 54.2,
+      "text": "once looked for water on Mars."
+    },
+    {
+      "id": "c25",
+      "start": 54.68,
+      "end": 56.71,
+      "text": "Then an algorithm turns that"
+    },
+    {
+      "id": "c26",
+      "start": 56.75,
+      "end": 58.45,
+      "text": "scan into points of interest."
+    },
+    {
+      "id": "c27",
+      "start": 58.49,
+      "end": 60.72,
+      "text": "Each one is a pin on the crew's map,"
+    },
+    {
+      "id": "c28",
+      "start": 60.76,
+      "end": 62.24,
+      "text": "a place to go check."
+    },
+    {
+      "id": "c29",
+      "start": 62.4,
+      "end": 63.87,
+      "text": "By last November,"
+    },
+    {
+      "id": "c30",
+      "start": 63.91,
+      "end": 65.41,
+      "text": "ASTERRA had handed the city"
+    },
+    {
+      "id": "c31",
+      "start": 65.45,
+      "end": 67.7,
+      "text": "about 340 of those pins."
+    },
+    {
+      "id": "c32",
+      "start": 67.78,
+      "end": 71.2,
+      "text": "They led to 34 leaks detected and repaired."
+    },
+    {
+      "id": "c33",
+      "start": 71.36,
+      "end": 72.99,
+      "text": "A pin is not a leak."
+    },
+    {
+      "id": "c34",
+      "start": 73.03,
+      "end": 74.67,
+      "text": "A crew still drives out"
+    },
+    {
+      "id": "c35",
+      "start": 74.71,
+      "end": 76.3,
+      "text": "to confirm it and repair it."
+    },
+    {
+      "id": "c36",
+      "start": 76.74,
+      "end": 77.67,
+      "text": "In July,"
+    },
+    {
+      "id": "c37",
+      "start": 77.71,
+      "end": 79.3,
+      "text": "the utility also tested"
+    },
+    {
+      "id": "c38",
+      "start": 79.34,
+      "end": 81.38,
+      "text": "a second program, Paradigm."
+    },
+    {
+      "id": "c39",
+      "start": 81.56,
+      "end": 83.62,
+      "text": "Its people check the satellite data"
+    },
+    {
+      "id": "c40",
+      "start": 83.66,
+      "end": 85.88,
+      "text": "against a map of valves and hydrants."
+    },
+    {
+      "id": "c41",
+      "start": 86.08,
+      "end": 88.17,
+      "text": "One pilot runs on an algorithm."
+    },
+    {
+      "id": "c42",
+      "start": 88.21,
+      "end": 89.96,
+      "text": "The other runs on people."
+    },
+    {
+      "id": "c43",
+      "start": 90.28,
+      "end": 92.25,
+      "text": "When the city tested Paradigm,"
+    },
+    {
+      "id": "c44",
+      "start": 92.3,
+      "end": 94.52,
+      "text": "7 out of 10 points had leaks."
+    },
+    {
+      "id": "c45",
+      "start": 94.56,
+      "end": 97.3,
+      "text": "It has helped locate 33 city leaks."
+    },
+    {
+      "id": "c46",
+      "start": 97.76,
+      "end": 99.67,
+      "text": "The city estimates ASTERRA"
+    },
+    {
+      "id": "c47",
+      "start": 99.71,
+      "end": 105.03,
+      "text": "saved 1,130,567 gallons of water,"
+    },
+    {
+      "id": "c48",
+      "start": 105.07,
+      "end": 109.62,
+      "text": "and $440,800 in lost water costs."
+    },
+    {
+      "id": "c49",
+      "start": 109.78,
+      "end": 112.26,
+      "text": "Its conservation supervisor says"
+    },
+    {
+      "id": "c50",
+      "start": 112.3,
+      "end": 113.85,
+      "text": "satellite programs prevent the"
+    },
+    {
+      "id": "c51",
+      "start": 113.89,
+      "end": 115.23,
+      "text": "team from spending entire"
+    },
+    {
+      "id": "c52",
+      "start": 115.27,
+      "end": 116.68,
+      "text": "days searching for leaks."
+    },
+    {
+      "id": "c53",
+      "start": 117.08,
+      "end": 119.37,
+      "text": "The utility's year-end report adds"
+    },
+    {
+      "id": "c54",
+      "start": 119.41,
+      "end": 121.24,
+      "text": "a finder that doesn't orbit."
+    },
+    {
+      "id": "c55",
+      "start": 121.46,
+      "end": 123.625,
+      "text": "Splash, a leak detection dog,"
+    },
+    {
+      "id": "c56",
+      "start": 123.665,
+      "end": 125.86,
+      "text": "sniffs for small amounts of chlorine."
+    },
+    {
+      "id": "c57",
+      "start": 126.3,
+      "end": 127.77,
+      "text": "As of last November,"
+    },
+    {
+      "id": "c58",
+      "start": 127.81,
+      "end": 129.29,
+      "text": "both pilots were under"
+    },
+    {
+      "id": "c59",
+      "start": 129.33,
+      "end": 131.08,
+      "text": "evaluation for permanent use."
+    },
+    {
+      "id": "c60",
+      "start": 131.12,
+      "end": 132.62,
+      "text": "The satellite points."
+    },
+    {
+      "id": "c61",
+      "start": 132.66,
+      "end": 134.36,
+      "text": "The crew still digs."
+    }
+  ],
+  "credits_s": 5.0,
+  "look": "v2",
+  "words": [
+    {
+      "word": "Under",
+      "start": 0.72,
+      "end": 1.0
+    },
+    {
+      "word": "a",
+      "start": 1.0,
+      "end": 1.25
+    },
+    {
+      "word": "street",
+      "start": 1.25,
+      "end": 1.51
+    },
+    {
+      "word": "in",
+      "start": 1.51,
+      "end": 1.83
+    },
+    {
+      "word": "Arlington,",
+      "start": 1.83,
+      "end": 2.33
+    },
+    {
+      "word": "a",
+      "start": 2.33,
+      "end": 2.77
+    },
+    {
+      "word": "water",
+      "start": 2.77,
+      "end": 3.04
+    },
+    {
+      "word": "main",
+      "start": 3.04,
+      "end": 3.26
+    },
+    {
+      "word": "is",
+      "start": 3.26,
+      "end": 3.54
+    },
+    {
+      "word": "leaking.",
+      "start": 3.54,
+      "end": 4.04
+    },
+    {
+      "word": "A",
+      "start": 4.1,
+      "end": 4.5
+    },
+    {
+      "word": "leak",
+      "start": 4.5,
+      "end": 4.86
+    },
+    {
+      "word": "technician",
+      "start": 4.86,
+      "end": 5.34
+    },
+    {
+      "word": "listens,",
+      "start": 5.34,
+      "end": 5.86
+    },
+    {
+      "word": "and",
+      "start": 5.9,
+      "end": 6.34
+    },
+    {
+      "word": "hears",
+      "start": 6.34,
+      "end": 6.69
+    },
+    {
+      "word": "nothing.",
+      "start": 6.69,
+      "end": 7.24
+    },
+    {
+      "word": "A",
+      "start": 7.56,
+      "end": 7.96
+    },
+    {
+      "word": "leak",
+      "start": 7.96,
+      "end": 8.13
+    },
+    {
+      "word": "that",
+      "start": 8.13,
+      "end": 8.37
+    },
+    {
+      "word": "stays",
+      "start": 8.37,
+      "end": 8.81
+    },
+    {
+      "word": "underground",
+      "start": 8.81,
+      "end": 9.27
+    },
+    {
+      "word": "can",
+      "start": 9.27,
+      "end": 9.54
+    },
+    {
+      "word": "go",
+      "start": 9.54,
+      "end": 9.89
+    },
+    {
+      "word": "unnoticed",
+      "start": 9.89,
+      "end": 10.31
+    },
+    {
+      "word": "for",
+      "start": 10.31,
+      "end": 10.64
+    },
+    {
+      "word": "weeks",
+      "start": 10.64,
+      "end": 10.95
+    },
+    {
+      "word": "or",
+      "start": 10.95,
+      "end": 11.2
+    },
+    {
+      "word": "even",
+      "start": 11.2,
+      "end": 11.52
+    },
+    {
+      "word": "months.",
+      "start": 11.52,
+      "end": 12.06
+    },
+    {
+      "word": "Arlington's",
+      "start": 12.58,
+      "end": 13.09
+    },
+    {
+      "word": "water",
+      "start": 13.09,
+      "end": 13.54
+    },
+    {
+      "word": "utility",
+      "start": 13.54,
+      "end": 13.96
+    },
+    {
+      "word": "looks",
+      "start": 13.96,
+      "end": 14.3
+    },
+    {
+      "word": "after",
+      "start": 14.3,
+      "end": 14.795
+    },
+    {
+      "word": "1,470",
+      "start": 14.795,
+      "end": 15.43
+    },
+    {
+      "word": "miles",
+      "start": 16.04,
+      "end": 16.49
+    },
+    {
+      "word": "of",
+      "start": 16.49,
+      "end": 16.76
+    },
+    {
+      "word": "water",
+      "start": 16.76,
+      "end": 17.05
+    },
+    {
+      "word": "mains.",
+      "start": 17.05,
+      "end": 17.52
+    },
+    {
+      "word": "Before",
+      "start": 17.76,
+      "end": 18.36
+    },
+    {
+      "word": "satellites,",
+      "start": 18.36,
+      "end": 18.8
+    },
+    {
+      "word": "it",
+      "start": 18.8,
+      "end": 19.13
+    },
+    {
+      "word": "mostly",
+      "start": 19.13,
+      "end": 19.48
+    },
+    {
+      "word": "relied",
+      "start": 19.48,
+      "end": 19.75
+    },
+    {
+      "word": "on",
+      "start": 19.75,
+      "end": 20.06
+    },
+    {
+      "word": "residents",
+      "start": 20.06,
+      "end": 20.42
+    },
+    {
+      "word": "to",
+      "start": 20.42,
+      "end": 20.71
+    },
+    {
+      "word": "report",
+      "start": 20.71,
+      "end": 21.05
+    },
+    {
+      "word": "water",
+      "start": 21.05,
+      "end": 21.42
+    },
+    {
+      "word": "flowing",
+      "start": 21.42,
+      "end": 21.73
+    },
+    {
+      "word": "where",
+      "start": 21.73,
+      "end": 21.94
+    },
+    {
+      "word": "it",
+      "start": 21.94,
+      "end": 22.13
+    },
+    {
+      "word": "shouldn't",
+      "start": 22.13,
+      "end": 22.4
+    },
+    {
+      "word": "be.",
+      "start": 22.4,
+      "end": 22.88
+    },
+    {
+      "word": "Then",
+      "start": 23.18,
+      "end": 23.63
+    },
+    {
+      "word": "a",
+      "start": 23.63,
+      "end": 23.86
+    },
+    {
+      "word": "team",
+      "start": 23.86,
+      "end": 24.02
+    },
+    {
+      "word": "of",
+      "start": 24.02,
+      "end": 24.25
+    },
+    {
+      "word": "three",
+      "start": 24.25,
+      "end": 24.52
+    },
+    {
+      "word": "went",
+      "start": 24.52,
+      "end": 24.72
+    },
+    {
+      "word": "out",
+      "start": 24.72,
+      "end": 24.91
+    },
+    {
+      "word": "to",
+      "start": 24.91,
+      "end": 25.15
+    },
+    {
+      "word": "listen.",
+      "start": 25.15,
+      "end": 25.6
+    },
+    {
+      "word": "They",
+      "start": 25.6,
+      "end": 26.05
+    },
+    {
+      "word": "place",
+      "start": 26.05,
+      "end": 26.47
+    },
+    {
+      "word": "acoustic",
+      "start": 26.47,
+      "end": 26.91
+    },
+    {
+      "word": "gear",
+      "start": 26.91,
+      "end": 27.19
+    },
+    {
+      "word": "on",
+      "start": 27.19,
+      "end": 27.51
+    },
+    {
+      "word": "valves",
+      "start": 27.51,
+      "end": 27.86
+    },
+    {
+      "word": "and",
+      "start": 27.86,
+      "end": 28.12
+    },
+    {
+      "word": "over",
+      "start": 28.12,
+      "end": 28.31
+    },
+    {
+      "word": "the",
+      "start": 28.31,
+      "end": 28.57
+    },
+    {
+      "word": "lines,",
+      "start": 28.57,
+      "end": 28.99
+    },
+    {
+      "word": "and",
+      "start": 28.99,
+      "end": 29.45
+    },
+    {
+      "word": "triangulate",
+      "start": 29.45,
+      "end": 29.88
+    },
+    {
+      "word": "a",
+      "start": 29.88,
+      "end": 30.27
+    },
+    {
+      "word": "suspected",
+      "start": 30.27,
+      "end": 30.65
+    },
+    {
+      "word": "leak.",
+      "start": 30.65,
+      "end": 31.16
+    },
+    {
+      "word": "That",
+      "start": 31.34,
+      "end": 31.74
+    },
+    {
+      "word": "is",
+      "start": 31.74,
+      "end": 31.97
+    },
+    {
+      "word": "three",
+      "start": 31.97,
+      "end": 32.31
+    },
+    {
+      "word": "people",
+      "start": 32.31,
+      "end": 32.64
+    },
+    {
+      "word": "for",
+      "start": 32.64,
+      "end": 33.07
+    },
+    {
+      "word": "1,470",
+      "start": 33.07,
+      "end": 33.68
+    },
+    {
+      "word": "miles",
+      "start": 34.22,
+      "end": 34.67
+    },
+    {
+      "word": "of",
+      "start": 34.67,
+      "end": 34.93
+    },
+    {
+      "word": "main.",
+      "start": 34.93,
+      "end": 35.38
+    },
+    {
+      "word": "So",
+      "start": 35.82,
+      "end": 36.22
+    },
+    {
+      "word": "the",
+      "start": 36.22,
+      "end": 36.41
+    },
+    {
+      "word": "city",
+      "start": 36.41,
+      "end": 36.7
+    },
+    {
+      "word": "tried",
+      "start": 36.7,
+      "end": 37.0
+    },
+    {
+      "word": "looking",
+      "start": 37.0,
+      "end": 37.28
+    },
+    {
+      "word": "down",
+      "start": 37.28,
+      "end": 37.55
+    },
+    {
+      "word": "from",
+      "start": 37.55,
+      "end": 37.85
+    },
+    {
+      "word": "orbit.",
+      "start": 37.85,
+      "end": 38.36
+    },
+    {
+      "word": "In",
+      "start": 38.38,
+      "end": 38.76
+    },
+    {
+      "word": "a",
+      "start": 38.76,
+      "end": 38.97
+    },
+    {
+      "word": "pilot,",
+      "start": 38.97,
+      "end": 39.26
+    },
+    {
+      "word": "a",
+      "start": 39.26,
+      "end": 39.54
+    },
+    {
+      "word": "company",
+      "start": 39.54,
+      "end": 39.86
+    },
+    {
+      "word": "called",
+      "start": 39.86,
+      "end": 40.35
+    },
+    {
+      "word": "ASTERRA",
+      "start": 40.35,
+      "end": 40.95
+    },
+    {
+      "word": "scans",
+      "start": 40.95,
+      "end": 41.38
+    },
+    {
+      "word": "the",
+      "start": 41.38,
+      "end": 41.73
+    },
+    {
+      "word": "entire",
+      "start": 41.73,
+      "end": 42.11
+    },
+    {
+      "word": "city",
+      "start": 42.11,
+      "end": 42.39
+    },
+    {
+      "word": "with",
+      "start": 42.39,
+      "end": 42.76
+    },
+    {
+      "word": "satellites,",
+      "start": 42.76,
+      "end": 43.3
+    },
+    {
+      "word": "for",
+      "start": 43.3,
+      "end": 43.81
+    },
+    {
+      "word": "moisture",
+      "start": 43.81,
+      "end": 44.2
+    },
+    {
+      "word": "and",
+      "start": 44.2,
+      "end": 44.6
+    },
+    {
+      "word": "temperature",
+      "start": 44.6,
+      "end": 45.14
+    },
+    {
+      "word": "underground.",
+      "start": 45.14,
+      "end": 45.76
+    },
+    {
+      "word": "The",
+      "start": 46.14,
+      "end": 46.61
+    },
+    {
+      "word": "company",
+      "start": 46.61,
+      "end": 46.92
+    },
+    {
+      "word": "says",
+      "start": 46.92,
+      "end": 47.18
+    },
+    {
+      "word": "its",
+      "start": 47.18,
+      "end": 47.5
+    },
+    {
+      "word": "radar",
+      "start": 47.5,
+      "end": 47.86
+    },
+    {
+      "word": "looks",
+      "start": 47.86,
+      "end": 48.11
+    },
+    {
+      "word": "for",
+      "start": 48.11,
+      "end": 48.28
+    },
+    {
+      "word": "the",
+      "start": 48.28,
+      "end": 48.5
+    },
+    {
+      "word": "unique",
+      "start": 48.5,
+      "end": 48.89
+    },
+    {
+      "word": "signature",
+      "start": 48.89,
+      "end": 49.28
+    },
+    {
+      "word": "of",
+      "start": 49.28,
+      "end": 49.57
+    },
+    {
+      "word": "drinking",
+      "start": 49.57,
+      "end": 49.84
+    },
+    {
+      "word": "water.",
+      "start": 49.84,
+      "end": 50.3
+    },
+    {
+      "word": "The",
+      "start": 50.44,
+      "end": 50.9
+    },
+    {
+      "word": "city",
+      "start": 50.9,
+      "end": 51.21
+    },
+    {
+      "word": "says",
+      "start": 51.21,
+      "end": 51.48
+    },
+    {
+      "word": "the",
+      "start": 51.48,
+      "end": 51.86
+    },
+    {
+      "word": "technology",
+      "start": 51.86,
+      "end": 52.34
+    },
+    {
+      "word": "once",
+      "start": 52.34,
+      "end": 52.67
+    },
+    {
+      "word": "looked",
+      "start": 52.67,
+      "end": 52.91
+    },
+    {
+      "word": "for",
+      "start": 52.91,
+      "end": 53.16
+    },
+    {
+      "word": "water",
+      "start": 53.16,
+      "end": 53.41
+    },
+    {
+      "word": "on",
+      "start": 53.41,
+      "end": 53.7
+    },
+    {
+      "word": "Mars.",
+      "start": 53.7,
+      "end": 54.2
+    },
+    {
+      "word": "Then",
+      "start": 54.68,
+      "end": 55.11
+    },
+    {
+      "word": "an",
+      "start": 55.11,
+      "end": 55.51
+    },
+    {
+      "word": "algorithm",
+      "start": 55.51,
+      "end": 56.03
+    },
+    {
+      "word": "turns",
+      "start": 56.03,
+      "end": 56.4
+    },
+    {
+      "word": "that",
+      "start": 56.4,
+      "end": 56.75
+    },
+    {
+      "word": "scan",
+      "start": 56.75,
+      "end": 57.09
+    },
+    {
+      "word": "into",
+      "start": 57.09,
+      "end": 57.39
+    },
+    {
+      "word": "points",
+      "start": 57.39,
+      "end": 57.67
+    },
+    {
+      "word": "of",
+      "start": 57.67,
+      "end": 57.99
+    },
+    {
+      "word": "interest.",
+      "start": 57.99,
+      "end": 58.49
+    },
+    {
+      "word": "Each",
+      "start": 58.49,
+      "end": 58.92
+    },
+    {
+      "word": "one",
+      "start": 58.92,
+      "end": 59.14
+    },
+    {
+      "word": "is",
+      "start": 59.14,
+      "end": 59.29
+    },
+    {
+      "word": "a",
+      "start": 59.29,
+      "end": 59.48
+    },
+    {
+      "word": "pin",
+      "start": 59.48,
+      "end": 59.7
+    },
+    {
+      "word": "on",
+      "start": 59.7,
+      "end": 59.86
+    },
+    {
+      "word": "the",
+      "start": 59.86,
+      "end": 60.05
+    },
+    {
+      "word": "crew's",
+      "start": 60.05,
+      "end": 60.34
+    },
+    {
+      "word": "map,",
+      "start": 60.34,
+      "end": 60.76
+    },
+    {
+      "word": "a",
+      "start": 60.76,
+      "end": 61.13
+    },
+    {
+      "word": "place",
+      "start": 61.13,
+      "end": 61.33
+    },
+    {
+      "word": "to",
+      "start": 61.33,
+      "end": 61.5
+    },
+    {
+      "word": "go",
+      "start": 61.5,
+      "end": 61.75
+    },
+    {
+      "word": "check.",
+      "start": 61.75,
+      "end": 62.24
+    },
+    {
+      "word": "By",
+      "start": 62.4,
+      "end": 62.9
+    },
+    {
+      "word": "last",
+      "start": 62.9,
+      "end": 63.34
+    },
+    {
+      "word": "November,",
+      "start": 63.34,
+      "end": 63.91
+    },
+    {
+      "word": "ASTERRA",
+      "start": 63.91,
+      "end": 64.37
+    },
+    {
+      "word": "had",
+      "start": 64.37,
+      "end": 64.69
+    },
+    {
+      "word": "handed",
+      "start": 64.69,
+      "end": 64.97
+    },
+    {
+      "word": "the",
+      "start": 64.97,
+      "end": 65.19
+    },
+    {
+      "word": "city",
+      "start": 65.19,
+      "end": 65.45
+    },
+    {
+      "word": "about",
+      "start": 65.45,
+      "end": 65.92
+    },
+    {
+      "word": "340",
+      "start": 66.22,
+      "end": 66.67
+    },
+    {
+      "word": "of",
+      "start": 66.67,
+      "end": 66.92
+    },
+    {
+      "word": "those",
+      "start": 66.92,
+      "end": 67.21
+    },
+    {
+      "word": "pins.",
+      "start": 67.21,
+      "end": 67.7
+    },
+    {
+      "word": "They",
+      "start": 67.78,
+      "end": 68.21
+    },
+    {
+      "word": "led",
+      "start": 68.21,
+      "end": 68.42
+    },
+    {
+      "word": "to",
+      "start": 68.42,
+      "end": 68.84
+    },
+    {
+      "word": "34",
+      "start": 68.84,
+      "end": 69.35
+    },
+    {
+      "word": "leaks",
+      "start": 69.35,
+      "end": 69.81
+    },
+    {
+      "word": "detected",
+      "start": 69.81,
+      "end": 70.27
+    },
+    {
+      "word": "and",
+      "start": 70.27,
+      "end": 70.67
+    },
+    {
+      "word": "repaired.",
+      "start": 70.67,
+      "end": 71.2
+    },
+    {
+      "word": "A",
+      "start": 71.36,
+      "end": 71.81
+    },
+    {
+      "word": "pin",
+      "start": 71.81,
+      "end": 72.02
+    },
+    {
+      "word": "is",
+      "start": 72.02,
+      "end": 72.23
+    },
+    {
+      "word": "not",
+      "start": 72.23,
+      "end": 72.44
+    },
+    {
+      "word": "a",
+      "start": 72.44,
+      "end": 72.64
+    },
+    {
+      "word": "leak.",
+      "start": 72.64,
+      "end": 73.03
+    },
+    {
+      "word": "A",
+      "start": 73.03,
+      "end": 73.44
+    },
+    {
+      "word": "crew",
+      "start": 73.44,
+      "end": 73.74
+    },
+    {
+      "word": "still",
+      "start": 73.74,
+      "end": 74.09
+    },
+    {
+      "word": "drives",
+      "start": 74.09,
+      "end": 74.44
+    },
+    {
+      "word": "out",
+      "start": 74.44,
+      "end": 74.71
+    },
+    {
+      "word": "to",
+      "start": 74.71,
+      "end": 75.0
+    },
+    {
+      "word": "confirm",
+      "start": 75.0,
+      "end": 75.3
+    },
+    {
+      "word": "it",
+      "start": 75.3,
+      "end": 75.51
+    },
+    {
+      "word": "and",
+      "start": 75.51,
+      "end": 75.74
+    },
+    {
+      "word": "repair",
+      "start": 75.74,
+      "end": 75.93
+    },
+    {
+      "word": "it.",
+      "start": 75.93,
+      "end": 76.3
+    },
+    {
+      "word": "In",
+      "start": 76.74,
+      "end": 77.26
+    },
+    {
+      "word": "July,",
+      "start": 77.26,
+      "end": 77.71
+    },
+    {
+      "word": "the",
+      "start": 77.71,
+      "end": 78.18
+    },
+    {
+      "word": "utility",
+      "start": 78.18,
+      "end": 78.62
+    },
+    {
+      "word": "also",
+      "start": 78.62,
+      "end": 79.04
+    },
+    {
+      "word": "tested",
+      "start": 79.04,
+      "end": 79.34
+    },
+    {
+      "word": "a",
+      "start": 79.34,
+      "end": 79.56
+    },
+    {
+      "word": "second",
+      "start": 79.56,
+      "end": 79.96
+    },
+    {
+      "word": "program,",
+      "start": 79.96,
+      "end": 80.56
+    },
+    {
+      "word": "Paradigm.",
+      "start": 80.74,
+      "end": 81.38
+    },
+    {
+      "word": "Its",
+      "start": 81.56,
+      "end": 82.04
+    },
+    {
+      "word": "people",
+      "start": 82.04,
+      "end": 82.36
+    },
+    {
+      "word": "check",
+      "start": 82.36,
+      "end": 82.63
+    },
+    {
+      "word": "the",
+      "start": 82.63,
+      "end": 82.94
+    },
+    {
+      "word": "satellite",
+      "start": 82.94,
+      "end": 83.31
+    },
+    {
+      "word": "data",
+      "start": 83.31,
+      "end": 83.66
+    },
+    {
+      "word": "against",
+      "start": 83.66,
+      "end": 83.96
+    },
+    {
+      "word": "a",
+      "start": 83.96,
+      "end": 84.2
+    },
+    {
+      "word": "map",
+      "start": 84.2,
+      "end": 84.45
+    },
+    {
+      "word": "of",
+      "start": 84.45,
+      "end": 84.75
+    },
+    {
+      "word": "valves",
+      "start": 84.75,
+      "end": 85.06
+    },
+    {
+      "word": "and",
+      "start": 85.06,
+      "end": 85.38
+    },
+    {
+      "word": "hydrants.",
+      "start": 85.38,
+      "end": 85.88
+    },
+    {
+      "word": "One",
+      "start": 86.08,
+      "end": 86.6
+    },
+    {
+      "word": "pilot",
+      "start": 86.6,
+      "end": 86.95
+    },
+    {
+      "word": "runs",
+      "start": 86.95,
+      "end": 87.21
+    },
+    {
+      "word": "on",
+      "start": 87.21,
+      "end": 87.39
+    },
+    {
+      "word": "an",
+      "start": 87.39,
+      "end": 87.7
+    },
+    {
+      "word": "algorithm.",
+      "start": 87.7,
+      "end": 88.21
+    },
+    {
+      "word": "The",
+      "start": 88.21,
+      "end": 88.59
+    },
+    {
+      "word": "other",
+      "start": 88.59,
+      "end": 88.88
+    },
+    {
+      "word": "runs",
+      "start": 88.88,
+      "end": 89.18
+    },
+    {
+      "word": "on",
+      "start": 89.18,
+      "end": 89.47
+    },
+    {
+      "word": "people.",
+      "start": 89.47,
+      "end": 89.96
+    },
+    {
+      "word": "When",
+      "start": 90.28,
+      "end": 90.68
+    },
+    {
+      "word": "the",
+      "start": 90.68,
+      "end": 90.85
+    },
+    {
+      "word": "city",
+      "start": 90.85,
+      "end": 91.17
+    },
+    {
+      "word": "tested",
+      "start": 91.17,
+      "end": 91.665
+    },
+    {
+      "word": "Paradigm,",
+      "start": 91.665,
+      "end": 92.25
+    },
+    {
+      "word": "7",
+      "start": 92.3,
+      "end": 92.75
+    },
+    {
+      "word": "out",
+      "start": 92.75,
+      "end": 92.94
+    },
+    {
+      "word": "of",
+      "start": 92.94,
+      "end": 93.15
+    },
+    {
+      "word": "10",
+      "start": 93.15,
+      "end": 93.49
+    },
+    {
+      "word": "points",
+      "start": 93.49,
+      "end": 93.81
+    },
+    {
+      "word": "had",
+      "start": 93.81,
+      "end": 94.08
+    },
+    {
+      "word": "leaks.",
+      "start": 94.08,
+      "end": 94.54
+    },
+    {
+      "word": "It",
+      "start": 94.56,
+      "end": 94.95
+    },
+    {
+      "word": "has",
+      "start": 94.95,
+      "end": 95.13
+    },
+    {
+      "word": "helped",
+      "start": 95.13,
+      "end": 95.47
+    },
+    {
+      "word": "locate",
+      "start": 95.47,
+      "end": 96.02
+    },
+    {
+      "word": "33",
+      "start": 96.08,
+      "end": 96.61
+    },
+    {
+      "word": "city",
+      "start": 96.61,
+      "end": 96.9
+    },
+    {
+      "word": "leaks.",
+      "start": 96.9,
+      "end": 97.3
+    },
+    {
+      "word": "The",
+      "start": 97.76,
+      "end": 98.18
+    },
+    {
+      "word": "city",
+      "start": 98.18,
+      "end": 98.6
+    },
+    {
+      "word": "estimates",
+      "start": 98.6,
+      "end": 99.21
+    },
+    {
+      "word": "ASTERRA",
+      "start": 99.21,
+      "end": 99.71
+    },
+    {
+      "word": "saved",
+      "start": 99.71,
+      "end": 100.24
+    },
+    {
+      "word": "1,130,567",
+      "start": 101.95,
+      "end": 102.59
+    },
+    {
+      "word": "gallons",
+      "start": 103.84,
+      "end": 104.31
+    },
+    {
+      "word": "of",
+      "start": 104.31,
+      "end": 104.64
+    },
+    {
+      "word": "water,",
+      "start": 104.64,
+      "end": 105.07
+    },
+    {
+      "word": "and",
+      "start": 105.07,
+      "end": 105.64
+    },
+    {
+      "word": "$440,800",
+      "start": 106.49,
+      "end": 107.13
+    },
+    {
+      "word": "in",
+      "start": 107.76,
+      "end": 108.24
+    },
+    {
+      "word": "lost",
+      "start": 108.24,
+      "end": 108.59
+    },
+    {
+      "word": "water",
+      "start": 108.59,
+      "end": 109.04
+    },
+    {
+      "word": "costs.",
+      "start": 109.04,
+      "end": 109.62
+    },
+    {
+      "word": "Its",
+      "start": 109.78,
+      "end": 110.38
+    },
+    {
+      "word": "conservation",
+      "start": 110.38,
+      "end": 110.98
+    },
+    {
+      "word": "supervisor",
+      "start": 111.18,
+      "end": 111.78
+    },
+    {
+      "word": "says",
+      "start": 111.78,
+      "end": 112.3
+    },
+    {
+      "word": "satellite",
+      "start": 112.3,
+      "end": 112.81
+    },
+    {
+      "word": "programs",
+      "start": 112.81,
+      "end": 113.3
+    },
+    {
+      "word": "prevent",
+      "start": 113.3,
+      "end": 113.64
+    },
+    {
+      "word": "the",
+      "start": 113.64,
+      "end": 113.89
+    },
+    {
+      "word": "team",
+      "start": 113.89,
+      "end": 114.13
+    },
+    {
+      "word": "from",
+      "start": 114.13,
+      "end": 114.4
+    },
+    {
+      "word": "spending",
+      "start": 114.4,
+      "end": 114.81
+    },
+    {
+      "word": "entire",
+      "start": 114.81,
+      "end": 115.27
+    },
+    {
+      "word": "days",
+      "start": 115.27,
+      "end": 115.64
+    },
+    {
+      "word": "searching",
+      "start": 115.64,
+      "end": 115.97
+    },
+    {
+      "word": "for",
+      "start": 115.97,
+      "end": 116.25
+    },
+    {
+      "word": "leaks.",
+      "start": 116.25,
+      "end": 116.68
+    },
+    {
+      "word": "The",
+      "start": 117.08,
+      "end": 117.66
+    },
+    {
+      "word": "utility's",
+      "start": 117.66,
+      "end": 118.15
+    },
+    {
+      "word": "year-end",
+      "start": 118.15,
+      "end": 118.66
+    },
+    {
+      "word": "report",
+      "start": 118.66,
+      "end": 119.13
+    },
+    {
+      "word": "adds",
+      "start": 119.13,
+      "end": 119.41
+    },
+    {
+      "word": "a",
+      "start": 119.41,
+      "end": 119.67
+    },
+    {
+      "word": "finder",
+      "start": 119.67,
+      "end": 119.99
+    },
+    {
+      "word": "that",
+      "start": 119.99,
+      "end": 120.3
+    },
+    {
+      "word": "doesn't",
+      "start": 120.3,
+      "end": 120.69
+    },
+    {
+      "word": "orbit.",
+      "start": 120.69,
+      "end": 121.24
+    },
+    {
+      "word": "Splash,",
+      "start": 121.46,
+      "end": 122.0
+    },
+    {
+      "word": "a",
+      "start": 122.0,
+      "end": 122.32
+    },
+    {
+      "word": "leak",
+      "start": 122.32,
+      "end": 122.69
+    },
+    {
+      "word": "detection",
+      "start": 122.69,
+      "end": 123.18
+    },
+    {
+      "word": "dog,",
+      "start": 123.18,
+      "end": 123.665
+    },
+    {
+      "word": "sniffs",
+      "start": 123.665,
+      "end": 124.095
+    },
+    {
+      "word": "for",
+      "start": 124.095,
+      "end": 124.43
+    },
+    {
+      "word": "small",
+      "start": 124.43,
+      "end": 124.75
+    },
+    {
+      "word": "amounts",
+      "start": 124.75,
+      "end": 125.04
+    },
+    {
+      "word": "of",
+      "start": 125.04,
+      "end": 125.36
+    },
+    {
+      "word": "chlorine.",
+      "start": 125.36,
+      "end": 125.86
+    },
+    {
+      "word": "As",
+      "start": 126.3,
+      "end": 126.69
+    },
+    {
+      "word": "of",
+      "start": 126.69,
+      "end": 126.9
+    },
+    {
+      "word": "last",
+      "start": 126.9,
+      "end": 127.28
+    },
+    {
+      "word": "November,",
+      "start": 127.28,
+      "end": 127.81
+    },
+    {
+      "word": "both",
+      "start": 127.81,
+      "end": 128.29
+    },
+    {
+      "word": "pilots",
+      "start": 128.29,
+      "end": 128.64
+    },
+    {
+      "word": "were",
+      "start": 128.64,
+      "end": 128.91
+    },
+    {
+      "word": "under",
+      "start": 128.91,
+      "end": 129.33
+    },
+    {
+      "word": "evaluation",
+      "start": 129.33,
+      "end": 129.84
+    },
+    {
+      "word": "for",
+      "start": 129.84,
+      "end": 130.22
+    },
+    {
+      "word": "permanent",
+      "start": 130.22,
+      "end": 130.6
+    },
+    {
+      "word": "use.",
+      "start": 130.6,
+      "end": 131.12
+    },
+    {
+      "word": "The",
+      "start": 131.12,
+      "end": 131.66
+    },
+    {
+      "word": "satellite",
+      "start": 131.66,
+      "end": 132.1
+    },
+    {
+      "word": "points.",
+      "start": 132.1,
+      "end": 132.64
+    },
+    {
+      "word": "The",
+      "start": 132.66,
+      "end": 133.12
+    },
+    {
+      "word": "crew",
+      "start": 133.12,
+      "end": 133.51
+    },
+    {
+      "word": "still",
+      "start": 133.51,
+      "end": 133.95
+    },
+    {
+      "word": "digs.",
+      "start": 133.95,
+      "end": 134.36
+    }
+  ],
+  "beats": [
+    0.279,
+    0.766,
+    1.231,
+    1.695,
+    2.159,
+    2.624,
+    3.088,
+    3.553,
+    4.04,
+    4.505,
+    4.969,
+    5.433,
+    5.898,
+    6.362,
+    6.827,
+    7.314,
+    7.779,
+    8.243,
+    8.707,
+    9.172,
+    9.636,
+    10.124,
+    10.588,
+    11.076,
+    11.54,
+    12.005,
+    12.469,
+    12.934,
+    13.398,
+    13.862,
+    14.327,
+    14.814,
+    15.279,
+    15.743,
+    16.208,
+    16.672,
+    17.16,
+    17.624,
+    18.065,
+    18.553,
+    19.017,
+    19.505,
+    19.969,
+    20.434,
+    20.898,
+    21.362,
+    21.827,
+    22.314,
+    22.779,
+    23.243,
+    23.708,
+    24.172,
+    24.636,
+    25.101,
+    25.565,
+    26.053,
+    26.494,
+    26.982,
+    27.446,
+    27.887,
+    28.352,
+    28.816,
+    29.28,
+    29.768,
+    30.232,
+    30.697,
+    31.161,
+    31.626,
+    32.09,
+    32.554,
+    33.065,
+    33.506,
+    33.971,
+    34.435,
+    34.9,
+    35.364,
+    35.828,
+    36.293,
+    36.78,
+    37.245,
+    37.709,
+    38.174,
+    38.638,
+    39.102,
+    39.567,
+    40.031,
+    40.519,
+    40.983,
+    41.448,
+    41.912,
+    42.376,
+    42.841,
+    43.305,
+    43.77,
+    44.257,
+    44.722,
+    45.186,
+    45.65,
+    46.115,
+    46.579,
+    47.044,
+    47.531,
+    47.996,
+    48.46,
+    48.924,
+    49.389,
+    49.853,
+    50.318,
+    50.782,
+    51.27,
+    51.734,
+    52.198,
+    52.663,
+    53.127,
+    53.592,
+    54.056,
+    54.52,
+    55.008,
+    55.472,
+    55.937,
+    56.401,
+    56.866,
+    57.33,
+    57.794,
+    58.259,
+    58.746,
+    59.211,
+    59.675,
+    60.14,
+    60.604,
+    61.068,
+    61.533,
+    61.997,
+    62.485,
+    62.949,
+    63.414,
+    63.878,
+    64.342,
+    64.807,
+    65.271,
+    65.759,
+    66.223,
+    66.688,
+    67.152,
+    67.593,
+    68.081,
+    68.545,
+    69.01,
+    69.497,
+    69.962,
+    70.426,
+    70.891,
+    71.332,
+    71.819,
+    72.284,
+    72.748,
+    73.236,
+    73.677,
+    74.165,
+    74.629,
+    75.07,
+    75.558,
+    75.999,
+    76.463,
+    76.974,
+    77.415,
+    77.903,
+    78.344,
+    78.809,
+    79.273,
+    79.737,
+    80.225,
+    80.689,
+    81.154,
+    81.618,
+    82.083,
+    82.547,
+    83.011,
+    83.476,
+    83.963,
+    84.428,
+    84.892,
+    85.357,
+    85.821,
+    86.309,
+    86.773,
+    87.237,
+    87.702,
+    88.166,
+    88.631,
+    89.118,
+    89.583,
+    90.047,
+    90.511,
+    90.976,
+    91.44,
+    91.928,
+    92.392,
+    92.857,
+    93.344,
+    93.809,
+    94.273,
+    94.737,
+    95.202,
+    95.689,
+    96.154,
+    96.595,
+    97.083,
+    97.547,
+    98.011,
+    98.476,
+    98.963,
+    99.428,
+    99.892,
+    100.357,
+    100.798,
+    101.285,
+    101.75,
+    102.237,
+    102.702,
+    103.166,
+    103.631,
+    104.095,
+    104.536,
+    105.001,
+    105.465,
+    105.976,
+    106.44,
+    106.881,
+    107.369,
+    107.81,
+    108.275,
+    108.739,
+    109.25,
+    109.691,
+    110.155,
+    110.62,
+    111.084,
+    111.549,
+    112.013,
+    112.454,
+    112.965,
+    113.429,
+    113.894,
+    114.358,
+    114.823,
+    115.287,
+    115.751,
+    116.216,
+    116.703,
+    117.168,
+    117.632,
+    118.097,
+    118.561,
+    119.025,
+    119.49,
+    119.954,
+    120.442,
+    120.906,
+    121.371,
+    121.835,
+    122.3,
+    122.764,
+    123.228,
+    123.693,
+    124.18,
+    124.645,
+    125.109,
+    125.574,
+    126.038,
+    126.502,
+    126.967,
+    127.454,
+    127.919,
+    128.383,
+    128.848,
+    129.312,
+    129.776,
+    130.241,
+    130.705,
+    131.193,
+    131.657,
+    132.122,
+    132.586,
+    133.05,
+    133.515,
+    133.979,
+    134.444,
+    134.931
+  ],
+  "timed_at": "2026-11-23T14:07:40+00:00",
+  "run_id": "2026-11-22"
+}
