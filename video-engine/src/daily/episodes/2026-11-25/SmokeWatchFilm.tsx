@@ -7,6 +7,7 @@ import {Burst, ContactShadow, Glow, ScanBox, clamp01, ease, lerp} from '../../..
 import {line, light, shade} from '../../../look/color';
 import {Bush} from '../../../look/Kit';
 import {Pumpjack} from '../../../look/regions';
+import {FONT} from '../../../lib/type';
 import {
   BrushTruck, Counter, LitBox, Lookout, Monitor, PanoView, PhoneRing, Post, SmokeWisp, TriMap, Word, after, pop,
 } from './parts';
@@ -354,7 +355,7 @@ export const SmokeWatchFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
             {fl > 0 && <ScanBox x={560} y={150} w={180} h={200} lock={box} frame={frame} color={ORANGE} lockColor={ORANGE} />}
           </svg>
           <circle cx={40} cy={40} r={14} fill="#ff3b3b" opacity={Math.floor(frame / 15) % 2 ? 1 : 0.3} />
-          <text x={64} y={52} fontFamily="Inter, sans-serif" fontWeight={900} fontSize={34} fill="#ffffff">LIVE</text>
+          <text x={64} y={52} fontFamily={FONT.body} fontWeight={900} fontSize={34} fill="#ffffff">LIVE</text>
           <rect x={0} y={500} width={900 * ((sc / 3) % 1)} height={10} rx={5} fill={CYAN} />
         </g>
         <Lookout x={540} y={1400 + 1570 * 0.9} s={0.9} frame={frame} look={0.6} mood={box > 0.5 ? 'alert' : 'scan'} />
@@ -372,7 +373,7 @@ export const SmokeWatchFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
             {Array.from({length: 6}, (_, i) => (
               <g key={i} transform={`translate(${40 + (i % 3) * 280} ${40 + Math.floor(i / 3) * 240})`} opacity={i === 5 && nd > 0 ? 1 : 0.35}>
                 <rect width={250} height={200} rx={24} fill={i === 5 ? ORANGE : '#6a7090'} />
-                <text x={125} y={115} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={900} fontSize={34} fill="#ffffff">SMOKE?</text>
+                <text x={125} y={115} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={34} fill="#ffffff">SMOKE?</text>
               </g>
             ))}
           </Monitor>
@@ -484,7 +485,7 @@ export const SmokeWatchFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
       const card = (i: number, label: string, c: string, gone: number) => (
         <g key={i} transform={`translate(${lerp(0, -900, gone)} ${i * 150}) rotate(${(i % 2 ? 1 : -1) * 2})`} opacity={1 - gone}>
           <rect x={60} y={40} width={780} height={120} rx={36} fill={c} />
-          <text x={450} y={120} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={900} fontSize={60} fill="#ffffff">{label}</text>
+          <text x={450} y={120} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={60} fill="#ffffff">{label}</text>
         </g>
       );
       return svg(<g>
@@ -527,7 +528,7 @@ export const SmokeWatchFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
           return (
             <g key={i} transform={`translate(${lerp(1300, 520 + (i % 3) * 30 - 30, k)} ${700 + i * 50}) rotate(${(i % 2 ? 1 : -1) * (4 + i)})`}>
               <LitBox x={-280} y={-140} w={560} h={280} r={44} c={grey > 0.5 ? '#8d8fa6' : ORANGE} />
-              <text x={0} y={20} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={900} fontSize={60} fill="#ffffff">
+              <text x={0} y={20} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={60} fill="#ffffff">
                 {grey > 0.5 ? 'NOTHING' : 'SMOKE?'}</text>
             </g>
           );
@@ -590,12 +591,12 @@ export const SmokeWatchFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         <g transform={`translate(720 930) scale(${lerp(0.2, 1, flip)} 1) rotate(-6)`}>
           <LitBox x={-200} y={-260} w={400} h={520} r={30} c="#ffffff" />
           {[0, 1, 2, 3, 4].map((i) => <rect key={i} x={-150} y={-180 + i * 60} width={i === 0 ? 200 : 300} height={20} rx={10} fill="#c9cede" />)}
-          <text x={-150} y={-200} fontFamily="Inter, sans-serif" fontWeight={900} fontSize={40} fill="#2b2f45">POWER BILL</text>
+          <text x={-150} y={-200} fontFamily={FONT.body} fontWeight={900} fontSize={40} fill="#2b2f45">POWER BILL</text>
         </g>
         {st > 0 && (
           <g transform={`translate(740 1010) rotate(-14) scale(${st})`}>
             <rect x={-190} y={-70} width={380} height={140} rx={30} fill="none" stroke="#e2574c" strokeWidth={14} />
-            <text x={0} y={26} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={900} fontSize={76} fill="#e2574c">NOT YET</text>
+            <text x={0} y={26} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={76} fill="#e2574c">NOT YET</text>
           </g>
         )}
       </g>);
@@ -744,14 +745,14 @@ export const SmokeWatchFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         <rect x={0} y={0} width={1080} height={1920} fill="#a87a4a" opacity={0.25} />
         <g transform="translate(540 820) rotate(-4)">
           <LitBox x={-380} y={-460} w={760} h={920} r={40} c="#ffffff" />
-          <text x={-300} y={-340} fontFamily="Inter, sans-serif" fontWeight={900} fontSize={70} fill="#2b2f45">POWER BILL</text>
+          <text x={-300} y={-340} fontFamily={FONT.body} fontWeight={900} fontSize={70} fill="#2b2f45">POWER BILL</text>
           {[0, 1, 2, 3, 4, 5].map((i) => <rect key={i} x={-300} y={-260 + i * 90} width={i % 2 ? 420 : 560} height={28} rx={14} fill="#c9cede" />)}
           {[-1, 1].map((side) => <ellipse key={side} cx={side * 400} cy={260} rx={80} ry={110} fill={skin} stroke={line(skin)} strokeWidth={6} />)}
         </g>
         {st > 0 && (
           <g transform={`translate(560 760) rotate(-14) scale(${lerp(1.6, 1, clamp01(st))})`} opacity={clamp01(st * 2)}>
             <rect x={-300} y={-110} width={600} height={220} rx={44} fill="none" stroke="#e2574c" strokeWidth={22} />
-            <text x={0} y={42} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={900} fontSize={128} fill="#e2574c">NOT YET</text>
+            <text x={0} y={42} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={128} fill="#e2574c">NOT YET</text>
           </g>
         )}
         <Burst x={560} y={760} p={(k - 0.6) / 0.5} color="#e2574c" r={360} />
