@@ -33,6 +33,7 @@ import {BlankBoxesFilm} from './episodes/2026-11-20/BlankBoxesFilm';
 import {CurbCameraFilm} from './episodes/2026-11-21/CurbCameraFilm';
 import {LeakSatelliteFilm} from './episodes/2026-11-22/LeakSatelliteFilm';
 import {DroneDinnerFilm} from './episodes/2026-11-24/DroneDinnerFilm';
+import {SmokeWatchFilm} from './episodes/2026-11-25/SmokeWatchFilm';
 import {LeakReviewFilm} from '../modern/episodes/2026-10-21/LeakReviewFilm';
 
 /**
@@ -103,4 +104,5 @@ export const dailyEpisodes: Record<string, React.FC<FilmRenderProps>> = {
   'curb-camera-1121': CurbCameraFilm,
   'leak-satellite-1122': LeakSatelliteFilm,
   'drone-dinner-1124': DroneDinnerFilm,
+  'smoke-watch-1125': SmokeWatchFilm,
 };

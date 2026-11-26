@@ -1,0 +1,2939 @@
+{
+  "date": "2026-11-25",
+  "title": "Two eyes on the smoke",
+  "topic": "Across the Texas Panhandle, after the Smokehouse Creek fire, Xcel Energy and Pano AI put AI camera stations on communication towers that sweep for smoke every minute, a human analyst checks each flag, two cameras triangulate the spot and Pano calls 911, while many alerts turn out to be nothing.",
+  "tone": "explainer",
+  "hook": "How do two towers pin one fire?",
+  "beat": "weather-and-emergency",
+  "episode": "smoke-watch-1125",
+  "entities": [
+    "Xcel Energy",
+    "Pano AI",
+    "Smokehouse Creek fire",
+    "Hutchinson County",
+    "Stinnett",
+    "Texas Panhandle"
+  ],
+  "treatment": {
+    "logline": "After the largest wildfire in Texas history, a Panhandle tower watches the grass with two round camera eyes, and the film opens its job one step at a time: sweep, flag, human check, two sightlines crossing, the 911 call, and the alert that turns out to be nothing.",
+    "cold_open": "A huge Panhandle sky over red dirt and tan grass. The camera station's two round heads are already turning on their tower. A thin grey curl rises at the horizon, and before second three both eyes stop and lock onto it while a rancher at a stock tank looks back over his shoulder.",
+    "turn": "Other towers' alerts pour onto the firefighter's tablet and go grey as nothing, a dust devil, field dust, while the real curl's card stays orange. Xcel itself warns responders many alerts will be nothing, the cameras over towns pixelate what is built, and the bill is paid up front and headed to regulators.",
+    "button": "A firefighter hoses the last of the curl into a wet black patch. The tower's two eyes blink and start another sweep. None of it puts out a fire. It buys a head start, and somebody still drives toward the smoke."
+  },
+  "hero": {
+    "name": "the camera station with two eyes",
+    "why": "a lattice communication tower whose two round white camera heads are its two eyes, with irises that pan and brows that narrow on smoke. No earlier film has drawn a wildfire camera station, and two cameras that triangulate are literally a pair of eyes."
+  },
+  "throughline": {
+    "object": "the smoke curl",
+    "states": [
+      {
+        "scene_id": "s1",
+        "state": "a thin grey curl rising off the grass on the horizon"
+      },
+      {
+        "scene_id": "s6",
+        "state": "boxed in amber on the analyst's screen as possible smoke"
+      },
+      {
+        "scene_id": "s8",
+        "state": "an orange pin on the map where two sightlines cross"
+      },
+      {
+        "scene_id": "s14",
+        "state": "hosed out to a wet black patch while the tower sweeps on"
+      }
+    ]
+  },
+  "fingerprint": {
+    "pov": "the tower's own two eyes, then the people downstream of what they see",
+    "layout": "cyan sightlines and beams crossing the tall frame on diagonals",
+    "hero_treatment": "a lattice tower with two round white camera heads as eyes, cyan irises, brows that narrow",
+    "palette": "Rolling Plains red dirt and tan grass under a big blue sky, cyan camera beams, one orange accent for the smoke pin"
+  },
+  "music": {
+    "track": "thinking_music"
+  },
+  "wall_views": [
+    "burn-map",
+    "station-map",
+    "camera-view",
+    "tri-map",
+    "pixel-view",
+    "analyst-desk",
+    "analyst-close",
+    "dispatch-call"
+  ],
+  "credits": "TEXAS AI DOCKET\nSOURCES\nKCBD, November 18th, 2025\nXcel Energy release\nAmerican Public Power Association\nDallas Morning News, Texas A&M Forest Service\nILLUSTRATION\nOriginal drawings, people illustrative\nMUSIC\n\"Thinking Music\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "A thin curl of smoke rises off the Panhandle grass. Up on a tower, two cameras turn and lock onto it.",
+      "vo_claims": [
+        "c1",
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s1-curl",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "blue_norther",
+          "draw": {
+            "subject": "the smoke curl",
+            "action": "rises off the far grass as the tower's two camera eyes swing toward it",
+            "emotion": "the rancher at the stock tank turns to look"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s1-lock",
+          "at_phrase": "two cameras turn",
+          "duration_s": 1.2,
+          "sound": "camera_reacquire",
+          "label": "Two cameras per station",
+          "draw": {
+            "subject": "the two camera eyes",
+            "action": "stop dead and narrow on the curl as a cyan beam shoots out to it",
+            "emotion": "the eyes squint, focused"
+          },
+          "at_s": 5.99
+        }
+      ],
+      "start_s": 0.0,
+      "duration_s": 9.0,
+      "planes": []
+    },
+    {
+      "id": "s2",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "There is a reason they are up there. The Smokehouse Creek fire started in Hutchinson County near Stinnett and became the largest wildfire in state history.",
+      "vo_claims": [
+        "c14",
+        "c2"
+      ],
+      "visual_events": [
+        {
+          "id": "s2-scar",
+          "at": 0.05,
+          "duration_s": 2.0,
+          "sound": "dust_wall",
+          "label": "Hutchinson County",
+          "draw": {
+            "subject": "a black burn scar",
+            "action": "spreads outward from a pin near Stinnett across a county map"
+          },
+          "at_s": 0.538
+        },
+        {
+          "id": "s2-pin",
+          "at_phrase": "near Stinnett",
+          "duration_s": 1.2,
+          "sound": "field_marker",
+          "label": "Near Stinnett",
+          "draw": {
+            "subject": "an orange pin",
+            "action": "drops onto Stinnett and the scar starts eating outward from it"
+          },
+          "at_s": 6.15
+        },
+        {
+          "id": "s2-post",
+          "at_phrase": "became the largest wildfire",
+          "duration_s": 1.4,
+          "sound": "ranch_gate",
+          "label": "Largest in state history",
+          "draw": {
+            "subject": "the rancher",
+            "action": "kneels and rests a hand on a charred fence post",
+            "emotion": "quiet, remembering"
+          },
+          "at_s": 7.6
+        }
+      ],
+      "start_s": 9.0,
+      "duration_s": 10.76,
+      "planes": []
+    },
+    {
+      "id": "s3",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "It burned roughly 1,058,482 acres. Xcel Energy said its facilities appeared to have been involved.",
+      "vo_claims": [
+        "c15",
+        "c16"
+      ],
+      "visual_events": [
+        {
+          "id": "s3-acres",
+          "at": 0.0,
+          "duration_s": 2.2,
+          "sound": "freight_count",
+          "label": "1,058,482 acres",
+          "draw": {
+            "subject": "black squares",
+            "action": "tile across the plains behind the rancher as a counter rolls up",
+            "emotion": "the rancher's shoulders drop"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s3-land",
+          "at": 0.3,
+          "duration_s": 1.0,
+          "sound": "result_shelf_stop",
+          "draw": {
+            "subject": "the acre counter",
+            "action": "slams to a stop and the rancher folds his arms",
+            "emotion": "the rancher looks away, grim"
+          },
+          "at_s": 3.162
+        },
+        {
+          "id": "s3-line",
+          "at_phrase": "Xcel Energy said",
+          "duration_s": 1.4,
+          "sound": "substation_hum",
+          "label": "Xcel Energy",
+          "draw": {
+            "subject": "a lineworker",
+            "action": "looks up at a power line strung over burned ground and grips her helmet brim",
+            "emotion": "worried"
+          },
+          "at_s": 6.48
+        }
+      ],
+      "start_s": 19.76,
+      "duration_s": 10.54,
+      "planes": []
+    },
+    {
+      "id": "s4",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "So Xcel teamed up with a company called Pano AI. By last November, there were 57 camera stations across the Panhandle, each on top of a communication tower.",
+      "vo_claims": [
+        "c2",
+        "c1",
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s4-team",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "roof_fastener_turn",
+          "label": "Pano AI",
+          "draw": {
+            "subject": "the lineworker",
+            "action": "bolts the last camera head onto the tower top and both eyes blink awake",
+            "emotion": "pleased"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s4-wake",
+          "at_phrase": "a company called Pano AI",
+          "duration_s": 1.2,
+          "sound": "camera_reacquire",
+          "draw": {
+            "subject": "the two camera heads",
+            "action": "blink open and look around as the lineworker throws her arms up",
+            "emotion": "the lineworker cheers"
+          },
+          "at_s": 1.94
+        },
+        {
+          "id": "s4-count",
+          "at_phrase": "57 camera stations",
+          "duration_s": 1.8,
+          "sound": "route_marker",
+          "label": "57 stations",
+          "draw": {
+            "subject": "57 tower dots",
+            "action": "pop up one after another across a Panhandle map as a counter climbs"
+          },
+          "at_s": 6.34
+        }
+      ],
+      "start_s": 30.3,
+      "duration_s": 12.04,
+      "planes": []
+    },
+    {
+      "id": "s5",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Each station sweeps a full 360 degrees every minute. It watches about 10 miles in each direction.",
+      "vo_claims": [
+        "c12",
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s5-sweep",
+          "at": 0.0,
+          "duration_s": 2.0,
+          "sound": "sensor_heartbeat",
+          "label": "360 degrees every minute",
+          "draw": {
+            "subject": "the tower's gaze",
+            "action": "sweeps round like a second hand over a clock face drawn on the prairie"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s5-ring",
+          "at_phrase": "about 10 miles",
+          "duration_s": 1.6,
+          "sound": "field_marker",
+          "label": "10 miles each way",
+          "draw": {
+            "subject": "a cyan ring",
+            "action": "draws itself on the ground far out while the rancher on horseback rides inside it",
+            "emotion": "the rancher looks up at the tower"
+          },
+          "at_s": 5.67
+        }
+      ],
+      "start_s": 42.34,
+      "duration_s": 7.96,
+      "planes": []
+    },
+    {
+      "id": "s6",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Its AI is hunting one thing. Smoke. When it finds a grey smudge on the horizon, it flags it.",
+      "vo_claims": [
+        "c20",
+        "c4"
+      ],
+      "visual_events": [
+        {
+          "id": "s6-scan",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "protocol_focus",
+          "label": "AI smoke detection",
+          "draw": {
+            "subject": "the camera's view",
+            "action": "pans across grass, fence line and a far mesa"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s6-smoke",
+          "at_phrase": "one thing. Smoke",
+          "duration_s": 1.2,
+          "sound": "spectral_response",
+          "draw": {
+            "subject": "a grey smudge",
+            "action": "curls up off the far grass in the camera's view"
+          },
+          "at_s": 1.83
+        },
+        {
+          "id": "s6-flag",
+          "at_phrase": "it flags it",
+          "duration_s": 1.2,
+          "sound": "warning_bloom",
+          "label": "Possible smoke",
+          "draw": {
+            "subject": "an amber box",
+            "action": "snaps around the grey curl and the camera eyes widen",
+            "emotion": "the eyes go alert"
+          },
+          "at_s": 7.14
+        }
+      ],
+      "start_s": 50.3,
+      "duration_s": 8.41,
+      "planes": []
+    },
+    {
+      "id": "s7",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "A flag is not a fire, though. So a human analyst checks it first.",
+      "vo_claims": [
+        "c4",
+        "c13"
+      ],
+      "visual_events": [
+        {
+          "id": "s7-lean",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "test_press",
+          "draw": {
+            "subject": "the analyst",
+            "action": "leans in toward the screen and pushes up her glasses",
+            "emotion": "squinting, doubtful"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s7-check",
+          "at_phrase": "checks it first",
+          "duration_s": 1.2,
+          "sound": "review_stamp",
+          "label": "Human check",
+          "draw": {
+            "subject": "the amber box",
+            "action": "turns green with a tick as the analyst clicks",
+            "emotion": "the analyst nods, sure now"
+          },
+          "at_s": 3.72
+        }
+      ],
+      "start_s": 58.71,
+      "duration_s": 5.21,
+      "planes": []
+    },
+    {
+      "id": "s8",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Then a second tower turns its eyes the same way. Where the two sightlines cross, the map can get exact coordinates.",
+      "vo_claims": [
+        "c5",
+        "c13"
+      ],
+      "visual_events": [
+        {
+          "id": "s8-second",
+          "at": 0.0,
+          "duration_s": 1.5,
+          "sound": "camera_reacquire",
+          "label": "Second tower",
+          "draw": {
+            "subject": "a second tower on the far ridge",
+            "action": "swings both eyes left as its beam reaches for the curl"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s8-cross",
+          "at_phrase": "two sightlines cross",
+          "duration_s": 1.4,
+          "sound": "spectral_contact",
+          "label": "Exact coordinates",
+          "draw": {
+            "subject": "two dashed beams",
+            "action": "cross on the map and an orange pin drops and bounces where they meet"
+          },
+          "at_s": 4.27
+        }
+      ],
+      "start_s": 63.92,
+      "duration_s": 8.43,
+      "planes": []
+    },
+    {
+      "id": "s9",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Pano calls 911. The closest fire department gets the live stream, and a brush truck rolls.",
+      "vo_claims": [
+        "c6",
+        "c13"
+      ],
+      "visual_events": [
+        {
+          "id": "s9-call",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "courthouse_bell",
+          "label": "911",
+          "draw": {
+            "subject": "the call taker",
+            "action": "grabs the ringing phone and stands up",
+            "emotion": "alert"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s9-roll",
+          "at_phrase": "a brush truck rolls",
+          "duration_s": 1.6,
+          "sound": "brush_truck_roll",
+          "label": "Live stream",
+          "draw": {
+            "subject": "the brush truck",
+            "action": "pulls out with lights flashing and dust kicking while a firefighter holds up the stream on a tablet",
+            "emotion": "the firefighter is determined"
+          },
+          "at_s": 5.58
+        }
+      ],
+      "start_s": 72.35,
+      "duration_s": 7.53,
+      "planes": []
+    },
+    {
+      "id": "s10",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Here is the catch. Xcel's Reeves warns responders that a lot of these alerts will turn out to be nothing.",
+      "vo_claims": [
+        "c8",
+        "c5"
+      ],
+      "visual_events": [
+        {
+          "id": "s10-devil",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "dust_wall",
+          "draw": {
+            "subject": "a dust devil",
+            "action": "spins across a farmer's field under another tower's beam and an alert box snaps onto it",
+            "emotion": "the farmer squints at it and scratches his head"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s10-shrug",
+          "at_phrase": "turn out to be nothing",
+          "duration_s": 1.4,
+          "sound": "decision_stop",
+          "label": "Many turn out to be nothing",
+          "draw": {
+            "subject": "the firefighter",
+            "action": "swipes grey nothing alerts off her tablet while the orange curl card stays put",
+            "emotion": "wry, then focused"
+          },
+          "at_s": 6.0
+        }
+      ],
+      "start_s": 79.88,
+      "duration_s": 7.58,
+      "planes": []
+    },
+    {
+      "id": "s11",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Most people are okay with that, he says. They want to know everything that is going on.",
+      "vo_claims": [
+        "c8",
+        "c5"
+      ],
+      "visual_events": [
+        {
+          "id": "s11-pile",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "paper_photo_slide",
+          "draw": {
+            "subject": "alert cards",
+            "action": "pile up on the firehouse table and most of them fade to grey",
+            "emotion": "the firefighter blows out a breath"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s11-nod",
+          "at_phrase": "want to know everything",
+          "duration_s": 1.2,
+          "sound": "offer_card",
+          "label": "Know everything",
+          "draw": {
+            "subject": "the firefighter",
+            "action": "nods, pulls on her helmet and grabs the tablet off the hook",
+            "emotion": "determined"
+          },
+          "at_s": 2.94
+        }
+      ],
+      "start_s": 87.46,
+      "duration_s": 5.44,
+      "planes": []
+    },
+    {
+      "id": "s12",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Some cameras look over towns, though. Those pixelate anything built, houses and all.",
+      "vo_claims": [
+        "c7"
+      ],
+      "visual_events": [
+        {
+          "id": "s12-town",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "windmill_creak",
+          "draw": {
+            "subject": "the camera's gaze",
+            "action": "slides across a small town and its water tower while a resident looks up from her yard",
+            "emotion": "the resident is curious"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s12-pixel",
+          "at_phrase": "pixelate anything built",
+          "duration_s": 1.4,
+          "sound": "document_parse",
+          "label": "Built-up areas pixelated",
+          "draw": {
+            "subject": "the rooftops",
+            "action": "dissolve into blurry pixel blocks while the tower squeezes its eyes half shut as if minding its manners"
+          },
+          "at_s": 3.49
+        }
+      ],
+      "start_s": 92.9,
+      "duration_s": 6.98,
+      "planes": []
+    },
+    {
+      "id": "s13",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Somebody pays for all of it. Xcel paid up front and will ask regulators to recover that cost, and it planned 68 more under a $490 million resiliency plan.",
+      "vo_claims": [
+        "c9",
+        "c10"
+      ],
+      "visual_events": [
+        {
+          "id": "s13-bill",
+          "at": 0.1,
+          "duration_s": 1.6,
+          "sound": "paper_photo_slide",
+          "label": "Paid up front",
+          "draw": {
+            "subject": "the resident",
+            "action": "turns over her power bill at the kitchen table and finds a NOT YET stamp",
+            "emotion": "raises an eyebrow"
+          },
+          "at_s": 1.264
+        },
+        {
+          "id": "s13-more",
+          "at_phrase": "it planned 68 more",
+          "duration_s": 1.6,
+          "sound": "route_marker",
+          "label": "68 more planned",
+          "draw": {
+            "subject": "68 new towers",
+            "action": "rise one after another along a Panhandle road toward the horizon"
+          },
+          "at_s": 7.14
+        },
+        {
+          "id": "s13-plan",
+          "at_phrase": "$490 million resiliency plan",
+          "duration_s": 1.4,
+          "sound": "freight_count",
+          "label": "$490 million plan",
+          "draw": {
+            "subject": "a coin stack",
+            "action": "rises beside the map and lands with a thud"
+          },
+          "at_s": 9.68
+        }
+      ],
+      "start_s": 99.88,
+      "duration_s": 12.64,
+      "planes": []
+    },
+    {
+      "id": "s14",
+      "county": "Hutchinson",
+      "region": "rolling_plains",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "None of it puts out a fire. It buys a head start, and then somebody still has to drive toward the smoke.",
+      "vo_claims": [
+        "c18"
+      ],
+      "visual_events": [
+        {
+          "id": "s14-out",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "storm_runoff",
+          "label": "A head start",
+          "draw": {
+            "subject": "the firefighter",
+            "action": "sprays the last of the curl and it hisses out into a wet black patch",
+            "emotion": "relieved"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s14-steam",
+          "at_phrase": "It buys a head start",
+          "duration_s": 1.2,
+          "sound": "metal_quench",
+          "draw": {
+            "subject": "the last flame",
+            "action": "hisses into a puff of white steam over the black patch"
+          },
+          "at_s": 2.24
+        },
+        {
+          "id": "s14-watch",
+          "at_phrase": "drive toward the smoke",
+          "duration_s": 1.4,
+          "sound": "sensor_heartbeat",
+          "draw": {
+            "subject": "the brush truck",
+            "action": "drives off toward a new curl on the horizon while the tower's two eyes start another sweep",
+            "emotion": "the eyes are calm"
+          },
+          "at_s": 6.16
+        }
+      ],
+      "start_s": 112.52,
+      "duration_s": 8.38,
+      "planes": []
+    }
+  ],
+  "shots": [
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-curl",
+      "id": "s1-a",
+      "scene_id": "s1",
+      "framing": "medium",
+      "view": "tower-hook",
+      "cast": [
+        "rancher"
+      ],
+      "start_s": 0.0,
+      "duration_s": 4.8
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-curl",
+      "id": "s1-c",
+      "scene_id": "s1",
+      "framing": "wide",
+      "view": "tower-low",
+      "at_phrase": "Up on a tower",
+      "start_s": 4.8,
+      "duration_s": 1.19
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-curl",
+      "id": "s1-b",
+      "scene_id": "s1",
+      "framing": "close",
+      "view": "eyes-close",
+      "at_phrase": "two cameras turn",
+      "start_s": 5.99,
+      "duration_s": 3.01
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-scar",
+      "id": "s2-a",
+      "scene_id": "s2",
+      "framing": "overhead",
+      "view": "burn-map",
+      "start_s": 9.0,
+      "duration_s": 6.15
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-scar",
+      "id": "s2-c",
+      "scene_id": "s2",
+      "framing": "detail",
+      "view": "stinnett-close",
+      "at_phrase": "near Stinnett",
+      "start_s": 15.15,
+      "duration_s": 1.45
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-scar",
+      "id": "s2-b",
+      "scene_id": "s2",
+      "framing": "close",
+      "view": "charred-post",
+      "at_phrase": "became the largest wildfire",
+      "cast": [
+        "rancher"
+      ],
+      "start_s": 16.6,
+      "duration_s": 3.16
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-acres",
+      "id": "s3-a",
+      "scene_id": "s3",
+      "framing": "wide",
+      "view": "acre-counter",
+      "cast": [
+        "rancher"
+      ],
+      "start_s": 19.76,
+      "duration_s": 6.48
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-acres",
+      "id": "s3-b",
+      "scene_id": "s3",
+      "framing": "medium",
+      "view": "line-scar",
+      "at_phrase": "Xcel Energy said",
+      "cast": [
+        "lineworker"
+      ],
+      "start_s": 26.24,
+      "duration_s": 4.06
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-team",
+      "id": "s4-a",
+      "scene_id": "s4",
+      "framing": "medium",
+      "view": "tower-build",
+      "cast": [
+        "lineworker"
+      ],
+      "start_s": 30.3,
+      "duration_s": 6.34
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-team",
+      "id": "s4-b",
+      "scene_id": "s4",
+      "framing": "overhead",
+      "view": "station-map",
+      "at_phrase": "57 camera stations",
+      "start_s": 36.64,
+      "duration_s": 5.7
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-sweep",
+      "id": "s5-a",
+      "scene_id": "s5",
+      "framing": "overhead",
+      "view": "sweep-clock",
+      "start_s": 42.34,
+      "duration_s": 3.79
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-sweep",
+      "id": "s5-c",
+      "scene_id": "s5",
+      "framing": "detail",
+      "view": "sweep-eye",
+      "at_phrase": "every minute",
+      "start_s": 46.13,
+      "duration_s": 1.88
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-sweep",
+      "id": "s5-b",
+      "scene_id": "s5",
+      "framing": "wide",
+      "view": "ring-wide",
+      "at_phrase": "about 10 miles",
+      "cast": [
+        "rancher"
+      ],
+      "start_s": 48.01,
+      "duration_s": 2.29
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-scan",
+      "id": "s6-a",
+      "scene_id": "s6",
+      "framing": "detail",
+      "view": "camera-view",
+      "start_s": 50.3,
+      "duration_s": 1.83
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-scan",
+      "id": "s6-c",
+      "scene_id": "s6",
+      "framing": "close",
+      "view": "smoke-close",
+      "at_phrase": "one thing. Smoke",
+      "start_s": 52.13,
+      "duration_s": 5.31
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-scan",
+      "id": "s6-b",
+      "scene_id": "s6",
+      "framing": "close",
+      "view": "behind-head",
+      "at_phrase": "it flags it",
+      "start_s": 57.44,
+      "duration_s": 1.27
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-lean",
+      "id": "s7-a",
+      "scene_id": "s7",
+      "framing": "medium",
+      "view": "analyst-desk",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 58.71,
+      "duration_s": 3.72
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-lean",
+      "id": "s7-b",
+      "scene_id": "s7",
+      "framing": "close",
+      "view": "analyst-close",
+      "at_phrase": "checks it first",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 62.43,
+      "duration_s": 1.49
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-second",
+      "id": "s8-a",
+      "scene_id": "s8",
+      "framing": "wide",
+      "view": "two-towers",
+      "start_s": 63.92,
+      "duration_s": 2.48
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-second",
+      "id": "s8-c",
+      "scene_id": "s8",
+      "framing": "close",
+      "view": "far-tower-close",
+      "at_phrase": "the same way",
+      "start_s": 66.4,
+      "duration_s": 1.79
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-second",
+      "id": "s8-b",
+      "scene_id": "s8",
+      "framing": "overhead",
+      "view": "tri-map",
+      "at_phrase": "two sightlines cross",
+      "start_s": 68.19,
+      "duration_s": 4.16
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-call",
+      "id": "s9-a",
+      "scene_id": "s9",
+      "framing": "medium",
+      "view": "dispatch-call",
+      "cast": [
+        "coder"
+      ],
+      "start_s": 72.35,
+      "duration_s": 5.58
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-call",
+      "id": "s9-b",
+      "scene_id": "s9",
+      "framing": "wide",
+      "view": "truck-roll",
+      "at_phrase": "a brush truck rolls",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 77.93,
+      "duration_s": 1.95
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-devil",
+      "id": "s10-a",
+      "scene_id": "s10",
+      "framing": "wide",
+      "view": "devil-field",
+      "cast": [
+        "farmer"
+      ],
+      "start_s": 79.88,
+      "duration_s": 6.0
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-devil",
+      "id": "s10-b",
+      "scene_id": "s10",
+      "framing": "close",
+      "view": "tablet-close",
+      "at_phrase": "turn out to be nothing",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 85.88,
+      "duration_s": 1.58
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-pile",
+      "id": "s11-a",
+      "scene_id": "s11",
+      "framing": "detail",
+      "view": "card-pile",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 87.46,
+      "duration_s": 2.94
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-pile",
+      "id": "s11-b",
+      "scene_id": "s11",
+      "framing": "medium",
+      "view": "firehouse-nod",
+      "at_phrase": "want to know everything",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 90.4,
+      "duration_s": 2.5
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-town",
+      "id": "s12-a",
+      "scene_id": "s12",
+      "framing": "wide",
+      "view": "town-gaze",
+      "cast": [
+        "resident"
+      ],
+      "start_s": 92.9,
+      "duration_s": 3.49
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-town",
+      "id": "s12-b",
+      "scene_id": "s12",
+      "framing": "detail",
+      "view": "pixel-view",
+      "at_phrase": "pixelate anything built",
+      "start_s": 96.39,
+      "duration_s": 3.49
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-bill",
+      "id": "s13-a",
+      "scene_id": "s13",
+      "framing": "medium",
+      "view": "bill-table",
+      "cast": [
+        "resident"
+      ],
+      "start_s": 99.88,
+      "duration_s": 4.11
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-bill",
+      "id": "s13-c",
+      "scene_id": "s13",
+      "framing": "detail",
+      "view": "bill-close",
+      "at_phrase": "will ask regulators",
+      "cast": [
+        "resident"
+      ],
+      "start_s": 103.99,
+      "duration_s": 3.03
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-bill",
+      "id": "s13-b",
+      "scene_id": "s13",
+      "framing": "wide",
+      "view": "new-towers",
+      "at_phrase": "it planned 68 more",
+      "cast": [
+        "lineworker"
+      ],
+      "start_s": 107.02,
+      "duration_s": 5.5
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-out",
+      "id": "s14-a",
+      "scene_id": "s14",
+      "framing": "medium",
+      "view": "hose-out",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 112.52,
+      "duration_s": 2.24
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-out",
+      "id": "s14-c",
+      "scene_id": "s14",
+      "framing": "close",
+      "view": "steam-close",
+      "at_phrase": "It buys a head start",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 114.76,
+      "duration_s": 3.92
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-out",
+      "id": "s14-b",
+      "scene_id": "s14",
+      "framing": "wide",
+      "view": "tower-end",
+      "at_phrase": "drive toward the smoke",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 118.68,
+      "duration_s": 2.22
+    }
+  ],
+  "runtime_s": 120.9,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.7,
+      "end": 2.45,
+      "text": "A thin curl of smoke"
+    },
+    {
+      "id": "c2",
+      "start": 2.49,
+      "end": 4.52,
+      "text": "rises off the Panhandle grass."
+    },
+    {
+      "id": "c3",
+      "start": 4.8,
+      "end": 5.95,
+      "text": "Up on a tower,"
+    },
+    {
+      "id": "c4",
+      "start": 5.99,
+      "end": 8.64,
+      "text": "two cameras turn and lock onto it."
+    },
+    {
+      "id": "c5",
+      "start": 9.18,
+      "end": 11.3,
+      "text": "There is a reason they are up there."
+    },
+    {
+      "id": "c6",
+      "start": 11.56,
+      "end": 13.37,
+      "text": "The Smokehouse Creek fire"
+    },
+    {
+      "id": "c7",
+      "start": 13.41,
+      "end": 15.51,
+      "text": "started in Hutchinson County near"
+    },
+    {
+      "id": "c8",
+      "start": 15.55,
+      "end": 17.18,
+      "text": "Stinnett and became the"
+    },
+    {
+      "id": "c9",
+      "start": 17.22,
+      "end": 19.52,
+      "text": "largest wildfire in state history."
+    },
+    {
+      "id": "c10",
+      "start": 19.94,
+      "end": 25.52,
+      "text": "It burned roughly 1,058,482 acres."
+    },
+    {
+      "id": "c11",
+      "start": 26.24,
+      "end": 28.31,
+      "text": "Xcel Energy said its facilities"
+    },
+    {
+      "id": "c12",
+      "start": 28.35,
+      "end": 30.1,
+      "text": "appeared to have been involved."
+    },
+    {
+      "id": "c13",
+      "start": 30.48,
+      "end": 32.2,
+      "text": "So Xcel teamed up with"
+    },
+    {
+      "id": "c14",
+      "start": 32.24,
+      "end": 34.14,
+      "text": "a company called Pano AI."
+    },
+    {
+      "id": "c15",
+      "start": 34.56,
+      "end": 35.9,
+      "text": "By last November,"
+    },
+    {
+      "id": "c16",
+      "start": 35.94,
+      "end": 37.61,
+      "text": "there were 57 camera"
+    },
+    {
+      "id": "c17",
+      "start": 37.65,
+      "end": 39.3,
+      "text": "stations across the Panhandle,"
+    },
+    {
+      "id": "c18",
+      "start": 39.52,
+      "end": 42.0,
+      "text": "each on top of a communication tower."
+    },
+    {
+      "id": "c19",
+      "start": 42.52,
+      "end": 44.24,
+      "text": "Each station sweeps a"
+    },
+    {
+      "id": "c20",
+      "start": 44.28,
+      "end": 47.02,
+      "text": "full 360 degrees every minute."
+    },
+    {
+      "id": "c21",
+      "start": 47.1,
+      "end": 50.16,
+      "text": "It watches about 10 miles in each direction."
+    },
+    {
+      "id": "c22",
+      "start": 50.44,
+      "end": 53.08,
+      "text": "Its AI is hunting one thing."
+    },
+    {
+      "id": "c23",
+      "start": 53.36,
+      "end": 54.0,
+      "text": "Smoke."
+    },
+    {
+      "id": "c24",
+      "start": 54.28,
+      "end": 57.4,
+      "text": "When it finds a grey smudge on the horizon,"
+    },
+    {
+      "id": "c25",
+      "start": 57.44,
+      "end": 58.68,
+      "text": "it flags it."
+    },
+    {
+      "id": "c26",
+      "start": 58.74,
+      "end": 60.88,
+      "text": "A flag is not a fire, though."
+    },
+    {
+      "id": "c27",
+      "start": 61.02,
+      "end": 63.5,
+      "text": "So a human analyst checks it first."
+    },
+    {
+      "id": "c28",
+      "start": 64.1,
+      "end": 65.83,
+      "text": "Then a second tower turns"
+    },
+    {
+      "id": "c29",
+      "start": 65.87,
+      "end": 67.44,
+      "text": "its eyes the same way."
+    },
+    {
+      "id": "c30",
+      "start": 67.6,
+      "end": 69.6,
+      "text": "Where the two sightlines cross,"
+    },
+    {
+      "id": "c31",
+      "start": 69.64,
+      "end": 72.06,
+      "text": "the map can get exact coordinates."
+    },
+    {
+      "id": "c32",
+      "start": 72.53,
+      "end": 74.28,
+      "text": "Pano calls 911."
+    },
+    {
+      "id": "c33",
+      "start": 74.7,
+      "end": 76.3,
+      "text": "The closest fire department"
+    },
+    {
+      "id": "c34",
+      "start": 76.34,
+      "end": 77.52,
+      "text": "gets the live stream,"
+    },
+    {
+      "id": "c35",
+      "start": 77.56,
+      "end": 79.24,
+      "text": "and a brush truck rolls."
+    },
+    {
+      "id": "c36",
+      "start": 80.06,
+      "end": 81.36,
+      "text": "Here is the catch."
+    },
+    {
+      "id": "c37",
+      "start": 81.97,
+      "end": 84.97,
+      "text": "Xcel's Reeves warns responders that a lot of"
+    },
+    {
+      "id": "c38",
+      "start": 85.01,
+      "end": 87.22,
+      "text": "these alerts will turn out to be nothing."
+    },
+    {
+      "id": "c39",
+      "start": 87.64,
+      "end": 89.94,
+      "text": "Most people are okay with that, he says."
+    },
+    {
+      "id": "c40",
+      "start": 89.98,
+      "end": 92.66,
+      "text": "They want to know everything that is going on."
+    },
+    {
+      "id": "c41",
+      "start": 93.08,
+      "end": 95.44,
+      "text": "Some cameras look over towns, though."
+    },
+    {
+      "id": "c42",
+      "start": 95.8,
+      "end": 99.28,
+      "text": "Those pixelate anything built, houses and all."
+    },
+    {
+      "id": "c43",
+      "start": 100.06,
+      "end": 101.98,
+      "text": "Somebody pays for all of it."
+    },
+    {
+      "id": "c44",
+      "start": 102.26,
+      "end": 104.19,
+      "text": "Xcel paid up front and will"
+    },
+    {
+      "id": "c45",
+      "start": 104.23,
+      "end": 106.48,
+      "text": "ask regulators to recover that cost,"
+    },
+    {
+      "id": "c46",
+      "start": 106.64,
+      "end": 108.67,
+      "text": "and it planned 68 more"
+    },
+    {
+      "id": "c47",
+      "start": 108.71,
+      "end": 112.28,
+      "text": "under a $490 million resiliency plan."
+    },
+    {
+      "id": "c48",
+      "start": 112.7,
+      "end": 114.58,
+      "text": "None of it puts out a fire."
+    },
+    {
+      "id": "c49",
+      "start": 114.76,
+      "end": 116.49,
+      "text": "It buys a head start,"
+    },
+    {
+      "id": "c50",
+      "start": 116.53,
+      "end": 118.36,
+      "text": "and then somebody still has"
+    },
+    {
+      "id": "c51",
+      "start": 118.4,
+      "end": 120.0,
+      "text": "to drive toward the smoke."
+    }
+  ],
+  "credits_s": 5.0,
+  "look": "v2",
+  "words": [
+    {
+      "word": "A",
+      "start": 0.7,
+      "end": 1.04
+    },
+    {
+      "word": "thin",
+      "start": 1.04,
+      "end": 1.37
+    },
+    {
+      "word": "curl",
+      "start": 1.37,
+      "end": 1.66
+    },
+    {
+      "word": "of",
+      "start": 1.66,
+      "end": 1.98
+    },
+    {
+      "word": "smoke",
+      "start": 1.98,
+      "end": 2.49
+    },
+    {
+      "word": "rises",
+      "start": 2.49,
+      "end": 2.95
+    },
+    {
+      "word": "off",
+      "start": 2.95,
+      "end": 3.19
+    },
+    {
+      "word": "the",
+      "start": 3.19,
+      "end": 3.455
+    },
+    {
+      "word": "Panhandle",
+      "start": 3.455,
+      "end": 3.915
+    },
+    {
+      "word": "grass.",
+      "start": 3.915,
+      "end": 4.52
+    },
+    {
+      "word": "Up",
+      "start": 4.8,
+      "end": 5.19
+    },
+    {
+      "word": "on",
+      "start": 5.19,
+      "end": 5.33
+    },
+    {
+      "word": "a",
+      "start": 5.33,
+      "end": 5.57
+    },
+    {
+      "word": "tower,",
+      "start": 5.57,
+      "end": 5.99
+    },
+    {
+      "word": "two",
+      "start": 5.99,
+      "end": 6.46
+    },
+    {
+      "word": "cameras",
+      "start": 6.46,
+      "end": 6.88
+    },
+    {
+      "word": "turn",
+      "start": 6.88,
+      "end": 7.27
+    },
+    {
+      "word": "and",
+      "start": 7.27,
+      "end": 7.58
+    },
+    {
+      "word": "lock",
+      "start": 7.58,
+      "end": 7.85
+    },
+    {
+      "word": "onto",
+      "start": 7.85,
+      "end": 8.16
+    },
+    {
+      "word": "it.",
+      "start": 8.16,
+      "end": 8.64
+    },
+    {
+      "word": "There",
+      "start": 9.18,
+      "end": 9.58
+    },
+    {
+      "word": "is",
+      "start": 9.58,
+      "end": 9.74
+    },
+    {
+      "word": "a",
+      "start": 9.74,
+      "end": 10.0
+    },
+    {
+      "word": "reason",
+      "start": 10.0,
+      "end": 10.31
+    },
+    {
+      "word": "they",
+      "start": 10.31,
+      "end": 10.49
+    },
+    {
+      "word": "are",
+      "start": 10.49,
+      "end": 10.61
+    },
+    {
+      "word": "up",
+      "start": 10.61,
+      "end": 10.83
+    },
+    {
+      "word": "there.",
+      "start": 10.83,
+      "end": 11.3
+    },
+    {
+      "word": "The",
+      "start": 11.56,
+      "end": 12.07
+    },
+    {
+      "word": "Smokehouse",
+      "start": 12.07,
+      "end": 12.49
+    },
+    {
+      "word": "Creek",
+      "start": 12.49,
+      "end": 12.93
+    },
+    {
+      "word": "fire",
+      "start": 12.93,
+      "end": 13.41
+    },
+    {
+      "word": "started",
+      "start": 13.41,
+      "end": 13.84
+    },
+    {
+      "word": "in",
+      "start": 13.84,
+      "end": 14.16
+    },
+    {
+      "word": "Hutchinson",
+      "start": 14.16,
+      "end": 14.61
+    },
+    {
+      "word": "County",
+      "start": 14.61,
+      "end": 15.15
+    },
+    {
+      "word": "near",
+      "start": 15.15,
+      "end": 15.55
+    },
+    {
+      "word": "Stinnett",
+      "start": 15.55,
+      "end": 16.02
+    },
+    {
+      "word": "and",
+      "start": 16.12,
+      "end": 16.6
+    },
+    {
+      "word": "became",
+      "start": 16.6,
+      "end": 16.89
+    },
+    {
+      "word": "the",
+      "start": 16.89,
+      "end": 17.22
+    },
+    {
+      "word": "largest",
+      "start": 17.22,
+      "end": 17.74
+    },
+    {
+      "word": "wildfire",
+      "start": 17.82,
+      "end": 18.32
+    },
+    {
+      "word": "in",
+      "start": 18.32,
+      "end": 18.62
+    },
+    {
+      "word": "state",
+      "start": 18.62,
+      "end": 18.97
+    },
+    {
+      "word": "history.",
+      "start": 18.97,
+      "end": 19.52
+    },
+    {
+      "word": "It",
+      "start": 19.94,
+      "end": 20.43
+    },
+    {
+      "word": "burned",
+      "start": 20.43,
+      "end": 20.87
+    },
+    {
+      "word": "roughly",
+      "start": 20.87,
+      "end": 21.46
+    },
+    {
+      "word": "1,058,482",
+      "start": 22.17,
+      "end": 22.81
+    },
+    {
+      "word": "acres.",
+      "start": 24.88,
+      "end": 25.52
+    },
+    {
+      "word": "Xcel",
+      "start": 26.24,
+      "end": 26.75
+    },
+    {
+      "word": "Energy",
+      "start": 26.75,
+      "end": 27.16
+    },
+    {
+      "word": "said",
+      "start": 27.16,
+      "end": 27.46
+    },
+    {
+      "word": "its",
+      "start": 27.46,
+      "end": 27.79
+    },
+    {
+      "word": "facilities",
+      "start": 27.79,
+      "end": 28.35
+    },
+    {
+      "word": "appeared",
+      "start": 28.35,
+      "end": 28.79
+    },
+    {
+      "word": "to",
+      "start": 28.79,
+      "end": 29.0
+    },
+    {
+      "word": "have",
+      "start": 29.0,
+      "end": 29.15
+    },
+    {
+      "word": "been",
+      "start": 29.15,
+      "end": 29.5
+    },
+    {
+      "word": "involved.",
+      "start": 29.5,
+      "end": 30.1
+    },
+    {
+      "word": "So",
+      "start": 30.48,
+      "end": 31.05
+    },
+    {
+      "word": "Xcel",
+      "start": 31.05,
+      "end": 31.54
+    },
+    {
+      "word": "teamed",
+      "start": 31.54,
+      "end": 31.9
+    },
+    {
+      "word": "up",
+      "start": 31.9,
+      "end": 32.1
+    },
+    {
+      "word": "with",
+      "start": 32.1,
+      "end": 32.24
+    },
+    {
+      "word": "a",
+      "start": 32.24,
+      "end": 32.45
+    },
+    {
+      "word": "company",
+      "start": 32.45,
+      "end": 32.79
+    },
+    {
+      "word": "called",
+      "start": 32.79,
+      "end": 33.175
+    },
+    {
+      "word": "Pano",
+      "start": 33.175,
+      "end": 33.595
+    },
+    {
+      "word": "AI.",
+      "start": 33.595,
+      "end": 34.14
+    },
+    {
+      "word": "By",
+      "start": 34.56,
+      "end": 35.03
+    },
+    {
+      "word": "last",
+      "start": 35.03,
+      "end": 35.42
+    },
+    {
+      "word": "November,",
+      "start": 35.42,
+      "end": 35.94
+    },
+    {
+      "word": "there",
+      "start": 35.94,
+      "end": 36.3
+    },
+    {
+      "word": "were",
+      "start": 36.3,
+      "end": 36.64
+    },
+    {
+      "word": "57",
+      "start": 36.64,
+      "end": 37.15
+    },
+    {
+      "word": "camera",
+      "start": 37.15,
+      "end": 37.65
+    },
+    {
+      "word": "stations",
+      "start": 37.65,
+      "end": 38.12
+    },
+    {
+      "word": "across",
+      "start": 38.12,
+      "end": 38.46
+    },
+    {
+      "word": "the",
+      "start": 38.46,
+      "end": 38.78
+    },
+    {
+      "word": "Panhandle,",
+      "start": 38.78,
+      "end": 39.3
+    },
+    {
+      "word": "each",
+      "start": 39.52,
+      "end": 40.01
+    },
+    {
+      "word": "on",
+      "start": 40.01,
+      "end": 40.3
+    },
+    {
+      "word": "top",
+      "start": 40.3,
+      "end": 40.51
+    },
+    {
+      "word": "of",
+      "start": 40.51,
+      "end": 40.66
+    },
+    {
+      "word": "a",
+      "start": 40.66,
+      "end": 40.98
+    },
+    {
+      "word": "communication",
+      "start": 40.98,
+      "end": 41.46
+    },
+    {
+      "word": "tower.",
+      "start": 41.46,
+      "end": 42.0
+    },
+    {
+      "word": "Each",
+      "start": 42.52,
+      "end": 43.09
+    },
+    {
+      "word": "station",
+      "start": 43.09,
+      "end": 43.56
+    },
+    {
+      "word": "sweeps",
+      "start": 43.56,
+      "end": 43.96
+    },
+    {
+      "word": "a",
+      "start": 43.96,
+      "end": 44.28
+    },
+    {
+      "word": "full",
+      "start": 44.28,
+      "end": 44.74
+    },
+    {
+      "word": "360",
+      "start": 45.04,
+      "end": 45.62
+    },
+    {
+      "word": "degrees",
+      "start": 45.62,
+      "end": 46.13
+    },
+    {
+      "word": "every",
+      "start": 46.13,
+      "end": 46.54
+    },
+    {
+      "word": "minute.",
+      "start": 46.54,
+      "end": 47.02
+    },
+    {
+      "word": "It",
+      "start": 47.1,
+      "end": 47.62
+    },
+    {
+      "word": "watches",
+      "start": 47.62,
+      "end": 48.01
+    },
+    {
+      "word": "about",
+      "start": 48.01,
+      "end": 48.36
+    },
+    {
+      "word": "10",
+      "start": 48.36,
+      "end": 48.71
+    },
+    {
+      "word": "miles",
+      "start": 48.71,
+      "end": 49.03
+    },
+    {
+      "word": "in",
+      "start": 49.03,
+      "end": 49.25
+    },
+    {
+      "word": "each",
+      "start": 49.25,
+      "end": 49.59
+    },
+    {
+      "word": "direction.",
+      "start": 49.59,
+      "end": 50.16
+    },
+    {
+      "word": "Its",
+      "start": 50.44,
+      "end": 51.0
+    },
+    {
+      "word": "AI",
+      "start": 51.0,
+      "end": 51.4
+    },
+    {
+      "word": "is",
+      "start": 51.4,
+      "end": 51.75
+    },
+    {
+      "word": "hunting",
+      "start": 51.75,
+      "end": 52.13
+    },
+    {
+      "word": "one",
+      "start": 52.13,
+      "end": 52.54
+    },
+    {
+      "word": "thing.",
+      "start": 52.54,
+      "end": 53.08
+    },
+    {
+      "word": "Smoke.",
+      "start": 53.36,
+      "end": 54.0
+    },
+    {
+      "word": "When",
+      "start": 54.28,
+      "end": 54.66
+    },
+    {
+      "word": "it",
+      "start": 54.66,
+      "end": 54.88
+    },
+    {
+      "word": "finds",
+      "start": 54.88,
+      "end": 55.36
+    },
+    {
+      "word": "a",
+      "start": 55.4,
+      "end": 55.86
+    },
+    {
+      "word": "grey",
+      "start": 55.86,
+      "end": 56.19
+    },
+    {
+      "word": "smudge",
+      "start": 56.19,
+      "end": 56.49
+    },
+    {
+      "word": "on",
+      "start": 56.49,
+      "end": 56.64
+    },
+    {
+      "word": "the",
+      "start": 56.64,
+      "end": 56.94
+    },
+    {
+      "word": "horizon,",
+      "start": 56.94,
+      "end": 57.44
+    },
+    {
+      "word": "it",
+      "start": 57.44,
+      "end": 57.82
+    },
+    {
+      "word": "flags",
+      "start": 57.82,
+      "end": 58.16
+    },
+    {
+      "word": "it.",
+      "start": 58.16,
+      "end": 58.68
+    },
+    {
+      "word": "A",
+      "start": 58.74,
+      "end": 59.23
+    },
+    {
+      "word": "flag",
+      "start": 59.23,
+      "end": 59.54
+    },
+    {
+      "word": "is",
+      "start": 59.54,
+      "end": 59.79
+    },
+    {
+      "word": "not",
+      "start": 59.79,
+      "end": 59.97
+    },
+    {
+      "word": "a",
+      "start": 59.97,
+      "end": 60.18
+    },
+    {
+      "word": "fire,",
+      "start": 60.18,
+      "end": 60.44
+    },
+    {
+      "word": "though.",
+      "start": 60.44,
+      "end": 60.88
+    },
+    {
+      "word": "So",
+      "start": 61.02,
+      "end": 61.42
+    },
+    {
+      "word": "a",
+      "start": 61.42,
+      "end": 61.64
+    },
+    {
+      "word": "human",
+      "start": 61.64,
+      "end": 62.02
+    },
+    {
+      "word": "analyst",
+      "start": 62.02,
+      "end": 62.43
+    },
+    {
+      "word": "checks",
+      "start": 62.43,
+      "end": 62.73
+    },
+    {
+      "word": "it",
+      "start": 62.73,
+      "end": 63.02
+    },
+    {
+      "word": "first.",
+      "start": 63.02,
+      "end": 63.5
+    },
+    {
+      "word": "Then",
+      "start": 64.1,
+      "end": 64.54
+    },
+    {
+      "word": "a",
+      "start": 64.54,
+      "end": 64.83
+    },
+    {
+      "word": "second",
+      "start": 64.83,
+      "end": 65.19
+    },
+    {
+      "word": "tower",
+      "start": 65.19,
+      "end": 65.57
+    },
+    {
+      "word": "turns",
+      "start": 65.57,
+      "end": 65.87
+    },
+    {
+      "word": "its",
+      "start": 65.87,
+      "end": 66.14
+    },
+    {
+      "word": "eyes",
+      "start": 66.14,
+      "end": 66.4
+    },
+    {
+      "word": "the",
+      "start": 66.4,
+      "end": 66.64
+    },
+    {
+      "word": "same",
+      "start": 66.64,
+      "end": 66.95
+    },
+    {
+      "word": "way.",
+      "start": 66.95,
+      "end": 67.44
+    },
+    {
+      "word": "Where",
+      "start": 67.6,
+      "end": 68.0
+    },
+    {
+      "word": "the",
+      "start": 68.0,
+      "end": 68.19
+    },
+    {
+      "word": "two",
+      "start": 68.19,
+      "end": 68.535
+    },
+    {
+      "word": "sightlines",
+      "start": 68.535,
+      "end": 69.055
+    },
+    {
+      "word": "cross,",
+      "start": 69.055,
+      "end": 69.64
+    },
+    {
+      "word": "the",
+      "start": 69.64,
+      "end": 70.07
+    },
+    {
+      "word": "map",
+      "start": 70.07,
+      "end": 70.34
+    },
+    {
+      "word": "can",
+      "start": 70.34,
+      "end": 70.6
+    },
+    {
+      "word": "get",
+      "start": 70.6,
+      "end": 70.93
+    },
+    {
+      "word": "exact",
+      "start": 70.93,
+      "end": 71.44
+    },
+    {
+      "word": "coordinates.",
+      "start": 71.44,
+      "end": 72.06
+    },
+    {
+      "word": "Pano",
+      "start": 72.53,
+      "end": 73.085
+    },
+    {
+      "word": "calls",
+      "start": 73.085,
+      "end": 73.64
+    },
+    {
+      "word": "911.",
+      "start": 73.64,
+      "end": 74.28
+    },
+    {
+      "word": "The",
+      "start": 74.7,
+      "end": 75.18
+    },
+    {
+      "word": "closest",
+      "start": 75.18,
+      "end": 75.53
+    },
+    {
+      "word": "fire",
+      "start": 75.53,
+      "end": 75.95
+    },
+    {
+      "word": "department",
+      "start": 75.95,
+      "end": 76.34
+    },
+    {
+      "word": "gets",
+      "start": 76.34,
+      "end": 76.62
+    },
+    {
+      "word": "the",
+      "start": 76.62,
+      "end": 76.98
+    },
+    {
+      "word": "live",
+      "start": 76.98,
+      "end": 77.24
+    },
+    {
+      "word": "stream,",
+      "start": 77.24,
+      "end": 77.56
+    },
+    {
+      "word": "and",
+      "start": 77.56,
+      "end": 77.93
+    },
+    {
+      "word": "a",
+      "start": 77.93,
+      "end": 78.1
+    },
+    {
+      "word": "brush",
+      "start": 78.1,
+      "end": 78.37
+    },
+    {
+      "word": "truck",
+      "start": 78.37,
+      "end": 78.73
+    },
+    {
+      "word": "rolls.",
+      "start": 78.73,
+      "end": 79.24
+    },
+    {
+      "word": "Here",
+      "start": 80.06,
+      "end": 80.45
+    },
+    {
+      "word": "is",
+      "start": 80.45,
+      "end": 80.6
+    },
+    {
+      "word": "the",
+      "start": 80.6,
+      "end": 80.86
+    },
+    {
+      "word": "catch.",
+      "start": 80.86,
+      "end": 81.36
+    },
+    {
+      "word": "Xcel's",
+      "start": 81.97,
+      "end": 82.515
+    },
+    {
+      "word": "Reeves",
+      "start": 82.515,
+      "end": 83.06
+    },
+    {
+      "word": "warns",
+      "start": 83.08,
+      "end": 83.72
+    },
+    {
+      "word": "responders",
+      "start": 83.72,
+      "end": 84.26
+    },
+    {
+      "word": "that",
+      "start": 84.26,
+      "end": 84.54
+    },
+    {
+      "word": "a",
+      "start": 84.54,
+      "end": 84.69
+    },
+    {
+      "word": "lot",
+      "start": 84.69,
+      "end": 84.86
+    },
+    {
+      "word": "of",
+      "start": 84.86,
+      "end": 85.01
+    },
+    {
+      "word": "these",
+      "start": 85.01,
+      "end": 85.27
+    },
+    {
+      "word": "alerts",
+      "start": 85.27,
+      "end": 85.61
+    },
+    {
+      "word": "will",
+      "start": 85.61,
+      "end": 85.88
+    },
+    {
+      "word": "turn",
+      "start": 85.88,
+      "end": 86.12
+    },
+    {
+      "word": "out",
+      "start": 86.12,
+      "end": 86.32
+    },
+    {
+      "word": "to",
+      "start": 86.32,
+      "end": 86.49
+    },
+    {
+      "word": "be",
+      "start": 86.49,
+      "end": 86.74
+    },
+    {
+      "word": "nothing.",
+      "start": 86.74,
+      "end": 87.22
+    },
+    {
+      "word": "Most",
+      "start": 87.64,
+      "end": 88.11
+    },
+    {
+      "word": "people",
+      "start": 88.11,
+      "end": 88.37
+    },
+    {
+      "word": "are",
+      "start": 88.37,
+      "end": 88.62
+    },
+    {
+      "word": "okay",
+      "start": 88.62,
+      "end": 88.87
+    },
+    {
+      "word": "with",
+      "start": 88.87,
+      "end": 89.09
+    },
+    {
+      "word": "that,",
+      "start": 89.09,
+      "end": 89.3
+    },
+    {
+      "word": "he",
+      "start": 89.3,
+      "end": 89.53
+    },
+    {
+      "word": "says.",
+      "start": 89.53,
+      "end": 89.98
+    },
+    {
+      "word": "They",
+      "start": 89.98,
+      "end": 90.4
+    },
+    {
+      "word": "want",
+      "start": 90.4,
+      "end": 90.6
+    },
+    {
+      "word": "to",
+      "start": 90.6,
+      "end": 90.8
+    },
+    {
+      "word": "know",
+      "start": 90.8,
+      "end": 91.12
+    },
+    {
+      "word": "everything",
+      "start": 91.12,
+      "end": 91.49
+    },
+    {
+      "word": "that",
+      "start": 91.49,
+      "end": 91.71
+    },
+    {
+      "word": "is",
+      "start": 91.71,
+      "end": 91.88
+    },
+    {
+      "word": "going",
+      "start": 91.88,
+      "end": 92.16
+    },
+    {
+      "word": "on.",
+      "start": 92.16,
+      "end": 92.66
+    },
+    {
+      "word": "Some",
+      "start": 93.08,
+      "end": 93.62
+    },
+    {
+      "word": "cameras",
+      "start": 93.62,
+      "end": 93.98
+    },
+    {
+      "word": "look",
+      "start": 93.98,
+      "end": 94.25
+    },
+    {
+      "word": "over",
+      "start": 94.25,
+      "end": 94.58
+    },
+    {
+      "word": "towns,",
+      "start": 94.58,
+      "end": 94.95
+    },
+    {
+      "word": "though.",
+      "start": 94.95,
+      "end": 95.44
+    },
+    {
+      "word": "Those",
+      "start": 95.8,
+      "end": 96.39
+    },
+    {
+      "word": "pixelate",
+      "start": 96.39,
+      "end": 96.95
+    },
+    {
+      "word": "anything",
+      "start": 96.95,
+      "end": 97.46
+    },
+    {
+      "word": "built,",
+      "start": 97.46,
+      "end": 98.0
+    },
+    {
+      "word": "houses",
+      "start": 98.02,
+      "end": 98.49
+    },
+    {
+      "word": "and",
+      "start": 98.49,
+      "end": 98.8
+    },
+    {
+      "word": "all.",
+      "start": 98.8,
+      "end": 99.28
+    },
+    {
+      "word": "Somebody",
+      "start": 100.06,
+      "end": 100.58
+    },
+    {
+      "word": "pays",
+      "start": 100.58,
+      "end": 100.96
+    },
+    {
+      "word": "for",
+      "start": 100.96,
+      "end": 101.24
+    },
+    {
+      "word": "all",
+      "start": 101.24,
+      "end": 101.4
+    },
+    {
+      "word": "of",
+      "start": 101.4,
+      "end": 101.56
+    },
+    {
+      "word": "it.",
+      "start": 101.56,
+      "end": 101.98
+    },
+    {
+      "word": "Xcel",
+      "start": 102.26,
+      "end": 102.77
+    },
+    {
+      "word": "paid",
+      "start": 102.77,
+      "end": 103.04
+    },
+    {
+      "word": "up",
+      "start": 103.04,
+      "end": 103.28
+    },
+    {
+      "word": "front",
+      "start": 103.28,
+      "end": 103.68
+    },
+    {
+      "word": "and",
+      "start": 103.68,
+      "end": 103.99
+    },
+    {
+      "word": "will",
+      "start": 103.99,
+      "end": 104.23
+    },
+    {
+      "word": "ask",
+      "start": 104.23,
+      "end": 104.65
+    },
+    {
+      "word": "regulators",
+      "start": 104.65,
+      "end": 105.06
+    },
+    {
+      "word": "to",
+      "start": 105.06,
+      "end": 105.38
+    },
+    {
+      "word": "recover",
+      "start": 105.38,
+      "end": 105.67
+    },
+    {
+      "word": "that",
+      "start": 105.67,
+      "end": 105.98
+    },
+    {
+      "word": "cost,",
+      "start": 105.98,
+      "end": 106.48
+    },
+    {
+      "word": "and",
+      "start": 106.64,
+      "end": 107.02
+    },
+    {
+      "word": "it",
+      "start": 107.02,
+      "end": 107.26
+    },
+    {
+      "word": "planned",
+      "start": 107.26,
+      "end": 107.76
+    },
+    {
+      "word": "68",
+      "start": 107.8,
+      "end": 108.33
+    },
+    {
+      "word": "more",
+      "start": 108.33,
+      "end": 108.71
+    },
+    {
+      "word": "under",
+      "start": 108.71,
+      "end": 108.97
+    },
+    {
+      "word": "a",
+      "start": 108.97,
+      "end": 109.38
+    },
+    {
+      "word": "$490",
+      "start": 109.56,
+      "end": 110.18
+    },
+    {
+      "word": "million",
+      "start": 110.18,
+      "end": 110.8
+    },
+    {
+      "word": "resiliency",
+      "start": 110.88,
+      "end": 111.52
+    },
+    {
+      "word": "plan.",
+      "start": 111.64,
+      "end": 112.28
+    },
+    {
+      "word": "None",
+      "start": 112.7,
+      "end": 113.11
+    },
+    {
+      "word": "of",
+      "start": 113.11,
+      "end": 113.28
+    },
+    {
+      "word": "it",
+      "start": 113.28,
+      "end": 113.48
+    },
+    {
+      "word": "puts",
+      "start": 113.48,
+      "end": 113.72
+    },
+    {
+      "word": "out",
+      "start": 113.72,
+      "end": 113.91
+    },
+    {
+      "word": "a",
+      "start": 113.91,
+      "end": 114.12
+    },
+    {
+      "word": "fire.",
+      "start": 114.12,
+      "end": 114.58
+    },
+    {
+      "word": "It",
+      "start": 114.76,
+      "end": 115.23
+    },
+    {
+      "word": "buys",
+      "start": 115.23,
+      "end": 115.52
+    },
+    {
+      "word": "a",
+      "start": 115.52,
+      "end": 115.75
+    },
+    {
+      "word": "head",
+      "start": 115.75,
+      "end": 116.04
+    },
+    {
+      "word": "start,",
+      "start": 116.04,
+      "end": 116.53
+    },
+    {
+      "word": "and",
+      "start": 116.53,
+      "end": 116.95
+    },
+    {
+      "word": "then",
+      "start": 116.95,
+      "end": 117.32
+    },
+    {
+      "word": "somebody",
+      "start": 117.32,
+      "end": 117.79
+    },
+    {
+      "word": "still",
+      "start": 117.79,
+      "end": 118.16
+    },
+    {
+      "word": "has",
+      "start": 118.16,
+      "end": 118.4
+    },
+    {
+      "word": "to",
+      "start": 118.4,
+      "end": 118.68
+    },
+    {
+      "word": "drive",
+      "start": 118.68,
+      "end": 119.06
+    },
+    {
+      "word": "toward",
+      "start": 119.06,
+      "end": 119.37
+    },
+    {
+      "word": "the",
+      "start": 119.37,
+      "end": 119.63
+    },
+    {
+      "word": "smoke.",
+      "start": 119.63,
+      "end": 120.0
+    }
+  ],
+  "beats": [],
+  "timed_at": "2026-11-26T09:48:12+00:00",
+  "run_id": "2026-11-25"
+}
