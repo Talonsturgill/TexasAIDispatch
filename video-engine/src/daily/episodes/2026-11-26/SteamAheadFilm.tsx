@@ -263,7 +263,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         <rect x={0} y={0} width={1080} height={1920} fill="#f3ead8" />
         <path d="M-40 1100 L1120 1100" stroke="#3a3550" strokeWidth={22} strokeLinecap="round" />
         {[0, 1, 2, 3, 4].map((i) => {
-          const d = pop(t - i * 0.18, 0.4, 1.8);
+          const d = pop(t + 0.6 - i * 0.1, 0.4, 1.8);
           return (
             <g key={i} transform={`translate(${160 + i * 190} ${1090 - (1 - d) * 400}) scale(1.6)`} opacity={clamp01(d * 3)}>
               <ContactShadow x={0} y={10} w={80} />
@@ -703,19 +703,19 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
       const join = ease(clamp01(mt / 0.8));
       return svg(<g>
         {room()}
-        <Monitor x={540} y={820} s={0.85} glow={0.3}>
+        <Monitor x={540} y={700} s={0.85} glow={0.3}>
           <rect width={900} height={520} fill="#101634" />
           <path d="M40 300 L880 300" stroke="#26305a" strokeWidth={3} />
           <path d={`M60 ${200 - 120 * (1 - join)} Q300 ${200 - 120 * (1 - join)} 450 ${380 - 60 * (1 - join)} T840 ${210 - 120 * (1 - join)}`} stroke={ACCENT} strokeWidth={10}
             strokeDasharray="22 14" fill="none" />
           <path d="M60 200 Q300 200 450 380 T840 210" stroke={CYAN} strokeWidth={10} fill="none" opacity={0.9} />
           {join > 0.95 && <circle cx={450} cy={380} r={40 + 10 * Math.sin(frame / 4)} fill="none" stroke={GREEN} strokeWidth={8} />}
-          <text x={60} y={80} fontFamily={FONT.body} fontWeight={800} fontSize={34} fill={ACCENT}>FORECAST</text>
-          <text x={60} y={480} fontFamily={FONT.body} fontWeight={800} fontSize={34} fill={CYAN}>WHAT HAPPENED</text>
+          <text x={860} y={60} textAnchor="end" fontFamily={FONT.body} fontWeight={800} fontSize={34} fill={ACCENT}>FORECAST</text>
+          <text x={40} y={60} fontFamily={FONT.body} fontWeight={800} fontSize={34} fill={CYAN}>WHAT HAPPENED</text>
         </Monitor>
         {desk(1310)}
-        {person(OP, 200, 1840, 1.9, {pose: 'stand'}, kl > 1 ? 'happy' : 'thinking', 0.6, 6)}
-        {person(KLEIN, lerp(1180, 860, ease(clamp01(kl / 0.8))), 1860, 2.0, move(kl, 0.8, 'stand', 'point'), mt > 0.8 ? 'happy' : 'surprised', -0.6, 9,
+        {person(OP, 120, 1900, 1.7, move(kl, 0.6, 'stand', 'point'), kl > 1 ? 'happy' : 'thinking', 0.6, 6)}
+        {person(KLEIN, lerp(1180, 700, ease(clamp01(kl / 0.8))), 1880, 1.9, move(kl, 0.8, 'stand', 'point'), mt > 0.8 ? 'happy' : 'surprised', -0.6, 9,
           {walk: kl > 0 && kl < 0.8 ? kl : undefined})}
         <Burst x={540} y={900} p={(mt - 0.8) / 0.6} color={GREEN} r={260} />
       </g>);
@@ -851,7 +851,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
     }
     case 'score-stamp': {
       const sc = since('s11-score');
-      const dr = since('s11-drop');
+      const dr = Math.max(since('s11-drop'), t - 1.2);
       const n = 75;
       const st = pop(dr, 0.25, 2.2);
       return svg(<g>
