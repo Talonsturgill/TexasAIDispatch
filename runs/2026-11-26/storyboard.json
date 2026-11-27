@@ -1,0 +1,3684 @@
+{
+  "date": "2026-11-26",
+  "title": "The screen reads next",
+  "topic": "At TotalEnergies' Port Arthur refinery in Jefferson County, console operators on the delayed coker piloted a Honeywell AI tool whose models predicted steam pressure dips 10 to 18 minutes earlier than before, while one model was dropped and the alarm guide is still being evaluated.",
+  "tone": "win",
+  "hook": "This pressure dip hasn't happened yet",
+  "beat": "oilfield",
+  "episode": "steam-ahead-1126",
+  "entities": [
+    "TotalEnergies",
+    "Honeywell",
+    "Experion Operations Assistant",
+    "Port Arthur",
+    "Jefferson County",
+    "delayed coker"
+  ],
+  "treatment": {
+    "logline": "In a Port Arthur refinery control room, a brass steam gauge with a face learns to see its own drop coming, and the film follows one warning from the boiler to the console to the person who still makes the call.",
+    "cold_open": "The console operator leans into a glowing screen as a dashed orange ghost needle on the steam gauge swings down into the red while the real needle still sits happy in the green. Before second three the operator's eyebrows go up and a minutes ring snaps around the gauge.",
+    "turn": "Not every model earned a place. The drum switch model is right 75 percent of the time and still gets stamped dropped, because the switch depends on things it can't see. The engineer behind it admits he started out pessimistic.",
+    "button": "Back at the console the coffee ripples again, the ghost needle dips ahead, and the operator is already on it while the real needle holds in the green. The gauge reads now. The screen reads next. The call is still the operator's."
+  },
+  "hero": {
+    "name": "the delayed coker with a face",
+    "why": "two tall coke drums under twin derricks with a control shack whose window is its face. No earlier film has drawn a refinery, and the coker is the unit the whole story runs on."
+  },
+  "throughline": {
+    "object": "the steam header gauge",
+    "states": [
+      {
+        "scene_id": "s1",
+        "state": "real needle steady in the green while a dashed orange ghost needle swings toward the red"
+      },
+      {
+        "scene_id": "s5",
+        "state": "real needle falls into the red as the compressor trips, the gauge's face in a panic"
+      },
+      {
+        "scene_id": "s8",
+        "state": "ghost needle points into the red with a ring of minutes round it, the real needle still green"
+      },
+      {
+        "scene_id": "s14",
+        "state": "real needle holds in the green, the ghost fades, the gauge's face relieved"
+      }
+    ]
+  },
+  "fingerprint": {
+    "pov": "the console looking out, then the unit looking back",
+    "layout": "tall drums and stacks against a low Gulf sky, steam lines running across the frame on horizontals",
+    "hero_treatment": "twin silver coke drums under yellow derricks with a cyan-eyed shack face",
+    "palette": "warm Gulf haze and silver steel, cyan screen light, one orange accent for the forecast"
+  },
+  "music": {
+    "track": "amazing_plan"
+  },
+  "wall_views": [
+    "crack-cutaway",
+    "pilot-calendar",
+    "five-events",
+    "tag-wall"
+  ],
+  "credits": "TEXAS AI DOCKET\nSOURCES\nControl Global, June 11th, 2026\nHoneywell release, November 11th, 2025\nTotalEnergies Port Arthur platform page\nHandbook of Texas, Port Arthur\nILLUSTRATION\nOriginal authored drawings. Illustrative, not the real site\nMUSIC\n\"Amazing Plan\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "In a Port Arthur refinery control room, a screen is drawing a steam pressure dip that hasn't happened yet.",
+      "vo_claims": [
+        "c1",
+        "c6"
+      ],
+      "visual_events": [
+        {
+          "id": "s1-ghost",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "warning_bloom",
+          "label": "Dip ahead",
+          "draw": {
+            "subject": "a dashed orange ghost needle",
+            "action": "swings down into the red while the real needle stays green and the coffee cup ripples",
+            "emotion": "the console operator's cup stops halfway, eyebrows up"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s1-ring",
+          "at_phrase": "steam pressure dip",
+          "duration_s": 1.2,
+          "sound": "sensor_heartbeat",
+          "label": "Port Arthur",
+          "draw": {
+            "subject": "a ring of minutes",
+            "action": "snaps around the gauge and starts counting down"
+          },
+          "at_s": 4.92
+        }
+      ],
+      "start_s": 0.0,
+      "duration_s": 7.86,
+      "planes": []
+    },
+    {
+      "id": "s2",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "The refinery belongs to TotalEnergies, in Jefferson County. It runs about 238,000 barrels of crude a day through 47 units.",
+      "vo_claims": [
+        "c2",
+        "c18"
+      ],
+      "visual_events": [
+        {
+          "id": "s2-roll",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "brush_truck_roll",
+          "label": "Jefferson County",
+          "draw": {
+            "subject": "a field operator's pickup",
+            "action": "rolls between steel towers and tanks as steam rises"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s2-count",
+          "at_phrase": "238,000 barrels",
+          "duration_s": 1.6,
+          "sound": "freight_count",
+          "label": "238,000 barrels a day",
+          "draw": {
+            "subject": "a counter",
+            "action": "spins up to 238,000 while barrels stack into a wall behind it",
+            "emotion": "the field operator whistles up at it"
+          },
+          "at_s": 5.46
+        },
+        {
+          "id": "s2-units",
+          "at_phrase": "47 units",
+          "duration_s": 1.2,
+          "sound": "reuse_tile_lock",
+          "label": "47 units",
+          "draw": {
+            "subject": "47 small unit tiles",
+            "action": "click into a grid and one tile lights orange"
+          },
+          "at_s": 8.0
+        }
+      ],
+      "start_s": 7.86,
+      "duration_s": 9.56,
+      "planes": []
+    },
+    {
+      "id": "s3",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "One of them is the delayed coker. It uses high heat to crack heavy leftover oil into lighter, more valuable products.",
+      "vo_claims": [
+        "c3",
+        "c28"
+      ],
+      "visual_events": [
+        {
+          "id": "s3-hero",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "rig_floor",
+          "label": "The delayed coker",
+          "draw": {
+            "subject": "the coker",
+            "action": "rises into frame, its shack face blinks awake and looks down at the operator",
+            "emotion": "the field operator tips back his hard hat, impressed"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s3-crack",
+          "at_phrase": "crack heavy leftover oil",
+          "duration_s": 1.6,
+          "sound": "alloy_furnace",
+          "label": "Heavy oil in",
+          "draw": {
+            "subject": "a thick black drop",
+            "action": "falls into a glowing drum and cracks apart"
+          },
+          "at_s": 4.29
+        },
+        {
+          "id": "s3-light",
+          "at_phrase": "lighter, more valuable",
+          "duration_s": 1.4,
+          "sound": "derivation_unfold",
+          "label": "Lighter products out",
+          "draw": {
+            "subject": "light amber streams",
+            "action": "pour out of the drum into two clear jars that fill"
+          },
+          "at_s": 6.41
+        }
+      ],
+      "start_s": 17.42,
+      "duration_s": 8.74,
+      "planes": []
+    },
+    {
+      "id": "s4",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "The coker's turbines need high pressure steam, and it has to keep coming.",
+      "vo_claims": [
+        "c24"
+      ],
+      "visual_events": [
+        {
+          "id": "s4-flow",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "blower_fan",
+          "label": "High pressure steam",
+          "draw": {
+            "subject": "cyan steam",
+            "action": "races through an overhead line past the field operator, who follows it with a finger"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s4-turbine",
+          "at_phrase": "it has to keep coming",
+          "duration_s": 1.4,
+          "sound": "assistive_servo",
+          "label": "Turbines need it",
+          "draw": {
+            "subject": "a turbine wheel",
+            "action": "spins fast in its casing as steam hits its blades"
+          },
+          "at_s": 3.33
+        }
+      ],
+      "start_s": 26.16,
+      "duration_s": 5.02,
+      "planes": []
+    },
+    {
+      "id": "s5",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "When a boiler falters, steam line pressure dips. A dip can trip a compressor, and the plant can shut down and flare.",
+      "vo_claims": [
+        "c4"
+      ],
+      "visual_events": [
+        {
+          "id": "s5-falter",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "freshwater_fault",
+          "label": "A boiler falters",
+          "draw": {
+            "subject": "the boiler's flame",
+            "action": "sputters and shrinks in its window",
+            "emotion": "the field operator spins round, worried"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s5-dip",
+          "at_phrase": "steam line pressure dips",
+          "duration_s": 1.2,
+          "sound": "decision_stop",
+          "label": "Pressure dips",
+          "draw": {
+            "subject": "the gauge needle",
+            "action": "drops into the red and the gauge's face goes wide-eyed"
+          },
+          "at_s": 1.82
+        },
+        {
+          "id": "s5-trip",
+          "at_phrase": "trip a compressor",
+          "duration_s": 1.3,
+          "sound": "causal_break",
+          "label": "Compressor trips",
+          "draw": {
+            "subject": "the compressor",
+            "action": "shudders, its fan stops and its eyes go to X"
+          },
+          "at_s": 4.56
+        },
+        {
+          "id": "s5-flare",
+          "at_phrase": "shut down and flare",
+          "duration_s": 1.6,
+          "sound": "warning_bloom",
+          "label": "Shutdown and flaring",
+          "draw": {
+            "subject": "the flare stack",
+            "action": "bursts into a tall orange flame over the units"
+          },
+          "at_s": 6.53
+        }
+      ],
+      "start_s": 31.18,
+      "duration_s": 8.4,
+      "planes": []
+    },
+    {
+      "id": "s6",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "The console operator gets little time to decide which less critical equipment gives up its steam.",
+      "vo_claims": [
+        "c5"
+      ],
+      "visual_events": [
+        {
+          "id": "s6-alarm",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "warning_bloom",
+          "label": "Little time",
+          "draw": {
+            "subject": "the console operator",
+            "action": "whips round as three screens flash red at once",
+            "emotion": "panic, hands up"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s6-choose",
+          "at_phrase": "less critical equipment",
+          "duration_s": 1.6,
+          "sound": "lane_choice",
+          "label": "Which one gives up steam?",
+          "draw": {
+            "subject": "four equipment cards",
+            "action": "shuffle on the screen while a finger hovers and a timer bar drains"
+          },
+          "at_s": 3.39
+        }
+      ],
+      "start_s": 39.58,
+      "duration_s": 6.54,
+      "planes": []
+    },
+    {
+      "id": "s7",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "So in October 2024, TotalEnergies began testing a Honeywell AI tool on the coker console.",
+      "vo_claims": [
+        "c12",
+        "c1"
+      ],
+      "visual_events": [
+        {
+          "id": "s7-cal",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "paper_photo_slide",
+          "label": "October 2024",
+          "draw": {
+            "subject": "a wall calendar",
+            "action": "flips to October 2024 and a pin stabs the page"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s7-install",
+          "at_phrase": "a Honeywell AI tool",
+          "duration_s": 1.6,
+          "sound": "protocol_upload",
+          "label": "A Honeywell AI tool",
+          "draw": {
+            "subject": "a new panel",
+            "action": "slides onto the console screen and lights up",
+            "emotion": "the console operator raises an eyebrow, arms crossed"
+          },
+          "at_s": 3.94
+        }
+      ],
+      "start_s": 46.12,
+      "duration_s": 7.4,
+      "planes": []
+    },
+    {
+      "id": "s9",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Honeywell's early count, in November 2025, was five potential events, flagged an average of 12 minutes before an alarm.",
+      "vo_claims": [
+        "c13",
+        "c31"
+      ],
+      "visual_events": [
+        {
+          "id": "s9-five",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "field_marker",
+          "label": "Five potential events",
+          "draw": {
+            "subject": "five orange pins",
+            "action": "drop one after another onto a timeline"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s9-date",
+          "at_phrase": "in November 2025",
+          "duration_s": 1.4,
+          "sound": "paper_photo_slide",
+          "label": "November 2025",
+          "draw": {
+            "subject": "a release page",
+            "action": "slides in under the timeline with its date stamped in orange"
+          },
+          "at_s": 1.55
+        },
+        {
+          "id": "s9-twelve",
+          "at_phrase": "12 minutes",
+          "duration_s": 1.6,
+          "sound": "sensor_heartbeat",
+          "label": "About 12 min before an alarm",
+          "draw": {
+            "subject": "each pin",
+            "action": "raises a small 12 MIN flag ahead of a ringing alarm bell"
+          },
+          "at_s": 6.62
+        }
+      ],
+      "start_s": 53.52,
+      "duration_s": 8.64,
+      "planes": []
+    },
+    {
+      "id": "s8",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "A later account said its models predicted pressure dips 10 to 18 minutes earlier than before. That is a runway of time to act.",
+      "vo_claims": [
+        "c6"
+      ],
+      "visual_events": [
+        {
+          "id": "s8-forecast",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "forecast_clue",
+          "label": "A later account",
+          "draw": {
+            "subject": "the gauge's dashed ghost needle",
+            "action": "sweeps into the red while a minutes ring wraps round it and the real needle stays green"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s8-ring",
+          "at_phrase": "10 to 18 minutes",
+          "duration_s": 1.6,
+          "sound": "sensor_heartbeat",
+          "label": "10 to 18 minutes",
+          "draw": {
+            "subject": "the minutes ring",
+            "action": "fills past 10 and lands on 18 with a hit"
+          },
+          "at_s": 3.39
+        },
+        {
+          "id": "s8-runway",
+          "at_phrase": "a runway of time",
+          "duration_s": 1.8,
+          "sound": "route_marker",
+          "label": "Minutes to act",
+          "draw": {
+            "subject": "the dashed forecast line",
+            "action": "rolls off the screen and across the console desk as a runway with minute ticks, past the coffee cup",
+            "emotion": "the operator grins and sets the cup on it"
+          },
+          "at_s": 6.65
+        }
+      ],
+      "start_s": 62.16,
+      "duration_s": 9.12,
+      "planes": []
+    },
+    {
+      "id": "s10",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Minutes change the job. Operators acted on at least two of its alerts. Thomas Klein, in process control there, said it was the first time AI at the site caught a situation it had predicted.",
+      "vo_claims": [
+        "c7",
+        "c21",
+        "c30"
+      ],
+      "visual_events": [
+        {
+          "id": "s10-act",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "proof_gate_clamp",
+          "label": "At least two alerts acted on",
+          "draw": {
+            "subject": "the console operator",
+            "action": "taps the orange alert and it flips to a green check",
+            "emotion": "determined, then proud"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s10-second",
+          "at_phrase": "two of its alerts",
+          "duration_s": 1.2,
+          "sound": "review_stamp",
+          "label": "At least two",
+          "draw": {
+            "subject": "a second check",
+            "action": "stamps beside the first"
+          },
+          "at_s": 3.75
+        },
+        {
+          "id": "s10-klein",
+          "at_phrase": "Thomas Klein",
+          "duration_s": 1.6,
+          "sound": "offer_card",
+          "label": "Thomas Klein",
+          "draw": {
+            "subject": "the process control engineer",
+            "action": "steps in beside the screen and points at the matched lines",
+            "emotion": "surprised, then pleased"
+          },
+          "at_s": 5.34
+        },
+        {
+          "id": "s10-match",
+          "at_phrase": "caught a situation it had predicted",
+          "duration_s": 1.4,
+          "sound": "record_join",
+          "label": "Predicted, then seen",
+          "draw": {
+            "subject": "the forecast line and the real line",
+            "action": "slide together and lock"
+          },
+          "at_s": 10.31
+        }
+      ],
+      "start_s": 71.28,
+      "duration_s": 12.78,
+      "planes": []
+    },
+    {
+      "id": "s11",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": false,
+      "camera_strategy": "dollyThrough",
+      "vo": "Not every model earned its place. One tried to predict the level in the coke drums. It was right 75 percent of the time and was still dropped, because drum switching depends on things outside the model.",
+      "vo_claims": [
+        "c8"
+      ],
+      "visual_events": [
+        {
+          "id": "s11-switch",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "iron_roughneck",
+          "label": "The drum level model",
+          "draw": {
+            "subject": "the two coke drums",
+            "action": "fill and empty in turn behind a forecast tag, the coker's face puzzled"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s11-tag",
+          "at_phrase": "predict the level",
+          "duration_s": 1.4,
+          "sound": "field_marker",
+          "label": "Predicting drum level",
+          "draw": {
+            "subject": "a DRUM LEVEL forecast tag",
+            "action": "swings down on a cable and hooks onto the drum"
+          },
+          "at_s": 3.22
+        },
+        {
+          "id": "s11-score",
+          "at_phrase": "75 percent",
+          "duration_s": 1.4,
+          "sound": "freight_count",
+          "label": "Right 75% of the time",
+          "draw": {
+            "subject": "a score card",
+            "action": "counts up to 75 percent beside the drums"
+          },
+          "at_s": 6.02
+        },
+        {
+          "id": "s11-drop",
+          "at_phrase": "still dropped",
+          "duration_s": 1.4,
+          "sound": "review_stamp",
+          "label": "Not retained",
+          "draw": {
+            "subject": "a stamp",
+            "action": "slams NOT KEPT across the card while the field operator shrugs"
+          },
+          "at_s": 8.0
+        },
+        {
+          "id": "s11-outside",
+          "at_phrase": "outside the model",
+          "duration_s": 1.4,
+          "sound": "causal_break",
+          "label": "Outside the model",
+          "draw": {
+            "subject": "a dashed box",
+            "action": "draws round the model while a crane, a crew and a schedule sit outside it"
+          },
+          "at_s": 10.81
+        }
+      ],
+      "start_s": 84.06,
+      "duration_s": 12.6,
+      "planes": []
+    },
+    {
+      "id": "s12",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Another tool turns past alarms on more than 300 coker tags into examples of what worked before. Klein said it gave new operators high value. It is still in evaluation, and he presented it at Honeywell's own user conference.",
+      "vo_claims": [
+        "c10",
+        "c26",
+        "c27",
+        "c12"
+      ],
+      "visual_events": [
+        {
+          "id": "s12-tags",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "document_parse",
+          "label": "300+ coker tags",
+          "draw": {
+            "subject": "a wall of 300 small tags",
+            "action": "lights up row by row as the counter runs"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s12-example",
+          "at_phrase": "examples of what worked",
+          "duration_s": 1.4,
+          "sound": "library_open",
+          "label": "What worked before",
+          "draw": {
+            "subject": "an old alarm card",
+            "action": "flips over to show the best response from last time"
+          },
+          "at_s": 4.95
+        },
+        {
+          "id": "s12-newer",
+          "at_phrase": "new operators high value",
+          "duration_s": 1.6,
+          "sound": "ceramic_handoff",
+          "label": "High value for new operators",
+          "draw": {
+            "subject": "a newer operator",
+            "action": "reads the card on the screen and nods while the veteran leans in",
+            "emotion": "unsure, then confident"
+          },
+          "at_s": 7.93
+        },
+        {
+          "id": "s12-eval",
+          "at_phrase": "still in evaluation",
+          "duration_s": 1.2,
+          "sound": "pencil_scratch",
+          "label": "Still in evaluation",
+          "draw": {
+            "subject": "an EVALUATING tag",
+            "action": "swings onto the screen's corner on a string"
+          },
+          "at_s": 10.37
+        },
+        {
+          "id": "s12-conf",
+          "at_phrase": "Honeywell's own user conference",
+          "duration_s": 1.4,
+          "sound": "courthouse_bell",
+          "label": "A Honeywell conference",
+          "draw": {
+            "subject": "a conference lanyard",
+            "action": "drops round the process control engineer's neck as a stage light comes up"
+          },
+          "at_s": 12.72
+        }
+      ],
+      "start_s": 96.66,
+      "duration_s": 14.82,
+      "planes": []
+    },
+    {
+      "id": "s13",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Klein admits he was pessimistic. Now he says AI has room on the console, but it is not plug and play, and it needs support.",
+      "vo_claims": [
+        "c11",
+        "c30"
+      ],
+      "visual_events": [
+        {
+          "id": "s13-doubt",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "decision_stop",
+          "label": "Pessimistic at first",
+          "draw": {
+            "subject": "the process control engineer",
+            "action": "folds his arms and frowns at the screen",
+            "emotion": "doubtful"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s13-room",
+          "at_phrase": "room on the console",
+          "duration_s": 1.4,
+          "sound": "reuse_tile_lock",
+          "label": "Room on the console",
+          "draw": {
+            "subject": "the process control engineer",
+            "action": "unfolds his arms and pats the console beside the forecast",
+            "emotion": "grudging smile"
+          },
+          "at_s": 3.83
+        },
+        {
+          "id": "s13-plug",
+          "at_phrase": "not plug and play",
+          "duration_s": 1.6,
+          "sound": "roof_fastener_turn",
+          "label": "Not plug and play",
+          "draw": {
+            "subject": "a plug",
+            "action": "misses the socket, and the engineer catches it and guides it in with a wrench nearby",
+            "emotion": "wry smile"
+          },
+          "at_s": 5.71
+        }
+      ],
+      "start_s": 111.48,
+      "duration_s": 8.56,
+      "planes": []
+    },
+    {
+      "id": "s14",
+      "county": "Jefferson",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "His advice is to bring operators in from the start. The gauge reads now. The screen reads next. The call is still the operator's.",
+      "vo_claims": [
+        "c11",
+        "c14"
+      ],
+      "visual_events": [
+        {
+          "id": "s14-team",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "concrete_footsteps",
+          "label": "Operators from the start",
+          "draw": {
+            "subject": "two rolling chairs",
+            "action": "glide in from either side and stop at the console, seen from above"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s14-call",
+          "at_phrase": "screen reads next",
+          "duration_s": 1.4,
+          "sound": "candidate_branch",
+          "label": "The screen reads next",
+          "draw": {
+            "subject": "the console operator",
+            "action": "taps the orange alert and keys the radio while the ghost needle dips"
+          },
+          "at_s": 5.49
+        },
+        {
+          "id": "s14-hold",
+          "at_phrase": "still the operator's",
+          "duration_s": 1.6,
+          "sound": "result_shelf_stop",
+          "label": "The call is theirs",
+          "draw": {
+            "subject": "the gauge in the foreground",
+            "action": "holds its needle in the green as the ghost fades, the coffee stills and the operator's face relaxes, the coker winking through the window"
+          },
+          "at_s": 7.86
+        }
+      ],
+      "start_s": 120.04,
+      "duration_s": 9.78,
+      "planes": []
+    }
+  ],
+  "shots": [
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-ghost",
+      "id": "s1-a",
+      "scene_id": "s1",
+      "framing": "close",
+      "view": "gauge-close",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 0.0,
+      "duration_s": 4.92
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-ghost",
+      "id": "s1-b",
+      "scene_id": "s1",
+      "framing": "medium",
+      "view": "console-hook",
+      "cast": [
+        "technician"
+      ],
+      "at_phrase": "steam pressure dip",
+      "start_s": 4.92,
+      "duration_s": 2.94
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-roll",
+      "id": "s2-a",
+      "scene_id": "s2",
+      "framing": "wide",
+      "view": "refinery-wide",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 7.86,
+      "duration_s": 2.32
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-roll",
+      "id": "s2-a2",
+      "scene_id": "s2",
+      "framing": "wide",
+      "view": "lake-wide",
+      "cast": [
+        "engineer"
+      ],
+      "at_phrase": "in Jefferson County",
+      "start_s": 10.18,
+      "duration_s": 3.14
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-roll",
+      "id": "s2-b",
+      "scene_id": "s2",
+      "framing": "medium",
+      "view": "barrel-wall",
+      "cast": [
+        "engineer"
+      ],
+      "at_phrase": "238,000 barrels",
+      "start_s": 13.32,
+      "duration_s": 4.1
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-hero",
+      "id": "s3-a",
+      "scene_id": "s3",
+      "framing": "wide",
+      "view": "coker-hero",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 17.42,
+      "duration_s": 4.29
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-hero",
+      "id": "s3-b",
+      "scene_id": "s3",
+      "framing": "detail",
+      "view": "crack-cutaway",
+      "at_phrase": "crack heavy leftover oil",
+      "start_s": 21.71,
+      "duration_s": 4.45
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-flow",
+      "id": "s4-a",
+      "scene_id": "s4",
+      "framing": "medium",
+      "view": "steam-line",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 26.16,
+      "duration_s": 3.33
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-flow",
+      "id": "s4-b",
+      "scene_id": "s4",
+      "framing": "close",
+      "view": "turbine-close",
+      "at_phrase": "it has to keep coming",
+      "start_s": 29.49,
+      "duration_s": 1.69
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-falter",
+      "id": "s5-a",
+      "scene_id": "s5",
+      "framing": "medium",
+      "view": "boiler-falter",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 31.18,
+      "duration_s": 1.82
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-falter",
+      "id": "s5-b",
+      "scene_id": "s5",
+      "framing": "close",
+      "view": "compressor-trip",
+      "at_phrase": "steam line pressure dips",
+      "start_s": 33.0,
+      "duration_s": 4.71
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-falter",
+      "id": "s5-c",
+      "scene_id": "s5",
+      "framing": "wide",
+      "view": "flare-wide",
+      "cast": [
+        "engineer"
+      ],
+      "at_phrase": "shut down and flare",
+      "start_s": 37.71,
+      "duration_s": 1.87
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-alarm",
+      "id": "s6-a",
+      "scene_id": "s6",
+      "framing": "medium",
+      "view": "console-alarm",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 39.58,
+      "duration_s": 3.39
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-alarm",
+      "id": "s6-b",
+      "scene_id": "s6",
+      "framing": "close",
+      "view": "choice-screen",
+      "cast": [
+        "technician"
+      ],
+      "at_phrase": "less critical equipment",
+      "start_s": 42.97,
+      "duration_s": 3.15
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-cal",
+      "id": "s7-a",
+      "scene_id": "s7",
+      "framing": "detail",
+      "view": "pilot-calendar",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 46.12,
+      "duration_s": 3.94
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-cal",
+      "id": "s7-b",
+      "scene_id": "s7",
+      "framing": "close",
+      "view": "panel-shoulder",
+      "cast": [
+        "technician"
+      ],
+      "at_phrase": "a Honeywell AI tool",
+      "start_s": 50.06,
+      "duration_s": 3.46
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-five",
+      "id": "s9-a",
+      "scene_id": "s9",
+      "framing": "detail",
+      "view": "five-events",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 53.52,
+      "duration_s": 3.94
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-five",
+      "id": "s9-a2",
+      "scene_id": "s9",
+      "framing": "close",
+      "view": "pin-close",
+      "cast": [
+        "technician"
+      ],
+      "at_phrase": "five potential events",
+      "start_s": 57.46,
+      "duration_s": 2.68
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-five",
+      "id": "s9-b",
+      "scene_id": "s9",
+      "framing": "close",
+      "view": "bell-close",
+      "at_phrase": "12 minutes",
+      "start_s": 60.14,
+      "duration_s": 2.02
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-forecast",
+      "id": "s8-a",
+      "scene_id": "s8",
+      "framing": "close",
+      "view": "gauge-ahead",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 62.16,
+      "duration_s": 6.65
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-forecast",
+      "id": "s8-b",
+      "scene_id": "s8",
+      "framing": "medium",
+      "view": "desk-runway",
+      "cast": [
+        "technician"
+      ],
+      "at_phrase": "a runway of time",
+      "start_s": 68.81,
+      "duration_s": 2.47
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-act",
+      "id": "s10-a",
+      "scene_id": "s10",
+      "framing": "close",
+      "view": "alert-tap",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 71.28,
+      "duration_s": 5.34
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-act",
+      "id": "s10-b",
+      "scene_id": "s10",
+      "framing": "medium",
+      "view": "klein-screen",
+      "cast": [
+        "operator",
+        "technician"
+      ],
+      "at_phrase": "Thomas Klein",
+      "start_s": 76.62,
+      "duration_s": 2.49
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-act",
+      "id": "s10-b2",
+      "scene_id": "s10",
+      "framing": "close",
+      "view": "klein-close",
+      "cast": [
+        "operator"
+      ],
+      "at_phrase": "said it was the first time",
+      "start_s": 79.11,
+      "duration_s": 2.48
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-act",
+      "id": "s10-c",
+      "scene_id": "s10",
+      "framing": "close",
+      "view": "lines-lock",
+      "at_phrase": "caught a situation it had predicted",
+      "start_s": 81.59,
+      "duration_s": 2.47
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-switch",
+      "id": "s11-a",
+      "scene_id": "s11",
+      "framing": "wide",
+      "view": "drum-deck",
+      "cast": [
+        "engineer"
+      ],
+      "start_s": 84.06,
+      "duration_s": 6.02
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-switch",
+      "id": "s11-b",
+      "scene_id": "s11",
+      "framing": "close",
+      "view": "score-stamp",
+      "cast": [
+        "engineer"
+      ],
+      "at_phrase": "75 percent",
+      "start_s": 90.08,
+      "duration_s": 4.79
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-switch",
+      "id": "s11-c",
+      "scene_id": "s11",
+      "framing": "overhead",
+      "view": "outside-box",
+      "at_phrase": "outside the model",
+      "start_s": 94.87,
+      "duration_s": 1.79
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-tags",
+      "id": "s12-a",
+      "scene_id": "s12",
+      "framing": "detail",
+      "view": "tag-wall",
+      "start_s": 96.66,
+      "duration_s": 4.95
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-tags",
+      "id": "s12-b",
+      "scene_id": "s12",
+      "framing": "medium",
+      "view": "mentor-screen",
+      "cast": [
+        "dctech",
+        "technician"
+      ],
+      "at_phrase": "examples of what worked",
+      "start_s": 101.61,
+      "duration_s": 2.98
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-tags",
+      "id": "s12-d",
+      "scene_id": "s12",
+      "framing": "close",
+      "view": "card-close",
+      "cast": [
+        "dctech"
+      ],
+      "at_phrase": "new operators high value",
+      "start_s": 104.59,
+      "duration_s": 4.79
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-tags",
+      "id": "s12-c",
+      "scene_id": "s12",
+      "framing": "wide",
+      "view": "conference-stage",
+      "cast": [
+        "operator"
+      ],
+      "at_phrase": "Honeywell's own user conference",
+      "start_s": 109.38,
+      "duration_s": 2.1
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-doubt",
+      "id": "s13-a",
+      "scene_id": "s13",
+      "framing": "close",
+      "view": "klein-arms",
+      "cast": [
+        "operator"
+      ],
+      "start_s": 111.48,
+      "duration_s": 5.71
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-doubt",
+      "id": "s13-b",
+      "scene_id": "s13",
+      "framing": "close",
+      "view": "plug-socket",
+      "cast": [
+        "operator"
+      ],
+      "at_phrase": "not plug and play",
+      "start_s": 117.19,
+      "duration_s": 2.85
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-team",
+      "id": "s14-a",
+      "scene_id": "s14",
+      "framing": "overhead",
+      "view": "chairs-overhead",
+      "cast": [
+        "technician",
+        "dctech"
+      ],
+      "start_s": 120.04,
+      "duration_s": 2.09
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-team",
+      "id": "s14-a2",
+      "scene_id": "s14",
+      "framing": "detail",
+      "view": "cup-close",
+      "cast": [
+        "technician"
+      ],
+      "at_phrase": "from the start",
+      "start_s": 122.13,
+      "duration_s": 3.4
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-team",
+      "id": "s14-b",
+      "scene_id": "s14",
+      "framing": "close",
+      "view": "gauge-end",
+      "cast": [
+        "technician"
+      ],
+      "at_phrase": "screen reads next",
+      "start_s": 125.53,
+      "duration_s": 2.37
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s14-team",
+      "id": "s14-c",
+      "scene_id": "s14",
+      "framing": "close",
+      "view": "operator-close",
+      "cast": [
+        "technician"
+      ],
+      "at_phrase": "still the operator's",
+      "start_s": 127.9,
+      "duration_s": 1.92
+    }
+  ],
+  "runtime_s": 129.82,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.68,
+      "end": 3.34,
+      "text": "In a Port Arthur refinery control room,"
+    },
+    {
+      "id": "c2",
+      "start": 3.38,
+      "end": 5.26,
+      "text": "a screen is drawing a steam"
+    },
+    {
+      "id": "c3",
+      "start": 5.3,
+      "end": 7.56,
+      "text": "pressure dip that hasn't happened yet."
+    },
+    {
+      "id": "c4",
+      "start": 8.04,
+      "end": 10.08,
+      "text": "The refinery belongs to TotalEnergies,"
+    },
+    {
+      "id": "c5",
+      "start": 10.18,
+      "end": 11.58,
+      "text": "in Jefferson County."
+    },
+    {
+      "id": "c6",
+      "start": 11.68,
+      "end": 14.67,
+      "text": "It runs about 238,000 barrels of"
+    },
+    {
+      "id": "c7",
+      "start": 14.71,
+      "end": 17.02,
+      "text": "crude a day through 47 units."
+    },
+    {
+      "id": "c8",
+      "start": 17.6,
+      "end": 19.75,
+      "text": "One of them is the delayed coker."
+    },
+    {
+      "id": "c9",
+      "start": 20.1,
+      "end": 21.67,
+      "text": "It uses high heat to"
+    },
+    {
+      "id": "c10",
+      "start": 21.71,
+      "end": 24.14,
+      "text": "crack heavy leftover oil into lighter,"
+    },
+    {
+      "id": "c11",
+      "start": 24.18,
+      "end": 25.7,
+      "text": "more valuable products."
+    },
+    {
+      "id": "c12",
+      "start": 26.34,
+      "end": 29.12,
+      "text": "The coker's turbines need high pressure steam,"
+    },
+    {
+      "id": "c13",
+      "start": 29.16,
+      "end": 30.84,
+      "text": "and it has to keep coming."
+    },
+    {
+      "id": "c14",
+      "start": 31.36,
+      "end": 32.84,
+      "text": "When a boiler falters,"
+    },
+    {
+      "id": "c15",
+      "start": 33.0,
+      "end": 34.56,
+      "text": "steam line pressure dips."
+    },
+    {
+      "id": "c16",
+      "start": 34.9,
+      "end": 36.68,
+      "text": "A dip can trip a compressor,"
+    },
+    {
+      "id": "c17",
+      "start": 36.74,
+      "end": 38.96,
+      "text": "and the plant can shut down and flare."
+    },
+    {
+      "id": "c18",
+      "start": 39.76,
+      "end": 41.27,
+      "text": "The console operator gets"
+    },
+    {
+      "id": "c19",
+      "start": 41.31,
+      "end": 42.55,
+      "text": "little time to decide"
+    },
+    {
+      "id": "c20",
+      "start": 42.59,
+      "end": 44.34,
+      "text": "which less critical equipment"
+    },
+    {
+      "id": "c21",
+      "start": 44.38,
+      "end": 45.68,
+      "text": "gives up its steam."
+    },
+    {
+      "id": "c22",
+      "start": 46.3,
+      "end": 48.34,
+      "text": "So in October 2024,"
+    },
+    {
+      "id": "c23",
+      "start": 48.65,
+      "end": 50.69,
+      "text": "TotalEnergies began testing a Honeywell"
+    },
+    {
+      "id": "c24",
+      "start": 50.73,
+      "end": 52.62,
+      "text": "AI tool on the coker console."
+    },
+    {
+      "id": "c25",
+      "start": 53.7,
+      "end": 56.64,
+      "text": "Honeywell's early count, in November 2025,"
+    },
+    {
+      "id": "c26",
+      "start": 56.94,
+      "end": 58.92,
+      "text": "was five potential events,"
+    },
+    {
+      "id": "c27",
+      "start": 59.02,
+      "end": 60.1,
+      "text": "flagged an average of"
+    },
+    {
+      "id": "c28",
+      "start": 60.14,
+      "end": 61.8,
+      "text": "12 minutes before an alarm."
+    },
+    {
+      "id": "c29",
+      "start": 62.34,
+      "end": 63.89,
+      "text": "A later account said"
+    },
+    {
+      "id": "c30",
+      "start": 63.93,
+      "end": 65.17,
+      "text": "its models predicted pressure"
+    },
+    {
+      "id": "c31",
+      "start": 65.21,
+      "end": 68.08,
+      "text": "dips 10 to 18 minutes earlier than before."
+    },
+    {
+      "id": "c32",
+      "start": 68.28,
+      "end": 70.54,
+      "text": "That is a runway of time to act."
+    },
+    {
+      "id": "c33",
+      "start": 71.46,
+      "end": 73.1,
+      "text": "Minutes change the job."
+    },
+    {
+      "id": "c34",
+      "start": 73.67,
+      "end": 76.04,
+      "text": "Operators acted on at least two of its alerts."
+    },
+    {
+      "id": "c35",
+      "start": 76.62,
+      "end": 79.07,
+      "text": "Thomas Klein, in process control there,"
+    },
+    {
+      "id": "c36",
+      "start": 79.11,
+      "end": 80.99,
+      "text": "said it was the first time AI at"
+    },
+    {
+      "id": "c37",
+      "start": 81.03,
+      "end": 83.46,
+      "text": "the site caught a situation it had predicted."
+    },
+    {
+      "id": "c38",
+      "start": 84.24,
+      "end": 86.12,
+      "text": "Not every model earned its place."
+    },
+    {
+      "id": "c39",
+      "start": 86.46,
+      "end": 87.64,
+      "text": "One tried to predict the"
+    },
+    {
+      "id": "c40",
+      "start": 87.68,
+      "end": 88.84,
+      "text": "level in the coke drums."
+    },
+    {
+      "id": "c41",
+      "start": 89.08,
+      "end": 90.91,
+      "text": "It was right 75 percent of"
+    },
+    {
+      "id": "c42",
+      "start": 90.95,
+      "end": 92.9,
+      "text": "the time and was still dropped,"
+    },
+    {
+      "id": "c43",
+      "start": 92.96,
+      "end": 94.26,
+      "text": "because drum switching depends"
+    },
+    {
+      "id": "c44",
+      "start": 94.3,
+      "end": 95.92,
+      "text": "on things outside the model."
+    },
+    {
+      "id": "c45",
+      "start": 96.84,
+      "end": 100.06,
+      "text": "Another tool turns past alarms on more than"
+    },
+    {
+      "id": "c46",
+      "start": 100.1,
+      "end": 101.57,
+      "text": "300 coker tags into"
+    },
+    {
+      "id": "c47",
+      "start": 101.61,
+      "end": 103.22,
+      "text": "examples of what worked before."
+    },
+    {
+      "id": "c48",
+      "start": 103.64,
+      "end": 106.26,
+      "text": "Klein said it gave new operators high value."
+    },
+    {
+      "id": "c49",
+      "start": 106.5,
+      "end": 108.06,
+      "text": "It is still in evaluation,"
+    },
+    {
+      "id": "c50",
+      "start": 108.1,
+      "end": 109.1,
+      "text": "and he presented it"
+    },
+    {
+      "id": "c51",
+      "start": 109.14,
+      "end": 110.8,
+      "text": "at Honeywell's own user conference."
+    },
+    {
+      "id": "c52",
+      "start": 111.66,
+      "end": 113.36,
+      "text": "Klein admits he was pessimistic."
+    },
+    {
+      "id": "c53",
+      "start": 113.92,
+      "end": 116.38,
+      "text": "Now he says AI has room on the console,"
+    },
+    {
+      "id": "c54",
+      "start": 116.54,
+      "end": 118.24,
+      "text": "but it is not plug and play,"
+    },
+    {
+      "id": "c55",
+      "start": 118.28,
+      "end": 119.64,
+      "text": "and it needs support."
+    },
+    {
+      "id": "c56",
+      "start": 120.22,
+      "end": 121.57,
+      "text": "His advice is to bring"
+    },
+    {
+      "id": "c57",
+      "start": 121.61,
+      "end": 122.94,
+      "text": "operators in from the start."
+    },
+    {
+      "id": "c58",
+      "start": 123.28,
+      "end": 124.84,
+      "text": "The gauge reads now."
+    },
+    {
+      "id": "c59",
+      "start": 125.04,
+      "end": 126.76,
+      "text": "The screen reads next."
+    },
+    {
+      "id": "c60",
+      "start": 127.02,
+      "end": 128.92,
+      "text": "The call is still the operator's."
+    }
+  ],
+  "credits_s": 5.0,
+  "look": "v2",
+  "words": [
+    {
+      "word": "In",
+      "start": 0.68,
+      "end": 0.92
+    },
+    {
+      "word": "a",
+      "start": 0.92,
+      "end": 1.12
+    },
+    {
+      "word": "Port",
+      "start": 1.12,
+      "end": 1.41
+    },
+    {
+      "word": "Arthur",
+      "start": 1.41,
+      "end": 1.8
+    },
+    {
+      "word": "refinery",
+      "start": 1.8,
+      "end": 2.34
+    },
+    {
+      "word": "control",
+      "start": 2.34,
+      "end": 2.88
+    },
+    {
+      "word": "room,",
+      "start": 2.88,
+      "end": 3.38
+    },
+    {
+      "word": "a",
+      "start": 3.38,
+      "end": 3.81
+    },
+    {
+      "word": "screen",
+      "start": 3.81,
+      "end": 4.1
+    },
+    {
+      "word": "is",
+      "start": 4.1,
+      "end": 4.38
+    },
+    {
+      "word": "drawing",
+      "start": 4.38,
+      "end": 4.64
+    },
+    {
+      "word": "a",
+      "start": 4.64,
+      "end": 4.92
+    },
+    {
+      "word": "steam",
+      "start": 4.92,
+      "end": 5.3
+    },
+    {
+      "word": "pressure",
+      "start": 5.3,
+      "end": 5.66
+    },
+    {
+      "word": "dip",
+      "start": 5.66,
+      "end": 6.03
+    },
+    {
+      "word": "that",
+      "start": 6.03,
+      "end": 6.39
+    },
+    {
+      "word": "hasn't",
+      "start": 6.39,
+      "end": 6.74
+    },
+    {
+      "word": "happened",
+      "start": 6.74,
+      "end": 7.09
+    },
+    {
+      "word": "yet.",
+      "start": 7.09,
+      "end": 7.56
+    },
+    {
+      "word": "The",
+      "start": 8.04,
+      "end": 8.54
+    },
+    {
+      "word": "refinery",
+      "start": 8.54,
+      "end": 8.91
+    },
+    {
+      "word": "belongs",
+      "start": 8.91,
+      "end": 9.24
+    },
+    {
+      "word": "to",
+      "start": 9.24,
+      "end": 9.57
+    },
+    {
+      "word": "TotalEnergies,",
+      "start": 9.57,
+      "end": 10.08
+    },
+    {
+      "word": "in",
+      "start": 10.18,
+      "end": 10.67
+    },
+    {
+      "word": "Jefferson",
+      "start": 10.67,
+      "end": 11.05
+    },
+    {
+      "word": "County.",
+      "start": 11.05,
+      "end": 11.58
+    },
+    {
+      "word": "It",
+      "start": 11.68,
+      "end": 12.1
+    },
+    {
+      "word": "runs",
+      "start": 12.1,
+      "end": 12.34
+    },
+    {
+      "word": "about",
+      "start": 12.34,
+      "end": 12.8
+    },
+    {
+      "word": "238,000",
+      "start": 13.32,
+      "end": 13.96
+    },
+    {
+      "word": "barrels",
+      "start": 14.04,
+      "end": 14.47
+    },
+    {
+      "word": "of",
+      "start": 14.47,
+      "end": 14.71
+    },
+    {
+      "word": "crude",
+      "start": 14.71,
+      "end": 14.92
+    },
+    {
+      "word": "a",
+      "start": 14.92,
+      "end": 15.12
+    },
+    {
+      "word": "day",
+      "start": 15.12,
+      "end": 15.38
+    },
+    {
+      "word": "through",
+      "start": 15.38,
+      "end": 15.84
+    },
+    {
+      "word": "47",
+      "start": 15.86,
+      "end": 16.44
+    },
+    {
+      "word": "units.",
+      "start": 16.44,
+      "end": 17.02
+    },
+    {
+      "word": "One",
+      "start": 17.6,
+      "end": 18.0
+    },
+    {
+      "word": "of",
+      "start": 18.0,
+      "end": 18.16
+    },
+    {
+      "word": "them",
+      "start": 18.16,
+      "end": 18.44
+    },
+    {
+      "word": "is",
+      "start": 18.44,
+      "end": 18.72
+    },
+    {
+      "word": "the",
+      "start": 18.72,
+      "end": 18.96
+    },
+    {
+      "word": "delayed",
+      "start": 18.96,
+      "end": 19.275
+    },
+    {
+      "word": "coker.",
+      "start": 19.275,
+      "end": 19.75
+    },
+    {
+      "word": "It",
+      "start": 20.1,
+      "end": 20.56
+    },
+    {
+      "word": "uses",
+      "start": 20.56,
+      "end": 20.87
+    },
+    {
+      "word": "high",
+      "start": 20.87,
+      "end": 21.2
+    },
+    {
+      "word": "heat",
+      "start": 21.2,
+      "end": 21.47
+    },
+    {
+      "word": "to",
+      "start": 21.47,
+      "end": 21.71
+    },
+    {
+      "word": "crack",
+      "start": 21.71,
+      "end": 22.04
+    },
+    {
+      "word": "heavy",
+      "start": 22.04,
+      "end": 22.46
+    },
+    {
+      "word": "leftover",
+      "start": 22.46,
+      "end": 22.93
+    },
+    {
+      "word": "oil",
+      "start": 22.93,
+      "end": 23.41
+    },
+    {
+      "word": "into",
+      "start": 23.41,
+      "end": 23.83
+    },
+    {
+      "word": "lighter,",
+      "start": 23.83,
+      "end": 24.18
+    },
+    {
+      "word": "more",
+      "start": 24.18,
+      "end": 24.6
+    },
+    {
+      "word": "valuable",
+      "start": 24.6,
+      "end": 25.12
+    },
+    {
+      "word": "products.",
+      "start": 25.12,
+      "end": 25.7
+    },
+    {
+      "word": "The",
+      "start": 26.34,
+      "end": 26.78
+    },
+    {
+      "word": "coker's",
+      "start": 26.78,
+      "end": 27.19
+    },
+    {
+      "word": "turbines",
+      "start": 27.19,
+      "end": 27.61
+    },
+    {
+      "word": "need",
+      "start": 27.61,
+      "end": 27.94
+    },
+    {
+      "word": "high",
+      "start": 27.94,
+      "end": 28.31
+    },
+    {
+      "word": "pressure",
+      "start": 28.31,
+      "end": 28.68
+    },
+    {
+      "word": "steam,",
+      "start": 28.68,
+      "end": 29.16
+    },
+    {
+      "word": "and",
+      "start": 29.16,
+      "end": 29.49
+    },
+    {
+      "word": "it",
+      "start": 29.49,
+      "end": 29.66
+    },
+    {
+      "word": "has",
+      "start": 29.66,
+      "end": 29.88
+    },
+    {
+      "word": "to",
+      "start": 29.88,
+      "end": 30.07
+    },
+    {
+      "word": "keep",
+      "start": 30.07,
+      "end": 30.34
+    },
+    {
+      "word": "coming.",
+      "start": 30.34,
+      "end": 30.84
+    },
+    {
+      "word": "When",
+      "start": 31.36,
+      "end": 31.76
+    },
+    {
+      "word": "a",
+      "start": 31.76,
+      "end": 31.99
+    },
+    {
+      "word": "boiler",
+      "start": 31.99,
+      "end": 32.33
+    },
+    {
+      "word": "falters,",
+      "start": 32.33,
+      "end": 32.84
+    },
+    {
+      "word": "steam",
+      "start": 33.0,
+      "end": 33.44
+    },
+    {
+      "word": "line",
+      "start": 33.44,
+      "end": 33.75
+    },
+    {
+      "word": "pressure",
+      "start": 33.75,
+      "end": 34.09
+    },
+    {
+      "word": "dips.",
+      "start": 34.09,
+      "end": 34.56
+    },
+    {
+      "word": "A",
+      "start": 34.9,
+      "end": 35.31
+    },
+    {
+      "word": "dip",
+      "start": 35.31,
+      "end": 35.52
+    },
+    {
+      "word": "can",
+      "start": 35.52,
+      "end": 35.74
+    },
+    {
+      "word": "trip",
+      "start": 35.74,
+      "end": 35.91
+    },
+    {
+      "word": "a",
+      "start": 35.91,
+      "end": 36.17
+    },
+    {
+      "word": "compressor,",
+      "start": 36.17,
+      "end": 36.68
+    },
+    {
+      "word": "and",
+      "start": 36.74,
+      "end": 37.12
+    },
+    {
+      "word": "the",
+      "start": 37.12,
+      "end": 37.29
+    },
+    {
+      "word": "plant",
+      "start": 37.29,
+      "end": 37.5
+    },
+    {
+      "word": "can",
+      "start": 37.5,
+      "end": 37.71
+    },
+    {
+      "word": "shut",
+      "start": 37.71,
+      "end": 37.99
+    },
+    {
+      "word": "down",
+      "start": 37.99,
+      "end": 38.29
+    },
+    {
+      "word": "and",
+      "start": 38.29,
+      "end": 38.53
+    },
+    {
+      "word": "flare.",
+      "start": 38.53,
+      "end": 38.96
+    },
+    {
+      "word": "The",
+      "start": 39.76,
+      "end": 40.26
+    },
+    {
+      "word": "console",
+      "start": 40.26,
+      "end": 40.66
+    },
+    {
+      "word": "operator",
+      "start": 40.66,
+      "end": 41.01
+    },
+    {
+      "word": "gets",
+      "start": 41.01,
+      "end": 41.31
+    },
+    {
+      "word": "little",
+      "start": 41.31,
+      "end": 41.69
+    },
+    {
+      "word": "time",
+      "start": 41.69,
+      "end": 42.0
+    },
+    {
+      "word": "to",
+      "start": 42.0,
+      "end": 42.27
+    },
+    {
+      "word": "decide",
+      "start": 42.27,
+      "end": 42.59
+    },
+    {
+      "word": "which",
+      "start": 42.59,
+      "end": 42.97
+    },
+    {
+      "word": "less",
+      "start": 42.97,
+      "end": 43.43
+    },
+    {
+      "word": "critical",
+      "start": 43.43,
+      "end": 43.91
+    },
+    {
+      "word": "equipment",
+      "start": 43.91,
+      "end": 44.38
+    },
+    {
+      "word": "gives",
+      "start": 44.38,
+      "end": 44.72
+    },
+    {
+      "word": "up",
+      "start": 44.72,
+      "end": 44.93
+    },
+    {
+      "word": "its",
+      "start": 44.93,
+      "end": 45.19
+    },
+    {
+      "word": "steam.",
+      "start": 45.19,
+      "end": 45.68
+    },
+    {
+      "word": "So",
+      "start": 46.3,
+      "end": 46.68
+    },
+    {
+      "word": "in",
+      "start": 46.68,
+      "end": 46.91
+    },
+    {
+      "word": "October",
+      "start": 46.91,
+      "end": 47.4
+    },
+    {
+      "word": "2024,",
+      "start": 47.7,
+      "end": 48.34
+    },
+    {
+      "word": "TotalEnergies",
+      "start": 48.65,
+      "end": 49.265
+    },
+    {
+      "word": "began",
+      "start": 49.265,
+      "end": 49.75
+    },
+    {
+      "word": "testing",
+      "start": 49.75,
+      "end": 50.06
+    },
+    {
+      "word": "a",
+      "start": 50.06,
+      "end": 50.33
+    },
+    {
+      "word": "Honeywell",
+      "start": 50.33,
+      "end": 50.73
+    },
+    {
+      "word": "AI",
+      "start": 50.73,
+      "end": 51.14
+    },
+    {
+      "word": "tool",
+      "start": 51.14,
+      "end": 51.4
+    },
+    {
+      "word": "on",
+      "start": 51.4,
+      "end": 51.56
+    },
+    {
+      "word": "the",
+      "start": 51.56,
+      "end": 51.725
+    },
+    {
+      "word": "coker",
+      "start": 51.725,
+      "end": 52.065
+    },
+    {
+      "word": "console.",
+      "start": 52.065,
+      "end": 52.62
+    },
+    {
+      "word": "Honeywell's",
+      "start": 53.7,
+      "end": 54.22
+    },
+    {
+      "word": "early",
+      "start": 54.22,
+      "end": 54.62
+    },
+    {
+      "word": "count,",
+      "start": 54.62,
+      "end": 55.07
+    },
+    {
+      "word": "in",
+      "start": 55.07,
+      "end": 55.45
+    },
+    {
+      "word": "November",
+      "start": 55.45,
+      "end": 55.9
+    },
+    {
+      "word": "2025,",
+      "start": 56.0,
+      "end": 56.64
+    },
+    {
+      "word": "was",
+      "start": 56.94,
+      "end": 57.46
+    },
+    {
+      "word": "five",
+      "start": 57.46,
+      "end": 57.9
+    },
+    {
+      "word": "potential",
+      "start": 57.9,
+      "end": 58.37
+    },
+    {
+      "word": "events,",
+      "start": 58.37,
+      "end": 58.92
+    },
+    {
+      "word": "flagged",
+      "start": 59.02,
+      "end": 59.42
+    },
+    {
+      "word": "an",
+      "start": 59.42,
+      "end": 59.62
+    },
+    {
+      "word": "average",
+      "start": 59.62,
+      "end": 59.88
+    },
+    {
+      "word": "of",
+      "start": 59.88,
+      "end": 60.14
+    },
+    {
+      "word": "12",
+      "start": 60.14,
+      "end": 60.45
+    },
+    {
+      "word": "minutes",
+      "start": 60.45,
+      "end": 60.8
+    },
+    {
+      "word": "before",
+      "start": 60.8,
+      "end": 61.05
+    },
+    {
+      "word": "an",
+      "start": 61.05,
+      "end": 61.31
+    },
+    {
+      "word": "alarm.",
+      "start": 61.31,
+      "end": 61.8
+    },
+    {
+      "word": "A",
+      "start": 62.34,
+      "end": 62.78
+    },
+    {
+      "word": "later",
+      "start": 62.78,
+      "end": 63.11
+    },
+    {
+      "word": "account",
+      "start": 63.11,
+      "end": 63.59
+    },
+    {
+      "word": "said",
+      "start": 63.59,
+      "end": 63.93
+    },
+    {
+      "word": "its",
+      "start": 63.93,
+      "end": 64.15
+    },
+    {
+      "word": "models",
+      "start": 64.15,
+      "end": 64.49
+    },
+    {
+      "word": "predicted",
+      "start": 64.49,
+      "end": 64.88
+    },
+    {
+      "word": "pressure",
+      "start": 64.88,
+      "end": 65.21
+    },
+    {
+      "word": "dips",
+      "start": 65.21,
+      "end": 65.55
+    },
+    {
+      "word": "10",
+      "start": 65.55,
+      "end": 65.86
+    },
+    {
+      "word": "to",
+      "start": 65.86,
+      "end": 66.24
+    },
+    {
+      "word": "18",
+      "start": 66.24,
+      "end": 66.68
+    },
+    {
+      "word": "minutes",
+      "start": 66.68,
+      "end": 67.0
+    },
+    {
+      "word": "earlier",
+      "start": 67.0,
+      "end": 67.27
+    },
+    {
+      "word": "than",
+      "start": 67.27,
+      "end": 67.57
+    },
+    {
+      "word": "before.",
+      "start": 67.57,
+      "end": 68.08
+    },
+    {
+      "word": "That",
+      "start": 68.28,
+      "end": 68.66
+    },
+    {
+      "word": "is",
+      "start": 68.66,
+      "end": 68.81
+    },
+    {
+      "word": "a",
+      "start": 68.81,
+      "end": 69.03
+    },
+    {
+      "word": "runway",
+      "start": 69.03,
+      "end": 69.3
+    },
+    {
+      "word": "of",
+      "start": 69.3,
+      "end": 69.57
+    },
+    {
+      "word": "time",
+      "start": 69.57,
+      "end": 69.79
+    },
+    {
+      "word": "to",
+      "start": 69.79,
+      "end": 70.05
+    },
+    {
+      "word": "act.",
+      "start": 70.05,
+      "end": 70.54
+    },
+    {
+      "word": "Minutes",
+      "start": 71.46,
+      "end": 72.01
+    },
+    {
+      "word": "change",
+      "start": 72.01,
+      "end": 72.37
+    },
+    {
+      "word": "the",
+      "start": 72.37,
+      "end": 72.64
+    },
+    {
+      "word": "job.",
+      "start": 72.64,
+      "end": 73.1
+    },
+    {
+      "word": "Operators",
+      "start": 73.67,
+      "end": 74.215
+    },
+    {
+      "word": "acted",
+      "start": 74.215,
+      "end": 74.52
+    },
+    {
+      "word": "on",
+      "start": 74.52,
+      "end": 74.65
+    },
+    {
+      "word": "at",
+      "start": 74.65,
+      "end": 74.79
+    },
+    {
+      "word": "least",
+      "start": 74.79,
+      "end": 75.03
+    },
+    {
+      "word": "two",
+      "start": 75.03,
+      "end": 75.25
+    },
+    {
+      "word": "of",
+      "start": 75.25,
+      "end": 75.38
+    },
+    {
+      "word": "its",
+      "start": 75.38,
+      "end": 75.58
+    },
+    {
+      "word": "alerts.",
+      "start": 75.58,
+      "end": 76.04
+    },
+    {
+      "word": "Thomas",
+      "start": 76.62,
+      "end": 77.095
+    },
+    {
+      "word": "Klein,",
+      "start": 77.095,
+      "end": 77.505
+    },
+    {
+      "word": "in",
+      "start": 77.505,
+      "end": 77.9
+    },
+    {
+      "word": "process",
+      "start": 77.9,
+      "end": 78.25
+    },
+    {
+      "word": "control",
+      "start": 78.25,
+      "end": 78.63
+    },
+    {
+      "word": "there,",
+      "start": 78.63,
+      "end": 79.11
+    },
+    {
+      "word": "said",
+      "start": 79.11,
+      "end": 79.47
+    },
+    {
+      "word": "it",
+      "start": 79.47,
+      "end": 79.56
+    },
+    {
+      "word": "was",
+      "start": 79.56,
+      "end": 79.69
+    },
+    {
+      "word": "the",
+      "start": 79.69,
+      "end": 79.91
+    },
+    {
+      "word": "first",
+      "start": 79.91,
+      "end": 80.2
+    },
+    {
+      "word": "time",
+      "start": 80.2,
+      "end": 80.52
+    },
+    {
+      "word": "AI",
+      "start": 80.52,
+      "end": 80.82
+    },
+    {
+      "word": "at",
+      "start": 80.82,
+      "end": 81.03
+    },
+    {
+      "word": "the",
+      "start": 81.03,
+      "end": 81.22
+    },
+    {
+      "word": "site",
+      "start": 81.22,
+      "end": 81.59
+    },
+    {
+      "word": "caught",
+      "start": 81.59,
+      "end": 81.92
+    },
+    {
+      "word": "a",
+      "start": 81.92,
+      "end": 82.2
+    },
+    {
+      "word": "situation",
+      "start": 82.2,
+      "end": 82.52
+    },
+    {
+      "word": "it",
+      "start": 82.52,
+      "end": 82.71
+    },
+    {
+      "word": "had",
+      "start": 82.71,
+      "end": 82.96
+    },
+    {
+      "word": "predicted.",
+      "start": 82.96,
+      "end": 83.46
+    },
+    {
+      "word": "Not",
+      "start": 84.24,
+      "end": 84.7
+    },
+    {
+      "word": "every",
+      "start": 84.7,
+      "end": 84.97
+    },
+    {
+      "word": "model",
+      "start": 84.97,
+      "end": 85.23
+    },
+    {
+      "word": "earned",
+      "start": 85.23,
+      "end": 85.44
+    },
+    {
+      "word": "its",
+      "start": 85.44,
+      "end": 85.66
+    },
+    {
+      "word": "place.",
+      "start": 85.66,
+      "end": 86.12
+    },
+    {
+      "word": "One",
+      "start": 86.46,
+      "end": 86.91
+    },
+    {
+      "word": "tried",
+      "start": 86.91,
+      "end": 87.1
+    },
+    {
+      "word": "to",
+      "start": 87.1,
+      "end": 87.28
+    },
+    {
+      "word": "predict",
+      "start": 87.28,
+      "end": 87.49
+    },
+    {
+      "word": "the",
+      "start": 87.49,
+      "end": 87.68
+    },
+    {
+      "word": "level",
+      "start": 87.68,
+      "end": 87.86
+    },
+    {
+      "word": "in",
+      "start": 87.86,
+      "end": 88.06
+    },
+    {
+      "word": "the",
+      "start": 88.06,
+      "end": 88.2
+    },
+    {
+      "word": "coke",
+      "start": 88.2,
+      "end": 88.37
+    },
+    {
+      "word": "drums.",
+      "start": 88.37,
+      "end": 88.84
+    },
+    {
+      "word": "It",
+      "start": 89.08,
+      "end": 89.45
+    },
+    {
+      "word": "was",
+      "start": 89.45,
+      "end": 89.6
+    },
+    {
+      "word": "right",
+      "start": 89.6,
+      "end": 90.02
+    },
+    {
+      "word": "75",
+      "start": 90.08,
+      "end": 90.525
+    },
+    {
+      "word": "percent",
+      "start": 90.525,
+      "end": 90.775
+    },
+    {
+      "word": "of",
+      "start": 90.775,
+      "end": 90.95
+    },
+    {
+      "word": "the",
+      "start": 90.95,
+      "end": 91.12
+    },
+    {
+      "word": "time",
+      "start": 91.12,
+      "end": 91.54
+    },
+    {
+      "word": "and",
+      "start": 91.54,
+      "end": 91.89
+    },
+    {
+      "word": "was",
+      "start": 91.89,
+      "end": 92.06
+    },
+    {
+      "word": "still",
+      "start": 92.06,
+      "end": 92.38
+    },
+    {
+      "word": "dropped,",
+      "start": 92.38,
+      "end": 92.9
+    },
+    {
+      "word": "because",
+      "start": 92.96,
+      "end": 93.41
+    },
+    {
+      "word": "drum",
+      "start": 93.41,
+      "end": 93.68
+    },
+    {
+      "word": "switching",
+      "start": 93.68,
+      "end": 94.01
+    },
+    {
+      "word": "depends",
+      "start": 94.01,
+      "end": 94.3
+    },
+    {
+      "word": "on",
+      "start": 94.3,
+      "end": 94.51
+    },
+    {
+      "word": "things",
+      "start": 94.51,
+      "end": 94.87
+    },
+    {
+      "word": "outside",
+      "start": 94.87,
+      "end": 95.22
+    },
+    {
+      "word": "the",
+      "start": 95.22,
+      "end": 95.46
+    },
+    {
+      "word": "model.",
+      "start": 95.46,
+      "end": 95.92
+    },
+    {
+      "word": "Another",
+      "start": 96.84,
+      "end": 97.31
+    },
+    {
+      "word": "tool",
+      "start": 97.31,
+      "end": 97.64
+    },
+    {
+      "word": "turns",
+      "start": 97.64,
+      "end": 97.99
+    },
+    {
+      "word": "past",
+      "start": 97.99,
+      "end": 98.34
+    },
+    {
+      "word": "alarms",
+      "start": 98.34,
+      "end": 98.83
+    },
+    {
+      "word": "on",
+      "start": 98.83,
+      "end": 99.21
+    },
+    {
+      "word": "more",
+      "start": 99.21,
+      "end": 99.6
+    },
+    {
+      "word": "than",
+      "start": 99.76,
+      "end": 100.1
+    },
+    {
+      "word": "300",
+      "start": 100.1,
+      "end": 100.25
+    },
+    {
+      "word": "coker",
+      "start": 100.25,
+      "end": 100.57
+    },
+    {
+      "word": "tags",
+      "start": 100.57,
+      "end": 101.08
+    },
+    {
+      "word": "into",
+      "start": 101.1,
+      "end": 101.61
+    },
+    {
+      "word": "examples",
+      "start": 101.61,
+      "end": 101.92
+    },
+    {
+      "word": "of",
+      "start": 101.92,
+      "end": 102.12
+    },
+    {
+      "word": "what",
+      "start": 102.12,
+      "end": 102.32
+    },
+    {
+      "word": "worked",
+      "start": 102.32,
+      "end": 102.67
+    },
+    {
+      "word": "before.",
+      "start": 102.67,
+      "end": 103.22
+    },
+    {
+      "word": "Klein",
+      "start": 103.64,
+      "end": 104.07
+    },
+    {
+      "word": "said",
+      "start": 104.07,
+      "end": 104.23
+    },
+    {
+      "word": "it",
+      "start": 104.23,
+      "end": 104.35
+    },
+    {
+      "word": "gave",
+      "start": 104.35,
+      "end": 104.59
+    },
+    {
+      "word": "new",
+      "start": 104.59,
+      "end": 104.96
+    },
+    {
+      "word": "operators",
+      "start": 104.96,
+      "end": 105.34
+    },
+    {
+      "word": "high",
+      "start": 105.34,
+      "end": 105.73
+    },
+    {
+      "word": "value.",
+      "start": 105.73,
+      "end": 106.26
+    },
+    {
+      "word": "It",
+      "start": 106.5,
+      "end": 106.87
+    },
+    {
+      "word": "is",
+      "start": 106.87,
+      "end": 107.03
+    },
+    {
+      "word": "still",
+      "start": 107.03,
+      "end": 107.2
+    },
+    {
+      "word": "in",
+      "start": 107.2,
+      "end": 107.5
+    },
+    {
+      "word": "evaluation,",
+      "start": 107.5,
+      "end": 108.06
+    },
+    {
+      "word": "and",
+      "start": 108.1,
+      "end": 108.48
+    },
+    {
+      "word": "he",
+      "start": 108.48,
+      "end": 108.7
+    },
+    {
+      "word": "presented",
+      "start": 108.7,
+      "end": 108.96
+    },
+    {
+      "word": "it",
+      "start": 108.96,
+      "end": 109.14
+    },
+    {
+      "word": "at",
+      "start": 109.14,
+      "end": 109.38
+    },
+    {
+      "word": "Honeywell's",
+      "start": 109.38,
+      "end": 109.66
+    },
+    {
+      "word": "own",
+      "start": 109.66,
+      "end": 109.91
+    },
+    {
+      "word": "user",
+      "start": 109.91,
+      "end": 110.26
+    },
+    {
+      "word": "conference.",
+      "start": 110.26,
+      "end": 110.8
+    },
+    {
+      "word": "Klein",
+      "start": 111.66,
+      "end": 112.13
+    },
+    {
+      "word": "admits",
+      "start": 112.13,
+      "end": 112.39
+    },
+    {
+      "word": "he",
+      "start": 112.39,
+      "end": 112.57
+    },
+    {
+      "word": "was",
+      "start": 112.57,
+      "end": 112.84
+    },
+    {
+      "word": "pessimistic.",
+      "start": 112.84,
+      "end": 113.36
+    },
+    {
+      "word": "Now",
+      "start": 113.92,
+      "end": 114.32
+    },
+    {
+      "word": "he",
+      "start": 114.32,
+      "end": 114.48
+    },
+    {
+      "word": "says",
+      "start": 114.48,
+      "end": 114.72
+    },
+    {
+      "word": "AI",
+      "start": 114.72,
+      "end": 115.03
+    },
+    {
+      "word": "has",
+      "start": 115.03,
+      "end": 115.31
+    },
+    {
+      "word": "room",
+      "start": 115.31,
+      "end": 115.54
+    },
+    {
+      "word": "on",
+      "start": 115.54,
+      "end": 115.72
+    },
+    {
+      "word": "the",
+      "start": 115.72,
+      "end": 115.93
+    },
+    {
+      "word": "console,",
+      "start": 115.93,
+      "end": 116.38
+    },
+    {
+      "word": "but",
+      "start": 116.54,
+      "end": 116.91
+    },
+    {
+      "word": "it",
+      "start": 116.91,
+      "end": 117.01
+    },
+    {
+      "word": "is",
+      "start": 117.01,
+      "end": 117.19
+    },
+    {
+      "word": "not",
+      "start": 117.19,
+      "end": 117.46
+    },
+    {
+      "word": "plug",
+      "start": 117.46,
+      "end": 117.67
+    },
+    {
+      "word": "and",
+      "start": 117.67,
+      "end": 117.88
+    },
+    {
+      "word": "play,",
+      "start": 117.88,
+      "end": 118.28
+    },
+    {
+      "word": "and",
+      "start": 118.28,
+      "end": 118.59
+    },
+    {
+      "word": "it",
+      "start": 118.59,
+      "end": 118.76
+    },
+    {
+      "word": "needs",
+      "start": 118.76,
+      "end": 119.1
+    },
+    {
+      "word": "support.",
+      "start": 119.1,
+      "end": 119.64
+    },
+    {
+      "word": "His",
+      "start": 120.22,
+      "end": 120.67
+    },
+    {
+      "word": "advice",
+      "start": 120.67,
+      "end": 120.91
+    },
+    {
+      "word": "is",
+      "start": 120.91,
+      "end": 121.1
+    },
+    {
+      "word": "to",
+      "start": 121.1,
+      "end": 121.28
+    },
+    {
+      "word": "bring",
+      "start": 121.28,
+      "end": 121.61
+    },
+    {
+      "word": "operators",
+      "start": 121.61,
+      "end": 121.95
+    },
+    {
+      "word": "in",
+      "start": 121.95,
+      "end": 122.13
+    },
+    {
+      "word": "from",
+      "start": 122.13,
+      "end": 122.29
+    },
+    {
+      "word": "the",
+      "start": 122.29,
+      "end": 122.5
+    },
+    {
+      "word": "start.",
+      "start": 122.5,
+      "end": 122.94
+    },
+    {
+      "word": "The",
+      "start": 123.28,
+      "end": 123.74
+    },
+    {
+      "word": "gauge",
+      "start": 123.74,
+      "end": 124.01
+    },
+    {
+      "word": "reads",
+      "start": 124.01,
+      "end": 124.33
+    },
+    {
+      "word": "now.",
+      "start": 124.33,
+      "end": 124.84
+    },
+    {
+      "word": "The",
+      "start": 125.04,
+      "end": 125.53
+    },
+    {
+      "word": "screen",
+      "start": 125.53,
+      "end": 125.88
+    },
+    {
+      "word": "reads",
+      "start": 125.88,
+      "end": 126.25
+    },
+    {
+      "word": "next.",
+      "start": 126.25,
+      "end": 126.76
+    },
+    {
+      "word": "The",
+      "start": 127.02,
+      "end": 127.47
+    },
+    {
+      "word": "call",
+      "start": 127.47,
+      "end": 127.68
+    },
+    {
+      "word": "is",
+      "start": 127.68,
+      "end": 127.9
+    },
+    {
+      "word": "still",
+      "start": 127.9,
+      "end": 128.14
+    },
+    {
+      "word": "the",
+      "start": 128.14,
+      "end": 128.47
+    },
+    {
+      "word": "operator's.",
+      "start": 128.47,
+      "end": 128.92
+    }
+  ],
+  "beats": [
+    0.557,
+    1.068,
+    1.602,
+    2.136,
+    2.647,
+    3.181,
+    3.715,
+    4.226,
+    4.76,
+    5.248,
+    5.782,
+    6.316,
+    6.827,
+    7.384,
+    7.918,
+    8.429,
+    8.94,
+    9.451,
+    9.985,
+    10.519,
+    11.029,
+    11.564,
+    12.098,
+    12.632,
+    13.142,
+    13.677,
+    14.187,
+    14.698,
+    15.209,
+    15.766,
+    16.277,
+    16.811,
+    17.322,
+    17.856,
+    18.367,
+    18.878,
+    19.412,
+    19.923,
+    20.503,
+    21.014,
+    21.525,
+    22.036,
+    22.547,
+    23.057,
+    23.615,
+    24.126,
+    24.66,
+    25.194,
+    25.704,
+    26.215,
+    26.773,
+    27.283,
+    27.818,
+    28.328,
+    28.862,
+    29.396,
+    29.884,
+    30.418,
+    30.929,
+    31.44,
+    31.974,
+    32.531,
+    33.065,
+    33.53,
+    34.087,
+    34.621,
+    35.155,
+    35.689,
+    36.2,
+    36.711,
+    37.222,
+    37.779,
+    38.29,
+    38.801,
+    39.335,
+    39.869,
+    40.38,
+    40.914,
+    41.424,
+    41.958,
+    42.469,
+    42.98,
+    43.514,
+    44.095,
+    44.582,
+    45.093,
+    45.604,
+    46.161,
+    46.672,
+    47.206,
+    47.74,
+    48.274,
+    48.762,
+    49.273,
+    49.83,
+    50.341,
+    50.852,
+    51.339,
+    51.897,
+    52.407,
+    52.965,
+    53.452,
+    54.01,
+    54.567,
+    55.055,
+    55.589,
+    56.099,
+    56.657,
+    57.144,
+    57.632,
+    58.166,
+    58.746,
+    59.234,
+    59.745,
+    60.279,
+    60.836,
+    61.347,
+    61.858,
+    62.415,
+    62.926,
+    63.437,
+    63.948,
+    64.482,
+    64.993,
+    65.527,
+    66.061,
+    66.595,
+    67.106,
+    67.617,
+    68.127,
+    68.685,
+    69.219,
+    69.73,
+    70.264,
+    70.798,
+    71.332,
+    71.819,
+    72.33,
+    72.887,
+    73.375,
+    73.909,
+    74.443,
+    74.954,
+    75.488,
+    75.999,
+    76.51,
+    77.067,
+    77.601,
+    78.112,
+    78.623,
+    79.18,
+    79.714,
+    80.202,
+    80.713,
+    81.247,
+    81.781,
+    82.292,
+    82.826,
+    83.336,
+    83.847,
+    84.381,
+    84.915,
+    85.426,
+    85.96,
+    86.471,
+    87.005,
+    87.597,
+    88.108,
+    88.642,
+    89.176,
+    89.687,
+    90.221,
+    90.755,
+    91.266,
+    91.8,
+    92.288,
+    92.822,
+    93.356,
+    93.867,
+    94.424,
+    94.958,
+    95.469,
+    95.98,
+    96.491,
+    97.025,
+    97.559,
+    98.069,
+    98.604,
+    99.138,
+    99.672,
+    100.182,
+    100.717,
+    101.227,
+    101.738,
+    102.249,
+    102.806,
+    103.317,
+    103.851,
+    104.362,
+    104.896,
+    105.407,
+    105.918,
+    106.452,
+    106.963,
+    107.543,
+    108.054,
+    108.565,
+    109.076,
+    109.587,
+    110.097,
+    110.655,
+    111.166,
+    111.7,
+    112.234,
+    112.744,
+    113.255,
+    113.813,
+    114.323,
+    114.858,
+    115.368,
+    115.902,
+    116.436,
+    116.924,
+    117.458,
+    117.969,
+    118.48,
+    119.014,
+    119.571,
+    120.105,
+    120.57,
+    121.127,
+    121.661,
+    122.195,
+    122.729,
+    123.24,
+    123.751,
+    124.262,
+    124.819,
+    125.33,
+    125.841,
+    126.375,
+    126.909,
+    127.42,
+    127.954,
+    128.464,
+    128.998,
+    129.509
+  ],
+  "timed_at": "2026-11-27T15:56:57+00:00",
+  "run_id": "2026-11-26"
+}
