@@ -63,6 +63,23 @@ const MinuteRing: React.FC<{x: number; y: number; r: number; k: number; of?: num
   </g>
 );
 
+/** the 10 to 18 minute band on a ring of 18: labels at 10 and 18, the arc between them lit by `band` */
+const TenToEighteen: React.FC<{x: number; y: number; r: number; band: number}> = ({x, y, r, band}) => {
+  const at = (m: number, rr: number) => [Math.cos((m / 18) * Math.PI * 2 - Math.PI / 2) * rr, Math.sin((m / 18) * Math.PI * 2 - Math.PI / 2) * rr] as const;
+  const [x10, y10] = at(10, r), [x18, y18] = at(17.99, r);
+  const [lx10, ly10] = at(10, r + 70), [lx18, ly18] = at(0, r + 70);
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      {band > 0 && <path d={`M${x10} ${y10} A${r} ${r} 0 0 1 ${lerp(x10, x18, 1) * 1} ${y18}`} stroke="#ffd34d" strokeWidth={r * 0.13} fill="none" strokeLinecap="round"
+        strokeDasharray={`${2 * Math.PI * r * (8 / 18) * band} 4000`} />}
+      <circle cx={lx10} cy={ly10} r={46} fill="#2a2558" stroke="#ffd34d" strokeWidth={6} />
+      <text x={lx10} y={ly10 + 16} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={44} fill="#fff6e6">10</text>
+      <circle cx={lx18} cy={ly18} r={46} fill="#2a2558" stroke="#ffd34d" strokeWidth={6} />
+      <text x={lx18} y={ly18 + 16} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={44} fill="#fff6e6">18</text>
+    </g>
+  );
+};
+
 /** a Gulf refinery skyline: columns, tanks, a pipe rack and stacks, base line at y */
 const Skyline: React.FC<{y: number; frame: number; s?: number; tint?: number}> = ({y, frame, s = 1, tint = 0}) => {
   const C = '#b8c2d8';
@@ -487,11 +504,14 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
       const k = rg8 > 0 ? lerp(10 / 18, 1, ease(clamp01(rg8 / 1.0))) : (10 / 18) * clamp01((fc - 0.6) / 2.0);
       return svg(<g>
         <rect x={0} y={0} width={1080} height={1920} fill="#1d2758" />
-        <Glow x={540} y={900} r={700} color="#ff9a5a" opacity={0.16} />
-        <Gauge x={540} y={900} r={330} v={0.7 + Math.sin(frame / 18) * 0.01} frame={frame} ghost={1} ghostV={ghostV} mood={k > 0.8 ? 'relieved' : 'worried'} />
-        <MinuteRing x={540} y={900} r={430} k={k} of={18} />
+        <Glow x={540} y={720} r={700} color="#ff9a5a" opacity={0.16} />
+        <Gauge x={540} y={720} r={250} v={0.7 + Math.sin(frame / 18) * 0.01} frame={frame} ghost={1} ghostV={ghostV} mood={k > 0.8 ? 'relieved' : 'worried'} />
+        <MinuteRing x={540} y={720} r={320} k={k} of={18} />
+        <TenToEighteen x={540} y={720} r={320} band={after(rg8, 1.0)} />
+        {person(OP, 900, 1980, 1.7, rg8 > 0.6 ? {pose: 'cheer', fromPose: 'hold', poseBlend: clamp01((rg8 - 0.6) / 0.35)} : {pose: 'hold', holding: null},
+          rg8 > 0.6 ? 'excited' : 'thinking', -0.6, 6)}
         
-        <Burst x={540} y={470} p={(rg8 - 1.0) / 0.6} color={ACCENT} r={260} />
+        <Burst x={540} y={400} p={(rg8 - 1.0) / 0.6} color={ACCENT} r={260} />
       </g>);
     }
     case 'trend-forecast': {
@@ -578,6 +598,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
           </g>
         )}
         <Word x={540} y={700} t="FIVE EVENTS" size={110} c="#3a3550" op={clamp01(fv * 2)} />
+        {person(OP, 880, 1900, 1.7, move(fv, 0.4, 'stand', 'point'), fv > 0.4 ? 'surprised' : 'thinking', -0.6, 6)}
         {since('s9-date') > 0 && (
           <g transform={`translate(${lerp(1300, 760, pop(since('s9-date'), 0.5, 1.3))} 330) rotate(4)`}>
             <rect x={-200} y={-150} width={400} height={300} rx={34} fill="#ffffff" stroke="#c9bfa8" strokeWidth={6} />
@@ -639,7 +660,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
           })}
         </g>
         {/* the operator's hand and sleeve reaching in from the lower right, the finger landing on the alert */}
-        <g transform={`translate(${lerp(1200, 640, ease(clamp01(ac / 0.4)))} ${lerp(1500, 760 + press * 14, ease(clamp01(ac / 0.4)))}) rotate(-35)`}>
+        <g transform={`translate(${lerp(1200, 760, ease(clamp01(ac / 0.4)))} ${lerp(1500, 960 + press * 14, ease(clamp01(ac / 0.4)))}) rotate(-35)`}>
           <rect x={60} y={-60} width={600} height={170} rx={80} fill="#3d5a8a" stroke={line('#3d5a8a')} strokeWidth={6} />
           <rect x={-20} y={-50} width={150} height={140} rx={60} fill="#8c5733" stroke={line('#8c5733')} strokeWidth={6} />
           <rect x={-120} y={-30} width={140} height={44} rx={22} fill="#8c5733" stroke={line('#8c5733')} strokeWidth={6} />
@@ -669,6 +690,81 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         {person(KLEIN, lerp(1180, 860, ease(clamp01(kl / 0.8))), 1860, 2.0, move(kl, 0.8, 'stand', 'point'), mt > 0.8 ? 'happy' : 'surprised', -0.6, 9,
           {walk: kl > 0 && kl < 0.8 ? kl : undefined})}
         <Burst x={540} y={900} p={(mt - 0.8) / 0.6} color={GREEN} r={260} />
+      </g>);
+    }
+    case 'panel-shoulder': {
+      // over the operator's shoulder: the new panel slides onto the screen, big
+      const ins = since('s7-install');
+      const slide = pop(ins, 0.6, 1.3);
+      return svg(<g>
+        <rect x={0} y={0} width={1080} height={1920} fill="#16204a" />
+        <g transform="translate(560 760) scale(1.05)">
+          <rect x={-470} y={-300} width={940} height={600} rx={44} fill="#232842" stroke={line('#232842')} strokeWidth={8} />
+          <g transform="translate(-450 -280)"><svg width={900} height={560} viewBox="0 0 900 520" preserveAspectRatio="none"><Trend p={1} frame={frame} /></svg></g>
+          <g transform={`translate(${lerp(600, 40, slide)} -250)`}>
+            <rect width={400} height={500} rx={40} fill="#18245a" stroke={CYAN} strokeWidth={7} />
+            <circle cx={200} cy={170} r={84} fill="none" stroke={CYAN} strokeWidth={12} />
+            <circle cx={170} cy={158} r={14} fill={CYAN} /><circle cx={230} cy={158} r={14} fill={CYAN} />
+            <path d="M160 205 Q200 235 240 205" stroke={CYAN} strokeWidth={10} fill="none" strokeLinecap="round" />
+            <text x={200} y={340} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={52} fill="#fff6e6">AI ASSIST</text>
+            <text x={200} y={410} textAnchor="middle" fontFamily={FONT.body} fontWeight={800} fontSize={34} fill="#8fa0d8">PILOT</text>
+          </g>
+        </g>
+        <Burst x={700} y={700} p={(ins - 0.5) / 0.6} color={CYAN} r={300} />
+        {/* the operator's head and shoulder from behind, lower left, leaning in */}
+        <g transform={`translate(${200 + 30 * after(ins - 0.4, 0.5)} 1560)`}>
+          <ellipse cx={0} cy={260} rx={330} ry={240} fill="#3d5a8a" stroke={line('#3d5a8a')} strokeWidth={8} />
+          <circle cx={20} cy={-10} r={150} fill="#8c5733" stroke={line('#8c5733')} strokeWidth={6} />
+          {Array.from({length: 14}, (_, i) => <circle key={i} cx={20 + Math.cos(i * 0.9) * 110} cy={-40 + Math.sin(i * 0.9) * 100} r={60} fill="#7c5a34" />)}
+          <path d="M150 -40 L210 -60" stroke="#2a2140" strokeWidth={10} strokeLinecap="round" />
+        </g>
+      </g>);
+    }
+    case 'lines-lock': {
+      const mt = since('s10-match');
+      const join = ease(clamp01(mt / 0.8));
+      return svg(<g>
+        <rect x={0} y={0} width={1080} height={1920} fill="#101634" />
+        <g transform="translate(0 420) scale(1.2 1.6)">
+          <path d={`M40 ${220 - 140 * (1 - join)} Q300 ${220 - 140 * (1 - join)} 450 ${400 - 80 * (1 - join)} T860 ${230 - 140 * (1 - join)}`} stroke={ACCENT}
+            strokeWidth={14} strokeDasharray="26 16" fill="none" />
+          <path d="M40 220 Q300 220 450 400 T860 230" stroke={CYAN} strokeWidth={14} fill="none" />
+        </g>
+        {join > 0.95 && <g transform="translate(540 1060)"><circle r={80 + 12 * Math.sin(frame / 4)} fill="none" stroke={GREEN} strokeWidth={12} />
+          <path d="M-36 0 L-10 28 L40 -30" stroke={GREEN} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" /></g>}
+        <Word x={540} y={560} t="PREDICTED" size={70} c={ACCENT} />
+        <Word x={540} y={1300} t="THEN SEEN" size={70} c={CYAN} op={clamp01(join * 2)} />
+        <Burst x={540} y={1060} p={(mt - 0.8) / 0.6} color={GREEN} r={300} />
+      </g>);
+    }
+    case 'card-close': {
+      const nw = since('s12-newer');
+      const flip = clamp01(nw / 0.5);
+      return svg(<g>
+        <rect x={0} y={0} width={1080} height={1920} fill="#16204a" />
+        <g transform={`translate(560 760) rotate(-3) scale(${flip < 0.5 ? 1 - flip * 2 : (flip - 0.5) * 2} 1)`}>
+          <rect x={-380} y={-280} width={760} height={560} rx={50} fill={flip < 0.5 ? '#3a4580' : '#fff6e6'} stroke="#8fa0d8" strokeWidth={6} />
+          {flip < 0.5 ? <text y={20} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={70} fill="#fff6e6">PAST ALARM</text> : (
+            <>
+              <text y={-140} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={54} fill="#3a3550">LAST TIME</text>
+              <text y={-50} textAnchor="middle" fontFamily={FONT.body} fontWeight={800} fontSize={48} fill={GREEN}>WHAT WORKED</text>
+              <rect x={-280} y={20} width={560} height={26} rx={13} fill="#c9bfa8" />
+              <rect x={-280} y={80} width={420} height={26} rx={13} fill="#c9bfa8" />
+              <rect x={-280} y={140} width={500} height={26} rx={13} fill="#c9bfa8" />
+            </>
+          )}
+        </g>
+        {person(NEWER, 860, 2050, 2.6, move(nw, 0.6, 'think', 'cheer'), nw > 0.6 ? 'excited' : 'thinking', -0.6, 4)}
+      </g>);
+    }
+    case 'klein-arms': {
+      const dt = since('s13-doubt');
+      const rm = since('s13-room');
+      return svg(<g>
+        {room(0.15)}
+        <Monitor x={820} y={700} s={0.4}><Trend p={1} forecast={1} frame={frame} /></Monitor>
+        {person(KLEIN, 460, 2500, 3.4, move(rm, 0.1, 'crossed', 'reach'), rm > 0.3 ? 'smug' : dt > 0 ? 'angry' : 'neutral', 0.3, 9)}
+        {rm > 0 && <Glow x={820} y={700} r={300} color={CYAN} opacity={0.35 * after(rm, 0.5)} />}
       </g>);
     }
     // ------------------------------------------------------------------ s11 the test
@@ -895,7 +991,6 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
       );
       return svg(<g>
         {room()}
-        <Gauge x={810} y={380} r={110} v={0.7} frame={frame} ghost={1} ghostV={0.2} mood="calm" />
         {chair(lerp(-160, 300, come), '#3a4270')}
         {chair(lerp(1240, 780, come), '#3a4270')}
         {person(OP, lerp(-160, 300, come), 1380, 1.45, {pose: come < 1 ? 'cheer' : 'stand'}, 'happy', 0.6, 6)}
@@ -903,7 +998,8 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         <path d="M-40 1100 L1120 1100 L1120 1920 L-40 1920 Z" fill="#5d6a8c" />
         <path d="M-40 1100 L1120 1100" stroke="#8b97b8" strokeWidth={16} />
         <Monitor x={540} y={980} s={0.22}><Trend p={1} forecast={1} frame={frame} /></Monitor>
-        <Cup x={540} y={1180} s={0.9} ripple={tm - 1.0} frame={frame} />
+        <Cup x={760} y={1180} s={0.9} ripple={tm - 1.0} frame={frame} />
+        <Gauge x={420} y={1080} r={120} v={0.7} frame={frame} ghost={1} ghostV={0.2} mood="calm" />
         {come < 1 && [0, 1].map((i) => <path key={i} d={`M${i ? lerp(1400, 950, come) : lerp(-320, 130, come)} ${1000 + i * 20} l${i ? 120 : -120} 0`}
           stroke="#8fa0d8" strokeWidth={12} strokeLinecap="round" opacity={0.7 * (1 - come)} />)}
       </g>);
