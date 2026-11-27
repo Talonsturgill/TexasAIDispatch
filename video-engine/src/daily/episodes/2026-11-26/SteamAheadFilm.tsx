@@ -446,7 +446,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
             <circle cx={-10} cy={-10} r={10} fill="#ffffff" opacity={0.6} />
           </g>
         </g>
-        {person(OP, 900, 1800, 1.5, {pose: 'crossed'}, 'thinking', -0.6, 6)}
+        {person(OP, 860, 1820, 1.6, move(since('s7-cal'), 0.5, 'think', 'point'), since('s7-cal') > 0.5 ? 'determined' : 'thinking', -0.7, 6)}
       </g>);
     }
     case 'panel-install': {
@@ -488,6 +488,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
           <rect x={-200} y={-50} width={400} height={100} rx={30} fill={ACCENT} stroke={line(ACCENT)} strokeWidth={5} />
           <text x={0} y={16} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={44} fill="#fff6e6">AVG 12 MIN</text>
         </g>
+        {person(OP, 150, 1980, 1.6, move(tw, 0.4, 'think', 'panic'), tw > 0.4 ? 'surprised' : 'thinking', 0.7, 6)}
         <Word x={540} y={500} t="BEFORE THE ALARM" size={66} c="#3a3550" op={clamp01(tw * 3)} />
       </g>);
     }
@@ -502,7 +503,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         <Gauge x={540} y={800} r={225} v={0.7 + Math.sin(frame / 18) * 0.01} frame={frame} ghost={1} ghostV={ghostV} mood={k > 0.8 ? 'relieved' : 'worried'} />
         <MinuteRing x={540} y={800} r={290} k={k} of={18} />
         <TenToEighteen x={540} y={800} r={290} band={after(rg8, 1.0)} />
-        {person(OP, 900, 1980, 1.7, rg8 > 0.6 ? {pose: 'cheer', fromPose: 'hold', poseBlend: clamp01((rg8 - 0.6) / 0.35)} : {pose: 'hold', holding: null},
+        {person(OP, 900, 1980, 1.7, rg8 > 0.6 ? {pose: 'cheer', fromPose: 'think', poseBlend: clamp01((rg8 - 0.6) / 0.35)} : {pose: 'think'},
           rg8 > 0.6 ? 'excited' : 'thinking', -0.6, 6)}
         
         <Burst x={540} y={400} p={(rg8 - 1.0) / 0.6} color={ACCENT} r={260} />
@@ -589,7 +590,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
           </g>
         )}
         <Word x={540} y={700} t="FIVE EVENTS" size={110} c="#3a3550" op={clamp01(fv * 2)} />
-        {person(OP, 985, 1930, 1.45, move(fv, 0.4, 'stand', 'point'), fv > 0.4 ? 'surprised' : 'thinking', -0.7, 6)}
+        {person(OP, 985, 1930, 1.45, move(fv, 0.2, 'reach', 'point'), fv > 0.2 ? 'surprised' : 'thinking', -0.7, 6)}
         {since('s9-date') > 0 && (
           <g transform={`translate(${lerp(1300, 760, pop(since('s9-date'), 0.5, 1.3))} 330) rotate(4)`}>
             <rect x={-200} y={-150} width={400} height={300} rx={34} fill="#ffffff" stroke="#c9bfa8" strokeWidth={6} />
