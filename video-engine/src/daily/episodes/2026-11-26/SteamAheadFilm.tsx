@@ -225,7 +225,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         <path d="M-40 1460 L1120 1460 L1120 1920 L-40 1920 Z" fill="#3d4a78" />
         <path d="M-40 1460 L1120 1460" stroke="#6a7aa8" strokeWidth={12} />
         <Cup x={820} y={1560} s={1.6} ripple={g - 0.3} frame={frame} />
-        {person(OP, 190, 2150, 2.4, {pose: 'hold', holding: null}, g > 0.4 ? 'surprised' : 'thinking', 0.7, 6)}
+        {person(OP, 100, 2150, 2.4, {pose: 'hold', holding: null}, g > 0.4 ? 'surprised' : 'thinking', 0.7, 6)}
         <Burst x={540} y={1180} p={(g - 1.0) / 0.6} color={ACCENT} r={300} />
       </g>);
     }
@@ -239,6 +239,42 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         <path d="M0 1500 L1080 1500" stroke="#f4efe6" strokeWidth={10} strokeDasharray="60 50" opacity={0.6} />
         <PickupV2 frame={frame} x={lerp(-200, 560, drive)} y={1560} scale={0.9} speed={drive < 1 ? 0.8 : 0} />
         {person(FIELD, 170, 1720, 1.35, move(r, 0.6, 'stand', 'wave'), r > 0.6 ? 'happy' : 'neutral', 0.7, 2, {walk: r < 0.6 ? r : undefined})}
+      </g>);
+    }
+    case 'lake-wide': {
+      // the refinery standing on the edge of Sabine Lake, low and wide, marsh in front
+      const k = ease(clamp01(t / 3));
+      return svg(<g>
+        <Skyline y={1000} frame={frame} s={0.8} />
+        <rect x={0} y={1000} width={1080} height={920} fill="#8fbcc4" />
+        {Array.from({length: 14}, (_, i) => <path key={i} d={`M${(i * 97 + frame * 0.8) % 1180 - 100} ${1060 + (i % 5) * 60} l90 0`} stroke="#d8eef0" strokeWidth={6}
+          strokeLinecap="round" opacity={0.7} />)}
+        <path d="M0 1380 Q260 1340 540 1370 T1080 1350 L1080 1920 L0 1920 Z" fill="#8a9a5a" />
+        {Array.from({length: 40}, (_, i) => <path key={`g${i}`} d={`M${i * 28} 1400 q${6 + Math.sin(frame / 20 + i) * 4} -50 12 0`} stroke="#6f7e46" strokeWidth={6}
+          fill="none" strokeLinecap="round" />)}
+        {person(FIELD, lerp(820, 760, k), 1640, 1.0, {pose: 'point'}, 'happy', -0.3, 2)}
+        <g transform="translate(240 980)"><path d="M-40 0 Q-20 -14 0 0 Q20 -14 40 0" stroke="#3a3550" strokeWidth={5} fill="none"
+          transform={`translate(${(frame * 2) % 600} ${-60 + Math.sin(frame / 10) * 10})`} /></g>
+      </g>);
+    }
+    case 'pin-close': {
+      const p = pop(t - 0.2, 0.5, 2);
+      return svg(<g>
+        <rect x={0} y={0} width={1080} height={1920} fill="#f3ead8" />
+        <path d="M-40 1100 L1120 1100" stroke="#3a3550" strokeWidth={22} strokeLinecap="round" />
+        {[0, 1, 2, 3, 4].map((i) => {
+          const d = pop(t - i * 0.18, 0.4, 1.8);
+          return (
+            <g key={i} transform={`translate(${160 + i * 190} ${1090 - (1 - d) * 400}) scale(1.6)`} opacity={clamp01(d * 3)}>
+              <ContactShadow x={0} y={10} w={80} />
+              <path d="M0 0 C-36 -50 -40 -94 0 -104 C40 -94 36 -50 0 0Z" fill={ACCENT} stroke={line(ACCENT)} strokeWidth={5} />
+              <circle cx={0} cy={-66} r={18} fill="#fff4dc" />
+              <text x={0} y={-56} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={26} fill="#3a3550">{i + 1}</text>
+            </g>
+          );
+        })}
+        <Burst x={920} y={960} p={(t - 0.9) / 0.5} color={ACCENT} r={200} />
+        {person(OP, 960, 2150, 2.0, {pose: 'cheer'}, p > 0.5 ? 'excited' : 'surprised', -0.6, 6)}
       </g>);
     }
     case 'barrel-wall': {
@@ -503,7 +539,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         <Gauge x={540} y={800} r={225} v={0.7 + Math.sin(frame / 18) * 0.01} frame={frame} ghost={1} ghostV={ghostV} mood={k > 0.8 ? 'relieved' : 'worried'} />
         <MinuteRing x={540} y={800} r={290} k={k} of={18} />
         <TenToEighteen x={540} y={800} r={290} band={after(rg8, 1.0)} />
-        {person(OP, 900, 1980, 1.7, rg8 > 0.6 ? {pose: 'cheer', fromPose: 'think', poseBlend: clamp01((rg8 - 0.6) / 0.35)} : {pose: 'think'},
+        {person(OP, 985, 1980, 1.7, rg8 > 0.6 ? {pose: 'cheer', fromPose: 'think', poseBlend: clamp01((rg8 - 0.6) / 0.35)} : {pose: 'think'},
           rg8 > 0.6 ? 'excited' : 'thinking', -0.6, 6)}
         
         <Burst x={540} y={400} p={(rg8 - 1.0) / 0.6} color={ACCENT} r={260} />
@@ -771,7 +807,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
       return svg(<g>
         {room(0.15)}
         <Monitor x={820} y={700} s={0.4}><Trend p={1} forecast={1} frame={frame} /></Monitor>
-        {person(KLEIN, 460, 2500, 3.4, move(rm, 0.1, 'crossed', 'reach'), rm > 0.3 ? 'smug' : dt > 0 ? 'angry' : 'neutral', 0.3, 9)}
+        {person(KLEIN, 460, 2250, 3.4, move(rm, 0.1, 'crossed', 'reach'), rm > 0.3 ? 'smug' : dt > 0 ? 'angry' : 'neutral', 0.3, 9)}
         {rm > 0 && <Glow x={820} y={700} r={300} color={CYAN} opacity={0.35 * after(rm, 0.5)} />}
       </g>);
     }
