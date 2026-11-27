@@ -407,7 +407,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
       const names = ['PUMP B', 'HEATER 2', 'TURBINE C', 'BLOWER'];
       return svg(<g>
         {room(0.1)}
-        <Monitor x={560} y={900} s={0.95}>
+        <Monitor x={600} y={820} s={0.88}>
           <rect width={900} height={520} fill="#101634" />
           {names.map((n, i) => {
             const sh = Math.sin(ch * 6 + i * 1.7) * 30 * clamp01(ch);
@@ -421,7 +421,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
           <rect x={40} y={430} width={820} height={40} rx={20} fill="#26305a" />
           <rect x={40} y={430} width={820 * drain} height={40} rx={20} fill={drain < 0.35 ? '#ff5d5d' : '#ffd34d'} />
         </Monitor>
-        {person(OP, 260, 1900, 2.3, move(ch, 0.4, 'think', 'point'), ch > 0.4 ? 'worried' : 'thinking', 0.6, 6)}
+        {person(OP, 150, 2050, 2.0, move(ch, 0.4, 'think', 'point'), ch > 0.4 ? 'worried' : 'thinking', 0.6, 6)}
       </g>);
     }
     // ------------------------------------------------------------------ s7 the pilot
@@ -504,10 +504,10 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
       const k = rg8 > 0 ? lerp(10 / 18, 1, ease(clamp01(rg8 / 1.0))) : (10 / 18) * clamp01((fc - 0.6) / 2.0);
       return svg(<g>
         <rect x={0} y={0} width={1080} height={1920} fill="#1d2758" />
-        <Glow x={540} y={720} r={700} color="#ff9a5a" opacity={0.16} />
-        <Gauge x={540} y={720} r={250} v={0.7 + Math.sin(frame / 18) * 0.01} frame={frame} ghost={1} ghostV={ghostV} mood={k > 0.8 ? 'relieved' : 'worried'} />
-        <MinuteRing x={540} y={720} r={320} k={k} of={18} />
-        <TenToEighteen x={540} y={720} r={320} band={after(rg8, 1.0)} />
+        <Glow x={540} y={800} r={700} color="#ff9a5a" opacity={0.16} />
+        <Gauge x={540} y={800} r={225} v={0.7 + Math.sin(frame / 18) * 0.01} frame={frame} ghost={1} ghostV={ghostV} mood={k > 0.8 ? 'relieved' : 'worried'} />
+        <MinuteRing x={540} y={800} r={290} k={k} of={18} />
+        <TenToEighteen x={540} y={800} r={290} band={after(rg8, 1.0)} />
         {person(OP, 900, 1980, 1.7, rg8 > 0.6 ? {pose: 'cheer', fromPose: 'hold', poseBlend: clamp01((rg8 - 0.6) / 0.35)} : {pose: 'hold', holding: null},
           rg8 > 0.6 ? 'excited' : 'thinking', -0.6, 6)}
         
@@ -568,7 +568,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         <rect x={0} y={0} width={1080} height={1920} fill="#f3ead8" />
         <path d="M80 1100 L1000 1100" stroke="#3a3550" strokeWidth={14} strokeLinecap="round" />
         {Array.from({length: 9}, (_, i) => <path key={i} d={`M${100 + i * 110} 1080 L${100 + i * 110} 1120`} stroke="#3a3550" strokeWidth={8} strokeLinecap="round" />)}
-        {[170, 330, 520, 690, 880].map((px, i) => {
+        {[140, 300, 460, 620, 780].map((px, i) => {
           const d = fv - i * 0.32;
           const p = pop(d, 0.4, 1.8);
           return (
@@ -580,7 +580,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
             </g>
           );
         })}
-        {[170, 330, 520, 690, 880].map((px, i) => {
+        {[140, 300, 460, 620, 780].map((px, i) => {
           const fl = pop(since('s9-twelve') - i * 0.15, 0.35);
           return fl > 0 ? (
             <g key={`f${i}`} transform={`translate(${px} 940) scale(${fl})`}>
@@ -598,7 +598,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
           </g>
         )}
         <Word x={540} y={700} t="FIVE EVENTS" size={110} c="#3a3550" op={clamp01(fv * 2)} />
-        {person(OP, 880, 1900, 1.7, move(fv, 0.4, 'stand', 'point'), fv > 0.4 ? 'surprised' : 'thinking', -0.6, 6)}
+        {person(OP, 985, 1930, 1.45, move(fv, 0.4, 'stand', 'point'), fv > 0.4 ? 'surprised' : 'thinking', -0.7, 6)}
         {since('s9-date') > 0 && (
           <g transform={`translate(${lerp(1300, 760, pop(since('s9-date'), 0.5, 1.3))} 330) rotate(4)`}>
             <rect x={-200} y={-150} width={400} height={300} rx={34} fill="#ffffff" stroke="#c9bfa8" strokeWidth={6} />
@@ -711,13 +711,8 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
           </g>
         </g>
         <Burst x={700} y={700} p={(ins - 0.5) / 0.6} color={CYAN} r={300} />
-        {/* the operator's head and shoulder from behind, lower left, leaning in */}
-        <g transform={`translate(${200 + 30 * after(ins - 0.4, 0.5)} 1560)`}>
-          <ellipse cx={0} cy={260} rx={330} ry={240} fill="#3d5a8a" stroke={line('#3d5a8a')} strokeWidth={8} />
-          <circle cx={20} cy={-10} r={150} fill="#8c5733" stroke={line('#8c5733')} strokeWidth={6} />
-          {Array.from({length: 14}, (_, i) => <circle key={i} cx={20 + Math.cos(i * 0.9) * 110} cy={-40 + Math.sin(i * 0.9) * 100} r={60} fill="#7c5a34" />)}
-          <path d="M150 -40 L210 -60" stroke="#2a2140" strokeWidth={10} strokeLinecap="round" />
-        </g>
+        <Glow x={860} y={1500} r={420} color={CYAN} opacity={0.25 * after(ins - 0.3, 0.5)} />
+        {person(OP, 870, 2000, 2.0, move(ins, 0.7, 'crossed', 'think'), ins > 0.7 ? 'surprised' : 'smug', -0.6, 6)}
       </g>);
     }
     case 'lines-lock': {
@@ -733,7 +728,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         {join > 0.95 && <g transform="translate(540 1060)"><circle r={80 + 12 * Math.sin(frame / 4)} fill="none" stroke={GREEN} strokeWidth={12} />
           <path d="M-36 0 L-10 28 L40 -30" stroke={GREEN} strokeWidth={16} fill="none" strokeLinecap="round" strokeLinejoin="round" /></g>}
         <Word x={540} y={560} t="PREDICTED" size={70} c={ACCENT} />
-        <Word x={540} y={1300} t="THEN SEEN" size={70} c={CYAN} op={clamp01(join * 2)} />
+        <Word x={540} y={680} t="THEN SEEN" size={70} c={CYAN} op={clamp01(join * 2)} />
         <Burst x={540} y={1060} p={(mt - 0.8) / 0.6} color={GREEN} r={300} />
       </g>);
     }
