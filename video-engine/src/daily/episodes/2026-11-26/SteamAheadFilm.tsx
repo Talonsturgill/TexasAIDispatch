@@ -261,11 +261,11 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
       const p = pop(t - 0.2, 0.5, 2);
       return svg(<g>
         <rect x={0} y={0} width={1080} height={1920} fill="#f3ead8" />
-        <path d="M-40 1100 L1120 1100" stroke="#3a3550" strokeWidth={22} strokeLinecap="round" />
+        <path d="M-40 820 L1120 820" stroke="#3a3550" strokeWidth={22} strokeLinecap="round" />
         {[0, 1, 2, 3, 4].map((i) => {
           const d = pop(t + 0.6 - i * 0.1, 0.4, 1.8);
           return (
-            <g key={i} transform={`translate(${160 + i * 190} ${1090 - (1 - d) * 400}) scale(1.6)`} opacity={clamp01(d * 3)}>
+            <g key={i} transform={`translate(${160 + i * 190} ${810 - (1 - d) * 400}) scale(1.6)`} opacity={clamp01(d * 3)}>
               <ContactShadow x={0} y={10} w={80} />
               <path d="M0 0 C-36 -50 -40 -94 0 -104 C40 -94 36 -50 0 0Z" fill={ACCENT} stroke={line(ACCENT)} strokeWidth={5} />
               <circle cx={0} cy={-66} r={18} fill="#fff4dc" />
@@ -273,8 +273,8 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
             </g>
           );
         })}
-        <Burst x={920} y={960} p={(t - 0.9) / 0.5} color={ACCENT} r={200} />
-        {person(OP, 960, 2150, 2.0, {pose: 'cheer'}, p > 0.5 ? 'excited' : 'surprised', -0.6, 6)}
+        <Burst x={920} y={680} p={(t - 0.9) / 0.5} color={ACCENT} r={200} />
+        {person(OP, 230, 2120, 2.3, move(t, 0.3, 'reach', 'cheer'), p > 0.5 ? 'excited' : 'surprised', 0.7, 6)}
       </g>);
     }
     case 'barrel-wall': {
@@ -482,7 +482,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
             <circle cx={-10} cy={-10} r={10} fill="#ffffff" opacity={0.6} />
           </g>
         </g>
-        {person(OP, 860, 1820, 1.6, move(since('s7-cal'), 0.5, 'think', 'point'), since('s7-cal') > 0.5 ? 'determined' : 'thinking', -0.7, 6)}
+        {person(OP, 860, 2000, 2.2, move(since('s7-cal'), 0.5, 'think', 'point'), since('s7-cal') > 0.5 ? 'determined' : 'thinking', -0.7, 6)}
       </g>);
     }
     case 'panel-install': {
@@ -520,11 +520,11 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         </g>
         {tw > 0.4 && [0, 1, 2].map((i) => <path key={i} d={`M${300 - i * 60} ${620 - i * 40} q-60 140 0 280 M${780 + i * 60} ${620 - i * 40} q60 140 0 280`} stroke="#d23a3a"
           strokeWidth={10} fill="none" strokeLinecap="round" opacity={0.6 + 0.4 * Math.sin(frame / 3 + i)} />)}
-        <g transform={`translate(540 1090) scale(${pop(tw, 0.4)})`}>
+        <g transform={`translate(680 1090) scale(${pop(tw, 0.4)})`}>
           <rect x={-200} y={-50} width={400} height={100} rx={30} fill={ACCENT} stroke={line(ACCENT)} strokeWidth={5} />
           <text x={0} y={16} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={44} fill="#fff6e6">AVG 12 MIN</text>
         </g>
-        {person(OP, 150, 1980, 1.6, move(tw, 0.4, 'think', 'panic'), tw > 0.4 ? 'surprised' : 'thinking', 0.7, 6)}
+        {person(OP, 150, 2200, 2.0, move(tw, 0.3, 'think', 'panic'), tw > 0.3 ? 'surprised' : 'thinking', 0.6, 6)}
         <Word x={540} y={500} t="BEFORE THE ALARM" size={66} c="#3a3550" op={clamp01(tw * 3)} />
       </g>);
     }
@@ -535,12 +535,12 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
       const k = rg8 > 0 ? lerp(10 / 18, 1, ease(clamp01(rg8 / 1.0))) : (10 / 18) * clamp01((fc - 0.6) / 2.0);
       return svg(<g>
         <rect x={0} y={0} width={1080} height={1920} fill="#1d2758" />
-        <Glow x={540} y={800} r={700} color="#ff9a5a" opacity={0.16} />
-        <Gauge x={540} y={800} r={225} v={0.7 + Math.sin(frame / 18) * 0.01} frame={frame} ghost={1} ghostV={ghostV} mood={k > 0.8 ? 'relieved' : 'worried'} />
-        <MinuteRing x={540} y={800} r={290} k={k} of={18} />
-        <TenToEighteen x={540} y={800} r={290} band={after(rg8, 1.0)} />
-        {person(OP, 985, 1980, 1.7, rg8 > 0.6 ? {pose: 'cheer', fromPose: 'think', poseBlend: clamp01((rg8 - 0.6) / 0.35)} : {pose: 'think'},
-          rg8 > 0.6 ? 'excited' : 'thinking', -0.6, 6)}
+        <Glow x={540} y={720} r={700} color="#ff9a5a" opacity={0.16} />
+        <Gauge x={540} y={720} r={225} v={0.7 + Math.sin(frame / 18) * 0.01} frame={frame} ghost={1} ghostV={ghostV} mood={k > 0.8 ? 'relieved' : 'worried'} />
+        <MinuteRing x={540} y={720} r={290} k={k} of={18} />
+        <TenToEighteen x={540} y={720} r={290} band={after(rg8, 1.0)} />
+        {person(OP, 150, 2120, 2.1, rg8 > 0.6 ? {pose: 'cheer', fromPose: 'reach', poseBlend: clamp01((rg8 - 0.6) / 0.35)} : {pose: 'reach'},
+          rg8 > 0.6 ? 'excited' : 'thinking', 0.7, 6)}
         
         <Burst x={540} y={400} p={(rg8 - 1.0) / 0.6} color={ACCENT} r={260} />
       </g>);
@@ -860,16 +860,15 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
           <LitBox x={-380} y={-360} w={760} h={720} r={60} c="#fff6e6" />
           <Word x={0} y={-220} t="DRUM LEVEL MODEL" size={50} c="#3a3550" />
           <g transform={`scale(${0.5 + 0.5 * pop(sc, 0.4, 2)})`}><Word x={0} y={60} t={`${n}%`} size={230} c={ACCENT} op={clamp01(sc * 4)} /></g>
-          <Word x={0} y={200} t="right" size={56} c="#3a3550" />
+          <Word x={0} y={200} t="right" size={56} c="#3a3550" op={dr > 0 ? 0 : 1} />
           {dr > 0 && (
-            <g transform={`rotate(-14) scale(${lerp(1.8, 1, st)})`} opacity={clamp01(st)}>
+            <g transform={`translate(-90 250) rotate(-10) scale(${lerp(1.8, 1, st) * 0.8})`} opacity={clamp01(st)}>
               <rect x={-330} y={-80} width={660} height={160} rx={30} fill="none" stroke="#d23a3a" strokeWidth={18} />
               <text x={0} y={36} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={100} fill="#d23a3a">NOT KEPT</text>
             </g>
           )}
         </g>
-        {person(FIELD, 820, 1880, 1.8, move(dr, 0.2, 'stand', 'shrug'), dr > 0.2 ? 'neutral' : 'thinking', -0.5, 2)}
-        <Burst x={540} y={820} p={(dr - 0.1) / 0.5} color="#ff5d5d" r={300} />
+        {person(FIELD, 960, 1900, 1.6, move(dr, 0.2, 'stand', 'shrug'), dr > 0.2 ? 'neutral' : 'thinking', -0.5, 2)}
       </g>);
     }
     case 'outside-box': {
