@@ -404,7 +404,7 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
     case 'choice-screen': {
       const ch = since('s6-choose');
       const drain = clamp01(1 - ch / 3.0);
-      const names = ['PUMP B', 'HEATER 2', 'TURBINE C', 'BLOWER'];
+      const names = ['PUMP B', 'HEATER B', 'TURBINE C', 'BLOWER'];
       return svg(<g>
         {room(0.1)}
         <Monitor x={600} y={820} s={0.88}>
@@ -484,16 +484,10 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         </g>
         {tw > 0.4 && [0, 1, 2].map((i) => <path key={i} d={`M${300 - i * 60} ${620 - i * 40} q-60 140 0 280 M${780 + i * 60} ${620 - i * 40} q60 140 0 280`} stroke="#d23a3a"
           strokeWidth={10} fill="none" strokeLinecap="round" opacity={0.6 + 0.4 * Math.sin(frame / 3 + i)} />)}
-        {Array.from({length: 5}, (_, i) => {
-          const p = pop(tw - i * 0.12, 0.3);
-          const x = 260 + i * 140;
-          return (
-            <g key={i} transform={`translate(${x} 1090) scale(${p})`}>
-              <rect x={-64} y={-40} width={128} height={80} rx={24} fill={ACCENT} stroke={line(ACCENT)} strokeWidth={5} />
-              <text x={0} y={11} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={30} fill="#fff6e6">12 MIN</text>
-            </g>
-          );
-        })}
+        <g transform={`translate(540 1090) scale(${pop(tw, 0.4)})`}>
+          <rect x={-200} y={-50} width={400} height={100} rx={30} fill={ACCENT} stroke={line(ACCENT)} strokeWidth={5} />
+          <text x={0} y={16} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={44} fill="#fff6e6">AVG 12 MIN</text>
+        </g>
         <Word x={540} y={500} t="BEFORE THE ALARM" size={66} c="#3a3550" op={clamp01(tw * 3)} />
       </g>);
     }
@@ -580,16 +574,13 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
             </g>
           );
         })}
-        {[140, 300, 460, 620, 780].map((px, i) => {
-          const fl = pop(since('s9-twelve') - i * 0.15, 0.35);
-          return fl > 0 ? (
-            <g key={`f${i}`} transform={`translate(${px} 940) scale(${fl})`}>
-              <path d="M0 0 L0 -110" stroke="#3a3550" strokeWidth={6} />
-              <rect x={0} y={-110} width={110} height={56} rx={14} fill="#3a3550" />
-              <text x={55} y={-72} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={28} fill="#fff6e6">12 MIN</text>
-            </g>
-          ) : null;
-        })}
+        {since('s9-twelve') > 0 && (
+          <g transform={`translate(460 950) scale(${pop(since('s9-twelve'), 0.4)})`}>
+            <path d="M-320 40 L-320 0 L320 0 L320 40" stroke="#3a3550" strokeWidth={8} fill="none" strokeLinejoin="round" />
+            <rect x={-130} y={-80} width={260} height={70} rx={22} fill="#3a3550" />
+            <text x={0} y={-33} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={34} fill="#fff6e6">AVG 12 MIN</text>
+          </g>
+        )}
         {since('s9-twelve') > 0 && (
           <g transform={`translate(960 1360) rotate(${Math.sin(frame * 1.2) * 14})`}>
             <path d="M-70 40 Q-70 -70 0 -80 Q70 -70 70 40 Z" fill="#e2b04a" stroke={line('#e2b04a')} strokeWidth={6} />
@@ -713,6 +704,27 @@ export const SteamAheadFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, 
         <Burst x={700} y={700} p={(ins - 0.5) / 0.6} color={CYAN} r={300} />
         <Glow x={860} y={1500} r={420} color={CYAN} opacity={0.25 * after(ins - 0.3, 0.5)} />
         {person(OP, 870, 2000, 2.0, move(ins, 0.7, 'crossed', 'think'), ins > 0.7 ? 'surprised' : 'smug', -0.6, 6)}
+      </g>);
+    }
+    case 'klein-close': {
+      const kl = since('s10-klein');
+      return svg(<g>
+        {room(0.1)}
+        <Glow x={540} y={800} r={500} color={GREEN} opacity={0.18} />
+        {person(KLEIN, 540, 2450, 3.4, move(t, 0.4, 'stand', 'raise'), t > 0.4 ? 'surprised' : 'thinking', 0.2, 9)}
+        <Burst x={760} y={700} p={(t - 0.5) / 0.6} color={GREEN} r={240} />
+        {kl > 0 && <Word x={540} y={560} t="FIRST TIME" size={64} c={GREEN} op={clamp01((t - 0.3) * 3)} />}
+      </g>);
+    }
+    case 'cup-close': {
+      const tm = since('s14-team');
+      return svg(<g>
+        <rect x={0} y={0} width={1080} height={1920} fill="#5d6a8c" />
+        <rect x={0} y={0} width={1080} height={520} fill="#1d2758" />
+        <path d="M0 520 L1080 520" stroke="#8b97b8" strokeWidth={16} />
+        <Cup x={540} y={1100} s={3.2} ripple={(t % 1.6)} frame={frame} />
+        <Gauge x={860} y={420} r={150} v={0.7} frame={frame} ghost={1} ghostV={0.2} mood="calm" />
+        <Word x={540} y={1380} t="" op={tm > 0 ? 0 : 0} />
       </g>);
     }
     case 'lines-lock': {
