@@ -1,0 +1,2790 @@
+{
+  "date": "2026-11-27",
+  "title": "The scan that cuts the line",
+  "topic": "At Houston Methodist in the Texas Medical Center, a router and an AI tool called Aidoc flag a possible problem on a scan with a heat map and lift that exam to the top of a radiologist's worklist, while the radiologist still reads it and makes the call, and the tool is not perfect.",
+  "tone": "explainer",
+  "hook": "Which scan can't wait?",
+  "beat": "clinic",
+  "episode": "scan-line-1127",
+  "entities": [
+    "Houston Methodist",
+    "Aidoc",
+    "Texas Medical Center",
+    "Houston",
+    "Harris County",
+    "Ginny Torno"
+  ],
+  "treatment": {
+    "logline": "At Houston Methodist a router and an AI reorder the line of scans so the urgent one reaches a radiologist first, and the radiologist still makes every call.",
+    "cold_open": "A rounded CT scanner with sleepy eyes puffs out a glowing scan card that drops to the bottom of a leaning stack on a radiologist's desk. Before second three the buried card glows orange, waves a tiny flag and starts to rise.",
+    "turn": "A false flag. The heat map glows over nothing, the card jumps anyway, and the radiologist frowns and reads it herself. It's not perfect.",
+    "button": "The stack again. A new card glows and her hand reaches for it. The machine moves the line. A doctor still reads it."
+  },
+  "hero": {
+    "name": "the scan card with a face",
+    "why": "the exam itself is the thing that waits, worries, glows and climbs, and no film has drawn a scan as a character"
+  },
+  "throughline": {
+    "object": "the hero scan card",
+    "states": [
+      {
+        "scene_id": "s1",
+        "state": "grey and buried at the bottom of the stack"
+      },
+      {
+        "scene_id": "s4",
+        "state": "glowing with an orange heat map"
+      },
+      {
+        "scene_id": "s5",
+        "state": "on top of the worklist"
+      },
+      {
+        "scene_id": "s13",
+        "state": "open under the radiologist's hand, stamped READ"
+      }
+    ]
+  },
+  "fingerprint": {
+    "pov": "the scan card's journey from scanner to desk",
+    "layout": "tall vertical stacks and chutes",
+    "hero_treatment": "a card with a face that blushes orange",
+    "palette": "night-blue reading room with warm orange heat"
+  },
+  "music": {
+    "track": "immersed"
+  },
+  "wall_views": [
+    "clot-path",
+    "quote-card",
+    "team-grow"
+  ],
+  "credits": "TEXAS AI DOCKET\nSOURCES\nHouston Methodist leading medicine blog\nNHLBI. Aidoc. Stroke journal\nILLUSTRATION\nOriginal drawings, not the real hospital\nMUSIC\n\"Immersed\" by Kevin MacLeod (incompetech.com) - licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) - trimmed and synced to picture",
+  "scenes": [
+    {
+      "id": "s1",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "One scan in this long line can't wait. This is Houston Methodist, in the Texas Medical Center.",
+      "vo_claims": [
+        "c22",
+        "c1"
+      ],
+      "visual_events": [
+        {
+          "id": "s1-glow",
+          "at": 0.0,
+          "duration_s": 1.6,
+          "sound": "paper_photo_slide",
+          "draw": {
+            "subject": "the grey buried scan card",
+            "action": "sweats at the bottom of the leaning stack and waves a tiny flag nobody sees",
+            "emotion": "the radiologist yawns over the top card"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s1-window",
+          "at_phrase": "This is Houston Methodist",
+          "duration_s": 1.2,
+          "sound": "camera_reacquire",
+          "label": "Houston Methodist",
+          "draw": {
+            "subject": "the camera",
+            "action": "pulls back through the window to the Medical Center towers as the stack grows card by card"
+          },
+          "at_s": 3.82
+        }
+      ],
+      "start_s": 0.0,
+      "duration_s": 7.19,
+      "planes": []
+    },
+    {
+      "id": "s2",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "A radiologist reads them in order, top to bottom. So how does the urgent one get to the front?",
+      "vo_claims": [
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s2-scroll",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "pencil_scratch",
+          "label": "Top to bottom",
+          "draw": {
+            "subject": "the radiologist",
+            "action": "pulls the top card off the stack and reads it, tired",
+            "emotion": "tired squint"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s2-chute",
+          "at_phrase": "how does the urgent one",
+          "duration_s": 1.2,
+          "sound": "lane_choice",
+          "draw": {
+            "subject": "the worklist",
+            "action": "drops away beneath the desk as a long chute of cards with the grey hero card far down"
+          },
+          "at_s": 4.17
+        }
+      ],
+      "start_s": 7.19,
+      "duration_s": 6.55,
+      "planes": []
+    },
+    {
+      "id": "s3",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "It starts at the scanner. A router sends the right studies to the AI by itself, and technologists don't touch it. Before, that took setting up each scanner by hand.",
+      "vo_claims": [
+        "c8",
+        "c9"
+      ],
+      "visual_events": [
+        {
+          "id": "s3-puff",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "assistive_servo",
+          "label": "The scanner",
+          "draw": {
+            "subject": "the CT scanner with sleepy eyes",
+            "action": "yawns and puffs the grey hero card out of its ring",
+            "emotion": "the technologist sips coffee"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s3-route",
+          "at_phrase": "A router sends the right studies",
+          "duration_s": 1.4,
+          "sound": "route_marker",
+          "label": "Routed automatically",
+          "draw": {
+            "subject": "the router",
+            "action": "flips brass switch tracks and sends cards down the right chutes",
+            "emotion": "the technologist keeps both hands on the coffee cup, smiling"
+          },
+          "at_s": 1.99
+        },
+        {
+          "id": "s3-old",
+          "at_phrase": "Before, that took",
+          "duration_s": 1.2,
+          "sound": "screen_door",
+          "label": "Each scanner by hand",
+          "draw": {
+            "subject": "the technologist",
+            "action": "climbs from scanner to scanner twisting knobs, sweating",
+            "emotion": "frazzled"
+          },
+          "at_s": 7.8
+        }
+      ],
+      "start_s": 13.74,
+      "duration_s": 11.18,
+      "planes": []
+    },
+    {
+      "id": "s4",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Then an AI tool called Aidoc reads the images. It flags a possible problem and paints a heat map on the spot it means.",
+      "vo_claims": [
+        "c1",
+        "c2"
+      ],
+      "visual_events": [
+        {
+          "id": "s4-lens",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "document_parse",
+          "label": "Aidoc",
+          "draw": {
+            "subject": "a big scanning lens",
+            "action": "sweeps across the scan card, slice by slice"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s4-flag",
+          "at_phrase": "flags a possible problem",
+          "duration_s": 1.0,
+          "sound": "proof_gate_clamp",
+          "label": "Possible problem",
+          "draw": {
+            "subject": "a red flag",
+            "action": "pops up on the card's corner and the card blushes orange for the first time"
+          },
+          "at_s": 4.17
+        },
+        {
+          "id": "s4-heat",
+          "at_phrase": "paints a heat map",
+          "duration_s": 1.4,
+          "sound": "spectral_response",
+          "label": "Heat map",
+          "draw": {
+            "subject": "an orange heat map",
+            "action": "blooms over one spot on a grey scan slice"
+          },
+          "at_s": 5.76
+        }
+      ],
+      "start_s": 24.92,
+      "duration_s": 8.1,
+      "planes": []
+    },
+    {
+      "id": "s5",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "When the concern looks significant, that exam jumps to the top of the radiologist's worklist.",
+      "vo_claims": [
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s5-climb",
+          "at": 0.0,
+          "duration_s": 1.8,
+          "sound": "matrix_bus_rise",
+          "label": "To the top",
+          "draw": {
+            "subject": "the glowing card",
+            "action": "rides up the chute while the other cards step aside"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s5-land",
+          "at_phrase": "top of the radiologist's worklist",
+          "duration_s": 1.0,
+          "sound": "result_shelf_stop",
+          "draw": {
+            "subject": "the card",
+            "action": "lands on top of the stack with a bounce",
+            "emotion": "the radiologist leans in, surprised"
+          },
+          "at_s": 3.54
+        }
+      ],
+      "start_s": 33.02,
+      "duration_s": 6.06,
+      "planes": []
+    },
+    {
+      "id": "s6",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Some scans can't wait. A pulmonary embolism is a blood clot that breaks loose and travels to the lungs. It can be deadly.",
+      "vo_claims": [
+        "c17",
+        "c19"
+      ],
+      "visual_events": [
+        {
+          "id": "s6-eyes",
+          "at": 0.0,
+          "duration_s": 1.0,
+          "sound": "sensor_heartbeat",
+          "draw": {
+            "subject": "the radiologist",
+            "action": "widens her eyes at the glowing card",
+            "emotion": "alarmed"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s6-clot",
+          "at_phrase": "a blood clot that breaks loose",
+          "duration_s": 1.6,
+          "sound": "freshwater_trace",
+          "label": "Pulmonary embolism",
+          "draw": {
+            "subject": "a red clot",
+            "action": "breaks off a vein wall and tumbles up the vessel toward the lungs"
+          },
+          "at_s": 3.83
+        },
+        {
+          "id": "s6-lung",
+          "at_phrase": "It can be deadly",
+          "duration_s": 1.2,
+          "sound": "warning_bloom",
+          "label": "Can be deadly",
+          "draw": {
+            "subject": "the lungs",
+            "action": "flush red as the clot lodges in a branch"
+          },
+          "at_s": 6.98
+        }
+      ],
+      "start_s": 39.08,
+      "duration_s": 8.56,
+      "planes": []
+    },
+    {
+      "id": "s7",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "With a stroke, one study estimates a typical patient loses 1.9 million neurons for every minute it goes untreated.",
+      "vo_claims": [
+        "c21"
+      ],
+      "visual_events": [
+        {
+          "id": "s7-glass",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "sensor_heartbeat",
+          "label": "One study estimates",
+          "draw": {
+            "subject": "an hourglass of tiny lights",
+            "action": "flips and starts pouring beside the stack",
+            "emotion": "the radiologist watches it, worried"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s7-count",
+          "at_phrase": "1.9 million neurons",
+          "duration_s": 1.4,
+          "sound": "freight_count",
+          "label": "1.9 million a minute",
+          "draw": {
+            "subject": "the counter",
+            "action": "spins up to 1.9 million as the lights drain"
+          },
+          "at_s": 4.19
+        },
+        {
+          "id": "s7-dark",
+          "at_phrase": "every minute it goes untreated",
+          "duration_s": 1.4,
+          "sound": "warning_bloom",
+          "label": "Every minute",
+          "draw": {
+            "subject": "a field of tiny lights",
+            "action": "goes dark patch by patch while a clock hand sweeps"
+          },
+          "at_s": 6.34
+        }
+      ],
+      "start_s": 47.64,
+      "duration_s": 8.9,
+      "planes": []
+    },
+    {
+      "id": "s8",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "So Houston Methodist started with 18 super users testing it, then opened it to roughly 100 radiologists in June.",
+      "vo_claims": [
+        "c4"
+      ],
+      "visual_events": [
+        {
+          "id": "s8-desks",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "server_hall",
+          "draw": {
+            "subject": "a wall of dark reading desks",
+            "action": "slides up into place, its monitors still off"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s8-eighteen",
+          "at_phrase": "18 super users",
+          "duration_s": 1.2,
+          "sound": "pads_pop",
+          "label": "18 super users",
+          "draw": {
+            "subject": "eighteen little radiologist figures",
+            "action": "pop up in a row of reading desks"
+          },
+          "at_s": 2.18
+        },
+        {
+          "id": "s8-hundred",
+          "at_phrase": "roughly 100 radiologists",
+          "duration_s": 1.6,
+          "sound": "record_join",
+          "label": "About 100 in June",
+          "draw": {
+            "subject": "the grid of desks",
+            "action": "multiplies to about a hundred, lights coming on"
+          },
+          "at_s": 5.05
+        }
+      ],
+      "start_s": 56.54,
+      "duration_s": 8.34,
+      "planes": []
+    },
+    {
+      "id": "s9",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Radiologists were skeptical at first. Ginny Torno, who leads the rollout, says even the most skeptical one called it a great tool.",
+      "vo_claims": [
+        "c5",
+        "c7"
+      ],
+      "visual_events": [
+        {
+          "id": "s9-cross",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "decision_stop",
+          "label": "Skeptical",
+          "draw": {
+            "subject": "the radiologist",
+            "action": "crosses her arms and squints at the glowing card",
+            "emotion": "doubtful"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s9-quote",
+          "at_phrase": "Ginny Torno",
+          "duration_s": 1.2,
+          "sound": "paper_photo_slide",
+          "label": "Ginny Torno",
+          "draw": {
+            "subject": "a quote card",
+            "action": "slides in with her name and title, Sr. Director of IT and Innovation"
+          },
+          "at_s": 2.52
+        },
+        {
+          "id": "s9-nod",
+          "at_phrase": "called it a great tool",
+          "duration_s": 1.2,
+          "sound": "review_stamp",
+          "label": "\"A great tool\"",
+          "draw": {
+            "subject": "the radiologist",
+            "action": "uncrosses her arms and raises a hand in approval",
+            "emotion": "grudging smile"
+          },
+          "at_s": 6.59
+        }
+      ],
+      "start_s": 64.88,
+      "duration_s": 8.58,
+      "planes": []
+    },
+    {
+      "id": "s10",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "She also says it isn't perfect, and Aidoc is upfront about that. A flag is a reason to look first, never the answer.",
+      "vo_claims": [
+        "c15"
+      ],
+      "visual_events": [
+        {
+          "id": "s10-false",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "causal_break",
+          "label": "Not perfect",
+          "draw": {
+            "subject": "a second, different card",
+            "action": "glows a heat map over clean healthy tissue and looks sheepish",
+            "emotion": "the radiologist frowns"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s10-upfront",
+          "at_phrase": "Aidoc is upfront",
+          "duration_s": 1.2,
+          "sound": "review_stamp",
+          "label": "\"It's not perfect\"",
+          "draw": {
+            "subject": "a quote card",
+            "action": "slides in reading It's not perfect, but they're upfront about that"
+          },
+          "at_s": 2.425
+        },
+        {
+          "id": "s10-look",
+          "at_phrase": "a reason to look first",
+          "duration_s": 1.2,
+          "sound": "camera_reacquire",
+          "label": "Look first",
+          "draw": {
+            "subject": "a magnifier in the radiologist's hand",
+            "action": "swings over the flag, which shrinks to a small arrow",
+            "emotion": "focused"
+          },
+          "at_s": 5.08
+        }
+      ],
+      "start_s": 73.46,
+      "duration_s": 7.94,
+      "planes": []
+    },
+    {
+      "id": "s11",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "So the radiologist still reads the scan and makes the call. Every time Aidoc gets feedback, it makes a change.",
+      "vo_claims": [
+        "c2",
+        "c3",
+        "c15"
+      ],
+      "visual_events": [
+        {
+          "id": "s11-read",
+          "at": 0.0,
+          "duration_s": 1.4,
+          "sound": "pencil_scratch",
+          "label": "She makes the call",
+          "draw": {
+            "subject": "the radiologist",
+            "action": "opens the card and studies the whole scan herself",
+            "emotion": "focused"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s11-feedback",
+          "at_phrase": "Every time Aidoc gets feedback",
+          "duration_s": 1.4,
+          "sound": "protocol_upload",
+          "label": "Feedback in",
+          "draw": {
+            "subject": "a paper note",
+            "action": "sails back into the scanning lens, which refocuses and turns"
+          },
+          "at_s": 3.92
+        }
+      ],
+      "start_s": 81.4,
+      "duration_s": 7.76,
+      "planes": []
+    },
+    {
+      "id": "s12",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "Next, the hospital plans phone alerts for stroke and pulmonary embolism teams, built for triage, not diagnosis. Clinicians would see the images on their phones and call in a response team right away.",
+      "vo_claims": [
+        "c10",
+        "c11"
+      ],
+      "visual_events": [
+        {
+          "id": "s12-buzz",
+          "at_phrase": "phone alerts",
+          "duration_s": 1.2,
+          "sound": "sensor_heartbeat",
+          "label": "Coming next",
+          "draw": {
+            "subject": "a phone in a nurse's hand",
+            "action": "buzzes and lights with a dotted outline marked next",
+            "emotion": "the nurse looks down, alert"
+          },
+          "at_s": 1.68
+        },
+        {
+          "id": "s12-tag",
+          "at_phrase": "built for triage",
+          "duration_s": 1.2,
+          "sound": "review_stamp",
+          "label": "Triage, not diagnosis",
+          "draw": {
+            "subject": "a triage tag",
+            "action": "stamps onto the phone screen"
+          },
+          "at_s": 4.73
+        },
+        {
+          "id": "s12-card",
+          "at_phrase": "on their phones",
+          "duration_s": 1.2,
+          "sound": "protocol_upload",
+          "draw": {
+            "subject": "the heat-mapped card",
+            "action": "slides onto the nurse's phone screen",
+            "emotion": "the nurse squints at it"
+          },
+          "at_s": 8.97
+        },
+        {
+          "id": "s12-team",
+          "at_phrase": "call in a response team",
+          "duration_s": 1.4,
+          "sound": "concrete_footsteps",
+          "draw": {
+            "subject": "the nurse",
+            "action": "taps the phone and turns to run, waving the team on",
+            "emotion": "determined"
+          },
+          "label": "Response team",
+          "at_s": 10.05
+        }
+      ],
+      "start_s": 89.16,
+      "duration_s": 12.42,
+      "planes": []
+    },
+    {
+      "id": "s13",
+      "county": "Harris",
+      "region": "gulf",
+      "interior": true,
+      "camera_strategy": "dollyThrough",
+      "vo": "The machine moves the line. A doctor still reads it.",
+      "vo_claims": [
+        "c3"
+      ],
+      "visual_events": [
+        {
+          "id": "s13-new",
+          "at": 0.0,
+          "duration_s": 1.2,
+          "sound": "warning_bloom",
+          "draw": {
+            "subject": "a new card",
+            "action": "glows at the bottom of the stack and starts to rise"
+          },
+          "at_s": 0.0
+        },
+        {
+          "id": "s13-stamp",
+          "at_phrase": "A doctor still reads it",
+          "duration_s": 1.0,
+          "sound": "review_stamp",
+          "label": "Read",
+          "draw": {
+            "subject": "the radiologist's hand",
+            "action": "stamps READ on the hero card and reaches for the next",
+            "emotion": "calm, proud"
+          },
+          "at_s": 2.2
+        }
+      ],
+      "start_s": 101.58,
+      "duration_s": 4.7,
+      "planes": []
+    }
+  ],
+  "shots": [
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-glow",
+      "id": "s1-a",
+      "scene_id": "s1",
+      "framing": "close",
+      "view": "stack-hook",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 0.0,
+      "duration_s": 3.82
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s1-glow",
+      "id": "s1-b",
+      "scene_id": "s1",
+      "framing": "wide",
+      "view": "tmc-window",
+      "cast": [
+        "clinician"
+      ],
+      "at_phrase": "This is Houston Methodist",
+      "start_s": 3.82,
+      "duration_s": 3.37
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-scroll",
+      "id": "s2-a",
+      "scene_id": "s2",
+      "framing": "close",
+      "view": "reading-room",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 7.19,
+      "duration_s": 4.17
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s2-scroll",
+      "id": "s2-b",
+      "scene_id": "s2",
+      "framing": "overhead",
+      "view": "queue-chute",
+      "at_phrase": "how does the urgent one",
+      "start_s": 11.36,
+      "duration_s": 2.38
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-puff",
+      "id": "s3-a",
+      "scene_id": "s3",
+      "framing": "medium",
+      "view": "scanner-face",
+      "cast": [
+        "technician"
+      ],
+      "start_s": 13.74,
+      "duration_s": 1.99
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-puff",
+      "id": "s3-b",
+      "scene_id": "s3",
+      "framing": "wide",
+      "view": "router-yard",
+      "cast": [
+        "technician"
+      ],
+      "at_phrase": "A router sends the right studies",
+      "start_s": 15.73,
+      "duration_s": 5.81
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s3-puff",
+      "id": "s3-c",
+      "scene_id": "s3",
+      "framing": "wide",
+      "view": "knob-flashback",
+      "cast": [
+        "technician"
+      ],
+      "at_phrase": "Before, that took",
+      "start_s": 21.54,
+      "duration_s": 3.38
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-lens",
+      "id": "s4-a",
+      "scene_id": "s4",
+      "framing": "close",
+      "view": "lens-read",
+      "start_s": 24.92,
+      "duration_s": 5.76
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s4-lens",
+      "id": "s4-b",
+      "scene_id": "s4",
+      "framing": "detail",
+      "view": "heatmap-close",
+      "at_phrase": "paints a heat map",
+      "start_s": 30.68,
+      "duration_s": 2.34
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-climb",
+      "id": "s5-a",
+      "scene_id": "s5",
+      "framing": "close",
+      "view": "chute-up",
+      "start_s": 33.02,
+      "duration_s": 3.54
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s5-climb",
+      "id": "s5-b",
+      "scene_id": "s5",
+      "framing": "close",
+      "view": "radiologist-close",
+      "cast": [
+        "clinician"
+      ],
+      "at_phrase": "top of the radiologist's worklist",
+      "start_s": 36.56,
+      "duration_s": 2.52
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-eyes",
+      "id": "s6-0",
+      "scene_id": "s6",
+      "framing": "close",
+      "view": "radiologist-close",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 39.08,
+      "duration_s": 2.06
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s6-eyes",
+      "id": "s6-a",
+      "scene_id": "s6",
+      "framing": "detail",
+      "view": "clot-path",
+      "at_phrase": "A pulmonary embolism",
+      "start_s": 41.14,
+      "duration_s": 6.5
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-glass",
+      "id": "s7-a",
+      "scene_id": "s7",
+      "framing": "medium",
+      "view": "hourglass",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 47.64,
+      "duration_s": 6.34
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s7-glass",
+      "id": "s7-b",
+      "scene_id": "s7",
+      "framing": "detail",
+      "view": "neuron-field",
+      "at_phrase": "every minute it goes untreated",
+      "start_s": 53.98,
+      "duration_s": 2.56
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s8-desks",
+      "id": "s8-a",
+      "scene_id": "s8",
+      "framing": "wide",
+      "view": "team-grow",
+      "start_s": 56.54,
+      "duration_s": 8.34
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-cross",
+      "id": "s9-a",
+      "scene_id": "s9",
+      "framing": "close",
+      "view": "skeptic",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 64.88,
+      "duration_s": 2.52
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s9-cross",
+      "id": "s9-b",
+      "scene_id": "s9",
+      "framing": "medium",
+      "view": "quote-card",
+      "at_phrase": "Ginny Torno",
+      "start_s": 67.4,
+      "duration_s": 6.06
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-false",
+      "id": "s10-a",
+      "scene_id": "s10",
+      "framing": "close",
+      "view": "false-flag",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 73.46,
+      "duration_s": 2.425
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-false",
+      "id": "s10-b",
+      "scene_id": "s10",
+      "framing": "medium",
+      "view": "quote-card",
+      "at_phrase": "Aidoc is upfront",
+      "start_s": 75.885,
+      "duration_s": 2.655
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s10-false",
+      "id": "s10-c",
+      "scene_id": "s10",
+      "framing": "medium",
+      "view": "magnifier-shoulder",
+      "at_phrase": "a reason to look first",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 78.54,
+      "duration_s": 2.86
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-read",
+      "id": "s11-a",
+      "scene_id": "s11",
+      "framing": "overhead",
+      "view": "read-desk",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 81.4,
+      "duration_s": 3.92
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s11-read",
+      "id": "s11-b",
+      "scene_id": "s11",
+      "framing": "wide",
+      "view": "lens-read",
+      "cast": [],
+      "at_phrase": "Every time Aidoc gets feedback",
+      "start_s": 85.32,
+      "duration_s": 3.84
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-buzz",
+      "id": "s12-a",
+      "scene_id": "s12",
+      "framing": "medium",
+      "view": "phone-alert",
+      "cast": [
+        "nurse"
+      ],
+      "start_s": 89.16,
+      "duration_s": 4.73
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-buzz",
+      "id": "s12-c",
+      "scene_id": "s12",
+      "framing": "close",
+      "view": "phone-close",
+      "cast": [
+        "nurse"
+      ],
+      "at_phrase": "built for triage",
+      "start_s": 93.89,
+      "duration_s": 5.32
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s12-buzz",
+      "id": "s12-b",
+      "scene_id": "s12",
+      "framing": "wide",
+      "view": "team-run",
+      "cast": [
+        "nurse",
+        "clinician"
+      ],
+      "at_phrase": "call in a response team",
+      "start_s": 99.21,
+      "duration_s": 2.37
+    },
+    {
+      "transition": "cut",
+      "purpose": "",
+      "carry": "",
+      "event_id": "s13-new",
+      "id": "s13-a",
+      "scene_id": "s13",
+      "framing": "detail",
+      "view": "stamp-close",
+      "cast": [
+        "clinician"
+      ],
+      "start_s": 101.58,
+      "duration_s": 4.7
+    }
+  ],
+  "runtime_s": 106.28,
+  "captions": [
+    {
+      "id": "c1",
+      "start": 0.82,
+      "end": 3.52,
+      "text": "One scan in this long line can't wait."
+    },
+    {
+      "id": "c2",
+      "start": 3.82,
+      "end": 5.28,
+      "text": "This is Houston Methodist,"
+    },
+    {
+      "id": "c3",
+      "start": 5.32,
+      "end": 7.08,
+      "text": "in the Texas Medical Center."
+    },
+    {
+      "id": "c4",
+      "start": 7.3,
+      "end": 9.63,
+      "text": "A radiologist reads them in order,"
+    },
+    {
+      "id": "c5",
+      "start": 9.67,
+      "end": 10.66,
+      "text": "top to bottom."
+    },
+    {
+      "id": "c6",
+      "start": 10.84,
+      "end": 13.54,
+      "text": "So how does the urgent one get to the front?"
+    },
+    {
+      "id": "c7",
+      "start": 13.92,
+      "end": 15.69,
+      "text": "It starts at the scanner."
+    },
+    {
+      "id": "c8",
+      "start": 15.73,
+      "end": 17.25,
+      "text": "A router sends the right"
+    },
+    {
+      "id": "c9",
+      "start": 17.29,
+      "end": 19.2,
+      "text": "studies to the AI by itself,"
+    },
+    {
+      "id": "c10",
+      "start": 19.24,
+      "end": 21.3,
+      "text": "and technologists don't touch it."
+    },
+    {
+      "id": "c11",
+      "start": 21.54,
+      "end": 22.73,
+      "text": "Before, that took setting"
+    },
+    {
+      "id": "c12",
+      "start": 22.77,
+      "end": 24.56,
+      "text": "up each scanner by hand."
+    },
+    {
+      "id": "c13",
+      "start": 25.1,
+      "end": 28.63,
+      "text": "Then an AI tool called Aidoc reads the images."
+    },
+    {
+      "id": "c14",
+      "start": 28.67,
+      "end": 30.86,
+      "text": "It flags a possible problem and paints"
+    },
+    {
+      "id": "c15",
+      "start": 30.9,
+      "end": 32.74,
+      "text": "a heat map on the spot it means."
+    },
+    {
+      "id": "c16",
+      "start": 33.2,
+      "end": 35.12,
+      "text": "When the concern looks significant,"
+    },
+    {
+      "id": "c17",
+      "start": 35.16,
+      "end": 36.52,
+      "text": "that exam jumps to the"
+    },
+    {
+      "id": "c18",
+      "start": 36.56,
+      "end": 38.34,
+      "text": "top of the radiologist's worklist."
+    },
+    {
+      "id": "c19",
+      "start": 39.26,
+      "end": 41.1,
+      "text": "Some scans can't wait."
+    },
+    {
+      "id": "c20",
+      "start": 41.14,
+      "end": 43.56,
+      "text": "A pulmonary embolism is a blood clot"
+    },
+    {
+      "id": "c21",
+      "start": 43.6,
+      "end": 45.92,
+      "text": "that breaks loose and travels to the lungs."
+    },
+    {
+      "id": "c22",
+      "start": 46.06,
+      "end": 47.24,
+      "text": "It can be deadly."
+    },
+    {
+      "id": "c23",
+      "start": 47.82,
+      "end": 48.94,
+      "text": "With a stroke,"
+    },
+    {
+      "id": "c24",
+      "start": 48.98,
+      "end": 50.43,
+      "text": "one study estimates a"
+    },
+    {
+      "id": "c25",
+      "start": 50.47,
+      "end": 52.47,
+      "text": "typical patient loses 1.9"
+    },
+    {
+      "id": "c26",
+      "start": 52.56,
+      "end": 54.32,
+      "text": "million neurons for every"
+    },
+    {
+      "id": "c27",
+      "start": 54.36,
+      "end": 55.7,
+      "text": "minute it goes untreated."
+    },
+    {
+      "id": "c28",
+      "start": 56.72,
+      "end": 58.68,
+      "text": "So Houston Methodist started with"
+    },
+    {
+      "id": "c29",
+      "start": 58.72,
+      "end": 60.61,
+      "text": "18 super users testing it,"
+    },
+    {
+      "id": "c30",
+      "start": 60.65,
+      "end": 61.55,
+      "text": "then opened it to"
+    },
+    {
+      "id": "c31",
+      "start": 61.59,
+      "end": 63.98,
+      "text": "roughly 100 radiologists in June."
+    },
+    {
+      "id": "c32",
+      "start": 65.06,
+      "end": 67.26,
+      "text": "Radiologists were skeptical at first."
+    },
+    {
+      "id": "c33",
+      "start": 67.4,
+      "end": 69.57,
+      "text": "Ginny Torno, who leads the rollout,"
+    },
+    {
+      "id": "c34",
+      "start": 69.61,
+      "end": 71.09,
+      "text": "says even the most skeptical"
+    },
+    {
+      "id": "c35",
+      "start": 71.13,
+      "end": 72.8,
+      "text": "one called it a great tool."
+    },
+    {
+      "id": "c36",
+      "start": 73.64,
+      "end": 75.44,
+      "text": "She also says it isn't perfect,"
+    },
+    {
+      "id": "c37",
+      "start": 75.48,
+      "end": 77.54,
+      "text": "and Aidoc is upfront about that."
+    },
+    {
+      "id": "c38",
+      "start": 77.58,
+      "end": 79.8,
+      "text": "A flag is a reason to look first,"
+    },
+    {
+      "id": "c39",
+      "start": 79.84,
+      "end": 80.92,
+      "text": "never the answer."
+    },
+    {
+      "id": "c40",
+      "start": 81.58,
+      "end": 83.45,
+      "text": "So the radiologist still reads"
+    },
+    {
+      "id": "c41",
+      "start": 83.49,
+      "end": 85.06,
+      "text": "the scan and makes the call."
+    },
+    {
+      "id": "c42",
+      "start": 85.32,
+      "end": 87.02,
+      "text": "Every time Aidoc gets feedback,"
+    },
+    {
+      "id": "c43",
+      "start": 87.06,
+      "end": 88.24,
+      "text": "it makes a change."
+    },
+    {
+      "id": "c44",
+      "start": 89.34,
+      "end": 91.4,
+      "text": "Next, the hospital plans phone alerts"
+    },
+    {
+      "id": "c45",
+      "start": 91.44,
+      "end": 93.85,
+      "text": "for stroke and pulmonary embolism teams,"
+    },
+    {
+      "id": "c46",
+      "start": 93.89,
+      "end": 96.18,
+      "text": "built for triage, not diagnosis."
+    },
+    {
+      "id": "c47",
+      "start": 96.74,
+      "end": 97.88,
+      "text": "Clinicians would see the"
+    },
+    {
+      "id": "c48",
+      "start": 97.92,
+      "end": 98.83,
+      "text": "images on their phones"
+    },
+    {
+      "id": "c49",
+      "start": 98.87,
+      "end": 101.12,
+      "text": "and call in a response team right away."
+    },
+    {
+      "id": "c50",
+      "start": 101.76,
+      "end": 103.54,
+      "text": "The machine moves the line."
+    },
+    {
+      "id": "c51",
+      "start": 103.78,
+      "end": 105.38,
+      "text": "A doctor still reads it."
+    }
+  ],
+  "credits_s": 5.0,
+  "look": "v2",
+  "words": [
+    {
+      "word": "One",
+      "start": 0.82,
+      "end": 1.2
+    },
+    {
+      "word": "scan",
+      "start": 1.2,
+      "end": 1.52
+    },
+    {
+      "word": "in",
+      "start": 1.52,
+      "end": 1.71
+    },
+    {
+      "word": "this",
+      "start": 1.71,
+      "end": 1.93
+    },
+    {
+      "word": "long",
+      "start": 1.93,
+      "end": 2.27
+    },
+    {
+      "word": "line",
+      "start": 2.27,
+      "end": 2.67
+    },
+    {
+      "word": "can't",
+      "start": 2.67,
+      "end": 3.04
+    },
+    {
+      "word": "wait.",
+      "start": 3.04,
+      "end": 3.52
+    },
+    {
+      "word": "This",
+      "start": 3.82,
+      "end": 4.23
+    },
+    {
+      "word": "is",
+      "start": 4.23,
+      "end": 4.48
+    },
+    {
+      "word": "Houston",
+      "start": 4.48,
+      "end": 4.84
+    },
+    {
+      "word": "Methodist,",
+      "start": 4.84,
+      "end": 5.32
+    },
+    {
+      "word": "in",
+      "start": 5.32,
+      "end": 5.65
+    },
+    {
+      "word": "the",
+      "start": 5.65,
+      "end": 5.84
+    },
+    {
+      "word": "Texas",
+      "start": 5.84,
+      "end": 6.15
+    },
+    {
+      "word": "Medical",
+      "start": 6.15,
+      "end": 6.54
+    },
+    {
+      "word": "Center.",
+      "start": 6.54,
+      "end": 7.08
+    },
+    {
+      "word": "A",
+      "start": 7.3,
+      "end": 7.83
+    },
+    {
+      "word": "radiologist",
+      "start": 7.83,
+      "end": 8.36
+    },
+    {
+      "word": "reads",
+      "start": 8.38,
+      "end": 8.81
+    },
+    {
+      "word": "them",
+      "start": 8.81,
+      "end": 9.02
+    },
+    {
+      "word": "in",
+      "start": 9.02,
+      "end": 9.27
+    },
+    {
+      "word": "order,",
+      "start": 9.27,
+      "end": 9.67
+    },
+    {
+      "word": "top",
+      "start": 9.67,
+      "end": 10.02
+    },
+    {
+      "word": "to",
+      "start": 10.02,
+      "end": 10.23
+    },
+    {
+      "word": "bottom.",
+      "start": 10.23,
+      "end": 10.66
+    },
+    {
+      "word": "So",
+      "start": 10.84,
+      "end": 11.36
+    },
+    {
+      "word": "how",
+      "start": 11.36,
+      "end": 11.63
+    },
+    {
+      "word": "does",
+      "start": 11.63,
+      "end": 11.78
+    },
+    {
+      "word": "the",
+      "start": 11.78,
+      "end": 12.05
+    },
+    {
+      "word": "urgent",
+      "start": 12.05,
+      "end": 12.39
+    },
+    {
+      "word": "one",
+      "start": 12.39,
+      "end": 12.63
+    },
+    {
+      "word": "get",
+      "start": 12.63,
+      "end": 12.79
+    },
+    {
+      "word": "to",
+      "start": 12.79,
+      "end": 12.92
+    },
+    {
+      "word": "the",
+      "start": 12.92,
+      "end": 13.1
+    },
+    {
+      "word": "front?",
+      "start": 13.1,
+      "end": 13.54
+    },
+    {
+      "word": "It",
+      "start": 13.92,
+      "end": 14.4
+    },
+    {
+      "word": "starts",
+      "start": 14.4,
+      "end": 14.71
+    },
+    {
+      "word": "at",
+      "start": 14.71,
+      "end": 14.94
+    },
+    {
+      "word": "the",
+      "start": 14.94,
+      "end": 15.22
+    },
+    {
+      "word": "scanner.",
+      "start": 15.22,
+      "end": 15.73
+    },
+    {
+      "word": "A",
+      "start": 15.73,
+      "end": 16.19
+    },
+    {
+      "word": "router",
+      "start": 16.19,
+      "end": 16.5
+    },
+    {
+      "word": "sends",
+      "start": 16.5,
+      "end": 16.77
+    },
+    {
+      "word": "the",
+      "start": 16.77,
+      "end": 16.98
+    },
+    {
+      "word": "right",
+      "start": 16.98,
+      "end": 17.29
+    },
+    {
+      "word": "studies",
+      "start": 17.29,
+      "end": 17.62
+    },
+    {
+      "word": "to",
+      "start": 17.62,
+      "end": 17.8
+    },
+    {
+      "word": "the",
+      "start": 17.8,
+      "end": 18.04
+    },
+    {
+      "word": "AI",
+      "start": 18.04,
+      "end": 18.38
+    },
+    {
+      "word": "by",
+      "start": 18.38,
+      "end": 18.77
+    },
+    {
+      "word": "itself,",
+      "start": 18.77,
+      "end": 19.24
+    },
+    {
+      "word": "and",
+      "start": 19.24,
+      "end": 19.675
+    },
+    {
+      "word": "technologists",
+      "start": 19.675,
+      "end": 20.16
+    },
+    {
+      "word": "don't",
+      "start": 20.16,
+      "end": 20.575
+    },
+    {
+      "word": "touch",
+      "start": 20.575,
+      "end": 20.84
+    },
+    {
+      "word": "it.",
+      "start": 20.84,
+      "end": 21.3
+    },
+    {
+      "word": "Before,",
+      "start": 21.54,
+      "end": 22.02
+    },
+    {
+      "word": "that",
+      "start": 22.02,
+      "end": 22.3
+    },
+    {
+      "word": "took",
+      "start": 22.3,
+      "end": 22.55
+    },
+    {
+      "word": "setting",
+      "start": 22.55,
+      "end": 22.77
+    },
+    {
+      "word": "up",
+      "start": 22.77,
+      "end": 23.01
+    },
+    {
+      "word": "each",
+      "start": 23.01,
+      "end": 23.36
+    },
+    {
+      "word": "scanner",
+      "start": 23.36,
+      "end": 23.69
+    },
+    {
+      "word": "by",
+      "start": 23.69,
+      "end": 24.03
+    },
+    {
+      "word": "hand.",
+      "start": 24.03,
+      "end": 24.56
+    },
+    {
+      "word": "Then",
+      "start": 25.1,
+      "end": 25.54
+    },
+    {
+      "word": "an",
+      "start": 25.54,
+      "end": 25.87
+    },
+    {
+      "word": "AI",
+      "start": 25.87,
+      "end": 26.26
+    },
+    {
+      "word": "tool",
+      "start": 26.26,
+      "end": 26.62
+    },
+    {
+      "word": "called",
+      "start": 26.62,
+      "end": 27.02
+    },
+    {
+      "word": "Aidoc",
+      "start": 27.02,
+      "end": 27.51
+    },
+    {
+      "word": "reads",
+      "start": 27.51,
+      "end": 27.91
+    },
+    {
+      "word": "the",
+      "start": 27.91,
+      "end": 28.21
+    },
+    {
+      "word": "images.",
+      "start": 28.21,
+      "end": 28.67
+    },
+    {
+      "word": "It",
+      "start": 28.67,
+      "end": 29.09
+    },
+    {
+      "word": "flags",
+      "start": 29.09,
+      "end": 29.32
+    },
+    {
+      "word": "a",
+      "start": 29.32,
+      "end": 29.59
+    },
+    {
+      "word": "possible",
+      "start": 29.59,
+      "end": 30.0
+    },
+    {
+      "word": "problem",
+      "start": 30.0,
+      "end": 30.39
+    },
+    {
+      "word": "and",
+      "start": 30.39,
+      "end": 30.68
+    },
+    {
+      "word": "paints",
+      "start": 30.68,
+      "end": 30.9
+    },
+    {
+      "word": "a",
+      "start": 30.9,
+      "end": 31.09
+    },
+    {
+      "word": "heat",
+      "start": 31.09,
+      "end": 31.32
+    },
+    {
+      "word": "map",
+      "start": 31.32,
+      "end": 31.53
+    },
+    {
+      "word": "on",
+      "start": 31.53,
+      "end": 31.67
+    },
+    {
+      "word": "the",
+      "start": 31.67,
+      "end": 31.84
+    },
+    {
+      "word": "spot",
+      "start": 31.84,
+      "end": 32.05
+    },
+    {
+      "word": "it",
+      "start": 32.05,
+      "end": 32.28
+    },
+    {
+      "word": "means.",
+      "start": 32.28,
+      "end": 32.74
+    },
+    {
+      "word": "When",
+      "start": 33.2,
+      "end": 33.58
+    },
+    {
+      "word": "the",
+      "start": 33.58,
+      "end": 33.83
+    },
+    {
+      "word": "concern",
+      "start": 33.83,
+      "end": 34.15
+    },
+    {
+      "word": "looks",
+      "start": 34.15,
+      "end": 34.58
+    },
+    {
+      "word": "significant,",
+      "start": 34.58,
+      "end": 35.16
+    },
+    {
+      "word": "that",
+      "start": 35.16,
+      "end": 35.6
+    },
+    {
+      "word": "exam",
+      "start": 35.6,
+      "end": 35.92
+    },
+    {
+      "word": "jumps",
+      "start": 35.92,
+      "end": 36.2
+    },
+    {
+      "word": "to",
+      "start": 36.2,
+      "end": 36.38
+    },
+    {
+      "word": "the",
+      "start": 36.38,
+      "end": 36.56
+    },
+    {
+      "word": "top",
+      "start": 36.56,
+      "end": 36.77
+    },
+    {
+      "word": "of",
+      "start": 36.77,
+      "end": 36.91
+    },
+    {
+      "word": "the",
+      "start": 36.91,
+      "end": 37.23
+    },
+    {
+      "word": "radiologist's",
+      "start": 37.23,
+      "end": 37.76
+    },
+    {
+      "word": "worklist.",
+      "start": 37.76,
+      "end": 38.34
+    },
+    {
+      "word": "Some",
+      "start": 39.26,
+      "end": 39.77
+    },
+    {
+      "word": "scans",
+      "start": 39.77,
+      "end": 40.22
+    },
+    {
+      "word": "can't",
+      "start": 40.22,
+      "end": 40.63
+    },
+    {
+      "word": "wait.",
+      "start": 40.63,
+      "end": 41.1
+    },
+    {
+      "word": "A",
+      "start": 41.14,
+      "end": 41.64
+    },
+    {
+      "word": "pulmonary",
+      "start": 41.64,
+      "end": 42.07
+    },
+    {
+      "word": "embolism",
+      "start": 42.07,
+      "end": 42.57
+    },
+    {
+      "word": "is",
+      "start": 42.57,
+      "end": 42.91
+    },
+    {
+      "word": "a",
+      "start": 42.91,
+      "end": 43.11
+    },
+    {
+      "word": "blood",
+      "start": 43.11,
+      "end": 43.35
+    },
+    {
+      "word": "clot",
+      "start": 43.35,
+      "end": 43.6
+    },
+    {
+      "word": "that",
+      "start": 43.6,
+      "end": 43.87
+    },
+    {
+      "word": "breaks",
+      "start": 43.87,
+      "end": 44.19
+    },
+    {
+      "word": "loose",
+      "start": 44.19,
+      "end": 44.5
+    },
+    {
+      "word": "and",
+      "start": 44.5,
+      "end": 44.8
+    },
+    {
+      "word": "travels",
+      "start": 44.8,
+      "end": 45.08
+    },
+    {
+      "word": "to",
+      "start": 45.08,
+      "end": 45.26
+    },
+    {
+      "word": "the",
+      "start": 45.26,
+      "end": 45.46
+    },
+    {
+      "word": "lungs.",
+      "start": 45.46,
+      "end": 45.92
+    },
+    {
+      "word": "It",
+      "start": 46.06,
+      "end": 46.44
+    },
+    {
+      "word": "can",
+      "start": 46.44,
+      "end": 46.56
+    },
+    {
+      "word": "be",
+      "start": 46.56,
+      "end": 46.77
+    },
+    {
+      "word": "deadly.",
+      "start": 46.77,
+      "end": 47.24
+    },
+    {
+      "word": "With",
+      "start": 47.82,
+      "end": 48.21
+    },
+    {
+      "word": "a",
+      "start": 48.21,
+      "end": 48.47
+    },
+    {
+      "word": "stroke,",
+      "start": 48.47,
+      "end": 48.98
+    },
+    {
+      "word": "one",
+      "start": 48.98,
+      "end": 49.44
+    },
+    {
+      "word": "study",
+      "start": 49.44,
+      "end": 49.82
+    },
+    {
+      "word": "estimates",
+      "start": 49.82,
+      "end": 50.18
+    },
+    {
+      "word": "a",
+      "start": 50.18,
+      "end": 50.47
+    },
+    {
+      "word": "typical",
+      "start": 50.47,
+      "end": 50.85
+    },
+    {
+      "word": "patient",
+      "start": 50.85,
+      "end": 51.23
+    },
+    {
+      "word": "loses",
+      "start": 51.23,
+      "end": 51.72
+    },
+    {
+      "word": "1.9",
+      "start": 51.83,
+      "end": 52.47
+    },
+    {
+      "word": "million",
+      "start": 52.56,
+      "end": 53.17
+    },
+    {
+      "word": "neurons",
+      "start": 53.17,
+      "end": 53.62
+    },
+    {
+      "word": "for",
+      "start": 53.62,
+      "end": 53.98
+    },
+    {
+      "word": "every",
+      "start": 53.98,
+      "end": 54.36
+    },
+    {
+      "word": "minute",
+      "start": 54.36,
+      "end": 54.64
+    },
+    {
+      "word": "it",
+      "start": 54.64,
+      "end": 54.82
+    },
+    {
+      "word": "goes",
+      "start": 54.82,
+      "end": 55.14
+    },
+    {
+      "word": "untreated.",
+      "start": 55.14,
+      "end": 55.7
+    },
+    {
+      "word": "So",
+      "start": 56.72,
+      "end": 57.23
+    },
+    {
+      "word": "Houston",
+      "start": 57.23,
+      "end": 57.6
+    },
+    {
+      "word": "Methodist",
+      "start": 57.6,
+      "end": 58.0
+    },
+    {
+      "word": "started",
+      "start": 58.0,
+      "end": 58.35
+    },
+    {
+      "word": "with",
+      "start": 58.35,
+      "end": 58.72
+    },
+    {
+      "word": "18",
+      "start": 58.72,
+      "end": 59.27
+    },
+    {
+      "word": "super",
+      "start": 59.27,
+      "end": 59.6
+    },
+    {
+      "word": "users",
+      "start": 59.6,
+      "end": 59.87
+    },
+    {
+      "word": "testing",
+      "start": 59.87,
+      "end": 60.31
+    },
+    {
+      "word": "it,",
+      "start": 60.31,
+      "end": 60.65
+    },
+    {
+      "word": "then",
+      "start": 60.65,
+      "end": 60.97
+    },
+    {
+      "word": "opened",
+      "start": 60.97,
+      "end": 61.22
+    },
+    {
+      "word": "it",
+      "start": 61.22,
+      "end": 61.39
+    },
+    {
+      "word": "to",
+      "start": 61.39,
+      "end": 61.59
+    },
+    {
+      "word": "roughly",
+      "start": 61.59,
+      "end": 61.98
+    },
+    {
+      "word": "100",
+      "start": 61.98,
+      "end": 62.52
+    },
+    {
+      "word": "radiologists",
+      "start": 62.52,
+      "end": 63.02
+    },
+    {
+      "word": "in",
+      "start": 63.02,
+      "end": 63.46
+    },
+    {
+      "word": "June.",
+      "start": 63.46,
+      "end": 63.98
+    },
+    {
+      "word": "Radiologists",
+      "start": 65.06,
+      "end": 65.68
+    },
+    {
+      "word": "were",
+      "start": 65.68,
+      "end": 66.19
+    },
+    {
+      "word": "skeptical",
+      "start": 66.19,
+      "end": 66.52
+    },
+    {
+      "word": "at",
+      "start": 66.52,
+      "end": 66.79
+    },
+    {
+      "word": "first.",
+      "start": 66.79,
+      "end": 67.26
+    },
+    {
+      "word": "Ginny",
+      "start": 67.4,
+      "end": 67.94
+    },
+    {
+      "word": "Torno,",
+      "start": 67.94,
+      "end": 68.35
+    },
+    {
+      "word": "who",
+      "start": 68.35,
+      "end": 68.66
+    },
+    {
+      "word": "leads",
+      "start": 68.66,
+      "end": 68.87
+    },
+    {
+      "word": "the",
+      "start": 68.87,
+      "end": 69.14
+    },
+    {
+      "word": "rollout,",
+      "start": 69.14,
+      "end": 69.61
+    },
+    {
+      "word": "says",
+      "start": 69.61,
+      "end": 70.08
+    },
+    {
+      "word": "even",
+      "start": 70.08,
+      "end": 70.32
+    },
+    {
+      "word": "the",
+      "start": 70.32,
+      "end": 70.46
+    },
+    {
+      "word": "most",
+      "start": 70.46,
+      "end": 70.75
+    },
+    {
+      "word": "skeptical",
+      "start": 70.75,
+      "end": 71.13
+    },
+    {
+      "word": "one",
+      "start": 71.13,
+      "end": 71.47
+    },
+    {
+      "word": "called",
+      "start": 71.47,
+      "end": 71.71
+    },
+    {
+      "word": "it",
+      "start": 71.71,
+      "end": 71.82
+    },
+    {
+      "word": "a",
+      "start": 71.82,
+      "end": 72.0
+    },
+    {
+      "word": "great",
+      "start": 72.0,
+      "end": 72.31
+    },
+    {
+      "word": "tool.",
+      "start": 72.31,
+      "end": 72.8
+    },
+    {
+      "word": "She",
+      "start": 73.64,
+      "end": 74.03
+    },
+    {
+      "word": "also",
+      "start": 74.03,
+      "end": 74.22
+    },
+    {
+      "word": "says",
+      "start": 74.22,
+      "end": 74.41
+    },
+    {
+      "word": "it",
+      "start": 74.41,
+      "end": 74.615
+    },
+    {
+      "word": "isn't",
+      "start": 74.615,
+      "end": 74.975
+    },
+    {
+      "word": "perfect,",
+      "start": 74.975,
+      "end": 75.48
+    },
+    {
+      "word": "and",
+      "start": 75.48,
+      "end": 75.885
+    },
+    {
+      "word": "Aidoc",
+      "start": 75.885,
+      "end": 76.155
+    },
+    {
+      "word": "is",
+      "start": 76.155,
+      "end": 76.48
+    },
+    {
+      "word": "upfront",
+      "start": 76.48,
+      "end": 76.81
+    },
+    {
+      "word": "about",
+      "start": 76.81,
+      "end": 77.11
+    },
+    {
+      "word": "that.",
+      "start": 77.11,
+      "end": 77.58
+    },
+    {
+      "word": "A",
+      "start": 77.58,
+      "end": 78.06
+    },
+    {
+      "word": "flag",
+      "start": 78.06,
+      "end": 78.34
+    },
+    {
+      "word": "is",
+      "start": 78.34,
+      "end": 78.54
+    },
+    {
+      "word": "a",
+      "start": 78.54,
+      "end": 78.69
+    },
+    {
+      "word": "reason",
+      "start": 78.69,
+      "end": 78.86
+    },
+    {
+      "word": "to",
+      "start": 78.86,
+      "end": 79.03
+    },
+    {
+      "word": "look",
+      "start": 79.03,
+      "end": 79.34
+    },
+    {
+      "word": "first,",
+      "start": 79.34,
+      "end": 79.84
+    },
+    {
+      "word": "never",
+      "start": 79.84,
+      "end": 80.21
+    },
+    {
+      "word": "the",
+      "start": 80.21,
+      "end": 80.46
+    },
+    {
+      "word": "answer.",
+      "start": 80.46,
+      "end": 80.92
+    },
+    {
+      "word": "So",
+      "start": 81.58,
+      "end": 81.96
+    },
+    {
+      "word": "the",
+      "start": 81.96,
+      "end": 82.22
+    },
+    {
+      "word": "radiologist",
+      "start": 82.22,
+      "end": 82.72
+    },
+    {
+      "word": "still",
+      "start": 82.72,
+      "end": 83.21
+    },
+    {
+      "word": "reads",
+      "start": 83.21,
+      "end": 83.49
+    },
+    {
+      "word": "the",
+      "start": 83.49,
+      "end": 83.74
+    },
+    {
+      "word": "scan",
+      "start": 83.74,
+      "end": 84.02
+    },
+    {
+      "word": "and",
+      "start": 84.02,
+      "end": 84.24
+    },
+    {
+      "word": "makes",
+      "start": 84.24,
+      "end": 84.43
+    },
+    {
+      "word": "the",
+      "start": 84.43,
+      "end": 84.63
+    },
+    {
+      "word": "call.",
+      "start": 84.63,
+      "end": 85.06
+    },
+    {
+      "word": "Every",
+      "start": 85.32,
+      "end": 85.75
+    },
+    {
+      "word": "time",
+      "start": 85.75,
+      "end": 85.995
+    },
+    {
+      "word": "Aidoc",
+      "start": 85.995,
+      "end": 86.265
+    },
+    {
+      "word": "gets",
+      "start": 86.265,
+      "end": 86.61
+    },
+    {
+      "word": "feedback,",
+      "start": 86.61,
+      "end": 87.06
+    },
+    {
+      "word": "it",
+      "start": 87.06,
+      "end": 87.37
+    },
+    {
+      "word": "makes",
+      "start": 87.37,
+      "end": 87.51
+    },
+    {
+      "word": "a",
+      "start": 87.51,
+      "end": 87.75
+    },
+    {
+      "word": "change.",
+      "start": 87.75,
+      "end": 88.24
+    },
+    {
+      "word": "Next,",
+      "start": 89.34,
+      "end": 89.83
+    },
+    {
+      "word": "the",
+      "start": 89.83,
+      "end": 90.17
+    },
+    {
+      "word": "hospital",
+      "start": 90.17,
+      "end": 90.51
+    },
+    {
+      "word": "plans",
+      "start": 90.51,
+      "end": 90.84
+    },
+    {
+      "word": "phone",
+      "start": 90.84,
+      "end": 91.14
+    },
+    {
+      "word": "alerts",
+      "start": 91.14,
+      "end": 91.44
+    },
+    {
+      "word": "for",
+      "start": 91.44,
+      "end": 91.77
+    },
+    {
+      "word": "stroke",
+      "start": 91.77,
+      "end": 92.07
+    },
+    {
+      "word": "and",
+      "start": 92.07,
+      "end": 92.39
+    },
+    {
+      "word": "pulmonary",
+      "start": 92.39,
+      "end": 92.78
+    },
+    {
+      "word": "embolism",
+      "start": 92.78,
+      "end": 93.3
+    },
+    {
+      "word": "teams,",
+      "start": 93.3,
+      "end": 93.89
+    },
+    {
+      "word": "built",
+      "start": 93.89,
+      "end": 94.28
+    },
+    {
+      "word": "for",
+      "start": 94.28,
+      "end": 94.61
+    },
+    {
+      "word": "triage,",
+      "start": 94.61,
+      "end": 95.05
+    },
+    {
+      "word": "not",
+      "start": 95.05,
+      "end": 95.57
+    },
+    {
+      "word": "diagnosis.",
+      "start": 95.57,
+      "end": 96.18
+    },
+    {
+      "word": "Clinicians",
+      "start": 96.74,
+      "end": 97.22
+    },
+    {
+      "word": "would",
+      "start": 97.22,
+      "end": 97.52
+    },
+    {
+      "word": "see",
+      "start": 97.52,
+      "end": 97.74
+    },
+    {
+      "word": "the",
+      "start": 97.74,
+      "end": 97.92
+    },
+    {
+      "word": "images",
+      "start": 97.92,
+      "end": 98.13
+    },
+    {
+      "word": "on",
+      "start": 98.13,
+      "end": 98.29
+    },
+    {
+      "word": "their",
+      "start": 98.29,
+      "end": 98.51
+    },
+    {
+      "word": "phones",
+      "start": 98.51,
+      "end": 98.87
+    },
+    {
+      "word": "and",
+      "start": 98.87,
+      "end": 99.21
+    },
+    {
+      "word": "call",
+      "start": 99.21,
+      "end": 99.44
+    },
+    {
+      "word": "in",
+      "start": 99.44,
+      "end": 99.59
+    },
+    {
+      "word": "a",
+      "start": 99.59,
+      "end": 99.8
+    },
+    {
+      "word": "response",
+      "start": 99.8,
+      "end": 100.09
+    },
+    {
+      "word": "team",
+      "start": 100.09,
+      "end": 100.36
+    },
+    {
+      "word": "right",
+      "start": 100.36,
+      "end": 100.64
+    },
+    {
+      "word": "away.",
+      "start": 100.64,
+      "end": 101.12
+    },
+    {
+      "word": "The",
+      "start": 101.76,
+      "end": 102.23
+    },
+    {
+      "word": "machine",
+      "start": 102.23,
+      "end": 102.55
+    },
+    {
+      "word": "moves",
+      "start": 102.55,
+      "end": 102.81
+    },
+    {
+      "word": "the",
+      "start": 102.81,
+      "end": 103.06
+    },
+    {
+      "word": "line.",
+      "start": 103.06,
+      "end": 103.54
+    },
+    {
+      "word": "A",
+      "start": 103.78,
+      "end": 104.21
+    },
+    {
+      "word": "doctor",
+      "start": 104.21,
+      "end": 104.5
+    },
+    {
+      "word": "still",
+      "start": 104.5,
+      "end": 104.82
+    },
+    {
+      "word": "reads",
+      "start": 104.82,
+      "end": 105.06
+    },
+    {
+      "word": "it.",
+      "start": 105.06,
+      "end": 105.38
+    }
+  ],
+  "beats": [],
+  "timed_at": "2026-11-28T10:48:57+00:00",
+  "run_id": "2026-11-27"
+}
