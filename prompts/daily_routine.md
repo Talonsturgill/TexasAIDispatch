@@ -494,8 +494,10 @@ a run renders a frame. Never call the renderer by hand.
 ## PHASE 7: DELIVER
 
 Write `out/dispatch/post.txt`, the social caption: a hook line a stranger would stop for, two or
-three sentences on what happened and why it is worth a minute, and a short factual pointer to
-texasaidocket.com. House rules apply. A date in this year carries no year. No hashtag wall.
+three sentences on what happened and why it is worth a minute. Keep it URL-free, including
+bare domains and short links. A website CTA may go only in the optional first comment under
+the published feed post. If unavailable, omit it. House rules apply. A date in this year carries
+no year. No hashtag wall.
 
 Then, in this order. Each step is one command or one tool call.
 
