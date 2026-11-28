@@ -87,16 +87,17 @@ with `facebook_media_type=VIDEO` and `video_state=PUBLISHED`, never the truncati
 Keep YouTube title and description separate and respect current platform limits. No square cut
 exists for this show and none is required. Never crop or re-encode the released film for a feed.
 
-Use a concise final caption, without duplicating source links or music credits already present
-in the released video. Do not copy the production source/credit block into the caption or first
-comment by default. Verify the actual license: include an external credit/link only when its
-terms require that placement or the released media lacks required attribution. Keep source and
-license records in the existing production/archive evidence. For carousels, preserve attribution
-required by their media and licenses. This owner update controls over older caption templates. Add a short factual CTA to https://texasaidocket.com/ in the
-platform caption/description or supported first comment, respecting that platform's length
-limit and the existing prose checks. Do not add claims, promises or endorsements. A bare URL in
-an Instagram/TikTok caption is not a clickable link: do not claim a link sticker, link-in-bio
-destination or clickable CTA unless it actually exists. Do not change profile bios in this run.
+Use concise social copy. **No URLs in any public post text on any platform**, including
+Facebook, LinkedIn, Instagram, TikTok, YouTube and Stories. This includes titles, captions,
+descriptions, platform-specific overrides, bare domains, short links, and Markdown links. A short
+brand CTA may use `https://texasaidocket.com/` only in Upload-Post's optional `first_comment`
+on a feed placement that supports it. Omit the link if a first comment is unavailable, fails,
+or is disabled, including on Stories and on TikTok without the verified comments capability.
+Never move a failed or unsupported comment link into the post and never republish to retry a comment.
+Use the existing media or archive for source links and attribution; do not duplicate them in the
+post. Do not change account settings, captions' core editorial content, or attached media
+for this placement policy. If a license requires a link in the post body, use replacement media
+with compatible attribution requirements instead.
 
 Inspect the live upload schema for `first_comment` and placement options. Use supported fields
 only; unknown platform options can be silently ignored. For TikTok, verify the account's publishing

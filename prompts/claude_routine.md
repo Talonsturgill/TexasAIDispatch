@@ -106,16 +106,9 @@ with `facebook_media_type=VIDEO` and `video_state=PUBLISHED`, never the truncati
 Keep YouTube title and description separate and respect current platform limits. An unavailable
 square cut is a format blocker, not permission to invent unreviewed media.
 
-Use a concise final caption, without duplicating source links or music credits already present
-in the released video. Do not copy the production source/credit block into the caption or first
-comment by default. Verify the actual license: include an external credit/link only when its
-terms require that placement or the released media lacks required attribution. Keep source and
-license records in the existing production/archive evidence. For carousels, preserve attribution
-required by their media and licenses. This owner update controls over older caption templates. Add a short factual CTA to https://texasaidocket.com/ in the
-platform caption/description or supported first comment, respecting that platform's length
-limit and the existing prose checks. Do not add claims, promises or endorsements. A bare URL in
-an Instagram/TikTok caption is not a clickable link: do not claim a link sticker, link-in-bio
-destination or clickable CTA unless it actually exists. Do not change profile bios in this run.
+The active social-copy policy is in `prompts/social_delivery.md`. No URL or bare domain
+belongs in any post title, caption or description. Use the optional first comment on a supported
+feed placement, or omit the link. Never fall back to adding it to the post.
 
 Inspect the live upload schema for `first_comment` and placement options. Use supported fields
 only; unknown platform options can be silently ignored. For TikTok, verify the account's publishing
