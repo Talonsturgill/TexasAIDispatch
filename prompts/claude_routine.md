@@ -108,7 +108,8 @@ square cut is a format blocker, not permission to invent unreviewed media.
 
 The active social-copy policy is in `prompts/social_delivery.md`. No URL or bare domain
 belongs in any post title, caption or description. Use the optional first comment on a supported
-feed placement, or omit the link. Never fall back to adding it to the post.
+feed placement, or omit the link. Never fall back to adding it to the post. Write concise copy
+without duplicating source links or music credits already present in the released media.
 
 Inspect the live upload schema for `first_comment` and placement options. Use supported fields
 only; unknown platform options can be silently ignored. For TikTok, verify the account's publishing
