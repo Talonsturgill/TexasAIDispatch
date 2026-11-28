@@ -477,7 +477,7 @@ export const ScanLineFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, sh
         <g>
           <rect x={0} y={0} width={300} height={560} fill="#101839" />
           <rect x={20} y={30} width={260} height={80} rx={20} fill={b > 0 ? HEAT : '#283166'} opacity={0.9} />
-          <text x={150} y={82} textAnchor="middle" fontFamily="sans-serif" fontWeight={900} fontSize={30} fill="#fff6e6">{b > 0 ? 'ALERT' : ''}</text>
+          <text x={150} y={82} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={30} fill="#fff6e6">{b > 0 ? 'ALERT' : ''}</text>
           {b > 0.6 && <g transform={`translate(50 ${lerp(600, 180, ease(clamp01((b - 0.6) / 0.6)))})`}><Slice frame={frame} heat={0.9} /></g>}
         </g>
       );
@@ -541,12 +541,12 @@ export const ScanLineFilm: React.FC<FilmRenderProps> = ({board, shot, time_s, sh
         <Phone x={600} y={820} s={1.55} rot={-3} buzz={clamp01(tg / 0.8)} dotted>
           <rect x={0} y={0} width={300} height={560} fill="#101839" />
           <rect x={20} y={30} width={260} height={80} rx={20} fill={HEAT} opacity={0.9} />
-          <text x={150} y={82} textAnchor="middle" fontFamily="sans-serif" fontWeight={900} fontSize={30} fill="#fff6e6">ALERT</text>
+          <text x={150} y={82} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={30} fill="#fff6e6">ALERT</text>
           <g transform="translate(50 140)"><Slice frame={frame} heat={0.9} /></g>
           {cd > 0 && <g transform={`translate(${lerp(340, 150, ease(clamp01(cd / 0.6)))} 300) scale(${1 + Math.max(0, 0.15 - cd * 0.1)})`}><ScanCard x={0} y={0} s={0.55} frame={frame} mood="worried" heat={0.9} /></g>}
           {tg > 0 && <g transform={`translate(150 495) scale(${lerp(1.8, 1, ease(clamp01(tg / 0.3)))}) rotate(-6)`} opacity={clamp01(tg * 3)}>
             <rect x={-130} y={-36} width={260} height={72} rx={22} fill="#2fbf71" />
-            <text x={0} y={12} textAnchor="middle" fontFamily="sans-serif" fontWeight={900} fontSize={34} fill="#ffffff">TRIAGE</text>
+            <text x={0} y={12} textAnchor="middle" fontFamily={FONT.body} fontWeight={900} fontSize={34} fill="#ffffff">TRIAGE</text>
           </g>}
         </Phone>
         <path d="M1000 2000 Q900 1500 760 1290" stroke="#14b8a6" strokeWidth={150} fill="none" strokeLinecap="round" />
